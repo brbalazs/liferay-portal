@@ -20,231 +20,53 @@
 CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrderListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />
-
 <clay:navigation-bar
 	inverted="<%= true %>"
 	navigationItems="<%= commerceOrderListDisplayContext.getNavigationItems() %>"
 />
 
-<liferay-util:include page="/toolbar.jsp" servletContext="<%= application %>" />
-
-<liferay-ui:error exception="<%= CommerceOrderBillingAddressException.class %>" message="the-order-selected-needs-a-billing-address" />
+<portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />
 
 <aui:form action="<%= editCommerceOrderURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="deleteCommerceOrderIds" type="hidden" />
 
-	<liferay-ui:search-container
-		cssClass="table-nowrap"
-		id="commerceOrders"
-		searchContainer="<%= commerceOrderListDisplayContext.getSearchContainer() %>"
-	>
-		<liferay-ui:search-container-row
-			className="com.liferay.commerce.model.CommerceOrder"
-			keyProperty="commerceOrderId"
-			modelVar="commerceOrder"
-		>
+	<%
+	String activeTab = commerceOrderListDisplayContext.getActiveTab();
+	%>
 
-			<%
-			PortletURL rowURL = renderResponse.createRenderURL();
-
-			rowURL.setParameter("redirect", currentURL);
-			rowURL.setParameter("mvcRenderCommandName", "editCommerceOrder");
-			rowURL.setParameter("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
-
-			String dateLabel = "create-date";
-			String dateValue = HtmlUtil.escape(commerceOrderListDisplayContext.getCommerceOrderCreateDateTime(commerceOrder));
-
-			if (!commerceOrderListDisplayContext.isOpenTab()) {
-				dateLabel = "order-date";
-				dateValue = HtmlUtil.escape(commerceOrderListDisplayContext.getCommerceOrderDateTime(commerceOrder));
-			}
-			%>
-
-			<liferay-ui:search-container-column-text
-				cssClass="important table-cell-expand table-list-title"
-				href="<%= rowURL %>"
-				name="<%= dateLabel %>"
-				value="<%= dateValue %>"
+	<c:choose>
+		<c:when test='<%= activeTab.equals("open") %>'>
+			<commerce-ui:dataset-display
+				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_OPEN_ORDERS %>"
+				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_OPEN_ORDERS %>"
+				itemsPerPage="<%= 10 %>"
+				namespace="<%= renderResponse.getNamespace() %>"
+				pageNumber="<%= 1 %>"
+				portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
 			/>
-
-			<liferay-ui:search-container-column-text
-				name="order-status"
-				value="<%= commerceOrderListDisplayContext.getCommerceOrderStatus(commerceOrder) %>"
+		</c:when>
+		<c:when test='<%= activeTab.equals("pending") %>'>
+			<commerce-ui:dataset-display
+				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS %>"
+				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS %>"
+				itemsPerPage="<%= 10 %>"
+				namespace="<%= renderResponse.getNamespace() %>"
+				pageNumber="<%= 1 %>"
+				portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
 			/>
-
-			<liferay-ui:search-container-column-text
-				name="payment-status"
-				value="<%= commerceOrderListDisplayContext.getCommerceOrderPaymentStatus(commerceOrder) %>"
+		</c:when>
+		<c:when test='<%= activeTab.equals("transmitted") %>'>
+			<commerce-ui:dataset-display
+				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_TRANSMITTED_ORDERS %>"
+				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_TRANSMITTED_ORDERS %>"
+				itemsPerPage="<%= 10 %>"
+				namespace="<%= renderResponse.getNamespace() %>"
+				pageNumber="<%= 1 %>"
+				portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
 			/>
-
-			<liferay-ui:search-container-column-status
-				name="buyer-workflow-status"
-				status="<%= commerceOrder.getStatus() %>"
-				statusByUserId="<%= commerceOrder.getStatusByUserId() %>"
-				statusDate="<%= commerceOrder.getStatusDate() %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				name="customer-name"
-				value="<%= HtmlUtil.escape(commerceOrder.getCommerceAccountName()) %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				name="customer-id"
-				property="commerceAccountId"
-			/>
-
-			<liferay-ui:search-container-column-text
-				name="order-id"
-				property="commerceOrderId"
-			/>
-
-			<liferay-ui:search-container-column-text
-				name="order-value"
-				value="<%= HtmlUtil.escape(commerceOrderListDisplayContext.getCommerceOrderValue(commerceOrder)) %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				name="channel"
-				value="<%= HtmlUtil.escape(commerceOrderListDisplayContext.getCommerceChannelName(commerceOrder.getGroupId())) %>"
-			/>
-
-			<liferay-ui:search-container-column-jsp
-				align="center"
-				name="notes"
-				path="/order_notes.jsp"
-			/>
-
-			<liferay-ui:search-container-column-jsp
-				align="center"
-				cssClass="entry-action-column"
-				name="actions"
-				path="/order_action.jsp"
-			/>
-		</liferay-ui:search-container-row>
-
-		<liferay-ui:search-iterator
-			markupView="lexicon"
-		/>
-	</liferay-ui:search-container>
+		</c:when>
+		<c:otherwise></c:otherwise>
+	</c:choose>
 </aui:form>
-
-<div class="hide" id="<portlet:namespace />transitionComments">
-	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="transition" />
-
-	<aui:input cols="55" name="comment" placeholder="comment" rows="1" type="textarea" />
-</div>
-
-<aui:script>
-	function <portlet:namespace />deleteCommerceOrders() {
-		if (
-			confirm(
-				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-orders" />'
-			)
-		) {
-			var form = AUI.$(document.<portlet:namespace />fm);
-
-			form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-			form.fm('deleteCommerceOrderIds').val(
-				Liferay.Util.listCheckedExcept(
-					form,
-					'<portlet:namespace />allRowIds'
-				)
-			);
-
-			submitForm(form);
-		}
-	}
-</aui:script>
-
-<aui:script use="liferay-util-window">
-	var searchContainer = A.one(
-		'#<portlet:namespace />commerceOrdersSearchContainer'
-	);
-	var transitionComments = A.one('#<portlet:namespace />transitionComments');
-
-	searchContainer.delegate(
-		'click',
-		function(event) {
-			var link = event.currentTarget;
-
-			var workflowTaskId = parseInt(link.getData('workflowTaskId'), 10);
-
-			var form = A.Node.create('<form />');
-
-			var url = '<%= editCommerceOrderURL %>';
-
-			url +=
-				'&<portlet:namespace />commerceOrderId=' +
-				link.getData('commerceOrderId');
-			url += '&<portlet:namespace />workflowTaskId=' + workflowTaskId;
-			url +=
-				'&<portlet:namespace />transitionName=' +
-				link.getData('transitionName');
-
-			form.setAttribute('action', url);
-			form.setAttribute('method', 'POST');
-
-			form.append(transitionComments);
-
-			if (workflowTaskId <= 0) {
-				submitForm(form);
-
-				return;
-			}
-
-			transitionComments.show();
-
-			var dialog = Liferay.Util.Window.getWindow({
-				dialog: {
-					bodyContent: form,
-					destroyOnHide: true,
-					height: 400,
-					resizable: false,
-					toolbars: {
-						footer: [
-							{
-								cssClass: 'btn-primary mr-2',
-								label: '<liferay-ui:message key="done" />',
-								on: {
-									click: function() {
-										submitForm(form);
-									}
-								}
-							},
-							{
-								cssClass: 'btn-cancel',
-								label: '<liferay-ui:message key="cancel" />',
-								on: {
-									click: function() {
-										dialog.hide();
-									}
-								}
-							}
-						],
-						header: [
-							{
-								cssClass: 'close',
-								discardDefaultButtonCssClasses: true,
-								labelHTML:
-									'<span aria-hidden="true">&times;</span>',
-								on: {
-									click: function(event) {
-										dialog.hide();
-									}
-								}
-							}
-						]
-					},
-					width: 720
-				},
-				title: link.text()
-			});
-		},
-		'.transition-link'
-	);
-</aui:script>
