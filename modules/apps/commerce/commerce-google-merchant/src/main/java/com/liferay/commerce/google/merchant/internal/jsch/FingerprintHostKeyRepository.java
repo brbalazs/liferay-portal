@@ -4,7 +4,7 @@ import com.jcraft.jsch.HostKey;
 import com.jcraft.jsch.HostKeyRepository;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.UserInfo;
-import com.liferay.commerce.google.merchant.constants.GoogleMerchantConstants;
+import com.liferay.commerce.google.merchant.constants.CommerceGoogleMerchantConstants;
 
 /**
  * @author Eric Chin
@@ -24,7 +24,7 @@ public class FingerprintHostKeyRepository implements HostKeyRepository {
 	public int check(String s, byte[] key) {
 		try {
 			HostKey hostKey = new HostKey(
-				GoogleMerchantConstants.GOOGLE_PARTNER_UPLOAD_URL, key);
+				CommerceGoogleMerchantConstants.COMMERCE_GOOGLE_PARTNER_UPLOAD_URL, key);
 
 			String fingerprint = hostKey.getFingerPrint(_jSch);
 

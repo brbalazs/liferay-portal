@@ -3,7 +3,7 @@ package com.liferay.commerce.google.merchant.internal.sftp;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-import com.liferay.commerce.google.merchant.constants.GoogleMerchantConstants;
+import com.liferay.commerce.google.merchant.constants.CommerceGoogleMerchantConstants;
 import com.liferay.commerce.google.merchant.internal.jsch.FingerprintHostKeyRepository;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
@@ -57,7 +57,7 @@ public class SftpUploader {
 			jschSession.connect();
 
 			channelSftp = (ChannelSftp) jschSession.openChannel(
-				GoogleMerchantConstants.SFTP);
+				CommerceGoogleMerchantConstants.COMMERCE_INTEGRATION_SFTP);
 
 			channelSftp.connect();
 

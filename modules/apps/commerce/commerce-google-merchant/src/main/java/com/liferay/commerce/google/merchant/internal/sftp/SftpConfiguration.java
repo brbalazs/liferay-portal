@@ -2,7 +2,7 @@ package com.liferay.commerce.google.merchant.internal.sftp;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.commerce.google.merchant.constants.GoogleMerchantConstants;
+import com.liferay.commerce.google.merchant.constants.CommerceGoogleMerchantConstants;
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 /**
@@ -16,7 +16,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface SftpConfiguration {
 
 	@Meta.AD(
-		deflt = GoogleMerchantConstants.GOOGLE_PARTNER_UPLOAD_URL,
+		deflt = CommerceGoogleMerchantConstants.COMMERCE_GOOGLE_PARTNER_UPLOAD_URL,
 		name = "host",
 		required = false
 	)
