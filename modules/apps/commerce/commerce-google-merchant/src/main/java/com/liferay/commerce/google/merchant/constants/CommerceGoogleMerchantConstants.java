@@ -3,7 +3,7 @@ package com.liferay.commerce.google.merchant.constants;
 /**
  * @author Eric Chin
  */
-public class GoogleMerchantConstants {
+public class CommerceGoogleMerchantConstants {
 
 	public static final String GOOGLE_PARTNER_UPLOAD_URL =
 		"partnerupload.google.com";
