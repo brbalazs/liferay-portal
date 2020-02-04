@@ -111,8 +111,7 @@ public class AnalyticsConfigurationTrackerImpl
 					StringBundler.concat(
 						"Deleted configuration ",
 						AnalyticsConfiguration.class.getName(), " for company ",
-						String.valueOf(companyId), " with properties: ",
-						String.valueOf(properties)));
+						companyId, " with properties: ", properties));
 			}
 		}
 		catch (IOException ioe) {
