@@ -116,6 +116,8 @@
 				},
 				namespace: '<%= namespace %>',
 				portletURL: '<%= portletURL %>',
+				selectedItemsKey: '<%= selectedItemsKey %>',
+				selectionType: '<%= selectionType %>',
 				spritemap: '/o/minium-theme/images/lexicon/icons.svg',
 				style: '<%= style %>'
 			}

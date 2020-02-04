@@ -384,6 +384,7 @@ DatasetDisplay.propTypes = {
 };
 
 DatasetDisplay.defaultProps = {
+	bulkActions: [],
 	filters: [],
 	items: [],
 	selectedItemsKey: 'id',
