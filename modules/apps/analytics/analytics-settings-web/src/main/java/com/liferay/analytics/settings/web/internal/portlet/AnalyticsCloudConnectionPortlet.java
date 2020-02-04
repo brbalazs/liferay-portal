@@ -18,7 +18,6 @@ import com.liferay.analytics.settings.configuration.AnalyticsConfigurationTracke
 import com.liferay.analytics.settings.web.internal.constants.AnalyticsSettingsPortletKeys;
 import com.liferay.analytics.settings.web.internal.constants.AnalyticsSettingsWebKeys;
 import com.liferay.analytics.settings.web.internal.user.AnalyticsUsersManager;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -91,8 +90,5 @@ public class AnalyticsCloudConnectionPortlet extends MVCPortlet {
 	private AnalyticsConfigurationTracker _analyticsConfigurationTracker;
 
 	private AnalyticsUsersManager _analyticsUsersManager;
-
-	@Reference
-	private ConfigurationProvider _configurationProvider;
 
 }

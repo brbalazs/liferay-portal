@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.CompanyService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -175,9 +174,6 @@ public abstract class BaseAnalyticsMVCActionCommand
 
 	@Reference
 	protected CompanyService companyService;
-
-	@Reference
-	protected SettingsFactory settingsFactory;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BaseAnalyticsMVCActionCommand.class);
