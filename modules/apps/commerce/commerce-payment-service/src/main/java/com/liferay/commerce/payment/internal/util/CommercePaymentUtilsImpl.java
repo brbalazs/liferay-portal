@@ -76,7 +76,7 @@ public class CommercePaymentUtilsImpl implements CommercePaymentUtils {
 
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
 			_commercePaymentMethodGroupRelLocalService.
-				getCommercePaymentMethodGroupRel(
+				fetchCommercePaymentMethodGroupRel(
 					commerceChannel.getSiteGroupId(), commercePaymentMethodKey);
 
 		if ((commercePaymentMethodGroupRel != null) &&
