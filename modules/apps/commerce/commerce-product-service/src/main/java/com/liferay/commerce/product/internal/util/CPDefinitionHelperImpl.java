@@ -35,6 +35,7 @@ import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -69,6 +70,20 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true, service = CPDefinitionHelper.class)
 public class CPDefinitionHelperImpl implements CPDefinitionHelper {
+
+	@Override
+	public int count(
+		long groupId, SearchContext searchContext, CPQuery cpQuery)
+		throws PortalException {
+
+		CPDefinitionSearcher cpDefinitionSearcher = _getCPDefinitionSearcher(
+			groupId, searchContext, cpQuery, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
+
+		Hits hits = cpDefinitionSearcher.search(searchContext);
+
+		return hits.getLength();
+	}
 
 	@Override
 	public CPCatalogEntry getCPCatalogEntry(Document document, Locale locale) {
