@@ -74,7 +74,7 @@ SelectFilter.propTypes = {
 		'le',
 		'and',
 		'or',
-		'not',
+		'not'
 	]).isRequired,
 	type: PropTypes.oneOf(['select']).isRequired,
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])

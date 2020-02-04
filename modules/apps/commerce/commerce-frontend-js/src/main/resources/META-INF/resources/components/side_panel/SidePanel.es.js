@@ -46,7 +46,10 @@ export default class SidePanel extends React.Component {
 			onAfterSubmit: props.onAfterSubmit || null,
 			size: props.size || this.defaultSize,
 			topDistance: 0,
-			visible: !!props.visible
+			visible: !!props.visible,
+			wrapper:
+				document.querySelector(this.props.wrapperSelector) ||
+				document.querySelector('body')
 		};
 		this.handleIframeClickOnSubmit = this.handleIframeClickOnSubmit.bind(
 			this
@@ -343,9 +346,7 @@ export default class SidePanel extends React.Component {
 			) : (
 				content
 			),
-			this.props.portalWrapperId
-				? document.getElementById(this.props.portalWrapperId)
-				: document.querySelector('body')
+			this.state.wrapper
 		);
 	}
 }
@@ -353,8 +354,13 @@ export default class SidePanel extends React.Component {
 SidePanel.propTypes = {
 	id: PropTypes.string,
 	items: PropTypes.any,
-	portalWrapperId: PropTypes.string,
 	size: PropTypes.string,
 	spritemap: PropTypes.string,
-	topAnchorSelector: PropTypes.any
+	topAnchorSelector: PropTypes.any,
+	wrapperSelector: PropTypes.string,
+};
+
+SidePanel.defaultProps = {
+	topAnchorSelector: '.side-panel-top-anchor',
+	wrapperSelector: '.side-panel-wrapper',
 };

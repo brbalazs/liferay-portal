@@ -238,7 +238,6 @@ const fluidDataSetDisplayProps = {
 		initialTotalItems: 40
 	},
 	showPagination: true,
-	sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
 	style: 'fluid',
 	views: [

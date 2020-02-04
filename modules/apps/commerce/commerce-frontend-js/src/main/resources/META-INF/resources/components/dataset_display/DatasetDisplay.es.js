@@ -28,6 +28,7 @@ import {
 } from '../../utilities/index.es';
 import {createOdataFilterStrings} from '../../utilities/odata.es';
 import Modal from '../modal/Modal.es';
+import SidePanel from '../side_panel/SidePanel.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index.es';
@@ -50,6 +51,9 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 function DatasetDisplay(props) {
 	const [views, updateViews] = useState(props.views);
 	const [loading, setLoading] = useState(false);
+	const [sidePanelSupportModalId] = useState(
+		props.sidePanelId || 'support-side-panel' + getRandomId()
+	);
 
 	const [datasetDisplaySupportModalId] = useState(
 		'support-modal-' + getRandomId()
@@ -204,7 +208,7 @@ function DatasetDisplay(props) {
 				selectedItemsValue={selectedItemsValue}
 				selectionType={props.selectionType}
 				setActiveView={setActiveView}
-				sidePanelId={props.sidePanelId}
+				sidePanelId={sidePanelSupportModalId}
 				totalItemsCount={props.items.length}
 				views={props.views}
 			/>
@@ -257,7 +261,7 @@ function DatasetDisplay(props) {
 
 	function openSidePanel(config) {
 		return Liferay.fire(OPEN_SIDE_PANEL, {
-			id: props.sidePanelId,
+			id: sidePanelSupportModalId,
 			...config
 		});
 	}
@@ -291,7 +295,7 @@ function DatasetDisplay(props) {
 				selectedItemsKey: props.selectedItemsKey,
 				selectedItemsValue,
 				selectionType: props.selectionType,
-				sidePanelId: props.sidePanelId,
+				sidePanelId: sidePanelSupportModalId,
 				sorting,
 				style: props.style,
 				updateSorting
@@ -299,6 +303,9 @@ function DatasetDisplay(props) {
 		>
 			<ClayIconSpriteContext.Provider value={props.spritemap}>
 				<Modal id={datasetDisplaySupportModalId} />
+				{!props.sidePanelId && (
+					<SidePanel id={sidePanelSupportModalId} />
+				)}
 				{props.style === 'default' && (
 					<div className="dataset-display">
 						{managementBar}

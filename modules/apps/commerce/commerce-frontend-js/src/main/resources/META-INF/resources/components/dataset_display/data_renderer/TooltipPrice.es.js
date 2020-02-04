@@ -75,7 +75,7 @@ function TooltipPrice(props) {
 TooltipPrice.propTypes = {
 	value: Proptypes.shape({
 		details: Proptypes.arrayOf(
-			Proptypes.oneOf([
+			Proptypes.oneOfType([
 				Proptypes.shape({
 					label: Proptypes.string,
 					value: Proptypes.oneOfType([
@@ -85,10 +85,12 @@ TooltipPrice.propTypes = {
 				}),
 				Proptypes.shape({
 					label: Proptypes.string,
-					value: Proptypes.arrayOf([
-						Proptypes.string,
-						Proptypes.number
-					])
+					value: Proptypes.arrayOf(
+						Proptypes.oneOfType([
+							Proptypes.string,
+							Proptypes.number
+						])
+					)
 				})
 			])
 		),

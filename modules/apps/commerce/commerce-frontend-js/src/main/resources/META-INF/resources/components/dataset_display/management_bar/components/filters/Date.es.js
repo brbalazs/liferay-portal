@@ -90,7 +90,6 @@ DateFilter.propTypes = {
 		month: PropTypes.number,
 		year: PropTypes.number
 	}),
-	operator: PropTypes.oneOf(['eq', 'ne', 'gt', 'ge', 'lt', 'le']).isRequired,
 	placeholder: PropTypes.string,
 	type: PropTypes.oneOf(['date']).isRequired,
 	value: PropTypes.shape({

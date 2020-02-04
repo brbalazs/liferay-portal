@@ -67,10 +67,7 @@ TextFilter.propTypes = {
 	inputText: PropTypes.string,
 	invisible: PropTypes.bool,
 	label: PropTypes.string.isRequired,
-	operator: PropTypes.oneOf([
-		'eq',
-		'startswith'
-	]).isRequired,
+	operator: PropTypes.oneOf(['eq', 'startswith']).isRequired,
 	type: PropTypes.oneOf(['text']).isRequired,
 	value: PropTypes.string
 };

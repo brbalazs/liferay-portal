@@ -120,10 +120,10 @@ CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrder
 		'<portlet:namespace />sidePanel',
 		'<portlet:namespace />side-panel-root',
 		{
-			portalWrapperId: '<portlet:namespace />side-panel-wrapper',
 			spritemap:
 				'<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>',
-			topAnchorSelector: '.commerce-header'
+			topAnchorSelector: '.commerce-header',
+			wrapperSelector: '#<portlet:namespace />side-panel-wrapper',
 		}
 	);
 </aui:script>
