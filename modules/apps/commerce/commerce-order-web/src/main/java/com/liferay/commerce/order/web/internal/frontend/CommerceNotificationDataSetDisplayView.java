@@ -26,7 +26,7 @@ import org.osgi.service.component.annotations.Component;
 	property = "commerce.data.set.display.name=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_NOTIFICATIONS,
 	service = ClayDataSetDisplayView.class
 )
-public class CommerceNotificationClayTableDataSetDisplayView
+public class CommerceNotificationDataSetDisplayView
 	implements ClayDataSetDisplayView {
 
 	@Override
