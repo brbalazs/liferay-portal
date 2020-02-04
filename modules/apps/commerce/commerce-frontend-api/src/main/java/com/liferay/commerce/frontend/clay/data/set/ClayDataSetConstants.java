@@ -19,6 +19,8 @@ package com.liferay.commerce.frontend.clay.data.set;
  */
 public class ClayDataSetConstants {
 
+	public static final String CLAY_DATA_SET_CONTENT_RENDERER_LIST = "list";
+
 	public static final String CLAY_DATA_SET_CONTENT_RENDERER_TABLE = "table";
 
 }
