@@ -277,7 +277,7 @@ public class CommerceOrderEditDisplayContext {
 		return _commerceOrderItem;
 	}
 
-	public PortletURL getCommerceOrderItemsPortletURL() throws PortalException {
+	public PortletURL getCommerceOrderItemsPortletURL() {
 		LiferayPortletResponse liferayPortletResponse =
 			_commerceOrderRequestHelper.getLiferayPortletResponse();
 
