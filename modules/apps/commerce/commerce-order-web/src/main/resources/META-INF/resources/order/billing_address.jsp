@@ -20,11 +20,6 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
-
-CommerceAddress commerceAddress = commerceOrder.getBillingAddress();
-
-long commerceCountryId = BeanParamUtil.getLong(commerceAddress, request, "commerceCountryId", 0);
-long commerceRegionId = BeanParamUtil.getLong(commerceAddress, request, "commerceRegionId", 0);
 %>
 
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderBillingAddressActionURL" />
@@ -37,82 +32,33 @@ long commerceRegionId = BeanParamUtil.getLong(commerceAddress, request, "commerc
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrder.getCommerceOrderId() %>" />
 
-		<aui:model-context bean="<%= commerceAddress %>" model="<%= CommerceAddress.class %>" />
+		<%
+		Map<String, String> contextParams = new HashMap<>();
 
-		<aui:input name="name" wrapperCssClass="form-group-item" />
+		contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
+		%>
 
-		<aui:input name="phoneNumber" wrapperCssClass="form-group-item" />
-
-		<aui:input name="street1" wrapperCssClass="form-group-item" />
-
-		<aui:select label="country" name="commerceCountryId" wrapperCssClass="form-group-item" />
-
-		<aui:input name="zip" wrapperCssClass="form-group-item" />
-
-		<aui:input name="city" wrapperCssClass="form-group-item" />
-
-		<aui:select label="region" name="commerceRegionId" wrapperCssClass="form-group-item" />
+		<commerce-ui:dataset-display
+			contextParams="<%= contextParams %>"
+			dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_BILLING_ADDRESSES %>"
+			formId="fm"
+			id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_BILLING_ADDRESSES %>"
+			itemsPerPage="<%= 10 %>"
+			namespace="<%= renderResponse.getNamespace() %>"
+			pageNumber="<%= 1 %>"
+			portletURL="<%= currentURLObj %>"
+			selectedItemsKey="addressId"
+			selectionType="single"
+		/>
 	</aui:form>
+
+	<liferay-portlet:renderURL var="addBillingAddressURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+		<portlet:param name="mvcRenderCommandName" value="addCommerceOrderBillingAddress" />
+		<portlet:param name="commerceOrderId" value="<%= String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderId()) %>" />
+	</liferay-portlet:renderURL>
+
+	<clay:link
+		href="<%= addBillingAddressURL %>"
+		label="add-new-address"
+	/>
 </commerce-ui:modal-content>
-
-<aui:script use="liferay-dynamic-select">
-	new Liferay.DynamicSelect([
-		{
-			select: '<portlet:namespace />commerceCountryId',
-			selectData: function(callback) {
-				function injectCountryPlaceholder(list) {
-					callback([
-						{
-							commerceCountryId: '0',
-							nameCurrentValue:
-								'- <liferay-ui:message key="select-country" />'
-						},
-						...list
-					]);
-				}
-
-				Liferay.Service(
-					'/commerce.commercecountry/get-billing-commerce-countries',
-					{
-						active: true,
-						billingAllowed: true,
-						companyId: <%= company.getCompanyId() %>
-					},
-					injectCountryPlaceholder
-				);
-			},
-			selectDesc: 'nameCurrentValue',
-			selectId: 'commerceCountryId',
-			selectNullable: <%= false %>,
-			selectSort: '<%= true %>',
-			selectVal: '<%= commerceCountryId %>'
-		},
-		{
-			select: '<portlet:namespace />commerceRegionId',
-			selectData: function(callback, selectKey) {
-				function injectRegionPlaceholder(list) {
-					callback([
-						{
-							commerceRegionId: '0',
-							name: '- <liferay-ui:message key="select-region" />'
-						},
-						...list
-					]);
-				}
-
-				Liferay.Service(
-					'/commerce.commerceregion/get-commerce-regions',
-					{
-						active: true,
-						commerceCountryId: Number(selectKey)
-					},
-					injectRegionPlaceholder
-				);
-			},
-			selectDesc: 'name',
-			selectId: 'commerceRegionId',
-			selectNullable: <%= false %>,
-			selectVal: '<%= commerceRegionId %>'
-		}
-	]);
-</aui:script>
