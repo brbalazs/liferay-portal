@@ -17,7 +17,6 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {baseFilterProps} from '../../../utilities/filters.es';
 import getAppContext from '../Context.es';
 
 function TextFilter(props) {
@@ -64,8 +63,14 @@ function TextFilter(props) {
 }
 
 TextFilter.propTypes = {
-	...baseFilterProps,
+	id: PropTypes.string.isRequired,
 	inputText: PropTypes.string,
+	invisible: PropTypes.bool,
+	label: PropTypes.string.isRequired,
+	operator: PropTypes.oneOf([
+		'eq',
+		'startswith'
+	]).isRequired,
 	type: PropTypes.oneOf(['text']).isRequired,
 	value: PropTypes.string
 };

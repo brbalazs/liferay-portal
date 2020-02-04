@@ -17,7 +17,6 @@ import {ClayRadio, ClayRadioGroup} from '@clayui/form';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {baseFilterProps} from '../../../utilities/filters.es';
 import getAppContext from '../Context.es';
 
 function RadioFilter(props) {
@@ -54,13 +53,27 @@ function RadioFilter(props) {
 }
 
 RadioFilter.propTypes = {
-	...baseFilterProps,
+	id: PropTypes.string.isRequired,
+	invisible: PropTypes.bool,
 	items: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string,
 			value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 		})
 	),
+	label: PropTypes.string.isRequired,
+	operator: PropTypes.oneOf([
+		'eq',
+		'ne',
+		'gt',
+		'ge',
+		'lt',
+		'le',
+		'and',
+		'or',
+		'not',
+		'startswith'
+	]).isRequired,
 	type: PropTypes.oneOf(['radio']).isRequired,
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };

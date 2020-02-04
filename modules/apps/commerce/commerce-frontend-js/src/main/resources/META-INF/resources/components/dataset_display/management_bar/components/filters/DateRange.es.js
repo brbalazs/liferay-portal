@@ -21,7 +21,6 @@ import {
 	formatDateObject,
 	getDateFromDateString
 } from '../../../utilities/dates.es';
-import {baseFilterProps} from '../../../utilities/filters.es';
 import getAppContext from '../Context.es';
 
 function DateFilter(props) {
@@ -118,7 +117,9 @@ function DateFilter(props) {
 }
 
 DateFilter.propTypes = {
-	...baseFilterProps,
+	id: PropTypes.string.isRequired,
+	invisible: PropTypes.bool,
+	label: PropTypes.string.isRequired,
 	max: PropTypes.shape({
 		day: PropTypes.number,
 		month: PropTypes.number,

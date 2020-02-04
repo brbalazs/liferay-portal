@@ -17,7 +17,6 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {baseFilterProps} from '../../../utilities/filters.es';
 import getAppContext from '../Context.es';
 
 function NumberFilter(props) {
@@ -67,10 +66,13 @@ function NumberFilter(props) {
 }
 
 NumberFilter.propTypes = {
-	...baseFilterProps,
+	id: PropTypes.string.isRequired,
 	inputText: PropTypes.string,
+	invisible: PropTypes.bool,
+	label: PropTypes.string.isRequired,
 	max: PropTypes.number,
 	min: PropTypes.number,
+	operator: PropTypes.oneOf(['eq', 'ne', 'gt', 'ge', 'lt', 'le']).isRequired,
 	type: PropTypes.oneOf(['number']).isRequired,
 	value: PropTypes.number
 };

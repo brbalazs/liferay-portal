@@ -12,7 +12,6 @@
  * details.
  */
 
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import CheckboxesFilter from '../management_bar/components/filters/Checkboxes.es';
@@ -57,21 +56,3 @@ export function formatFilters(filters) {
 
 	return formattedFilters;
 }
-
-export const baseFilterProps = {
-	id: PropTypes.string.isRequired,
-	invisible: PropTypes.bool,
-	label: PropTypes.string.isRequired,
-	operator: PropTypes.oneOf([
-		'eq',
-		'ne',
-		'gt',
-		'ge',
-		'lt',
-		'le',
-		'and',
-		'or',
-		'not',
-		'startswith'
-	])
-};
