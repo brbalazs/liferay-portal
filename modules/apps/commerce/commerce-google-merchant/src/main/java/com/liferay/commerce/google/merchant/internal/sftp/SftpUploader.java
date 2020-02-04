@@ -57,7 +57,7 @@ public class SftpUploader {
 			jschSession.connect();
 
 			channelSftp = (ChannelSftp) jschSession.openChannel(
-				CommerceGoogleMerchantConstants.COMMERCE_INTEGRATION_SFTP);
+				CommerceGoogleMerchantConstants.JSCH_CHANNEL_SFTP);
 
 			channelSftp.connect();
 
