@@ -1032,6 +1032,20 @@ public class CommerceOrderLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceOrder updateBillingAddress(
+			long commerceOrderId, long billingAddressId)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
+			commerceOrderId);
+
+		commerceOrder.setBillingAddressId(billingAddressId);
+
+		return commerceOrderPersistence.update(commerceOrder);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrder updateBillingAddress(
 			long commerceOrderId, String name, String description,
 			String street1, String street2, String street3, String city,
 			String zip, long commerceRegionId, long commerceCountryId,
@@ -1398,6 +1412,20 @@ public class CommerceOrderLocalServiceImpl
 		validatePurchaseOrderNumber(purchaseOrderNumber);
 
 		commerceOrder.setPurchaseOrderNumber(purchaseOrderNumber);
+
+		return commerceOrderPersistence.update(commerceOrder);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrder updateShippingAddress(
+			long commerceOrderId, long shippingAddressId)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
+			commerceOrderId);
+
+		commerceOrder.setShippingAddressId(shippingAddressId);
 
 		return commerceOrderPersistence.update(commerceOrder);
 	}

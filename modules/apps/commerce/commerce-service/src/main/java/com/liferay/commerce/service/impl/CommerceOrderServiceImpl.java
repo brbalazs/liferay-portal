@@ -533,6 +533,18 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 
 	@Override
 	public CommerceOrder updateBillingAddress(
+			long commerceOrderId, long billingAddressId)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
+
+		return commerceOrderLocalService.updateShippingAddress(
+			commerceOrderId, billingAddressId);
+	}
+
+	@Override
+	public CommerceOrder updateBillingAddress(
 			long commerceOrderId, String name, String description,
 			String street1, String street2, String street3, String city,
 			String zip, long commerceRegionId, long commerceCountryId,
@@ -760,6 +772,18 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 
 		return commerceOrderLocalService.updatePurchaseOrderNumber(
 			commerceOrderId, purchaseOrderNumber);
+	}
+
+	@Override
+	public CommerceOrder updateShippingAddress(
+			long commerceOrderId, long shippingAddressId)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
+
+		return commerceOrderLocalService.updateShippingAddress(
+			commerceOrderId, shippingAddressId);
 	}
 
 	@Override
