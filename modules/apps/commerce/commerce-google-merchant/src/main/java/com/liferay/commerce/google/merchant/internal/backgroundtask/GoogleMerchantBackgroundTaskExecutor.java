@@ -1,6 +1,5 @@
 package com.liferay.commerce.google.merchant.internal.backgroundtask;
 
-import com.liferay.commerce.google.merchant.constants.GoogleMerchantConstants;
 import com.liferay.commerce.google.merchant.internal.sftp.SftpUploader;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTask;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
@@ -17,7 +16,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"background.task.executor.class.name=" + GoogleMerchantConstants.GOOGLE_MERCHANT_B_T_E_CLASS_NAME
+		"background.task.executor.class.name=com.liferay.commerce.google.merchant.internal.backgroundtask.GoogleMerchantBackgroundTaskExecutor"
 	},
 	service = BackgroundTaskExecutor.class
 )
