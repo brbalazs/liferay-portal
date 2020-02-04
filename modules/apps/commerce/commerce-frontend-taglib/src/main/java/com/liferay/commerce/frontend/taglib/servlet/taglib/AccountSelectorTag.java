@@ -122,9 +122,7 @@ public class AccountSelectorTag extends ComponentRendererTag {
 			_log.error(pe, pe);
 		}
 
-		putValue(
-			"spritemap",
-			themeDisplay.getPathThemeImages() + "/icons.svg");
+		putValue("spritemap", themeDisplay.getPathThemeImages() + "/icons.svg");
 
 		setTemplateNamespace("AccountSelector.render");
 

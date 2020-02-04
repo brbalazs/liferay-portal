@@ -14,11 +14,11 @@
 	&__tick {
 		fill: none;
 		stroke: #a7e5be;
+		stroke-dasharray: 100;
+		stroke-dashoffset: 100;
 		stroke-linecap: round;
 		stroke-linejoin: round;
 		stroke-width: 11px;
-		stroke-dasharray: 100;
-		stroke-dashoffset: 100;
 		transition: stroke-dashoffset 0.2s ease-out;
 	}
 

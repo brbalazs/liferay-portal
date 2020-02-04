@@ -1,8 +1,8 @@
 .btn {
 	align-content: center;
 	align-items: center;
-	border: 2px solid transparent;
 	background: transparent;
+	border: 2px solid transparent;
 	border-radius: 8px;
 	display: inline-flex;
 	font-size: 10px;
@@ -10,28 +10,28 @@
 	justify-content: center;
 	letter-spacing: 1px;
 	line-height: 1.25;
+	overflow: hidden;
 	padding: 10px 20px;
 	position: relative;
 	text-decoration: none;
 	text-transform: uppercase;
-	white-space: nowrap;
-	overflow: hidden;
-	z-index: 2;
 	transition: border 0.2s ease-in;
+	white-space: nowrap;
+	z-index: 2;
 
 	.minium-card__actions &.btn-add-to-cart {
-		max-width: 180px;
-		margin: 30px auto;
 		border-radius: 8px;
+		margin: 30px auto;
+		max-width: 180px;
 	}
 
 	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		left: 0;
 		bottom: 0;
+		content: '';
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
 		z-index: -2;
 	}
 
@@ -55,16 +55,16 @@
 		&::after {
 			content: '';
 			display: block;
-			position: absolute;
-			top: 0;
-			left: 0;
 			height: 100%;
-			width: 100%;
+			left: 0;
 			opacity: 0;
 			pointer-events: none;
-			transition: all ease-in-out 0.3s;
+			position: absolute;
+			top: 0;
 			transform: scaleX(0);
 			transform-origin: left;
+			transition: all ease-in-out 0.3s;
+			width: 100%;
 			z-index: -1;
 		}
 
@@ -77,9 +77,9 @@
 	&.btn-unstyled {
 		border: none;
 		border-radius: 0;
+		display: inline-block;
 		font-size: inherit;
 		font-weight: inherit;
-		display: inline-block;
 		letter-spacing: normal;
 		line-height: inherit;
 		padding: 0;
@@ -92,8 +92,8 @@
 	}
 
 	&.btn-primary {
-		border-color: $color-theme;
 		background: transparent;
+		border-color: $color-theme;
 		color: $color-bg;
 
 		&:not([disabled]):not(.disabled) {
@@ -123,9 +123,9 @@
 	}
 
 	&.btn-secondary {
+		background: transparent;
 		border-color: $color-theme;
 		color: $color-theme;
-		background: transparent;
 
 		&::before {
 			background-color: $color-bg;
@@ -150,8 +150,8 @@
 	}
 
 	&.btn-success {
-		border-color: $color-mood-good;
 		background: transparent;
+		border-color: $color-mood-good;
 		color: $color-bg;
 
 		&:not([disabled]):not(.disabled) {
@@ -181,8 +181,8 @@
 	}
 
 	&.btn-danger {
-		border-color: $color-mood-bad;
 		background: transparent;
+		border-color: $color-mood-bad;
 		color: $color-bg;
 
 		&:not([disabled]):not(.disabled) {
@@ -212,8 +212,8 @@
 	}
 
 	&.btn-warning {
-		border-color: $color-mood-neutral;
 		background: transparent;
+		border-color: $color-mood-neutral;
 		color: $color-bg;
 
 		&:not([disabled]):not(.disabled) {

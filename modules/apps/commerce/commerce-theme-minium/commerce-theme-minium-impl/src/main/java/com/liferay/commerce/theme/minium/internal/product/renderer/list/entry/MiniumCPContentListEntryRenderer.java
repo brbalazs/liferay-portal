@@ -301,8 +301,7 @@ public class MiniumCPContentListEntryRenderer
 		}
 
 		context.put(
-			"spritemap",
-			themeDisplay.getPathThemeImages() + "/icons.svg");
+			"spritemap", themeDisplay.getPathThemeImages() + "/icons.svg");
 
 		Set<String> dependencies = new HashSet<>();
 

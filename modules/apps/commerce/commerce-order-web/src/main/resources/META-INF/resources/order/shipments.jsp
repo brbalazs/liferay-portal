@@ -87,7 +87,7 @@ contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrd
 			spritemap:
 				'<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>',
 			topAnchorSelector: '.commerce-header',
-			wrapperSelector: '#<portlet:namespace />side-panel-wrapper',
+			wrapperSelector: '#<portlet:namespace />side-panel-wrapper'
 		}
 	);
 </aui:script>

@@ -97,8 +97,8 @@
 		overflow: hidden;
 		padding-right: 15px;
 		text-overflow: ellipsis;
-		transition: opacity $transition, transform $transition;
 		transform: translateX(-15px);
+		transition: opacity $transition, transform $transition;
 		white-space: nowrap;
 
 		.minium-sidebar:not(:hover) & {

@@ -5,14 +5,14 @@
 			height: 100vh;
 			left: 0;
 			opacity: 0;
-			overflow-y: auto;
 			overflow: hidden;
+			overflow-y: auto;
 			padding: $topbar-height-small 24px 24px;
 			position: fixed;
 			top: 0;
 			transform: translateX(100%);
-			transition-delay: 300ms;
 			transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+			transition-delay: 300ms;
 			width: 100%;
 			z-index: 1000;
 
@@ -78,8 +78,8 @@
 					animation: backInPlace 0.2s ease-out 1 forwards;
 					animation-delay: 0.2s;
 					line-height: 72px;
-					text-align: center;
 					opacity: 0;
+					text-align: center;
 
 					@keyframes backInPlace {
 						to {

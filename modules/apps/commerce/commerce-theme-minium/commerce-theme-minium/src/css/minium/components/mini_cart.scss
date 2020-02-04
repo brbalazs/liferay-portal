@@ -12,12 +12,12 @@
 	box-shadow: -20px 0 40px $color-shadow;
 	display: flex;
 	flex-direction: column;
+	height: calc(100vh - #{$frame-size});
 	max-width: $minicart-width;
 	position: absolute;
 	right: 0;
 	top: 100%;
 	transition: box-shadow $transition, transform $transition;
-	height: calc(100vh - #{$frame-size});
 	width: $minicart-width;
 	z-index: 1140;
 

@@ -123,7 +123,7 @@ CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrder
 			spritemap:
 				'<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>',
 			topAnchorSelector: '.commerce-header',
-			wrapperSelector: '#<portlet:namespace />side-panel-wrapper',
+			wrapperSelector: '#<portlet:namespace />side-panel-wrapper'
 		}
 	);
 </aui:script>

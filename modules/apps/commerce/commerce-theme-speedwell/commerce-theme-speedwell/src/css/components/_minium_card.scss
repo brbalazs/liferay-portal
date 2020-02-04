@@ -2,6 +2,7 @@
 	align-items: center;
 	background: white;
 	border: 1px solid #eee;
+	border-radius: 4px;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
@@ -11,7 +12,6 @@
 	position: relative;
 	text-align: center;
 	transition: all 0.2s ease-in-out;
-	border-radius: 4px;
 
 	@media only screen and (max-width: $bp-small) {
 		height: 245px;
@@ -258,6 +258,7 @@
 	&__add-to-wishlist-button {
 		background-color: white;
 		border-radius: 50%;
+		border-width: 0;
 		cursor: pointer;
 		font-size: 1rem;
 		padding: 0;
@@ -265,21 +266,20 @@
 		right: 20px;
 		top: 18px;
 		z-index: 10;
-		border-width: 0;
 
 		&:focus {
 			outline: none;
 		}
 
 		[class*='-icon'] {
+			left: 50%;
 			margin-top: 0;
+			opacity: 0.5;
 			position: absolute;
 			top: 50%;
-			left: 50%;
 			transform: translate(-50%, -50%);
-			z-index: 1;
-			opacity: 0.5;
 			transition: opacity 0.1s ease-in;
+			z-index: 1;
 		}
 
 		&:hover [class*='-icon'] {
@@ -287,11 +287,11 @@
 		}
 
 		.lexicon-icon-heart-full {
-			z-index: 2;
 			opacity: 0;
 			transform: translate(-50%, -50%) scale(0);
 			transform-origin: 50%;
 			transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			z-index: 2;
 		}
 
 		&--added {

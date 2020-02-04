@@ -46,8 +46,8 @@
 				z-index: 2;
 
 				div {
-					opacity: 1;
 					background-color: $stroke-alt;
+					opacity: 1;
 				}
 
 				&.is-sliding-forwards {
@@ -257,8 +257,8 @@
 					z-index: 5;
 
 					&.is-sliding-forwards {
-						animation-delay: 125ms;
 						animation: textBackwards 400ms ease-out forwards;
+						animation-delay: 125ms;
 					}
 				}
 
@@ -269,8 +269,8 @@
 					z-index: 5;
 
 					&.is-sliding-backwards {
-						animation-delay: 125ms;
 						animation: textForwards 400ms ease-out forwards;
+						animation-delay: 125ms;
 					}
 				}
 			}
@@ -294,8 +294,8 @@
 					mix-blend-mode: color;
 					position: absolute;
 					top: 0;
-					transform-origin: left center;
 					transform: scale3d(0, 1, 1);
+					transform-origin: left center;
 					transition: transform 0.2s
 						cubic-bezier(0.165, 0.84, 0.44, 1);
 					width: 100%;
@@ -399,23 +399,23 @@
 
 	@keyframes textForwards {
 		from {
-			transform: translate3d(-10%, 0, 0);
 			opacity: 0;
+			transform: translate3d(-10%, 0, 0);
 		}
 		to {
-			transform: translate3d(0, 0, 0);
 			opacity: 1;
+			transform: translate3d(0, 0, 0);
 		}
 	}
 
 	@keyframes textBackwards {
 		from {
-			transform: translate3d(10%, 0, 0);
 			opacity: 0;
+			transform: translate3d(10%, 0, 0);
 		}
 		to {
-			transform: translate3d(0, 0, 0);
 			opacity: 1;
+			transform: translate3d(0, 0, 0);
 		}
 	}
 

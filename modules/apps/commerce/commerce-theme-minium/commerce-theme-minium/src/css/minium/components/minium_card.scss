@@ -246,12 +246,12 @@ $card-spacer: 20px;
 		}
 
 		.lexicon-icon-heart-full {
-			z-index: 2;
 			color: $color-theme;
 			opacity: 0;
 			transform: translate(-50%, -50%) scale(0);
 			transform-origin: 50%;
 			transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			z-index: 2;
 		}
 
 		&--added {

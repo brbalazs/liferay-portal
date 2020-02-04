@@ -357,10 +357,10 @@ SidePanel.propTypes = {
 	size: PropTypes.string,
 	spritemap: PropTypes.string,
 	topAnchorSelector: PropTypes.any,
-	wrapperSelector: PropTypes.string,
+	wrapperSelector: PropTypes.string
 };
 
 SidePanel.defaultProps = {
 	topAnchorSelector: '.side-panel-top-anchor',
-	wrapperSelector: '.side-panel-wrapper',
+	wrapperSelector: '.side-panel-wrapper'
 };

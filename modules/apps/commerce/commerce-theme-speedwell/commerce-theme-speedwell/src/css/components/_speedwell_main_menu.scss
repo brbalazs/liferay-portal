@@ -11,9 +11,9 @@
 		color: $color-bg;
 
 		svg {
-			opacity: 0;
 			animation: main-menu-other-elements 0.5s ease-in forwards;
 			animation-delay: 0.8s;
+			opacity: 0;
 		}
 	}
 
@@ -115,8 +115,8 @@
 		position: fixed;
 		right: 0;
 		top: calc(#{$liferay-topbar-height} + #{$topbar-height});
-		transition-delay: 500ms;
 		transition: all ease 200ms;
+		transition-delay: 500ms;
 	}
 
 	&:not(.is-open)::before {

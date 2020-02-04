@@ -91,8 +91,7 @@ public class AddToCartTag extends ComponentRendererTag {
 				WebKeys.THEME_DISPLAY);
 
 			putValue(
-				"spritemap",
-				themeDisplay.getPathThemeImages() + "/icons.svg");
+				"spritemap", themeDisplay.getPathThemeImages() + "/icons.svg");
 
 			setTemplateNamespace("AddToCartButton.render");
 		}

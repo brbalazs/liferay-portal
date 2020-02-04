@@ -58,8 +58,8 @@
 
 	&:not(.is-asking) {
 		.confirmation-box {
-			transform: translateX(10%);
 			pointer-events: none;
+			transform: translateX(10%);
 		}
 	}
 

@@ -4,13 +4,13 @@
 	}
 
 	.pagination {
-		position: absolute;
 		left: 50%;
+		position: absolute;
 		transform: translateX(-50%);
 
 		li {
-			margin: 0 5px;
 			box-sizing: border-box;
+			margin: 0 5px;
 			padding: 5px 10px;
 
 			&:first-child,

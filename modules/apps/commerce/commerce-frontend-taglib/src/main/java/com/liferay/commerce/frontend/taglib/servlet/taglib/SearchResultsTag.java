@@ -61,9 +61,7 @@ public class SearchResultsTag extends ComponentRendererTag {
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		putValue(
-			"spritemap",
-			themeDisplay.getPathThemeImages() + "/icons.svg");
+		putValue("spritemap", themeDisplay.getPathThemeImages() + "/icons.svg");
 
 		putValue("visible", false);
 
