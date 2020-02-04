@@ -1,4 +1,4 @@
-package com.liferay.commerce.google.merchant.internal.backgroundtask;
+package com.liferay.commerce.google.merchant.internal.background.task;
 
 import com.liferay.commerce.google.merchant.internal.sftp.SftpUploader;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTask;
