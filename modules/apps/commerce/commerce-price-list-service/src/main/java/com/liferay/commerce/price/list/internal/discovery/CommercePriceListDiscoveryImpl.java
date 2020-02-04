@@ -14,10 +14,14 @@
 
 package com.liferay.commerce.price.list.internal.discovery;
 
+import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
 import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.util.ArrayUtil;
 
 import java.util.Arrays;
@@ -37,6 +41,27 @@ public class CommercePriceListDiscoveryImpl
 			String type, String cPInstanceUuid, long commerceAccountId,
 			long[] commerceAccountGroupIds, long commerceChannelId)
 		throws PortalException {
+
+		CommercePricingConfiguration commercePricingConfiguration =
+			_configurationProvider.getSystemConfiguration(
+				CommercePricingConfiguration.class);
+
+		int discoveryMethod = CommercePricingConstants.ORDER_BY_HIERARCHY;
+
+		if (type.equals(CommercePriceListTypeKeys.TYPE_PRICE_LIST)) {
+			discoveryMethod =
+				commercePricingConfiguration.commercePriceListDiscovery();
+		}
+		else if (type.equals(CommercePriceListTypeKeys.TYPE_PROMOTION)) {
+			discoveryMethod =
+				commercePricingConfiguration.commercePromotionDiscovery();
+		}
+
+		if (discoveryMethod == CommercePricingConstants.ORDER_BY_LOWEST_ENTRY) {
+			return _getCommercePriceListByLowestPrice(
+				type, cPInstanceUuid, commerceAccountId,
+				commerceAccountGroupIds, commerceChannelId);
+		}
 
 		return _getCommercePriceListByHierarchy(
 			type, commerceAccountId, commerceAccountGroupIds,
@@ -114,5 +139,8 @@ public class CommercePriceListDiscoveryImpl
 
 	@Reference
 	private CommercePriceListLocalService _commercePriceListLocalService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 }

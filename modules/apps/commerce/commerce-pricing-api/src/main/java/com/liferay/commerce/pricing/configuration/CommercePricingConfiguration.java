@@ -1,0 +1,75 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.commerce.pricing.configuration;
+
+import aQute.bnd.annotation.metatype.Meta;
+
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
+import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
+
+/**
+ * @author Riccardo Alberti
+ */
+@ExtendedObjectClassDefinition(
+	category = "pricing", scope = ExtendedObjectClassDefinition.Scope.SYSTEM
+)
+@Meta.OCD(
+	id = "com.liferay.commerce.pricing.configuration.CommercePricingConfiguration",
+	localization = "content/Language"
+)
+public interface CommercePricingConfiguration {
+
+	@Meta.AD(deflt = "v1.0", required = false)
+	public String commercePricingCalculationKey();
+
+	@Meta.AD(
+		deflt = "" + CommercePricingConstants.ORDER_BY_HIERARCHY,
+		name = "price-list-discovery-method",
+		optionLabels = {
+			"order-price-list-by-hierarchy", "order-price-list-by-lowest-entry"
+		},
+		optionValues = {"0", "1"}, required = false
+	)
+	public int commercePriceListDiscovery();
+
+	@Meta.AD(
+		deflt = "" + CommercePricingConstants.ORDER_BY_HIERARCHY,
+		name = "promotion-discovery-method",
+		optionLabels = {
+			"order-promotion-by-hierarchy", "order-promotion-by-lowest-entry"
+		},
+		optionValues = {"0", "1"}, required = false
+	)
+	public int commercePromotionDiscovery();
+
+	@Meta.AD(
+		deflt = "" + CommercePricingConstants.TAX_INCLUDED_IN_FINAL_PRICE,
+		name = "tax-display",
+		optionLabels = {
+			"tax-included-in-final-price", "tax-excluded-from-final-price"
+		},
+		optionValues = {"0", "1"}, required = false
+	)
+	public int commerceDisplayTax();
+
+	@Meta.AD(
+		deflt = "" + CommercePricingConstants.DISCOUNT_CHAIN_METHOD,
+		name = "discount-application-method",
+		optionLabels = {"chain-method", "additive-method"},
+		optionValues = {"0", "1"}, required = false
+	)
+	public int commerceDiscountApplicationMethod();
+
+}

@@ -22,7 +22,11 @@ import java.util.Map;
  * @author Riccardo Alberti
  */
 @ProviderType
-public interface CommerceProductPriceCalculationRegistry {
+public interface CommercePriceCalculationRegistry {
+
+	public CommerceOrderPriceCalculation getCommerceOrderPrice(String key);
+
+	public Map<String, CommerceOrderPriceCalculation> getCommerceOrderPrices();
 
 	public CommerceProductPriceCalculation getCommerceProductPrice(String key);
 

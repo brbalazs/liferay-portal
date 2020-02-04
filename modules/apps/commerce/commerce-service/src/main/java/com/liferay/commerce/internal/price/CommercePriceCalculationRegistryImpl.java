@@ -14,8 +14,9 @@
 
 package com.liferay.commerce.internal.price;
 
+import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
-import com.liferay.commerce.price.CommerceProductPriceCalculationRegistry;
+import com.liferay.commerce.price.CommercePriceCalculationRegistry;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.portal.kernel.log.Log;
@@ -34,14 +35,14 @@ import org.osgi.service.component.annotations.Deactivate;
  * @author Riccardo Alberti
  */
 @Component(
-	immediate = true, service = CommerceProductPriceCalculationRegistry.class
+	immediate = true, service = CommercePriceCalculationRegistry.class
 )
-public class CommerceProductPriceCalculationRegistryImpl
-	implements CommerceProductPriceCalculationRegistry {
+public class CommercePriceCalculationRegistryImpl
+	implements CommercePriceCalculationRegistry {
 
 	@Override
 	public CommerceProductPriceCalculation getCommerceProductPrice(String key) {
-		return _serviceTrackerMap.getService(key);
+		return _productPriceServiceTrackerMap.getService(key);
 	}
 
 	@Override
@@ -51,30 +52,57 @@ public class CommerceProductPriceCalculationRegistryImpl
 		Map<String, CommerceProductPriceCalculation>
 			commerceProductPriceCalculations = new HashMap<>();
 
-		for (String key : _serviceTrackerMap.keySet()) {
+		for (String key : _productPriceServiceTrackerMap.keySet()) {
 			commerceProductPriceCalculations.put(
-				key, _serviceTrackerMap.getService(key));
+				key, _productPriceServiceTrackerMap.getService(key));
 		}
 
 		return Collections.unmodifiableMap(commerceProductPriceCalculations);
 	}
 
+	@Override
+	public CommerceOrderPriceCalculation getCommerceOrderPrice(String key) {
+		return _orderPriceServiceTrackerMap.getService(key);
+	}
+
+	@Override
+	public Map<String, CommerceOrderPriceCalculation>
+		getCommerceOrderPrices() {
+
+		Map<String, CommerceOrderPriceCalculation>
+			commerceOrderPriceCalculations = new HashMap<>();
+
+		for (String key : _orderPriceServiceTrackerMap.keySet()) {
+			commerceOrderPriceCalculations.put(
+				key, _orderPriceServiceTrackerMap.getService(key));
+		}
+
+		return Collections.unmodifiableMap(commerceOrderPriceCalculations);
+	}
+
 	@Activate
 	protected void activate(BundleContext bundleContext) {
-		_serviceTrackerMap = ServiceTrackerMapFactory.openSingleValueMap(
+		_productPriceServiceTrackerMap = ServiceTrackerMapFactory.openSingleValueMap(
 			bundleContext, CommerceProductPriceCalculation.class,
+			"commerce.price.calculation.key");
+
+		_orderPriceServiceTrackerMap = ServiceTrackerMapFactory.openSingleValueMap(
+			bundleContext, CommerceOrderPriceCalculation.class,
 			"commerce.price.calculation.key");
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		_serviceTrackerMap.close();
+		_productPriceServiceTrackerMap.close();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceProductPriceCalculationRegistryImpl.class);
 
 	private ServiceTrackerMap<String, CommerceProductPriceCalculation>
-		_serviceTrackerMap;
+		_productPriceServiceTrackerMap;
+
+	private ServiceTrackerMap<String, CommerceOrderPriceCalculation>
+		_orderPriceServiceTrackerMap;
 
 }

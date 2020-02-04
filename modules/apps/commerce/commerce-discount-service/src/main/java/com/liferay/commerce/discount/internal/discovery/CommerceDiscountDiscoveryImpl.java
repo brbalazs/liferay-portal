@@ -36,10 +36,14 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommercePriceValue;
 import com.liferay.commerce.price.list.model.CommercePriceListDiscountRel;
 import com.liferay.commerce.price.list.service.CommercePriceListDiscountRelLocalService;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -61,13 +65,33 @@ public class CommerceDiscountDiscoveryImpl
 
 	@Override
 	public BigDecimal applyCommerceDiscounts(
-		BigDecimal commercePrice,
-		CommerceDiscountLevel[] commerceDiscountLevels) {
+			BigDecimal commercePrice,
+			CommerceDiscountLevel[] commerceDiscountLevels)
+		throws ConfigurationException {
 
 		if (commerceDiscountLevels != null) {
+			CommercePricingConfiguration commercePricingConfiguration =
+				_configurationProvider.getSystemConfiguration(
+					CommercePricingConfiguration.class);
 
-			// apply the algorithm for discounts
+			int discountApplicationMethod =
+				commercePricingConfiguration.
+					commerceDiscountApplicationMethod();
 
+			BigDecimal discountedPrice = BigDecimal.ZERO;
+
+			if (discountApplicationMethod ==
+					CommercePricingConstants.DISCOUNT_CHAIN_METHOD) {
+
+				discountedPrice = _getChainDiscountPercentage(
+					commercePrice, commerceDiscountLevels);
+			}
+			else {
+				discountedPrice = _getAdditiveDiscountPercentage(
+					commercePrice, commerceDiscountLevels);
+			}
+
+			return discountedPrice;
 		}
 
 		return commercePrice;
@@ -242,21 +266,21 @@ public class CommerceDiscountDiscoveryImpl
 			_commerceDiscountLocalService.findByA_C_C_Product(
 				commerceAccountId, cpDefinitionId);
 
-		if (commerceDiscounts != null) {
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
 		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Product(
 			commerceAccountGroupIds, cpDefinitionId);
 
-		if (commerceDiscounts != null) {
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
 		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Product(
 			commerceChannelId, cpDefinitionId);
 
-		if (commerceDiscounts != null) {
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
@@ -277,7 +301,9 @@ public class CommerceDiscountDiscoveryImpl
 			_commercePriceListDiscountRelLocalService.
 				getCommercePriceListDiscountRels(commercePriceListId);
 
-		if (commercePriceListDiscountRels != null) {
+		if ((commercePriceListDiscountRels != null) &&
+			!commercePriceListDiscountRels.isEmpty()) {
+
 			Stream<CommercePriceListDiscountRel> stream =
 				commercePriceListDiscountRels.stream();
 
@@ -310,11 +336,87 @@ public class CommerceDiscountDiscoveryImpl
 		return null;
 	}
 
+	private BigDecimal _getAdditiveDiscountPercentage(
+		BigDecimal commercePrice,
+		CommerceDiscountLevel[] commerceDiscountLevels) {
+
+		BigDecimal discountAmount = commercePrice;
+		BigDecimal totalDiscount = BigDecimal.ZERO;
+
+		for (CommerceDiscountLevel commerceDiscountLevel :
+				commerceDiscountLevels) {
+
+			if ((commerceDiscountLevel == null) ||
+				(commerceDiscountLevel.getDiscountValue() == null)) {
+
+				continue;
+			}
+
+			BigDecimal discountValue = commerceDiscountLevel.getDiscountValue();
+
+			if (commerceDiscountLevel.isUsePercentage()) {
+				totalDiscount = totalDiscount.add(discountValue);
+
+				discountAmount = commercePrice.multiply(totalDiscount);
+
+				discountAmount = discountAmount.divide(_ONE_HUNDRED);
+			}
+			else {
+				discountAmount = discountAmount.subtract(discountValue);
+			}
+		}
+
+		return totalDiscount;
+	}
+
+	private BigDecimal _getChainDiscountPercentage(
+		BigDecimal commercePrice,
+		CommerceDiscountLevel[] commerceDiscountLevels) {
+
+		BigDecimal discountAmount = commercePrice;
+
+		for (CommerceDiscountLevel commerceDiscountLevel :
+				commerceDiscountLevels) {
+
+			if ((commerceDiscountLevel == null) ||
+				(commerceDiscountLevel.getDiscountValue() == null)) {
+
+				continue;
+			}
+
+			BigDecimal discountValue = commerceDiscountLevel.getDiscountValue();
+
+			if (commerceDiscountLevel.isUsePercentage()) {
+				BigDecimal currentDiscountAmount = discountAmount.multiply(
+					discountValue);
+
+				currentDiscountAmount = currentDiscountAmount.divide(
+					_ONE_HUNDRED);
+
+				discountAmount = discountAmount.subtract(currentDiscountAmount);
+			}
+			else {
+				discountAmount = discountAmount.subtract(discountValue);
+			}
+		}
+
+		return discountAmount;
+	}
+
 	private CommerceDiscountLevel _getCommerceDiscountLevel(
-		CommerceDiscountLevel currentDiscountLevel, BigDecimal commercePrice,
-		int quantity, CommerceCurrency commerceCurrency,
-		long commerceDiscountId, BigDecimal commerceDiscountValue,
-		boolean isUsePercentage) {
+			CommerceDiscountLevel currentDiscountLevel,
+			BigDecimal commercePrice, int quantity,
+			CommerceCurrency commerceCurrency, long commerceDiscountId,
+			BigDecimal commerceDiscountValue, boolean isUsePercentage)
+		throws PortalException {
+
+		if (commerceDiscountValue == null) {
+			return null;
+		}
+
+		CommerceDiscount commerceDiscount =
+			_commerceDiscountLocalService.getCommerceDiscount(
+				commerceDiscountId);
 
 		BigDecimal discountAmount = BigDecimal.ZERO;
 
@@ -324,6 +426,17 @@ public class CommerceDiscountDiscoveryImpl
 		}
 		else {
 			discountAmount = commerceDiscountValue;
+		}
+
+		if (isUsePercentage) {
+			BigDecimal maximumDiscountAmount =
+				commerceDiscount.getMaximumDiscountAmount();
+
+			if ((maximumDiscountAmount.compareTo(BigDecimal.ZERO) > 0) &&
+				(discountAmount.compareTo(maximumDiscountAmount) > 0)) {
+
+				discountAmount = commerceDiscount.getMaximumDiscountAmount();
+			}
 		}
 
 		CommerceMoney amount = _commerceMoneyFactory.create(
@@ -354,7 +467,7 @@ public class CommerceDiscountDiscoveryImpl
 			List<CommerceDiscount> commerceDiscounts)
 		throws PortalException {
 
-		String couponCode = null;
+		String couponCode = "";
 
 		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
@@ -379,77 +492,52 @@ public class CommerceDiscountDiscoveryImpl
 			if (_isValidDiscount(commerceContext, commerceDiscount)) {
 				String discountLevel = commerceDiscount.getLevel();
 
-				if (discountLevel.isEmpty()) {
-					if (commerceDiscount.isUsePercentage()) {
-						levels[0] = _getCommerceDiscountLevel(
-							levels[0], commercePrice, quantity,
-							commerceCurrency,
-							commerceDiscount.getCommerceDiscountId(),
-							commerceDiscount.getLevel1(),
-							commerceDiscount.isUsePercentage());
+				if (discountLevel.isEmpty() ||
+					discountLevel.equals(CommerceDiscountConstants.LEVEL1)) {
 
-						levels[1] = _getCommerceDiscountLevel(
-							levels[1], commercePrice, quantity,
-							commerceCurrency,
-							commerceDiscount.getCommerceDiscountId(),
-							commerceDiscount.getLevel1(),
-							commerceDiscount.isUsePercentage());
-
-						levels[2] = _getCommerceDiscountLevel(
-							levels[2], commercePrice, quantity,
-							commerceCurrency,
-							commerceDiscount.getCommerceDiscountId(),
-							commerceDiscount.getLevel1(),
-							commerceDiscount.isUsePercentage());
-
-						levels[3] = _getCommerceDiscountLevel(
-							levels[3], commercePrice, quantity,
-							commerceCurrency,
-							commerceDiscount.getCommerceDiscountId(),
-							commerceDiscount.getLevel1(),
-							commerceDiscount.isUsePercentage());
-					}
-					else {
-						levels[0] = _getCommerceDiscountLevel(
-							levels[0], commercePrice, quantity,
-							commerceCurrency,
-							commerceDiscount.getCommerceDiscountId(),
-							commerceDiscount.getLevel1(),
-							commerceDiscount.isUsePercentage());
-					}
-				}
-
-				if (discountLevel.equals(CommerceDiscountConstants.LEVEL1)) {
 					levels[0] = _getCommerceDiscountLevel(
 						levels[0], commercePrice, quantity, commerceCurrency,
 						commerceDiscount.getCommerceDiscountId(),
 						commerceDiscount.getLevel1(),
 						commerceDiscount.isUsePercentage());
 				}
-				else if (discountLevel.equals(
+
+				if (commerceDiscount.isUsePercentage()) {
+					if (discountLevel.isEmpty() ||
+						discountLevel.equals(
 							CommerceDiscountConstants.LEVEL2)) {
 
-					levels[1] = _getCommerceDiscountLevel(
-						levels[1], commercePrice, quantity, commerceCurrency,
-						commerceDiscount.getCommerceDiscountId(),
-						commerceDiscount.getLevel2(),
-						commerceDiscount.isUsePercentage());
-				}
-				else if (discountLevel.equals(
+						levels[1] = _getCommerceDiscountLevel(
+							levels[1], commercePrice, quantity,
+							commerceCurrency,
+							commerceDiscount.getCommerceDiscountId(),
+							commerceDiscount.getLevel2(),
+							commerceDiscount.isUsePercentage());
+					}
+
+					if (discountLevel.isEmpty() ||
+						discountLevel.equals(
 							CommerceDiscountConstants.LEVEL3)) {
 
-					levels[2] = _getCommerceDiscountLevel(
-						levels[2], commercePrice, quantity, commerceCurrency,
-						commerceDiscount.getCommerceDiscountId(),
-						commerceDiscount.getLevel3(),
-						commerceDiscount.isUsePercentage());
-				}
-				else {
-					levels[3] = _getCommerceDiscountLevel(
-						levels[3], commercePrice, quantity, commerceCurrency,
-						commerceDiscount.getCommerceDiscountId(),
-						commerceDiscount.getLevel4(),
-						commerceDiscount.isUsePercentage());
+						levels[2] = _getCommerceDiscountLevel(
+							levels[2], commercePrice, quantity,
+							commerceCurrency,
+							commerceDiscount.getCommerceDiscountId(),
+							commerceDiscount.getLevel3(),
+							commerceDiscount.isUsePercentage());
+					}
+
+					if (discountLevel.isEmpty() ||
+						discountLevel.equals(
+							CommerceDiscountConstants.LEVEL4)) {
+
+						levels[3] = _getCommerceDiscountLevel(
+							levels[3], commercePrice, quantity,
+							commerceCurrency,
+							commerceDiscount.getCommerceDiscountId(),
+							commerceDiscount.getLevel4(),
+							commerceDiscount.isUsePercentage());
+					}
 				}
 			}
 		}
@@ -589,6 +677,9 @@ public class CommerceDiscountDiscoveryImpl
 	@Reference
 	private CommercePriceListDiscountRelLocalService
 		_commercePriceListDiscountRelLocalService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
