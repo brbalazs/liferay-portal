@@ -176,6 +176,20 @@ public class CommerceOrderConstants {
 		return null;
 	}
 
+	public static String getOrderStatusLabelStyle(int orderStatus) {
+		if (orderStatus == ORDER_STATUS_CANCELLED) {
+			return "danger";
+		}
+		else if (orderStatus == ORDER_STATUS_COMPLETED) {
+			return "success";
+		}
+		else if (orderStatus == ORDER_STATUS_DECLINED) {
+			return "warning";
+		}
+
+		return "info";
+	}
+
 	public static String getPaymentLabelStyle(int paymentStatus) {
 		if (paymentStatus == PAYMENT_STATUS_AUTHORIZED) {
 			return "info";
