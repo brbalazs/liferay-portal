@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.portlet.PortletRequest;
@@ -113,9 +114,7 @@ public class CommerceCatalogDisplayContext {
 	}
 
 	public List<DropdownItem> getDropdownItems() {
-		List<DropdownItem> headerDropdownItems = new ArrayList<>();
-
-		return headerDropdownItems;
+		return Collections.emptyList();
 	}
 
 	public List<HeaderActionModel> getHeaderActionModels() {
@@ -135,18 +134,9 @@ public class CommerceCatalogDisplayContext {
 
 		headerActionModelSave.setLabel(
 			LanguageUtil.get(httpServletRequest, "save"));
-		headerActionModelSave.setAdditionalClasses("btn-secondary");
+		headerActionModelSave.setAdditionalClasses("btn-primary");
 
 		headerActionModels.add(headerActionModelSave);
-
-		HeaderActionModel headerActionModelSaveAndPublish =
-			new HeaderActionModel();
-
-		headerActionModelSaveAndPublish.setLabel(
-			LanguageUtil.get(httpServletRequest, "save-and-publish"));
-		headerActionModelSaveAndPublish.setAdditionalClasses("btn-primary");
-
-		headerActionModels.add(headerActionModelSaveAndPublish);
 
 		return headerActionModels;
 	}
@@ -189,10 +179,11 @@ public class CommerceCatalogDisplayContext {
 	}
 
 	public boolean hasAddCatalogPermission() {
-		ThemeDisplay themeDisplay = (ThemeDisplay)cpRequestHelper.getRequest(
-		).getAttribute(
-			WebKeys.THEME_DISPLAY
-		);
+		HttpServletRequest httpServletRequest = cpRequestHelper.getRequest();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
 		return PortalPermissionUtil.contains(
 			themeDisplay.getPermissionChecker(),
@@ -202,10 +193,11 @@ public class CommerceCatalogDisplayContext {
 	public boolean hasPermission(long commerceCatalogId, String actionId)
 		throws PortalException {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)cpRequestHelper.getRequest(
-		).getAttribute(
-			WebKeys.THEME_DISPLAY
-		);
+		HttpServletRequest httpServletRequest = cpRequestHelper.getRequest();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
 		return _commerceCatalogModelResourcePermission.contains(
 			themeDisplay.getPermissionChecker(), commerceCatalogId, actionId);

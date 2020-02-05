@@ -23,8 +23,7 @@ CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatal
 
 Map<String, String> contextParams = new HashMap<>();
 
-contextParams.put("commerceCatalogId",
-	String.valueOf(commerceCatalog.getCommerceCatalogId()));
+contextParams.put("commerceCatalogId", String.valueOf(commerceCatalog.getCommerceCatalogId()));
 %>
 
 <div class="row">

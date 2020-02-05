@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.commerce.catalog.web.internal.model;
 
 /**
@@ -6,13 +20,13 @@ package com.liferay.commerce.catalog.web.internal.model;
 public class Catalog {
 
 	public Catalog(
-		long catalogId, String name, String defaultLanguageId,
-		String currencyCode) {
+		long catalogId, String currencyCode, String defaultLanguageId,
+		String name) {
 
-		_name = name;
 		_catalogId = catalogId;
 		_currencyCode = currencyCode;
 		_defaultLanguageId = defaultLanguageId;
+		_name = name;
 	}
 
 	public long getCatalogId() {

@@ -17,19 +17,19 @@
 <%@ include file="/init.jsp" %>
 
 <%
-	CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-	PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
-	CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
-	List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCommerceCurrencies();
+PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
+CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
+List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCommerceCurrencies();
 
-	boolean isViewOnly = false;
+boolean isViewOnly = false;
 
-	if (commerceCatalog != null) {
-		isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalog.getCommerceCatalogId(), ActionKeys.UPDATE) || commerceCatalog.isSystem();
-	}
+if (commerceCatalog != null) {
+	isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalog.getCommerceCatalogId(), ActionKeys.UPDATE) || commerceCatalog.isSystem();
+}
 
-	portletURL.setParameter("searchContainerId", "commerceCatalogs");
+portletURL.setParameter("searchContainerId", "commerceCatalogs");
 %>
 
 <portlet:actionURL name="editCommerceCatalog" var="editCommerceCatalogActionURL" />
@@ -52,21 +52,21 @@
 						<aui:select disabled="<%= isViewOnly %>" helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="catalogDefaultLanguageId" required="<%= true %>" title="language">
 
 							<%
-								String catalogDefaultLanguageId = themeDisplay.getLanguageId();
+							String catalogDefaultLanguageId = themeDisplay.getLanguageId();
 
-								if (commerceCatalog != null) {
-									catalogDefaultLanguageId = commerceCatalog.getCatalogDefaultLanguageId();
-								}
+							if (commerceCatalog != null) {
+								catalogDefaultLanguageId = commerceCatalog.getCatalogDefaultLanguageId();
+							}
 
-								Set<Locale> siteAvailableLocales = LanguageUtil.getAvailableLocales(themeDisplay.getScopeGroupId());
+							Set<Locale> siteAvailableLocales = LanguageUtil.getAvailableLocales(themeDisplay.getScopeGroupId());
 
-								for (Locale siteAvailableLocale : siteAvailableLocales) {
+							for (Locale siteAvailableLocale : siteAvailableLocales) {
 							%>
 
-							<aui:option label="<%= siteAvailableLocale.getDisplayName(locale) %>" lang="<%= LocaleUtil.toW3cLanguageId(siteAvailableLocale) %>" selected="<%= catalogDefaultLanguageId.equals(LanguageUtil.getLanguageId(siteAvailableLocale)) %>" value="<%= LocaleUtil.toLanguageId(siteAvailableLocale) %>" />
+								<aui:option label="<%= siteAvailableLocale.getDisplayName(locale) %>" lang="<%= LocaleUtil.toW3cLanguageId(siteAvailableLocale) %>" selected="<%= catalogDefaultLanguageId.equals(LanguageUtil.getLanguageId(siteAvailableLocale)) %>" value="<%= LocaleUtil.toLanguageId(siteAvailableLocale) %>" />
 
 							<%
-								}
+							}
 							%>
 
 						</aui:select>
@@ -74,14 +74,14 @@
 						<aui:select disabled="<%= isViewOnly %>" label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
 
 							<%
-								for (CommerceCurrency commerceCurrency : commerceCurrencies) {
-									String commerceCurrencyCode = commerceCurrency.getCode();
+							for (CommerceCurrency commerceCurrency : commerceCurrencies) {
+								String commerceCurrencyCode = commerceCurrency.getCode();
 							%>
 
-							<aui:option label="<%= commerceCurrency.getName(locale) %>" selected="<%= (commerceCatalog == null) ? commerceCurrency.isPrimary() : commerceCurrencyCode.equals(commerceCatalog.getCommerceCurrencyCode()) %>" value="<%= commerceCurrencyCode %>" />
+								<aui:option label="<%= commerceCurrency.getName(locale) %>" selected="<%= (commerceCatalog == null) ? commerceCurrency.isPrimary() : commerceCurrencyCode.equals(commerceCatalog.getCommerceCurrencyCode()) %>" value="<%= commerceCurrencyCode %>" />
 
 							<%
-								}
+							}
 							%>
 
 						</aui:select>
@@ -114,27 +114,3 @@
 		</commerce-ui:panel>
 	</div>
 </div>
-
-<!-- div class="row">
-	<div class="col-8">
-		<commerce-ui:panel
-			elementClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "revenue") %>'
-		>
-
-		</commerce-ui:panel>
-	</div>
-
-	<div class="col-4">
-		<commerce-ui:panel
-			elementClasses="flex-fill h-100"
-			title='<%= LanguageUtil.get(request, "default-catalog-image") %>'
-		>
-			<div class="row">
-				<div class="col-12 h-100">
-					<img alt="<%= LanguageUtil.get(request, "default-catalog-image") %>" src="<%-- TODO get --%>" />
-				</div>
-			</div>
-		</commerce-ui:panel>
-	</div>
-</div -->

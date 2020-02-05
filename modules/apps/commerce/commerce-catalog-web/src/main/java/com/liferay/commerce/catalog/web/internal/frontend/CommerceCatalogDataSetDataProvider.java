@@ -79,8 +79,8 @@ public class CommerceCatalogDataSetDataProvider
 			catalogs.add(
 				new Catalog(
 					catalog.getCommerceCatalogId(), catalog.getName(),
-					catalog.getCatalogDefaultLanguageId(),
-					catalog.getCommerceCurrencyCode()));
+					catalog.getCommerceCurrencyCode(),
+					catalog.getCatalogDefaultLanguageId()));
 		}
 
 		return catalogs;
