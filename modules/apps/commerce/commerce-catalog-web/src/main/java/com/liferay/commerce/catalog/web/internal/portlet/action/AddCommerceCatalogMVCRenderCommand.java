@@ -40,53 +40,17 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + CPPortletKeys.COMMERCE_CATALOGS,
-		"mvc.command.name=createCommerceCatalog"
+		"mvc.command.name=addCommerceCatalog"
 	},
 	service = MVCRenderCommand.class
 )
-public class CreateCommerceCatalogMVCRenderCommand implements MVCRenderCommand {
+public class AddCommerceCatalogMVCRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		try {
-			CommerceCatalogDisplayContext commerceCatalogDisplayContext =
-				new CommerceCatalogDisplayContext(
-					_portal.getHttpServletRequest(renderRequest),
-					_commerceCatalogService,
-					_commerceCatalogModelResourcePermission,
-					_commerceCurrencyService, _portal);
-
-			renderRequest.setAttribute(
-				WebKeys.PORTLET_DISPLAY_CONTEXT, commerceCatalogDisplayContext);
-		}
-		catch (PortalException pe) {
-			SessionErrors.add(renderRequest, pe.getClass());
-
-			return "/error.jsp";
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
-		}
-
-		return "/create_new_catalog.jsp";
+		return "/add_catalog.jsp";
 	}
-
-	@Reference(
-		target = "(model.class.name=com.liferay.commerce.product.model.CommerceCatalog)"
-	)
-	private ModelResourcePermission<CommerceCatalog>
-		_commerceCatalogModelResourcePermission;
-
-	@Reference
-	private CommerceCatalogService _commerceCatalogService;
-
-	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
-
-	@Reference
-	private Portal _portal;
-
 }
