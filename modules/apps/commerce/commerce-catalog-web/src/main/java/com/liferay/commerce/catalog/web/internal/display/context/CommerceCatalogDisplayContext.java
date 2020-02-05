@@ -21,6 +21,7 @@ import com.liferay.commerce.frontend.ClayCreationMenuItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPPortletKeys;
+import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.util.CPUtil;
@@ -30,6 +31,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
@@ -51,8 +53,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Alec Sloan
  * @author Alessio Antonio Rendina
  */
-public class CommerceCatalogDisplayContext
-	extends BaseCommerceCatalogSearchContainerDisplayContext<CommerceCatalog> {
+public class CommerceCatalogDisplayContext {
 
 	public CommerceCatalogDisplayContext(
 			HttpServletRequest httpServletRequest,
@@ -62,58 +63,34 @@ public class CommerceCatalogDisplayContext
 			CommerceCurrencyService commerceCurrencyService, Portal portal)
 		throws PortalException {
 
-		super(httpServletRequest, CommerceCatalog.class.getSimpleName());
-
-		setDefaultOrderByType("desc");
-
 		_commerceCatalogService = commerceCatalogService;
 		_commerceCatalogModelResourcePermission =
 			commerceCatalogModelResourcePermission;
 		_commerceCurrencyService = commerceCurrencyService;
 		_portal = portal;
+
+		cpRequestHelper = new CPRequestHelper(httpServletRequest);
 	}
 
-	public String getCatalogURL(CommerceCatalog commerceCatalog)
-		throws PortalException {
-
-		if (commerceCatalog == null) {
-			return StringPool.BLANK;
-		}
-
-		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
-			PortletRequest.RENDER_PHASE);
-
-		portletURL.setParameter("mvcRenderCommandName", "editCommerceCatalog");
-		portletURL.setParameter(
-			"commerceCatalogId",
-			String.valueOf(commerceCatalog.getCommerceCatalogId()));
-
-		String backURL = _portal.getCurrentURL(httpServletRequest);
-
-		portletURL.setParameter("backURL", backURL);
-
-		return portletURL.toString();
-	}
+	protected final CPRequestHelper cpRequestHelper;
 
 	public ClayCreationMenu getClayCreationMenu() {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
-		ClayCreationMenuItem createCatalogClayCreationMenuItem =
-			new ClayCreationMenuItem(
-				getCreateCommerceCatalogActionURL(),
-				LanguageUtil.get(httpServletRequest, "add-catalog"),
-				ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TYPE_MODAL);
-
-		clayCreationMenu.addClayCreationMenuItems(
-			createCatalogClayCreationMenuItem);
-
+		if(hasAddCatalogPermission()) {
+			clayCreationMenu.addClayCreationMenuItems(
+				new ClayCreationMenuItem(
+					getCreateCommerceCatalogActionURL(),
+					LanguageUtil.get(cpRequestHelper.getRequest(), "add-catalog"),
+					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TYPE_MODAL));
+		}
+		
 		return clayCreationMenu;
 	}
 
 	public CommerceCatalog getCommerceCatalog() throws PortalException {
 		long commerceCatalogId = ParamUtil.getLong(
-			httpServletRequest, "commerceCatalogId");
+			cpRequestHelper.getRequest(), "commerceCatalogId");
 
 		if (commerceCatalogId == 0) {
 			return null;
@@ -132,11 +109,11 @@ public class CommerceCatalogDisplayContext
 
 	public String getCreateCommerceCatalogActionURL() {
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
+			cpRequestHelper.getRequest(), CPPortletKeys.COMMERCE_CATALOGS,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter(
-			"mvcRenderCommandName", "createCommerceCatalog");
+			"mvcRenderCommandName", "addCommerceCatalog");
 
 		return portletURL.toString();
 	}
@@ -144,41 +121,24 @@ public class CommerceCatalogDisplayContext
 	public List<DropdownItem> getDropdownItems() {
 		List<DropdownItem> headerDropdownItems = new ArrayList<>();
 
-		DropdownItem headerDropdownItem1 = new DropdownItem();
-
-		headerDropdownItem1.setLabel("First link");
-		headerDropdownItem1.setHref("/first-link");
-		headerDropdownItem1.setIcon("home");
-
-		headerDropdownItems.add(headerDropdownItem1);
-
-		DropdownItem headerDropdownItem2 = new DropdownItem();
-
-		headerDropdownItem2.setLabel("Second link");
-		headerDropdownItem2.setIcon("blogs");
-		headerDropdownItem2.setHref("/second-link");
-		headerDropdownItem2.setActive(true);
-
-		headerDropdownItems.add(headerDropdownItem2);
-
 		return headerDropdownItems;
 	}
 
 	public List<HeaderActionModel> getHeaderActionModels() {
-		HttpServletRequest request = cpRequestHelper.getRequest();
+		HttpServletRequest httpServletRequest = cpRequestHelper.getRequest();
 
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
 		HeaderActionModel headerActionModelCancel = new HeaderActionModel();
 
-		headerActionModelCancel.setLabel(LanguageUtil.get(request, "cancel"));
+		headerActionModelCancel.setLabel(LanguageUtil.get(httpServletRequest, "cancel"));
 		headerActionModelCancel.setAdditionalClasses("btn-unstyled");
 
 		headerActionModels.add(headerActionModelCancel);
 
 		HeaderActionModel headerActionModelSave = new HeaderActionModel();
 
-		headerActionModelSave.setLabel(LanguageUtil.get(request, "save"));
+		headerActionModelSave.setLabel(LanguageUtil.get(httpServletRequest, "save"));
 		headerActionModelSave.setAdditionalClasses("btn-secondary");
 
 		headerActionModels.add(headerActionModelSave);
@@ -187,7 +147,7 @@ public class CommerceCatalogDisplayContext
 			new HeaderActionModel();
 
 		headerActionModelSaveAndPublish.setLabel(
-			LanguageUtil.get(request, "save-and-publish"));
+			LanguageUtil.get(httpServletRequest, "save-and-publish"));
 		headerActionModelSaveAndPublish.setAdditionalClasses("btn-primary");
 
 		headerActionModels.add(headerActionModelSaveAndPublish);
@@ -195,26 +155,35 @@ public class CommerceCatalogDisplayContext
 		return headerActionModels;
 	}
 
-	@Override
 	public PortletURL getPortletURL() throws PortalException {
-		PortletURL portletURL = super.getPortletURL();
+		LiferayPortletResponse liferayPortletResponse =
+			cpRequestHelper.getLiferayPortletResponse();
+
+		PortletURL portletURL =  liferayPortletResponse.createRenderURL();
+
+		String redirect = ParamUtil.getString(cpRequestHelper.getRequest(), "redirect");
+
+		if (Validator.isNotNull(redirect)) {
+			portletURL.setParameter("redirect", redirect);
+		}
+
 
 		String filterFields = ParamUtil.getString(
-			httpServletRequest, "filterFields");
+			cpRequestHelper.getRequest(), "filterFields");
 
 		if (Validator.isNotNull(filterFields)) {
 			portletURL.setParameter("filterFields", filterFields);
 		}
 
 		String filtersLabels = ParamUtil.getString(
-			httpServletRequest, "filtersLabels");
+			cpRequestHelper.getRequest(), "filtersLabels");
 
 		if (Validator.isNotNull(filtersLabels)) {
 			portletURL.setParameter("filtersLabels", filtersLabels);
 		}
 
 		String filtersValues = ParamUtil.getString(
-			httpServletRequest, "filtersValues");
+			cpRequestHelper.getRequest(), "filtersValues");
 
 		if (Validator.isNotNull(filtersValues)) {
 			portletURL.setParameter("filtersValues", filtersValues);
@@ -223,42 +192,9 @@ public class CommerceCatalogDisplayContext
 		return portletURL;
 	}
 
-	@Override
-	public SearchContainer<CommerceCatalog> getSearchContainer()
-		throws PortalException {
-
-		if (searchContainer != null) {
-			return searchContainer;
-		}
-
-		searchContainer = new SearchContainer<>(
-			liferayPortletRequest, getPortletURL(), null, null);
-
-		searchContainer.setOrderByCol(getOrderByCol());
-		searchContainer.setOrderByType(getOrderByType());
-		searchContainer.setRowChecker(getRowChecker());
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		Sort sort = CPUtil.getCommerceCatalogSort(
-			getOrderByCol(), getOrderByType());
-
-		List<CommerceCatalog> catalogs =
-			_commerceCatalogService.searchCommerceCatalogs(
-				themeDisplay.getCompanyId(), getKeywords(),
-				searchContainer.getStart(), searchContainer.getEnd(), sort);
-
-		searchContainer.setTotal(catalogs.size());
-		searchContainer.setResults(catalogs);
-
-		return searchContainer;
-	}
-
 	public boolean hasAddCatalogPermission() {
 		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
+			(ThemeDisplay)cpRequestHelper.getRequest().getAttribute(
 				WebKeys.THEME_DISPLAY);
 
 		return PortalPermissionUtil.contains(
@@ -270,7 +206,7 @@ public class CommerceCatalogDisplayContext
 		throws PortalException {
 
 		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
+			(ThemeDisplay)cpRequestHelper.getRequest().getAttribute(
 				WebKeys.THEME_DISPLAY);
 
 		return _commerceCatalogModelResourcePermission.contains(
