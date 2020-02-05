@@ -1,5 +1,3 @@
-
-
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -20,13 +18,13 @@
 
 <%
 CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
 %>
 
-<liferay-portlet:renderURL var="createCommerceCatalogURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-	<portlet:param name="mvcRenderCommandName" value="createCommerceCatalog" />
-</liferay-portlet:renderURL>
+<liferay-ui:error-header />
+
+<liferay-ui:error exception="<%= NoSuchCatalogException.class %>" message="that-catalog-could-not-be-found" />
+
+<liferay-ui:error-principal />
 
 <div class="row">
 	<div class="col-12">
@@ -37,7 +35,7 @@ PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
-			portletURL="<%= portletURL %>"
+			portletURL="<%= commerceCatalogDisplayContext.getPortletURL() %>"
 			style="fluid"
 		/>
 	</div>

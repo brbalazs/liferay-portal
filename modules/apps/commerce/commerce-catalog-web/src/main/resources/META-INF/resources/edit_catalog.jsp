@@ -21,12 +21,6 @@ CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDi
 
 CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
 
-String headerTitle = null;
-
-if (commerceCatalog != null) {
-	headerTitle = commerceCatalog.getName();
-}
-
 portletDisplay.setShowBackIcon(true);
 
 if (redirect == null) {
@@ -39,7 +33,6 @@ else {
 
 <commerce-ui:header
 	actions="<%= commerceCatalogDisplayContext.getHeaderActionModels() %>"
-	assignerModalUrl="/assigner/modal/url"
 	bean="<%= commerceCatalog %>"
 	beanIdLabel="catalog-id"
 	dropdownItems="<%= commerceCatalogDisplayContext.getDropdownItems() %>"
@@ -47,7 +40,7 @@ else {
 	externalReferenceCodeEditUrl="/external/reference/code/edit/url"
 	model="<%= CommerceCatalog.class %>"
 	thumbnailUrl="<%-- TOOO it would be nice to have the proper Default Catalog Image --%>"
-	title="<%= headerTitle %>"
+	title="<%= commerceCatalog.getName() %>"
 />
 
 <div id="<portlet:namespace />editCatalogContainer">
@@ -58,7 +51,3 @@ else {
 		portletURL="<%= currentURLObj %>"
 	/>
 </div>
-
-<aui:alert closeable="<%= false %>" cssClass="mt-3" type="warning">
-	<liferay-ui:message key="this-site-does-not-have-a-channel" />
-</aui:alert>

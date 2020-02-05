@@ -62,7 +62,7 @@ public class CommerceCatalogAccountGroupsScreenNavigationEntry
 
 		_jspRenderer.renderJSP(
 			httpServletRequest, httpServletResponse,
-			"/details/account_groups.jsp");
+			"/catalog/account_groups.jsp");
 	}
 
 	@Reference
