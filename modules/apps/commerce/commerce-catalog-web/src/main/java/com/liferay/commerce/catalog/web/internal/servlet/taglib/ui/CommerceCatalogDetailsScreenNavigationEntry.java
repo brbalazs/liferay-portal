@@ -25,14 +25,14 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CommerceCatalogInfoScreenNavigationEntry
+public class CommerceCatalogDetailsScreenNavigationEntry
 	implements ScreenNavigationCategory,
 			   ScreenNavigationEntry<CommerceCatalog> {
 
 	@Override
 	public String getCategoryKey() {
 		return CommerceCatalogScreenNavigationConstants.
-			CATEGORY_KEY_COMMERCE_CATALOG_INFO;
+			CATEGORY_KEY_COMMERCE_CATALOG_DETAILS;
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class CommerceCatalogInfoScreenNavigationEntry
 		throws IOException {
 
 		_jspRenderer.renderJSP(
-			httpServletRequest, httpServletResponse, "/details/info.jsp");
+			httpServletRequest, httpServletResponse, "/catalog/details.jsp");
 	}
 
 	@Reference
