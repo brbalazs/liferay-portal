@@ -545,8 +545,9 @@ public class CommerceOrderEditDisplayContext {
 			String label = CommerceOrderConstants.getOrderStatusLabel(
 				commerceOrderStatus.getKey());
 
-			if (commerceOrderStatus.getKey() ==
-					CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
+			if (ArrayUtil.contains(
+					CommerceOrderConstants.SHIPPABLE_ORDER_STATUSES,
+					commerceOrderStatus.getKey())) {
 
 				label = "ship-order";
 			}

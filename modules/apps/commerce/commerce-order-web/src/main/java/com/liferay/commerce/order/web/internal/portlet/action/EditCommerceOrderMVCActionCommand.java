@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -197,7 +198,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			int orderStatus = GetterUtil.getInteger(
 				transitionName, commerceOrder.getOrderStatus());
 
-			if (orderStatus == CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
+			if (ArrayUtil.contains(
+					CommerceOrderConstants.SHIPPABLE_ORDER_STATUSES,
+					orderStatus)) {
+
 				CommerceShipment commerceShipment = addShipment(
 					actionRequest, commerceOrderId);
 
