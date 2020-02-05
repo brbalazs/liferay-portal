@@ -120,7 +120,7 @@ if (dlViewFileVersionDisplayContext.isVersionInfoVisible()) {
 								elementClasses="btn-sm"
 								href="<%= DLUtil.getDownloadURL(fileEntry, fileVersion, themeDisplay, StringPool.BLANK) %>"
 								label='<%= LanguageUtil.get(resourceBundle, "download") %>'
-								title='<%= LanguageUtil.get(resourceBundle, "download") + " (" + TextFormatter.formatStorageSize(fileVersion.getSize(), locale) + ")" %>'
+								title='<%= LanguageUtil.get(resourceBundle, "download") + " (" + LanguageUtil.formatStorageSize(fileVersion.getSize(), locale) + ")" %>'
 							/>
 						</div>
 
@@ -225,7 +225,7 @@ if (dlViewFileVersionDisplayContext.isVersionInfoVisible()) {
 					<liferay-ui:message key="size" />
 				</dt>
 				<dd class="sidebar-dd">
-					<%= HtmlUtil.escape(TextFormatter.formatStorageSize(fileVersion.getSize(), locale)) %>
+					<%= HtmlUtil.escape(LanguageUtil.formatStorageSize(fileVersion.getSize(), locale)) %>
 				</dd>
 				<dt class="sidebar-dt">
 					<liferay-ui:message key="modified" />

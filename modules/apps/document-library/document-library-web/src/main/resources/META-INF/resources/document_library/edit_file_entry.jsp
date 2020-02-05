@@ -221,7 +221,7 @@ if (portletTitleBasedNavigation) {
 			<liferay-ui:error exception="<%= DuplicateFolderNameException.class %>" message="please-enter-a-unique-document-name" />
 
 			<liferay-ui:error exception="<%= LiferayFileItemException.class %>">
-				<liferay-ui:message arguments="<%= TextFormatter.formatStorageSize(LiferayFileItem.THRESHOLD_SIZE, locale) %>" key="please-enter-valid-content-with-valid-content-size-no-larger-than-x" translateArguments="<%= false %>" />
+				<liferay-ui:message arguments="<%= LanguageUtil.formatStorageSize(LiferayFileItem.THRESHOLD_SIZE, locale) %>" key="please-enter-valid-content-with-valid-content-size-no-larger-than-x" translateArguments="<%= false %>" />
 			</liferay-ui:error>
 
 			<liferay-ui:error exception="<%= FileExtensionException.class %>">
@@ -244,11 +244,11 @@ if (portletTitleBasedNavigation) {
 			%>
 
 			<liferay-ui:error exception="<%= FileSizeException.class %>">
-				<liferay-ui:message arguments="<%= TextFormatter.formatStorageSize(fileMaxSize, locale) %>" key="please-enter-a-file-with-a-valid-file-size-no-larger-than-x" translateArguments="<%= false %>" />
+				<liferay-ui:message arguments="<%= LanguageUtil.formatStorageSize(fileMaxSize, locale) %>" key="please-enter-a-file-with-a-valid-file-size-no-larger-than-x" translateArguments="<%= false %>" />
 			</liferay-ui:error>
 
 			<liferay-ui:error exception="<%= UploadRequestSizeException.class %>">
-				<liferay-ui:message arguments="<%= TextFormatter.formatStorageSize(dlEditFileEntryDisplayContext.getMaximumUploadRequestSize(), locale) %>" key="request-is-larger-than-x-and-could-not-be-processed" translateArguments="<%= false %>" />
+				<liferay-ui:message arguments="<%= LanguageUtil.formatStorageSize(dlEditFileEntryDisplayContext.getMaximumUploadRequestSize(), locale) %>" key="request-is-larger-than-x-and-could-not-be-processed" translateArguments="<%= false %>" />
 			</liferay-ui:error>
 
 			<liferay-asset:asset-categories-error />
@@ -261,7 +261,7 @@ if (portletTitleBasedNavigation) {
 				<aui:fieldset>
 					<c:if test="<%= fileMaxSize != 0 %>">
 						<div class="alert alert-info">
-							<liferay-ui:message arguments="<%= TextFormatter.formatStorageSize(fileMaxSize, locale) %>" key="upload-documents-no-larger-than-x" translateArguments="<%= false %>" />
+							<liferay-ui:message arguments="<%= LanguageUtil.formatStorageSize(fileMaxSize, locale) %>" key="upload-documents-no-larger-than-x" translateArguments="<%= false %>" />
 						</div>
 					</c:if>
 

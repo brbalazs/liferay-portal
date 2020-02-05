@@ -35,7 +35,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.util.WebKeys;
 
@@ -115,7 +114,7 @@ public class ItemSelectorRepositoryEntryBrowserUtil {
 		firstTabDataJSONArray.put(
 			_createJSONObject(
 				LanguageUtil.get(locale, "size"),
-				TextFormatter.formatStorageSize(fileEntry.getSize(), locale)));
+				LanguageUtil.formatStorageSize(fileEntry.getSize(), locale)));
 		firstTabDataJSONArray.put(
 			_createJSONObject(
 				LanguageUtil.get(locale, "name"),

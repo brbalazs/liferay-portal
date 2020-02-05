@@ -283,7 +283,7 @@ if (portletTitleBasedNavigation && (folderId != DLFolderConstants.DEFAULT_PARENT
 										<liferay-ui:search-container-column-text
 											cssClass="table-cell-expand-smallest"
 											name="size"
-											value="<%= TextFormatter.formatStorageSize(latestFileVersion.getSize(), locale) %>"
+											value="<%= LanguageUtil.formatStorageSize(latestFileVersion.getSize(), locale) %>"
 										/>
 									</c:when>
 									<c:when test='<%= curEntryColumn.equals("status") %>'>

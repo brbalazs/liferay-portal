@@ -54,7 +54,7 @@ if (kbArticle != null) {
 					<liferay-ui:icon
 						iconCssClass="icon-paper-clip"
 						label="<%= true %>"
-						message='<%= HtmlUtil.escape(fileEntry.getTitle()) + " (" + TextFormatter.formatStorageSize(fileEntry.getSize(), locale) + ")" %>'
+						message='<%= HtmlUtil.escape(fileEntry.getTitle()) + " (" + LanguageUtil.formatStorageSize(fileEntry.getSize(), locale) + ")" %>'
 						method="get"
 						url='<%= PortletFileRepositoryUtil.getDownloadPortletFileEntryURL(themeDisplay, fileEntry, "status=" + WorkflowConstants.STATUS_APPROVED) %>'
 					/>
