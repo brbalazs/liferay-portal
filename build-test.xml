@@ -5623,6 +5623,29 @@ update db cfg for lportal${databases.size} using logsecond 254;</echo>
 						</then>
 					</elseif>
 					<elseif>
+						<equals arg1="${database.type}" arg2="sqlserver" />
+						<then>
+							<replace
+								file="create.sql"
+							>
+								<replacefilter>
+									<replacetoken>create database lportal;
+
+go</replacetoken>
+									<replacevalue><![CDATA[create database lportal;
+
+go
+
+alter database lportal set allow_snapshot_isolation on;
+go
+
+alter database lportal set read_committed_snapshot on;
+go]]></replacevalue>
+								</replacefilter>
+							</replace>
+						</then>
+					</elseif>
+					<elseif>
 						<equals arg1="${database.type}" arg2="sybase" />
 						<then>
 							<replace
