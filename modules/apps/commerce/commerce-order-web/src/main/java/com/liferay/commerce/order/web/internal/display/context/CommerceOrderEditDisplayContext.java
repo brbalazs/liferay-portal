@@ -542,6 +542,12 @@ public class CommerceOrderEditDisplayContext {
 		PortletURL portletURL = getTransitionOrderPortletURL();
 
 		for (CommerceOrderStatus commerceOrderStatus : commerceOrderStatuses) {
+			if (commerceOrderStatus.getKey() ==
+					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) {
+
+				continue;
+			}
+
 			String label = CommerceOrderConstants.getOrderStatusLabel(
 				commerceOrderStatus.getKey());
 
