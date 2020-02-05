@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.internal.upgrade.v2_0_0;
 
+import com.liferay.commerce.product.internal.upgrade.base.BaseCommerceProductServiceUpgradeProcess;
 import com.liferay.commerce.product.model.impl.CPInstanceOptionValueRelModelImpl;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -22,10 +23,7 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
-
-import java.io.IOException;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -39,7 +37,8 @@ import java.util.Map;
 /**
  * @author Matija Petanjek
  */
-public class CPInstanceOptionValueRelUpgradeProcess extends UpgradeProcess {
+public class CPInstanceOptionValueRelUpgradeProcess
+	extends BaseCommerceProductServiceUpgradeProcess {
 
 	public CPInstanceOptionValueRelUpgradeProcess(JSONFactory jsonFactory) {
 		_jsonFactory = jsonFactory;
@@ -48,38 +47,10 @@ public class CPInstanceOptionValueRelUpgradeProcess extends UpgradeProcess {
 	@Override
 	protected void doUpgrade() throws Exception {
 		if (!hasTable(CPInstanceOptionValueRelModelImpl.TABLE_NAME)) {
-			_createCPInstanceOptionValueRelTable();
-			_createCPInstanceOptionValueRelTableIndexes();
+			runSQL(CPInstanceOptionValueRelModelImpl.TABLE_SQL_CREATE);
 		}
 
 		_importContentFromCPInstanceJsonField();
-	}
-
-	private void _createCPInstanceOptionValueRelTable()
-		throws IOException, SQLException {
-
-		runSQL(CPInstanceOptionValueRelModelImpl.TABLE_SQL_CREATE);
-	}
-
-	private void _createCPInstanceOptionValueRelTableIndexes()
-		throws IOException, SQLException {
-
-		runSQL(
-			"create unique index IX_4BFAB7E7 on CPInstanceOptionValueRel (" +
-				"CPDefinitionOptionRelId, CPDefinitionOptionValueRelId, " +
-					"CPInstanceId)");
-
-		runSQL(
-			"create index IX_2C714896 on CPInstanceOptionValueRel (" +
-				"CPInstanceId)");
-
-		runSQL(
-			"create index IX_F6E24C79 on CPInstanceOptionValueRel (" +
-				"uuid_, companyId)");
-
-		runSQL(
-			"create unique index IX_AF559D3B on CPInstanceOptionValueRel (" +
-				"uuid_, groupId)");
 	}
 
 	private long _getCPDefinitionOptionRelId(
