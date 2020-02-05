@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
 import com.liferay.portal.kernel.scheduler.TimeUnit;
 import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.TriggerFactory;
+import com.liferay.portal.kernel.util.Validator;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -70,12 +71,14 @@ public class ProductDefinitionMessageListener extends BaseMessageListener {
 
 		Trigger trigger = null;
 
-		try {
-			trigger = _triggerFactory.createTrigger(
-				className, className, null, null, cronExpression);
-		}
-		catch (RuntimeException re) {
-			_log.error(re, re);
+		if (Validator.isNotNull(cronExpression)) {
+			try {
+				trigger = _triggerFactory.createTrigger(
+					className, className, null, null, cronExpression);
+			}
+			catch (RuntimeException re) {
+				_log.error(re, re);
+			}
 		}
 
 		if (trigger == null) {
