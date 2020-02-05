@@ -93,6 +93,8 @@ public interface Language {
 		ResourceBundle resourceBundle, String pattern, Object[] arguments,
 		boolean translateArguments);
 
+	public String formatStorageSize(double size, Locale locale);
+
 	public String get(
 		HttpServletRequest request, ResourceBundle resourceBundle, String key);
 
