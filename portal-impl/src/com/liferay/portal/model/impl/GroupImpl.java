@@ -291,6 +291,11 @@ public class GroupImpl extends GroupBaseImpl {
 		ThemeDisplay themeDisplay, boolean privateLayout) {
 
 		try {
+			LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+				getGroupId(), privateLayout);
+
+			int layoutSetPageCount = layoutSet.getPageCount();
+
 			int layoutsCount = LayoutLocalServiceUtil.getLayoutsCount(
 				this, privateLayout, StringPool.BLANK,
 				new String[] {
@@ -301,13 +306,13 @@ public class GroupImpl extends GroupBaseImpl {
 					LayoutConstants.TYPE_URL
 				});
 
+			layoutsCount =
+				(layoutSetPageCount == 0) ? layoutSetPageCount : layoutsCount;
+
 			if ((layoutsCount > 0) ||
 				(isUser() &&
 				 (LayoutLocalServiceUtil.getLayoutsCount(this, privateLayout) >
 					 0))) {
-
-				LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
-					getGroupId(), privateLayout);
 
 				String groupFriendlyURL = PortalUtil.getGroupFriendlyURL(
 					layoutSet, themeDisplay);
