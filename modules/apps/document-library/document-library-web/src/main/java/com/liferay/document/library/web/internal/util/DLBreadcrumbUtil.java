@@ -277,6 +277,9 @@ public class DLBreadcrumbUtil {
 			PortletURL portletURL)
 		throws WindowStateException {
 
+		portletURL.setParameter(parameterName, parameterValue);
+		portletURL.setParameter("groupId", String.valueOf(groupId));
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
@@ -288,8 +291,6 @@ public class DLBreadcrumbUtil {
 				String.valueOf(DLFolderConstants.DEFAULT_PARENT_FOLDER_ID));
 		}
 
-		portletURL.setParameter(parameterName, parameterValue);
-		portletURL.setParameter("groupId", String.valueOf(groupId));
 		portletURL.setParameter(
 			"ignoreRootFolder", String.valueOf(ignoreRootFolder));
 		portletURL.setWindowState(LiferayWindowState.POP_UP);
