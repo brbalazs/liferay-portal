@@ -19,10 +19,6 @@ public class Catalog {
 		return _catalogId;
 	}
 
-	public String getName() {
-		return _name;
-	}
-
 	public String getCurrencyCode() {
 		return _currencyCode;
 	}
@@ -31,9 +27,13 @@ public class Catalog {
 		return _defaultLanguageId;
 	}
 
+	public String getName() {
+		return _name;
+	}
+
 	private final long _catalogId;
-	private final String _name;
 	private final String _currencyCode;
 	private final String _defaultLanguageId;
+	private final String _name;
 
 }

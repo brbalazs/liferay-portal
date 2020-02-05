@@ -14,24 +14,14 @@
 
 package com.liferay.commerce.catalog.web.internal.portlet.action;
 
-import com.liferay.commerce.catalog.web.internal.display.context.CommerceCatalogDisplayContext;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
-import com.liferay.commerce.product.model.CommerceCatalog;
-import com.liferay.commerce.product.service.CommerceCatalogService;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Gianmarco Brunialti Masera
@@ -53,4 +43,5 @@ public class AddCommerceCatalogMVCRenderCommand implements MVCRenderCommand {
 
 		return "/add_catalog.jsp";
 	}
+
 }

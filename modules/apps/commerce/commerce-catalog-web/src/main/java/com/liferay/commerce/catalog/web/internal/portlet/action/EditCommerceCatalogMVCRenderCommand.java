@@ -43,4 +43,5 @@ public class EditCommerceCatalogMVCRenderCommand implements MVCRenderCommand {
 
 		return "/edit_catalog.jsp";
 	}
+
 }

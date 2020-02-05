@@ -24,15 +24,11 @@ import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
-import com.liferay.commerce.product.util.CPUtil;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
-import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -72,19 +68,18 @@ public class CommerceCatalogDisplayContext {
 		cpRequestHelper = new CPRequestHelper(httpServletRequest);
 	}
 
-	protected final CPRequestHelper cpRequestHelper;
-
 	public ClayCreationMenu getClayCreationMenu() {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
-		if(hasAddCatalogPermission()) {
+		if (hasAddCatalogPermission()) {
 			clayCreationMenu.addClayCreationMenuItems(
 				new ClayCreationMenuItem(
 					getCreateCommerceCatalogActionURL(),
-					LanguageUtil.get(cpRequestHelper.getRequest(), "add-catalog"),
+					LanguageUtil.get(
+						cpRequestHelper.getRequest(), "add-catalog"),
 					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TYPE_MODAL));
 		}
-		
+
 		return clayCreationMenu;
 	}
 
@@ -112,8 +107,7 @@ public class CommerceCatalogDisplayContext {
 			cpRequestHelper.getRequest(), CPPortletKeys.COMMERCE_CATALOGS,
 			PortletRequest.RENDER_PHASE);
 
-		portletURL.setParameter(
-			"mvcRenderCommandName", "addCommerceCatalog");
+		portletURL.setParameter("mvcRenderCommandName", "addCommerceCatalog");
 
 		return portletURL.toString();
 	}
@@ -131,14 +125,16 @@ public class CommerceCatalogDisplayContext {
 
 		HeaderActionModel headerActionModelCancel = new HeaderActionModel();
 
-		headerActionModelCancel.setLabel(LanguageUtil.get(httpServletRequest, "cancel"));
+		headerActionModelCancel.setLabel(
+			LanguageUtil.get(httpServletRequest, "cancel"));
 		headerActionModelCancel.setAdditionalClasses("btn-unstyled");
 
 		headerActionModels.add(headerActionModelCancel);
 
 		HeaderActionModel headerActionModelSave = new HeaderActionModel();
 
-		headerActionModelSave.setLabel(LanguageUtil.get(httpServletRequest, "save"));
+		headerActionModelSave.setLabel(
+			LanguageUtil.get(httpServletRequest, "save"));
 		headerActionModelSave.setAdditionalClasses("btn-secondary");
 
 		headerActionModels.add(headerActionModelSave);
@@ -159,14 +155,14 @@ public class CommerceCatalogDisplayContext {
 		LiferayPortletResponse liferayPortletResponse =
 			cpRequestHelper.getLiferayPortletResponse();
 
-		PortletURL portletURL =  liferayPortletResponse.createRenderURL();
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
-		String redirect = ParamUtil.getString(cpRequestHelper.getRequest(), "redirect");
+		String redirect = ParamUtil.getString(
+			cpRequestHelper.getRequest(), "redirect");
 
 		if (Validator.isNotNull(redirect)) {
 			portletURL.setParameter("redirect", redirect);
 		}
-
 
 		String filterFields = ParamUtil.getString(
 			cpRequestHelper.getRequest(), "filterFields");
@@ -193,9 +189,10 @@ public class CommerceCatalogDisplayContext {
 	}
 
 	public boolean hasAddCatalogPermission() {
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)cpRequestHelper.getRequest().getAttribute(
-				WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)cpRequestHelper.getRequest(
+		).getAttribute(
+			WebKeys.THEME_DISPLAY
+		);
 
 		return PortalPermissionUtil.contains(
 			themeDisplay.getPermissionChecker(),
@@ -205,13 +202,16 @@ public class CommerceCatalogDisplayContext {
 	public boolean hasPermission(long commerceCatalogId, String actionId)
 		throws PortalException {
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)cpRequestHelper.getRequest().getAttribute(
-				WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)cpRequestHelper.getRequest(
+		).getAttribute(
+			WebKeys.THEME_DISPLAY
+		);
 
 		return _commerceCatalogModelResourcePermission.contains(
 			themeDisplay.getPermissionChecker(), commerceCatalogId, actionId);
 	}
+
+	protected final CPRequestHelper cpRequestHelper;
 
 	private final ModelResourcePermission<CommerceCatalog>
 		_commerceCatalogModelResourcePermission;
