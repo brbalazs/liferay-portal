@@ -19,7 +19,7 @@ import DatasetDisplayContext from '../DatasetDisplayContext.es';
 import DefaultContent from './Default.es';
 
 function SidePanelLink(props) {
-	const {loadData, openSidePanel} = useContext(DatasetDisplayContext);
+	const {openSidePanel} = useContext(DatasetDisplayContext);
 
 	function handleClickOnLink(e, payload) {
 		e.preventDefault();
@@ -32,7 +32,6 @@ function SidePanelLink(props) {
 			className="btn btn-link btn-sm p-0"
 			onClick={e =>
 				handleClickOnLink(e, {
-					onSubmit: loadData,
 					size: props.value.size,
 					url: props.value.href
 				})

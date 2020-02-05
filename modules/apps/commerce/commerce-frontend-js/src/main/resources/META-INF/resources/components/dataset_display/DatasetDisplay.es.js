@@ -168,10 +168,11 @@ function DatasetDisplay(props) {
 			filters.filter(e => !!e.value),
 			delta,
 			pageNumber,
-			sorting
+			sorting,
+			false
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.apiUrl, filters, delta, pageNumber, sorting]);
+	}, [props.apiUrl, filters, delta, pageNumber, sorting, refreshData]);
 
 	const selectItems = val => {
 		if (val instanceof Array) {
@@ -190,6 +191,16 @@ function DatasetDisplay(props) {
 			setSelectedItemsValue(selectedItemsValue.concat(val));
 		}
 	};
+
+	const refreshData = () =>
+		getData(
+			props.apiUrl,
+			filters.filter(e => !!e.value),
+			delta,
+			pageNumber,
+			sorting,
+			false
+		);
 
 	const managementBar = props.showManagementBar ? (
 		<div className="dataset-display-management-bar-wrapper">
@@ -278,15 +289,7 @@ function DatasetDisplay(props) {
 			value={{
 				formId: props.formId,
 				formRef,
-				loadData: () =>
-					getData(
-						props.apiUrl,
-						filters.filter(e => !!e.value),
-						delta,
-						pageNumber,
-						sorting,
-						true
-					),
+				loadData: refreshData,
 				modalId: datasetDisplaySupportModalId,
 				openModal,
 				openSidePanel,
@@ -302,9 +305,15 @@ function DatasetDisplay(props) {
 			}}
 		>
 			<ClayIconSpriteContext.Provider value={props.spritemap}>
-				<Modal id={datasetDisplaySupportModalId} />
+				<Modal
+					id={datasetDisplaySupportModalId}
+					onClose={refreshData}
+				/>
 				{!props.sidePanelId && (
-					<SidePanel id={sidePanelSupportModalId} />
+					<SidePanel
+						id={sidePanelSupportModalId}
+						onAfterSubmit={refreshData}
+					/>
 				)}
 				{props.style === 'default' && (
 					<div className="dataset-display">

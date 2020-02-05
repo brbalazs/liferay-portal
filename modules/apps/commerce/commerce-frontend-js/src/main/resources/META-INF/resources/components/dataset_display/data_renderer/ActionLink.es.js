@@ -21,9 +21,7 @@ import DatasetDisplayContext from '../DatasetDisplayContext.es';
 import DefaultContent from './Default.es';
 
 function ActionLink(props) {
-	const {loadData, openModal, openSidePanel} = useContext(
-		DatasetDisplayContext
-	);
+	const {openModal, openSidePanel} = useContext(DatasetDisplayContext);
 
 	const currentAction = props.options.actionId
 		? props.actions.find(action => action.id === props.options.actionId)
@@ -52,7 +50,6 @@ function ActionLink(props) {
 				handleClickOnLink(
 					e,
 					{
-						onSubmit: loadData,
 						size: currentAction.size,
 						title: currentAction.title,
 						url: currentAction.href

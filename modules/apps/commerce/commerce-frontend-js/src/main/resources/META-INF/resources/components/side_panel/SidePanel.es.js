@@ -21,7 +21,6 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 
 import {
-	OPEN,
 	OPEN_SIDE_PANEL,
 	CLOSE_SIDE_PANEL,
 	IFRAME_LOADED
@@ -87,7 +86,6 @@ export default class SidePanel extends React.Component {
 
 		if (Liferay) {
 			Liferay.on(OPEN_SIDE_PANEL, this.handlePanelOpenEvent);
-			Liferay.on(OPEN, this.handlePanelOpenEvent);
 			Liferay.on(CLOSE_SIDE_PANEL, this.handlePanelCloseEvent);
 		}
 
@@ -107,7 +105,7 @@ export default class SidePanel extends React.Component {
 		this.open(e.url, e.slug);
 
 		this.setState({
-			onAfterSubmit: e.onAfterSubmit || null,
+			onAfterSubmit: e.onSubmit || null,
 			size: e.size || this.defaultSize
 		});
 	}
@@ -116,12 +114,6 @@ export default class SidePanel extends React.Component {
 		e.preventDefault();
 
 		return this.close();
-	}
-
-	setSubmitAction(callback = null) {
-		this.setState({
-			onAfterSubmit: callback
-		});
 	}
 
 	componentWillUnmount() {
@@ -226,8 +218,8 @@ export default class SidePanel extends React.Component {
 
 		Liferay.detach(IFRAME_LOADED, this.handleIframeSubmit);
 
-		if (this.state.onAfterSubmit) {
-			this.state.onAfterSubmit();
+		if (this.props.onAfterSubmit) {
+			this.props.onAfterSubmit();
 		}
 	}
 
@@ -250,6 +242,13 @@ export default class SidePanel extends React.Component {
 
 		try {
 			const iframeDocument = this.iframeRef.current.contentDocument;
+			const iframeWindow = this.iframeRef.current.contentWindow;
+
+			if (iframeWindow.Liferay) {
+				iframeWindow.Liferay.on('endNavigate', () =>
+					this.handleIframeSubmit({id: this.props.id})
+				);
+			}
 
 			const submitButton = iframeDocument.querySelector(
 				'[type="submit"]'

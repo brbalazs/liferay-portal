@@ -58,6 +58,7 @@ else {
 	thumbnailUrl="<%= commerceOrderEditDisplayContext.getCommerceAccountThumbnailURL() %>"
 	title="<%= headerTitle %>"
 	transitionPortletURL="<%= commerceOrderEditDisplayContext.getTransitionOrderPortletURL() %>"
+	wrapperCssClasses="side-panel-top-anchor"
 />
 
 <div id="<portlet:namespace />editOrderContainer">

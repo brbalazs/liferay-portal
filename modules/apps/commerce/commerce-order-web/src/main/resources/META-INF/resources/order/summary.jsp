@@ -275,19 +275,3 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 		</commerce-ui:panel>
 	</div>
 </div>
-
-<div id="<portlet:namespace />side-panel-root"></div>
-<div id="<portlet:namespace />side-panel-wrapper"></div>
-
-<aui:script require="commerce-frontend-js/components/side_panel/entry.es as sidePanel">
-	sidePanel.default(
-		'<portlet:namespace />sidePanel',
-		'<portlet:namespace />side-panel-root',
-		{
-			spritemap:
-				'<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>',
-			topAnchorSelector: '.commerce-header',
-			wrapperSelector: '#<portlet:namespace />side-panel-wrapper'
-		}
-	);
-</aui:script>

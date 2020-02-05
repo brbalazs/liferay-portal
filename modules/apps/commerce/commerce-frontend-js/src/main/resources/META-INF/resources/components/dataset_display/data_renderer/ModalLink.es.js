@@ -20,7 +20,7 @@ import DatasetDisplayContext from '../DatasetDisplayContext.es';
 import DefaultContent from './Default.es';
 
 function ModalLink(props) {
-	const {loadData, openModal} = useContext(DatasetDisplayContext);
+	const {openModal} = useContext(DatasetDisplayContext);
 
 	function handleClickOnLink(e, payload) {
 		e.preventDefault();
@@ -33,7 +33,6 @@ function ModalLink(props) {
 			href="#"
 			onClick={e =>
 				handleClickOnLink(e, {
-					onSubmit: loadData,
 					size: props.value.size,
 					title: props.value.title,
 					url: props.value.href

@@ -19,20 +19,20 @@ package com.liferay.commerce.order.web.internal.model;
  */
 public class Sku {
 
-	public Sku(String label, String url) {
+	public Sku(String label, String href) {
 		_label = label;
-		_url = url;
+		_href = href;
 	}
 
 	public String getLabel() {
 		return _label;
 	}
 
-	public String getUrl() {
-		return _url;
+	public String getHref() {
+		return _href;
 	}
 
 	private final String _label;
-	private final String _url;
+	private final String _href;
 
 }
