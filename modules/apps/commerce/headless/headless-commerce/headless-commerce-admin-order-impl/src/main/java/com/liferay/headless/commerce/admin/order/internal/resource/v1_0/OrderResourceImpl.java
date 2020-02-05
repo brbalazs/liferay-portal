@@ -23,6 +23,7 @@ import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
@@ -372,8 +373,8 @@ public class OrderResourceImpl
 				commerceOrder.getGroupId()));
 
 		if (commerceOrder.getOrderStatus() != order.getOrderStatus()) {
-			commerceOrder = _commerceOrderService.updateOrderStatus(
-				commerceOrder.getCommerceOrderId(), order.getOrderStatus());
+			commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, order.getOrderStatus(), _user.getUserId());
 		}
 
 		return commerceOrder;
@@ -492,6 +493,9 @@ public class OrderResourceImpl
 
 	@Reference
 	private CommerceCurrencyService _commerceCurrencyService;
+
+	@Reference
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;

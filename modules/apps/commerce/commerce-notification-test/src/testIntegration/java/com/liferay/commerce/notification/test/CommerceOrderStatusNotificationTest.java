@@ -156,9 +156,9 @@ public class CommerceOrderStatusNotificationTest {
 		_checkCommerceNotificationTemplate(
 			CommerceOrderConstants.ORDER_NOTIFICATION_PLACED);
 
-		_commerceOrderLocalService.updateOrderStatus(
-			_commerceOrder.getCommerceOrderId(),
-			CommerceOrderConstants.ORDER_STATUS_SHIPPED);
+		_commerceOrderEngine.transitionCommerceOrder(
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED,
+			_user.getUserId());
 
 		// Notifications are asynchronous, give time to send
 
@@ -173,9 +173,9 @@ public class CommerceOrderStatusNotificationTest {
 		_checkCommerceNotificationTemplate(
 			CommerceOrderConstants.ORDER_NOTIFICATION_SHIPPED);
 
-		_commerceOrderLocalService.updateOrderStatus(
-			_commerceOrder.getCommerceOrderId(),
-			CommerceOrderConstants.ORDER_STATUS_COMPLETED);
+		_commerceOrderEngine.transitionCommerceOrder(
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_COMPLETED,
+			_user.getUserId());
 
 		// Notifications are asynchronous, give time to send
 

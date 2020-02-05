@@ -35,14 +35,13 @@ import com.liferay.commerce.exception.CommerceOrderStatusException;
 import com.liferay.commerce.exception.CommercePaymentEngineException;
 import com.liferay.commerce.exception.GuestCartMaxAllowedException;
 import com.liferay.commerce.internal.order.comparator.CommerceOrderModifiedDateComparator;
-import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.DDMFormValuesHelper;
 import com.liferay.commerce.search.facet.NegatableMultiValueFacet;
 import com.liferay.commerce.service.base.CommerceOrderLocalServiceBaseImpl;
@@ -1112,32 +1111,6 @@ public class CommerceOrderLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public CommerceOrder updateOrderStatus(
-			long commerceOrderId, int orderStatus)
-		throws PortalException {
-
-		// Commerce order
-
-		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
-			commerceOrderId);
-
-		final int previousOrderStatus = commerceOrder.getOrderStatus();
-
-		commerceOrder.setOrderStatus(orderStatus);
-
-		commerceOrder = commerceOrderPersistence.update(commerceOrder);
-
-		// Messaging
-
-		sendOrderStatusMessage(
-			commerceOrder.getCommerceOrderId(), commerceOrder.getOrderStatus(),
-			previousOrderStatus);
-
-		return commerceOrder;
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
 	public CommerceOrder updatePaymentStatus(
 			long userId, long commerceOrderId, int paymentStatus)
 		throws PortalException {
@@ -1354,8 +1327,8 @@ public class CommerceOrderLocalServiceImpl
 			commerceOrderLocalService.updatePaymentStatus(
 				userId, commerceOrder.getCommerceOrderId(), paymentStatus);
 
-			return commerceOrderLocalService.updateOrderStatus(
-				commerceOrder.getCommerceOrderId(), orderStatus);
+			return _commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, orderStatus, userId);
 		}
 
 		// Add
@@ -1499,29 +1472,6 @@ public class CommerceOrderLocalServiceImpl
 		return workflowDefinitionLinkLocalService.hasWorkflowDefinitionLink(
 			group.getCompanyId(), group.getGroupId(),
 			CommerceOrder.class.getName(), 0, typePK);
-	}
-
-	protected void sendOrderStatusMessage(
-		long commerceOrderId, int orderStatus, int previousOrderStatus) {
-
-		TransactionCommitCallbackUtil.registerCallback(
-			new Callable<Void>() {
-
-				@Override
-				public Void call() throws Exception {
-					Message message = new Message();
-
-					message.put("commerceOrderId", commerceOrderId);
-					message.put("orderStatus", orderStatus);
-					message.put("previousOrderStatus", previousOrderStatus);
-
-					MessageBusUtil.sendMessage(
-						CommerceDestinationNames.ORDER_STATUS, message);
-
-					return null;
-				}
-
-			});
 	}
 
 	protected void sendPaymentStatusMessage(
@@ -1798,21 +1748,17 @@ public class CommerceOrderLocalServiceImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderLocalServiceImpl.class);
 
-	@ServiceReference(type = CommerceChannelLocalService.class)
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
 	@ServiceReference(type = CommerceCurrencyLocalService.class)
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@ServiceReference(type = CommerceDiscountLocalService.class)
 	private CommerceDiscountLocalService _commerceDiscountLocalService;
 
-	@ServiceReference(type = CommerceInventoryBookedQuantityLocalService.class)
-	private CommerceInventoryBookedQuantityLocalService
-		_commerceInventoryBookedQuantityLocalService;
-
 	@ServiceReference(type = CommerceOrderConfiguration.class)
 	private CommerceOrderConfiguration _commerceOrderConfiguration;
+
+	@ServiceReference(type = CommerceOrderEngine.class)
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@ServiceReference(type = CommerceOrderPriceCalculation.class)
 	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;

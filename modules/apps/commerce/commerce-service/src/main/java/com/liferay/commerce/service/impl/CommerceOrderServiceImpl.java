@@ -696,18 +696,6 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 	}
 
 	@Override
-	public CommerceOrder updateOrderStatus(
-			long commerceOrderId, int orderStatus)
-		throws PortalException {
-
-		_commerceOrderModelResourcePermission.check(
-			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
-
-		return commerceOrderLocalService.updateOrderStatus(
-			commerceOrderId, orderStatus);
-	}
-
-	@Override
 	public CommerceOrder updatePaymentStatus(
 			long commerceOrderId, int paymentStatus)
 		throws PortalException {
