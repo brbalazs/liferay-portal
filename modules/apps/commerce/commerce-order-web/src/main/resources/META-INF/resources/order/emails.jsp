@@ -24,92 +24,22 @@ CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrder
 	bodyClasses="p-0"
 	title='<%= LanguageUtil.get(request, "emails") %>'
 >
-	<liferay-ui:search-container
-		id="commerceNotificationQueueEntries"
-		searchContainer="<%= commerceOrderEditDisplayContext.getCommerceNotificationQueueEntriesSearchContainer() %>"
-	>
-		<liferay-ui:search-container-row
-			className="com.liferay.commerce.notification.model.CommerceNotificationQueueEntry"
-			escapedModel="<%= true %>"
-			keyProperty="commerceNotificationQueueEntryId"
-			modelVar="commerceNotificationQueueEntry"
-		>
 
-			<%
-			User notificationUser = commerceOrderEditDisplayContext.getNotificationUser(commerceNotificationQueueEntry);
-			%>
+	<%
+	Map<String, String> contextParams = new HashMap<>();
 
-			<liferay-ui:search-container-column-image
-				src="<%= commerceOrderEditDisplayContext.getUserPortraitSrc(notificationUser) %>"
-			/>
+	contextParams.put("commerceOrderId", String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderId()));
+	%>
 
-			<liferay-ui:search-container-column-text
-				colspan="<%= 2 %>"
-			>
-				<h5 class="mb-0"><%= commerceNotificationQueueEntry.getFromName() %></h5>
-
-				<small><%= commerceNotificationQueueEntry.getFrom() %></small>
-
-				<%
-				PortletURL rowURL = renderResponse.createRenderURL();
-
-				rowURL.setParameter("mvcRenderCommandName", "viewCommerceNotificationQueueEntry");
-				rowURL.setParameter("redirect", currentURL);
-				rowURL.setParameter("commerceOrderId", String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderId()));
-				rowURL.setParameter("commerceNotificationQueueEntryId", String.valueOf(commerceNotificationQueueEntry.getCommerceNotificationQueueEntryId()));
-				rowURL.setWindowState(LiferayWindowState.POP_UP);
-
-				Map<String, String> data = new HashMap<>();
-
-				data.put("panel-url", rowURL.toString());
-				data.put("target", renderResponse.getNamespace() + "sidePanel");
-				%>
-
-				<h4>
-					<clay:link
-						data="<%= data %>"
-						href="<%= rowURL.toString() %>"
-						label="<%= HtmlUtil.escape(commerceNotificationQueueEntry.getSubject()) %>"
-					/>
-				</h4>
-
-				<div>
-					<%= HtmlUtil.escape(commerceNotificationQueueEntry.getBody()) %>
-				</div>
-			</liferay-ui:search-container-column-text>
-
-			<liferay-ui:search-container-column-text>
-				<div class="mb-3 row">
-					<div class="col-auto">
-						<clay:label
-							label="<%= commerceOrderEditDisplayContext.getCommerceNotificationTemplateType() %>"
-							style="success"
-						/>
-					</div>
-
-					<div class="col-auto">
-
-						<%
-						String sentDateDescription = StringPool.BLANK;
-
-						Date sentDate = commerceNotificationQueueEntry.getSentDate();
-
-						if (sentDate != null) {
-							sentDateDescription = LanguageUtil.getTimeDescription(request, System.currentTimeMillis() - sentDate.getTime(), true);
-						}
-						%>
-
-						<small><%= sentDateDescription %></small>
-					</div>
-				</div>
-			</liferay-ui:search-container-column-text>
-		</liferay-ui:search-container-row>
-
-		<liferay-ui:search-iterator
-			displayStyle="descriptive"
-			markupView="lexicon"
-		/>
-	</liferay-ui:search-container>
+	<commerce-ui:dataset-display
+		contextParams="<%= contextParams %>"
+		dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_NOTIFICATIONS %>"
+		id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_NOTIFICATIONS %>"
+		itemsPerPage="<%= 10 %>"
+		namespace="<%= renderResponse.getNamespace() %>"
+		pageNumber="<%= 1 %>"
+		portletURL="<%= commerceOrderEditDisplayContext.getCommerceNotificationQueueEntriesPortletURL() %>"
+	/>
 </commerce-ui:panel>
 
 <div id="<portlet:namespace />side-panel-root"></div>
