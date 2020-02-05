@@ -73,11 +73,11 @@ public class CommerceOrderDataSetActionProvider
 				themeDisplay.getPermissionChecker(), order.getOrderId(),
 				ActionKeys.UPDATE)) {
 
-			PortletURL deleteURL = _getOrderEditURL(
+			PortletURL editURL = _getOrderEditURL(
 				order.getOrderId(), httpServletRequest);
 
 			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
+				StringPool.BLANK, editURL.toString(), StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "edit"), StringPool.BLANK,
 				false, false);
 
@@ -129,8 +129,6 @@ public class CommerceOrderDataSetActionProvider
 			PortletProvider.Action.MANAGE);
 
 		portletURL.setParameter("mvcRenderCommandName", "editCommerceOrder");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter(
 			"commerceOrderId", String.valueOf(commerceOrderId));
 
