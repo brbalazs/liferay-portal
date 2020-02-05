@@ -121,20 +121,14 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		throws PortalException {
 
 		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) {
-			_commerceNotificationHelper.sendNotifications(
-				commerceOrder.getScopeGroupId(), commerceOrder.getUserId(),
-				CommerceOrderConstants.ORDER_NOTIFICATION_PLACED,
-				commerceOrder);
-
 			CommerceSubscriptionEntryHelperUtil.checkCommerceSubscriptions(
 				commerceOrder);
 		}
-		else {
-			_commerceNotificationHelper.sendNotifications(
-				commerceOrder.getScopeGroupId(), commerceOrder.getUserId(),
-				CommerceOrderConstants.getNotificationKey(orderStatus),
-				commerceOrder);
-		}
+
+		_commerceNotificationHelper.sendNotifications(
+			commerceOrder.getScopeGroupId(), commerceOrder.getUserId(),
+			CommerceOrderConstants.getNotificationKey(orderStatus),
+			commerceOrder);
 	}
 
 	@Reference

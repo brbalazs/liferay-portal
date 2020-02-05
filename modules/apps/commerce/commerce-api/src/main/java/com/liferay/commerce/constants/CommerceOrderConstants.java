@@ -115,7 +115,10 @@ public class CommerceOrderConstants {
 	public static final long TYPE_PK_FULFILLMENT = 1;
 
 	public static String getNotificationKey(int orderStatus) {
-		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_FULFILLED) {
+		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) {
+			return ORDER_NOTIFICATION_PLACED;
+		}
+		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_FULFILLED) {
 			return ORDER_NOTIFICATION_FULFILLED;
 		}
 		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_FULFILLED) {
