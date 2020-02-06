@@ -129,7 +129,7 @@ class AddOrCreateBase extends Component {
 						</div>
 					</div>
 				</div>
-				{this.props.inputSearchValue && this.props.active && (
+				{this.props.active && (
 					<div className="card-body">
 						<ClayList>
 							{this.props.inputSearchValue && (
