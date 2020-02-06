@@ -566,6 +566,13 @@ public class CommerceOrderEditDisplayContext {
 					label = "submit";
 				}
 			}
+			else if ((commerceOrderStatus.getKey() ==
+						CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) &&
+					 (_commerceOrder.getPaymentStatus() ==
+						 CommerceOrderConstants.PAYMENT_STATUS_PENDING)) {
+
+				label = "accept-order";
+			}
 
 			portletURL.setParameter(
 				"transitionName", String.valueOf(commerceOrderStatus.getKey()));
