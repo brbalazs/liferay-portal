@@ -116,16 +116,6 @@ public interface CommerceOrderLocalService
 			CommerceContext commerceContext)
 		throws PortalException;
 
-	@Indexable(type = IndexableType.REINDEX)
-	public CommerceOrder approveCommerceOrder(long userId, long commerceOrderId)
-		throws PortalException;
-
-	@Indexable(type = IndexableType.REINDEX)
-	public CommerceOrder checkoutCommerceOrder(
-			long commerceOrderId, CommerceContext commerceContext,
-			ServiceContext serviceContext)
-		throws PortalException;
-
 	/**
 	 * Creates a new commerce order with the primary key. Does not add the commerce order to the database.
 	 *
@@ -473,14 +463,6 @@ public interface CommerceOrderLocalService
 	public long searchCommerceOrdersCount(SearchContext searchContext)
 		throws PortalException;
 
-	public CommerceOrder setCommerceOrderToTransmit(
-			long userId, CommerceOrder commerceOrder)
-		throws PortalException;
-
-	@Indexable(type = IndexableType.REINDEX)
-	public CommerceOrder submitCommerceOrder(long userId, long commerceOrderId)
-		throws PortalException;
-
 	public CommerceOrder updateAccount(
 			long commerceOrderId, long userId, long commerceAccountId)
 		throws PortalException;
@@ -573,11 +555,6 @@ public interface CommerceOrderLocalService
 			long commerceOrderId, int orderDateMonth, int orderDateDay,
 			int orderDateYear, int orderDateHour, int orderDateMinute,
 			ServiceContext serviceContext)
-		throws PortalException;
-
-	@Indexable(type = IndexableType.REINDEX)
-	public CommerceOrder updateOrderStatus(
-			long commerceOrderId, int orderStatus)
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)

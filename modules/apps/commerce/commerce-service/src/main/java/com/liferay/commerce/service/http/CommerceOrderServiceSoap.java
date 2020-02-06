@@ -143,46 +143,6 @@ public class CommerceOrderServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderSoap
-			approveCommerceOrder(long commerceOrderId)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.model.CommerceOrder returnValue =
-				CommerceOrderServiceUtil.approveCommerceOrder(commerceOrderId);
-
-			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.model.CommerceOrderSoap
-			checkoutCommerceOrder(
-				long commerceOrderId,
-				com.liferay.commerce.context.CommerceContext commerceContext,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.model.CommerceOrder returnValue =
-				CommerceOrderServiceUtil.checkoutCommerceOrder(
-					commerceOrderId, commerceContext, serviceContext);
-
-			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static void deleteCommerceOrder(long commerceOrderId)
 		throws RemoteException {
 
@@ -697,15 +657,14 @@ public class CommerceOrderServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderSoap
-			reorderCommerceOrder(
-				long commerceOrderId,
-				com.liferay.commerce.context.CommerceContext commerceContext)
+	public static com.liferay.commerce.model.CommerceOrderSoap recalculatePrice(
+			long commerceOrderId,
+			com.liferay.commerce.context.CommerceContext commerceContext)
 		throws RemoteException {
 
 		try {
 			com.liferay.commerce.model.CommerceOrder returnValue =
-				CommerceOrderServiceUtil.reorderCommerceOrder(
+				CommerceOrderServiceUtil.recalculatePrice(
 					commerceOrderId, commerceContext);
 
 			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
@@ -719,12 +678,15 @@ public class CommerceOrderServiceSoap {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderSoap
-			submitCommerceOrder(long commerceOrderId)
+			reorderCommerceOrder(
+				long commerceOrderId,
+				com.liferay.commerce.context.CommerceContext commerceContext)
 		throws RemoteException {
 
 		try {
 			com.liferay.commerce.model.CommerceOrder returnValue =
-				CommerceOrderServiceUtil.submitCommerceOrder(commerceOrderId);
+				CommerceOrderServiceUtil.reorderCommerceOrder(
+					commerceOrderId, commerceContext);
 
 			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
 				returnValue);
@@ -756,25 +718,6 @@ public class CommerceOrderServiceSoap {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderSoap
-			updateShippingAddress(long commerceOrderId, long shippingAddressId)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.model.CommerceOrder returnValue =
-				CommerceOrderServiceUtil.updateShippingAddress(
-					commerceOrderId, shippingAddressId);
-
-			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.model.CommerceOrderSoap
 			updateBillingAddress(
 				long commerceOrderId, String name, String description,
 				String street1, String street2, String street3, String city,
@@ -789,6 +732,27 @@ public class CommerceOrderServiceSoap {
 					commerceOrderId, name, description, street1, street2,
 					street3, city, zip, commerceRegionId, commerceCountryId,
 					phoneNumber, serviceContext);
+
+			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderSoap
+			updateCommerceOrder(
+				com.liferay.commerce.model.CommerceOrderSoap commerceOrder)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceOrder returnValue =
+				CommerceOrderServiceUtil.updateCommerceOrder(
+					com.liferay.commerce.model.impl.CommerceOrderModelImpl.
+						toModel(commerceOrder));
 
 			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
 				returnValue);
@@ -1020,25 +984,6 @@ public class CommerceOrderServiceSoap {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderSoap
-			updateOrderStatus(long commerceOrderId, int orderStatus)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.model.CommerceOrder returnValue =
-				CommerceOrderServiceUtil.updateOrderStatus(
-					commerceOrderId, orderStatus);
-
-			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.model.CommerceOrderSoap
 			updatePaymentStatus(long commerceOrderId, int paymentStatus)
 		throws RemoteException {
 
@@ -1105,6 +1050,25 @@ public class CommerceOrderServiceSoap {
 			com.liferay.commerce.model.CommerceOrder returnValue =
 				CommerceOrderServiceUtil.updatePurchaseOrderNumber(
 					commerceOrderId, purchaseOrderNumber);
+
+			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderSoap
+			updateShippingAddress(long commerceOrderId, long shippingAddressId)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceOrder returnValue =
+				CommerceOrderServiceUtil.updateShippingAddress(
+					commerceOrderId, shippingAddressId);
 
 			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
 				returnValue);

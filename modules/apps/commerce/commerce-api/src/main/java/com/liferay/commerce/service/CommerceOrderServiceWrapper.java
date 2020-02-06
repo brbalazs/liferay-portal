@@ -74,25 +74,6 @@ public class CommerceOrderServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.model.CommerceOrder approveCommerceOrder(
-			long commerceOrderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderService.approveCommerceOrder(commerceOrderId);
-	}
-
-	@Override
-	public com.liferay.commerce.model.CommerceOrder checkoutCommerceOrder(
-			long commerceOrderId,
-			com.liferay.commerce.context.CommerceContext commerceContext,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderService.checkoutCommerceOrder(
-			commerceOrderId, commerceContext, serviceContext);
-	}
-
-	@Override
 	public void deleteCommerceOrder(long commerceOrderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -356,6 +337,16 @@ public class CommerceOrderServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.model.CommerceOrder recalculatePrice(
+			long commerceOrderId,
+			com.liferay.commerce.context.CommerceContext commerceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderService.recalculatePrice(
+			commerceOrderId, commerceContext);
+	}
+
+	@Override
 	public com.liferay.commerce.model.CommerceOrder reorderCommerceOrder(
 			long commerceOrderId,
 			com.liferay.commerce.context.CommerceContext commerceContext)
@@ -363,14 +354,6 @@ public class CommerceOrderServiceWrapper
 
 		return _commerceOrderService.reorderCommerceOrder(
 			commerceOrderId, commerceContext);
-	}
-
-	@Override
-	public com.liferay.commerce.model.CommerceOrder submitCommerceOrder(
-			long commerceOrderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderService.submitCommerceOrder(commerceOrderId);
 	}
 
 	@Override
@@ -395,6 +378,14 @@ public class CommerceOrderServiceWrapper
 			commerceOrderId, name, description, street1, street2, street3, city,
 			zip, commerceRegionId, commerceCountryId, phoneNumber,
 			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceOrder updateCommerceOrder(
+			com.liferay.commerce.model.CommerceOrder commerceOrder)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderService.updateCommerceOrder(commerceOrder);
 	}
 
 	@Override
@@ -522,15 +513,6 @@ public class CommerceOrderServiceWrapper
 		return _commerceOrderService.updateOrderDate(
 			commerceOrderId, orderDateMonth, orderDateDay, orderDateYear,
 			orderDateHour, orderDateMinute, serviceContext);
-	}
-
-	@Override
-	public com.liferay.commerce.model.CommerceOrder updateOrderStatus(
-			long commerceOrderId, int orderStatus)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderService.updateOrderStatus(
-			commerceOrderId, orderStatus);
 	}
 
 	@Override

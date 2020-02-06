@@ -280,9 +280,8 @@ public class CommerceAddressLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.model.CommerceAddress
-			fetchByExternalReferenceCode(
-				long companyId, String externalReferenceCode)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		fetchByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
 
 		return _commerceAddressLocalService.fetchByExternalReferenceCode(
 			companyId, externalReferenceCode);

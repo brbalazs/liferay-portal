@@ -223,8 +223,7 @@ public interface CommerceAddressLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceAddress fetchByExternalReferenceCode(
-			long companyId, String externalReferenceCode)
-		throws PortalException;
+		long companyId, String externalReferenceCode);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceAddress fetchCommerceAddress(long commerceAddressId);

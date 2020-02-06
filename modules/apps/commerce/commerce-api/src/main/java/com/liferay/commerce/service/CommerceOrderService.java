@@ -84,14 +84,6 @@ public interface CommerceOrderService extends BaseService {
 			CommerceContext commerceContext)
 		throws PortalException;
 
-	public CommerceOrder approveCommerceOrder(long commerceOrderId)
-		throws PortalException;
-
-	public CommerceOrder checkoutCommerceOrder(
-			long commerceOrderId, CommerceContext commerceContext,
-			ServiceContext serviceContext)
-		throws PortalException;
-
 	public void deleteCommerceOrder(long commerceOrderId)
 		throws PortalException;
 
@@ -227,11 +219,12 @@ public interface CommerceOrderService extends BaseService {
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws PortalException;
 
-	public CommerceOrder reorderCommerceOrder(
+	public CommerceOrder recalculatePrice(
 			long commerceOrderId, CommerceContext commerceContext)
 		throws PortalException;
 
-	public CommerceOrder submitCommerceOrder(long commerceOrderId)
+	public CommerceOrder reorderCommerceOrder(
+			long commerceOrderId, CommerceContext commerceContext)
 		throws PortalException;
 
 	public CommerceOrder updateBillingAddress(
@@ -243,6 +236,9 @@ public interface CommerceOrderService extends BaseService {
 			String street1, String street2, String street3, String city,
 			String zip, long commerceRegionId, long commerceCountryId,
 			String phoneNumber, ServiceContext serviceContext)
+		throws PortalException;
+
+	public CommerceOrder updateCommerceOrder(CommerceOrder commerceOrder)
 		throws PortalException;
 
 	public CommerceOrder updateCommerceOrder(
@@ -304,10 +300,6 @@ public interface CommerceOrderService extends BaseService {
 			long commerceOrderId, int orderDateMonth, int orderDateDay,
 			int orderDateYear, int orderDateHour, int orderDateMinute,
 			ServiceContext serviceContext)
-		throws PortalException;
-
-	public CommerceOrder updateOrderStatus(
-			long commerceOrderId, int orderStatus)
 		throws PortalException;
 
 	public CommerceOrder updatePaymentStatus(

@@ -262,9 +262,8 @@ public class CommerceAddressLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.model.CommerceAddress
-			fetchByExternalReferenceCode(
-				long companyId, String externalReferenceCode)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		fetchByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
 
 		return getService().fetchByExternalReferenceCode(
 			companyId, externalReferenceCode);

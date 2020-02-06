@@ -99,181 +99,6 @@ public class CommerceAddressServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.commerce.model.CommerceAddress>
-			getBillingCommerceAddresses(
-				HttpPrincipal httpPrincipal, long companyId, String className,
-				long classPK, String keywords, int start, int end,
-				com.liferay.portal.kernel.search.Sort sort)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceAddressServiceUtil.class, "getBillingCommerceAddresses",
-				_getBillingCommerceAddressesParameterTypes1);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, className, classPK, keywords, start, end,
-				sort);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (java.util.List<com.liferay.commerce.model.CommerceAddress>)
-				returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static int getBillingCommerceAddressesCount(
-			HttpPrincipal httpPrincipal, long companyId, String className,
-			long classPK, String keywords)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceAddressServiceUtil.class,
-				"getBillingCommerceAddressesCount",
-				_getBillingCommerceAddressesCountParameterTypes2);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, className, classPK, keywords);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static java.util.List<com.liferay.commerce.model.CommerceAddress>
-			getShippingCommerceAddresses(
-				HttpPrincipal httpPrincipal, long companyId, String className,
-				long classPK, String keywords, int start, int end,
-				com.liferay.portal.kernel.search.Sort sort)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceAddressServiceUtil.class,
-				"getShippingCommerceAddresses",
-				_getShippingCommerceAddressesParameterTypes3);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, className, classPK, keywords, start, end,
-				sort);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (java.util.List<com.liferay.commerce.model.CommerceAddress>)
-				returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static int getShippingCommerceAddressesCount(
-			HttpPrincipal httpPrincipal, long companyId, String className,
-			long classPK, String keywords)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceAddressServiceUtil.class,
-				"getShippingCommerceAddressesCount",
-				_getShippingCommerceAddressesCountParameterTypes4);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, className, classPK, keywords);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	public static com.liferay.commerce.model.CommerceAddress addCommerceAddress(
 			HttpPrincipal httpPrincipal, String className, long classPK,
 			String name, String description, String street1, String street2,
@@ -285,7 +110,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "addCommerceAddress",
-				_addCommerceAddressParameterTypes5);
+				_addCommerceAddressParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, className, classPK, name, description, street1,
@@ -332,7 +157,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "addCommerceAddress",
-				_addCommerceAddressParameterTypes6);
+				_addCommerceAddressParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, className, classPK, name, description, street1,
@@ -375,7 +200,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "deleteCommerceAddress",
-				_deleteCommerceAddressParameterTypes7);
+				_deleteCommerceAddressParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceAddressId);
@@ -414,7 +239,7 @@ public class CommerceAddressServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class,
 				"fetchByExternalReferenceCode",
-				_fetchByExternalReferenceCodeParameterTypes8);
+				_fetchByExternalReferenceCodeParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, externalReferenceCode);
@@ -455,7 +280,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "fetchCommerceAddress",
-				_fetchCommerceAddressParameterTypes9);
+				_fetchCommerceAddressParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceAddressId);
@@ -497,7 +322,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "getBillingCommerceAddresses",
-				_getBillingCommerceAddressesParameterTypes10);
+				_getBillingCommerceAddressesParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, className, classPK);
@@ -531,6 +356,93 @@ public class CommerceAddressServiceHttp {
 		}
 	}
 
+	public static java.util.List<com.liferay.commerce.model.CommerceAddress>
+			getBillingCommerceAddresses(
+				HttpPrincipal httpPrincipal, long companyId, String className,
+				long classPK, String keywords, int start, int end,
+				com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceAddressServiceUtil.class, "getBillingCommerceAddresses",
+				_getBillingCommerceAddressesParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, className, classPK, keywords, start, end,
+				sort);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.liferay.commerce.model.CommerceAddress>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static int getBillingCommerceAddressesCount(
+			HttpPrincipal httpPrincipal, long companyId, String className,
+			long classPK, String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceAddressServiceUtil.class,
+				"getBillingCommerceAddressesCount",
+				_getBillingCommerceAddressesCountParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, className, classPK, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.commerce.model.CommerceAddress getCommerceAddress(
 			HttpPrincipal httpPrincipal, long commerceAddressId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -538,7 +450,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "getCommerceAddress",
-				_getCommerceAddressParameterTypes11);
+				_getCommerceAddressParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceAddressId);
@@ -580,7 +492,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "getCommerceAddresses",
-				_getCommerceAddressesParameterTypes12);
+				_getCommerceAddressesParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, className, classPK);
@@ -626,7 +538,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "getCommerceAddresses",
-				_getCommerceAddressesParameterTypes13);
+				_getCommerceAddressesParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, className, classPK, start, end,
@@ -673,7 +585,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "getCommerceAddresses",
-				_getCommerceAddressesParameterTypes14);
+				_getCommerceAddressesParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, className, classPK, start, end, orderByComparator);
@@ -717,7 +629,7 @@ public class CommerceAddressServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class,
 				"getCommerceAddressesByCompanyId",
-				_getCommerceAddressesByCompanyIdParameterTypes15);
+				_getCommerceAddressesByCompanyIdParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, className, classPK);
@@ -764,7 +676,7 @@ public class CommerceAddressServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class,
 				"getCommerceAddressesByCompanyId",
-				_getCommerceAddressesByCompanyIdParameterTypes16);
+				_getCommerceAddressesByCompanyIdParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, className, classPK, start, end,
@@ -807,7 +719,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "getCommerceAddressesCount",
-				_getCommerceAddressesCountParameterTypes17);
+				_getCommerceAddressesCountParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, className, classPK);
@@ -847,7 +759,7 @@ public class CommerceAddressServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class, "getCommerceAddressesCount",
-				_getCommerceAddressesCountParameterTypes18);
+				_getCommerceAddressesCountParameterTypes16);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, className, classPK);
@@ -889,7 +801,7 @@ public class CommerceAddressServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class,
 				"getCommerceAddressesCountByCompanyId",
-				_getCommerceAddressesCountByCompanyIdParameterTypes19);
+				_getCommerceAddressesCountByCompanyIdParameterTypes17);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, className, classPK);
@@ -932,7 +844,7 @@ public class CommerceAddressServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceAddressServiceUtil.class,
 				"getShippingCommerceAddresses",
-				_getShippingCommerceAddressesParameterTypes20);
+				_getShippingCommerceAddressesParameterTypes18);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, className, classPK);
@@ -956,6 +868,94 @@ public class CommerceAddressServiceHttp {
 
 			return (java.util.List<com.liferay.commerce.model.CommerceAddress>)
 				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<com.liferay.commerce.model.CommerceAddress>
+			getShippingCommerceAddresses(
+				HttpPrincipal httpPrincipal, long companyId, String className,
+				long classPK, String keywords, int start, int end,
+				com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceAddressServiceUtil.class,
+				"getShippingCommerceAddresses",
+				_getShippingCommerceAddressesParameterTypes19);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, className, classPK, keywords, start, end,
+				sort);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.liferay.commerce.model.CommerceAddress>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static int getShippingCommerceAddressesCount(
+			HttpPrincipal httpPrincipal, long companyId, String className,
+			long classPK, String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceAddressServiceUtil.class,
+				"getShippingCommerceAddressesCount",
+				_getShippingCommerceAddressesCountParameterTypes20);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, className, classPK, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -1162,84 +1162,84 @@ public class CommerceAddressServiceHttp {
 			long.class, String.class, boolean.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[]
-		_getBillingCommerceAddressesParameterTypes1 = new Class[] {
-			long.class, String.class, long.class, String.class, int.class,
-			int.class, com.liferay.portal.kernel.search.Sort.class
-		};
-	private static final Class<?>[]
-		_getBillingCommerceAddressesCountParameterTypes2 = new Class[] {
-			long.class, String.class, long.class, String.class
-		};
-	private static final Class<?>[]
-		_getShippingCommerceAddressesParameterTypes3 = new Class[] {
-			long.class, String.class, long.class, String.class, int.class,
-			int.class, com.liferay.portal.kernel.search.Sort.class
-		};
-	private static final Class<?>[]
-		_getShippingCommerceAddressesCountParameterTypes4 = new Class[] {
-			long.class, String.class, long.class, String.class
-		};
-	private static final Class<?>[] _addCommerceAddressParameterTypes5 =
+	private static final Class<?>[] _addCommerceAddressParameterTypes1 =
 		new Class[] {
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, String.class, String.class, String.class, long.class,
 			long.class, String.class, int.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _addCommerceAddressParameterTypes6 =
+	private static final Class<?>[] _addCommerceAddressParameterTypes2 =
 		new Class[] {
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, String.class, String.class, String.class, long.class,
 			long.class, String.class, int.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _deleteCommerceAddressParameterTypes7 =
+	private static final Class<?>[] _deleteCommerceAddressParameterTypes3 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_fetchByExternalReferenceCodeParameterTypes8 = new Class[] {
+		_fetchByExternalReferenceCodeParameterTypes4 = new Class[] {
 			long.class, String.class
 		};
-	private static final Class<?>[] _fetchCommerceAddressParameterTypes9 =
+	private static final Class<?>[] _fetchCommerceAddressParameterTypes5 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_getBillingCommerceAddressesParameterTypes10 = new Class[] {
+		_getBillingCommerceAddressesParameterTypes6 = new Class[] {
 			long.class, String.class, long.class
 		};
-	private static final Class<?>[] _getCommerceAddressParameterTypes11 =
+	private static final Class<?>[]
+		_getBillingCommerceAddressesParameterTypes7 = new Class[] {
+			long.class, String.class, long.class, String.class, int.class,
+			int.class, com.liferay.portal.kernel.search.Sort.class
+		};
+	private static final Class<?>[]
+		_getBillingCommerceAddressesCountParameterTypes8 = new Class[] {
+			long.class, String.class, long.class, String.class
+		};
+	private static final Class<?>[] _getCommerceAddressParameterTypes9 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCommerceAddressesParameterTypes12 =
+	private static final Class<?>[] _getCommerceAddressesParameterTypes10 =
 		new Class[] {long.class, String.class, long.class};
-	private static final Class<?>[] _getCommerceAddressesParameterTypes13 =
+	private static final Class<?>[] _getCommerceAddressesParameterTypes11 =
 		new Class[] {
 			long.class, String.class, long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
-	private static final Class<?>[] _getCommerceAddressesParameterTypes14 =
+	private static final Class<?>[] _getCommerceAddressesParameterTypes12 =
 		new Class[] {
 			String.class, long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommerceAddressesByCompanyIdParameterTypes15 = new Class[] {
+		_getCommerceAddressesByCompanyIdParameterTypes13 = new Class[] {
 			long.class, String.class, long.class
 		};
 	private static final Class<?>[]
-		_getCommerceAddressesByCompanyIdParameterTypes16 = new Class[] {
+		_getCommerceAddressesByCompanyIdParameterTypes14 = new Class[] {
 			long.class, String.class, long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
-	private static final Class<?>[] _getCommerceAddressesCountParameterTypes17 =
+	private static final Class<?>[] _getCommerceAddressesCountParameterTypes15 =
 		new Class[] {long.class, String.class, long.class};
-	private static final Class<?>[] _getCommerceAddressesCountParameterTypes18 =
+	private static final Class<?>[] _getCommerceAddressesCountParameterTypes16 =
 		new Class[] {String.class, long.class};
 	private static final Class<?>[]
-		_getCommerceAddressesCountByCompanyIdParameterTypes19 = new Class[] {
+		_getCommerceAddressesCountByCompanyIdParameterTypes17 = new Class[] {
 			long.class, String.class, long.class
 		};
 	private static final Class<?>[]
-		_getShippingCommerceAddressesParameterTypes20 = new Class[] {
+		_getShippingCommerceAddressesParameterTypes18 = new Class[] {
 			long.class, String.class, long.class
+		};
+	private static final Class<?>[]
+		_getShippingCommerceAddressesParameterTypes19 = new Class[] {
+			long.class, String.class, long.class, String.class, int.class,
+			int.class, com.liferay.portal.kernel.search.Sort.class
+		};
+	private static final Class<?>[]
+		_getShippingCommerceAddressesCountParameterTypes20 = new Class[] {
+			long.class, String.class, long.class, String.class
 		};
 	private static final Class<?>[] _searchCommerceAddressesParameterTypes21 =
 		new Class[] {
