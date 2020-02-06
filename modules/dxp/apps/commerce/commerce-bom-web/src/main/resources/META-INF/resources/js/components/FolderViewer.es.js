@@ -36,7 +36,7 @@ function ModelsList(props) {
     )
 }
 
-function Compatibilities(props) {
+function Brands(props) {
     const [selectedBrand, setSelectedBrand] = useState(0);
 
     const {state} = useContext(StoreContext);
@@ -73,12 +73,12 @@ function Card(props) {
 
     const { state, actions } = useContext(StoreContext);
 
-    const contentCard = (
+    const itemsCard = (
         <div className="area-card card image-card">
             <div className="aspect-ratio aspect-ratio-4-to-3 card-item-first bg-checkered">
                 <img 
                     alt={props.title}
-                    src={window.themeDisplay.getPathImage() + props.thumbnail}
+                    src={props.thumbnail}
                     className="aspect-ratio-item-center-middle"
                 />
             </div>
@@ -111,7 +111,7 @@ function Card(props) {
             onClick={handleCardLink}
             data-senna-off
         >
-            {contentCard}
+            {itemsCard}
         </a>
     )
 }
@@ -119,7 +119,7 @@ function Card(props) {
 function CardContainer(props) {
     return (
         <div className="area-list row">
-            {props.content.map((el, i) => {
+            {props.items.map((el, i) => {
                 return (
                     <div 
                         key={i}
@@ -142,23 +142,23 @@ export default function FolderViewer() {
 
     const { state } = useContext(StoreContext);
 
-    return state.folder.content 
+    return state.folder.items
         ? (
             <div className="row">
                 <div className="col">
                     <CardContainer 
-                        content={state.folder.content}
+                        items={state.folder.items}
                         cardsWrapperAdditionalClasses={
-                            state.folder.compatibilities 
+                            state.folder.brands
                                 ? 'col-3' 
                                 : 'col-2'
                         }
                     />
                 </div>
-                {state.folder.compatibilities && (
+                {state.folder.brands && (
                     <div className="col-sm-4 position-relative">
-                        <Compatibilities 
-                            data={state.folder.compatibilities}
+                        <Brands
+                            data={state.folder.brands}
                         />
                     </div>
                 )}

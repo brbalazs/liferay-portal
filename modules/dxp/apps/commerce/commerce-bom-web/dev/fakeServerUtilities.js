@@ -43,7 +43,7 @@ function generateBreadcrumbs(type = 'folder') {
 	});
 }
 
-function generateCompatibilities() {
+function generateBrands() {
 	return generateArray(4, 2).map(() => ({
 		name: faker.commerce.productName(),
 		models: generateArray(10).map(() => {
@@ -188,7 +188,7 @@ function defineServerResponses(app) {
 		res.json({
 			data: {
 				content: generateFolders(),
-				compatibilities: generateCompatibilities(),
+				brands: generateBrands(),
 			},
 			breadcrumbs: generateBreadcrumbs(),
 		});

@@ -3,8 +3,8 @@ import {
 } from '../actions/folder.es'
 
 export const initialState = {
-    content: null,
-    compatibilities: null,
+    items: null,
+    brands: null,
     loading: null
 }
 
@@ -13,8 +13,8 @@ export default function reducer(state = initialState, action) {
         case actionDefinition.GET_FOLDER_FULFILLED:
             return {
                 ...state,
-                content: action.payload.data.content,
-                compatibilities: action.payload.data.compatibilities,
+                items: action.payload.data.items,
+                brands: action.payload.data.brands,
                 loading: false
             }
         case actionDefinition.GET_FOLDER_PENDING:
