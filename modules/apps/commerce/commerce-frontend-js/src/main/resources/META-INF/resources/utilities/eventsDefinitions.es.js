@@ -21,15 +21,19 @@ export const OPEN = 'open-component';
 export const CURRENT_PRODUCT_UPDATED = 'current-product-updated';
 export const PRODUCT_OPTIONS_CHANGED = 'product-options-changed';
 export const CURRENT_PRODUCT_STATUS_CHANGED = 'current-product-status-changed';
+export const UPDATE_DATASET_DISPLAY = 'update-dataset-display';
+export const DATASET_DISPLAY_UPDATED = 'dataset-display-updated';
 
 export default {
 	CLOSE_MODAL,
 	CLOSE_SIDE_PANEL,
 	CURRENT_PRODUCT_STATUS_CHANGED,
 	CURRENT_PRODUCT_UPDATED,
+	DATASET_DISPLAY_UPDATED,
 	IFRAME_LOADED,
 	OPEN,
 	OPEN_MODAL,
 	OPEN_SIDE_PANEL,
-	PRODUCT_OPTIONS_CHANGED
+	PRODUCT_OPTIONS_CHANGED,
+	UPDATE_DATASET_DISPLAY
 };

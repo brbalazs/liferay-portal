@@ -19,7 +19,9 @@ import React, {useState, useRef, useEffect} from 'react';
 
 import {
 	OPEN_SIDE_PANEL,
-	OPEN_MODAL
+	OPEN_MODAL,
+	UPDATE_DATASET_DISPLAY,
+	DATASET_DISPLAY_UPDATED
 } from '../../utilities/eventsDefinitions.es';
 import {
 	getRandomId,
@@ -56,7 +58,7 @@ function DatasetDisplay(props) {
 	const [views, updateViews] = useState(props.views);
 	const [loading, setLoading] = useState(false);
 	const [sidePanelSupportModalId] = useState(
-		props.sidePanelId || 'support-side-panel' + getRandomId()
+		props.sidePanelId || 'support-side-panel-' + getRandomId()
 	);
 
 	const [datasetDisplaySupportModalId] = useState(
@@ -156,6 +158,7 @@ function DatasetDisplay(props) {
 						'success'
 					);
 				}
+				Liferay.fire(DATASET_DISPLAY_UPDATED, {id: props.id});
 			})
 			.catch(e => {
 				console.error(e);
@@ -205,6 +208,20 @@ function DatasetDisplay(props) {
 			sorting,
 			false
 		);
+
+	useEffect(() => {
+		function handleRefreshFromTheOutside(e) {
+			if (e.id === props.id) {
+				refreshData();
+			}
+		}
+
+		Liferay.on(UPDATE_DATASET_DISPLAY, handleRefreshFromTheOutside);
+		return () =>
+			Liferay.detach(UPDATE_DATASET_DISPLAY, handleRefreshFromTheOutside);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.id]);
 
 	const managementBar = props.showManagementBar ? (
 		<div className="dataset-display-management-bar-wrapper">

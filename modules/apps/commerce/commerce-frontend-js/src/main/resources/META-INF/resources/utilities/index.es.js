@@ -63,6 +63,14 @@ export function showErrorNotification(e) {
 	showNotification(Liferay.Language.get('unexpected-error'), 'danger');
 }
 
+export function getSchemaString(object, path) {
+	if (!Array.isArray(path)) {
+		return object[path];
+	} else {
+		return path.reduce((acc, path) => acc[path], object);
+	}
+}
+
 if (!window.Liferay) {
 	window.Liferay = {
 		Language: {

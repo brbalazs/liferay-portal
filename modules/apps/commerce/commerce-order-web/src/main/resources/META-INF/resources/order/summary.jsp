@@ -228,6 +228,71 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 	</div>
 
 	<div class="col-12">
+		<div id="item-finder-root"></div>
+		<aui:script require="commerce-frontend-js/components/item_finder/entry.es as itemFinderLauncher, commerce-frontend-js/utilities/eventsDefinitions.es as events">
+
+			function addNewItem(_name) {
+				return new Promise(resolve => {
+					setTimeout(() => {
+						Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+							id: "<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
+						});
+						resolve('fake-new-specification-id')
+					}), 200
+				});
+				/*
+				return fetch('url/', 'params')
+					.then(data => data.json())
+					.then(_jsonData => {
+						Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+							id: "<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
+						});
+						return id
+					})
+				*/
+			}
+
+			function selectItem(id) {
+				return new Promise(resolve => {
+					setTimeout(() => {
+						Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+							id: "<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
+						});
+						resolve(id);
+					}, 200);
+				});
+				/*
+				return fetch('url/', 'params')
+					.then(data => data.json())
+					.then(_jsonData => {
+						Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+							id: <%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
+						});
+						return id
+					})
+				*/
+			}
+
+			itemFinderLauncher.default(
+				'item-finder',
+				'item-finder-root',
+				{
+					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+					itemsKey: 'id',
+					onItemCreated: addNewItem,
+					onItemSelected: selectItem,
+					pageSize: 5,
+					schema: {
+						itemTitle: ['title', 'en_US']
+					},
+					spritemap: '/o/minium-theme/images/lexicon/icons.svg'
+				}
+			)
+
+		</aui:script>
+	</div>
+
+	<div class="col-12">
 		<commerce-ui:panel
 			bodyClasses="p-0"
 			title='<%= LanguageUtil.get(request, "items") %>'

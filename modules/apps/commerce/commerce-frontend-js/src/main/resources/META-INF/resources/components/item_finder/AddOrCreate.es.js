@@ -19,15 +19,8 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
+import {getSchemaString} from '../../utilities/index.es';
 import Expose from './Expose.es';
-
-function getSchemaString(object, path) {
-	if (!Array.isArray(path)) {
-		return object[path];
-	} else {
-		return path.reduce((acc, path) => acc[path], object);
-	}
-}
 
 function Item(props) {
 	return (

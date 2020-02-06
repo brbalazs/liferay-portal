@@ -14,7 +14,7 @@
 
 			box-shadow: 0 40px 40px -40px rgba(0, 0, 0, 0.3);
 			width: 100%;
-			z-index: 100001;
+			z-index: 801;
 		}
 	}
 
@@ -30,7 +30,7 @@
 		right: 0;
 		top: 0;
 		transition: all ease var(--transition-time);
-		z-index: 100000;
+		z-index: 800;
 
 		.expose.is-open & {
 			pointer-events: all;
