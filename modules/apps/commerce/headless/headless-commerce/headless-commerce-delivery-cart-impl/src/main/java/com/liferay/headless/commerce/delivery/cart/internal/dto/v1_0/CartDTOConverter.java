@@ -15,17 +15,12 @@
 package com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0;
 
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
-import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
-import com.liferay.commerce.price.CommerceOrderPrice;
-import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
@@ -64,15 +59,12 @@ public class CartDTOConverter implements DTOConverter {
 	public Cart toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
-		CartDTOConverterContext cartDTOConverterContext =
-			(CartDTOConverterContext)dtoConverterContext;
-
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			cartDTOConverterContext.getResourcePrimKey());
+			dtoConverterContext.getResourcePrimKey());
 
 		ExpandoBridge expandoBridge = commerceOrder.getExpandoBridge();
 
-		Locale locale = cartDTOConverterContext.getLocale();
+		Locale locale = dtoConverterContext.getLocale();
 
 		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
 			locale);
@@ -105,9 +97,7 @@ public class CartDTOConverter implements DTOConverter {
 				purchaseOrderNumber = commerceOrder.getPurchaseOrderNumber();
 				shippingAddressId = commerceOrder.getShippingAddressId();
 				status = workflowStatusLabel;
-				summary = _getSummary(
-					commerceOrder, locale,
-					cartDTOConverterContext.getChannelSiteGroupId());
+				summary = _getSummary(commerceOrder, locale);
 			}
 		};
 
@@ -124,6 +114,17 @@ public class CartDTOConverter implements DTOConverter {
 		return cart;
 	}
 
+	private String _formatPrice(
+			BigDecimal price, CommerceCurrency commerceCurrency, Locale locale)
+		throws PortalException {
+
+		if (price == null) {
+			price = BigDecimal.ZERO;
+		}
+
+		return _commercePriceFormatter.format(commerceCurrency, price, locale);
+	}
+
 	private String[] _getFormattedDiscountPercentages(
 			BigDecimal[] discountPercentages, Locale locale)
 		throws PortalException {
@@ -138,8 +139,7 @@ public class CartDTOConverter implements DTOConverter {
 		return formattedDiscountPercentages.toArray(new String[0]);
 	}
 
-	private Summary _getSummary(
-			CommerceOrder commerceOrder, Locale locale, long channelSiteGroupId)
+	private Summary _getSummary(CommerceOrder commerceOrder, Locale locale)
 		throws PortalException {
 
 		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
@@ -147,34 +147,21 @@ public class CartDTOConverter implements DTOConverter {
 		List<CommerceOrderItem> commerceOrderItems =
 			commerceOrder.getCommerceOrderItems();
 
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			commerceOrder.getCompanyId(), channelSiteGroupId,
-			commerceOrder.getUserId(), commerceOrder.getCommerceOrderId(),
-			commerceOrder.getCommerceAccountId());
-
-		CommerceOrderPrice commerceOrderPrice =
-			_commerceOrderPriceCalculation.getCommerceOrderPrice(
-				commerceOrder, commerceContext);
-
 		CommerceMoney commerceOrderPriceShippingValue =
-			commerceOrderPrice.getShippingValue();
+			commerceOrder.getShippingMoney();
 
 		BigDecimal commerceOrderPriceShippingValuePrice =
 			commerceOrderPriceShippingValue.getPrice();
 
 		CommerceMoney commerceOrderPriceSubTotal =
-			commerceOrderPrice.getSubtotal();
+			commerceOrder.getSubtotalMoney();
 
 		BigDecimal orderPriceSubTotalPrice =
 			commerceOrderPriceSubTotal.getPrice();
 
-		CommerceMoney commerceOrderPriceTaxValue =
-			commerceOrderPrice.getTaxValue();
+		BigDecimal taxAmount = commerceOrder.getTaxAmount();
 
-		BigDecimal commerceOrderPriceTaxValuePrice =
-			commerceOrderPriceTaxValue.getPrice();
-
-		CommerceMoney commerceOrderPriceTotal = commerceOrderPrice.getTotal();
+		CommerceMoney commerceOrderPriceTotal = commerceOrder.getTotalMoney();
 
 		BigDecimal orderPriceTotalPrice = commerceOrderPriceTotal.getPrice();
 
@@ -188,84 +175,80 @@ public class CartDTOConverter implements DTOConverter {
 					locale);
 				subtotal = orderPriceSubTotalPrice.doubleValue();
 				subtotalFormatted = commerceOrderPriceSubTotal.format(locale);
-				taxValue = commerceOrderPriceTaxValuePrice.doubleValue();
-				taxValueFormatted = commerceOrderPriceTaxValue.format(locale);
+
 				total = orderPriceTotalPrice.doubleValue();
 				totalFormatted = commerceOrderPriceTotal.format(locale);
 			}
 		};
 
-		CommerceDiscountValue shippingDiscountValue =
-			commerceOrderPrice.getShippingDiscountValue();
+		if (taxAmount != null) {
+			summary.setTaxValue(taxAmount.doubleValue());
+			summary.setTaxValueFormatted(
+				_formatPrice(taxAmount, commerceCurrency, locale));
+		}
 
-		if (shippingDiscountValue != null) {
-			CommerceMoney shippingDiscountValueDiscountAmount =
-				shippingDiscountValue.getDiscountAmount();
+		BigDecimal shippingDiscountAmount =
+			commerceOrder.getShippingDiscountAmount();
 
-			BigDecimal shippingDiscountValueDiscountAmountPrice =
-				shippingDiscountValueDiscountAmount.getPrice();
-
+		if (shippingDiscountAmount != null) {
 			summary.setShippingDiscountValue(
-				shippingDiscountValueDiscountAmountPrice.doubleValue());
+				shippingDiscountAmount.doubleValue());
 
 			summary.setShippingDiscountValueFormatted(
-				shippingDiscountValueDiscountAmount.format(locale));
+				_formatPrice(shippingDiscountAmount, commerceCurrency, locale));
 
 			summary.setShippingDiscountPercentages(
 				_getFormattedDiscountPercentages(
-					shippingDiscountValue.getPercentages(), locale));
+					new BigDecimal[] {
+						commerceOrder.getShippingDiscountPercentageLevel1(),
+						commerceOrder.getShippingDiscountPercentageLevel2(),
+						commerceOrder.getShippingDiscountPercentageLevel3(),
+						commerceOrder.getShippingDiscountPercentageLevel4()
+					},
+					locale));
 		}
 
-		CommerceDiscountValue subtotalDiscountValue =
-			commerceOrderPrice.getSubtotalDiscountValue();
+		BigDecimal subtotalDiscountAmount =
+			commerceOrder.getSubtotalDiscountAmount();
 
-		if (subtotalDiscountValue != null) {
-			CommerceMoney subtotalDiscountValueDiscountAmount =
-				subtotalDiscountValue.getDiscountAmount();
-
-			BigDecimal subtotalDiscountValueDiscountAmountPrice =
-				subtotalDiscountValueDiscountAmount.getPrice();
-
-			summary.setSubtotal(
-				subtotalDiscountValueDiscountAmountPrice.doubleValue());
+		if (subtotalDiscountAmount != null) {
+			summary.setSubtotal(subtotalDiscountAmount.doubleValue());
 
 			summary.setSubtotalDiscountValueFormatted(
-				subtotalDiscountValueDiscountAmount.format(locale));
+				_formatPrice(subtotalDiscountAmount, commerceCurrency, locale));
 
 			summary.setSubtotalDiscountPercentages(
 				_getFormattedDiscountPercentages(
-					subtotalDiscountValue.getPercentages(), locale));
+					new BigDecimal[] {
+						commerceOrder.getSubtotalDiscountPercentageLevel1(),
+						commerceOrder.getSubtotalDiscountPercentageLevel2(),
+						commerceOrder.getSubtotalDiscountPercentageLevel3(),
+						commerceOrder.getSubtotalDiscountPercentageLevel4()
+					},
+					locale));
 		}
 
-		CommerceDiscountValue totalDiscountValue =
-			commerceOrderPrice.getTotalDiscountValue();
+		BigDecimal totalDiscountAmount = commerceOrder.getTotalDiscountAmount();
 
-		if (totalDiscountValue != null) {
-			CommerceMoney totalDiscountValueDiscountAmount =
-				totalDiscountValue.getDiscountAmount();
-
-			BigDecimal totalDiscountValueDiscountAmountPrice =
-				totalDiscountValueDiscountAmount.getPrice();
-
-			summary.setTotal(
-				totalDiscountValueDiscountAmountPrice.doubleValue());
+		if (totalDiscountAmount != null) {
+			summary.setTotal(totalDiscountAmount.doubleValue());
 
 			summary.setTotalDiscountValueFormatted(
-				totalDiscountValueDiscountAmount.format(locale));
+				_formatPrice(totalDiscountAmount, commerceCurrency, locale));
 
 			summary.setTotalDiscountPercentages(
 				_getFormattedDiscountPercentages(
-					totalDiscountValue.getPercentages(), locale));
+					new BigDecimal[] {
+						commerceOrder.getTotalDiscountPercentageLevel1(),
+						commerceOrder.getTotalDiscountPercentageLevel2(),
+						commerceOrder.getTotalDiscountPercentageLevel3(),
+						commerceOrder.getTotalDiscountPercentageLevel4()
+					},
+					locale));
 		}
 
 		return summary;
 	}
-
-	@Reference
-	private CommerceContextFactory _commerceContextFactory;
-
-	@Reference
-	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;

@@ -37,6 +37,7 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceRegionLocalService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
+import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Address;
@@ -44,7 +45,6 @@ import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CouponCode;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartDTOConverter;
-import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartDTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -238,10 +238,9 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 				commerceOrder.getGroupId());
 
 		return _cartDTOConverter.toDTO(
-			new CartDTOConverterContext(
+			new DefaultDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrder.getCommerceOrderId(),
-				commerceChannel.getSiteGroupId()));
+				commerceOrder.getCommerceOrderId()));
 	}
 
 	private List<Cart> _toCarts(List<CommerceOrder> commerceOrders)

@@ -20,7 +20,7 @@ import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartComment;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -36,10 +36,10 @@ public class NoteDTOConverter implements DTOConverter {
 
 	@Override
 	public String getContentType() {
-		return CartNote.class.getSimpleName();
+		return CartComment.class.getSimpleName();
 	}
 
-	public CartNote toDTO(DTOConverterContext dtoConverterContext)
+	public CartComment toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
 		CommerceOrderNote commerceOrderNote =
@@ -49,7 +49,7 @@ public class NoteDTOConverter implements DTOConverter {
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			commerceOrderNote.getCommerceOrderId());
 
-		return new CartNote() {
+		return new CartComment() {
 			{
 				author = commerceOrderNote.getUserName();
 				content = commerceOrderNote.getContent();

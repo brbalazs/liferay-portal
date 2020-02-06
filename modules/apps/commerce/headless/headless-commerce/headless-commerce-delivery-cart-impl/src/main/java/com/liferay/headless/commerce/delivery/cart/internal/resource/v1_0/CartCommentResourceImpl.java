@@ -21,9 +21,9 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartComment;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.NoteDTOConverter;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartNoteResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartCommentResource;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
@@ -45,14 +45,14 @@ import org.osgi.service.component.annotations.ServiceScope;
  * @author Andrea Sbarra
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/cart-note.properties",
-	scope = ServiceScope.PROTOTYPE, service = CartNoteResource.class
+	properties = "OSGI-INF/liferay/rest/v1_0/cart-comment.properties",
+	scope = ServiceScope.PROTOTYPE, service = CartCommentResource.class
 )
-public class CartNoteResourceImpl extends BaseCartNoteResourceImpl {
+public class CartCommentResourceImpl extends BaseCartCommentResourceImpl {
 
 	@Override
-	public Response deleteCartNote(@NotNull Long noteId) throws Exception {
-		_commerceOrderNoteService.deleteCommerceOrderNote(noteId);
+	public Response deleteCartComment(Long commentId) throws Exception {
+		_commerceOrderNoteService.deleteCommerceOrderNote(commentId);
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
@@ -60,16 +60,16 @@ public class CartNoteResourceImpl extends BaseCartNoteResourceImpl {
 	}
 
 	@Override
-	public CartNote getCartNote(@NotNull Long noteId) throws Exception {
+	public CartComment getCartComment(Long commentId) throws Exception {
 		return _noteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(noteId)));
+				GetterUtil.getLong(commentId)));
 	}
 
 	@NestedField(parentClass = Cart.class, value = "notes")
 	@Override
-	public Page<CartNote> getCartNotesPage(
+	public Page<CartComment> getCartCommentsPage(
 			@NestedFieldId("id") @NotNull Long cartId, Pagination pagination)
 		throws Exception {
 
@@ -86,26 +86,27 @@ public class CartNoteResourceImpl extends BaseCartNoteResourceImpl {
 	}
 
 	@Override
-	public CartNote patchCartNote(@NotNull Long noteId, CartNote cartNote)
+	public CartComment patchCartComment(Long commentId, CartComment cartComment)
 		throws Exception {
 
 		return _updateOrderNote(
-			_commerceOrderNoteService.getCommerceOrderNote(noteId), cartNote);
+			_commerceOrderNoteService.getCommerceOrderNote(commentId),
+			cartComment);
 	}
 
 	@Override
-	public CartNote postCartNote(@NotNull Long cartId, CartNote cartNote)
+	public CartComment postCartComment(Long cartId, CartComment cartComment)
 		throws Exception {
 
 		return _upsertOrderNote(
-			_commerceOrderService.getCommerceOrder(cartId), cartNote);
+			_commerceOrderService.getCommerceOrder(cartId), cartComment);
 	}
 
-	private List<CartNote> _toOrderNotes(
+	private List<CartComment> _toOrderNotes(
 			List<CommerceOrderNote> commerceOrderNotes)
 		throws Exception {
 
-		List<CartNote> orders = new ArrayList<>();
+		List<CartComment> orders = new ArrayList<>();
 
 		for (CommerceOrderNote commerceOrderNote : commerceOrderNotes) {
 			orders.add(
@@ -118,15 +119,16 @@ public class CartNoteResourceImpl extends BaseCartNoteResourceImpl {
 		return orders;
 	}
 
-	private CartNote _updateOrderNote(
-			CommerceOrderNote commerceOrderNote, CartNote note)
+	private CartComment _updateOrderNote(
+			CommerceOrderNote commerceOrderNote, CartComment cartComment)
 		throws Exception {
 
 		commerceOrderNote = _commerceOrderNoteService.updateCommerceOrderNote(
 			commerceOrderNote.getCommerceOrderNoteId(),
-			GetterUtil.get(note.getContent(), commerceOrderNote.getContent()),
 			GetterUtil.get(
-				note.getRestricted(), commerceOrderNote.isRestricted()));
+				cartComment.getContent(), commerceOrderNote.getContent()),
+			GetterUtil.get(
+				cartComment.getRestricted(), commerceOrderNote.isRestricted()));
 
 		return _noteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
@@ -134,15 +136,15 @@ public class CartNoteResourceImpl extends BaseCartNoteResourceImpl {
 				commerceOrderNote.getCommerceOrderNoteId()));
 	}
 
-	private CartNote _upsertOrderNote(
-			CommerceOrder commerceOrder, CartNote note)
+	private CartComment _upsertOrderNote(
+			CommerceOrder commerceOrder, CartComment cartComment)
 		throws Exception {
 
 		CommerceOrderNote commerceOrderNote =
 			_commerceOrderNoteService.upsertCommerceOrderNote(
-				GetterUtil.get(note.getId(), 0L),
-				commerceOrder.getCommerceOrderId(), note.getContent(),
-				GetterUtil.get(note.getRestricted(), false), null,
+				GetterUtil.get(cartComment.getId(), 0L),
+				commerceOrder.getCommerceOrderId(), cartComment.getContent(),
+				GetterUtil.get(cartComment.getRestricted(), false), null,
 				_serviceContextHelper.getServiceContext(
 					commerceOrder.getGroupId()));
 
