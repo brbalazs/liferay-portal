@@ -23,10 +23,14 @@ import com.liferay.commerce.order.status.CommerceOrderStatus;
 import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
 import com.liferay.commerce.subscription.CommerceSubscriptionEntryHelperUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
+import com.liferay.portal.kernel.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -38,6 +42,9 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 	@Override
+	@Transactional(
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
+	)
 	public CommerceOrderStatus getCurrentCommerceOrderStatus(
 		CommerceOrder commerceOrder) {
 
@@ -46,6 +53,9 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 	}
 
 	@Override
+	@Transactional(
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
+	)
 	public List<CommerceOrderStatus> getNextCommerceOrderStatuses(
 			CommerceOrder commerceOrder)
 		throws PortalException {
@@ -90,6 +100,9 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 	}
 
 	@Override
+	@Transactional(
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
+	)
 	public CommerceOrder transitionCommerceOrder(
 			CommerceOrder commerceOrder, int orderStatus, long userId)
 		throws PortalException {
@@ -117,18 +130,30 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 	}
 
 	private void _sendOrderStatusMessage(
-			CommerceOrder commerceOrder, int orderStatus)
-		throws PortalException {
+		CommerceOrder commerceOrder, int orderStatus) {
 
-		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) {
-			CommerceSubscriptionEntryHelperUtil.checkCommerceSubscriptions(
-				commerceOrder);
-		}
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
 
-		_commerceNotificationHelper.sendNotifications(
-			commerceOrder.getScopeGroupId(), commerceOrder.getUserId(),
-			CommerceOrderConstants.getNotificationKey(orderStatus),
-			commerceOrder);
+				@Override
+				public Void call() throws Exception {
+					if (orderStatus ==
+							CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) {
+
+						CommerceSubscriptionEntryHelperUtil.
+							checkCommerceSubscriptions(commerceOrder);
+					}
+
+					_commerceNotificationHelper.sendNotifications(
+						commerceOrder.getScopeGroupId(),
+						commerceOrder.getUserId(),
+						CommerceOrderConstants.getNotificationKey(orderStatus),
+						commerceOrder);
+
+					return null;
+				}
+
+			});
 	}
 
 	@Reference
