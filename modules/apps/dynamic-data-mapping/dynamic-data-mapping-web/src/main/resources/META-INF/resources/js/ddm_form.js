@@ -3470,29 +3470,7 @@ AUI.add(
 
 						fields.splice(newIndex, 0, fields.splice(oldIndex, 1)[0]);
 
-						var field = fields[newIndex];
-						
-						instance.nestedMoveField(field);
-					},
-
-					nestedMoveField: function(field) {
-						var instance = this;
-
-						var fieldDefinition = field.getFieldDefinition();
-
-						if (fieldDefinition) {
-							var type = fieldDefinition.type;
-
-							if (type === 'ddm-text-html') {
-								instance.recreateEditor(field);
-							}
-
-							for (var i = 0; i < field.get('fields').length; i++) {
-								var nestedField = field.get('fields')[i];
-
-								instance.nestedMoveField(nestedField);
-							}
-						}
+						instance.recreateEditors(fields[newIndex]);
 					},
 
 					populateBlankLocalizationMap: function(defaultLocale, originalField, repeatedField) {
@@ -3568,6 +3546,30 @@ AUI.add(
 
 							CKEDITOR.on('instanceReady', function() {
 								editor.setHTML(html);
+							});
+						}
+					},
+
+					recreateEditors: function(field) {
+						var instance = this;
+
+						var fieldDefinition = field.getFieldDefinition();
+
+						if (fieldDefinition) {
+							var type = fieldDefinition.type;
+
+							if (type === 'ddm-text-html') {
+								instance.recreateEditor(field);
+							}
+
+							var nestedFields = field.get('fields');
+
+							if (!nestedFields || nestedFields.length == 0) {
+								return;
+							}
+
+							nestedFields.forEach(nestedField => {
+								instance.recreateEditors(nestedField);
 							});
 						}
 					},
