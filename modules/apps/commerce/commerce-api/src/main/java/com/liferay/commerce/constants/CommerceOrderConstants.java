@@ -106,8 +106,7 @@ public class CommerceOrderConstants {
 	public static final String RESOURCE_NAME = "com.liferay.commerce.order";
 
 	public static final int[] SHIPPABLE_ORDER_STATUSES = {
-		ORDER_STATUS_FULFILLED, ORDER_STATUS_PARTIALLY_SHIPPED,
-		ORDER_STATUS_SHIPPED
+		ORDER_STATUS_PARTIALLY_SHIPPED, ORDER_STATUS_SHIPPED
 	};
 
 	public static final long TYPE_PK_APPROVAL = 0;

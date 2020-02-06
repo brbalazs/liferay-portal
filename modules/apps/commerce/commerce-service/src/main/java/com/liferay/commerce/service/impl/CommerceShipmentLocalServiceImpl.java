@@ -304,14 +304,7 @@ public class CommerceShipmentLocalServiceImpl
 			}
 		}
 
-		if (status ==
-				CommerceShipmentConstants.SHIPMENT_STATUS_READY_TO_BE_SHIPPED) {
-
-			_commerceOrderEngine.transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_FULFILLED,
-				userId);
-		}
-		else if (status == CommerceShipmentConstants.SHIPMENT_STATUS_SHIPPED) {
+		if (status == CommerceShipmentConstants.SHIPMENT_STATUS_SHIPPED) {
 			if (allOrderItemsShipped) {
 				_commerceOrderEngine.transitionCommerceOrder(
 					commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED,
