@@ -321,11 +321,19 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		for (Document document : documents) {
 			String key = GetterUtil.getString(document.get(optionFieldName));
 
-			cpDefinitionOptionValueRels.add(
+			if (Validator.isNull(key)) {
+				continue;
+			}
+
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 				_cpDefinitionOptionValueRelLocalService.
 					fetchCPDefinitionOptionValueRel(
 						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-						key));
+						key);
+
+			if (cpDefinitionOptionValueRel != null) {
+				cpDefinitionOptionValueRels.add(cpDefinitionOptionValueRel);
+			}
 		}
 
 		return new ArrayList<>(cpDefinitionOptionValueRels);
