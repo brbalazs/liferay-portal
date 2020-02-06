@@ -18,6 +18,10 @@
 
 <%
 CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrderListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("activeTab", commerceOrderListDisplayContext.getActiveTab());
 %>
 
 <clay:navigation-bar
@@ -27,46 +31,19 @@ CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrder
 
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />
 
-<aui:form action="<%= editCommerceOrderURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= editCommerceOrderURL %>" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="deleteCommerceOrderIds" type="hidden" />
 
-	<%
-	String activeTab = commerceOrderListDisplayContext.getActiveTab();
-	%>
-
-	<c:choose>
-		<c:when test='<%= activeTab.equals("open") %>'>
-			<commerce-ui:dataset-display
-				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_OPEN_ORDERS %>"
-				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_OPEN_ORDERS %>"
-				itemsPerPage="<%= 10 %>"
-				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="<%= 1 %>"
-				portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
-			/>
-		</c:when>
-		<c:when test='<%= activeTab.equals("pending") %>'>
-			<commerce-ui:dataset-display
-				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS %>"
-				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS %>"
-				itemsPerPage="<%= 10 %>"
-				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="<%= 1 %>"
-				portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
-			/>
-		</c:when>
-		<c:when test='<%= activeTab.equals("transmitted") %>'>
-			<commerce-ui:dataset-display
-				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_TRANSMITTED_ORDERS %>"
-				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_TRANSMITTED_ORDERS %>"
-				itemsPerPage="<%= 10 %>"
-				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="<%= 1 %>"
-				portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
-			/>
-		</c:when>
-		<c:otherwise></c:otherwise>
-	</c:choose>
+	<commerce-ui:dataset-display
+		contextParams="<%= contextParams %>"
+		dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDERS %>"
+		id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDERS %>"
+		itemsPerPage="<%= 20 %>"
+		namespace="<%= renderResponse.getNamespace() %>"
+		pageNumber="<%= 1 %>"
+		portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
+		style="fluid"
+	/>
 </aui:form>

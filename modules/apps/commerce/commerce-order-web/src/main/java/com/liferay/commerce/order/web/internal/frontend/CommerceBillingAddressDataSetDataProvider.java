@@ -19,10 +19,11 @@ import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.order.web.internal.frontend.util.CommerceOrderDataSetDataProviderUtil;
+import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.order.web.internal.model.Address;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderService;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
@@ -89,11 +90,37 @@ public class CommerceBillingAddressDataSetDataProvider
 				new Address(
 					commerceAddress.getCommerceAddressId(),
 					commerceAddress.getName(),
-					CommerceOrderDataSetDataProviderUtil.
-						getDescriptiveCommerceAddress(commerceAddress)));
+					_getDescriptiveCommerceAddress(commerceAddress)));
 		}
 
 		return addresses;
+	}
+
+	private String _getDescriptiveCommerceAddress(
+			CommerceAddress commerceAddress)
+		throws PortalException {
+
+		if (commerceAddress == null) {
+			return StringPool.BLANK;
+		}
+
+		CommerceRegion commerceRegion = commerceAddress.getCommerceRegion();
+
+		StringBundler sb = new StringBundler((commerceRegion == null) ? 5 : 7);
+
+		sb.append(commerceAddress.getStreet1());
+		sb.append(StringPool.SPACE);
+		sb.append(commerceAddress.getCity());
+		sb.append(StringPool.NEW_LINE);
+
+		if (commerceRegion != null) {
+			sb.append(commerceRegion.getCode());
+			sb.append(StringPool.SPACE);
+		}
+
+		sb.append(commerceAddress.getZip());
+
+		return sb.toString();
 	}
 
 	@Reference

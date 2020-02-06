@@ -12,18 +12,20 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.frontend.util;
+package com.liferay.commerce.order.web.internal.frontend;
 
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.model.CommerceAddress;
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
+import com.liferay.commerce.frontend.Filter;
+import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.model.StatusField;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.commerce.order.web.internal.model.Order;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelServiceUtil;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.search.facet.NegatableSimpleFacet;
 import com.liferay.commerce.service.CommerceOrderLocalService;
-import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -36,90 +38,123 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.SimpleFacet;
 import com.liferay.portal.kernel.search.facet.config.FacetConfiguration;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
+import java.text.DateFormat;
 import java.text.Format;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * @author Alessio Antonio Rendina
  */
-public class CommerceOrderDataSetDataProviderUtil {
+@Component(
+	immediate = true,
+	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDERS,
+	service = CommerceDataSetDataProvider.class
+)
+public class CommerceOrderDataSetDataProvider
+	implements CommerceDataSetDataProvider<Order> {
 
-	public static String getCommerceOrderDateTime(
-		CommerceOrder commerceOrder, Format dateTimeFormat, Locale locale) {
-
-		if (commerceOrder.getOrderDate() == null) {
-			return LanguageUtil.get(locale, "unknown");
-		}
-
-		return dateTimeFormat.format(commerceOrder.getOrderDate());
-	}
-
-	public static List<CommerceOrder> getCommerceOrders(
-			CommerceOrderLocalService commerceOrderLocalService, long companyId,
-			String activeTab, int orderStatus, String advanceStatus,
-			String keywords, int start, int end, Sort sort)
+	@Override
+	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		SearchContext searchContext = buildSearchContext(
-			companyId, activeTab, orderStatus, advanceStatus, keywords, start,
-			end, sort);
+		OrderFilterImpl orderFilterImpl = (OrderFilterImpl)filter;
 
-		BaseModelSearchResult<CommerceOrder> baseModelSearchResult =
-			commerceOrderLocalService.searchCommerceOrders(searchContext);
-
-		return baseModelSearchResult.getBaseModels();
-	}
-
-	public static int getCommerceOrdersCount(
-			CommerceOrderLocalService commerceOrderLocalService, long companyId,
-			String activeTab, int orderStatus, String advanceStatus,
-			String keywords)
-		throws PortalException {
+		String activeTab = ParamUtil.getString(httpServletRequest, "activeTab");
 
 		SearchContext searchContext = buildSearchContext(
-			companyId, activeTab, orderStatus, advanceStatus, keywords,
+			_portal.getCompanyId(httpServletRequest), activeTab,
+			orderFilterImpl.getOrderStatus(),
+			orderFilterImpl.getAdvanceStatus(), orderFilterImpl.getKeywords(),
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 		BaseModelSearchResult<CommerceOrder> baseModelSearchResult =
-			commerceOrderLocalService.searchCommerceOrders(searchContext);
+			_commerceOrderLocalService.searchCommerceOrders(searchContext);
 
 		return baseModelSearchResult.getLength();
 	}
 
-	public static String getDescriptiveCommerceAddress(
-			CommerceAddress commerceAddress)
+	@Override
+	public List<Order> getItems(
+			HttpServletRequest httpServletRequest, Filter filter,
+			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		if (commerceAddress == null) {
-			return StringPool.BLANK;
+		List<Order> orders = new ArrayList<>();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		String activeTab = ParamUtil.getString(httpServletRequest, "activeTab");
+
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
+			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
+			themeDisplay.getTimeZone());
+
+		OrderFilterImpl orderFilterImpl = (OrderFilterImpl)filter;
+
+		SearchContext searchContext = buildSearchContext(
+			_portal.getCompanyId(httpServletRequest), activeTab,
+			orderFilterImpl.getOrderStatus(),
+			orderFilterImpl.getAdvanceStatus(), orderFilterImpl.getKeywords(),
+			pagination.getStartPosition(), pagination.getEndPosition(), sort);
+
+		BaseModelSearchResult<CommerceOrder> baseModelSearchResult =
+			_commerceOrderLocalService.searchCommerceOrders(searchContext);
+
+		List<CommerceOrder> commerceOrders =
+			baseModelSearchResult.getBaseModels();
+
+		for (CommerceOrder commerceOrder : commerceOrders) {
+			CommerceMoney totalMoney = commerceOrder.getTotalMoney();
+
+			orders.add(
+				new Order(
+					commerceOrder.getCommerceOrderId(),
+					getCommerceOrderDateTime(
+						commerceOrder, dateTimeFormat,
+						themeDisplay.getLocale()),
+					LanguageUtil.get(
+						httpServletRequest,
+						CommerceOrderConstants.getOrderStatusLabel(
+							commerceOrder.getOrderStatus())),
+					LanguageUtil.get(
+						httpServletRequest,
+						CommerceOrderConstants.getPaymentStatusLabel(
+							commerceOrder.getPaymentStatus())),
+					new StatusField(
+						CommerceOrderConstants.getOrderStatusLabelStyle(
+							commerceOrder.getOrderStatus()),
+						LanguageUtil.get(
+							httpServletRequest,
+							CommerceOrderConstants.getOrderStatusLabel(
+								commerceOrder.getOrderStatus()))),
+					commerceOrder.getCommerceAccountName(),
+					String.valueOf(commerceOrder.getCommerceAccountId()),
+					totalMoney.format(themeDisplay.getLocale())));
 		}
 
-		CommerceRegion commerceRegion = commerceAddress.getCommerceRegion();
-
-		StringBundler sb = new StringBundler((commerceRegion == null) ? 5 : 7);
-
-		sb.append(commerceAddress.getStreet1());
-		sb.append(StringPool.SPACE);
-		sb.append(commerceAddress.getCity());
-		sb.append(StringPool.NEW_LINE);
-
-		if (commerceRegion != null) {
-			sb.append(commerceRegion.getCode());
-			sb.append(StringPool.SPACE);
-		}
-
-		sb.append(commerceAddress.getZip());
-
-		return sb.toString();
+		return orders;
 	}
 
-	protected static SearchContext buildSearchContext(
+	protected SearchContext buildSearchContext(
 			long companyId, String activeTab, int orderStatus,
 			String advanceStatus, String keywords, int start, int end,
 			Sort sort)
@@ -163,7 +198,17 @@ public class CommerceOrderDataSetDataProviderUtil {
 		return searchContext;
 	}
 
-	private static void _addFacetAdvanceStatus(
+	protected String getCommerceOrderDateTime(
+		CommerceOrder commerceOrder, Format dateTimeFormat, Locale locale) {
+
+		if (commerceOrder.getOrderDate() == null) {
+			return dateTimeFormat.format(commerceOrder.getCreateDate());
+		}
+
+		return dateTimeFormat.format(commerceOrder.getOrderDate());
+	}
+
+	private void _addFacetAdvanceStatus(
 		SearchContext searchContext, String advanceStatus) {
 
 		Facet facet = new SimpleFacet(searchContext);
@@ -175,7 +220,7 @@ public class CommerceOrderDataSetDataProviderUtil {
 		searchContext.setAttribute(facet.getFieldId(), advanceStatus);
 	}
 
-	private static SearchContext _addFacetOrderStatus(
+	private SearchContext _addFacetOrderStatus(
 		SearchContext searchContext, String activeTab, int orderStatus) {
 
 		boolean negated = false;
@@ -211,7 +256,7 @@ public class CommerceOrderDataSetDataProviderUtil {
 		return searchContext;
 	}
 
-	private static SearchContext _addFacetStatus(SearchContext searchContext) {
+	private SearchContext _addFacetStatus(SearchContext searchContext) {
 		NegatableSimpleFacet negatableSimpleFacet = new NegatableSimpleFacet(
 			searchContext);
 
@@ -232,11 +277,11 @@ public class CommerceOrderDataSetDataProviderUtil {
 		return searchContext;
 	}
 
-	private static long[] _getCommerceChannelGroupIds(long companyId)
+	private long[] _getCommerceChannelGroupIds(long companyId)
 		throws PortalException {
 
 		List<CommerceChannel> commerceChannels =
-			CommerceChannelServiceUtil.searchCommerceChannels(companyId);
+			_commerceChannelLocalService.searchCommerceChannels(companyId);
 
 		Stream<CommerceChannel> stream = commerceChannels.stream();
 
@@ -244,5 +289,14 @@ public class CommerceOrderDataSetDataProviderUtil {
 			CommerceChannel::getGroupId
 		).toArray();
 	}
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceOrderLocalService _commerceOrderLocalService;
+
+	@Reference
+	private Portal _portal;
 
 }
