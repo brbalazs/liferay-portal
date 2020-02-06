@@ -15,6 +15,7 @@
 package com.liferay.commerce.product.internal.upgrade.v2_0_0;
 
 import com.liferay.commerce.product.internal.upgrade.base.BaseCommerceProductServiceUpgradeProcess;
+import com.liferay.commerce.product.model.impl.CPInstanceModelImpl;
 import com.liferay.commerce.product.model.impl.CPInstanceOptionValueRelModelImpl;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -23,7 +24,7 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
+import com.liferay.portal.kernel.uuid.PortalUUID;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -40,8 +41,11 @@ import java.util.Map;
 public class CPInstanceOptionValueRelUpgradeProcess
 	extends BaseCommerceProductServiceUpgradeProcess {
 
-	public CPInstanceOptionValueRelUpgradeProcess(JSONFactory jsonFactory) {
+	public CPInstanceOptionValueRelUpgradeProcess(
+		JSONFactory jsonFactory, PortalUUID portalUUID) {
+
 		_jsonFactory = jsonFactory;
+		_portalUUID = portalUUID;
 	}
 
 	@Override
@@ -51,6 +55,7 @@ public class CPInstanceOptionValueRelUpgradeProcess
 		}
 
 		_importContentFromCPInstanceJsonField();
+		dropColumn(CPInstanceModelImpl.TABLE_NAME, "json");
 	}
 
 	private long _getCPDefinitionOptionRelId(
@@ -109,14 +114,31 @@ public class CPInstanceOptionValueRelUpgradeProcess
 					"CPDefinitionId, json from CPInstance")) {
 
 			while (rs.next()) {
-				_insertCPInstanceOptionValueRelEntries(ps, rs);
+				_queueInsertCPInstanceOptionValueRelCommands(ps, rs);
 
 				ps.executeBatch();
 			}
 		}
 	}
 
-	private void _insertCPInstanceOptionValueRelEntries(
+	private boolean _isDuplicatedCPInstanceOption(
+		Map<String, String> processedCPInstanceOptions,
+		String cpDefinitionOptionRelKey, String cpDefinitionOptionValueKey) {
+
+		String processedCPDefinitionOptionValueKey =
+			processedCPInstanceOptions.get(cpDefinitionOptionRelKey);
+
+		if ((processedCPDefinitionOptionValueKey != null) &&
+			processedCPDefinitionOptionValueKey.equals(
+				cpDefinitionOptionValueKey)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private void _queueInsertCPInstanceOptionValueRelCommands(
 			PreparedStatement ps, ResultSet rs)
 		throws JSONException, SQLException {
 
@@ -166,7 +188,7 @@ public class CPInstanceOptionValueRelUpgradeProcess
 					_getCPDefinitionOptionValueRelId(
 						cpDefinitionOptionRelId, cpDefinitionOptionValueRelKey);
 
-				String uuid = PortalUUIDUtil.generate();
+				String uuid = _portalUUID.generate();
 				long cpInstanceOptionValueRelId = increment();
 
 				ps.setString(1, uuid);
@@ -190,23 +212,7 @@ public class CPInstanceOptionValueRelUpgradeProcess
 		}
 	}
 
-	private boolean _isDuplicatedCPInstanceOption(
-		Map<String, String> processedCPInstanceOptions,
-		String cpDefinitionOptionRelKey, String cpDefinitionOptionValueKey) {
-
-		String processedCPDefinitionOptionValueKey =
-			processedCPInstanceOptions.get(cpDefinitionOptionRelKey);
-
-		if ((processedCPDefinitionOptionValueKey != null) &&
-			processedCPDefinitionOptionValueKey.equals(
-				cpDefinitionOptionValueKey)) {
-
-			return true;
-		}
-
-		return false;
-	}
-
 	private final JSONFactory _jsonFactory;
+	private final PortalUUID _portalUUID;
 
 }

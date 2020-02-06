@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeProcess;
+import com.liferay.portal.kernel.uuid.PortalUUID;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
 import org.osgi.service.component.annotations.Component;
@@ -135,7 +136,8 @@ public class CommerceProductUpgradeStepRegistrator
 
 		registry.register(
 			_SCHEMA_VERSION_1_11_2, _SCHEMA_VERSION_2_0_0,
-			new CPInstanceOptionValueRelUpgradeProcess(_jsonFactory));
+			new CPInstanceOptionValueRelUpgradeProcess(
+				_jsonFactory, _portalUUID));
 
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE PRODUCT UPGRADE STEP REGISTRATOR FINISHED");
@@ -194,6 +196,9 @@ public class CommerceProductUpgradeStepRegistrator
 
 	@Reference
 	private LayoutLocalService _layoutLocalService;
+
+	@Reference
+	private PortalUUID _portalUUID;
 
 	@Reference
 	private SettingsFactory _settingsFactory;
