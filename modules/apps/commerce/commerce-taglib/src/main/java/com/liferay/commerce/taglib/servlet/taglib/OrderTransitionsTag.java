@@ -14,9 +14,11 @@
 
 package com.liferay.commerce.taglib.servlet.taglib;
 
-import com.liferay.commerce.constants.CommerceOrderActionKeys;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
+import com.liferay.commerce.order.status.CommerceOrderStatus;
+import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
 import com.liferay.commerce.service.CommerceOrderServiceUtil;
 import com.liferay.commerce.taglib.servlet.taglib.internal.servlet.ServletContextUtil;
 import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
@@ -24,7 +26,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ObjectValuePair;
@@ -95,6 +96,8 @@ public class OrderTransitionsTag extends IncludeTag {
 
 		commerceWorkflowedModelHelper =
 			ServletContextUtil.getCommerceOrderHelper();
+		commerceOrderStatusRegistry =
+			ServletContextUtil.getCommerceOrderStatusRegistry();
 		commerceOrderModelResourcePermission =
 			ServletContextUtil.getCommerceOrderModelResourcePermission();
 		commerceOrderValidatorRegistry =
@@ -134,6 +137,7 @@ public class OrderTransitionsTag extends IncludeTag {
 
 	protected ModelResourcePermission<CommerceOrder>
 		commerceOrderModelResourcePermission;
+	protected CommerceOrderStatusRegistry commerceOrderStatusRegistry;
 	protected CommerceOrderValidatorRegistry commerceOrderValidatorRegistry;
 	protected CommerceWorkflowedModelHelper commerceWorkflowedModelHelper;
 
@@ -147,65 +151,29 @@ public class OrderTransitionsTag extends IncludeTag {
 			return transitionOVPs;
 		}
 
+		CommerceOrderStatus inProgressCommerceOrderStatus =
+			commerceOrderStatusRegistry.getCommerceOrderStatus(
+				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS);
+
 		if (!commerceOrder.isOpen()) {
 			transitionOVPs.add(new ObjectValuePair<>(0L, "reorder"));
 		}
+		else if (inProgressCommerceOrderStatus.isTransitionCriteriaMet(
+					commerceOrder)) {
 
-		ObjectValuePair<Long, String> approveOVP = null;
-
-		if (commerceOrder.isOpen() && commerceOrder.isPending() &&
-			commerceOrderModelResourcePermission.contains(
-				themeDisplay.getPermissionChecker(), commerceOrder,
-				CommerceOrderActionKeys.APPROVE_COMMERCE_ORDER)) {
-
-			approveOVP = new ObjectValuePair<>(0L, "approve");
-
-			transitionOVPs.add(approveOVP);
+			if (commerceOrder.isApproved()) {
+				transitionOVPs.add(new ObjectValuePair<>(0L, "checkout"));
+			}
+			else if (commerceOrder.isDraft()) {
+				transitionOVPs.add(new ObjectValuePair<>(0L, "submit"));
+			}
 		}
-
-		if (commerceOrder.isOpen() && commerceOrder.isApproved() &&
-			commerceOrderValidatorRegistry.isValid(
-				themeDisplay.getLocale(), commerceOrder) &&
-			commerceOrderModelResourcePermission.contains(
-				themeDisplay.getPermissionChecker(), commerceOrder,
-				CommerceOrderActionKeys.CHECKOUT_COMMERCE_ORDER)) {
-
-			transitionOVPs.add(new ObjectValuePair<>(0L, "checkout"));
-		}
-
-		if (commerceOrder.isOpen() && commerceOrder.isDraft() &&
-			!commerceOrder.isEmpty() &&
-			commerceOrderValidatorRegistry.isValid(
-				themeDisplay.getLocale(), commerceOrder) &&
-			commerceOrderModelResourcePermission.contains(
-				themeDisplay.getPermissionChecker(), commerceOrder,
-				ActionKeys.UPDATE)) {
-
-			transitionOVPs.add(new ObjectValuePair<>(0L, "submit"));
-		}
-
-		int start = transitionOVPs.size();
 
 		transitionOVPs.addAll(
 			commerceWorkflowedModelHelper.getWorkflowTransitions(
 				themeDisplay.getUserId(), commerceOrder.getCompanyId(),
 				commerceOrder.getModelClassName(),
 				commerceOrder.getCommerceOrderId()));
-
-		if (approveOVP != null) {
-			for (int i = start; i < transitionOVPs.size(); i++) {
-				ObjectValuePair<Long, String> objectValuePair =
-					transitionOVPs.get(i);
-
-				String value = objectValuePair.getValue();
-
-				if (value.equals(approveOVP.getValue())) {
-					approveOVP.setValue("force-" + value);
-
-					break;
-				}
-			}
-		}
 
 		return transitionOVPs;
 	}

@@ -19,6 +19,7 @@ import com.liferay.application.list.PanelCategoryRegistry;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
+import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
@@ -50,6 +51,12 @@ public class ServletContextUtil {
 		getCommerceOrderModelResourcePermission() {
 
 		return _servletContextUtil._getCommerceOrderModelResourcePermission();
+	}
+
+	public static final CommerceOrderStatusRegistry
+		getCommerceOrderStatusRegistry() {
+
+		return _servletContextUtil._getCommerceOrderStatusRegistry();
 	}
 
 	public static final CommerceOrderValidatorRegistry
@@ -118,6 +125,13 @@ public class ServletContextUtil {
 
 		_commerceOrderModelResourcePermission =
 			commerceOrderModelResourcePermission;
+	}
+
+	@Reference(unbind = "-")
+	protected void setCommerceOrderStatusRegistry(
+		CommerceOrderStatusRegistry commerceOrderStatusRegistry) {
+
+		_commerceOrderStatusRegistry = commerceOrderStatusRegistry;
 	}
 
 	@Reference(unbind = "-")
@@ -204,6 +218,10 @@ public class ServletContextUtil {
 		return _commerceOrderModelResourcePermission;
 	}
 
+	private CommerceOrderStatusRegistry _getCommerceOrderStatusRegistry() {
+		return _commerceOrderStatusRegistry;
+	}
+
 	private CommerceOrderValidatorRegistry
 		_getCommerceOrderValidatorRegistry() {
 
@@ -250,6 +268,7 @@ public class ServletContextUtil {
 
 	private ModelResourcePermission<CommerceOrder>
 		_commerceOrderModelResourcePermission;
+	private CommerceOrderStatusRegistry _commerceOrderStatusRegistry;
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
 	private CommercePriceFormatter _commercePriceFormatter;
 	private CommercePriceListLocalService _commercePriceListLocalService;
