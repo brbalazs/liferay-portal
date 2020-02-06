@@ -23,6 +23,13 @@ module.exports = [
 	{
 		entry: 'entry.es.js',
 		entry_dev: 'entry.dev.es.js',
+		folder: 'item_finder',
+		name: 'Item finder',
+		page: 'item-finder.html'
+	},
+	{
+		entry: 'entry.es.js',
+		entry_dev: 'entry.dev.es.js',
 		folder: 'example',
 		name: 'Example'
 	} /*

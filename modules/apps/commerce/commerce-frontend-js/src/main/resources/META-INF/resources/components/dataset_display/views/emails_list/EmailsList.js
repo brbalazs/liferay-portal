@@ -22,13 +22,12 @@ import React, {useContext} from 'react';
 import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
 
 function Email(props) {
-	const {loadData, openSidePanel} = useContext(props.datasetDisplayContext);
+	const {openSidePanel} = useContext(props.datasetDisplayContext);
 
 	function handleClickOnSubject(e) {
 		e.preventDefault();
 
 		openSidePanel({
-			onAfterSubmit: () => loadData(),
 			slug: 'email',
 			url: props.href
 		});
