@@ -24,15 +24,15 @@ public class Sku {
 		_href = href;
 	}
 
-	public String getLabel() {
-		return _label;
-	}
-
 	public String getHref() {
 		return _href;
 	}
 
-	private final String _label;
+	public String getLabel() {
+		return _label;
+	}
+
 	private final String _href;
+	private final String _label;
 
 }
