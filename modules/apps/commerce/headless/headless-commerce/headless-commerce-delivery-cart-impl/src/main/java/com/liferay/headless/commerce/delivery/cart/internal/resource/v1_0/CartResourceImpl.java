@@ -233,10 +233,6 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	}
 
 	private Cart _toCart(CommerceOrder commerceOrder) throws Exception {
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		return _cartDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
