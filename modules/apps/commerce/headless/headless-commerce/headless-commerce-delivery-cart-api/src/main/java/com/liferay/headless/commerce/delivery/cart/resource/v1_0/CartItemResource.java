@@ -41,12 +41,6 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CartItemResource {
 
-	public Page<CartItem> getCartItemsPage(Long cartId, Pagination pagination)
-		throws Exception;
-
-	public CartItem postCartItem(Long cartId, CartItem cartItem)
-		throws Exception;
-
 	public Response deleteCartItem(Long cartId, Long cartItemId)
 		throws Exception;
 
@@ -56,6 +50,12 @@ public interface CartItemResource {
 		throws Exception;
 
 	public CartItem putCartItem(Long cartItemId, CartItem cartItem)
+		throws Exception;
+
+	public Page<CartItem> getCartItemsPage(Long cartId, Pagination pagination)
+		throws Exception;
+
+	public CartItem postCartItem(Long cartId, CartItem cartItem)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

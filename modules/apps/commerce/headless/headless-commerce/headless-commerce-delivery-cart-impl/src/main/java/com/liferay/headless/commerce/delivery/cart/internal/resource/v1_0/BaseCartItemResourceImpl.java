@@ -70,55 +70,6 @@ public abstract class BaseCartItemResourceImpl implements CartItemResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/items'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(description = "Retrive cart items of a Cart.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/carts/{cartId}/items")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartItem")})
-	public Page<CartItem> getCartItemsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/items' -d $'{"customFields": ___, "price": ___, "quantity": ___, "skuId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@Operation(
-		description = "Add new Items to a Cart, return the whole Cart updated."
-	)
-	@POST
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
-	@Path("/carts/{cartId}/items")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartItem")})
-	public CartItem postCartItem(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			CartItem cartItem)
-		throws Exception {
-
-		return new CartItem();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-items/{cartItemId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -169,7 +120,7 @@ public abstract class BaseCartItemResourceImpl implements CartItemResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-items/{cartItemId}' -d $'{"customFields": ___, "price": ___, "quantity": ___, "skuId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-items/{cartItemId}' -d $'{"customFields": ___, "options": ___, "price": ___, "productId": ___, "quantity": ___, "skuId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -229,7 +180,7 @@ public abstract class BaseCartItemResourceImpl implements CartItemResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-items/{cartItemId}' -d $'{"customFields": ___, "price": ___, "quantity": ___, "skuId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-items/{cartItemId}' -d $'{"customFields": ___, "options": ___, "price": ___, "productId": ___, "quantity": ___, "skuId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -244,6 +195,55 @@ public abstract class BaseCartItemResourceImpl implements CartItemResource {
 	public CartItem putCartItem(
 			@NotNull @Parameter(hidden = true) @PathParam("cartItemId") Long
 				cartItemId,
+			CartItem cartItem)
+		throws Exception {
+
+		return new CartItem();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/items'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrive cart items of a Cart.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "cartId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/carts/{cartId}/items")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "CartItem")})
+	public Page<CartItem> getCartItemsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/items' -d $'{"customFields": ___, "options": ___, "price": ___, "productId": ___, "quantity": ___, "skuId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@Operation(
+		description = "Add new Items to a Cart, return the whole Cart updated."
+	)
+	@POST
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
+	@Path("/carts/{cartId}/items")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "CartItem")})
+	public CartItem postCartItem(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
 			CartItem cartItem)
 		throws Exception {
 

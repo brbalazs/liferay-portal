@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.ShippingMethodSerDes;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartCommentSerDes;
 
 import java.util.Objects;
 
@@ -26,28 +26,49 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ShippingMethod {
+public class CartComment {
 
-	public String getDescription() {
-		return description;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
-	public void setDescription(
-		UnsafeSupplier<String, Exception> descriptionUnsafeSupplier) {
+	public void setAuthor(
+		UnsafeSupplier<String, Exception> authorUnsafeSupplier) {
 
 		try {
-			description = descriptionUnsafeSupplier.get();
+			author = authorUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String description;
+	protected String author;
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setContent(
+		UnsafeSupplier<String, Exception> contentUnsafeSupplier) {
+
+		try {
+			content = contentUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String content;
 
 	public Long getId() {
 		return id;
@@ -68,46 +89,47 @@ public class ShippingMethod {
 
 	protected Long id;
 
-	public String getName() {
-		return name;
+	public Long getOrderId() {
+		return orderId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
 	}
 
-	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
+	public void setOrderId(
+		UnsafeSupplier<Long, Exception> orderIdUnsafeSupplier) {
+
 		try {
-			name = nameUnsafeSupplier.get();
+			orderId = orderIdUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String name;
+	protected Long orderId;
 
-	public ShippingOption[] getShippingOptions() {
-		return shippingOptions;
+	public Boolean getRestricted() {
+		return restricted;
 	}
 
-	public void setShippingOptions(ShippingOption[] shippingOptions) {
-		this.shippingOptions = shippingOptions;
+	public void setRestricted(Boolean restricted) {
+		this.restricted = restricted;
 	}
 
-	public void setShippingOptions(
-		UnsafeSupplier<ShippingOption[], Exception>
-			shippingOptionsUnsafeSupplier) {
+	public void setRestricted(
+		UnsafeSupplier<Boolean, Exception> restrictedUnsafeSupplier) {
 
 		try {
-			shippingOptions = shippingOptionsUnsafeSupplier.get();
+			restricted = restrictedUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected ShippingOption[] shippingOptions;
+	protected Boolean restricted;
 
 	@Override
 	public boolean equals(Object object) {
@@ -115,13 +137,13 @@ public class ShippingMethod {
 			return true;
 		}
 
-		if (!(object instanceof ShippingMethod)) {
+		if (!(object instanceof CartComment)) {
 			return false;
 		}
 
-		ShippingMethod shippingMethod = (ShippingMethod)object;
+		CartComment cartComment = (CartComment)object;
 
-		return Objects.equals(toString(), shippingMethod.toString());
+		return Objects.equals(toString(), cartComment.toString());
 	}
 
 	@Override
@@ -132,7 +154,7 @@ public class ShippingMethod {
 	}
 
 	public String toString() {
-		return ShippingMethodSerDes.toJSON(this);
+		return CartCommentSerDes.toJSON(this);
 	}
 
 }

@@ -135,6 +135,27 @@ public class Cart {
 
 	protected Long billingAddressId;
 
+	public CartComment[] getCartComments() {
+		return cartComments;
+	}
+
+	public void setCartComments(CartComment[] cartComments) {
+		this.cartComments = cartComments;
+	}
+
+	public void setCartComments(
+		UnsafeSupplier<CartComment[], Exception> cartCommentsUnsafeSupplier) {
+
+		try {
+			cartComments = cartCommentsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected CartComment[] cartComments;
+
 	public CartItem[] getCartItems() {
 		return cartItems;
 	}
@@ -155,27 +176,6 @@ public class Cart {
 	}
 
 	protected CartItem[] cartItems;
-
-	public CartNote[] getCartNotes() {
-		return cartNotes;
-	}
-
-	public void setCartNotes(CartNote[] cartNotes) {
-		this.cartNotes = cartNotes;
-	}
-
-	public void setCartNotes(
-		UnsafeSupplier<CartNote[], Exception> cartNotesUnsafeSupplier) {
-
-		try {
-			cartNotes = cartNotesUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected CartNote[] cartNotes;
 
 	public Long getChannelId() {
 		return channelId;

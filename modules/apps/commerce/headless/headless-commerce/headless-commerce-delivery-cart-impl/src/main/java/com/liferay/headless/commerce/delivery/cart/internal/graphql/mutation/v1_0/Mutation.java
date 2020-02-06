@@ -15,11 +15,11 @@
 package com.liferay.headless.commerce.delivery.cart.internal.graphql.mutation.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartComment;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CouponCode;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartCommentResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartNoteResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
@@ -52,32 +52,20 @@ public class Mutation {
 			cartResourceComponentServiceObjects;
 	}
 
+	public static void setCartCommentResourceComponentServiceObjects(
+		ComponentServiceObjects<CartCommentResource>
+			cartCommentResourceComponentServiceObjects) {
+
+		_cartCommentResourceComponentServiceObjects =
+			cartCommentResourceComponentServiceObjects;
+	}
+
 	public static void setCartItemResourceComponentServiceObjects(
 		ComponentServiceObjects<CartItemResource>
 			cartItemResourceComponentServiceObjects) {
 
 		_cartItemResourceComponentServiceObjects =
 			cartItemResourceComponentServiceObjects;
-	}
-
-	public static void setCartNoteResourceComponentServiceObjects(
-		ComponentServiceObjects<CartNoteResource>
-			cartNoteResourceComponentServiceObjects) {
-
-		_cartNoteResourceComponentServiceObjects =
-			cartNoteResourceComponentServiceObjects;
-	}
-
-	@GraphQLField
-	public Cart createChannelCart(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cart") Cart cart)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_cartResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			cartResource -> cartResource.postChannelCart(channelId, cart));
 	}
 
 	@GraphQLField
@@ -127,19 +115,66 @@ public class Mutation {
 				cartId, couponCode));
 	}
 
-	@GraphQLField(
-		description = "Add new Items to a Cart, return the whole Cart updated."
-	)
-	public CartItem createCartItem(
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("cartItem") CartItem cartItem)
+	@GraphQLField
+	public Cart createChannelCart(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("cart") Cart cart)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_cartItemResourceComponentServiceObjects,
+			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartItemResource -> cartItemResource.postCartItem(
-				cartId, cartItem));
+			cartResource -> cartResource.postChannelCart(channelId, cart));
+	}
+
+	@GraphQLField
+	public Response deleteCartComment(@GraphQLName("commentId") Long commentId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartCommentResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartCommentResource -> cartCommentResource.deleteCartComment(
+				commentId));
+	}
+
+	@GraphQLField
+	public CartComment patchCartComment(
+			@GraphQLName("commentId") Long commentId,
+			@GraphQLName("cartComment") CartComment cartComment)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartCommentResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartCommentResource -> cartCommentResource.patchCartComment(
+				commentId, cartComment));
+	}
+
+	@GraphQLField
+	public CartComment updateCartComment(
+			@GraphQLName("commentId") Long commentId,
+			@GraphQLName("cartComment") CartComment cartComment)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartCommentResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartCommentResource -> cartCommentResource.putCartComment(
+				commentId, cartComment));
+	}
+
+	@GraphQLField
+	public CartComment createCartComment(
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("cartComment") CartComment cartComment)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartCommentResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartCommentResource -> cartCommentResource.postCartComment(
+				cartId, cartComment));
 	}
 
 	@GraphQLField(description = "Deletes an Cart Item by ID.")
@@ -181,52 +216,19 @@ public class Mutation {
 				cartItemId, cartItem));
 	}
 
-	@GraphQLField
-	public CartNote createCartNote(
+	@GraphQLField(
+		description = "Add new Items to a Cart, return the whole Cart updated."
+	)
+	public CartItem createCartItem(
 			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("cartNote") CartNote cartNote)
+			@GraphQLName("cartItem") CartItem cartItem)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_cartNoteResourceComponentServiceObjects,
+			_cartItemResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartNoteResource -> cartNoteResource.postCartNote(
-				cartId, cartNote));
-	}
-
-	@GraphQLField
-	public Response deleteCartNote(@GraphQLName("noteId") Long noteId)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_cartNoteResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			cartNoteResource -> cartNoteResource.deleteCartNote(noteId));
-	}
-
-	@GraphQLField
-	public CartNote patchCartNote(
-			@GraphQLName("noteId") Long noteId,
-			@GraphQLName("cartNote") CartNote cartNote)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_cartNoteResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			cartNoteResource -> cartNoteResource.patchCartNote(
-				noteId, cartNote));
-	}
-
-	@GraphQLField
-	public CartNote updateCartNote(
-			@GraphQLName("noteId") Long noteId,
-			@GraphQLName("cartNote") CartNote cartNote)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_cartNoteResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			cartNoteResource -> cartNoteResource.putCartNote(noteId, cartNote));
+			cartItemResource -> cartItemResource.postCartItem(
+				cartId, cartItem));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
@@ -278,6 +280,18 @@ public class Mutation {
 		cartResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(
+			CartCommentResource cartCommentResource)
+		throws Exception {
+
+		cartCommentResource.setContextAcceptLanguage(_acceptLanguage);
+		cartCommentResource.setContextCompany(_company);
+		cartCommentResource.setContextHttpServletRequest(_httpServletRequest);
+		cartCommentResource.setContextHttpServletResponse(_httpServletResponse);
+		cartCommentResource.setContextUriInfo(_uriInfo);
+		cartCommentResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(CartItemResource cartItemResource)
 		throws Exception {
 
@@ -289,23 +303,12 @@ public class Mutation {
 		cartItemResource.setContextUser(_user);
 	}
 
-	private void _populateResourceContext(CartNoteResource cartNoteResource)
-		throws Exception {
-
-		cartNoteResource.setContextAcceptLanguage(_acceptLanguage);
-		cartNoteResource.setContextCompany(_company);
-		cartNoteResource.setContextHttpServletRequest(_httpServletRequest);
-		cartNoteResource.setContextHttpServletResponse(_httpServletResponse);
-		cartNoteResource.setContextUriInfo(_uriInfo);
-		cartNoteResource.setContextUser(_user);
-	}
-
 	private static ComponentServiceObjects<CartResource>
 		_cartResourceComponentServiceObjects;
+	private static ComponentServiceObjects<CartCommentResource>
+		_cartCommentResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CartItemResource>
 		_cartItemResourceComponentServiceObjects;
-	private static ComponentServiceObjects<CartNoteResource>
-		_cartNoteResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;

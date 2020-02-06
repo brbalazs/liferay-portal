@@ -14,8 +14,8 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartNoteResource;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartComment;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartCommentResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.service.GroupLocalService;
@@ -64,66 +64,23 @@ import javax.ws.rs.core.UriInfo;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseCartNoteResourceImpl implements CartNoteResource {
+public abstract class BaseCartCommentResourceImpl
+	implements CartCommentResource {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/notes'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/carts/{cartId}/notes")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartNote")})
-	public Page<CartNote> getCartNotesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/notes' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
-	@Path("/carts/{cartId}/notes")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartNote")})
-	public CartNote postCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			CartNote cartNote)
-		throws Exception {
-
-		return new CartNote();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "noteId")})
-	@Path("/cart-notes/{noteId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "commentId")})
+	@Path("/cart-comments/{commentId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartNote")})
-	public Response deleteCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("noteId") Long noteId)
+	@Tags(value = {@Tag(name = "CartComment")})
+	public Response deleteCartComment(
+			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
+				commentId)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -134,79 +91,127 @@ public abstract class BaseCartNoteResourceImpl implements CartNoteResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "noteId")})
-	@Path("/cart-notes/{noteId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "commentId")})
+	@Path("/cart-comments/{commentId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartNote")})
-	public CartNote getCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("noteId") Long noteId)
+	@Tags(value = {@Tag(name = "CartComment")})
+	public CartComment getCartComment(
+			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
+				commentId)
 		throws Exception {
 
-		return new CartNote();
+		return new CartComment();
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PATCH
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "noteId")})
-	@Path("/cart-notes/{noteId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "commentId")})
+	@Path("/cart-comments/{commentId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartNote")})
-	public CartNote patchCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("noteId") Long noteId,
-			CartNote cartNote)
+	@Tags(value = {@Tag(name = "CartComment")})
+	public CartComment patchCartComment(
+			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
+				commentId,
+			CartComment cartComment)
 		throws Exception {
 
-		CartNote existingCartNote = getCartNote(noteId);
+		CartComment existingCartComment = getCartComment(commentId);
 
-		if (cartNote.getAuthor() != null) {
-			existingCartNote.setAuthor(cartNote.getAuthor());
+		if (cartComment.getAuthor() != null) {
+			existingCartComment.setAuthor(cartComment.getAuthor());
 		}
 
-		if (cartNote.getContent() != null) {
-			existingCartNote.setContent(cartNote.getContent());
+		if (cartComment.getContent() != null) {
+			existingCartComment.setContent(cartComment.getContent());
 		}
 
-		if (cartNote.getOrderId() != null) {
-			existingCartNote.setOrderId(cartNote.getOrderId());
+		if (cartComment.getOrderId() != null) {
+			existingCartComment.setOrderId(cartComment.getOrderId());
 		}
 
-		if (cartNote.getRestricted() != null) {
-			existingCartNote.setRestricted(cartNote.getRestricted());
+		if (cartComment.getRestricted() != null) {
+			existingCartComment.setRestricted(cartComment.getRestricted());
 		}
 
-		preparePatch(cartNote, existingCartNote);
+		preparePatch(cartComment, existingCartComment);
 
-		return putCartNote(noteId, existingCartNote);
+		return putCartComment(commentId, existingCartComment);
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "noteId")})
-	@Path("/cart-notes/{noteId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "commentId")})
+	@Path("/cart-comments/{commentId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartNote")})
-	public CartNote putCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("noteId") Long noteId,
-			CartNote cartNote)
+	@Tags(value = {@Tag(name = "CartComment")})
+	public CartComment putCartComment(
+			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
+				commentId,
+			CartComment cartComment)
 		throws Exception {
 
-		return new CartNote();
+		return new CartComment();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/comments'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "cartId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/carts/{cartId}/comments")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "CartComment")})
+	public Page<CartComment> getCartCommentsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/comments' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
+	@Path("/carts/{cartId}/comments")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "CartComment")})
+	public CartComment postCartComment(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+			CartComment cartComment)
+		throws Exception {
+
+		return new CartComment();
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
@@ -266,7 +271,8 @@ public abstract class BaseCartNoteResourceImpl implements CartNoteResource {
 			actionName, siteId, methodName, permissionName, siteId);
 	}
 
-	protected void preparePatch(CartNote cartNote, CartNote existingCartNote) {
+	protected void preparePatch(
+		CartComment cartComment, CartComment existingCartComment) {
 	}
 
 	protected <T, R> List<R> transform(

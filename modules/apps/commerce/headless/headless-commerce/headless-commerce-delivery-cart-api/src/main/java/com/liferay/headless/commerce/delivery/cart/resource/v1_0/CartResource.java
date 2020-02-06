@@ -42,11 +42,6 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CartResource {
 
-	public Page<Cart> getChannelCartsPage(Long channelId, Pagination pagination)
-		throws Exception;
-
-	public Cart postChannelCart(Long channelId, Cart cart) throws Exception;
-
 	public Response deleteCart(Long cartId) throws Exception;
 
 	public Cart getCart(Long cartId) throws Exception;
@@ -57,6 +52,11 @@ public interface CartResource {
 
 	public Cart postCartCouponCode(Long cartId, CouponCode couponCode)
 		throws Exception;
+
+	public Page<Cart> getChannelCartsPage(Long channelId, Pagination pagination)
+		throws Exception;
+
+	public Cart postChannelCart(Long channelId, Cart cart) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

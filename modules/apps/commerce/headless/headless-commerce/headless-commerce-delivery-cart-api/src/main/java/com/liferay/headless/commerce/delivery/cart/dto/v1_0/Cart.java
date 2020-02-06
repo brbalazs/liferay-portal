@@ -188,8 +188,37 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long billingAddressId;
+
+	@Schema
+	@Valid
+	public CartComment[] getCartComments() {
+		return cartComments;
+	}
+
+	public void setCartComments(CartComment[] cartComments) {
+		this.cartComments = cartComments;
+	}
+
+	@JsonIgnore
+	public void setCartComments(
+		UnsafeSupplier<CartComment[], Exception> cartCommentsUnsafeSupplier) {
+
+		try {
+			cartComments = cartCommentsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected CartComment[] cartComments;
 
 	@Schema
 	@Valid
@@ -219,35 +248,6 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected CartItem[] cartItems;
-
-	@Schema
-	@Valid
-	public CartNote[] getCartNotes() {
-		return cartNotes;
-	}
-
-	public void setCartNotes(CartNote[] cartNotes) {
-		this.cartNotes = cartNotes;
-	}
-
-	@JsonIgnore
-	public void setCartNotes(
-		UnsafeSupplier<CartNote[], Exception> cartNotesUnsafeSupplier) {
-
-		try {
-			cartNotes = cartNotesUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected CartNote[] cartNotes;
 
 	@Schema
 	public Long getChannelId() {
@@ -694,7 +694,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long shippingAddressId;
 
 	@Schema
@@ -926,6 +926,26 @@ public class Cart {
 			sb.append(billingAddressId);
 		}
 
+		if (cartComments != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"cartComments\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < cartComments.length; i++) {
+				sb.append(String.valueOf(cartComments[i]));
+
+				if ((i + 1) < cartComments.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (cartItems != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -939,26 +959,6 @@ public class Cart {
 				sb.append(String.valueOf(cartItems[i]));
 
 				if ((i + 1) < cartItems.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (cartNotes != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"cartNotes\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < cartNotes.length; i++) {
-				sb.append(String.valueOf(cartNotes[i]));
-
-				if ((i + 1) < cartNotes.length) {
 					sb.append(", ");
 				}
 			}

@@ -38,10 +38,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface AddressResource {
 
-	public Address getCartBillingAddres(Long cartId, Long addressId)
+	public Address getCartBillingAddres(Long addressId, Long cartId)
 		throws Exception;
 
-	public Address getCartShippingAddres(Long cartId, Long addressId)
+	public Address getCartShippingAddres(Long addressId, Long cartId)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

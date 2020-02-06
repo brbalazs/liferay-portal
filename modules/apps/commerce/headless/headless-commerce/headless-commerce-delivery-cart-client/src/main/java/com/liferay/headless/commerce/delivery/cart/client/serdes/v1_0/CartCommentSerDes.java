@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.PaymentMethod;
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartComment;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,24 +30,24 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class PaymentMethodSerDes {
+public class CartCommentSerDes {
 
-	public static PaymentMethod toDTO(String json) {
-		PaymentMethodJSONParser paymentMethodJSONParser =
-			new PaymentMethodJSONParser();
+	public static CartComment toDTO(String json) {
+		CartCommentJSONParser cartCommentJSONParser =
+			new CartCommentJSONParser();
 
-		return paymentMethodJSONParser.parseToDTO(json);
+		return cartCommentJSONParser.parseToDTO(json);
 	}
 
-	public static PaymentMethod[] toDTOs(String json) {
-		PaymentMethodJSONParser paymentMethodJSONParser =
-			new PaymentMethodJSONParser();
+	public static CartComment[] toDTOs(String json) {
+		CartCommentJSONParser cartCommentJSONParser =
+			new CartCommentJSONParser();
 
-		return paymentMethodJSONParser.parseToDTOs(json);
+		return cartCommentJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(PaymentMethod paymentMethod) {
-		if (paymentMethod == null) {
+	public static String toJSON(CartComment cartComment) {
+		if (cartComment == null) {
 			return "null";
 		}
 
@@ -55,46 +55,62 @@ public class PaymentMethodSerDes {
 
 		sb.append("{");
 
-		if (paymentMethod.getDescription() != null) {
+		if (cartComment.getAuthor() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"description\": ");
+			sb.append("\"author\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(paymentMethod.getDescription()));
+			sb.append(_escape(cartComment.getAuthor()));
 
 			sb.append("\"");
 		}
 
-		if (paymentMethod.getKey() != null) {
+		if (cartComment.getContent() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"key\": ");
+			sb.append("\"content\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(paymentMethod.getKey()));
+			sb.append(_escape(cartComment.getContent()));
 
 			sb.append("\"");
 		}
 
-		if (paymentMethod.getName() != null) {
+		if (cartComment.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"name\": ");
+			sb.append("\"id\": ");
 
-			sb.append("\"");
+			sb.append(cartComment.getId());
+		}
 
-			sb.append(_escape(paymentMethod.getName()));
+		if (cartComment.getOrderId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
 
-			sb.append("\"");
+			sb.append("\"orderId\": ");
+
+			sb.append(cartComment.getOrderId());
+		}
+
+		if (cartComment.getRestricted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"restricted\": ");
+
+			sb.append(cartComment.getRestricted());
 		}
 
 		sb.append("}");
@@ -103,75 +119,100 @@ public class PaymentMethodSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		PaymentMethodJSONParser paymentMethodJSONParser =
-			new PaymentMethodJSONParser();
+		CartCommentJSONParser cartCommentJSONParser =
+			new CartCommentJSONParser();
 
-		return paymentMethodJSONParser.parseToMap(json);
+		return cartCommentJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(PaymentMethod paymentMethod) {
-		if (paymentMethod == null) {
+	public static Map<String, String> toMap(CartComment cartComment) {
+		if (cartComment == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (paymentMethod.getDescription() == null) {
-			map.put("description", null);
+		if (cartComment.getAuthor() == null) {
+			map.put("author", null);
 		}
 		else {
-			map.put(
-				"description", String.valueOf(paymentMethod.getDescription()));
+			map.put("author", String.valueOf(cartComment.getAuthor()));
 		}
 
-		if (paymentMethod.getKey() == null) {
-			map.put("key", null);
+		if (cartComment.getContent() == null) {
+			map.put("content", null);
 		}
 		else {
-			map.put("key", String.valueOf(paymentMethod.getKey()));
+			map.put("content", String.valueOf(cartComment.getContent()));
 		}
 
-		if (paymentMethod.getName() == null) {
-			map.put("name", null);
+		if (cartComment.getId() == null) {
+			map.put("id", null);
 		}
 		else {
-			map.put("name", String.valueOf(paymentMethod.getName()));
+			map.put("id", String.valueOf(cartComment.getId()));
+		}
+
+		if (cartComment.getOrderId() == null) {
+			map.put("orderId", null);
+		}
+		else {
+			map.put("orderId", String.valueOf(cartComment.getOrderId()));
+		}
+
+		if (cartComment.getRestricted() == null) {
+			map.put("restricted", null);
+		}
+		else {
+			map.put("restricted", String.valueOf(cartComment.getRestricted()));
 		}
 
 		return map;
 	}
 
-	public static class PaymentMethodJSONParser
-		extends BaseJSONParser<PaymentMethod> {
+	public static class CartCommentJSONParser
+		extends BaseJSONParser<CartComment> {
 
 		@Override
-		protected PaymentMethod createDTO() {
-			return new PaymentMethod();
+		protected CartComment createDTO() {
+			return new CartComment();
 		}
 
 		@Override
-		protected PaymentMethod[] createDTOArray(int size) {
-			return new PaymentMethod[size];
+		protected CartComment[] createDTOArray(int size) {
+			return new CartComment[size];
 		}
 
 		@Override
 		protected void setField(
-			PaymentMethod paymentMethod, String jsonParserFieldName,
+			CartComment cartComment, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "description")) {
+			if (Objects.equals(jsonParserFieldName, "author")) {
 				if (jsonParserFieldValue != null) {
-					paymentMethod.setDescription((String)jsonParserFieldValue);
+					cartComment.setAuthor((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "key")) {
+			else if (Objects.equals(jsonParserFieldName, "content")) {
 				if (jsonParserFieldValue != null) {
-					paymentMethod.setKey((String)jsonParserFieldValue);
+					cartComment.setContent((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "name")) {
+			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
-					paymentMethod.setName((String)jsonParserFieldValue);
+					cartComment.setId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "orderId")) {
+				if (jsonParserFieldValue != null) {
+					cartComment.setOrderId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "restricted")) {
+				if (jsonParserFieldValue != null) {
+					cartComment.setRestricted((Boolean)jsonParserFieldValue);
 				}
 			}
 			else {

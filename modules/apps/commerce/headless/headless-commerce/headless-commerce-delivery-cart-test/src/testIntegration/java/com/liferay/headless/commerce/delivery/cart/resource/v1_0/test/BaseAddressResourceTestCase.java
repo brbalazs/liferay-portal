@@ -216,7 +216,7 @@ public abstract class BaseAddressResourceTestCase {
 		Address postAddress = testGetCartBillingAddres_addAddress();
 
 		Address getAddress = addressResource.getCartBillingAddres(
-			null, postAddress.getId());
+			postAddress.getId(), null);
 
 		assertEquals(postAddress, getAddress);
 		assertValid(getAddress);
@@ -239,8 +239,8 @@ public abstract class BaseAddressResourceTestCase {
 				"cartBillingAddres",
 				new HashMap<String, Object>() {
 					{
-						put("cartId", null);
 						put("addressId", address.getId());
+						put("cartId", null);
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -260,7 +260,7 @@ public abstract class BaseAddressResourceTestCase {
 		Address postAddress = testGetCartShippingAddres_addAddress();
 
 		Address getAddress = addressResource.getCartShippingAddres(
-			null, postAddress.getId());
+			postAddress.getId(), null);
 
 		assertEquals(postAddress, getAddress);
 		assertValid(getAddress);
@@ -283,8 +283,8 @@ public abstract class BaseAddressResourceTestCase {
 				"cartShippingAddres",
 				new HashMap<String, Object>() {
 					{
-						put("cartId", null);
 						put("addressId", address.getId());
+						put("cartId", null);
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));

@@ -14,15 +14,17 @@
 
 package com.liferay.headless.commerce.delivery.cart.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.PaymentMethod;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartComment;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import javax.annotation.Generated;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -37,10 +39,23 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @Generated("")
 @ProviderType
-public interface PaymentMethodResource {
+public interface CartCommentResource {
 
-	public Page<PaymentMethod> getChannelCartPaymentMethodsPage(
-			Long channelId, Long cartId)
+	public Response deleteCartComment(Long commentId) throws Exception;
+
+	public CartComment getCartComment(Long commentId) throws Exception;
+
+	public CartComment patchCartComment(Long commentId, CartComment cartComment)
+		throws Exception;
+
+	public CartComment putCartComment(Long commentId, CartComment cartComment)
+		throws Exception;
+
+	public Page<CartComment> getCartCommentsPage(
+			Long cartId, Pagination pagination)
+		throws Exception;
+
+	public CartComment postCartComment(Long cartId, CartComment cartComment)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

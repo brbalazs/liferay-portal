@@ -196,6 +196,168 @@ public abstract class BaseCartItemResourceTestCase {
 	}
 
 	@Test
+	public void testDeleteCartItem() throws Exception {
+		CartItem cartItem = testDeleteCartItem_addCartItem();
+
+		assertHttpResponseStatusCode(
+			204,
+			cartItemResource.deleteCartItemHttpResponse(
+				null, cartItem.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			cartItemResource.getCartItemHttpResponse(null, cartItem.getId()));
+
+		assertHttpResponseStatusCode(
+			404, cartItemResource.getCartItemHttpResponse(null, 0L));
+	}
+
+	protected CartItem testDeleteCartItem_addCartItem() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteCartItem() throws Exception {
+		CartItem cartItem = testGraphQLCartItem_addCartItem();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"mutation",
+			new GraphQLField(
+				"deleteCartItem",
+				new HashMap<String, Object>() {
+					{
+						put("cartItemId", cartItem.getId());
+					}
+				}));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(dataJSONObject.getBoolean("deleteCartItem"));
+
+		try (CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"graphql.execution.SimpleDataFetcherExceptionHandler",
+					Level.WARN)) {
+
+			graphQLField = new GraphQLField(
+				"query",
+				new GraphQLField(
+					"cartItem",
+					new HashMap<String, Object>() {
+						{
+							put("cartItemId", cartItem.getId());
+						}
+					},
+					new GraphQLField("id")));
+
+			jsonObject = JSONFactoryUtil.createJSONObject(
+				invoke(graphQLField.toString()));
+
+			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+
+			Assert.assertTrue(errorsJSONArray.length() > 0);
+		}
+	}
+
+	@Test
+	public void testGetCartItem() throws Exception {
+		CartItem postCartItem = testGetCartItem_addCartItem();
+
+		CartItem getCartItem = cartItemResource.getCartItem(
+			postCartItem.getId());
+
+		assertEquals(postCartItem, getCartItem);
+		assertValid(getCartItem);
+	}
+
+	protected CartItem testGetCartItem_addCartItem() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetCartItem() throws Exception {
+		CartItem cartItem = testGraphQLCartItem_addCartItem();
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"cartItem",
+				new HashMap<String, Object>() {
+					{
+						put("cartItemId", cartItem.getId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(
+			equalsJSONObject(
+				cartItem, dataJSONObject.getJSONObject("cartItem")));
+	}
+
+	@Test
+	public void testPatchCartItem() throws Exception {
+		CartItem postCartItem = testPatchCartItem_addCartItem();
+
+		CartItem randomPatchCartItem = randomPatchCartItem();
+
+		CartItem patchCartItem = cartItemResource.patchCartItem(
+			postCartItem.getId(), randomPatchCartItem);
+
+		CartItem expectedPatchCartItem = (CartItem)BeanUtils.cloneBean(
+			postCartItem);
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchCartItem, randomPatchCartItem);
+
+		CartItem getCartItem = cartItemResource.getCartItem(
+			patchCartItem.getId());
+
+		assertEquals(expectedPatchCartItem, getCartItem);
+		assertValid(getCartItem);
+	}
+
+	protected CartItem testPatchCartItem_addCartItem() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPutCartItem() throws Exception {
+		CartItem postCartItem = testPutCartItem_addCartItem();
+
+		CartItem randomCartItem = randomCartItem();
+
+		CartItem putCartItem = cartItemResource.putCartItem(
+			postCartItem.getId(), randomCartItem);
+
+		assertEquals(randomCartItem, putCartItem);
+		assertValid(putCartItem);
+
+		CartItem getCartItem = cartItemResource.getCartItem(
+			putCartItem.getId());
+
+		assertEquals(randomCartItem, getCartItem);
+		assertValid(getCartItem);
+	}
+
+	protected CartItem testPutCartItem_addCartItem() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testGetCartItemsPage() throws Exception {
 		Page<CartItem> page = cartItemResource.getCartItemsPage(
 			testGetCartItemsPage_getCartId(), Pagination.of(1, 2));
@@ -359,168 +521,6 @@ public abstract class BaseCartItemResourceTestCase {
 	protected CartItem testPostCartItem_addCartItem(CartItem cartItem)
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testDeleteCartItem() throws Exception {
-		CartItem cartItem = testDeleteCartItem_addCartItem();
-
-		assertHttpResponseStatusCode(
-			204,
-			cartItemResource.deleteCartItemHttpResponse(
-				null, cartItem.getId()));
-
-		assertHttpResponseStatusCode(
-			404,
-			cartItemResource.getCartItemHttpResponse(null, cartItem.getId()));
-
-		assertHttpResponseStatusCode(
-			404, cartItemResource.getCartItemHttpResponse(null, 0L));
-	}
-
-	protected CartItem testDeleteCartItem_addCartItem() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLDeleteCartItem() throws Exception {
-		CartItem cartItem = testGraphQLCartItem_addCartItem();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteCartItem",
-				new HashMap<String, Object>() {
-					{
-						put("cartItemId", cartItem.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteCartItem"));
-
-		try (CaptureAppender captureAppender =
-				Log4JLoggerTestUtil.configureLog4JLogger(
-					"graphql.execution.SimpleDataFetcherExceptionHandler",
-					Level.WARN)) {
-
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"cartItem",
-					new HashMap<String, Object>() {
-						{
-							put("cartItemId", cartItem.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
-
-			Assert.assertTrue(errorsJSONArray.length() > 0);
-		}
-	}
-
-	@Test
-	public void testGetCartItem() throws Exception {
-		CartItem postCartItem = testGetCartItem_addCartItem();
-
-		CartItem getCartItem = cartItemResource.getCartItem(
-			postCartItem.getId());
-
-		assertEquals(postCartItem, getCartItem);
-		assertValid(getCartItem);
-	}
-
-	protected CartItem testGetCartItem_addCartItem() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetCartItem() throws Exception {
-		CartItem cartItem = testGraphQLCartItem_addCartItem();
-
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"cartItem",
-				new HashMap<String, Object>() {
-					{
-						put("cartItemId", cartItem.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(
-			equalsJSONObject(
-				cartItem, dataJSONObject.getJSONObject("cartItem")));
-	}
-
-	@Test
-	public void testPatchCartItem() throws Exception {
-		CartItem postCartItem = testPatchCartItem_addCartItem();
-
-		CartItem randomPatchCartItem = randomPatchCartItem();
-
-		CartItem patchCartItem = cartItemResource.patchCartItem(
-			postCartItem.getId(), randomPatchCartItem);
-
-		CartItem expectedPatchCartItem = (CartItem)BeanUtils.cloneBean(
-			postCartItem);
-
-		_beanUtilsBean.copyProperties(
-			expectedPatchCartItem, randomPatchCartItem);
-
-		CartItem getCartItem = cartItemResource.getCartItem(
-			patchCartItem.getId());
-
-		assertEquals(expectedPatchCartItem, getCartItem);
-		assertValid(getCartItem);
-	}
-
-	protected CartItem testPatchCartItem_addCartItem() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPutCartItem() throws Exception {
-		CartItem postCartItem = testPutCartItem_addCartItem();
-
-		CartItem randomCartItem = randomCartItem();
-
-		CartItem putCartItem = cartItemResource.putCartItem(
-			postCartItem.getId(), randomCartItem);
-
-		assertEquals(randomCartItem, putCartItem);
-		assertValid(putCartItem);
-
-		CartItem getCartItem = cartItemResource.getCartItem(
-			putCartItem.getId());
-
-		assertEquals(randomCartItem, getCartItem);
-		assertValid(getCartItem);
-	}
-
-	protected CartItem testPutCartItem_addCartItem() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}

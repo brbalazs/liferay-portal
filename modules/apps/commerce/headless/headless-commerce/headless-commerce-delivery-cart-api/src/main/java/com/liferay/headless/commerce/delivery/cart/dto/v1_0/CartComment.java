@@ -39,26 +39,54 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("ShippingOption")
+@GraphQLName("CartComment")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "ShippingOption")
-public class ShippingOption {
+@XmlRootElement(name = "CartComment")
+public class CartComment {
 
 	@Schema
-	public Double getAmount() {
-		return amount;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	@JsonIgnore
-	public void setAmount(
-		UnsafeSupplier<Double, Exception> amountUnsafeSupplier) {
+	public void setAuthor(
+		UnsafeSupplier<String, Exception> authorUnsafeSupplier) {
 
 		try {
-			amount = amountUnsafeSupplier.get();
+			author = authorUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String author;
+
+	@Schema
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	@JsonIgnore
+	public void setContent(
+		UnsafeSupplier<String, Exception> contentUnsafeSupplier) {
+
+		try {
+			content = contentUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -70,23 +98,77 @@ public class ShippingOption {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Double amount;
+	protected String content;
 
 	@Schema
-	public String getAmountFormatted() {
-		return amountFormatted;
+	public Long getId() {
+		return id;
 	}
 
-	public void setAmountFormatted(String amountFormatted) {
-		this.amountFormatted = amountFormatted;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@JsonIgnore
-	public void setAmountFormatted(
-		UnsafeSupplier<String, Exception> amountFormattedUnsafeSupplier) {
+	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
+		try {
+			id = idUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long id;
+
+	@Schema
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	@JsonIgnore
+	public void setOrderId(
+		UnsafeSupplier<Long, Exception> orderIdUnsafeSupplier) {
 
 		try {
-			amountFormatted = amountFormattedUnsafeSupplier.get();
+			orderId = orderIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long orderId;
+
+	@Schema
+	public Boolean getRestricted() {
+		return restricted;
+	}
+
+	public void setRestricted(Boolean restricted) {
+		this.restricted = restricted;
+	}
+
+	@JsonIgnore
+	public void setRestricted(
+		UnsafeSupplier<Boolean, Exception> restrictedUnsafeSupplier) {
+
+		try {
+			restricted = restrictedUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -98,61 +180,7 @@ public class ShippingOption {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String amountFormatted;
-
-	@Schema
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	@JsonIgnore
-	public void setLabel(
-		UnsafeSupplier<String, Exception> labelUnsafeSupplier) {
-
-		try {
-			label = labelUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String label;
-
-	@Schema
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@JsonIgnore
-	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
-		try {
-			name = nameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String name;
+	protected Boolean restricted;
 
 	@Override
 	public boolean equals(Object object) {
@@ -160,13 +188,13 @@ public class ShippingOption {
 			return true;
 		}
 
-		if (!(object instanceof ShippingOption)) {
+		if (!(object instanceof CartComment)) {
 			return false;
 		}
 
-		ShippingOption shippingOption = (ShippingOption)object;
+		CartComment cartComment = (CartComment)object;
 
-		return Objects.equals(toString(), shippingOption.toString());
+		return Objects.equals(toString(), cartComment.toString());
 	}
 
 	@Override
@@ -181,56 +209,62 @@ public class ShippingOption {
 
 		sb.append("{");
 
-		if (amount != null) {
+		if (author != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"amount\": ");
-
-			sb.append(amount);
-		}
-
-		if (amountFormatted != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"amountFormatted\": ");
+			sb.append("\"author\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(amountFormatted));
+			sb.append(_escape(author));
 
 			sb.append("\"");
 		}
 
-		if (label != null) {
+		if (content != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"label\": ");
+			sb.append("\"content\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(label));
+			sb.append(_escape(content));
 
 			sb.append("\"");
 		}
 
-		if (name != null) {
+		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"name\": ");
+			sb.append("\"id\": ");
 
-			sb.append("\"");
+			sb.append(id);
+		}
 
-			sb.append(_escape(name));
+		if (orderId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
 
-			sb.append("\"");
+			sb.append("\"orderId\": ");
+
+			sb.append(orderId);
+		}
+
+		if (restricted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"restricted\": ");
+
+			sb.append(restricted);
 		}
 
 		sb.append("}");
@@ -239,7 +273,7 @@ public class ShippingOption {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingOption",
+		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartComment",
 		name = "x-class-name"
 	)
 	public String xClassName;
