@@ -382,6 +382,7 @@ public class Query {
 	@GraphQLField
 	@GraphQLInvokeDetached
 	public Collection<Option> getOptionsPage(
+			@GraphQLName("search") String search,
 			@GraphQLName("filter") Filter filter,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
@@ -392,7 +393,7 @@ public class Query {
 			this::_populateResourceContext,
 			optionResource -> {
 				Page paginationPage = optionResource.getOptionsPage(
-					filter, Pagination.of(pageSize, page), sorts);
+					search, filter, Pagination.of(pageSize, page), sorts);
 
 				return paginationPage.getItems();
 			});
@@ -873,6 +874,7 @@ public class Query {
 	@GraphQLField
 	@GraphQLInvokeDetached
 	public Collection<Specification> getSpecificationsPage(
+			@GraphQLName("search") String search,
 			@GraphQLName("filter") Filter filter,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
@@ -884,7 +886,7 @@ public class Query {
 			specificationResource -> {
 				Page paginationPage =
 					specificationResource.getSpecificationsPage(
-						filter, Pagination.of(pageSize, page), sorts);
+						search, filter, Pagination.of(pageSize, page), sorts);
 
 				return paginationPage.getItems();
 			});

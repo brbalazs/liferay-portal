@@ -37,7 +37,7 @@ import javax.ws.rs.core.Response;
 public interface SpecificationResource {
 
 	public Page<Specification> getSpecificationsPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Specification postSpecification(Specification specification)

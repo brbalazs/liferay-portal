@@ -37,7 +37,7 @@ import javax.ws.rs.core.Response;
 public interface OptionResource {
 
 	public Page<Option> getOptionsPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Option postOption(Option option) throws Exception;
