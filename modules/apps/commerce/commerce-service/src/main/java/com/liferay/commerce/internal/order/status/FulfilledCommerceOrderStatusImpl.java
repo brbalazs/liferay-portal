@@ -25,6 +25,8 @@ import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * @author Alec Sloan
@@ -92,7 +94,10 @@ public class FulfilledCommerceOrderStatusImpl implements CommerceOrderStatus {
 		return false;
 	}
 
-	@Reference
-	private CommerceOrderService _commerceOrderService;
+	@Reference(
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY
+	)
+	private volatile CommerceOrderService _commerceOrderService;
 
 }

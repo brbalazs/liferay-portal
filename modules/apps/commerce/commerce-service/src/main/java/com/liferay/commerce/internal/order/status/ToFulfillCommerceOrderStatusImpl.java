@@ -31,6 +31,8 @@ import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * @author Alec Sloan
@@ -106,10 +108,8 @@ public class ToFulfillCommerceOrderStatusImpl implements CommerceOrderStatus {
 	public boolean isTransitionCriteriaMet(CommerceOrder commerceOrder)
 		throws PortalException {
 
-		if ((commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
-			(commerceOrder.getPaymentStatus() ==
-				CommerceOrderConstants.PAYMENT_STATUS_PAID)) {
+		if (commerceOrder.getOrderStatus() ==
+				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) {
 
 			return true;
 		}
@@ -134,8 +134,11 @@ public class ToFulfillCommerceOrderStatusImpl implements CommerceOrderStatus {
 		return false;
 	}
 
-	@Reference
-	private CommerceOrderService _commerceOrderService;
+	@Reference(
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY
+	)
+	private volatile CommerceOrderService _commerceOrderService;
 
 	@Reference
 	private WorkflowDefinitionLinkLocalService
