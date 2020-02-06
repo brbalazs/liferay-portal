@@ -47,7 +47,7 @@ public class CommerceOrderClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("orderId", "order-id");
 
-		clayTableSchemaBuilder.addField("orderedStatus", "order-status");
+		clayTableSchemaBuilder.addField("orderStatus", "order-status");
 
 		clayTableSchemaBuilder.addField("paymentStatus", "payment-status");
 
