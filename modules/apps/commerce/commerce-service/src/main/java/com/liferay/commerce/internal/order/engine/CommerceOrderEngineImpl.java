@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -64,8 +63,19 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			_commerceOrderStatusRegistry.getCommerceOrderStatus(
 				commerceOrder.getOrderStatus());
 
+		List<CommerceOrderStatus> nextCommerceOrderStatuses = new ArrayList<>();
+
 		if (currentCommerceOrderStatus == null) {
-			return Collections.emptyList();
+			return nextCommerceOrderStatuses;
+		}
+		else if (currentCommerceOrderStatus.getKey() ==
+					CommerceOrderConstants.ORDER_STATUS_BLOCKED) {
+
+			nextCommerceOrderStatuses.add(
+				_commerceOrderStatusRegistry.getCommerceOrderStatus(
+					CommerceOrderConstants.ORDER_STATUS_BLOCKED));
+
+			return nextCommerceOrderStatuses;
 		}
 
 		List<CommerceOrderStatus> commerceOrderStatuses =
@@ -78,25 +88,24 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			CommerceOrderStatus nextCommerceOrderStatus =
 				commerceOrderStatuses.get(currentOrderStatusIndex + 1);
 
-			List<CommerceOrderStatus> nextCommerceOrderStatuses =
-				new ArrayList<>();
-
 			for (CommerceOrderStatus commerceOrderStatus :
 					commerceOrderStatuses) {
 
-				if ((commerceOrderStatus.getPriority() ==
-						nextCommerceOrderStatus.getPriority()) &&
-					commerceOrderStatus.isTransitionCriteriaMet(
-						commerceOrder)) {
+				if (commerceOrderStatus.isTransitionCriteriaMet(
+						commerceOrder) &&
+					(((commerceOrderStatus.getPriority() ==
+						CommerceOrderConstants.ORDER_STATUS_ANY) &&
+					  (currentCommerceOrderStatus.getKey() !=
+						  CommerceOrderConstants.ORDER_STATUS_OPEN)) ||
+					 (commerceOrderStatus.getPriority() ==
+						 nextCommerceOrderStatus.getPriority()))) {
 
 					nextCommerceOrderStatuses.add(commerceOrderStatus);
 				}
 			}
-
-			return nextCommerceOrderStatuses;
 		}
 
-		return Collections.emptyList();
+		return nextCommerceOrderStatuses;
 	}
 
 	@Override
@@ -119,7 +128,13 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 				commerceOrder.getOrderStatus());
 
 		if (!currentCommerceOrderStatus.isComplete(commerceOrder) ||
-			!commerceOrderStatus.isTransitionCriteriaMet(commerceOrder)) {
+			!commerceOrderStatus.isTransitionCriteriaMet(commerceOrder) ||
+			((currentCommerceOrderStatus.getKey() ==
+				CommerceOrderConstants.ORDER_STATUS_BLOCKED) &&
+			 (commerceOrderStatus.getKey() !=
+				 CommerceOrderConstants.ORDER_STATUS_BLOCKED) &&
+			 (commerceOrderStatus.getKey() !=
+				 CommerceOrderConstants.ORDER_STATUS_FULFILLED))) {
 
 			throw new CommerceOrderStatusException();
 		}

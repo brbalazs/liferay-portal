@@ -200,7 +200,9 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 			if (ArrayUtil.contains(
 					CommerceOrderConstants.SHIPPABLE_ORDER_STATUSES,
-					orderStatus)) {
+					orderStatus) &&
+				(commerceOrder.getOrderStatus() !=
+					CommerceOrderConstants.ORDER_STATUS_BLOCKED)) {
 
 				CommerceShipment commerceShipment = addShipment(
 					actionRequest, commerceOrderId);

@@ -43,6 +43,8 @@ public class CommerceOrderConstants {
 
 	public static final int ORDER_STATUS_AWAITING_PICKUP = 13;
 
+	public static final int ORDER_STATUS_BLOCKED = 20;
+
 	public static final int ORDER_STATUS_CANCELLED =
 		WorkflowConstants.STATUS_IN_TRASH;
 
@@ -147,6 +149,9 @@ public class CommerceOrderConstants {
 		}
 		else if (orderStatus == ORDER_STATUS_AWAITING_PICKUP) {
 			return "awaiting-pickup";
+		}
+		else if (orderStatus == ORDER_STATUS_BLOCKED) {
+			return "blocked";
 		}
 		else if (orderStatus == ORDER_STATUS_CANCELLED) {
 			return "cancelled";

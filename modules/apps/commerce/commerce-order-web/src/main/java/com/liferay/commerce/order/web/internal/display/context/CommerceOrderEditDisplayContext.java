@@ -520,7 +520,9 @@ public class CommerceOrderEditDisplayContext {
 			_commerceOrderEngine.getCurrentCommerceOrderStatus(_commerceOrder);
 
 		if ((_commerceOrder == null) || (currentCommerceOrderStatus == null) ||
-			!currentCommerceOrderStatus.isComplete(_commerceOrder)) {
+			!currentCommerceOrderStatus.isComplete(_commerceOrder) ||
+			(currentCommerceOrderStatus.getKey() ==
+				CommerceOrderConstants.ORDER_STATUS_CANCELLED)) {
 
 			return headerActionModels;
 		}
@@ -573,13 +575,40 @@ public class CommerceOrderEditDisplayContext {
 
 				label = "accept-order";
 			}
+			else if (commerceOrderStatus.getKey() ==
+						CommerceOrderConstants.ORDER_STATUS_CANCELLED) {
+
+				label = "cancel";
+			}
+			else if (commerceOrderStatus.getKey() ==
+						CommerceOrderConstants.ORDER_STATUS_BLOCKED) {
+
+				if (currentCommerceOrderStatus.getKey() ==
+						CommerceOrderConstants.ORDER_STATUS_BLOCKED) {
+
+					label = "unblock";
+				}
+				else {
+					label = "block";
+				}
+			}
+
+			String buttonCssClass = "btn-primary";
+
+			if (commerceOrderStatus.getPriority() ==
+					CommerceOrderConstants.ORDER_STATUS_ANY) {
+
+				buttonCssClass = "btn-secondary";
+			}
 
 			portletURL.setParameter(
 				"transitionName", String.valueOf(commerceOrderStatus.getKey()));
 
 			headerActionModels.add(
 				new HeaderActionModel(
-					"btn-primary", portletURL.toString(), null, label));
+					buttonCssClass, portletURL.toString(),
+					_commerceOrderRequestHelper.getPortletName() + label,
+					label));
 		}
 
 		return headerActionModels;
@@ -606,7 +635,8 @@ public class CommerceOrderEditDisplayContext {
 
 		if (ArrayUtil.contains(
 				CommerceOrderConstants.ORDER_STATUSES_OPEN,
-				_commerceOrder.getOrderStatus())) {
+				_commerceOrder.getOrderStatus()) ||
+			(currentCommerceOrderStatus.getPriority() == -1)) {
 
 			return steps;
 		}
@@ -618,7 +648,8 @@ public class CommerceOrderEditDisplayContext {
 					 CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED)) ||
 				ArrayUtil.contains(
 					CommerceOrderConstants.ORDER_STATUSES_OPEN,
-					commerceOrderStatus.getKey())) {
+					commerceOrderStatus.getKey()) ||
+				(commerceOrderStatus.getPriority() == -1)) {
 
 				continue;
 			}
@@ -640,7 +671,8 @@ public class CommerceOrderEditDisplayContext {
 			}
 			else if ((currentCommerceOrderStatus != null) &&
 					 (commerceOrderStatus.getPriority() <=
-						 currentCommerceOrderStatus.getPriority())) {
+						 currentCommerceOrderStatus.getPriority()) &&
+					 commerceOrderStatus.isComplete(_commerceOrder)) {
 
 				step.setState("completed");
 			}
