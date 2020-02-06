@@ -29,16 +29,13 @@ import java.util.Date;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Ferrari
  */
 @Component(
-	configurationPid = "com.liferay.commerce.machine.learning.internal.configuration.CommerceMLConfiguration",
-	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
-	service = CommerceMLScheduledTaskExecutorService.class
+	immediate = true, service = CommerceMLScheduledTaskExecutorService.class
 )
 public class CommerceMLScheduledTaskExecutorService {
 
