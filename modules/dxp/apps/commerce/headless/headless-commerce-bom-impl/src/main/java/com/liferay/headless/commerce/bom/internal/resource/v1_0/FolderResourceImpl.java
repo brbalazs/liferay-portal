@@ -27,7 +27,7 @@ import com.liferay.headless.commerce.bom.dto.v1_0.Item;
 import com.liferay.headless.commerce.bom.dto.v1_0.ItemData;
 import com.liferay.headless.commerce.bom.dto.v1_0.Product;
 import com.liferay.headless.commerce.bom.dto.v1_0.Spot;
-import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.util.*;
+import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.util.BreadcrumbDTOConverterUtil;
 import com.liferay.headless.commerce.bom.resource.v1_0.FolderResource;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
