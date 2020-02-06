@@ -60,7 +60,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 						{
 							commerceCountryId: '0',
 							nameCurrentValue:
-							'- <liferay-ui:message key="select-country" />'
+								'- <liferay-ui:message key="select-country" />'
 						},
 						...list
 					]);
