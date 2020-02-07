@@ -45,23 +45,12 @@ productAttachmentsURL.setParameter("screenNavigationCategoryKey", screenNavigati
 productAttachmentsURL.setParameter("type", String.valueOf(type));
 
 String title = (cpAttachmentFileEntry == null) ? addMenuTitle : cpAttachmentFileEntry.getTitle(languageId);
-
-Map<String, Object> data = new HashMap<>();
-
-data.put("direction-right", StringPool.TRUE);
-
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "products"), catalogURL, data);
-PortalUtil.addPortletBreadcrumbEntry(request, cpDefinition.getName(languageId), String.valueOf(cpAttachmentFileEntriesDisplayContext.getEditProductDefinitionURL()), data);
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, screenNavigationCategoryKey), productAttachmentsURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 %>
 
 <clay:navigation-bar
 	inverted="<%= true %>"
 	navigationItems="<%= CPNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
 />
-
-<%@ include file="/breadcrumb.jspf" %>
 
 <portlet:actionURL name="editCPAttachmentFileEntry" var="editProductDefinitionOptionRelActionURL" />
 

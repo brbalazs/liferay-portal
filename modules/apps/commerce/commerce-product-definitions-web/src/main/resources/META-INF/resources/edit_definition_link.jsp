@@ -25,10 +25,6 @@ CPDefinition cpDefinition = cpDefinitionLink.getCPDefinition();
 
 long cpDefinitionLinkId = cpDefinitionLinkDisplayContext.getCPDefinitionLinkId();
 
-CProduct cProduct = cpDefinitionLink.getCProduct();
-
-CPDefinition cProductCPDefinition = CPDefinitionLocalServiceUtil.getCPDefinition(cProduct.getPublishedCPDefinitionId());
-
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("mvcRenderCommandName", "editCPDefinitionLink");
@@ -41,20 +37,7 @@ relatedProductsURL.setParameter("mvcRenderCommandName", "editProductDefinition")
 relatedProductsURL.setParameter("cpDefinitionId", String.valueOf(cpDefinition.getCPDefinitionId()));
 relatedProductsURL.setParameter("screenNavigationCategoryKey", screenNavigationCategoryKey);
 relatedProductsURL.setParameter("type", String.valueOf(cpDefinitionLink.getType()));
-
-String title = cProductCPDefinition.getName(languageId);
-
-Map<String, Object> data = new HashMap<>();
-
-data.put("direction-right", StringPool.TRUE);
-
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "products"), catalogURL, data);
-PortalUtil.addPortletBreadcrumbEntry(request, cpDefinition.getName(languageId), String.valueOf(cpDefinitionLinkDisplayContext.getEditProductDefinitionURL()), data);
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, screenNavigationCategoryKey), relatedProductsURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 %>
-
-<%@ include file="/breadcrumb.jspf" %>
 
 <portlet:actionURL name="editCPDefinitionLink" var="editCPDefinitionLinkActionURL" />
 

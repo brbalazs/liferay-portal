@@ -30,23 +30,12 @@ productSkusURL.setParameter("cpDefinitionId", String.valueOf(cpDefinition.getCPD
 productSkusURL.setParameter("screenNavigationCategoryKey", cpInstanceDisplayContext.getScreenNavigationCategoryKey());
 
 String title = (cpInstance == null) ? LanguageUtil.get(request, "add-sku") : cpInstance.getSku();
-
-Map<String, Object> data = new HashMap<>();
-
-data.put("direction-right", StringPool.TRUE);
-
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "products"), catalogURL, data);
-PortalUtil.addPortletBreadcrumbEntry(request, cpDefinition.getName(languageId), String.valueOf(cpInstanceDisplayContext.getEditProductDefinitionURL()), data);
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, CPDefinitionScreenNavigationConstants.CATEGORY_KEY_SKUS), productSkusURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 %>
 
 <clay:navigation-bar
 	inverted="<%= true %>"
 	navigationItems="<%= CPNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
 />
-
-<%@ include file="/breadcrumb.jspf" %>
 
 <liferay-frontend:screen-navigation
 	containerCssClass="col-md-10 mt-4"
