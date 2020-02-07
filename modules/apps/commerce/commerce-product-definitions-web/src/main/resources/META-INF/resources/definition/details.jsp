@@ -211,11 +211,9 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 <c:if test="<%= cpDefinition == null %>">
 	<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
 		function slugify(string) {
-			return encodeURI(
-				string
-					.toLowerCase()
-					.replace(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/|\s|\t]+/g, '-')
-			);
+			return string
+				.toLowerCase()
+				.replace(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/|\s|\t]+/g, '-');
 		}
 
 		const form = document.getElementById('<portlet:namespace />fm');
