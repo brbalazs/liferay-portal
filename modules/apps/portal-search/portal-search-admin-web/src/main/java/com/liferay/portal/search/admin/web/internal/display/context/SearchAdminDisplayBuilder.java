@@ -51,7 +51,7 @@ public class SearchAdminDisplayBuilder {
 
 		if (isSearchEngineInformationAvailable()) {
 			addNavigationItemList(
-				navigationItemList, "search-engine", selectedTab);
+				navigationItemList, "connections", selectedTab);
 		}
 
 		searchAdminDisplayContext.setNavigationItemList(navigationItemList);
@@ -86,7 +86,7 @@ public class SearchAdminDisplayBuilder {
 			_renderRequest, "tabs1", "index-actions");
 
 		if (!Objects.equals(selectedTab, "index-actions") &&
-			!Objects.equals(selectedTab, "search-engine")) {
+			!Objects.equals(selectedTab, "connections")) {
 
 			return "index-actions";
 		}
@@ -95,7 +95,7 @@ public class SearchAdminDisplayBuilder {
 			return "index-actions";
 		}
 
-		if (Objects.equals(selectedTab, "search-engine") &&
+		if (Objects.equals(selectedTab, "connections") &&
 			!isSearchEngineInformationAvailable()) {
 
 			return "index-actions";
