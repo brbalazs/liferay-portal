@@ -23,6 +23,7 @@ import com.liferay.adaptive.media.image.scaler.AMImageScaledImage;
 import com.liferay.adaptive.media.image.scaler.AMImageScaler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.exception.ImageResolutionException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.process.CollectorOutputProcessor;
@@ -101,7 +102,7 @@ public class AMGIFImageScaler implements AMImageScaler {
 	}
 
 	protected Tuple<Integer, Integer> getDimension(byte[] bytes)
-		throws IOException {
+		throws ImageResolutionException, IOException {
 
 		try (InputStream inputStream = new UnsyncByteArrayInputStream(bytes)) {
 			RenderedImage renderedImage = RenderedImageUtil.readImage(
