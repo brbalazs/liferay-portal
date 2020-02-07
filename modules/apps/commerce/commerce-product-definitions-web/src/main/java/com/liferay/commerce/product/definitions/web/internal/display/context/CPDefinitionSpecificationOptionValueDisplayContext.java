@@ -15,21 +15,17 @@
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.product.constants.CPOptionCategoryConstants;
-import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsSearchContainerDisplayContext;
-import com.liferay.commerce.product.definitions.web.internal.util.CPDefinitionsPortletUtil;
+import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
-import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
 import com.liferay.commerce.product.item.selector.criterion.CPSpecificationOptionItemSelectorCriterion;
 import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.model.CPOptionCategory;
-import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueService;
 import com.liferay.commerce.product.service.CPOptionCategoryService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -38,7 +34,6 @@ import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Collections;
@@ -50,27 +45,18 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Andrea Di Giorgi
+ * @author Alessio Antonio Rendina
  */
 public class CPDefinitionSpecificationOptionValueDisplayContext
-	extends BaseCPDefinitionsSearchContainerDisplayContext
-		<CPDefinitionSpecificationOptionValue> {
+	extends BaseCPDefinitionsDisplayContext {
 
 	public CPDefinitionSpecificationOptionValueDisplayContext(
-			ActionHelper actionHelper, HttpServletRequest httpServletRequest,
-			CPDefinitionSpecificationOptionValueService
-				cpDefinitionSpecificationOptionValueService,
-			CPOptionCategoryService cpOptionCategoryService,
-			ItemSelector itemSelector)
-		throws PortalException {
+		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
+		CPOptionCategoryService cpOptionCategoryService,
+		ItemSelector itemSelector) {
 
-		super(
-			actionHelper, httpServletRequest,
-			CPDefinitionSpecificationOptionValue.class.getSimpleName());
+		super(actionHelper, httpServletRequest);
 
-		setDefaultOrderByCol("priority");
-
-		_cpDefinitionSpecificationOptionValueService =
-			cpDefinitionSpecificationOptionValueService;
 		_cpOptionCategoryService = cpOptionCategoryService;
 		_itemSelector = itemSelector;
 	}
@@ -88,21 +74,6 @@ public class CPDefinitionSpecificationOptionValueDisplayContext
 				cpRequestHelper.getRenderRequest());
 
 		return _cpDefinitionSpecificationOptionValue;
-	}
-
-	public long getCPDefinitionSpecificationOptionValueId()
-		throws PortalException {
-
-		CPDefinitionSpecificationOptionValue
-			cpDefinitionSpecificationOptionValue =
-				getCPDefinitionSpecificationOptionValue();
-
-		if (cpDefinitionSpecificationOptionValue == null) {
-			return 0;
-		}
-
-		return cpDefinitionSpecificationOptionValue.
-			getCPDefinitionSpecificationOptionValueId();
 	}
 
 	public List<CPOptionCategory> getCPOptionCategories()
@@ -185,56 +156,11 @@ public class CPDefinitionSpecificationOptionValueDisplayContext
 		return portletURL;
 	}
 
-	@Override
-	public String getScreenNavigationCategoryKey() {
-		return CPDefinitionScreenNavigationConstants.
-			CATEGORY_KEY_SPECIFICATION_OPTIONS;
-	}
-
-	@Override
-	public SearchContainer<CPDefinitionSpecificationOptionValue>
-			getSearchContainer()
-		throws PortalException {
-
-		if (searchContainer != null) {
-			return searchContainer;
-		}
-
-		searchContainer = new SearchContainer<>(
-			liferayPortletRequest, getPortletURL(), null, null);
-
-		searchContainer.setEmptyResultsMessage("no-specifications-were-found");
-
-		OrderByComparator<CPDefinitionSpecificationOptionValue>
-			orderByComparator =
-				CPDefinitionsPortletUtil.
-					getCPDefinitionSpecificationOptionValueOrderByComparator(
-						getOrderByCol(), getOrderByType());
-
-		searchContainer.setOrderByCol(getOrderByCol());
-		searchContainer.setOrderByComparator(orderByComparator);
-		searchContainer.setOrderByType(getOrderByType());
-		searchContainer.setRowChecker(getRowChecker());
-
-		List<CPDefinitionSpecificationOptionValue> results =
-			_cpDefinitionSpecificationOptionValueService.
-				getCPDefinitionSpecificationOptionValues(
-					getCPDefinitionId(), searchContainer.getStart(),
-					searchContainer.getEnd(), orderByComparator);
-
-		searchContainer.setTotal(results.size());
-		searchContainer.setResults(results);
-
-		return searchContainer;
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		CPDefinitionSpecificationOptionValueDisplayContext.class);
 
 	private CPDefinitionSpecificationOptionValue
 		_cpDefinitionSpecificationOptionValue;
-	private final CPDefinitionSpecificationOptionValueService
-		_cpDefinitionSpecificationOptionValueService;
 	private final CPOptionCategoryService _cpOptionCategoryService;
 	private final ItemSelector _itemSelector;
 

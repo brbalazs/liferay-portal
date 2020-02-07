@@ -14,41 +14,34 @@
 
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
-import com.liferay.asset.kernel.model.AssetCategory;
-import com.liferay.asset.kernel.model.AssetVocabulary;
-import com.liferay.asset.kernel.service.AssetVocabularyServiceUtil;
-import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsSearchContainerDisplayContext;
-import com.liferay.commerce.product.definitions.web.internal.util.CPDefinitionsPortletUtil;
+import com.liferay.commerce.frontend.ClayCreationMenu;
+import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.model.HeaderActionModel;
+import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
-import com.liferay.frontend.taglib.servlet.taglib.ManagementBarFilterItem;
+import com.liferay.commerce.product.type.CPType;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.search.BaseModelSearchResult;
-import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.taglib.util.CustomAttributesUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.portlet.PortletException;
-import javax.portlet.PortletURL;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionURL;
+import javax.portlet.RenderResponse;
+import javax.portlet.RenderURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,45 +50,39 @@ import javax.servlet.http.HttpServletRequest;
  * @author Marco Leo
  */
 public class CPDefinitionsDisplayContext
-	extends BaseCPDefinitionsSearchContainerDisplayContext<CPDefinition> {
+	extends BaseCPDefinitionsDisplayContext {
 
 	public CPDefinitionsDisplayContext(
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
 		CommerceCatalogService commerceCatalogService,
 		CPDefinitionService cpDefinitionService) {
 
-		super(
-			actionHelper, httpServletRequest,
-			CPDefinition.class.getSimpleName());
-
-		setDefaultOrderByType("desc");
+		super(actionHelper, httpServletRequest);
 
 		_commerceCatalogService = commerceCatalogService;
 		_cpDefinitionService = cpDefinitionService;
 	}
 
-	public CommerceCatalog fetchCommerceCatalogByGroupId(long groupId)
-		throws PortalException {
+	public ClayCreationMenu getClayCreationMenu() {
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
-		return _commerceCatalogService.fetchCommerceCatalogByGroupId(groupId);
-	}
+		RenderURL renderURL = liferayPortletResponse.createRenderURL();
 
-	public String getCategorySelectorURL(String eventName) throws Exception {
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, AssetCategory.class.getName(),
-			PortletProvider.Action.BROWSE);
+		renderURL.setParameter("mvcRenderCommandName", "editProductDefinition");
+		renderURL.setParameter("backURL", cpRequestHelper.getCurrentURL());
 
-		if (portletURL == null) {
-			return null;
+		for (CPType cpType : getCPTypes()) {
+			renderURL.setParameter("productTypeName", cpType.getName());
+
+			ClayCreationMenuItem clayCreationMenuItem =
+				new ClayCreationMenuItem(
+					renderURL.toString(),
+					cpType.getLabel(cpRequestHelper.getLocale()));
+
+			clayCreationMenu.addClayCreationMenuItems(clayCreationMenuItem);
 		}
 
-		portletURL.setParameter("eventName", eventName);
-		portletURL.setParameter("selectedCategories", "{selectedCategories}");
-		portletURL.setParameter("singleSelect", "{singleSelect}");
-		portletURL.setParameter("vocabularyIds", "{vocabularyIds}");
-		portletURL.setWindowState(LiferayWindowState.POP_UP);
-
-		return portletURL.toString();
+		return clayCreationMenu;
 	}
 
 	public List<CommerceCatalog> getCommerceCatalogs() throws PortalException {
@@ -104,114 +91,90 @@ public class CPDefinitionsDisplayContext
 			QueryUtil.ALL_POS, null);
 	}
 
-	@Override
-	public List<ManagementBarFilterItem> getManagementBarStatusFilterItems()
-		throws PortalException, PortletException {
+	public String getCPDefinitionThumbnailURL() throws Exception {
+		CPDefinition cpDefinition = getCPDefinition();
 
-		List<ManagementBarFilterItem> managementBarFilterItems =
-			super.getManagementBarStatusFilterItems();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		int workflowDefinitionLinksCount =
-			WorkflowDefinitionLinkLocalServiceUtil.
-				getWorkflowDefinitionLinksCount(
-					themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),
-					CPDefinition.class.getName());
-
-		if (workflowDefinitionLinksCount == 0) {
-			workflowDefinitionLinksCount =
-				WorkflowDefinitionLinkLocalServiceUtil.
-					getWorkflowDefinitionLinksCount(
-						themeDisplay.getCompanyId(),
-						WorkflowConstants.DEFAULT_GROUP_ID,
-						CPDefinition.class.getName());
+		if (cpDefinition == null) {
+			return StringPool.BLANK;
 		}
 
-		if (workflowDefinitionLinksCount > 0) {
-			managementBarFilterItems.add(
-				getManagementBarFilterItem(WorkflowConstants.STATUS_PENDING));
-			managementBarFilterItems.add(
-				getManagementBarFilterItem(WorkflowConstants.STATUS_DENIED));
-		}
-
-		return managementBarFilterItems;
+		return cpDefinition.getDefaultImageThumbnailSrc();
 	}
 
-	@Override
-	public PortletURL getPortletURL() throws PortalException {
-		PortletURL portletURL = super.getPortletURL();
+	public CProduct getCProduct() throws PortalException {
+		CPDefinition cpDefinition = getCPDefinition();
 
-		String filterFields = ParamUtil.getString(
-			httpServletRequest, "filterFields");
-
-		if (Validator.isNotNull(filterFields)) {
-			portletURL.setParameter("filterFields", filterFields);
+		if (cpDefinition == null) {
+			return null;
 		}
 
-		String filtersLabels = ParamUtil.getString(
-			httpServletRequest, "filtersLabels");
-
-		if (Validator.isNotNull(filtersLabels)) {
-			portletURL.setParameter("filtersLabels", filtersLabels);
-		}
-
-		String filtersValues = ParamUtil.getString(
-			httpServletRequest, "filtersValues");
-
-		if (Validator.isNotNull(filtersValues)) {
-			portletURL.setParameter("filtersValues", filtersValues);
-		}
-
-		return portletURL;
+		return cpDefinition.getCProduct();
 	}
 
-	@Override
-	public SearchContainer<CPDefinition> getSearchContainer()
+	public List<DropdownItem> getDropdownItems() {
+		return Collections.emptyList();
+	}
+
+	public List<HeaderActionModel> getHeaderActionModels()
 		throws PortalException {
 
-		if (searchContainer != null) {
-			return searchContainer;
+		List<HeaderActionModel> headerActionModels = new ArrayList<>();
+
+		RenderResponse renderResponse = cpRequestHelper.getRenderResponse();
+
+		RenderURL cancelURL = renderResponse.createRenderURL();
+
+		HeaderActionModel cancelHeaderActionModel = new HeaderActionModel(
+			null, cancelURL.toString(), null, "cancel");
+
+		headerActionModels.add(cancelHeaderActionModel);
+
+		CPDefinition cpDefinition = getCPDefinition();
+
+		ActionURL actionURL = renderResponse.createActionURL();
+
+		actionURL.setParameter(
+			ActionRequest.ACTION_NAME, "editProductDefinition");
+
+		String saveButtonLabel = "save";
+
+		if ((cpDefinition == null) || cpDefinition.isDraft() ||
+			cpDefinition.isApproved() || cpDefinition.isExpired() ||
+			cpDefinition.isScheduled()) {
+
+			saveButtonLabel = "save-as-draft";
 		}
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
+		HeaderActionModel saveAsDraftHeaderActionModel = new HeaderActionModel(
+			null, renderResponse.getNamespace() + "fm", actionURL.toString(),
+			null, saveButtonLabel);
 
-		searchContainer = new SearchContainer<>(
-			liferayPortletRequest, getPortletURL(), null, null);
+		headerActionModels.add(saveAsDraftHeaderActionModel);
 
-		OrderByComparator<CPDefinition> orderByComparator =
-			CPDefinitionsPortletUtil.getCPDefinitionOrderByComparator(
-				getOrderByCol(), getOrderByType());
+		String publishButtonLabel = "publish";
 
-		searchContainer.setOrderByCol(getOrderByCol());
-		searchContainer.setOrderByComparator(orderByComparator);
-		searchContainer.setOrderByType(getOrderByType());
-		searchContainer.setRowChecker(getRowChecker());
+		if (WorkflowDefinitionLinkLocalServiceUtil.hasWorkflowDefinitionLink(
+				cpRequestHelper.getCompanyId(),
+				cpRequestHelper.getScopeGroupId(),
+				CPDefinition.class.getName())) {
 
-		Sort sort = CPDefinitionsPortletUtil.getCPDefinitionSort(
-			getOrderByCol(), getOrderByType());
+			publishButtonLabel = "submit-for-publication";
+		}
 
-		String filterFields = ParamUtil.getString(
-			httpServletRequest, "filterFields");
+		String additionalClasses = "btn-primary";
 
-		String filtersValues = ParamUtil.getString(
-			httpServletRequest, "filtersValues");
+		if ((cpDefinition != null) && cpDefinition.isPending()) {
+			additionalClasses = additionalClasses + " disabled";
+		}
 
-		BaseModelSearchResult<CPDefinition> cpDefinitionBaseModelSearchResult =
-			_cpDefinitionService.searchCPDefinitions(
-				themeDisplay.getCompanyId(), getKeywords(), filterFields,
-				filtersValues, searchContainer.getStart(),
-				searchContainer.getEnd(), sort);
+		HeaderActionModel publishHeaderActionModel = new HeaderActionModel(
+			additionalClasses, actionURL.toString(),
+			renderResponse.getNamespace() + "publishButton",
+			publishButtonLabel);
 
-		searchContainer.setTotal(cpDefinitionBaseModelSearchResult.getLength());
-		searchContainer.setResults(
-			cpDefinitionBaseModelSearchResult.getBaseModels());
+		headerActionModels.add(publishHeaderActionModel);
 
-		return searchContainer;
+		return headerActionModels;
 	}
 
 	public String getUrlTitleMapAsXML() throws PortalException {
@@ -222,33 +185,6 @@ public class CPDefinitionsDisplayContext
 		}
 
 		return _cpDefinitionService.getUrlTitleMapAsXML(cpDefinitionId);
-	}
-
-	public String getVocabularyIds() throws Exception {
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		List<AssetVocabulary> vocabularies =
-			AssetVocabularyServiceUtil.getGroupVocabularies(
-				themeDisplay.getCompanyGroupId());
-
-		return ListUtil.toString(
-			vocabularies, AssetVocabulary.VOCABULARY_ID_ACCESSOR);
-	}
-
-	public boolean hasApprovedCPInstance(CPDefinition cpDefinition) {
-		if (cpDefinition == null) {
-			return true;
-		}
-
-		for (CPInstance cpInstance : cpDefinition.getCPInstances()) {
-			if (cpInstance.isApproved()) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public boolean hasCustomAttributesAvailable() throws Exception {
