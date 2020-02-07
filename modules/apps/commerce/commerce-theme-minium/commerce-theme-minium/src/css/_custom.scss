@@ -40,9 +40,12 @@ html {
 
 	body.has-control-menu.signed-in.has-edit-mode-menu & {
 		.minium-frame__sidebar,
-		.minium-frame__toolbar,
-		.minium-frame__topbar {
+		.minium-frame__toolbar {
 			top: 120px;
+		}
+
+		.minium-frame__topbar {
+			display: none;
 		}
 	}
 
