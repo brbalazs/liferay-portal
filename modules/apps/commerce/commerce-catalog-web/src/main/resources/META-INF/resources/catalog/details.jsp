@@ -19,7 +19,6 @@
 <%
 CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
 CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
 List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCommerceCurrencies();
 
@@ -28,11 +27,7 @@ boolean isViewOnly = false;
 if (commerceCatalog != null) {
 	isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalog.getCommerceCatalogId(), ActionKeys.UPDATE) || commerceCatalog.isSystem();
 }
-
-portletURL.setParameter("searchContainerId", "commerceCatalogs");
 %>
-
-<portlet:actionURL name="editCommerceCatalog" var="editCommerceCatalogActionURL" />
 
 <div class="row">
 	<div class="col-8">
@@ -41,7 +36,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 			title='<%= LanguageUtil.get(request, "details") %>'
 		>
 			<div class="col-12 lfr-form-content">
-				<aui:form action="<%= editCommerceCatalogActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+				<aui:form id="fm" cssClass="container-fluid-1280" method="post" name="fm">
 					<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceCatalog == null) ? Constants.ADD : Constants.UPDATE %>" />
 					<aui:input name="redirect" type="hidden" value="<%= backURL %>" />
 					<aui:input name="commerceCatalogId" type="hidden" value="<%= (commerceCatalog == null) ? 0 : commerceCatalog.getCommerceCatalogId() %>" />
@@ -108,7 +103,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 		>
 			<div class="row">
 				<div class="col-12 h-100">
-					<img alt="<%= LanguageUtil.get(request, "default-catalog-image") %>" src="<%-- TODO get --%>" />
+					<img alt="<%= LanguageUtil.get(request, "default-catalog-image") %>" src="<%= commerceCatalogDisplayContext.getCommerceCatalogDefaultImageURL() %>" />
 				</div>
 			</div>
 		</commerce-ui:panel>

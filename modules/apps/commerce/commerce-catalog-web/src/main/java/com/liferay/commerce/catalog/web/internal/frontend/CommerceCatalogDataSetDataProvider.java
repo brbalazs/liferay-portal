@@ -78,9 +78,10 @@ public class CommerceCatalogDataSetDataProvider
 		for (CommerceCatalog catalog : commerceCatalogs) {
 			catalogs.add(
 				new Catalog(
-					catalog.getCommerceCatalogId(), catalog.getName(),
+					catalog.getCommerceCatalogId(),
 					catalog.getCommerceCurrencyCode(),
-					catalog.getCatalogDefaultLanguageId()));
+					catalog.getCatalogDefaultLanguageId(),
+					catalog.getName()));
 		}
 
 		return catalogs;

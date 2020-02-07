@@ -39,7 +39,6 @@ else {
 	externalReferenceCode="<%= commerceCatalog.getExternalReferenceCode() %>"
 	externalReferenceCodeEditUrl="/external/reference/code/edit/url"
 	model="<%= CommerceCatalog.class %>"
-	thumbnailUrl="<%-- TOOO it would be nice to have the proper Default Catalog Image --%>"
 	title="<%= commerceCatalog.getName() %>"
 />
 

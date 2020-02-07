@@ -35,7 +35,7 @@ contextParams.put("commerceCatalogId", String.valueOf(commerceCatalog.getCommerc
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
-			portletURL="<%= currentURLObj %>"
+			portletURL="<%= commerceCatalogDisplayContext.getPortletURL() %>"
 			style="fluid"
 		/>
 	</div>

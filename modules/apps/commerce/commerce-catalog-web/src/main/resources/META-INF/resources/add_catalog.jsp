@@ -34,65 +34,67 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 
 <portlet:actionURL name="editCommerceCatalog" var="editCommerceCatalogActionURL" />
 
-<div class="col-12 lfr-form-content">
-	<aui:form action="<%= editCommerceCatalogActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
-		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
+<commerce-ui:modal-content>
+	<div class="col-12 lfr-form-content">
+		<aui:form action="<%= editCommerceCatalogActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
 
-		<aui:fieldset>
-			<aui:input bean="<%= commerceCatalog %>" disabled="<%= isViewOnly %>" model="<%= CommerceCatalog.class %>" name="name" required="<%= true %>" />
+			<aui:fieldset>
+				<aui:input bean="<%= commerceCatalog %>" disabled="<%= isViewOnly %>" model="<%= CommerceCatalog.class %>" name="name" required="<%= true %>" />
 
-			<aui:select disabled="<%= isViewOnly %>" helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="catalogDefaultLanguageId" required="<%= true %>" title="language">
+				<aui:select disabled="<%= isViewOnly %>" helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="catalogDefaultLanguageId" required="<%= true %>" title="language">
 
-				<%
-				String catalogDefaultLanguageId = themeDisplay.getLanguageId();
+					<%
+					String catalogDefaultLanguageId = themeDisplay.getLanguageId();
 
-				if (commerceCatalog != null) {
-					catalogDefaultLanguageId = commerceCatalog.getCatalogDefaultLanguageId();
-				}
+					if (commerceCatalog != null) {
+						catalogDefaultLanguageId = commerceCatalog.getCatalogDefaultLanguageId();
+					}
 
-				Set<Locale> siteAvailableLocales = LanguageUtil.getAvailableLocales(themeDisplay.getScopeGroupId());
+					Set<Locale> siteAvailableLocales = LanguageUtil.getAvailableLocales(themeDisplay.getScopeGroupId());
 
-				for (Locale siteAvailableLocale : siteAvailableLocales) {
-				%>
+					for (Locale siteAvailableLocale : siteAvailableLocales) {
+					%>
 
-					<aui:option label="<%= siteAvailableLocale.getDisplayName(locale) %>" lang="<%= LocaleUtil.toW3cLanguageId(siteAvailableLocale) %>" selected="<%= catalogDefaultLanguageId.equals(LanguageUtil.getLanguageId(siteAvailableLocale)) %>" value="<%= LocaleUtil.toLanguageId(siteAvailableLocale) %>" />
+						<aui:option label="<%= siteAvailableLocale.getDisplayName(locale) %>" lang="<%= LocaleUtil.toW3cLanguageId(siteAvailableLocale) %>" selected="<%= catalogDefaultLanguageId.equals(LanguageUtil.getLanguageId(siteAvailableLocale)) %>" value="<%= LocaleUtil.toLanguageId(siteAvailableLocale) %>" />
 
-				<%
-				}
-				%>
+					<%
+					}
+					%>
 
-			</aui:select>
+				</aui:select>
 
-			<aui:select disabled="<%= isViewOnly %>" label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
+				<aui:select disabled="<%= isViewOnly %>" label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
 
-				<%
-				for (CommerceCurrency commerceCurrency : commerceCurrencies) {
-					String commerceCurrencyCode = commerceCurrency.getCode();
-				%>
+					<%
+					for (CommerceCurrency commerceCurrency : commerceCurrencies) {
+						String commerceCurrencyCode = commerceCurrency.getCode();
+					%>
 
-					<aui:option label="<%= commerceCurrency.getName(locale) %>" selected="<%= (commerceCatalog == null) ? commerceCurrency.isPrimary() : commerceCurrencyCode.equals(commerceCatalog.getCommerceCurrencyCode()) %>" value="<%= commerceCurrencyCode %>" />
+						<aui:option label="<%= commerceCurrency.getName(locale) %>" selected="<%= (commerceCatalog == null) ? commerceCurrency.isPrimary() : commerceCurrencyCode.equals(commerceCatalog.getCommerceCurrencyCode()) %>" value="<%= commerceCurrencyCode %>" />
 
-				<%
-				}
-				%>
+					<%
+					}
+					%>
 
-			</aui:select>
+				</aui:select>
 
-			<div class="row">
-				<div class="col-6">
-					<aui:input inlineLabel="true" label="group-accounts-filter" localized="<%= true %>" name="groupAccountsFilter" type="toggle-switch" />
+				<div class="row">
+					<div class="col-6">
+						<aui:input inlineLabel="true" label="group-accounts-filter" localized="<%= true %>" name="groupAccountsFilter" type="toggle-switch" />
+					</div>
+
+					<div class="col-6">
+						<aui:input inlineLabel="true" label="channel-filter" localized="<%= true %>" name="ChannelFilter" type="toggle-switch" />
+					</div>
 				</div>
+			</aui:fieldset>
 
-				<div class="col-6">
-					<aui:input inlineLabel="true" label="channel-filter" localized="<%= true %>" name="ChannelFilter" type="toggle-switch" />
-				</div>
-			</div>
-		</aui:fieldset>
-
-		<aui:button-row>
-			<c:if test="<%= !isViewOnly %>">
-				<aui:button cssClass="btn-lg" type="submit" />
-			</c:if>
-		</aui:button-row>
-	</aui:form>
-</div>
+			<aui:button-row>
+				<c:if test="<%= !isViewOnly %>">
+					<aui:button cssClass="btn-lg" type="submit" />
+				</c:if>
+			</aui:button-row>
+		</aui:form>
+	</div>
+</commerce-ui:modal-content>

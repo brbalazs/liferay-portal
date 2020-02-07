@@ -20,11 +20,11 @@
 CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<liferay-ui:error-header />
+<%-- liferay-ui:error-header />
 
 <liferay-ui:error exception="<%= NoSuchCatalogException.class %>" message="that-catalog-could-not-be-found" />
 
-<liferay-ui:error-principal />
+<liferay-ui:error-principal / --%>
 
 <div class="row">
 	<div class="col-12">

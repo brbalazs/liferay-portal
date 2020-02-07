@@ -16,6 +16,8 @@ package com.liferay.commerce.catalog.web.internal.portlet;
 
 import com.liferay.commerce.catalog.web.internal.display.context.CommerceCatalogDisplayContext;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.media.CommerceCatalogDefaultImage;
+import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
@@ -90,9 +92,11 @@ public class CommerceCatalogsPortlet extends MVCPortlet {
 			CommerceCatalogDisplayContext commerceCatalogDisplayContext =
 				new CommerceCatalogDisplayContext(
 					_portal.getHttpServletRequest(renderRequest),
+					_commerceCatalogDefaultImage,
 					_commerceCatalogService,
 					_commerceCatalogModelResourcePermission,
-					_commerceCurrencyService, _portal);
+					_commerceCurrencyService,
+					_commerceMediaResolver, _portal);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT, commerceCatalogDisplayContext);
@@ -115,6 +119,12 @@ public class CommerceCatalogsPortlet extends MVCPortlet {
 
 	@Reference
 	private CommerceCurrencyService _commerceCurrencyService;
+
+	@Reference
+	private CommerceMediaResolver _commerceMediaResolver;
+
+	@Reference
+	private CommerceCatalogDefaultImage _commerceCatalogDefaultImage;
 
 	@Reference
 	private Portal _portal;
