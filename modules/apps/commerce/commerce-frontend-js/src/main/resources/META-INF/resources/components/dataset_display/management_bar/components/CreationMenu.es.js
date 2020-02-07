@@ -36,7 +36,7 @@ function CreationMenu(props) {
 				});
 				break;
 			default:
-				window.location.href = clickedItem.url;
+				window.location.href = clickedItem.href;
 				break;
 		}
 	}
