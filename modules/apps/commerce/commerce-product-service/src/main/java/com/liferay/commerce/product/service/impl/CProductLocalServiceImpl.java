@@ -116,6 +116,22 @@ public class CProductLocalServiceImpl extends CProductLocalServiceBaseImpl {
 	}
 
 	@Override
+	public CProduct updateCProductExternalReferenceCode(
+			long cProductId, String externalReferenceCode)
+		throws PortalException {
+
+		CProduct cProduct = cProductLocalService.getCProduct(cProductId);
+
+		cProduct.setExternalReferenceCode(externalReferenceCode);
+
+		cProduct = cProductPersistence.update(cProduct);
+
+		reindexCPDefinition(cProduct.getPublishedCPDefinitionId());
+
+		return cProduct;
+	}
+
+	@Override
 	public CProduct updatePublishedCPDefinitionId(
 			long cProductId, long publishedCPDefinitionId)
 		throws PortalException {
