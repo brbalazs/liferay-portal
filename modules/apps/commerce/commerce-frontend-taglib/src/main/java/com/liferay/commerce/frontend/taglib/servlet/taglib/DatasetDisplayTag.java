@@ -379,7 +379,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private PortletURL _portletURL;
 	private String _selectedItemsKey;
 	private String _selectionType;
-	private boolean _showManagementBar;
+	private boolean _showManagementBar = true;
 	private boolean _showPagination;
 	private String _spritemap;
 	private String _style = "default";
