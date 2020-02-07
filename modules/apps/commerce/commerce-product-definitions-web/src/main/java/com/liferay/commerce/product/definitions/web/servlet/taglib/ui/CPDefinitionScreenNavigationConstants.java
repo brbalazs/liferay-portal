@@ -21,8 +21,6 @@ public class CPDefinitionScreenNavigationConstants {
 
 	public static final String CATEGORY_KEY_ATTACHMENTS = "attachments";
 
-	public static final String CATEGORY_KEY_CATEGORIZATION = "categorization";
-
 	public static final String CATEGORY_KEY_CONFIGURATION = "configuration";
 
 	public static final String CATEGORY_KEY_DETAILS = "details";
@@ -35,9 +33,6 @@ public class CPDefinitionScreenNavigationConstants {
 		"product-relations";
 
 	public static final String CATEGORY_KEY_SKUS = "skus";
-
-	public static final String CATEGORY_KEY_SPECIFICATION_OPTIONS =
-		"specifications";
 
 	public static final String ENTRY_KEY_ACCOUNT_GROUPS = "account-groups";
 
