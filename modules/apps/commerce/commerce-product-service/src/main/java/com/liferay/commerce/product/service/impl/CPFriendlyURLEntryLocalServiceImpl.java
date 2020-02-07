@@ -71,8 +71,7 @@ public class CPFriendlyURLEntryLocalServiceImpl
 			title = title.substring(0, maxLength);
 		}
 		else {
-			title = FriendlyURLNormalizerUtil.normalizeWithPeriodsAndSlashes(
-				title);
+			title = FriendlyURLNormalizerUtil.normalizeWithEncoding(title);
 		}
 
 		String urlTitle = ModelHintsUtil.trimString(
@@ -224,7 +223,7 @@ public class CPFriendlyURLEntryLocalServiceImpl
 		throws PortalException {
 
 		String normalizedUrlTitle =
-			FriendlyURLNormalizerUtil.normalizeWithPeriodsAndSlashes(urlTitle);
+			FriendlyURLNormalizerUtil.normalizeWithEncoding(urlTitle);
 
 		validate(groupId, classNameId, classPK, languageId, normalizedUrlTitle);
 
@@ -269,7 +268,7 @@ public class CPFriendlyURLEntryLocalServiceImpl
 		String urlTitle) {
 
 		String normalizedUrlTitle =
-			FriendlyURLNormalizerUtil.normalizeWithPeriodsAndSlashes(urlTitle);
+			FriendlyURLNormalizerUtil.normalizeWithEncoding(urlTitle);
 
 		int maxLength = ModelHintsUtil.getMaxLength(
 			CPFriendlyURLEntry.class.getName(), "urlTitle");
