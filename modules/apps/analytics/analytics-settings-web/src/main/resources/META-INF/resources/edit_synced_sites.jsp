@@ -61,7 +61,7 @@ GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest,
 
 <portlet:actionURL name="/analytics/edit_synced_sites" var="editSyncedSitesURL" />
 
-<div class="container-fluid-1280">
+<div class="container-fluid-1280 mt-4 portlet-analytics-settings sheet sheet-lg">
 	<h2 class="autofit-row">
 		<span class="autofit-col autofit-col-expand">
 			<liferay-ui:message key="choose-sites-to-sync" />

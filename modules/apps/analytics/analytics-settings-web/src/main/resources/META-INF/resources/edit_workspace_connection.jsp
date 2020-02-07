@@ -70,7 +70,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 <portlet:actionURL name="/analytics/edit_workspace_connection" var="editWorkspaceConnectionURL" />
 
-<div class="container-fluid-1280">
+<div class="container-fluid-1280 mt-4 portlet-analytics-settings sheet sheet-lg">
 	<c:if test="<%= AnalyticsSettingsUtil.isAnalyticsEnabledWithOAuth(themeDisplay.getCompanyId()) %>">
 		<aui:alert type="warning">
 			<div class="mb-2">
