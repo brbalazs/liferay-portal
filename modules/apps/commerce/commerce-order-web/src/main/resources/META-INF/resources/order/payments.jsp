@@ -105,8 +105,8 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
-				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
-				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
+				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PAYMENTS %>"
+				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PAYMENTS %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"

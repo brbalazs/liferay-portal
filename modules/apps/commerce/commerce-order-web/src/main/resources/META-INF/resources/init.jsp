@@ -34,6 +34,7 @@ page import="com.liferay.commerce.constants.CommerceShipmentConstants" %><%@
 page import="com.liferay.commerce.constants.CommerceWebKeys" %><%@
 page import="com.liferay.commerce.context.CommerceContext" %><%@
 page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
+page import="com.liferay.commerce.exception.CommerceOrderBillingAddressException" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderNoteContentException" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderPaymentMethodException" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderShippingAddressException" %><%@
