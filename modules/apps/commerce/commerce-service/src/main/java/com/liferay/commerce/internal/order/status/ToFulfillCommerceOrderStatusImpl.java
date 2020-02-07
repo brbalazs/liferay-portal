@@ -71,7 +71,7 @@ public class ToFulfillCommerceOrderStatusImpl implements CommerceOrderStatus {
 			serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
 
 			commerceOrder = WorkflowHandlerRegistryUtil.startWorkflowInstance(
-				commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
+				commerceOrder.getCompanyId(), commerceOrder.getGroupId(),
 				userId, CommerceOrder.class.getName(),
 				commerceOrder.getCommerceOrderId(), commerceOrder,
 				serviceContext, new HashMap<>());
