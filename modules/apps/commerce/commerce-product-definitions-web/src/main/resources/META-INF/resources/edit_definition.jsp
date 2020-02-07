@@ -20,24 +20,14 @@
 CPDefinitionsDisplayContext cpDefinitionsDisplayContext = (CPDefinitionsDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
+CProduct cProduct = cpDefinitionsDisplayContext.getCProduct();
 PortletURL portletURL = cpDefinitionsDisplayContext.getEditProductDefinitionURL();
-boolean approvedCPInstance = cpDefinitionsDisplayContext.hasApprovedCPInstance(cpDefinition);
 
-String title = LanguageUtil.get(request, "add-product");
+String headerTitle = LanguageUtil.get(request, "add-product");
 
 if (cpDefinition != null) {
-	title = cpDefinition.getName(languageId);
+	headerTitle = cpDefinition.getName(languageId);
 }
-
-Map<String, Object> data = new HashMap<>();
-
-data.put("direction-right", StringPool.TRUE);
-
-String selectedScreenNavigationCategoryKey = cpDefinitionsDisplayContext.getSelectedScreenNavigationCategoryKey();
-
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "products"), catalogURL, data);
-PortalUtil.addPortletBreadcrumbEntry(request, title, portletURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, selectedScreenNavigationCategoryKey), StringPool.BLANK, data);
 
 request.setAttribute("view.jsp-cpDefinition", cpDefinition);
 request.setAttribute("view.jsp-cpType", cpDefinitionsDisplayContext.getCPType());
@@ -50,7 +40,24 @@ request.setAttribute("view.jsp-showSearch", false);
 	navigationItems="<%= CPNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
 />
 
-<%@ include file="/definition_breadcrumb.jspf" %>
+<liferay-portlet:renderURL var="editCProductExternalReferenceCodeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+	<portlet:param name="mvcRenderCommandName" value="editCProductExternalReferenceCode" />
+	<portlet:param name="cpDefinitionId" value="<%= String.valueOf(cpDefinitionsDisplayContext.getCPDefinitionId()) %>" />
+</liferay-portlet:renderURL>
+
+<commerce-ui:header
+	actions="<%= cpDefinitionsDisplayContext.getHeaderActionModels() %>"
+	bean="<%= cpDefinition %>"
+	beanIdLabel="id"
+	dropdownItems="<%= cpDefinitionsDisplayContext.getDropdownItems() %>"
+	externalReferenceCode="<%= (cProduct == null) ? StringPool.BLANK : cProduct.getExternalReferenceCode() %>"
+	externalReferenceCodeEditUrl="<%= (cProduct == null) ? StringPool.BLANK : editCProductExternalReferenceCodeURL %>"
+	model="<%= CPDefinition.class %>"
+	thumbnailUrl="<%= cpDefinitionsDisplayContext.getCPDefinitionThumbnailURL() %>"
+	title="<%= headerTitle %>"
+	version="<%= (cpDefinition == null) ? StringPool.BLANK : String.valueOf(cpDefinition.getVersion()) %>"
+	wrapperCssClasses="side-panel-top-anchor"
+/>
 
 <liferay-frontend:screen-navigation
 	containerCssClass="col-md-10"

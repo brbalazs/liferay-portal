@@ -130,16 +130,6 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteCPDefinitions(actionRequest);
 			}
-			else if (cmd.equals("updateCategorization")) {
-				CPDefinition cpDefinition = updateCategorization(actionRequest);
-
-				String redirect = getSaveAndContinueRedirect(
-					actionRequest, cpDefinition,
-					CPDefinitionScreenNavigationConstants.
-						CATEGORY_KEY_CATEGORIZATION);
-
-				sendRedirect(actionRequest, actionResponse, redirect);
-			}
 			else if (cmd.equals("updateAccountGroups")) {
 				Callable<Object> cpDefinitionAccountGroupsCallable =
 					new CPDefinitionAccountGroupsCallable(actionRequest);
@@ -317,19 +307,6 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 		reindexCPDefinition(cpDefinitionId);
 	}
 
-	protected CPDefinition updateCategorization(ActionRequest actionRequest)
-		throws PortalException {
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CPDefinition.class.getName(), actionRequest);
-
-		long cpDefinitionId = ParamUtil.getLong(
-			actionRequest, "cpDefinitionId");
-
-		return _cpDefinitionService.updateCPDefinitionCategorization(
-			cpDefinitionId, serviceContext);
-	}
-
 	protected void updateChannels(ActionRequest actionRequest)
 		throws PortalException {
 
@@ -458,14 +435,6 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 
 			CPDefinition oldCPDefinition = _cpDefinitionService.getCPDefinition(
 				cpDefinitionId);
-
-			serviceContext.setAssetCategoryIds(
-				getAssetCategoryIds(oldCPDefinition));
-			serviceContext.setAssetLinkEntryIds(
-				getAssetLinkEntryIds(oldCPDefinition));
-			serviceContext.setAssetPriority(
-				getAssetEntryPriority(oldCPDefinition));
-			serviceContext.setAssetTagNames(getAssetTagNames(oldCPDefinition));
 
 			cpDefinition = _cpDefinitionService.updateCPDefinition(
 				cpDefinitionId, nameMap, shortDescriptionMap, descriptionMap,

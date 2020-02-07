@@ -34,6 +34,12 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 }
 %>
 
+<c:if test="<%= (cpDefinition != null) && cpDefinition.isPending() %>">
+	<div class="alert alert-info">
+		<liferay-ui:message key="there-is-a-publication-workflow-in-process" />
+	</div>
+</c:if>
+
 <portlet:actionURL name="editProductDefinition" var="editProductDefinitionActionURL" />
 
 <aui:form action="<%= editProductDefinitionActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
@@ -41,170 +47,191 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
 	<aui:input name="productTypeName" type="hidden" value="<%= productTypeName %>" />
-	<aui:input name="workflowAction" type="hidden" value="<%= String.valueOf(WorkflowConstants.ACTION_SAVE_DRAFT) %>" />
+	<aui:input name="workflowAction" type="hidden" value="<%= WorkflowConstants.ACTION_SAVE_DRAFT %>" />
 
-	<aui:fieldset-group markupView="lexicon">
-		<aui:fieldset>
-			<liferay-ui:error-marker
-				key="<%= WebKeys.ERROR_SECTION %>"
-				value="details"
-			/>
+	<aui:model-context bean="<%= cpDefinition %>" model="<%= CPDefinition.class %>" />
 
-			<aui:model-context bean="<%= cpDefinition %>" model="<%= CPDefinition.class %>" />
+	<liferay-ui:error exception="<%= CPDefinitionMetaDescriptionException.class %>" message="the-meta-description-is-too-long" />
+	<liferay-ui:error exception="<%= CPDefinitionMetaKeywordsException.class %>" message="the-meta-keywords-are-too-long" />
+	<liferay-ui:error exception="<%= CPDefinitionMetaTitleException.class %>" message="the-meta-title-is-too-long" />
+	<liferay-ui:error exception="<%= NoSuchCatalogException.class %>" message="please-select-a-valid-catalog" />
 
-			<liferay-ui:error exception="<%= CPDefinitionMetaDescriptionException.class %>" message="the-meta-description-is-too-long" />
-			<liferay-ui:error exception="<%= CPDefinitionMetaKeywordsException.class %>" message="the-meta-keywords-are-too-long" />
-			<liferay-ui:error exception="<%= CPDefinitionMetaTitleException.class %>" message="the-meta-title-is-too-long" />
-			<liferay-ui:error exception="<%= NoSuchCatalogException.class %>" message="please-select-a-valid-catalog" />
+	<liferay-ui:error exception="<%= CPFriendlyURLEntryException.class %>">
 
-			<liferay-ui:error exception="<%= CPFriendlyURLEntryException.class %>">
+		<%
+		CPFriendlyURLEntryException cpfuee = (CPFriendlyURLEntryException)errorException;
+		%>
+
+		<%@ include file="/error_friendly_url_exception.jspf" %>
+	</liferay-ui:error>
+
+	<div class="row">
+		<div class="col-8 pt-4">
+			<commerce-ui:panel
+				title='<%= LanguageUtil.get(request, "details") %>'
+			>
+				<aui:select disabled="<%= cpDefinition != null %>" label="catalog" name="commerceCatalogGroupId" required="<%= true %>" showEmptyOption="<%= true %>">
+
+					<%
+					for (CommerceCatalog commerceCatalog : commerceCatalogs) {
+					%>
+
+						<aui:option label="<%= commerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(commerceCatalog) %>" value="<%= commerceCatalog.getGroupId() %>" />
+
+					<%
+					}
+					%>
+
+				</aui:select>
+
+				<aui:input autoFocus="<%= true %>" label="name" localized="<%= true %>" name="nameMapAsXML" type="text">
+					<aui:validator name="required" />
+				</aui:input>
+
+				<aui:input label="short-description" localized="<%= true %>" name="shortDescriptionMapAsXML" resizable="<%= true %>" type="textarea" />
 
 				<%
-				CPFriendlyURLEntryException cpfuee = (CPFriendlyURLEntryException)errorException;
-				%>
+				String descriptionMapAsXML = StringPool.BLANK;
 
-				<%@ include file="/error_friendly_url_exception.jspf" %>
-			</liferay-ui:error>
-
-			<c:if test="<%= (cpDefinition != null) && !cpDefinition.isNew() %>">
-				<liferay-frontend:info-bar>
-					<aui:workflow-status id="<%= String.valueOf(cpDefinitionId) %>" markupView="lexicon" showHelpMessage="<%= false %>" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= cpDefinition.getStatus() %>" />
-				</liferay-frontend:info-bar>
-			</c:if>
-
-			<aui:select disabled="<%= cpDefinition != null %>" label="catalog" name="commerceCatalogGroupId" required="<%= true %>" showEmptyOption="<%= true %>">
-
-				<%
-				for (CommerceCatalog commerceCatalog : commerceCatalogs) {
-				%>
-
-					<aui:option label="<%= commerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(commerceCatalog) %>" value="<%= commerceCatalog.getGroupId() %>" />
-
-				<%
+				if (cpDefinition != null) {
+					descriptionMapAsXML = cpDefinition.getDescriptionMapAsXML();
 				}
 				%>
 
-			</aui:select>
+				<aui:field-wrapper>
+					<label class="control-label" for="<portlet:namespace />descriptionMapAsXML"><liferay-ui:message key="full-description" /></label>
 
-			<aui:input autoFocus="<%= true %>" label="name" localized="<%= true %>" name="nameMapAsXML" type="text">
-				<aui:validator name="required" />
-			</aui:input>
+					<div class="entry-content form-group">
+						<liferay-ui:input-localized
+							editorName="alloyeditor"
+							name="descriptionMapAsXML"
+							type="editor"
+							xml="<%= descriptionMapAsXML %>"
+						/>
+					</div>
+				</aui:field-wrapper>
+			</commerce-ui:panel>
 
-			<aui:input label="short-description" localized="<%= true %>" name="shortDescriptionMapAsXML" resizable="<%= true %>" type="textarea" />
+			<commerce-ui:panel
+				title='<%= LanguageUtil.get(request, "seo") %>'
+			>
+				<div class="form-group">
+					<label for="<portlet:namespace />urlTitleMapAsXML"><liferay-ui:message key="friendly-url" /><liferay-ui:icon-help message='<%= LanguageUtil.format(request, "for-example-x", "<em>news</em>", false) %>' /></label>
 
-			<%
-			String descriptionMapAsXML = StringPool.BLANK;
-
-			if (cpDefinition != null) {
-				descriptionMapAsXML = cpDefinition.getDescriptionMapAsXML();
-			}
-			%>
-
-			<aui:field-wrapper>
-				<label class="control-label" for="<portlet:namespace />descriptionMapAsXML"><liferay-ui:message key="full-description" /></label>
-
-				<div class="entry-content form-group">
 					<liferay-ui:input-localized
-						editorName="alloyeditor"
-						name="descriptionMapAsXML"
-						type="editor"
-						xml="<%= descriptionMapAsXML %>"
+						defaultLanguageId="<%= LocaleUtil.toLanguageId(themeDisplay.getSiteDefaultLocale()) %>"
+						inputAddon="<%= StringUtil.shorten(friendlyURLBase, 40) %>"
+						name="urlTitleMapAsXML"
+						xml="<%= HttpUtil.decodeURL(cpDefinitionsDisplayContext.getUrlTitleMapAsXML()) %>"
 					/>
 				</div>
-			</aui:field-wrapper>
-		</aui:fieldset>
 
-		<aui:fieldset collapsible="<%= true %>" label="seo">
-			<div class="form-group">
-				<label for="<portlet:namespace />urlTitleMapAsXML"><liferay-ui:message key="friendly-url" /><liferay-ui:icon-help message='<%= LanguageUtil.format(request, "for-example-x", "<em>news</em>", false) %>' /></label>
+				<aui:input label="meta-title" localized="<%= true %>" name="metaTitleMapAsXML" type="text" />
 
-				<liferay-ui:input-localized
-					defaultLanguageId="<%= LocaleUtil.toLanguageId(themeDisplay.getSiteDefaultLocale()) %>"
-					inputAddon="<%= StringUtil.shorten(friendlyURLBase.toString(), 40) %>"
-					name="urlTitleMapAsXML"
-					xml="<%= HttpUtil.decodeURL(cpDefinitionsDisplayContext.getUrlTitleMapAsXML()) %>"
-				/>
-			</div>
+				<aui:input label="meta-description" localized="<%= true %>" name="metaDescriptionMapAsXML" type="textarea" />
 
-			<aui:input label="meta-title" localized="<%= true %>" name="metaTitleMapAsXML" type="text" />
+				<aui:input label="meta-keywords" localized="<%= true %>" name="metaKeywordsMapAsXML" type="textarea" />
+			</commerce-ui:panel>
+		</div>
 
-			<aui:input label="meta-description" localized="<%= true %>" name="metaDescriptionMapAsXML" type="textarea" />
+		<div class="col-4 pt-4">
+			<commerce-ui:panel
+				title='<%= LanguageUtil.get(request, "categorization") %>'
+			>
+				<liferay-asset:asset-categories-error />
 
-			<aui:input label="meta-keywords" localized="<%= true %>" name="metaKeywordsMapAsXML" type="textarea" />
-		</aui:fieldset>
+				<liferay-asset:asset-tags-error />
 
-		<aui:fieldset collapsed="<%= true %>" collapsible="<%= true %>" label="schedule">
-			<liferay-ui:error exception="<%= CPDefinitionExpirationDateException.class %>" message="please-select-a-valid-expiration-date" />
+				<aui:field-wrapper>
+					<liferay-asset:asset-categories-selector
+						className="<%= CPDefinition.class.getName() %>"
+						classPK="<%= cpDefinitionId %>"
+						groupIds="<%= new long[] {company.getGroupId()} %>"
+					/>
+				</aui:field-wrapper>
 
-			<aui:input name="published" />
+				<aui:field-wrapper>
+					<liferay-asset:asset-tags-selector
+						className="<%= CPDefinition.class.getName() %>"
+						classPK="<%= cpDefinitionId %>"
+						groupIds="<%= new long[] {company.getGroupId()} %>"
+					/>
+				</aui:field-wrapper>
+			</commerce-ui:panel>
 
-			<aui:input formName="fm" name="displayDate" />
+			<commerce-ui:panel
+				title='<%= LanguageUtil.get(request, "schedule") %>'
+			>
+				<liferay-ui:error exception="<%= CPDefinitionExpirationDateException.class %>" message="please-select-a-valid-expiration-date" />
 
-			<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
-		</aui:fieldset>
+				<aui:input name="published" />
 
-		<c:if test="<%= cpDefinitionsDisplayContext.hasCustomAttributesAvailable() %>">
-			<aui:fieldset collapsible="<%= true %>" label="custom-attribute">
-				<liferay-expando:custom-attribute-list
-					className="<%= CPDefinition.class.getName() %>"
-					classPK="<%= (cpDefinition != null) ? cpDefinition.getCPDefinitionId() : 0 %>"
-					editable="<%= true %>"
-					label="<%= true %>"
-				/>
-			</aui:fieldset>
-		</c:if>
+				<aui:input formName="fm" name="displayDate" />
 
-		<aui:fieldset>
+				<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
+			</commerce-ui:panel>
 
-			<%
-			boolean pending = false;
-
-			if (cpDefinition != null) {
-				pending = cpDefinition.isPending();
-			}
-			%>
-
-			<c:if test="<%= pending %>">
-				<div class="alert alert-info">
-					<liferay-ui:message key="there-is-a-publication-workflow-in-process" />
-				</div>
+			<c:if test="<%= cpDefinitionsDisplayContext.hasCustomAttributesAvailable() %>">
+				<commerce-ui:panel
+					title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+				>
+					<liferay-expando:custom-attribute-list
+						className="<%= CPDefinition.class.getName() %>"
+						classPK="<%= (cpDefinition != null) ? cpDefinition.getCPDefinitionId() : 0 %>"
+						editable="<%= true %>"
+						label="<%= true %>"
+					/>
+				</commerce-ui:panel>
 			</c:if>
+		</div>
 
-			<aui:button-row cssClass="product-definition-button-row">
+		<div class="col-12">
+			<commerce-ui:panel
+				title="<%= LanguageUtil.get(request, "add-new-specifications") %>"
+			>
 
 				<%
-				String saveButtonLabel = "save";
+				Map<String, String> contextParams = new HashMap<>();
 
-				if ((cpDefinition == null) || cpDefinition.isDraft() || cpDefinition.isApproved() || cpDefinition.isExpired() || cpDefinition.isScheduled()) {
-					saveButtonLabel = "save-as-draft";
-				}
-
-				String publishButtonLabel = "publish";
-
-				if (WorkflowDefinitionLinkLocalServiceUtil.hasWorkflowDefinitionLink(themeDisplay.getCompanyId(), scopeGroupId, CPDefinition.class.getName())) {
-					publishButtonLabel = "submit-for-publication";
-				}
+				contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 				%>
 
-				<aui:button cssClass="btn-primary" disabled="<%= pending %>" name="publishButton" type="submit" value="<%= publishButtonLabel %>" />
-
-				<aui:button name="saveButton" primary="<%= false %>" type="submit" value="<%= saveButtonLabel %>" />
-
-				<aui:button cssClass="btn-link" href="<%= catalogURL %>" type="cancel" />
-			</aui:button-row>
-		</aui:fieldset>
-	</aui:fieldset-group>
+				<commerce-ui:dataset-display
+					contextParams="<%= contextParams %>"
+					dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>"
+					formId="fm"
+					id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>"
+					itemsPerPage="<%= 10 %>"
+					namespace="<%= renderResponse.getNamespace() %>"
+					pageNumber="<%= 1 %>"
+					portletURL="<%= currentURLObj %>"
+				/>
+			</commerce-ui:panel>
+		</div>
+	</div>
 </aui:form>
 
-<aui:script use="aui-base">
-	var publishButton = A.one('#<portlet:namespace />publishButton');
+<aui:script>
+	document
+		.getElementById('<portlet:namespace />publishButton')
+		.addEventListener('click', function(e) {
+			e.preventDefault();
 
-	publishButton.on('click', function() {
-		var workflowActionInput = A.one('#<portlet:namespace />workflowAction');
+			var form = document.getElementById('<portlet:namespace />fm');
 
-		if (workflowActionInput) {
-			workflowActionInput.val('<%= WorkflowConstants.ACTION_PUBLISH %>');
-		}
+			if (!form) {
+				throw new Error(
+					'Form with id: <portlet:namespace />fm not found!'
+				);
+			}
+
+			var workflowActionInput = document.getElementById('<portlet:namespace />workflowAction');
+
+			if (workflowActionInput) {
+				workflowActionInput.value = '<%= WorkflowConstants.ACTION_PUBLISH %>';
+			}
+
+			submitForm(form);
 	});
 </aui:script>
 
