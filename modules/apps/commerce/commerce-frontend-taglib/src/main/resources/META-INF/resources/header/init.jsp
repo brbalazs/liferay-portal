@@ -67,9 +67,13 @@ PortletURL transitionPortletURL = (PortletURL)request.getAttribute("liferay-comm
 String version = (String)request.getAttribute("liferay-commerce:header:version");
 String wrapperCssClasses = (String)request.getAttribute("liferay-commerce:header:wrapperCssClasses");
 
+long beanId = 0;
+
 BaseModel beanBaseModel = (BaseModel)bean;
 
-long beanId = (long)beanBaseModel.getPrimaryKeyObj();
+if (beanBaseModel != null) {
+	beanId = (long)beanBaseModel.getPrimaryKeyObj();
+}
 
 WorkflowTask reviewWorkflowTask = HeaderHelperUtil.getReviewWorkflowTask(themeDisplay.getCompanyId(), themeDisplay.getUserId(), beanId, model.getName());
 %>

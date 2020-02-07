@@ -58,9 +58,11 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 									WorkflowedModel workflowedModel = (WorkflowedModel)bean;
 									%>
 
-									<div>
-										<aui:workflow-status bean="<%= bean %>" model="<%= model %>" showHelpMessage="<%= false %>" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= workflowedModel.getStatus() %>" />
-									</div>
+									<c:if test="<%= workflowedModel != null %>">
+										<div>
+											<aui:workflow-status bean="<%= bean %>" model="<%= model %>" showHelpMessage="<%= false %>" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= workflowedModel.getStatus() %>" />
+										</div>
+									</c:if>
 								</c:if>
 							</div>
 
