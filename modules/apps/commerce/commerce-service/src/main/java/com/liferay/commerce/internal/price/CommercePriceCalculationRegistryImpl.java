@@ -19,8 +19,6 @@ import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommercePriceCalculationRegistry;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -95,9 +93,6 @@ public class CommercePriceCalculationRegistryImpl
 	protected void deactivate() {
 		_productPriceServiceTrackerMap.close();
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceProductPriceCalculationRegistryImpl.class);
 
 	private ServiceTrackerMap<String, CommerceProductPriceCalculation>
 		_productPriceServiceTrackerMap;

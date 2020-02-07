@@ -645,7 +645,7 @@ public class CommercePricingTest {
 
 		BigDecimal price1 = BigDecimal.valueOf(20.0);
 
-		CommercePriceEntry commercePriceEntry = _addCommercePriceEntry(
+		_addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			basePriceList.getCommercePriceListId(), "", price1);
 
@@ -726,7 +726,7 @@ public class CommercePricingTest {
 
 		BigDecimal price1 = BigDecimal.valueOf(20.0);
 
-		CommercePriceEntry commercePriceEntry = _addCommercePriceEntry(
+		_addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			basePriceList.getCommercePriceListId(), "", price1);
 
@@ -1011,16 +1011,16 @@ public class CommercePricingTest {
 		Assert.assertEquals(0, price20.compareTo(commerceMoney20.getPrice()));
 	}
 
+	@Ignore
 	@Test
 	public void testUseExpiredPriceEntry() throws Exception {
-		List<CommercePriceValue> commercePriceValues = _getCommercePriceValues(
-			true, false);
+		_getCommercePriceValues(true, false);
 	}
 
+	@Ignore
 	@Test
 	public void testUseNonpublishedPriceEntry() throws Exception {
-		List<CommercePriceValue> commercePriceValues = _getCommercePriceValues(
-			false, false);
+		_getCommercePriceValues(false, false);
 	}
 
 	@Test
@@ -1103,7 +1103,7 @@ public class CommercePricingTest {
 
 		BigDecimal promoPrice = BigDecimal.valueOf(10);
 
-		CommercePriceEntry commercePromotionEntry = _addCommercePriceEntry(
+		_addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			commercePromotion.getCommercePriceListId(), "", promoPrice);
 
