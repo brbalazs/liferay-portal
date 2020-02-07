@@ -602,6 +602,16 @@
 		</attribute>
 	</tag>
 	<tag>
+		<name>timeline</name>
+		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.TimelineTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>elements</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
 		<name>user-invitation-modal</name>
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.UserInvitationModalTag</tag-class>
 		<body-content>empty</body-content>
