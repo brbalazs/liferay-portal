@@ -17,6 +17,7 @@ package com.liferay.adaptive.media.image.internal.util;
 import com.liferay.adaptive.media.exception.AMRuntimeException;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.ImageResolutionException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.image.ImageToolUtil;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.util.PropsValues;
@@ -53,7 +54,7 @@ public class RenderedImageUtil {
 	}
 
 	public static RenderedImage readImage(InputStream inputStream)
-		throws ImageResolutionException, IOException {
+		throws IOException, PortalException {
 
 		ImageInputStream imageInputStream = ImageIO.createImageInputStream(
 			inputStream);
