@@ -41,7 +41,7 @@
 		portletURL: '<%= portletURL %>',
 		selectedItemsKey: '<%= selectedItemsKey %>',
 		selectionType: '<%= selectionType %>',
-		spritemap: '/o/minium-theme/images/lexicon/icons.svg',
+		spritemap: '<%= spritemap %>',
 		style: '<%= style %>'
 	});
 </aui:script>
