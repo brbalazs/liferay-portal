@@ -67,7 +67,7 @@ List<SiteNavigationMenu> autoSiteNavigationMenus = layoutsAdminDisplayContext.ge
 			</c:choose>
 
 			<c:if test="<%= layoutsAdminDisplayContext.isShowCategorization() %>">
-				<aui:fieldset label="categorization">
+				<aui:fieldset cssClass="mb-4" label="categorization">
 					<liferay-asset:asset-categories-selector
 						className="<%= Layout.class.getName() %>"
 						classPK="<%= 0 %>"
@@ -84,7 +84,7 @@ List<SiteNavigationMenu> autoSiteNavigationMenus = layoutsAdminDisplayContext.ge
 	</liferay-frontend:edit-form>
 </div>
 
-<aui:script>
+<aui:script use="liferay-alert">
 	var form = document.getElementById('<portlet:namespace />fm');
 
 	$(form).on(
