@@ -1038,7 +1038,7 @@ const dataSetDisplayProps = {
 					{
 						contentRendererModuleUrl:
 							'/fake/content/renderer/picture',
-						// contentRenderer: 'picture',
+						// contentRenderer: 'image',
 						expand: false,
 						fieldName: 'thumbnail',
 						label: ''

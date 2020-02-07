@@ -20,7 +20,7 @@ import Default from './Default.es';
 import Label from './Label.es';
 import Link from './Link.es';
 import ModalLink from './ModalLink.es';
-import Picture from './Picture.es';
+import Image from './Image.es';
 import QuantitySelector from './QuantitySelector.es';
 import SidePanelLink from './SidePanelLink.es';
 import TooltipPrice from './TooltipPrice.es';
@@ -33,7 +33,7 @@ const dataRenderers = {
 	label: Label,
 	link: Link,
 	modalLink: ModalLink,
-	picture: Picture,
+	image: Image,
 	quantitySelector: QuantitySelector,
 	sidePanelLink: SidePanelLink,
 	tooltipPrice: TooltipPrice
