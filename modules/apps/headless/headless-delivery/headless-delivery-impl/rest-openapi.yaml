@@ -156,17 +156,7 @@ components:
                     description:
                         The categories associated with this blog post.
                     items:
-                        properties:
-                            taxonomyCategoryId:
-                                description:
-                                    The category's ID. This can be used to retrieve more information in the `TaxonomyCategory` API.
-                                format: int64
-                                type: integer
-                            taxonomyCategoryName:
-                                description:
-                                    The category's name.
-                                type: string
-                        type: object
+                        $ref: "#/components/schemas/TaxonomyCategory"
                     readOnly: true
                     type: array
                 taxonomyCategoryIds:
@@ -827,17 +817,7 @@ components:
                     description:
                         The categories associated with this document.
                     items:
-                        properties:
-                            taxonomyCategoryId:
-                                description:
-                                    The category's ID. This can be used to retrieve more information via the `TaxonomyCategory` API.
-                                format: int64
-                                type: integer
-                            taxonomyCategoryName:
-                                description:
-                                    The category's name.
-                                type: string
-                        type: object
+                        $ref: "#/components/schemas/TaxonomyCategory"
                     readOnly: true
                     type: array
                 taxonomyCategoryIds:
@@ -1051,17 +1031,7 @@ components:
                     description:
                         The categories associated with this article.
                     items:
-                        properties:
-                            taxonomyCategoryId:
-                                description:
-                                    The category's ID, which can be used to retrieve more information in the `TaxonomyCategory` API.
-                                format: int64
-                                type: integer
-                            taxonomyCategoryName:
-                                description:
-                                    The category's name.
-                                type: string
-                        type: object
+                        $ref: "#/components/schemas/TaxonomyCategory"
                     readOnly: true
                     type: array
                 taxonomyCategoryIds:
@@ -1760,17 +1730,7 @@ components:
                     description:
                         The categories associated with this structured content.
                     items:
-                        properties:
-                            taxonomyCategoryId:
-                                description:
-                                    The category's ID, which can be used to retrieve more information via the `TaxonomyCategory` API.
-                                format: int64
-                                type: integer
-                            taxonomyCategoryName:
-                                description:
-                                    The category's name.
-                                type: string
-                        type: object
+                        $ref: "#/components/schemas/TaxonomyCategory"
                     readOnly: true
                     type: array
                 taxonomyCategoryIds:
@@ -1876,6 +1836,26 @@ components:
                     writeOnly: true
             required:
                 - name
+            type: object
+        TaxonomyCategory:
+            properties:
+                taxonomyCategoryId:
+                    description:
+                        The category's ID. This can be used to retrieve more information in the
+                        `TaxonomyCategory` API.
+                    format: int64
+                    readOnly: true
+                    type: integer
+                taxonomyCategoryName:
+                    description:
+                        The category's name.
+                    readOnly: true
+                    type: string
+                taxonomyCategoryName_i18n:
+                    additionalProperties:
+                        type: string
+                    readOnly: true
+                    type: object
             type: object
         WikiNode:
             # @review
@@ -2038,17 +2018,7 @@ components:
                     description:
                         The categories associated with this blog post.
                     items:
-                        properties:
-                            taxonomyCategoryId:
-                                description:
-                                    The category's ID. This can be used to retrieve more information in the `TaxonomyCategory` API.
-                                format: int64
-                                type: integer
-                            taxonomyCategoryName:
-                                description:
-                                    The category's name.
-                                type: string
-                        type: object
+                        $ref: "#/components/schemas/TaxonomyCategory"
                     readOnly: true
                     type: array
                 taxonomyCategoryIds:
