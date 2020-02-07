@@ -12,16 +12,27 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommendation.api;
+package com.liferay.commerce.machine.learning.internal.recommendation.model;
 
-import com.liferay.portal.kernel.search.Hits;
+import com.liferay.commerce.machine.learning.recommendation.model.ProductContentCommerceMLRecommendation;
 
 /**
  * @author Riccardo Ferrari
  */
-public interface ProductCommerceMLRecommendationHelper {
+public class ProductContentCommerceMLRecommendationImpl
+	extends BaseCommerceMLRecommendationImpl
+	implements ProductContentCommerceMLRecommendation {
 
-	public Hits getRecommendations(long companyId, long cpDefinitionId)
-		throws Exception;
+	@Override
+	public int getRank() {
+		return _rank;
+	}
+
+	@Override
+	public void setRank(int rank) {
+		_rank = rank;
+	}
+
+	private int _rank;
 
 }
