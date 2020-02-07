@@ -17,21 +17,18 @@
 <%@ include file="/init.jsp" %>
 
 <%
-	<%--
-		TODO - Display Context - There doesn't seem to exist a specific one for the Inventory Section
-	--%>
+CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
 <div class="row">
 	<div class="col-12">
 		<commerce-ui:dataset-display
-			contextParams="<%-- TODO could there be... ? = contextParams --%>"
-			dataProviderKey="<%-- TODO implement =  CommerceInventoryClayTable.NAME --%>"
-			id="<%-- TODO implement =  CommerceInventoryClayTable.NAME --%>"
+			dataProviderKey="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_ITEMS %>"
+			id="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_ITEMS %>"
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
-			portletURL="<%-- TODO getPortletURL() from displayContext --%>"
+			portletURL="<%= commerceInventoryDisplayContext.getPortletURL() %>"
 			style="fluid"
 		/>
 	</div>

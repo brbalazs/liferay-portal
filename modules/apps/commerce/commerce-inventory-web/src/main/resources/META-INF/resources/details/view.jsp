@@ -16,18 +16,8 @@
 
 <%@ include file="/init.jsp" %>
 
-<%-- TODO - Inventory Item Display Context - There doesn't seem to exist a specific one for the Inventory Section --%>
-
 <%
-
-String headerTitle = null; // TODO Set up logic to display the headerTitle
-
-if (commerceOrder != null) {
-	headerTitle = LanguageUtil.format(request, "order-x", commerceOrder.getCommerceOrderId());
-}
-else {
-	headerTitle = LanguageUtil.get(request, "add-order");
-}
+CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 portletDisplay.setShowBackIcon(true);
 
@@ -37,25 +27,27 @@ if (Validator.isNull(redirect)) {
 else {
 	portletDisplay.setURLBack(redirect);
 }
+
+CommerceInventoryWarehouseItem commerceInventoryWarehouseItem = commerceInventoryDisplayContext.getCommerceInventoryWarehouseItem();
 %>
 
 <commerce-ui:header
-	actions="<%-- TODO implement displayContext = .getHeaderActionModels() --%>"
-	assignerModalUrl="/assigner/modal/url"
-	bean="<%-- TODO implement = commerceInventory --%>"
-	dropdownItems="<%-- TODO implement displayContext .getDropdownItems() --%>"
-	externalReferenceCode="123asd"
-	externalReferenceCodeEditUrl="/external/reference/code/edit/url"
-	model="<%-- CommerceInventory class model --%>"
-	thumbnailUrl="<%-- TODO implement displayContext = .getCommerceAccountThumbnailURL() --%>"
-	title="<%= headerTitle %>"
+	actions="<%= commerceInventoryDisplayContext.getHeaderActionModels() %>"
+	bean="<%= commerceInventoryWarehouseItem %>"
+	beanIdLabel="inventory-item"
+	dropdownItems="<%= commerceInventoryDisplayContext.getDropdownItems() %>"
+	externalReferenceCode=""
+	externalReferenceCodeEditUrl=""
+	model="<%= CommerceInventoryWarehouseItem.class %>"
+	thumbnailUrl=""
+	title="<%= commerceInventoryDisplayContext.getSkuCode() %>"
+	transitionPortletURL="<%= commerceInventoryDisplayContext.getTransitionInventoryPortletURL() %>"
 />
 
 <div id="<portlet:namespace />editInventoryItemContainer">
 	<liferay-frontend:screen-navigation
 		fullContainerCssClass="col-12 pt-4"
-		key="<%-- TODO implement CommerceInventoryScreenNavigationConstants =  --%>"
-		modelBean="<%= commerceOrder %>"
+		key="<%= CommerceInventoryScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_INVENTORY %>"
 		portletURL="<%= currentURLObj %>"
 	/>
 </div>

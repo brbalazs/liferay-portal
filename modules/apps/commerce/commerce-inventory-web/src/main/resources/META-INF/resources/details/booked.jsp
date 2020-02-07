@@ -16,28 +16,29 @@
 
 <%@ include file="/init.jsp" %>
 
-<%-- TODO - Inventory Item Display Context - There doesn't seem to exist a specific one for the Inventory Section --%>
-
 <%
+CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
+String skuCode = commerceInventoryDisplayContext.getSkuCode();
+
+java.util.Map<String, String> contextParams = new java.util.HashMap<>();
+
+contextParams.put("sku", skuCode);
 %>
 
 <div class="row">
 	<div class="col-12">
 		<commerce-ui:panel
-			actionLabel=""
-			actionTargetId="add-awaiting-quantity-modal"
-			actionUrl="<%-- TODO impelemnt = mvcAction --%>"
-			title='<%= LanguageUtil.get(request, "awaiting") %>'>
-
+			title='<%= LanguageUtil.get(request, "on-order-quantities") %>'
+		>
 			<commerce-ui:dataset-display
-				contextParams="<%-- TODO could there be... ? = contextParams --%>"
-				dataProviderKey="<%-- TODO implement =  CommerceInventoryClayTable.NAME --%>"
-				id="<%-- TODO implement =  CommerceInventoryClayTable.NAME --%>"
+				contextParams="<%= contextParams %>"
+				dataProviderKey="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_BOOKED %>"
+				id="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_BOOKED %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
-				portletURL="<%-- TODO getPortletURL() from displayContext --%>"
+				portletURL="<%= commerceInventoryDisplayContext.getPortletURL() %>"
 				style="stacked"
 			/>
 		</commerce-ui:panel>
