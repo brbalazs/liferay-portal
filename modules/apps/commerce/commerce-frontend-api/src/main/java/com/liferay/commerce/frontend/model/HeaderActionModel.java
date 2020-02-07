@@ -24,6 +24,15 @@ public class HeaderActionModel {
 	}
 
 	public HeaderActionModel(
+		String additionalClasses, String href, String id, String label) {
+
+		_additionalClasses = additionalClasses;
+		_href = href;
+		_id = id;
+		_label = label;
+	}
+
+	public HeaderActionModel(
 		String additionalClasses, String formId, String href, String id,
 		String label) {
 
