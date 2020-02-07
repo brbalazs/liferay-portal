@@ -80,12 +80,12 @@ public class RenderedImageUtil {
 
 					throw new ImageResolutionException(
 						StringBundler.concat(
-							"Image's dimensions (", height, " px high and ",
-							width, " px wide) exceed max dimensions (",
+							"Image's dimensions of ", height, " px high and ",
+							width, " px wide exceed max dimensions of ",
 							PropsValues.IMAGE_TOOL_IMAGE_MAX_HEIGHT,
 							" px high and ",
 							PropsValues.IMAGE_TOOL_IMAGE_MAX_WIDTH,
-							" px wide)"));
+							" px wide"));
 				}
 
 				return imageReader.read(0);
