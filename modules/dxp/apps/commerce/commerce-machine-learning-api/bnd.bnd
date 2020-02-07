@@ -3,4 +3,6 @@ Bundle-SymbolicName: com.liferay.commerce.machine.learning.api
 Bundle-Version: 2.0.2
 Export-Package:\
 	com.liferay.commerce.machine.learning.forecast.model,\
-	com.liferay.commerce.machine.learning.forecast.service
+	com.liferay.commerce.machine.learning.forecast.service,\
+	com.liferay.commerce.machine.learning.recommendation.model,\
+	com.liferay.commerce.machine.learning.recommendation.service
