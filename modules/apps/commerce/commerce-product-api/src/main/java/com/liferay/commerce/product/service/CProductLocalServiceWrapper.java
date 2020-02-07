@@ -409,6 +409,16 @@ public class CProductLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.product.model.CProduct
+			updateCProductExternalReferenceCode(
+				long cProductId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cProductLocalService.updateCProductExternalReferenceCode(
+			cProductId, externalReferenceCode);
+	}
+
+	@Override
+	public com.liferay.commerce.product.model.CProduct
 			updatePublishedCPDefinitionId(
 				long cProductId, long publishedCPDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {

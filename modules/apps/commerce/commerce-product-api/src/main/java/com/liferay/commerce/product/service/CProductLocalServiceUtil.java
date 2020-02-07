@@ -384,6 +384,15 @@ public class CProductLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.product.model.CProduct
+			updateCProductExternalReferenceCode(
+				long cProductId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCProductExternalReferenceCode(
+			cProductId, externalReferenceCode);
+	}
+
+	public static com.liferay.commerce.product.model.CProduct
 			updatePublishedCPDefinitionId(
 				long cProductId, long publishedCPDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {

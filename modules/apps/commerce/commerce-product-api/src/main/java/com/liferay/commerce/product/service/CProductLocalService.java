@@ -317,6 +317,10 @@ public interface CProductLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CProduct updateCProduct(CProduct cProduct);
 
+	public CProduct updateCProductExternalReferenceCode(
+			long cProductId, String externalReferenceCode)
+		throws PortalException;
+
 	public CProduct updatePublishedCPDefinitionId(
 			long cProductId, long publishedCPDefinitionId)
 		throws PortalException;
