@@ -71,10 +71,8 @@ public class CompleteCommerceOrderStatusImpl implements CommerceOrderStatus {
 	public boolean isTransitionCriteriaMet(CommerceOrder commerceOrder)
 		throws PortalException {
 
-		if ((commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_SHIPPED) ||
-			(commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED)) {
+		if (commerceOrder.getOrderStatus() ==
+				CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
 
 			return true;
 		}

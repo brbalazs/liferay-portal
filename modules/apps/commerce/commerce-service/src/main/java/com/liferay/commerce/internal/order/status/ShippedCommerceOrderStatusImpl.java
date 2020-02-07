@@ -16,8 +16,11 @@ package com.liferay.commerce.internal.order.status;
 
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.order.status.CommerceOrderStatus;
 import com.liferay.commerce.service.CommerceOrderService;
+import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 
@@ -51,6 +54,12 @@ public class ShippedCommerceOrderStatusImpl implements CommerceOrderStatus {
 
 		commerceOrder.setOrderStatus(KEY);
 
+		if (!_commerceShippingHelper.isShippable(commerceOrder)) {
+			commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_COMPLETED,
+				userId);
+		}
+
 		return _commerceOrderService.updateCommerceOrder(commerceOrder);
 	}
 
@@ -69,8 +78,10 @@ public class ShippedCommerceOrderStatusImpl implements CommerceOrderStatus {
 
 	@Override
 	public boolean isComplete(CommerceOrder commerceOrder) {
-		if (commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
+		if ((commerceOrder.getOrderStatus() ==
+				CommerceOrderConstants.ORDER_STATUS_SHIPPED) ||
+			(commerceOrder.getOrderStatus() ==
+				CommerceOrderConstants.ORDER_STATUS_COMPLETED)) {
 
 			return true;
 		}
@@ -82,10 +93,24 @@ public class ShippedCommerceOrderStatusImpl implements CommerceOrderStatus {
 	public boolean isTransitionCriteriaMet(CommerceOrder commerceOrder)
 		throws PortalException {
 
-		if ((commerceOrder.getOrderStatus() ==
+		boolean allOrderItemsShipped = true;
+
+		for (CommerceOrderItem shippedCommerceOrderItem :
+				commerceOrder.getCommerceOrderItems()) {
+
+			if (shippedCommerceOrderItem.getShippedQuantity() <
+					shippedCommerceOrderItem.getQuantity()) {
+
+				allOrderItemsShipped = false;
+			}
+		}
+
+		if (((commerceOrder.getOrderStatus() ==
 				CommerceOrderConstants.ORDER_STATUS_FULFILLED) ||
-			(commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED)) {
+			 (commerceOrder.getOrderStatus() ==
+				 CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED)) &&
+			(allOrderItemsShipped ||
+			 !_commerceShippingHelper.isShippable(commerceOrder))) {
 
 			return true;
 		}
@@ -93,10 +118,16 @@ public class ShippedCommerceOrderStatusImpl implements CommerceOrderStatus {
 		return false;
 	}
 
+	@Reference
+	private CommerceOrderEngine _commerceOrderEngine;
+
 	@Reference(
 		policy = ReferencePolicy.DYNAMIC,
 		policyOption = ReferencePolicyOption.GREEDY
 	)
 	private volatile CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private CommerceShippingHelper _commerceShippingHelper;
 
 }

@@ -16,6 +16,7 @@ package com.liferay.commerce.internal.order.status;
 
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.status.CommerceOrderStatus;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -108,8 +109,9 @@ public class ToFulfillCommerceOrderStatusImpl implements CommerceOrderStatus {
 	public boolean isTransitionCriteriaMet(CommerceOrder commerceOrder)
 		throws PortalException {
 
-		if (commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) {
+		if ((commerceOrder.getOrderStatus() ==
+				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
+			_commerceOrderValidatorRegistry.isValid(null, commerceOrder)) {
 
 			return true;
 		}
@@ -139,6 +141,9 @@ public class ToFulfillCommerceOrderStatusImpl implements CommerceOrderStatus {
 		policyOption = ReferencePolicyOption.GREEDY
 	)
 	private volatile CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
 
 	@Reference
 	private WorkflowDefinitionLinkLocalService
