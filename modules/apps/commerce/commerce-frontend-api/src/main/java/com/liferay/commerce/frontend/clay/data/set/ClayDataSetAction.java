@@ -64,6 +64,10 @@ public class ClayDataSetAction {
 		return _separator;
 	}
 
+	public String getTarget() {
+		return _target;
+	}
+
 	public void setHref(String href) {
 		_href = href;
 	}
@@ -88,6 +92,10 @@ public class ClayDataSetAction {
 		_separator = separator;
 	}
 
+	public void setTarget(String target) {
+		_target = target;
+	}
+
 	private final String _cssClasses;
 	private String _href;
 	private String _icon;
@@ -96,5 +104,6 @@ public class ClayDataSetAction {
 	private int _order;
 	private boolean _quickAction;
 	private boolean _separator;
+	private String _target;
 
 }
