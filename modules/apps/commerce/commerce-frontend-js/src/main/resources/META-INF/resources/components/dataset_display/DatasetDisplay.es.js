@@ -45,7 +45,13 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 
 	const url = `${apiUrl}${authString}${pagination}${sortingString}${filterString}`;
 
-	return fetch(url).then(response => response.json());
+	return fetch(
+		url,
+		{
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'GET'
+		}).then(response => response.json());
 }
 
 function DatasetDisplay(props) {
