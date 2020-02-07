@@ -16,10 +16,8 @@ package com.liferay.commerce.order.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.exception.NoSuchOrderException;
-import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
-import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
 import com.liferay.commerce.order.web.internal.display.context.CommerceOrderEditDisplayContext;
@@ -33,7 +31,6 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -68,9 +65,9 @@ public class EditCommerceOrderPurchaseOrderNumberMVCRenderCommand
 					_commerceAddressService, _commerceChannelLocalService,
 					_commerceNotificationTemplateService,
 					_commerceNotificationQueueEntryLocalService,
-					_commerceWorkflowedModelHelper, _commerceOrderEngine,
-					_commerceOrderService, _commerceOrderItemService,
-					_commerceOrderModelResourcePermission,
+					_commerceOrderEngine, _commerceOrderService,
+					_commerceOrderItemService, _commerceOrderNoteService,
+					_commerceOrderStatusRegistry,
 					_commercePaymentMethodGroupRelService,
 					_commerceOrderPriceCalculation, _commerceShipmentService,
 					renderRequest);
@@ -114,12 +111,6 @@ public class EditCommerceOrderPurchaseOrderNumberMVCRenderCommand
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
 
-	@Reference(
-		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
-	)
-	private ModelResourcePermission<CommerceOrder>
-		_commerceOrderModelResourcePermission;
-
 	@Reference
 	private CommerceOrderNoteService _commerceOrderNoteService;
 
@@ -131,9 +122,6 @@ public class EditCommerceOrderPurchaseOrderNumberMVCRenderCommand
 
 	@Reference
 	private CommerceOrderStatusRegistry _commerceOrderStatusRegistry;
-
-	@Reference
-	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
 
 	@Reference
 	private CommercePaymentMethodGroupRelService

@@ -15,6 +15,7 @@
 package com.liferay.commerce.order.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommerceAddressConstants;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
@@ -22,6 +23,7 @@ import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
+import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -37,6 +39,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 
 import java.math.BigDecimal;
 
@@ -105,33 +108,34 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
-		if (cmd.equals(Constants.DELETE)) {
-			deleteCommerceOrders(actionRequest);
-		}
-		else if (cmd.equals("billingAddress")) {
-			updateBillingAddress(actionRequest);
-		}
-		else if (cmd.equals("customFields")) {
-			updateCustomFields(actionRequest);
-		}
-		else if (cmd.equals("orderSummary")) {
-			updateOrderSummary(actionRequest);
-		}
-		else if (cmd.equals("paymentMethod")) {
-			updatePaymentMethod(actionRequest);
-		}
-		else if (cmd.equals("printedNote")) {
-			updatePrintedNote(actionRequest);
-		}
-		else if (cmd.equals("purchaseOrderNumber")) {
-			updatePurchaseOrderNumber(actionRequest);
-		}
-		else if (cmd.equals("requestedDeliveryDate")) {
-			updateRequestedDeliveryDate(actionRequest);
-		}
-		else if (cmd.equals("shipment")) {
-			long commerceOrderId = ParamUtil.getLong(
-				actionRequest, "commerceOrderId");
+		try {
+			if (cmd.equals(Constants.DELETE)) {
+				deleteCommerceOrders(actionRequest);
+			}
+			else if (cmd.equals("billingAddress")) {
+				updateBillingAddress(actionRequest);
+			}
+			else if (cmd.equals("customFields")) {
+				updateCustomFields(actionRequest);
+			}
+			else if (cmd.equals("orderSummary")) {
+				updateOrderSummary(actionRequest);
+			}
+			else if (cmd.equals("paymentMethod")) {
+				updatePaymentMethod(actionRequest);
+			}
+			else if (cmd.equals("printedNote")) {
+				updatePrintedNote(actionRequest);
+			}
+			else if (cmd.equals("purchaseOrderNumber")) {
+				updatePurchaseOrderNumber(actionRequest);
+			}
+			else if (cmd.equals("requestedDeliveryDate")) {
+				updateRequestedDeliveryDate(actionRequest);
+			}
+			else if (cmd.equals("shipment")) {
+				long commerceOrderId = ParamUtil.getLong(
+					actionRequest, "commerceOrderId");
 
 				CommerceShipment commerceShipment = addShipment(
 					actionRequest, commerceOrderId);
@@ -520,10 +524,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	private CommerceOrderEngine _commerceOrderEngine;
+	private CommerceAddressService _commerceAddressService;
 
 	@Reference
-	private CommerceAddressService _commerceAddressService;
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
