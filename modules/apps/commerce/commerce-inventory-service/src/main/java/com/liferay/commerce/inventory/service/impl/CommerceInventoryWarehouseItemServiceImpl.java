@@ -165,6 +165,21 @@ public class CommerceInventoryWarehouseItemServiceImpl
 	}
 
 	@Override
+	public List<CommerceInventoryWarehouseItem>
+			getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+				long companyId, String sku, int start, int end)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryWarehouseItemLocalService.
+			getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+				companyId, sku, start, end);
+	}
+
+	@Override
 	public int getCommerceInventoryWarehouseItemsCount(
 			long commerceInventoryWarehouseId)
 		throws PortalException {
@@ -217,6 +232,22 @@ public class CommerceInventoryWarehouseItemServiceImpl
 		return commerceInventoryWarehouseItemLocalService.
 			getCommerceInventoryWarehouseItemsByModifiedDate(
 				companyId, startDate, endDate, start, end);
+	}
+
+	@Override
+	public void moveQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		commerceInventoryWarehouseItemLocalService.
+			moveQuantitiesBetweenWarehouses(
+				fromCommerceInventoryWarehouseId,
+				toCommerceInventoryWarehouseId, sku, quantity);
 	}
 
 	@Override

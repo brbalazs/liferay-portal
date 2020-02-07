@@ -14,11 +14,37 @@
 
 package com.liferay.commerce.inventory.service.impl;
 
+import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
+
+import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
+import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryReplenishmentItemServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+
+import java.util.Date;
 
 /**
  * @author Luca Pellizzon
  */
 public class CommerceInventoryReplenishmentItemServiceImpl
 	extends CommerceInventoryReplenishmentItemServiceBaseImpl {
+
+	@Override
+	public CommerceInventoryReplenishmentItem
+			addCommerceInventoryReplenishmentItem(
+				long userId, long commerceInventoryWarehouseId, String sku,
+				Date availabilityDate, int quantity)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryReplenishmentItemLocalService.
+			addCommerceInventoryReplenishmentItem(
+				userId, commerceInventoryWarehouseId, sku, availabilityDate,
+				quantity);
+	}
+
 }

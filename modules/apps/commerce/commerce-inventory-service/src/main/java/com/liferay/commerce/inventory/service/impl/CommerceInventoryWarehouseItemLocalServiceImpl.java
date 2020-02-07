@@ -16,13 +16,17 @@ package com.liferay.commerce.inventory.service.impl;
 
 import com.liferay.commerce.inventory.exception.DuplicateCommerceInventoryWarehouseItemException;
 import com.liferay.commerce.inventory.exception.NoSuchInventoryWarehouseItemException;
+import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryWarehouseItemLocalServiceBaseImpl;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,6 +95,12 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	}
 
 	@Override
+	public int countAdminUIItemsByCompanyId(long companyId) {
+		return commerceInventoryWarehouseItemFinder.
+			countAdminUIItemsByCompanyId(companyId);
+	}
+
+	@Override
 	public void deleteCommerceInventoryWarehouseItems(
 		long commerceInventoryWarehouseId) {
 
@@ -104,6 +114,52 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 		return commerceInventoryWarehouseItemPersistence.fetchByC_S(
 			commerceInventoryWarehouseId, sku);
+	}
+
+	@Override
+	public List<CommerceInventoryAdminUIItem> getAdminUIItemsByCompanyId(
+		long companyId, int start, int end) {
+
+		List<Object[]> adminUIItemsByCompanyId =
+			commerceInventoryWarehouseItemFinder.findAdminUIItemsByCompanyId(
+				companyId, start, end);
+
+		List<CommerceInventoryAdminUIItem> commerceInventoryAdminUIItems =
+			new ArrayList<>();
+
+		for (Object[] adminUIItem : adminUIItemsByCompanyId) {
+			if (adminUIItem != null) {
+				String sku = "";
+
+				if ((adminUIItem.length > 0) && (adminUIItem[0] != null)) {
+					sku = (String)adminUIItem[0];
+				}
+
+				Integer stock = 0;
+
+				if ((adminUIItem.length > 1) && (adminUIItem[1] != null)) {
+					stock = (Integer)adminUIItem[1];
+				}
+
+				Integer booked = 0;
+
+				if ((adminUIItem.length > 2) && (adminUIItem[2] != null)) {
+					booked = (Integer)adminUIItem[2];
+				}
+
+				Integer replenishment = 0;
+
+				if ((adminUIItem.length > 3) && (adminUIItem[3] != null)) {
+					replenishment = (Integer)adminUIItem[3];
+				}
+
+				commerceInventoryAdminUIItems.add(
+					new CommerceInventoryAdminUIItem(
+						sku, stock, booked, replenishment));
+			}
+		}
+
+		return commerceInventoryAdminUIItems;
 	}
 
 	@Override
@@ -137,6 +193,15 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 		return commerceInventoryWarehouseItemPersistence.findByCompanyId(
 			companyId, start, end);
+	}
+
+	@Override
+	public List<CommerceInventoryWarehouseItem>
+		getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+			long companyId, String sku, int start, int end) {
+
+		return commerceInventoryWarehouseItemPersistence.findByCompanyId_Sku(
+			companyId, sku, start, end);
 	}
 
 	public List<CommerceInventoryWarehouseItem>
@@ -181,6 +246,39 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	public int getStockQuantity(long companyId, String sku) {
 		return commerceInventoryWarehouseItemFinder.countStockQuantityByC_S(
 			companyId, sku);
+	}
+
+	@Override
+	@Transactional(
+		propagation = Propagation.REQUIRED, readOnly = false,
+		rollbackFor = Exception.class
+	)
+	public void moveQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws PortalException {
+
+		CommerceInventoryWarehouseItem fromWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.findByC_S(
+				fromCommerceInventoryWarehouseId, sku);
+
+		if (quantity > fromWarehouseItem.getQuantity()) {
+			throw new PortalException("Quantity to transfer unavailable");
+		}
+
+		commerceInventoryWarehouseItemLocalService.
+			updateCommerceInventoryWarehouseItem(
+				fromWarehouseItem.getCommerceInventoryWarehouseItemId(),
+				fromWarehouseItem.getQuantity() - quantity);
+
+		CommerceInventoryWarehouseItem toWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.findByC_S(
+				toCommerceInventoryWarehouseId, sku);
+
+		commerceInventoryWarehouseItemLocalService.
+			updateCommerceInventoryWarehouseItem(
+				toWarehouseItem.getCommerceInventoryWarehouseItemId(),
+				toWarehouseItem.getQuantity() + quantity);
 	}
 
 	@Override

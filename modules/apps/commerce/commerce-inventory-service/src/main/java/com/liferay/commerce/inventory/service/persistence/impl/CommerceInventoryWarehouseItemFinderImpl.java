@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Date;
@@ -38,6 +39,10 @@ public class CommerceInventoryWarehouseItemFinderImpl
 	extends CommerceInventoryWarehouseItemFinderBaseImpl
 	implements CommerceInventoryWarehouseItemFinder {
 
+	public static final String COUNT_ADMINUI_ITEMS_BY_COMPANYID =
+		CommerceInventoryWarehouseItemFinder.class.getName() +
+			".countAdminUIItemsByCompanyId";
+
 	public static final String COUNT_STOCK_QUANTITY_BY_C_S =
 		CommerceInventoryWarehouseItemFinder.class.getName() +
 			".countStockQuantityByC_S";
@@ -50,9 +55,53 @@ public class CommerceInventoryWarehouseItemFinderImpl
 		CommerceInventoryWarehouseItemFinder.class.getName() +
 			".countUpdatedItemsByC_M";
 
+	public static final String FIND_ADMINUI_ITEMS_BY_COMPANYID =
+		CommerceInventoryWarehouseItemFinder.class.getName() +
+			".findAdminUIItemsByCompanyId";
+
 	public static final String FIND_UPDATED_ITEMS_BY_C_M =
 		CommerceInventoryWarehouseItemFinder.class.getName() +
 			".findUpdatedItemsByC_M";
+
+	@Override
+	public int countAdminUIItemsByCompanyId(long companyId) {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(
+				getClass(), COUNT_ADMINUI_ITEMS_BY_COMPANYID);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(_COUNT_VALUE, Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(companyId);
+
+			int count = 0;
+
+			Iterator<Long> itr = q.iterate();
+
+			while (itr.hasNext()) {
+				Long l = itr.next();
+
+				if (l != null) {
+					count += l.intValue();
+				}
+			}
+
+			return count;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
 
 	@Override
 	public int countStockQuantityByC_S(long companyId, String sku) {
@@ -179,6 +228,39 @@ public class CommerceInventoryWarehouseItemFinderImpl
 	}
 
 	@Override
+	public List<Object[]> findAdminUIItemsByCompanyId(
+		long companyId, int start, int end) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(
+				getClass(), FIND_ADMINUI_ITEMS_BY_COMPANYID);
+
+			sql = StringUtil.replace(
+				sql, new String[] {"[$COMPANY_ID$]"},
+				new String[] {String.valueOf(companyId)});
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(_SKU, Type.STRING);
+			q.addScalar(_SUM_STOCK, Type.INTEGER);
+			q.addScalar(_SUM_BOOKED, Type.INTEGER);
+			q.addScalar(_SUM_AWAITING, Type.INTEGER);
+
+			return (List<Object[]>)QueryUtil.list(q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
 	public List<CommerceInventoryWarehouseItem> findUpdatedItemsByC_M(
 		long companyId, Date startDate, Date endDate, int start, int end) {
 
@@ -211,6 +293,16 @@ public class CommerceInventoryWarehouseItemFinderImpl
 			closeSession(session);
 		}
 	}
+
+	private static final String _COUNT_VALUE = "COUNT_VALUE";
+
+	private static final String _SKU = "SKU";
+
+	private static final String _SUM_AWAITING = "SUM_AWAITING";
+
+	private static final String _SUM_BOOKED = "SUM_BOOKED";
+
+	private static final String _SUM_STOCK = "SUM_STOCK";
 
 	private static final String _SUM_VALUE = "SUM_VALUE";
 

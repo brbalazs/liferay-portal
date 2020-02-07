@@ -1,6 +1,69 @@
 <?xml version="1.0"?>
 
 <custom-sql>
+	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryReplenishmentItemFinder.countAdminUIReplenishmentItemsByCompanyIdAndSku">
+		<![CDATA[
+			SELECT
+				COUNT(*) AS COUNT_VALUE
+			FROM
+				CIReplenishmentItem
+			WHERE
+				(CIReplenishmentItem.companyId = ?) AND
+				(CIReplenishmentItem.sku = ?)
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryReplenishmentItemFinder.findAdminUIReplenishmentItemsByCompanyIdAndSku">
+		<![CDATA[
+			SELECT
+				CIWarehouse.name, CIReplenishmentItem.availabilityDate, CIReplenishmentItem.quantity
+			FROM
+				CIReplenishmentItem
+			LEFT JOIN
+				CIWarehouse
+			ON
+				CIReplenishmentItem.commerceInventoryWarehouseId = CIWarehouse.CIWarehouseId
+			WHERE
+				(CIReplenishmentItem.companyId = ?) AND
+				(CIReplenishmentItem.sku = ?)
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseFinder.countAdminUIWarehousesByCompanyIdAndSku">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CIWarehouse.name) AS COUNT_VALUE
+			FROM
+				CIWarehouse
+			LEFT JOIN
+				CIWarehouseItem
+			ON
+				CIWarehouse.CIWarehouseId = CIWarehouseItem.commerceInventoryWarehouseId
+			WHERE
+				(CIWarehouseItem.companyId = ?) AND
+				(CIWarehouseItem.sku = ?)
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseFinder.findAdminUIWarehousesByCompanyIdAndSku">
+		<![CDATA[
+			SELECT
+				CIWarehouse.name AS NAME, SUM(CIWarehouseItem.quantity) AS SUM_STOCK, SUM(CIWarehouseItem.reservedQuantity) AS SUM_RESERVED, SUM(CIReplenishmentItem.quantity) AS SUM_AWAITING
+			FROM
+				CIWarehouse
+			LEFT JOIN
+				CIWarehouseItem
+			ON
+				CIWarehouse.CIWarehouseId = CIWarehouseItem.commerceInventoryWarehouseId
+			LEFT JOIN
+				CIReplenishmentItem
+			ON
+				(CIReplenishmentItem.commerceInventoryWarehouseId = CIWarehouse.CIWarehouseId) AND
+				(CIReplenishmentItem.sku = CIWarehouseItem.sku)
+			WHERE
+				(CIWarehouseItem.companyId = ?) AND
+				(CIWarehouseItem.sku = ?)
+			GROUP BY
+				CIWarehouse.name
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseFinder.findByG_S">
 		<![CDATA[
 			SELECT
@@ -51,6 +114,14 @@
 				(CIWarehouse.companyId = ?) AND
 				(Group_.groupId = ?) AND
 				(CIWarehouse.active_ = ?)
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseItemFinder.countAdminUIItemsByCompanyId">
+		<![CDATA[
+			SELECT COUNT(DISTINCT CIWarehouseItem.sku) AS COUNT_VALUE
+			FROM
+				CIWarehouseItem
+			WHERE CIWarehouseItem.companyId = ?
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseItemFinder.countStockQuantityByC_S">
@@ -107,6 +178,29 @@
 			WHERE
 				(CIWarehouseItem.companyId = ?) AND
 				(CIWarehouseItem.modifiedDate BETWEEN ? AND ?)
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseItemFinder.findAdminUIItemsByCompanyId">
+		<![CDATA[
+			SELECT CIWarehouseItem.sku, SUM(CIWarehouseItem.quantity) AS SUM_STOCK,
+				(
+					SELECT SUM(CIBookedQuantity.quantity)
+					 FROM CIBookedQuantity
+					 WHERE CIBookedQuantity.sku = CIWarehouseItem.sku AND CIBookedQuantity.companyId = [$COMPANY_ID$]
+					 GROUP BY CIBookedQuantity.sku
+				) AS SUM_BOOKED,
+				(
+					SELECT SUM(CIReplenishmentItem.quantity)
+					 FROM CIReplenishmentItem
+					 WHERE CIReplenishmentItem.sku = CIWarehouseItem.sku AND CIReplenishmentItem.companyId = [$COMPANY_ID$]
+					 GROUP BY CIReplenishmentItem.sku
+				) AS SUM_AWAITING
+			FROM
+				CIWarehouseItem
+			WHERE CIWarehouseItem.companyId = [$COMPANY_ID$]
+			GROUP BY CIWarehouseItem.sku
+			ORDER BY
+				CIWarehouseItem.sku
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseItemFinder.findUpdatedItemsByC_M">

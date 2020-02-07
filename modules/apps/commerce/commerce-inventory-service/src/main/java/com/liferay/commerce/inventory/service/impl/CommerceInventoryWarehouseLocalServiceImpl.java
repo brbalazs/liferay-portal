@@ -18,6 +18,7 @@ import com.liferay.commerce.inventory.exception.CommerceInventoryWarehouseActive
 import com.liferay.commerce.inventory.exception.CommerceInventoryWarehouseNameException;
 import com.liferay.commerce.inventory.exception.DuplicateCommerceInventoryWarehouseException;
 import com.liferay.commerce.inventory.internal.search.CommerceInventoryWarehouseIndexer;
+import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIWarehouse;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryWarehouseLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -127,6 +128,14 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 		return commerceInventoryWarehouse;
 	}
 
+	@Override
+	public int countAdminUIWarehousesByCompanyIdAndSku(
+		long companyId, String sku) {
+
+		return commerceInventoryWarehouseFinder.
+			countAdminUIWarehousesByCompanyIdAndSku(companyId, sku);
+	}
+
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -187,11 +196,82 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 			commerceInventoryWarehouse);
 	}
 
+	/**
+	 * @param companyId
+	 * @param sku
+	 * @param start
+	 * @param end
+	 * @return a list of objects arrays containing:
+	 * warehouse name, stock quantity, reserved quantity, replenishment quantity
+	 */
+	@Override
+	public List<CommerceInventoryAdminUIWarehouse>
+		getAdminUIWarehousesByCompanyIdAndSku(
+			long companyId, String sku, int start, int end) {
+
+		List<Object[]> adminUIWarehousesByCompanyIdAndSku =
+			commerceInventoryWarehouseFinder.
+				findAdminUIWarehousesByCompanyIdAndSku(
+					companyId, sku, start, end);
+
+		List<CommerceInventoryAdminUIWarehouse>
+			commerceInventoryAdminUIWarehouses = new ArrayList<>();
+
+		for (Object[] adminUIWarehouse : adminUIWarehousesByCompanyIdAndSku) {
+			String warehouseName = "";
+
+			if ((adminUIWarehouse.length > 0) &&
+				(adminUIWarehouse[0] != null)) {
+
+				warehouseName = (String)adminUIWarehouse[0];
+			}
+
+			Integer quantity = 0;
+
+			if ((adminUIWarehouse.length > 1) &&
+				(adminUIWarehouse[1] != null)) {
+
+				quantity = (Integer)adminUIWarehouse[1];
+			}
+
+			Integer reservedQuantity = 0;
+
+			if ((adminUIWarehouse.length > 2) &&
+				(adminUIWarehouse[2] != null)) {
+
+				reservedQuantity = (Integer)adminUIWarehouse[2];
+			}
+
+			Integer replenishment = 0;
+
+			if ((adminUIWarehouse.length > 3) &&
+				(adminUIWarehouse[3] != null)) {
+
+				replenishment = (Integer)adminUIWarehouse[3];
+			}
+
+			commerceInventoryAdminUIWarehouses.add(
+				new CommerceInventoryAdminUIWarehouse(
+					warehouseName, quantity, reservedQuantity, replenishment));
+		}
+
+		return commerceInventoryAdminUIWarehouses;
+	}
+
 	@Override
 	public List<CommerceInventoryWarehouse> getCommerceInventoryWarehouses(
 		long companyId) {
 
 		return commerceInventoryWarehousePersistence.findByCompanyId(companyId);
+	}
+
+	@Override
+	public List<CommerceInventoryWarehouse> getCommerceInventoryWarehouses(
+		long companyId, boolean active, int start, int end,
+		OrderByComparator<CommerceInventoryWarehouse> orderByComparator) {
+
+		return commerceInventoryWarehousePersistence.findByC_A(
+			companyId, active, start, end, orderByComparator);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Luca Pellizzon
@@ -52,6 +53,13 @@ public class CommerceInventoryAuditLocalServiceImpl
 	@Override
 	public void checkCommerceInventoryAudit(Date date) {
 		commerceInventoryAuditPersistence.removeByLtCreateDate(date);
+	}
+
+	@Override
+	public List<CommerceInventoryAudit> getCommerceInventoryAudits(
+		String sku, int start, int end) {
+
+		return commerceInventoryAuditPersistence.findBySku(sku, start, end);
 	}
 
 }

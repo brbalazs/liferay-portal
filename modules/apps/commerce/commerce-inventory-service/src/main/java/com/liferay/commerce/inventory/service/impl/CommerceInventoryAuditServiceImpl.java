@@ -14,11 +14,31 @@
 
 package com.liferay.commerce.inventory.service.impl;
 
+import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
+import com.liferay.commerce.inventory.model.CommerceInventoryAudit;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryAuditServiceBaseImpl;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+
+import java.util.List;
 
 /**
  * @author Luca Pellizzon
  */
 public class CommerceInventoryAuditServiceImpl
 	extends CommerceInventoryAuditServiceBaseImpl {
+
+	@Override
+	public List<CommerceInventoryAudit> getCommerceInventoryAudits(
+			String sku, int start, int end)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryAuditLocalService.getCommerceInventoryAudits(
+			sku, start, end);
+	}
+
 }

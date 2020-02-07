@@ -53,7 +53,7 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 		commerceBookedQuantity.setExpirationDate(expirationDate);
 
 		String description =
-			"Book Quantity " + JSONFactoryUtil.serialize(context);
+			"Book Quantity: " + JSONFactoryUtil.serialize(context);
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
 			userId, sku, quantity, description);
@@ -92,6 +92,14 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 	}
 
 	@Override
+	public int countCommerceInventoryBookedQuantities(
+		long companyId, String sku) {
+
+		return commerceInventoryBookedQuantityPersistence.countByC_S(
+			companyId, sku);
+	}
+
+	@Override
 	public int getCommerceBookedQuantity(long companyId, String sku) {
 		List<CommerceInventoryBookedQuantity>
 			commerceInventoryBookedQuantities =
@@ -107,6 +115,15 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 		}
 
 		return resultQuantity;
+	}
+
+	@Override
+	public List<CommerceInventoryBookedQuantity>
+		getCommerceInventoryBookedQuantities(
+			long companyId, String sku, int start, int end) {
+
+		return commerceInventoryBookedQuantityPersistence.findByC_S(
+			companyId, sku, start, end);
 	}
 
 }

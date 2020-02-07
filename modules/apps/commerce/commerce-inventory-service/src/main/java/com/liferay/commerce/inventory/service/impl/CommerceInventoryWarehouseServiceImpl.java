@@ -19,6 +19,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryWarehouseServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
@@ -112,6 +113,21 @@ public class CommerceInventoryWarehouseServiceImpl
 
 		return commerceInventoryWarehouseLocalService.
 			getCommerceInventoryWarehouse(commerceInventoryWarehouseId);
+	}
+
+	@Override
+	public List<CommerceInventoryWarehouse> getCommerceInventoryWarehouses(
+			long companyId, boolean active, int start, int end,
+			OrderByComparator<CommerceInventoryWarehouse> orderByComparator)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryWarehouseLocalService.
+			getCommerceInventoryWarehouses(
+				companyId, active, start, end, orderByComparator);
 	}
 
 	@Override

@@ -14,11 +14,45 @@
 
 package com.liferay.commerce.inventory.service.impl;
 
+import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
+import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryBookedQuantityServiceBaseImpl;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+
+import java.util.List;
 
 /**
  * @author Luca Pellizzon
  */
 public class CommerceInventoryBookedQuantityServiceImpl
 	extends CommerceInventoryBookedQuantityServiceBaseImpl {
+
+	@Override
+	public int countCommerceInventoryBookedQuantities(
+			long companyId, String sku)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryBookedQuantityLocalService.
+			countCommerceInventoryBookedQuantities(companyId, sku);
+	}
+
+	@Override
+	public List<CommerceInventoryBookedQuantity>
+			getCommerceInventoryBookedQuantities(
+				long companyId, String sku, int start, int end)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryBookedQuantityLocalService.
+			getCommerceInventoryBookedQuantities(companyId, sku, start, end);
+	}
+
 }
