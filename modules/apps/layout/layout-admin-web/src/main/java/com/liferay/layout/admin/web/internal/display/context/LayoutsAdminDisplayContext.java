@@ -982,8 +982,9 @@ public class LayoutsAdminDisplayContext {
 			AssetVocabularyServiceUtil.getGroupVocabularies(_getGroupIds());
 
 		for (AssetVocabulary vocabulary : vocabularies) {
-			if (vocabulary.isAssociatedToClassNameId(
-					classNameId) && vocabulary.isRequired(classNameId, 0)) {
+			if (vocabulary.isAssociatedToClassNameId(classNameId) && 
+				vocabulary.isRequired(classNameId, 0)) {
+
 				int vocabularyCategoriesCount =
 					AssetCategoryServiceUtil.getVocabularyCategoriesCount(
 						vocabulary.getGroupId(), vocabulary.getVocabularyId());

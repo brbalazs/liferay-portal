@@ -83,7 +83,9 @@ public class AssetCategoriesSelectorTag extends IncludeTag {
 		servletContext = ServletContextUtil.getServletContext();
 	}
 
-	public void setShowOnlyRequiredVocabularies(boolean showOnlyRequiredVocabularies) {
+	public void setShowOnlyRequiredVocabularies(
+		boolean showOnlyRequiredVocabularies) {
+
 		_showOnlyRequiredVocabularies = showOnlyRequiredVocabularies;
 	}
 
@@ -249,8 +251,10 @@ public class AssetCategoriesSelectorTag extends IncludeTag {
 			new PredicateFilter<AssetVocabulary>() {
 
 				public boolean filter(AssetVocabulary vocabulary) {
-					if (_showOnlyRequiredVocabularies && !vocabulary.isRequired(
-						PortalUtil.getClassNameId(_className), _classTypePK)) {
+					if (_showOnlyRequiredVocabularies &&
+						!vocabulary.isRequired(
+							PortalUtil.getClassNameId(_className),
+							_classTypePK)) {
 
 						return false;
 					}
@@ -309,7 +313,7 @@ public class AssetCategoriesSelectorTag extends IncludeTag {
 	private long[] _groupIds;
 	private String _hiddenInput = "assetCategoryIds";
 	private boolean _ignoreRequestValue;
-	private boolean _showOnlyRequiredVocabularies = false;
+	private boolean _showOnlyRequiredVocabularies;
 	private boolean _showRequiredLabel = true;
 	private boolean _singleSelect;
 
