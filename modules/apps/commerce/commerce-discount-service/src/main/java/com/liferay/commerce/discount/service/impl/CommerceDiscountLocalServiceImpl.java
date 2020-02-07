@@ -164,17 +164,21 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setMaximumDiscountAmount(maximumDiscountAmount);
 		commerceDiscount.setLevel(level);
 
-		if(!level.isEmpty()) {
-			if(level.equals(CommerceDiscountConstants.LEVEL1)) {
+		if (!level.isEmpty()) {
+			if (level.equals(CommerceDiscountConstants.LEVEL1)) {
 				commerceDiscount.setLevel1(level1);
-			} else if(level.equals(CommerceDiscountConstants.LEVEL2)) {
+			}
+			else if (level.equals(CommerceDiscountConstants.LEVEL2)) {
 				commerceDiscount.setLevel2(level1);
-			} else if(level.equals(CommerceDiscountConstants.LEVEL3)) {
+			}
+			else if (level.equals(CommerceDiscountConstants.LEVEL3)) {
 				commerceDiscount.setLevel3(level1);
-			} else if(level.equals(CommerceDiscountConstants.LEVEL4)) {
+			}
+			else if (level.equals(CommerceDiscountConstants.LEVEL4)) {
 				commerceDiscount.setLevel4(level1);
 			}
-		} else {
+		}
+		else {
 			commerceDiscount.setLevel1(level1);
 			commerceDiscount.setLevel2(level2);
 			commerceDiscount.setLevel3(level3);

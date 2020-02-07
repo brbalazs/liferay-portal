@@ -18,10 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.portal.kernel.exception.PortalException;
-
-import java.util.List;
 
 /**
  * @author Riccardo Alberti
