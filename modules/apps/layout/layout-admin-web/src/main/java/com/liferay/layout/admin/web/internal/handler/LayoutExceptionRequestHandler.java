@@ -58,29 +58,34 @@ public class LayoutExceptionRequestHandler {
 		String errorMessage = null;
 
 		if (pe instanceof AssetCategoryException) {
-			AssetCategoryException ace = (AssetCategoryException)pe;
+			AssetCategoryException assetCategoryException =
+				(AssetCategoryException)pe;
 
-			AssetVocabulary vocabulary = ace.getVocabulary();
+			AssetVocabulary assetVocabulary =
+				assetCategoryException.getVocabulary();
 
-			String vocabularyTitle = StringPool.BLANK;
+			String assetVocabularyTitle = StringPool.BLANK;
 
-			if (vocabulary != null) {
-				vocabularyTitle = vocabulary.getTitle(themeDisplay.getLocale());
+			if (assetVocabulary != null) {
+				assetVocabularyTitle = assetVocabulary.getTitle(
+					themeDisplay.getLocale());
 			}
 
-			if (ace.getType() == AssetCategoryException.AT_LEAST_ONE_CATEGORY) {
+			if (assetCategoryException.getType() ==
+					AssetCategoryException.AT_LEAST_ONE_CATEGORY) {
+
 				errorMessage = LanguageUtil.format(
 					themeDisplay.getRequest(),
 					"please-select-at-least-one-category-for-x",
-					vocabularyTitle);
+					assetVocabularyTitle);
 			}
-			else if (ace.getType() ==
+			else if (assetCategoryException.getType() ==
 						AssetCategoryException.TOO_MANY_CATEGORIES) {
 
 				errorMessage = LanguageUtil.format(
 					themeDisplay.getRequest(),
 					"you-cannot-select-more-than-one-category-for-x",
-					vocabularyTitle);
+					assetVocabularyTitle);
 			}
 		}
 		else if (pe instanceof LayoutNameException) {
