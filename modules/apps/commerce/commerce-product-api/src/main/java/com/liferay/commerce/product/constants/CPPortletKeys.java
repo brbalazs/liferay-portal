@@ -28,6 +28,10 @@ public class CPPortletKeys {
 		"com_liferay_commerce_channel_web_internal_portlet_" +
 			"CommerceChannelsPortlet";
 
+	public static final String COMMERCE_INVENTORY =
+		"com_liferay_commerce_inventory_web_internal_portlet_" +
+			"CommerceInventoryPortlet";
+
 	public static final String COMMERCE_SUBSCRIPTION_CONTENT_WEB =
 		"com_liferay_commerce_subscription_web_internal_portlet_" +
 			"CommerceSubscriptionContentPortlet";
