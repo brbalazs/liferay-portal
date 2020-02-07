@@ -17,10 +17,10 @@ import ActionsLink from './ActionLink.es';
 import ActionsDropdown from './ActionsDropdown.es';
 import Checkbox from './Checkbox.es';
 import Default from './Default.es';
+import Image from './Image.es';
 import Label from './Label.es';
 import Link from './Link.es';
 import ModalLink from './ModalLink.es';
-import Image from './Image.es';
 import QuantitySelector from './QuantitySelector.es';
 import SidePanelLink from './SidePanelLink.es';
 import TooltipPrice from './TooltipPrice.es';
@@ -30,10 +30,10 @@ const dataRenderers = {
 	actionsDropdown: ActionsDropdown,
 	checkbox: Checkbox,
 	default: Default,
+	image: Image,
 	label: Label,
 	link: Link,
 	modalLink: ModalLink,
-	image: Image,
 	quantitySelector: QuantitySelector,
 	sidePanelLink: SidePanelLink,
 	tooltipPrice: TooltipPrice

@@ -281,17 +281,18 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 								%>
 
 									<aui:script>
-										document.getElementById('<%= actionId %>').addEventListener(
-											'click',
-											function(e) {
+										document
+											.getElementById('<%= actionId %>')
+											.addEventListener('click', function(e) {
 												e.preventDefault();
 												var form = document.getElementById('<%= action.getFormId() %>');
-												if(!form) {
-													throw new Error('Form with id: ' + <%= action.getFormId() %> + ' not found!')
+												if (!form) {
+													throw new Error(
+														'Form with id: ' + <%= action.getFormId() %> + ' not found!'
+													);
 												}
 												submitForm(form);
-											}
-										)
+											});
 									</aui:script>
 
 								<%
