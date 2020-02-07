@@ -18,7 +18,6 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
@@ -103,8 +102,7 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
 			commerceOrder.getGroupId());
 
-		CPInstance cpInstance = _cpInstanceService.getCPInstance(
-			cartItem.getSkuId());
+		_cpInstanceService.getCPInstance(cartItem.getSkuId());
 
 		CommerceChannel commerceChannel =
 			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
@@ -118,7 +116,7 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 		return _toCartItem(
 			_commerceOrderItemService.upsertCommerceOrderItem(
 				commerceOrder.getCommerceOrderId(), cartItem.getSkuId(),
-				cartItem.getQuantity(), 0, cpInstance.getJson(),
+				cartItem.getQuantity(), 0, cartItem.getOptions(),
 				commerceContext, serviceContext));
 	}
 
