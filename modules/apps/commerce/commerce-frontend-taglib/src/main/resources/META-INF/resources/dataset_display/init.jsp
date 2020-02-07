@@ -45,6 +45,7 @@ List<ClayPaginationEntry> paginationEntries = (List<ClayPaginationEntry>)request
 PortletURL portletURL = (PortletURL)request.getAttribute("liferay-commerce:dataset-display:portletURL");
 String selectedItemsKey = (String)request.getAttribute("liferay-commerce:dataset-display:selectedItemsKey");
 String selectionType = (String)request.getAttribute("liferay-commerce:dataset-display:selectionType");
+boolean showManagementBar = (boolean)request.getAttribute("liferay-commerce:dataset-display:showManagementBar");
 boolean showPagination = (boolean)request.getAttribute("liferay-commerce:dataset-display:showPagination");
 String spritemap = (String)request.getAttribute("liferay-commerce:dataset-display:spritemap");
 String style = (String)request.getAttribute("liferay-commerce:dataset-display:style");

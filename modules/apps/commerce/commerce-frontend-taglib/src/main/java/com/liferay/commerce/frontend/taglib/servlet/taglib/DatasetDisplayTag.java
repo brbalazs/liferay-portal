@@ -68,6 +68,10 @@ public class DatasetDisplayTag extends IncludeTag {
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
 		try {
+			if (_clayCreationMenu == null) {
+				_clayCreationMenu = new ClayCreationMenu();
+			}
+
 			_setTableContext();
 			_setItems();
 			_setPagination();
@@ -169,6 +173,10 @@ public class DatasetDisplayTag extends IncludeTag {
 		_selectionType = selectionType;
 	}
 
+	public void setShowManagementBar(boolean showManagementBar) {
+		_showManagementBar = showManagementBar;
+	}
+
 	public void setStyle(String style) {
 		_style = style;
 	}
@@ -198,6 +206,7 @@ public class DatasetDisplayTag extends IncludeTag {
 		_portletURL = null;
 		_selectedItemsKey = null;
 		_selectionType = null;
+		_showManagementBar = true;
 		_showPagination = false;
 		_spritemap = null;
 		_style = "default";
@@ -278,6 +287,9 @@ public class DatasetDisplayTag extends IncludeTag {
 			_selectedItemsKey);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:selectionType", _selectionType);
+		request.setAttribute(
+			"liferay-commerce:dataset-display:showManagementBar",
+			_showManagementBar);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:showPagination", _showPagination);
 		request.setAttribute(
@@ -367,6 +379,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private PortletURL _portletURL;
 	private String _selectedItemsKey;
 	private String _selectionType;
+	private boolean _showManagementBar;
 	private boolean _showPagination;
 	private String _spritemap;
 	private String _style = "default";

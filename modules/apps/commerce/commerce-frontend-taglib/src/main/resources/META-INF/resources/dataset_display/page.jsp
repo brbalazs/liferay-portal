@@ -30,6 +30,7 @@
 		id: '<%= id %>',
 		items: <%= jsonSerializer.serializeDeep(items) %>,
 		showPagination: <%= showPagination %>,
+		showManagementBar: <%= showManagementBar %>,
 		pagination: {
 			deltas: <%= jsonSerializer.serializeDeep(paginationEntries) %>,
 			initialDelta: <%= itemsPerPage %>,
