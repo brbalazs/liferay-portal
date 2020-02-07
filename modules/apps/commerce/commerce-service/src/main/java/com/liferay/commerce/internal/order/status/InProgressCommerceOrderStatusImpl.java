@@ -16,36 +16,10 @@ package com.liferay.commerce.internal.order.status;
 
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.context.CommerceContextFactory;
-import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
-import com.liferay.commerce.exception.CommerceOrderPaymentMethodException;
-import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
-import com.liferay.commerce.exception.CommerceOrderShippingMethodException;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
-import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
-import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
-import com.liferay.commerce.model.CPDefinitionInventory;
-import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.order.status.CommerceOrderStatus;
-import com.liferay.commerce.product.model.CPInstance;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
-import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
-import com.liferay.commerce.service.CommerceAddressLocalService;
-import com.liferay.commerce.service.CommerceOrderItemLocalService;
-import com.liferay.commerce.service.CommerceOrderLocalServiceUtil;
-import com.liferay.commerce.service.CommerceOrderService;
-import com.liferay.commerce.service.CommerceShippingMethodLocalService;
-import com.liferay.commerce.stock.activity.CommerceLowStockActivity;
-import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
-import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -53,20 +27,15 @@ import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * @author Alec Sloan
@@ -114,55 +83,8 @@ public class InProgressCommerceOrderStatusImpl implements CommerceOrderStatus {
 			return commerceOrder;
 		}
 
-		_validateCheckout(commerceOrder);
-
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			commerceOrder.getCompanyId(), commerceOrder.getGroupId(), userId,
-			commerceOrderId, commerceOrder.getCommerceAccountId());
-
-		_bookQuantities(commerceOrder);
-
-		commerceOrder = CommerceOrderLocalServiceUtil.recalculatePrice(
-			commerceOrderId, commerceContext);
-
-		// Commerce addresses
-
-		if (commerceOrder.getBillingAddressId() > 0) {
-			CommerceAddress commerceAddress =
-				_commerceAddressLocalService.copyCommerceAddress(
-					commerceOrder.getBillingAddressId(),
-					commerceOrder.getModelClassName(), commerceOrderId,
-					serviceContext);
-
-			commerceOrder.setBillingAddressId(
-				commerceAddress.getCommerceAddressId());
-		}
-
-		if (commerceOrder.getShippingAddressId() > 0) {
-			CommerceAddress commerceAddress =
-				_commerceAddressLocalService.copyCommerceAddress(
-					commerceOrder.getShippingAddressId(),
-					commerceOrder.getModelClassName(), commerceOrderId,
-					serviceContext);
-
-			commerceOrder.setShippingAddressId(
-				commerceAddress.getCommerceAddressId());
-		}
-
-		// Set Order Status
-
-		commerceOrder.setOrderDate(new Date());
-		commerceOrder.setOrderStatus(KEY);
-
-		if (commerceOrder.getPaymentStatus() ==
-				CommerceOrderConstants.PAYMENT_STATUS_PAID) {
-
-			_commerceOrderEngine.transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
-				userId);
-		}
-
-		return _commerceOrderService.updateCommerceOrder(commerceOrder);
+		return _commerceOrderEngine.checkoutCommerceOrder(
+			commerceOrder, userId);
 	}
 
 	public int getKey() {
@@ -210,136 +132,8 @@ public class InProgressCommerceOrderStatusImpl implements CommerceOrderStatus {
 		return false;
 	}
 
-	private void _bookQuantities(CommerceOrder commerceOrder)
-		throws PortalException {
-
-		List<CommerceOrderItem> commerceOrderItems =
-			commerceOrder.getCommerceOrderItems();
-
-		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			Map<String, String> context = new HashMap<>();
-
-			context.put(
-				"OrderId ",
-				String.valueOf(commerceOrderItem.getCommerceOrderId()));
-			context.put(
-				"OrderItemId ",
-				String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
-
-			CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
-				_commerceInventoryBookedQuantityLocalService.
-					addCommerceBookedQuantity(
-						commerceOrderItem.getUserId(),
-						commerceOrderItem.getSku(),
-						commerceOrderItem.getQuantity(), null, context);
-
-			_commerceOrderItemLocalService.updateCommerceOrderItem(
-				commerceOrderItem.getCommerceOrderItemId(),
-				commerceInventoryBookedQuantity.
-					getCommerceInventoryBookedQuantityId());
-		}
-
-		// Low stock action
-
-		long companyId = commerceOrder.getCompanyId();
-
-		for (CommerceOrderItem commerceOrderItem :
-				commerceOrder.getCommerceOrderItems()) {
-
-			CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-				commerceOrderItem.getCPInstanceId());
-
-			CPDefinitionInventory cpDefinitionInventory =
-				_cpDefinitionInventoryLocalService.
-					fetchCPDefinitionInventoryByCPDefinitionId(
-						cpInstance.getCPDefinitionId());
-
-			CommerceLowStockActivity commerceLowStockActivity =
-				_commerceLowStockActivityRegistry.getCommerceLowStockActivity(
-					cpDefinitionInventory);
-
-			if (commerceLowStockActivity == null) {
-				return;
-			}
-
-			int stockQuantity = _commerceInventoryEngine.getStockQuantity(
-				companyId, commerceOrderItem.getSku());
-
-			CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
-				_cpDefinitionInventoryEngineRegistry.
-					getCPDefinitionInventoryEngine(cpDefinitionInventory);
-
-			if (stockQuantity <=
-					cpDefinitionInventoryEngine.getMinStockQuantity(
-						cpInstance)) {
-
-				commerceLowStockActivity.execute(cpInstance);
-			}
-		}
-	}
-
-	private void _validateCheckout(CommerceOrder commerceOrder)
-		throws PortalException {
-
-		if (Validator.isNull(commerceOrder.getCommercePaymentMethodKey())) {
-			throw new CommerceOrderPaymentMethodException();
-		}
-
-		if (commerceOrder.isB2B() &&
-			(commerceOrder.getBillingAddressId() <= 0)) {
-
-			throw new CommerceOrderBillingAddressException();
-		}
-
-		CommerceShippingMethod commerceShippingMethod = null;
-
-		long commerceShippingMethodId =
-			commerceOrder.getCommerceShippingMethodId();
-
-		if (commerceShippingMethodId > 0) {
-			commerceShippingMethod =
-				_commerceShippingMethodLocalService.getCommerceShippingMethod(
-					commerceShippingMethodId);
-
-			if (!commerceShippingMethod.isActive()) {
-				commerceShippingMethod = null;
-			}
-			else if (commerceOrder.getShippingAddressId() <= 0) {
-				throw new CommerceOrderShippingAddressException();
-			}
-		}
-
-		if ((commerceShippingMethod == null) &&
-			(_commerceShippingMethodLocalService.
-				getCommerceShippingMethodsCount(
-					commerceOrder.getGroupId(), true) > 0) &&
-			_commerceShippingHelper.isShippable(commerceOrder)) {
-
-			throw new CommerceOrderShippingMethodException();
-		}
-	}
-
-	@Reference
-	private CommerceAddressLocalService _commerceAddressLocalService;
-
-	@Reference
-	private CommerceContextFactory _commerceContextFactory;
-
-	@Reference
-	private CommerceInventoryBookedQuantityLocalService
-		_commerceInventoryBookedQuantityLocalService;
-
-	@Reference
-	private CommerceInventoryEngine _commerceInventoryEngine;
-
-	@Reference
-	private CommerceLowStockActivityRegistry _commerceLowStockActivityRegistry;
-
 	@Reference
 	private CommerceOrderEngine _commerceOrderEngine;
-
-	@Reference
-	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
@@ -347,32 +141,8 @@ public class InProgressCommerceOrderStatusImpl implements CommerceOrderStatus {
 	private ModelResourcePermission<CommerceOrder>
 		_commerceOrderModelResourcePermission;
 
-	@Reference(
-		policy = ReferencePolicy.DYNAMIC,
-		policyOption = ReferencePolicyOption.GREEDY
-	)
-	private volatile CommerceOrderService _commerceOrderService;
-
 	@Reference
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
-
-	@Reference
-	private CommerceShippingHelper _commerceShippingHelper;
-
-	@Reference
-	private CommerceShippingMethodLocalService
-		_commerceShippingMethodLocalService;
-
-	@Reference
-	private CPDefinitionInventoryEngineRegistry
-		_cpDefinitionInventoryEngineRegistry;
-
-	@Reference
-	private CPDefinitionInventoryLocalService
-		_cpDefinitionInventoryLocalService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private Portal _portal;
