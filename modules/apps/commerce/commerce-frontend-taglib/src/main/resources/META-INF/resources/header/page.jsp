@@ -265,14 +265,38 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 								else {
 									buttonClasses += "btn-default";
 								}
+
+								String actionId = Validator.isNotNull(action.getId()) ? action.getId() : "header-action" + StringPool.UNDERLINE + PortalUtil.generateRandomKey(request, "taglib_step_tracker");
 							%>
 
 								<clay:link
 									elementClasses="<%= buttonClasses %>"
 									href="<%= action.getHref() %>"
-									id="<%= action.getId() %>"
+									id="<%= actionId %>"
 									label="<%= LanguageUtil.get(request, action.getLabel()) %>"
 								/>
+
+								<%
+								if (Validator.isNotNull(action.getFormId())) {
+								%>
+
+									<aui:script>
+										document.getElementById('<%= actionId %>').addEventListener(
+											'click',
+											function(e) {
+												e.preventDefault();
+												var form = document.getElementById('<%= action.getFormId() %>');
+												if(!form) {
+													throw new Error('Form with id: ' + <%= action.getFormId() %> + ' not found!')
+												}
+												submitForm(form);
+											}
+										)
+									</aui:script>
+
+								<%
+								}
+								%>
 
 							<%
 							}
