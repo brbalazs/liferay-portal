@@ -18,8 +18,8 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
-import com.liferay.commerce.machine.learning.internal.recommendation.api.UserCommerceMLRecommendationHelper;
-import com.liferay.commerce.machine.learning.internal.recommendation.constants.CommerceMLRecommendationField;
+import com.liferay.commerce.machine.learning.recommendation.model.UserCommerceMLRecommendation;
+import com.liferay.commerce.machine.learning.recommendation.service.UserCommerceMLRecommendationService;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.constants.CPWebKeys;
@@ -33,9 +33,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BooleanClause;
 import com.liferay.portal.kernel.search.BooleanClauseFactoryUtil;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
-import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.util.Portal;
@@ -111,11 +109,13 @@ public class UserCommerceMLRecommendationCPDataSourceImpl
 			categoryIds = assetEntry.getCategoryIds();
 		}
 
-		Hits recommendations =
-			_userCommerceMLRecommendationHelper.getRecommendations(
-				companyId, commerceAccount.getCommerceAccountId(), categoryIds);
+		List<UserCommerceMLRecommendation> userCommerceMLRecommendations =
+			_userCommerceMLRecommendationService.
+				getUserCommerceMLRecommendations(
+					companyId, commerceAccount.getCommerceAccountId(),
+					categoryIds);
 
-		if (recommendations.getLength() == 0) {
+		if (userCommerceMLRecommendations.isEmpty()) {
 			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
 
@@ -134,11 +134,13 @@ public class UserCommerceMLRecommendationCPDataSourceImpl
 
 		List<BooleanClause> booleanClauseList = new ArrayList<>();
 
-		for (Document document : recommendations.getDocs()) {
-			String recommendedEntryClassPK = document.get(
-				CommerceMLRecommendationField.RECOMMENDED_ENTRY_CLASS_PK);
+		for (UserCommerceMLRecommendation userCommerceMLRecommendation :
+				userCommerceMLRecommendations) {
 
-			String score = document.get(CommerceMLRecommendationField.SCORE);
+			long recommendedEntryClassPK =
+				userCommerceMLRecommendation.getRecommendedEntryClassPK();
+
+			float score = userCommerceMLRecommendation.getScore();
 
 			if (_log.isTraceEnabled()) {
 				StringBuilder sb = new StringBuilder();
@@ -153,7 +155,8 @@ public class UserCommerceMLRecommendationCPDataSourceImpl
 
 			BooleanClause<Query> entryClassPKBooleanClause =
 				BooleanClauseFactoryUtil.create(
-					Field.ENTRY_CLASS_PK, recommendedEntryClassPK,
+					Field.ENTRY_CLASS_PK,
+					String.valueOf(recommendedEntryClassPK),
 					BooleanClauseOccur.SHOULD.getName());
 
 			booleanClauseList.add(entryClassPKBooleanClause);
@@ -182,7 +185,7 @@ public class UserCommerceMLRecommendationCPDataSourceImpl
 	private Portal _portal;
 
 	@Reference
-	private UserCommerceMLRecommendationHelper
-		_userCommerceMLRecommendationHelper;
+	private UserCommerceMLRecommendationService
+		_userCommerceMLRecommendationService;
 
 }

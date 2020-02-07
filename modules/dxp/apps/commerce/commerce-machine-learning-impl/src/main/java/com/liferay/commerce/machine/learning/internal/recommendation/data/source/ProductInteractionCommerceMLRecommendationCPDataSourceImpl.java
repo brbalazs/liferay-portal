@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.machine.learning.internal.recommendation.data.source;
 
-import com.liferay.commerce.machine.learning.internal.recommendation.api.ProductCommerceMLRecommendationHelper;
-import com.liferay.commerce.machine.learning.internal.recommendation.constants.CommerceMLRecommendationField;
+import com.liferay.commerce.machine.learning.recommendation.model.ProductInteractionCommerceMLRecommendation;
+import com.liferay.commerce.machine.learning.recommendation.service.ProductInteractionCommerceMLRecommendationService;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.constants.CPWebKeys;
@@ -29,9 +29,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BooleanClause;
 import com.liferay.portal.kernel.search.BooleanClauseFactoryUtil;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
-import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.util.Portal;
@@ -92,11 +90,13 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 
 		long companyId = _portal.getCompanyId(httpServletRequest);
 
-		Hits recommendations =
-			_productCommerceMLRecommendationHelper.getRecommendations(
-				companyId, cpCatalogEntry.getCPDefinitionId());
+		List<ProductInteractionCommerceMLRecommendation>
+			productInteractionCommerceMLRecommendations =
+				_productInteractionCommerceMLRecommendationService.
+					getProductInteractionCommerceMLRecommendations(
+						companyId, cpCatalogEntry.getCPDefinitionId());
 
-		if (recommendations.getLength() == 0) {
+		if (productInteractionCommerceMLRecommendations.isEmpty()) {
 			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
 
@@ -117,13 +117,17 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 
 		List<BooleanClause> booleanClauseList = new ArrayList<>();
 
-		for (Document document : recommendations.getDocs()) {
-			String recommendedEntryClassPK = document.get(
-				CommerceMLRecommendationField.RECOMMENDED_ENTRY_CLASS_PK);
+		for (ProductInteractionCommerceMLRecommendation
+				productInteractionCommerceMLRecommendation :
+					productInteractionCommerceMLRecommendations) {
 
-			String score = document.get(CommerceMLRecommendationField.SCORE);
+			long recommendedEntryClassPK =
+				productInteractionCommerceMLRecommendation.
+					getRecommendedEntryClassPK();
 
-			String rank = document.get(CommerceMLRecommendationField.RANK);
+			float score = productInteractionCommerceMLRecommendation.getScore();
+
+			int rank = productInteractionCommerceMLRecommendation.getRank();
 
 			if (_log.isTraceEnabled()) {
 				StringBuilder sb = new StringBuilder();
@@ -140,7 +144,8 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 
 			BooleanClause<Query> entryClassPKBooleanClause =
 				BooleanClauseFactoryUtil.create(
-					Field.ENTRY_CLASS_PK, recommendedEntryClassPK,
+					Field.ENTRY_CLASS_PK,
+					String.valueOf(recommendedEntryClassPK),
 					BooleanClauseOccur.SHOULD.getName());
 
 			booleanClauseList.add(entryClassPKBooleanClause);
@@ -162,10 +167,8 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 	@Reference(unbind = "-")
 	private Portal _portal;
 
-	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommendation.ProductInteractionCommerceMLRecommendationHelperImpl)"
-	)
-	private ProductCommerceMLRecommendationHelper
-		_productCommerceMLRecommendationHelper;
+	@Reference(unbind = "-")
+	private ProductInteractionCommerceMLRecommendationService
+		_productInteractionCommerceMLRecommendationService;
 
 }
