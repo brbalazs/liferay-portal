@@ -19,7 +19,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.frontend.model.StatusField;
+import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.web.internal.model.Order;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -139,7 +139,7 @@ public class CommerceOrderDataSetDataProvider
 						httpServletRequest,
 						CommerceOrderConstants.getPaymentStatusLabel(
 							commerceOrder.getPaymentStatus())),
-					new StatusField(
+					new LabelField(
 						CommerceOrderConstants.getOrderStatusLabelStyle(
 							commerceOrder.getOrderStatus()),
 						LanguageUtil.get(

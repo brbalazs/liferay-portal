@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.model;
 
-import com.liferay.commerce.frontend.model.StatusField;
+import com.liferay.commerce.frontend.model.LabelField;
 
 /**
  * @author Alessio Antonio Rendina
@@ -23,7 +23,7 @@ public class Order {
 
 	public Order(
 		long orderId, String createDate, String orderStatus,
-		String paymentStatus, StatusField fulfillmentWorkflow, String account,
+		String paymentStatus, LabelField fulfillmentWorkflow, String account,
 		String accountCode, String amount) {
 
 		_orderId = orderId;
@@ -52,7 +52,7 @@ public class Order {
 		return _createDate;
 	}
 
-	public StatusField getFulfillmentWorkflow() {
+	public LabelField getFulfillmentWorkflow() {
 		return _fulfillmentWorkflow;
 	}
 
@@ -72,7 +72,7 @@ public class Order {
 	private final String _accountCode;
 	private final String _amount;
 	private final String _createDate;
-	private final StatusField _fulfillmentWorkflow;
+	private final LabelField _fulfillmentWorkflow;
 	private final long _orderId;
 	private final String _orderStatus;
 	private final String _paymentStatus;

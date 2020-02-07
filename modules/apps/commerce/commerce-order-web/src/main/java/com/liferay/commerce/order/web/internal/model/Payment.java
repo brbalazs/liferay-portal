@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.model;
 
-import com.liferay.commerce.frontend.model.StatusField;
+import com.liferay.commerce.frontend.model.LabelField;
 
 import java.util.Date;
 
@@ -24,7 +24,7 @@ import java.util.Date;
 public class Payment {
 
 	public Payment(
-		long paymentId, StatusField type, String amount, Date createDate,
+		long paymentId, LabelField type, String amount, Date createDate,
 		String content) {
 
 		_paymentId = paymentId;
@@ -50,7 +50,7 @@ public class Payment {
 		return _paymentId;
 	}
 
-	public StatusField getType() {
+	public LabelField getType() {
 		return _type;
 	}
 
@@ -58,6 +58,6 @@ public class Payment {
 	private final String _content;
 	private final Date _createDate;
 	private final long _paymentId;
-	private final StatusField _type;
+	private final LabelField _type;
 
 }

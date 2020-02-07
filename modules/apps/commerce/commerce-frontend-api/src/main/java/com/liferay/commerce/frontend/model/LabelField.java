@@ -17,9 +17,13 @@ package com.liferay.commerce.frontend.model;
 /**
  * @author Alessio Antonio Rendina
  */
-public class StatusField {
+public class LabelField {
 
-	public StatusField(String displayStyle, String label) {
+	public LabelField(String label) {
+		_label = label;
+	}
+
+	public LabelField(String displayStyle, String label) {
 		_displayStyle = displayStyle;
 		_label = label;
 	}
@@ -32,7 +36,7 @@ public class StatusField {
 		return _label;
 	}
 
-	private final String _displayStyle;
+	private String _displayStyle;
 	private final String _label;
 
 }

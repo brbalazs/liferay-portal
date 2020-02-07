@@ -15,7 +15,7 @@
 package com.liferay.commerce.order.web.internal.model;
 
 import com.liferay.commerce.frontend.model.AuthorField;
-import com.liferay.commerce.frontend.model.StatusField;
+import com.liferay.commerce.frontend.model.LabelField;
 
 /**
  * @author Alessio Antonio Rendina
@@ -23,8 +23,8 @@ import com.liferay.commerce.frontend.model.StatusField;
 public class Notification {
 
 	public Notification(
-		long notificationId, AuthorField author, String date,
-		StatusField status, String subject, String summary, String url) {
+		long notificationId, AuthorField author, String date, LabelField status,
+		String subject, String summary, String url) {
 
 		_notificationId = notificationId;
 		_author = author;
@@ -47,7 +47,7 @@ public class Notification {
 		return _notificationId;
 	}
 
-	public StatusField getStatus() {
+	public LabelField getStatus() {
 		return _status;
 	}
 
@@ -66,7 +66,7 @@ public class Notification {
 	private final AuthorField _author;
 	private final String _date;
 	private final long _notificationId;
-	private final StatusField _status;
+	private final LabelField _status;
 	private final String _subject;
 	private final String _summary;
 	private final String _url;

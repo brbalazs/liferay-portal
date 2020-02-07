@@ -18,7 +18,7 @@ import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.AuthorField;
-import com.liferay.commerce.frontend.model.StatusField;
+import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.notification.model.CommerceNotificationQueueEntry;
 import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
@@ -131,7 +131,7 @@ public class CommerceNotificationDataSetDataProvider
 						user.getEmailAddress(), user.getFullName()),
 					getSentDate(
 						commerceNotificationQueueEntry, httpServletRequest),
-					new StatusField(
+					new LabelField(
 						"success",
 						getCommerceNotificationTemplateType(
 							commerceNotificationQueueEntry)),
