@@ -75,14 +75,14 @@ public class AMGIFImageScaler implements AMImageScaler {
 			Future<ObjectValuePair<byte[], byte[]>> future =
 				ProcessUtil.execute(
 					new CollectorOutputProcessor(), "gifsicle", "--resize-fit",
-					getResizeFitValues(amImageConfigurationEntry), "--output",
+					_getResizeFitValues(amImageConfigurationEntry), "--output",
 					"-", file.getAbsolutePath());
 
 			ObjectValuePair<byte[], byte[]> objectValuePair = future.get();
 
 			byte[] bytes = objectValuePair.getKey();
 
-			Tuple<Integer, Integer> dimension = getDimension(bytes);
+			Tuple<Integer, Integer> dimension = _getDimension(bytes);
 
 			return new AMImageScaledImageImpl(
 				bytes, dimension.second, dimension.first);
@@ -101,7 +101,7 @@ public class AMGIFImageScaler implements AMImageScaler {
 			AMImageConfiguration.class, properties);
 	}
 
-	protected Tuple<Integer, Integer> getDimension(byte[] bytes)
+	private Tuple<Integer, Integer> _getDimension(byte[] bytes)
 		throws ImageResolutionException, IOException {
 
 		try (InputStream inputStream = new UnsyncByteArrayInputStream(bytes)) {
@@ -113,7 +113,7 @@ public class AMGIFImageScaler implements AMImageScaler {
 		}
 	}
 
-	protected String getResizeFitValues(
+	private String _getResizeFitValues(
 		AMImageConfigurationEntry amImageConfigurationEntry) {
 
 		Map<String, String> properties =
