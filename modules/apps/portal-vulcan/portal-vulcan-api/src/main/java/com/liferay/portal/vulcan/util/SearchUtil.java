@@ -169,15 +169,14 @@ public class SearchUtil {
 
 		Stream<Map.Entry<String, Map>> stream = entries.stream();
 
-		Map<String, Map<String, String>> actionsTypedMap = stream.collect(
-			Collectors.toMap(
-				Map.Entry::getKey,
-				entry -> (Map<String, String>)entry.getValue()));
-
 		return search(
-			actionsTypedMap, booleanQueryUnsafeConsumer, filter, indexerClass,
-			keywords, pagination, queryConfigUnsafeConsumer,
-			searchContextUnsafeConsumer, sorts, transformUnsafeFunction);
+			stream.collect(
+				Collectors.toMap(
+					Map.Entry::getKey,
+					entry -> (Map<String, String>)entry.getValue())),
+			booleanQueryUnsafeConsumer, filter, indexerClass, keywords,
+			pagination, queryConfigUnsafeConsumer, searchContextUnsafeConsumer,
+			sorts, transformUnsafeFunction);
 	}
 
 	private static SearchContext _createSearchContext(
