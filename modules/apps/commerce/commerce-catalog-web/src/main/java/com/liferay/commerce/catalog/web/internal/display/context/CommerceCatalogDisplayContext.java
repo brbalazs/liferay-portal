@@ -78,7 +78,7 @@ public class CommerceCatalogDisplayContext {
 					getCreateCommerceCatalogActionURL(),
 					LanguageUtil.get(
 						cpRequestHelper.getRequest(), "add-catalog"),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TYPE_MODAL));
+					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
 		}
 
 		return clayCreationMenu;
