@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.frontend;
 
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
@@ -29,7 +30,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = "commerce.data.set.display.name=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PAYMENTS,
-	service = ClayTableDataSetDisplayView.class
+	service = ClayDataSetDisplayView.class
 )
 public class CommercePaymentClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
