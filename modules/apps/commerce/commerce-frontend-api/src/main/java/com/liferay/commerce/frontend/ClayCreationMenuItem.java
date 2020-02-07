@@ -19,22 +19,26 @@ package com.liferay.commerce.frontend;
  */
 public class ClayCreationMenuItem {
 
-	public static final String CLAY_CREATION_MENU_ITEM_TYPE_INLINE = "inline";
+	public static final String CLAY_CREATION_MENU_ITEM_TARGET_INLINE = "inline";
 
-	public static final String CLAY_CREATION_MENU_ITEM_TYPE_LINK = "";
+	public static final String CLAY_CREATION_MENU_ITEM_TARGET_LINK = "";
 
-	public static final String CLAY_CREATION_MENU_ITEM_TYPE_MODAL = "modal";
+	public static final String CLAY_CREATION_MENU_ITEM_TARGET_MODAL = "modal";
 
-	public ClayCreationMenuItem(String url, String label) {
-		_url = url;
+	public ClayCreationMenuItem(String href, String label) {
+		_href = href;
 		_label = label;
-		_type = CLAY_CREATION_MENU_ITEM_TYPE_LINK;
+		_target = CLAY_CREATION_MENU_ITEM_TARGET_LINK;
 	}
 
-	public ClayCreationMenuItem(String url, String label, String type) {
-		_url = url;
+	public ClayCreationMenuItem(String href, String label, String target) {
+		_href = href;
 		_label = label;
-		_type = type;
+		_target = target;
+	}
+
+	public String getHref() {
+		return _href;
 	}
 
 	public String getLabel() {
@@ -45,12 +49,12 @@ public class ClayCreationMenuItem {
 		return _order;
 	}
 
-	public String getType() {
-		return _type;
+	public String getTarget() {
+		return _target;
 	}
 
-	public String getUrl() {
-		return _url;
+	public void setHref(String href) {
+		_href = href;
 	}
 
 	public void setLabel(String label) {
@@ -61,17 +65,13 @@ public class ClayCreationMenuItem {
 		_order = order;
 	}
 
-	public void setType(String type) {
-		_type = type;
+	public void setTarget(String target) {
+		_target = target;
 	}
 
-	public void setUrl(String url) {
-		_url = url;
-	}
-
+	private String _href;
 	private String _label;
 	private int _order;
-	private String _type;
-	private String _url;
+	private String _target;
 
 }

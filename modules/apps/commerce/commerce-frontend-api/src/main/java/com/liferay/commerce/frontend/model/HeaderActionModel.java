@@ -24,9 +24,11 @@ public class HeaderActionModel {
 	}
 
 	public HeaderActionModel(
-		String additionalClasses, String href, String id, String label) {
+		String additionalClasses, String formId, String href, String id,
+		String label) {
 
 		_additionalClasses = additionalClasses;
+		_formId = formId;
 		_href = href;
 		_id = id;
 		_label = label;
@@ -34,6 +36,10 @@ public class HeaderActionModel {
 
 	public String getAdditionalClasses() {
 		return _additionalClasses;
+	}
+
+	public String getFormId() {
+		return _formId;
 	}
 
 	public String getHref() {
@@ -52,6 +58,10 @@ public class HeaderActionModel {
 		_additionalClasses = additionalClasses;
 	}
 
+	public void setFormId(String formId) {
+		_formId = formId;
+	}
+
 	public void setHref(String href) {
 		_href = href;
 	}
@@ -65,6 +75,7 @@ public class HeaderActionModel {
 	}
 
 	private String _additionalClasses;
+	private String _formId;
 	private String _href;
 	private String _id;
 	private String _label;

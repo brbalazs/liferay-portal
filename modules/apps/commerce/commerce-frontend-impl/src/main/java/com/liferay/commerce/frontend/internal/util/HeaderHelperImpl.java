@@ -85,7 +85,7 @@ public class HeaderHelperImpl implements HeaderHelper {
 			}
 
 			headerActionModel = new HeaderActionModel(
-				additionalClasses, transitionPortletURL.toString(), null,
+				additionalClasses, null, transitionPortletURL.toString(), null,
 				transitionName);
 
 			headerActionModels.add(headerActionModel);
