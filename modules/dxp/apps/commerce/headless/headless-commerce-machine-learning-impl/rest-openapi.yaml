@@ -150,6 +150,98 @@ components:
                 - message
                 - status
             type: object
+        ProductContentRecommendation:
+            properties:
+                createDate:
+                    example: 2017-07-21
+                    format: date
+                    type: string
+                jobId:
+                    type: string
+                productId:
+                    description:
+                        The product identifier.
+                    format: int64
+                    type: integer
+                rank:
+                    description:
+                        The recommendation rank.
+                    format: int64
+                    type: integer
+                recommendedProductId:
+                    description:
+                        The recommended product identifier.
+                    format: int64
+                    type: integer
+                score:
+                    description:
+                        The recommendation score.
+                    format: float
+                    type: number
+            type: object
+        ProductInteractionRecommendation:
+            properties:
+                createDate:
+                    example: 2017-07-21
+                    format: date
+                    type: string
+                jobId:
+                    type: string
+                productId:
+                    description:
+                        The product identifier.
+                    format: int64
+                    type: integer
+                rank:
+                    description:
+                        The recommendation rank.
+                    format: int64
+                    type: integer
+                recommendedProductId:
+                    description:
+                        The recommended product identifier.
+                    format: int64
+                    type: integer
+                score:
+                    description:
+                        The recommendation score.
+                    format: float
+                    type: number
+            type: object
+        UserRecommendation:
+            properties:
+                assetCategoryIds:
+                    items:
+                        format: int64
+                        type: integer
+                    type: array
+                createDate:
+                    example: 2017-07-21
+                    format: date
+                    type: string
+                jobId:
+                    type: string
+                productId:
+                    description:
+                        The product identifier.
+                    format: int64
+                    type: integer
+                rank:
+                    description:
+                        The recommendation rank.
+                    format: int64
+                    type: integer
+                recommendedProductId:
+                    description:
+                        The recommended product identifier.
+                    format: int64
+                    type: integer
+                score:
+                    description:
+                        The recommendation score.
+                    format: float
+                    type: number
+            type: object
     securitySchemes:
         BasicAuth:
             scheme: basic
