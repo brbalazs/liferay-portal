@@ -16,6 +16,10 @@ package com.liferay.commerce.frontend.clay.table;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetConstants;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * @author Marco Leo
@@ -35,6 +39,11 @@ public abstract class ClayTableDataSetDisplayView
 
 	public String getLabel() {
 		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_TABLE;
+	}
+
+	public ResourceBundle getResourceBundle(Locale locale) {
+		return ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
 	}
 
 }
