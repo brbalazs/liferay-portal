@@ -28,8 +28,8 @@ import com.liferay.wiki.internal.upgrade.v1_0_0.UpgradeSchema;
 import com.liferay.wiki.internal.upgrade.v1_0_0.UpgradeWikiPage;
 import com.liferay.wiki.internal.upgrade.v1_0_0.UpgradeWikiPageResource;
 import com.liferay.wiki.internal.upgrade.v1_1_0.UpgradeWikiNode;
-
 import com.liferay.wiki.model.WikiPage;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 

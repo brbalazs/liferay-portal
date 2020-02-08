@@ -103,12 +103,6 @@ public class CalendarServiceUpgrade implements UpgradeStepRegistrator {
 	private CompanyLocalService _companyLocalService;
 
 	@Reference
-	private ClassNameLocalService _classNameLocalService;
-
-	@Reference
-	private CompanyLocalService _companyLocalService;
-
-	@Reference
 	private ResourceActionLocalService _resourceActionLocalService;
 
 	@Reference
