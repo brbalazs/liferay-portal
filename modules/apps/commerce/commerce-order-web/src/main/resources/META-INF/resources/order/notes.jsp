@@ -31,7 +31,7 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZo
 
 <div class="container">
 	<commerce-ui:panel
-		title="notes"
+		title='<%= LanguageUtil.get(request, "notes") %>'
 	>
 		<aui:form action="<%= editCommerceOrderNoteURL %>" method="post" name="fm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
