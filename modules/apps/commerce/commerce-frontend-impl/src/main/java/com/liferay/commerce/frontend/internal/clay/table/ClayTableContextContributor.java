@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -74,8 +73,8 @@ public class ClayTableContextContributor
 		Map<String, ClayTableSchemaField> fieldsMap =
 			clayTableSchema.getFields();
 
-		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-			"content.Language", locale, getClass());
+		ResourceBundle resourceBundle =
+			clayTableDataSetDisplayView.getResourceBundle(locale);
 
 		for (ClayTableSchemaField clayTableSchemaField : fieldsMap.values()) {
 			JSONObject jsonObject = _jsonFactory.createJSONObject();
