@@ -20,58 +20,44 @@
 CPInstanceCommercePriceEntryDisplayContext cpInstanceCommercePriceEntryDisplayContext = (CPInstanceCommercePriceEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommercePriceEntry commercePriceEntry = cpInstanceCommercePriceEntryDisplayContext.getCommercePriceEntry();
-
-CommercePriceList commercePriceList = commercePriceEntry.getCommercePriceList();
-
-CPDefinition cpDefinition = cpInstanceCommercePriceEntryDisplayContext.getCPDefinition();
-
-CPInstance cpInstance = cpInstanceCommercePriceEntryDisplayContext.getCPInstance();
-
-long commercePriceEntryId = commercePriceEntry.getCommercePriceEntryId();
 long cpDefinitionId = cpInstanceCommercePriceEntryDisplayContext.getCPDefinitionId();
 long cpInstanceId = cpInstanceCommercePriceEntryDisplayContext.getCPInstanceId();
 
+CommercePriceList commercePriceList = commercePriceEntry.getCommercePriceList();
+long commercePriceEntryId = commercePriceEntry.getCommercePriceEntryId();
+
 String instancePriceEntryToolbarItem = ParamUtil.getString(request, "instancePriceEntryToolbarItem", "view-price-entry-details");
 
-PortletURL productSkusURL = cpInstanceCommercePriceEntryDisplayContext.getProductSkusURL();
-
-PortletURL instancePriceListsURL = cpInstanceCommercePriceEntryDisplayContext.getInstancePriceListURL();
-
 String title = commercePriceList.getName();
-
-Map<String, Object> data = new HashMap<>();
-
-data.put("direction-right", StringPool.TRUE);
-
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "products"), catalogURL, data);
-PortalUtil.addPortletBreadcrumbEntry(request, cpDefinition.getName(languageId), String.valueOf(cpInstanceCommercePriceEntryDisplayContext.getEditProductDefinitionURL()), data);
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, CPDefinitionScreenNavigationConstants.CATEGORY_KEY_SKUS), productSkusURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, cpInstance.getSku(), instancePriceListsURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 %>
 
-<clay:navigation-bar
-	inverted="<%= true %>"
-	navigationItems="<%= CPNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
-/>
+<commerce-ui:side-panel-content
+	title="<%= title %>"
+>
+	<%@ include file="/instance_price_entry_navbar.jspf" %>
 
-<%@ include file="/breadcrumb.jspf" %>
-<%@ include file="/instance_price_entry_navbar.jspf" %>
+	<portlet:actionURL name="editCPInstanceCommercePriceEntry" var="editCommercePriceEntryActionURL" />
 
-<portlet:actionURL name="editCPInstanceCommercePriceEntry" var="editCommercePriceEntryActionURL" />
+	<aui:form action="<%= editCommercePriceEntryActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="commercePriceEntryId" type="hidden" value="<%= commercePriceEntryId %>" />
+		<aui:input name="cpInstanceId" type="hidden" value="<%= cpInstanceId %>" />
 
-<aui:form action="<%= editCommercePriceEntryActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
-	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="commercePriceEntryId" type="hidden" value="<%= commercePriceEntryId %>" />
-	<aui:input name="cpInstanceId" type="hidden" value="<%= cpInstanceId %>" />
+		<aui:model-context bean="<%= commercePriceEntry %>" model="<%= CommercePriceEntry.class %>" />
 
-	<div class="lfr-form-content">
-		<liferay-ui:form-navigator
-			backURL="<%= instancePriceListsURL.toString() %>"
-			formModelBean="<%= commercePriceEntry %>"
-			id="<%= CommercePriceEntryFormNavigatorConstants.FORM_NAVIGATOR_ID_COMMERCE_PRICE_ENTRY %>"
-			markupView="lexicon"
-		/>
-	</div>
-</aui:form>
+		<div class="row">
+			<div class="col-12">
+				<%@ include file="/price_entry/details.jspf" %>
+
+				<%@ include file="/price_entry/custom_fields.jspf" %>
+			</div>
+		</div>
+
+		<aui:button-row cssClass="price-entry-button-row">
+			<aui:button cssClass="btn-lg" type="submit" />
+
+			<aui:button cssClass="btn-lg" type="cancel" />
+		</aui:button-row>
+	</aui:form>
+</commerce-ui:side-panel-content>
