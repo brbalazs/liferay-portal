@@ -147,7 +147,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		// Commerce product instances
 
-		checkCPInstances(cpDefinitionId, skuContributor, serviceContext);
+		checkCPInstances(cpDefinitionId, serviceContext);
 
 		// Commerce product definition
 
@@ -383,8 +383,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		// Commerce product instances
 
 		checkCPInstances(
-			cpDefinitionOptionRel.getCPDefinitionId(), skuContributor,
-			serviceContext);
+			cpDefinitionOptionRel.getCPDefinitionId(), serviceContext);
 
 		// Commerce product definition
 
@@ -487,8 +486,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 	}
 
 	protected void checkCPInstances(
-			long cpDefinitionId, boolean skuContributor,
-			ServiceContext serviceContext)
+			long cpDefinitionId, ServiceContext serviceContext)
 		throws PortalException {
 
 		CPDefinition cpDefinition = cpDefinitionLocalService.getCPDefinition(
