@@ -39,7 +39,6 @@ import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShippingMethod;
-import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.product.util.DDMFormValuesHelper;
@@ -1341,8 +1340,8 @@ public class CommerceOrderLocalServiceImpl
 			commerceOrderLocalService.updatePaymentStatus(
 				userId, commerceOrder.getCommerceOrderId(), paymentStatus);
 
-			return _commerceOrderEngine.transitionCommerceOrder(
-				commerceOrder, orderStatus, userId);
+			return commerceOrderLocalService.updateOrderStatus(
+				commerceOrder.getCommerceOrderId(), paymentStatus);
 		}
 
 		// Add
@@ -1770,9 +1769,6 @@ public class CommerceOrderLocalServiceImpl
 
 	@ServiceReference(type = CommerceOrderConfiguration.class)
 	private CommerceOrderConfiguration _commerceOrderConfiguration;
-
-	@ServiceReference(type = CommerceOrderEngine.class)
-	private CommerceOrderEngine _commerceOrderEngine;
 
 	@ServiceReference(type = CommerceOrderPriceCalculation.class)
 	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
