@@ -14,17 +14,17 @@
 
 package com.liferay.commerce.product.definitions.web.internal.servlet.taglib.ui;
 
-import com.liferay.commerce.product.configuration.CPDefinitionLinkTypeConfiguration;
+import com.liferay.commerce.product.configuration.CPDefinitionLinkTypeSettings;
 import com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionLinkDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionLinkService;
+import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.item.selector.ItemSelector;
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -40,28 +40,27 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.io.IOException;
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 @Component(
-	configurationPid = "com.liferay.commerce.product.configuration.CPDefinitionLinkTypeConfiguration",
-	property = "screen.navigation.entry.order:Integer=20",
-	service = ScreenNavigationEntry.class
+	property = {
+		"screen.navigation.category.order:Integer=80",
+		"screen.navigation.entry.order:Integer=10"
+	},
+	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CPDefinitionProductLinksScreenNavigationEntry
-	implements ScreenNavigationEntry<CPDefinition> {
+public class CPDefinitionProductRelationsScreenNavigationEntry
+	implements ScreenNavigationCategory, ScreenNavigationEntry<CPDefinition> {
 
 	@Override
 	public String getCategoryKey() {
@@ -71,7 +70,8 @@ public class CPDefinitionProductLinksScreenNavigationEntry
 
 	@Override
 	public String getEntryKey() {
-		return _cpDefinitionLinkTypeConfiguration.type();
+		return CPDefinitionScreenNavigationConstants.
+			CATEGORY_KEY_PRODUCT_RELATIONS;
 	}
 
 	@Override
@@ -80,7 +80,9 @@ public class CPDefinitionProductLinksScreenNavigationEntry
 			"content.Language", locale, getClass());
 
 		return LanguageUtil.get(
-			resourceBundle, _cpDefinitionLinkTypeConfiguration.type());
+			resourceBundle,
+			CPDefinitionScreenNavigationConstants.
+				CATEGORY_KEY_PRODUCT_RELATIONS);
 	}
 
 	@Override
@@ -116,38 +118,20 @@ public class CPDefinitionProductLinksScreenNavigationEntry
 			HttpServletResponse httpServletResponse)
 		throws IOException {
 
-		try {
-			httpServletRequest.setAttribute(
-				"type", _cpDefinitionLinkTypeConfiguration.type());
+		CPDefinitionLinkDisplayContext cpDefinitionLinkDisplayContext =
+			new CPDefinitionLinkDisplayContext(
+				_actionHelper, httpServletRequest, _cpDefinitionLinkService,
+				_cpDefinitionLinkTypeSettings, _itemSelector);
 
-			CPDefinitionLinkDisplayContext cpDefinitionLinkDisplayContext =
-				new CPDefinitionLinkDisplayContext(
-					_actionHelper, httpServletRequest, _cpDefinitionLinkService,
-					_itemSelector, _cpDefinitionLinkTypeConfiguration.type());
-
-			httpServletRequest.setAttribute(
-				WebKeys.PORTLET_DISPLAY_CONTEXT,
-				cpDefinitionLinkDisplayContext);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
+		httpServletRequest.setAttribute(
+			WebKeys.PORTLET_DISPLAY_CONTEXT, cpDefinitionLinkDisplayContext);
 
 		_jspRenderer.renderJSP(
-			_setServletContext, httpServletRequest, httpServletResponse,
-			"/definition_links.jsp");
-	}
-
-	@Activate
-	@Modified
-	protected void activate(Map<String, Object> properties) {
-		_cpDefinitionLinkTypeConfiguration =
-			ConfigurableUtil.createConfigurable(
-				CPDefinitionLinkTypeConfiguration.class, properties);
+			httpServletRequest, httpServletResponse, "/definition_links.jsp");
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CPDefinitionProductLinksScreenNavigationEntry.class);
+		CPDefinitionProductRelationsScreenNavigationEntry.class);
 
 	@Reference
 	private ActionHelper _actionHelper;
@@ -161,18 +145,13 @@ public class CPDefinitionProductLinksScreenNavigationEntry
 	@Reference
 	private CPDefinitionLinkService _cpDefinitionLinkService;
 
-	private volatile CPDefinitionLinkTypeConfiguration
-		_cpDefinitionLinkTypeConfiguration;
+	@Reference
+	private CPDefinitionLinkTypeSettings _cpDefinitionLinkTypeSettings;
 
 	@Reference
 	private ItemSelector _itemSelector;
 
 	@Reference
 	private JSPRenderer _jspRenderer;
-
-	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.commerce.product.definitions.web)"
-	)
-	private ServletContext _setServletContext;
 
 }

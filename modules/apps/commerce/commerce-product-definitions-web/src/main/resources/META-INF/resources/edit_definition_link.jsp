@@ -20,30 +20,16 @@
 CPDefinitionLinkDisplayContext cpDefinitionLinkDisplayContext = (CPDefinitionLinkDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CPDefinitionLink cpDefinitionLink = cpDefinitionLinkDisplayContext.getCPDefinitionLink();
-
-CPDefinition cpDefinition = cpDefinitionLink.getCPDefinition();
-
 long cpDefinitionLinkId = cpDefinitionLinkDisplayContext.getCPDefinitionLinkId();
 
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("mvcRenderCommandName", "editCPDefinitionLink");
-
-String screenNavigationCategoryKey = cpDefinitionLinkDisplayContext.getScreenNavigationCategoryKey();
-
-PortletURL relatedProductsURL = renderResponse.createRenderURL();
-
-relatedProductsURL.setParameter("mvcRenderCommandName", "editProductDefinition");
-relatedProductsURL.setParameter("cpDefinitionId", String.valueOf(cpDefinition.getCPDefinitionId()));
-relatedProductsURL.setParameter("screenNavigationCategoryKey", screenNavigationCategoryKey);
-relatedProductsURL.setParameter("type", String.valueOf(cpDefinitionLink.getType()));
+CPDefinition cpDefinition = cpDefinitionLink.getCPDefinition();
 %>
 
 <portlet:actionURL name="editCPDefinitionLink" var="editCPDefinitionLinkActionURL" />
 
-<aui:form action="<%= editCPDefinitionLinkActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= editCPDefinitionLinkActionURL %>" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
-	<aui:input name="redirect" type="hidden" value="<%= relatedProductsURL %>" />
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="cpDefinitionId" type="hidden" value="<%= cpDefinition.getCPDefinitionId() %>" />
 	<aui:input name="cpDefinitionLinkId" type="hidden" value="<%= cpDefinitionLinkId %>" />
 	<aui:input name="type" type="hidden" value="<%= cpDefinitionLink.getType() %>" />
@@ -71,7 +57,7 @@ relatedProductsURL.setParameter("type", String.valueOf(cpDefinitionLink.getType(
 		<aui:button-row>
 			<aui:button cssClass="btn-lg" name="saveButton" type="submit" value="save" />
 
-			<aui:button cssClass="btn-lg" href="<%= relatedProductsURL.toString() %>" type="cancel" />
+			<aui:button cssClass="btn-lg" type="cancel" />
 		</aui:button-row>
 	</div>
 </aui:form>
