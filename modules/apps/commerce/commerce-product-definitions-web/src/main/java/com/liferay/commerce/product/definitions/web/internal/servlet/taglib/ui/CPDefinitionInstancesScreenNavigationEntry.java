@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.definitions.web.internal.servlet.taglib.ui;
 
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.product.definitions.web.internal.display.context.CPInstanceDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
@@ -22,6 +23,7 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.commerce.product.service.CPInstanceService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
@@ -110,19 +112,15 @@ public class CPDefinitionInstancesScreenNavigationEntry
 			HttpServletResponse httpServletResponse)
 		throws IOException {
 
-		try {
-			CPInstanceDisplayContext cpInstanceDisplayContext =
-				new CPInstanceDisplayContext(
-					_actionHelper, httpServletRequest, _commercePriceFormatter,
-					_cpDefinitionOptionRelService, _cpInstanceService,
-					_cpInstanceHelper);
+		CPInstanceDisplayContext cpInstanceDisplayContext =
+			new CPInstanceDisplayContext(
+				_actionHelper, httpServletRequest,
+				_commerceCurrencyLocalService, _commercePriceFormatter,
+				_cpDefinitionOptionRelService, _cpInstanceService,
+				_cpInstanceHelper, _cpMeasurementUnitLocalService);
 
-			httpServletRequest.setAttribute(
-				WebKeys.PORTLET_DISPLAY_CONTEXT, cpInstanceDisplayContext);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
+		httpServletRequest.setAttribute(
+			WebKeys.PORTLET_DISPLAY_CONTEXT, cpInstanceDisplayContext);
 
 		_jspRenderer.renderJSP(
 			_setServletContext, httpServletRequest, httpServletResponse,
@@ -142,6 +140,9 @@ public class CPDefinitionInstancesScreenNavigationEntry
 		_commerceCatalogModelResourcePermission;
 
 	@Reference
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
+
+	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;
 
 	@Reference
@@ -152,6 +153,9 @@ public class CPDefinitionInstancesScreenNavigationEntry
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
+
+	@Reference
+	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 	@Reference
 	private JSPRenderer _jspRenderer;
