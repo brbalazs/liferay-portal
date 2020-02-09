@@ -35,26 +35,14 @@ public class CPDefinitionSubscriptionInfoDisplayContext
 
 	public CPDefinitionSubscriptionInfoDisplayContext(
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
-		CommercePaymentMethodGroupRelLocalService
-			commercePaymentMethodGroupRelLocalService,
-		CommercePaymentMethodRegistry commercePaymentMethodRegistry,
 		CPSubscriptionTypeJSPContributorRegistry
 			cpSubscriptionTypeJSPContributorRegistry,
 		CPSubscriptionTypeRegistry cpSubscriptionTypeRegistry) {
 
 		super(
 			actionHelper, httpServletRequest,
-			commercePaymentMethodGroupRelLocalService,
-			commercePaymentMethodRegistry,
 			cpSubscriptionTypeJSPContributorRegistry,
 			cpSubscriptionTypeRegistry);
-
-		_commercePaymentMethodGroupRelLocalService =
-			commercePaymentMethodGroupRelLocalService;
-		_commercePaymentMethodRegistry = commercePaymentMethodRegistry;
-		_cpSubscriptionTypeJSPContributorRegistry =
-			cpSubscriptionTypeJSPContributorRegistry;
-		_cpSubscriptionTypeRegistry = cpSubscriptionTypeRegistry;
 	}
 
 	@Override
@@ -72,12 +60,5 @@ public class CPDefinitionSubscriptionInfoDisplayContext
 
 		return portletURL;
 	}
-
-	private final CommercePaymentMethodGroupRelLocalService
-		_commercePaymentMethodGroupRelLocalService;
-	private final CommercePaymentMethodRegistry _commercePaymentMethodRegistry;
-	private final CPSubscriptionTypeJSPContributorRegistry
-		_cpSubscriptionTypeJSPContributorRegistry;
-	private final CPSubscriptionTypeRegistry _cpSubscriptionTypeRegistry;
 
 }

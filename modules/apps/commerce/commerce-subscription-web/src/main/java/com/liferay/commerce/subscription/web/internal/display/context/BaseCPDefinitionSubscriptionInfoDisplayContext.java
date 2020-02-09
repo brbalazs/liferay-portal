@@ -35,18 +35,12 @@ public class BaseCPDefinitionSubscriptionInfoDisplayContext
 
 	public BaseCPDefinitionSubscriptionInfoDisplayContext(
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
-		CommercePaymentMethodGroupRelLocalService
-			commercePaymentMethodGroupRelLocalService,
-		CommercePaymentMethodRegistry commercePaymentMethodRegistry,
 		CPSubscriptionTypeJSPContributorRegistry
 			cpSubscriptionTypeJSPContributorRegistry,
 		CPSubscriptionTypeRegistry cpSubscriptionTypeRegistry) {
 
 		super(actionHelper, httpServletRequest);
 
-		_commercePaymentMethodGroupRelLocalService =
-			commercePaymentMethodGroupRelLocalService;
-		_commercePaymentMethodRegistry = commercePaymentMethodRegistry;
 		_cpSubscriptionTypeJSPContributorRegistry =
 			cpSubscriptionTypeJSPContributorRegistry;
 		_cpSubscriptionTypeRegistry = cpSubscriptionTypeRegistry;
@@ -68,9 +62,6 @@ public class BaseCPDefinitionSubscriptionInfoDisplayContext
 		return _cpSubscriptionTypeRegistry.getCPSubscriptionTypes();
 	}
 
-	private final CommercePaymentMethodGroupRelLocalService
-		_commercePaymentMethodGroupRelLocalService;
-	private final CommercePaymentMethodRegistry _commercePaymentMethodRegistry;
 	private final CPSubscriptionTypeJSPContributorRegistry
 		_cpSubscriptionTypeJSPContributorRegistry;
 	private final CPSubscriptionTypeRegistry _cpSubscriptionTypeRegistry;
