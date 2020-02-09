@@ -42,7 +42,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 <portlet:actionURL name="editProductDefinition" var="editProductDefinitionActionURL" />
 
-<aui:form action="<%= editProductDefinitionActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= editProductDefinitionActionURL %>" cssClass="pt-4" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpDefinition == null) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
@@ -66,7 +66,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 	</liferay-ui:error>
 
 	<div class="row">
-		<div class="col-8 pt-4">
+		<div class="col-8">
 			<commerce-ui:panel
 				title='<%= LanguageUtil.get(request, "details") %>'
 			>
@@ -187,7 +187,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 		<div class="col-12">
 			<commerce-ui:panel
-				title="<%= LanguageUtil.get(request, "add-new-specifications") %>"
+				title='<%= LanguageUtil.get(request, "add-new-specifications") %>'
 			>
 
 				<%
