@@ -14,17 +14,16 @@
 
 package com.liferay.commerce.product.definitions.web.internal.servlet.taglib.ui;
 
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
-import com.liferay.commerce.currency.util.CommercePriceFormatter;
-import com.liferay.commerce.product.definitions.web.internal.display.context.CPInstanceShippingInfoDisplayContext;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
+import com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionShippingInfoDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
-import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPInstanceScreenNavigationConstants;
-import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
-import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
-import com.liferay.commerce.product.service.CPInstanceService;
+import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
-import com.liferay.commerce.product.util.CPInstanceHelper;
+import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -36,13 +35,11 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -55,41 +52,40 @@ import org.osgi.service.component.annotations.Reference;
  * @author Alessio Antonio Rendina
  */
 @Component(
-	property = "screen.navigation.entry.order:Integer=70",
-	service = ScreenNavigationEntry.class
+	property = {
+		"screen.navigation.category.order:Integer=10",
+		"screen.navigation.entry.order:Integer=10"
+	},
+	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CPInstanceShippingInfoScreenNavigationEntry
-	implements ScreenNavigationEntry<CPInstance> {
+public class CPDefinitionShippingScreenNavigationEntry
+	implements ScreenNavigationEntry<CPDefinition> {
 
 	@Override
 	public String getCategoryKey() {
-		return CPInstanceScreenNavigationConstants.CATEGORY_KEY_DETAILS;
+		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_CONFIGURATION;
 	}
 
 	@Override
 	public String getEntryKey() {
-		return CPInstanceScreenNavigationConstants.ENTRY_KEY_SHIPPING_OVERRIDE;
+		return CPDefinitionScreenNavigationConstants.ENTRY_KEY_SHIPPING;
 	}
 
 	@Override
 	public String getLabel(Locale locale) {
-		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-			"content.Language", locale, getClass());
-
 		return LanguageUtil.get(
-			resourceBundle,
-			CPInstanceScreenNavigationConstants.ENTRY_KEY_SHIPPING_OVERRIDE);
+			locale, CPDefinitionScreenNavigationConstants.ENTRY_KEY_SHIPPING);
 	}
 
 	@Override
 	public String getScreenNavigationKey() {
-		return CPInstanceScreenNavigationConstants.
-			SCREEN_NAVIGATION_KEY_CP_INSTANCE_GENERAL;
+		return CPDefinitionScreenNavigationConstants.
+			SCREEN_NAVIGATION_KEY_CP_DEFINITION_GENERAL;
 	}
 
 	@Override
-	public boolean isVisible(User user, CPInstance cpInstance) {
-		if (cpInstance == null) {
+	public boolean isVisible(User user, CPDefinition cpDefinition) {
+		if (cpDefinition == null) {
 			return false;
 		}
 
@@ -98,7 +94,7 @@ public class CPInstanceShippingInfoScreenNavigationEntry
 
 		try {
 			return _commerceCatalogModelResourcePermission.contains(
-				permissionChecker, cpInstance.getCommerceCatalog(),
+				permissionChecker, cpDefinition.getCommerceCatalog(),
 				ActionKeys.VIEW);
 		}
 		catch (PortalException pe) {
@@ -114,30 +110,24 @@ public class CPInstanceShippingInfoScreenNavigationEntry
 			HttpServletResponse httpServletResponse)
 		throws IOException {
 
-		try {
-			CPInstanceShippingInfoDisplayContext
-				cpInstanceShippingInfoDisplayContext =
-					new CPInstanceShippingInfoDisplayContext(
-						_actionHelper, httpServletRequest,
-						_commercePriceFormatter, _cpDefinitionOptionRelService,
-						_cpInstanceService, _cpInstanceHelper,
-						_cpMeasurementUnitLocalService);
+		CPDefinitionShippingInfoDisplayContext
+			cpDefinitionShippingInfoDisplayContext =
+				new CPDefinitionShippingInfoDisplayContext(
+					_actionHelper, httpServletRequest, _commerceCatalogService,
+					_commerceCurrencyLocalService, _cpDefinitionService,
+					_cpMeasurementUnitLocalService);
 
-			httpServletRequest.setAttribute(
-				WebKeys.PORTLET_DISPLAY_CONTEXT,
-				cpInstanceShippingInfoDisplayContext);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
+		httpServletRequest.setAttribute(
+			WebKeys.PORTLET_DISPLAY_CONTEXT,
+			cpDefinitionShippingInfoDisplayContext);
 
 		_jspRenderer.renderJSP(
 			_setServletContext, httpServletRequest, httpServletResponse,
-			"/edit_instance_shipping_info.jsp");
+			"/edit_definition_shipping_info.jsp");
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CPInstanceShippingInfoScreenNavigationEntry.class);
+		CPDefinitionShippingScreenNavigationEntry.class);
 
 	@Reference
 	private ActionHelper _actionHelper;
@@ -149,19 +139,13 @@ public class CPInstanceShippingInfoScreenNavigationEntry
 		_commerceCatalogModelResourcePermission;
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
-	private CommercePriceFormatter _commercePriceFormatter;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
-	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
-
-	@Reference
-	private CPInstanceHelper _cpInstanceHelper;
-
-	@Reference
-	private CPInstanceService _cpInstanceService;
+	private CPDefinitionService _cpDefinitionService;
 
 	@Reference
 	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;

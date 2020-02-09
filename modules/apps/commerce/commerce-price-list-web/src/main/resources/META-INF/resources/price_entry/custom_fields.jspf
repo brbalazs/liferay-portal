@@ -14,22 +14,15 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
-
-<%
-CommercePriceEntry commercePriceEntry = (CommercePriceEntry)request.getAttribute(CommercePriceListWebKeys.COMMERCE_PRICE_ENTRY);
-%>
-
-<liferay-ui:error-marker
-	key="<%= WebKeys.ERROR_SECTION %>"
-	value="custom-fields"
-/>
-
-<aui:model-context bean="<%= commercePriceEntry %>" model="<%= CommercePriceEntry.class %>" />
-
-<liferay-expando:custom-attribute-list
-	className="<%= CommercePriceEntry.class.getName() %>"
-	classPK="<%= (commercePriceEntry != null) ? commercePriceEntry.getCommercePriceEntryId() : 0 %>"
-	editable="<%= true %>"
-	label="<%= true %>"
-/>
+<c:if test="<%= CustomAttributesUtil.hasCustomAttributes(company.getCompanyId(), CommercePriceEntry.class.getName(), commercePriceEntryId, null) %>">
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+	>
+		<liferay-expando:custom-attribute-list
+			className="<%= CommercePriceEntry.class.getName() %>"
+			classPK="<%= (commercePriceEntry != null) ? commercePriceEntry.getCommercePriceEntryId() : 0 %>"
+			editable="<%= true %>"
+			label="<%= true %>"
+		/>
+	</commerce-ui:panel>
+</c:if>

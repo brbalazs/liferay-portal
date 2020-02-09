@@ -14,33 +14,13 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
-
 <%
-CommercePriceEntry commercePriceEntry = null;
-
-if (portletName.equals(CommercePriceListPortletKeys.COMMERCE_PRICE_LIST)) {
-	CommercePriceEntryDisplayContext commercePriceEntryDisplayContext = (CommercePriceEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-	commercePriceEntry = commercePriceEntryDisplayContext.getCommercePriceEntry();
-}
-else {
-	CPInstanceCommercePriceEntryDisplayContext cpInstanceCommercePriceEntryDisplayContext = (CPInstanceCommercePriceEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-	commercePriceEntry = cpInstanceCommercePriceEntryDisplayContext.getCommercePriceEntry();
-}
-
-CommercePriceList commercePriceList = commercePriceEntry.getCommercePriceList();
-
 CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 %>
 
-<liferay-ui:error-marker
-	key="<%= WebKeys.ERROR_SECTION %>"
-	value="details"
-/>
-
-<aui:fieldset>
+<commerce-ui:panel
+	title='<%= LanguageUtil.get(request, "details") %>'
+>
 	<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceEntry.getPrice()) %>">
 		<aui:validator name="number" />
 	</aui:input>
@@ -48,4 +28,4 @@ CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 	<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceEntry.getPromoPrice()) %>">
 		<aui:validator name="number" />
 	</aui:input>
-</aui:fieldset>
+</commerce-ui:panel>
