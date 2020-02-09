@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import React, {useState, useContext} from 'react';
 
 import {OPEN_MODAL} from '../../../../utilities/eventsDefinitions.es';
+import {OPEN_SIDE_PANEL} from '../../../../utilities/eventsDefinitions.es';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es';
 
 function CreationMenu(props) {
@@ -34,6 +35,16 @@ function CreationMenu(props) {
 					onClose: datasetContext.loadData,
 					url: clickedItem.href
 				});
+				break;
+			case 'sidePanel':
+				Liferay.fire(OPEN_SIDE_PANEL, {
+					id: datasetContext.sidePanelId,
+					onAfterSubmit: datasetContext.loadData,
+					url: clickedItem.href
+				});
+				break;
+			case 'event':
+				Liferay.fire(clickedItem.href);
 				break;
 			default:
 				window.location.href = clickedItem.href;

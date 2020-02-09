@@ -25,6 +25,10 @@ public class ClayCreationMenuItem {
 
 	public static final String CLAY_CREATION_MENU_ITEM_TARGET_MODAL = "modal";
 
+	public static final String CLAY_CREATION_MENU_ITEM_TARGET_SIDE_PANEL = "sidePanel";
+
+	public static final String CLAY_CREATION_MENU_ITEM_TARGET_EVENT = "event";
+
 	public ClayCreationMenuItem(String href, String label) {
 		_href = href;
 		_label = label;
