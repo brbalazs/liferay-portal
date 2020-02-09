@@ -16,12 +16,10 @@ package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 
 import com.liferay.asset.kernel.exception.AssetCategoryException;
 import com.liferay.asset.kernel.exception.AssetTagException;
-import com.liferay.asset.kernel.model.AssetEntry;
-import com.liferay.asset.kernel.model.AssetLink;
-import com.liferay.asset.kernel.service.AssetEntryLocalService;
-import com.liferay.asset.kernel.service.AssetLinkLocalService;
 import com.liferay.commerce.account.model.CommerceAccountGroupRel;
 import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
+import com.liferay.commerce.exception.NoSuchCPDefinitionInventoryException;
+import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
 import com.liferay.commerce.product.exception.CPDefinitionExpirationDateException;
@@ -36,6 +34,8 @@ import com.liferay.commerce.product.model.CPInstanceConstants;
 import com.liferay.commerce.product.model.CommerceChannelRel;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
+import com.liferay.commerce.service.CPDAvailabilityEstimateService;
+import com.liferay.commerce.service.CPDefinitionInventoryService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
@@ -51,19 +51,15 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PropertiesParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -147,14 +143,17 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 			else if (cmd.equals("updateCPDisplayLayout")) {
 				updateCPDisplayLayout(actionRequest);
 			}
-			else if (cmd.equals("updateShippingInfo")) {
-				updateShippingInfo(actionRequest);
-			}
-			else if (cmd.equals("updateSubscriptionInfo")) {
-				updateSubscriptionInfo(actionRequest);
-			}
-			else if (cmd.equals("updateTaxCategoryInfo")) {
-				updateTaxCategoryInfo(actionRequest);
+			else if (cmd.equals("updateConfiguration")) {
+				Callable<Object> cpDefinitionConfigurationCallable =
+					new CPDefinitionConfigurationCallable(actionRequest);
+
+				TransactionInvokerUtil.invoke(
+					_transactionConfig, cpDefinitionConfigurationCallable);
+
+				String redirect = ParamUtil.getString(
+					actionRequest, "redirect");
+
+				sendRedirect(actionRequest, actionResponse, redirect);
 			}
 		}
 		catch (Throwable t) {
@@ -172,7 +171,9 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 					 t instanceof CPDefinitionMetaKeywordsException ||
 					 t instanceof CPDefinitionMetaTitleException ||
 					 t instanceof CPFriendlyURLEntryException ||
-					 t instanceof NoSuchCatalogException) {
+					 t instanceof NoSuchCatalogException ||
+					 t instanceof NoSuchCPDefinitionInventoryException ||
+					 t instanceof NumberFormatException) {
 
 				SessionErrors.add(actionRequest, t.getClass(), t);
 
@@ -182,61 +183,6 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 				sendRedirect(actionRequest, actionResponse, redirect);
 			}
 		}
-	}
-
-	protected long[] getAssetCategoryIds(CPDefinition cpDefinition) {
-		AssetEntry assetEntry = _assetEntryLocalService.fetchEntry(
-			cpDefinition.getModelClassName(), cpDefinition.getCPDefinitionId());
-
-		if (assetEntry == null) {
-			return new long[0];
-		}
-
-		return assetEntry.getCategoryIds();
-	}
-
-	protected double getAssetEntryPriority(CPDefinition cpDefinition) {
-		AssetEntry assetEntry = _assetEntryLocalService.fetchEntry(
-			cpDefinition.getModelClassName(), cpDefinition.getCPDefinitionId());
-
-		if (assetEntry == null) {
-			return 0;
-		}
-
-		return assetEntry.getPriority();
-	}
-
-	protected long[] getAssetLinkEntryIds(CPDefinition cpDefinition) {
-		AssetEntry assetEntry = _assetEntryLocalService.fetchEntry(
-			cpDefinition.getModelClassName(), cpDefinition.getCPDefinitionId());
-
-		if (assetEntry == null) {
-			return new long[0];
-		}
-
-		List<Long> assetLinkEntryIds = new ArrayList<>();
-
-		List<AssetLink> assetLinks = _assetLinkLocalService.getLinks(
-			assetEntry.getEntryId());
-
-		for (AssetLink assetLink : assetLinks) {
-			if (assetLink.getEntryId1() != assetEntry.getEntryId()) {
-				assetLinkEntryIds.add(assetLink.getEntryId1());
-			}
-		}
-
-		return ArrayUtil.toLongArray(assetLinkEntryIds);
-	}
-
-	protected String[] getAssetTagNames(CPDefinition cpDefinition) {
-		AssetEntry assetEntry = _assetEntryLocalService.fetchEntry(
-			cpDefinition.getModelClassName(), cpDefinition.getCPDefinitionId());
-
-		if (assetEntry == null) {
-			return new String[0];
-		}
-
-		return assetEntry.getTagNames();
 	}
 
 	protected String getSaveAndContinueRedirect(
@@ -449,6 +395,69 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 		return cpDefinition;
 	}
 
+	protected void updateCPDefinitionInventory(ActionRequest actionRequest)
+		throws Exception {
+
+		long cpDefinitionInventoryId = ParamUtil.getLong(
+			actionRequest, "cpDefinitionInventoryId");
+
+		long cpdAvailabilityEstimateEntryId = ParamUtil.getLong(
+			actionRequest, "cpdAvailabilityEstimateEntryId");
+
+		long cpDefinitionId = ParamUtil.getLong(
+			actionRequest, "cpDefinitionId");
+
+		String cpDefinitionInventoryEngine = ParamUtil.getString(
+			actionRequest, "CPDefinitionInventoryEngine");
+		String lowStockActivity = ParamUtil.getString(
+			actionRequest, "lowStockActivity");
+		long commerceAvailabilityEstimateId = ParamUtil.getLong(
+			actionRequest, "commerceAvailabilityEstimateId");
+		boolean displayAvailability = ParamUtil.getBoolean(
+			actionRequest, "displayAvailability");
+		boolean displayStockQuantity = ParamUtil.getBoolean(
+			actionRequest, "displayStockQuantity");
+		boolean backOrders = ParamUtil.getBoolean(actionRequest, "backOrders");
+		String minStockQuantityString = ParamUtil.getString(
+			actionRequest, "minStockQuantity");
+		String minOrderQuantityString = ParamUtil.getString(
+			actionRequest, "minOrderQuantity");
+		String maxOrderQuantityString = ParamUtil.getString(
+			actionRequest, "maxOrderQuantity");
+		String multipleOrderQuantityString = ParamUtil.getString(
+			actionRequest, "multipleOrderQuantity");
+		int minStockQuantity = Integer.valueOf(minStockQuantityString);
+		int minOrderQuantity = Integer.valueOf(minOrderQuantityString);
+		int maxOrderQuantity = Integer.valueOf(maxOrderQuantityString);
+		int multipleOrderQuantity = Integer.valueOf(
+			multipleOrderQuantityString);
+		String allowedOrderQuantities = ParamUtil.getString(
+			actionRequest, "allowedOrderQuantities");
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			CPDefinitionInventory.class.getName(), actionRequest);
+
+		if (cpDefinitionInventoryId <= 0) {
+			_cpDefinitionInventoryService.addCPDefinitionInventory(
+				cpDefinitionId, cpDefinitionInventoryEngine, lowStockActivity,
+				displayAvailability, displayStockQuantity, minStockQuantity,
+				backOrders, minOrderQuantity, maxOrderQuantity,
+				allowedOrderQuantities, multipleOrderQuantity, serviceContext);
+		}
+		else {
+			_cpDefinitionInventoryService.updateCPDefinitionInventory(
+				cpDefinitionInventoryId, cpDefinitionInventoryEngine,
+				lowStockActivity, displayAvailability, displayStockQuantity,
+				minStockQuantity, backOrders, minOrderQuantity,
+				maxOrderQuantity, allowedOrderQuantities, multipleOrderQuantity,
+				serviceContext);
+		}
+
+		_cpdAvailabilityEstimateService.updateCPDAvailabilityEstimate(
+			cpdAvailabilityEstimateEntryId, cpDefinitionId,
+			commerceAvailabilityEstimateId, serviceContext);
+	}
+
 	protected void updateCPDisplayLayout(ActionRequest actionRequest)
 		throws PortalException {
 
@@ -537,22 +546,19 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 			Propagation.REQUIRED, new Class<?>[] {Exception.class});
 
 	@Reference
-	private AssetEntryLocalService _assetEntryLocalService;
-
-	@Reference
-	private AssetLinkLocalService _assetLinkLocalService;
-
-	@Reference
 	private CommerceAccountGroupRelService _commerceAccountGroupRelService;
 
 	@Reference
 	private CommerceChannelRelService _commerceChannelRelService;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDAvailabilityEstimateService _cpdAvailabilityEstimateService;
 
 	@Reference
-	private Portal _portal;
+	private CPDefinitionInventoryService _cpDefinitionInventoryService;
+
+	@Reference
+	private CPDefinitionService _cpDefinitionService;
 
 	private class CPDefinitionAccountGroupsCallable
 		implements Callable<Object> {
@@ -582,6 +588,26 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		private CPDefinitionChannelsCallable(ActionRequest actionRequest) {
+			_actionRequest = actionRequest;
+		}
+
+		private final ActionRequest _actionRequest;
+
+	}
+
+	private class CPDefinitionConfigurationCallable
+		implements Callable<Object> {
+
+		@Override
+		public Object call() throws Exception {
+			updateCPDefinitionInventory(_actionRequest);
+			updateShippingInfo(_actionRequest);
+			updateTaxCategoryInfo(_actionRequest);
+
+			return null;
+		}
+
+		private CPDefinitionConfigurationCallable(ActionRequest actionRequest) {
 			_actionRequest = actionRequest;
 		}
 

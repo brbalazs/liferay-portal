@@ -15,14 +15,19 @@
 package com.liferay.commerce.product.definitions.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
-import com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionShippingInfoDisplayContext;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
+import com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionConfigurationDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
+import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.service.CPDAvailabilityEstimateService;
+import com.liferay.commerce.service.CommerceAvailabilityEstimateService;
+import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -53,13 +58,13 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	property = {
-		"screen.navigation.category.order:Integer=10",
+		"screen.navigation.category.order:Integer=100",
 		"screen.navigation.entry.order:Integer=10"
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CPDefinitionShippingScreenNavigationEntry
-	implements ScreenNavigationEntry<CPDefinition> {
+public class CPDefinitionConfigurationScreenNavigationEntry
+	implements ScreenNavigationCategory, ScreenNavigationEntry<CPDefinition> {
 
 	@Override
 	public String getCategoryKey() {
@@ -68,13 +73,14 @@ public class CPDefinitionShippingScreenNavigationEntry
 
 	@Override
 	public String getEntryKey() {
-		return CPDefinitionScreenNavigationConstants.ENTRY_KEY_SHIPPING;
+		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_CONFIGURATION;
 	}
 
 	@Override
 	public String getLabel(Locale locale) {
 		return LanguageUtil.get(
-			locale, CPDefinitionScreenNavigationConstants.ENTRY_KEY_SHIPPING);
+			locale,
+			CPDefinitionScreenNavigationConstants.CATEGORY_KEY_CONFIGURATION);
 	}
 
 	@Override
@@ -110,27 +116,35 @@ public class CPDefinitionShippingScreenNavigationEntry
 			HttpServletResponse httpServletResponse)
 		throws IOException {
 
-		CPDefinitionShippingInfoDisplayContext
-			cpDefinitionShippingInfoDisplayContext =
-				new CPDefinitionShippingInfoDisplayContext(
-					_actionHelper, httpServletRequest, _commerceCatalogService,
-					_commerceCurrencyLocalService, _cpDefinitionService,
-					_cpMeasurementUnitLocalService);
+		CPDefinitionConfigurationDisplayContext
+			cpDefinitionConfigurationDisplayContext =
+				new CPDefinitionConfigurationDisplayContext(
+					_actionHelper, httpServletRequest,
+					_commerceAvailabilityEstimateService,
+					_commerceCatalogService, _commerceCurrencyLocalService,
+					_commerceLowStockActivityRegistry,
+					_cpdAvailabilityEstimateService,
+					_cpDefinitionInventoryEngineRegistry, _cpDefinitionService,
+					_cpMeasurementUnitLocalService, _cpTaxCategoryService);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			cpDefinitionShippingInfoDisplayContext);
+			cpDefinitionConfigurationDisplayContext);
 
 		_jspRenderer.renderJSP(
 			_setServletContext, httpServletRequest, httpServletResponse,
-			"/edit_definition_shipping_info.jsp");
+			"/edit_definition_configuration.jsp");
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CPDefinitionShippingScreenNavigationEntry.class);
+		CPDefinitionConfigurationScreenNavigationEntry.class);
 
 	@Reference
 	private ActionHelper _actionHelper;
+
+	@Reference
+	private CommerceAvailabilityEstimateService
+		_commerceAvailabilityEstimateService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CommerceCatalog)"
@@ -145,10 +159,23 @@ public class CPDefinitionShippingScreenNavigationEntry
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
+	private CommerceLowStockActivityRegistry _commerceLowStockActivityRegistry;
+
+	@Reference
+	private CPDAvailabilityEstimateService _cpdAvailabilityEstimateService;
+
+	@Reference
+	private CPDefinitionInventoryEngineRegistry
+		_cpDefinitionInventoryEngineRegistry;
+
+	@Reference
 	private CPDefinitionService _cpDefinitionService;
 
 	@Reference
 	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
+
+	@Reference
+	private CPTaxCategoryService _cpTaxCategoryService;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

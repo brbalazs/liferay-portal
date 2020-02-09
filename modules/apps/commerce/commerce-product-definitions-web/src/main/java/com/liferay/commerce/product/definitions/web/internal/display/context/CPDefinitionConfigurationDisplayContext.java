@@ -16,36 +16,75 @@ package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
+import com.liferay.commerce.model.CPDAvailabilityEstimate;
+import com.liferay.commerce.model.CPDefinitionInventory;
+import com.liferay.commerce.model.CommerceAvailabilityEstimate;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
+import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
 import com.liferay.commerce.product.model.CPMeasurementUnit;
+import com.liferay.commerce.product.model.CPTaxCategory;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
+import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.service.CPDAvailabilityEstimateService;
+import com.liferay.commerce.service.CommerceAvailabilityEstimateService;
+import com.liferay.commerce.stock.activity.CommerceLowStockActivity;
+import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
+import com.liferay.commerce.util.comparator.CommerceAvailabilityEstimatePriorityComparator;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Alessio Antonio Rendina
  */
-public class CPDefinitionShippingInfoDisplayContext
+public class CPDefinitionConfigurationDisplayContext
 	extends CPDefinitionsDisplayContext {
 
-	public CPDefinitionShippingInfoDisplayContext(
+	public CPDefinitionConfigurationDisplayContext(
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
+		CommerceAvailabilityEstimateService commerceAvailabilityEstimateService,
 		CommerceCatalogService commerceCatalogService,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
+		CommerceLowStockActivityRegistry commerceLowStockActivityRegistry,
+		CPDAvailabilityEstimateService cpdAvailabilityEstimateService,
+		CPDefinitionInventoryEngineRegistry cpDefinitionInventoryEngineRegistry,
 		CPDefinitionService cpDefinitionService,
-		CPMeasurementUnitLocalService cpMeasurementUnitLocalService) {
+		CPMeasurementUnitLocalService cpMeasurementUnitLocalService,
+		CPTaxCategoryService cpTaxCategoryService) {
 
 		super(
 			actionHelper, httpServletRequest, commerceCatalogService,
 			cpDefinitionService);
 
+		_commerceAvailabilityEstimateService =
+			commerceAvailabilityEstimateService;
 		_commerceCurrencyLocalService = commerceCurrencyLocalService;
+		_commerceLowStockActivityRegistry = commerceLowStockActivityRegistry;
+		_cpdAvailabilityEstimateService = cpdAvailabilityEstimateService;
+		_cpDefinitionInventoryEngineRegistry =
+			cpDefinitionInventoryEngineRegistry;
 		_cpMeasurementUnitLocalService = cpMeasurementUnitLocalService;
+		_cpTaxCategoryService = cpTaxCategoryService;
+	}
+
+	public List<CommerceAvailabilityEstimate> getCommerceAvailabilityEstimates()
+		throws PortalException {
+
+		return _commerceAvailabilityEstimateService.
+			getCommerceAvailabilityEstimates(
+				cpRequestHelper.getCompanyId(), QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS,
+				new CommerceAvailabilityEstimatePriorityComparator(true));
 	}
 
 	public String getCommerceCurrencyCode() {
@@ -64,6 +103,36 @@ public class CPDefinitionShippingInfoDisplayContext
 		return commerceCurrency.getCode();
 	}
 
+	public List<CommerceLowStockActivity> getCommerceLowStockActivities() {
+		return _commerceLowStockActivityRegistry.
+			getCommerceLowStockActivities();
+	}
+
+	public CPDAvailabilityEstimate getCPDAvailabilityEstimate()
+		throws PortalException {
+
+		return _cpdAvailabilityEstimateService.
+			fetchCPDAvailabilityEstimateByCPDefinitionId(getCPDefinitionId());
+	}
+
+	public CPDefinitionInventory getCPDefinitionInventory()
+		throws PortalException {
+
+		if (_cpDefinitionInventory != null) {
+			return _cpDefinitionInventory;
+		}
+
+		_cpDefinitionInventory = actionHelper.getCPDefinitionInventory(
+			cpRequestHelper.getRenderRequest());
+
+		return _cpDefinitionInventory;
+	}
+
+	public List<CPDefinitionInventoryEngine> getCPDefinitionInventoryEngines() {
+		return _cpDefinitionInventoryEngineRegistry.
+			getCPDefinitionInventoryEngines();
+	}
+
 	public String getCPMeasurementUnitName(int type) {
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -80,7 +149,31 @@ public class CPDefinitionShippingInfoDisplayContext
 		return StringPool.BLANK;
 	}
 
+	public List<CPTaxCategory> getCPTaxCategories() throws PortalException {
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		return _cpTaxCategoryService.getCPTaxCategories(
+			themeDisplay.getCompanyId());
+	}
+
+	@Override
+	public String getScreenNavigationCategoryKey() {
+		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_CONFIGURATION;
+	}
+
+	private final CommerceAvailabilityEstimateService
+		_commerceAvailabilityEstimateService;
 	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
+	private final CommerceLowStockActivityRegistry
+		_commerceLowStockActivityRegistry;
+	private final CPDAvailabilityEstimateService
+		_cpdAvailabilityEstimateService;
+	private CPDefinitionInventory _cpDefinitionInventory;
+	private final CPDefinitionInventoryEngineRegistry
+		_cpDefinitionInventoryEngineRegistry;
 	private final CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
+	private final CPTaxCategoryService _cpTaxCategoryService;
 
 }
