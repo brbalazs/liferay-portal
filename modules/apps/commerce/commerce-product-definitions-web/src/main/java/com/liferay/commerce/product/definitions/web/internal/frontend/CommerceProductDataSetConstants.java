@@ -26,4 +26,10 @@ public class CommerceProductDataSetConstants {
 	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITIONS =
 		"commerceProductDefinitions";
 
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_INSTANCES =
+		"commerceProductInstances";
+
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_LINKS =
+		"commerceProductLinks";
+
 }
