@@ -50,6 +50,8 @@ public class CommerceProductDefinitionClayTableDataSetDisplayView
 
 		nameField.setContentRenderer("actionLink");
 
+		clayTableSchemaBuilder.addField("type", "type");
+
 		clayTableSchemaBuilder.addField("sku", "sku");
 
 		clayTableSchemaBuilder.addField("modifiedDate", "modified-date");
