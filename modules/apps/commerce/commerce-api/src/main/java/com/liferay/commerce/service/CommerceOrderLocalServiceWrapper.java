@@ -869,6 +869,15 @@ public class CommerceOrderLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.model.CommerceOrder updateOrderStatus(
+			long commerceOrderId, int orderStatus)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderLocalService.updateOrderStatus(
+			commerceOrderId, orderStatus);
+	}
+
+	@Override
 	public com.liferay.commerce.model.CommerceOrder updatePaymentStatus(
 			long userId, long commerceOrderId, int paymentStatus)
 		throws com.liferay.portal.kernel.exception.PortalException {

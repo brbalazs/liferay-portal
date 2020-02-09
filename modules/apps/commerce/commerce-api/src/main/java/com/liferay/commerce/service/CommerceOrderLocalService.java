@@ -558,6 +558,11 @@ public interface CommerceOrderLocalService
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrder updateOrderStatus(
+			long commerceOrderId, int orderStatus)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrder updatePaymentStatus(
 			long userId, long commerceOrderId, int paymentStatus)
 		throws PortalException;

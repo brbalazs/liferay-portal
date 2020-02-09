@@ -797,6 +797,13 @@ public class CommerceOrderLocalServiceUtil {
 			orderDateHour, orderDateMinute, serviceContext);
 	}
 
+	public static com.liferay.commerce.model.CommerceOrder updateOrderStatus(
+			long commerceOrderId, int orderStatus)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateOrderStatus(commerceOrderId, orderStatus);
+	}
+
 	public static com.liferay.commerce.model.CommerceOrder updatePaymentStatus(
 			long userId, long commerceOrderId, int paymentStatus)
 		throws com.liferay.portal.kernel.exception.PortalException {
