@@ -25,7 +25,7 @@ long cpDefinitionId = cpAttachmentFileEntriesDisplayContext.getCPDefinitionId();
 
 long fileEntryId = BeanParamUtil.getLong(cpAttachmentFileEntry, request, "fileEntryId");
 
-int type = cpAttachmentFileEntriesDisplayContext.getType();
+int type = cpAttachmentFileEntry.getType();
 %>
 
 <liferay-ui:error-marker

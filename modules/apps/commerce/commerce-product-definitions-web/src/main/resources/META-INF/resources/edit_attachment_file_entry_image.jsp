@@ -19,80 +19,41 @@
 <%
 CPAttachmentFileEntriesDisplayContext cpAttachmentFileEntriesDisplayContext = (CPAttachmentFileEntriesDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-CPDefinition cpDefinition = cpAttachmentFileEntriesDisplayContext.getCPDefinition();
-
+CPAttachmentFileEntry cpAttachmentFileEntry = cpAttachmentFileEntriesDisplayContext.getCPAttachmentFileEntry();
+long cpAttachmentFileEntryId = cpAttachmentFileEntriesDisplayContext.getCPAttachmentFileEntryId();
 long cpDefinitionId = cpAttachmentFileEntriesDisplayContext.getCPDefinitionId();
 
-CPAttachmentFileEntry cpAttachmentFileEntry = cpAttachmentFileEntriesDisplayContext.getCPAttachmentFileEntry();
-
-long cpAttachmentFileEntryId = cpAttachmentFileEntriesDisplayContext.getCPAttachmentFileEntryId();
-
-int type = CPAttachmentFileEntryConstants.TYPE_IMAGE;
-String addMenuTitle = LanguageUtil.get(request, "add-image");
-
-String screenNavigationCategoryKey = cpAttachmentFileEntriesDisplayContext.getScreenNavigationCategoryKey();
-
-if (screenNavigationCategoryKey.equals("attachments")) {
-	type = CPAttachmentFileEntryConstants.TYPE_OTHER;
-	addMenuTitle = LanguageUtil.get(request, "add-attachment");
-}
-
-PortletURL productAttachmentsURL = renderResponse.createRenderURL();
-
-productAttachmentsURL.setParameter("mvcRenderCommandName", "editProductDefinition");
-productAttachmentsURL.setParameter("cpDefinitionId", String.valueOf(cpDefinition.getCPDefinitionId()));
-productAttachmentsURL.setParameter("screenNavigationCategoryKey", screenNavigationCategoryKey);
-productAttachmentsURL.setParameter("type", String.valueOf(type));
-
-String title = (cpAttachmentFileEntry == null) ? addMenuTitle : cpAttachmentFileEntry.getTitle(languageId);
+String title = (cpAttachmentFileEntry == null) ? LanguageUtil.get(request, "add-image") : cpAttachmentFileEntry.getTitle(languageId);
 %>
 
-<clay:navigation-bar
-	inverted="<%= true %>"
-	navigationItems="<%= CPNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
-/>
+<commerce-ui:side-panel-content
+	title="<%= title %>"
+>
+	<portlet:actionURL name="editCPAttachmentFileEntry" var="editProductDefinitionOptionRelActionURL" />
 
-<portlet:actionURL name="editCPAttachmentFileEntry" var="editProductDefinitionOptionRelActionURL" />
-
-<div class="container-fluid-1280 entry-body">
 	<aui:form action="<%= editProductDefinitionOptionRelActionURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveAttachmentFileEntry();" %>'>
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpAttachmentFileEntry == null) ? Constants.ADD : Constants.UPDATE %>" />
-		<aui:input name="redirect" type="hidden" value="<%= productAttachmentsURL %>" />
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="cpDefinitionId" type="hidden" value="<%= cpDefinitionId %>" />
 		<aui:input name="cpAttachmentFileEntryId" type="hidden" value="<%= cpAttachmentFileEntryId %>" />
-		<aui:input name="screenNavigationCategoryKey" type="hidden" value="<%= screenNavigationCategoryKey %>" />
-		<aui:input name="type" type="hidden" value="<%= type %>" />
+		<aui:input name="type" type="hidden" value="<%= CPAttachmentFileEntryConstants.TYPE_IMAGE %>" />
 		<aui:input name="workflowAction" type="hidden" value="<%= String.valueOf(WorkflowConstants.ACTION_SAVE_DRAFT) %>" />
 
-		<c:if test="<%= (cpAttachmentFileEntry != null) && !cpAttachmentFileEntry.isNew() %>">
-			<liferay-frontend:info-bar>
-				<aui:workflow-status id="<%= String.valueOf(cpAttachmentFileEntryId) %>" markupView="lexicon" showHelpMessage="<%= false %>" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= cpAttachmentFileEntry.getStatus() %>" />
-			</liferay-frontend:info-bar>
+		<%@ include file="/attachment_file_entry/details.jspf" %>
+
+		<%
+		boolean pending = false;
+
+		if (cpAttachmentFileEntry != null) {
+			pending = cpAttachmentFileEntry.isPending();
+		}
+		%>
+
+		<c:if test="<%= pending %>">
+			<div class="alert alert-info">
+				<liferay-ui:message key="there-is-a-publication-workflow-in-process" />
+			</div>
 		</c:if>
-
-		<div class="lfr-form-content">
-			<liferay-ui:form-navigator
-				backURL="<%= productAttachmentsURL.toString() %>"
-				formModelBean="<%= cpAttachmentFileEntry %>"
-				id="<%= CPAttachmentFileEntryFormNavigatorConstants.FORM_NAVIGATOR_ID_CP_ATTACHMENT_FILE_ENTRY %>"
-				markupView="lexicon"
-				showButtons="<%= false %>"
-			/>
-
-			<%
-			boolean pending = false;
-
-			if (cpAttachmentFileEntry != null) {
-				pending = cpAttachmentFileEntry.isPending();
-			}
-			%>
-
-			<c:if test="<%= pending %>">
-				<div class="alert alert-info">
-					<liferay-ui:message key="there-is-a-publication-workflow-in-process" />
-				</div>
-			</c:if>
-		</div>
 
 		<aui:button-row cssClass="product-definition-button-row">
 
@@ -114,10 +75,10 @@ String title = (cpAttachmentFileEntry == null) ? addMenuTitle : cpAttachmentFile
 
 			<aui:button cssClass="btn-lg" name="saveButton" primary="<%= false %>" type="submit" value="<%= saveButtonLabel %>" />
 
-			<aui:button cssClass="btn-lg" href="<%= productAttachmentsURL.toString() %>" type="cancel" />
+			<aui:button cssClass="btn-lg" type="cancel" />
 		</aui:button-row>
 	</aui:form>
-</div>
+</commerce-ui:side-panel-content>
 
 <aui:script>
 	function getMetalJsFormData(metalJsForm) {
