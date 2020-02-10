@@ -45,7 +45,7 @@ if (assetPublisherDisplayContext.isEnableTagBasedNavigation() && assetPublisherD
 				</portlet:actionURL>
 
 				<liferay-ui:icon
-					icon="start"
+					icon="star"
 					label="<%= true %>"
 					markupView="lexicon"
 					message="unsubscribe"
@@ -58,7 +58,7 @@ if (assetPublisherDisplayContext.isEnableTagBasedNavigation() && assetPublisherD
 				</portlet:actionURL>
 
 				<liferay-ui:icon
-					icon="start-o"
+					icon="star-o"
 					label="<%= true %>"
 					markupView="lexicon"
 					message="subscribe"
