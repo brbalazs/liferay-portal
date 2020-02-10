@@ -60,7 +60,7 @@ public interface CommercePriceListFinder {
 						queryDefinition);
 
 	public java.util.List
-		<com.liferay.commerce.price.list.model.CommercePriceList>
+		<com.liferay.commerce.price.list.model.CommercePriceEntry>
 			findByLowestPrice(
 				com.liferay.portal.kernel.dao.orm.QueryDefinition
 					<com.liferay.commerce.price.list.model.CommercePriceList>

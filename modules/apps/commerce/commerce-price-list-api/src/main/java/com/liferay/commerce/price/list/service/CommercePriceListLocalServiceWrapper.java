@@ -482,9 +482,10 @@ public class CommercePriceListLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceList
-		getCommercePriceListByLowestPrice(
-			String type, String cPInstanceUuid, long commerceAccountId,
-			long[] commerceAccountGroupIds, long commerceChannelId) {
+			getCommercePriceListByLowestPrice(
+				String type, String cPInstanceUuid, long commerceAccountId,
+				long[] commerceAccountGroupIds, long commerceChannelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commercePriceListLocalService.getCommercePriceListByLowestPrice(
 			type, cPInstanceUuid, commerceAccountId, commerceAccountGroupIds,

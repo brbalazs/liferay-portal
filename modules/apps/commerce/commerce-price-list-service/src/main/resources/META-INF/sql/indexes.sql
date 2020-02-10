@@ -6,7 +6,6 @@ create index IX_A215DC0A on CPLUserSegmentEntryRel (uuid_[$COLUMN_LENGTH:75$], c
 create unique index IX_1A99DD0C on CPLUserSegmentEntryRel (uuid_[$COLUMN_LENGTH:75$], groupId);
 
 create unique index IX_56A1987C on CommercePriceEntry (CPInstanceUuid[$COLUMN_LENGTH:75$], commercePriceListId);
-create index IX_2FCFB9FB on CommercePriceEntry (CPInstanceUuid[$COLUMN_LENGTH:75$]);
 create unique index IX_2D76B43E on CommercePriceEntry (commercePriceListId, CPInstanceUuid[$COLUMN_LENGTH:75$]);
 create index IX_B058565F on CommercePriceEntry (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
 create index IX_1578F03E on CommercePriceEntry (uuid_[$COLUMN_LENGTH:75$], companyId);
@@ -15,7 +14,6 @@ create index IX_473B4D8D on CommercePriceList (commerceCurrencyId);
 create index IX_328B5D27 on CommercePriceList (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
 create index IX_31913054 on CommercePriceList (displayDate, status);
 create index IX_B61658B6 on CommercePriceList (groupId, companyId, status);
-
 create index IX_863045BB on CommercePriceList (parentCommercePriceListId);
 create index IX_FCE28706 on CommercePriceList (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_554D1708 on CommercePriceList (uuid_[$COLUMN_LENGTH:75$], groupId);

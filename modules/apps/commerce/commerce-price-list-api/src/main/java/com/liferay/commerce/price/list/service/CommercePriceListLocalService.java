@@ -331,8 +331,9 @@ public interface CommercePriceListLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceList getCommercePriceListByLowestPrice(
-		String type, String cPInstanceUuid, long commerceAccountId,
-		long[] commerceAccountGroupIds, long commerceChannelId);
+			String type, String cPInstanceUuid, long commerceAccountId,
+			long[] commerceAccountGroupIds, long commerceChannelId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceList getCommercePriceListByUnqualified(String type);
