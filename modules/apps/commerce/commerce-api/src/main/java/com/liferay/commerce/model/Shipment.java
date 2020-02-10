@@ -12,12 +12,13 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.model;
+package com.liferay.commerce.model;
 
 import com.liferay.commerce.frontend.model.LabelField;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Alec Sloan
  */
 public class Shipment {
 

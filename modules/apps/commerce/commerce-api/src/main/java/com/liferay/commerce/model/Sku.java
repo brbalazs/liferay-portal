@@ -12,10 +12,11 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.model;
+package com.liferay.commerce.model;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Alec Sloan
  */
 public class Sku {
 

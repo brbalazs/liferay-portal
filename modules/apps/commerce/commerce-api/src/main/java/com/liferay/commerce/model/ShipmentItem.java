@@ -12,15 +12,16 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.model;
+package com.liferay.commerce.model;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Alec Sloan
  */
 public class ShipmentItem {
 
 	public ShipmentItem(
-		long shipmentItemId, long orderId, String sku, int orderedCount,
+		long shipmentItemId, long orderId, Sku sku, int orderedCount,
 		int shippedQuantity, int shippableQuantity) {
 
 		_shipmentItemId = shipmentItemId;
@@ -51,7 +52,7 @@ public class ShipmentItem {
 		return _shippedQuantity;
 	}
 
-	public String getSku() {
+	public Sku getSku() {
 		return _sku;
 	}
 
@@ -60,6 +61,6 @@ public class ShipmentItem {
 	private final long _shipmentItemId;
 	private final int _shippableQuantity;
 	private final int _shippedQuantity;
-	private final String _sku;
+	private final Sku _sku;
 
 }
