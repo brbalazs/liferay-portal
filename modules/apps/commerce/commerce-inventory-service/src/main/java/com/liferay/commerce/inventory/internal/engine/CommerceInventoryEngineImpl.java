@@ -15,7 +15,6 @@
 package com.liferay.commerce.inventory.internal.engine;
 
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
-import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryAuditLocalService;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
@@ -49,14 +48,8 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 		throws PortalException {
 
 		if (bookedQuantityId > 0) {
-			CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
-				_commerceBookedQuantityLocalService.
-					getCommerceInventoryBookedQuantity(bookedQuantityId);
-
 			_commerceBookedQuantityLocalService.consumeCommerceBookedQuantity(
-				commerceInventoryBookedQuantity.
-					getCommerceInventoryBookedQuantityId(),
-				quantity);
+				bookedQuantityId, quantity);
 
 			decreaseStockQuantity(commerceInventoryWarehouseId, sku, quantity);
 		}
