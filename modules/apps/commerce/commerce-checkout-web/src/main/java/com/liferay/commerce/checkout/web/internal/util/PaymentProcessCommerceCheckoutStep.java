@@ -25,8 +25,10 @@ import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStepServicesTracker;
+import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.math.BigDecimal;
 
@@ -140,14 +142,19 @@ public class PaymentProcessCommerceCheckoutStep
 
 		originalHttpServletResponse.sendRedirect(paymentServletURL);
 
-		// In certain situations the redirect fails: fall back to JS
-
-		if (!originalHttpServletResponse.isCommitted()) {
-			ServletResponseUtil.write(
-				httpServletResponse,
-				"<script>window.location.href = '" + paymentServletURL +
-					"';</script>");
+		if (originalHttpServletResponse.isCommitted()) {
+			return;
 		}
+
+		// In certain situations the redirect fails: fall back to frontend
+
+		httpServletRequest.setAttribute(
+			CommerceCheckoutWebKeys.COMMERCE_CHECKOUT_STEP_DISPLAY_CONTEXT,
+			paymentProcessCheckoutStepDisplayContext);
+
+		_jspRenderer.renderJSP(
+			httpServletRequest, httpServletResponse,
+			"/checkout_step/payment_process.jsp");
 	}
 
 	@Override
@@ -164,6 +171,9 @@ public class PaymentProcessCommerceCheckoutStep
 
 	@Reference
 	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
+
+	@Reference
+	private JSPRenderer _jspRenderer;
 
 	@Reference
 	private Portal _portal;
