@@ -16,20 +16,17 @@ package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.product.configuration.CPOptionConfiguration;
 import com.liferay.commerce.product.constants.CPConstants;
-import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsSearchContainerDisplayContext;
-import com.liferay.commerce.product.definitions.web.internal.util.CPDefinitionsPortletUtil;
+import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
 import com.liferay.commerce.product.item.selector.criterion.CPOptionItemSelectorCriterion;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
-import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.commerce.product.util.DDMFormFieldTypeUtil;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldType;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -37,12 +34,9 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
-import com.liferay.portal.kernel.search.BaseModelSearchResult;
-import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.MapUtil;
-import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -64,25 +58,17 @@ import javax.servlet.http.HttpServletRequest;
  * @author Marco Leo
  */
 public class CPDefinitionOptionRelDisplayContext
-	extends BaseCPDefinitionsSearchContainerDisplayContext
-		<CPDefinitionOptionRel> {
+	extends BaseCPDefinitionsDisplayContext {
 
 	public CPDefinitionOptionRelDisplayContext(
-			ActionHelper actionHelper, HttpServletRequest httpServletRequest,
-			ConfigurationProvider configurationProvider,
-			CPDefinitionOptionRelService cpDefinitionOptionRelService,
-			DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
-			ItemSelector itemSelector)
-		throws PortalException {
+		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
+		ConfigurationProvider configurationProvider,
+		DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
+		ItemSelector itemSelector) {
 
-		super(
-			actionHelper, httpServletRequest,
-			CPDefinitionOptionRel.class.getSimpleName());
-
-		setDefaultOrderByCol("priority");
+		super(actionHelper, httpServletRequest);
 
 		_configurationProvider = configurationProvider;
-		_cpDefinitionOptionRelService = cpDefinitionOptionRelService;
 		_ddmFormFieldTypeServicesTracker = ddmFormFieldTypeServicesTracker;
 		_itemSelector = itemSelector;
 	}
@@ -194,67 +180,6 @@ public class CPDefinitionOptionRelDisplayContext
 		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_OPTIONS;
 	}
 
-	@Override
-	public SearchContainer<CPDefinitionOptionRel> getSearchContainer()
-		throws PortalException {
-
-		if (searchContainer != null) {
-			return searchContainer;
-		}
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		searchContainer = new SearchContainer<>(
-			liferayPortletRequest, getPortletURL(), null, null);
-
-		searchContainer.setEmptyResultsMessage("no-options-were-found");
-
-		OrderByComparator<CPDefinitionOptionRel> orderByComparator =
-			CPDefinitionsPortletUtil.getCPDefinitionOptionRelOrderByComparator(
-				getOrderByCol(), getOrderByType());
-
-		searchContainer.setOrderByCol(getOrderByCol());
-		searchContainer.setOrderByComparator(orderByComparator);
-		searchContainer.setOrderByType(getOrderByType());
-		searchContainer.setRowChecker(getRowChecker());
-
-		if (isSearch()) {
-			Sort sort = CPDefinitionsPortletUtil.getCPDefinitionOptionRelSort(
-				getOrderByCol(), getOrderByType());
-
-			BaseModelSearchResult<CPDefinitionOptionRel>
-				cpDefinitionOptionRelBaseModelSearchResult =
-					_cpDefinitionOptionRelService.searchCPDefinitionOptionRels(
-						themeDisplay.getCompanyId(),
-						themeDisplay.getScopeGroupId(), getCPDefinitionId(),
-						getKeywords(), searchContainer.getStart(),
-						searchContainer.getEnd(), sort);
-
-			searchContainer.setTotal(
-				cpDefinitionOptionRelBaseModelSearchResult.getLength());
-			searchContainer.setResults(
-				cpDefinitionOptionRelBaseModelSearchResult.getBaseModels());
-		}
-		else {
-			int total =
-				_cpDefinitionOptionRelService.getCPDefinitionOptionRelsCount(
-					getCPDefinitionId());
-
-			searchContainer.setTotal(total);
-
-			List<CPDefinitionOptionRel> results =
-				_cpDefinitionOptionRelService.getCPDefinitionOptionRels(
-					getCPDefinitionId(), searchContainer.getStart(),
-					searchContainer.getEnd(), orderByComparator);
-
-			searchContainer.setResults(results);
-		}
-
-		return searchContainer;
-	}
-
 	public boolean hasCustomAttributesAvailable() throws Exception {
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -270,7 +195,6 @@ public class CPDefinitionOptionRelDisplayContext
 
 	private final ConfigurationProvider _configurationProvider;
 	private CPDefinitionOptionRel _cpDefinitionOptionRel;
-	private final CPDefinitionOptionRelService _cpDefinitionOptionRelService;
 	private final DDMFormFieldTypeServicesTracker
 		_ddmFormFieldTypeServicesTracker;
 	private final ItemSelector _itemSelector;
