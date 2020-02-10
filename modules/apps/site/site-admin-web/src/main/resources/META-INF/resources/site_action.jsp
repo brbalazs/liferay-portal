@@ -42,13 +42,6 @@ else {
 	userGroupUser = !userGroupNames.isEmpty();
 }
 
-int publicLayoutsPageCount = LayoutLocalServiceUtil.getLayoutsCount(
-	group, false, StringPool.BLANK,
-	new String[] {
-		StringPool.CONTENT, LayoutConstants.TYPE_EMBEDDED,
-		LayoutConstants.TYPE_LINK_TO_LAYOUT, LayoutConstants.TYPE_FULL_PAGE_APPLICATION,
-		LayoutConstants.TYPE_PANEL, LayoutConstants.TYPE_PORTLET, LayoutConstants.TYPE_URL});
-
 boolean hasUpdatePermission = GroupPermissionUtil.contains(permissionChecker, group, ActionKeys.UPDATE);
 %>
 
@@ -102,6 +95,10 @@ boolean hasUpdatePermission = GroupPermissionUtil.contains(permissionChecker, gr
 			url="<%= viewSiteSettingsURL.toString() %>"
 		/>
 	</c:if>
+
+	<%
+	int publicLayoutsPageCount = LayoutLocalServiceUtil.getLayoutsCount(group, false, StringPool.BLANK, new String[] {StringPool.CONTENT, LayoutConstants.TYPE_EMBEDDED, LayoutConstants.TYPE_LINK_TO_LAYOUT, LayoutConstants.TYPE_FULL_PAGE_APPLICATION, LayoutConstants.TYPE_PANEL, LayoutConstants.TYPE_PORTLET, LayoutConstants.TYPE_URL});
+	%>
 
 	<c:if test="<%= group.isActive() && (publicLayoutsPageCount > 0) %>">
 		<liferay-ui:icon
