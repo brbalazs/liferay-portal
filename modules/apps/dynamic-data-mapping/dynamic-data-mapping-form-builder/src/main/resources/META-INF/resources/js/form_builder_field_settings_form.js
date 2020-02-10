@@ -228,8 +228,18 @@ AUI.add(
 						var locale = builder.get('editingLanguageId');
 
 						if (defaultLocale === locale) {
+							var oldFieldName = formBuilderField.get('context.fieldName');
+
 							nameField.set('value', event.newVal);
 							formBuilderField.set('context.fieldName', event.newVal);
+
+							var validation = formBuilderField.get('validation');
+
+							if (validation && validation.expression) {
+								var expression = validation.expression;
+
+								validation.expression = expression.replace(oldFieldName, event.newVal);
+							}
 						}
 
 						instance._saveSettings();
