@@ -140,13 +140,17 @@ public class PaymentProcessCommerceCheckoutStep
 				paymentProcessCheckoutStepDisplayContext.
 					getPaymentServletUrl());
 
-		originalHttpServletResponse.sendRedirect(paymentServletURL);
+		String redirect = _portal.escapeRedirect(paymentServletURL);
+
+		if (Validator.isNotNull(redirect)) {
+			originalHttpServletResponse.sendRedirect(redirect);
+		}
 
 		if (originalHttpServletResponse.isCommitted()) {
 			return;
 		}
 
-		// In certain situations the redirect fails: fall back to frontend
+		// Backend redirection has failed: fall back to frontend redirect
 
 		httpServletRequest.setAttribute(
 			CommerceCheckoutWebKeys.COMMERCE_CHECKOUT_STEP_DISPLAY_CONTEXT,
