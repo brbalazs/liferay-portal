@@ -4,6 +4,7 @@ Bundle-Version: 5.6.1
 Export-Package:\
 	com.liferay.commerce.configuration,\
 	com.liferay.commerce.configuration.definition,\
+	com.liferay.commerce.dto.price,\
 	com.liferay.commerce.model.impl
 Liferay-Require-SchemaVersion: 4.5.1
 Liferay-Service: true
