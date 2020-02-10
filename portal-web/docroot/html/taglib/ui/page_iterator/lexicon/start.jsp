@@ -117,7 +117,13 @@ if (forcePost && (portletURL != null)) {
 
 		<ul class="pagination">
 			<li class="<%= (cur > 1) ? StringPool.BLANK : "disabled" %>">
-				<a href="<%= (cur > 1) ? _getHREF(formName, namespace + curParam, cur - 1, jsCall, url, urlAnchor) : "javascript:;" %>" onclick="<%= ((cur > 1) && forcePost) ? _getOnClick(namespace, curParam, cur -1) : "" %>"><span class="icon-caret-left"></span></a>
+				<a href="<%= (cur > 1) ? _getHREF(formName, namespace + curParam, cur - 1, jsCall, url, urlAnchor) : "javascript:;" %>" onclick="<%= ((cur > 1) && forcePost) ? _getOnClick(namespace, curParam, cur -1) : "" %>">
+					<liferay-ui:icon
+						icon="angle-left"
+						markupView="lexicon"
+						message="previous-page"
+					/>
+				</a>
 			</li>
 
 			<c:choose>
@@ -291,7 +297,13 @@ if (forcePost && (portletURL != null)) {
 			</c:choose>
 
 			<li class="<%= (cur < pages) ? StringPool.BLANK : "disabled" %>">
-				<a href="<%= (cur < pages) ? _getHREF(formName, namespace + curParam, cur + 1, jsCall, url, urlAnchor) : "javascript:;" %>" onclick="<%= ((cur < pages) && forcePost) ? _getOnClick(namespace, curParam, cur + 1) : "" %>"><span class="icon-caret-right"></span></a>
+				<a href="<%= (cur < pages) ? _getHREF(formName, namespace + curParam, cur + 1, jsCall, url, urlAnchor) : "javascript:;" %>" onclick="<%= ((cur < pages) && forcePost) ? _getOnClick(namespace, curParam, cur + 1) : "" %>">
+					<liferay-ui:icon
+						icon="angle-right"
+						markupView="lexicon"
+						message="next-page"
+					/>
+				</a>
 			</li>
 		</ul>
 	</div>
