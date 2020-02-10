@@ -19,6 +19,9 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
  */
 public class CommerceProductDataSetConstants {
 
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_ATTACHMENTS =
+		"commerceProductAttachments";
+
 	public static final String
 		COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS =
 			"commerceProductDefinitionSpecifications";
@@ -26,10 +29,19 @@ public class CommerceProductDataSetConstants {
 	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITIONS =
 		"commerceProductDefinitions";
 
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_IMAGES =
+		"commerceProductImages";
+
 	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_INSTANCES =
 		"commerceProductInstances";
 
 	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_LINKS =
 		"commerceProductLinks";
+
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES =
+		"commerceProductOptionValues";
+
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS =
+		"commerceProductOptions";
 
 }
