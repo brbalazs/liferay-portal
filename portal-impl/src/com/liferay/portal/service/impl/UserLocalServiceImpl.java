@@ -7223,8 +7223,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 			mailMessage.setMessageId(
 				PortalUtil.getMailId(
-					company.getMx(), "user", toUser.getUserId(),
-					System.currentTimeMillis()));
+					company.getMx(), "user", System.currentTimeMillis()));
 
 			mailService.sendEmail(mailMessage);
 		}
