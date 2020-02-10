@@ -94,5 +94,6 @@ PortletURL portletURL = cpDefinitionLinkDisplayContext.getPortletURL();
 		<%
 		}
 		%>
+
 	</aui:script>
 </c:if>

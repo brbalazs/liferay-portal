@@ -33,7 +33,6 @@ CPInstanceDisplayContext cpInstanceDisplayContext = (CPInstanceDisplayContext)re
 			clayCreationMenu="<%= cpInstanceDisplayContext.getClayCreationMenu() %>"
 			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_INSTANCES %>"
-			formId="fm"
 			id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_INSTANCES %>"
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"

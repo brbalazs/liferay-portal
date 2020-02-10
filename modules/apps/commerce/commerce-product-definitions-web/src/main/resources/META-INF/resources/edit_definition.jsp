@@ -35,11 +35,6 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 request.setAttribute("view.jsp-showSearch", false);
 %>
 
-<clay:navigation-bar
-	inverted="<%= true %>"
-	navigationItems="<%= CPNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
-/>
-
 <liferay-portlet:renderURL var="editCProductExternalReferenceCodeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 	<portlet:param name="mvcRenderCommandName" value="editCProductExternalReferenceCode" />
 	<portlet:param name="cpDefinitionId" value="<%= String.valueOf(cpDefinitionsDisplayContext.getCPDefinitionId()) %>" />

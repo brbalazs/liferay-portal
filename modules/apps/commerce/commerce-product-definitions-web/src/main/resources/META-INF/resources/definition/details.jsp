@@ -134,7 +134,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 			</commerce-ui:panel>
 		</div>
 
-		<div class="col-4 pt-4">
+		<div class="col-4">
 			<commerce-ui:panel
 				title='<%= LanguageUtil.get(request, "categorization") %>'
 			>
