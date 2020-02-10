@@ -15,9 +15,11 @@
 package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 
 import com.liferay.commerce.product.constants.CPPortletKeys;
-import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
+import com.liferay.commerce.product.exception.NoSuchCProductException;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CProductLocalService;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
@@ -53,7 +55,7 @@ public class EditCProductExternalReferenceCodeMVCActionCommand
 			updateCProductExternalReferenceCode(actionRequest);
 		}
 		catch (Exception e) {
-			if (e instanceof NoSuchCPDefinitionException ||
+			if (e instanceof NoSuchCProductException ||
 				e instanceof PrincipalException) {
 
 				SessionErrors.add(actionRequest, e.getClass());
@@ -61,7 +63,12 @@ public class EditCProductExternalReferenceCodeMVCActionCommand
 				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 			}
 			else {
-				throw e;
+				_log.error(e, e);
+
+				String redirect = ParamUtil.getString(
+					actionRequest, "redirect");
+
+				sendRedirect(actionRequest, actionResponse, redirect);
 			}
 		}
 	}
@@ -80,6 +87,9 @@ public class EditCProductExternalReferenceCodeMVCActionCommand
 		_cProductLocalService.updateCProductExternalReferenceCode(
 			cProduct.getCProductId(), externalReferenceCode);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCProductExternalReferenceCodeMVCActionCommand.class);
 
 	@Reference
 	private CProductLocalService _cProductLocalService;

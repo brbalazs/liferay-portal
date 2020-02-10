@@ -27,7 +27,7 @@ CProduct cProduct = cpDefinitionsDisplayContext.getCProduct();
 <commerce-ui:modal-content>
 	<aui:form action="<%= editCProductExternalReferenceCodeURL %>" cssClass="container-fluid-1280 p-0" method="post" name="fm">
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-		<aui:input name="cProductId" type="hidden" />
+		<aui:input name="cProductId" type="hidden" value="<%= cProduct.getCProductId() %>" />
 
 		<aui:model-context bean="<%= cProduct %>" model="<%= CProduct.class %>" />
 
