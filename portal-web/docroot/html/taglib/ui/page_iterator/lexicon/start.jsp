@@ -128,7 +128,7 @@ if (forcePost && (portletURL != null)) {
 						icon="angle-left"
 						markupView="lexicon"
 						message="previous-page"
-						toolTip="false"
+						toolTip="<%= false %>"
 					/>
 				</a>
 			</li>
@@ -199,7 +199,7 @@ if (forcePost && (portletURL != null)) {
 						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
 							<span aria-hidden="true">...</span>
 
-							<span class="sr-only"><liferay-ui:message key="intermediate-pages" /></span>	
+							<span class="sr-only"><liferay-ui:message key="intermediate-pages" /></span>
 						</a>
 
 						<div class="dropdown-menu dropdown-menu-top-center">
@@ -325,7 +325,7 @@ if (forcePost && (portletURL != null)) {
 						icon="angle-right"
 						markupView="lexicon"
 						message="next-page"
-						toolTip="false"
+						toolTip="<%= false %>"
 					/>
 				</a>
 			</li>
