@@ -14,7 +14,9 @@
 
 package com.liferay.commerce.price.list.service.persistence.impl;
 
+import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.model.impl.CommercePriceEntryImpl;
 import com.liferay.commerce.price.list.model.impl.CommercePriceListImpl;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder;
 import com.liferay.petra.string.StringBundler;
@@ -162,7 +164,7 @@ public class CommercePriceListFinderImpl
 	}
 
 	@Override
-	public List<CommercePriceList> findByLowestPrice(
+	public List<CommercePriceEntry> findByLowestPrice(
 		QueryDefinition<CommercePriceList> queryDefinition) {
 
 		Session session = null;
@@ -180,7 +182,8 @@ public class CommercePriceListFinderImpl
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
 			q.addEntity(
-				CommercePriceListImpl.TABLE_NAME, CommercePriceListImpl.class);
+				CommercePriceEntryImpl.TABLE_NAME,
+				CommercePriceEntryImpl.class);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
@@ -197,7 +200,7 @@ public class CommercePriceListFinderImpl
 			qPos.add(commerceAccountId);
 			qPos.add(commerceChannelId);
 
-			return (List<CommercePriceList>)QueryUtil.list(
+			return (List<CommercePriceEntry>)QueryUtil.list(
 				q, getDialect(), queryDefinition.getStart(),
 				queryDefinition.getEnd());
 		}

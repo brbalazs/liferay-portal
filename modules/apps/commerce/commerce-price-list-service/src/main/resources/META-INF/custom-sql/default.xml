@@ -92,21 +92,21 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByLowestPrice">
 		<![CDATA[
 			SELECT
-				DISTINCT CommercePriceList.*
+				DISTINCT CommercePriceEntry.*
 			FROM
-				CommercePriceList
+				CommercePriceEntry
 			INNER JOIN
-				CommercePriceEntry ON
-					CommercePriceEntry.commercePriceListId = CommercePriceList.commercePriceListId
+				CommercePriceList ON
+					CommercePriceList.commercePriceListId = CommercePriceEntry.commercePriceListId
 			LEFT JOIN
 				CommercePriceListAccountRel ON
-					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+					CommercePriceListAccountRel.commercePriceListId = CommercePriceEntry.commercePriceListId
 			LEFT JOIN
 				CPLCommerceGroupAccountRel ON
-					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceEntry.commercePriceListId
 			LEFT JOIN
 				CommercePriceListChannelRel ON
-					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
+					CommercePriceListChannelRel.commercePriceListId = CommercePriceEntry.commercePriceListId
 			WHERE
 				(CommercePriceList.status = 0) AND
 				(CommercePriceList.type_ = ?) AND

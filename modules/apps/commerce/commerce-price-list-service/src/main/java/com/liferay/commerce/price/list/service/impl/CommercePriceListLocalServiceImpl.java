@@ -23,6 +23,7 @@ import com.liferay.commerce.price.list.exception.CommercePriceListExpirationDate
 import com.liferay.commerce.price.list.exception.CommercePriceListParentPriceListGroupIdException;
 import com.liferay.commerce.price.list.exception.DuplicateCommercePriceListException;
 import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
+import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.base.CommercePriceListLocalServiceBaseImpl;
 import com.liferay.commerce.pricing.service.CommercePriceModifierLocalService;
@@ -542,8 +543,9 @@ public class CommercePriceListLocalServiceImpl
 
 	@Override
 	public CommercePriceList getCommercePriceListByLowestPrice(
-		String type, String cPInstanceUuid, long commerceAccountId,
-		long[] commerceAccountGroupIds, long commerceChannelId) {
+			String type, String cPInstanceUuid, long commerceAccountId,
+			long[] commerceAccountGroupIds, long commerceChannelId)
+		throws PortalException {
 
 		QueryDefinition<CommercePriceList> queryDefinition =
 			new QueryDefinition<>();
@@ -555,14 +557,16 @@ public class CommercePriceListLocalServiceImpl
 		queryDefinition.setAttribute("cPInstanceUuid", cPInstanceUuid);
 		queryDefinition.setAttribute("type", type);
 
-		List<CommercePriceList> commercePriceLists =
+		List<CommercePriceEntry> commercePriceEntries =
 			commercePriceListFinder.findByLowestPrice(queryDefinition);
 
-		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+		if ((commercePriceEntries == null) || commercePriceEntries.isEmpty()) {
 			return null;
 		}
 
-		return commercePriceLists.get(0);
+		CommercePriceEntry lowestPriceEntry = commercePriceEntries.get(0);
+
+		return getCommercePriceList(lowestPriceEntry.getCommercePriceListId());
 	}
 
 	@Override
