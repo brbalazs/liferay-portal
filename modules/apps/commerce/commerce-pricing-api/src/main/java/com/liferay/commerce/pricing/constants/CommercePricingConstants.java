@@ -31,4 +31,6 @@ public class CommercePricingConstants {
 
 	public static final int TAX_INCLUDED_IN_FINAL_PRICE = 0;
 
+	public static final String SERVICE_NAME = "com.liferay.commerce.pricing.service.name";
+
 }

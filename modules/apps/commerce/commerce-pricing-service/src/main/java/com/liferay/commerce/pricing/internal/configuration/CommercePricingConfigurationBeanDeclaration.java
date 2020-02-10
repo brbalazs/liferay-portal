@@ -12,28 +12,22 @@
  * details.
  */
 
-package com.liferay.commerce.price;
+package com.liferay.commerce.pricing.internal.configuration;
 
-import aQute.bnd.annotation.ProviderType;
-
-import java.util.Map;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Riccardo Alberti
  */
-@ProviderType
-public interface CommercePriceCalculationRegistry {
+@Component(service = ConfigurationBeanDeclaration.class)
+public class CommercePricingConfigurationBeanDeclaration
+	implements ConfigurationBeanDeclaration {
 
-	public CommerceOrderPriceCalculation getCommerceOrderPriceCalculation(
-		String key);
-
-	public Map<String, CommerceOrderPriceCalculation>
-		getCommerceOrderPriceCalculations();
-
-	public CommerceProductPriceCalculation getCommerceProductPriceCalculation(
-		String key);
-
-	public Map<String, CommerceProductPriceCalculation>
-		getCommerceProductPriceCalculations();
+	@Override
+	public Class<?> getConfigurationBeanClass() {
+		return CommercePricingConfiguration.class;
+	}
 
 }
