@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.taglib.util.CustomAttributesUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -154,6 +155,29 @@ public class CPDefinitionSpecificationOptionValueDisplayContext
 			"screenNavigationCategoryKey", getScreenNavigationCategoryKey());
 
 		return portletURL;
+	}
+
+	public boolean hasCustomAttributesAvailable() throws Exception {
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		long cpDefinitionSpecificationOptionValueId = 0;
+
+		CPDefinitionSpecificationOptionValue
+			cpDefinitionSpecificationOptionValue =
+				getCPDefinitionSpecificationOptionValue();
+
+		if (cpDefinitionSpecificationOptionValue != null) {
+			cpDefinitionSpecificationOptionValueId =
+				cpDefinitionSpecificationOptionValue.
+					getCPDefinitionSpecificationOptionValueId();
+		}
+
+		return CustomAttributesUtil.hasCustomAttributes(
+			themeDisplay.getCompanyId(),
+			CPDefinitionSpecificationOptionValue.class.getName(),
+			cpDefinitionSpecificationOptionValueId, null);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
