@@ -128,6 +128,7 @@ if (forcePost && (portletURL != null)) {
 						icon="angle-left"
 						markupView="lexicon"
 						message="previous-page"
+						toolTip="false"
 					/>
 				</a>
 			</li>
@@ -324,6 +325,7 @@ if (forcePost && (portletURL != null)) {
 						icon="angle-right"
 						markupView="lexicon"
 						message="next-page"
+						toolTip="false"
 					/>
 				</a>
 			</li>
