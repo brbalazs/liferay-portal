@@ -73,7 +73,7 @@ public class CommerceCatalogDisplayContext {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		if (hasAddCatalogPermission()) {
-			clayCreationMenu.addClayCreationMenuItems(
+			clayCreationMenu.addClayCreationMenuItem(
 				new ClayCreationMenuItem(
 					getCreateCommerceCatalogActionURL(),
 					LanguageUtil.get(

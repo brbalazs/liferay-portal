@@ -95,7 +95,7 @@ public class CPInstanceDisplayContext extends BaseCPDefinitionsDisplayContext {
 	public ClayCreationMenu getClayCreationMenu() throws Exception {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
-		clayCreationMenu.addClayCreationMenuItems(
+		clayCreationMenu.addClayCreationMenuItem(
 			new ClayCreationMenuItem(
 				_getAddCPInstancePortletURL(),
 				LanguageUtil.get(cpRequestHelper.getRequest(), "add-sku"),

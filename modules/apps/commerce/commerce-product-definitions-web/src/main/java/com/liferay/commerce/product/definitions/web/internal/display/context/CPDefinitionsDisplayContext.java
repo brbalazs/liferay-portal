@@ -79,7 +79,7 @@ public class CPDefinitionsDisplayContext
 					renderURL.toString(),
 					cpType.getLabel(cpRequestHelper.getLocale()));
 
-			clayCreationMenu.addClayCreationMenuItems(clayCreationMenuItem);
+			clayCreationMenu.addClayCreationMenuItem(clayCreationMenuItem);
 		}
 
 		return clayCreationMenu;

@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.CustomAttributesUtil;
@@ -59,7 +58,7 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 	public ClayCreationMenu getClayCreationMenu() throws Exception {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
-		clayCreationMenu.addClayCreationMenuItems(
+		clayCreationMenu.addClayCreationMenuItem(
 			new ClayCreationMenuItem(
 				_getAddCommerceTierPriceEntryURL(),
 				LanguageUtil.get(httpServletRequest, "add-tier-price-entry"),
@@ -200,12 +199,8 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 	}
 
 	public boolean hasCustomAttributes() throws Exception {
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		return CustomAttributesUtil.hasCustomAttributes(
-			themeDisplay.getCompanyId(), CommerceTierPriceEntry.class.getName(),
+			cpRequestHelper.getCompanyId(), CommerceTierPriceEntry.class.getName(),
 			getCommerceTierPriceEntryId(), null);
 	}
 

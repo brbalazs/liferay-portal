@@ -69,7 +69,7 @@ public class CPInstanceCommercePriceEntryDisplayContext
 
 		CPInstance cpInstance = getCPInstance();
 
-		clayCreationMenu.addClayCreationMenuItems(
+		clayCreationMenu.addClayCreationMenuItem(
 			new ClayCreationMenuItem(
 				liferayPortletResponse.getNamespace() + "addCommercePriceEntry",
 				LanguageUtil.format(

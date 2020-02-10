@@ -26,19 +26,19 @@ public class ClayCreationMenu {
 		_clayCreationMenuItems = new ArrayList<>();
 	}
 
-	public void addClayCreationMenuItems(
+	public void addClayCreationMenuItem(
 		ClayCreationMenuItem clayCreationMenuItem) {
 
 		_clayCreationMenuItems.add(clayCreationMenuItem);
 	}
 
-	public void addClayCreationMenuItems(String url, String label) {
-		addClayCreationMenuItems(
+	public void addClayCreationMenuItem(String url, String label) {
+		addClayCreationMenuItem(
 			url, label,
 			ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_LINK);
 	}
 
-	public void addClayCreationMenuItems(
+	public void addClayCreationMenuItem(
 		String url, String label, String target) {
 
 		_clayCreationMenuItems.add(new ClayCreationMenuItem(url, label, target));
