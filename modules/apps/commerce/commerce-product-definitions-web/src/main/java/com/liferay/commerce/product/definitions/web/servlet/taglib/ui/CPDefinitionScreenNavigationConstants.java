@@ -19,13 +19,11 @@ package com.liferay.commerce.product.definitions.web.servlet.taglib.ui;
  */
 public class CPDefinitionScreenNavigationConstants {
 
-	public static final String CATEGORY_KEY_ATTACHMENTS = "attachments";
-
 	public static final String CATEGORY_KEY_CONFIGURATION = "configuration";
 
 	public static final String CATEGORY_KEY_DETAILS = "details";
 
-	public static final String CATEGORY_KEY_IMAGES = "images";
+	public static final String CATEGORY_KEY_MEDIA = "media";
 
 	public static final String CATEGORY_KEY_OPTIONS = "options";
 
