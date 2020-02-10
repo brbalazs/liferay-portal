@@ -32,16 +32,17 @@ import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalServiceUtil;
 import com.liferay.commerce.discount.service.CommerceDiscountRelLocalServiceUtil;
 import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
+import com.liferay.commerce.price.CommercePriceCalculationRegistry;
 import com.liferay.commerce.price.CommercePriceDiscovery;
 import com.liferay.commerce.price.CommercePriceValue;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
-import com.liferay.commerce.price.CommercePriceCalculationRegistry;
 import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
 import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
+import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalServiceUtil;
 import com.liferay.commerce.price.list.service.CommercePriceListAccountRelLocalService;
 import com.liferay.commerce.price.list.service.CommercePriceListChannelRelLocalService;
@@ -147,8 +148,6 @@ public class CommercePricingTest {
 		_updateProperties(
 			"commercePriceListDiscovery",
 			CommercePricingConstants.ORDER_BY_HIERARCHY);
-
-		_updateProperties("commercePricingCalculationKey", "v2.0");
 	}
 
 	@After
@@ -288,8 +287,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -337,8 +336,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -404,8 +403,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -480,8 +479,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -495,7 +494,6 @@ public class CommercePricingTest {
 			0, finalPrice.compareTo(BigDecimal.valueOf(121.2165)));
 	}
 
-	@Ignore
 	@Test
 	public void testDiscountInTierPriceEntryDiscoveryTrue() throws Exception {
 		CommerceCatalog catalog =
@@ -530,8 +528,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -578,8 +576,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -679,8 +677,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -746,8 +744,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -879,10 +877,12 @@ public class CommercePricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
+		BigDecimal value = BigDecimal.valueOf(8.0);
+
 		_addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceListEntryAccount.getCommercePriceListId(), "",
-			BigDecimal.valueOf(8.0));
+			commercePriceListEntryAccount.getCommercePriceListId(), "", value);
+
 		_addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			commercePriceListEntryChannel.getCommercePriceListId(), "",
@@ -894,9 +894,12 @@ public class CommercePricingTest {
 			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
 			_commerceChannel.getCommerceChannelId());
 
-		Assert.assertEquals(
-			commercePriceListChannel.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
+		CommercePriceEntry commercePriceEntry =
+			_commercePriceEntryLocalService.fetchCommercePriceEntry(
+				discoveredPriceList.getCommercePriceListId(),
+				cpInstance.getCPInstanceUuid());
+
+		Assert.assertEquals(0, value.compareTo(commercePriceEntry.getPrice()));
 	}
 
 	@Test
@@ -1080,8 +1083,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -1177,8 +1180,8 @@ public class CommercePricingTest {
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commercePriceCalculationRegistry.getCommerceProductPrice(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+			_commercePriceCalculationRegistry.
+				getCommerceProductPriceCalculation("v2.0");
 
 		CommerceProductPrice commerceProductPrice =
 			commerceProductPriceCalculation.getCommerceProductPrice(
@@ -1242,6 +1245,11 @@ public class CommercePricingTest {
 			commercePriceList.getCommercePriceListId(),
 			cpInstance.getCPInstanceId(), 1, _commerceCurrency,
 			commerceContext);
+	}
+
+	@Test
+	public void testGetOrderLevelDiscounts() throws Exception {
+
 	}
 
 	private static CommercePriceEntry _addCommercePriceEntry(
@@ -1480,7 +1488,7 @@ public class CommercePricingTest {
 			commerceContext);
 	}
 
-	private void _updateProperties(String key, Object value)
+	private void _updateProperties(String key, int value)
 		throws ConfigurationException {
 
 		Dictionary<String, Object> properties = new Hashtable<>();
@@ -1519,7 +1527,13 @@ public class CommercePricingTest {
 	private CommerceCurrency _commerceCurrency;
 
 	@Inject
+	private CommercePriceCalculationRegistry _commercePriceCalculationRegistry;
+
+	@Inject
 	private CommercePriceDiscovery _commercePriceDiscovery;
+
+	@Inject
+	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
 
 	@Inject
 	private CommercePriceListAccountRelLocalService
@@ -1558,10 +1572,6 @@ public class CommercePricingTest {
 		_commercePricingClassRelLocalService;
 
 	private CommercePricingConfiguration _commercePricingConfiguration;
-
-	@Inject
-	private CommercePriceCalculationRegistry
-		_commercePriceCalculationRegistry;
 
 	@Inject
 	private ConfigurationProvider _configurationProvider;
