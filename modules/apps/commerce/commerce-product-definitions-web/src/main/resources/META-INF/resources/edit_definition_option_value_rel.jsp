@@ -19,45 +19,56 @@
 <%
 CPDefinitionOptionValueRelDisplayContext cpDefinitionOptionValueRelDisplayContext = (CPDefinitionOptionValueRelDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-long cpDefinitionOptionRelId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionRelId();
-
-CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionValueRel();
-
-long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionValueRelId();
-
 long cpDefinitionId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionId();
+long cpDefinitionOptionRelId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionRelId();
+CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionValueRel();
+long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionValueRelId();
 %>
 
 <portlet:actionURL name="editProductDefinitionOptionValueRel" var="editProductDefinitionOptionValueRelActionURL" />
 
-<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" cssClass="container-fluid-1280" method="post" name="cpDefinitionOptionValueRelfm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpDefinitionOptionValueRel == null) ? Constants.ADD : Constants.UPDATE %>" />
-	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
-	<aui:input name="cpDefinitionOptionRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionRelId) %>" />
-	<aui:input name="cpDefinitionOptionValueRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionValueRelId) %>" />
+<commerce-ui:side-panel-content
+	title='<%= (cpDefinitionOptionValueRel == null) ? LanguageUtil.get(request, "add-value") : LanguageUtil.format(request, "edit-x", cpDefinitionOptionValueRel.getName(languageId), false) %>'
+>
+	<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
+		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpDefinitionOptionValueRel == null) ? Constants.ADD : Constants.UPDATE %>" />
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
+		<aui:input name="cpDefinitionOptionRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionRelId) %>" />
+		<aui:input name="cpDefinitionOptionValueRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionValueRelId) %>" />
 
-	<div class="lfr-form-content">
 		<aui:model-context bean="<%= cpDefinitionOptionValueRel %>" model="<%= CPDefinitionOptionValueRel.class %>" />
 
 		<liferay-ui:error exception="<%= CPDefinitionOptionValueRelKeyException.class %>" message="that-key-is-already-being-used" />
 
-		<aui:fieldset>
+		<commerce-ui:panel
+			title='<%= LanguageUtil.get(request, "details") %>'
+		>
 			<aui:input id="optionValueName" name="name" />
 
 			<aui:input name="priority" />
 
 			<aui:input helpMessage="key-help" name="key" />
+		</commerce-ui:panel>
 
-			<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
+		<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
+			<commerce-ui:panel
+				title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+			>
 				<liferay-expando:custom-attribute-list
 					className="<%= CPDefinitionOptionValueRel.class.getName() %>"
 					classPK="<%= (cpDefinitionOptionValueRel != null) ? cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId() : 0 %>"
 					editable="<%= true %>"
 					label="<%= true %>"
 				/>
-			</c:if>
-		</aui:fieldset>
+			</commerce-ui:panel>
+		</c:if>
+
+		<aui:button-row>
+			<aui:button cssClass="btn-lg" type="submit" value="save" />
+
+			<aui:button cssClass="btn-lg" type="cancel" />
+		</aui:button-row>
 
 		<c:if test="<%= cpDefinitionOptionValueRel == null %>">
 			<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
@@ -81,5 +92,5 @@ long cpDefinitionId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionId
 				nameInput.addEventListener('input', debounce(handleOnNameInput, 200));
 			</aui:script>
 		</c:if>
-	</div>
-</aui:form>
+	</aui:form>
+</commerce-ui:side-panel-content>
