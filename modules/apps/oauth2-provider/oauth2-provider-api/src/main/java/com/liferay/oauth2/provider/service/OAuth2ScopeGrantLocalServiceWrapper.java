@@ -456,6 +456,9 @@ public class OAuth2ScopeGrantLocalServiceWrapper
 		return _oAuth2ScopeGrantLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

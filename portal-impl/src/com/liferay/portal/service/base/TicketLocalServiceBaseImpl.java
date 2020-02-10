@@ -273,6 +273,9 @@ public abstract class TicketLocalServiceBaseImpl
 		return ticketLocalService.deleteTicket((Ticket)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

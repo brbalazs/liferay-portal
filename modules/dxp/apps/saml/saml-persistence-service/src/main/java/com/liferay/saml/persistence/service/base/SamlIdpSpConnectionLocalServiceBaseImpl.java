@@ -307,6 +307,9 @@ public abstract class SamlIdpSpConnectionLocalServiceBaseImpl
 			(SamlIdpSpConnection)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

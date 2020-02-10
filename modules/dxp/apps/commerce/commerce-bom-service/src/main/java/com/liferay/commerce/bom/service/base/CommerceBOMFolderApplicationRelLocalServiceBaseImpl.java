@@ -315,6 +315,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 				(CommerceBOMFolderApplicationRel)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

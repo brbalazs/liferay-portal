@@ -212,6 +212,9 @@ public interface PowwowMeetingLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getParticipantPowwowMeetingsCount(long userId, int[] statuses);
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

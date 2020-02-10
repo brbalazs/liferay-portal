@@ -283,6 +283,9 @@ public abstract class ResourceActionLocalServiceBaseImpl
 			(ResourceAction)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

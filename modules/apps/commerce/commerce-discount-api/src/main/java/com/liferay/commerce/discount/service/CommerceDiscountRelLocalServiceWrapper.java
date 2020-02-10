@@ -350,6 +350,9 @@ public class CommerceDiscountRelLocalServiceWrapper
 		return _commerceDiscountRelLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

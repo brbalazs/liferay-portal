@@ -441,6 +441,9 @@ public abstract class MBCategoryLocalServiceBaseImpl
 			(MBCategory)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

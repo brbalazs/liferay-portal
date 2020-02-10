@@ -285,6 +285,9 @@ public abstract class WeDeployAuthAppLocalServiceBaseImpl
 			(WeDeployAuthApp)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

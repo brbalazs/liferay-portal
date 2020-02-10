@@ -278,6 +278,9 @@ public abstract class TrashVersionLocalServiceBaseImpl
 			(TrashVersion)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

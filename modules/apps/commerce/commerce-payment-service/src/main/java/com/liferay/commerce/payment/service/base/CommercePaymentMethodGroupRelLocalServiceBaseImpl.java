@@ -312,6 +312,9 @@ public abstract class CommercePaymentMethodGroupRelLocalServiceBaseImpl
 				(CommercePaymentMethodGroupRel)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

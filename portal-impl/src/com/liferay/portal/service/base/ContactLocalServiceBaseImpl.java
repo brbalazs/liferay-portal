@@ -280,6 +280,9 @@ public abstract class ContactLocalServiceBaseImpl
 		return contactLocalService.deleteContact((Contact)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

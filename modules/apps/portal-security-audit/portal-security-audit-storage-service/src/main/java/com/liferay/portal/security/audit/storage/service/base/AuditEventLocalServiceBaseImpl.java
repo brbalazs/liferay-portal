@@ -280,6 +280,9 @@ public abstract class AuditEventLocalServiceBaseImpl
 			(AuditEvent)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

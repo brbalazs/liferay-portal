@@ -408,6 +408,9 @@ public abstract class DDMStructureLocalServiceBaseImpl
 			(DDMStructure)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -318,6 +318,9 @@ public abstract class CommerceInventoryBookedQuantityLocalServiceBaseImpl
 				(CommerceInventoryBookedQuantity)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

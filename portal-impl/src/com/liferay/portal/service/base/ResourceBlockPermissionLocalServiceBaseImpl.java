@@ -308,6 +308,9 @@ public abstract class ResourceBlockPermissionLocalServiceBaseImpl
 				(ResourceBlockPermission)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

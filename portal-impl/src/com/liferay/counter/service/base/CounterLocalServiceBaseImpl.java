@@ -230,6 +230,9 @@ public abstract class CounterLocalServiceBaseImpl
 		return counterLocalService.deleteCounter((Counter)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -417,6 +417,9 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 			(DLFileEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

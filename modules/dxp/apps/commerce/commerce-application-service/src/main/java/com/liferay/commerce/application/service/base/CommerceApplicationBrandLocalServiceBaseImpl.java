@@ -310,6 +310,9 @@ public abstract class CommerceApplicationBrandLocalServiceBaseImpl
 				(CommerceApplicationBrand)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

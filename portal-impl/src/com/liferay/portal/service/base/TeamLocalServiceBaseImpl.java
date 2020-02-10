@@ -366,6 +366,9 @@ public abstract class TeamLocalServiceBaseImpl
 		return teamLocalService.deleteTeam((Team)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

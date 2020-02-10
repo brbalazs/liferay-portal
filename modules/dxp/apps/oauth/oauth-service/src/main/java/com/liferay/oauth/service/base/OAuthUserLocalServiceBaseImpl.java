@@ -281,6 +281,9 @@ public abstract class OAuthUserLocalServiceBaseImpl
 		return oAuthUserLocalService.deleteOAuthUser((OAuthUser)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

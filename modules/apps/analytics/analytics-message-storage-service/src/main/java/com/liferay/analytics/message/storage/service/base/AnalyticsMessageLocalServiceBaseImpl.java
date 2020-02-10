@@ -297,6 +297,9 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 			(AnalyticsMessage)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
@@ -459,8 +462,8 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 			return (AnalyticsMessageBodyBlobModel)session.get(
 				AnalyticsMessageBodyBlobModel.class, primaryKey);
 		}
-		catch (Exception e) {
-			throw analyticsMessagePersistence.processException(e);
+		catch (Exception exception) {
+			throw analyticsMessagePersistence.processException(exception);
 		}
 		finally {
 			analyticsMessagePersistence.closeSession(session);
@@ -489,8 +492,8 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 
 			return inputStream;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 
@@ -552,8 +555,8 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

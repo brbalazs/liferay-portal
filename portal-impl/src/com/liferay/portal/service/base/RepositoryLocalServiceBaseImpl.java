@@ -406,6 +406,9 @@ public abstract class RepositoryLocalServiceBaseImpl
 			(Repository)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

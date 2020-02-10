@@ -280,6 +280,9 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 			(ClusterGroup)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

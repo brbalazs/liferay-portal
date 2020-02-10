@@ -411,6 +411,9 @@ public interface AssetEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public AssetEntry getParentEntry(long entryId) throws PortalException;
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

@@ -287,6 +287,9 @@ public abstract class ModuleLocalServiceBaseImpl
 		return moduleLocalService.deleteModule((Module)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

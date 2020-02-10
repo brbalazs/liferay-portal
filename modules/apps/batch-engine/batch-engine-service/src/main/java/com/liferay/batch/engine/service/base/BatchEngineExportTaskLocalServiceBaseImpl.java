@@ -398,6 +398,9 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 			(BatchEngineExportTask)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

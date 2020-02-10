@@ -242,6 +242,9 @@ public class SPIDefinitionLocalServiceWrapper
 		return _spiDefinitionLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

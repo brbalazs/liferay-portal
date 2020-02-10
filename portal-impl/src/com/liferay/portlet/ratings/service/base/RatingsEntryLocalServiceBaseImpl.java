@@ -399,6 +399,9 @@ public abstract class RatingsEntryLocalServiceBaseImpl
 			(RatingsEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

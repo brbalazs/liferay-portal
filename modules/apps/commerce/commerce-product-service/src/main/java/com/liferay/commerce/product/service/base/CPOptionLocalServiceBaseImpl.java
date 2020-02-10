@@ -402,6 +402,9 @@ public abstract class CPOptionLocalServiceBaseImpl
 		return cpOptionLocalService.deleteCPOption((CPOption)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

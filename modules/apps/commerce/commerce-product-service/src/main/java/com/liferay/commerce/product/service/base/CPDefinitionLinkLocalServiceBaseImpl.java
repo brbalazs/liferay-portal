@@ -401,6 +401,9 @@ public abstract class CPDefinitionLinkLocalServiceBaseImpl
 			(CPDefinitionLink)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

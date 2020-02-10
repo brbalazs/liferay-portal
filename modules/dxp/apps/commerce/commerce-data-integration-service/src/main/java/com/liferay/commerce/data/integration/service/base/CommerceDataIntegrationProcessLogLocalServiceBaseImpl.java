@@ -318,6 +318,9 @@ public abstract class CommerceDataIntegrationProcessLogLocalServiceBaseImpl
 				(CommerceDataIntegrationProcessLog)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

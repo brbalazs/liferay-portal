@@ -296,6 +296,9 @@ public abstract class KaleoTaskLocalServiceBaseImpl
 		return kaleoTaskLocalService.deleteKaleoTask((KaleoTask)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

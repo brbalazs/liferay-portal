@@ -428,6 +428,9 @@ public abstract class CPDefinitionVirtualSettingLocalServiceBaseImpl
 				(CPDefinitionVirtualSetting)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

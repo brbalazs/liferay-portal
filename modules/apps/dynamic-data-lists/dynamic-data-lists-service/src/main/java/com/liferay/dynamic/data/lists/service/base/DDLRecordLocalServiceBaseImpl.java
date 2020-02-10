@@ -369,6 +369,9 @@ public abstract class DDLRecordLocalServiceBaseImpl
 		return ddlRecordLocalService.deleteDDLRecord((DDLRecord)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -311,6 +311,9 @@ public abstract class JournalArticleResourceLocalServiceBaseImpl
 			(JournalArticleResource)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

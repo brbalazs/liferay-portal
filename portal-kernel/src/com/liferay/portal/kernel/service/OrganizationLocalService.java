@@ -583,6 +583,9 @@ public interface OrganizationLocalService
 	public List<Organization> getParentOrganizations(long organizationId)
 		throws PortalException;
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

@@ -377,6 +377,9 @@ public abstract class DefinitionLocalServiceBaseImpl
 			(Definition)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

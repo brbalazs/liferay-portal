@@ -356,6 +356,9 @@ public abstract class MBBanLocalServiceBaseImpl
 		return mbBanLocalService.deleteMBBan((MBBan)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

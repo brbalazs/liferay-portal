@@ -453,6 +453,9 @@ public abstract class KBArticleLocalServiceBaseImpl
 		return kbArticleLocalService.deleteKBArticle((KBArticle)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

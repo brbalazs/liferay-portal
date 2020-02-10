@@ -391,6 +391,9 @@ public abstract class CommerceRegionLocalServiceBaseImpl
 			(CommerceRegion)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

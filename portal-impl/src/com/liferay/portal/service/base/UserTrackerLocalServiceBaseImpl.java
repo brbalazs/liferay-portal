@@ -281,6 +281,9 @@ public abstract class UserTrackerLocalServiceBaseImpl
 			(UserTracker)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -390,6 +390,9 @@ public abstract class AddressLocalServiceBaseImpl
 		return addressLocalService.deleteAddress((Address)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

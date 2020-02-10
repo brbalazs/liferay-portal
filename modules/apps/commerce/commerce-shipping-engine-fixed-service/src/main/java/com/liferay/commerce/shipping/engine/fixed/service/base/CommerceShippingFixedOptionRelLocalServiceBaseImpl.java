@@ -311,6 +311,9 @@ public abstract class CommerceShippingFixedOptionRelLocalServiceBaseImpl
 				(CommerceShippingFixedOptionRel)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

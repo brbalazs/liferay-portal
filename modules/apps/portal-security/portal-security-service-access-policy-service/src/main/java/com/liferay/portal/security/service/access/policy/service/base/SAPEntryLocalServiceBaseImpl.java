@@ -365,6 +365,9 @@ public abstract class SAPEntryLocalServiceBaseImpl
 		return sapEntryLocalService.deleteSAPEntry((SAPEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

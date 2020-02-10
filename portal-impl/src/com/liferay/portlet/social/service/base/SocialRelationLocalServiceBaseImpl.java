@@ -296,6 +296,9 @@ public abstract class SocialRelationLocalServiceBaseImpl
 			(SocialRelation)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

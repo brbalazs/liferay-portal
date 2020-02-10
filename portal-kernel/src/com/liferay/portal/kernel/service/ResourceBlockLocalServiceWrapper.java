@@ -380,6 +380,9 @@ public class ResourceBlockLocalServiceWrapper
 		return _resourceBlockLocalService.getPermissions(resourceBlock, roleId);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

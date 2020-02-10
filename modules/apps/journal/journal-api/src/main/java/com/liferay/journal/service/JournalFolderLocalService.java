@@ -401,6 +401,9 @@ public interface JournalFolderLocalService
 	public long getOverridedDDMStructuresFolderId(long folderId)
 		throws NoSuchFolderException;
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

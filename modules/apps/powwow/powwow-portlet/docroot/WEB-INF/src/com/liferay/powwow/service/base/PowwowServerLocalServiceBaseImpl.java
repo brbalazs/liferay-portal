@@ -284,6 +284,9 @@ public abstract class PowwowServerLocalServiceBaseImpl
 			(PowwowServer)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

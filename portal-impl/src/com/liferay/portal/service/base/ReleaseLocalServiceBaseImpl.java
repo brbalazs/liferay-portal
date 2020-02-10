@@ -274,6 +274,9 @@ public abstract class ReleaseLocalServiceBaseImpl
 		return releaseLocalService.deleteRelease((Release)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

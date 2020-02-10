@@ -365,6 +365,9 @@ public abstract class PollsVoteLocalServiceBaseImpl
 		return pollsVoteLocalService.deletePollsVote((PollsVote)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

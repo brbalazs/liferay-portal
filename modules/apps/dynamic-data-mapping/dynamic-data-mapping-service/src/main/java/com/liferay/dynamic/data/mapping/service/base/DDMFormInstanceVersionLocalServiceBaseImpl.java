@@ -299,6 +299,9 @@ public abstract class DDMFormInstanceVersionLocalServiceBaseImpl
 			(DDMFormInstanceVersion)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -295,6 +295,9 @@ public abstract class KaleoLogLocalServiceBaseImpl
 		return kaleoLogLocalService.deleteKaleoLog((KaleoLog)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

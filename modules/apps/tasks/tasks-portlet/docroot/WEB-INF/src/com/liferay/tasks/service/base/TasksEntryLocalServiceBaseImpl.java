@@ -286,6 +286,9 @@ public abstract class TasksEntryLocalServiceBaseImpl
 			(TasksEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

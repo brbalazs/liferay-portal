@@ -280,6 +280,9 @@ public abstract class PortletLocalServiceBaseImpl
 		return portletLocalService.deletePortlet((Portlet)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

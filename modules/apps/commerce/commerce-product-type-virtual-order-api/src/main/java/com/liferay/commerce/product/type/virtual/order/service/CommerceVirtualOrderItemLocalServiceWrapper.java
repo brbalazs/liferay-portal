@@ -456,6 +456,9 @@ public class CommerceVirtualOrderItemLocalServiceWrapper
 		return _commerceVirtualOrderItemLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

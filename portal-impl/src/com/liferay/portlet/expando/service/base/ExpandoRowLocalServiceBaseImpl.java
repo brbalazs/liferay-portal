@@ -281,6 +281,9 @@ public abstract class ExpandoRowLocalServiceBaseImpl
 			(ExpandoRow)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

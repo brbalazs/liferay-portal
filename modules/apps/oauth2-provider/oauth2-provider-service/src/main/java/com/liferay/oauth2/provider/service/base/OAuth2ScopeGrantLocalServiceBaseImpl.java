@@ -289,6 +289,9 @@ public abstract class OAuth2ScopeGrantLocalServiceBaseImpl
 			(OAuth2ScopeGrant)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

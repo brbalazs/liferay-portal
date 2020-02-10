@@ -275,6 +275,9 @@ public abstract class ListTypeLocalServiceBaseImpl
 		return listTypeLocalService.deleteListType((ListType)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -498,6 +498,9 @@ public class OAuth2AuthorizationLocalServiceWrapper
 		return _oAuth2AuthorizationLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

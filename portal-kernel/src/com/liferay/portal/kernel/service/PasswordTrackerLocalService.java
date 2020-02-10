@@ -222,6 +222,9 @@ public interface PasswordTrackerLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getPasswordTrackersCount();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

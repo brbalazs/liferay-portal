@@ -419,6 +419,9 @@ public abstract class CPInstanceOptionValueRelLocalServiceBaseImpl
 				(CPInstanceOptionValueRel)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

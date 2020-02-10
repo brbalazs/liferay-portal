@@ -298,6 +298,9 @@ public abstract class CompanyLocalServiceBaseImpl
 		return companyLocalService.deleteCompany((Company)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

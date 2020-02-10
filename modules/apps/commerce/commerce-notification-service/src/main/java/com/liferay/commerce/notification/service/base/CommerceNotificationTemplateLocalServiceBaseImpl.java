@@ -407,6 +407,9 @@ public abstract class CommerceNotificationTemplateLocalServiceBaseImpl
 				(CommerceNotificationTemplate)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

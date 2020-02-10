@@ -408,6 +408,9 @@ public abstract class UserLocalServiceBaseImpl
 		return userLocalService.deleteUser((User)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

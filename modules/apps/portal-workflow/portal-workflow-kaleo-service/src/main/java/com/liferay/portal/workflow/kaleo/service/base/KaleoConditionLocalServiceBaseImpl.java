@@ -301,6 +301,9 @@ public abstract class KaleoConditionLocalServiceBaseImpl
 			(KaleoCondition)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

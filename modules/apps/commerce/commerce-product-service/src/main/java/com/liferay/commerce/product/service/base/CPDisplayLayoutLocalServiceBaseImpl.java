@@ -421,6 +421,9 @@ public abstract class CPDisplayLayoutLocalServiceBaseImpl
 			(CPDisplayLayout)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

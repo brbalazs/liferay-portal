@@ -277,6 +277,9 @@ public abstract class StatusLocalServiceBaseImpl
 		return statusLocalService.deleteStatus((Status)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -305,6 +305,9 @@ public class SiteFriendlyURLLocalServiceWrapper
 		return _siteFriendlyURLLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

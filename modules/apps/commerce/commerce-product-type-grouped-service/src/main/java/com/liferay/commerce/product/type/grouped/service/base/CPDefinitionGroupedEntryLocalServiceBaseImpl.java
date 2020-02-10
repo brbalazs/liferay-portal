@@ -396,6 +396,9 @@ public abstract class CPDefinitionGroupedEntryLocalServiceBaseImpl
 				(CPDefinitionGroupedEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

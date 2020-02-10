@@ -978,6 +978,9 @@ public interface GroupLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Group> getParentGroups(long groupId) throws PortalException;
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

@@ -400,6 +400,9 @@ public abstract class RoleLocalServiceBaseImpl
 		return roleLocalService.deleteRole((Role)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

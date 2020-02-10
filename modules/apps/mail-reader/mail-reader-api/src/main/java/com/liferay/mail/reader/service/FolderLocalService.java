@@ -240,6 +240,9 @@ public interface FolderLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getPercentDownloaded(long folderId) throws PortalException;
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

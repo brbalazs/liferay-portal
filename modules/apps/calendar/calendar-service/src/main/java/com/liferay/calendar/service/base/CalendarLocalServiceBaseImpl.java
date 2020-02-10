@@ -371,6 +371,9 @@ public abstract class CalendarLocalServiceBaseImpl
 		return calendarLocalService.deleteCalendar((Calendar)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

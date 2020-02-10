@@ -409,6 +409,9 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 			(CommercePriceEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

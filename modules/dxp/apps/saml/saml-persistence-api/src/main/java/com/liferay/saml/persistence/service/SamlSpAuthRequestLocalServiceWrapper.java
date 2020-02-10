@@ -255,6 +255,9 @@ public class SamlSpAuthRequestLocalServiceWrapper
 		return _samlSpAuthRequestLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

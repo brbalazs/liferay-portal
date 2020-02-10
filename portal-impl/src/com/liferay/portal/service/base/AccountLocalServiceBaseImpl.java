@@ -274,6 +274,9 @@ public abstract class AccountLocalServiceBaseImpl
 		return accountLocalService.deleteAccount((Account)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

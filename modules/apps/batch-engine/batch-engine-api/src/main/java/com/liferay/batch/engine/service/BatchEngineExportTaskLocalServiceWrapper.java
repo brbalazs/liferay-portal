@@ -351,6 +351,9 @@ public class BatchEngineExportTaskLocalServiceWrapper
 		return _batchEngineExportTaskLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

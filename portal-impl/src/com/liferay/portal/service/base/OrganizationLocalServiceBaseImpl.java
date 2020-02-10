@@ -410,6 +410,9 @@ public abstract class OrganizationLocalServiceBaseImpl
 			(Organization)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

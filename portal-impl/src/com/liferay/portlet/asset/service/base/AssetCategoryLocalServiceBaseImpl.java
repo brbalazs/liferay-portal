@@ -391,6 +391,9 @@ public abstract class AssetCategoryLocalServiceBaseImpl
 			(AssetCategory)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

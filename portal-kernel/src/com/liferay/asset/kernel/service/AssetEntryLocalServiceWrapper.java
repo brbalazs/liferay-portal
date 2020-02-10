@@ -671,6 +671,9 @@ public class AssetEntryLocalServiceWrapper
 		return _assetEntryLocalService.getParentEntry(entryId);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

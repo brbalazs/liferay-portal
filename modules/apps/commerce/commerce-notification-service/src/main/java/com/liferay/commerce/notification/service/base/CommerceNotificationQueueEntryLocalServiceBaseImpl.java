@@ -312,6 +312,9 @@ public abstract class CommerceNotificationQueueEntryLocalServiceBaseImpl
 				(CommerceNotificationQueueEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

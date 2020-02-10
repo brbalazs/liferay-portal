@@ -306,6 +306,9 @@ public abstract class PushNotificationsDeviceLocalServiceBaseImpl
 				(PushNotificationsDevice)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -281,6 +281,9 @@ public abstract class OAuthTokenLocalServiceBaseImpl
 			(OAuthToken)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

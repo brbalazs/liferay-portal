@@ -389,6 +389,9 @@ public abstract class LayoutLocalServiceBaseImpl
 		return layoutLocalService.deleteLayout((Layout)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

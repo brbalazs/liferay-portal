@@ -479,6 +479,9 @@ public interface SocialActivityCounterLocalService
 	public List<SocialActivityCounter> getPeriodDistributionActivityCounters(
 		long groupId, String name, int startPeriod, int endPeriod);
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

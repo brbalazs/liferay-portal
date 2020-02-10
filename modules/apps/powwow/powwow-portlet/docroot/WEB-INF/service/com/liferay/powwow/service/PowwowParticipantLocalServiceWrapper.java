@@ -255,6 +255,9 @@ public class PowwowParticipantLocalServiceWrapper
 		return _powwowParticipantLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

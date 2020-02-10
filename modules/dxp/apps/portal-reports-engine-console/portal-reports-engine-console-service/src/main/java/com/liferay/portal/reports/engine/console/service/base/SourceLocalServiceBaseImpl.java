@@ -367,6 +367,9 @@ public abstract class SourceLocalServiceBaseImpl
 		return sourceLocalService.deleteSource((Source)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

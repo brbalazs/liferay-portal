@@ -361,6 +361,9 @@ public abstract class GadgetLocalServiceBaseImpl
 		return gadgetLocalService.deleteGadget((Gadget)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -438,6 +438,9 @@ public class CommerceWishListLocalServiceWrapper
 		return _commerceWishListLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

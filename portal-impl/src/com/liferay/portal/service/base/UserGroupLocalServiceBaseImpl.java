@@ -391,6 +391,9 @@ public abstract class UserGroupLocalServiceBaseImpl
 		return userGroupLocalService.deleteUserGroup((UserGroup)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

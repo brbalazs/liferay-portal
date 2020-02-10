@@ -297,6 +297,9 @@ public abstract class RecentLayoutBranchLocalServiceBaseImpl
 			(RecentLayoutBranch)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -440,6 +440,9 @@ public class CommerceTierPriceEntryLocalServiceWrapper
 		return _commerceTierPriceEntryLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

@@ -414,6 +414,9 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 			(CalendarResource)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

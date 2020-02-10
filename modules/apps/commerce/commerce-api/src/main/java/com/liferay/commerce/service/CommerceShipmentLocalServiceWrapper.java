@@ -337,6 +337,9 @@ public class CommerceShipmentLocalServiceWrapper
 		return _commerceShipmentLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

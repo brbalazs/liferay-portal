@@ -284,6 +284,9 @@ public abstract class LockLocalServiceBaseImpl
 		return lockLocalService.deleteLock((Lock)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

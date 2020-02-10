@@ -309,6 +309,9 @@ public abstract class OAuth2ApplicationScopeAliasesLocalServiceBaseImpl
 				(OAuth2ApplicationScopeAliases)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

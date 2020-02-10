@@ -377,6 +377,9 @@ public abstract class KaleoProcessLocalServiceBaseImpl
 			(KaleoProcess)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

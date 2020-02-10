@@ -320,6 +320,9 @@ public abstract class CommerceShipmentItemLocalServiceBaseImpl
 			(CommerceShipmentItem)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

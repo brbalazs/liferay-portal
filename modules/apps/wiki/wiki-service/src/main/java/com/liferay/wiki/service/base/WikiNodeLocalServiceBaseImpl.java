@@ -432,6 +432,9 @@ public abstract class WikiNodeLocalServiceBaseImpl
 		return wikiNodeLocalService.deleteWikiNode((WikiNode)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

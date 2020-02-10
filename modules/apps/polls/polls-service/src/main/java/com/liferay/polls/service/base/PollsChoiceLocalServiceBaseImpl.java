@@ -367,6 +367,9 @@ public abstract class PollsChoiceLocalServiceBaseImpl
 			(PollsChoice)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

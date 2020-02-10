@@ -399,6 +399,9 @@ public abstract class CProductLocalServiceBaseImpl
 		return cProductLocalService.deleteCProduct((CProduct)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -285,6 +285,9 @@ public abstract class BackgroundTaskLocalServiceBaseImpl
 			(BackgroundTask)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

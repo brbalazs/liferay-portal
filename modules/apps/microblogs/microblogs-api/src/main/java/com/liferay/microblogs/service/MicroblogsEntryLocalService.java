@@ -379,6 +379,9 @@ public interface MicroblogsEntryLocalService
 	public int getParentMicroblogsEntryMicroblogsEntriesCount(
 		int type, long parentMicroblogsEntryId);
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

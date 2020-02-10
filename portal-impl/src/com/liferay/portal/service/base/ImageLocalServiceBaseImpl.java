@@ -271,6 +271,9 @@ public abstract class ImageLocalServiceBaseImpl
 		return imageLocalService.deleteImage((Image)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
