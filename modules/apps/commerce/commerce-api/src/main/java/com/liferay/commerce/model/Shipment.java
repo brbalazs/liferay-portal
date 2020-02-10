@@ -23,15 +23,20 @@ import com.liferay.commerce.frontend.model.LabelField;
 public class Shipment {
 
 	public Shipment(
-		long shipmentId, String panelUrl, String address, String createDate,
-		LabelField statusLabelField, String tracking) {
+		long shipmentId, String panelUrl, String accountName, String address,
+		String createDate, LabelField statusLabelField, String tracking) {
 
 		_shipmentId = shipmentId;
 		_panelUrl = panelUrl;
+		_accountName = accountName;
 		_address = address;
 		_createDate = createDate;
 		_statusLabelField = statusLabelField;
 		_tracking = tracking;
+	}
+
+	public String getAccountName() {
+		return _accountName;
 	}
 
 	public String getAddress() {
@@ -58,6 +63,7 @@ public class Shipment {
 		return _tracking;
 	}
 
+	private final String _accountName;
 	private final String _address;
 	private final String _createDate;
 	private final String _panelUrl;
