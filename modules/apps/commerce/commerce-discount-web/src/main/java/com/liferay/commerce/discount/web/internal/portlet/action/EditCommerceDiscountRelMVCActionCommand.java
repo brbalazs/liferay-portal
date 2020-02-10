@@ -78,7 +78,7 @@ public class EditCommerceDiscountRelMVCActionCommand
 		else {
 			classPKs = ListUtil.toList(
 				StringUtil.split(
-					ParamUtil.getString(actionRequest, "classPKs"), 0L));
+					ParamUtil.getString(actionRequest, "addClassPKs"), 0L));
 		}
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
