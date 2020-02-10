@@ -23,9 +23,9 @@ CPAttachmentFileEntry cpAttachmentFileEntry = cpAttachmentFileEntriesDisplayCont
 long cpAttachmentFileEntryId = cpAttachmentFileEntriesDisplayContext.getCPAttachmentFileEntryId();
 long cpDefinitionId = cpAttachmentFileEntriesDisplayContext.getCPDefinitionId();
 
-int type = CPAttachmentFileEntryConstants.TYPE_IMAGE;
+int type = CPAttachmentFileEntryConstants.TYPE_OTHER;
 
-String title = (cpAttachmentFileEntry == null) ? LanguageUtil.get(request, "add-image") : LanguageUtil.format(request, "id-x", String.valueOf(cpAttachmentFileEntry.getCPAttachmentFileEntryId()), false);
+String title = (cpAttachmentFileEntry == null) ? LanguageUtil.get(request, "add-attachment") : LanguageUtil.format(request, "id-x", String.valueOf(cpAttachmentFileEntry.getCPAttachmentFileEntryId()), false);
 %>
 
 <%@ include file="/edit_attachment_file_entry.jspf" %>
