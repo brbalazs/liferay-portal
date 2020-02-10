@@ -57,9 +57,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import java.util.Map;
-import java.util.Optional;
 
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.osgi.service.component.annotations.Component;
@@ -151,8 +149,7 @@ public class BlogPostingResourceImpl
 
 		LocalDateTime localDateTime = LocalDateTimeUtil.toLocalDateTime(
 			blogPosting.getDatePublished());
-		Optional<Image> imageOptional = Optional.ofNullable(
-			blogPosting.getImage());
+		Image image = blogPosting.getImage();
 
 		return _toBlogPosting(
 			_blogsEntryService.addEntry(
@@ -161,18 +158,7 @@ public class BlogPostingResourceImpl
 				blogPosting.getArticleBody(), localDateTime.getMonthValue() - 1,
 				localDateTime.getDayOfMonth(), localDateTime.getYear(),
 				localDateTime.getHour(), localDateTime.getMinute(), true, true,
-				new String[0],
-				imageOptional.map(
-					Image::getCaption
-				).orElse(
-					null
-				),
-				_getImageSelector(
-					imageOptional.map(
-						Image::getImageId
-					).orElse(
-						null
-					)),
+				new String[0], _getCaption(image), _getImageSelector(image),
 				null,
 				ServiceContextUtil.createServiceContext(
 					blogPosting.getTaxonomyCategoryIds(),
@@ -188,8 +174,7 @@ public class BlogPostingResourceImpl
 
 		LocalDateTime localDateTime = LocalDateTimeUtil.toLocalDateTime(
 			blogPosting.getDatePublished());
-		Optional<Image> imageOptional = Optional.ofNullable(
-			blogPosting.getImage());
+		Image image = blogPosting.getImage();
 		BlogsEntry blogsEntry = _blogsEntryService.getEntry(blogPostingId);
 
 		return _toBlogPosting(
@@ -200,18 +185,7 @@ public class BlogPostingResourceImpl
 				blogPosting.getArticleBody(), localDateTime.getMonthValue() - 1,
 				localDateTime.getDayOfMonth(), localDateTime.getYear(),
 				localDateTime.getHour(), localDateTime.getMinute(), true, true,
-				new String[0],
-				imageOptional.map(
-					Image::getCaption
-				).orElse(
-					null
-				),
-				_getImageSelector(
-					imageOptional.map(
-						Image::getImageId
-					).orElse(
-						null
-					)),
+				new String[0], _getCaption(image), _getImageSelector(image),
 				null,
 				ServiceContextUtil.createServiceContext(
 					blogPosting.getTaxonomyCategoryIds(),
@@ -282,6 +256,14 @@ public class BlogPostingResourceImpl
 		).build();
 	}
 
+	private String _getCaption(Image image) {
+		if (image == null) {
+			return null;
+		}
+
+		return image.getCaption();
+	}
+
 	private Map<String, Serializable> _getExpandoBridgeAttributes(
 		BlogPosting blogPosting) {
 
@@ -291,22 +273,23 @@ public class BlogPostingResourceImpl
 			contextAcceptLanguage.getPreferredLocale());
 	}
 
-	private ImageSelector _getImageSelector(Long imageId) {
-		if ((imageId == null) || (imageId == 0)) {
+	private ImageSelector _getImageSelector(Image image) {
+		if ((image == null) || (image.getImageId() == 0)) {
 			return new ImageSelector();
 		}
 
 		try {
-			FileEntry fileEntry = _dlAppService.getFileEntry(imageId);
+			FileEntry fileEntry = _dlAppService.getFileEntry(
+				image.getImageId());
 
 			return new ImageSelector(
 				FileUtil.getBytes(fileEntry.getContentStream()),
 				fileEntry.getFileName(), fileEntry.getMimeType(),
 				"{\"height\": 0, \"width\": 0, \"x\": 0, \"y\": 0}");
 		}
-		catch (Exception e) {
-			throw new BadRequestException(
-				"Unable to get file entry " + imageId, e);
+		catch (Exception exception) {
+			throw new RuntimeException(
+				"Unable to get file entry " + image.getImageId(), exception);
 		}
 	}
 
