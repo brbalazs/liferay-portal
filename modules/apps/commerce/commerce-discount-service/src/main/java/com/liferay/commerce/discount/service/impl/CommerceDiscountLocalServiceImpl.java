@@ -612,7 +612,7 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setStatusDate(serviceContext.getModifiedDate(now));
 		commerceDiscount.setExpandoBridgeAttributes(serviceContext);
 
-		commerceDiscountPersistence.update(commerceDiscount);
+		commerceDiscount = commerceDiscountPersistence.update(commerceDiscount);
 
 		return startWorkflowInstance(
 			user.getUserId(), commerceDiscount, serviceContext);

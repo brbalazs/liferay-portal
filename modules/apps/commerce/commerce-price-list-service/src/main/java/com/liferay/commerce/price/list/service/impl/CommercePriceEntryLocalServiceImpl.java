@@ -208,7 +208,8 @@ public class CommercePriceEntryLocalServiceImpl
 		commercePriceEntry.setStatusByUserId(user.getUserId());
 		commercePriceEntry.setStatusDate(serviceContext.getModifiedDate(now));
 
-		commercePriceEntryPersistence.update(commercePriceEntry);
+		commercePriceEntry = commercePriceEntryPersistence.update(
+			commercePriceEntry);
 
 		commercePriceEntry = startWorkflowInstance(
 			user.getUserId(), commercePriceEntry, serviceContext);
@@ -664,7 +665,8 @@ public class CommercePriceEntryLocalServiceImpl
 		commercePriceEntry.setStatusByUserId(user.getUserId());
 		commercePriceEntry.setStatusDate(serviceContext.getModifiedDate(now));
 
-		commercePriceEntryPersistence.update(commercePriceEntry);
+		commercePriceEntry = commercePriceEntryPersistence.update(
+			commercePriceEntry);
 
 		commercePriceEntry = startWorkflowInstance(
 			user.getUserId(), commercePriceEntry, serviceContext);
@@ -766,7 +768,8 @@ public class CommercePriceEntryLocalServiceImpl
 		commercePriceEntry.setStatusByUserName(user.getFullName());
 		commercePriceEntry.setStatusDate(modifiedDate);
 
-		commercePriceEntryPersistence.update(commercePriceEntry);
+		commercePriceEntry = commercePriceEntryPersistence.update(
+			commercePriceEntry);
 
 		return commercePriceEntry;
 	}

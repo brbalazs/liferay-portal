@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-	CommercePricingClassItemSelectorViewDisplayContext commercePricingClassItemSelectorViewDisplayContext = (CommercePricingClassItemSelectorViewDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommercePricingClassItemSelectorViewDisplayContext commercePricingClassItemSelectorViewDisplayContext = (CommercePricingClassItemSelectorViewDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 String itemSelectedEventName = commercePricingClassItemSelectorViewDisplayContext.getItemSelectedEventName();
 
@@ -101,7 +101,7 @@ PortletURL portletURL = commercePricingClassItemSelectorViewDisplayContext.getPo
 
 <aui:script use="liferay-search-container">
 	var commercePricingClassSelectorWrapper = A.one(
-		"#<portlet:namespace />commercePricingClassSelectorWrapper"
+		'#<portlet:namespace />commercePricingClassSelectorWrapper'
 	);
 
 	var searchContainer = Liferay.SearchContainer.get(

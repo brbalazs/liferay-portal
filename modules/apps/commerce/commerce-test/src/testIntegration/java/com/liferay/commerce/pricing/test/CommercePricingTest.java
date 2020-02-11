@@ -591,6 +591,10 @@ public class CommercePricingTest {
 	}
 
 	@Test
+	public void testGetOrderLevelDiscounts() throws Exception {
+	}
+
+	@Test
 	public void testPriceModifiersOnPricingClass() throws Exception {
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
@@ -1245,11 +1249,6 @@ public class CommercePricingTest {
 			commercePriceList.getCommercePriceListId(),
 			cpInstance.getCPInstanceId(), 1, _commerceCurrency,
 			commerceContext);
-	}
-
-	@Test
-	public void testGetOrderLevelDiscounts() throws Exception {
-
 	}
 
 	private static CommercePriceEntry _addCommercePriceEntry(

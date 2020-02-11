@@ -152,7 +152,8 @@ public class CommercePriceModifierLocalServiceImpl
 			serviceContext.getModifiedDate(now));
 		commercePriceModifier.setExpandoBridgeAttributes(serviceContext);
 
-		commercePriceModifierPersistence.update(commercePriceModifier);
+		commercePriceModifier = commercePriceModifierPersistence.update(
+			commercePriceModifier);
 
 		// Workflow
 
@@ -331,7 +332,8 @@ public class CommercePriceModifierLocalServiceImpl
 			serviceContext.getModifiedDate(now));
 		commercePriceModifier.setExpandoBridgeAttributes(serviceContext);
 
-		commercePriceModifierPersistence.update(commercePriceModifier);
+		commercePriceModifier = commercePriceModifierPersistence.update(
+			commercePriceModifier);
 
 		return startWorkflowInstance(
 			user.getUserId(), commercePriceModifier, serviceContext);
@@ -376,7 +378,8 @@ public class CommercePriceModifierLocalServiceImpl
 		commercePriceModifier.setStatusDate(
 			serviceContext.getModifiedDate(now));
 
-		commercePriceModifierPersistence.update(commercePriceModifier);
+		commercePriceModifier = commercePriceModifierPersistence.update(
+			commercePriceModifier);
 
 		return commercePriceModifier;
 	}

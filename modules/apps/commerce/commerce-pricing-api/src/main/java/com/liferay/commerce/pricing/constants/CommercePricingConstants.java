@@ -27,10 +27,11 @@ public class CommercePricingConstants {
 
 	public static final int ORDER_BY_LOWEST_ENTRY = 1;
 
+	public static final String SERVICE_NAME =
+		"com.liferay.commerce.pricing.service.name";
+
 	public static final int TAX_EXCLUDED_FROM_FINAL_PRICE = 1;
 
 	public static final int TAX_INCLUDED_IN_FINAL_PRICE = 0;
-
-	public static final String SERVICE_NAME = "com.liferay.commerce.pricing.service.name";
 
 }
