@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.SystemEventConstants;
@@ -48,10 +49,12 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -264,6 +267,68 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		long cpDefinitionId, String key) {
 
 		return cpDefinitionOptionRelPersistence.fetchByC_K(cpDefinitionId, key);
+	}
+
+	@Override
+	public Map<Long, List<Long>>
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				long cpDefinitionId, String json)
+		throws PortalException {
+
+		if (Validator.isNull(json)) {
+			return Collections.emptyMap();
+		}
+
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds =
+				new HashMap<>();
+
+		JSONArray jsonArray = _jsonFactory.createJSONArray(json);
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+			CPDefinitionOptionRel cpDefinitionOptionRel =
+				cpDefinitionOptionRelLocalService.
+					fetchCPDefinitionOptionRelByKey(
+						cpDefinitionId, jsonObject.getString("key"));
+
+			if (cpDefinitionOptionRel == null) {
+				continue;
+			}
+
+			JSONArray valueJSONArray = jsonObject.getJSONArray("value");
+
+			for (int j = 0; j < valueJSONArray.length(); j++) {
+				CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+					cpDefinitionOptionValueRelLocalService.
+						fetchCPDefinitionOptionValueRel(
+							cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+							valueJSONArray.getString(j));
+
+				if (cpDefinitionOptionValueRel == null) {
+					continue;
+				}
+
+				List<Long> cpDefinitionOptionValueRelIds =
+					cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.get(
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId());
+
+				if (cpDefinitionOptionValueRelIds == null) {
+					cpDefinitionOptionValueRelIds = new ArrayList<>();
+
+					cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.put(
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+						cpDefinitionOptionValueRelIds);
+				}
+
+				cpDefinitionOptionValueRelIds.add(
+					cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId());
+			}
+		}
+
+		return cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds;
 	}
 
 	@Override
@@ -602,5 +667,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 	private static final String[] _SELECTED_FIELD_NAMES = {
 		Field.ENTRY_CLASS_PK, Field.COMPANY_ID, Field.GROUP_ID, Field.UID
 	};
+
+	@ServiceReference(type = JSONFactory.class)
+	private JSONFactory _jsonFactory;
 
 }
