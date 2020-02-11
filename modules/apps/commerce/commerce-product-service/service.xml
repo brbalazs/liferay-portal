@@ -705,7 +705,6 @@
 		<column name="gtin" type="String" />
 		<column name="manufacturerPartNumber" type="String" />
 		<column name="purchasable" type="boolean" />
-		<column name="json" type="String" />
 		<column name="width" type="double" />
 		<column name="height" type="double" />
 		<column name="depth" type="double" />
