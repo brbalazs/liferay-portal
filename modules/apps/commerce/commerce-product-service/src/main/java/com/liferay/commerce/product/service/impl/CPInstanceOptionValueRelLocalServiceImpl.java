@@ -14,14 +14,10 @@
 
 package com.liferay.commerce.product.service.impl;
 
-import com.liferay.commerce.product.model.CPDefinitionOptionRel;
-import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.service.base.CPInstanceOptionValueRelLocalServiceBaseImpl;
-import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Date;
 import java.util.List;
@@ -140,33 +136,28 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 			long cpInstanceId, String json)
 		throws PortalException {
 
-		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelsMap =
-				_cpInstanceHelper.getCPDefinitionOptionRelsMap(
-					cpDefinitionId, json);
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRelIds =
+				cpDefinitionOptionRelLocalService.
+					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+						cpDefinitionId, json);
 
-		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels :
-					cpDefinitionOptionRelsMap.entrySet()) {
+		for (Long cpDefinitionOptionRelId :
+				cpDefinitionOptionRelCPDefinitionOptionValueRelIds.keySet()) {
 
-			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-				cpDefinitionOptionRelCPDefinitionOptionValueRels.getValue();
+			List<Long> cpDefinitionOptionValueRelIds =
+				cpDefinitionOptionRelCPDefinitionOptionValueRelIds.get(
+					cpDefinitionOptionRelId);
 
-			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-					cpDefinitionOptionValueRels) {
+			for (Long cpDefinitionOptionValueRelId :
+					cpDefinitionOptionValueRelIds) {
 
 				cpInstanceOptionValueRelLocalService.
 					addCPInstanceOptionValueRel(
-						groupId, companyId, userId,
-						cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
-						cpDefinitionOptionValueRel.
-							getCPDefinitionOptionValueRelId(),
-						cpInstanceId);
+						groupId, companyId, userId, cpDefinitionOptionRelId,
+						cpDefinitionOptionValueRelId, cpInstanceId);
 			}
 		}
 	}
-
-	@ServiceReference(type = CPInstanceHelper.class)
-	private CPInstanceHelper _cpInstanceHelper;
 
 }
