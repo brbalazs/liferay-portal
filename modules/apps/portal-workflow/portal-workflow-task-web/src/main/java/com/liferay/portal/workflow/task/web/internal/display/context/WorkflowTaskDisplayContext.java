@@ -375,6 +375,7 @@ public class WorkflowTaskDisplayContext {
 
 		PortletURL portletURL = response.createRenderURL();
 
+		portletURL.setParameter("navigation", _getNavigation());
 		portletURL.setParameter("tabs1", _getTabs1());
 		portletURL.setParameter("orderByCol", _getOrderByCol());
 
