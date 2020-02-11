@@ -12,14 +12,14 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.frontend;
+package com.liferay.commerce.shipment.web.internal.frontend;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.model.Shipment;
+import com.liferay.commerce.model.ShipmentItem;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -42,14 +42,14 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Alec Sloan
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS,
+	property = "commerce.data.provider.key=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS,
 	service = ClayDataSetActionProvider.class
 )
-public class CommerceShipmentDataSetActionProvider
+public class CommerceShipmentItemDataSetActionProvider
 	implements ClayDataSetActionProvider {
 
 	@Override
@@ -59,7 +59,7 @@ public class CommerceShipmentDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
-		Shipment shipment = (Shipment)model;
+		ShipmentItem shipmentItem = (ShipmentItem)model;
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -69,37 +69,28 @@ public class CommerceShipmentDataSetActionProvider
 				themeDisplay.getPermissionChecker(),
 				CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS)) {
 
-			PortletURL deleteURL = _getShipmentDeleteURL(
-				shipment.getShipmentId(), httpServletRequest);
+			PortletURL deletePortletURL = _portal.getControlPanelPortletURL(
+				httpServletRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
+				PortletRequest.ACTION_PHASE);
 
-			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"),
-				StringPool.BLANK, false, false);
+			deletePortletURL.setParameter(
+				ActionRequest.ACTION_NAME, "editCommerceShipmentItem");
+			deletePortletURL.setParameter(Constants.CMD, Constants.DELETE);
+			deletePortletURL.setParameter(
+				"redirect", _portal.getCurrentURL(httpServletRequest));
+			deletePortletURL.setParameter(
+				"commerceShipmentItemId",
+				String.valueOf(shipmentItem.getShipmentItemId()));
 
-			clayDataSetActions.add(deleteClayDataSetAction);
+			clayDataSetActions.add(
+				new ClayDataSetAction(
+					StringPool.BLANK, deletePortletURL.toString(),
+					StringPool.BLANK,
+					LanguageUtil.get(httpServletRequest, "delete"),
+					StringPool.BLANK, false, false));
 		}
 
 		return clayDataSetActions;
-	}
-
-	private PortletURL _getShipmentDeleteURL(
-			long commerceShipmentId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			_portal.getOriginalServletRequest(httpServletRequest),
-			CommercePortletKeys.COMMERCE_ORDER, PortletRequest.ACTION_PHASE);
-
-		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCommerceOrderShipment");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter(
-			"commerceShipmentId", String.valueOf(commerceShipmentId));
-
-		return portletURL;
 	}
 
 	@Reference

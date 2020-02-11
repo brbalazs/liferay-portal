@@ -12,9 +12,10 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.frontend;
+package com.liferay.commerce.shipment.web.internal.frontend;
 
 import com.liferay.commerce.constants.CommerceShipmentConstants;
+import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -32,12 +33,17 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+
+import java.text.DateFormat;
+import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +62,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS,
+	property = "commerce.data.provider.key=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS,
 	service = CommerceDataSetDataProvider.class
 )
 public class CommerceShipmentDataSetDataProvider
@@ -69,12 +75,17 @@ public class CommerceShipmentDataSetDataProvider
 		long commerceOrderId = ParamUtil.getLong(
 			httpServletRequest, "commerceOrderId");
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+		CommerceOrder commerceOrder = _commerceOrderService.fetchCommerceOrder(
 			commerceOrderId);
 
+		if (commerceOrder != null) {
+			return _commerceShipmentService.getCommerceShipmentsCount(
+				commerceOrder.getCompanyId(),
+				commerceOrder.getShippingAddressId());
+		}
+
 		return _commerceShipmentService.getCommerceShipmentsCount(
-			_portal.getCompanyId(httpServletRequest),
-			commerceOrder.getShippingAddressId());
+			_portal.getCompanyId(httpServletRequest));
 	}
 
 	@Override
@@ -88,33 +99,41 @@ public class CommerceShipmentDataSetDataProvider
 		long commerceOrderId = ParamUtil.getLong(
 			httpServletRequest, "commerceOrderId");
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+		CommerceOrder commerceOrder = _commerceOrderService.fetchCommerceOrder(
 			commerceOrderId);
 
-		List<CommerceShipment> commerceShipments =
-			_commerceShipmentService.getCommerceShipments(
-				_portal.getCompanyId(httpServletRequest),
+		List<CommerceShipment> commerceShipments;
+
+		if (commerceOrder != null) {
+			commerceShipments = _commerceShipmentService.getCommerceShipments(
+				commerceOrder.getCompanyId(),
 				commerceOrder.getShippingAddressId(),
 				pagination.getStartPosition(), pagination.getEndPosition(),
 				null);
+		}
+		else {
+			commerceShipments = _commerceShipmentService.getCommerceShipments(
+				_portal.getCompanyId(httpServletRequest),
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
+		}
+
+		User user = _portal.getUser(httpServletRequest);
+
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
+			DateFormat.SHORT, DateFormat.SHORT,
+			_portal.getLocale(httpServletRequest), user.getTimeZone());
 
 		for (CommerceShipment commerceShipment : commerceShipments) {
-			Date createDate = commerceShipment.getCreateDate();
-
-			String createDateDescription = LanguageUtil.getTimeDescription(
-				httpServletRequest,
-				System.currentTimeMillis() - createDate.getTime(), true);
-
 			shipments.add(
 				new Shipment(
 					commerceShipment.getCommerceShipmentId(),
 					_getShipmentPanelURL(
 						commerceShipment.getCommerceShipmentId(),
 						httpServletRequest),
+					commerceShipment.getCommerceAccountName(),
 					_getDescriptiveAddress(commerceShipment),
-					LanguageUtil.format(
-						httpServletRequest, "x-ago", createDateDescription,
-						false),
+					dateTimeFormat.format(commerceShipment.getCreateDate()),
 					new LabelField(
 						CommerceShipmentConstants.getShipmentLabelStyle(
 							commerceShipment.getStatus()),

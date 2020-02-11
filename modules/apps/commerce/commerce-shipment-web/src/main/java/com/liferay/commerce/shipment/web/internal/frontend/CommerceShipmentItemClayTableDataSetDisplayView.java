@@ -12,8 +12,9 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.frontend;
+package com.liferay.commerce.shipment.web.internal.frontend;
 
+import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
@@ -29,10 +30,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.set.display.name=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS,
+	property = "commerce.data.set.display.name=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS,
 	service = ClayDataSetDisplayView.class
 )
-public class CommerceShipmentClayTableDataSetDisplayView
+public class CommerceShipmentItemClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
@@ -40,21 +41,20 @@ public class CommerceShipmentClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField shipmentIdField = clayTableSchemaBuilder.addField(
-			"shipmentId", "shipment-id");
+		ClayTableSchemaField skuField = clayTableSchemaBuilder.addField(
+			"sku", "sku");
 
-		shipmentIdField.setContentRenderer("commerceTableCellSidePanelLink");
+		skuField.setContentRenderer("sidePanelLink");
 
-		clayTableSchemaBuilder.addField("address", "address");
+		clayTableSchemaBuilder.addField("orderId", "order-id");
 
-		clayTableSchemaBuilder.addField("createDate", "create-date");
+		clayTableSchemaBuilder.addField("warehouse", "warehouse");
 
-		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
-			"status", "status");
+		clayTableSchemaBuilder.addField("orderedQuantity", "ordered");
 
-		statusField.setContentRenderer("label");
+		clayTableSchemaBuilder.addField("shippedQuantity", "shipped");
 
-		clayTableSchemaBuilder.addField("tracking", "tracking");
+		clayTableSchemaBuilder.addField("toSendQuantity", "to-send");
 
 		return clayTableSchemaBuilder.build();
 	}
