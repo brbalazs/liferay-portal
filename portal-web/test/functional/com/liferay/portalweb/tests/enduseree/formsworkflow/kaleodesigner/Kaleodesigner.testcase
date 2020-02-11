@@ -28,6 +28,8 @@ definition {
 
 	@priority = "3"
 	test AddConditionNodeEditNameAndDesciptionAndDeleteViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#AddConditionNodeEditNameAndDesciptionAndDeleteViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -52,6 +54,8 @@ definition {
 
 	@priority = "4"
 	test AddEndNodeEditNameAndDesciptionAndDeleteViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#AddEndNodeEditNameAndDesciptionAndDeleteViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -76,6 +80,8 @@ definition {
 
 	@priority = "3"
 	test AddForkNodeEditNameAndDesciptionAndDeleteViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#AddForkNodeEditNameAndDesciptionAndDeleteViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
