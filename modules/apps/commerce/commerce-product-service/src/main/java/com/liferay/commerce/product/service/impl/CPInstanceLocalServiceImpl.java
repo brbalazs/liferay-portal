@@ -214,6 +214,10 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		cpInstance = cpInstancePersistence.update(cpInstance);
 
+		cpInstanceOptionValueRelLocalService.updateCPInstanceOptionValueRels(
+			groupId, user.getCompanyId(), user.getUserId(), cpDefinitionId,
+			cpInstanceId, json);
+
 		reindexCPDefinition(cpDefinitionId);
 
 		// Workflow

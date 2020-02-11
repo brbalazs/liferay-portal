@@ -14,13 +14,18 @@
 
 package com.liferay.commerce.product.service.impl;
 
+import com.liferay.commerce.product.model.CPDefinitionOptionRel;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.service.base.CPInstanceOptionValueRelLocalServiceBaseImpl;
+import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The implementation of the cp instance option value rel local service.
@@ -128,5 +133,40 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 
 		return false;
 	}
+
+	@Override
+	public void updateCPInstanceOptionValueRels(
+			long groupId, long companyId, long userId, long cpDefinitionId,
+			long cpInstanceId, String json)
+		throws PortalException {
+
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelsMap =
+				_cpInstanceHelper.getCPDefinitionOptionRelsMap(
+					cpDefinitionId, json);
+
+		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				cpDefinitionOptionRelCPDefinitionOptionValueRels :
+					cpDefinitionOptionRelsMap.entrySet()) {
+
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+				cpDefinitionOptionRelCPDefinitionOptionValueRels.getValue();
+
+			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+					cpDefinitionOptionValueRels) {
+
+				cpInstanceOptionValueRelLocalService.
+					addCPInstanceOptionValueRel(
+						groupId, companyId, userId,
+						cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+						cpDefinitionOptionValueRel.
+							getCPDefinitionOptionValueRelId(),
+						cpInstanceId);
+			}
+		}
+	}
+
+	@ServiceReference(type = CPInstanceHelper.class)
+	private CPInstanceHelper _cpInstanceHelper;
 
 }
