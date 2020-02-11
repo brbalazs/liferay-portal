@@ -408,6 +408,9 @@ public abstract class CommercePriceListChannelRelLocalServiceBaseImpl
 				(CommercePriceListChannelRel)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

@@ -456,12 +456,33 @@ public class CommercePriceListLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByAccountAndChannelId(
+			String type, long commerceAccountId, long commerceChannelId) {
+
+		return _commercePriceListLocalService.
+			getCommercePriceListByAccountAndChannelId(
+				type, commerceAccountId, commerceChannelId);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
 		getCommercePriceListByAccountGroupIds(
 			String type, long[] commerceAccountGroupIds) {
 
 		return _commercePriceListLocalService.
 			getCommercePriceListByAccountGroupIds(
 				type, commerceAccountGroupIds);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByAccountGroupsAndChannelId(
+			String type, long[] commerceAccountGroupIds,
+			long commerceChannelId) {
+
+		return _commercePriceListLocalService.
+			getCommercePriceListByAccountGroupsAndChannelId(
+				type, commerceAccountGroupIds, commerceChannelId);
 	}
 
 	@Override

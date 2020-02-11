@@ -318,8 +318,16 @@ public interface CommercePriceListLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePriceList getCommercePriceListByAccountAndChannelId(
+		String type, long commerceAccountId, long commerceChannelId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceList getCommercePriceListByAccountGroupIds(
 		String type, long[] commerceAccountGroupIds);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePriceList getCommercePriceListByAccountGroupsAndChannelId(
+		String type, long[] commerceAccountGroupIds, long commerceChannelId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceList getCommercePriceListByAccountId(

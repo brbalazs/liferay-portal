@@ -46,9 +46,16 @@ public class CommercePriceListFinderImpl
 	public static final String FIND_BY_COMMERCE_ACCOUNT_ID =
 		CommercePriceListFinder.class.getName() + ".findByCommerceAccountId";
 
+	public static final String FIND_BY_ACCOUNT_AND_CHANNEL_ID =
+		CommercePriceListFinder.class.getName() + ".findByAccountAndChannelId";
+
 	public static final String FIND_BY_COMMERCE_ACCOUNT_GROUP_IDS =
 		CommercePriceListFinder.class.getName() +
 			".findByCommerceAccountGroupIds";
+
+	public static final String FIND_BY_ACCOUNT_GROUPS_AND_CHANNEL_ID =
+		CommercePriceListFinder.class.getName() +
+			".findByAccountGroupsAndChannelId";
 
 	public static final String FIND_BY_COMMERCE_CHANNEL_ID =
 		CommercePriceListFinder.class.getName() + ".findByCommerceChannelId";
@@ -58,6 +65,18 @@ public class CommercePriceListFinderImpl
 
 	public static final String FIND_BY_LOWEST_PRICE =
 		CommercePriceListFinder.class.getName() + ".findByLowestPrice";
+
+	@Override
+	public List<CommercePriceList> findByCommerceAccountAndChannelId(
+		QueryDefinition<CommercePriceList> queryDefinition) {
+
+		return doFindByPK(
+			FIND_BY_ACCOUNT_AND_CHANNEL_ID,
+			(String)queryDefinition.getAttribute("type"),
+			(Long)queryDefinition.getAttribute("commerceAccountId"),
+			(Long)queryDefinition.getAttribute("commerceChannelId"),
+			queryDefinition.getStart(), queryDefinition.getEnd());
+	}
 
 	@Override
 	public List<CommercePriceList> findByExpirationDate(
@@ -74,7 +93,7 @@ public class CommercePriceListFinderImpl
 		return doFindByPK(
 			FIND_BY_COMMERCE_ACCOUNT_ID,
 			(String)queryDefinition.getAttribute("type"),
-			(Long)queryDefinition.getAttribute("commerceAccountId"),
+			(Long)queryDefinition.getAttribute("commerceAccountId"), -1,
 			queryDefinition.getStart(), queryDefinition.getEnd());
 	}
 
@@ -119,13 +138,56 @@ public class CommercePriceListFinderImpl
 	}
 
 	@Override
+	public List<CommercePriceList> findByCommerceAccountGroupsAndChannelId(
+		QueryDefinition<CommercePriceList> queryDefinition) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(
+				getClass(), FIND_BY_ACCOUNT_GROUPS_AND_CHANNEL_ID);
+
+			long[] commerceAccountGroupIds =
+				(long[])queryDefinition.getAttribute("commerceAccountGroupIds");
+
+			sql = replaceAccountGroupIds(sql, commerceAccountGroupIds);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addEntity(
+				CommercePriceListImpl.TABLE_NAME, CommercePriceListImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			String type = (String)queryDefinition.getAttribute("type");
+			long commerceChannelId = (Long)queryDefinition.getAttribute(
+				"commerceChannelId");
+
+			qPos.add(type);
+			qPos.add(commerceChannelId);
+
+			return (List<CommercePriceList>)QueryUtil.list(
+				q, getDialect(), queryDefinition.getStart(),
+				queryDefinition.getEnd());
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
 	public List<CommercePriceList> findByCommerceChannelId(
 		QueryDefinition<CommercePriceList> queryDefinition) {
 
 		return doFindByPK(
 			FIND_BY_COMMERCE_CHANNEL_ID,
 			(String)queryDefinition.getAttribute("type"),
-			(Long)queryDefinition.getAttribute("commerceChannelId"),
+			(Long)queryDefinition.getAttribute("commerceChannelId"), -1,
 			queryDefinition.getStart(), queryDefinition.getEnd());
 	}
 
@@ -251,7 +313,8 @@ public class CommercePriceListFinderImpl
 	}
 
 	protected List<CommercePriceList> doFindByPK(
-		String queryName, String type, long classPK, int start, int end) {
+		String queryName, String type, long classPK1, long classPK2, int start,
+		int end) {
 
 		Session session = null;
 
@@ -268,7 +331,11 @@ public class CommercePriceListFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(type);
-			qPos.add(classPK);
+			qPos.add(classPK1);
+
+			if (classPK2 > -1) {
+				qPos.add(classPK2);
+			}
 
 			return (List<CommercePriceList>)QueryUtil.list(
 				q, getDialect(), start, end);

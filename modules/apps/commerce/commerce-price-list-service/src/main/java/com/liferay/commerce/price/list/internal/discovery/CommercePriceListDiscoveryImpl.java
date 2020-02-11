@@ -83,8 +83,26 @@ public class CommercePriceListDiscoveryImpl
 		}
 
 		CommercePriceList commercePriceList =
+			_commercePriceListLocalService.
+				getCommercePriceListByAccountAndChannelId(
+					type, commerceAccountId, commerceChannelId);
+
+		if (commercePriceList != null) {
+			return commercePriceList;
+		}
+
+		commercePriceList =
 			_commercePriceListLocalService.getCommercePriceListByAccountId(
 				type, commerceAccountId);
+
+		if (commercePriceList != null) {
+			return commercePriceList;
+		}
+
+		commercePriceList =
+			_commercePriceListLocalService.
+				getCommercePriceListByAccountGroupsAndChannelId(
+					type, commerceAccountGroupIds, commerceChannelId);
 
 		if (commercePriceList != null) {
 			return commercePriceList;

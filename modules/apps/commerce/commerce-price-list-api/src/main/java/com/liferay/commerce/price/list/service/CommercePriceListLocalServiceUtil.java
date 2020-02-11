@@ -425,11 +425,28 @@ public class CommercePriceListLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByAccountAndChannelId(
+			String type, long commerceAccountId, long commerceChannelId) {
+
+		return getService().getCommercePriceListByAccountAndChannelId(
+			type, commerceAccountId, commerceChannelId);
+	}
+
+	public static com.liferay.commerce.price.list.model.CommercePriceList
 		getCommercePriceListByAccountGroupIds(
 			String type, long[] commerceAccountGroupIds) {
 
 		return getService().getCommercePriceListByAccountGroupIds(
 			type, commerceAccountGroupIds);
+	}
+
+	public static com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByAccountGroupsAndChannelId(
+			String type, long[] commerceAccountGroupIds,
+			long commerceChannelId) {
+
+		return getService().getCommercePriceListByAccountGroupsAndChannelId(
+			type, commerceAccountGroupIds, commerceChannelId);
 	}
 
 	public static com.liferay.commerce.price.list.model.CommercePriceList

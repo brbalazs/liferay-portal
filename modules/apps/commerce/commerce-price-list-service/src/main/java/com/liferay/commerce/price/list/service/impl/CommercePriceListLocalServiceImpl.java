@@ -480,6 +480,27 @@ public class CommercePriceListLocalServiceImpl
 	}
 
 	@Override
+	public CommercePriceList getCommercePriceListByAccountAndChannelId(
+		String type, long commerceAccountId, long commerceChannelId) {
+
+		QueryDefinition<CommercePriceList> queryDefinition =
+			new QueryDefinition<>();
+
+		queryDefinition.setAttribute("commerceAccountId", commerceAccountId);
+		queryDefinition.setAttribute("commerceChannelId", commerceChannelId);
+		queryDefinition.setAttribute("type", type);
+
+		List<CommercePriceList> commercePriceLists =
+			commercePriceListFinder.findByCommerceAccountId(queryDefinition);
+
+		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+			return null;
+		}
+
+		return commercePriceLists.get(0);
+	}
+
+	@Override
 	public CommercePriceList getCommercePriceListByAccountGroupIds(
 		String type, long[] commerceAccountGroupIds) {
 
@@ -488,6 +509,29 @@ public class CommercePriceListLocalServiceImpl
 
 		queryDefinition.setAttribute(
 			"commerceAccountGroupIds", commerceAccountGroupIds);
+		queryDefinition.setAttribute("type", type);
+
+		List<CommercePriceList> commercePriceLists =
+			commercePriceListFinder.findByCommerceAccountGroupIds(
+				queryDefinition);
+
+		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+			return null;
+		}
+
+		return commercePriceLists.get(0);
+	}
+
+	@Override
+	public CommercePriceList getCommercePriceListByAccountGroupsAndChannelId(
+		String type, long[] commerceAccountGroupIds, long commerceChannelId) {
+
+		QueryDefinition<CommercePriceList> queryDefinition =
+			new QueryDefinition<>();
+
+		queryDefinition.setAttribute(
+			"commerceAccountGroupIds", commerceAccountGroupIds);
+		queryDefinition.setAttribute("commerceChannelId", commerceChannelId);
 		queryDefinition.setAttribute("type", type);
 
 		List<CommercePriceList> commercePriceLists =
