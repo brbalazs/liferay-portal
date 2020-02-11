@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.model.User;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The implementation of the cp instance option value rel local service.
@@ -76,12 +77,43 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 	}
 
 	@Override
+	public List<CPInstanceOptionValueRel>
+		getCPDefinitionCPInstanceOptionValueRels(long cpDefinitionId) {
+
+		return cpInstanceOptionValueRelFinder.findByCPDefinitionId(
+			cpDefinitionId);
+	}
+
+	@Override
+	public List<CPInstanceOptionValueRel>
+		getCPInstanceCPInstanceOptionValueRels(long cpInstanceId) {
+
+		return cpInstanceOptionValueRelPersistence.findByCPInstanceId(
+			cpInstanceId);
+	}
+
+	@Override
 	public boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
 		int countByCPInstanceId =
 			cpInstanceOptionValueRelPersistence.countByCPInstanceId(
 				cpInstanceId);
 
 		if (countByCPInstanceId > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean hasCPInstanceOptionValueRels(
+		long cpDefinitionOptionRelId, long cpInstanceId) {
+
+		int countByCPDefinitionOptionRelIdCPInstanceId =
+			cpInstanceOptionValueRelPersistence.countByCDORI_CII(
+				cpDefinitionOptionRelId, cpInstanceId);
+
+		if (countByCPDefinitionOptionRelIdCPInstanceId > 0) {
 			return true;
 		}
 
@@ -142,9 +174,10 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
 						cpDefinitionId, json);
 
-		for (Long cpDefinitionOptionRelId :
-				cpDefinitionOptionRelCPDefinitionOptionValueRelIds.keySet()) {
+		Set<Long> cpDefinitionOptionRelIds =
+			cpDefinitionOptionRelCPDefinitionOptionValueRelIds.keySet();
 
+		for (Long cpDefinitionOptionRelId : cpDefinitionOptionRelIds) {
 			List<Long> cpDefinitionOptionValueRelIds =
 				cpDefinitionOptionRelCPDefinitionOptionValueRelIds.get(
 					cpDefinitionOptionRelId);

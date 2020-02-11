@@ -1850,11 +1850,14 @@ public class CPDefinitionLocalServiceImpl
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 			for (CPInstance cpInstance : cpInstances) {
-				if (Validator.isNull(cpInstance.getJson())) {
+				if (!cpInstanceOptionValueRelLocalService.
+						hasCPInstanceOptionValueRel(
+							cpInstance.getCPInstanceId())) {
+
 					cpInstanceLocalService.updateStatus(
 						userId, cpInstance.getCPInstanceId(),
 						WorkflowConstants.STATUS_INACTIVE, serviceContext,
-						new HashMap<String, Serializable>());
+						Collections.emptyMap());
 				}
 			}
 		}

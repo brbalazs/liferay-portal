@@ -19,6 +19,7 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.base.CPDefinitionOptionRelLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -26,7 +27,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
@@ -54,6 +54,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -332,6 +333,62 @@ public class CPDefinitionOptionRelLocalServiceImpl
 	}
 
 	@Override
+	public Map<String, List<String>>
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				long cpInstanceId)
+		throws PortalException {
+
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels =
+			cpInstanceOptionValueRelPersistence.findByCPInstanceId(
+				cpInstanceId);
+
+		Map<String, List<String>>
+			cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys =
+				new HashMap<>();
+
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+				cpInstanceOptionValueRels) {
+
+			CPDefinitionOptionRel cpDefinitionOptionRel =
+				cpDefinitionOptionRelPersistence.findByPrimaryKey(
+					cpInstanceOptionValueRel.getCPDefinitionOptionRelId());
+
+			if (cpInstanceOptionValueRel.getCPDefinitionOptionValueRelId() ==
+					0) {
+
+				// TODO here we handle manually added entries (not single select not multi select)
+
+				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.put(
+					cpDefinitionOptionRel.getKey(),
+					Arrays.asList("REAL_VALUE"));
+
+				continue;
+			}
+
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+				cpDefinitionOptionValueRelPersistence.findByPrimaryKey(
+					cpInstanceOptionValueRel.getCPDefinitionOptionValueRelId());
+
+			List<String> cpDefinitionOptionValueRelKeys =
+				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.get(
+					cpDefinitionOptionRel.getKey());
+
+			if (cpDefinitionOptionValueRelKeys == null) {
+				cpDefinitionOptionValueRelKeys = new ArrayList<>();
+
+				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.put(
+					cpDefinitionOptionRel.getKey(),
+					cpDefinitionOptionValueRelKeys);
+			}
+
+			cpDefinitionOptionValueRelKeys.add(
+				cpDefinitionOptionValueRel.getKey());
+		}
+
+		return cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys;
+	}
+
+	@Override
 	public List<CPDefinitionOptionRel> getCPDefinitionOptionRels(
 		long cpDefinitionId) {
 
@@ -511,29 +568,24 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				QueryUtil.ALL_POS, null);
 
 		for (CPInstance cpInstance : cpInstances) {
-			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-				cpInstance.getJson());
+			if (!cpInstanceOptionValueRelLocalService.
+					hasCPInstanceOptionValueRels(
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+						cpInstance.getCPInstanceId())) {
 
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-				long cpDefinitionOptionRelId = jsonObject.getLong("key");
-
-				if (cpDefinitionOptionRelId ==
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId()) {
-
-					long userId = PrincipalThreadLocal.getUserId();
-
-					if (userId <= 0) {
-						userId = cpInstance.getUserId();
-					}
-
-					cpInstanceLocalService.updateStatus(
-						userId, cpInstance.getCPInstanceId(),
-						WorkflowConstants.STATUS_INACTIVE, new ServiceContext(),
-						new HashMap<String, Serializable>());
-				}
+				continue;
 			}
+
+			long userId = PrincipalThreadLocal.getUserId();
+
+			if (userId <= 0) {
+				userId = cpInstance.getUserId();
+			}
+
+			cpInstanceLocalService.updateStatus(
+				userId, cpInstance.getCPInstanceId(),
+				WorkflowConstants.STATUS_INACTIVE, new ServiceContext(),
+				Collections.emptyMap());
 		}
 
 		int cpDefinitionOptionRelsCount =
@@ -576,7 +628,10 @@ public class CPDefinitionOptionRelLocalServiceImpl
 					QueryUtil.ALL_POS, null);
 
 			for (CPInstance cpInstance : cpInstances) {
-				if (Validator.isNull(cpInstance.getJson())) {
+				if (cpInstanceOptionValueRelLocalService.
+						hasCPInstanceOptionValueRel(
+							cpInstance.getCPInstanceId())) {
+
 					cpInstanceLocalService.updateStatus(
 						serviceContext.getUserId(),
 						cpInstance.getCPInstanceId(),
