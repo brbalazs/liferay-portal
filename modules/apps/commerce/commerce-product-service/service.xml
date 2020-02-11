@@ -808,7 +808,11 @@
 		<finder name="CPInstanceId" return-type="Collection">
 			<finder-column name="CPInstanceId" />
 		</finder>
-		<finder name="C_C_C" return-type="CPInstanceOptionValueRel" unique="true">
+		<finder name="CDORI_CII" return-type="Collection">
+			<finder-column name="CPDefinitionOptionRelId" />
+			<finder-column name="CPInstanceId" />
+		</finder>
+		<finder name="CDORI_CDOVRI_CII" return-type="CPInstanceOptionValueRel" unique="true">
 			<finder-column name="CPDefinitionOptionRelId" />
 			<finder-column name="CPDefinitionOptionValueRelId" />
 			<finder-column name="CPInstanceId" />
