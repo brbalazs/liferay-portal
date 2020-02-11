@@ -107,6 +107,7 @@
 
 	{let $listGroupItemClasses kind="text"}
 		layout-item
+		{sp}layout-drop-target-item
 		{sp}list-group-item
 		{sp}list-group-item-flex
 
@@ -115,7 +116,7 @@
 		{/if}
 
 		{if $layoutColumnItem.parentable}
-			{sp}layout-drop-target-item
+			{sp}layout-parentable
 		{/if}
 
 		{if $layoutColumnItem.active}

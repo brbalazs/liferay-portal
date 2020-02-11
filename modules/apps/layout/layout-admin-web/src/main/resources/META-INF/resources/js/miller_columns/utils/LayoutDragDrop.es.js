@@ -20,7 +20,8 @@ const DRAG_POSITIONS = {
 
 const DROP_TARGET_TYPES = {
 	column: 'layout-column',
-	item: 'layout-column-item'
+	item: 'layout-column-item',
+	parentable: 'layout-parentable'
 };
 
 /**
@@ -89,7 +90,10 @@ class LayoutDragDrop extends State {
 
 				if (
 					placeholderItemRegion.top > targetItemRegion.top &&
-					placeholderItemRegion.bottom < targetItemRegion.bottom
+					placeholderItemRegion.bottom < targetItemRegion.bottom &&
+					targetItem.classList.contains(
+						DROP_TARGET_ITEM_TYPES.parentable
+					)
 				) {
 					this._draggingItemPosition = DRAG_POSITIONS.inside;
 				} else if (
