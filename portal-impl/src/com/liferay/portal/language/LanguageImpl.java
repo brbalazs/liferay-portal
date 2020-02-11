@@ -801,13 +801,13 @@ public class LanguageImpl implements Language, Serializable {
 		if (size >= _STORAGE_SIZE_DENOMINATOR) {
 			suffix = "storage.size.suffix.kb";
 
-			size = size / _STORAGE_SIZE_DENOMINATOR;
+			size /= _STORAGE_SIZE_DENOMINATOR;
 		}
 
 		if (size >= _STORAGE_SIZE_DENOMINATOR) {
 			suffix = "storage.size.suffix.mb";
 
-			size = size / _STORAGE_SIZE_DENOMINATOR;
+			size /= _STORAGE_SIZE_DENOMINATOR;
 
 			numberFormat.setMaximumFractionDigits(1);
 		}
@@ -815,12 +815,13 @@ public class LanguageImpl implements Language, Serializable {
 		if (size >= _STORAGE_SIZE_DENOMINATOR) {
 			suffix = "storage.size.suffix.gb";
 
-			size = size / _STORAGE_SIZE_DENOMINATOR;
+			size /= _STORAGE_SIZE_DENOMINATOR;
 		}
 
 		suffix = get(locale, suffix);
 
-		return numberFormat.format(size) + StringPool.SPACE + suffix;
+		return StringBundler.concat(
+			numberFormat.format(size), StringPool.SPACE, suffix);
 	}
 
 	/**
