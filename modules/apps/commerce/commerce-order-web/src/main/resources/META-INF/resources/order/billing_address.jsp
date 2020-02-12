@@ -25,7 +25,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderBillingAddressActionURL" />
 
 <commerce-ui:modal-content
-	title='<%= LanguageUtil.get(request, "edit-billing-address") %>'
+	title='<%= LanguageUtil.get(request, "billing-address") %>'
 >
 	<aui:form action="<%= editCommerceOrderBillingAddressActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="selectBillingAddress" />
