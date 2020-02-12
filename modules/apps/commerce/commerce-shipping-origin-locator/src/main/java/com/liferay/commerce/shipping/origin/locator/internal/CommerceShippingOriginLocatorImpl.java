@@ -100,7 +100,7 @@ public class CommerceShippingOriginLocatorImpl
 
 			originAddress.put(
 				_getCommerceAddress(
-					commerceInventoryWarehouse, commerceOrder.getGroupId()),
+					commerceInventoryWarehouse, commerceOrder.getCompanyId()),
 				entry.getValue());
 		}
 
