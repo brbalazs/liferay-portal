@@ -323,6 +323,8 @@
 			<isset property="Export-Package" />
 		</condition>
 
+		<property name="artifact.location.dest" value="${output.dir}/${lpkg.title.prefix}${liferay.releng.app.title} - Impl/${Bundle-SymbolicName}-${Bundle-Version}.jar" />
+
 		<condition property="artifact.location.src" value="${osgi.dir}/static/${Bundle-SymbolicName}.jar">
 			<or>
 				<contains string="${osgi.static.modules}" substring="${Bundle-SymbolicName}.jar" />
