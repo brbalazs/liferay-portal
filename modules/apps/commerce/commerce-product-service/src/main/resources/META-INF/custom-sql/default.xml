@@ -75,4 +75,17 @@
 				([$OWNER_USER_ID$] [$OWNER_USER_ID_AND_OR_CONNECTOR$] ([$STATUS$]))
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.product.service.persistence.CPInstanceOptionValueRelFinder.findByCPDefinitionId">
+		<![CDATA[
+			SELECT
+				CPInstanceOptionValueRel.*
+			FROM
+				CPInstance, CPInstanceOptionValueRel
+			WHERE
+				(CPInstance.cpDefinitionId = ?) AND
+				(CPInstance.cpInstanceId = CPInstanceOptionValueRel.cpInstanceId)
+			ORDER BY
+				CPInstanceOptionValueRel.cpInstanceId
+		]]>
+	</sql>
 </custom-sql>
