@@ -26,14 +26,12 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.TimeZoneUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.Serializable;
-
-import java.sql.Timestamp;
-
-import java.time.Instant;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,10 +62,9 @@ public class ProductFeedXMLGenerator {
 				commerceChannel.getType())) {
 
 			throw new InvalidCommerceChannelTypeException(
-				String.format(
-					"Cannot generate products XML for channel with ID, %s, " +
-						"because channel must be site type channel",
-					commerceChannelId));
+				"Cannot generate products XML for channel with ID " +
+					commerceChannelId +
+						" because channel must be site type channel");
 		}
 
 		Feed feed = new Feed();
@@ -85,11 +82,8 @@ public class ProductFeedXMLGenerator {
 
 		feed.setLink(link);
 
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
-		Instant instant = timestamp.toInstant();
-
-		String updated = instant.toString();
+		String updated = DateUtil.getCurrentDate(
+			DateUtil.ISO_8601_PATTERN, null, TimeZoneUtil.GMT);
 
 		feed.setUpdated(updated);
 
