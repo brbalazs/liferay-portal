@@ -15,13 +15,15 @@
 package com.liferay.commerce.google.merchant.internal.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
+
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 /**
  * @author Eric Chin
  */
 @ExtendedObjectClassDefinition(
-	category = "google-merchant", scope = ExtendedObjectClassDefinition.Scope.SYSTEM
+	category = "google-merchant",
+	scope = ExtendedObjectClassDefinition.Scope.SYSTEM
 )
 @Meta.OCD(
 	id = "com.liferay.commerce.google.merchant.internal.configuration.ProductDefinitionConfiguration",
@@ -40,12 +42,11 @@ public interface ProductDefinitionConfiguration {
 		deflt = "MINUTE",
 		name = "product-definition-generator-time-interval-unit",
 		optionLabels = {"Day", "Hour", "Minute"},
-		optionValues = {"DAY", "HOUR", "MINUTE"},
-		required = false
+		optionValues = {"DAY", "HOUR", "MINUTE"}, required = false
 	)
 	public String generatorTimeIntervalUnit();
 
-	@Meta.AD(name="cron-expression", required = false)
+	@Meta.AD(name = "cron-expression", required = false)
 	public String cronExpression();
 
 }

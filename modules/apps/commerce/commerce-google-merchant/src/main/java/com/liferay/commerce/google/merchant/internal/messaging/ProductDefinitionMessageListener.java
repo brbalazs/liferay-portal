@@ -30,12 +30,12 @@ import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.TriggerFactory;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.Map;
+
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
-
-import java.util.Map;
 
 /**
  * @author Eric Chin
@@ -110,6 +110,7 @@ public class ProductDefinitionMessageListener extends BaseMessageListener {
 		// TODO: start generating XML definition or fire off background task
 		// TODO: to handle the XML generation and storage
 		// TODO: dependent on COMMERCE-2683
+
 	}
 
 	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
@@ -117,13 +118,13 @@ public class ProductDefinitionMessageListener extends BaseMessageListener {
 		ModuleServiceLifecycle moduleServiceLifecycle) {
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		ProductDefinitionMessageListener.class);
+
 	@Reference
 	private SchedulerEngineHelper _schedulerEngineHelper;
 
 	@Reference
 	private TriggerFactory _triggerFactory;
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		ProductDefinitionMessageListener.class);
 
 }

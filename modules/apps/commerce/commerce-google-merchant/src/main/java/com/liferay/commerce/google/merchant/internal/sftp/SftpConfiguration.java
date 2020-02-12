@@ -31,8 +31,7 @@ public interface SftpConfiguration {
 
 	@Meta.AD(
 		deflt = CommerceGoogleMerchantConstants.COMMERCE_GOOGLE_PARTNER_UPLOAD_URL,
-		name = "host",
-		required = false
+		name = "host", required = false
 	)
 	public String host();
 
@@ -42,11 +41,7 @@ public interface SftpConfiguration {
 	@Meta.AD(name = "feed-password", required = false)
 	public String password();
 
-	@Meta.AD(
-		deflt = "19321",
-		name = "port",
-		required = false
-	)
+	@Meta.AD(deflt = "19321", name = "port", required = false)
 	public int port();
 
 	@Meta.AD(name = "fingerprint", required = false)

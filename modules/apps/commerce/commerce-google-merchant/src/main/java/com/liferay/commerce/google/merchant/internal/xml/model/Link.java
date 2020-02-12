@@ -19,7 +19,6 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 /**
- *
  * @author Kayleen Lim
  *
  * Represents Link, a required attribute of Atom 1.0 XML

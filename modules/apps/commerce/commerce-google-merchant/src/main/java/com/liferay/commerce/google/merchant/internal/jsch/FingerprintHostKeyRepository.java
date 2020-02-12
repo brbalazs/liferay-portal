@@ -29,17 +29,21 @@ public class FingerprintHostKeyRepository implements HostKeyRepository {
 	public FingerprintHostKeyRepository(
 		JSch jSch, String configuredFingerprint) {
 
-		super();
-
-		_configuredFingerprint = configuredFingerprint;
 		_jSch = jSch;
+		_configuredFingerprint = configuredFingerprint;
+	}
+
+	@Override
+	public void add(HostKey hostKey, UserInfo userInfo) {
 	}
 
 	@Override
 	public int check(String s, byte[] key) {
 		try {
 			HostKey hostKey = new HostKey(
-				CommerceGoogleMerchantConstants.COMMERCE_GOOGLE_PARTNER_UPLOAD_URL, key);
+				CommerceGoogleMerchantConstants.
+					COMMERCE_GOOGLE_PARTNER_UPLOAD_URL,
+				key);
 
 			String fingerprint = hostKey.getFingerPrint(_jSch);
 
@@ -55,7 +59,18 @@ public class FingerprintHostKeyRepository implements HostKeyRepository {
 	}
 
 	@Override
-	public void add(HostKey hostKey, UserInfo userInfo) {
+	public HostKey[] getHostKey() {
+		return new HostKey[0];
+	}
+
+	@Override
+	public HostKey[] getHostKey(String s, String s1) {
+		return new HostKey[0];
+	}
+
+	@Override
+	public String getKnownHostsRepositoryID() {
+		return null;
 	}
 
 	@Override
@@ -66,23 +81,7 @@ public class FingerprintHostKeyRepository implements HostKeyRepository {
 	public void remove(String s, String s1, byte[] bytes) {
 	}
 
-	@Override
-	public String getKnownHostsRepositoryID() {
-		return null;
-	}
-
-	@Override
-	public HostKey[] getHostKey() {
-		return new HostKey[0];
-	}
-
-	@Override
-	public HostKey[] getHostKey(String s, String s1) {
-		return new HostKey[0];
-	}
-
-	private String _configuredFingerprint;
-
-	private JSch _jSch;
+	private final String _configuredFingerprint;
+	private final JSch _jSch;
 
 }

@@ -17,26 +17,29 @@ package com.liferay.commerce.google.merchant.internal.sftp;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
+
 import com.liferay.commerce.google.merchant.internal.constants.CommerceGoogleMerchantConstants;
 import com.liferay.commerce.google.merchant.internal.jsch.FingerprintHostKeyRepository;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.Map;
+
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 /**
  * @author Eric Chin
  */
 @Component(
 	configurationPid = "com.liferay.commerce.google.merchant.internal.sftp.SftpConfiguration",
-	configurationPolicy = ConfigurationPolicy.OPTIONAL,
-	immediate = true, service = SftpUploader.class
+	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
+	service = SftpUploader.class
 )
 public class SftpUploader {
 
@@ -71,7 +74,7 @@ public class SftpUploader {
 
 			jschSession.connect();
 
-			channelSftp = (ChannelSftp) jschSession.openChannel(
+			channelSftp = (ChannelSftp)jschSession.openChannel(
 				CommerceGoogleMerchantConstants.JSCH_CHANNEL_SFTP);
 
 			channelSftp.connect();
