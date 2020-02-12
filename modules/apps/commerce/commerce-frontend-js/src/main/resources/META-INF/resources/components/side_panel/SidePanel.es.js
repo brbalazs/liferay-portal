@@ -283,7 +283,7 @@ export default class SidePanel extends React.Component {
 				: '';
 
 		const content = (
-			<>
+			<React.Fragment>
 				<Modal id={iframeHandlerModalId} />
 				<div
 					className={`side-panel side-panel-${this.state.size} ${visibility} ${loading}`}
@@ -334,7 +334,7 @@ export default class SidePanel extends React.Component {
 						</div>
 					</div>
 				</div>
-			</>
+			</React.Fragment>
 		);
 
 		return ReactDOM.createPortal(

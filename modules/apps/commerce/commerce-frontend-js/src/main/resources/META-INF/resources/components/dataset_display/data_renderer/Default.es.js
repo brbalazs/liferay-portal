@@ -19,11 +19,11 @@ import React from 'react';
 function Default(props) {
 	switch (true) {
 		case !(props.value instanceof Object):
-			return <>{props.value || ''}</>;
+			return <React.Fragment>{props.value || ''}</React.Fragment>;
 		case !!props.value.icon:
 			return <ClayIcon symbol={props.value.icon} />;
 		case !!props.value.label:
-			return <>{props.value.label}</>;
+			return <React.Fragment>{props.value.label}</React.Fragment>;
 		default:
 			throw new Error(
 				`The object ${JSON.stringify(

@@ -98,7 +98,7 @@ function QuantitySelector(props) {
 	const content = (
 		<div className="quantity-selector">
 			{props.allowedQuantities ? (
-				<>
+				<React.Fragment>
 					<select
 						className={classnames(
 							'form-control',
@@ -114,7 +114,7 @@ function QuantitySelector(props) {
 							</option>
 						))}
 					</select>
-				</>
+				</React.Fragment>
 			) : props.style === 'simple' ? (
 				<div className="input-group-item input-group-item-shrink input-group-prepend">
 					<input

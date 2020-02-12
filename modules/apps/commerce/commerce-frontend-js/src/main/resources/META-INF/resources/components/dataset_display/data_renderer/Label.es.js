@@ -22,7 +22,7 @@ function Label(props) {
 			{typeof props.value === 'string' ? props.value : props.value.label}
 		</ClayLabel>
 	) : (
-		<></>
+		<React.Fragment></React.Fragment>
 	);
 }
 

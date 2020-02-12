@@ -30,14 +30,14 @@ const baseItemDefaultProps = {
 
 function SummaryItemBase(props) {
 	return (
-		<>
+		<React.Fragment>
 			<div className="col-6 col-md-9">
 				<p className="m-0">{props.label}</p>
 			</div>
 			<div className="col-6 col-md-3">
 				<p className="m-0">{props.value}</p>
 			</div>
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -45,14 +45,14 @@ SummaryItemBase.propTypes = baseItemDefaultProps;
 
 function SummaryItemBigVariant(props) {
 	return (
-		<>
+		<React.Fragment>
 			<div className="col-6 col-md-9">
 				<h3 className="my-2">{props.label}</h3>
 			</div>
 			<div className="col-6 col-md-3">
 				<h3 className="my-2">{props.value}</h3>
 			</div>
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -60,14 +60,14 @@ SummaryItemBigVariant.propTypes = baseItemDefaultProps;
 
 function SummaryItemDangerVariant(props) {
 	return (
-		<>
+		<React.Fragment>
 			<div className="col-6 col-md-9 text-danger">
 				<p className="m-0">{props.label}</p>
 			</div>
 			<div className="col-6 col-md-3 text-danger">
 				<p className="m-0">{props.value}</p>
 			</div>
-		</>
+		</React.Fragment>
 	);
 }
 

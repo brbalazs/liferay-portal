@@ -38,7 +38,7 @@ function CheckboxesFilter(props) {
 	}
 
 	return (
-		<>
+		<React.Fragment>
 			{props.items.map((item, i) => {
 				let checked = false;
 
@@ -70,7 +70,7 @@ function CheckboxesFilter(props) {
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
 			</div>
-		</>
+		</React.Fragment>
 	);
 }
 
