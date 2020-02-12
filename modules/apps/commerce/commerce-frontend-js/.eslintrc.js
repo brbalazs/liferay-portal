@@ -25,5 +25,9 @@ module.exports = {
 	},
 	parserOptions: {
 		ecmaVersion: 2018
+	},
+	rules: {
+		// https://issues.liferay.com/browse/LPS-107993
+		'react/jsx-fragments': ['error', 'element']
 	}
 };

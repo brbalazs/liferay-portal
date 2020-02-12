@@ -13,5 +13,9 @@
  */
 
 module.exports = {
-	extends: ['liferay/react']
+	extends: ['liferay/react'],
+	rules: {
+		// https://issues.liferay.com/browse/LPS-107993
+		'react/jsx-fragments': ['error', 'element']
+	}
 };
