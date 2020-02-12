@@ -284,6 +284,8 @@ AUI.add(
 							A.merge(
 								config,
 								{
+									fieldName: newFieldName,
+									name: newFieldName,
 									portletNamespace: Liferay.DDM.Settings.portletNamespace
 								}
 							)
