@@ -27,14 +27,17 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.DDMFormValuesHelper;
+import com.liferay.commerce.product.util.DDMFormValuesUtil;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderer;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderingContext;
@@ -70,6 +73,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -91,6 +95,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Marco Leo
  * @author Alessio Antonio Rendina
+ * @author Igor Beslic
  */
 @Component(immediate = true, service = CPInstanceHelper.class)
 public class CPInstanceHelperImpl implements CPInstanceHelper {
@@ -342,86 +347,63 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	@Override
 	public CPInstance getCPInstance(
 			long cpDefinitionId, String serializedDDMFormValues)
-		throws Exception {
+		throws PortalException {
 
-		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
-			cpDefinitionId);
+		return _findInstance(cpDefinitionId, serializedDDMFormValues);
+	}
 
-		if (Validator.isNull(serializedDDMFormValues)) {
-			serializedDDMFormValues = "[]";
+	@Override
+	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			getCPInstanceCPDefinitionOptionRelsCPDefinitionOptionValueRels(
+				long cpInstanceId)
+		throws PortalException {
+
+		List<CPInstanceOptionValueRel> cpInstanceCPInstanceOptionValueRels =
+			_cpInstanceOptionValueRelLocalService.
+				getCPInstanceCPInstanceOptionValueRels(cpInstanceId);
+
+		if (cpInstanceCPInstanceOptionValueRels.isEmpty()) {
+			return Collections.emptyMap();
 		}
 
-		JSONArray jsonArray = _jsonFactory.createJSONArray(
-			serializedDDMFormValues);
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelsCPDefinitionOptionValueRels = new HashMap<>();
 
-		Indexer<CPInstance> indexer = IndexerRegistryUtil.nullSafeGetIndexer(
-			CPInstance.class);
-
-		SearchContext searchContext = new SearchContext();
-
-		Map<String, Serializable> attributes = new HashMap<>();
-
-		attributes.put(CPField.CP_DEFINITION_ID, cpDefinitionId);
-		attributes.put(CPField.PUBLISHED, Boolean.TRUE);
-		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
-
-		List<String> optionsKeys = new ArrayList<>();
-
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-			String key = jsonObject.getString("key");
+		for (CPInstanceOptionValueRel cpInstanceCPInstanceOptionValueRel :
+				cpInstanceCPInstanceOptionValueRels) {
 
 			CPDefinitionOptionRel cpDefinitionOptionRel =
-				_cpDefinitionOptionRelLocalService.
-					fetchCPDefinitionOptionRelByKey(cpDefinitionId, key);
+				_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
+					cpInstanceCPInstanceOptionValueRel.
+						getCPDefinitionOptionRelId());
 
-			if ((cpDefinitionOptionRel != null) &&
-				!cpDefinitionOptionRel.isSkuContributor()) {
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+				cpDefinitionOptionRelsCPDefinitionOptionValueRels.get(
+					cpDefinitionOptionRel);
 
-				continue;
+			if (cpDefinitionOptionValueRels == null) {
+				cpDefinitionOptionValueRels = new ArrayList<>();
+
+				cpDefinitionOptionRelsCPDefinitionOptionValueRels.put(
+					cpDefinitionOptionRel, cpDefinitionOptionValueRels);
 			}
 
-			JSONArray valuesJSONArray = _jsonFactory.createJSONArray(
-				jsonObject.getString("value"));
-
-			if (valuesJSONArray.length() == 0) {
-				continue;
-			}
-
-			String fieldName = "ATTRIBUTE_" + key + "_VALUE_ID";
-
-			String value = valuesJSONArray.getString(0);
-
-			optionsKeys.add(fieldName);
-			attributes.put(fieldName, value);
+			cpDefinitionOptionValueRels.add(
+				_cpDefinitionOptionValueRelLocalService.
+					getCPDefinitionOptionValueRel(
+						cpInstanceCPInstanceOptionValueRel.
+							getCPDefinitionOptionValueRelId()));
 		}
 
-		attributes.put("OPTIONS", ArrayUtil.toStringArray(optionsKeys));
+		return cpDefinitionOptionRelsCPDefinitionOptionValueRels;
+	}
 
-		searchContext.setAttributes(attributes);
+	@Override
+	public List<CPInstanceOptionValueRel>
+		getCPInstanceCPInstanceOptionValueRels(long cpInstanceId) {
 
-		searchContext.setCompanyId(cpDefinition.getCompanyId());
-
-		QueryConfig queryConfig = searchContext.getQueryConfig();
-
-		queryConfig.setHighlightEnabled(false);
-		queryConfig.setScoreEnabled(false);
-
-		Hits hits = indexer.search(searchContext);
-
-		Document[] documents = hits.getDocs();
-
-		if (documents.length != 1) {
-			return null;
-		}
-
-		Document document = documents[0];
-
-		long cpInstanceId = GetterUtil.getLong(
-			document.get(Field.ENTRY_CLASS_PK));
-
-		return _cpInstanceLocalService.fetchCPInstance(cpInstanceId);
+		return _cpInstanceOptionValueRelLocalService.
+			getCPInstanceCPInstanceOptionValueRels(cpInstanceId);
 	}
 
 	@Override
@@ -446,9 +428,18 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			return StringPool.BLANK;
 		}
 
+		Map<String, List<String>>
+			cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys =
+				_cpDefinitionOptionRelLocalService.
+					getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+						cpInstanceId);
+
+		JSONArray keyValuesJSONArray = DDMFormValuesUtil.toJSONArray(
+			cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys);
+
 		List<CPAttachmentFileEntry> cpAttachmentFileEntries =
 			getCPAttachmentFileEntries(
-				cpInstance.getCPDefinitionId(), cpInstance.getJson(),
+				cpInstance.getCPDefinitionId(), keyValuesJSONArray.toString(),
 				CPAttachmentFileEntryConstants.TYPE_IMAGE, 0, 1);
 
 		if (cpAttachmentFileEntries.isEmpty()) {
@@ -483,53 +474,105 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	}
 
 	@Override
-	public List<KeyValuePair> getKeyValuePairs(
-			long cpDefinitionId, String json, Locale locale)
+	public List<KeyValuePair> getKeyValuePairs(long cpInstanceId, Locale locale)
 		throws PortalException {
 
 		List<KeyValuePair> values = new ArrayList<>();
 
-		if (Validator.isNull(json)) {
-			return values;
+		Map<String, List<String>>
+			cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys =
+				_cpDefinitionOptionRelLocalService.
+					getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+						cpInstanceId);
+
+		if (cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.isEmpty()) {
+			return Collections.emptyList();
 		}
 
-		JSONArray jsonArray = _jsonFactory.createJSONArray(json);
+		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
 
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-			String key = jsonObject.getString("key");
+		for (Map.Entry<String, List<String>>
+				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry :
+					cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.
+						entrySet()) {
 
 			CPDefinitionOptionRel cpDefinitionOptionRel =
 				_cpDefinitionOptionRelLocalService.
-					fetchCPDefinitionOptionRelByKey(cpDefinitionId, key);
+					fetchCPDefinitionOptionRelByKey(
+						cpInstance.getCPDefinitionId(),
+						cpDefinitionOptionRelCPDefinitionOptionValueRelEntry.
+							getKey());
 
 			if (cpDefinitionOptionRel == null) {
 				continue;
 			}
 
-			JSONArray valueJSONArray = jsonObject.getJSONArray("value");
+			List<String> cpDefinitionOptionValueRelKeys =
+				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry.getValue();
 
-			for (int j = 0; j < valueJSONArray.length(); j++) {
-				String value = valueJSONArray.getString(j);
+			for (String cpDefinitionOptionValueRelKey :
+					cpDefinitionOptionValueRelKeys) {
+
+				KeyValuePair keyValuePair = new KeyValuePair();
+
+				keyValuePair.setKey(cpDefinitionOptionRel.getName(locale));
 
 				CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 					_cpDefinitionOptionValueRelLocalService.
 						fetchCPDefinitionOptionValueRel(
 							cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-							value);
+							cpDefinitionOptionValueRelKey);
 
 				if (cpDefinitionOptionValueRel != null) {
-					value = cpDefinitionOptionValueRel.getName(locale);
+					keyValuePair.setValue(
+						cpDefinitionOptionValueRel.getName(locale));
 				}
 				else {
-					value = valueJSONArray.getString(j);
+					keyValuePair.setValue(cpDefinitionOptionValueRelKey);
 				}
+
+				values.add(keyValuePair);
+			}
+		}
+
+		return values;
+	}
+
+	@Override
+	public List<KeyValuePair> getKeyValuePairs(
+			long cpDefinitionId, String json, Locale locale)
+		throws PortalException {
+
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelsCPDefinitionOptionValueRels =
+				getCPDefinitionOptionRelsMap(cpDefinitionId, json);
+
+		if (cpDefinitionOptionRelsCPDefinitionOptionValueRels.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<KeyValuePair> values = new ArrayList<>();
+
+		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry :
+					cpDefinitionOptionRelsCPDefinitionOptionValueRels.
+						entrySet()) {
+
+			CPDefinitionOptionRel cpDefinitionOptionRel =
+				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry.getKey();
+
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRelKeys =
+				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry.getValue();
+
+			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+					cpDefinitionOptionValueRelKeys) {
 
 				KeyValuePair keyValuePair = new KeyValuePair();
 
 				keyValuePair.setKey(cpDefinitionOptionRel.getName(locale));
-				keyValuePair.setValue(value);
+				keyValuePair.setValue(
+					cpDefinitionOptionValueRel.getName(locale));
 
 				values.add(keyValuePair);
 			}
@@ -711,6 +754,62 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		return stringStream.collect(Collectors.joining(StringPool.SEMICOLON));
 	}
 
+	private CPInstance _findInstance(long cpDefinitionId, String json)
+		throws PortalException {
+
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRelIds =
+				_cpDefinitionOptionRelLocalService.
+					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+						cpDefinitionId, json);
+
+		List<CPInstanceOptionValueRel> cpDefinitionCPInstanceOptionValueRels =
+			_cpInstanceOptionValueRelLocalService.
+				getCPDefinitionCPInstanceOptionValueRels(cpDefinitionId);
+
+		Map<Long, Integer> cpInstanceCPInstanceOptionValueHits =
+			new HashMap<>();
+
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+				cpDefinitionCPInstanceOptionValueRels) {
+
+			if (!cpDefinitionOptionRelCPDefinitionOptionValueRelIds.containsKey(
+					cpInstanceOptionValueRel.getCPDefinitionOptionRelId())) {
+
+				continue;
+			}
+
+			List<Long> cpDefinitionOptionValueIds =
+				cpDefinitionOptionRelCPDefinitionOptionValueRelIds.get(
+					cpInstanceOptionValueRel.getCPDefinitionOptionRelId());
+
+			if (!cpDefinitionOptionValueIds.contains(
+					cpInstanceOptionValueRel.
+						getCPDefinitionOptionValueRelId())) {
+
+				continue;
+			}
+
+			if (cpInstanceCPInstanceOptionValueHits.containsKey(
+					cpInstanceOptionValueRel.getCPInstanceId())) {
+
+				cpInstanceCPInstanceOptionValueHits.put(
+					cpInstanceOptionValueRel.getCPInstanceId(),
+					cpInstanceCPInstanceOptionValueHits.get(
+						cpInstanceOptionValueRel.getCPInstanceId()) + 1);
+
+				continue;
+			}
+
+			cpInstanceCPInstanceOptionValueHits.put(
+				cpInstanceOptionValueRel.getCPInstanceId(), 1);
+		}
+
+		long cpInstanceId = _getTopId(cpInstanceCPInstanceOptionValueHits);
+
+		return _cpInstanceLocalService.getCPInstance(cpInstanceId);
+	}
+
 	private DDMForm _getDDMForm(
 			long cpDefinitionId, Locale locale, boolean ignoreSKUCombinations,
 			boolean skuContributor, boolean optional, boolean publicStore)
@@ -842,6 +941,22 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			"Provided DDM field options miss valid field value");
 	}
 
+	private long _getTopId(Map<Long, Integer> idIdHits) {
+		long topId = 0;
+		int topIdHits = 0;
+
+		for (Map.Entry<Long, Integer> idIdHitsEntry : idIdHits.entrySet()) {
+			if (topIdHits > idIdHitsEntry.getValue()) {
+				continue;
+			}
+
+			topId = idIdHitsEntry.getKey();
+			topIdHits = idIdHitsEntry.getValue();
+		}
+
+		return topId;
+	}
+
 	private boolean _isDDMFormRequired(
 		CPDefinitionOptionRel cpDefinitionOptionRel,
 		boolean ignoreSKUCombinations, boolean optional, boolean publicStore) {
@@ -953,6 +1068,10 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
+	private CPInstanceOptionValueRelLocalService
+		_cpInstanceOptionValueRelLocalService;
 
 	@Reference
 	private DDMFormFieldTypeServicesTracker _ddmFormFieldTypeServicesTracker;
