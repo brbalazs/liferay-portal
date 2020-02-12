@@ -50,11 +50,11 @@ public class CommerceOrderListDisplayContext {
 
 		_keywords = ParamUtil.getString(renderRequest, "keywords");
 		_showFilter = ParamUtil.getBoolean(renderRequest, "showFilter");
-		_tabs1 = ParamUtil.getString(renderRequest, "tabs1", "open");
+		_activeTab = ParamUtil.getString(renderRequest, "activeTab", "open");
 	}
 
 	public String getActiveTab() {
-		return _tabs1;
+		return _activeTab;
 	}
 
 	public int getCommerceOrderNotesCount(CommerceOrder commerceOrder)
@@ -102,7 +102,7 @@ public class CommerceOrderListDisplayContext {
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter("showFilter", String.valueOf(_showFilter));
-		portletURL.setParameter("tabs1", _tabs1);
+		portletURL.setParameter("activeTab", _activeTab);
 
 		if (Validator.isNotNull(_keywords)) {
 			portletURL.setParameter("keywords", _keywords);
@@ -114,13 +114,13 @@ public class CommerceOrderListDisplayContext {
 	private NavigationItem _buildNavigationItem(String name) {
 		NavigationItem navigationItem = new NavigationItem();
 
-		if (_tabs1.equals(name)) {
+		if (_activeTab.equals(name)) {
 			navigationItem.setActive(true);
 		}
 
 		PortletURL portletURL = getPortletURL();
 
-		portletURL.setParameter("tabs1", name);
+		portletURL.setParameter("activeTab", name);
 
 		navigationItem.setHref(portletURL);
 
@@ -135,7 +135,7 @@ public class CommerceOrderListDisplayContext {
 
 		_navigationItems.add(_buildNavigationItem("open"));
 		_navigationItems.add(_buildNavigationItem("pending"));
-		_navigationItems.add(_buildNavigationItem("transmitted"));
+		_navigationItems.add(_buildNavigationItem("fulfilled"));
 	}
 
 	private final CommerceOrderNoteService _commerceOrderNoteService;
@@ -143,6 +143,6 @@ public class CommerceOrderListDisplayContext {
 	private final String _keywords;
 	private List<NavigationItem> _navigationItems;
 	private final boolean _showFilter;
-	private final String _tabs1;
+	private final String _activeTab;
 
 }
