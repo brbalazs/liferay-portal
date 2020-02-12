@@ -57,10 +57,14 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 
 		</liferay-ui:error>
 
-		<aui:input bean="<%= commerceOrderItem %>" model="<%= CommerceOrderItem.class %>" name="quantity" />
+		<aui:input bean="<%= commerceOrderItem %>" model="<%= CommerceOrderItem.class %>" name="quantity">
+			<aui:validator name="min">1</aui:validator>
+			<aui:validator name="number" />
+		</aui:input>
 
 		<c:if test="<%= !commerceOrder.isOpen() %>">
 			<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrderItem.getUnitPrice()) %>">
+				<aui:validator name="min">0</aui:validator>	
 				<aui:validator name="number" />
 			</aui:input>
 		</c:if>

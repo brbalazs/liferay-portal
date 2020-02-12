@@ -35,32 +35,39 @@ CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 		<aui:model-context bean="<%= commerceOrder %>" model="<%= CommerceOrder.class %>" />
 
 		<aui:input label="items-subtotal" name="subtotal" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getSubtotal()) %>" wrapperCssClass="form-group-item">
+			<aui:validator name="min">0</aui:validator>	
 			<aui:validator name="number" />
 		</aui:input>
 
 		<aui:input label="items-subtotal-discount" name="subtotalDiscountAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getSubtotalDiscountAmount()) %>" wrapperCssClass="form-group-item">
+			<aui:validator name="min">0</aui:validator>	
 			<aui:validator name="number" />
 		</aui:input>
 
 		<aui:input label="order-discount" name="totalDiscountAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getTotalDiscountAmount()) %>" wrapperCssClass="form-group-item">
+			<aui:validator name="min">0</aui:validator>	
 			<aui:validator name="number" />
 		</aui:input>
 
 		<aui:input label="promotion-code" name="couponCode" wrapperCssClass="form-group-item" />
 
 		<aui:input label="estimated-tax" name="taxAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getTaxAmount()) %>" wrapperCssClass="form-group-item">
+			<aui:validator name="min">0</aui:validator>	
 			<aui:validator name="number" />
 		</aui:input>
 
 		<aui:input label="shipping-and-handing" name="shippingAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getShippingAmount()) %>" wrapperCssClass="form-group-item">
+			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>
 
 		<aui:input label="shipping-and-handing-discount" name="shippingDiscountAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getShippingDiscountAmount()) %>" wrapperCssClass="form-group-item">
+			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>
 
 		<aui:input label="grand-total" name="total" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getTotal()) %>" wrapperCssClass="form-group-item">
+			<aui:validator name="min">0</aui:validator>	
 			<aui:validator name="number" />
 		</aui:input>
 	</aui:form>
