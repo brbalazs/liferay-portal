@@ -50,8 +50,6 @@ public class ProductDefinitionMessageListener extends BaseMessageListener {
 	protected void activate(Map<String, Object> properties) {
 		Class<?> clazz = getClass();
 
-		String className = clazz.getName();
-
 		ProductDefinitionConfiguration productDefinitionConfiguration =
 			ConfigurableUtil.createConfigurable(
 				ProductDefinitionConfiguration.class, properties);
@@ -67,9 +65,11 @@ public class ProductDefinitionMessageListener extends BaseMessageListener {
 			_log.error(iae, iae);
 		}
 
-		String cronExpression = productDefinitionConfiguration.cronExpression();
+		String className = clazz.getName();
 
 		Trigger trigger = null;
+
+		String cronExpression = productDefinitionConfiguration.cronExpression();
 
 		if (Validator.isNotNull(cronExpression)) {
 			try {

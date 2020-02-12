@@ -51,10 +51,10 @@ public class SftpUploader {
 		Session jschSession = null;
 
 		try {
-			String username = _sftpConfiguration.username();
-			String password = _sftpConfiguration.password();
 			String host = _sftpConfiguration.host();
+			String password = _sftpConfiguration.password();
 			int port = _sftpConfiguration.port();
+			String username = _sftpConfiguration.username();
 
 			JSch jsch = new JSch();
 
@@ -66,8 +66,9 @@ public class SftpUploader {
 
 			jschSession = jsch.getSession(username, host);
 
-			jschSession.setPort(port);
 			jschSession.setPassword(password);
+			jschSession.setPort(port);
+
 			jschSession.connect();
 
 			channelSftp = (ChannelSftp) jschSession.openChannel(
