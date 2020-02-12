@@ -279,6 +279,8 @@ AUI.add(
 
 						instance.fire('removeOption');
 
+						instance.render();
+
 						if (index > 0 && value.length > 0) {
 							options[index - 1].focus();
 						}
