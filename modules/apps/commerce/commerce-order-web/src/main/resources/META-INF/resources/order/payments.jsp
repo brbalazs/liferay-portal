@@ -46,6 +46,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 		>
 
 			<%
+			String commerceOrderPaymentMethodDescription = commerceOrderEditDisplayContext.getCommerceOrderPaymentMethodDescription();
 			String commerceOrderPaymentMethodName = commerceOrderEditDisplayContext.getCommerceOrderPaymentMethodName();
 			%>
 
@@ -59,8 +60,9 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 				</c:when>
 				<c:otherwise>
 					<div class="align-items-center d-flex payment-info">
-						<clay:icon
-							symbol="info-circle"
+						<liferay-ui:icon
+							iconCssClass="icon-info-sign"
+							message="<%= HtmlUtil.escape(commerceOrderPaymentMethodDescription) %>"
 						/>
 
 						<span class="ml-3 payment-name">
