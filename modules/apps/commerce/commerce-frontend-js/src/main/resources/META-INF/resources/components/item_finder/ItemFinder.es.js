@@ -31,7 +31,12 @@ function ItemFinder(props) {
 		fetch(
 			`${props.apiUrl}?pageSize=${pageSize}&page=${currentPage}${
 				textFilter ? `&search=${textFilter}` : ''
-			}`
+			}`,
+			{
+				credentials: 'include',
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
+				method: 'GET'
+			}
 		)
 			.then(data => data.json())
 			.then(jsonResponse => {

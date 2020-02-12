@@ -21,7 +21,7 @@ import {
 	DATASET_DISPLAY_UPDATED,
 	OPEN_MODAL,
 	OPEN_SIDE_PANEL,
-	UPDATE_DATASET_DISPLAY,
+	UPDATE_DATASET_DISPLAY
 } from '../../utilities/eventsDefinitions.es';
 import {
 	getRandomId,
