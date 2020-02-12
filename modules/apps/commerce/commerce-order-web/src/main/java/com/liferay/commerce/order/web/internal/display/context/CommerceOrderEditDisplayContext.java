@@ -342,6 +342,35 @@ public class CommerceOrderEditDisplayContext {
 			commerceOrderId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
+	public CommercePaymentMethodGroupRel getCommercePaymentMethodGroupRel() 
+		throws PortalException {
+			
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				_commerceOrder.getGroupId());
+
+		return _commercePaymentMethodGroupRelService.
+			getCommercePaymentMethodGroupRel(
+				commerceChannel.getSiteGroupId(),
+				_commerceOrder.getCommercePaymentMethodKey());
+	}
+
+	public String getCommerceOrderPaymentMethodDescription()
+		throws PortalException {
+
+		if ((_commerceOrder == null) ||
+			Validator.isNull(_commerceOrder.getCommercePaymentMethodKey())) {
+
+			return StringPool.BLANK;
+		}
+
+		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
+			getCommercePaymentMethodGroupRel();
+
+		return commercePaymentMethodGroupRel.getDescription(
+			_commerceOrderRequestHelper.getLocale());
+	}
+
 	public String getCommerceOrderPaymentMethodName() throws PortalException {
 		if ((_commerceOrder == null) ||
 			Validator.isNull(_commerceOrder.getCommercePaymentMethodKey())) {
@@ -349,15 +378,8 @@ public class CommerceOrderEditDisplayContext {
 			return StringPool.BLANK;
 		}
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				_commerceOrder.getGroupId());
-
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
-			_commercePaymentMethodGroupRelService.
-				getCommercePaymentMethodGroupRel(
-					commerceChannel.getSiteGroupId(),
-					_commerceOrder.getCommercePaymentMethodKey());
+			getCommercePaymentMethodGroupRel();
 
 		return commercePaymentMethodGroupRel.getName(
 			_commerceOrderRequestHelper.getLocale());
