@@ -23,22 +23,23 @@ import DefaultContent from './Default.es';
 function ActionLink(props) {
 	const {openModal, openSidePanel} = useContext(DatasetDisplayContext);
 
-	const currentAction = props.options.actionId
-		? props.actions.find(action => action.id === props.options.actionId)
-		: props.actions[0];
+	const currentAction =
+		props.options && props.options.actionId
+			? props.actions.find(action => action.id === props.options.actionId)
+			: props.actions[0];
 
 	if (!currentAction) {
 		return <DefaultContent value={props.value} />;
 	}
 
 	function handleClickOnLink(e, payload, target) {
+		e.preventDefault();
+
 		if (target === 'modal') {
-			e.preventDefault();
 			return openModal(payload);
 		}
 
 		if (target === 'sidePanel') {
-			e.preventDefault();
 			return openSidePanel(payload);
 		}
 	}
@@ -46,16 +47,19 @@ function ActionLink(props) {
 	return (
 		<ClayLink
 			href={currentAction.href}
-			onClick={e =>
-				handleClickOnLink(
-					e,
-					{
-						size: currentAction.size,
-						title: currentAction.title,
-						url: currentAction.href
-					},
-					currentAction.target
-				)
+			onClick={
+				currentAction.target &&
+				currentAction.target !== 'link' &&
+				(e =>
+					handleClickOnLink(
+						e,
+						{
+							size: currentAction.size || 'lg',
+							title: currentAction.title,
+							url: currentAction.href
+						},
+						currentAction.target
+					))
 			}
 		>
 			{props.value || <ClayIcon symbol={currentAction.icon} />}

@@ -1,3 +1,28 @@
+.add-or-create {
+	.list-group {
+		margin-bottom: 0;
+	}
+
+	.list-group-header,
+	.list-group-item {
+		background-color: transparent;
+		border: 0;
+	}
+
+	&.has-focus .list-group-item {
+		&.is-selected::before {
+			background-color: var(--primary);
+			border-radius: 50%;
+			content: '';
+			height: 6px;
+			left: 0;
+			position: absolute;
+			top: calc(50% - 3px);
+			width: 6px;
+		}
+	}
+}
+
 .expose {
 	--transition-time: 200ms;
 
@@ -35,31 +60,6 @@
 		.expose.is-open & {
 			pointer-events: all;
 			opacity: 0.7;
-		}
-	}
-}
-
-.add-or-create {
-	.list-group {
-		margin-bottom: 0;
-	}
-
-	.list-group-header,
-	.list-group-item {
-		background-color: transparent;
-		border: 0;
-	}
-
-	&.has-focus .list-group-item {
-		&.is-selected::before {
-			background-color: var(--primary);
-			border-radius: 50%;
-			content: '';
-			height: 6px;
-			left: 0;
-			position: absolute;
-			top: calc(50% - 3px);
-			width: 6px;
 		}
 	}
 }

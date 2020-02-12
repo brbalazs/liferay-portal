@@ -55,6 +55,7 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 }
 
 function DatasetDisplay(props) {
+	const [changesCount, setChangesCount] = useState(0);
 	const [views, updateViews] = useState(props.views);
 	const [loading, setLoading] = useState(false);
 	const [sidePanelSupportModalId] = useState(
@@ -170,16 +171,30 @@ function DatasetDisplay(props) {
 	}
 
 	useEffect(() => {
-		getData(
-			props.apiUrl,
-			filters.filter(e => !!e.value),
-			delta,
-			pageNumber,
-			sorting,
-			false
-		);
+		if (changesCount > 1) {
+			getData(
+				props.apiUrl,
+				filters.filter(e => !!e.value),
+				delta,
+				pageNumber,
+				sorting,
+				false
+			);
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.apiUrl, filters, delta, pageNumber, sorting, refreshData]);
+	}, [changesCount]);
+
+	useEffect(() => {
+		setChangesCount(c => c + 1);
+	}, [
+		props.apiUrl,
+		filters,
+		delta,
+		pageNumber,
+		sorting,
+		refreshData,
+		setChangesCount
+	]);
 
 	const selectItems = val => {
 		if (val instanceof Array) {
@@ -199,6 +214,7 @@ function DatasetDisplay(props) {
 		}
 	};
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const refreshData = () =>
 		getData(
 			props.apiUrl,

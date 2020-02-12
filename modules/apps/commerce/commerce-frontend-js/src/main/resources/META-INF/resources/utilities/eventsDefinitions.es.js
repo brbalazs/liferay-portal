@@ -12,17 +12,17 @@
  * details.
  */
 
-export const OPEN_SIDE_PANEL = 'open-side-panel';
-export const IFRAME_LOADED = 'iframe-loaded';
-export const OPEN_MODAL = 'open-modal';
 export const CLOSE_MODAL = 'close-modal';
 export const CLOSE_SIDE_PANEL = 'close-side-panel';
-export const OPEN = 'open-component';
-export const CURRENT_PRODUCT_UPDATED = 'current-product-updated';
-export const PRODUCT_OPTIONS_CHANGED = 'product-options-changed';
 export const CURRENT_PRODUCT_STATUS_CHANGED = 'current-product-status-changed';
-export const UPDATE_DATASET_DISPLAY = 'update-dataset-display';
+export const CURRENT_PRODUCT_UPDATED = 'current-product-updated';
 export const DATASET_DISPLAY_UPDATED = 'dataset-display-updated';
+export const IFRAME_LOADED = 'iframe-loaded';
+export const OPEN = 'open-component';
+export const OPEN_MODAL = 'open-modal';
+export const OPEN_SIDE_PANEL = 'open-side-panel';
+export const PRODUCT_OPTIONS_CHANGED = 'product-options-changed';
+export const UPDATE_DATASET_DISPLAY = 'update-dataset-display';
 
 export default {
 	CLOSE_MODAL,

@@ -26,14 +26,14 @@ function ActionItem(props) {
 	);
 
 	function handleClickOnLink(e, payload, target) {
+		e.preventDefault();
+
 		if (target === 'modal') {
-			e.preventDefault();
 			openModal(payload);
 			props.closeMenu();
 		}
 
 		if (target === 'sidePanel') {
-			e.preventDefault();
 			openSidePanel(payload);
 			props.closeMenu();
 		}
@@ -42,17 +42,20 @@ function ActionItem(props) {
 	return (
 		<ClayDropDown.Item
 			href={props.href}
-			onClick={e =>
-				handleClickOnLink(
-					e,
-					{
-						onSubmit: loadData,
-						size: props.size,
-						title: props.title,
-						url: props.href
-					},
-					props.target
-				)
+			onClick={
+				props.target &&
+				props.target !== 'link' &&
+				(e =>
+					handleClickOnLink(
+						e,
+						{
+							onSubmit: loadData,
+							size: props.size || 'lg',
+							title: props.title,
+							url: props.href
+						},
+						props.target
+					))
 			}
 		>
 			{props.icon && (
