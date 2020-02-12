@@ -17,8 +17,6 @@ package com.liferay.commerce.pricing.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetVocabulary;
-import com.liferay.asset.kernel.service.AssetCategoryLocalService;
-import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.asset.test.util.AssetTestUtil;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountGroup;
@@ -100,6 +98,8 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.frutilla.FrutillaRule;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -166,6 +166,16 @@ public class CommercePricingTest {
 
 	@Test
 	public void testCreateCatalogWithBasePriceList() throws Exception {
+		frutillaRule.scenario(
+			"A product default price is taken from the catalog base price list"
+		).given(
+			"A catalog with a default price list"
+		).when(
+			"A price list that does not contain the product is added"
+		).then(
+			"The product price is taken from the base price list"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -227,6 +237,17 @@ public class CommercePricingTest {
 	@Test
 	public void testDiscountInBulkTierPriceEntryDiscoveryFalse()
 		throws Exception {
+
+		frutillaRule.scenario(
+			"In a tier price entry when discovery flag is false each tier " +
+				"has its discount levels"
+		).given(
+			"A bulk tier price entry with discovery flag equals false"
+		).when(
+			"The price of a product is calculated"
+		).then(
+			"The discounts on each tier are applied correctly"
+		);
 
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
@@ -305,6 +326,17 @@ public class CommercePricingTest {
 
 	@Test
 	public void testDiscountInPriceEntryDiscoveryFalse() throws Exception {
+		frutillaRule.scenario(
+			"In a price entry when discovery flag is false it has its " +
+				"discount levels"
+		).given(
+			"A price entry with discovery flag equals false"
+		).when(
+			"The price of a product is calculated"
+		).then(
+			"The discounts on the entry are applied correctly"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -354,6 +386,18 @@ public class CommercePricingTest {
 
 	@Test
 	public void testDiscountInPriceEntryDiscoveryTrue() throws Exception {
+		frutillaRule.scenario(
+			"In a price entry when discovery flag is true the discounts are " +
+				"searched in the system"
+		).given(
+			"A price entry with discovery flag equals true and a system " +
+				"discount"
+		).when(
+			"The price of a product is calculated"
+		).then(
+			"The discounts on each tier are applied correctly"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -420,6 +464,17 @@ public class CommercePricingTest {
 
 	@Test
 	public void testDiscountInTierPriceEntryDiscoveryFalse() throws Exception {
+		frutillaRule.scenario(
+			"In a tier price entry when discovery flag is false each tier " +
+				"has its discount levels"
+		).given(
+			"A tier price entry with discovery flag equals false"
+		).when(
+			"The price of a product is calculated"
+		).then(
+			"The discounts on each tier are applied correctly"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -497,6 +552,18 @@ public class CommercePricingTest {
 
 	@Test
 	public void testDiscountInTierPriceEntryDiscoveryTrue() throws Exception {
+		frutillaRule.scenario(
+			"In a tier price entry when discovery flag is true each tier " +
+				"discounts are searched in the system"
+		).given(
+			"A tier price entry with discovery flag equals true and a system " +
+				"discount"
+		).when(
+			"The price of a product is calculated"
+		).then(
+			"The discounts are applied correctly"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -546,6 +613,17 @@ public class CommercePricingTest {
 
 	@Test
 	public void testEmptyDiscountInPriceEntryDiscoveryFalse() throws Exception {
+		frutillaRule.scenario(
+			"In a price entry when discovery flag is false each tier " +
+				"discounts are searched in the system"
+		).given(
+			"A tier price entry with discovery flag equals false"
+		).when(
+			"The price of a product is calculated"
+		).then(
+			"The discounts are applied correctly"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -597,6 +675,21 @@ public class CommercePricingTest {
 
 	@Test
 	public void testPriceModifiersOnPricingClass() throws Exception {
+		frutillaRule.scenario(
+			"If a price list does not contain the current price entry then " +
+				"the price modifiers configured on the price list are " +
+					"applied on top of the base price"
+		).given(
+			"A price list not containing the current product price entry and " +
+				"price modifiers targeting pricing class and category " +
+					"defined for the price list"
+		).when(
+			"The price of a product is calculated"
+		).then(
+			"The price modifier that results in the lowest price is applied " +
+				"to the base price"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -698,6 +791,21 @@ public class CommercePricingTest {
 
 	@Test
 	public void testPriceModifiersOnProduct() throws Exception {
+		frutillaRule.scenario(
+			"If a price list does not contain the current price entry then " +
+				"the price modifiers configured on the price list are " +
+					"applied on top of the base price"
+		).given(
+			"A price list not containing the current product price entry and " +
+				"price modifiers targeting the product defined for the price " +
+					"list"
+		).when(
+			"The price of a product is calculated"
+		).then(
+			"The price modifier that results in the lowest price is applied " +
+				"to the base price"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -765,6 +873,20 @@ public class CommercePricingTest {
 
 	@Test
 	public void testRetrieveCorrectPriceList() throws Exception {
+		frutillaRule.scenario(
+			"If order-by-hierarchy property is set, when a set of price " +
+				"lists is defined the most specific shall be taken. If " +
+					"order-by-lowest property is set, then the price list " +
+						"that provides the lowest price is taken"
+		).given(
+			"A set of price lists with different qualifiers"
+		).when(
+			"I search for the applicable price list"
+		).then(
+			"According to the configuration i shall retrieve the correct " +
+				"price list"
+		);
+
 		CommercePriceList commercePriceListAccount =
 			CommercePriceListTestUtil.addCommercePriceList(
 				_group.getGroupId(), 1.0);
@@ -909,6 +1031,18 @@ public class CommercePricingTest {
 
 	@Test
 	public void testUseBulkTierPriceEntry() throws Exception {
+		frutillaRule.scenario(
+			"When a tier price entry is configured then the price changes " +
+				"depending on the product purchased quantity"
+		).given(
+			"A bulk tier price entry is created"
+		).when(
+			"I search for the final price of a product given its purchased " +
+				"quantity"
+		).then(
+			"The product price is correctly calculated"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -1033,6 +1167,21 @@ public class CommercePricingTest {
 
 	@Test
 	public void testUseTierPriceEntryWithPromotion() throws Exception {
+		frutillaRule.scenario(
+			"When a promotion is configured for a tier price entry is " +
+				"configured then the price changes depending on the product " +
+					"purchased quantity"
+		).given(
+			"A tier price entry and a promotion is created for the current " +
+				"product"
+		).when(
+			"I search for the final price of a product given its purchased " +
+				"quantity"
+		).then(
+			"The product price is correctly calculated taking the lowest " +
+				"value between promo and unit price"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -1130,6 +1279,21 @@ public class CommercePricingTest {
 
 	@Test
 	public void testUseTierPriceEntryWithTierPromotion() throws Exception {
+		frutillaRule.scenario(
+			"When a tier promotion is configured for a tier price entry is " +
+				"configured then the price changes depending on the product " +
+					"purchased quantity"
+		).given(
+			"A tier price entry and a promotion is created for the current " +
+				"product"
+		).when(
+			"I search for the final price of a product given its purchased " +
+				"quantity"
+		).then(
+			"The product price is correctly calculated taking the lowest " +
+				"value between promo and unit price"
+		);
+
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -1237,6 +1401,17 @@ public class CommercePricingTest {
 
 	@Test(expected = CommerceUndefinedBasePriceListException.class)
 	public void testWithoutBasePricelist() throws Exception {
+		frutillaRule.scenario(
+			"When a catalog is created without a base price list and a price " +
+				"is not found an exception is raised"
+		).given(
+			"A catalog without a base price list"
+		).when(
+			"I search for the final price of a product"
+		).then(
+			"A CommerceUndefinedBasePriceListException is raised"
+		);
+
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addCommercePriceList(
 				_group.getGroupId(), 1.0);
@@ -1251,6 +1426,9 @@ public class CommercePricingTest {
 			cpInstance.getCPInstanceId(), 1, _commerceCurrency,
 			commerceContext);
 	}
+
+	@Rule
+	public FrutillaRule frutillaRule = new FrutillaRule();
 
 	private static CommercePriceEntry _addCommercePriceEntry(
 			long cpProductId, String cpInstanceUuid, long commercePriceListId,
@@ -1498,12 +1676,6 @@ public class CommercePricingTest {
 		_configurationProvider.saveSystemConfiguration(
 			CommercePricingConfiguration.class, properties);
 	}
-
-	@Inject
-	private AssetCategoryLocalService _assetCategoryLocalService;
-
-	@Inject
-	private AssetEntryLocalService _assetEntryLocalService;
 
 	private CommerceAccount _commerceAccount;
 	private CommerceAccountGroup _commerceAccountGroup;
