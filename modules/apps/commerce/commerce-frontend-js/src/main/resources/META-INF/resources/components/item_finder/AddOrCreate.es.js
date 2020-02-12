@@ -153,7 +153,7 @@ class AddOrCreateBase extends Component {
 							)}
 
 							{this.props.items.length ? (
-								<>
+								<React.Fragment>
 									<ClayList.Header>
 										{this.props.titleLabel}
 									</ClayList.Header>
@@ -190,7 +190,7 @@ class AddOrCreateBase extends Component {
 										spritemap={this.props.spritemap}
 										totalItems={this.props.itemsCount}
 									/>
-								</>
+								</React.Fragment>
 							) : null}
 						</ClayList>
 					</div>
