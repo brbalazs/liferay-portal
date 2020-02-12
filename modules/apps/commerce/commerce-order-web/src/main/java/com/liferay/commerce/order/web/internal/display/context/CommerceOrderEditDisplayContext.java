@@ -20,7 +20,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.frontend.model.StepModel;
-import com.liferay.commerce.frontend.model.SummaryElement;
+import com.liferay.commerce.frontend.model.SummaryItem;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -684,25 +684,25 @@ public class CommerceOrderEditDisplayContext {
 		return steps;
 	}
 
-	public List<SummaryElement> getSummary() throws PortalException {
-		List<SummaryElement> summary = new ArrayList<>();
+	public List<SummaryItem> getSummary() throws PortalException {
+		List<SummaryItem> summary = new ArrayList<>();
 
 		if (_commerceOrder == null) {
 			return summary;
 		}
 
-		SummaryElement itemsSubtotalSummaryElement = new SummaryElement();
-		SummaryElement itemsSubtotalDiscountSummaryElement =
-			new SummaryElement();
-		SummaryElement orderDiscountSummaryElement = new SummaryElement();
-		SummaryElement promotionCodeSummaryElement = new SummaryElement();
-		SummaryElement estimatedTaxSummaryElement = new SummaryElement();
-		SummaryElement shippingAndHandingSummaryElement = new SummaryElement();
-		SummaryElement shippingAndHandingDiscountSummaryElement =
-			new SummaryElement();
-		SummaryElement grandTotalSummaryElement = new SummaryElement();
+		SummaryItem itemsSubtotalSummaryItem = new SummaryItem();
+		SummaryItem itemsSubtotalDiscountSummaryItem =
+			new SummaryItem();
+		SummaryItem orderDiscountSummaryItem = new SummaryItem();
+		SummaryItem promotionCodeSummaryItem = new SummaryItem();
+		SummaryItem estimatedTaxSummaryItem = new SummaryItem();
+		SummaryItem shippingAndHandingSummaryItem = new SummaryItem();
+		SummaryItem shippingAndHandingDiscountSummaryItem =
+			new SummaryItem();
+		SummaryItem grandTotalSummaryItem = new SummaryItem();
 
-		itemsSubtotalSummaryElement.setLabel(
+		itemsSubtotalSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(), "items-subtotal"));
 
@@ -714,11 +714,11 @@ public class CommerceOrderEditDisplayContext {
 		CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
 
 		if (subtotal != null) {
-			itemsSubtotalSummaryElement.setValue(
+			itemsSubtotalSummaryItem.setValue(
 				subtotal.format(_commerceOrderRequestHelper.getLocale()));
 		}
 
-		itemsSubtotalDiscountSummaryElement.setLabel(
+		itemsSubtotalDiscountSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(),
 				"items-subtotal-discount"));
@@ -730,11 +730,11 @@ public class CommerceOrderEditDisplayContext {
 			CommerceMoney discountAmount =
 				subtotalDiscountValue.getDiscountAmount();
 
-			itemsSubtotalDiscountSummaryElement.setValue(
+			itemsSubtotalDiscountSummaryItem.setValue(
 				discountAmount.format(_commerceOrderRequestHelper.getLocale()));
 		}
 
-		orderDiscountSummaryElement.setLabel(
+		orderDiscountSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(), "order-discount"));
 
@@ -745,28 +745,28 @@ public class CommerceOrderEditDisplayContext {
 			CommerceMoney discountAmount =
 				totalDiscountValue.getDiscountAmount();
 
-			orderDiscountSummaryElement.setValue(
+			orderDiscountSummaryItem.setValue(
 				discountAmount.format(_commerceOrderRequestHelper.getLocale()));
 		}
 
-		promotionCodeSummaryElement.setLabel(
+		promotionCodeSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(), "promotion-code"));
-		promotionCodeSummaryElement.setValue(
+		promotionCodeSummaryItem.setValue(
 			_commerceOrder.getCouponCode(), "--");
 
-		estimatedTaxSummaryElement.setLabel(
+		estimatedTaxSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(), "estimated-tax"));
 
 		CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
 
 		if (taxValue != null) {
-			estimatedTaxSummaryElement.setValue(
+			estimatedTaxSummaryItem.setValue(
 				taxValue.format(_commerceOrderRequestHelper.getLocale()));
 		}
 
-		shippingAndHandingSummaryElement.setLabel(
+		shippingAndHandingSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(),
 				"shipping-and-handing"));
@@ -774,11 +774,11 @@ public class CommerceOrderEditDisplayContext {
 		CommerceMoney shippingValue = commerceOrderPrice.getShippingValue();
 
 		if (shippingValue != null) {
-			shippingAndHandingSummaryElement.setValue(
+			shippingAndHandingSummaryItem.setValue(
 				shippingValue.format(_commerceOrderRequestHelper.getLocale()));
 		}
 
-		shippingAndHandingDiscountSummaryElement.setLabel(
+		shippingAndHandingDiscountSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(),
 				"shipping-and-handing-discount"));
@@ -790,30 +790,30 @@ public class CommerceOrderEditDisplayContext {
 			CommerceMoney discountAmount =
 				shippingDiscountValue.getDiscountAmount();
 
-			shippingAndHandingDiscountSummaryElement.setValue(
+			shippingAndHandingDiscountSummaryItem.setValue(
 				discountAmount.format(_commerceOrderRequestHelper.getLocale()));
 		}
 
-		grandTotalSummaryElement.setLabel(
+		grandTotalSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(), "grand-total"));
-		grandTotalSummaryElement.setStyle("big");
+		grandTotalSummaryItem.setStyle("big");
 
 		CommerceMoney total = commerceOrderPrice.getTotal();
 
 		if (total != null) {
-			grandTotalSummaryElement.setValue(
+			grandTotalSummaryItem.setValue(
 				total.format(_commerceOrderRequestHelper.getLocale()));
 		}
 
-		summary.add(itemsSubtotalSummaryElement);
-		summary.add(itemsSubtotalDiscountSummaryElement);
-		summary.add(orderDiscountSummaryElement);
-		summary.add(promotionCodeSummaryElement);
-		summary.add(estimatedTaxSummaryElement);
-		summary.add(shippingAndHandingSummaryElement);
-		summary.add(shippingAndHandingDiscountSummaryElement);
-		summary.add(grandTotalSummaryElement);
+		summary.add(itemsSubtotalSummaryItem);
+		summary.add(itemsSubtotalDiscountSummaryItem);
+		summary.add(orderDiscountSummaryItem);
+		summary.add(promotionCodeSummaryItem);
+		summary.add(estimatedTaxSummaryItem);
+		summary.add(shippingAndHandingSummaryItem);
+		summary.add(shippingAndHandingDiscountSummaryItem);
+		summary.add(grandTotalSummaryItem);
 
 		return summary;
 	}

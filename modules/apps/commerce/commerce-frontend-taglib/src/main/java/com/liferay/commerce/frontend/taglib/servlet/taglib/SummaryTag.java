@@ -36,6 +36,10 @@ public class SummaryTag extends IncludeTag {
 		_items = items;
 	}
 
+	public void setApiUrl(String apiUrl) { _apiUrl = apiUrl; };
+
+	public void setDatasetDisplayId(String datasetDisplayId) { _datasetDisplayId = datasetDisplayId; };
+
 	@Override
 	public void setPageContext(PageContext pageContext) {
 		super.setPageContext(pageContext);
@@ -47,6 +51,8 @@ public class SummaryTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
+		_apiUrl = null;
+		_datasetDisplayId = null;
 		_items = null;
 	}
 
@@ -58,10 +64,13 @@ public class SummaryTag extends IncludeTag {
 	@Override
 	protected void setAttributes(HttpServletRequest httpServletRequest) {
 		request.setAttribute("liferay-commerce:summary:items", _items);
+		request.setAttribute("liferay-commerce:summary:apiUrl", _apiUrl);
+		request.setAttribute("liferay-commerce:summary:datasetDisplayId", _datasetDisplayId);
 	}
 
 	private static final String _PAGE = "/summary/page.jsp";
 
 	private List<SummaryItem> _items;
-
+	private String _apiUrl;
+	private String _datasetDisplayId;
 }

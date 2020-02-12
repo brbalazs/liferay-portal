@@ -601,17 +601,17 @@
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.SummaryTag</tag-class>
 		<body-content>JSP</body-content>
 		<attribute>
-			<name>items</name>
+			<name>apiUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>datesetDisplayId</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-	</tag>
-	<tag>
-		<name>summary-table</name>
-		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.SummaryTableTag</tag-class>
-		<body-content>JSP</body-content>
 		<attribute>
-			<name>data</name>
+			<name>items</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

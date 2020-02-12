@@ -28,6 +28,8 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
 <liferay-theme:defineObjects />
 
 <%
+String apiUrl = (String)request.getAttribute("liferay-commerce:summary:apiUrl");
+String datasetDisplayId = (String)request.getAttribute("liferay-commerce:summary:datasetDisplayId");
 List<SummaryItem> items = (List<SummaryItem>)request.getAttribute("liferay-commerce:summary:items");
 JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
 

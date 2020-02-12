@@ -271,9 +271,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			actionUrl="<%= editOrderSummaryURL %>"
 			title='<%= LanguageUtil.get(request, "order-summary") %>'
 		>
-			<commerce-ui:summary-table
-				data="<%= commerceOrderEditDisplayContext.getSummary() %>"
-			/>
+			<commerce-ui:summary items="<%= commerceOrderEditDisplayContext.getSummary() %>" />
 		</commerce-ui:panel>
 	</div>
 </div>

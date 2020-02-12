@@ -15,6 +15,9 @@
 import launcher from './entry.es';
 
 launcher('summary', 'summary', {
+
+	apiUrl: '/fake-summary-item',
+	datasetDisplayId: 'testId',
 	items: [
 		{
 			label: 'Items Subtotal',

@@ -32,7 +32,14 @@ module.exports = [
 		entry_dev: 'entry.dev.es.js',
 		folder: 'example',
 		name: 'Example'
-	} /*
+	}, 
+  {
+    entry: "entry.es.js",
+    entry_dev: "entry.dev.es.js",
+    folder: "summary",
+    name: "Summary",
+    page: "summary.html"
+  },/*
   {
     entry: "entry.es.js",
     entry_dev: "entry.dev.es.js",
