@@ -18,10 +18,10 @@ import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
 import {
-	OPEN_SIDE_PANEL,
+	DATASET_DISPLAY_UPDATED,
 	OPEN_MODAL,
+	OPEN_SIDE_PANEL,
 	UPDATE_DATASET_DISPLAY,
-	DATASET_DISPLAY_UPDATED
 } from '../../utilities/eventsDefinitions.es';
 import {
 	getRandomId,
