@@ -39,7 +39,7 @@
 		"test": "liferay-npm-scripts test",
 		"watch": "liferay-npm-scripts webpack --watch"
 	},
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"workspaces": {
 		"nohoist": [
 			"@clayui",
