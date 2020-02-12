@@ -30,16 +30,20 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 )
 public interface ProductDefinitionConfiguration {
 
-	@Meta.AD(deflt = "15", name = "check-interval", required = false)
-	public int checkInterval();
+	@Meta.AD(
+		deflt = "15", name = "product-definition-generator-time-interval",
+		required = false
+	)
+	public int generatorTimeInterval();
 
 	@Meta.AD(
-		deflt = "MINUTE", name = "check-interval-unit",
+		deflt = "MINUTE",
+		name = "product-definition-generator-time-interval-unit",
 		optionLabels = {"Day", "Hour", "Minute"},
 		optionValues = {"DAY", "HOUR", "MINUTE"},
 		required = false
 	)
-	public String checkIntervalUnit();
+	public String generatorTimeIntervalUnit();
 
 	@Meta.AD(name="cron-expression", required = false)
 	public String cronExpression();

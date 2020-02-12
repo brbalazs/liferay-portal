@@ -59,7 +59,7 @@ public class ProductDefinitionMessageListener extends BaseMessageListener {
 		try {
 			timeUnit = Enum.valueOf(
 				TimeUnit.class,
-				productDefinitionConfiguration.checkIntervalUnit());
+				productDefinitionConfiguration.generatorTimeIntervalUnit());
 		}
 		catch (IllegalArgumentException iae) {
 			_log.error(iae, iae);
@@ -84,7 +84,8 @@ public class ProductDefinitionMessageListener extends BaseMessageListener {
 		if (trigger == null) {
 			trigger = _triggerFactory.createTrigger(
 				className, className, null, null,
-				productDefinitionConfiguration.checkInterval(), timeUnit);
+				productDefinitionConfiguration.generatorTimeInterval(),
+				timeUnit);
 		}
 
 		SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
