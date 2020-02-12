@@ -2,7 +2,7 @@ package com.liferay.commerce.google.merchant.internal.sftp;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.commerce.google.merchant.constants.CommerceGoogleMerchantConstants;
+import com.liferay.commerce.google.merchant.internal.constants.CommerceGoogleMerchantConstants;
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 /**

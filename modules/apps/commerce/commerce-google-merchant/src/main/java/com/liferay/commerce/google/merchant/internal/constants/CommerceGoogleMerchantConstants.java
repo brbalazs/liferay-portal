@@ -1,4 +1,4 @@
-package com.liferay.commerce.google.merchant.constants;
+package com.liferay.commerce.google.merchant.internal.constants;
 
 /**
  * @author Eric Chin
