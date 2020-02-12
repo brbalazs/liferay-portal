@@ -16,8 +16,10 @@ package com.liferay.commerce.pricing.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.asset.kernel.model.AssetCategory;
+import com.liferay.asset.kernel.model.AssetVocabulary;
 import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
+import com.liferay.asset.test.util.AssetTestUtil;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupCommerceAccountRelLocalService;
@@ -71,7 +73,6 @@ import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
@@ -627,11 +628,11 @@ public class CommercePricingTest {
 				RandomTestUtil.randomString(),
 				ServiceContextTestUtil.getServiceContext());
 
-		List<AssetCategory> assetCategories =
-			_assetCategoryLocalService.getAssetCategories(
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		AssetVocabulary assetVocabulary = AssetTestUtil.addVocabulary(
+			_user.getGroupId());
 
-		AssetCategory assetCategory = assetCategories.get(0);
+		AssetCategory assetCategory = AssetTestUtil.addCategory(
+			_user.getGroupId(), assetVocabulary.getVocabularyId());
 
 		long[] assetCategoryIds = {assetCategory.getCategoryId()};
 
