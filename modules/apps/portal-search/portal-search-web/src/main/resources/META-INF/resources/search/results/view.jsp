@@ -188,7 +188,7 @@ com.liferay.portal.kernel.dao.search.SearchContainer<com.liferay.portal.kernel.s
 									%>
 
 										<tr>
-											<td style="word-break:break-all;" width="25%">
+											<td style="word-break: break-all;" width="25%">
 												<strong><%= HtmlUtil.escape(searchResultFieldDisplayContext.getName()) %></strong>
 											</td>
 											<td>
