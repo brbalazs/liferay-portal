@@ -22,6 +22,7 @@ import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.KeyValuePair;
@@ -36,6 +37,7 @@ import javax.portlet.RenderResponse;
 /**
  * @author Marco Leo
  * @author Alessio Antonio Rendina
+ * @author Igor Beslic
  */
 @ProviderType
 public interface CPInstanceHelper {
@@ -66,6 +68,14 @@ public interface CPInstanceHelper {
 			long cpDefinitionId, String serializedDDMFormValues)
 		throws Exception;
 
+	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			getCPInstanceCPDefinitionOptionRelsCPDefinitionOptionValueRels(
+				long cpInstanceId)
+		throws PortalException;
+
+	public List<CPInstanceOptionValueRel>
+		getCPInstanceCPInstanceOptionValueRels(long cpInstanceId);
+
 	public DDMForm getCPInstanceDDMForm(
 			long cpDefinitionId, Locale locale, boolean ignoreSKUCombinations,
 			boolean skuContributor)
@@ -75,6 +85,9 @@ public interface CPInstanceHelper {
 
 	public CPSku getDefaultCPSku(CPCatalogEntry cpCatalogEntry)
 		throws Exception;
+
+	public List<KeyValuePair> getKeyValuePairs(long cpInstanceId, Locale locale)
+		throws PortalException;
 
 	public List<KeyValuePair> getKeyValuePairs(
 			long cpDefinitionId, String json, Locale locale)
