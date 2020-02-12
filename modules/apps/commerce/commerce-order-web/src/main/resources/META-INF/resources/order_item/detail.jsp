@@ -31,7 +31,7 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 <portlet:actionURL name="editCommerceOrderItem" var="editCommerceOrderItemActionURL" />
 
 <commerce-ui:side-panel-content
-	title="<%= commerceOrderItem.getName(locale) %>"
+	title='<%= StringBundler.concat(commerceOrderItem.getName(locale), " - ", commerceOrderItem.getSku()) %>'
 >
 	<aui:form action="<%= editCommerceOrderItemActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
