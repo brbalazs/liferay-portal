@@ -104,12 +104,8 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 
 		<aui:button-row>
 			<aui:button cssClass="btn-lg" type="submit" />
-
-			<aui:button cssClass="btn-lg" href="<%= redirect %>" type="cancel" />
 		</aui:button-row>
 	</aui:form>
-
-	<button class="btn btn-secondary" id="modal-opener">open modal</button>
 
 	<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
 		document.querySelector('#modal-opener').addEventListener('click', function(e) {
