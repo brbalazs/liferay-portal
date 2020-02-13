@@ -233,6 +233,10 @@ out.println(PortalUtil.escapeRedirect("/"));
 			panel = "Control Panel",
 			portlet = "Roles");
 
+		AssertClick(
+			key_order = "down",
+			locator1 = "ManagementBar#ORDER_ICON_SPECIFIC");
+
 		Role.definePermissionCmdCP(
 			permissionDefinitionKeys = "CONTROL_PANEL_USERS_USERS_AND_ORGANIZATIONS_RESOURCE_PERMISSIONS_USER_VIEW_CHECKBOX",
 			permissionDefinitionValue = "View",
