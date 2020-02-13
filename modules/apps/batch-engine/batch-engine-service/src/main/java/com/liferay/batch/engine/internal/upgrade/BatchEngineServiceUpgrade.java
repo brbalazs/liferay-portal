@@ -31,6 +31,7 @@ public class BatchEngineServiceUpgrade implements UpgradeStepRegistrator {
 	@Override
 	public void register(Registry registry) {
 		registry.register("3.0.0", "4.0.0", new UpgradeVersion());
+
 		registry.register("4.0.0", "4.0.1", new UpgradeClassName());
 	}
 
