@@ -23,6 +23,7 @@ import {
 	OPEN_MODAL,
 	CLOSE_MODAL
 } from '../../utilities/eventsDefinitions.es';
+import { isPageInIframe } from '../../utilities/iframes.es';
 
 function Modal(props) {
 	const [visible, setVisible] = useState(false);
@@ -51,7 +52,7 @@ function Modal(props) {
 
 	useEffect(() => {
 		function handleOpenEvent(data) {
-			if (props.id !== data.id || visible) {
+			if (props.id !== data.id || visible || isPageInIframe()) {
 				return;
 			}
 
@@ -73,7 +74,6 @@ function Modal(props) {
 
 		function cleanUpListeners(e) {
 			if (e.portletId === props.portletId) {
-				Liferay.detach(OPEN, handleOpenEvent);
 				Liferay.detach(OPEN_MODAL, handleOpenEvent);
 				Liferay.detach(CLOSE_MODAL, closeModal);
 				Liferay.detach('destroyPortlet', cleanUpListeners);
@@ -81,7 +81,6 @@ function Modal(props) {
 		}
 
 		if (Liferay.on) {
-			Liferay.on(OPEN, handleOpenEvent);
 			Liferay.on(OPEN_MODAL, handleOpenEvent);
 			Liferay.on(CLOSE_MODAL, closeModal);
 			Liferay.on('destroyPortlet', cleanUpListeners);

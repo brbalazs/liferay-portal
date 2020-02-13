@@ -16,6 +16,10 @@
 
 <%@ include file="/side_panel_content/init.jsp" %>
 
+<aui:script require="commerce-frontend-js/utilities/iframes.es as iframesUtils">
+	iframesUtils.initializeIframeListeners();
+</aui:script>
+
 <div class="side-panel-iframe">
 
 	<c:if test="<%= Validator.isNotNull(title) %>">
