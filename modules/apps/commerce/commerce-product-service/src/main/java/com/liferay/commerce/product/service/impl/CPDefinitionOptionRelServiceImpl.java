@@ -17,6 +17,7 @@ package com.liferay.commerce.product.service.impl;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.base.CPDefinitionOptionRelServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -35,6 +36,7 @@ import java.util.Map;
 
 /**
  * @author Marco Leo
+ * @author Igor Beslic
  */
 public class CPDefinitionOptionRelServiceImpl
 	extends CPDefinitionOptionRelServiceBaseImpl {
@@ -126,6 +128,23 @@ public class CPDefinitionOptionRelServiceImpl
 			cpDefinitionOptionRel.getCPDefinitionId(), ActionKeys.VIEW);
 
 		return cpDefinitionOptionRel;
+	}
+
+	@Override
+	public Map<String, List<String>>
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				long cpInstanceId)
+		throws PortalException {
+
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		_checkCommerceCatalogPermissionByCPDefinitionId(
+			cpInstance.getCPDefinitionId(), ActionKeys.VIEW);
+
+		return cpDefinitionOptionRelLocalService.
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				cpInstanceId);
 	}
 
 	@Override

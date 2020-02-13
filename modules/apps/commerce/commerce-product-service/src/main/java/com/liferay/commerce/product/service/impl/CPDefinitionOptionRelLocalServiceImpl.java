@@ -54,7 +54,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -66,6 +65,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Marco Leo
+ * @author Igor Beslic
  */
 public class CPDefinitionOptionRelLocalServiceImpl
 	extends CPDefinitionOptionRelLocalServiceBaseImpl {
@@ -353,22 +353,6 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				cpDefinitionOptionRelPersistence.findByPrimaryKey(
 					cpInstanceOptionValueRel.getCPDefinitionOptionRelId());
 
-			if (cpInstanceOptionValueRel.getCPDefinitionOptionValueRelId() ==
-					0) {
-
-				// TODO here we handle manually added entries (not single select not multi select)
-
-				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.put(
-					cpDefinitionOptionRel.getKey(),
-					Arrays.asList("REAL_VALUE"));
-
-				continue;
-			}
-
-			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-				cpDefinitionOptionValueRelPersistence.findByPrimaryKey(
-					cpInstanceOptionValueRel.getCPDefinitionOptionValueRelId());
-
 			List<String> cpDefinitionOptionValueRelKeys =
 				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.get(
 					cpDefinitionOptionRel.getKey());
@@ -380,6 +364,16 @@ public class CPDefinitionOptionRelLocalServiceImpl
 					cpDefinitionOptionRel.getKey(),
 					cpDefinitionOptionValueRelKeys);
 			}
+
+			if (cpInstanceOptionValueRel.getCPDefinitionOptionValueRelId() ==
+					0) {
+
+				continue;
+			}
+
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+				cpDefinitionOptionValueRelPersistence.findByPrimaryKey(
+					cpInstanceOptionValueRel.getCPDefinitionOptionValueRelId());
 
 			cpDefinitionOptionValueRelKeys.add(
 				cpDefinitionOptionValueRel.getKey());

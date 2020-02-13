@@ -163,6 +163,42 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 	}
 
 	@Override
+	public boolean matchesCPInstanceOptionValueRels(
+		long cpInstanceId,
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelIdsCPDefinitionOptionValueRelIds) {
+
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels =
+			cpInstanceOptionValueRelPersistence.findByCPInstanceId(
+				cpInstanceId);
+
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+				cpInstanceOptionValueRels) {
+
+			if (!cpDefinitionOptionRelIdsCPDefinitionOptionValueRelIds.
+					containsKey(
+						cpInstanceOptionValueRel.
+							getCPDefinitionOptionRelId())) {
+
+				return false;
+			}
+
+			List<Long> cpDefinitionOptionValueIds =
+				cpDefinitionOptionRelIdsCPDefinitionOptionValueRelIds.get(
+					cpInstanceOptionValueRel.getCPDefinitionOptionRelId());
+
+			if (!cpDefinitionOptionValueIds.contains(
+					cpInstanceOptionValueRel.
+						getCPDefinitionOptionValueRelId())) {
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	@Override
 	public void updateCPInstanceOptionValueRels(
 			long groupId, long companyId, long userId, long cpDefinitionId,
 			long cpInstanceId, String json)
