@@ -20,6 +20,9 @@ import com.liferay.calendar.model.CalendarResource;
 import com.liferay.calendar.service.base.CalendarServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
@@ -143,7 +146,18 @@ public class CalendarServiceImpl extends CalendarServiceBaseImpl {
 			return false;
 		}
 
-		Calendar calendar = getCalendar(calendarId);
+		Calendar calendar = null;
+
+		try {
+			calendar = getCalendar(calendarId);
+		}
+		catch (PrincipalException principalException) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(principalException, principalException);
+			}
+
+			return false;
+		}
 
 		if (calendarLocalService.hasStagingCalendar(calendar)) {
 			return false;
@@ -326,6 +340,9 @@ public class CalendarServiceImpl extends CalendarServiceBaseImpl {
 
 		return calendars;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CalendarServiceImpl.class.getName());
 
 	private static volatile ModelResourcePermission<Calendar>
 		_calendarModelResourcePermission =
