@@ -21,18 +21,11 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
+CommerceOrderItem commerceOrderItem = commerceOrderEditDisplayContext.getCommerceOrderItem();
 
 CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 
-CommerceOrderItem commerceOrderItem = commerceOrderEditDisplayContext.getCommerceOrderItem();
-
-portletDisplay.setShowBackIcon(true);
-
-if (Validator.isNull(redirect)) {
-	redirect = String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderItemsPortletURL());
-}
-
-portletDisplay.setURLBack(redirect);
+Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 %>
 
 <portlet:actionURL name="editCommerceOrderItem" var="editCommerceOrderItemActionURL" />
@@ -72,7 +65,36 @@ portletDisplay.setURLBack(redirect);
 			</aui:input>
 		</c:if>
 
-		<aui:input bean="<%= commerceOrderItem %>" model="<%= CommerceOrderItem.class %>" name="requestedDeliveryDate" />
+		<%
+		int requestedDeliveryDay = 0;
+		int requestedDeliveryMonth = -1;
+		int requestedDeliveryYear = 0;
+
+		if (requestedDeliveryDate != null) {
+			Calendar calendar = CalendarFactoryUtil.getCalendar(requestedDeliveryDate.getTime());
+
+			requestedDeliveryDay = calendar.get(Calendar.DAY_OF_MONTH);
+			requestedDeliveryMonth = calendar.get(Calendar.MONTH);
+			requestedDeliveryYear = calendar.get(Calendar.YEAR);
+		}
+		%>
+
+		<div class="form-group input-date-wrapper">
+			<label for="requestedDeliveryDate"><liferay-ui:message key="requested-delivery-date" /></label>
+
+			<liferay-ui:input-date
+				dayParam="requestedDeliveryDateDay"
+				dayValue="<%= requestedDeliveryDay %>"
+				disabled="<%= false %>"
+				monthParam="requestedDeliveryDateMonth"
+				monthValue="<%= requestedDeliveryMonth %>"
+				name="requestedDeliveryDate"
+				nullable="<%= true %>"
+				showDisableCheckbox="<%= false %>"
+				yearParam="requestedDeliveryDateYear"
+				yearValue="<%= requestedDeliveryYear %>"
+			/>
+		</div>
 
 		<aui:input bean="<%= commerceOrderItem %>" model="<%= CommerceOrderItem.class %>" name="deliveryGroup" />
 

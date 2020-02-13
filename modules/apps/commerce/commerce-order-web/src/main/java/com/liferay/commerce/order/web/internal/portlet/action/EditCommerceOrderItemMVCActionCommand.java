@@ -24,15 +24,24 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.TransactionConfig;
+import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import java.math.BigDecimal;
+
+import java.util.Calendar;
+import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -119,18 +128,33 @@ public class EditCommerceOrderItemMVCActionCommand
 				addCommerceOrderItems(actionRequest);
 			}
 			else if (cmd.equals(Constants.UPDATE)) {
-				updateCommerceOrderItem(actionRequest);
+				Callable<Object> commerceOrderItemCallable =
+					new CommerceOrderItemCallable(actionRequest);
+
+				TransactionInvokerUtil.invoke(
+					_transactionConfig, commerceOrderItemCallable);
 			}
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteCommerceOrderItems(actionRequest);
 			}
 		}
-		catch (CommerceOrderValidatorException cove) {
-			SessionErrors.add(actionRequest, cove.getClass(), cove);
+		catch (Throwable t) {
+			if (t instanceof CommerceOrderValidatorException) {
+				SessionErrors.add(actionRequest, t.getClass(), t);
 
-			String redirect = ParamUtil.getString(actionRequest, "redirect");
+				String redirect = ParamUtil.getString(
+					actionRequest, "redirect");
 
-			sendRedirect(actionRequest, actionResponse, redirect);
+				sendRedirect(actionRequest, actionResponse, redirect);
+			}
+			else {
+				_log.error(t, t);
+
+				String redirect = ParamUtil.getString(
+					actionRequest, "redirect");
+
+				sendRedirect(actionRequest, actionResponse, redirect);
+			}
 		}
 	}
 
@@ -140,6 +164,9 @@ public class EditCommerceOrderItemMVCActionCommand
 		long commerceOrderItemId = ParamUtil.getLong(
 			actionRequest, "commerceOrderItemId");
 		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			CommerceOrderItem.class.getName(), actionRequest);
 
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemService.getCommerceOrderItem(commerceOrderItemId);
@@ -151,25 +178,77 @@ public class EditCommerceOrderItemMVCActionCommand
 				(CommerceContext)actionRequest.getAttribute(
 					CommerceWebKeys.COMMERCE_CONTEXT);
 
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				CommerceOrderItem.class.getName(), actionRequest);
-
-			_commerceOrderItemService.updateCommerceOrderItem(
-				commerceOrderItemId, quantity, commerceContext, serviceContext);
+			commerceOrderItem =
+				_commerceOrderItemService.updateCommerceOrderItem(
+					commerceOrderItemId, quantity, commerceContext,
+					serviceContext);
 		}
 		else {
 			BigDecimal price = (BigDecimal)ParamUtil.getNumber(
 				actionRequest, "price");
 
-			_commerceOrderItemService.updateCommerceOrderItemUnitPrice(
-				commerceOrderItemId, price, quantity);
+			commerceOrderItem =
+				_commerceOrderItemService.updateCommerceOrderItemUnitPrice(
+					commerceOrderItemId, price, quantity);
 		}
+
+		int requestedDeliveryDateMonth = ParamUtil.getInteger(
+			actionRequest, "requestedDeliveryDateMonth");
+		int requestedDeliveryDateDay = ParamUtil.getInteger(
+			actionRequest, "requestedDeliveryDateDay");
+		int requestedDeliveryDateYear = ParamUtil.getInteger(
+			actionRequest, "requestedDeliveryDateYear");
+		int requestedDeliveryDateHour = ParamUtil.getInteger(
+			actionRequest, "requestedDeliveryDateHour");
+		int requestedDeliveryDateMinute = ParamUtil.getInteger(
+			actionRequest, "requestedDeliveryDateMinute");
+		int requestedDeliveryDateAmPm = ParamUtil.getInteger(
+			actionRequest, "requestedDeliveryDateAmPm");
+
+		if (requestedDeliveryDateAmPm == Calendar.PM) {
+			requestedDeliveryDateHour += 12;
+		}
+
+		String deliveryGroup = ParamUtil.getString(
+			actionRequest, "deliveryGroup");
+
+		_commerceOrderItemService.updateCommerceOrderItemInfo(
+			commerceOrderItem.getCommerceOrderItemId(), deliveryGroup,
+			commerceOrderItem.getShippingAddressId(),
+			commerceOrderItem.getPrintedNote(), requestedDeliveryDateMonth,
+			requestedDeliveryDateDay, requestedDeliveryDateYear,
+			requestedDeliveryDateHour, requestedDeliveryDateMinute,
+			serviceContext);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCommerceOrderItemMVCActionCommand.class);
+
+	private static final TransactionConfig _transactionConfig =
+		TransactionConfig.Factory.create(
+			Propagation.REQUIRED, new Class<?>[] {Exception.class});
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
+
+	private class CommerceOrderItemCallable implements Callable<Object> {
+
+		@Override
+		public User call() throws Exception {
+			updateCommerceOrderItem(_actionRequest);
+
+			return null;
+		}
+
+		private CommerceOrderItemCallable(ActionRequest actionRequest) {
+			_actionRequest = actionRequest;
+		}
+
+		private final ActionRequest _actionRequest;
+
+	}
 
 }

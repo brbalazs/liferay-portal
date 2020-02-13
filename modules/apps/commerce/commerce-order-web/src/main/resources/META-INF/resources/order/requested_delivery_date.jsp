@@ -20,18 +20,49 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
+
+Date requestedDeliveryDate = commerceOrder.getRequestedDeliveryDate();
 %>
 
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderRequesedDeliveryDateActionURL" />
 
 <commerce-ui:modal-content>
-	<aui:form action="<%= editCommerceOrderRequesedDeliveryDateActionURL %>" cssClass="container-fluid-1280 p-0" method="post" name="fm">
+	<aui:form action="<%= editCommerceOrderRequesedDeliveryDateActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="requestedDeliveryDate" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrder.getCommerceOrderId() %>" />
 
 		<aui:model-context bean="<%= commerceOrder %>" model="<%= CommerceOrder.class %>" />
 
-		<aui:input formName="fm" name="requestedDeliveryDate" wrapperCssClass="form-group-item" />
+		<%
+		int requestedDeliveryDay = 0;
+		int requestedDeliveryMonth = -1;
+		int requestedDeliveryYear = 0;
+
+		if (requestedDeliveryDate != null) {
+			Calendar calendar = CalendarFactoryUtil.getCalendar(requestedDeliveryDate.getTime());
+
+			requestedDeliveryDay = calendar.get(Calendar.DAY_OF_MONTH);
+			requestedDeliveryMonth = calendar.get(Calendar.MONTH);
+			requestedDeliveryYear = calendar.get(Calendar.YEAR);
+		}
+		%>
+
+		<div class="form-group input-date-wrapper">
+			<label for="requestedDeliveryDate"><liferay-ui:message key="requested-delivery-date" /></label>
+
+			<liferay-ui:input-date
+				dayParam="requestedDeliveryDateDay"
+				dayValue="<%= requestedDeliveryDay %>"
+				disabled="<%= false %>"
+				monthParam="requestedDeliveryDateMonth"
+				monthValue="<%= requestedDeliveryMonth %>"
+				name="requestedDeliveryDate"
+				nullable="<%= true %>"
+				showDisableCheckbox="<%= false %>"
+				yearParam="requestedDeliveryDateYear"
+				yearValue="<%= requestedDeliveryYear %>"
+			/>
+		</div>
 	</aui:form>
 </commerce-ui:modal-content>
