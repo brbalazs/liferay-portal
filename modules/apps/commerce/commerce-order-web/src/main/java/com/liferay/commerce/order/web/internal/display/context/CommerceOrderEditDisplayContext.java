@@ -18,6 +18,7 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.frontend.model.StepModel;
 import com.liferay.commerce.frontend.model.SummaryItem;
@@ -79,6 +80,7 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
+import javax.portlet.RenderURL;
 import javax.portlet.WindowStateException;
 
 /**
@@ -176,6 +178,31 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		return sb.toString();
+	}
+
+	public ClayCreationMenu getCommerceAddressClayCreationMenu(
+			String mvcRenderCommandName)
+		throws Exception {
+
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
+
+		LiferayPortletResponse liferayPortletResponse =
+			_commerceOrderRequestHelper.getLiferayPortletResponse();
+
+		RenderURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
+		portletURL.setParameter(
+			"commerceOrderId", String.valueOf(getCommerceOrderId()));
+
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		clayCreationMenu.addClayCreationMenuItems(
+			portletURL.toString(),
+			LanguageUtil.get(
+				_commerceOrderRequestHelper.getRequest(), "add-new-address"));
+
+		return clayCreationMenu;
 	}
 
 	public List<CommerceAddress> getCommerceAddresses() throws PortalException {

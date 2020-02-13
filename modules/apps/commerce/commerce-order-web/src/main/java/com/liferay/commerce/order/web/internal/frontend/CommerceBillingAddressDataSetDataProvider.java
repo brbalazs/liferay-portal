@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.frontend;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -38,7 +39,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- *
  * @author Alessio Antonio Rendina
  */
 @Component(
@@ -60,8 +60,8 @@ public class CommerceBillingAddressDataSetDataProvider
 			commerceOrderId);
 
 		return _commerceAddressService.getBillingCommerceAddressesCount(
-			commerceOrder.getCompanyId(), CommerceOrder.class.getName(),
-			commerceOrder.getCommerceOrderId(), StringPool.BLANK);
+			commerceOrder.getCompanyId(), CommerceAccount.class.getName(),
+			commerceOrder.getCommerceAccountId(), StringPool.BLANK);
 	}
 
 	@Override
@@ -80,8 +80,8 @@ public class CommerceBillingAddressDataSetDataProvider
 
 		List<CommerceAddress> commerceAddresses =
 			_commerceAddressService.getBillingCommerceAddresses(
-				commerceOrder.getCompanyId(), CommerceOrder.class.getName(),
-				commerceOrder.getCommerceOrderId(), StringPool.BLANK,
+				commerceOrder.getCompanyId(), CommerceAccount.class.getName(),
+				commerceOrder.getCommerceAccountId(), StringPool.BLANK,
 				pagination.getStartPosition(), pagination.getEndPosition(),
 				sort);
 

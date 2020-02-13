@@ -19,20 +19,29 @@
 <%
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
+CommerceAddress shippingAddress = null;
+
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
+
+if (commerceOrder != null) {
+	shippingAddress = commerceOrder.getBillingAddress();
+}
+
+long commerceCountryId = BeanParamUtil.getLong(shippingAddress, request, "commerceCountryId");
+long commerceRegionId = BeanParamUtil.getLong(shippingAddress, request, "commerceRegionId");
 %>
 
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderShippingAddressActionURL" />
 
 <commerce-ui:modal-content
-	title='<%= LanguageUtil.get(request, "add-shipping-address") %>'
+	title='<%= (shippingAddress == null) ? LanguageUtil.get(request, "add-shipping-address") : LanguageUtil.get(request, "edit-shipping-address") %>'
 >
-	<aui:form action="<%= editCommerceOrderShippingAddressActionURL %>" cssClass="container-fluid-1280 p-0" method="post" name="fm">
-		<aui:input name="<%= Constants.CMD %>" type="hidden" value="shippingAddress" />
+	<aui:form action="<%= editCommerceOrderShippingAddressActionURL %>" method="post" name="fm">
+		<aui:input name="<%= Constants.CMD %>" type="hidden" value='<%= (shippingAddress == null) ? "addShippingAddress" : "updateShippingAddress" %>' />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrder.getCommerceOrderId() %>" />
 
-		<aui:model-context model="<%= CommerceAddress.class %>" />
+		<aui:model-context bean="<%= shippingAddress %>" model="<%= CommerceAddress.class %>" />
 
 		<aui:input name="name" wrapperCssClass="form-group-item" />
 
@@ -80,7 +89,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			selectId: 'commerceCountryId',
 			selectNullable: <%= false %>,
 			selectSort: '<%= true %>',
-			selectVal: '<%= 0 %>'
+			selectVal: '<%= commerceCountryId %>'
 		},
 		{
 			select: '<portlet:namespace />commerceRegionId',
@@ -107,7 +116,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			selectDesc: 'name',
 			selectId: 'commerceRegionId',
 			selectNullable: <%= false %>,
-			selectVal: '<%= 0 %>'
+			selectVal: '<%= commerceRegionId %>'
 		}
 	]);
 </aui:script>

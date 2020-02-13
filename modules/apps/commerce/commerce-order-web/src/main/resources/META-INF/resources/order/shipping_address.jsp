@@ -27,8 +27,8 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 <commerce-ui:modal-content
 	title='<%= LanguageUtil.get(request, "edit-shipping-address") %>'
 >
-	<aui:form action="<%= editCommerceOrderShippingAddressActionURL %>" cssClass="container-fluid-1280 p-0" method="post" name="fm">
-		<aui:input name="<%= Constants.CMD %>" type="hidden" value="shippingAddress" />
+	<aui:form action="<%= editCommerceOrderShippingAddressActionURL %>" method="post" name="fm">
+		<aui:input name="<%= Constants.CMD %>" type="hidden" value="selectShippingAddress" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrder.getCommerceOrderId() %>" />
 
@@ -39,6 +39,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 		%>
 
 		<commerce-ui:dataset-display
+			clayCreationMenu='<%= commerceOrderEditDisplayContext.getCommerceAddressClayCreationMenu("editCommerceOrderShippingAddress") %>'
 			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPPING_ADDRESSES %>"
 			formId="fm"
@@ -47,18 +48,9 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
 			portletURL="<%= currentURLObj %>"
+			selectedItems="<%= Collections.singletonList(String.valueOf(commerceOrder.getShippingAddressId())) %>"
 			selectedItemsKey="addressId"
 			selectionType="single"
 		/>
 	</aui:form>
-
-	<liferay-portlet:renderURL var="addShippingAddressURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-		<portlet:param name="mvcRenderCommandName" value="addCommerceOrderShippingAddress" />
-		<portlet:param name="commerceOrderId" value="<%= String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderId()) %>" />
-	</liferay-portlet:renderURL>
-
-	<clay:link
-		href="<%= addShippingAddressURL %>"
-		label="add-new-address"
-	/>
 </commerce-ui:modal-content>
