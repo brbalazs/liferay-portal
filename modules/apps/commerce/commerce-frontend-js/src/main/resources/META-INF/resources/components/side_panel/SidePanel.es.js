@@ -287,7 +287,10 @@ export default class SidePanel extends React.Component {
 				<Modal id={iframeHandlerModalId} />
 				{!isPageInIframe() && (
 					<div
-						className={classNames("side-panel-nav-cover border-bottom", visibility)}
+						className={classNames(
+							'side-panel-nav-cover border-bottom',
+							visibility
+						)}
 						style={{top: this.state.topDistance}}
 					>
 						<div className="container">
@@ -305,7 +308,12 @@ export default class SidePanel extends React.Component {
 					</div>
 				)}
 				<div
-					className={classNames('side-panel', `side-panel-${this.state.size}`, visibility, loading)}
+					className={classNames(
+						'side-panel',
+						`side-panel-${this.state.size}`,
+						visibility,
+						loading
+					)}
 					ref={this.panel}
 					style={{top: this.state.topDistance}}
 				>
@@ -372,14 +380,7 @@ export default class SidePanel extends React.Component {
 SidePanel.propTypes = {
 	id: PropTypes.string,
 	items: PropTypes.any,
-	size: PropTypes.oneOf([
-		'xs',
-		'sm',
-		'md',
-		'lg',
-		'xl',
-		'full'
-	]),
+	size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl', 'full']),
 	spritemap: PropTypes.string,
 	topAnchorSelector: PropTypes.any,
 	wrapperSelector: PropTypes.string
@@ -388,5 +389,5 @@ SidePanel.propTypes = {
 SidePanel.defaultProps = {
 	size: 'lg',
 	topAnchorSelector: '.side-panel-top-anchor',
-	wrapperSelector: '.side-panel-wrapper',
+	wrapperSelector: '.side-panel-wrapper'
 };

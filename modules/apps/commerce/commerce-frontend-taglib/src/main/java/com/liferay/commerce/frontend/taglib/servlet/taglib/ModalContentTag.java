@@ -34,7 +34,8 @@ public class ModalContentTag extends IncludeTag {
 
 	@Override
 	public int doStartTag() throws JspException {
-		request.setAttribute(_ATTRIBUTE_NAMESPACE + "contentCssClasses", _contentCssClasses);
+		request.setAttribute(
+			_ATTRIBUTE_NAMESPACE + "contentCssClasses", _contentCssClasses);
 		request.setAttribute(_ATTRIBUTE_NAMESPACE + "modalId", _modalId);
 		request.setAttribute(
 			_ATTRIBUTE_NAMESPACE + "showCancelButton", _showCancelButton);

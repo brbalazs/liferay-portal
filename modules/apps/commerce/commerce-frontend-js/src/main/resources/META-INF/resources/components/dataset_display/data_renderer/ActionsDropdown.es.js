@@ -55,8 +55,7 @@ function ActionItem(props) {
 							url: props.href
 						},
 						props.target
-					)
-				)
+					))
 			}
 		>
 			{props.icon && (

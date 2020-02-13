@@ -21,7 +21,6 @@
 </aui:script>
 
 <div class="side-panel-iframe">
-
 	<c:if test="<%= Validator.isNotNull(title) %>">
 		<div class="side-panel-iframe-header">
 			<div class="side-panel-iframe-title">
@@ -30,12 +29,12 @@
 		</div>
 	</c:if>
 
-	<button class="side-panel-iframe-close btn btn-unstyled">
-		<clay:icon symbol="times" />
+	<button class="btn btn-unstyled side-panel-iframe-close">
+		<clay:icon
+			symbol="times"
+		/>
 	</button>
 
-	<c:if test="<%= !Validator.isNotNull(screenNavigatorKey) %>">
+	<c:if test="<%= Validator.isNull(screenNavigatorKey) %>">
 		<div class="side-panel-iframe-content">
 	</c:if>
-
-

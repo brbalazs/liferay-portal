@@ -272,9 +272,9 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			title='<%= LanguageUtil.get(request, "order-summary") %>'
 		>
 			<commerce-ui:summary
-				items="<%= commerceOrderEditDisplayContext.getSummary() %>"
-				datasetDisplayId="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
 				apiUrl="/o/api-test"
+				datasetDisplayId="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
+				items="<%= commerceOrderEditDisplayContext.getSummary() %>"
 			/>
 		</commerce-ui:panel>
 	</div>

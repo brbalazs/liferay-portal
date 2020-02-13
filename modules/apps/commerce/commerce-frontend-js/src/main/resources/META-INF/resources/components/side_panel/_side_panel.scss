@@ -107,15 +107,14 @@
 }
 
 .side-panel-iframe {
-
 	&-content {
 		padding: map-get($spacers, 4) map-get($spacers, 3);
 	}
 
 	.page-header {
 		position: sticky;
-		z-index: 10;
 		top: 0;
+		z-index: 10;
 	}
 
 	&-header {
@@ -123,7 +122,8 @@
 		border-bottom: 1px solid $border-color;
 		display: flex;
 		justify-content: space-between;
-		padding: map-get($spacers, 1) map-get($spacers, 5) map-get($spacers, 1) map-get($spacers, 3);
+		padding: map-get($spacers, 1) map-get($spacers, 5) map-get($spacers, 1)
+			map-get($spacers, 3);
 		position: sticky;
 		top: 0;
 		z-index: 10;
@@ -134,7 +134,8 @@
 		position: fixed;
 		right: map-get($spacers, 3);
 		top: map-get($spacers, 1);
-		transition: top ease-in-out 0.1s, right ease-in-out 0.1s, opacity ease-in 0.2s;
+		transition: top ease-in-out 0.1s, right ease-in-out 0.1s,
+			opacity ease-in 0.2s;
 		z-index: 11;
 	}
 
@@ -155,12 +156,12 @@
 
 .side-panel-nav-cover {
 	background: white;
-	position: fixed;
 	left: 0;
-	right: 0;
 	opacity: 0;
+	position: fixed;
+	right: 0;
 	transform: translateX(100%);
-	transition: opacity .2s ease-in, transform .4s ease-in, left .4s ease-in;
+	transition: opacity 0.2s ease-in, transform 0.4s ease-in, left 0.4s ease-in;
 	z-index: 988;
 
 	body.open & {

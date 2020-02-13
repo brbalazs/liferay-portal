@@ -58,8 +58,8 @@
 		z-index: 800;
 
 		.expose.is-open & {
-			pointer-events: all;
 			opacity: 0.7;
+			pointer-events: all;
 		}
 	}
 }

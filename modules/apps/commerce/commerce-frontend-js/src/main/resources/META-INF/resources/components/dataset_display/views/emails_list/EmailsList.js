@@ -29,7 +29,7 @@ function Email(props) {
 
 		openSidePanel({
 			slug: 'email',
-			url: props.href,
+			url: props.href
 		});
 	}
 

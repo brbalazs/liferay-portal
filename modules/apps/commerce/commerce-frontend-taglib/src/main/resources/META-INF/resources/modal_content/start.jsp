@@ -1,4 +1,4 @@
-<%@ page import="com.liferay.petra.string.StringPool" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -29,6 +29,8 @@
 		</header>
 	</c:if>
 
-	<% String contentClasses = "modal-iframe-content" + (Validator.isNotNull(contentCssClasses) ? StringPool.SPACE + contentCssClasses : StringPool.BLANK); %>
+	<%
+	String contentClasses = "modal-iframe-content" + (Validator.isNotNull(contentCssClasses) ? StringPool.SPACE + contentCssClasses : StringPool.BLANK);
+	%>
 
 	<div class="<%= contentClasses %>">

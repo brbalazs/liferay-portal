@@ -18,6 +18,7 @@ import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
 import com.liferay.taglib.util.IncludeTag;
 
 import javax.portlet.PortletURL;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
@@ -40,25 +41,16 @@ public class SidePanelContentTag extends IncludeTag {
 		setNamespacedAttribute(request, "showCloseButton", _showCloseButton);
 		setNamespacedAttribute(request, "sidePanelId", _sidePanelId);
 		setNamespacedAttribute(request, "title", _title);
-		setNamespacedAttribute(request, "screenNavigatorKey", _screenNavigatorKey);
-		setNamespacedAttribute(request, "screenNavigatorModelBean", _screenNavigatorModelBean);
-		setNamespacedAttribute(request, "screenNavigatorPortletURL", _screenNavigatorPortletURL);
+		setNamespacedAttribute(
+			request, "screenNavigatorKey", _screenNavigatorKey);
+		setNamespacedAttribute(
+			request, "screenNavigatorModelBean", _screenNavigatorModelBean);
+		setNamespacedAttribute(
+			request, "screenNavigatorPortletURL", _screenNavigatorPortletURL);
 
 		super.doStartTag();
 
 		return EVAL_BODY_INCLUDE;
-	}
-
-	public boolean getShowCloseButton() {
-		return _showCloseButton;
-	}
-
-	public String getSidePanelId() {
-		return _sidePanelId;
-	}
-
-	public String getTitle() {
-		return _title;
 	}
 
 	public String getScreenNavigatorKey() {
@@ -73,11 +65,37 @@ public class SidePanelContentTag extends IncludeTag {
 		return _screenNavigatorPortletURL;
 	}
 
+	public boolean getShowCloseButton() {
+		return _showCloseButton;
+	}
+
+	public String getSidePanelId() {
+		return _sidePanelId;
+	}
+
+	public String getTitle() {
+		return _title;
+	}
+
 	@Override
 	public void setPageContext(PageContext pageContext) {
 		super.setPageContext(pageContext);
 
 		servletContext = ServletContextUtil.getServletContext();
+	}
+
+	public void setScreenNavigatorKey(String screenNavigatorKey) {
+		_screenNavigatorKey = screenNavigatorKey;
+	}
+
+	public void setScreenNavigatorModelBean(Object screenNavigatorModelBean) {
+		_screenNavigatorModelBean = screenNavigatorModelBean;
+	}
+
+	public void setScreenNavigatorPortletURL(
+		PortletURL screenNavigatorPortletURL) {
+
+		_screenNavigatorPortletURL = screenNavigatorPortletURL;
 	}
 
 	public void setShowCloseButton(boolean showCloseButton) {
@@ -92,26 +110,16 @@ public class SidePanelContentTag extends IncludeTag {
 		_title = title;
 	}
 
-	public void setScreenNavigatorKey(String screenNavigatorKey) {
-		_screenNavigatorKey = screenNavigatorKey;
-	}
-	public void setScreenNavigatorModelBean(Object screenNavigatorModelBean) {
-		_screenNavigatorModelBean = screenNavigatorModelBean;
-	}
-	public void setScreenNavigatorPortletURL(PortletURL screenNavigatorPortletURL) {
-		_screenNavigatorPortletURL = screenNavigatorPortletURL;
-	}
-
 	@Override
 	protected void cleanUp() {
 		super.cleanUp();
 
-		_showCloseButton = false;
-		_sidePanelId = null;
-		_title = null;
 		_screenNavigatorKey = null;
 		_screenNavigatorModelBean = null;
 		_screenNavigatorPortletURL = null;
+		_showCloseButton = false;
+		_sidePanelId = null;
+		_title = null;
 	}
 
 	@Override
@@ -131,11 +139,11 @@ public class SidePanelContentTag extends IncludeTag {
 
 	private static final String _START_PAGE = "/side_panel_content/start.jsp";
 
-	private boolean _showCloseButton;
-	private String _sidePanelId;
-	private String _title;
 	private String _screenNavigatorKey;
 	private Object _screenNavigatorModelBean;
 	private PortletURL _screenNavigatorPortletURL;
+	private boolean _showCloseButton;
+	private String _sidePanelId;
+	private String _title;
 
 }

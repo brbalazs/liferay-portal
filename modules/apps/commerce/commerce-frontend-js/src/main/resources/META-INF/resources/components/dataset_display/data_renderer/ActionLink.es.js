@@ -34,7 +34,7 @@ function ActionLink(props) {
 
 	function handleClickOnLink(e, payload, target) {
 		e.preventDefault();
-		
+
 		if (target === 'modal') {
 			return openModal(payload);
 		}
@@ -60,10 +60,8 @@ function ActionLink(props) {
 							url: currentAction.href
 						},
 						currentAction.target
-					)
-				)
+					))
 			}
-
 		>
 			{props.value || <ClayIcon symbol={currentAction.icon} />}
 		</ClayLink>

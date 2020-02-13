@@ -692,14 +692,12 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		SummaryItem itemsSubtotalSummaryItem = new SummaryItem();
-		SummaryItem itemsSubtotalDiscountSummaryItem =
-			new SummaryItem();
+		SummaryItem itemsSubtotalDiscountSummaryItem = new SummaryItem();
 		SummaryItem orderDiscountSummaryItem = new SummaryItem();
 		SummaryItem promotionCodeSummaryItem = new SummaryItem();
 		SummaryItem estimatedTaxSummaryItem = new SummaryItem();
 		SummaryItem shippingAndHandingSummaryItem = new SummaryItem();
-		SummaryItem shippingAndHandingDiscountSummaryItem =
-			new SummaryItem();
+		SummaryItem shippingAndHandingDiscountSummaryItem = new SummaryItem();
 		SummaryItem grandTotalSummaryItem = new SummaryItem();
 
 		itemsSubtotalSummaryItem.setLabel(
@@ -752,8 +750,7 @@ public class CommerceOrderEditDisplayContext {
 		promotionCodeSummaryItem.setLabel(
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(), "promotion-code"));
-		promotionCodeSummaryItem.setValue(
-			_commerceOrder.getCouponCode(), "--");
+		promotionCodeSummaryItem.setValue(_commerceOrder.getCouponCode(), "--");
 
 		estimatedTaxSummaryItem.setLabel(
 			LanguageUtil.get(

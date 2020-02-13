@@ -58,13 +58,13 @@ function CreationMenu(props) {
 									href={item.href || '#'}
 									key={i}
 									onClick={
-										(item.target && item.target !== 'link') && (
-											e => {
-												e.preventDefault();
-												setActive(false);
-												executeAction(i);
-											}
-										)
+										item.target &&
+										item.target !== 'link' &&
+										(e => {
+											e.preventDefault();
+											setActive(false);
+											executeAction(i);
+										})
 									}
 								>
 									{item.label}

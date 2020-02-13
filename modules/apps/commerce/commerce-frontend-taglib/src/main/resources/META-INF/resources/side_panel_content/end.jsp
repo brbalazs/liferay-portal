@@ -16,8 +16,7 @@
 
 <%@ include file="/side_panel_content/init.jsp" %>
 
-
-	<c:if test="<%= !Validator.isNotNull(screenNavigatorKey) %>">
+	<c:if test="<%= Validator.isNull(screenNavigatorKey) %>">
 		</div>
 	</c:if>
 

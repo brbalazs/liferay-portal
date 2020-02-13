@@ -18,12 +18,8 @@ import ClayModal, {useModal} from '@clayui/modal';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {
-	OPEN,
-	OPEN_MODAL,
-	CLOSE_MODAL
-} from '../../utilities/eventsDefinitions.es';
-import { isPageInIframe } from '../../utilities/iframes.es';
+import {OPEN_MODAL, CLOSE_MODAL} from '../../utilities/eventsDefinitions.es';
+import {isPageInIframe} from '../../utilities/iframes.es';
 
 function Modal(props) {
 	const [visible, setVisible] = useState(false);

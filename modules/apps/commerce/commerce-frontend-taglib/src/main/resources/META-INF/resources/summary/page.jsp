@@ -22,6 +22,6 @@
 	summary.default('<%= summaryId %>', '<%= summaryId %>', {
 		apiUrl: "<%= apiUrl %>",
 		datasetDisplayId: "<%= datasetDisplayId %>",
-		items: <%= jsonSerializer.serializeDeep(items) %>,
+		items: <%= jsonSerializer.serializeDeep(items) %>
 	});
 </aui:script>
