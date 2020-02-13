@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -123,6 +124,16 @@ public class CommerceOrderDataSetActionProvider
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
 			httpServletRequest, CommerceOrder.class.getName(),
 			PortletProvider.Action.MANAGE);
+
+		if (portletURL != null) {
+			PortletURL redirectURL = portletURL;
+
+			redirectURL.setParameter(
+				"activeTab",
+				ParamUtil.getString(httpServletRequest, "activeTab"));
+
+			portletURL.setParameter("redirect", redirectURL.toString());
+		}
 
 		portletURL.setParameter("mvcRenderCommandName", "editCommerceOrder");
 		portletURL.setParameter(
