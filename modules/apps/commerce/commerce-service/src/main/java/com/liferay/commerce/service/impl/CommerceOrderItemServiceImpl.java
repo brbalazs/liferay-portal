@@ -39,6 +39,7 @@ import java.util.List;
 
 /**
  * @author Andrea Di Giorgi
+ * @author Igor Beslic
  */
 public class CommerceOrderItemServiceImpl
 	extends CommerceOrderItemServiceBaseImpl {
@@ -46,7 +47,7 @@ public class CommerceOrderItemServiceImpl
 	@Override
 	public CommerceOrderItem addCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
-			int shippedQuantity, String json, CommerceContext commerceContext,
+			int shippedQuantity, CommerceContext commerceContext,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -54,7 +55,35 @@ public class CommerceOrderItemServiceImpl
 			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
 
 		return commerceOrderItemLocalService.addCommerceOrderItem(
-			commerceOrderId, cpInstanceId, quantity, shippedQuantity, json,
+			commerceOrderId, cpInstanceId, quantity, shippedQuantity,
+			commerceContext, serviceContext);
+	}
+
+	/**
+	 * @param      commerceOrderId
+	 * @param      cpInstanceId
+	 * @param      quantity
+	 * @param      shippedQuantity
+	 * @param      json
+	 * @param      commerceContext
+	 * @param      serviceContext
+	 * @return
+	 *
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link
+	 *             #addCommerceOrderItem(long, long, int, int, CommerceContext,
+	 *             ServiceContext)} instead
+	 */
+	@Deprecated
+	@Override
+	public CommerceOrderItem addCommerceOrderItem(
+			long commerceOrderId, long cpInstanceId, int quantity,
+			int shippedQuantity, String json, CommerceContext commerceContext,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return commerceOrderItemService.addCommerceOrderItem(
+			commerceOrderId, cpInstanceId, quantity, shippedQuantity,
 			commerceContext, serviceContext);
 	}
 
@@ -391,7 +420,7 @@ public class CommerceOrderItemServiceImpl
 	@Override
 	public CommerceOrderItem upsertCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
-			int shippedQuantity, String json, CommerceContext commerceContext,
+			int shippedQuantity, CommerceContext commerceContext,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -411,7 +440,35 @@ public class CommerceOrderItemServiceImpl
 			commerceOrder.getGroupId(), cpInstance.getCPDefinitionId());
 
 		return commerceOrderItemLocalService.upsertCommerceOrderItem(
-			commerceOrderId, cpInstanceId, quantity, shippedQuantity, json,
+			commerceOrderId, cpInstanceId, quantity, shippedQuantity,
+			commerceContext, serviceContext);
+	}
+
+	/**
+	 * @param      commerceOrderId
+	 * @param      cpInstanceId
+	 * @param      quantity
+	 * @param      shippedQuantity
+	 * @param      json
+	 * @param      commerceContext
+	 * @param      serviceContext
+	 * @return
+	 *
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link
+	 *             #upsertCommerceOrderItem(long, long, int, int,
+	 *             CommerceContext, ServiceContext)}
+	 */
+	@Deprecated
+	@Override
+	public CommerceOrderItem upsertCommerceOrderItem(
+			long commerceOrderId, long cpInstanceId, int quantity,
+			int shippedQuantity, String json, CommerceContext commerceContext,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return commerceOrderItemService.upsertCommerceOrderItem(
+			commerceOrderId, cpInstanceId, quantity, shippedQuantity,
 			commerceContext, serviceContext);
 	}
 

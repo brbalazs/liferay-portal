@@ -37,13 +37,16 @@ import com.liferay.commerce.product.exception.NoSuchCPInstanceException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.util.DDMFormValuesUtil;
 import com.liferay.commerce.service.base.CommerceOrderItemLocalServiceBaseImpl;
 import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Document;
@@ -70,11 +73,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Andrea Di Giorgi
  * @author Alessio Antonio Rendina
  * @author Ethan Bustad
+ * @author Igor Beslic
  */
 public class CommerceOrderItemLocalServiceImpl
 	extends CommerceOrderItemLocalServiceBaseImpl {
@@ -83,7 +88,7 @@ public class CommerceOrderItemLocalServiceImpl
 	@Override
 	public CommerceOrderItem addCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
-			int shippedQuantity, String json, CommerceContext commerceContext,
+			int shippedQuantity, CommerceContext commerceContext,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -96,10 +101,6 @@ public class CommerceOrderItemLocalServiceImpl
 
 		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
 			cpInstance.getCPDefinitionId());
-
-		if (Validator.isNull(json) || json.equals("[]")) {
-			json = cpInstance.getJson();
-		}
 
 		validate(
 			serviceContext.getLocale(), commerceOrder, cpDefinition, cpInstance,
@@ -129,7 +130,7 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setCPInstanceId(cpInstanceId);
 		commerceOrderItem.setQuantity(quantity);
 		commerceOrderItem.setShippedQuantity(shippedQuantity);
-		commerceOrderItem.setJson(json);
+		commerceOrderItem.setJson("[]");
 		commerceOrderItem.setUnitPrice(unitPriceMoney.getPrice());
 
 		BigDecimal promoPrice = BigDecimal.ZERO;
@@ -163,6 +164,35 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceOrderItem.getCommerceOrderId(), commerceContext);
 
 		return commerceOrderItem;
+	}
+
+	/**
+	 * @param      commerceOrderId
+	 * @param      cpInstanceId
+	 * @param      quantity
+	 * @param      shippedQuantity
+	 * @param      json
+	 * @param      commerceContext
+	 * @param      serviceContext
+	 * @return
+	 *
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link
+	 *             #addCommerceOrderItem(long, long, int, int, CommerceContext,
+	 *             ServiceContext)} instead
+	 */
+	@Deprecated
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrderItem addCommerceOrderItem(
+			long commerceOrderId, long cpInstanceId, int quantity,
+			int shippedQuantity, String json, CommerceContext commerceContext,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return addCommerceOrderItem(
+			commerceOrderId, cpInstanceId, quantity, shippedQuantity,
+			commerceContext, serviceContext);
 	}
 
 	/**
@@ -633,7 +663,7 @@ public class CommerceOrderItemLocalServiceImpl
 	@Override
 	public CommerceOrderItem upsertCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
-			int shippedQuantity, String json, CommerceContext commerceContext,
+			int shippedQuantity, CommerceContext commerceContext,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -641,9 +671,14 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceOrderId, cpInstanceId, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS);
 
+		String cpInstanceOptionValueRelJSONString =
+			_getCPInstanceOptionValueRelsJSONString(cpInstanceId);
+
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			if (json.equals(commerceOrderItem.getJson()) ||
-				(json.equals("[]") &&
+			if (Objects.equals(
+					cpInstanceOptionValueRelJSONString,
+					commerceOrderItem.getJson()) ||
+				(Objects.equals(cpInstanceOptionValueRelJSONString, "[]") &&
 				 Validator.isBlank(commerceOrderItem.getJson()))) {
 
 				return commerceOrderItemLocalService.updateCommerceOrderItem(
@@ -655,8 +690,37 @@ public class CommerceOrderItemLocalServiceImpl
 		}
 
 		return addCommerceOrderItem(
-			commerceOrderId, cpInstanceId, quantity, 0, json, commerceContext,
+			commerceOrderId, cpInstanceId, quantity, 0,
+			cpInstanceOptionValueRelJSONString, commerceContext,
 			serviceContext);
+	}
+
+	/**
+	 * @param      commerceOrderId
+	 * @param      cpInstanceId
+	 * @param      quantity
+	 * @param      shippedQuantity
+	 * @param      json
+	 * @param      commerceContext
+	 * @param      serviceContext
+	 * @return
+	 *
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link
+	 *             #upsertCommerceOrderItem(long, long, int, int,
+	 *             CommerceContext, ServiceContext)}
+	 */
+	@Deprecated
+	@Override
+	public CommerceOrderItem upsertCommerceOrderItem(
+			long commerceOrderId, long cpInstanceId, int quantity,
+			int shippedQuantity, String json, CommerceContext commerceContext,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return upsertCommerceOrderItem(
+			commerceOrderId, cpInstanceId, quantity, shippedQuantity,
+			commerceContext, serviceContext);
 	}
 
 	protected SearchContext buildSearchContext(
@@ -783,6 +847,17 @@ public class CommerceOrderItemLocalServiceImpl
 		}
 	}
 
+	private String _getCPInstanceOptionValueRelsJSONString(long cpInstanceId)
+		throws PortalException {
+
+		JSONArray jsonArray = DDMFormValuesUtil.toJSONArray(
+			_cpDefinitionOptionRelLocalService.
+				getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+					cpInstanceId));
+
+		return jsonArray.toString();
+	}
+
 	private void _setCommerceOrderItemDiscountValue(
 		CommerceOrderItem commerceOrderItem,
 		CommerceDiscountValue commerceDiscountValue) {
@@ -851,6 +926,10 @@ public class CommerceOrderItemLocalServiceImpl
 
 	@ServiceReference(type = CPDefinitionLocalService.class)
 	private CPDefinitionLocalService _cpDefinitionLocalService;
+
+	@ServiceReference(type = CPDefinitionOptionRelLocalService.class)
+	private CPDefinitionOptionRelLocalService
+		_cpDefinitionOptionRelLocalService;
 
 	@ServiceReference(type = CPInstanceLocalService.class)
 	private CPInstanceLocalService _cpInstanceLocalService;
