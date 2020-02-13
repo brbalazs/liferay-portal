@@ -565,7 +565,8 @@ public class AnalyticsConfigurationTrackerImpl
 					entityModelListeners) {
 
 				try {
-					entityModelListener.syncAll();
+					entityModelListener.syncAll(
+						(Long)dictionary.get("companyId"));
 				}
 				catch (Exception e) {
 					_log.error(e, e);

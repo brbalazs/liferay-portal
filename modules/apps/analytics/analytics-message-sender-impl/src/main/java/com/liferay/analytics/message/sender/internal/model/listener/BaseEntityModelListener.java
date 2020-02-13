@@ -159,7 +159,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 	}
 
 	@Override
-	public void syncAll() throws Exception {
+	public void syncAll(long companyId) throws Exception {
 		ActionableDynamicQuery actionableDynamicQuery =
 			getActionableDynamicQuery();
 
@@ -167,6 +167,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 			return;
 		}
 
+		actionableDynamicQuery.setCompanyId(companyId);
 		actionableDynamicQuery.setPerformActionMethod(
 			(T model) -> addAnalyticsMessage(
 				"add", getAttributeNames(), model));
