@@ -52,7 +52,7 @@ public class CommerceShipmentClayTableDataSetDisplayView
 		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
 			"status", "status");
 
-		statusField.setContentRenderer("commerceTableCellStatus");
+		statusField.setContentRenderer("label");
 
 		clayTableSchemaBuilder.addField("tracking", "tracking");
 

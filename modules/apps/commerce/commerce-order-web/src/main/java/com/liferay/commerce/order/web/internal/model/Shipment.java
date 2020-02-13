@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.model;
 
-import java.util.Date;
+import com.liferay.commerce.frontend.model.StatusField;
 
 /**
  * @author Alessio Antonio Rendina
@@ -22,15 +22,14 @@ import java.util.Date;
 public class Shipment {
 
 	public Shipment(
-		long shipmentId, String panelUrl, String address, Date createDate,
-		String statusLabel, String statusStyle, String tracking) {
+		long shipmentId, String panelUrl, String address, String createDate,
+		StatusField status, String tracking) {
 
 		_shipmentId = shipmentId;
 		_panelUrl = panelUrl;
 		_address = address;
 		_createDate = createDate;
-		_statusLabel = statusLabel;
-		_statusStyle = statusStyle;
+		_status = status;
 		_tracking = tracking;
 	}
 
@@ -38,7 +37,7 @@ public class Shipment {
 		return _address;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return _createDate;
 	}
 
@@ -50,12 +49,8 @@ public class Shipment {
 		return _shipmentId;
 	}
 
-	public String getStatusLabel() {
-		return _statusLabel;
-	}
-
-	public String getStatusStyle() {
-		return _statusStyle;
+	public StatusField getStatus() {
+		return _status;
 	}
 
 	public String getTracking() {
@@ -63,11 +58,10 @@ public class Shipment {
 	}
 
 	private final String _address;
-	private final Date _createDate;
+	private final String _createDate;
 	private final String _panelUrl;
 	private final long _shipmentId;
-	private final String _statusLabel;
-	private final String _statusStyle;
+	private final StatusField _status;
 	private final String _tracking;
 
 }

@@ -18,6 +18,7 @@ import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.model.StatusField;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceRegion;
@@ -39,6 +40,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.portlet.PortletURL;
@@ -97,6 +99,12 @@ public class CommerceShipmentDataSetDataProvider
 				null);
 
 		for (CommerceShipment commerceShipment : commerceShipments) {
+			Date createDate = commerceShipment.getCreateDate();
+
+			String createDateDescription = LanguageUtil.getTimeDescription(
+				httpServletRequest,
+				System.currentTimeMillis() - createDate.getTime(), true);
+
 			shipments.add(
 				new Shipment(
 					commerceShipment.getCommerceShipmentId(),
@@ -104,13 +112,16 @@ public class CommerceShipmentDataSetDataProvider
 						commerceShipment.getCommerceShipmentId(),
 						httpServletRequest),
 					_getDescriptiveAddress(commerceShipment),
-					commerceShipment.getCreateDate(),
-					LanguageUtil.get(
-						httpServletRequest,
-						CommerceShipmentConstants.getShipmentStatusLabel(
-							commerceShipment.getStatus())),
-					CommerceShipmentConstants.getShipmentLabelStyle(
-						commerceShipment.getStatus()),
+					LanguageUtil.format(
+						httpServletRequest, "x-ago", createDateDescription,
+						false),
+					new StatusField(
+						CommerceShipmentConstants.getShipmentLabelStyle(
+							commerceShipment.getStatus()),
+						LanguageUtil.get(
+							httpServletRequest,
+							CommerceShipmentConstants.getShipmentStatusLabel(
+								commerceShipment.getStatus()))),
 					commerceShipment.getTrackingNumber()));
 		}
 

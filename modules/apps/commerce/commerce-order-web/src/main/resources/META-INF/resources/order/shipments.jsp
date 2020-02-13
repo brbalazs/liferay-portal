@@ -36,7 +36,7 @@ PortletURL portletURL = commerceOrderEditDisplayContext.getCommerceShipmentsPort
 />
 
 <%
-java.util.Map<String, String> contextParams = new java.util.HashMap<>();
+Map<String, String> contextParams = new HashMap<>();
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
 
@@ -52,29 +52,6 @@ contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrd
 	pageNumber="<%= 1 %>"
 	portletURL="<%= portletURL %>"
 />
-
-<aui:script>
-	function <portlet:namespace />deleteCommerceShipments() {
-		if (
-			confirm(
-				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-shipments" />'
-			)
-		) {
-			var form = AUI.$(document.<portlet:namespace />fm);
-
-			form.attr('method', 'post');
-			form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-			form.fm('deleteCommerceShipmentIds').val(
-				Liferay.Util.listCheckedExcept(
-					form,
-					'<portlet:namespace />allRowIds'
-				)
-			);
-
-			submitForm(form, '<portlet:actionURL name="editCommerceShipment" />');
-		}
-	}
-</aui:script>
 
 <div id="<portlet:namespace />side-panel-root"></div>
 <div id="<portlet:namespace />side-panel-wrapper"></div>
