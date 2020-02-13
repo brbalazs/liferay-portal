@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -96,10 +95,10 @@ public class AnalyticsMessageModelImpl
 	public static final String TABLE_SQL_DROP = "drop table AnalyticsMessage";
 
 	public static final String ORDER_BY_JPQL =
-		" ORDER BY analyticsMessage.createDate DESC";
+		" ORDER BY analyticsMessage.analyticsMessageId ASC";
 
 	public static final String ORDER_BY_SQL =
-		" ORDER BY AnalyticsMessage.createDate DESC";
+		" ORDER BY AnalyticsMessage.analyticsMessageId ASC";
 
 	public static final String DATA_SOURCE = "liferayDataSource";
 
@@ -124,7 +123,7 @@ public class AnalyticsMessageModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 2L;
+	public static final long ANALYTICSMESSAGEID_COLUMN_BITMASK = 2L;
 
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
 		com.liferay.analytics.message.storage.service.util.ServiceProps.get(
@@ -441,6 +440,8 @@ public class AnalyticsMessageModelImpl
 
 	@Override
 	public void setAnalyticsMessageId(long analyticsMessageId) {
+		_columnBitmask = -1L;
+
 		_analyticsMessageId = analyticsMessageId;
 	}
 
@@ -514,8 +515,6 @@ public class AnalyticsMessageModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -603,10 +602,19 @@ public class AnalyticsMessageModelImpl
 	public int compareTo(AnalyticsMessage analyticsMessage) {
 		int value = 0;
 
-		value = DateUtil.compareTo(
-			getCreateDate(), analyticsMessage.getCreateDate());
+		if (getAnalyticsMessageId() <
+				analyticsMessage.getAnalyticsMessageId()) {
 
-		value = value * -1;
+			value = -1;
+		}
+		else if (getAnalyticsMessageId() >
+					analyticsMessage.getAnalyticsMessageId()) {
+
+			value = 1;
+		}
+		else {
+			value = 0;
+		}
 
 		if (value != 0) {
 			return value;
