@@ -38,7 +38,7 @@ public class SummaryTag extends IncludeTag {
 
 	public void setApiUrl(String apiUrl) { _apiUrl = apiUrl; };
 
-	public void setDatasetDisplayId(String datasetDisplayId) { _datasetDisplayId = datasetDisplayId; };
+	public void setDatasetDisplayId(String datesetDisplayId) { _datasetDisplayId = datesetDisplayId; };
 
 	@Override
 	public void setPageContext(PageContext pageContext) {

@@ -13,7 +13,9 @@
  */
 
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+
+import {DATASET_DISPLAY_UPDATED} from '../../utilities/eventsDefinitions.es';
 
 function SummaryItemDividerVariant() {
 	return (
@@ -101,9 +103,33 @@ SummaryItem.propTypes = {
 };
 
 function Summary(props) {
+	const [items, updateItems] = useState(props.items);
+
+	useEffect(() => {
+		function refreshItems(payload) {
+			if (
+				!props.datasetDisplayId ||
+				!props.apiUrl ||
+				payload.id !== props.datasetDisplayId
+			) {
+				return;
+			}
+			fetch(props.apiUrl, {
+				credentials: 'include',
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
+				method: 'GET'
+			})
+				.then(data => data.json())
+				.then(updateItems);
+		}
+
+		Liferay.on(DATASET_DISPLAY_UPDATED, refreshItems);
+		return Liferay.detach(DATASET_DISPLAY_UPDATED, refreshItems);
+	}, [props.apiUrl, props.datasetDisplayId]);
+
 	return (
 		<div className="row summary-table text-right">
-			{props.items.map((item, i) => (
+			{items.map((item, i) => (
 				<SummaryItem key={i} {...item} />
 			))}
 		</div>
@@ -111,6 +137,8 @@ function Summary(props) {
 }
 
 Summary.propTypes = {
+	apiUrl: PropTypes.string,
+	datasetDisplayId: PropTypes.string,
 	items: PropTypes.array.isRequired
 };
 

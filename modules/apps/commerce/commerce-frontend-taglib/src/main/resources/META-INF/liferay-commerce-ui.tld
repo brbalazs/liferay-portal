@@ -606,8 +606,8 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>datesetDisplayId</name>
-			<required>true</required>
+			<name>datasetDisplayId</name>
+			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
