@@ -34,11 +34,11 @@ public class SummaryTag extends IncludeTag {
 
 	public void setApiUrl(String apiUrl) {
 		_apiUrl = apiUrl;
-};
+	}
 
 	public void setDatasetDisplayId(String datesetDisplayId) {
 		_datasetDisplayId = datesetDisplayId;
-};
+	}
 
 	public void setItems(List<SummaryItem> items) {
 		_items = items;
