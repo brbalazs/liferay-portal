@@ -387,23 +387,6 @@ public class CommerceOrderEditDisplayContext {
 		return portletURL;
 	}
 
-	public String getCommercePaymentMethodLabel(
-		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel) {
-
-		String label = commercePaymentMethodGroupRel.getName(
-			_commerceOrderRequestHelper.getLocale());
-
-		if (!commercePaymentMethodGroupRel.isActive()) {
-			label = StringBundler.concat(
-				label, StringPool.SPACE, StringPool.OPEN_PARENTHESIS,
-				LanguageUtil.get(
-					_commerceOrderRequestHelper.getRequest(), "inactive"),
-				StringPool.CLOSE_PARENTHESIS);
-		}
-
-		return label;
-	}
-
 	public List<CommercePaymentMethodGroupRel> getCommercePaymentMethods()
 		throws PortalException {
 
@@ -570,7 +553,7 @@ public class CommerceOrderEditDisplayContext {
 
 		for (CommerceOrderStatus commerceOrderStatus : commerceOrderStatuses) {
 			if (commerceOrderStatus.getKey() ==
-					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) {
+					CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
 
 				continue;
 			}
