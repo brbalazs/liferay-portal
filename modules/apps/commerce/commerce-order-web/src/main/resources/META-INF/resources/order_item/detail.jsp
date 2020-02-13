@@ -64,7 +64,7 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 
 		<c:if test="<%= !commerceOrder.isOpen() %>">
 			<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrderItem.getUnitPrice()) %>">
-				<aui:validator name="min">0</aui:validator>	
+				<aui:validator name="min">0</aui:validator>
 				<aui:validator name="number" />
 			</aui:input>
 		</c:if>
