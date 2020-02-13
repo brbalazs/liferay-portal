@@ -138,11 +138,11 @@ public class CommerceOrderListDisplayContext {
 		_navigationItems.add(_buildNavigationItem("fulfilled"));
 	}
 
+	private final String _activeTab;
 	private final CommerceOrderNoteService _commerceOrderNoteService;
 	private final CommerceOrderRequestHelper _commerceOrderRequestHelper;
 	private final String _keywords;
 	private List<NavigationItem> _navigationItems;
 	private final boolean _showFilter;
-	private final String _activeTab;
 
 }
