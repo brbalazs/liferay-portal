@@ -1437,6 +1437,9 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		long groupId, boolean privateLayout, int start, int end,
 		OrderByComparator<Layout> obc) {
 
+		end = _endWithGroupControlPanelLayout(
+			groupId, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID, privateLayout);
+
 		List<Layout> layouts = layoutPersistence.findByG_P(
 			groupId, privateLayout, start, end, obc);
 
@@ -1522,8 +1525,14 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		long groupId, boolean privateLayout, long parentLayoutId,
 		boolean incomplete, int start, int end, OrderByComparator<Layout> obc) {
 
+		end = _endWithGroupControlPanelLayout(
+			groupId, parentLayoutId, privateLayout);
+
 		List<Layout> layouts = layoutPersistence.findByG_P_P(
 			groupId, privateLayout, parentLayoutId, start, end, obc);
+
+		layouts =
+			_filterOutGroupControlPanelLayout(groupId, layouts, privateLayout);
 
 		if (!MergeLayoutPrototypesThreadLocal.isInProgress()) {
 			try {
@@ -1546,8 +1555,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			}
 		}
 
-		return _filterOutGroupControlPanelLayout(
-			groupId, layouts, privateLayout);
+		return layouts;
 	}
 
 	/**
