@@ -188,6 +188,10 @@ td.lfr-name-column {
 	text-align: center;
 }
 
+.form-group.liferay-ddm-form-field-checkbox-multiple label{
+	float: none;
+}
+
 .form-builder-sidebar,
 .portlet-forms {
 	.form-group .alloy-editor-container.input-group .alloy-editor-placeholder.ae-placeholder {
