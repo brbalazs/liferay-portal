@@ -1030,7 +1030,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public Layout fetchDefaultLayout(long groupId, boolean privateLayout) {
 		if (groupId > 0) {
 			int end = _endWithGroupControlPanelLayout(
-				groupId, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
+				1, groupId, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
 				privateLayout);
 
 			List<Layout> layouts = layoutPersistence.findByG_P(
@@ -1061,7 +1061,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		long groupId, boolean privateLayout, long parentLayoutId) {
 
 		int end = _endWithGroupControlPanelLayout(
-			groupId, parentLayoutId, privateLayout);
+			1, groupId, parentLayoutId, privateLayout);
 
 		List<Layout> layouts = layoutPersistence.findByG_P_P(
 			groupId, privateLayout, parentLayoutId, 0, end,
@@ -1437,14 +1437,19 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		long groupId, boolean privateLayout, int start, int end,
 		OrderByComparator<Layout> obc) {
 
-		end = _endWithGroupControlPanelLayout(
-			groupId, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID, privateLayout);
+		int newEnd = _endWithGroupControlPanelLayout(
+			end, groupId, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
+			privateLayout);
 
 		List<Layout> layouts = layoutPersistence.findByG_P(
-			groupId, privateLayout, start, end, obc);
+			groupId, privateLayout, start, newEnd, obc);
 
-		return _filterOutGroupControlPanelLayout(
-			groupId, layouts, privateLayout);
+		if ((end == QueryUtil.ALL_POS) || (end != newEnd)) {
+			layouts = _filterOutGroupControlPanelLayout(
+				groupId, layouts, privateLayout);
+		}
+
+		return layouts;
 	}
 
 	/**
@@ -1525,14 +1530,16 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		long groupId, boolean privateLayout, long parentLayoutId,
 		boolean incomplete, int start, int end, OrderByComparator<Layout> obc) {
 
-		end = _endWithGroupControlPanelLayout(
-			groupId, parentLayoutId, privateLayout);
+		int newEnd = _endWithGroupControlPanelLayout(
+			end, groupId, parentLayoutId, privateLayout);
 
 		List<Layout> layouts = layoutPersistence.findByG_P_P(
-			groupId, privateLayout, parentLayoutId, start, end, obc);
+			groupId, privateLayout, parentLayoutId, start, newEnd, obc);
 
-		layouts =
-			_filterOutGroupControlPanelLayout(groupId, layouts, privateLayout);
+		if ((end == QueryUtil.ALL_POS) || (end != newEnd)) {
+			layouts = _filterOutGroupControlPanelLayout(
+				groupId, layouts, privateLayout);
+		}
 
 		if (!MergeLayoutPrototypesThreadLocal.isInProgress()) {
 			try {
@@ -3689,11 +3696,10 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	}
 
 	private int _endWithGroupControlPanelLayout(
-		long groupId, long parentLayoutId, boolean privateLayout) {
+		int end, long groupId, long parentLayoutId, boolean privateLayout) {
 
-		int end = 1;
-
-		if ((parentLayoutId != LayoutConstants.DEFAULT_PARENT_LAYOUT_ID) ||
+		if ((end == QueryUtil.ALL_POS) ||
+			(parentLayoutId != LayoutConstants.DEFAULT_PARENT_LAYOUT_ID) ||
 			!privateLayout || ExportImportThreadLocal.isImportInProcess() ||
 			ExportImportThreadLocal.isExportInProcess() ||
 			ExportImportThreadLocal.isStagingInProcess()) {
@@ -3712,7 +3718,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 				layoutLocalService.getLayouts(
 					groupId, true, LayoutConstants.TYPE_CONTROL_PANEL);
 
-			end = 1 + groupControlPanelLayouts.size();
+			end += groupControlPanelLayouts.size();
 		}
 		catch (PortalException pe) {
 			if (_log.isDebugEnabled()) {
