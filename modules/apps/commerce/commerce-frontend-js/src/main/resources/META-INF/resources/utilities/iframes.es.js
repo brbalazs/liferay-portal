@@ -31,3 +31,7 @@ export function initializeIframeListeners() {
 		});
 	});
 }
+
+export function isPageInIframe() {
+	return window.location !== window.parent.location
+}

@@ -55,7 +55,8 @@ function ActionItem(props) {
 							url: props.href
 						},
 						props.target
-					))
+					)
+				)
 			}
 		>
 			{props.icon && (
@@ -102,7 +103,7 @@ ActionsDropdown.propTypes = {
 			href: PropTypes.string,
 			icon: PropTypes.string,
 			label: PropTypes.string.isRequired,
-			target: PropTypes.oneOf(['modal', 'sidePanel'])
+			target: PropTypes.oneOf(['modal', 'sidePanel', 'link'])
 		})
 	)
 };

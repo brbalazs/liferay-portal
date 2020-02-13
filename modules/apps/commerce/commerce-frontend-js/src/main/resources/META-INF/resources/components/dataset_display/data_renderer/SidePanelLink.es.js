@@ -32,7 +32,7 @@ function SidePanelLink(props) {
 			className="btn btn-link btn-sm p-0"
 			onClick={e =>
 				handleClickOnLink(e, {
-					size: props.value.size,
+					size: props.value.size || 'lg',
 					url: props.value.href
 				})
 			}

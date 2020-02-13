@@ -353,6 +353,11 @@
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.ModalContentTag</tag-class>
 		<body-content>JSP</body-content>
 		<attribute>
+			<name>contentCssClasses</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>modalId</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -547,6 +552,26 @@
 		</attribute>
 		<attribute>
 			<name>sidePanelId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>screenNavigatorKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>menubarCssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>screenNavigatorModelBean</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>screenNavigatorPortletURL</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

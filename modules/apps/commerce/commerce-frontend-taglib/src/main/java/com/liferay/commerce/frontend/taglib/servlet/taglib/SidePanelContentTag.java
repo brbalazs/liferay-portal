@@ -17,6 +17,7 @@ package com.liferay.commerce.frontend.taglib.servlet.taglib;
 import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
 import com.liferay.taglib.util.IncludeTag;
 
+import javax.portlet.PortletURL;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
@@ -39,6 +40,9 @@ public class SidePanelContentTag extends IncludeTag {
 		setNamespacedAttribute(request, "showCloseButton", _showCloseButton);
 		setNamespacedAttribute(request, "sidePanelId", _sidePanelId);
 		setNamespacedAttribute(request, "title", _title);
+		setNamespacedAttribute(request, "screenNavigatorKey", _screenNavigatorKey);
+		setNamespacedAttribute(request, "screenNavigatorModelBean", _screenNavigatorModelBean);
+		setNamespacedAttribute(request, "screenNavigatorPortletURL", _screenNavigatorPortletURL);
 
 		super.doStartTag();
 
@@ -55,6 +59,18 @@ public class SidePanelContentTag extends IncludeTag {
 
 	public String getTitle() {
 		return _title;
+	}
+
+	public String getScreenNavigatorKey() {
+		return _screenNavigatorKey;
+	}
+
+	public Object getScreenNavigatorModelBean() {
+		return _screenNavigatorModelBean;
+	}
+
+	public PortletURL getScreenNavigatorPortletURL() {
+		return _screenNavigatorPortletURL;
 	}
 
 	@Override
@@ -76,6 +92,16 @@ public class SidePanelContentTag extends IncludeTag {
 		_title = title;
 	}
 
+	public void setScreenNavigatorKey(String screenNavigatorKey) {
+		_screenNavigatorKey = screenNavigatorKey;
+	}
+	public void setScreenNavigatorModelBean(Object screenNavigatorModelBean) {
+		_screenNavigatorModelBean = screenNavigatorModelBean;
+	}
+	public void setScreenNavigatorPortletURL(PortletURL screenNavigatorPortletURL) {
+		_screenNavigatorPortletURL = screenNavigatorPortletURL;
+	}
+
 	@Override
 	protected void cleanUp() {
 		super.cleanUp();
@@ -83,6 +109,9 @@ public class SidePanelContentTag extends IncludeTag {
 		_showCloseButton = false;
 		_sidePanelId = null;
 		_title = null;
+		_screenNavigatorKey = null;
+		_screenNavigatorModelBean = null;
+		_screenNavigatorPortletURL = null;
 	}
 
 	@Override
@@ -105,5 +134,8 @@ public class SidePanelContentTag extends IncludeTag {
 	private boolean _showCloseButton;
 	private String _sidePanelId;
 	private String _title;
+	private String _screenNavigatorKey;
+	private Object _screenNavigatorModelBean;
+	private PortletURL _screenNavigatorPortletURL;
 
 }

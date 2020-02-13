@@ -34,6 +34,7 @@ public class ModalContentTag extends IncludeTag {
 
 	@Override
 	public int doStartTag() throws JspException {
+		request.setAttribute(_ATTRIBUTE_NAMESPACE + "contentCssClasses", _contentCssClasses);
 		request.setAttribute(_ATTRIBUTE_NAMESPACE + "modalId", _modalId);
 		request.setAttribute(
 			_ATTRIBUTE_NAMESPACE + "showCancelButton", _showCancelButton);
@@ -46,6 +47,10 @@ public class ModalContentTag extends IncludeTag {
 		super.doStartTag();
 
 		return EVAL_BODY_INCLUDE;
+	}
+
+	public String getContentCssClasses() {
+		return _contentCssClasses;
 	}
 
 	public String getModalId() {
@@ -66,6 +71,10 @@ public class ModalContentTag extends IncludeTag {
 
 	public String getTitle() {
 		return _title;
+	}
+
+	public void setContentCssClasses(String contentCssClasses) {
+		_contentCssClasses = contentCssClasses;
 	}
 
 	public void setModalId(String modalId) {
@@ -99,6 +108,7 @@ public class ModalContentTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
+		_contentCssClasses = null;
 		_modalId = null;
 		_showCancelButton = true;
 		_showSubmitButton = true;
@@ -123,6 +133,7 @@ public class ModalContentTag extends IncludeTag {
 
 	private static final String _START_PAGE = "/modal_content/start.jsp";
 
+	private String _contentCssClasses;
 	private String _modalId;
 	private boolean _showCancelButton = true;
 	private boolean _showSubmitButton = true;

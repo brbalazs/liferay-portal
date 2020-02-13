@@ -55,13 +55,17 @@ function CreationMenu(props) {
 						<ClayDropDown.ItemList>
 							{props.items.map((item, i) => (
 								<ClayDropDown.Item
-									href={item.url || '#'}
+									href={item.href || '#'}
 									key={i}
-									onClick={e => {
-										e.preventDefault();
-										setActive(false);
-										executeAction(i);
-									}}
+									onClick={
+										(item.target && item.target !== 'link') && (
+											e => {
+												e.preventDefault();
+												setActive(false);
+												executeAction(i);
+											}
+										)
+									}
 								>
 									{item.label}
 								</ClayDropDown.Item>
@@ -84,7 +88,7 @@ CreationMenu.propTypes = {
 		PropTypes.shape({
 			href: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
-			target: PropTypes.oneOf(['modal'])
+			target: PropTypes.oneOf(['modal', 'sidePanel', 'event', 'link'])
 		})
 	).isRequired
 };

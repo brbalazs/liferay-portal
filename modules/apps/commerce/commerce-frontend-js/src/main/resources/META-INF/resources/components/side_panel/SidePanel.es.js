@@ -25,7 +25,7 @@ import {
 	CLOSE_SIDE_PANEL,
 	IFRAME_LOADED
 } from '../../utilities/eventsDefinitions.es';
-import {iframeHandlerModalId} from '../../utilities/iframes.es';
+import {iframeHandlerModalId, isPageInIframe} from '../../utilities/iframes.es';
 import {debounce} from '../../utilities/index.es';
 import {exposeSidePanel} from '../../utilities/sidePanels.es';
 import Modal from '../modal/Modal.es';
@@ -285,8 +285,27 @@ export default class SidePanel extends React.Component {
 		const content = (
 			<React.Fragment>
 				<Modal id={iframeHandlerModalId} />
+				{!isPageInIframe() && (
+					<div
+						className={classNames("side-panel-nav-cover border-bottom", visibility)}
+						style={{top: this.state.topDistance}}
+					>
+						<div className="container">
+							<ul className="nav nav-underline">
+								<li className="nav-item">
+									<button
+										className="btn btn-unstyled nav-link"
+										onClick={() => this.close()}
+									>
+										<ClayIcon symbol="angle-left" />
+									</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				)}
 				<div
-					className={`side-panel side-panel-${this.state.size} ${visibility} ${loading}`}
+					className={classNames('side-panel', `side-panel-${this.state.size}`, visibility, loading)}
 					ref={this.panel}
 					style={{top: this.state.topDistance}}
 				>
@@ -353,13 +372,21 @@ export default class SidePanel extends React.Component {
 SidePanel.propTypes = {
 	id: PropTypes.string,
 	items: PropTypes.any,
-	size: PropTypes.string,
+	size: PropTypes.oneOf([
+		'xs',
+		'sm',
+		'md',
+		'lg',
+		'xl',
+		'full'
+	]),
 	spritemap: PropTypes.string,
 	topAnchorSelector: PropTypes.any,
 	wrapperSelector: PropTypes.string
 };
 
 SidePanel.defaultProps = {
+	size: 'lg',
 	topAnchorSelector: '.side-panel-top-anchor',
-	wrapperSelector: '.side-panel-wrapper'
+	wrapperSelector: '.side-panel-wrapper',
 };

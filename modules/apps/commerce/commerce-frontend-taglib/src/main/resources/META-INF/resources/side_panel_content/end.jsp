@@ -16,13 +16,25 @@
 
 <%@ include file="/side_panel_content/init.jsp" %>
 
-<c:if test="<%= Validator.isNotNull(title) %>">
+
+	<c:if test="<%= !Validator.isNotNull(screenNavigatorKey) %>">
 		</div>
-	</div>
-</c:if>
+	</c:if>
+
+	<c:if test="<%= Validator.isNotNull(screenNavigatorKey) %>">
+		<liferay-frontend:screen-navigation
+			containerWrapperCssClass="side-panel-iframe-wrapper"
+			fullContainerCssClass="col-12"
+			headerContainerCssClass="side-panel-iframe-menu-wrapper"
+			key="<%= screenNavigatorKey %>"
+			modelBean="<%= screenNavigatorModelBean %>"
+			portletURL="<%= screenNavigatorPortletURL %>"
+		/>
+	</c:if>
+</div>
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-	document.querySelectorAll('.side-panel-closer').forEach(function(trigger) {
+	document.querySelectorAll('.side-panel-iframe-close').forEach(function(trigger) {
 		trigger.addEventListener('click', function(e) {
 			e.preventDefault();
 			window.parent.Liferay.fire(events.CLOSE_SIDE_PANEL);

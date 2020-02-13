@@ -16,22 +16,22 @@
 
 <%@ include file="/side_panel_content/init.jsp" %>
 
-<aui:script require="commerce-frontend-js/utilities/iframes.es as iframesUtils">
-	iframesUtils.initializeIframeListeners();
+<div class="side-panel-iframe">
 
-	var pageMenu = document.querySelector('.page-header');
-	var pageHeader = document.querySelector('.side-panel-iframe-header');
+	<c:if test="<%= Validator.isNotNull(title) %>">
+		<div class="side-panel-iframe-header">
+			<div class="side-panel-iframe-title">
+				<%= title %>
+			</div>
+		</div>
+	</c:if>
 
-	if (!pageMenu && pageHeader) {
-		pageHeader.classList.add('side-panel-iframe-header-sticky');
-	}
-</aui:script>
+	<button class="side-panel-iframe-close btn btn-unstyled">
+		<clay:icon symbol="times" />
+	</button>
 
-<c:if test="<%= Validator.isNotNull(title) %>">
-	<div class="card side-panel-iframe-body">
-		<h4 class="card-header py-3 side-panel-iframe-header">
-			<%= title %>
-		</h4>
+	<c:if test="<%= !Validator.isNotNull(screenNavigatorKey) %>">
+		<div class="side-panel-iframe-content">
+	</c:if>
 
-		<div class="card-body side-panel-iframe-content">
-</c:if>
+

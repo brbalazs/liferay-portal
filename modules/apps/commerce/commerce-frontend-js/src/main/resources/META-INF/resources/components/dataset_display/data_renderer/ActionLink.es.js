@@ -34,7 +34,7 @@ function ActionLink(props) {
 
 	function handleClickOnLink(e, payload, target) {
 		e.preventDefault();
-
+		
 		if (target === 'modal') {
 			return openModal(payload);
 		}
@@ -46,6 +46,7 @@ function ActionLink(props) {
 
 	return (
 		<ClayLink
+			data-senna-off
 			href={currentAction.href}
 			onClick={
 				currentAction.target &&
@@ -59,8 +60,10 @@ function ActionLink(props) {
 							url: currentAction.href
 						},
 						currentAction.target
-					))
+					)
+				)
 			}
+
 		>
 			{props.value || <ClayIcon symbol={currentAction.icon} />}
 		</ClayLink>
@@ -74,7 +77,7 @@ ActionLink.propTypes = {
 			href: PropTypes.string.isRequired,
 			icon: PropTypes.string,
 			size: PropTypes.string,
-			target: PropTypes.oneOf(['modal', 'sidePanel']),
+			target: PropTypes.oneOf(['modal', 'sidePanel', 'link']),
 			title: PropTypes.string
 		})
 	),
