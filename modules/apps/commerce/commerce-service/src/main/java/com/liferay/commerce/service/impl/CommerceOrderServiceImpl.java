@@ -514,7 +514,7 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 		_commerceOrderModelResourcePermission.check(
 			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
 
-		return commerceOrderLocalService.updateShippingAddress(
+		return commerceOrderLocalService.updateBillingAddress(
 			commerceOrderId, billingAddressId);
 	}
 
