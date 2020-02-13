@@ -165,6 +165,10 @@ public class DatasetDisplayTag extends IncludeTag {
 		_portletURL = portletURL;
 	}
 
+	public void setSelectedItems(List<String> selectedItems) {
+		_selectedItems = selectedItems;
+	}
+
 	public void setSelectedItemsKey(String selectedItemsKey) {
 		_selectedItemsKey = selectedItemsKey;
 	}
@@ -204,6 +208,7 @@ public class DatasetDisplayTag extends IncludeTag {
 		_paginationEntries = null;
 		_paginationSelectedEntry = 0;
 		_portletURL = null;
+		_selectedItems = null;
 		_selectedItemsKey = null;
 		_selectionType = null;
 		_showManagementBar = true;
@@ -282,6 +287,8 @@ public class DatasetDisplayTag extends IncludeTag {
 			_paginationSelectedEntry);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:portletURL", _portletURL);
+		request.setAttribute(
+			"liferay-commerce:dataset-display:selectedItems", _selectedItems);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:selectedItemsKey",
 			_selectedItemsKey);
@@ -377,6 +384,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private List<ClayPaginationEntry> _paginationEntries;
 	private int _paginationSelectedEntry;
 	private PortletURL _portletURL;
+	private List<String> _selectedItems;
 	private String _selectedItemsKey;
 	private String _selectionType;
 	private boolean _showManagementBar = true;

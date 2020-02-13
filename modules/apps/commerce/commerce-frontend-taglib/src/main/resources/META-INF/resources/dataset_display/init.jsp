@@ -43,6 +43,7 @@ String namespace = (String)request.getAttribute("liferay-commerce:dataset-displa
 int pageNumber = (int)request.getAttribute("liferay-commerce:dataset-display:pageNumber");
 List<ClayPaginationEntry> paginationEntries = (List<ClayPaginationEntry>)request.getAttribute("liferay-commerce:dataset-display:paginationEntries");
 PortletURL portletURL = (PortletURL)request.getAttribute("liferay-commerce:dataset-display:portletURL");
+List<String> selectedItems = (List<String>)request.getAttribute("liferay-commerce:dataset-display:selectedItems");
 String selectedItemsKey = (String)request.getAttribute("liferay-commerce:dataset-display:selectedItemsKey");
 String selectionType = (String)request.getAttribute("liferay-commerce:dataset-display:selectionType");
 boolean showManagementBar = (boolean)request.getAttribute("liferay-commerce:dataset-display:showManagementBar");

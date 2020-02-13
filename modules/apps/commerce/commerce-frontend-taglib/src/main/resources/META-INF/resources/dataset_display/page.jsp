@@ -39,6 +39,7 @@
 		},
 		namespace: '<%= namespace %>',
 		portletURL: '<%= portletURL %>',
+		selectedItems: <%= jsonSerializer.serializeDeep(selectedItems) %>,
 		selectedItemsKey: '<%= selectedItemsKey %>',
 		selectionType: '<%= selectionType %>',
 		spritemap: '<%= spritemap %>',

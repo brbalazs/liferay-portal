@@ -66,7 +66,7 @@ function DatasetDisplay(props) {
 		'support-modal-' + getRandomId()
 	);
 
-	const [selectedItemsValue, setSelectedItemsValue] = useState([]);
+	const [selectedItemsValue, setSelectedItemsValue] = useState(props.selectedItems || []);
 	const [filters, updateFilters] = useState(formatFilters(props.filters));
 	const [sorting, updateSorting] = useState(props.sorting);
 	const [items, updateItems] = useState(props.items);
@@ -268,7 +268,7 @@ function DatasetDisplay(props) {
 			<div className="dataset-display-content-wrapper">
 				<input
 					hidden
-					name={`${props.id}-selected-${props.selectedItemsKey}`}
+					name={`${props.namespace || (props.id + '_')}${props.selectedItemsKey}`}
 					readOnly
 					value={selectedItemsValue.join(',')}
 				/>
@@ -389,6 +389,7 @@ DatasetDisplay.propTypes = {
 	formId: PropTypes.string,
 	id: PropTypes.string.isRequired,
 	items: PropTypes.array.isRequired,
+	namespace: PropTypes.string,
 	pagination: PropTypes.shape({
 		deltas: PropTypes.arrayOf(
 			PropTypes.shape({
@@ -400,6 +401,7 @@ DatasetDisplay.propTypes = {
 		initialPageNumber: PropTypes.number,
 		initialTotalItems: PropTypes.number.isRequired
 	}),
+	selectedItems: PropTypes.array,
 	selectedItemsKey: PropTypes.string,
 	selectionType: PropTypes.oneOf(['single', 'multiple']),
 	showManagementBar: PropTypes.bool,
