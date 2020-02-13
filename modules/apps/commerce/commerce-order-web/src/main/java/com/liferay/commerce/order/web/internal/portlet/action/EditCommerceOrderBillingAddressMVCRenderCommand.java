@@ -47,11 +47,11 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + CommercePortletKeys.COMMERCE_ORDER,
-		"mvc.command.name=editCommerceOrderBillingAddress"
+		"mvc.command.name=addCommerceOrderBillingAddress"
 	},
 	service = MVCRenderCommand.class
 )
-public class EditCommerceOrderBillingAddressMVCRenderCommand
+public class AddCommerceOrderBillingAddressMVCRenderCommand
 	implements MVCRenderCommand {
 
 	@Override
@@ -88,7 +88,7 @@ public class EditCommerceOrderBillingAddressMVCRenderCommand
 			throw new PortletException(e);
 		}
 
-		return "/order/billing_address.jsp";
+		return "/order/add_billing_address.jsp";
 	}
 
 	@Reference
