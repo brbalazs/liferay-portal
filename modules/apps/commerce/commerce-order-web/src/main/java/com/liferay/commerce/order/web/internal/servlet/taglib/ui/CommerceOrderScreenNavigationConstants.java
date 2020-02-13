@@ -23,8 +23,6 @@ public class CommerceOrderScreenNavigationConstants {
 	public static final String CATEGORY_KEY_COMMERCE_ORDER_ATTACHMENTS =
 		"attachments";
 
-	public static final String CATEGORY_KEY_COMMERCE_ORDER_BILLING = "billing";
-
 	public static final String CATEGORY_KEY_COMMERCE_ORDER_CUSTOM_FIELDS =
 		"custom-fields";
 
@@ -43,9 +41,6 @@ public class CommerceOrderScreenNavigationConstants {
 
 	public static final String CATEGORY_KEY_COMMERCE_ORDER_SHIPMENTS =
 		"shipments";
-
-	public static final String CATEGORY_KEY_COMMERCE_ORDER_SHIPPING =
-		"shipping";
 
 	public static final String CATEGORY_KEY_COMMERCE_ORDER_SHIPPING_SUMMARY =
 		"shipping-summary";
