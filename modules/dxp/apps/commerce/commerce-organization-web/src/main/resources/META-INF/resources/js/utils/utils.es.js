@@ -1,4 +1,5 @@
 import w from './window.es';
+import {LIST_BY} from "./constants.es";
 
 function serializeParams(params) {
 	return Object.keys(params).map(
@@ -7,20 +8,17 @@ function serializeParams(params) {
 	).join('&');
 }
 
-export function endpointBuilder({baseURL, id = '0', path = '', queryParams = {}}) {
+export function endpointBuilder({baseURL, id = '0', path = LIST_BY.USERS, queryParams = {}}) {
 	if (!baseURL) {
 		throw new Error('No API baseURL provided.');
 	}
 
+	queryParams.p_auth = w.Liferay.authToken;
+
 	const collection = `/${path}`;
 	const organizationId = `/${id}`;
+	const parameters = `?${serializeParams(queryParams)}`;
 	const root = `${baseURL}/organizations`;
-
-	let parameters = '';
-
-	if (path) {
-		parameters = `?${serializeParams(queryParams)}`;
-	}
 
 	return `${root}${organizationId}${collection}${parameters}`;
 }
