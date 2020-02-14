@@ -111,7 +111,9 @@ function Table(props) {
 								<SelectionComponent
 									checked={
 										!!selectedItemsValue.find(
-											el => String(el) === String(item[selectedItemsKey])
+											el =>
+												String(el) ===
+												String(item[selectedItemsKey])
 										)
 									}
 									onChange={() =>
