@@ -26,7 +26,6 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -237,7 +236,7 @@ public class EditCommerceOrderItemMVCActionCommand
 	private class CommerceOrderItemCallable implements Callable<Object> {
 
 		@Override
-		public User call() throws Exception {
+		public Object call() throws Exception {
 			updateCommerceOrderItem(_actionRequest);
 
 			return null;
