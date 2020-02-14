@@ -39,6 +39,11 @@ public class ProductInteractionCommerceMLRecommendationIndexer
 	}
 
 	@Override
+	public String getDocumentType() {
+		return "ProductCommerceMLRecommendationDocumentType";
+	}
+
+	@Override
 	public String getIndexName(long companyId) {
 		return String.format(_INDEX_NAME_PATTERN, companyId);
 	}

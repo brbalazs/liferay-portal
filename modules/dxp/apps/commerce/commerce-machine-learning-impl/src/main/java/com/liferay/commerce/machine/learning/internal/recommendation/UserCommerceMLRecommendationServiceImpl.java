@@ -56,7 +56,7 @@ public class UserCommerceMLRecommendationServiceImpl
 			userCommerceMLRecommendation,
 			_commerceMLIndexer.getIndexName(
 				userCommerceMLRecommendation.getCompanyId()),
-			_MAPPING_NAME);
+			_commerceMLIndexer.getDocumentType());
 	}
 
 	@Override
@@ -114,9 +114,6 @@ public class UserCommerceMLRecommendationServiceImpl
 
 		return userCommerceMLRecommendation;
 	}
-
-	private static final String _MAPPING_NAME =
-		"UserCommerceMLRecommendationDocumentType";
 
 	@Reference(
 		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommendation.search.index.UserCommerceMLRecommendationIndexer)"

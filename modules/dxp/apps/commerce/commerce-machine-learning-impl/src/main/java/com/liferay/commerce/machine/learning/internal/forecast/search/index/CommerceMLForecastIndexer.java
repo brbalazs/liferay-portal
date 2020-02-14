@@ -38,6 +38,11 @@ public class CommerceMLForecastIndexer implements CommerceMLIndexer {
 	}
 
 	@Override
+	public String getDocumentType() {
+		return "CommerceMLForecastDocumentType";
+	}
+
+	@Override
 	public String getIndexName(long companyId) {
 		return String.format(_INDEX_NAME_PATTERN, companyId);
 	}

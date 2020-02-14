@@ -78,7 +78,7 @@ public abstract class BaseCommerceMLForecastServiceImpl
 		IndexDocumentRequest indexDocumentRequest = new IndexDocumentRequest(
 			commerceMLIndexer.getIndexName(model.getCompanyId()), document);
 
-		indexDocumentRequest.setType(_MAPPING_NAME);
+		indexDocumentRequest.setType(commerceMLIndexer.getDocumentType());
 
 		IndexDocumentResponse indexDocumentResponse =
 			searchEngineAdapter.execute(indexDocumentRequest);
@@ -445,8 +445,5 @@ public abstract class BaseCommerceMLForecastServiceImpl
 	}
 
 	private static final String _INDEX_DATE_FORMAT_PATTERN = "yyyyMMddHHmmss";
-
-	private static final String _MAPPING_NAME =
-		"CommerceMLForecastDocumentType";
 
 }

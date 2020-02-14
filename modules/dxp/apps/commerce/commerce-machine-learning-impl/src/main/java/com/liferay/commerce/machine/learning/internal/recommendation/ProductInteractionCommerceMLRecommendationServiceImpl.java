@@ -54,7 +54,7 @@ public class ProductInteractionCommerceMLRecommendationServiceImpl
 			productInteractionCommerceMLRecommendation,
 			_commerceMLIndexer.getIndexName(
 				productInteractionCommerceMLRecommendation.getCompanyId()),
-			_MAPPING_NAME);
+			_commerceMLIndexer.getDocumentType());
 	}
 
 	@Override
@@ -107,9 +107,6 @@ public class ProductInteractionCommerceMLRecommendationServiceImpl
 
 		return productInteractionCommerceMLRecommendationModel;
 	}
-
-	private static final String _MAPPING_NAME =
-		"ProductCommerceMLRecommendationDocumentType";
 
 	@Reference(
 		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommendation.search.index.ProductInteractionCommerceMLRecommendationIndexer)"

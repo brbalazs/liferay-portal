@@ -38,6 +38,11 @@ public class UserCommerceMLRecommendationIndexer implements CommerceMLIndexer {
 	}
 
 	@Override
+	public String getDocumentType() {
+		return "UserCommerceMLRecommendationDocumentType";
+	}
+
+	@Override
 	public String getIndexName(long companyId) {
 		return String.format(_INDEX_NAME_PATTERN, companyId);
 	}

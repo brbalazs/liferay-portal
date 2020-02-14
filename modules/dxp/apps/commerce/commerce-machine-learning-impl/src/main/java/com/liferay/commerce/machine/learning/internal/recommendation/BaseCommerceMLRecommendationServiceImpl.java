@@ -41,7 +41,7 @@ public abstract class BaseCommerceMLRecommendationServiceImpl
 	<T extends CommerceMLRecommendation> {
 
 	protected T addCommerceMLRecommendation(
-			T model, String indexName, String mappingName)
+			T model, String indexName, String documentType)
 		throws PortalException {
 
 		Document document = toDocument(model);
@@ -49,7 +49,7 @@ public abstract class BaseCommerceMLRecommendationServiceImpl
 		IndexDocumentRequest indexDocumentRequest = new IndexDocumentRequest(
 			indexName, document);
 
-		indexDocumentRequest.setType(mappingName);
+		indexDocumentRequest.setType(documentType);
 
 		IndexDocumentResponse indexDocumentResponse =
 			searchEngineAdapter.execute(indexDocumentRequest);
