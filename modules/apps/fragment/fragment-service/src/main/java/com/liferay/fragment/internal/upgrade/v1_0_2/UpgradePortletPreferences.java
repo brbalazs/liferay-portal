@@ -69,7 +69,7 @@ public class UpgradePortletPreferences extends UpgradeProcess {
 		sb.append("select Layout.plid from Layout inner join Group_ on ");
 		sb.append("Layout.groupId = Group_.groupId where Group_.groupKey = '");
 		sb.append(GroupConstants.CONTROL_PANEL);
-		sb.append("';");
+		sb.append("'");
 
 		try (PreparedStatement ps = connection.prepareStatement(sb.toString());
 			ResultSet rs = ps.executeQuery()) {
