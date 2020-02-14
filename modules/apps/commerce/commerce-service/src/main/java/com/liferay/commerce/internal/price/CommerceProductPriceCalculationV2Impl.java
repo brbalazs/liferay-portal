@@ -472,7 +472,7 @@ public class CommerceProductPriceCalculationV2Impl
 		).toArray();
 
 		return _commercePriceListDiscovery.getCommercePriceList(
-			commercePriceListType, cpInstance.getCPInstanceUuid(),
+			cpInstance.getGroupId(), commercePriceListType, cpInstance.getCPInstanceUuid(),
 			commerceAccountId, commerceAccountGroupIds,
 			commerceContext.getCommerceChannelId());
 	}

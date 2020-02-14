@@ -30,9 +30,16 @@ public class CommercePriceListUpgradeProcess
 			CommercePriceListModelImpl.class,
 			CommercePriceListModelImpl.TABLE_NAME, "type_", "VARCHAR(75)");
 
+		addColumn(
+			CommercePriceListModelImpl.class,
+			CommercePriceListModelImpl.TABLE_NAME, "catalogBasePriceList",
+			"BOOLEAN");
+
 		runSQL(
 			"UPDATE CommercePriceList SET type_ = '" +
 				CommercePriceListTypeKeys.TYPE_PRICE_LIST + "'");
+
+		runSQL("UPDATE CommercePriceList SET catalogBasePriceList = [$FALSE$]");
 	}
 
 }

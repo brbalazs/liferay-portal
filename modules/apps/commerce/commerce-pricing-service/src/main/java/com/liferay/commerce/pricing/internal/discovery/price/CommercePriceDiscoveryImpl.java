@@ -22,10 +22,10 @@ import com.liferay.commerce.discount.discovery.CommerceDiscountDiscovery;
 import com.liferay.commerce.price.CommercePriceDiscovery;
 import com.liferay.commerce.price.CommercePriceValue;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
-import com.liferay.commerce.price.list.model.CommercePriceListRel;
+import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
-import com.liferay.commerce.price.list.service.CommercePriceListRelLocalService;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryLocalService;
 import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierDiscovery;
 import com.liferay.commerce.pricing.discovery.price.CommercePriceValueImpl;
@@ -151,18 +151,12 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 
 		CommerceCatalog commerceCatalog = cpInstance.getCommerceCatalog();
 
-		List<CommercePriceListRel> commercePriceListRels =
-			_commercePriceListRelLocalService.getCommercePriceListRels(
-				CommerceCatalog.class.getName(),
-				commerceCatalog.getCommerceCatalogId());
+		CommercePriceList basePriceList =
+			_commercePriceListLocalService.getCommerceCatalogBasePriceList(
+				commerceCatalog.getGroupId());
 
-		if ((commercePriceListRels != null) &&
-			!commercePriceListRels.isEmpty()) {
-
-			CommercePriceListRel commercePriceListRel =
-				commercePriceListRels.get(0);
-
-			return commercePriceListRel.getCommercePriceListId();
+		if (basePriceList != null) {
+			return basePriceList.getCommercePriceListId();
 		}
 
 		return 0;
@@ -381,7 +375,7 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
 
 	@Reference
-	private CommercePriceListRelLocalService _commercePriceListRelLocalService;
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 	@Reference
 	private CommercePriceModifierDiscovery _commercePriceModifierDiscovery;

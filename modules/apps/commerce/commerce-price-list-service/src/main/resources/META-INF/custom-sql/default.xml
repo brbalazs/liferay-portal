@@ -16,16 +16,17 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByCommerceAccountId">
 		<![CDATA[
 			SELECT
-				DISTINCT CommercePriceList.*
+				CommercePriceList.*
 			FROM
-				CommercePriceList
+				CommercePriceListAccountRel
 			INNER JOIN
-				CommercePriceListAccountRel ON
+				CommercePriceList ON
 					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
 			WHERE
-				(CommercePriceList.status = 0) AND
+				(CommercePriceListAccountRel.commerceAccountId = ?) AND
+				(CommercePriceList.groupId = ?) AND
 				(CommercePriceList.type_ = ?) AND
-				(CommercePriceListAccountRel.commerceAccountId = ?)
+				(CommercePriceList.status = 0)
 			ORDER BY
 				CommercePriceList.priority DESC
 		]]>
@@ -33,20 +34,21 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByAccountAndChannelId">
 		<![CDATA[
 			SELECT
-				DISTINCT CommercePriceList.*
+				CommercePriceList.*
 			FROM
-				CommercePriceList
+				CommercePriceListChannelRel
 			INNER JOIN
 				CommercePriceListAccountRel ON
-					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+					CommercePriceListChannelRel.commercePriceListId = CommercePriceListAccountRel.commercePriceListId
 			INNER JOIN
-				CommercePriceListChannelRel ON
-					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
+				CommercePriceList ON
+					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
 			WHERE
-				(CommercePriceList.status = 0) AND
-				(CommercePriceList.type_ = ?) AND
+				(CommercePriceListChannelRel.commerceChannelId = ?) AND
 				(CommercePriceListAccountRel.commerceAccountId = ?) AND
-				(CommercePriceListChannelRel.commerceChannelId = ?)
+				(CommercePriceList.groupId = ?) AND
+				(CommercePriceList.type_ = ?) AND
+				(CommercePriceList.status = 0)
 			ORDER BY
 				CommercePriceList.priority DESC
 		]]>
@@ -54,16 +56,17 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByCommerceAccountGroupIds">
 		<![CDATA[
 			SELECT
-				DISTINCT CommercePriceList.*
+				CommercePriceList.*
 			FROM
-				CommercePriceList
+				CPLCommerceGroupAccountRel
 			INNER JOIN
-				CPLCommerceGroupAccountRel ON
+				CommercePriceList ON
 					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
 			WHERE
-				(CommercePriceList.status = 0) AND
+				(CPLCommerceGroupAccountRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$])) AND
+				(CommercePriceList.groupId = ?) AND
 				(CommercePriceList.type_ = ?) AND
-				(CPLCommerceGroupAccountRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$]))
+				(CommercePriceList.status = 0)
 			ORDER BY
 				CommercePriceList.priority DESC
 		]]>
@@ -71,20 +74,21 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByAccountGroupsAndChannelId">
 		<![CDATA[
 			SELECT
-				DISTINCT CommercePriceList.*
+				CommercePriceList.*
 			FROM
-				CommercePriceList
+				CommercePriceListChannelRel
 			INNER JOIN
 				CPLCommerceGroupAccountRel ON
-					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+					CommercePriceListChannelRel.commercePriceListId = CPLCommerceGroupAccountRel.commercePriceListId
 			INNER JOIN
-				CommercePriceListChannelRel ON
-					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
+				CommercePriceList ON
+					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
 			WHERE
-				(CommercePriceList.status = 0) AND
-				(CommercePriceList.type_ = ?) AND
+				(CommercePriceListChannelRel.commerceChannelId = ?) AND
 				(CPLCommerceGroupAccountRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$])) AND
-				(CommercePriceListChannelRel.commerceChannelId = ?)
+				(CommercePriceList.groupId = ?) AND
+				(CommercePriceList.type_ = ?) AND
+				(CommercePriceList.status = 0)
 			ORDER BY
 				CommercePriceList.priority DESC
 		]]>
@@ -92,16 +96,17 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByCommerceChannelId">
 		<![CDATA[
 			SELECT
-				DISTINCT CommercePriceList.*
+				CommercePriceList.*
 			FROM
-				CommercePriceList
+				CommercePriceListChannelRel
 			INNER JOIN
-				CommercePriceListChannelRel ON
+				CommercePriceList ON
 					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
 			WHERE
-				(CommercePriceList.status = 0) AND
+				(CommercePriceListChannelRel.commerceChannelId = ?) AND
+				(CommercePriceList.groupId = ?) AND
 				(CommercePriceList.type_ = ?) AND
-				(CommercePriceListChannelRel.commerceChannelId = ?)
+				(CommercePriceList.status = 0)
 			ORDER BY
 				CommercePriceList.priority DESC
 		]]>
@@ -109,7 +114,7 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByUnqualified">
 		<![CDATA[
 			SELECT
-				DISTINCT CommercePriceList.*
+				CommercePriceList.*
 			FROM
 				CommercePriceList
 			LEFT JOIN
@@ -122,8 +127,9 @@
 				CommercePriceListChannelRel ON
 					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
 			WHERE
-				(CommercePriceList.status = 0) AND
+				(CommercePriceList.groupId = ?) AND
 				(CommercePriceList.type_ = ?) AND
+				(CommercePriceList.status = 0) AND
 				(CommercePriceListAccountRel.commercePriceListAccountRelId IS NULL) AND
 				(CPLCommerceGroupAccountRel.cPLCommerceAccountGroupRelId IS NULL) AND
 				(CommercePriceListChannelRel.commercePriceListChannelRelId IS NULL)
@@ -134,7 +140,7 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByLowestPrice">
 		<![CDATA[
 			SELECT
-				DISTINCT CommercePriceEntry.*
+				CommercePriceEntry.*
 			FROM
 				CommercePriceEntry
 			INNER JOIN
@@ -142,28 +148,30 @@
 					CommercePriceList.commercePriceListId = CommercePriceEntry.commercePriceListId
 			LEFT JOIN
 				CommercePriceListAccountRel ON
-					CommercePriceListAccountRel.commercePriceListId = CommercePriceEntry.commercePriceListId
+					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
 			LEFT JOIN
 				CPLCommerceGroupAccountRel ON
-					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceEntry.commercePriceListId
+					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
 			LEFT JOIN
 				CommercePriceListChannelRel ON
-					CommercePriceListChannelRel.commercePriceListId = CommercePriceEntry.commercePriceListId
+					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
 			WHERE
-				(CommercePriceList.status = 0) AND
-				(CommercePriceList.type_ = ?) AND
 				(CommercePriceEntry.CPInstanceUuid = ?) AND
+				(CommercePriceEntry.status = 0) AND
+				(CommercePriceList.groupId = ?) AND
+				(CommercePriceList.type_ = ?) AND
+				(CommercePriceList.status = 0) AND
 				(
-					(
-						(CommercePriceListAccountRel.commerceAccountId = ?) OR
-						(CPLCommerceGroupAccountRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$])) OR
-						(CommercePriceListChannelRel.commerceChannelId = ?)
-					) OR
-					(
-						(CommercePriceListAccountRel.commercePriceListAccountRelId IS NULL) AND
-						(CPLCommerceGroupAccountRel.cPLCommerceAccountGroupRelId IS NULL) AND
-						(CommercePriceListChannelRel.commercePriceListChannelRelId IS NULL)
-					)
+					(CommercePriceListAccountRel.commerceAccountId = ?) OR
+					(CommercePriceListAccountRel.commercePriceListAccountRelId IS NULL)
+				) AND
+				(
+					(CPLCommerceGroupAccountRel.commerceAccountGroupId = ([$ACCOUNT_GROUP_IDS$])) OR
+					(CPLCommerceGroupAccountRel.cPLCommerceAccountGroupRelId IS NULL)
+				) AND
+				(
+					(CommercePriceListChannelRel.commerceChannelId = ?) OR
+					(CommercePriceListChannelRel.commercePriceListChannelRelId IS NULL)
 				)
 			ORDER BY
 				CommercePriceEntry.price ASC

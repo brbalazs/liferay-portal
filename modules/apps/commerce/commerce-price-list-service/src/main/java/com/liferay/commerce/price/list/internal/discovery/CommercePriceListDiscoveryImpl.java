@@ -38,7 +38,7 @@ public class CommercePriceListDiscoveryImpl
 
 	@Override
 	public CommercePriceList getCommercePriceList(
-			String type, String cPInstanceUuid, long commerceAccountId,
+			long groupId, String type, String cPInstanceUuid, long commerceAccountId,
 			long[] commerceAccountGroupIds, long commerceChannelId)
 		throws PortalException {
 
@@ -59,17 +59,17 @@ public class CommercePriceListDiscoveryImpl
 
 		if (discoveryMethod == CommercePricingConstants.ORDER_BY_LOWEST_ENTRY) {
 			return _getCommercePriceListByLowestPrice(
-				type, cPInstanceUuid, commerceAccountId,
+				groupId, type, cPInstanceUuid, commerceAccountId,
 				commerceAccountGroupIds, commerceChannelId);
 		}
 
 		return _getCommercePriceListByHierarchy(
-			type, commerceAccountId, commerceAccountGroupIds,
+			groupId, type, commerceAccountId, commerceAccountGroupIds,
 			commerceChannelId);
 	}
 
 	private CommercePriceList _getCommercePriceListByHierarchy(
-			String type, long commerceAccountId, long[] commerceAccountGroupIds,
+			long groupId, String type, long commerceAccountId, long[] commerceAccountGroupIds,
 			long commerceChannelId)
 		throws PortalException {
 
@@ -85,7 +85,7 @@ public class CommercePriceListDiscoveryImpl
 		CommercePriceList commercePriceList =
 			_commercePriceListLocalService.
 				getCommercePriceListByAccountAndChannelId(
-					type, commerceAccountId, commerceChannelId);
+					groupId, type, commerceAccountId, commerceChannelId);
 
 		if (commercePriceList != null) {
 			return commercePriceList;
@@ -93,7 +93,7 @@ public class CommercePriceListDiscoveryImpl
 
 		commercePriceList =
 			_commercePriceListLocalService.getCommercePriceListByAccountId(
-				type, commerceAccountId);
+				groupId, type, commerceAccountId);
 
 		if (commercePriceList != null) {
 			return commercePriceList;
@@ -102,7 +102,7 @@ public class CommercePriceListDiscoveryImpl
 		commercePriceList =
 			_commercePriceListLocalService.
 				getCommercePriceListByAccountGroupsAndChannelId(
-					type, commerceAccountGroupIds, commerceChannelId);
+					groupId, type, commerceAccountGroupIds, commerceChannelId);
 
 		if (commercePriceList != null) {
 			return commercePriceList;
@@ -111,7 +111,7 @@ public class CommercePriceListDiscoveryImpl
 		commercePriceList =
 			_commercePriceListLocalService.
 				getCommercePriceListByAccountGroupIds(
-					type, commerceAccountGroupIds);
+					groupId, type, commerceAccountGroupIds);
 
 		if (commercePriceList != null) {
 			return commercePriceList;
@@ -119,7 +119,7 @@ public class CommercePriceListDiscoveryImpl
 
 		commercePriceList =
 			_commercePriceListLocalService.getCommercePriceListByChannelId(
-				type, commerceChannelId);
+				groupId, type, commerceChannelId);
 
 		if (commercePriceList != null) {
 			return commercePriceList;
@@ -127,7 +127,7 @@ public class CommercePriceListDiscoveryImpl
 
 		commercePriceList =
 			_commercePriceListLocalService.getCommercePriceListByUnqualified(
-				type);
+				groupId, type);
 
 		if (commercePriceList != null) {
 			return commercePriceList;
@@ -137,7 +137,7 @@ public class CommercePriceListDiscoveryImpl
 	}
 
 	private CommercePriceList _getCommercePriceListByLowestPrice(
-			String type, String cPInstanceUuid, long commerceAccountId,
+			long groupId, String type, String cPInstanceUuid, long commerceAccountId,
 			long[] commerceAccountGroupIds, long commerceChannelId)
 		throws PortalException {
 
@@ -151,7 +151,7 @@ public class CommercePriceListDiscoveryImpl
 		}
 
 		return _commercePriceListLocalService.getCommercePriceListByLowestPrice(
-			type, cPInstanceUuid, commerceAccountId, commerceAccountGroupIds,
+			groupId, type, cPInstanceUuid, commerceAccountId, commerceAccountGroupIds,
 			commerceChannelId);
 	}
 

@@ -72,6 +72,7 @@ public class CommercePriceListFinderImpl
 
 		return doFindByPK(
 			FIND_BY_ACCOUNT_AND_CHANNEL_ID,
+			(Long)queryDefinition.getAttribute("groupId"),
 			(String)queryDefinition.getAttribute("type"),
 			(Long)queryDefinition.getAttribute("commerceAccountId"),
 			(Long)queryDefinition.getAttribute("commerceChannelId"),
@@ -92,6 +93,7 @@ public class CommercePriceListFinderImpl
 
 		return doFindByPK(
 			FIND_BY_COMMERCE_ACCOUNT_ID,
+			(Long)queryDefinition.getAttribute("groupId"),
 			(String)queryDefinition.getAttribute("type"),
 			(Long)queryDefinition.getAttribute("commerceAccountId"), -1,
 			queryDefinition.getStart(), queryDefinition.getEnd());
@@ -121,8 +123,10 @@ public class CommercePriceListFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
+			long groupId = (Long)queryDefinition.getAttribute("groupId");
 			String type = (String)queryDefinition.getAttribute("type");
 
+			qPos.add(groupId);
 			qPos.add(type);
 
 			return (List<CommercePriceList>)QueryUtil.list(
@@ -161,12 +165,14 @@ public class CommercePriceListFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			String type = (String)queryDefinition.getAttribute("type");
 			long commerceChannelId = (Long)queryDefinition.getAttribute(
 				"commerceChannelId");
+			long groupId = (Long)queryDefinition.getAttribute("groupId");
+			String type = (String)queryDefinition.getAttribute("type");
 
-			qPos.add(type);
 			qPos.add(commerceChannelId);
+			qPos.add(groupId);
+			qPos.add(type);
 
 			return (List<CommercePriceList>)QueryUtil.list(
 				q, getDialect(), queryDefinition.getStart(),
@@ -186,6 +192,7 @@ public class CommercePriceListFinderImpl
 
 		return doFindByPK(
 			FIND_BY_COMMERCE_CHANNEL_ID,
+			(Long)queryDefinition.getAttribute("groupId"),
 			(String)queryDefinition.getAttribute("type"),
 			(Long)queryDefinition.getAttribute("commerceChannelId"), -1,
 			queryDefinition.getStart(), queryDefinition.getEnd());
@@ -209,8 +216,10 @@ public class CommercePriceListFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
+			long groupId = (Long)queryDefinition.getAttribute("groupId");
 			String type = (String)queryDefinition.getAttribute("type");
 
+			qPos.add(groupId);
 			qPos.add(type);
 
 			return (List<CommercePriceList>)QueryUtil.list(
@@ -249,16 +258,18 @@ public class CommercePriceListFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			String type = (String)queryDefinition.getAttribute("type");
 			String cPInstanceUuid = (String)queryDefinition.getAttribute(
 				"cPInstanceUuid");
+			long groupId = (Long)queryDefinition.getAttribute("groupId");
+			String type = (String)queryDefinition.getAttribute("type");
 			long commerceAccountId = (Long)queryDefinition.getAttribute(
 				"commerceAccountId");
 			long commerceChannelId = (Long)queryDefinition.getAttribute(
 				"commerceChannelId");
 
-			qPos.add(type);
 			qPos.add(cPInstanceUuid);
+			qPos.add(groupId);
+			qPos.add(type);
 			qPos.add(commerceAccountId);
 			qPos.add(commerceChannelId);
 
@@ -313,7 +324,7 @@ public class CommercePriceListFinderImpl
 	}
 
 	protected List<CommercePriceList> doFindByPK(
-		String queryName, String type, long classPK1, long classPK2, int start,
+		String queryName, long groupId, String type, long classPK1, long classPK2, int start,
 		int end) {
 
 		Session session = null;
@@ -330,12 +341,14 @@ public class CommercePriceListFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(type);
 			qPos.add(classPK1);
 
 			if (classPK2 > -1) {
 				qPos.add(classPK2);
 			}
+
+			qPos.add(groupId);
+			qPos.add(type);
 
 			return (List<CommercePriceList>)QueryUtil.list(
 				q, getDialect(), start, end);
