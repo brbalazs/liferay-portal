@@ -16,12 +16,9 @@ package com.liferay.commerce.order.web.internal.display.context;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.frontend.model.StepModel;
-import com.liferay.commerce.frontend.model.SummaryItem;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -39,7 +36,6 @@ import com.liferay.commerce.order.web.internal.display.context.util.CommerceOrde
 import com.liferay.commerce.order.web.internal.servlet.taglib.ui.CommerceOrderScreenNavigationConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
-import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
@@ -342,19 +338,6 @@ public class CommerceOrderEditDisplayContext {
 			commerceOrderId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
-	public CommercePaymentMethodGroupRel getCommercePaymentMethodGroupRel() 
-		throws PortalException {
-			
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				_commerceOrder.getGroupId());
-
-		return _commercePaymentMethodGroupRelService.
-			getCommercePaymentMethodGroupRel(
-				commerceChannel.getSiteGroupId(),
-				_commerceOrder.getCommercePaymentMethodKey());
-	}
-
 	public String getCommerceOrderPaymentMethodDescription()
 		throws PortalException {
 
@@ -407,6 +390,19 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		return portletURL;
+	}
+
+	public CommercePaymentMethodGroupRel getCommercePaymentMethodGroupRel()
+		throws PortalException {
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				_commerceOrder.getGroupId());
+
+		return _commercePaymentMethodGroupRelService.
+			getCommercePaymentMethodGroupRel(
+				commerceChannel.getSiteGroupId(),
+				_commerceOrder.getCommercePaymentMethodKey());
 	}
 
 	public List<CommercePaymentMethodGroupRel> getCommercePaymentMethods()
@@ -714,137 +710,6 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		return steps;
-	}
-
-	public List<SummaryItem> getSummary() throws PortalException {
-		List<SummaryItem> summary = new ArrayList<>();
-
-		if (_commerceOrder == null) {
-			return summary;
-		}
-
-		SummaryItem itemsSubtotalSummaryItem = new SummaryItem();
-		SummaryItem itemsSubtotalDiscountSummaryItem = new SummaryItem();
-		SummaryItem orderDiscountSummaryItem = new SummaryItem();
-		SummaryItem promotionCodeSummaryItem = new SummaryItem();
-		SummaryItem estimatedTaxSummaryItem = new SummaryItem();
-		SummaryItem shippingAndHandingSummaryItem = new SummaryItem();
-		SummaryItem shippingAndHandingDiscountSummaryItem = new SummaryItem();
-		SummaryItem grandTotalSummaryItem = new SummaryItem();
-
-		itemsSubtotalSummaryItem.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(), "items-subtotal"));
-
-		CommerceOrderPrice commerceOrderPrice =
-			_commerceOrderPriceCalculation.getCommerceOrderPrice(
-				_commerceOrder,
-				_commerceOrderRequestHelper.getCommerceContext());
-
-		CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
-
-		if (subtotal != null) {
-			itemsSubtotalSummaryItem.setValue(
-				subtotal.format(_commerceOrderRequestHelper.getLocale()));
-		}
-
-		itemsSubtotalDiscountSummaryItem.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(),
-				"items-subtotal-discount"));
-
-		CommerceDiscountValue subtotalDiscountValue =
-			commerceOrderPrice.getSubtotalDiscountValue();
-
-		if (subtotalDiscountValue != null) {
-			CommerceMoney discountAmount =
-				subtotalDiscountValue.getDiscountAmount();
-
-			itemsSubtotalDiscountSummaryItem.setValue(
-				discountAmount.format(_commerceOrderRequestHelper.getLocale()));
-		}
-
-		orderDiscountSummaryItem.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(), "order-discount"));
-
-		CommerceDiscountValue totalDiscountValue =
-			commerceOrderPrice.getTotalDiscountValue();
-
-		if (totalDiscountValue != null) {
-			CommerceMoney discountAmount =
-				totalDiscountValue.getDiscountAmount();
-
-			orderDiscountSummaryItem.setValue(
-				discountAmount.format(_commerceOrderRequestHelper.getLocale()));
-		}
-
-		promotionCodeSummaryItem.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(), "promotion-code"));
-		promotionCodeSummaryItem.setValue(_commerceOrder.getCouponCode(), "--");
-
-		estimatedTaxSummaryItem.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(), "estimated-tax"));
-
-		CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
-
-		if (taxValue != null) {
-			estimatedTaxSummaryItem.setValue(
-				taxValue.format(_commerceOrderRequestHelper.getLocale()));
-		}
-
-		shippingAndHandingSummaryItem.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(),
-				"shipping-and-handing"));
-
-		CommerceMoney shippingValue = commerceOrderPrice.getShippingValue();
-
-		if (shippingValue != null) {
-			shippingAndHandingSummaryItem.setValue(
-				shippingValue.format(_commerceOrderRequestHelper.getLocale()));
-		}
-
-		shippingAndHandingDiscountSummaryItem.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(),
-				"shipping-and-handing-discount"));
-
-		CommerceDiscountValue shippingDiscountValue =
-			commerceOrderPrice.getShippingDiscountValue();
-
-		if (shippingDiscountValue != null) {
-			CommerceMoney discountAmount =
-				shippingDiscountValue.getDiscountAmount();
-
-			shippingAndHandingDiscountSummaryItem.setValue(
-				discountAmount.format(_commerceOrderRequestHelper.getLocale()));
-		}
-
-		grandTotalSummaryItem.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(), "grand-total"));
-		grandTotalSummaryItem.setStyle("big");
-
-		CommerceMoney total = commerceOrderPrice.getTotal();
-
-		if (total != null) {
-			grandTotalSummaryItem.setValue(
-				total.format(_commerceOrderRequestHelper.getLocale()));
-		}
-
-		summary.add(itemsSubtotalSummaryItem);
-		summary.add(itemsSubtotalDiscountSummaryItem);
-		summary.add(orderDiscountSummaryItem);
-		summary.add(promotionCodeSummaryItem);
-		summary.add(estimatedTaxSummaryItem);
-		summary.add(shippingAndHandingSummaryItem);
-		summary.add(shippingAndHandingDiscountSummaryItem);
-		summary.add(grandTotalSummaryItem);
-
-		return summary;
 	}
 
 	public PortletURL getTransitionOrderPortletURL() {
