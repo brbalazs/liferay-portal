@@ -14,10 +14,8 @@
 
 package com.liferay.commerce.order.web.internal.frontend;
 
-import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -26,8 +24,6 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.web.internal.model.OrderItem;
 import com.liferay.commerce.order.web.internal.model.Sku;
-import com.liferay.commerce.price.CommerceProductPrice;
-import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
 import com.liferay.commerce.product.util.CPSubscriptionType;
@@ -36,7 +32,6 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -93,15 +88,7 @@ public class CommerceOrderItemDataSetDataProvider
 
 		List<OrderItem> orderItems = new ArrayList<>();
 
-		long companyId = _portal.getCompanyId(httpServletRequest);
-
-		long controlPanelPlid = _portal.getControlPanelPlid(companyId);
-
 		Locale locale = _portal.getLocale(httpServletRequest);
-
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			companyId, _portal.getScopeGroupId(controlPanelPlid),
-			_portal.getUserId(httpServletRequest), 0, 0);
 
 		BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
 			_getBaseModelSearchResult(
@@ -109,10 +96,6 @@ public class CommerceOrderItemDataSetDataProvider
 
 		for (CommerceOrderItem commerceOrderItem :
 				baseModelSearchResult.getBaseModels()) {
-
-			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
-
-			boolean openOrder = commerceOrder.isOpen();
 
 			orderItems.add(
 				new OrderItem(
@@ -124,18 +107,14 @@ public class CommerceOrderItemDataSetDataProvider
 							commerceOrderItem.getCommerceOrderItemId(),
 							httpServletRequest)),
 					commerceOrderItem.getName(locale),
-					_getPrice(
-						commerceContext, commerceOrderItem, locale, openOrder),
+					_getPrice(commerceOrderItem, locale),
 					_getSubscriptionDuration(
-						commerceOrderItem, locale, httpServletRequest),
+						commerceOrderItem, httpServletRequest, locale),
 					_getSubscriptionPeriod(
-						commerceOrderItem, locale, httpServletRequest),
-					_getDiscount(
-						commerceContext, commerceOrderItem, locale, openOrder),
+						commerceOrderItem, httpServletRequest, locale),
+					_getDiscount(commerceOrderItem, locale),
 					commerceOrderItem.getQuantity(),
-					_getTotal(
-						commerceContext, commerceOrderItem, locale,
-						openOrder)));
+					_getTotal(commerceOrderItem, locale)));
 		}
 
 		return orderItems;
@@ -151,11 +130,8 @@ public class CommerceOrderItemDataSetDataProvider
 		long commerceOrderId = ParamUtil.getLong(
 			httpServletRequest, "commerceOrderId");
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			commerceOrderId);
-
-		int start = QueryUtil.ALL_POS;
-		int end = QueryUtil.ALL_POS;
+		int start = 0;
+		int end = 0;
 
 		if (pagination != null) {
 			start = pagination.getStartPosition();
@@ -166,49 +142,25 @@ public class CommerceOrderItemDataSetDataProvider
 
 		if (orderItemFilterImpl.isAdvancedSearch()) {
 			baseModelSearchResult = _commerceOrderItemService.search(
-				commerceOrder.getCommerceOrderId(),
-				orderItemFilterImpl.getSku(), orderItemFilterImpl.getName(),
+				commerceOrderId, orderItemFilterImpl.getSku(),
+				orderItemFilterImpl.getName(),
 				orderItemFilterImpl.isAndOperator(), start, end, sort);
 		}
 		else {
 			baseModelSearchResult = _commerceOrderItemService.search(
-				commerceOrder.getCommerceOrderId(),
-				orderItemFilterImpl.getKeywords(), start, end, sort);
+				commerceOrderId, orderItemFilterImpl.getKeywords(), start, end,
+				sort);
 		}
 
 		return baseModelSearchResult;
 	}
 
 	private String _getDiscount(
-			CommerceContext commerceContext,
-			CommerceOrderItem commerceOrderItem, Locale locale,
-			boolean openOrder)
+			CommerceOrderItem commerceOrderItem, Locale locale)
 		throws PortalException {
 
-		CommerceMoney discountAmount = null;
-
-		if (openOrder) {
-			CommerceProductPrice commerceProductPrice =
-				_commerceProductPriceCalculation.getCommerceProductPrice(
-					commerceOrderItem.getCPInstanceId(),
-					commerceOrderItem.getQuantity(), commerceContext);
-
-			if (commerceProductPrice == null) {
-				return StringPool.BLANK;
-			}
-
-			CommerceDiscountValue discountValue =
-				commerceProductPrice.getDiscountValue();
-
-			if (discountValue == null) {
-				return StringPool.BLANK;
-			}
-
-			discountAmount = discountValue.getDiscountAmount();
-		}
-		else {
-			discountAmount = commerceOrderItem.getDiscountAmountMoney();
-		}
+		CommerceMoney discountAmount =
+			commerceOrderItem.getDiscountAmountMoney();
 
 		return HtmlUtil.escape(discountAmount.format(locale));
 	}
@@ -246,7 +198,7 @@ public class CommerceOrderItemDataSetDataProvider
 	}
 
 	private String _getPeriodKey(
-		String period, boolean plural, HttpServletRequest httpServletRequest) {
+		HttpServletRequest httpServletRequest, String period, boolean plural) {
 
 		if (plural) {
 			return LanguageUtil.get(
@@ -257,36 +209,17 @@ public class CommerceOrderItemDataSetDataProvider
 		return LanguageUtil.get(httpServletRequest, period);
 	}
 
-	private String _getPrice(
-			CommerceContext commerceContext,
-			CommerceOrderItem commerceOrderItem, Locale locale,
-			boolean openOrder)
+	private String _getPrice(CommerceOrderItem commerceOrderItem, Locale locale)
 		throws PortalException {
 
-		CommerceMoney unitPrice = null;
-
-		if (openOrder) {
-			CommerceProductPrice commerceProductPrice =
-				_commerceProductPriceCalculation.getCommerceProductPrice(
-					commerceOrderItem.getCPInstanceId(),
-					commerceOrderItem.getQuantity(), commerceContext);
-
-			if (commerceProductPrice == null) {
-				return StringPool.BLANK;
-			}
-
-			unitPrice = commerceProductPrice.getUnitPrice();
-		}
-		else {
-			unitPrice = commerceOrderItem.getUnitPriceMoney();
-		}
+		CommerceMoney unitPrice = commerceOrderItem.getUnitPriceMoney();
 
 		return HtmlUtil.escape(unitPrice.format(locale));
 	}
 
 	private String _getSubscriptionDuration(
-			CommerceOrderItem commerceOrderItem, Locale locale,
-			HttpServletRequest httpServletRequest)
+			CommerceOrderItem commerceOrderItem,
+			HttpServletRequest httpServletRequest, Locale locale)
 		throws PortalException {
 
 		String subscriptionDuration = StringPool.BLANK;
@@ -322,7 +255,7 @@ public class CommerceOrderItemDataSetDataProvider
 						new Object[] {
 							duration,
 							_getPeriodKey(
-								period, duration != 1, httpServletRequest)
+								httpServletRequest, period, duration != 1)
 						});
 				}
 			}
@@ -345,7 +278,7 @@ public class CommerceOrderItemDataSetDataProvider
 					httpServletRequest, "duration-x-x",
 					new Object[] {
 						duration,
-						_getPeriodKey(period, duration != 1, httpServletRequest)
+						_getPeriodKey(httpServletRequest, period, duration != 1)
 					});
 			}
 		}
@@ -354,8 +287,8 @@ public class CommerceOrderItemDataSetDataProvider
 	}
 
 	private String _getSubscriptionPeriod(
-			CommerceOrderItem commerceOrderItem, Locale locale,
-			HttpServletRequest httpServletRequest)
+			CommerceOrderItem commerceOrderItem,
+			HttpServletRequest httpServletRequest, Locale locale)
 		throws PortalException {
 
 		String subscriptionPeriod = StringPool.BLANK;
@@ -391,7 +324,7 @@ public class CommerceOrderItemDataSetDataProvider
 					new Object[] {
 						subscriptionLength,
 						_getPeriodKey(
-							period, subscriptionLength != 1, httpServletRequest)
+							httpServletRequest, period, subscriptionLength != 1)
 					});
 			}
 			else {
@@ -414,7 +347,7 @@ public class CommerceOrderItemDataSetDataProvider
 					new Object[] {
 						subscriptionLength,
 						_getPeriodKey(
-							period, subscriptionLength != 1, httpServletRequest)
+							httpServletRequest, period, subscriptionLength != 1)
 					});
 			}
 		}
@@ -422,29 +355,10 @@ public class CommerceOrderItemDataSetDataProvider
 		return subscriptionPeriod;
 	}
 
-	private String _getTotal(
-			CommerceContext commerceContext,
-			CommerceOrderItem commerceOrderItem, Locale locale,
-			boolean openOrder)
+	private String _getTotal(CommerceOrderItem commerceOrderItem, Locale locale)
 		throws PortalException {
 
-		CommerceMoney finalPrice = null;
-
-		if (openOrder) {
-			CommerceProductPrice commerceProductPrice =
-				_commerceProductPriceCalculation.getCommerceProductPrice(
-					commerceOrderItem.getCPInstanceId(),
-					commerceOrderItem.getQuantity(), commerceContext);
-
-			if (commerceProductPrice == null) {
-				return StringPool.BLANK;
-			}
-
-			finalPrice = commerceProductPrice.getFinalPrice();
-		}
-		else {
-			finalPrice = commerceOrderItem.getFinalPriceMoney();
-		}
+		CommerceMoney finalPrice = commerceOrderItem.getFinalPriceMoney();
 
 		return HtmlUtil.escape(finalPrice.format(locale));
 	}
@@ -460,9 +374,6 @@ public class CommerceOrderItemDataSetDataProvider
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
-
-	@Reference
-	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Reference
 	private CommerceSubscriptionEntryLocalService
