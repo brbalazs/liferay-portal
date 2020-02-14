@@ -165,9 +165,7 @@ export function getFakeJsModule() {
 	return new Promise(resolve => {
 		setTimeout(() => {
 			resolve(() => {
-				return (
-					<React.Fragment>fakely fetched component</React.Fragment>
-				);
+				return <>fakely fetched component</>;
 			});
 		}, 500);
 	});

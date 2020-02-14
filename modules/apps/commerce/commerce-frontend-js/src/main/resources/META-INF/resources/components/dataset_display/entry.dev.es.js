@@ -257,7 +257,7 @@ const fluidDataSetDisplayProps = {
 		{
 			component: props => {
 				return (
-					<React.Fragment>
+					<>
 						<h4 className="p-3 mb-0 bg-dark text-center text-white">
 							Hey, I&apos;m a custom template from the outside
 						</h4>
@@ -270,7 +270,7 @@ const fluidDataSetDisplayProps = {
 								{item.name}
 							</div>
 						))}
-					</React.Fragment>
+					</>
 				);
 			},
 			icon: 'merge',
@@ -1005,7 +1005,7 @@ const dataSetDisplayProps = {
 		{
 			component: props => {
 				return (
-					<React.Fragment>
+					<>
 						<h4 className="p-3 mb-0 bg-dark text-center text-white">
 							Hey, I&apos;m a custom template from the outside
 						</h4>
@@ -1018,7 +1018,7 @@ const dataSetDisplayProps = {
 								{item.name}
 							</div>
 						))}
-					</React.Fragment>
+					</>
 				);
 			},
 			icon: 'merge',

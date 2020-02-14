@@ -126,7 +126,7 @@ class AddOrCreateBase extends Component {
 					<div className="card-body">
 						<ClayList>
 							{this.props.inputSearchValue && (
-								<React.Fragment>
+								<>
 									<ClayList.Header>
 										{this.props.createNewItemLabel}
 									</ClayList.Header>
@@ -149,11 +149,11 @@ class AddOrCreateBase extends Component {
 											</ClayButton>
 										</ClayList.ItemField>
 									</ClayList.Item>
-								</React.Fragment>
+								</>
 							)}
 
 							{this.props.items.length ? (
-								<React.Fragment>
+								<>
 									<ClayList.Header>
 										{this.props.titleLabel}
 									</ClayList.Header>
@@ -190,7 +190,7 @@ class AddOrCreateBase extends Component {
 										spritemap={this.props.spritemap}
 										totalItems={this.props.itemsCount}
 									/>
-								</React.Fragment>
+								</>
 							) : null}
 						</ClayList>
 					</div>

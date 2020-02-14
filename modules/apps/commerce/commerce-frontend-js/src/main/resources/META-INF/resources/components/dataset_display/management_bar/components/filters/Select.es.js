@@ -24,7 +24,7 @@ function SelectFilter(props) {
 	const [value, setValue] = useState(props.value);
 
 	return (
-		<React.Fragment>
+		<>
 			<ClaySelect
 				aria-label="Select Label"
 				id="mySelectId"
@@ -51,7 +51,7 @@ function SelectFilter(props) {
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
 			</div>
-		</React.Fragment>
+		</>
 	);
 }
 

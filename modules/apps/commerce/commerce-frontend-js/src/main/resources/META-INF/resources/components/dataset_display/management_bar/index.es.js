@@ -30,7 +30,7 @@ function ManagementBar(props) {
 	}, [JSON.stringify(state.filters)]);
 
 	return (
-		<React.Fragment>
+		<>
 			{props.selectionType === 'multiple' && (
 				<BulkActions
 					bulkActions={props.bulkActions}
@@ -51,7 +51,7 @@ function ManagementBar(props) {
 				/>
 			)}
 			<ActiveFiltersBar disabled={!!props.selectedItemsValue.length} />
-		</React.Fragment>
+		</>
 	);
 }
 

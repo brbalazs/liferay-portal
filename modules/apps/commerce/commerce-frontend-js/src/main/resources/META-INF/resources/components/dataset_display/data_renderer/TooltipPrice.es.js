@@ -53,7 +53,7 @@ function TooltipPrice(props) {
 	if (!props.value) return null;
 
 	return (
-		<React.Fragment>
+		<>
 			{props.value.final.value}
 			{props.value.details && (
 				<ClayTooltipProvider
@@ -68,7 +68,7 @@ function TooltipPrice(props) {
 					</span>
 				</ClayTooltipProvider>
 			)}
-		</React.Fragment>
+		</>
 	);
 }
 
