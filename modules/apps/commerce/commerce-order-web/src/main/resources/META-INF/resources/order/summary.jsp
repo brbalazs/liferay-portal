@@ -280,11 +280,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			actionUrl="<%= editOrderSummaryURL %>"
 			title='<%= LanguageUtil.get(request, "order-summary") %>'
 		>
-			<commerce-ui:summary
-				apiUrl="/o/api-test"
-				datasetDisplayId="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
-				items="<%= commerceOrderEditDisplayContext.getSummary() %>"
-			/>
+
 		</commerce-ui:panel>
 	</div>
 </div>

@@ -33,8 +33,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.transaction.Propagation;
-import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -358,10 +356,9 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
 
-		long billingAddressId = ParamUtil.getLong(actionRequest, "addressId");
+		long addressId = ParamUtil.getLong(actionRequest, "addressId");
 
-		_commerceOrderService.updateBillingAddress(
-			commerceOrderId, billingAddressId);
+		_commerceOrderService.updateBillingAddress(commerceOrderId, addressId);
 	}
 
 	protected void selectShippingAddress(ActionRequest actionRequest)
@@ -370,10 +367,9 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
 
-		long shippingAddressId = ParamUtil.getLong(actionRequest, "addressId");
+		long addressId = ParamUtil.getLong(actionRequest, "addressId");
 
-		_commerceOrderService.updateShippingAddress(
-			commerceOrderId, shippingAddressId);
+		_commerceOrderService.updateShippingAddress(commerceOrderId, addressId);
 	}
 
 	protected void updateBillingAddress(ActionRequest actionRequest)
@@ -584,17 +580,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			commerceOrder.getPurchaseOrderNumber(), new BigDecimal(subtotal),
 			new BigDecimal(shippingPrice), new BigDecimal(total),
 			commerceOrder.getAdvanceStatus(), commerceContext);
-	}
-
-	private static final TransactionConfig _transactionConfig;
-
-	static {
-		TransactionConfig.Builder builder = new TransactionConfig.Builder();
-
-		builder.setPropagation(Propagation.REQUIRES_NEW);
-		builder.setRollbackForClasses(Exception.class);
-
-		_transactionConfig = builder.build();
 	}
 
 	@Reference
