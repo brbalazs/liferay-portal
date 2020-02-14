@@ -7,6 +7,9 @@
 				DISTINCT CommerceDiscount.*
 			FROM
 				CommerceDiscount
+			INNER JOIN
+				CommerceDiscountRel ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
 			LEFT JOIN
 				CommerceDiscountAccountRel ON
 					CommerceDiscountAccountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
@@ -16,9 +19,6 @@
 			LEFT JOIN
 				CommerceChannelRel ON
 					CommerceChannelRel.classPK = CommerceDiscount.commerceDiscountId
-			INNER JOIN
-				CommerceDiscountRel ON
-					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
 			WHERE
 				(CommerceDiscount.active_ = [$TRUE$]) AND
 				(CommerceDiscountAccountRel.commerceDiscountAccountRelId IS NULL) AND
@@ -46,6 +46,9 @@
 				DISTINCT CommerceDiscount.*
 			FROM
 				CommerceDiscount
+			INNER JOIN
+				CommerceDiscountRel ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
 			LEFT JOIN
 				CommerceDiscountAccountRel ON
 					CommerceDiscountAccountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
@@ -55,15 +58,12 @@
 			LEFT JOIN
 				CommerceChannelRel ON
 					CommerceChannelRel.classPK = CommerceDiscount.commerceDiscountId
-			INNER JOIN
-				CommerceDiscountRel ON
-					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
 			WHERE
 				(CommerceDiscount.active_ = [$TRUE$]) AND
 				(CommercePriceListChannelRel.commerceDiscountAccountRelId IS NULL) AND
 				(CDiscountCAccountGroupRel.cDiscountCAccountGroupRelId IS NULL) AND
 				(CommerceChannelRel.commerceChannelRelId IS NULL) AND
-				(CommerceDiscount.type_ = ?)
+				(CommerceDiscount.target = ?)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.findByA_C_C_Product">
@@ -109,7 +109,7 @@
 			WHERE
 				(CommerceDiscount.active_ = [$TRUE$]) AND
 				(CommerceDiscountAccountRel.commerceAccountId = ?) AND
-				(CommerceDiscount.type_ = ?)
+				(CommerceDiscount.target = ?)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.findByAG_C_C_Product">
@@ -155,7 +155,7 @@
 			WHERE
 				(CommerceDiscount.active_ = [$TRUE$]) AND
 				(CDiscountCAccountGroupRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$])) AND
-				(CommerceDiscount.type_ = ?)
+				(CommerceDiscount.target = ?)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.findByC_C_C_Product">
@@ -201,7 +201,7 @@
 			WHERE
 				(CommerceDiscount.active_ = [$TRUE$]) AND
 				(CommerceChannelRel.commerceChannelId = ?) AND
-				(CommerceDiscount.type_ = ?)
+				(CommerceDiscount.target = ?)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.findByA_A_C_or_U_Product">
@@ -210,6 +210,9 @@
 				DISTINCT CommerceDiscount.*
 			FROM
 				CommerceDiscount
+			INNER JOIN
+				CommerceDiscountRel ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
 			LEFT JOIN
 				CommerceDiscountAccountRel ON
 					CommerceDiscountAccountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
@@ -219,9 +222,6 @@
 			LEFT JOIN
 				CommerceChannelRel ON
 					CommerceChannelRel.classPK = CommerceDiscount.commerceDiscountId
-			INNER JOIN
-				CommerceDiscountRel ON
-					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
 			WHERE
 				(CommerceDiscount.active_ = [$TRUE$]) AND
 				(
@@ -231,7 +231,7 @@
 						(CommerceChannelRel.commerceChannelId = ?)
 					) OR
 					(
-						(CommercePriceListChannelRel.commerceDiscountAccountRelId IS NULL) AND
+						(CommerceDiscountAccountRel.commerceDiscountAccountRelId IS NULL) AND
 						(CDiscountCAccountGroupRel.cDiscountCAccountGroupRelId IS NULL) AND
 						(CommerceChannelRel.commerceChannelRelId IS NULL)
 					)
@@ -276,12 +276,12 @@
 						(CommerceChannelRel.commerceChannelId = ?)
 					) OR
 					(
-						(CommercePriceListChannelRel.commerceDiscountAccountRelId IS NULL) AND
+						(CommerceDiscountAccountRel.commerceDiscountAccountRelId IS NULL) AND
 						(CDiscountCAccountGroupRel.cDiscountCAccountGroupRelId IS NULL) AND
 						(CommerceChannelRel.commerceChannelRelId IS NULL)
 					)
 				) AND
-				(CommerceDiscount.type_ = ?)
+				(CommerceDiscount.target = ?)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.findPriceListDiscountProduct">
