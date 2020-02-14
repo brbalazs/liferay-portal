@@ -66,7 +66,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"commerce.data.provider.key=" + CommerceOrganizationUserClayTableDataSetDisplayView.NAME,
-		"commerce.table.name=" + CommerceOrganizationUserClayTableDataSetDisplayView.NAME
+		"commerce.data.set.display.name=" + CommerceOrganizationUserClayTableDataSetDisplayView.NAME
 	},
 	service = {
 		ClayDataSetActionProvider.class, ClayDataSetDisplayView.class,
