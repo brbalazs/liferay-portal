@@ -184,7 +184,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -193,12 +193,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList2 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
-
-		_commercePriceListRelLocalService.addCommercePriceListRel(
-			commercePriceList2.getCommercePriceListId(),
-			CommerceCatalog.class.getName(), catalog.getCommerceCatalogId(), 0,
-			ServiceContextTestUtil.getServiceContext());
+				catalog.getGroupId(), true, 0.0);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
@@ -213,7 +208,7 @@ public class CommercePricingTest {
 
 		CommercePriceList discoveredPriceList =
 			_commercePriceListDiscovery.getCommercePriceList(
-				CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
+				catalog.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
 				_commerceAccount.getCommerceAccountId(), null, 0);
 
 		CommerceContext commerceContext = new TestCommerceContext(
@@ -257,7 +252,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -345,7 +340,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -406,7 +401,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -483,7 +478,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -572,7 +567,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -632,7 +627,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -698,7 +693,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -707,12 +702,7 @@ public class CommercePricingTest {
 
 		CommercePriceList basePriceList =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
-
-		_commercePriceListRelLocalService.addCommercePriceListRel(
-			basePriceList.getCommercePriceListId(),
-			CommerceCatalog.class.getName(), catalog.getCommerceCatalogId(), 0,
-			ServiceContextTestUtil.getServiceContext());
+				catalog.getGroupId(), true, 0.0);
 
 		CommercePricingClass commercePricingClass =
 			_commercePricingClassLocalService.addCommercePricingClass(
@@ -814,7 +804,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
+				catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -823,12 +813,7 @@ public class CommercePricingTest {
 
 		CommercePriceList basePriceList =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
-
-		_commercePriceListRelLocalService.addCommercePriceListRel(
-			basePriceList.getCommercePriceListId(),
-			CommerceCatalog.class.getName(), catalog.getCommerceCatalogId(), 0,
-			ServiceContextTestUtil.getServiceContext());
+				catalog.getGroupId(), true, 0.0);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
@@ -906,7 +891,7 @@ public class CommercePricingTest {
 
 		CommercePriceList discoveredPriceList =
 			_commercePriceListDiscovery.getCommercePriceList(
-				CommercePriceListTypeKeys.TYPE_PRICE_LIST, null, 0, null, 0);
+				_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null, 0, null, 0);
 
 		Assert.assertEquals(
 			commercePriceListChannel.getCommercePriceListId(),
@@ -918,7 +903,7 @@ public class CommercePricingTest {
 			ServiceContextTestUtil.getServiceContext());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
 			_commerceAccount.getCommerceAccountId(), null, 0);
 
 		Assert.assertEquals(
@@ -942,7 +927,7 @@ public class CommercePricingTest {
 		};
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
 			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
 			0);
 
@@ -956,7 +941,7 @@ public class CommercePricingTest {
 			ServiceContextTestUtil.getServiceContext());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
 			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
 			_commerceChannel.getCommerceChannelId());
 
@@ -968,7 +953,7 @@ public class CommercePricingTest {
 			commercePriceListAccount.getCommercePriceListId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
 			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
 			_commerceChannel.getCommerceChannelId());
 
@@ -980,7 +965,7 @@ public class CommercePricingTest {
 			commercePriceListAccountGroup.getCommercePriceListId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
 			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
 			_commerceChannel.getCommerceChannelId());
 
@@ -1016,7 +1001,7 @@ public class CommercePricingTest {
 			BigDecimal.valueOf(10.0));
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
 			cpInstance.getCPInstanceUuid(),
 			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
 			_commerceChannel.getCommerceChannelId());
@@ -1051,12 +1036,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
-
-		_commercePriceListRelLocalService.addCommercePriceListRel(
-			commercePriceList1.getCommercePriceListId(),
-			CommerceCatalog.class.getName(), catalog.getCommerceCatalogId(), 0,
-			ServiceContextTestUtil.getServiceContext());
+				catalog.getGroupId(), true, 0.0);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
@@ -1190,12 +1170,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
-
-		_commercePriceListRelLocalService.addCommercePriceListRel(
-			commercePriceList1.getCommercePriceListId(),
-			CommerceCatalog.class.getName(), catalog.getCommerceCatalogId(), 0,
-			ServiceContextTestUtil.getServiceContext());
+				catalog.getGroupId(), true, 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -1251,7 +1226,7 @@ public class CommercePricingTest {
 		Assert.assertEquals(0, finalPrice.compareTo(BigDecimal.valueOf(185)));
 
 		CommercePriceList commercePromotion = _addPromotion(
-			_group.getGroupId(), 0.0);
+			catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePromotion.getCommercePriceListId(),
@@ -1302,12 +1277,7 @@ public class CommercePricingTest {
 
 		CommercePriceList commercePriceList1 =
 			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 0.0);
-
-		_commercePriceListRelLocalService.addCommercePriceListRel(
-			commercePriceList1.getCommercePriceListId(),
-			CommerceCatalog.class.getName(), catalog.getCommerceCatalogId(), 0,
-			ServiceContextTestUtil.getServiceContext());
+				catalog.getGroupId(), true, 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePriceList1.getCommercePriceListId(),
@@ -1363,7 +1333,7 @@ public class CommercePricingTest {
 		Assert.assertEquals(0, finalPrice.compareTo(BigDecimal.valueOf(185)));
 
 		CommercePriceList commercePromotion = _addPromotion(
-			_group.getGroupId(), 0.0);
+			catalog.getGroupId(), 0.0);
 
 		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
 			commercePromotion.getCommercePriceListId(),

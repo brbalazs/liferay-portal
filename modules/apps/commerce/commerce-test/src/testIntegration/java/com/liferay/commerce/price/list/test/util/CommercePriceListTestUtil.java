@@ -18,6 +18,7 @@ import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupLocalServiceUtil;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
+import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelServiceUtil;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalServiceUtil;
@@ -39,6 +40,35 @@ import java.util.stream.Stream;
  * @author Ethan Bustad
  */
 public class CommercePriceListTestUtil {
+
+	public static CommercePriceList addCommercePriceList(
+			long groupId, boolean catalogBasePriceList, double priority)
+		throws Exception {
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(groupId);
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		User user = UserLocalServiceUtil.getDefaultUser(
+			serviceContext.getCompanyId());
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(user.getTimeZone());
+
+		serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
+
+		return CommercePriceListLocalServiceUtil.addCommercePriceList(
+			groupId, user.getUserId(), commerceCurrency.getCommerceCurrencyId(),
+			CommercePriceListTypeKeys.TYPE_PRICE_LIST, 0, catalogBasePriceList,
+			RandomTestUtil.randomString(), priority,
+			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+			calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
+			calendar.get(Calendar.MINUTE), calendar.get(Calendar.MONTH),
+			calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR),
+			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+			"", true, serviceContext);
+	}
 
 	public static CommercePriceList addCommercePriceList(
 			long groupId, double priority)
