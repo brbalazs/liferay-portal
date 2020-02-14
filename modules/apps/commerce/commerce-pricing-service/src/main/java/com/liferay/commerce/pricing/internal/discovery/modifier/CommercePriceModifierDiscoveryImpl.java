@@ -50,7 +50,7 @@ public class CommercePriceModifierDiscoveryImpl
 				getQualifiedCommercePriceModifiers(
 					commercePriceListId, cpDefinitionId);
 
-		BigDecimal lowestPrice = originalCommerceMoney.getPrice();
+		BigDecimal lowestPrice = null;
 
 		if ((commercePriceModifiers != null) &&
 			!commercePriceModifiers.isEmpty()) {
@@ -70,10 +70,16 @@ public class CommercePriceModifierDiscoveryImpl
 
 				BigDecimal actualPrice = actualCommerceMoney.getPrice();
 
-				if (actualPrice.compareTo(lowestPrice) < 0) {
+				if ((lowestPrice == null) ||
+					(actualPrice.compareTo(lowestPrice) < 0)) {
+
 					lowestPrice = actualPrice;
 				}
 			}
+		}
+
+		if (lowestPrice == null) {
+			return originalCommerceMoney;
 		}
 
 		return _commerceMoneyFactory.create(commerceCurrency, lowestPrice);

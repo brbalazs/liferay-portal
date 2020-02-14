@@ -25,6 +25,8 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -58,16 +60,25 @@ public class CommercePriceModifierPercentageTypeImpl
 
 		BigDecimal modifierAmount = commercePriceModifier.getModifierAmount();
 
-		if (modifierAmount.compareTo(_ONE_HUNDRED) > 0) {
+		BigDecimal modifierAmountAbs = modifierAmount.abs();
+
+		if (modifierAmountAbs.compareTo(_ONE_HUNDRED) > 0) {
 			return originalCommerceMoney;
 		}
+
+		RoundingMode roundingMode = RoundingMode.valueOf(
+			originalCommerceCurrency.getRoundingMode());
 
 		BigDecimal percentage = BigDecimal.ONE.add(
 			modifierAmount.divide(_ONE_HUNDRED));
 
+		MathContext mathContext = new MathContext(
+			percentage.precision(), roundingMode);
+
 		BigDecimal originalPrice = originalCommerceMoney.getPrice();
 
-		BigDecimal modifiedPrice = originalPrice.multiply(percentage);
+		BigDecimal modifiedPrice = originalPrice.multiply(
+			percentage, mathContext);
 
 		return _commerceMoneyFactory.create(
 			originalCommerceCurrency, modifiedPrice);

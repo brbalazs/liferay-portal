@@ -293,6 +293,14 @@ public class CommercePriceModifierLocalServiceImpl
 
 		validate(title, target, modifierType, modifierAmount);
 
+		String currentTarget = commercePriceModifier.getTarget();
+
+		if (!currentTarget.equals(target)) {
+			commercePriceModifierRelLocalService.
+				deleteCommercePriceModifierRels(
+					commercePriceModifier.getCommercePriceModifierId());
+		}
+
 		Date now = new Date();
 
 		Date displayDate = PortalUtil.getDate(
