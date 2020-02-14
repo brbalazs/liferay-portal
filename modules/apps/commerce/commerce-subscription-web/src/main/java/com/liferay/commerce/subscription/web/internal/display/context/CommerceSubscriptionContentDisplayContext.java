@@ -114,8 +114,7 @@ public class CommerceSubscriptionContentDisplayContext {
 		}
 
 		return _cpInstanceHelper.getKeyValuePairs(
-			cpInstance.getCPDefinitionId(), cpInstance.getJson(),
-			_cpRequestHelper.getLocale());
+			cpInstance.getCPInstanceId(), _cpRequestHelper.getLocale());
 	}
 
 	public PortletURL getPortletURL() throws PortalException {
