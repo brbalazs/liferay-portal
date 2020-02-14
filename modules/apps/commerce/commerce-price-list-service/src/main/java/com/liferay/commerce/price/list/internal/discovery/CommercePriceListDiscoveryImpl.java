@@ -38,8 +38,9 @@ public class CommercePriceListDiscoveryImpl
 
 	@Override
 	public CommercePriceList getCommercePriceList(
-			long groupId, String type, String cPInstanceUuid, long commerceAccountId,
-			long[] commerceAccountGroupIds, long commerceChannelId)
+			long groupId, String type, String cPInstanceUuid,
+			long commerceAccountId, long[] commerceAccountGroupIds,
+			long commerceChannelId)
 		throws PortalException {
 
 		CommercePricingConfiguration commercePricingConfiguration =
@@ -69,8 +70,8 @@ public class CommercePriceListDiscoveryImpl
 	}
 
 	private CommercePriceList _getCommercePriceListByHierarchy(
-			long groupId, String type, long commerceAccountId, long[] commerceAccountGroupIds,
-			long commerceChannelId)
+			long groupId, String type, long commerceAccountId,
+			long[] commerceAccountGroupIds, long commerceChannelId)
 		throws PortalException {
 
 		if (commerceAccountGroupIds == null) {
@@ -137,8 +138,9 @@ public class CommercePriceListDiscoveryImpl
 	}
 
 	private CommercePriceList _getCommercePriceListByLowestPrice(
-			long groupId, String type, String cPInstanceUuid, long commerceAccountId,
-			long[] commerceAccountGroupIds, long commerceChannelId)
+			long groupId, String type, String cPInstanceUuid,
+			long commerceAccountId, long[] commerceAccountGroupIds,
+			long commerceChannelId)
 		throws PortalException {
 
 		if (commerceAccountGroupIds == null) {
@@ -151,8 +153,8 @@ public class CommercePriceListDiscoveryImpl
 		}
 
 		return _commercePriceListLocalService.getCommercePriceListByLowestPrice(
-			groupId, type, cPInstanceUuid, commerceAccountId, commerceAccountGroupIds,
-			commerceChannelId);
+			groupId, type, cPInstanceUuid, commerceAccountId,
+			commerceAccountGroupIds, commerceChannelId);
 	}
 
 	@Reference

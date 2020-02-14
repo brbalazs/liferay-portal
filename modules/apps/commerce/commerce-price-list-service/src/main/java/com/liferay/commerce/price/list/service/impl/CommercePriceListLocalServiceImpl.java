@@ -493,18 +493,20 @@ public class CommercePriceListLocalServiceImpl
 
 	@Override
 	public CommercePriceList getCommercePriceListByAccountAndChannelId(
-		long groupId, String type, long commerceAccountId, long commerceChannelId) {
+		long groupId, String type, long commerceAccountId,
+		long commerceChannelId) {
 
 		QueryDefinition<CommercePriceList> queryDefinition =
 			new QueryDefinition<>();
 
-		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("commerceAccountId", commerceAccountId);
 		queryDefinition.setAttribute("commerceChannelId", commerceChannelId);
+		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
 		List<CommercePriceList> commercePriceLists =
-			commercePriceListFinder.findByCommerceAccountAndChannelId(queryDefinition);
+			commercePriceListFinder.findByCommerceAccountAndChannelId(
+				queryDefinition);
 
 		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
 			return null;
@@ -520,9 +522,9 @@ public class CommercePriceListLocalServiceImpl
 		QueryDefinition<CommercePriceList> queryDefinition =
 			new QueryDefinition<>();
 
-		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute(
 			"commerceAccountGroupIds", commerceAccountGroupIds);
+		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
 		List<CommercePriceList> commercePriceLists =
@@ -538,15 +540,16 @@ public class CommercePriceListLocalServiceImpl
 
 	@Override
 	public CommercePriceList getCommercePriceListByAccountGroupsAndChannelId(
-		long groupId, String type, long[] commerceAccountGroupIds, long commerceChannelId) {
+		long groupId, String type, long[] commerceAccountGroupIds,
+		long commerceChannelId) {
 
 		QueryDefinition<CommercePriceList> queryDefinition =
 			new QueryDefinition<>();
 
-		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute(
 			"commerceAccountGroupIds", commerceAccountGroupIds);
 		queryDefinition.setAttribute("commerceChannelId", commerceChannelId);
+		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
 		List<CommercePriceList> commercePriceLists =
@@ -567,8 +570,8 @@ public class CommercePriceListLocalServiceImpl
 		QueryDefinition<CommercePriceList> queryDefinition =
 			new QueryDefinition<>();
 
-		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("commerceAccountId", commerceAccountId);
+		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
 		List<CommercePriceList> commercePriceLists =
@@ -588,8 +591,8 @@ public class CommercePriceListLocalServiceImpl
 		QueryDefinition<CommercePriceList> queryDefinition =
 			new QueryDefinition<>();
 
-		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("commerceChannelId", commerceChannelId);
+		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
 		List<CommercePriceList> commercePriceLists =
@@ -604,19 +607,20 @@ public class CommercePriceListLocalServiceImpl
 
 	@Override
 	public CommercePriceList getCommercePriceListByLowestPrice(
-		long groupId, String type, String cPInstanceUuid, long commerceAccountId,
-			long[] commerceAccountGroupIds, long commerceChannelId)
+			long groupId, String type, String cPInstanceUuid,
+			long commerceAccountId, long[] commerceAccountGroupIds,
+			long commerceChannelId)
 		throws PortalException {
 
 		QueryDefinition<CommercePriceList> queryDefinition =
 			new QueryDefinition<>();
 
-		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute(
 			"commerceAccountGroupIds", commerceAccountGroupIds);
 		queryDefinition.setAttribute("commerceAccountId", commerceAccountId);
 		queryDefinition.setAttribute("commerceChannelId", commerceChannelId);
 		queryDefinition.setAttribute("cPInstanceUuid", cPInstanceUuid);
+		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
 		List<CommercePriceEntry> commercePriceEntries =
@@ -632,7 +636,9 @@ public class CommercePriceListLocalServiceImpl
 	}
 
 	@Override
-	public CommercePriceList getCommercePriceListByUnqualified(long groupId, String type) {
+	public CommercePriceList getCommercePriceListByUnqualified(
+		long groupId, String type) {
+
 		QueryDefinition<CommercePriceList> queryDefinition =
 			new QueryDefinition<>();
 

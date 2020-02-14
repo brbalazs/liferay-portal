@@ -324,8 +324,8 @@ public class CommercePriceListFinderImpl
 	}
 
 	protected List<CommercePriceList> doFindByPK(
-		String queryName, long groupId, String type, long classPK1, long classPK2, int start,
-		int end) {
+		String queryName, long groupId, String type, long classPK1,
+		long classPK2, int start, int end) {
 
 		Session session = null;
 

@@ -472,9 +472,9 @@ public class CommerceProductPriceCalculationV2Impl
 		).toArray();
 
 		return _commercePriceListDiscovery.getCommercePriceList(
-			cpInstance.getGroupId(), commercePriceListType, cpInstance.getCPInstanceUuid(),
-			commerceAccountId, commerceAccountGroupIds,
-			commerceContext.getCommerceChannelId());
+			cpInstance.getGroupId(), commercePriceListType,
+			cpInstance.getCPInstanceUuid(), commerceAccountId,
+			commerceAccountGroupIds, commerceContext.getCommerceChannelId());
 	}
 
 	private BigDecimal _getTaxValue(

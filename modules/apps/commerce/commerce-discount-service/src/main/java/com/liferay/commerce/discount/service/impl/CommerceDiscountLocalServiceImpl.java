@@ -495,7 +495,7 @@ public class CommerceDiscountLocalServiceImpl
 
 		String currentTarget = commerceDiscount.getTarget();
 
-		if(!currentTarget.equals(target)) {
+		if (!currentTarget.equals(target)) {
 			commerceDiscountRelLocalService.deleteCommerceDiscountRels(
 				commerceDiscount.getCommerceDiscountId());
 		}
@@ -576,7 +576,7 @@ public class CommerceDiscountLocalServiceImpl
 
 		String currentTarget = commerceDiscount.getTarget();
 
-		if(!currentTarget.equals(target)) {
+		if (!currentTarget.equals(target)) {
 			commerceDiscountRelLocalService.deleteCommerceDiscountRels(
 				commerceDiscount.getCommerceDiscountId());
 		}

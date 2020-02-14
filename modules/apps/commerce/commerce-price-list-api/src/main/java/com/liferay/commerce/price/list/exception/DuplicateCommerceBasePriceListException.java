@@ -11,6 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.commerce.price.list.exception;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -27,7 +28,9 @@ public class DuplicateCommerceBasePriceListException extends PortalException {
 		super(msg);
 	}
 
-	public DuplicateCommerceBasePriceListException(String msg, Throwable cause) {
+	public DuplicateCommerceBasePriceListException(
+		String msg, Throwable cause) {
+
 		super(msg, cause);
 	}
 

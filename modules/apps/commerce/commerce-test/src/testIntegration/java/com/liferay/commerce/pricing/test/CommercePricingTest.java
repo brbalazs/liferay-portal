@@ -208,8 +208,8 @@ public class CommercePricingTest {
 
 		CommercePriceList discoveredPriceList =
 			_commercePriceListDiscovery.getCommercePriceList(
-				catalog.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
-				_commerceAccount.getCommerceAccountId(), null, 0);
+				catalog.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+				null, _commerceAccount.getCommerceAccountId(), null, 0);
 
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
@@ -891,7 +891,8 @@ public class CommercePricingTest {
 
 		CommercePriceList discoveredPriceList =
 			_commercePriceListDiscovery.getCommercePriceList(
-				_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null, 0, null, 0);
+				_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+				null, 0, null, 0);
 
 		Assert.assertEquals(
 			commercePriceListChannel.getCommercePriceListId(),
@@ -903,8 +904,8 @@ public class CommercePricingTest {
 			ServiceContextTestUtil.getServiceContext());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
-			_commerceAccount.getCommerceAccountId(), null, 0);
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			null, _commerceAccount.getCommerceAccountId(), null, 0);
 
 		Assert.assertEquals(
 			commercePriceListAccount.getCommercePriceListId(),
@@ -927,9 +928,9 @@ public class CommercePricingTest {
 		};
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
-			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
-			0);
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			null, _commerceAccount.getCommerceAccountId(),
+			commerceAccountGroupIds, 0);
 
 		Assert.assertEquals(
 			commercePriceListAccount.getCommercePriceListId(),
@@ -941,9 +942,9 @@ public class CommercePricingTest {
 			ServiceContextTestUtil.getServiceContext());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
-			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
-			_commerceChannel.getCommerceChannelId());
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			null, _commerceAccount.getCommerceAccountId(),
+			commerceAccountGroupIds, _commerceChannel.getCommerceChannelId());
 
 		Assert.assertEquals(
 			commercePriceListAccount.getCommercePriceListId(),
@@ -953,9 +954,9 @@ public class CommercePricingTest {
 			commercePriceListAccount.getCommercePriceListId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
-			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
-			_commerceChannel.getCommerceChannelId());
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			null, _commerceAccount.getCommerceAccountId(),
+			commerceAccountGroupIds, _commerceChannel.getCommerceChannelId());
 
 		Assert.assertEquals(
 			commercePriceListAccountGroup.getCommercePriceListId(),
@@ -965,9 +966,9 @@ public class CommercePricingTest {
 			commercePriceListAccountGroup.getCommercePriceListId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST, null,
-			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
-			_commerceChannel.getCommerceChannelId());
+			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			null, _commerceAccount.getCommerceAccountId(),
+			commerceAccountGroupIds, _commerceChannel.getCommerceChannelId());
 
 		Assert.assertEquals(
 			commercePriceListChannel.getCommercePriceListId(),

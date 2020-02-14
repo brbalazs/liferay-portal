@@ -26,8 +26,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 public interface CommercePriceListDiscovery {
 
 	public CommercePriceList getCommercePriceList(
-			long groupId, String type, String cPInstanceUuid, long commerceAccountId,
-			long[] commerceAccountGroupIds, long commerceChannelId)
+			long groupId, String type, String cPInstanceUuid,
+			long commerceAccountId, long[] commerceAccountGroupIds,
+			long commerceChannelId)
 		throws PortalException;
 
 }

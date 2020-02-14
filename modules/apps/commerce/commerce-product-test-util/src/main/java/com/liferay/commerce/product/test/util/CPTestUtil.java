@@ -226,8 +226,7 @@ public class CPTestUtil {
 		throws PortalException {
 
 		CPDefinition cpDefinition = _addCPDefinition(
-			groupId,
-			SimpleCPTypeConstants.NAME, true, true,
+			groupId, SimpleCPTypeConstants.NAME, true, true,
 			ServiceContextTestUtil.getServiceContext(groupId));
 
 		return CPInstanceLocalServiceUtil.getCPInstance(
