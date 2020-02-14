@@ -64,7 +64,7 @@ public class CommercePriceListCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(45);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -88,6 +88,8 @@ public class CommercePriceListCacheModel
 		sb.append(commerceCurrencyId);
 		sb.append(", parentCommercePriceListId=");
 		sb.append(parentCommercePriceListId);
+		sb.append(", catalogBasePriceList=");
+		sb.append(catalogBasePriceList);
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", name=");
@@ -162,6 +164,7 @@ public class CommercePriceListCacheModel
 		commercePriceListImpl.setCommerceCurrencyId(commerceCurrencyId);
 		commercePriceListImpl.setParentCommercePriceListId(
 			parentCommercePriceListId);
+		commercePriceListImpl.setCatalogBasePriceList(catalogBasePriceList);
 
 		if (type == null) {
 			commercePriceListImpl.setType("");
@@ -241,6 +244,8 @@ public class CommercePriceListCacheModel
 		commerceCurrencyId = objectInput.readLong();
 
 		parentCommercePriceListId = objectInput.readLong();
+
+		catalogBasePriceList = objectInput.readBoolean();
 		type = objectInput.readUTF();
 		name = objectInput.readUTF();
 
@@ -294,6 +299,8 @@ public class CommercePriceListCacheModel
 
 		objectOutput.writeLong(parentCommercePriceListId);
 
+		objectOutput.writeBoolean(catalogBasePriceList);
+
 		if (type == null) {
 			objectOutput.writeUTF("");
 		}
@@ -338,6 +345,7 @@ public class CommercePriceListCacheModel
 	public long modifiedDate;
 	public long commerceCurrencyId;
 	public long parentCommercePriceListId;
+	public boolean catalogBasePriceList;
 	public String type;
 	public String name;
 	public double priority;

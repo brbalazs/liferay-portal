@@ -968,6 +968,60 @@ public interface CommercePriceListPersistence
 	public int countByG_C(long[] groupIds, long companyId);
 
 	/**
+	 * Returns the commerce price list where groupId = &#63; and catalogBasePriceList = &#63; or throws a <code>NoSuchPriceListException</code> if it could not be found.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @return the matching commerce price list
+	 * @throws NoSuchPriceListException if a matching commerce price list could not be found
+	 */
+	public CommercePriceList findByCatalogBasePriceList(
+			long groupId, boolean catalogBasePriceList)
+		throws NoSuchPriceListException;
+
+	/**
+	 * Returns the commerce price list where groupId = &#63; and catalogBasePriceList = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @return the matching commerce price list, or <code>null</code> if a matching commerce price list could not be found
+	 */
+	public CommercePriceList fetchByCatalogBasePriceList(
+		long groupId, boolean catalogBasePriceList);
+
+	/**
+	 * Returns the commerce price list where groupId = &#63; and catalogBasePriceList = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching commerce price list, or <code>null</code> if a matching commerce price list could not be found
+	 */
+	public CommercePriceList fetchByCatalogBasePriceList(
+		long groupId, boolean catalogBasePriceList, boolean useFinderCache);
+
+	/**
+	 * Removes the commerce price list where groupId = &#63; and catalogBasePriceList = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @return the commerce price list that was removed
+	 */
+	public CommercePriceList removeByCatalogBasePriceList(
+			long groupId, boolean catalogBasePriceList)
+		throws NoSuchPriceListException;
+
+	/**
+	 * Returns the number of commerce price lists where groupId = &#63; and catalogBasePriceList = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @return the number of matching commerce price lists
+	 */
+	public int countByCatalogBasePriceList(
+		long groupId, boolean catalogBasePriceList);
+
+	/**
 	 * Returns all the commerce price lists where displayDate &lt; &#63; and status = &#63;.
 	 *
 	 * @param displayDate the display date

@@ -68,6 +68,7 @@ public class CommercePriceListWrapper
 		attributes.put("commerceCurrencyId", getCommerceCurrencyId());
 		attributes.put(
 			"parentCommercePriceListId", getParentCommercePriceListId());
+		attributes.put("catalogBasePriceList", isCatalogBasePriceList());
 		attributes.put("type", getType());
 		attributes.put("name", getName());
 		attributes.put("priority", getPriority());
@@ -152,6 +153,13 @@ public class CommercePriceListWrapper
 			setParentCommercePriceListId(parentCommercePriceListId);
 		}
 
+		Boolean catalogBasePriceList = (Boolean)attributes.get(
+			"catalogBasePriceList");
+
+		if (catalogBasePriceList != null) {
+			setCatalogBasePriceList(catalogBasePriceList);
+		}
+
 		String type = (String)attributes.get("type");
 
 		if (type != null) {
@@ -222,6 +230,16 @@ public class CommercePriceListWrapper
 	@Override
 	public int compareTo(CommercePriceList commercePriceList) {
 		return _commercePriceList.compareTo(commercePriceList);
+	}
+
+	/**
+	 * Returns the catalog base price list of this commerce price list.
+	 *
+	 * @return the catalog base price list of this commerce price list
+	 */
+	@Override
+	public boolean getCatalogBasePriceList() {
+		return _commercePriceList.getCatalogBasePriceList();
 	}
 
 	@Override
@@ -503,6 +521,16 @@ public class CommercePriceListWrapper
 	}
 
 	/**
+	 * Returns <code>true</code> if this commerce price list is catalog base price list.
+	 *
+	 * @return <code>true</code> if this commerce price list is catalog base price list; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isCatalogBasePriceList() {
+		return _commercePriceList.isCatalogBasePriceList();
+	}
+
+	/**
 	 * Returns <code>true</code> if this commerce price list is denied.
 	 *
 	 * @return <code>true</code> if this commerce price list is denied; <code>false</code> otherwise
@@ -590,6 +618,16 @@ public class CommercePriceListWrapper
 	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_commercePriceList.setCachedModel(cachedModel);
+	}
+
+	/**
+	 * Sets whether this commerce price list is catalog base price list.
+	 *
+	 * @param catalogBasePriceList the catalog base price list of this commerce price list
+	 */
+	@Override
+	public void setCatalogBasePriceList(boolean catalogBasePriceList) {
+		_commercePriceList.setCatalogBasePriceList(catalogBasePriceList);
 	}
 
 	/**

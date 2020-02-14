@@ -69,6 +69,7 @@ create table CommercePriceList (
 	modifiedDate DATE null,
 	commerceCurrencyId LONG,
 	parentCommercePriceListId LONG,
+	catalogBasePriceList BOOLEAN,
 	type_ VARCHAR(75) null,
 	name VARCHAR(75) null,
 	priority DOUBLE,

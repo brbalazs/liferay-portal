@@ -13,6 +13,7 @@ create index IX_1578F03E on CommercePriceEntry (uuid_[$COLUMN_LENGTH:75$], compa
 create index IX_473B4D8D on CommercePriceList (commerceCurrencyId);
 create index IX_328B5D27 on CommercePriceList (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
 create index IX_31913054 on CommercePriceList (displayDate, status);
+create index IX_3AE5B429 on CommercePriceList (groupId, catalogBasePriceList);
 create index IX_B61658B6 on CommercePriceList (groupId, companyId, status);
 create index IX_863045BB on CommercePriceList (parentCommercePriceListId);
 create index IX_FCE28706 on CommercePriceList (uuid_[$COLUMN_LENGTH:75$], companyId);

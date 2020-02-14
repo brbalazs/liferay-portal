@@ -253,6 +253,27 @@ public interface CommercePriceListModel
 	public void setParentCommercePriceListId(long parentCommercePriceListId);
 
 	/**
+	 * Returns the catalog base price list of this commerce price list.
+	 *
+	 * @return the catalog base price list of this commerce price list
+	 */
+	public boolean getCatalogBasePriceList();
+
+	/**
+	 * Returns <code>true</code> if this commerce price list is catalog base price list.
+	 *
+	 * @return <code>true</code> if this commerce price list is catalog base price list; <code>false</code> otherwise
+	 */
+	public boolean isCatalogBasePriceList();
+
+	/**
+	 * Sets whether this commerce price list is catalog base price list.
+	 *
+	 * @param catalogBasePriceList the catalog base price list of this commerce price list
+	 */
+	public void setCatalogBasePriceList(boolean catalogBasePriceList);
+
+	/**
 	 * Returns the type of this commerce price list.
 	 *
 	 * @return the type of this commerce price list
