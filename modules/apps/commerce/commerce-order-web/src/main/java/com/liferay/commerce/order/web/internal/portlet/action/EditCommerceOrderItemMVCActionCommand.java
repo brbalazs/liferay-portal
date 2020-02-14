@@ -20,7 +20,6 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.exception.CommerceOrderValidatorException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -80,12 +79,9 @@ public class EditCommerceOrderItemMVCActionCommand
 			actionRequest, "cpInstanceIds");
 
 		for (long cpInstanceId : cpInstanceIds) {
-			CPInstance cpInstance = _cpInstanceService.getCPInstance(
-				cpInstanceId);
-
 			_commerceOrderItemService.addCommerceOrderItem(
-				commerceOrderId, cpInstanceId, 1, 0, cpInstance.getJson(),
-				commerceContext, serviceContext);
+				commerceOrderId, cpInstanceId, 1, 0, commerceContext,
+				serviceContext);
 		}
 	}
 
