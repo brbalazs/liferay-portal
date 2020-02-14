@@ -16,6 +16,7 @@ package com.liferay.commerce.inventory.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -81,6 +82,8 @@ public interface CommerceInventoryWarehouseItemLocalService
 			long userId, long commerceInventoryWarehouseId,
 			String externalReferenceCode, String sku, int quantity)
 		throws PortalException;
+
+	public int countAdminUIItemsByCompanyId(long companyId);
 
 	/**
 	 * Creates a new commerce inventory warehouse item with the primary key. Does not add the commerce inventory warehouse item to the database.
@@ -213,6 +216,10 @@ public interface CommerceInventoryWarehouseItemLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryAdminUIItem> getAdminUIItemsByCompanyId(
+		long companyId, int start, int end);
+
 	/**
 	 * Returns the commerce inventory warehouse item with the primary key.
 	 *
@@ -255,6 +262,11 @@ public interface CommerceInventoryWarehouseItemLocalService
 	public List<CommerceInventoryWarehouseItem>
 		getCommerceInventoryWarehouseItemsByCompanyId(
 			long companyId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryWarehouseItem>
+		getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+			long companyId, String sku, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceInventoryWarehouseItem>
@@ -304,6 +316,15 @@ public interface CommerceInventoryWarehouseItemLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getStockQuantity(long companyId, String sku);
+
+	@Transactional(
+		propagation = Propagation.REQUIRED, readOnly = false,
+		rollbackFor = Exception.class
+	)
+	public void moveQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws PortalException;
 
 	/**
 	 * Updates the commerce inventory warehouse item in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

@@ -35,6 +35,20 @@ public class CommerceInventoryReplenishmentItemServiceWrapper
 			commerceInventoryReplenishmentItemService;
 	}
 
+	@Override
+	public
+		com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem
+				addCommerceInventoryReplenishmentItem(
+					long userId, long commerceInventoryWarehouseId, String sku,
+					java.util.Date availabilityDate, int quantity)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceInventoryReplenishmentItemService.
+			addCommerceInventoryReplenishmentItem(
+				userId, commerceInventoryWarehouseId, sku, availabilityDate,
+				quantity);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

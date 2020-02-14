@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
@@ -88,6 +89,12 @@ public interface CommerceInventoryWarehouseService extends BaseService {
 	public CommerceInventoryWarehouse getCommerceInventoryWarehouse(
 			long commerceInventoryWarehouseId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryWarehouse> getCommerceInventoryWarehouses(
+			long companyId, boolean active, int start, int end,
+			OrderByComparator<CommerceInventoryWarehouse> orderByComparator)
+		throws PrincipalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceInventoryWarehouse> getCommerceInventoryWarehouses(

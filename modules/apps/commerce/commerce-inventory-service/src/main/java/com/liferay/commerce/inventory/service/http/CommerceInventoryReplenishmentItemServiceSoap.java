@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.inventory.service.http;
 
+import com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemServiceUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * <code>com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemServiceUtil</code> service
+ * <code>CommerceInventoryReplenishmentItemServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -54,4 +60,35 @@ package com.liferay.commerce.inventory.service.http;
  * @generated
  */
 public class CommerceInventoryReplenishmentItemServiceSoap {
+
+	public static
+		com.liferay.commerce.inventory.model.
+			CommerceInventoryReplenishmentItemSoap
+					addCommerceInventoryReplenishmentItem(
+						long userId, long commerceInventoryWarehouseId,
+						String sku, java.util.Date availabilityDate,
+						int quantity)
+				throws RemoteException {
+
+		try {
+			com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItem returnValue =
+					CommerceInventoryReplenishmentItemServiceUtil.
+						addCommerceInventoryReplenishmentItem(
+							userId, commerceInventoryWarehouseId, sku,
+							availabilityDate, quantity);
+
+			return com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItemSoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		CommerceInventoryReplenishmentItemServiceSoap.class);
+
 }

@@ -81,6 +81,14 @@ public class CommerceInventoryBookedQuantityLocalServiceWrapper
 			consumeCommerceBookedQuantity(commerceBookedQuantityId, quantity);
 	}
 
+	@Override
+	public int countCommerceInventoryBookedQuantities(
+		long companyId, String sku) {
+
+		return _commerceInventoryBookedQuantityLocalService.
+			countCommerceInventoryBookedQuantities(companyId, sku);
+	}
+
 	/**
 	 * Creates a new commerce inventory booked quantity with the primary key. Does not add the commerce inventory booked quantity to the database.
 	 *
@@ -279,6 +287,16 @@ public class CommerceInventoryBookedQuantityLocalServiceWrapper
 
 		return _commerceInventoryBookedQuantityLocalService.
 			getCommerceInventoryBookedQuantities(start, end);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity>
+			getCommerceInventoryBookedQuantities(
+				long companyId, String sku, int start, int end) {
+
+		return _commerceInventoryBookedQuantityLocalService.
+			getCommerceInventoryBookedQuantities(companyId, sku, start, end);
 	}
 
 	/**

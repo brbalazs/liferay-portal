@@ -217,6 +217,10 @@ public interface CommerceInventoryAuditLocalService
 	public List<CommerceInventoryAudit> getCommerceInventoryAudits(
 		int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryAudit> getCommerceInventoryAudits(
+		String sku, int start, int end);
+
 	/**
 	 * Returns the number of commerce inventory audits.
 	 *

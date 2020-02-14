@@ -68,6 +68,14 @@ public class CommerceInventoryWarehouseLocalServiceWrapper
 				externalReferenceCode, serviceContext);
 	}
 
+	@Override
+	public int countAdminUIWarehousesByCompanyIdAndSku(
+		long companyId, String sku) {
+
+		return _commerceInventoryWarehouseLocalService.
+			countAdminUIWarehousesByCompanyIdAndSku(companyId, sku);
+	}
+
 	/**
 	 * Creates a new commerce inventory warehouse with the primary key. Does not add the commerce inventory warehouse to the database.
 	 *
@@ -267,6 +275,24 @@ public class CommerceInventoryWarehouseLocalServiceWrapper
 	}
 
 	/**
+	 * @param companyId
+	 * @param sku
+	 * @param start
+	 * @param end
+	 * @return a list of objects arrays containing:
+	 warehouse name, stock quantity, reserved quantity, replenishment quantity
+	 */
+	@Override
+	public java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryAdminUIWarehouse>
+			getAdminUIWarehousesByCompanyIdAndSku(
+				long companyId, String sku, int start, int end) {
+
+		return _commerceInventoryWarehouseLocalService.
+			getAdminUIWarehousesByCompanyIdAndSku(companyId, sku, start, end);
+	}
+
+	/**
 	 * Returns the commerce inventory warehouse with the primary key.
 	 *
 	 * @param commerceInventoryWarehouseId the primary key of the commerce inventory warehouse
@@ -309,6 +335,20 @@ public class CommerceInventoryWarehouseLocalServiceWrapper
 
 		return _commerceInventoryWarehouseLocalService.
 			getCommerceInventoryWarehouses(companyId);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouse>
+			getCommerceInventoryWarehouses(
+				long companyId, boolean active, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.inventory.model.
+						CommerceInventoryWarehouse> orderByComparator) {
+
+		return _commerceInventoryWarehouseLocalService.
+			getCommerceInventoryWarehouses(
+				companyId, active, start, end, orderByComparator);
 	}
 
 	@Override

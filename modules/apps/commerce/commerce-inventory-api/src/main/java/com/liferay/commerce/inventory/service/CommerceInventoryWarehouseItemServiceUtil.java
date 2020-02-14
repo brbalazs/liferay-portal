@@ -128,6 +128,16 @@ public class CommerceInventoryWarehouseItemServiceUtil {
 			companyId, start, end);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem>
+				getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+					long companyId, String sku, int start, int end)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+			companyId, sku, start, end);
+	}
+
 	public static int getCommerceInventoryWarehouseItemsCount(
 			long commerceInventoryWarehouseId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -172,6 +182,16 @@ public class CommerceInventoryWarehouseItemServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static void moveQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().moveQuantitiesBetweenWarehouses(
+			fromCommerceInventoryWarehouseId, toCommerceInventoryWarehouseId,
+			sku, quantity);
 	}
 
 	public static

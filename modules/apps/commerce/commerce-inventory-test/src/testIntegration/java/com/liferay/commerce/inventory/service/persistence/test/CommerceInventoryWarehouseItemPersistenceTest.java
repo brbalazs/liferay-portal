@@ -223,6 +223,15 @@ public class CommerceInventoryWarehouseItemPersistenceTest {
 	}
 
 	@Test
+	public void testCountByCompanyId_Sku() throws Exception {
+		_persistence.countByCompanyId_Sku(RandomTestUtil.nextLong(), "");
+
+		_persistence.countByCompanyId_Sku(0L, "null");
+
+		_persistence.countByCompanyId_Sku(0L, (String)null);
+	}
+
+	@Test
 	public void testCountByC_S() throws Exception {
 		_persistence.countByC_S(RandomTestUtil.nextLong(), "");
 

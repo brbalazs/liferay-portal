@@ -55,6 +55,25 @@ public class CommerceInventoryReplenishmentItemLocalServiceUtil {
 			commerceInventoryReplenishmentItem);
 	}
 
+	public static
+		com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem
+				addCommerceInventoryReplenishmentItem(
+					long userId, long commerceInventoryWarehouseId, String sku,
+					java.util.Date availabilityDate, int quantity)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceInventoryReplenishmentItem(
+			userId, commerceInventoryWarehouseId, sku, availabilityDate,
+			quantity);
+	}
+
+	public static int countAdminUIReplenishmentItemsByCompanyIdAndSku(
+		long companyId, String sku) {
+
+		return getService().countAdminUIReplenishmentItemsByCompanyIdAndSku(
+			companyId, sku);
+	}
+
 	/**
 	 * Creates a new commerce inventory replenishment item with the primary key. Does not add the commerce inventory replenishment item to the database.
 	 *
@@ -213,6 +232,16 @@ public class CommerceInventoryReplenishmentItemLocalServiceUtil {
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.
+			CommerceInventoryAdminUIReplenishment>
+				getAdminUIReplenishmentItemsByCompanyIdAndSku(
+					long companyId, String sku, int start, int end) {
+
+		return getService().getAdminUIReplenishmentItemsByCompanyIdAndSku(
+			companyId, sku, start, end);
 	}
 
 	/**

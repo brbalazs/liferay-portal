@@ -110,6 +110,12 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryWarehouseItem>
+			getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+				long companyId, String sku, int start, int end)
+		throws PrincipalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceInventoryWarehouseItemsCount(
 			long commerceInventoryWarehouseId)
 		throws PortalException;
@@ -137,6 +143,11 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	public void moveQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws PortalException;
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseItemId, int quantity)

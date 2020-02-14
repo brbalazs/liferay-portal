@@ -16,6 +16,7 @@ package com.liferay.commerce.inventory.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -24,6 +25,8 @@ import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.Date;
 
 /**
  * Provides the remote service interface for CommerceInventoryReplenishmentItem. Methods of this
@@ -55,6 +58,11 @@ public interface CommerceInventoryReplenishmentItemService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CommerceInventoryReplenishmentItemServiceUtil} to access the commerce inventory replenishment item remote service. Add custom service methods to <code>com.liferay.commerce.inventory.service.impl.CommerceInventoryReplenishmentItemServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public CommerceInventoryReplenishmentItem
+			addCommerceInventoryReplenishmentItem(
+				long userId, long commerceInventoryWarehouseId, String sku,
+				Date availabilityDate, int quantity)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.

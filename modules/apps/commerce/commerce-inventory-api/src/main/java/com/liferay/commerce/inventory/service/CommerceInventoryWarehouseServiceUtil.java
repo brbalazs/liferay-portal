@@ -98,6 +98,19 @@ public class CommerceInventoryWarehouseServiceUtil {
 	public static java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouse>
 				getCommerceInventoryWarehouses(
+					long companyId, boolean active, int start, int end,
+					com.liferay.portal.kernel.util.OrderByComparator
+						<com.liferay.commerce.inventory.model.
+							CommerceInventoryWarehouse> orderByComparator)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().getCommerceInventoryWarehouses(
+			companyId, active, start, end, orderByComparator);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouse>
+				getCommerceInventoryWarehouses(
 					long companyId, boolean active, String commerceCountryCode,
 					int start, int end,
 					com.liferay.portal.kernel.util.OrderByComparator

@@ -16,6 +16,7 @@ package com.liferay.commerce.inventory.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIReplenishment;
 import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -35,6 +36,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -72,6 +74,15 @@ public interface CommerceInventoryReplenishmentItemLocalService
 		addCommerceInventoryReplenishmentItem(
 			CommerceInventoryReplenishmentItem
 				commerceInventoryReplenishmentItem);
+
+	public CommerceInventoryReplenishmentItem
+			addCommerceInventoryReplenishmentItem(
+				long userId, long commerceInventoryWarehouseId, String sku,
+				Date availabilityDate, int quantity)
+		throws PortalException;
+
+	public int countAdminUIReplenishmentItemsByCompanyIdAndSku(
+		long companyId, String sku);
 
 	/**
 	 * Creates a new commerce inventory replenishment item with the primary key. Does not add the commerce inventory replenishment item to the database.
@@ -189,6 +200,11 @@ public interface CommerceInventoryReplenishmentItemLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryAdminUIReplenishment>
+		getAdminUIReplenishmentItemsByCompanyIdAndSku(
+			long companyId, String sku, int start, int end);
 
 	/**
 	 * Returns the commerce inventory replenishment item with the primary key.

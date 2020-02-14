@@ -78,6 +78,10 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 			quantity);
 	}
 
+	public static int countAdminUIItemsByCompanyId(long companyId) {
+		return getService().countAdminUIItemsByCompanyId(companyId);
+	}
+
 	/**
 	 * Creates a new commerce inventory warehouse item with the primary key. Does not add the commerce inventory warehouse item to the database.
 	 *
@@ -270,6 +274,13 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem>
+			getAdminUIItemsByCompanyId(long companyId, int start, int end) {
+
+		return getService().getAdminUIItemsByCompanyId(companyId, start, end);
+	}
+
 	/**
 	 * Returns the commerce inventory warehouse item with the primary key.
 	 *
@@ -331,6 +342,15 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 
 		return getService().getCommerceInventoryWarehouseItemsByCompanyId(
 			companyId, start, end);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem>
+			getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+				long companyId, String sku, int start, int end) {
+
+		return getService().getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+			companyId, sku, start, end);
 	}
 
 	public static java.util.List
@@ -408,6 +428,16 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 
 	public static int getStockQuantity(long companyId, String sku) {
 		return getService().getStockQuantity(companyId, sku);
+	}
+
+	public static void moveQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().moveQuantitiesBetweenWarehouses(
+			fromCommerceInventoryWarehouseId, toCommerceInventoryWarehouseId,
+			sku, quantity);
 	}
 
 	/**

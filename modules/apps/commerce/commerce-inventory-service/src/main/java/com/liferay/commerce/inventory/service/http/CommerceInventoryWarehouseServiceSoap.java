@@ -94,6 +94,34 @@ public class CommerceInventoryWarehouseServiceSoap {
 	}
 
 	public static
+		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseSoap[]
+				getCommerceInventoryWarehouses(
+					long companyId, boolean active, int start, int end,
+					com.liferay.portal.kernel.util.OrderByComparator
+						<com.liferay.commerce.inventory.model.
+							CommerceInventoryWarehouse> orderByComparator)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.inventory.model.
+					CommerceInventoryWarehouse> returnValue =
+						CommerceInventoryWarehouseServiceUtil.
+							getCommerceInventoryWarehouses(
+								companyId, active, start, end,
+								orderByComparator);
+
+			return com.liferay.commerce.inventory.model.
+				CommerceInventoryWarehouseSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseSoap
 				deleteCommerceInventoryWarehouse(
 					long commerceInventoryWarehouseId)

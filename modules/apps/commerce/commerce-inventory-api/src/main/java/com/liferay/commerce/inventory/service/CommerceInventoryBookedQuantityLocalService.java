@@ -84,6 +84,9 @@ public interface CommerceInventoryBookedQuantityLocalService
 			long commerceBookedQuantityId, int quantity)
 		throws NoSuchInventoryBookedQuantityException;
 
+	public int countCommerceInventoryBookedQuantities(
+		long companyId, String sku);
+
 	/**
 	 * Creates a new commerce inventory booked quantity with the primary key. Does not add the commerce inventory booked quantity to the database.
 	 *
@@ -216,6 +219,11 @@ public interface CommerceInventoryBookedQuantityLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceInventoryBookedQuantity>
 		getCommerceInventoryBookedQuantities(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryBookedQuantity>
+		getCommerceInventoryBookedQuantities(
+			long companyId, String sku, int start, int end);
 
 	/**
 	 * Returns the number of commerce inventory booked quantities.

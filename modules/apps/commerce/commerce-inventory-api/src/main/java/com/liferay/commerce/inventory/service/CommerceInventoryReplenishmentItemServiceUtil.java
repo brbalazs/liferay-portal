@@ -37,6 +37,17 @@ public class CommerceInventoryReplenishmentItemServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.inventory.service.impl.CommerceInventoryReplenishmentItemServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static
+		com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem
+				addCommerceInventoryReplenishmentItem(
+					long userId, long commerceInventoryWarehouseId, String sku,
+					java.util.Date availabilityDate, int quantity)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceInventoryReplenishmentItem(
+			userId, commerceInventoryWarehouseId, sku, availabilityDate,
+			quantity);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.

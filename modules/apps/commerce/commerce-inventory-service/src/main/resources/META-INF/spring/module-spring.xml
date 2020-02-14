@@ -16,6 +16,7 @@
 	<bean class="com.liferay.commerce.inventory.service.impl.CommerceInventoryReplenishmentItemLocalServiceImpl" id="com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemLocalService" />
 	<bean class="com.liferay.commerce.inventory.service.impl.CommerceInventoryReplenishmentItemServiceImpl" id="com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemService" />
 	<bean class="com.liferay.commerce.inventory.service.persistence.impl.CommerceInventoryReplenishmentItemPersistenceImpl" id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryReplenishmentItemPersistence" parent="basePersistence" />
+	<bean class="com.liferay.commerce.inventory.service.persistence.impl.CommerceInventoryReplenishmentItemFinderImpl" id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryReplenishmentItemFinder" parent="basePersistence" />
 	<bean class="com.liferay.commerce.inventory.service.impl.CommerceInventoryWarehouseLocalServiceImpl" id="com.liferay.commerce.inventory.service.CommerceInventoryWarehouseLocalService" />
 	<bean class="com.liferay.commerce.inventory.service.impl.CommerceInventoryWarehouseServiceImpl" id="com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService" />
 	<bean class="com.liferay.commerce.inventory.service.persistence.impl.CommerceInventoryWarehousePersistenceImpl" id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehousePersistence" parent="basePersistence" />

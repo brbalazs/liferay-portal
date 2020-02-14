@@ -249,6 +249,13 @@ public class CommerceInventoryAuditLocalServiceUtil {
 		return getService().getCommerceInventoryAudits(start, end);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryAudit>
+			getCommerceInventoryAudits(String sku, int start, int end) {
+
+		return getService().getCommerceInventoryAudits(sku, start, end);
+	}
+
 	/**
 	 * Returns the number of commerce inventory audits.
 	 *

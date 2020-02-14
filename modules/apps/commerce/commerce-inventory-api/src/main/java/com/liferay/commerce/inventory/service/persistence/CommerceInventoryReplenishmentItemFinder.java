@@ -21,20 +21,13 @@ import aQute.bnd.annotation.ProviderType;
  * @generated
  */
 @ProviderType
-public interface CommerceInventoryWarehouseFinder {
+public interface CommerceInventoryReplenishmentItemFinder {
 
-	public int countAdminUIWarehousesByCompanyIdAndSku(
+	public int countAdminUIReplenishmentItemsByCompanyIdAndSku(
 		long companyId, String sku);
 
-	public java.util.List<Object[]> findAdminUIWarehousesByCompanyIdAndSku(
-		long companyId, String sku, int start, int end);
-
-	public java.util.List
-		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouse>
-			findByG_S(long groupId, String sku);
-
-	public java.util.List
-		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouse>
-			findByC_G_A(long companyId, long groupId, boolean active);
+	public java.util.List<Object[]>
+		findAdminUIReplenishmentItemsByCompanyIdAndSku(
+			long companyId, String sku, int start, int end);
 
 }

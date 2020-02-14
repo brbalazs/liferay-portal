@@ -76,6 +76,12 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 				sku, quantity);
 	}
 
+	@Override
+	public int countAdminUIItemsByCompanyId(long companyId) {
+		return _commerceInventoryWarehouseItemLocalService.
+			countAdminUIItemsByCompanyId(companyId);
+	}
+
 	/**
 	 * Creates a new commerce inventory warehouse item with the primary key. Does not add the commerce inventory warehouse item to the database.
 	 *
@@ -285,6 +291,15 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 			getActionableDynamicQuery();
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem>
+			getAdminUIItemsByCompanyId(long companyId, int start, int end) {
+
+		return _commerceInventoryWarehouseItemLocalService.
+			getAdminUIItemsByCompanyId(companyId, start, end);
+	}
+
 	/**
 	 * Returns the commerce inventory warehouse item with the primary key.
 	 *
@@ -353,6 +368,17 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 		return _commerceInventoryWarehouseItemLocalService.
 			getCommerceInventoryWarehouseItemsByCompanyId(
 				companyId, start, end);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem>
+			getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+				long companyId, String sku, int start, int end) {
+
+		return _commerceInventoryWarehouseItemLocalService.
+			getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
+				companyId, sku, start, end);
 	}
 
 	@Override
@@ -445,6 +471,18 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 	public int getStockQuantity(long companyId, String sku) {
 		return _commerceInventoryWarehouseItemLocalService.getStockQuantity(
 			companyId, sku);
+	}
+
+	@Override
+	public void moveQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceInventoryWarehouseItemLocalService.
+			moveQuantitiesBetweenWarehouses(
+				fromCommerceInventoryWarehouseId,
+				toCommerceInventoryWarehouseId, sku, quantity);
 	}
 
 	/**
