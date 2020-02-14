@@ -602,26 +602,6 @@
 		</attribute>
 	</tag>
 	<tag>
-		<name>summary</name>
-		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.SummaryTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<name>apiUrl</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>datasetDisplayId</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>items</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
-	<tag>
 		<name>user-invitation-modal</name>
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.UserInvitationModalTag</tag-class>
 		<body-content>empty</body-content>
