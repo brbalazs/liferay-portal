@@ -476,8 +476,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 			}
 		}
 
-		jsonObject.put(
-			getPrimaryKeyName(), String.valueOf(model.getPrimaryKeyObj()));
+		jsonObject.put(getPrimaryKeyName(), model.getPrimaryKeyObj());
 
 		return jsonObject;
 	}
