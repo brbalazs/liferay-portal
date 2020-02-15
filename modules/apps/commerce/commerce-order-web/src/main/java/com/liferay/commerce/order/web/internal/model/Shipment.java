@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.model;
 
-import com.liferay.commerce.frontend.model.StatusField;
+import com.liferay.commerce.frontend.model.LabelField;
 
 /**
  * @author Alessio Antonio Rendina
@@ -23,13 +23,13 @@ public class Shipment {
 
 	public Shipment(
 		long shipmentId, String panelUrl, String address, String createDate,
-		StatusField status, String tracking) {
+		LabelField statusLabelField, String tracking) {
 
 		_shipmentId = shipmentId;
 		_panelUrl = panelUrl;
 		_address = address;
 		_createDate = createDate;
-		_status = status;
+		_statusLabelField = statusLabelField;
 		_tracking = tracking;
 	}
 
@@ -49,8 +49,8 @@ public class Shipment {
 		return _shipmentId;
 	}
 
-	public StatusField getStatus() {
-		return _status;
+	public LabelField getStatusLAbelField() {
+		return _statusLabelField;
 	}
 
 	public String getTracking() {
@@ -61,7 +61,7 @@ public class Shipment {
 	private final String _createDate;
 	private final String _panelUrl;
 	private final long _shipmentId;
-	private final StatusField _status;
+	private final LabelField _statusLabelField;
 	private final String _tracking;
 
 }

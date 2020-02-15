@@ -18,7 +18,7 @@ import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.frontend.model.StatusField;
+import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceRegion;
@@ -115,7 +115,7 @@ public class CommerceShipmentDataSetDataProvider
 					LanguageUtil.format(
 						httpServletRequest, "x-ago", createDateDescription,
 						false),
-					new StatusField(
+					new LabelField(
 						CommerceShipmentConstants.getShipmentLabelStyle(
 							commerceShipment.getStatus()),
 						LanguageUtil.get(

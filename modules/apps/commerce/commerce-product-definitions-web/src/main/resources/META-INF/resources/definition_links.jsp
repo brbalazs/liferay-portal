@@ -66,30 +66,39 @@ PortletURL portletURL = cpDefinitionLinkDisplayContext.getPortletURL();
 		for (String type : cpDefinitionLinkDisplayContext.getCPDefinitionLinkTypes()) {
 		%>
 
-			Liferay.on('<portlet:namespace />addCommerceProductDefinitionLink<%= type %>', function() {
-				var itemSelectorDialog = new A.LiferayItemSelectorDialog({
-					eventName: 'productDefinitionsSelectItem',
-					on: {
-						selectedItemChange: function(event) {
-							var selectedItems = event.newVal;
+			Liferay.on(
+				'<portlet:namespace />addCommerceProductDefinitionLink<%= type %>',
+				function() {
+					var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+						eventName: 'productDefinitionsSelectItem',
+						on: {
+							selectedItemChange: function(event) {
+								var selectedItems = event.newVal;
 
-							if (selectedItems) {
-								$('#<portlet:namespace />cpDefinitionIds').val(selectedItems);
+								if (selectedItems) {
+									$('#<portlet:namespace />cpDefinitionIds').val(
+										selectedItems
+									);
 
-								$('#<portlet:namespace />type').val('<%= type %>');
+									$('#<portlet:namespace />type').val('<%= type %>');
 
-								var addCPDefinitionLinkFm = $('#<portlet:namespace />addCPDefinitionLinkFm');
+									var addCPDefinitionLinkFm = $(
+										'#<portlet:namespace />addCPDefinitionLinkFm'
+									);
 
-								submitForm(addCPDefinitionLinkFm);
+									submitForm(addCPDefinitionLinkFm);
+								}
 							}
-						}
-					},
-					title: '<liferay-ui:message arguments="<%= cpDefinition.getName(languageId) %>" key="add-new-product-to-x" />',
-					url: '<%= cpDefinitionLinkDisplayContext.getItemSelectorUrl(type) %>'
-				});
+						},
+						title:
+							'<liferay-ui:message arguments="<%= cpDefinition.getName(languageId) %>" key="add-new-product-to-x" />',
+						url:
+							'<%= cpDefinitionLinkDisplayContext.getItemSelectorUrl(type) %>'
+					});
 
-				itemSelectorDialog.open();
-			});
+					itemSelectorDialog.open();
+				}
+			);
 
 		<%
 		}

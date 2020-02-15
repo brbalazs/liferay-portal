@@ -220,19 +220,20 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 			var form = document.getElementById('<portlet:namespace />fm');
 
 			if (!form) {
-				throw new Error(
-					'Form with id: <portlet:namespace />fm not found!'
-				);
+				throw new Error('Form with id: <portlet:namespace />fm not found!');
 			}
 
-			var workflowActionInput = document.getElementById('<portlet:namespace />workflowAction');
+			var workflowActionInput = document.getElementById(
+				'<portlet:namespace />workflowAction'
+			);
 
 			if (workflowActionInput) {
-				workflowActionInput.value = '<%= WorkflowConstants.ACTION_PUBLISH %>';
+				workflowActionInput.value =
+					'<%= WorkflowConstants.ACTION_PUBLISH %>';
 			}
 
 			submitForm(form);
-	});
+		});
 </aui:script>
 
 <c:if test="<%= cpDefinition == null %>">

@@ -17,8 +17,10 @@ import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React, {useState, useContext} from 'react';
 
-import {OPEN_MODAL} from '../../../../utilities/eventsDefinitions.es';
-import {OPEN_SIDE_PANEL} from '../../../../utilities/eventsDefinitions.es';
+import {
+	OPEN_MODAL,
+	OPEN_SIDE_PANEL
+} from '../../../../utilities/eventsDefinitions.es';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es';
 
 function CreationMenu(props) {

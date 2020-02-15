@@ -193,7 +193,7 @@ public class CommerceOrderEditDisplayContext {
 
 		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
-		clayCreationMenu.addClayCreationMenuItems(
+		clayCreationMenu.addClayCreationMenuItem(
 			portletURL.toString(),
 			LanguageUtil.get(
 				_commerceOrderRequestHelper.getRequest(), "add-new-address"));
