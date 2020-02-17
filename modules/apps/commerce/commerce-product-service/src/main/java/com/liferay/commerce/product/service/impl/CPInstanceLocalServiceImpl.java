@@ -80,6 +80,7 @@ import java.util.Map;
 /**
  * @author Marco Leo
  * @author Alessio Antonio Rendina
+ * @author Igor Beslic
  */
 public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
@@ -129,6 +130,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			long maxSubscriptionCycles, ServiceContext serviceContext)
 		throws PortalException {
 
+		_validateSku(cpDefinitionId, 0, sku);
+
 		// Commerce product instance
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
@@ -152,14 +155,6 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				expirationDateHour, expirationDateMinute, user.getTimeZone(),
 				CPInstanceExpirationDateException.class);
 		}
-
-		int status = WorkflowConstants.STATUS_APPROVED;
-
-		if ((displayDate != null) && now.before(displayDate)) {
-			status = WorkflowConstants.STATUS_SCHEDULED;
-		}
-
-		validate(0, cpDefinitionId, sku, status, serviceContext);
 
 		long cpInstanceId = counterLocalService.increment();
 
@@ -201,10 +196,11 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			subscriptionTypeSettingsProperties);
 		cpInstance.setMaxSubscriptionCycles(maxSubscriptionCycles);
 
-		if ((expirationDate == null) || expirationDate.after(now)) {
-			cpInstance.setStatus(WorkflowConstants.STATUS_DRAFT);
+		if ((displayDate != null) && now.before(displayDate)) {
+			cpInstance.setStatus(WorkflowConstants.STATUS_SCHEDULED);
 		}
-		else {
+
+		if (!neverExpire && expirationDate.before(now)) {
 			cpInstance.setStatus(WorkflowConstants.STATUS_EXPIRED);
 		}
 
@@ -220,10 +216,43 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		reindexCPDefinition(cpDefinitionId);
 
+		if (!_isWorkflowActionPublish(serviceContext)) {
+			return cpInstance;
+		}
+
+		CPDefinition cpDefinition = cpDefinitionLocalService.getCPDefinition(
+			cpDefinitionId);
+
+		if (cpDefinition.isIgnoreSKUCombinations()) {
+			_expireApprovedSiblingCPInstances(
+				cpDefinition.getCPDefinitionId(), cpInstance.getCPInstanceId(),
+				serviceContext);
+		}
+		else {
+			if (!cpInstanceOptionValueRelLocalService.
+					hasCPInstanceOptionValueRel(cpInstanceId)) {
+
+				cpInstance = updateStatus(
+					user.getUserId(), cpInstance.getCPInstanceId(),
+					WorkflowConstants.STATUS_INACTIVE, serviceContext,
+					Collections.emptyMap());
+			}
+
+			_expireApprovedSiblingMatchingCPInstances(
+				cpDefinitionId, json, serviceContext);
+
+			_inactivateNoOptionSiblingCPInstances(
+				cpDefinitionId, serviceContext);
+		}
+
 		// Workflow
 
-		return startWorkflowInstance(
-			user.getUserId(), cpInstance, serviceContext);
+		if (cpInstance.getStatus() == WorkflowConstants.STATUS_APPROVED) {
+			cpInstance = startWorkflowInstance(
+				user.getUserId(), cpInstance, serviceContext);
+		}
+
+		return cpInstance;
 	}
 
 	@Override
@@ -338,14 +367,24 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			serviceContext.setUserId(userId);
 			serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
 
+			CPDefinition cpDefinition =
+				cpDefinitionLocalService.getCPDefinition(cpDefinitionId);
+
+			if (cpDefinition.isIgnoreSKUCombinations()) {
+				_expireApprovedSiblingCPInstances(
+					cpDefinitionId, cpInstance.getCPInstanceId(),
+					serviceContext);
+			}
+			else {
+				_expireApprovedSiblingMatchingCPInstances(
+					cpDefinitionId, cpInstance.getCPInstanceId(),
+					serviceContext);
+			}
+
 			cpInstanceLocalService.updateStatus(
 				userId, cpInstance.getCPInstanceId(),
 				WorkflowConstants.STATUS_APPROVED, serviceContext,
-				new HashMap<String, Serializable>());
-
-			validate(
-				cpInstance.getCPInstanceId(), cpInstance.getCPDefinitionId(),
-				cpInstance.getSku(), cpInstance.getStatus(), serviceContext);
+				Collections.emptyMap());
 		}
 	}
 
@@ -660,14 +699,12 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		// Commerce product instance
 
-		User user = userLocalService.getUser(serviceContext.getUserId());
-
 		CPInstance cpInstance = cpInstancePersistence.findByPrimaryKey(
 			cpInstanceId);
 
-		validate(
-			cpInstanceId, cpInstance.getCPDefinitionId(), cpInstance.getSku(),
-			cpInstance.getStatus(), serviceContext);
+		_validateSku(cpInstance.getCPDefinitionId(), cpInstanceId, sku);
+
+		User user = userLocalService.getUser(serviceContext.getUserId());
 
 		if (cpDefinitionLocalService.isVersionable(
 				cpInstance.getCPDefinitionId())) {
@@ -681,11 +718,10 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				cpInstance.getCPInstanceUuid());
 		}
 
-		Date displayDate = null;
 		Date expirationDate = null;
 		Date now = new Date();
 
-		displayDate = PortalUtil.getDate(
+		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
 			CPInstanceDisplayDateException.class);
@@ -712,10 +748,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setDisplayDate(displayDate);
 		cpInstance.setExpirationDate(expirationDate);
 
-		if ((expirationDate == null) || expirationDate.after(now)) {
-			cpInstance.setStatus(WorkflowConstants.STATUS_DRAFT);
-		}
-		else {
+		if (!neverExpire && expirationDate.before(now)) {
 			cpInstance.setStatus(WorkflowConstants.STATUS_EXPIRED);
 		}
 
@@ -727,10 +760,39 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		reindexCPDefinition(cpInstance.getCPDefinitionId());
 
+		if (!_isWorkflowActionPublish(serviceContext)) {
+			return cpInstance;
+		}
+
+		CPDefinition cpDefinition = cpDefinitionLocalService.getCPDefinition(
+			cpInstance.getCPDefinitionId());
+
+		if (cpDefinition.isIgnoreSKUCombinations()) {
+			_expireApprovedSiblingCPInstances(
+				cpDefinition.getCPDefinitionId(), cpInstanceId, serviceContext);
+		}
+		else {
+			if (!cpInstanceOptionValueRelLocalService.
+					hasCPInstanceOptionValueRel(cpInstanceId)) {
+
+				cpInstance = updateStatus(
+					user.getUserId(), cpInstance.getCPInstanceId(),
+					WorkflowConstants.STATUS_INACTIVE, serviceContext,
+					Collections.emptyMap());
+			}
+
+			_inactivateNoOptionSiblingCPInstances(
+				cpInstance.getCPDefinitionId(), serviceContext);
+		}
+
 		// Workflow
 
-		return startWorkflowInstance(
-			user.getUserId(), cpInstance, serviceContext);
+		if (cpInstance.getStatus() == WorkflowConstants.STATUS_APPROVED) {
+			cpInstance = startWorkflowInstance(
+				user.getUserId(), cpInstance, serviceContext);
+		}
+
+		return cpInstance;
 	}
 
 	@Override
@@ -1169,109 +1231,81 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			cpInstance, serviceContext, workflowContext);
 	}
 
-	protected void validate(
-			long cpInstanceId, long cpDefinitionId, String sku, int status,
+	private void _expireApprovedSiblingCPInstances(
+			long cpDefinitionId, long siblingCPInstanceId,
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		CPInstance cpInstance = cpInstancePersistence.fetchByC_S(
-			cpDefinitionId, sku);
+		List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
+			cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
 
-		if (cpInstanceId > 0) {
-			CPInstance oldCPInstance = cpInstanceLocalService.getCPInstance(
-				cpInstanceId);
-
-			if (!sku.equals(oldCPInstance.getSku()) && (cpInstance != null)) {
-				throw new CPInstanceSkuException();
+		for (CPInstance cpInstance : cpInstances) {
+			if (cpInstance.getCPInstanceId() == siblingCPInstanceId) {
+				continue;
 			}
-		}
-		else {
-			if (cpInstance != null) {
-				throw new CPInstanceSkuException();
-			}
-		}
 
-		int workflowAction = serviceContext.getWorkflowAction();
-
-		if (workflowAction == WorkflowConstants.ACTION_PUBLISH) {
-			CPDefinition cpDefinition =
-				cpDefinitionLocalService.getCPDefinition(cpDefinitionId);
-
-			if (cpDefinition.isIgnoreSKUCombinations()) {
-				List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
-					cpDefinitionId, WorkflowConstants.STATUS_APPROVED, 0, 2);
-
-				for (CPInstance curCPInstance : cpInstances) {
-					if (curCPInstance.getCPInstanceId() == cpInstanceId) {
-						continue;
-					}
-
-					if (status == WorkflowConstants.STATUS_APPROVED) {
-						updateStatus(
-							serviceContext.getUserId(),
-							curCPInstance.getCPInstanceId(),
-							WorkflowConstants.STATUS_EXPIRED, serviceContext,
-							new HashMap<String, Serializable>());
-
-						serviceContext.setWorkflowAction(0);
-					}
-				}
-			}
-			else {
-				List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
-					cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
-
-				for (CPInstance curCPInstance : cpInstances) {
-					if (!cpInstanceOptionValueRelLocalService.
-							hasCPInstanceOptionValueRel(
-								curCPInstance.getCPInstanceId())) {
-
-						updateStatus(
-							serviceContext.getUserId(),
-							curCPInstance.getCPInstanceId(),
-							WorkflowConstants.STATUS_INACTIVE, serviceContext,
-							new HashMap<String, Serializable>());
-
-						serviceContext.setWorkflowAction(0);
-					}
-
-					if ((cpInstanceId <= 0) &&
-						(status == WorkflowConstants.STATUS_APPROVED) &&
-						cpInstanceOptionValueRelLocalService.
-							matchesCPInstanceOptionValueRels(
-								curCPInstance.getCPInstanceId(),
-								Collections.emptyList())) {
-
-						updateStatus(
-							serviceContext.getUserId(),
-							curCPInstance.getCPInstanceId(),
-							WorkflowConstants.STATUS_EXPIRED, serviceContext,
-							new HashMap<String, Serializable>());
-
-						serviceContext.setWorkflowAction(0);
-					}
-				}
-
-				if ((cpInstanceId > 0) &&
-					_checkCPInstanceOptionSet(Collections.emptyList())) {
-
-					updateStatus(
-						serviceContext.getUserId(), cpInstanceId,
-						WorkflowConstants.STATUS_INACTIVE, serviceContext,
-						new HashMap<String, Serializable>());
-
-					serviceContext.setWorkflowAction(0);
-				}
-			}
+			updateStatus(
+				serviceContext.getUserId(), cpInstance.getCPInstanceId(),
+				WorkflowConstants.STATUS_EXPIRED, serviceContext,
+				Collections.emptyMap());
 		}
 	}
 
-	private boolean _checkCPInstanceOptionSet(
-		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels) {
+	private void _expireApprovedSiblingMatchingCPInstances(
+			long cpDefinitionId, long cpInstanceId,
+			ServiceContext serviceContext)
+		throws PortalException {
 
-		throw new UnsupportedOperationException(
-			"Provide implementation that checks existing entries " +
-				cpInstanceOptionValueRels.size());
+		List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
+			cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
+
+		List<CPInstanceOptionValueRel> cpInstanceCPInstanceOptionValueRels =
+			cpInstanceOptionValueRelLocalService.
+				getCPInstanceCPInstanceOptionValueRels(cpInstanceId);
+
+		for (CPInstance curCPInstance : cpInstances) {
+			if (!cpInstanceOptionValueRelLocalService.
+					matchesCPInstanceOptionValueRels(
+						curCPInstance.getCPInstanceId(),
+						cpInstanceCPInstanceOptionValueRels)) {
+
+				continue;
+			}
+
+			updateStatus(
+				serviceContext.getUserId(), curCPInstance.getCPInstanceId(),
+				WorkflowConstants.STATUS_EXPIRED, serviceContext,
+				Collections.emptyMap());
+		}
+	}
+
+	private void _expireApprovedSiblingMatchingCPInstances(
+			long cpDefinitionId, String json, ServiceContext serviceContext)
+		throws PortalException {
+
+		List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
+			cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
+
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRelIds =
+				cpDefinitionOptionRelLocalService.
+					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+						cpDefinitionId, json);
+
+		for (CPInstance curCPInstance : cpInstances) {
+			if (!cpInstanceOptionValueRelLocalService.
+					matchesCPInstanceOptionValueRels(
+						curCPInstance.getCPInstanceId(),
+						cpDefinitionOptionRelCPDefinitionOptionValueRelIds)) {
+
+				continue;
+			}
+
+			updateStatus(
+				serviceContext.getUserId(), curCPInstance.getCPInstanceId(),
+				WorkflowConstants.STATUS_EXPIRED, serviceContext,
+				Collections.emptyMap());
+		}
 	}
 
 	private String _getSKU(
@@ -1326,6 +1360,63 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		}
 
 		return new SKUCombinationsIterator(combinationGeneratorMap);
+	}
+
+	private void _inactivateNoOptionSiblingCPInstances(
+			long cpDefinitionId, ServiceContext serviceContext)
+		throws PortalException {
+
+		List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
+			cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
+
+		for (CPInstance curCPInstance : cpInstances) {
+			if (cpInstanceOptionValueRelLocalService.
+					hasCPInstanceOptionValueRel(
+						curCPInstance.getCPInstanceId())) {
+
+				continue;
+			}
+
+			updateStatus(
+				serviceContext.getUserId(), curCPInstance.getCPInstanceId(),
+				WorkflowConstants.STATUS_INACTIVE, serviceContext,
+				Collections.emptyMap());
+		}
+	}
+
+	private boolean _isWorkflowActionPublish(ServiceContext serviceContext) {
+		if (serviceContext.getWorkflowAction() ==
+				WorkflowConstants.ACTION_PUBLISH) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private void _validateSku(
+			long cpDefinitionId, long cpInstanceId, String sku)
+		throws CPInstanceSkuException {
+
+		if (Validator.isNull(sku)) {
+			throw new CPInstanceSkuException(
+				"SKU value required for product definition ID " +
+					cpDefinitionId);
+		}
+
+		CPInstance cpInstance = cpInstancePersistence.fetchByC_S(
+			cpDefinitionId, sku);
+
+		if (cpInstance == null) {
+			return;
+		}
+
+		if (cpInstanceId == cpInstance.getCPInstanceId()) {
+			return;
+		}
+
+		throw new CPInstanceSkuException(
+			"Duplicate SKU value for product definition ID " + cpDefinitionId);
 	}
 
 	private static final String[] _SELECTED_FIELD_NAMES = {
