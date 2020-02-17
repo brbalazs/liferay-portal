@@ -230,10 +230,10 @@ public class CommercePriceListAccountRelLocalServiceUtil {
 	public static
 		com.liferay.commerce.price.list.model.CommercePriceListAccountRel
 			fetchCommercePriceListAccountRel(
-				long commercePriceListId, long commerceAccountId) {
+				long commerceAccountId, long commercePriceListId) {
 
 		return getService().fetchCommercePriceListAccountRel(
-			commercePriceListId, commerceAccountId);
+			commerceAccountId, commercePriceListId);
 	}
 
 	/**

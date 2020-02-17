@@ -194,7 +194,7 @@ public interface CommercePriceListAccountRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceListAccountRel fetchCommercePriceListAccountRel(
-		long commercePriceListId, long commerceAccountId);
+		long commerceAccountId, long commercePriceListId);
 
 	/**
 	 * Returns the commerce price list account rel with the matching UUID and company.
