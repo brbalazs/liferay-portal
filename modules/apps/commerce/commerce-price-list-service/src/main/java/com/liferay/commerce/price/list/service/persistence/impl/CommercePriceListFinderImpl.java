@@ -74,8 +74,8 @@ public class CommercePriceListFinderImpl
 			FIND_BY_ACCOUNT_AND_CHANNEL_ID,
 			(Long)queryDefinition.getAttribute("groupId"),
 			(String)queryDefinition.getAttribute("type"),
-			(Long)queryDefinition.getAttribute("commerceAccountId"),
 			(Long)queryDefinition.getAttribute("commerceChannelId"),
+			(Long)queryDefinition.getAttribute("commerceAccountId"),
 			queryDefinition.getStart(), queryDefinition.getEnd());
 	}
 
