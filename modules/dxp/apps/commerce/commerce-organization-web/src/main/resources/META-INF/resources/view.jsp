@@ -24,9 +24,13 @@ String viewMode = commerceOrganizationDisplayContext.getViewMode();
 request.setAttribute("view.jsp-filterPerOrganization", false);
 
 NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
+
+String wrapperCssClass = "commerce-organization-view-modes row text-right";
+
+wrapperCssClass = viewMode + " " + wrapperCssClass;
 %>
 
-<div class="commerce-organization-view-modes row text-right">
+<div class="<%= wrapperCssClass %>">
 
 	<%
 	for (String curViewMode : CommerceOrganizationConstants.VIEW_MODES) {

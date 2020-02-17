@@ -20,7 +20,7 @@ ul, li {
 	padding: 0;
 	position: absolute;
 	top: 0;
-	width: calc(100vw - #{$membersPaneWidth} - #{$miniumSidebarWidth});
+	width: calc(100% - #{$membersPaneWidth});
 }
 
 .svg-wrapper,
@@ -50,7 +50,12 @@ ul, li {
 
 .commerce-organization-view-modes {
 	box-sizing: border-box;
-	padding-left: calc(100vw - #{$membersPaneWidth} - 185px);
+	margin-bottom: 12px;
+	padding-left: calc(100% - 185px);
+	
+	&.chart {
+		padding-left: calc(100% - #{$membersPaneWidth} - 185px);
+	}
 
 	.btn-default {
 		background-color: transparent;
@@ -273,7 +278,7 @@ ul, li {
 				padding: 13px 15px;
 
 				p {
-					margin: -12px 0;
+					margin: -6px 0;
 					padding: 0;
 				}
 
@@ -527,7 +532,7 @@ ul, li {
 					padding: 3px 0;
 
 					p {
-						margin: -12px 0;
+						margin: -6px 0;
 						padding: 0;
 					}
 
