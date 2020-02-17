@@ -460,7 +460,7 @@ public class CommerceShipmentDisplayContext
 				"commerceShipmentId",
 				String.valueOf(commerceShipment.getCommerceShipmentId()));
 			portletURL.setParameter(
-				"mvcRenderCommandName", "selectCommerceShipmentItems");
+				"mvcRenderCommandName", "addCommerceShipmentItems");
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 			clayCreationMenu.addClayCreationMenuItem(
