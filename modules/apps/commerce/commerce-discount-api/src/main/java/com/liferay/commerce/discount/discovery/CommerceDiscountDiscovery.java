@@ -21,7 +21,6 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.discount.CommerceDiscountLevel;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.discount.model.CommerceDiscount;
-import com.liferay.commerce.discount.target.CommerceDiscountTarget;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommercePriceValue;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -47,14 +46,12 @@ public interface CommerceDiscountDiscovery {
 		throws PortalException;
 
 	public List<CommerceDiscount> getOrderCommerceDiscountByHierarchy(
-			CommerceContext commerceContext,
-			CommerceDiscountTarget.Type commerceDiscountTargetType)
+			CommerceContext commerceContext, String commerceDiscountTargetType)
 		throws PortalException;
 
 	public List<CommerceDiscount> getOrderCommerceDiscountByHierarchy(
 			long commerceAccountId, long[] commerceAccountGroupIds,
-			long commerceChannelId,
-			CommerceDiscountTarget.Type commerceDiscountTargetType)
+			long commerceChannelId, String commerceDiscountTargetType)
 		throws PortalException;
 
 	public CommerceDiscountValue getOrderShippingCommerceDiscountValue(

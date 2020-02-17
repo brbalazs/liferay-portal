@@ -31,7 +31,6 @@ import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeRegistry;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.service.CommerceDiscountRuleLocalService;
-import com.liferay.commerce.discount.target.CommerceDiscountTarget;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommercePriceValue;
 import com.liferay.commerce.price.list.model.CommercePriceListDiscountRel;
@@ -110,8 +109,7 @@ public class CommerceDiscountDiscoveryImpl
 
 	@Override
 	public List<CommerceDiscount> getOrderCommerceDiscountByHierarchy(
-			CommerceContext commerceContext,
-			CommerceDiscountTarget.Type commerceDiscountTargetType)
+			CommerceContext commerceContext, String commerceDiscountTargetType)
 		throws PortalException {
 
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
@@ -141,34 +139,33 @@ public class CommerceDiscountDiscoveryImpl
 	@Override
 	public List<CommerceDiscount> getOrderCommerceDiscountByHierarchy(
 			long commerceAccountId, long[] commerceAccountGroupIds,
-			long commerceChannelId,
-			CommerceDiscountTarget.Type commerceDiscountTargetType)
+			long commerceChannelId, String commerceDiscountTargetType)
 		throws PortalException {
 
 		List<CommerceDiscount> commerceDiscounts =
 			_commerceDiscountLocalService.findByA_C_C_Order(
-				commerceAccountId, commerceDiscountTargetType.toString());
+				commerceAccountId, commerceDiscountTargetType);
 
 		if (commerceDiscounts != null) {
 			return commerceDiscounts;
 		}
 
 		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Order(
-			commerceAccountGroupIds, commerceDiscountTargetType.toString());
+			commerceAccountGroupIds, commerceDiscountTargetType);
 
 		if (commerceDiscounts != null) {
 			return commerceDiscounts;
 		}
 
 		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Order(
-			commerceChannelId, commerceDiscountTargetType.toString());
+			commerceChannelId, commerceDiscountTargetType);
 
 		if (commerceDiscounts != null) {
 			return commerceDiscounts;
 		}
 
 		return _commerceDiscountLocalService.findByUnqualifiedOrder(
-			commerceDiscountTargetType.toString());
+			commerceDiscountTargetType);
 	}
 
 	@Override
@@ -183,7 +180,7 @@ public class CommerceDiscountDiscoveryImpl
 
 		return _getCommerceDiscountValue(
 			shippingAmount, commerceContext,
-			CommerceDiscountTarget.Type.APPLY_TO_SHIPPING);
+			CommerceDiscountConstants.TARGET_SHIPPING);
 	}
 
 	@Override
@@ -198,7 +195,7 @@ public class CommerceDiscountDiscoveryImpl
 
 		return _getCommerceDiscountValue(
 			subtotalAmount, commerceContext,
-			CommerceDiscountTarget.Type.APPLY_TO_SUBTOTAL);
+			CommerceDiscountConstants.TARGET_SUBTOTAL);
 	}
 
 	@Override
@@ -213,7 +210,7 @@ public class CommerceDiscountDiscoveryImpl
 
 		return _getCommerceDiscountValue(
 			totalAmount, commerceContext,
-			CommerceDiscountTarget.Type.APPLY_TO_TOTAL);
+			CommerceDiscountConstants.TARGET_TOTAL);
 	}
 
 	@Override
@@ -547,7 +544,7 @@ public class CommerceDiscountDiscoveryImpl
 
 	private CommerceDiscountValue _getCommerceDiscountValue(
 			BigDecimal amount, CommerceContext commerceContext,
-			CommerceDiscountTarget.Type discountType)
+			String discountType)
 		throws PortalException {
 
 		List<CommerceDiscount> commerceDiscounts =
