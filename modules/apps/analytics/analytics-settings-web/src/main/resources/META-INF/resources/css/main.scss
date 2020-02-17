@@ -12,15 +12,29 @@
 	}
 
 	.list-group-sync {
-        list-style: none;
-        padding: 0;
-    }
+		list-style: none;
+		padding: 0;
+	}
 
-    .sync-all-contacts {
-        margin: 1rem 0 1rem -1rem;
-    }
+	.radio-buttons {
+		label {
+			cursor: pointer;
+		}
 
-    .sync-options {
-        display: inline-block;
-    }
+		small {
+			margin: 0 0 0 1.4rem;
+		}
+
+		.radio {
+			margin-bottom: 0;
+		}
+	}
+
+	.sync-all-contacts {
+		margin: 1rem 0 1rem -1rem;
+	}
+
+	.sync-options {
+		display: inline-block;
+	}
 }
