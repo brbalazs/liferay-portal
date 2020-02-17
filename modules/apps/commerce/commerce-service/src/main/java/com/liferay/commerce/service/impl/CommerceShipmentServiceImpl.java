@@ -292,6 +292,36 @@ public class CommerceShipmentServiceImpl
 	}
 
 	@Override
+	public CommerceShipment updateExpectedDate(
+		long commerceShipmentId, int expectedDateMonth, int expectedDateDay,
+		int expectedDateYear, int expectedDateHour, int expectedDateMinute)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.updateExpectedDate(
+			commerceShipmentId, expectedDateMonth, expectedDateDay,
+			expectedDateYear, expectedDateHour, expectedDateMinute);
+	}
+
+	@Override
+	public CommerceShipment updateShippingDate(
+		long commerceShipmentId, int shippingDateMonth, int shippingDateDay,
+		int shippingDateYear, int shippingDateHour, int shippingDateMinute)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.updateShippingDate(
+			commerceShipmentId, shippingDateMonth, shippingDateDay,
+			shippingDateYear, shippingDateHour, shippingDateMinute);
+	}
+
+	@Override
 	public CommerceShipment updateStatus(long commerceShipmentId, int status)
 		throws PortalException {
 

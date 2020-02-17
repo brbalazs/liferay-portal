@@ -15,6 +15,7 @@
 package com.liferay.commerce.shipment.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.exception.CommerceShipmentShippingDateException;
 import com.liferay.commerce.exception.NoSuchShipmentException;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
@@ -140,12 +141,19 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 			else if (cmd.equals("carrierDetails")) {
 				updateCarrierDetails(actionRequest);
 			}
+			else if (cmd.equals("expectedDate")) {
+				updateExpectedDate(actionRequest);
+			}
+			else if (cmd.equals("shippingDate")) {
+				updateShippingDate(actionRequest);
+			}
 			else if (cmd.equals("transition")) {
 				updateStatus(actionRequest);
 			}
 		}
 		catch (Exception e) {
-			if (e instanceof NoSuchShipmentException ||
+			if (e instanceof CommerceShipmentShippingDateException ||
+				e instanceof NoSuchShipmentException ||
 				e instanceof PrincipalException) {
 
 				SessionErrors.add(actionRequest, e.getClass());
@@ -314,6 +322,62 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		return commerceShipment;
+	}
+
+	protected CommerceShipment updateExpectedDate(ActionRequest actionRequest)
+		throws PortalException {
+
+		long commerceShipmentId = ParamUtil.getLong(
+			actionRequest, "commerceShipmentId");
+
+		int expectedDateMonth = ParamUtil.getInteger(
+			actionRequest, "expectedDateMonth");
+		int expectedDateDay = ParamUtil.getInteger(
+			actionRequest, "expectedDateDay");
+		int expectedDateYear = ParamUtil.getInteger(
+			actionRequest, "expectedDateYear");
+		int expectedDateHour = ParamUtil.getInteger(
+			actionRequest, "expectedDateHour");
+		int expectedDateMinute = ParamUtil.getInteger(
+			actionRequest, "expectedDateMinute");
+		int expectedDateAmPm = ParamUtil.getInteger(
+			actionRequest, "expectedDateAmPm");
+
+		if (expectedDateAmPm == Calendar.PM) {
+			expectedDateHour += 12;
+		}
+
+		return _commerceShipmentService.updateExpectedDate(
+			commerceShipmentId, expectedDateMonth, expectedDateDay,
+			expectedDateYear, expectedDateHour, expectedDateMinute);
+	}
+
+	protected CommerceShipment updateShippingDate(ActionRequest actionRequest)
+		throws PortalException {
+
+		long commerceShipmentId = ParamUtil.getLong(
+			actionRequest, "commerceShipmentId");
+
+		int shippingDateMonth = ParamUtil.getInteger(
+			actionRequest, "shippingDateMonth");
+		int shippingDateDay = ParamUtil.getInteger(
+			actionRequest, "shippingDateDay");
+		int shippingDateYear = ParamUtil.getInteger(
+			actionRequest, "shippingDateYear");
+		int shippingDateHour = ParamUtil.getInteger(
+			actionRequest, "shippingDateHour");
+		int shippingDateMinute = ParamUtil.getInteger(
+			actionRequest, "shippingDateMinute");
+		int shippingDateAmPm = ParamUtil.getInteger(
+			actionRequest, "shippingDateAmPm");
+
+		if (shippingDateAmPm == Calendar.PM) {
+			shippingDateHour += 12;
+		}
+
+		return _commerceShipmentService.updateShippingDate(
+			commerceShipmentId, shippingDateMonth, shippingDateDay,
+			shippingDateYear, shippingDateHour, shippingDateMinute);
 	}
 
 	protected CommerceShipment updateStatus(ActionRequest actionRequest)

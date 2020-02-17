@@ -281,6 +281,50 @@ public class CommerceShipmentLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
+	public CommerceShipment updateExpectedDate(
+			long commerceShipmentId, int expectedDateMonth, int expectedDateDay,
+			int expectedDateYear, int expectedDateHour, int expectedDateMinute)
+		throws PortalException {
+
+		CommerceShipment commerceShipment =
+			commerceShipmentPersistence.findByPrimaryKey(commerceShipmentId);
+
+		User user = userLocalService.getUser(commerceShipment.getUserId());
+
+		Date expectedDate = PortalUtil.getDate(
+			expectedDateMonth, expectedDateDay, expectedDateYear,
+			expectedDateHour, expectedDateMinute, user.getTimeZone(),
+			CommerceShipmentShippingDateException.class);
+
+		commerceShipment.setShippingDate(expectedDate);
+
+		return commerceShipmentPersistence.update(commerceShipment);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceShipment updateShippingDate(
+			long commerceShipmentId, int shippingDateMonth, int shippingDateDay,
+			int shippingDateYear, int shippingDateHour, int shippingDateMinute)
+		throws PortalException {
+
+		CommerceShipment commerceShipment =
+			commerceShipmentPersistence.findByPrimaryKey(commerceShipmentId);
+
+		User user = userLocalService.getUser(commerceShipment.getUserId());
+
+		Date shippingDate = PortalUtil.getDate(
+			shippingDateMonth, shippingDateDay, shippingDateYear,
+			shippingDateHour, shippingDateMinute, user.getTimeZone(),
+			CommerceShipmentShippingDateException.class);
+
+		commerceShipment.setShippingDate(shippingDate);
+
+		return commerceShipmentPersistence.update(commerceShipment);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public CommerceShipment updateStatus(long commerceShipmentId, int status)
 		throws PortalException {
 
