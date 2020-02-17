@@ -1,0 +1,85 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%@ include file="/init.jsp" %>
+
+<%
+CommerceShipmentItemDisplayContext commerceShipmentItemDisplayContext = (CommerceShipmentItemDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+CommerceShipment commerceShipment = commerceShipmentItemDisplayContext.getCommerceShipment();
+
+CommerceOrderItem commerceOrderItem = commerceShipmentItemDisplayContext.getCommerceOrderItem();
+
+portletDisplay.setShowBackIcon(true);
+
+if (Validator.isNull(redirect)) {
+	redirect = currentURL;
+}
+
+portletDisplay.setURLBack(redirect);
+%>
+
+<portlet:actionURL name="editCommerceShipmentItem" var="editCommerceShipmentItemActionURL" />
+
+<commerce-ui:side-panel-content
+	title='<%= LanguageUtil.format(request, "warehouse-availability-x", commerceOrderItem.getSku()) %>'
+>
+	<aui:form action="<%= editCommerceShipmentItemActionURL %>" method="post" name="fm">
+		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="commerceShipmentId" type="hidden" value="<%= commerceShipment.getCommerceShipmentId() %>" />
+		<aui:input name="commerceOrderItemId" type="hidden" value="<%= commerceOrderItem.getCommerceOrderItemId() %>" />
+
+		<div class="row text-center">
+			<div class="col-sm-4">
+				<liferay-ui:message key="ordered" />: <%= commerceOrderItem.getQuantity() %>
+			</div>
+
+			<div class="col-sm-4">
+				<liferay-ui:message key="shipped" />: <%= commerceOrderItem.getShippedQuantity() %>
+			</div>
+
+			<div class="col-sm-4">
+				<liferay-ui:message key="to-send" />: <%= commerceShipmentItemDisplayContext.getToSendQuantity() %>
+			</div>
+		</div>
+
+		<hr class="mt-0" />
+
+		<%
+		Map<String, String> contextParams = new HashMap<>();
+
+		contextParams.put("commerceShipmentId", String.valueOf(commerceShipment.getCommerceShipmentId()));
+		contextParams.put("commerceOrderItemId", String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
+		%>
+
+		<commerce-ui:dataset-display
+			contextParams="<%= contextParams %>"
+			dataProviderKey="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSE_ITEM %>"
+			formId="_com_liferay_commerce_shipment_web_internal_portlet_CommerceShipmentPortlet_fm"
+			id="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSE_ITEM %>"
+			itemsPerPage="<%= 10 %>"
+			namespace="<%= renderResponse.getNamespace() %>"
+			pageNumber="<%= 1 %>"
+			portletURL="<%= currentURLObj %>"
+			showManagementBar="<%= false %>"
+		/>
+
+		<aui:button-row>
+			<aui:button cssClass="btn-lg" type="submit" value="add-to-shipment" />
+		</aui:button-row>
+	</aui:form>
+</commerce-ui:side-panel-content>

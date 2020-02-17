@@ -1,114 +1,181 @@
-<%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %>
-<%@ taglib prefix="commerce-ui" uri="http://alloy.liferay.com/tld/alloy" %>
+<%--
 /**
-* Copyright (c) 2000-present Liferay, Inc. All rights reserved.
-*
-* This library is free software; you can redistribute it and/or modify it under
-* the terms of the GNU Lesser General Public License as published by the Free
-* Software Foundation; either version 2.1 of the License, or (at your option)
-* any later version.
-*
-* This library is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-* details.
-*/
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
 --%>
 
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceShipmentItemDisplayContext commerceShipmentItemDisplayContext = (CommerceShipmentItemDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommerceShipmentDisplayContext commerceShipmentDisplayContext = (CommerceShipmentDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+CommerceShipment commerceShipment = commerceShipmentDisplayContext.getCommerceShipment();
+
+String trackingNumber = commerceShipment.getTrackingNumber();
+String carrier = commerceShipment.getCarrier();
+CommerceShippingMethod commerceShippingMethod = commerceShipment.getCommerceShippingMethod();
+Date shippingDate = commerceShipment.getShippingDate();
+
+Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 %>
-
-<liferay-portlet:renderURL var="editCourierDetailURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-	<portlet:param name="mvcRenderCommandName" value="editCourierDetail" />
-	<%-- TODO add required parameters --%>
-</liferay-portlet:renderURL>
-
-<commerce-ui:modal
-	id="edit-courier-modal"
-	refreshPageOnClose="<%= true %>"
-	size="lg"
-	title='<%= LanguageUtil.get(request, "edit-courier-detail") %>'
-	url="<%= editCourierDetailURL %>"
-/>
-
-<liferay-portlet:renderURL var="editBarcodeDetailURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-	<portlet:param name="mvcRenderCommandName" value="editBarcode" />
-	<%-- TODO add required parameters --%>
-</liferay-portlet:renderURL>
-
-<commerce-ui:modal
-	id="edit-barcode-modal"
-	refreshPageOnClose="<%= true %>"
-	size="lg"
-	title='<%= LanguageUtil.get(request, "edit-barcode") %>'
-	url="<%= editRequestedDeliveryDateURL %>"
-/>
 
 <div class="row">
 	<div class="col-12 mb-4">
 		<commerce-ui:step-tracker
-			steps="<%-- TODO implement = commerceShipmentItemDisplayContext.getShipmentSteps() --%>"
+			steps="<%= commerceShipmentDisplayContext.getShipmentSteps() %>"
 		/>
 	</div>
 
 	<div class="col-12">
 		<commerce-ui:panel
 			elementClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "info")%>'>
-
+			title='<%= LanguageUtil.get(request, "info") %>'
+		>
 			<div class="row vertically-divided">
 				<div class="col-md-4">
+					<liferay-portlet:renderURL var="editCommerceShipmentCourierDetailURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+						<portlet:param name="mvcRenderCommandName" value="editCommerceShipmentCourierDetail" />
+						<portlet:param name="commerceShipmentId" value="<%= String.valueOf(commerceShipment.getCommerceShipmentId()) %>" />
+					</liferay-portlet:renderURL>
+
+					<commerce-ui:modal
+						id="edit-courier-modal"
+						refreshPageOnClose="<%= true %>"
+						url="<%= editCommerceShipmentCourierDetailURL %>"
+					/>
+
 					<commerce-ui:info-box
 						actionLabel='<%= LanguageUtil.get(request, "edit") %>'
 						actionTargetId="edit-courier-modal"
-						actionUrl="<%-- TODO - implement = editCourierURL --%>"
-						elementClasses="py-3"
-						title='<%= LanguageUtil.get(request, "courier-detail") %>'
+						actionUrl="<%= editCommerceShipmentCourierDetailURL %>"
+						title='<%= LanguageUtil.get(request, "carrier-details") %>'
 					>
-						<p>
-							<span class="text-muted">
-								<liferay-ui:message key="shipping-id" />
+						<div class="item">
+							<span class="title">
+								<liferay-ui:message key="tracking-number" />
 							</span>
-							<span class="text-muted">
-								<%-- TODO - implement = shipping id link -- opens modal? --%>
+
+							<c:choose>
+								<c:when test="<%= Validator.isBlank(trackingNumber) %>">
+									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
+								</c:when>
+								<c:otherwise>
+									<b><%= trackingNumber %></b>
+								</c:otherwise>
+							</c:choose>
+						</div>
+
+						<div class="item">
+							<span class="title">
+								<liferay-ui:message key="carrier" />
 							</span>
-						</p>
+
+							<c:choose>
+								<c:when test="<%= Validator.isBlank(carrier) %>">
+									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
+								</c:when>
+								<c:otherwise>
+									<b><%= carrier %></b>
+								</c:otherwise>
+							</c:choose>
+						</div>
+
+						<div class="item">
+							<span class="title">
+								<liferay-ui:message key="shipping-method" />
+							</span>
+
+							<c:choose>
+								<c:when test="<%= Validator.isNull(commerceShippingMethod) %>">
+									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
+								</c:when>
+								<c:otherwise>
+									<b><%= commerceShippingMethod.getName(locale) %></b>
+								</c:otherwise>
+							</c:choose>
+						</div>
+
+						<div class="item">
+							<span class="title">
+								<liferay-ui:message key="shipping-option" />
+							</span>
+
+							<c:choose>
+								<c:when test="<%= Validator.isBlank(commerceShipment.getShippingOptionName()) %>">
+									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
+								</c:when>
+								<c:otherwise>
+									<b><%= commerceShipment.getShippingOptionName() %></b>
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</commerce-ui:info-box>
 				</div>
 
 				<div class="col-md-4">
+					<liferay-portlet:renderURL var="editCommerceShipmentAddressURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+						<portlet:param name="mvcRenderCommandName" value="editCommerceShipmentAddress" />
+						<portlet:param name="commerceShipmentId" value="<%= String.valueOf(commerceShipment.getCommerceShipmentId()) %>" />
+					</liferay-portlet:renderURL>
+
+					<commerce-ui:modal
+						id="edit-address-modal"
+						refreshPageOnClose="<%= true %>"
+						size="lg"
+						url="<%= editCommerceShipmentAddressURL %>"
+					/>
+
 					<commerce-ui:info-box
 						actionLabel='<%= LanguageUtil.get(request, "edit") %>'
-						actionTargetId="edit-barcode-modal"
-						actionUrl="<%-- TODO - implement = editBarcodeURL --%>"
-						elementClasses="py-3"
-						title='<%= LanguageUtil.get(request, "barcode") %>'
+						actionTargetId="edit-address-modal"
+						actionUrl=""
+						title='<%= LanguageUtil.get(request, "shipping-address") %>'
 					>
-						<p>
-							<span class="text-muted">
-								<liferay-ui:message key="international-article-number" />
-							</span>
-							<span class="text-muted">
-								<b><%-- TODO - implement = get international article number --%></b>
-							</span>
-						</p>
+						<div class="item">
+							<%= HtmlUtil.replaceNewLine(commerceShipmentDisplayContext.getDescriptiveShippingAddress()) %>
+						</div>
 					</commerce-ui:info-box>
 				</div>
 
 				<div class="col-md-4">
+					<liferay-portlet:renderURL var="editCommerceShipmentShippingDateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+						<portlet:param name="mvcRenderCommandName" value="editCommerceShipmentShippingDate" />
+						<portlet:param name="commerceShipmentId" value="<%= String.valueOf(commerceShipment.getCommerceShipmentId()) %>" />
+					</liferay-portlet:renderURL>
+
+					<commerce-ui:modal
+						id="edit-shipping-date-modal"
+						refreshPageOnClose="<%= true %>"
+						size="lg"
+						url="<%= editCommerceShipmentShippingDateURL %>"
+					/>
+
 					<commerce-ui:info-box
-						actionLabel=""
-						actionTargetId=""
-						actionUrl="<%-- TODO - implement = changeDateAction --%>"
-						elementClasses="py-3"
-						title='<%= LanguageUtil.get(request, "select-date") %>'
+						actionLabel='<%= LanguageUtil.get(request, "edit") %>'
+						actionTargetId="edit-shipping-date-modal"
+						actionUrl=""
+						title='<%= LanguageUtil.get(request, "estimated-shipping-date") %>'
 					>
-						<p>
-							<%-- date picker input --%>
-						</p>
+						<div class="item">
+							<c:choose>
+								<c:when test="<%= Validator.isNull(shippingDate) %>">
+									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
+								</c:when>
+								<c:otherwise>
+									<b><%= dateFormatDateTime.format(commerceShipment.getShippingDate()) %></b>
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</commerce-ui:info-box>
 				</div>
 			</div>
@@ -117,21 +184,26 @@ CommerceShipmentItemDisplayContext commerceShipmentItemDisplayContext = (Commerc
 
 	<div class="col-12">
 		<commerce-ui:panel
-			elementClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "products")%>'
+			bodyClasses="p-0"
+			title='<%= LanguageUtil.get(request, "products") %>'
 		>
+
+			<%
+			Map<String, String> contextParams = new HashMap<>();
+
+			contextParams.put("commerceShipmentId", String.valueOf(commerceShipment.getCommerceShipmentId()));
+			%>
+
 			<commerce-ui:dataset-display
+				clayCreationMenu="<%= commerceShipmentDisplayContext.getShipmentItemClayCreationMenu() %>"
 				contextParams="<%= contextParams %>"
-				dataProviderKey="<%-- = TODO = implement commerce shipping products clay table .NAME --%>"
-				id="<%-- = TODO = implement commerce shipping products clay table .NAME --%>"
+				dataProviderKey="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS %>"
+				id="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
-				portletURL="<%-- TODO = commerceShipmentItemDisplayContext.getPortletURL() --%>"
-				style="stacked"
+				portletURL="<%= currentURLObj %>"
 			/>
-
-			<%-- TODO add products via modal, to be configured --%>
 		</commerce-ui:panel>
 	</div>
 </div>
