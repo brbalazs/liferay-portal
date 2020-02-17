@@ -14,11 +14,16 @@
 
 package com.liferay.commerce.shipment.web.internal.portlet;
 
+import com.liferay.commerce.address.CommerceAddressFormatter;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.service.CommerceAddressService;
+import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
+import com.liferay.commerce.service.CommerceRegionService;
+import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.commerce.shipment.web.internal.display.context.CommerceShipmentDisplayContext;
 import com.liferay.commerce.shipment.web.internal.portlet.action.ActionHelper;
@@ -71,8 +76,11 @@ public class CommerceShipmentPortlet extends MVCPortlet {
 		CommerceShipmentDisplayContext commerceShipmentDisplayContext =
 			new CommerceShipmentDisplayContext(
 				_actionHelper, _portal.getHttpServletRequest(renderRequest),
-				_commerceChannelService, _commerceOrderItemService,
-				_commerceOrderLocalService, _commerceShipmentService,
+				_commerceAddressFormatter, _commerceAddressService,
+				_commerceChannelService, _commerceCountryService,
+				_commerceOrderItemService, _commerceOrderLocalService,
+				_commerceRegionService, _commerceShipmentService,
+				_commerceShipmentItemService,
 				_commerceInventoryWarehouseService);
 
 		renderRequest.setAttribute(
@@ -85,7 +93,16 @@ public class CommerceShipmentPortlet extends MVCPortlet {
 	private ActionHelper _actionHelper;
 
 	@Reference
+	private CommerceAddressFormatter _commerceAddressFormatter;
+
+	@Reference
+	private CommerceAddressService _commerceAddressService;
+
+	@Reference
 	private CommerceChannelService _commerceChannelService;
+
+	@Reference
+	private CommerceCountryService _commerceCountryService;
 
 	@Reference
 	private CommerceInventoryWarehouseService
@@ -96,6 +113,12 @@ public class CommerceShipmentPortlet extends MVCPortlet {
 
 	@Reference
 	private CommerceOrderLocalService _commerceOrderLocalService;
+
+	@Reference
+	private CommerceRegionService _commerceRegionService;
+
+	@Reference
+	private CommerceShipmentItemService _commerceShipmentItemService;
 
 	@Reference
 	private CommerceShipmentService _commerceShipmentService;

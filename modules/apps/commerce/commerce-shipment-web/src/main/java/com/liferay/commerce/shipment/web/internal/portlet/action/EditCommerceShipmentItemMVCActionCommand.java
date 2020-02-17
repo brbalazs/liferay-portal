@@ -17,8 +17,11 @@ package com.liferay.commerce.shipment.web.internal.portlet.action;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.exception.CommerceShipmentItemQuantityException;
 import com.liferay.commerce.exception.NoSuchShipmentItemException;
+import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
+import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.PortletProvider;
@@ -26,12 +29,16 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -42,6 +49,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Alec Sloan
  */
 @Component(
 	immediate = true,
@@ -153,14 +161,54 @@ public class EditCommerceShipmentItemMVCActionCommand
 			ActionRequest actionRequest)
 		throws PortalException {
 
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			CommerceShipmentItem.class.getName(), actionRequest);
+
 		long commerceShipmentItemId = ParamUtil.getLong(
 			actionRequest, "commerceShipmentItemId");
 
-		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
+		CommerceShipmentItem commerceShipmentItem =
+			_commerceShipmentItemService.getCommerceShipmentItem(
+				commerceShipmentItemId);
 
-		return _commerceShipmentItemService.updateCommerceShipmentItem(
-			commerceShipmentItemId, quantity);
+		long commerceOrderItemId =
+			commerceShipmentItem.getCommerceOrderItemId();
+		long commerceShipmentId = commerceShipmentItem.getCommerceShipmentId();
+
+		List<CommerceInventoryWarehouse> commerceInventoryWarehouses =
+			_commerceInventoryWarehouseService.getCommerceInventoryWarehouses(
+				commerceShipmentItem.getCompanyId(),
+				_commerceChannelLocalService.
+					getCommerceChannelGroupIdBySiteGroupId(
+						commerceShipmentItem.getGroupId()),
+				true);
+
+		for (CommerceInventoryWarehouse commerceInventoryWarehouse :
+				commerceInventoryWarehouses) {
+
+			long commerceInventoryWarehouseId =
+				commerceInventoryWarehouse.getCommerceInventoryWarehouseId();
+
+			int quantity = ParamUtil.getInteger(
+				actionRequest, commerceInventoryWarehouseId + "_quantity");
+
+			if (quantity > 0) {
+				commerceShipmentItem =
+					_commerceShipmentItemService.addCommerceShipmentItem(
+						commerceShipmentId, commerceOrderItemId,
+						commerceInventoryWarehouseId, quantity, serviceContext);
+			}
+		}
+
+		return commerceShipmentItem;
 	}
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceInventoryWarehouseService
+		_commerceInventoryWarehouseService;
 
 	@Reference
 	private CommerceShipmentItemService _commerceShipmentItemService;
