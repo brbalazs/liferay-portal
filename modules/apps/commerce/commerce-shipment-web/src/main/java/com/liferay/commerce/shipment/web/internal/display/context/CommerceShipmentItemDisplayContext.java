@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.shipment.web.internal.display.context;
 
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceAddress;
@@ -31,7 +32,7 @@ import com.liferay.commerce.util.CommerceUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 
 import java.util.List;
 
@@ -64,46 +65,6 @@ public class CommerceShipmentItemDisplayContext
 		_commerceShipmentItemService = commerceShipmentItemService;
 	}
 
-	public String getAddCommerceShipmentItemsURL() throws PortalException {
-		PortletURL portletURL = liferayPortletResponse.createRenderURL();
-
-		SearchContainer<CommerceShipmentItem>
-			commerceShipmentItemSearchContainer = getSearchContainer();
-
-		List<CommerceShipmentItem> commerceShipmentItems =
-			commerceShipmentItemSearchContainer.getResults();
-
-		portletURL.setParameter(
-			"redirect", PortalUtil.getCurrentURL(httpServletRequest));
-
-		if (getCommerceShipmentId() > 0) {
-			portletURL.setParameter(
-				"commerceShipmentId", String.valueOf(getCommerceShipmentId()));
-		}
-
-		if (commerceShipmentItems.isEmpty()) {
-			portletURL.setParameter(
-				"mvcRenderCommandName", "editCommerceShipment");
-		}
-		else {
-			portletURL.setParameter(
-				"mvcRenderCommandName", "selectCommerceShipmentItems");
-
-			CommerceShipmentItem commerceShipmentItem =
-				commerceShipmentItems.get(0);
-
-			CommerceOrderItem commerceOrderItem =
-				_commerceOrderItemService.getCommerceOrderItem(
-					commerceShipmentItem.getCommerceOrderItemId());
-
-			portletURL.setParameter(
-				"commerceOrderId",
-				String.valueOf(commerceOrderItem.getCommerceOrderId()));
-		}
-
-		return portletURL.toString();
-	}
-
 	public List<CommerceCountry> getCommerceCountries() {
 		return _commerceCountryService.getShippingCommerceCountries(
 			cpRequestHelper.getCompanyId(), true, true);
@@ -115,6 +76,14 @@ public class CommerceShipmentItemDisplayContext
 
 		return _commerceInventoryWarehouseService.getCommerceInventoryWarehouse(
 			commerceInventoryWarehouseId);
+	}
+
+	public CommerceOrderItem getCommerceOrderItem() throws PortalException {
+		long commerceOrderItemId =
+			ParamUtil.getLong(httpServletRequest, "commerceOrderItemId");
+
+		return _commerceOrderItemService.getCommerceOrderItem(
+			commerceOrderItemId);
 	}
 
 	public List<CommerceRegion> getCommerceRegions() throws PortalException {
@@ -199,6 +168,15 @@ public class CommerceShipmentItemDisplayContext
 		searchContainer.setResults(results);
 
 		return searchContainer;
+	}
+
+	public int getToSendQuantity() throws PortalException {
+		CommerceOrderItem commerceOrderItem = getCommerceOrderItem();
+
+		return _commerceShipmentItemService.
+			getCommerceShipmentOrderItemsQuantity(
+				getCommerceShipmentId(),
+				commerceOrderItem.getCommerceOrderItemId());
 	}
 
 	private final CommerceCountryService _commerceCountryService;
