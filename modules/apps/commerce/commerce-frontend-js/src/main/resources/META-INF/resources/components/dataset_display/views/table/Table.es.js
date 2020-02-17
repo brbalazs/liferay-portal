@@ -112,7 +112,7 @@ function Table(props) {
 					const itemId = item[selectedItemsKey] || i;
 
 					return (
-						<ClayTable.Row 
+						<ClayTable.Row
 							className={classNames(
 								highlightedItemsValue.includes(itemId) &&
 									'active'
@@ -129,9 +129,7 @@ function Table(props) {
 													String(itemId)
 											)
 										}
-										onChange={() =>
-											selectItems(itemId)
-										}
+										onChange={() => selectItems(itemId)}
 										value={itemId}
 									/>
 								</ClayTable.Cell>
@@ -155,7 +153,8 @@ function Table(props) {
 										options={field}
 										value={value}
 										view={{
-											contentRenderer: field.contentRenderer,
+											contentRenderer:
+												field.contentRenderer,
 											contentRendererModuleUrl:
 												field.contentRendererModuleUrl
 										}}
@@ -175,7 +174,7 @@ function Table(props) {
 								)
 							) : null}
 						</ClayTable.Row>
-					)
+					);
 				})}
 			</ClayTable.Body>
 		</ClayTable>

@@ -73,6 +73,10 @@ function ActionItem(props) {
 function ActionsDropdown(props) {
 	const [active, setActive] = useState(false);
 
+	if (!props.actions || !props.actions.length) {
+		return null;
+	}
+
 	return (
 		<ClayDropDown
 			active={active}
