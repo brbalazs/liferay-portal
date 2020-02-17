@@ -21,7 +21,9 @@ import DatasetDisplayContext from '../DatasetDisplayContext.es';
 import DefaultContent from './Default.es';
 
 function ActionLink(props) {
-	const {openModal, openSidePanel} = useContext(DatasetDisplayContext);
+	const {highlightItems, openModal, openSidePanel} = useContext(
+		DatasetDisplayContext
+	);
 
 	const currentAction =
 		props.options && props.options.actionId
@@ -40,6 +42,7 @@ function ActionLink(props) {
 		}
 
 		if (target === 'sidePanel') {
+			highlightItems([props.itemId]);
 			return openSidePanel(payload);
 		}
 	}
@@ -79,6 +82,7 @@ ActionLink.propTypes = {
 			title: PropTypes.string
 		})
 	),
+	itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	options: PropTypes.shape({
 		actionId: PropTypes.string
 	}),

@@ -34,6 +34,45 @@
 		.table-cell-end {
 			padding-right: map-get($spacers, 3);
 		}
+
+		td {
+			background-color: transparent;
+			position: relative;
+
+			&::after {
+				pointer-events: none;
+				position: absolute;
+				content: '';
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				border-style: solid;
+				border-width: 1px 0;
+				opacity: 0;
+				transition: opacity 0.1s ease-in;
+				border-color: rgba($primary-color, 1);
+			}
+
+			&:first-child::after {
+				border-left-width: 1px;
+			}
+
+			&:last-child::after {
+				border-left-width: 1px;
+			}
+		}
+
+		.active {
+			background-color: #f0f5ff;
+			position: relative;
+			z-index: 1;
+			box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.3);
+
+			td::after {
+				opacity: 1;
+			}
+		}
 	}
 
 	.table-responsive {

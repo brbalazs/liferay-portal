@@ -23,7 +23,8 @@ import React from 'react';
 import {
 	OPEN_SIDE_PANEL,
 	CLOSE_SIDE_PANEL,
-	IFRAME_LOADED
+	IFRAME_LOADED,
+	SIDE_PANEL_CLOSED
 } from '../../utilities/eventsDefinitions.es';
 import {iframeHandlerModalId, isPageInIframe} from '../../utilities/iframes.es';
 import {debounce} from '../../utilities/index.es';
@@ -192,6 +193,9 @@ export default class SidePanel extends React.Component {
 				closeButtonStyle: null,
 				currentUrl: null,
 				loading: true
+			});
+			Liferay.fire(SIDE_PANEL_CLOSED, {
+				id: this.props.id
 			});
 		});
 	}

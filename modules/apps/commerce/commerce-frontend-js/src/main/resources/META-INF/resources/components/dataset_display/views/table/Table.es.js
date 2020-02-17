@@ -13,6 +13,7 @@
  */
 
 import ClayTable from '@clayui/table';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useContext} from 'react';
 
@@ -61,6 +62,7 @@ function CustomTableCell(props) {
 			{currentView.Component && !loading ? (
 				<currentView.Component
 					actions={props.actions}
+					itemId={props.itemId}
 					options={props.options}
 					value={props.value}
 				/>
@@ -77,6 +79,7 @@ function CustomTableCell(props) {
 
 function Table(props) {
 	const {
+		highlightedItemsValue,
 		selectItems,
 		selectable,
 		selectedItemsKey,
@@ -105,61 +108,75 @@ function Table(props) {
 				updateSorting={updateSorting}
 			/>
 			<ClayTable.Body>
-				{props.items.map((item, i) => (
-					<ClayTable.Row key={item.id || i}>
-						{selectable && (
-							<ClayTable.Cell>
-								<SelectionComponent
-									checked={
-										!!selectedItemsValue.find(
-											el =>
-												String(el) ===
-												String(item[selectedItemsKey])
-										)
-									}
-									onChange={() =>
-										selectItems(item[selectedItemsKey])
-									}
-									value={item[selectedItemsKey]}
-								/>
-							</ClayTable.Cell>
-						)}
-						{props.schema.fields.map((field, i) => {
-							const fieldName = field.fieldName;
-							const {
-								actionItems,
-								[fieldName]: value,
-								...otherProps
-							} = item;
-							const comment = otherProps.comments
-								? otherProps.comments[field.fieldName]
-								: null;
-							return (
-								<CustomTableCell
-									actions={actionItems}
-									comment={comment}
-									key={fieldName || i}
-									options={field}
-									value={value}
-									view={{
-										contentRenderer: field.contentRenderer,
-										contentRendererModuleUrl:
-											field.contentRendererModuleUrl
-									}}
-								/>
-							);
-						})}
-						{showActionItems ? (
-							item.actionItems ? (
+				{props.items.map((item, i) => {
+					const itemId = item[selectedItemsKey] || i;
+
+					return (
+						<ClayTable.Row 
+							className={classNames(
+								highlightedItemsValue.includes(itemId) &&
+									'active'
+							)}
+							key={itemId}
+						>
+							{selectable && (
 								<ClayTable.Cell>
-									<ActionsDropdown items={item.actionItems} />
+									<SelectionComponent
+										checked={
+											!!selectedItemsValue.find(
+												el =>
+													String(el) ===
+													String(itemId)
+											)
+										}
+										onChange={() =>
+											selectItems(itemId)
+										}
+										value={itemId}
+									/>
 								</ClayTable.Cell>
-							) : (
-								<ClayTable.Cell />
-							)
-						) : null}
-					</ClayTable.Row>
-				))}
+							)}
+							{props.schema.fields.map((field, i) => {
+								const fieldName = field.fieldName;
+								const {
+									actionItems,
+									[fieldName]: value,
+									...otherProps
+								} = item;
+								const comment = otherProps.comments
+									? otherProps.comments[field.fieldName]
+									: null;
+								return (
+									<CustomTableCell
+										actions={actionItems}
+										comment={comment}
+										itemId={itemId}
+										key={fieldName || i}
+										options={field}
+										value={value}
+										view={{
+											contentRenderer: field.contentRenderer,
+											contentRendererModuleUrl:
+												field.contentRendererModuleUrl
+										}}
+									/>
+								);
+							})}
+							{showActionItems ? (
+								item.actionItems ? (
+									<ClayTable.Cell>
+										<ActionsDropdown
+											actions={item.actionItems}
+											itemId={itemId}
+										/>
+									</ClayTable.Cell>
+								) : (
+									<ClayTable.Cell />
+								)
+							) : null}
+						</ClayTable.Row>
+					)
+				})}
 			</ClayTable.Body>
 		</ClayTable>
 	);

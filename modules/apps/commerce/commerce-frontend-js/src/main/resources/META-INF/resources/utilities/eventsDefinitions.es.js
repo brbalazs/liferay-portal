@@ -21,6 +21,7 @@ export const IFRAME_LOADED = 'iframe-loaded';
 export const OPEN_MODAL = 'open-modal';
 export const OPEN_SIDE_PANEL = 'open-side-panel';
 export const PRODUCT_OPTIONS_CHANGED = 'product-options-changed';
+export const SIDE_PANEL_CLOSED = 'side-panel-closed';
 export const UPDATE_DATASET_DISPLAY = 'update-dataset-display';
 
 export default {
@@ -33,5 +34,6 @@ export default {
 	OPEN_MODAL,
 	OPEN_SIDE_PANEL,
 	PRODUCT_OPTIONS_CHANGED,
+	SIDE_PANEL_CLOSED,
 	UPDATE_DATASET_DISPLAY
 };

@@ -96,7 +96,7 @@ function Email(props) {
 				</div>
 				{props.actionItems.length ? (
 					<div className="col-auto d-flex flex-column justify-content-center">
-						<ActionsDropdown items={props.actionItems} />
+						<ActionsDropdown actions={props.actionItems} />
 					</div>
 				) : null}
 			</div>

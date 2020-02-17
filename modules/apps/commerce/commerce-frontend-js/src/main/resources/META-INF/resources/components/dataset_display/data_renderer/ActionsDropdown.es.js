@@ -21,7 +21,7 @@ import React, {useContext, useState} from 'react';
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
 
 function ActionItem(props) {
-	const {loadData, openModal, openSidePanel} = useContext(
+	const {highlightItems, loadData, openModal, openSidePanel} = useContext(
 		DatasetDisplayContext
 	);
 
@@ -34,6 +34,7 @@ function ActionItem(props) {
 		}
 
 		if (target === 'sidePanel') {
+			highlightItems([props.itemId]);
 			openSidePanel(payload);
 			props.closeMenu();
 		}
@@ -84,11 +85,12 @@ function ActionsDropdown(props) {
 		>
 			<ClayDropDown.ItemList>
 				<ClayDropDown.Group>
-					{props.items.map((item, i) => (
+					{props.actions.map((action, i) => (
 						<ActionItem
 							key={i}
-							{...item}
+							{...action}
 							closeMenu={() => setActive(false)}
+							itemId={props.itemId}
 						/>
 					))}
 				</ClayDropDown.Group>
@@ -98,14 +100,15 @@ function ActionsDropdown(props) {
 }
 
 ActionsDropdown.propTypes = {
-	items: PropTypes.arrayOf(
+	actions: PropTypes.arrayOf(
 		PropTypes.shape({
 			href: PropTypes.string,
 			icon: PropTypes.string,
 			label: PropTypes.string.isRequired,
 			target: PropTypes.oneOf(['modal', 'sidePanel', 'link'])
 		})
-	)
+	),
+	itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default ActionsDropdown;

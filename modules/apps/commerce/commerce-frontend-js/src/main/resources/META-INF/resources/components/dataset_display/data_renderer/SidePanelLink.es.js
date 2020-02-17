@@ -19,11 +19,12 @@ import DatasetDisplayContext from '../DatasetDisplayContext.es';
 import DefaultContent from './Default.es';
 
 function SidePanelLink(props) {
-	const {openSidePanel} = useContext(DatasetDisplayContext);
+	const {highlightItems, openSidePanel} = useContext(DatasetDisplayContext);
 
 	function handleClickOnLink(e, payload) {
 		e.preventDefault();
 
+		highlightItems([props.itemId]);
 		openSidePanel(payload);
 	}
 
@@ -43,6 +44,7 @@ function SidePanelLink(props) {
 }
 
 SidePanelLink.propTypes = {
+	itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	value: PropTypes.shape({
 		href: PropTypes.string.isRequired,
 		icon: PropTypes.string,

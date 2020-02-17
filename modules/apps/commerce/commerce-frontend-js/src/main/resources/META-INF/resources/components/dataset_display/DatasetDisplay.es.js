@@ -22,6 +22,7 @@ import {
 	DATASET_DISPLAY_UPDATED,
 	OPEN_MODAL,
 	OPEN_SIDE_PANEL,
+	SIDE_PANEL_CLOSED,
 	UPDATE_DATASET_DISPLAY
 } from '../../utilities/eventsDefinitions.es';
 import {
@@ -71,6 +72,7 @@ function DatasetDisplay(props) {
 	const [selectedItemsValue, setSelectedItemsValue] = useState(
 		props.selectedItems || []
 	);
+	const [highlightedItemsValue, setHighlightedItemsValue] = useState([]);
 	const [filters, updateFilters] = useState(props.filters);
 	const [searchParam, updateSearchParam] = useState('');
 	const [sorting, updateSorting] = useState(props.sorting);
@@ -92,7 +94,10 @@ function DatasetDisplay(props) {
 		...currentViewProps
 	} = views[activeView];
 
-	const selectable = props.bulkActions && !!props.bulkActions.length;
+	const selectable =
+		props.bulkActions &&
+		!!props.bulkActions.length &&
+		props.selectedItemsKey;
 
 	useEffect(() => {
 		if (
@@ -211,7 +216,7 @@ function DatasetDisplay(props) {
 		setChangesCount
 	]);
 
-	const selectItems = val => {
+	function selectItems(val) {
 		if (val instanceof Array) {
 			return setSelectedItemsValue(val);
 		}
@@ -227,7 +232,20 @@ function DatasetDisplay(props) {
 		} else {
 			setSelectedItemsValue(selectedItemsValue.concat(val));
 		}
-	};
+	}
+
+	function highlightItems(val = []) {
+		debugger;
+		if (val instanceof Array) {
+			return setHighlightedItemsValue(val);
+		}
+
+		const itemAdded = highlightedItemsValue.find(item => item === val);
+
+		if (!itemAdded) {
+			setHighlightedItemsValue(highlightedItemsValue.concat(val));
+		}
+	}
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const refreshData = () =>
@@ -257,9 +275,17 @@ function DatasetDisplay(props) {
 			}
 		}
 
+		function handleCloseSidePanel(_e) {
+			setHighlightedItemsValue([]);
+		}
+
+		Liferay.on(SIDE_PANEL_CLOSED, handleCloseSidePanel);
 		Liferay.on(UPDATE_DATASET_DISPLAY, handleRefreshFromTheOutside);
-		return () =>
+
+		return () => {
+			Liferay.detach(SIDE_PANEL_CLOSED, handleCloseSidePanel);
 			Liferay.detach(UPDATE_DATASET_DISPLAY, handleRefreshFromTheOutside);
+		};
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.id]);
@@ -353,6 +379,8 @@ function DatasetDisplay(props) {
 			value={{
 				formId: props.formId,
 				formRef,
+				highlightItems,
+				highlightedItemsValue,
 				loadData: refreshData,
 				modalId: datasetDisplaySupportModalId,
 				openModal,

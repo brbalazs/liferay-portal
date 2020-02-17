@@ -158,7 +158,22 @@ const fluidDataSetDisplayProps = {
 				{
 					href: '/view/url',
 					icon: 'view',
+					id: 'view',
 					label: 'View'
+				},
+				{
+					href: '/delete/url',
+					icon: 'trash',
+					id: 'delete',
+					label: 'Delete',
+					target: 'modal'
+				},
+				{
+					href: '/edit/url',
+					icon: 'pencil',
+					id: 'edit',
+					label: 'Edit',
+					target: 'sidePanel'
 				}
 			],
 			id: 'sdf',
@@ -238,6 +253,7 @@ const fluidDataSetDisplayProps = {
 		initialTotalItems: 40
 	},
 	showPagination: true,
+	sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
 	style: 'fluid',
 	views: [
@@ -1001,7 +1017,7 @@ const dataSetDisplayProps = {
 		initialPageNumber: 1,
 		initialTotalItems: 40
 	},
-	selectedItemsKey: 'name',
+	selectedItemsKey: 'id',
 	selectionType: 'single',
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
@@ -1211,15 +1227,17 @@ const emailsDataSetDisplayProps = {
 };
 
 datasetDisplayLauncher(
-	'emails-dataset-display',
-	'emails-dataset-display-root-id',
-	emailsDataSetDisplayProps
-);
-datasetDisplayLauncher(
 	'fluid-dataset-display',
 	'fluid-dataset-display-root-id',
 	fluidDataSetDisplayProps
 );
+
+datasetDisplayLauncher(
+	'emails-dataset-display',
+	'emails-dataset-display-root-id',
+	emailsDataSetDisplayProps
+);
+
 datasetDisplayLauncher(
 	'dataset-display',
 	'dataset-display-root-id',
