@@ -32,14 +32,14 @@ const baseItemDefaultProps = {
 
 function SummaryItemBase(props) {
 	return (
-		<>
+		<React.Fragment>
 			<div className="col-6 col-md-9">
 				<p className="m-0">{props.label}</p>
 			</div>
 			<div className="col-6 col-md-3">
 				<p className="m-0">{props.value}</p>
 			</div>
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -47,14 +47,14 @@ SummaryItemBase.propTypes = baseItemDefaultProps;
 
 function SummaryItemBigVariant(props) {
 	return (
-		<>
+		<React.Fragment>
 			<div className="col-6 col-md-9">
 				<h3 className="my-2">{props.label}</h3>
 			</div>
 			<div className="col-6 col-md-3">
 				<h3 className="my-2">{props.value}</h3>
 			</div>
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -62,14 +62,14 @@ SummaryItemBigVariant.propTypes = baseItemDefaultProps;
 
 function SummaryItemDangerVariant(props) {
 	return (
-		<>
+		<React.Fragment>
 			<div className="col-6 col-md-9 text-danger">
 				<p className="m-0">{props.label}</p>
 			</div>
 			<div className="col-6 col-md-3 text-danger">
 				<p className="m-0">{props.value}</p>
 			</div>
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -106,6 +106,19 @@ function Summary(props) {
 	const [items, updateItems] = useState(props.items);
 
 	useEffect(() => {
+		function getData() {
+			fetch(props.apiUrl, {
+				credentials: 'include',
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
+				method: 'GET'
+			})
+				.then(data => data.json())
+				.then(
+					data => (props.dataMapper && props.dataMapper(data)) || data
+				)
+				.then(updateItems);
+		}
+
 		function refreshItems(payload) {
 			if (
 				!props.datasetDisplayId ||
@@ -114,18 +127,13 @@ function Summary(props) {
 			) {
 				return;
 			}
-			fetch(props.apiUrl, {
-				credentials: 'include',
-				headers: new Headers({'x-csrf-token': Liferay.authToken}),
-				method: 'GET'
-			})
-				.then(data => data.json())
-				.then(updateItems);
+			return getData();
 		}
 
+		getData();
 		Liferay.on(DATASET_DISPLAY_UPDATED, refreshItems);
 		return Liferay.detach(DATASET_DISPLAY_UPDATED, refreshItems);
-	}, [props.apiUrl, props.datasetDisplayId]);
+	}, [props, props.apiUrl, props.datasetDisplayId]);
 
 	return (
 		<div className="row summary-table text-right">
@@ -138,11 +146,53 @@ function Summary(props) {
 
 Summary.propTypes = {
 	apiUrl: PropTypes.string,
+	dataMapper: PropTypes.func,
 	datasetDisplayId: PropTypes.string,
 	items: PropTypes.array.isRequired
 };
 
 Summary.defaultProps = {
+	dataMapper: jsonData => {
+		const values = [
+			{
+				label: Liferay.Language.get('items-subtotal'),
+				value: jsonData.subtotal
+			},
+			{
+				label: Liferay.Language.get('items-subtotal-discount'),
+				value: jsonData.subtotalDiscountAmount
+			},
+			{
+				label: Liferay.Language.get('order-discount'),
+				value: jsonData.totalDiscountAmount
+			},
+			{
+				label: Liferay.Language.get('promotion-code'),
+				value: jsonData.couponCode || '--'
+			},
+			{
+				label: Liferay.Language.get('estimated-tax'),
+				value: jsonData.taxAmount
+			},
+			{
+				label: Liferay.Language.get('shipping-and-handing'),
+				value: jsonData.shippingAmount
+			},
+			{
+				label: Liferay.Language.get('shipping-and-handing-discount'),
+				value: jsonData.shippingDiscountAmount
+			},
+			{
+				style: 'divider'
+			},
+			{
+				label: Liferay.Language.get('shipping-and-handing-discount'),
+				style: 'big',
+				value: jsonData.total
+			}
+		];
+		return values;
+	},
 	items: []
 };
 
