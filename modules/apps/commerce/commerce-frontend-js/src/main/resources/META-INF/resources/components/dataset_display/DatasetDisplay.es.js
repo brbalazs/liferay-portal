@@ -235,7 +235,6 @@ function DatasetDisplay(props) {
 	}
 
 	function highlightItems(val = []) {
-		debugger;
 		if (val instanceof Array) {
 			return setHighlightedItemsValue(val);
 		}
