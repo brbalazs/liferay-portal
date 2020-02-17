@@ -216,6 +216,36 @@ public class CommerceShipmentServiceImpl
 	}
 
 	@Override
+	public CommerceShipment updateAddress(
+			long commerceShipmentId, String name, String description,
+			String street1, String street2, String street3, String city,
+			String zip, long commerceRegionId, long commerceCountryId,
+			String phoneNumber)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.updateAddress(
+			commerceShipmentId, name, description, street1, street2, street3,
+			city, zip, commerceRegionId, commerceCountryId, phoneNumber);
+	}
+
+	@Override
+	public CommerceShipment updateCarrierDetails(
+			long commerceShipmentId, String carrier, String trackingNumber)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.updateCarrierDetails(
+			commerceShipmentId, carrier, trackingNumber);
+	}
+
+	@Override
 	public CommerceShipment updateCommerceShipment(
 			long commerceShipmentId, String carrier, String trackingNumber,
 			int status, int shippingDateMonth, int shippingDateDay,
@@ -259,6 +289,18 @@ public class CommerceShipmentServiceImpl
 			shippingDateYear, shippingDateHour, shippingDateMinute,
 			expectedDateMonth, expectedDateDay, expectedDateYear,
 			expectedDateHour, expectedDateMinute);
+	}
+
+	@Override
+	public CommerceShipment updateStatus(long commerceShipmentId, int status)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.updateStatus(
+			commerceShipmentId, status);
 	}
 
 	@ServiceReference(type = CommerceChannelService.class)

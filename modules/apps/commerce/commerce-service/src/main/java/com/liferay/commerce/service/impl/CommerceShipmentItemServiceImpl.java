@@ -68,6 +68,19 @@ public class CommerceShipmentItemServiceImpl
 	}
 
 	@Override
+	public CommerceShipmentItem getCommerceShipmentItem(
+			long commerceShipmentItemId)
+		throws PortalException {
+
+		PortalPermissionUtil.contains(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentItemLocalService.getCommerceShipmentItem(
+			commerceShipmentItemId);
+	}
+
+	@Override
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 			long commerceOrderItemId)
 		throws PortalException {

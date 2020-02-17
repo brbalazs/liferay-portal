@@ -151,6 +151,36 @@ public class CommerceShipmentLocalServiceImpl
 			groupIds, commerceAddressId);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceShipment updateAddress(
+			long commerceShipmentId, String name, String description,
+			String street1, String street2, String street3, String city,
+			String zip, long commerceRegionId, long commerceCountryId,
+			String phoneNumber)
+		throws PortalException {
+
+		CommerceShipment commerceShipment =
+			commerceShipmentPersistence.findByPrimaryKey(commerceShipmentId);
+
+		return commerceShipmentPersistence.update(commerceShipment);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceShipment updateCarrierDetails(
+			long commerceShipmentId, String carrier, String trackingNumber)
+		throws PortalException {
+
+		CommerceShipment commerceShipment =
+			commerceShipmentPersistence.findByPrimaryKey(commerceShipmentId);
+
+		commerceShipment.setCarrier(carrier);
+		commerceShipment.setTrackingNumber(trackingNumber);
+
+		return commerceShipmentPersistence.update(commerceShipment);
+	}
+
 	@Override
 	public CommerceShipment updateCommerceShipment(
 			long commerceShipmentId, String carrier, String trackingNumber,
@@ -244,6 +274,19 @@ public class CommerceShipmentLocalServiceImpl
 		commerceShipment.setTrackingNumber(trackingNumber);
 		commerceShipment.setShippingDate(shippingDate);
 		commerceShipment.setExpectedDate(expectedDate);
+		commerceShipment.setStatus(status);
+
+		return commerceShipmentPersistence.update(commerceShipment);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceShipment updateStatus(long commerceShipmentId, int status)
+		throws PortalException {
+
+		CommerceShipment commerceShipment =
+			commerceShipmentPersistence.findByPrimaryKey(commerceShipmentId);
+
 		commerceShipment.setStatus(status);
 
 		return commerceShipmentPersistence.update(commerceShipment);
