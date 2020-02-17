@@ -33,10 +33,12 @@
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-	document.querySelectorAll('.side-panel-iframe-close').forEach(function(trigger) {
-		trigger.addEventListener('click', function(e) {
-			e.preventDefault();
-			window.parent.Liferay.fire(events.CLOSE_SIDE_PANEL);
+	document
+		.querySelectorAll('.side-panel-iframe-close')
+		.forEach(function(trigger) {
+			trigger.addEventListener('click', function(e) {
+				e.preventDefault();
+				window.parent.Liferay.fire(events.CLOSE_SIDE_PANEL);
+			});
 		});
-	});
 </aui:script>
