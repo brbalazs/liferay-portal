@@ -180,20 +180,24 @@ public class SpecificationResourceImpl
 			_dtoConverterRegistry.getDTOConverter(
 				CPSpecificationOption.class.getName());
 
-		try {
-			CPSpecificationOption cpSpecificationOption = _updateSpecification(
-				specification.getId(), specification);
+		Long specificationId = specification.getId();
 
-			return (Specification)specificationDTOConverter.toDTO(
-				new DefaultDTOConverterContext(
-					contextAcceptLanguage.getPreferredLocale(),
-					cpSpecificationOption.getCPSpecificationOptionId()));
-		}
-		catch (NoSuchCPSpecificationOptionException nscpsoe) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(
-					"Unable to find specification with ID: " +
-						specification.getId());
+		if (specificationId != null) {
+			try {
+				CPSpecificationOption cpSpecificationOption =
+					_updateSpecification(specification.getId(), specification);
+
+				return (Specification)specificationDTOConverter.toDTO(
+					new DefaultDTOConverterContext(
+						contextAcceptLanguage.getPreferredLocale(),
+						cpSpecificationOption.getCPSpecificationOptionId()));
+			}
+			catch (NoSuchCPSpecificationOptionException nscpsoe) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Unable to find specification with ID: " +
+							specification.getId());
+				}
 			}
 		}
 

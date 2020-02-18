@@ -191,9 +191,53 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 			>
 
 				<%
-				Map<String, String> contextParams = new HashMap<>();
+					Map<String, String> contextParams = new HashMap<>();
 
-				contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
+					contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
+				%>
+
+				<div id="item-finder-root"></div>
+
+				<aui:script require="commerce-frontend-js/components/item_finder/entry.es.js as itemFinder">
+
+					function addNewItem(_name) {
+						return new Promise(resolve => {
+							setTimeout(() => resolve(getRandomId()), 200);
+						});
+					}
+
+					function selectItem(id) {
+						return new Promise(resolve => {
+							setTimeout(() => resolve(id), 200);
+						});
+					}
+
+					itemFinder.default('itemFinder', 'item-finder-root',{
+						apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+						itemsKey: 'id',
+						onItemCreated: addNewItem,
+						onItemSelected: selectItem,
+						// eslint-disable-next-line no-console
+						onSubmit: console.log,
+						pageSize: 5,
+						schema: {
+							itemTitle: ['title', 'en_US']
+						},
+						spritemap: <%=  %>
+					})
+				</aui:script>
+			</commerce-ui:panel>
+		</div>
+
+		<div class="col-12">
+			<commerce-ui:panel
+				title='<%= LanguageUtil.get(request, "add-new-specifications") %>'
+			>
+
+				<%
+					Map<String, String> contextParams = new HashMap<>();
+
+					contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 				%>
 
 				<commerce-ui:dataset-display
