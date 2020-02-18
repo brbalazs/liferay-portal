@@ -384,6 +384,14 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	@Override
+	public List<CommerceOrderItem> getCommerceOrderItems(
+		long commerceAccountId, int orderStatus, int start, int end) {
+
+		return commerceOrderItemFinder.findByA_O(
+			commerceAccountId, orderStatus, start, end);
+	}
+
+	@Override
 	public int getCommerceOrderItemsCount(long commerceOrderId) {
 		return commerceOrderItemPersistence.countByCommerceOrderId(
 			commerceOrderId);
@@ -395,6 +403,14 @@ public class CommerceOrderItemLocalServiceImpl
 
 		return commerceOrderItemPersistence.countByC_I(
 			commerceOrderId, cpInstanceId);
+	}
+
+	@Override
+	public int getCommerceOrderItemsCount(
+		long commerceAccountId, int orderStatus) {
+
+		return commerceOrderItemFinder.countByA_O(
+			commerceAccountId, orderStatus);
 	}
 
 	@Override

@@ -36,14 +36,58 @@ import java.util.List;
 public class CommerceOrderItemFinderImpl
 	extends CommerceOrderItemFinderBaseImpl implements CommerceOrderItemFinder {
 
+	public static final String COUNT_BY_A_O =
+		CommerceOrderItemFinder.class.getName() + ".countByA_O";
+
 	public static final String FIND_BY_AVAILABLE_QUANTITY =
 		CommerceOrderItemFinder.class.getName() + ".findByAvailableQuantity";
+
+	public static final String FIND_BY_A_O =
+		CommerceOrderItemFinder.class.getName() + ".findByA_O";
 
 	public static final String GET_COMMERCE_ORDER_ITEMS_QUANTITY =
 		CommerceOrderItemFinder.class.getName() +
 			".getCommerceOrderItemsQuantity";
 
 	public static final String SUM_VALUE = "SUM_VALUE";
+
+	@Override
+	public int countByA_O(long commerceAccountId, int orderStatus) {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), COUNT_BY_A_O);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(SUM_VALUE, Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(commerceAccountId);
+			qPos.add(orderStatus);
+
+			Iterator<Long> itr = q.iterate();
+
+			if (itr.hasNext()) {
+				Long sum = itr.next();
+
+				if (sum != null) {
+					return sum.intValue();
+				}
+			}
+
+			return 0;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
 
 	@Override
 	public List<CommerceOrderItem> findByAvailableQuantity(
@@ -71,6 +115,37 @@ public class CommerceOrderItemFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(commerceOrderId);
+
+			return (List<CommerceOrderItem>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	public List<CommerceOrderItem> findByA_O(
+		long commerceAccountId, int orderStatus, int start, int end) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), FIND_BY_A_O);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addEntity("CommerceOrderItem", CommerceOrderItemImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(commerceAccountId);
+			qPos.add(orderStatus);
 
 			return (List<CommerceOrderItem>)QueryUtil.list(
 				q, getDialect(), start, end);

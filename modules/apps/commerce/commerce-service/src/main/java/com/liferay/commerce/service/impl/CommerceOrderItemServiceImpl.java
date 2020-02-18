@@ -14,7 +14,9 @@
 
 package com.liferay.commerce.service.impl;
 
+import com.liferay.commerce.account.constants.CommerceAccountActionKeys;
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.account.permission.CommerceAccountPermission;
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceOrder;
@@ -223,6 +225,18 @@ public class CommerceOrderItemServiceImpl
 	}
 
 	@Override
+	public List<CommerceOrderItem> getCommerceOrderItems(
+			long commerceAccountId, int orderStatus, int start, int end)
+		throws PortalException {
+
+		commerceAccountPermission.check(
+			getPermissionChecker(), commerceAccountId, ActionKeys.VIEW);
+
+		return commerceOrderItemLocalService.getCommerceOrderItems(
+			commerceAccountId, orderStatus, start, end);
+	}
+
+	@Override
 	public int getCommerceOrderItemsCount(long commerceOrderId)
 		throws PortalException {
 
@@ -243,6 +257,18 @@ public class CommerceOrderItemServiceImpl
 
 		return commerceOrderItemLocalService.getCommerceOrderItemsCount(
 			commerceOrderId, cpInstanceId);
+	}
+
+	@Override
+	public int getCommerceOrderItemsCount(
+			long commerceAccountId, int orderStatus)
+		throws PortalException {
+
+		commerceAccountPermission.check(
+			getPermissionChecker(), commerceAccountId, ActionKeys.VIEW);
+
+		return commerceOrderItemLocalService.getCommerceOrderItemsCount(
+			commerceAccountId, orderStatus);
 	}
 
 	@Override
@@ -471,6 +497,9 @@ public class CommerceOrderItemServiceImpl
 			commerceOrderId, cpInstanceId, quantity, shippedQuantity,
 			commerceContext, serviceContext);
 	}
+
+	@ServiceReference(type = CommerceAccountPermission.class)
+	protected CommerceAccountPermission commerceAccountPermission;
 
 	@ServiceReference(type = CommerceProductViewPermission.class)
 	protected CommerceProductViewPermission commerceProductViewPermission;
