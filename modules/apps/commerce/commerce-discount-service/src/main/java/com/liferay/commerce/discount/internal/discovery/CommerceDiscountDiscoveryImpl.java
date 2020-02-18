@@ -354,16 +354,20 @@ public class CommerceDiscountDiscoveryImpl
 			if (commerceDiscountLevel.isUsePercentage()) {
 				totalDiscount = totalDiscount.add(discountValue);
 
-				discountAmount = commercePrice.multiply(totalDiscount);
+				BigDecimal currentDiscountAmount = commercePrice.multiply(
+					totalDiscount);
 
-				discountAmount = discountAmount.divide(_ONE_HUNDRED);
+				currentDiscountAmount = currentDiscountAmount.divide(
+					_ONE_HUNDRED);
+
+				discountAmount = commercePrice.subtract(currentDiscountAmount);
 			}
 			else {
 				discountAmount = discountAmount.subtract(discountValue);
 			}
 		}
 
-		return totalDiscount;
+		return discountAmount;
 	}
 
 	private BigDecimal _getChainDiscountPercentage(
