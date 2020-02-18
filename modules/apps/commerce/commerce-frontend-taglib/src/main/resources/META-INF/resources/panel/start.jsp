@@ -33,7 +33,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 					if (link) {
 						link.addEventListener('click', function(e) {
 							e.preventDefault();
-							Liferay.fire(eventsDefinitions.OPEN, {
+							Liferay.fire(eventsDefinitions.OPEN_MODAL, {
 								id: '<%= actionTargetId %>'
 							});
 						});

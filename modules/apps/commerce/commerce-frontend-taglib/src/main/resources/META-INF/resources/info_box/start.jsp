@@ -35,7 +35,7 @@ String linkId = PortalUtil.generateRandomKey(request, "info-box") + StringPool.U
 					if (link) {
 						link.addEventListener('click', function(e) {
 							e.preventDefault();
-							Liferay.fire(eventsDefinitions.OPEN, {
+							Liferay.fire(eventsDefinitions.OPEN_MODAL, {
 								id: '<%= actionTargetId %>'
 							});
 						});

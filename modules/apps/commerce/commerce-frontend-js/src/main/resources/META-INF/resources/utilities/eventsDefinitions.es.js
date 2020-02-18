@@ -18,7 +18,6 @@ export const CURRENT_PRODUCT_STATUS_CHANGED = 'current-product-status-changed';
 export const CURRENT_PRODUCT_UPDATED = 'current-product-updated';
 export const DATASET_DISPLAY_UPDATED = 'dataset-display-updated';
 export const IFRAME_LOADED = 'iframe-loaded';
-export const OPEN = 'open-component';
 export const OPEN_MODAL = 'open-modal';
 export const OPEN_SIDE_PANEL = 'open-side-panel';
 export const PRODUCT_OPTIONS_CHANGED = 'product-options-changed';
@@ -31,7 +30,6 @@ export default {
 	CURRENT_PRODUCT_UPDATED,
 	DATASET_DISPLAY_UPDATED,
 	IFRAME_LOADED,
-	OPEN,
 	OPEN_MODAL,
 	OPEN_SIDE_PANEL,
 	PRODUCT_OPTIONS_CHANGED,
