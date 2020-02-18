@@ -709,7 +709,7 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 				postMessageBoardThread.getId(), randomPatchMessageBoardThread);
 
 		MessageBoardThread expectedPatchMessageBoardThread =
-			(MessageBoardThread)BeanUtils.cloneBean(postMessageBoardThread);
+			postMessageBoardThread.clone();
 
 		_beanUtilsBean.copyProperties(
 			expectedPatchMessageBoardThread, randomPatchMessageBoardThread);

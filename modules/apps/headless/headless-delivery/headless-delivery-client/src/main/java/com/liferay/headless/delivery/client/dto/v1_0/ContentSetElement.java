@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ContentSetElement {
+public class ContentSetElement implements Cloneable {
 
 	public Object getContent() {
 		return content;
@@ -130,6 +130,11 @@ public class ContentSetElement {
 	}
 
 	protected Object title_i18n;
+
+	@Override
+	public ContentSetElement clone() throws CloneNotSupportedException {
+		return (ContentSetElement)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

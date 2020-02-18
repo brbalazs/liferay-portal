@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Comment {
+public class Comment implements Cloneable {
 
 	public Map<String, Map<String, String>> getActions() {
 		return actions;
@@ -173,6 +173,11 @@ public class Comment {
 	}
 
 	protected String text;
+
+	@Override
+	public Comment clone() throws CloneNotSupportedException {
+		return (Comment)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

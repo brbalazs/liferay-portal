@@ -1581,7 +1581,7 @@ public abstract class BaseStructuredContentResourceTestCase {
 				postStructuredContent.getId(), randomPatchStructuredContent);
 
 		StructuredContent expectedPatchStructuredContent =
-			(StructuredContent)BeanUtils.cloneBean(postStructuredContent);
+			postStructuredContent.clone();
 
 		_beanUtilsBean.copyProperties(
 			expectedPatchStructuredContent, randomPatchStructuredContent);
