@@ -105,11 +105,12 @@ public class OrderDTOConverter implements DTOConverter {
 		CommerceMoney commerceOrderSubTotalMoney =
 			commerceOrder.getSubtotalMoney();
 
-		BigDecimal orderPriceSubTotalPrice =
+		order.setSubtotalFormatted(commerceOrderSubTotalMoney.format(locale));
+
+		BigDecimal commerceOrderSubTotalMoneyPrice =
 			commerceOrderSubTotalMoney.getPrice();
 
-		order.setSubtotalAmount(orderPriceSubTotalPrice.doubleValue());
-		order.setSubtotalFormatted(commerceOrderSubTotalMoney.format(locale));
+		order.setSubtotalAmount(commerceOrderSubTotalMoneyPrice.doubleValue());
 
 		BigDecimal subtotalDiscountAmount =
 			commerceOrder.getSubtotalDiscountAmount();
@@ -121,30 +122,42 @@ public class OrderDTOConverter implements DTOConverter {
 			order.setSubtotalDiscountAmountFormatted(
 				_formatPrice(subtotalDiscountAmount, commerceCurrency, locale));
 
+			BigDecimal subtotalDiscountPercentageLevel1 =
+				commerceOrder.getSubtotalDiscountPercentageLevel1();
+
+			BigDecimal subtotalDiscountPercentageLevel2 =
+				commerceOrder.getSubtotalDiscountPercentageLevel2();
+
+			BigDecimal subtotalDiscountPercentageLevel3 =
+				commerceOrder.getSubtotalDiscountPercentageLevel3();
+
+			BigDecimal subtotalDiscountPercentageLevel4 =
+				commerceOrder.getSubtotalDiscountPercentageLevel4();
+
 			order.setSubtotalDiscountPercentageLevel1(
-				commerceOrder.getSubtotalDiscountPercentageLevel1(
-				).doubleValue());
+				subtotalDiscountPercentageLevel1.doubleValue());
+
 			order.setSubtotalDiscountPercentageLevel2(
-				commerceOrder.getSubtotalDiscountPercentageLevel2(
-				).doubleValue());
+				subtotalDiscountPercentageLevel2.doubleValue());
+
 			order.setSubtotalDiscountPercentageLevel3(
-				commerceOrder.getSubtotalDiscountPercentageLevel3(
-				).doubleValue());
+				subtotalDiscountPercentageLevel3.doubleValue());
+
 			order.setSubtotalDiscountPercentageLevel4(
-				commerceOrder.getSubtotalDiscountPercentageLevel4(
-				).doubleValue());
+				subtotalDiscountPercentageLevel4.doubleValue());
 		}
 
 		CommerceMoney commerceOrderPriceShippingValue =
 			commerceOrder.getShippingMoney();
+
+		order.setShippingAmountFormatted(
+			commerceOrderPriceShippingValue.format(locale));
 
 		BigDecimal commerceOrderPriceShippingValuePrice =
 			commerceOrderPriceShippingValue.getPrice();
 
 		order.setShippingAmountValue(
 			commerceOrderPriceShippingValuePrice.doubleValue());
-		order.setShippingAmountFormatted(
-			commerceOrderPriceShippingValue.format(locale));
 
 		BigDecimal shippingDiscountAmount =
 			commerceOrder.getShippingDiscountAmount();
@@ -156,18 +169,29 @@ public class OrderDTOConverter implements DTOConverter {
 			order.setShippingDiscountAmountFormatted(
 				_formatPrice(shippingDiscountAmount, commerceCurrency, locale));
 
+			BigDecimal shippingDiscountPercentageLevel1 =
+				commerceOrder.getShippingDiscountPercentageLevel1();
+
+			BigDecimal shippingDiscountPercentageLevel2 =
+				commerceOrder.getShippingDiscountPercentageLevel2();
+
+			BigDecimal shippingDiscountPercentageLevel3 =
+				commerceOrder.getShippingDiscountPercentageLevel3();
+
+			BigDecimal shippingDiscountPercentageLevel4 =
+				commerceOrder.getShippingDiscountPercentageLevel4();
+
 			order.setShippingDiscountPercentageLevel1(
-				commerceOrder.getShippingDiscountPercentageLevel1(
-				).doubleValue());
+				shippingDiscountPercentageLevel1.doubleValue());
+
 			order.setShippingDiscountPercentageLevel2(
-				commerceOrder.getShippingDiscountPercentageLevel2(
-				).doubleValue());
+				shippingDiscountPercentageLevel2.doubleValue());
+
 			order.setShippingDiscountPercentageLevel3(
-				commerceOrder.getShippingDiscountPercentageLevel3(
-				).doubleValue());
+				shippingDiscountPercentageLevel3.doubleValue());
+
 			order.setShippingDiscountPercentageLevel4(
-				commerceOrder.getShippingDiscountPercentageLevel4(
-				).doubleValue());
+				shippingDiscountPercentageLevel4.doubleValue());
 		}
 
 		BigDecimal taxAmount = commerceOrder.getTaxAmount();
@@ -180,10 +204,11 @@ public class OrderDTOConverter implements DTOConverter {
 
 		CommerceMoney commerceOrderTotalMoney = commerceOrder.getTotalMoney();
 
+		order.setTotalFormatted(commerceOrderTotalMoney.format(locale));
+
 		BigDecimal commerceOrderTotalPrice = commerceOrderTotalMoney.getPrice();
 
 		order.setTotalAmount(commerceOrderTotalPrice.doubleValue());
-		order.setTotalFormatted(commerceOrderTotalMoney.format(locale));
 
 		BigDecimal totalDiscountAmount = commerceOrder.getTotalDiscountAmount();
 
@@ -193,18 +218,29 @@ public class OrderDTOConverter implements DTOConverter {
 			order.setTotalDiscountAmountFormatted(
 				_formatPrice(totalDiscountAmount, commerceCurrency, locale));
 
+			BigDecimal totalDiscountPercentageLevel1 =
+				commerceOrder.getTotalDiscountPercentageLevel1();
+
+			BigDecimal totalDiscountPercentageLevel2 =
+				commerceOrder.getTotalDiscountPercentageLevel2();
+
+			BigDecimal totalDiscountPercentageLevel3 =
+				commerceOrder.getTotalDiscountPercentageLevel3();
+
+			BigDecimal totalDiscountPercentageLevel4 =
+				commerceOrder.getTotalDiscountPercentageLevel4();
+
 			order.setTotalDiscountPercentageLevel1(
-				commerceOrder.getTotalDiscountPercentageLevel1(
-				).doubleValue());
+				totalDiscountPercentageLevel1.doubleValue());
+
 			order.setTotalDiscountPercentageLevel2(
-				commerceOrder.getTotalDiscountPercentageLevel2(
-				).doubleValue());
+				totalDiscountPercentageLevel2.doubleValue());
+
 			order.setTotalDiscountPercentageLevel3(
-				commerceOrder.getTotalDiscountPercentageLevel3(
-				).doubleValue());
+				totalDiscountPercentageLevel3.doubleValue());
+
 			order.setTotalDiscountPercentageLevel4(
-				commerceOrder.getTotalDiscountPercentageLevel4(
-				).doubleValue());
+				totalDiscountPercentageLevel4.doubleValue());
 		}
 
 		return order;
