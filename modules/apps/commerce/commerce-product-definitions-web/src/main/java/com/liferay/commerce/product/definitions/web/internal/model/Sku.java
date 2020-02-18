@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.product.definitions.web.internal.model;
 
-import com.liferay.commerce.frontend.model.LabelField;
+import com.liferay.commerce.model.LabelField;
 
 /**
  * @author Alessio Antonio Rendina

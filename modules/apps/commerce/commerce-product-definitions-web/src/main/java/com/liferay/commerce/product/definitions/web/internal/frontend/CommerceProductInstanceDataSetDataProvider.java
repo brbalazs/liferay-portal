@@ -19,7 +19,7 @@ import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.DefaultFilterImpl;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.frontend.model.LabelField;
+import com.liferay.commerce.model.LabelField;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.product.definitions.web.internal.model.Sku;
 import com.liferay.commerce.product.model.CPInstance;

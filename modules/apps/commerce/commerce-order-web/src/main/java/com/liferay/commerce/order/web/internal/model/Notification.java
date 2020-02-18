@@ -15,7 +15,7 @@
 package com.liferay.commerce.order.web.internal.model;
 
 import com.liferay.commerce.frontend.model.AuthorField;
-import com.liferay.commerce.frontend.model.LabelField;
+import com.liferay.commerce.model.LabelField;
 
 /**
  * @author Alessio Antonio Rendina

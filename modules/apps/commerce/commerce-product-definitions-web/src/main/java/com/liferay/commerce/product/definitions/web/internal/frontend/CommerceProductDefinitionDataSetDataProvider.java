@@ -19,7 +19,7 @@ import com.liferay.commerce.frontend.DefaultFilterImpl;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.ImageField;
-import com.liferay.commerce.frontend.model.LabelField;
+import com.liferay.commerce.model.LabelField;
 import com.liferay.commerce.product.definitions.web.internal.model.Product;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.model.CPDefinition;

@@ -18,7 +18,7 @@ import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.ImageField;
-import com.liferay.commerce.frontend.model.LabelField;
+import com.liferay.commerce.model.LabelField;
 import com.liferay.commerce.media.CommerceMediaResolverUtil;
 import com.liferay.commerce.product.definitions.web.internal.model.ProductMedia;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;

@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.model;
 
-import com.liferay.commerce.frontend.model.LabelField;
-
 /**
  * @author Alessio Antonio Rendina
  * @author Alec Sloan

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.frontend.model;
+package com.liferay.commerce.model;
 
 /**
  * @author Alessio Antonio Rendina

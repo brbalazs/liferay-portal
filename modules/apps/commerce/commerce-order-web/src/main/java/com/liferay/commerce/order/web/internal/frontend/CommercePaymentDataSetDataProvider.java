@@ -19,7 +19,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.frontend.model.LabelField;
+import com.liferay.commerce.model.LabelField;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderPayment;
 import com.liferay.commerce.order.web.internal.model.Payment;
