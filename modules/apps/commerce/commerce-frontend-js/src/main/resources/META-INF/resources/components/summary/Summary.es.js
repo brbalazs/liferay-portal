@@ -156,15 +156,15 @@ Summary.defaultProps = {
 		const values = [
 			{
 				label: Liferay.Language.get('items-subtotal'),
-				value: jsonData.subtotal
+				value: jsonData.subtotalFormatted
 			},
 			{
 				label: Liferay.Language.get('items-subtotal-discount'),
-				value: jsonData.subtotalDiscountAmount
+				value: jsonData.subtotalDiscountAmountFormatted
 			},
 			{
 				label: Liferay.Language.get('order-discount'),
-				value: jsonData.totalDiscountAmount
+				value: jsonData.totalDiscountAmountFormatted
 			},
 			{
 				label: Liferay.Language.get('promotion-code'),
@@ -172,15 +172,15 @@ Summary.defaultProps = {
 			},
 			{
 				label: Liferay.Language.get('estimated-tax'),
-				value: jsonData.taxAmount
+				value: jsonData.taxAmountFormatted
 			},
 			{
 				label: Liferay.Language.get('shipping-and-handing'),
-				value: jsonData.shippingAmount
+				value: jsonData.shippingAmountFormatted
 			},
 			{
 				label: Liferay.Language.get('shipping-and-handing-discount'),
-				value: jsonData.shippingDiscountAmount
+				value: jsonData.shippingDiscountAmountFormatted
 			},
 			{
 				style: 'divider'
@@ -188,7 +188,7 @@ Summary.defaultProps = {
 			{
 				label: Liferay.Language.get('shipping-and-handing-discount'),
 				style: 'big',
-				value: jsonData.total
+				value: jsonData.totalFormatted
 			}
 		];
 		return values;
