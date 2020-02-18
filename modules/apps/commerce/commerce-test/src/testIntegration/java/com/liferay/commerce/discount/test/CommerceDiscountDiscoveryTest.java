@@ -19,11 +19,11 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupCommerceAccountRelLocalServiceUtil;
 import com.liferay.commerce.account.service.CommerceAccountGroupLocalService;
-import com.liferay.commerce.account.service.CommerceAccountLocalService;
 import com.liferay.commerce.account.test.util.CommerceAccountTestUtil;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
+import com.liferay.commerce.discount.CommerceDiscountLevel;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.discovery.CommerceDiscountDiscovery;
 import com.liferay.commerce.discount.model.CommerceDiscount;
@@ -49,6 +49,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.rule.SynchronousDestinationTestRule;
@@ -126,11 +127,11 @@ public class CommerceDiscountDiscoveryTest {
 			_configurationProvider.getSystemConfiguration(
 				CommercePricingConfiguration.class);
 
-		_commerceOrders = new ArrayList<>();
-
 		_updateProperties(
 			"commerceDiscountApplicationMethod",
 			CommercePricingConstants.DISCOUNT_CHAIN_METHOD);
+
+		_commerceOrders = new ArrayList<>();
 	}
 
 	@After
@@ -138,6 +139,121 @@ public class CommerceDiscountDiscoveryTest {
 		for (CommerceOrder commerceOrder : _commerceOrders) {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
+	}
+
+	@Test
+	public void testApplyDiscountsAdditiveMethod() throws Exception {
+		frutillaRule.scenario(
+			"The discounts are applied to the price using the additive method"
+		).given(
+			"A price and four level discounts"
+		).when(
+			"The discounted price is calculated"
+		).then(
+			"The additive method is applied to the price"
+		);
+
+		_updateProperties(
+			"commerceDiscountApplicationMethod",
+			CommercePricingConstants.DISCOUNT_ADDITIVE_METHOD);
+
+		BigDecimal price = BigDecimal.valueOf(100);
+
+		CommerceDiscountLevel[] commerceDiscountLevels =
+			new CommerceDiscountLevel[4];
+
+		commerceDiscountLevels[0] = new CommerceDiscountLevel(
+			BigDecimal.valueOf(10));
+
+		commerceDiscountLevels[1] = new CommerceDiscountLevel(
+			BigDecimal.valueOf(10));
+
+		commerceDiscountLevels[2] = new CommerceDiscountLevel(
+			BigDecimal.valueOf(10));
+
+		commerceDiscountLevels[3] = new CommerceDiscountLevel(
+			BigDecimal.valueOf(10));
+
+		BigDecimal discountedPrice =
+			_commerceDiscountDiscovery.applyCommerceDiscounts(
+				price, commerceDiscountLevels);
+
+		BigDecimal totalDiscount = BigDecimal.ZERO;
+
+		for (CommerceDiscountLevel commerceDiscountLevel :
+				commerceDiscountLevels) {
+
+			BigDecimal level = commerceDiscountLevel.getDiscountValue();
+
+			totalDiscount = totalDiscount.add(level);
+		}
+
+		totalDiscount = totalDiscount.divide(_ONE_HUNDRED);
+
+		BigDecimal totalDiscountPercentage = _ONE.subtract(totalDiscount);
+
+		BigDecimal expectedPrice = price.multiply(totalDiscountPercentage);
+
+		Assert.assertEquals(
+			expectedPrice.doubleValue(), discountedPrice.doubleValue(), 0);
+	}
+
+	@Test
+	public void testApplyDiscountsChainMethod() throws Exception {
+		frutillaRule.scenario(
+			"The discounts are applied to the price using the chain method"
+		).given(
+			"A price and four level discounts"
+		).when(
+			"The discounted price is calculated"
+		).then(
+			"The chain method is applied to the price"
+		);
+
+		_updateProperties(
+			"commerceDiscountApplicationMethod",
+			CommercePricingConstants.DISCOUNT_CHAIN_METHOD);
+
+		BigDecimal price = BigDecimal.valueOf(100);
+
+		CommerceDiscountLevel[] commerceDiscountLevels =
+			new CommerceDiscountLevel[4];
+
+		commerceDiscountLevels[0] = new CommerceDiscountLevel(
+			BigDecimal.valueOf(10));
+		commerceDiscountLevels[1] = new CommerceDiscountLevel(
+			BigDecimal.valueOf(10));
+		commerceDiscountLevels[2] = new CommerceDiscountLevel(
+			BigDecimal.valueOf(10));
+		commerceDiscountLevels[3] = new CommerceDiscountLevel(
+			BigDecimal.valueOf(10));
+
+		BigDecimal discountedPrice =
+			_commerceDiscountDiscovery.applyCommerceDiscounts(
+				price, commerceDiscountLevels);
+
+		BigDecimal level1 = commerceDiscountLevels[0].getDiscountValue();
+
+		BigDecimal expectedPrice = price.multiply(
+			_getChainableLevelDiscount(level1));
+
+		BigDecimal level2 = commerceDiscountLevels[1].getDiscountValue();
+
+		expectedPrice = expectedPrice.multiply(
+			_getChainableLevelDiscount(level2));
+
+		BigDecimal level3 = commerceDiscountLevels[2].getDiscountValue();
+
+		expectedPrice = expectedPrice.multiply(
+			_getChainableLevelDiscount(level3));
+
+		BigDecimal level4 = commerceDiscountLevels[3].getDiscountValue();
+
+		expectedPrice = expectedPrice.multiply(
+			_getChainableLevelDiscount(level4));
+
+		Assert.assertEquals(
+			expectedPrice.doubleValue(), discountedPrice.doubleValue(), 0);
 	}
 
 	@Test
@@ -358,7 +474,7 @@ public class CommerceDiscountDiscoveryTest {
 		List<CommerceDiscount> commerceDiscounts =
 			_commerceDiscountDiscovery.getProductCommerceDiscount(
 				_commerceAccount.getCommerceAccountId(),
-				_getCommerceAccoutGroupIds(),
+				_getCommerceAccountGroupIds(),
 				_commerceChannel.getCommerceChannelId(),
 				cpDefinition.getCPDefinitionId());
 
@@ -474,7 +590,7 @@ public class CommerceDiscountDiscoveryTest {
 		List<CommerceDiscount> commerceDiscounts =
 			_commerceDiscountDiscovery.getOrderCommerceDiscount(
 				_commerceAccount.getCommerceAccountId(),
-				_getCommerceAccoutGroupIds(),
+				_getCommerceAccountGroupIds(),
 				_commerceChannel.getCommerceChannelId(),
 				CommerceDiscountConstants.TARGET_TOTAL);
 
@@ -495,7 +611,7 @@ public class CommerceDiscountDiscoveryTest {
 
 		commerceDiscounts = _commerceDiscountDiscovery.getOrderCommerceDiscount(
 			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
+			_getCommerceAccountGroupIds(),
 			_commerceChannel.getCommerceChannelId(),
 			CommerceDiscountConstants.TARGET_SHIPPING);
 
@@ -516,7 +632,7 @@ public class CommerceDiscountDiscoveryTest {
 
 		commerceDiscounts = _commerceDiscountDiscovery.getOrderCommerceDiscount(
 			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
+			_getCommerceAccountGroupIds(),
 			_commerceChannel.getCommerceChannelId(),
 			CommerceDiscountConstants.TARGET_SUBTOTAL);
 
@@ -558,7 +674,7 @@ public class CommerceDiscountDiscoveryTest {
 				level, CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinitionId);
 
-		long[] commerceAccountGroupIds = _getCommerceAccoutGroupIds();
+		long[] commerceAccountGroupIds = _getCommerceAccountGroupIds();
 
 		for (long commerceAccountGroupId : commerceAccountGroupIds) {
 			_commerceDiscountCommerceAccountGroupRelLocalService.
@@ -578,7 +694,7 @@ public class CommerceDiscountDiscoveryTest {
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
 				groupId, RandomTestUtil.randomDouble(), type, null);
 
-		long[] commerceAccountGroupIds = _getCommerceAccoutGroupIds();
+		long[] commerceAccountGroupIds = _getCommerceAccountGroupIds();
 
 		for (long commerceAccountGroupId : commerceAccountGroupIds) {
 			_commerceDiscountCommerceAccountGroupRelLocalService.
@@ -637,7 +753,13 @@ public class CommerceDiscountDiscoveryTest {
 		return commerceDiscount;
 	}
 
-	private long[] _getCommerceAccoutGroupIds() {
+	private BigDecimal _getChainableLevelDiscount(BigDecimal value) {
+		BigDecimal valuePercentage = value.divide(_ONE_HUNDRED);
+
+		return _ONE.subtract(valuePercentage);
+	}
+
+	private long[] _getCommerceAccountGroupIds() {
 		List<CommerceAccountGroup> commerceAccountGroups =
 			_commerceAccountGroupLocalService.
 				getCommerceAccountGroupsByCommerceAccountId(
@@ -661,14 +783,15 @@ public class CommerceDiscountDiscoveryTest {
 			CommercePricingConfiguration.class, properties);
 	}
 
+	private static final BigDecimal _ONE = BigDecimal.valueOf(1);
+
+	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
+
 	private CommerceAccount _commerceAccount;
 	private CommerceAccountGroup _commerceAccountGroup;
 
 	@Inject
 	private CommerceAccountGroupLocalService _commerceAccountGroupLocalService;
-
-	@Inject
-	private CommerceAccountLocalService _commerceAccountLocalService;
 
 	@Inject
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
@@ -708,6 +831,9 @@ public class CommerceDiscountDiscoveryTest {
 	private Group _group;
 
 	private ServiceContext _serviceContext;
+
+	@Inject
+	private SettingsFactory _settingsFactory;
 
 	@DeleteAfterTestRun
 	private User _user;
