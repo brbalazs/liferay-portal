@@ -186,7 +186,7 @@ Summary.defaultProps = {
 				style: 'divider'
 			},
 			{
-				label: Liferay.Language.get('shipping-and-handing-discount'),
+				label: Liferay.Language.get('grand-total'),
 				style: 'big',
 				value: jsonData.totalFormatted
 			}
