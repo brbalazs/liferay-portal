@@ -22,6 +22,16 @@ definition {
 			agreeToTermsAndAnswerReminderQuery = "true",
 			requireReset = "false",
 			userEmailAddress = "userea@liferay.com");
+
+		User.logoutPG();
+
+		User.loginPG(
+			password = "test",
+			userEmailAddress = "userea@liferay.com");
+
+		User.logoutPG();
+
+		User.loginPG();
 	}
 
 	tearDown {

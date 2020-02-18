@@ -44,6 +44,16 @@ definition {
 			requireReset = "false",
 			userEmailAddress = PropsUtil.get("email.address.4"));
 
+		User.logoutPG();
+
+		User.loginPG(
+			password = "test",
+			userEmailAddress = PropsUtil.get("email.address.4"));
+
+		User.logoutPG();
+
+		User.loginPG();
+
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
