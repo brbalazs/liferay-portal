@@ -19,14 +19,15 @@ import com.liferay.commerce.product.configuration.CPDefinitionLinkTypeSettings;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.component.annotations.ReferencePolicyOption;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Alessio Antonio Rendina

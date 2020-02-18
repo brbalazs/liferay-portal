@@ -31,6 +31,9 @@ public class CPWebKeys {
 
 	public static final String CP_DEFINITION = "CP_DEFINITION";
 
+	public static final String CP_DEFINITION_INVENTORY =
+		"CP_DEFINITION_INVENTORY";
+
 	public static final String CP_DEFINITION_LINK = "CP_DEFINITION_LINK";
 
 	public static final String CP_DEFINITION_LINKS = "CP_DEFINITION_LINKS";
@@ -40,9 +43,6 @@ public class CPWebKeys {
 
 	public static final String CP_DEFINITION_OPTION_RELS =
 		"CP_DEFINITION_OPTION_RELS";
-
-	public static final String CP_DEFINITION_INVENTORY =
-		"CP_DEFINITION_INVENTORY";
 
 	public static final String CP_DEFINITION_OPTION_VALUE_REL =
 		"CP_DEFINITION_OPTION_VALUE_REL";

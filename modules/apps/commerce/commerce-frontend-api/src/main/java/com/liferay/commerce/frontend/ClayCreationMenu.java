@@ -41,7 +41,8 @@ public class ClayCreationMenu {
 	public void addClayCreationMenuItem(
 		String url, String label, String target) {
 
-		_clayCreationMenuItems.add(new ClayCreationMenuItem(url, label, target));
+		_clayCreationMenuItems.add(
+			new ClayCreationMenuItem(url, label, target));
 	}
 
 	public List<ClayCreationMenuItem> getClayCreationMenuItems() {

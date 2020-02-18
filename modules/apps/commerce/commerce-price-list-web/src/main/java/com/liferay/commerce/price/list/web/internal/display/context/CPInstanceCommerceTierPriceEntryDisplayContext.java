@@ -200,7 +200,8 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 
 	public boolean hasCustomAttributes() throws Exception {
 		return CustomAttributesUtil.hasCustomAttributes(
-			cpRequestHelper.getCompanyId(), CommerceTierPriceEntry.class.getName(),
+			cpRequestHelper.getCompanyId(),
+			CommerceTierPriceEntry.class.getName(),
 			getCommerceTierPriceEntryId(), null);
 	}
 
