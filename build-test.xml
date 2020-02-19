@@ -4645,9 +4645,10 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 
 						docker rm -f ${docker_rm_list}
 
-						while IFS= read -r docker_container; do
+						while IFS=read -r docker_container
+						do
 						    docker network disconnect -f ${HOSTNAME} $docker_container
-						done <<< "$docker_rm_list"
+						done <<< "${docker_rm_list}"
 					fi
 				]]>
 			</echo>
