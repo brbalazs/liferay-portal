@@ -86,10 +86,9 @@ public class CPInstanceDisplayContext extends BaseCPDefinitionsDisplayContext {
 			return Collections.emptyMap();
 		}
 
-		CPInstance cpInstance = _cpInstanceService.getCPInstance(cpInstanceId);
-
-		return _cpInstanceHelper.getCPDefinitionOptionRelsMap(
-			cpInstance.getCPDefinitionId(), cpInstance.getJson());
+		return _cpInstanceHelper.
+			getCPInstanceCPDefinitionOptionRelsCPDefinitionOptionValueRels(
+				cpInstanceId);
 	}
 
 	public ClayCreationMenu getClayCreationMenu() throws Exception {

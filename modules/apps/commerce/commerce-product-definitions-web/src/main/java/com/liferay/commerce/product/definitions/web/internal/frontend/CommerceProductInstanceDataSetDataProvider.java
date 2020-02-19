@@ -24,11 +24,14 @@ import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.product.definitions.web.internal.model.Sku;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
+import com.liferay.commerce.product.util.DDMFormValuesUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
@@ -42,6 +45,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.StringJoiner;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,6 +109,15 @@ public class CommerceProductInstanceDataSetDataProvider
 			pagination.getEndPosition(), sort);
 
 		for (CPInstance cpInstance : cpInstances) {
+			Map<String, List<String>>
+				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys =
+					_cpDefinitionOptionRelLocalService.
+						getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+							cpInstance.getCPInstanceId());
+
+			JSONArray keyValuesJSONArray = DDMFormValuesUtil.toJSONArray(
+				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys);
+
 			int stockQuantity = _commerceInventoryEngine.getStockQuantity(
 				cpInstance.getCompanyId(), cpInstance.getSku());
 
@@ -114,7 +127,7 @@ public class CommerceProductInstanceDataSetDataProvider
 					HtmlUtil.escape(
 						_getOptions(
 							cpInstance.getCPDefinitionId(),
-							cpInstance.getJson(), locale)),
+							keyValuesJSONArray.toString(), locale)),
 					HtmlUtil.escape(_formatPrice(cpInstance, locale)),
 					stockQuantity,
 					new LabelField(
@@ -186,6 +199,10 @@ public class CommerceProductInstanceDataSetDataProvider
 
 	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;
+
+	@Reference
+	private CPDefinitionOptionRelLocalService
+		_cpDefinitionOptionRelLocalService;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
