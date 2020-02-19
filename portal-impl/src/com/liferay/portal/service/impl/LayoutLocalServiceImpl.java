@@ -1793,6 +1793,32 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public int getLayoutsCount(
+		Group group, boolean privateLayout, String[] types) {
+
+		if (ArrayUtil.isEmpty(types)) {
+			return 0;
+		}
+
+		DynamicQuery dynamicQuery = dynamicQuery();
+
+		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
+
+		dynamicQuery.add(groupIdProperty.eq(group.getGroupId()));
+
+		Property privateLayoutProperty = PropertyFactoryUtil.forName(
+			"privateLayout");
+
+		dynamicQuery.add(privateLayoutProperty.eq(privateLayout));
+
+		Property typeProperty = PropertyFactoryUtil.forName("type");
+
+		dynamicQuery.add(typeProperty.in(types));
+
+		return GetterUtil.getInteger(dynamicQueryCount(dynamicQuery));
+	}
+
+	@Override
+	public int getLayoutsCount(
 			Group group, boolean privateLayout, String keywords, String[] types)
 		throws PortalException {
 
