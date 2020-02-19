@@ -36,6 +36,12 @@ import javax.ws.rs.core.Response;
 @Generated("")
 public interface OrderResource {
 
+	public Page<Order> getOrdersPage(
+			Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception;
+
+	public Order postOrder(Order order) throws Exception;
+
 	public Response deleteOrderByExternalReferenceCode(
 			String externalReferenceCode)
 		throws Exception;
@@ -52,12 +58,6 @@ public interface OrderResource {
 	public Order getOrder(Long id) throws Exception;
 
 	public Response patchOrder(Long id, Order order) throws Exception;
-
-	public Page<Order> getOrdersPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
-		throws Exception;
-
-	public Order postOrder(Order order) throws Exception;
 
 	public void setContextCompany(Company contextCompany);
 

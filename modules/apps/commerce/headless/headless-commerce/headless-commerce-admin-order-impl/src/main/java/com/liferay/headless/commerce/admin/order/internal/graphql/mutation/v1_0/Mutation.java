@@ -115,6 +115,15 @@ public class Mutation {
 					id, billingAddress));
 	}
 
+	@GraphQLField
+	@GraphQLInvokeDetached
+	public Order postOrder(@GraphQLName("order") Order order) throws Exception {
+		return _applyComponentServiceObjects(
+			_orderResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			orderResource -> orderResource.postOrder(order));
+	}
+
 	@GraphQLInvokeDetached
 	public Response deleteOrderByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
@@ -157,15 +166,6 @@ public class Mutation {
 			_orderResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			orderResource -> orderResource.patchOrder(id, order));
-	}
-
-	@GraphQLField
-	@GraphQLInvokeDetached
-	public Order postOrder(@GraphQLName("order") Order order) throws Exception {
-		return _applyComponentServiceObjects(
-			_orderResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			orderResource -> orderResource.postOrder(order));
 	}
 
 	@GraphQLInvokeDetached

@@ -132,6 +132,24 @@ public class Query {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
+	public Collection<Discount> getDiscountsPage(
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_discountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			discountResource -> {
+				Page paginationPage = discountResource.getDiscountsPage(
+					Pagination.of(pageSize, page));
+
+				return paginationPage.getItems();
+			});
+	}
+
+	@GraphQLField
+	@GraphQLInvokeDetached
 	public Discount getDiscountByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
@@ -151,24 +169,6 @@ public class Query {
 			_discountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			discountResource -> discountResource.getDiscount(id));
-	}
-
-	@GraphQLField
-	@GraphQLInvokeDetached
-	public Collection<Discount> getDiscountsPage(
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_discountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			discountResource -> {
-				Page paginationPage = discountResource.getDiscountsPage(
-					Pagination.of(pageSize, page));
-
-				return paginationPage.getItems();
-			});
 	}
 
 	@GraphQLField
@@ -428,6 +428,25 @@ public class Query {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
+	public Collection<PriceList> getPriceListsPage(
+			@GraphQLName("filter") Filter filter,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceListResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceListResource -> {
+				Page paginationPage = priceListResource.getPriceListsPage(
+					filter, Pagination.of(pageSize, page), sorts);
+
+				return paginationPage.getItems();
+			});
+	}
+
+	@GraphQLField
+	@GraphQLInvokeDetached
 	public PriceList getPriceListByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
@@ -447,25 +466,6 @@ public class Query {
 			_priceListResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			priceListResource -> priceListResource.getPriceList(id));
-	}
-
-	@GraphQLField
-	@GraphQLInvokeDetached
-	public Collection<PriceList> getPriceListsPage(
-			@GraphQLName("filter") Filter filter,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_priceListResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			priceListResource -> {
-				Page paginationPage = priceListResource.getPriceListsPage(
-					filter, Pagination.of(pageSize, page), sorts);
-
-				return paginationPage.getItems();
-			});
 	}
 
 	@GraphQLField

@@ -58,6 +58,55 @@ public abstract class BaseAccountOrganizationResourceImpl
 	implements AccountOrganizationResource {
 
 	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path(
+		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AccountOrganization")})
+	public Page<AccountOrganization>
+			getAccountByExternalReferenceCodeAccountOrganizationsPage(
+				@NotNull @Parameter(hidden = true)
+				@PathParam("externalReferenceCode") String
+					externalReferenceCode,
+				@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path(
+		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AccountOrganization")})
+	public AccountOrganization
+			postAccountByExternalReferenceCodeAccountOrganization(
+				@NotNull @Parameter(hidden = true)
+				@PathParam("externalReferenceCode") String
+					externalReferenceCode,
+				AccountOrganization accountOrganization)
+		throws Exception {
+
+		return new AccountOrganization();
+	}
+
+	@Override
 	@DELETE
 	@Parameters(
 		value = {
@@ -111,22 +160,17 @@ public abstract class BaseAccountOrganizationResourceImpl
 	@GET
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode"),
+			@Parameter(in = ParameterIn.PATH, name = "id"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations"
-	)
+	@Path("/accounts/{id}/accountOrganizations")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountOrganization")})
-	public Page<AccountOrganization>
-			getAccountByExternalReferenceCodeAccountOrganizationsPage(
-				@NotNull @Parameter(hidden = true)
-				@PathParam("externalReferenceCode") String
-					externalReferenceCode,
-				@Context Pagination pagination)
+	public Page<AccountOrganization> getAccountIdAccountOrganizationsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
+			@Context Pagination pagination)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -135,22 +179,13 @@ public abstract class BaseAccountOrganizationResourceImpl
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations"
-	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
+	@Path("/accounts/{id}/accountOrganizations")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountOrganization")})
-	public AccountOrganization
-			postAccountByExternalReferenceCodeAccountOrganization(
-				@NotNull @Parameter(hidden = true)
-				@PathParam("externalReferenceCode") String
-					externalReferenceCode,
-				AccountOrganization accountOrganization)
+	public AccountOrganization postAccountIdAccountOrganization(
+			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
+			AccountOrganization accountOrganization)
 		throws Exception {
 
 		return new AccountOrganization();
@@ -193,41 +228,6 @@ public abstract class BaseAccountOrganizationResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
 			@NotNull @Parameter(hidden = true) @PathParam("organizationId") Long
 				organizationId)
-		throws Exception {
-
-		return new AccountOrganization();
-	}
-
-	@Override
-	@GET
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "id"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/accounts/{id}/accountOrganizations")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AccountOrganization")})
-	public Page<AccountOrganization> getAccountIdAccountOrganizationsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/accounts/{id}/accountOrganizations")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AccountOrganization")})
-	public AccountOrganization postAccountIdAccountOrganization(
-			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			AccountOrganization accountOrganization)
 		throws Exception {
 
 		return new AccountOrganization();
