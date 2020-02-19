@@ -281,10 +281,13 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			title='<%= LanguageUtil.get(request, "order-summary") %>'
 		>
 			<div id="summary-root"></div>
+
 			<aui:script require="commerce-frontend-js/components/summary/entry.es as summary">
 				summary.default('summary', 'summary-root', {
-					apiUrl: '/o/headless-commerce-admin-order/v1.0/orders/<%= commerceOrderEditDisplayContext.getCommerceOrderId() %>',
-					datasetDisplayId: '<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>'
+					apiUrl:
+						'/o/headless-commerce-admin-order/v1.0/orders/<%= commerceOrderEditDisplayContext.getCommerceOrderId() %>',
+					datasetDisplayId:
+						'<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>'
 				});
 			</aui:script>
 		</commerce-ui:panel>

@@ -2920,4 +2920,5 @@ servers:
                   - https
     - description:
           SwaggerHub API Auto Mocking
-      url: https://virtserver.swaggerhub.com/liferayinc/commerce-admin-order/v1.0
+      url:
+          https://virtserver.swaggerhub.com/liferayinc/commerce-admin-order/v1.0
