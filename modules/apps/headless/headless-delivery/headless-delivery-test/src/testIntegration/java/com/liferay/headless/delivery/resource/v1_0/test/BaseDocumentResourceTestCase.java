@@ -416,9 +416,11 @@ public abstract class BaseDocumentResourceTestCase {
 				}
 				else {
 					BeanUtils.setProperty(
-						document1, entityField.getName(), "Aaa");
+						document1, entityField.getName(),
+						"Aaa" + RandomTestUtil.randomString());
 					BeanUtils.setProperty(
-						document2, entityField.getName(), "Bbb");
+						document2, entityField.getName(),
+						"Bbb" + RandomTestUtil.randomString());
 				}
 			});
 	}
@@ -897,9 +899,11 @@ public abstract class BaseDocumentResourceTestCase {
 				}
 				else {
 					BeanUtils.setProperty(
-						document1, entityField.getName(), "Aaa");
+						document1, entityField.getName(),
+						"Aaa" + RandomTestUtil.randomString());
 					BeanUtils.setProperty(
-						document2, entityField.getName(), "Bbb");
+						document2, entityField.getName(),
+						"Bbb" + RandomTestUtil.randomString());
 				}
 			});
 	}
