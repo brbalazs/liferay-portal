@@ -1793,6 +1793,22 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public int getLayoutsCount(
+			Group group, boolean privateLayout, String keywords, String[] types)
+		throws PortalException {
+
+		Indexer<Layout> indexer = IndexerRegistryUtil.getIndexer(
+			Layout.class.getName());
+
+		Hits hits = indexer.search(
+			_buildSearchContext(
+				group.getGroupId(), privateLayout, keywords, types,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null));
+
+		return hits.getLength();
+	}
+
+	@Override
+	public int getLayoutsCount(
 		Group group, boolean privateLayout, String[] types) {
 
 		if (ArrayUtil.isEmpty(types)) {
@@ -1815,22 +1831,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		dynamicQuery.add(typeProperty.in(types));
 
 		return GetterUtil.getInteger(dynamicQueryCount(dynamicQuery));
-	}
-
-	@Override
-	public int getLayoutsCount(
-			Group group, boolean privateLayout, String keywords, String[] types)
-		throws PortalException {
-
-		Indexer<Layout> indexer = IndexerRegistryUtil.getIndexer(
-			Layout.class.getName());
-
-		Hits hits = indexer.search(
-			_buildSearchContext(
-				group.getGroupId(), privateLayout, keywords, types,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null));
-
-		return hits.getLength();
 	}
 
 	@Override
