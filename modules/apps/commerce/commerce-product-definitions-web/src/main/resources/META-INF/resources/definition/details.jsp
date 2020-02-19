@@ -186,47 +186,92 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 		</div>
 
 		<div class="col-12">
-			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "add-new-specifications") %>'
-			>
+			<div id="item-finder-root"></div>
 
-				<%
-					Map<String, String> contextParams = new HashMap<>();
-
-					contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
-				%>
-
-				<div id="item-finder-root"></div>
-
-				<aui:script require="commerce-frontend-js/components/item_finder/entry.es.js as itemFinder">
-
-					function addNewItem(_name) {
-						return new Promise(resolve => {
-							setTimeout(() => resolve(getRandomId()), 200);
-						});
-					}
-
-					function selectItem(id) {
-						return new Promise(resolve => {
-							setTimeout(() => resolve(id), 200);
-						});
-					}
-
-					itemFinder.default('itemFinder', 'item-finder-root',{
-						apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
-						itemsKey: 'id',
-						onItemCreated: addNewItem,
-						onItemSelected: selectItem,
-						// eslint-disable-next-line no-console
-						onSubmit: console.log,
-						pageSize: 5,
-						schema: {
-							itemTitle: ['title', 'en_US']
-						},
-						spritemap: <%=  %>
+			<aui:script require="commerce-frontend-js/components/item_finder/entry.es as itemFinder, commerce-frontend-js/utilities/index.es as utilities">
+				function addNewItem(name) {
+					return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
+						credentials: 'include',
+						headers: new Headers({
+							'Accept': 'application/json',
+							'Content-Type': 'application/json',
+							'x-csrf-token': Liferay.authToken
+						}),
+						method: 'POST',
+						body: JSON.stringify(
+							{
+								"key": utilities.slugify(name),
+								"title": {
+									[themeDisplay.getLanguageId()]: name
+								}
+							}
+						)
 					})
-				</aui:script>
-			</commerce-ui:panel>
+					.then(function(response) {
+						return response.json();
+					})
+					.then(function(payload) {
+						return payload.id
+					})
+					.then(function(specificationId){
+						return fetch(
+							'/o/headless-commerce-admin-catalog/v1.0/products/<%= cpDefinitionsDisplayContext.getCPDefinitionId() %>/productSpecifications/',
+							{
+								credentials: 'include',
+								headers: new Headers({
+									'Accept': 'application/json',
+									'Content-Type': 'application/json',
+									'x-csrf-token': Liferay.authToken
+								}),
+								method: 'POST',
+								body: JSON.stringify(
+									{
+										specificationKey: 
+										"productId": <%= cpDefinitionsDisplayContext.getCPDefinitionId() %>,
+										"specificationId": specificationId
+									}
+								)
+							}
+						).then(() => specificationId)
+					})
+
+				}
+
+				function selectItem(specificationId) {
+					return fetch(
+						'/o/headless-commerce-admin-catalog/v1.0/products/<%= cpDefinitionsDisplayContext.getCPDefinitionId() %>/productSpecifications/',
+						{
+							credentials: 'include',
+							headers: new Headers({
+								'Accept': 'application/json',
+								'Content-Type': 'application/json',
+								'x-csrf-token': Liferay.authToken
+							}),
+							method: 'POST',
+							body: JSON.stringify(
+								{
+									"productId": <%= cpDefinitionsDisplayContext.getCPDefinitionId() %>,
+									"specificationId": specificationId
+								}
+							)
+						}
+					).then(() => specificationId)
+				}
+
+				itemFinder.default('itemFinder', 'item-finder-root',{
+					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+					itemsKey: 'id',
+					onItemCreated: addNewItem,
+					onItemSelected: selectItem,
+					// eslint-disable-next-line no-console
+					onSubmit: console.log,
+					pageSize: 5,
+					schema: {
+						itemTitle: ['title', 'en_US']
+					},
+					spritemap: "<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg"
+				})
+			</aui:script>
 		</div>
 
 		<div class="col-12">

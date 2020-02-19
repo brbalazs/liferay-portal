@@ -95,6 +95,12 @@ if (!window.Liferay) {
 	};
 }
 
+export function slugify(string) {
+	return string
+		.toLowerCase()
+		.replace(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/|\s|\t]+/g, '-');
+}
+
 export function launcher(Component, componentId, rootId, props) {
 	const portletFrame = window.document.getElementById(rootId);
 
