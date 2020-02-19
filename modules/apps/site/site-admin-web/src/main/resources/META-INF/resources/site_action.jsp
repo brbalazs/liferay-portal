@@ -97,7 +97,9 @@ boolean hasUpdatePermission = GroupPermissionUtil.contains(permissionChecker, gr
 	</c:if>
 
 	<%
-	int publicLayoutsPageCount = LayoutLocalServiceUtil.getLayoutsCount(group, false, StringPool.BLANK, new String[] {StringPool.CONTENT, LayoutConstants.TYPE_EMBEDDED, LayoutConstants.TYPE_LINK_TO_LAYOUT, LayoutConstants.TYPE_FULL_PAGE_APPLICATION, LayoutConstants.TYPE_PANEL, LayoutConstants.TYPE_PORTLET, LayoutConstants.TYPE_URL});
+	GroupURLProvider groupURLProvider = (GroupURLProvider)request.getAttribute(SiteWebKeys.GROUP_URL_PROVIDER);
+
+	int publicLayoutsPageCount = groupURLProvider.getLayoutsCount(group);
 	%>
 
 	<c:if test="<%= group.isActive() && (publicLayoutsPageCount > 0) %>">
