@@ -1003,6 +1003,10 @@ public interface LayoutLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getLayoutsCount(
+		Group group, boolean privateLayout, String[] types);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getLayoutsCount(User user, boolean privateLayout)
 		throws PortalException;
 

@@ -1251,6 +1251,13 @@ public class LayoutLocalServiceUtil {
 	}
 
 	public static int getLayoutsCount(
+		com.liferay.portal.kernel.model.Group group, boolean privateLayout,
+		String[] types) {
+
+		return getService().getLayoutsCount(group, privateLayout, types);
+	}
+
+	public static int getLayoutsCount(
 			com.liferay.portal.kernel.model.User user, boolean privateLayout)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
