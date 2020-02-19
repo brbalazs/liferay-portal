@@ -65,6 +65,7 @@
 		<suppress checks="BNDExportsCheck" files="portal-impl/bnd\.bnd" />
 		<suppress checks="BNDExportsCheck" files="util-slf4j/bnd\.bnd" />
 		<suppress checks="CDNCheck" files="test\.properties" />
+		<suppress checks="JavaAbstractMethodCheck" files="portal-impl/test/unit/com/liferay/portal/nio/intraband/proxy/IntrabandProxyUtilTest\.java" />
 		<suppress checks="JavaCleanUpMethodVariablesCheck" files="util-taglib/src/com/liferay/taglib/util/IncludeTag\.java" />
 		<suppress checks="JavaCombineLinesCheck" files="portal-impl/src/com/liferay/portal/action/EditLayoutAction\.java" />
 		<suppress checks="JavaCombineLinesCheck" files="portal-impl/src/com/liferay/portal/model/impl/LayoutImpl\.java" />
