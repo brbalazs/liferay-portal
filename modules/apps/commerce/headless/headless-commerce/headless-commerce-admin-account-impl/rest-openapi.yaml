@@ -94,21 +94,21 @@ components:
                 addresses:
                     example:
                         - city: Diamond Bar
-                              commerceCountryId: 30130
-                              commerceRegionId: 30234
-                              defaultBilling: true
-                              defaultShipping: true
-                              description:
-                                  right stairs, first room on the left
-                              id: 31130
-                              latitude: 33.9976884
-                              longitude: -117.8144595
-                              name: Alessio Antonio Rendina
-                              phoneNumber: (123) 456 7890
-                              street1: 1400 Montefino Ave
-                              street2: 1st floor
-                              street3: suite 200
-                              zip: "91765"
+                          commerceCountryId: 30130
+                          commerceRegionId: 30234
+                          defaultBilling: true
+                          defaultShipping: true
+                          description:
+                              right stairs, first room on the left
+                          id: 31130
+                          latitude: 33.9976884
+                          longitude: -117.8144595
+                          name: Alessio Antonio Rendina
+                          phoneNumber: (123) 456 7890
+                          street1: 1400 Montefino Ave
+                          street2: 1st floor
+                          street3: suite 200
+                          zip: "91765"
                     items:
                         $ref: "#/components/schemas/AccountAddress"
                     type: array
@@ -143,9 +143,9 @@ components:
                 organizations:
                     example:
                         - id: 20546
-                              name: Liferay Italy
-                              organizationId: 20433
-                              treePath: /Liferay/Liferay Italy
+                          name: Liferay Italy
+                          organizationId: 20433
+                          treePath: /Liferay/Liferay Italy
                     items:
                         $ref: "#/components/schemas/AccountOrganization"
                     type: array
@@ -164,19 +164,19 @@ components:
                 users:
                     example:
                         - id: 31256
-                              name: Alessio Antonio Rendina
-                              roles:
-                                  - description:
-                                        en_US: Account Administrator Description US
-                                        hr_HR: Account Administrator Description HR
-                                        hu_HU: Account Administrator Description HU
-                                  id: 30021
-                                  name: Account Administrator
-                                  title:
-                                      en_US: Account Administrator US
-                                      hr_HR: Account Administrator HR
-                                      hu_HU: Account Administrator HU
-                              userId: 30002
+                          name: Alessio Antonio Rendina
+                          roles:
+                        - description:
+                            en_US: Account Administrator Description US
+                            hr_HR: Account Administrator Description HR
+                            hu_HU: Account Administrator Description HU
+                          id: 30021
+                          name: Account Administrator
+                          title:
+                            en_US: Account Administrator US
+                            hr_HR: Account Administrator HR
+                            hu_HU: Account Administrator HU
+                          userId: 30002
                     items:
                         $ref: "#/components/schemas/AccountMember"
                     type: array
@@ -290,18 +290,12 @@ components:
                     example:
                         - description:
                               en_US: Account Administrator Description US
-                              en_US: Account Administrator US
                               hr_HR: Account Administrator Description HR
-                              hr_HR: Account Administrator HR
                               hu_HU: Account Administrator Description HU
-                              hu_HU: Account Administrator HU
                         - description:
                               en_US: Order Manager Description US
-                              en_US: Order Manager US
                               hr_HR: Order Manager Description HR
-                              hr_HR: Order Manager HR
                               hu_HU: Order Manager Description HU
-                              hu_HU: Order Manager HU
                     items:
                         $ref: "#/components/schemas/AccountRole"
                     type: array
@@ -477,16 +471,16 @@ paths:
             operationId: deleteAccountAddressByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             responses:
                 204:
                     description:
@@ -513,16 +507,16 @@ paths:
             operationId: getAccountAddressByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             responses:
                 200:
                     content:
@@ -579,16 +573,16 @@ paths:
             operationId: patchAccountAddressByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -651,17 +645,17 @@ paths:
             operationId: deleteAccountAddress
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 204:
                     description:
@@ -689,27 +683,27 @@ paths:
             operationId: deleteAccountGroupByExternalReferenceCodeAccount
             parameters:
                 - in: path
-                      explode: false
-                      name: accountExternalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: accountExternalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             responses:
                 201:
                     description:
@@ -766,16 +760,16 @@ paths:
             operationId: postAccountGroupByExternalReferenceCodeAccount
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -841,16 +835,16 @@ paths:
             operationId: deleteAccountGroupByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             responses:
                 204:
                     description:
@@ -877,16 +871,16 @@ paths:
             operationId: getAccountGroupByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             responses:
                 200:
                     content:
@@ -943,16 +937,16 @@ paths:
             operationId: patchAccountGroupByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -1015,17 +1009,17 @@ paths:
             operationId: deleteAccountGroup
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 204:
                     description:
@@ -1052,17 +1046,17 @@ paths:
             operationId: getAccountGroup
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 200:
                     content:
@@ -1119,17 +1113,17 @@ paths:
             operationId: patchAccountGroup
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -1192,25 +1186,25 @@ paths:
             operationId: getAccountGroupsPage
             parameters:
                 - in: query
-                      name: filter
-                      required: false
-                      schema:
-                          type: string
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
                 - in: query
-                      name: sort
-                      required: false
-                      schema:
-                          type: string
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -1338,30 +1332,30 @@ paths:
             operationId: getAccountByExternalReferenceCodeAccountAddressesPage
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: query
-                      explode: true
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
                 - in: query
-                      explode: true
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
             responses:
                 200:
                     content:
@@ -1422,16 +1416,16 @@ paths:
             operationId: postAccountByExternalReferenceCodeAccountAddress
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -1504,16 +1498,16 @@ paths:
             operationId: postAccountByExternalReferenceCodeAccountMemberCreateUser
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -1586,28 +1580,28 @@ paths:
             operationId: deleteAccountByExternalReferenceCodeAccountMember
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: path
-                      explode: false
-                      name: userId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: userId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 204:
                     description:
@@ -1635,28 +1629,28 @@ paths:
             operationId: getAccountByExternalReferenceCodeAccountMember
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: path
-                      explode: false
-                      name: userId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: userId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 200:
                     content:
@@ -1714,28 +1708,28 @@ paths:
             operationId: patchAccountByExternalReferenceCodeAccountMember
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: path
-                      explode: false
-                      name: userId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: userId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -1799,30 +1793,30 @@ paths:
             operationId: getAccountByExternalReferenceCodeAccountMembersPage
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: query
-                      explode: true
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
                 - in: query
-                      explode: true
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
             responses:
                 200:
                     content:
@@ -1883,16 +1877,16 @@ paths:
             operationId: postAccountByExternalReferenceCodeAccountMember
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -1965,28 +1959,28 @@ paths:
             operationId: deleteAccountByExternalReferenceCodeAccountOrganization
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: path
-                      explode: false
-                      name: organizationId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: organizationId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 204:
                     description:
@@ -2014,28 +2008,28 @@ paths:
             operationId: getAccountByExternalReferenceCodeAccountOrganization
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: path
-                      explode: false
-                      name: organizationId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: organizationId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 200:
                     content:
@@ -2094,30 +2088,30 @@ paths:
             operationId: getAccountByExternalReferenceCodeAccountOrganizationsPage
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
                 - in: query
-                      explode: true
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
                 - in: query
-                      explode: true
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
             responses:
                 200:
                     content:
@@ -2178,16 +2172,16 @@ paths:
             operationId: postAccountByExternalReferenceCodeAccountOrganization
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -2260,16 +2254,16 @@ paths:
             operationId: postAccountByExternalReferenceCodeLogo
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     multipart/form-data:
@@ -2332,16 +2326,16 @@ paths:
             operationId: deleteAccountByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             responses:
                 204:
                     description:
@@ -2368,16 +2362,16 @@ paths:
             operationId: getAccountByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             responses:
                 200:
                     content:
@@ -2434,16 +2428,16 @@ paths:
             operationId: patchAccountByExternalReferenceCode
             parameters:
                 - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -2506,31 +2500,31 @@ paths:
             operationId: getAccountIdAccountAddressesPage
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: query
-                      explode: true
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
                 - in: query
-                      explode: true
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
             responses:
                 200:
                     content:
@@ -2591,17 +2585,17 @@ paths:
             operationId: postAccountIdAccountAddress
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -2674,29 +2668,29 @@ paths:
             operationId: deleteAccountIdAccountMember
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: path
-                      explode: false
-                      name: userId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: userId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 204:
                     description:
@@ -2723,29 +2717,29 @@ paths:
             operationId: getAccountIdAccountMember
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: path
-                      explode: false
-                      name: userId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: userId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 200:
                     content:
@@ -2802,29 +2796,29 @@ paths:
             operationId: patchAccountIdAccountMember
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: path
-                      explode: false
-                      name: userId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: userId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -2887,31 +2881,31 @@ paths:
             operationId: getAccountIdAccountMembersPage
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: query
-                      explode: true
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
                 - in: query
-                      explode: true
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
             responses:
                 200:
                     content:
@@ -2972,17 +2966,17 @@ paths:
             operationId: postAccountIdAccountMember
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -3055,29 +3049,29 @@ paths:
             operationId: deleteAccountIdAccountOrganization
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: path
-                      explode: false
-                      name: organizationId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: organizationId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 204:
                     description:
@@ -3104,29 +3098,29 @@ paths:
             operationId: getAccountIdAccountOrganization
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: path
-                      explode: false
-                      name: organizationId
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: organizationId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 200:
                     content:
@@ -3184,31 +3178,31 @@ paths:
             operationId: getAccountIdAccountOrganizationsPage
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: query
-                      explode: true
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
                 - in: query
-                      explode: true
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
             responses:
                 200:
                     content:
@@ -3269,17 +3263,17 @@ paths:
             operationId: postAccountIdAccountOrganization
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -3352,17 +3346,17 @@ paths:
             operationId: postAccountLogo
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             requestBody:
                 content:
                     multipart/form-data:
@@ -3425,17 +3419,17 @@ paths:
             operationId: deleteAccount
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 204:
                     description:
@@ -3462,17 +3456,17 @@ paths:
             operationId: getAccount
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             responses:
                 200:
                     content:
@@ -3529,17 +3523,17 @@ paths:
             operationId: patchAccount
             parameters:
                 - in: path
-                      explode: false
-                      name: id
-                      required: true
-                      schema:
-                          description:
-                              The resource Id
-                          example: 30130
-                          format: int64
-                          minimum: 0
-                          type: integer
-                      style: simple
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
             requestBody:
                 content:
                     application/json:
@@ -3602,25 +3596,25 @@ paths:
             operationId: getAccountsPage
             parameters:
                 - in: query
-                      name: filter
-                      required: false
-                      schema:
-                          type: string
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
                 - in: query
-                      name: sort
-                      required: false
-                      schema:
-                          type: string
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
