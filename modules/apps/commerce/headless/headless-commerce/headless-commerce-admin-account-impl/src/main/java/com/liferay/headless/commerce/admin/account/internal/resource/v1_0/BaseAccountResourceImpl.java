@@ -61,30 +61,6 @@ import javax.ws.rs.core.UriInfo;
 public abstract class BaseAccountResourceImpl implements AccountResource {
 
 	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path(
-		"/accountGroups/by-externalReferenceCode/{externalReferenceCode}/accounts"
-	)
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public Response postAccountGroupByExternalReferenceCodeAccount(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode,
-			Account account)
-		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
-	}
-
-	@Override
 	@DELETE
 	@Parameters(
 		value = {
@@ -113,34 +89,49 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	}
 
 	@Override
-	@GET
+	@Consumes({"application/json", "application/xml"})
+	@POST
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "filter"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
-			@Parameter(in = ParameterIn.QUERY, name = "sort")
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path("/accounts")
+	@Path(
+		"/accountGroups/by-externalReferenceCode/{externalReferenceCode}/accounts"
+	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
-	public Page<Account> getAccountsPage(
-			@Context Filter filter, @Context Pagination pagination,
-			@Context Sort[] sorts)
+	public Response postAccountGroupByExternalReferenceCodeAccount(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode,
+			Account account)
 		throws Exception {
 
-		return Page.of(Collections.emptyList());
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
 	}
 
 	@Override
-	@Consumes({"application/json", "application/xml"})
+	@Consumes("multipart/form-data")
 	@POST
-	@Path("/accounts")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path("/accounts/by-externalReferenceCode/{externalReferenceCode}/logo")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
-	public Account postAccount(Account account) throws Exception {
-		return new Account();
+	public Response postAccountByExternalReferenceCodeLogo(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode,
+			MultipartBody multipartBody)
+		throws Exception {
+
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -206,17 +197,12 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Override
 	@Consumes("multipart/form-data")
 	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path("/accounts/by-externalReferenceCode/{externalReferenceCode}/logo")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
+	@Path("/accounts/{id}/logo")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
-	public Response postAccountByExternalReferenceCodeLogo(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode,
+	public Response postAccountLogo(
+			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
 			MultipartBody multipartBody)
 		throws Exception {
 
@@ -271,20 +257,34 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	}
 
 	@Override
-	@Consumes("multipart/form-data")
-	@POST
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/accounts/{id}/logo")
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "filter"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
+			@Parameter(in = ParameterIn.QUERY, name = "sort")
+		}
+	)
+	@Path("/accounts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
-	public Response postAccountLogo(
-			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			MultipartBody multipartBody)
+	public Page<Account> getAccountsPage(
+			@Context Filter filter, @Context Pagination pagination,
+			@Context Sort[] sorts)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		return Page.of(Collections.emptyList());
+	}
 
-		return responseBuilder.build();
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Path("/accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Account postAccount(Account account) throws Exception {
+		return new Account();
 	}
 
 	public void setContextCompany(Company contextCompany) {

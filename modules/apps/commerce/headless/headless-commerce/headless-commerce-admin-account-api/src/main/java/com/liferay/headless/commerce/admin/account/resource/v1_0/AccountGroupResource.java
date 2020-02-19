@@ -36,13 +36,6 @@ import javax.ws.rs.core.Response;
 @Generated("")
 public interface AccountGroupResource {
 
-	public Page<AccountGroup> getAccountGroupsPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
-		throws Exception;
-
-	public AccountGroup postAccountGroup(AccountGroup accountGroup)
-		throws Exception;
-
 	public Response deleteAccountGroupByExternalReferenceCode(
 			String externalReferenceCode)
 		throws Exception;
@@ -60,6 +53,13 @@ public interface AccountGroupResource {
 	public AccountGroup getAccountGroup(Long id) throws Exception;
 
 	public Response patchAccountGroup(Long id, AccountGroup accountGroup)
+		throws Exception;
+
+	public Page<AccountGroup> getAccountGroupsPage(
+			Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception;
+
+	public AccountGroup postAccountGroup(AccountGroup accountGroup)
 		throws Exception;
 
 	public void setContextCompany(Company contextCompany);

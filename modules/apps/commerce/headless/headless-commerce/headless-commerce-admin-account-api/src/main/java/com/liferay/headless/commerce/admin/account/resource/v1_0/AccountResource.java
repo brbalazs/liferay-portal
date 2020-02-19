@@ -37,19 +37,17 @@ import javax.ws.rs.core.Response;
 @Generated("")
 public interface AccountResource {
 
-	public Response postAccountGroupByExternalReferenceCodeAccount(
-			String externalReferenceCode, Account account)
-		throws Exception;
-
 	public Response deleteAccountGroupByExternalReferenceCodeAccount(
 			String accountExternalReferenceCode, String externalReferenceCode)
 		throws Exception;
 
-	public Page<Account> getAccountsPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
+	public Response postAccountGroupByExternalReferenceCodeAccount(
+			String externalReferenceCode, Account account)
 		throws Exception;
 
-	public Account postAccount(Account account) throws Exception;
+	public Response postAccountByExternalReferenceCodeLogo(
+			String externalReferenceCode, MultipartBody multipartBody)
+		throws Exception;
 
 	public Response deleteAccountByExternalReferenceCode(
 			String externalReferenceCode)
@@ -63,8 +61,7 @@ public interface AccountResource {
 			String externalReferenceCode, Account account)
 		throws Exception;
 
-	public Response postAccountByExternalReferenceCodeLogo(
-			String externalReferenceCode, MultipartBody multipartBody)
+	public Response postAccountLogo(Long id, MultipartBody multipartBody)
 		throws Exception;
 
 	public Response deleteAccount(Long id) throws Exception;
@@ -73,8 +70,11 @@ public interface AccountResource {
 
 	public Response patchAccount(Long id, Account account) throws Exception;
 
-	public Response postAccountLogo(Long id, MultipartBody multipartBody)
+	public Page<Account> getAccountsPage(
+			Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
+
+	public Account postAccount(Account account) throws Exception;
 
 	public void setContextCompany(Company contextCompany);
 
