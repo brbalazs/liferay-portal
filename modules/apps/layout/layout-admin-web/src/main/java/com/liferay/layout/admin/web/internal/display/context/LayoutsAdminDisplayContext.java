@@ -888,9 +888,9 @@ public class LayoutsAdminDisplayContext {
 		return PortalUtil.getLayoutFullURL(layout, _themeDisplay);
 	}
 
-	public boolean hasLayouts() throws PortalException {
+	public boolean hasLayouts() {
 		int privatePagesCount = LayoutLocalServiceUtil.getLayoutsCount(
-			getSelGroup(), true, StringPool.BLANK,
+			getSelGroup(), true,
 			new String[] {
 				LayoutAdminConstants.LAYOUT_TYPE_CONTENT,
 				LayoutConstants.TYPE_EMBEDDED,
@@ -901,7 +901,7 @@ public class LayoutsAdminDisplayContext {
 			});
 
 		int publicPagesCount = LayoutLocalServiceUtil.getLayoutsCount(
-			getSelGroup(), false, StringPool.BLANK,
+			getSelGroup(), false,
 			new String[] {
 				LayoutAdminConstants.LAYOUT_TYPE_CONTENT,
 				LayoutConstants.TYPE_EMBEDDED,
