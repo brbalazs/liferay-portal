@@ -49,6 +49,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.portlet.PortletURL;
@@ -141,17 +142,14 @@ public class CommerceWishListDisplayContext {
 
 		StringBundler sb = new StringBundler(keyValuePairs.size() * 2 - 1);
 
-		boolean first = true;
+		for (Iterator<KeyValuePair> iterator = keyValuePairs.iterator();
+			 iterator.hasNext();) {
 
-		for (KeyValuePair keyValuePair : keyValuePairs) {
-			if (!first) {
+			sb.append(iterator.next());
+
+			if (iterator.hasNext()) {
 				sb.append(StringPool.COMMA_AND_SPACE);
 			}
-			else {
-				first = false;
-			}
-
-			sb.append(keyValuePair.getValue());
 		}
 
 		return sb.toString();
