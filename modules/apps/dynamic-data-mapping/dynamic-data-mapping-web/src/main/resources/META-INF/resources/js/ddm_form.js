@@ -453,7 +453,7 @@ AUI.add(
 						instance.get('container').remove();
 					},
 
-					addIntegerRangeRule() {
+					addIntegerRangeRule: function() {
 						var instance = this;
 
 						var dataType = instance.get('dataType');
@@ -478,7 +478,7 @@ AUI.add(
 									fieldName,
 									'integerRange_custom',
 									errorMessage,
-									val => {
+									function(val) {
 										return (
 											val >= INTEGER_MIN_VALUE &&
 											val <= INTEGER_MAX_VALUE
