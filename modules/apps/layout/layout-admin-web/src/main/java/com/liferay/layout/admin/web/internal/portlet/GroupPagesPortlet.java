@@ -113,6 +113,8 @@ public class GroupPagesPortlet extends MVCPortlet {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws IOException, PortletException {
 
+		setRequestAttributes(actionRequest, actionResponse);
+
 		super.processAction(actionRequest, actionResponse);
 	}
 
