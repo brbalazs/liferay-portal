@@ -65,6 +65,8 @@ import java.util.Map;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -133,6 +135,8 @@ public class GroupPagesPortlet extends MVCPortlet {
 			include("/error.jsp", renderRequest, renderResponse);
 		}
 		else {
+			setRequestAttributes(renderRequest, renderResponse);
+
 			try {
 				List<LayoutPrototype> layoutPrototypes =
 					_layoutPrototypeLocalService.getLayoutPrototypes(
@@ -160,17 +164,6 @@ public class GroupPagesPortlet extends MVCPortlet {
 					_log.warn(e, e);
 				}
 			}
-
-			renderRequest.setAttribute(
-				LayoutAdminWebConfiguration.class.getName(),
-				_layoutAdminWebConfiguration);
-			renderRequest.setAttribute(
-				ApplicationListWebKeys.GROUP_PROVIDER, _groupProvider);
-			renderRequest.setAttribute(
-				LayoutAdminWebKeys.ASSET_DISPLAY_CONTRIBUTOR_TRACKER,
-				_assetDisplayContributorTracker);
-			renderRequest.setAttribute(
-				LayoutAdminWebKeys.ITEM_SELECTOR, _itemSelector);
 
 			super.doDispatch(renderRequest, renderResponse);
 		}
@@ -207,6 +200,21 @@ public class GroupPagesPortlet extends MVCPortlet {
 		}
 
 		return false;
+	}
+
+	protected void setRequestAttributes(
+		PortletRequest portletRequest, PortletResponse portletResponse) {
+
+		portletRequest.setAttribute(
+			LayoutAdminWebConfiguration.class.getName(),
+			_layoutAdminWebConfiguration);
+		portletRequest.setAttribute(
+			ApplicationListWebKeys.GROUP_PROVIDER, _groupProvider);
+		portletRequest.setAttribute(
+			LayoutAdminWebKeys.ASSET_DISPLAY_CONTRIBUTOR_TRACKER,
+			_assetDisplayContributorTracker);
+		portletRequest.setAttribute(
+			LayoutAdminWebKeys.ITEM_SELECTOR, _itemSelector);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
