@@ -432,6 +432,10 @@ public class CompanyIndexFactory
 
 		loadIndexSettingsContributors(builder);
 
+		if (Validator.isNotNull(builder.get("index.number_of_replicas"))) {
+			builder.put("index.auto_expand_replicas", false);
+		}
+
 		createIndexRequestBuilder.setSettings(builder);
 	}
 
