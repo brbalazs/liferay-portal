@@ -181,29 +181,36 @@ components:
                     format: bigdecimal
                     minimum: 0
                     type: number
-                shippingDiscountAmount:
-                    example: 11
-                    format: bigdecimal
+                shippingAmountFormatted:
+                    type: string
+                shippingAmountValue:
+                    example: 12
+                    format: double
                     minimum: 0
                     type: number
+                shippingDiscountAmount:
+                    format: double
+                    type: number
+                shippingDiscountAmountFormatted:
+                    type: string
                 shippingDiscountPercentageLevel1:
                     example: 20
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 shippingDiscountPercentageLevel2:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 shippingDiscountPercentageLevel3:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 shippingDiscountPercentageLevel4:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 shippingMethod:
@@ -213,70 +220,86 @@ components:
                     example: by Air
                     type: string
                 subtotal:
-                    example: 101
                     format: bigdecimal
-                    minimum: 0
+                    type: number
+                subtotalAmount:
+                    format: double
+                    readonly: true
                     type: number
                 subtotalDiscountAmount:
-                    example: 11
-                    format: bigdecimal
-                    minimum: 0
+                    format: double
                     type: number
+                subtotalDiscountAmountFormatted:
+                    type: string
                 subtotalDiscountPercentageLevel1:
                     example: 20
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 subtotalDiscountPercentageLevel2:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 subtotalDiscountPercentageLevel3:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 subtotalDiscountPercentageLevel4:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
+                subtotalFormatted:
+                    type: string
                 taxAmount:
                     example: 11
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
+                taxAmountFormatted:
+                    type: string
                 total:
                     example: 113
                     format: bigdecimal
                     minimum: 0
                     type: number
+                totalAmount:
+                    example: 113
+                    format: double
+                    minimum: 0
+                    readonly: true
+                    type: number
                 totalDiscountAmount:
                     example: 11
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
+                totalDiscountAmountFormatted:
+                    type: string
                 totalDiscountPercentageLevel1:
                     example: 20
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 totalDiscountPercentageLevel2:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 totalDiscountPercentageLevel3:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
                 totalDiscountPercentageLevel4:
                     example: 0
-                    format: bigdecimal
+                    format: double
                     minimum: 0
                     type: number
+                totalFormatted:
+                    type: string
                 transactionId:
                     type: string
             required:
