@@ -48,12 +48,6 @@ CPDefinition cpDefinition = cpDefinitionLink.getCPDefinition();
 					label="<%= true %>"
 				/>
 			</c:if>
-
-			<aui:button-row>
-				<aui:button cssClass="btn-lg" type="submit" value="save" />
-
-				<aui:button cssClass="btn-lg" type="cancel" />
-			</aui:button-row>
 		</div>
 	</aui:form>
 </commerce-ui:modal-content>
