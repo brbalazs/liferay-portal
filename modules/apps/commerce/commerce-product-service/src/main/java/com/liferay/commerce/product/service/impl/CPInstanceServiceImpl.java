@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
 import java.math.BigDecimal;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
@@ -44,6 +45,62 @@ import java.util.stream.Stream;
  */
 public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 
+	@Override
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			boolean published, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		_checkCommerceCatalogPermissionByCPDefinitionId(
+			cpDefinitionId, ActionKeys.UPDATE);
+
+		return cpInstanceLocalService.addCPInstance(
+			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
+			purchasable, cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			published, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, serviceContext);
+	}
+
+	/**
+	 * @param      cpDefinitionId
+	 * @param      groupId
+	 * @param      sku
+	 * @param      gtin
+	 * @param      manufacturerPartNumber
+	 * @param      purchasable
+	 * @param      json
+	 * @param      published
+	 * @param      displayDateMonth
+	 * @param      displayDateDay
+	 * @param      displayDateYear
+	 * @param      displayDateHour
+	 * @param      displayDateMinute
+	 * @param      expirationDateMonth
+	 * @param      expirationDateDay
+	 * @param      expirationDateYear
+	 * @param      expirationDateHour
+	 * @param      expirationDateMinute
+	 * @param      neverExpire
+	 * @param      serviceContext
+	 * @return
+	 *
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #addCPInstance(long,
+	 *             long, String, String, String, boolean, Map, boolean, int,
+	 *             int, int, int, int, int, int, int, int, int, boolean,
+	 *             ServiceContext)}
+	 */
+	@Deprecated
 	@Override
 	public CPInstance addCPInstance(
 			long cpDefinitionId, long groupId, String sku, String gtin,
