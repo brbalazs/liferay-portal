@@ -18,6 +18,7 @@ import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.definitions.web.internal.model.ProductMedia;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
@@ -42,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
 
@@ -115,9 +117,9 @@ public class CommerceProductMediaDataSetActionProvider
 			long cpAttachmentFileEntryId, HttpServletRequest httpServletRequest)
 		throws PortalException {
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CPDefinition.class.getName(),
-			PortletProvider.Action.MANAGE);
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			_portal.getOriginalServletRequest(httpServletRequest),
+			CPPortletKeys.CP_DEFINITIONS, PortletRequest.ACTION_PHASE);
 
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editCPAttachmentFileEntry");

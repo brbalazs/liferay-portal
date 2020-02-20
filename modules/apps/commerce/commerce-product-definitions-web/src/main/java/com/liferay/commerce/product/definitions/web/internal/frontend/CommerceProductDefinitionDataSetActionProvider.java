@@ -16,6 +16,7 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.definitions.web.internal.model.Product;
 import com.liferay.commerce.product.definitions.web.internal.security.permission.resource.CommerceCatalogPermission;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
@@ -98,9 +100,9 @@ public class CommerceProductDefinitionDataSetActionProvider
 			long cpDefinitionId, HttpServletRequest httpServletRequest)
 		throws PortalException {
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CPDefinition.class.getName(),
-			PortletProvider.Action.MANAGE);
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			_portal.getOriginalServletRequest(httpServletRequest),
+			CPPortletKeys.CP_DEFINITIONS, PortletRequest.ACTION_PHASE);
 
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editProductDefinition");

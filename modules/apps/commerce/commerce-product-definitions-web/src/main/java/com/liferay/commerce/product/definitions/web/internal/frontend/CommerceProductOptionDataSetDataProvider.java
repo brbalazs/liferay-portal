@@ -23,19 +23,28 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldType;
+import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -107,7 +116,9 @@ public class CommerceProductOptionDataSetDataProvider
 					HtmlUtil.escape(
 						cpDefinitionOptionRel.getName(
 							LanguageUtil.getLanguageId(locale))),
-					cpDefinitionOptionRel.getDDMFormFieldTypeName(),
+					_getDDMFormFieldTypeLabel(
+						cpDefinitionOptionRel.getDDMFormFieldTypeName(),
+						locale),
 					cpDefinitionOptionRel.getPriority()));
 		}
 
@@ -144,11 +155,48 @@ public class CommerceProductOptionDataSetDataProvider
 			cpDefinitionId, start, end);
 	}
 
+	private String _getDDMFormFieldTypeLabel(
+		String ddmFormFieldTypeName, Locale locale) {
+
+		DDMFormFieldType ddmFormFieldType =
+			_ddmFormFieldTypeServicesTracker.getDDMFormFieldType(
+				ddmFormFieldTypeName);
+
+		Map<String, Object> ddmFormFieldTypeProperties =
+			_ddmFormFieldTypeServicesTracker.getDDMFormFieldTypeProperties(
+				ddmFormFieldType.getName());
+
+		String label = MapUtil.getString(
+			ddmFormFieldTypeProperties, "ddm.form.field.type.label");
+
+		try {
+			ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+				"content.Language", locale, ddmFormFieldType.getClass());
+
+			if (Validator.isNotNull(label)) {
+				return LanguageUtil.get(resourceBundle, label);
+			}
+		}
+		catch (MissingResourceException mre) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(mre, mre);
+			}
+		}
+
+		return ddmFormFieldType.getName();
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceProductOptionDataSetDataProvider.class);
+
 	@Reference
 	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
+
+	@Reference
+	private DDMFormFieldTypeServicesTracker _ddmFormFieldTypeServicesTracker;
 
 	@Reference
 	private Portal _portal;

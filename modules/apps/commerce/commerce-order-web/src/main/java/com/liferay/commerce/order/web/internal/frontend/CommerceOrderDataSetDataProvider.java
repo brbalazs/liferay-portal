@@ -76,7 +76,8 @@ public class CommerceOrderDataSetDataProvider
 
 		OrderFilterImpl orderFilterImpl = (OrderFilterImpl)filter;
 
-		String activeTab = ParamUtil.getString(httpServletRequest, "activeTab");
+		String activeTab = ParamUtil.getString(
+			httpServletRequest, "activeTab", "open");
 
 		SearchContext searchContext = buildSearchContext(
 			_portal.getCompanyId(httpServletRequest), activeTab,
@@ -102,7 +103,8 @@ public class CommerceOrderDataSetDataProvider
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		String activeTab = ParamUtil.getString(httpServletRequest, "activeTab");
+		String activeTab = ParamUtil.getString(
+			httpServletRequest, "activeTab", "open");
 
 		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
 			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
