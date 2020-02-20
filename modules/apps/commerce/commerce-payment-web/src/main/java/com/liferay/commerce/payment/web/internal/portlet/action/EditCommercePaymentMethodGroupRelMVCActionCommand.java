@@ -154,6 +154,13 @@ public class EditCommercePaymentMethodGroupRelMVCActionCommand
 			}
 			else if (cmd.equals("setActive")) {
 				setActive(actionRequest);
+
+				String redirect = ParamUtil.getString(
+					actionRequest, "redirect");
+
+				if (Validator.isNotNull(redirect)) {
+					sendRedirect(actionRequest, actionResponse, redirect);
+				}
 			}
 			else if (cmd.equals("viewRestrictions")) {
 				viewRestrictions(actionRequest, actionResponse);
