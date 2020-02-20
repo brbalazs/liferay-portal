@@ -186,8 +186,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance = cpInstancePersistence.update(cpInstance);
 
 		cpInstanceOptionValueRelLocalService.updateCPInstanceOptionValueRels(
-			groupId, user.getCompanyId(), user.getUserId(), cpDefinitionId,
-			cpInstanceId, cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
+			groupId, user.getCompanyId(), user.getUserId(), cpInstanceId,
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
 
 		reindexCPDefinition(cpDefinitionId);
 
@@ -291,7 +291,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute,
-			neverExpire, serviceContext);
+			neverExpire, false, false, 1, StringPool.BLANK, null, 0,
+			serviceContext);
 	}
 
 	/**
@@ -368,8 +369,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			BigDecimal.ZERO, published, StringPool.BLANK, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
-			serviceContext);
+			expirationDateHour, expirationDateMinute, neverExpire, false, false,
+			1, StringPool.BLANK, null, 0, serviceContext);
 	}
 
 	/**
@@ -427,9 +428,13 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		return cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
-			purchasable, json, width, height, depth, weight, price, promoPrice,
-			cost, published, externalReferenceCode, displayDateMonth,
-			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			purchasable,
+			cpDefinitionOptionRelLocalService.
+				getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+					cpDefinitionId, json),
+			width, height, depth, weight, price, promoPrice, cost, published,
+			externalReferenceCode, displayDateMonth, displayDateDay,
+			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, neverExpire, false, false,
 			1, StringPool.BLANK, null, 0, serviceContext);

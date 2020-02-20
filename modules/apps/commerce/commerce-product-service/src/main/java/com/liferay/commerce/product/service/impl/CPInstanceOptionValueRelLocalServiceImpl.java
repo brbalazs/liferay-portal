@@ -28,14 +28,16 @@ import java.util.Set;
  * The implementation of the cp instance option value rel local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService</code> interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * <code>com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService</code>
+ * interface. <p> This is a local service. Methods of this service will not have
+ * security checks based on the propagated JAAS credentials because this service
+ * can only be accessed from within the same VM.
  * </p>
  *
- * @author Marco Leo
- * @see CPInstanceOptionValueRelLocalServiceBaseImpl
+ * @author Igor Beslic
+ * @see    CPInstanceOptionValueRelLocalServiceBaseImpl
  */
 public class CPInstanceOptionValueRelLocalServiceImpl
 	extends CPInstanceOptionValueRelLocalServiceBaseImpl {
@@ -200,22 +202,17 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 
 	@Override
 	public void updateCPInstanceOptionValueRels(
-			long groupId, long companyId, long userId, long cpDefinitionId,
-			long cpInstanceId, String json)
+			long groupId, long companyId, long userId, long cpInstanceId,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds)
 		throws PortalException {
 
-		Map<Long, List<Long>>
-			cpDefinitionOptionRelCPDefinitionOptionValueRelIds =
-				cpDefinitionOptionRelLocalService.
-					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
-						cpDefinitionId, json);
-
 		Set<Long> cpDefinitionOptionRelIds =
-			cpDefinitionOptionRelCPDefinitionOptionValueRelIds.keySet();
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.keySet();
 
 		for (Long cpDefinitionOptionRelId : cpDefinitionOptionRelIds) {
 			List<Long> cpDefinitionOptionValueRelIds =
-				cpDefinitionOptionRelCPDefinitionOptionValueRelIds.get(
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.get(
 					cpDefinitionOptionRelId);
 
 			for (Long cpDefinitionOptionValueRelId :
