@@ -67,14 +67,15 @@ public class DLAMImageOptimizer implements AMImageOptimizer {
 
 		int total = count * amImageConfigurationEntries.size();
 
-		final AtomicInteger atomicCounter = new AtomicInteger(0);
+		final AtomicInteger countAtomiCounter = new AtomicInteger(0);
+		final AtomicInteger errorAtomiCounter = new AtomicInteger(0);
 
 		for (AMImageConfigurationEntry amImageConfigurationEntry :
 				amImageConfigurationEntries) {
 
 			_optimize(
 				companyId, amImageConfigurationEntry.getUUID(), total,
-				atomicCounter);
+				countAtomiCounter, errorAtomiCounter);
 		}
 	}
 
@@ -82,14 +83,17 @@ public class DLAMImageOptimizer implements AMImageOptimizer {
 	public void optimize(long companyId, String configurationEntryUuid) {
 		int total = _amImageCounter.countExpectedAMImageEntries(companyId);
 
-		final AtomicInteger atomiCounter = new AtomicInteger(0);
+		final AtomicInteger countAtomiCounter = new AtomicInteger(0);
+		final AtomicInteger errorAtomiCounter = new AtomicInteger(0);
 
-		_optimize(companyId, configurationEntryUuid, total, atomiCounter);
+		_optimize(
+			companyId, configurationEntryUuid, total, countAtomiCounter,
+			errorAtomiCounter);
 	}
 
 	private void _optimize(
 		long companyId, String configurationEntryUuid, int total,
-		AtomicInteger atomicCounter) {
+		AtomicInteger countAtomicCounter, AtomicInteger errorAtomiCounter) {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			_dlFileEntryLocalService.getActionableDynamicQuery();
@@ -151,13 +155,21 @@ public class DLAMImageOptimizer implements AMImageOptimizer {
 					_amImageProcessor.process(
 						fileEntry.getFileVersion(), configurationEntryUuid);
 
-					_sendStatusMessage(atomicCounter.incrementAndGet(), total);
+					_sendStatusMessage(
+						countAtomicCounter.incrementAndGet(), total,
+						errorAtomiCounter.get());
 				}
-				catch (PortalException pe) {
-					_log.error(
-						"Unable to process file entry " +
-							fileEntry.getFileEntryId(),
-						pe);
+				catch (Exception exception) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							"Unable to process file entry " +
+								fileEntry.getFileEntryId(),
+							exception);
+					}
+
+					_sendStatusMessage(
+						countAtomicCounter.get(), total,
+						errorAtomiCounter.incrementAndGet());
 				}
 			});
 
@@ -169,7 +181,7 @@ public class DLAMImageOptimizer implements AMImageOptimizer {
 		}
 	}
 
-	private void _sendStatusMessage(int count, int total) {
+	private void _sendStatusMessage(int count, int total, int errors) {
 		Message message = new Message();
 
 		message.put(
@@ -183,6 +195,7 @@ public class DLAMImageOptimizer implements AMImageOptimizer {
 			clazz.getName());
 
 		message.put(AMOptimizeImagesBackgroundTaskConstants.COUNT, count);
+		message.put(AMOptimizeImagesBackgroundTaskConstants.ERRORS, errors);
 		message.put(AMOptimizeImagesBackgroundTaskConstants.TOTAL, total);
 
 		message.put("status", BackgroundTaskConstants.STATUS_IN_PROGRESS);
