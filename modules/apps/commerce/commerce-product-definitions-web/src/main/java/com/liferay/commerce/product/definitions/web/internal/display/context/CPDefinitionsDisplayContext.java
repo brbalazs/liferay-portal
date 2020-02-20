@@ -168,7 +168,8 @@ public class CPDefinitionsDisplayContext
 		}
 
 		HeaderActionModel publishHeaderActionModel = new HeaderActionModel(
-			additionalClasses, actionURL.toString(),
+			additionalClasses, renderResponse.getNamespace() + "fm",
+			actionURL.toString(),
 			renderResponse.getNamespace() + "publishButton",
 			publishButtonLabel);
 
