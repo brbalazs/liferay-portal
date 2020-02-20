@@ -1435,7 +1435,8 @@ definition {
 
 		ItemSelector.addFromURL(
 			imageSourceURL = "${dmDocumentURL}",
-			navTab = "${navTab}");
+			navTab = "${navTab}",
+			type = "Audio");
 
 		SelectFrame(locator1 = "CKEditor#BODY_FIELD_IFRAME");
 
@@ -1449,7 +1450,8 @@ definition {
 
 		ItemSelector.addFromURL(
 			imageSourceURL = "${dmDocumentURL}",
-			navTab = "${navTab}");
+			navTab = "${navTab}",
+			type = "Video");
 
 		SelectFrame(locator1 = "CKEditor#BODY_FIELD_IFRAME");
 
