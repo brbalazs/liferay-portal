@@ -79,15 +79,13 @@ public abstract class BaseAnalyticsMVCActionCommand
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
-					StringBundler.concat(
-						"Analytics cloud does not recognize the provided ",
-						"token. Deleted analytics configuration for company ",
-						"ID ", companyId));
+					"Invalid token. Deleted analytics configuration for " +
+						"company ID " + companyId);
 			}
 		}
 		else {
 			if (_log.isInfoEnabled()) {
-				_log.info("Access to analytics cloud is forbidden");
+				_log.info("Unable to access Analytics Cloud");
 			}
 
 			throw new PortalException("Invalid token");
