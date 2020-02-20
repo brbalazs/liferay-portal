@@ -76,8 +76,20 @@ public abstract class BaseAnalyticsMVCActionCommand
 			removeCompanyPreferences(companyId);
 
 			analyticsConfigurationTracker.deleteCompanyConfiguration(companyId);
+
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					StringBundler.concat(
+						"Analytics cloud does not recognize the provided ",
+						"token. Deleted analytics configuration for company ",
+						"ID ", companyId));
+			}
 		}
 		else {
+			if (_log.isInfoEnabled()) {
+				_log.info("Access to analytics cloud is forbidden");
+			}
+
 			throw new PortalException("Invalid token");
 		}
 	}
