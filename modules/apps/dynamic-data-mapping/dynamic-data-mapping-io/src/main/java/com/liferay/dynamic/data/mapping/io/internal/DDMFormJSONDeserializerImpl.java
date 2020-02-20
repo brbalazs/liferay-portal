@@ -156,15 +156,15 @@ public class DDMFormJSONDeserializerImpl implements DDMFormJSONDeserializer {
 			"errorMessage");
 
 		if (errorMessageJSONObject == null) {
-			LocalizedValue erroMessageLocalizedValue = new LocalizedValue();
+			LocalizedValue errorMessageLocalizedValue = new LocalizedValue();
 
 			for (Locale locale : availableLocales) {
-				erroMessageLocalizedValue.addString(
+				errorMessageLocalizedValue.addString(
 					locale, jsonObject.getString("errorMessage"));
 			}
 
 			ddmFormFieldValidation.setErrorMessageLocalizedValue(
-				erroMessageLocalizedValue);
+				errorMessageLocalizedValue);
 		}
 		else {
 			ddmFormFieldValidation.setErrorMessageLocalizedValue(
