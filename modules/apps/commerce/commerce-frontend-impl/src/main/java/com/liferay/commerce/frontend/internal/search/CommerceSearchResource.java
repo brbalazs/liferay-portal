@@ -180,7 +180,7 @@ public class CommerceSearchResource {
 
 		for (Account account : accountList.getAccounts()) {
 			SearchItemModel searchItemModel = new SearchItemModel(
-				"item", HtmlUtil.escape(account.getName()));
+				"item", account.getName());
 
 			searchItemModel.setImage(account.getThumbnail());
 
