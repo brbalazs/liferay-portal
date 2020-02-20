@@ -99,6 +99,9 @@ public interface JournalWebConfiguration {
 	@Meta.AD(deflt = "false", name = "show-feeds", required = false)
 	public boolean showFeeds();
 
+	/**
+	 * @deprecated As of Wilberforce (7.0.x), with no direct replacement
+	 */
 	@Deprecated
 	@Meta.AD(
 		deflt = "false",
