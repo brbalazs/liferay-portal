@@ -313,6 +313,10 @@ public class FinderCacheImpl
 			return;
 		}
 
+		_removeResult(finderPath, args);
+	}
+
+	private void _removeResult(FinderPath finderPath, Object[] args) {
 		String encodedArguments = finderPath.encodeArguments(args);
 
 		if (_isLocalCacheEnabled()) {
