@@ -171,6 +171,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			subscriptionTypeSettingsProperties);
 		cpInstance.setMaxSubscriptionCycles(maxSubscriptionCycles);
 
+		cpInstance.setStatus(WorkflowConstants.STATUS_DRAFT);
+
 		if ((displayDate != null) && now.before(displayDate)) {
 			cpInstance.setStatus(WorkflowConstants.STATUS_SCHEDULED);
 		}
@@ -224,7 +226,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		// Workflow
 
-		if (cpInstance.getStatus() == WorkflowConstants.STATUS_APPROVED) {
+		if (cpInstance.getStatus() == WorkflowConstants.STATUS_DRAFT) {
 			cpInstance = startWorkflowInstance(
 				user.getUserId(), cpInstance, serviceContext);
 		}
@@ -471,28 +473,16 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				continue;
 			}
 
-			cpInstance = addCPInstance(
+			addCPInstance(
 				cpDefinitionId, cpDefinition.getGroupId(), sku,
-				StringPool.BLANK, StringPool.BLANK, true, null,
+				StringPool.BLANK, StringPool.BLANK, true,
+				_toCpDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+					cpDefinitionOptionValueRels),
 				cpDefinition.getWidth(), cpDefinition.getHeight(),
 				cpDefinition.getDepth(), cpDefinition.getWeight(),
 				BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, true,
 				cpDefinition.getDisplayDate(), cpDefinition.getExpirationDate(),
 				neverExpire, serviceContext);
-
-			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-					cpDefinitionOptionValueRels) {
-
-				cpInstanceOptionValueRelLocalService.
-					addCPInstanceOptionValueRel(
-						cpDefinition.getGroupId(),
-						serviceContext.getCompanyId(),
-						serviceContext.getUserId(),
-						cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
-						cpDefinitionOptionValueRel.
-							getCPDefinitionOptionValueRelId(),
-						cpInstance.getCPInstanceId());
-			}
 		}
 	}
 
@@ -1030,7 +1020,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
 		if (!cpDefinition.isIgnoreSKUCombinations() &&
-			cpInstanceOptionValueRelLocalService.hasCPInstanceOptionValueRel(
+			!cpInstanceOptionValueRelLocalService.hasCPInstanceOptionValueRel(
 				cpInstance.getCPInstanceId())) {
 
 			status = WorkflowConstants.STATUS_INACTIVE;
@@ -1146,7 +1136,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 	protected CPInstance addCPInstance(
 			long cpDefinitionId, long groupId, String sku, String gtin,
-			String manufacturerPartNumber, boolean purchasable, String json,
+			String manufacturerPartNumber, boolean purchasable,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
 			double width, double height, double depth, double weight,
 			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
 			boolean published, Date displayDate, Date expirationDate,
@@ -1184,12 +1176,13 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		return cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
-			purchasable, json, width, height, depth, weight, price, promoPrice,
-			cost, published, StringPool.BLANK, displayDateMonth, displayDateDay,
-			displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
-			serviceContext);
+			purchasable, cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			width, height, depth, weight, price, promoPrice, cost, published,
+			StringPool.BLANK, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, false, false, 1,
+			StringPool.BLANK, null, 0, serviceContext);
 	}
 
 	protected SearchContext buildSearchContext(
@@ -1550,6 +1543,36 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		}
 
 		return false;
+	}
+
+	private Map<Long, List<Long>>
+		_toCpDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+			CPDefinitionOptionValueRel[] cpDefinitionOptionValueRels) {
+
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds =
+				new HashMap<>();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			List<Long> cpDefinitionOptionValueRelIds =
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.get(
+					cpDefinitionOptionValueRel.getCPDefinitionOptionRelId());
+
+			if (cpDefinitionOptionValueRelIds == null) {
+				cpDefinitionOptionValueRelIds = new ArrayList<>();
+
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.put(
+					cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+					cpDefinitionOptionValueRelIds);
+			}
+
+			cpDefinitionOptionValueRelIds.add(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId());
+		}
+
+		return cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds;
 	}
 
 	private void _validateSku(
