@@ -19,8 +19,14 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
  */
 public class CommerceProductDataSetConstants {
 
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_ACCOUNT_GROUPS =
+		"commerceProductAccountGroups";
+
 	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_ATTACHMENTS =
 		"commerceProductAttachments";
+
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_CHANNELS =
+		"commerceProductChannels";
 
 	public static final String
 		COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS =
