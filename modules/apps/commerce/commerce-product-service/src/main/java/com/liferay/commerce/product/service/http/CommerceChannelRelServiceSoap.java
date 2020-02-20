@@ -82,12 +82,45 @@ public class CommerceChannelRelServiceSoap {
 		}
 	}
 
+	public static void deleteCommerceChannelRel(long commerceChannelRelId)
+		throws RemoteException {
+
+		try {
+			CommerceChannelRelServiceUtil.deleteCommerceChannelRel(
+				commerceChannelRelId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void deleteCommerceChannelRels(String className, long classPK)
 		throws RemoteException {
 
 		try {
 			CommerceChannelRelServiceUtil.deleteCommerceChannelRels(
 				className, classPK);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.product.model.CommerceChannelRelSoap
+			getCommerceChannelRel(long commerceChannelRelId)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.product.model.CommerceChannelRel returnValue =
+				CommerceChannelRelServiceUtil.getCommerceChannelRel(
+					commerceChannelRelId);
+
+			return com.liferay.commerce.product.model.CommerceChannelRelSoap.
+				toSoapModel(returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

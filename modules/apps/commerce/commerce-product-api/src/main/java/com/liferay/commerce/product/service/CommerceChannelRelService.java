@@ -66,7 +66,14 @@ public interface CommerceChannelRelService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public void deleteCommerceChannelRel(long commerceChannelRelId)
+		throws PortalException;
+
 	public void deleteCommerceChannelRels(String className, long classPK);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceChannelRel getCommerceChannelRel(long commerceChannelRelId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceChannelRel> getCommerceChannelRels(

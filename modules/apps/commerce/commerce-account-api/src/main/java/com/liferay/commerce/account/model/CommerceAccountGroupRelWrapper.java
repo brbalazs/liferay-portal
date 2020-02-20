@@ -171,6 +171,13 @@ public class CommerceAccountGroupRelWrapper
 		return _commerceAccountGroupRel.getClassPK();
 	}
 
+	@Override
+	public CommerceAccountGroup getCommerceAccountGroup()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceAccountGroupRel.getCommerceAccountGroup();
+	}
+
 	/**
 	 * Returns the commerce account group ID of this commerce account group rel.
 	 *

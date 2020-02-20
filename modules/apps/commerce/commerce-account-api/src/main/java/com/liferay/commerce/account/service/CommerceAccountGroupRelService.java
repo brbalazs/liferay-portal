@@ -66,7 +66,15 @@ public interface CommerceAccountGroupRelService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public void deleteCommerceAccountGroupRel(long commerceAccountGroupRelId)
+		throws PortalException;
+
 	public void deleteCommerceAccountGroupRels(String className, long classPK);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceAccountGroupRel getCommerceAccountGroupRel(
+			long commerceAccountGroupRelId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceAccountGroupRel> getCommerceAccountGroupRels(

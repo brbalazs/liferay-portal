@@ -45,9 +45,26 @@ public class CommerceChannelRelServiceWrapper
 	}
 
 	@Override
+	public void deleteCommerceChannelRel(long commerceChannelRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceChannelRelService.deleteCommerceChannelRel(
+			commerceChannelRelId);
+	}
+
+	@Override
 	public void deleteCommerceChannelRels(String className, long classPK) {
 		_commerceChannelRelService.deleteCommerceChannelRels(
 			className, classPK);
+	}
+
+	@Override
+	public com.liferay.commerce.product.model.CommerceChannelRel
+			getCommerceChannelRel(long commerceChannelRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceChannelRelService.getCommerceChannelRel(
+			commerceChannelRelId);
 	}
 
 	@Override

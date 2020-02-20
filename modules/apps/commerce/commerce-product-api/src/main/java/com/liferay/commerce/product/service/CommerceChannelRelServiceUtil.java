@@ -47,10 +47,23 @@ public class CommerceChannelRelServiceUtil {
 			className, classPK, commerceChannelId, serviceContext);
 	}
 
+	public static void deleteCommerceChannelRel(long commerceChannelRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteCommerceChannelRel(commerceChannelRelId);
+	}
+
 	public static void deleteCommerceChannelRels(
 		String className, long classPK) {
 
 		getService().deleteCommerceChannelRels(className, classPK);
+	}
+
+	public static com.liferay.commerce.product.model.CommerceChannelRel
+			getCommerceChannelRel(long commerceChannelRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceChannelRel(commerceChannelRelId);
 	}
 
 	public static java.util.List

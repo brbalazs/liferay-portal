@@ -47,10 +47,25 @@ public class CommerceAccountGroupRelServiceUtil {
 			className, classPK, commerceAccountGroupId, serviceContext);
 	}
 
+	public static void deleteCommerceAccountGroupRel(
+			long commerceAccountGroupRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteCommerceAccountGroupRel(commerceAccountGroupRelId);
+	}
+
 	public static void deleteCommerceAccountGroupRels(
 		String className, long classPK) {
 
 		getService().deleteCommerceAccountGroupRels(className, classPK);
+	}
+
+	public static com.liferay.commerce.account.model.CommerceAccountGroupRel
+			getCommerceAccountGroupRel(long commerceAccountGroupRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceAccountGroupRel(
+			commerceAccountGroupRelId);
 	}
 
 	public static java.util.List

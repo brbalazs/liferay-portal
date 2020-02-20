@@ -45,9 +45,26 @@ public class CommerceAccountGroupRelServiceWrapper
 	}
 
 	@Override
+	public void deleteCommerceAccountGroupRel(long commerceAccountGroupRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceAccountGroupRelService.deleteCommerceAccountGroupRel(
+			commerceAccountGroupRelId);
+	}
+
+	@Override
 	public void deleteCommerceAccountGroupRels(String className, long classPK) {
 		_commerceAccountGroupRelService.deleteCommerceAccountGroupRels(
 			className, classPK);
+	}
+
+	@Override
+	public com.liferay.commerce.account.model.CommerceAccountGroupRel
+			getCommerceAccountGroupRel(long commerceAccountGroupRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceAccountGroupRelService.getCommerceAccountGroupRel(
+			commerceAccountGroupRelId);
 	}
 
 	@Override

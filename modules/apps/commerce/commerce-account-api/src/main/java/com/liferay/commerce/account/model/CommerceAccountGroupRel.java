@@ -63,4 +63,7 @@ public interface CommerceAccountGroupRel
 
 			};
 
+	public CommerceAccountGroup getCommerceAccountGroup()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 }
