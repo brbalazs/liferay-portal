@@ -200,6 +200,14 @@ public class DDMFormValuesJSONDeserializerImpl
 		return new UnlocalizedValue(jsonObject.getString("value"));
 	}
 
+	protected boolean invalidLocale(String languageId) {
+		if (LocaleUtil.fromLanguageId(languageId, true, false) == null) {
+			return true;
+		}
+
+		return false;
+	}
+
 	protected boolean isLocalized(JSONObject jsonObject) {
 		if (jsonObject == null) {
 			return false;
@@ -210,7 +218,7 @@ public class DDMFormValuesJSONDeserializerImpl
 		while (keys.hasNext()) {
 			String key = keys.next();
 
-			if (LocaleUtil.fromLanguageId(key, true, false) == null) {
+			if (invalidLocale(key)) {
 				return false;
 			}
 		}
