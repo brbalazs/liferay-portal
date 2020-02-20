@@ -239,7 +239,9 @@ public class FinderCacheImpl
 						_valueObjectFinderCacheListThreshold) &&
 					 (_valueObjectFinderCacheListThreshold > 0)) {
 
-				cacheValue = null;
+				_removeResult(finderPath, args);
+
+				return;
 			}
 			else {
 				ArrayList<Serializable> primaryKeys = new ArrayList<>(
@@ -253,45 +255,26 @@ public class FinderCacheImpl
 			}
 		}
 
-		PortalCache<Serializable, Serializable> portalCache = _getPortalCache(
-			finderPath.getCacheName());
-
 		String encodedArguments = finderPath.encodeArguments(args);
 
 		Serializable cacheKey = finderPath.encodeCacheKey(encodedArguments);
 
-		if (cacheValue == null) {
-			if (_isLocalCacheEnabled()) {
-				Map<Serializable, Serializable> localCache = _localCache.get();
+		if (_isLocalCacheEnabled()) {
+			Map<Serializable, Serializable> localCache = _localCache.get();
 
-				localCache.remove(
-					finderPath.encodeLocalCacheKey(encodedArguments));
-			}
+			localCache.put(
+				finderPath.encodeLocalCacheKey(encodedArguments), cacheValue);
+		}
 
-			if (quiet) {
-				PortalCacheHelperUtil.removeWithoutReplicator(
-					portalCache, cacheKey);
-			}
-			else {
-				portalCache.remove(cacheKey);
-			}
+		PortalCache<Serializable, Serializable> portalCache = _getPortalCache(
+			finderPath.getCacheName());
+
+		if (quiet) {
+			PortalCacheHelperUtil.putWithoutReplicator(
+				portalCache, cacheKey, cacheValue);
 		}
 		else {
-			if (_isLocalCacheEnabled()) {
-				Map<Serializable, Serializable> localCache = _localCache.get();
-
-				localCache.put(
-					finderPath.encodeLocalCacheKey(encodedArguments),
-					cacheValue);
-			}
-
-			if (quiet) {
-				PortalCacheHelperUtil.putWithoutReplicator(
-					portalCache, cacheKey, cacheValue);
-			}
-			else {
-				portalCache.put(cacheKey, cacheValue);
-			}
+			portalCache.put(cacheKey, cacheValue);
 		}
 	}
 
