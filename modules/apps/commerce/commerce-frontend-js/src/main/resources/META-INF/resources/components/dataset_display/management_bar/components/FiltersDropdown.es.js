@@ -55,7 +55,10 @@ function FiltersDropdown() {
 			active={active}
 			onActiveChange={setActive}
 			trigger={
-				<button className="filters-dropdown-button btn btn-unstyled dropdown-toggle">
+				<button
+					className="filters-dropdown-button btn btn-unstyled dropdown-toggle"
+					type="button"
+				>
 					<span className="navbar-text-truncate">
 						{Liferay.Language.get('set-filters')}
 					</span>

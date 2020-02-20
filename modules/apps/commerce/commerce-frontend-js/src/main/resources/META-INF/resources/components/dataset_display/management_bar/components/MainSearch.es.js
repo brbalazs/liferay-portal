@@ -30,59 +30,60 @@ function MainSearch() {
 		updateInputValue(mainFilter.value || '');
 	}, [mainFilter.value]);
 
+	function handleKeyDown(e) {
+		if (e.keyCode === 13) {
+			e.preventDefault();
+			return actions.updateFilterValue(mainFilter.id, inputValue);
+		}
+	}
+
 	return (
 		<div className="d-inline">
-			<form
-				onSubmit={e => {
-					e.preventDefault();
-					actions.updateFilterValue(mainFilter.id, inputValue);
-				}}
-				role="search"
-			>
-				<div className="input-group">
-					<div className="input-group-item">
-						<div className="main-input-wrapper">
-							<input
-								className="main-input-search form-control input-group-inset input-group-inset-after"
-								onChange={e => updateInputValue(e.target.value)}
-								placeholder={
-									mainFilter.placeholder ||
-									Liferay.Language.get('search-for')
-								}
-								type="text"
-								value={inputValue}
-							/>
+			<div className="input-group">
+				<div className="input-group-item">
+					<div className="main-input-wrapper">
+						<input
+							className="main-input-search form-control input-group-inset input-group-inset-after"
+							onChange={e => updateInputValue(e.target.value)}
+							onKeyDown={handleKeyDown}
+							placeholder={
+								mainFilter.placeholder ||
+								Liferay.Language.get('search-for')
+							}
+							type="text"
+							value={inputValue}
+						/>
 
-							<button
-								className={classNames(
-									'main-input-reset-button btn btn-unstyled',
-									!inputValue.length && 'd-none'
-								)}
-								disabled={!inputValue.length}
-								onClick={() => updateInputValue('')}
-								type="button"
-							>
-								<Icon symbol="times-circle" />
-							</button>
-						</div>
-
-						<span className="input-group-inset-item input-group-inset-item-after">
-							<button
-								className="btn btn-unstyled"
-								onSubmit={e => {
-									e.preventDefault();
-									actions.updateFilterValue(
-										mainFilter.id,
-										inputValue
-									);
-								}}
-							>
-								<Icon symbol="search" />
-							</button>
-						</span>
+						<button
+							className={classNames(
+								'main-input-reset-button btn btn-unstyled',
+								!inputValue.length && 'd-none'
+							)}
+							disabled={!inputValue.length}
+							onClick={() => updateInputValue('')}
+							type="button"
+						>
+							<Icon symbol="times-circle" />
+						</button>
 					</div>
+
+					<span className="input-group-inset-item input-group-inset-item-after">
+						<button
+							className="btn btn-unstyled"
+							onSubmit={e => {
+								e.preventDefault();
+								actions.updateFilterValue(
+									mainFilter.id,
+									inputValue
+								);
+							}}
+							type="button"
+						>
+							<Icon symbol="search" />
+						</button>
+					</span>
 				</div>
-			</form>
+			</div>
 		</div>
 	);
 }

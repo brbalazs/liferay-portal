@@ -17,6 +17,7 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
+import {closest} from '../../utilities/closest.es';
 import {
 	DATASET_DISPLAY_UPDATED,
 	OPEN_MODAL,
@@ -55,6 +56,7 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 }
 
 function DatasetDisplay(props) {
+	const wrapperRef = useRef(null);
 	const [changesCount, setChangesCount] = useState(0);
 	const [views, updateViews] = useState(props.views);
 	const [loading, setLoading] = useState(false);
@@ -228,6 +230,15 @@ function DatasetDisplay(props) {
 		);
 
 	useEffect(() => {
+		if (wrapperRef.current) {
+			const form = closest(wrapperRef.current, 'form');
+			if (form && form.getAttribute('data-senna-off') === null) {
+				form.setAttribute('data-senna-off', true);
+			}
+		}
+	}, [wrapperRef]);
+
+	useEffect(() => {
 		function handleRefreshFromTheOutside(e) {
 			if (e.id === props.id) {
 				refreshData();
@@ -356,29 +367,31 @@ function DatasetDisplay(props) {
 						onAfterSubmit={refreshData}
 					/>
 				)}
-				{props.style === 'default' && (
-					<div className="dataset-display">
-						{managementBar}
-						{wrappedView}
-						{pagination}
-					</div>
-				)}
-				{props.style === 'stacked' && (
-					<div className="dataset-display dataset-display-stacked">
-						{managementBar}
-						{wrappedView}
-						{pagination}
-					</div>
-				)}
-				{props.style === 'fluid' && (
-					<div className="dataset-display dataset-display-fluid">
-						{managementBar}
-						<div className="container mt-3">
+				<div className="dataset-display-wrapper" ref={wrapperRef}>
+					{props.style === 'default' && (
+						<div className="dataset-display">
+							{managementBar}
 							{wrappedView}
 							{pagination}
 						</div>
-					</div>
-				)}
+					)}
+					{props.style === 'stacked' && (
+						<div className="dataset-display dataset-display-stacked">
+							{managementBar}
+							{wrappedView}
+							{pagination}
+						</div>
+					)}
+					{props.style === 'fluid' && (
+						<div className="dataset-display dataset-display-fluid">
+							{managementBar}
+							<div className="container mt-3">
+								{wrappedView}
+								{pagination}
+							</div>
+						</div>
+					)}
+				</div>
 			</ClayIconSpriteContext.Provider>
 		</DatasetDisplayContext.Provider>
 	);

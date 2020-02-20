@@ -169,6 +169,7 @@ function BulkActions(props) {
 											sidePanelId
 										)
 									}
+									type="button"
 								>
 									<ClayIcon symbol={actionDefinition.icon} />
 								</button>
