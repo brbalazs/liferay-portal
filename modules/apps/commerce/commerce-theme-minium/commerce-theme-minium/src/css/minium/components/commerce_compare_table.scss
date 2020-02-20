@@ -4,6 +4,10 @@
 	line-height: 1.1;
 	width: 100%;
 
+	thead td {
+		height: 100%;
+	}
+
 	tbody td {
 		border-right: 2px solid #f8f8f9;
 		padding: 15px;
@@ -12,6 +16,10 @@
 		&:last-child {
 			border-right: none;
 		}
+	}
+
+	thead tr {
+		height: 1px;
 	}
 
 	tbody tr {
