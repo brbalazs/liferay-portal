@@ -147,7 +147,7 @@ public class SendAnalyticsMessagesMessageListener extends BaseMessageListener {
 			}
 			catch (Exception exception) {
 				_log.error(
-					"Unable to send analytics messages for company ID " +
+					"Unable to send analytics messages for company " +
 						companyId,
 					exception);
 			}

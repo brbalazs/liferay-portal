@@ -88,7 +88,7 @@ public class CheckAnalyticsConnectionsMessageListener
 			}
 			catch (Exception exception) {
 				_log.error(
-					"Unable to connect Analytics Cloud for company ID " +
+					"Unable to connect Analytics Cloud for company " +
 						analyticsConfigurationEntry.getKey(),
 					exception);
 
