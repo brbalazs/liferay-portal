@@ -30,12 +30,6 @@ boolean neverExpire = ParamUtil.getBoolean(request, "neverExpire", true);
 if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 	neverExpire = false;
 }
-
-PortletURL productSkusURL = renderResponse.createRenderURL();
-
-productSkusURL.setParameter("mvcRenderCommandName", "editProductDefinition");
-productSkusURL.setParameter("cpDefinitionId", String.valueOf(cpDefinition.getCPDefinitionId()));
-productSkusURL.setParameter("screenNavigationCategoryKey", cpInstanceDisplayContext.getScreenNavigationCategoryKey());
 %>
 
 <portlet:actionURL name="editProductInstance" var="editProductInstanceActionURL" />
@@ -209,8 +203,6 @@ productSkusURL.setParameter("screenNavigationCategoryKey", cpInstanceDisplayCont
 		<aui:button cssClass="btn-lg" disabled="<%= pending %>" name="publishButton" type="submit" value="<%= publishButtonLabel %>" />
 
 		<aui:button cssClass="btn-lg" name="saveButton" primary="<%= false %>" type="submit" value="<%= saveButtonLabel %>" />
-
-		<aui:button cssClass="btn-lg" href="<%= productSkusURL.toString() %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
 
