@@ -140,27 +140,34 @@ public class ProductSpecificationResourceImpl
 			Long id, ProductSpecification productSpecification)
 		throws Exception {
 
-		try {
-			CPDefinitionSpecificationOptionValue
-				cpDefinitionSpecificationOptionValue =
-					_updateProductSpecification(
-						productSpecification.getId(), productSpecification);
+		Long productSpecificationId = productSpecification.getId();
 
-			DTOConverter productSpecificationDTOConverter =
-				_dtoConverterRegistry.getDTOConverter(
-					CPDefinitionSpecificationOptionValue.class.getName());
+		if (productSpecificationId != null) {
+			try {
+				CPDefinitionSpecificationOptionValue
+					cpDefinitionSpecificationOptionValue =
+						_updateProductSpecification(
+							productSpecification.getId(), productSpecification);
 
-			return (ProductSpecification)productSpecificationDTOConverter.toDTO(
-				new DefaultDTOConverterContext(
-					contextAcceptLanguage.getPreferredLocale(),
-					cpDefinitionSpecificationOptionValue.
-						getCPDefinitionSpecificationOptionValueId()));
-		}
-		catch (NoSuchCPDefinitionSpecificationOptionValueException nscpdsove) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(
-					"Unable to find productSpecification with ID: " +
-						productSpecification.getId());
+				DTOConverter productSpecificationDTOConverter =
+					_dtoConverterRegistry.getDTOConverter(
+						CPDefinitionSpecificationOptionValue.class.getName());
+
+				return (ProductSpecification)
+					productSpecificationDTOConverter.toDTO(
+						new DefaultDTOConverterContext(
+							contextAcceptLanguage.getPreferredLocale(),
+							cpDefinitionSpecificationOptionValue.
+								getCPDefinitionSpecificationOptionValueId()));
+			}
+			catch (NoSuchCPDefinitionSpecificationOptionValueException
+						nscpdsove) {
+
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Unable to find productSpecification with ID: " +
+							productSpecification.getId());
+				}
 			}
 		}
 
