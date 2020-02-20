@@ -287,8 +287,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to update configuration for company " +
-						companyId);
+					"Unable to update configuration for company " + companyId);
 			}
 		}
 	}

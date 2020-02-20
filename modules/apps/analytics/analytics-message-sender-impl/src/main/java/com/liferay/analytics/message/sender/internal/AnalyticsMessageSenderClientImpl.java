@@ -196,8 +196,8 @@ public class AnalyticsMessageSenderClientImpl
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						StringBundler.concat(
-							"Disconnecting data source for company ",
-							companyId, ". Cause: ", message));
+							"Disconnecting data source for company ", companyId,
+							". Cause: ", message));
 				}
 
 				_disconnectDataSource(companyId);
