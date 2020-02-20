@@ -59,6 +59,7 @@ import com.liferay.journal.model.JournalArticleDisplay;
 import com.liferay.journal.model.JournalArticleLocalization;
 import com.liferay.journal.model.JournalArticleResource;
 import com.liferay.journal.model.JournalFolder;
+import com.liferay.journal.model.JournalFolderConstants;
 import com.liferay.journal.model.impl.JournalArticleDisplayImpl;
 import com.liferay.journal.service.base.JournalArticleLocalServiceBaseImpl;
 import com.liferay.journal.util.JournalDefaultTemplateProvider;
@@ -8023,7 +8024,8 @@ public class JournalArticleLocalServiceImpl
 		subscriptionSender.addPersistedSubscribers(
 			JournalFolder.class.getName(), article.getGroupId());
 
-		JournalFolder folder = article.getFolder();
+		JournalFolder folder = journalFolderPersistence.fetchByPrimaryKey(
+			article.getFolderId());
 
 		if (folder != null) {
 			subscriptionSender.addPersistedSubscribers(
@@ -8160,13 +8162,18 @@ public class JournalArticleLocalServiceImpl
 			"[$ARTICLE_DIFFS$]", DiffHtmlUtil.replaceStyles(articleDiffs),
 			false);
 
-		String folderName = folder.getName();
+		String folderName = StringPool.BLANK;
 
-		if ((folder.getFolderId() ==
-				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) &&
-			Validator.isNull(folderName)) {
+		if (folder != null) {
+			folderName = folder.getName();
 
-			folderName = LanguageUtil.get(LocaleUtil.getSiteDefault(), "home");
+			if ((folder.getFolderId() ==
+					DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) &&
+				Validator.isNull(folderName)) {
+
+				folderName = LanguageUtil.get(
+					LocaleUtil.getSiteDefault(), "home");
+			}
 		}
 
 		String portletId = PortletProviderUtil.getPortletId(
