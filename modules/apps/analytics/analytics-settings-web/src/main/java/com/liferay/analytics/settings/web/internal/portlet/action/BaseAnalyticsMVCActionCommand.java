@@ -79,8 +79,8 @@ public abstract class BaseAnalyticsMVCActionCommand
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
-					"Invalid token. Deleted analytics configuration for " +
-						"company ID " + companyId);
+					"Deleted analytics configuration for company " + companyId +
+						" due to invalid token");
 			}
 		}
 		else {
