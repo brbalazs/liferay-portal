@@ -8166,6 +8166,15 @@ public class JournalArticleLocalServiceImpl
 		String articleURL = getURLViewInContext(
 			article, portletId, serviceContext);
 
+		String folderName = folder.getName();
+
+		if ((folder.getFolderId() ==
+				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) &&
+			Validator.isNull(folderName)) {
+
+			folderName = LanguageUtil.get(LocaleUtil.getSiteDefault(), "home");
+		}
+
 		String articleStatus = LanguageUtil.get(
 			LocaleUtil.getSiteDefault(),
 			WorkflowConstants.getStatusLabel(article.getStatus()));
@@ -8173,7 +8182,7 @@ public class JournalArticleLocalServiceImpl
 		subscriptionSender.setContextAttributes(
 			"[$ARTICLE_ID$]", article.getArticleId(), "[$ARTICLE_TITLE$]",
 			articleTitle, "[$ARTICLE_URL$]", articleURL, "[$ARTICLE_VERSION$]",
-			article.getVersion(), "[$FOLDER_NAME$]", folder.getName(),
+			article.getVersion(), "[$FOLDER_NAME$]", folderName,
 			"[$ARTICLE_STATUS$]", articleStatus);
 
 		subscriptionSender.setContextCreatorUserPrefix("ARTICLE");
