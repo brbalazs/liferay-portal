@@ -190,7 +190,6 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 				<div id="item-finder-root"></div>
 
 				<aui:script require="commerce-frontend-js/components/item_finder/entry.es as itemFinder, commerce-frontend-js/utilities/index.es as utilities, commerce-frontend-js/utilities/eventsDefinitions.es as events">
-
 					var headers = new Headers({
 						Accept: 'application/json',
 						'Content-Type': 'application/json',
@@ -202,82 +201,89 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 					function selectItem(specification) {
 						return fetch(
-							'/o/headless-commerce-admin-catalog/v1.0/products/' + id + '/productSpecifications/',
+							'/o/headless-commerce-admin-catalog/v1.0/products/' +
+								id +
+								'/productSpecifications/',
 							{
-								body: JSON.stringify(
-									{
-										productId: productId,
-										specificationId: specification.id,
-										specificationKey: specification.key,
-										value: {
-											[themeDisplay.getLanguageId()]: name
-										}
+								body: JSON.stringify({
+									productId: productId,
+									specificationId: specification.id,
+									specificationKey: specification.key,
+									value: {
+										[themeDisplay.getLanguageId()]: name
 									}
-								),
+								}),
 								credentials: 'include',
 								headers,
-								method: 'POST',
+								method: 'POST'
 							}
-						).then( function() {
+						).then(function() {
 							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
-								id: "<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>"
-							})
-							return specification.id
-						})
+								id:
+									'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
+							});
+							return specification.id;
+						});
 					}
 
 					function addNewItem(name) {
 						return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
-							body: JSON.stringify(
-								{
-									key: utilities.slugify(name),
-									title: {
-										[themeDisplay.getLanguageId()]: name
-									}
+							body: JSON.stringify({
+								key: utilities.slugify(name),
+								title: {
+									[themeDisplay.getLanguageId()]: name
 								}
-							),
+							}),
 							credentials: 'include',
 							headers,
-							method: 'POST',
+							method: 'POST'
 						})
 							.then(function(response) {
 								return response.json();
 							})
-							.then(selectItem)
+							.then(selectItem);
 					}
 
 					function getSelectedItems() {
 						return fetch(
-							'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productSpecifications/',
+							'/o/headless-commerce-admin-catalog/v1.0/products/' +
+								productId +
+								'/productSpecifications/',
 							{
 								credentials: 'include',
-								headers,
+								headers
 							}
 						)
-							.then(function (response) {return response.json()})
-							.then(function (jsonResponse) {
-								return jsonResponse.items.map(specification => specification.specificationId)
+							.then(function(response) {
+								return response.json();
 							})
+							.then(function(jsonResponse) {
+								return jsonResponse.items.map(
+									specification => specification.specificationId
+								);
+							});
 					}
 
-					getSelectedItems()
-						.then(function (selectedItemsIds) {
-							itemFinder.default('itemFinder', 'item-finder-root', {
-								apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
-								createNewItemLabel: '<%= LanguageUtil.get(request, "create-new-specification") %>',
-								itemsKey: 'id',
-								onItemCreated: addNewItem,
-								onItemSelected: selectItem,
-								pageSize: 10,
-								panelHeaderLabel: '<%= LanguageUtil.get(request, "add-new-specification") %>',
-								schema: {
-									itemTitle: ['title', themeDisplay.getLanguageId()]
-								},
-								selectedItems: selectedItemsIds,
-								spritemap: "<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg",
-								titleLabel: '<%= LanguageUtil.get(request, "select-an-existing-specification") %>',
-							})
-						})
+					getSelectedItems().then(function(selectedItemsIds) {
+						itemFinder.default('itemFinder', 'item-finder-root', {
+							apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+							createNewItemLabel:
+								'<%= LanguageUtil.get(request, "create-new-specification") %>',
+							itemsKey: 'id',
+							onItemCreated: addNewItem,
+							onItemSelected: selectItem,
+							pageSize: 10,
+							panelHeaderLabel:
+								'<%= LanguageUtil.get(request, "add-new-specification") %>',
+							schema: {
+								itemTitle: ['title', themeDisplay.getLanguageId()]
+							},
+							selectedItems: selectedItemsIds,
+							spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
+							titleLabel:
+								'<%= LanguageUtil.get(request, "select-an-existing-specification") %>'
+						});
+					});
 				</aui:script>
 			</div>
 
@@ -304,9 +310,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					/>
 				</commerce-ui:panel>
 			</div>
-
 		</c:if>
-
 	</div>
 </aui:form>
 

@@ -26,99 +26,109 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 	<div class="pt-4" id="<portlet:namespace />productOptionRelsContainer">
 		<div id="item-finder-root"></div>
 
-			<aui:script require="commerce-frontend-js/components/item_finder/entry.es as itemFinder, commerce-frontend-js/utilities/index.es as utilities, commerce-frontend-js/utilities/eventsDefinitions.es as events">
+		<aui:script require="commerce-frontend-js/components/item_finder/entry.es as itemFinder, commerce-frontend-js/utilities/index.es as utilities, commerce-frontend-js/utilities/eventsDefinitions.es as events">
+			var headers = new Headers({
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				'x-csrf-token': Liferay.authToken
+			});
 
-				var headers = new Headers({
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-					'x-csrf-token': Liferay.authToken
-				});
+			var productId = <%= cpDefinition.getCProductId() %>;
 
-				var productId = <%= cpDefinition.getCProductId() %>;
-
-				function selectItem(option) {
-					return fetch(
-						'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productOptions/',
-						{
-							body: JSON.stringify(
-								[{
-									optionId: option.id,
-									key: option.key,
-									name: option.name,
-									required: false,
-									skuContributor: false,
-									values: [],
-									fieldType: "select",
-								}]
-							),
-							credentials: 'include',
-							headers,
-							method: 'POST',
-						}
-					).then( function() {
-						Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
-							id: "<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>"
-						})
-						return option.id
-					})
-				}
-
-				function addNewItem(name) {
-					return fetch('/o/headless-commerce-admin-catalog/v1.0/options', {
-						body: JSON.stringify(
+			function selectItem(option) {
+				return fetch(
+					'/o/headless-commerce-admin-catalog/v1.0/products/' +
+						productId +
+						'/productOptions/',
+					{
+						body: JSON.stringify([
 							{
-								"fieldType": "select",
-								"key": utilities.slugify(name),
-								"name": {
-									[themeDisplay.getLanguageId()]: name
-								}
+								optionId: option.id,
+								key: option.key,
+								name: option.name,
+								required: false,
+								skuContributor: false,
+								values: [],
+								fieldType: 'select'
 							}
-						),
+						]),
 						credentials: 'include',
 						headers,
-						method: 'POST',
-					})
-						.then(function(response) {
-							return response.json();
-						})
-						.then(selectItem)
-				}
+						method: 'POST'
+					}
+				).then(function() {
+					Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+						id:
+							'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'
+					});
+					return option.id;
+				});
+			}
 
-				function getSelectedItems() {
-					return fetch(
-						'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productOptions/',
-						{
-							credentials: 'include',
-							headers,
+			function addNewItem(name) {
+				return fetch('/o/headless-commerce-admin-catalog/v1.0/options', {
+					body: JSON.stringify({
+						fieldType: 'select',
+						key: utilities.slugify(name),
+						name: {
+							[themeDisplay.getLanguageId()]: name
 						}
-					)
-						.then(function (response) {return response.json()})
-						.then(function (jsonResponse) {
-							return jsonResponse.items.map(option => option.id)
-						})
-				}
-
-				getSelectedItems()
-					.then(function (selectedItemsIds) {
-						itemFinder.default('itemFinder', 'item-finder-root', {
-							apiUrl: '/o/headless-commerce-admin-catalog/v1.0/options',
-							createNewItemLabel: '<%= LanguageUtil.get(request, "create-new-option") %>',
-							itemsKey: 'id',
-							onItemCreated: addNewItem,
-							onItemSelected: selectItem,
-							pageSize: 10,
-							panelHeaderLabel: '<%= LanguageUtil.get(request, "add-new-option") %>',
-							schema: {
-								itemTitle: ['name', themeDisplay.getLanguageId()]
-							},
-							selectedItems: selectedItemsIds,
-							spritemap: "<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg",
-							titleLabel: '<%= LanguageUtil.get(request, "select-an-existing-option") %>',
-						})
+					}),
+					credentials: 'include',
+					headers,
+					method: 'POST'
+				})
+					.then(function(response) {
+						return response.json();
 					})
-			</aui:script>
+					.then(selectItem);
+			}
 
-		<commerce-ui:panel title='<%= LanguageUtil.get(locale, "options")%>' elementClasses="mt-4" bodyClasses="p-0">
+			function getSelectedItems() {
+				return fetch(
+					'/o/headless-commerce-admin-catalog/v1.0/products/' +
+						productId +
+						'/productOptions/',
+					{
+						credentials: 'include',
+						headers
+					}
+				)
+					.then(function(response) {
+						return response.json();
+					})
+					.then(function(jsonResponse) {
+						return jsonResponse.items.map(option => option.id);
+					});
+			}
+
+			getSelectedItems().then(function(selectedItemsIds) {
+				itemFinder.default('itemFinder', 'item-finder-root', {
+					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/options',
+					createNewItemLabel:
+						'<%= LanguageUtil.get(request, "create-new-option") %>',
+					itemsKey: 'id',
+					onItemCreated: addNewItem,
+					onItemSelected: selectItem,
+					pageSize: 10,
+					panelHeaderLabel: '<%= LanguageUtil.get(request, "add-new-option") %>',
+					schema: {
+						itemTitle: ['name', themeDisplay.getLanguageId()]
+					},
+					selectedItems: selectedItemsIds,
+					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
+					titleLabel:
+						'<%= LanguageUtil.get(request, "select-an-existing-option") %>'
+				});
+			});
+		</aui:script>
+
+		<commerce-ui:panel
+			bodyClasses="p-0"
+			elementClasses="mt-4"
+			title='<%= LanguageUtil.get(request, "options") %>'
+		>
+
 			<%
 			Map<String, String> contextParams = new HashMap<>();
 
