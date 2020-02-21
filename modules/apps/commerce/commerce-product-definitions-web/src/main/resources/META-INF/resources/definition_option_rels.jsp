@@ -37,21 +37,21 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 
 			function selectItem(option) {
 				return fetch(
-					'/o/headless-commerce-admin-catalog/v1.0/products/' +
-						productId +
-						'/productOptions/',
+					'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productOptions/',
 					{
-						body: JSON.stringify([
-							{
-								optionId: option.id,
-								key: option.key,
-								name: option.name,
-								required: false,
-								skuContributor: false,
-								values: [],
-								fieldType: 'select'
-							}
-						]),
+						body: JSON.stringify(
+							[
+								{
+									fieldType: 'select',
+									key: option.key,
+									name: option.name,
+									optionId: option.id,
+									required: false,
+									skuContributor: false,
+									values: []
+								}
+							]
+						),
 						credentials: 'include',
 						headers,
 						method: 'POST'
@@ -66,61 +66,69 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 			}
 
 			function addNewItem(name) {
-				return fetch('/o/headless-commerce-admin-catalog/v1.0/options', {
-					body: JSON.stringify({
-						fieldType: 'select',
-						key: utilities.slugify(name),
-						name: {
-							[themeDisplay.getLanguageId()]: name
-						}
-					}),
-					credentials: 'include',
-					headers,
-					method: 'POST'
-				})
-					.then(function(response) {
+				return fetch(
+					'/o/headless-commerce-admin-catalog/v1.0/options',
+					{
+						body: JSON.stringify(
+							{
+								fieldType: 'select',
+								key: utilities.slugify(name),
+								name: {
+									[themeDisplay.getLanguageId()]: name
+								}
+							}
+						),
+						credentials: 'include',
+						headers,
+						method: 'POST'
+					}
+				).then(
+					function(response) {
 						return response.json();
-					})
-					.then(selectItem);
+					}
+				).then(selectItem);
 			}
 
 			function getSelectedItems() {
 				return fetch(
-					'/o/headless-commerce-admin-catalog/v1.0/products/' +
-						productId +
-						'/productOptions/',
+					'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productOptions/',
 					{
 						credentials: 'include',
 						headers
 					}
-				)
-					.then(function(response) {
+				).then(
+					function(response) {
 						return response.json();
-					})
-					.then(function(jsonResponse) {
+					}
+				).then(
+					function(jsonResponse) {
 						return jsonResponse.items.map(option => option.id);
-					});
+					}
+				);
 			}
 
-			getSelectedItems().then(function(selectedItemsIds) {
-				itemFinder.default('itemFinder', 'item-finder-root', {
-					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/options',
-					createNewItemLabel:
-						'<%= LanguageUtil.get(request, "create-new-option") %>',
-					itemsKey: 'id',
-					onItemCreated: addNewItem,
-					onItemSelected: selectItem,
-					pageSize: 10,
-					panelHeaderLabel: '<%= LanguageUtil.get(request, "add-new-option") %>',
-					schema: {
-						itemTitle: ['name', themeDisplay.getLanguageId()]
-					},
-					selectedItems: selectedItemsIds,
-					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-					titleLabel:
-						'<%= LanguageUtil.get(request, "select-an-existing-option") %>'
-				});
-			});
+			getSelectedItems().then(
+				function(selectedItemsIds) {
+					itemFinder.default(
+						'itemFinder', 'item-finder-root',
+						{
+							apiUrl: '/o/headless-commerce-admin-catalog/v1.0/options',
+							createNewItemLabel: '<%= LanguageUtil.get(request, "create-new-option") %>',
+							itemsKey: 'id',
+							onItemCreated: addNewItem,
+							onItemSelected: selectItem,
+							pageSize: 10,
+							panelHeaderLabel: '<%= LanguageUtil.get(request, "add-new-option") %>',
+							schema: {
+								itemTitle: ['name', themeDisplay.getLanguageId()]
+							},
+							selectedItems: selectedItemsIds,
+							spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
+							titleLabel: '<%= LanguageUtil.get(request, "select-an-existing-option") %>'
+						}
+					);
+				}
+			);
 		</aui:script>
 
 		<commerce-ui:panel
