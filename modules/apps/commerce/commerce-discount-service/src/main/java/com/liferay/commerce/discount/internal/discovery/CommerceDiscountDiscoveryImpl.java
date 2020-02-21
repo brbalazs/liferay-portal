@@ -440,23 +440,19 @@ public class CommerceDiscountDiscoveryImpl
 			}
 		}
 
-		CommerceMoney amount = _commerceMoneyFactory.create(
-			commerceCurrency,
-			discountAmount.multiply(new BigDecimal(quantity)));
-
 		if (currentDiscountLevel == null) {
 			return new CommerceDiscountLevel(
 				commerceDiscountId, isUsePercentage, commerceDiscountValue,
-				amount.getPrice());
+				discountAmount);
 		}
 
 		BigDecimal currentDiscountAmount =
 			currentDiscountLevel.getDiscountAmount();
 
-		if (currentDiscountAmount.compareTo(amount.getPrice()) < 0) {
+		if (currentDiscountAmount.compareTo(discountAmount) < 0) {
 			return new CommerceDiscountLevel(
 				commerceDiscountId, isUsePercentage, commerceDiscountValue,
-				amount.getPrice());
+				discountAmount);
 		}
 
 		return currentDiscountLevel;
