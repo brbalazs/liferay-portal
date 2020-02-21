@@ -63,6 +63,14 @@ public class VulcanBatchEngineTaskItemDelegateAdaptor<T>
 	}
 
 	@Override
+	public EntityModel getEntityModel(Map<String, List<String>> multivaluedMap)
+		throws Exception {
+
+		return _vulcanBatchEngineTaskItemDelegate.getEntityModel(
+			multivaluedMap);
+	}
+
+	@Override
 	public Class<T> getItemClass() {
 		Class<? extends VulcanBatchEngineTaskItemDelegate> clazz =
 			_vulcanBatchEngineTaskItemDelegate.getClass();
@@ -71,14 +79,6 @@ public class VulcanBatchEngineTaskItemDelegateAdaptor<T>
 
 		return _getItemClassFromGenericInterfaces(
 			superclass.getGenericInterfaces());
-	}
-
-	@Override
-	public EntityModel getEntityModel(Map<String, List<String>> multivaluedMap)
-		throws Exception {
-
-		return _vulcanBatchEngineTaskItemDelegate.getEntityModel(
-			multivaluedMap);
 	}
 
 	@Override
