@@ -53,14 +53,18 @@ CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 					title='<%= LanguageUtil.get(request, "details") %>'
 				>
 					<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= (commerceTierPriceEntry == null) ? BigDecimal.ZERO : commerceCurrency.round(commerceTierPriceEntry.getPrice()) %>">
+						<aui:validator name="min">0</aui:validator>
 						<aui:validator name="number" />
 					</aui:input>
 
 					<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= (commerceTierPriceEntry == null) ? BigDecimal.ZERO : commerceCurrency.round(commerceTierPriceEntry.getPromoPrice()) %>">
+						<aui:validator name="min">0</aui:validator>
 						<aui:validator name="number" />
 					</aui:input>
 
-					<aui:input bean="<%= commerceTierPriceEntry %>" model="<%= CommerceTierPriceEntry.class %>" name="minQuantity" />
+					<aui:input bean="<%= commerceTierPriceEntry %>" model="<%= CommerceTierPriceEntry.class %>" name="minQuantity">
+						<aui:validator name="min">0</aui:validator>
+					</aui:input>
 				</commerce-ui:panel>
 
 				<c:if test="<%= cpInstanceCommerceTierPriceEntryDisplayContext.hasCustomAttributes() %>">

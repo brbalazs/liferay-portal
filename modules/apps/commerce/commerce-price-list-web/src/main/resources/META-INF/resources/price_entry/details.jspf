@@ -22,10 +22,12 @@ CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 	title='<%= LanguageUtil.get(request, "details") %>'
 >
 	<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceEntry.getPrice()) %>">
+		<aui:validator name="min">0</aui:validator>
 		<aui:validator name="number" />
 	</aui:input>
 
 	<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceEntry.getPromoPrice()) %>">
+		<aui:validator name="min">0</aui:validator>
 		<aui:validator name="number" />
 	</aui:input>
 </commerce-ui:panel>

@@ -109,18 +109,21 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 				<div class="row">
 					<div class="col-4">
 						<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getPrice()) %>">
+							<aui:validator name="min">0</aui:validator>
 							<aui:validator name="number" />
 						</aui:input>
 					</div>
 
 					<div class="col-4">
 						<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getPromoPrice()) %>">
+							<aui:validator name="min">0</aui:validator>
 							<aui:validator name="number" />
 						</aui:input>
 					</div>
 
 					<div class="col-4">
 						<aui:input name="cost" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getCost()) %>">
+							<aui:validator name="min">0</aui:validator>
 							<aui:validator name="number" />
 						</aui:input>
 					</div>
@@ -132,15 +135,23 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 			>
 				<div class="row">
 					<div class="col-6">
-						<aui:input name="width" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>" />
+						<aui:input name="width" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
+							<aui:validator name="min">0</aui:validator>
+						</aui:input>
 
-						<aui:input name="depth" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>" />
+						<aui:input name="depth" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
+							<aui:validator name="min">0</aui:validator>
+						</aui:input>
 					</div>
 
 					<div class="col-6">
-						<aui:input name="height" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>" />
+						<aui:input name="height" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
+							<aui:validator name="min">0</aui:validator>
+						</aui:input>
 
-						<aui:input name="weight" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_WEIGHT)) %>" />
+						<aui:input name="weight" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_WEIGHT)) %>">
+							<aui:validator name="min">0</aui:validator>
+						</aui:input>
 					</div>
 				</div>
 			</commerce-ui:panel>
