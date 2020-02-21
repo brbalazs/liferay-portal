@@ -156,8 +156,9 @@ public class CPOptionServiceImpl extends CPOptionServiceBaseImpl {
 			serviceContext.getCompanyId(), externalReferenceCode);
 
 		if (cpOption == null) {
-			_cpOptionModelResourcePermission.check(
-				getPermissionChecker(), cpOption, ActionKeys.VIEW);
+			PortalPermissionUtil.check(
+				getPermissionChecker(),
+				CPActionKeys.ADD_COMMERCE_PRODUCT_OPTION);
 		}
 
 		return cpOptionLocalService.upsertCPOption(
