@@ -63,7 +63,6 @@ public class SpecificationDTOConverter implements DTOConverter {
 				facetable = cpSpecificationOption.isFacetable();
 				id = cpSpecificationOption.getCPSpecificationOptionId();
 				key = cpSpecificationOption.getKey();
-
 				title = LanguageUtils.getLanguageIdMap(
 					cpSpecificationOption.getTitleMap());
 			}
