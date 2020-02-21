@@ -197,7 +197,7 @@ message.
 				</execute>
 
 				<if>
-					<length file="ant-clean-output" when="equal" length="0" />
+					<length file="ant-clean-output" length="0" when="equal" />
 					<then>
 						<execute>
 							${git.clean.command}
