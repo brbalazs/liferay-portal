@@ -461,7 +461,7 @@ public class CommerceOrderGenerator {
 			return value;
 		}
 
-		return (value % range) + min;
+		return Math.floorMod(value, range) + min;
 	}
 
 	private void _setPermissionChecker(Group group) throws Exception {
