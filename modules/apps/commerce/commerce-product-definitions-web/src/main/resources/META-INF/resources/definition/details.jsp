@@ -185,118 +185,125 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 			</c:if>
 		</div>
 
-		<div class="col-12">
-			<div id="item-finder-root"></div>
+		<c:if test="<%= cpDefinition != null %>">
+			<div class="col-12">
+				<div id="item-finder-root"></div>
 
-			<aui:script require="commerce-frontend-js/components/item_finder/entry.es as itemFinder, commerce-frontend-js/utilities/index.es as utilities">
-				function addNewItem(name) {
-					return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
-						credentials: 'include',
-						headers: new Headers({
-							'Accept': 'application/json',
-							'Content-Type': 'application/json',
-							'x-csrf-token': Liferay.authToken
-						}),
-						method: 'POST',
-						body: JSON.stringify(
-							{
-								"key": utilities.slugify(name),
-								"title": {
-									[themeDisplay.getLanguageId()]: name
-								}
-							}
-						)
-					})
-					.then(function(response) {
-						return response.json();
-					})
-					.then(function(payload) {
-						return payload.id
-					})
-					.then(function(specificationId){
+				<aui:script require="commerce-frontend-js/components/item_finder/entry.es as itemFinder, commerce-frontend-js/utilities/index.es as utilities, commerce-frontend-js/utilities/eventsDefinitions.es as events">
+
+					var headers = new Headers({
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+						'x-csrf-token': Liferay.authToken
+					});
+
+					var productId = <%= cpDefinition.getCProductId() %>;
+					var id = <%= cpDefinitionsDisplayContext.getCPDefinitionId() %>;
+
+					function selectItem(specification) {
 						return fetch(
-							'/o/headless-commerce-admin-catalog/v1.0/products/<%= cpDefinitionsDisplayContext.getCPDefinitionId() %>/productSpecifications/',
+							'/o/headless-commerce-admin-catalog/v1.0/products/' + id + '/productSpecifications/',
 							{
-								credentials: 'include',
-								headers: new Headers({
-									'Accept': 'application/json',
-									'Content-Type': 'application/json',
-									'x-csrf-token': Liferay.authToken
-								}),
-								method: 'POST',
 								body: JSON.stringify(
 									{
-										specificationKey: 
-										"productId": <%= cpDefinitionsDisplayContext.getCPDefinitionId() %>,
-										"specificationId": specificationId
+										productId: productId,
+										specificationId: specification.id,
+										specificationKey: specification.key,
+										value: {
+											[themeDisplay.getLanguageId()]: name
+										}
 									}
-								)
+								),
+								credentials: 'include',
+								headers,
+								method: 'POST',
 							}
-						).then(() => specificationId)
-					})
+						).then( function() {
+							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+								id: "<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>"
+							})
+							return specification.id
+						})
+					}
 
-				}
-
-				function selectItem(specificationId) {
-					return fetch(
-						'/o/headless-commerce-admin-catalog/v1.0/products/<%= cpDefinitionsDisplayContext.getCPDefinitionId() %>/productSpecifications/',
-						{
-							credentials: 'include',
-							headers: new Headers({
-								'Accept': 'application/json',
-								'Content-Type': 'application/json',
-								'x-csrf-token': Liferay.authToken
-							}),
-							method: 'POST',
+					function addNewItem(name) {
+						return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
 							body: JSON.stringify(
 								{
-									"productId": <%= cpDefinitionsDisplayContext.getCPDefinitionId() %>,
-									"specificationId": specificationId
+									key: utilities.slugify(name),
+									title: {
+										[themeDisplay.getLanguageId()]: name
+									}
 								}
-							)
-						}
-					).then(() => specificationId)
-				}
+							),
+							credentials: 'include',
+							headers,
+							method: 'POST',
+						})
+							.then(function(response) {
+								return response.json();
+							})
+							.then(selectItem)
+					}
 
-				itemFinder.default('itemFinder', 'item-finder-root',{
-					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
-					itemsKey: 'id',
-					onItemCreated: addNewItem,
-					onItemSelected: selectItem,
-					// eslint-disable-next-line no-console
-					onSubmit: console.log,
-					pageSize: 5,
-					schema: {
-						itemTitle: ['title', 'en_US']
-					},
-					spritemap: "<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg"
-				})
-			</aui:script>
-		</div>
+					function getSelectedItems() {
+						return fetch(
+							'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productSpecifications/',
+							{
+								credentials: 'include',
+								headers,
+							}
+						)
+							.then(function (response) {return response.json()})
+							.then(function (jsonResponse) {
+								return jsonResponse.items.map(specification => specification.specificationId)
+							})
+					}
 
-		<div class="col-12">
-			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "add-new-specifications") %>'
-			>
+					getSelectedItems()
+						.then(function (selectedItemsIds) {
+							itemFinder.default('itemFinder', 'item-finder-root', {
+								apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+								itemsKey: 'id',
+								onItemCreated: addNewItem,
+								onItemSelected: selectItem,
+								pageSize: 10,
+								schema: {
+									itemTitle: ['title', themeDisplay.getLanguageId()]
+								},
+								selectedItems: selectedItemsIds,
+								spritemap: "<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg"
+							})
+						})
+				</aui:script>
+			</div>
 
-				<%
+			<div class="col-12">
+				<commerce-ui:panel
+					title='<%= LanguageUtil.get(request, "add-new-specifications") %>'
+				>
+
+					<%
 					Map<String, String> contextParams = new HashMap<>();
 
 					contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
-				%>
+					%>
 
-				<commerce-ui:dataset-display
-					contextParams="<%= contextParams %>"
-					dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>"
-					formId="fm"
-					id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>"
-					itemsPerPage="<%= 10 %>"
-					namespace="<%= renderResponse.getNamespace() %>"
-					pageNumber="<%= 1 %>"
-					portletURL="<%= currentURLObj %>"
-				/>
-			</commerce-ui:panel>
-		</div>
+					<commerce-ui:dataset-display
+						contextParams="<%= contextParams %>"
+						dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>"
+						formId="fm"
+						id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>"
+						itemsPerPage="<%= 10 %>"
+						namespace="<%= renderResponse.getNamespace() %>"
+						pageNumber="<%= 1 %>"
+						portletURL="<%= currentURLObj %>"
+					/>
+				</commerce-ui:panel>
+			</div>
+
+		</c:if>
+
 	</div>
 </aui:form>
 

@@ -227,7 +227,12 @@ AddOrCreateBase.propTypes = {
 			PropTypes.string
 		])
 	}),
-	selectedItems: PropTypes.arrayOf(PropTypes.string, PropTypes.number),
+	selectedItems: PropTypes.arrayOf(
+		PropTypes.oneOfType([
+			PropTypes.number,
+			PropTypes.string
+		])
+	),
 	titleLabel: PropTypes.string,
 	updateCurrentPage: PropTypes.func,
 	updatePageSize: PropTypes.func

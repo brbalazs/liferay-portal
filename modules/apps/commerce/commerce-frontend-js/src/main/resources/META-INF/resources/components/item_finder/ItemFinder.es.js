@@ -53,11 +53,10 @@ function ItemFinder(props) {
 	]);
 
 	function selectItem(itemId) {
+		const selectedItem = items.find(item => item[props.itemsKey] === itemId);
 		props
-			.onItemSelected(itemId)
-			.then(() => {
-				updateSelectedItems(i => [...i, itemId]);
-			})
+			.onItemSelected(selectedItem)
+			.then(() => updateSelectedItems(i => [...i, itemId]))
 			.catch(showErrorNotification);
 	}
 
@@ -65,7 +64,8 @@ function ItemFinder(props) {
 		props
 			.onItemCreated(textFilter)
 			.then(id => {
-				updateSelectedItems(i => [...i, id]);
+				updateTextFilter('');
+				updateSelectedItems(i => [...i, id])
 			})
 			.catch(showErrorNotification);
 	}

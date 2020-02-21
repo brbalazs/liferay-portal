@@ -13,32 +13,92 @@
  */
 
 import launcher from './entry.es';
+import {slugify} from '../../utilities/index.es';
 
 import '../../styles/main.scss';
-import {getRandomId} from '../../utilities/index.es';
 
-function addNewItem(_name) {
-	return new Promise(resolve => {
-		setTimeout(() => resolve(getRandomId()), 200);
-	});
+const themeDisplay = {
+	getLanguageId: () => "en_US"
 }
 
-function selectItem(id) {
-	return new Promise(resolve => {
-		setTimeout(() => resolve(id), 200);
-	});
-}
-
-launcher('itemFinder', 'item-finder-root-id', {
-	apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
-	itemsKey: 'id',
-	onItemCreated: addNewItem,
-	onItemSelected: selectItem,
-	// eslint-disable-next-line no-console
-	onSubmit: console.log,
-	pageSize: 5,
-	schema: {
-		itemTitle: ['title', 'en_US']
-	},
-	spritemap: './assets/icons.svg'
+var headers = new Headers({
+	Accept: 'application/json',
+	'Content-Type': 'application/json',
+	'x-csrf-token': Liferay.authToken
 });
+
+var id = 40077;
+var productId = 40078;
+
+function selectItem(specification) {
+	return fetch(
+		'/o/headless-commerce-admin-catalog/v1.0/products/' + id + '/productSpecifications/',
+		{
+			body: JSON.stringify(
+				{
+					productId,
+					specificationId: specification.id,
+					specificationKey: specification.key,
+					value: {
+						[themeDisplay.getLanguageId()]: name
+					}
+				}
+			),
+			credentials: 'include',
+			headers,
+			method: 'POST',
+		}
+	).then(() => specification.id)
+}
+
+function addNewItem(name) {
+	return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
+		body: JSON.stringify(
+			{
+				key: slugify(name),
+				title: {
+					[themeDisplay.getLanguageId()]: name
+				}
+			}
+		),
+		credentials: 'include',
+		headers,
+		method: 'POST',
+	})
+	.then(function(response) {
+		return response.json();
+	})
+	.then(selectItem)
+}
+
+function getSelectedItems() {
+	return fetch(
+		'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productSpecifications/',
+		{
+			credentials: 'include',
+			headers,
+		}
+	)
+	.then(response => response.json())
+	.then(jsonResponse => {
+		return jsonResponse.items.map(specification => specification.specificationId)
+	})
+}
+
+getSelectedItems()
+.then(selectedItemsIds => {
+	launcher('itemFinder', 'item-finder-root-id', {
+		apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+		itemsKey: 'id',
+		onItemCreated: addNewItem,
+		onItemSelected: selectItem,
+		// eslint-disable-next-line no-console
+		onSubmit: console.log,
+		pageSize: 5,
+		schema: {
+			itemTitle: ['title', 'en_US']
+		},
+		selectedItems: selectedItemsIds,
+		spritemap: './assets/icons.svg'
+	});
+})
