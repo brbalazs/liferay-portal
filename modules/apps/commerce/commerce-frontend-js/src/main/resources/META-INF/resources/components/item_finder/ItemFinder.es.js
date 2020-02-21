@@ -53,7 +53,9 @@ function ItemFinder(props) {
 	]);
 
 	function selectItem(itemId) {
-		const selectedItem = items.find(item => item[props.itemsKey] === itemId);
+		const selectedItem = items.find(
+			item => item[props.itemsKey] === itemId
+		);
 		props
 			.onItemSelected(selectedItem)
 			.then(() => updateSelectedItems(i => [...i, itemId]))
@@ -65,7 +67,7 @@ function ItemFinder(props) {
 			.onItemCreated(textFilter)
 			.then(id => {
 				updateTextFilter('');
-				updateSelectedItems(i => [...i, id])
+				updateSelectedItems(i => [...i, id]);
 			})
 			.catch(showErrorNotification);
 	}
@@ -73,6 +75,7 @@ function ItemFinder(props) {
 	return (
 		<ClayIconSpriteContext.Provider value={props.spritemap}>
 			<AddOrCreate
+				createNewItemLabel={props.createNewItemLabel}
 				currentPage={currentPage}
 				inputSearchValue={textFilter}
 				items={items}
@@ -82,10 +85,12 @@ function ItemFinder(props) {
 				onItemCreated={createItem}
 				onItemSelected={selectItem}
 				pageSize={pageSize}
+				panelHeaderLabel={props.panelHeaderLabel}
 				schema={props.schema}
 				searchInputValue={textFilter}
 				selectedItems={selectedItems}
 				spritemap={props.spritemap}
+				titleLabel={props.titleLabel}
 				updateCurrentPage={updateCurrentPage}
 				updatePageSize={updatePageSize}
 			/>
@@ -95,12 +100,15 @@ function ItemFinder(props) {
 
 ItemFinder.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
+	createNewItemLabel: PropTypes.string,
 	itemsKey: PropTypes.string.isRequired,
 	onItemCreated: PropTypes.func.isRequired,
 	onItemSelected: PropTypes.func.isRequired,
 	pageSize: PropTypes.number,
+	panelHeaderLabel: PropTypes.string,
 	schema: PropTypes.object.isRequired,
-	selectedItems: PropTypes.array
+	selectedItems: PropTypes.array,
+	titleLabel: PropTypes.string
 };
 
 ItemFinder.defaultProps = {

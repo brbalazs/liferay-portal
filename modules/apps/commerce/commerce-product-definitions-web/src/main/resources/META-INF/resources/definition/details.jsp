@@ -264,15 +264,18 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						.then(function (selectedItemsIds) {
 							itemFinder.default('itemFinder', 'item-finder-root', {
 								apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+								createNewItemLabel: '<%= LanguageUtil.get(request, "create-new-specification") %>',
 								itemsKey: 'id',
 								onItemCreated: addNewItem,
 								onItemSelected: selectItem,
 								pageSize: 10,
+								panelHeaderLabel: '<%= LanguageUtil.get(request, "add-new-specification") %>',
 								schema: {
 									itemTitle: ['title', themeDisplay.getLanguageId()]
 								},
 								selectedItems: selectedItemsIds,
-								spritemap: "<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg"
+								spritemap: "<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg",
+								titleLabel: '<%= LanguageUtil.get(request, "select-an-existing-specification") %>',
 							})
 						})
 				</aui:script>
@@ -280,7 +283,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 			<div class="col-12">
 				<commerce-ui:panel
-					title='<%= LanguageUtil.get(request, "add-new-specifications") %>'
+					title='<%= LanguageUtil.get(request, "specifications") %>'
 				>
 
 					<%

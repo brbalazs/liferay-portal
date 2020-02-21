@@ -12,14 +12,14 @@
  * details.
  */
 
-import launcher from './entry.es';
 import {slugify} from '../../utilities/index.es';
+import launcher from './entry.es';
 
 import '../../styles/main.scss';
 
 const themeDisplay = {
-	getLanguageId: () => "en_US"
-}
+	getLanguageId: () => 'en_US'
+};
 
 var headers = new Headers({
 	Accept: 'application/json',
@@ -32,73 +32,75 @@ var productId = 40078;
 
 function selectItem(specification) {
 	return fetch(
-		'/o/headless-commerce-admin-catalog/v1.0/products/' + id + '/productSpecifications/',
+		'/o/headless-commerce-admin-catalog/v1.0/products/' +
+			id +
+			'/productSpecifications/',
 		{
-			body: JSON.stringify(
-				{
-					productId,
-					specificationId: specification.id,
-					specificationKey: specification.key,
-					value: {
-						[themeDisplay.getLanguageId()]: name
-					}
+			body: JSON.stringify({
+				productId,
+				specificationId: specification.id,
+				specificationKey: specification.key,
+				value: {
+					[themeDisplay.getLanguageId()]: name
 				}
-			),
+			}),
 			credentials: 'include',
 			headers,
-			method: 'POST',
+			method: 'POST'
 		}
-	).then(() => specification.id)
+	).then(() => specification.id);
 }
 
 function addNewItem(name) {
 	return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
-		body: JSON.stringify(
-			{
-				key: slugify(name),
-				title: {
-					[themeDisplay.getLanguageId()]: name
-				}
+		body: JSON.stringify({
+			key: slugify(name),
+			title: {
+				[themeDisplay.getLanguageId()]: name
 			}
-		),
+		}),
 		credentials: 'include',
 		headers,
-		method: 'POST',
+		method: 'POST'
 	})
-	.then(function(response) {
-		return response.json();
-	})
-	.then(selectItem)
+		.then(response => {
+			return response.json();
+		})
+		.then(selectItem);
 }
 
 function getSelectedItems() {
 	return fetch(
-		'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productSpecifications/',
+		'/o/headless-commerce-admin-catalog/v1.0/products/' +
+			productId +
+			'/productSpecifications/',
 		{
 			credentials: 'include',
-			headers,
+			headers
 		}
 	)
-	.then(response => response.json())
-	.then(jsonResponse => {
-		return jsonResponse.items.map(specification => specification.specificationId)
-	})
+		.then(response => response.json())
+		.then(jsonResponse => {
+			return jsonResponse.items.map(
+				specification => specification.specificationId
+			);
+		});
 }
 
-getSelectedItems()
-.then(selectedItemsIds => {
+getSelectedItems().then(selectedItemsIds => {
 	launcher('itemFinder', 'item-finder-root-id', {
 		apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+		createNewItemLabel: 'Create new specification',
 		itemsKey: 'id',
 		onItemCreated: addNewItem,
 		onItemSelected: selectItem,
-		// eslint-disable-next-line no-console
-		onSubmit: console.log,
 		pageSize: 5,
+		panelHeaderLabel: 'Add new specification',
 		schema: {
 			itemTitle: ['title', 'en_US']
 		},
 		selectedItems: selectedItemsIds,
-		spritemap: './assets/icons.svg'
+		spritemap: './assets/icons.svg',
+		titleLabel: 'Select an existing specification'
 	});
-})
+});

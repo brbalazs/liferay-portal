@@ -87,9 +87,7 @@ class AddOrCreateBase extends Component {
 				}`}
 				onFocus={e => this.handleFocusIn(e)}
 			>
-				<div className="card-header">
-					{this.props.addNewOptionLabel}
-				</div>
+				<div className="card-header">{this.props.panelHeaderLabel}</div>
 				<div className="card-body">
 					<div className="input-group">
 						<div className="input-group-item">
@@ -143,9 +141,7 @@ class AddOrCreateBase extends Component {
 													this.props.onItemCreated
 												}
 											>
-												{Liferay.Language.get(
-													'create-new'
-												)}
+												{Liferay.Language.get('create')}
 											</ClayButton>
 										</ClayList.ItemField>
 									</ClayList.Item>
@@ -201,7 +197,6 @@ class AddOrCreateBase extends Component {
 }
 
 AddOrCreateBase.propTypes = {
-	addNewOptionLabel: PropTypes.string,
 	createNewItemLabel: PropTypes.string,
 	currentPage: PropTypes.number,
 	deltas: PropTypes.arrayOf(
@@ -221,6 +216,7 @@ AddOrCreateBase.propTypes = {
 	onItemSelected: PropTypes.func,
 	onSubmit: PropTypes.func,
 	pageSize: PropTypes.number,
+	panelHeaderLabel: PropTypes.string,
 	schema: PropTypes.shape({
 		itemTitle: PropTypes.oneOfType([
 			PropTypes.arrayOf(PropTypes.string),
@@ -228,10 +224,7 @@ AddOrCreateBase.propTypes = {
 		])
 	}),
 	selectedItems: PropTypes.arrayOf(
-		PropTypes.oneOfType([
-			PropTypes.number,
-			PropTypes.string
-		])
+		PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 	),
 	titleLabel: PropTypes.string,
 	updateCurrentPage: PropTypes.func,
@@ -239,7 +232,6 @@ AddOrCreateBase.propTypes = {
 };
 
 AddOrCreateBase.defaultProps = {
-	addNewOptionLabel: Liferay.Language.get('add-new-option'),
 	createNewItemLabel: Liferay.Language.get('create-new-item'),
 	deltas: [
 		{
@@ -263,7 +255,8 @@ AddOrCreateBase.defaultProps = {
 	],
 	inputPlaceholder: Liferay.Language.get('search-for'),
 	inputSearchValue: '',
-	titleLabel: Liferay.Language.get('add-an-existing-specification')
+	panelHeaderLabel: Liferay.Language.get('add-new'),
+	titleLabel: Liferay.Language.get('select-an-existing-one')
 };
 
 export default React.forwardRef((props, ref) => {
