@@ -23,7 +23,7 @@ import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.batch.http.VulcanBatchImportTaskResource;
+import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
 import com.liferay.portal.vulcan.internal.accept.language.AcceptLanguageImpl;
 import com.liferay.portal.vulcan.internal.jaxrs.context.provider.ContextProviderUtil;
 
@@ -53,14 +53,14 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 
 	public ContextContainerRequestFilter(
 		GroupLocalService groupLocalService,
-		VulcanBatchImportTaskResource vulcanBatchImportTaskResource,
+		VulcanBatchEngineImportTaskResource vulcanBatchEngineImportTaskResource,
 		Language language, Portal portal,
 		ResourceActionLocalService resourceActionLocalService,
 		ResourcePermissionLocalService resourcePermissionLocalService,
 		RoleLocalService roleLocalService, Object scopeChecker) {
 
 		_groupLocalService = groupLocalService;
-		_vulcanBatchImportTaskResource = vulcanBatchImportTaskResource;
+		_vulcanBatchEngineImportTaskResource = vulcanBatchEngineImportTaskResource;
 		_language = language;
 		_portal = portal;
 		_resourceActionLocalService = resourceActionLocalService;
@@ -146,11 +146,11 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 					instance, message.getContextualProperty("HTTP.RESPONSE"));
 			}
 			else if (fieldClass.isAssignableFrom(
-						VulcanBatchImportTaskResource.class)) {
+						VulcanBatchEngineImportTaskResource.class)) {
 
 				field.setAccessible(true);
 
-				field.set(instance, _vulcanBatchImportTaskResource);
+				field.set(instance, _vulcanBatchEngineImportTaskResource);
 			}
 			else if (fieldClass.isAssignableFrom(
 						ResourceActionLocalService.class)) {
@@ -192,6 +192,6 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 		_resourcePermissionLocalService;
 	private final RoleLocalService _roleLocalService;
 	private final Object _scopeChecker;
-	private final VulcanBatchImportTaskResource _vulcanBatchImportTaskResource;
+	private final VulcanBatchEngineImportTaskResource _vulcanBatchEngineImportTaskResource;
 
 }

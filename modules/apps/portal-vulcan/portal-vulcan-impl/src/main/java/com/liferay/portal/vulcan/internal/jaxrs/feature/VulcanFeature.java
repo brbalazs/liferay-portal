@@ -27,7 +27,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.odata.sort.SortParserProvider;
-import com.liferay.portal.vulcan.batch.http.VulcanBatchImportTaskResource;
+import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
 import com.liferay.portal.vulcan.internal.jaxrs.container.request.filter.ContextContainerRequestFilter;
 import com.liferay.portal.vulcan.internal.jaxrs.container.request.filter.LogContainerRequestFilter;
 import com.liferay.portal.vulcan.internal.jaxrs.container.request.filter.NestedFieldsContainerRequestFilter;
@@ -130,7 +130,7 @@ public class VulcanFeature implements Feature {
 		featureContext.register(new CompanyContextProvider(_portal));
 		featureContext.register(
 			new ContextContainerRequestFilter(
-				_groupLocalService, _vulcanBatchImportTaskResource, _language,
+				_groupLocalService, _vulcanBatchEngineImportTaskResource, _language,
 				_portal, _resourceActionLocalService,
 				_resourcePermissionLocalService, _roleLocalService,
 				_getScopeChecker()));
@@ -211,6 +211,6 @@ public class VulcanFeature implements Feature {
 	private SortParserProvider _sortParserProvider;
 
 	@Reference
-	private VulcanBatchImportTaskResource _vulcanBatchImportTaskResource;
+	private VulcanBatchEngineImportTaskResource _vulcanBatchEngineImportTaskResource;
 
 }

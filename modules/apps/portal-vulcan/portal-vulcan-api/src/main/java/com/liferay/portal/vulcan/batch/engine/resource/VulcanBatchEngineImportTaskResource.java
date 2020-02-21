@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.vulcan.batch.http;
+package com.liferay.portal.vulcan.batch.engine.resource;
 
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
@@ -25,7 +25,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * @author Javier Gamarra
  */
-public interface VulcanBatchImportTaskResource {
+public interface VulcanBatchEngineImportTaskResource {
 
 	public Object deleteImportTask(
 			String name, String callbackURL, Object object)
