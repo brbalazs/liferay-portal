@@ -228,9 +228,6 @@ message.
 	</target>
 
 	<target name="deploy">
-		<setup-libs />
-		<setup-sdk />
-
 		<if>
 			<or>
 				<equals arg1="${app.server.type}" arg2="glassfish" />
