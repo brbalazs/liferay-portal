@@ -310,8 +310,10 @@ info:
     contact:
         email: team-commerce@liferay.com
         name: Commerce Team
-    description:
-        Liferay Commerce Admin Site Setting API
+    description:         Liferay Commerce Admin Site Setting API
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
     title: Liferay Commerce Admin Site Setting API
     version: v1.0
 openapi: 3.0.0
@@ -493,7 +495,7 @@ paths:
             summary: Updates an Availability Estimate by ID.
             tags:
                 - AvailabilityEstimate
-    /commerceAdminSiteSetting/{groupId}/availabilityEstimate/:
+    /commerceAdminSiteSetting/{groupId}/availabilityEstimate:
         get:
             operationId: getCommerceAdminSiteSettingGroupAvailabilityEstimatePage
             parameters:
@@ -658,7 +660,7 @@ paths:
             summary: Creates or Updates an Availability Estimate.
             tags:
                 - AvailabilityEstimate
-    /commerceAdminSiteSetting/{groupId}/measurementUnit/:
+    /commerceAdminSiteSetting/{groupId}/measurementUnit:
         get:
             operationId: getCommerceAdminSiteSettingGroupMeasurementUnitPage
             parameters:
@@ -836,7 +838,7 @@ paths:
             summary: Creates a Measurement Unit.
             tags:
                 - MeasurementUnit
-    /commerceAdminSiteSetting/{groupId}/taxCategory/:
+    /commerceAdminSiteSetting/{groupId}/taxCategory:
         get:
             operationId: getCommerceAdminSiteSettingGroupTaxCategoryPage
             parameters:
@@ -1001,7 +1003,7 @@ paths:
             summary: Creates a Tax Category.
             tags:
                 - TaxCategory
-    /commerceAdminSiteSetting/{groupId}/warehouse/:
+    /commerceAdminSiteSetting/{groupId}/warehouse:
         get:
             operationId: getCommerceAdminSiteSettingGroupWarehousePage
             parameters:

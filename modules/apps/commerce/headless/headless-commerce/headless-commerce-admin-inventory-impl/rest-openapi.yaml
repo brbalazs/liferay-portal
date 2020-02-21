@@ -50,7 +50,7 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                items:
+                warehouseItems:
                     items:
                         $ref: "#/components/schemas/WarehouseItem"
                     type: array

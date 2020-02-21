@@ -27,6 +27,7 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -53,7 +54,15 @@ public interface MessageBoardThreadResource {
 			Long messageBoardSectionId, MessageBoardThread messageBoardThread)
 		throws Exception;
 
+	public Response postMessageBoardSectionMessageBoardThreadBatch(
+			Long messageBoardSectionId, String callbackURL, Object object)
+		throws Exception;
+
 	public void deleteMessageBoardThread(Long messageBoardThreadId)
+		throws Exception;
+
+	public Response deleteMessageBoardThreadBatch(
+			String callbackURL, Object object)
 		throws Exception;
 
 	public MessageBoardThread getMessageBoardThread(Long messageBoardThreadId)
@@ -65,6 +74,10 @@ public interface MessageBoardThreadResource {
 
 	public MessageBoardThread putMessageBoardThread(
 			Long messageBoardThreadId, MessageBoardThread messageBoardThread)
+		throws Exception;
+
+	public Response putMessageBoardThreadBatch(
+			String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteMessageBoardThreadMyRating(Long messageBoardThreadId)
@@ -94,6 +107,10 @@ public interface MessageBoardThreadResource {
 
 	public MessageBoardThread postSiteMessageBoardThread(
 			Long siteId, MessageBoardThread messageBoardThread)
+		throws Exception;
+
+	public Response postSiteMessageBoardThreadBatch(
+			Long siteId, String callbackURL, Object object)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

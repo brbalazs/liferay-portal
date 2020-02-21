@@ -65,14 +65,14 @@ components:
     schemas:
         Discount:
             properties:
-                accountGroups:
+                discountAccountGroups:
                     items:
                         $ref: "#/components/schemas/DiscountAccountGroup"
                     type: array
                 active:
                     example: true
                     type: boolean
-                categories:
+                discountCategories:
                     items:
                         $ref: "#/components/schemas/DiscountCategory"
                     type: array
@@ -137,11 +137,11 @@ components:
                     format: bigdecimal
                     minimum: 0
                     type: number
-                products:
+                discountProducts:
                     items:
                         $ref: "#/components/schemas/DiscountProduct"
                     type: array
-                rules:
+                discountRules:
                     items:
                         $ref: "#/components/schemas/DiscountRule"
                     type: array
@@ -344,7 +344,7 @@ components:
             type: object
         PriceList:
             properties:
-                accountGroups:
+                priceListAccountGroups:
                     items:
                         $ref: "#/components/schemas/PriceListAccountGroup"
                     type: array

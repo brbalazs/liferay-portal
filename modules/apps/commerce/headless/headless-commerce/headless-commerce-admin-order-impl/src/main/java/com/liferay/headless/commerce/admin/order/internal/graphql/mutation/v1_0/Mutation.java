@@ -26,16 +26,17 @@ import com.liferay.headless.commerce.admin.order.resource.v1_0.OrderResource;
 import com.liferay.headless.commerce.admin.order.resource.v1_0.ShippingAddressResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
-import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
-import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
-
-import graphql.annotations.annotationTypes.GraphQLField;
-import graphql.annotations.annotationTypes.GraphQLInvokeDetached;
-import graphql.annotations.annotationTypes.GraphQLName;
+import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import javax.annotation.Generated;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
 
@@ -86,7 +87,7 @@ public class Mutation {
 			shippingAddressResourceComponentServiceObjects;
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response patchOrderByExternalReferenceCodeBillingAddress(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("billingAddress") BillingAddress billingAddress)
@@ -101,7 +102,7 @@ public class Mutation {
 						externalReferenceCode, billingAddress));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response patchOrderIdBillingAddress(
 			@GraphQLName("id") Long id,
 			@GraphQLName("billingAddress") BillingAddress billingAddress)
@@ -116,15 +117,28 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public Order postOrder(@GraphQLName("order") Order order) throws Exception {
+	public Order createOrder(@GraphQLName("order") Order order)
+		throws Exception {
+
 		return _applyComponentServiceObjects(
 			_orderResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			orderResource -> orderResource.postOrder(order));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
+	public Response createOrderBatch(
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_orderResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			orderResource -> orderResource.postOrderBatch(callbackURL, object));
+	}
+
+	@GraphQLField
 	public Response deleteOrderByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
@@ -136,7 +150,7 @@ public class Mutation {
 				externalReferenceCode));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response patchOrderByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("order") Order order)
@@ -149,7 +163,7 @@ public class Mutation {
 				externalReferenceCode, order));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response deleteOrder(@GraphQLName("id") Long id) throws Exception {
 		return _applyComponentServiceObjects(
 			_orderResourceComponentServiceObjects,
@@ -157,7 +171,21 @@ public class Mutation {
 			orderResource -> orderResource.deleteOrder(id));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
+	public Response deleteOrderBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_orderResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			orderResource -> orderResource.deleteOrderBatch(
+				id, callbackURL, object));
+	}
+
+	@GraphQLField
 	public Response patchOrder(
 			@GraphQLName("id") Long id, @GraphQLName("order") Order order)
 		throws Exception {
@@ -168,7 +196,7 @@ public class Mutation {
 			orderResource -> orderResource.patchOrder(id, order));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response deleteOrderItemByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
@@ -181,7 +209,7 @@ public class Mutation {
 					externalReferenceCode));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response patchOrderItemByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("orderItem") OrderItem orderItem)
@@ -195,7 +223,7 @@ public class Mutation {
 					externalReferenceCode, orderItem));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response deleteOrderItem(@GraphQLName("id") Long id)
 		throws Exception {
 
@@ -205,7 +233,21 @@ public class Mutation {
 			orderItemResource -> orderItemResource.deleteOrderItem(id));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
+	public Response deleteOrderItemBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_orderItemResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			orderItemResource -> orderItemResource.deleteOrderItemBatch(
+				id, callbackURL, object));
+	}
+
+	@GraphQLField
 	public Response patchOrderItem(
 			@GraphQLName("id") Long id,
 			@GraphQLName("orderItem") OrderItem orderItem)
@@ -219,8 +261,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public OrderItem postOrderByExternalReferenceCodeOrderItem(
+	public OrderItem createOrderByExternalReferenceCodeOrderItem(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("orderItem") OrderItem orderItem)
 		throws Exception {
@@ -234,8 +275,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public OrderItem postOrderIdOrderItem(
+	public OrderItem createOrderIdOrderItem(
 			@GraphQLName("id") Long id,
 			@GraphQLName("orderItem") OrderItem orderItem)
 		throws Exception {
@@ -247,7 +287,7 @@ public class Mutation {
 				id, orderItem));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response deleteOrderNoteByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
@@ -260,7 +300,7 @@ public class Mutation {
 					externalReferenceCode));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response patchOrderNoteByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("orderNote") OrderNote orderNote)
@@ -274,7 +314,7 @@ public class Mutation {
 					externalReferenceCode, orderNote));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response deleteOrderNote(@GraphQLName("id") Long id)
 		throws Exception {
 
@@ -284,7 +324,21 @@ public class Mutation {
 			orderNoteResource -> orderNoteResource.deleteOrderNote(id));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
+	public Response deleteOrderNoteBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_orderNoteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			orderNoteResource -> orderNoteResource.deleteOrderNoteBatch(
+				id, callbackURL, object));
+	}
+
+	@GraphQLField
 	public Response patchOrderNote(
 			@GraphQLName("id") Long id,
 			@GraphQLName("orderNote") OrderNote orderNote)
@@ -298,8 +352,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public OrderNote postOrderByExternalReferenceCodeOrderNote(
+	public OrderNote createOrderByExternalReferenceCodeOrderNote(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("orderNote") OrderNote orderNote)
 		throws Exception {
@@ -313,8 +366,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public OrderNote postOrderIdOrderNote(
+	public OrderNote createOrderIdOrderNote(
 			@GraphQLName("id") Long id,
 			@GraphQLName("orderNote") OrderNote orderNote)
 		throws Exception {
@@ -326,7 +378,7 @@ public class Mutation {
 				id, orderNote));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response patchOrderByExternalReferenceCodeShippingAddress(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("shippingAddress") ShippingAddress shippingAddress)
@@ -341,7 +393,7 @@ public class Mutation {
 						externalReferenceCode, shippingAddress));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response patchOrderIdShippingAddress(
 			@GraphQLName("id") Long id,
 			@GraphQLName("shippingAddress") ShippingAddress shippingAddress)
@@ -397,42 +449,61 @@ public class Mutation {
 			BillingAddressResource billingAddressResource)
 		throws Exception {
 
-		billingAddressResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		billingAddressResource.setContextAcceptLanguage(_acceptLanguage);
+		billingAddressResource.setContextCompany(_company);
+		billingAddressResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		billingAddressResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		billingAddressResource.setContextUriInfo(_uriInfo);
+		billingAddressResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(OrderResource orderResource)
 		throws Exception {
 
-		orderResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		orderResource.setContextAcceptLanguage(_acceptLanguage);
+		orderResource.setContextCompany(_company);
+		orderResource.setContextHttpServletRequest(_httpServletRequest);
+		orderResource.setContextHttpServletResponse(_httpServletResponse);
+		orderResource.setContextUriInfo(_uriInfo);
+		orderResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(OrderItemResource orderItemResource)
 		throws Exception {
 
-		orderItemResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		orderItemResource.setContextAcceptLanguage(_acceptLanguage);
+		orderItemResource.setContextCompany(_company);
+		orderItemResource.setContextHttpServletRequest(_httpServletRequest);
+		orderItemResource.setContextHttpServletResponse(_httpServletResponse);
+		orderItemResource.setContextUriInfo(_uriInfo);
+		orderItemResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(OrderNoteResource orderNoteResource)
 		throws Exception {
 
-		orderNoteResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		orderNoteResource.setContextAcceptLanguage(_acceptLanguage);
+		orderNoteResource.setContextCompany(_company);
+		orderNoteResource.setContextHttpServletRequest(_httpServletRequest);
+		orderNoteResource.setContextHttpServletResponse(_httpServletResponse);
+		orderNoteResource.setContextUriInfo(_uriInfo);
+		orderNoteResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(
 			ShippingAddressResource shippingAddressResource)
 		throws Exception {
 
-		shippingAddressResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		shippingAddressResource.setContextAcceptLanguage(_acceptLanguage);
+		shippingAddressResource.setContextCompany(_company);
+		shippingAddressResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		shippingAddressResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		shippingAddressResource.setContextUriInfo(_uriInfo);
+		shippingAddressResource.setContextUser(_user);
 	}
 
 	private static ComponentServiceObjects<BillingAddressResource>
@@ -445,5 +516,12 @@ public class Mutation {
 		_orderNoteResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ShippingAddressResource>
 		_shippingAddressResourceComponentServiceObjects;
+
+	private AcceptLanguage _acceptLanguage;
+	private com.liferay.portal.kernel.model.Company _company;
+	private com.liferay.portal.kernel.model.User _user;
+	private HttpServletRequest _httpServletRequest;
+	private HttpServletResponse _httpServletResponse;
+	private UriInfo _uriInfo;
 
 }

@@ -91,7 +91,7 @@ components:
     schemas:
         Account:
             properties:
-                addresses:
+                accountAddresses:
                     example:
                         - city: Diamond Bar
                           commerceCountryId: 30130
@@ -140,7 +140,7 @@ components:
                 name:
                     example: Account Name
                     type: string
-                organizations:
+                accountOrganizations:
                     example:
                         - id: 20546
                           name: Liferay Italy
@@ -161,7 +161,7 @@ components:
                     maximum: 2
                     minimum: 0
                     type: integer
-                users:
+                accountMembers:
                     example:
                         - description:
                               en_US: Account Administrator Description US
@@ -286,7 +286,7 @@ components:
                 name:
                     example: User Name
                     type: string
-                roles:
+                accountRoles:
                     example:
                         - description:
                               en_US: Account Administrator Description US

@@ -130,7 +130,7 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                items:
+                orderItems:
                     items:
                         $ref: "#/components/schemas/OrderItem"
                     type: array

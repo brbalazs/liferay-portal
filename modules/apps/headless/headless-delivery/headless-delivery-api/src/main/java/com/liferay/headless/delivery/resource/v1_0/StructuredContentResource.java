@@ -27,6 +27,7 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -57,6 +58,10 @@ public interface StructuredContentResource {
 			Long siteId, StructuredContent structuredContent)
 		throws Exception;
 
+	public Response postSiteStructuredContentBatch(
+			Long siteId, String callbackURL, Object object)
+		throws Exception;
+
 	public StructuredContent getSiteStructuredContentByKey(
 			Long siteId, String key)
 		throws Exception;
@@ -75,6 +80,10 @@ public interface StructuredContentResource {
 			Long structuredContentFolderId, StructuredContent structuredContent)
 		throws Exception;
 
+	public Response postStructuredContentFolderStructuredContentBatch(
+			Long structuredContentFolderId, String callbackURL, Object object)
+		throws Exception;
+
 	public void putStructuredContentSubscribe(Long structuredContentId)
 		throws Exception;
 
@@ -82,6 +91,10 @@ public interface StructuredContentResource {
 		throws Exception;
 
 	public void deleteStructuredContent(Long structuredContentId)
+		throws Exception;
+
+	public Response deleteStructuredContentBatch(
+			String callbackURL, Object object)
 		throws Exception;
 
 	public StructuredContent getStructuredContent(Long structuredContentId)
@@ -93,6 +106,9 @@ public interface StructuredContentResource {
 
 	public StructuredContent putStructuredContent(
 			Long structuredContentId, StructuredContent structuredContent)
+		throws Exception;
+
+	public Response putStructuredContentBatch(String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteStructuredContentMyRating(Long structuredContentId)
