@@ -63,7 +63,7 @@ public class VulcanBatchEngineTaskItemDelegateAdaptor<T>
 	}
 
 	@Override
-	public Class<T> getDTOType() {
+	public Class<T> getDTOClass() {
 		Class<? extends VulcanBatchEngineTaskItemDelegate> clazz =
 			_vulcanBatchEngineTaskItemDelegate.getClass();
 
