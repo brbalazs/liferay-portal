@@ -261,6 +261,13 @@ public class BaseBatchEngineTaskExecutorTest {
 
 			SearchContext searchContext = new SearchContext();
 
+			QueryConfig queryConfig = searchContext.getQueryConfig();
+
+			queryConfig.setHighlightEnabled(false);
+			queryConfig.setScoreEnabled(false);
+
+			queryConfigUnsafeConsumer.accept(queryConfig);
+
 			searchContext.setBooleanClauses(
 				new BooleanClause[] {booleanClause});
 
@@ -279,13 +286,6 @@ public class BaseBatchEngineTaskExecutorTest {
 				PermissionThreadLocal.getPermissionChecker();
 
 			searchContext.setUserId(permissionChecker.getUserId());
-
-			QueryConfig queryConfig = searchContext.getQueryConfig();
-
-			queryConfig.setHighlightEnabled(false);
-			queryConfig.setScoreEnabled(false);
-
-			queryConfigUnsafeConsumer.accept(queryConfig);
 
 			return searchContext;
 		}
