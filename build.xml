@@ -213,9 +213,9 @@ message.
 							srcFile="ant-clean-output"
 						/>
 
-						<echo>Unable to "clean" because of new files:
+						<fail>Unable to "clean" because of new files:
 
-${ant-clean-output.content}</echo>
+${ant-clean-output.content}</fail>
 
 						<delete file="ant-clean-output" />
 					</else>
