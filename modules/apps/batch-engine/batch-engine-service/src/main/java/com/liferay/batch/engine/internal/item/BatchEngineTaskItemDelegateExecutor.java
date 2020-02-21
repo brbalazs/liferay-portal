@@ -176,9 +176,9 @@ public class BatchEngineTaskItemDelegateExecutor implements Closeable {
 	private void _setContextFields(
 		BatchEngineTaskItemDelegate<Object> batchEngineTaskItemDelegate) {
 
-		batchEngineTaskItemDelegate.setLanguageId(_user.getLanguageId());
 		batchEngineTaskItemDelegate.setContextCompany(_company);
 		batchEngineTaskItemDelegate.setContextUser(_user);
+		batchEngineTaskItemDelegate.setLanguageId(_user.getLanguageId());
 	}
 
 	private Map<String, List<String>> _toMultivaluedMap(
