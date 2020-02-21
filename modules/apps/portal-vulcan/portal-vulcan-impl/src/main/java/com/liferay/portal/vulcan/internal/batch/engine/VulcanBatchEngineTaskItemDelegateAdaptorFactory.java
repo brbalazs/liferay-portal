@@ -12,10 +12,10 @@
  * details.
  */
 
-package com.liferay.portal.vulcan.internal.batch;
+package com.liferay.portal.vulcan.internal.batch.engine;
 
 import com.liferay.batch.engine.BatchEngineTaskItemDelegate;
-import com.liferay.portal.vulcan.batch.VulcanBatchEngineTaskItemDelegate;
+import com.liferay.portal.vulcan.batch.engine.VulcanBatchEngineTaskItemDelegate;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.vulcan.batch;
+package com.liferay.portal.vulcan.batch.engine;
 
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
