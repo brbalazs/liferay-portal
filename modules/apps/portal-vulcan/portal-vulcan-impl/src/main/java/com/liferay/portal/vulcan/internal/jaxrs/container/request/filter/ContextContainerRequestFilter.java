@@ -52,21 +52,22 @@ import org.apache.cxf.phase.PhaseInterceptorChain;
 public class ContextContainerRequestFilter implements ContainerRequestFilter {
 
 	public ContextContainerRequestFilter(
-		GroupLocalService groupLocalService,
-		VulcanBatchEngineImportTaskResource vulcanBatchEngineImportTaskResource,
-		Language language, Portal portal,
+		GroupLocalService groupLocalService, Language language, Portal portal,
 		ResourceActionLocalService resourceActionLocalService,
 		ResourcePermissionLocalService resourcePermissionLocalService,
-		RoleLocalService roleLocalService, Object scopeChecker) {
+		RoleLocalService roleLocalService, Object scopeChecker,
+		VulcanBatchEngineImportTaskResource
+			vulcanBatchEngineImportTaskResource) {
 
 		_groupLocalService = groupLocalService;
-		_vulcanBatchEngineImportTaskResource = vulcanBatchEngineImportTaskResource;
 		_language = language;
 		_portal = portal;
 		_resourceActionLocalService = resourceActionLocalService;
 		_resourcePermissionLocalService = resourcePermissionLocalService;
 		_roleLocalService = roleLocalService;
 		_scopeChecker = scopeChecker;
+		_vulcanBatchEngineImportTaskResource =
+			vulcanBatchEngineImportTaskResource;
 	}
 
 	@Override
@@ -146,13 +147,6 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 					instance, message.getContextualProperty("HTTP.RESPONSE"));
 			}
 			else if (fieldClass.isAssignableFrom(
-						VulcanBatchEngineImportTaskResource.class)) {
-
-				field.setAccessible(true);
-
-				field.set(instance, _vulcanBatchEngineImportTaskResource);
-			}
-			else if (fieldClass.isAssignableFrom(
 						ResourceActionLocalService.class)) {
 
 				field.setAccessible(true);
@@ -181,6 +175,13 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 
 				field.set(instance, _portal.getUser(httpServletRequest));
 			}
+			else if (fieldClass.isAssignableFrom(
+						VulcanBatchEngineImportTaskResource.class)) {
+
+				field.setAccessible(true);
+
+				field.set(instance, _vulcanBatchEngineImportTaskResource);
+			}
 		}
 	}
 
@@ -192,6 +193,7 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 		_resourcePermissionLocalService;
 	private final RoleLocalService _roleLocalService;
 	private final Object _scopeChecker;
-	private final VulcanBatchEngineImportTaskResource _vulcanBatchEngineImportTaskResource;
+	private final VulcanBatchEngineImportTaskResource
+		_vulcanBatchEngineImportTaskResource;
 
 }

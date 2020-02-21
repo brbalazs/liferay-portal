@@ -130,10 +130,10 @@ public class VulcanFeature implements Feature {
 		featureContext.register(new CompanyContextProvider(_portal));
 		featureContext.register(
 			new ContextContainerRequestFilter(
-				_groupLocalService, _vulcanBatchEngineImportTaskResource, _language,
-				_portal, _resourceActionLocalService,
-				_resourcePermissionLocalService, _roleLocalService,
-				_getScopeChecker()));
+				_groupLocalService, _language, _portal,
+				_resourceActionLocalService, _resourcePermissionLocalService,
+				_roleLocalService, _getScopeChecker(),
+				_vulcanBatchEngineImportTaskResource));
 		featureContext.register(
 			new FilterContextProvider(
 				_expressionConvert, _filterParserProvider, _language, _portal));
@@ -211,6 +211,7 @@ public class VulcanFeature implements Feature {
 	private SortParserProvider _sortParserProvider;
 
 	@Reference
-	private VulcanBatchEngineImportTaskResource _vulcanBatchEngineImportTaskResource;
+	private VulcanBatchEngineImportTaskResource
+		_vulcanBatchEngineImportTaskResource;
 
 }
