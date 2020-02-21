@@ -173,7 +173,7 @@ message.
 
 	<target name="clean">
 		<execute>
-			git clean -dfx -e .gradle -e /*.*.properties -e /.m2 -e /lib -e /modules/node_modules -e /modules/node_modules_cache -e /sql/*.*.properties -e /tools -e **/*.iml -e .idea .
+			git clean -dfx -e **/*.iml -e .gradle -e .idea -e /*.*.properties -e /.m2 -e /lib -e /modules/node_modules -e /modules/node_modules_cache -e /sql/*.*.properties -e /tools .
 		</execute>
 
 		<clean-liferay-home />
