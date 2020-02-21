@@ -294,22 +294,7 @@ public class GroupImpl extends GroupBaseImpl {
 			LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
 				getGroupId(), privateLayout);
 
-			int layoutSetPageCount = layoutSet.getPageCount();
-
-			int layoutsCount = LayoutLocalServiceUtil.getLayoutsCount(
-				this, privateLayout, StringPool.BLANK,
-				new String[] {
-					StringPool.CONTENT, LayoutConstants.TYPE_EMBEDDED,
-					LayoutConstants.TYPE_LINK_TO_LAYOUT,
-					LayoutConstants.TYPE_FULL_PAGE_APPLICATION,
-					LayoutConstants.TYPE_PANEL, LayoutConstants.TYPE_PORTLET,
-					LayoutConstants.TYPE_URL
-				});
-
-			layoutsCount =
-				(layoutSetPageCount == 0) ? layoutSetPageCount : layoutsCount;
-
-			if ((layoutsCount > 0) ||
+			if ((layoutSet.getPageCount() > 0) ||
 				(isUser() &&
 				 (LayoutLocalServiceUtil.getLayoutsCount(this, privateLayout) >
 					 0))) {
