@@ -186,8 +186,6 @@ message.
 		<setup-sdk />
 		<setup-yarn />
 
-		<delete file="javac.output.txt" />
-
 		<gradle-execute dir="modules/core" task="deploy">
 			<arg value="--parallel" />
 			<arg value="-Dbuild.profile=portal-pre" />
@@ -218,13 +216,6 @@ message.
 		<ant dir="portal-impl" inheritAll="false" target="compile" />
 
 		<ant dir="portal-test-integration" inheritAll="false" target="compile" />
-
-		<if>
-			<available file="javac.output.txt" />
-			<then>
-				<fail message="Deprecated APIs detected. Please see javac.output.txt for details." />
-			</then>
-		</if>
 
 		<print-current-time />
 	</target>
