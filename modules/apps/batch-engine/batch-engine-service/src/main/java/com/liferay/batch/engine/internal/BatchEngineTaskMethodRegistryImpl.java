@@ -167,16 +167,16 @@ public class BatchEngineTaskMethodRegistryImpl
 		private Class<?> _getItemClass(
 			BatchEngineTaskItemDelegate<?> batchEngineTaskItemDelegate) {
 
-			Class<?> dtoClass = batchEngineTaskItemDelegate.getDTOClass();
+			Class<?> itemClass = batchEngineTaskItemDelegate.getItemClass();
 
-			if (dtoClass != null) {
-				return dtoClass;
+			if (itemClass != null) {
+				return itemClass;
 			}
 
 			Class<?> batchEngineTaskItemDelegateClass =
 				batchEngineTaskItemDelegate.getClass();
 
-			Class<?> itemClass = _getItemClassFromGenericInterfaces(
+			itemClass = _getItemClassFromGenericInterfaces(
 				batchEngineTaskItemDelegateClass.getGenericInterfaces());
 
 			if (itemClass == null) {
