@@ -22,6 +22,7 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.discount.discovery.CommerceDiscountDiscovery;
 import com.liferay.commerce.dto.price.CommerceProductPriceImpl;
 import com.liferay.commerce.model.CommerceOrder;
@@ -46,6 +47,8 @@ import com.liferay.portal.kernel.security.permission.resource.PortletResourcePer
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,12 +128,31 @@ public class CommerceProductPriceCalculationV2Impl
 				promoCommercePriceValue.getCommerceMoney());
 		}
 
-		commerceProductPriceImpl.setCommerceDiscountValue(null);
-
 		commerceProductPriceImpl.setCommercePriceValues(finalPriceValues);
 
 		BigDecimal finalDiscountedPrice = _getCommercePrice(
 			finalPriceValues, quantity, true);
+
+		BigDecimal finalPrice = _getCommercePrice(
+			finalPriceValues, quantity, false);
+
+		BigDecimal discountAmount = finalPrice.subtract(finalDiscountedPrice);
+
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
+
+		RoundingMode roundingMode = RoundingMode.valueOf(
+			commerceCurrency.getRoundingMode());
+
+		CommerceMoney discountAmountMoney = _commerceMoneyFactory.create(
+			commerceCurrency, discountAmount);
+
+		commerceProductPriceImpl.setCommerceDiscountValue(
+			new CommerceDiscountValue(
+				0, discountAmountMoney,
+				_getDiscountPercentage(
+					discountAmount, finalPrice, roundingMode),
+				null));
 
 		commerceProductPriceImpl.setTaxValue(
 			_getTaxValue(cpInstanceId, commerceContext, finalDiscountedPrice));
@@ -477,6 +499,25 @@ public class CommerceProductPriceCalculationV2Impl
 			commerceAccountGroupIds, commerceContext.getCommerceChannelId());
 	}
 
+	private BigDecimal _getDiscountPercentage(
+		BigDecimal discountedAmount, BigDecimal amount,
+		RoundingMode roundingMode) {
+
+		double actualPrice = discountedAmount.doubleValue();
+		double originalPrice = amount.doubleValue();
+
+		double percentage = actualPrice / originalPrice;
+
+		BigDecimal discountPercentage = new BigDecimal(percentage);
+
+		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
+
+		MathContext mathContext = new MathContext(
+			discountPercentage.precision(), roundingMode);
+
+		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
+	}
+
 	private BigDecimal _getTaxValue(
 			long cpInstanceId, CommerceContext commerceContext,
 			BigDecimal finalPrice)
@@ -500,7 +541,7 @@ public class CommerceProductPriceCalculationV2Impl
 			commerceTaxValues = _commerceTaxCalculation.getCommerceTaxValues(
 				commerceContext.getSiteGroupId(), cpInstance.getCPInstanceId(),
 				commerceAccount.getDefaultBillingAddressId(),
-				commerceAccount.getDefaultBillingAddressId(), finalPrice,
+				commerceAccount.getDefaultShippingAddressId(), finalPrice,
 				commerceContext);
 		}
 		else {
@@ -542,6 +583,8 @@ public class CommerceProductPriceCalculationV2Impl
 			permissionChecker, commerceContext.getSiteGroupId(),
 			CPActionKeys.VIEW_PRICE);
 	}
+
+	private final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
 	@Reference
 	private CommerceAccountGroupLocalService _commerceAccountGroupLocalService;
