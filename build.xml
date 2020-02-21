@@ -172,56 +172,13 @@ message.
 	</target>
 
 	<target name="clean">
-		<local name="git.clean.command" />
+		<execute>
+			${build.git.clean.command}
+		</execute>
 
-		<property name="git.clean.command">
-			git clean -dfqx -e **/*.iml -e **/.settings -e .classpath -e .gradle -e .idea -e .project -e /*.*.properties -e /.m2 -e /lib -e /modules/node_modules -e /modules/node_modules_cache -e /sql/*.*.properties -e src .
-		</property>
+		<clean-liferay-home />
 
-		<if>
-			<isset property="env.JENKINS_HOME" />
-			<then>
-				<execute>
-					${git.clean.command}
-				</execute>
-
-				<clean-liferay-home />
-
-				<print-current-time />
-			</then>
-			<else>
-				<delete file="ant-clean-output" />
-
-				<execute>
-					git ls-files --exclude-standard --full-name --others > ant-clean-output
-				</execute>
-
-				<if>
-					<length file="ant-clean-output" length="0" when="equal" />
-					<then>
-						<execute>
-							${git.clean.command}
-						</execute>
-
-						<clean-liferay-home />
-
-						<print-current-time />
-					</then>
-					<else>
-						<loadfile
-							property="ant-clean-output.content"
-							srcFile="ant-clean-output"
-						/>
-
-						<fail>Unable to "clean" because of new files:
-
-${ant-clean-output.content}</fail>
-
-						<delete file="ant-clean-output" />
-					</else>
-				</if>
-			</else>
-		</if>
+		<print-current-time />
 	</target>
 
 	<target name="compile">
