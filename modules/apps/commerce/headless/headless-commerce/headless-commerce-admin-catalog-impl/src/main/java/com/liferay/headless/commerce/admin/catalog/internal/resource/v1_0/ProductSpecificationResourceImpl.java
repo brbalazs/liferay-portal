@@ -147,7 +147,7 @@ public class ProductSpecificationResourceImpl
 				CPDefinitionSpecificationOptionValue
 					cpDefinitionSpecificationOptionValue =
 						_updateProductSpecification(
-							productSpecification.getId(), productSpecification);
+							productSpecificationId, productSpecification);
 
 				DTOConverter productSpecificationDTOConverter =
 					_dtoConverterRegistry.getDTOConverter(
@@ -166,7 +166,7 @@ public class ProductSpecificationResourceImpl
 				if (_log.isDebugEnabled()) {
 					_log.debug(
 						"Unable to find productSpecification with ID: " +
-							productSpecification.getId());
+							productSpecificationId);
 				}
 			}
 		}

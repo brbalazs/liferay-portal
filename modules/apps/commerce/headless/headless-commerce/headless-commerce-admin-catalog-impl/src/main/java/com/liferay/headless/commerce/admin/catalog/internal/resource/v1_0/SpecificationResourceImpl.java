@@ -185,7 +185,7 @@ public class SpecificationResourceImpl
 		if (specificationId != null) {
 			try {
 				CPSpecificationOption cpSpecificationOption =
-					_updateSpecification(specification.getId(), specification);
+					_updateSpecification(specificationId, specification);
 
 				return (Specification)specificationDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
@@ -196,7 +196,7 @@ public class SpecificationResourceImpl
 				if (_log.isDebugEnabled()) {
 					_log.debug(
 						"Unable to find specification with ID: " +
-							specification.getId());
+							specificationId);
 				}
 			}
 		}
