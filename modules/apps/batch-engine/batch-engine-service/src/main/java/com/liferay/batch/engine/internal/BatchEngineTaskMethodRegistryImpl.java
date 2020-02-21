@@ -28,8 +28,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.Filter;
-import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceObjects;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.annotations.Activate;
@@ -168,6 +166,12 @@ public class BatchEngineTaskMethodRegistryImpl
 
 		private Class<?> _getItemClass(
 			BatchEngineTaskItemDelegate<?> batchEngineTaskItemDelegate) {
+
+			Class<?> dtoType = batchEngineTaskItemDelegate.getDTOType();
+
+			if (dtoType != null) {
+				return dtoType;
+			}
 
 			Class<?> batchEngineTaskItemDelegateClass =
 				batchEngineTaskItemDelegate.getClass();
