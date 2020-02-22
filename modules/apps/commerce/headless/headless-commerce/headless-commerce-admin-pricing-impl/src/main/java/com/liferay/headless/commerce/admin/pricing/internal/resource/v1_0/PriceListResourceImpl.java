@@ -242,7 +242,7 @@ public class PriceListResourceImpl
 		// Price list account groups
 
 		PriceListAccountGroup[] priceListAccountGroups =
-			priceList.getAccountGroups();
+			priceList.getPriceListAccountGroups();
 
 		if (priceListAccountGroups != null) {
 			for (PriceListAccountGroup priceListAccountGroup :

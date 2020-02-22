@@ -249,7 +249,7 @@ public class WarehouseResourceImpl
 			CommerceInventoryWarehouse commerceInventoryWarehouse)
 		throws PortalException {
 
-		WarehouseItem[] warehouseItems = warehouse.getItems();
+		WarehouseItem[] warehouseItems = warehouse.getWarehouseItems();
 
 		if (warehouseItems != null) {
 			for (WarehouseItem warehouseItem : warehouseItems) {

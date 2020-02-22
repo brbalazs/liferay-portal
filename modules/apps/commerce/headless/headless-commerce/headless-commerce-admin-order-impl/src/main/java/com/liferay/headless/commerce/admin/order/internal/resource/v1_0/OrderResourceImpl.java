@@ -258,7 +258,7 @@ public class OrderResourceImpl
 
 		// Order items
 
-		OrderItem[] orderItems = order.getItems();
+		OrderItem[] orderItems = order.getOrderItems();
 
 		if (orderItems != null) {
 			_commerceOrderItemService.deleteCommerceOrderItems(

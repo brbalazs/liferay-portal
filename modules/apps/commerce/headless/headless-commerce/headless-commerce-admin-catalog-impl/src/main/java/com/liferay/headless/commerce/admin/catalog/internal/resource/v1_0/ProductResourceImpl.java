@@ -411,22 +411,6 @@ public class ProductResourceImpl
 			}
 		}
 
-		// Images
-
-		Attachment[] images = product.getImages();
-
-		if (images != null) {
-			for (Attachment image : images) {
-				AttachmentUtil.upsertCPAttachmentFileEntry(
-					cpDefinition.getGroupId(), _cpAttachmentFileEntryService,
-					_uniqueFileNameProvider, image,
-					_classNameLocalService.getClassNameId(
-						cpDefinition.getModelClassName()),
-					cpDefinition.getCPDefinitionId(),
-					CPAttachmentFileEntryConstants.TYPE_IMAGE, serviceContext);
-			}
-		}
-
 		// Product specifications
 
 		ProductSpecification[] productSpecifications =
@@ -466,7 +450,7 @@ public class ProductResourceImpl
 
 		// Product options
 
-		ProductOption[] productOptions = product.getOptions();
+		ProductOption[] productOptions = product.getProductOptions();
 
 		if (productOptions != null) {
 			for (ProductOption productOption : productOptions) {
@@ -477,7 +461,7 @@ public class ProductResourceImpl
 						serviceContext);
 
 				ProductOptionValue[] productOptionValues =
-					productOption.getValues();
+					productOption.getProductOptionValues();
 
 				if (productOptionValues != null) {
 					for (ProductOptionValue productOptionValue :

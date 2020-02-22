@@ -314,7 +314,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 		// Discount account groups
 
 		DiscountAccountGroup[] discountAccountGroups =
-			discount.getAccountGroups();
+			discount.getDiscountAccountGroups();
 
 		if (discountAccountGroups != null) {
 			for (DiscountAccountGroup discountAccountGroup :
@@ -341,7 +341,8 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 		// Discount categories
 
-		DiscountCategory[] discountCategories = discount.getCategories();
+		DiscountCategory[] discountCategories =
+			discount.getDiscountCategories();
 
 		if (discountCategories != null) {
 			for (DiscountCategory discountCategory : discountCategories) {
@@ -362,7 +363,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 		// Discount products
 
-		DiscountProduct[] discountProducts = discount.getProducts();
+		DiscountProduct[] discountProducts = discount.getDiscountProducts();
 
 		if (discountProducts != null) {
 			for (DiscountProduct discountProduct : discountProducts) {
@@ -399,7 +400,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 		// Discount rules
 
-		DiscountRule[] discountRules = discount.getRules();
+		DiscountRule[] discountRules = discount.getDiscountRules();
 
 		if (discountRules != null) {
 			for (DiscountRule discountRule : discountRules) {
