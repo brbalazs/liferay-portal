@@ -341,7 +341,7 @@ public abstract class BaseWarehouseResourceImpl
 		throws Exception {
 
 		for (Warehouse warehouse : warehouses) {
-			putWarehouse(id, warehouse);
+			putWarehouse(warehouse.getId(), warehouse);
 		}
 	}
 

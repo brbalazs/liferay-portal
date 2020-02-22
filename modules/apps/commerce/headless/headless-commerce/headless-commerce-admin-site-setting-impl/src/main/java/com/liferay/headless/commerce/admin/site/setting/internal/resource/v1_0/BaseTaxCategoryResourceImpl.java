@@ -339,7 +339,7 @@ public abstract class BaseTaxCategoryResourceImpl
 		throws Exception {
 
 		for (TaxCategory taxCategory : taxCategories) {
-			putTaxCategory(id, taxCategory);
+			putTaxCategory(taxCategory.getId(), taxCategory);
 		}
 	}
 

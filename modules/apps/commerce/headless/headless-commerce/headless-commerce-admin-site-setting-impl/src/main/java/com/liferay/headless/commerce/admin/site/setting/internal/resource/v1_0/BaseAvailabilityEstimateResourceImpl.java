@@ -345,7 +345,8 @@ public abstract class BaseAvailabilityEstimateResourceImpl
 		for (AvailabilityEstimate availabilityEstimate :
 				availabilityEstimates) {
 
-			putAvailabilityEstimate(id, availabilityEstimate);
+			putAvailabilityEstimate(
+				availabilityEstimate.getId(), availabilityEstimate);
 		}
 	}
 

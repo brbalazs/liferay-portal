@@ -342,7 +342,7 @@ public abstract class BaseMeasurementUnitResourceImpl
 		throws Exception {
 
 		for (MeasurementUnit measurementUnit : measurementUnits) {
-			putMeasurementUnit(id, measurementUnit);
+			putMeasurementUnit(measurementUnit.getId(), measurementUnit);
 		}
 	}
 
