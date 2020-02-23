@@ -49,6 +49,23 @@ public class CommerceShipmentServiceImpl
 	}
 
 	@Override
+	public CommerceShipment addCommerceShipment(
+		long groupId, long commerceAccountId, long commerceAddressId,
+		long commerceShippingMethodId, String commerceShippingOptionName,
+		ServiceContext serviceContext)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.addCommerceShipment(
+			groupId, commerceAccountId, commerceAddressId,
+			commerceShippingMethodId, commerceShippingOptionName,
+			serviceContext);
+	}
+
+	@Override
 	public void deleteCommerceShipment(long commerceShipmentId)
 		throws PortalException {
 

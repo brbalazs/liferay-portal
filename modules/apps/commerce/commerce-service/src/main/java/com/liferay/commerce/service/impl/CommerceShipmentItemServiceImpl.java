@@ -19,6 +19,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.base.CommerceShipmentItemServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -81,6 +82,19 @@ public class CommerceShipmentItemServiceImpl
 	}
 
 	@Override
+	public CommerceShipmentItem fetchCommerceShipmentItem(
+			long commerceOrderItemId, long commerceInventoryWarehouseId)
+		throws PortalException {
+
+		PortalPermissionUtil.contains(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentItemLocalService.fetchCommerceShipmentItem(
+			commerceOrderItemId, commerceInventoryWarehouseId);
+	}
+
+	@Override
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 			long commerceOrderItemId)
 		throws PortalException {
@@ -124,6 +138,20 @@ public class CommerceShipmentItemServiceImpl
 	}
 
 	@Override
+	public int getCommerceShipmentOrderItemsQuantity(
+			long commerceShipmentId, long commerceOrderItemId)
+		throws PortalException {
+
+		PortalPermissionUtil.contains(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentItemLocalService.
+			getCommerceShipmentOrderItemsQuantity(
+				commerceShipmentId, commerceOrderItemId);
+	}
+
+	@Override
 	public CommerceShipmentItem updateCommerceShipmentItem(
 			long commerceShipmentItemId, int quantity)
 		throws PortalException {
@@ -134,6 +162,20 @@ public class CommerceShipmentItemServiceImpl
 
 		return commerceShipmentItemLocalService.updateCommerceShipmentItem(
 			commerceShipmentItemId, quantity);
+	}
+
+	@Override
+	public CommerceShipmentItem updateCommerceShipmentItem(
+			long commerceShipmentItemId, long commerceInventoryWarehouseId,
+			int quantity)
+		throws PortalException {
+
+		PortalPermissionUtil.contains(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentItemLocalService.updateCommerceShipmentItem(
+			commerceShipmentItemId, commerceInventoryWarehouseId, quantity);
 	}
 
 	private static volatile ModelResourcePermission<CommerceOrder>

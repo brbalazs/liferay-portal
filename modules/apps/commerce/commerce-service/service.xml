@@ -630,6 +630,14 @@
 		<finder name="CommerceShipment" return-type="Collection">
 			<finder-column name="commerceShipmentId" />
 		</finder>
+		<finder name="C_C" return-type="Collection">
+			<finder-column name="commerceShipmentId" />
+			<finder-column name="commerceOrderItemId" />
+		</finder>
+		<finder name="CO_C" return-type="CommerceShipmentItem" unique="true">
+			<finder-column name="commerceOrderItemId" />
+			<finder-column name="commerceInventoryWarehouseId" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="CommerceShippingMethod" remote-service="true">
 

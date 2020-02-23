@@ -62,7 +62,7 @@ public class CommerceOrderItemFinderImpl
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			q.addScalar(SUM_VALUE, Type.LONG);
+			q.addScalar(COUNT_COLUMN_NAME, Type.LONG);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
@@ -72,10 +72,10 @@ public class CommerceOrderItemFinderImpl
 			Iterator<Long> itr = q.iterate();
 
 			if (itr.hasNext()) {
-				Long sum = itr.next();
+				Long count = itr.next();
 
-				if (sum != null) {
-					return sum.intValue();
+				if (count != null) {
+					return count.intValue();
 				}
 			}
 

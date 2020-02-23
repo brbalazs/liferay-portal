@@ -43,34 +43,44 @@ import java.util.Objects;
 public class CommerceShipmentLocalServiceImpl
 	extends CommerceShipmentLocalServiceBaseImpl {
 
-	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceShipment addCommerceShipment(
 			long commerceOrderId, ServiceContext serviceContext)
 		throws PortalException {
 
-		User user = userLocalService.getUser(serviceContext.getUserId());
-
 		CommerceOrder commerceOrder =
 			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
+
+		return addCommerceShipment(
+			commerceOrder.getGroupId(), commerceOrder.getCommerceAccountId(),
+			commerceOrder.getShippingAddressId(),
+			commerceOrder.getCommerceShippingMethodId(),
+			commerceOrder.getShippingOptionName(), serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceShipment addCommerceShipment(
+			long groupId, long commerceAccountId, long commerceAddressId,
+			long commerceShippingMethodId, String commerceShippingOptionName,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		User user = userLocalService.getUser(serviceContext.getUserId());
 
 		long commerceShipmentId = counterLocalService.increment();
 
 		CommerceShipment commerceShipment = commerceShipmentPersistence.create(
 			commerceShipmentId);
 
-		commerceShipment.setGroupId(commerceOrder.getGroupId());
+		commerceShipment.setGroupId(groupId);
 		commerceShipment.setCompanyId(user.getCompanyId());
 		commerceShipment.setUserId(user.getUserId());
 		commerceShipment.setUserName(user.getFullName());
-		commerceShipment.setCommerceAccountId(
-			commerceOrder.getCommerceAccountId());
-		commerceShipment.setCommerceAddressId(
-			commerceOrder.getShippingAddressId());
-		commerceShipment.setCommerceShippingMethodId(
-			commerceOrder.getCommerceShippingMethodId());
-		commerceShipment.setShippingOptionName(
-			commerceOrder.getShippingOptionName());
+		commerceShipment.setCommerceAccountId(commerceAccountId);
+		commerceShipment.setCommerceAddressId(commerceAddressId);
+		commerceShipment.setCommerceShippingMethodId(commerceShippingMethodId);
+		commerceShipment.setShippingOptionName(commerceShippingOptionName);
 		commerceShipment.setStatus(
 			CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING);
 
@@ -275,6 +285,9 @@ public class CommerceShipmentLocalServiceImpl
 		commerceShipment.setShippingDate(shippingDate);
 		commerceShipment.setExpectedDate(expectedDate);
 		commerceShipment.setStatus(status);
+
+		if (status == CommerceShipmentConstants.SHIPMENT_STATUS_SHIPPED) {
+		}
 
 		return commerceShipmentPersistence.update(commerceShipment);
 	}
