@@ -21,19 +21,20 @@ package com.liferay.commerce.model;
 public class ShipmentItem {
 
 	public ShipmentItem(
-		long shipmentItemId, long orderId, Sku sku, int orderedCount,
-		int shippedQuantity, int shippableQuantity) {
+		long shipmentItemId, long orderId, Sku sku, int orderedQuantity,
+		int shippedQuantity, int toSendQuantity, String warehouse) {
 
 		_shipmentItemId = shipmentItemId;
 		_orderId = orderId;
 		_sku = sku;
-		_orderedCount = orderedCount;
+		_orderedQuantity = orderedQuantity;
 		_shippedQuantity = shippedQuantity;
-		_shippableQuantity = shippableQuantity;
+		_toSendQuantity = toSendQuantity;
+		_warehouse = warehouse;
 	}
 
-	public int getOrderedCount() {
-		return _orderedCount;
+	public int getOrderedQuantity() {
+		return _orderedQuantity;
 	}
 
 	public long getOrderId() {
@@ -44,10 +45,6 @@ public class ShipmentItem {
 		return _shipmentItemId;
 	}
 
-	public int getShippableQuantity() {
-		return _shippableQuantity;
-	}
-
 	public int getShippedQuantity() {
 		return _shippedQuantity;
 	}
@@ -56,11 +53,20 @@ public class ShipmentItem {
 		return _sku;
 	}
 
-	private final int _orderedCount;
+	public int getToSendQuantity() {
+		return _toSendQuantity;
+	}
+
+	public String getWarehouse() {
+		return _warehouse;
+	}
+
+	private final int _orderedQuantity;
 	private final long _orderId;
 	private final long _shipmentItemId;
-	private final int _shippableQuantity;
 	private final int _shippedQuantity;
 	private final Sku _sku;
+	private final int _toSendQuantity;
+	private final String _warehouse;
 
 }

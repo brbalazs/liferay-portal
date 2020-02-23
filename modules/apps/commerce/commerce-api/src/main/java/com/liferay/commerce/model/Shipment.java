@@ -22,14 +22,14 @@ public class Shipment {
 
 	public Shipment(
 		long shipmentId, String panelUrl, String accountName, String address,
-		String createDate, LabelField statusLabelField, String tracking) {
+		String createDate, LabelField status, String tracking) {
 
 		_shipmentId = shipmentId;
 		_panelUrl = panelUrl;
 		_accountName = accountName;
 		_address = address;
 		_createDate = createDate;
-		_statusLabelField = statusLabelField;
+		_status = status;
 		_tracking = tracking;
 	}
 
@@ -53,8 +53,8 @@ public class Shipment {
 		return _shipmentId;
 	}
 
-	public LabelField getStatusLAbelField() {
-		return _statusLabelField;
+	public LabelField getStatus() {
+		return _status;
 	}
 
 	public String getTracking() {
@@ -66,7 +66,7 @@ public class Shipment {
 	private final String _createDate;
 	private final String _panelUrl;
 	private final long _shipmentId;
-	private final LabelField _statusLabelField;
+	private final LabelField _status;
 	private final String _tracking;
 
 }
