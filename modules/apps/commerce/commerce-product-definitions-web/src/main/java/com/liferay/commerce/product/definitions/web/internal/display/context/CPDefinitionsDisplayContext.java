@@ -15,7 +15,7 @@
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
@@ -74,8 +74,8 @@ public class CPDefinitionsDisplayContext
 		for (CPType cpType : getCPTypes()) {
 			renderURL.setParameter("productTypeName", cpType.getName());
 
-			ClayCreationMenuItem clayCreationMenuItem =
-				new ClayCreationMenuItem(
+			ClayCreationMenuActionItem clayCreationMenuItem =
+				new ClayCreationMenuActionItem(
 					renderURL.toString(),
 					cpType.getLabel(cpRequestHelper.getLocale()));
 

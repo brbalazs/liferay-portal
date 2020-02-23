@@ -101,6 +101,12 @@
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.DatasetDisplayTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
+			<name>bulkActions</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.util.List</type>
+		</attribute>
+		<attribute>
 			<name>clayCreationMenu</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>

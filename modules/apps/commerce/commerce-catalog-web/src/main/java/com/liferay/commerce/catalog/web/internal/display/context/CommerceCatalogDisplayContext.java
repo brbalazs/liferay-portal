@@ -17,7 +17,8 @@ package com.liferay.commerce.catalog.web.internal.display.context;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
@@ -107,11 +108,11 @@ public class CommerceCatalogDisplayContext {
 
 		if (hasAddCatalogPermission()) {
 			clayCreationMenu.addClayCreationMenuItem(
-				new ClayCreationMenuItem(
+				new ClayCreationMenuActionItem(
 					getAddCommerceCatalogRenderURL(),
 					LanguageUtil.get(
 						cpRequestHelper.getRequest(), "add-catalog"),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
 
 		return clayCreationMenu;

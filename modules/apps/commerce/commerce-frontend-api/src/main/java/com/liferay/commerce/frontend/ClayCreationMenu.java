@@ -27,7 +27,7 @@ public class ClayCreationMenu {
 	}
 
 	public void addClayCreationMenuItem(
-		ClayCreationMenuItem clayCreationMenuItem) {
+		ClayCreationMenuActionItem clayCreationMenuItem) {
 
 		_clayCreationMenuItems.add(clayCreationMenuItem);
 	}
@@ -35,20 +35,20 @@ public class ClayCreationMenu {
 	public void addClayCreationMenuItem(String url, String label) {
 		addClayCreationMenuItem(
 			url, label,
-			ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_LINK);
+			ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_LINK);
 	}
 
 	public void addClayCreationMenuItem(
 		String url, String label, String target) {
 
 		_clayCreationMenuItems.add(
-			new ClayCreationMenuItem(url, label, target));
+			new ClayCreationMenuActionItem(url, label, target));
 	}
 
-	public List<ClayCreationMenuItem> getClayCreationMenuItems() {
+	public List<ClayCreationMenuActionItem> getClayCreationMenuItems() {
 		return _clayCreationMenuItems;
 	}
 
-	private final List<ClayCreationMenuItem> _clayCreationMenuItems;
+	private final List<ClayCreationMenuActionItem> _clayCreationMenuItems;
 
 }

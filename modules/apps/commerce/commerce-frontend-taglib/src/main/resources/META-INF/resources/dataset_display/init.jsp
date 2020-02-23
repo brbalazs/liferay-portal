@@ -28,12 +28,14 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
 <%@ page import="java.util.List" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
+<%@ page import="com.liferay.commerce.frontend.ClayMenuActionItem" %>
 
 <liferay-frontend:defineObjects />
 
 <liferay-theme:defineObjects />
 
 <%
+List<ClayMenuActionItem> bulkActions = (List<ClayMenuActionItem>)request.getAttribute("liferay-commerce:dataset-display:bulkActions");
 Object clayDataSetDisplayViewsContext = request.getAttribute("liferay-commerce:dataset-display:clayDataSetDisplayViewsContext");
 ClayCreationMenu clayCreationMenu = (ClayCreationMenu)request.getAttribute("liferay-commerce:dataset-display:clayCreationMenu");
 String dataProviderKey = (String)request.getAttribute("liferay-commerce:dataset-display:dataProviderKey");

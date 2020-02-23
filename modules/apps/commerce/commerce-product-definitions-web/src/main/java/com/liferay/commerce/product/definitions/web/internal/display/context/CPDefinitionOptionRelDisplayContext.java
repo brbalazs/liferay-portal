@@ -15,7 +15,8 @@
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.product.configuration.CPOptionConfiguration;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
@@ -92,10 +93,10 @@ public class CPDefinitionOptionRelDisplayContext
 		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 		clayCreationMenu.addClayCreationMenuItem(
-			new ClayCreationMenuItem(
+			new ClayCreationMenuActionItem(
 				portletURL.toString(),
 				LanguageUtil.get(cpRequestHelper.getRequest(), "add-value"),
-				ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 
 		return clayCreationMenu;
 	}

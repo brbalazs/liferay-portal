@@ -15,6 +15,8 @@
 package com.liferay.commerce.frontend.taglib.servlet.taglib;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.CommerceDataProviderRegistry;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
@@ -110,6 +112,10 @@ public class DatasetDisplayTag extends IncludeTag {
 		return super.doStartTag();
 	}
 
+	public void setBulkActions(List<ClayMenuActionItem> bulkActions) {
+		_bulkActions = bulkActions;
+	}
+
 	public void setClayCreationMenu(ClayCreationMenu clayCreationMenu) {
 		_clayCreationMenu = clayCreationMenu;
 	}
@@ -189,6 +195,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
+		_bulkActions = new ArrayList<>();
 		_clayCreationMenu = new ClayCreationMenu();
 		_clayDataSetDataJSONBuilder = null;
 		_clayDataSetDisplayViewsContext = null;
@@ -256,6 +263,8 @@ public class DatasetDisplayTag extends IncludeTag {
 
 	@Override
 	protected void setAttributes(HttpServletRequest httpServletRequest) {
+		request.setAttribute(
+			"liferay-commerce:dataset-display:bulkActions", _bulkActions);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:clayCreationMenu",
 			_clayCreationMenu);
@@ -365,6 +374,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private static final Log _log = LogFactoryUtil.getLog(
 		DatasetDisplayTag.class);
 
+	private List<ClayMenuActionItem> _bulkActions = new ArrayList<>();
 	private ClayCreationMenu _clayCreationMenu = new ClayCreationMenu();
 	private ClayDataSetDataJSONBuilder _clayDataSetDataJSONBuilder;
 	private Object _clayDataSetDisplayViewsContext;

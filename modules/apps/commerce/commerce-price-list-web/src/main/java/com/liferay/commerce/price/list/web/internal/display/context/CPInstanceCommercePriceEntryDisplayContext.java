@@ -15,7 +15,8 @@
 package com.liferay.commerce.price.list.web.internal.display.context;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.item.selector.criterion.CommercePriceListItemSelectorCriterion;
 import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
@@ -70,12 +71,12 @@ public class CPInstanceCommercePriceEntryDisplayContext
 		CPInstance cpInstance = getCPInstance();
 
 		clayCreationMenu.addClayCreationMenuItem(
-			new ClayCreationMenuItem(
+			new ClayCreationMenuActionItem(
 				liferayPortletResponse.getNamespace() + "addCommercePriceEntry",
 				LanguageUtil.format(
 					httpServletRequest, "add-x-to-price-list",
 					HtmlUtil.escape(cpInstance.getSku()), false),
-				ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_EVENT));
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_EVENT));
 
 		return clayCreationMenu;
 	}

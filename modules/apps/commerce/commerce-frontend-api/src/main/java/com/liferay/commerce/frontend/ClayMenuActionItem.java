@@ -15,35 +15,35 @@
 package com.liferay.commerce.frontend;
 
 /**
- * @author Marco Leo
+ * @author Alec Sloan
  */
-public class ClayCreationMenuItem {
+public class ClayMenuActionItem {
 
-	public static final String CLAY_CREATION_MENU_ITEM_TARGET_EVENT = "event";
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_INLINE = "inline";
 
-	public static final String CLAY_CREATION_MENU_ITEM_TARGET_INLINE = "inline";
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_LINK = "";
 
-	public static final String CLAY_CREATION_MENU_ITEM_TARGET_LINK = "";
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL = "modal";
 
-	public static final String CLAY_CREATION_MENU_ITEM_TARGET_MODAL = "modal";
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL = "sidePanel";
 
-	public static final String CLAY_CREATION_MENU_ITEM_TARGET_SIDE_PANEL =
-		"sidePanel";
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_EVENT = "event";
 
-	public ClayCreationMenuItem(String href, String label) {
+	public ClayMenuActionItem(
+		String href, String icon, String label, String target) {
+
 		_href = href;
-		_label = label;
-		_target = CLAY_CREATION_MENU_ITEM_TARGET_LINK;
-	}
-
-	public ClayCreationMenuItem(String href, String label, String target) {
-		_href = href;
+		_icon = icon;
 		_label = label;
 		_target = target;
 	}
 
 	public String getHref() {
 		return _href;
+	}
+
+	public String getIcon() {
+		return _icon;
 	}
 
 	public String getLabel() {
@@ -62,6 +62,10 @@ public class ClayCreationMenuItem {
 		_href = href;
 	}
 
+	public void setIcon(String icon) {
+		_icon = icon;
+	}
+
 	public void setLabel(String label) {
 		_label = label;
 	}
@@ -75,6 +79,7 @@ public class ClayCreationMenuItem {
 	}
 
 	private String _href;
+	private String _icon;
 	private String _label;
 	private int _order;
 	private String _target;

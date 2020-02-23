@@ -15,7 +15,8 @@
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.product.configuration.CPDefinitionLinkTypeSettings;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
@@ -76,11 +77,11 @@ public class CPDefinitionLinkDisplayContext
 			sb.append(type);
 
 			clayCreationMenu.addClayCreationMenuItem(
-				new ClayCreationMenuItem(
+				new ClayCreationMenuActionItem(
 					sb.toString(),
 					LanguageUtil.format(
 						httpServletRequest, "add-x-product", type, true),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_EVENT));
+					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_EVENT));
 		}
 
 		return clayCreationMenu;

@@ -15,7 +15,8 @@
 package com.liferay.commerce.price.list.web.internal.display.context;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
@@ -59,11 +60,11 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		clayCreationMenu.addClayCreationMenuItem(
-			new ClayCreationMenuItem(
+			new ClayCreationMenuActionItem(
 				_getAddCommerceTierPriceEntryURL(),
 				LanguageUtil.get(httpServletRequest, "add-tier-price-entry"),
-				ClayCreationMenuItem.
-					CLAY_CREATION_MENU_ITEM_TARGET_SIDE_PANEL));
+				ClayMenuActionItem.
+					CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
 
 		return clayCreationMenu;
 	}

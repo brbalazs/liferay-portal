@@ -18,7 +18,8 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
@@ -94,11 +95,11 @@ public class CPInstanceDisplayContext extends BaseCPDefinitionsDisplayContext {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		clayCreationMenu.addClayCreationMenuItem(
-			new ClayCreationMenuItem(
+			new ClayCreationMenuActionItem(
 				_getAddCPInstancePortletURL(),
 				LanguageUtil.get(cpRequestHelper.getRequest(), "add-sku"),
-				ClayCreationMenuItem.
-					CLAY_CREATION_MENU_ITEM_TARGET_SIDE_PANEL));
+				ClayMenuActionItem.
+					CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
 
 		return clayCreationMenu;
 	}

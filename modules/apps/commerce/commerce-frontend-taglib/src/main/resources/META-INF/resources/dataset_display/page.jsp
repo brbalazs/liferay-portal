@@ -24,6 +24,7 @@
 	datasetDisplay.default('<%= containerId %>', '<%= containerId %>', {
 		views: <%= jsonSerializer.serializeDeep(clayDataSetDisplayViewsContext) %>,
 		apiUrl: '<%= dataSetAPI %>',
+		bulkActions: <%= jsonSerializer.serializeDeep(bulkActions) %>,
 		creationMenuItems: <%= jsonSerializer.serializeDeep(clayCreationMenu.getClayCreationMenuItems()) %>,
 		currentUrl: '<%= currentURL %>',
 		formId: '<%= formId %>',

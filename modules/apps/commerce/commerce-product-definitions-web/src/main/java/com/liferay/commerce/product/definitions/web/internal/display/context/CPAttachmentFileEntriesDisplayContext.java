@@ -15,7 +15,8 @@
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
@@ -113,10 +114,10 @@ public class CPAttachmentFileEntriesDisplayContext
 		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 		clayCreationMenu.addClayCreationMenuItem(
-			new ClayCreationMenuItem(
+			new ClayCreationMenuActionItem(
 				portletURL.toString(), _getTypeLabel(type),
-				ClayCreationMenuItem.
-					CLAY_CREATION_MENU_ITEM_TARGET_SIDE_PANEL));
+				ClayMenuActionItem.
+					CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
 
 		return clayCreationMenu;
 	}
