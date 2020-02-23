@@ -18,6 +18,8 @@ import React from 'react';
 
 function Default(props) {
 	switch (true) {
+		case typeof props.value === 'number':
+			return <>{props.value}</>;
 		case !(props.value instanceof Object):
 			return <>{props.value || ''}</>;
 		case !!props.value.icon:

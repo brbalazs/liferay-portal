@@ -47,4 +47,8 @@
 		spritemap: '<%= spritemap %>',
 		style: '<%= style %>'
 	});
+
+	document.querySelectorAll('form').forEach(function(form) {
+		form.setAttribute('data-senna-off', true);
+	});
 </aui:script>
