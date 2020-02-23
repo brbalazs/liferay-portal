@@ -23,9 +23,7 @@ function ActiveFiltersBar(props) {
 
 	const filtersActive = state.filters.reduce(
 		(acc, filter) =>
-			filter.value && !filter.invisible && !filter.main
-				? acc.concat(filter.id)
-				: acc,
+			filter.value && !filter.invisible ? acc.concat(filter.id) : acc,
 		[]
 	);
 

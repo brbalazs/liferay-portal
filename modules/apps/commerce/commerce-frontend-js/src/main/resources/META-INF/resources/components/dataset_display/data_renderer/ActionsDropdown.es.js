@@ -41,6 +41,7 @@ function ActionItem(props) {
 
 	return (
 		<ClayDropDown.Item
+			data-senna-off
 			href={props.href}
 			onClick={
 				props.target &&

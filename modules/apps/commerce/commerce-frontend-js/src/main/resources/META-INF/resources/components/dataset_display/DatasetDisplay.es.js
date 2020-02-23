@@ -35,18 +35,18 @@ import SidePanel from '../side_panel/SidePanel.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index.es';
-import {formatFilters} from './utilities/filters.es';
 import {getViewById} from './views/index.es';
 
-function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
+function loadData(apiUrl, filters, searchParam, delta, page = 1, sorting = []) {
 	const authString = `&p_auth=${window.Liferay.authToken}`;
-	const filterString = `&${createOdataFilterStrings(filters)}`;
 	const pagination = `&pageSize=${delta}&page=${page}`;
+	const searchParamString = searchParam ? `&q=${searchParam}` : '';
 	const sortingString = sorting.length
 		? `&orderBy=${JSON.stringify(sorting)}`
 		: ``;
+	const filterString = `&${createOdataFilterStrings(filters)}`;
 
-	const url = `${apiUrl}${authString}${pagination}${sortingString}${filterString}`;
+	const url = `${apiUrl}${authString}${pagination}${sortingString}${searchParamString}${filterString}`;
 
 	return fetch(url, {
 		credentials: 'include',
@@ -71,7 +71,8 @@ function DatasetDisplay(props) {
 	const [selectedItemsValue, setSelectedItemsValue] = useState(
 		props.selectedItems || []
 	);
-	const [filters, updateFilters] = useState(formatFilters(props.filters));
+	const [filters, updateFilters] = useState(props.filters);
+	const [searchParam, updateSearchParam] = useState('');
 	const [sorting, updateSorting] = useState(props.sorting);
 	const [items, updateItems] = useState(props.items);
 	const [pageNumber, setPageNumber] = useState(
@@ -149,12 +150,20 @@ function DatasetDisplay(props) {
 	function getData(
 		apiUrl,
 		filters,
+		searchParam,
 		delta,
 		pageNumber,
 		sorting,
 		showSuccessNotification = false
 	) {
-		return loadData(apiUrl, filters, delta, pageNumber, sorting)
+		return loadData(
+			apiUrl,
+			filters,
+			searchParam,
+			delta,
+			pageNumber,
+			sorting
+		)
 			.then(updateDataset)
 			.then(() => {
 				if (showSuccessNotification) {
@@ -179,6 +188,7 @@ function DatasetDisplay(props) {
 			getData(
 				props.apiUrl,
 				filters.filter(e => !!e.value),
+				searchParam,
 				delta,
 				pageNumber,
 				sorting,
@@ -193,6 +203,7 @@ function DatasetDisplay(props) {
 	}, [
 		props.apiUrl,
 		filters,
+		searchParam,
 		delta,
 		pageNumber,
 		sorting,
@@ -223,6 +234,7 @@ function DatasetDisplay(props) {
 		getData(
 			props.apiUrl,
 			filters.filter(e => !!e.value),
+			searchParam,
 			delta,
 			pageNumber,
 			sorting,
@@ -345,6 +357,7 @@ function DatasetDisplay(props) {
 				modalId: datasetDisplaySupportModalId,
 				openModal,
 				openSidePanel,
+				searchParam,
 				selectItems,
 				selectable,
 				selectedItemsKey: props.selectedItemsKey,
@@ -353,6 +366,7 @@ function DatasetDisplay(props) {
 				sidePanelId: sidePanelSupportModalId,
 				sorting,
 				style: props.style,
+				updateSearchParam,
 				updateSorting
 			}}
 		>

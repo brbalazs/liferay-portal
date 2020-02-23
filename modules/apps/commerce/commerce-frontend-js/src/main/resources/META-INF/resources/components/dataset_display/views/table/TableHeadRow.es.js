@@ -49,7 +49,15 @@ function TableHeadCell(props) {
 	}
 
 	return (
-		<ClayTable.Cell className={props.className} headingCell headingTitle>
+		<ClayTable.Cell
+			className={classNames(
+				props.contentRenderer &&
+					`content-renderer-${props.contentRenderer}`,
+				'table-cell-expand-smaller'
+			)}
+			headingCell
+			headingTitle
+		>
 			{props.sortable ? (
 				<a
 					className="inline-item text-truncate-inline text-nowrap"
@@ -89,26 +97,10 @@ function TableHeadCell(props) {
 
 function TableHeadRow(props) {
 	const getColumns = fields => {
-		let firstElementGotExpanded = false;
-
 		return fields.map((field, i) => {
-			let expandedClass = null;
-
-			if (typeof field.expand === 'boolean') {
-				expandedClass = field.expand
-					? 'table-cell-expand-smaller'
-					: null;
-			} else if (!firstElementGotExpanded) {
-				expandedClass = 'table-cell-expand';
-				firstElementGotExpanded = true;
-			} else {
-				expandedClass = 'table-cell-expand-smaller';
-			}
-
 			return (
 				<TableHeadCell
 					{...field}
-					className={expandedClass}
 					key={field.fieldName || i}
 					sorting={props.sorting}
 					updateSorting={props.updateSorting}

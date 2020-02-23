@@ -26,14 +26,12 @@ function FiltersDropdown() {
 	const [query, setQuery] = useState('');
 	const {state} = getAppContext();
 	const [visibleFilters, setVisibleFilter] = useState(
-		state.filters.filter(filter => !(filter.main || filter.invisible))
+		state.filters.filter(filter => !filter.invisible)
 	);
 
 	useEffect(() => {
 		const results = state.filters.filter(filter => {
 			switch (true) {
-				case !!filter.main:
-					return false;
 				case !!filter.invisible:
 					return false;
 				case query &&

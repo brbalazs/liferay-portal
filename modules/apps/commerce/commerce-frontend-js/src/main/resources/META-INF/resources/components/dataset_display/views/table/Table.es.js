@@ -16,6 +16,7 @@ import ClayTable from '@clayui/table';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useContext} from 'react';
 
+import DatasetDisplayContext from '../../DatasetDisplayContext.es';
 import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
 import Checkbox from '../../data_renderer/Checkbox.es';
 import Comment from '../../data_renderer/Comment.es';
@@ -83,7 +84,7 @@ function Table(props) {
 		selectionType,
 		sorting,
 		updateSorting
-	} = useContext(props.datasetDisplayContext);
+	} = useContext(DatasetDisplayContext);
 
 	const showActionItems = !!props.items.find(el => el.actionItems);
 

@@ -16,10 +16,6 @@ import {actionsDefinition} from '../actions/index.es';
 
 export const initialState = {
 	filters: [],
-	inputSearch: {
-		placeholder: Liferay.Language.get('search-item'),
-		value: ''
-	},
 	onFiltersChange: null
 };
 

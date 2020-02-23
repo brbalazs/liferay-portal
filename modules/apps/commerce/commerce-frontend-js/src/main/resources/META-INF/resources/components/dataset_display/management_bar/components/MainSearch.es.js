@@ -14,26 +14,23 @@
 
 import Icon from '@clayui/icon';
 import classNames from 'classnames';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 
-import getAppContext from './Context.es';
+import DatasetDisplayContext from '../../DatasetDisplayContext.es';
 
 function MainSearch() {
-	const {actions, state} = getAppContext();
-	const mainFilter = state.filters.find(f => f.main);
+	const {searchParam, updateSearchParam} = useContext(DatasetDisplayContext);
 
-	const [inputValue, updateInputValue] = useState(
-		(mainFilter && mainFilter.value) || ''
-	);
+	const [inputValue, updateInputValue] = useState(searchParam);
 
 	useEffect(() => {
-		updateInputValue(mainFilter.value || '');
-	}, [mainFilter.value]);
+		updateInputValue(searchParam || '');
+	}, [searchParam]);
 
 	function handleKeyDown(e) {
 		if (e.keyCode === 13) {
 			e.preventDefault();
-			return actions.updateFilterValue(mainFilter.id, inputValue);
+			return updateSearchParam(inputValue);
 		}
 	}
 
@@ -46,10 +43,7 @@ function MainSearch() {
 							className="main-input-search form-control input-group-inset input-group-inset-after"
 							onChange={e => updateInputValue(e.target.value)}
 							onKeyDown={handleKeyDown}
-							placeholder={
-								mainFilter.placeholder ||
-								Liferay.Language.get('search-for')
-							}
+							placeholder={Liferay.Language.get('search-for')}
 							type="text"
 							value={inputValue}
 						/>
@@ -60,7 +54,11 @@ function MainSearch() {
 								!inputValue.length && 'd-none'
 							)}
 							disabled={!inputValue.length}
-							onClick={() => updateInputValue('')}
+							onClick={e => {
+								e.preventDefault();
+								updateInputValue('');
+								return updateSearchParam('');
+							}}
 							type="button"
 						>
 							<Icon symbol="times-circle" />
@@ -70,12 +68,9 @@ function MainSearch() {
 					<span className="input-group-inset-item input-group-inset-item-after">
 						<button
 							className="btn btn-unstyled"
-							onSubmit={e => {
+							onClick={e => {
 								e.preventDefault();
-								actions.updateFilterValue(
-									mainFilter.id,
-									inputValue
-								);
+								return updateSearchParam(inputValue);
 							}}
 							type="button"
 						>

@@ -64,10 +64,6 @@ export function createOdataFilterStrings(filters) {
 					.join(' or ');
 			}
 
-			if (filter.main) {
-				return `(startwith(${filter.id}, '${filter.value}') eq true)`;
-			}
-
 			return createOdataFilterString(
 				filter.id,
 				filter.operator,
@@ -79,7 +75,7 @@ export function createOdataFilterStrings(filters) {
 		.join(' and ');
 
 	const oDataFilters = oDataFilterStrings.length
-		? `$filter=${oDataFilterStrings}`
+		? `&$filter=${oDataFilterStrings}`
 		: '';
 	return oDataFilters;
 }

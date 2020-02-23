@@ -285,6 +285,11 @@ const fluidDataSetDisplayProps = {
 			schema: {
 				fields: [
 					{
+						contentRenderer: 'image',
+						fieldName: 'img',
+						label: ''
+					},
+					{
 						contentRenderer: 'actionLink',
 						fieldName: 'name',
 						label: 'Name',
