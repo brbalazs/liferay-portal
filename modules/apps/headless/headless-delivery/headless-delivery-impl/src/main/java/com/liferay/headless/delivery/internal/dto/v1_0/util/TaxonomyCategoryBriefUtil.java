@@ -44,7 +44,7 @@ public class TaxonomyCategoryBriefUtil {
 				taxonomyCategoryId = assetCategory.getCategoryId();
 				taxonomyCategoryName = assetCategory.getTitle(
 					dtoConverterContext.getLocale());
-				taxonomyCategoryName_i18n = LocalizedMapUtil.getLocalizedMap(
+				taxonomyCategoryName_i18n = LocalizedMapUtil.getI18nMap(
 					dtoConverterContext.isAcceptAllLanguages(),
 					assetCategory.getTitleMap());
 			}

@@ -323,13 +323,13 @@ public class TaxonomyCategoryResourceImpl
 				dateModified = assetCategory.getModifiedDate();
 				description = assetCategory.getDescription(
 					contextAcceptLanguage.getPreferredLocale());
-				description_i18n = LocalizedMapUtil.getLocalizedMap(
+				description_i18n = LocalizedMapUtil.getI18nMap(
 					contextAcceptLanguage.isAcceptAllLanguages(),
 					assetCategory.getDescriptionMap());
 				id = assetCategory.getCategoryId();
 				name = assetCategory.getTitle(
 					contextAcceptLanguage.getPreferredLocale());
-				name_i18n = LocalizedMapUtil.getLocalizedMap(
+				name_i18n = LocalizedMapUtil.getI18nMap(
 					contextAcceptLanguage.isAcceptAllLanguages(),
 					assetCategory.getTitleMap());
 				numberOfTaxonomyCategories =

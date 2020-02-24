@@ -43,6 +43,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -152,8 +153,9 @@ public class TaxonomyVocabularyResourceImpl
 					LocaleUtil.toW3cLanguageId(
 						contextAcceptLanguage.getPreferredLanguageId()),
 					" because it is only available in the following languages ",
-					LocaleUtil.toW3cLanguageIds(
-						assetVocabulary.getAvailableLanguageIds())));
+					StringUtil.merge(
+						LocaleUtil.toW3cLanguageIds(
+							assetVocabulary.getAvailableLanguageIds()))));
 		}
 
 		AssetType[] assetTypes = taxonomyVocabulary.getAssetTypes();
@@ -171,11 +173,13 @@ public class TaxonomyVocabularyResourceImpl
 				LocalizedMapUtil.patch(
 					assetVocabulary.getTitleMap(),
 					contextAcceptLanguage.getPreferredLocale(),
-					taxonomyVocabulary.getName()),
+					taxonomyVocabulary.getName(),
+					taxonomyVocabulary.getName_i18n()),
 				LocalizedMapUtil.patch(
 					assetVocabulary.getDescriptionMap(),
 					contextAcceptLanguage.getPreferredLocale(),
-					taxonomyVocabulary.getDescription()),
+					taxonomyVocabulary.getDescription(),
+					taxonomyVocabulary.getDescription_i18n()),
 				_getSettings(assetTypes, assetVocabulary.getGroupId()),
 				new ServiceContext()));
 	}
@@ -488,13 +492,13 @@ public class TaxonomyVocabularyResourceImpl
 				dateModified = assetVocabulary.getModifiedDate();
 				description = assetVocabulary.getDescription(
 					contextAcceptLanguage.getPreferredLocale());
-				description_i18n = LocalizedMapUtil.getLocalizedMap(
+				description_i18n = LocalizedMapUtil.getI18nMap(
 					contextAcceptLanguage.isAcceptAllLanguages(),
 					assetVocabulary.getDescriptionMap());
 				id = assetVocabulary.getVocabularyId();
 				name = assetVocabulary.getTitle(
 					contextAcceptLanguage.getPreferredLocale());
-				name_i18n = LocalizedMapUtil.getLocalizedMap(
+				name_i18n = LocalizedMapUtil.getI18nMap(
 					contextAcceptLanguage.isAcceptAllLanguages(),
 					assetVocabulary.getTitleMap());
 				numberOfTaxonomyCategories = Optional.ofNullable(

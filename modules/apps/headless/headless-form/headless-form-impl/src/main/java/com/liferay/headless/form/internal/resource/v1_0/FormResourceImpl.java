@@ -150,6 +150,15 @@ public class FormResourceImpl extends BaseFormResourceImpl {
 					contextAcceptLanguage.getPreferredLocale());
 				name_i18n = LocalizedMapUtil.getLocalizedMap(
 					acceptAllLanguages, ddmFormInstance.getNameMap());
+				description_i18n = LocalizedMapUtil.getI18nMap(
+					contextAcceptLanguage.isAcceptAllLanguages(),
+					ddmFormInstance.getDescriptionMap());
+				id = ddmFormInstance.getFormInstanceId();
+				name = ddmFormInstance.getName(
+					contextAcceptLanguage.getPreferredLocale());
+				name_i18n = LocalizedMapUtil.getI18nMap(
+					contextAcceptLanguage.isAcceptAllLanguages(),
+					ddmFormInstance.getNameMap());
 				structure = StructureUtil.toFormStructure(
 					acceptAllLanguages, ddmFormInstance.getStructure(),
 					contextAcceptLanguage.getPreferredLocale(), _portal,
