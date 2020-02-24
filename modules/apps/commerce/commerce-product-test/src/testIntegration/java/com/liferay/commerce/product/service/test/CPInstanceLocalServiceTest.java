@@ -1,0 +1,350 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.commerce.product.service.test;
+
+import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPDefinitionOptionRel;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
+import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPOption;
+import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CommerceCatalogLocalService;
+import com.liferay.commerce.product.service.CommerceCatalogLocalServiceUtil;
+import com.liferay.commerce.product.test.util.CPTestUtil;
+import com.liferay.commerce.product.type.simple.constants.SimpleCPTypeConstants;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.test.rule.AggregateTestRule;
+import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
+import com.liferay.portal.kernel.test.util.CompanyTestUtil;
+import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.test.rule.Inject;
+import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.frutilla.FrutillaRule;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+/**
+ * @author Igor Beslic
+ */
+@RunWith(Arquillian.class)
+public class CPInstanceLocalServiceTest {
+
+	@ClassRule
+	@Rule
+	public static final AggregateTestRule aggregateTestRule =
+		new LiferayIntegrationTestRule();
+
+	@Before
+	public void setUp() throws Exception {
+		_company = CompanyTestUtil.addCompany();
+
+		_commerceCatalog = CommerceCatalogLocalServiceUtil.addCommerceCatalog(
+			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
+			LocaleUtil.US.getDisplayLanguage(), null,
+			ServiceContextTestUtil.getServiceContext(_company.getGroupId()));
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		List<CPDefinition> cpDefinitions =
+			_cpDefinitionLocalService.getCPDefinitions(
+				_commerceCatalog.getGroupId(), WorkflowConstants.STATUS_ANY,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		for (CPDefinition cpDefinition : cpDefinitions) {
+			_cpDefinitionLocalService.deleteCPDefinition(cpDefinition);
+		}
+
+		_commerceCatalogLocalService.deleteCommerceCatalog(_commerceCatalog);
+	}
+
+	@Test
+	public void testBuildCPInstances() throws Exception {
+		frutillaRule.scenario(
+			"Build all product SKU combinations"
+		).given(
+			"I have a product definition"
+		).when(
+			"two SKU contributor options are added to definition"
+		).and(
+			"each option has three values"
+		).and(
+			"generate all product instance combinations is invoked"
+		).then(
+			"9 product instances are generated"
+		).and(
+			"all product instances are APPROVED"
+		);
+
+		int cpOptionsCount = 2;
+		int cpOptionValuesCount = 3;
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOptionsCount, cpOptionValuesCount);
+
+		_cpInstanceLocalService.buildCPInstances(
+			cpDefinition.getCPDefinitionId(),
+			ServiceContextTestUtil.getServiceContext(
+				cpDefinition.getGroupId()));
+
+		List<CPInstance> cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product instance count",
+			(int)Math.pow(cpOptionValuesCount, cpOptionsCount),
+			cpDefinitionInstances.size());
+	}
+
+	@Test
+	public void testInactivateCPInstanceIfCPInstanceWithSameOptionAdded()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Inactivate stale product instance"
+		).given(
+			StringBundler.concat(
+				"I have a product definition with one SKU contributor option ",
+				"with three values assigned to it. There is product instance ",
+				"A that refers to first option value")
+		).when(
+			"new product instance B is added to definition"
+		).and(
+			"instance B has option equals to instance A"
+		).then(
+			"product instance A should be inactivated"
+		);
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		CPOption cpOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), true);
+
+		CPTestUtil.addCPOptionValue(cpOption);
+		CPTestUtil.addCPOptionValue(cpOption);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPTestUtil.addCPDefinitionOptionRel(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				cpOption.getCPOptionId());
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			cpDefinitionOptionValueRels.get(0);
+
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds =
+				new HashMap<>();
+
+		cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.put(
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+			Arrays.asList(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId()));
+
+		CPInstance cpInstanceA = CPTestUtil.addCPDefinitionCPInstance(
+			cpDefinition.getCPDefinitionId(),
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
+
+		Assert.assertEquals(
+			"Product instance A approved", WorkflowConstants.STATUS_APPROVED,
+			cpInstanceA.getStatus());
+
+		CPInstance cpInstanceB = CPTestUtil.addCPDefinitionCPInstance(
+			cpDefinition.getCPDefinitionId(),
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
+
+		Assert.assertNotEquals(
+			"Product instance A is not equal to product instance B",
+			cpInstanceA.getCPInstanceId(), cpInstanceB.getCPInstanceId());
+
+		List<CPInstance> activeCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product active instances count", 1,
+			activeCPDefinitionInstances.size());
+
+		CPInstance activeCPInstance = activeCPDefinitionInstances.get(0);
+
+		Assert.assertEquals(
+			"Product instance B is active", cpInstanceB.getCPInstanceId(),
+			activeCPInstance.getCPInstanceId());
+	}
+
+	@Test
+	public void testInactivateCPInstanceIfNewSKUContributorOptionAdded()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Inactivate product with stale option combination"
+		).given(
+			StringBundler.concat(
+				"I have a product definition with one SKU contributor option ",
+				"with three values assigned to it. There is product instance ",
+				"A that refers to first option value")
+		).when(
+			"new SKU contributor option is added to definition"
+		).and(
+			"option has three values"
+		).then(
+			"product instance A should be inactivated"
+		);
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		CPOption cpOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), true);
+
+		CPTestUtil.addCPOptionValue(cpOption);
+		CPTestUtil.addCPOptionValue(cpOption);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPTestUtil.addCPDefinitionOptionRel(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				cpOption.getCPOptionId());
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			cpDefinitionOptionValueRels.get(0);
+
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds =
+				new HashMap<>();
+
+		cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.put(
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+			Arrays.asList(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId()));
+
+		CPTestUtil.addCPDefinitionCPInstance(
+			cpDefinition.getCPDefinitionId(),
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
+
+		List<CPInstance> inactiveCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_INACTIVE, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product inactive instances count", 1,
+			inactiveCPDefinitionInstances.size());
+
+		List<CPInstance> approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product approved instances count", 1,
+			approvedCPDefinitionInstances.size());
+
+		CPInstance cpInstance = approvedCPDefinitionInstances.get(0);
+
+		cpOption = CPTestUtil.addCPOption(_commerceCatalog.getGroupId(), true);
+
+		CPTestUtil.addCPOptionValue(cpOption);
+		CPTestUtil.addCPOptionValue(cpOption);
+
+		CPTestUtil.addCPDefinitionOptionRel(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOption.getCPOptionId());
+
+		approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product approved instances count", 0,
+			approvedCPDefinitionInstances.size());
+
+		inactiveCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_INACTIVE, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product inactive instances count", 2,
+			inactiveCPDefinitionInstances.size());
+
+		cpInstance = _cpInstanceLocalService.getCPInstance(
+			cpInstance.getCPInstanceId());
+
+		Assert.assertEquals(
+			"Product instance A status", WorkflowConstants.STATUS_INACTIVE,
+			cpInstance.getStatus());
+	}
+
+	@Rule
+	public final FrutillaRule frutillaRule = new FrutillaRule();
+
+	private CommerceCatalog _commerceCatalog;
+
+	@Inject
+	private CommerceCatalogLocalService _commerceCatalogLocalService;
+
+	@DeleteAfterTestRun
+	private Company _company;
+
+	@Inject
+	private CPDefinitionLocalService _cpDefinitionLocalService;
+
+	@Inject
+	private CPInstanceLocalService _cpInstanceLocalService;
+
+}

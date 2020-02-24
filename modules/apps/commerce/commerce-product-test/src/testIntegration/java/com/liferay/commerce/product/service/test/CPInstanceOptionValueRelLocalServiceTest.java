@@ -18,7 +18,6 @@ import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
-import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
@@ -87,7 +86,9 @@ public class CPInstanceOptionValueRelLocalServiceTest {
 	}
 
 	@Test
-	public void testBuildCPInstances() throws Exception {
+	public void testAddCPInstanceOptionValueRelOnBuildCPInstances()
+		throws Exception {
+
 		frutillaRule.scenario(
 			"Build all product SKU combinations"
 		).given(
@@ -95,34 +96,23 @@ public class CPInstanceOptionValueRelLocalServiceTest {
 		).when(
 			"two SKU contributor options are added to definition"
 		).and(
-			"each option has three values"
+			"each option has four values"
 		).and(
 			"generate all product instance combinations is invoked"
 		).then(
-			"9 product instances are generated"
-		).and(
-			"all product instances are APPROVED"
+			"each approved product instance has four option values"
 		);
 
-		int cpOptionsCount = 2;
-		int cpOptionValuesCount = 3;
+		int cpOptionsCount = 4;
+		int cpOptionValuesCount = 4;
 
 		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		for (int i = 0; i < cpOptionsCount; i++) {
-			CPOption cpOption = CPTestUtil.addCPOption(
-				_commerceCatalog.getGroupId(), true);
-
-			for (int j = 0; j < cpOptionValuesCount; j++) {
-				CPTestUtil.addCPOptionValue(cpOption);
-			}
-
-			CPTestUtil.addCPDefinitionOptionRel(
-				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-				cpOption.getCPOptionId());
-		}
+		CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOptionsCount, cpOptionValuesCount);
 
 		_cpInstanceLocalService.buildCPInstances(
 			cpDefinition.getCPDefinitionId(),
@@ -135,11 +125,6 @@ public class CPInstanceOptionValueRelLocalServiceTest {
 				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, null);
 
-		Assert.assertEquals(
-			"Product instance count",
-			(int)Math.pow(cpOptionValuesCount, cpOptionsCount),
-			cpDefinitionInstances.size());
-
 		for (CPInstance cpInstance : cpDefinitionInstances) {
 			List<CPInstanceOptionValueRel> cpInstanceCPInstanceOptionValueRels =
 				_cpInstanceOptionValueRelLocalService.
@@ -150,6 +135,51 @@ public class CPInstanceOptionValueRelLocalServiceTest {
 				"Product instance option count", cpOptionsCount,
 				cpInstanceCPInstanceOptionValueRels.size());
 		}
+	}
+
+	@Test
+	public void testGetCPDefinitionCPInstanceOptionValueRels()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Get all product instance options"
+		).given(
+			"I have a product definition"
+		).when(
+			"three SKU contributor options are added to definition"
+		).and(
+			"each option has four values"
+		).and(
+			"generate all product instance combinations is invoked"
+		).then(
+			"243 product instances options are generated"
+		);
+
+		int cpOptionsCount = 3;
+		int cpOptionValuesCount = 4;
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOptionsCount, cpOptionValuesCount);
+
+		_cpInstanceLocalService.buildCPInstances(
+			cpDefinition.getCPDefinitionId(),
+			ServiceContextTestUtil.getServiceContext(
+				cpDefinition.getGroupId()));
+
+		List<CPInstanceOptionValueRel> cpDefinitionCPInstanceOptionValueRels =
+			_cpInstanceOptionValueRelLocalService.
+				getCPDefinitionCPInstanceOptionValueRels(
+					cpDefinition.getCPDefinitionId());
+
+		Assert.assertEquals(
+			"Product instance count",
+			(int)Math.pow(cpOptionValuesCount, cpOptionsCount) * cpOptionsCount,
+			cpDefinitionCPInstanceOptionValueRels.size());
 	}
 
 	@Rule
