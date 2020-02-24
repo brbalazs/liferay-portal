@@ -53,7 +53,10 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -64,6 +67,7 @@ import java.util.Map;
 /**
  * @author Andrea Di Giorgi
  * @author Luca Pellizzon
+ * @author Igor Beslic
  */
 public class CPTestUtil {
 
@@ -125,6 +129,68 @@ public class CPTestUtil {
 		return _addCPDefinition(
 			productTypeName, ignoreSKUCombinations, hasDefaultInstance,
 			ServiceContextTestUtil.getServiceContext(groupId));
+	}
+
+	public static CPInstance addCPDefinitionCPInstance(
+			long cpDefinitionId,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext();
+
+		User user = UserLocalServiceUtil.getUser(serviceContext.getUserId());
+
+		CPDefinition cpDefinition =
+			CPDefinitionLocalServiceUtil.getCPDefinition(cpDefinitionId);
+
+		long now = System.currentTimeMillis();
+
+		Date displayDate = new Date(now - Time.HOUR);
+		Date expirationDate = new Date(now + Time.DAY);
+
+		Calendar displayCalendar = CalendarFactoryUtil.getCalendar(
+			user.getTimeZone());
+
+		displayCalendar.setTime(displayDate);
+
+		int displayDateMonth = displayCalendar.get(Calendar.MONTH);
+		int displayDateDay = displayCalendar.get(Calendar.DATE);
+		int displayDateYear = displayCalendar.get(Calendar.YEAR);
+		int displayDateHour = displayCalendar.get(Calendar.HOUR);
+		int displayDateMinute = displayCalendar.get(Calendar.MINUTE);
+
+		if (displayCalendar.get(Calendar.AM_PM) == Calendar.PM) {
+			displayDateHour += 12;
+		}
+
+		Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
+			user.getTimeZone());
+
+		expirationCalendar.setTime(expirationDate);
+
+		int expirationDateMonth = expirationCalendar.get(Calendar.MONTH);
+		int expirationDateDay = expirationCalendar.get(Calendar.DATE);
+		int expirationDateYear = expirationCalendar.get(Calendar.YEAR);
+		int expirationDateHour = expirationCalendar.get(Calendar.HOUR);
+		int expirationDateMinute = expirationCalendar.get(Calendar.MINUTE);
+
+		if (expirationCalendar.get(Calendar.AM_PM) == Calendar.PM) {
+			expirationDateHour += 12;
+		}
+
+		return CPInstanceLocalServiceUtil.addCPInstance(
+			cpDefinition.getCPDefinitionId(), cpDefinition.getGroupId(),
+			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
+			RandomTestUtil.randomString(), true,
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds, 19.77, 19.77,
+			9.7, 14.55, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, true,
+			null, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, true, false, false, 1, StringPool.BLANK, null,
+			0, serviceContext);
 	}
 
 	public static CPDefinition addCPDefinitionFromCatalog(
@@ -194,53 +260,11 @@ public class CPTestUtil {
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext();
 
-		User user = UserLocalServiceUtil.getUser(serviceContext.getUserId());
-
 		CPDefinition cpDefinition = _addCPDefinition(
 			SimpleCPTypeConstants.NAME, true, true, serviceContext);
 
-		long now = System.currentTimeMillis();
-
-		Date displayDate = new Date(now - Time.HOUR);
-		Date expirationDate = new Date(now + Time.DAY);
-
-		Calendar displayCalendar = CalendarFactoryUtil.getCalendar(
-			user.getTimeZone());
-
-		displayCalendar.setTime(displayDate);
-
-		int displayDateMonth = displayCalendar.get(Calendar.MONTH);
-		int displayDateDay = displayCalendar.get(Calendar.DATE);
-		int displayDateYear = displayCalendar.get(Calendar.YEAR);
-		int displayDateHour = displayCalendar.get(Calendar.HOUR);
-		int displayDateMinute = displayCalendar.get(Calendar.MINUTE);
-
-		if (displayCalendar.get(Calendar.AM_PM) == Calendar.PM) {
-			displayDateHour += 12;
-		}
-
-		Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
-			user.getTimeZone());
-
-		expirationCalendar.setTime(expirationDate);
-
-		int expirationDateMonth = expirationCalendar.get(Calendar.MONTH);
-		int expirationDateDay = expirationCalendar.get(Calendar.DATE);
-		int expirationDateYear = expirationCalendar.get(Calendar.YEAR);
-		int expirationDateHour = expirationCalendar.get(Calendar.HOUR);
-		int expirationDateMinute = expirationCalendar.get(Calendar.MINUTE);
-
-		if (expirationCalendar.get(Calendar.AM_PM) == Calendar.PM) {
-			expirationDateHour += 12;
-		}
-
-		CPInstance cpInstance = CPInstanceLocalServiceUtil.addCPInstance(
-			cpDefinition.getCPDefinitionId(), cpDefinition.getGroupId(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), true, null, true, displayDateMonth,
-			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, true, serviceContext);
+		CPInstance cpInstance = addCPDefinitionCPInstance(
+			cpDefinition.getCPDefinitionId(), Collections.emptyMap());
 
 		cpInstance.setStatus(WorkflowConstants.STATUS_APPROVED);
 
@@ -267,6 +291,23 @@ public class CPTestUtil {
 			RandomTestUtil.randomBoolean(), RandomTestUtil.randomBoolean(),
 			skuContributor, RandomTestUtil.randomString(), null,
 			serviceContext);
+	}
+
+	public static void addCPOption(
+			long groupId, long cpDefinitionId, int cpOptionsCount,
+			int cpOptionValuesCount)
+		throws Exception {
+
+		for (int i = 0; i < cpOptionsCount; i++) {
+			CPOption cpOption = addCPOption(groupId, true);
+
+			for (int j = 0; j < cpOptionValuesCount; j++) {
+				addCPOptionValue(cpOption);
+			}
+
+			addCPDefinitionOptionRel(
+				groupId, cpDefinitionId, cpOption.getCPOptionId());
+		}
 	}
 
 	public static CPOptionValue addCPOptionValue(CPOption cpOption)
