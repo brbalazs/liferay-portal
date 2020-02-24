@@ -18,7 +18,6 @@ import com.liferay.commerce.product.internal.upgrade.base.BaseCommerceProductSer
 import com.liferay.commerce.product.model.impl.CPInstanceModelImpl;
 import com.liferay.commerce.product.model.impl.CPInstanceOptionValueRelModelImpl;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.jdbc.AutoBatchPreparedStatementUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
@@ -37,6 +36,7 @@ import java.util.Map;
 
 /**
  * @author Matija Petanjek
+ * @author Igor Beslic
  */
 public class CPInstanceOptionValueRelUpgradeProcess
 	extends BaseCommerceProductServiceUpgradeProcess {
@@ -55,43 +55,71 @@ public class CPInstanceOptionValueRelUpgradeProcess
 		}
 
 		_importContentFromCPInstanceJsonField();
+
 		dropColumn(CPInstanceModelImpl.TABLE_NAME, "json");
+	}
+
+	private PreparedStatement _cpDefinitionOptionRelIdPreparedStatement()
+		throws SQLException {
+
+		if (_preparedStatementCPDefinitionOptionRelId != null) {
+			return _preparedStatementCPDefinitionOptionRelId;
+		}
+
+		_preparedStatementCPDefinitionOptionRelId = connection.prepareStatement(
+			_SELECT_CP_DEFINITION_OPTION_REL_ID);
+
+		return _preparedStatementCPDefinitionOptionRelId;
+	}
+
+	private PreparedStatement _cpDefinitionOptionValueRelIdPreparedStatement()
+		throws SQLException {
+
+		if (_preparedStatementCPDefinitionOptionValueRelId != null) {
+			return _preparedStatementCPDefinitionOptionValueRelId;
+		}
+
+		_preparedStatementCPDefinitionOptionValueRelId =
+			connection.prepareStatement(
+				_SELECT_CP_DEFINITION_OPTION_VALUE_REL_ID);
+
+		return _preparedStatementCPDefinitionOptionValueRelId;
 	}
 
 	private long _getCPDefinitionOptionRelId(
 			long cpDefinitionId, String cpDefinitionOptionRelKey)
 		throws SQLException {
 
-		try (Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(
-				StringBundler.concat(
-					"select CPDefinitionOptionRelId from ",
-					"CPDefinitionOptionRel where CPDefinitionId = ",
-					cpDefinitionId, " and key_ = '", cpDefinitionOptionRelKey,
-					StringPool.APOSTROPHE))) {
+		PreparedStatement ps = _cpDefinitionOptionRelIdPreparedStatement();
 
-			rs.next();
+		ps.setLong(1, cpDefinitionId);
+		ps.setString(2, cpDefinitionOptionRelKey);
 
-			return rs.getLong("CPDefinitionOptionRelId");
+		try (ResultSet resultSet = ps.executeQuery()) {
+			if (resultSet.next()) {
+				return resultSet.getLong("CPDefinitionOptionRelId");
+			}
 		}
+
+		return 0;
 	}
 
 	private long _getCPDefinitionOptionValueRelId(
 			long cpDefinitionOptionRelId, String cpDefinitionOptionValueKey)
 		throws SQLException {
 
-		try (Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(
-				StringBundler.concat(
-					"select CPDefinitionOptionValueRelId from ",
-					"CPDefinitionOptionValueRel where CPDefinitionOptionRelId ",
-					"= ", cpDefinitionOptionRelId, " and key_ = '",
-					cpDefinitionOptionValueKey, StringPool.APOSTROPHE))) {
+		PreparedStatement ps = _cpDefinitionOptionValueRelIdPreparedStatement();
 
-			rs.next();
+		ps.setLong(1, cpDefinitionOptionRelId);
+		ps.setString(2, cpDefinitionOptionValueKey);
 
-			return rs.getLong("CPDefinitionOptionValueRelId");
+		try (ResultSet resultSet = ps.executeQuery()) {
+			if (resultSet.next()) {
+				return resultSet.getLong("CPDefinitionOptionValueRelId");
+			}
 		}
+
+		return 0;
 	}
 
 	private void _importContentFromCPInstanceJsonField()
@@ -115,9 +143,9 @@ public class CPInstanceOptionValueRelUpgradeProcess
 
 			while (rs.next()) {
 				_queueInsertCPInstanceOptionValueRelCommands(ps, rs);
-
-				ps.executeBatch();
 			}
+
+			ps.executeBatch();
 		}
 	}
 
@@ -212,7 +240,17 @@ public class CPInstanceOptionValueRelUpgradeProcess
 		}
 	}
 
+	private static final String _SELECT_CP_DEFINITION_OPTION_REL_ID =
+		"select CPDefinitionOptionRelId from CPDefinitionOptionRel where " +
+			"CPDefinitionId = ? and key_ = ?";
+
+	private static final String _SELECT_CP_DEFINITION_OPTION_VALUE_REL_ID =
+		"select CPDefinitionOptionValueRelId from CPDefinitionOptionValueRel " +
+			"where CPDefinitionOptionRelId = ? and key_ = ?";
+
 	private final JSONFactory _jsonFactory;
 	private final PortalUUID _portalUUID;
+	private PreparedStatement _preparedStatementCPDefinitionOptionRelId;
+	private PreparedStatement _preparedStatementCPDefinitionOptionValueRelId;
 
 }
