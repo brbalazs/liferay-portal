@@ -80,10 +80,13 @@
 			SELECT
 				CPInstanceOptionValueRel.*
 			FROM
-				CPInstance, CPInstanceOptionValueRel
-			WHERE
+				CPInstanceOptionValueRel
+			INNER JOIN
+				CPInstance
+			ON
+				(CPInstanceOptionValueRel.cpInstanceId = CPInstance.cpInstanceId) AND
 				(CPInstance.cpDefinitionId = ?) AND
-				(CPInstance.cpInstanceId = CPInstanceOptionValueRel.cpInstanceId)
+				(CPInstance.status = ?)
 			ORDER BY
 				CPInstanceOptionValueRel.cpInstanceId
 		]]>
