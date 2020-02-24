@@ -259,7 +259,9 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 							})
 							.then(function(jsonResponse) {
 								return jsonResponse.items.map(
-									specification => specification.specificationId
+									function(specification) {
+										return specification.specificationId
+									}
 								);
 							});
 					}

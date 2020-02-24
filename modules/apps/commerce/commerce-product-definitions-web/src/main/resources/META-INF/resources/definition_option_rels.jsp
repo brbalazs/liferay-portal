@@ -48,7 +48,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 									optionId: option.id,
 									required: false,
 									skuContributor: false,
-									values: []
+									productOptionValues: []
 								}
 							]
 						),
@@ -102,7 +102,9 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 					}
 				).then(
 					function(jsonResponse) {
-						return jsonResponse.items.map(option => option.id);
+						return jsonResponse.items.map(function(option) {
+							return option.id
+						});
 					}
 				);
 			}
