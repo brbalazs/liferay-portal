@@ -14,10 +14,12 @@
 
 package com.liferay.commerce.product.service.persistence.impl;
 
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.model.impl.CPInstanceOptionValueRelImpl;
 import com.liferay.commerce.product.service.persistence.CPInstanceOptionValueRelFinder;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
+import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -40,20 +42,22 @@ public class CPInstanceOptionValueRelFinderImpl
 
 	@Override
 	public List<CPInstanceOptionValueRel> findByCPDefinitionId(
-		long cpDefinitionId) {
+		long cpDefinitionId, QueryDefinition<CPInstance> queryDefinition) {
 
-		return doFindByCPDefinitionId(cpDefinitionId);
+		return doFindByCPDefinitionId(cpDefinitionId, queryDefinition);
 	}
 
 	protected List<CPInstanceOptionValueRel> doFindByCPDefinitionId(
-		long cpDefinitionId) {
+		long cpDefinitionId, QueryDefinition<CPInstance> queryDefinition) {
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			String sql = _customSQL.get(getClass(), FIND_BY_CP_DEFINITION_ID);
+			String sql = _customSQL.get(
+				getClass(), FIND_BY_CP_DEFINITION_ID, queryDefinition,
+				CPInstanceOptionValueRelImpl.TABLE_NAME);
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -64,9 +68,11 @@ public class CPInstanceOptionValueRelFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(cpDefinitionId);
+			qPos.add(queryDefinition.getStatus());
 
 			return (List<CPInstanceOptionValueRel>)QueryUtil.list(
-				q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+				q, getDialect(), queryDefinition.getStart(),
+				queryDefinition.getEnd());
 		}
 		catch (Exception e) {
 			throw new SystemException(e);

@@ -16,8 +16,10 @@ package com.liferay.commerce.product.service.impl;
 
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.service.base.CPInstanceOptionValueRelLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.Date;
 import java.util.List;
@@ -83,7 +85,8 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 		getCPDefinitionCPInstanceOptionValueRels(long cpDefinitionId) {
 
 		return cpInstanceOptionValueRelFinder.findByCPDefinitionId(
-			cpDefinitionId);
+			cpDefinitionId,
+			new QueryDefinition<>(WorkflowConstants.STATUS_APPROVED));
 	}
 
 	@Override
