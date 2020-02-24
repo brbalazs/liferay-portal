@@ -354,8 +354,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 	@Override
 	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			getCPInstanceCPDefinitionOptionRelsCPDefinitionOptionValueRels(
-				long cpInstanceId)
+			getCPInstanceCPDefinitionOptionRelsMap(long cpInstanceId)
 		throws PortalException {
 
 		List<CPInstanceOptionValueRel> cpInstanceCPInstanceOptionValueRels =
@@ -367,7 +366,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		}
 
 		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelsCPDefinitionOptionValueRels = new HashMap<>();
+			cpDefinitionOptionRelsMap = new HashMap<>();
 
 		for (CPInstanceOptionValueRel cpInstanceCPInstanceOptionValueRel :
 				cpInstanceCPInstanceOptionValueRels) {
@@ -378,13 +377,12 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 						getCPDefinitionOptionRelId());
 
 			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-				cpDefinitionOptionRelsCPDefinitionOptionValueRels.get(
-					cpDefinitionOptionRel);
+				cpDefinitionOptionRelsMap.get(cpDefinitionOptionRel);
 
 			if (cpDefinitionOptionValueRels == null) {
 				cpDefinitionOptionValueRels = new ArrayList<>();
 
-				cpDefinitionOptionRelsCPDefinitionOptionValueRels.put(
+				cpDefinitionOptionRelsMap.put(
 					cpDefinitionOptionRel, cpDefinitionOptionValueRels);
 			}
 
@@ -395,7 +393,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 							getCPDefinitionOptionValueRelId()));
 		}
 
-		return cpDefinitionOptionRelsCPDefinitionOptionValueRels;
+		return cpDefinitionOptionRelsMap;
 	}
 
 	@Override

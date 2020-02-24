@@ -69,8 +69,7 @@ public interface CPInstanceHelper {
 		throws Exception;
 
 	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			getCPInstanceCPDefinitionOptionRelsCPDefinitionOptionValueRels(
-				long cpInstanceId)
+			getCPInstanceCPDefinitionOptionRelsMap(long cpInstanceId)
 		throws PortalException;
 
 	public List<CPInstanceOptionValueRel>
