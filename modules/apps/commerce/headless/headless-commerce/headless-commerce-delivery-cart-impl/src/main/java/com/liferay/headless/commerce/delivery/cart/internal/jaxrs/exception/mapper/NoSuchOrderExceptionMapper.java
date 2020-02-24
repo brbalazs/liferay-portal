@@ -14,7 +14,6 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.jaxrs.exception.mapper;
 
-import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
 import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.headless.commerce.core.exception.mapper.BaseExceptionMapper;
 

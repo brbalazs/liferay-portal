@@ -73,7 +73,7 @@ public class CartItemDTOConverter implements DTOConverter {
 				quantity = commerceOrderItem.getQuantity();
 				sku = commerceOrderItem.getSku();
 				skuId = commerceOrderItem.getCPInstanceId();
-				subscription = commerceOrderItem.getSubscription();
+				subscription = commerceOrderItem.isSubscription();
 			}
 		};
 	}
