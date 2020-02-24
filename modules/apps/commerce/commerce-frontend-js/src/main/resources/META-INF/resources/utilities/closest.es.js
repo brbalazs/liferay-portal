@@ -13,7 +13,7 @@
  */
 
 export function closest(element, selector) {
-	var matches = (this.document || this.ownerDocument).querySelectorAll(
+	var matches = window.document.querySelectorAll(
 		selector
 	);
 	var i;
