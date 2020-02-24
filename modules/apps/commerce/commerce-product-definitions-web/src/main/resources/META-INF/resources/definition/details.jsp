@@ -201,42 +201,15 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 					function selectItem(specification) {
 						return fetch(
-							'/o/headless-commerce-admin-catalog/v1.0/products/' + id + '/productSpecifications/',
-							{
-								body: JSON.stringify(
-									{
-										productId: productId,
-										specificationId: specification.id,
-										specificationKey: specification.key,
-										value: {
-											[themeDisplay.getLanguageId()]: name
-										}
-									}
-								),
-								credentials: 'include',
-								headers,
-								method: 'POST'
-							}
-						).then(
-							function() {
-								Liferay.fire(
-									events.UPDATE_DATASET_DISPLAY,
-									{
-										id: '<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
-									}
-								);
-								return specification.id;
-							}
-						);
-					}
-
-					function addNewItem(name) {
-						return fetch(
-							'/o/headless-commerce-admin-catalog/v1.0/specifications',
+							'/o/headless-commerce-admin-catalog/v1.0/products/' +
+								id +
+								'/productSpecifications/',
 							{
 								body: JSON.stringify({
-									key: utilities.slugify(name),
-									title: {
+									productId: productId,
+									specificationId: specification.id,
+									specificationKey: specification.key,
+									value: {
 										[themeDisplay.getLanguageId()]: name
 									}
 								}),
@@ -244,57 +217,73 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 								headers,
 								method: 'POST'
 							}
-						).then(
-							function(response) {
+						).then(function() {
+							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+								id:
+									'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
+							});
+							return specification.id;
+						});
+					}
+
+					function addNewItem(name) {
+						return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
+							body: JSON.stringify({
+								key: utilities.slugify(name),
+								title: {
+									[themeDisplay.getLanguageId()]: name
+								}
+							}),
+							credentials: 'include',
+							headers,
+							method: 'POST'
+						})
+							.then(function(response) {
 								return response.json();
-							}
-						).then(
-							selectItem
-						);
+							})
+							.then(selectItem);
 					}
 
 					function getSelectedItems() {
 						return fetch(
-							'/o/headless-commerce-admin-catalog/v1.0/products/' + productId + '/productSpecifications/',
+							'/o/headless-commerce-admin-catalog/v1.0/products/' +
+								productId +
+								'/productSpecifications/',
 							{
 								credentials: 'include',
 								headers
 							}
-						).then(
-							function(response) {
+						)
+							.then(function(response) {
 								return response.json();
-							}
-						).then(
-							function(jsonResponse) {
+							})
+							.then(function(jsonResponse) {
 								return jsonResponse.items.map(
 									specification => specification.specificationId
 								);
-							}
-						);
+							});
 					}
 
-					getSelectedItems().then(
-						function(selectedItemsIds) {
-							itemFinder.default(
-								'itemFinder', 'item-finder-root',
-								{
-									apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
-									createNewItemLabel: '<%= LanguageUtil.get(request, "create-new-specification") %>',
-									itemsKey: 'id',
-									onItemCreated: addNewItem,
-									onItemSelected: selectItem,
-									pageSize: 10,
-									panelHeaderLabel: '<%= LanguageUtil.get(request, "add-new-specification") %>',
-									schema: {
-										itemTitle: ['title', themeDisplay.getLanguageId()]
-									},
-									selectedItems: selectedItemsIds,
-									spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-									titleLabel: '<%= LanguageUtil.get(request, "select-an-existing-specification") %>'
-								}
-							);
-						}
-					);
+					getSelectedItems().then(function(selectedItemsIds) {
+						itemFinder.default('itemFinder', 'item-finder-root', {
+							apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+							createNewItemLabel:
+								'<%= LanguageUtil.get(request, "create-new-specification") %>',
+							itemsKey: 'id',
+							onItemCreated: addNewItem,
+							onItemSelected: selectItem,
+							pageSize: 10,
+							panelHeaderLabel:
+								'<%= LanguageUtil.get(request, "add-new-specification") %>',
+							schema: {
+								itemTitle: ['title', themeDisplay.getLanguageId()]
+							},
+							selectedItems: selectedItemsIds,
+							spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
+							titleLabel:
+								'<%= LanguageUtil.get(request, "select-an-existing-specification") %>'
+						});
+					});
 				</aui:script>
 			</div>
 
@@ -326,9 +315,9 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 </aui:form>
 
 <aui:script>
-	document.getElementById('<portlet:namespace />publishButton').addEventListener(
-		'click',
-		function(e) {
+	document
+		.getElementById('<portlet:namespace />publishButton')
+		.addEventListener('click', function(e) {
 			e.preventDefault();
 
 			var form = document.getElementById('<portlet:namespace />fm');
@@ -337,15 +326,17 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 				throw new Error('Form with id: <portlet:namespace />fm not found!');
 			}
 
-			var workflowActionInput = document.getElementById('<portlet:namespace />workflowAction');
+			var workflowActionInput = document.getElementById(
+				'<portlet:namespace />workflowAction'
+			);
 
 			if (workflowActionInput) {
-				workflowActionInput.value = '<%= WorkflowConstants.ACTION_PUBLISH %>';
+				workflowActionInput.value =
+					'<%= WorkflowConstants.ACTION_PUBLISH %>';
 			}
 
 			submitForm(form);
-		}
-	);
+		});
 </aui:script>
 
 <c:if test="<%= cpDefinition == null %>">
