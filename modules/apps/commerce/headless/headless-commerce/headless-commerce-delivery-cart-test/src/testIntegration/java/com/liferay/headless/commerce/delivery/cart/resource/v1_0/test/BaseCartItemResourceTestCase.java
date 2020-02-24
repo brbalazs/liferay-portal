@@ -206,10 +206,10 @@ public abstract class BaseCartItemResourceTestCase {
 
 		assertHttpResponseStatusCode(
 			404,
-			cartItemResource.getCartItemHttpResponse(null, cartItem.getId()));
+			cartItemResource.getCartItemHttpResponse(cartItem.getId()));
 
 		assertHttpResponseStatusCode(
-			404, cartItemResource.getCartItemHttpResponse(null, 0L));
+			404, cartItemResource.getCartItemHttpResponse( 0L));
 	}
 
 	protected CartItem testDeleteCartItem_addCartItem() throws Exception {
