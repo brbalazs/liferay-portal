@@ -112,6 +112,34 @@ components:
                     items:
                         $ref: "#/components/schemas/AccountAddress"
                     type: array
+                accountMembers:
+                    example:
+                        - description:
+                              en_US: Account Administrator Description US
+                              hr_HR: Account Administrator Description HR
+                              hu_HU: Account Administrator Description HU
+                          id: 30021
+                          name: Account Administrator
+                          title:
+                              en_US: Account Administrator US
+                              hr_HR: Account Administrator HR
+                              hu_HU: Account Administrator HU
+                          userId: 30002
+                        - id: 31256
+                          name: Alessio Antonio Rendina
+                          roles:
+                    items:
+                        $ref: "#/components/schemas/AccountMember"
+                    type: array
+                accountOrganizations:
+                    example:
+                        - id: 20546
+                          name: Liferay Italy
+                          organizationId: 20433
+                          treePath: /Liferay/Liferay Italy
+                    items:
+                        $ref: "#/components/schemas/AccountOrganization"
+                    type: array
                 customFields:
                     additionalProperties: true
                     type: object
@@ -140,15 +168,6 @@ components:
                 name:
                     example: Account Name
                     type: string
-                accountOrganizations:
-                    example:
-                        - id: 20546
-                          name: Liferay Italy
-                          organizationId: 20433
-                          treePath: /Liferay/Liferay Italy
-                    items:
-                        $ref: "#/components/schemas/AccountOrganization"
-                    type: array
                 root:
                     example: true
                     type: boolean
@@ -161,25 +180,6 @@ components:
                     maximum: 2
                     minimum: 0
                     type: integer
-                accountMembers:
-                    example:
-                        - description:
-                              en_US: Account Administrator Description US
-                              hr_HR: Account Administrator Description HR
-                              hu_HU: Account Administrator Description HU
-                          id: 30021
-                          name: Account Administrator
-                          title:
-                              en_US: Account Administrator US
-                              hr_HR: Account Administrator HR
-                              hu_HU: Account Administrator HU
-                          userId: 30002
-                        - id: 31256
-                          name: Alessio Antonio Rendina
-                          roles:
-                    items:
-                        $ref: "#/components/schemas/AccountMember"
-                    type: array
             required:
                 - externalReferenceCode
                 - name
@@ -277,15 +277,6 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                email:
-                    example: joe.1@commerce.com
-                    type: string
-                externalReferenceCode:
-                    example: AB-34098-789-N
-                    type: string
-                name:
-                    example: User Name
-                    type: string
                 accountRoles:
                     example:
                         - description:
@@ -299,6 +290,15 @@ components:
                     items:
                         $ref: "#/components/schemas/AccountRole"
                     type: array
+                email:
+                    example: joe.1@commerce.com
+                    type: string
+                externalReferenceCode:
+                    example: AB-34098-789-N
+                    type: string
+                name:
+                    example: User Name
+                    type: string
                 userExternalReferenceCode:
                     example: UAB-34098-789-N
                     type: string

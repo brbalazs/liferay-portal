@@ -310,7 +310,8 @@ info:
     contact:
         email: team-commerce@liferay.com
         name: Commerce Team
-    description:         Liferay Commerce Admin Site Setting API
+    description:
+        Liferay Commerce Admin Site Setting API
     license:
         name: "Apache 2.0"
         url: "http://www.apache.org/licenses/LICENSE-2.0.html"

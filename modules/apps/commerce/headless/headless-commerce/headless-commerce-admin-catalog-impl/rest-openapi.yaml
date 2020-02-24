@@ -358,6 +358,10 @@ components:
                         hr_HR: Color HR
                         hu_HU: Color HU
                     type: object
+                optionValues:
+                    items:
+                        $ref: "#/components/schemas/OptionValue"
+                    type: array
                 priority:
                     example: 1.2
                     format: double
@@ -368,10 +372,6 @@ components:
                 skuContributor:
                     example: true
                     type: boolean
-                optionValues:
-                    items:
-                        $ref: "#/components/schemas/OptionValue"
-                    type: array
             required:
                 - fieldType
                 - key
@@ -499,10 +499,6 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
-                attachments:
-                    items:
-                        $ref: "#/components/schemas/Attachment"
-                    type: array
                 metaDescription:
                     additionalProperties:
                         type: string
@@ -542,14 +538,14 @@ components:
                 neverExpire:
                     example: true
                     type: boolean
-                productOptions:
-                    items:
-                        $ref: "#/components/schemas/ProductOption"
-                    type: array
                 productId:
                     format: int64
                     readOnly: true
                     type: integer
+                productOptions:
+                    items:
+                        $ref: "#/components/schemas/ProductOption"
+                    type: array
                 productSpecifications:
                     items:
                         $ref: "#/components/schemas/ProductSpecification"
@@ -696,16 +692,16 @@ components:
                     example: 1.2
                     format: double
                     type: number
+                productOptionValues:
+                    items:
+                        $ref: "#/components/schemas/ProductOptionValue"
+                    type: array
                 required:
                     example: true
                     type: boolean
                 skuContributor:
                     example: true
                     type: boolean
-                productOptionValues:
-                    items:
-                        $ref: "#/components/schemas/ProductOptionValue"
-                    type: array
             required:
                 - fieldType
                 - key
@@ -1038,7 +1034,8 @@ info:
     contact:
         email: team-commerce@liferay.com
         name: Commerce Team
-    description:         Liferay Commerce Admin Catalog API
+    description:
+        Liferay Commerce Admin Catalog API
     license:
         name: "Apache 2.0"
         url: "http://www.apache.org/licenses/LICENSE-2.0.html"

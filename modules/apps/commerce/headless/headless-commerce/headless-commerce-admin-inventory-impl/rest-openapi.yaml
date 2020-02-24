@@ -50,10 +50,6 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                warehouseItems:
-                    items:
-                        $ref: "#/components/schemas/WarehouseItem"
-                    type: array
                 latitude:
                     example: 33.9976884
                     format: double
@@ -79,6 +75,10 @@ components:
                     type: string
                 type:
                     type: string
+                warehouseItems:
+                    items:
+                        $ref: "#/components/schemas/WarehouseItem"
+                    type: array
                 zip:
                     example: "91765"
                     type: string

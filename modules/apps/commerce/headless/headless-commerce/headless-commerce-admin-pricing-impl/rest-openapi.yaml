@@ -65,23 +65,31 @@ components:
     schemas:
         Discount:
             properties:
-                discountAccountGroups:
-                    items:
-                        $ref: "#/components/schemas/DiscountAccountGroup"
-                    type: array
                 active:
                     example: true
                     type: boolean
-                discountCategories:
-                    items:
-                        $ref: "#/components/schemas/DiscountCategory"
-                    type: array
                 couponCode:
                     example: SAVE20
                     type: string
                 customFields:
                     additionalProperties: true
                     type: object
+                discountAccountGroups:
+                    items:
+                        $ref: "#/components/schemas/DiscountAccountGroup"
+                    type: array
+                discountCategories:
+                    items:
+                        $ref: "#/components/schemas/DiscountCategory"
+                    type: array
+                discountProducts:
+                    items:
+                        $ref: "#/components/schemas/DiscountProduct"
+                    type: array
+                discountRules:
+                    items:
+                        $ref: "#/components/schemas/DiscountRule"
+                    type: array
                 displayDate:
                     format: date
                     type: string
@@ -137,14 +145,6 @@ components:
                     format: bigdecimal
                     minimum: 0
                     type: number
-                discountProducts:
-                    items:
-                        $ref: "#/components/schemas/DiscountProduct"
-                    type: array
-                discountRules:
-                    items:
-                        $ref: "#/components/schemas/DiscountRule"
-                    type: array
                 target:
                     example: subtotal
                     type: string
@@ -344,10 +344,6 @@ components:
             type: object
         PriceList:
             properties:
-                priceListAccountGroups:
-                    items:
-                        $ref: "#/components/schemas/PriceListAccountGroup"
-                    type: array
                 active:
                     example: true
                     type: boolean
@@ -385,6 +381,10 @@ components:
                 priceEntries:
                     items:
                         $ref: "#/components/schemas/PriceEntry"
+                    type: array
+                priceListAccountGroups:
+                    items:
+                        $ref: "#/components/schemas/PriceListAccountGroup"
                     type: array
                 priority:
                     example: 1.2

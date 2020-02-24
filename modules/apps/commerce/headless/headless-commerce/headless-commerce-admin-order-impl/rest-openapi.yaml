@@ -130,10 +130,6 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                orderItems:
-                    items:
-                        $ref: "#/components/schemas/OrderItem"
-                    type: array
                 lastPriceUpdateDate:
                     example: 2017-07-21
                     format: date
@@ -146,6 +142,10 @@ components:
                     example: 2017-07-21
                     format: date
                     type: string
+                orderItems:
+                    items:
+                        $ref: "#/components/schemas/OrderItem"
+                    type: array
                 orderStatus:
                     example: 0
                     format: int32
