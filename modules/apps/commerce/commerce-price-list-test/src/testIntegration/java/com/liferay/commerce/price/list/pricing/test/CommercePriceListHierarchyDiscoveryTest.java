@@ -61,16 +61,7 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-
-import java.math.BigDecimal;
-
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.stream.Stream;
-
 import org.frutilla.FrutillaRule;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -78,11 +69,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.math.BigDecimal;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.stream.Stream;
+
 /**
  * @author Riccardo Alberti
  */
 @RunWith(Arquillian.class)
-public class CommercePromotionTest {
+public class CommercePriceListHierarchyDiscoveryTest {
 
 	@ClassRule
 	@Rule
@@ -117,27 +114,49 @@ public class CommercePromotionTest {
 				_commerceAccount.getCommerceAccountId(), _serviceContext);
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel();
-
-		_commercePricingConfiguration =
-			_configurationProvider.getSystemConfiguration(
-				CommercePricingConfiguration.class);
-
-		_updateProperties(
-			"commercePromotionDiscovery",
-			CommercePricingConstants.ORDER_BY_HIERARCHY);
 	}
 
 	@Test
-	public void testRetrieveAccountAndChannelPromotion() throws Exception {
+	public void testCreateCatalogBasePriceList() throws Exception {
 		frutillaRule.scenario(
-			"When a promotion has an account and a channel as qualifier i " +
+			"A price list is created and set as base pricelist for a catalog"
+		).given(
+			"A catalog"
+		).when(
+			"A price list is created with flag catalog base price list true"
+		).then(
+			"The price list is the default price list of the catalog"
+		);
+
+		CommerceCatalog catalog =
+			_commerceCatalogLocalService.addCommerceCatalog(
+				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
+				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
+
+		CommercePriceList commercePriceList =
+			CommercePriceListTestUtil.addCommercePriceList(
+				catalog.getGroupId(), true, _TYPE, 0.0);
+
+		CommercePriceList discoveredPriceList =
+			_commercePriceListDiscovery.getCommercePriceList(
+				catalog.getGroupId(), 0, 0, null, _TYPE);
+
+		Assert.assertEquals(
+			commercePriceList.getCommercePriceListId(),
+			discoveredPriceList.getCommercePriceListId());
+	}
+
+	@Test
+	public void testRetrieveAccountAndChannelPriceList() throws Exception {
+		frutillaRule.scenario(
+			"When a price list has an account and a channel as qualifier i " +
 				"shall be able to retrieve it"
 		).given(
-			"A catalog with a promotion qualified for an account and a channel"
+			"A catalog with a price list qualified for an account and a channel"
 		).when(
-			"The promotion is discovered"
+			"The price list is discovered"
 		).then(
-			"The promotion is qualified for the account and channel"
+			"The price list is qualified for the account and channel"
 		);
 
 		CommerceCatalog catalog =
@@ -177,19 +196,19 @@ public class CommercePromotionTest {
 	}
 
 	@Test
-	public void testRetrieveAccountGroupsAndChannelPromotion()
+	public void testRetrieveAccountGroupsAndChannelPriceList()
 		throws Exception {
 
 		frutillaRule.scenario(
-			"When a promotion has account groups and a channel as qualifier " +
+			"When a price list has account groups and a channel as qualifier " +
 				"i shall be able to retrieve it"
 		).given(
-			"A catalog with a promotion qualified for a account groups and a" +
-				"channel"
+			"A catalog with a price list qualified for a account groups and " +
+				"a channel"
 		).when(
-			"The promotion is discovered"
+			"The price list is discovered"
 		).then(
-			"The promotion is qualified for the account groups and channel"
+			"The price list is qualified for the account groups and channel"
 		);
 
 		CommerceCatalog catalog =
@@ -233,16 +252,16 @@ public class CommercePromotionTest {
 	}
 
 	@Test
-	public void testRetrieveAccountGroupsPromotion() throws Exception {
+	public void testRetrieveAccountGroupsPriceList() throws Exception {
 		frutillaRule.scenario(
-			"When a promotion has an account group as qualifier i shall be " +
+			"When a price list has an account group as qualifier i shall be " +
 				"able to retrieve it"
 		).given(
-			"A catalog with a promotion qualified for an account group"
+			"A catalog with a price list qualified for an account group"
 		).when(
-			"The promotion is discovered"
+			"The price list is discovered"
 		).then(
-			"The promotion is qualified for the account group"
+			"The price list is qualified for the account group"
 		);
 
 		CommerceCatalog catalog =
@@ -250,43 +269,43 @@ public class CommercePromotionTest {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
+		long[] commerceAccountGroupIds = {
+			_commerceAccountGroup.getCommerceAccountGroupId()
+		};
+
 		CommercePriceList commercePriceList = _addAccountGroupPriceList(
 			catalog.getGroupId());
 
 		CommercePriceList retrievedPriceList =
 			_commercePriceListLocalService.
 				getCommercePriceListByAccountGroupIds(
-					catalog.getGroupId(), _TYPE, _getCommerceAccoutGroupIds());
+					catalog.getGroupId(), _TYPE, commerceAccountGroupIds);
 
 		Assert.assertEquals(
 			commercePriceList.getCommercePriceListId(),
 			retrievedPriceList.getCommercePriceListId());
 
-		long[] commerceAccountGroupIds = _getCommerceAccoutGroupIds();
+		CommercePriceListCommerceAccountGroupRel
+			commercePriceListCommerceAccountGroupRel =
+				_commercePriceListCommerceAccountGroupRelLocalService.
+					fetchCommercePriceListCommerceAccountGroupRel(
+						retrievedPriceList.getCommercePriceListId(),
+						_commerceAccountGroup.getCommerceAccountGroupId());
 
-		for (long commerceAccountGroupId : commerceAccountGroupIds) {
-			CommercePriceListCommerceAccountGroupRel
-				commercePriceListCommerceAccountGroupRel =
-					_commercePriceListCommerceAccountGroupRelLocalService.
-						fetchCommercePriceListCommerceAccountGroupRel(
-							retrievedPriceList.getCommercePriceListId(),
-							commerceAccountGroupId);
-
-			Assert.assertNotNull(commercePriceListCommerceAccountGroupRel);
-		}
+		Assert.assertNotNull(commercePriceListCommerceAccountGroupRel);
 	}
 
 	@Test
-	public void testRetrieveAccountPromotion() throws Exception {
+	public void testRetrieveAccountPriceList() throws Exception {
 		frutillaRule.scenario(
-			"When a promotion has an account as qualifier i shall be able to " +
-				"retrieve it"
+			"When a price list has an account as qualifier i shall be able " +
+				"to retrieve it"
 		).given(
-			"A catalog with a promotion qualified for an account"
+			"A catalog with a price list qualified for an account"
 		).when(
-			"The promotion is discovered"
+			"The price list is discovered"
 		).then(
-			"The promotion is qualified for the account"
+			"The price list is qualified for the account"
 		);
 
 		CommerceCatalog catalog =
@@ -316,16 +335,16 @@ public class CommercePromotionTest {
 	}
 
 	@Test
-	public void testRetrieveChannelPromotion() throws Exception {
+	public void testRetrieveChannelPriceList() throws Exception {
 		frutillaRule.scenario(
-			"When a promotion has a channel as qualifier i shall be able to " +
+			"When a price list has a channel as qualifier i shall be able to " +
 				"retrieve it"
 		).given(
-			"A catalog with a promotion qualified for an channel"
+			"A catalog with a price list qualified for an channel"
 		).when(
-			"The promotion is discovered"
+			"The price list is discovered"
 		).then(
-			"The promotion is qualified for the channel"
+			"The price list is qualified for the channel"
 		);
 
 		CommerceCatalog catalog =
@@ -355,16 +374,16 @@ public class CommercePromotionTest {
 	}
 
 	@Test
-	public void testRetrieveCorrectPromotionByHierarchy() throws Exception {
+	public void testRetrieveCorrectPriceListByHierarchy() throws Exception {
 		frutillaRule.scenario(
-			"When multiple promotion are defined for the same catalog the " +
+			"When multiple price list are defined for the same catalog the " +
 				"highest in the hierarchy shall be taken"
 		).given(
-			"A catalog with multiple promotions"
+			"A catalog with multiple price lists"
 		).when(
-			"The promotion is discovered"
+			"The price list is discovered"
 		).then(
-			"The promotion with highest rank is retrieved"
+			"The price list with highest rank is retrieved"
 		);
 
 		CommerceCatalog catalog =
@@ -378,10 +397,8 @@ public class CommercePromotionTest {
 
 		CommercePriceList discoveredPriceList =
 			_commercePriceListDiscovery.getCommercePriceList(
-				catalog.getGroupId(), _TYPE, null,
-				_commerceAccount.getCommerceAccountId(),
-				_getCommerceAccoutGroupIds(),
-				_commerceChannel.getCommerceChannelId());
+				catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+				_commerceChannel.getCommerceChannelId(), null, _TYPE);
 
 		Assert.assertEquals(
 			commerceUnqualifiedPriceList.getCommercePriceListId(),
@@ -391,10 +408,8 @@ public class CommercePromotionTest {
 			catalog.getGroupId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, null,
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
+			catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+			_commerceChannel.getCommerceChannelId(), null, _TYPE);
 
 		Assert.assertEquals(
 			commerceChannelPriceList.getCommercePriceListId(),
@@ -404,10 +419,8 @@ public class CommercePromotionTest {
 			_addAccountGroupPriceList(catalog.getGroupId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, null,
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
+			catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+			_commerceChannel.getCommerceChannelId(), null, _TYPE);
 
 		Assert.assertEquals(
 			commerceAccountGroupPriceList.getCommercePriceListId(),
@@ -417,10 +430,8 @@ public class CommercePromotionTest {
 			_addAccountGroupAndChannelPriceList(catalog.getGroupId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, null,
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
+			catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+			_commerceChannel.getCommerceChannelId(), null, _TYPE);
 
 		Assert.assertEquals(
 			commerceAccountGroupAndChannelPriceList.getCommercePriceListId(),
@@ -430,10 +441,8 @@ public class CommercePromotionTest {
 			catalog.getGroupId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, null,
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
+			catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+			_commerceChannel.getCommerceChannelId(), null, _TYPE);
 
 		Assert.assertEquals(
 			commerceAccountPriceList.getCommercePriceListId(),
@@ -443,10 +452,8 @@ public class CommercePromotionTest {
 			_addAccountAndChannelPriceList(catalog.getGroupId());
 
 		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, null,
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
+			catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+			_commerceChannel.getCommerceChannelId(), null, _TYPE);
 
 		Assert.assertEquals(
 			commerceAccountAndChannelPriceList.getCommercePriceListId(),
@@ -454,181 +461,15 @@ public class CommercePromotionTest {
 	}
 
 	@Test
-	public void testRetrieveCorrectPromotionByLowestEntry() throws Exception {
+	public void testRetrieveUnqualifiedPriceList() throws Exception {
 		frutillaRule.scenario(
-			"When multiple promotion are defined for the same catalog the " +
-				"promotion that provides the lowest price entry shall be taken"
+			"When a price list has no qualifiers i shall be able to retrieve it"
 		).given(
-			"A catalog with multiple promotions and one product"
+			"A catalog with a price list with no qualifiers"
 		).when(
-			"The promotion is discovered"
+			"The price list is discovered"
 		).then(
-			"The promotion that gives the lowest price is retrieved"
-		);
-
-		_updateProperties(
-			"commercePromotionDiscovery",
-			CommercePricingConstants.ORDER_BY_LOWEST_ENTRY);
-
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-		CommercePriceList commerceUnqualifiedPriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), false, _TYPE, 1.0);
-
-		CommercePriceEntry commercePriceEntry = _addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commerceUnqualifiedPriceList.getCommercePriceListId(), "",
-			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
-
-		BigDecimal lowestPrice = commercePriceEntry.getPrice();
-
-		CommercePriceList expectedPriceList = commerceUnqualifiedPriceList;
-
-		CommercePriceList discoveredPriceList =
-			_commercePriceListDiscovery.getCommercePriceList(
-				catalog.getGroupId(), _TYPE, cpInstance.getCPInstanceUuid(),
-				_commerceAccount.getCommerceAccountId(),
-				_getCommerceAccoutGroupIds(),
-				_commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			expectedPriceList.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		CommercePriceList commerceChannelPriceList = _addChannelPriceList(
-			catalog.getGroupId());
-
-		commercePriceEntry = _addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commerceChannelPriceList.getCommercePriceListId(), "",
-			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
-
-		if (lowestPrice.compareTo(commercePriceEntry.getPrice()) > 0) {
-			lowestPrice = commercePriceEntry.getPrice();
-			expectedPriceList = commerceChannelPriceList;
-		}
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, cpInstance.getCPInstanceUuid(),
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			expectedPriceList.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		CommercePriceList commerceAccountGroupPriceList =
-			_addAccountGroupPriceList(catalog.getGroupId());
-
-		commercePriceEntry = _addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commerceAccountGroupPriceList.getCommercePriceListId(), "",
-			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
-
-		if (lowestPrice.compareTo(commercePriceEntry.getPrice()) > 0) {
-			lowestPrice = commercePriceEntry.getPrice();
-			expectedPriceList = commerceAccountGroupPriceList;
-		}
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, cpInstance.getCPInstanceUuid(),
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			expectedPriceList.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		CommercePriceList commerceAccountGroupAndChannelPriceList =
-			_addAccountGroupAndChannelPriceList(catalog.getGroupId());
-
-		commercePriceEntry = _addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commerceAccountGroupAndChannelPriceList.getCommercePriceListId(),
-			"", BigDecimal.valueOf(RandomTestUtil.randomDouble()));
-
-		if (lowestPrice.compareTo(commercePriceEntry.getPrice()) > 0) {
-			lowestPrice = commercePriceEntry.getPrice();
-			expectedPriceList = commerceAccountGroupAndChannelPriceList;
-		}
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, cpInstance.getCPInstanceUuid(),
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			expectedPriceList.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		CommercePriceList commerceAccountPriceList = _addAccountPriceList(
-			catalog.getGroupId());
-
-		commercePriceEntry = _addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commerceAccountPriceList.getCommercePriceListId(), "",
-			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
-
-		if (lowestPrice.compareTo(commercePriceEntry.getPrice()) > 0) {
-			lowestPrice = commercePriceEntry.getPrice();
-			expectedPriceList = commerceAccountPriceList;
-		}
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, cpInstance.getCPInstanceUuid(),
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			expectedPriceList.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		CommercePriceList commerceAccountAndChannelPriceList =
-			_addAccountAndChannelPriceList(catalog.getGroupId());
-
-		commercePriceEntry = _addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commerceAccountAndChannelPriceList.getCommercePriceListId(), "",
-			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
-
-		if (lowestPrice.compareTo(commercePriceEntry.getPrice()) > 0) {
-			expectedPriceList = commerceAccountAndChannelPriceList;
-		}
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			catalog.getGroupId(), _TYPE, cpInstance.getCPInstanceUuid(),
-			_commerceAccount.getCommerceAccountId(),
-			_getCommerceAccoutGroupIds(),
-			_commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			expectedPriceList.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-	}
-
-	@Test
-	public void testRetrieveUnqualifiedPromotion() throws Exception {
-		frutillaRule.scenario(
-			"When a promotion has no qualifiers i shall be able to retrieve it"
-		).given(
-			"A catalog with a promotion with no qualifiers"
-		).when(
-			"The promotion is discovered"
-		).then(
-			"The promotion has no qualifiers"
+			"The price list has no qualifiers"
 		);
 
 		CommerceCatalog catalog =
@@ -664,7 +505,7 @@ public class CommercePromotionTest {
 					_commercePriceListCommerceAccountGroupRelLocalService.
 						fetchCommercePriceListCommerceAccountGroupRel(
 							retrievedPriceList.getCommercePriceListId(),
-							commerceAccountGroupId);
+							_commerceAccountGroup.getCommerceAccountGroupId());
 
 			Assert.assertNull(commercePriceListCommerceAccountGroupRel);
 		}
@@ -681,23 +522,6 @@ public class CommercePromotionTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
-	private static CommercePriceEntry _addCommercePriceEntry(
-			long cpProductId, String cpInstanceUuid, long commercePriceListId,
-			String externalReferenceCode, BigDecimal price)
-		throws PortalException {
-
-		CommercePriceList commercePriceList =
-			CommercePriceListLocalServiceUtil.getCommercePriceList(
-				commercePriceListId);
-
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(
-				commercePriceList.getGroupId());
-
-		return CommercePriceEntryLocalServiceUtil.addCommercePriceEntry(
-			cpProductId, cpInstanceUuid, commercePriceListId,
-			externalReferenceCode, price, BigDecimal.ZERO, serviceContext);
-	}
 
 	private CommercePriceList _addAccountAndChannelPriceList(long groupId)
 		throws Exception {
@@ -724,11 +548,14 @@ public class CommercePromotionTest {
 			CommercePriceListTestUtil.addCommercePriceList(
 				groupId, false, _TYPE, 1.0);
 
-		_commercePriceListCommerceAccountGroupRelLocalService.
-			addCommercePriceListCommerceAccountGroupRel(
-				commercePriceList.getCommercePriceListId(),
-				_commerceAccountGroup.getCommerceAccountGroupId(), 0,
-				_serviceContext);
+		long[] commerceAccountGroupIds = _getCommerceAccoutGroupIds();
+
+		for (long commerceAccountGroupId : commerceAccountGroupIds) {
+			_commercePriceListCommerceAccountGroupRelLocalService.
+				addCommercePriceListCommerceAccountGroupRel(
+					commercePriceList.getCommercePriceListId(),
+					commerceAccountGroupId, 0, _serviceContext);
+		}
 
 		_commercePriceListChannelRelLocalService.addCommercePriceListChannelRel(
 			commercePriceList.getCommercePriceListId(),
@@ -744,11 +571,14 @@ public class CommercePromotionTest {
 			CommercePriceListTestUtil.addCommercePriceList(
 				groupId, false, _TYPE, 1.0);
 
-		_commercePriceListCommerceAccountGroupRelLocalService.
-			addCommercePriceListCommerceAccountGroupRel(
-				commercePriceList.getCommercePriceListId(),
-				_commerceAccountGroup.getCommerceAccountGroupId(), 0,
-				_serviceContext);
+		long[] commerceAccountGroupIds = _getCommerceAccoutGroupIds();
+
+		for (long commerceAccountGroupId : commerceAccountGroupIds) {
+			_commercePriceListCommerceAccountGroupRelLocalService.
+				addCommercePriceListCommerceAccountGroupRel(
+					commercePriceList.getCommercePriceListId(),
+					commerceAccountGroupId, 0, _serviceContext);
+		}
 
 		return commercePriceList;
 	}
@@ -794,19 +624,8 @@ public class CommercePromotionTest {
 		).toArray();
 	}
 
-	private void _updateProperties(String key, int value)
-		throws ConfigurationException {
-
-		Dictionary<String, Object> properties = new Hashtable<>();
-
-		properties.put(key, value);
-
-		_configurationProvider.saveSystemConfiguration(
-			CommercePricingConfiguration.class, properties);
-	}
-
 	private static final String _TYPE =
-		CommercePriceListTypeKeys.TYPE_PROMOTION;
+		CommercePriceListTypeKeys.TYPE_PRICE_LIST;
 
 	private CommerceAccount _commerceAccount;
 	private CommerceAccountGroup _commerceAccountGroup;
@@ -837,19 +656,14 @@ public class CommercePromotionTest {
 	private CommercePriceListCommerceAccountGroupRelLocalService
 		_commercePriceListCommerceAccountGroupRelLocalService;
 
-	@Inject
+	@Inject(filter = "commerce.price.list.discovery.key=" + CommercePricingConstants.ORDER_BY_HIERARCHY)
 	private CommercePriceListDiscovery _commercePriceListDiscovery;
 
 	@Inject
 	private CommercePriceListLocalService _commercePriceListLocalService;
 
-	private CommercePricingConfiguration _commercePricingConfiguration;
-
 	@DeleteAfterTestRun
 	private Company _company;
-
-	@Inject
-	private ConfigurationProvider _configurationProvider;
 
 	private ServiceContext _serviceContext;
 
