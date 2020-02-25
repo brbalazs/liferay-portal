@@ -201,45 +201,44 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(
+			sb.append(
 				_FINDER_COLUMN_FORMINSTANCERECORDID_FORMINSTANCERECORDID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
-					DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
+				sb.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(formInstanceRecordId);
+				queryPos.add(formInstanceRecordId);
 
 				list = (List<DDMFormInstanceRecordVersion>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -284,16 +283,16 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return ddmFormInstanceRecordVersion;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("formInstanceRecordId=");
-		msg.append(formInstanceRecordId);
+		sb.append("formInstanceRecordId=");
+		sb.append(formInstanceRecordId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+		throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 	}
 
 	/**
@@ -340,16 +339,16 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return ddmFormInstanceRecordVersion;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("formInstanceRecordId=");
-		msg.append(formInstanceRecordId);
+		sb.append("formInstanceRecordId=");
+		sb.append(formInstanceRecordId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+		throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 	}
 
 	/**
@@ -436,103 +435,102 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			OrderByComparator<DDMFormInstanceRecordVersion> orderByComparator,
 			boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+		sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-		query.append(
-			_FINDER_COLUMN_FORMINSTANCERECORDID_FORMINSTANCERECORDID_2);
+		sb.append(_FINDER_COLUMN_FORMINSTANCERECORDID_FORMINSTANCERECORDID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
+			sb.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(formInstanceRecordId);
+		queryPos.add(formInstanceRecordId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						ddmFormInstanceRecordVersion)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<DDMFormInstanceRecordVersion> list = q.list();
+		List<DDMFormInstanceRecordVersion> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -573,27 +571,27 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(
+			sb.append(
 				_FINDER_COLUMN_FORMINSTANCERECORDID_FORMINSTANCERECORDID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(formInstanceRecordId);
+				queryPos.add(formInstanceRecordId);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -745,59 +743,58 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(4);
+				sb = new StringBundler(4);
 			}
 
-			query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_F_F_FORMINSTANCEID_2);
+			sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEID_2);
 
 			boolean bindFormInstanceVersion = false;
 
 			if (formInstanceVersion.isEmpty()) {
-				query.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_3);
+				sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_3);
 			}
 			else {
 				bindFormInstanceVersion = true;
 
-				query.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_2);
+				sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
-					DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
+				sb.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(formInstanceId);
+				queryPos.add(formInstanceId);
 
 				if (bindFormInstanceVersion) {
-					qPos.add(formInstanceVersion);
+					queryPos.add(formInstanceVersion);
 				}
 
 				list = (List<DDMFormInstanceRecordVersion>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -843,19 +840,19 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return ddmFormInstanceRecordVersion;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("formInstanceId=");
-		msg.append(formInstanceId);
+		sb.append("formInstanceId=");
+		sb.append(formInstanceId);
 
-		msg.append(", formInstanceVersion=");
-		msg.append(formInstanceVersion);
+		sb.append(", formInstanceVersion=");
+		sb.append(formInstanceVersion);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+		throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 	}
 
 	/**
@@ -904,19 +901,19 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return ddmFormInstanceRecordVersion;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("formInstanceId=");
-		msg.append(formInstanceId);
+		sb.append("formInstanceId=");
+		sb.append(formInstanceId);
 
-		msg.append(", formInstanceVersion=");
-		msg.append(formInstanceVersion);
+		sb.append(", formInstanceVersion=");
+		sb.append(formInstanceVersion);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+		throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 	}
 
 	/**
@@ -1006,30 +1003,30 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		OrderByComparator<DDMFormInstanceRecordVersion> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
-		query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+		sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-		query.append(_FINDER_COLUMN_F_F_FORMINSTANCEID_2);
+		sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEID_2);
 
 		boolean bindFormInstanceVersion = false;
 
 		if (formInstanceVersion.isEmpty()) {
-			query.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_3);
+			sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_3);
 		}
 		else {
 			bindFormInstanceVersion = true;
 
-			query.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_2);
+			sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_2);
 		}
 
 		if (orderByComparator != null) {
@@ -1037,74 +1034,74 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
+			sb.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(formInstanceId);
+		queryPos.add(formInstanceId);
 
 		if (bindFormInstanceVersion) {
-			qPos.add(formInstanceVersion);
+			queryPos.add(formInstanceVersion);
 		}
 
 		if (orderByComparator != null) {
@@ -1112,11 +1109,11 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						ddmFormInstanceRecordVersion)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<DDMFormInstanceRecordVersion> list = q.list();
+		List<DDMFormInstanceRecordVersion> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1163,41 +1160,41 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_F_F_FORMINSTANCEID_2);
+			sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEID_2);
 
 			boolean bindFormInstanceVersion = false;
 
 			if (formInstanceVersion.isEmpty()) {
-				query.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_3);
+				sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_3);
 			}
 			else {
 				bindFormInstanceVersion = true;
 
-				query.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_2);
+				sb.append(_FINDER_COLUMN_F_F_FORMINSTANCEVERSION_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(formInstanceId);
+				queryPos.add(formInstanceId);
 
 				if (bindFormInstanceVersion) {
-					qPos.add(formInstanceVersion);
+					queryPos.add(formInstanceVersion);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1243,23 +1240,23 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			formInstanceRecordId, version);
 
 		if (ddmFormInstanceRecordVersion == null) {
-			StringBundler msg = new StringBundler(6);
+			StringBundler sb = new StringBundler(6);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("formInstanceRecordId=");
-			msg.append(formInstanceRecordId);
+			sb.append("formInstanceRecordId=");
+			sb.append(formInstanceRecordId);
 
-			msg.append(", version=");
-			msg.append(version);
+			sb.append(", version=");
+			sb.append(version);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+			throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 		}
 
 		return ddmFormInstanceRecordVersion;
@@ -1320,41 +1317,41 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_F_V_FORMINSTANCERECORDID_2);
+			sb.append(_FINDER_COLUMN_F_V_FORMINSTANCERECORDID_2);
 
 			boolean bindVersion = false;
 
 			if (version.isEmpty()) {
-				query.append(_FINDER_COLUMN_F_V_VERSION_3);
+				sb.append(_FINDER_COLUMN_F_V_VERSION_3);
 			}
 			else {
 				bindVersion = true;
 
-				query.append(_FINDER_COLUMN_F_V_VERSION_2);
+				sb.append(_FINDER_COLUMN_F_V_VERSION_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(formInstanceRecordId);
+				queryPos.add(formInstanceRecordId);
 
 				if (bindVersion) {
-					qPos.add(version);
+					queryPos.add(version);
 				}
 
-				List<DDMFormInstanceRecordVersion> list = q.list();
+				List<DDMFormInstanceRecordVersion> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -1427,41 +1424,41 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_F_V_FORMINSTANCERECORDID_2);
+			sb.append(_FINDER_COLUMN_F_V_FORMINSTANCERECORDID_2);
 
 			boolean bindVersion = false;
 
 			if (version.isEmpty()) {
-				query.append(_FINDER_COLUMN_F_V_VERSION_3);
+				sb.append(_FINDER_COLUMN_F_V_VERSION_3);
 			}
 			else {
 				bindVersion = true;
 
-				query.append(_FINDER_COLUMN_F_V_VERSION_2);
+				sb.append(_FINDER_COLUMN_F_V_VERSION_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(formInstanceRecordId);
+				queryPos.add(formInstanceRecordId);
 
 				if (bindVersion) {
-					qPos.add(version);
+					queryPos.add(version);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1613,48 +1610,47 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(4);
+				sb = new StringBundler(4);
 			}
 
-			query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_F_S_FORMINSTANCERECORDID_2);
+			sb.append(_FINDER_COLUMN_F_S_FORMINSTANCERECORDID_2);
 
-			query.append(_FINDER_COLUMN_F_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_F_S_STATUS_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
-					DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
+				sb.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(formInstanceRecordId);
+				queryPos.add(formInstanceRecordId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<DDMFormInstanceRecordVersion>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1699,19 +1695,19 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return ddmFormInstanceRecordVersion;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("formInstanceRecordId=");
-		msg.append(formInstanceRecordId);
+		sb.append("formInstanceRecordId=");
+		sb.append(formInstanceRecordId);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+		throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 	}
 
 	/**
@@ -1759,19 +1755,19 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return ddmFormInstanceRecordVersion;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("formInstanceRecordId=");
-		msg.append(formInstanceRecordId);
+		sb.append("formInstanceRecordId=");
+		sb.append(formInstanceRecordId);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+		throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 	}
 
 	/**
@@ -1858,106 +1854,106 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		OrderByComparator<DDMFormInstanceRecordVersion> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
-		query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+		sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-		query.append(_FINDER_COLUMN_F_S_FORMINSTANCERECORDID_2);
+		sb.append(_FINDER_COLUMN_F_S_FORMINSTANCERECORDID_2);
 
-		query.append(_FINDER_COLUMN_F_S_STATUS_2);
+		sb.append(_FINDER_COLUMN_F_S_STATUS_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
+			sb.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(formInstanceRecordId);
+		queryPos.add(formInstanceRecordId);
 
-		qPos.add(status);
+		queryPos.add(status);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						ddmFormInstanceRecordVersion)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<DDMFormInstanceRecordVersion> list = q.list();
+		List<DDMFormInstanceRecordVersion> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -2000,30 +1996,30 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_F_S_FORMINSTANCERECORDID_2);
+			sb.append(_FINDER_COLUMN_F_S_FORMINSTANCERECORDID_2);
 
-			query.append(_FINDER_COLUMN_F_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_F_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(formInstanceRecordId);
+				queryPos.add(formInstanceRecordId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -2195,67 +2191,66 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					6 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(6);
+				sb = new StringBundler(6);
 			}
 
-			query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_U_F_F_S_USERID_2);
+			sb.append(_FINDER_COLUMN_U_F_F_S_USERID_2);
 
-			query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEID_2);
+			sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEID_2);
 
 			boolean bindFormInstanceVersion = false;
 
 			if (formInstanceVersion.isEmpty()) {
-				query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_3);
+				sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_3);
 			}
 			else {
 				bindFormInstanceVersion = true;
 
-				query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_2);
+				sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_2);
 			}
 
-			query.append(_FINDER_COLUMN_U_F_F_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_U_F_F_S_STATUS_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
-					DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
+				sb.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(userId);
+				queryPos.add(userId);
 
-				qPos.add(formInstanceId);
+				queryPos.add(formInstanceId);
 
 				if (bindFormInstanceVersion) {
-					qPos.add(formInstanceVersion);
+					queryPos.add(formInstanceVersion);
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<DDMFormInstanceRecordVersion>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2305,25 +2300,25 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return ddmFormInstanceRecordVersion;
 		}
 
-		StringBundler msg = new StringBundler(10);
+		StringBundler sb = new StringBundler(10);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("userId=");
-		msg.append(userId);
+		sb.append("userId=");
+		sb.append(userId);
 
-		msg.append(", formInstanceId=");
-		msg.append(formInstanceId);
+		sb.append(", formInstanceId=");
+		sb.append(formInstanceId);
 
-		msg.append(", formInstanceVersion=");
-		msg.append(formInstanceVersion);
+		sb.append(", formInstanceVersion=");
+		sb.append(formInstanceVersion);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+		throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 	}
 
 	/**
@@ -2380,25 +2375,25 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return ddmFormInstanceRecordVersion;
 		}
 
-		StringBundler msg = new StringBundler(10);
+		StringBundler sb = new StringBundler(10);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("userId=");
-		msg.append(userId);
+		sb.append("userId=");
+		sb.append(userId);
 
-		msg.append(", formInstanceId=");
-		msg.append(formInstanceId);
+		sb.append(", formInstanceId=");
+		sb.append(formInstanceId);
 
-		msg.append(", formInstanceVersion=");
-		msg.append(formInstanceVersion);
+		sb.append(", formInstanceVersion=");
+		sb.append(formInstanceVersion);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchFormInstanceRecordVersionException(msg.toString());
+		throw new NoSuchFormInstanceRecordVersionException(sb.toString());
 	}
 
 	/**
@@ -2494,125 +2489,125 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		OrderByComparator<DDMFormInstanceRecordVersion> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				7 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(6);
+			sb = new StringBundler(6);
 		}
 
-		query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
+		sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-		query.append(_FINDER_COLUMN_U_F_F_S_USERID_2);
+		sb.append(_FINDER_COLUMN_U_F_F_S_USERID_2);
 
-		query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEID_2);
+		sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEID_2);
 
 		boolean bindFormInstanceVersion = false;
 
 		if (formInstanceVersion.isEmpty()) {
-			query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_3);
+			sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_3);
 		}
 		else {
 			bindFormInstanceVersion = true;
 
-			query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_2);
+			sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_2);
 		}
 
-		query.append(_FINDER_COLUMN_U_F_F_S_STATUS_2);
+		sb.append(_FINDER_COLUMN_U_F_F_S_STATUS_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
+			sb.append(DDMFormInstanceRecordVersionModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(userId);
+		queryPos.add(userId);
 
-		qPos.add(formInstanceId);
+		queryPos.add(formInstanceId);
 
 		if (bindFormInstanceVersion) {
-			qPos.add(formInstanceVersion);
+			queryPos.add(formInstanceVersion);
 		}
 
-		qPos.add(status);
+		queryPos.add(status);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						ddmFormInstanceRecordVersion)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<DDMFormInstanceRecordVersion> list = q.list();
+		List<DDMFormInstanceRecordVersion> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -2669,49 +2664,49 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(5);
+			StringBundler sb = new StringBundler(5);
 
-			query.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
+			sb.append(_SQL_COUNT_DDMFORMINSTANCERECORDVERSION_WHERE);
 
-			query.append(_FINDER_COLUMN_U_F_F_S_USERID_2);
+			sb.append(_FINDER_COLUMN_U_F_F_S_USERID_2);
 
-			query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEID_2);
+			sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEID_2);
 
 			boolean bindFormInstanceVersion = false;
 
 			if (formInstanceVersion.isEmpty()) {
-				query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_3);
+				sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_3);
 			}
 			else {
 				bindFormInstanceVersion = true;
 
-				query.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_2);
+				sb.append(_FINDER_COLUMN_U_F_F_S_FORMINSTANCEVERSION_2);
 			}
 
-			query.append(_FINDER_COLUMN_U_F_F_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_U_F_F_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(userId);
+				queryPos.add(userId);
 
-				qPos.add(formInstanceId);
+				queryPos.add(formInstanceId);
 
 				if (bindFormInstanceVersion) {
-					qPos.add(formInstanceVersion);
+					queryPos.add(formInstanceVersion);
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -3420,32 +3415,32 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			return map;
 		}
 
-		StringBundler query = new StringBundler(
+		StringBundler sb = new StringBundler(
 			uncachedPrimaryKeys.size() * 2 + 1);
 
-		query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE_PKS_IN);
+		sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION_WHERE_PKS_IN);
 
 		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			query.append((long)primaryKey);
+			sb.append((long)primaryKey);
 
-			query.append(",");
+			sb.append(",");
 		}
 
-		query.setIndex(query.index() - 1);
+		sb.setIndex(sb.index() - 1);
 
-		query.append(")");
+		sb.append(")");
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			Query q = session.createQuery(sql);
+			Query query = session.createQuery(sql);
 
 			for (DDMFormInstanceRecordVersion ddmFormInstanceRecordVersion :
-					(List<DDMFormInstanceRecordVersion>)q.list()) {
+					(List<DDMFormInstanceRecordVersion>)query.list()) {
 
 				map.put(
 					ddmFormInstanceRecordVersion.getPrimaryKeyObj(),
@@ -3563,19 +3558,19 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					2 + (orderByComparator.getOrderByFields().length * 2));
 
-				query.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION);
+				sb.append(_SQL_SELECT_DDMFORMINSTANCERECORDVERSION);
 
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
-				sql = query.toString();
+				sql = sb.toString();
 			}
 			else {
 				sql = _SQL_SELECT_DDMFORMINSTANCERECORDVERSION;
@@ -3589,10 +3584,10 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
 				list = (List<DDMFormInstanceRecordVersion>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -3644,10 +3639,10 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(
+				Query query = session.createQuery(
 					_SQL_COUNT_DDMFORMINSTANCERECORDVERSION);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);

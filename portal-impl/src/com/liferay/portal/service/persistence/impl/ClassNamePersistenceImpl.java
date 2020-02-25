@@ -91,20 +91,20 @@ public class ClassNamePersistenceImpl
 		ClassName className = fetchByValue(value);
 
 		if (className == null) {
-			StringBundler msg = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("value=");
-			msg.append(value);
+			sb.append("value=");
+			sb.append(value);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchClassNameException(msg.toString());
+			throw new NoSuchClassNameException(sb.toString());
 		}
 
 		return className;
@@ -154,37 +154,37 @@ public class ClassNamePersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_SELECT_CLASSNAME_WHERE);
+			sb.append(_SQL_SELECT_CLASSNAME_WHERE);
 
 			boolean bindValue = false;
 
 			if (value.isEmpty()) {
-				query.append(_FINDER_COLUMN_VALUE_VALUE_3);
+				sb.append(_FINDER_COLUMN_VALUE_VALUE_3);
 			}
 			else {
 				bindValue = true;
 
-				query.append(_FINDER_COLUMN_VALUE_VALUE_2);
+				sb.append(_FINDER_COLUMN_VALUE_VALUE_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindValue) {
-					qPos.add(value);
+					queryPos.add(value);
 				}
 
-				List<ClassName> list = q.list();
+				List<ClassName> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -254,37 +254,37 @@ public class ClassNamePersistenceImpl
 			finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_CLASSNAME_WHERE);
+			sb.append(_SQL_COUNT_CLASSNAME_WHERE);
 
 			boolean bindValue = false;
 
 			if (value.isEmpty()) {
-				query.append(_FINDER_COLUMN_VALUE_VALUE_3);
+				sb.append(_FINDER_COLUMN_VALUE_VALUE_3);
 			}
 			else {
 				bindValue = true;
 
-				query.append(_FINDER_COLUMN_VALUE_VALUE_2);
+				sb.append(_FINDER_COLUMN_VALUE_VALUE_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindValue) {
-					qPos.add(value);
+					queryPos.add(value);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				FinderCacheUtil.putResult(finderPath, finderArgs, count);
 			}
@@ -761,31 +761,31 @@ public class ClassNamePersistenceImpl
 			return map;
 		}
 
-		StringBundler query = new StringBundler(
+		StringBundler sb = new StringBundler(
 			uncachedPrimaryKeys.size() * 2 + 1);
 
-		query.append(_SQL_SELECT_CLASSNAME_WHERE_PKS_IN);
+		sb.append(_SQL_SELECT_CLASSNAME_WHERE_PKS_IN);
 
 		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			query.append((long)primaryKey);
+			sb.append((long)primaryKey);
 
-			query.append(",");
+			sb.append(",");
 		}
 
-		query.setIndex(query.index() - 1);
+		sb.setIndex(sb.index() - 1);
 
-		query.append(")");
+		sb.append(")");
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			Query q = session.createQuery(sql);
+			Query query = session.createQuery(sql);
 
-			for (ClassName className : (List<ClassName>)q.list()) {
+			for (ClassName className : (List<ClassName>)query.list()) {
 				map.put(className.getPrimaryKeyObj(), className);
 
 				cacheResult(className);
@@ -896,19 +896,19 @@ public class ClassNamePersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					2 + (orderByComparator.getOrderByFields().length * 2));
 
-				query.append(_SQL_SELECT_CLASSNAME);
+				sb.append(_SQL_SELECT_CLASSNAME);
 
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
-				sql = query.toString();
+				sql = sb.toString();
 			}
 			else {
 				sql = _SQL_SELECT_CLASSNAME;
@@ -921,10 +921,10 @@ public class ClassNamePersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
 				list = (List<ClassName>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -974,9 +974,9 @@ public class ClassNamePersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(_SQL_COUNT_CLASSNAME);
+				Query query = session.createQuery(_SQL_COUNT_CLASSNAME);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				FinderCacheUtil.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);

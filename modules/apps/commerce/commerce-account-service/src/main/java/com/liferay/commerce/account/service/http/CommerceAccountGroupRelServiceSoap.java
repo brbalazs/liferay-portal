@@ -85,13 +85,13 @@ public class CommerceAccountGroupRelServiceSoap {
 		}
 	}
 
-	public static void deleteCommerceAccountGroupRels(
-			String className, long classPK)
+	public static void deleteCommerceAccountGroupRel(
+			long commerceAccountGroupRelId)
 		throws RemoteException {
 
 		try {
-			CommerceAccountGroupRelServiceUtil.deleteCommerceAccountGroupRels(
-				className, classPK);
+			CommerceAccountGroupRelServiceUtil.deleteCommerceAccountGroupRel(
+				commerceAccountGroupRelId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -100,13 +100,13 @@ public class CommerceAccountGroupRelServiceSoap {
 		}
 	}
 
-	public static void deleteCommerceAccountGroupRel(
-			long commerceAccountGroupRelId)
+	public static void deleteCommerceAccountGroupRels(
+			String className, long classPK)
 		throws RemoteException {
 
 		try {
-			CommerceAccountGroupRelServiceUtil.deleteCommerceAccountGroupRel(
-				commerceAccountGroupRelId);
+			CommerceAccountGroupRelServiceUtil.deleteCommerceAccountGroupRels(
+				className, classPK);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

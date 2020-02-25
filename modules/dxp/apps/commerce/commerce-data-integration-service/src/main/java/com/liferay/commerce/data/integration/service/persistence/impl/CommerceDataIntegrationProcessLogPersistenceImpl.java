@@ -214,45 +214,45 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
 
-			query.append(
+			sb.append(
 				_FINDER_COLUMN_CDATAINTEGRATIONPROCESSID_CDATAINTEGRATIONPROCESSID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
+				sb.append(
 					CommerceDataIntegrationProcessLogModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(CDataIntegrationProcessId);
+				queryPos.add(CDataIntegrationProcessId);
 
 				list = (List<CommerceDataIntegrationProcessLog>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -299,16 +299,16 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 			return commerceDataIntegrationProcessLog;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("CDataIntegrationProcessId=");
-		msg.append(CDataIntegrationProcessId);
+		sb.append("CDataIntegrationProcessId=");
+		sb.append(CDataIntegrationProcessId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchDataIntegrationProcessLogException(msg.toString());
+		throw new NoSuchDataIntegrationProcessLogException(sb.toString());
 	}
 
 	/**
@@ -360,16 +360,16 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 			return commerceDataIntegrationProcessLog;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("CDataIntegrationProcessId=");
-		msg.append(CDataIntegrationProcessId);
+		sb.append("CDataIntegrationProcessId=");
+		sb.append(CDataIntegrationProcessId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchDataIntegrationProcessLogException(msg.toString());
+		throw new NoSuchDataIntegrationProcessLogException(sb.toString());
 	}
 
 	/**
@@ -461,20 +461,20 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 				orderByComparator,
 			boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
 
-		query.append(
+		sb.append(
 			_FINDER_COLUMN_CDATAINTEGRATIONPROCESSID_CDATAINTEGRATIONPROCESSID_2);
 
 		if (orderByComparator != null) {
@@ -482,83 +482,82 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(
-				CommerceDataIntegrationProcessLogModelImpl.ORDER_BY_JPQL);
+			sb.append(CommerceDataIntegrationProcessLogModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(CDataIntegrationProcessId);
+		queryPos.add(CDataIntegrationProcessId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commerceDataIntegrationProcessLog)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceDataIntegrationProcessLog> list = q.list();
+		List<CommerceDataIntegrationProcessLog> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -604,27 +603,27 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
 
-			query.append(
+			sb.append(
 				_FINDER_COLUMN_CDATAINTEGRATIONPROCESSID_CDATAINTEGRATIONPROCESSID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(CDataIntegrationProcessId);
+				queryPos.add(CDataIntegrationProcessId);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -775,48 +774,48 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(4);
+				sb = new StringBundler(4);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
 
-			query.append(_FINDER_COLUMN_C_S_CDATAINTEGRATIONPROCESSID_2);
+			sb.append(_FINDER_COLUMN_C_S_CDATAINTEGRATIONPROCESSID_2);
 
-			query.append(_FINDER_COLUMN_C_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_C_S_STATUS_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
+				sb.append(
 					CommerceDataIntegrationProcessLogModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(CDataIntegrationProcessId);
+				queryPos.add(CDataIntegrationProcessId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<CommerceDataIntegrationProcessLog>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -863,19 +862,19 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 			return commerceDataIntegrationProcessLog;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("CDataIntegrationProcessId=");
-		msg.append(CDataIntegrationProcessId);
+		sb.append("CDataIntegrationProcessId=");
+		sb.append(CDataIntegrationProcessId);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchDataIntegrationProcessLogException(msg.toString());
+		throw new NoSuchDataIntegrationProcessLogException(sb.toString());
 	}
 
 	/**
@@ -926,19 +925,19 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 			return commerceDataIntegrationProcessLog;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("CDataIntegrationProcessId=");
-		msg.append(CDataIntegrationProcessId);
+		sb.append("CDataIntegrationProcessId=");
+		sb.append(CDataIntegrationProcessId);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchDataIntegrationProcessLogException(msg.toString());
+		throw new NoSuchDataIntegrationProcessLogException(sb.toString());
 	}
 
 	/**
@@ -1028,107 +1027,106 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		OrderByComparator<CommerceDataIntegrationProcessLog> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
 
-		query.append(_FINDER_COLUMN_C_S_CDATAINTEGRATIONPROCESSID_2);
+		sb.append(_FINDER_COLUMN_C_S_CDATAINTEGRATIONPROCESSID_2);
 
-		query.append(_FINDER_COLUMN_C_S_STATUS_2);
+		sb.append(_FINDER_COLUMN_C_S_STATUS_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(
-				CommerceDataIntegrationProcessLogModelImpl.ORDER_BY_JPQL);
+			sb.append(CommerceDataIntegrationProcessLogModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(CDataIntegrationProcessId);
+		queryPos.add(CDataIntegrationProcessId);
 
-		qPos.add(status);
+		queryPos.add(status);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commerceDataIntegrationProcessLog)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceDataIntegrationProcessLog> list = q.list();
+		List<CommerceDataIntegrationProcessLog> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1172,30 +1170,30 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE);
 
-			query.append(_FINDER_COLUMN_C_S_CDATAINTEGRATIONPROCESSID_2);
+			sb.append(_FINDER_COLUMN_C_S_CDATAINTEGRATIONPROCESSID_2);
 
-			query.append(_FINDER_COLUMN_C_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_C_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(CDataIntegrationProcessId);
+				queryPos.add(CDataIntegrationProcessId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1824,34 +1822,33 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 			return map;
 		}
 
-		StringBundler query = new StringBundler(
+		StringBundler sb = new StringBundler(
 			uncachedPrimaryKeys.size() * 2 + 1);
 
-		query.append(
-			_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE_PKS_IN);
+		sb.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG_WHERE_PKS_IN);
 
 		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			query.append((long)primaryKey);
+			sb.append((long)primaryKey);
 
-			query.append(",");
+			sb.append(",");
 		}
 
-		query.setIndex(query.index() - 1);
+		sb.setIndex(sb.index() - 1);
 
-		query.append(")");
+		sb.append(")");
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			Query q = session.createQuery(sql);
+			Query query = session.createQuery(sql);
 
 			for (CommerceDataIntegrationProcessLog
 					commerceDataIntegrationProcessLog :
-						(List<CommerceDataIntegrationProcessLog>)q.list()) {
+						(List<CommerceDataIntegrationProcessLog>)query.list()) {
 
 				map.put(
 					commerceDataIntegrationProcessLog.getPrimaryKeyObj(),
@@ -1972,19 +1969,19 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					2 + (orderByComparator.getOrderByFields().length * 2));
 
-				query.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG);
+				sb.append(_SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG);
 
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
-				sql = query.toString();
+				sql = sb.toString();
 			}
 			else {
 				sql = _SQL_SELECT_COMMERCEDATAINTEGRATIONPROCESSLOG;
@@ -1998,10 +1995,10 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
 				list = (List<CommerceDataIntegrationProcessLog>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2053,10 +2050,10 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(
+				Query query = session.createQuery(
 					_SQL_COUNT_COMMERCEDATAINTEGRATIONPROCESSLOG);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);

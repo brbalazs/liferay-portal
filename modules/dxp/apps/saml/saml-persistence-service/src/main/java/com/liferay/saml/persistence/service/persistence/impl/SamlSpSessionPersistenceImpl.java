@@ -102,20 +102,20 @@ public class SamlSpSessionPersistenceImpl
 		SamlSpSession samlSpSession = fetchBySamlSpSessionKey(samlSpSessionKey);
 
 		if (samlSpSession == null) {
-			StringBundler msg = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("samlSpSessionKey=");
-			msg.append(samlSpSessionKey);
+			sb.append("samlSpSessionKey=");
+			sb.append(samlSpSessionKey);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchSpSessionException(msg.toString());
+			throw new NoSuchSpSessionException(sb.toString());
 		}
 
 		return samlSpSession;
@@ -169,39 +169,37 @@ public class SamlSpSessionPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
+			sb.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
 
 			boolean bindSamlSpSessionKey = false;
 
 			if (samlSpSessionKey.isEmpty()) {
-				query.append(
-					_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
+				sb.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
 			}
 			else {
 				bindSamlSpSessionKey = true;
 
-				query.append(
-					_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
+				sb.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindSamlSpSessionKey) {
-					qPos.add(samlSpSessionKey);
+					queryPos.add(samlSpSessionKey);
 				}
 
-				List<SamlSpSession> list = q.list();
+				List<SamlSpSession> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -271,39 +269,37 @@ public class SamlSpSessionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
+			sb.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
 
 			boolean bindSamlSpSessionKey = false;
 
 			if (samlSpSessionKey.isEmpty()) {
-				query.append(
-					_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
+				sb.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
 			}
 			else {
 				bindSamlSpSessionKey = true;
 
-				query.append(
-					_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
+				sb.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindSamlSpSessionKey) {
-					qPos.add(samlSpSessionKey);
+					queryPos.add(samlSpSessionKey);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -345,20 +341,20 @@ public class SamlSpSessionPersistenceImpl
 		SamlSpSession samlSpSession = fetchByJSessionId(jSessionId);
 
 		if (samlSpSession == null) {
-			StringBundler msg = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("jSessionId=");
-			msg.append(jSessionId);
+			sb.append("jSessionId=");
+			sb.append(jSessionId);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchSpSessionException(msg.toString());
+			throw new NoSuchSpSessionException(sb.toString());
 		}
 
 		return samlSpSession;
@@ -410,37 +406,37 @@ public class SamlSpSessionPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
+			sb.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
 
 			boolean bindJSessionId = false;
 
 			if (jSessionId.isEmpty()) {
-				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_3);
+				sb.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_3);
 			}
 			else {
 				bindJSessionId = true;
 
-				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_2);
+				sb.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindJSessionId) {
-					qPos.add(jSessionId);
+					queryPos.add(jSessionId);
 				}
 
-				List<SamlSpSession> list = q.list();
+				List<SamlSpSession> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -524,37 +520,37 @@ public class SamlSpSessionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
+			sb.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
 
 			boolean bindJSessionId = false;
 
 			if (jSessionId.isEmpty()) {
-				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_3);
+				sb.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_3);
 			}
 			else {
 				bindJSessionId = true;
 
-				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_2);
+				sb.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindJSessionId) {
-					qPos.add(jSessionId);
+					queryPos.add(jSessionId);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -692,54 +688,54 @@ public class SamlSpSessionPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
+			sb.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
 
 			boolean bindNameIdValue = false;
 
 			if (nameIdValue.isEmpty()) {
-				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
+				sb.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
 			}
 			else {
 				bindNameIdValue = true;
 
-				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
+				sb.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(SamlSpSessionModelImpl.ORDER_BY_JPQL);
+				sb.append(SamlSpSessionModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindNameIdValue) {
-					qPos.add(nameIdValue);
+					queryPos.add(nameIdValue);
 				}
 
 				list = (List<SamlSpSession>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -783,16 +779,16 @@ public class SamlSpSessionPersistenceImpl
 			return samlSpSession;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("nameIdValue=");
-		msg.append(nameIdValue);
+		sb.append("nameIdValue=");
+		sb.append(nameIdValue);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchSpSessionException(msg.toString());
+		throw new NoSuchSpSessionException(sb.toString());
 	}
 
 	/**
@@ -838,16 +834,16 @@ public class SamlSpSessionPersistenceImpl
 			return samlSpSession;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("nameIdValue=");
-		msg.append(nameIdValue);
+		sb.append("nameIdValue=");
+		sb.append(nameIdValue);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchSpSessionException(msg.toString());
+		throw new NoSuchSpSessionException(sb.toString());
 	}
 
 	/**
@@ -926,28 +922,28 @@ public class SamlSpSessionPersistenceImpl
 		Session session, SamlSpSession samlSpSession, String nameIdValue,
 		OrderByComparator<SamlSpSession> orderByComparator, boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
+		sb.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
 
 		boolean bindNameIdValue = false;
 
 		if (nameIdValue.isEmpty()) {
-			query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
+			sb.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
 		}
 		else {
 			bindNameIdValue = true;
 
-			query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
+			sb.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -955,72 +951,72 @@ public class SamlSpSessionPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(SamlSpSessionModelImpl.ORDER_BY_JPQL);
+			sb.append(SamlSpSessionModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
 		if (bindNameIdValue) {
-			qPos.add(nameIdValue);
+			queryPos.add(nameIdValue);
 		}
 
 		if (orderByComparator != null) {
@@ -1028,11 +1024,11 @@ public class SamlSpSessionPersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						samlSpSession)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<SamlSpSession> list = q.list();
+		List<SamlSpSession> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1074,37 +1070,37 @@ public class SamlSpSessionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
+			sb.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
 
 			boolean bindNameIdValue = false;
 
 			if (nameIdValue.isEmpty()) {
-				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
+				sb.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
 			}
 			else {
 				bindNameIdValue = true;
 
-				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
+				sb.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindNameIdValue) {
-					qPos.add(nameIdValue);
+					queryPos.add(nameIdValue);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1144,20 +1140,20 @@ public class SamlSpSessionPersistenceImpl
 		SamlSpSession samlSpSession = fetchBySessionIndex(sessionIndex);
 
 		if (samlSpSession == null) {
-			StringBundler msg = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("sessionIndex=");
-			msg.append(sessionIndex);
+			sb.append("sessionIndex=");
+			sb.append(sessionIndex);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchSpSessionException(msg.toString());
+			throw new NoSuchSpSessionException(sb.toString());
 		}
 
 		return samlSpSession;
@@ -1211,37 +1207,37 @@ public class SamlSpSessionPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
+			sb.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
 
 			boolean bindSessionIndex = false;
 
 			if (sessionIndex.isEmpty()) {
-				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3);
+				sb.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3);
 			}
 			else {
 				bindSessionIndex = true;
 
-				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2);
+				sb.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindSessionIndex) {
-					qPos.add(sessionIndex);
+					queryPos.add(sessionIndex);
 				}
 
-				List<SamlSpSession> list = q.list();
+				List<SamlSpSession> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -1325,37 +1321,37 @@ public class SamlSpSessionPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
+			sb.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
 
 			boolean bindSessionIndex = false;
 
 			if (sessionIndex.isEmpty()) {
-				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3);
+				sb.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3);
 			}
 			else {
 				bindSessionIndex = true;
 
-				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2);
+				sb.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindSessionIndex) {
-					qPos.add(sessionIndex);
+					queryPos.add(sessionIndex);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1978,31 +1974,33 @@ public class SamlSpSessionPersistenceImpl
 			return map;
 		}
 
-		StringBundler query = new StringBundler(
+		StringBundler sb = new StringBundler(
 			uncachedPrimaryKeys.size() * 2 + 1);
 
-		query.append(_SQL_SELECT_SAMLSPSESSION_WHERE_PKS_IN);
+		sb.append(_SQL_SELECT_SAMLSPSESSION_WHERE_PKS_IN);
 
 		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			query.append((long)primaryKey);
+			sb.append((long)primaryKey);
 
-			query.append(",");
+			sb.append(",");
 		}
 
-		query.setIndex(query.index() - 1);
+		sb.setIndex(sb.index() - 1);
 
-		query.append(")");
+		sb.append(")");
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			Query q = session.createQuery(sql);
+			Query query = session.createQuery(sql);
 
-			for (SamlSpSession samlSpSession : (List<SamlSpSession>)q.list()) {
+			for (SamlSpSession samlSpSession :
+					(List<SamlSpSession>)query.list()) {
+
 				map.put(samlSpSession.getPrimaryKeyObj(), samlSpSession);
 
 				cacheResult(samlSpSession);
@@ -2114,19 +2112,19 @@ public class SamlSpSessionPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					2 + (orderByComparator.getOrderByFields().length * 2));
 
-				query.append(_SQL_SELECT_SAMLSPSESSION);
+				sb.append(_SQL_SELECT_SAMLSPSESSION);
 
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
-				sql = query.toString();
+				sql = sb.toString();
 			}
 			else {
 				sql = _SQL_SELECT_SAMLSPSESSION;
@@ -2139,10 +2137,10 @@ public class SamlSpSessionPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
 				list = (List<SamlSpSession>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2192,9 +2190,9 @@ public class SamlSpSessionPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(_SQL_COUNT_SAMLSPSESSION);
+				Query query = session.createQuery(_SQL_COUNT_SAMLSPSESSION);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
