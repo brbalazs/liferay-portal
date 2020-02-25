@@ -13,9 +13,7 @@
  */
 
 export function closest(element, selector) {
-	var matches = window.document.querySelectorAll(
-		selector
-	);
+	var matches = window.document.querySelectorAll(selector);
 	var i;
 	do {
 		i = matches.length;

@@ -46,4 +46,5 @@ public class CommerceCatalogAccountGroupsClayTableDataSetDisplayView
 
 	@Reference
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
+
 }
