@@ -12,8 +12,9 @@
  * details.
  */
 
-package com.liferay.commerce.product.configuration;
+package com.liferay.commerce.product.internal.configuration;
 
+import com.liferay.commerce.product.configuration.CPDefinitionLinkTypeConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
 import java.util.Map;

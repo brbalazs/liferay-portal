@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.product.internal.configuration;
 
-import com.liferay.commerce.product.configuration.CPDefinitionLinkTypeConfigurationWrapper;
 import com.liferay.commerce.product.configuration.CPDefinitionLinkTypeSettings;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
