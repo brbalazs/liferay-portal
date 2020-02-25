@@ -110,6 +110,7 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 				%>
 
 				<commerce-ui:dataset-display
+					clayCreationMenu="<%= cpDefinitionOptionRelDisplayContext.getClayCreationMenu() %>"
 					contextParams="<%= contextParams %>"
 					dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES %>"
 					id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES %>"

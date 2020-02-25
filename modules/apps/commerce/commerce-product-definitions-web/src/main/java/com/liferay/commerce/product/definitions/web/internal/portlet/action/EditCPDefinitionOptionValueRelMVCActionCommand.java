@@ -15,20 +15,16 @@
 package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 
 import com.liferay.commerce.product.constants.CPPortletKeys;
-import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelKeyException;
-import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelService;
-import com.liferay.portal.kernel.json.JSONFactory;
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -78,55 +74,25 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
-		JSONObject jsonObject = _jsonFactory.createJSONObject();
-
 		try {
-			CPDefinitionOptionValueRel cpDefinitionOptionValueRel = null;
-
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-				cpDefinitionOptionValueRel = updateCPDefinitionOptionValueRel(
-					actionRequest);
-
-				jsonObject.put(
-					"cpDefinitionOptionValueRelId",
-					cpDefinitionOptionValueRel.
-						getCPDefinitionOptionValueRelId());
+				updateCPDefinitionOptionValueRel(actionRequest);
 			}
 			else if (cmd.equals(Constants.DELETE)) {
-				cpDefinitionOptionValueRel = deleteCPDefinitionOptionValueRels(
-					actionRequest);
+				deleteCPDefinitionOptionValueRels(actionRequest);
 			}
-
-			CPDefinition cpDefinition = _actionHelper.getCPDefinition(
-				actionRequest);
-
-			jsonObject.put(
-				"cpDefinitionId",
-				String.valueOf(cpDefinition.getCPDefinitionId()));
-
-			jsonObject.put(
-				"cpDefinitionOptionRelId",
-				cpDefinitionOptionValueRel.getCPDefinitionOptionRelId());
-
-			jsonObject.put("success", true);
 		}
 		catch (Exception e) {
-			_log.error(e, e);
-
-			String key = "your-request-failed-to-complete";
-
 			if (e instanceof CPDefinitionOptionValueRelKeyException) {
-				key = "that-key-is-already-being-used";
+				SessionErrors.add(actionRequest, e.getClass());
+
+				actionResponse.setRenderParameter(
+					"mvcPath", "/edit_definition_option_value_rel.jsp");
 			}
-
-			jsonObject.put(
-				"message", LanguageUtil.get(actionRequest.getLocale(), key));
-			jsonObject.put("success", false);
+			else {
+				_log.error(e, e);
+			}
 		}
-
-		hideDefaultSuccessMessage(actionRequest);
-
-		_actionHelper.writeJSON(actionRequest, actionResponse, jsonObject);
 	}
 
 	protected CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
@@ -176,13 +142,7 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 		EditCPDefinitionOptionValueRelMVCActionCommand.class);
 
 	@Reference
-	private ActionHelper _actionHelper;
-
-	@Reference
 	private CPDefinitionOptionValueRelService
 		_cpDefinitionOptionValueRelService;
-
-	@Reference
-	private JSONFactory _jsonFactory;
 
 }

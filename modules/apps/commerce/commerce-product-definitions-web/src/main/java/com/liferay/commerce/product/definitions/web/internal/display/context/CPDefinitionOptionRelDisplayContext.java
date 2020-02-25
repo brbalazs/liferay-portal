@@ -14,6 +14,8 @@
 
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
+import com.liferay.commerce.frontend.ClayCreationMenu;
+import com.liferay.commerce.frontend.ClayCreationMenuItem;
 import com.liferay.commerce.product.configuration.CPOptionConfiguration;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
@@ -32,6 +34,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.settings.SystemSettingsLocator;
@@ -50,6 +53,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.portlet.PortletURL;
+import javax.portlet.RenderURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -71,6 +75,29 @@ public class CPDefinitionOptionRelDisplayContext
 		_configurationProvider = configurationProvider;
 		_ddmFormFieldTypeServicesTracker = ddmFormFieldTypeServicesTracker;
 		_itemSelector = itemSelector;
+	}
+
+	public ClayCreationMenu getClayCreationMenu() throws Exception {
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
+
+		RenderURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCPDefinitionOptionValueRel");
+		portletURL.setParameter(
+			"cpDefinitionId", String.valueOf(getCPDefinitionId()));
+		portletURL.setParameter(
+			"cpDefinitionOptionRelId",
+			String.valueOf(getCPDefinitionOptionRelId()));
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		clayCreationMenu.addClayCreationMenuItem(
+			new ClayCreationMenuItem(
+				portletURL.toString(),
+				LanguageUtil.get(cpRequestHelper.getRequest(), "add-value"),
+				ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+
+		return clayCreationMenu;
 	}
 
 	public CPDefinitionOptionRel getCPDefinitionOptionRel()
