@@ -459,18 +459,13 @@ public class SpeedwellSiteInitializer implements SiteInitializer {
 
 			String mimeType = MimeTypesUtil.getContentType(file);
 
-			Group catalogGroup = _groupLocalService.getGroup(catalogGroupId);
-
-			Company company = _companyLocalService.getCompany(
-				catalogGroup.getCompanyId());
-
 			FileEntry fileEntry = TempFileEntryUtil.addTempFileEntry(
-				company.getGroupId(), serviceContext.getUserId(),
+				catalogGroupId, serviceContext.getUserId(),
 				SpeedwellSiteInitializer.class.getName(), file.getName(), file,
 				mimeType);
 
 			_commerceCatalogDefaultImage.updateDefaultCatalogFileEntryId(
-				company.getGroupId(), fileEntry.getFileEntryId());
+				catalogGroupId, fileEntry.getFileEntryId());
 		}
 		finally {
 			if (file != null) {

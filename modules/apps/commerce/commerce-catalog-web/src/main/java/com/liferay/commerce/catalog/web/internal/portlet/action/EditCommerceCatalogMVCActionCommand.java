@@ -21,7 +21,6 @@ import com.liferay.commerce.product.exception.CommerceCatalogSystemException;
 import com.liferay.commerce.product.exception.NoSuchCatalogException;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
@@ -146,20 +145,22 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 
 		// Catalog default image
 
-		Company company = _portal.getCompany(actionRequest);
+		long fileEntryId = ParamUtil.getLong(actionRequest, "fileEntryId");
 
-		Settings settings = _settingsFactory.getSettings(
-			new GroupServiceSettingsLocator(
-				company.getGroupId(), CommerceMediaConstants.SERVICE_NAME));
+		if (fileEntryId > 0) {
+			Settings settings = _settingsFactory.getSettings(
+				new GroupServiceSettingsLocator(
+					commerceCatalog.getGroupId(),
+					CommerceMediaConstants.SERVICE_NAME));
 
-		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
+			ModifiableSettings modifiableSettings =
+				settings.getModifiableSettings();
 
-		String fileEntryId = ParamUtil.getString(actionRequest, "fileEntryId");
+			modifiableSettings.setValue(
+				"defaultFileEntryId", String.valueOf(fileEntryId));
 
-		modifiableSettings.setValue("defaultFileEntryId", fileEntryId);
-
-		modifiableSettings.store();
+			modifiableSettings.store();
+		}
 
 		return commerceCatalog;
 	}

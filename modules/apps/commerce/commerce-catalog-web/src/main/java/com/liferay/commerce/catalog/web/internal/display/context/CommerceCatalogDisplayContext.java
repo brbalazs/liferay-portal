@@ -27,7 +27,6 @@ import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.document.library.kernel.service.DLAppService;
-import com.liferay.document.library.kernel.util.DLUtil;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
@@ -37,7 +36,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
@@ -48,7 +46,6 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portlet.documentlibrary.lar.FileEntryUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -128,19 +125,6 @@ public class CommerceCatalogDisplayContext {
 		return _commerceCatalogService.fetchCommerceCatalog(commerceCatalogId);
 	}
 
-	public String getCommerceCatalogDefaultImageURL() throws Exception {
-		FileEntry fileEntry = FileEntryUtil.fetchByPrimaryKey(
-			getDefaultFileEntryId());
-
-		if (fileEntry != null) {
-			return DLUtil.getDownloadURL(
-				fileEntry, fileEntry.getFileVersion(),
-				cpRequestHelper.getThemeDisplay(), StringPool.BLANK);
-		}
-
-		return StringPool.BLANK;
-	}
-
 	public List<CommerceCurrency> getCommerceCurrencies()
 		throws PortalException {
 
@@ -160,10 +144,10 @@ public class CommerceCatalogDisplayContext {
 	}
 
 	public long getDefaultFileEntryId() throws PortalException {
-		Company company = cpRequestHelper.getCompany();
+		CommerceCatalog commerceCatalog = getCommerceCatalog();
 
 		return _commerceCatalogDefaultImage.getDefaultCatalogFileEntryId(
-			company.getGroupId());
+			commerceCatalog.getGroupId());
 	}
 
 	public List<DropdownItem> getDropdownItems() {
