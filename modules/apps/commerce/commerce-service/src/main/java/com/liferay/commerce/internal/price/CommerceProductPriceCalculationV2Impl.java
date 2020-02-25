@@ -33,6 +33,8 @@ import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
 import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPInstance;
@@ -41,9 +43,13 @@ import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.commerce.tax.CommerceTaxValue;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.math.BigDecimal;
@@ -52,10 +58,16 @@ import java.math.RoundingMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
+import com.liferay.portal.reports.engine.ReportDataSourceType;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * @author Riccardo Alberti
@@ -482,22 +494,52 @@ public class CommerceProductPriceCalculationV2Impl
 			commerceAccountId = commerceAccount.getCommerceAccountId();
 		}
 
-		List<CommerceAccountGroup> commerceAccountGroups =
-			_commerceAccountGroupLocalService.
-				getCommerceAccountGroupsByCommerceAccountId(
-					commerceAccount.getCommerceAccountId());
+		CommercePriceListDiscovery commercePriceListDiscovery =
+			_getCommercePriceListDiscovery(commercePriceListType);
 
-		Stream<CommerceAccountGroup> stream = commerceAccountGroups.stream();
+		if(commercePriceListDiscovery == null){
+			return null;
+		}
 
-		long[] commerceAccountGroupIds = stream.mapToLong(
-			CommerceAccountGroup::getCommerceAccountGroupId
-		).toArray();
-
-		return _commercePriceListDiscovery.getCommercePriceList(
-			cpInstance.getGroupId(), commercePriceListType,
-			cpInstance.getCPInstanceUuid(), commerceAccountId,
-			commerceAccountGroupIds, commerceContext.getCommerceChannelId());
+		return commercePriceListDiscovery.getCommercePriceList(
+			cpInstance.getGroupId(), commerceAccountId,
+			commerceContext.getCommerceChannelId(),
+			cpInstance.getCPInstanceUuid(), commercePriceListType);
 	}
+
+	private CommercePriceListDiscovery _getCommercePriceListDiscovery(
+			String commercePriceListType)
+		throws PortalException{
+		CommercePricingConfiguration commercePricingConfiguration =
+			_configurationProvider.getSystemConfiguration(
+				CommercePricingConfiguration.class);
+
+		String  discoveryMethod = CommercePricingConstants.ORDER_BY_HIERARCHY;
+
+		if (commercePriceListType.equals(CommercePriceListTypeKeys.TYPE_PRICE_LIST)) {
+			discoveryMethod =
+				commercePricingConfiguration.commercePriceListDiscovery();
+		}
+		else if (commercePriceListType.equals(CommercePriceListTypeKeys.TYPE_PROMOTION)) {
+			discoveryMethod =
+				commercePricingConfiguration.commercePromotionDiscovery();
+		}
+
+		if(!_commercePriceListDiscoveryMap.containsKey(discoveryMethod)) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"No commerce price list discovery specified for " +
+					discoveryMethod);
+			}
+
+			return null;
+		}
+
+		return _commercePriceListDiscoveryMap.get(discoveryMethod);
+	}
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	private BigDecimal _getDiscountPercentage(
 		BigDecimal discountedAmount, BigDecimal amount,
@@ -599,9 +641,6 @@ public class CommerceProductPriceCalculationV2Impl
 	private CommercePriceDiscovery _commercePriceDiscovery;
 
 	@Reference
-	private CommercePriceListDiscovery _commercePriceListDiscovery;
-
-	@Reference
 	private CommerceTaxCalculation _commerceTaxCalculation;
 
 	@Reference
@@ -609,5 +648,38 @@ public class CommerceProductPriceCalculationV2Impl
 
 	@Reference(target = "(resource.name=" + CPConstants.RESOURCE_NAME + ")")
 	private PortletResourcePermission _portletResourcePermission;
+
+	public void unsetCommercePriceListDiscovery(
+		CommercePriceListDiscovery commercePriceListDiscovery,
+		Map<String, Object> properties) {
+
+		String commercePriceListDiscoveryKey = GetterUtil.getString(
+			properties.get("commerce.price.list.discovery.key"));
+
+		_commercePriceListDiscoveryMap.remove(commercePriceListDiscoveryKey);
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceProductPriceCalculationV2Impl.class);
+
+	@Reference(
+		cardinality = ReferenceCardinality.MULTIPLE,
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY
+	)
+	protected void setCommercePriceListDiscovery(
+		CommercePriceListDiscovery commercePriceListDiscovery,
+		Map<String, Object> properties) {
+
+		String commercePriceListDiscoveryKey = GetterUtil.getString(
+			properties.get("commerce.price.list.discovery.key"));
+
+		_commercePriceListDiscoveryMap.put(
+			commercePriceListDiscoveryKey, commercePriceListDiscovery);
+	}
+
+	private Map<String, CommercePriceListDiscovery>
+		_commercePriceListDiscoveryMap = new ConcurrentHashMap<>();
+
 
 }
