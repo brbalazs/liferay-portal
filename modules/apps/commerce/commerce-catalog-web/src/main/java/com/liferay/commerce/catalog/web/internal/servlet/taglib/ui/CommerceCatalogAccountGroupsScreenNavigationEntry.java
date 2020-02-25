@@ -19,6 +19,7 @@ import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.io.IOException;
@@ -69,6 +70,11 @@ public class CommerceCatalogAccountGroupsScreenNavigationEntry
 	public String getScreenNavigationKey() {
 		return CommerceCatalogScreenNavigationConstants.
 			SCREEN_NAVIGATION_KEY_COMMERCE_CATALOG_GENERAL;
+	}
+
+	@Override
+	public boolean isVisible(User user, CommerceCatalog commerceCatalog) {
+		return false;
 	}
 
 	@Override
