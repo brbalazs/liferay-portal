@@ -20,28 +20,34 @@ import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
-import com.liferay.commerce.media.CommerceMediaResolver;
+import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.document.library.kernel.service.DLAppService;
+import com.liferay.document.library.kernel.util.DLUtil;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
+import com.liferay.item.selector.ItemSelector;
+import com.liferay.item.selector.ItemSelectorReturnType;
+import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
+import com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
+import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portlet.documentlibrary.lar.FileEntryUtil;
 
 import java.util.ArrayList;
@@ -51,6 +57,8 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.RenderResponse;
+import javax.portlet.RenderURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -61,23 +69,37 @@ import javax.servlet.http.HttpServletRequest;
 public class CommerceCatalogDisplayContext {
 
 	public CommerceCatalogDisplayContext(
-			HttpServletRequest httpServletRequest,
-			CommerceCatalogDefaultImage commerceCatalogDefaultImage,
-			CommerceCatalogService commerceCatalogService,
-			ModelResourcePermission<CommerceCatalog>
-				commerceCatalogModelResourcePermission,
-			CommerceCurrencyService commerceCurrencyService,
-			CommerceMediaResolver commerceMediaResolver,
-			Portal portal)
-		throws PortalException {
+		AttachmentsConfiguration attachmentsConfiguration,
+		HttpServletRequest httpServletRequest,
+		CommerceCatalogDefaultImage commerceCatalogDefaultImage,
+		CommerceCatalogService commerceCatalogService,
+		ModelResourcePermission<CommerceCatalog>
+			commerceCatalogModelResourcePermission,
+		CommerceCurrencyService commerceCurrencyService,
+		DLAppService dlAppService, ItemSelector itemSelector, Portal portal) {
 
+		_attachmentsConfiguration = attachmentsConfiguration;
 		_commerceCatalogDefaultImage = commerceCatalogDefaultImage;
-		_commerceCatalogModelResourcePermission = commerceCatalogModelResourcePermission;
 		_commerceCatalogService = commerceCatalogService;
+		_commerceCatalogModelResourcePermission =
+			commerceCatalogModelResourcePermission;
 		_commerceCurrencyService = commerceCurrencyService;
-		_commerceMediaResolver = commerceMediaResolver;
+		_dlAppService = dlAppService;
+		_itemSelector = itemSelector;
 		_portal = portal;
+
 		cpRequestHelper = new CPRequestHelper(httpServletRequest);
+	}
+
+	public String getAddCommerceCatalogRenderURL() {
+		LiferayPortletResponse liferayPortletResponse =
+			cpRequestHelper.getLiferayPortletResponse();
+
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", "addCommerceCatalog");
+
+		return portletURL.toString();
 	}
 
 	public ClayCreationMenu getClayCreationMenu() {
@@ -106,6 +128,19 @@ public class CommerceCatalogDisplayContext {
 		return _commerceCatalogService.fetchCommerceCatalog(commerceCatalogId);
 	}
 
+	public String getCommerceCatalogDefaultImageURL() throws Exception {
+		FileEntry fileEntry = FileEntryUtil.fetchByPrimaryKey(
+			getDefaultFileEntryId());
+
+		if (fileEntry != null) {
+			return DLUtil.getDownloadURL(
+				fileEntry, fileEntry.getFileVersion(),
+				cpRequestHelper.getThemeDisplay(), StringPool.BLANK);
+		}
+
+		return StringPool.BLANK;
+	}
+
 	public List<CommerceCurrency> getCommerceCurrencies()
 		throws PortalException {
 
@@ -114,30 +149,40 @@ public class CommerceCatalogDisplayContext {
 			QueryUtil.ALL_POS, null);
 	}
 
-	public String getAddCommerceCatalogRenderURL() {
-		LiferayPortletResponse liferayPortletResponse =
-			cpRequestHelper.getLiferayPortletResponse();
+	public FileEntry getDefaultFileEntry() throws PortalException {
+		long fileEntryId = getDefaultFileEntryId();
 
-		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+		if (fileEntryId == 0) {
+			return null;
+		}
 
-		portletURL.setParameter("mvcRenderCommandName", "addCommerceCatalog");
+		return _dlAppService.getFileEntry(fileEntryId);
+	}
 
-		return portletURL.toString();
+	public long getDefaultFileEntryId() throws PortalException {
+		Company company = cpRequestHelper.getCompany();
+
+		return _commerceCatalogDefaultImage.getDefaultCatalogFileEntryId(
+			company.getGroupId());
+	}
+
+	public List<DropdownItem> getDropdownItems() {
+		return Collections.emptyList();
 	}
 
 	public String getEditCommerceCatalogActionURL() throws PortalException {
 		CommerceCatalog commerceCatalog = getCommerceCatalog();
-		HttpServletRequest request = cpRequestHelper.getRequest();
 
 		if (commerceCatalog == null) {
 			return StringPool.BLANK;
 		}
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			request, CPPortletKeys.COMMERCE_CATALOGS,
+			cpRequestHelper.getRequest(), CPPortletKeys.COMMERCE_CATALOGS,
 			PortletRequest.ACTION_PHASE);
 
-		portletURL.setParameter(ActionRequest.ACTION_NAME, "editCommerceCatalog");
+		portletURL.setParameter(
+			ActionRequest.ACTION_NAME, "editCommerceCatalog");
 		portletURL.setParameter(Constants.CMD, Constants.UPDATE);
 		portletURL.setParameter(
 			"commerceCatalogId",
@@ -146,38 +191,56 @@ public class CommerceCatalogDisplayContext {
 		return portletURL.toString();
 	}
 
-	public List<DropdownItem> getDropdownItems() {
-		return Collections.emptyList();
-	}
-
 	public List<HeaderActionModel> getHeaderActionModels()
 		throws PortalException {
-		HttpServletRequest httpServletRequest = cpRequestHelper.getRequest();
 
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
-		HeaderActionModel headerActionModelCancel = new HeaderActionModel();
+		RenderResponse renderResponse = cpRequestHelper.getRenderResponse();
 
-		headerActionModelCancel.setLabel(
-			LanguageUtil.get(httpServletRequest, "cancel"));
-		headerActionModelCancel.setAdditionalClasses("btn-unstyled");
+		RenderURL cancelURL = renderResponse.createRenderURL();
 
-		headerActionModels.add(headerActionModelCancel);
+		HeaderActionModel cancelHeaderActionModel = new HeaderActionModel(
+			null, cancelURL.toString(), null, "cancel");
 
-		String buttonSaveCssClass = "btn-primary";
-		String buttonSaveLabel = "save";
-		String formId = "fm";
+		headerActionModels.add(cancelHeaderActionModel);
 
 		headerActionModels.add(
 			new HeaderActionModel(
-				buttonSaveCssClass, "_" + cpRequestHelper.getPortletName() + "fm", getEditCommerceCatalogActionURL(),
-				cpRequestHelper.getPortletName() + buttonSaveLabel,
-				buttonSaveLabel));
+				"btn-primary", renderResponse.getNamespace() + "fm",
+				getEditCommerceCatalogActionURL(), null, "save"));
 
 		return headerActionModels;
 	}
 
-	public PortletURL getPortletURL() throws PortalException {
+	public String[] getImageExtensions() {
+		return _attachmentsConfiguration.imageExtensions();
+	}
+
+	public String getImageItemSelectorUrl() {
+		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
+			RequestBackedPortletURLFactoryUtil.create(
+				cpRequestHelper.getRenderRequest());
+
+		ImageItemSelectorCriterion imageItemSelectorCriterion =
+			new ImageItemSelectorCriterion();
+
+		imageItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
+			Collections.<ItemSelectorReturnType>singletonList(
+				new FileEntryItemSelectorReturnType()));
+
+		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
+			requestBackedPortletURLFactory, "addFileEntry",
+			imageItemSelectorCriterion);
+
+		return itemSelectorURL.toString();
+	}
+
+	public long getImageMaxSize() {
+		return _attachmentsConfiguration.imageMaxSize();
+	}
+
+	public PortletURL getPortletURL() {
 		LiferayPortletResponse liferayPortletResponse =
 			cpRequestHelper.getLiferayPortletResponse();
 
@@ -214,62 +277,30 @@ public class CommerceCatalogDisplayContext {
 		return portletURL;
 	}
 
-	public String getCommerceCatalogDefaultImageURL() throws PortalException {
-		HttpServletRequest httpServletRequest = cpRequestHelper.getRequest();
-
-		ThemeDisplay themeDisplay = (ThemeDisplay) httpServletRequest
-			.getAttribute(WebKeys.THEME_DISPLAY);
-
-		Company company = themeDisplay.getCompany();
-
-		FileEntry fileEntry = FileEntryUtil.fetchByPrimaryKey(
-			_commerceCatalogDefaultImage.getDefaultCatalogFileEntryId(
-				company.getGroupId()));
-
-		if (fileEntry != null) {
-			try {
-				return _commerceMediaResolver.getUrl(fileEntry.getFileEntryId());
-			} catch(Exception e) {
-				return StringPool.BLANK;
-			}
-		}
-
-		return StringPool.BLANK;
-	}
-
 	public boolean hasAddCatalogPermission() {
-		HttpServletRequest httpServletRequest = cpRequestHelper.getRequest();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		return PortalPermissionUtil.contains(
-			themeDisplay.getPermissionChecker(),
+			cpRequestHelper.getPermissionChecker(),
 			CPActionKeys.ADD_COMMERCE_CATALOG);
 	}
 
 	public boolean hasPermission(long commerceCatalogId, String actionId)
 		throws PortalException {
 
-		HttpServletRequest httpServletRequest = cpRequestHelper.getRequest();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		return _commerceCatalogModelResourcePermission.contains(
-			themeDisplay.getPermissionChecker(), commerceCatalogId, actionId);
+			cpRequestHelper.getPermissionChecker(), commerceCatalogId,
+			actionId);
 	}
 
 	protected final CPRequestHelper cpRequestHelper;
 
+	private final AttachmentsConfiguration _attachmentsConfiguration;
+	private final CommerceCatalogDefaultImage _commerceCatalogDefaultImage;
 	private final ModelResourcePermission<CommerceCatalog>
 		_commerceCatalogModelResourcePermission;
 	private final CommerceCatalogService _commerceCatalogService;
 	private final CommerceCurrencyService _commerceCurrencyService;
-	private final CommerceCatalogDefaultImage _commerceCatalogDefaultImage;
-	private final CommerceMediaResolver _commerceMediaResolver;
+	private final DLAppService _dlAppService;
+	private final ItemSelector _itemSelector;
 	private final Portal _portal;
 
 }
