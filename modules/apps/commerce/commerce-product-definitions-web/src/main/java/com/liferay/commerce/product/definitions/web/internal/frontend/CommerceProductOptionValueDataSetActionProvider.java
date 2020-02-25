@@ -151,6 +151,9 @@ public class CommerceProductOptionValueDataSetActionProvider
 		portletURL.setParameter(
 			"cpDefinitionId",
 			String.valueOf(cpDefinitionOptionRel.getCPDefinitionId()));
+		portletURL.setParameter(
+			"cpDefinitionOptionRelId",
+			String.valueOf(cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
 
 		portletURL.setParameter(
 			"cpDefinitionOptionValueRelId",

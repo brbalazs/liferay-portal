@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -97,13 +96,10 @@ public class CommerceProductDefinitionSpecificationDataSetDataProvider
 				new ProductSpecification(
 					cpDefinitionSpecificationOptionValue.
 						getCPDefinitionSpecificationOptionValueId(),
-					HtmlUtil.escape(cpSpecificationOption.getTitle(languageId)),
-					HtmlUtil.escape(
-						cpDefinitionSpecificationOptionValue.getValue(
-							languageId)),
-					HtmlUtil.escape(
-						_getCPOptionCategoryTitle(
-							cpDefinitionSpecificationOptionValue, languageId)),
+					cpSpecificationOption.getTitle(languageId),
+					cpDefinitionSpecificationOptionValue.getValue(languageId),
+					_getCPOptionCategoryTitle(
+						cpDefinitionSpecificationOptionValue, languageId),
 					cpDefinitionSpecificationOptionValue.getPriority()));
 		}
 
