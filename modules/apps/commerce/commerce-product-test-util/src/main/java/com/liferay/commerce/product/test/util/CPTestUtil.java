@@ -38,6 +38,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
@@ -274,23 +275,8 @@ public class CPTestUtil {
 	public static CPOption addCPOption(long groupId, boolean skuContributor)
 		throws PortalException {
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(groupId);
-
-		CPOptionConfiguration cpOptionConfiguration =
-			ConfigurationProviderUtil.getConfiguration(
-				CPOptionConfiguration.class,
-				new SystemSettingsLocator(CPConstants.CP_OPTION_SERVICE_NAME));
-
-		String[] ddmFormFieldTypesAllowed =
-			cpOptionConfiguration.ddmFormFieldTypesAllowed();
-
-		return CPOptionLocalServiceUtil.addCPOption(
-			serviceContext.getUserId(), RandomTestUtil.randomLocaleStringMap(),
-			RandomTestUtil.randomLocaleStringMap(), ddmFormFieldTypesAllowed[0],
-			RandomTestUtil.randomBoolean(), RandomTestUtil.randomBoolean(),
-			skuContributor, RandomTestUtil.randomString(), null,
-			serviceContext);
+		return addCPOption(
+			groupId, _getDefaultDDMFormFieldType(), skuContributor);
 	}
 
 	public static void addCPOption(
@@ -310,6 +296,21 @@ public class CPTestUtil {
 		}
 	}
 
+	public static CPOption addCPOption(
+			long groupId, String ddmFormFieldType, boolean skuContributor)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		return CPOptionLocalServiceUtil.addCPOption(
+			serviceContext.getUserId(), RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomLocaleStringMap(), ddmFormFieldType,
+			RandomTestUtil.randomBoolean(), RandomTestUtil.randomBoolean(),
+			skuContributor, RandomTestUtil.randomString(), null,
+			serviceContext);
+	}
+
 	public static CPOptionValue addCPOptionValue(CPOption cpOption)
 		throws PortalException {
 
@@ -327,6 +328,24 @@ public class CPTestUtil {
 
 		CPInstanceLocalServiceUtil.buildCPInstances(
 			cpDefinition.getCPDefinitionId(), serviceContext);
+	}
+
+	public static String[] getCPOptionFieldTypes()
+		throws ConfigurationException {
+
+		CPOptionConfiguration cpOptionConfiguration =
+			_getCPOptionConfiguration();
+
+		return cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
+	}
+
+	public static String[] getCPOptionSKUContributorFieldTypes()
+		throws ConfigurationException {
+
+		CPOptionConfiguration cpOptionConfiguration =
+			_getCPOptionConfiguration();
+
+		return cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
 	}
 
 	public static SearchContext getSearchContext(
@@ -568,6 +587,26 @@ public class CPTestUtil {
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute, false,
 			sku, false, 0, null, null, 0L, null, serviceContext);
+	}
+
+	private static CPOptionConfiguration _getCPOptionConfiguration()
+		throws ConfigurationException {
+
+		return ConfigurationProviderUtil.getConfiguration(
+			CPOptionConfiguration.class,
+			new SystemSettingsLocator(CPConstants.CP_OPTION_SERVICE_NAME));
+	}
+
+	private static String _getDefaultDDMFormFieldType()
+		throws ConfigurationException {
+
+		CPOptionConfiguration cpOptionConfiguration =
+			_getCPOptionConfiguration();
+
+		String[] ddmFormFieldTypesAllowed =
+			cpOptionConfiguration.ddmFormFieldTypesAllowed();
+
+		return ddmFormFieldTypesAllowed[0];
 	}
 
 }
