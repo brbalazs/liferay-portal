@@ -504,6 +504,9 @@ public class CommercePriceListLocalServiceImpl
 		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
+		queryDefinition.setStart(0);
+		queryDefinition.setEnd(1);
+
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByCommerceAccountAndChannelId(
 				queryDefinition);
@@ -526,6 +529,9 @@ public class CommercePriceListLocalServiceImpl
 			"commerceAccountGroupIds", commerceAccountGroupIds);
 		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
+
+		queryDefinition.setStart(0);
+		queryDefinition.setEnd(1);
 
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByCommerceAccountGroupIds(
@@ -552,6 +558,9 @@ public class CommercePriceListLocalServiceImpl
 		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
+		queryDefinition.setStart(0);
+		queryDefinition.setEnd(1);
+
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByCommerceAccountGroupsAndChannelId(
 				queryDefinition);
@@ -574,6 +583,9 @@ public class CommercePriceListLocalServiceImpl
 		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
 
+		queryDefinition.setStart(0);
+		queryDefinition.setEnd(1);
+
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByCommerceAccountId(queryDefinition);
 
@@ -594,6 +606,9 @@ public class CommercePriceListLocalServiceImpl
 		queryDefinition.setAttribute("commerceChannelId", commerceChannelId);
 		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
+
+		queryDefinition.setStart(0);
+		queryDefinition.setEnd(1);
 
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByCommerceChannelId(queryDefinition);
@@ -644,6 +659,9 @@ public class CommercePriceListLocalServiceImpl
 
 		queryDefinition.setAttribute("groupId", groupId);
 		queryDefinition.setAttribute("type", type);
+
+		queryDefinition.setStart(0);
+		queryDefinition.setEnd(1);
 
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByUnqualified(queryDefinition);
