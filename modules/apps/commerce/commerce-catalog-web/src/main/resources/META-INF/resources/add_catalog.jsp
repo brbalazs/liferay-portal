@@ -23,12 +23,6 @@ PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
 CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
 List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCommerceCurrencies();
 
-boolean isViewOnly = false;
-
-if (commerceCatalog != null) {
-	isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalog.getCommerceCatalogId(), ActionKeys.UPDATE) || commerceCatalog.isSystem();
-}
-
 portletURL.setParameter("searchContainerId", "commerceCatalogs");
 %>
 
@@ -40,9 +34,9 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
 
 			<aui:fieldset>
-				<aui:input bean="<%= commerceCatalog %>" disabled="<%= isViewOnly %>" model="<%= CommerceCatalog.class %>" name="name" required="<%= true %>" />
+				<aui:input bean="<%= commerceCatalog %>" model="<%= CommerceCatalog.class %>" name="name" required="<%= true %>" />
 
-				<aui:select disabled="<%= isViewOnly %>" helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="catalogDefaultLanguageId" required="<%= true %>" title="language">
+				<aui:select helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="catalogDefaultLanguageId" required="<%= true %>" title="language">
 
 					<%
 					String catalogDefaultLanguageId = themeDisplay.getLanguageId();
@@ -64,7 +58,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 
 				</aui:select>
 
-				<aui:select disabled="<%= isViewOnly %>" label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
+				<aui:select label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
 
 					<%
 					for (CommerceCurrency commerceCurrency : commerceCurrencies) {
@@ -91,9 +85,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 			</aui:fieldset>
 
 			<aui:button-row>
-				<c:if test="<%= !isViewOnly %>">
-					<aui:button cssClass="btn-lg" type="submit" />
-				</c:if>
+				<aui:button cssClass="btn-lg" type="submit" />
 			</aui:button-row>
 		</aui:form>
 	</div>

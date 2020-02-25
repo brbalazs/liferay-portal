@@ -20,24 +20,20 @@
 CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
-
-portletDisplay.setShowBackIcon(true);
-
-if (redirect == null) {
-	portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
-}
-else {
-	portletDisplay.setURLBack(redirect);
-}
 %>
+
+<liferay-portlet:renderURL var="editCommerceCatalogExternalReferenceCodeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+	<portlet:param name="mvcRenderCommandName" value="editCommerceCatalogExternalReferenceCode" />
+	<portlet:param name="commerceCatalogId" value="<%= String.valueOf(commerceCatalog.getCommerceCatalogId()) %>" />
+</liferay-portlet:renderURL>
 
 <commerce-ui:header
 	actions="<%= commerceCatalogDisplayContext.getHeaderActionModels() %>"
 	bean="<%= commerceCatalog %>"
-	beanIdLabel="catalog-id"
+	beanIdLabel="id"
 	dropdownItems="<%= commerceCatalogDisplayContext.getDropdownItems() %>"
 	externalReferenceCode="<%= commerceCatalog.getExternalReferenceCode() %>"
-	externalReferenceCodeEditUrl="/external/reference/code/edit/url"
+	externalReferenceCodeEditUrl="<%= editCommerceCatalogExternalReferenceCodeURL %>"
 	model="<%= CommerceCatalog.class %>"
 	title="<%= commerceCatalog.getName() %>"
 />
@@ -46,7 +42,7 @@ else {
 	<liferay-frontend:screen-navigation
 		fullContainerCssClass="col-12 pt-4"
 		key="<%= CommerceCatalogScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_CATALOG_GENERAL %>"
-		modelBean="<%= CommerceCatalog.class %>"
+		modelBean="<%= commerceCatalog %>"
 		portletURL="<%= currentURLObj %>"
 	/>
 </div>

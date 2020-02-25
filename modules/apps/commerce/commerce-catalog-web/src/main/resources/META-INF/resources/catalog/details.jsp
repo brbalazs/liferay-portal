@@ -21,91 +21,95 @@ CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDi
 
 CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
 List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCommerceCurrencies();
+FileEntry fileEntry = commerceCatalogDisplayContext.getDefaultFileEntry();
 
-boolean isViewOnly = false;
+long fileEntryId = BeanParamUtil.getLong(fileEntry, request, "fileEntryId");
 
-if (commerceCatalog != null) {
-	isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalog.getCommerceCatalogId(), ActionKeys.UPDATE) || commerceCatalog.isSystem();
-}
+boolean isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalog.getCommerceCatalogId(), ActionKeys.UPDATE);
 %>
 
-<div class="row">
-	<div class="col-8">
-		<commerce-ui:panel
-			elementClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "details") %>'
-		>
-			<div class="col-12 lfr-form-content">
-				<aui:form id="fm" cssClass="container-fluid-1280" method="post" name="fm">
-					<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceCatalog == null) ? Constants.ADD : Constants.UPDATE %>" />
-					<aui:input name="redirect" type="hidden" value="<%= backURL %>" />
-					<aui:input name="commerceCatalogId" type="hidden" value="<%= (commerceCatalog == null) ? 0 : commerceCatalog.getCommerceCatalogId() %>" />
+<aui:form cssClass="container-fluid-1280" method="post" name="fm">
+	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceCatalog == null) ? Constants.ADD : Constants.UPDATE %>" />
+	<aui:input name="redirect" type="hidden" value="<%= backURL %>" />
+	<aui:input name="commerceCatalogId" type="hidden" value="<%= (commerceCatalog == null) ? 0 : commerceCatalog.getCommerceCatalogId() %>" />
 
-					<aui:fieldset>
-						<aui:input bean="<%= commerceCatalog %>" disabled="<%= isViewOnly %>" model="<%= CommerceCatalog.class %>" name="name" required="<%= true %>" />
+	<liferay-ui:error exception="<%= NoSuchFileEntryException.class %>" message="please-select-an-existing-file" />
 
-						<aui:select disabled="<%= isViewOnly %>" helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="catalogDefaultLanguageId" required="<%= true %>" title="language">
+	<div class="row">
+		<div class="col-8">
+			<commerce-ui:panel
+				elementClasses="flex-fill"
+				title='<%= LanguageUtil.get(request, "details") %>'
+			>
+				<div class="col-12 lfr-form-content">
+					<aui:input bean="<%= commerceCatalog %>" disabled="<%= isViewOnly %>" model="<%= CommerceCatalog.class %>" name="name" required="<%= true %>" />
 
-							<%
-							String catalogDefaultLanguageId = themeDisplay.getLanguageId();
+					<aui:select disabled="<%= isViewOnly %>" helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="catalogDefaultLanguageId" required="<%= true %>" title="language">
 
-							if (commerceCatalog != null) {
-								catalogDefaultLanguageId = commerceCatalog.getCatalogDefaultLanguageId();
-							}
+						<%
+						String catalogDefaultLanguageId = themeDisplay.getLanguageId();
 
-							Set<Locale> siteAvailableLocales = LanguageUtil.getAvailableLocales(themeDisplay.getScopeGroupId());
+						if (commerceCatalog != null) {
+							catalogDefaultLanguageId = commerceCatalog.getCatalogDefaultLanguageId();
+						}
 
-							for (Locale siteAvailableLocale : siteAvailableLocales) {
-							%>
+						Set<Locale> siteAvailableLocales = LanguageUtil.getAvailableLocales(themeDisplay.getScopeGroupId());
 
-								<aui:option label="<%= siteAvailableLocale.getDisplayName(locale) %>" lang="<%= LocaleUtil.toW3cLanguageId(siteAvailableLocale) %>" selected="<%= catalogDefaultLanguageId.equals(LanguageUtil.getLanguageId(siteAvailableLocale)) %>" value="<%= LocaleUtil.toLanguageId(siteAvailableLocale) %>" />
+						for (Locale siteAvailableLocale : siteAvailableLocales) {
+						%>
 
-							<%
-							}
-							%>
+							<aui:option label="<%= siteAvailableLocale.getDisplayName(locale) %>" lang="<%= LocaleUtil.toW3cLanguageId(siteAvailableLocale) %>" selected="<%= catalogDefaultLanguageId.equals(LanguageUtil.getLanguageId(siteAvailableLocale)) %>" value="<%= LocaleUtil.toLanguageId(siteAvailableLocale) %>" />
 
-						</aui:select>
+						<%
+						}
+						%>
 
-						<aui:select disabled="<%= isViewOnly %>" label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
+					</aui:select>
 
-							<%
-							for (CommerceCurrency commerceCurrency : commerceCurrencies) {
-								String commerceCurrencyCode = commerceCurrency.getCode();
-							%>
+					<aui:select disabled="<%= isViewOnly %>" label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
 
-								<aui:option label="<%= commerceCurrency.getName(locale) %>" selected="<%= (commerceCatalog == null) ? commerceCurrency.isPrimary() : commerceCurrencyCode.equals(commerceCatalog.getCommerceCurrencyCode()) %>" value="<%= commerceCurrencyCode %>" />
+						<%
+						for (CommerceCurrency commerceCurrency : commerceCurrencies) {
+							String commerceCurrencyCode = commerceCurrency.getCode();
+						%>
 
-							<%
-							}
-							%>
+							<aui:option label="<%= commerceCurrency.getName(locale) %>" selected="<%= (commerceCatalog == null) ? commerceCurrency.isPrimary() : commerceCurrencyCode.equals(commerceCatalog.getCommerceCurrencyCode()) %>" value="<%= commerceCurrencyCode %>" />
 
-						</aui:select>
+						<%
+						}
+						%>
 
-						<div class="row">
-							<div class="col-6">
-								<aui:input inlineLabel="true" label="group-accounts-filter" localized="<%= true %>" name="groupAccountsFilter" type="toggle-switch" />
-							</div>
-
-							<div class="col-6">
-								<aui:input inlineLabel="true" label="channel-filter" localized="<%= true %>" name="ChannelFilter" type="toggle-switch" />
-							</div>
-						</div>
-					</aui:fieldset>
-				</aui:form>
-			</div>
-		</commerce-ui:panel>
-	</div>
-
-	<div class="col-4">
-		<commerce-ui:panel
-			elementClasses="flex-fill h-100"
-			title='<%= LanguageUtil.get(request, "default-catalog-image") %>'
-		>
-			<div class="row">
-				<div class="col-12 h-100">
-					<img alt="<%= LanguageUtil.get(request, "default-catalog-image") %>" src="<%= commerceCatalogDisplayContext.getCommerceCatalogDefaultImageURL() %>" />
+					</aui:select>
 				</div>
-			</div>
-		</commerce-ui:panel>
+			</commerce-ui:panel>
+		</div>
+
+		<div class="col-4">
+			<commerce-ui:panel
+				elementClasses="flex-fill h-100"
+				title='<%= LanguageUtil.get(request, "default-catalog-image") %>'
+			>
+				<div class="row">
+					<div class="col-12 h-100">
+						<aui:model-context bean="<%= fileEntry %>" model="<%= FileEntry.class %>" />
+
+						<div class="lfr-attachment-cover-image-selector">
+							<portlet:actionURL name="uploadCommerceMediaDefaultImage" var="uploadCommerceMediaDefaultImageActionURL" />
+
+							<liferay-item-selector:image-selector
+								draggableImage="vertical"
+								fileEntryId="<%= fileEntryId %>"
+								itemSelectorEventName="addFileEntry"
+								itemSelectorURL="<%= commerceCatalogDisplayContext.getImageItemSelectorUrl() %>"
+								maxFileSize="<%= commerceCatalogDisplayContext.getImageMaxSize() %>"
+								paramName="fileEntry"
+								uploadURL="<%= uploadCommerceMediaDefaultImageActionURL %>"
+								validExtensions="<%= StringUtil.merge(commerceCatalogDisplayContext.getImageExtensions(), StringPool.COMMA_AND_SPACE) %>"
+							/>
+						</div>
+					</div>
+				</div>
+			</commerce-ui:panel>
+		</div>
 	</div>
-</div>
+</aui:form>
