@@ -83,7 +83,7 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 
 		key = FriendlyURLNormalizerUtil.normalize(key);
 
-		validate(0, user.getCompanyId(), key);
+		validateCPOptionKey(0, user.getCompanyId(), key);
 
 		long cpOptionId = counterLocalService.increment();
 
@@ -220,7 +220,8 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 
 		key = FriendlyURLNormalizerUtil.normalize(key);
 
-		validate(cpOption.getCPOptionId(), cpOption.getCompanyId(), key);
+		validateCPOptionKey(
+			cpOption.getCPOptionId(), cpOption.getCompanyId(), key);
 
 		cpOption.setNameMap(nameMap);
 		cpOption.setDescriptionMap(descriptionMap);
@@ -355,7 +356,8 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 			"Unable to fix the search index after 10 attempts");
 	}
 
-	protected void validate(long cpOptionId, long companyId, String key)
+	protected void validateCPOptionKey(
+			long cpOptionId, long companyId, String key)
 		throws PortalException {
 
 		CPOption cpOption = cpOptionPersistence.fetchByC_K(companyId, key);
