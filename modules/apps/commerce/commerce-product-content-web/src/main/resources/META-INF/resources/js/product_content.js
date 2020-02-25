@@ -61,8 +61,8 @@ AUI.add(
 					eventHandles.push(
 						Liferay.on(
 							'ProductOptions' +
-							cpDefinitionId +
-							STR_DDM_FORM_EVENT,
+								cpDefinitionId +
+								STR_DDM_FORM_EVENT,
 							instance._ddmFormRender,
 							instance
 						)
@@ -289,7 +289,9 @@ AUI.add(
 
 					var cpDefinitionId = instance.get('cpDefinitionId');
 
-					var productContentAuthToken = instance.get('productContentAuthToken');
+					var productContentAuthToken = instance.get(
+						'productContentAuthToken'
+					);
 
 					var portletURL = Liferay.PortletURL.createActionURL();
 
@@ -297,7 +299,10 @@ AUI.add(
 					portletURL.setName('checkCPInstance');
 					portletURL.setParameter('cpDefinitionId', cpDefinitionId);
 					portletURL.setParameter('p_auth', Liferay.authToken);
-					portletURL.setParameter('p_p_auth', productContentAuthToken);
+					portletURL.setParameter(
+						'p_p_auth',
+						productContentAuthToken
+					);
 
 					var ddmFormValues = JSON.stringify(
 						instance.getFormValues()

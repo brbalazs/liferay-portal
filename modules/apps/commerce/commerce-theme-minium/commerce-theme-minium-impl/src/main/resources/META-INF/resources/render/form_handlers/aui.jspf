@@ -15,7 +15,7 @@
 --%>
 
 <%
-	String token = AuthTokenUtil.getToken(request, plid, CPPortletKeys.CP_CONTENT_WEB);
+String token = AuthTokenUtil.getToken(request, plid, CPPortletKeys.CP_CONTENT_WEB);
 %>
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as eventsDefinitions">
