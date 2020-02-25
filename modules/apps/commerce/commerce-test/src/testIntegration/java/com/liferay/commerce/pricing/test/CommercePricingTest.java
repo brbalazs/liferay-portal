@@ -137,18 +137,8 @@ public class CommercePricingTest {
 				_user.getCompanyId(), RandomTestUtil.randomString(), 0, false,
 				"", ServiceContextTestUtil.getServiceContext());
 
-		_commerceChannel = CommerceTestUtil.addCommerceChannel();
-
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
 			_group.getGroupId());
-
-		_commercePricingConfiguration =
-			_configurationProvider.getSystemConfiguration(
-				CommercePricingConfiguration.class);
-
-		_updateProperties(
-			"commercePriceListDiscovery",
-			CommercePricingConstants.ORDER_BY_HIERARCHY);
 	}
 
 	@After
@@ -162,71 +152,6 @@ public class CommercePricingTest {
 
 		_commerceAccountGroupLocalService.deleteCommerceAccountGroup(
 			_commerceAccountGroup.getCommerceAccountGroupId());
-	}
-
-	@Test
-	public void testCreateCatalogWithBasePriceList() throws Exception {
-		frutillaRule.scenario(
-			"A product default price is taken from the catalog base price list"
-		).given(
-			"A catalog with a default price list"
-		).when(
-			"A price list that does not contain the product is added"
-		).then(
-			"The product price is taken from the base price list"
-		);
-
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-				LocaleUtil.US.getDisplayLanguage(), null,
-				ServiceContextTestUtil.getServiceContext());
-
-		CommercePriceList commercePriceList1 =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
-		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
-			commercePriceList1.getCommercePriceListId(),
-			_commerceAccount.getCommerceAccountId(), 0,
-			ServiceContextTestUtil.getServiceContext());
-
-		CommercePriceList commercePriceList2 =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), true, 0.0);
-
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-		BigDecimal price = BigDecimal.valueOf(8.0);
-
-		_addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList2.getCommercePriceListId(), "", price);
-
-		CommercePriceList discoveredPriceList =
-			_commercePriceListDiscovery.getCommercePriceList(
-				catalog.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
-				null, _commerceAccount.getCommerceAccountId(), null, 0);
-
-		CommerceContext commerceContext = new TestCommerceContext(
-			_commerceCurrency, null, _user, _group, _commerceAccount, null);
-
-		List<CommercePriceValue> commercePriceValues =
-			_commercePriceDiscovery.getCommercePriceValue(
-				discoveredPriceList.getCommercePriceListId(),
-				cpInstance.getCPInstanceId(), 1, _commerceCurrency,
-				commerceContext);
-
-		CommercePriceValue commercePriceValue = commercePriceValues.get(0);
-
-		CommerceMoney commerceMoney = commercePriceValue.getCommerceMoney();
-
-		BigDecimal finalPrice = commerceMoney.getPrice();
-
-		Assert.assertEquals(0, price.compareTo(finalPrice));
 	}
 
 	@Test
@@ -857,165 +782,6 @@ public class CommercePricingTest {
 	}
 
 	@Test
-	public void testRetrieveCorrectPriceList() throws Exception {
-		frutillaRule.scenario(
-			"If order-by-hierarchy property is set, when a set of price " +
-				"lists is defined the most specific shall be taken. If " +
-					"order-by-lowest property is set, then the price list " +
-						"that provides the lowest price is taken"
-		).given(
-			"A set of price lists with different qualifiers"
-		).when(
-			"I search for the applicable price list"
-		).then(
-			"According to the configuration i shall retrieve the correct " +
-				"price list"
-		);
-
-		CommercePriceList commercePriceListAccount =
-			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 1.0);
-
-		CommercePriceList commercePriceListAccountGroup =
-			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 2.0);
-
-		CommercePriceList commercePriceListChannel =
-			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 100.0);
-
-		commercePriceListChannel.setName("ZZZ" + System.currentTimeMillis());
-
-		_commercePriceListLocalService.updateCommercePriceList(
-			commercePriceListChannel);
-
-		CommercePriceList discoveredPriceList =
-			_commercePriceListDiscovery.getCommercePriceList(
-				_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
-				null, 0, null, 0);
-
-		Assert.assertEquals(
-			commercePriceListChannel.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
-			commercePriceListAccount.getCommercePriceListId(),
-			_commerceAccount.getCommerceAccountId(), 0,
-			ServiceContextTestUtil.getServiceContext());
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
-			null, _commerceAccount.getCommerceAccountId(), null, 0);
-
-		Assert.assertEquals(
-			commercePriceListAccount.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		_commerceAccountGroupCommerceAccountRelLocalService.
-			addCommerceAccountGroupCommerceAccountRel(
-				_commerceAccountGroup.getCommerceAccountGroupId(),
-				_commerceAccount.getCommerceAccountId(),
-				ServiceContextTestUtil.getServiceContext());
-
-		_commercePriceListCommerceAccountGroupRelLocalService.
-			addCommercePriceListCommerceAccountGroupRel(
-				commercePriceListAccountGroup.getCommercePriceListId(),
-				_commerceAccountGroup.getCommerceAccountGroupId(), 0,
-				ServiceContextTestUtil.getServiceContext());
-
-		long[] commerceAccountGroupIds = {
-			_commerceAccountGroup.getCommerceAccountGroupId()
-		};
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
-			null, _commerceAccount.getCommerceAccountId(),
-			commerceAccountGroupIds, 0);
-
-		Assert.assertEquals(
-			commercePriceListAccount.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		_commercePriceListChannelRelLocalService.addCommercePriceListChannelRel(
-			commercePriceListChannel.getCommercePriceListId(),
-			_commerceChannel.getCommerceChannelId(), 0,
-			ServiceContextTestUtil.getServiceContext());
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
-			null, _commerceAccount.getCommerceAccountId(),
-			commerceAccountGroupIds, _commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			commercePriceListAccount.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		_commercePriceListLocalService.deleteCommercePriceList(
-			commercePriceListAccount.getCommercePriceListId());
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
-			null, _commerceAccount.getCommerceAccountId(),
-			commerceAccountGroupIds, _commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			commercePriceListAccountGroup.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		_commercePriceListLocalService.deleteCommercePriceList(
-			commercePriceListAccountGroup.getCommercePriceListId());
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
-			null, _commerceAccount.getCommerceAccountId(),
-			commerceAccountGroupIds, _commerceChannel.getCommerceChannelId());
-
-		Assert.assertEquals(
-			commercePriceListChannel.getCommercePriceListId(),
-			discoveredPriceList.getCommercePriceListId());
-
-		_updateProperties(
-			"commercePriceListDiscovery",
-			CommercePricingConstants.ORDER_BY_LOWEST_ENTRY);
-
-		CommercePriceList commercePriceListEntryAccount =
-			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 1.0);
-
-		CommercePriceList commercePriceListEntryChannel =
-			CommercePriceListTestUtil.addCommercePriceList(
-				_group.getGroupId(), 2.0);
-
-		CPInstance cpInstance = CPTestUtil.addCPInstance();
-
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-		BigDecimal value = BigDecimal.valueOf(8.0);
-
-		_addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceListEntryAccount.getCommercePriceListId(), "", value);
-
-		_addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceListEntryChannel.getCommercePriceListId(), "",
-			BigDecimal.valueOf(10.0));
-
-		discoveredPriceList = _commercePriceListDiscovery.getCommercePriceList(
-			_group.getGroupId(), CommercePriceListTypeKeys.TYPE_PRICE_LIST,
-			cpInstance.getCPInstanceUuid(),
-			_commerceAccount.getCommerceAccountId(), commerceAccountGroupIds,
-			_commerceChannel.getCommerceChannelId());
-
-		CommercePriceEntry commercePriceEntry =
-			_commercePriceEntryLocalService.fetchCommercePriceEntry(
-				discoveredPriceList.getCommercePriceListId(),
-				cpInstance.getCPInstanceUuid());
-
-		Assert.assertEquals(0, value.compareTo(commercePriceEntry.getPrice()));
-	}
-
-	@Test
 	public void testUseBulkTierPriceEntry() throws Exception {
 		frutillaRule.scenario(
 			"When a tier price entry is configured then the price changes " +
@@ -1637,17 +1403,6 @@ public class CommercePricingTest {
 			commerceContext);
 	}
 
-	private void _updateProperties(String key, int value)
-		throws ConfigurationException {
-
-		Dictionary<String, Object> properties = new Hashtable<>();
-
-		properties.put(key, value);
-
-		_configurationProvider.saveSystemConfiguration(
-			CommercePricingConfiguration.class, properties);
-	}
-
 	private CommerceAccount _commerceAccount;
 	private CommerceAccountGroup _commerceAccountGroup;
 
@@ -1664,9 +1419,6 @@ public class CommercePricingTest {
 	@Inject
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
 
-	@DeleteAfterTestRun
-	private CommerceChannel _commerceChannel;
-
 	private CommerceCurrency _commerceCurrency;
 
 	@Inject
@@ -1676,28 +1428,8 @@ public class CommercePricingTest {
 	private CommercePriceDiscovery _commercePriceDiscovery;
 
 	@Inject
-	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
-
-	@Inject
 	private CommercePriceListAccountRelLocalService
 		_commercePriceListAccountRelLocalService;
-
-	@Inject
-	private CommercePriceListChannelRelLocalService
-		_commercePriceListChannelRelLocalService;
-
-	@Inject
-	private CommercePriceListCommerceAccountGroupRelLocalService
-		_commercePriceListCommerceAccountGroupRelLocalService;
-
-	@Inject
-	private CommercePriceListDiscovery _commercePriceListDiscovery;
-
-	@Inject
-	private CommercePriceListLocalService _commercePriceListLocalService;
-
-	@Inject
-	private CommercePriceListRelLocalService _commercePriceListRelLocalService;
 
 	@Inject
 	private CommercePriceModifierLocalService
@@ -1713,11 +1445,6 @@ public class CommercePricingTest {
 	@Inject
 	private CommercePricingClassRelLocalService
 		_commercePricingClassRelLocalService;
-
-	private CommercePricingConfiguration _commercePricingConfiguration;
-
-	@Inject
-	private ConfigurationProvider _configurationProvider;
 
 	@DeleteAfterTestRun
 	private Group _group;
