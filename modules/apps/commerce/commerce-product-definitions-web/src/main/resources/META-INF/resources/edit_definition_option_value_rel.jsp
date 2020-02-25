@@ -19,82 +19,24 @@
 <%
 CPDefinitionOptionValueRelDisplayContext cpDefinitionOptionValueRelDisplayContext = (CPDefinitionOptionValueRelDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-long cpDefinitionId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionId();
-long cpDefinitionOptionRelId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionRelId();
 CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionValueRel();
-long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionValueRelId();
 %>
 
 <portlet:actionURL name="editProductDefinitionOptionValueRel" var="editProductDefinitionOptionValueRelActionURL" />
 
-<commerce-ui:side-panel-content
-	title='<%= (cpDefinitionOptionValueRel == null) ? LanguageUtil.get(request, "add-value") : LanguageUtil.format(request, "edit-x", cpDefinitionOptionValueRel.getName(languageId), false) %>'
->
-	<commerce-ui:panel
-		title='<%= LanguageUtil.get(request, "detail") %>'
-	>
-		<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
-			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpDefinitionOptionValueRel == null) ? Constants.ADD : Constants.UPDATE %>" />
-			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-			<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
-			<aui:input name="cpDefinitionOptionRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionRelId) %>" />
-			<aui:input name="cpDefinitionOptionValueRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionValueRelId) %>" />
-
-			<aui:model-context bean="<%= cpDefinitionOptionValueRel %>" model="<%= CPDefinitionOptionValueRel.class %>" />
-
-			<liferay-ui:error exception="<%= CPDefinitionOptionValueRelKeyException.class %>" message="that-key-is-already-being-used" />
-
-			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "details") %>'
-			>
-				<aui:input id="optionValueName" name="name" />
-
-				<aui:input name="priority" />
-
-				<aui:input helpMessage="key-help" name="key" />
-			</commerce-ui:panel>
-
-			<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
-				<commerce-ui:panel
-					title='<%= LanguageUtil.get(request, "custom-attribute") %>'
-				>
-					<liferay-expando:custom-attribute-list
-						className="<%= CPDefinitionOptionValueRel.class.getName() %>"
-						classPK="<%= (cpDefinitionOptionValueRel != null) ? cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId() : 0 %>"
-						editable="<%= true %>"
-						label="<%= true %>"
-					/>
-				</commerce-ui:panel>
-			</c:if>
-
-			<aui:button-row>
-				<aui:button cssClass="btn-lg" type="submit" value="save" />
-
-				<aui:button cssClass="btn-lg" type="cancel" />
-			</aui:button-row>
-
-			<c:if test="<%= cpDefinitionOptionValueRel == null %>">
-				<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
-					function slugify(string) {
-						return string.toLowerCase().replace(/[^a-z1-9]+/g, '-');
-					}
-
-					const form = document.getElementById(
-						'<portlet:namespace />cpDefinitionOptionValueRelfm'
-					);
-
-					const keyInput = form.querySelector('#<portlet:namespace />key');
-					const nameInput = form.querySelector('#<portlet:namespace />optionValueName');
-
-					const debounce = utilities.debounce;
-
-					var handleOnNameInput = function() {
-						keyInput.value = slugify(nameInput.value);
-					};
-
-					nameInput.addEventListener('input', debounce(handleOnNameInput, 200));
-				</aui:script>
-			</c:if>
-		</aui:form>
-	</commerce-ui:panel>
-</commerce-ui:side-panel-content>
+<c:choose>
+	<c:when test="<%= cpDefinitionOptionValueRel == null %>">
+		<commerce-ui:modal-content
+			title='<%= LanguageUtil.get(request, "add-value") %>'
+		>
+			<%@ include file="/edit_definition_option_value_rel.jspf" %>
+		</commerce-ui:modal-content>
+	</c:when>
+	<c:otherwise>
+		<commerce-ui:side-panel-content
+			title='<%= LanguageUtil.format(request, "edit-x", cpDefinitionOptionValueRel.getName(languageId), false) %>'
+		>
+			<%@ include file="/edit_definition_option_value_rel.jspf" %>
+		</commerce-ui:side-panel-content>
+	</c:otherwise>
+</c:choose>
