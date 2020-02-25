@@ -23,9 +23,9 @@ public class CommercePricingConstants {
 
 	public static final int DISCOUNT_CHAIN_METHOD = 0;
 
-	public static final int ORDER_BY_HIERARCHY = 0;
+	public static final String ORDER_BY_HIERARCHY = "hierarchy";
 
-	public static final int ORDER_BY_LOWEST_ENTRY = 1;
+	public static final String ORDER_BY_LOWEST_ENTRY = "lowest";
 
 	public static final String SERVICE_NAME =
 		"com.liferay.commerce.pricing.service.name";

@@ -35,24 +35,18 @@ public interface CommercePricingConfiguration {
 	public String commercePricingCalculationKey();
 
 	@Meta.AD(
-		deflt = "" + CommercePricingConstants.ORDER_BY_HIERARCHY,
+		deflt = CommercePricingConstants.ORDER_BY_HIERARCHY,
 		name = "price-list-discovery-method",
-		optionLabels = {
-			"order-price-list-by-hierarchy", "order-price-list-by-lowest-entry"
-		},
-		optionValues = {"0", "1"}, required = false
+		required = false
 	)
-	public int commercePriceListDiscovery();
+	public String commercePriceListDiscovery();
 
 	@Meta.AD(
-		deflt = "" + CommercePricingConstants.ORDER_BY_HIERARCHY,
+		deflt = CommercePricingConstants.ORDER_BY_HIERARCHY,
 		name = "promotion-discovery-method",
-		optionLabels = {
-			"order-promotion-by-hierarchy", "order-promotion-by-lowest-entry"
-		},
-		optionValues = {"0", "1"}, required = false
+		required = false
 	)
-	public int commercePromotionDiscovery();
+	public String commercePromotionDiscovery();
 
 	@Meta.AD(
 		deflt = "" + CommercePricingConstants.TAX_INCLUDED_IN_FINAL_PRICE,
