@@ -290,9 +290,6 @@
 		<field name="purchasable" type="boolean">
 			<hint name="default-value">true</hint>
 		</field>
-		<field name="json" type="String">
-			<hint-collection name="CLOB" />
-		</field>
 		<field name="width" type="double">
 			<validator name="number" />
 		</field>

@@ -28,6 +28,7 @@ import com.liferay.commerce.product.service.persistence.CPDefinitionSpecificatio
 import com.liferay.commerce.product.service.persistence.CPDisplayLayoutPersistence;
 import com.liferay.commerce.product.service.persistence.CPFriendlyURLEntryPersistence;
 import com.liferay.commerce.product.service.persistence.CPInstanceFinder;
+import com.liferay.commerce.product.service.persistence.CPInstanceOptionValueRelFinder;
 import com.liferay.commerce.product.service.persistence.CPInstanceOptionValueRelPersistence;
 import com.liferay.commerce.product.service.persistence.CPInstancePersistence;
 import com.liferay.commerce.product.service.persistence.CPMeasurementUnitPersistence;
@@ -1206,6 +1207,26 @@ public abstract class CPFriendlyURLEntryLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the cp instance option value rel finder.
+	 *
+	 * @return the cp instance option value rel finder
+	 */
+	public CPInstanceOptionValueRelFinder getCPInstanceOptionValueRelFinder() {
+		return cpInstanceOptionValueRelFinder;
+	}
+
+	/**
+	 * Sets the cp instance option value rel finder.
+	 *
+	 * @param cpInstanceOptionValueRelFinder the cp instance option value rel finder
+	 */
+	public void setCPInstanceOptionValueRelFinder(
+		CPInstanceOptionValueRelFinder cpInstanceOptionValueRelFinder) {
+
+		this.cpInstanceOptionValueRelFinder = cpInstanceOptionValueRelFinder;
+	}
+
+	/**
 	 * Returns the cp measurement unit local service.
 	 *
 	 * @return the cp measurement unit local service
@@ -1831,6 +1852,9 @@ public abstract class CPFriendlyURLEntryLocalServiceBaseImpl
 	@BeanReference(type = CPInstanceOptionValueRelPersistence.class)
 	protected CPInstanceOptionValueRelPersistence
 		cpInstanceOptionValueRelPersistence;
+
+	@BeanReference(type = CPInstanceOptionValueRelFinder.class)
+	protected CPInstanceOptionValueRelFinder cpInstanceOptionValueRelFinder;
 
 	@BeanReference(
 		type = com.liferay.commerce.product.service.CPMeasurementUnitLocalService.class

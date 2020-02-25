@@ -85,12 +85,12 @@ public class CPInstanceModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"CPDefinitionId", Types.BIGINT},
 		{"CPInstanceUuid", Types.VARCHAR}, {"sku", Types.VARCHAR},
 		{"gtin", Types.VARCHAR}, {"manufacturerPartNumber", Types.VARCHAR},
-		{"purchasable", Types.BOOLEAN}, {"json", Types.CLOB},
-		{"width", Types.DOUBLE}, {"height", Types.DOUBLE},
-		{"depth", Types.DOUBLE}, {"weight", Types.DOUBLE},
-		{"price", Types.DECIMAL}, {"promoPrice", Types.DECIMAL},
-		{"cost", Types.DECIMAL}, {"published", Types.BOOLEAN},
-		{"displayDate", Types.TIMESTAMP}, {"expirationDate", Types.TIMESTAMP},
+		{"purchasable", Types.BOOLEAN}, {"width", Types.DOUBLE},
+		{"height", Types.DOUBLE}, {"depth", Types.DOUBLE},
+		{"weight", Types.DOUBLE}, {"price", Types.DECIMAL},
+		{"promoPrice", Types.DECIMAL}, {"cost", Types.DECIMAL},
+		{"published", Types.BOOLEAN}, {"displayDate", Types.TIMESTAMP},
+		{"expirationDate", Types.TIMESTAMP},
 		{"lastPublishDate", Types.TIMESTAMP},
 		{"overrideSubscriptionInfo", Types.BOOLEAN},
 		{"subscriptionEnabled", Types.BOOLEAN},
@@ -121,7 +121,6 @@ public class CPInstanceModelImpl
 		TABLE_COLUMNS_MAP.put("gtin", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("manufacturerPartNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("purchasable", Types.BOOLEAN);
-		TABLE_COLUMNS_MAP.put("json", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("width", Types.DOUBLE);
 		TABLE_COLUMNS_MAP.put("height", Types.DOUBLE);
 		TABLE_COLUMNS_MAP.put("depth", Types.DOUBLE);
@@ -146,7 +145,7 @@ public class CPInstanceModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CPInstance (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,CPInstanceId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CPDefinitionId LONG,CPInstanceUuid VARCHAR(75) null,sku VARCHAR(75) null,gtin VARCHAR(75) null,manufacturerPartNumber VARCHAR(75) null,purchasable BOOLEAN,json TEXT null,width DOUBLE,height DOUBLE,depth DOUBLE,weight DOUBLE,price DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,cost DECIMAL(30, 16) null,published BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,overrideSubscriptionInfo BOOLEAN,subscriptionEnabled BOOLEAN,subscriptionLength INTEGER,subscriptionType VARCHAR(75) null,subscriptionTypeSettings TEXT null,maxSubscriptionCycles LONG,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+		"create table CPInstance (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,CPInstanceId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CPDefinitionId LONG,CPInstanceUuid VARCHAR(75) null,sku VARCHAR(75) null,gtin VARCHAR(75) null,manufacturerPartNumber VARCHAR(75) null,purchasable BOOLEAN,width DOUBLE,height DOUBLE,depth DOUBLE,weight DOUBLE,price DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,cost DECIMAL(30, 16) null,published BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,overrideSubscriptionInfo BOOLEAN,subscriptionEnabled BOOLEAN,subscriptionLength INTEGER,subscriptionType VARCHAR(75) null,subscriptionTypeSettings TEXT null,maxSubscriptionCycles LONG,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table CPInstance";
 
@@ -225,7 +224,6 @@ public class CPInstanceModelImpl
 		model.setGtin(soapModel.getGtin());
 		model.setManufacturerPartNumber(soapModel.getManufacturerPartNumber());
 		model.setPurchasable(soapModel.isPurchasable());
-		model.setJson(soapModel.getJson());
 		model.setWidth(soapModel.getWidth());
 		model.setHeight(soapModel.getHeight());
 		model.setDepth(soapModel.getDepth());
@@ -725,26 +723,6 @@ public class CPInstanceModelImpl
 					CPInstance cpInstance, Object purchasableObject) {
 
 					cpInstance.setPurchasable((Boolean)purchasableObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"json",
-			new Function<CPInstance, Object>() {
-
-				@Override
-				public Object apply(CPInstance cpInstance) {
-					return cpInstance.getJson();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"json",
-			new BiConsumer<CPInstance, Object>() {
-
-				@Override
-				public void accept(CPInstance cpInstance, Object jsonObject) {
-					cpInstance.setJson((String)jsonObject);
 				}
 
 			});
@@ -1520,22 +1498,6 @@ public class CPInstanceModelImpl
 
 	@JSON
 	@Override
-	public String getJson() {
-		if (_json == null) {
-			return "";
-		}
-		else {
-			return _json;
-		}
-	}
-
-	@Override
-	public void setJson(String json) {
-		_json = json;
-	}
-
-	@JSON
-	@Override
 	public double getWidth() {
 		return _width;
 	}
@@ -1973,7 +1935,6 @@ public class CPInstanceModelImpl
 		cpInstanceImpl.setGtin(getGtin());
 		cpInstanceImpl.setManufacturerPartNumber(getManufacturerPartNumber());
 		cpInstanceImpl.setPurchasable(isPurchasable());
-		cpInstanceImpl.setJson(getJson());
 		cpInstanceImpl.setWidth(getWidth());
 		cpInstanceImpl.setHeight(getHeight());
 		cpInstanceImpl.setDepth(getDepth());
@@ -2200,14 +2161,6 @@ public class CPInstanceModelImpl
 
 		cpInstanceCacheModel.purchasable = isPurchasable();
 
-		cpInstanceCacheModel.json = getJson();
-
-		String json = cpInstanceCacheModel.json;
-
-		if ((json != null) && (json.length() == 0)) {
-			cpInstanceCacheModel.json = null;
-		}
-
 		cpInstanceCacheModel.width = getWidth();
 
 		cpInstanceCacheModel.height = getHeight();
@@ -2400,7 +2353,6 @@ public class CPInstanceModelImpl
 	private String _gtin;
 	private String _manufacturerPartNumber;
 	private boolean _purchasable;
-	private String _json;
 	private double _width;
 	private double _height;
 	private double _depth;

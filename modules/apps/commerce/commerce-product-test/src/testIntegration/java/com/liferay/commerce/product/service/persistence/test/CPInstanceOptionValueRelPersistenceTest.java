@@ -232,12 +232,20 @@ public class CPInstanceOptionValueRelPersistenceTest {
 	}
 
 	@Test
-	public void testCountByC_C_C() throws Exception {
-		_persistence.countByC_C_C(
+	public void testCountByCDORI_CII() throws Exception {
+		_persistence.countByCDORI_CII(
+			RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
+
+		_persistence.countByCDORI_CII(0L, 0L);
+	}
+
+	@Test
+	public void testCountByCDORI_CDOVRI_CII() throws Exception {
+		_persistence.countByCDORI_CDOVRI_CII(
 			RandomTestUtil.nextLong(), RandomTestUtil.nextLong(),
 			RandomTestUtil.nextLong());
 
-		_persistence.countByC_C_C(0L, 0L, 0L);
+		_persistence.countByCDORI_CDOVRI_CII(0L, 0L, 0L);
 	}
 
 	@Test

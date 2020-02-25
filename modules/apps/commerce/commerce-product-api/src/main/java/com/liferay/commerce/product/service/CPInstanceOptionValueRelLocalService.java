@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service interface for CPInstanceOptionValueRel. Methods of this
@@ -72,6 +73,12 @@ public interface CPInstanceOptionValueRelLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CPInstanceOptionValueRel addCPInstanceOptionValueRel(
 		CPInstanceOptionValueRel cpInstanceOptionValueRel);
+
+	public CPInstanceOptionValueRel addCPInstanceOptionValueRel(
+			long groupId, long companyId, long userId,
+			long cpDefinitionOptionRelId, long cpDefinitionOptionValueRelId,
+			long cpInstanceId)
+		throws PortalException;
 
 	/**
 	 * Creates a new cp instance option value rel with the primary key. Does not add the cp instance option value rel to the database.
@@ -197,6 +204,14 @@ public interface CPInstanceOptionValueRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPInstanceOptionValueRel>
+		getCPDefinitionCPInstanceOptionValueRels(long cpDefinitionId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPInstanceOptionValueRel>
+		getCPInstanceCPInstanceOptionValueRels(long cpInstanceId);
+
 	/**
 	 * Returns the cp instance option value rel with the primary key.
 	 *
@@ -295,6 +310,22 @@ public interface CPInstanceOptionValueRelLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasCPInstanceOptionValueRel(long cpInstanceId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasCPInstanceOptionValueRels(
+		long cpDefinitionOptionRelId, long cpInstanceId);
+
+	public boolean matchesCPInstanceOptionValueRels(
+		long cpInstanceId,
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels);
+
+	public boolean matchesCPInstanceOptionValueRels(
+		long cpInstanceId,
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelIdsCPDefinitionOptionValueRelIds);
+
 	/**
 	 * Updates the cp instance option value rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -304,5 +335,11 @@ public interface CPInstanceOptionValueRelLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CPInstanceOptionValueRel updateCPInstanceOptionValueRel(
 		CPInstanceOptionValueRel cpInstanceOptionValueRel);
+
+	public void updateCPInstanceOptionValueRels(
+			long groupId, long companyId, long userId, long cpInstanceId,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds)
+		throws PortalException;
 
 }

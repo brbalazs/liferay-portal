@@ -542,6 +542,164 @@ public interface CPInstanceOptionValueRelPersistence
 	public int countByCPInstanceId(long CPInstanceId);
 
 	/**
+	 * Returns all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @return the matching cp instance option value rels
+	 */
+	public java.util.List<CPInstanceOptionValueRel> findByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId);
+
+	/**
+	 * Returns a range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @return the range of matching cp instance option value rels
+	 */
+	public java.util.List<CPInstanceOptionValueRel> findByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching cp instance option value rels
+	 */
+	public java.util.List<CPInstanceOptionValueRel> findByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator
+			<CPInstanceOptionValueRel> orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching cp instance option value rels
+	 */
+	public java.util.List<CPInstanceOptionValueRel> findByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator
+			<CPInstanceOptionValueRel> orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
+	 */
+	public CPInstanceOptionValueRel findByCDORI_CII_First(
+			long CPDefinitionOptionRelId, long CPInstanceId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CPInstanceOptionValueRel> orderByComparator)
+		throws NoSuchCPInstanceOptionValueRelException;
+
+	/**
+	 * Returns the first cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
+	 */
+	public CPInstanceOptionValueRel fetchByCDORI_CII_First(
+		long CPDefinitionOptionRelId, long CPInstanceId,
+		com.liferay.portal.kernel.util.OrderByComparator
+			<CPInstanceOptionValueRel> orderByComparator);
+
+	/**
+	 * Returns the last cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
+	 */
+	public CPInstanceOptionValueRel findByCDORI_CII_Last(
+			long CPDefinitionOptionRelId, long CPInstanceId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CPInstanceOptionValueRel> orderByComparator)
+		throws NoSuchCPInstanceOptionValueRelException;
+
+	/**
+	 * Returns the last cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
+	 */
+	public CPInstanceOptionValueRel fetchByCDORI_CII_Last(
+		long CPDefinitionOptionRelId, long CPInstanceId,
+		com.liferay.portal.kernel.util.OrderByComparator
+			<CPInstanceOptionValueRel> orderByComparator);
+
+	/**
+	 * Returns the cp instance option value rels before and after the current cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPInstanceOptionValueRelId the primary key of the current cp instance option value rel
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a cp instance option value rel with the primary key could not be found
+	 */
+	public CPInstanceOptionValueRel[] findByCDORI_CII_PrevAndNext(
+			long CPInstanceOptionValueRelId, long CPDefinitionOptionRelId,
+			long CPInstanceId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CPInstanceOptionValueRel> orderByComparator)
+		throws NoSuchCPInstanceOptionValueRelException;
+
+	/**
+	 * Removes all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63; from the database.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 */
+	public void removeByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId);
+
+	/**
+	 * Returns the number of cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @return the number of matching cp instance option value rels
+	 */
+	public int countByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId);
+
+	/**
 	 * Returns the cp instance option value rel where CPDefinitionOptionRelId = &#63; and CPDefinitionOptionValueRelId = &#63; and CPInstanceId = &#63; or throws a <code>NoSuchCPInstanceOptionValueRelException</code> if it could not be found.
 	 *
 	 * @param CPDefinitionOptionRelId the cp definition option rel ID
@@ -550,7 +708,7 @@ public interface CPInstanceOptionValueRelPersistence
 	 * @return the matching cp instance option value rel
 	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
 	 */
-	public CPInstanceOptionValueRel findByC_C_C(
+	public CPInstanceOptionValueRel findByCDORI_CDOVRI_CII(
 			long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 			long CPInstanceId)
 		throws NoSuchCPInstanceOptionValueRelException;
@@ -563,7 +721,7 @@ public interface CPInstanceOptionValueRelPersistence
 	 * @param CPInstanceId the cp instance ID
 	 * @return the matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
 	 */
-	public CPInstanceOptionValueRel fetchByC_C_C(
+	public CPInstanceOptionValueRel fetchByCDORI_CDOVRI_CII(
 		long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 		long CPInstanceId);
 
@@ -576,7 +734,7 @@ public interface CPInstanceOptionValueRelPersistence
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
 	 */
-	public CPInstanceOptionValueRel fetchByC_C_C(
+	public CPInstanceOptionValueRel fetchByCDORI_CDOVRI_CII(
 		long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 		long CPInstanceId, boolean useFinderCache);
 
@@ -588,7 +746,7 @@ public interface CPInstanceOptionValueRelPersistence
 	 * @param CPInstanceId the cp instance ID
 	 * @return the cp instance option value rel that was removed
 	 */
-	public CPInstanceOptionValueRel removeByC_C_C(
+	public CPInstanceOptionValueRel removeByCDORI_CDOVRI_CII(
 			long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 			long CPInstanceId)
 		throws NoSuchCPInstanceOptionValueRelException;
@@ -601,7 +759,7 @@ public interface CPInstanceOptionValueRelPersistence
 	 * @param CPInstanceId the cp instance ID
 	 * @return the number of matching cp instance option value rels
 	 */
-	public int countByC_C_C(
+	public int countByCDORI_CDOVRI_CII(
 		long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 		long CPInstanceId);
 

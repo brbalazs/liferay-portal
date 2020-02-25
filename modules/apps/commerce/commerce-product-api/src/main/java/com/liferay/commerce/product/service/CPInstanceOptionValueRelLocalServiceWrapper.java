@@ -51,6 +51,20 @@ public class CPInstanceOptionValueRelLocalServiceWrapper
 			addCPInstanceOptionValueRel(cpInstanceOptionValueRel);
 	}
 
+	@Override
+	public com.liferay.commerce.product.model.CPInstanceOptionValueRel
+			addCPInstanceOptionValueRel(
+				long groupId, long companyId, long userId,
+				long cpDefinitionOptionRelId, long cpDefinitionOptionValueRelId,
+				long cpInstanceId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpInstanceOptionValueRelLocalService.
+			addCPInstanceOptionValueRel(
+				groupId, companyId, userId, cpDefinitionOptionRelId,
+				cpDefinitionOptionValueRelId, cpInstanceId);
+	}
+
 	/**
 	 * Creates a new cp instance option value rel with the primary key. Does not add the cp instance option value rel to the database.
 	 *
@@ -233,6 +247,24 @@ public class CPInstanceOptionValueRelLocalServiceWrapper
 			getActionableDynamicQuery();
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
+			getCPDefinitionCPInstanceOptionValueRels(long cpDefinitionId) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			getCPDefinitionCPInstanceOptionValueRels(cpDefinitionId);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
+			getCPInstanceCPInstanceOptionValueRels(long cpInstanceId) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			getCPInstanceCPInstanceOptionValueRels(cpInstanceId);
+	}
+
 	/**
 	 * Returns the cp instance option value rel with the primary key.
 	 *
@@ -379,6 +411,44 @@ public class CPInstanceOptionValueRelLocalServiceWrapper
 			primaryKeyObj);
 	}
 
+	@Override
+	public boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
+		return _cpInstanceOptionValueRelLocalService.
+			hasCPInstanceOptionValueRel(cpInstanceId);
+	}
+
+	@Override
+	public boolean hasCPInstanceOptionValueRels(
+		long cpDefinitionOptionRelId, long cpInstanceId) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			hasCPInstanceOptionValueRels(cpDefinitionOptionRelId, cpInstanceId);
+	}
+
+	@Override
+	public boolean matchesCPInstanceOptionValueRels(
+		long cpInstanceId,
+		java.util.List
+			<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
+				cpInstanceOptionValueRels) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			matchesCPInstanceOptionValueRels(
+				cpInstanceId, cpInstanceOptionValueRels);
+	}
+
+	@Override
+	public boolean matchesCPInstanceOptionValueRels(
+		long cpInstanceId,
+		java.util.Map<Long, java.util.List<Long>>
+			cpDefinitionOptionRelIdsCPDefinitionOptionValueRelIds) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			matchesCPInstanceOptionValueRels(
+				cpInstanceId,
+				cpDefinitionOptionRelIdsCPDefinitionOptionValueRelIds);
+	}
+
 	/**
 	 * Updates the cp instance option value rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -393,6 +463,18 @@ public class CPInstanceOptionValueRelLocalServiceWrapper
 
 		return _cpInstanceOptionValueRelLocalService.
 			updateCPInstanceOptionValueRel(cpInstanceOptionValueRel);
+	}
+
+	@Override
+	public void updateCPInstanceOptionValueRels(
+			long groupId, long companyId, long userId, long cpInstanceId,
+			java.util.Map<Long, java.util.List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_cpInstanceOptionValueRelLocalService.updateCPInstanceOptionValueRels(
+			groupId, companyId, userId, cpInstanceId,
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
 	}
 
 	@Override

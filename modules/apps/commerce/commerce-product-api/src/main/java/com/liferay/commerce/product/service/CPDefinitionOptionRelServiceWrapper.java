@@ -98,6 +98,17 @@ public class CPDefinitionOptionRelServiceWrapper
 	}
 
 	@Override
+	public java.util.Map<String, java.util.List<String>>
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				long cpInstanceId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionRelService.
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				cpInstanceId);
+	}
+
+	@Override
 	public java.util.List
 		<com.liferay.commerce.product.model.CPDefinitionOptionRel>
 				getCPDefinitionOptionRels(

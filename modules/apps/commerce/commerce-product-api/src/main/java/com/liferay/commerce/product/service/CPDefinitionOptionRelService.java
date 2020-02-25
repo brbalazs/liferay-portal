@@ -96,6 +96,12 @@ public interface CPDefinitionOptionRelService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Map<String, List<String>>
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				long cpInstanceId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPDefinitionOptionRel> getCPDefinitionOptionRels(
 			long cpDefinitionId, boolean skuContributor)
 		throws PortalException;

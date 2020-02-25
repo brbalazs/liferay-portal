@@ -322,21 +322,6 @@ public interface CPInstanceModel
 	public void setPurchasable(boolean purchasable);
 
 	/**
-	 * Returns the json of this cp instance.
-	 *
-	 * @return the json of this cp instance
-	 */
-	@AutoEscape
-	public String getJson();
-
-	/**
-	 * Sets the json of this cp instance.
-	 *
-	 * @param json the json of this cp instance
-	 */
-	public void setJson(String json);
-
-	/**
 	 * Returns the width of this cp instance.
 	 *
 	 * @return the width of this cp instance

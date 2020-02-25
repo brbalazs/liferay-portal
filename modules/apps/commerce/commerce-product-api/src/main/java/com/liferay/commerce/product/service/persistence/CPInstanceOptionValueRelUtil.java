@@ -737,6 +737,207 @@ public class CPInstanceOptionValueRelUtil {
 	}
 
 	/**
+	 * Returns all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @return the matching cp instance option value rels
+	 */
+	public static List<CPInstanceOptionValueRel> findByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId) {
+
+		return getPersistence().findByCDORI_CII(
+			CPDefinitionOptionRelId, CPInstanceId);
+	}
+
+	/**
+	 * Returns a range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @return the range of matching cp instance option value rels
+	 */
+	public static List<CPInstanceOptionValueRel> findByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId, int start, int end) {
+
+		return getPersistence().findByCDORI_CII(
+			CPDefinitionOptionRelId, CPInstanceId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching cp instance option value rels
+	 */
+	public static List<CPInstanceOptionValueRel> findByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId, int start, int end,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator) {
+
+		return getPersistence().findByCDORI_CII(
+			CPDefinitionOptionRelId, CPInstanceId, start, end,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching cp instance option value rels
+	 */
+	public static List<CPInstanceOptionValueRel> findByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId, int start, int end,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByCDORI_CII(
+			CPDefinitionOptionRelId, CPInstanceId, start, end,
+			orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
+	 */
+	public static CPInstanceOptionValueRel findByCDORI_CII_First(
+			long CPDefinitionOptionRelId, long CPInstanceId,
+			OrderByComparator<CPInstanceOptionValueRel> orderByComparator)
+		throws com.liferay.commerce.product.exception.
+			NoSuchCPInstanceOptionValueRelException {
+
+		return getPersistence().findByCDORI_CII_First(
+			CPDefinitionOptionRelId, CPInstanceId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
+	 */
+	public static CPInstanceOptionValueRel fetchByCDORI_CII_First(
+		long CPDefinitionOptionRelId, long CPInstanceId,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator) {
+
+		return getPersistence().fetchByCDORI_CII_First(
+			CPDefinitionOptionRelId, CPInstanceId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
+	 */
+	public static CPInstanceOptionValueRel findByCDORI_CII_Last(
+			long CPDefinitionOptionRelId, long CPInstanceId,
+			OrderByComparator<CPInstanceOptionValueRel> orderByComparator)
+		throws com.liferay.commerce.product.exception.
+			NoSuchCPInstanceOptionValueRelException {
+
+		return getPersistence().findByCDORI_CII_Last(
+			CPDefinitionOptionRelId, CPInstanceId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
+	 */
+	public static CPInstanceOptionValueRel fetchByCDORI_CII_Last(
+		long CPDefinitionOptionRelId, long CPInstanceId,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator) {
+
+		return getPersistence().fetchByCDORI_CII_Last(
+			CPDefinitionOptionRelId, CPInstanceId, orderByComparator);
+	}
+
+	/**
+	 * Returns the cp instance option value rels before and after the current cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPInstanceOptionValueRelId the primary key of the current cp instance option value rel
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a cp instance option value rel with the primary key could not be found
+	 */
+	public static CPInstanceOptionValueRel[] findByCDORI_CII_PrevAndNext(
+			long CPInstanceOptionValueRelId, long CPDefinitionOptionRelId,
+			long CPInstanceId,
+			OrderByComparator<CPInstanceOptionValueRel> orderByComparator)
+		throws com.liferay.commerce.product.exception.
+			NoSuchCPInstanceOptionValueRelException {
+
+		return getPersistence().findByCDORI_CII_PrevAndNext(
+			CPInstanceOptionValueRelId, CPDefinitionOptionRelId, CPInstanceId,
+			orderByComparator);
+	}
+
+	/**
+	 * Removes all the cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63; from the database.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 */
+	public static void removeByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId) {
+
+		getPersistence().removeByCDORI_CII(
+			CPDefinitionOptionRelId, CPInstanceId);
+	}
+
+	/**
+	 * Returns the number of cp instance option value rels where CPDefinitionOptionRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @return the number of matching cp instance option value rels
+	 */
+	public static int countByCDORI_CII(
+		long CPDefinitionOptionRelId, long CPInstanceId) {
+
+		return getPersistence().countByCDORI_CII(
+			CPDefinitionOptionRelId, CPInstanceId);
+	}
+
+	/**
 	 * Returns the cp instance option value rel where CPDefinitionOptionRelId = &#63; and CPDefinitionOptionValueRelId = &#63; and CPInstanceId = &#63; or throws a <code>NoSuchCPInstanceOptionValueRelException</code> if it could not be found.
 	 *
 	 * @param CPDefinitionOptionRelId the cp definition option rel ID
@@ -745,13 +946,13 @@ public class CPInstanceOptionValueRelUtil {
 	 * @return the matching cp instance option value rel
 	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
 	 */
-	public static CPInstanceOptionValueRel findByC_C_C(
+	public static CPInstanceOptionValueRel findByCDORI_CDOVRI_CII(
 			long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 			long CPInstanceId)
 		throws com.liferay.commerce.product.exception.
 			NoSuchCPInstanceOptionValueRelException {
 
-		return getPersistence().findByC_C_C(
+		return getPersistence().findByCDORI_CDOVRI_CII(
 			CPDefinitionOptionRelId, CPDefinitionOptionValueRelId,
 			CPInstanceId);
 	}
@@ -764,11 +965,11 @@ public class CPInstanceOptionValueRelUtil {
 	 * @param CPInstanceId the cp instance ID
 	 * @return the matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
 	 */
-	public static CPInstanceOptionValueRel fetchByC_C_C(
+	public static CPInstanceOptionValueRel fetchByCDORI_CDOVRI_CII(
 		long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 		long CPInstanceId) {
 
-		return getPersistence().fetchByC_C_C(
+		return getPersistence().fetchByCDORI_CDOVRI_CII(
 			CPDefinitionOptionRelId, CPDefinitionOptionValueRelId,
 			CPInstanceId);
 	}
@@ -782,11 +983,11 @@ public class CPInstanceOptionValueRelUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
 	 */
-	public static CPInstanceOptionValueRel fetchByC_C_C(
+	public static CPInstanceOptionValueRel fetchByCDORI_CDOVRI_CII(
 		long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 		long CPInstanceId, boolean useFinderCache) {
 
-		return getPersistence().fetchByC_C_C(
+		return getPersistence().fetchByCDORI_CDOVRI_CII(
 			CPDefinitionOptionRelId, CPDefinitionOptionValueRelId, CPInstanceId,
 			useFinderCache);
 	}
@@ -799,13 +1000,13 @@ public class CPInstanceOptionValueRelUtil {
 	 * @param CPInstanceId the cp instance ID
 	 * @return the cp instance option value rel that was removed
 	 */
-	public static CPInstanceOptionValueRel removeByC_C_C(
+	public static CPInstanceOptionValueRel removeByCDORI_CDOVRI_CII(
 			long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 			long CPInstanceId)
 		throws com.liferay.commerce.product.exception.
 			NoSuchCPInstanceOptionValueRelException {
 
-		return getPersistence().removeByC_C_C(
+		return getPersistence().removeByCDORI_CDOVRI_CII(
 			CPDefinitionOptionRelId, CPDefinitionOptionValueRelId,
 			CPInstanceId);
 	}
@@ -818,11 +1019,11 @@ public class CPInstanceOptionValueRelUtil {
 	 * @param CPInstanceId the cp instance ID
 	 * @return the number of matching cp instance option value rels
 	 */
-	public static int countByC_C_C(
+	public static int countByCDORI_CDOVRI_CII(
 		long CPDefinitionOptionRelId, long CPDefinitionOptionValueRelId,
 		long CPInstanceId) {
 
-		return getPersistence().countByC_C_C(
+		return getPersistence().countByCDORI_CDOVRI_CII(
 			CPDefinitionOptionRelId, CPDefinitionOptionValueRelId,
 			CPInstanceId);
 	}

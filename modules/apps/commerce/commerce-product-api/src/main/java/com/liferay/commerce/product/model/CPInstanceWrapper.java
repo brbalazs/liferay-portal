@@ -72,7 +72,6 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 		attributes.put("gtin", getGtin());
 		attributes.put("manufacturerPartNumber", getManufacturerPartNumber());
 		attributes.put("purchasable", isPurchasable());
-		attributes.put("json", getJson());
 		attributes.put("width", getWidth());
 		attributes.put("height", getHeight());
 		attributes.put("depth", getDepth());
@@ -192,12 +191,6 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 
 		if (purchasable != null) {
 			setPurchasable(purchasable);
-		}
-
-		String json = (String)attributes.get("json");
-
-		if (json != null) {
-			setJson(json);
 		}
 
 		Double width = (Double)attributes.get("width");
@@ -496,16 +489,6 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	@Override
 	public double getHeight() {
 		return _cpInstance.getHeight();
-	}
-
-	/**
-	 * Returns the json of this cp instance.
-	 *
-	 * @return the json of this cp instance
-	 */
-	@Override
-	public String getJson() {
-		return _cpInstance.getJson();
 	}
 
 	/**
@@ -1075,16 +1058,6 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	@Override
 	public void setHeight(double height) {
 		_cpInstance.setHeight(height);
-	}
-
-	/**
-	 * Sets the json of this cp instance.
-	 *
-	 * @param json the json of this cp instance
-	 */
-	@Override
-	public void setJson(String json) {
-		_cpInstance.setJson(json);
 	}
 
 	/**

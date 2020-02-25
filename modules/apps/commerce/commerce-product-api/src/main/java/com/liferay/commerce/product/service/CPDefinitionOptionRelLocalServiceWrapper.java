@@ -328,6 +328,28 @@ public class CPDefinitionOptionRelLocalServiceWrapper
 			getCPDefinitionOptionRelByUuidAndGroupId(uuid, groupId);
 	}
 
+	@Override
+	public java.util.Map<Long, java.util.List<Long>>
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				long cpDefinitionId, String json)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionRelLocalService.
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				cpDefinitionId, json);
+	}
+
+	@Override
+	public java.util.Map<String, java.util.List<String>>
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				long cpInstanceId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionRelLocalService.
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				cpInstanceId);
+	}
+
 	/**
 	 * Returns a range of all the cp definition option rels.
 	 *

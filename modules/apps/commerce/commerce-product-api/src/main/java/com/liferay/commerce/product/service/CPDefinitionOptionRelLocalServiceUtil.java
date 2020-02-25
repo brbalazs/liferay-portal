@@ -305,6 +305,26 @@ public class CPDefinitionOptionRelLocalServiceUtil {
 			uuid, groupId);
 	}
 
+	public static java.util.Map<Long, java.util.List<Long>>
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				long cpDefinitionId, String json)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				cpDefinitionId, json);
+	}
+
+	public static java.util.Map<String, java.util.List<String>>
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				long cpInstanceId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				cpInstanceId);
+	}
+
 	/**
 	 * Returns a range of all the cp definition option rels.
 	 *

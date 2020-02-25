@@ -315,6 +315,48 @@ public class CPDefinitionOptionRelServiceHttp {
 		}
 	}
 
+	public static java.util.Map<String, java.util.List<String>>
+			getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+				HttpPrincipal httpPrincipal, long cpInstanceId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CPDefinitionOptionRelServiceUtil.class,
+				"getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys",
+				_getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeysParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, cpInstanceId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.Map<String, java.util.List<String>>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static java.util.List
 		<com.liferay.commerce.product.model.CPDefinitionOptionRel>
 				getCPDefinitionOptionRels(
@@ -326,7 +368,7 @@ public class CPDefinitionOptionRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CPDefinitionOptionRelServiceUtil.class,
 				"getCPDefinitionOptionRels",
-				_getCPDefinitionOptionRelsParameterTypes6);
+				_getCPDefinitionOptionRelsParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpDefinitionId, skuContributor);
@@ -372,7 +414,7 @@ public class CPDefinitionOptionRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CPDefinitionOptionRelServiceUtil.class,
 				"getCPDefinitionOptionRels",
-				_getCPDefinitionOptionRelsParameterTypes7);
+				_getCPDefinitionOptionRelsParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpDefinitionId, start, end);
@@ -421,7 +463,7 @@ public class CPDefinitionOptionRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CPDefinitionOptionRelServiceUtil.class,
 				"getCPDefinitionOptionRels",
-				_getCPDefinitionOptionRelsParameterTypes8);
+				_getCPDefinitionOptionRelsParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpDefinitionId, start, end, orderByComparator);
@@ -464,7 +506,7 @@ public class CPDefinitionOptionRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CPDefinitionOptionRelServiceUtil.class,
 				"getCPDefinitionOptionRelsCount",
-				_getCPDefinitionOptionRelsCountParameterTypes9);
+				_getCPDefinitionOptionRelsCountParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpDefinitionId);
@@ -506,7 +548,7 @@ public class CPDefinitionOptionRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CPDefinitionOptionRelServiceUtil.class,
 				"getCPDefinitionOptionRelsCount",
-				_getCPDefinitionOptionRelsCountParameterTypes10);
+				_getCPDefinitionOptionRelsCountParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpDefinitionId, skuContributor);
@@ -551,7 +593,7 @@ public class CPDefinitionOptionRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CPDefinitionOptionRelServiceUtil.class,
 				"searchCPDefinitionOptionRels",
-				_searchCPDefinitionOptionRelsParameterTypes11);
+				_searchCPDefinitionOptionRelsParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, groupId, cpDefinitionId, keywords, start,
@@ -602,7 +644,7 @@ public class CPDefinitionOptionRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CPDefinitionOptionRelServiceUtil.class,
 				"updateCPDefinitionOptionRel",
-				_updateCPDefinitionOptionRelParameterTypes12);
+				_updateCPDefinitionOptionRelParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpDefinitionOptionRelId, cpOptionId, nameMap,
@@ -661,30 +703,33 @@ public class CPDefinitionOptionRelServiceHttp {
 		new Class[] {long.class, long.class};
 	private static final Class<?>[] _getCPDefinitionOptionRelParameterTypes5 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCPDefinitionOptionRelsParameterTypes6 =
-		new Class[] {long.class, boolean.class};
+	private static final Class<?>[]
+		_getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeysParameterTypes6 =
+			new Class[] {long.class};
 	private static final Class<?>[] _getCPDefinitionOptionRelsParameterTypes7 =
-		new Class[] {long.class, int.class, int.class};
+		new Class[] {long.class, boolean.class};
 	private static final Class<?>[] _getCPDefinitionOptionRelsParameterTypes8 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[] _getCPDefinitionOptionRelsParameterTypes9 =
 		new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCPDefinitionOptionRelsCountParameterTypes9 = new Class[] {
+		_getCPDefinitionOptionRelsCountParameterTypes10 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCPDefinitionOptionRelsCountParameterTypes10 = new Class[] {
+		_getCPDefinitionOptionRelsCountParameterTypes11 = new Class[] {
 			long.class, boolean.class
 		};
 	private static final Class<?>[]
-		_searchCPDefinitionOptionRelsParameterTypes11 = new Class[] {
+		_searchCPDefinitionOptionRelsParameterTypes12 = new Class[] {
 			long.class, long.class, long.class, String.class, int.class,
 			int.class, com.liferay.portal.kernel.search.Sort.class
 		};
 	private static final Class<?>[]
-		_updateCPDefinitionOptionRelParameterTypes12 = new Class[] {
+		_updateCPDefinitionOptionRelParameterTypes13 = new Class[] {
 			long.class, long.class, java.util.Map.class, java.util.Map.class,
 			String.class, double.class, boolean.class, boolean.class,
 			boolean.class,

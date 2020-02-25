@@ -63,7 +63,7 @@ public class CPInstanceCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(75);
+		StringBundler sb = new StringBundler(73);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -95,8 +95,6 @@ public class CPInstanceCacheModel
 		sb.append(manufacturerPartNumber);
 		sb.append(", purchasable=");
 		sb.append(purchasable);
-		sb.append(", json=");
-		sb.append(json);
 		sb.append(", width=");
 		sb.append(width);
 		sb.append(", height=");
@@ -219,14 +217,6 @@ public class CPInstanceCacheModel
 		}
 
 		cpInstanceImpl.setPurchasable(purchasable);
-
-		if (json == null) {
-			cpInstanceImpl.setJson("");
-		}
-		else {
-			cpInstanceImpl.setJson(json);
-		}
-
 		cpInstanceImpl.setWidth(width);
 		cpInstanceImpl.setHeight(height);
 		cpInstanceImpl.setDepth(depth);
@@ -324,7 +314,6 @@ public class CPInstanceCacheModel
 		manufacturerPartNumber = objectInput.readUTF();
 
 		purchasable = objectInput.readBoolean();
-		json = objectInput.readUTF();
 
 		width = objectInput.readDouble();
 
@@ -425,13 +414,6 @@ public class CPInstanceCacheModel
 
 		objectOutput.writeBoolean(purchasable);
 
-		if (json == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(json);
-		}
-
 		objectOutput.writeDouble(width);
 
 		objectOutput.writeDouble(height);
@@ -499,7 +481,6 @@ public class CPInstanceCacheModel
 	public String gtin;
 	public String manufacturerPartNumber;
 	public boolean purchasable;
-	public String json;
 	public double width;
 	public double height;
 	public double depth;
