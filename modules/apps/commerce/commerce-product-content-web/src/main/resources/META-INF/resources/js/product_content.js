@@ -26,6 +26,7 @@ AUI.add(
 			ATTRS: {
 				cpDefinitionId: {},
 				fullImageSelector: {},
+				productContentAuthToken: {},
 				productContentSelector: {},
 				thumbsContainerSelector: {},
 				viewAttachmentURL: {}
@@ -60,8 +61,8 @@ AUI.add(
 					eventHandles.push(
 						Liferay.on(
 							'ProductOptions' +
-								cpDefinitionId +
-								STR_DDM_FORM_EVENT,
+							cpDefinitionId +
+							STR_DDM_FORM_EVENT,
 							instance._ddmFormRender,
 							instance
 						)
@@ -288,12 +289,15 @@ AUI.add(
 
 					var cpDefinitionId = instance.get('cpDefinitionId');
 
+					var productContentAuthToken = instance.get('productContentAuthToken');
+
 					var portletURL = Liferay.PortletURL.createActionURL();
 
 					portletURL.setPortletId(CP_CONTENT_WEB_PORTLET_KEY);
 					portletURL.setName('checkCPInstance');
 					portletURL.setParameter('cpDefinitionId', cpDefinitionId);
 					portletURL.setParameter('p_auth', Liferay.authToken);
+					portletURL.setParameter('p_p_auth', productContentAuthToken);
 
 					var ddmFormValues = JSON.stringify(
 						instance.getFormValues()
@@ -382,6 +386,9 @@ AUI.add(
 					var instance = this;
 
 					return A.one(instance.get('productContentSelector'));
+				},
+				getProductContentAuthToken() {
+					return this.get('productContentAuthToken');
 				},
 				initializer(_config) {
 					var instance = this;

@@ -14,6 +14,10 @@
  */
 --%>
 
+<%
+	String token = AuthTokenUtil.getToken(request, plid, CPPortletKeys.CP_CONTENT_WEB);
+%>
+
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as eventsDefinitions">
 	AUI().use(
 		'liferay-portlet-url', function(A) {
@@ -33,6 +37,7 @@
 					portletURL.setParameter('cpDefinitionId', cpDefinitionId);
 					portletURL.setParameter('groupId', themeDisplay.getScopeGroupId());
 					portletURL.setParameter('p_auth', Liferay.authToken);
+					portletURL.setParameter('p_p_auth', '<%= token %>');
 
 					var optionFormData = new FormData();
 					var formValues = JSON.stringify(getFormValues())

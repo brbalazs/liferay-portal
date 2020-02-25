@@ -29,6 +29,8 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
 long cpInstanceId = 0;
 
+String productContentAuthToken = AuthTokenUtil.getToken(request, plid, CPPortletKeys.CP_CONTENT_WEB);
+
 if (cpSku != null) {
 	cpInstanceId = cpSku.getCPInstanceId();
 }
@@ -285,6 +287,7 @@ String sampleURL = virtualCPTypeHelper.getSampleURL(cpDefinitionId, cpInstanceId
 		cpDefinitionId: <%= cpDefinitionId %>,
 		fullImageSelector: '#<portlet:namespace />full-image',
 		namespace: '<portlet:namespace />',
+		productContentAuthToken: '<%= productContentAuthToken %>',
 		productContentSelector:
 			'#<portlet:namespace /><%= cpDefinitionId %>ProductContent',
 		thumbsContainerSelector: '#<portlet:namespace />thumbs-container',
