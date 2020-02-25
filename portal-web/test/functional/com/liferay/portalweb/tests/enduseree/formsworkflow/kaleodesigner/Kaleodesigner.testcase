@@ -106,6 +106,8 @@ definition {
 
 	@priority = "3"
 	test AddJoinNodeEditNameAndDesciptionAndDeleteViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#AddJoinNodeEditNameAndDesciptionAndDeleteViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -130,6 +132,8 @@ definition {
 
 	@priority = "3"
 	test AddJoinXORNodeEditNameAndDesciptionAndDeleteViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#AddJoinXORNodeEditNameAndDesciptionAndDeleteViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -322,6 +326,8 @@ definition {
 
 	@priority = "4"
 	test AddStartNodeEditNameAndDesciptionAndDeleteViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#AddStartNodeEditNameAndDesciptionAndDeleteViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -453,6 +459,8 @@ definition {
 	@description = "This is a use case for LPS-37209."
 	@priority = "4"
 	test ConfigureTaskTimersViaSourceTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#ConfigureTaskTimersViaSourceTab";
+
 		var fileContent = TestCase.getFileContent(fileName = "workflow_definition_task_timers.xml");
 
 		ProductMenu.gotoPortlet(
