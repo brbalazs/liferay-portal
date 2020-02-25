@@ -45,23 +45,23 @@ boolean showButtons = GroupPermissionUtil.contains(permissionChecker, layoutsAdm
 <%
 String companyLogoURL = themeDisplay.getPathImage() + "/company_logo?img_id=" + company.getLogoId() + "&t=" + WebServerServletTokenUtil.getToken(company.getLogoId());
 
-boolean isDefaultLogo = false;
+boolean defaultLogo = false;
 
 if (selLayoutSet.getLogoId() == 0) {
-	isDefaultLogo = true;
+	defaultLogo = true;
 }
 else {
 	LayoutSet guestGroupLayoutSet = layoutsAdminDisplayContext.getGuestGroupLayoutSet(company.getCompanyId());
 
 	if (selLayoutSet.getLogoId() == guestGroupLayoutSet.getLogoId()) {
-		isDefaultLogo = true;
+		defaultLogo = true;
 	}
 }
 %>
 
 <liferay-ui:logo-selector
 	currentLogoURL='<%= (selLayoutSet.getLogoId() == 0) ? companyLogoURL : themeDisplay.getPathImage() + "/layout_set_logo?img_id=" + selLayoutSet.getLogoId() + "&t=" + WebServerServletTokenUtil.getToken(selLayoutSet.getLogoId()) %>'
-	defaultLogo="<%= isDefaultLogo %>"
+	defaultLogo="<%= defaultLogo %>"
 	defaultLogoURL="<%= companyLogoURL %>"
 	logoDisplaySelector=".layoutset-logo"
 	showButtons="<%= showButtons %>"
