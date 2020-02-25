@@ -99,8 +99,7 @@ public class CommerceCatalogDataSetActionProvider
 	}
 
 	private PortletURL _getCatalogDeleteURL(
-			long catalogId, HttpServletRequest httpServletRequest)
-		throws PortalException {
+		long catalogId, HttpServletRequest httpServletRequest) {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
 			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
@@ -109,24 +108,19 @@ public class CommerceCatalogDataSetActionProvider
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editCommerceCatalog");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter("commerceCatalogId", String.valueOf(catalogId));
 
 		return portletURL;
 	}
 
 	private PortletURL _getCatalogEditURL(
-			long catalogId, HttpServletRequest httpServletRequest)
-		throws PortalException {
+		long catalogId, HttpServletRequest httpServletRequest) {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
 			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("mvcRenderCommandName", "editCommerceCatalog");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter("commerceCatalogId", String.valueOf(catalogId));
 
 		return portletURL;

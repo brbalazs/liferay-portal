@@ -37,9 +37,11 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Constants;
@@ -125,6 +127,16 @@ public class CommerceCatalogDisplayContext {
 		return _commerceCatalogService.fetchCommerceCatalog(commerceCatalogId);
 	}
 
+	public long getCommerceCatalogId() throws PortalException {
+		CommerceCatalog commerceCatalog = getCommerceCatalog();
+
+		if (commerceCatalog == null) {
+			return 0;
+		}
+
+		return commerceCatalog.getCommerceCatalogId();
+	}
+
 	public List<CommerceCurrency> getCommerceCurrencies()
 		throws PortalException {
 
@@ -154,7 +166,7 @@ public class CommerceCatalogDisplayContext {
 		return Collections.emptyList();
 	}
 
-	public String getEditCommerceCatalogActionURL() throws PortalException {
+	public String getEditCommerceCatalogActionURL() throws Exception {
 		CommerceCatalog commerceCatalog = getCommerceCatalog();
 
 		if (commerceCatalog == null) {
@@ -171,13 +183,12 @@ public class CommerceCatalogDisplayContext {
 		portletURL.setParameter(
 			"commerceCatalogId",
 			String.valueOf(commerceCatalog.getCommerceCatalogId()));
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 		return portletURL.toString();
 	}
 
-	public List<HeaderActionModel> getHeaderActionModels()
-		throws PortalException {
-
+	public List<HeaderActionModel> getHeaderActionModels() throws Exception {
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
 		RenderResponse renderResponse = cpRequestHelper.getRenderResponse();
@@ -189,10 +200,12 @@ public class CommerceCatalogDisplayContext {
 
 		headerActionModels.add(cancelHeaderActionModel);
 
-		headerActionModels.add(
-			new HeaderActionModel(
-				"btn-primary", renderResponse.getNamespace() + "fm",
-				getEditCommerceCatalogActionURL(), null, "save"));
+		if (hasPermission(getCommerceCatalogId(), ActionKeys.UPDATE)) {
+			headerActionModels.add(
+				new HeaderActionModel(
+					"btn-primary", renderResponse.getNamespace() + "fm",
+					getEditCommerceCatalogActionURL(), null, "save"));
+		}
 
 		return headerActionModels;
 	}

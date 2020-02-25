@@ -28,7 +28,7 @@ long fileEntryId = BeanParamUtil.getLong(fileEntry, request, "fileEntryId");
 boolean isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalog.getCommerceCatalogId(), ActionKeys.UPDATE);
 %>
 
-<aui:form cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceCatalog == null) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= backURL %>" />
 	<aui:input name="commerceCatalogId" type="hidden" value="<%= (commerceCatalog == null) ? 0 : commerceCatalog.getCommerceCatalogId() %>" />

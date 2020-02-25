@@ -83,10 +83,6 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 					</div>
 				</div>
 			</aui:fieldset>
-
-			<aui:button-row>
-				<aui:button cssClass="btn-lg" type="submit" />
-			</aui:button-row>
 		</aui:form>
 	</div>
 </commerce-ui:modal-content>
