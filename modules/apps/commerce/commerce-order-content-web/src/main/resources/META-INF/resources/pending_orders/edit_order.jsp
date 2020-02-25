@@ -250,7 +250,7 @@ List<CommerceAddress> billingAddresses = commerceOrderContentDisplayContext.getB
 		markupView="lexicon"
 		message="<%= StringPool.BLANK %>"
 		showWhenSingleIcon="<%= true %>"
-		triggerCssClass="btn btn-lg btn-monospaced btn-primary thumb-menu"
+		triggerCssClass="btn btn-lg btn-monospaced btn-primary thumb-menu position-fixed"
 	>
 		<liferay-ui:icon
 			message="print"
