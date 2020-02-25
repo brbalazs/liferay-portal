@@ -436,6 +436,17 @@ public class CommerceCatalogLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.product.model.CommerceCatalog
+			updateCommerceCatalogExternalReferenceCode(
+				long commerceCatalogId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceCatalogLocalService.
+			updateCommerceCatalogExternalReferenceCode(
+				commerceCatalogId, externalReferenceCode);
+	}
+
+	@Override
 	public CommerceCatalogLocalService getWrappedService() {
 		return _commerceCatalogLocalService;
 	}

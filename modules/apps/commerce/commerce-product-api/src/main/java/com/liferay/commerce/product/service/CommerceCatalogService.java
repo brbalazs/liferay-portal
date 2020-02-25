@@ -112,4 +112,8 @@ public interface CommerceCatalogService extends BaseService {
 			String catalogDefaultLanguageId)
 		throws PortalException;
 
+	public CommerceCatalog updateCommerceCatalogExternalReferenceCode(
+			long commerceCatalogId, String externalReferenceCode)
+		throws PortalException;
+
 }

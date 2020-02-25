@@ -311,4 +311,9 @@ public interface CommerceCatalogLocalService
 			String catalogDefaultLanguageId)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceCatalog updateCommerceCatalogExternalReferenceCode(
+			long commerceCatalogId, String externalReferenceCode)
+		throws PortalException;
+
 }

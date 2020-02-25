@@ -401,6 +401,15 @@ public class CommerceCatalogLocalServiceUtil {
 			catalogDefaultLanguageId);
 	}
 
+	public static com.liferay.commerce.product.model.CommerceCatalog
+			updateCommerceCatalogExternalReferenceCode(
+				long commerceCatalogId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceCatalogExternalReferenceCode(
+			commerceCatalogId, externalReferenceCode);
+	}
+
 	public static CommerceCatalogLocalService getService() {
 		return _serviceTracker.getService();
 	}
