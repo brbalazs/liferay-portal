@@ -814,6 +814,14 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 				regexp="PermSize"
 				replace="MetaspaceSize"
 			/>
+
+			<propertyregex
+				input="${poshi.java.jdk.opts}"
+				override="true"
+				property="poshi.java.jdk.opts"
+				regexp="&quot;"
+				replace=""
+			/>
 		</sequential>
 	</macrodef>
 
