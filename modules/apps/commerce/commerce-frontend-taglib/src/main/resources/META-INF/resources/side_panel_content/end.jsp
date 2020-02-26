@@ -34,7 +34,7 @@
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
 	document
-		.querySelectorAll('.side-panel-iframe-close')
+		.querySelectorAll('.side-panel-iframe-close, .btn-cancel')
 		.forEach(function(trigger) {
 			trigger.addEventListener('click', function(e) {
 				e.preventDefault();

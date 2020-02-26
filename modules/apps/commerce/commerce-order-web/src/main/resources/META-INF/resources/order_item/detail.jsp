@@ -31,7 +31,7 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 <portlet:actionURL name="editCommerceOrderItem" var="editCommerceOrderItemActionURL" />
 
 <commerce-ui:panel
-	title='<%= LanguageUtil.get(locale, "detail") %>'
+	title='<%= LanguageUtil.get(request, "detail") %>'
 >
 	<aui:form action="<%= editCommerceOrderItemActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />

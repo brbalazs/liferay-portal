@@ -32,7 +32,9 @@ long cpOptionCategoryId = BeanParamUtil.getLong(cpDefinitionSpecificationOptionV
 <commerce-ui:side-panel-content
 	title="<%= cpSpecificationOption.getTitle(locale) %>"
 >
-	<commerce-ui:panel title='<%= LanguageUtil.get(request, "detail") %>'>
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "detail") %>'
+	>
 		<aui:form action="<%= editProductDefinitionSpecificationOptionValueActionURL %>" method="post" name="fm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
 			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />

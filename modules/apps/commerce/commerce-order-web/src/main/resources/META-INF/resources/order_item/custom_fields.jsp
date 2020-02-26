@@ -26,7 +26,7 @@ CommerceOrderItem commerceOrderItem = commerceOrderEditDisplayContext.getCommerc
 <liferay-portlet:actionURL name="editCommerceOrderItem" var="editCommerceOrderItemActionURL" />
 
 <commerce-ui:panel
-	title='<%= LanguageUtil.get(locale, "custom-fields") %>'
+	title='<%= LanguageUtil.get(request, "custom-fields") %>'
 >
 	<aui:form action="<%= editCommerceOrderItemActionURL %>" method="post" name="fm">
 		<aui:fieldset>

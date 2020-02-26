@@ -47,153 +47,149 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 	<liferay-ui:error exception="<%= CPInstanceJsonException.class %>" message="there-is-already-one-sku-with-the-selected-options" />
 	<liferay-ui:error exception="<%= CPInstanceSkuException.class %>" message="please-enter-a-valid-sku" />
 
-	<div class="pt-4 row">
-		<div class="col-12">
-			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "details") %>'
-			>
-				<div class="row">
-					<div class="col-6">
-						<aui:input name="sku" />
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "details") %>'
+	>
+		<div class="row">
+			<div class="col-6">
+				<aui:input name="sku" />
 
-						<c:if test="<%= !cpDefinition.isIgnoreSKUCombinations() %>">
-							<c:choose>
-								<c:when test="<%= cpInstance != null %>">
+				<c:if test="<%= !cpDefinition.isIgnoreSKUCombinations() %>">
+					<c:choose>
+						<c:when test="<%= cpInstance != null %>">
 
-									<%
-									for (CPDefinitionOptionRel cpDefinitionOptionRel : cpDefinitionOptionRels) {
-										List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels = cpInstanceDisplayContext.getCPDefinitionOptionValueRels(cpDefinitionOptionRel);
+							<%
+							for (CPDefinitionOptionRel cpDefinitionOptionRel : cpDefinitionOptionRels) {
+								List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels = cpInstanceDisplayContext.getCPDefinitionOptionValueRels(cpDefinitionOptionRel);
 
-										StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
-									%>
+								StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+							%>
 
-										<h6 class="text-default">
-											<strong><%= HtmlUtil.escape(cpDefinitionOptionRel.getName(languageId)) %></strong>
-
-											<%
-											for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel : cpDefinitionOptionValueRels) {
-												stringJoiner.add(HtmlUtil.escape(cpDefinitionOptionValueRel.getName(languageId)));
-											}
-											%>
-
-											<%= HtmlUtil.escape(stringJoiner.toString()) %>
-										</h6>
+								<h6 class="text-default">
+									<strong><%= HtmlUtil.escape(cpDefinitionOptionRel.getName(languageId)) %></strong>
 
 									<%
+									for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel : cpDefinitionOptionValueRels) {
+										stringJoiner.add(HtmlUtil.escape(cpDefinitionOptionValueRel.getName(languageId)));
 									}
 									%>
 
-								</c:when>
-								<c:otherwise>
-									<%= cpInstanceDisplayContext.renderOptions(renderRequest, renderResponse) %>
+									<%= HtmlUtil.escape(stringJoiner.toString()) %>
+								</h6>
 
-									<aui:input name="ddmFormValues" type="hidden" />
-								</c:otherwise>
-							</c:choose>
-						</c:if>
+							<%
+							}
+							%>
 
-						<aui:input checked="<%= (cpInstance == null) ? false : cpInstance.isPurchasable() %>" name="purchasable" type="toggle-switch" />
-					</div>
+						</c:when>
+						<c:otherwise>
+							<%= cpInstanceDisplayContext.renderOptions(renderRequest, renderResponse) %>
 
-					<div class="col-6">
-						<aui:input helpMessage="gtin-help" label="global-trade-item-number" name="gtin" />
+							<aui:input name="ddmFormValues" type="hidden" />
+						</c:otherwise>
+					</c:choose>
+				</c:if>
 
-						<aui:input name="manufacturerPartNumber" />
-					</div>
-				</div>
-			</commerce-ui:panel>
-
-			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "pricing") %>'
-			>
-				<div class="row">
-					<div class="col-4">
-						<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getPrice()) %>">
-							<aui:validator name="min">0</aui:validator>
-							<aui:validator name="number" />
-						</aui:input>
-					</div>
-
-					<div class="col-4">
-						<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getPromoPrice()) %>">
-							<aui:validator name="min">0</aui:validator>
-							<aui:validator name="number" />
-						</aui:input>
-					</div>
-
-					<div class="col-4">
-						<aui:input name="cost" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getCost()) %>">
-							<aui:validator name="min">0</aui:validator>
-							<aui:validator name="number" />
-						</aui:input>
-					</div>
-				</div>
-			</commerce-ui:panel>
-
-			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "shipping-override") %>'
-			>
-				<div class="row">
-					<div class="col-6">
-						<aui:input name="width" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
-							<aui:validator name="min">0</aui:validator>
-						</aui:input>
-
-						<aui:input name="depth" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
-							<aui:validator name="min">0</aui:validator>
-						</aui:input>
-					</div>
-
-					<div class="col-6">
-						<aui:input name="height" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
-							<aui:validator name="min">0</aui:validator>
-						</aui:input>
-
-						<aui:input name="weight" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_WEIGHT)) %>">
-							<aui:validator name="min">0</aui:validator>
-						</aui:input>
-					</div>
-				</div>
-			</commerce-ui:panel>
-
-			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "schedule") %>'
-			>
-				<aui:input name="published" />
-
-				<aui:input formName="fm" name="displayDate" />
-
-				<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
-			</commerce-ui:panel>
-
-			<c:if test="<%= cpInstanceDisplayContext.hasCustomAttributesAvailable() %>">
-				<commerce-ui:panel
-					title='<%= LanguageUtil.get(request, "custom-attribute") %>'
-				>
-					<liferay-expando:custom-attribute-list
-						className="<%= CPInstance.class.getName() %>"
-						classPK="<%= (cpInstance != null) ? cpInstance.getCPInstanceId() : 0 %>"
-						editable="<%= true %>"
-						label="<%= true %>"
-					/>
-				</commerce-ui:panel>
-			</c:if>
-		</div>
-
-		<%
-		boolean pending = false;
-
-		if (cpInstance != null) {
-			pending = cpInstance.isPending();
-		}
-		%>
-
-		<c:if test="<%= pending %>">
-			<div class="alert alert-info">
-				<liferay-ui:message key="there-is-a-publication-workflow-in-process" />
+				<aui:input checked="<%= (cpInstance == null) ? false : cpInstance.isPurchasable() %>" name="purchasable" type="toggle-switch" />
 			</div>
-		</c:if>
-	</div>
+
+			<div class="col-6">
+				<aui:input helpMessage="gtin-help" label="global-trade-item-number" name="gtin" />
+
+				<aui:input name="manufacturerPartNumber" />
+			</div>
+		</div>
+	</commerce-ui:panel>
+
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "pricing") %>'
+	>
+		<div class="row">
+			<div class="col-4">
+				<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getPrice()) %>">
+					<aui:validator name="min">0</aui:validator>
+					<aui:validator name="number" />
+				</aui:input>
+			</div>
+
+			<div class="col-4">
+				<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getPromoPrice()) %>">
+					<aui:validator name="min">0</aui:validator>
+					<aui:validator name="number" />
+				</aui:input>
+			</div>
+
+			<div class="col-4">
+				<aui:input name="cost" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getCost()) %>">
+					<aui:validator name="min">0</aui:validator>
+					<aui:validator name="number" />
+				</aui:input>
+			</div>
+		</div>
+	</commerce-ui:panel>
+
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "shipping-override") %>'
+	>
+		<div class="row">
+			<div class="col-6">
+				<aui:input name="width" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
+					<aui:validator name="min">0</aui:validator>
+				</aui:input>
+
+				<aui:input name="depth" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
+					<aui:validator name="min">0</aui:validator>
+				</aui:input>
+			</div>
+
+			<div class="col-6">
+				<aui:input name="height" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_DIMENSION)) %>">
+					<aui:validator name="min">0</aui:validator>
+				</aui:input>
+
+				<aui:input name="weight" suffix="<%= HtmlUtil.escape(cpInstanceDisplayContext.getCPMeasurementUnitName(CPMeasurementUnitConstants.TYPE_WEIGHT)) %>">
+					<aui:validator name="min">0</aui:validator>
+				</aui:input>
+			</div>
+		</div>
+	</commerce-ui:panel>
+
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "schedule") %>'
+	>
+		<aui:input name="published" />
+
+		<aui:input formName="fm" name="displayDate" />
+
+		<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
+	</commerce-ui:panel>
+
+	<c:if test="<%= cpInstanceDisplayContext.hasCustomAttributesAvailable() %>">
+		<commerce-ui:panel
+			title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+		>
+			<liferay-expando:custom-attribute-list
+				className="<%= CPInstance.class.getName() %>"
+				classPK="<%= (cpInstance != null) ? cpInstance.getCPInstanceId() : 0 %>"
+				editable="<%= true %>"
+				label="<%= true %>"
+			/>
+		</commerce-ui:panel>
+	</c:if>
+
+	<%
+	boolean pending = false;
+
+	if (cpInstance != null) {
+		pending = cpInstance.isPending();
+	}
+	%>
+
+	<c:if test="<%= pending %>">
+		<div class="alert alert-info">
+			<liferay-ui:message key="there-is-a-publication-workflow-in-process" />
+		</div>
+	</c:if>
 
 	<aui:button-row cssClass="product-instance-button-row">
 

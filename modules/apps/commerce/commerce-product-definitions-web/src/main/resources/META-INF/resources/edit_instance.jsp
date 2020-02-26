@@ -23,8 +23,8 @@ CPInstance cpInstance = cpInstanceDisplayContext.getCPInstance();
 %>
 
 <commerce-ui:side-panel-content
-	title='<%= (cpInstance == null) ? LanguageUtil.get(request, "add-sku") : cpInstance.getSku() %>'
 	screenNavigatorKey="<%= CPInstanceScreenNavigationConstants.SCREEN_NAVIGATION_KEY_CP_INSTANCE_GENERAL %>"
 	screenNavigatorModelBean="<%= cpInstance %>"
 	screenNavigatorPortletURL="<%= currentURLObj %>"
+	title='<%= (cpInstance == null) ? LanguageUtil.get(request, "add-sku") : cpInstance.getSku() %>'
 />

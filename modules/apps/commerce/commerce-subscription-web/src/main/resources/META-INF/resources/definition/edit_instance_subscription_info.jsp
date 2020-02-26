@@ -57,7 +57,7 @@ CPSubscriptionTypeJSPContributor cpSubscriptionTypeJSPContributor = cpInstanceSu
 boolean ending = maxSubscriptionCycles > 0;
 %>
 
-<aui:alert closeable="<%= false %>" cssClass="mt-3" type="warning">
+<aui:alert closeable="<%= false %>" type="warning">
 	<liferay-ui:message key="all-channels-associated-with-this-product-must-have-at-least-one-payment-method-active-that-supports-recurring-payments" />
 </aui:alert>
 
@@ -70,7 +70,9 @@ boolean ending = maxSubscriptionCycles > 0;
 
 	<aui:model-context bean="<%= cpInstance %>" model="<%= CPInstance.class %>" />
 
-	<aui:fieldset-group markupView="lexicon">
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "subscriptions") %>'
+	>
 		<aui:fieldset>
 			<aui:input checked="<%= overrideSubscriptionInfo %>" label="override-subscription-settings" name="overrideSubscriptionInfo" type="toggle-switch" value="<%= overrideSubscriptionInfo %>" />
 
@@ -131,13 +133,13 @@ boolean ending = maxSubscriptionCycles > 0;
 					</div>
 				</div>
 		</aui:fieldset>
-	</aui:fieldset-group>
+	</commerce-ui:panel>
 
-		<aui:button-row>
-			<aui:button cssClass="btn-lg" type="submit" />
+	<aui:button-row>
+		<aui:button cssClass="btn-lg" type="submit" />
 
-			<aui:button cssClass="btn-lg" href="<%= productSkusURL.toString() %>" type="cancel" />
-		</aui:button-row>
+		<aui:button cssClass="btn-lg" href="<%= productSkusURL.toString() %>" type="cancel" />
+	</aui:button-row>
 </aui:form>
 
 <aui:script>

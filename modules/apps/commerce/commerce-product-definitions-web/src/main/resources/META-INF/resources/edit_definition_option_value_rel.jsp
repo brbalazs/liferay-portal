@@ -30,7 +30,9 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 <commerce-ui:side-panel-content
 	title='<%= (cpDefinitionOptionValueRel == null) ? LanguageUtil.get(request, "add-value") : LanguageUtil.format(request, "edit-x", cpDefinitionOptionValueRel.getName(languageId), false) %>'
 >
-	<commerce-ui:panel title="<%= LanguageUtil.get(request, "detail") %>">
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "detail") %>'
+	>
 		<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpDefinitionOptionValueRel == null) ? Constants.ADD : Constants.UPDATE %>" />
 			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />

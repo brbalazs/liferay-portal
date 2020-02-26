@@ -255,7 +255,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 					</c:if>
 
 					<c:if test="<%= Validator.isNotNull(actions) && !actions.isEmpty() %>">
-						<div class="border-left col-12 col-lg-auto header-actions mt-3 mt-lg-0">
+						<div class="col-12 col-lg-auto header-actions mt-3 mt-lg-0">
 
 							<%
 							for (HeaderActionModel action : actions) {

@@ -38,7 +38,7 @@ String title = commercePriceList.getName();
 
 	<portlet:actionURL name="editCPInstanceCommercePriceEntry" var="editCommercePriceEntryActionURL" />
 
-	<aui:form action="<%= editCommercePriceEntryActionURL %>"method="post" name="fm">
+	<aui:form action="<%= editCommercePriceEntryActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commercePriceEntryId" type="hidden" value="<%= commercePriceEntryId %>" />
