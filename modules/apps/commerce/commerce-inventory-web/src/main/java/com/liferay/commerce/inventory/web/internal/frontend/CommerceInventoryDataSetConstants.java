@@ -19,6 +19,9 @@ package com.liferay.commerce.inventory.web.internal.frontend;
  */
 public class CommerceInventoryDataSetConstants {
 
+	public static final String COMMERCE_DATA_SET_KEY_INVENTORY_AUDIT =
+		"commerceInventoryAudit";
+
 	public static final String COMMERCE_DATA_SET_KEY_INVENTORY_BOOKED =
 		"commerceInventoryBookedQuantities";
 
