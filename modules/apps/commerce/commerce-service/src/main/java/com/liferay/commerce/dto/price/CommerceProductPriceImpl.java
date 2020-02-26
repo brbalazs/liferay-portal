@@ -16,7 +16,6 @@ package com.liferay.commerce.dto.price;
 
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.commerce.price.CommercePriceValue;
 import com.liferay.commerce.price.CommerceProductPrice;
 
 import java.math.BigDecimal;
@@ -27,11 +26,6 @@ import java.util.List;
  * @author Marco Leo
  */
 public class CommerceProductPriceImpl implements CommerceProductPrice {
-
-	@Override
-	public List<CommercePriceValue> getCommercePriceValues() {
-		return _commercePriceValues;
-	}
 
 	@Override
 	public CommerceDiscountValue getDiscountValue() {
@@ -69,12 +63,6 @@ public class CommerceProductPriceImpl implements CommerceProductPrice {
 		_commerceDiscountValue = commerceDiscountValue;
 	}
 
-	public void setCommercePriceValues(
-		List<CommercePriceValue> commercePriceValues) {
-
-		_commercePriceValues = commercePriceValues;
-	}
-
 	public void setFinalPrice(CommerceMoney finalPrice) {
 		_finalPrice = finalPrice;
 	}
@@ -96,7 +84,6 @@ public class CommerceProductPriceImpl implements CommerceProductPrice {
 	}
 
 	private CommerceDiscountValue _commerceDiscountValue;
-	private List<CommercePriceValue> _commercePriceValues;
 	private CommerceMoney _finalPrice;
 	private int _quantity;
 	private BigDecimal _taxValue;

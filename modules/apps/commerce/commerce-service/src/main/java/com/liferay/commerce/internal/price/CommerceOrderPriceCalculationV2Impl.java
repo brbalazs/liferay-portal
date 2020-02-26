@@ -20,8 +20,8 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.commerce.discount.helper.CommerceDiscountHelper;
 import com.liferay.commerce.dto.price.CommerceOrderPriceImpl;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -80,11 +80,11 @@ public class CommerceOrderPriceCalculationV2Impl
 		BigDecimal subtotalAmount = subtotalMoney.getPrice();
 
 		CommerceDiscountValue orderShippingCommerceDiscountValue =
-			_commerceDiscountDiscovery.getOrderShippingCommerceDiscountValue(
+			_commerceDiscountCalculation.getOrderShippingCommerceDiscountValue(
 				commerceOrder, shippingAmount, commerceContext);
 
 		CommerceDiscountValue orderSubtotalCommerceDiscountValue =
-			_commerceDiscountDiscovery.getOrderSubtotalCommerceDiscountValue(
+			_commerceDiscountCalculation.getOrderSubtotalCommerceDiscountValue(
 				commerceOrder, subtotalAmount, commerceContext);
 
 		BigDecimal totalAmount = subtotalAmount;
@@ -108,7 +108,7 @@ public class CommerceOrderPriceCalculationV2Impl
 		totalAmount = totalAmount.add(taxValue.getPrice());
 
 		CommerceDiscountValue orderTotalCommerceDiscountValue =
-			_commerceDiscountDiscovery.getOrderTotalCommerceDiscountValue(
+			_commerceDiscountCalculation.getOrderTotalCommerceDiscountValue(
 				commerceOrder, totalAmount, commerceContext);
 
 		if (orderTotalCommerceDiscountValue != null) {
@@ -387,7 +387,7 @@ public class CommerceOrderPriceCalculationV2Impl
 	}
 
 	@Reference
-	private CommerceDiscountHelper _commerceDiscountDiscovery;
+	private CommerceDiscountCalculation _commerceDiscountCalculation;
 
 	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;

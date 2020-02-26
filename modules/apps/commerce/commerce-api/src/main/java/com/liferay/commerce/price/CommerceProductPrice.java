@@ -29,8 +29,6 @@ import java.util.List;
 @ProviderType
 public interface CommerceProductPrice {
 
-	public List<CommercePriceValue> getCommercePriceValues();
-
 	public CommerceDiscountValue getDiscountValue();
 
 	public CommerceMoney getFinalPrice();

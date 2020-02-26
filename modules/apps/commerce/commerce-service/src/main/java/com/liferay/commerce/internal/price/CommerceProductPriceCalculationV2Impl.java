@@ -38,7 +38,7 @@ import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryLocalService;
 import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
-import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierHelper;
+import com.liferay.commerce.pricing.modifier.CommercePriceModifierHelper;
 import com.liferay.commerce.pricing.exception.CommerceUndefinedBasePriceListException;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
@@ -202,10 +202,6 @@ public class CommerceProductPriceCalculationV2Impl
 			return null;
 		}
 
-		CommerceMoney unitPrice = getUnitPrice(
-			cpInstanceId, quantity, commerceContext.getCommerceCurrency(),
-			secure, commerceContext);
-
 		long commercePromoPriceListId = _getCommercePromoPriceListId(
 			cpInstanceId, commerceContext);
 
@@ -225,6 +221,10 @@ public class CommerceProductPriceCalculationV2Impl
 				return _getCommerceMoney(
 					commercePromoPriceListId, commerceCurrency, promoPrice);
 			}
+
+			CommerceMoney unitPrice = getUnitPrice(
+				cpInstanceId, quantity, commerceContext.getCommerceCurrency(),
+				secure, commerceContext);
 
 			BigDecimal promoPrice = _getCommercePrice(
 				unitPrice, commercePromoPriceListId, cpInstanceId);
