@@ -20,14 +20,16 @@ import com.liferay.commerce.product.service.base.CPInstanceOptionValueRelService
  * The implementation of the cp instance option value rel remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.liferay.commerce.product.service.CPInstanceOptionValueRelService</code> interface.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * <code>com.liferay.commerce.product.service.CPInstanceOptionValueRelService</code>
+ * interface. <p> This is a remote service. Methods of this service are expected
+ * to have security checks based on the propagated JAAS credentials because this
+ * service can be accessed remotely.
  * </p>
  *
  * @author Marco Leo
- * @see CPInstanceOptionValueRelServiceBaseImpl
+ * @see    CPInstanceOptionValueRelServiceBaseImpl
  */
 public class CPInstanceOptionValueRelServiceImpl
 	extends CPInstanceOptionValueRelServiceBaseImpl {
