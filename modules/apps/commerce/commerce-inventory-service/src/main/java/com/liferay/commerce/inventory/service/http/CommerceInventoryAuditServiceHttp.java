@@ -51,20 +51,63 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class CommerceInventoryAuditServiceHttp {
 
+	public static int countCommerceInventoryAudits(
+			HttpPrincipal httpPrincipal, long companyId, String sku)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceInventoryAuditServiceUtil.class,
+				"countCommerceInventoryAudits",
+				_countCommerceInventoryAuditsParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, sku);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.security.auth.
+							PrincipalException) {
+
+					throw (com.liferay.portal.kernel.security.auth.
+						PrincipalException)exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryAudit>
 				getCommerceInventoryAudits(
-					HttpPrincipal httpPrincipal, String sku, int start, int end)
+					HttpPrincipal httpPrincipal, long companyId, String sku,
+					int start, int end)
 			throws com.liferay.portal.kernel.security.auth.PrincipalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryAuditServiceUtil.class,
 				"getCommerceInventoryAudits",
-				_getCommerceInventoryAuditsParameterTypes0);
+				_getCommerceInventoryAuditsParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, sku, start, end);
+				methodKey, companyId, sku, start, end);
 
 			Object returnObj = null;
 
@@ -100,7 +143,11 @@ public class CommerceInventoryAuditServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(
 		CommerceInventoryAuditServiceHttp.class);
 
-	private static final Class<?>[] _getCommerceInventoryAuditsParameterTypes0 =
-		new Class[] {String.class, int.class, int.class};
+	private static final Class<?>[]
+		_countCommerceInventoryAuditsParameterTypes0 = new Class[] {
+			long.class, String.class
+		};
+	private static final Class<?>[] _getCommerceInventoryAuditsParameterTypes1 =
+		new Class[] {long.class, String.class, int.class, int.class};
 
 }

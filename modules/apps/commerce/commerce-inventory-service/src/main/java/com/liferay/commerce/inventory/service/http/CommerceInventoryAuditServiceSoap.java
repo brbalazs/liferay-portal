@@ -61,9 +61,27 @@ import java.rmi.RemoteException;
  */
 public class CommerceInventoryAuditServiceSoap {
 
+	public static int countCommerceInventoryAudits(long companyId, String sku)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceInventoryAuditServiceUtil.countCommerceInventoryAudits(
+					companyId, sku);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryAuditSoap[]
-				getCommerceInventoryAudits(String sku, int start, int end)
+				getCommerceInventoryAudits(
+					long companyId, String sku, int start, int end)
 			throws RemoteException {
 
 		try {
@@ -71,7 +89,8 @@ public class CommerceInventoryAuditServiceSoap {
 				<com.liferay.commerce.inventory.model.CommerceInventoryAudit>
 					returnValue =
 						CommerceInventoryAuditServiceUtil.
-							getCommerceInventoryAudits(sku, start, end);
+							getCommerceInventoryAudits(
+								companyId, sku, start, end);
 
 			return com.liferay.commerce.inventory.model.
 				CommerceInventoryAuditSoap.toSoapModels(returnValue);

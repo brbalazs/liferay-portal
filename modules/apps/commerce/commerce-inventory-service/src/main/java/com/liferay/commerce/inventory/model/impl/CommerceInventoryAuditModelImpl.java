@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -101,9 +102,10 @@ public class CommerceInventoryAuditModelImpl
 	public static final String TABLE_SQL_DROP = "drop table CIAudit";
 
 	public static final String ORDER_BY_JPQL =
-		" ORDER BY commerceInventoryAudit.commerceInventoryAuditId ASC";
+		" ORDER BY commerceInventoryAudit.createDate DESC";
 
-	public static final String ORDER_BY_SQL = " ORDER BY CIAudit.CIAuditId ASC";
+	public static final String ORDER_BY_SQL =
+		" ORDER BY CIAudit.createDate DESC";
 
 	public static final String DATA_SOURCE = "liferayDataSource";
 
@@ -126,11 +128,11 @@ public class CommerceInventoryAuditModelImpl
 			"value.object.column.bitmask.enabled.com.liferay.commerce.inventory.model.CommerceInventoryAudit"),
 		true);
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 1L;
+	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
-	public static final long SKU_COLUMN_BITMASK = 2L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 2L;
 
-	public static final long COMMERCEINVENTORYAUDITID_COLUMN_BITMASK = 4L;
+	public static final long SKU_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -575,7 +577,19 @@ public class CommerceInventoryAuditModelImpl
 
 	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -629,7 +643,7 @@ public class CommerceInventoryAuditModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalCreateDate == null) {
 			_originalCreateDate = _createDate;
@@ -768,17 +782,18 @@ public class CommerceInventoryAuditModelImpl
 
 	@Override
 	public int compareTo(CommerceInventoryAudit commerceInventoryAudit) {
-		long primaryKey = commerceInventoryAudit.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = DateUtil.compareTo(
+			getCreateDate(), commerceInventoryAudit.getCreateDate());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override
@@ -822,6 +837,11 @@ public class CommerceInventoryAuditModelImpl
 	@Override
 	public void resetOriginalValues() {
 		CommerceInventoryAuditModelImpl commerceInventoryAuditModelImpl = this;
+
+		commerceInventoryAuditModelImpl._originalCompanyId =
+			commerceInventoryAuditModelImpl._companyId;
+
+		commerceInventoryAuditModelImpl._setOriginalCompanyId = false;
 
 		commerceInventoryAuditModelImpl._originalCreateDate =
 			commerceInventoryAuditModelImpl._createDate;
@@ -968,6 +988,8 @@ public class CommerceInventoryAuditModelImpl
 
 	private long _commerceInventoryAuditId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

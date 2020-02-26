@@ -96,45 +96,6 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 		}
 	}
 
-	public static void moveQuantitiesBetweenWarehouses(
-			HttpPrincipal httpPrincipal, long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, String sku, int quantity)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceInventoryWarehouseItemServiceUtil.class,
-				"moveQuantitiesBetweenWarehouses",
-				_moveQuantitiesBetweenWarehousesParameterTypes1);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, fromCommerceInventoryWarehouseId,
-				toCommerceInventoryWarehouseId, sku, quantity);
-
-			try {
-				TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 				addCommerceInventoryWarehouseItem(
@@ -147,7 +108,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"addCommerceInventoryWarehouseItem",
-				_addCommerceInventoryWarehouseItemParameterTypes2);
+				_addCommerceInventoryWarehouseItemParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, commerceInventoryWarehouseId,
@@ -190,7 +151,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"deleteCommerceInventoryWarehouseItem",
-				_deleteCommerceInventoryWarehouseItemParameterTypes3);
+				_deleteCommerceInventoryWarehouseItemParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseItemId);
@@ -230,7 +191,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"fetchCommerceInventoryWarehouseItem",
-				_fetchCommerceInventoryWarehouseItemParameterTypes4);
+				_fetchCommerceInventoryWarehouseItemParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseId, sku);
@@ -275,7 +236,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"fetchCommerceInventoryWarehouseItemByReferenceCode",
-				_fetchCommerceInventoryWarehouseItemByReferenceCodeParameterTypes5);
+				_fetchCommerceInventoryWarehouseItemByReferenceCodeParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, externalReferenceCode);
@@ -320,7 +281,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItem",
-				_getCommerceInventoryWarehouseItemParameterTypes6);
+				_getCommerceInventoryWarehouseItemParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseItemId);
@@ -365,7 +326,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItemByReferenceCode",
-				_getCommerceInventoryWarehouseItemByReferenceCodeParameterTypes7);
+				_getCommerceInventoryWarehouseItemByReferenceCodeParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, externalReferenceCode);
@@ -410,7 +371,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItems",
-				_getCommerceInventoryWarehouseItemsParameterTypes8);
+				_getCommerceInventoryWarehouseItemsParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseId, start, end);
@@ -456,7 +417,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItemsByCompanyId",
-				_getCommerceInventoryWarehouseItemsByCompanyIdParameterTypes9);
+				_getCommerceInventoryWarehouseItemsByCompanyIdParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, start, end);
@@ -502,7 +463,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItemsByCompanyIdAndSku",
-				_getCommerceInventoryWarehouseItemsByCompanyIdAndSkuParameterTypes10);
+				_getCommerceInventoryWarehouseItemsByCompanyIdAndSkuParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, sku, start, end);
@@ -546,7 +507,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItemsCount",
-				_getCommerceInventoryWarehouseItemsCountParameterTypes11);
+				_getCommerceInventoryWarehouseItemsCountParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseId);
@@ -587,7 +548,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItemsCountByCompanyId",
-				_getCommerceInventoryWarehouseItemsCountByCompanyIdParameterTypes12);
+				_getCommerceInventoryWarehouseItemsCountByCompanyIdParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId);
@@ -629,7 +590,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItemsCountByModifiedDate",
-				_getCommerceInventoryWarehouseItemsCountByModifiedDateParameterTypes13);
+				_getCommerceInventoryWarehouseItemsCountByModifiedDateParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, startDate, endDate);
@@ -675,7 +636,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
 				"getCommerceInventoryWarehouseItemsCountByModifiedDate",
-				_getCommerceInventoryWarehouseItemsCountByModifiedDateParameterTypes14);
+				_getCommerceInventoryWarehouseItemsCountByModifiedDateParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, startDate, endDate, start, end);
@@ -701,6 +662,45 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			return (java.util.List
 				<com.liferay.commerce.inventory.model.
 					CommerceInventoryWarehouseItem>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static void moveQuantitiesBetweenWarehouses(
+			HttpPrincipal httpPrincipal, long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceInventoryWarehouseItemServiceUtil.class,
+				"moveQuantitiesBetweenWarehouses",
+				_moveQuantitiesBetweenWarehousesParameterTypes14);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, fromCommerceInventoryWarehouseId,
+				toCommerceInventoryWarehouseId, sku, quantity);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -856,59 +856,59 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 			long.class, long.class, String.class, int.class
 		};
 	private static final Class<?>[]
-		_moveQuantitiesBetweenWarehousesParameterTypes1 = new Class[] {
-			long.class, long.class, String.class, int.class
-		};
-	private static final Class<?>[]
-		_addCommerceInventoryWarehouseItemParameterTypes2 = new Class[] {
+		_addCommerceInventoryWarehouseItemParameterTypes1 = new Class[] {
 			long.class, long.class, String.class, String.class, int.class
 		};
 	private static final Class<?>[]
-		_deleteCommerceInventoryWarehouseItemParameterTypes3 = new Class[] {
+		_deleteCommerceInventoryWarehouseItemParameterTypes2 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_fetchCommerceInventoryWarehouseItemParameterTypes4 = new Class[] {
+		_fetchCommerceInventoryWarehouseItemParameterTypes3 = new Class[] {
 			long.class, String.class
 		};
 	private static final Class<?>[]
-		_fetchCommerceInventoryWarehouseItemByReferenceCodeParameterTypes5 =
+		_fetchCommerceInventoryWarehouseItemByReferenceCodeParameterTypes4 =
 			new Class[] {long.class, String.class};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemParameterTypes6 = new Class[] {
+		_getCommerceInventoryWarehouseItemParameterTypes5 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemByReferenceCodeParameterTypes7 =
+		_getCommerceInventoryWarehouseItemByReferenceCodeParameterTypes6 =
 			new Class[] {long.class, String.class};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemsParameterTypes8 = new Class[] {
+		_getCommerceInventoryWarehouseItemsParameterTypes7 = new Class[] {
 			long.class, int.class, int.class
 		};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemsByCompanyIdParameterTypes9 =
+		_getCommerceInventoryWarehouseItemsByCompanyIdParameterTypes8 =
 			new Class[] {long.class, int.class, int.class};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemsByCompanyIdAndSkuParameterTypes10 =
+		_getCommerceInventoryWarehouseItemsByCompanyIdAndSkuParameterTypes9 =
 			new Class[] {long.class, String.class, int.class, int.class};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemsCountParameterTypes11 = new Class[] {
+		_getCommerceInventoryWarehouseItemsCountParameterTypes10 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemsCountByCompanyIdParameterTypes12 =
+		_getCommerceInventoryWarehouseItemsCountByCompanyIdParameterTypes11 =
 			new Class[] {long.class};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemsCountByModifiedDateParameterTypes13 =
+		_getCommerceInventoryWarehouseItemsCountByModifiedDateParameterTypes12 =
 			new Class[] {
 				long.class, java.util.Date.class, java.util.Date.class
 			};
 	private static final Class<?>[]
-		_getCommerceInventoryWarehouseItemsCountByModifiedDateParameterTypes14 =
+		_getCommerceInventoryWarehouseItemsCountByModifiedDateParameterTypes13 =
 			new Class[] {
 				long.class, java.util.Date.class, java.util.Date.class,
 				int.class, int.class
 			};
+	private static final Class<?>[]
+		_moveQuantitiesBetweenWarehousesParameterTypes14 = new Class[] {
+			long.class, long.class, String.class, int.class
+		};
 	private static final Class<?>[]
 		_updateCommerceInventoryWarehouseItemParameterTypes15 = new Class[] {
 			long.class, int.class

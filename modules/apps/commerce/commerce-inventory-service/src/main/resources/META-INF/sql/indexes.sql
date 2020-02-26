@@ -1,3 +1,4 @@
+create index IX_53AE0C80 on CIAudit (companyId, sku[$COLUMN_LENGTH:75$]);
 create index IX_E7D143D9 on CIAudit (createDate);
 create index IX_57638B52 on CIAudit (sku[$COLUMN_LENGTH:75$]);
 

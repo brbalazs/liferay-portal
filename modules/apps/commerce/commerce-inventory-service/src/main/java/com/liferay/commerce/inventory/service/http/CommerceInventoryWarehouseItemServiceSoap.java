@@ -86,24 +86,6 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 		}
 	}
 
-	public static void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, String sku, int quantity)
-		throws RemoteException {
-
-		try {
-			CommerceInventoryWarehouseItemServiceUtil.
-				moveQuantitiesBetweenWarehouses(
-					fromCommerceInventoryWarehouseId,
-					toCommerceInventoryWarehouseId, sku, quantity);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItemSoap
 				addCommerceInventoryWarehouseItem(
@@ -387,6 +369,24 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 
 			return com.liferay.commerce.inventory.model.
 				CommerceInventoryWarehouseItemSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void moveQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, String sku, int quantity)
+		throws RemoteException {
+
+		try {
+			CommerceInventoryWarehouseItemServiceUtil.
+				moveQuantitiesBetweenWarehouses(
+					fromCommerceInventoryWarehouseId,
+					toCommerceInventoryWarehouseId, sku, quantity);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

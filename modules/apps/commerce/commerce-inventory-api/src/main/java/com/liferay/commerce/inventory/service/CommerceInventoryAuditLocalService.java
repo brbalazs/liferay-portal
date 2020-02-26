@@ -78,6 +78,8 @@ public interface CommerceInventoryAuditLocalService
 
 	public void checkCommerceInventoryAudit(Date date);
 
+	public int countCommerceInventoryAudits(long companyId, String sku);
+
 	/**
 	 * Creates a new commerce inventory audit with the primary key. Does not add the commerce inventory audit to the database.
 	 *
@@ -219,7 +221,7 @@ public interface CommerceInventoryAuditLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceInventoryAudit> getCommerceInventoryAudits(
-		String sku, int start, int end);
+		long companyId, String sku, int start, int end);
 
 	/**
 	 * Returns the number of commerce inventory audits.

@@ -65,6 +65,12 @@ public class CommerceInventoryAuditLocalServiceWrapper
 		_commerceInventoryAuditLocalService.checkCommerceInventoryAudit(date);
 	}
 
+	@Override
+	public int countCommerceInventoryAudits(long companyId, String sku) {
+		return _commerceInventoryAuditLocalService.countCommerceInventoryAudits(
+			companyId, sku);
+	}
+
 	/**
 	 * Creates a new commerce inventory audit with the primary key. Does not add the commerce inventory audit to the database.
 	 *
@@ -269,10 +275,11 @@ public class CommerceInventoryAuditLocalServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryAudit>
-			getCommerceInventoryAudits(String sku, int start, int end) {
+			getCommerceInventoryAudits(
+				long companyId, String sku, int start, int end) {
 
 		return _commerceInventoryAuditLocalService.getCommerceInventoryAudits(
-			sku, start, end);
+			companyId, sku, start, end);
 	}
 
 	/**

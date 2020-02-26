@@ -37,12 +37,20 @@ public class CommerceInventoryAuditServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.inventory.service.impl.CommerceInventoryAuditServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static int countCommerceInventoryAudits(long companyId, String sku)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().countCommerceInventoryAudits(companyId, sku);
+	}
+
 	public static java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryAudit>
-				getCommerceInventoryAudits(String sku, int start, int end)
+				getCommerceInventoryAudits(
+					long companyId, String sku, int start, int end)
 			throws com.liferay.portal.kernel.security.auth.PrincipalException {
 
-		return getService().getCommerceInventoryAudits(sku, start, end);
+		return getService().getCommerceInventoryAudits(
+			companyId, sku, start, end);
 	}
 
 	/**

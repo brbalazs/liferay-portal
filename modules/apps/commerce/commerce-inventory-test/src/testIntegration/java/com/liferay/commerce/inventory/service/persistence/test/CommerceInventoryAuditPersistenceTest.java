@@ -190,12 +190,12 @@ public class CommerceInventoryAuditPersistenceTest {
 	}
 
 	@Test
-	public void testCountBySku() throws Exception {
-		_persistence.countBySku("");
+	public void testCountByC_S() throws Exception {
+		_persistence.countByC_S(RandomTestUtil.nextLong(), "");
 
-		_persistence.countBySku("null");
+		_persistence.countByC_S(0L, "null");
 
-		_persistence.countBySku((String)null);
+		_persistence.countByC_S(0L, (String)null);
 	}
 
 	@Test

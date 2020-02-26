@@ -60,9 +60,12 @@ public interface CommerceInventoryAuditService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CommerceInventoryAuditServiceUtil} to access the commerce inventory audit remote service. Add custom service methods to <code>com.liferay.commerce.inventory.service.impl.CommerceInventoryAuditServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public int countCommerceInventoryAudits(long companyId, String sku)
+		throws PrincipalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceInventoryAudit> getCommerceInventoryAudits(
-			String sku, int start, int end)
+			long companyId, String sku, int start, int end)
 		throws PrincipalException;
 
 	/**
