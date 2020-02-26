@@ -1144,6 +1144,7 @@
 		<exception>CPDefinitionMetaDescription</exception>
 		<exception>CPDefinitionMetaKeywords</exception>
 		<exception>CPDefinitionMetaTitle</exception>
+		<exception>CPDefinitionNameDefaultLanguage</exception>
 		<exception>CPDefinitionOptionValueRelKey</exception>
 		<exception>CPDefinitionProductTypeName</exception>
 		<exception>CPDisplayLayoutEntry</exception>
