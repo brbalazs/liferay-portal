@@ -17,7 +17,11 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {closest} from '../../utilities/closest';
+import {closest} from '../../utilities/closest.es';
+import {
+	provideDragDrop
+} from "../../utilities/drag_drop/contextProvider.es";
+
 import {
 	DATASET_ACTION_PERFORMED,
 	DATASET_DISPLAY_UPDATED,
@@ -511,4 +515,25 @@ DatasetDisplay.defaultProps = {
 	style: 'default'
 };
 
-export default DatasetDisplay;
+export default function DatasetDisplayEnhancer(props) {
+	const baseComponent = (props) => {
+		const {
+			apiUrl,
+			id,
+			spritemap,
+			views
+		} = props;
+
+		return (
+			<DatasetDisplay
+				{...props}
+				apiUrl={apiUrl}
+				id={id}
+				spritemap={spritemap}
+				views={views}
+			/>
+		);
+	};
+
+	return provideDragDrop(props, baseComponent);
+}
