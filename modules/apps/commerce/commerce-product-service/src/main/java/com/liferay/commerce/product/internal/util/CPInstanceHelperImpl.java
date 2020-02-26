@@ -21,6 +21,7 @@ import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.constants.CPField;
 import com.liferay.commerce.product.exception.CPDefinitionIgnoreSKUCombinationsException;
+import com.liferay.commerce.product.exception.NoSuchCPInstanceException;
 import com.liferay.commerce.product.internal.catalog.CPSkuImpl;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
@@ -470,6 +471,35 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	}
 
 	@Override
+	public CPInstance getDefaultCPInstance(long cpDefinitionId)
+		throws PortalException {
+
+		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
+			cpDefinitionId);
+
+		if (!cpDefinition.isIgnoreSKUCombinations()) {
+			throw new CPDefinitionIgnoreSKUCombinationsException(
+				"Unable to get default CP instance if SKU combination present");
+		}
+
+		List<CPInstance> approvedCPInstances =
+			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+				cpDefinitionId);
+
+		if (approvedCPInstances.isEmpty()) {
+			return null;
+		}
+
+		if (approvedCPInstances.size() > 1) {
+			throw new NoSuchCPInstanceException(
+				"Unable to find default CP instance for CP definition ID " +
+					cpDefinitionId);
+		}
+
+		return approvedCPInstances.get(0);
+	}
+
+	@Override
 	public CPSku getDefaultCPSku(CPCatalogEntry cpCatalogEntry)
 		throws Exception {
 
@@ -477,8 +507,8 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			return null;
 		}
 
-		CPInstance cpInstance = getCPInstance(
-			cpCatalogEntry.getCPDefinitionId(), null);
+		CPInstance cpInstance = getDefaultCPInstance(
+			cpCatalogEntry.getCPDefinitionId());
 
 		if (cpInstance == null) {
 			return null;
