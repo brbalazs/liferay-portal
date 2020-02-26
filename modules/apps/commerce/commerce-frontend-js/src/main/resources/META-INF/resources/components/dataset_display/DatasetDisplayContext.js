@@ -15,6 +15,7 @@
 import React from 'react';
 
 const DatasetDisplayContext = React.createContext({
+	enableDragDrop: false,
 	formId: null,
 	formRef: null,
 	loadData: () => {},
