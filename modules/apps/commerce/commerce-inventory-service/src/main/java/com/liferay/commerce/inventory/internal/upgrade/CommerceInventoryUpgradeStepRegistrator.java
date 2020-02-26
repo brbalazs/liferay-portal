@@ -41,7 +41,7 @@ public class CommerceInventoryUpgradeStepRegistrator
 			new CommerceInventoryWarehouseItemUpgradeProcess());
 
 		registry.register(
-			_SCHEMA_VERSION_1_1_0, _SCHEMA_VERSION_1_2_0,
+			_SCHEMA_VERSION_1_1_0, _SCHEMA_VERSION_1_2_0, _SCHEMA_VERSION_1_2_1,
 			new DummyUpgradeProcess());
 
 		if (_log.isInfoEnabled()) {
@@ -54,6 +54,8 @@ public class CommerceInventoryUpgradeStepRegistrator
 	private static final String _SCHEMA_VERSION_1_1_0 = "1.1.0";
 
 	private static final String _SCHEMA_VERSION_1_2_0 = "1.2.0";
+
+	private static final String _SCHEMA_VERSION_1_2_1 = "1.2.1";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceInventoryUpgradeStepRegistrator.class);
