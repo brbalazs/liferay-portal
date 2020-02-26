@@ -14,22 +14,14 @@
 
 package com.liferay.commerce.inventory.web.internal.portlet.action;
 
-import com.liferay.commerce.inventory.service.CommerceInventoryAuditService;
-import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
-import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
-import com.liferay.commerce.inventory.web.internal.display.context.CommerceInventoryDisplayContext;
 import com.liferay.commerce.product.constants.CPPortletKeys;
-import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
@@ -49,34 +41,7 @@ public class EditInventoryItemRenderCommand implements MVCRenderCommand {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		CommerceInventoryDisplayContext commerceInventoryDisplayContext =
-			new CommerceInventoryDisplayContext(
-				_commerceInventoryAuditService,
-				_commerceInventoryWarehouseService,
-				_commerceInventoryWarehouseItemService, _jsonFactory,
-				_portal.getHttpServletRequest(renderRequest));
-
-		renderRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceInventoryDisplayContext);
-
 		return "/details/view.jsp";
 	}
-
-	@Reference
-	private CommerceInventoryAuditService _commerceInventoryAuditService;
-
-	@Reference
-	private CommerceInventoryWarehouseItemService
-		_commerceInventoryWarehouseItemService;
-
-	@Reference
-	private CommerceInventoryWarehouseService
-		_commerceInventoryWarehouseService;
-
-	@Reference
-	private JSONFactory _jsonFactory;
-
-	@Reference
-	private Portal _portal;
 
 }
