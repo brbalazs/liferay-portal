@@ -58,8 +58,12 @@ public class CommerceOrderStatusMessageListener extends BaseMessageListener {
 				CommerceOrderConstants.ORDER_NOTIFICATION_PLACED,
 				commerceOrder);
 
-			_commerceSubscriptionEntryHelper.checkCommerceSubscriptions(
-				commerceOrder);
+			if (commerceOrder.getPaymentStatus() ==
+					CommerceOrderConstants.PAYMENT_STATUS_PAID) {
+
+				_commerceSubscriptionEntryHelper.checkCommerceSubscriptions(
+					commerceOrder);
+			}
 		}
 		else {
 			_commerceNotificationHelper.sendNotifications(
