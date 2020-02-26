@@ -623,11 +623,41 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			cProduct.getPublishedCPDefinitionId(), cpInstanceUuid);
 	}
 
+	public List<CPInstance> getCPDefinitionApprovedCPInstances(
+		long cpDefinitionId) {
+
+		return cpInstancePersistence.findByC_ST(
+			cpDefinitionId, WorkflowConstants.STATUS_APPROVED,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * @param      cpDefinitionId
+	 * @return
+	 *
+	 * @deprecated As of Athanasius (7.3.x), use workflow aware method {@link
+	 *             #getCPDefinitionInstances(long, int, int, int,
+	 *             OrderByComparator)} or {@link
+	 *             #getCPDefinitionApprovedCPInstances(long)}
+	 */
+	@Deprecated
 	@Override
 	public List<CPInstance> getCPDefinitionInstances(long cpDefinitionId) {
 		return cpInstancePersistence.findByCPDefinitionId(cpDefinitionId);
 	}
 
+	/**
+	 * @param      cpDefinitionId
+	 * @param      start
+	 * @param      end
+	 * @return
+	 *
+	 * @deprecated As of Athanasius (7.3.x), use workflow aware method {@link
+	 *             #getCPDefinitionInstances(long, int, int, int,
+	 *             OrderByComparator)} or {@link
+	 *             #getCPDefinitionApprovedCPInstances(long)}
+	 */
+	@Deprecated
 	@Override
 	public List<CPInstance> getCPDefinitionInstances(
 		long cpDefinitionId, int start, int end) {
