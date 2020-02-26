@@ -90,18 +90,19 @@ public class CommerceCatalogDisplayContext {
 		cpRequestHelper = new CPRequestHelper(httpServletRequest);
 	}
 
-	public String getAddCommerceCatalogRenderURL() {
+	public String getAddCommerceCatalogRenderURL() throws Exception {
 		LiferayPortletResponse liferayPortletResponse =
 			cpRequestHelper.getLiferayPortletResponse();
 
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter("mvcRenderCommandName", "addCommerceCatalog");
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 		return portletURL.toString();
 	}
 
-	public ClayCreationMenu getClayCreationMenu() {
+	public ClayCreationMenu getClayCreationMenu() throws Exception {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		if (hasAddCatalogPermission()) {
