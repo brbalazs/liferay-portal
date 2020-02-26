@@ -12,12 +12,12 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.internal.discovery.modifier;
+package com.liferay.commerce.pricing.internal.modifier;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
-import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierDiscovery;
+import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierHelper;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.service.CommercePriceModifierLocalService;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
@@ -34,9 +34,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Riccardo Alberti
  */
-@Component(service = CommercePriceModifierDiscovery.class)
-public class CommercePriceModifierDiscoveryImpl
-	implements CommercePriceModifierDiscovery {
+@Component(service = CommercePriceModifierHelper.class)
+public class CommercePriceModifierHelperImpl
+	implements CommercePriceModifierHelper {
 
 	@Override
 	public CommerceMoney applyCommercePriceModifier(

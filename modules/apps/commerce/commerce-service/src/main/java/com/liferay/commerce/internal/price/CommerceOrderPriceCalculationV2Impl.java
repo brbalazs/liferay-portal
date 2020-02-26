@@ -21,7 +21,7 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.commerce.discount.discovery.CommerceDiscountDiscovery;
+import com.liferay.commerce.discount.helper.CommerceDiscountHelper;
 import com.liferay.commerce.dto.price.CommerceOrderPriceImpl;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -387,7 +387,7 @@ public class CommerceOrderPriceCalculationV2Impl
 	}
 
 	@Reference
-	private CommerceDiscountDiscovery _commerceDiscountDiscovery;
+	private CommerceDiscountHelper _commerceDiscountDiscovery;
 
 	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;

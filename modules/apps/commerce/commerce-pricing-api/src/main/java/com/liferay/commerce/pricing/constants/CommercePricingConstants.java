@@ -19,9 +19,9 @@ package com.liferay.commerce.pricing.constants;
  */
 public class CommercePricingConstants {
 
-	public static final int DISCOUNT_ADDITIVE_METHOD = 1;
+	public static final String DISCOUNT_ADDITION_METHOD = "addition";
 
-	public static final int DISCOUNT_CHAIN_METHOD = 0;
+	public static final String DISCOUNT_CHAIN_METHOD = "chain";
 
 	public static final String ORDER_BY_HIERARCHY = "hierarchy";
 

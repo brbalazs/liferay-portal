@@ -1,0 +1,613 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.commerce.discount.internal;
+
+import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.account.util.CommerceAccountHelper;
+import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.discount.CommerceDiscountCalculation;
+import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
+import com.liferay.commerce.discount.helper.CommerceDiscountHelper;
+import com.liferay.commerce.discount.model.CommerceDiscount;
+import com.liferay.commerce.discount.model.CommerceDiscountRule;
+import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType;
+import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeRegistry;
+import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
+import com.liferay.commerce.discount.service.CommerceDiscountRuleLocalService;
+import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.commerce.price.list.model.CommercePriceListDiscountRel;
+import com.liferay.commerce.price.list.service.CommercePriceListDiscountRelLocalService;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
+import com.liferay.portal.kernel.util.GetterUtil;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
+
+/**
+ * @author Riccardo Alberti
+ */
+@Component(
+	property = "commerce.discount.calculation.key=v2.0",
+	service = CommerceDiscountCalculation.class
+)
+public class CommerceDiscountCalculationV2Impl
+	implements CommerceDiscountCalculation {
+
+	@Override
+	public CommerceDiscountValue getOrderShippingCommerceDiscountValue(
+			CommerceOrder commerceOrder, BigDecimal shippingAmount,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		if (commerceOrder == null) {
+			return null;
+		}
+
+		return _getCommerceDiscountValue(
+			shippingAmount, commerceContext,
+			CommerceDiscountConstants.TARGET_SHIPPING);
+	}
+
+	@Override
+	public CommerceDiscountValue getOrderSubtotalCommerceDiscountValue(
+			CommerceOrder commerceOrder, BigDecimal subtotalAmount,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		if (commerceOrder == null) {
+			return null;
+		}
+
+		return _getCommerceDiscountValue(
+			subtotalAmount, commerceContext,
+			CommerceDiscountConstants.TARGET_SUBTOTAL);
+	}
+
+	@Override
+	public CommerceDiscountValue getOrderTotalCommerceDiscountValue(
+			CommerceOrder commerceOrder, BigDecimal totalAmount,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		if (commerceOrder == null) {
+			return null;
+		}
+
+		return _getCommerceDiscountValue(
+			totalAmount, commerceContext,
+			CommerceDiscountConstants.TARGET_TOTAL);
+	}
+
+	@Override
+	public CommerceDiscountValue getProductCommerceDiscountValue(
+			long cpInstanceId, int quantity, BigDecimal productUnitPrice,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		return getProductCommerceDiscountValue(
+			cpInstanceId, 0, quantity, productUnitPrice, commerceContext);
+	}
+
+	@Override
+	public CommerceDiscountValue getProductCommerceDiscountValue(
+			long cpInstanceId, long commercePriceListId, int quantity,
+			BigDecimal productUnitPrice, CommerceContext commerceContext)
+		throws PortalException {
+
+		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		List<CommercePriceListDiscountRel> commercePriceListDiscountRels =
+			_commercePriceListDiscountRelLocalService.
+				getCommercePriceListDiscountRels(commercePriceListId);
+
+		if ((commercePriceListDiscountRels != null) &&
+			!commercePriceListDiscountRels.isEmpty()) {
+
+			Stream<CommercePriceListDiscountRel> stream =
+				commercePriceListDiscountRels.stream();
+
+			long[] commerceDiscountIds = stream.mapToLong(
+				CommercePriceListDiscountRel::getCommerceDiscountId
+			).toArray();
+
+			List<CommerceDiscount> commerceDiscounts =
+				_commerceDiscountLocalService.findPriceListDiscountProduct(
+					commerceDiscountIds, cpInstance.getCPDefinitionId());
+
+			return _getCommerceDiscountValues(
+				productUnitPrice, quantity, commerceContext, commerceDiscounts);
+		}
+
+		List<CommerceDiscount> commerceDiscounts =
+			_getProductCommerceDiscountByHierarchy(
+				commerceContext, cpInstance.getCPDefinitionId());
+
+		return _getCommerceDiscountValues(
+			productUnitPrice, quantity, commerceContext, commerceDiscounts);
+	}
+
+	public void unsetCommerceDiscountHelper(
+		CommerceDiscountHelper commerceDiscountHelper,
+		Map<String, Object> properties) {
+
+		String commerceDiscountHelperKey = GetterUtil.getString(
+			properties.get("commerce.discount.helper.key"));
+
+		_commerceDiscountHelperMap.remove(commerceDiscountHelperKey);
+	}
+
+	@Reference(
+		cardinality = ReferenceCardinality.MULTIPLE,
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY
+	)
+	protected void setCommerceDiscountHelper(
+		CommerceDiscountHelper commerceDiscountHelper,
+		Map<String, Object> properties) {
+
+		String commerceDiscountHelperKey = GetterUtil.getString(
+			properties.get("commerce.discount.helper.key"));
+
+		_commerceDiscountHelperMap.put(
+			commerceDiscountHelperKey, commerceDiscountHelper);
+	}
+
+	private CommerceDiscountHelper _getCommerceDiscountHelper()
+		throws ConfigurationException {
+
+		CommercePricingConfiguration commercePricingConfiguration =
+			_configurationProvider.getSystemConfiguration(
+				CommercePricingConfiguration.class);
+
+		String commerceDiscountApplicationMethod =
+			commercePricingConfiguration.commerceDiscountApplicationMethod();
+
+		if (!_commerceDiscountHelperMap.containsKey(
+				commerceDiscountApplicationMethod)) {
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"No commerce discount helper specified for " +
+						commerceDiscountApplicationMethod);
+			}
+
+			return null;
+		}
+
+		return _commerceDiscountHelperMap.get(
+			commerceDiscountApplicationMethod);
+	}
+
+	private BigDecimal _getCommerceDiscountLevel(
+			BigDecimal currentDiscountLevel, BigDecimal commercePrice,
+			CommerceCurrency commerceCurrency, long commerceDiscountId,
+			BigDecimal commerceDiscountValue, boolean isUsePercentage)
+		throws PortalException {
+
+		if (commerceDiscountValue == null) {
+			return null;
+		}
+
+		CommerceDiscount commerceDiscount =
+			_commerceDiscountLocalService.getCommerceDiscount(
+				commerceDiscountId);
+
+		BigDecimal discountAmount = BigDecimal.ZERO;
+
+		if (isUsePercentage) {
+			discountAmount = commercePrice.multiply(commerceDiscountValue);
+			discountAmount = discountAmount.divide(_ONE_HUNDRED);
+		}
+		else {
+			discountAmount = commerceDiscountValue;
+		}
+
+		if (isUsePercentage) {
+			BigDecimal maximumDiscountAmount =
+				commerceDiscount.getMaximumDiscountAmount();
+
+			if ((maximumDiscountAmount.compareTo(BigDecimal.ZERO) > 0) &&
+				(discountAmount.compareTo(maximumDiscountAmount) > 0)) {
+
+				discountAmount = commerceDiscount.getMaximumDiscountAmount();
+			}
+		}
+
+		RoundingMode roundingMode = RoundingMode.valueOf(
+			commerceCurrency.getRoundingMode());
+
+		BigDecimal discountedAmount = commercePrice.subtract(discountAmount);
+
+		BigDecimal discountPercentage = _getDiscountPercentage(
+			discountedAmount, commercePrice, roundingMode);
+
+		if ((currentDiscountLevel == null) ||
+			(discountPercentage.compareTo(currentDiscountLevel) > 0)) {
+
+			return discountPercentage;
+		}
+
+		return currentDiscountLevel;
+	}
+
+	private BigDecimal[] _getCommerceDiscountLevels(
+			BigDecimal commercePrice, CommerceContext commerceContext,
+			List<CommerceDiscount> commerceDiscounts)
+		throws PortalException {
+
+		String couponCode = "";
+
+		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
+
+		if (commerceOrder != null) {
+			couponCode = commerceOrder.getCouponCode();
+		}
+
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
+
+		BigDecimal[] levels = new BigDecimal[4];
+
+		for (CommerceDiscount commerceDiscount : commerceDiscounts) {
+			String discountCouponCode = commerceDiscount.getCouponCode();
+
+			if ((discountCouponCode != null) &&
+				!Objects.equals(couponCode, discountCouponCode)) {
+
+				continue;
+			}
+
+			if (_isValidDiscount(commerceContext, commerceDiscount)) {
+				String discountLevel = commerceDiscount.getLevel();
+
+				if (discountLevel.isEmpty() ||
+					discountLevel.equals(CommerceDiscountConstants.LEVEL1)) {
+
+					levels[0] = _getCommerceDiscountLevel(
+						levels[0], commercePrice, commerceCurrency,
+						commerceDiscount.getCommerceDiscountId(),
+						commerceDiscount.getLevel1(),
+						commerceDiscount.isUsePercentage());
+				}
+
+				if (commerceDiscount.isUsePercentage()) {
+					if (discountLevel.isEmpty() ||
+						discountLevel.equals(
+							CommerceDiscountConstants.LEVEL2)) {
+
+						levels[1] = _getCommerceDiscountLevel(
+							levels[1], commercePrice, commerceCurrency,
+							commerceDiscount.getCommerceDiscountId(),
+							commerceDiscount.getLevel2(),
+							commerceDiscount.isUsePercentage());
+					}
+
+					if (discountLevel.isEmpty() ||
+						discountLevel.equals(
+							CommerceDiscountConstants.LEVEL3)) {
+
+						levels[2] = _getCommerceDiscountLevel(
+							levels[2], commercePrice, commerceCurrency,
+							commerceDiscount.getCommerceDiscountId(),
+							commerceDiscount.getLevel3(),
+							commerceDiscount.isUsePercentage());
+					}
+
+					if (discountLevel.isEmpty() ||
+						discountLevel.equals(
+							CommerceDiscountConstants.LEVEL4)) {
+
+						levels[3] = _getCommerceDiscountLevel(
+							levels[3], commercePrice, commerceCurrency,
+							commerceDiscount.getCommerceDiscountId(),
+							commerceDiscount.getLevel4(),
+							commerceDiscount.isUsePercentage());
+					}
+				}
+			}
+		}
+
+		return levels;
+	}
+
+	private CommerceDiscountValue _getCommerceDiscountValue(
+			BigDecimal amount, CommerceContext commerceContext,
+			String discountType)
+		throws PortalException {
+
+		List<CommerceDiscount> commerceDiscounts =
+			_getOrderCommerceDiscountByHierarchy(commerceContext, discountType);
+
+		BigDecimal[] commerceDiscountLevels = _getCommerceDiscountLevels(
+			amount, commerceContext, commerceDiscounts);
+
+		CommerceDiscountHelper commerceDiscountHelper =
+			_getCommerceDiscountHelper();
+
+		BigDecimal discountedAmount =
+			commerceDiscountHelper.applyCommerceDiscounts(
+				amount, commerceDiscountLevels);
+
+		BigDecimal currentDiscountAmount = amount.subtract(discountedAmount);
+
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
+
+		RoundingMode roundingMode = RoundingMode.valueOf(
+			commerceCurrency.getRoundingMode());
+
+		CommerceMoney discountAmount = _commerceMoneyFactory.create(
+			commerceCurrency, currentDiscountAmount);
+
+		return new CommerceDiscountValue(
+			0, discountAmount,
+			_getDiscountPercentage(discountedAmount, amount, roundingMode),
+			commerceDiscountLevels);
+	}
+
+	private CommerceDiscountValue _getCommerceDiscountValues(
+			BigDecimal commercePrice, int quantity,
+			CommerceContext commerceContext,
+			List<CommerceDiscount> commerceDiscounts)
+		throws PortalException {
+
+		BigDecimal[] commerceDiscountLevels = _getCommerceDiscountLevels(
+			commercePrice, commerceContext, commerceDiscounts);
+
+		CommerceDiscountHelper commerceDiscountHelper =
+			_getCommerceDiscountHelper();
+
+		BigDecimal discountedAmount =
+			commerceDiscountHelper.applyCommerceDiscounts(
+				commercePrice, commerceDiscountLevels);
+
+		BigDecimal currentDiscountAmount = commercePrice.subtract(
+			discountedAmount);
+
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
+
+		RoundingMode roundingMode = RoundingMode.valueOf(
+			commerceCurrency.getRoundingMode());
+
+		CommerceMoney discountAmount = _commerceMoneyFactory.create(
+			commerceCurrency,
+			currentDiscountAmount.multiply(new BigDecimal(quantity)));
+
+		return new CommerceDiscountValue(
+			0, discountAmount,
+			_getDiscountPercentage(
+				discountedAmount, commercePrice, roundingMode),
+			commerceDiscountLevels);
+	}
+
+	private BigDecimal _getDiscountPercentage(
+		BigDecimal discountedAmount, BigDecimal amount,
+		RoundingMode roundingMode) {
+
+		double actualPrice = discountedAmount.doubleValue();
+		double originalPrice = amount.doubleValue();
+
+		double percentage = actualPrice / originalPrice;
+
+		BigDecimal discountPercentage = new BigDecimal(percentage);
+
+		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
+
+		MathContext mathContext = new MathContext(
+			discountPercentage.precision(), roundingMode);
+
+		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
+	}
+
+	private List<CommerceDiscount> _getOrderCommerceDiscountByHierarchy(
+			CommerceContext commerceContext, String commerceDiscountTargetType)
+		throws PortalException {
+
+		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
+
+		long commerceAccountId = 0;
+
+		if (commerceAccount != null) {
+			commerceAccountId = commerceAccount.getCommerceAccountId();
+		}
+
+		return _getOrderCommerceDiscountByHierarchy(
+			commerceAccountId, commerceContext.getCommerceChannelId(),
+			commerceDiscountTargetType);
+	}
+
+	private List<CommerceDiscount> _getOrderCommerceDiscountByHierarchy(
+			long commerceAccountId, long commerceChannelId,
+			String commerceDiscountTargetType)
+		throws PortalException {
+
+		List<CommerceDiscount> commerceDiscounts =
+			_commerceDiscountLocalService.findByA_C_C_Order(
+				commerceAccountId, commerceDiscountTargetType);
+
+		if (commerceDiscounts != null) {
+			return commerceDiscounts;
+		}
+
+		long[] commerceAccountGroupIds =
+			_commerceAccountHelper.getCommerceAccountGroupIds(
+				commerceAccountId);
+
+		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Order(
+			commerceAccountGroupIds, commerceDiscountTargetType);
+
+		if (commerceDiscounts != null) {
+			return commerceDiscounts;
+		}
+
+		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Order(
+			commerceChannelId, commerceDiscountTargetType);
+
+		if (commerceDiscounts != null) {
+			return commerceDiscounts;
+		}
+
+		return _commerceDiscountLocalService.findByUnqualifiedOrder(
+			commerceDiscountTargetType);
+	}
+
+	private List<CommerceDiscount> _getProductCommerceDiscountByHierarchy(
+			CommerceContext commerceContext, long cpDefinitionId)
+		throws PortalException {
+
+		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
+
+		long commerceAccountId = 0;
+
+		if (commerceAccount != null) {
+			commerceAccountId = commerceAccount.getCommerceAccountId();
+		}
+
+		return _getProductCommerceDiscountByHierarchy(
+			commerceAccountId, commerceContext.getCommerceChannelId(),
+			cpDefinitionId);
+	}
+
+	private List<CommerceDiscount> _getProductCommerceDiscountByHierarchy(
+			long commerceAccountId, long commerceChannelId, long cpDefinitionId)
+		throws PortalException {
+
+		List<CommerceDiscount> commerceDiscounts =
+			_commerceDiscountLocalService.findByA_C_C_Product(
+				commerceAccountId, cpDefinitionId);
+
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
+			return commerceDiscounts;
+		}
+
+		long[] commerceAccountGroupIds =
+			_commerceAccountHelper.getCommerceAccountGroupIds(
+				commerceAccountId);
+
+		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Product(
+			commerceAccountGroupIds, cpDefinitionId);
+
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
+			return commerceDiscounts;
+		}
+
+		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Product(
+			commerceChannelId, cpDefinitionId);
+
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
+			return commerceDiscounts;
+		}
+
+		return _commerceDiscountLocalService.findByUnqualifiedProduct(
+			cpDefinitionId);
+	}
+
+	private boolean _isValidDiscount(
+			CommerceContext commerceContext, CommerceDiscount commerceDiscount)
+		throws PortalException {
+
+		List<CommerceDiscountRule> commerceDiscountRules =
+			_commerceDiscountRuleLocalService.getCommerceDiscountRules(
+				commerceDiscount.getCommerceDiscountId(), QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		for (CommerceDiscountRule commerceDiscountRule :
+				commerceDiscountRules) {
+
+			CommerceDiscountRuleType commerceDiscountRuleType =
+				_commerceDiscountRuleTypeRegistry.getCommerceDiscountRuleType(
+					commerceDiscountRule.getType());
+
+			boolean commerceDiscountRuleTypeEvaluation =
+				commerceDiscountRuleType.evaluate(
+					commerceDiscountRule, commerceContext);
+
+			if (!commerceDiscountRuleTypeEvaluation &&
+				commerceDiscount.isRulesConjunction()) {
+
+				return false;
+			}
+			else if (commerceDiscountRuleTypeEvaluation &&
+					 !commerceDiscount.isRulesConjunction()) {
+
+				return true;
+			}
+		}
+
+		return commerceDiscount.isRulesConjunction();
+	}
+
+	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceDiscountCalculationV2Impl.class);
+
+	@Reference
+	private CommerceAccountHelper _commerceAccountHelper;
+
+	private final Map<String, CommerceDiscountHelper>
+		_commerceDiscountHelperMap = new ConcurrentHashMap<>();
+
+	@Reference
+	private CommerceDiscountLocalService _commerceDiscountLocalService;
+
+	@Reference
+	private CommerceDiscountRuleLocalService _commerceDiscountRuleLocalService;
+
+	@Reference
+	private CommerceDiscountRuleTypeRegistry _commerceDiscountRuleTypeRegistry;
+
+	@Reference
+	private CommerceMoneyFactory _commerceMoneyFactory;
+
+	@Reference
+	private CommercePriceListDiscountRelLocalService
+		_commercePriceListDiscountRelLocalService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
+
+	@Reference
+	private CPInstanceLocalService _cpInstanceLocalService;
+
+}

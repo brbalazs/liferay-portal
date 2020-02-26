@@ -16,7 +16,10 @@ package com.liferay.commerce.pricing.discovery.price;
 
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountLevel;
+import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.price.CommercePriceValue;
+
+import java.math.BigDecimal;
 
 /**
  * @author Riccardo Alberti
@@ -25,33 +28,19 @@ public class CommercePriceValueImpl implements CommercePriceValue {
 
 	public CommercePriceValueImpl(
 		CommerceMoney commerceMoney, int minQuantity,
-		CommerceDiscountLevel discountLevel1,
-		CommerceDiscountLevel discountLevel2,
-		CommerceDiscountLevel discountLevel3,
-		CommerceDiscountLevel discountLevel4) {
+		CommerceDiscountValue commerceDiscountValue) {
 
 		_commerceMoney = commerceMoney;
 		_minQuantity = minQuantity;
-		_discountLevels = new CommerceDiscountLevel[] {
-			discountLevel1, discountLevel2, discountLevel3, discountLevel4
-		};
-	}
-
-	public CommercePriceValueImpl(
-		CommerceMoney commerceMoney, int minQuantity,
-		CommerceDiscountLevel[] discountLevels) {
-
-		_commerceMoney = commerceMoney;
-		_minQuantity = minQuantity;
-		_discountLevels = discountLevels;
+		_commerceDiscountValue = commerceDiscountValue;
 	}
 
 	public CommerceMoney getCommerceMoney() {
 		return _commerceMoney;
 	}
 
-	public CommerceDiscountLevel[] getDiscountLevels() {
-		return _discountLevels;
+	public CommerceDiscountValue getCommerceDiscountValue() {
+		return _commerceDiscountValue;
 	}
 
 	public int getMinQuantity() {
@@ -59,7 +48,7 @@ public class CommercePriceValueImpl implements CommercePriceValue {
 	}
 
 	private final CommerceMoney _commerceMoney;
-	private final CommerceDiscountLevel[] _discountLevels;
+	private final CommerceDiscountValue _commerceDiscountValue;
 	private final int _minQuantity;
 
 }

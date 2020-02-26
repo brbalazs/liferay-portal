@@ -28,7 +28,7 @@ import com.liferay.commerce.price.list.service.CommercePriceEntryLocalServiceUti
 import com.liferay.commerce.price.list.service.CommercePriceListLocalServiceUtil;
 import com.liferay.commerce.pricing.constants.CommercePriceModifierTargetConstants;
 import com.liferay.commerce.pricing.constants.CommercePriceModifierTypeConstants;
-import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierDiscovery;
+import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierHelper;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierAmountException;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierTargetException;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierTitleException;
@@ -974,7 +974,7 @@ public class CommercePriceModifierTest {
 	private CommerceMoneyFactory _commerceMoneyFactory;
 
 	@Inject
-	private CommercePriceModifierDiscovery _commercePriceModifierDiscovery;
+	private CommercePriceModifierHelper _commercePriceModifierDiscovery;
 
 	@Inject
 	private CommercePriceModifierLocalService

@@ -58,7 +58,10 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Marco Leo
  */
-@Component(service = CommerceDiscountCalculation.class)
+@Component(
+	property = "commerce.discount.calculation.key=v1.0",
+	service = CommerceDiscountCalculation.class
+)
 public class CommerceDiscountCalculationImpl
 	implements CommerceDiscountCalculation {
 
@@ -149,6 +152,16 @@ public class CommerceDiscountCalculationImpl
 
 		return _getCommerceDiscountValue(
 			productUnitPrice, quantity, commerceContext, searchContext);
+	}
+
+	@Override
+	public CommerceDiscountValue getProductCommerceDiscountValue(
+			long cpInstanceId, long commercePriceListId, int quantity,
+			BigDecimal productUnitPrice, CommerceContext commerceContext)
+		throws PortalException {
+
+		return getProductCommerceDiscountValue(
+			cpInstanceId, quantity, productUnitPrice, commerceContext);
 	}
 
 	protected SearchContext buildSearchContext(

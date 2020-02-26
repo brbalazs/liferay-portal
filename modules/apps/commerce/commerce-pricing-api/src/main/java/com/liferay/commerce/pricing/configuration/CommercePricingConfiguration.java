@@ -61,9 +61,8 @@ public interface CommercePricingConfiguration {
 	@Meta.AD(
 		deflt = "" + CommercePricingConstants.DISCOUNT_CHAIN_METHOD,
 		name = "discount-application-method",
-		optionLabels = {"chain-method", "additive-method"},
-		optionValues = {"0", "1"}, required = false
+		required = false
 	)
-	public int commerceDiscountApplicationMethod();
+	public String commerceDiscountApplicationMethod();
 
 }

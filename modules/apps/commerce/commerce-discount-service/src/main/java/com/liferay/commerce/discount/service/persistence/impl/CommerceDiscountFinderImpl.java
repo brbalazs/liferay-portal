@@ -63,12 +63,6 @@ public class CommerceDiscountFinderImpl
 	public static final String FIND_BY_C_C_C_ORDER =
 		CommerceDiscountFinder.class.getName() + ".findByC_C_C_Order";
 
-	public static final String FIND_BY_A_A_C_OR_U_PRODUCT =
-		CommerceDiscountFinder.class.getName() + ".findByA_A_C_or_U_Product";
-
-	public static final String FIND_BY_A_A_C_OR_U_ORDER =
-		CommerceDiscountFinder.class.getName() + ".findByA_A_C_or_U_Order";
-
 	public static final String FIND_PL_DISCOUNT_PRODUCT =
 		CommerceDiscountFinder.class.getName() +
 			".findPriceListDiscountProduct";
@@ -146,29 +140,6 @@ public class CommerceDiscountFinderImpl
 
 		return _findOrderDiscount(
 			FIND_BY_C_C_C_ORDER, -1, null, commerceChannelId,
-			commerceDiscountTargetType);
-	}
-
-	@Override
-	public List<CommerceDiscount> findByA_A_C_or_U_Product(
-		long commerceAccountId, long[] commerceAccountGroupIds,
-		long commerceChannelId, long cpDefinitionId, long[] assetCategoriesId,
-		long[] commercePricingClassesId) {
-
-		return _findProductDiscount(
-			FIND_BY_A_A_C_OR_U_PRODUCT, commerceAccountId,
-			commerceAccountGroupIds, commerceChannelId, cpDefinitionId,
-			assetCategoriesId, commercePricingClassesId);
-	}
-
-	@Override
-	public List<CommerceDiscount> findByA_A_C_or_U_Order(
-		long commerceAccountId, long[] commerceAccountGroupIds,
-		long commerceChannelId, String commerceDiscountTargetType) {
-
-		return _findOrderDiscount(
-			FIND_BY_A_A_C_OR_U_ORDER, commerceAccountId,
-			commerceAccountGroupIds, commerceChannelId,
 			commerceDiscountTargetType);
 	}
 

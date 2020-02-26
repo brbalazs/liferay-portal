@@ -12,31 +12,22 @@
  * details.
  */
 
-package com.liferay.commerce.price;
+package com.liferay.commerce.discount.helper;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.portal.kernel.exception.PortalException;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 /**
  * @author Riccardo Alberti
  */
 @ProviderType
-public interface CommercePriceDiscovery {
+public interface CommerceDiscountHelper {
 
-	public List<CommercePriceValue> getCommercePriceValue(
-			long commercePriceListId, long cpInstanceId, int quantity,
-			CommerceCurrency commerceCurrency, CommerceContext commerceContext)
+	public BigDecimal applyCommerceDiscounts(
+		BigDecimal commercePrice,
+		BigDecimal[] commerceDiscountLevels)
 		throws PortalException;
-
-	public List<CommercePriceValue> getCommercePromoPriceValue(
-			long commercePriceListId, long cpInstanceId, int quantity,
-			List<CommercePriceValue> commercePriceValues,
-			CommerceCurrency commerceCurrency, CommerceContext commerceContext)
-		throws PortalException;
-
 }

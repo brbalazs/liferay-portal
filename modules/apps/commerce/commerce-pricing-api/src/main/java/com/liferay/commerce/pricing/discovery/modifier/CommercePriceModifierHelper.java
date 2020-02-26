@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  * @author Riccardo Alberti
  */
 @ProviderType
-public interface CommercePriceModifierDiscovery {
+public interface CommercePriceModifierHelper {
 
 	public CommerceMoney applyCommercePriceModifier(
 			long commercePriceListId, long cpDefinitionId,

@@ -25,7 +25,7 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.CommerceDiscountLevel;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
-import com.liferay.commerce.discount.discovery.CommerceDiscountDiscovery;
+import com.liferay.commerce.discount.helper.CommerceDiscountHelper;
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.service.CommerceDiscountAccountRelLocalService;
 import com.liferay.commerce.discount.service.CommerceDiscountCommerceAccountGroupRelLocalService;
@@ -436,57 +436,6 @@ public class CommerceDiscountDiscoveryTest {
 	}
 
 	@Test
-	public void testRetrieveDiscountsWithoutHierarchy() throws Exception {
-		frutillaRule.scenario(
-			"When multiple discounts are defined for the same target the " +
-				"full list shall be returned"
-		).given(
-			"A catalog with multiple discounts"
-		).when(
-			"The discount is discovered"
-		).then(
-			"The full list of discounts is retrieved"
-		);
-
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-		CommerceDiscount commerceChannelDiscount = _addChannelDiscount(
-			_group.getGroupId(), CommerceDiscountConstants.LEVEL1,
-			cpDefinition.getCPDefinitionId());
-
-		CommerceDiscount commerceAccountGroupsDiscount =
-			_addAccountGroupDiscount(
-				_group.getGroupId(), CommerceDiscountConstants.LEVEL3,
-				cpDefinition.getCPDefinitionId());
-
-		CommerceDiscount commerceAccountDiscount = _addAccountDiscount(
-			_group.getGroupId(), CommerceDiscountConstants.LEVEL4,
-			cpDefinition.getCPDefinitionId());
-
-		List<CommerceDiscount> commerceDiscounts =
-			_commerceDiscountDiscovery.getProductCommerceDiscount(
-				_commerceAccount.getCommerceAccountId(),
-				_getCommerceAccountGroupIds(),
-				_commerceChannel.getCommerceChannelId(),
-				cpDefinition.getCPDefinitionId());
-
-		Assert.assertEquals(
-			true, commerceDiscounts.contains(commerceChannelDiscount));
-		Assert.assertEquals(
-			true, commerceDiscounts.contains(commerceAccountGroupsDiscount));
-		Assert.assertEquals(
-			true, commerceDiscounts.contains(commerceAccountDiscount));
-	}
-
-	@Test
 	public void testRetrieveOrderDiscountByHierarchy() throws Exception {
 		frutillaRule.scenario(
 			"When multiple discounts are defined for the same target the " +
@@ -813,7 +762,7 @@ public class CommerceDiscountDiscoveryTest {
 		_commerceDiscountCommerceAccountGroupRelLocalService;
 
 	@Inject
-	private CommerceDiscountDiscovery _commerceDiscountDiscovery;
+	private CommerceDiscountHelper _commerceDiscountDiscovery;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;
