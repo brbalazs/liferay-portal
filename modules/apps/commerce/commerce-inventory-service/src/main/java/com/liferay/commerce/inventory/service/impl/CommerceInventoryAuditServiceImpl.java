@@ -29,8 +29,19 @@ public class CommerceInventoryAuditServiceImpl
 	extends CommerceInventoryAuditServiceBaseImpl {
 
 	@Override
+	public int countCommerceInventoryAudits(long companyId, String sku)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryAuditPersistence.countByC_S(companyId, sku);
+	}
+
+	@Override
 	public List<CommerceInventoryAudit> getCommerceInventoryAudits(
-			String sku, int start, int end)
+			long companyId, String sku, int start, int end)
 		throws PrincipalException {
 
 		PortalPermissionUtil.check(
@@ -38,7 +49,7 @@ public class CommerceInventoryAuditServiceImpl
 			CommerceInventoryActionKeys.MANAGE_INVENTORY);
 
 		return commerceInventoryAuditLocalService.getCommerceInventoryAudits(
-			sku, start, end);
+			companyId, sku, start, end);
 	}
 
 }

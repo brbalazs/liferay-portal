@@ -24,12 +24,19 @@
 		<column name="description" type="String" />
 		<column name="quantity" type="int" />
 
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="createDate" />
+		</order>
+
 		<!-- Finder methods -->
 
 		<finder name="LtCreateDate" return-type="Collection">
 			<finder-column comparator="&lt;" name="createDate" />
 		</finder>
-		<finder name="Sku" return-type="Collection">
+		<finder name="C_S" return-type="Collection">
+			<finder-column name="companyId" />
 			<finder-column name="sku" />
 		</finder>
 	</entity>
