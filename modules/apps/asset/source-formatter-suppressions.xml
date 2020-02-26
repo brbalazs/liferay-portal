@@ -2,7 +2,7 @@
 
 <suppressions>
 	<checkstyle>
-		<suppress checks="PersistenceCallCheck" files="asset-publisher-web/src/main/java/com/liferay/asset/publisher/web/display/context/AssetPublisherDisplayContext\.java" />
+		<suppress checks="PersistenceCallCheck" files="asset-publisher-web/src/main/java/com/liferay/asset/publisher/web/internal/display/context/AssetPublisherDisplayContext\.java" />
 	</checkstyle>
 	<source-check>
 		<suppress checks="XMLServiceEntityNameCheck" files="asset-category-property-service/service\.xml" />
