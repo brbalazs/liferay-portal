@@ -36,15 +36,13 @@ public interface CommercePricingConfiguration {
 
 	@Meta.AD(
 		deflt = CommercePricingConstants.ORDER_BY_HIERARCHY,
-		name = "price-list-discovery-method",
-		required = false
+		name = "price-list-discovery-method", required = false
 	)
 	public String commercePriceListDiscovery();
 
 	@Meta.AD(
 		deflt = CommercePricingConstants.ORDER_BY_HIERARCHY,
-		name = "promotion-discovery-method",
-		required = false
+		name = "promotion-discovery-method", required = false
 	)
 	public String commercePromotionDiscovery();
 
@@ -60,9 +58,8 @@ public interface CommercePricingConfiguration {
 
 	@Meta.AD(
 		deflt = "" + CommercePricingConstants.DISCOUNT_CHAIN_METHOD,
-		name = "discount-application-method",
-		required = false
+		name = "discount-application-strategy", required = false
 	)
-	public String commerceDiscountApplicationMethod();
+	public String commerceDiscountApplicationStrategy();
 
 }

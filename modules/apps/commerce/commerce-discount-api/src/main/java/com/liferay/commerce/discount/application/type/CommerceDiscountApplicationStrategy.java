@@ -12,19 +12,22 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.service.persistence;
+package com.liferay.commerce.discount.application.type;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
+import java.math.BigDecimal;
+
 /**
  * @author Riccardo Alberti
- * @generated
  */
 @ProviderType
-public interface CommercePricingClassFinder {
+public interface CommerceDiscountApplicationStrategy {
 
-	public java.util.List
-		<com.liferay.commerce.pricing.model.CommercePricingClass> findByCN_CI(
-			String className, long classPK);
+	public BigDecimal applyCommerceDiscounts(
+			BigDecimal commercePrice, BigDecimal[] commerceDiscountLevels)
+		throws PortalException;
 
 }

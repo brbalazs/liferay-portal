@@ -99,7 +99,10 @@ public class ApplyToPricingClassCommerceDiscountTargetImpl
 	public void postProcessContextBooleanFilter(
 		BooleanFilter contextBooleanFilter, CPDefinition cpDefinition) {
 
-		long[] pricingClassIds = _getPricingClassIds(cpDefinition);
+		long[] pricingClassIds =
+			_commercePricingClassLocalService.
+				getCommercePricingClassByCPDefinition(
+					cpDefinition.getCPDefinitionId());
 
 		TermsFilter termsFilter = new TermsFilter("target_pricing_class_ids");
 
@@ -117,20 +120,6 @@ public class ApplyToPricingClassCommerceDiscountTargetImpl
 		fieldBooleanFilter.add(termsFilter, BooleanClauseOccur.SHOULD);
 
 		contextBooleanFilter.add(fieldBooleanFilter, BooleanClauseOccur.MUST);
-	}
-
-	private long[] _getPricingClassIds(CPDefinition cpDefinition) {
-		List<CommercePricingClass> commercePricingClasses =
-			_commercePricingClassLocalService.
-				getCommercePricingClassByCPDefinition(
-					cpDefinition.getCPDefinitionId());
-
-		Stream<CommercePricingClass> stream = commercePricingClasses.stream();
-
-		LongStream longStream = stream.mapToLong(
-			CommercePricingClass::getCommercePricingClassId);
-
-		return longStream.toArray();
 	}
 
 	@Reference

@@ -22,8 +22,8 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.discount.application.type.CommerceDiscountApplicationStrategy;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
-import com.liferay.commerce.discount.helper.CommerceDiscountHelper;
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountRule;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType;
@@ -31,7 +31,6 @@ import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeRegistry;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.service.CommerceDiscountRuleLocalService;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.list.model.CommercePriceListDiscountRel;
 import com.liferay.commerce.price.list.service.CommercePriceListDiscountRelLocalService;
 import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
@@ -165,14 +164,15 @@ public class CommerceDiscountCalculationV2Impl
 			productUnitPrice, quantity, commerceContext, commerceDiscounts);
 	}
 
-	public void unsetCommerceDiscountHelper(
-		CommerceDiscountHelper commerceDiscountHelper,
+	public void unsetCommerceDiscountApplicationStrategy(
+		CommerceDiscountApplicationStrategy commerceDiscountApplicationStrategy,
 		Map<String, Object> properties) {
 
-		String commerceDiscountHelperKey = GetterUtil.getString(
-			properties.get("commerce.discount.helper.key"));
+		String commerceDiscountApplicationStrategyKey = GetterUtil.getString(
+			properties.get("commerce.discount.application.strategy.key"));
 
-		_commerceDiscountHelperMap.remove(commerceDiscountHelperKey);
+		_commerceDiscountApplicationStrategyMap.remove(
+			commerceDiscountApplicationStrategyKey);
 	}
 
 	@Reference(
@@ -180,41 +180,43 @@ public class CommerceDiscountCalculationV2Impl
 		policy = ReferencePolicy.DYNAMIC,
 		policyOption = ReferencePolicyOption.GREEDY
 	)
-	protected void setCommerceDiscountHelper(
-		CommerceDiscountHelper commerceDiscountHelper,
+	protected void setCommerceDiscountApplicationStrategy(
+		CommerceDiscountApplicationStrategy commerceDiscountApplicationStrategy,
 		Map<String, Object> properties) {
 
-		String commerceDiscountHelperKey = GetterUtil.getString(
-			properties.get("commerce.discount.helper.key"));
+		String commerceDiscountApplicationStrategyKey = GetterUtil.getString(
+			properties.get("commerce.discount.application.strategy.key"));
 
-		_commerceDiscountHelperMap.put(
-			commerceDiscountHelperKey, commerceDiscountHelper);
+		_commerceDiscountApplicationStrategyMap.put(
+			commerceDiscountApplicationStrategyKey,
+			commerceDiscountApplicationStrategy);
 	}
 
-	private CommerceDiscountHelper _getCommerceDiscountHelper()
+	private CommerceDiscountApplicationStrategy
+			_getCommerceDiscountApplicationStrategy()
 		throws ConfigurationException {
 
 		CommercePricingConfiguration commercePricingConfiguration =
 			_configurationProvider.getSystemConfiguration(
 				CommercePricingConfiguration.class);
 
-		String commerceDiscountApplicationMethod =
-			commercePricingConfiguration.commerceDiscountApplicationMethod();
+		String commerceDiscountApplicationStrategy =
+			commercePricingConfiguration.commerceDiscountApplicationStrategy();
 
-		if (!_commerceDiscountHelperMap.containsKey(
-				commerceDiscountApplicationMethod)) {
+		if (!_commerceDiscountApplicationStrategyMap.containsKey(
+				commerceDiscountApplicationStrategy)) {
 
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"No commerce discount helper specified for " +
-						commerceDiscountApplicationMethod);
+					"No commerce discount application strategy specified for " +
+						commerceDiscountApplicationStrategy);
 			}
 
 			return null;
 		}
 
-		return _commerceDiscountHelperMap.get(
-			commerceDiscountApplicationMethod);
+		return _commerceDiscountApplicationStrategyMap.get(
+			commerceDiscountApplicationStrategy);
 	}
 
 	private BigDecimal _getCommerceDiscountLevel(
@@ -360,11 +362,12 @@ public class CommerceDiscountCalculationV2Impl
 		BigDecimal[] commerceDiscountLevels = _getCommerceDiscountLevels(
 			amount, commerceContext, commerceDiscounts);
 
-		CommerceDiscountHelper commerceDiscountHelper =
-			_getCommerceDiscountHelper();
+		CommerceDiscountApplicationStrategy
+			commerceDiscountApplicationStrategy =
+				_getCommerceDiscountApplicationStrategy();
 
 		BigDecimal discountedAmount =
-			commerceDiscountHelper.applyCommerceDiscounts(
+			commerceDiscountApplicationStrategy.applyCommerceDiscounts(
 				amount, commerceDiscountLevels);
 
 		BigDecimal currentDiscountAmount = amount.subtract(discountedAmount);
@@ -393,11 +396,12 @@ public class CommerceDiscountCalculationV2Impl
 		BigDecimal[] commerceDiscountLevels = _getCommerceDiscountLevels(
 			commercePrice, commerceContext, commerceDiscounts);
 
-		CommerceDiscountHelper commerceDiscountHelper =
-			_getCommerceDiscountHelper();
+		CommerceDiscountApplicationStrategy
+			commerceDiscountApplicationStrategy =
+				_getCommerceDiscountApplicationStrategy();
 
 		BigDecimal discountedAmount =
-			commerceDiscountHelper.applyCommerceDiscounts(
+			commerceDiscountApplicationStrategy.applyCommerceDiscounts(
 				commercePrice, commerceDiscountLevels);
 
 		BigDecimal currentDiscountAmount = commercePrice.subtract(
@@ -585,8 +589,8 @@ public class CommerceDiscountCalculationV2Impl
 	@Reference
 	private CommerceAccountHelper _commerceAccountHelper;
 
-	private final Map<String, CommerceDiscountHelper>
-		_commerceDiscountHelperMap = new ConcurrentHashMap<>();
+	private final Map<String, CommerceDiscountApplicationStrategy>
+		_commerceDiscountApplicationStrategyMap = new ConcurrentHashMap<>();
 
 	@Reference
 	private CommerceDiscountLocalService _commerceDiscountLocalService;

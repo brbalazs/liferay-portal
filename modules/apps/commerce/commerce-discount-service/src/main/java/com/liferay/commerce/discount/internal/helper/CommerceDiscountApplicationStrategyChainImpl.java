@@ -14,7 +14,8 @@
 
 package com.liferay.commerce.discount.internal.helper;
 
-import com.liferay.commerce.discount.helper.CommerceDiscountHelper;
+import com.liferay.commerce.discount.application.type.CommerceDiscountApplicationStrategy;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
@@ -25,10 +26,11 @@ import org.osgi.service.component.annotations.Component;
  * @author Riccardo Alberti
  */
 @Component(
-	property = "commerce.discount.helper.key=chain",
-	service = CommerceDiscountHelper.class
+	property = "commerce.discount.application.strategy.key=" + CommercePricingConstants.DISCOUNT_CHAIN_METHOD,
+	service = CommerceDiscountApplicationStrategy.class
 )
-public class CommerceDiscountHelperChainImpl implements CommerceDiscountHelper {
+public class CommerceDiscountApplicationStrategyChainImpl
+	implements CommerceDiscountApplicationStrategy {
 
 	@Override
 	public BigDecimal applyCommerceDiscounts(

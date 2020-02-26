@@ -100,7 +100,7 @@ SearchContainer<CommerceDiscountRel> commercePricingClassCommerceDiscountRelSear
 				<liferay-ui:search-container-column-text
 					cssClass="table-cell-content"
 					name="name"
-					value="<%= HtmlUtil.escape((commercePricingClass == null) ? StringPool.BLANK : commercePricingClass.getName()) %>"
+					value="<%= HtmlUtil.escape((commercePricingClass == null) ? StringPool.BLANK : commercePricingClass.getTitle()) %>"
 				/>
 
 				<liferay-ui:search-container-column-jsp
