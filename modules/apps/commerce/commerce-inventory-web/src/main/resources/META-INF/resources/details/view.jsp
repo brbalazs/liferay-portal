@@ -40,7 +40,7 @@ CommerceInventoryWarehouseItem commerceInventoryWarehouseItem = commerceInventor
 	externalReferenceCodeEditUrl=""
 	model="<%= CommerceInventoryWarehouseItem.class %>"
 	thumbnailUrl=""
-	title="<%= commerceInventoryDisplayContext.getSkuCode() %>"
+	title="<%= commerceInventoryDisplayContext.getSku() %>"
 	transitionPortletURL="<%= commerceInventoryDisplayContext.getTransitionInventoryPortletURL() %>"
 />
 

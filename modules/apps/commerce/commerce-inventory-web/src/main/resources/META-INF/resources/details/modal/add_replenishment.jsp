@@ -19,7 +19,7 @@
 <%
 CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-String skuCode = commerceInventoryDisplayContext.getSkuCode();
+String skuCode = commerceInventoryDisplayContext.getSku();
 %>
 
 <portlet:actionURL name="addInventoryReplenishment" var="addInventoryReplenishmentActionURL" />
