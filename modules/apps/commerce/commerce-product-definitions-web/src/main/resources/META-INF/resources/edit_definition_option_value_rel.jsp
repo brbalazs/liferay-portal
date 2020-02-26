@@ -30,67 +30,69 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 <commerce-ui:side-panel-content
 	title='<%= (cpDefinitionOptionValueRel == null) ? LanguageUtil.get(request, "add-value") : LanguageUtil.format(request, "edit-x", cpDefinitionOptionValueRel.getName(languageId), false) %>'
 >
-	<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
-		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpDefinitionOptionValueRel == null) ? Constants.ADD : Constants.UPDATE %>" />
-		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-		<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
-		<aui:input name="cpDefinitionOptionRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionRelId) %>" />
-		<aui:input name="cpDefinitionOptionValueRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionValueRelId) %>" />
+	<commerce-ui:panel title="<%= LanguageUtil.get(request, "detail") %>">
+		<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
+			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpDefinitionOptionValueRel == null) ? Constants.ADD : Constants.UPDATE %>" />
+			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+			<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
+			<aui:input name="cpDefinitionOptionRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionRelId) %>" />
+			<aui:input name="cpDefinitionOptionValueRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionValueRelId) %>" />
 
-		<aui:model-context bean="<%= cpDefinitionOptionValueRel %>" model="<%= CPDefinitionOptionValueRel.class %>" />
+			<aui:model-context bean="<%= cpDefinitionOptionValueRel %>" model="<%= CPDefinitionOptionValueRel.class %>" />
 
-		<liferay-ui:error exception="<%= CPDefinitionOptionValueRelKeyException.class %>" message="that-key-is-already-being-used" />
+			<liferay-ui:error exception="<%= CPDefinitionOptionValueRelKeyException.class %>" message="that-key-is-already-being-used" />
 
-		<commerce-ui:panel
-			title='<%= LanguageUtil.get(request, "details") %>'
-		>
-			<aui:input id="optionValueName" name="name" />
-
-			<aui:input name="priority" />
-
-			<aui:input helpMessage="key-help" name="key" />
-		</commerce-ui:panel>
-
-		<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
 			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+				title='<%= LanguageUtil.get(request, "details") %>'
 			>
-				<liferay-expando:custom-attribute-list
-					className="<%= CPDefinitionOptionValueRel.class.getName() %>"
-					classPK="<%= (cpDefinitionOptionValueRel != null) ? cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId() : 0 %>"
-					editable="<%= true %>"
-					label="<%= true %>"
-				/>
+				<aui:input id="optionValueName" name="name" />
+
+				<aui:input name="priority" />
+
+				<aui:input helpMessage="key-help" name="key" />
 			</commerce-ui:panel>
-		</c:if>
 
-		<aui:button-row>
-			<aui:button cssClass="btn-lg" type="submit" value="save" />
+			<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
+				<commerce-ui:panel
+					title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+				>
+					<liferay-expando:custom-attribute-list
+						className="<%= CPDefinitionOptionValueRel.class.getName() %>"
+						classPK="<%= (cpDefinitionOptionValueRel != null) ? cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId() : 0 %>"
+						editable="<%= true %>"
+						label="<%= true %>"
+					/>
+				</commerce-ui:panel>
+			</c:if>
 
-			<aui:button cssClass="btn-lg" type="cancel" />
-		</aui:button-row>
+			<aui:button-row>
+				<aui:button cssClass="btn-lg" type="submit" value="save" />
 
-		<c:if test="<%= cpDefinitionOptionValueRel == null %>">
-			<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
-				function slugify(string) {
-					return string.toLowerCase().replace(/[^a-z1-9]+/g, '-');
-				}
+				<aui:button cssClass="btn-lg" type="cancel" />
+			</aui:button-row>
 
-				const form = document.getElementById(
-					'<portlet:namespace />cpDefinitionOptionValueRelfm'
-				);
+			<c:if test="<%= cpDefinitionOptionValueRel == null %>">
+				<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
+					function slugify(string) {
+						return string.toLowerCase().replace(/[^a-z1-9]+/g, '-');
+					}
 
-				const keyInput = form.querySelector('#<portlet:namespace />key');
-				const nameInput = form.querySelector('#<portlet:namespace />optionValueName');
+					const form = document.getElementById(
+						'<portlet:namespace />cpDefinitionOptionValueRelfm'
+					);
 
-				const debounce = utilities.debounce;
+					const keyInput = form.querySelector('#<portlet:namespace />key');
+					const nameInput = form.querySelector('#<portlet:namespace />optionValueName');
 
-				var handleOnNameInput = function() {
-					keyInput.value = slugify(nameInput.value);
-				};
+					const debounce = utilities.debounce;
 
-				nameInput.addEventListener('input', debounce(handleOnNameInput, 200));
-			</aui:script>
-		</c:if>
-	</aui:form>
+					var handleOnNameInput = function() {
+						keyInput.value = slugify(nameInput.value);
+					};
+
+					nameInput.addEventListener('input', debounce(handleOnNameInput, 200));
+				</aui:script>
+			</c:if>
+		</aui:form>
+	</commerce-ui:panel>
 </commerce-ui:side-panel-content>

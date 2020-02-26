@@ -27,14 +27,6 @@ PortletURL portletURL = commerceOrderEditDisplayContext.getCommerceShipmentsPort
 	<portlet:param name="commerceOrderId" value="<%= String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderId()) %>" />
 </liferay-portlet:renderURL>
 
-<commerce-ui:modal
-	id="add-shipment-modal"
-	refreshPageOnClose="<%= true %>"
-	size="lg"
-	title='<%= LanguageUtil.get(request, "create-new-shipment") %>'
-	url="<%= editCommerceShipmentURL %>"
-/>
-
 <%
 Map<String, String> contextParams = new HashMap<>();
 
@@ -51,20 +43,5 @@ contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrd
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
 	portletURL="<%= portletURL %>"
+	style="stacked"
 />
-
-<div id="<portlet:namespace />side-panel-root"></div>
-<div id="<portlet:namespace />side-panel-wrapper"></div>
-
-<aui:script require="commerce-frontend-js/components/side_panel/entry.es as sidePanel">
-	sidePanel.default(
-		'<portlet:namespace />sidePanel',
-		'<portlet:namespace />side-panel-root',
-		{
-			spritemap:
-				'<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>',
-			topAnchorSelector: '.commerce-header',
-			wrapperSelector: '#<portlet:namespace />side-panel-wrapper'
-		}
-	);
-</aui:script>

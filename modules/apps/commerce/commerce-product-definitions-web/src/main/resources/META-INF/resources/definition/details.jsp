@@ -289,6 +289,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 			<div class="col-12">
 				<commerce-ui:panel
+					bodyClasses="p-0"
 					title='<%= LanguageUtil.get(request, "specifications") %>'
 				>
 

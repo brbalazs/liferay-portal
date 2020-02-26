@@ -38,6 +38,7 @@ CPInstanceDisplayContext cpInstanceDisplayContext = (CPInstanceDisplayContext)re
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
 			portletURL="<%= currentURLObj %>"
+			style="stacked"
 		/>
 	</div>
 </c:if>

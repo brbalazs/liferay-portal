@@ -35,6 +35,7 @@ contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 	<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
 
 	<commerce-ui:panel
+		bodyClasses="p-0"
 		collapsed="<%= !cpDefinition.isChannelFilterEnabled() %>"
 		collapseLabel='<%= LanguageUtil.get(request, "filter") %>'
 		collapseSwitchName='<%= renderResponse.getNamespace() + "channelFilterEnabled" %>'
@@ -53,6 +54,7 @@ contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 	</commerce-ui:panel>
 
 	<commerce-ui:panel
+		bodyClasses="p-0"
 		collapsed="<%= !cpDefinition.isAccountGroupFilterEnabled() %>"
 		collapseLabel='<%= LanguageUtil.get(request, "filter") %>'
 		collapseSwitchName='<%= renderResponse.getNamespace() + "accountGroupFilterEnabled" %>'

@@ -30,8 +30,8 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 
 <portlet:actionURL name="editCommerceOrderItem" var="editCommerceOrderItemActionURL" />
 
-<commerce-ui:side-panel-content
-	title='<%= StringBundler.concat(commerceOrderItem.getName(locale), " - ", commerceOrderItem.getSku()) %>'
+<commerce-ui:panel
+	title='<%= LanguageUtil.get(locale, "detail") %>'
 >
 	<aui:form action="<%= editCommerceOrderItemActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
@@ -106,15 +106,4 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 			<aui:button cssClass="btn-lg" type="submit" />
 		</aui:button-row>
 	</aui:form>
-
-	<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-		document.querySelector('#modal-opener').addEventListener('click', function(e) {
-			e.preventDefault();
-
-			Liferay.fire(events.OPEN_MODAL, {
-				title: 'Modal from side panel',
-				url: '/test/url'
-			});
-		});
-	</aui:script>
-</commerce-ui:side-panel-content>
+</commerce-ui:panel>

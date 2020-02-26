@@ -24,13 +24,7 @@ CPInstance cpInstance = cpInstanceDisplayContext.getCPInstance();
 
 <commerce-ui:side-panel-content
 	title='<%= (cpInstance == null) ? LanguageUtil.get(request, "add-sku") : cpInstance.getSku() %>'
->
-	<liferay-frontend:screen-navigation
-		containerWrapperCssClass="side-panel-iframe-wrapper"
-		fullContainerCssClass="col-12"
-		headerContainerCssClass="side-panel-iframe-menu-wrapper"
-		key="<%= CPInstanceScreenNavigationConstants.SCREEN_NAVIGATION_KEY_CP_INSTANCE_GENERAL %>"
-		modelBean="<%= cpInstance %>"
-		portletURL="<%= currentURLObj %>"
-	/>
-</commerce-ui:side-panel-content>
+	screenNavigatorKey="<%= CPInstanceScreenNavigationConstants.SCREEN_NAVIGATION_KEY_CP_INSTANCE_GENERAL %>"
+	screenNavigatorModelBean="<%= cpInstance %>"
+	screenNavigatorPortletURL="<%= currentURLObj %>"
+/>

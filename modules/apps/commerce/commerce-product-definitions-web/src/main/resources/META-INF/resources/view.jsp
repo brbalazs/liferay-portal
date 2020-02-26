@@ -33,7 +33,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 
 <%@ include file="/navbar_definitions.jspf" %>
 
-<div class="product-definitions-container" id="<portlet:namespace />productDefinitionsContainer">
+<div class="pt-4" id="<portlet:namespace />productDefinitionsContainer">
 	<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" />
 		<aui:input name="redirect" type="hidden" value="<%= portletURL.toString() %>" />
@@ -48,6 +48,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
 			portletURL="<%= portletURL %>"
+			style="stacked"
 		/>
 	</aui:form>
 </div>

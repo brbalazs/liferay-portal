@@ -25,8 +25,10 @@ CommerceOrderItem commerceOrderItem = commerceOrderEditDisplayContext.getCommerc
 
 <liferay-portlet:actionURL name="editCommerceOrderItem" var="editCommerceOrderItemActionURL" />
 
-<aui:fieldset-group markupView="lexicon">
-	<aui:form action="<%= editCommerceOrderItemActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+<commerce-ui:panel
+	title='<%= LanguageUtil.get(locale, "custom-fields") %>'
+>
+	<aui:form action="<%= editCommerceOrderItemActionURL %>" method="post" name="fm">
 		<aui:fieldset>
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
 			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
@@ -53,4 +55,4 @@ CommerceOrderItem commerceOrderItem = commerceOrderEditDisplayContext.getCommerc
 			</aui:button-row>
 		</aui:fieldset>
 	</aui:form>
-</aui:fieldset-group>
+</commerce-ui:panel>

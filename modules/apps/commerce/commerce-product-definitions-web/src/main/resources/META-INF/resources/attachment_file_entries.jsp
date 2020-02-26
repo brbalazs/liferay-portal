@@ -33,6 +33,7 @@ contextParams.put("cpDefinitionId", String.valueOf(cpAttachmentFileEntriesDispla
 		<liferay-ui:error exception="<%= NoSuchSkuContributorCPDefinitionOptionRelException.class %>" message="there-are-no-options-set-as-sku-contributor" />
 
 		<commerce-ui:panel
+			bodyClasses="p-0"
 			title='<%= LanguageUtil.get(request, "images") %>'
 		>
 			<commerce-ui:dataset-display
@@ -49,6 +50,7 @@ contextParams.put("cpDefinitionId", String.valueOf(cpAttachmentFileEntriesDispla
 		</commerce-ui:panel>
 
 		<commerce-ui:panel
+			bodyClasses="p-0"
 			title='<%= LanguageUtil.get(request, "attachments") %>'
 		>
 			<commerce-ui:dataset-display
