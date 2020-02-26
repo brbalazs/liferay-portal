@@ -367,12 +367,14 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			cpDefinitionOptionRelLocalService.
 				getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
 					cpDefinitionId, json),
-			width, height, depth, weight, BigDecimal.ZERO, BigDecimal.ZERO,
-			BigDecimal.ZERO, published, StringPool.BLANK, displayDateMonth,
-			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			width, height, depth, weight, price, promoPrice, cost, published,
+			externalReferenceCode, displayDateMonth, displayDateDay,
+			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire, false, false,
-			1, StringPool.BLANK, null, 0, serviceContext);
+			expirationDateHour, expirationDateMinute, neverExpire,
+			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
+			subscriptionType, subscriptionTypeSettingsProperties,
+			maxSubscriptionCycles, serviceContext);
 	}
 
 	/**
