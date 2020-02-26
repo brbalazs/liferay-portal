@@ -20,8 +20,6 @@ import com.liferay.commerce.price.CommerceProductPrice;
 
 import java.math.BigDecimal;
 
-import java.util.List;
-
 /**
  * @author Marco Leo
  */
