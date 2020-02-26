@@ -941,9 +941,7 @@ public class CommerceProductPriceCalculationV2Impl
 	private final Map<String, CommerceDiscountApplicationStrategy>
 		_commerceDiscountApplicationStrategyMap = new ConcurrentHashMap<>();
 
-	@Reference(
-		target = "(commerce.discount.calculation.key=v2.0)"
-	)
+	@Reference(target = "(commerce.discount.calculation.key=v2.0)")
 	private CommerceDiscountCalculation _commerceDiscountCalculation;
 
 	@Reference

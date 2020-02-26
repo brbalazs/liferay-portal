@@ -18,6 +18,9 @@ import com.liferay.commerce.price.CommercePriceCalculationRegistry;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+
+import java.util.Map;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
@@ -25,24 +28,27 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Map;
-
 /**
  * @author Riccardo Alberti
  */
-@Component(immediate = true, service = ServiceFactory.class)
-public class CommerceProductPriceCalculationServiceFactory implements
-	ServiceFactory<CommerceProductPriceCalculation> {
+@Component(
+	configurationPid = "com.liferay.commerce.pricing.configuration.CommercePricingConfiguration",
+	immediate = true, service = ServiceFactory.class
+)
+public class CommerceProductPriceCalculationServiceFactory
+	implements ServiceFactory<CommerceProductPriceCalculation> {
 
 	@Activate
 	public void activate(Map<String, Object> properties) {
-		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(CommercePricingConfiguration.class, properties);
+		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(
+			CommercePricingConfiguration.class, properties);
 	}
 
 	@Override
 	public CommerceProductPriceCalculation getService(
 		Bundle bundle,
-		ServiceRegistration<CommerceProductPriceCalculation> serviceRegistration) {
+		ServiceRegistration<CommerceProductPriceCalculation>
+			serviceRegistration) {
 
 		return _commercePriceCalculationRegistry.
 			getCommerceProductPriceCalculation(
@@ -52,13 +58,14 @@ public class CommerceProductPriceCalculationServiceFactory implements
 	@Override
 	public void ungetService(
 		Bundle bundle,
-		ServiceRegistration<CommerceProductPriceCalculation> serviceRegistration,
+		ServiceRegistration<CommerceProductPriceCalculation>
+			serviceRegistration,
 		CommerceProductPriceCalculation commerceProductPriceCalculation) {
-
 	}
-
-	private CommercePricingConfiguration _commercePricingConfiguration;
 
 	@Reference
 	private CommercePriceCalculationRegistry _commercePriceCalculationRegistry;
+
+	private CommercePricingConfiguration _commercePricingConfiguration;
+
 }

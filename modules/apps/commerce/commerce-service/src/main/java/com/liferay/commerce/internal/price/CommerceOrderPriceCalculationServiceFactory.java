@@ -18,6 +18,9 @@ import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommercePriceCalculationRegistry;
 import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+
+import java.util.Map;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
@@ -25,24 +28,27 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Map;
-
 /**
  * @author Riccardo Alberti
  */
-@Component(immediate = true, service = ServiceFactory.class)
-public class CommerceOrderPriceCalculationServiceFactory implements
-	ServiceFactory<CommerceOrderPriceCalculation> {
+@Component(
+	configurationPid = "com.liferay.commerce.pricing.configuration.CommercePricingConfiguration",
+	immediate = true, service = ServiceFactory.class
+)
+public class CommerceOrderPriceCalculationServiceFactory
+	implements ServiceFactory<CommerceOrderPriceCalculation> {
 
 	@Activate
 	public void activate(Map<String, Object> properties) {
-		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(CommercePricingConfiguration.class, properties);
+		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(
+			CommercePricingConfiguration.class, properties);
 	}
 
 	@Override
 	public CommerceOrderPriceCalculation getService(
 		Bundle bundle,
-		ServiceRegistration<CommerceOrderPriceCalculation> serviceRegistration) {
+		ServiceRegistration<CommerceOrderPriceCalculation>
+			serviceRegistration) {
 
 		return _commercePriceCalculationRegistry.
 			getCommerceOrderPriceCalculation(
@@ -54,11 +60,11 @@ public class CommerceOrderPriceCalculationServiceFactory implements
 		Bundle bundle,
 		ServiceRegistration<CommerceOrderPriceCalculation> serviceRegistration,
 		CommerceOrderPriceCalculation commerceProductPriceCalculation) {
-
 	}
-
-	private CommercePricingConfiguration _commercePricingConfiguration;
 
 	@Reference
 	private CommercePriceCalculationRegistry _commercePriceCalculationRegistry;
+
+	private CommercePricingConfiguration _commercePricingConfiguration;
+
 }

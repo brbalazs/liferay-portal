@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 
 import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -175,7 +176,7 @@ public class CommerceCartResourceUtil {
 	}
 
 	private PriceModel _getCommerceOrderItemPriceModel(
-		CommerceOrderItem commerceOrderItem, Locale locale)
+			CommerceOrderItem commerceOrderItem, Locale locale)
 		throws PortalException {
 
 		CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();

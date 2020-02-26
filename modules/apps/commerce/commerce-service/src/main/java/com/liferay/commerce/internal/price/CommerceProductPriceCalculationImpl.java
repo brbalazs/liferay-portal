@@ -419,9 +419,7 @@ public class CommerceProductPriceCalculationImpl
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
-	@Reference(
-		target = "(commerce.discount.calculation.key=v1.0)"
-	)
+	@Reference(target = "(commerce.discount.calculation.key=v1.0)")
 	private CommerceDiscountCalculation _commerceDiscountCalculation;
 
 	@Reference

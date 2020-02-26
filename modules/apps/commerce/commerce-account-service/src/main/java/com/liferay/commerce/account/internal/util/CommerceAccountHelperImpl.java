@@ -85,7 +85,7 @@ public class CommerceAccountHelperImpl implements CommerceAccountHelper {
 			_commerceAccountGroupLocalService.
 				getCommerceAccountGroupsByCommerceAccountId(commerceAccountId);
 
-		if(commerceAccountGroups.isEmpty()){
+		if (commerceAccountGroups.isEmpty()) {
 			return new long[0];
 		}
 
