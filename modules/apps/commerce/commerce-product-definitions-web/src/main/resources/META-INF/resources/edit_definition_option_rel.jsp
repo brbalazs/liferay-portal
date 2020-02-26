@@ -29,7 +29,7 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 <commerce-ui:side-panel-content
 	title='<%= (cpDefinitionOptionRel == null) ? LanguageUtil.get(request, "add-option") : LanguageUtil.format(request, "edit-x", cpDefinitionOptionRel.getName(languageId), false) %>'
 >
-	<aui:form action="<%= editProductDefinitionOptionRelActionURL %>" cssClass="pt-4" method="post" name="fm">
+	<aui:form action="<%= editProductDefinitionOptionRelActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionRel.getCPDefinitionId()) %>" />
@@ -97,26 +97,48 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 			</commerce-ui:panel>
 		</c:if>
 
-		<commerce-ui:panel
-			title='<%= LanguageUtil.get(request, "custom-attribute") %>'
-		>
+		<div id="values-container" class="d-none">
+			<commerce-ui:panel
+				bodyClasses="p-0"
+				title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+			>
 
-			<%
-			Map<String, String> contextParams = new HashMap<>();
+				<%
+				Map<String, String> contextParams = new HashMap<>();
 
-			contextParams.put("cpDefinitionOptionRelId", String.valueOf(cpDefinitionOptionRelId));
-			%>
+				contextParams.put("cpDefinitionOptionRelId", String.valueOf(cpDefinitionOptionRelId));
+				%>
 
-			<commerce-ui:dataset-display
-				contextParams="<%= contextParams %>"
-				dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES %>"
-				id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES %>"
-				itemsPerPage="<%= 10 %>"
-				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="<%= 1 %>"
-				portletURL="<%= currentURLObj %>"
-			/>
-		</commerce-ui:panel>
+				<commerce-ui:dataset-display
+					contextParams="<%= contextParams %>"
+					dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES %>"
+					id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES %>"
+					itemsPerPage="<%= 10 %>"
+					namespace="<%= renderResponse.getNamespace() %>"
+					pageNumber="<%= 1 %>"
+					portletURL="<%= currentURLObj %>"
+				/>
+			</commerce-ui:panel>
+		</div>
+
+		<aui:script>
+			var valuesContainer = document.querySelector('#values-container');
+			var optionTypeSelect = document.querySelector('#<portlet:namespace />DDMFormFieldTypeName');
+			var sectionsTypeWithMultipleValues = ["select", "radio", "checkbox_multiple"];
+
+			function handleTypeSelectChanges() {
+				if(sectionsTypeWithMultipleValues.includes(optionTypeSelect.value)) {
+					valuesContainer.classList.remove('d-none');
+				} else {
+					valuesContainer.classList.add('d-none');
+				}
+			}
+
+			optionTypeSelect.addEventListener('change', handleTypeSelectChanges);
+
+			handleTypeSelectChanges();
+		</aui:script>
+
 
 		<aui:button-row>
 			<aui:button cssClass="btn-lg" type="submit" value="save" />
