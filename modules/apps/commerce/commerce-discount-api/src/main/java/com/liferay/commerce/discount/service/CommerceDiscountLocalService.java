@@ -250,14 +250,6 @@ public interface CommerceDiscountLocalService
 	public CommerceDiscount fetchCommerceDiscountByUuidAndCompanyId(
 		String uuid, long companyId);
 
-	public List<CommerceDiscount> findByA_A_C_or_U_Order(
-		long commerceAccountId, long[] commerceAccountGroupIds,
-		long commerceChannelId, String commerceDiscountTargetType);
-
-	public List<CommerceDiscount> findByA_A_C_or_U_Product(
-		long commerceAccountId, long[] commerceAccountGroupIds,
-		long commerceChannelId, long cpDefinitionId);
-
 	public List<CommerceDiscount> findByA_C_C_Order(
 		long commerceAccountId, String commerceDiscountTargetType);
 

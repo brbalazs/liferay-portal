@@ -320,28 +320,6 @@ public class CommerceDiscountLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
-		findByA_A_C_or_U_Order(
-			long commerceAccountId, long[] commerceAccountGroupIds,
-			long commerceChannelId, String commerceDiscountTargetType) {
-
-		return _commerceDiscountLocalService.findByA_A_C_or_U_Order(
-			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
-			commerceDiscountTargetType);
-	}
-
-	@Override
-	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
-		findByA_A_C_or_U_Product(
-			long commerceAccountId, long[] commerceAccountGroupIds,
-			long commerceChannelId, long cpDefinitionId) {
-
-		return _commerceDiscountLocalService.findByA_A_C_or_U_Product(
-			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
-			cpDefinitionId);
-	}
-
-	@Override
-	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByA_C_C_Order(
 			long commerceAccountId, String commerceDiscountTargetType) {
 

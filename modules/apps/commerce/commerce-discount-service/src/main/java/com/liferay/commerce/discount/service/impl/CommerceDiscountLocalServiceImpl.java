@@ -306,27 +306,6 @@ public class CommerceDiscountLocalServiceImpl
 	}
 
 	@Override
-	public List<CommerceDiscount> findByA_A_C_or_U_Order(
-		long commerceAccountId, long[] commerceAccountGroupIds,
-		long commerceChannelId, String commerceDiscountTargetType) {
-
-		return commerceDiscountFinder.findByA_A_C_or_U_Order(
-			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
-			commerceDiscountTargetType);
-	}
-
-	@Override
-	public List<CommerceDiscount> findByA_A_C_or_U_Product(
-		long commerceAccountId, long[] commerceAccountGroupIds,
-		long commerceChannelId, long cpDefinitionId) {
-
-		return commerceDiscountFinder.findByA_A_C_or_U_Product(
-			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
-			cpDefinitionId, _getAssetCategoryIds(cpDefinitionId),
-			_getCPDefinitionPricingClassIds(cpDefinitionId));
-	}
-
-	@Override
 	public List<CommerceDiscount> findByA_C_C_Order(
 		long commerceAccountId, String commerceDiscountTargetType) {
 

@@ -300,28 +300,6 @@ public class CommerceDiscountLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.discount.model.CommerceDiscount>
-			findByA_A_C_or_U_Order(
-				long commerceAccountId, long[] commerceAccountGroupIds,
-				long commerceChannelId, String commerceDiscountTargetType) {
-
-		return getService().findByA_A_C_or_U_Order(
-			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
-			commerceDiscountTargetType);
-	}
-
-	public static java.util.List
-		<com.liferay.commerce.discount.model.CommerceDiscount>
-			findByA_A_C_or_U_Product(
-				long commerceAccountId, long[] commerceAccountGroupIds,
-				long commerceChannelId, long cpDefinitionId) {
-
-		return getService().findByA_A_C_or_U_Product(
-			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
-			cpDefinitionId);
-	}
-
-	public static java.util.List
-		<com.liferay.commerce.discount.model.CommerceDiscount>
 			findByA_C_C_Order(
 				long commerceAccountId, String commerceDiscountTargetType) {
 
