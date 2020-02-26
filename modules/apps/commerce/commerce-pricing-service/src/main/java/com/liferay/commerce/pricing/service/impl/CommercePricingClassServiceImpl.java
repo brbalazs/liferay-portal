@@ -33,8 +33,8 @@ public class CommercePricingClassServiceImpl
 
 	@Override
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, String name, String title,
-			String description, ServiceContext serviceContext)
+			long userId, long groupId, String title, String description,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -42,7 +42,7 @@ public class CommercePricingClassServiceImpl
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.addCommercePricingClass(
-			userId, groupId, name, title, description, serviceContext);
+			userId, groupId, title, description, serviceContext);
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class CommercePricingClassServiceImpl
 
 	@Override
 	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId, String name,
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -136,13 +136,13 @@ public class CommercePricingClassServiceImpl
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.updateCommercePricingClass(
-			commercePricingClassId, userId, groupId, name, title, description,
+			commercePricingClassId, userId, groupId, title, description,
 			serviceContext);
 	}
 
 	@Override
 	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId, String name,
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -152,7 +152,7 @@ public class CommercePricingClassServiceImpl
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.upsertCommercePricingClass(
-			commercePricingClassId, userId, groupId, name, title, description,
+			commercePricingClassId, userId, groupId, title, description,
 			externalReferenceCode, serviceContext);
 	}
 

@@ -17,8 +17,8 @@ package com.liferay.commerce.pricing.service.impl;
 import com.liferay.commerce.pricing.exception.CommercePricingClassTitleException;
 import com.liferay.commerce.pricing.exception.NoSuchPricingClassException;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
+import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
 import com.liferay.commerce.pricing.service.base.CommercePricingClassLocalServiceBaseImpl;
-import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -28,6 +28,8 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 /**
  * @author Riccardo Alberti
@@ -38,8 +40,8 @@ public class CommercePricingClassLocalServiceImpl
 
 	@Override
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, String name, String title,
-			String description, ServiceContext serviceContext)
+			long userId, long groupId, String title, String description,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -55,7 +57,6 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setUserId(user.getUserId());
 		commercePricingClass.setUserName(user.getFullName());
 		commercePricingClass.setGroupId(groupId);
-		commercePricingClass.setName(name);
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
 
@@ -67,8 +68,9 @@ public class CommercePricingClassLocalServiceImpl
 			CommercePricingClass commercePricingClass)
 		throws PortalException {
 
-		commercePricingClassRelLocalService.deleteCommercePricingClassRels(
-			commercePricingClass.getCommercePricingClassId());
+		commercePricingClassCPDefinitionRelLocalService.
+			deleteCommercePricingClassCPDefinitionRels(
+				commercePricingClass.getCommercePricingClassId());
 
 		return commercePricingClassPersistence.remove(
 			commercePricingClass.getCommercePricingClassId());
@@ -115,11 +117,19 @@ public class CommercePricingClassLocalServiceImpl
 	}
 
 	@Override
-	public List<CommercePricingClass> getCommercePricingClassByCPDefinition(
-		long cpDefinitionId) {
+	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId) {
+		List<CommercePricingClassCPDefinitionRel>
+			commercePricingClassCPDefinitionRels =
+				commercePricingClassCPDefinitionRelLocalService.
+					getCommercePricingClassByCPDefinitionId(cpDefinitionId);
 
-		return commercePricingClassFinder.findByCN_CI(
-			CPDefinition.class.getName(), cpDefinitionId);
+		Stream<CommercePricingClassCPDefinitionRel> stream =
+			commercePricingClassCPDefinitionRels.stream();
+
+		LongStream longStream = stream.mapToLong(
+			CommercePricingClassCPDefinitionRel::getCommercePricingClassId);
+
+		return longStream.toArray();
 	}
 
 	@Override
@@ -138,7 +148,7 @@ public class CommercePricingClassLocalServiceImpl
 
 	@Override
 	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId, String name,
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -154,7 +164,6 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setUserId(user.getUserId());
 		commercePricingClass.setUserName(user.getFullName());
 		commercePricingClass.setGroupId(groupId);
-		commercePricingClass.setName(name);
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
 
@@ -163,7 +172,7 @@ public class CommercePricingClassLocalServiceImpl
 
 	@Override
 	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId, String name,
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -172,7 +181,7 @@ public class CommercePricingClassLocalServiceImpl
 			try {
 				return commercePricingClassLocalService.
 					updateCommercePricingClass(
-						commercePricingClassId, userId, groupId, name, title,
+						commercePricingClassId, userId, groupId, title,
 						description, serviceContext);
 			}
 			catch (NoSuchPricingClassException nspc) {
@@ -192,13 +201,13 @@ public class CommercePricingClassLocalServiceImpl
 			if (commercePricingClass != null) {
 				return commercePricingClassLocalService.
 					updateCommercePricingClass(
-						commercePricingClassId, userId, groupId, name, title,
+						commercePricingClassId, userId, groupId, title,
 						description, serviceContext);
 			}
 		}
 
 		return commercePricingClassLocalService.addCommercePricingClass(
-			userId, groupId, name, title, description, serviceContext);
+			userId, groupId, title, description, serviceContext);
 	}
 
 	protected void validate(String title) throws PortalException {

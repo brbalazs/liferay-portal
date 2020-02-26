@@ -26,7 +26,6 @@ import com.liferay.commerce.pricing.exception.CommercePriceModifierTitleExceptio
 import com.liferay.commerce.pricing.exception.CommercePriceModifierTypeException;
 import com.liferay.commerce.pricing.exception.NoSuchPriceModifierException;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
-import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassLocalService;
 import com.liferay.commerce.pricing.service.base.CommercePriceModifierLocalServiceBaseImpl;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
@@ -270,7 +269,8 @@ public class CommercePriceModifierLocalServiceImpl
 		return commercePriceModifierFinder.findByC_C_C_P(
 			commercePriceListId, cpDefinitionId,
 			_getAssetCategoryIds(cpDefinitionId),
-			_getCPDefinitionPricingClassIds(cpDefinitionId));
+			_commercePricingClassLocalService.
+				getCommercePricingClassByCPDefinition(cpDefinitionId));
 	}
 
 	@Override
@@ -530,19 +530,6 @@ public class CommercePriceModifierLocalServiceImpl
 		}
 
 		return new long[0];
-	}
-
-	private long[] _getCPDefinitionPricingClassIds(long cpDefinitionId) {
-		List<CommercePricingClass> commercePricingClasses =
-			_commercePricingClassLocalService.
-				getCommercePricingClassByCPDefinition(cpDefinitionId);
-
-		Stream<CommercePricingClass> stream = commercePricingClasses.stream();
-
-		LongStream longStream = stream.mapToLong(
-			CommercePricingClass::getCommercePricingClassId);
-
-		return longStream.toArray();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
