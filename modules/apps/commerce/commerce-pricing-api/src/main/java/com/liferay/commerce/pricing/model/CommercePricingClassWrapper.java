@@ -67,7 +67,6 @@ public class CommercePricingClassWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("groupId", getGroupId());
-		attributes.put("name", getName());
 		attributes.put("title", getTitle());
 		attributes.put("description", getDescription());
 		attributes.put("lastPublishDate", getLastPublishDate());
@@ -131,12 +130,6 @@ public class CommercePricingClassWrapper
 
 		if (groupId != null) {
 			setGroupId(groupId);
-		}
-
-		String name = (String)attributes.get("name");
-
-		if (name != null) {
-			setName(name);
 		}
 
 		String title = (String)attributes.get("title");
@@ -252,16 +245,6 @@ public class CommercePricingClassWrapper
 	@Override
 	public Date getModifiedDate() {
 		return _commercePricingClass.getModifiedDate();
-	}
-
-	/**
-	 * Returns the name of this commerce pricing class.
-	 *
-	 * @return the name of this commerce pricing class
-	 */
-	@Override
-	public String getName() {
-		return _commercePricingClass.getName();
 	}
 
 	/**
@@ -454,16 +437,6 @@ public class CommercePricingClassWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commercePricingClass.setModifiedDate(modifiedDate);
-	}
-
-	/**
-	 * Sets the name of this commerce pricing class.
-	 *
-	 * @param name the name of this commerce pricing class
-	 */
-	@Override
-	public void setName(String name) {
-		_commercePricingClass.setName(name);
 	}
 
 	@Override

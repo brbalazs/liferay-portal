@@ -80,9 +80,8 @@ public class CommercePricingClassModelImpl
 		{"commercePricingClassId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"groupId", Types.BIGINT}, {"name", Types.VARCHAR},
-		{"title", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"lastPublishDate", Types.TIMESTAMP}
+		{"groupId", Types.BIGINT}, {"title", Types.VARCHAR},
+		{"description", Types.VARCHAR}, {"lastPublishDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -98,14 +97,13 @@ public class CommercePricingClassModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("lastPublishDate", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommercePricingClass (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePricingClassId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,groupId LONG,name VARCHAR(75) null,title VARCHAR(75) null,description VARCHAR(75) null,lastPublishDate DATE null)";
+		"create table CommercePricingClass (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePricingClassId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,groupId LONG,title VARCHAR(75) null,description VARCHAR(75) null,lastPublishDate DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CommercePricingClass";
@@ -171,7 +169,6 @@ public class CommercePricingClassModelImpl
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setGroupId(soapModel.getGroupId());
-		model.setName(soapModel.getName());
 		model.setTitle(soapModel.getTitle());
 		model.setDescription(soapModel.getDescription());
 		model.setLastPublishDate(soapModel.getLastPublishDate());
@@ -548,29 +545,6 @@ public class CommercePricingClassModelImpl
 
 			});
 		attributeGetterFunctions.put(
-			"name",
-			new Function<CommercePricingClass, Object>() {
-
-				@Override
-				public Object apply(CommercePricingClass commercePricingClass) {
-					return commercePricingClass.getName();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"name",
-			new BiConsumer<CommercePricingClass, Object>() {
-
-				@Override
-				public void accept(
-					CommercePricingClass commercePricingClass,
-					Object nameObject) {
-
-					commercePricingClass.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
 			"title",
 			new Function<CommercePricingClass, Object>() {
 
@@ -832,22 +806,6 @@ public class CommercePricingClassModelImpl
 
 	@JSON
 	@Override
-	public String getName() {
-		if (_name == null) {
-			return "";
-		}
-		else {
-			return _name;
-		}
-	}
-
-	@Override
-	public void setName(String name) {
-		_name = name;
-	}
-
-	@JSON
-	@Override
 	public String getTitle() {
 		if (_title == null) {
 			return "";
@@ -944,7 +902,6 @@ public class CommercePricingClassModelImpl
 		commercePricingClassImpl.setCreateDate(getCreateDate());
 		commercePricingClassImpl.setModifiedDate(getModifiedDate());
 		commercePricingClassImpl.setGroupId(getGroupId());
-		commercePricingClassImpl.setName(getName());
 		commercePricingClassImpl.setTitle(getTitle());
 		commercePricingClassImpl.setDescription(getDescription());
 		commercePricingClassImpl.setLastPublishDate(getLastPublishDate());
@@ -1093,14 +1050,6 @@ public class CommercePricingClassModelImpl
 
 		commercePricingClassCacheModel.groupId = getGroupId();
 
-		commercePricingClassCacheModel.name = getName();
-
-		String name = commercePricingClassCacheModel.name;
-
-		if ((name != null) && (name.length() == 0)) {
-			commercePricingClassCacheModel.name = null;
-		}
-
 		commercePricingClassCacheModel.title = getTitle();
 
 		String title = commercePricingClassCacheModel.title;
@@ -1218,7 +1167,6 @@ public class CommercePricingClassModelImpl
 	private long _groupId;
 	private long _originalGroupId;
 	private boolean _setOriginalGroupId;
-	private String _name;
 	private String _title;
 	private String _description;
 	private Date _lastPublishDate;

@@ -62,8 +62,8 @@ public interface CommercePricingClassService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link CommercePricingClassServiceUtil} to access the commerce pricing class remote service. Add custom service methods to <code>com.liferay.commerce.pricing.service.impl.CommercePricingClassServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, String name, String title,
-			String description, ServiceContext serviceContext)
+			long userId, long groupId, String title, String description,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	public CommercePricingClass deleteCommercePricingClass(
@@ -103,12 +103,12 @@ public interface CommercePricingClassService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId, String name,
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, ServiceContext serviceContext)
 		throws PortalException;
 
 	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId, String name,
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException;

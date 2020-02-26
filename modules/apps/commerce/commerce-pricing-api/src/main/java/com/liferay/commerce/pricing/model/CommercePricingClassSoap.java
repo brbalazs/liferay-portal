@@ -42,7 +42,6 @@ public class CommercePricingClassSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setGroupId(model.getGroupId());
-		soapModel.setName(model.getName());
 		soapModel.setTitle(model.getTitle());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setLastPublishDate(model.getLastPublishDate());
@@ -180,14 +179,6 @@ public class CommercePricingClassSoap implements Serializable {
 		_groupId = groupId;
 	}
 
-	public String getName() {
-		return _name;
-	}
-
-	public void setName(String name) {
-		_name = name;
-	}
-
 	public String getTitle() {
 		return _title;
 	}
@@ -221,7 +212,6 @@ public class CommercePricingClassSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _groupId;
-	private String _name;
 	private String _title;
 	private String _description;
 	private Date _lastPublishDate;

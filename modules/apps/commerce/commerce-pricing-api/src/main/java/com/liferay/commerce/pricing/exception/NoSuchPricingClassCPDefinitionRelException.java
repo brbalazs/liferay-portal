@@ -12,28 +12,31 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.modifier;
+package com.liferay.commerce.pricing.exception;
 
-import aQute.bnd.annotation.ProviderType;
-
-import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.portal.kernel.exception.PortalException;
-
-import java.math.BigDecimal;
+import com.liferay.portal.kernel.exception.NoSuchModelException;
 
 /**
  * @author Riccardo Alberti
  */
-@ProviderType
-public interface CommercePriceModifierHelper {
+public class NoSuchPricingClassCPDefinitionRelException
+	extends NoSuchModelException {
 
-	public BigDecimal applyCommercePriceModifier(
-			long commercePriceListId, long cpDefinitionId,
-			CommerceMoney originalCommerceMoney)
-		throws PortalException;
+	public NoSuchPricingClassCPDefinitionRelException() {
+	}
 
-	public boolean hasCommercePriceModifiers(
-			long commercePriceListId, long cpDefinitionId)
-		throws PortalException;
+	public NoSuchPricingClassCPDefinitionRelException(String msg) {
+		super(msg);
+	}
+
+	public NoSuchPricingClassCPDefinitionRelException(
+		String msg, Throwable cause) {
+
+		super(msg, cause);
+	}
+
+	public NoSuchPricingClassCPDefinitionRelException(Throwable cause) {
+		super(cause);
+	}
 
 }

@@ -39,13 +39,12 @@ public class CommercePricingClassServiceUtil {
 	 */
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			addCommercePricingClass(
-				long userId, long groupId, String name, String title,
-				String description,
+				long userId, long groupId, String title, String description,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addCommercePricingClass(
-			userId, groupId, name, title, description, serviceContext);
+			userId, groupId, title, description, serviceContext);
 	}
 
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
@@ -109,25 +108,24 @@ public class CommercePricingClassServiceUtil {
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			updateCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,
-				String name, String title, String description,
+				String title, String description,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateCommercePricingClass(
-			commercePricingClassId, userId, groupId, name, title, description,
+			commercePricingClassId, userId, groupId, title, description,
 			serviceContext);
 	}
 
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			upsertCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,
-				String name, String title, String description,
-				String externalReferenceCode,
+				String title, String description, String externalReferenceCode,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().upsertCommercePricingClass(
-			commercePricingClassId, userId, groupId, name, title, description,
+			commercePricingClassId, userId, groupId, title, description,
 			externalReferenceCode, serviceContext);
 	}
 

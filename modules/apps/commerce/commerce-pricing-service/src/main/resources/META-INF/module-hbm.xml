@@ -5,7 +5,7 @@
 	<import class="com.liferay.commerce.pricing.model.CommercePriceModifier" />
 	<import class="com.liferay.commerce.pricing.model.CommercePriceModifierRel" />
 	<import class="com.liferay.commerce.pricing.model.CommercePricingClass" />
-	<import class="com.liferay.commerce.pricing.model.CommercePricingClassRel" />
+	<import class="com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel" />
 	<class name="com.liferay.commerce.pricing.model.impl.CommercePriceModifierImpl" table="CommercePriceModifier">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="commercePriceModifierId" type="long">
 			<generator class="assigned" />
@@ -58,13 +58,12 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="createDate" type="org.hibernate.type.TimestampType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="lastPublishDate" type="org.hibernate.type.TimestampType" />
 	</class>
-	<class name="com.liferay.commerce.pricing.model.impl.CommercePricingClassRelImpl" table="CommercePricingClassRel">
-		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="commercePricingClassRelId" type="long">
+	<class name="com.liferay.commerce.pricing.model.impl.CommercePricingClassCPDefinitionRelImpl" table="CPricingClassCPDefinitionRel">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="CPricingClassCPDefinitionRelId" name="CommercePricingClassCPDefinitionRelId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -73,7 +72,6 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="createDate" type="org.hibernate.type.TimestampType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="commercePricingClassId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="classNameId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="classPK" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="CPDefinitionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 </hibernate-mapping>

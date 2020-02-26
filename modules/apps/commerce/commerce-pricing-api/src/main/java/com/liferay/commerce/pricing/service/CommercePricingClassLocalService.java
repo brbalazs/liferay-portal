@@ -75,8 +75,8 @@ public interface CommercePricingClassLocalService
 		CommercePricingClass commercePricingClass);
 
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, String name, String title,
-			String description, ServiceContext serviceContext)
+			long userId, long groupId, String title, String description,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -235,8 +235,7 @@ public interface CommercePricingClassLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePricingClass> getCommercePricingClassByCPDefinition(
-		long cpDefinitionId);
+	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId);
 
 	/**
 	 * Returns the commerce pricing class matching the UUID and group.
@@ -324,6 +323,9 @@ public interface CommercePricingClassLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
@@ -340,12 +342,12 @@ public interface CommercePricingClassLocalService
 		CommercePricingClass commercePricingClass);
 
 	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId, String name,
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, ServiceContext serviceContext)
 		throws PortalException;
 
 	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId, String name,
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException;

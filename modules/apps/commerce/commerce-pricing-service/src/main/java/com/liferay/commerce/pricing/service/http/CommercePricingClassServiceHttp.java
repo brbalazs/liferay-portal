@@ -54,7 +54,7 @@ public class CommercePricingClassServiceHttp {
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			addCommercePricingClass(
 				HttpPrincipal httpPrincipal, long userId, long groupId,
-				String name, String title, String description,
+				String title, String description,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -65,8 +65,7 @@ public class CommercePricingClassServiceHttp {
 				_addCommercePricingClassParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, userId, groupId, name, title, description,
-				serviceContext);
+				methodKey, userId, groupId, title, description, serviceContext);
 
 			Object returnObj = null;
 
@@ -363,8 +362,7 @@ public class CommercePricingClassServiceHttp {
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			updateCommercePricingClass(
 				HttpPrincipal httpPrincipal, long commercePricingClassId,
-				long userId, long groupId, String name, String title,
-				String description,
+				long userId, long groupId, String title, String description,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -375,7 +373,7 @@ public class CommercePricingClassServiceHttp {
 				_updateCommercePricingClassParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commercePricingClassId, userId, groupId, name, title,
+				methodKey, commercePricingClassId, userId, groupId, title,
 				description, serviceContext);
 
 			Object returnObj = null;
@@ -410,8 +408,8 @@ public class CommercePricingClassServiceHttp {
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			upsertCommercePricingClass(
 				HttpPrincipal httpPrincipal, long commercePricingClassId,
-				long userId, long groupId, String name, String title,
-				String description, String externalReferenceCode,
+				long userId, long groupId, String title, String description,
+				String externalReferenceCode,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -422,7 +420,7 @@ public class CommercePricingClassServiceHttp {
 				_upsertCommercePricingClassParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commercePricingClassId, userId, groupId, name, title,
+				methodKey, commercePricingClassId, userId, groupId, title,
 				description, externalReferenceCode, serviceContext);
 
 			Object returnObj = null;
@@ -459,7 +457,7 @@ public class CommercePricingClassServiceHttp {
 
 	private static final Class<?>[] _addCommercePricingClassParameterTypes0 =
 		new Class[] {
-			long.class, long.class, String.class, String.class, String.class,
+			long.class, long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _deleteCommercePricingClassParameterTypes1 =
@@ -484,13 +482,12 @@ public class CommercePricingClassServiceHttp {
 	private static final Class<?>[] _updateCommercePricingClassParameterTypes7 =
 		new Class[] {
 			long.class, long.class, long.class, String.class, String.class,
-			String.class, com.liferay.portal.kernel.service.ServiceContext.class
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _upsertCommercePricingClassParameterTypes8 =
 		new Class[] {
 			long.class, long.class, long.class, String.class, String.class,
-			String.class, String.class,
-			com.liferay.portal.kernel.service.ServiceContext.class
+			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
 
 }

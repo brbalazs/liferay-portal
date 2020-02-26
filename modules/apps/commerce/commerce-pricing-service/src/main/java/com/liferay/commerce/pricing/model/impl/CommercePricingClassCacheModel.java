@@ -64,7 +64,7 @@ public class CommercePricingClassCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -84,8 +84,6 @@ public class CommercePricingClassCacheModel
 		sb.append(modifiedDate);
 		sb.append(", groupId=");
 		sb.append(groupId);
-		sb.append(", name=");
-		sb.append(name);
 		sb.append(", title=");
 		sb.append(title);
 		sb.append(", description=");
@@ -145,13 +143,6 @@ public class CommercePricingClassCacheModel
 
 		commercePricingClassImpl.setGroupId(groupId);
 
-		if (name == null) {
-			commercePricingClassImpl.setName("");
-		}
-		else {
-			commercePricingClassImpl.setName(name);
-		}
-
 		if (title == null) {
 			commercePricingClassImpl.setTitle("");
 		}
@@ -194,7 +185,6 @@ public class CommercePricingClassCacheModel
 		modifiedDate = objectInput.readLong();
 
 		groupId = objectInput.readLong();
-		name = objectInput.readUTF();
 		title = objectInput.readUTF();
 		description = objectInput.readUTF();
 		lastPublishDate = objectInput.readLong();
@@ -234,13 +224,6 @@ public class CommercePricingClassCacheModel
 
 		objectOutput.writeLong(groupId);
 
-		if (name == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(name);
-		}
-
 		if (title == null) {
 			objectOutput.writeUTF("");
 		}
@@ -267,7 +250,6 @@ public class CommercePricingClassCacheModel
 	public long createDate;
 	public long modifiedDate;
 	public long groupId;
-	public String name;
 	public String title;
 	public String description;
 	public long lastPublishDate;

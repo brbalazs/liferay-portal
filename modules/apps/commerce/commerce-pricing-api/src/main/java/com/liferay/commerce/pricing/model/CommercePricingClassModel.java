@@ -223,21 +223,6 @@ public interface CommercePricingClassModel
 	public void setGroupId(long groupId);
 
 	/**
-	 * Returns the name of this commerce pricing class.
-	 *
-	 * @return the name of this commerce pricing class
-	 */
-	@AutoEscape
-	public String getName();
-
-	/**
-	 * Sets the name of this commerce pricing class.
-	 *
-	 * @param name the name of this commerce pricing class
-	 */
-	public void setName(String name);
-
-	/**
 	 * Returns the title of this commerce pricing class.
 	 *
 	 * @return the title of this commerce pricing class
