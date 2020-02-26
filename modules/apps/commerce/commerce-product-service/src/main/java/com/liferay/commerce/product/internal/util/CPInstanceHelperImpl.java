@@ -20,6 +20,7 @@ import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.constants.CPField;
+import com.liferay.commerce.product.exception.CPDefinitionIgnoreSKUCombinationsException;
 import com.liferay.commerce.product.internal.catalog.CPSkuImpl;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
@@ -79,6 +80,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -348,6 +350,20 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	public CPInstance getCPInstance(
 			long cpDefinitionId, String serializedDDMFormValues)
 		throws PortalException {
+
+		if (Validator.isNull(serializedDDMFormValues) ||
+			Objects.equals(serializedDDMFormValues, "[]")) {
+
+			throw new IllegalArgumentException("Required parameter missing");
+		}
+
+		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
+			cpDefinitionId);
+
+		if (cpDefinition.isIgnoreSKUCombinations()) {
+			throw new CPDefinitionIgnoreSKUCombinationsException(
+				"Unable to get CP instance if SKU combination is ignored");
+		}
 
 		return _findInstance(cpDefinitionId, serializedDDMFormValues);
 	}
