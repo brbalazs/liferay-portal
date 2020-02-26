@@ -97,7 +97,7 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 			</commerce-ui:panel>
 		</c:if>
 
-		<div id="values-container" class="d-none">
+		<div class="d-none" id="values-container">
 			<commerce-ui:panel
 				bodyClasses="p-0"
 				title='<%= LanguageUtil.get(request, "custom-attribute") %>'
@@ -138,7 +138,6 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 
 			handleTypeSelectChanges();
 		</aui:script>
-
 
 		<aui:button-row>
 			<aui:button cssClass="btn-lg" type="submit" value="save" />
