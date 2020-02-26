@@ -287,8 +287,8 @@ public class CPContentHelperImpl implements CPContentHelper {
 			return null;
 		}
 
-		return _cpInstanceHelper.getCPInstance(
-			cpCatalogEntry.getCPDefinitionId(), null);
+		return _cpInstanceHelper.getDefaultCPInstance(
+			cpCatalogEntry.getCPDefinitionId());
 	}
 
 	@Override
