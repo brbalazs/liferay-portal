@@ -82,6 +82,9 @@ public interface CPInstanceHelper {
 
 	public String getCPInstanceThumbnailSrc(long cpInstanceId) throws Exception;
 
+	public CPInstance getDefaultCPInstance(long cpDefinitionId)
+		throws PortalException;
+
 	public CPSku getDefaultCPSku(CPCatalogEntry cpCatalogEntry)
 		throws Exception;
 
