@@ -116,6 +116,10 @@ public class CPDisplayLayoutLocalServiceImpl
 		return null;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public void deleteCPDisplayLayoutByGroupIdAndLayoutUuid(
 		long groupId, String layoutUuid) {
@@ -127,6 +131,13 @@ public class CPDisplayLayoutLocalServiceImpl
 	public CPDisplayLayout fetchCPDisplayLayout(Class<?> clazz, long classPK) {
 		return cpDisplayLayoutPersistence.fetchByC_C(
 			classNameLocalService.getClassNameId(clazz), classPK);
+	}
+
+	@Override
+	public List<CPDisplayLayout> fetchCPDisplayLayoutByGroupIdAndLayoutUuid(
+		long groupId, String layoutUuid) {
+
+		return cpDisplayLayoutPersistence.findByG_L(groupId, layoutUuid);
 	}
 
 	@Override
