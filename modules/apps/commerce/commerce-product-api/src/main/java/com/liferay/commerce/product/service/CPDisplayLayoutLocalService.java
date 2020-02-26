@@ -111,6 +111,10 @@ public interface CPDisplayLayoutLocalService
 	public CPDisplayLayout deleteCPDisplayLayout(long CPDisplayLayoutId)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	public void deleteCPDisplayLayoutByGroupIdAndLayoutUuid(
 		long groupId, String layoutUuid);
 
@@ -192,6 +196,10 @@ public interface CPDisplayLayoutLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPDisplayLayout fetchCPDisplayLayout(long CPDisplayLayoutId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPDisplayLayout> fetchCPDisplayLayoutByGroupIdAndLayoutUuid(
+		long groupId, String layoutUuid);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPDisplayLayout> fetchCPDisplayLayoutByGroupIdAndLayoutUuid(

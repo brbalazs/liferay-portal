@@ -107,6 +107,10 @@ public class CPDisplayLayoutLocalServiceUtil {
 		return getService().deleteCPDisplayLayout(CPDisplayLayoutId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	public static void deleteCPDisplayLayoutByGroupIdAndLayoutUuid(
 		long groupId, String layoutUuid) {
 
@@ -220,6 +224,15 @@ public class CPDisplayLayoutLocalServiceUtil {
 		fetchCPDisplayLayout(long CPDisplayLayoutId) {
 
 		return getService().fetchCPDisplayLayout(CPDisplayLayoutId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.product.model.CPDisplayLayout>
+			fetchCPDisplayLayoutByGroupIdAndLayoutUuid(
+				long groupId, String layoutUuid) {
+
+		return getService().fetchCPDisplayLayoutByGroupIdAndLayoutUuid(
+			groupId, layoutUuid);
 	}
 
 	public static java.util.List
