@@ -14,10 +14,10 @@
 
 package com.liferay.commerce.pricing.type;
 
-import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.portal.kernel.exception.PortalException;
+
+import java.math.BigDecimal;
 
 import java.util.Locale;
 
@@ -26,37 +26,13 @@ import java.util.Locale;
  */
 public interface CommercePriceModifierType {
 
-	public CommerceMoney evaluate(
-			CommerceMoney commerceMoney,
-			CommercePriceModifier commercePriceModifier,
-			CommerceCurrency commerceCurrency)
+	public BigDecimal evaluate(
+			BigDecimal commercePrice,
+			CommercePriceModifier commercePriceModifier)
 		throws PortalException;
 
 	public String getKey();
 
 	public String getLabel(Locale locale);
-
-	public Type getType();
-
-	public enum Type {
-
-		ABSOLUTE("ABSOLUTE"), OVERRIDE("OVERRIDE"), PERCENTAGE("PERCENTAGE");
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return getValue();
-		}
-
-		private Type(final String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
 
 }
