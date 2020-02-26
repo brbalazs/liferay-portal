@@ -21,8 +21,6 @@ import com.liferay.commerce.discount.CommerceDiscountValue;
 
 import java.math.BigDecimal;
 
-import java.util.List;
-
 /**
  * @author Marco Leo
  */

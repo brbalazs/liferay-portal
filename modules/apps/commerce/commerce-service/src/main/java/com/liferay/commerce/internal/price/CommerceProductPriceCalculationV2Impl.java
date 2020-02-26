@@ -116,19 +116,17 @@ public class CommerceProductPriceCalculationV2Impl
 
 		BigDecimal promoPrice = promoPriceMoney.getPrice();
 
-		long commerceFinalPriceListId = commercePriceListId;
-
 		if ((promoPrice != null) &&
 			(promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
 			(promoPrice.compareTo(unitPriceMoney.getPrice()) <= 0)) {
 
 			finalPrice = promoPriceMoney.getPrice();
 
-			commerceFinalPriceListId = commercePromoPriceListId;
+			commercePriceListId = commercePromoPriceListId;
 		}
 
 		CommerceDiscountValue commerceDiscountValue = _getCommerceDiscountValue(
-			cpInstanceId, commerceFinalPriceListId, quantity, finalPrice,
+			cpInstanceId, commercePriceListId, quantity, finalPrice,
 			commerceContext);
 
 		finalPrice = finalPrice.multiply(BigDecimal.valueOf(quantity));
@@ -943,7 +941,9 @@ public class CommerceProductPriceCalculationV2Impl
 	private final Map<String, CommerceDiscountApplicationStrategy>
 		_commerceDiscountApplicationStrategyMap = new ConcurrentHashMap<>();
 
-	@Reference
+	@Reference(
+		target = "(commerce.discount.calculation.key=v2.0)"
+	)
 	private CommerceDiscountCalculation _commerceDiscountCalculation;
 
 	@Reference

@@ -20,6 +20,7 @@ import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.portal.kernel.exception.PortalException;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -64,8 +65,7 @@ public class CommercePriceListHierarchyDiscoveryImpl
 		commercePriceList =
 			_commercePriceListLocalService.
 				getCommercePriceListByAccountGroupsAndChannelId(
-					groupId, commercePriceListType,
-					commerceAccountGroupIds,
+					groupId, commercePriceListType, commerceAccountGroupIds,
 					commerceChannelId);
 
 		if (commercePriceList != null) {
@@ -101,9 +101,9 @@ public class CommercePriceListHierarchyDiscoveryImpl
 	}
 
 	@Reference
-	private CommercePriceListLocalService _commercePriceListLocalService;
+	private CommerceAccountHelper _commerceAccountHelper;
 
 	@Reference
-	private CommerceAccountHelper _commerceAccountHelper;
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 }

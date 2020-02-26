@@ -959,4 +959,7 @@ public class CommerceOrderItemLocalServiceImpl
 	@ServiceReference(type = CPInstanceLocalService.class)
 	private CPInstanceLocalService _cpInstanceLocalService;
 
+	@ServiceReference(type = CommerceProductPriceCalculation.class)
+	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
+
 }
