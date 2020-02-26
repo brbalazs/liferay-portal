@@ -26,12 +26,15 @@ import com.liferay.commerce.product.exception.CPDefinitionExpirationDateExceptio
 import com.liferay.commerce.product.exception.CPDefinitionMetaDescriptionException;
 import com.liferay.commerce.product.exception.CPDefinitionMetaKeywordsException;
 import com.liferay.commerce.product.exception.CPDefinitionMetaTitleException;
+import com.liferay.commerce.product.exception.CPDefinitionNameDefaultLanguageException;
 import com.liferay.commerce.product.exception.CPFriendlyURLEntryException;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.exception.NoSuchCatalogException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstanceConstants;
+import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.commerce.service.CPDAvailabilityEstimateService;
 import com.liferay.commerce.service.CPDefinitionInventoryService;
@@ -51,11 +54,13 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropertiesParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Calendar;
@@ -201,6 +206,7 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 					 t instanceof CPDefinitionMetaDescriptionException ||
 					 t instanceof CPDefinitionMetaKeywordsException ||
 					 t instanceof CPDefinitionMetaTitleException ||
+					 t instanceof CPDefinitionNameDefaultLanguageException ||
 					 t instanceof CPFriendlyURLEntryException ||
 					 t instanceof NoSuchCatalogException ||
 					 t instanceof NoSuchCPDefinitionInventoryException ||
@@ -323,6 +329,20 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 		CPDefinition cpDefinition = null;
 
 		if (cpDefinitionId <= 0) {
+			CommerceCatalog commerceCatalog =
+				_commerceCatalogService.fetchCommerceCatalogByGroupId(
+					commerceCatalogGroupId);
+
+			if (commerceCatalog == null) {
+				throw new NoSuchCatalogException();
+			}
+
+			Locale defaultLocale = LocaleUtil.fromLanguageId(
+				commerceCatalog.getCatalogDefaultLanguageId());
+
+			if (Validator.isNull(nameMap.get(defaultLocale))) {
+				throw new CPDefinitionNameDefaultLanguageException();
+			}
 
 			// Add commerce product definition
 
@@ -569,6 +589,9 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CommerceAccountGroupRelService _commerceAccountGroupRelService;
+
+	@Reference
+	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
 	private CommerceChannelRelService _commerceChannelRelService;
