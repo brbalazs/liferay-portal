@@ -15,8 +15,8 @@
 package com.liferay.commerce.pricing.internal.type;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.pricing.constants.CommercePriceModifierTypeConstants;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
@@ -49,25 +49,22 @@ public class CommercePriceModifierPercentageTypeImpl
 	implements CommercePriceModifierType {
 
 	@Override
-	public CommerceMoney evaluate(
-			CommerceMoney originalCommerceMoney,
-			CommercePriceModifier commercePriceModifier,
-			CommerceCurrency commerceCurrency)
+	public BigDecimal evaluate(
+			BigDecimal originalPrice,
+			CommercePriceModifier commercePriceModifier)
 		throws PortalException {
-
-		CommerceCurrency originalCommerceCurrency =
-			originalCommerceMoney.getCommerceCurrency();
 
 		BigDecimal modifierAmount = commercePriceModifier.getModifierAmount();
 
-		BigDecimal modifierAmountAbs = modifierAmount.abs();
+		CommercePriceList commercePriceList =
+			_commercePriceListLocalService.getCommercePriceList(
+				commercePriceModifier.getCommercePriceListId());
 
-		if (modifierAmountAbs.compareTo(_ONE_HUNDRED) > 0) {
-			return originalCommerceMoney;
-		}
+		CommerceCurrency commerceCurrency =
+			commercePriceList.getCommerceCurrency();
 
 		RoundingMode roundingMode = RoundingMode.valueOf(
-			originalCommerceCurrency.getRoundingMode());
+			commerceCurrency.getRoundingMode());
 
 		BigDecimal percentage = BigDecimal.ONE.add(
 			modifierAmount.divide(_ONE_HUNDRED));
@@ -75,13 +72,7 @@ public class CommercePriceModifierPercentageTypeImpl
 		MathContext mathContext = new MathContext(
 			percentage.precision(), roundingMode);
 
-		BigDecimal originalPrice = originalCommerceMoney.getPrice();
-
-		BigDecimal modifiedPrice = originalPrice.multiply(
-			percentage, mathContext);
-
-		return _commerceMoneyFactory.create(
-			originalCommerceCurrency, modifiedPrice);
+		return originalPrice.multiply(percentage, mathContext);
 	}
 
 	@Override
@@ -97,14 +88,9 @@ public class CommercePriceModifierPercentageTypeImpl
 		return LanguageUtil.get(resourceBundle, "percentage");
 	}
 
-	@Override
-	public Type getType() {
-		return Type.PERCENTAGE;
-	}
-
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
 	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 }

@@ -16,15 +16,17 @@ package com.liferay.commerce.pricing.internal.modifier;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.currency.model.CommerceMoneyFactory;
-import com.liferay.commerce.pricing.modifier.CommercePriceModifierHelper;
+import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
+import com.liferay.commerce.pricing.modifier.CommercePriceModifierHelper;
 import com.liferay.commerce.pricing.service.CommercePriceModifierLocalService;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
 import com.liferay.commerce.pricing.type.CommercePriceModifierTypeRegistry;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import java.util.List;
 
@@ -39,10 +41,9 @@ public class CommercePriceModifierHelperImpl
 	implements CommercePriceModifierHelper {
 
 	@Override
-	public CommerceMoney applyCommercePriceModifier(
+	public BigDecimal applyCommercePriceModifier(
 			long commercePriceListId, long cpDefinitionId,
-			CommerceMoney originalCommerceMoney,
-			CommerceCurrency commerceCurrency)
+			CommerceMoney originalCommerceMoney)
 		throws PortalException {
 
 		List<CommercePriceModifier> commercePriceModifiers =
@@ -51,6 +52,29 @@ public class CommercePriceModifierHelperImpl
 					commercePriceListId, cpDefinitionId);
 
 		BigDecimal lowestPrice = null;
+
+		CommercePriceList commercePriceList =
+			_commercePriceListLocalService.getCommercePriceList(
+				commercePriceListId);
+
+		CommerceCurrency priceListCurrency =
+			commercePriceList.getCommerceCurrency();
+
+		CommerceCurrency originalCommerceCurrency =
+			originalCommerceMoney.getCommerceCurrency();
+
+		BigDecimal originalPrice = originalCommerceMoney.getPrice();
+
+		if (commercePriceList.getCommerceCurrencyId() !=
+				originalCommerceCurrency.getCommerceCurrencyId()) {
+
+			originalPrice = originalPrice.divide(
+				priceListCurrency.getRate(),
+				RoundingMode.valueOf(priceListCurrency.getRoundingMode()));
+
+			originalPrice = originalPrice.multiply(
+				originalCommerceCurrency.getRate());
+		}
 
 		if ((commercePriceModifiers != null) &&
 			!commercePriceModifiers.isEmpty()) {
@@ -63,12 +87,8 @@ public class CommercePriceModifierHelperImpl
 						getCommercePriceModifierType(
 							commercePriceModifier.getModifierType());
 
-				CommerceMoney actualCommerceMoney =
-					commercePriceModifierType.evaluate(
-						originalCommerceMoney, commercePriceModifier,
-						commerceCurrency);
-
-				BigDecimal actualPrice = actualCommerceMoney.getPrice();
+				BigDecimal actualPrice = commercePriceModifierType.evaluate(
+					originalPrice, commercePriceModifier);
 
 				if ((lowestPrice == null) ||
 					(actualPrice.compareTo(lowestPrice) < 0)) {
@@ -79,14 +99,38 @@ public class CommercePriceModifierHelperImpl
 		}
 
 		if (lowestPrice == null) {
-			return originalCommerceMoney;
+			return originalCommerceMoney.getPrice();
 		}
 
-		return _commerceMoneyFactory.create(commerceCurrency, lowestPrice);
+		if (commercePriceList.getCommerceCurrencyId() !=
+				originalCommerceCurrency.getCommerceCurrencyId()) {
+
+			lowestPrice = lowestPrice.divide(
+				originalCommerceCurrency.getRate(),
+				RoundingMode.valueOf(
+					originalCommerceCurrency.getRoundingMode()));
+
+			lowestPrice = lowestPrice.multiply(priceListCurrency.getRate());
+		}
+
+		return lowestPrice;
+	}
+
+	@Override
+	public boolean hasCommercePriceModifiers(
+			long commercePriceListId, long cpDefinitionId)
+		throws PortalException {
+
+		List<CommercePriceModifier> commercePriceModifiers =
+			_commercePriceModifierLocalService.
+				getQualifiedCommercePriceModifiers(
+					commercePriceListId, cpDefinitionId);
+
+		return !commercePriceModifiers.isEmpty();
 	}
 
 	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 	@Reference
 	private CommercePriceModifierLocalService

@@ -14,9 +14,6 @@
 
 package com.liferay.commerce.pricing.internal.type;
 
-import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.pricing.constants.CommercePriceModifierTypeConstants;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
@@ -25,13 +22,11 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Alberti
@@ -48,36 +43,20 @@ public class CommercePriceModifierOverrideTypeImpl
 	implements CommercePriceModifierType {
 
 	@Override
-	public CommerceMoney evaluate(
-			CommerceMoney originalCommerceMoney,
-			CommercePriceModifier commercePriceModifier,
-			CommerceCurrency commerceCurrency)
+	public BigDecimal evaluate(
+			BigDecimal originalPrice,
+			CommercePriceModifier commercePriceModifier)
 		throws PortalException {
 
-		CommerceCurrency originalCommerceCurrency =
-			originalCommerceMoney.getCommerceCurrency();
-
 		BigDecimal amount = commercePriceModifier.getModifierAmount();
-
-		if (originalCommerceCurrency.getCommerceCurrencyId() !=
-				commerceCurrency.getCommerceCurrencyId()) {
-
-			amount = amount.divide(
-				originalCommerceCurrency.getRate(),
-				RoundingMode.valueOf(
-					originalCommerceCurrency.getRoundingMode()));
-
-			amount = amount.multiply(commerceCurrency.getRate());
-		}
 
 		BigDecimal modifiedPrice = amount;
 
 		if (modifiedPrice.compareTo(BigDecimal.ZERO) < 0) {
-			return originalCommerceMoney;
+			return originalPrice;
 		}
 
-		return _commerceMoneyFactory.create(
-			originalCommerceCurrency, modifiedPrice);
+		return modifiedPrice;
 	}
 
 	@Override
@@ -92,13 +71,5 @@ public class CommercePriceModifierOverrideTypeImpl
 
 		return LanguageUtil.get(resourceBundle, "override");
 	}
-
-	@Override
-	public Type getType() {
-		return Type.OVERRIDE;
-	}
-
-	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
 
 }
