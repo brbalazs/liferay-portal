@@ -12,20 +12,24 @@
  * details.
  */
 
-package com.liferay.commerce.price;
+package com.liferay.commerce.pricing.modifier;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.discount.CommerceDiscountLevel;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Riccardo Alberti
  */
-public interface CommercePriceValue {
+@ProviderType
+public interface CommercePriceModifierHelper {
 
-	public CommerceMoney getCommerceMoney();
-
-	public CommerceDiscountLevel[] getDiscountLevels();
-
-	public int getMinQuantity();
+	public CommerceMoney applyCommercePriceModifier(
+			long commercePriceListId, long cpDefinitionId,
+			CommerceMoney originalCommerceMoney,
+			CommerceCurrency commerceCurrency)
+		throws PortalException;
 
 }

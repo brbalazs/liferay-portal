@@ -17,7 +17,7 @@ package com.liferay.commerce.pricing.internal.modifier;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
-import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierHelper;
+import com.liferay.commerce.pricing.modifier.CommercePriceModifierHelper;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.service.CommercePriceModifierLocalService;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
