@@ -411,8 +411,32 @@ public interface CPInstanceLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPInstance> getCPDefinitionApprovedCPInstances(
+		long cpDefinitionId);
+
+	/**
+	 * @param cpDefinitionId
+	 * @return
+	 * @deprecated As of Athanasius (7.3.x), use workflow aware method {@link
+	 #getCPDefinitionInstances(long, int, int, int,
+	 OrderByComparator)} or {@link
+	 #getCPDefinitionApprovedCPInstances(long)}
+	 */
+	@Deprecated
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPInstance> getCPDefinitionInstances(long cpDefinitionId);
 
+	/**
+	 * @param cpDefinitionId
+	 * @param start
+	 * @param end
+	 * @return
+	 * @deprecated As of Athanasius (7.3.x), use workflow aware method {@link
+	 #getCPDefinitionInstances(long, int, int, int,
+	 OrderByComparator)} or {@link
+	 #getCPDefinitionApprovedCPInstances(long)}
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPInstance> getCPDefinitionInstances(
 		long cpDefinitionId, int start, int end);

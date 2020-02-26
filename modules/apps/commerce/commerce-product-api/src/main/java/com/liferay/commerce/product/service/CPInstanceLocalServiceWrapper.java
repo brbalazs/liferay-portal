@@ -514,11 +514,39 @@ public class CPInstanceLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.commerce.product.model.CPInstance>
+		getCPDefinitionApprovedCPInstances(long cpDefinitionId) {
+
+		return _cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+			cpDefinitionId);
+	}
+
+	/**
+	 * @param cpDefinitionId
+	 * @return
+	 * @deprecated As of Athanasius (7.3.x), use workflow aware method {@link
+	 #getCPDefinitionInstances(long, int, int, int,
+	 OrderByComparator)} or {@link
+	 #getCPDefinitionApprovedCPInstances(long)}
+	 */
+	@Deprecated
+	@Override
+	public java.util.List<com.liferay.commerce.product.model.CPInstance>
 		getCPDefinitionInstances(long cpDefinitionId) {
 
 		return _cpInstanceLocalService.getCPDefinitionInstances(cpDefinitionId);
 	}
 
+	/**
+	 * @param cpDefinitionId
+	 * @param start
+	 * @param end
+	 * @return
+	 * @deprecated As of Athanasius (7.3.x), use workflow aware method {@link
+	 #getCPDefinitionInstances(long, int, int, int,
+	 OrderByComparator)} or {@link
+	 #getCPDefinitionApprovedCPInstances(long)}
+	 */
+	@Deprecated
 	@Override
 	public java.util.List<com.liferay.commerce.product.model.CPInstance>
 		getCPDefinitionInstances(long cpDefinitionId, int start, int end) {
