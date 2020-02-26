@@ -12,18 +12,41 @@
  * details.
  */
 
-package com.liferay.commerce.frontend.clay.data.set;
+package com.liferay.commerce.frontend.model;
 
 /**
- * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
-public class ClayDataSetConstants {
+public class TimelineModel {
 
-	public static final String CLAY_DATA_SET_CONTENT_RENDERER_LIST = "list";
+	public TimelineModel(
+		long id, String date, String description, String title) {
 
-	public static final String CLAY_DATA_SET_CONTENT_RENDERER_TABLE = "table";
+		_id = id;
+		_date = date;
+		_description = description;
+		_title = title;
+	}
 
-	public static final String CLAY_DATA_SET_CONTENT_RENDERER_TIMELINE =
-		"timeline";
+	public String getDate() {
+		return _date;
+	}
+
+	public String getDescription() {
+		return _description;
+	}
+
+	public long getId() {
+		return _id;
+	}
+
+	public String getTitle() {
+		return _title;
+	}
+
+	private final String _date;
+	private final String _description;
+	private final long _id;
+	private final String _title;
 
 }
