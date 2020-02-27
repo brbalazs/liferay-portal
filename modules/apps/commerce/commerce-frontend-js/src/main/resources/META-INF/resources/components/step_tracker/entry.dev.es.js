@@ -21,7 +21,7 @@ launcher('step_tracker', 'step-tracker', {
 	steps: [
 		{
 			id: 'received',
-			label: 'Received',
+			label: 'Received asd asd',
 			state: 'completed'
 		},
 		{

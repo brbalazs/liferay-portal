@@ -67,12 +67,12 @@ module.exports = [
     folder: "side_panel",
     name: "Side panel",
     page: "side-panel.html"
-  },
-  {
-    entry: "entry.es.js",
-    entry_dev: "entry.dev.es.js",
-    folder: "step_tracker",
-    name: "Step tracker",
-    page: "step-tracker.html"
-  }*/
+  },*/,
+	{
+		entry: 'entry.es.js',
+		entry_dev: 'entry.dev.es.js',
+		folder: 'step_tracker',
+		name: 'Step tracker',
+		page: 'step-tracker.html'
+	}
 ];

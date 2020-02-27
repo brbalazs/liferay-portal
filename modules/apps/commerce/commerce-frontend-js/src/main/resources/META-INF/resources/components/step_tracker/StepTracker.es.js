@@ -12,29 +12,20 @@
  * details.
  */
 
+import ClayIcon, {ClayIconSpriteContext} from '@clayui/icon';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const stateToCssClassesMap = {
-	active: 'text-primary',
-	completed: 'text-success',
-	inactive: 'text-muted'
-};
-
-function mapStateToCssClass(state) {
-	return stateToCssClassesMap[state];
-}
-
 function Step(props) {
 	return (
-		<div
-			className={classnames(
-				`step`,
-				mapStateToCssClass(props.state || 'inactive')
-			)}
-		>
-			<span className="step-label">{props.label}</span>
+		<div className={classnames(`step`, props.state || 'inactive')}>
+			<span className="step-label">
+				{props.label}
+				{props.state === 'completed' && (
+					<ClayIcon className="ml-3" symbol="check" />
+				)}
+			</span>
 		</div>
 	);
 }
@@ -46,15 +37,18 @@ Step.propTypes = {
 
 function StepTracker(props) {
 	return (
-		<div className="step-tracker rounded">
-			{props.steps.map(step => (
-				<Step key={step.id} {...step} />
-			))}
-		</div>
+		<ClayIconSpriteContext.Provider value={props.spritemap}>
+			<div className="step-tracker rounded">
+				{props.steps.map(step => (
+					<Step key={step.id} {...step} />
+				))}
+			</div>
+		</ClayIconSpriteContext.Provider>
 	);
 }
 
 StepTracker.propTypes = {
+	spritemap: PropTypes.string.isRequired,
 	steps: PropTypes.array.isRequired
 };
 
