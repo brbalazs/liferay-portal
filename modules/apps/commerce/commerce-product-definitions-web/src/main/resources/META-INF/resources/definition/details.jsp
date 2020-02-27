@@ -258,11 +258,9 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 								return response.json();
 							})
 							.then(function(jsonResponse) {
-								return jsonResponse.items.map(
-									function(specification) {
-										return specification.specificationId
-									}
-								);
+								return jsonResponse.items.map(function(specification) {
+									return specification.specificationId;
+								});
 							});
 					}
 

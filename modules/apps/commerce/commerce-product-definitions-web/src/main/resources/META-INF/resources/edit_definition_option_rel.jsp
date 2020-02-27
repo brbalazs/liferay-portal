@@ -123,11 +123,13 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 
 		<aui:script>
 			var valuesContainer = document.querySelector('#values-container');
-			var optionTypeSelect = document.querySelector('#<portlet:namespace />DDMFormFieldTypeName');
-			var sectionsTypeWithMultipleValues = ["select", "radio", "checkbox_multiple"];
+			var optionTypeSelect = document.querySelector(
+				'#<portlet:namespace />DDMFormFieldTypeName'
+			);
+			var sectionsTypeWithMultipleValues = ['select', 'radio', 'checkbox_multiple'];
 
 			function handleTypeSelectChanges() {
-				if(sectionsTypeWithMultipleValues.includes(optionTypeSelect.value)) {
+				if (sectionsTypeWithMultipleValues.includes(optionTypeSelect.value)) {
 					valuesContainer.classList.remove('d-none');
 				} else {
 					valuesContainer.classList.add('d-none');

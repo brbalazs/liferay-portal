@@ -29,5 +29,6 @@ PaymentProcessCheckoutStepDisplayContext paymentProcessCheckoutStepDisplayContex
 </div>
 
 <script>
-	window.location.href = '<%= paymentProcessCheckoutStepDisplayContext.getPaymentServletUrl() %>';
+	window.location.href =
+		'<%= paymentProcessCheckoutStepDisplayContext.getPaymentServletUrl() %>';
 </script>
