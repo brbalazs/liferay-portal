@@ -91,10 +91,10 @@
 
 			&::after {
 				background: none !important;
-				height: 0 !important;
 				border-left: 6px solid transparent;
 				border-right: 6px solid transparent;
 				border-top: 6px solid currentColor;
+				height: 0 !important;
 				left: calc(50% - 6px) !important;
 				top: 100% !important;
 				z-index: 1;
