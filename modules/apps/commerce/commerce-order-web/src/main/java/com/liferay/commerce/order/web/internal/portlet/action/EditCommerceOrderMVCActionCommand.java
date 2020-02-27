@@ -214,30 +214,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			else if (cmd.equals("selectShippingAddress")) {
 				selectShippingAddress(actionRequest);
 			}
-			else if (cmd.equals("shipment")) {
-				long commerceOrderId = ParamUtil.getLong(
-					actionRequest, "commerceOrderId");
-
-				CommerceShipment commerceShipment = addShipment(
-					actionRequest, commerceOrderId);
-
-				PortletURL shipmentPortletURL =
-					_portal.getControlPanelPortletURL(
-						actionRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
-						PortletRequest.RENDER_PHASE);
-
-				shipmentPortletURL.setParameter(
-					"mvcRenderCommandName", "selectCommerceShipmentItems");
-				shipmentPortletURL.setParameter(
-					"commerceOrderId", String.valueOf(commerceOrderId));
-				shipmentPortletURL.setParameter(
-					"commerceShipmentId",
-					String.valueOf(commerceShipment.getCommerceShipmentId()));
-
-				sendRedirect(
-					actionRequest, actionResponse,
-					shipmentPortletURL.toString());
-			}
 			else if (cmd.equals("totals")) {
 				updateTotals(actionRequest);
 			}
@@ -296,8 +272,8 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 					actionRequest, commerceOrderId);
 
 				redirectToShipments(
-					commerceOrderId, commerceShipment.getCommerceShipmentId(),
-					actionRequest, actionResponse);
+					commerceShipment.getCommerceShipmentId(), actionRequest,
+					actionResponse);
 			}
 			else {
 				_commerceOrderEngine.transitionCommerceOrder(
@@ -319,8 +295,8 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	protected void redirectToShipments(
-			long commerceOrderId, long commerceShipmentId,
-			ActionRequest actionRequest, ActionResponse actionResponse)
+			long commerceShipmentId, ActionRequest actionRequest,
+			ActionResponse actionResponse)
 		throws Exception {
 
 		PortletURL shipmentPortletURL = _portal.getControlPanelPortletURL(
@@ -328,9 +304,7 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			PortletRequest.RENDER_PHASE);
 
 		shipmentPortletURL.setParameter(
-			"mvcRenderCommandName", "selectCommerceShipmentItems");
-		shipmentPortletURL.setParameter(
-			"commerceOrderId", String.valueOf(commerceOrderId));
+			"mvcRenderCommandName", "editCommerceShipment");
 		shipmentPortletURL.setParameter(
 			"commerceShipmentId", String.valueOf(commerceShipmentId));
 
