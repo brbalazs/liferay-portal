@@ -17,13 +17,13 @@
 <%@ include file="/init.jsp" %>
 
 <%
-AnalyticsConfiguration analyticsConfiguration = (AnalyticsConfiguration)request.getAttribute(AnalyticsSettingsWebKeys.ANALYTICS_CONFIGURATION);
-
 ChannelDisplayContext channelDisplayContext = new ChannelDisplayContext(renderRequest, renderResponse);
 
 ChannelSearch channelSearch = channelDisplayContext.getChannelSearch();
 
 boolean connected = false;
+
+AnalyticsConfiguration analyticsConfiguration = (AnalyticsConfiguration)request.getAttribute(AnalyticsSettingsWebKeys.ANALYTICS_CONFIGURATION);
 
 if (!Validator.isBlank(analyticsConfiguration.token())) {
 	connected = true;
