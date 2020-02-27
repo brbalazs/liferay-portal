@@ -43,12 +43,12 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 					{
 						body: JSON.stringify([
 							{
-								fieldType: 'select',
+								fieldType: option.fieldType,
 								key: option.key,
 								name: option.name,
 								optionId: option.id,
-								required: false,
-								skuContributor: false,
+								required: option.required,
+								skuContributor: option.skuContributor,
 								productOptionValues: []
 							}
 						]),
