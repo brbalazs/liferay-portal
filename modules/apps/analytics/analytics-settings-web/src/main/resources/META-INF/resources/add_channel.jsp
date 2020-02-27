@@ -17,8 +17,6 @@
 <%@ include file="/init.jsp" %>
 
 <%
-GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest, renderResponse);
-
 String redirect = ParamUtil.getString(request, "redirect");
 
 portletDisplay.setShowBackIcon(true);
@@ -77,6 +75,10 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 				</small>
 			</label>
 		</div>
+
+		<%
+		GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest, renderResponse);
+		%>
 
 		<clay:management-toolbar
 			displayContext="<%= new GroupManagementToolbarDisplayContext(request, liferayPortletRequest, liferayPortletResponse, groupDisplayContext) %>"
