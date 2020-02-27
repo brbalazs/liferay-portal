@@ -97,13 +97,11 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 					.then(function(response) {
 						return response.json();
 					})
-					.then(
-						function(jsonResponse) {
-							return jsonResponse.items.map(function(option) {
-								return option.id
-							});
-						}
-					);
+					.then(function(jsonResponse) {
+						return jsonResponse.items.map(function(option) {
+							return option.id;
+						});
+					});
 			}
 
 			getSelectedItems().then(function(selectedItemsIds) {
