@@ -676,13 +676,13 @@ public class HttpImpl implements Http {
 		try {
 			URI uri = _getURI(url);
 
-			String query = uri.getQuery();
+			String queryString = uri.getQuery();
 
-			if (query == null) {
+			if (queryString == null) {
 				return StringPool.BLANK;
 			}
 
-			return query;
+			return queryString;
 		}
 		catch (URISyntaxException uriSyntaxException) {
 			return StringPool.BLANK;
