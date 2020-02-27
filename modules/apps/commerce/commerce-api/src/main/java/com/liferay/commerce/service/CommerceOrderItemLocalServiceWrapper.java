@@ -429,12 +429,6 @@ public class CommerceOrderItemLocalServiceWrapper
 	}
 
 	@Override
-	public int getCPInstanceQuantity(long cpInstanceId, int orderStatus) {
-		return _commerceOrderItemLocalService.getCPInstanceQuantity(
-			cpInstanceId, orderStatus);
-	}
-
-	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 

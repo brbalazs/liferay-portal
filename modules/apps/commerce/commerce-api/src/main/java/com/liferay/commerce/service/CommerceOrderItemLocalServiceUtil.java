@@ -393,12 +393,6 @@ public class CommerceOrderItemLocalServiceUtil {
 		return getService().getCommerceOrderItemsQuantity(commerceOrderId);
 	}
 
-	public static int getCPInstanceQuantity(
-		long cpInstanceId, int orderStatus) {
-
-		return getService().getCPInstanceQuantity(cpInstanceId, orderStatus);
-	}
-
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {

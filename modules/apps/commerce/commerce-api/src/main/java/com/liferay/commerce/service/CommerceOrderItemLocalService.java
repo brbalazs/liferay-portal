@@ -317,9 +317,6 @@ public interface CommerceOrderItemLocalService
 	public int getCommerceOrderItemsQuantity(long commerceOrderId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCPInstanceQuantity(long cpInstanceId, int orderStatus);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**

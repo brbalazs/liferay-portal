@@ -31,6 +31,4 @@ public interface CommerceOrderItemFinder {
 
 	public int getCommerceOrderItemsQuantity(long commerceOrderId);
 
-	public int getCPInstanceQuantity(long cpInstanceId, int status);
-
 }
