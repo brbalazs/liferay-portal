@@ -26,7 +26,6 @@ CPSku cpSku = cpContentHelper.getDefaultCPSku(cpCatalogEntry);
 long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
 String addToCartId = PortalUtil.generateRandomKey(request, "add-to-cart");
-String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 %>
 
 <div class="mb-5 product-detail" id="<portlet:namespace /><%= cpDefinitionId %>ProductContent">
