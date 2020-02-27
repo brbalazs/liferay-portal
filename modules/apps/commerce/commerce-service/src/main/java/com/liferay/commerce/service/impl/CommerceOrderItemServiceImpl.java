@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.service.impl;
 
-import com.liferay.commerce.account.constants.CommerceAccountActionKeys;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.permission.CommerceAccountPermission;
 import com.liferay.commerce.constants.CommerceActionKeys;
@@ -249,18 +248,6 @@ public class CommerceOrderItemServiceImpl
 
 	@Override
 	public int getCommerceOrderItemsCount(
-			long commerceOrderId, long cpInstanceId)
-		throws PortalException {
-
-		_commerceOrderModelResourcePermission.check(
-			getPermissionChecker(), commerceOrderId, ActionKeys.VIEW);
-
-		return commerceOrderItemLocalService.getCommerceOrderItemsCount(
-			commerceOrderId, cpInstanceId);
-	}
-
-	@Override
-	public int getCommerceOrderItemsCount(
 			long commerceAccountId, int orderStatus)
 		throws PortalException {
 
@@ -269,6 +256,18 @@ public class CommerceOrderItemServiceImpl
 
 		return commerceOrderItemLocalService.getCommerceOrderItemsCount(
 			commerceAccountId, orderStatus);
+	}
+
+	@Override
+	public int getCommerceOrderItemsCount(
+			long commerceOrderId, long cpInstanceId)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.VIEW);
+
+		return commerceOrderItemLocalService.getCommerceOrderItemsCount(
+			commerceOrderId, cpInstanceId);
 	}
 
 	@Override

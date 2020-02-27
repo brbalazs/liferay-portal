@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 @ProviderType
 public interface CommerceAddressFormatter {
+
 	public String getBasicAddress(CommerceAddress commerceAddress)
 		throws PortalException;
 
@@ -33,4 +34,5 @@ public interface CommerceAddressFormatter {
 
 	public String getOneLineAddress(CommerceAddress commerceAddress)
 		throws PortalException;
+
 }

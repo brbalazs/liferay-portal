@@ -33,7 +33,7 @@ CommerceShipment commerceShipment = commerceShipmentDisplayContext.getCommerceSh
 
 		<aui:model-context bean="<%= commerceShipment %>" model="<%= CommerceShipment.class %>" />
 
-		<aui:input name="commerceShipmentId" type="hidden"/>
+		<aui:input name="commerceShipmentId" type="hidden" />
 
 		<aui:input name="trackingNumber" wrapperCssClass="form-group-item" />
 

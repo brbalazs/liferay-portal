@@ -45,12 +45,12 @@ contextParams.put("commerceShipmentId", String.valueOf(commerceShipment.getComme
 			formId='<%= renderResponse.getNamespace() + "fm" %>'
 			id="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPPABLE_ORDER_ITEMS %>"
 			itemsPerPage="<%= 10 %>"
-			showManagementBar="<%= false %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
 			portletURL="<%= currentURLObj %>"
 			selectedItemsKey="orderItemId"
 			selectionType="multiple"
+			showManagementBar="<%= false %>"
 		/>
 	</aui:form>
 </commerce-ui:modal-content>

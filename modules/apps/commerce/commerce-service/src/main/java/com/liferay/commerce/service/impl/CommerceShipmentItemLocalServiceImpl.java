@@ -156,9 +156,18 @@ public class CommerceShipmentItemLocalServiceImpl
 
 	@Override
 	public CommerceShipmentItem fetchCommerceShipmentItem(
-			long commerceOrderItemId, long commerceInventoryWarehouseId) {
+		long commerceOrderItemId, long commerceInventoryWarehouseId) {
 
 		return commerceShipmentItemPersistence.fetchByCO_C(
+			commerceOrderItemId, commerceInventoryWarehouseId);
+	}
+
+	@Override
+	public int getCommerceShipmentItemCount(
+			long commerceOrderItemId, long commerceInventoryWarehouseId)
+		throws PortalException {
+
+		return commerceShipmentItemPersistence.countByCO_C(
 			commerceOrderItemId, commerceInventoryWarehouseId);
 	}
 
@@ -172,6 +181,15 @@ public class CommerceShipmentItemLocalServiceImpl
 
 	@Override
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
+		long commerceShipmentId, int start, int end,
+		OrderByComparator<CommerceShipmentItem> orderByComparator) {
+
+		return commerceShipmentItemPersistence.findByCommerceShipment(
+			commerceShipmentId, start, end, orderByComparator);
+	}
+
+	@Override
+	public List<CommerceShipmentItem> getCommerceShipmentItems(
 		long commerceShipmentId, long commerceOrderItemId, int start, int end,
 		OrderByComparator<CommerceShipmentItem> orderByComparator) {
 
@@ -181,12 +199,9 @@ public class CommerceShipmentItemLocalServiceImpl
 	}
 
 	@Override
-	public List<CommerceShipmentItem> getCommerceShipmentItems(
-		long commerceShipmentId, int start, int end,
-		OrderByComparator<CommerceShipmentItem> orderByComparator) {
-
-		return commerceShipmentItemPersistence.findByCommerceShipment(
-			commerceShipmentId, start, end, orderByComparator);
+	public int getCommerceShipmentItemsCount(long commerceShipmentId) {
+		return commerceShipmentItemPersistence.countByCommerceShipment(
+			commerceShipmentId);
 	}
 
 	@Override
@@ -195,21 +210,6 @@ public class CommerceShipmentItemLocalServiceImpl
 
 		return commerceShipmentItemFinder.getCommerceShipmentOrderItemsQuantity(
 			commerceShipmentId, commerceOrderItemId);
-	}
-
-	@Override
-	public int getCommerceShipmentItemsCount(long commerceShipmentId) {
-		return commerceShipmentItemPersistence.countByCommerceShipment(
-			commerceShipmentId);
-	}
-
-	@Override
-	public int getCommerceShipmentItemCount(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
-		throws PortalException {
-
-		return commerceShipmentItemPersistence.countByCO_C(
-			commerceOrderItemId, commerceInventoryWarehouseId);
 	}
 
 	@Override
@@ -251,9 +251,9 @@ public class CommerceShipmentItemLocalServiceImpl
 				quantity);
 		}
 
-		commerceShipmentItem.setQuantity(quantity);
 		commerceShipmentItem.setCommerceInventoryWarehouseId(
 			commerceInventoryWarehouseId);
+		commerceShipmentItem.setQuantity(quantity);
 
 		commerceShipmentItem = commerceShipmentItemPersistence.update(
 			commerceShipmentItem);

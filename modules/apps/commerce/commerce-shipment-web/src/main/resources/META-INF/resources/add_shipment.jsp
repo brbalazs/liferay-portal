@@ -1,4 +1,4 @@
-<%@ page import="com.liferay.commerce.product.model.CommerceChannel" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -31,13 +31,13 @@ CommerceShipmentDisplayContext commerceShipmentDisplayContext = (CommerceShipmen
 		<aui:select id="commerceChannelGroupId" label="channel" name="commerceChannelGroupId" required="<%= true %>" showEmptyOption="<%= true %>">
 
 			<%
-				for (CommerceChannel commerceChannel : commerceShipmentDisplayContext.getCommerceChannels()) {
+			for (CommerceChannel commerceChannel : commerceShipmentDisplayContext.getCommerceChannels()) {
 			%>
 
-			<aui:option label="<%= commerceChannel.getName() %>" value="<%= commerceChannel.getGroupId() %>" />
+				<aui:option label="<%= commerceChannel.getName() %>" value="<%= commerceChannel.getGroupId() %>" />
 
 			<%
-				}
+			}
 			%>
 
 		</aui:select>

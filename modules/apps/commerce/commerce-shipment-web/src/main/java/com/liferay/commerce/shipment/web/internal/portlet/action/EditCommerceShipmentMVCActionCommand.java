@@ -21,29 +21,21 @@ import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.commerce.service.CommerceShipmentService;
-import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Calendar;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -62,6 +54,29 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 
+	protected CommerceShipment addCommerceShipment(ActionRequest actionRequest)
+		throws PortalException {
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			CommerceShipment.class.getName(), actionRequest);
+
+		long groupId = ParamUtil.getLong(
+			actionRequest, "commerceChannelGroupId");
+		long commerceAccountId = ParamUtil.getLong(
+			actionRequest, "commerceAccountId");
+		long commerceAddressId = ParamUtil.getLong(
+			actionRequest, "commerceAddressId");
+		long commerceShippingMethodId = ParamUtil.getLong(
+			actionRequest, "commerceShippingMethodId");
+		String commerceShippingOptionName = ParamUtil.getString(
+			actionRequest, "commerceShippingOptionName");
+
+		return _commerceShipmentService.addCommerceShipment(
+			groupId, commerceAccountId, commerceAddressId,
+			commerceShippingMethodId, commerceShippingOptionName,
+			serviceContext);
+	}
+
 	protected void addCommerceShipmentItems(ActionRequest actionRequest)
 		throws PortalException {
 
@@ -76,8 +91,7 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 
 		for (long commerceOrderItemId : commerceOrderItemIds) {
 			_commerceShipmentItemService.addCommerceShipmentItem(
-				commerceShipmentId, commerceOrderItemId,
-				0, 0, serviceContext);
+				commerceShipmentId, commerceOrderItemId, 0, 0, serviceContext);
 		}
 	}
 
@@ -152,29 +166,6 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	protected CommerceShipment addCommerceShipment(
-		ActionRequest actionRequest) throws PortalException {
-
-		ServiceContext serviceContext =
-			ServiceContextFactory.getInstance(
-				CommerceShipment.class.getName(), actionRequest);
-
-		long groupId = ParamUtil.getLong(actionRequest, "commerceChannelGroupId");
-		long commerceAccountId =
-			ParamUtil.getLong(actionRequest, "commerceAccountId");
-		long commerceAddressId =
-			ParamUtil.getLong(actionRequest, "commerceAddressId");
-		long commerceShippingMethodId =
-			ParamUtil.getLong(actionRequest, "commerceShippingMethodId");
-		String commerceShippingOptionName =
-			ParamUtil.getString(actionRequest, "commerceShippingOptionName");
-
-		return _commerceShipmentService.addCommerceShipment(
-			groupId, commerceAccountId, commerceAddressId,
-			commerceShippingMethodId, commerceShippingOptionName,
-			serviceContext);
-	}
-
 	protected CommerceShipment updateAddress(ActionRequest actionRequest)
 		throws PortalException {
 
@@ -199,8 +190,8 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 			city, zip, commerceRegionId, commerceCountryId, phoneNumber);
 	}
 
-	protected CommerceShipment updateCarrierDetails(
-		ActionRequest actionRequest) throws PortalException {
+	protected CommerceShipment updateCarrierDetails(ActionRequest actionRequest)
+		throws PortalException {
 
 		long commerceShipmentId = ParamUtil.getLong(
 			actionRequest, "commerceShipmentId");

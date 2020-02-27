@@ -23,21 +23,19 @@ import com.liferay.commerce.frontend.model.OrderItem;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
-import com.liferay.commerce.model.CommerceShipmentItem;
-import com.liferay.commerce.model.Sku;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentService;
-import com.liferay.commerce.service.persistence.CommerceOrderItemFinder;
-import com.liferay.commerce.shipment.web.internal.model.Warehouse;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.ParamUtil;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alec Sloan
@@ -79,7 +77,7 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 		CommerceShipment commerceShipment =
 			_commerceShipmentService.getCommerceShipment(commerceShipmentId);
 
-		List <CommerceOrderItem> commerceOrderItems =
+		List<CommerceOrderItem> commerceOrderItems =
 			_commerceOrderItemService.getCommerceOrderItems(
 				commerceShipment.getCommerceAccountId(),
 				CommerceOrderConstants.ORDER_STATUS_FULFILLED,

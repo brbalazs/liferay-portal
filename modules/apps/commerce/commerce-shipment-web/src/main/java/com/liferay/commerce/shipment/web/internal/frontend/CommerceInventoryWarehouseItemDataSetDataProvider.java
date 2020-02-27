@@ -24,7 +24,6 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemLocalService;
 import com.liferay.commerce.shipment.web.internal.model.Warehouse;
@@ -101,9 +100,8 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 				portletNamespace + commerceInventoryWarehouseId + "_quantity";
 
 			int shipmentItemWarehouseItemQuantity =
-				_commerceShipmentItemLocalService.
-					getCommerceShipmentItemCount(
-						commerceOrderItemId, commerceInventoryWarehouseId);
+				_commerceShipmentItemLocalService.getCommerceShipmentItemCount(
+					commerceOrderItemId, commerceInventoryWarehouseId);
 
 			if (commerceInventoryWarehouseItem != null) {
 				warehouses.add(

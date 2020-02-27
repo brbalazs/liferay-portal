@@ -23,7 +23,9 @@ public class ClayCreationMenuActionItem extends ClayMenuActionItem {
 		super(href, "plus", label, CLAY_MENU_ACTION_ITEM_TARGET_LINK);
 	}
 
-	public ClayCreationMenuActionItem(String href, String label, String target) {
+	public ClayCreationMenuActionItem(
+		String href, String label, String target) {
+
 		super(href, "plus", label, target);
 	}
 

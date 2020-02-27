@@ -43,21 +43,6 @@ import java.util.Objects;
 public class CommerceShipmentLocalServiceImpl
 	extends CommerceShipmentLocalServiceBaseImpl {
 
-	@Override
-	public CommerceShipment addCommerceShipment(
-			long commerceOrderId, ServiceContext serviceContext)
-		throws PortalException {
-
-		CommerceOrder commerceOrder =
-			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
-
-		return addCommerceShipment(
-			commerceOrder.getGroupId(), commerceOrder.getCommerceAccountId(),
-			commerceOrder.getShippingAddressId(),
-			commerceOrder.getCommerceShippingMethodId(),
-			commerceOrder.getShippingOptionName(), serviceContext);
-	}
-
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceShipment addCommerceShipment(
@@ -85,6 +70,21 @@ public class CommerceShipmentLocalServiceImpl
 			CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING);
 
 		return commerceShipmentPersistence.update(commerceShipment);
+	}
+
+	@Override
+	public CommerceShipment addCommerceShipment(
+			long commerceOrderId, ServiceContext serviceContext)
+		throws PortalException {
+
+		CommerceOrder commerceOrder =
+			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
+
+		return addCommerceShipment(
+			commerceOrder.getGroupId(), commerceOrder.getCommerceAccountId(),
+			commerceOrder.getShippingAddressId(),
+			commerceOrder.getCommerceShippingMethodId(),
+			commerceOrder.getShippingOptionName(), serviceContext);
 	}
 
 	@Indexable(type = IndexableType.DELETE)

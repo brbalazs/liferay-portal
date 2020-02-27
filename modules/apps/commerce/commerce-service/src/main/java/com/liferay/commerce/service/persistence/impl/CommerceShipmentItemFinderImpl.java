@@ -16,7 +16,6 @@ package com.liferay.commerce.service.persistence.impl;
 
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.model.impl.CommerceShipmentItemImpl;
-import com.liferay.commerce.service.persistence.CommerceOrderItemFinder;
 import com.liferay.commerce.service.persistence.CommerceShipmentItemFinder;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
 import com.liferay.portal.kernel.dao.orm.QueryPos;

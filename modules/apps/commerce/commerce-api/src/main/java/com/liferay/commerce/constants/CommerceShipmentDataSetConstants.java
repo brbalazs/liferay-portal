@@ -22,13 +22,13 @@ public class CommerceShipmentDataSetConstants {
 	public static final String COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSE_ITEM =
 		"commerceInventoryWarehouseItem";
 
-	public static final String COMMERCE_DATA_SET_KEY_SHIPPABLE_ORDER_ITEMS =
-		"commerceShippableOrderItems";
-
 	public static final String COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS =
 		"commerceShipmentItems";
 
 	public static final String COMMERCE_DATA_SET_KEY_SHIPMENTS =
 		"commerceShipments";
+
+	public static final String COMMERCE_DATA_SET_KEY_SHIPPABLE_ORDER_ITEMS =
+		"commerceShippableOrderItems";
 
 }

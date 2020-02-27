@@ -62,8 +62,8 @@ portletDisplay.setURLBack(redirect);
 		<%
 		Map<String, String> contextParams = new HashMap<>();
 
-		contextParams.put("commerceShipmentId", String.valueOf(commerceShipment.getCommerceShipmentId()));
 		contextParams.put("commerceOrderItemId", String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
+		contextParams.put("commerceShipmentId", String.valueOf(commerceShipment.getCommerceShipmentId()));
 		%>
 
 		<commerce-ui:dataset-display

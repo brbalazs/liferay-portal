@@ -51,7 +51,6 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -322,7 +321,8 @@ public class CommerceShipmentDisplayContext
 
 				if ((availableStatusesLength > 1) &&
 					(shipmentStatus !=
-					availableShipmentStatuses[availableStatusesLength - 1])) {
+						availableShipmentStatuses
+							[availableStatusesLength - 1])) {
 
 					buttonClass = "btn-secondary";
 				}
@@ -467,11 +467,9 @@ public class CommerceShipmentDisplayContext
 
 		if (hasManageCommerceShipmentsPermission() &&
 			(commerceShipment.getStatus() ==
-			 CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING)) {
+				CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING)) {
 
-
-			bulkActions.add(
-				new ClayMenuActionItem(null, null, null, null));
+			bulkActions.add(new ClayMenuActionItem(null, null, null, null));
 		}
 
 		return bulkActions;
@@ -486,7 +484,7 @@ public class CommerceShipmentDisplayContext
 
 		if (hasManageCommerceShipmentsPermission() &&
 			(commerceShipment.getStatus() ==
-			 CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING)) {
+				CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING)) {
 
 			PortletURL portletURL = getPortletURL();
 

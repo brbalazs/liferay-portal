@@ -143,8 +143,9 @@
 				CommerceOrder ON
 					CommerceOrder.commerceOrderId = CommerceOrderItem.commerceOrderId
 			WHERE
-				commerceAccountId = ? AND
-				orderStatus = ?
+				(commerceAccountId = ?) AND
+				(orderStatus = ?) AND
+				(CommerceShipmentItem.commerceShipmentItemId IS NULL)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.findByAvailableQuantity">
@@ -156,6 +157,24 @@
 			WHERE
 				(CommerceOrderItem.commerceOrderId = ?) AND
 				(CommerceOrderItem.quantity > CommerceOrderItem.shippedQuantity)
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.findByA_O">
+		<![CDATA[
+			SELECT
+				{CommerceOrderItem.*}
+			FROM
+				CommerceOrderItem
+			JOIN
+				CommerceOrder ON
+					CommerceOrder.commerceOrderId = CommerceOrderItem.commerceOrderId
+			LEFT JOIN
+				CommerceShipmentItem ON
+					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
+			WHERE
+				(commerceAccountId = ?) AND
+				(orderStatus = ?) AND
+				(CommerceShipmentItem.commerceShipmentItemId IS NULL)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.getCommerceOrderItemsQuantity">
@@ -186,20 +205,6 @@
 				(CommerceOrder.status <> ?)
 		]]>
 	</sql>
-	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.findByA_O">
-		<![CDATA[
-			SELECT
-				{CommerceOrderItem.*}
-			FROM
-				CommerceOrderItem
-			JOIN
-				CommerceOrder ON
-					CommerceOrder.commerceOrderId = CommerceOrderItem.commerceOrderId
-			WHERE
-				commerceAccountId = ? AND
-				orderStatus = ?
-		]]>
-	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceShipmentItemFinder.findByCommerceOrderItemId">
 		<![CDATA[
 			SELECT
@@ -211,6 +216,17 @@
 					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
 			WHERE
 				CommerceOrderItem.commerceOrderItemId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.service.persistence.CommerceShipmentItemFinder.getCommerceShipmentOrderItemsQuantity">
+		<![CDATA[
+			SELECT
+				SUM(CommerceShipmentItem.quantity) AS SUM_VALUE
+			FROM
+				CommerceShipmentItem
+			WHERE
+				(CommerceShipmentItem.commerceShipmentId = ?) AND
+				(CommerceShipmentItem.commerceOrderItemId = ?)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceSubscriptionEntryFinder.findByNextIterationDate">

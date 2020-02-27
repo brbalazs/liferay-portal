@@ -34,8 +34,7 @@ public class ClayCreationMenu {
 
 	public void addClayCreationMenuItem(String url, String label) {
 		addClayCreationMenuItem(
-			url, label,
-			ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_LINK);
+			url, label, ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_LINK);
 	}
 
 	public void addClayCreationMenuItem(

@@ -19,15 +19,16 @@ package com.liferay.commerce.frontend;
  */
 public class ClayMenuActionItem {
 
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_EVENT = "event";
+
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_INLINE = "inline";
 
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_LINK = "";
 
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL = "modal";
 
-	public static final String CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL = "sidePanel";
-
-	public static final String CLAY_MENU_ACTION_ITEM_TARGET_EVENT = "event";
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL =
+		"sidePanel";
 
 	public ClayMenuActionItem(
 		String href, String icon, String label, String target) {

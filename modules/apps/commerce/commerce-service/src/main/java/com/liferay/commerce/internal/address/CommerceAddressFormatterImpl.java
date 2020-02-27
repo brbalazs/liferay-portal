@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.internal.address;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.address.CommerceAddressFormatter;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceCountry;
@@ -24,14 +22,13 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.Validator;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Alec Sloan
  */
-@Component(
-	immediate = true, service = CommerceAddressFormatter.class
-)
+@Component(immediate = true, service = CommerceAddressFormatter.class)
 public class CommerceAddressFormatterImpl implements CommerceAddressFormatter {
 
 	@Override
@@ -81,7 +78,7 @@ public class CommerceAddressFormatterImpl implements CommerceAddressFormatter {
 			CommerceAddress commerceAddress, boolean showDescription)
 		throws PortalException {
 
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(8);
 
 		sb.append(commerceAddress.getName());
 		sb.append(StringPool.NEW_LINE);
@@ -95,7 +92,7 @@ public class CommerceAddressFormatterImpl implements CommerceAddressFormatter {
 
 		String description = commerceAddress.getDescription();
 
-		if (description != null && showDescription) {
+		if ((description != null) && showDescription) {
 			sb.append(StringPool.NEW_LINE);
 			sb.append(StringPool.NEW_LINE);
 			sb.append(description);
@@ -108,7 +105,7 @@ public class CommerceAddressFormatterImpl implements CommerceAddressFormatter {
 	public String getOneLineAddress(CommerceAddress commerceAddress)
 		throws PortalException {
 
-		StringBundler sb = new StringBundler(14);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append(commerceAddress.getStreet1());
 		sb.append(StringPool.COMMA_AND_SPACE);
@@ -127,4 +124,5 @@ public class CommerceAddressFormatterImpl implements CommerceAddressFormatter {
 
 		return sb.toString();
 	}
+
 }

@@ -19,11 +19,11 @@ import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.model.LabelField;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceShipment;
+import com.liferay.commerce.model.LabelField;
 import com.liferay.commerce.model.Shipment;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
@@ -46,7 +46,6 @@ import java.text.DateFormat;
 import java.text.Format;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.portlet.PortletURL;

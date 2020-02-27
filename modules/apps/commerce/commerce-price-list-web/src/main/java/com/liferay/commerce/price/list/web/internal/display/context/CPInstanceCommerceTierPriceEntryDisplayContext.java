@@ -63,8 +63,7 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 			new ClayCreationMenuActionItem(
 				_getAddCommerceTierPriceEntryURL(),
 				LanguageUtil.get(httpServletRequest, "add-tier-price-entry"),
-				ClayMenuActionItem.
-					CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
 
 		return clayCreationMenu;
 	}

@@ -29,11 +29,9 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ page import="com.liferay.commerce.account.model.CommerceAccount" %><%@
 page import="com.liferay.commerce.constants.CommercePortletKeys" %><%@
 page import="com.liferay.commerce.constants.CommerceShipmentDataSetConstants" %><%@
-page import="com.liferay.commerce.exception.CommerceShipmentItemQuantityException" %><%@
-page import="com.liferay.commerce.exception.CommerceShipmentStatusException" %><%@
+page import="com.liferay.commerce.exception.CommerceShipmentShippingDateException" %><%@
 page import="com.liferay.commerce.exception.NoSuchShipmentException" %><%@
 page import="com.liferay.commerce.exception.NoSuchShipmentItemException" %><%@
-page import="com.liferay.commerce.inventory.model.CommerceInventoryWarehouse" %><%@
 page import="com.liferay.commerce.model.CommerceAddress" %><%@
 page import="com.liferay.commerce.model.CommerceCountry" %><%@
 page import="com.liferay.commerce.model.CommerceOrderItem" %><%@
@@ -41,6 +39,7 @@ page import="com.liferay.commerce.model.CommerceRegion" %><%@
 page import="com.liferay.commerce.model.CommerceShipment" %><%@
 page import="com.liferay.commerce.model.CommerceShipmentItem" %><%@
 page import="com.liferay.commerce.model.CommerceShippingMethod" %><%@
+page import="com.liferay.commerce.product.model.CommerceChannel" %><%@
 page import="com.liferay.commerce.shipment.web.internal.display.context.CommerceShipmentDisplayContext" %><%@
 page import="com.liferay.commerce.shipment.web.internal.display.context.CommerceShipmentItemDisplayContext" %><%@
 page import="com.liferay.commerce.shipment.web.internal.servlet.taglib.ui.CommerceShipmentScreenNavigationConstants" %><%@
@@ -79,6 +78,4 @@ PortletURL shipmentsURLObj = PortalUtil.getControlPanelPortletURL(request, Comme
 String shipmentsURL = shipmentsURLObj.toString();
 
 String redirect = ParamUtil.getString(request, "redirect", shipmentsURL);
-
-String languageId = LanguageUtil.getLanguageId(locale);
 %>

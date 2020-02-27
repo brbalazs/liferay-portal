@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.shipment.web.internal.display.context;
 
-import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceAddress;
@@ -79,8 +78,8 @@ public class CommerceShipmentItemDisplayContext
 	}
 
 	public CommerceOrderItem getCommerceOrderItem() throws PortalException {
-		long commerceOrderItemId =
-			ParamUtil.getLong(httpServletRequest, "commerceOrderItemId");
+		long commerceOrderItemId = ParamUtil.getLong(
+			httpServletRequest, "commerceOrderItemId");
 
 		return _commerceOrderItemService.getCommerceOrderItem(
 			commerceOrderItemId);

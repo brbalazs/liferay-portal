@@ -19,7 +19,6 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.base.CommerceShipmentItemServiceBaseImpl;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -69,19 +68,6 @@ public class CommerceShipmentItemServiceImpl
 	}
 
 	@Override
-	public CommerceShipmentItem getCommerceShipmentItem(
-			long commerceShipmentItemId)
-		throws PortalException {
-
-		PortalPermissionUtil.contains(
-			getPermissionChecker(),
-			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
-
-		return commerceShipmentItemLocalService.getCommerceShipmentItem(
-			commerceShipmentItemId);
-	}
-
-	@Override
 	public CommerceShipmentItem fetchCommerceShipmentItem(
 			long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws PortalException {
@@ -92,6 +78,19 @@ public class CommerceShipmentItemServiceImpl
 
 		return commerceShipmentItemLocalService.fetchCommerceShipmentItem(
 			commerceOrderItemId, commerceInventoryWarehouseId);
+	}
+
+	@Override
+	public CommerceShipmentItem getCommerceShipmentItem(
+			long commerceShipmentItemId)
+		throws PortalException {
+
+		PortalPermissionUtil.contains(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentItemLocalService.getCommerceShipmentItem(
+			commerceShipmentItemId);
 	}
 
 	@Override

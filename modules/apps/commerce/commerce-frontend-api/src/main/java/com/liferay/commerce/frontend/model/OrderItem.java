@@ -55,4 +55,5 @@ public class OrderItem {
 	private final long _orderItemId;
 	private final int _quantity;
 	private final String _sku;
+
 }

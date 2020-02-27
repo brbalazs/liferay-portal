@@ -116,8 +116,7 @@ public class CPAttachmentFileEntriesDisplayContext
 		clayCreationMenu.addClayCreationMenuItem(
 			new ClayCreationMenuActionItem(
 				portletURL.toString(), _getTypeLabel(type),
-				ClayMenuActionItem.
-					CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
 
 		return clayCreationMenu;
 	}

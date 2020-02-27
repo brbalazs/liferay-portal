@@ -15,7 +15,6 @@
 package com.liferay.commerce.frontend.taglib.servlet.taglib;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.CommerceDataProviderRegistry;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;

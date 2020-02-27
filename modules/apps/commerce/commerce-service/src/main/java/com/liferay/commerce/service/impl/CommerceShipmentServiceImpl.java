@@ -37,22 +37,9 @@ public class CommerceShipmentServiceImpl
 
 	@Override
 	public CommerceShipment addCommerceShipment(
-			long commerceOrderId, ServiceContext serviceContext)
-		throws PortalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
-
-		return commerceShipmentLocalService.addCommerceShipment(
-			commerceOrderId, serviceContext);
-	}
-
-	@Override
-	public CommerceShipment addCommerceShipment(
-		long groupId, long commerceAccountId, long commerceAddressId,
-		long commerceShippingMethodId, String commerceShippingOptionName,
-		ServiceContext serviceContext)
+			long groupId, long commerceAccountId, long commerceAddressId,
+			long commerceShippingMethodId, String commerceShippingOptionName,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -63,6 +50,19 @@ public class CommerceShipmentServiceImpl
 			groupId, commerceAccountId, commerceAddressId,
 			commerceShippingMethodId, commerceShippingOptionName,
 			serviceContext);
+	}
+
+	@Override
+	public CommerceShipment addCommerceShipment(
+			long commerceOrderId, ServiceContext serviceContext)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.addCommerceShipment(
+			commerceOrderId, serviceContext);
 	}
 
 	@Override
@@ -310,8 +310,8 @@ public class CommerceShipmentServiceImpl
 
 	@Override
 	public CommerceShipment updateExpectedDate(
-		long commerceShipmentId, int expectedDateMonth, int expectedDateDay,
-		int expectedDateYear, int expectedDateHour, int expectedDateMinute)
+			long commerceShipmentId, int expectedDateMonth, int expectedDateDay,
+			int expectedDateYear, int expectedDateHour, int expectedDateMinute)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -325,8 +325,8 @@ public class CommerceShipmentServiceImpl
 
 	@Override
 	public CommerceShipment updateShippingDate(
-		long commerceShipmentId, int shippingDateMonth, int shippingDateDay,
-		int shippingDateYear, int shippingDateHour, int shippingDateMinute)
+			long commerceShipmentId, int shippingDateMonth, int shippingDateDay,
+			int shippingDateYear, int shippingDateHour, int shippingDateMinute)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
