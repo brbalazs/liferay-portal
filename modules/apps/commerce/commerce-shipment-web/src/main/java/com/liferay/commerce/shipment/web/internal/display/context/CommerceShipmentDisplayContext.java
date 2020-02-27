@@ -17,10 +17,12 @@ package com.liferay.commerce.shipment.web.internal.display.context;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountServiceUtil;
 import com.liferay.commerce.address.CommerceAddressFormatter;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.frontend.model.StepModel;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
@@ -44,10 +46,12 @@ import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.commerce.shipment.web.internal.portlet.action.ActionHelper;
 import com.liferay.commerce.util.CommerceUtil;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -121,6 +125,8 @@ public class CommerceShipmentDisplayContext
 			CommerceOrder::getCommerceAccountId
 		).toArray();
 
+		commerceAccountIds = ArrayUtil.unique(commerceAccountIds);
+
 		List<CommerceAccount> commerceAccounts = new ArrayList<>();
 
 		for (long commerceAccountId : commerceAccountIds) {
@@ -150,6 +156,11 @@ public class CommerceShipmentDisplayContext
 		}
 
 		return sb.toString();
+	}
+
+	public List<CommerceChannel> getCommerceChannels() throws PortalException {
+		return _commerceChannelService.searchCommerceChannels(
+			cpRequestHelper.getCompanyId());
 	}
 
 	public List<CommerceCountry> getCommerceCountries() {
@@ -247,6 +258,12 @@ public class CommerceShipmentDisplayContext
 	}
 
 	public String getDescriptiveShippingAddress() throws PortalException {
+		CommerceShipment commerceShipment = getCommerceShipment();
+
+		if (commerceShipment.getCommerceAddressId() == 0) {
+			return StringPool.BLANK;
+		}
+
 		return _commerceAddressFormatter.getDescriptiveAddress(
 			getShippingAddress(), true);
 	}
@@ -431,14 +448,33 @@ public class CommerceShipmentDisplayContext
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 			clayCreationMenu.addClayCreationMenuItem(
-				new ClayCreationMenuItem(
+				new ClayCreationMenuActionItem(
 					portletURL.toString(),
 					LanguageUtil.format(
 						cpRequestHelper.getRequest(), "add-x", "shipment"),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
 
 		return clayCreationMenu;
+	}
+
+	public List<ClayMenuActionItem> getShipmentItemBulkActions()
+		throws PortalException, WindowStateException {
+
+		List<ClayMenuActionItem> bulkActions = new ArrayList<>();
+
+		CommerceShipment commerceShipment = getCommerceShipment();
+
+		if (hasManageCommerceShipmentsPermission() &&
+			(commerceShipment.getStatus() ==
+			 CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING)) {
+
+
+			bulkActions.add(
+				new ClayMenuActionItem(null, null, null, null));
+		}
+
+		return bulkActions;
 	}
 
 	public ClayCreationMenu getShipmentItemClayCreationMenu()
@@ -464,11 +500,11 @@ public class CommerceShipmentDisplayContext
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 			clayCreationMenu.addClayCreationMenuItem(
-				new ClayCreationMenuItem(
+				new ClayCreationMenuActionItem(
 					portletURL.toString(),
 					LanguageUtil.format(
 						cpRequestHelper.getRequest(), "add-x", "shipment-item"),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
 
 		return clayCreationMenu;
@@ -512,11 +548,26 @@ public class CommerceShipmentDisplayContext
 			commerceShipment.getCommerceAddressId());
 	}
 
+	public boolean hasOrderItemsAvailableToShip() throws PortalException {
+		CommerceShipment commerceShipment = getCommerceShipment();
+
+		int commerceOrderItemsCount =
+			_commerceOrderItemService.getCommerceOrderItemsCount(
+				commerceShipment.getCommerceAccountId(),
+				CommerceOrderConstants.ORDER_STATUS_FULFILLED);
+
+		if (commerceOrderItemsCount > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
 	private SearchContext _buildSearchContext() throws PortalException {
 		SearchContext searchContext = new SearchContext();
 
 		searchContext.setAttribute(
-			"orderStatuses", CommerceShipmentConstants.ALLOWED_ORDER_STATUSES);
+			"orderStatuses", CommerceOrderConstants.ORDER_STATUS_FULFILLED);
 
 		searchContext.setAttribute(
 			"useSearchResultPermissionFilter", Boolean.FALSE);
@@ -545,9 +596,7 @@ public class CommerceShipmentDisplayContext
 	}
 
 	private long[] _getCommerceChannelGroupIds() throws PortalException {
-		List<CommerceChannel> commerceChannels =
-			_commerceChannelService.searchCommerceChannels(
-				cpRequestHelper.getCompanyId());
+		List<CommerceChannel> commerceChannels = getCommerceChannels();
 
 		Stream<CommerceChannel> stream = commerceChannels.stream();
 
