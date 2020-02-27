@@ -3233,11 +3233,13 @@ AUI.add(
 
 						radioNodes.set('checked', false);
 
-						radioNodes.each(radioNode => {
-							if (radioNode.get('value') === value) {
-								radioNode.set('checked', true);
+						radioNodes.each(
+							function(radioNode) {
+								if (radioNode.get('value') === value) {
+									radioNode.set('checked', true);
+								}
 							}
-						});
+						);
 					},
 
 					syncReadOnlyUI: function() {
@@ -3502,28 +3504,32 @@ AUI.add(
 					},
 
 					fillEmptyLocales: function(instance, fields, availableLanguageIds) {
-						fields.forEach(field => {
-							if (field.get('localizable')) {
-								var localizationMap = field.get('localizationMap');
+						fields.forEach(
+							function(field) {
+								if (field.get('localizable')) {
+									var localizationMap = field.get('localizationMap');
 
-								var defaultLocale = field.getDefaultLocale();
-								
-								availableLanguageIds.forEach(locale => {
-									if (!localizationMap[locale]) {
-										localizationMap[locale] =
-											localizationMap[defaultLocale];
-									}
-								});
+									var defaultLocale = field.getDefaultLocale();
 
-								field.set('localizationMap', localizationMap);
+									availableLanguageIds.forEach(
+										function(locale) {
+											if (!localizationMap[locale]) {
+												localizationMap[locale] =
+													localizationMap[defaultLocale];
+											}
+										}
+									);
+
+									field.set('localizationMap', localizationMap);
+								}
+							
+								instance.fillEmptyLocales(
+									instance,
+									field.get('fields'),
+									availableLanguageIds
+								);
 							}
-						
-							instance.fillEmptyLocales(
-								instance,
-								field.get('fields'),
-								availableLanguageIds
-							);
-						});
+						);
 					},
 
 					finalizeRepeatableFieldLocalizations: function() {
@@ -3650,9 +3656,11 @@ AUI.add(
 								return;
 							}
 
-							nestedFields.forEach(nestedField => {
-								instance.recreateEditors(nestedField);
-							});
+							nestedFields.forEach(
+								function(nestedField) {
+									instance.recreateEditors(nestedField);
+								}
+							);
 						}
 					},
 
