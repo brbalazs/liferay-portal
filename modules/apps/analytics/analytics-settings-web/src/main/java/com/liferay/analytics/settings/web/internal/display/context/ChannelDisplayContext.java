@@ -112,7 +112,7 @@ public class ChannelDisplayContext {
 			return channelSearch;
 		}
 		catch (Exception exception) {
-			_log.error("Failed to fetch channels", exception);
+			_log.error("Unable to get channel search", exception);
 
 			return null;
 		}
