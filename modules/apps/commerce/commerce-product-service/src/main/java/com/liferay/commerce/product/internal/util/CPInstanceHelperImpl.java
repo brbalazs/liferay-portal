@@ -40,6 +40,7 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.DDMFormValuesHelper;
 import com.liferay.commerce.product.util.DDMFormValuesUtil;
+import com.liferay.commerce.product.util.comparator.CPDefinitionOptionValueRelPriorityComparator;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderer;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderingContext;
@@ -77,12 +78,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -324,7 +325,8 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		Document[] documents = hits.getDocs();
 
 		Set<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-			new HashSet<>();
+			new TreeSet<>(
+				new CPDefinitionOptionValueRelPriorityComparator(true));
 
 		for (Document document : documents) {
 			String key = GetterUtil.getString(document.get(optionFieldName));
