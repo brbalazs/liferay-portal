@@ -119,9 +119,8 @@ else {
 	dlEditFileEntryDisplayContext = dlDisplayContextProvider.getDLEditFileEntryDisplayContext(request, response, fileEntry);
 }
 
-String defaultLanguageId = LocaleUtil.toLanguageId(LocaleUtil.getSiteDefault());
-
 Set<Locale> availableLocales = null;
+String defaultLanguageId = LocaleUtil.toLanguageId(LocaleUtil.getSiteDefault());
 
 String headerTitle = LanguageUtil.get(request, "new-document");
 
@@ -420,7 +419,9 @@ if (portletTitleBasedNavigation) {
 
 							<%
 										if (localizable) {
-											availableLocales = ddmStructure.getDDMForm().getAvailableLocales();
+											DDMForm ddmForm = ddmStructure.getDDMForm();
+
+											availableLocales = ddmForm.getAvailableLocales();
 										}
 
 										localizable = false;
