@@ -18,10 +18,7 @@ import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
 import {closest} from '../../utilities/closest.es';
-import {
-	provideDragDrop
-} from "../../utilities/drag_drop/contextProvider.es";
-
+import {provideDragDrop} from '../../utilities/drag_drop/contextProvider.es';
 import {
 	DATASET_ACTION_PERFORMED,
 	DATASET_DISPLAY_UPDATED,
