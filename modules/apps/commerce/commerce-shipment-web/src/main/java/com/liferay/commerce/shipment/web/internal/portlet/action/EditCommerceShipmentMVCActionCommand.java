@@ -62,35 +62,22 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 
-	protected void addCommerceShipmentItems(
-			ActionRequest actionRequest, long commerceShipmentId)
+	protected void addCommerceShipmentItems(ActionRequest actionRequest)
 		throws PortalException {
+
+		long commerceShipmentId = ParamUtil.getLong(
+			actionRequest, "commerceShipmentId");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CommerceShipmentItem.class.getName(), actionRequest);
 
 		long[] commerceOrderItemIds = ParamUtil.getLongValues(
-			actionRequest, "commerceOrderItemId");
+			actionRequest, "orderItemId");
 
 		for (long commerceOrderItemId : commerceOrderItemIds) {
-			long[] commerceInventoryWarehouseIds = ParamUtil.getLongValues(
-				actionRequest, commerceOrderItemId + "_warehouse");
-
-			for (long commerceInventoryWarehouseId :
-					commerceInventoryWarehouseIds) {
-
-				int quantity = ParamUtil.getInteger(
-					actionRequest,
-					StringBundler.concat(
-						commerceOrderItemId, StringPool.UNDERLINE,
-						commerceInventoryWarehouseId, "_quantity"));
-
-				if (quantity > 0) {
-					_commerceShipmentItemService.addCommerceShipmentItem(
-						commerceShipmentId, commerceOrderItemId,
-						commerceInventoryWarehouseId, quantity, serviceContext);
-				}
-			}
+			_commerceShipmentItemService.addCommerceShipmentItem(
+				commerceShipmentId, commerceOrderItemId,
+				0, 0, serviceContext);
 		}
 	}
 
@@ -126,17 +113,16 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			if (cmd.equals(Constants.ADD)) {
-				hideDefaultSuccessMessage(actionRequest);
-
-				String redirect = getSaveAndRedirectRedirect(actionRequest);
-
-				sendRedirect(actionRequest, actionResponse, redirect);
+				addCommerceShipment(actionRequest);
 			}
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteCommerceShipments(actionRequest);
 			}
 			else if (cmd.equals(Constants.UPDATE)) {
 				updateCommerceShipment(actionRequest);
+			}
+			else if (cmd.equals("addShipmentItems")) {
+				addCommerceShipmentItems(actionRequest);
 			}
 			else if (cmd.equals("carrierDetails")) {
 				updateCarrierDetails(actionRequest);
@@ -166,38 +152,27 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	protected String getSaveAndRedirectRedirect(ActionRequest actionRequest)
-		throws Exception {
+	protected CommerceShipment addCommerceShipment(
+		ActionRequest actionRequest) throws PortalException {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		ServiceContext serviceContext =
+			ServiceContextFactory.getInstance(
+				CommerceShipment.class.getName(), actionRequest);
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			actionRequest, themeDisplay.getScopeGroup(),
-			CommerceShipment.class.getName(), PortletProvider.Action.EDIT);
+		long groupId = ParamUtil.getLong(actionRequest, "commerceChannelGroupId");
+		long commerceAccountId =
+			ParamUtil.getLong(actionRequest, "commerceAccountId");
+		long commerceAddressId =
+			ParamUtil.getLong(actionRequest, "commerceAddressId");
+		long commerceShippingMethodId =
+			ParamUtil.getLong(actionRequest, "commerceShippingMethodId");
+		String commerceShippingOptionName =
+			ParamUtil.getString(actionRequest, "commerceShippingOptionName");
 
-		portletURL.setParameter(
-			"mvcRenderCommandName", "selectCommerceShipmentItems");
-
-		String redirect = ParamUtil.getString(actionRequest, "redirect");
-
-		if (Validator.isNotNull(redirect)) {
-			portletURL.setParameter("redirect", redirect);
-		}
-
-		long commerceOrderId = ParamUtil.getLong(
-			actionRequest, "commerceOrderId");
-
-		portletURL.setParameter(
-			"commerceOrderId", String.valueOf(commerceOrderId));
-
-		long commerceShipmentId = ParamUtil.getLong(
-			actionRequest, "commerceShipmentId");
-
-		portletURL.setParameter(
-			"commerceShipmentId", String.valueOf(commerceShipmentId));
-
-		return portletURL.toString();
+		return _commerceShipmentService.addCommerceShipment(
+			groupId, commerceAccountId, commerceAddressId,
+			commerceShippingMethodId, commerceShippingOptionName,
+			serviceContext);
 	}
 
 	protected CommerceShipment updateAddress(ActionRequest actionRequest)

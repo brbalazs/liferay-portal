@@ -19,9 +19,11 @@ import com.liferay.commerce.exception.CommerceShipmentItemQuantityException;
 import com.liferay.commerce.exception.NoSuchShipmentItemException;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
+import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.PortletProvider;
@@ -104,23 +106,11 @@ public class EditCommerceShipmentItemMVCActionCommand
 			}
 		}
 		catch (Exception e) {
-			if (e instanceof CommerceShipmentItemQuantityException) {
-				SessionErrors.add(actionRequest, e.getClass());
+			SessionErrors.add(actionRequest, e.getClass());
 
-				String redirect = getSaveAndContinueRedirect(actionRequest);
+			String redirect = getSaveAndContinueRedirect(actionRequest);
 
-				sendRedirect(actionRequest, actionResponse, redirect);
-			}
-			else if (e instanceof NoSuchShipmentItemException ||
-					 e instanceof PrincipalException) {
-
-				SessionErrors.add(actionRequest, e.getClass());
-
-				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
-			}
-			else {
-				throw e;
-			}
+			sendRedirect(actionRequest, actionResponse, redirect);
 		}
 	}
 
@@ -154,6 +144,14 @@ public class EditCommerceShipmentItemMVCActionCommand
 				String.valueOf(commerceShipmentItemId));
 		}
 
+		long commerceOrderItemId = ParamUtil.getLong(
+			actionRequest, "commerceOrderItemId");
+
+		if (commerceOrderItemId > 0) {
+			portletURL.setParameter(
+				"commerceOrderItemId", String.valueOf(commerceOrderItemId));
+		}
+
 		return portletURL.toString();
 	}
 
@@ -164,27 +162,34 @@ public class EditCommerceShipmentItemMVCActionCommand
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CommerceShipmentItem.class.getName(), actionRequest);
 
-		long commerceShipmentItemId = ParamUtil.getLong(
-			actionRequest, "commerceShipmentItemId");
+		long commerceShipmentId = ParamUtil.getLong(
+			actionRequest, "commerceShipmentId");
 
-		CommerceShipmentItem commerceShipmentItem =
-			_commerceShipmentItemService.getCommerceShipmentItem(
-				commerceShipmentItemId);
+		long commerceOrderItemId = ParamUtil.getLong(
+			actionRequest, "commerceOrderItemId");
 
-		long commerceOrderItemId =
-			commerceShipmentItem.getCommerceOrderItemId();
-		long commerceShipmentId = commerceShipmentItem.getCommerceShipmentId();
+		CommerceOrderItem commerceOrderItem =
+			_commerceOrderItemService.getCommerceOrderItem(commerceOrderItemId);
+
+		CommerceShipmentItem initialCommerceShipmentItem =
+			_commerceShipmentItemService.fetchCommerceShipmentItem(
+				commerceOrderItemId, 0);
+
+		CommerceShipmentItem commerceShipmentItem = null;
 
 		List<CommerceInventoryWarehouse> commerceInventoryWarehouses =
 			_commerceInventoryWarehouseService.getCommerceInventoryWarehouses(
-				commerceShipmentItem.getCompanyId(),
-				_commerceChannelLocalService.
-					getCommerceChannelGroupIdBySiteGroupId(
-						commerceShipmentItem.getGroupId()),
-				true);
+				commerceOrderItem.getCompanyId(),
+				commerceOrderItem.getGroupId(), true);
 
 		for (CommerceInventoryWarehouse commerceInventoryWarehouse :
 				commerceInventoryWarehouses) {
+
+			commerceShipmentItem =
+				_commerceShipmentItemService.fetchCommerceShipmentItem(
+					commerceOrderItemId,
+					commerceInventoryWarehouse.
+						getCommerceInventoryWarehouseId());
 
 			long commerceInventoryWarehouseId =
 				commerceInventoryWarehouse.getCommerceInventoryWarehouseId();
@@ -193,10 +198,32 @@ public class EditCommerceShipmentItemMVCActionCommand
 				actionRequest, commerceInventoryWarehouseId + "_quantity");
 
 			if (quantity > 0) {
-				commerceShipmentItem =
-					_commerceShipmentItemService.addCommerceShipmentItem(
-						commerceShipmentId, commerceOrderItemId,
-						commerceInventoryWarehouseId, quantity, serviceContext);
+				if (initialCommerceShipmentItem != null) {
+					commerceShipmentItem =
+						_commerceShipmentItemService.updateCommerceShipmentItem(
+							initialCommerceShipmentItem.
+								getCommerceShipmentItemId(),
+							commerceInventoryWarehouseId, quantity);
+				}
+				else if (commerceShipmentItem == null) {
+					commerceShipmentItem =
+						_commerceShipmentItemService.addCommerceShipmentItem(
+							commerceShipmentId, commerceOrderItemId,
+							commerceInventoryWarehouseId, quantity,
+							serviceContext);
+				}
+				else if (quantity != commerceShipmentItem.getQuantity()) {
+					commerceShipmentItem =
+						_commerceShipmentItemService.updateCommerceShipmentItem(
+							commerceShipmentItem.getCommerceShipmentItemId(),
+							commerceInventoryWarehouseId, quantity);
+				}
+			}
+			else if (commerceShipmentItem != null) {
+				_commerceShipmentItemService.deleteCommerceShipmentItem(
+					commerceShipmentItem.getCommerceShipmentItemId());
+
+				commerceShipmentItem = null;
 			}
 		}
 
@@ -204,11 +231,11 @@ public class EditCommerceShipmentItemMVCActionCommand
 	}
 
 	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference
 	private CommerceInventoryWarehouseService
 		_commerceInventoryWarehouseService;
+
+	@Reference
+	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
 	private CommerceShipmentItemService _commerceShipmentItemService;
