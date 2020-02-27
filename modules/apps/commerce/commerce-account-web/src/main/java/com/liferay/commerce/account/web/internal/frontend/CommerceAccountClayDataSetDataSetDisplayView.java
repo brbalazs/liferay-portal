@@ -184,7 +184,7 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
 			"name", "name");
 
-		nameField.setContentRenderer("commerceTableCellImageName");
+		nameField.setContentRenderer("actionLink");
 
 		clayTableSchemaBuilder.addField("accountId", "id");
 
