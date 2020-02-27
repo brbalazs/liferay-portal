@@ -1137,13 +1137,6 @@
     classnames "^2.2.6"
     warning "^4.0.3"
 
-"@clayui/select@^3.0.0-milestone.3":
-  version "3.0.0-milestone.3"
-  resolved "https://registry.yarnpkg.com/@clayui/select/-/select-3.0.0-milestone.3.tgz#64a8929ecc8f8b37a4e06d4f5c6357b98f4dbce6"
-  integrity sha512-b2jDQw1g6cWYgzqvNx5KG5KcD7XHMCtNy8sEafwCQbRQTZBtuQMTwvueXXzuUHoZDMzlY56xslG+XLW29z8PnQ==
-  dependencies:
-    classnames "^2.2.6"
-
 "@clayui/shared@3.0.7", "@clayui/shared@^3.0.7":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@clayui/shared/-/shared-3.0.7.tgz#cba6eb8bceb177580a65c1b8a2b33d42ebfb7cbd"
