@@ -13,7 +13,7 @@
  */
 
 import ClayButton from '@clayui/button';
-import ClaySelect from '@clayui/select';
+import {ClaySelect} from '@clayui/form';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
