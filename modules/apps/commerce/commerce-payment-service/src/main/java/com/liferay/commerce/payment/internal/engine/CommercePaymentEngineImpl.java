@@ -15,7 +15,6 @@
 package com.liferay.commerce.payment.internal.engine;
 
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.constants.CommercePaymentConstants;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
@@ -25,9 +24,7 @@ import com.liferay.commerce.payment.method.CommercePaymentMethod;
 import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.request.CommercePaymentRequest;
-import com.liferay.commerce.payment.request.CommercePaymentRequestProvider;
 import com.liferay.commerce.payment.result.CommercePaymentResult;
-import com.liferay.commerce.payment.result.CommerceSubscriptionStatusResult;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelLocalService;
 import com.liferay.commerce.payment.util.CommercePaymentUtils;
 import com.liferay.commerce.payment.util.comparator.CommercePaymentMethodPriorityComparator;
@@ -36,8 +33,6 @@ import com.liferay.commerce.service.CommerceOrderPaymentLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -46,7 +41,6 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -95,33 +89,6 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 			commercePaymentResult.getAuthTransactionId());
 
 		return commercePaymentResult;
-	}
-
-	/**
-	 * @param commerceOrderId
-	 * @deprecated As of Mueller (7.2.x), this method is being moved to Subscription Engine
-	 */
-	@Deprecated
-	@Override
-	public CommercePaymentResult cancelRecurringPayment(long commerceOrderId) {
-		try {
-			CommerceOrder commerceOrder =
-				_commerceOrderLocalService.getCommerceOrder(commerceOrderId);
-
-			boolean cancelRecurringPayment =
-				_commerceSubscriptionEngine.cancelRecurringPayment(
-					commerceOrderId);
-
-			return new CommercePaymentResult(
-				commerceOrder.getTransactionId(), commerceOrderId,
-				CommerceOrderConstants.ORDER_STATUS_CANCELLED, false, null,
-				null, Collections.emptyList(), cancelRecurringPayment);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
-
-		return _commercePaymentUtils.emptyResult(commerceOrderId);
 	}
 
 	@Override
@@ -190,40 +157,11 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 		CommercePaymentResult commercePaymentResult =
 			commercePaymentMethod.completePayment(commercePaymentRequest);
 
-		CommerceOrder commerceOrder = updateOrderPaymentStatus(
+		updateOrderPaymentStatus(
 			commerceOrderId, commercePaymentResult.getNewPaymentStatus(),
 			commercePaymentResult.getAuthTransactionId());
 
-		if ((commercePaymentMethod.getPaymentType() ==
-				CommercePaymentConstants.
-					COMMERCE_PAYMENT_METHOD_TYPE_OFFLINE) &&
-			(commerceOrder.getPaymentStatus() ==
-				CommerceOrderConstants.PAYMENT_STATUS_PENDING)) {
-
-			_commerceOrderEngine.transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
-				_portal.getUserId(httpServletRequest));
-		}
-
 		return commercePaymentResult;
-	}
-
-	/**
-	 * @param commerceOrderId
-	 * @param transactionId
-	 * @param httpServletRequest
-	 * @throws Exception
-	 * @deprecated As of Mueller (7.2.x), this method is being moved to Subscription Engine
-	 */
-	@Deprecated
-	@Override
-	public CommercePaymentResult completeRecurringPayment(
-			long commerceOrderId, String transactionId,
-			HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _commerceSubscriptionEngine.completeRecurringPayment(
-			commerceOrderId, transactionId, httpServletRequest);
 	}
 
 	@Override
@@ -286,44 +224,6 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 		return commercePaymentMethod.getPaymentType();
 	}
 
-	/**
-	 * @param commerceOrderId
-	 * @throws PortalException
-	 * @deprecated As of Mueller (7.2.x), this method is being replaced
-	 */
-	@Deprecated
-	@Override
-	public List<CommercePaymentMethod> getEnabledCommercePaymentMethodsForOrder(
-			long commerceOrderId)
-		throws PortalException {
-
-		CommerceOrder commerceOrder =
-			_commerceOrderLocalService.getCommerceOrder(commerceOrderId);
-
-		boolean subscriptionOrder = commerceOrder.isSubscriptionOrder();
-
-		CommerceAddress commerceAddress = commerceOrder.getBillingAddress();
-
-		if (commerceAddress == null) {
-			commerceAddress = commerceOrder.getShippingAddress();
-		}
-
-		if (commerceAddress != null) {
-			return _getCommercePaymentMethodsList(
-				_commercePaymentMethodGroupRelLocalService.
-					getCommercePaymentMethodGroupRels(
-						commerceOrder.getGroupId(),
-						commerceAddress.getCommerceCountryId(), true),
-				subscriptionOrder);
-		}
-
-		return _getCommercePaymentMethodsList(
-			_commercePaymentMethodGroupRelLocalService.
-				getCommercePaymentMethodGroupRels(
-					commerceOrder.getGroupId(), true),
-			subscriptionOrder);
-	}
-
 	@Override
 	public List<CommercePaymentMethod> getEnabledCommercePaymentMethodsForOrder(
 			long groupId, long commerceOrderId)
@@ -354,19 +254,6 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 			subscriptionOrder);
 	}
 
-	/**
-	 * @param commerceOrderId
-	 * @throws PortalException
-	 * @deprecated As of Mueller (7.2.x), this method will be removed
-	 */
-	@Deprecated
-	@Override
-	public int getOrderStatusUpdateMaxIntervalMinutes(long commerceOrderId)
-		throws PortalException {
-
-		return 0;
-	}
-
 	@Override
 	public String getPaymentMethodImageURL(
 			ThemeDisplay themeDisplay, String paymentMethodKey)
@@ -387,42 +274,6 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 				paymentMethodKey);
 
 		return commercePaymentMethod.getName(locale);
-	}
-
-	/**
-	 * @param commerceOrderId
-	 * @throws Exception
-	 * @deprecated As of Mueller (7.2.x), this method will be removed
-	 */
-	@Deprecated
-	@Override
-	public CommerceSubscriptionStatusResult getSubscriptionPaymentDetails(
-			long commerceOrderId)
-		throws Exception {
-
-		CommercePaymentMethod commercePaymentMethod =
-			_commercePaymentUtils.getCommercePaymentMethod(commerceOrderId);
-
-		if ((commercePaymentMethod == null) ||
-			!commercePaymentMethod.isProcessRecurringEnabled()) {
-
-			return null;
-		}
-
-		CommercePaymentRequestProvider commercePaymentRequestProvider =
-			_commercePaymentUtils.getCommercePaymentRequestProvider(
-				commercePaymentMethod);
-
-		CommerceOrder commerceOrder =
-			_commerceOrderLocalService.getCommerceOrder(commerceOrderId);
-
-		CommercePaymentRequest commercePaymentRequest =
-			commercePaymentRequestProvider.getCommercePaymentRequest(
-				null, commerceOrderId, null, null, null,
-				commerceOrder.getTransactionId());
-
-		return commercePaymentMethod.getSubscriptionPaymentDetails(
-			commercePaymentRequest);
 	}
 
 	@Override
@@ -483,24 +334,6 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 		return commercePaymentResult;
 	}
 
-	/**
-	 * @param commerceOrderId
-	 * @param nextUrl
-	 * @param httpServletRequest
-	 * @throws Exception
-	 * @deprecated As of Mueller (7.2.x), this method is being moved to Subscription Engine
-	 */
-	@Deprecated
-	@Override
-	public CommercePaymentResult processRecurringPayment(
-			long commerceOrderId, String nextUrl,
-			HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _commerceSubscriptionEngine.processRecurringPayment(
-			commerceOrderId, nextUrl, httpServletRequest);
-	}
-
 	@Override
 	@Transactional(
 		propagation = Propagation.REQUIRED, readOnly = false,
@@ -527,37 +360,6 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 				httpServletRequest, commercePaymentMethod);
 
 		return commercePaymentMethod.refundPayment(commercePaymentRequest);
-	}
-
-	@Override
-	public CommercePaymentResult startPayment(
-			long commerceOrderId, String nextUrl,
-			HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		CommerceOrder commerceOrder =
-			_commerceOrderLocalService.getCommerceOrder(commerceOrderId);
-
-		if (commerceOrder.isSubscriptionOrder()) {
-			return processRecurringPayment(
-				commerceOrderId, nextUrl, httpServletRequest);
-		}
-
-		return processPayment(commerceOrderId, nextUrl, httpServletRequest);
-	}
-
-	/**
-	 * @param commerceSubscriptionEntryId
-	 * @throws Exception
-	 * @deprecated As of Mueller (7.2.x), this method is being moved to Subscription Engine
-	 */
-	@Deprecated
-	@Override
-	public boolean suspendSubscription(long commerceSubscriptionEntryId)
-		throws Exception {
-
-		return _commerceSubscriptionEngine.suspendRecurringPayment(
-			commerceSubscriptionEntryId);
 	}
 
 	@Override
@@ -657,9 +459,6 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 
 		return commercePaymentMethods;
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommercePaymentEngineImpl.class);
 
 	@Reference
 	private CommerceOrderEngine _commerceOrderEngine;
