@@ -396,12 +396,6 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	@Override
-	public int getCPInstanceQuantity(long cpInstanceId, int orderStatus) {
-		return commerceOrderItemFinder.getCPInstanceQuantity(
-			cpInstanceId, orderStatus);
-	}
-
-	@Override
 	public List<CommerceOrderItem> getSubscriptionCommerceOrderItems(
 		long commerceOrderId) {
 

@@ -43,9 +43,6 @@ public class CommerceOrderItemFinderImpl
 		CommerceOrderItemFinder.class.getName() +
 			".getCommerceOrderItemsQuantity";
 
-	public static final String GET_CP_INSTANCE_QUANTITY =
-		CommerceOrderItemFinder.class.getName() + ".getCPInstanceQuantity";
-
 	public static final String SUM_VALUE = "SUM_VALUE";
 
 	@Override
@@ -103,44 +100,6 @@ public class CommerceOrderItemFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(commerceOrderId);
-
-			Iterator<Long> itr = q.iterate();
-
-			if (itr.hasNext()) {
-				Long sum = itr.next();
-
-				if (sum != null) {
-					return sum.intValue();
-				}
-			}
-
-			return 0;
-		}
-		catch (Exception e) {
-			throw new SystemException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	@Override
-	public int getCPInstanceQuantity(long cpInstanceId, int status) {
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			String sql = _customSQL.get(getClass(), GET_CP_INSTANCE_QUANTITY);
-
-			SQLQuery q = session.createSynchronizedSQLQuery(sql);
-
-			q.addScalar(SUM_VALUE, Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(cpInstanceId);
-			qPos.add(status);
 
 			Iterator<Long> itr = q.iterate();
 
