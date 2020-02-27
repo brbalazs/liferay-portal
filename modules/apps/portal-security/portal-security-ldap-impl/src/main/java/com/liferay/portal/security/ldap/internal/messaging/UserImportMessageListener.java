@@ -173,8 +173,8 @@ public class UserImportMessageListener
 	private Date _getFutureDate(int interval) {
 		Calendar calendar = Calendar.getInstance();
 
-		calendar.setTime(new Date());
 		calendar.setLenient(true);
+		calendar.setTime(new Date());
 
 		calendar.add(Calendar.MINUTE, interval);
 
