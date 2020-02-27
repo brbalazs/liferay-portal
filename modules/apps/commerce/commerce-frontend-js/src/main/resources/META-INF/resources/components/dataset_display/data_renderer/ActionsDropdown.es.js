@@ -16,28 +16,36 @@ import ClayButton from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import PropTypes from 'prop-types';
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
 
 function ActionItem(props) {
-	const {highlightItems, loadData, openModal, openSidePanel} = useContext(
+	const { highlightItems, loadData, openModal, openSidePanel } = useContext(
 		DatasetDisplayContext
 	);
 
-	function handleClickOnLink(e, payload, target) {
+	function handleClickOnLink(e, payload) {
 		e.preventDefault();
 
-		if (target === 'modal') {
+		if (props.target === 'modal') {
 			openModal(payload);
-			props.closeMenu();
 		}
 
-		if (target === 'sidePanel') {
+		if (props.target === 'sidePanel') {
 			highlightItems([props.itemId]);
 			openSidePanel(payload);
-			props.closeMenu();
 		}
+
+		if (props.onClick) {
+			eval(props.onClick);
+		}
+
+		props.closeMenu();
+	}
+
+	function isNotALink() {
+		return ((props.target && props.target !== 'link') || props.onClick);
 	}
 
 	return (
@@ -45,8 +53,7 @@ function ActionItem(props) {
 			data-senna-off
 			href={props.href}
 			onClick={
-				props.target &&
-				props.target !== 'link' &&
+				isNotALink() &&
 				(e =>
 					handleClickOnLink(
 						e,
@@ -55,8 +62,7 @@ function ActionItem(props) {
 							size: props.size || 'lg',
 							title: props.title,
 							url: props.href
-						},
-						props.target
+						}
 					))
 			}
 		>
