@@ -70,6 +70,10 @@ public class ClayTableContextContributor
 		ClayTableSchema clayTableSchema =
 			clayTableDataSetDisplayView.getClayTableSchema();
 
+		schemaJSONObject.put("orderable", clayTableSchema.isOrderable());
+		schemaJSONObject.put(
+			"orderableField", clayTableSchema.getOrderableField());
+
 		Map<String, ClayTableSchemaField> fieldsMap =
 			clayTableSchema.getFields();
 

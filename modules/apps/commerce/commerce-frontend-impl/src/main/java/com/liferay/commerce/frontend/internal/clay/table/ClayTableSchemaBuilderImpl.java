@@ -59,8 +59,20 @@ public class ClayTableSchemaBuilderImpl implements ClayTableSchemaBuilder {
 	@Override
 	public ClayTableSchema build() {
 		_clayTableSchema.setFields(_fields);
+		_clayTableSchema.setOrderable(_orderable);
+		_clayTableSchema.setOrderableField(_orderableField);
 
 		return _clayTableSchema;
+	}
+
+	@Override
+	public void setOrderable(boolean orderable) {
+		_orderable = orderable;
+	}
+
+	@Override
+	public void setOrderableField(String orderableField) {
+		_orderableField = orderableField;
 	}
 
 	@Override
@@ -73,6 +85,8 @@ public class ClayTableSchemaBuilderImpl implements ClayTableSchemaBuilder {
 		_clayTableSchema = clayTableSchema;
 	}
 
+	private boolean _orderable = false;
+	private String _orderableField = "";
 	private ClayTableSchema _clayTableSchema;
 	private final Map<String, ClayTableSchemaField> _fields;
 

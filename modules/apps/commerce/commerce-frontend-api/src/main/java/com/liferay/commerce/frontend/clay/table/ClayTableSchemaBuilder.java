@@ -25,6 +25,10 @@ public interface ClayTableSchemaBuilder {
 
 	public ClayTableSchemaField addField(String fieldName, String label);
 
+	public void setOrderable(boolean orderable);
+
+	public void setOrderableField(String orderableField);
+
 	public ClayTableSchema build();
 
 	public void removeField(String fieldName);
