@@ -114,7 +114,8 @@ public class CommerceProductDefinitionSpecificationDataSetActionProvider
 	}
 
 	private PortletURL _getProductSpecificationDeleteURL(
-			long cpDefinitionId, HttpServletRequest httpServletRequest)
+			long cpDefinitionSpecificationOptionValueId,
+			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
@@ -128,7 +129,8 @@ public class CommerceProductDefinitionSpecificationDataSetActionProvider
 		portletURL.setParameter(
 			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter(
-			"cpDefinitionId", String.valueOf(cpDefinitionId));
+			"cpDefinitionSpecificationOptionValueId",
+			String.valueOf(cpDefinitionSpecificationOptionValueId));
 
 		return portletURL;
 	}
