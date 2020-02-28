@@ -33,6 +33,7 @@ import com.liferay.commerce.product.internal.upgrade.v1_6_0.CommerceCatalogUpgra
 import com.liferay.commerce.product.internal.upgrade.v1_6_0.CommerceChannelUpgradeProcess;
 import com.liferay.commerce.product.internal.upgrade.v1_7_0.CPDefinitionFiltersUpgradeProcess;
 import com.liferay.commerce.product.internal.upgrade.v2_0_0.CPInstanceOptionValueRelUpgradeProcess;
+import com.liferay.commerce.product.internal.upgrade.v2_1_0.CommerceCatalogSystemUpgradeProcess;
 import com.liferay.commerce.product.internal.upgrade.v2_1_0.SubscriptionUpgradeProcess;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.log.Log;
@@ -142,6 +143,7 @@ public class CommerceProductUpgradeStepRegistrator
 
 		registry.register(
 			_SCHEMA_VERSION_2_0_0, _SCHEMA_VERSION_2_1_0,
+			new CommerceCatalogSystemUpgradeProcess(), 
 			new SubscriptionUpgradeProcess());
 
 		if (_log.isInfoEnabled()) {
