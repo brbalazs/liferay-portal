@@ -82,14 +82,12 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.File;
-import java.io.Serializable;
 
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -682,7 +680,7 @@ public class CPDefinitionsImporter {
 		return _cpDefinitionLocalService.updateStatus(
 			cpDefinition.getUserId(), cpDefinition.getCPDefinitionId(),
 			WorkflowConstants.STATUS_APPROVED, serviceContext,
-			new HashMap<String, Serializable>());
+			Collections.emptyMap());
 	}
 
 	private CPDefinitionOptionRel _importCPDefinitionOptionRel(
