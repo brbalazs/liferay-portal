@@ -17,6 +17,7 @@ package com.liferay.commerce.service.persistence.impl;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.impl.CommerceOrderItemImpl;
 import com.liferay.commerce.service.persistence.CommerceOrderItemFinder;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -24,6 +25,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Iterator;
@@ -36,14 +38,14 @@ import java.util.List;
 public class CommerceOrderItemFinderImpl
 	extends CommerceOrderItemFinderBaseImpl implements CommerceOrderItemFinder {
 
-	public static final String COUNT_BY_A_O =
-		CommerceOrderItemFinder.class.getName() + ".countByA_O";
+	public static final String COUNT_BY_G_A_O =
+		CommerceOrderItemFinder.class.getName() + ".countByG_A_O";
 
 	public static final String FIND_BY_AVAILABLE_QUANTITY =
 		CommerceOrderItemFinder.class.getName() + ".findByAvailableQuantity";
 
-	public static final String FIND_BY_A_O =
-		CommerceOrderItemFinder.class.getName() + ".findByA_O";
+	public static final String FIND_BY_G_A_O =
+		CommerceOrderItemFinder.class.getName() + ".findByG_A_O";
 
 	public static final String GET_COMMERCE_ORDER_ITEMS_QUANTITY =
 		CommerceOrderItemFinder.class.getName() +
@@ -52,13 +54,17 @@ public class CommerceOrderItemFinderImpl
 	public static final String SUM_VALUE = "SUM_VALUE";
 
 	@Override
-	public int countByA_O(long commerceAccountId, int orderStatus) {
+	public int countByG_A_O(
+		long groupId, long commerceAccountId, int[] orderStatuses) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			String sql = _customSQL.get(getClass(), COUNT_BY_A_O);
+			String sql = _customSQL.get(getClass(), COUNT_BY_G_A_O);
+
+			sql = replaceOrderStatus(sql, orderStatuses);
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -66,8 +72,8 @@ public class CommerceOrderItemFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
+			qPos.add(groupId);
 			qPos.add(commerceAccountId);
-			qPos.add(orderStatus);
 
 			Iterator<Long> itr = q.iterate();
 
@@ -128,15 +134,18 @@ public class CommerceOrderItemFinderImpl
 	}
 
 	@Override
-	public List<CommerceOrderItem> findByA_O(
-		long commerceAccountId, int orderStatus, int start, int end) {
+	public List<CommerceOrderItem> findByG_A_O(
+		long groupId, long commerceAccountId, int[] orderStatuses, int start,
+		int end) {
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			String sql = _customSQL.get(getClass(), FIND_BY_A_O);
+			String sql = _customSQL.get(getClass(), FIND_BY_G_A_O);
+
+			sql = replaceOrderStatus(sql, orderStatuses);
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -144,8 +153,8 @@ public class CommerceOrderItemFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
+			qPos.add(groupId);
 			qPos.add(commerceAccountId);
-			qPos.add(orderStatus);
 
 			return (List<CommerceOrderItem>)QueryUtil.list(
 				q, getDialect(), start, end);
@@ -194,6 +203,20 @@ public class CommerceOrderItemFinderImpl
 		finally {
 			closeSession(session);
 		}
+	}
+
+	protected String replaceOrderStatus(String sql, int[] orderStatuses) {
+		StringBundler sb = new StringBundler(orderStatuses.length);
+
+		for (int i = 0; i < orderStatuses.length; i++) {
+			sb.append(orderStatuses[i]);
+
+			if (i != (orderStatuses.length - 1)) {
+				sb.append(", ");
+			}
+		}
+
+		return StringUtil.replace(sql, "[$ORDER_STATUS$]", sb.toString());
 	}
 
 	@ServiceReference(type = CustomSQL.class)

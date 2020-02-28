@@ -59,8 +59,8 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 			_commerceShipmentService.getCommerceShipment(commerceShipmentId);
 
 		return _commerceOrderItemService.getCommerceOrderItemsCount(
-			commerceShipment.getCommerceAccountId(),
-			CommerceOrderConstants.ORDER_STATUS_FULFILLED);
+			commerceShipment.getGroupId(),
+			commerceShipment.getCommerceAccountId(), orderStatuses);
 	}
 
 	@Override
@@ -79,8 +79,8 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 
 		List<CommerceOrderItem> commerceOrderItems =
 			_commerceOrderItemService.getCommerceOrderItems(
-				commerceShipment.getCommerceAccountId(),
-				CommerceOrderConstants.ORDER_STATUS_FULFILLED,
+				commerceShipment.getGroupId(),
+				commerceShipment.getCommerceAccountId(), orderStatuses,
 				pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
@@ -98,6 +98,11 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 
 		return orderItems;
 	}
+
+	protected int[] orderStatuses = {
+		CommerceOrderConstants.ORDER_STATUS_FULFILLED,
+		CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED
+	};
 
 	@Reference
 	private CommerceInventoryEngine _commerceInventoryEngine;

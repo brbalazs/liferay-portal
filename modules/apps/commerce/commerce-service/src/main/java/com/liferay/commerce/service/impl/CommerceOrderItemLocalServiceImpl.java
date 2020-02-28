@@ -359,14 +359,6 @@ public class CommerceOrderItemLocalServiceImpl
 
 	@Override
 	public List<CommerceOrderItem> getCommerceOrderItems(
-		long commerceAccountId, int orderStatus, int start, int end) {
-
-		return commerceOrderItemFinder.findByA_O(
-			commerceAccountId, orderStatus, start, end);
-	}
-
-	@Override
-	public List<CommerceOrderItem> getCommerceOrderItems(
 		long commerceOrderId, int start, int end,
 		OrderByComparator<CommerceOrderItem> orderByComparator) {
 
@@ -392,17 +384,18 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	@Override
-	public int getCommerceOrderItemsCount(long commerceOrderId) {
-		return commerceOrderItemPersistence.countByCommerceOrderId(
-			commerceOrderId);
+	public List<CommerceOrderItem> getCommerceOrderItems(
+		long groupId, long commerceAccountId, int[] orderStatuses, int start,
+		int end) {
+
+		return commerceOrderItemFinder.findByG_A_O(
+			groupId, commerceAccountId, orderStatuses, start, end);
 	}
 
 	@Override
-	public int getCommerceOrderItemsCount(
-		long commerceAccountId, int orderStatus) {
-
-		return commerceOrderItemFinder.countByA_O(
-			commerceAccountId, orderStatus);
+	public int getCommerceOrderItemsCount(long commerceOrderId) {
+		return commerceOrderItemPersistence.countByCommerceOrderId(
+			commerceOrderId);
 	}
 
 	@Override
@@ -411,6 +404,14 @@ public class CommerceOrderItemLocalServiceImpl
 
 		return commerceOrderItemPersistence.countByC_I(
 			commerceOrderId, cpInstanceId);
+	}
+
+	@Override
+	public int getCommerceOrderItemsCount(
+		long groupId, long commerceAccountId, int[] orderStatuses) {
+
+		return commerceOrderItemFinder.countByG_A_O(
+			groupId, commerceAccountId, orderStatuses);
 	}
 
 	@Override

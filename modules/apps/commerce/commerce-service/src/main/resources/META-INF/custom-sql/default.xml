@@ -133,7 +133,7 @@
 				CommerceOrder.modifieddate DESC
 		]]>
 	</sql>
-	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.countByA_O">
+	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.countByG_A_O">
 		<![CDATA[
 			SELECT
 				COUNT(DISTINCT CommerceOrderItem.commerceOrderItemId) AS COUNT_VALUE
@@ -146,8 +146,9 @@
 				CommerceShipmentItem ON
 					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
 			WHERE
+				(commerceOrderItem.groupId = ?) AND
 				(commerceAccountId = ?) AND
-				(orderStatus = ?) AND
+				(CommerceOrder.orderStatus IN ([$ORDER_STATUS$])) AND
 				(CommerceShipmentItem.commerceShipmentItemId IS NULL)
 		]]>
 	</sql>
@@ -162,7 +163,7 @@
 				(CommerceOrderItem.quantity > CommerceOrderItem.shippedQuantity)
 		]]>
 	</sql>
-	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.findByA_O">
+	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.findByG_A_O">
 		<![CDATA[
 			SELECT
 				{CommerceOrderItem.*}
@@ -175,8 +176,9 @@
 				CommerceShipmentItem ON
 					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
 			WHERE
+				(CommerceOrderItem.groupId = ?) AND
 				(commerceAccountId = ?) AND
-				(orderStatus = ?) AND
+				(CommerceOrder.orderStatus IN ([$ORDER_STATUS$])) AND
 				(CommerceShipmentItem.commerceShipmentItemId IS NULL)
 		]]>
 	</sql>

@@ -225,14 +225,15 @@ public class CommerceOrderItemServiceImpl
 
 	@Override
 	public List<CommerceOrderItem> getCommerceOrderItems(
-			long commerceAccountId, int orderStatus, int start, int end)
+			long groupId, long commerceAccountId, int[] orderStatuses,
+			int start, int end)
 		throws PortalException {
 
 		commerceAccountPermission.check(
 			getPermissionChecker(), commerceAccountId, ActionKeys.VIEW);
 
 		return commerceOrderItemLocalService.getCommerceOrderItems(
-			commerceAccountId, orderStatus, start, end);
+			groupId, commerceAccountId, orderStatuses, start, end);
 	}
 
 	@Override
@@ -248,18 +249,6 @@ public class CommerceOrderItemServiceImpl
 
 	@Override
 	public int getCommerceOrderItemsCount(
-			long commerceAccountId, int orderStatus)
-		throws PortalException {
-
-		commerceAccountPermission.check(
-			getPermissionChecker(), commerceAccountId, ActionKeys.VIEW);
-
-		return commerceOrderItemLocalService.getCommerceOrderItemsCount(
-			commerceAccountId, orderStatus);
-	}
-
-	@Override
-	public int getCommerceOrderItemsCount(
 			long commerceOrderId, long cpInstanceId)
 		throws PortalException {
 
@@ -268,6 +257,18 @@ public class CommerceOrderItemServiceImpl
 
 		return commerceOrderItemLocalService.getCommerceOrderItemsCount(
 			commerceOrderId, cpInstanceId);
+	}
+
+	@Override
+	public int getCommerceOrderItemsCount(
+			long groupId, long commerceAccountId, int[] orderStatuses)
+		throws PortalException {
+
+		commerceAccountPermission.check(
+			getPermissionChecker(), commerceAccountId, ActionKeys.VIEW);
+
+		return commerceOrderItemLocalService.getCommerceOrderItemsCount(
+			groupId, commerceAccountId, orderStatuses);
 	}
 
 	@Override
