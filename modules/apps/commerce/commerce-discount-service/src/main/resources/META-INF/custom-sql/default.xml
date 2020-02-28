@@ -60,7 +60,7 @@
 					CommerceChannelRel.classPK = CommerceDiscount.commerceDiscountId
 			WHERE
 				(CommerceDiscount.active_ = [$TRUE$]) AND
-				(CommercePriceListChannelRel.commerceDiscountAccountRelId IS NULL) AND
+				(CommerceDiscountAccountRel.commerceDiscountAccountRelId IS NULL) AND
 				(CDiscountCAccountGroupRel.cDiscountCAccountGroupRelId IS NULL) AND
 				(CommerceChannelRel.commerceChannelRelId IS NULL) AND
 				(CommerceDiscount.target = ?)

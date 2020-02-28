@@ -152,6 +152,10 @@ public class CommerceDiscountCalculationV2Impl
 				_commerceDiscountLocalService.findPriceListDiscountProduct(
 					commerceDiscountIds, cpInstance.getCPDefinitionId());
 
+			if (commerceDiscounts.isEmpty()) {
+				return null;
+			}
+
 			return _getCommerceDiscountValues(
 				productUnitPrice, quantity, commerceContext, commerceDiscounts);
 		}
@@ -159,6 +163,10 @@ public class CommerceDiscountCalculationV2Impl
 		List<CommerceDiscount> commerceDiscounts =
 			_getProductCommerceDiscountByHierarchy(
 				commerceContext, cpInstance.getCPDefinitionId());
+
+		if (commerceDiscounts.isEmpty()) {
+			return null;
+		}
 
 		return _getCommerceDiscountValues(
 			productUnitPrice, quantity, commerceContext, commerceDiscounts);
@@ -225,7 +233,9 @@ public class CommerceDiscountCalculationV2Impl
 			BigDecimal commerceDiscountValue, boolean isUsePercentage)
 		throws PortalException {
 
-		if (commerceDiscountValue == null) {
+		if ((commerceDiscountValue == null) ||
+			(commercePrice.compareTo(BigDecimal.ZERO) == 0)) {
+
 			return null;
 		}
 
@@ -238,12 +248,7 @@ public class CommerceDiscountCalculationV2Impl
 		if (isUsePercentage) {
 			discountAmount = commercePrice.multiply(commerceDiscountValue);
 			discountAmount = discountAmount.divide(_ONE_HUNDRED);
-		}
-		else {
-			discountAmount = commerceDiscountValue;
-		}
 
-		if (isUsePercentage) {
 			BigDecimal maximumDiscountAmount =
 				commerceDiscount.getMaximumDiscountAmount();
 
@@ -252,6 +257,9 @@ public class CommerceDiscountCalculationV2Impl
 
 				discountAmount = commerceDiscount.getMaximumDiscountAmount();
 			}
+		}
+		else {
+			discountAmount = commerceDiscountValue;
 		}
 
 		RoundingMode roundingMode = RoundingMode.valueOf(
@@ -264,6 +272,10 @@ public class CommerceDiscountCalculationV2Impl
 
 		if ((currentDiscountLevel == null) ||
 			(discountPercentage.compareTo(currentDiscountLevel) > 0)) {
+
+			if (isUsePercentage) {
+				return commerceDiscountValue;
+			}
 
 			return discountPercentage;
 		}
@@ -287,7 +299,9 @@ public class CommerceDiscountCalculationV2Impl
 		CommerceCurrency commerceCurrency =
 			commerceContext.getCommerceCurrency();
 
-		BigDecimal[] levels = new BigDecimal[4];
+		BigDecimal[] levels = {
+			BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO
+		};
 
 		for (CommerceDiscount commerceDiscount : commerceDiscounts) {
 			String discountCouponCode = commerceDiscount.getCouponCode();
@@ -356,8 +370,16 @@ public class CommerceDiscountCalculationV2Impl
 			String discountType)
 		throws PortalException {
 
+		if ((amount == null) || (amount.compareTo(BigDecimal.ZERO) <= 0)) {
+			return null;
+		}
+
 		List<CommerceDiscount> commerceDiscounts =
 			_getOrderCommerceDiscountByHierarchy(commerceContext, discountType);
+
+		if (commerceDiscounts.isEmpty()) {
+			return null;
+		}
 
 		BigDecimal[] commerceDiscountLevels = _getCommerceDiscountLevels(
 			amount, commerceContext, commerceDiscounts);
@@ -377,6 +399,9 @@ public class CommerceDiscountCalculationV2Impl
 
 		RoundingMode roundingMode = RoundingMode.valueOf(
 			commerceCurrency.getRoundingMode());
+
+		currentDiscountAmount = currentDiscountAmount.setScale(
+			_SCALE, roundingMode);
 
 		CommerceMoney discountAmount = _commerceMoneyFactory.create(
 			commerceCurrency, currentDiscountAmount);
@@ -412,6 +437,9 @@ public class CommerceDiscountCalculationV2Impl
 
 		RoundingMode roundingMode = RoundingMode.valueOf(
 			commerceCurrency.getRoundingMode());
+
+		currentDiscountAmount = currentDiscountAmount.setScale(
+			_SCALE, roundingMode);
 
 		CommerceMoney discountAmount = _commerceMoneyFactory.create(
 			commerceCurrency,
@@ -469,7 +497,7 @@ public class CommerceDiscountCalculationV2Impl
 			_commerceDiscountLocalService.findByA_C_C_Order(
 				commerceAccountId, commerceDiscountTargetType);
 
-		if (commerceDiscounts != null) {
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
@@ -480,14 +508,14 @@ public class CommerceDiscountCalculationV2Impl
 		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Order(
 			commerceAccountGroupIds, commerceDiscountTargetType);
 
-		if (commerceDiscounts != null) {
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
 		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Order(
 			commerceChannelId, commerceDiscountTargetType);
 
-		if (commerceDiscounts != null) {
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
@@ -582,6 +610,8 @@ public class CommerceDiscountCalculationV2Impl
 	}
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
+
+	private static final int _SCALE = 10;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceDiscountCalculationV2Impl.class);
