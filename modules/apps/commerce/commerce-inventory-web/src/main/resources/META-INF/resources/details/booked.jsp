@@ -19,11 +19,9 @@
 <%
 CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-String skuCode = commerceInventoryDisplayContext.getSku();
+Map<String, String> contextParams = new HashMap<>();
 
-java.util.Map<String, String> contextParams = new java.util.HashMap<>();
-
-contextParams.put("sku", skuCode);
+contextParams.put("sku", commerceInventoryDisplayContext.getSku());
 %>
 
 <div class="row">

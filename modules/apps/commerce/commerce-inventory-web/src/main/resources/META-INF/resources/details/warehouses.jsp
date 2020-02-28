@@ -17,13 +17,11 @@
 <%@ include file="/init.jsp" %>
 
 <%
-	CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-	String skuCode = commerceInventoryDisplayContext.getSku();
+Map<String, String> contextParams = new HashMap<>();
 
-	java.util.Map<String, String> contextParams = new java.util.HashMap<>();
-
-	contextParams.put("sku", skuCode);
+contextParams.put("sku", commerceInventoryDisplayContext.getSku());
 %>
 
 <div class="row">
@@ -45,20 +43,3 @@
 		</commerce-ui:panel>
 	</div>
 </div>
-
-<%--
-<div id="<portlet:namespace />side-panel-root"></div>
-<div id="<portlet:namespace />side-panel-wrapper"></div>
-
-<aui:script require="commerce-frontend-js/components/side_panel/entry.es as sidePanel">
-	sidePanel.default(
-		'<portlet:namespace />sidePanel',
-		'<portlet:namespace />side-panel-root',
-		{
-			portalWrapperId: '<portlet:namespace />side-panel-wrapper',
-			spritemap:
-				'<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>',
-			topAnchorSelector: '.commerce-header'
-		}
-	);
-</aui:script>--%>
