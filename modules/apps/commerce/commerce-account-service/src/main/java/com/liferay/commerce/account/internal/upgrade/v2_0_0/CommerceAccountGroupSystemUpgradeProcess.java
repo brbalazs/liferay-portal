@@ -15,9 +15,11 @@
 package com.liferay.commerce.account.internal.upgrade.v2_0_0;
 
 import com.liferay.commerce.account.model.impl.CommerceAccountGroupImpl;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+import com.liferay.portal.kernel.util.StringUtil;
 
 /**
  * @author Ethan Bustad
@@ -42,7 +44,10 @@ public class CommerceAccountGroupSystemUpgradeProcess extends UpgradeProcess {
 					tableName));
 		}
 
-		if (!hasColumn(tableName, newColumnName)) {
+		String newColumnSimpleName = StringUtil.extractFirst(
+			newColumnName, StringPool.SPACE);
+
+		if (!hasColumn(tableName, newColumnSimpleName)) {
 			alter(
 				tableClass, new AlterColumnName(oldColumnName, newColumnName));
 		}
