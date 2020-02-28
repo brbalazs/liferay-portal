@@ -64,11 +64,9 @@ public class CommerceShipmentItemLocalServiceImpl
 			commerceOrderItemLocalService.getCommerceOrderItem(
 				commerceOrderItemId);
 
-		if (commerceInventoryWarehouseId > 0) {
-			validate(
-				commerceOrderItem, commerceInventoryWarehouseId, quantity,
-				quantity);
-		}
+		validate(
+			commerceOrderItem, commerceInventoryWarehouseId, quantity,
+			quantity);
 
 		long commerceShipmentItemId = counterLocalService.increment();
 
@@ -271,6 +269,10 @@ public class CommerceShipmentItemLocalServiceImpl
 			CommerceOrderItem commerceOrderItem,
 			long commerceInventoryWarehouseId, int quantity, int newQuantity)
 		throws PortalException {
+
+		if (commerceInventoryWarehouseId > 0) {
+			return;
+		}
 
 		int availableQuantity =
 			commerceOrderItem.getQuantity() -
