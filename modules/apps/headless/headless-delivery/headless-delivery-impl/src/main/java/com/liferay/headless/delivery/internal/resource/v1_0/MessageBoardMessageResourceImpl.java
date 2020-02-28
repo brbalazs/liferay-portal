@@ -31,7 +31,6 @@ import com.liferay.message.boards.model.MBMessage;
 import com.liferay.message.boards.model.MBThread;
 import com.liferay.message.boards.service.MBMessageService;
 import com.liferay.message.boards.service.MBThreadLocalService;
-import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
@@ -113,9 +112,12 @@ public class MessageBoardMessageResourceImpl
 				Pagination pagination, Sort[] sorts)
 		throws Exception {
 
+		MBMessage mbMessage = _mbMessageService.getMessage(
+			parentMessageBoardMessageId);
+
 		return _getMessageBoardMessagesPage(
-			parentMessageBoardMessageId, search, filter, pagination, sorts,
-			false, null);
+			_getMessageBoardListActions(mbMessage), parentMessageBoardMessageId,
+			search, filter, pagination, sorts, false, null);
 	}
 
 	@Override
@@ -138,6 +140,7 @@ public class MessageBoardMessageResourceImpl
 			messageBoardThreadId);
 
 		return _getMessageBoardMessagesPage(
+			_getMessageBoardThreadListActions(mbThread),
 			mbThread.getRootMessageId(), search, filter, pagination, sorts,
 			false, null);
 	}
@@ -149,7 +152,8 @@ public class MessageBoardMessageResourceImpl
 		throws Exception {
 
 		return _getMessageBoardMessagesPage(
-			null, search, filter, pagination, sorts, flatten, siteId);
+			_getSiteListActions(siteId), null, search, filter, pagination,
+			sorts, flatten, siteId);
 	}
 
 	@Override
@@ -281,33 +285,29 @@ public class MessageBoardMessageResourceImpl
 		return _toMessageBoardMessage(mbMessage);
 	}
 
-	private Map<String, Map<String, String>> _getActions(
-		GroupedModel groupedModel) {
-
+	private Map<String, Map<String, String>> _getActions(MBMessage mbMessage) {
 		return HashMapBuilder.<String, Map<String, String>>put(
-			"create",
-			addAction(
-				"REPLY_TO_MESSAGE", "postMessageBoardThreadMessageBoardMessage",
-				"com.liferay.message.boards", groupedModel.getGroupId())
-		).put(
 			"delete",
-			addAction("DELETE", groupedModel, "deleteMessageBoardMessage")
+			addAction("DELETE", mbMessage, "deleteMessageBoardMessage")
 		).put(
-			"get", addAction("VIEW", groupedModel, "getMessageBoardMessage")
+			"get", addAction("VIEW", mbMessage, "getMessageBoardMessage")
 		).put(
-			"replace",
-			addAction("UPDATE", groupedModel, "putMessageBoardMessage")
+			"replace", addAction("UPDATE", mbMessage, "putMessageBoardMessage")
+		).put(
+			"reply-to-message",
+			addAction(
+				"REPLY_TO_MESSAGE", mbMessage.getMessageId(),
+				"postMessageBoardMessageMessageBoardMessage",
+				mbMessage.getUserId(), "com.liferay.message.boards",
+				mbMessage.getGroupId())
 		).put(
 			"subscribe",
-			addAction(
-				"SUBSCRIBE", groupedModel, "putMessageBoardMessageSubscribe")
+			addAction("SUBSCRIBE", mbMessage, "putMessageBoardMessageSubscribe")
 		).put(
 			"unsubscribe",
-			addAction(
-				"SUBSCRIBE", groupedModel, "putMessageBoardMessageSubscribe")
+			addAction("SUBSCRIBE", mbMessage, "putMessageBoardMessageSubscribe")
 		).put(
-			"update",
-			addAction("UPDATE", groupedModel, "patchMessageBoardMessage")
+			"update", addAction("UPDATE", mbMessage, "patchMessageBoardMessage")
 		).build();
 	}
 
@@ -320,26 +320,28 @@ public class MessageBoardMessageResourceImpl
 			contextAcceptLanguage.getPreferredLocale());
 	}
 
-	private Map<String, Map<String, String>> _getListActions(long groupId) {
+	private Map<String, Map<String, String>> _getMessageBoardListActions(
+		MBMessage mbMessage) {
+
 		return HashMapBuilder.<String, Map<String, String>>put(
-			"create",
-			addAction(
-				"ADD_MESSAGE", "postMessageBoardThreadMessageBoardMessage",
-				"com.liferay.message.boards", groupId)
-		).put(
-			"get",
-			addAction(
-				"VIEW", "getMessageBoardThreadMessageBoardMessagesPage",
-				"com.liferay.message.boards", groupId)
-		).put(
 			"get-child-messages",
 			addAction(
-				"VIEW", "getMessageBoardMessageMessageBoardMessagesPage",
-				"com.liferay.message.boards", groupId)
+				"VIEW", mbMessage.getMessageId(),
+				"getMessageBoardMessageMessageBoardMessagesPage",
+				mbMessage.getUserId(), "com.liferay.message.boards",
+				mbMessage.getGroupId())
+		).put(
+			"reply-to-message",
+			addAction(
+				"REPLY_TO_MESSAGE", mbMessage.getMessageId(),
+				"postMessageBoardMessageMessageBoardMessage",
+				mbMessage.getUserId(), "com.liferay.message.boards",
+				mbMessage.getGroupId())
 		).build();
 	}
 
 	private Page<MessageBoardMessage> _getMessageBoardMessagesPage(
+			Map<String, Map<String, String>> actions,
 			Long messageBoardMessageId, String search, Filter filter,
 			Pagination pagination, Sort[] sorts, Boolean flatten, Long siteId)
 		throws Exception {
@@ -354,6 +356,7 @@ public class MessageBoardMessageResourceImpl
 		long messageBoardMessageSiteId = siteId;
 
 		return SearchUtil.search(
+			actions,
 			booleanQuery -> {
 				BooleanFilter booleanFilter =
 					booleanQuery.getPreBooleanFilter();
@@ -389,10 +392,39 @@ public class MessageBoardMessageResourceImpl
 				Field.ENTRY_CLASS_PK),
 			searchContext -> searchContext.setCompanyId(
 				contextCompany.getCompanyId()),
+			sorts,
 			document -> _toMessageBoardMessage(
 				_mbMessageService.getMessage(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
-			sorts, (Map)_getListActions(messageBoardMessageSiteId));
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))));
+	}
+
+	private Map<String, Map<String, String>> _getMessageBoardThreadListActions(
+		MBThread mbThread) {
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"create",
+			addAction(
+				"ADD_MESSAGE", mbThread.getThreadId(),
+				"postMessageBoardThreadMessageBoardMessage",
+				mbThread.getUserId(), "com.liferay.message.boards",
+				mbThread.getGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", mbThread.getThreadId(),
+				"getMessageBoardThreadMessageBoardMessagesPage",
+				mbThread.getUserId(), "com.liferay.message.boards",
+				mbThread.getGroupId())
+		).build();
+	}
+
+	private Map<String, Map<String, String>> _getSiteListActions(long site) {
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"get",
+			addAction(
+				"VIEW", "getSiteMessageBoardMessagesPage",
+				"com.liferay.message.boards", site)
+		).build();
 	}
 
 	private SPIRatingResource<Rating> _getSPIRatingResource() {

@@ -158,6 +158,7 @@ public class StructuredContentResourceImpl
 			contentStructureId);
 
 		return _getStructuredContentsPage(
+			_getContentStructureListActions(ddmStructure),
 			booleanQuery -> {
 				if (contentStructureId != null) {
 					BooleanFilter booleanFilter =
@@ -232,6 +233,7 @@ public class StructuredContentResourceImpl
 		throws Exception {
 
 		return _getStructuredContentsPage(
+			_getSiteListActions(siteId),
 			booleanQuery -> {
 				BooleanFilter booleanFilter =
 					booleanQuery.getPreBooleanFilter();
@@ -270,6 +272,7 @@ public class StructuredContentResourceImpl
 			structuredContentFolderId);
 
 		return _getStructuredContentsPage(
+			_getStructuredContentFolderListActions(journalFolder),
 			booleanQuery -> {
 				if (structuredContentFolderId != null) {
 					BooleanFilter booleanFilter =
@@ -648,44 +651,58 @@ public class StructuredContentResourceImpl
 			"delete",
 			addAction(
 				"DELETE", journalArticle.getResourcePrimKey(),
-				"deleteStructuredContent", JournalArticle.class.getName(),
-				journalArticle.getGroupId())
+				"deleteStructuredContent", journalArticle.getUserId(),
+				JournalArticle.class.getName(), journalArticle.getGroupId())
 		).put(
 			"get",
 			addAction(
 				"VIEW", journalArticle.getResourcePrimKey(),
-				"getStructuredContent", JournalArticle.class.getName(),
-				journalArticle.getGroupId())
+				"getStructuredContent", journalArticle.getUserId(),
+				JournalArticle.class.getName(), journalArticle.getGroupId())
 		).put(
 			"get-template",
 			addAction(
 				"VIEW", journalArticle.getResourcePrimKey(),
 				"getStructuredContentRenderedContentTemplate",
-				JournalArticle.class.getName(), journalArticle.getGroupId())
+				journalArticle.getUserId(), JournalArticle.class.getName(),
+				journalArticle.getGroupId())
 		).put(
 			"replace",
 			addAction(
 				"UPDATE", journalArticle.getResourcePrimKey(),
-				"putStructuredContent", JournalArticle.class.getName(),
-				journalArticle.getGroupId())
+				"putStructuredContent", journalArticle.getUserId(),
+				JournalArticle.class.getName(), journalArticle.getGroupId())
 		).put(
 			"subscribe",
 			addAction(
 				"SUBSCRIBE", journalArticle.getResourcePrimKey(),
-				"putStructuredContentSubscribe", JournalArticle.class.getName(),
-				journalArticle.getGroupId())
+				"putStructuredContentSubscribe", journalArticle.getUserId(),
+				JournalArticle.class.getName(), journalArticle.getGroupId())
 		).put(
 			"unsubscribe",
 			addAction(
 				"SUBSCRIBE", journalArticle.getResourcePrimKey(),
-				"putStructuredContentUnsubscribe",
+				"putStructuredContentUnsubscribe", journalArticle.getUserId(),
 				JournalArticle.class.getName(), journalArticle.getGroupId())
 		).put(
 			"update",
 			addAction(
 				"UPDATE", journalArticle.getResourcePrimKey(),
-				"patchStructuredContent", JournalArticle.class.getName(),
-				journalArticle.getGroupId())
+				"patchStructuredContent", journalArticle.getUserId(),
+				JournalArticle.class.getName(), journalArticle.getGroupId())
+		).build();
+	}
+
+	private Map<String, Map<String, String>> _getContentStructureListActions(
+		DDMStructure ddmStructure) {
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"get",
+			addAction(
+				"VIEW", ddmStructure.getStructureId(),
+				"getContentStructureStructuredContentsPage",
+				ddmStructure.getUserId(), "com.liferay.journal",
+				ddmStructure.getGroupId())
 		).build();
 	}
 
@@ -725,7 +742,15 @@ public class StructuredContentResourceImpl
 			contextAcceptLanguage.getPreferredLocale());
 	}
 
-	private Map<String, Map<String, String>> _getListActions(Long siteId) {
+	private List<DDMFormField> _getRootDDMFormFields(
+		DDMStructure ddmStructure) {
+
+		return transform(
+			ddmStructure.getRootFieldNames(),
+			fieldName -> _getDDMFormField(ddmStructure, fieldName));
+	}
+
+	private Map<String, Map<String, String>> _getSiteListActions(Long siteId) {
 		return HashMapBuilder.<String, Map<String, String>>put(
 			"create",
 			addAction(
@@ -737,14 +762,6 @@ public class StructuredContentResourceImpl
 				"VIEW", "getSiteStructuredContentsPage", "com.liferay.journal",
 				siteId)
 		).build();
-	}
-
-	private List<DDMFormField> _getRootDDMFormFields(
-		DDMStructure ddmStructure) {
-
-		return transform(
-			ddmStructure.getRootFieldNames(),
-			fieldName -> _getDDMFormField(ddmStructure, fieldName));
 	}
 
 	private SPIRatingResource<Rating> _getSPIRatingResource() {
@@ -767,15 +784,36 @@ public class StructuredContentResourceImpl
 		return _toStructuredContent(journalArticle);
 	}
 
+	private Map<String, Map<String, String>>
+		_getStructuredContentFolderListActions(JournalFolder journalFolder) {
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"create",
+			addAction(
+				"ADD_ARTICLE", journalFolder.getFolderId(),
+				"postStructuredContentFolderStructuredContent",
+				journalFolder.getUserId(), "com.liferay.journal",
+				journalFolder.getGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", journalFolder.getFolderId(),
+				"getStructuredContentFolderStructuredContentsPage",
+				journalFolder.getUserId(), "com.liferay.journal",
+				journalFolder.getGroupId())
+		).build();
+	}
+
 	private Page<StructuredContent> _getStructuredContentsPage(
+			Map<String, Map<String, String>> actions,
 			UnsafeConsumer<BooleanQuery, Exception> booleanQueryUnsafeConsumer,
 			Long siteId, String search, Filter filter, Pagination pagination,
 			Sort[] sorts)
 		throws Exception {
 
 		return SearchUtil.search(
-			booleanQueryUnsafeConsumer, filter, JournalArticle.class, search,
-			pagination,
+			actions, booleanQueryUnsafeConsumer, filter, JournalArticle.class,
+			search, pagination,
 			queryConfig -> queryConfig.setSelectedFieldNames(
 				com.liferay.portal.kernel.search.Field.ARTICLE_ID,
 				com.liferay.portal.kernel.search.Field.SCOPE_GROUP_ID),
@@ -790,6 +828,7 @@ public class StructuredContentResourceImpl
 					searchContext.setGroupIds(new long[] {siteId});
 				}
 			},
+			sorts,
 			document -> _toStructuredContent(
 				_journalArticleService.getLatestArticle(
 					GetterUtil.getLong(
@@ -798,8 +837,7 @@ public class StructuredContentResourceImpl
 								SCOPE_GROUP_ID)),
 					document.get(
 						com.liferay.portal.kernel.search.Field.ARTICLE_ID),
-					WorkflowConstants.STATUS_APPROVED)),
-			sorts, (Map)_getListActions(siteId));
+					WorkflowConstants.STATUS_APPROVED)));
 	}
 
 	private ThemeDisplay _getThemeDisplay(JournalArticle journalArticle)

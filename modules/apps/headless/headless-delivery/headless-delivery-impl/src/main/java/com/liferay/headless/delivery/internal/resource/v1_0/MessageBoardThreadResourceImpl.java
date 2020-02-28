@@ -55,6 +55,7 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -64,6 +65,7 @@ import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.SearchUtil;
 import com.liferay.ratings.kernel.service.RatingsEntryLocalService;
 import com.liferay.ratings.kernel.service.RatingsStatsLocalService;
@@ -134,6 +136,7 @@ public class MessageBoardThreadResourceImpl
 			messageBoardSectionId);
 
 		return _getSiteMessageBoardThreadsPage(
+			_getMessageBoardSectionListActions(mbCategory),
 			booleanQuery -> {
 				BooleanFilter booleanFilter =
 					booleanQuery.getPreBooleanFilter();
@@ -177,6 +180,7 @@ public class MessageBoardThreadResourceImpl
 		throws Exception {
 
 		return _getSiteMessageBoardThreadsPage(
+			_getSiteListActions(siteId),
 			booleanQuery -> {
 				BooleanFilter booleanFilter =
 					booleanQuery.getPreBooleanFilter();
@@ -314,6 +318,31 @@ public class MessageBoardThreadResourceImpl
 		return _toMessageBoardThread(mbMessage);
 	}
 
+	private Map<String, Map<String, String>> _getActions(MBMessage mbMessage) {
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete", addAction("DELETE", mbMessage, "deleteMessageBoardThread")
+		).put(
+			"get", addAction("VIEW", mbMessage, "getMessageBoardThread")
+		).put(
+			"replace", addAction("UPDATE", mbMessage, "putMessageBoardThread")
+		).put(
+			"reply-to-thread",
+			ActionUtil.addAction(
+				"REPLY_TO_MESSAGE", MessageBoardMessageResourceImpl.class,
+				mbMessage.getMessageId(),
+				"postMessageBoardThreadMessageBoardMessage",
+				contextScopeChecker, mbMessage.getUserId(),
+				"com.liferay.message.boards", mbMessage.getGroupId(),
+				contextUriInfo)
+		).put(
+			"subscribe",
+			addAction("UPDATE", mbMessage, "putMessageBoardThreadSubscribe")
+		).put(
+			"unsubscribe",
+			addAction("UPDATE", mbMessage, "putMessageBoardThreadUnsubscribe")
+		).build();
+	}
+
 	private Map<String, Serializable> _getExpandoBridgeAttributes(
 		MessageBoardThread messageBoardThread) {
 
@@ -323,25 +352,60 @@ public class MessageBoardThreadResourceImpl
 			contextAcceptLanguage.getPreferredLocale());
 	}
 
+	private Map<String, Map<String, String>> _getMessageBoardSectionListActions(
+		MBCategory mbCategory) {
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"create",
+			addAction(
+				"ADD_MESSAGE", mbCategory.getCategoryId(),
+				"postMessageBoardSectionMessageBoardThread",
+				mbCategory.getUserId(), "com.liferay.message.boards",
+				mbCategory.getGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", mbCategory.getCategoryId(),
+				"getMessageBoardSectionMessageBoardThreadsPage",
+				mbCategory.getUserId(), "com.liferay.message.boards",
+				mbCategory.getGroupId())
+		).build();
+	}
+
+	private Map<String, Map<String, String>> _getSiteListActions(long groupId) {
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"create",
+			addAction(
+				"ADD_MESSAGE", "postSiteMessageBoardThread",
+				"com.liferay.message.boards", groupId)
+		).put(
+			"get",
+			addAction(
+				"VIEW", "getSiteMessageBoardThreadsPage",
+				"com.liferay.message.boards", groupId)
+		).build();
+	}
+
 	private Page<MessageBoardThread> _getSiteMessageBoardThreadsPage(
+			Map<String, Map<String, String>> actions,
 			UnsafeConsumer<BooleanQuery, Exception> booleanQueryUnsafeConsumer,
 			Long siteId, String search, Filter filter, Pagination pagination,
 			Sort[] sorts)
 		throws Exception {
 
 		return SearchUtil.search(
-			booleanQueryUnsafeConsumer, filter, MBMessage.class, search,
-			pagination,
+			actions, booleanQueryUnsafeConsumer, filter, MBMessage.class,
+			search, pagination,
 			queryConfig -> queryConfig.setSelectedFieldNames(
 				Field.ENTRY_CLASS_PK),
 			searchContext -> {
 				searchContext.setCompanyId(contextCompany.getCompanyId());
 				searchContext.setGroupIds(new long[] {siteId});
 			},
+			sorts,
 			document -> _toMessageBoardThread(
 				_mbMessageService.getMessage(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
-			sorts);
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))));
 	}
 
 	private SPIRatingResource<Rating> _getSPIRatingResource() {
@@ -366,6 +430,7 @@ public class MessageBoardThreadResourceImpl
 
 		return new MessageBoardThread() {
 			{
+				actions = _getActions(mbMessage);
 				aggregateRating = AggregateRatingUtil.toAggregateRating(
 					_ratingsStatsLocalService.fetchStats(
 						MBMessage.class.getName(), mbMessage.getMessageId()));

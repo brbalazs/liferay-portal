@@ -24,6 +24,7 @@ import com.liferay.knowledge.base.model.KBFolder;
 import com.liferay.knowledge.base.service.KBArticleService;
 import com.liferay.knowledge.base.service.KBFolderService;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -152,6 +153,16 @@ public class KnowledgeBaseFolderResourceImpl
 					null)));
 	}
 
+	private Map<String, Map<String, String>> _getActions(KBFolder kbFolder) {
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete", addAction("DELETE", kbFolder, "deleteKnowledgeBaseFolder")
+		).put(
+			"get", addAction("VIEW", kbFolder, "getKnowledgeBaseFolder")
+		).put(
+			"replace", addAction("UPDATE", kbFolder, "putKnowledgeBaseFolder")
+		).build();
+	}
+
 	private long _getClassNameId() {
 		return _portal.getClassNameId(KBFolder.class.getName());
 	}
@@ -174,6 +185,7 @@ public class KnowledgeBaseFolderResourceImpl
 
 		return new KnowledgeBaseFolder() {
 			{
+				actions = _getActions(kbFolder);
 				creator = CreatorUtil.toCreator(
 					_portal, _userLocalService.getUser(kbFolder.getUserId()));
 				customFields = CustomFieldsUtil.toCustomFields(
