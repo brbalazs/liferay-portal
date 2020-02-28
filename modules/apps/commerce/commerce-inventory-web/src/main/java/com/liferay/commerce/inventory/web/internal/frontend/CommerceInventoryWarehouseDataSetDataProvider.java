@@ -14,18 +14,16 @@
 
 package com.liferay.commerce.inventory.web.internal.frontend;
 
-import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
-
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
-import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIWarehouse;
-import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseLocalService;
+import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
+import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
+import com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemService;
+import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
 import com.liferay.commerce.inventory.web.internal.model.Warehouse;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
@@ -39,6 +37,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -52,16 +51,11 @@ public class CommerceInventoryWarehouseDataSetDataProvider
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceInventoryActionKeys.MANAGE_INVENTORY);
-
-		long companyId = _portal.getCompanyId(httpServletRequest);
-
 		String sku = ParamUtil.getString(httpServletRequest, "sku");
 
-		return _commerceInventoryWarehouseLocalService.
-			countAdminUIWarehousesByCompanyIdAndSku(companyId, sku);
+		return _commerceInventoryWarehouseItemService.
+			getCommerceInventoryWarehouseItemsCount(
+				_portal.getCompanyId(httpServletRequest), sku);
 	}
 
 	@Override
@@ -70,39 +64,46 @@ public class CommerceInventoryWarehouseDataSetDataProvider
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceInventoryActionKeys.MANAGE_INVENTORY);
-
 		List<Warehouse> warehouses = new ArrayList<>();
-
-		long companyId = _portal.getCompanyId(httpServletRequest);
 
 		String sku = ParamUtil.getString(httpServletRequest, "sku");
 
-		List<CommerceInventoryAdminUIWarehouse> adminUIWarehouses =
-			_commerceInventoryWarehouseLocalService.
-				getAdminUIWarehousesByCompanyIdAndSku(
-					companyId, sku, pagination.getStartPosition(),
-					pagination.getEndPosition());
+		List<CommerceInventoryWarehouseItem> commerceInventoryWarehouseItems =
+			_commerceInventoryWarehouseItemService.
+				getCommerceInventoryWarehouseItems(
+					_portal.getCompanyId(httpServletRequest), sku,
+					pagination.getStartPosition(), pagination.getEndPosition());
 
-		for (CommerceInventoryAdminUIWarehouse adminUIWarehouse :
-				adminUIWarehouses) {
+		for (CommerceInventoryWarehouseItem commerceInventoryWarehouseItem :
+				commerceInventoryWarehouseItems) {
+
+			CommerceInventoryWarehouse commerceInventoryWarehouse =
+				commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
 
 			warehouses.add(
 				new Warehouse(
-					adminUIWarehouse.getName(),
-					adminUIWarehouse.getStockQuantity(),
-					adminUIWarehouse.getReservedQuantity(),
-					adminUIWarehouse.getReplenishmentQuantity()));
+					commerceInventoryWarehouseItem.
+						getCommerceInventoryWarehouseItemId(),
+					commerceInventoryWarehouse.getName(),
+					commerceInventoryWarehouseItem.getQuantity(),
+					commerceInventoryWarehouseItem.getReservedQuantity(),
+					_commerceInventoryReplenishmentItemService.
+						getCommerceInventoryReplenishmentItemsCount(
+							commerceInventoryWarehouse.
+								getCommerceInventoryWarehouseId(),
+							sku)));
 		}
 
 		return warehouses;
 	}
 
 	@Reference
-	private CommerceInventoryWarehouseLocalService
-		_commerceInventoryWarehouseLocalService;
+	private CommerceInventoryReplenishmentItemService
+		_commerceInventoryReplenishmentItemService;
+
+	@Reference
+	private CommerceInventoryWarehouseItemService
+		_commerceInventoryWarehouseItemService;
 
 	@Reference
 	private Portal _portal;
