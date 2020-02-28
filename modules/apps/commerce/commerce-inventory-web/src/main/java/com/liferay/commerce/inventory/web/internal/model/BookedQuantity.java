@@ -16,16 +16,30 @@ package com.liferay.commerce.inventory.web.internal.model;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class BookedQuantity {
 
-	public BookedQuantity(String account, int quantity) {
+	public BookedQuantity(
+		String account, long commerceOrderId, int quantity,
+		String expirationDate) {
+
 		_account = account;
+		_commerceOrderId = commerceOrderId;
 		_quantity = quantity;
+		_expirationDate = expirationDate;
 	}
 
 	public String getAccount() {
 		return _account;
+	}
+
+	public long getCommerceOrderId() {
+		return _commerceOrderId;
+	}
+
+	public String getExpirationDate() {
+		return _expirationDate;
 	}
 
 	public int getQuantity() {
@@ -33,6 +47,8 @@ public class BookedQuantity {
 	}
 
 	private final String _account;
+	private final long _commerceOrderId;
+	private final String _expirationDate;
 	private final int _quantity;
 
 }

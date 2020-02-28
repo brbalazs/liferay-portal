@@ -16,12 +16,15 @@ package com.liferay.commerce.inventory.web.internal.model;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class Warehouse {
 
 	public Warehouse(
-		String warehouse, int quantity, int reserved, int incoming) {
+		long commerceInventoryWarehouseItemId, String warehouse, int quantity,
+		int reserved, long incoming) {
 
+		_commerceInventoryWarehouseItemId = commerceInventoryWarehouseItemId;
 		_warehouse = warehouse;
 		_quantity = quantity;
 		_reserved = reserved;
@@ -40,7 +43,11 @@ public class Warehouse {
 		return _available;
 	}
 
-	public int getIncoming() {
+	public long getCommerceInventoryWarehouseItemId() {
+		return _commerceInventoryWarehouseItemId;
+	}
+
+	public long getIncoming() {
 		return _incoming;
 	}
 
@@ -57,7 +64,8 @@ public class Warehouse {
 	}
 
 	private final int _available;
-	private final int _incoming;
+	private final long _commerceInventoryWarehouseItemId;
+	private final long _incoming;
 	private final int _quantity;
 	private final int _reserved;
 	private final String _warehouse;

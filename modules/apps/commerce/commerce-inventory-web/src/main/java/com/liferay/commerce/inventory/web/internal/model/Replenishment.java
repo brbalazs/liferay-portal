@@ -14,20 +14,28 @@
 
 package com.liferay.commerce.inventory.web.internal.model;
 
-import java.util.Date;
-
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class Replenishment {
 
-	public Replenishment(String warehouse, Date date, int quantity) {
+	public Replenishment(
+		long commerceInventoryReplenishmentItemId, String warehouse,
+		String date, int quantity) {
+
+		_commerceInventoryReplenishmentItemId =
+			commerceInventoryReplenishmentItemId;
 		_warehouse = warehouse;
 		_date = date;
 		_quantity = quantity;
 	}
 
-	public Date getDate() {
+	public long getCommerceInventoryReplenishmentItemId() {
+		return _commerceInventoryReplenishmentItemId;
+	}
+
+	public String getDate() {
 		return _date;
 	}
 
@@ -39,7 +47,8 @@ public class Replenishment {
 		return _warehouse;
 	}
 
-	private final Date _date;
+	private final long _commerceInventoryReplenishmentItemId;
+	private final String _date;
 	private final int _quantity;
 	private final String _warehouse;
 
