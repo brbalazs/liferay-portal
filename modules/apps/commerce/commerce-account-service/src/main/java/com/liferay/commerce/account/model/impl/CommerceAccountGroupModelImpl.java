@@ -78,7 +78,7 @@ public class CommerceAccountGroupModelImpl
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"name", Types.VARCHAR}, {"type_", Types.INTEGER},
-		{"system", Types.BOOLEAN}
+		{"system_", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -94,11 +94,11 @@ public class CommerceAccountGroupModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("system", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("system_", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceAccountGroup (externalReferenceCode VARCHAR(75) null,commerceAccountGroupId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,type_ INTEGER,system BOOLEAN)";
+		"create table CommerceAccountGroup (externalReferenceCode VARCHAR(75) null,commerceAccountGroupId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,type_ INTEGER,system_ BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CommerceAccountGroup";

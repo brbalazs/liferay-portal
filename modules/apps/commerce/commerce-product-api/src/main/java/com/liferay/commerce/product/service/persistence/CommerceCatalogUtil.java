@@ -860,6 +860,10 @@ public class CommerceCatalogUtil {
 		return getPersistence().countAll();
 	}
 
+	public static Set<String> getBadColumnNames() {
+		return getPersistence().getBadColumnNames();
+	}
+
 	public static CommerceCatalogPersistence getPersistence() {
 		return _serviceTracker.getService();
 	}

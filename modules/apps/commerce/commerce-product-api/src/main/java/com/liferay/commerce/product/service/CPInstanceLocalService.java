@@ -238,11 +238,12 @@ public interface CPInstanceLocalService
 	 * @param serviceContext
 	 * @return
 	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link #addCPInstance(long, long, String, String, String,
-	 boolean, Map, double, double, double, double, BigDecimal,
-	 BigDecimal, BigDecimal, boolean, String, int, int, int, int,
-	 int, int, int, int, int, int, boolean, boolean, boolean, int,
-	 String, UnicodeProperties, long, ServiceContext)}
+	 * @deprecated As of Athanasius (7.3.x), use {@link #addCPInstance(long,
+	 long, String, String, String, boolean, Map, double, double,
+	 double, double, BigDecimal, BigDecimal, BigDecimal, boolean,
+	 String, int, int, int, int, int, int, int, int, int, int,
+	 boolean, boolean, boolean, int, String, UnicodeProperties,
+	 long, ServiceContext)}
 	 */
 	@Deprecated
 	public CPInstance addCPInstance(
