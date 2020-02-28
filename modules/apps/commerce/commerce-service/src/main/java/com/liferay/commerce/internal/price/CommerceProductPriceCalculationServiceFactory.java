@@ -14,35 +14,21 @@
 
 package com.liferay.commerce.internal.price;
 
-import com.liferay.commerce.price.CommercePriceCalculationRegistry;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
-import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
-
-import java.util.Map;
+import com.liferay.commerce.price.CommerceProductPriceCalculationFactory;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Alberti
  */
-@Component(
-	configurationPid = "com.liferay.commerce.pricing.configuration.CommercePricingConfiguration",
-	immediate = true, service = ServiceFactory.class
-)
+@Component(immediate = true, service = ServiceFactory.class)
 public class CommerceProductPriceCalculationServiceFactory
 	implements ServiceFactory<CommerceProductPriceCalculation> {
-
-	@Activate
-	public void activate(Map<String, Object> properties) {
-		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(
-			CommercePricingConfiguration.class, properties);
-	}
 
 	@Override
 	public CommerceProductPriceCalculation getService(
@@ -50,9 +36,8 @@ public class CommerceProductPriceCalculationServiceFactory
 		ServiceRegistration<CommerceProductPriceCalculation>
 			serviceRegistration) {
 
-		return _commercePriceCalculationRegistry.
-			getCommerceProductPriceCalculation(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+		return _commerceProductPriceCalculationFactory.
+			getCommerceProductPriceCalculation();
 	}
 
 	@Override
@@ -64,8 +49,7 @@ public class CommerceProductPriceCalculationServiceFactory
 	}
 
 	@Reference
-	private CommercePriceCalculationRegistry _commercePriceCalculationRegistry;
-
-	private CommercePricingConfiguration _commercePricingConfiguration;
+	private CommerceProductPriceCalculationFactory
+		_commerceProductPriceCalculationFactory;
 
 }

@@ -33,6 +33,7 @@ import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.commerce.price.CommerceProductPriceCalculationFactory;
 import com.liferay.commerce.product.exception.NoSuchCPInstanceException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
@@ -106,8 +107,12 @@ public class CommerceOrderItemLocalServiceImpl
 			serviceContext.getLocale(), commerceOrder, cpDefinition, cpInstance,
 			quantity);
 
+		CommerceProductPriceCalculation commerceProductPriceCalculation =
+			_commerceProductPriceCalculationFactory.
+				getCommerceProductPriceCalculation();
+
 		CommerceProductPrice commerceProductPrice =
-			_commerceProductPriceCalculation.getCommerceProductPrice(
+			commerceProductPriceCalculation.getCommerceProductPrice(
 				cpInstanceId, quantity, false, commerceContext);
 
 		CommerceMoney unitPriceMoney = commerceProductPrice.getUnitPrice();
@@ -499,8 +504,12 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
 
+		CommerceProductPriceCalculation commerceProductPriceCalculation =
+			_commerceProductPriceCalculationFactory.
+				getCommerceProductPriceCalculation();
+
 		CommerceProductPrice commerceProductPrice =
-			_commerceProductPriceCalculation.getCommerceProductPrice(
+			commerceProductPriceCalculation.getCommerceProductPrice(
 				commerceOrderItem.getCPInstanceId(), quantity, false,
 				commerceContext);
 
@@ -599,8 +608,12 @@ public class CommerceOrderItemLocalServiceImpl
 			return commerceOrderItem;
 		}
 
+		CommerceProductPriceCalculation commerceProductPriceCalculation =
+			_commerceProductPriceCalculationFactory.
+				getCommerceProductPriceCalculation();
+
 		CommerceProductPrice commerceProductPrice =
-			_commerceProductPriceCalculation.getCommerceProductPrice(
+			commerceProductPriceCalculation.getCommerceProductPrice(
 				commerceOrderItem.getCPInstanceId(),
 				commerceOrderItem.getQuantity(), false, commerceContext);
 
@@ -943,8 +956,9 @@ public class CommerceOrderItemLocalServiceImpl
 	@ServiceReference(type = CommerceOrderValidatorRegistry.class)
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
 
-	@ServiceReference(type = CommerceProductPriceCalculation.class)
-	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
+	@ServiceReference(type = CommerceProductPriceCalculationFactory.class)
+	private CommerceProductPriceCalculationFactory
+		_commerceProductPriceCalculationFactory;
 
 	@ServiceReference(type = CommerceShippingHelper.class)
 	private CommerceShippingHelper _commerceShippingHelper;

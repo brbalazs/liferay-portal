@@ -15,34 +15,20 @@
 package com.liferay.commerce.internal.price;
 
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.price.CommercePriceCalculationRegistry;
-import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
-
-import java.util.Map;
+import com.liferay.commerce.price.CommerceOrderPriceCalculationFactory;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Alberti
  */
-@Component(
-	configurationPid = "com.liferay.commerce.pricing.configuration.CommercePricingConfiguration",
-	immediate = true, service = ServiceFactory.class
-)
+@Component(immediate = true, service = ServiceFactory.class)
 public class CommerceOrderPriceCalculationServiceFactory
 	implements ServiceFactory<CommerceOrderPriceCalculation> {
-
-	@Activate
-	public void activate(Map<String, Object> properties) {
-		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(
-			CommercePricingConfiguration.class, properties);
-	}
 
 	@Override
 	public CommerceOrderPriceCalculation getService(
@@ -50,9 +36,8 @@ public class CommerceOrderPriceCalculationServiceFactory
 		ServiceRegistration<CommerceOrderPriceCalculation>
 			serviceRegistration) {
 
-		return _commercePriceCalculationRegistry.
-			getCommerceOrderPriceCalculation(
-				_commercePricingConfiguration.commercePricingCalculationKey());
+		return _commerceOrderPriceCalculationFactory.
+			getCommerceOrderPriceCalculation();
 	}
 
 	@Override
@@ -63,8 +48,7 @@ public class CommerceOrderPriceCalculationServiceFactory
 	}
 
 	@Reference
-	private CommercePriceCalculationRegistry _commercePriceCalculationRegistry;
-
-	private CommercePricingConfiguration _commercePricingConfiguration;
+	private CommerceOrderPriceCalculationFactory
+		_commerceOrderPriceCalculationFactory;
 
 }
