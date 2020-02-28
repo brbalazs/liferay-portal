@@ -16,12 +16,12 @@ import ClayButton from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
 
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
 
 function ActionItem(props) {
-	const { highlightItems, loadData, openModal, openSidePanel } = useContext(
+	const {highlightItems, loadData, openModal, openSidePanel} = useContext(
 		DatasetDisplayContext
 	);
 
@@ -45,7 +45,7 @@ function ActionItem(props) {
 	}
 
 	function isNotALink() {
-		return ((props.target && props.target !== 'link') || props.onClick);
+		return (props.target && props.target !== 'link') || props.onClick;
 	}
 
 	return (
@@ -55,15 +55,12 @@ function ActionItem(props) {
 			onClick={
 				isNotALink() &&
 				(e =>
-					handleClickOnLink(
-						e,
-						{
-							onSubmit: loadData,
-							size: props.size || 'lg',
-							title: props.title,
-							url: props.href
-						}
-					))
+					handleClickOnLink(e, {
+						onSubmit: loadData,
+						size: props.size || 'lg',
+						title: props.title,
+						url: props.href
+					}))
 			}
 		>
 			{props.icon && (
