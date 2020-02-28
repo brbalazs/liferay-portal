@@ -8,7 +8,7 @@ create table CDataIntegrationProcess (
 	name VARCHAR(75) null,
 	type_ VARCHAR(75) null,
 	typeSettings TEXT null,
-	system BOOLEAN,
+	system_ BOOLEAN,
 	active_ BOOLEAN,
 	cronExpression VARCHAR(75) null,
 	startDate DATE null,
