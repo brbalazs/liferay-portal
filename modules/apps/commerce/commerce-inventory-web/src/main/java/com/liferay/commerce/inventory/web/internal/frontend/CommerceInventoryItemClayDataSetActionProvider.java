@@ -21,6 +21,7 @@ import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
 import com.liferay.commerce.inventory.web.internal.model.InventoryItem;
 import com.liferay.commerce.inventory.web.internal.model.Sku;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -28,12 +29,14 @@ import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
@@ -44,6 +47,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -62,6 +66,8 @@ public class CommerceInventoryItemClayDataSetActionProvider
 
 		InventoryItem inventoryItem = (InventoryItem)model;
 
+		Sku sku = inventoryItem.getSku();
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -70,21 +76,33 @@ public class CommerceInventoryItemClayDataSetActionProvider
 				getPermissionChecker(),
 				CommerceInventoryActionKeys.ADD_WAREHOUSE)) {
 
-			Sku sku = inventoryItem.getSku();
-
-			ClayDataSetAction clayDataSetAction = new ClayDataSetAction(
+			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
-				_getEditCommerceInventoryItemURL(sku.getLabel(), themeDisplay),
+				_getCommerceInventoryItemEditURL(sku.getLabel(), themeDisplay),
 				StringPool.BLANK, LanguageUtil.get(httpServletRequest, "edit"),
 				null, false, false);
 
-			clayDataSetActions.add(clayDataSetAction);
+			clayDataSetActions.add(editClayDataSetAction);
+		}
+
+		if (PortalPermissionUtil.contains(
+				getPermissionChecker(),
+				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
+
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK,
+				_getInventoryItemDeleteURL(sku.getLabel(), httpServletRequest),
+				StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "delete"),
+				StringPool.BLANK, false, false);
+
+			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
 		return clayDataSetActions;
 	}
 
-	private String _getEditCommerceInventoryItemURL(
+	private String _getCommerceInventoryItemEditURL(
 		String sku, ThemeDisplay themeDisplay) {
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
@@ -96,6 +114,23 @@ public class CommerceInventoryItemClayDataSetActionProvider
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommerceInventoryItem");
 		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
+		portletURL.setParameter("sku", String.valueOf(sku));
+
+		return portletURL.toString();
+	}
+
+	private String _getInventoryItemDeleteURL(
+		String sku, HttpServletRequest httpServletRequest) {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			_portal.getOriginalServletRequest(httpServletRequest),
+			CPPortletKeys.COMMERCE_INVENTORY, PortletRequest.ACTION_PHASE);
+
+		portletURL.setParameter(
+			ActionRequest.ACTION_NAME, "editCommerceInventoryWarehouse");
+		portletURL.setParameter(Constants.CMD, Constants.DELETE);
+		portletURL.setParameter(
+			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter("sku", String.valueOf(sku));
 
 		return portletURL.toString();

@@ -20,7 +20,7 @@ import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
-import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem;
+import com.liferay.commerce.inventory.model.CIWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
 import com.liferay.commerce.inventory.web.internal.model.InventoryItem;
 import com.liferay.commerce.inventory.web.internal.model.Sku;
@@ -48,6 +48,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -65,10 +66,8 @@ public class CommerceInventoryItemDataSetDataProvider
 			getPermissionChecker(),
 			CommerceInventoryActionKeys.MANAGE_INVENTORY);
 
-		long companyId = _portal.getCompanyId(httpServletRequest);
-
 		return _commerceInventoryWarehouseItemLocalService.
-			countAdminUIItemsByCompanyId(companyId);
+			countItemsByCompanyId(_portal.getCompanyId(httpServletRequest));
 	}
 
 	@Override
@@ -83,24 +82,21 @@ public class CommerceInventoryItemDataSetDataProvider
 
 		List<InventoryItem> inventoryItems = new ArrayList<>();
 
-		long companyId = _portal.getCompanyId(httpServletRequest);
+		List<CIWarehouseItem> ciWarehouseItems =
+			_commerceInventoryWarehouseItemLocalService.getItemsByCompanyId(
+				_portal.getCompanyId(httpServletRequest),
+				pagination.getStartPosition(), pagination.getEndPosition());
 
-		List<CommerceInventoryAdminUIItem> adminUIItems =
-			_commerceInventoryWarehouseItemLocalService.
-				getAdminUIItemsByCompanyId(
-					companyId, pagination.getStartPosition(),
-					pagination.getEndPosition());
-
-		for (CommerceInventoryAdminUIItem adminUIItem : adminUIItems) {
+		for (CIWarehouseItem ciWarehouseItem : ciWarehouseItems) {
 			inventoryItems.add(
 				new InventoryItem(
 					new Sku(
-						adminUIItem.getSkuCode(),
+						ciWarehouseItem.getSkuCode(),
 						_getWarehouseItemPanelURL(
-							adminUIItem.getSkuCode(), httpServletRequest)),
-					adminUIItem.getStockQuantity(),
-					adminUIItem.getBookedQuantity(),
-					adminUIItem.getReplenishmentQuantity()));
+							ciWarehouseItem.getSkuCode(), httpServletRequest)),
+					ciWarehouseItem.getStockQuantity(),
+					ciWarehouseItem.getBookedQuantity(),
+					ciWarehouseItem.getReplenishmentQuantity()));
 		}
 
 		return inventoryItems;
