@@ -12,23 +12,22 @@
  *
  */
 
-package com.liferay.commerce.data.integration.internal.upgrade.v1_1_0;
+package com.liferay.commerce.data.integration.internal.upgrade.v2_0_0;
 
 import com.liferay.commerce.data.integration.internal.upgrade.base.BaseCommerceDataIntegrationServiceUpgradeProcess;
-import com.liferay.commerce.data.integration.model.impl.CommerceDataIntegrationProcessLogModelImpl;
+import com.liferay.commerce.data.integration.model.impl.CommerceDataIntegrationProcessLogImpl;
 
 /**
  * @author Ethan Bustad
  */
-public class CommerceDataIntegrationProcessLogUpgradeProcess
+public class CommerceDataIntegrationProcessSystemUpgradeProcess
 	extends BaseCommerceDataIntegrationServiceUpgradeProcess {
 
-	@Override
 	protected void doUpgrade() throws Exception {
 		renameColumn(
-			CommerceDataIntegrationProcessLogModelImpl.class,
-			CommerceDataIntegrationProcessLogModelImpl.TABLE_NAME, "output",
-			"output_ TEXT null");
+			CommerceDataIntegrationProcessLogImpl.class,
+			CommerceDataIntegrationProcessLogImpl.TABLE_NAME, "system",
+			"system_ BOOLEAN");
 	}
 
 }
