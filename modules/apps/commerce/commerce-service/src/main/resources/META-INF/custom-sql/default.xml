@@ -136,12 +136,15 @@
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.countByA_O">
 		<![CDATA[
 			SELECT
-				COUNT(DISTINCT commerceOrderItemId) AS SUM_VALUE
+				COUNT(DISTINCT CommerceOrderItem.commerceOrderItemId) AS COUNT_VALUE
 			FROM
 				CommerceOrderItem
 			JOIN
 				CommerceOrder ON
 					CommerceOrder.commerceOrderId = CommerceOrderItem.commerceOrderId
+			LEFT JOIN
+				CommerceShipmentItem ON
+					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
 			WHERE
 				(commerceAccountId = ?) AND
 				(orderStatus = ?) AND
