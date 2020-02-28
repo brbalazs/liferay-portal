@@ -369,8 +369,8 @@ public class PriceTag extends IncludeTag {
 			CPInstanceHelper cpInstanceHelper =
 				ServletContextUtil.getCPInstanceHelper();
 
-			CPInstance cpInstance = cpInstanceHelper.getCPInstance(
-				_cpDefinitionId, null);
+			CPInstance cpInstance = cpInstanceHelper.getDefaultCPInstance(
+				_cpDefinitionId);
 
 			_cpInstanceId = cpInstance.getCPInstanceId();
 		}
