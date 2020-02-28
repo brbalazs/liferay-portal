@@ -453,10 +453,12 @@ public class CPContentHelperImpl implements CPContentHelper {
 				getCPContentRendererKey(
 					cpCatalogEntry.getProductTypeName(), renderRequest));
 
-		if ((cpContentRenderer != null) && (cpCatalogEntry != null)) {
-			cpContentRenderer.render(
-				cpCatalogEntry, httpServletRequest, httpServletResponse);
+		if (cpContentRenderer == null) {
+			return;
 		}
+
+		cpContentRenderer.render(
+			cpCatalogEntry, httpServletRequest, httpServletResponse);
 	}
 
 	@Override
