@@ -24,22 +24,10 @@ import java.util.List;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceInventoryBookedQuantityServiceImpl
 	extends CommerceInventoryBookedQuantityServiceBaseImpl {
-
-	@Override
-	public int countCommerceInventoryBookedQuantities(
-			long companyId, String sku)
-		throws PrincipalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceInventoryActionKeys.MANAGE_INVENTORY);
-
-		return commerceInventoryBookedQuantityLocalService.
-			countCommerceInventoryBookedQuantities(companyId, sku);
-	}
 
 	@Override
 	public List<CommerceInventoryBookedQuantity>
@@ -53,6 +41,19 @@ public class CommerceInventoryBookedQuantityServiceImpl
 
 		return commerceInventoryBookedQuantityLocalService.
 			getCommerceInventoryBookedQuantities(companyId, sku, start, end);
+	}
+
+	@Override
+	public int getCommerceInventoryBookedQuantitiesCount(
+			long companyId, String sku)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryBookedQuantityLocalService.
+			getCommerceInventoryBookedQuantitiesCount(companyId, sku);
 	}
 
 }

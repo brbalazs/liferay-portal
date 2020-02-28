@@ -14,12 +14,15 @@
 
 package com.liferay.commerce.inventory.service.impl;
 
+import com.liferay.commerce.inventory.constants.CommerceInventoryConstants;
 import com.liferay.commerce.inventory.exception.NoSuchInventoryBookedQuantityException;
 import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryBookedQuantityLocalServiceBaseImpl;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditType;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeRegistry;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Date;
 import java.util.List;
@@ -27,6 +30,7 @@ import java.util.Map;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceInventoryBookedQuantityLocalServiceImpl
 	extends CommerceInventoryBookedQuantityLocalServiceBaseImpl {
@@ -62,7 +66,7 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 			commerceInventoryAuditType.getLog(context), quantity);
 
 		return commerceInventoryBookedQuantityPersistence.update(
-			commerceBookedQuantity);
+			commerceInventoryBookedQuantity);
 	}
 
 	@Override
@@ -95,14 +99,6 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 	}
 
 	@Override
-	public int countCommerceInventoryBookedQuantities(
-		long companyId, String sku) {
-
-		return commerceInventoryBookedQuantityPersistence.countByC_S(
-			companyId, sku);
-	}
-
-	@Override
 	public int getCommerceBookedQuantity(long companyId, String sku) {
 		List<CommerceInventoryBookedQuantity>
 			commerceInventoryBookedQuantities =
@@ -128,5 +124,17 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 		return commerceInventoryBookedQuantityPersistence.findByC_S(
 			companyId, sku, start, end);
 	}
+
+	@Override
+	public int getCommerceInventoryBookedQuantitiesCount(
+		long companyId, String sku) {
+
+		return commerceInventoryBookedQuantityPersistence.countByC_S(
+			companyId, sku);
+	}
+
+	@ServiceReference(type = CommerceInventoryAuditTypeRegistry.class)
+	private CommerceInventoryAuditTypeRegistry
+		_commerceInventoryAuditTypeRegistry;
 
 }
