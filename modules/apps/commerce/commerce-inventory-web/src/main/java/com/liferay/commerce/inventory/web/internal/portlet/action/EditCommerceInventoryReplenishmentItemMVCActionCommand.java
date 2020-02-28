@@ -35,19 +35,20 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + CPPortletKeys.COMMERCE_INVENTORY,
-		"mvc.command.name=addInventoryReplenishment"
+		"mvc.command.name=editCommerceInventoryReplenishmentItem"
 	},
 	service = MVCActionCommand.class
 )
-public class AddInventoryReplenishmentMVCActionCommand
+public class EditCommerceInventoryReplenishmentItemMVCActionCommand
 	extends BaseMVCActionCommand {
 
-	protected void addCommerceInventoryReplenishment(
+	protected void addCommerceInventoryReplenishmentItem(
 			ActionRequest actionRequest)
 		throws PortalException {
 
@@ -75,6 +76,18 @@ public class AddInventoryReplenishmentMVCActionCommand
 				calendar.getTime(), quantity);
 	}
 
+	protected void deleteCommerceInventoryReplenishmentItem(
+			ActionRequest actionRequest)
+		throws PortalException {
+
+		long commerceInventoryReplenishmentItemId = ParamUtil.getLong(
+			actionRequest, "commerceInventoryReplenishmentItemId");
+
+		_commerceInventoryReplenishmentItemService.
+			deleteCommerceInventoryReplenishmentItem(
+				commerceInventoryReplenishmentItemId);
+	}
+
 	@Override
 	protected void doProcessAction(
 			ActionRequest actionRequest, ActionResponse actionResponse)
@@ -83,8 +96,37 @@ public class AddInventoryReplenishmentMVCActionCommand
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		if (cmd.equals(Constants.ADD)) {
-			addCommerceInventoryReplenishment(actionRequest);
+			addCommerceInventoryReplenishmentItem(actionRequest);
 		}
+		else if (cmd.equals(Constants.DELETE)) {
+			deleteCommerceInventoryReplenishmentItem(actionRequest);
+		}
+		else if (cmd.equals(Constants.UPDATE)) {
+			updateCommerceInventoryReplenishmentItem(actionRequest);
+		}
+	}
+
+	protected void updateCommerceInventoryReplenishmentItem(
+			ActionRequest actionRequest)
+		throws PortalException {
+
+		long commerceInventoryReplenishmentItemId = ParamUtil.getLong(
+			actionRequest, "commerceInventoryReplenishmentItemId");
+
+		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
+
+		int day = ParamUtil.getInteger(actionRequest, "dateDay");
+		int month = ParamUtil.getInteger(actionRequest, "dateMonth");
+		int year = ParamUtil.getInteger(actionRequest, "dateYear");
+
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.set(year, month, day);
+
+		_commerceInventoryReplenishmentItemService.
+			updateCommerceInventoryReplenishmentItem(
+				commerceInventoryReplenishmentItemId, calendar.getTime(),
+				quantity);
 	}
 
 	@Reference
