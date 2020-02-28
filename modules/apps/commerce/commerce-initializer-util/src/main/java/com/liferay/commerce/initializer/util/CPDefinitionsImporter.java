@@ -463,8 +463,8 @@ public class CPDefinitionsImporter {
 					specificationOptionsJSONArray.getJSONObject(i);
 
 				_importCPDefinitionSpecificationOptionValue(
-					specificationOptionJSONObject, cpDefinition, i,
-					serviceContext);
+					company.getCompanyId(), cpDefinition.getCPDefinitionId(),
+					specificationOptionJSONObject, i, serviceContext);
 			}
 		}
 
@@ -477,7 +477,8 @@ public class CPDefinitionsImporter {
 				JSONObject optionJSONObject = optionsJSONArray.getJSONObject(i);
 
 				_importCPDefinitionOptionRel(
-					optionJSONObject, cpDefinition, serviceContext);
+					company.getCompanyId(), cpDefinition.getCPDefinitionId(),
+					optionJSONObject, serviceContext);
 			}
 		}
 
@@ -588,7 +589,8 @@ public class CPDefinitionsImporter {
 
 		if (Validator.isNotNull(availabilityEstimate)) {
 			_updateCPDAvailabilityEstimate(
-				cpDefinition, availabilityEstimate, serviceContext);
+				cpDefinition.getCProductId(), availabilityEstimate,
+				serviceContext);
 		}
 
 		// Commerce product images
@@ -684,14 +686,14 @@ public class CPDefinitionsImporter {
 	}
 
 	private CPDefinitionOptionRel _importCPDefinitionOptionRel(
-			JSONObject jsonObject, CPDefinition cpDefinition,
+			long companyId, long cpDefinitionId, JSONObject jsonObject,
 			ServiceContext serviceContext)
 		throws PortalException {
 
 		// Commerce product definition option rel
 
 		CPOption cpOption = _cpOptionLocalService.getCPOption(
-			cpDefinition.getCompanyId(), jsonObject.getString("Key"));
+			companyId, jsonObject.getString("Key"));
 
 		boolean importOptionValue = true;
 
@@ -703,8 +705,8 @@ public class CPDefinitionsImporter {
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			_cpDefinitionOptionRelLocalService.addCPDefinitionOptionRel(
-				cpDefinition.getCPDefinitionId(), cpOption.getCPOptionId(),
-				importOptionValue, serviceContext);
+				cpDefinitionId, cpOption.getCPOptionId(), importOptionValue,
+				serviceContext);
 
 		// Commerce product definition option value rels
 
@@ -747,13 +749,13 @@ public class CPDefinitionsImporter {
 
 	private CPDefinitionSpecificationOptionValue
 			_importCPDefinitionSpecificationOptionValue(
-				JSONObject jsonObject, CPDefinition cpDefinition,
+				long companyId, long cpDefinitionId, JSONObject jsonObject,
 				double defaultPriority, ServiceContext serviceContext)
 		throws PortalException {
 
 		CPSpecificationOption cpSpecificationOption =
 			_cpSpecificationOptionLocalService.getCPSpecificationOption(
-				cpDefinition.getCompanyId(), jsonObject.getString("Key"));
+				companyId, jsonObject.getString("Key"));
 
 		long cpOptionCategoryId = 0;
 
@@ -776,7 +778,7 @@ public class CPDefinitionsImporter {
 
 		return _cpDefinitionSpecificationOptionValueLocalService.
 			addCPDefinitionSpecificationOptionValue(
-				cpDefinition.getCPDefinitionId(),
+				cpDefinitionId,
 				cpSpecificationOption.getCPSpecificationOptionId(),
 				cpOptionCategoryId, valueMap, priority, serviceContext);
 	}
@@ -902,7 +904,7 @@ public class CPDefinitionsImporter {
 	}
 
 	private CPDAvailabilityEstimate _updateCPDAvailabilityEstimate(
-			CPDefinition cpDefinition, String availabilityEstimate,
+			long cProductId, String availabilityEstimate,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -920,9 +922,9 @@ public class CPDefinitionsImporter {
 					commerceAvailabilityEstimate.getTitle(
 						LocaleUtil.getSiteDefault()))) {
 
-				return _cpdAvailabilityEstimateLocalService.
-					updateCPDAvailabilityEstimate(
-						0, cpDefinition.getCPDefinitionId(),
+				_cpdAvailabilityEstimateLocalService.
+					updateCPDAvailabilityEstimateByCProductId(
+						0, cProductId,
 						commerceAvailabilityEstimate.
 							getCommerceAvailabilityEstimateId(),
 						serviceContext);
@@ -937,8 +939,8 @@ public class CPDefinitionsImporter {
 				addCommerceAvailabilityEstimate(titleMap, 0, serviceContext);
 
 		return _cpdAvailabilityEstimateLocalService.
-			updateCPDAvailabilityEstimate(
-				0, cpDefinition.getCPDefinitionId(),
+			updateCPDAvailabilityEstimateByCProductId(
+				0, cProductId,
 				commerceAvailabilityEstimate.
 					getCommerceAvailabilityEstimateId(),
 				serviceContext);
