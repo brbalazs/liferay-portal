@@ -14,19 +14,23 @@
 
 package com.liferay.commerce.inventory.service.impl;
 
-import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIReplenishment;
 import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryReplenishmentItemLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.Projection;
+import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Property;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.Validator;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceInventoryReplenishmentItemLocalServiceImpl
 	extends CommerceInventoryReplenishmentItemLocalServiceBaseImpl {
@@ -44,11 +48,12 @@ public class CommerceInventoryReplenishmentItemLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
-		long commerceReplenishmentId = counterLocalService.increment();
+		long commerceInventoryReplenishmentItemId =
+			counterLocalService.increment();
 
 		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem =
 			commerceInventoryReplenishmentItemPersistence.create(
-				commerceReplenishmentId);
+				commerceInventoryReplenishmentItemId);
 
 		commerceInventoryReplenishmentItem.setCompanyId(user.getCompanyId());
 		commerceInventoryReplenishmentItem.setUserId(userId);
@@ -65,57 +70,72 @@ public class CommerceInventoryReplenishmentItemLocalServiceImpl
 	}
 
 	@Override
-	public int countAdminUIReplenishmentItemsByCompanyIdAndSku(
-		long companyId, String sku) {
+	public List<CommerceInventoryReplenishmentItem>
+		getCommerceInventoryReplenishmentItemsByCompanyIdAndSku(
+			long companyId, String sku, int start, int end) {
 
-		return commerceInventoryReplenishmentItemFinder.
-			countAdminUIReplenishmentItemsByCompanyIdAndSku(companyId, sku);
+		return commerceInventoryReplenishmentItemPersistence.findByC_S(
+			companyId, sku, start, end);
 	}
 
 	@Override
-	public List<CommerceInventoryAdminUIReplenishment>
-		getAdminUIReplenishmentItemsByCompanyIdAndSku(
-			long companyId, String sku, int start, int end) {
+	public long getCommerceInventoryReplenishmentItemsCount(
+		long commerceInventoryWarehouseId, String sku) {
 
-		List<Object[]> adminUIReplenishmentItems =
-			commerceInventoryReplenishmentItemFinder.
-				findAdminUIReplenishmentItemsByCompanyIdAndSku(
-					companyId, sku, start, end);
+		DynamicQuery dynamicQuery =
+			commerceInventoryReplenishmentItemLocalService.dynamicQuery();
 
-		List<CommerceInventoryAdminUIReplenishment> replenishmentArrayList =
-			new ArrayList<>();
+		Projection projection = ProjectionFactoryUtil.sum("quantity");
 
-		for (Object[] adminUIWarehouse : adminUIReplenishmentItems) {
-			String warehouseName = "";
+		dynamicQuery.setProjection(projection);
 
-			if ((adminUIWarehouse.length > 0) &&
-				(adminUIWarehouse[0] != null)) {
+		Property commerceInventoryWarehouseIdProperty =
+			PropertyFactoryUtil.forName("commerceInventoryWarehouseId");
 
-				warehouseName = (String)adminUIWarehouse[0];
-			}
+		dynamicQuery.add(
+			commerceInventoryWarehouseIdProperty.eq(
+				commerceInventoryWarehouseId));
 
-			Date date = null;
+		Property skuProperty = PropertyFactoryUtil.forName("sku");
 
-			if ((adminUIWarehouse.length > 1) &&
-				(adminUIWarehouse[1] != null)) {
+		dynamicQuery.add(skuProperty.eq(sku));
 
-				date = (Date)adminUIWarehouse[1];
-			}
+		List<Long> results =
+			commerceInventoryReplenishmentItemLocalService.dynamicQuery(
+				dynamicQuery);
 
-			Integer quantity = 0;
-
-			if ((adminUIWarehouse.length > 2) &&
-				(adminUIWarehouse[2] != null)) {
-
-				quantity = (Integer)adminUIWarehouse[2];
-			}
-
-			replenishmentArrayList.add(
-				new CommerceInventoryAdminUIReplenishment(
-					warehouseName, date, quantity));
+		if (results.get(0) == null) {
+			return 0;
 		}
 
-		return replenishmentArrayList;
+		return results.get(0);
+	}
+
+	@Override
+	public int getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+		long companyId, String sku) {
+
+		return commerceInventoryReplenishmentItemPersistence.countByC_S(
+			companyId, sku);
+	}
+
+	@Override
+	public CommerceInventoryReplenishmentItem
+			updateCommerceInventoryReplenishmentItem(
+				long commerceInventoryReplenishmentItemId,
+				Date availabilityDate, int quantity)
+		throws PortalException {
+
+		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem =
+			commerceInventoryReplenishmentItemPersistence.findByPrimaryKey(
+				commerceInventoryReplenishmentItemId);
+
+		commerceInventoryReplenishmentItem.setAvailabilityDate(
+			availabilityDate);
+		commerceInventoryReplenishmentItem.setQuantity(quantity);
+
+		return commerceInventoryReplenishmentItemPersistence.update(
+			commerceInventoryReplenishmentItem);
 	}
 
 }
