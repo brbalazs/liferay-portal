@@ -21,8 +21,9 @@ package com.liferay.commerce.model;
 public class ShipmentItem {
 
 	public ShipmentItem(
-		long shipmentItemId, long orderId, Sku sku, int orderedQuantity,
-		int shippedQuantity, int toSendQuantity, String warehouse) {
+		long orderId, int orderedQuantity, long shipmentItemId,
+		int shippedQuantity, Sku sku,
+		int toSendQuantity, String warehouse) {
 
 		_shipmentItemId = shipmentItemId;
 		_orderId = orderId;

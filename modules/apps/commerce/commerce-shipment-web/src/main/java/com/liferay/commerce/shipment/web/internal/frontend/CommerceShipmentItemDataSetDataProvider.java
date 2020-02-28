@@ -108,15 +108,15 @@ public class CommerceShipmentItemDataSetDataProvider
 
 			shipmentItems.add(
 				new ShipmentItem(
-					commerceShipmentItem.getCommerceShipmentItemId(),
 					commerceOrderItem.getCommerceOrderId(),
+					commerceOrderItem.getQuantity(),
+					commerceShipmentItem.getCommerceShipmentItemId(),
+					commerceOrderItem.getShippedQuantity(),
 					new Sku(
 						commerceOrderItem.getSku(),
 						_getShipmentItemPanelURL(
 							commerceOrderItem.getCommerceOrderItemId(),
 							httpServletRequest)),
-					commerceOrderItem.getQuantity(),
-					commerceOrderItem.getShippedQuantity(),
 					commerceShipmentItem.getQuantity(),
 					commerceInventoryWarehouseName));
 		}
