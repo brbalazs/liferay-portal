@@ -39,24 +39,27 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
-		long commerceBookedQuantityId = counterLocalService.increment();
+		long commerceInventoryBookedQuantityId =
+			counterLocalService.increment();
 
-		CommerceInventoryBookedQuantity commerceBookedQuantity =
+		CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
 			commerceInventoryBookedQuantityPersistence.create(
-				commerceBookedQuantityId);
+				commerceInventoryBookedQuantityId);
 
-		commerceBookedQuantity.setCompanyId(user.getCompanyId());
-		commerceBookedQuantity.setUserId(user.getUserId());
-		commerceBookedQuantity.setUserName(user.getFullName());
-		commerceBookedQuantity.setSku(sku);
-		commerceBookedQuantity.setQuantity(quantity);
-		commerceBookedQuantity.setExpirationDate(expirationDate);
+		commerceInventoryBookedQuantity.setCompanyId(user.getCompanyId());
+		commerceInventoryBookedQuantity.setUserId(user.getUserId());
+		commerceInventoryBookedQuantity.setUserName(user.getFullName());
+		commerceInventoryBookedQuantity.setSku(sku);
+		commerceInventoryBookedQuantity.setQuantity(quantity);
+		commerceInventoryBookedQuantity.setExpirationDate(expirationDate);
 
-		String description =
-			"Book Quantity: " + JSONFactoryUtil.serialize(context);
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_BOOKED_QUANTITY);
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			userId, sku, quantity, description);
+			userId, sku, commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(context), quantity);
 
 		return commerceInventoryBookedQuantityPersistence.update(
 			commerceBookedQuantity);

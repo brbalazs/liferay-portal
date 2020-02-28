@@ -14,13 +14,15 @@
 
 package com.liferay.commerce.inventory.internal.engine;
 
+import com.liferay.commerce.inventory.constants.CommerceInventoryConstants;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryAuditLocalService;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditType;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeRegistry;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
@@ -57,11 +59,13 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 			decreaseStockQuantity(commerceInventoryWarehouseId, sku, quantity);
 		}
 
-		String description =
-			"Consume Quantity: " + _jsonFactory.serialize(context);
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_CONSUME_QUANTITY);
 
 		_commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			userId, sku, quantity, description);
+			userId, sku, commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(context), quantity);
 	}
 
 	@Override
@@ -148,8 +152,13 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 					getCommerceInventoryWarehouseItemId(),
 				commerceInventoryWarehouseItem.getQuantity() + quantity);
 
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_INCREASE_QUANTITY);
+
 		_commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			userId, sku, quantity, "Increase Quantity");
+			userId, sku, commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(null), quantity);
 	}
 
 	@Reference
@@ -161,10 +170,11 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 		_commerceInventoryAuditLocalService;
 
 	@Reference
-	private CommerceInventoryWarehouseItemLocalService
-		_commerceInventoryWarehouseItemLocalService;
+	private CommerceInventoryAuditTypeRegistry
+		_commerceInventoryAuditTypeRegistry;
 
 	@Reference
-	private JSONFactory _jsonFactory;
+	private CommerceInventoryWarehouseItemLocalService
+		_commerceInventoryWarehouseItemLocalService;
 
 }
