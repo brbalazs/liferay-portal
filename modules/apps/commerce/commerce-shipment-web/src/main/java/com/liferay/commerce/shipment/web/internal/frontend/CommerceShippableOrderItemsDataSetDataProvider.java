@@ -86,12 +86,12 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			orderItems.add(
 				new OrderItem(
-					commerceOrderItem.getCommerceOrderItemId(),
-					commerceOrderItem.getCommerceOrderId(),
 					_commerceInventoryEngine.getStockQuantity(
 						commerceOrderItem.getCompanyId(),
 						commerceOrderItem.getGroupId(),
 						commerceOrderItem.getSku()),
+					commerceOrderItem.getCommerceOrderItemId(),
+					commerceOrderItem.getCommerceOrderId(),
 					commerceOrderItem.getQuantity(),
 					commerceOrderItem.getSku()));
 		}

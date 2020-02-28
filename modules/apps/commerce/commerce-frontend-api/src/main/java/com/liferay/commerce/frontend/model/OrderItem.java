@@ -20,12 +20,12 @@ package com.liferay.commerce.frontend.model;
 public class OrderItem {
 
 	public OrderItem(
-		long orderItemId, long orderId, int available, int quantity,
+		int available, long orderId, long orderItemId, int quantity,
 		String sku) {
 
-		_orderItemId = orderItemId;
-		_orderId = orderId;
 		_available = available;
+		_orderId = orderId;
+		_orderItemId = orderItemId;
 		_quantity = quantity;
 		_sku = sku;
 	}
