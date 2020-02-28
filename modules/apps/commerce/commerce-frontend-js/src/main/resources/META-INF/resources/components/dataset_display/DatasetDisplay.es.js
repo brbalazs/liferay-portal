@@ -47,7 +47,7 @@ function executeAsyncAction(url, method = 'GET') {
 	return fetch(url, {
 		...headers,
 		method
-	}).then(response => response.json());
+	});
 }
 
 function loadData(apiUrl, currentUrl, filters, searchParam, delta, page = 1, sorting = []) {
@@ -62,7 +62,8 @@ function loadData(apiUrl, currentUrl, filters, searchParam, delta, page = 1, sor
 
 	const url = `${apiUrl}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}${filterString}`;
 
-	return executeAsyncAction(url, 'GET');
+	return executeAsyncAction(url, 'GET')
+		.then(response => response.json());
 }
 
 function DatasetDisplay(props) {
@@ -115,17 +116,17 @@ function DatasetDisplay(props) {
 		) {
 			setLoading(true);
 			(contentRenderer
-				? getViewById(contentRenderer)
-				: getJsModule(currentViewModuleUrl)
+					? getViewById(contentRenderer)
+					: getJsModule(currentViewModuleUrl)
 			)
 				.then(component => {
 					updateViews(views =>
 						views.map((view, i) =>
 							i === activeView
 								? {
-										...view,
-										component
-								  }
+									...view,
+									component
+								}
 								: view
 						)
 					);
