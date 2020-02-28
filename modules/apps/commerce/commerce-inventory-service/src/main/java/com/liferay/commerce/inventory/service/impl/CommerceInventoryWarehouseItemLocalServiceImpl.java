@@ -16,7 +16,7 @@ package com.liferay.commerce.inventory.service.impl;
 
 import com.liferay.commerce.inventory.exception.DuplicateCommerceInventoryWarehouseItemException;
 import com.liferay.commerce.inventory.exception.NoSuchInventoryWarehouseItemException;
-import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem;
+import com.liferay.commerce.inventory.model.CIWarehouseItem;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryWarehouseItemLocalServiceBaseImpl;
 import com.liferay.petra.string.StringPool;
@@ -61,22 +61,13 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			externalReferenceCode = null;
 		}
 
-		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem = null;
-
 		if (Validator.isNotNull(sku)) {
-			commerceInventoryWarehouseItem =
-				commerceInventoryWarehouseItemPersistence.fetchByC_S(
-					commerceInventoryWarehouseId, sku);
-
-			if (commerceInventoryWarehouseItem != null) {
-				throw new DuplicateCommerceInventoryWarehouseItemException(
-					"Sku code already associated with this Warehouse");
-			}
+			validate(commerceInventoryWarehouseId, sku);
 		}
 
 		long commerceInventoryWarehouseItemId = counterLocalService.increment();
 
-		commerceInventoryWarehouseItem =
+		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
 			commerceInventoryWarehouseItemPersistence.create(
 				commerceInventoryWarehouseItemId);
 
@@ -95,9 +86,9 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	}
 
 	@Override
-	public int countAdminUIItemsByCompanyId(long companyId) {
-		return commerceInventoryWarehouseItemFinder.
-			countAdminUIItemsByCompanyId(companyId);
+	public int countItemsByCompanyId(long companyId) {
+		return commerceInventoryWarehouseItemFinder.countItemsByCompanyId(
+			companyId);
 	}
 
 	@Override
@@ -109,57 +100,19 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	}
 
 	@Override
+	public void deleteCommerceInventoryWarehouseItems(
+		long companyId, String sku) {
+
+		commerceInventoryWarehouseItemPersistence.removeByCompanyId_Sku(
+			companyId, sku);
+	}
+
+	@Override
 	public CommerceInventoryWarehouseItem fetchCommerceInventoryWarehouseItem(
 		long commerceInventoryWarehouseId, String sku) {
 
 		return commerceInventoryWarehouseItemPersistence.fetchByC_S(
 			commerceInventoryWarehouseId, sku);
-	}
-
-	@Override
-	public List<CommerceInventoryAdminUIItem> getAdminUIItemsByCompanyId(
-		long companyId, int start, int end) {
-
-		List<Object[]> adminUIItemsByCompanyId =
-			commerceInventoryWarehouseItemFinder.findAdminUIItemsByCompanyId(
-				companyId, start, end);
-
-		List<CommerceInventoryAdminUIItem> commerceInventoryAdminUIItems =
-			new ArrayList<>();
-
-		for (Object[] adminUIItem : adminUIItemsByCompanyId) {
-			if (adminUIItem != null) {
-				String sku = "";
-
-				if ((adminUIItem.length > 0) && (adminUIItem[0] != null)) {
-					sku = (String)adminUIItem[0];
-				}
-
-				Integer stock = 0;
-
-				if ((adminUIItem.length > 1) && (adminUIItem[1] != null)) {
-					stock = (Integer)adminUIItem[1];
-				}
-
-				Integer booked = 0;
-
-				if ((adminUIItem.length > 2) && (adminUIItem[2] != null)) {
-					booked = (Integer)adminUIItem[2];
-				}
-
-				Integer replenishment = 0;
-
-				if ((adminUIItem.length > 3) && (adminUIItem[3] != null)) {
-					replenishment = (Integer)adminUIItem[3];
-				}
-
-				commerceInventoryAdminUIItems.add(
-					new CommerceInventoryAdminUIItem(
-						sku, stock, booked, replenishment));
-			}
-		}
-
-		return commerceInventoryAdminUIItems;
 	}
 
 	@Override
@@ -184,6 +137,15 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 		return commerceInventoryWarehouseItemPersistence.
 			findByCommerceInventoryWarehouseId(
 				commerceInventoryWarehouseId, start, end);
+	}
+
+	@Override
+	public List<CommerceInventoryWarehouseItem>
+		getCommerceInventoryWarehouseItems(
+			long companyId, String sku, int start, int end) {
+
+		return commerceInventoryWarehouseItemPersistence.findByCompanyId_Sku(
+			companyId, sku, start, end);
 	}
 
 	@Override
@@ -221,6 +183,14 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	}
 
 	@Override
+	public int getCommerceInventoryWarehouseItemsCount(
+		long companyId, String sku) {
+
+		return commerceInventoryWarehouseItemPersistence.countByCompanyId_Sku(
+			companyId, sku);
+	}
+
+	@Override
 	public int getCommerceInventoryWarehouseItemsCountByCompanyId(
 		long companyId) {
 
@@ -237,6 +207,50 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	}
 
 	@Override
+	public List<CIWarehouseItem> getItemsByCompanyId(
+		long companyId, int start, int end) {
+
+		List<Object[]> objects =
+			commerceInventoryWarehouseItemFinder.findItemsByCompanyId(
+				companyId, start, end);
+
+		List<CIWarehouseItem> ciWarehouseItems = new ArrayList<>();
+
+		for (Object[] object : objects) {
+			if (object != null) {
+				String sku = "";
+
+				if ((object.length > 0) && (object[0] != null)) {
+					sku = (String)object[0];
+				}
+
+				Integer stock = 0;
+
+				if ((object.length > 1) && (object[1] != null)) {
+					stock = (Integer)object[1];
+				}
+
+				Integer booked = 0;
+
+				if ((object.length > 2) && (object[2] != null)) {
+					booked = (Integer)object[2];
+				}
+
+				Integer replenishment = 0;
+
+				if ((object.length > 3) && (object[3] != null)) {
+					replenishment = (Integer)object[3];
+				}
+
+				ciWarehouseItems.add(
+					new CIWarehouseItem(sku, stock, booked, replenishment));
+			}
+		}
+
+		return ciWarehouseItems;
+	}
+
+	@Override
 	public int getStockQuantity(long companyId, long groupId, String sku) {
 		return commerceInventoryWarehouseItemFinder.countStockQuantityByC_G_S(
 			companyId, groupId, sku);
@@ -246,6 +260,24 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	public int getStockQuantity(long companyId, String sku) {
 		return commerceInventoryWarehouseItemFinder.countStockQuantityByC_S(
 			companyId, sku);
+	}
+
+	@Override
+	public CommerceInventoryWarehouseItem
+			increaseCommerceInventoryWarehouseItemQuantity(
+				long commerceInventoryWarehouseItemId, int quantity)
+		throws PortalException {
+
+		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.findByPrimaryKey(
+				commerceInventoryWarehouseItemId);
+
+		quantity = quantity + commerceInventoryWarehouseItem.getQuantity();
+
+		commerceInventoryWarehouseItem.setQuantity(quantity);
+
+		return commerceInventoryWarehouseItemPersistence.update(
+			commerceInventoryWarehouseItem);
 	}
 
 	@Override
@@ -291,6 +323,23 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 				commerceInventoryWarehouseItemId);
 
 		commerceInventoryWarehouseItem.setQuantity(quantity);
+
+		return commerceInventoryWarehouseItemPersistence.update(
+			commerceInventoryWarehouseItem);
+	}
+
+	@Override
+	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
+			long commerceInventoryWarehouseItemId, int quantity,
+			int reservedQuantity)
+		throws PortalException {
+
+		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.findByPrimaryKey(
+				commerceInventoryWarehouseItemId);
+
+		commerceInventoryWarehouseItem.setQuantity(quantity);
+		commerceInventoryWarehouseItem.setReservedQuantity(reservedQuantity);
 
 		return commerceInventoryWarehouseItemPersistence.update(
 			commerceInventoryWarehouseItem);
@@ -346,6 +395,18 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 				commerceInventoryWarehouseItem.
 					getCommerceInventoryWarehouseItemId(),
 				quantity);
+	}
+
+	protected void validate(long commerceInventoryWarehouseId, String sku)
+		throws PortalException {
+
+		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.fetchByC_S(
+				commerceInventoryWarehouseId, sku);
+
+		if (commerceInventoryWarehouseItem != null) {
+			throw new DuplicateCommerceInventoryWarehouseItemException();
+		}
 	}
 
 }
