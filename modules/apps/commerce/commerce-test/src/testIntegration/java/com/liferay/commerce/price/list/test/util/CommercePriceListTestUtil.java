@@ -71,6 +71,35 @@ public class CommercePriceListTestUtil {
 	}
 
 	public static CommercePriceList addCommercePriceList(
+			long groupId, boolean catalogBasePriceList, String type,
+			double priority)
+		throws Exception {
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(groupId);
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		User user = UserLocalServiceUtil.getDefaultUser(
+			serviceContext.getCompanyId());
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(user.getTimeZone());
+
+		serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
+
+		return CommercePriceListLocalServiceUtil.addCommercePriceList(
+			groupId, user.getUserId(), commerceCurrency.getCommerceCurrencyId(),
+			type, 0, catalogBasePriceList, RandomTestUtil.randomString(),
+			priority, calendar.get(Calendar.MONTH),
+			calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR),
+			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+			calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
+			calendar.get(Calendar.MINUTE), "", true, serviceContext);
+	}
+
+	public static CommercePriceList addCommercePriceList(
 			long groupId, double priority)
 		throws Exception {
 
@@ -115,6 +144,34 @@ public class CommercePriceListTestUtil {
 				commerceAccountGroup.getCommerceAccountGroupId(),
 				RandomTestUtil.randomInt(),
 				ServiceContextTestUtil.getServiceContext(groupId));
+	}
+
+	public static CommercePriceList addPromotion(long groupId, double priority)
+		throws Exception {
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(groupId);
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		User user = UserLocalServiceUtil.getDefaultUser(
+			serviceContext.getCompanyId());
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(user.getTimeZone());
+
+		serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
+
+		return CommercePriceListLocalServiceUtil.addCommercePriceList(
+			groupId, user.getUserId(), commerceCurrency.getCommerceCurrencyId(),
+			CommercePriceListTypeKeys.TYPE_PROMOTION,
+			RandomTestUtil.randomString(), priority,
+			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+			calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
+			calendar.get(Calendar.MINUTE), calendar.get(Calendar.MONTH),
+			calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR),
+			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+			true, serviceContext);
 	}
 
 	public static void addRoleSegmentToPriceList(

@@ -20,17 +20,14 @@ import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupCommerceAccountRelLocalServiceUtil;
 import com.liferay.commerce.account.service.CommerceAccountGroupLocalService;
 import com.liferay.commerce.account.service.CommerceAccountLocalService;
+import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
 import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
-import com.liferay.commerce.price.list.service.CommercePriceEntryLocalServiceUtil;
-import com.liferay.commerce.price.list.service.CommercePriceListAccountRelLocalService;
-import com.liferay.commerce.price.list.service.CommercePriceListChannelRelLocalService;
-import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelLocalService;
-import com.liferay.commerce.price.list.service.CommercePriceListLocalServiceUtil;
+import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -40,7 +37,6 @@ import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -56,9 +52,6 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
 import java.math.BigDecimal;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 import org.frutilla.FrutillaRule;
 
@@ -137,10 +130,11 @@ public class CommercePriceListLowestDiscoveryTest {
 			CommercePriceListTestUtil.addCommercePriceList(
 				catalog.getGroupId(), false, _TYPE, 1.0);
 
-		CommercePriceEntry commercePriceEntry = _addCommercePriceEntry(
-			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commerceUnqualifiedPriceList.getCommercePriceListId(), "",
-			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
+		CommercePriceEntry commercePriceEntry =
+			CommercePriceEntryTestUtil.addCommercePriceEntry(
+				cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
+				commerceUnqualifiedPriceList.getCommercePriceListId(), "",
+				BigDecimal.valueOf(RandomTestUtil.randomDouble()));
 
 		BigDecimal lowestPrice = commercePriceEntry.getPrice();
 
@@ -156,10 +150,12 @@ public class CommercePriceListLowestDiscoveryTest {
 			expectedPriceList.getCommercePriceListId(),
 			discoveredPriceList.getCommercePriceListId());
 
-		CommercePriceList commerceChannelPriceList = _addChannelPriceList(
-			catalog.getGroupId());
+		CommercePriceList commerceChannelPriceList =
+			CommercePriceListTestUtil.addChannelPriceList(
+				catalog.getGroupId(), _commerceChannel.getCommerceChannelId(),
+				_TYPE);
 
-		commercePriceEntry = _addCommercePriceEntry(
+		commercePriceEntry = CommercePriceEntryTestUtil.addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			commerceChannelPriceList.getCommercePriceListId(), "",
 			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
@@ -178,10 +174,15 @@ public class CommercePriceListLowestDiscoveryTest {
 			expectedPriceList.getCommercePriceListId(),
 			discoveredPriceList.getCommercePriceListId());
 
-		CommercePriceList commerceAccountGroupPriceList =
-			_addAccountGroupPriceList(catalog.getGroupId());
+		long[] commerceAccountGroupIds =
+			_commerceAccountHelper.getCommerceAccountGroupIds(
+				_commerceAccount.getCommerceAccountId());
 
-		commercePriceEntry = _addCommercePriceEntry(
+		CommercePriceList commerceAccountGroupPriceList =
+			CommercePriceListTestUtil.addAccountGroupPriceList(
+				catalog.getGroupId(), commerceAccountGroupIds, _TYPE);
+
+		commercePriceEntry = CommercePriceEntryTestUtil.addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			commerceAccountGroupPriceList.getCommercePriceListId(), "",
 			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
@@ -201,9 +202,11 @@ public class CommercePriceListLowestDiscoveryTest {
 			discoveredPriceList.getCommercePriceListId());
 
 		CommercePriceList commerceAccountGroupAndChannelPriceList =
-			_addAccountGroupAndChannelPriceList(catalog.getGroupId());
+			CommercePriceListTestUtil.addAccountGroupAndChannelPriceList(
+				catalog.getGroupId(), commerceAccountGroupIds,
+				_commerceChannel.getCommerceChannelId(), _TYPE);
 
-		commercePriceEntry = _addCommercePriceEntry(
+		commercePriceEntry = CommercePriceEntryTestUtil.addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			commerceAccountGroupAndChannelPriceList.getCommercePriceListId(),
 			"", BigDecimal.valueOf(RandomTestUtil.randomDouble()));
@@ -222,10 +225,12 @@ public class CommercePriceListLowestDiscoveryTest {
 			expectedPriceList.getCommercePriceListId(),
 			discoveredPriceList.getCommercePriceListId());
 
-		CommercePriceList commerceAccountPriceList = _addAccountPriceList(
-			catalog.getGroupId());
+		CommercePriceList commerceAccountPriceList =
+			CommercePriceListTestUtil.addAccountPriceList(
+				catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+				_TYPE);
 
-		commercePriceEntry = _addCommercePriceEntry(
+		commercePriceEntry = CommercePriceEntryTestUtil.addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			commerceAccountPriceList.getCommercePriceListId(), "",
 			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
@@ -245,9 +250,11 @@ public class CommercePriceListLowestDiscoveryTest {
 			discoveredPriceList.getCommercePriceListId());
 
 		CommercePriceList commerceAccountAndChannelPriceList =
-			_addAccountAndChannelPriceList(catalog.getGroupId());
+			CommercePriceListTestUtil.addAccountAndChannelPriceList(
+				catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+				_commerceChannel.getCommerceChannelId(), _TYPE);
 
-		commercePriceEntry = _addCommercePriceEntry(
+		commercePriceEntry = CommercePriceEntryTestUtil.addCommercePriceEntry(
 			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
 			commerceAccountAndChannelPriceList.getCommercePriceListId(), "",
 			BigDecimal.valueOf(RandomTestUtil.randomDouble()));
@@ -269,125 +276,6 @@ public class CommercePriceListLowestDiscoveryTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
-	private static CommercePriceEntry _addCommercePriceEntry(
-			long cpProductId, String cpInstanceUuid, long commercePriceListId,
-			String externalReferenceCode, BigDecimal price)
-		throws PortalException {
-
-		CommercePriceList commercePriceList =
-			CommercePriceListLocalServiceUtil.getCommercePriceList(
-				commercePriceListId);
-
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(
-				commercePriceList.getGroupId());
-
-		return CommercePriceEntryLocalServiceUtil.addCommercePriceEntry(
-			cpProductId, cpInstanceUuid, commercePriceListId,
-			externalReferenceCode, price, BigDecimal.ZERO, serviceContext);
-	}
-
-	private CommercePriceList _addAccountAndChannelPriceList(long groupId)
-		throws Exception {
-
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				groupId, false, _TYPE, 1.0);
-
-		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
-			commercePriceList.getCommercePriceListId(),
-			_commerceAccount.getCommerceAccountId(), 0, _serviceContext);
-
-		_commercePriceListChannelRelLocalService.addCommercePriceListChannelRel(
-			commercePriceList.getCommercePriceListId(),
-			_commerceChannel.getCommerceChannelId(), 0, _serviceContext);
-
-		return commercePriceList;
-	}
-
-	private CommercePriceList _addAccountGroupAndChannelPriceList(long groupId)
-		throws Exception {
-
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				groupId, false, _TYPE, 1.0);
-
-		long[] commerceAccountGroupIds = _getCommerceAccoutGroupIds();
-
-		for (long commerceAccountGroupId : commerceAccountGroupIds) {
-			_commercePriceListCommerceAccountGroupRelLocalService.
-				addCommercePriceListCommerceAccountGroupRel(
-					commercePriceList.getCommercePriceListId(),
-					commerceAccountGroupId, 0, _serviceContext);
-		}
-
-		_commercePriceListChannelRelLocalService.addCommercePriceListChannelRel(
-			commercePriceList.getCommercePriceListId(),
-			_commerceChannel.getCommerceChannelId(), 0, _serviceContext);
-
-		return commercePriceList;
-	}
-
-	private CommercePriceList _addAccountGroupPriceList(long groupId)
-		throws Exception {
-
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				groupId, false, _TYPE, 1.0);
-
-		long[] commerceAccountGroupIds = _getCommerceAccoutGroupIds();
-
-		for (long commerceAccountGroupId : commerceAccountGroupIds) {
-			_commercePriceListCommerceAccountGroupRelLocalService.
-				addCommercePriceListCommerceAccountGroupRel(
-					commercePriceList.getCommercePriceListId(),
-					commerceAccountGroupId, 0, _serviceContext);
-		}
-
-		return commercePriceList;
-	}
-
-	private CommercePriceList _addAccountPriceList(long groupId)
-		throws Exception {
-
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				groupId, false, _TYPE, 1.0);
-
-		_commercePriceListAccountRelLocalService.addCommercePriceListAccountRel(
-			commercePriceList.getCommercePriceListId(),
-			_commerceAccount.getCommerceAccountId(), 0, _serviceContext);
-
-		return commercePriceList;
-	}
-
-	private CommercePriceList _addChannelPriceList(long groupId)
-		throws Exception {
-
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				groupId, false, _TYPE, 1.0);
-
-		_commercePriceListChannelRelLocalService.addCommercePriceListChannelRel(
-			commercePriceList.getCommercePriceListId(),
-			_commerceChannel.getCommerceChannelId(), 0, _serviceContext);
-
-		return commercePriceList;
-	}
-
-	private long[] _getCommerceAccoutGroupIds() {
-		List<CommerceAccountGroup> commerceAccountGroups =
-			_commerceAccountGroupLocalService.
-				getCommerceAccountGroupsByCommerceAccountId(
-					_commerceAccount.getCommerceAccountId());
-
-		Stream<CommerceAccountGroup> stream = commerceAccountGroups.stream();
-
-		return stream.mapToLong(
-			CommerceAccountGroup::getCommerceAccountGroupId
-		).toArray();
-	}
-
 	private static final String _TYPE =
 		CommercePriceListTypeKeys.TYPE_PRICE_LIST;
 
@@ -396,6 +284,9 @@ public class CommercePriceListLowestDiscoveryTest {
 
 	@Inject
 	private CommerceAccountGroupLocalService _commerceAccountGroupLocalService;
+
+	@Inject
+	private CommerceAccountHelper _commerceAccountHelper;
 
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;
@@ -407,18 +298,6 @@ public class CommercePriceListLowestDiscoveryTest {
 	private CommerceChannel _commerceChannel;
 
 	private CommerceCurrency _commerceCurrency;
-
-	@Inject
-	private CommercePriceListAccountRelLocalService
-		_commercePriceListAccountRelLocalService;
-
-	@Inject
-	private CommercePriceListChannelRelLocalService
-		_commercePriceListChannelRelLocalService;
-
-	@Inject
-	private CommercePriceListCommerceAccountGroupRelLocalService
-		_commercePriceListCommerceAccountGroupRelLocalService;
 
 	@Inject(
 		filter = "commerce.price.list.discovery.key=" + CommercePricingConstants.ORDER_BY_LOWEST_ENTRY

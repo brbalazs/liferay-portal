@@ -226,7 +226,7 @@ public class CPTestUtil {
 		throws PortalException {
 
 		CPDefinition cpDefinition = _addCPDefinition(
-			groupId, SimpleCPTypeConstants.NAME, true, true,
+			SimpleCPTypeConstants.NAME, true, true,
 			ServiceContextTestUtil.getServiceContext(groupId));
 
 		return CPInstanceLocalServiceUtil.getCPInstance(
@@ -267,6 +267,19 @@ public class CPTestUtil {
 
 		CPDefinition cpDefinition = _addCPDefinitionWithSku(
 			SimpleCPTypeConstants.NAME, true,
+			ServiceContextTestUtil.getServiceContext(groupId), sku);
+
+		return CPInstanceLocalServiceUtil.getCPInstance(
+			cpDefinition.getCPDefinitionId(), sku);
+	}
+
+	public static CPInstance addCPInstanceWithRandomSkuFromCatalog(long groupId)
+		throws PortalException {
+
+		String sku = RandomTestUtil.randomString();
+
+		CPDefinition cpDefinition = _addCPDefinitionWithSku(
+			groupId, SimpleCPTypeConstants.NAME, true,
 			ServiceContextTestUtil.getServiceContext(groupId), sku);
 
 		return CPInstanceLocalServiceUtil.getCPInstance(

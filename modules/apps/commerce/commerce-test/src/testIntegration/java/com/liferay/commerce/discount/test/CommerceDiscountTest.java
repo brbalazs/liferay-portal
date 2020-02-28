@@ -692,7 +692,7 @@ public class CommerceDiscountTest {
 
 	private List<CommerceOrder> _commerceOrders;
 
-	@Inject
+	@Inject(filter = "commerce.price.calculation.key=v1.0")
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Inject

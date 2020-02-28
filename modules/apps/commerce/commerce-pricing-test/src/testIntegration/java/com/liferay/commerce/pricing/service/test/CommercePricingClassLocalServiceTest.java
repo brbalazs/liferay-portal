@@ -12,14 +12,14 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.test;
+package com.liferay.commerce.pricing.service.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.pricing.exception.CommercePricingClassTitleException;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
-import com.liferay.commerce.pricing.model.CommercePricingClassRel;
+import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
+import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelLocalService;
 import com.liferay.commerce.pricing.service.CommercePricingClassLocalService;
-import com.liferay.commerce.pricing.service.CommercePricingClassRelLocalService;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
@@ -56,7 +56,7 @@ import org.junit.runner.RunWith;
  * @author Riccardo Alberti
  */
 @RunWith(Arquillian.class)
-public class CommercePricingClassTest {
+public class CommercePricingClassLocalServiceTest {
 
 	@ClassRule
 	@Rule
@@ -100,32 +100,34 @@ public class CommercePricingClassTest {
 			_commercePricingClassLocalService.addCommercePricingClass(
 				_user.getUserId(), _user.getGroupId(),
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-				RandomTestUtil.randomString(), _serviceContext);
+				_serviceContext);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(catalog.getGroupId());
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		_commercePricingClassRelLocalService.addCommercePricingClassRel(
-			commercePricingClass.getCommercePricingClassId(),
-			CPDefinition.class.getName(), cpDefinition.getCPDefinitionId(),
-			_serviceContext);
-
-		List<CommercePricingClassRel> commercePricingClassRels =
-			_commercePricingClassRelLocalService.getCommercePricingClassRels(
+		_commercePricingClassCPDefinitionRelLocalService.
+			addCommercePricingClassCPDefinitionRel(
 				commercePricingClass.getCommercePricingClassId(),
-				CPDefinition.class.getName());
+				cpDefinition.getCPDefinitionId(), _serviceContext);
+
+		List<CommercePricingClassCPDefinitionRel>
+			commercePricingClassCPDefinitionRels =
+				_commercePricingClassCPDefinitionRelLocalService.
+					getCommercePricingClassCPDefinitionRels(
+						commercePricingClass.getCommercePricingClassId());
 
 		Assert.assertEquals(
-			commercePricingClassRels.toString(), 1,
-			commercePricingClassRels.size());
+			commercePricingClassCPDefinitionRels.toString(), 1,
+			commercePricingClassCPDefinitionRels.size());
 
-		CommercePricingClassRel commercePricingClassRel =
-			commercePricingClassRels.get(0);
+		CommercePricingClassCPDefinitionRel
+			commercePricingClassCPDefinitionRel =
+				commercePricingClassCPDefinitionRels.get(0);
 
 		Assert.assertEquals(
 			cpDefinition.getCPDefinitionId(),
-			commercePricingClassRel.getClassPK());
+			commercePricingClassCPDefinitionRel.getCPDefinitionId());
 	}
 
 	@Test
@@ -149,7 +151,7 @@ public class CommercePricingClassTest {
 		_commercePricingClassLocalService.addCommercePricingClass(
 			_user.getUserId(), _user.getGroupId(),
 			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), _serviceContext);
+			_serviceContext);
 
 		commercePricingClassCount =
 			_commercePricingClassLocalService.getCommercePricingClassesCount(
@@ -171,9 +173,8 @@ public class CommercePricingClassTest {
 		);
 
 		_commercePricingClassLocalService.addCommercePricingClass(
-			_user.getUserId(), _user.getGroupId(),
-			RandomTestUtil.randomString(), null, RandomTestUtil.randomString(),
-			_serviceContext);
+			_user.getUserId(), _user.getGroupId(), null,
+			RandomTestUtil.randomString(), _serviceContext);
 	}
 
 	@Test
@@ -197,22 +198,21 @@ public class CommercePricingClassTest {
 			_commercePricingClassLocalService.addCommercePricingClass(
 				_user.getUserId(), _user.getGroupId(),
 				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-				RandomTestUtil.randomString(), _serviceContext);
+				_serviceContext);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(catalog.getGroupId());
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		_commercePricingClassRelLocalService.addCommercePricingClassRel(
-			commercePricingClass.getCommercePricingClassId(),
-			CPDefinition.class.getName(), cpDefinition.getCPDefinitionId(),
-			_serviceContext);
+		_commercePricingClassCPDefinitionRelLocalService.
+			addCommercePricingClassCPDefinitionRel(
+				commercePricingClass.getCommercePricingClassId(),
+				cpDefinition.getCPDefinitionId(), _serviceContext);
 
 		int commercePricingClassRelsCount =
-			_commercePricingClassRelLocalService.
-				getCommercePricingClassRelsCount(
-					commercePricingClass.getCommercePricingClassId(),
-					CPDefinition.class.getName());
+			_commercePricingClassCPDefinitionRelLocalService.
+				getCommercePricingClassCPDefinitionRelsCount(
+					commercePricingClass.getCommercePricingClassId());
 
 		Assert.assertEquals(1, commercePricingClassRelsCount);
 
@@ -220,10 +220,9 @@ public class CommercePricingClassTest {
 			commercePricingClass.getCommercePricingClassId());
 
 		commercePricingClassRelsCount =
-			_commercePricingClassRelLocalService.
-				getCommercePricingClassRelsCount(
-					commercePricingClass.getCommercePricingClassId(),
-					CPDefinition.class.getName());
+			_commercePricingClassCPDefinitionRelLocalService.
+				getCommercePricingClassCPDefinitionRelsCount(
+					commercePricingClass.getCommercePricingClassId());
 
 		Assert.assertEquals(0, commercePricingClassRelsCount);
 	}
@@ -235,11 +234,11 @@ public class CommercePricingClassTest {
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
 
 	@Inject
-	private CommercePricingClassLocalService _commercePricingClassLocalService;
+	private CommercePricingClassCPDefinitionRelLocalService
+		_commercePricingClassCPDefinitionRelLocalService;
 
 	@Inject
-	private CommercePricingClassRelLocalService
-		_commercePricingClassRelLocalService;
+	private CommercePricingClassLocalService _commercePricingClassLocalService;
 
 	@DeleteAfterTestRun
 	private Company _company;
