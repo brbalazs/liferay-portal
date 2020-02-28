@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.inventory.web.internal.portlet;
 
+import com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.inventory.web.internal.display.context.CommerceInventoryDisplayContext;
@@ -34,6 +35,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -66,6 +68,7 @@ public class CommerceInventoryPortlet extends MVCPortlet {
 
 		CommerceInventoryDisplayContext commerceInventoryDisplayContext =
 			new CommerceInventoryDisplayContext(
+				_commerceInventoryReplenishmentItemService,
 				_commerceInventoryWarehouseService,
 				_commerceInventoryWarehouseItemService,
 				_portal.getHttpServletRequest(renderRequest));
@@ -75,6 +78,10 @@ public class CommerceInventoryPortlet extends MVCPortlet {
 
 		super.render(renderRequest, renderResponse);
 	}
+
+	@Reference
+	private CommerceInventoryReplenishmentItemService
+		_commerceInventoryReplenishmentItemService;
 
 	@Reference
 	private CommerceInventoryWarehouseItemService
