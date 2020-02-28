@@ -21,7 +21,8 @@
 		<!-- Other fields -->
 
 		<column name="sku" type="String" />
-		<column name="description" type="String" />
+		<column name="logType" type="String" />
+		<column name="logTypeSettings" type="String" />
 		<column name="quantity" type="int" />
 
 		<!-- Order -->
@@ -105,6 +106,10 @@
 		</finder>
 		<finder name="AvailabilityDate" return-type="Collection">
 			<finder-column name="availabilityDate" />
+		</finder>
+		<finder name="C_S" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="sku" />
 		</finder>
 		<finder name="S_AD" return-type="Collection">
 			<finder-column name="sku" />
