@@ -418,7 +418,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {optionByExternalReferenceCode(externalReferenceCode: ___){catalogId, description, externalReferenceCode, facetable, fieldType, id, key, name, priority, required, skuContributor, optionValues}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {optionByExternalReferenceCode(externalReferenceCode: ___){catalogId, description, externalReferenceCode, facetable, fieldType, id, key, name, optionValues, priority, required, skuContributor}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Option optionByExternalReferenceCode(
@@ -435,7 +435,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {option(id: ___){catalogId, description, externalReferenceCode, facetable, fieldType, id, key, name, priority, required, skuContributor, optionValues}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {option(id: ___){catalogId, description, externalReferenceCode, facetable, fieldType, id, key, name, optionValues, priority, required, skuContributor}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Option option(@GraphQLName("id") Long id) throws Exception {
@@ -552,7 +552,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productByExternalReferenceCode(externalReferenceCode: ___){active, catalogId, categories, configuration, createDate, defaultSku, description, displayDate, expando, expirationDate, externalReferenceCode, id, attachments, metaDescription, metaKeyword, metaTitle, modifiedDate, name, neverExpire, productOptions, productId, productSpecifications, productType, relatedProducts, shippingConfiguration, shortDescription, skus, subscriptionConfiguration, tags, taxConfiguration, urls}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productByExternalReferenceCode(externalReferenceCode: ___){active, attachments, catalogId, categories, configuration, createDate, defaultSku, description, displayDate, expando, expirationDate, externalReferenceCode, id, metaDescription, metaKeyword, metaTitle, modifiedDate, name, neverExpire, productId, productOptions, productSpecifications, productType, relatedProducts, shippingConfiguration, shortDescription, skus, subscriptionConfiguration, tags, taxConfiguration, urls}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Product productByExternalReferenceCode(
@@ -570,7 +570,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(id: ___){active, catalogId, categories, configuration, createDate, defaultSku, description, displayDate, expando, expirationDate, externalReferenceCode, id, attachments, metaDescription, metaKeyword, metaTitle, modifiedDate, name, neverExpire, productOptions, productId, productSpecifications, productType, relatedProducts, shippingConfiguration, shortDescription, skus, subscriptionConfiguration, tags, taxConfiguration, urls}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(id: ___){active, attachments, catalogId, categories, configuration, createDate, defaultSku, description, displayDate, expando, expirationDate, externalReferenceCode, id, metaDescription, metaKeyword, metaTitle, modifiedDate, name, neverExpire, productId, productOptions, productSpecifications, productType, relatedProducts, shippingConfiguration, shortDescription, skus, subscriptionConfiguration, tags, taxConfiguration, urls}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Product product(@GraphQLName("id") Long id) throws Exception {
@@ -619,7 +619,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productOption(id: ___){catalogId, description, facetable, fieldType, id, key, name, optionId, priority, required, skuContributor, productOptionValues}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productOption(id: ___){catalogId, description, facetable, fieldType, id, key, name, optionId, priority, productOptionValues, required, skuContributor}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public ProductOption productOption(@GraphQLName("id") Long id)

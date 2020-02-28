@@ -121,7 +121,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountByExternalReferenceCode(externalReferenceCode: ___){accountAddresses, customFields, emailAddresses, externalReferenceCode, id, logoId, name, accountOrganizations, root, taxId, type, accountMembers}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountByExternalReferenceCode(externalReferenceCode: ___){accountAddresses, accountMembers, accountOrganizations, customFields, emailAddresses, externalReferenceCode, id, logoId, name, root, taxId, type}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Account accountByExternalReferenceCode(
@@ -139,7 +139,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(id: ___){accountAddresses, customFields, emailAddresses, externalReferenceCode, id, logoId, name, accountOrganizations, root, taxId, type, accountMembers}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(id: ___){accountAddresses, accountMembers, accountOrganizations, customFields, emailAddresses, externalReferenceCode, id, logoId, name, root, taxId, type}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Account account(@GraphQLName("id") Long id) throws Exception {
@@ -288,7 +288,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountByExternalReferenceCodeAccountMember(externalReferenceCode: ___, userId: ___){accountId, email, externalReferenceCode, name, accountRoles, userExternalReferenceCode, userId}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountByExternalReferenceCodeAccountMember(externalReferenceCode: ___, userId: ___){accountId, accountRoles, email, externalReferenceCode, name, userExternalReferenceCode, userId}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public AccountMember accountByExternalReferenceCodeAccountMember(
@@ -327,7 +327,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountIdAccountMember(id: ___, userId: ___){accountId, email, externalReferenceCode, name, accountRoles, userExternalReferenceCode, userId}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountIdAccountMember(id: ___, userId: ___){accountId, accountRoles, email, externalReferenceCode, name, userExternalReferenceCode, userId}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public AccountMember accountIdAccountMember(
