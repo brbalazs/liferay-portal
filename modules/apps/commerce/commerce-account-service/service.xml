@@ -77,7 +77,7 @@
 
 		<column name="name" type="String" />> >
 		<column name="type" type="int" />
-		<column name="system" type="boolean" />
+		<column db-name="system_" name="system" type="boolean" />
 
 		<!-- Order -->
 

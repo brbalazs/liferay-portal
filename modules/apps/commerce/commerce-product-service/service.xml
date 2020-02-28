@@ -23,7 +23,7 @@
 		<column name="name" type="String" />
 		<column name="commerceCurrencyCode" type="String" />
 		<column name="catalogDefaultLanguageId" type="String" />
-		<column name="system" type="boolean" />
+		<column db-name="system_" name="system" type="boolean" />
 
 		<!-- Order -->
 
