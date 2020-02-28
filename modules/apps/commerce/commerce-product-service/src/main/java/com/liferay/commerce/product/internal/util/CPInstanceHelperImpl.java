@@ -82,8 +82,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -347,9 +345,8 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 		Document[] documents = hits.getDocs();
 
-		Set<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-			new TreeSet<>(
-				new CPDefinitionOptionValueRelPriorityComparator(true));
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			new ArrayList<>();
 
 		for (Document document : documents) {
 			String key = GetterUtil.getString(document.get(optionFieldName));
@@ -364,12 +361,19 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
 						key);
 
-			if (cpDefinitionOptionValueRel != null) {
+			if ((cpDefinitionOptionValueRel != null) &&
+				!cpDefinitionOptionValueRels.contains(
+					cpDefinitionOptionValueRel)) {
+
 				cpDefinitionOptionValueRels.add(cpDefinitionOptionValueRel);
 			}
 		}
 
-		return new ArrayList<>(cpDefinitionOptionValueRels);
+		Collections.sort(
+			cpDefinitionOptionValueRels,
+			new CPDefinitionOptionValueRelPriorityComparator(true));
+
+		return cpDefinitionOptionValueRels;
 	}
 
 	@Override
