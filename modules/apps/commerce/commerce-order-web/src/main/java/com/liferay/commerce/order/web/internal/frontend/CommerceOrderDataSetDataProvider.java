@@ -51,7 +51,6 @@ import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -130,9 +129,7 @@ public class CommerceOrderDataSetDataProvider
 			orders.add(
 				new Order(
 					commerceOrder.getCommerceOrderId(),
-					getCommerceOrderDateTime(
-						commerceOrder, dateTimeFormat,
-						themeDisplay.getLocale()),
+					getCommerceOrderDateTime(commerceOrder, dateTimeFormat),
 					LanguageUtil.get(
 						httpServletRequest,
 						CommerceOrderConstants.getOrderStatusLabel(
@@ -201,7 +198,7 @@ public class CommerceOrderDataSetDataProvider
 	}
 
 	protected String getCommerceOrderDateTime(
-		CommerceOrder commerceOrder, Format dateTimeFormat, Locale locale) {
+		CommerceOrder commerceOrder, Format dateTimeFormat) {
 
 		if (commerceOrder.getOrderDate() == null) {
 			return dateTimeFormat.format(commerceOrder.getCreateDate());
