@@ -21,14 +21,13 @@ package com.liferay.commerce.model;
 public class Shipment {
 
 	public Shipment(
-		long shipmentId, String panelUrl, String accountName, String address,
-		String createDate, LabelField status, String tracking) {
+		String accountName, String address, String createDate, long shipmentId,
+		LabelField status, String tracking) {
 
-		_shipmentId = shipmentId;
-		_panelUrl = panelUrl;
 		_accountName = accountName;
 		_address = address;
 		_createDate = createDate;
+		_shipmentId = shipmentId;
 		_status = status;
 		_tracking = tracking;
 	}
@@ -43,10 +42,6 @@ public class Shipment {
 
 	public String getCreateDate() {
 		return _createDate;
-	}
-
-	public String getPanelUrl() {
-		return _panelUrl;
 	}
 
 	public long getShipmentId() {
@@ -64,7 +59,6 @@ public class Shipment {
 	private final String _accountName;
 	private final String _address;
 	private final String _createDate;
-	private final String _panelUrl;
 	private final long _shipmentId;
 	private final LabelField _status;
 	private final String _tracking;

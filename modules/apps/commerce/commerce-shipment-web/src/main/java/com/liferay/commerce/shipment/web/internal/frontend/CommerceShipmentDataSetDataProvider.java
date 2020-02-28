@@ -31,12 +31,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -47,9 +42,6 @@ import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.portlet.PortletURL;
-import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -126,13 +118,10 @@ public class CommerceShipmentDataSetDataProvider
 		for (CommerceShipment commerceShipment : commerceShipments) {
 			shipments.add(
 				new Shipment(
-					commerceShipment.getCommerceShipmentId(),
-					_getShipmentPanelURL(
-						commerceShipment.getCommerceShipmentId(),
-						httpServletRequest),
 					commerceShipment.getCommerceAccountName(),
 					_getDescriptiveAddress(commerceShipment),
 					dateTimeFormat.format(commerceShipment.getCreateDate()),
+					commerceShipment.getCommerceShipmentId(),
 					new LabelField(
 						CommerceShipmentConstants.getShipmentLabelStyle(
 							commerceShipment.getStatus()),
@@ -174,41 +163,6 @@ public class CommerceShipmentDataSetDataProvider
 
 		return sb.toString();
 	}
-
-	private String _getShipmentPanelURL(
-			long commerceShipmentId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommerceOrder.class.getName(),
-			PortletProvider.Action.MANAGE);
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommerceOrderShipment");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-
-		long commerceOrderId = ParamUtil.getLong(
-			httpServletRequest, "commerceOrderId");
-
-		portletURL.setParameter(
-			"commerceOrderId", String.valueOf(commerceOrderId));
-
-		portletURL.setParameter(
-			"commerceShipmentId", String.valueOf(commerceShipmentId));
-
-		try {
-			portletURL.setWindowState(LiferayWindowState.POP_UP);
-		}
-		catch (WindowStateException wse) {
-			_log.error(wse, wse);
-		}
-
-		return portletURL.toString();
-	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceShipmentDataSetDataProvider.class);
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
