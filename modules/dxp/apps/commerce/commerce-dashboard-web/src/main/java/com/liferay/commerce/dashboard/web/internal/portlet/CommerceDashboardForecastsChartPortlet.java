@@ -15,11 +15,23 @@
 package com.liferay.commerce.dashboard.web.internal.portlet;
 
 import com.liferay.commerce.dashboard.web.internal.constants.CommerceDashboardPortletKeys;
+import com.liferay.commerce.dashboard.web.internal.display.context.CommerceDashboardForecastDisplayContext;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
+
+import java.io.IOException;
 
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Andrea Di Giorgi
@@ -35,11 +47,13 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.instanceable=true",
 		"com.liferay.portlet.layout-cacheable=true",
 		"com.liferay.portlet.preferences-owned-by-group=true",
+		"com.liferay.portlet.preferences-unique-per-layout=true",
 		"com.liferay.portlet.private-request-attributes=false",
 		"com.liferay.portlet.private-session-attributes=false",
 		"com.liferay.portlet.render-weight=50",
 		"javax.portlet.display-name=Commerce Dashboard Forecasts Chart",
 		"javax.portlet.expiration-cache=0",
+		"javax.portlet.init-param.config-jsp=/configuration/forecast.jsp",
 		"javax.portlet.init-param.view-template=/forecast.jsp",
 		"javax.portlet.name=" + CommerceDashboardPortletKeys.COMMERCE_DASHBOARD_FORECASTS_CHART,
 		"javax.portlet.resource-bundle=content.Language",
@@ -48,4 +62,29 @@ import org.osgi.service.component.annotations.Component;
 	service = {CommerceDashboardForecastsChartPortlet.class, Portlet.class}
 )
 public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
+
+	@Override
+	public void render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		try {
+			renderRequest.setAttribute(
+				WebKeys.PORTLET_DISPLAY_CONTEXT,
+				new CommerceDashboardForecastDisplayContext(
+					_portal.getHttpServletRequest(renderRequest)));
+		}
+		catch (PortalException e) {
+			_log.error(e, e);
+		}
+
+		super.render(renderRequest, renderResponse);
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceDashboardForecastsChartPortlet.class);
+
+	@Reference
+	private Portal _portal;
+
 }
