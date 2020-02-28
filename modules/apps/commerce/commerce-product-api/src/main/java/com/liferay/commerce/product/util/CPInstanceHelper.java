@@ -42,6 +42,10 @@ import javax.portlet.RenderResponse;
 @ProviderType
 public interface CPInstanceHelper {
 
+	public CPInstance fetchCPInstance(
+			long cpDefinitionId, String serializedDDMFormValues)
+		throws PortalException;
+
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
 			long cpDefinitionId, String serializedDDMFormValues, int type)
 		throws Exception;
@@ -62,10 +66,6 @@ public interface CPInstanceHelper {
 	public List<CPDefinitionOptionValueRel> getCPDefinitionOptionValueRel(
 			long cpDefinitionId, String optionKey,
 			Map<String, String> optionMap)
-		throws Exception;
-
-	public CPInstance getCPInstance(
-			long cpDefinitionId, String serializedDDMFormValues)
 		throws Exception;
 
 	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>

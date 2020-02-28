@@ -105,6 +105,29 @@ import org.osgi.service.component.annotations.Reference;
 public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 	@Override
+	public CPInstance fetchCPInstance(
+			long cpDefinitionId, String serializedDDMFormValues)
+		throws PortalException {
+
+		if (Validator.isNull(serializedDDMFormValues) ||
+			Objects.equals(serializedDDMFormValues, "[]")) {
+
+			throw new IllegalArgumentException("Required parameter missing");
+		}
+
+		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
+			cpDefinitionId);
+
+		if (cpDefinition.isIgnoreSKUCombinations()) {
+			throw new CPDefinitionIgnoreSKUCombinationsException(
+				"Unable to get CP instance if SKU combination is ignored");
+		}
+
+		return _fetchCPInstanceBySKUContributors(
+			cpDefinitionId, serializedDDMFormValues);
+	}
+
+	@Override
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
 			long cpDefinitionId, String serializedDDMFormValues, int type)
 		throws Exception {
@@ -347,28 +370,6 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		}
 
 		return new ArrayList<>(cpDefinitionOptionValueRels);
-	}
-
-	@Override
-	public CPInstance getCPInstance(
-			long cpDefinitionId, String serializedDDMFormValues)
-		throws PortalException {
-
-		if (Validator.isNull(serializedDDMFormValues) ||
-			Objects.equals(serializedDDMFormValues, "[]")) {
-
-			throw new IllegalArgumentException("Required parameter missing");
-		}
-
-		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
-			cpDefinitionId);
-
-		if (cpDefinition.isIgnoreSKUCombinations()) {
-			throw new CPDefinitionIgnoreSKUCombinationsException(
-				"Unable to get CP instance if SKU combination is ignored");
-		}
-
-		return _findInstance(cpDefinitionId, serializedDDMFormValues);
 	}
 
 	@Override
@@ -800,7 +801,8 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		return stringStream.collect(Collectors.joining(StringPool.SEMICOLON));
 	}
 
-	private CPInstance _findInstance(long cpDefinitionId, String json)
+	private CPInstance _fetchCPInstanceBySKUContributors(
+			long cpDefinitionId, String json)
 		throws PortalException {
 
 		Map<Long, List<Long>>
@@ -808,6 +810,10 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 				_cpDefinitionOptionRelLocalService.
 					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
 						cpDefinitionId, json);
+
+		if (cpDefinitionOptionRelCPDefinitionOptionValueRelIds.isEmpty()) {
+			return null;
+		}
 
 		List<CPInstanceOptionValueRel> cpDefinitionCPInstanceOptionValueRels =
 			_cpInstanceOptionValueRelLocalService.
