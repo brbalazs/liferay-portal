@@ -43,8 +43,6 @@ public class CommerceInventoryWarehouseItemClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("name", "warehouse");
 
-		clayTableSchemaBuilder.addField("distance", "distance");
-
 		clayTableSchemaBuilder.addField("available", "available");
 
 		ClayTableSchemaField allowedField = clayTableSchemaBuilder.addField(

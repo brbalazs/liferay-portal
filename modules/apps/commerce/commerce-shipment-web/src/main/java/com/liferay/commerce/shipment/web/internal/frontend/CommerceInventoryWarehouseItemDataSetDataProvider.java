@@ -28,6 +28,7 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemLocalService;
 import com.liferay.commerce.shipment.web.internal.model.Warehouse;
 import com.liferay.commerce.shipment.web.internal.model.WarehouseItem;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -110,7 +111,8 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 						new WarehouseItem(
 							inputName, commerceOrderItem.getQuantity(), 0,
 							shipmentItemWarehouseItemQuantity),
-						commerceInventoryWarehouseItem.getQuantity(), "1 mi.",
+						commerceInventoryWarehouseItem.getQuantity(),
+						StringPool.BLANK,
 						commerceInventoryWarehouse.getName()));
 			}
 		}
