@@ -48,11 +48,13 @@ public class ClayDataSetAction {
 		return _label;
 	}
 
+	public String getMethod() {
+		return _method;
+	}
+
 	public String getOnClick() {
 		return _onClick;
 	}
-
-	public String getMethod() { return _method; }
 
 	public int getOrder() {
 		return _order;
@@ -82,7 +84,9 @@ public class ClayDataSetAction {
 		_label = label;
 	}
 
-	public void setMethod(String method) { _method = method; }
+	public void setMethod(String method) {
+		_method = method;
+	}
 
 	public void setOrder(int order) {
 		_order = order;
