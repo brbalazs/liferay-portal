@@ -81,14 +81,19 @@ CommerceShipmentDisplayContext commerceShipmentDisplayContext = (CommerceShipmen
 			).then(function(response) {
 				return response.json();
 			}).then(function(response) {
+				if (response.statusCode !== 200) {
+					return;
+				}
 
 				var select = A.one('#<portlet:namespace />commerceAddressId');
 
-				var option = A.Node.create('<option id="<portlet:namespace />commerceAddressId-' + response.items[0].id + '" value="' + response.items[0].id + '">' + response.items[0].street1 + " - " +response.items[0].city + " - " + response.items[0].regionISOCode + " - " + response.items[0].countryISOCode + '</option>');
+				response.items.forEach(function(item) {
+					var option = A.Node.create('<option id="<portlet:namespace />commerceAddressId-' + item.id + '" value="' + item.id + '">' + item.street1 + " - " + item.city + " - " + item.regionISOCode + " - " + item.countryISOCode + '</option>');
+
+					select.append(option);
+				});
 
 				select.show();
-
-				select.append(option);
 			});
 		}
 	);
