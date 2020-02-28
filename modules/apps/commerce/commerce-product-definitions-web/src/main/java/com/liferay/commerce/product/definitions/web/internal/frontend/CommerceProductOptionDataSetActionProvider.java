@@ -42,6 +42,7 @@ import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.protocol.HTTP;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -98,6 +99,8 @@ public class CommerceProductOptionDataSetActionProvider
 				StringPool.BLANK, false, false);
 
 			deleteClayDataSetAction.setTarget("async");
+
+			deleteClayDataSetAction.setMethod("delete");
 
 			clayDataSetActions.add(deleteClayDataSetAction);
 		}

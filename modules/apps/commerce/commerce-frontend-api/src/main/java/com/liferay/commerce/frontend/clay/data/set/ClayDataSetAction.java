@@ -52,6 +52,8 @@ public class ClayDataSetAction {
 		return _onClick;
 	}
 
+	public String getMethod() { return _method; }
+
 	public int getOrder() {
 		return _order;
 	}
@@ -80,6 +82,8 @@ public class ClayDataSetAction {
 		_label = label;
 	}
 
+	public void setMethod(String method) { _method = method; }
+
 	public void setOrder(int order) {
 		_order = order;
 	}
@@ -100,6 +104,7 @@ public class ClayDataSetAction {
 	private String _href;
 	private String _icon;
 	private String _label;
+	private String _method;
 	private final String _onClick;
 	private int _order;
 	private boolean _quickAction;
