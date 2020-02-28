@@ -9,4 +9,5 @@ Export-Package:\
 	com.liferay.commerce.inventory.permission,\
 	com.liferay.commerce.inventory.service,\
 	com.liferay.commerce.inventory.service.persistence,\
+	com.liferay.commerce.inventory.type,\
 	com.liferay.commerce.inventory.util.comparator
