@@ -39,9 +39,9 @@ public class CommerceInventoryWarehouseItemFinderImpl
 	extends CommerceInventoryWarehouseItemFinderBaseImpl
 	implements CommerceInventoryWarehouseItemFinder {
 
-	public static final String COUNT_ADMINUI_ITEMS_BY_COMPANYID =
+	public static final String COUNT_ITEMS_BY_COMPANY_ID =
 		CommerceInventoryWarehouseItemFinder.class.getName() +
-			".countAdminUIItemsByCompanyId";
+			".countItemsByCompanyId";
 
 	public static final String COUNT_STOCK_QUANTITY_BY_C_S =
 		CommerceInventoryWarehouseItemFinder.class.getName() +
@@ -55,23 +55,22 @@ public class CommerceInventoryWarehouseItemFinderImpl
 		CommerceInventoryWarehouseItemFinder.class.getName() +
 			".countUpdatedItemsByC_M";
 
-	public static final String FIND_ADMINUI_ITEMS_BY_COMPANYID =
+	public static final String FIND_ITEMS_BY_COMPANY_ID =
 		CommerceInventoryWarehouseItemFinder.class.getName() +
-			".findAdminUIItemsByCompanyId";
+			".findItemsByCompanyId";
 
 	public static final String FIND_UPDATED_ITEMS_BY_C_M =
 		CommerceInventoryWarehouseItemFinder.class.getName() +
 			".findUpdatedItemsByC_M";
 
 	@Override
-	public int countAdminUIItemsByCompanyId(long companyId) {
+	public int countItemsByCompanyId(long companyId) {
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			String sql = _customSQL.get(
-				getClass(), COUNT_ADMINUI_ITEMS_BY_COMPANYID);
+			String sql = _customSQL.get(getClass(), COUNT_ITEMS_BY_COMPANY_ID);
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -228,7 +227,7 @@ public class CommerceInventoryWarehouseItemFinderImpl
 	}
 
 	@Override
-	public List<Object[]> findAdminUIItemsByCompanyId(
+	public List<Object[]> findItemsByCompanyId(
 		long companyId, int start, int end) {
 
 		Session session = null;
@@ -236,8 +235,7 @@ public class CommerceInventoryWarehouseItemFinderImpl
 		try {
 			session = openSession();
 
-			String sql = _customSQL.get(
-				getClass(), FIND_ADMINUI_ITEMS_BY_COMPANYID);
+			String sql = _customSQL.get(getClass(), FIND_ITEMS_BY_COMPANY_ID);
 
 			sql = StringUtil.replace(
 				sql, new String[] {"[$COMPANY_ID$]"},
