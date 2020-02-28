@@ -26,7 +26,6 @@ portletDisplay.setURLBack(renderResponse.createRenderURL());
 <commerce-ui:header
 	actions="<%= commerceInventoryDisplayContext.getHeaderActionModels() %>"
 	beanIdLabel=""
-	dropdownItems="<%= commerceInventoryDisplayContext.getDropdownItems() %>"
 	externalReferenceCode=""
 	externalReferenceCodeEditUrl=""
 	model="<%= CommerceInventoryWarehouseItem.class %>"

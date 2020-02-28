@@ -27,7 +27,6 @@ import com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItem
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -184,29 +183,6 @@ public class CommerceInventoryDisplayContext {
 		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 		return portletURL.toString();
-	}
-
-	public List<DropdownItem> getDropdownItems() {
-		List<DropdownItem> headerDropdownItems = new ArrayList<>();
-
-		DropdownItem headerDropdownItem1 = new DropdownItem();
-
-		headerDropdownItem1.setLabel("First link");
-		headerDropdownItem1.setHref("/first-link");
-		headerDropdownItem1.setIcon("home");
-
-		headerDropdownItems.add(headerDropdownItem1);
-
-		DropdownItem headerDropdownItem2 = new DropdownItem();
-
-		headerDropdownItem2.setLabel("Second link");
-		headerDropdownItem2.setIcon("blogs");
-		headerDropdownItem2.setHref("/second-link");
-		headerDropdownItem2.setActive(true);
-
-		headerDropdownItems.add(headerDropdownItem2);
-
-		return headerDropdownItems;
 	}
 
 	public List<HeaderActionModel> getHeaderActionModels() {
