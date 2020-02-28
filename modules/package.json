@@ -46,7 +46,8 @@
 		"clay-select": "2.20.2",
 		"clay-sticker": "2.20.2",
 		"clay-table": "2.20.2",
-		"clay-tooltip": "2.20.2"
+		"clay-tooltip": "2.20.2",
+		"dnd-core": "10.0.1"
 	},
 	"scripts": {
 		"checkFormat": "liferay-npm-scripts check",
