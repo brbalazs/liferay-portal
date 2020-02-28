@@ -90,35 +90,25 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 							</c:choose>
 						</div>
 
-						<div class="item">
-							<span class="title">
-								<liferay-ui:message key="shipping-method" />
-							</span>
+						<c:if test="<%= Validator.isNotNull(commerceShippingMethod) %>">
+							<div class="item">
+								<span class="title">
+									<liferay-ui:message key="shipping-method" />
+								</span>
 
-							<c:choose>
-								<c:when test="<%= Validator.isNull(commerceShippingMethod) %>">
-									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
-								</c:when>
-								<c:otherwise>
-									<b><%= commerceShippingMethod.getName(locale) %></b>
-								</c:otherwise>
-							</c:choose>
-						</div>
+								<b><%= commerceShippingMethod.getName(locale) %></b>
+							</div>
+						</c:if>
 
-						<div class="item">
-							<span class="title">
-								<liferay-ui:message key="shipping-option" />
-							</span>
+						<c:if test="<%= Validator.isNotNull(commerceShipment.getShippingOptionName()) %>">
+							<div class="item">
+								<span class="title">
+									<liferay-ui:message key="shipping-option" />
+								</span>
 
-							<c:choose>
-								<c:when test="<%= Validator.isBlank(commerceShipment.getShippingOptionName()) %>">
-									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
-								</c:when>
-								<c:otherwise>
-									<b><%= commerceShipment.getShippingOptionName() %></b>
-								</c:otherwise>
-							</c:choose>
-						</div>
+								<b><%= commerceShipment.getShippingOptionName() %></b>
+							</div>
+						</c:if>
 					</commerce-ui:info-box>
 				</div>
 
@@ -136,9 +126,6 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 					/>
 
 					<commerce-ui:info-box
-						actionLabel='<%= LanguageUtil.get(request, "edit") %>'
-						actionTargetId="edit-address-modal"
-						actionUrl=""
 						title='<%= LanguageUtil.get(request, "shipping-address") %>'
 					>
 						<div class="item">
