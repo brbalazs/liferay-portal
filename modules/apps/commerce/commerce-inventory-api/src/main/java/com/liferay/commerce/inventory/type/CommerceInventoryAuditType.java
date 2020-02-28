@@ -12,22 +12,20 @@
  * details.
  */
 
-package com.liferay.commerce.inventory.service.persistence;
+package com.liferay.commerce.inventory.type;
 
 import aQute.bnd.annotation.ProviderType;
 
+import java.util.Map;
+
 /**
- * @author Luca Pellizzon
- * @generated
+ * @author Alessio Antonio Rendina
  */
 @ProviderType
-public interface CommerceInventoryReplenishmentItemFinder {
+public interface CommerceInventoryAuditType {
 
-	public int countAdminUIReplenishmentItemsByCompanyIdAndSku(
-		long companyId, String sku);
+	public String getLog(Map<String, String> context);
 
-	public java.util.List<Object[]>
-		findAdminUIReplenishmentItemsByCompanyIdAndSku(
-			long companyId, String sku, int start, int end);
+	public String getType();
 
 }
