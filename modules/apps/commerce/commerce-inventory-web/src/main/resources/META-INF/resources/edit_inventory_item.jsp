@@ -20,21 +20,12 @@
 CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 portletDisplay.setShowBackIcon(true);
-
-if (Validator.isNull(redirect)) {
-	portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
-}
-else {
-	portletDisplay.setURLBack(redirect);
-}
-
-CommerceInventoryWarehouseItem commerceInventoryWarehouseItem = commerceInventoryDisplayContext.getCommerceInventoryWarehouseItem();
+portletDisplay.setURLBack(renderResponse.createRenderURL());
 %>
 
 <commerce-ui:header
 	actions="<%= commerceInventoryDisplayContext.getHeaderActionModels() %>"
-	bean="<%= commerceInventoryWarehouseItem %>"
-	beanIdLabel="inventory-item"
+	beanIdLabel=""
 	dropdownItems="<%= commerceInventoryDisplayContext.getDropdownItems() %>"
 	externalReferenceCode=""
 	externalReferenceCodeEditUrl=""
@@ -42,6 +33,7 @@ CommerceInventoryWarehouseItem commerceInventoryWarehouseItem = commerceInventor
 	thumbnailUrl=""
 	title="<%= commerceInventoryDisplayContext.getSku() %>"
 	transitionPortletURL="<%= commerceInventoryDisplayContext.getTransitionInventoryPortletURL() %>"
+	wrapperCssClasses="side-panel-top-anchor"
 />
 
 <div id="<portlet:namespace />editInventoryItemContainer">
