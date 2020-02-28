@@ -16,10 +16,11 @@ package com.liferay.commerce.inventory.model;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
-public class CommerceInventoryAdminUIItem {
+public class CIWarehouseItem {
 
-	public CommerceInventoryAdminUIItem(
+	public CIWarehouseItem(
 		String skuCode, int stockQuantity, int bookedQuantity,
 		int replenishmentQuantity) {
 
