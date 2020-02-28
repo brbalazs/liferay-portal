@@ -25,7 +25,7 @@
 		views: <%= jsonSerializer.serializeDeep(clayDataSetDisplayViewsContext) %>,
 		apiUrl: '<%= dataSetAPI %>',
 		bulkActions: <%= jsonSerializer.serializeDeep(bulkActions) %>,
-		creationMenuItems: <%= jsonSerializer.serializeDeep(clayCreationMenu.getClayCreationMenuItems()) %>,
+		creationMenuItems: <%= jsonSerializer.serializeDeep(clayCreationMenu.getClayCreationMenuActionItems()) %>,
 		currentUrl: '<%= currentURL %>',
 		formId: '<%= formId %>',
 		dataProviderKey: '<%= dataProviderKey %>',

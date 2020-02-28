@@ -447,7 +447,7 @@ public class CommerceShipmentDisplayContext
 				"mvcRenderCommandName", "addCommerceShipment");
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
 
-			clayCreationMenu.addClayCreationMenuItem(
+			clayCreationMenu.addClayCreationMenuActionItem(
 				new ClayCreationMenuActionItem(
 					portletURL.toString(),
 					LanguageUtil.format(
@@ -497,7 +497,7 @@ public class CommerceShipmentDisplayContext
 				"mvcRenderCommandName", "addCommerceShipmentItems");
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
 
-			clayCreationMenu.addClayCreationMenuItem(
+			clayCreationMenu.addClayCreationMenuActionItem(
 				new ClayCreationMenuActionItem(
 					portletURL.toString(),
 					LanguageUtil.format(

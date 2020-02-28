@@ -59,7 +59,7 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 	public ClayCreationMenu getClayCreationMenu() throws Exception {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
-		clayCreationMenu.addClayCreationMenuItem(
+		clayCreationMenu.addClayCreationMenuActionItem(
 			new ClayCreationMenuActionItem(
 				_getAddCommerceTierPriceEntryURL(),
 				LanguageUtil.get(httpServletRequest, "add-tier-price-entry"),

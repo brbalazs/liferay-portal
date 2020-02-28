@@ -113,7 +113,7 @@ public class CPAttachmentFileEntriesDisplayContext
 
 		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
-		clayCreationMenu.addClayCreationMenuItem(
+		clayCreationMenu.addClayCreationMenuActionItem(
 			new ClayCreationMenuActionItem(
 				portletURL.toString(), _getTypeLabel(type),
 				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));

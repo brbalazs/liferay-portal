@@ -23,31 +23,31 @@ import java.util.List;
 public class ClayCreationMenu {
 
 	public ClayCreationMenu() {
-		_clayCreationMenuItems = new ArrayList<>();
+		_clayCreationMenuActionItems = new ArrayList<>();
 	}
 
-	public void addClayCreationMenuItem(
-		ClayCreationMenuActionItem clayCreationMenuItem) {
+	public void addClayCreationMenuActionItem(
+		ClayCreationMenuActionItem clayCreationMenuActionItem) {
 
-		_clayCreationMenuItems.add(clayCreationMenuItem);
+		_clayCreationMenuActionItems.add(clayCreationMenuActionItem);
 	}
 
-	public void addClayCreationMenuItem(String url, String label) {
-		addClayCreationMenuItem(
+	public void addClayCreationMenuActionItem(String url, String label) {
+		addClayCreationMenuActionItem(
 			url, label, ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_LINK);
 	}
 
-	public void addClayCreationMenuItem(
+	public void addClayCreationMenuActionItem(
 		String url, String label, String target) {
 
-		_clayCreationMenuItems.add(
+		_clayCreationMenuActionItems.add(
 			new ClayCreationMenuActionItem(url, label, target));
 	}
 
-	public List<ClayCreationMenuActionItem> getClayCreationMenuItems() {
-		return _clayCreationMenuItems;
+	public List<ClayCreationMenuActionItem> getClayCreationMenuActionItems() {
+		return _clayCreationMenuActionItems;
 	}
 
-	private final List<ClayCreationMenuActionItem> _clayCreationMenuItems;
+	private final List<ClayCreationMenuActionItem> _clayCreationMenuActionItems;
 
 }

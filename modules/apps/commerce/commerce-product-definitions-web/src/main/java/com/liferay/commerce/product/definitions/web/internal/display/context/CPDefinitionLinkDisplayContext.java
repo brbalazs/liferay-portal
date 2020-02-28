@@ -76,7 +76,7 @@ public class CPDefinitionLinkDisplayContext
 			sb.append("addCommerceProductDefinitionLink");
 			sb.append(type);
 
-			clayCreationMenu.addClayCreationMenuItem(
+			clayCreationMenu.addClayCreationMenuActionItem(
 				new ClayCreationMenuActionItem(
 					sb.toString(),
 					LanguageUtil.format(

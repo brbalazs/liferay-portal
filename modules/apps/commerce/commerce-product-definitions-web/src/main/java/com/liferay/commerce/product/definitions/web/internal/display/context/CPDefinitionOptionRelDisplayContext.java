@@ -92,7 +92,7 @@ public class CPDefinitionOptionRelDisplayContext
 			String.valueOf(getCPDefinitionOptionRelId()));
 		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
-		clayCreationMenu.addClayCreationMenuItem(
+		clayCreationMenu.addClayCreationMenuActionItem(
 			new ClayCreationMenuActionItem(
 				portletURL.toString(),
 				LanguageUtil.get(cpRequestHelper.getRequest(), "add-value"),

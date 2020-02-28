@@ -74,12 +74,13 @@ public class CPDefinitionsDisplayContext
 		for (CPType cpType : getCPTypes()) {
 			renderURL.setParameter("productTypeName", cpType.getName());
 
-			ClayCreationMenuActionItem clayCreationMenuItem =
+			ClayCreationMenuActionItem clayCreationMenuActionItem =
 				new ClayCreationMenuActionItem(
 					renderURL.toString(),
 					cpType.getLabel(cpRequestHelper.getLocale()));
 
-			clayCreationMenu.addClayCreationMenuItem(clayCreationMenuItem);
+			clayCreationMenu.addClayCreationMenuActionItem(
+				clayCreationMenuActionItem);
 		}
 
 		return clayCreationMenu;
