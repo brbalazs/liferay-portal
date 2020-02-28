@@ -309,6 +309,7 @@ public class SelectDDMFormFieldTemplateContextContributorTest
 		Map<String, String> option = new HashMap<>();
 
 		option.put("label", label);
+		option.put("selected", "false");
 		option.put("value", value);
 
 		return option;
