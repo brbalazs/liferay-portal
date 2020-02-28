@@ -67,54 +67,58 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 							</div>
 
 							<div class="border-left col d-flex flex-column justify-content-center">
-								<small class="d-block">
-									<span class="header-info-title">
-										<liferay-ui:message key="<%= beanIdLabel %>" />:
-									</span>
+								<c:if test="<%= Validator.isNotNull(beanIdLabel) %>">
+									<small class="d-block">
+										<span class="header-info-title">
+											<liferay-ui:message key="<%= beanIdLabel %>" />:
+										</span>
 
-									<strong class="header-info-value">
-										<%= beanId %>
-									</strong>
+										<strong class="header-info-value">
+											<%= beanId %>
+										</strong>
 
-									<liferay-ui:icon-help message="identification-number" />
-								</small>
+										<liferay-ui:icon-help message="identification-number" />
+									</small>
+								</c:if>
 
-								<small class="d-block">
-									<span class="header-info-title">
-										<liferay-ui:message key="erc" />:
-									</span>
+								<c:if test="<%= Validator.isNotNull(externalReferenceCode) || Validator.isNotNull(externalReferenceCodeEditUrl) %>">
+									<small class="d-block">
+										<span class="header-info-title">
+											<liferay-ui:message key="erc" />:
+										</span>
 
-									<strong class="header-info-value">
-										<%= externalReferenceCode %>
-									</strong>
+										<strong class="header-info-value">
+											<%= externalReferenceCode %>
+										</strong>
 
-									<liferay-ui:icon-help message="external-reference-code" />
+										<liferay-ui:icon-help message="external-reference-code" />
 
-									<c:if test="<%= Validator.isNotNull(externalReferenceCodeEditUrl) %>">
-										<clay:link
-											elementClasses="btn btn-link btn-unstyled header-info-link ml-3"
-											href="#"
-											id="erc-edit-modal-opener"
-											label='<%= LanguageUtil.get(request, "edit") %>'
-										/>
+										<c:if test="<%= Validator.isNotNull(externalReferenceCodeEditUrl) %>">
+											<clay:link
+												elementClasses="btn btn-link btn-unstyled header-info-link ml-3"
+												href="#"
+												id="erc-edit-modal-opener"
+												label='<%= LanguageUtil.get(request, "edit") %>'
+											/>
 
-										<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-											document
-												.querySelector('#erc-edit-modal-opener')
-												.addEventListener('click', function(e) {
-													e.preventDefault();
-													Liferay.fire(events.OPEN_MODAL, {id: 'erc-edit-modal'});
-												});
-										</aui:script>
+											<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
+												document
+													.querySelector('#erc-edit-modal-opener')
+													.addEventListener('click', function(e) {
+														e.preventDefault();
+														Liferay.fire(events.OPEN_MODAL, {id: 'erc-edit-modal'});
+													});
+											</aui:script>
 
-										<commerce-ui:modal
-											id="erc-edit-modal"
-											refreshPageOnClose="<%= true %>"
-											title='<%= LanguageUtil.format(request, "edit-x", "external-reference-code") %>'
-											url="<%= externalReferenceCodeEditUrl %>"
-										/>
-									</c:if>
-								</small>
+											<commerce-ui:modal
+												id="erc-edit-modal"
+												refreshPageOnClose="<%= true %>"
+												title='<%= LanguageUtil.format(request, "edit-x", "external-reference-code") %>'
+												url="<%= externalReferenceCodeEditUrl %>"
+											/>
+										</c:if>
+									</small>
+								</c:if>
 							</div>
 						</div>
 					</div>
