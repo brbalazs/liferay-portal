@@ -16,7 +16,6 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.definitions.web.internal.model.ProductOption;
 import com.liferay.commerce.product.definitions.web.internal.security.permission.resource.CommerceCatalogPermission;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -32,15 +31,12 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
 
@@ -93,14 +89,15 @@ public class CommerceProductOptionDataSetActionProvider
 
 			clayDataSetActions.add(editClayDataSetAction);
 
-			PortletURL deleteURL = _getProductOptionDeleteURL(
-				cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-				httpServletRequest);
-
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
+				StringPool.BLANK,
+				_getProductOptionDeleteURL(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId()),
+				StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "delete"),
 				StringPool.BLANK, false, false);
+
+			deleteClayDataSetAction.setTarget("async");
 
 			clayDataSetActions.add(deleteClayDataSetAction);
 		}
@@ -108,23 +105,9 @@ public class CommerceProductOptionDataSetActionProvider
 		return clayDataSetActions;
 	}
 
-	private PortletURL _getProductOptionDeleteURL(
-			long cpDefinitionOptionRelId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			_portal.getOriginalServletRequest(httpServletRequest),
-			CPPortletKeys.CP_DEFINITIONS, PortletRequest.ACTION_PHASE);
-
-		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editProductDefinitionOptionRel");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter(
-			"cpDefinitionOptionRelId", String.valueOf(cpDefinitionOptionRelId));
-
-		return portletURL;
+	private String _getProductOptionDeleteURL(long cpDefinitionOptionRelId) {
+		return "/o/headless-commerce-admin-catalog/v1.0/productOptions/" +
+			cpDefinitionOptionRelId;
 	}
 
 	private PortletURL _getProductOptionEditURL(
