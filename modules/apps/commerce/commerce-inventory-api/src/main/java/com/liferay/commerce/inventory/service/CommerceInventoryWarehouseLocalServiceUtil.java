@@ -72,13 +72,6 @@ public class CommerceInventoryWarehouseLocalServiceUtil {
 			externalReferenceCode, serviceContext);
 	}
 
-	public static int countAdminUIWarehousesByCompanyIdAndSku(
-		long companyId, String sku) {
-
-		return getService().countAdminUIWarehousesByCompanyIdAndSku(
-			companyId, sku);
-	}
-
 	/**
 	 * Creates a new commerce inventory warehouse with the primary key. Does not add the commerce inventory warehouse to the database.
 	 *
@@ -264,23 +257,6 @@ public class CommerceInventoryWarehouseLocalServiceUtil {
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
-	}
-
-	/**
-	 * @param companyId
-	 * @param sku
-	 * @param start
-	 * @param end
-	 * @return a list of objects arrays containing:
-	 warehouse name, stock quantity, reserved quantity, replenishment quantity
-	 */
-	public static java.util.List
-		<com.liferay.commerce.inventory.model.CommerceInventoryAdminUIWarehouse>
-			getAdminUIWarehousesByCompanyIdAndSku(
-				long companyId, String sku, int start, int end) {
-
-		return getService().getAdminUIWarehousesByCompanyIdAndSku(
-			companyId, sku, start, end);
 	}
 
 	/**

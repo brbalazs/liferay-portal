@@ -281,6 +281,14 @@ public class CommerceOrderItemLocalServiceWrapper
 			commerceOrderItemId);
 	}
 
+	@Override
+	public com.liferay.commerce.model.CommerceOrderItem
+		fetchCommerceOrderItemByBookedQuantityId(long bookedQuantityId) {
+
+		return _commerceOrderItemLocalService.
+			fetchCommerceOrderItemByBookedQuantityId(bookedQuantityId);
+	}
+
 	/**
 	 * Returns the commerce order item with the matching external reference code and company.
 	 *

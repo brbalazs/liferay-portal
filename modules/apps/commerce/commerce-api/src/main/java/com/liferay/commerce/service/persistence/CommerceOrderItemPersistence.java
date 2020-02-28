@@ -481,6 +481,51 @@ public interface CommerceOrderItemPersistence
 	public int countByCPInstanceId(long CPInstanceId);
 
 	/**
+	 * Returns the commerce order item where bookedQuantityId = &#63; or throws a <code>NoSuchOrderItemException</code> if it could not be found.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @return the matching commerce order item
+	 * @throws NoSuchOrderItemException if a matching commerce order item could not be found
+	 */
+	public CommerceOrderItem findByBookedQuantityId(long bookedQuantityId)
+		throws NoSuchOrderItemException;
+
+	/**
+	 * Returns the commerce order item where bookedQuantityId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @return the matching commerce order item, or <code>null</code> if a matching commerce order item could not be found
+	 */
+	public CommerceOrderItem fetchByBookedQuantityId(long bookedQuantityId);
+
+	/**
+	 * Returns the commerce order item where bookedQuantityId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching commerce order item, or <code>null</code> if a matching commerce order item could not be found
+	 */
+	public CommerceOrderItem fetchByBookedQuantityId(
+		long bookedQuantityId, boolean useFinderCache);
+
+	/**
+	 * Removes the commerce order item where bookedQuantityId = &#63; from the database.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @return the commerce order item that was removed
+	 */
+	public CommerceOrderItem removeByBookedQuantityId(long bookedQuantityId)
+		throws NoSuchOrderItemException;
+
+	/**
+	 * Returns the number of commerce order items where bookedQuantityId = &#63;.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @return the number of matching commerce order items
+	 */
+	public int countByBookedQuantityId(long bookedQuantityId);
+
+	/**
 	 * Returns all the commerce order items where commerceOrderId = &#63; and CPInstanceId = &#63;.
 	 *
 	 * @param commerceOrderId the commerce order ID

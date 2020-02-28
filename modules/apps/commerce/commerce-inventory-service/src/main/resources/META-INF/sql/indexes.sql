@@ -8,6 +8,7 @@ create index IX_EC1719EE on CIBookedQuantity (sku[$COLUMN_LENGTH:75$]);
 
 create index IX_F588314 on CIReplenishmentItem (availabilityDate);
 create index IX_967CACA8 on CIReplenishmentItem (commerceInventoryWarehouseId);
+create index IX_1B681B5C on CIReplenishmentItem (companyId, sku[$COLUMN_LENGTH:75$]);
 create index IX_6C8E22D3 on CIReplenishmentItem (sku[$COLUMN_LENGTH:75$], availabilityDate);
 
 create index IX_8427A055 on CIWarehouse (active_, countryTwoLettersISOCode[$COLUMN_LENGTH:75$]);

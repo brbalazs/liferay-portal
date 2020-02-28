@@ -66,4 +66,7 @@ public interface CommerceInventoryReplenishmentItem
 
 			};
 
+	public CommerceInventoryWarehouse getCommerceInventoryWarehouse()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 }

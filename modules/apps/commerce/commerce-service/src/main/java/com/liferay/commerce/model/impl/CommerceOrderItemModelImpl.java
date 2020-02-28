@@ -175,15 +175,17 @@ public class CommerceOrderItemModelImpl
 
 	public static final long CPRODUCTID_COLUMN_BITMASK = 2L;
 
-	public static final long COMMERCEORDERID_COLUMN_BITMASK = 4L;
+	public static final long BOOKEDQUANTITYID_COLUMN_BITMASK = 4L;
 
-	public static final long COMPANYID_COLUMN_BITMASK = 8L;
+	public static final long COMMERCEORDERID_COLUMN_BITMASK = 8L;
 
-	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 16L;
+	public static final long COMPANYID_COLUMN_BITMASK = 16L;
 
-	public static final long SUBSCRIPTION_COLUMN_BITMASK = 32L;
+	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 32L;
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 64L;
+	public static final long SUBSCRIPTION_COLUMN_BITMASK = 64L;
+
+	public static final long CREATEDATE_COLUMN_BITMASK = 128L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -1683,7 +1685,19 @@ public class CommerceOrderItemModelImpl
 
 	@Override
 	public void setBookedQuantityId(long bookedQuantityId) {
+		_columnBitmask |= BOOKEDQUANTITYID_COLUMN_BITMASK;
+
+		if (!_setOriginalBookedQuantityId) {
+			_setOriginalBookedQuantityId = true;
+
+			_originalBookedQuantityId = _bookedQuantityId;
+		}
+
 		_bookedQuantityId = bookedQuantityId;
+	}
+
+	public long getOriginalBookedQuantityId() {
+		return _originalBookedQuantityId;
 	}
 
 	@JSON
@@ -1933,6 +1947,11 @@ public class CommerceOrderItemModelImpl
 			commerceOrderItemModelImpl._subscription;
 
 		commerceOrderItemModelImpl._setOriginalSubscription = false;
+
+		commerceOrderItemModelImpl._originalBookedQuantityId =
+			commerceOrderItemModelImpl._bookedQuantityId;
+
+		commerceOrderItemModelImpl._setOriginalBookedQuantityId = false;
 
 		commerceOrderItemModelImpl._columnBitmask = 0;
 	}
@@ -2193,6 +2212,8 @@ public class CommerceOrderItemModelImpl
 	private String _printedNote;
 	private Date _requestedDeliveryDate;
 	private long _bookedQuantityId;
+	private long _originalBookedQuantityId;
+	private boolean _setOriginalBookedQuantityId;
 	private boolean _manuallyAdjusted;
 	private long _columnBitmask;
 	private CommerceOrderItem _escapedModel;

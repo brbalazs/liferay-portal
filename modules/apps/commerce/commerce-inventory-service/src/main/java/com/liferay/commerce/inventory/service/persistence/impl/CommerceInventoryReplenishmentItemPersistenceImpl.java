@@ -218,45 +218,45 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
-			query.append(
+			sb.append(
 				_FINDER_COLUMN_COMMERCEINVENTORYWAREHOUSEID_COMMERCEINVENTORYWAREHOUSEID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
+				sb.append(
 					CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(commerceInventoryWarehouseId);
+				queryPos.add(commerceInventoryWarehouseId);
 
 				list = (List<CommerceInventoryReplenishmentItem>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -303,16 +303,16 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return commerceInventoryReplenishmentItem;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("commerceInventoryWarehouseId=");
-		msg.append(commerceInventoryWarehouseId);
+		sb.append("commerceInventoryWarehouseId=");
+		sb.append(commerceInventoryWarehouseId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchInventoryReplenishmentItemException(msg.toString());
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
 	}
 
 	/**
@@ -364,16 +364,16 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return commerceInventoryReplenishmentItem;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("commerceInventoryWarehouseId=");
-		msg.append(commerceInventoryWarehouseId);
+		sb.append("commerceInventoryWarehouseId=");
+		sb.append(commerceInventoryWarehouseId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchInventoryReplenishmentItemException(msg.toString());
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
 	}
 
 	/**
@@ -468,20 +468,20 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 				orderByComparator,
 			boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
-		query.append(
+		sb.append(
 			_FINDER_COLUMN_COMMERCEINVENTORYWAREHOUSEID_COMMERCEINVENTORYWAREHOUSEID_2);
 
 		if (orderByComparator != null) {
@@ -489,83 +489,83 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(
+			sb.append(
 				CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(commerceInventoryWarehouseId);
+		queryPos.add(commerceInventoryWarehouseId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryReplenishmentItem)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryReplenishmentItem> list = q.list();
+		List<CommerceInventoryReplenishmentItem> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -611,27 +611,27 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
-			query.append(
+			sb.append(
 				_FINDER_COLUMN_COMMERCEINVENTORYWAREHOUSEID_COMMERCEINVENTORYWAREHOUSEID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(commerceInventoryWarehouseId);
+				queryPos.add(commerceInventoryWarehouseId);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -769,55 +769,55 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 			boolean bindSku = false;
 
 			if (sku.isEmpty()) {
-				query.append(_FINDER_COLUMN_SKU_SKU_3);
+				sb.append(_FINDER_COLUMN_SKU_SKU_3);
 			}
 			else {
 				bindSku = true;
 
-				query.append(_FINDER_COLUMN_SKU_SKU_2);
+				sb.append(_FINDER_COLUMN_SKU_SKU_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
+				sb.append(
 					CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindSku) {
-					qPos.add(sku);
+					queryPos.add(sku);
 				}
 
 				list = (List<CommerceInventoryReplenishmentItem>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -862,16 +862,16 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return commerceInventoryReplenishmentItem;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("sku=");
-		msg.append(sku);
+		sb.append("sku=");
+		sb.append(sku);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchInventoryReplenishmentItemException(msg.toString());
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
 	}
 
 	/**
@@ -919,16 +919,16 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return commerceInventoryReplenishmentItem;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("sku=");
-		msg.append(sku);
+		sb.append("sku=");
+		sb.append(sku);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchInventoryReplenishmentItemException(msg.toString());
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
 	}
 
 	/**
@@ -1016,28 +1016,28 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		OrderByComparator<CommerceInventoryReplenishmentItem> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 		boolean bindSku = false;
 
 		if (sku.isEmpty()) {
-			query.append(_FINDER_COLUMN_SKU_SKU_3);
+			sb.append(_FINDER_COLUMN_SKU_SKU_3);
 		}
 		else {
 			bindSku = true;
 
-			query.append(_FINDER_COLUMN_SKU_SKU_2);
+			sb.append(_FINDER_COLUMN_SKU_SKU_2);
 		}
 
 		if (orderByComparator != null) {
@@ -1045,73 +1045,73 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(
+			sb.append(
 				CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
 		if (bindSku) {
-			qPos.add(sku);
+			queryPos.add(sku);
 		}
 
 		if (orderByComparator != null) {
@@ -1119,11 +1119,11 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryReplenishmentItem)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryReplenishmentItem> list = q.list();
+		List<CommerceInventoryReplenishmentItem> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1166,37 +1166,37 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 			boolean bindSku = false;
 
 			if (sku.isEmpty()) {
-				query.append(_FINDER_COLUMN_SKU_SKU_3);
+				sb.append(_FINDER_COLUMN_SKU_SKU_3);
 			}
 			else {
 				bindSku = true;
 
-				query.append(_FINDER_COLUMN_SKU_SKU_2);
+				sb.append(_FINDER_COLUMN_SKU_SKU_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindSku) {
-					qPos.add(sku);
+					queryPos.add(sku);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1342,57 +1342,55 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 			boolean bindAvailabilityDate = false;
 
 			if (availabilityDate == null) {
-				query.append(
-					_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_1);
+				sb.append(_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_1);
 			}
 			else {
 				bindAvailabilityDate = true;
 
-				query.append(
-					_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_2);
+				sb.append(_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
+				sb.append(
 					CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindAvailabilityDate) {
-					qPos.add(new Timestamp(availabilityDate.getTime()));
+					queryPos.add(new Timestamp(availabilityDate.getTime()));
 				}
 
 				list = (List<CommerceInventoryReplenishmentItem>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1437,16 +1435,16 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return commerceInventoryReplenishmentItem;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("availabilityDate=");
-		msg.append(availabilityDate);
+		sb.append("availabilityDate=");
+		sb.append(availabilityDate);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchInventoryReplenishmentItemException(msg.toString());
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
 	}
 
 	/**
@@ -1494,16 +1492,16 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return commerceInventoryReplenishmentItem;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("availabilityDate=");
-		msg.append(availabilityDate);
+		sb.append("availabilityDate=");
+		sb.append(availabilityDate);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchInventoryReplenishmentItemException(msg.toString());
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
 	}
 
 	/**
@@ -1594,28 +1592,28 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 				orderByComparator,
 			boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 		boolean bindAvailabilityDate = false;
 
 		if (availabilityDate == null) {
-			query.append(_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_1);
+			sb.append(_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_1);
 		}
 		else {
 			bindAvailabilityDate = true;
 
-			query.append(_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_2);
+			sb.append(_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -1623,73 +1621,73 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(
+			sb.append(
 				CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
 		if (bindAvailabilityDate) {
-			qPos.add(new Timestamp(availabilityDate.getTime()));
+			queryPos.add(new Timestamp(availabilityDate.getTime()));
 		}
 
 		if (orderByComparator != null) {
@@ -1697,11 +1695,11 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryReplenishmentItem)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryReplenishmentItem> list = q.list();
+		List<CommerceInventoryReplenishmentItem> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1743,39 +1741,37 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 			boolean bindAvailabilityDate = false;
 
 			if (availabilityDate == null) {
-				query.append(
-					_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_1);
+				sb.append(_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_1);
 			}
 			else {
 				bindAvailabilityDate = true;
 
-				query.append(
-					_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_2);
+				sb.append(_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindAvailabilityDate) {
-					qPos.add(new Timestamp(availabilityDate.getTime()));
+					queryPos.add(new Timestamp(availabilityDate.getTime()));
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1799,6 +1795,615 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 	private static final String
 		_FINDER_COLUMN_AVAILABILITYDATE_AVAILABILITYDATE_2 =
 			"commerceInventoryReplenishmentItem.availabilityDate = ?";
+
+	private FinderPath _finderPathWithPaginationFindByC_S;
+	private FinderPath _finderPathWithoutPaginationFindByC_S;
+	private FinderPath _finderPathCountByC_S;
+
+	/**
+	 * Returns all the commerce inventory replenishment items where companyId = &#63; and sku = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @return the matching commerce inventory replenishment items
+	 */
+	@Override
+	public List<CommerceInventoryReplenishmentItem> findByC_S(
+		long companyId, String sku) {
+
+		return findByC_S(
+			companyId, sku, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the commerce inventory replenishment items where companyId = &#63; and sku = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceInventoryReplenishmentItemModelImpl</code>.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @param start the lower bound of the range of commerce inventory replenishment items
+	 * @param end the upper bound of the range of commerce inventory replenishment items (not inclusive)
+	 * @return the range of matching commerce inventory replenishment items
+	 */
+	@Override
+	public List<CommerceInventoryReplenishmentItem> findByC_S(
+		long companyId, String sku, int start, int end) {
+
+		return findByC_S(companyId, sku, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the commerce inventory replenishment items where companyId = &#63; and sku = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceInventoryReplenishmentItemModelImpl</code>.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @param start the lower bound of the range of commerce inventory replenishment items
+	 * @param end the upper bound of the range of commerce inventory replenishment items (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching commerce inventory replenishment items
+	 */
+	@Override
+	public List<CommerceInventoryReplenishmentItem> findByC_S(
+		long companyId, String sku, int start, int end,
+		OrderByComparator<CommerceInventoryReplenishmentItem>
+			orderByComparator) {
+
+		return findByC_S(companyId, sku, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the commerce inventory replenishment items where companyId = &#63; and sku = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceInventoryReplenishmentItemModelImpl</code>.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @param start the lower bound of the range of commerce inventory replenishment items
+	 * @param end the upper bound of the range of commerce inventory replenishment items (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching commerce inventory replenishment items
+	 */
+	@Override
+	public List<CommerceInventoryReplenishmentItem> findByC_S(
+		long companyId, String sku, int start, int end,
+		OrderByComparator<CommerceInventoryReplenishmentItem> orderByComparator,
+		boolean useFinderCache) {
+
+		sku = Objects.toString(sku, "");
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByC_S;
+				finderArgs = new Object[] {companyId, sku};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByC_S;
+			finderArgs = new Object[] {
+				companyId, sku, start, end, orderByComparator
+			};
+		}
+
+		List<CommerceInventoryReplenishmentItem> list = null;
+
+		if (useFinderCache) {
+			list =
+				(List<CommerceInventoryReplenishmentItem>)finderCache.getResult(
+					finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (CommerceInventoryReplenishmentItem
+						commerceInventoryReplenishmentItem : list) {
+
+					if ((companyId !=
+							commerceInventoryReplenishmentItem.
+								getCompanyId()) ||
+						!sku.equals(
+							commerceInventoryReplenishmentItem.getSku())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(4);
+			}
+
+			sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+
+			sb.append(_FINDER_COLUMN_C_S_COMPANYID_2);
+
+			boolean bindSku = false;
+
+			if (sku.isEmpty()) {
+				sb.append(_FINDER_COLUMN_C_S_SKU_3);
+			}
+			else {
+				bindSku = true;
+
+				sb.append(_FINDER_COLUMN_C_S_SKU_2);
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(
+					CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(companyId);
+
+				if (bindSku) {
+					queryPos.add(sku);
+				}
+
+				list = (List<CommerceInventoryReplenishmentItem>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first commerce inventory replenishment item in the ordered set where companyId = &#63; and sku = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce inventory replenishment item
+	 * @throws NoSuchInventoryReplenishmentItemException if a matching commerce inventory replenishment item could not be found
+	 */
+	@Override
+	public CommerceInventoryReplenishmentItem findByC_S_First(
+			long companyId, String sku,
+			OrderByComparator<CommerceInventoryReplenishmentItem>
+				orderByComparator)
+		throws NoSuchInventoryReplenishmentItemException {
+
+		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem =
+			fetchByC_S_First(companyId, sku, orderByComparator);
+
+		if (commerceInventoryReplenishmentItem != null) {
+			return commerceInventoryReplenishmentItem;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("companyId=");
+		sb.append(companyId);
+
+		sb.append(", sku=");
+		sb.append(sku);
+
+		sb.append("}");
+
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
+	}
+
+	/**
+	 * Returns the first commerce inventory replenishment item in the ordered set where companyId = &#63; and sku = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce inventory replenishment item, or <code>null</code> if a matching commerce inventory replenishment item could not be found
+	 */
+	@Override
+	public CommerceInventoryReplenishmentItem fetchByC_S_First(
+		long companyId, String sku,
+		OrderByComparator<CommerceInventoryReplenishmentItem>
+			orderByComparator) {
+
+		List<CommerceInventoryReplenishmentItem> list = findByC_S(
+			companyId, sku, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last commerce inventory replenishment item in the ordered set where companyId = &#63; and sku = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce inventory replenishment item
+	 * @throws NoSuchInventoryReplenishmentItemException if a matching commerce inventory replenishment item could not be found
+	 */
+	@Override
+	public CommerceInventoryReplenishmentItem findByC_S_Last(
+			long companyId, String sku,
+			OrderByComparator<CommerceInventoryReplenishmentItem>
+				orderByComparator)
+		throws NoSuchInventoryReplenishmentItemException {
+
+		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem =
+			fetchByC_S_Last(companyId, sku, orderByComparator);
+
+		if (commerceInventoryReplenishmentItem != null) {
+			return commerceInventoryReplenishmentItem;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("companyId=");
+		sb.append(companyId);
+
+		sb.append(", sku=");
+		sb.append(sku);
+
+		sb.append("}");
+
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
+	}
+
+	/**
+	 * Returns the last commerce inventory replenishment item in the ordered set where companyId = &#63; and sku = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce inventory replenishment item, or <code>null</code> if a matching commerce inventory replenishment item could not be found
+	 */
+	@Override
+	public CommerceInventoryReplenishmentItem fetchByC_S_Last(
+		long companyId, String sku,
+		OrderByComparator<CommerceInventoryReplenishmentItem>
+			orderByComparator) {
+
+		int count = countByC_S(companyId, sku);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<CommerceInventoryReplenishmentItem> list = findByC_S(
+			companyId, sku, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the commerce inventory replenishment items before and after the current commerce inventory replenishment item in the ordered set where companyId = &#63; and sku = &#63;.
+	 *
+	 * @param commerceInventoryReplenishmentItemId the primary key of the current commerce inventory replenishment item
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next commerce inventory replenishment item
+	 * @throws NoSuchInventoryReplenishmentItemException if a commerce inventory replenishment item with the primary key could not be found
+	 */
+	@Override
+	public CommerceInventoryReplenishmentItem[] findByC_S_PrevAndNext(
+			long commerceInventoryReplenishmentItemId, long companyId,
+			String sku,
+			OrderByComparator<CommerceInventoryReplenishmentItem>
+				orderByComparator)
+		throws NoSuchInventoryReplenishmentItemException {
+
+		sku = Objects.toString(sku, "");
+
+		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem =
+			findByPrimaryKey(commerceInventoryReplenishmentItemId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CommerceInventoryReplenishmentItem[] array =
+				new CommerceInventoryReplenishmentItemImpl[3];
+
+			array[0] = getByC_S_PrevAndNext(
+				session, commerceInventoryReplenishmentItem, companyId, sku,
+				orderByComparator, true);
+
+			array[1] = commerceInventoryReplenishmentItem;
+
+			array[2] = getByC_S_PrevAndNext(
+				session, commerceInventoryReplenishmentItem, companyId, sku,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CommerceInventoryReplenishmentItem getByC_S_PrevAndNext(
+		Session session,
+		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem,
+		long companyId, String sku,
+		OrderByComparator<CommerceInventoryReplenishmentItem> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(4);
+		}
+
+		sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+
+		sb.append(_FINDER_COLUMN_C_S_COMPANYID_2);
+
+		boolean bindSku = false;
+
+		if (sku.isEmpty()) {
+			sb.append(_FINDER_COLUMN_C_S_SKU_3);
+		}
+		else {
+			bindSku = true;
+
+			sb.append(_FINDER_COLUMN_C_S_SKU_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(
+				CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(companyId);
+
+		if (bindSku) {
+			queryPos.add(sku);
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceInventoryReplenishmentItem)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<CommerceInventoryReplenishmentItem> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the commerce inventory replenishment items where companyId = &#63; and sku = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 */
+	@Override
+	public void removeByC_S(long companyId, String sku) {
+		for (CommerceInventoryReplenishmentItem
+				commerceInventoryReplenishmentItem :
+					findByC_S(
+						companyId, sku, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+						null)) {
+
+			remove(commerceInventoryReplenishmentItem);
+		}
+	}
+
+	/**
+	 * Returns the number of commerce inventory replenishment items where companyId = &#63; and sku = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param sku the sku
+	 * @return the number of matching commerce inventory replenishment items
+	 */
+	@Override
+	public int countByC_S(long companyId, String sku) {
+		sku = Objects.toString(sku, "");
+
+		FinderPath finderPath = _finderPathCountByC_S;
+
+		Object[] finderArgs = new Object[] {companyId, sku};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+
+			sb.append(_FINDER_COLUMN_C_S_COMPANYID_2);
+
+			boolean bindSku = false;
+
+			if (sku.isEmpty()) {
+				sb.append(_FINDER_COLUMN_C_S_SKU_3);
+			}
+			else {
+				bindSku = true;
+
+				sb.append(_FINDER_COLUMN_C_S_SKU_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(companyId);
+
+				if (bindSku) {
+					queryPos.add(sku);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_C_S_COMPANYID_2 =
+		"commerceInventoryReplenishmentItem.companyId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_S_SKU_2 =
+		"commerceInventoryReplenishmentItem.sku = ?";
+
+	private static final String _FINDER_COLUMN_C_S_SKU_3 =
+		"(commerceInventoryReplenishmentItem.sku IS NULL OR commerceInventoryReplenishmentItem.sku = '')";
 
 	private FinderPath _finderPathWithPaginationFindByS_AD;
 	private FinderPath _finderPathWithoutPaginationFindByS_AD;
@@ -1931,70 +2536,70 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(4);
+				sb = new StringBundler(4);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 			boolean bindSku = false;
 
 			if (sku.isEmpty()) {
-				query.append(_FINDER_COLUMN_S_AD_SKU_3);
+				sb.append(_FINDER_COLUMN_S_AD_SKU_3);
 			}
 			else {
 				bindSku = true;
 
-				query.append(_FINDER_COLUMN_S_AD_SKU_2);
+				sb.append(_FINDER_COLUMN_S_AD_SKU_2);
 			}
 
 			boolean bindAvailabilityDate = false;
 
 			if (availabilityDate == null) {
-				query.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_1);
+				sb.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_1);
 			}
 			else {
 				bindAvailabilityDate = true;
 
-				query.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_2);
+				sb.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(
+				sb.append(
 					CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindSku) {
-					qPos.add(sku);
+					queryPos.add(sku);
 				}
 
 				if (bindAvailabilityDate) {
-					qPos.add(new Timestamp(availabilityDate.getTime()));
+					queryPos.add(new Timestamp(availabilityDate.getTime()));
 				}
 
 				list = (List<CommerceInventoryReplenishmentItem>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2040,19 +2645,19 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return commerceInventoryReplenishmentItem;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("sku=");
-		msg.append(sku);
+		sb.append("sku=");
+		sb.append(sku);
 
-		msg.append(", availabilityDate=");
-		msg.append(availabilityDate);
+		sb.append(", availabilityDate=");
+		sb.append(availabilityDate);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchInventoryReplenishmentItemException(msg.toString());
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
 	}
 
 	/**
@@ -2102,19 +2707,19 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return commerceInventoryReplenishmentItem;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("sku=");
-		msg.append(sku);
+		sb.append("sku=");
+		sb.append(sku);
 
-		msg.append(", availabilityDate=");
-		msg.append(availabilityDate);
+		sb.append(", availabilityDate=");
+		sb.append(availabilityDate);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchInventoryReplenishmentItemException(msg.toString());
+		throw new NoSuchInventoryReplenishmentItemException(sb.toString());
 	}
 
 	/**
@@ -2205,39 +2810,39 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		OrderByComparator<CommerceInventoryReplenishmentItem> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 		boolean bindSku = false;
 
 		if (sku.isEmpty()) {
-			query.append(_FINDER_COLUMN_S_AD_SKU_3);
+			sb.append(_FINDER_COLUMN_S_AD_SKU_3);
 		}
 		else {
 			bindSku = true;
 
-			query.append(_FINDER_COLUMN_S_AD_SKU_2);
+			sb.append(_FINDER_COLUMN_S_AD_SKU_2);
 		}
 
 		boolean bindAvailabilityDate = false;
 
 		if (availabilityDate == null) {
-			query.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_1);
+			sb.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_1);
 		}
 		else {
 			bindAvailabilityDate = true;
 
-			query.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_2);
+			sb.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -2245,77 +2850,77 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(
+			sb.append(
 				CommerceInventoryReplenishmentItemModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
 		if (bindSku) {
-			qPos.add(sku);
+			queryPos.add(sku);
 		}
 
 		if (bindAvailabilityDate) {
-			qPos.add(new Timestamp(availabilityDate.getTime()));
+			queryPos.add(new Timestamp(availabilityDate.getTime()));
 		}
 
 		if (orderByComparator != null) {
@@ -2323,11 +2928,11 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryReplenishmentItem)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryReplenishmentItem> list = q.list();
+		List<CommerceInventoryReplenishmentItem> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -2373,52 +2978,52 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE);
 
 			boolean bindSku = false;
 
 			if (sku.isEmpty()) {
-				query.append(_FINDER_COLUMN_S_AD_SKU_3);
+				sb.append(_FINDER_COLUMN_S_AD_SKU_3);
 			}
 			else {
 				bindSku = true;
 
-				query.append(_FINDER_COLUMN_S_AD_SKU_2);
+				sb.append(_FINDER_COLUMN_S_AD_SKU_2);
 			}
 
 			boolean bindAvailabilityDate = false;
 
 			if (availabilityDate == null) {
-				query.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_1);
+				sb.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_1);
 			}
 			else {
 				bindAvailabilityDate = true;
 
-				query.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_2);
+				sb.append(_FINDER_COLUMN_S_AD_AVAILABILITYDATE_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindSku) {
-					qPos.add(sku);
+					queryPos.add(sku);
 				}
 
 				if (bindAvailabilityDate) {
-					qPos.add(new Timestamp(availabilityDate.getTime()));
+					queryPos.add(new Timestamp(availabilityDate.getTime()));
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -2823,6 +3428,15 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 				_finderPathWithoutPaginationFindByAvailabilityDate, args);
 
 			args = new Object[] {
+				commerceInventoryReplenishmentItemModelImpl.getCompanyId(),
+				commerceInventoryReplenishmentItemModelImpl.getSku()
+			};
+
+			finderCache.removeResult(_finderPathCountByC_S, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByC_S, args);
+
+			args = new Object[] {
 				commerceInventoryReplenishmentItemModelImpl.getSku(),
 				commerceInventoryReplenishmentItemModelImpl.
 					getAvailabilityDate()
@@ -2911,6 +3525,31 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 					_finderPathCountByAvailabilityDate, args);
 				finderCache.removeResult(
 					_finderPathWithoutPaginationFindByAvailabilityDate, args);
+			}
+
+			if ((commerceInventoryReplenishmentItemModelImpl.
+					getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByC_S.getColumnBitmask()) !=
+					 0) {
+
+				Object[] args = new Object[] {
+					commerceInventoryReplenishmentItemModelImpl.
+						getOriginalCompanyId(),
+					commerceInventoryReplenishmentItemModelImpl.getOriginalSku()
+				};
+
+				finderCache.removeResult(_finderPathCountByC_S, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByC_S, args);
+
+				args = new Object[] {
+					commerceInventoryReplenishmentItemModelImpl.getCompanyId(),
+					commerceInventoryReplenishmentItemModelImpl.getSku()
+				};
+
+				finderCache.removeResult(_finderPathCountByC_S, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByC_S, args);
 			}
 
 			if ((commerceInventoryReplenishmentItemModelImpl.
@@ -3123,34 +3762,34 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			return map;
 		}
 
-		StringBundler query = new StringBundler(
+		StringBundler sb = new StringBundler(
 			uncachedPrimaryKeys.size() * 2 + 1);
 
-		query.append(
-			_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE_PKS_IN);
+		sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM_WHERE_PKS_IN);
 
 		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			query.append((long)primaryKey);
+			sb.append((long)primaryKey);
 
-			query.append(",");
+			sb.append(",");
 		}
 
-		query.setIndex(query.index() - 1);
+		sb.setIndex(sb.index() - 1);
 
-		query.append(")");
+		sb.append(")");
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			Query q = session.createQuery(sql);
+			Query query = session.createQuery(sql);
 
 			for (CommerceInventoryReplenishmentItem
 					commerceInventoryReplenishmentItem :
-						(List<CommerceInventoryReplenishmentItem>)q.list()) {
+						(List<CommerceInventoryReplenishmentItem>)
+							query.list()) {
 
 				map.put(
 					commerceInventoryReplenishmentItem.getPrimaryKeyObj(),
@@ -3273,19 +3912,19 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					2 + (orderByComparator.getOrderByFields().length * 2));
 
-				query.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM);
+				sb.append(_SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM);
 
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
-				sql = query.toString();
+				sql = sb.toString();
 			}
 			else {
 				sql = _SQL_SELECT_COMMERCEINVENTORYREPLENISHMENTITEM;
@@ -3299,10 +3938,10 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
 				list = (List<CommerceInventoryReplenishmentItem>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -3354,10 +3993,10 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(
+				Query query = session.createQuery(
 					_SQL_COUNT_COMMERCEINVENTORYREPLENISHMENTITEM);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
@@ -3491,6 +4130,33 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			CommerceInventoryReplenishmentItemModelImpl.FINDER_CACHE_ENABLED,
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByAvailabilityDate", new String[] {Date.class.getName()});
+
+		_finderPathWithPaginationFindByC_S = new FinderPath(
+			CommerceInventoryReplenishmentItemModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceInventoryReplenishmentItemModelImpl.FINDER_CACHE_ENABLED,
+			CommerceInventoryReplenishmentItemImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_S",
+			new String[] {
+				Long.class.getName(), String.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByC_S = new FinderPath(
+			CommerceInventoryReplenishmentItemModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceInventoryReplenishmentItemModelImpl.FINDER_CACHE_ENABLED,
+			CommerceInventoryReplenishmentItemImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_S",
+			new String[] {Long.class.getName(), String.class.getName()},
+			CommerceInventoryReplenishmentItemModelImpl.
+				COMPANYID_COLUMN_BITMASK |
+			CommerceInventoryReplenishmentItemModelImpl.SKU_COLUMN_BITMASK);
+
+		_finderPathCountByC_S = new FinderPath(
+			CommerceInventoryReplenishmentItemModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceInventoryReplenishmentItemModelImpl.FINDER_CACHE_ENABLED,
+			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_S",
+			new String[] {Long.class.getName(), String.class.getName()});
 
 		_finderPathWithPaginationFindByS_AD = new FinderPath(
 			CommerceInventoryReplenishmentItemModelImpl.ENTITY_CACHE_ENABLED,

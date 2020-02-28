@@ -77,8 +77,8 @@ public class CommerceInventoryAuditModelImpl
 		{"CIAuditId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"sku", Types.VARCHAR}, {"description", Types.CLOB},
-		{"quantity", Types.INTEGER}
+		{"sku", Types.VARCHAR}, {"logType", Types.VARCHAR},
+		{"logTypeSettings", Types.CLOB}, {"quantity", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -92,12 +92,13 @@ public class CommerceInventoryAuditModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("sku", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("description", Types.CLOB);
+		TABLE_COLUMNS_MAP.put("logType", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("logTypeSettings", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("quantity", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CIAudit (CIAuditId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,sku VARCHAR(75) null,description TEXT null,quantity INTEGER)";
+		"create table CIAudit (CIAuditId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,sku VARCHAR(75) null,logType VARCHAR(75) null,logTypeSettings TEXT null,quantity INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table CIAudit";
 
@@ -157,7 +158,8 @@ public class CommerceInventoryAuditModelImpl
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setSku(soapModel.getSku());
-		model.setDescription(soapModel.getDescription());
+		model.setLogType(soapModel.getLogType());
+		model.setLogTypeSettings(soapModel.getLogTypeSettings());
 		model.setQuantity(soapModel.getQuantity());
 
 		return model;
@@ -501,28 +503,53 @@ public class CommerceInventoryAuditModelImpl
 
 			});
 		attributeGetterFunctions.put(
-			"description",
+			"logType",
 			new Function<CommerceInventoryAudit, Object>() {
 
 				@Override
 				public Object apply(
 					CommerceInventoryAudit commerceInventoryAudit) {
 
-					return commerceInventoryAudit.getDescription();
+					return commerceInventoryAudit.getLogType();
 				}
 
 			});
 		attributeSetterBiConsumers.put(
-			"description",
+			"logType",
 			new BiConsumer<CommerceInventoryAudit, Object>() {
 
 				@Override
 				public void accept(
 					CommerceInventoryAudit commerceInventoryAudit,
-					Object descriptionObject) {
+					Object logTypeObject) {
 
-					commerceInventoryAudit.setDescription(
-						(String)descriptionObject);
+					commerceInventoryAudit.setLogType((String)logTypeObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"logTypeSettings",
+			new Function<CommerceInventoryAudit, Object>() {
+
+				@Override
+				public Object apply(
+					CommerceInventoryAudit commerceInventoryAudit) {
+
+					return commerceInventoryAudit.getLogTypeSettings();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"logTypeSettings",
+			new BiConsumer<CommerceInventoryAudit, Object>() {
+
+				@Override
+				public void accept(
+					CommerceInventoryAudit commerceInventoryAudit,
+					Object logTypeSettingsObject) {
+
+					commerceInventoryAudit.setLogTypeSettings(
+						(String)logTypeSettingsObject);
 				}
 
 			});
@@ -701,18 +728,34 @@ public class CommerceInventoryAuditModelImpl
 
 	@JSON
 	@Override
-	public String getDescription() {
-		if (_description == null) {
+	public String getLogType() {
+		if (_logType == null) {
 			return "";
 		}
 		else {
-			return _description;
+			return _logType;
 		}
 	}
 
 	@Override
-	public void setDescription(String description) {
-		_description = description;
+	public void setLogType(String logType) {
+		_logType = logType;
+	}
+
+	@JSON
+	@Override
+	public String getLogTypeSettings() {
+		if (_logTypeSettings == null) {
+			return "";
+		}
+		else {
+			return _logTypeSettings;
+		}
+	}
+
+	@Override
+	public void setLogTypeSettings(String logTypeSettings) {
+		_logTypeSettings = logTypeSettings;
 	}
 
 	@JSON
@@ -772,7 +815,8 @@ public class CommerceInventoryAuditModelImpl
 		commerceInventoryAuditImpl.setCreateDate(getCreateDate());
 		commerceInventoryAuditImpl.setModifiedDate(getModifiedDate());
 		commerceInventoryAuditImpl.setSku(getSku());
-		commerceInventoryAuditImpl.setDescription(getDescription());
+		commerceInventoryAuditImpl.setLogType(getLogType());
+		commerceInventoryAuditImpl.setLogTypeSettings(getLogTypeSettings());
 		commerceInventoryAuditImpl.setQuantity(getQuantity());
 
 		commerceInventoryAuditImpl.resetOriginalValues();
@@ -901,12 +945,21 @@ public class CommerceInventoryAuditModelImpl
 			commerceInventoryAuditCacheModel.sku = null;
 		}
 
-		commerceInventoryAuditCacheModel.description = getDescription();
+		commerceInventoryAuditCacheModel.logType = getLogType();
 
-		String description = commerceInventoryAuditCacheModel.description;
+		String logType = commerceInventoryAuditCacheModel.logType;
 
-		if ((description != null) && (description.length() == 0)) {
-			commerceInventoryAuditCacheModel.description = null;
+		if ((logType != null) && (logType.length() == 0)) {
+			commerceInventoryAuditCacheModel.logType = null;
+		}
+
+		commerceInventoryAuditCacheModel.logTypeSettings = getLogTypeSettings();
+
+		String logTypeSettings =
+			commerceInventoryAuditCacheModel.logTypeSettings;
+
+		if ((logTypeSettings != null) && (logTypeSettings.length() == 0)) {
+			commerceInventoryAuditCacheModel.logTypeSettings = null;
 		}
 
 		commerceInventoryAuditCacheModel.quantity = getQuantity();
@@ -998,7 +1051,8 @@ public class CommerceInventoryAuditModelImpl
 	private boolean _setModifiedDate;
 	private String _sku;
 	private String _originalSku;
-	private String _description;
+	private String _logType;
+	private String _logTypeSettings;
 	private int _quantity;
 	private long _columnBitmask;
 	private CommerceInventoryAudit _escapedModel;

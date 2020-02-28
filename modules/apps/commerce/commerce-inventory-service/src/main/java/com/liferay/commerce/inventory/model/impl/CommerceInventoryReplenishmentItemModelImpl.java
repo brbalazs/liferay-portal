@@ -133,10 +133,12 @@ public class CommerceInventoryReplenishmentItemModelImpl
 
 	public static final long COMMERCEINVENTORYWAREHOUSEID_COLUMN_BITMASK = 2L;
 
-	public static final long SKU_COLUMN_BITMASK = 4L;
+	public static final long COMPANYID_COLUMN_BITMASK = 4L;
+
+	public static final long SKU_COLUMN_BITMASK = 8L;
 
 	public static final long
-		COMMERCEINVENTORYREPLENISHMENTITEMID_COLUMN_BITMASK = 8L;
+		COMMERCEINVENTORYREPLENISHMENTITEMID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -651,7 +653,19 @@ public class CommerceInventoryReplenishmentItemModelImpl
 
 	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -929,6 +943,12 @@ public class CommerceInventoryReplenishmentItemModelImpl
 		CommerceInventoryReplenishmentItemModelImpl
 			commerceInventoryReplenishmentItemModelImpl = this;
 
+		commerceInventoryReplenishmentItemModelImpl._originalCompanyId =
+			commerceInventoryReplenishmentItemModelImpl._companyId;
+
+		commerceInventoryReplenishmentItemModelImpl._setOriginalCompanyId =
+			false;
+
 		commerceInventoryReplenishmentItemModelImpl._setModifiedDate = false;
 
 		commerceInventoryReplenishmentItemModelImpl.
@@ -1099,6 +1119,8 @@ public class CommerceInventoryReplenishmentItemModelImpl
 
 	private long _commerceInventoryReplenishmentItemId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

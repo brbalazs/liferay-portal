@@ -16,7 +16,6 @@ package com.liferay.commerce.inventory.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIWarehouse;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -84,9 +83,6 @@ public interface CommerceInventoryWarehouseLocalService
 			double latitude, double longitude, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException;
-
-	public int countAdminUIWarehousesByCompanyIdAndSku(
-		long companyId, String sku);
 
 	/**
 	 * Creates a new commerce inventory warehouse with the primary key. Does not add the commerce inventory warehouse to the database.
@@ -220,19 +216,6 @@ public interface CommerceInventoryWarehouseLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
-
-	/**
-	 * @param companyId
-	 * @param sku
-	 * @param start
-	 * @param end
-	 * @return a list of objects arrays containing:
-	 warehouse name, stock quantity, reserved quantity, replenishment quantity
-	 */
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceInventoryAdminUIWarehouse>
-		getAdminUIWarehousesByCompanyIdAndSku(
-			long companyId, String sku, int start, int end);
 
 	/**
 	 * Returns the commerce inventory warehouse with the primary key.

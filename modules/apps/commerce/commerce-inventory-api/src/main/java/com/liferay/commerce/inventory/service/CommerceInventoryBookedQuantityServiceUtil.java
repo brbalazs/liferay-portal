@@ -37,14 +37,6 @@ public class CommerceInventoryBookedQuantityServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.inventory.service.impl.CommerceInventoryBookedQuantityServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static int countCommerceInventoryBookedQuantities(
-			long companyId, String sku)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return getService().countCommerceInventoryBookedQuantities(
-			companyId, sku);
-	}
-
 	public static java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity>
 				getCommerceInventoryBookedQuantities(
@@ -53,6 +45,14 @@ public class CommerceInventoryBookedQuantityServiceUtil {
 
 		return getService().getCommerceInventoryBookedQuantities(
 			companyId, sku, start, end);
+	}
+
+	public static int getCommerceInventoryBookedQuantitiesCount(
+			long companyId, String sku)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().getCommerceInventoryBookedQuantitiesCount(
+			companyId, sku);
 	}
 
 	/**

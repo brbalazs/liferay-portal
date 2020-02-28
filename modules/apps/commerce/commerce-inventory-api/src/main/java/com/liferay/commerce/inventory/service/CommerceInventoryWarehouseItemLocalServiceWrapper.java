@@ -77,9 +77,9 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 	}
 
 	@Override
-	public int countAdminUIItemsByCompanyId(long companyId) {
+	public int countItemsByCompanyId(long companyId) {
 		return _commerceInventoryWarehouseItemLocalService.
-			countAdminUIItemsByCompanyId(companyId);
+			countItemsByCompanyId(companyId);
 	}
 
 	/**
@@ -139,6 +139,14 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 
 		_commerceInventoryWarehouseItemLocalService.
 			deleteCommerceInventoryWarehouseItems(commerceInventoryWarehouseId);
+	}
+
+	@Override
+	public void deleteCommerceInventoryWarehouseItems(
+		long companyId, String sku) {
+
+		_commerceInventoryWarehouseItemLocalService.
+			deleteCommerceInventoryWarehouseItems(companyId, sku);
 	}
 
 	/**
@@ -291,15 +299,6 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 			getActionableDynamicQuery();
 	}
 
-	@Override
-	public java.util.List
-		<com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem>
-			getAdminUIItemsByCompanyId(long companyId, int start, int end) {
-
-		return _commerceInventoryWarehouseItemLocalService.
-			getAdminUIItemsByCompanyId(companyId, start, end);
-	}
-
 	/**
 	 * Returns the commerce inventory warehouse item with the primary key.
 	 *
@@ -362,6 +361,16 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem>
+			getCommerceInventoryWarehouseItems(
+				long companyId, String sku, int start, int end) {
+
+		return _commerceInventoryWarehouseItemLocalService.
+			getCommerceInventoryWarehouseItems(companyId, sku, start, end);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem>
 			getCommerceInventoryWarehouseItemsByCompanyId(
 				long companyId, int start, int end) {
 
@@ -414,6 +423,14 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 	}
 
 	@Override
+	public int getCommerceInventoryWarehouseItemsCount(
+		long companyId, String sku) {
+
+		return _commerceInventoryWarehouseItemLocalService.
+			getCommerceInventoryWarehouseItemsCount(companyId, sku);
+	}
+
+	@Override
 	public int getCommerceInventoryWarehouseItemsCountByCompanyId(
 		long companyId) {
 
@@ -436,6 +453,14 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 
 		return _commerceInventoryWarehouseItemLocalService.
 			getIndexableActionableDynamicQuery();
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.inventory.model.CIWarehouseItem>
+		getItemsByCompanyId(long companyId, int start, int end) {
+
+		return _commerceInventoryWarehouseItemLocalService.getItemsByCompanyId(
+			companyId, start, end);
 	}
 
 	/**
@@ -471,6 +496,17 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 	public int getStockQuantity(long companyId, String sku) {
 		return _commerceInventoryWarehouseItemLocalService.getStockQuantity(
 			companyId, sku);
+	}
+
+	@Override
+	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
+			increaseCommerceInventoryWarehouseItemQuantity(
+				long commerceInventoryWarehouseItemId, int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceInventoryWarehouseItemLocalService.
+			increaseCommerceInventoryWarehouseItemQuantity(
+				commerceInventoryWarehouseItemId, quantity);
 	}
 
 	@Override
@@ -511,6 +547,18 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 		return _commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
 				commerceInventoryWarehouseItemId, quantity);
+	}
+
+	@Override
+	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItem(
+				long commerceInventoryWarehouseItemId, int quantity,
+				int reservedQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceInventoryWarehouseItemLocalService.
+			updateCommerceInventoryWarehouseItem(
+				commerceInventoryWarehouseItemId, quantity, reservedQuantity);
 	}
 
 	@Override

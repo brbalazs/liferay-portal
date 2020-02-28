@@ -1624,6 +1624,230 @@ public class CommerceOrderItemPersistenceImpl
 	private static final String _FINDER_COLUMN_CPINSTANCEID_CPINSTANCEID_2 =
 		"commerceOrderItem.CPInstanceId = ?";
 
+	private FinderPath _finderPathFetchByBookedQuantityId;
+	private FinderPath _finderPathCountByBookedQuantityId;
+
+	/**
+	 * Returns the commerce order item where bookedQuantityId = &#63; or throws a <code>NoSuchOrderItemException</code> if it could not be found.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @return the matching commerce order item
+	 * @throws NoSuchOrderItemException if a matching commerce order item could not be found
+	 */
+	@Override
+	public CommerceOrderItem findByBookedQuantityId(long bookedQuantityId)
+		throws NoSuchOrderItemException {
+
+		CommerceOrderItem commerceOrderItem = fetchByBookedQuantityId(
+			bookedQuantityId);
+
+		if (commerceOrderItem == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("bookedQuantityId=");
+			sb.append(bookedQuantityId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchOrderItemException(sb.toString());
+		}
+
+		return commerceOrderItem;
+	}
+
+	/**
+	 * Returns the commerce order item where bookedQuantityId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @return the matching commerce order item, or <code>null</code> if a matching commerce order item could not be found
+	 */
+	@Override
+	public CommerceOrderItem fetchByBookedQuantityId(long bookedQuantityId) {
+		return fetchByBookedQuantityId(bookedQuantityId, true);
+	}
+
+	/**
+	 * Returns the commerce order item where bookedQuantityId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching commerce order item, or <code>null</code> if a matching commerce order item could not be found
+	 */
+	@Override
+	public CommerceOrderItem fetchByBookedQuantityId(
+		long bookedQuantityId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {bookedQuantityId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByBookedQuantityId, finderArgs, this);
+		}
+
+		if (result instanceof CommerceOrderItem) {
+			CommerceOrderItem commerceOrderItem = (CommerceOrderItem)result;
+
+			if (bookedQuantityId != commerceOrderItem.getBookedQuantityId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_COMMERCEORDERITEM_WHERE);
+
+			sb.append(_FINDER_COLUMN_BOOKEDQUANTITYID_BOOKEDQUANTITYID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(bookedQuantityId);
+
+				List<CommerceOrderItem> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByBookedQuantityId, finderArgs,
+							list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {bookedQuantityId};
+							}
+
+							_log.warn(
+								"CommerceOrderItemPersistenceImpl.fetchByBookedQuantityId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					CommerceOrderItem commerceOrderItem = list.get(0);
+
+					result = commerceOrderItem;
+
+					cacheResult(commerceOrderItem);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByBookedQuantityId, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (CommerceOrderItem)result;
+		}
+	}
+
+	/**
+	 * Removes the commerce order item where bookedQuantityId = &#63; from the database.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @return the commerce order item that was removed
+	 */
+	@Override
+	public CommerceOrderItem removeByBookedQuantityId(long bookedQuantityId)
+		throws NoSuchOrderItemException {
+
+		CommerceOrderItem commerceOrderItem = findByBookedQuantityId(
+			bookedQuantityId);
+
+		return remove(commerceOrderItem);
+	}
+
+	/**
+	 * Returns the number of commerce order items where bookedQuantityId = &#63;.
+	 *
+	 * @param bookedQuantityId the booked quantity ID
+	 * @return the number of matching commerce order items
+	 */
+	@Override
+	public int countByBookedQuantityId(long bookedQuantityId) {
+		FinderPath finderPath = _finderPathCountByBookedQuantityId;
+
+		Object[] finderArgs = new Object[] {bookedQuantityId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_COMMERCEORDERITEM_WHERE);
+
+			sb.append(_FINDER_COLUMN_BOOKEDQUANTITYID_BOOKEDQUANTITYID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(bookedQuantityId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_BOOKEDQUANTITYID_BOOKEDQUANTITYID_2 =
+			"commerceOrderItem.bookedQuantityId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByC_I;
 	private FinderPath _finderPathWithoutPaginationFindByC_I;
 	private FinderPath _finderPathCountByC_I;
@@ -3026,6 +3250,11 @@ public class CommerceOrderItemPersistenceImpl
 			commerceOrderItem);
 
 		finderCache.putResult(
+			_finderPathFetchByBookedQuantityId,
+			new Object[] {commerceOrderItem.getBookedQuantityId()},
+			commerceOrderItem);
+
+		finderCache.putResult(
 			_finderPathFetchByC_ERC,
 			new Object[] {
 				commerceOrderItem.getCompanyId(),
@@ -3124,6 +3353,16 @@ public class CommerceOrderItemPersistenceImpl
 		CommerceOrderItemModelImpl commerceOrderItemModelImpl) {
 
 		Object[] args = new Object[] {
+			commerceOrderItemModelImpl.getBookedQuantityId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByBookedQuantityId, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByBookedQuantityId, args,
+			commerceOrderItemModelImpl, false);
+
+		args = new Object[] {
 			commerceOrderItemModelImpl.getCompanyId(),
 			commerceOrderItemModelImpl.getExternalReferenceCode()
 		};
@@ -3137,6 +3376,26 @@ public class CommerceOrderItemPersistenceImpl
 	protected void clearUniqueFindersCache(
 		CommerceOrderItemModelImpl commerceOrderItemModelImpl,
 		boolean clearCurrent) {
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+				commerceOrderItemModelImpl.getBookedQuantityId()
+			};
+
+			finderCache.removeResult(_finderPathCountByBookedQuantityId, args);
+			finderCache.removeResult(_finderPathFetchByBookedQuantityId, args);
+		}
+
+		if ((commerceOrderItemModelImpl.getColumnBitmask() &
+			 _finderPathFetchByBookedQuantityId.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				commerceOrderItemModelImpl.getOriginalBookedQuantityId()
+			};
+
+			finderCache.removeResult(_finderPathCountByBookedQuantityId, args);
+			finderCache.removeResult(_finderPathFetchByBookedQuantityId, args);
+		}
 
 		if (clearCurrent) {
 			Object[] args = new Object[] {
@@ -4006,6 +4265,19 @@ public class CommerceOrderItemPersistenceImpl
 			CommerceOrderItemModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCPInstanceId",
 			new String[] {Long.class.getName()});
+
+		_finderPathFetchByBookedQuantityId = new FinderPath(
+			CommerceOrderItemModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceOrderItemModelImpl.FINDER_CACHE_ENABLED,
+			CommerceOrderItemImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchByBookedQuantityId", new String[] {Long.class.getName()},
+			CommerceOrderItemModelImpl.BOOKEDQUANTITYID_COLUMN_BITMASK);
+
+		_finderPathCountByBookedQuantityId = new FinderPath(
+			CommerceOrderItemModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceOrderItemModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByBookedQuantityId", new String[] {Long.class.getName()});
 
 		_finderPathWithPaginationFindByC_I = new FinderPath(
 			CommerceOrderItemModelImpl.ENTITY_CACHE_ENABLED,

@@ -67,13 +67,6 @@ public class CommerceInventoryReplenishmentItemLocalServiceUtil {
 			quantity);
 	}
 
-	public static int countAdminUIReplenishmentItemsByCompanyIdAndSku(
-		long companyId, String sku) {
-
-		return getService().countAdminUIReplenishmentItemsByCompanyIdAndSku(
-			companyId, sku);
-	}
-
 	/**
 	 * Creates a new commerce inventory replenishment item with the primary key. Does not add the commerce inventory replenishment item to the database.
 	 *
@@ -234,16 +227,6 @@ public class CommerceInventoryReplenishmentItemLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.inventory.model.
-			CommerceInventoryAdminUIReplenishment>
-				getAdminUIReplenishmentItemsByCompanyIdAndSku(
-					long companyId, String sku, int start, int end) {
-
-		return getService().getAdminUIReplenishmentItemsByCompanyIdAndSku(
-			companyId, sku, start, end);
-	}
-
 	/**
 	 * Returns the commerce inventory replenishment item with the primary key.
 	 *
@@ -280,6 +263,17 @@ public class CommerceInventoryReplenishmentItemLocalServiceUtil {
 		return getService().getCommerceInventoryReplenishmentItems(start, end);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.
+			CommerceInventoryReplenishmentItem>
+				getCommerceInventoryReplenishmentItemsByCompanyIdAndSku(
+					long companyId, String sku, int start, int end) {
+
+		return getService().
+			getCommerceInventoryReplenishmentItemsByCompanyIdAndSku(
+				companyId, sku, start, end);
+	}
+
 	/**
 	 * Returns the number of commerce inventory replenishment items.
 	 *
@@ -287,6 +281,22 @@ public class CommerceInventoryReplenishmentItemLocalServiceUtil {
 	 */
 	public static int getCommerceInventoryReplenishmentItemsCount() {
 		return getService().getCommerceInventoryReplenishmentItemsCount();
+	}
+
+	public static long getCommerceInventoryReplenishmentItemsCount(
+		long commerceInventoryWarehouseId, String sku) {
+
+		return getService().getCommerceInventoryReplenishmentItemsCount(
+			commerceInventoryWarehouseId, sku);
+	}
+
+	public static int
+		getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+			long companyId, String sku) {
+
+		return getService().
+			getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+				companyId, sku);
 	}
 
 	public static
@@ -330,6 +340,17 @@ public class CommerceInventoryReplenishmentItemLocalServiceUtil {
 
 		return getService().updateCommerceInventoryReplenishmentItem(
 			commerceInventoryReplenishmentItem);
+	}
+
+	public static
+		com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem
+				updateCommerceInventoryReplenishmentItem(
+					long commerceInventoryReplenishmentItemId,
+					java.util.Date availabilityDate, int quantity)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceInventoryReplenishmentItem(
+			commerceInventoryReplenishmentItemId, availabilityDate, quantity);
 	}
 
 	public static CommerceInventoryReplenishmentItemLocalService getService() {

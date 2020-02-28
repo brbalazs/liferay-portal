@@ -232,6 +232,10 @@ public interface CommerceOrderItemLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceOrderItem fetchCommerceOrderItem(long commerceOrderItemId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceOrderItem fetchCommerceOrderItemByBookedQuantityId(
+		long bookedQuantityId);
+
 	/**
 	 * Returns the commerce order item with the matching external reference code and company.
 	 *

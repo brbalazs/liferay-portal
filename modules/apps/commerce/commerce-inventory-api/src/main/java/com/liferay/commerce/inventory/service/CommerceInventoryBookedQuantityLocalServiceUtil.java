@@ -81,13 +81,6 @@ public class CommerceInventoryBookedQuantityLocalServiceUtil {
 			commerceBookedQuantityId, quantity);
 	}
 
-	public static int countCommerceInventoryBookedQuantities(
-		long companyId, String sku) {
-
-		return getService().countCommerceInventoryBookedQuantities(
-			companyId, sku);
-	}
-
 	/**
 	 * Creates a new commerce inventory booked quantity with the primary key. Does not add the commerce inventory booked quantity to the database.
 	 *
@@ -286,6 +279,13 @@ public class CommerceInventoryBookedQuantityLocalServiceUtil {
 	 */
 	public static int getCommerceInventoryBookedQuantitiesCount() {
 		return getService().getCommerceInventoryBookedQuantitiesCount();
+	}
+
+	public static int getCommerceInventoryBookedQuantitiesCount(
+		long companyId, String sku) {
+
+		return getService().getCommerceInventoryBookedQuantitiesCount(
+			companyId, sku);
 	}
 
 	/**

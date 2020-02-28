@@ -51,15 +51,15 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class CommerceInventoryAuditServiceHttp {
 
-	public static int countCommerceInventoryAudits(
+	public static int getCommerceInventoryAuditsCount(
 			HttpPrincipal httpPrincipal, long companyId, String sku)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryAuditServiceUtil.class,
-				"countCommerceInventoryAudits",
-				_countCommerceInventoryAuditsParameterTypes0);
+				"getCommerceInventoryAuditsCount",
+				_getCommerceInventoryAuditsCountParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, sku);
@@ -71,11 +71,10 @@ public class CommerceInventoryAuditServiceHttp {
 			}
 			catch (Exception exception) {
 				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
+						com.liferay.portal.kernel.exception.PortalException) {
 
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
@@ -98,7 +97,7 @@ public class CommerceInventoryAuditServiceHttp {
 				getCommerceInventoryAudits(
 					HttpPrincipal httpPrincipal, long companyId, String sku,
 					int start, int end)
-			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -116,11 +115,10 @@ public class CommerceInventoryAuditServiceHttp {
 			}
 			catch (Exception exception) {
 				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
+						com.liferay.portal.kernel.exception.PortalException) {
 
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
@@ -144,7 +142,7 @@ public class CommerceInventoryAuditServiceHttp {
 		CommerceInventoryAuditServiceHttp.class);
 
 	private static final Class<?>[]
-		_countCommerceInventoryAuditsParameterTypes0 = new Class[] {
+		_getCommerceInventoryAuditsCountParameterTypes0 = new Class[] {
 			long.class, String.class
 		};
 	private static final Class<?>[] _getCommerceInventoryAuditsParameterTypes1 =

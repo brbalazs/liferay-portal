@@ -73,12 +73,11 @@ public interface CommerceInventoryAuditLocalService
 		CommerceInventoryAudit commerceInventoryAudit);
 
 	public CommerceInventoryAudit addCommerceInventoryAudit(
-			long userId, String sku, int quantity, String description)
+			long userId, String sku, String logType, String logTypeSettings,
+			int quantity)
 		throws PortalException;
 
 	public void checkCommerceInventoryAudit(Date date);
-
-	public int countCommerceInventoryAudits(long companyId, String sku);
 
 	/**
 	 * Creates a new commerce inventory audit with the primary key. Does not add the commerce inventory audit to the database.
@@ -230,6 +229,9 @@ public interface CommerceInventoryAuditLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceInventoryAuditsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceInventoryAuditsCount(long companyId, String sku);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

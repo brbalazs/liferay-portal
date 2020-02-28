@@ -18,7 +18,6 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.inventory.service.persistence.CommerceInventoryAuditPersistence;
 import com.liferay.commerce.inventory.service.persistence.CommerceInventoryBookedQuantityPersistence;
-import com.liferay.commerce.inventory.service.persistence.CommerceInventoryReplenishmentItemFinder;
 import com.liferay.commerce.inventory.service.persistence.CommerceInventoryReplenishmentItemPersistence;
 import com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseFinder;
 import com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseItemFinder;
@@ -284,30 +283,6 @@ public abstract class CommerceInventoryWarehouseServiceBaseImpl
 
 		this.commerceInventoryReplenishmentItemPersistence =
 			commerceInventoryReplenishmentItemPersistence;
-	}
-
-	/**
-	 * Returns the commerce inventory replenishment item finder.
-	 *
-	 * @return the commerce inventory replenishment item finder
-	 */
-	public CommerceInventoryReplenishmentItemFinder
-		getCommerceInventoryReplenishmentItemFinder() {
-
-		return commerceInventoryReplenishmentItemFinder;
-	}
-
-	/**
-	 * Sets the commerce inventory replenishment item finder.
-	 *
-	 * @param commerceInventoryReplenishmentItemFinder the commerce inventory replenishment item finder
-	 */
-	public void setCommerceInventoryReplenishmentItemFinder(
-		CommerceInventoryReplenishmentItemFinder
-			commerceInventoryReplenishmentItemFinder) {
-
-		this.commerceInventoryReplenishmentItemFinder =
-			commerceInventoryReplenishmentItemFinder;
 	}
 
 	/**
@@ -824,10 +799,6 @@ public abstract class CommerceInventoryWarehouseServiceBaseImpl
 	@BeanReference(type = CommerceInventoryReplenishmentItemPersistence.class)
 	protected CommerceInventoryReplenishmentItemPersistence
 		commerceInventoryReplenishmentItemPersistence;
-
-	@BeanReference(type = CommerceInventoryReplenishmentItemFinder.class)
-	protected CommerceInventoryReplenishmentItemFinder
-		commerceInventoryReplenishmentItemFinder;
 
 	@BeanReference(
 		type = com.liferay.commerce.inventory.service.CommerceInventoryWarehouseLocalService.class

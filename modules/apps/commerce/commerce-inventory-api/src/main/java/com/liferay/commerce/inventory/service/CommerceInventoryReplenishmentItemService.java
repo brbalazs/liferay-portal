@@ -24,9 +24,11 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Provides the remote service interface for CommerceInventoryReplenishmentItem. Methods of this
@@ -64,11 +66,43 @@ public interface CommerceInventoryReplenishmentItemService extends BaseService {
 				Date availabilityDate, int quantity)
 		throws PortalException;
 
+	public void deleteCommerceInventoryReplenishmentItem(
+			long commerceInventoryReplenishmentItemId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceInventoryReplenishmentItem
+			getCommerceInventoryReplenishmentItem(
+				long commerceInventoryReplenishmentItemId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryReplenishmentItem>
+			getCommerceInventoryReplenishmentItemsByCompanyIdAndSku(
+				long companyId, String sku, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getCommerceInventoryReplenishmentItemsCount(
+			long commerceInventoryWarehouseId, String sku)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+			long companyId, String sku)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	public CommerceInventoryReplenishmentItem
+			updateCommerceInventoryReplenishmentItem(
+				long commerceInventoryReplenishmentItemId,
+				Date availabilityDate, int quantity)
+		throws PortalException;
 
 }

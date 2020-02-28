@@ -75,6 +75,10 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 			long commerceInventoryWarehouseItemId)
 		throws PortalException;
 
+	public void deleteCommerceInventoryWarehouseItems(
+			long companyId, String sku)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceInventoryWarehouseItem fetchCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseId, String sku)
@@ -105,6 +109,12 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceInventoryWarehouseItem>
+			getCommerceInventoryWarehouseItems(
+				long companyId, String sku, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryWarehouseItem>
 			getCommerceInventoryWarehouseItemsByCompanyId(
 				long companyId, int start, int end)
 		throws PortalException;
@@ -118,6 +128,11 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceInventoryWarehouseItemsCount(
 			long commerceInventoryWarehouseId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceInventoryWarehouseItemsCount(
+			long companyId, String sku)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -144,6 +159,11 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+	public CommerceInventoryWarehouseItem
+			increaseCommerceInventoryWarehouseItemQuantity(
+				long commerceInventoryWarehouseItemId, int quantity)
+		throws PortalException;
+
 	public void moveQuantitiesBetweenWarehouses(
 			long fromCommerceInventoryWarehouseId,
 			long toCommerceInventoryWarehouseId, String sku, int quantity)
@@ -151,6 +171,11 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseItemId, int quantity)
+		throws PortalException;
+
+	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
+			long commerceInventoryWarehouseItemId, int quantity,
+			int reservedQuantity)
 		throws PortalException;
 
 	public CommerceInventoryWarehouseItem upsertCommerceInventoryWarehouseItem(

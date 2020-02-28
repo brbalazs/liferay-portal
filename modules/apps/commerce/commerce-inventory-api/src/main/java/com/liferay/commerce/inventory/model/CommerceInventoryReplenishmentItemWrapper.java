@@ -178,6 +178,14 @@ public class CommerceInventoryReplenishmentItemWrapper
 			getCommerceInventoryReplenishmentItemId();
 	}
 
+	@Override
+	public CommerceInventoryWarehouse getCommerceInventoryWarehouse()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceInventoryReplenishmentItem.
+			getCommerceInventoryWarehouse();
+	}
+
 	/**
 	 * Returns the commerce inventory warehouse ID of this commerce inventory replenishment item.
 	 *

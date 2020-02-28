@@ -36,15 +36,6 @@ public class CommerceInventoryBookedQuantityServiceWrapper
 	}
 
 	@Override
-	public int countCommerceInventoryBookedQuantities(
-			long companyId, String sku)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return _commerceInventoryBookedQuantityService.
-			countCommerceInventoryBookedQuantities(companyId, sku);
-	}
-
-	@Override
 	public java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity>
 				getCommerceInventoryBookedQuantities(
@@ -53,6 +44,15 @@ public class CommerceInventoryBookedQuantityServiceWrapper
 
 		return _commerceInventoryBookedQuantityService.
 			getCommerceInventoryBookedQuantities(companyId, sku, start, end);
+	}
+
+	@Override
+	public int getCommerceInventoryBookedQuantitiesCount(
+			long companyId, String sku)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _commerceInventoryBookedQuantityService.
+			getCommerceInventoryBookedQuantitiesCount(companyId, sku);
 	}
 
 	/**

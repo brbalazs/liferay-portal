@@ -78,8 +78,8 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 			quantity);
 	}
 
-	public static int countAdminUIItemsByCompanyId(long companyId) {
-		return getService().countAdminUIItemsByCompanyId(companyId);
+	public static int countItemsByCompanyId(long companyId) {
+		return getService().countItemsByCompanyId(companyId);
 	}
 
 	/**
@@ -136,6 +136,12 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 
 		getService().deleteCommerceInventoryWarehouseItems(
 			commerceInventoryWarehouseId);
+	}
+
+	public static void deleteCommerceInventoryWarehouseItems(
+		long companyId, String sku) {
+
+		getService().deleteCommerceInventoryWarehouseItems(companyId, sku);
 	}
 
 	/**
@@ -274,13 +280,6 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem>
-			getAdminUIItemsByCompanyId(long companyId, int start, int end) {
-
-		return getService().getAdminUIItemsByCompanyId(companyId, start, end);
-	}
-
 	/**
 	 * Returns the commerce inventory warehouse item with the primary key.
 	 *
@@ -337,6 +336,15 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem>
+			getCommerceInventoryWarehouseItems(
+				long companyId, String sku, int start, int end) {
+
+		return getService().getCommerceInventoryWarehouseItems(
+			companyId, sku, start, end);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem>
 			getCommerceInventoryWarehouseItemsByCompanyId(
 				long companyId, int start, int end) {
 
@@ -379,6 +387,13 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 			commerceInventoryWarehouseId);
 	}
 
+	public static int getCommerceInventoryWarehouseItemsCount(
+		long companyId, String sku) {
+
+		return getService().getCommerceInventoryWarehouseItemsCount(
+			companyId, sku);
+	}
+
 	public static int getCommerceInventoryWarehouseItemsCountByCompanyId(
 		long companyId) {
 
@@ -399,6 +414,13 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 			getIndexableActionableDynamicQuery() {
 
 		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.inventory.model.CIWarehouseItem>
+			getItemsByCompanyId(long companyId, int start, int end) {
+
+		return getService().getItemsByCompanyId(companyId, start, end);
 	}
 
 	/**
@@ -428,6 +450,16 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 
 	public static int getStockQuantity(long companyId, String sku) {
 		return getService().getStockQuantity(companyId, sku);
+	}
+
+	public static
+		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
+				increaseCommerceInventoryWarehouseItemQuantity(
+					long commerceInventoryWarehouseItemId, int quantity)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().increaseCommerceInventoryWarehouseItemQuantity(
+			commerceInventoryWarehouseItemId, quantity);
 	}
 
 	public static void moveQuantitiesBetweenWarehouses(
@@ -465,6 +497,17 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 
 		return getService().updateCommerceInventoryWarehouseItem(
 			commerceInventoryWarehouseItemId, quantity);
+	}
+
+	public static
+		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
+				updateCommerceInventoryWarehouseItem(
+					long commerceInventoryWarehouseItemId, int quantity,
+					int reservedQuantity)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceInventoryWarehouseItem(
+			commerceInventoryWarehouseItemId, quantity, reservedQuantity);
 	}
 
 	public static

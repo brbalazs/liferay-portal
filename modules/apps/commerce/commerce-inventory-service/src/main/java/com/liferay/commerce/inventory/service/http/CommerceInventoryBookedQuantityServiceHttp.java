@@ -51,15 +51,15 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class CommerceInventoryBookedQuantityServiceHttp {
 
-	public static int countCommerceInventoryBookedQuantities(
+	public static int getCommerceInventoryBookedQuantitiesCount(
 			HttpPrincipal httpPrincipal, long companyId, String sku)
 		throws com.liferay.portal.kernel.security.auth.PrincipalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryBookedQuantityServiceUtil.class,
-				"countCommerceInventoryBookedQuantities",
-				_countCommerceInventoryBookedQuantitiesParameterTypes0);
+				"getCommerceInventoryBookedQuantitiesCount",
+				_getCommerceInventoryBookedQuantitiesCountParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, sku);
@@ -144,9 +144,8 @@ public class CommerceInventoryBookedQuantityServiceHttp {
 		CommerceInventoryBookedQuantityServiceHttp.class);
 
 	private static final Class<?>[]
-		_countCommerceInventoryBookedQuantitiesParameterTypes0 = new Class[] {
-			long.class, String.class
-		};
+		_getCommerceInventoryBookedQuantitiesCountParameterTypes0 =
+			new Class[] {long.class, String.class};
 	private static final Class<?>[]
 		_getCommerceInventoryBookedQuantitiesParameterTypes1 = new Class[] {
 			long.class, String.class, int.class, int.class

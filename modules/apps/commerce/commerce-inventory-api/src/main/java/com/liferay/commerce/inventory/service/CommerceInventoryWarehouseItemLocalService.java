@@ -16,7 +16,7 @@ package com.liferay.commerce.inventory.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIItem;
+import com.liferay.commerce.inventory.model.CIWarehouseItem;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -83,7 +83,7 @@ public interface CommerceInventoryWarehouseItemLocalService
 			String externalReferenceCode, String sku, int quantity)
 		throws PortalException;
 
-	public int countAdminUIItemsByCompanyId(long companyId);
+	public int countItemsByCompanyId(long companyId);
 
 	/**
 	 * Creates a new commerce inventory warehouse item with the primary key. Does not add the commerce inventory warehouse item to the database.
@@ -119,6 +119,9 @@ public interface CommerceInventoryWarehouseItemLocalService
 
 	public void deleteCommerceInventoryWarehouseItems(
 		long commerceInventoryWarehouseId);
+
+	public void deleteCommerceInventoryWarehouseItems(
+		long companyId, String sku);
 
 	/**
 	 * @throws PortalException
@@ -216,10 +219,6 @@ public interface CommerceInventoryWarehouseItemLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceInventoryAdminUIItem> getAdminUIItemsByCompanyId(
-		long companyId, int start, int end);
-
 	/**
 	 * Returns the commerce inventory warehouse item with the primary key.
 	 *
@@ -260,6 +259,11 @@ public interface CommerceInventoryWarehouseItemLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceInventoryWarehouseItem>
+		getCommerceInventoryWarehouseItems(
+			long companyId, String sku, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceInventoryWarehouseItem>
 		getCommerceInventoryWarehouseItemsByCompanyId(
 			long companyId, int start, int end);
 
@@ -286,6 +290,10 @@ public interface CommerceInventoryWarehouseItemLocalService
 		long commerceInventoryWarehouseId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceInventoryWarehouseItemsCount(
+		long companyId, String sku);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceInventoryWarehouseItemsCountByCompanyId(
 		long companyId);
 
@@ -295,6 +303,10 @@ public interface CommerceInventoryWarehouseItemLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CIWarehouseItem> getItemsByCompanyId(
+		long companyId, int start, int end);
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -317,6 +329,11 @@ public interface CommerceInventoryWarehouseItemLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getStockQuantity(long companyId, String sku);
 
+	public CommerceInventoryWarehouseItem
+			increaseCommerceInventoryWarehouseItemQuantity(
+				long commerceInventoryWarehouseItemId, int quantity)
+		throws PortalException;
+
 	@Transactional(
 		propagation = Propagation.REQUIRED, readOnly = false,
 		rollbackFor = Exception.class
@@ -338,6 +355,11 @@ public interface CommerceInventoryWarehouseItemLocalService
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseItemId, int quantity)
+		throws PortalException;
+
+	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
+			long commerceInventoryWarehouseItemId, int quantity,
+			int reservedQuantity)
 		throws PortalException;
 
 	public CommerceInventoryWarehouseItem upsertCommerceInventoryWarehouseItem(

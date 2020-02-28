@@ -23,12 +23,6 @@ import aQute.bnd.annotation.ProviderType;
 @ProviderType
 public interface CommerceInventoryWarehouseFinder {
 
-	public int countAdminUIWarehousesByCompanyIdAndSku(
-		long companyId, String sku);
-
-	public java.util.List<Object[]> findAdminUIWarehousesByCompanyIdAndSku(
-		long companyId, String sku, int start, int end);
-
 	public java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryWarehouse>
 			findByG_S(long groupId, String sku);

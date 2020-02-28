@@ -42,6 +42,7 @@ create unique index IX_58101B8F on CommerceOrder (uuid_[$COLUMN_LENGTH:75$], gro
 
 create index IX_2E1BB39D on CommerceOrderItem (CPInstanceId);
 create index IX_F9E8D927 on CommerceOrderItem (CProductId);
+create index IX_2D8339EE on CommerceOrderItem (bookedQuantityId);
 create index IX_415AF3E3 on CommerceOrderItem (commerceOrderId, CPInstanceId);
 create index IX_15B37023 on CommerceOrderItem (commerceOrderId, subscription);
 create index IX_12257E21 on CommerceOrderItem (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);

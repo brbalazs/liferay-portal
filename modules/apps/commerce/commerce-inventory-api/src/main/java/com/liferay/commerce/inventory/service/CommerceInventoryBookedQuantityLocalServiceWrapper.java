@@ -81,14 +81,6 @@ public class CommerceInventoryBookedQuantityLocalServiceWrapper
 			consumeCommerceBookedQuantity(commerceBookedQuantityId, quantity);
 	}
 
-	@Override
-	public int countCommerceInventoryBookedQuantities(
-		long companyId, String sku) {
-
-		return _commerceInventoryBookedQuantityLocalService.
-			countCommerceInventoryBookedQuantities(companyId, sku);
-	}
-
 	/**
 	 * Creates a new commerce inventory booked quantity with the primary key. Does not add the commerce inventory booked quantity to the database.
 	 *
@@ -308,6 +300,14 @@ public class CommerceInventoryBookedQuantityLocalServiceWrapper
 	public int getCommerceInventoryBookedQuantitiesCount() {
 		return _commerceInventoryBookedQuantityLocalService.
 			getCommerceInventoryBookedQuantitiesCount();
+	}
+
+	@Override
+	public int getCommerceInventoryBookedQuantitiesCount(
+		long companyId, String sku) {
+
+		return _commerceInventoryBookedQuantityLocalService.
+			getCommerceInventoryBookedQuantitiesCount(companyId, sku);
 	}
 
 	/**

@@ -61,13 +61,14 @@ import java.rmi.RemoteException;
  */
 public class CommerceInventoryAuditServiceSoap {
 
-	public static int countCommerceInventoryAudits(long companyId, String sku)
+	public static int getCommerceInventoryAuditsCount(
+			long companyId, String sku)
 		throws RemoteException {
 
 		try {
 			int returnValue =
-				CommerceInventoryAuditServiceUtil.countCommerceInventoryAudits(
-					companyId, sku);
+				CommerceInventoryAuditServiceUtil.
+					getCommerceInventoryAuditsCount(companyId, sku);
 
 			return returnValue;
 		}

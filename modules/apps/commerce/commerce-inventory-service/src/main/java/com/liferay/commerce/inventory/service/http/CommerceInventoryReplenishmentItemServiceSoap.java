@@ -88,6 +88,136 @@ public class CommerceInventoryReplenishmentItemServiceSoap {
 		}
 	}
 
+	public static int
+			getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+				long companyId, String sku)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceInventoryReplenishmentItemServiceUtil.
+					getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+						companyId, sku);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.inventory.model.
+		CommerceInventoryReplenishmentItemSoap[]
+				getCommerceInventoryReplenishmentItemsByCompanyIdAndSku(
+					long companyId, String sku, int start, int end)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.inventory.model.
+					CommerceInventoryReplenishmentItem> returnValue =
+						CommerceInventoryReplenishmentItemServiceUtil.
+							getCommerceInventoryReplenishmentItemsByCompanyIdAndSku(
+								companyId, sku, start, end);
+
+			return com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItemSoap.toSoapModels(
+					returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static long getCommerceInventoryReplenishmentItemsCount(
+			long commerceInventoryWarehouseId, String sku)
+		throws RemoteException {
+
+		try {
+			long returnValue =
+				CommerceInventoryReplenishmentItemServiceUtil.
+					getCommerceInventoryReplenishmentItemsCount(
+						commerceInventoryWarehouseId, sku);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.inventory.model.
+			CommerceInventoryReplenishmentItemSoap
+					getCommerceInventoryReplenishmentItem(
+						long commerceInventoryReplenishmentItemId)
+				throws RemoteException {
+
+		try {
+			com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItem returnValue =
+					CommerceInventoryReplenishmentItemServiceUtil.
+						getCommerceInventoryReplenishmentItem(
+							commerceInventoryReplenishmentItemId);
+
+			return com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItemSoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void deleteCommerceInventoryReplenishmentItem(
+			long commerceInventoryReplenishmentItemId)
+		throws RemoteException {
+
+		try {
+			CommerceInventoryReplenishmentItemServiceUtil.
+				deleteCommerceInventoryReplenishmentItem(
+					commerceInventoryReplenishmentItemId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.inventory.model.
+			CommerceInventoryReplenishmentItemSoap
+					updateCommerceInventoryReplenishmentItem(
+						long commerceInventoryReplenishmentItemId,
+						java.util.Date availabilityDate, int quantity)
+				throws RemoteException {
+
+		try {
+			com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItem returnValue =
+					CommerceInventoryReplenishmentItemServiceUtil.
+						updateCommerceInventoryReplenishmentItem(
+							commerceInventoryReplenishmentItemId,
+							availabilityDate, quantity);
+
+			return com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItemSoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CommerceInventoryReplenishmentItemServiceSoap.class);
 

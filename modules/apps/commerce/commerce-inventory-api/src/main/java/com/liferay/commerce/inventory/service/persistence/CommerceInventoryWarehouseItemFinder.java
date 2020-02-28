@@ -23,7 +23,7 @@ import aQute.bnd.annotation.ProviderType;
 @ProviderType
 public interface CommerceInventoryWarehouseItemFinder {
 
-	public int countAdminUIItemsByCompanyId(long companyId);
+	public int countItemsByCompanyId(long companyId);
 
 	public int countStockQuantityByC_S(long companyId, String sku);
 
@@ -33,7 +33,7 @@ public interface CommerceInventoryWarehouseItemFinder {
 	public int countUpdatedItemsByC_M(
 		long companyId, java.util.Date startDate, java.util.Date endDate);
 
-	public java.util.List<Object[]> findAdminUIItemsByCompanyId(
+	public java.util.List<Object[]> findItemsByCompanyId(
 		long companyId, int start, int end);
 
 	public java.util.List

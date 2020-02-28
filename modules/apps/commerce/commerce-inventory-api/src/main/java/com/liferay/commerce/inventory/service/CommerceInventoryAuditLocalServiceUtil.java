@@ -54,19 +54,16 @@ public class CommerceInventoryAuditLocalServiceUtil {
 
 	public static com.liferay.commerce.inventory.model.CommerceInventoryAudit
 			addCommerceInventoryAudit(
-				long userId, String sku, int quantity, String description)
+				long userId, String sku, String logType, String logTypeSettings,
+				int quantity)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addCommerceInventoryAudit(
-			userId, sku, quantity, description);
+			userId, sku, logType, logTypeSettings, quantity);
 	}
 
 	public static void checkCommerceInventoryAudit(java.util.Date date) {
 		getService().checkCommerceInventoryAudit(date);
-	}
-
-	public static int countCommerceInventoryAudits(long companyId, String sku) {
-		return getService().countCommerceInventoryAudits(companyId, sku);
 	}
 
 	/**
@@ -269,6 +266,12 @@ public class CommerceInventoryAuditLocalServiceUtil {
 	 */
 	public static int getCommerceInventoryAuditsCount() {
 		return getService().getCommerceInventoryAuditsCount();
+	}
+
+	public static int getCommerceInventoryAuditsCount(
+		long companyId, String sku) {
+
+		return getService().getCommerceInventoryAuditsCount(companyId, sku);
 	}
 
 	public static

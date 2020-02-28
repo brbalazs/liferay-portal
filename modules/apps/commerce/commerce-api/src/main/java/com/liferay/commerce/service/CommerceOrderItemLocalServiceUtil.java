@@ -266,6 +266,13 @@ public class CommerceOrderItemLocalServiceUtil {
 		return getService().fetchCommerceOrderItem(commerceOrderItemId);
 	}
 
+	public static com.liferay.commerce.model.CommerceOrderItem
+		fetchCommerceOrderItemByBookedQuantityId(long bookedQuantityId) {
+
+		return getService().fetchCommerceOrderItemByBookedQuantityId(
+			bookedQuantityId);
+	}
+
 	/**
 	 * Returns the commerce order item with the matching external reference code and company.
 	 *
