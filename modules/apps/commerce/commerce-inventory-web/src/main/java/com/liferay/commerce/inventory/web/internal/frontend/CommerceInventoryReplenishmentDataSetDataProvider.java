@@ -14,20 +14,23 @@
 
 package com.liferay.commerce.inventory.web.internal.frontend;
 
-import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
-
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
-import com.liferay.commerce.inventory.model.CommerceInventoryAdminUIReplenishment;
-import com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemLocalService;
+import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
+import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
+import com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemService;
 import com.liferay.commerce.inventory.web.internal.model.Replenishment;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
+
+import java.text.DateFormat;
+import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -52,16 +56,11 @@ public class CommerceInventoryReplenishmentDataSetDataProvider
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceInventoryActionKeys.MANAGE_INVENTORY);
-
-		long companyId = _portal.getCompanyId(httpServletRequest);
-
 		String sku = ParamUtil.getString(httpServletRequest, "sku");
 
-		return _commerceInventoryReplenishmentItemLocalService.
-			countAdminUIReplenishmentItemsByCompanyIdAndSku(companyId, sku);
+		return _commerceInventoryReplenishmentItemService.
+			getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+				_portal.getCompanyId(httpServletRequest), sku);
 	}
 
 	@Override
@@ -70,38 +69,51 @@ public class CommerceInventoryReplenishmentDataSetDataProvider
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+		List<Replenishment> replenishments = new ArrayList<>();
 
-		List<Replenishment> replenishmentList = new ArrayList<>();
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
-		long companyId = _portal.getCompanyId(httpServletRequest);
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
+			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
+			themeDisplay.getTimeZone());
 
 		String sku = ParamUtil.getString(httpServletRequest, "sku");
 
-		List<CommerceInventoryAdminUIReplenishment> adminUIReplenishmentItems =
-			_commerceInventoryReplenishmentItemLocalService.
-				getAdminUIReplenishmentItemsByCompanyIdAndSku(
-					companyId, sku, pagination.getStartPosition(),
-					pagination.getEndPosition());
+		List<CommerceInventoryReplenishmentItem>
+			commerceInventoryReplenishmentItems =
+				_commerceInventoryReplenishmentItemService.
+					getCommerceInventoryReplenishmentItemsByCompanyIdAndSku(
+						_portal.getCompanyId(httpServletRequest), sku,
+						pagination.getStartPosition(),
+						pagination.getEndPosition());
 
-		for (CommerceInventoryAdminUIReplenishment adminUIReplenishment :
-				adminUIReplenishmentItems) {
+		for (CommerceInventoryReplenishmentItem
+				commerceInventoryReplenishmentItem :
+					commerceInventoryReplenishmentItems) {
 
-			replenishmentList.add(
+			CommerceInventoryWarehouse commerceInventoryWarehouse =
+				commerceInventoryReplenishmentItem.
+					getCommerceInventoryWarehouse();
+
+			replenishments.add(
 				new Replenishment(
-					adminUIReplenishment.getName(),
-					adminUIReplenishment.getDate(),
-					adminUIReplenishment.getQuantity()));
+					commerceInventoryReplenishmentItem.
+						getCommerceInventoryReplenishmentItemId(),
+					commerceInventoryWarehouse.getName(),
+					dateTimeFormat.format(
+						commerceInventoryReplenishmentItem.
+							getAvailabilityDate()),
+					commerceInventoryReplenishmentItem.getQuantity()));
 		}
 
-		return replenishmentList;
+		return replenishments;
 	}
 
 	@Reference
-	private CommerceInventoryReplenishmentItemLocalService
-		_commerceInventoryReplenishmentItemLocalService;
+	private CommerceInventoryReplenishmentItemService
+		_commerceInventoryReplenishmentItemService;
 
 	@Reference
 	private Portal _portal;
