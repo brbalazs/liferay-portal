@@ -74,7 +74,7 @@ public class CommerceInventoryItemClayDataSetActionProvider
 
 		if (PortalPermissionUtil.contains(
 				getPermissionChecker(),
-				CommerceInventoryActionKeys.ADD_WAREHOUSE)) {
+				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
 			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
@@ -83,11 +83,6 @@ public class CommerceInventoryItemClayDataSetActionProvider
 				null, false, false);
 
 			clayDataSetActions.add(editClayDataSetAction);
-		}
-
-		if (PortalPermissionUtil.contains(
-				getPermissionChecker(),
-				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
