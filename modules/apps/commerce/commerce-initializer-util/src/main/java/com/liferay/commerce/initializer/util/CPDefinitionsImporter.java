@@ -639,7 +639,8 @@ public class CPDefinitionsImporter {
 
 		// Commerce product channel
 
-		cpDefinition.setChannelFilterEnabled(true);
+		_cpDefinitionLocalService.updateCPDefinitionChannelFilter(
+			cpDefinition.getCPDefinitionId(), true);
 
 		_commerceChannelRelLocalService.addCommerceChannelRel(
 			CPDefinition.class.getName(), cpDefinition.getCPDefinitionId(),
@@ -651,7 +652,8 @@ public class CPDefinitionsImporter {
 			"FilterAccountGroups");
 
 		if (filterAccountGroupsJSONArray != null) {
-			cpDefinition.setAccountGroupFilterEnabled(true);
+			_cpDefinitionLocalService.updateCPDefinitionAccountGroupFilter(
+				cpDefinition.getCPDefinitionId(), true);
 
 			for (int i = 0; i < filterAccountGroupsJSONArray.length(); i++) {
 				String accountGroupExternalReferenceCode =
@@ -675,14 +677,10 @@ public class CPDefinitionsImporter {
 			}
 		}
 
-		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
-
-		_cpDefinitionLocalService.updateStatus(
+		return _cpDefinitionLocalService.updateStatus(
 			cpDefinition.getUserId(), cpDefinition.getCPDefinitionId(),
 			WorkflowConstants.STATUS_APPROVED, serviceContext,
 			new HashMap<String, Serializable>());
-
-		return cpDefinition;
 	}
 
 	private CPDefinitionOptionRel _importCPDefinitionOptionRel(
@@ -880,15 +878,19 @@ public class CPDefinitionsImporter {
 
 		CPInstance cpInstance = _cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, cpDefinition.getGroupId(), sku, null,
-			manufacturerPartNumber, true, optionsJSON, cpDefinition.getWidth(),
-			cpDefinition.getHeight(), cpDefinition.getDepth(),
-			cpDefinition.getWeight(), BigDecimal.valueOf(price),
-			BigDecimal.valueOf(promoPrice), BigDecimal.valueOf(0), true,
-			externalReferenceCode, calendar.get(Calendar.MONTH),
-			calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR),
-			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-			0, 0, 0, 0, 0, true, overrideSubscriptionInfo, subscriptionEnabled,
-			subscriptionLength, subscriptionType,
+			manufacturerPartNumber, true,
+			_cpDefinitionOptionRelLocalService.
+				getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+					cpDefinitionId, optionsJSON),
+			cpDefinition.getWidth(), cpDefinition.getHeight(),
+			cpDefinition.getDepth(), cpDefinition.getWeight(),
+			BigDecimal.valueOf(price), BigDecimal.valueOf(promoPrice),
+			BigDecimal.valueOf(0), true, externalReferenceCode,
+			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+			calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
+			calendar.get(Calendar.MINUTE), 0, 0, 0, 0, 0, true,
+			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
+			subscriptionType,
 			_getSubscriptionTypeSettingsProperties(subscriptionInfoJSONObject),
 			maxSubscriptionCycles, serviceContext);
 
