@@ -313,6 +313,14 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	@Override
+	public CommerceOrderItem fetchCommerceOrderItemByBookedQuantityId(
+		long bookedQuantityId) {
+
+		return commerceOrderItemPersistence.fetchByBookedQuantityId(
+			bookedQuantityId);
+	}
+
+	@Override
 	public List<CommerceOrderItem> getAvailableForShipmentCommerceOrderItems(
 		long commerceOrderId) {
 
