@@ -27,11 +27,9 @@ function TimelineEntry(props) {
 				<div className="panel-body">
 					<div className="mb-2 row">
 						<div className="col">
-							<h4 className="mb-0">
-								{props.title}
-							</h4>
+							<h4 className="mb-0">{props.title}</h4>
 						</div>
-						<div class=" col-auto">
+						<div className=" col-auto">
 							<small>{props.date}</small>
 						</div>
 					</div>
@@ -48,8 +46,7 @@ Timeline.propTypes = {
 	title: PropTypes.string.isRequired
 };
 
-Timeline.defaultProps = {
-};
+Timeline.defaultProps = {};
 
 function Timeline(props) {
 	const {style} = useContext(props.datasetDisplayContext);
@@ -57,7 +54,8 @@ function Timeline(props) {
 	return (
 		<ClayList
 			className={classNames(
-				'mb-0', 'timeline',
+				'mb-0',
+				'timeline',
 				style === 'default' ? 'border-bottom' : 'border'
 			)}
 		>
