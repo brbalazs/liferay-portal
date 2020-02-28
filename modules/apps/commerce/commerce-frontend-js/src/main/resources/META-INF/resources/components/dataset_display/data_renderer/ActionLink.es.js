@@ -21,9 +21,12 @@ import DatasetDisplayContext from '../DatasetDisplayContext.es';
 import DefaultContent from './Default.es';
 
 function ActionLink(props) {
-	const {highlightItems, openModal, openSidePanel} = useContext(
-		DatasetDisplayContext
-	);
+	const {
+		executeAsyncItemAction,
+		highlightItems,
+		openModal,
+		openSidePanel
+	} = useContext(DatasetDisplayContext);
 
 	const currentAction =
 		props.options && props.options.actionId
@@ -34,37 +37,47 @@ function ActionLink(props) {
 		return <DefaultContent value={props.value} />;
 	}
 
-	function handleClickOnLink(e, payload, target) {
+	function handleClickOnLink(e) {
 		e.preventDefault();
 
-		if (target === 'modal') {
-			return openModal(payload);
+		if (currentAction.target === 'modal') {
+			openModal({
+				size: currentAction.size || 'lg',
+				title: currentAction.title,
+				url: currentAction.href
+			});
 		}
 
-		if (target === 'sidePanel') {
-			highlightItems([props.itemId]);
-			return openSidePanel(payload);
+		if (currentAction.target === 'sidePanel') {
+			highlightItems([currentAction.itemId]);
+			openSidePanel({
+				size: currentAction.size || 'lg',
+				title: currentAction.title,
+				url: currentAction.href
+			});
 		}
+
+		if (currentAction.target === 'async') {
+			executeAsyncItemAction(currentAction.href, currentAction.method);
+		}
+
+		if (currentAction.onClick) {
+			eval(currentAction.onClick);
+		}
+	}
+
+	function isNotALink() {
+		return Boolean(
+			(currentAction.target && currentAction.target !== 'link') ||
+				currentAction.onClick
+		);
 	}
 
 	return (
 		<ClayLink
 			data-senna-off
-			href={currentAction.href}
-			onClick={
-				currentAction.target &&
-				currentAction.target !== 'link' &&
-				(e =>
-					handleClickOnLink(
-						e,
-						{
-							size: currentAction.size || 'lg',
-							title: currentAction.title,
-							url: currentAction.href
-						},
-						currentAction.target
-					))
-			}
+			href={currentAction.href || '#'}
+			onClick={isNotALink() ? handleClickOnLink : null}
 		>
 			{props.value || <ClayIcon symbol={currentAction.icon} />}
 		</ClayLink>
@@ -75,10 +88,12 @@ ActionLink.propTypes = {
 	actions: PropTypes.arrayOf(
 		PropTypes.shape({
 			disabled: PropTypes.bool,
-			href: PropTypes.string.isRequired,
+			href: PropTypes.string,
 			icon: PropTypes.string,
+			method: PropTypes.oneOf(['get', 'delete']),
+			onClick: PropTypes.string,
 			size: PropTypes.string,
-			target: PropTypes.oneOf(['modal', 'sidePanel', 'link']),
+			target: PropTypes.oneOf(['modal', 'sidePanel', 'link', 'async']),
 			title: PropTypes.string
 		})
 	),

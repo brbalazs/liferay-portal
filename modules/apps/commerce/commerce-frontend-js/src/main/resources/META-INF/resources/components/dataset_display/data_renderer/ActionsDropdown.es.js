@@ -21,20 +21,35 @@ import React, {useContext, useState} from 'react';
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
 
 function ActionItem(props) {
-	const {highlightItems, loadData, openModal, openSidePanel} = useContext(
-		DatasetDisplayContext
-	);
+	const {
+		executeAsyncItemAction,
+		highlightItems,
+		openModal,
+		openSidePanel
+	} = useContext(DatasetDisplayContext);
 
-	function handleClickOnLink(e, payload) {
+	function handleClickOnLink(e) {
 		e.preventDefault();
 
 		if (props.target === 'modal') {
-			openModal(payload);
+			openModal({
+				size: props.size || 'lg',
+				title: props.title,
+				url: props.href
+			});
 		}
 
 		if (props.target === 'sidePanel') {
 			highlightItems([props.itemId]);
-			openSidePanel(payload);
+			openSidePanel({
+				size: props.size || 'lg',
+				title: props.title,
+				url: props.href
+			});
+		}
+
+		if (props.target === 'async') {
+			executeAsyncItemAction(props.href, props.method);
 		}
 
 		if (props.onClick) {
@@ -45,23 +60,16 @@ function ActionItem(props) {
 	}
 
 	function isNotALink() {
-		return (props.target && props.target !== 'link') || props.onClick;
+		return Boolean(
+			(props.target && props.target !== 'link') || props.onClick
+		);
 	}
 
 	return (
 		<ClayDropDown.Item
 			data-senna-off
-			href={props.href}
-			onClick={
-				isNotALink() &&
-				(e =>
-					handleClickOnLink(e, {
-						onSubmit: loadData,
-						size: props.size || 'lg',
-						title: props.title,
-						url: props.href
-					}))
-			}
+			href={props.href || '#'}
+			onClick={isNotALink() ? handleClickOnLink : null}
 		>
 			{props.icon && (
 				<span className="pr-2">
@@ -112,7 +120,9 @@ ActionsDropdown.propTypes = {
 			href: PropTypes.string,
 			icon: PropTypes.string,
 			label: PropTypes.string.isRequired,
-			target: PropTypes.oneOf(['modal', 'sidePanel', 'link'])
+			method: PropTypes.oneOf(['get', 'delete']),
+			onClick: PropTypes.string,
+			target: PropTypes.oneOf(['modal', 'sidePanel', 'link', 'async'])
 		})
 	),
 	itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])

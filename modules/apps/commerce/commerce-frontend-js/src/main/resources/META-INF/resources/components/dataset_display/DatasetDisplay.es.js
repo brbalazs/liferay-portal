@@ -38,15 +38,19 @@ import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index.es';
 import {getViewById} from './views/index.es';
 
-function loadData(
-	apiUrl,
-	currentUrl,
-	filters,
-	searchParam,
-	delta,
-	page = 1,
-	sorting = []
-) {
+const headers = {
+	credentials: 'include',
+	headers: new Headers({'x-csrf-token': Liferay.authToken})
+};
+
+function executeAsyncAction(url, method = 'GET') {
+	return fetch(url, {
+		...headers,
+		method
+	}).then(response => response.json());
+}
+
+function loadData(apiUrl, currentUrl, filters, searchParam, delta, page = 1, sorting = []) {
 	const authString = `&p_auth=${window.Liferay.authToken}`;
 	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
 	const pagination = `&pageSize=${delta}&page=${page}`;
@@ -58,11 +62,7 @@ function loadData(
 
 	const url = `${apiUrl}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}${filterString}`;
 
-	return fetch(url, {
-		credentials: 'include',
-		headers: new Headers({'x-csrf-token': Liferay.authToken}),
-		method: 'GET'
-	}).then(response => response.json());
+	return executeAsyncAction(url, 'GET');
 }
 
 function DatasetDisplay(props) {
@@ -70,7 +70,7 @@ function DatasetDisplay(props) {
 	const [changesCount, setChangesCount] = useState(0);
 	const [views, updateViews] = useState(props.views);
 	const [loading, setLoading] = useState(false);
-	const [sidePanelSupportModalId] = useState(
+	const [datasetDisplaySupportSidePanelId] = useState(
 		props.sidePanelId || 'support-side-panel-' + getRandomId()
 	);
 
@@ -321,7 +321,7 @@ function DatasetDisplay(props) {
 				selectedItemsValue={selectedItemsValue}
 				selectionType={props.selectionType}
 				setActiveView={setActiveView}
-				sidePanelId={sidePanelSupportModalId}
+				sidePanelId={datasetDisplaySupportSidePanelId}
 				totalItemsCount={props.items.length}
 				views={props.views}
 			/>
@@ -374,9 +374,22 @@ function DatasetDisplay(props) {
 			</div>
 		) : null;
 
+	function executeAsyncItemAction(url, method) {
+		executeAsyncAction(url, method)
+			.then(_ => refreshData())
+			.catch(e => {
+				console.error(e);
+				showNotification(
+					Liferay.Language.get('unexpected-error'),
+					'danger'
+				);
+			});
+	}
+
 	function openSidePanel(config) {
 		return Liferay.fire(OPEN_SIDE_PANEL, {
-			id: sidePanelSupportModalId,
+			id: datasetDisplaySupportSidePanelId,
+			onSubmit: refreshData,
 			...config
 		});
 	}
@@ -384,6 +397,7 @@ function DatasetDisplay(props) {
 	function openModal(config) {
 		return Liferay.fire(OPEN_MODAL, {
 			id: datasetDisplaySupportModalId,
+			onSubmit: refreshData,
 			...config
 		});
 	}
@@ -391,6 +405,7 @@ function DatasetDisplay(props) {
 	return (
 		<DatasetDisplayContext.Provider
 			value={{
+				executeAsyncItemAction,
 				formId: props.formId,
 				formRef,
 				highlightItems,
@@ -405,7 +420,7 @@ function DatasetDisplay(props) {
 				selectedItemsKey: props.selectedItemsKey,
 				selectedItemsValue,
 				selectionType: props.selectionType,
-				sidePanelId: sidePanelSupportModalId,
+				sidePanelId: datasetDisplaySupportSidePanelId,
 				sorting,
 				style: props.style,
 				updateSearchParam,
@@ -419,7 +434,7 @@ function DatasetDisplay(props) {
 				/>
 				{!props.sidePanelId && (
 					<SidePanel
-						id={sidePanelSupportModalId}
+						id={datasetDisplaySupportSidePanelId}
 						onAfterSubmit={refreshData}
 					/>
 				)}

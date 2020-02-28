@@ -116,11 +116,19 @@ const fluidDataSetDisplayProps = {
 					label: 'View'
 				},
 				{
+					href: '/select/url',
+					icon: 'message-boards',
+					id: 'select',
+					label: 'Select',
+					target: 'modal'
+				},
+				{
 					href: '/delete/url',
 					icon: 'trash',
 					id: 'delete',
 					label: 'Delete',
-					target: 'modal'
+					method: 'delete',
+					target: 'async'
 				},
 				{
 					href: '/edit/url',
@@ -128,6 +136,12 @@ const fluidDataSetDisplayProps = {
 					id: 'edit',
 					label: 'Edit',
 					target: 'sidePanel'
+				},
+				{
+					icon: 'warning-full',
+					id: 'alert',
+					label: 'Alert',
+					onClick: 'alert("asd")'
 				}
 			],
 			id: 'asd',
@@ -162,11 +176,19 @@ const fluidDataSetDisplayProps = {
 					label: 'View'
 				},
 				{
+					href: '/select/url',
+					icon: 'message-boards',
+					id: 'select',
+					label: 'Select',
+					target: 'modal'
+				},
+				{
 					href: '/delete/url',
 					icon: 'trash',
 					id: 'delete',
 					label: 'Delete',
-					target: 'modal'
+					method: 'delete',
+					target: 'async'
 				},
 				{
 					href: '/edit/url',
@@ -317,6 +339,14 @@ const fluidDataSetDisplayProps = {
 					},
 					{
 						actionId: 'delete',
+						contentRenderer: 'actionLink'
+					},
+					{
+						actionId: 'alert',
+						contentRenderer: 'actionLink'
+					},
+					{
+						actionId: 'select',
 						contentRenderer: 'actionLink'
 					},
 					{
