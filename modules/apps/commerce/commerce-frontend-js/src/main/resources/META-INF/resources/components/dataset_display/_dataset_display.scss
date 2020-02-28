@@ -35,6 +35,10 @@
 			padding-right: map-get($spacers, 3);
 		}
 
+		tr {
+			background: white;
+		}
+
 		td {
 			background-color: transparent;
 			position: relative;
