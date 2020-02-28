@@ -259,9 +259,8 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 
 				continue;
 			}
-
-			if (includeAttributeName.equals("treePath") &&
-				(model instanceof TreeModel)) {
+			else if (includeAttributeName.equals("treePath") &&
+					 (model instanceof TreeModel)) {
 
 				TreeModel treeModel = (TreeModel)model;
 
@@ -399,8 +398,11 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 		Stream<Map.Entry<String, Serializable>> stream = entrySet.stream();
 
 		return stream.filter(
-			expandoBridge1Attribute -> !expandoBridge1Attribute.equals(
-				"modifiedDate")
+			expandoBridge1Attribute -> {
+				String key = expandoBridge1Attribute.getKey();
+
+				return !key.equals("modifiedDate");
+			}
 		).allMatch(
 			expandoBridge1Attribute -> {
 				Serializable expandoBridge1Value =
@@ -419,9 +421,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 						(Object[])expandoBridge2Value);
 				}
 
-				return expandoBridge1Value.equals(
-					expandoBridge2Attributes.get(
-						expandoBridge1Attribute.getKey()));
+				return expandoBridge1Value.equals(expandoBridge2Value);
 			}
 		);
 	}
@@ -432,19 +432,18 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 		List<String> modifiedAttributeNames = new ArrayList<>();
 
 		for (String attributeName : attributeNames) {
-			if (attributeName.equalsIgnoreCase("memberships") ||
-				attributeName.equalsIgnoreCase("modifiedDate")) {
-
-				continue;
-			}
-
 			if (attributeName.equalsIgnoreCase("expando")) {
-				if (!_equals(
+				if (_equals(
 						originalModel.getExpandoBridge(),
 						model.getExpandoBridge())) {
 
-					modifiedAttributeNames.add(attributeName);
+					continue;
 				}
+
+				modifiedAttributeNames.add(attributeName);
+			}
+			else if (attributeName.equalsIgnoreCase("memberships") ||
+					 attributeName.equalsIgnoreCase("modifiedDate")) {
 
 				continue;
 			}
