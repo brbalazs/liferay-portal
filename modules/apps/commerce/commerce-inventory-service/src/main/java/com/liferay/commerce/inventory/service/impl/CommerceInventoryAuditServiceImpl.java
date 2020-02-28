@@ -17,32 +17,22 @@ package com.liferay.commerce.inventory.service.impl;
 import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
 import com.liferay.commerce.inventory.model.CommerceInventoryAudit;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryAuditServiceBaseImpl;
-import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 
 import java.util.List;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceInventoryAuditServiceImpl
 	extends CommerceInventoryAuditServiceBaseImpl {
 
 	@Override
-	public int countCommerceInventoryAudits(long companyId, String sku)
-		throws PrincipalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceInventoryActionKeys.MANAGE_INVENTORY);
-
-		return commerceInventoryAuditPersistence.countByC_S(companyId, sku);
-	}
-
-	@Override
 	public List<CommerceInventoryAudit> getCommerceInventoryAudits(
 			long companyId, String sku, int start, int end)
-		throws PrincipalException {
+		throws PortalException {
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
@@ -50,6 +40,18 @@ public class CommerceInventoryAuditServiceImpl
 
 		return commerceInventoryAuditLocalService.getCommerceInventoryAudits(
 			companyId, sku, start, end);
+	}
+
+	@Override
+	public int getCommerceInventoryAuditsCount(long companyId, String sku)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceInventoryActionKeys.MANAGE_INVENTORY);
+
+		return commerceInventoryAuditLocalService.
+			getCommerceInventoryAuditsCount(companyId, sku);
 	}
 
 }
