@@ -25,16 +25,17 @@ import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + CPPortletKeys.COMMERCE_INVENTORY,
-		"mvc.command.name=addInventoryReplenishment"
+		"mvc.command.name=editCommerceInventoryItem"
 	},
 	service = MVCRenderCommand.class
 )
-public class AddInventoryReplenishmentRenderCommand
+public class EditCommerceInventoryItemMVCRenderCommand
 	implements MVCRenderCommand {
 
 	@Override
@@ -42,7 +43,7 @@ public class AddInventoryReplenishmentRenderCommand
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		return "/details/modal/add_replenishment.jsp";
+		return "/edit_inventory_item.jsp";
 	}
 
 }

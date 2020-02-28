@@ -24,24 +24,25 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + CPPortletKeys.COMMERCE_INVENTORY,
-		"mvc.command.name=editCommerceInventoryItem"
+		"mvc.command.name=addCommerceInventoryWarehouseItem"
 	},
 	service = MVCRenderCommand.class
 )
-public class EditInventoryItemRenderCommand implements MVCRenderCommand {
+public class AddCommerceInventoryItemMVCRenderCommand
+	implements MVCRenderCommand {
 
 	@Override
 	public String render(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		return "/details/view.jsp";
+		return "/add_inventory_item.jsp";
 	}
 
 }
