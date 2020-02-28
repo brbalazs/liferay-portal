@@ -36,12 +36,14 @@ import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -1516,7 +1518,7 @@ public class CommerceCatalogPersistenceImpl
 
 		sb.append(_FINDER_COLUMN_C_S_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_S_SYSTEM_2);
+		sb.append(_FINDER_COLUMN_C_S_SYSTEM_2_SQL);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			sb.append(
@@ -1655,7 +1657,7 @@ public class CommerceCatalogPersistenceImpl
 
 		sb.append(_FINDER_COLUMN_C_S_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_S_SYSTEM_2);
+		sb.append(_FINDER_COLUMN_C_S_SYSTEM_2_SQL);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			sb.append(
@@ -1878,7 +1880,7 @@ public class CommerceCatalogPersistenceImpl
 
 		sb.append(_FINDER_COLUMN_C_S_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_S_SYSTEM_2);
+		sb.append(_FINDER_COLUMN_C_S_SYSTEM_2_SQL);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
 			sb.toString(), CommerceCatalog.class.getName(),
@@ -1917,6 +1919,9 @@ public class CommerceCatalogPersistenceImpl
 
 	private static final String _FINDER_COLUMN_C_S_SYSTEM_2 =
 		"commerceCatalog.system = ?";
+
+	private static final String _FINDER_COLUMN_C_S_SYSTEM_2_SQL =
+		"commerceCatalog.system_ = ?";
 
 	private FinderPath _finderPathFetchByC_ERC;
 	private FinderPath _finderPathCountByC_ERC;
@@ -2200,6 +2205,24 @@ public class CommerceCatalogPersistenceImpl
 
 	public CommerceCatalogPersistenceImpl() {
 		setModelClass(CommerceCatalog.class);
+
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("system", "system_");
+
+		try {
+			Field field = BasePersistenceImpl.class.getDeclaredField(
+				"_dbColumnNames");
+
+			field.setAccessible(true);
+
+			field.set(this, dbColumnNames);
+		}
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception, exception);
+			}
+		}
 	}
 
 	/**
@@ -2999,6 +3022,11 @@ public class CommerceCatalogPersistenceImpl
 	}
 
 	@Override
+	public Set<String> getBadColumnNames() {
+		return _badColumnNames;
+	}
+
+	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return CommerceCatalogModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -3154,5 +3182,8 @@ public class CommerceCatalogPersistenceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceCatalogPersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {"system"});
 
 }

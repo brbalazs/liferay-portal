@@ -111,7 +111,7 @@ create index IX_39773566 on CProduct (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_9F9DD68 on CProduct (uuid_[$COLUMN_LENGTH:75$], groupId);
 
 create index IX_1198BFF9 on CommerceCatalog (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
-create index IX_3D14D2A7 on CommerceCatalog (companyId, system);
+create index IX_65864AFC on CommerceCatalog (companyId, system_);
 
 create index IX_690E2FE3 on CommerceChannel (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
 create index IX_E1ECD95 on CommerceChannel (siteGroupId);

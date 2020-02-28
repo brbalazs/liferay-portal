@@ -40,6 +40,7 @@ public class CommerceAccountGroupFinderBaseImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
+		dbColumnNames.put("system", "system_");
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(

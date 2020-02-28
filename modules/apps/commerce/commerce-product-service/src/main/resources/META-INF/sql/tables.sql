@@ -363,7 +363,7 @@ create table CommerceCatalog (
 	name VARCHAR(75) null,
 	commerceCurrencyCode VARCHAR(75) null,
 	catalogDefaultLanguageId VARCHAR(75) null,
-	system BOOLEAN
+	system_ BOOLEAN
 );
 
 create table CommerceChannel (
