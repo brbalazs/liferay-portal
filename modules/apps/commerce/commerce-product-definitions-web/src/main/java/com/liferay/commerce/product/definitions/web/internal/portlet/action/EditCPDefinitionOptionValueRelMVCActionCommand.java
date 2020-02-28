@@ -112,30 +112,22 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CPDefinitionOptionValueRel.class.getName(), actionRequest);
 
-		CPDefinitionOptionValueRel cpDefinitionOptionValueRel = null;
-
 		if (cpDefinitionOptionValueRelId <= 0) {
 
 			// Add commerce product definition option value rel
 
-			cpDefinitionOptionValueRel =
-				_cpDefinitionOptionValueRelService.
-					addCPDefinitionOptionValueRel(
-						cpDefinitionOptionRelId, nameMap, priority, key,
-						serviceContext);
-		}
-		else {
-
-			// Update commerce product definition option value rel
-
-			cpDefinitionOptionValueRel =
-				_cpDefinitionOptionValueRelService.
-					updateCPDefinitionOptionValueRel(
-						cpDefinitionOptionValueRelId, nameMap, priority, key,
-						serviceContext);
+			return _cpDefinitionOptionValueRelService.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionRelId, nameMap, priority, key,
+					serviceContext);
 		}
 
-		return cpDefinitionOptionValueRel;
+		// Update commerce product definition option value rel
+
+		return _cpDefinitionOptionValueRelService.
+			updateCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRelId, nameMap, priority, key,
+				serviceContext);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
