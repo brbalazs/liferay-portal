@@ -30,6 +30,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -49,11 +50,11 @@ public class TransferQuantitiesMVCActionCommand extends BaseMVCActionCommand {
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		if (cmd.equals(Constants.MOVE)) {
-			moveQuantitiesBetweenWarehouses(actionRequest);
+			moveQuantities(actionRequest);
 		}
 	}
 
-	protected void moveQuantitiesBetweenWarehouses(ActionRequest actionRequest)
+	protected void moveQuantities(ActionRequest actionRequest)
 		throws PortalException {
 
 		String sku = ParamUtil.getString(actionRequest, "sku");

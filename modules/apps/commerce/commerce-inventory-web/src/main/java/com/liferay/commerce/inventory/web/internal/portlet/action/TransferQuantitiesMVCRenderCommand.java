@@ -25,6 +25,7 @@ import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -34,14 +35,14 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = MVCRenderCommand.class
 )
-public class TransferQuantitiesRenderCommand implements MVCRenderCommand {
+public class TransferQuantitiesMVCRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		return "/details/modal/transfer_quantities.jsp";
+		return "/transfer_quantities.jsp";
 	}
 
 }
