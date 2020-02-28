@@ -2326,6 +2326,7 @@ public class CommerceDataIntegrationProcessPersistenceImpl
 		dbColumnNames.put(
 			"commerceDataIntegrationProcessId", "CDataIntegrationProcessId");
 		dbColumnNames.put("type", "type_");
+		dbColumnNames.put("system", "system_");
 		dbColumnNames.put("active", "active_");
 
 		try {
@@ -3387,6 +3388,8 @@ public class CommerceDataIntegrationProcessPersistenceImpl
 		CommerceDataIntegrationProcessPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"commerceDataIntegrationProcessId", "type", "active"});
+		new String[] {
+			"commerceDataIntegrationProcessId", "type", "system", "active"
+		});
 
 }

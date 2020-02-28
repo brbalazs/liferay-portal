@@ -79,7 +79,7 @@ public class CommerceDataIntegrationProcessModelImpl
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
 		{"type_", Types.VARCHAR}, {"typeSettings", Types.CLOB},
-		{"system", Types.BOOLEAN}, {"active_", Types.BOOLEAN},
+		{"system_", Types.BOOLEAN}, {"active_", Types.BOOLEAN},
 		{"cronExpression", Types.VARCHAR}, {"startDate", Types.TIMESTAMP},
 		{"endDate", Types.TIMESTAMP}
 	};
@@ -97,7 +97,7 @@ public class CommerceDataIntegrationProcessModelImpl
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("typeSettings", Types.CLOB);
-		TABLE_COLUMNS_MAP.put("system", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("system_", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("cronExpression", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("startDate", Types.TIMESTAMP);
@@ -105,7 +105,7 @@ public class CommerceDataIntegrationProcessModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CDataIntegrationProcess (CDataIntegrationProcessId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,type_ VARCHAR(75) null,typeSettings TEXT null,system BOOLEAN,active_ BOOLEAN,cronExpression VARCHAR(75) null,startDate DATE null,endDate DATE null)";
+		"create table CDataIntegrationProcess (CDataIntegrationProcessId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,type_ VARCHAR(75) null,typeSettings TEXT null,system_ BOOLEAN,active_ BOOLEAN,cronExpression VARCHAR(75) null,startDate DATE null,endDate DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CDataIntegrationProcess";
