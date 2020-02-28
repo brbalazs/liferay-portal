@@ -14,18 +14,15 @@
 
 package com.liferay.commerce.inventory.web.internal.frontend;
 
-import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
-
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.TimelineModel;
-import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
 import com.liferay.commerce.inventory.model.CommerceInventoryAudit;
 import com.liferay.commerce.inventory.service.CommerceInventoryAuditService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -45,6 +42,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -58,13 +56,9 @@ public class CommerceInventoryAuditDataSetDataProvider
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceInventoryActionKeys.MANAGE_INVENTORY);
-
 		String sku = ParamUtil.getString(httpServletRequest, "sku");
 
-		return _commerceInventoryAuditService.countCommerceInventoryAudits(
+		return _commerceInventoryAuditService.getCommerceInventoryAuditsCount(
 			_portal.getCompanyId(httpServletRequest), sku);
 	}
 
@@ -73,10 +67,6 @@ public class CommerceInventoryAuditDataSetDataProvider
 			HttpServletRequest httpServletRequest, Filter filter,
 			Pagination pagination, Sort sort)
 		throws PortalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceInventoryActionKeys.MANAGE_INVENTORY);
 
 		List<TimelineModel> timelineModels = new ArrayList<>();
 
@@ -103,8 +93,10 @@ public class CommerceInventoryAuditDataSetDataProvider
 					commerceInventoryAudit.getCommerceInventoryAuditId(),
 					dateTimeFormat.format(
 						commerceInventoryAudit.getCreateDate()),
-					commerceInventoryAudit.getDescription(),
-					commerceInventoryAudit.getDescription()));
+					commerceInventoryAudit.getLogTypeSettings(),
+					LanguageUtil.get(
+						httpServletRequest,
+						commerceInventoryAudit.getLogType())));
 		}
 
 		return timelineModels;
