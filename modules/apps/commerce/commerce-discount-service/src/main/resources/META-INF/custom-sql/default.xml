@@ -46,9 +46,6 @@
 				DISTINCT CommerceDiscount.*
 			FROM
 				CommerceDiscount
-			INNER JOIN
-				CommerceDiscountRel ON
-					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
 			LEFT JOIN
 				CommerceDiscountAccountRel ON
 					CommerceDiscountAccountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
