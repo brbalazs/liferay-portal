@@ -20,8 +20,10 @@ import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
+import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
+import com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
@@ -42,40 +44,107 @@ import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.RenderResponse;
+import javax.portlet.RenderURL;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceInventoryDisplayContext {
 
 	public CommerceInventoryDisplayContext(
+		CommerceInventoryReplenishmentItemService
+			commerceInventoryReplenishmentItemService,
 		CommerceInventoryWarehouseService commerceInventoryWarehouseService,
-		CommerceInventoryWarehouseItemService inventoryWarehouseItemService,
+		CommerceInventoryWarehouseItemService
+			commerceInventoryWarehouseItemService,
 		HttpServletRequest httpServletRequest) {
 
+		_commerceInventoryReplenishmentItemService =
+			commerceInventoryReplenishmentItemService;
 		_commerceInventoryWarehouseService = commerceInventoryWarehouseService;
-		_commerceInventoryWarehouseItemService = inventoryWarehouseItemService;
+		_commerceInventoryWarehouseItemService =
+			commerceInventoryWarehouseItemService;
 
-		_httpServletRequest = httpServletRequest;
 		_cpRequestHelper = new CPRequestHelper(httpServletRequest);
 
-		_sku = ParamUtil.getString(_httpServletRequest, "sku");
+		_sku = ParamUtil.getString(httpServletRequest, "sku");
+	}
+
+	public String getAddQuantityActionURL() throws Exception {
+		LiferayPortletResponse liferayPortletResponse =
+			_cpRequestHelper.getLiferayPortletResponse();
+
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceInventoryWarehouse");
+		portletURL.setParameter("sku", _sku);
+
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		return portletURL.toString();
+	}
+
+	public CommerceInventoryReplenishmentItem
+			getCommerceInventoryReplenishmentItem()
+		throws PortalException {
+
+		long commerceInventoryReplenishmentItemId = ParamUtil.getLong(
+			_cpRequestHelper.getRequest(),
+			"commerceInventoryReplenishmentItemId");
+
+		if (commerceInventoryReplenishmentItemId > 0) {
+			return _commerceInventoryReplenishmentItemService.
+				getCommerceInventoryReplenishmentItem(
+					commerceInventoryReplenishmentItemId);
+		}
+
+		return null;
+	}
+
+	public long getCommerceInventoryReplenishmentItemId()
+		throws PortalException {
+
+		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem =
+			getCommerceInventoryReplenishmentItem();
+
+		if (commerceInventoryReplenishmentItem == null) {
+			return 0;
+		}
+
+		return commerceInventoryReplenishmentItem.
+			getCommerceInventoryReplenishmentItemId();
 	}
 
 	public CommerceInventoryWarehouseItem getCommerceInventoryWarehouseItem()
-		throws PrincipalException {
+		throws PortalException {
 
-		long companyId = _cpRequestHelper.getCompanyId();
+		long commerceInventoryWarehouseItemId = ParamUtil.getLong(
+			_cpRequestHelper.getRequest(), "commerceInventoryWarehouseItemId");
 
-		List<CommerceInventoryWarehouseItem>
-			commerceInventoryWarehouseItemsByCompanyId =
-				_commerceInventoryWarehouseItemService.
-					getCommerceInventoryWarehouseItemsByCompanyIdAndSku(
-						companyId, _sku, 0, 1);
+		if (commerceInventoryWarehouseItemId > 0) {
+			return _commerceInventoryWarehouseItemService.
+				getCommerceInventoryWarehouseItem(
+					commerceInventoryWarehouseItemId);
+		}
 
-		return commerceInventoryWarehouseItemsByCompanyId.get(0);
+		return null;
+	}
+
+	public long getCommerceInventoryWarehouseItemId() throws PortalException {
+		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
+			getCommerceInventoryWarehouseItem();
+
+		if (commerceInventoryWarehouseItem == null) {
+			return 0;
+		}
+
+		return commerceInventoryWarehouseItem.
+			getCommerceInventoryWarehouseItemId();
 	}
 
 	public List<CommerceInventoryWarehouse> getCommerceInventoryWarehouses()
@@ -88,17 +157,31 @@ public class CommerceInventoryDisplayContext {
 				companyId, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
+	public String getCreateInventoryItemActionURL() throws Exception {
+		LiferayPortletResponse liferayPortletResponse =
+			_cpRequestHelper.getLiferayPortletResponse();
+
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "addCommerceInventoryWarehouseItem");
+
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		return portletURL.toString();
+	}
+
 	public String getCreateReplenishmentActionURL() throws Exception {
 		LiferayPortletResponse liferayPortletResponse =
 			_cpRequestHelper.getLiferayPortletResponse();
 
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
-		portletURL.setWindowState(LiferayWindowState.POP_UP);
-
 		portletURL.setParameter(
-			"mvcRenderCommandName", "addInventoryReplenishment");
+			"mvcRenderCommandName", "editCommerceInventoryReplenishmentItem");
 		portletURL.setParameter("sku", _sku);
+
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 		return portletURL.toString();
 	}
@@ -126,32 +209,48 @@ public class CommerceInventoryDisplayContext {
 		return headerDropdownItems;
 	}
 
-	public List<HeaderActionModel> getHeaderActionModels()
-		throws PortalException {
-
+	public List<HeaderActionModel> getHeaderActionModels() {
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
 		if (_sku == null) {
 			return headerActionModels;
 		}
 
-		PortletURL portletURL = getTransitionInventoryPortletURL();
+		if (PortalPermissionUtil.contains(
+				getPermissionChecker(),
+				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
-		HeaderActionModel headerActionModel;
+			RenderResponse renderResponse =
+				_cpRequestHelper.getRenderResponse();
+
+			RenderURL cancelURL = renderResponse.createRenderURL();
+
+			headerActionModels.add(
+				new HeaderActionModel(
+					null, cancelURL.toString(), null, "cancel"));
+		}
+
+		return headerActionModels;
+	}
+
+	public ClayCreationMenu getInventoryItemClayCreationMenu()
+		throws Exception {
+
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		if (PortalPermissionUtil.contains(
 				getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
-			portletURL.setParameter("transitionName", "save");
-
-			headerActionModel = new HeaderActionModel(
-				"btn-primary", null, portletURL.toString(), null, "save");
-
-			headerActionModels.add(headerActionModel);
+			clayCreationMenu.addClayCreationMenuItem(
+				new ClayCreationMenuItem(
+					getCreateInventoryItemActionURL(),
+					LanguageUtil.get(
+						_cpRequestHelper.getRequest(), "add-inventory-item"),
+					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
 		}
 
-		return headerActionModels;
+		return clayCreationMenu;
 	}
 
 	public PortletURL getPortletURL() {
@@ -204,10 +303,10 @@ public class CommerceInventoryDisplayContext {
 
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
-		portletURL.setWindowState(LiferayWindowState.POP_UP);
-
 		portletURL.setParameter("mvcRenderCommandName", "transferQuantities");
 		portletURL.setParameter("sku", _sku);
+
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 		return portletURL.toString();
 	}
@@ -236,6 +335,13 @@ public class CommerceInventoryDisplayContext {
 
 			clayCreationMenu.addClayCreationMenuItem(
 				new ClayCreationMenuItem(
+					getAddQuantityActionURL(),
+					LanguageUtil.get(
+						_cpRequestHelper.getRequest(), "add-quantity"),
+					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+
+			clayCreationMenu.addClayCreationMenuItem(
+				new ClayCreationMenuItem(
 					getTransferQuantitiesActionURL(),
 					LanguageUtil.get(
 						_cpRequestHelper.getRequest(), "transfer-quantity"),
@@ -245,12 +351,13 @@ public class CommerceInventoryDisplayContext {
 		return clayCreationMenu;
 	}
 
+	private final CommerceInventoryReplenishmentItemService
+		_commerceInventoryReplenishmentItemService;
 	private final CommerceInventoryWarehouseItemService
 		_commerceInventoryWarehouseItemService;
 	private final CommerceInventoryWarehouseService
 		_commerceInventoryWarehouseService;
 	private final CPRequestHelper _cpRequestHelper;
-	private final HttpServletRequest _httpServletRequest;
 	private String _sku;
 
 }
