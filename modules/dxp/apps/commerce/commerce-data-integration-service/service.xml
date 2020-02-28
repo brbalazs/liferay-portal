@@ -23,7 +23,7 @@
 		<column name="name" type="String" />
 		<column name="type" type="String" />
 		<column name="typeSettings" type="String" />
-		<column name="system" type="boolean" />
+		<column db-name="system_" name="system" type="boolean" />
 		<column name="active" type="boolean" />
 		<column name="cronExpression" type="String" />
 		<column name="startDate" type="Date" />
