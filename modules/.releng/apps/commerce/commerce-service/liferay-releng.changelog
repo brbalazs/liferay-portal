@@ -67,3 +67,8 @@ e66b97aada2c22d40e1d1d7f8c36c1149afcbca3^..3ddb688c38114dbad1ecf789e8d7a0ba7a22e
 # Bundle Version 5.5.5
 #
 a0975df43bb6611fef9678bdd80fd7bae9c08ac5^..1e540e92a043ad15e4b9bfca61340398331ec284=LPS-77699
+
+#
+# Bundle Version 5.5.6
+#
+1e540e92a043ad15e4b9bfca61340398331ec284^..8655cfd3a0a86a4a3a7bf830c64cbae092d84fbb=COMMERCE-2584 LPS-77699
