@@ -25,6 +25,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -41,9 +42,11 @@ public class CommerceInventoryBookedClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("account", "account");
 
-		//clayTableSchemaBuilder.addField("order", "order");
+		clayTableSchemaBuilder.addField("commerceOrderId", "order-id");
 
 		clayTableSchemaBuilder.addField("quantity", "quantity");
+
+		clayTableSchemaBuilder.addField("expirationDate", "expiration-date");
 
 		return clayTableSchemaBuilder.build();
 	}
