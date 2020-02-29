@@ -113,6 +113,11 @@ public class CommercePriceModifierHelperImpl
 			lowestPrice = lowestPrice.multiply(priceListCurrency.getRate());
 		}
 
+		RoundingMode roundingMode = RoundingMode.valueOf(
+			originalCommerceCurrency.getRoundingMode());
+
+		lowestPrice = lowestPrice.setScale(_SCALE, roundingMode);
+
 		return lowestPrice;
 	}
 
@@ -128,6 +133,8 @@ public class CommercePriceModifierHelperImpl
 
 		return !commercePriceModifiers.isEmpty();
 	}
+
+	private static final int _SCALE = 10;
 
 	@Reference
 	private CommercePriceListLocalService _commercePriceListLocalService;
