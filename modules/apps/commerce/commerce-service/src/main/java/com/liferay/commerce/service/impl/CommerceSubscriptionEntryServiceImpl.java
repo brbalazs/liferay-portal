@@ -124,24 +124,6 @@ public class CommerceSubscriptionEntryServiceImpl
 	@Override
 	public BaseModelSearchResult<CommerceSubscriptionEntry>
 			searchCommerceSubscriptionEntries(
-				long companyId, long groupId, Long maxSubscriptionCycles,
-				Integer subscriptionStatus, String keywords, int start, int end,
-				Sort sort)
-		throws PortalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceActionKeys.MANAGE_COMMERCE_SUBSCRIPTIONS);
-
-		return commerceSubscriptionEntryLocalService.
-			searchCommerceSubscriptionEntries(
-				companyId, groupId, maxSubscriptionCycles, subscriptionStatus,
-				keywords, start, end, sort);
-	}
-
-	@Override
-	public BaseModelSearchResult<CommerceSubscriptionEntry>
-			searchCommerceSubscriptionEntries(
 				long companyId, Long maxSubscriptionCycles,
 				Integer subscriptionStatus, String keywords, int start, int end,
 				Sort sort)
@@ -158,15 +140,32 @@ public class CommerceSubscriptionEntryServiceImpl
 	}
 
 	@Override
+	public BaseModelSearchResult<CommerceSubscriptionEntry>
+			searchCommerceSubscriptionEntries(
+				long companyId, long[] groupIds, Long maxSubscriptionCycles,
+				Integer subscriptionStatus, String keywords, int start, int end,
+				Sort sort)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SUBSCRIPTIONS);
+
+		return commerceSubscriptionEntryLocalService.
+			searchCommerceSubscriptionEntries(
+				companyId, groupIds, maxSubscriptionCycles, subscriptionStatus,
+				keywords, start, end, sort);
+	}
+
+	@Override
 	public CommerceSubscriptionEntry updateCommerceSubscriptionEntry(
 			long commerceSubscriptionEntryId, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
 			long maxSubscriptionCycles, int subscriptionStatus,
-			int startDateMonth, int startDateDay, int startDateYear,
-			int startDateHour, int startDateMinute, int nextIterationDateMonth,
-			int nextIterationDateDay, int nextIterationDateYear,
-			int nextIterationDateHour, int nextIterationDateMinute)
+			int nextIterationDateMonth, int nextIterationDateDay,
+			int nextIterationDateYear, int nextIterationDateHour,
+			int nextIterationDateMinute)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -177,8 +176,7 @@ public class CommerceSubscriptionEntryServiceImpl
 			updateCommerceSubscriptionEntry(
 				commerceSubscriptionEntryId, subscriptionLength,
 				subscriptionType, subscriptionTypeSettingsProperties,
-				maxSubscriptionCycles, subscriptionStatus, startDateMonth,
-				startDateDay, startDateYear, startDateHour, startDateMinute,
+				maxSubscriptionCycles, subscriptionStatus,
 				nextIterationDateMonth, nextIterationDateDay,
 				nextIterationDateYear, nextIterationDateHour,
 				nextIterationDateMinute);

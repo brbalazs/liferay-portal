@@ -19,7 +19,6 @@ import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.constants.CommerceSubscriptionNotificationConstants;
 import com.liferay.commerce.exception.CommerceSubscriptionCPInstanceIdException;
 import com.liferay.commerce.exception.CommerceSubscriptionEntryNextIterationDateException;
-import com.liferay.commerce.exception.CommerceSubscriptionEntryStartDateException;
 import com.liferay.commerce.exception.CommerceSubscriptionEntrySubscriptionStatusException;
 import com.liferay.commerce.exception.CommerceSubscriptionTypeException;
 import com.liferay.commerce.internal.search.CommerceSubscriptionEntryIndexer;
@@ -398,21 +397,6 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 	@Override
 	public BaseModelSearchResult<CommerceSubscriptionEntry>
 			searchCommerceSubscriptionEntries(
-				long companyId, long groupId, Long maxSubscriptionCycles,
-				Integer subscriptionStatus, String keywords, int start, int end,
-				Sort sort)
-		throws PortalException {
-
-		SearchContext searchContext = buildSearchContext(
-			companyId, groupId, maxSubscriptionCycles, subscriptionStatus,
-			keywords, start, end, sort);
-
-		return searchCommerceSubscriptionEntries(searchContext);
-	}
-
-	@Override
-	public BaseModelSearchResult<CommerceSubscriptionEntry>
-			searchCommerceSubscriptionEntries(
 				long companyId, Long maxSubscriptionCycles,
 				Integer subscriptionStatus, String keywords, int start, int end,
 				Sort sort)
@@ -425,6 +409,21 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 		return searchCommerceSubscriptionEntries(searchContext);
 	}
 
+	@Override
+	public BaseModelSearchResult<CommerceSubscriptionEntry>
+			searchCommerceSubscriptionEntries(
+				long companyId, long[] groupIds, Long maxSubscriptionCycles,
+				Integer subscriptionStatus, String keywords, int start, int end,
+				Sort sort)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			companyId, groupIds, maxSubscriptionCycles, subscriptionStatus,
+			keywords, start, end, sort);
+
+		return searchCommerceSubscriptionEntries(searchContext);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceSubscriptionEntry updateCommerceSubscriptionEntry(
@@ -432,10 +431,9 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
 			long maxSubscriptionCycles, int subscriptionStatus,
-			int startDateMonth, int startDateDay, int startDateYear,
-			int startDateHour, int startDateMinute, int nextIterationDateMonth,
-			int nextIterationDateDay, int nextIterationDateYear,
-			int nextIterationDateHour, int nextIterationDateMinute)
+			int nextIterationDateMonth, int nextIterationDateDay,
+			int nextIterationDateYear, int nextIterationDateHour,
+			int nextIterationDateMinute)
 		throws PortalException {
 
 		validateCPSubscriptionType(
@@ -467,13 +465,6 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 			CommerceSubscriptionEntryNextIterationDateException.class);
 
 		commerceSubscriptionEntry.setNextIterationDate(nextIterationDate);
-
-		Date startDate = PortalUtil.getDate(
-			startDateMonth, startDateDay, startDateYear, startDateHour,
-			startDateMinute, user.getTimeZone(),
-			CommerceSubscriptionEntryStartDateException.class);
-
-		commerceSubscriptionEntry.setStartDate(startDate);
 
 		return commerceSubscriptionEntryPersistence.update(
 			commerceSubscriptionEntry);
@@ -541,7 +532,7 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 	}
 
 	protected SearchContext buildSearchContext(
-		long companyId, Long groupId, Long maxSubscriptionCycles,
+		long companyId, long[] groupIds, Long maxSubscriptionCycles,
 		Integer subscriptionStatus, String keywords, int start, int end,
 		Sort sort) {
 
@@ -578,8 +569,8 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 		searchContext.setStart(start);
 		searchContext.setEnd(end);
 
-		if (groupId != null) {
-			searchContext.setGroupIds(new long[] {groupId});
+		if ((groupIds != null) && (groupIds.length > 0)) {
+			searchContext.setGroupIds(groupIds);
 		}
 
 		if (Validator.isNotNull(keywords)) {
