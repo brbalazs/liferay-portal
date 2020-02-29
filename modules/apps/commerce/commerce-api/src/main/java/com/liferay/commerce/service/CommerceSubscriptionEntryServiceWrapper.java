@@ -123,14 +123,14 @@ public class CommerceSubscriptionEntryServiceWrapper
 	public com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.commerce.model.CommerceSubscriptionEntry>
 				searchCommerceSubscriptionEntries(
-					long companyId, long groupId, Long maxSubscriptionCycles,
+					long companyId, long[] groupIds, Long maxSubscriptionCycles,
 					Integer subscriptionStatus, String keywords, int start,
 					int end, com.liferay.portal.kernel.search.Sort sort)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceSubscriptionEntryService.
 			searchCommerceSubscriptionEntries(
-				companyId, groupId, maxSubscriptionCycles, subscriptionStatus,
+				companyId, groupIds, maxSubscriptionCycles, subscriptionStatus,
 				keywords, start, end, sort);
 	}
 
@@ -142,8 +142,6 @@ public class CommerceSubscriptionEntryServiceWrapper
 				com.liferay.portal.kernel.util.UnicodeProperties
 					subscriptionTypeSettingsProperties,
 				long maxSubscriptionCycles, int subscriptionStatus,
-				int startDateMonth, int startDateDay, int startDateYear,
-				int startDateHour, int startDateMinute,
 				int nextIterationDateMonth, int nextIterationDateDay,
 				int nextIterationDateYear, int nextIterationDateHour,
 				int nextIterationDateMinute)
@@ -153,8 +151,7 @@ public class CommerceSubscriptionEntryServiceWrapper
 			updateCommerceSubscriptionEntry(
 				commerceSubscriptionEntryId, subscriptionLength,
 				subscriptionType, subscriptionTypeSettingsProperties,
-				maxSubscriptionCycles, subscriptionStatus, startDateMonth,
-				startDateDay, startDateYear, startDateHour, startDateMinute,
+				maxSubscriptionCycles, subscriptionStatus,
 				nextIterationDateMonth, nextIterationDateDay,
 				nextIterationDateYear, nextIterationDateHour,
 				nextIterationDateMinute);

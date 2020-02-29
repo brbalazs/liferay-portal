@@ -392,7 +392,7 @@ public interface CommerceSubscriptionEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommerceSubscriptionEntry>
 			searchCommerceSubscriptionEntries(
-				long companyId, long groupId, Long maxSubscriptionCycles,
+				long companyId, long[] groupIds, Long maxSubscriptionCycles,
 				Integer subscriptionStatus, String keywords, int start, int end,
 				Sort sort)
 		throws PortalException;
@@ -413,10 +413,9 @@ public interface CommerceSubscriptionEntryLocalService
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
 			long maxSubscriptionCycles, int subscriptionStatus,
-			int startDateMonth, int startDateDay, int startDateYear,
-			int startDateHour, int startDateMinute, int nextIterationDateMonth,
-			int nextIterationDateDay, int nextIterationDateYear,
-			int nextIterationDateHour, int nextIterationDateMinute)
+			int nextIterationDateMonth, int nextIterationDateDay,
+			int nextIterationDateYear, int nextIterationDateHour,
+			int nextIterationDateMinute)
 		throws PortalException;
 
 	public CommerceSubscriptionEntry
