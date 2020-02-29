@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -108,11 +109,14 @@ public class CommerceInventoryWarehouseClayDataSetActionProvider
 			_portal.getOriginalServletRequest(httpServletRequest),
 			CPPortletKeys.COMMERCE_INVENTORY, PortletRequest.ACTION_PHASE);
 
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editCommerceInventoryWarehouseItem");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter("redirect", redirect);
 		portletURL.setParameter(
 			"commerceInventoryWarehouseItemId",
 			String.valueOf(commerceInventoryWarehouseItemId));

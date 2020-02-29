@@ -38,8 +38,9 @@ import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index.es';
 import {getViewById} from './views/index.es';
 
-function loadData(apiUrl, filters, searchParam, delta, page = 1, sorting = []) {
+function loadData(apiUrl, currentUrl, filters, searchParam, delta, page = 1, sorting = []) {
 	const authString = `&p_auth=${window.Liferay.authToken}`;
+	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
 	const pagination = `&pageSize=${delta}&page=${page}`;
 	const searchParamString = searchParam ? `&q=${searchParam}` : '';
 	const sortingString = sorting.length
@@ -47,7 +48,7 @@ function loadData(apiUrl, filters, searchParam, delta, page = 1, sorting = []) {
 		: ``;
 	const filterString = `&${createOdataFilterStrings(filters)}`;
 
-	const url = `${apiUrl}${authString}${pagination}${sortingString}${searchParamString}${filterString}`;
+	const url = `${apiUrl}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}${filterString}`;
 
 	return fetch(url, {
 		credentials: 'include',
@@ -148,12 +149,14 @@ function DatasetDisplay(props) {
 		if (dataSetData instanceof Array) {
 			return updateItems(dataSetData);
 		}
+		setPageNumber(1);
 		setTotalItems(dataSetData.totalItems);
 		return updateItems(dataSetData.items);
 	}
 
 	function getData(
 		apiUrl,
+		currentUrl,
 		filters,
 		searchParam,
 		delta,
@@ -163,6 +166,7 @@ function DatasetDisplay(props) {
 	) {
 		return loadData(
 			apiUrl,
+			currentUrl,
 			filters,
 			searchParam,
 			delta,
@@ -192,6 +196,7 @@ function DatasetDisplay(props) {
 		if (changesCount > 1) {
 			getData(
 				props.apiUrl,
+				props.currentUrl,
 				filters.filter(e => !!e.value),
 				searchParam,
 				delta,
@@ -207,6 +212,7 @@ function DatasetDisplay(props) {
 		setChangesCount(c => c + 1);
 	}, [
 		props.apiUrl,
+		props.currentUrl,
 		filters,
 		searchParam,
 		delta,
@@ -250,6 +256,7 @@ function DatasetDisplay(props) {
 	const refreshData = () =>
 		getData(
 			props.apiUrl,
+			props.currentUrl,
 			filters.filter(e => !!e.value),
 			searchParam,
 			delta,
@@ -443,6 +450,7 @@ DatasetDisplay.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
 	bulkActions: PropTypes.array,
 	creationMenuItems: PropTypes.array,
+	currentUrl: PropTypes.string,
 	filters: PropTypes.array,
 	formId: PropTypes.string,
 	id: PropTypes.string.isRequired,
