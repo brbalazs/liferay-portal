@@ -38,7 +38,15 @@ import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index.es';
 import {getViewById} from './views/index.es';
 
-function loadData(apiUrl, currentUrl, filters, searchParam, delta, page = 1, sorting = []) {
+function loadData(
+	apiUrl,
+	currentUrl,
+	filters,
+	searchParam,
+	delta,
+	page = 1,
+	sorting = []
+) {
 	const authString = `&p_auth=${window.Liferay.authToken}`;
 	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
 	const pagination = `&pageSize=${delta}&page=${page}`;
