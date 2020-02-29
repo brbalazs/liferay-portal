@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -127,10 +126,7 @@ public abstract class BaseCommerceProductServiceUpgradeProcess
 					tableName));
 		}
 
-		String newColumnSimpleName = StringUtil.extractFirst(
-			newColumnName, StringPool.SPACE);
-
-		if (!hasColumn(tableName, newColumnSimpleName)) {
+		if (!hasColumn(tableName, newColumnName)) {
 			alter(
 				tableClass, new AlterColumnName(oldColumnName, newColumnName));
 		}

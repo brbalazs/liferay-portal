@@ -16,11 +16,9 @@ package com.liferay.commerce.product.internal.upgrade.v1_3_0;
 
 import com.liferay.commerce.product.internal.upgrade.base.BaseCommerceProductServiceUpgradeProcess;
 import com.liferay.commerce.product.model.impl.CPDefinitionLinkModelImpl;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -110,10 +108,7 @@ public class CPDefinitionLinkUpgradeProcess
 					newColumnName, tableName));
 		}
 
-		String newColumnSimpleName = StringUtil.extractFirst(
-			newColumnName, StringPool.SPACE);
-
-		if (!hasColumn(tableName, newColumnSimpleName)) {
+		if (!hasColumn(tableName, newColumnName)) {
 			alter(
 				tableClass, new AlterColumnName(oldColumnName, newColumnName));
 		}

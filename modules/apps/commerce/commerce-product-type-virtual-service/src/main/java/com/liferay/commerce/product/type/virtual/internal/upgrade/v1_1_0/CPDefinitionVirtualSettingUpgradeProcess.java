@@ -99,10 +99,7 @@ public class CPDefinitionVirtualSettingUpgradeProcess extends UpgradeProcess {
 					tableName));
 		}
 
-		String newColumnSimpleName = StringUtil.extractFirst(
-			newColumnName, StringPool.SPACE);
-
-		if (!hasColumn(tableName, newColumnSimpleName)) {
+		if (!hasColumn(tableName, newColumnName)) {
 			alter(
 				tableClass, new AlterColumnName(oldColumnName, newColumnName));
 		}

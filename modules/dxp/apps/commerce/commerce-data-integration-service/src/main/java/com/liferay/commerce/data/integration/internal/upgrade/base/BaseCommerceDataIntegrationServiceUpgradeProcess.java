@@ -14,11 +14,9 @@
 
 package com.liferay.commerce.data.integration.internal.upgrade.base;
 
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
-import com.liferay.portal.kernel.util.StringUtil;
 
 /**
  * @author Ethan Bustad
@@ -38,10 +36,7 @@ public abstract class BaseCommerceDataIntegrationServiceUpgradeProcess
 					newColumnName, tableName));
 		}
 
-		String newColumnSimpleName = StringUtil.extractFirst(
-			newColumnName, StringPool.SPACE);
-
-		if (!hasColumn(tableName, newColumnSimpleName)) {
+		if (!hasColumn(tableName, newColumnName)) {
 			alter(
 				tableClass, new AlterColumnName(oldColumnName, newColumnName));
 		}
