@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -31,12 +32,13 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	configurationPid = "com.liferay.commerce.pricing.configuration.CommercePricingConfiguration",
-	service = CommerceOrderPriceCalculationFactory.class
+	immediate = true, service = CommerceOrderPriceCalculationFactory.class
 )
 public class CommerceOrderPriceCalculationFactoryImpl
 	implements CommerceOrderPriceCalculationFactory {
 
 	@Activate
+	@Modified
 	public void activate(Map<String, Object> properties) {
 		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(
 			CommercePricingConfiguration.class, properties);
@@ -52,6 +54,6 @@ public class CommerceOrderPriceCalculationFactoryImpl
 	@Reference
 	private CommercePriceCalculationRegistry _commercePriceCalculationRegistry;
 
-	private CommercePricingConfiguration _commercePricingConfiguration;
+	private volatile CommercePricingConfiguration _commercePricingConfiguration;
 
 }
