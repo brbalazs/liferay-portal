@@ -20,10 +20,8 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPSubscriptionTypeJSPContributorRegistry;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
-import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.commerce.subscription.web.internal.display.context.CommerceSubscriptionEntryDisplayContext;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -40,6 +38,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -76,8 +75,7 @@ public class CommerceSubscriptionEntryPortlet extends MVCPortlet {
 					_commerceChannelLocalService,
 					_commercePaymentMethodGroupRelLocalService,
 					_commerceSubscriptionEntryLocalService,
-					_commerceOrderLocalService, _commerceOrderItemLocalService,
-					_configurationProvider,
+					_commerceOrderItemLocalService,
 					_cpSubscriptionTypeJSPContributorRegistry,
 					_cpSubscriptionTypeRegistry,
 					_portal.getHttpServletRequest(renderRequest));
@@ -96,18 +94,12 @@ public class CommerceSubscriptionEntryPortlet extends MVCPortlet {
 	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
 
 	@Reference
-	private CommerceOrderLocalService _commerceOrderLocalService;
-
-	@Reference
 	private CommercePaymentMethodGroupRelLocalService
 		_commercePaymentMethodGroupRelLocalService;
 
 	@Reference
 	private CommerceSubscriptionEntryLocalService
 		_commerceSubscriptionEntryLocalService;
-
-	@Reference
-	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPSubscriptionTypeJSPContributorRegistry
