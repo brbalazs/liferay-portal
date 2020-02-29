@@ -105,10 +105,15 @@ public class CommerceShipmentItemLocalServiceImpl
 
 		CommerceOrderItem commerceOrderItem = null;
 
+		int shippedQuantity = commerceShipmentItem.getQuantity() * -1;
+
 		try {
 			commerceOrderItem =
-				commerceOrderItemLocalService.getCommerceOrderItem(
-					commerceShipmentItem.getCommerceOrderItemId());
+				commerceOrderItemLocalService.incrementShippedQuantity(
+					commerceShipmentItem.getCommerceOrderItemId(),
+					shippedQuantity);
+
+			// Stock quantity
 
 			if (commerceShipmentItem.getCommerceInventoryWarehouseId() > 0) {
 				_restoreStockQuantity(commerceOrderItem, commerceShipmentItem);
@@ -255,6 +260,12 @@ public class CommerceShipmentItemLocalServiceImpl
 
 		commerceShipmentItem = commerceShipmentItemPersistence.update(
 			commerceShipmentItem);
+
+		// Commerce order item
+
+		commerceOrderItem =
+			commerceOrderItemLocalService.incrementShippedQuantity(
+				commerceShipmentItem.getCommerceOrderItemId(), quantity);
 
 		// Stock quantity
 
