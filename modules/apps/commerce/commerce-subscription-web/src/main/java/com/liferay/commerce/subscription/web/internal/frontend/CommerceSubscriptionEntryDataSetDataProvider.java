@@ -17,6 +17,7 @@ package com.liferay.commerce.subscription.web.internal.frontend;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
+import com.liferay.commerce.frontend.DefaultFilterImpl;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.model.CommerceOrder;
@@ -31,22 +32,19 @@ import com.liferay.commerce.subscription.web.internal.model.Link;
 import com.liferay.commerce.subscription.web.internal.model.SubscriptionEntry;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.portlet.PortalPreferences;
-import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
@@ -54,6 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -68,7 +67,7 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 		throws PortalException {
 
 		BaseModelSearchResult<CommerceSubscriptionEntry> baseModelSearchResult =
-			_getBaseModelSearchResult(httpServletRequest, filter, null);
+			_getBaseModelSearchResult(httpServletRequest, filter, null, null);
 
 		return baseModelSearchResult.getLength();
 	}
@@ -82,7 +81,8 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 		List<SubscriptionEntry> subscriptionEntries = new ArrayList<>();
 
 		BaseModelSearchResult<CommerceSubscriptionEntry> baseModelSearchResult =
-			_getBaseModelSearchResult(httpServletRequest, filter, pagination);
+			_getBaseModelSearchResult(
+				httpServletRequest, filter, pagination, sort);
 
 		for (CommerceSubscriptionEntry commerceSubscriptionEntry :
 				baseModelSearchResult.getBaseModels()) {
@@ -109,8 +109,10 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 				new Link(
 					commerceOrderIdString,
 					_getEditCommerceOrderURL(
-						commerceOrder.getCommerceOrderId(), httpServletRequest)),
-				new Link(commerceAccountIdString,
+						commerceOrder.getCommerceOrderId(),
+						httpServletRequest)),
+				new Link(
+					commerceAccountIdString,
 					_getEditAccountURL(
 						commerceAccount.getCommerceAccountId(),
 						httpServletRequest)),
@@ -123,50 +125,11 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 		return subscriptionEntries;
 	}
 
-	private String _getEditCommerceOrderURL(long commerceOrderId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		CPRequestHelper cpRequestHelper = new CPRequestHelper(httpServletRequest);
-
-		ThemeDisplay themeDisplay = cpRequestHelper.getThemeDisplay();
-
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, themeDisplay.getScopeGroup(),
-			CommerceOrder.class.getName(), PortletProvider.Action.MANAGE);
-
-		portletURL.setParameter("mvcRenderCommandName", "editCommerceOrder");
-		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
-		portletURL.setParameter("commerceOrderId", String.valueOf(commerceOrderId));
-
-		return portletURL.toString();
-	}
-
-	private String _getEditAccountURL(long commerceAccountId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		CPRequestHelper cpRequestHelper = new CPRequestHelper(httpServletRequest);
-
-		ThemeDisplay themeDisplay = cpRequestHelper.getThemeDisplay();
-
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, themeDisplay.getScopeGroup(),
-			CommerceAccount.class.getName(), PortletProvider.Action.MANAGE);
-
-		portletURL.setParameter("mvcRenderCommandName", "editCommerceAccount");
-		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
-		portletURL.setParameter("commerceAccountId", String.valueOf(commerceAccountId));
-
-		return portletURL.toString();
-	}
-
 	private BaseModelSearchResult<CommerceSubscriptionEntry>
 			_getBaseModelSearchResult(
 				HttpServletRequest httpServletRequest, Filter filter,
-				Pagination pagination)
+				Pagination pagination, Sort sort)
 		throws PortalException {
-
-		BaseModelSearchResult<CommerceSubscriptionEntry> baseModelSearchResult =
-			null;
 
 		int start = QueryUtil.ALL_POS;
 		int end = QueryUtil.ALL_POS;
@@ -176,38 +139,54 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 			end = pagination.getEndPosition();
 		}
 
-		_setSortPreferences(httpServletRequest);
+		DefaultFilterImpl defaultFilterImpl = (DefaultFilterImpl)filter;
 
-		Sort sort = SortFactoryUtil.getSort(
-			CommerceSubscriptionEntry.class, _orderByCol, _orderByType);
+		return _commerceSubscriptionEntryLocalService.
+			searchCommerceSubscriptionEntries(
+				_portal.getCompanyId(httpServletRequest), null, null,
+				defaultFilterImpl.getKeywords(), start, end, sort);
+	}
 
-		SubscriptionEntryFilterImpl subscriptionEntryFilterImpl =
-			(SubscriptionEntryFilterImpl)filter;
+	private String _getEditAccountURL(
+			long commerceAccountId, HttpServletRequest httpServletRequest)
+		throws PortalException {
 
-		long companyId = ParamUtil.getLong(httpServletRequest, "companyId");
+		CPRequestHelper cpRequestHelper = new CPRequestHelper(
+			httpServletRequest);
 
-		if (subscriptionEntryFilterImpl.isAdvancedSearch()) {
-			baseModelSearchResult =
-				_commerceSubscriptionEntryLocalService.
-					searchCommerceSubscriptionEntries(
-						companyId,
-						subscriptionEntryFilterImpl.
-							getPaymentSubscriptionRemainingCycles(),
-						subscriptionEntryFilterImpl.
-							getPaymentSubscriptionStatus(),
-						subscriptionEntryFilterImpl.getKeywords(), start, end,
-						sort);
-		}
-		else {
-			baseModelSearchResult =
-				_commerceSubscriptionEntryLocalService.
-					searchCommerceSubscriptionEntries(
-						companyId, null, null,
-						subscriptionEntryFilterImpl.getKeywords(), start, end,
-						sort);
-		}
+		ThemeDisplay themeDisplay = cpRequestHelper.getThemeDisplay();
 
-		return baseModelSearchResult;
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, themeDisplay.getScopeGroup(),
+			CommerceAccount.class.getName(), PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter("mvcRenderCommandName", "editCommerceAccount");
+		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
+		portletURL.setParameter(
+			"commerceAccountId", String.valueOf(commerceAccountId));
+
+		return portletURL.toString();
+	}
+
+	private String _getEditCommerceOrderURL(
+			long commerceOrderId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		CPRequestHelper cpRequestHelper = new CPRequestHelper(
+			httpServletRequest);
+
+		ThemeDisplay themeDisplay = cpRequestHelper.getThemeDisplay();
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, themeDisplay.getScopeGroup(),
+			CommerceOrder.class.getName(), PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter("mvcRenderCommandName", "editCommerceOrder");
+		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
+		portletURL.setParameter(
+			"commerceOrderId", String.valueOf(commerceOrderId));
+
+		return portletURL.toString();
 	}
 
 	private Label _getSubscriptionStatus(
@@ -245,43 +224,6 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 		return null;
 	}
 
-	private void _setOrderByCol(String orderByCol) {
-		_orderByCol = orderByCol;
-	}
-
-	private void _setOrderByType(String orderByType) {
-		_orderByType = orderByType;
-	}
-
-	private void _setSortPreferences(HttpServletRequest httpServletRequest) {
-		PortalPreferences preferences =
-			PortletPreferencesFactoryUtil.getPortalPreferences(
-				httpServletRequest);
-
-		String orderByCol = ParamUtil.getString(
-			httpServletRequest, "orderByCol");
-		String orderByType = ParamUtil.getString(
-			httpServletRequest, "orderByType");
-
-		if (Validator.isNotNull(orderByCol) &&
-			Validator.isNotNull(orderByType)) {
-
-			preferences.setValue(
-				"", "commerce-subscription-order-by-col", orderByCol);
-			preferences.setValue(
-				"", "commerce-subscription-order-by-type", orderByType);
-		}
-		else {
-			orderByCol = preferences.getValue(
-				"", "commerce-subscription-order-by-col", "sku");
-			orderByType = preferences.getValue(
-				"", "commerce-subscription-order-by-type", "asc");
-		}
-
-		_setOrderByCol(orderByCol);
-		_setOrderByType(orderByType);
-	}
-
 	@Reference
 	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
 
@@ -292,7 +234,7 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 	private CommerceSubscriptionEntryLocalService
 		_commerceSubscriptionEntryLocalService;
 
-	private String _orderByCol;
-	private String _orderByType;
+	@Reference
+	private Portal _portal;
 
 }

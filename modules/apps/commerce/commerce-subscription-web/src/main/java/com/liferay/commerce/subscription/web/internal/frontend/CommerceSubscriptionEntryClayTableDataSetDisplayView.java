@@ -26,6 +26,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -40,27 +41,27 @@ public class CommerceSubscriptionEntryClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("subscriptionId", "subscriptionId");
+		ClayTableSchemaField subscriptionIdField =
+			clayTableSchemaBuilder.addField("subscriptionId", "id");
 
-		ClayTableSchemaField subscriptionStatus =
-			clayTableSchemaBuilder.addField(
-				"subscriptionStatus", "subscriptionStatus");
+		subscriptionIdField.setContentRenderer("actionLink");
 
-		subscriptionStatus.setContentRenderer("label");
+		ClayTableSchemaField subscriptionStatusField =
+			clayTableSchemaBuilder.addField("subscriptionStatus", "status");
 
-		ClayTableSchemaField orderId = clayTableSchemaBuilder.addField(
-			"orderId", "orderId");
+		subscriptionStatusField.setContentRenderer("label");
 
-		orderId.setContentRenderer("link");
+		ClayTableSchemaField orderIdField = clayTableSchemaBuilder.addField(
+			"orderId", "order-id");
 
-		ClayTableSchemaField accountId =
-			clayTableSchemaBuilder.addField(
-				"commerceAccountId", "commerceAccountId");
+		orderIdField.setContentRenderer("link");
 
-		accountId.setContentRenderer("link");
+		ClayTableSchemaField accountIdField = clayTableSchemaBuilder.addField(
+			"commerceAccountId", "account-id");
 
-		clayTableSchemaBuilder.addField(
-			"commerceAccountName", "commerceAccountName");
+		accountIdField.setContentRenderer("link");
+
+		clayTableSchemaBuilder.addField("commerceAccountName", "account-name");
 
 		return clayTableSchemaBuilder.build();
 	}

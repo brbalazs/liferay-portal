@@ -18,6 +18,7 @@ import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.subscription.web.internal.model.SubscriptionEntry;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +45,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -59,7 +62,7 @@ public class CommerceSubscriptionEntryClayDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
-		SubscriptionEntry commerceSubscriptionEntry = (SubscriptionEntry)model;
+		SubscriptionEntry subscriptionEntry = (SubscriptionEntry)model;
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -69,45 +72,43 @@ public class CommerceSubscriptionEntryClayDataSetActionProvider
 				themeDisplay.getPermissionChecker(),
 				CommerceActionKeys.MANAGE_COMMERCE_SUBSCRIPTIONS)) {
 
-			PortletURL portletDeleteURL = _getSubscriptionEntryDeleteURL(
-				commerceSubscriptionEntry.getSubscriptionId(),
-				httpServletRequest);
-
-			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, portletDeleteURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"),
-				StringPool.BLANK, false, false);
-
 			PortletURL portletEditURL = _getSubscriptionEntryEditURL(
-				commerceSubscriptionEntry.getSubscriptionId(),
-				httpServletRequest);
+				subscriptionEntry.getSubscriptionId(), httpServletRequest);
 
 			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, portletEditURL.toString(), StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "edit"), StringPool.BLANK,
 				false, false);
 
-			clayDataSetActions.add(deleteClayDataSetAction);
 			clayDataSetActions.add(editClayDataSetAction);
+
+			PortletURL portletDeleteURL = _getSubscriptionEntryDeleteURL(
+				subscriptionEntry.getSubscriptionId(), httpServletRequest);
+
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK, portletDeleteURL.toString(), StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "delete"),
+				StringPool.BLANK, false, false);
+
+			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
 		return clayDataSetActions;
 	}
 
 	private PortletURL _getSubscriptionEntryDeleteURL(
-			long commerceSubscriptionEntryId,
-			HttpServletRequest httpServletRequest)
-		throws PortalException {
+		long commerceSubscriptionEntryId,
+		HttpServletRequest httpServletRequest) {
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommerceSubscriptionEntry.class.getName(),
-			PortletProvider.Action.MANAGE);
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest, CPPortletKeys.COMMERCE_SUBSCRIPTION_ENTRY,
+			PortletRequest.ACTION_PHASE);
+
+		portletURL.setParameter("redirect", portletURL.toString());
 
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editCommerceSubscriptionEntry");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter(
 			"commerceSubscriptionEntryId",
 			String.valueOf(commerceSubscriptionEntryId));
