@@ -26,6 +26,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -40,8 +41,7 @@ public class CommerceSubscriptionOrderItemClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField(
-			"sku", "sku");
+		clayTableSchemaBuilder.addField("sku", "sku");
 
 		clayTableSchemaBuilder.addField("name", "name");
 
