@@ -24,7 +24,6 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
-import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
@@ -35,23 +34,25 @@ import com.liferay.commerce.subscription.web.internal.model.Link;
 import com.liferay.commerce.subscription.web.internal.model.Shipment;
 import com.liferay.petra.string.CharPool;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.portlet.PortalPreferences;
-import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
+
+import java.text.DateFormat;
+import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
@@ -59,6 +60,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -79,12 +81,9 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 			_commerceSubscriptionEntryLocalService.getCommerceSubscriptionEntry(
 				commerceSubscriptionEntryId);
 
-		return	_commerceShipmentItemService.getCommerceShipmentItemsCount(
+		return _commerceShipmentItemService.getCommerceShipmentItemsCount(
 			commerceSubscriptionEntry.getCommerceOrderItemId());
 	}
-
-	@Reference
-	private CommerceShipmentItemService _commerceShipmentItemService;
 
 	@Override
 	public List<Shipment> getItems(
@@ -93,6 +92,14 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 		throws PortalException {
 
 		List<Shipment> shipments = new ArrayList<>();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
+			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
+			themeDisplay.getTimeZone());
 
 		long commerceSubscriptionEntryId = ParamUtil.getLong(
 			httpServletRequest, "commerceSubscriptionEntryId");
@@ -126,14 +133,14 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 				_commerceAddressService.getCommerceAddress(
 					commerceShipment.getCommerceAddressId());
 
-			StringBundler addressStringBundler = new StringBundler();
+			StringBundler addressSB = new StringBundler(3);
 
-			addressStringBundler.append(commerceAddress.getName());
-			addressStringBundler.append(CharPool.SPACE);
-			addressStringBundler.append(commerceAddress.getStreet1());
+			addressSB.append(commerceAddress.getName());
+			addressSB.append(CharPool.SPACE);
+			addressSB.append(commerceAddress.getStreet1());
 
 			Shipment shipment = new Shipment(
-				commerceShipment.getCreateDate(),
+				dateTimeFormat.format(commerceShipment.getCreateDate()),
 				new Link(
 					commerceShipmentIdString,
 					_getEditShipmentURL(
@@ -145,7 +152,7 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 					_getEditCommerceOrderURL(
 						commerceOrderItem.getCommerceOrderId(),
 						httpServletRequest)),
-				addressStringBundler.toString(),
+				addressSB.toString(),
 				new Link(commerceShipment.getTrackingNumber(), ""));
 
 			shipments.add(shipment);
@@ -154,38 +161,37 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 		return shipments;
 	}
 
-	private String _getEditCommerceOrderURL(long commerceOrderId, HttpServletRequest httpServletRequest)
+	private String _getEditCommerceOrderURL(
+			long commerceOrderId, HttpServletRequest httpServletRequest)
 		throws PortalException {
 
-		CPRequestHelper cpRequestHelper = new CPRequestHelper(httpServletRequest);
-
-		ThemeDisplay themeDisplay = cpRequestHelper.getThemeDisplay();
-
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, themeDisplay.getScopeGroup(),
-			CommerceOrder.class.getName(), PortletProvider.Action.MANAGE);
+			httpServletRequest, CommerceOrder.class.getName(),
+			PortletProvider.Action.MANAGE);
 
 		portletURL.setParameter("mvcRenderCommandName", "editCommerceOrder");
-		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
-		portletURL.setParameter("commerceOrderId", String.valueOf(commerceOrderId));
+		portletURL.setParameter(
+			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter(
+			"commerceOrderId", String.valueOf(commerceOrderId));
 
 		return portletURL.toString();
 	}
 
-	private String _getEditShipmentURL(long commerceShipmentId, HttpServletRequest httpServletRequest)
+	private String _getEditShipmentURL(
+			long commerceShipmentId, HttpServletRequest httpServletRequest)
 		throws PortalException {
 
-		CPRequestHelper cpRequestHelper = new CPRequestHelper(httpServletRequest);
-
-		ThemeDisplay themeDisplay = cpRequestHelper.getThemeDisplay();
-
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, themeDisplay.getScopeGroup(),
-			CommerceShipment.class.getName(), PortletProvider.Action.MANAGE);
+			httpServletRequest, CommerceShipment.class.getName(),
+			PortletProvider.Action.MANAGE);
 
-		portletURL.setParameter("mvcRenderCommandName", "viewCommerceShipmentDetail");
-		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
-		portletURL.setParameter("commerceShipmentId", String.valueOf(commerceShipmentId));
+		portletURL.setParameter(
+			"mvcRenderCommandName", "viewCommerceShipmentDetail");
+		portletURL.setParameter(
+			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter(
+			"commerceShipmentId", String.valueOf(commerceShipmentId));
 
 		return portletURL.toString();
 	}
@@ -233,43 +239,6 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 		return null;
 	}
 
-	private void _setOrderByCol(String orderByCol) {
-		_orderByCol = orderByCol;
-	}
-
-	private void _setOrderByType(String orderByType) {
-		_orderByType = orderByType;
-	}
-
-	private void _setSortPreferences(HttpServletRequest httpServletRequest) {
-		PortalPreferences preferences =
-			PortletPreferencesFactoryUtil.getPortalPreferences(
-				httpServletRequest);
-
-		String orderByCol = ParamUtil.getString(
-			httpServletRequest, "orderByCol");
-		String orderByType = ParamUtil.getString(
-			httpServletRequest, "orderByType");
-
-		if (Validator.isNotNull(orderByCol) &&
-			Validator.isNotNull(orderByType)) {
-
-			preferences.setValue(
-				"", "commerce-shipment-order-by-col", orderByCol);
-			preferences.setValue(
-				"", "commerce-shipment-order-by-type", orderByType);
-		}
-		else {
-			orderByCol = preferences.getValue(
-				"", "commerce-shipment-order-by-col", "sku");
-			orderByType = preferences.getValue(
-				"", "commerce-shipment-order-by-type", "asc");
-		}
-
-		_setOrderByCol(orderByCol);
-		_setOrderByType(orderByType);
-	}
-
 	@Reference
 	private CommerceAddressService _commerceAddressService;
 
@@ -277,14 +246,14 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
+	private CommerceShipmentItemService _commerceShipmentItemService;
+
+	@Reference
 	private CommerceShipmentService _commerceShipmentService;
 
 	@Reference
 	private CommerceSubscriptionEntryLocalService
 		_commerceSubscriptionEntryLocalService;
-
-	private String _orderByCol;
-	private String _orderByType;
 
 	@Reference
 	private Portal _portal;

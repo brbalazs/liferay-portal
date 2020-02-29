@@ -26,6 +26,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -40,29 +41,29 @@ public class CommerceSubscriptionShipmentsClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("createDate", "createDate");
+		clayTableSchemaBuilder.addField("createDate", "create-date");
 
-		ClayTableSchemaField shipmentId = clayTableSchemaBuilder.addField(
-			"shipmentId", "shipmentId");
+		ClayTableSchemaField shipmentIdField = clayTableSchemaBuilder.addField(
+			"shipmentId", "shipment-id");
 
-		shipmentId.setContentRenderer("link");
+		shipmentIdField.setContentRenderer("link");
 
-		ClayTableSchemaField status = clayTableSchemaBuilder.addField(
+		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
 			"status", "status");
 
-		status.setContentRenderer("label");
+		statusField.setContentRenderer("label");
 
-		ClayTableSchemaField orderId = clayTableSchemaBuilder.addField(
-			"orderId", "orderId");
+		ClayTableSchemaField orderIdField = clayTableSchemaBuilder.addField(
+			"orderId", "order-id");
 
-		orderId.setContentRenderer("link");
+		orderIdField.setContentRenderer("link");
 
 		clayTableSchemaBuilder.addField("receiver", "sent-to");
 
-		ClayTableSchemaField tracking = clayTableSchemaBuilder.addField(
+		ClayTableSchemaField trackingField = clayTableSchemaBuilder.addField(
 			"tracking", "tracking");
 
-		tracking.setContentRenderer("link");
+		trackingField.setContentRenderer("link");
 
 		return clayTableSchemaBuilder.build();
 	}
