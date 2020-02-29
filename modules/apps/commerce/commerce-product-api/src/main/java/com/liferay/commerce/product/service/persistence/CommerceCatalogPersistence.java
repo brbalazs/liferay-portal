@@ -655,7 +655,4 @@ public interface CommerceCatalogPersistence
 	 */
 	public int countAll();
 
-	@Override
-	public Set<String> getBadColumnNames();
-
 }
