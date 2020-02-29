@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -31,8 +32,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
-
-import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -46,7 +45,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "ProductTaxConfiguration")
 public class ProductTaxConfiguration {
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -195,12 +193,6 @@ public class ProductTaxConfiguration {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductTaxConfiguration",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

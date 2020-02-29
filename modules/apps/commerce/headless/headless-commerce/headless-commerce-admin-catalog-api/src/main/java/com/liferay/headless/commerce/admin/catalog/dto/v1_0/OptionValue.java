@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -32,8 +33,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -78,7 +77,6 @@ public class OptionValue {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String externalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -133,7 +131,6 @@ public class OptionValue {
 	protected String key;
 
 	@Schema
-	@Valid
 	public Map<String, String> getName() {
 		return name;
 	}
@@ -279,12 +276,6 @@ public class OptionValue {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.OptionValue",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

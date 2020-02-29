@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -38,8 +39,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -112,7 +111,6 @@ public class Discount {
 	protected String couponCode;
 
 	@Schema
-	@Valid
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}
@@ -141,7 +139,6 @@ public class Discount {
 	protected Map<String, ?> customFields;
 
 	@Schema
-	@Valid
 	public DiscountAccountGroup[] getDiscountAccountGroups() {
 		return discountAccountGroups;
 	}
@@ -173,7 +170,6 @@ public class Discount {
 	protected DiscountAccountGroup[] discountAccountGroups;
 
 	@Schema
-	@Valid
 	public DiscountCategory[] getDiscountCategories() {
 		return discountCategories;
 	}
@@ -203,7 +199,6 @@ public class Discount {
 	protected DiscountCategory[] discountCategories;
 
 	@Schema
-	@Valid
 	public DiscountProduct[] getDiscountProducts() {
 		return discountProducts;
 	}
@@ -233,7 +228,6 @@ public class Discount {
 	protected DiscountProduct[] discountProducts;
 
 	@Schema
-	@Valid
 	public DiscountRule[] getDiscountRules() {
 		return discountRules;
 	}
@@ -345,7 +339,6 @@ public class Discount {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String externalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -372,7 +365,6 @@ public class Discount {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long id;
 
-	@DecimalMin("0")
 	@Schema
 	public Integer getLimitationTimes() {
 		return limitationTimes;
@@ -430,9 +422,7 @@ public class Discount {
 	@NotEmpty
 	protected String limitationType;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getMaximumDiscountAmount() {
 		return maximumDiscountAmount;
 	}
@@ -489,7 +479,6 @@ public class Discount {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean neverExpire;
 
-	@DecimalMin("0")
 	@Schema
 	public Integer getNumberOfUse() {
 		return numberOfUse;
@@ -518,9 +507,7 @@ public class Discount {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer numberOfUse;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getPercentageLevel1() {
 		return percentageLevel1;
 	}
@@ -548,9 +535,7 @@ public class Discount {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal percentageLevel1;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getPercentageLevel2() {
 		return percentageLevel2;
 	}
@@ -578,9 +563,7 @@ public class Discount {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal percentageLevel2;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getPercentageLevel3() {
 		return percentageLevel3;
 	}
@@ -608,9 +591,7 @@ public class Discount {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal percentageLevel3;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getPercentageLevel4() {
 		return percentageLevel4;
 	}
@@ -1094,12 +1075,6 @@ public class Discount {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.pricing.dto.v1_0.Discount",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

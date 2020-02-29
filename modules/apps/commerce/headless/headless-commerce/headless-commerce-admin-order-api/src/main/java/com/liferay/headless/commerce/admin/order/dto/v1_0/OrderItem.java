@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -38,9 +39,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -53,7 +51,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "OrderItem")
 public class OrderItem {
 
-	@DecimalMin("0")
 	@Schema
 	public Long getBookedQuantityId() {
 		return bookedQuantityId;
@@ -83,7 +80,6 @@ public class OrderItem {
 	protected Long bookedQuantityId;
 
 	@Schema
-	@Valid
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}
@@ -139,9 +135,7 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String deliveryGroup;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getDiscountAmount() {
 		return discountAmount;
 	}
@@ -169,9 +163,7 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal discountAmount;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getDiscountPercentageLevel1() {
 		return discountPercentageLevel1;
 	}
@@ -203,9 +195,7 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal discountPercentageLevel1;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getDiscountPercentageLevel2() {
 		return discountPercentageLevel2;
 	}
@@ -237,9 +227,7 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal discountPercentageLevel2;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getDiscountPercentageLevel3() {
 		return discountPercentageLevel3;
 	}
@@ -271,9 +259,7 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal discountPercentageLevel3;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getDiscountPercentageLevel4() {
 		return discountPercentageLevel4;
 	}
@@ -333,9 +319,7 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String externalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getFinalPrice() {
 		return finalPrice;
 	}
@@ -363,7 +347,6 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal finalPrice;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -391,7 +374,6 @@ public class OrderItem {
 	protected Long id;
 
 	@Schema
-	@Valid
 	public Map<String, String> getName() {
 		return name;
 	}
@@ -451,7 +433,6 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String orderExternalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getOrderId() {
 		return orderId;
@@ -508,9 +489,7 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String printedNote;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getPromoPrice() {
 		return promoPrice;
 	}
@@ -538,7 +517,6 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal promoPrice;
 
-	@DecimalMin("0")
 	@Schema
 	public Integer getQuantity() {
 		return quantity;
@@ -595,7 +573,6 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date requestedDeliveryDate;
 
-	@DecimalMin("0")
 	@Schema
 	public Integer getShippedQuantity() {
 		return shippedQuantity;
@@ -625,7 +602,6 @@ public class OrderItem {
 	protected Integer shippedQuantity;
 
 	@Schema
-	@Valid
 	public ShippingAddress getShippingAddress() {
 		return shippingAddress;
 	}
@@ -654,7 +630,6 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ShippingAddress shippingAddress;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getShippingAddressId() {
 		return shippingAddressId;
@@ -739,7 +714,6 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String skuExternalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getSkuId() {
 		return skuId;
@@ -794,9 +768,7 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean subscription;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
 	public BigDecimal getUnitPrice() {
 		return unitPrice;
 	}
@@ -1146,12 +1118,6 @@ public class OrderItem {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.order.dto.v1_0.OrderItem",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

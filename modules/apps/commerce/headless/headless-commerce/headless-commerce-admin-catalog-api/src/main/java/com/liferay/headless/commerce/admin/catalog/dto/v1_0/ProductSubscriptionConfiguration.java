@@ -22,8 +22,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -33,8 +34,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
-
-import javax.validation.Valid;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -48,7 +47,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "ProductSubscriptionConfiguration")
 public class ProductSubscriptionConfiguration {
 
-	@GraphQLName("SubscriptionType")
 	public static enum SubscriptionType {
 
 		DAY("day"), MONTH("month"), WEEK("week"), YEAR("year");
@@ -167,7 +165,6 @@ public class ProductSubscriptionConfiguration {
 	protected Long numberOfLength;
 
 	@Schema
-	@Valid
 	public SubscriptionType getSubscriptionType() {
 		return subscriptionType;
 	}
@@ -206,7 +203,6 @@ public class ProductSubscriptionConfiguration {
 	protected SubscriptionType subscriptionType;
 
 	@Schema
-	@Valid
 	public Map<String, String> getSubscriptionTypeSettings() {
 		return subscriptionTypeSettings;
 	}
@@ -325,12 +321,6 @@ public class ProductSubscriptionConfiguration {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductSubscriptionConfiguration",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

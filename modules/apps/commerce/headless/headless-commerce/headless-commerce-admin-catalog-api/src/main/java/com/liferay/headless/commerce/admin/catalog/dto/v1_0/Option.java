@@ -22,8 +22,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -34,8 +35,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -52,7 +51,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Option")
 public class Option {
 
-	@GraphQLName("FieldType")
 	public static enum FieldType {
 
 		CHECKBOX("checkbox"), CHECKBOX_MULTIPLE("checkbox_multiple"),
@@ -116,7 +114,6 @@ public class Option {
 	protected Long catalogId;
 
 	@Schema
-	@Valid
 	public Map<String, String> getDescription() {
 		return description;
 	}
@@ -202,7 +199,6 @@ public class Option {
 	protected Boolean facetable;
 
 	@Schema
-	@Valid
 	public FieldType getFieldType() {
 		return fieldType;
 	}
@@ -240,7 +236,6 @@ public class Option {
 	@NotNull
 	protected FieldType fieldType;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -295,7 +290,6 @@ public class Option {
 	protected String key;
 
 	@Schema
-	@Valid
 	public Map<String, String> getName() {
 		return name;
 	}
@@ -325,7 +319,6 @@ public class Option {
 	protected Map<String, String> name;
 
 	@Schema
-	@Valid
 	public OptionValue[] getOptionValues() {
 		return optionValues;
 	}
@@ -610,12 +603,6 @@ public class Option {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.Option",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -32,8 +33,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -51,7 +50,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Specification {
 
 	@Schema
-	@Valid
 	public Map<String, String> getDescription() {
 		return description;
 	}
@@ -108,7 +106,6 @@ public class Specification {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean facetable;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -163,7 +160,6 @@ public class Specification {
 	protected String key;
 
 	@Schema
-	@Valid
 	public OptionCategory getOptionCategory() {
 		return optionCategory;
 	}
@@ -193,7 +189,6 @@ public class Specification {
 	protected OptionCategory optionCategory;
 
 	@Schema
-	@Valid
 	public Map<String, String> getTitle() {
 		return title;
 	}
@@ -317,12 +312,6 @@ public class Specification {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.Specification",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

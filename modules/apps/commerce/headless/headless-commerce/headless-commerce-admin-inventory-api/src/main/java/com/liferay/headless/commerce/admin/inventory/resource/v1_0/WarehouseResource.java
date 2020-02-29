@@ -15,21 +15,15 @@
 package com.liferay.headless.commerce.admin.inventory.resource.v1_0;
 
 import com.liferay.headless.commerce.admin.inventory.dto.v1_0.Warehouse;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
-import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import javax.annotation.Generated;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * To access this resource, run:
@@ -40,7 +34,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @Generated("")
-@ProviderType
 public interface WarehouseResource {
 
 	public Response deleteWarehousByExternalReferenceCode(
@@ -68,25 +61,6 @@ public interface WarehouseResource {
 
 	public Warehouse postWarehous(Warehouse warehouse) throws Exception;
 
-	public default void setContextAcceptLanguage(
-		AcceptLanguage contextAcceptLanguage) {
-	}
-
-	public void setContextCompany(
-		com.liferay.portal.kernel.model.Company contextCompany);
-
-	public default void setContextHttpServletRequest(
-		HttpServletRequest contextHttpServletRequest) {
-	}
-
-	public default void setContextHttpServletResponse(
-		HttpServletResponse contextHttpServletResponse) {
-	}
-
-	public default void setContextUriInfo(UriInfo contextUriInfo) {
-	}
-
-	public void setContextUser(
-		com.liferay.portal.kernel.model.User contextUser);
+	public void setContextCompany(Company contextCompany);
 
 }

@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -32,9 +33,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -51,7 +49,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Account {
 
 	@Schema
-	@Valid
 	public AccountAddress[] getAccountAddresses() {
 		return accountAddresses;
 	}
@@ -81,7 +78,6 @@ public class Account {
 	protected AccountAddress[] accountAddresses;
 
 	@Schema
-	@Valid
 	public AccountMember[] getAccountMembers() {
 		return accountMembers;
 	}
@@ -111,7 +107,6 @@ public class Account {
 	protected AccountMember[] accountMembers;
 
 	@Schema
-	@Valid
 	public AccountOrganization[] getAccountOrganizations() {
 		return accountOrganizations;
 	}
@@ -143,7 +138,6 @@ public class Account {
 	protected AccountOrganization[] accountOrganizations;
 
 	@Schema
-	@Valid
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}
@@ -228,7 +222,6 @@ public class Account {
 	@NotEmpty
 	protected String externalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -255,7 +248,6 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long id;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getLogoId() {
 		return logoId;
@@ -365,8 +357,6 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String taxId;
 
-	@DecimalMax("2")
-	@DecimalMin("0")
 	@Schema
 	public Integer getType() {
 		return type;
@@ -600,12 +590,6 @@ public class Account {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.account.dto.v1_0.Account",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

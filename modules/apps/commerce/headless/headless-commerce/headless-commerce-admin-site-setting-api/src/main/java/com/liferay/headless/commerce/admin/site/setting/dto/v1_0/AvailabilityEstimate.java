@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -32,8 +33,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -49,7 +48,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "AvailabilityEstimate")
 public class AvailabilityEstimate {
 
-	@DecimalMin("0")
 	@Schema
 	public Long getGroupId() {
 		return groupId;
@@ -78,7 +76,6 @@ public class AvailabilityEstimate {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long groupId;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -105,7 +102,6 @@ public class AvailabilityEstimate {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long id;
 
-	@DecimalMin("0")
 	@Schema
 	public Double getPriority() {
 		return priority;
@@ -135,7 +131,6 @@ public class AvailabilityEstimate {
 	protected Double priority;
 
 	@Schema
-	@Valid
 	public Map<String, String> getTitle() {
 		return title;
 	}
@@ -236,12 +231,6 @@ public class AvailabilityEstimate {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.site.setting.dto.v1_0.AvailabilityEstimate",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

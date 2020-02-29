@@ -15,17 +15,11 @@
 package com.liferay.headless.commerce.admin.order.resource.v1_0;
 
 import com.liferay.headless.commerce.admin.order.dto.v1_0.ShippingAddress;
-import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.kernel.model.Company;
 
 import javax.annotation.Generated;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * To access this resource, run:
@@ -36,7 +30,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @Generated("")
-@ProviderType
 public interface ShippingAddressResource {
 
 	public ShippingAddress getOrderByExternalReferenceCodeShippingAddress(
@@ -53,25 +46,6 @@ public interface ShippingAddressResource {
 			Long id, ShippingAddress shippingAddress)
 		throws Exception;
 
-	public default void setContextAcceptLanguage(
-		AcceptLanguage contextAcceptLanguage) {
-	}
-
-	public void setContextCompany(
-		com.liferay.portal.kernel.model.Company contextCompany);
-
-	public default void setContextHttpServletRequest(
-		HttpServletRequest contextHttpServletRequest) {
-	}
-
-	public default void setContextHttpServletResponse(
-		HttpServletResponse contextHttpServletResponse) {
-	}
-
-	public default void setContextUriInfo(UriInfo contextUriInfo) {
-	}
-
-	public void setContextUser(
-		com.liferay.portal.kernel.model.User contextUser);
+	public void setContextCompany(Company contextCompany);
 
 }

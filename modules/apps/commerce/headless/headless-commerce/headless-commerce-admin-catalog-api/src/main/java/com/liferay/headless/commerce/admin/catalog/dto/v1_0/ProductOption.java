@@ -22,8 +22,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -34,8 +35,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -52,7 +51,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "ProductOption")
 public class ProductOption {
 
-	@GraphQLName("FieldType")
 	public static enum FieldType {
 
 		CHECKBOX("checkbox"), CHECKBOX_MULTIPLE("checkbox_multiple"),
@@ -116,7 +114,6 @@ public class ProductOption {
 	protected Long catalogId;
 
 	@Schema
-	@Valid
 	public Map<String, String> getDescription() {
 		return description;
 	}
@@ -174,7 +171,6 @@ public class ProductOption {
 	protected Boolean facetable;
 
 	@Schema
-	@Valid
 	public FieldType getFieldType() {
 		return fieldType;
 	}
@@ -212,7 +208,6 @@ public class ProductOption {
 	@NotNull
 	protected FieldType fieldType;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -267,7 +262,6 @@ public class ProductOption {
 	protected String key;
 
 	@Schema
-	@Valid
 	public Map<String, String> getName() {
 		return name;
 	}
@@ -296,7 +290,6 @@ public class ProductOption {
 	@NotNull
 	protected Map<String, String> name;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getOptionId() {
 		return optionId;
@@ -355,7 +348,6 @@ public class ProductOption {
 	protected Double priority;
 
 	@Schema
-	@Valid
 	public ProductOptionValue[] getProductOptionValues() {
 		return productOptionValues;
 	}
@@ -611,12 +603,6 @@ public class ProductOption {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductOption",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

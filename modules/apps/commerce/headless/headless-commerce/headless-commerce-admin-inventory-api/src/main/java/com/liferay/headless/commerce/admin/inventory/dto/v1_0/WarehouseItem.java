@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -35,8 +36,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
-
-import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -78,7 +77,6 @@ public class WarehouseItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String externalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -133,7 +131,6 @@ public class WarehouseItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date modifiedDate;
 
-	@DecimalMin("0")
 	@Schema
 	public Integer getQuantity() {
 		return quantity;
@@ -162,7 +159,6 @@ public class WarehouseItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer quantity;
 
-	@DecimalMin("0")
 	@Schema
 	public Integer getReservedQuantity() {
 		return reservedQuantity;
@@ -249,7 +245,6 @@ public class WarehouseItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String warehouseExternalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getWarehouseId() {
 		return warehouseId;
@@ -408,12 +403,6 @@ public class WarehouseItem {
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.inventory.dto.v1_0.WarehouseItem",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
