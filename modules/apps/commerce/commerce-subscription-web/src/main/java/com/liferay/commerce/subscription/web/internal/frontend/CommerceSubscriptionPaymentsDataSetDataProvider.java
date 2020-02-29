@@ -14,10 +14,12 @@
 
 package com.liferay.commerce.subscription.web.internal.frontend;
 
+import com.liferay.commerce.constants.CommerceOrderPaymentConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceOrderPayment;
@@ -29,22 +31,30 @@ import com.liferay.commerce.subscription.web.internal.model.Payment;
 import com.liferay.petra.string.CharPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.math.BigDecimal;
+
+import java.text.DateFormat;
+import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.liferay.portal.kernel.util.StringBundler;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -69,12 +79,8 @@ public class CommerceSubscriptionPaymentsDataSetDataProvider
 			_commerceOrderItemLocalService.getCommerceOrderItem(
 				commerceSubscriptionEntry.getCommerceOrderItemId());
 
-		List<CommerceOrderPayment> commerceOrderPayments =
-			_commerceOrderPaymentLocalService.getCommerceOrderPayments(
-				commerceOrderItem.getCommerceOrderId(), QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		return commerceOrderPayments.size();
+		return _commerceOrderPaymentLocalService.getCommerceOrderPaymentsCount(
+			commerceOrderItem.getCommerceOrderId());
 	}
 
 	@Override
@@ -84,6 +90,14 @@ public class CommerceSubscriptionPaymentsDataSetDataProvider
 		throws PortalException {
 
 		List<Payment> orderPayments = new ArrayList<>();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
+			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
+			themeDisplay.getTimeZone());
 
 		long commerceSubscriptionEntryId = ParamUtil.getLong(
 			httpServletRequest, "commerceSubscriptionEntryId");
@@ -111,17 +125,25 @@ public class CommerceSubscriptionPaymentsDataSetDataProvider
 
 			BigDecimal finalPrice = commerceOrderItem.getFinalPrice();
 
-			StringBundler priceStringBundler = new StringBundler();
+			StringBundler priceSB = new StringBundler(3);
 
-			priceStringBundler.append(commerceCurrency.round(finalPrice));
-			priceStringBundler.append(CharPool.SPACE);
-			priceStringBundler.append(commerceCurrency.getCode());
+			priceSB.append(commerceCurrency.round(finalPrice));
+			priceSB.append(CharPool.SPACE);
+			priceSB.append(commerceCurrency.getCode());
 
 			orderPayments.add(
 				new Payment(
-					commerceOrderPayment.getCreateDate(),
+					new LabelField(
+						CommerceOrderPaymentConstants.getOrderPaymentLabelStyle(
+							commerceOrderPayment.getStatus()),
+						LanguageUtil.get(
+							httpServletRequest,
+							CommerceOrderPaymentConstants.
+								getOrderPaymentStatusLabel(
+									commerceOrderPayment.getStatus()))),
+					dateTimeFormat.format(commerceOrderPayment.getCreateDate()),
 					commerceOrderPayment.getCommerceOrderPaymentId(),
-					priceStringBundler.toString()));
+					priceSB.toString()));
 		}
 
 		return orderPayments;
