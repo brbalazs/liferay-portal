@@ -81,9 +81,9 @@ public class CommerceSubscriptionEntryDisplayContext {
 		_commerceSubscriptionEntryLocalService =
 			commerceSubscriptionEntryService;
 		_commerceOrderItemLocalService = commerceOrderItemLocalService;
-		_cpSubscriptionTypeRegistry = cpSubscriptionTypeRegistry;
 		_cpSubscriptionTypeJSPContributorRegistry =
 			cpSubscriptionTypeJSPContributorRegistry;
+		_cpSubscriptionTypeRegistry = cpSubscriptionTypeRegistry;
 		_httpServletRequest = httpServletRequest;
 
 		_cpRequestHelper = new CPRequestHelper(httpServletRequest);
