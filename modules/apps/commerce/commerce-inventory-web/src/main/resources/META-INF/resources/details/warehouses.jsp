@@ -24,22 +24,18 @@ Map<String, String> contextParams = new HashMap<>();
 contextParams.put("sku", commerceInventoryDisplayContext.getSku());
 %>
 
-<div class="row">
-	<div class="col-12">
-		<commerce-ui:panel
-			title='<%= LanguageUtil.get(request, "inventory-warehouse") %>'
-		>
-			<commerce-ui:dataset-display
-				clayCreationMenu="<%= commerceInventoryDisplayContext.getWarehousesClayCreationMenu() %>"
-				contextParams="<%= contextParams %>"
-				dataProviderKey="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSES %>"
-				id="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSES %>"
-				itemsPerPage="<%= 10 %>"
-				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="<%= 1 %>"
-				portletURL="<%= commerceInventoryDisplayContext.getPortletURL() %>"
-				style="stacked"
-			/>
-		</commerce-ui:panel>
-	</div>
-</div>
+<commerce-ui:panel
+	bodyClasses="p-0"
+	title='<%= LanguageUtil.get(request, "inventory-warehouse") %>'
+>
+	<commerce-ui:dataset-display
+		clayCreationMenu="<%= commerceInventoryDisplayContext.getWarehousesClayCreationMenu() %>"
+		contextParams="<%= contextParams %>"
+		dataProviderKey="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSES %>"
+		id="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSES %>"
+		itemsPerPage="<%= 10 %>"
+		namespace="<%= renderResponse.getNamespace() %>"
+		pageNumber="<%= 1 %>"
+		portletURL="<%= commerceInventoryDisplayContext.getPortletURL() %>"
+	/>
+</commerce-ui:panel>

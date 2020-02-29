@@ -20,18 +20,16 @@
 CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<div class="container">
-	<commerce-ui:panel
-		title='<%= LanguageUtil.get(request, "change-logs") %>'
-	>
-		<commerce-ui:dataset-display
-			dataProviderKey="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_AUDIT %>"
-			id="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_AUDIT %>"
-			itemsPerPage="<%= 10 %>"
-			namespace="<%= renderResponse.getNamespace() %>"
-			pageNumber="<%= 1 %>"
-			portletURL="<%= commerceInventoryDisplayContext.getPortletURL() %>"
-			style="fluid"
-		/>
-	</commerce-ui:panel>
-</div>
+<commerce-ui:panel
+	title='<%= LanguageUtil.get(request, "change-logs") %>'
+>
+	<commerce-ui:dataset-display
+		dataProviderKey="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_AUDIT %>"
+		id="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_AUDIT %>"
+		itemsPerPage="<%= 10 %>"
+		namespace="<%= renderResponse.getNamespace() %>"
+		pageNumber="<%= 1 %>"
+		portletURL="<%= commerceInventoryDisplayContext.getPortletURL() %>"
+		showManagementBar="<%= false %>"
+	/>
+</commerce-ui:panel>

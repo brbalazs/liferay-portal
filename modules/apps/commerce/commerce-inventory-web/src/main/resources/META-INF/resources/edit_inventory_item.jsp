@@ -18,9 +18,6 @@
 
 <%
 CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-portletDisplay.setShowBackIcon(true);
-portletDisplay.setURLBack(renderResponse.createRenderURL());
 %>
 
 <commerce-ui:header

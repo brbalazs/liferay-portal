@@ -15,7 +15,7 @@
 import ClayList from '@clayui/list';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useContext} from 'react';
+import React from 'react';
 
 function TimelineEntry(props) {
 	return (
@@ -49,16 +49,8 @@ Timeline.propTypes = {
 Timeline.defaultProps = {};
 
 function Timeline(props) {
-	const {style} = useContext(props.datasetDisplayContext);
-
 	return (
-		<ClayList
-			className={classNames(
-				'mb-0',
-				'timeline',
-				style === 'default' ? 'border-bottom' : 'border'
-			)}
-		>
+		<ClayList className={classNames('mb-0', 'timeline')}>
 			{props.items.map((item, i) => (
 				<TimelineEntry
 					key={i}
