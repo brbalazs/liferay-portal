@@ -23,23 +23,13 @@ import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
 import com.liferay.commerce.inventory.model.CIWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
 import com.liferay.commerce.inventory.web.internal.model.InventoryItem;
-import com.liferay.commerce.inventory.web.internal.model.Sku;
-import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.portlet.PortletURL;
-import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,7 +57,8 @@ public class CommerceInventoryItemDataSetDataProvider
 			CommerceInventoryActionKeys.MANAGE_INVENTORY);
 
 		return _commerceInventoryWarehouseItemLocalService.
-			countItemsByCompanyId(_portal.getCompanyId(httpServletRequest));
+			countItemsByCompanyId(
+				_portal.getCompanyId(httpServletRequest), filter.getKeywords());
 	}
 
 	@Override
@@ -84,16 +75,13 @@ public class CommerceInventoryItemDataSetDataProvider
 
 		List<CIWarehouseItem> ciWarehouseItems =
 			_commerceInventoryWarehouseItemLocalService.getItemsByCompanyId(
-				_portal.getCompanyId(httpServletRequest),
+				_portal.getCompanyId(httpServletRequest), filter.getKeywords(),
 				pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (CIWarehouseItem ciWarehouseItem : ciWarehouseItems) {
 			inventoryItems.add(
 				new InventoryItem(
-					new Sku(
-						ciWarehouseItem.getSkuCode(),
-						_getWarehouseItemPanelURL(
-							ciWarehouseItem.getSkuCode(), httpServletRequest)),
+					ciWarehouseItem.getSkuCode(),
 					ciWarehouseItem.getStockQuantity(),
 					ciWarehouseItem.getBookedQuantity(),
 					ciWarehouseItem.getReplenishmentQuantity()));
@@ -101,33 +89,6 @@ public class CommerceInventoryItemDataSetDataProvider
 
 		return inventoryItems;
 	}
-
-	private String _getWarehouseItemPanelURL(
-			String sku, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommerceOrder.class.getName(),
-			PortletProvider.Action.MANAGE);
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommerceWarehouseItem");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter("sku", String.valueOf(sku));
-
-		try {
-			portletURL.setWindowState(LiferayWindowState.POP_UP);
-		}
-		catch (WindowStateException wse) {
-			_log.error(wse, wse);
-		}
-
-		return portletURL.toString();
-	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceInventoryItemDataSetDataProvider.class);
 
 	@Reference
 	private CommerceInventoryWarehouseItemLocalService
