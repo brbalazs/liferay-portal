@@ -45,8 +45,6 @@ definition {
 		AssertElementPresent(locator1 = "LCSClient#PROJECT_HOME_LINK");
 		AssertElementPresent(locator1 = "LCSClient#ENVIRONMENT_LINK");
 		AssertElementPresent(locator1 = "LCSClient#SERVER_DASHBOARD_LINK");
-
-		Portlet.shutdownServer();	
 	}
 
 }
