@@ -24,7 +24,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceOrderPayment;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
-import com.liferay.commerce.service.CommerceOrderItemLocalService;
+import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderPaymentLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.commerce.subscription.web.internal.model.Payment;
@@ -76,7 +76,7 @@ public class CommerceSubscriptionPaymentsDataSetDataProvider
 				commerceSubscriptionEntryId);
 
 		CommerceOrderItem commerceOrderItem =
-			_commerceOrderItemLocalService.getCommerceOrderItem(
+			_commerceOrderItemService.getCommerceOrderItem(
 				commerceSubscriptionEntry.getCommerceOrderItemId());
 
 		return _commerceOrderPaymentLocalService.getCommerceOrderPaymentsCount(
@@ -107,7 +107,7 @@ public class CommerceSubscriptionPaymentsDataSetDataProvider
 				commerceSubscriptionEntryId);
 
 		CommerceOrderItem commerceOrderItem =
-			_commerceOrderItemLocalService.getCommerceOrderItem(
+			_commerceOrderItemService.getCommerceOrderItem(
 				commerceSubscriptionEntry.getCommerceOrderItemId());
 
 		List<CommerceOrderPayment> commerceOrderPayments =
@@ -150,7 +150,7 @@ public class CommerceSubscriptionPaymentsDataSetDataProvider
 	}
 
 	@Reference
-	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
+	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
 	private CommerceOrderPaymentLocalService _commerceOrderPaymentLocalService;

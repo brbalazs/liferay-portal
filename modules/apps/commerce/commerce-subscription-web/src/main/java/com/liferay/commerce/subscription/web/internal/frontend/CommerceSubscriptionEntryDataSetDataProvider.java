@@ -24,8 +24,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
-import com.liferay.commerce.service.CommerceOrderItemLocalService;
-import com.liferay.commerce.service.CommerceOrderLocalService;
+import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.commerce.subscription.web.internal.model.Label;
 import com.liferay.commerce.subscription.web.internal.model.Link;
@@ -88,15 +87,13 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 				baseModelSearchResult.getBaseModels()) {
 
 			CommerceOrderItem commerceOrderItem =
-				_commerceOrderItemLocalService.getCommerceOrderItem(
+				_commerceOrderItemService.getCommerceOrderItem(
 					commerceSubscriptionEntry.getCommerceOrderItemId());
 
 			String commerceOrderIdString = String.valueOf(
 				commerceOrderItem.getCommerceOrderId());
 
-			CommerceOrder commerceOrder =
-				_commerceOrderLocalService.getCommerceOrder(
-					commerceOrderItem.getCommerceOrderId());
+			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
 			CommerceAccount commerceAccount =
 				commerceOrder.getCommerceAccount();
@@ -225,10 +222,7 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 	}
 
 	@Reference
-	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
-
-	@Reference
-	private CommerceOrderLocalService _commerceOrderLocalService;
+	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
 	private CommerceSubscriptionEntryLocalService

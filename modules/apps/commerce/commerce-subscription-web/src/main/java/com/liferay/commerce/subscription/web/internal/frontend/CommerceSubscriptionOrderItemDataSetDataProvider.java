@@ -30,8 +30,8 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
-import com.liferay.commerce.service.CommerceOrderItemLocalService;
-import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+import com.liferay.commerce.service.CommerceOrderItemService;
+import com.liferay.commerce.service.CommerceSubscriptionEntryService;
 import com.liferay.commerce.subscription.web.internal.model.OrderItem;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -100,11 +100,11 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 			_portal.getUserId(httpServletRequest), 0, 0);
 
 		CommerceSubscriptionEntry commerceSubscriptionEntry =
-			_commerceSubscriptionEntryLocalService.getCommerceSubscriptionEntry(
+			_commerceSubscriptionEntryService.fetchCommerceSubscriptionEntry(
 				commerceSubscriptionEntryId);
 
 		CommerceOrderItem commerceOrderItem =
-			_commerceOrderItemLocalService.getCommerceOrderItem(
+			_commerceOrderItemService.getCommerceOrderItem(
 				commerceSubscriptionEntry.getCommerceOrderItemId());
 
 		String price = StringPool.BLANK;
@@ -237,7 +237,7 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 			}
 			else {
 				CommerceSubscriptionEntry commerceSubscriptionEntry =
-					_commerceSubscriptionEntryLocalService.
+					_commerceSubscriptionEntryService.
 						fetchCommerceSubscriptionEntry(
 							commerceOrderItem.getCommerceOrderItemId());
 
@@ -305,7 +305,7 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 			}
 			else {
 				CommerceSubscriptionEntry commerceSubscriptionEntry =
-					_commerceSubscriptionEntryLocalService.
+					_commerceSubscriptionEntryService.
 						fetchCommerceSubscriptionEntry(
 							commerceOrderItem.getCommerceOrderItemId());
 
@@ -331,21 +331,17 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 		return subscriptionPeriod;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceSubscriptionOrderItemDataSetDataProvider.class);
-
 	@Reference
 	private CommerceContextFactory _commerceContextFactory;
 
 	@Reference
-	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
+	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Reference
-	private CommerceSubscriptionEntryLocalService
-		_commerceSubscriptionEntryLocalService;
+	private CommerceSubscriptionEntryService _commerceSubscriptionEntryService;
 
 	@Reference
 	private CPSubscriptionTypeRegistry _cpSubscriptionTypeRegistry;
