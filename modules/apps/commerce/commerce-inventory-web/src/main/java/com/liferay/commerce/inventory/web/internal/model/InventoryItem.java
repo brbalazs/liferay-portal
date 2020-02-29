@@ -19,7 +19,7 @@ package com.liferay.commerce.inventory.web.internal.model;
  */
 public class InventoryItem {
 
-	public InventoryItem(Sku sku, int stock, int booked, int incoming) {
+	public InventoryItem(String sku, int stock, int booked, int incoming) {
 		_sku = sku;
 		_stock = stock;
 
@@ -46,7 +46,7 @@ public class InventoryItem {
 		return _incoming;
 	}
 
-	public Sku getSku() {
+	public String getSku() {
 		return _sku;
 	}
 
@@ -57,7 +57,7 @@ public class InventoryItem {
 	private final int _available;
 	private final int _booked;
 	private final int _incoming;
-	private final Sku _sku;
+	private final String _sku;
 	private final int _stock;
 
 }

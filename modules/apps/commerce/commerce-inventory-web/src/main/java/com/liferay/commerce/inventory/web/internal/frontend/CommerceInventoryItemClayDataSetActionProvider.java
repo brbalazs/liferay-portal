@@ -20,7 +20,6 @@ import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
 import com.liferay.commerce.inventory.web.internal.model.InventoryItem;
-import com.liferay.commerce.inventory.web.internal.model.Sku;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -66,8 +65,6 @@ public class CommerceInventoryItemClayDataSetActionProvider
 
 		InventoryItem inventoryItem = (InventoryItem)model;
 
-		Sku sku = inventoryItem.getSku();
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -78,15 +75,18 @@ public class CommerceInventoryItemClayDataSetActionProvider
 
 			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
-				_getCommerceInventoryItemEditURL(sku.getLabel(), themeDisplay),
-				StringPool.BLANK, LanguageUtil.get(httpServletRequest, "edit"),
-				null, false, false);
+				_getCommerceInventoryItemEditURL(
+					inventoryItem.getSku(), themeDisplay),
+				StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, Constants.EDIT),
+				StringPool.BLANK, false, false);
 
 			clayDataSetActions.add(editClayDataSetAction);
 
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
-				_getInventoryItemDeleteURL(sku.getLabel(), httpServletRequest),
+				_getInventoryItemDeleteURL(
+					inventoryItem.getSku(), httpServletRequest),
 				StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "delete"),
 				StringPool.BLANK, false, false);
