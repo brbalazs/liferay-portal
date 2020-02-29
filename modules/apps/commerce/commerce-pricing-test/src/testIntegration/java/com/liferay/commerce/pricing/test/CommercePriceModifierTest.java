@@ -142,11 +142,11 @@ public class CommercePriceModifierTest {
 				commercePricingClass.getCommercePricingClassId(),
 				cpDefinition2.getCPDefinitionId(), _serviceContext);
 
-		BigDecimal price1 = BigDecimal.valueOf(RandomTestUtil.randomDouble());
+		BigDecimal price1 = BigDecimal.valueOf(30);
 
-		BigDecimal price2 = BigDecimal.valueOf(RandomTestUtil.randomDouble());
+		BigDecimal price2 = BigDecimal.valueOf(20);
 
-		BigDecimal amount = BigDecimal.valueOf(RandomTestUtil.randomDouble());
+		BigDecimal amount = BigDecimal.valueOf(10);
 
 		CommercePriceEntry commercePriceEntry1 = _addCommercePriceEntry(
 			cpDefinition1.getCProductId(), cpInstance1.getCPInstanceUuid(),
@@ -190,22 +190,17 @@ public class CommercePriceModifierTest {
 		CommerceMoney finalMoney2 = _commerceMoneyFactory.create(
 			_commerceCurrency, price2.add(amount));
 
-		RoundingMode roundingMode = RoundingMode.valueOf(
-			_commerceCurrency.getRoundingMode());
-
-		MathContext mathContext1 = new MathContext(
-			modifiedPrice1.precision(), roundingMode);
-
-		MathContext mathContext2 = new MathContext(
-			modifiedPrice2.precision(), roundingMode);
-
 		BigDecimal expectedPrice1 = finalMoney1.getPrice();
 
 		BigDecimal expectedPrice2 = finalMoney2.getPrice();
 
-		Assert.assertEquals(expectedPrice1.round(mathContext1), modifiedPrice1);
+		Assert.assertEquals(
+			expectedPrice1.stripTrailingZeros(),
+			modifiedPrice1.stripTrailingZeros());
 
-		Assert.assertEquals(expectedPrice2.round(mathContext2), modifiedPrice2);
+		Assert.assertEquals(
+			expectedPrice2.stripTrailingZeros(),
+			modifiedPrice2.stripTrailingZeros());
 	}
 
 	@Test
@@ -317,9 +312,6 @@ public class CommercePriceModifierTest {
 		MathContext mathContext1 = new MathContext(
 			modifiedPrice1.precision(), roundingMode);
 
-		MathContext mathContext2 = new MathContext(
-			modifiedPrice2.precision(), roundingMode);
-
 		BigDecimal finalPrice1 = price1.multiply(
 			BigDecimal.valueOf(0.9), mathContext1);
 
@@ -330,9 +322,13 @@ public class CommercePriceModifierTest {
 
 		BigDecimal expectedPrice2 = priceMoney2.getPrice();
 
-		Assert.assertEquals(expectedPrice1.round(mathContext1), modifiedPrice1);
+		Assert.assertEquals(
+			expectedPrice1.stripTrailingZeros(),
+			modifiedPrice1.stripTrailingZeros());
 
-		Assert.assertEquals(expectedPrice2.round(mathContext2), modifiedPrice2);
+		Assert.assertEquals(
+			expectedPrice2.stripTrailingZeros(),
+			modifiedPrice2.stripTrailingZeros());
 	}
 
 	@Test
@@ -396,7 +392,11 @@ public class CommercePriceModifierTest {
 		MathContext mathContext = new MathContext(
 			finalPrice.precision(), roundingMode);
 
-		Assert.assertEquals(amount.round(mathContext), finalPrice);
+		BigDecimal expectedPrice = amount.round(mathContext);
+
+		Assert.assertEquals(
+			expectedPrice.stripTrailingZeros(),
+			finalPrice.stripTrailingZeros());
 	}
 
 	@Rule

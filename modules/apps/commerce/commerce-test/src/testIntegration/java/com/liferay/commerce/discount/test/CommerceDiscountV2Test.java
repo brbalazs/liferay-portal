@@ -36,6 +36,7 @@ import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListAccountRelLocalService;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
@@ -48,6 +49,7 @@ import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
@@ -62,6 +64,8 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
@@ -98,6 +102,13 @@ public class CommerceDiscountV2Test {
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		_commerceOrders = new ArrayList<>();
+
+		_properties = new Hashtable<>();
+
+		_properties.put("commercePricingCalculationKey", "v2.0");
+
+		ConfigurationProviderUtil.saveSystemConfiguration(
+			CommercePricingConfiguration.class, _properties);
 	}
 
 	@After
@@ -111,6 +122,11 @@ public class CommerceDiscountV2Test {
 		_commerceAccountLocalService.deleteCommerceAccount(_commerceAccount);
 		GroupTestUtil.deleteGroup(_group);
 		_userLocalService.deleteUser(_user);
+
+		_properties.put("commercePricingCalculationKey", "v1.0");
+
+		ConfigurationProviderUtil.saveSystemConfiguration(
+			CommercePricingConfiguration.class, _properties);
 	}
 
 	@Test
@@ -1439,6 +1455,7 @@ public class CommerceDiscountV2Test {
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	private Group _group;
+	private Dictionary<String, Object> _properties;
 	private User _user;
 
 	@Inject

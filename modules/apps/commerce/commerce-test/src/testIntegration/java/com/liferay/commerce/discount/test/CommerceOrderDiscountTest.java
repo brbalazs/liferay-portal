@@ -126,9 +126,11 @@ public class CommerceOrderDiscountTest {
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
-		CPInstance cpInstanceDiscount = CPTestUtil.addCPInstanceWithSku();
+		CPInstance cpInstanceDiscount = CPTestUtil.addCPInstanceWithRandomSku(
+			_group.getGroupId());
 
-		CPInstance cpInstancePlain = CPTestUtil.addCPInstanceWithSku();
+		CPInstance cpInstancePlain = CPTestUtil.addCPInstanceWithRandomSku(
+			_group.getGroupId());
 
 		cpInstanceDiscount.setPrice(BigDecimal.valueOf(25));
 		cpInstancePlain.setPrice(BigDecimal.valueOf(10));
@@ -242,9 +244,11 @@ public class CommerceOrderDiscountTest {
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
-		CPInstance cpInstanceDiscount = CPTestUtil.addCPInstanceWithSku();
+		CPInstance cpInstanceDiscount = CPTestUtil.addCPInstanceWithRandomSku(
+			_group.getGroupId());
 
-		CPInstance cpInstancePlain = CPTestUtil.addCPInstanceWithSku();
+		CPInstance cpInstancePlain = CPTestUtil.addCPInstanceWithRandomSku(
+			_group.getGroupId());
 
 		cpInstanceDiscount.setPrice(BigDecimal.valueOf(25));
 		cpInstancePlain.setPrice(BigDecimal.valueOf(10));
