@@ -20,7 +20,7 @@ package com.liferay.commerce.subscription.web.internal.model;
 public class OrderItem {
 
 	public OrderItem(
-		long orderItemId, long orderId, Sku sku, String name, String price,
+		long orderItemId, long orderId, String sku, String name, String price,
 		String subscriptionDuration, String subscriptionPeriod, String discount,
 		int quantity, String total) {
 
@@ -60,7 +60,7 @@ public class OrderItem {
 		return _quantity;
 	}
 
-	public Sku getSku() {
+	public String getSku() {
 		return _sku;
 	}
 
@@ -82,7 +82,7 @@ public class OrderItem {
 	private final long _orderItemId;
 	private final String _price;
 	private final int _quantity;
-	private final Sku _sku;
+	private final String _sku;
 	private final String _subscriptionDuration;
 	private final String _subscriptionPeriod;
 	private final String _total;

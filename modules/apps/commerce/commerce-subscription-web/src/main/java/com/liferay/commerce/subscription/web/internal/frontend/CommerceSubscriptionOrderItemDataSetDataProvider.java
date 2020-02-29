@@ -33,7 +33,6 @@ import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.commerce.subscription.web.internal.model.OrderItem;
-import com.liferay.commerce.subscription.web.internal.model.Sku;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -139,12 +138,8 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 			new OrderItem(
 				commerceOrderItem.getCommerceOrderItemId(),
 				commerceOrderItem.getCommerceOrderId(),
-				new Sku(
-					commerceOrderItem.getSku(),
-					_getOrderItemPanelURL(
-						commerceOrderItem.getCommerceOrderItemId(),
-						httpServletRequest)),
-				commerceOrderItem.getName(locale), price,
+				commerceOrderItem.getSku(), commerceOrderItem.getName(locale),
+				price,
 				_getSubscriptionDuration(
 					commerceOrderItem, locale, httpServletRequest),
 				_getSubscriptionPeriod(
