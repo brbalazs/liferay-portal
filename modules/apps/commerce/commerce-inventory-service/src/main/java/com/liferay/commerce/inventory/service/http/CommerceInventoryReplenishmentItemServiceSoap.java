@@ -88,18 +88,38 @@ public class CommerceInventoryReplenishmentItemServiceSoap {
 		}
 	}
 
-	public static int
-			getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
-				long companyId, String sku)
+	public static void deleteCommerceInventoryReplenishmentItem(
+			long commerceInventoryReplenishmentItemId)
 		throws RemoteException {
 
 		try {
-			int returnValue =
-				CommerceInventoryReplenishmentItemServiceUtil.
-					getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
-						companyId, sku);
+			CommerceInventoryReplenishmentItemServiceUtil.
+				deleteCommerceInventoryReplenishmentItem(
+					commerceInventoryReplenishmentItemId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			return returnValue;
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.inventory.model.
+			CommerceInventoryReplenishmentItemSoap
+					getCommerceInventoryReplenishmentItem(
+						long commerceInventoryReplenishmentItemId)
+				throws RemoteException {
+
+		try {
+			com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItem returnValue =
+					CommerceInventoryReplenishmentItemServiceUtil.
+						getCommerceInventoryReplenishmentItem(
+							commerceInventoryReplenishmentItemId);
+
+			return com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItemSoap.toSoapModel(returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -152,38 +172,18 @@ public class CommerceInventoryReplenishmentItemServiceSoap {
 		}
 	}
 
-	public static
-		com.liferay.commerce.inventory.model.
-			CommerceInventoryReplenishmentItemSoap
-					getCommerceInventoryReplenishmentItem(
-						long commerceInventoryReplenishmentItemId)
-				throws RemoteException {
-
-		try {
-			com.liferay.commerce.inventory.model.
-				CommerceInventoryReplenishmentItem returnValue =
-					CommerceInventoryReplenishmentItemServiceUtil.
-						getCommerceInventoryReplenishmentItem(
-							commerceInventoryReplenishmentItemId);
-
-			return com.liferay.commerce.inventory.model.
-				CommerceInventoryReplenishmentItemSoap.toSoapModel(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static void deleteCommerceInventoryReplenishmentItem(
-			long commerceInventoryReplenishmentItemId)
+	public static int
+			getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+				long companyId, String sku)
 		throws RemoteException {
 
 		try {
-			CommerceInventoryReplenishmentItemServiceUtil.
-				deleteCommerceInventoryReplenishmentItem(
-					commerceInventoryReplenishmentItemId);
+			int returnValue =
+				CommerceInventoryReplenishmentItemServiceUtil.
+					getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+						companyId, sku);
+
+			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

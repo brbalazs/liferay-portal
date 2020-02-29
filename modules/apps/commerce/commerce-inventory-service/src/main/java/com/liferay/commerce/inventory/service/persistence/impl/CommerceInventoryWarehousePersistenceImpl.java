@@ -203,43 +203,43 @@ public class CommerceInventoryWarehousePersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler sb = null;
+			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				sb = new StringBundler(
+				query = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				sb = new StringBundler(3);
+				query = new StringBundler(3);
 			}
 
-			sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
 				list = (List<CommerceInventoryWarehouse>)QueryUtil.list(
-					query, getDialect(), start, end);
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -283,16 +283,16 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return commerceInventoryWarehouse;
 		}
 
-		StringBundler sb = new StringBundler(4);
+		StringBundler msg = new StringBundler(4);
 
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("companyId=");
-		sb.append(companyId);
+		msg.append("companyId=");
+		msg.append(companyId);
 
-		sb.append("}");
+		msg.append("}");
 
-		throw new NoSuchInventoryWarehouseException(sb.toString());
+		throw new NoSuchInventoryWarehouseException(msg.toString());
 	}
 
 	/**
@@ -338,16 +338,16 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return commerceInventoryWarehouse;
 		}
 
-		StringBundler sb = new StringBundler(4);
+		StringBundler msg = new StringBundler(4);
 
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("companyId=");
-		sb.append(companyId);
+		msg.append("companyId=");
+		msg.append(companyId);
 
-		sb.append("}");
+		msg.append("}");
 
-		throw new NoSuchInventoryWarehouseException(sb.toString());
+		throw new NoSuchInventoryWarehouseException(msg.toString());
 	}
 
 	/**
@@ -430,102 +430,102 @@ public class CommerceInventoryWarehousePersistenceImpl
 		OrderByComparator<CommerceInventoryWarehouse> orderByComparator,
 		boolean previous) {
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(3);
+			query = new StringBundler(3);
 		}
 
-		sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+		query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-		sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
+				query.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByConditionFields[i]);
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
+						query.append(WHERE_GREATER_THAN);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN);
+						query.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			sb.append(ORDER_BY_CLAUSE);
+			query.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByFields[i]);
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
+						query.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
+						query.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
+						query.append(ORDER_BY_ASC);
 					}
 					else {
-						sb.append(ORDER_BY_DESC);
+						query.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+			query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = sb.toString();
+		String sql = query.toString();
 
-		Query query = session.createQuery(sql);
+		Query q = session.createQuery(sql);
 
-		query.setFirstResult(0);
-		query.setMaxResults(2);
+		q.setFirstResult(0);
+		q.setMaxResults(2);
 
-		QueryPos queryPos = QueryPos.getInstance(query);
+		QueryPos qPos = QueryPos.getInstance(q);
 
-		queryPos.add(companyId);
+		qPos.add(companyId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryWarehouse)) {
 
-				queryPos.add(orderByConditionValue);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryWarehouse> list = query.list();
+		List<CommerceInventoryWarehouse> list = q.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -590,52 +590,52 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return findByCompanyId(companyId, start, end, orderByComparator);
 		}
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				3 + (orderByComparator.getOrderByFields().length * 2));
 		}
 		else {
-			sb = new StringBundler(4);
+			query = new StringBundler(4);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sb.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 		}
 		else {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
 			}
 			else {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -643,23 +643,23 @@ public class CommerceInventoryWarehousePersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
 			if (getDB().isSupportsInlineDistinct()) {
-				sqlQuery.addEntity(
+				q.addEntity(
 					_FILTER_ENTITY_ALIAS, CommerceInventoryWarehouseImpl.class);
 			}
 			else {
-				sqlQuery.addEntity(
+				q.addEntity(
 					_FILTER_ENTITY_TABLE, CommerceInventoryWarehouseImpl.class);
 			}
 
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			QueryPos qPos = QueryPos.getInstance(q);
 
-			queryPos.add(companyId);
+			qPos.add(companyId);
 
 			return (List<CommerceInventoryWarehouse>)QueryUtil.list(
-				sqlQuery, getDialect(), start, end);
+				q, getDialect(), start, end);
 		}
 		catch (Exception exception) {
 			throw processException(exception);
@@ -726,29 +726,29 @@ public class CommerceInventoryWarehousePersistenceImpl
 		OrderByComparator<CommerceInventoryWarehouse> orderByComparator,
 		boolean previous) {
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(4);
+			query = new StringBundler(4);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sb.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 		}
 		else {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
@@ -757,18 +757,18 @@ public class CommerceInventoryWarehousePersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
+				query.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
 							true));
 				}
 				else {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
 							true));
@@ -776,97 +776,97 @@ public class CommerceInventoryWarehousePersistenceImpl
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
+						query.append(WHERE_GREATER_THAN);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN);
+						query.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			sb.append(ORDER_BY_CLAUSE);
+			query.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
 				}
 				else {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
 				}
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
+						query.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
+						query.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
+						query.append(ORDER_BY_ASC);
 					}
 					else {
-						sb.append(ORDER_BY_DESC);
+						query.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
-		SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-		sqlQuery.setFirstResult(0);
-		sqlQuery.setMaxResults(2);
+		q.setFirstResult(0);
+		q.setMaxResults(2);
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sqlQuery.addEntity(
+			q.addEntity(
 				_FILTER_ENTITY_ALIAS, CommerceInventoryWarehouseImpl.class);
 		}
 		else {
-			sqlQuery.addEntity(
+			q.addEntity(
 				_FILTER_ENTITY_TABLE, CommerceInventoryWarehouseImpl.class);
 		}
 
-		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+		QueryPos qPos = QueryPos.getInstance(q);
 
-		queryPos.add(companyId);
+		qPos.add(companyId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryWarehouse)) {
 
-				queryPos.add(orderByConditionValue);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryWarehouse> list = sqlQuery.list();
+		List<CommerceInventoryWarehouse> list = q.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -906,26 +906,26 @@ public class CommerceInventoryWarehousePersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(2);
+			StringBundler query = new StringBundler(2);
 
-			sb.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
-				count = (Long)query.uniqueResult();
+				count = (Long)q.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -954,14 +954,14 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return countByCompanyId(companyId);
 		}
 
-		StringBundler sb = new StringBundler(2);
+		StringBundler query = new StringBundler(2);
 
-		sb.append(_FILTER_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+		query.append(_FILTER_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-		sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -969,16 +969,16 @@ public class CommerceInventoryWarehousePersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			sqlQuery.addScalar(
+			q.addScalar(
 				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
 
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			QueryPos qPos = QueryPos.getInstance(q);
 
-			queryPos.add(companyId);
+			qPos.add(companyId);
 
-			Long count = (Long)sqlQuery.uniqueResult();
+			Long count = (Long)q.uniqueResult();
 
 			return count.intValue();
 		}
@@ -1117,47 +1117,47 @@ public class CommerceInventoryWarehousePersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler sb = null;
+			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				sb = new StringBundler(
+				query = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				sb = new StringBundler(4);
+				query = new StringBundler(4);
 			}
 
-			sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_A_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_A_COMPANYID_2);
 
-			sb.append(_FINDER_COLUMN_C_A_ACTIVE_2);
+			query.append(_FINDER_COLUMN_C_A_ACTIVE_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
-				queryPos.add(active);
+				qPos.add(active);
 
 				list = (List<CommerceInventoryWarehouse>)QueryUtil.list(
-					query, getDialect(), start, end);
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1202,19 +1202,19 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return commerceInventoryWarehouse;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler msg = new StringBundler(6);
 
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("companyId=");
-		sb.append(companyId);
+		msg.append("companyId=");
+		msg.append(companyId);
 
-		sb.append(", active=");
-		sb.append(active);
+		msg.append(", active=");
+		msg.append(active);
 
-		sb.append("}");
+		msg.append("}");
 
-		throw new NoSuchInventoryWarehouseException(sb.toString());
+		throw new NoSuchInventoryWarehouseException(msg.toString());
 	}
 
 	/**
@@ -1262,19 +1262,19 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return commerceInventoryWarehouse;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler msg = new StringBundler(6);
 
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("companyId=");
-		sb.append(companyId);
+		msg.append("companyId=");
+		msg.append(companyId);
 
-		sb.append(", active=");
-		sb.append(active);
+		msg.append(", active=");
+		msg.append(active);
 
-		sb.append("}");
+		msg.append("}");
 
-		throw new NoSuchInventoryWarehouseException(sb.toString());
+		throw new NoSuchInventoryWarehouseException(msg.toString());
 	}
 
 	/**
@@ -1359,106 +1359,106 @@ public class CommerceInventoryWarehousePersistenceImpl
 		OrderByComparator<CommerceInventoryWarehouse> orderByComparator,
 		boolean previous) {
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(4);
+			query = new StringBundler(4);
 		}
 
-		sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+		query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-		sb.append(_FINDER_COLUMN_C_A_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_A_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_A_ACTIVE_2);
+		query.append(_FINDER_COLUMN_C_A_ACTIVE_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
+				query.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByConditionFields[i]);
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
+						query.append(WHERE_GREATER_THAN);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN);
+						query.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			sb.append(ORDER_BY_CLAUSE);
+			query.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByFields[i]);
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
+						query.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
+						query.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
+						query.append(ORDER_BY_ASC);
 					}
 					else {
-						sb.append(ORDER_BY_DESC);
+						query.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+			query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = sb.toString();
+		String sql = query.toString();
 
-		Query query = session.createQuery(sql);
+		Query q = session.createQuery(sql);
 
-		query.setFirstResult(0);
-		query.setMaxResults(2);
+		q.setFirstResult(0);
+		q.setMaxResults(2);
 
-		QueryPos queryPos = QueryPos.getInstance(query);
+		QueryPos qPos = QueryPos.getInstance(q);
 
-		queryPos.add(companyId);
+		qPos.add(companyId);
 
-		queryPos.add(active);
+		qPos.add(active);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryWarehouse)) {
 
-				queryPos.add(orderByConditionValue);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryWarehouse> list = query.list();
+		List<CommerceInventoryWarehouse> list = q.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1526,54 +1526,54 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return findByC_A(companyId, active, start, end, orderByComparator);
 		}
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				4 + (orderByComparator.getOrderByFields().length * 2));
 		}
 		else {
-			sb = new StringBundler(5);
+			query = new StringBundler(5);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sb.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 		}
 		else {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_C_A_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_A_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_A_ACTIVE_2_SQL);
+		query.append(_FINDER_COLUMN_C_A_ACTIVE_2_SQL);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
 			}
 			else {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -1581,25 +1581,25 @@ public class CommerceInventoryWarehousePersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
 			if (getDB().isSupportsInlineDistinct()) {
-				sqlQuery.addEntity(
+				q.addEntity(
 					_FILTER_ENTITY_ALIAS, CommerceInventoryWarehouseImpl.class);
 			}
 			else {
-				sqlQuery.addEntity(
+				q.addEntity(
 					_FILTER_ENTITY_TABLE, CommerceInventoryWarehouseImpl.class);
 			}
 
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			QueryPos qPos = QueryPos.getInstance(q);
 
-			queryPos.add(companyId);
+			qPos.add(companyId);
 
-			queryPos.add(active);
+			qPos.add(active);
 
 			return (List<CommerceInventoryWarehouse>)QueryUtil.list(
-				sqlQuery, getDialect(), start, end);
+				q, getDialect(), start, end);
 		}
 		catch (Exception exception) {
 			throw processException(exception);
@@ -1668,31 +1668,31 @@ public class CommerceInventoryWarehousePersistenceImpl
 		OrderByComparator<CommerceInventoryWarehouse> orderByComparator,
 		boolean previous) {
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(5);
+			query = new StringBundler(5);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sb.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 		}
 		else {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_C_A_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_A_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_A_ACTIVE_2_SQL);
+		query.append(_FINDER_COLUMN_C_A_ACTIVE_2_SQL);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
@@ -1701,18 +1701,18 @@ public class CommerceInventoryWarehousePersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
+				query.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
 							true));
 				}
 				else {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
 							true));
@@ -1720,99 +1720,99 @@ public class CommerceInventoryWarehousePersistenceImpl
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
+						query.append(WHERE_GREATER_THAN);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN);
+						query.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			sb.append(ORDER_BY_CLAUSE);
+			query.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
 				}
 				else {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
 				}
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
+						query.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
+						query.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
+						query.append(ORDER_BY_ASC);
 					}
 					else {
-						sb.append(ORDER_BY_DESC);
+						query.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
-		SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-		sqlQuery.setFirstResult(0);
-		sqlQuery.setMaxResults(2);
+		q.setFirstResult(0);
+		q.setMaxResults(2);
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sqlQuery.addEntity(
+			q.addEntity(
 				_FILTER_ENTITY_ALIAS, CommerceInventoryWarehouseImpl.class);
 		}
 		else {
-			sqlQuery.addEntity(
+			q.addEntity(
 				_FILTER_ENTITY_TABLE, CommerceInventoryWarehouseImpl.class);
 		}
 
-		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+		QueryPos qPos = QueryPos.getInstance(q);
 
-		queryPos.add(companyId);
+		qPos.add(companyId);
 
-		queryPos.add(active);
+		qPos.add(active);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryWarehouse)) {
 
-				queryPos.add(orderByConditionValue);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryWarehouse> list = sqlQuery.list();
+		List<CommerceInventoryWarehouse> list = q.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1855,30 +1855,30 @@ public class CommerceInventoryWarehousePersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler query = new StringBundler(3);
 
-			sb.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_A_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_A_COMPANYID_2);
 
-			sb.append(_FINDER_COLUMN_C_A_ACTIVE_2);
+			query.append(_FINDER_COLUMN_C_A_ACTIVE_2);
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
-				queryPos.add(active);
+				qPos.add(active);
 
-				count = (Long)query.uniqueResult();
+				count = (Long)q.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1908,16 +1908,16 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return countByC_A(companyId, active);
 		}
 
-		StringBundler sb = new StringBundler(3);
+		StringBundler query = new StringBundler(3);
 
-		sb.append(_FILTER_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+		query.append(_FILTER_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-		sb.append(_FINDER_COLUMN_C_A_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_A_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_A_ACTIVE_2_SQL);
+		query.append(_FINDER_COLUMN_C_A_ACTIVE_2_SQL);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -1925,18 +1925,18 @@ public class CommerceInventoryWarehousePersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			sqlQuery.addScalar(
+			q.addScalar(
 				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
 
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			QueryPos qPos = QueryPos.getInstance(q);
 
-			queryPos.add(companyId);
+			qPos.add(companyId);
 
-			queryPos.add(active);
+			qPos.add(active);
 
-			Long count = (Long)sqlQuery.uniqueResult();
+			Long count = (Long)q.uniqueResult();
 
 			return count.intValue();
 		}
@@ -2089,58 +2089,58 @@ public class CommerceInventoryWarehousePersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler sb = null;
+			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				sb = new StringBundler(
+				query = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				sb = new StringBundler(4);
+				query = new StringBundler(4);
 			}
 
-			sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_C_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_C_COMPANYID_2);
 
 			boolean bindCountryTwoLettersISOCode = false;
 
 			if (countryTwoLettersISOCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
+				query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
 			}
 			else {
 				bindCountryTwoLettersISOCode = true;
 
-				sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
+				query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
 				if (bindCountryTwoLettersISOCode) {
-					queryPos.add(countryTwoLettersISOCode);
+					qPos.add(countryTwoLettersISOCode);
 				}
 
 				list = (List<CommerceInventoryWarehouse>)QueryUtil.list(
-					query, getDialect(), start, end);
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2186,19 +2186,19 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return commerceInventoryWarehouse;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler msg = new StringBundler(6);
 
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("companyId=");
-		sb.append(companyId);
+		msg.append("companyId=");
+		msg.append(companyId);
 
-		sb.append(", countryTwoLettersISOCode=");
-		sb.append(countryTwoLettersISOCode);
+		msg.append(", countryTwoLettersISOCode=");
+		msg.append(countryTwoLettersISOCode);
 
-		sb.append("}");
+		msg.append("}");
 
-		throw new NoSuchInventoryWarehouseException(sb.toString());
+		throw new NoSuchInventoryWarehouseException(msg.toString());
 	}
 
 	/**
@@ -2246,19 +2246,19 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return commerceInventoryWarehouse;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler msg = new StringBundler(6);
 
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("companyId=");
-		sb.append(companyId);
+		msg.append("companyId=");
+		msg.append(companyId);
 
-		sb.append(", countryTwoLettersISOCode=");
-		sb.append(countryTwoLettersISOCode);
+		msg.append(", countryTwoLettersISOCode=");
+		msg.append(countryTwoLettersISOCode);
 
-		sb.append("}");
+		msg.append("}");
 
-		throw new NoSuchInventoryWarehouseException(sb.toString());
+		throw new NoSuchInventoryWarehouseException(msg.toString());
 	}
 
 	/**
@@ -2348,30 +2348,30 @@ public class CommerceInventoryWarehousePersistenceImpl
 		OrderByComparator<CommerceInventoryWarehouse> orderByComparator,
 		boolean previous) {
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(4);
+			query = new StringBundler(4);
 		}
 
-		sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+		query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-		sb.append(_FINDER_COLUMN_C_C_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_C_COMPANYID_2);
 
 		boolean bindCountryTwoLettersISOCode = false;
 
 		if (countryTwoLettersISOCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
+			query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
 		}
 		else {
 			bindCountryTwoLettersISOCode = true;
 
-			sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
+			query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -2379,74 +2379,74 @@ public class CommerceInventoryWarehousePersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
+				query.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByConditionFields[i]);
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
+						query.append(WHERE_GREATER_THAN);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN);
+						query.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			sb.append(ORDER_BY_CLAUSE);
+			query.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByFields[i]);
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
+						query.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
+						query.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
+						query.append(ORDER_BY_ASC);
 					}
 					else {
-						sb.append(ORDER_BY_DESC);
+						query.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+			query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = sb.toString();
+		String sql = query.toString();
 
-		Query query = session.createQuery(sql);
+		Query q = session.createQuery(sql);
 
-		query.setFirstResult(0);
-		query.setMaxResults(2);
+		q.setFirstResult(0);
+		q.setMaxResults(2);
 
-		QueryPos queryPos = QueryPos.getInstance(query);
+		QueryPos qPos = QueryPos.getInstance(q);
 
-		queryPos.add(companyId);
+		qPos.add(companyId);
 
 		if (bindCountryTwoLettersISOCode) {
-			queryPos.add(countryTwoLettersISOCode);
+			qPos.add(countryTwoLettersISOCode);
 		}
 
 		if (orderByComparator != null) {
@@ -2454,11 +2454,11 @@ public class CommerceInventoryWarehousePersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryWarehouse)) {
 
-				queryPos.add(orderByConditionValue);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryWarehouse> list = query.list();
+		List<CommerceInventoryWarehouse> list = q.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -2533,63 +2533,63 @@ public class CommerceInventoryWarehousePersistenceImpl
 		countryTwoLettersISOCode = Objects.toString(
 			countryTwoLettersISOCode, "");
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				4 + (orderByComparator.getOrderByFields().length * 2));
 		}
 		else {
-			sb = new StringBundler(5);
+			query = new StringBundler(5);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sb.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 		}
 		else {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_C_C_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_C_COMPANYID_2);
 
 		boolean bindCountryTwoLettersISOCode = false;
 
 		if (countryTwoLettersISOCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
+			query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
 		}
 		else {
 			bindCountryTwoLettersISOCode = true;
 
-			sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
+			query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
 		}
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
 			}
 			else {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -2597,27 +2597,27 @@ public class CommerceInventoryWarehousePersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
 			if (getDB().isSupportsInlineDistinct()) {
-				sqlQuery.addEntity(
+				q.addEntity(
 					_FILTER_ENTITY_ALIAS, CommerceInventoryWarehouseImpl.class);
 			}
 			else {
-				sqlQuery.addEntity(
+				q.addEntity(
 					_FILTER_ENTITY_TABLE, CommerceInventoryWarehouseImpl.class);
 			}
 
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			QueryPos qPos = QueryPos.getInstance(q);
 
-			queryPos.add(companyId);
+			qPos.add(companyId);
 
 			if (bindCountryTwoLettersISOCode) {
-				queryPos.add(countryTwoLettersISOCode);
+				qPos.add(countryTwoLettersISOCode);
 			}
 
 			return (List<CommerceInventoryWarehouse>)QueryUtil.list(
-				sqlQuery, getDialect(), start, end);
+				q, getDialect(), start, end);
 		}
 		catch (Exception exception) {
 			throw processException(exception);
@@ -2690,40 +2690,40 @@ public class CommerceInventoryWarehousePersistenceImpl
 		OrderByComparator<CommerceInventoryWarehouse> orderByComparator,
 		boolean previous) {
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(5);
+			query = new StringBundler(5);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sb.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 		}
 		else {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_C_C_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_C_COMPANYID_2);
 
 		boolean bindCountryTwoLettersISOCode = false;
 
 		if (countryTwoLettersISOCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
+			query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
 		}
 		else {
 			bindCountryTwoLettersISOCode = true;
 
-			sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
+			query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
 		}
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
@@ -2732,18 +2732,18 @@ public class CommerceInventoryWarehousePersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
+				query.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
 							true));
 				}
 				else {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
 							true));
@@ -2751,89 +2751,89 @@ public class CommerceInventoryWarehousePersistenceImpl
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
+						query.append(WHERE_GREATER_THAN);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN);
+						query.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			sb.append(ORDER_BY_CLAUSE);
+			query.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
 				}
 				else {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
 				}
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
+						query.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
+						query.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
+						query.append(ORDER_BY_ASC);
 					}
 					else {
-						sb.append(ORDER_BY_DESC);
+						query.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
-		SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-		sqlQuery.setFirstResult(0);
-		sqlQuery.setMaxResults(2);
+		q.setFirstResult(0);
+		q.setMaxResults(2);
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sqlQuery.addEntity(
+			q.addEntity(
 				_FILTER_ENTITY_ALIAS, CommerceInventoryWarehouseImpl.class);
 		}
 		else {
-			sqlQuery.addEntity(
+			q.addEntity(
 				_FILTER_ENTITY_TABLE, CommerceInventoryWarehouseImpl.class);
 		}
 
-		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+		QueryPos qPos = QueryPos.getInstance(q);
 
-		queryPos.add(companyId);
+		qPos.add(companyId);
 
 		if (bindCountryTwoLettersISOCode) {
-			queryPos.add(countryTwoLettersISOCode);
+			qPos.add(countryTwoLettersISOCode);
 		}
 
 		if (orderByComparator != null) {
@@ -2841,11 +2841,11 @@ public class CommerceInventoryWarehousePersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryWarehouse)) {
 
-				queryPos.add(orderByConditionValue);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryWarehouse> list = sqlQuery.list();
+		List<CommerceInventoryWarehouse> list = q.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -2893,41 +2893,41 @@ public class CommerceInventoryWarehousePersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler query = new StringBundler(3);
 
-			sb.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_C_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_C_COMPANYID_2);
 
 			boolean bindCountryTwoLettersISOCode = false;
 
 			if (countryTwoLettersISOCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
+				query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
 			}
 			else {
 				bindCountryTwoLettersISOCode = true;
 
-				sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
+				query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
 			}
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
 				if (bindCountryTwoLettersISOCode) {
-					queryPos.add(countryTwoLettersISOCode);
+					qPos.add(countryTwoLettersISOCode);
 				}
 
-				count = (Long)query.uniqueResult();
+				count = (Long)q.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -2962,25 +2962,25 @@ public class CommerceInventoryWarehousePersistenceImpl
 		countryTwoLettersISOCode = Objects.toString(
 			countryTwoLettersISOCode, "");
 
-		StringBundler sb = new StringBundler(3);
+		StringBundler query = new StringBundler(3);
 
-		sb.append(_FILTER_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+		query.append(_FILTER_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-		sb.append(_FINDER_COLUMN_C_C_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_C_COMPANYID_2);
 
 		boolean bindCountryTwoLettersISOCode = false;
 
 		if (countryTwoLettersISOCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
+			query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_3);
 		}
 		else {
 			bindCountryTwoLettersISOCode = true;
 
-			sb.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
+			query.append(_FINDER_COLUMN_C_C_COUNTRYTWOLETTERSISOCODE_2);
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -2988,20 +2988,20 @@ public class CommerceInventoryWarehousePersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			sqlQuery.addScalar(
+			q.addScalar(
 				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
 
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			QueryPos qPos = QueryPos.getInstance(q);
 
-			queryPos.add(companyId);
+			qPos.add(companyId);
 
 			if (bindCountryTwoLettersISOCode) {
-				queryPos.add(countryTwoLettersISOCode);
+				qPos.add(countryTwoLettersISOCode);
 			}
 
-			Long count = (Long)sqlQuery.uniqueResult();
+			Long count = (Long)q.uniqueResult();
 
 			return count.intValue();
 		}
@@ -3165,62 +3165,62 @@ public class CommerceInventoryWarehousePersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler sb = null;
+			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				sb = new StringBundler(
+				query = new StringBundler(
 					5 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				sb = new StringBundler(5);
+				query = new StringBundler(5);
 			}
 
-			sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
 
-			sb.append(_FINDER_COLUMN_C_A_C_ACTIVE_2);
+			query.append(_FINDER_COLUMN_C_A_C_ACTIVE_2);
 
 			boolean bindCountryTwoLettersISOCode = false;
 
 			if (countryTwoLettersISOCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
+				query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
 			}
 			else {
 				bindCountryTwoLettersISOCode = true;
 
-				sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
+				query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
-				queryPos.add(active);
+				qPos.add(active);
 
 				if (bindCountryTwoLettersISOCode) {
-					queryPos.add(countryTwoLettersISOCode);
+					qPos.add(countryTwoLettersISOCode);
 				}
 
 				list = (List<CommerceInventoryWarehouse>)QueryUtil.list(
-					query, getDialect(), start, end);
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -3267,22 +3267,22 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return commerceInventoryWarehouse;
 		}
 
-		StringBundler sb = new StringBundler(8);
+		StringBundler msg = new StringBundler(8);
 
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("companyId=");
-		sb.append(companyId);
+		msg.append("companyId=");
+		msg.append(companyId);
 
-		sb.append(", active=");
-		sb.append(active);
+		msg.append(", active=");
+		msg.append(active);
 
-		sb.append(", countryTwoLettersISOCode=");
-		sb.append(countryTwoLettersISOCode);
+		msg.append(", countryTwoLettersISOCode=");
+		msg.append(countryTwoLettersISOCode);
 
-		sb.append("}");
+		msg.append("}");
 
-		throw new NoSuchInventoryWarehouseException(sb.toString());
+		throw new NoSuchInventoryWarehouseException(msg.toString());
 	}
 
 	/**
@@ -3334,22 +3334,22 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return commerceInventoryWarehouse;
 		}
 
-		StringBundler sb = new StringBundler(8);
+		StringBundler msg = new StringBundler(8);
 
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("companyId=");
-		sb.append(companyId);
+		msg.append("companyId=");
+		msg.append(companyId);
 
-		sb.append(", active=");
-		sb.append(active);
+		msg.append(", active=");
+		msg.append(active);
 
-		sb.append(", countryTwoLettersISOCode=");
-		sb.append(countryTwoLettersISOCode);
+		msg.append(", countryTwoLettersISOCode=");
+		msg.append(countryTwoLettersISOCode);
 
-		sb.append("}");
+		msg.append("}");
 
-		throw new NoSuchInventoryWarehouseException(sb.toString());
+		throw new NoSuchInventoryWarehouseException(msg.toString());
 	}
 
 	/**
@@ -3441,32 +3441,32 @@ public class CommerceInventoryWarehousePersistenceImpl
 		OrderByComparator<CommerceInventoryWarehouse> orderByComparator,
 		boolean previous) {
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(5);
+			query = new StringBundler(5);
 		}
 
-		sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+		query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-		sb.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_A_C_ACTIVE_2);
+		query.append(_FINDER_COLUMN_C_A_C_ACTIVE_2);
 
 		boolean bindCountryTwoLettersISOCode = false;
 
 		if (countryTwoLettersISOCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
+			query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
 		}
 		else {
 			bindCountryTwoLettersISOCode = true;
 
-			sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
+			query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -3474,76 +3474,76 @@ public class CommerceInventoryWarehousePersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
+				query.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByConditionFields[i]);
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
+						query.append(WHERE_GREATER_THAN);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN);
+						query.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			sb.append(ORDER_BY_CLAUSE);
+			query.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByFields[i]);
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
+						query.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
+						query.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
+						query.append(ORDER_BY_ASC);
 					}
 					else {
-						sb.append(ORDER_BY_DESC);
+						query.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+			query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = sb.toString();
+		String sql = query.toString();
 
-		Query query = session.createQuery(sql);
+		Query q = session.createQuery(sql);
 
-		query.setFirstResult(0);
-		query.setMaxResults(2);
+		q.setFirstResult(0);
+		q.setMaxResults(2);
 
-		QueryPos queryPos = QueryPos.getInstance(query);
+		QueryPos qPos = QueryPos.getInstance(q);
 
-		queryPos.add(companyId);
+		qPos.add(companyId);
 
-		queryPos.add(active);
+		qPos.add(active);
 
 		if (bindCountryTwoLettersISOCode) {
-			queryPos.add(countryTwoLettersISOCode);
+			qPos.add(countryTwoLettersISOCode);
 		}
 
 		if (orderByComparator != null) {
@@ -3551,11 +3551,11 @@ public class CommerceInventoryWarehousePersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryWarehouse)) {
 
-				queryPos.add(orderByConditionValue);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryWarehouse> list = query.list();
+		List<CommerceInventoryWarehouse> list = q.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -3635,65 +3635,65 @@ public class CommerceInventoryWarehousePersistenceImpl
 		countryTwoLettersISOCode = Objects.toString(
 			countryTwoLettersISOCode, "");
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				5 + (orderByComparator.getOrderByFields().length * 2));
 		}
 		else {
-			sb = new StringBundler(6);
+			query = new StringBundler(6);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sb.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 		}
 		else {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_A_C_ACTIVE_2_SQL);
+		query.append(_FINDER_COLUMN_C_A_C_ACTIVE_2_SQL);
 
 		boolean bindCountryTwoLettersISOCode = false;
 
 		if (countryTwoLettersISOCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
+			query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
 		}
 		else {
 			bindCountryTwoLettersISOCode = true;
 
-			sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
+			query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
 		}
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
 			}
 			else {
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -3701,29 +3701,29 @@ public class CommerceInventoryWarehousePersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
 			if (getDB().isSupportsInlineDistinct()) {
-				sqlQuery.addEntity(
+				q.addEntity(
 					_FILTER_ENTITY_ALIAS, CommerceInventoryWarehouseImpl.class);
 			}
 			else {
-				sqlQuery.addEntity(
+				q.addEntity(
 					_FILTER_ENTITY_TABLE, CommerceInventoryWarehouseImpl.class);
 			}
 
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			QueryPos qPos = QueryPos.getInstance(q);
 
-			queryPos.add(companyId);
+			qPos.add(companyId);
 
-			queryPos.add(active);
+			qPos.add(active);
 
 			if (bindCountryTwoLettersISOCode) {
-				queryPos.add(countryTwoLettersISOCode);
+				qPos.add(countryTwoLettersISOCode);
 			}
 
 			return (List<CommerceInventoryWarehouse>)QueryUtil.list(
-				sqlQuery, getDialect(), start, end);
+				q, getDialect(), start, end);
 		}
 		catch (Exception exception) {
 			throw processException(exception);
@@ -3797,42 +3797,42 @@ public class CommerceInventoryWarehousePersistenceImpl
 		OrderByComparator<CommerceInventoryWarehouse> orderByComparator,
 		boolean previous) {
 
-		StringBundler sb = null;
+		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			sb = new StringBundler(
+			query = new StringBundler(
 				7 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(6);
+			query = new StringBundler(6);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sb.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 		}
 		else {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_A_C_ACTIVE_2_SQL);
+		query.append(_FINDER_COLUMN_C_A_C_ACTIVE_2_SQL);
 
 		boolean bindCountryTwoLettersISOCode = false;
 
 		if (countryTwoLettersISOCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
+			query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
 		}
 		else {
 			bindCountryTwoLettersISOCode = true;
 
-			sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
+			query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
 		}
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			sb.append(
+			query.append(
 				_FILTER_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
@@ -3841,18 +3841,18 @@ public class CommerceInventoryWarehousePersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
+				query.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
 							true));
 				}
 				else {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
 							true));
@@ -3860,91 +3860,91 @@ public class CommerceInventoryWarehousePersistenceImpl
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
+						query.append(WHERE_GREATER_THAN);
 					}
 					else {
-						sb.append(WHERE_LESSER_THAN);
+						query.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			sb.append(ORDER_BY_CLAUSE);
+			query.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
 				}
 				else {
-					sb.append(
+					query.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
 				}
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
+						query.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
+						query.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
+						query.append(ORDER_BY_ASC);
 					}
 					else {
-						sb.append(ORDER_BY_DESC);
+						query.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				sb.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
+				query.append(CommerceInventoryWarehouseModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
-		SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-		sqlQuery.setFirstResult(0);
-		sqlQuery.setMaxResults(2);
+		q.setFirstResult(0);
+		q.setMaxResults(2);
 
 		if (getDB().isSupportsInlineDistinct()) {
-			sqlQuery.addEntity(
+			q.addEntity(
 				_FILTER_ENTITY_ALIAS, CommerceInventoryWarehouseImpl.class);
 		}
 		else {
-			sqlQuery.addEntity(
+			q.addEntity(
 				_FILTER_ENTITY_TABLE, CommerceInventoryWarehouseImpl.class);
 		}
 
-		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+		QueryPos qPos = QueryPos.getInstance(q);
 
-		queryPos.add(companyId);
+		qPos.add(companyId);
 
-		queryPos.add(active);
+		qPos.add(active);
 
 		if (bindCountryTwoLettersISOCode) {
-			queryPos.add(countryTwoLettersISOCode);
+			qPos.add(countryTwoLettersISOCode);
 		}
 
 		if (orderByComparator != null) {
@@ -3952,11 +3952,11 @@ public class CommerceInventoryWarehousePersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commerceInventoryWarehouse)) {
 
-				queryPos.add(orderByConditionValue);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommerceInventoryWarehouse> list = sqlQuery.list();
+		List<CommerceInventoryWarehouse> list = q.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -4010,45 +4010,45 @@ public class CommerceInventoryWarehousePersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler query = new StringBundler(4);
 
-			sb.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
 
-			sb.append(_FINDER_COLUMN_C_A_C_ACTIVE_2);
+			query.append(_FINDER_COLUMN_C_A_C_ACTIVE_2);
 
 			boolean bindCountryTwoLettersISOCode = false;
 
 			if (countryTwoLettersISOCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
+				query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
 			}
 			else {
 				bindCountryTwoLettersISOCode = true;
 
-				sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
+				query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
 			}
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
-				queryPos.add(active);
+				qPos.add(active);
 
 				if (bindCountryTwoLettersISOCode) {
-					queryPos.add(countryTwoLettersISOCode);
+					qPos.add(countryTwoLettersISOCode);
 				}
 
-				count = (Long)query.uniqueResult();
+				count = (Long)q.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -4084,27 +4084,27 @@ public class CommerceInventoryWarehousePersistenceImpl
 		countryTwoLettersISOCode = Objects.toString(
 			countryTwoLettersISOCode, "");
 
-		StringBundler sb = new StringBundler(4);
+		StringBundler query = new StringBundler(4);
 
-		sb.append(_FILTER_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+		query.append(_FILTER_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-		sb.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_A_C_COMPANYID_2);
 
-		sb.append(_FINDER_COLUMN_C_A_C_ACTIVE_2_SQL);
+		query.append(_FINDER_COLUMN_C_A_C_ACTIVE_2_SQL);
 
 		boolean bindCountryTwoLettersISOCode = false;
 
 		if (countryTwoLettersISOCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
+			query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_3);
 		}
 		else {
 			bindCountryTwoLettersISOCode = true;
 
-			sb.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
+			query.append(_FINDER_COLUMN_C_A_C_COUNTRYTWOLETTERSISOCODE_2);
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			sb.toString(), CommerceInventoryWarehouse.class.getName(),
+			query.toString(), CommerceInventoryWarehouse.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -4112,22 +4112,22 @@ public class CommerceInventoryWarehousePersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			sqlQuery.addScalar(
+			q.addScalar(
 				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
 
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			QueryPos qPos = QueryPos.getInstance(q);
 
-			queryPos.add(companyId);
+			qPos.add(companyId);
 
-			queryPos.add(active);
+			qPos.add(active);
 
 			if (bindCountryTwoLettersISOCode) {
-				queryPos.add(countryTwoLettersISOCode);
+				qPos.add(countryTwoLettersISOCode);
 			}
 
-			Long count = (Long)sqlQuery.uniqueResult();
+			Long count = (Long)q.uniqueResult();
 
 			return count.intValue();
 		}
@@ -4176,23 +4176,23 @@ public class CommerceInventoryWarehousePersistenceImpl
 			companyId, externalReferenceCode);
 
 		if (commerceInventoryWarehouse == null) {
-			StringBundler sb = new StringBundler(6);
+			StringBundler msg = new StringBundler(6);
 
-			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			sb.append("companyId=");
-			sb.append(companyId);
+			msg.append("companyId=");
+			msg.append(companyId);
 
-			sb.append(", externalReferenceCode=");
-			sb.append(externalReferenceCode);
+			msg.append(", externalReferenceCode=");
+			msg.append(externalReferenceCode);
 
-			sb.append("}");
+			msg.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(sb.toString());
+				_log.debug(msg.toString());
 			}
 
-			throw new NoSuchInventoryWarehouseException(sb.toString());
+			throw new NoSuchInventoryWarehouseException(msg.toString());
 		}
 
 		return commerceInventoryWarehouse;
@@ -4253,41 +4253,41 @@ public class CommerceInventoryWarehousePersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler query = new StringBundler(4);
 
-			sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_ERC_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_ERC_COMPANYID_2);
 
 			boolean bindExternalReferenceCode = false;
 
 			if (externalReferenceCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_3);
+				query.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_3);
 			}
 			else {
 				bindExternalReferenceCode = true;
 
-				sb.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_2);
+				query.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_2);
 			}
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
 				if (bindExternalReferenceCode) {
-					queryPos.add(externalReferenceCode);
+					qPos.add(externalReferenceCode);
 				}
 
-				List<CommerceInventoryWarehouse> list = query.list();
+				List<CommerceInventoryWarehouse> list = q.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -4378,41 +4378,41 @@ public class CommerceInventoryWarehousePersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler query = new StringBundler(3);
 
-			sb.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
+			query.append(_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_ERC_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_ERC_COMPANYID_2);
 
 			boolean bindExternalReferenceCode = false;
 
 			if (externalReferenceCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_3);
+				query.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_3);
 			}
 			else {
 				bindExternalReferenceCode = true;
 
-				sb.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_2);
+				query.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_2);
 			}
 
-			String sql = sb.toString();
+			String sql = query.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
-				QueryPos queryPos = QueryPos.getInstance(query);
+				QueryPos qPos = QueryPos.getInstance(q);
 
-				queryPos.add(companyId);
+				qPos.add(companyId);
 
 				if (bindExternalReferenceCode) {
-					queryPos.add(externalReferenceCode);
+					qPos.add(externalReferenceCode);
 				}
 
-				count = (Long)query.uniqueResult();
+				count = (Long)q.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -5142,32 +5142,32 @@ public class CommerceInventoryWarehousePersistenceImpl
 			return map;
 		}
 
-		StringBundler sb = new StringBundler(
+		StringBundler query = new StringBundler(
 			uncachedPrimaryKeys.size() * 2 + 1);
 
-		sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE_PKS_IN);
+		query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE_WHERE_PKS_IN);
 
 		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			sb.append((long)primaryKey);
+			query.append((long)primaryKey);
 
-			sb.append(",");
+			query.append(",");
 		}
 
-		sb.setIndex(sb.index() - 1);
+		query.setIndex(query.index() - 1);
 
-		sb.append(")");
+		query.append(")");
 
-		String sql = sb.toString();
+		String sql = query.toString();
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			Query query = session.createQuery(sql);
+			Query q = session.createQuery(sql);
 
 			for (CommerceInventoryWarehouse commerceInventoryWarehouse :
-					(List<CommerceInventoryWarehouse>)query.list()) {
+					(List<CommerceInventoryWarehouse>)q.list()) {
 
 				map.put(
 					commerceInventoryWarehouse.getPrimaryKeyObj(),
@@ -5285,19 +5285,19 @@ public class CommerceInventoryWarehousePersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler sb = null;
+			StringBundler query = null;
 			String sql = null;
 
 			if (orderByComparator != null) {
-				sb = new StringBundler(
+				query = new StringBundler(
 					2 + (orderByComparator.getOrderByFields().length * 2));
 
-				sb.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE);
+				query.append(_SQL_SELECT_COMMERCEINVENTORYWAREHOUSE);
 
 				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
-				sql = sb.toString();
+				sql = query.toString();
 			}
 			else {
 				sql = _SQL_SELECT_COMMERCEINVENTORYWAREHOUSE;
@@ -5311,10 +5311,10 @@ public class CommerceInventoryWarehousePersistenceImpl
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(sql);
+				Query q = session.createQuery(sql);
 
 				list = (List<CommerceInventoryWarehouse>)QueryUtil.list(
-					query, getDialect(), start, end);
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -5366,10 +5366,10 @@ public class CommerceInventoryWarehousePersistenceImpl
 			try {
 				session = openSession();
 
-				Query query = session.createQuery(
+				Query q = session.createQuery(
 					_SQL_COUNT_COMMERCEINVENTORYWAREHOUSE);
 
-				count = (Long)query.uniqueResult();
+				count = (Long)q.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);

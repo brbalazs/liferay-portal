@@ -98,19 +98,59 @@ public class CommerceInventoryReplenishmentItemServiceHttp {
 		}
 	}
 
-	public static int
-			getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
-				HttpPrincipal httpPrincipal, long companyId, String sku)
+	public static void deleteCommerceInventoryReplenishmentItem(
+			HttpPrincipal httpPrincipal,
+			long commerceInventoryReplenishmentItemId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryReplenishmentItemServiceUtil.class,
-				"getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku",
-				_getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSkuParameterTypes1);
+				"deleteCommerceInventoryReplenishmentItem",
+				_deleteCommerceInventoryReplenishmentItemParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, sku);
+				methodKey, commerceInventoryReplenishmentItemId);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static
+		com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem
+				getCommerceInventoryReplenishmentItem(
+					HttpPrincipal httpPrincipal,
+					long commerceInventoryReplenishmentItemId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceInventoryReplenishmentItemServiceUtil.class,
+				"getCommerceInventoryReplenishmentItem",
+				_getCommerceInventoryReplenishmentItemParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceInventoryReplenishmentItemId);
 
 			Object returnObj = null;
 
@@ -129,7 +169,8 @@ public class CommerceInventoryReplenishmentItemServiceHttp {
 					exception);
 			}
 
-			return ((Integer)returnObj).intValue();
+			return (com.liferay.commerce.inventory.model.
+				CommerceInventoryReplenishmentItem)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -152,7 +193,7 @@ public class CommerceInventoryReplenishmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryReplenishmentItemServiceUtil.class,
 				"getCommerceInventoryReplenishmentItemsByCompanyIdAndSku",
-				_getCommerceInventoryReplenishmentItemsByCompanyIdAndSkuParameterTypes2);
+				_getCommerceInventoryReplenishmentItemsByCompanyIdAndSkuParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, sku, start, end);
@@ -196,7 +237,7 @@ public class CommerceInventoryReplenishmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryReplenishmentItemServiceUtil.class,
 				"getCommerceInventoryReplenishmentItemsCount",
-				_getCommerceInventoryReplenishmentItemsCountParameterTypes3);
+				_getCommerceInventoryReplenishmentItemsCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseId, sku);
@@ -229,21 +270,19 @@ public class CommerceInventoryReplenishmentItemServiceHttp {
 		}
 	}
 
-	public static
-		com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem
-				getCommerceInventoryReplenishmentItem(
-					HttpPrincipal httpPrincipal,
-					long commerceInventoryReplenishmentItemId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static int
+			getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku(
+				HttpPrincipal httpPrincipal, long companyId, String sku)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryReplenishmentItemServiceUtil.class,
-				"getCommerceInventoryReplenishmentItem",
-				_getCommerceInventoryReplenishmentItemParameterTypes4);
+				"getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSku",
+				_getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSkuParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceInventoryReplenishmentItemId);
+				methodKey, companyId, sku);
 
 			Object returnObj = null;
 
@@ -262,46 +301,7 @@ public class CommerceInventoryReplenishmentItemServiceHttp {
 					exception);
 			}
 
-			return (com.liferay.commerce.inventory.model.
-				CommerceInventoryReplenishmentItem)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static void deleteCommerceInventoryReplenishmentItem(
-			HttpPrincipal httpPrincipal,
-			long commerceInventoryReplenishmentItemId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceInventoryReplenishmentItemServiceUtil.class,
-				"deleteCommerceInventoryReplenishmentItem",
-				_deleteCommerceInventoryReplenishmentItemParameterTypes5);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceInventoryReplenishmentItemId);
-
-			try {
-				TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
+			return ((Integer)returnObj).intValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -368,22 +368,22 @@ public class CommerceInventoryReplenishmentItemServiceHttp {
 			int.class
 		};
 	private static final Class<?>[]
-		_getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSkuParameterTypes1 =
-			new Class[] {long.class, String.class};
+		_deleteCommerceInventoryReplenishmentItemParameterTypes1 = new Class[] {
+			long.class
+		};
 	private static final Class<?>[]
-		_getCommerceInventoryReplenishmentItemsByCompanyIdAndSkuParameterTypes2 =
+		_getCommerceInventoryReplenishmentItemParameterTypes2 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCommerceInventoryReplenishmentItemsByCompanyIdAndSkuParameterTypes3 =
 			new Class[] {long.class, String.class, int.class, int.class};
 	private static final Class<?>[]
-		_getCommerceInventoryReplenishmentItemsCountParameterTypes3 =
+		_getCommerceInventoryReplenishmentItemsCountParameterTypes4 =
 			new Class[] {long.class, String.class};
 	private static final Class<?>[]
-		_getCommerceInventoryReplenishmentItemParameterTypes4 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[]
-		_deleteCommerceInventoryReplenishmentItemParameterTypes5 = new Class[] {
-			long.class
-		};
+		_getCommerceInventoryReplenishmentItemsCountByCompanyIdAndSkuParameterTypes5 =
+			new Class[] {long.class, String.class};
 	private static final Class<?>[]
 		_updateCommerceInventoryReplenishmentItemParameterTypes6 = new Class[] {
 			long.class, java.util.Date.class, int.class

@@ -51,48 +51,6 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class CommerceInventoryBookedQuantityServiceHttp {
 
-	public static int getCommerceInventoryBookedQuantitiesCount(
-			HttpPrincipal httpPrincipal, long companyId, String sku)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceInventoryBookedQuantityServiceUtil.class,
-				"getCommerceInventoryBookedQuantitiesCount",
-				_getCommerceInventoryBookedQuantitiesCountParameterTypes0);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, sku);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
-
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	public static java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity>
 				getCommerceInventoryBookedQuantities(
@@ -104,7 +62,7 @@ public class CommerceInventoryBookedQuantityServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryBookedQuantityServiceUtil.class,
 				"getCommerceInventoryBookedQuantities",
-				_getCommerceInventoryBookedQuantitiesParameterTypes1);
+				_getCommerceInventoryBookedQuantitiesParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, sku, start, end);
@@ -140,15 +98,57 @@ public class CommerceInventoryBookedQuantityServiceHttp {
 		}
 	}
 
+	public static int getCommerceInventoryBookedQuantitiesCount(
+			HttpPrincipal httpPrincipal, long companyId, String sku)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceInventoryBookedQuantityServiceUtil.class,
+				"getCommerceInventoryBookedQuantitiesCount",
+				_getCommerceInventoryBookedQuantitiesCountParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, sku);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.security.auth.
+							PrincipalException) {
+
+					throw (com.liferay.portal.kernel.security.auth.
+						PrincipalException)exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CommerceInventoryBookedQuantityServiceHttp.class);
 
 	private static final Class<?>[]
-		_getCommerceInventoryBookedQuantitiesCountParameterTypes0 =
-			new Class[] {long.class, String.class};
-	private static final Class<?>[]
-		_getCommerceInventoryBookedQuantitiesParameterTypes1 = new Class[] {
+		_getCommerceInventoryBookedQuantitiesParameterTypes0 = new Class[] {
 			long.class, String.class, int.class, int.class
 		};
+	private static final Class<?>[]
+		_getCommerceInventoryBookedQuantitiesCountParameterTypes1 =
+			new Class[] {long.class, String.class};
 
 }

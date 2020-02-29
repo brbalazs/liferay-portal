@@ -78,8 +78,8 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 			quantity);
 	}
 
-	public static int countItemsByCompanyId(long companyId) {
-		return getService().countItemsByCompanyId(companyId);
+	public static int countItemsByCompanyId(long companyId, String sku) {
+		return getService().countItemsByCompanyId(companyId, sku);
 	}
 
 	/**
@@ -418,9 +418,10 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.inventory.model.CIWarehouseItem>
-			getItemsByCompanyId(long companyId, int start, int end) {
+			getItemsByCompanyId(
+				long companyId, String sku, int start, int end) {
 
-		return getService().getItemsByCompanyId(companyId, start, end);
+		return getService().getItemsByCompanyId(companyId, sku, start, end);
 	}
 
 	/**

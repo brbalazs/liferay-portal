@@ -86,64 +86,6 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 		}
 	}
 
-	public static void deleteCommerceInventoryWarehouseItems(
-			long companyId, String sku)
-		throws RemoteException {
-
-		try {
-			CommerceInventoryWarehouseItemServiceUtil.
-				deleteCommerceInventoryWarehouseItems(companyId, sku);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static
-		com.liferay.commerce.inventory.model.
-			CommerceInventoryWarehouseItemSoap[]
-					getCommerceInventoryWarehouseItems(
-						long companyId, String sku, int start, int end)
-				throws RemoteException {
-
-		try {
-			java.util.List
-				<com.liferay.commerce.inventory.model.
-					CommerceInventoryWarehouseItem> returnValue =
-						CommerceInventoryWarehouseItemServiceUtil.
-							getCommerceInventoryWarehouseItems(
-								companyId, sku, start, end);
-
-			return com.liferay.commerce.inventory.model.
-				CommerceInventoryWarehouseItemSoap.toSoapModels(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static int getCommerceInventoryWarehouseItemsCount(
-			long companyId, String sku)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommerceInventoryWarehouseItemServiceUtil.
-					getCommerceInventoryWarehouseItemsCount(companyId, sku);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItemSoap
 				addCommerceInventoryWarehouseItem(
@@ -177,6 +119,21 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 			CommerceInventoryWarehouseItemServiceUtil.
 				deleteCommerceInventoryWarehouseItem(
 					commerceInventoryWarehouseItemId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void deleteCommerceInventoryWarehouseItems(
+			long companyId, String sku)
+		throws RemoteException {
+
+		try {
+			CommerceInventoryWarehouseItemServiceUtil.
+				deleteCommerceInventoryWarehouseItems(companyId, sku);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -305,6 +262,31 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 	public static
 		com.liferay.commerce.inventory.model.
 			CommerceInventoryWarehouseItemSoap[]
+					getCommerceInventoryWarehouseItems(
+						long companyId, String sku, int start, int end)
+				throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.inventory.model.
+					CommerceInventoryWarehouseItem> returnValue =
+						CommerceInventoryWarehouseItemServiceUtil.
+							getCommerceInventoryWarehouseItems(
+								companyId, sku, start, end);
+
+			return com.liferay.commerce.inventory.model.
+				CommerceInventoryWarehouseItemSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.inventory.model.
+			CommerceInventoryWarehouseItemSoap[]
 					getCommerceInventoryWarehouseItemsByCompanyId(
 						long companyId, int start, int end)
 				throws RemoteException {
@@ -361,6 +343,24 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 				CommerceInventoryWarehouseItemServiceUtil.
 					getCommerceInventoryWarehouseItemsCount(
 						commerceInventoryWarehouseId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceInventoryWarehouseItemsCount(
+			long companyId, String sku)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceInventoryWarehouseItemServiceUtil.
+					getCommerceInventoryWarehouseItemsCount(companyId, sku);
 
 			return returnValue;
 		}
@@ -435,6 +435,29 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 		}
 	}
 
+	public static
+		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItemSoap
+				increaseCommerceInventoryWarehouseItemQuantity(
+					long commerceInventoryWarehouseItemId, int quantity)
+			throws RemoteException {
+
+		try {
+			com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
+				returnValue =
+					CommerceInventoryWarehouseItemServiceUtil.
+						increaseCommerceInventoryWarehouseItemQuantity(
+							commerceInventoryWarehouseItemId, quantity);
+
+			return com.liferay.commerce.inventory.model.
+				CommerceInventoryWarehouseItemSoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void moveQuantitiesBetweenWarehouses(
 			long fromCommerceInventoryWarehouseId,
 			long toCommerceInventoryWarehouseId, String sku, int quantity)
@@ -455,7 +478,7 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItemSoap
-				increaseCommerceInventoryWarehouseItemQuantity(
+				updateCommerceInventoryWarehouseItem(
 					long commerceInventoryWarehouseItemId, int quantity)
 			throws RemoteException {
 
@@ -463,7 +486,7 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 			com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 				returnValue =
 					CommerceInventoryWarehouseItemServiceUtil.
-						increaseCommerceInventoryWarehouseItemQuantity(
+						updateCommerceInventoryWarehouseItem(
 							commerceInventoryWarehouseItemId, quantity);
 
 			return com.liferay.commerce.inventory.model.
@@ -490,29 +513,6 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 						updateCommerceInventoryWarehouseItem(
 							commerceInventoryWarehouseItemId, quantity,
 							reservedQuantity);
-
-			return com.liferay.commerce.inventory.model.
-				CommerceInventoryWarehouseItemSoap.toSoapModel(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static
-		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItemSoap
-				updateCommerceInventoryWarehouseItem(
-					long commerceInventoryWarehouseItemId, int quantity)
-			throws RemoteException {
-
-		try {
-			com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
-				returnValue =
-					CommerceInventoryWarehouseItemServiceUtil.
-						updateCommerceInventoryWarehouseItem(
-							commerceInventoryWarehouseItemId, quantity);
 
 			return com.liferay.commerce.inventory.model.
 				CommerceInventoryWarehouseItemSoap.toSoapModel(returnValue);

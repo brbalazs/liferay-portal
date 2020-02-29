@@ -61,24 +61,6 @@ import java.rmi.RemoteException;
  */
 public class CommerceInventoryBookedQuantityServiceSoap {
 
-	public static int getCommerceInventoryBookedQuantitiesCount(
-			long companyId, String sku)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommerceInventoryBookedQuantityServiceUtil.
-					getCommerceInventoryBookedQuantitiesCount(companyId, sku);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static
 		com.liferay.commerce.inventory.model.
 			CommerceInventoryBookedQuantitySoap[]
@@ -96,6 +78,24 @@ public class CommerceInventoryBookedQuantityServiceSoap {
 
 			return com.liferay.commerce.inventory.model.
 				CommerceInventoryBookedQuantitySoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceInventoryBookedQuantitiesCount(
+			long companyId, String sku)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceInventoryBookedQuantityServiceUtil.
+					getCommerceInventoryBookedQuantitiesCount(companyId, sku);
+
+			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

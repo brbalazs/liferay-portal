@@ -51,47 +51,6 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class CommerceInventoryAuditServiceHttp {
 
-	public static int getCommerceInventoryAuditsCount(
-			HttpPrincipal httpPrincipal, long companyId, String sku)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceInventoryAuditServiceUtil.class,
-				"getCommerceInventoryAuditsCount",
-				_getCommerceInventoryAuditsCountParameterTypes0);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, sku);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	public static java.util.List
 		<com.liferay.commerce.inventory.model.CommerceInventoryAudit>
 				getCommerceInventoryAudits(
@@ -103,7 +62,7 @@ public class CommerceInventoryAuditServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryAuditServiceUtil.class,
 				"getCommerceInventoryAudits",
-				_getCommerceInventoryAuditsParameterTypes1);
+				_getCommerceInventoryAuditsParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, sku, start, end);
@@ -138,14 +97,55 @@ public class CommerceInventoryAuditServiceHttp {
 		}
 	}
 
+	public static int getCommerceInventoryAuditsCount(
+			HttpPrincipal httpPrincipal, long companyId, String sku)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceInventoryAuditServiceUtil.class,
+				"getCommerceInventoryAuditsCount",
+				_getCommerceInventoryAuditsCountParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, sku);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CommerceInventoryAuditServiceHttp.class);
 
+	private static final Class<?>[] _getCommerceInventoryAuditsParameterTypes0 =
+		new Class[] {long.class, String.class, int.class, int.class};
 	private static final Class<?>[]
-		_getCommerceInventoryAuditsCountParameterTypes0 = new Class[] {
+		_getCommerceInventoryAuditsCountParameterTypes1 = new Class[] {
 			long.class, String.class
 		};
-	private static final Class<?>[] _getCommerceInventoryAuditsParameterTypes1 =
-		new Class[] {long.class, String.class, int.class, int.class};
 
 }

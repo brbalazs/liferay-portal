@@ -83,7 +83,7 @@ public interface CommerceInventoryWarehouseItemLocalService
 			String externalReferenceCode, String sku, int quantity)
 		throws PortalException;
 
-	public int countItemsByCompanyId(long companyId);
+	public int countItemsByCompanyId(long companyId, String sku);
 
 	/**
 	 * Creates a new commerce inventory warehouse item with the primary key. Does not add the commerce inventory warehouse item to the database.
@@ -306,7 +306,7 @@ public interface CommerceInventoryWarehouseItemLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CIWarehouseItem> getItemsByCompanyId(
-		long companyId, int start, int end);
+		long companyId, String sku, int start, int end);
 
 	/**
 	 * Returns the OSGi service identifier.
