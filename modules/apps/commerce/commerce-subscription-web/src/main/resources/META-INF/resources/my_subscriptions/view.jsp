@@ -46,7 +46,7 @@ SearchContainer<CommerceSubscriptionEntry> commerceSubscriptionEntrySearchContai
 						<%
 						CommerceOrderItem commerceOrderItem = commerceSubscriptionEntry.fetchCommerceOrderItem();
 
-						String thumbnailSrc = commerceSubscriptionContentDisplayContext.getCommerceSubscriptionEntryThumbnailSrc(commerceSubscriptionEntry, themeDisplay);
+						String thumbnailSrc = commerceSubscriptionContentDisplayContext.getCommerceSubscriptionEntryThumbnailSrc(commerceSubscriptionEntry);
 
 						List<KeyValuePair> keyValuePairs = commerceSubscriptionContentDisplayContext.getKeyValuePairs(commerceSubscriptionEntry);
 

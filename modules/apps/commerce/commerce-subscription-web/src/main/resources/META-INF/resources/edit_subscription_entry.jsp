@@ -20,27 +20,15 @@
 CommerceSubscriptionEntryDisplayContext commerceSubscriptionEntryDisplayContext = (CommerceSubscriptionEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceSubscriptionEntry commerceSubscriptionEntry = commerceSubscriptionEntryDisplayContext.getCommerceSubscriptionEntry();
-
-portletDisplay.setShowBackIcon(true);
-
-if (Validator.isNull(redirect)) {
-	portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
-}
-else {
-	portletDisplay.setURLBack(redirect);
-}
 %>
 
 <commerce-ui:header
 	actions="<%= commerceSubscriptionEntryDisplayContext.getHeaderActionModels() %>"
 	bean="<%= commerceSubscriptionEntry %>"
-	beanIdLabel="subscription-entry"
-	dropdownItems="<%= commerceSubscriptionEntryDisplayContext.getDropdownItems() %>"
-	externalReferenceCode=""
-	externalReferenceCodeEditUrl=""
+	beanIdLabel="id"
 	model="<%= CommerceSubscriptionEntry.class %>"
 	thumbnailUrl="<%= commerceSubscriptionEntryDisplayContext.getCommerceAccountThumbnailURL() %>"
-	title="<%= String.valueOf(commerceSubscriptionEntry.getCommerceSubscriptionEntryId()) %>"
+	title="<%= String.valueOf(commerceSubscriptionEntryDisplayContext.getCommerceSubscriptionEntryId()) %>"
 />
 
 <div id="<portlet:namespace />editSubscriptionEntryContainer">
