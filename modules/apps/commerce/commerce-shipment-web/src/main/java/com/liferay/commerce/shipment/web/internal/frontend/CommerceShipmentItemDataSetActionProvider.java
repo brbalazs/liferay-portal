@@ -69,23 +69,32 @@ public class CommerceShipmentItemDataSetActionProvider
 				themeDisplay.getPermissionChecker(),
 				CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS)) {
 
-			PortletURL deletePortletURL = _portal.getControlPanelPortletURL(
+			PortletURL portletURL = _portal.getControlPanelPortletURL(
 				httpServletRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
 				PortletRequest.ACTION_PHASE);
 
-			deletePortletURL.setParameter(
+			portletURL.setParameter(
 				ActionRequest.ACTION_NAME, "editCommerceShipmentItem");
-			deletePortletURL.setParameter(Constants.CMD, Constants.DELETE);
-			deletePortletURL.setParameter(
+			portletURL.setParameter(
 				"redirect", _portal.getCurrentURL(httpServletRequest));
-			deletePortletURL.setParameter(
+			portletURL.setParameter(
 				"commerceShipmentItemId",
 				String.valueOf(shipmentItem.getShipmentItemId()));
 
+			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK, portletURL.toString(), StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "edit"), StringPool.BLANK,
+				false, false);
+
+			editClayDataSetAction.setTarget("sidePanel");
+
+			clayDataSetActions.add(editClayDataSetAction);
+
+			portletURL.setParameter(Constants.CMD, Constants.DELETE);
+
 			clayDataSetActions.add(
 				new ClayDataSetAction(
-					StringPool.BLANK, deletePortletURL.toString(),
-					StringPool.BLANK,
+					StringPool.BLANK, portletURL.toString(), StringPool.BLANK,
 					LanguageUtil.get(httpServletRequest, "delete"),
 					StringPool.BLANK, false, false));
 		}

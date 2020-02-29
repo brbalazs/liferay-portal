@@ -22,14 +22,13 @@ public class ShipmentItem {
 
 	public ShipmentItem(
 		long orderId, int orderedQuantity, long shipmentItemId,
-		int shippedQuantity, Sku sku,
-		int toSendQuantity, String warehouse) {
+		int shippedQuantity, String sku, int toSendQuantity, String warehouse) {
 
-		_shipmentItemId = shipmentItemId;
 		_orderId = orderId;
-		_sku = sku;
 		_orderedQuantity = orderedQuantity;
+		_shipmentItemId = shipmentItemId;
 		_shippedQuantity = shippedQuantity;
+		_sku = sku;
 		_toSendQuantity = toSendQuantity;
 		_warehouse = warehouse;
 	}
@@ -50,7 +49,7 @@ public class ShipmentItem {
 		return _shippedQuantity;
 	}
 
-	public Sku getSku() {
+	public String getSku() {
 		return _sku;
 	}
 
@@ -66,7 +65,7 @@ public class ShipmentItem {
 	private final long _orderId;
 	private final long _shipmentItemId;
 	private final int _shippedQuantity;
-	private final Sku _sku;
+	private final String _sku;
 	private final int _toSendQuantity;
 	private final String _warehouse;
 

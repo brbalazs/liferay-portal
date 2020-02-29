@@ -90,8 +90,8 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 						commerceOrderItem.getCompanyId(),
 						commerceOrderItem.getGroupId(),
 						commerceOrderItem.getSku()),
-					commerceOrderItem.getCommerceOrderItemId(),
 					commerceOrderItem.getCommerceOrderId(),
+					commerceOrderItem.getCommerceOrderItemId(),
 					commerceOrderItem.getQuantity(),
 					commerceOrderItem.getSku()));
 		}

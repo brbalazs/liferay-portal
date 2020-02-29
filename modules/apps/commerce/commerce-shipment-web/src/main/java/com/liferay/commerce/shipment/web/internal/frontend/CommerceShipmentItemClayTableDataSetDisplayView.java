@@ -44,7 +44,7 @@ public class CommerceShipmentItemClayTableDataSetDisplayView
 		ClayTableSchemaField skuField = clayTableSchemaBuilder.addField(
 			"sku", "sku");
 
-		skuField.setContentRenderer("sidePanelLink");
+		skuField.setContentRenderer("actionLink");
 
 		clayTableSchemaBuilder.addField("orderId", "order-id");
 

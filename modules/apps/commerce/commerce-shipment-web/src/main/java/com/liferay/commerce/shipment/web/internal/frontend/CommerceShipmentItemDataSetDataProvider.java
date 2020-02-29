@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.shipment.web.internal.frontend;
 
-import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
@@ -24,24 +23,15 @@ import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.model.ShipmentItem;
-import com.liferay.commerce.model.Sku;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -112,50 +102,13 @@ public class CommerceShipmentItemDataSetDataProvider
 					commerceOrderItem.getQuantity(),
 					commerceShipmentItem.getCommerceShipmentItemId(),
 					commerceOrderItem.getShippedQuantity(),
-					new Sku(
-						commerceOrderItem.getSku(),
-						_getShipmentItemPanelURL(
-							commerceOrderItem.getCommerceOrderItemId(),
-							httpServletRequest)),
+					commerceOrderItem.getSku(),
 					commerceShipmentItem.getQuantity(),
 					commerceInventoryWarehouseName));
 		}
 
 		return shipmentItems;
 	}
-
-	private String _getShipmentItemPanelURL(
-			long commerceOrderItemId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		long commerceShipmentId = ParamUtil.getLong(
-			httpServletRequest, "commerceShipmentId");
-
-		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
-			PortletRequest.RENDER_PHASE);
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommerceShipmentItem");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter(
-			"commerceShipmentId", String.valueOf(commerceShipmentId));
-		portletURL.setParameter(
-			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
-
-		try {
-			portletURL.setWindowState(LiferayWindowState.POP_UP);
-		}
-		catch (WindowStateException wse) {
-			_log.error(wse, wse);
-		}
-
-		return portletURL.toString();
-	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceShipmentItemDataSetDataProvider.class);
 
 	@Reference
 	private CommerceInventoryWarehouseService
@@ -166,8 +119,5 @@ public class CommerceShipmentItemDataSetDataProvider
 
 	@Reference
 	private CommerceShipmentItemService _commerceShipmentItemService;
-
-	@Reference
-	private Portal _portal;
 
 }
