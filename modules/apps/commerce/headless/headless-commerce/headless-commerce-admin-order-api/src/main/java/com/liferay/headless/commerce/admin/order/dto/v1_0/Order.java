@@ -20,9 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-
-import graphql.annotations.annotationTypes.GraphQLField;
-import graphql.annotations.annotationTypes.GraphQLName;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -39,6 +38,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -87,6 +88,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String accountExternalReferenceCode;
 
+	@DecimalMin("0")
 	@Schema
 	public Long getAccountId() {
 		return accountId;
@@ -144,6 +146,7 @@ public class Order {
 	protected String advanceStatus;
 
 	@Schema
+	@Valid
 	public BillingAddress getBillingAddress() {
 		return billingAddress;
 	}
@@ -172,6 +175,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BillingAddress billingAddress;
 
+	@DecimalMin("0")
 	@Schema
 	public Long getBillingAddressId() {
 		return billingAddressId;
@@ -200,6 +204,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long billingAddressId;
 
+	@DecimalMin("0")
 	@Schema
 	public Long getChannelId() {
 		return channelId;
@@ -315,6 +320,7 @@ public class Order {
 	protected String currencyCode;
 
 	@Schema
+	@Valid
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}
@@ -370,6 +376,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String externalReferenceCode;
 
+	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -481,6 +488,7 @@ public class Order {
 	protected Date orderDate;
 
 	@Schema
+	@Valid
 	public OrderItem[] getOrderItems() {
 		return orderItems;
 	}
@@ -508,6 +516,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected OrderItem[] orderItems;
 
+	@DecimalMin("0")
 	@Schema
 	public Integer getOrderStatus() {
 		return orderStatus;
@@ -564,6 +573,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String paymentMethod;
 
+	@DecimalMin("0")
 	@Schema
 	public Integer getPaymentStatus() {
 		return paymentStatus;
@@ -677,6 +687,7 @@ public class Order {
 	protected Date requestedDeliveryDate;
 
 	@Schema
+	@Valid
 	public ShippingAddress getShippingAddress() {
 		return shippingAddress;
 	}
@@ -705,6 +716,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ShippingAddress shippingAddress;
 
+	@DecimalMin("0")
 	@Schema
 	public Long getShippingAddressId() {
 		return shippingAddressId;
@@ -733,7 +745,9 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long shippingAddressId;
 
+	@DecimalMin("0")
 	@Schema
+	@Valid
 	public BigDecimal getShippingAmount() {
 		return shippingAmount;
 	}
@@ -791,6 +805,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String shippingAmountFormatted;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getShippingAmountValue() {
 		return shippingAmountValue;
@@ -880,6 +895,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String shippingDiscountAmountFormatted;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getShippingDiscountPercentageLevel1() {
 		return shippingDiscountPercentageLevel1;
@@ -913,6 +929,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double shippingDiscountPercentageLevel1;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getShippingDiscountPercentageLevel2() {
 		return shippingDiscountPercentageLevel2;
@@ -946,6 +963,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double shippingDiscountPercentageLevel2;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getShippingDiscountPercentageLevel3() {
 		return shippingDiscountPercentageLevel3;
@@ -979,6 +997,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double shippingDiscountPercentageLevel3;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getShippingDiscountPercentageLevel4() {
 		return shippingDiscountPercentageLevel4;
@@ -1069,6 +1088,7 @@ public class Order {
 	protected String shippingOption;
 
 	@Schema
+	@Valid
 	public BigDecimal getSubtotal() {
 		return subtotal;
 	}
@@ -1185,6 +1205,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String subtotalDiscountAmountFormatted;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getSubtotalDiscountPercentageLevel1() {
 		return subtotalDiscountPercentageLevel1;
@@ -1218,6 +1239,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double subtotalDiscountPercentageLevel1;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getSubtotalDiscountPercentageLevel2() {
 		return subtotalDiscountPercentageLevel2;
@@ -1251,6 +1273,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double subtotalDiscountPercentageLevel2;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getSubtotalDiscountPercentageLevel3() {
 		return subtotalDiscountPercentageLevel3;
@@ -1284,6 +1307,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double subtotalDiscountPercentageLevel3;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getSubtotalDiscountPercentageLevel4() {
 		return subtotalDiscountPercentageLevel4;
@@ -1345,6 +1369,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String subtotalFormatted;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getTaxAmount() {
 		return taxAmount;
@@ -1401,7 +1426,9 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String taxAmountFormatted;
 
+	@DecimalMin("0")
 	@Schema
+	@Valid
 	public BigDecimal getTotal() {
 		return total;
 	}
@@ -1429,6 +1456,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BigDecimal total;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getTotalAmount() {
 		return totalAmount;
@@ -1457,6 +1485,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double totalAmount;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getTotalDiscountAmount() {
 		return totalDiscountAmount;
@@ -1517,6 +1546,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String totalDiscountAmountFormatted;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getTotalDiscountPercentageLevel1() {
 		return totalDiscountPercentageLevel1;
@@ -1549,6 +1579,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double totalDiscountPercentageLevel1;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getTotalDiscountPercentageLevel2() {
 		return totalDiscountPercentageLevel2;
@@ -1581,6 +1612,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double totalDiscountPercentageLevel2;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getTotalDiscountPercentageLevel3() {
 		return totalDiscountPercentageLevel3;
@@ -1613,6 +1645,7 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double totalDiscountPercentageLevel3;
 
+	@DecimalMin("0")
 	@Schema
 	public Double getTotalDiscountPercentageLevel4() {
 		return totalDiscountPercentageLevel4;
@@ -2397,6 +2430,12 @@ public class Order {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.headless.commerce.admin.order.dto.v1_0.Order",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

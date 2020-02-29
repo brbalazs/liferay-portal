@@ -15,13 +15,20 @@
 package com.liferay.headless.commerce.admin.account.resource.v1_0;
 
 import com.liferay.headless.commerce.admin.account.dto.v1_0.AccountOrganization;
-import com.liferay.portal.kernel.model.Company;
+import com.liferay.headless.commerce.admin.account.dto.v1_0.User;
+import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import javax.annotation.Generated;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * To access this resource, run:
@@ -32,6 +39,7 @@ import javax.ws.rs.core.Response;
  * @generated
  */
 @Generated("")
+@ProviderType
 public interface AccountOrganizationResource {
 
 	public Page<AccountOrganization>
@@ -70,6 +78,25 @@ public interface AccountOrganizationResource {
 			Long id, Long organizationId)
 		throws Exception;
 
-	public void setContextCompany(Company contextCompany);
+	public default void setContextAcceptLanguage(
+		AcceptLanguage contextAcceptLanguage) {
+	}
+
+	public void setContextCompany(
+		com.liferay.portal.kernel.model.Company contextCompany);
+
+	public default void setContextHttpServletRequest(
+		HttpServletRequest contextHttpServletRequest) {
+	}
+
+	public default void setContextHttpServletResponse(
+		HttpServletResponse contextHttpServletResponse) {
+	}
+
+	public default void setContextUriInfo(UriInfo contextUriInfo) {
+	}
+
+	public void setContextUser(
+		com.liferay.portal.kernel.model.User contextUser);
 
 }

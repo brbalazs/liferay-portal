@@ -15,13 +15,19 @@
 package com.liferay.headless.commerce.admin.catalog.resource.v1_0;
 
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Sku;
-import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import javax.annotation.Generated;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * To access this resource, run:
@@ -32,6 +38,7 @@ import javax.ws.rs.core.Response;
  * @generated
  */
 @Generated("")
+@ProviderType
 public interface SkuResource {
 
 	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
@@ -60,10 +67,32 @@ public interface SkuResource {
 
 	public Response deleteSku(Long id) throws Exception;
 
+	public Response deleteSkuBatch(Long id, String callbackURL, Object object)
+		throws Exception;
+
 	public Sku getSku(Long id) throws Exception;
 
 	public Response patchSku(Long id, Sku sku) throws Exception;
 
-	public void setContextCompany(Company contextCompany);
+	public default void setContextAcceptLanguage(
+		AcceptLanguage contextAcceptLanguage) {
+	}
+
+	public void setContextCompany(
+		com.liferay.portal.kernel.model.Company contextCompany);
+
+	public default void setContextHttpServletRequest(
+		HttpServletRequest contextHttpServletRequest) {
+	}
+
+	public default void setContextHttpServletResponse(
+		HttpServletResponse contextHttpServletResponse) {
+	}
+
+	public default void setContextUriInfo(UriInfo contextUriInfo) {
+	}
+
+	public void setContextUser(
+		com.liferay.portal.kernel.model.User contextUser);
 
 }

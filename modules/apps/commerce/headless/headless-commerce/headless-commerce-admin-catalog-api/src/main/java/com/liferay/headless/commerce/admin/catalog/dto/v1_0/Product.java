@@ -20,9 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-
-import graphql.annotations.annotationTypes.GraphQLField;
-import graphql.annotations.annotationTypes.GraphQLName;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -37,6 +36,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -83,6 +84,7 @@ public class Product {
 	protected Boolean active;
 
 	@Schema
+	@Valid
 	public Attachment[] getAttachments() {
 		return attachments;
 	}
@@ -110,6 +112,7 @@ public class Product {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Attachment[] attachments;
 
+	@DecimalMin("0")
 	@Schema
 	public Long getCatalogId() {
 		return catalogId;
@@ -140,6 +143,7 @@ public class Product {
 	protected Long catalogId;
 
 	@Schema
+	@Valid
 	public Category[] getCategories() {
 		return categories;
 	}
@@ -168,6 +172,7 @@ public class Product {
 	protected Category[] categories;
 
 	@Schema
+	@Valid
 	public ProductConfiguration getConfiguration() {
 		return configuration;
 	}
@@ -253,6 +258,7 @@ public class Product {
 	protected String defaultSku;
 
 	@Schema
+	@Valid
 	public Map<String, String> getDescription() {
 		return description;
 	}
@@ -310,6 +316,7 @@ public class Product {
 	protected Date displayDate;
 
 	@Schema
+	@Valid
 	public Map<String, ?> getExpando() {
 		return expando;
 	}
@@ -393,6 +400,7 @@ public class Product {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String externalReferenceCode;
 
+	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -420,6 +428,7 @@ public class Product {
 	protected Long id;
 
 	@Schema
+	@Valid
 	public Map<String, String> getMetaDescription() {
 		return metaDescription;
 	}
@@ -449,6 +458,7 @@ public class Product {
 	protected Map<String, String> metaDescription;
 
 	@Schema
+	@Valid
 	public Map<String, String> getMetaKeyword() {
 		return metaKeyword;
 	}
@@ -478,6 +488,7 @@ public class Product {
 	protected Map<String, String> metaKeyword;
 
 	@Schema
+	@Valid
 	public Map<String, String> getMetaTitle() {
 		return metaTitle;
 	}
@@ -535,6 +546,7 @@ public class Product {
 	protected Date modifiedDate;
 
 	@Schema
+	@Valid
 	public Map<String, String> getName() {
 		return name;
 	}
@@ -620,6 +632,7 @@ public class Product {
 	protected Long productId;
 
 	@Schema
+	@Valid
 	public ProductOption[] getProductOptions() {
 		return productOptions;
 	}
@@ -649,6 +662,7 @@ public class Product {
 	protected ProductOption[] productOptions;
 
 	@Schema
+	@Valid
 	public ProductSpecification[] getProductSpecifications() {
 		return productSpecifications;
 	}
@@ -709,6 +723,7 @@ public class Product {
 	protected String productType;
 
 	@Schema
+	@Valid
 	public RelatedProduct[] getRelatedProducts() {
 		return relatedProducts;
 	}
@@ -738,6 +753,7 @@ public class Product {
 	protected RelatedProduct[] relatedProducts;
 
 	@Schema
+	@Valid
 	public ProductShippingConfiguration getShippingConfiguration() {
 		return shippingConfiguration;
 	}
@@ -769,6 +785,7 @@ public class Product {
 	protected ProductShippingConfiguration shippingConfiguration;
 
 	@Schema
+	@Valid
 	public Map<String, String> getShortDescription() {
 		return shortDescription;
 	}
@@ -798,6 +815,7 @@ public class Product {
 	protected Map<String, String> shortDescription;
 
 	@Schema
+	@Valid
 	public Sku[] getSkus() {
 		return skus;
 	}
@@ -824,6 +842,7 @@ public class Product {
 	protected Sku[] skus;
 
 	@Schema
+	@Valid
 	public ProductSubscriptionConfiguration getSubscriptionConfiguration() {
 		return subscriptionConfiguration;
 	}
@@ -884,6 +903,7 @@ public class Product {
 	protected String[] tags;
 
 	@Schema
+	@Valid
 	public ProductTaxConfiguration getTaxConfiguration() {
 		return taxConfiguration;
 	}
@@ -913,6 +933,7 @@ public class Product {
 	protected ProductTaxConfiguration taxConfiguration;
 
 	@Schema
+	@Valid
 	public Map<String, String> getUrls() {
 		return urls;
 	}
@@ -1386,6 +1407,12 @@ public class Product {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
