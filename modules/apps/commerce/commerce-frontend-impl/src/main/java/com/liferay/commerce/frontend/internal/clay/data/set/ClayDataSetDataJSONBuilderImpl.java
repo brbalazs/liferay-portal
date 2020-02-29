@@ -51,6 +51,19 @@ public class ClayDataSetDataJSONBuilderImpl
 		return _OBJECT_MAPPER.writeValueAsString(clayDataSetDataRows);
 	}
 
+	@Override
+	public String build(
+			long groupId, String tableName, List<Object> items, int totalItems,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		ClayDataSetResponse clayDataSetResponse = new ClayDataSetResponse(
+			_getClayTableRows(items, tableName, httpServletRequest, groupId),
+			totalItems);
+
+		return _OBJECT_MAPPER.writeValueAsString(clayDataSetResponse);
+	}
+
 	private List<ClayDataSetDataRow> _getClayTableRows(
 			List<Object> items, String tableName,
 			HttpServletRequest httpServletRequest, long groupId)

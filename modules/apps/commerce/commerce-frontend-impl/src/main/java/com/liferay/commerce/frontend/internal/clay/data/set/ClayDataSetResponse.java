@@ -12,28 +12,29 @@
  * details.
  */
 
-package com.liferay.commerce.frontend.clay.data.set;
-
-import aQute.bnd.annotation.ProviderType;
+package com.liferay.commerce.frontend.internal.clay.data.set;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Marco Leo
  */
-@ProviderType
-public interface ClayDataSetDataJSONBuilder {
+public class ClayDataSetResponse {
 
-	public String build(
-			long groupId, String tableName, List<Object> items,
-			HttpServletRequest httpServletRequest)
-		throws Exception;
+	public ClayDataSetResponse(List<ClayDataSetDataRow> items, int totalItems) {
+		_items = items;
+		_totalItems = totalItems;
+	}
 
-	public String build(
-			long groupId, String tableName, List<Object> items, int totalItems,
-			HttpServletRequest httpServletRequest)
-		throws Exception;
+	public List<ClayDataSetDataRow> getItems() {
+		return _items;
+	}
+
+	public int getTotalItems() {
+		return _totalItems;
+	}
+
+	private final List<ClayDataSetDataRow> _items;
+	private final int _totalItems;
 
 }

@@ -99,8 +99,11 @@ public class CommerceDataSetDataProviderResource {
 				httpServletRequest, filterFactory.create(httpServletRequest),
 				pagination, sort);
 
+			int totalItems = commerceDataProvider.countItems(
+				httpServletRequest, filterFactory.create(httpServletRequest));
+
 			String json = _clayDataSetDataJSONBuilder.build(
-				groupId, tableName, items, httpServletRequest);
+				groupId, tableName, items, totalItems, httpServletRequest);
 
 			return Response.ok(
 				json, MediaType.APPLICATION_JSON
