@@ -14,24 +14,14 @@
 
 package com.liferay.commerce.subscription.web.internal.portlet.action;
 
-import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelLocalService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.product.util.CPSubscriptionTypeJSPContributorRegistry;
-import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
-import com.liferay.commerce.service.CommerceOrderItemLocalService;
-import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
-import com.liferay.commerce.subscription.web.internal.display.context.CommerceSubscriptionEntryDisplayContext;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
@@ -53,46 +43,7 @@ public class EditCommerceSubscriptionEntryRenderCommand
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		CommerceSubscriptionEntryDisplayContext
-			commerceSubscriptionEntryDisplayContext =
-				new CommerceSubscriptionEntryDisplayContext(
-					_commerceChannelLocalService,
-					_commercePaymentMethodGroupRelLocalService,
-					_commerceSubscriptionEntryLocalService,
-					_commerceOrderItemLocalService,
-					_cpSubscriptionTypeJSPContributorRegistry,
-					_cpSubscriptionTypeRegistry,
-					_portal.getHttpServletRequest(renderRequest));
-
-		renderRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			commerceSubscriptionEntryDisplayContext);
-
 		return "/edit_subscription_entry.jsp";
 	}
-
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference
-	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
-
-	@Reference
-	private CommercePaymentMethodGroupRelLocalService
-		_commercePaymentMethodGroupRelLocalService;
-
-	@Reference
-	private CommerceSubscriptionEntryLocalService
-		_commerceSubscriptionEntryLocalService;
-
-	@Reference
-	private CPSubscriptionTypeJSPContributorRegistry
-		_cpSubscriptionTypeJSPContributorRegistry;
-
-	@Reference
-	private CPSubscriptionTypeRegistry _cpSubscriptionTypeRegistry;
-
-	@Reference
-	private Portal _portal;
 
 }
