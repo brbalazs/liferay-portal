@@ -86,8 +86,7 @@ public class CommerceSubscriptionContentDisplayContext {
 	}
 
 	public String getCommerceSubscriptionEntryThumbnailSrc(
-			CommerceSubscriptionEntry commerceSubscriptionEntry,
-			ThemeDisplay themeDisplay)
+			CommerceSubscriptionEntry commerceSubscriptionEntry)
 		throws Exception {
 
 		return _cpInstanceHelper.getCPInstanceThumbnailSrc(
@@ -198,9 +197,7 @@ public class CommerceSubscriptionContentDisplayContext {
 		return false;
 	}
 
-	public boolean isPaymentMethodActive(String engineKey)
-		throws PortalException {
-
+	public boolean isPaymentMethodActive(String engineKey) {
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
 			_commercePaymentMethodGroupRelLocalService.
 				fetchCommercePaymentMethodGroupRel(
