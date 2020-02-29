@@ -86,9 +86,9 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	}
 
 	@Override
-	public int countItemsByCompanyId(long companyId) {
+	public int countItemsByCompanyId(long companyId, String sku) {
 		return commerceInventoryWarehouseItemFinder.countItemsByCompanyId(
-			companyId);
+			companyId, sku);
 	}
 
 	@Override
@@ -208,20 +208,20 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 	@Override
 	public List<CIWarehouseItem> getItemsByCompanyId(
-		long companyId, int start, int end) {
+		long companyId, String sku, int start, int end) {
 
 		List<Object[]> objects =
 			commerceInventoryWarehouseItemFinder.findItemsByCompanyId(
-				companyId, start, end);
+				companyId, sku, start, end);
 
 		List<CIWarehouseItem> ciWarehouseItems = new ArrayList<>();
 
 		for (Object[] object : objects) {
 			if (object != null) {
-				String sku = "";
+				String skuCode = "";
 
 				if ((object.length > 0) && (object[0] != null)) {
-					sku = (String)object[0];
+					skuCode = (String)object[0];
 				}
 
 				Integer stock = 0;
@@ -243,7 +243,7 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 				}
 
 				ciWarehouseItems.add(
-					new CIWarehouseItem(sku, stock, booked, replenishment));
+					new CIWarehouseItem(skuCode, stock, booked, replenishment));
 			}
 		}
 

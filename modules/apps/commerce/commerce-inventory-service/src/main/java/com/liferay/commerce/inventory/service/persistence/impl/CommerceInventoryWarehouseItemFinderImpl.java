@@ -17,6 +17,7 @@ package com.liferay.commerce.inventory.service.persistence.impl;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.model.impl.CommerceInventoryWarehouseItemImpl;
 import com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseItemFinder;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -25,6 +26,7 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Date;
@@ -64,13 +66,29 @@ public class CommerceInventoryWarehouseItemFinderImpl
 			".findUpdatedItemsByC_M";
 
 	@Override
-	public int countItemsByCompanyId(long companyId) {
+	public int countItemsByCompanyId(long companyId, String sku) {
 		Session session = null;
 
 		try {
 			session = openSession();
 
 			String sql = _customSQL.get(getClass(), COUNT_ITEMS_BY_COMPANY_ID);
+
+			String[] keywords = _customSQL.keywords(sku, true);
+
+			if (Validator.isNotNull(sku)) {
+				sql = _customSQL.replaceKeywords(
+					sql, "LOWER(CIWarehouseItem.sku)", StringPool.LIKE, true,
+					keywords);
+				sql = _customSQL.replaceAndOperator(sql, false);
+			}
+			else {
+				sql = StringUtil.replace(
+					sql,
+					" AND (LOWER(CIWarehouseItem.sku) LIKE ? " +
+						"[$AND_OR_NULL_CHECK$])",
+					StringPool.BLANK);
+			}
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -80,19 +98,21 @@ public class CommerceInventoryWarehouseItemFinderImpl
 
 			qPos.add(companyId);
 
-			int count = 0;
+			if (Validator.isNotNull(sku)) {
+				qPos.add(keywords, 2);
+			}
 
 			Iterator<Long> itr = q.iterate();
 
-			while (itr.hasNext()) {
-				Long l = itr.next();
+			if (itr.hasNext()) {
+				Long count = itr.next();
 
-				if (l != null) {
-					count += l.intValue();
+				if (count != null) {
+					return count.intValue();
 				}
 			}
 
-			return count;
+			return 0;
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
@@ -228,12 +248,14 @@ public class CommerceInventoryWarehouseItemFinderImpl
 
 	@Override
 	public List<Object[]> findItemsByCompanyId(
-		long companyId, int start, int end) {
+		long companyId, String sku, int start, int end) {
 
 		Session session = null;
 
 		try {
 			session = openSession();
+
+			String[] keywords = _customSQL.keywords(sku, true);
 
 			String sql = _customSQL.get(getClass(), FIND_ITEMS_BY_COMPANY_ID);
 
@@ -241,12 +263,32 @@ public class CommerceInventoryWarehouseItemFinderImpl
 				sql, new String[] {"[$COMPANY_ID$]"},
 				new String[] {String.valueOf(companyId)});
 
+			if (Validator.isNotNull(sku)) {
+				sql = _customSQL.replaceKeywords(
+					sql, "LOWER(CIWarehouseItem.sku)", StringPool.LIKE, true,
+					keywords);
+				sql = _customSQL.replaceAndOperator(sql, false);
+			}
+			else {
+				sql = StringUtil.replace(
+					sql,
+					" AND (LOWER(CIWarehouseItem.sku) LIKE ? " +
+						"[$AND_OR_NULL_CHECK$])",
+					StringPool.BLANK);
+			}
+
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
 			q.addScalar(_SKU, Type.STRING);
 			q.addScalar(_SUM_STOCK, Type.INTEGER);
 			q.addScalar(_SUM_BOOKED, Type.INTEGER);
 			q.addScalar(_SUM_AWAITING, Type.INTEGER);
+
+			if (Validator.isNotNull(sku)) {
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(keywords, 2);
+			}
 
 			return (List<Object[]>)QueryUtil.list(q, getDialect(), start, end);
 		}

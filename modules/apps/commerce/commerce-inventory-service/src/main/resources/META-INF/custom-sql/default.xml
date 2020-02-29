@@ -60,7 +60,8 @@
 			FROM
 				CIWarehouseItem
 			WHERE
-				CIWarehouseItem.companyId = ?
+				CIWarehouseItem.companyId = ? AND
+				(LOWER(CIWarehouseItem.sku) LIKE ? [$AND_OR_NULL_CHECK$])
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.inventory.service.persistence.CommerceInventoryWarehouseItemFinder.countStockQuantityByC_S">
@@ -149,7 +150,8 @@
 			FROM
 				CIWarehouseItem
 			WHERE
-				CIWarehouseItem.companyId = [$COMPANY_ID$]
+				(CIWarehouseItem.companyId = [$COMPANY_ID$]) AND
+				(LOWER(CIWarehouseItem.sku) LIKE ? [$AND_OR_NULL_CHECK$])
 			GROUP BY
 				CIWarehouseItem.sku
 			ORDER BY
