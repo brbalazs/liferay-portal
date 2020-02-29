@@ -475,8 +475,9 @@ public class CPDefinitionsImporter {
 				JSONObject optionJSONObject = optionsJSONArray.getJSONObject(i);
 
 				_importCPDefinitionOptionRel(
-					company.getCompanyId(), cpDefinition.getCPDefinitionId(),
-					optionJSONObject, serviceContext);
+					catalogGroupId, company.getCompanyId(),
+					cpDefinition.getCPDefinitionId(), optionJSONObject,
+					serviceContext);
 			}
 		}
 
@@ -684,8 +685,8 @@ public class CPDefinitionsImporter {
 	}
 
 	private CPDefinitionOptionRel _importCPDefinitionOptionRel(
-			long companyId, long cpDefinitionId, JSONObject jsonObject,
-			ServiceContext serviceContext)
+			long catalogGroupId, long companyId, long cpDefinitionId,
+			JSONObject jsonObject, ServiceContext serviceContext)
 		throws PortalException {
 
 		// Commerce product definition option rel
@@ -701,10 +702,21 @@ public class CPDefinitionsImporter {
 			importOptionValue = false;
 		}
 
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			_cpDefinitionOptionRelLocalService.addCPDefinitionOptionRel(
-				cpDefinitionId, cpOption.getCPOptionId(), importOptionValue,
-				serviceContext);
+		CPDefinitionOptionRel cpDefinitionOptionRel = null;
+
+		long scopeGroupId = serviceContext.getScopeGroupId();
+
+		serviceContext.setScopeGroupId(catalogGroupId);
+
+		try {
+			cpDefinitionOptionRel =
+				_cpDefinitionOptionRelLocalService.addCPDefinitionOptionRel(
+					cpDefinitionId, cpOption.getCPOptionId(), importOptionValue,
+					serviceContext);
+		}
+		finally {
+			serviceContext.setScopeGroupId(scopeGroupId);
+		}
 
 		// Commerce product definition option value rels
 
