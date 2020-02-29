@@ -14,15 +14,14 @@
 
 package com.liferay.commerce.subscription.web.internal.model;
 
-import java.util.Date;
-
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class Shipment {
 
 	public Shipment(
-		Date createDate, Link shipmentId, Label status, Link orderId,
+		String createDate, Link shipmentId, Label status, Link orderId,
 		String receiver, Link tracking) {
 
 		_createDate = createDate;
@@ -33,7 +32,7 @@ public class Shipment {
 		_tracking = tracking;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return _createDate;
 	}
 
@@ -57,7 +56,7 @@ public class Shipment {
 		return _tracking;
 	}
 
-	private final Date _createDate;
+	private final String _createDate;
 	private final Link _orderId;
 	private final String _receiver;
 	private final Link _shipmentId;

@@ -14,16 +14,18 @@
 
 package com.liferay.commerce.subscription.web.internal.model;
 
-import java.math.BigDecimal;
-
-import java.util.Date;
+import com.liferay.commerce.frontend.model.LabelField;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class Payment {
 
-	public Payment(Date date, long transactionId, String amount) {
+	public Payment(
+		LabelField type, String date, long transactionId, String amount) {
+
+		_type = type;
 		_date = date;
 		_transactionId = transactionId;
 		_amount = amount;
@@ -33,7 +35,7 @@ public class Payment {
 		return _amount;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return _date;
 	}
 
@@ -41,8 +43,13 @@ public class Payment {
 		return _transactionId;
 	}
 
+	public LabelField getType() {
+		return _type;
+	}
+
 	private final String _amount;
-	private final Date _date;
+	private final String _date;
 	private final long _transactionId;
+	private final LabelField _type;
 
 }
