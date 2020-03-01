@@ -569,8 +569,7 @@ public class CommerceShipmentDisplayContext
 			CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED
 		};
 
-		searchContext.setAttribute(
-			"orderStatuses", orderStatuses);
+		searchContext.setAttribute("orderStatuses", orderStatuses);
 
 		searchContext.setAttribute(
 			"useSearchResultPermissionFilter", Boolean.FALSE);

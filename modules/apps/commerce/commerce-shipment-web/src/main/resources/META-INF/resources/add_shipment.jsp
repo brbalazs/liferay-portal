@@ -61,14 +61,18 @@ CommerceShipmentDisplayContext commerceShipmentDisplayContext = (CommerceShipmen
 </commerce-ui:modal-content>
 
 <aui:script use="aui-base">
-	var commerceAccount = <portlet:namespace />form.querySelector('select[name=<portlet:namespace />commerceAccountId]');
+	var commerceAccount = <portlet:namespace />form.querySelector(
+		'select[name=<portlet:namespace />commerceAccountId]'
+	);
 
 	Liferay.provide(
 		window,
 		'<portlet:namespace />updateAddressField',
 		function <portlet:namespace />updateAddressField(commerceAccountId) {
 			return fetch(
-				'/o/headless-commerce-admin-account/v1.0/accounts/' + commerceAccountId + '/accountAddresses/',
+				'/o/headless-commerce-admin-account/v1.0/accounts/' +
+					commerceAccountId +
+					'/accountAddresses/',
 				{
 					credentials: 'include',
 					headers: new Headers({
@@ -78,34 +82,47 @@ CommerceShipmentDisplayContext commerceShipmentDisplayContext = (CommerceShipmen
 					}),
 					method: 'GET'
 				}
-			).then(function(response) {
-				return response.json();
-			}).then(function(response) {
-				if (response.statusCode !== 200) {
-					return;
-				}
+			)
+				.then(function(response) {
+					return response.json();
+				})
+				.then(function(response) {
+					if (response.statusCode !== 200) {
+						return;
+					}
 
-				var select = A.one('#<portlet:namespace />commerceAddressId');
+					var select = A.one('#<portlet:namespace />commerceAddressId');
 
-				response.items.forEach(function(item) {
-					var option = A.Node.create('<option id="<portlet:namespace />commerceAddressId-' + item.id + '" value="' + item.id + '">' + item.street1 + " - " + item.city + " - " + item.regionISOCode + " - " + item.countryISOCode + '</option>');
+					response.items.forEach(function(item) {
+						var option = A.Node.create(
+							'<option id="<portlet:namespace />commerceAddressId-' +
+								item.id +
+								'" value="' +
+								item.id +
+								'">' +
+								item.street1 +
+								' - ' +
+								item.city +
+								' - ' +
+								item.regionISOCode +
+								' - ' +
+								item.countryISOCode +
+								'</option>'
+						);
 
-					select.append(option);
+						select.append(option);
+					});
+
+					select.show();
 				});
-
-				select.show();
-			});
 		}
 	);
 
 	if (commerceAccount) {
-		commerceAccount.addEventListener(
-			'change',
-			function() {
-				if (commerceAccount.value) {
-					<portlet:namespace />updateAddressField(commerceAccount.value);
-				}
+		commerceAccount.addEventListener('change', function() {
+			if (commerceAccount.value) {
+				<portlet:namespace />updateAddressField(commerceAccount.value);
 			}
-		);
+		});
 	}
 </aui:script>
