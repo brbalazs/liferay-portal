@@ -345,7 +345,11 @@ public abstract class BaseAvailabilityEstimateResourceImpl
 		for (AvailabilityEstimate availabilityEstimate :
 				availabilityEstimates) {
 
-			putAvailabilityEstimate(id, availabilityEstimate);
+			putAvailabilityEstimate(
+				availabilityEstimate.getId() != null ?
+				availabilityEstimate.getId() :
+				(Long)parameters.get("availabilityEstimateId"),
+				availabilityEstimate);
 		}
 	}
 
