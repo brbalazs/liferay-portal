@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.model;
 
-import com.liferay.commerce.model.LabelField;
+import com.liferay.commerce.frontend.model.LabelField;
 
 import java.util.Date;
 

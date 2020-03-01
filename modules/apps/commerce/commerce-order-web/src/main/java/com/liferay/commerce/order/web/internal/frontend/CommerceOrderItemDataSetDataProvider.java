@@ -22,7 +22,7 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
-import com.liferay.commerce.model.Sku;
+import com.liferay.commerce.frontend.model.Sku;
 import com.liferay.commerce.order.web.internal.model.OrderItem;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;

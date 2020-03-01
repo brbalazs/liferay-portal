@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.model;
 
-import com.liferay.commerce.model.Sku;
+import com.liferay.commerce.frontend.model.Sku;
 
 /**
  * @author Alessio Antonio Rendina

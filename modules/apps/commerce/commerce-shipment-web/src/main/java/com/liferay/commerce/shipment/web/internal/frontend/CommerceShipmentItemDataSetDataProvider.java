@@ -22,7 +22,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipmentItem;
-import com.liferay.commerce.model.ShipmentItem;
+import com.liferay.commerce.frontend.model.ShipmentItem;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.petra.string.StringPool;

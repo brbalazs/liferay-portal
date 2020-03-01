@@ -19,7 +19,7 @@ import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.model.Shipment;
+import com.liferay.commerce.frontend.model.Shipment;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
