@@ -564,8 +564,13 @@ public class CommerceShipmentDisplayContext
 	private SearchContext _buildSearchContext() throws PortalException {
 		SearchContext searchContext = new SearchContext();
 
+		int[] orderStatuses = {
+			CommerceOrderConstants.ORDER_STATUS_FULFILLED,
+			CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED
+		};
+
 		searchContext.setAttribute(
-			"orderStatuses", CommerceOrderConstants.ORDER_STATUS_FULFILLED);
+			"orderStatuses", orderStatuses);
 
 		searchContext.setAttribute(
 			"useSearchResultPermissionFilter", Boolean.FALSE);
