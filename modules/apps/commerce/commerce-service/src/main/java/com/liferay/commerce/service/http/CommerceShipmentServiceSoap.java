@@ -63,6 +63,31 @@ public class CommerceShipmentServiceSoap {
 
 	public static com.liferay.commerce.model.CommerceShipmentSoap
 			addCommerceShipment(
+				long groupId, long commerceAccountId, long commerceAddressId,
+				long commerceShippingMethodId,
+				String commerceShippingOptionName,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipment returnValue =
+				CommerceShipmentServiceUtil.addCommerceShipment(
+					groupId, commerceAccountId, commerceAddressId,
+					commerceShippingMethodId, commerceShippingOptionName,
+					serviceContext);
+
+			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentSoap
+			addCommerceShipment(
 				long commerceOrderId,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
@@ -237,6 +262,50 @@ public class CommerceShipmentServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.model.CommerceShipmentSoap updateAddress(
+			long commerceShipmentId, String name, String description,
+			String street1, String street2, String street3, String city,
+			String zip, long commerceRegionId, long commerceCountryId,
+			String phoneNumber)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipment returnValue =
+				CommerceShipmentServiceUtil.updateAddress(
+					commerceShipmentId, name, description, street1, street2,
+					street3, city, zip, commerceRegionId, commerceCountryId,
+					phoneNumber);
+
+			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentSoap
+			updateCarrierDetails(
+				long commerceShipmentId, String carrier, String trackingNumber)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipment returnValue =
+				CommerceShipmentServiceUtil.updateCarrierDetails(
+					commerceShipmentId, carrier, trackingNumber);
+
+			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.model.CommerceShipmentSoap
 			updateCommerceShipment(
 				long commerceShipmentId, String carrier, String trackingNumber,
@@ -289,6 +358,71 @@ public class CommerceShipmentServiceSoap {
 					shippingDateHour, shippingDateMinute, expectedDateMonth,
 					expectedDateDay, expectedDateYear, expectedDateHour,
 					expectedDateMinute);
+
+			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentSoap
+			updateExpectedDate(
+				long commerceShipmentId, int expectedDateMonth,
+				int expectedDateDay, int expectedDateYear, int expectedDateHour,
+				int expectedDateMinute)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipment returnValue =
+				CommerceShipmentServiceUtil.updateExpectedDate(
+					commerceShipmentId, expectedDateMonth, expectedDateDay,
+					expectedDateYear, expectedDateHour, expectedDateMinute);
+
+			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentSoap
+			updateShippingDate(
+				long commerceShipmentId, int shippingDateMonth,
+				int shippingDateDay, int shippingDateYear, int shippingDateHour,
+				int shippingDateMinute)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipment returnValue =
+				CommerceShipmentServiceUtil.updateShippingDate(
+					commerceShipmentId, shippingDateMonth, shippingDateDay,
+					shippingDateYear, shippingDateHour, shippingDateMinute);
+
+			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentSoap updateStatus(
+			long commerceShipmentId, int status)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipment returnValue =
+				CommerceShipmentServiceUtil.updateStatus(
+					commerceShipmentId, status);
 
 			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModel(
 				returnValue);

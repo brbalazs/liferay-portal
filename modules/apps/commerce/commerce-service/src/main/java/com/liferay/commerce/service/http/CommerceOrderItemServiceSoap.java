@@ -286,6 +286,28 @@ public class CommerceOrderItemServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.model.CommerceOrderItemSoap[]
+			getCommerceOrderItems(
+				long groupId, long commerceAccountId, int[] orderStatuses,
+				int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.commerce.model.CommerceOrderItem>
+				returnValue =
+					CommerceOrderItemServiceUtil.getCommerceOrderItems(
+						groupId, commerceAccountId, orderStatuses, start, end);
+
+			return com.liferay.commerce.model.CommerceOrderItemSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getCommerceOrderItemsCount(long commerceOrderId)
 		throws RemoteException {
 
@@ -311,6 +333,24 @@ public class CommerceOrderItemServiceSoap {
 			int returnValue =
 				CommerceOrderItemServiceUtil.getCommerceOrderItemsCount(
 					commerceOrderId, cpInstanceId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceOrderItemsCount(
+			long groupId, long commerceAccountId, int[] orderStatuses)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceOrderItemServiceUtil.getCommerceOrderItemsCount(
+					groupId, commerceAccountId, orderStatuses);
 
 			return returnValue;
 		}

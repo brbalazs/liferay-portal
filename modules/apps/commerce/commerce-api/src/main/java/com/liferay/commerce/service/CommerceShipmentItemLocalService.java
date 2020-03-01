@@ -194,6 +194,10 @@ public interface CommerceShipmentItemLocalService
 		long commerceShipmentItemId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceShipmentItem fetchCommerceShipmentItem(
+		long commerceOrderItemId, long commerceInventoryWarehouseId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	/**
@@ -206,6 +210,11 @@ public interface CommerceShipmentItemLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceShipmentItem getCommerceShipmentItem(
 			long commerceShipmentItemId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceShipmentItemCount(
+			long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws PortalException;
 
 	/**
@@ -232,6 +241,11 @@ public interface CommerceShipmentItemLocalService
 		long commerceShipmentId, int start, int end,
 		OrderByComparator<CommerceShipmentItem> orderByComparator);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceShipmentItem> getCommerceShipmentItems(
+		long commerceShipmentId, long commerceOrderItemId, int start, int end,
+		OrderByComparator<CommerceShipmentItem> orderByComparator);
+
 	/**
 	 * Returns the number of commerce shipment items.
 	 *
@@ -242,6 +256,10 @@ public interface CommerceShipmentItemLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceShipmentItemsCount(long commerceShipmentId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceShipmentOrderItemsQuantity(
+		long commerceShipmentId, long commerceOrderItemId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -271,9 +289,14 @@ public interface CommerceShipmentItemLocalService
 	public CommerceShipmentItem updateCommerceShipmentItem(
 		CommerceShipmentItem commerceShipmentItem);
 
-	@Indexable(type = IndexableType.REINDEX)
 	public CommerceShipmentItem updateCommerceShipmentItem(
 			long commerceShipmentItemId, int quantity)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceShipmentItem updateCommerceShipmentItem(
+			long commerceShipmentItemId, long commerceInventoryWarehouseId,
+			int quantity)
 		throws PortalException;
 
 }

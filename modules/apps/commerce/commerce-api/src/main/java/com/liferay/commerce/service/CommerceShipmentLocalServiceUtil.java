@@ -53,6 +53,20 @@ public class CommerceShipmentLocalServiceUtil {
 
 	public static com.liferay.commerce.model.CommerceShipment
 			addCommerceShipment(
+				long groupId, long commerceAccountId, long commerceAddressId,
+				long commerceShippingMethodId,
+				String commerceShippingOptionName,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceShipment(
+			groupId, commerceAccountId, commerceAddressId,
+			commerceShippingMethodId, commerceShippingOptionName,
+			serviceContext);
+	}
+
+	public static com.liferay.commerce.model.CommerceShipment
+			addCommerceShipment(
 				long commerceOrderId,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -322,6 +336,27 @@ public class CommerceShipmentLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static com.liferay.commerce.model.CommerceShipment updateAddress(
+			long commerceShipmentId, String name, String description,
+			String street1, String street2, String street3, String city,
+			String zip, long commerceRegionId, long commerceCountryId,
+			String phoneNumber)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateAddress(
+			commerceShipmentId, name, description, street1, street2, street3,
+			city, zip, commerceRegionId, commerceCountryId, phoneNumber);
+	}
+
+	public static com.liferay.commerce.model.CommerceShipment
+			updateCarrierDetails(
+				long commerceShipmentId, String carrier, String trackingNumber)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCarrierDetails(
+			commerceShipmentId, carrier, trackingNumber);
+	}
+
 	/**
 	 * Updates the commerce shipment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -373,6 +408,37 @@ public class CommerceShipmentLocalServiceUtil {
 			shippingDateYear, shippingDateHour, shippingDateMinute,
 			expectedDateMonth, expectedDateDay, expectedDateYear,
 			expectedDateHour, expectedDateMinute);
+	}
+
+	public static com.liferay.commerce.model.CommerceShipment
+			updateExpectedDate(
+				long commerceShipmentId, int expectedDateMonth,
+				int expectedDateDay, int expectedDateYear, int expectedDateHour,
+				int expectedDateMinute)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateExpectedDate(
+			commerceShipmentId, expectedDateMonth, expectedDateDay,
+			expectedDateYear, expectedDateHour, expectedDateMinute);
+	}
+
+	public static com.liferay.commerce.model.CommerceShipment
+			updateShippingDate(
+				long commerceShipmentId, int shippingDateMonth,
+				int shippingDateDay, int shippingDateYear, int shippingDateHour,
+				int shippingDateMinute)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateShippingDate(
+			commerceShipmentId, shippingDateMonth, shippingDateDay,
+			shippingDateYear, shippingDateHour, shippingDateMinute);
+	}
+
+	public static com.liferay.commerce.model.CommerceShipment updateStatus(
+			long commerceShipmentId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateStatus(commerceShipmentId, status);
 	}
 
 	public static CommerceShipmentLocalService getService() {

@@ -406,6 +406,16 @@ public class CommerceOrderItemLocalServiceWrapper
 			commerceOrderId, cpInstanceId, start, end, orderByComparator);
 	}
 
+	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceOrderItem>
+		getCommerceOrderItems(
+			long groupId, long commerceAccountId, int[] orderStatuses,
+			int start, int end) {
+
+		return _commerceOrderItemLocalService.getCommerceOrderItems(
+			groupId, commerceAccountId, orderStatuses, start, end);
+	}
+
 	/**
 	 * Returns the number of commerce order items.
 	 *
@@ -428,6 +438,14 @@ public class CommerceOrderItemLocalServiceWrapper
 
 		return _commerceOrderItemLocalService.getCommerceOrderItemsCount(
 			commerceOrderId, cpInstanceId);
+	}
+
+	@Override
+	public int getCommerceOrderItemsCount(
+		long groupId, long commerceAccountId, int[] orderStatuses) {
+
+		return _commerceOrderItemLocalService.getCommerceOrderItemsCount(
+			groupId, commerceAccountId, orderStatuses);
 	}
 
 	@Override

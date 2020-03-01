@@ -376,6 +376,15 @@ public class CommerceOrderItemLocalServiceUtil {
 			commerceOrderId, cpInstanceId, start, end, orderByComparator);
 	}
 
+	public static java.util.List<com.liferay.commerce.model.CommerceOrderItem>
+		getCommerceOrderItems(
+			long groupId, long commerceAccountId, int[] orderStatuses,
+			int start, int end) {
+
+		return getService().getCommerceOrderItems(
+			groupId, commerceAccountId, orderStatuses, start, end);
+	}
+
 	/**
 	 * Returns the number of commerce order items.
 	 *
@@ -394,6 +403,13 @@ public class CommerceOrderItemLocalServiceUtil {
 
 		return getService().getCommerceOrderItemsCount(
 			commerceOrderId, cpInstanceId);
+	}
+
+	public static int getCommerceOrderItemsCount(
+		long groupId, long commerceAccountId, int[] orderStatuses) {
+
+		return getService().getCommerceOrderItemsCount(
+			groupId, commerceAccountId, orderStatuses);
 	}
 
 	public static int getCommerceOrderItemsQuantity(long commerceOrderId) {

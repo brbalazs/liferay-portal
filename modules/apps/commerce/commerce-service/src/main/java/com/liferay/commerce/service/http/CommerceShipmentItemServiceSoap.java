@@ -98,6 +98,45 @@ public class CommerceShipmentItemServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.model.CommerceShipmentItemSoap
+			fetchCommerceShipmentItem(
+				long commerceOrderItemId, long commerceInventoryWarehouseId)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipmentItem returnValue =
+				CommerceShipmentItemServiceUtil.fetchCommerceShipmentItem(
+					commerceOrderItemId, commerceInventoryWarehouseId);
+
+			return com.liferay.commerce.model.CommerceShipmentItemSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentItemSoap
+			getCommerceShipmentItem(long commerceShipmentItemId)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipmentItem returnValue =
+				CommerceShipmentItemServiceUtil.getCommerceShipmentItem(
+					commerceShipmentItemId);
+
+			return com.liferay.commerce.model.CommerceShipmentItemSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.model.CommerceShipmentItemSoap[]
 			getCommerceShipmentItems(long commerceOrderItemId)
 		throws RemoteException {
@@ -159,6 +198,25 @@ public class CommerceShipmentItemServiceSoap {
 		}
 	}
 
+	public static int getCommerceShipmentOrderItemsQuantity(
+			long commerceShipmentId, long commerceOrderItemId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceShipmentItemServiceUtil.
+					getCommerceShipmentOrderItemsQuantity(
+						commerceShipmentId, commerceOrderItemId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.model.CommerceShipmentItemSoap
 			updateCommerceShipmentItem(
 				long commerceShipmentItemId, int quantity)
@@ -168,6 +226,28 @@ public class CommerceShipmentItemServiceSoap {
 			com.liferay.commerce.model.CommerceShipmentItem returnValue =
 				CommerceShipmentItemServiceUtil.updateCommerceShipmentItem(
 					commerceShipmentItemId, quantity);
+
+			return com.liferay.commerce.model.CommerceShipmentItemSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentItemSoap
+			updateCommerceShipmentItem(
+				long commerceShipmentItemId, long commerceInventoryWarehouseId,
+				int quantity)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceShipmentItem returnValue =
+				CommerceShipmentItemServiceUtil.updateCommerceShipmentItem(
+					commerceShipmentItemId, commerceInventoryWarehouseId,
+					quantity);
 
 			return com.liferay.commerce.model.CommerceShipmentItemSoap.
 				toSoapModel(returnValue);

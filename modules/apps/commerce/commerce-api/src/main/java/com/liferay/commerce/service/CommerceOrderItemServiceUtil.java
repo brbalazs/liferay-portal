@@ -145,6 +145,16 @@ public class CommerceOrderItemServiceUtil {
 		return getService().getCommerceOrderItems(commerceOrderId, start, end);
 	}
 
+	public static java.util.List<com.liferay.commerce.model.CommerceOrderItem>
+			getCommerceOrderItems(
+				long groupId, long commerceAccountId, int[] orderStatuses,
+				int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceOrderItems(
+			groupId, commerceAccountId, orderStatuses, start, end);
+	}
+
 	public static int getCommerceOrderItemsCount(long commerceOrderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -157,6 +167,14 @@ public class CommerceOrderItemServiceUtil {
 
 		return getService().getCommerceOrderItemsCount(
 			commerceOrderId, cpInstanceId);
+	}
+
+	public static int getCommerceOrderItemsCount(
+			long groupId, long commerceAccountId, int[] orderStatuses)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceOrderItemsCount(
+			groupId, commerceAccountId, orderStatuses);
 	}
 
 	public static int getCommerceOrderItemsQuantity(long commerceOrderId)

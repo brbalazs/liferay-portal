@@ -317,9 +317,9 @@ public class CommerceSubscriptionEntryServiceHttp {
 		<com.liferay.commerce.model.CommerceSubscriptionEntry>
 				searchCommerceSubscriptionEntries(
 					HttpPrincipal httpPrincipal, long companyId,
-					long[] groupIds, Long maxSubscriptionCycles,
-					Integer subscriptionStatus, String keywords, int start,
-					int end, com.liferay.portal.kernel.search.Sort sort)
+					Long maxSubscriptionCycles, Integer subscriptionStatus,
+					String keywords, int start, int end,
+					com.liferay.portal.kernel.search.Sort sort)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -329,8 +329,8 @@ public class CommerceSubscriptionEntryServiceHttp {
 				_searchCommerceSubscriptionEntriesParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, groupIds, maxSubscriptionCycles,
-				subscriptionStatus, keywords, start, end, sort);
+				methodKey, companyId, maxSubscriptionCycles, subscriptionStatus,
+				keywords, start, end, sort);
 
 			Object returnObj = null;
 
@@ -366,9 +366,9 @@ public class CommerceSubscriptionEntryServiceHttp {
 		<com.liferay.commerce.model.CommerceSubscriptionEntry>
 				searchCommerceSubscriptionEntries(
 					HttpPrincipal httpPrincipal, long companyId,
-					Long maxSubscriptionCycles, Integer subscriptionStatus,
-					String keywords, int start, int end,
-					com.liferay.portal.kernel.search.Sort sort)
+					long[] groupIds, Long maxSubscriptionCycles,
+					Integer subscriptionStatus, String keywords, int start,
+					int end, com.liferay.portal.kernel.search.Sort sort)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -378,8 +378,8 @@ public class CommerceSubscriptionEntryServiceHttp {
 				_searchCommerceSubscriptionEntriesParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, maxSubscriptionCycles, subscriptionStatus,
-				keywords, start, end, sort);
+				methodKey, companyId, groupIds, maxSubscriptionCycles,
+				subscriptionStatus, keywords, start, end, sort);
 
 			Object returnObj = null;
 
@@ -541,13 +541,13 @@ public class CommerceSubscriptionEntryServiceHttp {
 		};
 	private static final Class<?>[]
 		_searchCommerceSubscriptionEntriesParameterTypes6 = new Class[] {
-			long.class, long[].class, Long.class, Integer.class, String.class,
-			int.class, int.class, com.liferay.portal.kernel.search.Sort.class
+			long.class, Long.class, Integer.class, String.class, int.class,
+			int.class, com.liferay.portal.kernel.search.Sort.class
 		};
 	private static final Class<?>[]
 		_searchCommerceSubscriptionEntriesParameterTypes7 = new Class[] {
-			long.class, Long.class, Integer.class, String.class, int.class,
-			int.class, com.liferay.portal.kernel.search.Sort.class
+			long.class, long[].class, Long.class, Integer.class, String.class,
+			int.class, int.class, com.liferay.portal.kernel.search.Sort.class
 		};
 	private static final Class<?>[]
 		_updateCommerceSubscriptionEntryParameterTypes8 = new Class[] {

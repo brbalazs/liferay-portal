@@ -26,4 +26,7 @@ public interface CommerceShipmentItemFinder {
 	public java.util.List<com.liferay.commerce.model.CommerceShipmentItem>
 		findByCommerceOrderItemId(long commerceOrderItemId);
 
+	public int getCommerceShipmentOrderItemsQuantity(
+		long commerceShipmentId, long commerceOrderItemId);
+
 }

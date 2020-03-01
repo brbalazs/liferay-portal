@@ -155,6 +155,17 @@ public class CommerceOrderItemServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceOrderItem>
+			getCommerceOrderItems(
+				long groupId, long commerceAccountId, int[] orderStatuses,
+				int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItemService.getCommerceOrderItems(
+			groupId, commerceAccountId, orderStatuses, start, end);
+	}
+
+	@Override
 	public int getCommerceOrderItemsCount(long commerceOrderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -169,6 +180,15 @@ public class CommerceOrderItemServiceWrapper
 
 		return _commerceOrderItemService.getCommerceOrderItemsCount(
 			commerceOrderId, cpInstanceId);
+	}
+
+	@Override
+	public int getCommerceOrderItemsCount(
+			long groupId, long commerceAccountId, int[] orderStatuses)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItemService.getCommerceOrderItemsCount(
+			groupId, commerceAccountId, orderStatuses);
 	}
 
 	@Override

@@ -133,11 +133,15 @@ public class CommerceShipmentItemModelImpl
 			"value.object.column.bitmask.enabled.com.liferay.commerce.model.CommerceShipmentItem"),
 		true);
 
-	public static final long COMMERCESHIPMENTID_COLUMN_BITMASK = 1L;
+	public static final long COMMERCEINVENTORYWAREHOUSEID_COLUMN_BITMASK = 1L;
 
-	public static final long GROUPID_COLUMN_BITMASK = 2L;
+	public static final long COMMERCEORDERITEMID_COLUMN_BITMASK = 2L;
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 4L;
+	public static final long COMMERCESHIPMENTID_COLUMN_BITMASK = 4L;
+
+	public static final long GROUPID_COLUMN_BITMASK = 8L;
+
+	public static final long CREATEDATE_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -743,7 +747,19 @@ public class CommerceShipmentItemModelImpl
 
 	@Override
 	public void setCommerceOrderItemId(long commerceOrderItemId) {
+		_columnBitmask |= COMMERCEORDERITEMID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommerceOrderItemId) {
+			_setOriginalCommerceOrderItemId = true;
+
+			_originalCommerceOrderItemId = _commerceOrderItemId;
+		}
+
 		_commerceOrderItemId = commerceOrderItemId;
+	}
+
+	public long getOriginalCommerceOrderItemId() {
+		return _originalCommerceOrderItemId;
 	}
 
 	@JSON
@@ -756,7 +772,20 @@ public class CommerceShipmentItemModelImpl
 	public void setCommerceInventoryWarehouseId(
 		long commerceInventoryWarehouseId) {
 
+		_columnBitmask |= COMMERCEINVENTORYWAREHOUSEID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommerceInventoryWarehouseId) {
+			_setOriginalCommerceInventoryWarehouseId = true;
+
+			_originalCommerceInventoryWarehouseId =
+				_commerceInventoryWarehouseId;
+		}
+
 		_commerceInventoryWarehouseId = commerceInventoryWarehouseId;
+	}
+
+	public long getOriginalCommerceInventoryWarehouseId() {
+		return _originalCommerceInventoryWarehouseId;
 	}
 
 	@JSON
@@ -896,6 +925,17 @@ public class CommerceShipmentItemModelImpl
 			commerceShipmentItemModelImpl._commerceShipmentId;
 
 		commerceShipmentItemModelImpl._setOriginalCommerceShipmentId = false;
+
+		commerceShipmentItemModelImpl._originalCommerceOrderItemId =
+			commerceShipmentItemModelImpl._commerceOrderItemId;
+
+		commerceShipmentItemModelImpl._setOriginalCommerceOrderItemId = false;
+
+		commerceShipmentItemModelImpl._originalCommerceInventoryWarehouseId =
+			commerceShipmentItemModelImpl._commerceInventoryWarehouseId;
+
+		commerceShipmentItemModelImpl._setOriginalCommerceInventoryWarehouseId =
+			false;
 
 		commerceShipmentItemModelImpl._columnBitmask = 0;
 	}
@@ -1041,7 +1081,11 @@ public class CommerceShipmentItemModelImpl
 	private long _originalCommerceShipmentId;
 	private boolean _setOriginalCommerceShipmentId;
 	private long _commerceOrderItemId;
+	private long _originalCommerceOrderItemId;
+	private boolean _setOriginalCommerceOrderItemId;
 	private long _commerceInventoryWarehouseId;
+	private long _originalCommerceInventoryWarehouseId;
+	private boolean _setOriginalCommerceInventoryWarehouseId;
 	private int _quantity;
 	private long _columnBitmask;
 	private CommerceShipmentItem _escapedModel;

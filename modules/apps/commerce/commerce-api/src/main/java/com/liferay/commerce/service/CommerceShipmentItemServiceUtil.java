@@ -55,6 +55,22 @@ public class CommerceShipmentItemServiceUtil {
 		getService().deleteCommerceShipmentItem(commerceShipmentItemId);
 	}
 
+	public static com.liferay.commerce.model.CommerceShipmentItem
+			fetchCommerceShipmentItem(
+				long commerceOrderItemId, long commerceInventoryWarehouseId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().fetchCommerceShipmentItem(
+			commerceOrderItemId, commerceInventoryWarehouseId);
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentItem
+			getCommerceShipmentItem(long commerceShipmentItemId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceShipmentItem(commerceShipmentItemId);
+	}
+
 	public static java.util.List
 		<com.liferay.commerce.model.CommerceShipmentItem>
 				getCommerceShipmentItems(long commerceOrderItemId)
@@ -82,6 +98,14 @@ public class CommerceShipmentItemServiceUtil {
 		return getService().getCommerceShipmentItemsCount(commerceShipmentId);
 	}
 
+	public static int getCommerceShipmentOrderItemsQuantity(
+			long commerceShipmentId, long commerceOrderItemId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceShipmentOrderItemsQuantity(
+			commerceShipmentId, commerceOrderItemId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -98,6 +122,16 @@ public class CommerceShipmentItemServiceUtil {
 
 		return getService().updateCommerceShipmentItem(
 			commerceShipmentItemId, quantity);
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentItem
+			updateCommerceShipmentItem(
+				long commerceShipmentItemId, long commerceInventoryWarehouseId,
+				int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceShipmentItem(
+			commerceShipmentItemId, commerceInventoryWarehouseId, quantity);
 	}
 
 	public static CommerceShipmentItemService getService() {
