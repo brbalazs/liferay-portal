@@ -33,6 +33,8 @@ contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="updateVisibility" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="cpDefinitionId" type="hidden" value="<%= String.valueOf(cpDefinitionId) %>" />
+	<aui:input name="commerceAccountGroupIds" type="hidden" value="" />
+	<aui:input name="commerceChannelIds" type="hidden" value="" />
 
 	<commerce-ui:panel
 		bodyClasses="p-0"
@@ -42,6 +44,7 @@ contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 		title='<%= LanguageUtil.get(request, "channels") %>'
 	>
 		<commerce-ui:dataset-display
+			clayCreationMenu="<%= cpDefinitionsDisplayContext.getChannelsClayCreationMenu() %>"
 			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_CHANNELS %>"
 			formId="fm"
@@ -61,6 +64,7 @@ contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 		title='<%= LanguageUtil.get(request, "account-groups") %>'
 	>
 		<commerce-ui:dataset-display
+			clayCreationMenu="<%= cpDefinitionsDisplayContext.getAccountGroupsClayCreationMenu() %>"
 			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_ACCOUNT_GROUPS %>"
 			formId="fm"
@@ -72,3 +76,89 @@ contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 		/>
 	</commerce-ui:panel>
 </aui:form>
+
+<aui:script use="liferay-item-selector-dialog">
+	Liferay.on(
+		'<portlet:namespace />selectCommerceAccountGroup',
+		function() {
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: 'accountGroupSelectItem',
+				on: {
+					selectedItemChange: function(event) {
+						var <portlet:namespace />addCommerceAccountGroupIds = [];
+
+						var selectedItems = event.newVal;
+
+						if (selectedItems) {
+							var A = AUI();
+
+							A.Array.each(selectedItems, function(
+								item,
+								index,
+								selectedItems
+							) {
+								<portlet:namespace />addCommerceAccountGroupIds.push(
+									item.commerceAccountGroupId
+								);
+							});
+
+							$('#<portlet:namespace />commerceAccountGroupIds').val(
+								<portlet:namespace />addCommerceAccountGroupIds
+							);
+
+							var form = $('#<portlet:namespace />fm');
+
+							submitForm(form);
+						}
+					}
+				},
+				title: '<liferay-ui:message key="select-account-group" />',
+				url: '<%= cpDefinitionsDisplayContext.getAccountGroupItemSelectorUrl() %>'
+			});
+
+			itemSelectorDialog.open();
+		}
+	);
+
+	Liferay.on(
+		'<portlet:namespace />selectCommerceChannel',
+		function() {
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: 'channelSelectItem',
+				on: {
+					selectedItemChange: function(event) {
+						var <portlet:namespace />addCommerceChannelIds = [];
+
+						var selectedItems = event.newVal;
+
+						if (selectedItems) {
+							var A = AUI();
+
+							A.Array.each(selectedItems, function(
+								item,
+								index,
+								selectedItems
+							) {
+								<portlet:namespace />addCommerceChannelIds.push(
+									item.commerceChannelId
+								);
+							});
+
+							$('#<portlet:namespace />commerceChannelIds').val(
+								<portlet:namespace />addCommerceChannelIds
+							);
+
+							var form = $('#<portlet:namespace />fm');
+
+							submitForm(form);
+						}
+					}
+				},
+				title: '<liferay-ui:message key="select-channel" />',
+				url: '<%= cpDefinitionsDisplayContext.getChannelItemSelectorUrl() %>'
+			});
+
+			itemSelectorDialog.open();
+		}
+	);
+</aui:script>
