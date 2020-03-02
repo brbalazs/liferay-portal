@@ -14,32 +14,49 @@
 
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
+import com.liferay.commerce.account.item.selector.criterion.CommerceAccountGroupItemSelectorCriterion;
+import com.liferay.commerce.account.model.CommerceAccountGroupRel;
+import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
+import com.liferay.commerce.product.item.selector.criterion.CommerceChannelItemSelectorCriterion;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.model.CommerceChannelRel;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.commerce.product.type.CPType;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
+import com.liferay.item.selector.ItemSelector;
+import com.liferay.item.selector.ItemSelectorReturnType;
+import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
+import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.CustomAttributesUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionURL;
+import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import javax.portlet.RenderURL;
 
@@ -54,13 +71,120 @@ public class CPDefinitionsDisplayContext
 
 	public CPDefinitionsDisplayContext(
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
+		CommerceAccountGroupRelService commerceAccountGroupRelService,
 		CommerceCatalogService commerceCatalogService,
-		CPDefinitionService cpDefinitionService) {
+		CommerceChannelRelService commerceChannelRelService,
+		CPDefinitionService cpDefinitionService, ItemSelector itemSelector) {
 
 		super(actionHelper, httpServletRequest);
 
+		_commerceAccountGroupRelService = commerceAccountGroupRelService;
 		_commerceCatalogService = commerceCatalogService;
+		_commerceChannelRelService = commerceChannelRelService;
 		_cpDefinitionService = cpDefinitionService;
+		_itemSelector = itemSelector;
+	}
+
+	public String getAccountGroupItemSelectorUrl() throws PortalException {
+		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
+			RequestBackedPortletURLFactoryUtil.create(httpServletRequest);
+
+		CommerceAccountGroupItemSelectorCriterion
+			commerceAccountGroupItemSelectorCriterion =
+				new CommerceAccountGroupItemSelectorCriterion();
+
+		commerceAccountGroupItemSelectorCriterion.
+			setDesiredItemSelectorReturnTypes(
+				Collections.<ItemSelectorReturnType>singletonList(
+					new UUIDItemSelectorReturnType()));
+
+		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
+			requestBackedPortletURLFactory, "accountGroupSelectItem",
+			commerceAccountGroupItemSelectorCriterion);
+
+		String checkedCommerceAccountGroupIds = StringUtil.merge(
+			getCommerceAccountGroupRelCommerceAccountGroupIds());
+
+		itemSelectorURL.setParameter(
+			"checkedCommerceAccountGroupIds", checkedCommerceAccountGroupIds);
+
+		return itemSelectorURL.toString();
+	}
+
+	public ClayCreationMenu getAccountGroupsClayCreationMenu()
+		throws PortalException {
+
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
+
+		String cpDefinitionName = StringPool.BLANK;
+
+		CPDefinition cpDefinition = getCPDefinition();
+
+		if (cpDefinition != null) {
+			cpDefinitionName = cpDefinition.getName(
+				LocaleUtil.toLanguageId(cpRequestHelper.getLocale()));
+		}
+
+		clayCreationMenu.addClayCreationMenuActionItem(
+			new ClayCreationMenuActionItem(
+				liferayPortletResponse.getNamespace() +
+					"selectCommerceAccountGroup",
+				LanguageUtil.format(
+					httpServletRequest, "add-account-group-relation-to-x",
+					cpDefinitionName),
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_EVENT));
+
+		return clayCreationMenu;
+	}
+
+	public String getChannelItemSelectorUrl() throws PortalException {
+		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
+			RequestBackedPortletURLFactoryUtil.create(httpServletRequest);
+
+		CommerceChannelItemSelectorCriterion
+			commerceChannelItemSelectorCriterion =
+				new CommerceChannelItemSelectorCriterion();
+
+		commerceChannelItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
+			Collections.<ItemSelectorReturnType>singletonList(
+				new UUIDItemSelectorReturnType()));
+
+		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
+			requestBackedPortletURLFactory, "channelSelectItem",
+			commerceChannelItemSelectorCriterion);
+
+		String checkedCommerceChannelIds = StringUtil.merge(
+			getCommerceChannelRelCommerceChannelIds());
+
+		itemSelectorURL.setParameter(
+			"checkedCommerceChannelIds", checkedCommerceChannelIds);
+
+		return itemSelectorURL.toString();
+	}
+
+	public ClayCreationMenu getChannelsClayCreationMenu()
+		throws PortalException {
+
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
+
+		String cpDefinitionName = StringPool.BLANK;
+
+		CPDefinition cpDefinition = getCPDefinition();
+
+		if (cpDefinition != null) {
+			cpDefinitionName = cpDefinition.getName(
+				LocaleUtil.toLanguageId(cpRequestHelper.getLocale()));
+		}
+
+		clayCreationMenu.addClayCreationMenuActionItem(
+			new ClayCreationMenuActionItem(
+				liferayPortletResponse.getNamespace() + "selectCommerceChannel",
+				LanguageUtil.format(
+					httpServletRequest, "add-channel-relation-to-x",
+					cpDefinitionName),
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_EVENT));
+
+		return clayCreationMenu;
 	}
 
 	public ClayCreationMenu getClayCreationMenu() {
@@ -86,10 +210,41 @@ public class CPDefinitionsDisplayContext
 		return clayCreationMenu;
 	}
 
+	public long[] getCommerceAccountGroupRelCommerceAccountGroupIds()
+		throws PortalException {
+
+		List<CommerceAccountGroupRel> commerceAccountGroupRels =
+			_commerceAccountGroupRelService.getCommerceAccountGroupRels(
+				CPDefinition.class.getName(), getCPDefinitionId(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		Stream<CommerceAccountGroupRel> stream =
+			commerceAccountGroupRels.stream();
+
+		return stream.mapToLong(
+			CommerceAccountGroupRel::getCommerceAccountGroupId
+		).toArray();
+	}
+
 	public List<CommerceCatalog> getCommerceCatalogs() throws PortalException {
 		return _commerceCatalogService.searchCommerceCatalogs(
 			cpRequestHelper.getCompanyId(), null, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
+	}
+
+	public long[] getCommerceChannelRelCommerceChannelIds()
+		throws PortalException {
+
+		List<CommerceChannelRel> commerceChannelRels =
+			_commerceChannelRelService.getCommerceChannelRels(
+				CPDefinition.class.getName(), getCPDefinitionId(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		Stream<CommerceChannelRel> stream = commerceChannelRels.stream();
+
+		return stream.mapToLong(
+			CommerceChannelRel::getCommerceChannelId
+		).toArray();
 	}
 
 	public String getCPDefinitionThumbnailURL() throws Exception {
@@ -211,7 +366,11 @@ public class CPDefinitionsDisplayContext
 		return false;
 	}
 
+	private final CommerceAccountGroupRelService
+		_commerceAccountGroupRelService;
 	private final CommerceCatalogService _commerceCatalogService;
+	private final CommerceChannelRelService _commerceChannelRelService;
 	private final CPDefinitionService _cpDefinitionService;
+	private final ItemSelector _itemSelector;
 
 }
