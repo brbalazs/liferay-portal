@@ -101,5 +101,5 @@ launcher('itemFinder', 'item-finder-root-id', {
 		itemTitle: ['title', 'en_US']
 	},
 	spritemap: './assets/icons.svg',
-	titleLabel: 'Select an existing specification',
+	titleLabel: 'Select an existing specification'
 });

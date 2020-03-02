@@ -270,7 +270,9 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 							'<%= LanguageUtil.get(request, "create-new-specification") %>',
 						getSelectedItems: getSelectedItems,
 						itemsKey: 'id',
-						linkedDatasetsId: ['<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'],
+						linkedDatasetsId: [
+							'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
+						],
 						onItemCreated: addNewItem,
 						onItemSelected: selectItem,
 						pageSize: 10,

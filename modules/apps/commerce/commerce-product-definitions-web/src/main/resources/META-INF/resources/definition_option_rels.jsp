@@ -106,11 +106,12 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 
 			itemFinder.default('itemFinder', 'item-finder-root', {
 				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/options',
-				createNewItemLabel:
-					'<%= LanguageUtil.get(request, "create-new-option") %>',
+				createNewItemLabel: '<%= LanguageUtil.get(request, "create-new-option") %>',
 				getSelectedItems: getSelectedItems,
 				itemsKey: 'id',
-				linkedDatasetsId: ['<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'],
+				linkedDatasetsId: [
+					'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'
+				],
 				onItemCreated: addNewItem,
 				onItemSelected: selectItem,
 				pageSize: 10,
@@ -119,8 +120,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 					itemTitle: ['name', themeDisplay.getLanguageId()]
 				},
 				spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-				titleLabel:
-					'<%= LanguageUtil.get(request, "select-an-existing-option") %>'
+				titleLabel: '<%= LanguageUtil.get(request, "select-an-existing-option") %>'
 			});
 		</aui:script>
 

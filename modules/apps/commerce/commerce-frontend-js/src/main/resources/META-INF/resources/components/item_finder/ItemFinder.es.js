@@ -16,8 +16,8 @@ import {ClayIconSpriteContext} from '@clayui/icon';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {showErrorNotification} from '../../utilities/index.es';
 import {DATASET_ACTION_PERFORMED} from '../../utilities/eventsDefinitions.es';
+import {showErrorNotification} from '../../utilities/index.es';
 import AddOrCreate from './AddOrCreate.es';
 
 function ItemFinder(props) {
@@ -54,20 +54,19 @@ function ItemFinder(props) {
 	]);
 
 	useEffect(() => {
-		props.getSelectedItems()
-			.then(updateSelectedItems);
+		props.getSelectedItems().then(updateSelectedItems);
 
 		function handleDatasetActions(e) {
 			if (props.linkedDatasetsId.includes(e.id)) {
-				props.getSelectedItems()
-					.then(updateSelectedItems);
+				props.getSelectedItems().then(updateSelectedItems);
 			}
 		}
 
-		Liferay.on(DATASET_ACTION_PERFORMED, handleDatasetActions)
+		Liferay.on(DATASET_ACTION_PERFORMED, handleDatasetActions);
 
-		return () => Liferay.detach(DATASET_ACTION_PERFORMED, handleDatasetActions)
-	}, [props, props.getSelectedItems])
+		return () =>
+			Liferay.detach(DATASET_ACTION_PERFORMED, handleDatasetActions);
+	}, [props, props.getSelectedItems]);
 
 	function selectItem(itemId) {
 		const selectedItem = items.find(
