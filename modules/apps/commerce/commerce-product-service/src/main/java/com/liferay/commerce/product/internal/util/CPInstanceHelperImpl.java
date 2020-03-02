@@ -1015,15 +1015,10 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			return cpDefinitionOptionRel.isRequired();
 		}
 
-		if (publicStore) {
-			if (cpDefinitionOptionRel.isRequired() ||
-				cpDefinitionOptionRel.isSkuContributor()) {
+		if (cpDefinitionOptionRel.isSkuContributor() ||
+			(publicStore && cpDefinitionOptionRel.isRequired())) {
 
-				return true;
-			}
-		}
-		else {
-			return cpDefinitionOptionRel.isSkuContributor();
+			return true;
 		}
 
 		return false;
