@@ -121,7 +121,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		CPOption cpOption = cpOptionLocalService.getCPOption(cpOptionId);
 
-		validate(cpDefinitionId, cpOption.getKey());
+		validateCPDefinitionOptionKey(cpDefinitionId, cpOption.getKey());
 
 		cpDefinitionOptionRel.setGroupId(groupId);
 		cpDefinitionOptionRel.setCompanyId(user.getCompanyId());
@@ -719,7 +719,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			"Unable to fix the search index after 10 attempts");
 	}
 
-	protected void validate(long cpDefinitionId, String key)
+	protected void validateCPDefinitionOptionKey(
+			long cpDefinitionId, String key)
 		throws PortalException {
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
