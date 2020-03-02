@@ -23,6 +23,9 @@ import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -41,6 +44,7 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -148,6 +152,13 @@ public class EditCommerceShipmentItemMVCActionCommand
 				"commerceOrderItemId", String.valueOf(commerceOrderItemId));
 		}
 
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			_log.error(wse, wse);
+		}
+
 		return portletURL.toString();
 	}
 
@@ -225,6 +236,9 @@ public class EditCommerceShipmentItemMVCActionCommand
 
 		return commerceShipmentItem;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCommerceShipmentItemMVCActionCommand.class);
 
 	@Reference
 	private CommerceInventoryWarehouseService

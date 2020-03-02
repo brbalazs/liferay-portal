@@ -87,10 +87,6 @@ CommerceShipmentDisplayContext commerceShipmentDisplayContext = (CommerceShipmen
 					return response.json();
 				})
 				.then(function(response) {
-					if (response.statusCode !== 200) {
-						return;
-					}
-
 					var select = A.one('#<portlet:namespace />commerceAddressId');
 
 					response.items.forEach(function(item) {

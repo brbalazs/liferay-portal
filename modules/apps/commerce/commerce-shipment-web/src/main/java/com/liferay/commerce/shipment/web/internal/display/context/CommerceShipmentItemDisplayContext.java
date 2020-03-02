@@ -15,6 +15,7 @@
 package com.liferay.commerce.shipment.web.internal.display.context;
 
 import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
@@ -51,6 +52,17 @@ public class CommerceShipmentItemDisplayContext
 
 		return _commerceOrderItemService.getCommerceOrderItem(
 			commerceShipmentItem.getCommerceOrderItemId());
+	}
+
+	@Override
+	public CommerceShipment getCommerceShipment() throws PortalException {
+		CommerceShipmentItem commerceShipmentItem = getCommerceShipmentItem();
+
+		if (commerceShipmentItem == null) {
+			return null;
+		}
+
+		return commerceShipmentItem.getCommerceShipment();
 	}
 
 	public CommerceShipmentItem getCommerceShipmentItem()

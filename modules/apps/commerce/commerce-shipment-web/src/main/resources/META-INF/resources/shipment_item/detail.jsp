@@ -19,7 +19,7 @@
 <%
 CommerceShipmentItemDisplayContext commerceShipmentItemDisplayContext = (CommerceShipmentItemDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-CommerceShipment commerceShipment = commerceShipmentItemDisplayContext.getCommerceShipment();
+CommerceShipmentItem commerceShipmentItem = commerceShipmentItemDisplayContext.getCommerceShipmentItem();
 
 CommerceOrderItem commerceOrderItem = commerceShipmentItemDisplayContext.getCommerceOrderItem();
 
@@ -40,7 +40,8 @@ portletDisplay.setURLBack(redirect);
 	<aui:form action="<%= editCommerceShipmentItemActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-		<aui:input name="commerceShipmentId" type="hidden" value="<%= commerceShipment.getCommerceShipmentId() %>" />
+		<aui:input name="commerceShipmentId" type="hidden" value="<%= commerceShipmentItem.getCommerceShipmentId() %>" />
+		<aui:input name="commerceShipmentItemId" type="hidden" value="<%= commerceShipmentItem.getCommerceShipmentItemId() %>" />
 		<aui:input name="commerceOrderItemId" type="hidden" value="<%= commerceOrderItem.getCommerceOrderItemId() %>" />
 
 		<div class="row text-center">
@@ -63,7 +64,7 @@ portletDisplay.setURLBack(redirect);
 		Map<String, String> contextParams = new HashMap<>();
 
 		contextParams.put("commerceOrderItemId", String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
-		contextParams.put("commerceShipmentId", String.valueOf(commerceShipment.getCommerceShipmentId()));
+		contextParams.put("commerceShipmentId", String.valueOf(commerceShipmentItem.getCommerceShipmentId()));
 		%>
 
 		<commerce-ui:dataset-display

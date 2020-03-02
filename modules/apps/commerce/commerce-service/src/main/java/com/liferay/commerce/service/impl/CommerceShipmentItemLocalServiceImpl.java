@@ -248,11 +248,9 @@ public class CommerceShipmentItemLocalServiceImpl
 			commerceOrderItemLocalService.getCommerceOrderItem(
 				commerceShipmentItem.getCommerceOrderItemId());
 
-		if (commerceInventoryWarehouseId > 0) {
-			validate(
-				commerceOrderItem, commerceInventoryWarehouseId, quantity,
-				quantity);
-		}
+		validate(
+			commerceOrderItem, commerceInventoryWarehouseId, quantity,
+			quantity);
 
 		commerceShipmentItem.setCommerceInventoryWarehouseId(
 			commerceInventoryWarehouseId);
@@ -281,7 +279,7 @@ public class CommerceShipmentItemLocalServiceImpl
 			long commerceInventoryWarehouseId, int quantity, int newQuantity)
 		throws PortalException {
 
-		if (commerceInventoryWarehouseId > 0) {
+		if (commerceInventoryWarehouseId <= 0) {
 			return;
 		}
 

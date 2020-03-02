@@ -24,8 +24,10 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemLocalService;
+import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.commerce.shipment.web.internal.model.Warehouse;
 import com.liferay.commerce.shipment.web.internal.model.WarehouseItem;
 import com.liferay.petra.string.StringPool;
@@ -72,11 +74,16 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 
 		long companyId = _portal.getCompanyId(httpServletRequest);
 
-		long commerceOrderItemId = ParamUtil.getLong(
-			httpServletRequest, "commerceOrderItemId");
+		long commerceShipmentItemId = ParamUtil.getLong(
+			httpServletRequest, "commerceShipmentItemId");
+
+		CommerceShipmentItem commerceShipmentItem =
+			_commerceShipmentItemService.getCommerceShipmentItem(
+				commerceShipmentItemId);
 
 		CommerceOrderItem commerceOrderItem =
-			_commerceOrderItemService.getCommerceOrderItem(commerceOrderItemId);
+			_commerceOrderItemService.getCommerceOrderItem(
+				commerceShipmentItem.getCommerceOrderItemId());
 
 		List<CommerceInventoryWarehouse> commerceInventoryWarehouses =
 			_commerceInventoryWarehouseService.getCommerceInventoryWarehouses(
@@ -102,7 +109,8 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 
 			int shipmentItemWarehouseItemQuantity =
 				_commerceShipmentItemLocalService.getCommerceShipmentItemCount(
-					commerceOrderItemId, commerceInventoryWarehouseId);
+					commerceOrderItem.getCommerceOrderItemId(),
+					commerceInventoryWarehouseId);
 
 			if (commerceInventoryWarehouseItem != null) {
 				warehouses.add(
@@ -133,6 +141,9 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 
 	@Reference
 	private CommerceShipmentItemLocalService _commerceShipmentItemLocalService;
+
+	@Reference
+	private CommerceShipmentItemService _commerceShipmentItemService;
 
 	@Reference
 	private Portal _portal;
