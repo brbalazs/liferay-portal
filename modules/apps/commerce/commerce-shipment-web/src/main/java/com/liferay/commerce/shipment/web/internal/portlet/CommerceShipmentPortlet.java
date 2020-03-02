@@ -16,15 +16,12 @@ package com.liferay.commerce.shipment.web.internal.portlet;
 
 import com.liferay.commerce.address.CommerceAddressFormatter;
 import com.liferay.commerce.constants.CommercePortletKeys;
-import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceRegionService;
-import com.liferay.commerce.service.CommerceShipmentItemService;
-import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.commerce.shipment.web.internal.display.context.CommerceShipmentDisplayContext;
 import com.liferay.commerce.shipment.web.internal.portlet.action.ActionHelper;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -79,9 +76,7 @@ public class CommerceShipmentPortlet extends MVCPortlet {
 				_commerceAddressFormatter, _commerceAddressService,
 				_commerceChannelService, _commerceCountryService,
 				_commerceOrderItemService, _commerceOrderLocalService,
-				_commerceRegionService, _commerceShipmentService,
-				_commerceShipmentItemService,
-				_commerceInventoryWarehouseService);
+				_commerceRegionService);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceShipmentDisplayContext);
@@ -105,10 +100,6 @@ public class CommerceShipmentPortlet extends MVCPortlet {
 	private CommerceCountryService _commerceCountryService;
 
 	@Reference
-	private CommerceInventoryWarehouseService
-		_commerceInventoryWarehouseService;
-
-	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
@@ -116,12 +107,6 @@ public class CommerceShipmentPortlet extends MVCPortlet {
 
 	@Reference
 	private CommerceRegionService _commerceRegionService;
-
-	@Reference
-	private CommerceShipmentItemService _commerceShipmentItemService;
-
-	@Reference
-	private CommerceShipmentService _commerceShipmentService;
 
 	@Reference
 	private Portal _portal;
