@@ -156,9 +156,8 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 					outputParameterNames.entrySet()) {
 
 				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-					_cpInstanceHelper.getCPDefinitionOptionValueRel(
-						cpDefinitionId, outputParameterNameEntry.getKey(),
-						filters);
+					_cpInstanceHelper.getCPDefinitionOptionValueRels(
+						cpDefinitionId, outputParameterNameEntry.getKey());
 
 				List<KeyValuePair> data = new ArrayList<>();
 

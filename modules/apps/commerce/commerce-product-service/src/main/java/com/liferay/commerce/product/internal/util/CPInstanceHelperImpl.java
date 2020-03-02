@@ -293,73 +293,34 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	}
 
 	@Override
-	public List<CPDefinitionOptionValueRel> getCPDefinitionOptionValueRel(
-			long cpDefinitionId, String optionKey,
-			Map<String, String> optionMap)
-		throws PortalException {
-
-		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
-			cpDefinitionId);
+	public List<CPDefinitionOptionValueRel> getCPDefinitionOptionValueRels(
+		long cpDefinitionId, String cpDefinitionOptionRelKey) {
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			_cpDefinitionOptionRelLocalService.fetchCPDefinitionOptionRelByKey(
-				cpDefinitionId, optionKey);
+				cpDefinitionId, cpDefinitionOptionRelKey);
 
-		Indexer<CPInstance> indexer = IndexerRegistryUtil.nullSafeGetIndexer(
-			CPInstance.class);
-
-		SearchContext searchContext = new SearchContext();
-
-		Map<String, Serializable> attributes = new HashMap<>();
-
-		attributes.put(CPField.CP_DEFINITION_ID, cpDefinitionId);
-		attributes.put(CPField.PUBLISHED, Boolean.TRUE);
-		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
-
-		List<String> optionsKeys = new ArrayList<>();
-
-		for (Map.Entry<String, String> optionEntry : optionMap.entrySet()) {
-			String fieldName =
-				"ATTRIBUTE_" + optionEntry.getKey() + "_VALUE_ID";
-
-			optionsKeys.add(fieldName);
-
-			attributes.put(fieldName, optionEntry.getValue());
-		}
-
-		attributes.put("OPTIONS", ArrayUtil.toStringArray(optionsKeys));
-
-		searchContext.setAttributes(attributes);
-
-		QueryConfig queryConfig = searchContext.getQueryConfig();
-
-		queryConfig.setHighlightEnabled(false);
-		queryConfig.setScoreEnabled(false);
-
-		searchContext.setCompanyId(cpDefinition.getCompanyId());
-		searchContext.setGroupIds(new long[] {cpDefinition.getGroupId()});
-
-		String optionFieldName = "ATTRIBUTE_" + optionKey + "_VALUE_ID";
-
-		Hits hits = indexer.search(searchContext, optionFieldName);
-
-		Document[] documents = hits.getDocs();
+		List<CPInstanceOptionValueRel> cpDefinitionCPInstanceOptionValueRels =
+			_cpInstanceOptionValueRelLocalService.
+				getCPDefinitionCPInstanceOptionValueRels(cpDefinitionId);
 
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			new ArrayList<>();
 
-		for (Document document : documents) {
-			String key = GetterUtil.getString(document.get(optionFieldName));
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+				cpDefinitionCPInstanceOptionValueRels) {
 
-			if (Validator.isNull(key)) {
+			if (cpDefinitionOptionRel.getCPDefinitionOptionRelId() !=
+					cpInstanceOptionValueRel.getCPDefinitionOptionRelId()) {
+
 				continue;
 			}
 
 			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 				_cpDefinitionOptionValueRelLocalService.
 					fetchCPDefinitionOptionValueRel(
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-						key);
+						cpInstanceOptionValueRel.
+							getCPDefinitionOptionValueRelId());
 
 			if ((cpDefinitionOptionValueRel != null) &&
 				!cpDefinitionOptionValueRels.contains(
@@ -890,8 +851,6 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 		DDMForm ddmForm = new DDMForm();
 
-		Map<String, String> filters = new HashMap<>();
-
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinitionOptionRels) {
 
@@ -904,8 +863,8 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels = null;
 
 			if (cpDefinitionOptionRel.isSkuContributor() && publicStore) {
-				cpDefinitionOptionValueRels = getCPDefinitionOptionValueRel(
-					cpDefinitionId, cpDefinitionOptionRel.getKey(), filters);
+				cpDefinitionOptionValueRels = getCPDefinitionOptionValueRels(
+					cpDefinitionId, cpDefinitionOptionRel.getKey());
 			}
 			else {
 				cpDefinitionOptionValueRels =
