@@ -281,7 +281,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 	}
 
 	protected JSONObject serialize(
-		List<String> includeAttributeNames, T model) {
+		List<String> includeAttributeNames, BaseModel model) {
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -332,7 +332,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 			}
 		}
 
-		jsonObject.put(getPrimaryKeyName(), model.getPrimaryKeyObj());
+		jsonObject.put(getPrimaryKeyName(), baseModel.getPrimaryKeyObj());
 
 		return jsonObject;
 	}
