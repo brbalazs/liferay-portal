@@ -273,7 +273,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 	@Override
 	public Map<Long, List<Long>>
 			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
-				long cpDefinitionId, String json)
+				long cpDefinitionId, boolean skuContributorsOnly, String json)
 		throws PortalException {
 
 		if (Validator.isNull(json)) {
@@ -295,6 +295,12 @@ public class CPDefinitionOptionRelLocalServiceImpl
 						cpDefinitionId, jsonObject.getString("key"));
 
 			if (cpDefinitionOptionRel == null) {
+				continue;
+			}
+
+			if (skuContributorsOnly &&
+				!cpDefinitionOptionRel.isSkuContributor()) {
+
 				continue;
 			}
 
@@ -330,6 +336,17 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		}
 
 		return cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds;
+	}
+
+	@Override
+	public Map<Long, List<Long>>
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				long cpDefinitionId, String json)
+		throws PortalException {
+
+		return cpDefinitionOptionRelLocalService.
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				cpDefinitionId, false, json);
 	}
 
 	@Override
