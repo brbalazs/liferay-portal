@@ -22,7 +22,6 @@ import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefiniti
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
-import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
@@ -116,8 +115,8 @@ public class CPDefinitionInstancesScreenNavigationEntry
 			new CPInstanceDisplayContext(
 				_actionHelper, httpServletRequest,
 				_commerceCurrencyLocalService, _commercePriceFormatter,
-				_cpDefinitionOptionRelService, _cpInstanceService,
-				_cpInstanceHelper, _cpMeasurementUnitLocalService);
+				_cpDefinitionOptionRelService, _cpInstanceHelper,
+				_cpMeasurementUnitLocalService);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, cpInstanceDisplayContext);
@@ -150,9 +149,6 @@ public class CPDefinitionInstancesScreenNavigationEntry
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
-
-	@Reference
-	private CPInstanceService _cpInstanceService;
 
 	@Reference
 	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;

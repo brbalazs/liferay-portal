@@ -20,7 +20,6 @@ import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.definitions.web.internal.display.context.CPInstanceDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
-import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
@@ -56,8 +55,8 @@ public class ViewCPInstancesMVCRenderCommand implements MVCRenderCommand {
 			new CPInstanceDisplayContext(
 				_actionHelper, _portal.getHttpServletRequest(renderRequest),
 				_commerceCurrencyLocalService, _commercePriceFormatter,
-				_cpDefinitionOptionRelService, _cpInstanceService,
-				_cpInstanceHelper, _cpMeasurementUnitLocalService);
+				_cpDefinitionOptionRelService, _cpInstanceHelper,
+				_cpMeasurementUnitLocalService);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, cpInstanceDisplayContext);
@@ -79,9 +78,6 @@ public class ViewCPInstancesMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
-
-	@Reference
-	private CPInstanceService _cpInstanceService;
 
 	@Reference
 	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
