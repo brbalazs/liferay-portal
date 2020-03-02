@@ -17,12 +17,6 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String lifecycle = (String)request.getAttribute(LiferayPortletRequest.LIFECYCLE_PHASE);
-
-PortletURL catalogURLObj = PortalUtil.getControlPanelPortletURL(request, CPPortletKeys.CP_DEFINITIONS, lifecycle);
-
-String catalogURL = catalogURLObj.toString();
-
 CPDefinitionSubscriptionInfoDisplayContext cpDefinitionSubscriptionInfoDisplayContext = (CPDefinitionSubscriptionInfoDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CPDefinition cpDefinition = cpDefinitionSubscriptionInfoDisplayContext.getCPDefinition();
@@ -65,79 +59,69 @@ if (maxSubscriptionCycles > 0) {
 
 <portlet:actionURL name="editProductDefinition" var="editProductDefinitionSubscriptionInfoActionURL" />
 
-<aui:form action="<%= editProductDefinitionSubscriptionInfoActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= editProductDefinitionSubscriptionInfoActionURL %>" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="updateSubscriptionInfo" />
 	<aui:input name="redirect" type="hidden" value="<%= String.valueOf(cpDefinitionSubscriptionInfoDisplayContext.getPortletURL()) %>" />
 	<aui:input name="cpDefinitionId" type="hidden" value="<%= cpDefinitionId %>" />
 
 	<aui:model-context bean="<%= cpDefinition %>" model="<%= CPDefinition.class %>" />
 
-	<aui:fieldset-group markupView="lexicon">
-		<aui:fieldset>
-			<aui:input checked="<%= subscriptionEnabled %>" label="enable-subscription" name="subscriptionEnabled" type="toggle-switch" value="<%= subscriptionEnabled %>" />
+	<aui:input checked="<%= subscriptionEnabled %>" label="enable-subscription" name="subscriptionEnabled" type="toggle-switch" value="<%= subscriptionEnabled %>" />
 
-			<div class="<%= subscriptionEnabled ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />subscriptionOptions">
-				<aui:select name="subscriptionType" onChange='<%= renderResponse.getNamespace() + "selectSubscriptionType();" %>'>
+	<div class="<%= subscriptionEnabled ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />subscriptionOptions">
+		<aui:select name="subscriptionType" onChange='<%= renderResponse.getNamespace() + "selectSubscriptionType();" %>'>
 
-					<%
-					for (CPSubscriptionType curCPSubscriptionType : cpSubscriptionTypes) {
-					%>
+			<%
+			for (CPSubscriptionType curCPSubscriptionType : cpSubscriptionTypes) {
+			%>
 
-						<aui:option data-label="<%= curCPSubscriptionType.getLabel(locale) %>" label="<%= curCPSubscriptionType.getLabel(locale) %>" selected="<%= subscriptionType.equals(curCPSubscriptionType.getName()) %>" value="<%= curCPSubscriptionType.getName() %>" />
+				<aui:option data-label="<%= curCPSubscriptionType.getLabel(locale) %>" label="<%= curCPSubscriptionType.getLabel(locale) %>" selected="<%= subscriptionType.equals(curCPSubscriptionType.getName()) %>" value="<%= curCPSubscriptionType.getName() %>" />
 
-					<%
-					}
-					%>
+			<%
+			}
+			%>
 
-				</aui:select>
+		</aui:select>
 
-				<%
-				if (cpSubscriptionTypeJSPContributor != null) {
-					cpSubscriptionTypeJSPContributor.render(cpDefinition, request, PipingServletResponse.createPipingServletResponse(pageContext));
-				}
-				%>
+		<%
+		if (cpSubscriptionTypeJSPContributor != null) {
+			cpSubscriptionTypeJSPContributor.render(cpDefinition, request, PipingServletResponse.createPipingServletResponse(pageContext));
+		}
+		%>
 
-				<div id="<portlet:namespace />cycleLengthContainer">
-					<aui:input name="subscriptionLength" suffix="<%= defaultCPSubscriptionTypeLabel %>" value="<%= String.valueOf(subscriptionLength) %>">
-						<aui:validator name="digits" />
-						<aui:validator name="min">1</aui:validator>
-					</aui:input>
-				</div>
+		<div id="<portlet:namespace />cycleLengthContainer">
+			<aui:input name="subscriptionLength" suffix="<%= defaultCPSubscriptionTypeLabel %>" value="<%= String.valueOf(subscriptionLength) %>">
+				<aui:validator name="digits" />
+				<aui:validator name="min">1</aui:validator>
+			</aui:input>
+		</div>
 
-				<div id="<portlet:namespace />neverEndsContainer">
-					<div class="never-ends-header">
-						<aui:input checked="<%= ending ? false : true %>" name="neverEnds" type="toggle-switch" />
-					</div>
-
-					<div class="never-ends-content">
-						<aui:input disabled="<%= ending ? false : true %>" helpMessage="max-subscription-cycles-help" label="end-after" name="maxSubscriptionCycles" suffix='<%= LanguageUtil.get(request, "cycles") %>' value="<%= String.valueOf(maxSubscriptionCycles) %>">
-							<aui:validator name="digits" />
-
-							<aui:validator errorMessage='<%= LanguageUtil.format(request, "please-enter-a-value-greater-than-or-equal-to-x", 1) %>' name="custom">
-								function(val, fieldNode, ruleValue) {
-									if (AUI.$('#<portlet:namespace />neverEnds')[0].checked) {
-										return true;
-									}
-
-									if (parseInt(val, 10) > 0) {
-										return true;
-									}
-
-									return false;
-								}
-							</aui:validator>
-						</aui:input>
-					</div>
-				</div>
+		<div id="<portlet:namespace />neverEndsContainer">
+			<div class="never-ends-header">
+				<aui:input checked="<%= ending ? false : true %>" name="neverEnds" type="toggle-switch" />
 			</div>
-		</aui:fieldset>
-	</aui:fieldset-group>
 
-	<aui:button-row>
-		<aui:button cssClass="btn-lg" type="submit" />
+			<div class="never-ends-content">
+				<aui:input disabled="<%= ending ? false : true %>" helpMessage="max-subscription-cycles-help" label="end-after" name="maxSubscriptionCycles" suffix='<%= LanguageUtil.get(request, "cycles") %>' value="<%= String.valueOf(maxSubscriptionCycles) %>">
+					<aui:validator name="digits" />
 
-		<aui:button cssClass="btn-lg" href="<%= catalogURL %>" type="cancel" />
-	</aui:button-row>
+					<aui:validator errorMessage='<%= LanguageUtil.format(request, "please-enter-a-value-greater-than-or-equal-to-x", 1) %>' name="custom">
+						function(val, fieldNode, ruleValue) {
+							if (AUI.$('#<portlet:namespace />neverEnds')[0].checked) {
+								return true;
+							}
+
+							if (parseInt(val, 10) > 0) {
+								return true;
+							}
+
+							return false;
+						}
+					</aui:validator>
+				</aui:input>
+			</div>
+		</div>
+	</div>
 </aui:form>
 
 <aui:script>

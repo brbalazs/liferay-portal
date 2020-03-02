@@ -73,8 +73,7 @@ boolean ending = maxSubscriptionCycles > 0;
 	<commerce-ui:panel
 		title='<%= LanguageUtil.get(request, "subscriptions") %>'
 	>
-		<aui:fieldset>
-			<aui:input checked="<%= overrideSubscriptionInfo %>" label="override-subscription-settings" name="overrideSubscriptionInfo" type="toggle-switch" value="<%= overrideSubscriptionInfo %>" />
+		<aui:input checked="<%= overrideSubscriptionInfo %>" label="override-subscription-settings" name="overrideSubscriptionInfo" type="toggle-switch" value="<%= overrideSubscriptionInfo %>" />
 
 		<div class="<%= overrideSubscriptionInfo ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />subscriptionInfo">
 			<aui:input checked="<%= subscriptionEnabled %>" label="enable-subscription" name="subscriptionEnabled" type="toggle-switch" value="<%= subscriptionEnabled %>" />
@@ -94,20 +93,20 @@ boolean ending = maxSubscriptionCycles > 0;
 
 				</aui:select>
 
-			<%
-			if (cpSubscriptionTypeJSPContributor != null) {
-				cpSubscriptionTypeJSPContributor.render(cpInstance, request, PipingServletResponse.createPipingServletResponse(pageContext));
-			}
-			%>
+				<%
+				if (cpSubscriptionTypeJSPContributor != null) {
+					cpSubscriptionTypeJSPContributor.render(cpInstance, request, PipingServletResponse.createPipingServletResponse(pageContext));
+				}
+				%>
 
-			<div id="<portlet:namespace />cycleLengthContainer">
-				<aui:input name="subscriptionLength" suffix="<%= defaultCPSubscriptionTypeLabel %>" value="<%= String.valueOf(subscriptionLength) %>">
-					<aui:validator name="digits" />
-					<aui:validator name="min">1</aui:validator>
-				</aui:input>
-			</div>
+				<div id="<portlet:namespace />cycleLengthContainer">
+					<aui:input name="subscriptionLength" suffix="<%= defaultCPSubscriptionTypeLabel %>" value="<%= String.valueOf(subscriptionLength) %>">
+						<aui:validator name="digits" />
+						<aui:validator name="min">1</aui:validator>
+					</aui:input>
+				</div>
 
-			<div id="<portlet:namespace />neverEndsContainer">
+				<div id="<portlet:namespace />neverEndsContainer">
 					<div class="never-ends-header">
 						<aui:input checked="<%= ending ? false : true %>" name="neverEnds" type="toggle-switch" />
 					</div>
@@ -132,7 +131,8 @@ boolean ending = maxSubscriptionCycles > 0;
 						</aui:input>
 					</div>
 				</div>
-		</aui:fieldset>
+			</div>
+		</div>
 	</commerce-ui:panel>
 
 	<aui:button-row>
