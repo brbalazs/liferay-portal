@@ -45,7 +45,6 @@ import java.time.format.FormatStyle;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -230,9 +229,7 @@ public abstract class BaseDDMFormExporter implements DDMFormExporter {
 			ddmFormInstanceVersionLocalService.getFormInstanceVersions(
 				formInstanceId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
-		formInstanceVersions = ListUtil.copy(formInstanceVersions);
-
-		Collections.sort(
+		formInstanceVersions = ListUtil.sort(
 			formInstanceVersions, new FormInstanceVersionVersionComparator());
 
 		List<DDMStructureVersion> ddmStructureVersions = new ArrayList<>();
