@@ -7417,6 +7417,10 @@ osb.lcs.portlet.oauth.consumer.secret=${osb.lcs.portlet.oauth.consumer.secret}</
 		<priority value="INFO" />
 	</category>
 
+	<category name="com.zaxxer.hikari.pool.PoolBase">
+		<priority value="ERROR" />
+	</category>
+
 	<root>
 		<priority value="INFO" />
 		<appender-ref ref="CONSOLE" />
