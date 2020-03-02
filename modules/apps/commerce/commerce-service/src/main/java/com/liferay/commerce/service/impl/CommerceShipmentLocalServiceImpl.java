@@ -21,7 +21,9 @@ import com.liferay.commerce.exception.CommerceShipmentStatusException;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShipment;
+import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.base.CommerceShipmentLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
@@ -343,6 +345,20 @@ public class CommerceShipmentLocalServiceImpl
 
 		CommerceShipment commerceShipment =
 			commerceShipmentPersistence.findByPrimaryKey(commerceShipmentId);
+
+		List<CommerceShipmentItem> commerceShipmentItems =
+			commerceShipmentItemLocalService.getCommerceShipmentItems(
+				commerceShipmentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		for (CommerceShipmentItem commerceShipmentItem :
+				commerceShipmentItems) {
+
+			if ((commerceShipmentItem.getQuantity() < 1) ||
+				(commerceShipmentItem.getCommerceInventoryWarehouseId() <= 0)) {
+
+				throw new CommerceShipmentStatusException();
+			}
+		}
 
 		commerceShipment.setStatus(status);
 

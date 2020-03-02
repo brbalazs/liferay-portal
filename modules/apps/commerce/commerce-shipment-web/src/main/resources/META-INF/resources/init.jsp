@@ -29,6 +29,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.commerce.constants.CommercePortletKeys" %><%@
 page import="com.liferay.commerce.constants.CommerceShipmentDataSetConstants" %><%@
 page import="com.liferay.commerce.exception.CommerceShipmentShippingDateException" %><%@
+page import="com.liferay.commerce.exception.CommerceShipmentStatusException" %><%@
 page import="com.liferay.commerce.exception.NoSuchShipmentException" %><%@
 page import="com.liferay.commerce.exception.NoSuchShipmentItemException" %><%@
 page import="com.liferay.commerce.model.CommerceAddress" %><%@

@@ -33,6 +33,8 @@ else {
 }
 %>
 
+<liferay-ui:error embed="<%= false %>" exception="<%= CommerceShipmentStatusException.class %>" message="please-select-a-valid-warehouse-and-quantity-for-all-shipment-items" />
+
 <commerce-ui:header
 	actions="<%= commerceShipmentDisplayContext.getHeaderActionModels() %>"
 	bean="<%= commerceShipment %>"

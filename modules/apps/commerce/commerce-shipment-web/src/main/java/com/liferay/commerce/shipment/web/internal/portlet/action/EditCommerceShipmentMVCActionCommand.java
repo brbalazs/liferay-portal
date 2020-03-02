@@ -16,6 +16,7 @@ package com.liferay.commerce.shipment.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.exception.CommerceShipmentShippingDateException;
+import com.liferay.commerce.exception.CommerceShipmentStatusException;
 import com.liferay.commerce.exception.NoSuchShipmentException;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
@@ -153,12 +154,19 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 		}
 		catch (Exception e) {
 			if (e instanceof CommerceShipmentShippingDateException ||
+				e instanceof CommerceShipmentStatusException ||
 				e instanceof NoSuchShipmentException ||
 				e instanceof PrincipalException) {
 
+				hideDefaultErrorMessage(actionRequest);
+				hideDefaultSuccessMessage(actionRequest);
+
 				SessionErrors.add(actionRequest, e.getClass());
 
-				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
+				String redirect = ParamUtil.getString(
+					actionRequest, "redirect");
+
+				sendRedirect(actionRequest, actionResponse, redirect);
 			}
 			else {
 				throw e;
