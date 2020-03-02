@@ -12,11 +12,16 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 1,
-				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPPublisherPortlet_INSTANCE_minium"
+				"portletName": "com_liferay_commerce_dashboard_web_internal_portlet_CommerceDashboardForecastsChartPortlet_INSTANCE_minium"
 			},
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 2,
+				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPPublisherPortlet_INSTANCE_minium"
+			},
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 3,
 				"portletName": "com_liferay_blogs_web_portlet_BlogsPortlet_INSTANCE_minium"
 			}
 		],
