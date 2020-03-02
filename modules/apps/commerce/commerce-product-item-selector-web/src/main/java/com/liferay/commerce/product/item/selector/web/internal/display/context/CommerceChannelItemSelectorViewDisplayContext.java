@@ -68,15 +68,6 @@ public class CommerceChannelItemSelectorViewDisplayContext
 			SearchContainer.DEFAULT_ORDER_BY_TYPE_PARAM, "desc");
 	}
 
-	protected String getClassName() {
-		return ParamUtil.getString(
-			cpRequestHelper.getRenderRequest(), "className");
-	}
-
-	protected long getClassPK() {
-		return ParamUtil.getLong(cpRequestHelper.getRenderRequest(), "classPK");
-	}
-
 	public PortletURL getPortletURL() {
 		_portletURL.setParameter("className", getClassName());
 		_portletURL.setParameter("classPK", String.valueOf(getClassPK()));
@@ -123,6 +114,15 @@ public class CommerceChannelItemSelectorViewDisplayContext
 	protected long[] getCheckedCommerceChannelIds() {
 		return ParamUtil.getLongValues(
 			cpRequestHelper.getRenderRequest(), "checkedCommerceChannelIds");
+	}
+
+	protected String getClassName() {
+		return ParamUtil.getString(
+			cpRequestHelper.getRenderRequest(), "className");
+	}
+
+	protected long getClassPK() {
+		return ParamUtil.getLong(cpRequestHelper.getRenderRequest(), "classPK");
 	}
 
 	private final CommerceChannelRelService _commerceChannelRelService;
