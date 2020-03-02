@@ -14,26 +14,12 @@
 
 package com.liferay.commerce.shipment.web.internal.display.context;
 
-import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
-import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
-import com.liferay.commerce.model.CommerceAddress;
-import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.model.CommerceRegion;
-import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
-import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceOrderItemService;
-import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.commerce.shipment.web.internal.portlet.action.ActionHelper;
-import com.liferay.commerce.util.CommerceUtil;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.ParamUtil;
-
-import java.util.List;
 
 import javax.portlet.PortletURL;
 
@@ -47,58 +33,24 @@ public class CommerceShipmentItemDisplayContext
 
 	public CommerceShipmentItemDisplayContext(
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
-		CommerceCountryService commerceCountryService,
-		CommerceInventoryWarehouseService commerceInventoryWarehouseService,
 		CommerceOrderItemService commerceOrderItemService,
-		CommerceRegionService commerceRegionService,
 		CommerceShipmentItemService commerceShipmentItemService) {
 
-		super(
-			actionHelper, httpServletRequest,
-			CommerceShipmentItem.class.getSimpleName());
+		super(actionHelper, httpServletRequest);
 
-		_commerceCountryService = commerceCountryService;
-		_commerceInventoryWarehouseService = commerceInventoryWarehouseService;
 		_commerceOrderItemService = commerceOrderItemService;
-		_commerceRegionService = commerceRegionService;
 		_commerceShipmentItemService = commerceShipmentItemService;
 	}
 
-	public List<CommerceCountry> getCommerceCountries() {
-		return _commerceCountryService.getShippingCommerceCountries(
-			cpRequestHelper.getCompanyId(), true, true);
-	}
-
-	public CommerceInventoryWarehouse getCommerceInventoryWarehouse(
-			long commerceInventoryWarehouseId)
-		throws PortalException {
-
-		return _commerceInventoryWarehouseService.getCommerceInventoryWarehouse(
-			commerceInventoryWarehouseId);
-	}
-
 	public CommerceOrderItem getCommerceOrderItem() throws PortalException {
-		long commerceOrderItemId = ParamUtil.getLong(
-			httpServletRequest, "commerceOrderItemId");
+		CommerceShipmentItem commerceShipmentItem = getCommerceShipmentItem();
 
-		return _commerceOrderItemService.getCommerceOrderItem(
-			commerceOrderItemId);
-	}
-
-	public List<CommerceRegion> getCommerceRegions() throws PortalException {
-		long commerceCountryId = 0;
-
-		CommerceShipment commerceShipment = getCommerceShipment();
-
-		CommerceAddress commerceAddress =
-			commerceShipment.fetchCommerceAddress();
-
-		if (commerceAddress != null) {
-			commerceCountryId = commerceAddress.getCommerceCountryId();
+		if (commerceShipmentItem == null) {
+			return null;
 		}
 
-		return _commerceRegionService.getCommerceRegions(
-			commerceCountryId, true);
+		return _commerceOrderItemService.getCommerceOrderItem(
+			commerceShipmentItem.getCommerceOrderItemId());
 	}
 
 	public CommerceShipmentItem getCommerceShipmentItem()
@@ -114,16 +66,6 @@ public class CommerceShipmentItemDisplayContext
 		return _commerceShipmentItem;
 	}
 
-	public long getCommerceShipmentItemId() throws PortalException {
-		CommerceShipmentItem commerceShipmentItem = getCommerceShipmentItem();
-
-		if (commerceShipmentItem == null) {
-			return 0;
-		}
-
-		return commerceShipmentItem.getCommerceShipmentItemId();
-	}
-
 	@Override
 	public PortletURL getPortletURL() throws PortalException {
 		PortletURL portletURL = super.getPortletURL();
@@ -132,41 +74,6 @@ public class CommerceShipmentItemDisplayContext
 			"mvcRenderCommandName", "viewCommerceShipmentDetail");
 
 		return portletURL;
-	}
-
-	@Override
-	public SearchContainer<CommerceShipmentItem> getSearchContainer()
-		throws PortalException {
-
-		if (searchContainer != null) {
-			return searchContainer;
-		}
-
-		searchContainer = new SearchContainer<>(
-			liferayPortletRequest, getPortletURL(), null, null);
-
-		OrderByComparator<CommerceShipmentItem> orderByComparator =
-			CommerceUtil.getCommerceShipmentItemOrderByComparator(
-				getOrderByCol(), getOrderByType());
-
-		searchContainer.setEmptyResultsMessage("no-shipment-items-were-found");
-		searchContainer.setOrderByCol(getOrderByCol());
-		searchContainer.setOrderByComparator(orderByComparator);
-		searchContainer.setOrderByType(getOrderByType());
-
-		int total = _commerceShipmentItemService.getCommerceShipmentItemsCount(
-			getCommerceShipmentId());
-
-		searchContainer.setTotal(total);
-
-		List<CommerceShipmentItem> results =
-			_commerceShipmentItemService.getCommerceShipmentItems(
-				getCommerceShipmentId(), searchContainer.getStart(),
-				searchContainer.getEnd(), orderByComparator);
-
-		searchContainer.setResults(results);
-
-		return searchContainer;
 	}
 
 	public int getToSendQuantity() throws PortalException {
@@ -178,11 +85,7 @@ public class CommerceShipmentItemDisplayContext
 				commerceOrderItem.getCommerceOrderItemId());
 	}
 
-	private final CommerceCountryService _commerceCountryService;
-	private final CommerceInventoryWarehouseService
-		_commerceInventoryWarehouseService;
 	private final CommerceOrderItemService _commerceOrderItemService;
-	private final CommerceRegionService _commerceRegionService;
 	private CommerceShipmentItem _commerceShipmentItem;
 	private final CommerceShipmentItemService _commerceShipmentItemService;
 
