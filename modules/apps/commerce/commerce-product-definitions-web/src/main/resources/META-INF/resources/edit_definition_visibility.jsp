@@ -78,87 +78,82 @@ contextParams.put("cpDefinitionId", String.valueOf(cpDefinitionId));
 </aui:form>
 
 <aui:script use="liferay-item-selector-dialog">
-	Liferay.on(
-		'<portlet:namespace />selectCommerceAccountGroup',
-		function() {
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
-				eventName: 'accountGroupSelectItem',
-				on: {
-					selectedItemChange: function(event) {
-						var <portlet:namespace />addCommerceAccountGroupIds = [];
+	Liferay.on('<portlet:namespace />selectCommerceAccountGroup', function() {
+		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+			eventName: 'accountGroupSelectItem',
+			on: {
+				selectedItemChange: function(event) {
+					var <portlet:namespace />addCommerceAccountGroupIds = [];
 
-						var selectedItems = event.newVal;
+					var selectedItems = event.newVal;
 
-						if (selectedItems) {
-							var A = AUI();
+					if (selectedItems) {
+						var A = AUI();
 
-							A.Array.each(selectedItems, function(
-								item,
-								index,
-								selectedItems
-							) {
-								<portlet:namespace />addCommerceAccountGroupIds.push(
-									item.commerceAccountGroupId
-								);
-							});
-
-							$('#<portlet:namespace />commerceAccountGroupIds').val(
-								<portlet:namespace />addCommerceAccountGroupIds
+						A.Array.each(selectedItems, function(
+							item,
+							index,
+							selectedItems
+						) {
+							<portlet:namespace />addCommerceAccountGroupIds.push(
+								item.commerceAccountGroupId
 							);
+						});
 
-							var form = $('#<portlet:namespace />fm');
+						$('#<portlet:namespace />commerceAccountGroupIds').val(
+							<portlet:namespace />addCommerceAccountGroupIds
+						);
 
-							submitForm(form);
-						}
+						var form = $('#<portlet:namespace />fm');
+
+						submitForm(form);
 					}
-				},
-				title: '<liferay-ui:message key="select-account-group" />',
-				url: '<%= cpDefinitionsDisplayContext.getAccountGroupItemSelectorUrl() %>'
-			});
+				}
+			},
+			title: '<liferay-ui:message key="select-account-group" />',
+			url:
+				'<%= cpDefinitionsDisplayContext.getAccountGroupItemSelectorUrl() %>'
+		});
 
-			itemSelectorDialog.open();
-		}
-	);
+		itemSelectorDialog.open();
+	});
 
-	Liferay.on(
-		'<portlet:namespace />selectCommerceChannel',
-		function() {
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
-				eventName: 'channelSelectItem',
-				on: {
-					selectedItemChange: function(event) {
-						var <portlet:namespace />addCommerceChannelIds = [];
+	Liferay.on('<portlet:namespace />selectCommerceChannel', function() {
+		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+			eventName: 'channelSelectItem',
+			on: {
+				selectedItemChange: function(event) {
+					var <portlet:namespace />addCommerceChannelIds = [];
 
-						var selectedItems = event.newVal;
+					var selectedItems = event.newVal;
 
-						if (selectedItems) {
-							var A = AUI();
+					if (selectedItems) {
+						var A = AUI();
 
-							A.Array.each(selectedItems, function(
-								item,
-								index,
-								selectedItems
-							) {
-								<portlet:namespace />addCommerceChannelIds.push(
-									item.commerceChannelId
-								);
-							});
-
-							$('#<portlet:namespace />commerceChannelIds').val(
-								<portlet:namespace />addCommerceChannelIds
+						A.Array.each(selectedItems, function(
+							item,
+							index,
+							selectedItems
+						) {
+							<portlet:namespace />addCommerceChannelIds.push(
+								item.commerceChannelId
 							);
+						});
 
-							var form = $('#<portlet:namespace />fm');
+						$('#<portlet:namespace />commerceChannelIds').val(
+							<portlet:namespace />addCommerceChannelIds
+						);
 
-							submitForm(form);
-						}
+						var form = $('#<portlet:namespace />fm');
+
+						submitForm(form);
 					}
-				},
-				title: '<liferay-ui:message key="select-channel" />',
-				url: '<%= cpDefinitionsDisplayContext.getChannelItemSelectorUrl() %>'
-			});
+				}
+			},
+			title: '<liferay-ui:message key="select-channel" />',
+			url: '<%= cpDefinitionsDisplayContext.getChannelItemSelectorUrl() %>'
+		});
 
-			itemSelectorDialog.open();
-		}
-	);
+		itemSelectorDialog.open();
+	});
 </aui:script>
