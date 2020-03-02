@@ -596,6 +596,8 @@ definition {
 
 		SitePages.addPublicPage(pageName = "Site Page Name");
 
+		Alert.closeMessage(messageType = "SUCCESS");
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
