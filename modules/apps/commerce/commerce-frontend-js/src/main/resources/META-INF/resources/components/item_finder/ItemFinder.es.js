@@ -17,6 +17,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {showErrorNotification} from '../../utilities/index.es';
+import {DATASET_ACTION_PERFORMED} from '../../utilities/eventsDefinitions.es';
 import AddOrCreate from './AddOrCreate.es';
 
 function ItemFinder(props) {
@@ -25,7 +26,7 @@ function ItemFinder(props) {
 	const [currentPage, updateCurrentPage] = useState(props.currentPage);
 	const [textFilter, updateTextFilter] = useState('');
 	const [itemsCount, updateItemsCount] = useState(props.itemsCount || 0);
-	const [selectedItems, updateSelectedItems] = useState(props.selectedItems);
+	const [selectedItems, updateSelectedItems] = useState([]);
 
 	useEffect(() => {
 		fetch(
@@ -51,6 +52,22 @@ function ItemFinder(props) {
 		updateItemsCount,
 		props.apiUrl
 	]);
+
+	useEffect(() => {
+		props.getSelectedItems()
+			.then(updateSelectedItems);
+
+		function handleDatasetActions(e) {
+			if (props.linkedDatasetsId.includes(e.id)) {
+				props.getSelectedItems()
+					.then(updateSelectedItems);
+			}
+		}
+
+		Liferay.on(DATASET_ACTION_PERFORMED, handleDatasetActions)
+
+		return () => Liferay.detach(DATASET_ACTION_PERFORMED, handleDatasetActions)
+	}, [props, props.getSelectedItems])
 
 	function selectItem(itemId) {
 		const selectedItem = items.find(
@@ -101,13 +118,14 @@ function ItemFinder(props) {
 ItemFinder.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
 	createNewItemLabel: PropTypes.string,
+	getSelectedItems: PropTypes.func.isRequired,
 	itemsKey: PropTypes.string.isRequired,
+	linkedDatasetsId: PropTypes.arrayOf(PropTypes.string),
 	onItemCreated: PropTypes.func.isRequired,
 	onItemSelected: PropTypes.func.isRequired,
 	pageSize: PropTypes.number,
 	panelHeaderLabel: PropTypes.string,
 	schema: PropTypes.object.isRequired,
-	selectedItems: PropTypes.array,
 	titleLabel: PropTypes.string
 };
 

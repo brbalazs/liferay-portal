@@ -19,6 +19,7 @@ import React, {useState, useRef, useEffect} from 'react';
 
 import {closest} from '../../utilities/closest.es';
 import {
+	DATASET_ACTION_PERFORMED,
 	DATASET_DISPLAY_UPDATED,
 	OPEN_MODAL,
 	OPEN_SIDE_PANEL,
@@ -377,7 +378,12 @@ function DatasetDisplay(props) {
 
 	function executeAsyncItemAction(url, method) {
 		executeAsyncAction(url, method)
-			.then(_ => refreshData())
+			.then(_ => {
+				refreshData();
+				Liferay.fire(DATASET_ACTION_PERFORMED, {
+					id: props.id
+				})
+			})
 			.catch(e => {
 				console.error(e);
 				showNotification(

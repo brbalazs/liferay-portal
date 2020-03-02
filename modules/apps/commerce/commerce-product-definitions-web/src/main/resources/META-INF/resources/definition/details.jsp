@@ -264,25 +264,24 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 							});
 					}
 
-					getSelectedItems().then(function(selectedItemsIds) {
-						itemFinder.default('itemFinder', 'item-finder-root', {
-							apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
-							createNewItemLabel:
-								'<%= LanguageUtil.get(request, "create-new-specification") %>',
-							itemsKey: 'id',
-							onItemCreated: addNewItem,
-							onItemSelected: selectItem,
-							pageSize: 10,
-							panelHeaderLabel:
-								'<%= LanguageUtil.get(request, "add-new-specification") %>',
-							schema: {
-								itemTitle: ['title', themeDisplay.getLanguageId()]
-							},
-							selectedItems: selectedItemsIds,
-							spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-							titleLabel:
-								'<%= LanguageUtil.get(request, "select-an-existing-specification") %>'
-						});
+					itemFinder.default('itemFinder', 'item-finder-root', {
+						apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+						createNewItemLabel:
+							'<%= LanguageUtil.get(request, "create-new-specification") %>',
+						getSelectedItems: getSelectedItems,
+						itemsKey: 'id',
+						linkedDatasetsId: ['<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'],
+						onItemCreated: addNewItem,
+						onItemSelected: selectItem,
+						pageSize: 10,
+						panelHeaderLabel:
+							'<%= LanguageUtil.get(request, "add-new-specification") %>',
+						schema: {
+							itemTitle: ['title', themeDisplay.getLanguageId()]
+						},
+						spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
+						titleLabel:
+							'<%= LanguageUtil.get(request, "select-an-existing-specification") %>'
 					});
 				</aui:script>
 			</div>

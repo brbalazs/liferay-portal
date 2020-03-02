@@ -87,20 +87,19 @@ function getSelectedItems() {
 		});
 }
 
-getSelectedItems().then(selectedItemsIds => {
-	launcher('itemFinder', 'item-finder-root-id', {
-		apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
-		createNewItemLabel: 'Create new specification',
-		itemsKey: 'id',
-		onItemCreated: addNewItem,
-		onItemSelected: selectItem,
-		pageSize: 5,
-		panelHeaderLabel: 'Add new specification',
-		schema: {
-			itemTitle: ['title', 'en_US']
-		},
-		selectedItems: selectedItemsIds,
-		spritemap: './assets/icons.svg',
-		titleLabel: 'Select an existing specification'
-	});
+launcher('itemFinder', 'item-finder-root-id', {
+	apiUrl: '/o/headless-commerce-admin-catalog/v1.0/specifications',
+	createNewItemLabel: 'Create new specification',
+	getSelectedItems,
+	itemsKey: 'id',
+	linkedDatasetsId: ['test'],
+	onItemCreated: addNewItem,
+	onItemSelected: selectItem,
+	pageSize: 5,
+	panelHeaderLabel: 'Add new specification',
+	schema: {
+		itemTitle: ['title', 'en_US']
+	},
+	spritemap: './assets/icons.svg',
+	titleLabel: 'Select an existing specification',
 });

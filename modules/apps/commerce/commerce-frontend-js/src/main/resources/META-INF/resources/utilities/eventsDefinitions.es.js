@@ -16,6 +16,7 @@ export const CLOSE_MODAL = 'close-modal';
 export const CLOSE_SIDE_PANEL = 'close-side-panel';
 export const CURRENT_PRODUCT_STATUS_CHANGED = 'current-product-status-changed';
 export const CURRENT_PRODUCT_UPDATED = 'current-product-updated';
+export const DATASET_ACTION_PERFORMED = 'dataset-action-performed';
 export const DATASET_DISPLAY_UPDATED = 'dataset-display-updated';
 export const IFRAME_LOADED = 'iframe-loaded';
 export const OPEN_MODAL = 'open-modal';
@@ -29,6 +30,7 @@ export default {
 	CLOSE_SIDE_PANEL,
 	CURRENT_PRODUCT_STATUS_CHANGED,
 	CURRENT_PRODUCT_UPDATED,
+	DATASET_ACTION_PERFORMED,
 	DATASET_DISPLAY_UPDATED,
 	IFRAME_LOADED,
 	OPEN_MODAL,
