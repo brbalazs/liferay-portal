@@ -16,6 +16,7 @@ package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 
 import com.liferay.asset.kernel.exception.AssetCategoryException;
 import com.liferay.asset.kernel.exception.AssetTagException;
+import com.liferay.commerce.account.model.CommerceAccountGroupRel;
 import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.exception.NoSuchCPDefinitionInventoryException;
 import com.liferay.commerce.model.CPDefinitionInventory;
@@ -157,7 +158,7 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 			else if (cmd.equals("deleteAccountGroup")) {
 				deleteAccountGroup(actionRequest);
 			}
-			else if (cmd.equals("deleteChannels")) {
+			else if (cmd.equals("deleteChannel")) {
 				deleteChannel(actionRequest);
 			}
 			else if (cmd.equals("updateCPDisplayLayout")) {
@@ -506,6 +507,41 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 		long cpDefinitionId = ParamUtil.getLong(
 			actionRequest, "cpDefinitionId");
 
+		// Commerce account group rels
+
+		long[] commerceAccountGroupIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "commerceAccountGroupIds"), 0L);
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			CommerceAccountGroupRel.class.getName(), actionRequest);
+
+		for (long commerceAccountGroupId : commerceAccountGroupIds) {
+			if (commerceAccountGroupId == 0) {
+				continue;
+			}
+
+			_commerceAccountGroupRelService.addCommerceAccountGroupRel(
+				CPDefinition.class.getName(), cpDefinitionId,
+				commerceAccountGroupId, serviceContext);
+		}
+
+		// Commerce channel rels
+
+		long[] commerceChannelIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "commerceChannelIds"), 0L);
+
+		for (long commerceChannelId : commerceChannelIds) {
+			if (commerceChannelId == 0) {
+				continue;
+			}
+
+			_commerceChannelRelService.addCommerceChannelRel(
+				CPDefinition.class.getName(), cpDefinitionId, commerceChannelId,
+				serviceContext);
+		}
+
+		// Filters
+
 		boolean accountGroupFilterEnabled = ParamUtil.getBoolean(
 			actionRequest, "accountGroupFilterEnabled");
 		boolean channelFilterEnabled = ParamUtil.getBoolean(
@@ -515,6 +551,8 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 			cpDefinitionId, accountGroupFilterEnabled);
 		_cpDefinitionService.updateCPDefinitionChannelFilter(
 			cpDefinitionId, channelFilterEnabled);
+
+		// Reindex commerce product definition
 
 		reindexCPDefinition(cpDefinitionId);
 	}
