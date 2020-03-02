@@ -291,7 +291,7 @@ public class CommerceShipmentItemLocalServiceImpl
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			_commerceInventoryWarehouseLocalService.
-				fetchCommerceInventoryWarehouse(commerceInventoryWarehouseId);
+				getCommerceInventoryWarehouse(commerceInventoryWarehouseId);
 
 		if (!commerceInventoryWarehouse.isActive()) {
 			throw new CommerceShipmentInactiveWarehouseException();

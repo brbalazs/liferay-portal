@@ -17,7 +17,7 @@ package com.liferay.commerce.inventory.web.internal.display.context;
 import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
-import com.liferay.commerce.frontend.ClayCreationMenuItem;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
 import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
@@ -218,12 +218,13 @@ public class CommerceInventoryDisplayContext {
 				getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
-			clayCreationMenu.addClayCreationMenuItem(
-				new ClayCreationMenuItem(
+			clayCreationMenu.addClayCreationMenuActionItem(
+				new ClayCreationMenuActionItem(
 					getCreateInventoryItemActionURL(),
 					LanguageUtil.get(
 						_cpRequestHelper.getRequest(), "add-inventory-item"),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+					ClayCreationMenuActionItem.
+						CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
 
 		return clayCreationMenu;
@@ -258,12 +259,13 @@ public class CommerceInventoryDisplayContext {
 				getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
-			clayCreationMenu.addClayCreationMenuItem(
-				new ClayCreationMenuItem(
+			clayCreationMenu.addClayCreationMenuActionItem(
+				new ClayCreationMenuActionItem(
 					getCreateReplenishmentActionURL(),
 					LanguageUtil.get(
 						_cpRequestHelper.getRequest(), "add-income"),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+					ClayCreationMenuActionItem.
+						CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
 
 		return clayCreationMenu;
@@ -309,19 +311,21 @@ public class CommerceInventoryDisplayContext {
 				getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
-			clayCreationMenu.addClayCreationMenuItem(
-				new ClayCreationMenuItem(
+			clayCreationMenu.addClayCreationMenuActionItem(
+				new ClayCreationMenuActionItem(
 					getAddQuantityActionURL(),
 					LanguageUtil.get(
 						_cpRequestHelper.getRequest(), "add-quantity"),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+					ClayCreationMenuActionItem.
+						CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 
-			clayCreationMenu.addClayCreationMenuItem(
-				new ClayCreationMenuItem(
+			clayCreationMenu.addClayCreationMenuActionItem(
+				new ClayCreationMenuActionItem(
 					getTransferQuantitiesActionURL(),
 					LanguageUtil.get(
 						_cpRequestHelper.getRequest(), "transfer-quantity"),
-					ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TARGET_MODAL));
+					ClayCreationMenuActionItem.
+						CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
 
 		return clayCreationMenu;

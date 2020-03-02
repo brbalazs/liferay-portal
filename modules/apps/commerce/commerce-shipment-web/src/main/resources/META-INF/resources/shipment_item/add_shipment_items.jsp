@@ -30,7 +30,7 @@ contextParams.put("commerceShipmentId", String.valueOf(commerceShipment.getComme
 
 <commerce-ui:modal-content
 	contentCssClasses="p-0"
-	showSubmitButton="<%= commerceShipmentDisplayContext.hasOrderItemsAvailableToShip() %>"
+	showSubmitButton="<%= true %>"
 	title='<%= LanguageUtil.get(request, "add-products-to-this-shipment") %>'
 >
 	<aui:form action="<%= editCommerceShipmentURL %>" method="post" name="fm">

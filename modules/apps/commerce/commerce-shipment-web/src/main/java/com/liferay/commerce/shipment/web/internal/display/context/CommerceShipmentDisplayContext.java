@@ -551,8 +551,9 @@ public class CommerceShipmentDisplayContext
 
 		int commerceOrderItemsCount =
 			_commerceOrderItemService.getCommerceOrderItemsCount(
+				commerceShipment.getGroupId(),
 				commerceShipment.getCommerceAccountId(),
-				CommerceOrderConstants.ORDER_STATUS_FULFILLED);
+				CommerceOrderConstants.SHIPPABLE_ORDER_STATUSES);
 
 		if (commerceOrderItemsCount > 0) {
 			return true;
