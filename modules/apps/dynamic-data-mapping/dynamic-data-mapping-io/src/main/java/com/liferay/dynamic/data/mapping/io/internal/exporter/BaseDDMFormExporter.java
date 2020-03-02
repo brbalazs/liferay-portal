@@ -170,13 +170,25 @@ public abstract class BaseDDMFormExporter implements DDMFormExporter {
 
 		Map<String, DDMFormField> ddmFormFields = new LinkedHashMap<>();
 
-		for (DDMStructureVersion ddmStructureVersion : ddmStructureVersions) {
-			DDMForm ddmForm = ddmStructureVersion.getDDMForm();
+		Stream<DDMStructureVersion> stream = ddmStructureVersions.stream();
 
-			ddmFormFields.putAll(ddmForm.getNontransientDDMFormFieldsMap(true));
-		}
+		stream.map(
+			this::getNontransientDDMFormFieldsMap
+		).forEach(
+			map -> map.forEach(
+				(key, ddmFormField) -> ddmFormFields.putIfAbsent(
+					key, ddmFormField))
+		);
 
 		return ddmFormFields;
+	}
+
+	protected Map<String, DDMFormField> getNontransientDDMFormFieldsMap(
+		DDMStructureVersion ddmStructureVersion) {
+
+		DDMForm ddmForm = ddmStructureVersion.getDDMForm();
+
+		return ddmForm.getNontransientDDMFormFieldsMap(true);
 	}
 
 	protected Map<String, DDMFormFieldRenderedValue> getRenderedValues(
