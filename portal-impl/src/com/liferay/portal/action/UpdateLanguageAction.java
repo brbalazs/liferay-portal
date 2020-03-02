@@ -118,15 +118,15 @@ public class UpdateLanguageAction extends Action {
 		if (themeDisplay.isI18n()) {
 			String i18nPath = themeDisplay.getI18nPath();
 
-			if (redirect.startsWith(i18nPath)) {
-				layoutURL = redirect.substring(i18nPath.length());
+			if (layoutURL.startsWith(i18nPath)) {
+				layoutURL = layoutURL.substring(i18nPath.length());
 			}
 		}
 
 		Layout layout = themeDisplay.getLayout();
 
 		if (isFriendlyURLResolver(layoutURL)) {
-			redirect = layoutURL;
+			redirect = layoutURL + friendlyURLSeparatorPart;
 		}
 		else if (layoutURL.equals(StringPool.SLASH) ||
 				 isGroupFriendlyURL(
@@ -141,9 +141,13 @@ public class UpdateLanguageAction extends Action {
 			}
 
 			if (!redirect.endsWith(StringPool.SLASH) &&
-				!queryString.startsWith(StringPool.SLASH)) {
+				!friendlyURLSeparatorPart.startsWith(StringPool.SLASH)) {
 
 				redirect += StringPool.SLASH;
+			}
+
+			if (Validator.isNotNull(friendlyURLSeparatorPart)) {
+				redirect += friendlyURLSeparatorPart;
 			}
 		}
 		else if (layout.isTypeControlPanel() && themeDisplay.isI18n()) {
