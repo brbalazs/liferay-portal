@@ -34,7 +34,7 @@ public class CPDefinitionScreenNavigationConstants {
 
 	public static final String CATEGORY_KEY_VISIBILITY = "visibility";
 
-	public static final String ENTRY_KEY_SUBSCRIPTION = "subscription";
+	public static final String CATEGORY_KEY_SUBSCRIPTION = "subscription";
 
 	public static final String SCREEN_NAVIGATION_KEY_CP_DEFINITION_GENERAL =
 		"cp.definition.general";

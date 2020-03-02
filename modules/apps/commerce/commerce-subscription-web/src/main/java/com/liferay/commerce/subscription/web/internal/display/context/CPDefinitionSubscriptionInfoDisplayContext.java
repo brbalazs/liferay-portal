@@ -52,11 +52,13 @@ public class CPDefinitionSubscriptionInfoDisplayContext
 		portletURL.setParameter(
 			"screenNavigationCategoryKey",
 			getSelectedScreenNavigationCategoryKey());
-		portletURL.setParameter(
-			"screenNavigationEntryKey",
-			CPDefinitionScreenNavigationConstants.ENTRY_KEY_SUBSCRIPTION);
 
 		return portletURL;
+	}
+
+	@Override
+	public String getSelectedScreenNavigationCategoryKey() {
+		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_SUBSCRIPTION;
 	}
 
 }

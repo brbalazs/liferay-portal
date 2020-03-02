@@ -21,6 +21,7 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.util.CPSubscriptionTypeJSPContributorRegistry;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.subscription.web.internal.display.context.CPDefinitionSubscriptionInfoDisplayContext;
+import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -48,29 +49,33 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Luca Pellizzon
  * @author Alec Sloan
+ * @author Alessio Antonio Rendina
  */
 @Component(
-	property = "screen.navigation.entry.order:Integer=20",
+	property = {
+		"screen.navigation.category.order:Integer=90",
+		"screen.navigation.entry.order:Integer=10"
+	},
 	service = ScreenNavigationEntry.class
 )
 public class CPDefinitionSubscriptionScreenNavigationEntry
-	implements ScreenNavigationEntry<CPDefinition> {
+	implements ScreenNavigationCategory, ScreenNavigationEntry<CPDefinition> {
 
 	@Override
 	public String getCategoryKey() {
-		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_CONFIGURATION;
+		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_SUBSCRIPTION;
 	}
 
 	@Override
 	public String getEntryKey() {
-		return CPDefinitionScreenNavigationConstants.ENTRY_KEY_SUBSCRIPTION;
+		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_SUBSCRIPTION;
 	}
 
 	@Override
 	public String getLabel(Locale locale) {
 		return LanguageUtil.get(
 			locale,
-			CPDefinitionScreenNavigationConstants.ENTRY_KEY_SUBSCRIPTION);
+			CPDefinitionScreenNavigationConstants.CATEGORY_KEY_SUBSCRIPTION);
 	}
 
 	@Override
