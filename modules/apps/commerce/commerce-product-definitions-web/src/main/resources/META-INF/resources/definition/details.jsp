@@ -309,6 +309,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						namespace="<%= renderResponse.getNamespace() %>"
 						pageNumber="<%= 1 %>"
 						portletURL="<%= currentURLObj %>"
+						showManagementBar="<%= false %>"
 					/>
 				</commerce-ui:panel>
 			</div>
