@@ -337,6 +337,7 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 			shippingExtraPrice, width, height, depth, weight, serviceContext);
 	}
 
+	@Override
 	public CPDefinition updateStatus(
 			long userId, long cpDefinitionId, int status,
 			ServiceContext serviceContext,

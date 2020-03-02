@@ -1408,6 +1408,7 @@ public class CPDefinitionLocalServiceImpl
 			serviceContext);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CPDefinition updateCPDefinitionAccountGroupFilter(
 			long cpDefinitionId, boolean enable)
@@ -1456,6 +1457,7 @@ public class CPDefinitionLocalServiceImpl
 		return cpDefinitionPersistence.update(cpDefinition);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CPDefinition updateCPDefinitionChannelFilter(
 			long cpDefinitionId, boolean enable)
