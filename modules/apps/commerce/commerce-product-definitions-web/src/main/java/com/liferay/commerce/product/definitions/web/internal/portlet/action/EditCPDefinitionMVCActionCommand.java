@@ -176,6 +176,9 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 
 				sendRedirect(actionRequest, actionResponse, redirect);
 			}
+			else if (cmd.equals("updateSubscriptionInfo")) {
+				updateSubscriptionInfo(actionRequest);
+			}
 			else if (cmd.equals("updateVisibility")) {
 				Callable<Object> cpDefinitionVisibilityCallable =
 					new CPDefinitionVisibilityCallable(actionRequest);
@@ -551,10 +554,6 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 			cpDefinitionId, accountGroupFilterEnabled);
 		_cpDefinitionService.updateCPDefinitionChannelFilter(
 			cpDefinitionId, channelFilterEnabled);
-
-		// Reindex commerce product definition
-
-		reindexCPDefinition(cpDefinitionId);
 	}
 
 	private static final TransactionConfig _transactionConfig =
