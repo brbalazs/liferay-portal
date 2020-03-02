@@ -18,25 +18,18 @@
 
 <%
 CommerceShipmentDisplayContext commerceShipmentDisplayContext = (CommerceShipmentDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-PortletURL portletURL = commerceShipmentDisplayContext.getPortletURL();
-
-portletURL.setParameter("searchContainerId", "commerceShipments");
-
-request.setAttribute("view.jsp-portletURL", portletURL);
 %>
 
 <c:if test="<%= commerceShipmentDisplayContext.hasManageCommerceShipmentsPermission() %>">
 	<div class="row" id="<portlet:namespace />editShipmentContainer">
 		<div class="col-12">
 			<commerce-ui:dataset-display
-				clayCreationMenu="<%= commerceShipmentDisplayContext.getShipmentClayCreationMenu() %>"
 				dataProviderKey="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
 				id="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
-				portletURL="<%= portletURL %>"
+				portletURL="<%= commerceShipmentDisplayContext.getPortletURL() %>"
 				style="fluid"
 			/>
 		</div>

@@ -69,7 +69,7 @@ portletDisplay.setURLBack(redirect);
 		<commerce-ui:dataset-display
 			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSE_ITEM %>"
-			formId="_com_liferay_commerce_shipment_web_internal_portlet_CommerceShipmentPortlet_fm"
+			formId="fm"
 			id="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSE_ITEM %>"
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"

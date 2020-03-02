@@ -36,9 +36,7 @@ else {
 <commerce-ui:header
 	actions="<%= commerceShipmentDisplayContext.getHeaderActionModels() %>"
 	bean="<%= commerceShipment %>"
-	beanIdLabel="shipment-id"
-	externalReferenceCode=""
-	externalReferenceCodeEditUrl=""
+	beanIdLabel="id"
 	model="<%= CommerceShipment.class %>"
 	thumbnailUrl="<%= commerceShipmentDisplayContext.getCommerceAccountThumbnailURL(commerceAccount, themeDisplay.getPathImage()) %>"
 	title="<%= commerceAccount.getName() %>"
