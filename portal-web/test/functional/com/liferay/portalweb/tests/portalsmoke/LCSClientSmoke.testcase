@@ -40,7 +40,7 @@ definition {
 
 		SiteAdmin.viewPortletTitle(portletTitle = "Liferay Connected Services");
 
-		Alert.viewSuccessMessageText(successMessage = "Connected");
+		VerifyElementPresent(locator1 = "Message#SUCCESS");
 
 		AssertElementPresent(locator1 = "LCSClient#PROJECT_HOME_LINK");
 		AssertElementPresent(locator1 = "LCSClient#ENVIRONMENT_LINK");
