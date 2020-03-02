@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.definitions.web.internal.servlet.taglib.ui;
 
+import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionConfigurationDisplayContext;
@@ -25,12 +26,14 @@ import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.commerce.service.CPDAvailabilityEstimateService;
 import com.liferay.commerce.service.CommerceAvailabilityEstimateService;
 import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
+import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -120,12 +123,15 @@ public class CPDefinitionConfigurationScreenNavigationEntry
 			cpDefinitionConfigurationDisplayContext =
 				new CPDefinitionConfigurationDisplayContext(
 					_actionHelper, httpServletRequest,
+					_commerceAccountGroupRelService,
 					_commerceAvailabilityEstimateService,
-					_commerceCatalogService, _commerceCurrencyLocalService,
+					_commerceCatalogService, _commerceChannelRelService,
+					_commerceCurrencyLocalService,
 					_commerceLowStockActivityRegistry,
 					_cpdAvailabilityEstimateService,
 					_cpDefinitionInventoryEngineRegistry, _cpDefinitionService,
-					_cpMeasurementUnitLocalService, _cpTaxCategoryService);
+					_cpMeasurementUnitLocalService, _cpTaxCategoryService,
+					_itemSelector);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -143,6 +149,9 @@ public class CPDefinitionConfigurationScreenNavigationEntry
 	private ActionHelper _actionHelper;
 
 	@Reference
+	private CommerceAccountGroupRelService _commerceAccountGroupRelService;
+
+	@Reference
 	private CommerceAvailabilityEstimateService
 		_commerceAvailabilityEstimateService;
 
@@ -154,6 +163,9 @@ public class CPDefinitionConfigurationScreenNavigationEntry
 
 	@Reference
 	private CommerceCatalogService _commerceCatalogService;
+
+	@Reference
+	private CommerceChannelRelService _commerceChannelRelService;
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
@@ -176,6 +188,9 @@ public class CPDefinitionConfigurationScreenNavigationEntry
 
 	@Reference
 	private CPTaxCategoryService _cpTaxCategoryService;
+
+	@Reference
+	private ItemSelector _itemSelector;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

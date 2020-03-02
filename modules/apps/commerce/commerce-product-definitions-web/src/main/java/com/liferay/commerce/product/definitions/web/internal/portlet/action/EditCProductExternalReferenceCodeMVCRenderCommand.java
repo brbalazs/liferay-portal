@@ -14,11 +14,14 @@
 
 package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 
+import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.product.service.CommerceChannelRelService;
+import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -51,7 +54,9 @@ public class EditCProductExternalReferenceCodeMVCRenderCommand
 		CPDefinitionsDisplayContext cpDefinitionsDisplayContext =
 			new CPDefinitionsDisplayContext(
 				_actionHelper, _portal.getHttpServletRequest(renderRequest),
-				_commerceCatalogService, _cpDefinitionService);
+				_commerceAccountGroupRelService, _commerceCatalogService,
+				_commerceChannelRelService, _cpDefinitionService,
+				_itemSelector);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, cpDefinitionsDisplayContext);
@@ -63,10 +68,19 @@ public class EditCProductExternalReferenceCodeMVCRenderCommand
 	private ActionHelper _actionHelper;
 
 	@Reference
+	private CommerceAccountGroupRelService _commerceAccountGroupRelService;
+
+	@Reference
 	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
+	private CommerceChannelRelService _commerceChannelRelService;
+
+	@Reference
 	private CPDefinitionService _cpDefinitionService;
+
+	@Reference
+	private ItemSelector _itemSelector;
 
 	@Reference
 	private Portal _portal;

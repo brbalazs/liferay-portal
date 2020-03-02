@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.definitions.web.internal.servlet.taglib.ui;
 
+import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
@@ -21,9 +22,11 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
+import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -111,8 +114,10 @@ public class CPDefinitionVisibilityScreenNavigationEntry
 
 		CPDefinitionsDisplayContext cpDefinitionsDisplayContext =
 			new CPDefinitionsDisplayContext(
-				_actionHelper, httpServletRequest, _commerceCatalogService,
-				_cpDefinitionService);
+				_actionHelper, httpServletRequest,
+				_commerceAccountGroupRelService, _commerceCatalogService,
+				_commerceChannelRelService, _cpDefinitionService,
+				_itemSelector);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, cpDefinitionsDisplayContext);
@@ -128,6 +133,9 @@ public class CPDefinitionVisibilityScreenNavigationEntry
 	@Reference
 	private ActionHelper _actionHelper;
 
+	@Reference
+	private CommerceAccountGroupRelService _commerceAccountGroupRelService;
+
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CommerceCatalog)"
 	)
@@ -138,7 +146,13 @@ public class CPDefinitionVisibilityScreenNavigationEntry
 	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
+	private CommerceChannelRelService _commerceChannelRelService;
+
+	@Reference
 	private CPDefinitionService _cpDefinitionService;
+
+	@Reference
+	private ItemSelector _itemSelector;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

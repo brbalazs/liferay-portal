@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
+import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
@@ -29,11 +30,13 @@ import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.commerce.service.CPDAvailabilityEstimateService;
 import com.liferay.commerce.service.CommerceAvailabilityEstimateService;
 import com.liferay.commerce.stock.activity.CommerceLowStockActivity;
 import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
 import com.liferay.commerce.util.comparator.CommerceAvailabilityEstimatePriorityComparator;
+import com.liferay.item.selector.ItemSelector;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -52,19 +55,22 @@ public class CPDefinitionConfigurationDisplayContext
 
 	public CPDefinitionConfigurationDisplayContext(
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
+		CommerceAccountGroupRelService commerceAccountGroupRelService,
 		CommerceAvailabilityEstimateService commerceAvailabilityEstimateService,
 		CommerceCatalogService commerceCatalogService,
+		CommerceChannelRelService commerceChannelRelService,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceLowStockActivityRegistry commerceLowStockActivityRegistry,
 		CPDAvailabilityEstimateService cpdAvailabilityEstimateService,
 		CPDefinitionInventoryEngineRegistry cpDefinitionInventoryEngineRegistry,
 		CPDefinitionService cpDefinitionService,
 		CPMeasurementUnitLocalService cpMeasurementUnitLocalService,
-		CPTaxCategoryService cpTaxCategoryService) {
+		CPTaxCategoryService cpTaxCategoryService, ItemSelector itemSelector) {
 
 		super(
-			actionHelper, httpServletRequest, commerceCatalogService,
-			cpDefinitionService);
+			actionHelper, httpServletRequest, commerceAccountGroupRelService,
+			commerceCatalogService, commerceChannelRelService,
+			cpDefinitionService, itemSelector);
 
 		_commerceAvailabilityEstimateService =
 			commerceAvailabilityEstimateService;
