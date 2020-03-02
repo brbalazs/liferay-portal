@@ -770,13 +770,24 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			long cpDefinitionId, String json)
 		throws PortalException {
 
+		int skuContributorCPDefinitionOptionRelsCount =
+			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRelsCount(
+				cpDefinitionId, true);
+
+		if (skuContributorCPDefinitionOptionRelsCount == 0) {
+			return null;
+		}
+
 		Map<Long, List<Long>>
 			cpDefinitionOptionRelCPDefinitionOptionValueRelIds =
 				_cpDefinitionOptionRelLocalService.
 					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
-						cpDefinitionId, json);
+						cpDefinitionId, true, json);
 
-		if (cpDefinitionOptionRelCPDefinitionOptionValueRelIds.isEmpty()) {
+		if (cpDefinitionOptionRelCPDefinitionOptionValueRelIds.isEmpty() ||
+			(skuContributorCPDefinitionOptionRelsCount !=
+				cpDefinitionOptionRelCPDefinitionOptionValueRelIds.size())) {
+
 			return null;
 		}
 
