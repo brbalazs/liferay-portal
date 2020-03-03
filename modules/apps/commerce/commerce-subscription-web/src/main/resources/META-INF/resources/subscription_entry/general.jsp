@@ -20,25 +20,19 @@
 CommerceSubscriptionEntryDisplayContext commerceSubscriptionEntryDisplayContext = (CommerceSubscriptionEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceSubscriptionEntry commerceSubscriptionEntry = commerceSubscriptionEntryDisplayContext.getCommerceSubscriptionEntry();
+List<CPSubscriptionType> cpSubscriptionTypes = commerceSubscriptionEntryDisplayContext.getCPSubscriptionTypes();
 int orderPaymentStatus = commerceSubscriptionEntryDisplayContext.getOrderPaymentStatus();
 
 Map<String, String> contextParams = new HashMap<>();
 
 contextParams.put("commerceSubscriptionEntryId", String.valueOf(commerceSubscriptionEntry.getCommerceSubscriptionEntryId()));
 
-List<CPSubscriptionType> cpSubscriptionTypes = commerceSubscriptionEntryDisplayContext.getCPSubscriptionTypes();
-
-String defaultCPSubscriptionType = StringPool.BLANK;
-
-if (!cpSubscriptionTypes.isEmpty()) {
-	CPSubscriptionType firstCPSubscriptionType = cpSubscriptionTypes.get(0);
-
-	defaultCPSubscriptionType = firstCPSubscriptionType.getName();
-}
-
 int subscriptionLength = BeanParamUtil.getInteger(commerceSubscriptionEntry, request, "subscriptionLength", 1);
-String subscriptionType = BeanParamUtil.getString(commerceSubscriptionEntry, request, "subscriptionType", defaultCPSubscriptionType);
+String subscriptionType = BeanParamUtil.getString(commerceSubscriptionEntry, request, "subscriptionType");
 long maxSubscriptionCycles = BeanParamUtil.getLong(commerceSubscriptionEntry, request, "maxSubscriptionCycles");
+int deliverySubscriptionLength = BeanParamUtil.getInteger(commerceSubscriptionEntry, request, "deliverySubscriptionLength", 1);
+String deliverySubscriptionType = BeanParamUtil.getString(commerceSubscriptionEntry, request, "deliverySubscriptionType");
+long deliveryMaxSubscriptionCycles = BeanParamUtil.getLong(commerceSubscriptionEntry, request, "deliveryMaxSubscriptionCycles");
 
 String defaultCPSubscriptionTypeLabel = StringPool.BLANK;
 
@@ -55,7 +49,15 @@ boolean ending = false;
 if (maxSubscriptionCycles > 0) {
 	ending = true;
 }
+
+boolean deliveryEnding = false;
+
+if (deliveryMaxSubscriptionCycles > 0) {
+	deliveryEnding = true;
+}
 %>
+
+<liferay-ui:error exception="<%= CommerceSubscriptionEntryNextIterationDateException.class %>" message="please-enter-a-valid-date-for-non-inactive-subscription" />
 
 <commerce-ui:panel
 	elementClasses="flex-fill"
@@ -126,7 +128,7 @@ if (maxSubscriptionCycles > 0) {
 		>
 			<div class="row">
 				<div class="col-6">
-					<aui:select name="subscriptionStatus">
+					<aui:select label="status" name="subscriptionStatus">
 
 						<%
 						for (int curSubscriptionStatus : CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUSES) {
@@ -171,19 +173,30 @@ if (maxSubscriptionCycles > 0) {
 					<%
 					Date nextIterationDate = commerceSubscriptionEntry.getNextIterationDate();
 
-					Calendar nextIterationCalendar = CalendarFactoryUtil.getCalendar(nextIterationDate.getTime(), user.getTimeZone());
+					int nextIterationDateDay = 0;
+					int nextIterationDateMonth = -1;
+					int nextIterationDateYear = 0;
+
+					if (nextIterationDate != null) {
+						Calendar calendar = CalendarFactoryUtil.getCalendar(nextIterationDate.getTime());
+
+						nextIterationDateDay = calendar.get(Calendar.DAY_OF_MONTH);
+						nextIterationDateMonth = calendar.get(Calendar.MONTH);
+						nextIterationDateYear = calendar.get(Calendar.YEAR);
+					}
 					%>
 
 					<liferay-ui:input-date
 						dayParam="nextIterationDateDay"
-						dayValue="<%= nextIterationCalendar.get(Calendar.DATE) %>"
+						dayValue="<%= nextIterationDateDay %>"
 						disabled="<%= false %>"
-						firstDayOfWeek="<%= nextIterationCalendar.getFirstDayOfWeek() - 1 %>"
 						monthParam="nextIterationDateMonth"
-						monthValue="<%= nextIterationCalendar.get(Calendar.MONTH) %>"
+						monthValue="<%= nextIterationDateMonth %>"
 						name="nextIterationDate"
+						nullable="<%= true %>"
+						showDisableCheckbox="<%= false %>"
 						yearParam="nextIterationDateYear"
-						yearValue="<%= nextIterationCalendar.get(Calendar.YEAR) %>"
+						yearValue="<%= nextIterationDateYear %>"
 					/>
 				</div>
 			</div>
@@ -195,7 +208,7 @@ if (maxSubscriptionCycles > 0) {
 		>
 			<div class="row">
 				<div class="col-6">
-					<aui:select name="subscriptionType" onChange='<%= renderResponse.getNamespace() + "selectSubscriptionType();" %>'>
+					<aui:select name="subscriptionType" onChange='<%= renderResponse.getNamespace() + "selectSubscriptionType();" %>' showEmptyOption="<%= true %>">
 
 						<%
 						for (CPSubscriptionType curCPSubscriptionType : cpSubscriptionTypes) {
@@ -222,6 +235,129 @@ if (maxSubscriptionCycles > 0) {
 						<aui:input name="subscriptionLength" suffix="<%= defaultCPSubscriptionTypeLabel %>" value="<%= String.valueOf(subscriptionLength) %>">
 							<aui:validator name="digits" />
 							<aui:validator name="min">1</aui:validator>
+						</aui:input>
+					</div>
+				</div>
+			</div>
+		</commerce-ui:info-box>
+	</commerce-ui:panel>
+
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "delivery-subscription") %>'
+	>
+		<commerce-ui:info-box
+			elementClasses="py-3"
+			title='<%= LanguageUtil.get(request, "info") %>'
+		>
+			<div class="row">
+				<div class="col-6">
+					<aui:select label="status" name="deliverySubscriptionStatus">
+
+						<%
+						for (int curSubscriptionStatus : CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUSES) {
+						%>
+
+							<aui:option data-label="<%= CommerceSubscriptionEntryConstants.getSubscriptionStatusLabel(curSubscriptionStatus) %>" label="<%= CommerceSubscriptionEntryConstants.getSubscriptionStatusLabel(curSubscriptionStatus) %>" selected="<%= commerceSubscriptionEntry.getDeliverySubscriptionStatus() == curSubscriptionStatus %>" value="<%= curSubscriptionStatus %>" />
+
+						<%
+						}
+						%>
+
+					</aui:select>
+
+					<div class="delivery-never-ends-header">
+						<aui:input checked="<%= deliveryEnding ? false : true %>" label="never-ends" name="deliveryNeverEnds" type="toggle-switch" />
+					</div>
+
+					<div class="delivery-never-ends-content">
+						<aui:input disabled="<%= deliveryEnding ? false : true %>" helpMessage="max-subscription-cycles-help" label="end-after" name="deliveryMaxSubscriptionCycles" suffix='<%= LanguageUtil.get(request, "cycles") %>' value="<%= String.valueOf(deliveryMaxSubscriptionCycles) %>">
+							<aui:validator name="digits" />
+
+							<aui:validator errorMessage='<%= LanguageUtil.format(request, "please-enter-a-value-greater-than-or-equal-to-x", 1) %>' name="custom">
+								function(val, fieldNode, ruleValue) {
+									if (AUI.$('#<portlet:namespace />deliveryNeverEnds')[0].checked) {
+										return true;
+									}
+
+									if (parseInt(val, 10) > 0) {
+										return true;
+									}
+
+									return false;
+								}
+							</aui:validator>
+						</aui:input>
+					</div>
+				</div>
+
+				<div class="col-6">
+					<label for="<portlet:namespace />deliveryNextIterationDate"><%= LanguageUtil.get(request, "next-iteration-date") %></label>
+
+					<%
+					Date deliveryNextIterationDate = commerceSubscriptionEntry.getDeliveryNextIterationDate();
+
+					int deliveryNextIterationDateDay = 0;
+					int deliveryNextIterationDateMonth = -1;
+					int deliveryNextIterationDateYear = 0;
+
+					if (deliveryNextIterationDate != null) {
+						Calendar calendar = CalendarFactoryUtil.getCalendar(deliveryNextIterationDate.getTime());
+
+						deliveryNextIterationDateDay = calendar.get(Calendar.DAY_OF_MONTH);
+						deliveryNextIterationDateMonth = calendar.get(Calendar.MONTH);
+						deliveryNextIterationDateYear = calendar.get(Calendar.YEAR);
+					}
+					%>
+
+					<liferay-ui:input-date
+						dayParam="deliveryNextIterationDateDay"
+						dayValue="<%= deliveryNextIterationDateDay %>"
+						disabled="<%= false %>"
+						monthParam="deliveryNextIterationDateMonth"
+						monthValue="<%= deliveryNextIterationDateMonth %>"
+						name="deliveryNextIterationDate"
+						nullable="<%= true %>"
+						showDisableCheckbox="<%= false %>"
+						yearParam="deliveryNextIterationDateYear"
+						yearValue="<%= deliveryNextIterationDateYear %>"
+					/>
+				</div>
+			</div>
+		</commerce-ui:info-box>
+
+		<commerce-ui:info-box
+			elementClasses="py-3"
+			title='<%= LanguageUtil.get(request, "delivery") %>'
+		>
+			<div class="row">
+				<div class="col-6">
+					<aui:select label="subscription-type" name="deliverySubscriptionType" onChange='<%= renderResponse.getNamespace() + "selectDeliverySubscriptionType();" %>' showEmptyOption="<%= true %>">
+
+						<%
+						for (CPSubscriptionType curCPSubscriptionType : cpSubscriptionTypes) {
+						%>
+
+							<aui:option data-label="<%= curCPSubscriptionType.getLabel(locale) %>" label="<%= curCPSubscriptionType.getLabel(locale) %>" selected="<%= deliverySubscriptionType.equals(curCPSubscriptionType.getName()) %>" value="<%= curCPSubscriptionType.getName() %>" />
+
+						<%
+						}
+						%>
+
+					</aui:select>
+
+					<%
+					if (cpSubscriptionTypeJSPContributor != null) {
+						cpSubscriptionTypeJSPContributor.render(commerceSubscriptionEntry, request, PipingServletResponse.createPipingServletResponse(pageContext), false);
+					}
+					%>
+
+				</div>
+
+				<div class="col-6">
+					<div id="<portlet:namespace />deliveryCycleLengthContainer">
+						<aui:input name="deliverySubscriptionLength" suffix="<%= defaultCPSubscriptionTypeLabel %>" value="<%= String.valueOf(deliverySubscriptionLength) %>">
+							<aui:validator name="digits" />
+							<aui:validator name="min">0</aui:validator>
 						</aui:input>
 					</div>
 				</div>
@@ -275,6 +411,35 @@ if (maxSubscriptionCycles > 0) {
 		},
 		['liferay-portlet-url']
 	);
+
+	Liferay.provide(
+		window,
+		'<portlet:namespace />selectDeliverySubscriptionType',
+		function() {
+			var A = AUI();
+
+			var deliverySubscriptionLength = A.one(
+				'#<portlet:namespace />deliverySubscriptionLength'
+			).val();
+			var deliverySubscriptionType = A.one(
+				'#<portlet:namespace />deliverySubscriptionType'
+			).val();
+			var deliveryMaxSubscriptionCycles = A.one(
+				'#<portlet:namespace />deliveryMaxSubscriptionCycles'
+			).val();
+
+			var portletURL = new Liferay.PortletURL.createURL(
+				'<%= currentURLObj %>'
+			);
+
+			portletURL.setParameter('deliverySubscriptionLength', deliverySubscriptionLength);
+			portletURL.setParameter('deliverySubscriptionType', deliverySubscriptionType);
+			portletURL.setParameter('deliveryMaxSubscriptionCycles', deliveryMaxSubscriptionCycles);
+
+			window.location.replace(portletURL.toString());
+		},
+		['liferay-portlet-url']
+	);
 </aui:script>
 
 <aui:script use="liferay-form">
@@ -283,6 +448,13 @@ if (maxSubscriptionCycles > 0) {
 			.formValidator;
 
 		formValidator.validateField('<portlet:namespace />maxSubscriptionCycles');
+	});
+
+	A.one('#<portlet:namespace />deliveryNeverEnds').on('change', function(event) {
+		var formValidator = Liferay.Form.get('<portlet:namespace />fm')
+			.formValidator;
+
+		formValidator.validateField('<portlet:namespace />deliveryMaxSubscriptionCycles');
 	});
 </aui:script>
 
@@ -303,6 +475,30 @@ if (maxSubscriptionCycles > 0) {
 					);
 				} else {
 					A.one('#<portlet:namespace />maxSubscriptionCycles').attr(
+						'disabled',
+						true
+					);
+				}
+			}
+		}
+	});
+
+	new A.Toggler({
+		animated: true,
+		content: '.delivery-never-ends-content',
+		expanded: <%= deliveryEnding %>,
+		header: '#<portlet:namespace />deliveryNeverEnds',
+		on: {
+			animatingChange: function(event) {
+				var instance = this;
+
+				if (!instance.get('expanded')) {
+					A.one('#<portlet:namespace />deliveryMaxSubscriptionCycles').attr(
+						'disabled',
+						false
+					);
+				} else {
+					A.one('#<portlet:namespace />deliveryMaxSubscriptionCycles').attr(
 						'disabled',
 						true
 					);
