@@ -92,7 +92,8 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 						commerceOrderItem.getSku()),
 					commerceOrderItem.getCommerceOrderId(),
 					commerceOrderItem.getCommerceOrderItemId(),
-					commerceOrderItem.getQuantity(),
+					commerceOrderItem.getQuantity() -
+						commerceOrderItem.getShippedQuantity(),
 					commerceOrderItem.getSku()));
 		}
 

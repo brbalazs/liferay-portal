@@ -46,7 +46,7 @@ portletDisplay.setURLBack(redirect);
 
 		<div class="row text-center">
 			<div class="col-sm-4">
-				<liferay-ui:message key="ordered" />: <%= commerceOrderItem.getQuantity() %>
+				<liferay-ui:message key="ordered" />: <%= commerceOrderItem.getQuantity() - commerceOrderItem.getShippedQuantity() %>
 			</div>
 
 			<div class="col-sm-4">

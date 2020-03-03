@@ -99,7 +99,8 @@ public class CommerceShipmentItemDataSetDataProvider
 			shipmentItems.add(
 				new ShipmentItem(
 					commerceOrderItem.getCommerceOrderId(),
-					commerceOrderItem.getQuantity(),
+					commerceOrderItem.getQuantity() -
+						commerceOrderItem.getShippedQuantity(),
 					commerceShipmentItem.getCommerceShipmentItemId(),
 					commerceOrderItem.getShippedQuantity(),
 					commerceOrderItem.getSku(),
