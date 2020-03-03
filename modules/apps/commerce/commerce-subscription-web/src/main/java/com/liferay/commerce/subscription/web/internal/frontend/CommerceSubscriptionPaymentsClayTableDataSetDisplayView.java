@@ -48,7 +48,7 @@ public class CommerceSubscriptionPaymentsClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("date", "date");
 
-		clayTableSchemaBuilder.addField("transactionId", "transactionId");
+		clayTableSchemaBuilder.addField("transactionId", "transaction-id");
 
 		clayTableSchemaBuilder.addField("amount", "amount");
 
