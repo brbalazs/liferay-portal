@@ -67,7 +67,7 @@ public class ChannelDisplayContext {
 			HttpResponse httpResponse = AnalyticsSettingsUtil.doGet(
 				_getCompanyId(),
 				String.format(
-					"api/1.0/channels?filter=%s&page=%d&size=%d",
+					"api/1.0/channels?filter=%s&page=%d&size=%d&sort=name",
 					_getKeywords(), channelSearch.getCur() - 1,
 					channelSearch.getDelta()));
 
