@@ -20,7 +20,10 @@ import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLoca
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseLocalServiceUtil;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CPInstanceLocalServiceUtil;
 import com.liferay.commerce.product.service.CommerceChannelRelLocalServiceUtil;
+import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceCountryLocalServiceUtil;
 import com.liferay.commerce.service.CommerceRegionLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -154,6 +157,16 @@ public class CommerceInventoryTestUtil {
 		return CommerceRegionLocalServiceUtil.addCommerceRegion(
 			commerceCountryId, RandomTestUtil.randomString(),
 			RandomTestUtil.randomString(), 0, true, serviceContext);
+	}
+
+	public static CPInstance addRandomCPInstanceSku(long groupId)
+		throws Exception {
+
+		CPInstance cpInstance = CPTestUtil.addCPInstance(groupId);
+
+		cpInstance.setSku(RandomTestUtil.randomString());
+
+		return CPInstanceLocalServiceUtil.updateCPInstance(cpInstance);
 	}
 
 	private static CommerceCountry _setUpCountry(ServiceContext serviceContext)

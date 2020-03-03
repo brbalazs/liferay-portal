@@ -32,7 +32,6 @@ import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelRelLocalServiceUtil;
-import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceCountryLocalService;
 import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.petra.string.StringPool;
@@ -101,8 +100,10 @@ public class CommerceInventoryEngineTest {
 			CommerceChannelConstants.CHANNEL_TYPE_SITE, null, StringPool.BLANK,
 			StringPool.BLANK, _serviceContext);
 
-		_cpInstance1 = _randomCPInstanceSku();
-		_cpInstance2 = _randomCPInstanceSku();
+		_cpInstance1 = CommerceInventoryTestUtil.addRandomCPInstanceSku(
+			_group.getGroupId());
+		_cpInstance2 = CommerceInventoryTestUtil.addRandomCPInstanceSku(
+			_group.getGroupId());
 	}
 
 	@Test(expected = DuplicateCommerceInventoryWarehouseItemException.class)
@@ -923,14 +924,6 @@ public class CommerceInventoryEngineTest {
 
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
-
-	private CPInstance _randomCPInstanceSku() throws Exception {
-		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
-
-		cpInstance.setSku(RandomTestUtil.randomString());
-
-		return _cpInstanceLocalService.updateCPInstance(cpInstance);
-	}
 
 	@Inject
 	private CommerceInventoryBookedQuantityLocalService
