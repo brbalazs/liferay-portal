@@ -32,6 +32,7 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
+import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceAddressService;
@@ -193,9 +194,9 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 		clayTableSchemaBuilder.addField("address", "address");
 
 		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
-			"active", "status");
+			"statusLabel", "status");
 
-		statusField.setContentRenderer("commerceTableCellActive");
+		statusField.setContentRenderer("label");
 
 		return clayTableSchemaBuilder.build();
 	}
@@ -243,9 +244,11 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 			}
 
 			String statusLabel = "inactive";
+			String statusDisplayStyle = "danger";
 
 			if (commerceAccount.isActive()) {
 				statusLabel = "active";
+				statusDisplayStyle = "success";
 			}
 
 			accounts.add(
@@ -254,7 +257,7 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 					commerceAccount.isActive(), commerceAccount.getName(),
 					commerceAccount.getEmail(),
 					_getDefaultBillingCommerceAddress(commerceAccount),
-					LanguageUtil.get(httpServletRequest, statusLabel),
+					new LabelField(statusDisplayStyle, statusLabel),
 					thumbnailSB.toString(),
 					_getAccountViewDetailURL(
 						commerceAccount.getCommerceAccountId(),
