@@ -25,6 +25,7 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.commerce.inventory.exception.DuplicateCommerceInventoryWarehouseItemException" %><%@
+page import="com.liferay.commerce.inventory.exception.MVCCException" %><%@
 page import="com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem" %><%@
 page import="com.liferay.commerce.inventory.model.CommerceInventoryWarehouse" %><%@
 page import="com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem" %><%@

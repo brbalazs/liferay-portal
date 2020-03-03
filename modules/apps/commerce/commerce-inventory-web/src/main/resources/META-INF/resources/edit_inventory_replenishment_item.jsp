@@ -22,6 +22,8 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem = commerceInventoryDisplayContext.getCommerceInventoryReplenishmentItem();
 %>
 
+<liferay-ui:error exception="<%= MVCCException.class %>" message="this-item-is-no-longer-valid-please-try-again" />
+
 <portlet:actionURL name="editCommerceInventoryReplenishmentItem" var="editCommerceInventoryReplenishmentItemActionURL" />
 
 <c:choose>

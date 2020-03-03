@@ -19,6 +19,7 @@ import com.liferay.commerce.exception.CommerceGeocoderException;
 import com.liferay.commerce.exception.NoSuchWarehouseException;
 import com.liferay.commerce.inventory.exception.CommerceInventoryWarehouseActiveException;
 import com.liferay.commerce.inventory.exception.CommerceInventoryWarehouseNameException;
+import com.liferay.commerce.inventory.exception.MVCCException;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceCountry;
@@ -141,7 +142,8 @@ public class EditCommerceInventoryWarehouseMVCActionCommand
 				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 			}
 			else if (t instanceof CommerceInventoryWarehouseActiveException ||
-					 t instanceof CommerceInventoryWarehouseNameException) {
+					 t instanceof CommerceInventoryWarehouseNameException ||
+					 t instanceof MVCCException) {
 
 				hideDefaultErrorMessage(actionRequest);
 				hideDefaultSuccessMessage(actionRequest);
@@ -245,6 +247,7 @@ public class EditCommerceInventoryWarehouseMVCActionCommand
 			actionRequest, "countryTwoLettersISOCode");
 		double latitude = ParamUtil.getDouble(actionRequest, "latitude");
 		double longitude = ParamUtil.getDouble(actionRequest, "longitude");
+		long mvccVersion = ParamUtil.getLong(actionRequest, "mvccVersion");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CommerceInventoryWarehouse.class.getName(), actionRequest);
@@ -270,7 +273,7 @@ public class EditCommerceInventoryWarehouseMVCActionCommand
 						commerceInventoryWarehouseId, name, description, active,
 						street1, street2, street3, city, zip,
 						commerceRegionCode, commerceCountryCode, latitude,
-						longitude, serviceContext);
+						longitude, mvccVersion, serviceContext);
 		}
 
 		return commerceInventoryWarehouse;

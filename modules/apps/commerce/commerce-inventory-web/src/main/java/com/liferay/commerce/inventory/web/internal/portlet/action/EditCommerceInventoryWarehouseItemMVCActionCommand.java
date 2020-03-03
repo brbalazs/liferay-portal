@@ -14,11 +14,15 @@
 
 package com.liferay.commerce.inventory.web.internal.portlet.action;
 
+import com.liferay.commerce.inventory.exception.MVCCException;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -61,11 +65,26 @@ public class EditCommerceInventoryWarehouseItemMVCActionCommand
 
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
-		if (cmd.equals(Constants.DELETE)) {
-			deleteCommerceInventoryWarehouseItem(actionRequest);
+		try {
+			if (cmd.equals(Constants.DELETE)) {
+				deleteCommerceInventoryWarehouseItem(actionRequest);
+			}
+			else if (cmd.equals(Constants.UPDATE)) {
+				updateCommerceInventoryWarehouseItem(actionRequest);
+			}
 		}
-		else if (cmd.equals(Constants.UPDATE)) {
-			updateCommerceInventoryWarehouseItem(actionRequest);
+		catch (Exception e) {
+			if (e instanceof MVCCException) {
+				SessionErrors.add(actionRequest, e.getClass());
+
+				hideDefaultErrorMessage(actionRequest);
+				hideDefaultSuccessMessage(actionRequest);
+
+				sendRedirect(actionRequest, actionResponse);
+			}
+			else {
+				_log.error(e, e);
+			}
 		}
 	}
 
@@ -79,11 +98,16 @@ public class EditCommerceInventoryWarehouseItemMVCActionCommand
 		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
 		int reservedQuantity = ParamUtil.getInteger(
 			actionRequest, "reservedQuantity");
+		long mvccVersion = ParamUtil.getLong(actionRequest, "mvccVersion");
 
 		_commerceInventoryWarehouseItemService.
 			updateCommerceInventoryWarehouseItem(
-				commerceInventoryWarehouseItemId, quantity, reservedQuantity);
+				commerceInventoryWarehouseItemId, quantity, reservedQuantity,
+				mvccVersion);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCommerceInventoryWarehouseItemMVCActionCommand.class);
 
 	@Reference
 	private CommerceInventoryWarehouseItemService

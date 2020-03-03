@@ -24,7 +24,6 @@ import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupLocalService;
 import com.liferay.commerce.account.service.CommerceAccountGroupRelLocalService;
 import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
-import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
 import com.liferay.commerce.model.CPDAvailabilityEstimate;
 import com.liferay.commerce.model.CommerceAvailabilityEstimate;
@@ -269,26 +268,11 @@ public class CPDefinitionsImporter {
 				"Warehouse" + String.valueOf(i + 1));
 
 			if (quantity > 0) {
-				CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
-					_commerceInventoryWarehouseItemLocalService.
-						fetchCommerceInventoryWarehouseItem(
-							commerceInventoryWarehouseId, cpInstance.getSku());
-
-				if (commerceInventoryWarehouseItem != null) {
-					_commerceInventoryWarehouseItemLocalService.
-						updateCommerceInventoryWarehouseItem(
-							serviceContext.getUserId(),
-							commerceInventoryWarehouseItem.
-								getCommerceInventoryWarehouseItemId(),
-							quantity);
-				}
-				else {
-					_commerceInventoryWarehouseItemLocalService.
-						addCommerceInventoryWarehouseItem(
-							serviceContext.getUserId(),
-							commerceInventoryWarehouseId, cpInstance.getSku(),
-							quantity);
-				}
+				_commerceInventoryWarehouseItemLocalService.
+					upsertCommerceInventoryWarehouseItem(
+						serviceContext.getUserId(),
+						commerceInventoryWarehouseId, cpInstance.getSku(),
+						quantity);
 			}
 		}
 	}

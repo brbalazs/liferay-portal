@@ -15,6 +15,7 @@
 package com.liferay.commerce.inventory.web.internal.portlet.action;
 
 import com.liferay.commerce.inventory.exception.DuplicateCommerceInventoryWarehouseItemException;
+import com.liferay.commerce.inventory.exception.MVCCException;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
@@ -98,13 +99,15 @@ public class EditCommerceInventoryWarehouseMVCActionCommand
 			}
 		}
 		catch (Exception e) {
-			if (e instanceof DuplicateCommerceInventoryWarehouseItemException) {
+			if (e instanceof DuplicateCommerceInventoryWarehouseItemException ||
+				e instanceof MVCCException) {
+
 				SessionErrors.add(actionRequest, e.getClass());
 
-				String redirect = ParamUtil.getString(
-					actionRequest, "redirect");
+				hideDefaultErrorMessage(actionRequest);
+				hideDefaultSuccessMessage(actionRequest);
 
-				sendRedirect(actionRequest, actionResponse, redirect);
+				sendRedirect(actionRequest, actionResponse);
 			}
 			else {
 				_log.error(e, e);

@@ -14,14 +14,18 @@
 
 package com.liferay.commerce.inventory.web.internal.portlet.action;
 
+import com.liferay.commerce.inventory.exception.MVCCException;
 import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryReplenishmentItemService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -95,14 +99,29 @@ public class EditCommerceInventoryReplenishmentItemMVCActionCommand
 
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
-		if (cmd.equals(Constants.ADD)) {
-			addCommerceInventoryReplenishmentItem(actionRequest);
+		try {
+			if (cmd.equals(Constants.ADD)) {
+				addCommerceInventoryReplenishmentItem(actionRequest);
+			}
+			else if (cmd.equals(Constants.DELETE)) {
+				deleteCommerceInventoryReplenishmentItem(actionRequest);
+			}
+			else if (cmd.equals(Constants.UPDATE)) {
+				updateCommerceInventoryReplenishmentItem(actionRequest);
+			}
 		}
-		else if (cmd.equals(Constants.DELETE)) {
-			deleteCommerceInventoryReplenishmentItem(actionRequest);
-		}
-		else if (cmd.equals(Constants.UPDATE)) {
-			updateCommerceInventoryReplenishmentItem(actionRequest);
+		catch (Exception e) {
+			if (e instanceof MVCCException) {
+				SessionErrors.add(actionRequest, e.getClass());
+
+				hideDefaultErrorMessage(actionRequest);
+				hideDefaultSuccessMessage(actionRequest);
+
+				sendRedirect(actionRequest, actionResponse);
+			}
+			else {
+				_log.error(e, e);
+			}
 		}
 	}
 
@@ -119,6 +138,8 @@ public class EditCommerceInventoryReplenishmentItemMVCActionCommand
 		int month = ParamUtil.getInteger(actionRequest, "dateMonth");
 		int year = ParamUtil.getInteger(actionRequest, "dateYear");
 
+		long mvccVersion = ParamUtil.getLong(actionRequest, "mvccVersion");
+
 		Calendar calendar = Calendar.getInstance();
 
 		calendar.set(year, month, day);
@@ -126,8 +147,11 @@ public class EditCommerceInventoryReplenishmentItemMVCActionCommand
 		_commerceInventoryReplenishmentItemService.
 			updateCommerceInventoryReplenishmentItem(
 				commerceInventoryReplenishmentItemId, calendar.getTime(),
-				quantity);
+				quantity, mvccVersion);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCommerceInventoryReplenishmentItemMVCActionCommand.class);
 
 	@Reference
 	private CommerceInventoryReplenishmentItemService

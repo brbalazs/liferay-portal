@@ -16,6 +16,7 @@ package com.liferay.commerce.inventory.internal.engine;
 
 import com.liferay.commerce.inventory.constants.CommerceInventoryConstants;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
+import com.liferay.commerce.inventory.exception.MVCCException;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryAuditLocalService;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
@@ -23,6 +24,8 @@ import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLoca
 import com.liferay.commerce.inventory.type.CommerceInventoryAuditType;
 import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeRegistry;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
@@ -85,7 +88,8 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 				userId,
 				commerceInventoryWarehouseItem.
 					getCommerceInventoryWarehouseItemId(),
-				commerceInventoryWarehouseItem.getQuantity() - quantity);
+				commerceInventoryWarehouseItem.getQuantity() - quantity,
+				commerceInventoryWarehouseItem.getMvccVersion());
 	}
 
 	@Override
@@ -146,12 +150,20 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 				fetchCommerceInventoryWarehouseItem(
 					commerceInventoryWarehouseId, sku);
 
-		_commerceInventoryWarehouseItemLocalService.
-			updateCommerceInventoryWarehouseItem(
-				userId,
-				commerceInventoryWarehouseItem.
-					getCommerceInventoryWarehouseItemId(),
-				commerceInventoryWarehouseItem.getQuantity() + quantity);
+		try {
+			_commerceInventoryWarehouseItemLocalService.
+				updateCommerceInventoryWarehouseItem(
+					userId,
+					commerceInventoryWarehouseItem.
+						getCommerceInventoryWarehouseItemId(),
+					commerceInventoryWarehouseItem.getQuantity() + quantity,
+					commerceInventoryWarehouseItem.getMvccVersion());
+		}
+		catch (MVCCException mvcce) {
+			_log.error(mvcce.getMessage(), mvcce);
+
+			throw mvcce;
+		}
 
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
@@ -161,6 +173,9 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 			userId, sku, commerceInventoryAuditType.getType(),
 			commerceInventoryAuditType.getLog(null), quantity);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceInventoryEngineImpl.class);
 
 	@Reference
 	private CommerceInventoryBookedQuantityLocalService
