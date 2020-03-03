@@ -24,14 +24,17 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
  */
 public class MonthlyCPSubscriptionTypeDisplayContext {
 
-	public MonthlyCPSubscriptionTypeDisplayContext(Object object) {
+	public MonthlyCPSubscriptionTypeDisplayContext(
+		Object object, boolean payment) {
+
 		_object = object;
+		_payment = payment;
 	}
 
 	public int getMonthDay() {
 		UnicodeProperties subscriptionTypeSettingsProperties =
 			CommerceSubscriptionTypeUtil.getSubscriptionTypeSettingsProperties(
-				_object);
+				_object, _payment);
 
 		if ((subscriptionTypeSettingsProperties == null) ||
 			subscriptionTypeSettingsProperties.isEmpty()) {
@@ -46,7 +49,7 @@ public class MonthlyCPSubscriptionTypeDisplayContext {
 	public int getSelectedMonthlyMode() {
 		UnicodeProperties subscriptionTypeSettingsProperties =
 			CommerceSubscriptionTypeUtil.getSubscriptionTypeSettingsProperties(
-				_object);
+				_object, _payment);
 
 		if (subscriptionTypeSettingsProperties == null) {
 			return CPSubscriptionTypeConstants.MODE_ORDER_DATE;
@@ -56,6 +59,11 @@ public class MonthlyCPSubscriptionTypeDisplayContext {
 			subscriptionTypeSettingsProperties.get("monthlyMode"));
 	}
 
+	public boolean isPayment() {
+		return _payment;
+	}
+
 	private final Object _object;
+	private final boolean _payment;
 
 }

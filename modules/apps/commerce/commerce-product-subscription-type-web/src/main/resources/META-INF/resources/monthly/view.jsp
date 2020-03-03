@@ -22,27 +22,54 @@ MonthlyCPSubscriptionTypeDisplayContext monthlyCPSubscriptionTypeDisplayContext 
 int selectedMonthlyMode = monthlyCPSubscriptionTypeDisplayContext.getSelectedMonthlyMode();
 %>
 
-<aui:select label="mode" name="subscriptionTypeSettings--monthlyMode--" onChange='<%= "event.preventDefault(); changeMonthlyCPSubscriptionTypeSettingsMode();" %>'>
+<c:choose>
+	<c:when test="<%= monthlyCPSubscriptionTypeDisplayContext.isPayment() %>">
+		<aui:select label="mode" name="subscriptionTypeSettings--monthlyMode--" onChange='<%= "event.preventDefault(); changeMonthlyCPSubscriptionTypeSettingsMode();" %>'>
 
-	<%
-	for (int mode : CPSubscriptionTypeConstants.MONTHLY_MODES) {
-	%>
+			<%
+			for (int mode : CPSubscriptionTypeConstants.MONTHLY_MODES) {
+			%>
 
-		<aui:option label="<%= CPSubscriptionTypeConstants.getMonthlyCPSubscriptionTypeModeLabel(mode) %>" selected="<%= selectedMonthlyMode == mode %>" value="<%= mode %>" />
+				<aui:option label="<%= CPSubscriptionTypeConstants.getMonthlyCPSubscriptionTypeModeLabel(mode) %>" selected="<%= selectedMonthlyMode == mode %>" value="<%= mode %>" />
 
-	<%
-	}
-	%>
+			<%
+			}
+			%>
 
-</aui:select>
+		</aui:select>
 
-<div class="<%= (selectedMonthlyMode == CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_MONTH) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />monthDayInputContainer">
-	<aui:input label="on" name="subscriptionTypeSettings--monthDay--" value="<%= monthlyCPSubscriptionTypeDisplayContext.getMonthDay() %>">
-		<aui:validator name="digits" />
-		<aui:validator name="max">31</aui:validator>
-		<aui:validator name="min">1</aui:validator>
-	</aui:input>
-</div>
+		<div class="<%= (selectedMonthlyMode == CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_MONTH) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />monthDayInputContainer">
+			<aui:input label="on" name="subscriptionTypeSettings--monthDay--" value="<%= monthlyCPSubscriptionTypeDisplayContext.getMonthDay() %>">
+				<aui:validator name="digits" />
+				<aui:validator name="max">31</aui:validator>
+				<aui:validator name="min">1</aui:validator>
+			</aui:input>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<aui:select label="mode" name="deliverySubscriptionTypeSettings--monthlyMode--" onChange='<%= "event.preventDefault(); changeMonthlyCPSubscriptionTypeSettingsMode();" %>'>
+
+			<%
+			for (int mode : CPSubscriptionTypeConstants.MONTHLY_MODES) {
+			%>
+
+				<aui:option label="<%= CPSubscriptionTypeConstants.getMonthlyCPSubscriptionTypeModeLabel(mode) %>" selected="<%= selectedMonthlyMode == mode %>" value="<%= mode %>" />
+
+			<%
+			}
+			%>
+
+		</aui:select>
+
+		<div class="<%= (selectedMonthlyMode == CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_MONTH) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />monthDayInputContainer">
+			<aui:input label="on" name="deliverySubscriptionTypeSettings--monthDay--" value="<%= monthlyCPSubscriptionTypeDisplayContext.getMonthDay() %>">
+				<aui:validator name="digits" />
+				<aui:validator name="max">31</aui:validator>
+				<aui:validator name="min">1</aui:validator>
+			</aui:input>
+		</div>
+	</c:otherwise>
+</c:choose>
 
 <aui:script>
 	function changeMonthlyCPSubscriptionTypeSettingsMode() {

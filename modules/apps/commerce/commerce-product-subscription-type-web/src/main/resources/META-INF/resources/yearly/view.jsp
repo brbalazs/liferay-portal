@@ -23,41 +23,82 @@ int selectedMonth = yearlyCPSubscriptionTypeDisplayContext.getSelectedMonth();
 int selectedYearlyMode = yearlyCPSubscriptionTypeDisplayContext.getSelectedYearlyMode();
 %>
 
-<aui:select label="mode" name="subscriptionTypeSettings--yearlyMode--" onChange='<%= "event.preventDefault(); changeYearlyCPSubscriptionTypeSettingsMode();" %>'>
+<c:choose>
+	<c:when test="<%= yearlyCPSubscriptionTypeDisplayContext.isPayment() %>">
+		<aui:select label="mode" name="subscriptionTypeSettings--yearlyMode--" onChange='<%= "event.preventDefault(); changeYearlyCPSubscriptionTypeSettingsMode();" %>'>
 
-	<%
-	for (int mode : CPSubscriptionTypeConstants.YEARLY_MODES) {
-	%>
+			<%
+			for (int mode : CPSubscriptionTypeConstants.YEARLY_MODES) {
+			%>
 
-		<aui:option label="<%= CPSubscriptionTypeConstants.getYearlyCPSubscriptionTypeModeLabel(mode) %>" selected="<%= selectedYearlyMode == mode %>" value="<%= mode %>" />
+				<aui:option label="<%= CPSubscriptionTypeConstants.getYearlyCPSubscriptionTypeModeLabel(mode) %>" selected="<%= selectedYearlyMode == mode %>" value="<%= mode %>" />
 
-	<%
-	}
-	%>
+			<%
+			}
+			%>
 
-</aui:select>
+		</aui:select>
 
-<div class="<%= (selectedYearlyMode == CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />exactDayOfYearInputContainer">
-	<aui:select label="month" name="subscriptionTypeSettings--month--">
+		<div class="<%= (selectedYearlyMode == CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />exactDayOfYearInputContainer">
+			<aui:select label="month" name="subscriptionTypeSettings--month--">
 
-		<%
-		for (int month : yearlyCPSubscriptionTypeDisplayContext.getCalendarMonths()) {
-		%>
+				<%
+				for (int month : yearlyCPSubscriptionTypeDisplayContext.getCalendarMonths()) {
+				%>
 
-			<aui:option label="<%= yearlyCPSubscriptionTypeDisplayContext.getMonthDisplayName(month) %>" selected="<%= selectedMonth == month %>" value="<%= month %>" />
+					<aui:option label="<%= yearlyCPSubscriptionTypeDisplayContext.getMonthDisplayName(month) %>" selected="<%= selectedMonth == month %>" value="<%= month %>" />
 
-		<%
-		}
-		%>
+				<%
+				}
+				%>
 
-	</aui:select>
+			</aui:select>
 
-	<aui:input label="day" name="subscriptionTypeSettings--monthDay--" value="<%= yearlyCPSubscriptionTypeDisplayContext.getMonthDay() %>">
-		<aui:validator name="digits" />
-		<aui:validator name="max">31</aui:validator>
-		<aui:validator name="min">1</aui:validator>
-	</aui:input>
-</div>
+			<aui:input label="day" name="subscriptionTypeSettings--monthDay--" value="<%= yearlyCPSubscriptionTypeDisplayContext.getMonthDay() %>">
+				<aui:validator name="digits" />
+				<aui:validator name="max">31</aui:validator>
+				<aui:validator name="min">1</aui:validator>
+			</aui:input>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<aui:select label="mode" name="deliverySubscriptionTypeSettings--yearlyMode--" onChange='<%= "event.preventDefault(); changeYearlyCPSubscriptionTypeSettingsMode();" %>'>
+
+			<%
+			for (int mode : CPSubscriptionTypeConstants.YEARLY_MODES) {
+			%>
+
+				<aui:option label="<%= CPSubscriptionTypeConstants.getYearlyCPSubscriptionTypeModeLabel(mode) %>" selected="<%= selectedYearlyMode == mode %>" value="<%= mode %>" />
+
+			<%
+			}
+			%>
+
+		</aui:select>
+
+		<div class="<%= (selectedYearlyMode == CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />exactDayOfYearInputContainer">
+			<aui:select label="month" name="deliverySubscriptionTypeSettings--month--">
+
+				<%
+				for (int month : yearlyCPSubscriptionTypeDisplayContext.getCalendarMonths()) {
+				%>
+
+					<aui:option label="<%= yearlyCPSubscriptionTypeDisplayContext.getMonthDisplayName(month) %>" selected="<%= selectedMonth == month %>" value="<%= month %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
+
+			<aui:input label="day" name="deliverySubscriptionTypeSettings--monthDay--" value="<%= yearlyCPSubscriptionTypeDisplayContext.getMonthDay() %>">
+				<aui:validator name="digits" />
+				<aui:validator name="max">31</aui:validator>
+				<aui:validator name="min">1</aui:validator>
+			</aui:input>
+		</div>
+	</c:otherwise>
+</c:choose>
 
 <aui:script>
 	function changeYearlyCPSubscriptionTypeSettingsMode() {

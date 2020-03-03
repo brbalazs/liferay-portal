@@ -36,9 +36,10 @@ import javax.servlet.http.HttpServletRequest;
 public class YearlyCPSubscriptionTypeDisplayContext {
 
 	public YearlyCPSubscriptionTypeDisplayContext(
-		Object object, HttpServletRequest httpServletRequest) {
+		Object object, HttpServletRequest httpServletRequest, boolean payment) {
 
 		_object = object;
+		_payment = payment;
 
 		_cpSubscriptionTypeRequestHelper = new CPSubscriptionTypeRequestHelper(
 			httpServletRequest);
@@ -65,7 +66,7 @@ public class YearlyCPSubscriptionTypeDisplayContext {
 	public int getMonthDay() {
 		UnicodeProperties subscriptionTypeSettingsProperties =
 			CommerceSubscriptionTypeUtil.getSubscriptionTypeSettingsProperties(
-				_object);
+				_object, _payment);
 
 		if ((subscriptionTypeSettingsProperties == null) ||
 			subscriptionTypeSettingsProperties.isEmpty()) {
@@ -95,7 +96,7 @@ public class YearlyCPSubscriptionTypeDisplayContext {
 	public int getSelectedMonth() {
 		UnicodeProperties subscriptionTypeSettingsProperties =
 			CommerceSubscriptionTypeUtil.getSubscriptionTypeSettingsProperties(
-				_object);
+				_object, _payment);
 
 		if (subscriptionTypeSettingsProperties == null) {
 			return 0;
@@ -108,7 +109,7 @@ public class YearlyCPSubscriptionTypeDisplayContext {
 	public int getSelectedYearlyMode() {
 		UnicodeProperties subscriptionTypeSettingsProperties =
 			CommerceSubscriptionTypeUtil.getSubscriptionTypeSettingsProperties(
-				_object);
+				_object, _payment);
 
 		if (subscriptionTypeSettingsProperties == null) {
 			return CPSubscriptionTypeConstants.MODE_ORDER_DATE;
@@ -116,6 +117,10 @@ public class YearlyCPSubscriptionTypeDisplayContext {
 
 		return GetterUtil.getInteger(
 			subscriptionTypeSettingsProperties.get("yearlyMode"));
+	}
+
+	public boolean isPayment() {
+		return _payment;
 	}
 
 	protected Map<String, Integer> getCalendarMonthsDisplayNames() {
@@ -130,5 +135,6 @@ public class YearlyCPSubscriptionTypeDisplayContext {
 	private final CPSubscriptionTypeRequestHelper
 		_cpSubscriptionTypeRequestHelper;
 	private final Object _object;
+	private final boolean _payment;
 
 }
