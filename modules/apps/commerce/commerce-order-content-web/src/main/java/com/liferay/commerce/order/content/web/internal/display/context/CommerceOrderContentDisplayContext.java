@@ -336,8 +336,8 @@ public class CommerceOrderContentDisplayContext {
 			long commerceOrderItemId)
 		throws PortalException {
 
-		return _commerceShipmentItemService.getCommerceShipmentItems(
-			commerceOrderItemId);
+		return _commerceShipmentItemService.
+			getCommerceShipmentItemsByCommerceOrderItemId(commerceOrderItemId);
 	}
 
 	public String getCommerceShipmentStatusLabel(int status) {

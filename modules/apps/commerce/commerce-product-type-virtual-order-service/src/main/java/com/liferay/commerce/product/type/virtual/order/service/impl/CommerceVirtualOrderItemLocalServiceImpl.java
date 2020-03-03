@@ -379,8 +379,7 @@ public class CommerceVirtualOrderItemLocalServiceImpl
 	}
 
 	protected CommerceSubscriptionEntry getCommerceSubscriptionEntry(
-			long commerceOrderItemId)
-		throws PortalException {
+		long commerceOrderItemId) {
 
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemLocalService.fetchCommerceOrderItem(
@@ -390,12 +389,9 @@ public class CommerceVirtualOrderItemLocalServiceImpl
 			return null;
 		}
 
-		CPInstance cpInstance = commerceOrderItem.getCPInstance();
-
 		return _commerceSubscriptionEntryLocalService.
-			fetchCommerceSubscriptionEntries(
-				cpInstance.getCPInstanceUuid(),
-				commerceOrderItem.getCProductId(), commerceOrderItemId);
+			fetchCommerceSubscriptionEntryByCommerceOrderItemId(
+				commerceOrderItemId);
 	}
 
 	protected CommerceVirtualOrderItem setDurationDates(
