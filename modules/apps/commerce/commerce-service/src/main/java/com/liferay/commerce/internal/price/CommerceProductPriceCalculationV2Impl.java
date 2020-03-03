@@ -23,6 +23,7 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.discovery.CommerceDiscountDiscovery;
+import com.liferay.commerce.dto.price.CommerceProductPriceImpl;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommercePriceDiscovery;
 import com.liferay.commerce.price.CommercePriceValue;

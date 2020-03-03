@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.internal.price;
+package com.liferay.commerce.dto.price;
 
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;

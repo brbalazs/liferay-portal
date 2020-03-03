@@ -18,6 +18,8 @@ import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.dto.price.CommerceProductPriceImpl;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
@@ -119,6 +121,29 @@ public class OrderSummaryCheckoutStepDisplayContext {
 	public CommerceProductPrice getCommerceProductPrice(
 			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
+
+		if (commerceOrderItem.isManuallyAdjusted()) {
+			CommerceProductPriceImpl commerceProductPriceImpl =
+				new CommerceProductPriceImpl();
+
+			commerceProductPriceImpl.setQuantity(
+				commerceOrderItem.getQuantity());
+			commerceProductPriceImpl.setFinalPrice(
+				commerceOrderItem.getFinalPriceMoney());
+			commerceProductPriceImpl.setUnitPrice(
+				commerceOrderItem.getUnitPriceMoney());
+			commerceProductPriceImpl.setUnitPromoPrice(
+				commerceOrderItem.getPromoPriceMoney());
+
+			CommerceDiscountValue commerceDiscountValue =
+				new CommerceDiscountValue(
+					0, commerceOrderItem.getDiscountAmountMoney(), null, null);
+
+			commerceProductPriceImpl.setCommerceDiscountValue(
+				commerceDiscountValue);
+
+			return commerceProductPriceImpl;
+		}
 
 		return _commerceProductPriceCalculation.getCommerceProductPrice(
 			commerceOrderItem.getCPInstanceId(),

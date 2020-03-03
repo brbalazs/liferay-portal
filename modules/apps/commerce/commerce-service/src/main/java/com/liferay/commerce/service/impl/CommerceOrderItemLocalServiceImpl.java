@@ -595,6 +595,10 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
 
+		if (commerceOrderItem.isManuallyAdjusted()) {
+			return commerceOrderItem;
+		}
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
 				commerceOrderItem.getCPInstanceId(),
