@@ -38,6 +38,7 @@ contextParams.put("commerceSubscriptionEntryId", String.valueOf(commerceSubscrip
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
+				showManagementBar="<%= false %>"
 				style="stacked"
 			/>
 		</commerce-ui:panel>
