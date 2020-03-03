@@ -81,8 +81,9 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 			_commerceSubscriptionEntryLocalService.getCommerceSubscriptionEntry(
 				commerceSubscriptionEntryId);
 
-		return _commerceShipmentItemService.getCommerceShipmentItemsCount(
-			commerceSubscriptionEntry.getCommerceOrderItemId());
+		return _commerceShipmentItemService.
+			getCommerceShipmentItemsCountByCommerceOrderItemId(
+				commerceSubscriptionEntry.getCommerceOrderItemId());
 	}
 
 	@Override
@@ -109,8 +110,9 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 				commerceSubscriptionEntryId);
 
 		List<CommerceShipmentItem> commerceShipmentItems =
-			_commerceShipmentItemService.getCommerceShipmentItems(
-				commerceSubscriptionEntry.getCommerceOrderItemId());
+			_commerceShipmentItemService.
+				getCommerceShipmentItemsByCommerceOrderItemId(
+					commerceSubscriptionEntry.getCommerceOrderItemId());
 
 		for (CommerceShipmentItem commerceShipmentItem :
 				commerceShipmentItems) {
@@ -122,12 +124,6 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 			CommerceOrderItem commerceOrderItem =
 				_commerceOrderItemService.getCommerceOrderItem(
 					commerceShipmentItem.getCommerceOrderItemId());
-
-			String commerceShipmentIdString = String.valueOf(
-				commerceShipment.getCommerceShipmentId());
-
-			String commerceOrderIdString = String.valueOf(
-				commerceOrderItem.getCommerceOrderId());
 
 			CommerceAddress commerceAddress =
 				_commerceAddressService.getCommerceAddress(
@@ -142,13 +138,13 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 			Shipment shipment = new Shipment(
 				dateTimeFormat.format(commerceShipment.getCreateDate()),
 				new Link(
-					commerceShipmentIdString,
+					String.valueOf(commerceShipment.getCommerceShipmentId()),
 					_getEditShipmentURL(
 						commerceShipment.getCommerceShipmentId(),
 						httpServletRequest)),
 				_getShipmentStatus(commerceShipment),
 				new Link(
-					commerceOrderIdString,
+					String.valueOf(commerceOrderItem.getCommerceOrderId()),
 					_getEditCommerceOrderURL(
 						commerceOrderItem.getCommerceOrderId(),
 						httpServletRequest)),
