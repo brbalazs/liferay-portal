@@ -228,7 +228,8 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 		_commerceInventoryWarehouseItemService.
 			updateCommerceInventoryWarehouseItem(
 				commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
-				GetterUtil.getInteger(warehouseItem.getQuantity()));
+				GetterUtil.getInteger(warehouseItem.getQuantity()),
+				commerceInventoryWarehouse.getMvccVersion());
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
@@ -255,7 +256,8 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 			updateCommerceInventoryWarehouseItem(
 				commerceInventoryWarehouseItem.
 					getCommerceInventoryWarehouseItemId(),
-				GetterUtil.getInteger(warehouseItem.getQuantity()));
+				GetterUtil.getInteger(warehouseItem.getQuantity()),
+				commerceInventoryWarehouseItem.getMvccVersion());
 
 		Response.ResponseBuilder responseBuilder = Response.noContent();
 

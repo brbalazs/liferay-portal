@@ -304,6 +304,9 @@ public class WarehouseResourceImpl
 				GetterUtil.get(
 					warehouse.getLongitude(),
 					commerceInventoryWarehouse.getLongitude()),
+				GetterUtil.get(
+					warehouse.getMvccVersion(),
+					commerceInventoryWarehouse.getMvccVersion()),
 				_serviceContextHelper.getServiceContext());
 
 		// Update nested resources

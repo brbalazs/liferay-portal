@@ -269,6 +269,35 @@ public class Warehouse {
 	protected Double longitude;
 
 	@Schema
+	@Valid
+	public Number getMvccVersion() {
+		return mvccVersion;
+	}
+
+	public void setMvccVersion(Number mvccVersion) {
+		this.mvccVersion = mvccVersion;
+	}
+
+	@JsonIgnore
+	public void setMvccVersion(
+		UnsafeSupplier<Number, Exception> mvccVersionUnsafeSupplier) {
+
+		try {
+			mvccVersion = mvccVersionUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Number mvccVersion;
+
+	@Schema
 	public String getName() {
 		return name;
 	}
@@ -609,6 +638,16 @@ public class Warehouse {
 			sb.append("\"longitude\": ");
 
 			sb.append(longitude);
+		}
+
+		if (mvccVersion != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"mvccVersion\": ");
+
+			sb.append(mvccVersion);
 		}
 
 		if (name != null) {
