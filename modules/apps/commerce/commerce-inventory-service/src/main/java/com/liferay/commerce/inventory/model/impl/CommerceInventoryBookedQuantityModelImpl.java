@@ -73,17 +73,19 @@ public class CommerceInventoryBookedQuantityModelImpl
 	public static final String TABLE_NAME = "CIBookedQuantity";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"CIBookedQuantityId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"sku", Types.VARCHAR}, {"quantity", Types.INTEGER},
-		{"expirationDate", Types.TIMESTAMP}, {"bookedNote", Types.VARCHAR}
+		{"mvccVersion", Types.BIGINT}, {"CIBookedQuantityId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
+		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"sku", Types.VARCHAR},
+		{"quantity", Types.INTEGER}, {"expirationDate", Types.TIMESTAMP},
+		{"bookedNote", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("CIBookedQuantityId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
@@ -97,7 +99,7 @@ public class CommerceInventoryBookedQuantityModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CIBookedQuantity (CIBookedQuantityId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,sku VARCHAR(75) null,quantity INTEGER,expirationDate DATE null,bookedNote VARCHAR(75) null)";
+		"create table CIBookedQuantity (mvccVersion LONG default 0 not null,CIBookedQuantityId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,sku VARCHAR(75) null,quantity INTEGER,expirationDate DATE null,bookedNote VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table CIBookedQuantity";
 
@@ -153,6 +155,7 @@ public class CommerceInventoryBookedQuantityModelImpl
 		CommerceInventoryBookedQuantity model =
 			new CommerceInventoryBookedQuantityImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setCommerceInventoryBookedQuantityId(
 			soapModel.getCommerceInventoryBookedQuantityId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -332,6 +335,34 @@ public class CommerceInventoryBookedQuantityModelImpl
 				new LinkedHashMap
 					<String, BiConsumer<CommerceInventoryBookedQuantity, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion",
+			new Function<CommerceInventoryBookedQuantity, Object>() {
+
+				@Override
+				public Object apply(
+					CommerceInventoryBookedQuantity
+						commerceInventoryBookedQuantity) {
+
+					return commerceInventoryBookedQuantity.getMvccVersion();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<CommerceInventoryBookedQuantity, Object>() {
+
+				@Override
+				public void accept(
+					CommerceInventoryBookedQuantity
+						commerceInventoryBookedQuantity,
+					Object mvccVersionObject) {
+
+					commerceInventoryBookedQuantity.setMvccVersion(
+						(Long)mvccVersionObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
 			"commerceInventoryBookedQuantityId",
 			new Function<CommerceInventoryBookedQuantity, Object>() {
@@ -622,6 +653,17 @@ public class CommerceInventoryBookedQuantityModelImpl
 
 	@JSON
 	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
+	}
+
+	@JSON
+	@Override
 	public long getCommerceInventoryBookedQuantityId() {
 		return _commerceInventoryBookedQuantityId;
 	}
@@ -840,6 +882,7 @@ public class CommerceInventoryBookedQuantityModelImpl
 			commerceInventoryBookedQuantityImpl =
 				new CommerceInventoryBookedQuantityImpl();
 
+		commerceInventoryBookedQuantityImpl.setMvccVersion(getMvccVersion());
 		commerceInventoryBookedQuantityImpl.
 			setCommerceInventoryBookedQuantityId(
 				getCommerceInventoryBookedQuantityId());
@@ -940,6 +983,9 @@ public class CommerceInventoryBookedQuantityModelImpl
 		CommerceInventoryBookedQuantityCacheModel
 			commerceInventoryBookedQuantityCacheModel =
 				new CommerceInventoryBookedQuantityCacheModel();
+
+		commerceInventoryBookedQuantityCacheModel.mvccVersion =
+			getMvccVersion();
 
 		commerceInventoryBookedQuantityCacheModel.
 			commerceInventoryBookedQuantityId =
@@ -1090,6 +1136,7 @@ public class CommerceInventoryBookedQuantityModelImpl
 
 	}
 
+	private long _mvccVersion;
 	private long _commerceInventoryBookedQuantityId;
 	private long _companyId;
 	private long _originalCompanyId;

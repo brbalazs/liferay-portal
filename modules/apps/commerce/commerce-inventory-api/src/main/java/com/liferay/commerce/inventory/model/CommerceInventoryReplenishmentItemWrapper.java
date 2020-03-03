@@ -59,6 +59,7 @@ public class CommerceInventoryReplenishmentItemWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put(
 			"commerceInventoryReplenishmentItemId",
 			getCommerceInventoryReplenishmentItemId());
@@ -78,6 +79,12 @@ public class CommerceInventoryReplenishmentItemWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		Long commerceInventoryReplenishmentItemId = (Long)attributes.get(
 			"commerceInventoryReplenishmentItemId");
 
@@ -230,6 +237,16 @@ public class CommerceInventoryReplenishmentItemWrapper
 	@Override
 	public Date getModifiedDate() {
 		return _commerceInventoryReplenishmentItem.getModifiedDate();
+	}
+
+	/**
+	 * Returns the mvcc version of this commerce inventory replenishment item.
+	 *
+	 * @return the mvcc version of this commerce inventory replenishment item
+	 */
+	@Override
+	public long getMvccVersion() {
+		return _commerceInventoryReplenishmentItem.getMvccVersion();
 	}
 
 	/**
@@ -413,6 +430,16 @@ public class CommerceInventoryReplenishmentItemWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceInventoryReplenishmentItem.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the mvcc version of this commerce inventory replenishment item.
+	 *
+	 * @param mvccVersion the mvcc version of this commerce inventory replenishment item
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_commerceInventoryReplenishmentItem.setMvccVersion(mvccVersion);
 	}
 
 	@Override

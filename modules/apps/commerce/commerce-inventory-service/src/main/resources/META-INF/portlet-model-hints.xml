@@ -16,6 +16,7 @@
 		<field name="quantity" type="int" />
 	</model>
 	<model name="com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity">
+		<field name="mvccVersion" type="long" />
 		<field name="commerceInventoryBookedQuantityId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
@@ -28,6 +29,7 @@
 		<field name="bookedNote" type="String" />
 	</model>
 	<model name="com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem">
+		<field name="mvccVersion" type="long" />
 		<field name="commerceInventoryReplenishmentItemId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
@@ -40,6 +42,7 @@
 		<field name="quantity" type="int" />
 	</model>
 	<model name="com.liferay.commerce.inventory.model.CommerceInventoryWarehouse">
+		<field name="mvccVersion" type="long" />
 		<field name="externalReferenceCode" type="String" />
 		<field name="commerceInventoryWarehouseId" type="long" />
 		<field name="companyId" type="long" />
@@ -62,6 +65,7 @@
 		<field name="type" type="String" />
 	</model>
 	<model name="com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem">
+		<field name="mvccVersion" type="long" />
 		<field name="externalReferenceCode" type="String" />
 		<field name="commerceInventoryWarehouseItemId" type="long" />
 		<field name="companyId" type="long" />

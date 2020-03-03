@@ -346,11 +346,13 @@ public class CommerceInventoryReplenishmentItemLocalServiceUtil {
 		com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem
 				updateCommerceInventoryReplenishmentItem(
 					long commerceInventoryReplenishmentItemId,
-					java.util.Date availabilityDate, int quantity)
+					java.util.Date availabilityDate, int quantity,
+					long mvccVersion)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateCommerceInventoryReplenishmentItem(
-			commerceInventoryReplenishmentItemId, availabilityDate, quantity);
+			commerceInventoryReplenishmentItemId, availabilityDate, quantity,
+			mvccVersion);
 	}
 
 	public static CommerceInventoryReplenishmentItemLocalService getService() {

@@ -342,7 +342,7 @@ public interface CommerceInventoryWarehouseLocalService
 			boolean active, String street1, String street2, String street3,
 			String city, String zip, String commerceRegionCode,
 			String commerceCountryCode, double latitude, double longitude,
-			ServiceContext serviceContext)
+			long mvccVersion, ServiceContext serviceContext)
 		throws PortalException;
 
 }

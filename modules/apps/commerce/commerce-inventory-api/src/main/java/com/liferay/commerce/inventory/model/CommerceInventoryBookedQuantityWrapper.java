@@ -58,6 +58,7 @@ public class CommerceInventoryBookedQuantityWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put(
 			"commerceInventoryBookedQuantityId",
 			getCommerceInventoryBookedQuantityId());
@@ -76,6 +77,12 @@ public class CommerceInventoryBookedQuantityWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		Long commerceInventoryBookedQuantityId = (Long)attributes.get(
 			"commerceInventoryBookedQuantityId");
 
@@ -218,6 +225,16 @@ public class CommerceInventoryBookedQuantityWrapper
 	@Override
 	public Date getModifiedDate() {
 		return _commerceInventoryBookedQuantity.getModifiedDate();
+	}
+
+	/**
+	 * Returns the mvcc version of this commerce inventory booked quantity.
+	 *
+	 * @return the mvcc version of this commerce inventory booked quantity
+	 */
+	@Override
+	public long getMvccVersion() {
+		return _commerceInventoryBookedQuantity.getMvccVersion();
 	}
 
 	/**
@@ -395,6 +412,16 @@ public class CommerceInventoryBookedQuantityWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceInventoryBookedQuantity.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the mvcc version of this commerce inventory booked quantity.
+	 *
+	 * @param mvccVersion the mvcc version of this commerce inventory booked quantity
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_commerceInventoryBookedQuantity.setMvccVersion(mvccVersion);
 	}
 
 	@Override

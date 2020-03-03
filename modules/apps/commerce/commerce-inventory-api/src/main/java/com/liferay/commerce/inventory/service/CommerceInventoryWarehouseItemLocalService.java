@@ -358,12 +358,13 @@ public interface CommerceInventoryWarehouseItemLocalService
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem);
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
-			long userId, long commerceInventoryWarehouseItemId, int quantity)
+			long userId, long commerceInventoryWarehouseItemId, int quantity,
+			int reservedQuantity, long mvccVersion)
 		throws PortalException;
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long userId, long commerceInventoryWarehouseItemId, int quantity,
-			int reservedQuantity)
+			long mvccVersion)
 		throws PortalException;
 
 	public CommerceInventoryWarehouseItem upsertCommerceInventoryWarehouseItem(

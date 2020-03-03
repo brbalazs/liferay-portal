@@ -279,7 +279,7 @@ public interface CommerceInventoryReplenishmentItemLocalService
 	public CommerceInventoryReplenishmentItem
 			updateCommerceInventoryReplenishmentItem(
 				long commerceInventoryReplenishmentItemId,
-				Date availabilityDate, int quantity)
+				Date availabilityDate, int quantity, long mvccVersion)
 		throws PortalException;
 
 }

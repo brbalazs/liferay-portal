@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -42,7 +43,7 @@ import java.util.Date;
 @ProviderType
 public interface CommerceInventoryReplenishmentItemModel
 	extends AuditedModel, BaseModel<CommerceInventoryReplenishmentItem>,
-			ShardedModel {
+			MVCCModel, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -63,6 +64,22 @@ public interface CommerceInventoryReplenishmentItemModel
 	 * @param primaryKey the primary key of this commerce inventory replenishment item
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this commerce inventory replenishment item.
+	 *
+	 * @return the mvcc version of this commerce inventory replenishment item
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this commerce inventory replenishment item.
+	 *
+	 * @param mvccVersion the mvcc version of this commerce inventory replenishment item
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the commerce inventory replenishment item ID of this commerce inventory replenishment item.

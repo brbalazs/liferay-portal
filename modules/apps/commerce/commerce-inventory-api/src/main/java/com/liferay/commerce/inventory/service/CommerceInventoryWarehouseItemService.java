@@ -170,12 +170,13 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 		throws PortalException;
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
-			long commerceInventoryWarehouseItemId, int quantity)
+			long commerceInventoryWarehouseItemId, int quantity,
+			int reservedQuantity, long mvccVersion)
 		throws PortalException;
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseItemId, int quantity,
-			int reservedQuantity)
+			long mvccVersion)
 		throws PortalException;
 
 	public CommerceInventoryWarehouseItem upsertCommerceInventoryWarehouseItem(

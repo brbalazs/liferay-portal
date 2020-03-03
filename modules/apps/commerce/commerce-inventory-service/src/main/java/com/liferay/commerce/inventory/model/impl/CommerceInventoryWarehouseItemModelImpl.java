@@ -73,7 +73,7 @@ public class CommerceInventoryWarehouseItemModelImpl
 	public static final String TABLE_NAME = "CIWarehouseItem";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"externalReferenceCode", Types.VARCHAR},
+		{"mvccVersion", Types.BIGINT}, {"externalReferenceCode", Types.VARCHAR},
 		{"CIWarehouseItemId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
@@ -85,6 +85,7 @@ public class CommerceInventoryWarehouseItemModelImpl
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("externalReferenceCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("CIWarehouseItemId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -99,7 +100,7 @@ public class CommerceInventoryWarehouseItemModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CIWarehouseItem (externalReferenceCode VARCHAR(75) null,CIWarehouseItemId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceInventoryWarehouseId LONG,sku VARCHAR(75) null,quantity INTEGER,reservedQuantity INTEGER)";
+		"create table CIWarehouseItem (mvccVersion LONG default 0 not null,externalReferenceCode VARCHAR(75) null,CIWarehouseItemId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceInventoryWarehouseId LONG,sku VARCHAR(75) null,quantity INTEGER,reservedQuantity INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table CIWarehouseItem";
 
@@ -157,6 +158,7 @@ public class CommerceInventoryWarehouseItemModelImpl
 		CommerceInventoryWarehouseItem model =
 			new CommerceInventoryWarehouseItemImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setExternalReferenceCode(soapModel.getExternalReferenceCode());
 		model.setCommerceInventoryWarehouseItemId(
 			soapModel.getCommerceInventoryWarehouseItemId());
@@ -337,6 +339,34 @@ public class CommerceInventoryWarehouseItemModelImpl
 				new LinkedHashMap
 					<String, BiConsumer<CommerceInventoryWarehouseItem, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion",
+			new Function<CommerceInventoryWarehouseItem, Object>() {
+
+				@Override
+				public Object apply(
+					CommerceInventoryWarehouseItem
+						commerceInventoryWarehouseItem) {
+
+					return commerceInventoryWarehouseItem.getMvccVersion();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<CommerceInventoryWarehouseItem, Object>() {
+
+				@Override
+				public void accept(
+					CommerceInventoryWarehouseItem
+						commerceInventoryWarehouseItem,
+					Object mvccVersionObject) {
+
+					commerceInventoryWarehouseItem.setMvccVersion(
+						(Long)mvccVersionObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
 			"externalReferenceCode",
 			new Function<CommerceInventoryWarehouseItem, Object>() {
@@ -658,6 +688,17 @@ public class CommerceInventoryWarehouseItemModelImpl
 
 	@JSON
 	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
+	}
+
+	@JSON
+	@Override
 	public String getExternalReferenceCode() {
 		if (_externalReferenceCode == null) {
 			return "";
@@ -901,6 +942,7 @@ public class CommerceInventoryWarehouseItemModelImpl
 		CommerceInventoryWarehouseItemImpl commerceInventoryWarehouseItemImpl =
 			new CommerceInventoryWarehouseItemImpl();
 
+		commerceInventoryWarehouseItemImpl.setMvccVersion(getMvccVersion());
 		commerceInventoryWarehouseItemImpl.setExternalReferenceCode(
 			getExternalReferenceCode());
 		commerceInventoryWarehouseItemImpl.setCommerceInventoryWarehouseItemId(
@@ -1011,6 +1053,8 @@ public class CommerceInventoryWarehouseItemModelImpl
 		CommerceInventoryWarehouseItemCacheModel
 			commerceInventoryWarehouseItemCacheModel =
 				new CommerceInventoryWarehouseItemCacheModel();
+
+		commerceInventoryWarehouseItemCacheModel.mvccVersion = getMvccVersion();
 
 		commerceInventoryWarehouseItemCacheModel.externalReferenceCode =
 			getExternalReferenceCode();
@@ -1158,6 +1202,7 @@ public class CommerceInventoryWarehouseItemModelImpl
 
 	}
 
+	private long _mvccVersion;
 	private String _externalReferenceCode;
 	private String _originalExternalReferenceCode;
 	private long _commerceInventoryWarehouseItemId;

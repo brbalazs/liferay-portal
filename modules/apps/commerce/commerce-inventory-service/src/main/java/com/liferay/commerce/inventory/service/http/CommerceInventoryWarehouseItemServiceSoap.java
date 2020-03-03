@@ -479,7 +479,8 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItemSoap
 				updateCommerceInventoryWarehouseItem(
-					long commerceInventoryWarehouseItemId, int quantity)
+					long commerceInventoryWarehouseItemId, int quantity,
+					int reservedQuantity, long mvccVersion)
 			throws RemoteException {
 
 		try {
@@ -487,7 +488,8 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 				returnValue =
 					CommerceInventoryWarehouseItemServiceUtil.
 						updateCommerceInventoryWarehouseItem(
-							commerceInventoryWarehouseItemId, quantity);
+							commerceInventoryWarehouseItemId, quantity,
+							reservedQuantity, mvccVersion);
 
 			return com.liferay.commerce.inventory.model.
 				CommerceInventoryWarehouseItemSoap.toSoapModel(returnValue);
@@ -503,7 +505,7 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItemSoap
 				updateCommerceInventoryWarehouseItem(
 					long commerceInventoryWarehouseItemId, int quantity,
-					int reservedQuantity)
+					long mvccVersion)
 			throws RemoteException {
 
 		try {
@@ -512,7 +514,7 @@ public class CommerceInventoryWarehouseItemServiceSoap {
 					CommerceInventoryWarehouseItemServiceUtil.
 						updateCommerceInventoryWarehouseItem(
 							commerceInventoryWarehouseItemId, quantity,
-							reservedQuantity);
+							mvccVersion);
 
 			return com.liferay.commerce.inventory.model.
 				CommerceInventoryWarehouseItemSoap.toSoapModel(returnValue);

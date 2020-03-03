@@ -232,22 +232,24 @@ public class CommerceInventoryWarehouseItemServiceUtil {
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 				updateCommerceInventoryWarehouseItem(
-					long commerceInventoryWarehouseItemId, int quantity)
+					long commerceInventoryWarehouseItemId, int quantity,
+					int reservedQuantity, long mvccVersion)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateCommerceInventoryWarehouseItem(
-			commerceInventoryWarehouseItemId, quantity);
+			commerceInventoryWarehouseItemId, quantity, reservedQuantity,
+			mvccVersion);
 	}
 
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 				updateCommerceInventoryWarehouseItem(
 					long commerceInventoryWarehouseItemId, int quantity,
-					int reservedQuantity)
+					long mvccVersion)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateCommerceInventoryWarehouseItem(
-			commerceInventoryWarehouseItemId, quantity, reservedQuantity);
+			commerceInventoryWarehouseItemId, quantity, mvccVersion);
 	}
 
 	public static

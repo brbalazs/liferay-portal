@@ -884,7 +884,8 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 				updateCommerceInventoryWarehouseItem(
 					HttpPrincipal httpPrincipal,
-					long commerceInventoryWarehouseItemId, int quantity)
+					long commerceInventoryWarehouseItemId, int quantity,
+					int reservedQuantity, long mvccVersion)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -894,7 +895,8 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 				_updateCommerceInventoryWarehouseItemParameterTypes19);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceInventoryWarehouseItemId, quantity);
+				methodKey, commerceInventoryWarehouseItemId, quantity,
+				reservedQuantity, mvccVersion);
 
 			Object returnObj = null;
 
@@ -930,7 +932,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 				updateCommerceInventoryWarehouseItem(
 					HttpPrincipal httpPrincipal,
 					long commerceInventoryWarehouseItemId, int quantity,
-					int reservedQuantity)
+					long mvccVersion)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -941,7 +943,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseItemId, quantity,
-				reservedQuantity);
+				mvccVersion);
 
 			Object returnObj = null;
 
@@ -1142,11 +1144,11 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 		};
 	private static final Class<?>[]
 		_updateCommerceInventoryWarehouseItemParameterTypes19 = new Class[] {
-			long.class, int.class
+			long.class, int.class, int.class, long.class
 		};
 	private static final Class<?>[]
 		_updateCommerceInventoryWarehouseItemParameterTypes20 = new Class[] {
-			long.class, int.class, int.class
+			long.class, int.class, long.class
 		};
 	private static final Class<?>[]
 		_upsertCommerceInventoryWarehouseItemParameterTypes21 = new Class[] {

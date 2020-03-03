@@ -705,7 +705,7 @@ public class CommerceInventoryWarehouseServiceHttp {
 					String description, boolean active, String street1,
 					String street2, String street3, String city, String zip,
 					String commerceRegionCode, String commerceCountryCode,
-					double latitude, double longitude,
+					double latitude, double longitude, long mvccVersion,
 					com.liferay.portal.kernel.service.ServiceContext
 						serviceContext)
 			throws com.liferay.portal.kernel.exception.PortalException {
@@ -720,7 +720,7 @@ public class CommerceInventoryWarehouseServiceHttp {
 				methodKey, commerceInventoryWarehouseId, name, description,
 				active, street1, street2, street3, city, zip,
 				commerceRegionCode, commerceCountryCode, latitude, longitude,
-				serviceContext);
+				mvccVersion, serviceContext);
 
 			Object returnObj = null;
 
@@ -820,7 +820,7 @@ public class CommerceInventoryWarehouseServiceHttp {
 		_updateCommerceInventoryWarehouseParameterTypes14 = new Class[] {
 			long.class, String.class, String.class, boolean.class, String.class,
 			String.class, String.class, String.class, String.class,
-			String.class, String.class, double.class, double.class,
+			String.class, String.class, double.class, double.class, long.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 

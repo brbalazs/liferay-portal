@@ -58,6 +58,7 @@ public class CommerceInventoryWarehouseWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("externalReferenceCode", getExternalReferenceCode());
 		attributes.put(
 			"commerceInventoryWarehouseId", getCommerceInventoryWarehouseId());
@@ -86,6 +87,12 @@ public class CommerceInventoryWarehouseWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		String externalReferenceCode = (String)attributes.get(
 			"externalReferenceCode");
 
@@ -355,6 +362,16 @@ public class CommerceInventoryWarehouseWrapper
 	@Override
 	public Date getModifiedDate() {
 		return _commerceInventoryWarehouse.getModifiedDate();
+	}
+
+	/**
+	 * Returns the mvcc version of this commerce inventory warehouse.
+	 *
+	 * @return the mvcc version of this commerce inventory warehouse
+	 */
+	@Override
+	public long getMvccVersion() {
+		return _commerceInventoryWarehouse.getMvccVersion();
 	}
 
 	/**
@@ -647,6 +664,16 @@ public class CommerceInventoryWarehouseWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceInventoryWarehouse.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the mvcc version of this commerce inventory warehouse.
+	 *
+	 * @param mvccVersion the mvcc version of this commerce inventory warehouse
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_commerceInventoryWarehouse.setMvccVersion(mvccVersion);
 	}
 
 	/**

@@ -73,9 +73,10 @@ public class CommerceInventoryReplenishmentItemModelImpl
 	public static final String TABLE_NAME = "CIReplenishmentItem";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"CIReplenishmentItemId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"mvccVersion", Types.BIGINT}, {"CIReplenishmentItemId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
+		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP},
 		{"commerceInventoryWarehouseId", Types.BIGINT}, {"sku", Types.VARCHAR},
 		{"availabilityDate", Types.TIMESTAMP}, {"quantity", Types.INTEGER}
 	};
@@ -84,6 +85,7 @@ public class CommerceInventoryReplenishmentItemModelImpl
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("CIReplenishmentItemId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
@@ -97,7 +99,7 @@ public class CommerceInventoryReplenishmentItemModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CIReplenishmentItem (CIReplenishmentItemId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceInventoryWarehouseId LONG,sku VARCHAR(75) null,availabilityDate DATE null,quantity INTEGER)";
+		"create table CIReplenishmentItem (mvccVersion LONG default 0 not null,CIReplenishmentItemId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceInventoryWarehouseId LONG,sku VARCHAR(75) null,availabilityDate DATE null,quantity INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CIReplenishmentItem";
@@ -156,6 +158,7 @@ public class CommerceInventoryReplenishmentItemModelImpl
 		CommerceInventoryReplenishmentItem model =
 			new CommerceInventoryReplenishmentItemImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setCommerceInventoryReplenishmentItemId(
 			soapModel.getCommerceInventoryReplenishmentItemId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -339,6 +342,34 @@ public class CommerceInventoryReplenishmentItemModelImpl
 					<String,
 					 BiConsumer<CommerceInventoryReplenishmentItem, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion",
+			new Function<CommerceInventoryReplenishmentItem, Object>() {
+
+				@Override
+				public Object apply(
+					CommerceInventoryReplenishmentItem
+						commerceInventoryReplenishmentItem) {
+
+					return commerceInventoryReplenishmentItem.getMvccVersion();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<CommerceInventoryReplenishmentItem, Object>() {
+
+				@Override
+				public void accept(
+					CommerceInventoryReplenishmentItem
+						commerceInventoryReplenishmentItem,
+					Object mvccVersionObject) {
+
+					commerceInventoryReplenishmentItem.setMvccVersion(
+						(Long)mvccVersionObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
 			"commerceInventoryReplenishmentItemId",
 			new Function<CommerceInventoryReplenishmentItem, Object>() {
@@ -633,6 +664,17 @@ public class CommerceInventoryReplenishmentItemModelImpl
 
 	@JSON
 	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
+	}
+
+	@JSON
+	@Override
 	public long getCommerceInventoryReplenishmentItemId() {
 		return _commerceInventoryReplenishmentItemId;
 	}
@@ -862,6 +904,7 @@ public class CommerceInventoryReplenishmentItemModelImpl
 			commerceInventoryReplenishmentItemImpl =
 				new CommerceInventoryReplenishmentItemImpl();
 
+		commerceInventoryReplenishmentItemImpl.setMvccVersion(getMvccVersion());
 		commerceInventoryReplenishmentItemImpl.
 			setCommerceInventoryReplenishmentItemId(
 				getCommerceInventoryReplenishmentItemId());
@@ -973,6 +1016,9 @@ public class CommerceInventoryReplenishmentItemModelImpl
 		CommerceInventoryReplenishmentItemCacheModel
 			commerceInventoryReplenishmentItemCacheModel =
 				new CommerceInventoryReplenishmentItemCacheModel();
+
+		commerceInventoryReplenishmentItemCacheModel.mvccVersion =
+			getMvccVersion();
 
 		commerceInventoryReplenishmentItemCacheModel.
 			commerceInventoryReplenishmentItemId =
@@ -1117,6 +1163,7 @@ public class CommerceInventoryReplenishmentItemModelImpl
 
 	}
 
+	private long _mvccVersion;
 	private long _commerceInventoryReplenishmentItemId;
 	private long _companyId;
 	private long _originalCompanyId;

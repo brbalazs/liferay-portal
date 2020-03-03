@@ -131,6 +131,9 @@ public class CommerceInventoryReplenishmentItemPersistenceTest {
 		CommerceInventoryReplenishmentItem
 			newCommerceInventoryReplenishmentItem = _persistence.create(pk);
 
+		newCommerceInventoryReplenishmentItem.setMvccVersion(
+			RandomTestUtil.nextLong());
+
 		newCommerceInventoryReplenishmentItem.setCompanyId(
 			RandomTestUtil.nextLong());
 
@@ -166,6 +169,9 @@ public class CommerceInventoryReplenishmentItemPersistenceTest {
 				_persistence.findByPrimaryKey(
 					newCommerceInventoryReplenishmentItem.getPrimaryKey());
 
+		Assert.assertEquals(
+			existingCommerceInventoryReplenishmentItem.getMvccVersion(),
+			newCommerceInventoryReplenishmentItem.getMvccVersion());
 		Assert.assertEquals(
 			existingCommerceInventoryReplenishmentItem.
 				getCommerceInventoryReplenishmentItemId(),
@@ -284,10 +290,11 @@ public class CommerceInventoryReplenishmentItemPersistenceTest {
 		getOrderByComparator() {
 
 		return OrderByComparatorFactoryUtil.create(
-			"CIReplenishmentItem", "commerceInventoryReplenishmentItemId", true,
-			"companyId", true, "userId", true, "userName", true, "createDate",
-			true, "modifiedDate", true, "commerceInventoryWarehouseId", true,
-			"sku", true, "availabilityDate", true, "quantity", true);
+			"CIReplenishmentItem", "mvccVersion", true,
+			"commerceInventoryReplenishmentItemId", true, "companyId", true,
+			"userId", true, "userName", true, "createDate", true,
+			"modifiedDate", true, "commerceInventoryWarehouseId", true, "sku",
+			true, "availabilityDate", true, "quantity", true);
 	}
 
 	@Test
@@ -559,6 +566,9 @@ public class CommerceInventoryReplenishmentItemPersistenceTest {
 
 		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem =
 			_persistence.create(pk);
+
+		commerceInventoryReplenishmentItem.setMvccVersion(
+			RandomTestUtil.nextLong());
 
 		commerceInventoryReplenishmentItem.setCompanyId(
 			RandomTestUtil.nextLong());

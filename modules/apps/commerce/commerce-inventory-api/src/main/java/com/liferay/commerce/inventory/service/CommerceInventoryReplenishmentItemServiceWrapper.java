@@ -120,13 +120,14 @@ public class CommerceInventoryReplenishmentItemServiceWrapper
 		com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem
 				updateCommerceInventoryReplenishmentItem(
 					long commerceInventoryReplenishmentItemId,
-					java.util.Date availabilityDate, int quantity)
+					java.util.Date availabilityDate, int quantity,
+					long mvccVersion)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceInventoryReplenishmentItemService.
 			updateCommerceInventoryReplenishmentItem(
 				commerceInventoryReplenishmentItemId, availabilityDate,
-				quantity);
+				quantity, mvccVersion);
 	}
 
 	@Override
