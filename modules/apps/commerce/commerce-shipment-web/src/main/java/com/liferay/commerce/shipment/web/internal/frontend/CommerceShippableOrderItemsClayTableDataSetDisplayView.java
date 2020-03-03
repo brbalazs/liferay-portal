@@ -48,6 +48,8 @@ public class CommerceShippableOrderItemsClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("available", "available");
 
+		clayTableSchemaBuilder.addField("icon", "address-matches-shipment");
+
 		return clayTableSchemaBuilder.build();
 	}
 

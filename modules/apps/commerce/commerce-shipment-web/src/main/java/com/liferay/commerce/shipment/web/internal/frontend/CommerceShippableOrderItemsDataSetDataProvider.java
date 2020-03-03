@@ -19,8 +19,10 @@ import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.model.Icon;
 import com.liferay.commerce.frontend.model.OrderItem;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -84,13 +86,17 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 				pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
+			String icon = _getAddressMatchIcon(commerceShipment, commerceOrder);
+
 			orderItems.add(
 				new OrderItem(
 					_commerceInventoryEngine.getStockQuantity(
 						commerceOrderItem.getCompanyId(),
 						commerceOrderItem.getGroupId(),
 						commerceOrderItem.getSku()),
-					commerceOrderItem.getCommerceOrderId(),
+					new Icon(icon), commerceOrderItem.getCommerceOrderId(),
 					commerceOrderItem.getCommerceOrderItemId(),
 					commerceOrderItem.getQuantity() -
 						commerceOrderItem.getShippedQuantity(),
@@ -104,6 +110,18 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 		CommerceOrderConstants.ORDER_STATUS_FULFILLED,
 		CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED
 	};
+
+	private String _getAddressMatchIcon(
+		CommerceShipment commerceShipment, CommerceOrder commerceOrder) {
+
+		if (commerceShipment.getCommerceAddressId() ==
+				commerceOrder.getShippingAddressId()) {
+
+			return "check";
+		}
+
+		return "times";
+	}
 
 	@Reference
 	private CommerceInventoryEngine _commerceInventoryEngine;
