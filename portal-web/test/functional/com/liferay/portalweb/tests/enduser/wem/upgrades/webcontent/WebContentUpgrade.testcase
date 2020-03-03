@@ -148,10 +148,9 @@ definition {
 
 		WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
 
-		WebContent.viewCPWithoutContentField(
-			field = "Image",
-			webContentImage = "30276",
-			webContentTitle = "WC WebContent Title");
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "WC WebContent Title");
 
 		AssertVisible(locator1 = "Button#PREVIEW");
 	}
@@ -170,10 +169,9 @@ definition {
 
 		WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
 
-		WebContent.viewCPWithoutContentField(
-			field = "Image",
-			webContentImage = "30889",
-			webContentTitle = "WC WebContent Title");
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "WC WebContent Title");
 
 		AssertVisible(locator1 = "Button#PREVIEW");
 	}
@@ -192,10 +190,9 @@ definition {
 
 		WebContentNavigator.gotoEditCP(webContentTitle = "Web Content Title");
 
-		WebContent.viewCPWithoutContentField(
-			field = "Image",
-			webContentImage = "10470",
-			webContentTitle = "Web Content Title");
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "WC WebContent Title");
 
 		AssertVisible(locator1 = "Button#PREVIEW");
 	}
