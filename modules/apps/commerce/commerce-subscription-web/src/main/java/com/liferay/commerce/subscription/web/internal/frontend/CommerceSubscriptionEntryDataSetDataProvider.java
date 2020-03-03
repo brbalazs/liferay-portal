@@ -25,7 +25,7 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
-import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+import com.liferay.commerce.service.CommerceSubscriptionEntryService;
 import com.liferay.commerce.subscription.web.internal.model.Label;
 import com.liferay.commerce.subscription.web.internal.model.Link;
 import com.liferay.commerce.subscription.web.internal.model.SubscriptionEntry;
@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +139,7 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 
 		DefaultFilterImpl defaultFilterImpl = (DefaultFilterImpl)filter;
 
-		return _commerceSubscriptionEntryLocalService.
+		return _commerceSubscriptionEntryService.
 			searchCommerceSubscriptionEntries(
 				_portal.getCompanyId(httpServletRequest), null, null,
 				defaultFilterImpl.getKeywords(), start, end, sort);
@@ -189,44 +190,53 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 	private Label _getSubscriptionStatus(
 		CommerceSubscriptionEntry commerceSubscriptionEntry) {
 
+		int subscriptionStatus =
+			commerceSubscriptionEntry.getSubscriptionStatus();
+
+		String subscriptionStatusLabel =
+			CommerceSubscriptionEntryConstants.getSubscriptionStatusLabel(
+				subscriptionStatus);
+
+		if (Validator.isNull(subscriptionStatusLabel)) {
+			return null;
+		}
+
+		String label = Label.INFO;
+
 		if (Objects.equals(
-				commerceSubscriptionEntry.getSubscriptionStatus(),
+				subscriptionStatus,
 				CommerceSubscriptionEntryConstants.
 					SUBSCRIPTION_STATUS_ACTIVE)) {
 
-			return new Label("Active", Label.SUCCESS);
+			label = Label.SUCCESS;
 		}
 		else if (Objects.equals(
-					commerceSubscriptionEntry.getSubscriptionStatus(),
+					subscriptionStatus,
 					CommerceSubscriptionEntryConstants.
-						SUBSCRIPTION_STATUS_SUSPENDED)) {
+						SUBSCRIPTION_STATUS_SUSPENDED) ||
+				 Objects.equals(
+					 subscriptionStatus,
+					 CommerceSubscriptionEntryConstants.
+						 SUBSCRIPTION_STATUS_INACTIVE)) {
 
-			return new Label("Suspended", Label.WARNING);
+			label = Label.WARNING;
 		}
 		else if (Objects.equals(
-					commerceSubscriptionEntry.getSubscriptionStatus(),
+					subscriptionStatus,
 					CommerceSubscriptionEntryConstants.
 						SUBSCRIPTION_STATUS_CANCELLED)) {
 
-			return new Label("Cancelled", Label.DANGER);
-		}
-		else if (Objects.equals(
-					commerceSubscriptionEntry.getSubscriptionStatus(),
-					CommerceSubscriptionEntryConstants.
-						SUBSCRIPTION_STATUS_COMPLETED)) {
-
-			return new Label("Active", Label.INFO);
+			label = Label.DANGER;
 		}
 
-		return null;
+		return new Label(subscriptionStatusLabel, label);
 	}
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
-	private CommerceSubscriptionEntryLocalService
-		_commerceSubscriptionEntryLocalService;
+	private CommerceSubscriptionEntryService _commerceSubscriptionEntryService;
 
 	@Reference
 	private Portal _portal;
