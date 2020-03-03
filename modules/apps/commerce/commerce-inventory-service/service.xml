@@ -41,7 +41,7 @@
 			<finder-column name="sku" />
 		</finder>
 	</entity>
-	<entity local-service="true" name="CommerceInventoryBookedQuantity" remote-service="true" table="CIBookedQuantity">
+	<entity local-service="true" mvcc-enabled="true" name="CommerceInventoryBookedQuantity" remote-service="true" table="CIBookedQuantity">
 
 		<!-- PK fields -->
 
@@ -75,7 +75,7 @@
 			<finder-column name="sku" />
 		</finder>
 	</entity>
-	<entity local-service="true" name="CommerceInventoryReplenishmentItem" remote-service="true" table="CIReplenishmentItem">
+	<entity local-service="true" mvcc-enabled="true" name="CommerceInventoryReplenishmentItem" remote-service="true" table="CIReplenishmentItem">
 
 		<!-- PK fields -->
 
@@ -116,7 +116,7 @@
 			<finder-column name="availabilityDate" />
 		</finder>
 	</entity>
-	<entity external-reference-code="true" local-service="true" name="CommerceInventoryWarehouse" remote-service="true" table="CIWarehouse">
+	<entity external-reference-code="true" local-service="true" mvcc-enabled="true" name="CommerceInventoryWarehouse" remote-service="true" table="CIWarehouse">
 
 		<!-- PK fields -->
 
@@ -175,7 +175,7 @@
 
 		<reference entity="ExpandoRow" package-path="com.liferay.portlet.expando" />
 	</entity>
-	<entity external-reference-code="true" local-service="true" name="CommerceInventoryWarehouseItem" remote-service="true" table="CIWarehouseItem">
+	<entity external-reference-code="true" local-service="true" mvcc-enabled="true" name="CommerceInventoryWarehouseItem" remote-service="true" table="CIWarehouseItem">
 
 		<!-- PK fields -->
 
@@ -218,5 +218,6 @@
 		<exception>CommerceInventoryWarehouseItemQuantity</exception>
 		<exception>CommerceInventoryWarehouseName</exception>
 		<exception>DuplicateCommerceInventoryWarehouseItem</exception>
+		<exception>MVCC</exception>
 	</exceptions>
 </service-builder>
