@@ -91,8 +91,16 @@ String keywords = ParamUtil.getString(request, "keywords");
 					keyProperty="id"
 					modelVar="channel"
 				>
+					<portlet:renderURL var="editChannelURL">
+						<portlet:param name="channelId" value="<%= String.valueOf (channel.getId()) %>" />
+						<portlet:param name="channelName" value="<%= channel.getName() %>" />
+						<portlet:param name="mvcRenderCommandName" value="/analytics_settings/edit_channel" />
+						<portlet:param name="redirect" value="<%= currentURL %>" />
+					</portlet:renderURL>
+
 					<liferay-ui:search-container-column-text
 						cssClass="table-cell-expand"
+						href="<%= editChannelURL %>"
 						name="available-properties"
 						value="<%= HtmlUtil.escape(channel.getName()) %>"
 					/>
