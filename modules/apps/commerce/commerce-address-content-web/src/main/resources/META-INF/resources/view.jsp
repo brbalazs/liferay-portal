@@ -84,6 +84,16 @@ CommerceAddressDisplayContext commerceAddressDisplayContext = (CommerceAddressDi
 									property="zip"
 								/>
 
+								<liferay-ui:search-container-column-text
+									name="country"
+									property="commerceCountry.name"
+								/>
+
+								<liferay-ui:search-container-column-text
+									name="region"
+									property="commerceRegion.name"
+								/>
+
 								<liferay-ui:search-container-column-jsp
 									cssClass="entry-action-column"
 									path="/address_action.jsp"
