@@ -123,7 +123,7 @@ public class CommerceInventoryReplenishmentItemServiceImpl
 	public CommerceInventoryReplenishmentItem
 			updateCommerceInventoryReplenishmentItem(
 				long commerceInventoryReplenishmentItemId,
-				Date availabilityDate, int quantity)
+				Date availabilityDate, int quantity, long mvccVersion)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -133,7 +133,7 @@ public class CommerceInventoryReplenishmentItemServiceImpl
 		return commerceInventoryReplenishmentItemLocalService.
 			updateCommerceInventoryReplenishmentItem(
 				commerceInventoryReplenishmentItemId, availabilityDate,
-				quantity);
+				quantity, mvccVersion);
 	}
 
 }

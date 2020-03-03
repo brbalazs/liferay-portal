@@ -307,7 +307,8 @@ public class CommerceInventoryWarehouseItemServiceImpl
 
 	@Override
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
-			long commerceInventoryWarehouseItemId, int quantity)
+			long commerceInventoryWarehouseItemId, int quantity,
+			int reservedQuantity, long mvccVersion)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -316,13 +317,14 @@ public class CommerceInventoryWarehouseItemServiceImpl
 
 		return commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
-				getUserId(), commerceInventoryWarehouseItemId, quantity);
+				getUserId(), commerceInventoryWarehouseItemId, quantity,
+				reservedQuantity, mvccVersion);
 	}
 
 	@Override
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseItemId, int quantity,
-			int reservedQuantity)
+			long mvccVersion)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -331,7 +333,8 @@ public class CommerceInventoryWarehouseItemServiceImpl
 
 		return commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
-				commerceInventoryWarehouseItemId, quantity, reservedQuantity);
+				getUserId(), commerceInventoryWarehouseItemId, quantity,
+				mvccVersion);
 	}
 
 	@Override

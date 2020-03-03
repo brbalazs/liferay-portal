@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.inventory.service.impl;
 
+import com.liferay.commerce.inventory.exception.MVCCException;
 import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryReplenishmentItemLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -123,12 +124,18 @@ public class CommerceInventoryReplenishmentItemLocalServiceImpl
 	public CommerceInventoryReplenishmentItem
 			updateCommerceInventoryReplenishmentItem(
 				long commerceInventoryReplenishmentItemId,
-				Date availabilityDate, int quantity)
+				Date availabilityDate, int quantity, long mvccVersion)
 		throws PortalException {
 
 		CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem =
 			commerceInventoryReplenishmentItemPersistence.findByPrimaryKey(
 				commerceInventoryReplenishmentItemId);
+
+		if (commerceInventoryReplenishmentItem.getMvccVersion() !=
+				mvccVersion) {
+
+			throw new MVCCException();
+		}
 
 		commerceInventoryReplenishmentItem.setAvailabilityDate(
 			availabilityDate);

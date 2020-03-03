@@ -17,6 +17,7 @@ package com.liferay.commerce.inventory.service.impl;
 import com.liferay.commerce.inventory.exception.CommerceInventoryWarehouseActiveException;
 import com.liferay.commerce.inventory.exception.CommerceInventoryWarehouseNameException;
 import com.liferay.commerce.inventory.exception.DuplicateCommerceInventoryWarehouseException;
+import com.liferay.commerce.inventory.exception.MVCCException;
 import com.liferay.commerce.inventory.internal.search.CommerceInventoryWarehouseIndexer;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryWarehouseLocalServiceBaseImpl;
@@ -322,7 +323,7 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 			boolean active, String street1, String street2, String street3,
 			String city, String zip, String commerceRegionCode,
 			String commerceCountryCode, double latitude, double longitude,
-			ServiceContext serviceContext)
+			long mvccVersion, ServiceContext serviceContext)
 		throws PortalException {
 
 		validate(name, active, latitude, longitude);
@@ -330,6 +331,10 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			commerceInventoryWarehousePersistence.findByPrimaryKey(
 				commerceInventoryWarehouseId);
+
+		if (commerceInventoryWarehouse.getMvccVersion() != mvccVersion) {
+			throw new MVCCException();
+		}
 
 		commerceInventoryWarehouse.setName(name);
 		commerceInventoryWarehouse.setDescription(description);

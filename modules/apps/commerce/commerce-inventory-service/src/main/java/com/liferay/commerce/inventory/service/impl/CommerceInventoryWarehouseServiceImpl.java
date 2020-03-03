@@ -250,7 +250,7 @@ public class CommerceInventoryWarehouseServiceImpl
 			boolean active, String street1, String street2, String street3,
 			String city, String zip, String commerceRegionCode,
 			String commerceCountryCode, double latitude, double longitude,
-			ServiceContext serviceContext)
+			long mvccVersion, ServiceContext serviceContext)
 		throws PortalException {
 
 		_commerceInventoryWarehouseModelResourcePermission.check(
@@ -261,7 +261,8 @@ public class CommerceInventoryWarehouseServiceImpl
 			updateCommerceInventoryWarehouse(
 				commerceInventoryWarehouseId, name, description, active,
 				street1, street2, street3, city, zip, commerceRegionCode,
-				commerceCountryCode, latitude, longitude, serviceContext);
+				commerceCountryCode, latitude, longitude, mvccVersion,
+				serviceContext);
 	}
 
 	private static volatile ModelResourcePermission<CommerceInventoryWarehouse>
