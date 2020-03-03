@@ -72,8 +72,8 @@ public class CommerceOrderItemFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(groupId);
 			qPos.add(commerceAccountId);
+			qPos.add(groupId);
 
 			Iterator<Long> itr = q.iterate();
 
@@ -153,8 +153,8 @@ public class CommerceOrderItemFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(groupId);
 			qPos.add(commerceAccountId);
+			qPos.add(groupId);
 
 			return (List<CommerceOrderItem>)QueryUtil.list(
 				q, getDialect(), start, end);

@@ -146,10 +146,10 @@
 				CommerceShipmentItem ON
 					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
 			WHERE
-				(commerceOrderItem.groupId = ?) AND
 				(commerceAccountId = ?) AND
+				(commerceOrderItem.groupId = ?) AND
 				(CommerceOrder.orderStatus IN ([$ORDER_STATUS$])) AND
-				(CommerceShipmentItem.commerceShipmentItemId IS NULL)
+				(CommerceOrderItem.shippedQuantity < CommerceOrderItem.quantity)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.findByAvailableQuantity">
@@ -166,7 +166,7 @@
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.findByG_A_O">
 		<![CDATA[
 			SELECT
-				{CommerceOrderItem.*}
+				DISTINCT {CommerceOrderItem.*}
 			FROM
 				CommerceOrderItem
 			JOIN
@@ -176,10 +176,10 @@
 				CommerceShipmentItem ON
 					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
 			WHERE
-				(CommerceOrderItem.groupId = ?) AND
 				(commerceAccountId = ?) AND
+				(CommerceOrderItem.groupId = ?) AND
 				(CommerceOrder.orderStatus IN ([$ORDER_STATUS$])) AND
-				(CommerceShipmentItem.commerceShipmentItemId IS NULL)
+				(CommerceOrderItem.shippedQuantity < CommerceOrderItem.quantity)
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.getCommerceOrderItemsQuantity">
