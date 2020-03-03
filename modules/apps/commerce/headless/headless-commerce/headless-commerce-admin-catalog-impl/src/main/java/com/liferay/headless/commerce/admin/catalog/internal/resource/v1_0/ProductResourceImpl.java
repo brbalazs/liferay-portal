@@ -678,13 +678,12 @@ public class ProductResourceImpl
 				shippingConfiguration.getFreeShipping(), true),
 			GetterUtil.getBoolean(
 				shippingConfiguration.getShippingSeparately(), true),
-			GetterUtil.getDouble(
-				shippingConfiguration.getShippingExtraPrice(), 0D),
-			GetterUtil.getDouble(shippingConfiguration.getWidth(), 0D),
-			GetterUtil.getDouble(shippingConfiguration.getHeight(), 0D),
-			GetterUtil.getDouble(shippingConfiguration.getDepth(), 0D),
-			GetterUtil.getDouble(shippingConfiguration.getWeight(), 0D),
-			GetterUtil.getLong(taxConfiguration.getId(), 0L),
+			GetterUtil.getDouble(shippingConfiguration.getShippingExtraPrice()),
+			GetterUtil.getDouble(shippingConfiguration.getWidth()),
+			GetterUtil.getDouble(shippingConfiguration.getHeight()),
+			GetterUtil.getDouble(shippingConfiguration.getDepth()),
+			GetterUtil.getDouble(shippingConfiguration.getWeight()),
+			GetterUtil.getLong(taxConfiguration.getId()),
 			ProductUtil.isTaxExempt(null, taxConfiguration), false, null, true,
 			displayDateConfig.getMonth(), displayDateConfig.getDay(),
 			displayDateConfig.getYear(), displayDateConfig.getHour(),
@@ -693,13 +692,12 @@ public class ProductResourceImpl
 			expirationDateConfig.getHour(), expirationDateConfig.getMinute(),
 			GetterUtil.getBoolean(product.getNeverExpire(), true),
 			product.getDefaultSku(),
-			GetterUtil.getBoolean(subscriptionConfiguration.getEnable(), false),
-			GetterUtil.getInteger(subscriptionConfiguration.getLength(), 0),
+			GetterUtil.getBoolean(subscriptionConfiguration.getEnable()),
+			GetterUtil.getInteger(subscriptionConfiguration.getLength()),
 			GetterUtil.getString(
 				subscriptionConfiguration.getSubscriptionTypeAsString()),
 			null,
-			GetterUtil.getLong(
-				subscriptionConfiguration.getNumberOfLength(), 0L),
+			GetterUtil.getLong(subscriptionConfiguration.getNumberOfLength()),
 			product.getExternalReferenceCode(), serviceContext);
 
 		// Workflow

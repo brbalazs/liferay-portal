@@ -209,8 +209,7 @@ public class CPSearchResultsDisplayContext {
 
 	public String getOrderByCol() {
 		return ParamUtil.getString(
-			_httpServletRequest, SearchContainer.DEFAULT_ORDER_BY_COL_PARAM,
-			StringPool.BLANK);
+			_httpServletRequest, SearchContainer.DEFAULT_ORDER_BY_COL_PARAM);
 	}
 
 	public int getPaginationDelta() {

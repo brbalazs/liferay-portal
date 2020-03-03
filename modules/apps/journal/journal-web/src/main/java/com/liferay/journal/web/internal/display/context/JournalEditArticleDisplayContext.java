@@ -539,7 +539,7 @@ public class JournalEditArticleDisplayContext {
 		}
 
 		_hideDefaultSuccessMessage = ParamUtil.getBoolean(
-			_request, "hideDefaultSuccessMessage", false);
+			_request, "hideDefaultSuccessMessage");
 
 		return _hideDefaultSuccessMessage;
 	}

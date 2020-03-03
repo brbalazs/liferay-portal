@@ -275,8 +275,7 @@ public class CPSearchResultsPortlet
 			httpServletRequest,
 			StringBundler.concat(
 				StringPool.UNDERLINE, portletId, StringPool.UNDERLINE,
-				SearchContainer.DEFAULT_ORDER_BY_COL_PARAM),
-			StringPool.BLANK);
+				SearchContainer.DEFAULT_ORDER_BY_COL_PARAM));
 
 		if (orderByCol.equals("price-low-to-high")) {
 			searchContext.setSorts(
