@@ -60,9 +60,7 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 			try {
 				commerceSubscriptionEntry =
 					CommerceSubscriptionEntryLocalServiceUtil.
-						fetchCommerceSubscriptionEntries(
-							cpInstance.getCPInstanceUuid(),
-							commerceOrderItem.getCProductId(),
+						fetchCommerceSubscriptionEntryByCommerceOrderItemId(
 							_commerceOrderItemId);
 			}
 			catch (Exception e) {
@@ -75,7 +73,7 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 				return SKIP_BODY;
 			}
 
-			String paymentSubscriptionType = null;
+			String subscriptionType = null;
 			String deliverySubscriptionType = null;
 
 			if (commerceSubscriptionEntry != null) {
@@ -93,7 +91,7 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 						commerceSubscriptionEntry.
 							getDeliveryMaxSubscriptionCycles();
 
-				paymentSubscriptionType =
+				subscriptionType =
 					commerceSubscriptionEntry.getSubscriptionType();
 
 				deliverySubscriptionType =
@@ -119,8 +117,7 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 					_deliveryLength *
 						cpSubscriptionInfo.getDeliveryMaxSubscriptionCycles();
 
-				paymentSubscriptionType =
-					cpSubscriptionInfo.getSubscriptionType();
+				subscriptionType = cpSubscriptionInfo.getSubscriptionType();
 
 				deliverySubscriptionType =
 					cpSubscriptionInfo.getDeliverySubscriptionType();
@@ -132,9 +129,9 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 
 			CPSubscriptionType cpSubscriptionType =
 				cpSubscriptionTypeRegistry.getCPSubscriptionType(
-					paymentSubscriptionType);
+					subscriptionType);
 
-			CPSubscriptionType cpDeliverySubscriptionType =
+			CPSubscriptionType deliveryCPSubscriptionType =
 				cpSubscriptionTypeRegistry.getCPSubscriptionType(
 					deliverySubscriptionType);
 
@@ -145,8 +142,8 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 				period = cpSubscriptionType.getLabel(themeDisplay.getLocale());
 			}
 
-			if (cpDeliverySubscriptionType != null) {
-				deliveryPeriod = cpDeliverySubscriptionType.getLabel(
+			if (deliveryCPSubscriptionType != null) {
+				deliveryPeriod = deliveryCPSubscriptionType.getLabel(
 					themeDisplay.getLocale());
 			}
 
@@ -209,10 +206,6 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 		_commerceOrderItemId = commerceOrderItemId;
 	}
 
-	public void setCPInstanceId(long cpInstanceId) {
-		_cpInstanceId = cpInstanceId;
-	}
-
 	public void setDeliveryShowDuration(boolean showDuration) {
 		_deliveryShowDuration = showDuration;
 	}
@@ -235,7 +228,6 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 		super.cleanUp();
 
 		_commerceOrderItemId = 0;
-		_cpInstanceId = 0;
 		_deliveryDuration = 0;
 		_deliveryDurationPeriod = null;
 		_deliveryDurationPeriodKey = null;
@@ -291,7 +283,6 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 		OrderSubscriptionInfoTag.class);
 
 	private long _commerceOrderItemId;
-	private long _cpInstanceId;
 	private long _deliveryDuration;
 	private String _deliveryDurationPeriod;
 	private String _deliveryDurationPeriodKey;
