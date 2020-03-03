@@ -41,6 +41,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @Component(immediate = true, service = CommerceSubscriptionEngine.class)
 public class CommerceSubscriptionEngineImpl
@@ -48,8 +49,7 @@ public class CommerceSubscriptionEngineImpl
 
 	@Override
 	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public boolean activateRecurringDelivery(long commerceSubscriptionEntryId)
 		throws Exception {
@@ -76,8 +76,7 @@ public class CommerceSubscriptionEngineImpl
 
 	@Override
 	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public boolean activateRecurringPayment(long commerceSubscriptionEntryId)
 		throws Exception {
@@ -125,8 +124,7 @@ public class CommerceSubscriptionEngineImpl
 
 	@Override
 	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public boolean cancelRecurringDelivery(long commerceSubscriptionEntryId)
 		throws Exception {
@@ -140,8 +138,7 @@ public class CommerceSubscriptionEngineImpl
 
 	@Override
 	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public boolean cancelRecurringPayment(long commerceSubscriptionEntryId)
 		throws Exception {
@@ -190,8 +187,7 @@ public class CommerceSubscriptionEngineImpl
 
 	@Override
 	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public CommercePaymentResult completeRecurringPayment(
 			long commerceOrderId, String transactionId,
@@ -262,8 +258,7 @@ public class CommerceSubscriptionEngineImpl
 
 	@Override
 	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public CommercePaymentResult processRecurringPayment(
 			long commerceOrderId, String checkoutStepUrl,
@@ -305,8 +300,7 @@ public class CommerceSubscriptionEngineImpl
 
 	@Override
 	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public boolean suspendRecurringDelivery(long commerceSubscriptionEntryId)
 		throws Exception {
@@ -337,8 +331,7 @@ public class CommerceSubscriptionEngineImpl
 
 	@Override
 	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public boolean suspendRecurringPayment(long commerceSubscriptionEntryId)
 		throws Exception {
