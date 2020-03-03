@@ -215,7 +215,10 @@ if (deliveryMaxSubscriptionCycles > 0) {
 		'<portlet:namespace />subscriptionOptions'
 	);
 
-	Liferay.Util.toggleBoxes('<portlet:namespace />deliverySubscriptionEnabled', '<portlet:namespace />deliverySubscriptionOptions');
+	Liferay.Util.toggleBoxes(
+		'<portlet:namespace />deliverySubscriptionEnabled',
+		'<portlet:namespace />deliverySubscriptionOptions'
+	);
 
 	Liferay.provide(
 		window,
@@ -256,17 +259,39 @@ if (deliveryMaxSubscriptionCycles > 0) {
 		function() {
 			var A = AUI();
 
-			var deliverySubscriptionEnabled = A.one('#<portlet:namespace />deliverySubscriptionEnabled').attr('checked');
-			var deliverySubscriptionLength = A.one('#<portlet:namespace />deliverySubscriptionLength').val();
-			var deliverySubscriptionType = A.one('#<portlet:namespace />deliverySubscriptionType').val();
-			var deliveryMaxSubscriptionCycles = A.one('#<portlet:namespace />deliveryMaxSubscriptionCycles').val();
+			var deliverySubscriptionEnabled = A.one(
+				'#<portlet:namespace />deliverySubscriptionEnabled'
+			).attr('checked');
+			var deliverySubscriptionLength = A.one(
+				'#<portlet:namespace />deliverySubscriptionLength'
+			).val();
+			var deliverySubscriptionType = A.one(
+				'#<portlet:namespace />deliverySubscriptionType'
+			).val();
+			var deliveryMaxSubscriptionCycles = A.one(
+				'#<portlet:namespace />deliveryMaxSubscriptionCycles'
+			).val();
 
-			var portletURL = new Liferay.PortletURL.createURL('<%= currentURLObj %>');
+			var portletURL = new Liferay.PortletURL.createURL(
+				'<%= currentURLObj %>'
+			);
 
-			portletURL.setParameter('deliverySubscriptionEnabled', deliverySubscriptionEnabled);
-			portletURL.setParameter('deliverySubscriptionLength', deliverySubscriptionLength);
-			portletURL.setParameter('deliverySubscriptionType', deliverySubscriptionType);
-			portletURL.setParameter('deliveryMaxSubscriptionCycles', deliveryMaxSubscriptionCycles);
+			portletURL.setParameter(
+				'deliverySubscriptionEnabled',
+				deliverySubscriptionEnabled
+			);
+			portletURL.setParameter(
+				'deliverySubscriptionLength',
+				deliverySubscriptionLength
+			);
+			portletURL.setParameter(
+				'deliverySubscriptionType',
+				deliverySubscriptionType
+			);
+			portletURL.setParameter(
+				'deliveryMaxSubscriptionCycles',
+				deliveryMaxSubscriptionCycles
+			);
 
 			window.location.replace(portletURL.toString());
 		},
@@ -284,14 +309,14 @@ if (deliveryMaxSubscriptionCycles > 0) {
 </aui:script>
 
 <aui:script use="liferay-form">
-	A.one('#<portlet:namespace />deliveryNeverEnds').on(
-	'change',
-		function(event) {
-			var formValidator = Liferay.Form.get('<portlet:namespace />fmDelivery').formValidator;
+	A.one('#<portlet:namespace />deliveryNeverEnds').on('change', function(event) {
+		var formValidator = Liferay.Form.get('<portlet:namespace />fmDelivery')
+			.formValidator;
 
-			formValidator.validateField('<portlet:namespace />deliveryMaxSubscriptionCycles');
-		}
-	);
+		formValidator.validateField(
+			'<portlet:namespace />deliveryMaxSubscriptionCycles'
+		);
+	});
 </aui:script>
 
 <aui:script use="aui-toggler">
@@ -321,24 +346,27 @@ if (deliveryMaxSubscriptionCycles > 0) {
 </aui:script>
 
 <aui:script use="aui-toggler">
-	new A.Toggler(
-		{
-			animated: true,
-			content: '#<portlet:namespace />deliveryNeverEndsContainer .never-ends-content',
-			expanded: <%= deliveryEnding %>,
-			header: '#<portlet:namespace />deliveryNeverEndsContainer .never-ends-header',
-			on: {
-				animatingChange: function(event) {
-					var instance = this;
+	new A.Toggler({
+		animated: true,
+		content:
+			'#<portlet:namespace />deliveryNeverEndsContainer .never-ends-content',
+		expanded: <%= deliveryEnding %>,
+		header:
+			'#<portlet:namespace />deliveryNeverEndsContainer .never-ends-header',
+		on: {
+			animatingChange: function(event) {
+				var instance = this;
 
-					if (!instance.get('expanded')) {
-						A.one('#<portlet:namespace />deliveryMaxSubscriptionCycles').attr('disabled', false);
-					}
-					else {
-						A.one('#<portlet:namespace />deliveryMaxSubscriptionCycles').attr('disabled', true);
-					}
+				if (!instance.get('expanded')) {
+					A.one(
+						'#<portlet:namespace />deliveryMaxSubscriptionCycles'
+					).attr('disabled', false);
+				} else {
+					A.one(
+						'#<portlet:namespace />deliveryMaxSubscriptionCycles'
+					).attr('disabled', true);
 				}
 			}
 		}
-	);
+	});
 </aui:script>
