@@ -25,7 +25,7 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
 public class CommerceSubscriptionTypeUtil {
 
 	public static UnicodeProperties getSubscriptionTypeSettingsProperties(
-		Object object) {
+		Object object, boolean payment) {
 
 		if (object == null) {
 			return null;
@@ -37,9 +37,16 @@ public class CommerceSubscriptionTypeUtil {
 			CommerceSubscriptionEntry commerceSubscriptionEntry =
 				(CommerceSubscriptionEntry)object;
 
-			subscriptionTypeSettingsProperties =
-				commerceSubscriptionEntry.
-					getSubscriptionTypeSettingsProperties();
+			if (payment) {
+				subscriptionTypeSettingsProperties =
+					commerceSubscriptionEntry.
+						getSubscriptionTypeSettingsProperties();
+			}
+			else {
+				subscriptionTypeSettingsProperties =
+					commerceSubscriptionEntry.
+						getDeliverySubscriptionTypeSettingsProperties();
+			}
 		}
 		else if (object instanceof CPDefinition) {
 			CPDefinition cpDefinition = (CPDefinition)object;
