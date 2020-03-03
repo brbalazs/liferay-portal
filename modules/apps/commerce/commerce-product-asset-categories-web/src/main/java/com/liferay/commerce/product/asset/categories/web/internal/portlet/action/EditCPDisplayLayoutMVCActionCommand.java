@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -176,6 +177,16 @@ public class EditCPDisplayLayoutMVCActionCommand extends BaseMVCActionCommand {
 		else {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
 				CPDisplayLayout.class.getName(), actionRequest);
+
+			if (classPKs.isEmpty()) {
+				SessionMessages.add(
+					actionRequest,
+					_portal.getPortletId(actionRequest) +
+						SessionMessages.
+							KEY_SUFFIX_HIDE_DEFAULT_SUCCESS_MESSAGE);
+
+				return;
+			}
 
 			for (long classPK : classPKs) {
 				_cpDisplayLayoutService.addCPDisplayLayout(
