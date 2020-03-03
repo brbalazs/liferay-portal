@@ -198,12 +198,16 @@ public class CommerceShipmentItemLocalServiceImpl
 			commerceInventoryWarehouseId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 		long commerceOrderItemId) {
 
-		return commerceShipmentItemFinder.findByCommerceOrderItemId(
-			commerceOrderItemId);
+		return commerceShipmentItemLocalService.
+			getCommerceShipmentItemsByCommerceOrderItemId(commerceOrderItemId);
 	}
 
 	@Override
@@ -226,9 +230,26 @@ public class CommerceShipmentItemLocalServiceImpl
 	}
 
 	@Override
+	public List<CommerceShipmentItem>
+		getCommerceShipmentItemsByCommerceOrderItemId(
+			long commerceOrderItemId) {
+
+		return commerceShipmentItemPersistence.findByCommerceOrderItemId(
+			commerceOrderItemId);
+	}
+
+	@Override
 	public int getCommerceShipmentItemsCount(long commerceShipmentId) {
 		return commerceShipmentItemPersistence.countByCommerceShipment(
 			commerceShipmentId);
+	}
+
+	@Override
+	public int getCommerceShipmentItemsCountByCommerceOrderItemId(
+		long commerceOrderItemId) {
+
+		return commerceShipmentItemPersistence.countByCommerceOrderItemId(
+			commerceOrderItemId);
 	}
 
 	@Override

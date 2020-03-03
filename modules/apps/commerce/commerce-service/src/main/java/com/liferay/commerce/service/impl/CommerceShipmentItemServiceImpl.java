@@ -107,21 +107,17 @@ public class CommerceShipmentItemServiceImpl
 			commerceShipmentItemId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 			long commerceOrderItemId)
 		throws PortalException {
 
-		CommerceOrderItem commerceOrderItem =
-			commerceOrderItemLocalService.getCommerceOrderItem(
-				commerceOrderItemId);
-
-		_commerceOrderModelResourcePermission.check(
-			getPermissionChecker(), commerceOrderItem.getCommerceOrderId(),
-			ActionKeys.VIEW);
-
-		return commerceShipmentItemLocalService.getCommerceShipmentItems(
-			commerceOrderItemId);
+		return commerceShipmentItemService.
+			getCommerceShipmentItemsByCommerceOrderItemId(commerceOrderItemId);
 	}
 
 	@Override
@@ -139,6 +135,24 @@ public class CommerceShipmentItemServiceImpl
 	}
 
 	@Override
+	public List<CommerceShipmentItem>
+			getCommerceShipmentItemsByCommerceOrderItemId(
+				long commerceOrderItemId)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemLocalService.getCommerceOrderItem(
+				commerceOrderItemId);
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderItem.getCommerceOrderId(),
+			ActionKeys.VIEW);
+
+		return commerceShipmentItemLocalService.
+			getCommerceShipmentItemsByCommerceOrderItemId(commerceOrderItemId);
+	}
+
+	@Override
 	public int getCommerceShipmentItemsCount(long commerceShipmentId)
 		throws PortalException {
 
@@ -148,6 +162,20 @@ public class CommerceShipmentItemServiceImpl
 
 		return commerceShipmentItemLocalService.getCommerceShipmentItemsCount(
 			commerceShipmentId);
+	}
+
+	@Override
+	public int getCommerceShipmentItemsCountByCommerceOrderItemId(
+			long commerceOrderItemId)
+		throws PortalException {
+
+		PortalPermissionUtil.contains(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentItemLocalService.
+			getCommerceShipmentItemsCountByCommerceOrderItemId(
+				commerceOrderItemId);
 	}
 
 	@Override

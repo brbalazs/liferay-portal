@@ -630,6 +630,9 @@
 		<finder name="CommerceShipment" return-type="Collection">
 			<finder-column name="commerceShipmentId" />
 		</finder>
+		<finder name="CommerceOrderItemId" return-type="Collection">
+			<finder-column name="commerceOrderItemId" />
+		</finder>
 		<finder name="C_C" return-type="Collection">
 			<finder-column name="commerceShipmentId" />
 			<finder-column name="commerceOrderItemId" />

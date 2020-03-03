@@ -14,12 +14,9 @@
 
 package com.liferay.commerce.service.persistence.impl;
 
-import com.liferay.commerce.model.CommerceShipmentItem;
-import com.liferay.commerce.model.impl.CommerceShipmentItemImpl;
 import com.liferay.commerce.service.persistence.CommerceShipmentItemFinder;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
@@ -27,7 +24,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author Alessio Antonio Rendina
@@ -36,44 +32,9 @@ public class CommerceShipmentItemFinderImpl
 	extends CommerceShipmentItemFinderBaseImpl
 	implements CommerceShipmentItemFinder {
 
-	public static final String FIND_BY_COMMERCE_ORDER_ITEM_ID =
-		CommerceShipmentItemFinder.class.getName() +
-			".findByCommerceOrderItemId";
-
 	public static final String GET_COMMERCE_SHIPMENT_ORDER_ITEMS_QUANTITY =
 		CommerceShipmentItemFinder.class.getName() +
 			".getCommerceShipmentOrderItemsQuantity";
-
-	@Override
-	public List<CommerceShipmentItem> findByCommerceOrderItemId(
-		long commerceOrderItemId) {
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			String sql = _customSQL.get(
-				getClass(), FIND_BY_COMMERCE_ORDER_ITEM_ID);
-
-			SQLQuery q = session.createSynchronizedSQLQuery(sql);
-
-			q.addEntity("CommerceShipmentItem", CommerceShipmentItemImpl.class);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(commerceOrderItemId);
-
-			return (List<CommerceShipmentItem>)QueryUtil.list(
-				q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-		}
-		catch (Exception e) {
-			throw new SystemException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
 
 	@Override
 	public int getCommerceShipmentOrderItemsQuantity(
