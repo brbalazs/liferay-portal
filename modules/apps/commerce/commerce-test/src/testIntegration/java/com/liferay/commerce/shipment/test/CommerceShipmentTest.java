@@ -686,8 +686,9 @@ public class CommerceShipmentTest {
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			List<CommerceShipmentItem> commerceShipmentItems =
-				_commerceShipmentItemLocalService.getCommerceShipmentItems(
-					commerceOrderItem.getCommerceOrderItemId());
+				_commerceShipmentItemLocalService.
+					getCommerceShipmentItemsByCommerceOrderItemId(
+						commerceOrderItem.getCommerceOrderItemId());
 
 			Assert.assertEquals(
 				commerceShipmentItems.toString(), 1,
@@ -820,8 +821,9 @@ public class CommerceShipmentTest {
 			commerceInventoryWarehouse.getCommerceInventoryWarehouseId());
 
 		List<CommerceShipmentItem> commerceShipmentItems =
-			_commerceShipmentItemLocalService.getCommerceShipmentItems(
-				commerceOrderItem.getCommerceOrderItemId());
+			_commerceShipmentItemLocalService.
+				getCommerceShipmentItemsByCommerceOrderItemId(
+					commerceOrderItem.getCommerceOrderItemId());
 
 		CommerceShipmentItem commerceShipmentItem = commerceShipmentItems.get(
 			0);
