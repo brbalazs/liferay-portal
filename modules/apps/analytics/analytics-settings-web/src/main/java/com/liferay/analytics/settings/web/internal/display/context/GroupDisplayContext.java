@@ -106,7 +106,10 @@ public class GroupDisplayContext {
 		groupSearch.setResults(groups);
 
 		groupSearch.setRowChecker(
-			new GroupChecker(_renderResponse, _getDisabledGroupIds()));
+			new GroupChecker(
+				_renderResponse,
+				ParamUtil.getString(_renderRequest, "channelId"),
+				_getDisabledGroupIds()));
 
 		int total = GroupLocalServiceUtil.searchCount(
 			_getCompanyId(), _getClassNameIds(), _getKeywords(),
