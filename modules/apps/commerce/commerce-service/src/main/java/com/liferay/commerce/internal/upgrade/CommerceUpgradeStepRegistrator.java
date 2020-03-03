@@ -167,7 +167,8 @@ public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
 
 		registry.register(
 			_SCHEMA_VERSION_4_5_1, _SCHEMA_VERSION_4_6_0,
-			new SubscriptionUpgradeProcess(), new ShipmentUpgradeProcess());
+			new DummyUpgradeProcess(), new ShipmentUpgradeProcess(),
+			new SubscriptionUpgradeProcess());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE UPGRADE STEP REGISTRATOR FINISHED");
