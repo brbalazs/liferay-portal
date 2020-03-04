@@ -27,14 +27,25 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.BaseModelSearchResult;
+import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.QueryConfig;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -120,6 +131,23 @@ public class CommerceShipmentLocalServiceImpl
 
 	@Override
 	public List<CommerceShipment> getCommerceShipments(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, int[] shipmentStatuses,
+			boolean excludeShipmentStatus, int start, int end)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			companyId, groupIds, commerceAccountIds, keywords,
+			excludeShipmentStatus, shipmentStatuses, start, end);
+
+		BaseModelSearchResult<CommerceShipment> baseModelSearchResult =
+			searchCommerceShipments(searchContext);
+
+		return baseModelSearchResult.getBaseModels();
+	}
+
+	@Override
+	public List<CommerceShipment> getCommerceShipments(
 		long[] groupIds, int status, int start, int end,
 		OrderByComparator<CommerceShipment> orderByComparator) {
 
@@ -146,6 +174,24 @@ public class CommerceShipmentLocalServiceImpl
 	}
 
 	@Override
+	public int getCommerceShipmentsCount(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, int[] shipmentStatuses,
+			boolean excludeShipmentStatus)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			companyId, groupIds, commerceAccountIds, keywords,
+			excludeShipmentStatus, shipmentStatuses, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
+
+		BaseModelSearchResult<CommerceShipment> baseModelSearchResult =
+			searchCommerceShipments(searchContext);
+
+		return baseModelSearchResult.getLength();
+	}
+
+	@Override
 	public int getCommerceShipmentsCount(long[] groupIds) {
 		return commerceShipmentPersistence.countByGroupIds(groupIds);
 	}
@@ -161,6 +207,42 @@ public class CommerceShipmentLocalServiceImpl
 
 		return commerceShipmentPersistence.countByG_C(
 			groupIds, commerceAddressId);
+	}
+
+	@Override
+	public BaseModelSearchResult<CommerceShipment> searchCommerceShipments(
+			SearchContext searchContext)
+		throws PortalException {
+
+		Indexer<CommerceShipment> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(
+				CommerceShipment.class.getName());
+
+		for (int i = 0; i < 10; i++) {
+			Hits hits = indexer.search(searchContext);
+
+			List<CommerceShipment> commerceShipments = getCommerceShipments(
+				hits);
+
+			if (commerceShipments != null) {
+				return new BaseModelSearchResult<>(
+					commerceShipments, hits.getLength());
+			}
+		}
+
+		throw new SearchException(
+			"Unable to fix the search index after 10 attempts");
+	}
+
+	@Override
+	public long searchCommerceShipmentsCount(SearchContext searchContext)
+		throws PortalException {
+
+		Indexer<CommerceShipment> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(
+				CommerceShipment.class.getName());
+
+		return indexer.searchCount(searchContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -288,9 +370,6 @@ public class CommerceShipmentLocalServiceImpl
 		commerceShipment.setExpectedDate(expectedDate);
 		commerceShipment.setStatus(status);
 
-		if (status == CommerceShipmentConstants.SHIPMENT_STATUS_SHIPPED) {
-		}
-
 		return commerceShipmentPersistence.update(commerceShipment);
 	}
 
@@ -363,6 +442,72 @@ public class CommerceShipmentLocalServiceImpl
 		commerceShipment.setStatus(status);
 
 		return commerceShipmentPersistence.update(commerceShipment);
+	}
+
+	protected SearchContext buildSearchContext(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, boolean negated, int[] shipmentStatuses, int start,
+			int end)
+		throws PortalException {
+
+		SearchContext searchContext = new SearchContext();
+
+		if (shipmentStatuses != null) {
+			searchContext.setAttribute("negateShipmentStatuses", negated);
+			searchContext.setAttribute("shipmentStatues", shipmentStatuses);
+		}
+
+		if (commerceAccountIds != null) {
+			searchContext.setAttribute(
+				"commerceAccountIds", commerceAccountIds);
+		}
+
+		searchContext.setCompanyId(companyId);
+		searchContext.setGroupIds(groupIds);
+		searchContext.setKeywords(keywords);
+		searchContext.setStart(start);
+		searchContext.setEnd(end);
+
+		QueryConfig queryConfig = searchContext.getQueryConfig();
+
+		queryConfig.setHighlightEnabled(false);
+		queryConfig.setScoreEnabled(false);
+
+		return searchContext;
+	}
+
+	protected List<CommerceShipment> getCommerceShipments(Hits hits)
+		throws PortalException {
+
+		List<Document> documents = hits.toList();
+
+		List<CommerceShipment> commerceShipments = new ArrayList<>(
+			documents.size());
+
+		for (Document document : documents) {
+			long commerceShipmentId = GetterUtil.getLong(
+				document.get(Field.ENTRY_CLASS_PK));
+
+			CommerceShipment commerceShipment = fetchCommerceShipment(
+				commerceShipmentId);
+
+			if (commerceShipment == null) {
+				commerceShipments = null;
+
+				Indexer<CommerceShipment> indexer =
+					IndexerRegistryUtil.getIndexer(CommerceShipment.class);
+
+				long companyId = GetterUtil.getLong(
+					document.get(Field.COMPANY_ID));
+
+				indexer.delete(companyId, document.getUID());
+			}
+			else if (commerceShipments != null) {
+				commerceShipments.add(commerceShipment);
+			}
+		}
+
+		return commerceShipments;
 	}
 
 	protected CommerceAddress updateCommerceShipmentAddress(

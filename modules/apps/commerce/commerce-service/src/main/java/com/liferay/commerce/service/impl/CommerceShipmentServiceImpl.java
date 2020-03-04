@@ -166,6 +166,22 @@ public class CommerceShipmentServiceImpl
 	}
 
 	@Override
+	public List<CommerceShipment> getCommerceShipments(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, int[] shipmentStatuses,
+			boolean excludeShipmentStatus, int start, int end)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.getCommerceShipments(
+			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
+			excludeShipmentStatus, start, end);
+	}
+
+	@Override
 	public int getCommerceShipmentsCount(long companyId)
 		throws PortalException {
 
@@ -230,6 +246,22 @@ public class CommerceShipmentServiceImpl
 
 		return commerceShipmentLocalService.getCommerceShipmentsCount(
 			commerceChannelGroupIds, commerceAddressId);
+	}
+
+	@Override
+	public int getCommerceShipmentsCount(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, int[] shipmentStatuses,
+			boolean excludeShipmentStatus)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.getCommerceShipmentsCount(
+			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
+			excludeShipmentStatus);
 	}
 
 	@Override

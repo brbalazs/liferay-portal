@@ -14,6 +14,11 @@
 
 package com.liferay.commerce.shipment.web.internal.frontend;
 
+import com.liferay.commerce.account.constants.CommerceAccountActionKeys;
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
+import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.account.model.CommerceAccountModel;
+import com.liferay.commerce.account.service.CommerceAccountLocalService;
 import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
@@ -25,15 +30,21 @@ import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceShipment;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
@@ -42,6 +53,7 @@ import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -75,8 +87,12 @@ public class CommerceShipmentDataSetDataProvider
 				commerceOrder.getShippingAddressId());
 		}
 
+		long companyId = _portal.getCompanyId(httpServletRequest);
+
 		return _commerceShipmentService.getCommerceShipmentsCount(
-			_portal.getCompanyId(httpServletRequest));
+			companyId, _getCommerceChannelGroupIds(companyId),
+			_getCommerceAccountIds(_portal.getUserId(httpServletRequest)),
+			filter.getKeywords(), null, false);
 	}
 
 	@Override
@@ -103,10 +119,13 @@ public class CommerceShipmentDataSetDataProvider
 				null);
 		}
 		else {
+			long companyId = _portal.getCompanyId(httpServletRequest);
+
 			commerceShipments = _commerceShipmentService.getCommerceShipments(
-				_portal.getCompanyId(httpServletRequest),
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+				companyId, _getCommerceChannelGroupIds(companyId),
+				_getCommerceAccountIds(_portal.getUserId(httpServletRequest)),
+				filter.getKeywords(), null, false,
+				pagination.getStartPosition(), pagination.getEndPosition());
 		}
 
 		User user = _portal.getUser(httpServletRequest);
@@ -133,6 +152,37 @@ public class CommerceShipmentDataSetDataProvider
 		}
 
 		return shipments;
+	}
+
+	private long[] _getCommerceAccountIds(long userId) throws PortalException {
+		if (!PortalPermissionUtil.contains(
+				PermissionThreadLocal.getPermissionChecker(),
+				CommerceAccountActionKeys.MANAGE_ALL_ACCOUNTS)) {
+
+			List<CommerceAccount> commerceAccounts =
+				_commerceAccountLocalService.getUserCommerceAccounts(
+					userId, CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
+					CommerceAccountConstants.SITE_TYPE_B2C_B2B,
+					StringPool.BLANK, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+			return ListUtil.toLongArray(
+				commerceAccounts, CommerceAccountModel::getCommerceAccountId);
+		}
+
+		return null;
+	}
+
+	private long[] _getCommerceChannelGroupIds(long companyId)
+		throws PortalException {
+
+		List<CommerceChannel> commerceChannels =
+			_commerceChannelService.searchCommerceChannels(companyId);
+
+		Stream<CommerceChannel> stream = commerceChannels.stream();
+
+		return stream.mapToLong(
+			CommerceChannel::getGroupId
+		).toArray();
 	}
 
 	private String _getDescriptiveAddress(CommerceShipment commerceShipment)
@@ -163,6 +213,12 @@ public class CommerceShipmentDataSetDataProvider
 
 		return sb.toString();
 	}
+
+	@Reference
+	private CommerceAccountLocalService _commerceAccountLocalService;
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
