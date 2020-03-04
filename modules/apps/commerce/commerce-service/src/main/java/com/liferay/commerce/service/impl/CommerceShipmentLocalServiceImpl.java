@@ -311,7 +311,7 @@ public class CommerceShipmentLocalServiceImpl
 			expectedDateHour, expectedDateMinute, user.getTimeZone(),
 			CommerceShipmentShippingDateException.class);
 
-		commerceShipment.setShippingDate(expectedDate);
+		commerceShipment.setExpectedDate(expectedDate);
 
 		return commerceShipmentPersistence.update(commerceShipment);
 	}

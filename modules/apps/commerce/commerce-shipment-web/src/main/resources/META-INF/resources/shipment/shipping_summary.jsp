@@ -24,6 +24,7 @@ CommerceShipment commerceShipment = commerceShipmentDisplayContext.getCommerceSh
 String trackingNumber = commerceShipment.getTrackingNumber();
 String carrier = commerceShipment.getCarrier();
 CommerceShippingMethod commerceShippingMethod = commerceShipment.getCommerceShippingMethod();
+Date expectedDate = commerceShipment.getExpectedDate();
 Date shippingDate = commerceShipment.getShippingDate();
 
 Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
@@ -159,7 +160,37 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
 								</c:when>
 								<c:otherwise>
-									<b><%= dateFormatDateTime.format(commerceShipment.getShippingDate()) %></b>
+									<b><%= dateFormatDateTime.format(shippingDate) %></b>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</commerce-ui:info-box>
+
+					<liferay-portlet:renderURL var="editCommerceShipmentExpectedDateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+						<portlet:param name="mvcRenderCommandName" value="editCommerceShipmentExpectedDate" />
+						<portlet:param name="commerceShipmentId" value="<%= String.valueOf(commerceShipment.getCommerceShipmentId()) %>" />
+					</liferay-portlet:renderURL>
+
+					<commerce-ui:modal
+						id="edit-expected-date-modal"
+						refreshPageOnClose="<%= true %>"
+						size="lg"
+						url="<%= editCommerceShipmentExpectedDateURL %>"
+					/>
+
+					<commerce-ui:info-box
+						actionLabel='<%= LanguageUtil.get(request, "edit") %>'
+						actionTargetId="edit-expected-date-modal"
+						actionUrl=""
+						title='<%= LanguageUtil.get(request, "expected-delivery-date") %>'
+					>
+						<div class="item">
+							<c:choose>
+								<c:when test="<%= Validator.isNull(expectedDate) %>">
+									<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
+								</c:when>
+								<c:otherwise>
+									<b><%= dateFormatDateTime.format(expectedDate) %></b>
 								</c:otherwise>
 							</c:choose>
 						</div>
