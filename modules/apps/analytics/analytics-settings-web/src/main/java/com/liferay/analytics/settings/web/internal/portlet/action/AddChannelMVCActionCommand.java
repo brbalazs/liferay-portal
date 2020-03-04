@@ -93,7 +93,7 @@ public class AddChannelMVCActionCommand extends BaseAnalyticsMVCActionCommand {
 		_updateCompanyPreferences(actionRequest, liferayAnalyticsGroupIds);
 
 		configurationProperties.put(
-			"selectedGroupIds",
+			"syncedGroupIds",
 			liferayAnalyticsGroupIds.toArray(new String[0]));
 
 		_notifyAnalyticsCloud(

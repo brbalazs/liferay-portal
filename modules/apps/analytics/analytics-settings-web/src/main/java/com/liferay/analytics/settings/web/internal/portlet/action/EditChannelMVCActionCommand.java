@@ -83,7 +83,9 @@ public class EditChannelMVCActionCommand extends BaseAnalyticsMVCActionCommand {
 			selectedGroupIds);
 
 		Set<String> liferayAnalyticsGroupIds = SetUtil.fromArray(
-			(String[])configurationProperties.get("selectedGroupIds"));
+			(String[])configurationProperties.get("syncedGroupIds"));
+
+		Collections.addAll(liferayAnalyticsGroupIds, selectedGroupIds);
 
 		liferayAnalyticsGroupIds.removeAll(removedGroupIds);
 
@@ -93,7 +95,7 @@ public class EditChannelMVCActionCommand extends BaseAnalyticsMVCActionCommand {
 		_updateCompanyPreferences(actionRequest, liferayAnalyticsGroupIds);
 
 		configurationProperties.put(
-			"selectedGroupIds",
+			"syncedGroupIds",
 			liferayAnalyticsGroupIds.toArray(new String[0]));
 	}
 
