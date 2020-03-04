@@ -19,6 +19,7 @@
 <%
 String cardCssClasses = "card d-flex" + (Validator.isNotNull(elementClasses) ? StringPool.SPACE + elementClasses : StringPool.BLANK);
 String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? StringPool.SPACE + bodyClasses : StringPool.BLANK);
+String collapseSwitchId = Validator.isNotNull(collapseSwitchName) ? collapseSwitchName : (randomNamespace + "toggle-switch-check");
 %>
 
 <div class="<%= cardCssClasses %>">
@@ -67,7 +68,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 								'<%= randomNamespace %>toggle-label'
 							);
 							var toggleCheckbox = document.getElementById(
-								'<%= randomNamespace %>toggle-switch-check'
+								'<%= collapseSwitchId %>'
 							);
 							var collapseClickable = true;
 
@@ -92,7 +93,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 
 					<span class="d-flex mr-n2">
 						<c:if test="<%= Validator.isNotNull(collapseLabel) %>">
-							<label for="<%= randomNamespace %>toggle-switch-check" id="<%= randomNamespace %>toggle-label">
+							<label for="<%= collapseSwitchId %>" id="<%= randomNamespace %>toggle-label">
 								<h5 class="mb-0 mr-3">
 									<%= collapseLabel %>
 								</h5>
@@ -106,10 +107,8 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 								data-target="#<%= randomNamespace %>collapse"
 								data-toggle="collapse"
 								class="toggle-switch-check d-none"
-								id="<%= randomNamespace %>toggle-switch-check"
-								<c:if
-									test="<%= Validator.isNotNull(collapseSwitchName) %>"
-							>
+								id="<%= collapseSwitchId %>"
+								<c:if test="<%= Validator.isNotNull(collapseSwitchName) %>">
 									name="<%= collapseSwitchName %>"
 								</c:if>
 								type="checkbox"
