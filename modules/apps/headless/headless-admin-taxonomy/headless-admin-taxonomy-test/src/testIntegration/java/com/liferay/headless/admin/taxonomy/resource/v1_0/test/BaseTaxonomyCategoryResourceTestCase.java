@@ -554,6 +554,7 @@ public abstract class BaseTaxonomyCategoryResourceTestCase {
 
 	@Test
 	public void testDeleteTaxonomyCategory() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		TaxonomyCategory taxonomyCategory =
 			testDeleteTaxonomyCategory_addTaxonomyCategory();
 

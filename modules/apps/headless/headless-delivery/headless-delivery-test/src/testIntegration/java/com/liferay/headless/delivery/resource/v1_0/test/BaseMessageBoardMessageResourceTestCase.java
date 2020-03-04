@@ -206,6 +206,7 @@ public abstract class BaseMessageBoardMessageResourceTestCase {
 
 	@Test
 	public void testDeleteMessageBoardMessage() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		MessageBoardMessage messageBoardMessage =
 			testDeleteMessageBoardMessage_addMessageBoardMessage();
 
@@ -404,6 +405,7 @@ public abstract class BaseMessageBoardMessageResourceTestCase {
 
 	@Test
 	public void testDeleteMessageBoardMessageMyRating() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		MessageBoardMessage messageBoardMessage =
 			testDeleteMessageBoardMessageMyRating_addMessageBoardMessage();
 

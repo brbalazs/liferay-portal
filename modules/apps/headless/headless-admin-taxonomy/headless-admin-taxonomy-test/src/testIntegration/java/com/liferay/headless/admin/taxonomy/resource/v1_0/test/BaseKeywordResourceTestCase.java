@@ -200,6 +200,7 @@ public abstract class BaseKeywordResourceTestCase {
 
 	@Test
 	public void testDeleteKeyword() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Keyword keyword = testDeleteKeyword_addKeyword();
 
 		assertHttpResponseStatusCode(

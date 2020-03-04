@@ -584,6 +584,7 @@ public abstract class BaseWikiNodeResourceTestCase {
 
 	@Test
 	public void testDeleteWikiNode() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		WikiNode wikiNode = testDeleteWikiNode_addWikiNode();
 
 		assertHttpResponseStatusCode(
