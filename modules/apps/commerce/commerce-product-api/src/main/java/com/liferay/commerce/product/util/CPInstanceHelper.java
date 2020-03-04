@@ -46,6 +46,11 @@ public interface CPInstanceHelper {
 			long cpDefinitionId, String serializedDDMFormValues)
 		throws PortalException;
 
+	public List<CPDefinitionOptionValueRel> filterCPDefinitionOptionValueRels(
+			long cpDefinitionOptionRelId,
+			List<Long> skuCombinationCPDefinitionOptionValueRelIds)
+		throws PortalException;
+
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
 			long cpDefinitionId, String serializedDDMFormValues, int type)
 		throws Exception;
