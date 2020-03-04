@@ -89,6 +89,10 @@
 
 	.layout-column-item-title {
 		pointer-events: none;
+
+		.text-truncate {
+			display: block;
+		}
 	}
 
 	.layout-column-item-click-mask {
