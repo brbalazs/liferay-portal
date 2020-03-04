@@ -35,6 +35,7 @@ PortletURL portletURL = categoryCPDisplayLayoutDisplayContext.getPortletURL();
 			/>
 
 			<liferay-portlet:renderURL var="addCategoryDisplayLayoutURL">
+				<portlet:param name="redirect" value="<%= portletURL.toString() %>" />
 				<portlet:param name="mvcRenderCommandName" value="editCategoryDisplayLayout" />
 				<portlet:param name="commerceAdminModuleKey" value="<%= commerceAdminModuleKey %>" />
 			</liferay-portlet:renderURL>
