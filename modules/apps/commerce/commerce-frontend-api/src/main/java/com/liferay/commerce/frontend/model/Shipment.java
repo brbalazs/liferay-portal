@@ -21,11 +21,13 @@ package com.liferay.commerce.frontend.model;
 public class Shipment {
 
 	public Shipment(
-		String accountName, String address, String createDate, long shipmentId,
-		LabelField status, String tracking) {
+		String accountName, String address, String channelName,
+		String createDate, long shipmentId, LabelField status,
+		String tracking) {
 
 		_accountName = accountName;
 		_address = address;
+		_channelName = channelName;
 		_createDate = createDate;
 		_shipmentId = shipmentId;
 		_status = status;
@@ -38,6 +40,10 @@ public class Shipment {
 
 	public String getAddress() {
 		return _address;
+	}
+
+	public String getChannelName() {
+		return _channelName;
 	}
 
 	public String getCreateDate() {
@@ -58,6 +64,7 @@ public class Shipment {
 
 	private final String _accountName;
 	private final String _address;
+	private final String _channelName;
 	private final String _createDate;
 	private final long _shipmentId;
 	private final LabelField _status;

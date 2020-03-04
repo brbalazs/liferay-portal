@@ -31,6 +31,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
@@ -135,10 +136,15 @@ public class CommerceShipmentDataSetDataProvider
 			_portal.getLocale(httpServletRequest), user.getTimeZone());
 
 		for (CommerceShipment commerceShipment : commerceShipments) {
+			CommerceChannel commerceChannel =
+				_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+					commerceShipment.getGroupId());
+
 			shipments.add(
 				new Shipment(
 					commerceShipment.getCommerceAccountName(),
 					_getDescriptiveAddress(commerceShipment),
+					commerceChannel.getName(),
 					dateTimeFormat.format(commerceShipment.getCreateDate()),
 					commerceShipment.getCommerceShipmentId(),
 					new LabelField(
@@ -216,6 +222,9 @@ public class CommerceShipmentDataSetDataProvider
 
 	@Reference
 	private CommerceAccountLocalService _commerceAccountLocalService;
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceChannelService _commerceChannelService;

@@ -59,6 +59,8 @@ public class CommerceShipmentClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("tracking", "tracking");
 
+		clayTableSchemaBuilder.addField("channelName", "channel");
+
 		return clayTableSchemaBuilder.build();
 	}
 
