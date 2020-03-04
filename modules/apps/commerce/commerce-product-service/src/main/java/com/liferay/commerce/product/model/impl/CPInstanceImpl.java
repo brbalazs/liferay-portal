@@ -80,15 +80,15 @@ public class CPInstanceImpl extends CPInstanceBaseImpl {
 
 	@Override
 	public UnicodeProperties getDeliverySubscriptionTypeSettingsProperties() {
-		if (_orderSubscriptionTypeSettingsProperties == null) {
-			_orderSubscriptionTypeSettingsProperties = new UnicodeProperties(
+		if (_deliverySubscriptionTypeSettingsProperties == null) {
+			_deliverySubscriptionTypeSettingsProperties = new UnicodeProperties(
 				true);
 
-			_orderSubscriptionTypeSettingsProperties.fastLoad(
+			_deliverySubscriptionTypeSettingsProperties.fastLoad(
 				getDeliverySubscriptionTypeSettings());
 		}
 
-		return _orderSubscriptionTypeSettingsProperties;
+		return _deliverySubscriptionTypeSettingsProperties;
 	}
 
 	@Override
@@ -101,6 +101,31 @@ public class CPInstanceImpl extends CPInstanceBaseImpl {
 		}
 
 		return _subscriptionTypeSettingsProperties;
+	}
+
+	@Override
+	public void setDeliverySubscriptionTypeSettings(
+		String subscriptionTypeSettings) {
+
+		super.setDeliverySubscriptionTypeSettings(subscriptionTypeSettings);
+
+		_deliverySubscriptionTypeSettingsProperties = null;
+	}
+
+	@Override
+	public void setDeliverySubscriptionTypeSettingsProperties(
+		UnicodeProperties deliverySubscriptionTypeSettingsProperties) {
+
+		_deliverySubscriptionTypeSettingsProperties =
+			deliverySubscriptionTypeSettingsProperties;
+
+		if (_deliverySubscriptionTypeSettingsProperties == null) {
+			_deliverySubscriptionTypeSettingsProperties =
+				new UnicodeProperties();
+		}
+
+		super.setSubscriptionTypeSettings(
+			_deliverySubscriptionTypeSettingsProperties.toString());
 	}
 
 	@Override
@@ -125,7 +150,7 @@ public class CPInstanceImpl extends CPInstanceBaseImpl {
 			_subscriptionTypeSettingsProperties.toString());
 	}
 
-	private UnicodeProperties _orderSubscriptionTypeSettingsProperties;
+	private UnicodeProperties _deliverySubscriptionTypeSettingsProperties;
 	private UnicodeProperties _subscriptionTypeSettingsProperties;
 
 }
