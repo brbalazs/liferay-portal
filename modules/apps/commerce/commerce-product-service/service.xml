@@ -805,11 +805,18 @@
 
 		<!-- Finder methods -->
 
+		<finder name="CPDefinitionOptionRelId" return-type="Collection">
+			<finder-column name="CPDefinitionOptionRelId" />
+		</finder>
 		<finder name="CPInstanceId" return-type="Collection">
 			<finder-column name="CPInstanceId" />
 		</finder>
 		<finder name="CDORI_CII" return-type="Collection">
 			<finder-column name="CPDefinitionOptionRelId" />
+			<finder-column name="CPInstanceId" />
+		</finder>
+		<finder name="CDOVRI_CII" return-type="CPInstanceOptionValueRel">
+			<finder-column name="CPDefinitionOptionValueRelId" />
 			<finder-column name="CPInstanceId" />
 		</finder>
 		<finder name="CDORI_CDOVRI_CII" return-type="CPInstanceOptionValueRel" unique="true">
