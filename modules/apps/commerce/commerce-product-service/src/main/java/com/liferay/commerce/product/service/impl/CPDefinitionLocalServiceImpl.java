@@ -143,7 +143,10 @@ public class CPDefinitionLocalServiceImpl
 			boolean neverExpire, String defaultSku, boolean subscriptionEnabled,
 			int subscriptionLength, String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, String externalReferenceCode,
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -216,6 +219,14 @@ public class CPDefinitionLocalServiceImpl
 		cpDefinition.setSubscriptionTypeSettingsProperties(
 			subscriptionTypeSettingsProperties);
 		cpDefinition.setMaxSubscriptionCycles(maxSubscriptionCycles);
+		cpDefinition.setDeliverySubscriptionEnabled(
+			deliverySubscriptionEnabled);
+		cpDefinition.setDeliverySubscriptionLength(deliverySubscriptionLength);
+		cpDefinition.setDeliverySubscriptionType(deliverySubscriptionType);
+		cpDefinition.setDeliverySubscriptionTypeSettingsProperties(
+			deliverySubscriptionTypeSettingsProperties);
+		cpDefinition.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
 		cpDefinition.setAccountGroupFilterEnabled(false);
 		cpDefinition.setChannelFilterEnabled(false);
 		cpDefinition.setVersion(1);
@@ -285,6 +296,47 @@ public class CPDefinitionLocalServiceImpl
 
 		return startWorkflowInstance(
 			user.getUserId(), cpDefinition, serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CPDefinition addCPDefinition(
+			long groupId, long userId, Map<Locale, String> nameMap,
+			Map<Locale, String> shortDescriptionMap,
+			Map<Locale, String> descriptionMap, Map<Locale, String> urlTitleMap,
+			Map<Locale, String> metaTitleMap,
+			Map<Locale, String> metaDescriptionMap,
+			Map<Locale, String> metaKeywordsMap, String productTypeName,
+			boolean ignoreSKUCombinations, boolean shippable,
+			boolean freeShipping, boolean shipSeparately,
+			double shippingExtraPrice, double width, double height,
+			double depth, double weight, long cpTaxCategoryId,
+			boolean taxExempt, boolean telcoOrElectronics,
+			String ddmStructureKey, boolean published, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, String defaultSku, boolean subscriptionEnabled,
+			int subscriptionLength, String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, String externalReferenceCode,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return cpDefinitionLocalService.addCPDefinition(
+			groupId, userId, nameMap, shortDescriptionMap, descriptionMap,
+			urlTitleMap, metaTitleMap, metaDescriptionMap, metaKeywordsMap,
+			productTypeName, ignoreSKUCombinations, shippable, freeShipping,
+			shipSeparately, shippingExtraPrice, width, height, depth, weight,
+			cpTaxCategoryId, taxExempt, telcoOrElectronics, ddmStructureKey,
+			published, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, defaultSku, subscriptionEnabled,
+			subscriptionLength, subscriptionType,
+			subscriptionTypeSettingsProperties, maxSubscriptionCycles, false, 1,
+			null, null, 0, externalReferenceCode, serviceContext);
 	}
 
 	@Override
@@ -1506,35 +1558,6 @@ public class CPDefinitionLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public CPDefinition updateDeliverySubscriptionInfo(
-			long cpDefinitionId, boolean deliverySubscriptionEnabled,
-			int deliverySubscriptionLength, String deliverySubscriptionType,
-			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
-			long deliveryMaxSubscriptionCycles)
-		throws PortalException {
-
-		CPDefinition cpDefinition = cpDefinitionPersistence.findByPrimaryKey(
-			cpDefinitionId);
-
-		if (cpDefinitionLocalService.isVersionable(cpDefinition)) {
-			cpDefinition = cpDefinitionLocalService.copyCPDefinition(
-				cpDefinitionId);
-		}
-
-		cpDefinition.setDeliverySubscriptionEnabled(
-			deliverySubscriptionEnabled);
-		cpDefinition.setDeliverySubscriptionLength(deliverySubscriptionLength);
-		cpDefinition.setDeliverySubscriptionType(deliverySubscriptionType);
-		cpDefinition.setDeliverySubscriptionTypeSettingsProperties(
-			deliverySubscriptionTypeSettingsProperties);
-		cpDefinition.setDeliveryMaxSubscriptionCycles(
-			deliveryMaxSubscriptionCycles);
-
-		return cpDefinitionPersistence.update(cpDefinition);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
 	public CPDefinition updateShippingInfo(
 			long cpDefinitionId, boolean shippable, boolean freeShipping,
 			boolean shipSeparately, double shippingExtraPrice, double width,
@@ -1641,7 +1664,10 @@ public class CPDefinitionLocalServiceImpl
 			long cpDefinitionId, boolean subscriptionEnabled,
 			int subscriptionLength, String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, ServiceContext serviceContext)
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles)
 		throws PortalException {
 
 		CPDefinition cpDefinition = cpDefinitionPersistence.findByPrimaryKey(
@@ -1658,8 +1684,34 @@ public class CPDefinitionLocalServiceImpl
 		cpDefinition.setSubscriptionTypeSettingsProperties(
 			subscriptionTypeSettingsProperties);
 		cpDefinition.setMaxSubscriptionCycles(maxSubscriptionCycles);
+		cpDefinition.setDeliverySubscriptionEnabled(
+			deliverySubscriptionEnabled);
+		cpDefinition.setDeliverySubscriptionLength(deliverySubscriptionLength);
+		cpDefinition.setDeliverySubscriptionType(deliverySubscriptionType);
+		cpDefinition.setDeliverySubscriptionTypeSettingsProperties(
+			deliverySubscriptionTypeSettingsProperties);
+		cpDefinition.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
 
 		return cpDefinitionPersistence.update(cpDefinition);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CPDefinition updateSubscriptionInfo(
+			long cpDefinitionId, boolean subscriptionEnabled,
+			int subscriptionLength, String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, ServiceContext serviceContext)
+		throws PortalException {
+
+		return cpDefinitionLocalService.updateSubscriptionInfo(
+			cpDefinitionId, subscriptionEnabled, subscriptionLength,
+			subscriptionType, subscriptionTypeSettingsProperties,
+			maxSubscriptionCycles, false, 1, null, null, 0);
 	}
 
 	@Override
@@ -1704,7 +1756,10 @@ public class CPDefinitionLocalServiceImpl
 			boolean neverExpire, String defaultSku, boolean subscriptionEnabled,
 			int subscriptionLength, String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, String externalReferenceCode,
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -1717,18 +1772,29 @@ public class CPDefinitionLocalServiceImpl
 					serviceContext.getCompanyId(), externalReferenceCode);
 
 			if (cProduct != null) {
-				return cpDefinitionLocalService.updateCPDefinition(
-					cProduct.getPublishedCPDefinitionId(), nameMap,
-					shortDescriptionMap, descriptionMap, urlTitleMap,
-					metaTitleMap, metaDescriptionMap, metaKeywordsMap,
-					ignoreSKUCombinations, shippable, freeShipping,
-					shipSeparately, shippingExtraPrice, width, height, depth,
-					weight, cpTaxCategoryId, taxExempt, telcoOrElectronics,
-					ddmStructureKey, published, displayDateMonth,
-					displayDateDay, displayDateYear, displayDateHour,
-					displayDateMinute, expirationDateMonth, expirationDateDay,
-					expirationDateYear, expirationDateHour,
-					expirationDateMinute, neverExpire, serviceContext);
+				CPDefinition cpDefinition =
+					cpDefinitionLocalService.updateCPDefinition(
+						cProduct.getPublishedCPDefinitionId(), nameMap,
+						shortDescriptionMap, descriptionMap, urlTitleMap,
+						metaTitleMap, metaDescriptionMap, metaKeywordsMap,
+						ignoreSKUCombinations, shippable, freeShipping,
+						shipSeparately, shippingExtraPrice, width, height,
+						depth, weight, cpTaxCategoryId, taxExempt,
+						telcoOrElectronics, ddmStructureKey, published,
+						displayDateMonth, displayDateDay, displayDateYear,
+						displayDateHour, displayDateMinute, expirationDateMonth,
+						expirationDateDay, expirationDateYear,
+						expirationDateHour, expirationDateMinute, neverExpire,
+						serviceContext);
+
+				return cpDefinitionLocalService.updateSubscriptionInfo(
+					cpDefinition.getCPDefinitionId(), subscriptionEnabled,
+					subscriptionLength, subscriptionType,
+					subscriptionTypeSettingsProperties, maxSubscriptionCycles,
+					deliverySubscriptionEnabled, deliverySubscriptionLength,
+					deliverySubscriptionType,
+					deliverySubscriptionTypeSettingsProperties,
+					deliveryMaxSubscriptionCycles);
 			}
 		}
 
@@ -1744,7 +1810,51 @@ public class CPDefinitionLocalServiceImpl
 			expirationDateMinute, neverExpire, defaultSku, subscriptionEnabled,
 			subscriptionLength, subscriptionType,
 			subscriptionTypeSettingsProperties, maxSubscriptionCycles,
-			externalReferenceCode, serviceContext);
+			deliverySubscriptionEnabled, deliverySubscriptionLength,
+			deliverySubscriptionType,
+			deliverySubscriptionTypeSettingsProperties,
+			deliveryMaxSubscriptionCycles, externalReferenceCode,
+			serviceContext);
+	}
+
+	@Override
+	public CPDefinition upsertCPDefinition(
+			long groupId, long userId, Map<Locale, String> nameMap,
+			Map<Locale, String> shortDescriptionMap,
+			Map<Locale, String> descriptionMap, Map<Locale, String> urlTitleMap,
+			Map<Locale, String> metaTitleMap,
+			Map<Locale, String> metaDescriptionMap,
+			Map<Locale, String> metaKeywordsMap, String productTypeName,
+			boolean ignoreSKUCombinations, boolean shippable,
+			boolean freeShipping, boolean shipSeparately,
+			double shippingExtraPrice, double width, double height,
+			double depth, double weight, long cpTaxCategoryId,
+			boolean taxExempt, boolean telcoOrElectronics,
+			String ddmStructureKey, boolean published, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, String defaultSku, boolean subscriptionEnabled,
+			int subscriptionLength, String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, String externalReferenceCode,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return cpDefinitionLocalService.upsertCPDefinition(
+			groupId, userId, nameMap, shortDescriptionMap, descriptionMap,
+			urlTitleMap, metaTitleMap, metaDescriptionMap, metaKeywordsMap,
+			productTypeName, ignoreSKUCombinations, shippable, freeShipping,
+			shipSeparately, shippingExtraPrice, width, height, depth, weight,
+			cpTaxCategoryId, taxExempt, telcoOrElectronics, ddmStructureKey,
+			published, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, defaultSku, subscriptionEnabled,
+			subscriptionLength, subscriptionType,
+			subscriptionTypeSettingsProperties, maxSubscriptionCycles, false, 1,
+			null, null, 0, externalReferenceCode, serviceContext);
 	}
 
 	protected SearchContext buildSearchContext(

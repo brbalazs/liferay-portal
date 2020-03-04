@@ -64,6 +64,55 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 			boolean neverExpire, String defaultSku, boolean subscriptionEnabled,
 			int subscriptionLength, String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles, String externalReferenceCode,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		_checkCommerceCatalogPermission(groupId, ActionKeys.UPDATE);
+
+		return cpDefinitionLocalService.addCPDefinition(
+			groupId, userId, nameMap, shortDescriptionMap, descriptionMap,
+			urlTitleMap, metaTitleMap, metaDescriptionMap, metaKeywordsMap,
+			productTypeName, ignoreSKUCombinations, shippable, freeShipping,
+			shipSeparately, shippingExtraPrice, width, height, depth, weight,
+			cpTaxCategoryId, taxExempt, telcoOrElectronics, ddmStructureKey,
+			published, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, defaultSku, subscriptionEnabled,
+			subscriptionLength, subscriptionType,
+			subscriptionTypeSettingsProperties, maxSubscriptionCycles,
+			deliverySubscriptionEnabled, deliverySubscriptionLength,
+			deliverySubscriptionType,
+			deliverySubscriptionTypeSettingsProperties,
+			deliveryMaxSubscriptionCycles, externalReferenceCode,
+			serviceContext);
+	}
+
+	@Override
+	public CPDefinition addCPDefinition(
+			long groupId, long userId, Map<Locale, String> nameMap,
+			Map<Locale, String> shortDescriptionMap,
+			Map<Locale, String> descriptionMap, Map<Locale, String> urlTitleMap,
+			Map<Locale, String> metaTitleMap,
+			Map<Locale, String> metaDescriptionMap,
+			Map<Locale, String> metaKeywordsMap, String productTypeName,
+			boolean ignoreSKUCombinations, boolean shippable,
+			boolean freeShipping, boolean shipSeparately,
+			double shippingExtraPrice, double width, double height,
+			double depth, double weight, long cpTaxCategoryId,
+			boolean taxExempt, boolean telcoOrElectronics,
+			String ddmStructureKey, boolean published, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, String defaultSku, boolean subscriptionEnabled,
+			int subscriptionLength, String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
 			long maxSubscriptionCycles, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -322,24 +371,6 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 	}
 
 	@Override
-	public CPDefinition updateDeliverySubscriptionInfo(
-			long cpDefinitionId, boolean deliverySubscriptionEnabled,
-			int deliverySubscriptionLength, String deliverySubscriptionType,
-			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
-			long deliveryMaxSubscriptionCycles)
-		throws PortalException {
-
-		_checkCommerceCatalogPermissionByCPDefinitionId(
-			cpDefinitionId, ActionKeys.UPDATE);
-
-		return cpDefinitionLocalService.updateDeliverySubscriptionInfo(
-			cpDefinitionId, deliverySubscriptionEnabled,
-			deliverySubscriptionLength, deliverySubscriptionType,
-			deliverySubscriptionTypeSettingsProperties,
-			deliveryMaxSubscriptionCycles);
-	}
-
-	@Override
 	public CPDefinition updateShippingInfo(
 			long cpDefinitionId, boolean shippable, boolean freeShipping,
 			boolean shipSeparately, double shippingExtraPrice, double width,
@@ -374,6 +405,33 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 			long cpDefinitionId, boolean subscriptionEnabled,
 			int subscriptionLength, String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles)
+		throws PortalException {
+
+		_checkCommerceCatalogPermissionByCPDefinitionId(
+			cpDefinitionId, ActionKeys.UPDATE);
+
+		return cpDefinitionLocalService.updateSubscriptionInfo(
+			cpDefinitionId, subscriptionEnabled, subscriptionLength,
+			subscriptionType, subscriptionTypeSettingsProperties,
+			maxSubscriptionCycles, deliverySubscriptionEnabled,
+			deliverySubscriptionLength, deliverySubscriptionType,
+			deliverySubscriptionTypeSettingsProperties,
+			deliveryMaxSubscriptionCycles);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CPDefinition updateSubscriptionInfo(
+			long cpDefinitionId, boolean subscriptionEnabled,
+			int subscriptionLength, String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
 			long maxSubscriptionCycles, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -397,6 +455,55 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 
 		return cpDefinitionLocalService.updateTaxCategoryInfo(
 			cpDefinitionId, cpTaxCategoryId, taxExempt, telcoOrElectronics);
+	}
+
+	@Override
+	public CPDefinition upsertCPDefinition(
+			long groupId, long userId, Map<Locale, String> nameMap,
+			Map<Locale, String> shortDescriptionMap,
+			Map<Locale, String> descriptionMap, Map<Locale, String> urlTitleMap,
+			Map<Locale, String> metaTitleMap,
+			Map<Locale, String> metaDescriptionMap,
+			Map<Locale, String> metaKeywordsMap, String productTypeName,
+			boolean ignoreSKUCombinations, boolean shippable,
+			boolean freeShipping, boolean shipSeparately,
+			double shippingExtraPrice, double width, double height,
+			double depth, double weight, long cpTaxCategoryId,
+			boolean taxExempt, boolean telcoOrElectronics,
+			String ddmStructureKey, boolean published, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, String defaultSku, boolean subscriptionEnabled,
+			int subscriptionLength, String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles, String externalReferenceCode,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		_checkCommerceCatalogPermission(groupId, ActionKeys.UPDATE);
+
+		return cpDefinitionLocalService.upsertCPDefinition(
+			groupId, userId, nameMap, shortDescriptionMap, descriptionMap,
+			urlTitleMap, metaTitleMap, metaDescriptionMap, metaKeywordsMap,
+			productTypeName, ignoreSKUCombinations, shippable, freeShipping,
+			shipSeparately, shippingExtraPrice, width, height, depth, weight,
+			cpTaxCategoryId, taxExempt, telcoOrElectronics, ddmStructureKey,
+			published, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, defaultSku, subscriptionEnabled,
+			subscriptionLength, subscriptionType,
+			subscriptionTypeSettingsProperties, maxSubscriptionCycles,
+			deliverySubscriptionEnabled, deliverySubscriptionLength,
+			deliverySubscriptionType,
+			deliverySubscriptionTypeSettingsProperties,
+			deliveryMaxSubscriptionCycles, externalReferenceCode,
+			serviceContext);
 	}
 
 	@Override
