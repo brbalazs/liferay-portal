@@ -462,6 +462,7 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 
 		long cpDefinitionId = ParamUtil.getLong(
 			actionRequest, "cpDefinitionId");
+
 		boolean subscriptionEnabled = ParamUtil.getBoolean(
 			actionRequest, "subscriptionEnabled");
 		int subscriptionLength = ParamUtil.getInteger(
@@ -473,14 +474,25 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 				actionRequest, "subscriptionTypeSettings--");
 		long maxSubscriptionCycles = ParamUtil.getLong(
 			actionRequest, "maxSubscriptionCycles");
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CPDefinition.class.getName(), actionRequest);
+		boolean deliverySubscriptionEnabled = ParamUtil.getBoolean(
+			actionRequest, "deliverySubscriptionEnabled");
+		int deliverySubscriptionLength = ParamUtil.getInteger(
+			actionRequest, "deliverySubscriptionLength");
+		String deliverySubscriptionType = ParamUtil.getString(
+			actionRequest, "deliverySubscriptionType");
+		UnicodeProperties deliverySubscriptionTypeSettingsProperties =
+			PropertiesParamUtil.getProperties(
+				actionRequest, "deliverySubscriptionTypeSettings--");
+		long deliveryMaxSubscriptionCycles = ParamUtil.getLong(
+			actionRequest, "deliveryMaxSubscriptionCycles");
 
 		_cpDefinitionService.updateSubscriptionInfo(
 			cpDefinitionId, subscriptionEnabled, subscriptionLength,
 			subscriptionType, subscriptionTypeSettingsProperties,
-			maxSubscriptionCycles, serviceContext);
+			maxSubscriptionCycles, deliverySubscriptionEnabled,
+			deliverySubscriptionLength, deliverySubscriptionType,
+			deliverySubscriptionTypeSettingsProperties,
+			deliveryMaxSubscriptionCycles);
 	}
 
 	protected void updateTaxCategoryInfo(ActionRequest actionRequest)

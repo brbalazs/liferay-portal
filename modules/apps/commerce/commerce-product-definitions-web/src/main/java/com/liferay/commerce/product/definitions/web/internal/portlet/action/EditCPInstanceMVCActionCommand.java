@@ -305,15 +305,26 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 				actionRequest, "subscriptionTypeSettings--");
 		long maxSubscriptionCycles = ParamUtil.getLong(
 			actionRequest, "maxSubscriptionCycles");
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CPInstance.class.getName(), actionRequest);
+		boolean deliverySubscriptionEnabled = ParamUtil.getBoolean(
+			actionRequest, "deliverySubscriptionEnabled");
+		int deliverySubscriptionLength = ParamUtil.getInteger(
+			actionRequest, "deliverySubscriptionLength");
+		String deliverySubscriptionType = ParamUtil.getString(
+			actionRequest, "deliverySubscriptionType");
+		UnicodeProperties deliverySubscriptionTypeSettingsProperties =
+			PropertiesParamUtil.getProperties(
+				actionRequest, "deliverySubscriptionTypeSettings--");
+		long deliveryMaxSubscriptionCycles = ParamUtil.getLong(
+			actionRequest, "deliveryMaxSubscriptionCycles");
 
 		_cpInstanceService.updateSubscriptionInfo(
 			cpInstanceId, overrideSubscriptionInfo, subscriptionEnabled,
 			subscriptionLength, subscriptionType,
 			subscriptionTypeSettingsProperties, maxSubscriptionCycles,
-			serviceContext);
+			deliverySubscriptionEnabled, deliverySubscriptionLength,
+			deliverySubscriptionType,
+			deliverySubscriptionTypeSettingsProperties,
+			deliveryMaxSubscriptionCycles);
 	}
 
 	private static final TransactionConfig _transactionConfig =
