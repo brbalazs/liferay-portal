@@ -386,6 +386,10 @@ AUI.add(
 					_afterOptionKeyChange: function() {
 						var instance = this;
 
+						if (instance._skipOptionChange) {
+							return;
+						}
+
 						var value = instance.getValue();
 
 						instance._setValue(value);
@@ -425,7 +429,7 @@ AUI.add(
 					_afterOptionValueChange: function(event) {
 						var instance = this;
 
-						if (instance._skipOptionValueChange) {
+						if (instance._skipOptionChange) {
 							return;
 						}
 
@@ -696,7 +700,7 @@ AUI.add(
 					_restoreOption: function(option, contextValue) {
 						var instance = this;
 
-						instance._skipOptionValueChange = true;
+						instance._skipOptionChange = true;
 
 						option.setValue(contextValue.label);
 
@@ -709,7 +713,7 @@ AUI.add(
 							option.set('generationLocked', false);
 						}
 
-						instance._skipOptionValueChange = false;
+						instance._skipOptionChange = false;
 					},
 
 					_setContext: function(val) {
