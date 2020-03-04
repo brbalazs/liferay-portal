@@ -21,14 +21,14 @@ GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest,
 
 String redirect = ParamUtil.getString(request, "redirect");
 
+String channelId = ParamUtil.getString(request, "channelId");
+String channelName = ParamUtil.getString(request, "channelName");
+
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(ParamUtil.getString(request, "backURL", redirect));
 
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "synced-sites"), redirect);
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "edit-property"), currentURL);
-
-String channelId = ParamUtil.getString(request, "channelId");
-String channelName = ParamUtil.getString(request, "channelName");
 %>
 
 <portlet:actionURL name="/analytics/edit_channel" var="editChannelURL" />
