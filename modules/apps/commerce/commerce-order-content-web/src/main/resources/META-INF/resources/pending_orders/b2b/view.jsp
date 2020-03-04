@@ -18,6 +18,8 @@
 
 <%
 CommerceOrderContentDisplayContext commerceOrderContentDisplayContext = (CommerceOrderContentDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+CommerceAccount commerceAccount = commerceOrderContentDisplayContext.getCommerceAccount();
 %>
 
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />
@@ -40,6 +42,7 @@ CommerceOrderContentDisplayContext commerceOrderContentDisplayContext = (Commerc
 			<aui:input name="deleteCommerceOrderIds" type="hidden" />
 
 			<clay:button
+				disabled="<%= commerceAccount == null %>"
 				elementClasses="btn-fixed btn-primary"
 				label='<%= LanguageUtil.get(request, "add-order") %>'
 				size="lg"
