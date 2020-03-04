@@ -123,13 +123,9 @@ public class AnalyticsConfigurationTrackerImpl
 
 	@Override
 	public void deleted(String pid) {
-		_unmapPid(pid);
-
 		long companyId = getCompanyId(pid);
 
-		if (companyId == CompanyConstants.SYSTEM) {
-			return;
-		}
+		_unmapPid(pid);
 
 		_disable(companyId);
 	}
@@ -460,10 +456,14 @@ public class AnalyticsConfigurationTrackerImpl
 
 	private void _disable(long companyId) {
 		try {
-			_analyticsMessageLocalService.deleteAnalyticsMessages(companyId);
+			if (companyId != CompanyConstants.SYSTEM) {
+				_analyticsMessageLocalService.deleteAnalyticsMessages(
+					companyId);
 
-			_deleteAnalyticsAdmin(companyId);
-			_deleteSAPEntry(companyId);
+				_deleteAnalyticsAdmin(companyId);
+				_deleteSAPEntry(companyId);
+			}
+
 			_disableAuthVerifier();
 		}
 		catch (Exception e) {
