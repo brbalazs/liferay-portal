@@ -107,10 +107,14 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 			String inputName =
 				portletNamespace + commerceInventoryWarehouseId + "_quantity";
 
-			int shipmentItemWarehouseItemQuantity =
-				_commerceShipmentItemLocalService.getCommerceShipmentItemCount(
-					commerceOrderItem.getCommerceOrderItemId(),
-					commerceInventoryWarehouseId);
+			int shipmentItemWarehouseItemQuantity = 0;
+
+			if (commerceInventoryWarehouseId ==
+					commerceShipmentItem.getCommerceInventoryWarehouseId()) {
+
+				shipmentItemWarehouseItemQuantity =
+					commerceShipmentItem.getQuantity();
+			}
 
 			if (commerceInventoryWarehouseItem != null) {
 				warehouses.add(

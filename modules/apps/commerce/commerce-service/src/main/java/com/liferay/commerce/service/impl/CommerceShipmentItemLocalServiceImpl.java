@@ -166,15 +166,6 @@ public class CommerceShipmentItemLocalServiceImpl
 	}
 
 	@Override
-	public int getCommerceShipmentItemCount(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
-		throws PortalException {
-
-		return commerceShipmentItemPersistence.countByCO_C(
-			commerceOrderItemId, commerceInventoryWarehouseId);
-	}
-
-	@Override
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 		long commerceOrderItemId) {
 
