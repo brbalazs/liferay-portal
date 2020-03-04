@@ -16,10 +16,12 @@ package com.liferay.commerce.shipment.web.internal.frontend;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.frontend.model.ShipmentItem;
+import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.petra.string.StringPool;
@@ -53,10 +55,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS,
+	property = "commerce.data.provider.key=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_PROCESSING_SHIPMENT_ITEMS,
 	service = ClayDataSetActionProvider.class
 )
-public class CommerceShipmentItemDataSetActionProvider
+public class ProcessingCommerceShipmentItemDataSetActionProvider
 	implements ClayDataSetActionProvider {
 
 	@Override
@@ -76,9 +78,14 @@ public class CommerceShipmentItemDataSetActionProvider
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		CommerceShipment commerceShipment =
+			commerceShipmentItem.getCommerceShipment();
+
 		if (PortalPermissionUtil.contains(
 				themeDisplay.getPermissionChecker(),
-				CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS)) {
+				CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS) &&
+			(commerceShipment.getStatus() ==
+				CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING)) {
 
 			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
@@ -152,7 +159,7 @@ public class CommerceShipmentItemDataSetActionProvider
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceShipmentItemDataSetActionProvider.class);
+		ProcessingCommerceShipmentItemDataSetActionProvider.class);
 
 	@Reference
 	private CommerceShipmentItemService _commerceShipmentItemService;

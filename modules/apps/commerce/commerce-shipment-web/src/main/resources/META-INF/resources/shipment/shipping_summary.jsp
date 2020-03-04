@@ -185,7 +185,7 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 				clayCreationMenu="<%= commerceShipmentDisplayContext.getShipmentItemClayCreationMenu() %>"
 				contextParams="<%= contextParams %>"
 				dataProviderKey="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS %>"
-				id="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS %>"
+				id="<%= commerceShipmentDisplayContext.getDatasetView() %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"

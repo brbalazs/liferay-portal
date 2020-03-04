@@ -22,6 +22,9 @@ public class CommerceShipmentDataSetConstants {
 	public static final String COMMERCE_DATA_SET_KEY_INVENTORY_WAREHOUSE_ITEM =
 		"commerceInventoryWarehouseItem";
 
+	public static final String COMMERCE_DATA_SET_KEY_PROCESSING_SHIPMENT_ITEMS =
+		"processingCommerceShipmentItems";
+
 	public static final String COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS =
 		"commerceShipmentItems";
 
@@ -30,5 +33,8 @@ public class CommerceShipmentDataSetConstants {
 
 	public static final String COMMERCE_DATA_SET_KEY_SHIPPABLE_ORDER_ITEMS =
 		"commerceShippableOrderItems";
+
+	public static final String COMMERCE_DATA_SET_KEY_SHIPPED_SHIPMENT_ITEMS =
+		"shippedCommerceShipmentItems";
 
 }

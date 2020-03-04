@@ -45,15 +45,11 @@ portletDisplay.setURLBack(redirect);
 		<aui:input name="commerceOrderItemId" type="hidden" value="<%= commerceOrderItem.getCommerceOrderItemId() %>" />
 
 		<div class="row text-center">
-			<div class="col-sm-4">
+			<div class="col-sm-6">
 				<liferay-ui:message key="ordered" />: <%= commerceOrderItem.getQuantity() - commerceOrderItem.getShippedQuantity() %>
 			</div>
 
-			<div class="col-sm-4">
-				<liferay-ui:message key="shipped" />: <%= commerceOrderItem.getShippedQuantity() %>
-			</div>
-
-			<div class="col-sm-4">
+			<div class="col-sm-6">
 				<liferay-ui:message key="to-send" />: <%= commerceShipmentItemDisplayContext.getToSendQuantity() %>
 			</div>
 		</div>

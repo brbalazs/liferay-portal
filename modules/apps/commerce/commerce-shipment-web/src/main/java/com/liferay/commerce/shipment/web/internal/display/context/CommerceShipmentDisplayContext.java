@@ -20,6 +20,7 @@ import com.liferay.commerce.address.CommerceAddressFormatter;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceShipmentConstants;
+import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
@@ -159,6 +160,20 @@ public class CommerceShipmentDisplayContext
 	public List<CommerceRegion> getCommerceRegions(long commerceCountryId) {
 		return _commerceRegionService.getCommerceRegions(
 			commerceCountryId, true);
+	}
+
+	public String getDatasetView() throws PortalException {
+		CommerceShipment commerceShipment = getCommerceShipment();
+
+		if (commerceShipment.getStatus() >
+				CommerceShipmentConstants.SHIPMENT_STATUS_READY_TO_BE_SHIPPED) {
+
+			return CommerceShipmentDataSetConstants.
+				COMMERCE_DATA_SET_KEY_SHIPPED_SHIPMENT_ITEMS;
+		}
+
+		return CommerceShipmentDataSetConstants.
+			COMMERCE_DATA_SET_KEY_PROCESSING_SHIPMENT_ITEMS;
 	}
 
 	public String getDescriptiveShippingAddress() throws PortalException {

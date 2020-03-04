@@ -27,13 +27,14 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Alec Sloan
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.set.display.name=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS,
+	property = "commerce.data.set.display.name=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_PROCESSING_SHIPMENT_ITEMS,
 	service = ClayDataSetDisplayView.class
 )
-public class CommerceShipmentItemClayTableDataSetDisplayView
+public class ProcessingCommerceShipmentItemClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
@@ -51,8 +52,6 @@ public class CommerceShipmentItemClayTableDataSetDisplayView
 		clayTableSchemaBuilder.addField("warehouse", "warehouse");
 
 		clayTableSchemaBuilder.addField("orderedQuantity", "ordered");
-
-		clayTableSchemaBuilder.addField("shippedQuantity", "shipped");
 
 		clayTableSchemaBuilder.addField("toSendQuantity", "to-send");
 
