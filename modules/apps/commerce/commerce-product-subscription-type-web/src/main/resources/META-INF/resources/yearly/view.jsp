@@ -60,9 +60,34 @@ int selectedYearlyMode = yearlyCPSubscriptionTypeDisplayContext.getSelectedYearl
 				<aui:validator name="min">1</aui:validator>
 			</aui:input>
 		</div>
+
+		<aui:script>
+			function changeYearlyCPSubscriptionTypeSettingsMode() {
+				var A = AUI();
+
+				if (
+					A.one('#<portlet:namespace />yearlyMode').val() ==
+					'<%= CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR %>'
+				) {
+					A.one('#<portlet:namespace />exactDayOfYearInputContainer').removeClass(
+						'hide'
+					);
+				} else {
+					if (
+						!A.one(
+							'#<portlet:namespace />exactDayOfYearInputContainer'
+						).hasClass('hide')
+					) {
+						A.one(
+							'#<portlet:namespace />exactDayOfYearInputContainer'
+						).addClass('hide');
+					}
+				}
+			}
+		</aui:script>
 	</c:when>
 	<c:otherwise>
-		<aui:select label="mode" name="deliverySubscriptionTypeSettings--yearlyMode--" onChange='<%= "event.preventDefault(); changeYearlyCPSubscriptionTypeSettingsMode();" %>'>
+		<aui:select label="mode" name="deliverySubscriptionTypeSettings--deliveryYearlyMode--" onChange='<%= "event.preventDefault(); changeYearlyDeliveryCPSubscriptionTypeSettingsMode();" %>'>
 
 			<%
 			for (int mode : CPSubscriptionTypeConstants.YEARLY_MODES) {
@@ -76,8 +101,8 @@ int selectedYearlyMode = yearlyCPSubscriptionTypeDisplayContext.getSelectedYearl
 
 		</aui:select>
 
-		<div class="<%= (selectedYearlyMode == CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />exactDayOfYearInputContainer">
-			<aui:select label="month" name="deliverySubscriptionTypeSettings--month--">
+		<div class="<%= (selectedYearlyMode == CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />deliveryExactDayOfYearInputContainer">
+			<aui:select label="month" name="deliverySubscriptionTypeSettings--deliveryMonth--">
 
 				<%
 				for (int month : yearlyCPSubscriptionTypeDisplayContext.getCalendarMonths()) {
@@ -91,36 +116,36 @@ int selectedYearlyMode = yearlyCPSubscriptionTypeDisplayContext.getSelectedYearl
 
 			</aui:select>
 
-			<aui:input label="day" name="deliverySubscriptionTypeSettings--monthDay--" value="<%= yearlyCPSubscriptionTypeDisplayContext.getMonthDay() %>">
+			<aui:input label="day" name="deliverySubscriptionTypeSettings--deliveryMonthDay--" value="<%= yearlyCPSubscriptionTypeDisplayContext.getMonthDay() %>">
 				<aui:validator name="digits" />
 				<aui:validator name="max">31</aui:validator>
 				<aui:validator name="min">1</aui:validator>
 			</aui:input>
 		</div>
+
+		<aui:script>
+			function changeYearlyDeliveryCPSubscriptionTypeSettingsMode() {
+				var A = AUI();
+
+				if (
+					A.one('#<portlet:namespace />deliveryYearlyMode').val() ==
+					'<%= CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR %>'
+				) {
+					A.one(
+						'#<portlet:namespace />deliveryExactDayOfYearInputContainer'
+					).removeClass('hide');
+				} else {
+					if (
+						!A.one(
+							'#<portlet:namespace />deliveryExactDayOfYearInputContainer'
+						).hasClass('hide')
+					) {
+						A.one(
+							'#<portlet:namespace />deliveryExactDayOfYearInputContainer'
+						).addClass('hide');
+					}
+				}
+			}
+		</aui:script>
 	</c:otherwise>
 </c:choose>
-
-<aui:script>
-	function changeYearlyCPSubscriptionTypeSettingsMode() {
-		var A = AUI();
-
-		if (
-			A.one('#<portlet:namespace />yearlyMode').val() ==
-			'<%= CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR %>'
-		) {
-			A.one('#<portlet:namespace />exactDayOfYearInputContainer').removeClass(
-				'hide'
-			);
-		} else {
-			if (
-				!A.one(
-					'#<portlet:namespace />exactDayOfYearInputContainer'
-				).hasClass('hide')
-			) {
-				A.one(
-					'#<portlet:namespace />exactDayOfYearInputContainer'
-				).addClass('hide');
-			}
-		}
-	}
-</aui:script>

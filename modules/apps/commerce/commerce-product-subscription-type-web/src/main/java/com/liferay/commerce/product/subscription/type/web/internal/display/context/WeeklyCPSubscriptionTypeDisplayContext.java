@@ -73,8 +73,13 @@ public class WeeklyCPSubscriptionTypeDisplayContext {
 			return 0;
 		}
 
+		if (isPayment()) {
+			return GetterUtil.getInteger(
+				subscriptionTypeSettingsProperties.get("weekDay"));
+		}
+
 		return GetterUtil.getInteger(
-			subscriptionTypeSettingsProperties.get("weekDay"));
+			subscriptionTypeSettingsProperties.get("deliveryWeekDay"));
 	}
 
 	public String getWeekDayDisplayName(int weekDay) {

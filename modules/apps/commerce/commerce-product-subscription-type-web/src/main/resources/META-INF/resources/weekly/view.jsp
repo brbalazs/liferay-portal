@@ -39,7 +39,7 @@ int selectedWeekDay = weeklyCPSubscriptionTypeDisplayContext.getSelectedWeekDay(
 		</aui:select>
 	</c:when>
 	<c:otherwise>
-		<aui:select label="on" name="deliverySubscriptionTypeSettings--weekDay--" showEmptyOption="<%= true %>">
+		<aui:select label="on" name="deliverySubscriptionTypeSettings--deliveryWeekDay--" showEmptyOption="<%= true %>">
 
 			<%
 			for (int weekDay : weeklyCPSubscriptionTypeDisplayContext.getCalendarWeekDays()) {

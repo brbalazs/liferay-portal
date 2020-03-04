@@ -74,8 +74,13 @@ public class YearlyCPSubscriptionTypeDisplayContext {
 			return 1;
 		}
 
+		if (isPayment()) {
+			return GetterUtil.getInteger(
+				subscriptionTypeSettingsProperties.get("monthDay"));
+		}
+
 		return GetterUtil.getInteger(
-			subscriptionTypeSettingsProperties.get("monthDay"));
+			subscriptionTypeSettingsProperties.get("deliveryMonthDay"));
 	}
 
 	public String getMonthDisplayName(int month) {
@@ -102,6 +107,11 @@ public class YearlyCPSubscriptionTypeDisplayContext {
 			return 0;
 		}
 
+		if (isPayment()) {
+			return GetterUtil.getInteger(
+				subscriptionTypeSettingsProperties.get("deliveryMonth"));
+		}
+
 		return GetterUtil.getInteger(
 			subscriptionTypeSettingsProperties.get("month"));
 	}
@@ -115,8 +125,13 @@ public class YearlyCPSubscriptionTypeDisplayContext {
 			return CPSubscriptionTypeConstants.MODE_ORDER_DATE;
 		}
 
+		if (isPayment()) {
+			return GetterUtil.getInteger(
+				subscriptionTypeSettingsProperties.get("yearlyMode"));
+		}
+
 		return GetterUtil.getInteger(
-			subscriptionTypeSettingsProperties.get("yearlyMode"));
+			subscriptionTypeSettingsProperties.get("deliveryYearlyMode"));
 	}
 
 	public boolean isPayment() {
