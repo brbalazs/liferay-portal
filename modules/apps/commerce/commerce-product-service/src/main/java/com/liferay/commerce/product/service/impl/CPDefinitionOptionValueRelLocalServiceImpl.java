@@ -15,9 +15,11 @@
 package com.liferay.commerce.product.service.impl;
 
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelKeyException;
+import com.liferay.commerce.product.exception.NoSuchCPDefinitionOptionValueRelException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CPOptionValue;
 import com.liferay.commerce.product.service.base.CPDefinitionOptionValueRelLocalServiceBaseImpl;
@@ -291,6 +293,38 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 
 		return cpDefinitionOptionValueRelPersistence.
 			countByCPDefinitionOptionRelId(cpDefinitionOptionRelId);
+	}
+
+	@Override
+	public CPDefinitionOptionValueRel getCPInstanceCPDefinitionOptionValueRel(
+			long cpDefinitionOptionRelId, long cpInstanceId)
+		throws PortalException {
+
+		List<CPInstanceOptionValueRel> cpInstanceCPInstanceOptionValueRels =
+			cpInstanceOptionValueRelLocalService.
+				getCPInstanceCPInstanceOptionValueRels(
+					cpDefinitionOptionRelId, cpInstanceId);
+
+		for (CPInstanceOptionValueRel cpInstanceCPInstanceOptionValueRel :
+				cpInstanceCPInstanceOptionValueRels) {
+
+			if (cpDefinitionOptionRelId !=
+					cpInstanceCPInstanceOptionValueRel.
+						getCPDefinitionOptionRelId()) {
+
+				continue;
+			}
+
+			return cpDefinitionOptionValueRelPersistence.findByPrimaryKey(
+				cpInstanceCPInstanceOptionValueRel.
+					getCPDefinitionOptionValueRelId());
+		}
+
+		throw new NoSuchCPDefinitionOptionValueRelException(
+			String.format(
+				"Unable to find option value with CP definition option ID %d " +
+					"assigned to CP instance ID %d",
+				cpDefinitionOptionRelId, cpInstanceId));
 	}
 
 	@Override
