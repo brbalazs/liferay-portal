@@ -102,7 +102,10 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, ServiceContext serviceContext)
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles, ServiceContext serviceContext)
 		throws PortalException {
 
 		_validateSku(cpDefinitionId, 0, sku);
@@ -170,6 +173,13 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setSubscriptionTypeSettingsProperties(
 			subscriptionTypeSettingsProperties);
 		cpInstance.setMaxSubscriptionCycles(maxSubscriptionCycles);
+		cpInstance.setDeliverySubscriptionEnabled(deliverySubscriptionEnabled);
+		cpInstance.setDeliverySubscriptionLength(deliverySubscriptionLength);
+		cpInstance.setDeliverySubscriptionType(deliverySubscriptionType);
+		cpInstance.setDeliverySubscriptionTypeSettingsProperties(
+			deliverySubscriptionTypeSettingsProperties);
+		cpInstance.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
 
 		cpInstance.setStatus(WorkflowConstants.STATUS_DRAFT);
 
@@ -232,6 +242,39 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		}
 
 		return cpInstance;
+	}
+
+	@Override
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, String externalReferenceCode,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, boolean overrideSubscriptionInfo,
+			boolean subscriptionEnabled, int subscriptionLength,
+			String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, ServiceContext serviceContext)
+		throws PortalException {
+
+		return cpInstanceLocalService.addCPInstance(
+			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
+			purchasable, cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			width, height, depth, weight, price, promoPrice, cost, published,
+			externalReferenceCode, displayDateMonth, displayDateDay,
+			displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, neverExpire,
+			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
+			subscriptionType, subscriptionTypeSettingsProperties,
+			maxSubscriptionCycles, false, 0, null, null, 0, serviceContext);
 	}
 
 	/**
@@ -1098,7 +1141,10 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, ServiceContext serviceContext)
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles)
 		throws PortalException {
 
 		CPInstance cpInstance = cpInstancePersistence.findByPrimaryKey(
@@ -1123,8 +1169,35 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setSubscriptionTypeSettingsProperties(
 			subscriptionTypeSettingsProperties);
 		cpInstance.setMaxSubscriptionCycles(maxSubscriptionCycles);
+		cpInstance.setDeliverySubscriptionEnabled(deliverySubscriptionEnabled);
+		cpInstance.setDeliverySubscriptionLength(deliverySubscriptionLength);
+		cpInstance.setDeliverySubscriptionType(deliverySubscriptionType);
+		cpInstance.setDeliverySubscriptionTypeSettingsProperties(
+			deliverySubscriptionTypeSettingsProperties);
+		cpInstance.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
 
 		return cpInstancePersistence.update(cpInstance);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CPInstance updateSubscriptionInfo(
+			long cpInstanceId, boolean overrideSubscriptionInfo,
+			boolean subscriptionEnabled, int subscriptionLength,
+			String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, ServiceContext serviceContext)
+		throws PortalException {
+
+		return cpInstanceLocalService.updateSubscriptionInfo(
+			cpInstanceId, overrideSubscriptionInfo, subscriptionEnabled,
+			subscriptionLength, subscriptionType,
+			subscriptionTypeSettingsProperties, maxSubscriptionCycles, false, 1,
+			null, null, 0);
 	}
 
 	@Override
