@@ -177,7 +177,9 @@ public class AddChannelMVCActionCommand extends BaseAnalyticsMVCActionCommand {
 		}
 
 		if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
-			throw new PortalException("Invalid token");
+			throw new PortalException(
+				"Unable to update data source details: " +
+				EntityUtils.toString(httpResponse.getEntity()));
 		}
 
 		// Create channels
@@ -217,7 +219,9 @@ public class AddChannelMVCActionCommand extends BaseAnalyticsMVCActionCommand {
 		}
 
 		if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
-			throw new PortalException("Invalid token");
+			throw new PortalException(
+				"Unable to create channels: " +
+				EntityUtils.toString(httpResponse.getEntity()));
 		}
 
 		_updateTypeSettingsProperties(

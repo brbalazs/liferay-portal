@@ -106,9 +106,16 @@ public abstract class BaseAnalyticsMVCActionCommand
 			saveCompanyConfiguration(actionRequest, themeDisplay);
 		}
 		catch (PrincipalException pe) {
+			_log.error(pe, pe);
+
 			SessionErrors.add(actionRequest, pe.getClass());
 
 			actionResponse.setRenderParameter("mvcPath", "/error.jsp");
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw e;
 		}
 	}
 
