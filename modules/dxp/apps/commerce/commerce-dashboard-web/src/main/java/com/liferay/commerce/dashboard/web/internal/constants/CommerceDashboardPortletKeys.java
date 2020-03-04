@@ -24,4 +24,16 @@ public class CommerceDashboardPortletKeys {
 		"com_liferay_commerce_dashboard_web_internal_portlet_" +
 			"CommerceDashboardForecastsChartPortlet";
 
+	public static final String COMMERCE_DASHBOARD_HISTORY_CHART =
+		"com_liferay_commerce_dashboard_web_internal_portlet_" +
+			"CommerceDashboardHistoryChartPortlet";
+
+	public static final String COMMERCE_DASHBOARD_OVERVIEW_CHART =
+		"com_liferay_commerce_dashboard_web_internal_portlet_" +
+			"CommerceDashboardOverviewChartPortlet";
+
+	public static final String COMMERCE_DASHBOARD_STATUS_CHART =
+		"com_liferay_commerce_dashboard_web_internal_portlet_" +
+			"CommerceDashboardStatusChartPortlet";
+
 }

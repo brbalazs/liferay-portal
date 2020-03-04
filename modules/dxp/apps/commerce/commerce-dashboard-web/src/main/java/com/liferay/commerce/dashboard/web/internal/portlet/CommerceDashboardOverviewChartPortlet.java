@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"com.liferay.portlet.add-default-resource=true",
-		"com.liferay.portlet.css-class-wrapper=portlet-commerce-dashboard-forecasts-chart",
+		"com.liferay.portlet.css-class-wrapper=portlet-commerce-dashboard-overview-chart",
 		"com.liferay.portlet.display-category=commerce",
 		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.instanceable=true",
@@ -38,14 +38,14 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.private-request-attributes=false",
 		"com.liferay.portlet.private-session-attributes=false",
 		"com.liferay.portlet.render-weight=50",
-		"javax.portlet.display-name=Commerce Dashboard Forecasts Chart",
+		"javax.portlet.display-name=Commerce Dashboard Overview Chart",
 		"javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.view-template=/forecast.jsp",
-		"javax.portlet.name=" + CommerceDashboardPortletKeys.COMMERCE_DASHBOARD_FORECASTS_CHART,
+		"javax.portlet.init-param.view-template=/overview.jsp",
+		"javax.portlet.name=" + CommerceDashboardPortletKeys.COMMERCE_DASHBOARD_OVERVIEW_CHART,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
 	},
-	service = {CommerceDashboardForecastsChartPortlet.class, Portlet.class}
+	service = {CommerceDashboardOverviewChartPortlet.class, Portlet.class}
 )
-public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
+public class CommerceDashboardOverviewChartPortlet extends MVCPortlet {
 }
