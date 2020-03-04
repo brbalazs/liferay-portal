@@ -18,8 +18,6 @@
 
 <%
 CommerceSubscriptionContentDisplayContext commerceSubscriptionContentDisplayContext = (CommerceSubscriptionContentDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-SearchContainer<CommerceSubscriptionEntry> commerceSubscriptionEntrySearchContainer = commerceSubscriptionContentDisplayContext.getSearchContainer();
 %>
 
 <c:choose>
@@ -29,6 +27,11 @@ SearchContainer<CommerceSubscriptionEntry> commerceSubscriptionEntrySearchContai
 		</div>
 	</c:when>
 	<c:otherwise>
+
+		<%
+		SearchContainer<CommerceSubscriptionEntry> commerceSubscriptionEntrySearchContainer = commerceSubscriptionContentDisplayContext.getSearchContainer();
+		%>
+
 		<div class="container-fluid-1280" id="<portlet:namespace />subscriptionEntriesContainer">
 			<div class="commerce-product-subscription-entries-container" id="<portlet:namespace />entriesContainer">
 				<liferay-ui:search-container
