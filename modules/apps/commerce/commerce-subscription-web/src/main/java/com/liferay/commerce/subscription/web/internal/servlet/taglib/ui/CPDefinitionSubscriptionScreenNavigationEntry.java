@@ -56,7 +56,7 @@ import org.osgi.service.component.annotations.Reference;
 		"screen.navigation.category.order:Integer=90",
 		"screen.navigation.entry.order:Integer=10"
 	},
-	service = ScreenNavigationEntry.class
+	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
 public class CPDefinitionSubscriptionScreenNavigationEntry
 	implements ScreenNavigationCategory, ScreenNavigationEntry<CPDefinition> {
