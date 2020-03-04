@@ -145,7 +145,7 @@ AUI.add(
 							}
 						}
 
-						mainOption.set('key', '');
+						mainOption.setKey('');
 					},
 
 					getLastOption: function() {
@@ -704,7 +704,7 @@ AUI.add(
 
 						option.setValue(contextValue.label);
 
-						option.set('key', contextValue.value);
+						option.setKey(contextValue.value);
 
 						if (contextValue.value && option.normalizeKey(contextValue.label) !== contextValue.value) {
 							option.set('generationLocked', true);
