@@ -35,14 +35,21 @@ String deliverySubscriptionType = BeanParamUtil.getString(commerceSubscriptionEn
 long deliveryMaxSubscriptionCycles = BeanParamUtil.getLong(commerceSubscriptionEntry, request, "deliveryMaxSubscriptionCycles");
 
 String defaultCPSubscriptionTypeLabel = StringPool.BLANK;
+String defaultDeliveryCPSubscriptionTypeLabel = StringPool.BLANK;
 
 CPSubscriptionType cpSubscriptionType = commerceSubscriptionEntryDisplayContext.getCPSubscriptionType(subscriptionType);
+CPSubscriptionType deliveryCPSubscriptionType = commerceSubscriptionEntryDisplayContext.getCPSubscriptionType(deliverySubscriptionType);
 
 if (cpSubscriptionType != null) {
 	defaultCPSubscriptionTypeLabel = cpSubscriptionType.getLabel(locale);
 }
 
+if (deliveryCPSubscriptionType != null) {
+	defaultDeliveryCPSubscriptionTypeLabel = deliveryCPSubscriptionType.getLabel(locale);
+}
+
 CPSubscriptionTypeJSPContributor cpSubscriptionTypeJSPContributor = commerceSubscriptionEntryDisplayContext.getCPSubscriptionTypeJSPContributor(subscriptionType);
+CPSubscriptionTypeJSPContributor deliveryCPSubscriptionTypeJSPContributor = commerceSubscriptionEntryDisplayContext.getCPSubscriptionTypeJSPContributor(deliverySubscriptionType);
 
 boolean ending = false;
 
@@ -346,8 +353,8 @@ if (deliveryMaxSubscriptionCycles > 0) {
 					</aui:select>
 
 					<%
-					if (cpSubscriptionTypeJSPContributor != null) {
-						cpSubscriptionTypeJSPContributor.render(commerceSubscriptionEntry, request, PipingServletResponse.createPipingServletResponse(pageContext), false);
+					if (deliveryCPSubscriptionTypeJSPContributor != null) {
+						deliveryCPSubscriptionTypeJSPContributor.render(commerceSubscriptionEntry, request, PipingServletResponse.createPipingServletResponse(pageContext), false);
 					}
 					%>
 
@@ -355,7 +362,7 @@ if (deliveryMaxSubscriptionCycles > 0) {
 
 				<div class="col-6">
 					<div id="<portlet:namespace />deliveryCycleLengthContainer">
-						<aui:input name="deliverySubscriptionLength" suffix="<%= defaultCPSubscriptionTypeLabel %>" value="<%= String.valueOf(deliverySubscriptionLength) %>">
+						<aui:input name="deliverySubscriptionLength" suffix="<%= defaultDeliveryCPSubscriptionTypeLabel %>" value="<%= String.valueOf(deliverySubscriptionLength) %>">
 							<aui:validator name="digits" />
 							<aui:validator name="min">0</aui:validator>
 						</aui:input>
@@ -432,9 +439,18 @@ if (deliveryMaxSubscriptionCycles > 0) {
 				'<%= currentURLObj %>'
 			);
 
-			portletURL.setParameter('deliverySubscriptionLength', deliverySubscriptionLength);
-			portletURL.setParameter('deliverySubscriptionType', deliverySubscriptionType);
-			portletURL.setParameter('deliveryMaxSubscriptionCycles', deliveryMaxSubscriptionCycles);
+			portletURL.setParameter(
+				'deliverySubscriptionLength',
+				deliverySubscriptionLength
+			);
+			portletURL.setParameter(
+				'deliverySubscriptionType',
+				deliverySubscriptionType
+			);
+			portletURL.setParameter(
+				'deliveryMaxSubscriptionCycles',
+				deliveryMaxSubscriptionCycles
+			);
 
 			window.location.replace(portletURL.toString());
 		},
@@ -454,7 +470,9 @@ if (deliveryMaxSubscriptionCycles > 0) {
 		var formValidator = Liferay.Form.get('<portlet:namespace />fm')
 			.formValidator;
 
-		formValidator.validateField('<portlet:namespace />deliveryMaxSubscriptionCycles');
+		formValidator.validateField(
+			'<portlet:namespace />deliveryMaxSubscriptionCycles'
+		);
 	});
 </aui:script>
 
@@ -493,15 +511,13 @@ if (deliveryMaxSubscriptionCycles > 0) {
 				var instance = this;
 
 				if (!instance.get('expanded')) {
-					A.one('#<portlet:namespace />deliveryMaxSubscriptionCycles').attr(
-						'disabled',
-						false
-					);
+					A.one(
+						'#<portlet:namespace />deliveryMaxSubscriptionCycles'
+					).attr('disabled', false);
 				} else {
-					A.one('#<portlet:namespace />deliveryMaxSubscriptionCycles').attr(
-						'disabled',
-						true
-					);
+					A.one(
+						'#<portlet:namespace />deliveryMaxSubscriptionCycles'
+					).attr('disabled', true);
 				}
 			}
 		}
