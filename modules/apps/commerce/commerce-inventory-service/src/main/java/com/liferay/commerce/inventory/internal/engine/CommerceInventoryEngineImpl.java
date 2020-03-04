@@ -52,12 +52,9 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 		if (bookedQuantityId > 0) {
 			_commerceBookedQuantityLocalService.consumeCommerceBookedQuantity(
 				bookedQuantityId, quantity);
+		}
 
-			decreaseStockQuantity(commerceInventoryWarehouseId, sku, quantity);
-		}
-		else {
-			decreaseStockQuantity(commerceInventoryWarehouseId, sku, quantity);
-		}
+		decreaseStockQuantity(commerceInventoryWarehouseId, sku, quantity);
 
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
