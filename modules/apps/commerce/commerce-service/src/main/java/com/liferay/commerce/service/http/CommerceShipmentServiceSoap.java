@@ -210,6 +210,50 @@ public class CommerceShipmentServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.model.CommerceShipmentSoap[]
+			getCommerceShipments(
+				long companyId, long[] groupIds, long[] commerceAccountIds,
+				String keywords, int[] shipmentStatuses,
+				boolean excludeShipmentStatus, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.commerce.model.CommerceShipment>
+				returnValue = CommerceShipmentServiceUtil.getCommerceShipments(
+					companyId, groupIds, commerceAccountIds, keywords,
+					shipmentStatuses, excludeShipmentStatus, start, end);
+
+			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceShipmentSoap[]
+			getCommerceShipmentsByOrderId(
+				long commerceOrderId, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.commerce.model.CommerceShipment>
+				returnValue =
+					CommerceShipmentServiceUtil.getCommerceShipmentsByOrderId(
+						commerceOrderId, start, end);
+
+			return com.liferay.commerce.model.CommerceShipmentSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getCommerceShipmentsCount(long companyId)
 		throws RemoteException {
 
@@ -252,6 +296,44 @@ public class CommerceShipmentServiceSoap {
 			int returnValue =
 				CommerceShipmentServiceUtil.getCommerceShipmentsCount(
 					companyId, commerceAddressId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceShipmentsCount(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, int[] shipmentStatuses,
+			boolean excludeShipmentStatus)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceShipmentServiceUtil.getCommerceShipmentsCount(
+					companyId, groupIds, commerceAccountIds, keywords,
+					shipmentStatuses, excludeShipmentStatus);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceShipmentsCountByOrderId(long commerceOrderId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceShipmentServiceUtil.getCommerceShipmentsCountByOrderId(
+					commerceOrderId);
 
 			return returnValue;
 		}

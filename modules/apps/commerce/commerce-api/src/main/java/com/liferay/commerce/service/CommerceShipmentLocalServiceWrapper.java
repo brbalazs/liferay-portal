@@ -268,6 +268,27 @@ public class CommerceShipmentLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceShipment>
+		getCommerceShipments(long commerceOrderId, int start, int end) {
+
+		return _commerceShipmentLocalService.getCommerceShipments(
+			commerceOrderId, start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceShipment>
+			getCommerceShipments(
+				long companyId, long[] groupIds, long[] commerceAccountIds,
+				String keywords, int[] shipmentStatuses,
+				boolean excludeShipmentStatus, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentLocalService.getCommerceShipments(
+			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
+			excludeShipmentStatus, start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceShipment>
 		getCommerceShipments(
 			long[] groupIds, int status, int start, int end,
 			com.liferay.portal.kernel.util.OrderByComparator
@@ -310,6 +331,24 @@ public class CommerceShipmentLocalServiceWrapper
 	@Override
 	public int getCommerceShipmentsCount() {
 		return _commerceShipmentLocalService.getCommerceShipmentsCount();
+	}
+
+	@Override
+	public int getCommerceShipmentsCount(long commerceOrderId) {
+		return _commerceShipmentLocalService.getCommerceShipmentsCount(
+			commerceOrderId);
+	}
+
+	@Override
+	public int getCommerceShipmentsCount(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, int[] shipmentStatuses,
+			boolean excludeShipmentStatus)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentLocalService.getCommerceShipmentsCount(
+			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
+			excludeShipmentStatus);
 	}
 
 	@Override
@@ -359,6 +398,25 @@ public class CommerceShipmentLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceShipmentLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.model.CommerceShipment> searchCommerceShipments(
+				com.liferay.portal.kernel.search.SearchContext searchContext)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentLocalService.searchCommerceShipments(
+			searchContext);
+	}
+
+	@Override
+	public long searchCommerceShipmentsCount(
+			com.liferay.portal.kernel.search.SearchContext searchContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentLocalService.searchCommerceShipmentsCount(
+			searchContext);
 	}
 
 	@Override

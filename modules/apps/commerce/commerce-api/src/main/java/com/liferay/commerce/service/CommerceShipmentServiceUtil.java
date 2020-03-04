@@ -110,6 +110,26 @@ public class CommerceShipmentServiceUtil {
 			companyId, commerceAddressId, start, end, orderByComparator);
 	}
 
+	public static java.util.List<com.liferay.commerce.model.CommerceShipment>
+			getCommerceShipments(
+				long companyId, long[] groupIds, long[] commerceAccountIds,
+				String keywords, int[] shipmentStatuses,
+				boolean excludeShipmentStatus, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceShipments(
+			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
+			excludeShipmentStatus, start, end);
+	}
+
+	public static java.util.List<com.liferay.commerce.model.CommerceShipment>
+		getCommerceShipmentsByOrderId(
+			long commerceOrderId, int start, int end) {
+
+		return getService().getCommerceShipmentsByOrderId(
+			commerceOrderId, start, end);
+	}
+
 	public static int getCommerceShipmentsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -128,6 +148,21 @@ public class CommerceShipmentServiceUtil {
 
 		return getService().getCommerceShipmentsCount(
 			companyId, commerceAddressId);
+	}
+
+	public static int getCommerceShipmentsCount(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, int[] shipmentStatuses,
+			boolean excludeShipmentStatus)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceShipmentsCount(
+			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
+			excludeShipmentStatus);
+	}
+
+	public static int getCommerceShipmentsCountByOrderId(long commerceOrderId) {
+		return getService().getCommerceShipmentsCountByOrderId(commerceOrderId);
 	}
 
 	/**

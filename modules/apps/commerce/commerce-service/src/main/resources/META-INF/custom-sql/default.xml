@@ -213,7 +213,7 @@
 	<sql id="com.liferay.commerce.service.persistence.CommerceShipmentFinder.countByCommerceOrderId">
 		<![CDATA[
 			SELECT
-				COUNT(DISTINCT {CommerceShipment.*}) AS COUNT_VALUE
+				COUNT(DISTINCT CommerceShipment.commerceShipmentId) AS COUNT_VALUE
 			FROM
 				CommerceShipment
 			LEFT JOIN

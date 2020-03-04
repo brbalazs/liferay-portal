@@ -238,14 +238,6 @@ public class CommerceShipmentItemLocalServiceUtil {
 		return getService().getCommerceShipmentItem(commerceShipmentItemId);
 	}
 
-	public static int getCommerceShipmentItemCount(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getCommerceShipmentItemCount(
-			commerceOrderItemId, commerceInventoryWarehouseId);
-	}
-
 	/**
 	 * Returns a range of all the commerce shipment items.
 	 *

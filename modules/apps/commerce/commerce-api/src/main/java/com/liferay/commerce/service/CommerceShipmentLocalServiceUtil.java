@@ -254,6 +254,24 @@ public class CommerceShipmentLocalServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.commerce.model.CommerceShipment>
+		getCommerceShipments(long commerceOrderId, int start, int end) {
+
+		return getService().getCommerceShipments(commerceOrderId, start, end);
+	}
+
+	public static java.util.List<com.liferay.commerce.model.CommerceShipment>
+			getCommerceShipments(
+				long companyId, long[] groupIds, long[] commerceAccountIds,
+				String keywords, int[] shipmentStatuses,
+				boolean excludeShipmentStatus, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceShipments(
+			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
+			excludeShipmentStatus, start, end);
+	}
+
+	public static java.util.List<com.liferay.commerce.model.CommerceShipment>
 		getCommerceShipments(
 			long[] groupIds, int status, int start, int end,
 			com.liferay.portal.kernel.util.OrderByComparator
@@ -295,6 +313,21 @@ public class CommerceShipmentLocalServiceUtil {
 		return getService().getCommerceShipmentsCount();
 	}
 
+	public static int getCommerceShipmentsCount(long commerceOrderId) {
+		return getService().getCommerceShipmentsCount(commerceOrderId);
+	}
+
+	public static int getCommerceShipmentsCount(
+			long companyId, long[] groupIds, long[] commerceAccountIds,
+			String keywords, int[] shipmentStatuses,
+			boolean excludeShipmentStatus)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceShipmentsCount(
+			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
+			excludeShipmentStatus);
+	}
+
 	public static int getCommerceShipmentsCount(long[] groupIds) {
 		return getService().getCommerceShipmentsCount(groupIds);
 	}
@@ -334,6 +367,21 @@ public class CommerceShipmentLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.model.CommerceShipment> searchCommerceShipments(
+				com.liferay.portal.kernel.search.SearchContext searchContext)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().searchCommerceShipments(searchContext);
+	}
+
+	public static long searchCommerceShipmentsCount(
+			com.liferay.portal.kernel.search.SearchContext searchContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().searchCommerceShipmentsCount(searchContext);
 	}
 
 	public static com.liferay.commerce.model.CommerceShipment updateAddress(

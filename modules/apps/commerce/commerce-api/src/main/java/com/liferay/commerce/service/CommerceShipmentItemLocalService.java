@@ -212,11 +212,6 @@ public interface CommerceShipmentItemLocalService
 			long commerceShipmentItemId)
 		throws PortalException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceShipmentItemCount(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
-		throws PortalException;
-
 	/**
 	 * Returns a range of all the commerce shipment items.
 	 *
