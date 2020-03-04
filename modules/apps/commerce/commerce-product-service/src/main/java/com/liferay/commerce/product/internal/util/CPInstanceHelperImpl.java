@@ -126,6 +126,43 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	}
 
 	@Override
+	public List<CPDefinitionOptionValueRel> filterCPDefinitionOptionValueRels(
+			long cpDefinitionOptionRelId,
+			List<Long> skuCombinationCPDefinitionOptionValueRelIds)
+		throws PortalException {
+
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels =
+			_cpInstanceOptionValueRelLocalService.
+				getCPDefinitionOptionRelCPInstanceOptionValueRels(
+					cpDefinitionOptionRelId);
+
+		List<CPDefinitionOptionValueRel> filtered = new ArrayList<>();
+
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+				cpInstanceOptionValueRels) {
+
+			if (!skuCombinationCPDefinitionOptionValueRelIds.isEmpty() &&
+				!skuCombinationCPDefinitionOptionValueRelIds.contains(
+					cpInstanceOptionValueRel.
+						getCPDefinitionOptionValueRelId())) {
+
+				continue;
+			}
+
+			filtered.add(
+				_cpDefinitionOptionValueRelLocalService.
+					getCPInstanceCPDefinitionOptionValueRel(
+						cpDefinitionOptionRelId,
+						cpInstanceOptionValueRel.getCPInstanceId()));
+		}
+
+		Collections.sort(
+			filtered, new CPDefinitionOptionValueRelPriorityComparator(true));
+
+		return filtered;
+	}
+
+	@Override
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
 			long cpDefinitionId, String serializedDDMFormValues, int type)
 		throws Exception {
