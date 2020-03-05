@@ -20,7 +20,6 @@ import com.liferay.commerce.model.CommerceAddressRestriction;
 import com.liferay.commerce.payment.constants.CommercePaymentScreenNavigationConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
-import com.liferay.commerce.payment.web.internal.admin.PaymentMethodsCommerceAdminModule;
 import com.liferay.commerce.util.CommerceUtil;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
@@ -129,8 +128,6 @@ public class CommercePaymentMethodGroupRelRestrictionsDisplayContext {
 	public PortletURL getPortletURL() throws PortalException {
 		PortletURL portletURL = _renderResponse.createRenderURL();
 
-		portletURL.setParameter(
-			"commerceAdminModuleKey", PaymentMethodsCommerceAdminModule.KEY);
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommercePaymentMethodGroupRel");
 		portletURL.setParameter(

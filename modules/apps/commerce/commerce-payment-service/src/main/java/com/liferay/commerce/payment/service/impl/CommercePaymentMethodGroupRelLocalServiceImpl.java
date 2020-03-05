@@ -18,12 +18,8 @@ import com.liferay.commerce.model.CommerceAddressRestriction;
 import com.liferay.commerce.payment.exception.CommercePaymentMethodGroupRelEngineKeyException;
 import com.liferay.commerce.payment.exception.CommercePaymentMethodGroupRelNameException;
 import com.liferay.commerce.payment.exception.NoSuchPaymentMethodGroupRelException;
-import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.base.CommercePaymentMethodGroupRelLocalServiceBaseImpl;
-import com.liferay.commerce.product.service.CPDefinitionLocalService;
-import com.liferay.commerce.product.service.CommerceCatalogService;
-import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.service.CommerceAddressRestrictionLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
@@ -42,6 +38,7 @@ import java.util.Map;
 
 /**
  * @author Luca Pellizzon
+ * @author Marco Leo
  */
 public class CommercePaymentMethodGroupRelLocalServiceImpl
 	extends CommercePaymentMethodGroupRelLocalServiceBaseImpl {
@@ -61,10 +58,9 @@ public class CommercePaymentMethodGroupRelLocalServiceImpl
 
 	@Override
 	public CommercePaymentMethodGroupRel addCommercePaymentMethodGroupRel(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			File imageFile, String engineKey,
-			Map<String, String> engineParameterMap, double priority,
-			boolean active, ServiceContext serviceContext)
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, File imageFile,
+			String engineKey, double priority, boolean active)
 		throws PortalException {
 
 		// Commerce payment method
@@ -79,10 +75,9 @@ public class CommercePaymentMethodGroupRelLocalServiceImpl
 			commercePaymentMethodGroupRelPersistence.create(
 				counterLocalService.increment());
 
-		commercePaymentMethodGroupRel.setGroupId(
-			serviceContext.getScopeGroupId());
+		commercePaymentMethodGroupRel.setGroupId(groupId);
 
-		User user = userLocalService.getUser(serviceContext.getUserId());
+		User user = userLocalService.getUser(userId);
 
 		commercePaymentMethodGroupRel.setCompanyId(user.getCompanyId());
 		commercePaymentMethodGroupRel.setUserId(user.getUserId());
@@ -326,9 +321,8 @@ public class CommercePaymentMethodGroupRelLocalServiceImpl
 	@Override
 	public CommercePaymentMethodGroupRel updateCommercePaymentMethodGroupRel(
 			long commercePaymentMethodGroupRelId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, File imageFile,
-			Map<String, String> engineParameterMap, double priority,
-			boolean active, ServiceContext serviceContext)
+			Map<Locale, String> descriptionMap, File imageFile, double priority,
+			boolean active)
 		throws PortalException {
 
 		// Commerce payment method
@@ -387,17 +381,5 @@ public class CommercePaymentMethodGroupRelLocalServiceImpl
 	@ServiceReference(type = CommerceAddressRestrictionLocalService.class)
 	private CommerceAddressRestrictionLocalService
 		_commerceAddressRestrictionLocalService;
-
-	@ServiceReference(type = CommerceCatalogService.class)
-	private CommerceCatalogService _commerceCatalogService;
-
-	@ServiceReference(type = CommercePaymentMethodRegistry.class)
-	private CommercePaymentMethodRegistry _commercePaymentMethodRegistry;
-
-	@ServiceReference(type = CPDefinitionHelper.class)
-	private CPDefinitionHelper _cpDefinitionHelper;
-
-	@ServiceReference(type = CPDefinitionLocalService.class)
-	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 }

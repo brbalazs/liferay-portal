@@ -56,25 +56,9 @@ public class CommercePaymentMethodGroupRelServiceImpl
 
 	@Override
 	public CommercePaymentMethodGroupRel addCommercePaymentMethodGroupRel(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			File imageFile, String engineKey,
-			Map<String, String> engineParameterMap, double priority,
-			boolean active, ServiceContext serviceContext)
-		throws PortalException {
-
-		_portletResourcePermission.check(
-			getPermissionChecker(), serviceContext.getScopeGroupId(),
-			CommerceActionKeys.MANAGE_COMMERCE_PAYMENT_METHODS);
-
-		return commercePaymentMethodGroupRelLocalService.
-			addCommercePaymentMethodGroupRel(
-				nameMap, descriptionMap, imageFile, engineKey,
-				engineParameterMap, priority, active, serviceContext);
-	}
-
-	@Override
-	public CommercePaymentMethodGroupRel createCommercePaymentMethodGroupRel(
-			long groupId)
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, File imageFile,
+			String engineKey, double priority, boolean active)
 		throws PortalException {
 
 		_portletResourcePermission.check(
@@ -82,7 +66,9 @@ public class CommercePaymentMethodGroupRelServiceImpl
 			CommerceActionKeys.MANAGE_COMMERCE_PAYMENT_METHODS);
 
 		return commercePaymentMethodGroupRelLocalService.
-			createCommercePaymentMethodGroupRel(0);
+			addCommercePaymentMethodGroupRel(
+				userId, groupId, nameMap, descriptionMap, imageFile, engineKey,
+				priority, active);
 	}
 
 	@Override
@@ -351,9 +337,8 @@ public class CommercePaymentMethodGroupRelServiceImpl
 	@Override
 	public CommercePaymentMethodGroupRel updateCommercePaymentMethodGroupRel(
 			long commercePaymentMethodGroupRelId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, File imageFile,
-			Map<String, String> engineParameterMap, double priority,
-			boolean active, ServiceContext serviceContext)
+			Map<Locale, String> descriptionMap, File imageFile, double priority,
+			boolean active)
 		throws PortalException {
 
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
@@ -369,8 +354,7 @@ public class CommercePaymentMethodGroupRelServiceImpl
 			updateCommercePaymentMethodGroupRel(
 				commercePaymentMethodGroupRel.
 					getCommercePaymentMethodGroupRelId(),
-				nameMap, descriptionMap, imageFile, engineParameterMap,
-				priority, active, serviceContext);
+				nameMap, descriptionMap, imageFile, priority, active);
 	}
 
 	private static volatile PortletResourcePermission
