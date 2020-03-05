@@ -49,19 +49,14 @@ public class CommerceHealthStatusDisplayContext {
 		return _commerceHealthStatusRegistry.getCommerceHealthStatuses(_type);
 	}
 
-	public PortletURL getPortletURL() {
-		PortletURL portletURL = _renderResponse.createRenderURL();
-
-		return portletURL;
-	}
-
 	public SearchContainer<CommerceHealthStatus> getSearchContainer() {
 		if (_searchContainer != null) {
 			return _searchContainer;
 		}
 
 		_searchContainer = new SearchContainer<>(
-			_renderRequest, getPortletURL(), null, "there-are-no-results");
+			_renderRequest, _renderResponse.createRenderURL(), null,
+			"there-are-no-results");
 
 		List<CommerceHealthStatus> results = getCommerceHealthStatuses();
 

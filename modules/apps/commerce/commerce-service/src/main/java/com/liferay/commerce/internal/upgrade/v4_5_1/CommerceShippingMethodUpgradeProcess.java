@@ -62,8 +62,8 @@ public class CommerceShippingMethodUpgradeProcess
 				}
 
 				ps = connection.prepareStatement(
-					"update CommerceShippingMethod set groupId = ? " +
-						"where commerceShippingMethodId = ?");
+					"update CommerceShippingMethod set groupId = ? where " +
+						"commerceShippingMethodId = ?");
 
 				ps.setLong(1, channelGroupId);
 				ps.setLong(2, commerceShippingMethodId);

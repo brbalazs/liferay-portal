@@ -190,6 +190,5 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 	private CommerceShippingMethod _commerceShippingMethod;
 	private String _defaultOrderByCol;
 	private String _defaultOrderByType;
-	private RowChecker _rowChecker;
 
 }

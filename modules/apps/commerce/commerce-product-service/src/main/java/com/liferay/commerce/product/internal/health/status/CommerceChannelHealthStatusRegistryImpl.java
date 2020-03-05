@@ -54,10 +54,10 @@ public class CommerceChannelHealthStatusRegistryImpl
 		}
 
 		ServiceWrapper<CommerceChannelHealthStatus>
-			CommerceChannelHealthStatusServiceWrapper =
-				_CommerceChannelHealthStatusRegistryMap.getService(key);
+			commerceChannelHealthStatusServiceWrapper =
+				_commerceChannelHealthStatusRegistryMap.getService(key);
 
-		if (CommerceChannelHealthStatusServiceWrapper == null) {
+		if (commerceChannelHealthStatusServiceWrapper == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"No commerce health status registered with key " + key);
@@ -66,39 +66,39 @@ public class CommerceChannelHealthStatusRegistryImpl
 			return null;
 		}
 
-		return CommerceChannelHealthStatusServiceWrapper.getService();
+		return commerceChannelHealthStatusServiceWrapper.getService();
 	}
 
 	@Override
 	public List<CommerceChannelHealthStatus>
 		getCommerceChannelHealthStatuses() {
 
-		List<CommerceChannelHealthStatus> CommerceChannelHealthStatuses =
+		List<CommerceChannelHealthStatus> commerceChannelHealthStatuses =
 			new ArrayList<>();
 
 		List<ServiceWrapper<CommerceChannelHealthStatus>>
-			CommerceChannelHealthStatusServiceWrappers =
+			commerceChannelHealthStatusServiceWrappers =
 				ListUtil.fromCollection(
-					_CommerceChannelHealthStatusRegistryMap.values());
+					_commerceChannelHealthStatusRegistryMap.values());
 
 		Collections.sort(
-			CommerceChannelHealthStatusServiceWrappers,
-			_CommerceChannelHealthStatusServiceWrapperDisplayOrderComparator);
+			commerceChannelHealthStatusServiceWrappers,
+			_commerceChannelHealthStatusServiceWrapperDisplayOrderComparator);
 
 		for (ServiceWrapper<CommerceChannelHealthStatus>
-				CommerceChannelHealthStatusServiceWrapper :
-					CommerceChannelHealthStatusServiceWrappers) {
+				commerceChannelHealthStatusServiceWrapper :
+					commerceChannelHealthStatusServiceWrappers) {
 
-			CommerceChannelHealthStatuses.add(
-				CommerceChannelHealthStatusServiceWrapper.getService());
+			commerceChannelHealthStatuses.add(
+				commerceChannelHealthStatusServiceWrapper.getService());
 		}
 
-		return Collections.unmodifiableList(CommerceChannelHealthStatuses);
+		return Collections.unmodifiableList(commerceChannelHealthStatuses);
 	}
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
-		_CommerceChannelHealthStatusRegistryMap =
+		_commerceChannelHealthStatusRegistryMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
 				bundleContext, CommerceChannelHealthStatus.class,
 				"commerce.channel.health.status.key",
@@ -108,18 +108,18 @@ public class CommerceChannelHealthStatusRegistryImpl
 
 	@Deactivate
 	protected void deactivate() {
-		_CommerceChannelHealthStatusRegistryMap.close();
+		_commerceChannelHealthStatusRegistryMap.close();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceChannelHealthStatusRegistryImpl.class);
 
 	private static final Comparator<ServiceWrapper<CommerceChannelHealthStatus>>
-		_CommerceChannelHealthStatusServiceWrapperDisplayOrderComparator =
+		_commerceChannelHealthStatusServiceWrapperDisplayOrderComparator =
 			new CommerceChannelHealthStatusServiceWrapperDisplayOrderComparator();
 
 	private ServiceTrackerMap
 		<String, ServiceWrapper<CommerceChannelHealthStatus>>
-			_CommerceChannelHealthStatusRegistryMap;
+			_commerceChannelHealthStatusRegistryMap;
 
 }

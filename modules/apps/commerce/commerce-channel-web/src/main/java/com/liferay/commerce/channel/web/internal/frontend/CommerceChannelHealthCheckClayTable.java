@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,11 +70,7 @@ public class CommerceChannelHealthCheckClayTable
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
-		List<ClayDataSetAction> clayTableActions = new ArrayList<>();
-
-		HealthCheck healthCheck = (HealthCheck)model;
-
-		return clayTableActions;
+		return Collections.emptyList();
 	}
 
 	@Override
