@@ -162,7 +162,9 @@ public class CommerceSearchResource {
 		List<SearchItemModel> searchItemModels = new ArrayList<>();
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),
+			themeDisplay.getCompanyId(),
+			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
+				themeDisplay.getScopeGroupId()),
 			themeDisplay.getUserId(), 0, 0);
 
 		AccountList accountList = _commerceAccountResource.getAccountList(

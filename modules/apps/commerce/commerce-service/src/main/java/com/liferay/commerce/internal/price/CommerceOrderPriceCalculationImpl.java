@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.internal.price;
 
-import com.liferay.commerce.account.constants.CommerceAccountConstants;
-import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
@@ -26,12 +24,9 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
 import java.math.BigDecimal;
@@ -53,10 +48,6 @@ public class CommerceOrderPriceCalculationImpl
 			CommerceOrder commerceOrder, boolean secure,
 			CommerceContext commerceContext)
 		throws PortalException {
-
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
 
 		if (commerceOrder == null) {
 			return _getEmptyCommerceOrderPrice(
@@ -150,10 +141,6 @@ public class CommerceOrderPriceCalculationImpl
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
-
 		BigDecimal subtotal = BigDecimal.ZERO;
 
 		if (commerceOrder == null) {
@@ -191,10 +178,6 @@ public class CommerceOrderPriceCalculationImpl
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
-
 		if (commerceOrder == null) {
 			return _commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
@@ -223,10 +206,6 @@ public class CommerceOrderPriceCalculationImpl
 			CommerceOrder commerceOrder, boolean secure,
 			CommerceContext commerceContext)
 		throws PortalException {
-
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
 
 		if (!commerceOrder.isOpen()) {
 			return _commerceMoneyFactory.create(
@@ -358,28 +337,6 @@ public class CommerceOrderPriceCalculationImpl
 		commerceOrderPriceImpl.setTotal(zero);
 
 		return commerceOrderPriceImpl;
-	}
-
-	private boolean _hasViewPricePermission(CommerceContext commerceContext)
-		throws PortalException {
-
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
-		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
-
-		if ((commerceAccount != null) &&
-			(commerceAccount.getType() ==
-				CommerceAccountConstants.ACCOUNT_TYPE_BUSINESS)) {
-
-			return _portletResourcePermission.contains(
-				permissionChecker, commerceAccount.getCommerceAccountGroupId(),
-				CPActionKeys.VIEW_PRICE);
-		}
-
-		return _portletResourcePermission.contains(
-			permissionChecker, commerceContext.getSiteGroupId(),
-			CPActionKeys.VIEW_PRICE);
 	}
 
 	@Reference

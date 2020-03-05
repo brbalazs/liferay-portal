@@ -25,11 +25,10 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -67,19 +66,7 @@ public class MoneyOrderCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		CommerceOrder commerceOrder = null;
-
-		long commerceOrderId = ParamUtil.getLong(
-			httpServletRequest, "commerceOrderId");
-
-		if (commerceOrderId > 0) {
-			commerceOrder = _commerceOrderService.getCommerceOrder(
-				commerceOrderId);
-		}
-		else {
-			commerceOrder = _commerceOrderHttpHelper.getCurrentCommerceOrder(
-				httpServletRequest);
-		}
+		CommerceOrder commerceOrder = _getCommerceOrder(httpServletRequest);
 
 		if (MoneyOrderCommercePaymentMethod.KEY.equals(
 				commerceOrder.getCommercePaymentMethodKey())) {
@@ -101,16 +88,14 @@ public class MoneyOrderCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
+		CommerceOrder commerceOrder = _getCommerceOrder(httpServletRequest);
 
 		MoneyOrderGroupServiceConfiguration
 			moneyOrderGroupServiceConfiguration =
 				_configurationProvider.getConfiguration(
 					MoneyOrderGroupServiceConfiguration.class,
 					new GroupServiceSettingsLocator(
-						themeDisplay.getScopeGroupId(),
+						commerceOrder.getGroupId(),
 						MoneyOrderCommercePaymentEngineMethodConstants.
 							SERVICE_NAME));
 
@@ -142,6 +127,21 @@ public class MoneyOrderCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/checkout_step/money_order.jsp");
+	}
+
+	private CommerceOrder _getCommerceOrder(
+			HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		long commerceOrderId = ParamUtil.getLong(
+			httpServletRequest, "commerceOrderId");
+
+		if (commerceOrderId > 0) {
+			return _commerceOrderService.getCommerceOrder(commerceOrderId);
+		}
+
+		return _commerceOrderHttpHelper.getCurrentCommerceOrder(
+			httpServletRequest);
 	}
 
 	@Reference

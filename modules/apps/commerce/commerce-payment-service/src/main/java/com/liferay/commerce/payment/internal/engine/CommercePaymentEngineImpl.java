@@ -256,13 +256,12 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 
 	@Override
 	public String getPaymentMethodImageURL(
-			ThemeDisplay themeDisplay, String paymentMethodKey)
+			long groupId, String paymentMethodKey, ThemeDisplay themeDisplay)
 		throws PortalException {
 
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
 			_commercePaymentMethodGroupRelLocalService.
-				getCommercePaymentMethodGroupRel(
-					themeDisplay.getSiteGroupId(), paymentMethodKey);
+				getCommercePaymentMethodGroupRel(groupId, paymentMethodKey);
 
 		return commercePaymentMethodGroupRel.getImageURL(themeDisplay);
 	}

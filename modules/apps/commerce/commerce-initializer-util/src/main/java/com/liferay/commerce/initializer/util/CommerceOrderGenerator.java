@@ -147,7 +147,7 @@ public class CommerceOrderGenerator {
 		// Commerce order items
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			commerceOrder.getCompanyId(), groupId,
+			commerceOrder.getCompanyId(), commerceOrder.getGroupId(),
 			commerceAccountUserRel.getCommerceAccountUserId(),
 			commerceOrder.getCommerceOrderId(),
 			commerceAccountUserRel.getCommerceAccountId());

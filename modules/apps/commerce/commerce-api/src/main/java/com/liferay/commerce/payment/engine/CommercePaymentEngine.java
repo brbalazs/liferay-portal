@@ -63,7 +63,7 @@ public interface CommercePaymentEngine {
 		throws PortalException;
 
 	public String getPaymentMethodImageURL(
-			ThemeDisplay themeDisplay, String paymentMethodKey)
+			long groupId, String paymentMethodKey, ThemeDisplay themeDisplay)
 		throws PortalException;
 
 	public String getPaymentMethodName(String paymentMethodKey, Locale locale);

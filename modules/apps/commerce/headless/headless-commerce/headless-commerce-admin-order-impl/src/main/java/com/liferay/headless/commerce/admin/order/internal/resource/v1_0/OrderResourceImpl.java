@@ -349,7 +349,7 @@ public class OrderResourceImpl
 				order.getExternalReferenceCode(),
 				commerceOrder.getExternalReferenceCode()),
 			_commerceContextFactory.create(
-				contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
+				contextCompany.getCompanyId(), commerceChannel.getGroupId(),
 				_user.getUserId(), 0,
 				GetterUtil.getLong(
 					order.getAccountId(),
@@ -434,7 +434,7 @@ public class OrderResourceImpl
 				CommerceOrderConstants.ORDER_STATUS_TO_FULFILL),
 			order.getAdvanceStatus(), order.getExternalReferenceCode(),
 			_commerceContextFactory.create(
-				contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
+				contextCompany.getCompanyId(), commerceChannel.getGroupId(),
 				_user.getUserId(), 0, commerceAccount.getCommerceAccountId()),
 			serviceContext);
 

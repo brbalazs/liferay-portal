@@ -348,7 +348,7 @@ public class PriceTag extends IncludeTag {
 
 		CPCatalogEntry cpCatalogEntry = cpDefinitionHelper.getCPCatalogEntry(
 			commerceAccount.getCommerceAccountId(),
-			_commerceContext.getSiteGroupId(), _cpDefinitionId,
+			_themeDisplay.getScopeGroupId(), _cpDefinitionId,
 			_themeDisplay.getLocale());
 
 		if (_quantity <= 0) {

@@ -34,7 +34,6 @@ import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
-import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.petra.string.CharPool;
@@ -811,13 +810,8 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 	}
 
 	private APIContext _getAPIContext(long groupId) throws PortalException {
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				groupId);
-
 		PayPalGroupServiceConfiguration payPalGroupServiceConfiguration =
-			_getPayPalGroupServiceConfiguration(
-				commerceChannel.getSiteGroupId());
+			_getPayPalGroupServiceConfiguration(groupId);
 
 		return new APIContext(
 			payPalGroupServiceConfiguration.clientId(),
@@ -1048,13 +1042,8 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			PayPalCommercePaymentMethodConstants.INITIAL_FAIL_AMOUNT_ACTION);
 		merchantPreferences.setReturnUrl(commercePaymentRequest.getReturnUrl());
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		PayPalGroupServiceConfiguration payPalGroupServiceConfiguration =
-			_getPayPalGroupServiceConfiguration(
-				commerceChannel.getSiteGroupId());
+			_getPayPalGroupServiceConfiguration(commerceOrder.getGroupId());
 
 		String attemptsMaxCount =
 			payPalGroupServiceConfiguration.paymentAttemptsMaxCount();

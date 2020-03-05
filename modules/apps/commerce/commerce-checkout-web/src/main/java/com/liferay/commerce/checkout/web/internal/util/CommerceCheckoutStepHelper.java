@@ -101,7 +101,7 @@ public class CommerceCheckoutStepHelper {
 				CommerceCheckoutWebKeys.COMMERCE_ORDER);
 
 		if (_commercePaymentEngine.getCommercePaymentMethodGroupRelsCount(
-				_portal.getScopeGroupId(httpServletRequest)) < 1) {
+				commerceOrder.getGroupId()) < 1) {
 
 			return false;
 		}
@@ -122,7 +122,7 @@ public class CommerceCheckoutStepHelper {
 
 		List<CommercePaymentMethod> commercePaymentMethods =
 			_commercePaymentEngine.getEnabledCommercePaymentMethodsForOrder(
-				commerceContext.getSiteGroupId(),
+				commerceOrder.getCommerceOrderId(),
 				commerceOrder.getCommerceOrderId());
 
 		if (commercePaymentMethods.isEmpty()) {
