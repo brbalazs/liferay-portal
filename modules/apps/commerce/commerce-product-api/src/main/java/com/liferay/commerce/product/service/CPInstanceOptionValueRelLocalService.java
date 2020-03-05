@@ -210,7 +210,17 @@ public interface CPInstanceOptionValueRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPInstanceOptionValueRel>
+		getCPDefinitionOptionRelCPInstanceOptionValueRels(
+			long cpDefinitionOptionRelId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPInstanceOptionValueRel>
 		getCPInstanceCPInstanceOptionValueRels(long cpInstanceId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPInstanceOptionValueRel>
+		getCPInstanceCPInstanceOptionValueRels(
+			long cpDefinitionOptionRelId, long cpInstanceId);
 
 	/**
 	 * Returns the cp instance option value rel with the primary key.
@@ -311,11 +321,15 @@ public interface CPInstanceOptionValueRelLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean hasCPInstanceOptionValueRel(long cpInstanceId);
+	public boolean hasCPInstanceCPDefinitionOptionRel(
+		long cpDefinitionOptionRelId, long cpInstanceId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean hasCPInstanceOptionValueRels(
-		long cpDefinitionOptionRelId, long cpInstanceId);
+	public boolean hasCPInstanceCPDefinitionOptionValueRel(
+		long cpDefinitionOptionValueRelId, long cpInstanceId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasCPInstanceOptionValueRel(long cpInstanceId);
 
 	public boolean matchesCPInstanceOptionValueRels(
 		long cpInstanceId,

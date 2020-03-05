@@ -449,6 +449,17 @@ public class CPDefinitionOptionValueRelLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.product.model.CPDefinitionOptionValueRel
+			getCPInstanceCPDefinitionOptionValueRel(
+				long cpDefinitionOptionRelId, long cpInstanceId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionValueRelLocalService.
+			getCPInstanceCPDefinitionOptionValueRel(
+				cpDefinitionOptionRelId, cpInstanceId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

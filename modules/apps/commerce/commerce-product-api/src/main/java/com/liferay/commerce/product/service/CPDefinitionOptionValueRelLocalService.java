@@ -332,6 +332,11 @@ public interface CPDefinitionOptionValueRelLocalService
 		long cpDefinitionOptionRelId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CPDefinitionOptionValueRel getCPInstanceCPDefinitionOptionValueRel(
+			long cpDefinitionOptionRelId, long cpInstanceId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 

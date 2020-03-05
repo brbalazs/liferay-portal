@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -1490,6 +1491,536 @@ public class CPInstanceOptionValueRelPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"cpInstanceOptionValueRel.companyId = ?";
 
+	private FinderPath _finderPathWithPaginationFindByCPDefinitionOptionRelId;
+	private FinderPath
+		_finderPathWithoutPaginationFindByCPDefinitionOptionRelId;
+	private FinderPath _finderPathCountByCPDefinitionOptionRelId;
+
+	/**
+	 * Returns all the cp instance option value rels where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @return the matching cp instance option value rels
+	 */
+	@Override
+	public List<CPInstanceOptionValueRel> findByCPDefinitionOptionRelId(
+		long CPDefinitionOptionRelId) {
+
+		return findByCPDefinitionOptionRelId(
+			CPDefinitionOptionRelId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @return the range of matching cp instance option value rels
+	 */
+	@Override
+	public List<CPInstanceOptionValueRel> findByCPDefinitionOptionRelId(
+		long CPDefinitionOptionRelId, int start, int end) {
+
+		return findByCPDefinitionOptionRelId(
+			CPDefinitionOptionRelId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching cp instance option value rels
+	 */
+	@Override
+	public List<CPInstanceOptionValueRel> findByCPDefinitionOptionRelId(
+		long CPDefinitionOptionRelId, int start, int end,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator) {
+
+		return findByCPDefinitionOptionRelId(
+			CPDefinitionOptionRelId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the cp instance option value rels where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CPInstanceOptionValueRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param start the lower bound of the range of cp instance option value rels
+	 * @param end the upper bound of the range of cp instance option value rels (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching cp instance option value rels
+	 */
+	@Override
+	public List<CPInstanceOptionValueRel> findByCPDefinitionOptionRelId(
+		long CPDefinitionOptionRelId, int start, int end,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByCPDefinitionOptionRelId;
+				finderArgs = new Object[] {CPDefinitionOptionRelId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByCPDefinitionOptionRelId;
+			finderArgs = new Object[] {
+				CPDefinitionOptionRelId, start, end, orderByComparator
+			};
+		}
+
+		List<CPInstanceOptionValueRel> list = null;
+
+		if (useFinderCache) {
+			list = (List<CPInstanceOptionValueRel>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (CPInstanceOptionValueRel cpInstanceOptionValueRel : list) {
+					if (CPDefinitionOptionRelId !=
+							cpInstanceOptionValueRel.
+								getCPDefinitionOptionRelId()) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
+
+			sb.append(_SQL_SELECT_CPINSTANCEOPTIONVALUEREL_WHERE);
+
+			sb.append(
+				_FINDER_COLUMN_CPDEFINITIONOPTIONRELID_CPDEFINITIONOPTIONRELID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(CPInstanceOptionValueRelModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(CPDefinitionOptionRelId);
+
+				list = (List<CPInstanceOptionValueRel>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
+	 */
+	@Override
+	public CPInstanceOptionValueRel findByCPDefinitionOptionRelId_First(
+			long CPDefinitionOptionRelId,
+			OrderByComparator<CPInstanceOptionValueRel> orderByComparator)
+		throws NoSuchCPInstanceOptionValueRelException {
+
+		CPInstanceOptionValueRel cpInstanceOptionValueRel =
+			fetchByCPDefinitionOptionRelId_First(
+				CPDefinitionOptionRelId, orderByComparator);
+
+		if (cpInstanceOptionValueRel != null) {
+			return cpInstanceOptionValueRel;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("CPDefinitionOptionRelId=");
+		sb.append(CPDefinitionOptionRelId);
+
+		sb.append("}");
+
+		throw new NoSuchCPInstanceOptionValueRelException(sb.toString());
+	}
+
+	/**
+	 * Returns the first cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
+	 */
+	@Override
+	public CPInstanceOptionValueRel fetchByCPDefinitionOptionRelId_First(
+		long CPDefinitionOptionRelId,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator) {
+
+		List<CPInstanceOptionValueRel> list = findByCPDefinitionOptionRelId(
+			CPDefinitionOptionRelId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
+	 */
+	@Override
+	public CPInstanceOptionValueRel findByCPDefinitionOptionRelId_Last(
+			long CPDefinitionOptionRelId,
+			OrderByComparator<CPInstanceOptionValueRel> orderByComparator)
+		throws NoSuchCPInstanceOptionValueRelException {
+
+		CPInstanceOptionValueRel cpInstanceOptionValueRel =
+			fetchByCPDefinitionOptionRelId_Last(
+				CPDefinitionOptionRelId, orderByComparator);
+
+		if (cpInstanceOptionValueRel != null) {
+			return cpInstanceOptionValueRel;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("CPDefinitionOptionRelId=");
+		sb.append(CPDefinitionOptionRelId);
+
+		sb.append("}");
+
+		throw new NoSuchCPInstanceOptionValueRelException(sb.toString());
+	}
+
+	/**
+	 * Returns the last cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
+	 */
+	@Override
+	public CPInstanceOptionValueRel fetchByCPDefinitionOptionRelId_Last(
+		long CPDefinitionOptionRelId,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator) {
+
+		int count = countByCPDefinitionOptionRelId(CPDefinitionOptionRelId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<CPInstanceOptionValueRel> list = findByCPDefinitionOptionRelId(
+			CPDefinitionOptionRelId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the cp instance option value rels before and after the current cp instance option value rel in the ordered set where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * @param CPInstanceOptionValueRelId the primary key of the current cp instance option value rel
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a cp instance option value rel with the primary key could not be found
+	 */
+	@Override
+	public CPInstanceOptionValueRel[] findByCPDefinitionOptionRelId_PrevAndNext(
+			long CPInstanceOptionValueRelId, long CPDefinitionOptionRelId,
+			OrderByComparator<CPInstanceOptionValueRel> orderByComparator)
+		throws NoSuchCPInstanceOptionValueRelException {
+
+		CPInstanceOptionValueRel cpInstanceOptionValueRel = findByPrimaryKey(
+			CPInstanceOptionValueRelId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CPInstanceOptionValueRel[] array =
+				new CPInstanceOptionValueRelImpl[3];
+
+			array[0] = getByCPDefinitionOptionRelId_PrevAndNext(
+				session, cpInstanceOptionValueRel, CPDefinitionOptionRelId,
+				orderByComparator, true);
+
+			array[1] = cpInstanceOptionValueRel;
+
+			array[2] = getByCPDefinitionOptionRelId_PrevAndNext(
+				session, cpInstanceOptionValueRel, CPDefinitionOptionRelId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CPInstanceOptionValueRel getByCPDefinitionOptionRelId_PrevAndNext(
+		Session session, CPInstanceOptionValueRel cpInstanceOptionValueRel,
+		long CPDefinitionOptionRelId,
+		OrderByComparator<CPInstanceOptionValueRel> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_CPINSTANCEOPTIONVALUEREL_WHERE);
+
+		sb.append(
+			_FINDER_COLUMN_CPDEFINITIONOPTIONRELID_CPDEFINITIONOPTIONRELID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(CPInstanceOptionValueRelModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(CPDefinitionOptionRelId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						cpInstanceOptionValueRel)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<CPInstanceOptionValueRel> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the cp instance option value rels where CPDefinitionOptionRelId = &#63; from the database.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 */
+	@Override
+	public void removeByCPDefinitionOptionRelId(long CPDefinitionOptionRelId) {
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+				findByCPDefinitionOptionRelId(
+					CPDefinitionOptionRelId, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null)) {
+
+			remove(cpInstanceOptionValueRel);
+		}
+	}
+
+	/**
+	 * Returns the number of cp instance option value rels where CPDefinitionOptionRelId = &#63;.
+	 *
+	 * @param CPDefinitionOptionRelId the cp definition option rel ID
+	 * @return the number of matching cp instance option value rels
+	 */
+	@Override
+	public int countByCPDefinitionOptionRelId(long CPDefinitionOptionRelId) {
+		FinderPath finderPath = _finderPathCountByCPDefinitionOptionRelId;
+
+		Object[] finderArgs = new Object[] {CPDefinitionOptionRelId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_CPINSTANCEOPTIONVALUEREL_WHERE);
+
+			sb.append(
+				_FINDER_COLUMN_CPDEFINITIONOPTIONRELID_CPDEFINITIONOPTIONRELID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(CPDefinitionOptionRelId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_CPDEFINITIONOPTIONRELID_CPDEFINITIONOPTIONRELID_2 =
+			"cpInstanceOptionValueRel.CPDefinitionOptionRelId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByCPInstanceId;
 	private FinderPath _finderPathWithoutPaginationFindByCPInstanceId;
 	private FinderPath _finderPathCountByCPInstanceId;
@@ -2579,6 +3110,268 @@ public class CPInstanceOptionValueRelPersistenceImpl
 	private static final String _FINDER_COLUMN_CDORI_CII_CPINSTANCEID_2 =
 		"cpInstanceOptionValueRel.CPInstanceId = ?";
 
+	private FinderPath _finderPathFetchByCDOVRI_CII;
+	private FinderPath _finderPathCountByCDOVRI_CII;
+
+	/**
+	 * Returns the cp instance option value rel where CPDefinitionOptionValueRelId = &#63; and CPInstanceId = &#63; or throws a <code>NoSuchCPInstanceOptionValueRelException</code> if it could not be found.
+	 *
+	 * @param CPDefinitionOptionValueRelId the cp definition option value rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @return the matching cp instance option value rel
+	 * @throws NoSuchCPInstanceOptionValueRelException if a matching cp instance option value rel could not be found
+	 */
+	@Override
+	public CPInstanceOptionValueRel findByCDOVRI_CII(
+			long CPDefinitionOptionValueRelId, long CPInstanceId)
+		throws NoSuchCPInstanceOptionValueRelException {
+
+		CPInstanceOptionValueRel cpInstanceOptionValueRel = fetchByCDOVRI_CII(
+			CPDefinitionOptionValueRelId, CPInstanceId);
+
+		if (cpInstanceOptionValueRel == null) {
+			StringBundler sb = new StringBundler(6);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("CPDefinitionOptionValueRelId=");
+			sb.append(CPDefinitionOptionValueRelId);
+
+			sb.append(", CPInstanceId=");
+			sb.append(CPInstanceId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchCPInstanceOptionValueRelException(sb.toString());
+		}
+
+		return cpInstanceOptionValueRel;
+	}
+
+	/**
+	 * Returns the cp instance option value rel where CPDefinitionOptionValueRelId = &#63; and CPInstanceId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param CPDefinitionOptionValueRelId the cp definition option value rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @return the matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
+	 */
+	@Override
+	public CPInstanceOptionValueRel fetchByCDOVRI_CII(
+		long CPDefinitionOptionValueRelId, long CPInstanceId) {
+
+		return fetchByCDOVRI_CII(
+			CPDefinitionOptionValueRelId, CPInstanceId, true);
+	}
+
+	/**
+	 * Returns the cp instance option value rel where CPDefinitionOptionValueRelId = &#63; and CPInstanceId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param CPDefinitionOptionValueRelId the cp definition option value rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching cp instance option value rel, or <code>null</code> if a matching cp instance option value rel could not be found
+	 */
+	@Override
+	public CPInstanceOptionValueRel fetchByCDOVRI_CII(
+		long CPDefinitionOptionValueRelId, long CPInstanceId,
+		boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {
+				CPDefinitionOptionValueRelId, CPInstanceId
+			};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByCDOVRI_CII, finderArgs, this);
+		}
+
+		if (result instanceof CPInstanceOptionValueRel) {
+			CPInstanceOptionValueRel cpInstanceOptionValueRel =
+				(CPInstanceOptionValueRel)result;
+
+			if ((CPDefinitionOptionValueRelId !=
+					cpInstanceOptionValueRel.
+						getCPDefinitionOptionValueRelId()) ||
+				(CPInstanceId != cpInstanceOptionValueRel.getCPInstanceId())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_SELECT_CPINSTANCEOPTIONVALUEREL_WHERE);
+
+			sb.append(_FINDER_COLUMN_CDOVRI_CII_CPDEFINITIONOPTIONVALUERELID_2);
+
+			sb.append(_FINDER_COLUMN_CDOVRI_CII_CPINSTANCEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(CPDefinitionOptionValueRelId);
+
+				queryPos.add(CPInstanceId);
+
+				List<CPInstanceOptionValueRel> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByCDOVRI_CII, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {
+									CPDefinitionOptionValueRelId, CPInstanceId
+								};
+							}
+
+							_log.warn(
+								"CPInstanceOptionValueRelPersistenceImpl.fetchByCDOVRI_CII(long, long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					CPInstanceOptionValueRel cpInstanceOptionValueRel =
+						list.get(0);
+
+					result = cpInstanceOptionValueRel;
+
+					cacheResult(cpInstanceOptionValueRel);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByCDOVRI_CII, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (CPInstanceOptionValueRel)result;
+		}
+	}
+
+	/**
+	 * Removes the cp instance option value rel where CPDefinitionOptionValueRelId = &#63; and CPInstanceId = &#63; from the database.
+	 *
+	 * @param CPDefinitionOptionValueRelId the cp definition option value rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @return the cp instance option value rel that was removed
+	 */
+	@Override
+	public CPInstanceOptionValueRel removeByCDOVRI_CII(
+			long CPDefinitionOptionValueRelId, long CPInstanceId)
+		throws NoSuchCPInstanceOptionValueRelException {
+
+		CPInstanceOptionValueRel cpInstanceOptionValueRel = findByCDOVRI_CII(
+			CPDefinitionOptionValueRelId, CPInstanceId);
+
+		return remove(cpInstanceOptionValueRel);
+	}
+
+	/**
+	 * Returns the number of cp instance option value rels where CPDefinitionOptionValueRelId = &#63; and CPInstanceId = &#63;.
+	 *
+	 * @param CPDefinitionOptionValueRelId the cp definition option value rel ID
+	 * @param CPInstanceId the cp instance ID
+	 * @return the number of matching cp instance option value rels
+	 */
+	@Override
+	public int countByCDOVRI_CII(
+		long CPDefinitionOptionValueRelId, long CPInstanceId) {
+
+		FinderPath finderPath = _finderPathCountByCDOVRI_CII;
+
+		Object[] finderArgs = new Object[] {
+			CPDefinitionOptionValueRelId, CPInstanceId
+		};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_CPINSTANCEOPTIONVALUEREL_WHERE);
+
+			sb.append(_FINDER_COLUMN_CDOVRI_CII_CPDEFINITIONOPTIONVALUERELID_2);
+
+			sb.append(_FINDER_COLUMN_CDOVRI_CII_CPINSTANCEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(CPDefinitionOptionValueRelId);
+
+				queryPos.add(CPInstanceId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_CDOVRI_CII_CPDEFINITIONOPTIONVALUERELID_2 =
+			"cpInstanceOptionValueRel.CPDefinitionOptionValueRelId = ? AND ";
+
+	private static final String _FINDER_COLUMN_CDOVRI_CII_CPINSTANCEID_2 =
+		"cpInstanceOptionValueRel.CPInstanceId = ?";
+
 	private FinderPath _finderPathFetchByCDORI_CDOVRI_CII;
 	private FinderPath _finderPathCountByCDORI_CDOVRI_CII;
 
@@ -2904,6 +3697,14 @@ public class CPInstanceOptionValueRelPersistenceImpl
 			cpInstanceOptionValueRel);
 
 		finderCache.putResult(
+			_finderPathFetchByCDOVRI_CII,
+			new Object[] {
+				cpInstanceOptionValueRel.getCPDefinitionOptionValueRelId(),
+				cpInstanceOptionValueRel.getCPInstanceId()
+			},
+			cpInstanceOptionValueRel);
+
+		finderCache.putResult(
 			_finderPathFetchByCDORI_CDOVRI_CII,
 			new Object[] {
 				cpInstanceOptionValueRel.getCPDefinitionOptionRelId(),
@@ -3025,6 +3826,17 @@ public class CPInstanceOptionValueRelPersistenceImpl
 			false);
 
 		args = new Object[] {
+			cpInstanceOptionValueRelModelImpl.getCPDefinitionOptionValueRelId(),
+			cpInstanceOptionValueRelModelImpl.getCPInstanceId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByCDOVRI_CII, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByCDOVRI_CII, args,
+			cpInstanceOptionValueRelModelImpl, false);
+
+		args = new Object[] {
 			cpInstanceOptionValueRelModelImpl.getCPDefinitionOptionRelId(),
 			cpInstanceOptionValueRelModelImpl.getCPDefinitionOptionValueRelId(),
 			cpInstanceOptionValueRelModelImpl.getCPInstanceId()
@@ -3061,6 +3873,30 @@ public class CPInstanceOptionValueRelPersistenceImpl
 
 			finderCache.removeResult(_finderPathCountByUUID_G, args);
 			finderCache.removeResult(_finderPathFetchByUUID_G, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+				cpInstanceOptionValueRelModelImpl.
+					getCPDefinitionOptionValueRelId(),
+				cpInstanceOptionValueRelModelImpl.getCPInstanceId()
+			};
+
+			finderCache.removeResult(_finderPathCountByCDOVRI_CII, args);
+			finderCache.removeResult(_finderPathFetchByCDOVRI_CII, args);
+		}
+
+		if ((cpInstanceOptionValueRelModelImpl.getColumnBitmask() &
+			 _finderPathFetchByCDOVRI_CII.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				cpInstanceOptionValueRelModelImpl.
+					getOriginalCPDefinitionOptionValueRelId(),
+				cpInstanceOptionValueRelModelImpl.getOriginalCPInstanceId()
+			};
+
+			finderCache.removeResult(_finderPathCountByCDOVRI_CII, args);
+			finderCache.removeResult(_finderPathFetchByCDOVRI_CII, args);
 		}
 
 		if (clearCurrent) {
@@ -3311,6 +4147,16 @@ public class CPInstanceOptionValueRelPersistenceImpl
 				_finderPathWithoutPaginationFindByUuid_C, args);
 
 			args = new Object[] {
+				cpInstanceOptionValueRelModelImpl.getCPDefinitionOptionRelId()
+			};
+
+			finderCache.removeResult(
+				_finderPathCountByCPDefinitionOptionRelId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByCPDefinitionOptionRelId,
+				args);
+
+			args = new Object[] {
 				cpInstanceOptionValueRelModelImpl.getCPInstanceId()
 			};
 
@@ -3374,6 +4220,33 @@ public class CPInstanceOptionValueRelPersistenceImpl
 				finderCache.removeResult(_finderPathCountByUuid_C, args);
 				finderCache.removeResult(
 					_finderPathWithoutPaginationFindByUuid_C, args);
+			}
+
+			if ((cpInstanceOptionValueRelModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByCPDefinitionOptionRelId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					cpInstanceOptionValueRelModelImpl.
+						getOriginalCPDefinitionOptionRelId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByCPDefinitionOptionRelId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCPDefinitionOptionRelId,
+					args);
+
+				args = new Object[] {
+					cpInstanceOptionValueRelModelImpl.
+						getCPDefinitionOptionRelId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByCPDefinitionOptionRelId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCPDefinitionOptionRelId,
+					args);
 			}
 
 			if ((cpInstanceOptionValueRelModelImpl.getColumnBitmask() &
@@ -3937,6 +4810,35 @@ public class CPInstanceOptionValueRelPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()});
 
+		_finderPathWithPaginationFindByCPDefinitionOptionRelId = new FinderPath(
+			CPInstanceOptionValueRelModelImpl.ENTITY_CACHE_ENABLED,
+			CPInstanceOptionValueRelModelImpl.FINDER_CACHE_ENABLED,
+			CPInstanceOptionValueRelImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByCPDefinitionOptionRelId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByCPDefinitionOptionRelId =
+			new FinderPath(
+				CPInstanceOptionValueRelModelImpl.ENTITY_CACHE_ENABLED,
+				CPInstanceOptionValueRelModelImpl.FINDER_CACHE_ENABLED,
+				CPInstanceOptionValueRelImpl.class,
+				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+				"findByCPDefinitionOptionRelId",
+				new String[] {Long.class.getName()},
+				CPInstanceOptionValueRelModelImpl.
+					CPDEFINITIONOPTIONRELID_COLUMN_BITMASK);
+
+		_finderPathCountByCPDefinitionOptionRelId = new FinderPath(
+			CPInstanceOptionValueRelModelImpl.ENTITY_CACHE_ENABLED,
+			CPInstanceOptionValueRelModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByCPDefinitionOptionRelId",
+			new String[] {Long.class.getName()});
+
 		_finderPathWithPaginationFindByCPInstanceId = new FinderPath(
 			CPInstanceOptionValueRelModelImpl.ENTITY_CACHE_ENABLED,
 			CPInstanceOptionValueRelModelImpl.FINDER_CACHE_ENABLED,
@@ -3986,6 +4888,22 @@ public class CPInstanceOptionValueRelPersistenceImpl
 			CPInstanceOptionValueRelModelImpl.ENTITY_CACHE_ENABLED,
 			CPInstanceOptionValueRelModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCDORI_CII",
+			new String[] {Long.class.getName(), Long.class.getName()});
+
+		_finderPathFetchByCDOVRI_CII = new FinderPath(
+			CPInstanceOptionValueRelModelImpl.ENTITY_CACHE_ENABLED,
+			CPInstanceOptionValueRelModelImpl.FINDER_CACHE_ENABLED,
+			CPInstanceOptionValueRelImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchByCDOVRI_CII",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			CPInstanceOptionValueRelModelImpl.
+				CPDEFINITIONOPTIONVALUERELID_COLUMN_BITMASK |
+			CPInstanceOptionValueRelModelImpl.CPINSTANCEID_COLUMN_BITMASK);
+
+		_finderPathCountByCDOVRI_CII = new FinderPath(
+			CPInstanceOptionValueRelModelImpl.ENTITY_CACHE_ENABLED,
+			CPInstanceOptionValueRelModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCDOVRI_CII",
 			new String[] {Long.class.getName(), Long.class.getName()});
 
 		_finderPathFetchByCDORI_CDOVRI_CII = new FinderPath(

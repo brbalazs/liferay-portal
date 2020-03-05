@@ -307,6 +307,16 @@ public class CPDefinitionOptionRelLocalServiceUtil {
 
 	public static java.util.Map<Long, java.util.List<Long>>
 			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				long cpDefinitionId, boolean skuContributorsOnly, String json)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+				cpDefinitionId, skuContributorsOnly, json);
+	}
+
+	public static java.util.Map<Long, java.util.List<Long>>
+			getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
 				long cpDefinitionId, String json)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

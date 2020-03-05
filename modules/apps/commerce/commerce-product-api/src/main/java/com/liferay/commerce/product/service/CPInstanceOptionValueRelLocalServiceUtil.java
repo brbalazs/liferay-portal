@@ -242,10 +242,28 @@ public class CPInstanceOptionValueRelLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
+			getCPDefinitionOptionRelCPInstanceOptionValueRels(
+				long cpDefinitionOptionRelId) {
+
+		return getService().getCPDefinitionOptionRelCPInstanceOptionValueRels(
+			cpDefinitionOptionRelId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
 			getCPInstanceCPInstanceOptionValueRels(long cpInstanceId) {
 
 		return getService().getCPInstanceCPInstanceOptionValueRels(
 			cpInstanceId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
+			getCPInstanceCPInstanceOptionValueRels(
+				long cpDefinitionOptionRelId, long cpInstanceId) {
+
+		return getService().getCPInstanceCPInstanceOptionValueRels(
+			cpDefinitionOptionRelId, cpInstanceId);
 	}
 
 	/**
@@ -379,15 +397,22 @@ public class CPInstanceOptionValueRelLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
-		return getService().hasCPInstanceOptionValueRel(cpInstanceId);
-	}
-
-	public static boolean hasCPInstanceOptionValueRels(
+	public static boolean hasCPInstanceCPDefinitionOptionRel(
 		long cpDefinitionOptionRelId, long cpInstanceId) {
 
-		return getService().hasCPInstanceOptionValueRels(
+		return getService().hasCPInstanceCPDefinitionOptionRel(
 			cpDefinitionOptionRelId, cpInstanceId);
+	}
+
+	public static boolean hasCPInstanceCPDefinitionOptionValueRel(
+		long cpDefinitionOptionValueRelId, long cpInstanceId) {
+
+		return getService().hasCPInstanceCPDefinitionOptionValueRel(
+			cpDefinitionOptionValueRelId, cpInstanceId);
+	}
+
+	public static boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
+		return getService().hasCPInstanceOptionValueRel(cpInstanceId);
 	}
 
 	public static boolean matchesCPInstanceOptionValueRels(

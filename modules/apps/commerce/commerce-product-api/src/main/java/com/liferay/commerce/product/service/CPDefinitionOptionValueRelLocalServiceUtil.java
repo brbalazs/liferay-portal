@@ -410,6 +410,15 @@ public class CPDefinitionOptionValueRelLocalServiceUtil {
 			cpDefinitionOptionRelId);
 	}
 
+	public static com.liferay.commerce.product.model.CPDefinitionOptionValueRel
+			getCPInstanceCPDefinitionOptionValueRel(
+				long cpDefinitionOptionRelId, long cpInstanceId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCPInstanceCPDefinitionOptionValueRel(
+			cpDefinitionOptionRelId, cpInstanceId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

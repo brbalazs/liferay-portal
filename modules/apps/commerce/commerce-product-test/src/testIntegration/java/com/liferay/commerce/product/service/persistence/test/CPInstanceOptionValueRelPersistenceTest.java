@@ -225,6 +225,13 @@ public class CPInstanceOptionValueRelPersistenceTest {
 	}
 
 	@Test
+	public void testCountByCPDefinitionOptionRelId() throws Exception {
+		_persistence.countByCPDefinitionOptionRelId(RandomTestUtil.nextLong());
+
+		_persistence.countByCPDefinitionOptionRelId(0L);
+	}
+
+	@Test
 	public void testCountByCPInstanceId() throws Exception {
 		_persistence.countByCPInstanceId(RandomTestUtil.nextLong());
 
@@ -237,6 +244,14 @@ public class CPInstanceOptionValueRelPersistenceTest {
 			RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
 
 		_persistence.countByCDORI_CII(0L, 0L);
+	}
+
+	@Test
+	public void testCountByCDOVRI_CII() throws Exception {
+		_persistence.countByCDOVRI_CII(
+			RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
+
+		_persistence.countByCDOVRI_CII(0L, 0L);
 	}
 
 	@Test
@@ -544,6 +559,19 @@ public class CPInstanceOptionValueRelPersistenceTest {
 			Long.valueOf(existingCPInstanceOptionValueRel.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCPInstanceOptionValueRel, "getOriginalGroupId",
+				new Class<?>[0]));
+
+		Assert.assertEquals(
+			Long.valueOf(
+				existingCPInstanceOptionValueRel.
+					getCPDefinitionOptionValueRelId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingCPInstanceOptionValueRel,
+				"getOriginalCPDefinitionOptionValueRelId", new Class<?>[0]));
+		Assert.assertEquals(
+			Long.valueOf(existingCPInstanceOptionValueRel.getCPInstanceId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingCPInstanceOptionValueRel, "getOriginalCPInstanceId",
 				new Class<?>[0]));
 
 		Assert.assertEquals(

@@ -259,10 +259,32 @@ public class CPInstanceOptionValueRelLocalServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
+			getCPDefinitionOptionRelCPInstanceOptionValueRels(
+				long cpDefinitionOptionRelId) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			getCPDefinitionOptionRelCPInstanceOptionValueRels(
+				cpDefinitionOptionRelId);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
 			getCPInstanceCPInstanceOptionValueRels(long cpInstanceId) {
 
 		return _cpInstanceOptionValueRelLocalService.
 			getCPInstanceCPInstanceOptionValueRels(cpInstanceId);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.product.model.CPInstanceOptionValueRel>
+			getCPInstanceCPInstanceOptionValueRels(
+				long cpDefinitionOptionRelId, long cpInstanceId) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			getCPInstanceCPInstanceOptionValueRels(
+				cpDefinitionOptionRelId, cpInstanceId);
 	}
 
 	/**
@@ -412,17 +434,27 @@ public class CPInstanceOptionValueRelLocalServiceWrapper
 	}
 
 	@Override
-	public boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
-		return _cpInstanceOptionValueRelLocalService.
-			hasCPInstanceOptionValueRel(cpInstanceId);
-	}
-
-	@Override
-	public boolean hasCPInstanceOptionValueRels(
+	public boolean hasCPInstanceCPDefinitionOptionRel(
 		long cpDefinitionOptionRelId, long cpInstanceId) {
 
 		return _cpInstanceOptionValueRelLocalService.
-			hasCPInstanceOptionValueRels(cpDefinitionOptionRelId, cpInstanceId);
+			hasCPInstanceCPDefinitionOptionRel(
+				cpDefinitionOptionRelId, cpInstanceId);
+	}
+
+	@Override
+	public boolean hasCPInstanceCPDefinitionOptionValueRel(
+		long cpDefinitionOptionValueRelId, long cpInstanceId) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			hasCPInstanceCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRelId, cpInstanceId);
+	}
+
+	@Override
+	public boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
+		return _cpInstanceOptionValueRelLocalService.
+			hasCPInstanceOptionValueRel(cpInstanceId);
 	}
 
 	@Override
