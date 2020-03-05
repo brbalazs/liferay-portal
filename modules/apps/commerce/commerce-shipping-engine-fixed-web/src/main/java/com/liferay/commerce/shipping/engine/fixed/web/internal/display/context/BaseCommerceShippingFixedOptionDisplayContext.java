@@ -18,8 +18,6 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.service.CommerceShippingMethodService;
-import com.liferay.commerce.shipping.web.admin.ShippingMethodsCommerceAdminModule;
-import com.liferay.commerce.shipping.web.servlet.taglib.ui.CommerceShippingScreenNavigationConstants;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.RowChecker;
@@ -114,8 +112,6 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 		PortletURL portletURL = renderResponse.createRenderURL();
 
 		portletURL.setParameter(
-			"commerceAdminModuleKey", ShippingMethodsCommerceAdminModule.KEY);
-		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommerceShippingMethod");
 		portletURL.setParameter(
 			"screenNavigationCategoryKey",
@@ -149,21 +145,11 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 		return portletURL;
 	}
 
-	public RowChecker getRowChecker() {
-		if (_rowChecker == null) {
-			_rowChecker = new EmptyOnClickRowChecker(renderResponse);
-		}
 
-		return _rowChecker;
-	}
 
 	public String getScreenNavigationCategoryKey() {
-		return CommerceShippingScreenNavigationConstants.
-			CATEGORY_KEY_COMMERCE_SHIPPING_METHOD_DETAILS;
+		return "details";
 	}
-
-	public abstract SearchContainer<T> getSearchContainer()
-		throws PortalException;
 
 	public BigDecimal round(BigDecimal value) {
 		CommerceCurrency commerceCurrency = getCommerceCurrency();

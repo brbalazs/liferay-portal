@@ -203,7 +203,6 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 			CATEGORY_KEY;
 	}
 
-	@Override
 	public SearchContainer<CommerceShippingFixedOptionRel> getSearchContainer()
 		throws PortalException {
 
@@ -225,7 +224,6 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 		searchContainer.setOrderByCol(getOrderByCol());
 		searchContainer.setOrderByComparator(orderByComparator);
 		searchContainer.setOrderByType(getOrderByType());
-		searchContainer.setRowChecker(getRowChecker());
 
 		int total =
 			_commerceShippingFixedOptionRelService.

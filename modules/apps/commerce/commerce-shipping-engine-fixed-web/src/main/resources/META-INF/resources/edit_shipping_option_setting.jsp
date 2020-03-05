@@ -19,8 +19,6 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-ServletContext commerceAdminServletContext = (ServletContext)request.getAttribute(CommerceAdminWebKeys.COMMERCE_ADMIN_SERVLET_CONTEXT);
-
 CommerceShippingFixedOptionRelsDisplayContext commerceShippingFixedOptionRelsDisplayContext = (CommerceShippingFixedOptionRelsDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceShippingFixedOptionRel commerceShippingFixedOptionRel = commerceShippingFixedOptionRelsDisplayContext.getCommerceShippingFixedOptionRel();
@@ -35,30 +33,12 @@ if (commerceShippingFixedOptionRel != null) {
 	commerceShippingFixedOptionRelId = commerceShippingFixedOptionRel.getCommerceShippingFixedOptionRelId();
 }
 
-PortletURL shippingMethodsURL = renderResponse.createRenderURL();
-
-shippingMethodsURL.setParameter("commerceAdminModuleKey", ShippingMethodsCommerceAdminModule.KEY);
-
 String localizedKey = (commerceShippingFixedOptionRel == null) ? "add-shipping-option-setting" : "edit-shipping-option-setting";
-
-String title = LanguageUtil.get(resourceBundle, localizedKey);
 
 Map<String, Object> data = new HashMap<>();
 
 data.put("direction-right", StringPool.TRUE);
-
-String screenNavigationCategoryKey = commerceShippingFixedOptionRelsDisplayContext.getScreenNavigationCategoryKey();
-
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, commerceAdminModuleKey), shippingMethodsURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, screenNavigationCategoryKey), redirect, data);
-PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 %>
-
-<liferay-util:include page="/navbar.jsp" servletContext="<%= commerceAdminServletContext %>">
-	<liferay-util:param name="commerceAdminModuleKey" value="<%= commerceAdminModuleKey %>" />
-</liferay-util:include>
-
-<%@ include file="/breadcrumb.jspf" %>
 
 <portlet:actionURL name="editCommerceShippingFixedOptionRel" var="editCommerceShippingFixedOptionRelActionURL" />
 
