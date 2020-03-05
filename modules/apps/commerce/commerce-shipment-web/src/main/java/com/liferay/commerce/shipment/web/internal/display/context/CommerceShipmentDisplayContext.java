@@ -183,8 +183,14 @@ public class CommerceShipmentDisplayContext
 			return StringPool.BLANK;
 		}
 
+		CommerceAddress commerceAddress = getShippingAddress();
+
+		if (commerceAddress == null) {
+			return StringPool.BLANK;
+		}
+
 		return _commerceAddressFormatter.getDescriptiveAddress(
-			getShippingAddress(), true);
+			commerceAddress, true);
 	}
 
 	public List<HeaderActionModel> getHeaderActionModels()
@@ -355,7 +361,7 @@ public class CommerceShipmentDisplayContext
 	public CommerceAddress getShippingAddress() throws PortalException {
 		CommerceShipment commerceShipment = getCommerceShipment();
 
-		return _commerceAddressService.getCommerceAddress(
+		return _commerceAddressService.fetchCommerceAddress(
 			commerceShipment.getCommerceAddressId());
 	}
 
