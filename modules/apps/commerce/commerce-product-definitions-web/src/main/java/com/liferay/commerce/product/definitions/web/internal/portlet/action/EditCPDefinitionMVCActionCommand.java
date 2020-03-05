@@ -381,19 +381,14 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 		boolean displayStockQuantity = ParamUtil.getBoolean(
 			actionRequest, "displayStockQuantity");
 		boolean backOrders = ParamUtil.getBoolean(actionRequest, "backOrders");
-		String minStockQuantityString = ParamUtil.getString(
+		int minStockQuantity = ParamUtil.getInteger(
 			actionRequest, "minStockQuantity");
-		String minOrderQuantityString = ParamUtil.getString(
+		int minOrderQuantity = ParamUtil.getInteger(
 			actionRequest, "minOrderQuantity");
-		String maxOrderQuantityString = ParamUtil.getString(
+		int maxOrderQuantity = ParamUtil.getInteger(
 			actionRequest, "maxOrderQuantity");
-		String multipleOrderQuantityString = ParamUtil.getString(
+		int multipleOrderQuantity = ParamUtil.getInteger(
 			actionRequest, "multipleOrderQuantity");
-		int minStockQuantity = Integer.valueOf(minStockQuantityString);
-		int minOrderQuantity = Integer.valueOf(minOrderQuantityString);
-		int maxOrderQuantity = Integer.valueOf(maxOrderQuantityString);
-		int multipleOrderQuantity = Integer.valueOf(
-			multipleOrderQuantityString);
 		String allowedOrderQuantities = ParamUtil.getString(
 			actionRequest, "allowedOrderQuantities");
 
@@ -405,15 +400,15 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 				cpDefinitionId, cpDefinitionInventoryEngine, lowStockActivity,
 				displayAvailability, displayStockQuantity, minStockQuantity,
 				backOrders, minOrderQuantity, maxOrderQuantity,
-				allowedOrderQuantities, multipleOrderQuantity, serviceContext);
+				allowedOrderQuantities, multipleOrderQuantity);
 		}
 		else {
 			_cpDefinitionInventoryService.updateCPDefinitionInventory(
 				cpDefinitionInventoryId, cpDefinitionInventoryEngine,
 				lowStockActivity, displayAvailability, displayStockQuantity,
 				minStockQuantity, backOrders, minOrderQuantity,
-				maxOrderQuantity, allowedOrderQuantities, multipleOrderQuantity,
-				serviceContext);
+				maxOrderQuantity, allowedOrderQuantities,
+				multipleOrderQuantity);
 		}
 
 		_cpdAvailabilityEstimateService.updateCPDAvailabilityEstimate(
