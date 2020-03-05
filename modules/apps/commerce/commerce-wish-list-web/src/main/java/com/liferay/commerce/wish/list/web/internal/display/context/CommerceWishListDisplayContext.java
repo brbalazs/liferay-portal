@@ -31,12 +31,10 @@ import com.liferay.commerce.wish.list.util.comparator.CommerceWishListNameCompar
 import com.liferay.commerce.wish.list.web.internal.display.context.util.CommerceWishListRequestHelper;
 import com.liferay.commerce.wish.list.web.internal.util.CommerceWishListPortletUtil;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
@@ -255,15 +253,6 @@ public class CommerceWishListDisplayContext {
 
 		PortletURL rowURL = liferayPortletResponse.createRenderURL();
 
-		if (CommerceWishListPortletKeys.COMMERCE_WISH_LIST.equals(
-				_commerceWishListRequestHelper.getPortletId())) {
-
-			rowURL.setParameter(
-				"mvcRenderCommandName", "viewCommerceWishListItems");
-			rowURL.setParameter(
-				"redirect", _commerceWishListRequestHelper.getCurrentURL());
-		}
-
 		rowURL.setParameter(
 			"commerceWishListId", String.valueOf(commerceWishListId));
 
@@ -291,34 +280,16 @@ public class CommerceWishListDisplayContext {
 
 		_searchContainer.setOrderByComparator(orderByComparator);
 
-		if (isControlPanelPortlet()) {
-			_searchContainer.setRowChecker(
-				new EmptyOnClickRowChecker(
-					_commerceWishListRequestHelper.
-						getLiferayPortletResponse()));
-		}
+		int total = _commerceWishListService.getCommerceWishListsCount(
+			_commerceWishListRequestHelper.getScopeGroupId(),
+			_commerceWishListRequestHelper.getUserId());
 
-		int total = 0;
-		List<CommerceWishList> results = null;
-
-		if (isControlPanelPortlet()) {
-			total = _commerceWishListService.getCommerceWishListsCount(
-				_commerceWishListRequestHelper.getScopeGroupId());
-			results = _commerceWishListService.getCommerceWishLists(
-				_commerceWishListRequestHelper.getScopeGroupId(),
-				_searchContainer.getStart(), _searchContainer.getEnd(),
-				orderByComparator);
-		}
-		else {
-			total = _commerceWishListService.getCommerceWishListsCount(
-				_commerceWishListRequestHelper.getScopeGroupId(),
-				_commerceWishListRequestHelper.getUserId());
-			results = _commerceWishListService.getCommerceWishLists(
+		List<CommerceWishList> results =
+			_commerceWishListService.getCommerceWishLists(
 				_commerceWishListRequestHelper.getScopeGroupId(),
 				_commerceWishListRequestHelper.getUserId(),
 				_searchContainer.getStart(), _searchContainer.getEnd(),
 				orderByComparator);
-		}
 
 		_searchContainer.setTotal(total);
 		_searchContainer.setResults(results);
@@ -354,23 +325,6 @@ public class CommerceWishListDisplayContext {
 		if (CommerceWishListPortletKeys.COMMERCE_WISH_LIST_CONTENT.equals(
 				_commerceWishListRequestHelper.getPortletId())) {
 
-			return true;
-		}
-
-		return false;
-	}
-
-	protected boolean isControlPanelPortlet() {
-		if (isContentPortlet()) {
-			return false;
-		}
-
-		ThemeDisplay themeDisplay =
-			_commerceWishListRequestHelper.getThemeDisplay();
-
-		Layout layout = themeDisplay.getLayout();
-
-		if (layout.isTypeControlPanel()) {
 			return true;
 		}
 
