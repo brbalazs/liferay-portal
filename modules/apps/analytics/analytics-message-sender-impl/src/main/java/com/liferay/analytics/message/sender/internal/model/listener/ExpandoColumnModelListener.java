@@ -14,6 +14,7 @@
 
 package com.liferay.analytics.message.sender.internal.model.listener;
 
+import com.liferay.analytics.message.sender.internal.util.ExpandoColumnUtil;
 import com.liferay.analytics.message.sender.model.EntityModelListener;
 import com.liferay.expando.kernel.model.ExpandoColumn;
 import com.liferay.expando.kernel.model.ExpandoColumnConstants;
@@ -137,11 +138,10 @@ public class ExpandoColumnModelListener
 		).put(
 			"companyId", expandoColumn.getColumnId()
 		).put(
-			"dataType",
-			ExpandoColumnConstants.getDataType(expandoColumn.getType())
+			"dataType", ExpandoColumnUtil.getDataType(expandoColumn.getType())
 		).put(
 			"displayType",
-			ExpandoColumnConstants.getDefaultDisplayTypeProperty(
+			ExpandoColumnUtil.getDefaultDisplayTypeProperty(
 				expandoColumn.getType(),
 				expandoColumn.getTypeSettingsProperties())
 		).put(
