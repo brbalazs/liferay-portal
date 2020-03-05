@@ -133,6 +133,27 @@
 				CommerceOrder.modifieddate DESC
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.service.persistence.CommerceOrderFinder.findByG_U_C_O_S">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceOrder.*
+			FROM
+				CommerceOrder
+			WHERE
+				(CommerceOrder.groupId = ?) AND
+				(CommerceOrder.commerceAccountId = ?) AND
+				(CommerceOrder.orderStatus = ?) AND
+				(
+					(
+						(CommerceOrder.userId = ?) AND
+						(CommerceOrder.status != 0)
+					) OR
+					(CommerceOrder.status = 0)
+				)
+			ORDER BY
+				CommerceOrder.modifieddate DESC
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.countByG_A_O">
 		<![CDATA[
 			SELECT

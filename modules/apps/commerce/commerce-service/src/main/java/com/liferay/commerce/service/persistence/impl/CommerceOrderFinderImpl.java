@@ -50,6 +50,9 @@ public class CommerceOrderFinderImpl
 	public static final String FIND_BY_G_U_C_O =
 		CommerceOrderFinder.class.getName() + ".findByG_U_C_O";
 
+	public static final String FIND_BY_G_U_C_O_S =
+		CommerceOrderFinder.class.getName() + ".findByG_U_C_O_S";
+
 	@Override
 	public int countByG_U_C_O(
 		long userId, QueryDefinition<CommerceOrder> queryDefinition) {
@@ -144,6 +147,45 @@ public class CommerceOrderFinderImpl
 			}
 
 			return count;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	public CommerceOrder fetchByG_U_C_O_S_First(
+		long groupId, long userId, long commerceAccountId, int orderStatus) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), FIND_BY_G_U_C_O_S);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addEntity(CommerceOrderImpl.TABLE_NAME, CommerceOrderImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+			qPos.add(commerceAccountId);
+			qPos.add(orderStatus);
+			qPos.add(userId);
+
+			List<CommerceOrder> commerceOrders =
+				(List<CommerceOrder>)QueryUtil.list(q, getDialect(), 0, 1);
+
+			if (!commerceOrders.isEmpty()) {
+				return commerceOrders.get(0);
+			}
+
+			return null;
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
