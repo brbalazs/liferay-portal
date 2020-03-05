@@ -39,8 +39,8 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 public class CommerceContextImpl implements CommerceContext {
 
 	public CommerceContextImpl(
-		long companyId, long groupId, long orderId, long commerceAccountId,
-		CommerceAccountHelper commerceAccountHelper,
+		long companyId, long channelGroupId, long orderId,
+		long commerceAccountId, CommerceAccountHelper commerceAccountHelper,
 		CommerceAccountService commerceAccountService,
 		CommerceChannelLocalService commerceChannelLocalService,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
@@ -48,7 +48,7 @@ public class CommerceContextImpl implements CommerceContext {
 		ConfigurationProvider configurationProvider) {
 
 		_companyId = companyId;
-		_groupId = groupId;
+		_channelGroupId = channelGroupId;
 		_orderId = orderId;
 		_commerceAccountId = commerceAccountId;
 		_commerceAccountHelper = commerceAccountHelper;
@@ -63,7 +63,7 @@ public class CommerceContextImpl implements CommerceContext {
 					configurationProvider.getConfiguration(
 						CommerceAccountGroupServiceConfiguration.class,
 						new GroupServiceSettingsLocator(
-							getCommerceChannelGroupId(),
+							_channelGroupId,
 							CommerceAccountConstants.SERVICE_NAME));
 			}
 		}
@@ -105,22 +105,14 @@ public class CommerceContextImpl implements CommerceContext {
 
 	@Override
 	public long getCommerceChannelGroupId() throws PortalException {
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
-				getSiteGroupId());
-
-		if (commerceChannel == null) {
-			return 0;
-		}
-
-		return commerceChannel.getGroupId();
+		return _channelGroupId;
 	}
 
 	@Override
 	public long getCommerceChannelId() throws PortalException {
 		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
-				getSiteGroupId());
+			_commerceChannelLocalService.getCommerceChannelByGroupId(
+				_channelGroupId);
 
 		if (commerceChannel == null) {
 			return 0;
@@ -136,19 +128,11 @@ public class CommerceContextImpl implements CommerceContext {
 		}
 
 		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
-				_groupId);
+			_commerceChannelLocalService.getCommerceChannelByGroupId(
+				_channelGroupId);
 
-		if (commerceChannel == null) {
-			_commerceCurrency =
-				_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
-					_companyId);
-		}
-		else {
-			_commerceCurrency =
-				_commerceCurrencyLocalService.getCommerceCurrency(
-					_companyId, commerceChannel.getCommerceCurrencyCode());
-		}
+		_commerceCurrency = _commerceCurrencyLocalService.getCommerceCurrency(
+			_companyId, commerceChannel.getCommerceCurrencyCode());
 
 		return _commerceCurrency;
 	}
@@ -173,14 +157,10 @@ public class CommerceContextImpl implements CommerceContext {
 		return _commerceAccountGroupServiceConfiguration.commerceSiteType();
 	}
 
-	@Override
-	public long getSiteGroupId() throws PortalException {
-		return _groupId;
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceContextImpl.class);
 
+	private final long _channelGroupId;
 	private CommerceAccount _commerceAccount;
 	private long[] _commerceAccountGroupIds;
 	private CommerceAccountGroupServiceConfiguration
@@ -194,7 +174,6 @@ public class CommerceContextImpl implements CommerceContext {
 	private CommerceOrder _commerceOrder;
 	private final CommerceOrderService _commerceOrderService;
 	private final long _companyId;
-	private final long _groupId;
 	private final long _orderId;
 
 }
