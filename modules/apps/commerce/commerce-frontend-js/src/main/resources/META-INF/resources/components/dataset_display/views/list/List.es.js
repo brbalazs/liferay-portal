@@ -18,6 +18,8 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
+import Image from '../../data_renderer/Image.es';
+
 function List(props) {
 	const {
 		selectItems,
@@ -38,7 +40,7 @@ function List(props) {
 					flex
 					key={item.id}
 				>
-					<ClayList.ItemField>
+					<ClayList.ItemField className="justify-content-center">
 						{selectionType === 'single' ? (
 							<ClayRadio
 								checked={selectedItemsValue
@@ -59,7 +61,12 @@ function List(props) {
 							/>
 						)}
 					</ClayList.ItemField>
-					<ClayList.ItemField expand>
+					{props.schema.thumbnail && (
+						<ClayList.ItemField>
+							<Image value={item[props.schema.thumbnail]} />
+						</ClayList.ItemField>
+					)}
+					<ClayList.ItemField className="justify-content-center" expand>
 						{props.schema.title && (
 							<ClayList.ItemTitle>
 								{item[props.schema.title]}
@@ -88,6 +95,7 @@ List.propTypes = {
 	schema: PropTypes.shape({
 		description: PropTypes.string,
 		selectedItemValue: PropTypes.string,
+		thumbnail: PropTypes.string,
 		title: PropTypes.string
 	})
 };

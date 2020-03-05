@@ -366,7 +366,7 @@ const fluidDataSetDisplayProps = {
 };
 
 const dataSetDisplayProps = {
-	activeView: 2,
+	activeView: 3,
 	apiUrl:
 		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	bulkActions: [
@@ -1144,6 +1144,7 @@ const dataSetDisplayProps = {
 			label: 'List',
 			schema: {
 				description: 'name',
+				thumbnail: 'thumbnail',
 				title: 'skuId'
 			}
 		}
