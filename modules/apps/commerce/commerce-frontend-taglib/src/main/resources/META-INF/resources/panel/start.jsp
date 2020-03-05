@@ -44,7 +44,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 			<c:choose>
 				<c:when test="<%= Validator.isNotNull(actionLabel) %>">
 					<clay:link
-						href='<%= Validator.isNotNull(actionUrl) && Validator.isNull(actionTargetId) ? actionUrl : "#" %>'
+						href='<%= (Validator.isNotNull(actionUrl) && Validator.isNull(actionTargetId)) ? actionUrl : "#" %>'
 						id="<%= linkId %>"
 						label="<%= actionLabel %>"
 					/>
@@ -52,7 +52,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 				<c:when test="<%= Validator.isNotNull(actionIcon) %>">
 					<clay:link
 						elementClasses="btn btn-monospaced btn-primary btn-sm text-white"
-						href='<%= Validator.isNotNull(actionUrl) && Validator.isNull(actionTargetId) ? actionUrl : "#" %>'
+						href='<%= (Validator.isNotNull(actionUrl) && Validator.isNull(actionTargetId)) ? actionUrl : "#" %>'
 						icon="<%= actionIcon %>"
 						id="<%= linkId %>"
 					/>
