@@ -866,7 +866,17 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 				cpInstanceOptionValueRel.getCPInstanceId(), 1);
 		}
 
+		if (cpInstanceCPInstanceOptionValueHits.isEmpty()) {
+			return null;
+		}
+
 		long cpInstanceId = _getTopId(cpInstanceCPInstanceOptionValueHits);
+
+		if (skuContributorCPDefinitionOptionRelsCount !=
+				cpInstanceCPInstanceOptionValueHits.get(cpInstanceId)) {
+
+			return null;
+		}
 
 		return _cpInstanceLocalService.getCPInstance(cpInstanceId);
 	}
