@@ -18,6 +18,7 @@ import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.permission.CommerceProductViewPermission;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProvider;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext;
@@ -36,7 +37,6 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -118,13 +118,15 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 			Map<String, String> parameters =
 				ddmDataProviderRequest.getParameters();
 
-			Map<String, String> outputParameterNames = new HashMap<>();
-
-			Map<String, String> filters = new HashMap<>();
-
 			List<CPDefinitionOptionRel> cpDefinitionOptionRels =
 				_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
 					cpDefinitionId, true);
+
+			List<CPDefinitionOptionRel> requestedCPDefinitionOptionRels =
+				new ArrayList<>();
+
+			List<Long> skuCombinationCPDefinitionOptionValueRelIds =
+				new ArrayList<>();
 
 			for (CPDefinitionOptionRel cpDefinitionOptionRel :
 					cpDefinitionOptionRels) {
@@ -135,29 +137,52 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 				// Collect filters and outputs
 
 				if (Validator.isNull(parameterValue)) {
-					outputParameterNames.put(
-						cpDefinitionOptionRel.getKey(),
-						cpDefinitionOptionRel.getKey());
+					requestedCPDefinitionOptionRels.add(cpDefinitionOptionRel);
 				}
 				else {
-					filters.put(cpDefinitionOptionRel.getKey(), parameterValue);
+					CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+						_cpDefinitionOptionValueRelLocalService.
+							fetchCPDefinitionOptionValueRel(
+								cpDefinitionOptionRel.
+									getCPDefinitionOptionRelId(),
+								parameterValue);
+
+					if (cpDefinitionOptionValueRel != null) {
+						skuCombinationCPDefinitionOptionValueRelIds.add(
+							cpDefinitionOptionValueRel.
+								getCPDefinitionOptionValueRelId());
+					}
 				}
 			}
 
 			// Do search and populate the outputs if the outputs are not empty
 
-			if (outputParameterNames.isEmpty()) {
+			if (requestedCPDefinitionOptionRels.isEmpty()) {
 				return ddmDataProviderResponseBuilder.build();
 			}
 
 			List<Output> outputs = new ArrayList<>();
 
-			for (Map.Entry<String, String> outputParameterNameEntry :
-					outputParameterNames.entrySet()) {
+			for (CPDefinitionOptionRel cpDefinitionOptionRel :
+					requestedCPDefinitionOptionRels) {
 
 				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-					_cpInstanceHelper.getCPDefinitionOptionValueRels(
-						cpDefinitionId, outputParameterNameEntry.getKey());
+					Collections.emptyList();
+
+				if (skuCombinationCPDefinitionOptionValueRelIds.isEmpty()) {
+					cpDefinitionOptionValueRels =
+						_cpInstanceHelper.
+							getCPInstanceCPDefinitionOptionValueRels(
+								cpDefinitionId,
+								cpDefinitionOptionRel.
+									getCPDefinitionOptionRelId());
+				}
+				else {
+					cpDefinitionOptionValueRels =
+						_cpInstanceHelper.filterCPDefinitionOptionValueRels(
+							cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+							skuCombinationCPDefinitionOptionValueRelIds);
+				}
 
 				List<KeyValuePair> data = new ArrayList<>();
 
@@ -171,8 +196,7 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 				}
 
 				outputs.add(
-					new Output(
-						outputParameterNameEntry.getValue(), "list", data));
+					new Output(cpDefinitionOptionRel.getKey(), "list", data));
 			}
 
 			return Output.toDDMDataProviderResponse(outputs);
@@ -252,6 +276,10 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 	@Reference
 	private CPDefinitionOptionRelLocalService
 		_cpDefinitionOptionRelLocalService;
+
+	@Reference
+	private CPDefinitionOptionValueRelLocalService
+		_cpDefinitionOptionValueRelLocalService;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
