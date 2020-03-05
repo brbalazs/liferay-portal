@@ -68,23 +68,6 @@ public class CommerceShippingMethodServiceImpl
 			priority, active);
 	}
 
-	@Deprecated
-	@Override
-	public CommerceShippingMethod addCommerceShippingMethod(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			File imageFile, String engineKey, double priority, boolean active,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		_portletResourcePermission.check(
-			getPermissionChecker(), serviceContext.getScopeGroupId(),
-			CommerceActionKeys.MANAGE_COMMERCE_SHIPPING_METHODS);
-
-		return commerceShippingMethodLocalService.addCommerceShippingMethod(
-			nameMap, descriptionMap, imageFile, engineKey, priority, active,
-			serviceContext);
-	}
-
 	@Override
 	public CommerceShippingMethod createCommerceShippingMethod(
 			long commerceShippingMethodId)
