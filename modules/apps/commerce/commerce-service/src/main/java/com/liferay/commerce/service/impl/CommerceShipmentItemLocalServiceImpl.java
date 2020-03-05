@@ -250,8 +250,8 @@ public class CommerceShipmentItemLocalServiceImpl
 				commerceShipmentItem.getCommerceOrderItemId());
 
 		validate(
-			commerceOrderItem, commerceInventoryWarehouseId, quantity,
-			quantity);
+			commerceOrderItem, commerceInventoryWarehouseId,
+			commerceShipmentItem.getQuantity(),	quantity);
 
 		commerceShipmentItem.setCommerceInventoryWarehouseId(
 			commerceInventoryWarehouseId);

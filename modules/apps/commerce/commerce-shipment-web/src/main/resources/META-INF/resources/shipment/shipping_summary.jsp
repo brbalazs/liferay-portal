@@ -23,7 +23,6 @@ CommerceShipment commerceShipment = commerceShipmentDisplayContext.getCommerceSh
 
 String trackingNumber = commerceShipment.getTrackingNumber();
 String carrier = commerceShipment.getCarrier();
-CommerceShippingMethod commerceShippingMethod = commerceShipment.getCommerceShippingMethod();
 Date expectedDate = commerceShipment.getExpectedDate();
 Date shippingDate = commerceShipment.getShippingDate();
 
@@ -88,26 +87,6 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 						</c:otherwise>
 					</c:choose>
 				</div>
-
-				<c:if test="<%= Validator.isNotNull(commerceShippingMethod) %>">
-					<div class="item">
-						<span class="title">
-							<liferay-ui:message key="shipping-method" />
-						</span>
-
-						<b><%= commerceShippingMethod.getName(locale) %></b>
-					</div>
-				</c:if>
-
-				<c:if test="<%= Validator.isNotNull(commerceShipment.getShippingOptionName()) %>">
-					<div class="item">
-						<span class="title">
-							<liferay-ui:message key="shipping-option" />
-						</span>
-
-						<b><%= commerceShipment.getShippingOptionName() %></b>
-					</div>
-				</c:if>
 			</commerce-ui:info-box>
 		</div>
 

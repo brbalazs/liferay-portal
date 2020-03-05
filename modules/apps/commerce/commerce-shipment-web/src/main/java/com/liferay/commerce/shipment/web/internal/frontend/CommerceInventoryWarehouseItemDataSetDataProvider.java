@@ -59,9 +59,21 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		return _commerceInventoryWarehouseService.
-			getCommerceInventoryWarehousesCount(
-				_portal.getCompanyId(httpServletRequest));
+		long commerceShipmentItemId = ParamUtil.getLong(
+			httpServletRequest, "commerceShipmentItemId");
+
+		CommerceShipmentItem commerceShipmentItem =
+			_commerceShipmentItemService.getCommerceShipmentItem(
+				commerceShipmentItemId);
+
+		CommerceOrderItem commerceOrderItem =
+			_commerceOrderItemService.getCommerceOrderItem(
+				commerceShipmentItem.getCommerceOrderItemId());
+
+		return _commerceInventoryWarehouseItemService.
+			getCommerceInventoryWarehouseItemsCount(
+				_portal.getCompanyId(httpServletRequest),
+				commerceOrderItem.getSku());
 	}
 
 	@Override
@@ -121,8 +133,10 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 					new Warehouse(
 						commerceInventoryWarehouseId,
 						new WarehouseItem(
-							inputName, commerceOrderItem.getQuantity(), 0,
-							shipmentItemWarehouseItemQuantity),
+							inputName,
+							commerceOrderItem.getQuantity() -
+								commerceOrderItem.getShippedQuantity(),
+							0, shipmentItemWarehouseItemQuantity),
 						commerceInventoryWarehouseItem.getQuantity(),
 						StringPool.BLANK,
 						commerceInventoryWarehouse.getName()));

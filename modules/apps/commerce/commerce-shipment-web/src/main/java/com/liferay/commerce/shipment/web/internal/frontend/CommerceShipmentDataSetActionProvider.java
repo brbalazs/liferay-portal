@@ -23,9 +23,11 @@ import com.liferay.commerce.frontend.model.Shipment;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -35,6 +37,7 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -86,6 +89,8 @@ public class CommerceShipmentDataSetActionProvider
 				LanguageUtil.get(httpServletRequest, "delete"),
 				StringPool.BLANK, false, false);
 
+			deleteClayDataSetAction.setTarget("modal");
+
 			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
@@ -97,15 +102,21 @@ public class CommerceShipmentDataSetActionProvider
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
 			httpServletRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
-			ActionRequest.ACTION_PHASE);
+			ActionRequest.RENDER_PHASE);
 
 		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCommerceShipment");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
+			"mvcRenderCommandName", "deleteCommerceShipment");
 		portletURL.setParameter(
 			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter(
 			"commerceShipmentId", String.valueOf(commerceShipmentId));
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			_log.error(wse, wse);
+		}
 
 		return portletURL.toString();
 	}
@@ -127,6 +138,9 @@ public class CommerceShipmentDataSetActionProvider
 
 		return portletURL.toString();
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceShipmentDataSetActionProvider.class);
 
 	@Reference
 	private Portal _portal;

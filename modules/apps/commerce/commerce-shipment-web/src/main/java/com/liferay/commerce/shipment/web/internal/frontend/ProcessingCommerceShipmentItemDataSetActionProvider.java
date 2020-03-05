@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -98,14 +97,17 @@ public class ProcessingCommerceShipmentItemDataSetActionProvider
 
 			clayDataSetActions.add(editClayDataSetAction);
 
-			clayDataSetActions.add(
-				new ClayDataSetAction(
-					StringPool.BLANK,
-					_getShipmentItemDeleteURL(
-						shipmentItem.getShipmentItemId(), httpServletRequest),
-					StringPool.BLANK,
-					LanguageUtil.get(httpServletRequest, "delete"),
-					StringPool.BLANK, false, false));
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK,
+				_getShipmentItemDeleteURL(
+					shipmentItem.getShipmentItemId(), httpServletRequest),
+				StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "delete"),
+				StringPool.BLANK, false, false);
+
+			deleteClayDataSetAction.setTarget("modal");
+
+			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
 		return clayDataSetActions;
@@ -119,12 +121,18 @@ public class ProcessingCommerceShipmentItemDataSetActionProvider
 			ActionRequest.ACTION_PHASE);
 
 		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCommerceShipmentItem");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
+			"mvcRenderCommandName", "deleteCommerceShipment");
 		portletURL.setParameter(
 			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter(
 			"commerceShipmentItemId", String.valueOf(commerceShipmentItemId));
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			_log.error(wse, wse);
+		}
 
 		return portletURL.toString();
 	}
