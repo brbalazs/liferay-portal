@@ -128,6 +128,9 @@ public class CommerceServicePortalInstanceLifecycleListener
 
 	private static final String _COMMERCE_SAP_ENTRY_NAME = "COMMERCE_DEFAULT";
 
+	private static final String _COMMERCE_SEARCH_RESOURCE_CLASS_NAME =
+		"com.liferay.commerce.frontend.internal.search.CommerceSearchResource";
+
 	private static final String[][] _SAP_ENTRY_OBJECT_ARRAYS = {
 		{
 			_COMMERCE_SAP_ENTRY_NAME,
@@ -145,7 +148,8 @@ public class CommerceServicePortalInstanceLifecycleListener
 				"#upsertCommerceOrderItem\n",
 				CommerceOrderService.class.getName(), "#addCommerceOrder\n",
 				CommerceOrderService.class.getName(), "#fetchCommerceOrder\n",
-				CommerceOrderService.class.getName(), "#getCommerceOrder")
+				CommerceOrderService.class.getName(), "#getCommerceOrder\n",
+				_COMMERCE_SEARCH_RESOURCE_CLASS_NAME)
 		}
 	};
 
