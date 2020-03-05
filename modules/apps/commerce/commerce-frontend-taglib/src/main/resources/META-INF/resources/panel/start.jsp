@@ -28,7 +28,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 
 			<c:if test="<%= Validator.isNotNull(actionTargetId) %>">
 				<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as eventsDefinitions">
-					const link = document.getElementById('<%= linkId %>');
+					var link = document.getElementById('<%= linkId %>');
 
 					if (link) {
 						link.addEventListener('click', function(e) {
@@ -58,18 +58,61 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 					/>
 				</c:when>
 				<c:when test="<%= collapsible || Validator.isNotNull(collapseLabel) || Validator.isNotNull(collapseSwitchName) %>">
+					<aui:script>
+						(function() {
+							var toggleSwitch = document.getElementById(
+								'<%= randomNamespace %>toggle-switch'
+							);
+							var toggleLabel = document.getElementById(
+								'<%= randomNamespace %>toggle-label'
+							);
+							var toggleCheckbox = document.getElementById(
+								'<%= randomNamespace %>toggle-switch-check'
+							);
+							var collapseClickable = true;
+
+							[toggleSwitch, toggleLabel].forEach(function(el) {
+								el.addEventListener('click', function(e) {
+									e.preventDefault();
+
+									if (collapseClickable) {
+										toggleCheckbox.click();
+										toggleCheckbox.checked = !toggleCheckbox.checked;
+									}
+
+									collapseClickable = false;
+
+									setTimeout(function() {
+										collapseClickable = true;
+									}, 400);
+								});
+							});
+						})();
+					</aui:script>
+
 					<span class="d-flex mr-n2">
 						<c:if test="<%= Validator.isNotNull(collapseLabel) %>">
-							<h5 class="mb-0 mr-3"><%= collapseLabel %></h5>
+							<label
+								for="<%= randomNamespace %>toggle-switch-check"
+								id="<%= randomNamespace %>toggle-label"
+							>
+								<h5 class="mb-0 mr-3">
+									<%= collapseLabel %>
+								</h5>
+							</label>
 						</c:if>
 
-						<label class="my-lg-n2 toggle-switch">
+						<span
+							class="my-lg-n2 toggle-switch"
+							id="<%= randomNamespace %>toggle-switch"
+						>
 							<input
 								aria-expanded="<%= !collapsed %>"
 								<%= collapsed ? StringPool.BLANK : "checked" %>
 								data-target="#<%= randomNamespace %>collapse"
 								data-toggle="collapse"
-								class="toggle-switch-check"
+								class="toggle-switch-check d-none"
+								id="<%= randomNamespace %>toggle-switch-check"
 								<c:if test="<%= Validator.isNotNull(collapseSwitchName) %>">
 									name="<%= collapseSwitchName %>"
 								</c:if>
@@ -79,7 +122,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 							<span aria-hidden="true" class="toggle-switch-bar">
 								<span class="toggle-switch-handle"></span>
 							</span>
-						</label>
+						</span>
 					</span>
 				</c:when>
 			</c:choose>
