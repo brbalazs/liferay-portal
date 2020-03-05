@@ -79,6 +79,8 @@ public class EditCPDefinitionLinkMVCActionCommand extends BaseMVCActionCommand {
 			_cpDefinitionLinkService.getCPDefinitionLinks(cpDefinitionId),
 			CPDefinitionLinkModel::getCProductId);
 
+		boolean successMessage = false;
+
 		for (long curCPDefinitionId : cpDefinitionIds2) {
 			CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
 				curCPDefinitionId);
@@ -88,7 +90,13 @@ public class EditCPDefinitionLinkMVCActionCommand extends BaseMVCActionCommand {
 			if (!ArrayUtil.contains(cProductIds, cProductId)) {
 				_cpDefinitionLinkService.addCPDefinitionLink(
 					cpDefinitionId, cProductId, 0.0, type, serviceContext);
+
+				successMessage = true;
 			}
+		}
+
+		if (!successMessage) {
+			hideDefaultSuccessMessage(actionRequest);
 		}
 	}
 
