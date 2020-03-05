@@ -15,8 +15,8 @@
 package com.liferay.commerce.health.status.web.internal.portlet.action;
 
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
-import com.liferay.commerce.health.status.CommerceHealthStatus;
-import com.liferay.commerce.health.status.CommerceHealthStatusRegistry;
+import com.liferay.commerce.health.status.CommerceHealthHttpStatus;
+import com.liferay.commerce.health.status.CommerceHealthHttpStatusRegistry;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
@@ -69,17 +69,17 @@ public class FixCommerceHealthStatusIssueMVCActionCommand
 		String key = ParamUtil.getString(actionRequest, "key");
 
 		try {
-			CommerceHealthStatus commerceHealthStatus =
-				_commerceHealthStatusRegistry.getCommerceHealthStatus(key);
+			CommerceHealthHttpStatus commerceHealthHttpStatus =
+				_commerceHealthHttpStatusRegistry.getCommerceHealthStatus(key);
 
-			if (commerceHealthStatus != null) {
-				commerceHealthStatus.fixIssue(httpServletRequest);
+			if (commerceHealthHttpStatus != null) {
+				commerceHealthHttpStatus.fixIssue(httpServletRequest);
 
 				Thread.sleep(2000);
 
 				jsonObject.put(
 					"success",
-					commerceHealthStatus.isFixed(
+					commerceHealthHttpStatus.isFixed(
 						_portal.getCompanyId(httpServletRequest),
 						_portal.getScopeGroupId(httpServletRequest)));
 			}
@@ -117,7 +117,7 @@ public class FixCommerceHealthStatusIssueMVCActionCommand
 		FixCommerceHealthStatusIssueMVCActionCommand.class);
 
 	@Reference
-	private CommerceHealthStatusRegistry _commerceHealthStatusRegistry;
+	private CommerceHealthHttpStatusRegistry _commerceHealthHttpStatusRegistry;
 
 	@Reference
 	private JSONFactory _jsonFactory;

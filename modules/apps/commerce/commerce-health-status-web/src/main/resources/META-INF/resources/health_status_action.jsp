@@ -21,20 +21,20 @@ CommerceHealthStatusDisplayContext commerceHealthStatusDisplayContext = (Commerc
 
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
-CommerceHealthStatus commerceHealthStatus = (CommerceHealthStatus)row.getObject();
+CommerceHealthHttpStatus commerceHealthHttpStatus = (CommerceHealthHttpStatus)row.getObject();
 
 String fixIssueButton = "fixIssueButton" + row.getRowId();
 %>
 
 <c:if test="<%= commerceHealthStatusDisplayContext.hasManageCommerceHealthStatusPermission() %>">
-	<aui:button disabled="<%= commerceHealthStatus.isFixed(company.getCompanyId(), themeDisplay.getScopeGroupId()) %>" name="<%= fixIssueButton %>" value="fix-issue" />
+	<aui:button disabled="<%= commerceHealthHttpStatus.isFixed(company.getCompanyId(), themeDisplay.getScopeGroupId()) %>" name="<%= fixIssueButton %>" value="fix-issue" />
 
 	<aui:script use="aui-io-request,aui-parse-content,liferay-notification">
 		A.one('#<portlet:namespace /><%= fixIssueButton %>').on('click', function(
 			event
 		) {
 			var data = {
-				<portlet:namespace/>key: '<%= commerceHealthStatus.getKey() %>'
+				<portlet:namespace/>key: '<%= commerceHealthHttpStatus.getKey() %>'
 			};
 
 			this.attr('disabled', true);

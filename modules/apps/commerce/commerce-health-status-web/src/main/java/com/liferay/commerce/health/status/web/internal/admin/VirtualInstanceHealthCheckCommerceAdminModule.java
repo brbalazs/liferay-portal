@@ -19,7 +19,7 @@ import com.liferay.commerce.admin.constants.CommerceAdminConstants;
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceHealthStatusConstants;
-import com.liferay.commerce.health.status.CommerceHealthStatusRegistry;
+import com.liferay.commerce.health.status.CommerceHealthHttpStatusRegistry;
 import com.liferay.commerce.health.status.web.internal.display.context.CommerceHealthStatusDisplayContext;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -103,7 +103,7 @@ public class VirtualInstanceHealthCheckCommerceAdminModule
 
 		CommerceHealthStatusDisplayContext commerceHealthStatusDisplayContext =
 			new CommerceHealthStatusDisplayContext(
-				_commerceHealthStatusRegistry, _portletResourcePermission,
+				_commerceHealthHttpStatusRegistry, _portletResourcePermission,
 				renderRequest, renderResponse,
 				CommerceHealthStatusConstants.
 					COMMERCE_HEALTH_STATUS_TYPE_VIRTUAL_INSTANCE);
@@ -118,7 +118,7 @@ public class VirtualInstanceHealthCheckCommerceAdminModule
 	}
 
 	@Reference
-	private CommerceHealthStatusRegistry _commerceHealthStatusRegistry;
+	private CommerceHealthHttpStatusRegistry _commerceHealthHttpStatusRegistry;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

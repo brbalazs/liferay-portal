@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.internal.health.status;
 
-import com.liferay.commerce.health.status.CommerceHealthStatus;
-import com.liferay.commerce.health.status.CommerceHealthStatusRegistry;
+import com.liferay.commerce.health.status.CommerceHealthHttpStatus;
+import com.liferay.commerce.health.status.CommerceHealthHttpStatusRegistry;
 import com.liferay.commerce.internal.health.status.comparator.CommerceHealthStatusServiceWrapperDisplayOrderComparator;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory.ServiceWrapper;
@@ -39,17 +39,17 @@ import org.osgi.service.component.annotations.Deactivate;
 /**
  * @author Alessio Antonio Rendina
  */
-@Component(immediate = true, service = CommerceHealthStatusRegistry.class)
-public class CommerceHealthStatusRegistryImpl
-	implements CommerceHealthStatusRegistry {
+@Component(immediate = true, service = CommerceHealthHttpStatusRegistry.class)
+public class CommerceHealthHttpStatusRegistryImpl
+	implements CommerceHealthHttpStatusRegistry {
 
 	@Override
-	public CommerceHealthStatus getCommerceHealthStatus(String key) {
+	public CommerceHealthHttpStatus getCommerceHealthStatus(String key) {
 		if (Validator.isNull(key)) {
 			return null;
 		}
 
-		ServiceWrapper<CommerceHealthStatus>
+		ServiceWrapper<CommerceHealthHttpStatus>
 			commerceHealthStatusServiceWrapper =
 				_commerceHealthStatusRegistryMap.getService(key);
 
@@ -66,10 +66,11 @@ public class CommerceHealthStatusRegistryImpl
 	}
 
 	@Override
-	public List<CommerceHealthStatus> getCommerceHealthStatuses(int type) {
-		List<CommerceHealthStatus> commerceHealthStatuses = new ArrayList<>();
+	public List<CommerceHealthHttpStatus> getCommerceHealthStatuses(int type) {
+		List<CommerceHealthHttpStatus> commerceHealthHttpStatuses =
+			new ArrayList<>();
 
-		List<ServiceWrapper<CommerceHealthStatus>>
+		List<ServiceWrapper<CommerceHealthHttpStatus>>
 			commerceHealthStatusServiceWrappers = ListUtil.fromCollection(
 				_commerceHealthStatusRegistryMap.values());
 
@@ -77,29 +78,29 @@ public class CommerceHealthStatusRegistryImpl
 			commerceHealthStatusServiceWrappers,
 			_commerceHealthStatusServiceWrapperDisplayOrderComparator);
 
-		for (ServiceWrapper<CommerceHealthStatus>
+		for (ServiceWrapper<CommerceHealthHttpStatus>
 				commerceHealthStatusServiceWrapper :
 					commerceHealthStatusServiceWrappers) {
 
-			CommerceHealthStatus commerceHealthStatus =
+			CommerceHealthHttpStatus commerceHealthHttpStatus =
 				commerceHealthStatusServiceWrapper.getService();
 
-			if (type == commerceHealthStatus.getType()) {
-				commerceHealthStatuses.add(commerceHealthStatus);
+			if (type == commerceHealthHttpStatus.getType()) {
+				commerceHealthHttpStatuses.add(commerceHealthHttpStatus);
 			}
 		}
 
-		return Collections.unmodifiableList(commerceHealthStatuses);
+		return Collections.unmodifiableList(commerceHealthHttpStatuses);
 	}
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
 		_commerceHealthStatusRegistryMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
-				bundleContext, CommerceHealthStatus.class,
+				bundleContext, CommerceHealthHttpStatus.class,
 				"commerce.health.status.key",
 				ServiceTrackerCustomizerFactory.
-					<CommerceHealthStatus>serviceWrapper(bundleContext));
+					<CommerceHealthHttpStatus>serviceWrapper(bundleContext));
 	}
 
 	@Deactivate
@@ -108,13 +109,13 @@ public class CommerceHealthStatusRegistryImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceHealthStatusRegistryImpl.class);
+		CommerceHealthHttpStatusRegistryImpl.class);
 
-	private static final Comparator<ServiceWrapper<CommerceHealthStatus>>
+	private static final Comparator<ServiceWrapper<CommerceHealthHttpStatus>>
 		_commerceHealthStatusServiceWrapperDisplayOrderComparator =
 			new CommerceHealthStatusServiceWrapperDisplayOrderComparator();
 
-	private ServiceTrackerMap<String, ServiceWrapper<CommerceHealthStatus>>
+	private ServiceTrackerMap<String, ServiceWrapper<CommerceHealthHttpStatus>>
 		_commerceHealthStatusRegistryMap;
 
 }
