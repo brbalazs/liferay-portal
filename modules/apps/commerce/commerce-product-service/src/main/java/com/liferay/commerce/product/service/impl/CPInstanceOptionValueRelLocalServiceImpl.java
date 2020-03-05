@@ -116,20 +116,7 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 	}
 
 	@Override
-	public boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
-		int countByCPInstanceId =
-			cpInstanceOptionValueRelPersistence.countByCPInstanceId(
-				cpInstanceId);
-
-		if (countByCPInstanceId > 0) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean hasCPInstanceOptionValueRels(
+	public boolean hasCPInstanceCPDefinitionOptionRel(
 		long cpDefinitionOptionRelId, long cpInstanceId) {
 
 		int countByCPDefinitionOptionRelIdCPInstanceId =
@@ -137,6 +124,34 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 				cpDefinitionOptionRelId, cpInstanceId);
 
 		if (countByCPDefinitionOptionRelIdCPInstanceId > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean hasCPInstanceCPDefinitionOptionValueRel(
+		long cpDefinitionOptionValueRelId, long cpInstanceId) {
+
+		int countByCPDefinitionOptionValueRelIdCPInstanceId =
+			cpInstanceOptionValueRelPersistence.countByCDOVRI_CII(
+				cpDefinitionOptionValueRelId, cpInstanceId);
+
+		if (countByCPDefinitionOptionValueRelIdCPInstanceId > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
+		int countByCPInstanceId =
+			cpInstanceOptionValueRelPersistence.countByCPInstanceId(
+				cpInstanceId);
+
+		if (countByCPInstanceId > 0) {
 			return true;
 		}
 
