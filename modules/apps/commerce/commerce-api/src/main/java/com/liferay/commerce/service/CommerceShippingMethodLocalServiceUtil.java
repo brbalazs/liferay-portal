@@ -75,21 +75,6 @@ public class CommerceShippingMethodLocalServiceUtil {
 			priority, active);
 	}
 
-	@Deprecated
-	public static com.liferay.commerce.model.CommerceShippingMethod
-			addCommerceShippingMethod(
-				java.util.Map<java.util.Locale, String> nameMap,
-				java.util.Map<java.util.Locale, String> descriptionMap,
-				java.io.File imageFile, String engineKey, double priority,
-				boolean active,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().addCommerceShippingMethod(
-			nameMap, descriptionMap, imageFile, engineKey, priority, active,
-			serviceContext);
-	}
-
 	/**
 	 * Creates a new commerce shipping method with the primary key. Does not add the commerce shipping method to the database.
 	 *

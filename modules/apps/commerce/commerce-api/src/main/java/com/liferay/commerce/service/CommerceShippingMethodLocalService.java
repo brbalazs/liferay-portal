@@ -86,13 +86,6 @@ public interface CommerceShippingMethodLocalService
 			String engineKey, double priority, boolean active)
 		throws PortalException;
 
-	@Deprecated
-	public CommerceShippingMethod addCommerceShippingMethod(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			File imageFile, String engineKey, double priority, boolean active,
-			ServiceContext serviceContext)
-		throws PortalException;
-
 	/**
 	 * Creates a new commerce shipping method with the primary key. Does not add the commerce shipping method to the database.
 	 *
