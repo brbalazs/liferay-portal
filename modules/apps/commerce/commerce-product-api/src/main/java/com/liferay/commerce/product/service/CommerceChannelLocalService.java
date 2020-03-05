@@ -224,6 +224,10 @@ public interface CommerceChannelLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceChannel getCommerceChannelByGroupId(long groupId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceChannel getCommerceChannelByOrderGroupId(long orderGroupId)
 		throws PortalException;
 
@@ -305,6 +309,11 @@ public interface CommerceChannelLocalService
 			long commerceChannelId, long siteGroupId, String name, String type,
 			UnicodeProperties typeSettingsProperties,
 			String commerceCurrencyCode)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceChannel updateCommerceChannelExternalReferenceCode(
+			long commerceChannelId, String externalReferenceCode)
 		throws PortalException;
 
 }

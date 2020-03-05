@@ -79,6 +79,19 @@ public class CommerceTaxMethodServiceImpl
 	}
 
 	@Override
+	public CommerceTaxMethod fetchCommerceTaxMethod(
+			long groupId, String engineKey)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS);
+
+		return commerceTaxMethodLocalService.fetchCommerceTaxMethod(
+			groupId, engineKey);
+	}
+
+	@Override
 	public CommerceTaxMethod getCommerceTaxMethod(long commerceTaxMethodId)
 		throws PortalException {
 

@@ -485,6 +485,50 @@ public class CommerceChannelServiceHttp {
 		}
 	}
 
+	public static com.liferay.commerce.product.model.CommerceChannel
+			updateCommerceChannelExternalReferenceCode(
+				HttpPrincipal httpPrincipal, long commerceChannelId,
+				String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceChannelServiceUtil.class,
+				"updateCommerceChannelExternalReferenceCode",
+				_updateCommerceChannelExternalReferenceCodeParameterTypes10);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceChannelId, externalReferenceCode);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.product.model.CommerceChannel)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CommerceChannelServiceHttp.class);
 
@@ -521,5 +565,8 @@ public class CommerceChannelServiceHttp {
 			long.class, long.class, String.class, String.class,
 			com.liferay.portal.kernel.util.UnicodeProperties.class, String.class
 		};
+	private static final Class<?>[]
+		_updateCommerceChannelExternalReferenceCodeParameterTypes10 =
+			new Class[] {long.class, String.class};
 
 }

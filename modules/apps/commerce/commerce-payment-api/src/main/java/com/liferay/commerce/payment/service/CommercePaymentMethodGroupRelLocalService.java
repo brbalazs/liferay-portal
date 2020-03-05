@@ -82,10 +82,9 @@ public interface CommercePaymentMethodGroupRelLocalService
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel);
 
 	public CommercePaymentMethodGroupRel addCommercePaymentMethodGroupRel(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			File imageFile, String engineKey,
-			Map<String, String> engineParameterMap, double priority,
-			boolean active, ServiceContext serviceContext)
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, File imageFile,
+			String engineKey, double priority, boolean active)
 		throws PortalException;
 
 	/**
@@ -333,9 +332,8 @@ public interface CommercePaymentMethodGroupRelLocalService
 
 	public CommercePaymentMethodGroupRel updateCommercePaymentMethodGroupRel(
 			long commercePaymentMethodGroupRelId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, File imageFile,
-			Map<String, String> engineParameterMap, double priority,
-			boolean active, ServiceContext serviceContext)
+			Map<Locale, String> descriptionMap, File imageFile, double priority,
+			boolean active)
 		throws PortalException;
 
 }

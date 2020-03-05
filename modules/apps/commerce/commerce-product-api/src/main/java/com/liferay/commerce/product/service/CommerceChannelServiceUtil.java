@@ -137,6 +137,15 @@ public class CommerceChannelServiceUtil {
 			commerceCurrencyCode);
 	}
 
+	public static com.liferay.commerce.product.model.CommerceChannel
+			updateCommerceChannelExternalReferenceCode(
+				long commerceChannelId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceChannelExternalReferenceCode(
+			commerceChannelId, externalReferenceCode);
+	}
+
 	public static CommerceChannelService getService() {
 		return _serviceTracker.getService();
 	}

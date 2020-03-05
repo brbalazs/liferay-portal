@@ -66,18 +66,16 @@ public class CommercePaymentMethodGroupRelLocalServiceUtil {
 	public static
 		com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel
 				addCommercePaymentMethodGroupRel(
+					long userId, long groupId,
 					java.util.Map<java.util.Locale, String> nameMap,
 					java.util.Map<java.util.Locale, String> descriptionMap,
-					java.io.File imageFile, String engineKey,
-					java.util.Map<String, String> engineParameterMap,
-					double priority, boolean active,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
+					java.io.File imageFile, String engineKey, double priority,
+					boolean active)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addCommercePaymentMethodGroupRel(
-			nameMap, descriptionMap, imageFile, engineKey, engineParameterMap,
-			priority, active, serviceContext);
+			userId, groupId, nameMap, descriptionMap, imageFile, engineKey,
+			priority, active);
 	}
 
 	/**
@@ -460,16 +458,12 @@ public class CommercePaymentMethodGroupRelLocalServiceUtil {
 					long commercePaymentMethodGroupRelId,
 					java.util.Map<java.util.Locale, String> nameMap,
 					java.util.Map<java.util.Locale, String> descriptionMap,
-					java.io.File imageFile,
-					java.util.Map<String, String> engineParameterMap,
-					double priority, boolean active,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
+					java.io.File imageFile, double priority, boolean active)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateCommercePaymentMethodGroupRel(
 			commercePaymentMethodGroupRelId, nameMap, descriptionMap, imageFile,
-			engineParameterMap, priority, active, serviceContext);
+			priority, active);
 	}
 
 	public static CommercePaymentMethodGroupRelLocalService getService() {

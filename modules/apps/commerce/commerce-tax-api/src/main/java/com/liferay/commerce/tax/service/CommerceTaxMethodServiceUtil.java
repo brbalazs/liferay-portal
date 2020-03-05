@@ -65,6 +65,13 @@ public class CommerceTaxMethodServiceUtil {
 	}
 
 	public static com.liferay.commerce.tax.model.CommerceTaxMethod
+			fetchCommerceTaxMethod(long groupId, String engineKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().fetchCommerceTaxMethod(groupId, engineKey);
+	}
+
+	public static com.liferay.commerce.tax.model.CommerceTaxMethod
 			getCommerceTaxMethod(long commerceTaxMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

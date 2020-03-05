@@ -76,6 +76,11 @@ public interface CommerceTaxMethodService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceTaxMethod fetchCommerceTaxMethod(
+			long groupId, String engineKey)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceTaxMethod getCommerceTaxMethod(long commerceTaxMethodId)
 		throws PortalException;
 

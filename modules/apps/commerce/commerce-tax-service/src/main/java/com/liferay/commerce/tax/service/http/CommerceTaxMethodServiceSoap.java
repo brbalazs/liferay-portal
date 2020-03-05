@@ -188,6 +188,25 @@ public class CommerceTaxMethodServiceSoap {
 	}
 
 	public static com.liferay.commerce.tax.model.CommerceTaxMethodSoap
+			fetchCommerceTaxMethod(long groupId, String engineKey)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.tax.model.CommerceTaxMethod returnValue =
+				CommerceTaxMethodServiceUtil.fetchCommerceTaxMethod(
+					groupId, engineKey);
+
+			return com.liferay.commerce.tax.model.CommerceTaxMethodSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.tax.model.CommerceTaxMethodSoap
 			setActive(long commerceTaxMethodId, boolean active)
 		throws RemoteException {
 

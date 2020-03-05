@@ -82,27 +82,6 @@ public class CommercePaymentMethodGroupRelServiceSoap {
 		}
 	}
 
-	public static
-		com.liferay.commerce.payment.model.CommercePaymentMethodGroupRelSoap
-				createCommercePaymentMethodGroupRel(long groupId)
-			throws RemoteException {
-
-		try {
-			com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel
-				returnValue =
-					CommercePaymentMethodGroupRelServiceUtil.
-						createCommercePaymentMethodGroupRel(groupId);
-
-			return com.liferay.commerce.payment.model.
-				CommercePaymentMethodGroupRelSoap.toSoapModel(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static void deleteCommerceAddressRestriction(
 			long commerceAddressRestrictionId)
 		throws RemoteException {

@@ -65,6 +65,15 @@ public class CommerceTaxMethodServiceWrapper
 
 	@Override
 	public com.liferay.commerce.tax.model.CommerceTaxMethod
+			fetchCommerceTaxMethod(long groupId, String engineKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceTaxMethodService.fetchCommerceTaxMethod(
+			groupId, engineKey);
+	}
+
+	@Override
+	public com.liferay.commerce.tax.model.CommerceTaxMethod
 			getCommerceTaxMethod(long commerceTaxMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

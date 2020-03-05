@@ -71,14 +71,9 @@ public interface CommercePaymentMethodGroupRelService extends BaseService {
 		throws PortalException;
 
 	public CommercePaymentMethodGroupRel addCommercePaymentMethodGroupRel(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			File imageFile, String engineKey,
-			Map<String, String> engineParameterMap, double priority,
-			boolean active, ServiceContext serviceContext)
-		throws PortalException;
-
-	public CommercePaymentMethodGroupRel createCommercePaymentMethodGroupRel(
-			long groupId)
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, File imageFile,
+			String engineKey, double priority, boolean active)
 		throws PortalException;
 
 	public void deleteCommerceAddressRestriction(
@@ -174,9 +169,8 @@ public interface CommercePaymentMethodGroupRelService extends BaseService {
 
 	public CommercePaymentMethodGroupRel updateCommercePaymentMethodGroupRel(
 			long commercePaymentMethodGroupRelId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, File imageFile,
-			Map<String, String> engineParameterMap, double priority,
-			boolean active, ServiceContext serviceContext)
+			Map<Locale, String> descriptionMap, File imageFile, double priority,
+			boolean active)
 		throws PortalException;
 
 }

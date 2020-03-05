@@ -258,6 +258,13 @@ public class CommerceChannelLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.product.model.CommerceChannel
+			getCommerceChannelByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceChannelByGroupId(groupId);
+	}
+
+	public static com.liferay.commerce.product.model.CommerceChannel
 			getCommerceChannelByOrderGroupId(long orderGroupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -389,6 +396,15 @@ public class CommerceChannelLocalServiceUtil {
 		return getService().updateCommerceChannel(
 			commerceChannelId, siteGroupId, name, type, typeSettingsProperties,
 			commerceCurrencyCode);
+	}
+
+	public static com.liferay.commerce.product.model.CommerceChannel
+			updateCommerceChannelExternalReferenceCode(
+				long commerceChannelId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceChannelExternalReferenceCode(
+			commerceChannelId, externalReferenceCode);
 	}
 
 	public static CommerceChannelLocalService getService() {

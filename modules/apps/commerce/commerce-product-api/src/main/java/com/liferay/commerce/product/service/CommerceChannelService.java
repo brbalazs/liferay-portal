@@ -114,4 +114,8 @@ public interface CommerceChannelService extends BaseService {
 			String commerceCurrencyCode)
 		throws PortalException;
 
+	public CommerceChannel updateCommerceChannelExternalReferenceCode(
+			long commerceChannelId, String externalReferenceCode)
+		throws PortalException;
+
 }

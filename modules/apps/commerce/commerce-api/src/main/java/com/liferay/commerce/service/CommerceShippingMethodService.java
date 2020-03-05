@@ -72,6 +72,13 @@ public interface CommerceShippingMethodService extends BaseService {
 		throws PortalException;
 
 	public CommerceShippingMethod addCommerceShippingMethod(
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, File imageFile,
+			String engineKey, double priority, boolean active)
+		throws PortalException;
+
+	@Deprecated
+	public CommerceShippingMethod addCommerceShippingMethod(
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			File imageFile, String engineKey, double priority, boolean active,
 			ServiceContext serviceContext)
