@@ -83,9 +83,8 @@ public class CommerceShipmentDataSetDataProvider
 			commerceOrderId);
 
 		if (commerceOrder != null) {
-			return _commerceShipmentService.getCommerceShipmentsCount(
-				commerceOrder.getCompanyId(),
-				commerceOrder.getShippingAddressId());
+			return _commerceShipmentService.getCommerceShipmentsCountByOrderId(
+				commerceOrderId);
 		}
 
 		long companyId = _portal.getCompanyId(httpServletRequest);
@@ -113,11 +112,10 @@ public class CommerceShipmentDataSetDataProvider
 		List<CommerceShipment> commerceShipments;
 
 		if (commerceOrder != null) {
-			commerceShipments = _commerceShipmentService.getCommerceShipments(
-				commerceOrder.getCompanyId(),
-				commerceOrder.getShippingAddressId(),
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+			commerceShipments =
+				_commerceShipmentService.getCommerceShipmentsByOrderId(
+					commerceOrderId, pagination.getStartPosition(),
+					pagination.getEndPosition());
 		}
 		else {
 			long companyId = _portal.getCompanyId(httpServletRequest);

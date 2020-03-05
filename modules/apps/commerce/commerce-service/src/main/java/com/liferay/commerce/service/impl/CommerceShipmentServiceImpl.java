@@ -182,6 +182,14 @@ public class CommerceShipmentServiceImpl
 	}
 
 	@Override
+	public List<CommerceShipment> getCommerceShipmentsByOrderId(
+		long commerceOrderId, int start, int end) {
+
+		return commerceShipmentLocalService.getCommerceShipments(
+			commerceOrderId, start, end);
+	}
+
+	@Override
 	public int getCommerceShipmentsCount(long companyId)
 		throws PortalException {
 
@@ -262,6 +270,12 @@ public class CommerceShipmentServiceImpl
 		return commerceShipmentLocalService.getCommerceShipmentsCount(
 			companyId, groupIds, commerceAccountIds, keywords, shipmentStatuses,
 			excludeShipmentStatus);
+	}
+
+	@Override
+	public int getCommerceShipmentsCountByOrderId(long commerceOrderId) {
+		return commerceShipmentLocalService.getCommerceShipmentsCount(
+			commerceOrderId);
 	}
 
 	@Override

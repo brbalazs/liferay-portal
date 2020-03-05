@@ -210,6 +210,38 @@
 				(CommerceOrder.status <> ?)
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.service.persistence.CommerceShipmentFinder.countByCommerceOrderId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT {CommerceShipment.*}) AS COUNT_VALUE
+			FROM
+				CommerceShipment
+			LEFT JOIN
+				CommerceShipmentItem ON
+					CommerceShipmentItem.commerceShipmentId = CommerceShipment.commerceShipmentId
+			INNER JOIN
+				CommerceOrderItem ON
+					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
+			WHERE
+				CommerceOrderItem.commerceOrderId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.service.persistence.CommerceShipmentFinder.findByCommerceOrderId">
+		<![CDATA[
+			SELECT
+				DISTINCT {CommerceShipment.*}
+			FROM
+				CommerceShipment
+			LEFT JOIN
+				CommerceShipmentItem ON
+					CommerceShipmentItem.commerceShipmentId = CommerceShipment.commerceShipmentId
+			INNER JOIN
+				CommerceOrderItem ON
+					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
+			WHERE
+				CommerceOrderItem.commerceOrderId = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceShipmentItemFinder.findByCommerceOrderItemId">
 		<![CDATA[
 			SELECT
