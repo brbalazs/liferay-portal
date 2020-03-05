@@ -15,7 +15,6 @@
 package com.liferay.commerce.internal.upgrade.v4_5_1;
 
 import com.liferay.commerce.internal.upgrade.base.BaseCommerceServiceUpgradeProcess;
-import com.liferay.commerce.model.impl.CommerceAddressImpl;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
@@ -43,9 +42,9 @@ public class CommerceShippingMethodUpgradeProcess
 	@Override
 	protected void doUpgrade() throws Exception {
 		try (Statement s = connection.createStatement();
-			 ResultSet rs = s.executeQuery(
-				 "select commerceShippingMethodId, groupId from " +
-				 "CommerceShippingMethod")) {
+			ResultSet rs = s.executeQuery(
+				"select commerceShippingMethodId, groupId from " +
+					"CommerceShippingMethod")) {
 
 			PreparedStatement ps = null;
 
@@ -58,13 +57,13 @@ public class CommerceShippingMethodUpgradeProcess
 				long channelGroupId = _getCommerceChannelGroupIdBySiteGroupId(
 					groupId);
 
-				if(channelGroupId == 0){
+				if (channelGroupId == 0) {
 					continue;
 				}
 
 				ps = connection.prepareStatement(
 					"update CommerceShippingMethod set groupId = ? " +
-					"where commerceShippingMethodId = ?");
+						"where commerceShippingMethodId = ?");
 
 				ps.setLong(1, channelGroupId);
 				ps.setLong(2, commerceShippingMethodId);

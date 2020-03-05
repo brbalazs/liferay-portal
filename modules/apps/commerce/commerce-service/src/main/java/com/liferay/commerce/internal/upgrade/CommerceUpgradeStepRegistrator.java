@@ -226,12 +226,12 @@ public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
 	private EmailAddressLocalService _emailAddressLocalService;
 
 	@Reference
+	private GroupLocalService _groupLocalService;
+
+	@Reference
 	private OrganizationLocalService _organizationLocalService;
 
 	@Reference
 	private UserLocalService _userLocalService;
-
-	@Reference
-	private GroupLocalService _groupLocalService;
 
 }

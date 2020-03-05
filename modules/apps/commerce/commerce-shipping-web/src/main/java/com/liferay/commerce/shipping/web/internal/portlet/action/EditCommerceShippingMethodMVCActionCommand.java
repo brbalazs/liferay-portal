@@ -14,42 +14,31 @@
 
 package com.liferay.commerce.shipping.web.internal.portlet.action;
 
-import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.exception.CommerceShippingMethodNameException;
 import com.liferay.commerce.exception.NoSuchShippingMethodException;
-import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
-import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.File;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -77,9 +66,7 @@ public class EditCommerceShippingMethodMVCActionCommand
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		try {
-			if (cmd.equals(Constants.ADD) ||
-					 cmd.equals(Constants.UPDATE)) {
-
+			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
 				updateCommerceShippingMethod(actionRequest);
 			}
 		}
@@ -106,7 +93,6 @@ public class EditCommerceShippingMethodMVCActionCommand
 		}
 	}
 
-
 	protected CommerceShippingMethod updateCommerceShippingMethod(
 			ActionRequest actionRequest)
 		throws PortalException {
@@ -125,9 +111,8 @@ public class EditCommerceShippingMethodMVCActionCommand
 		Map<Locale, String> descriptionMap =
 			LocalizationUtil.getLocalizationMap(actionRequest, "description");
 		File imageFile = uploadPortletRequest.getFile("imageFile");
-		String commerceShippingMethodEngineKey =
-			ParamUtil.getString(actionRequest,
-				"commerceShippingMethodEngineKey");
+		String commerceShippingMethodEngineKey = ParamUtil.getString(
+			actionRequest, "commerceShippingMethodEngineKey");
 		double priority = ParamUtil.getDouble(actionRequest, "priority");
 		boolean active = ParamUtil.getBoolean(actionRequest, "active");
 
@@ -155,10 +140,10 @@ public class EditCommerceShippingMethodMVCActionCommand
 	}
 
 	@Reference
-	private CommerceShippingMethodService _commerceShippingMethodService;
+	private CommerceChannelService _commerceChannelService;
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceShippingMethodService _commerceShippingMethodService;
 
 	@Reference
 	private Portal _portal;

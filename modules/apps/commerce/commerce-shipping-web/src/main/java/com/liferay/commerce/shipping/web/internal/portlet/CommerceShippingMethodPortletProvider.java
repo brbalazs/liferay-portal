@@ -15,7 +15,6 @@
 package com.liferay.commerce.shipping.web.internal.portlet;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
-import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.portlet.BasePortletProvider;

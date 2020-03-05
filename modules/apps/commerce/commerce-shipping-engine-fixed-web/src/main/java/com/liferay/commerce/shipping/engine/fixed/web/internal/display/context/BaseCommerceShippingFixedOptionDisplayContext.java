@@ -19,7 +19,6 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.RowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -144,8 +143,6 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 
 		return portletURL;
 	}
-
-
 
 	public String getScreenNavigationCategoryKey() {
 		return "details";

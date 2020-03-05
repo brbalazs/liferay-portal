@@ -54,9 +54,9 @@ public class CommerceShippingMethodLocalServiceImpl
 
 	@Override
 	public CommerceShippingMethod addCommerceShippingMethod(
-		long userId, long groupId, Map<Locale, String> nameMap,
-		Map<Locale, String> descriptionMap, File imageFile,
-		String engineKey, double priority, boolean active)
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, File imageFile,
+			String engineKey, double priority, boolean active)
 		throws PortalException {
 
 		// Commerce shipping method

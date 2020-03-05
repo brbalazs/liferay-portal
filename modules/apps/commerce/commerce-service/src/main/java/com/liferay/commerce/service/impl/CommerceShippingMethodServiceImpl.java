@@ -57,7 +57,7 @@ public class CommerceShippingMethodServiceImpl
 			long userId, long groupId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, File imageFile,
 			String engineKey, double priority, boolean active)
-		throws PortalException{
+		throws PortalException {
 
 		_portletResourcePermission.check(
 			getPermissionChecker(), groupId,

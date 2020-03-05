@@ -28,7 +28,8 @@ import java.sql.Statement;
 /**
  * @author Marco Leo
  */
-public class CommercePaymentMethodGroupRelUpgradeProcess extends UpgradeProcess {
+public class CommercePaymentMethodGroupRelUpgradeProcess
+	extends UpgradeProcess {
 
 	public CommercePaymentMethodGroupRelUpgradeProcess(
 		ClassNameLocalService classNameLocalService,
@@ -56,7 +57,7 @@ public class CommercePaymentMethodGroupRelUpgradeProcess extends UpgradeProcess 
 				long channelGroupId = _getCommerceChannelGroupIdBySiteGroupId(
 					groupId);
 
-				if(channelGroupId == 0){
+				if (channelGroupId == 0) {
 					continue;
 				}
 

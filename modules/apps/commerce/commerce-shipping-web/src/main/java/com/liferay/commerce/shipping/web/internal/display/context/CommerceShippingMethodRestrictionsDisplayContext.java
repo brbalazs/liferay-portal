@@ -124,7 +124,6 @@ public class CommerceShippingMethodRestrictionsDisplayContext {
 	public PortletURL getPortletURL() {
 		PortletURL portletURL = _renderResponse.createRenderURL();
 
-
 		String delta = ParamUtil.getString(_renderRequest, "delta");
 
 		if (Validator.isNotNull(delta)) {

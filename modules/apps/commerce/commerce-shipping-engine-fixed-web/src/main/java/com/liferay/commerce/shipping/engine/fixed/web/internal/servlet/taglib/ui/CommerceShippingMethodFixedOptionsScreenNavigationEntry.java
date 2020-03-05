@@ -94,7 +94,7 @@ public class CommerceShippingMethodFixedOptionsScreenNavigationEntry
 	public boolean isVisible(
 		User user, CommerceShippingMethod commerceShippingMethod) {
 
-		if(commerceShippingMethod == null){
+		if (commerceShippingMethod == null) {
 			return false;
 		}
 
