@@ -23,6 +23,7 @@ import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CPOptionValue;
 import com.liferay.commerce.product.service.base.CPDefinitionOptionValueRelLocalServiceBaseImpl;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
@@ -51,6 +52,7 @@ import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.taglib.util.CustomAttributesUtil;
 
 import java.io.Serializable;
 
@@ -347,10 +349,15 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 			cpOptionValueLocalService.getCPOptionValues(
 				cpOption.getCPOptionId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
-		for (CPOptionValue cpOptionValue : cpOptionValues) {
-			cpDefinitionOptionValueRelLocalService.
-				addCPDefinitionOptionValueRel(
-					cpDefinitionOptionRelId, cpOptionValue, serviceContext);
+		Map<String, Serializable> expandoBridgeAttributes =
+			serviceContext.getExpandoBridgeAttributes();
+
+		try {
+			_addCPDefinitionOptionValueRel(
+				cpDefinitionOptionRelId, cpOptionValues, serviceContext);
+		}
+		finally {
+			serviceContext.setExpandoBridgeAttributes(expandoBridgeAttributes);
 		}
 	}
 
@@ -566,6 +573,42 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 				cpDefinitionOptionValueRelId)) {
 
 			throw new CPDefinitionOptionValueRelKeyException();
+		}
+	}
+
+	private void _addCPDefinitionOptionValueRel(
+			long cpDefinitionOptionRelId, List<CPOptionValue> cpOptionValues,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		for (CPOptionValue cpOptionValue : cpOptionValues) {
+			if (_hasCustomAttributes(cpOptionValue)) {
+				ExpandoBridge expandoBridge = cpOptionValue.getExpandoBridge();
+
+				serviceContext.setExpandoBridgeAttributes(
+					expandoBridge.getAttributes());
+			}
+			else {
+				serviceContext.setExpandoBridgeAttributes(
+					Collections.emptyMap());
+			}
+
+			cpDefinitionOptionValueRelLocalService.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionRelId, cpOptionValue, serviceContext);
+		}
+	}
+
+	private boolean _hasCustomAttributes(CPOptionValue cpOptionValue)
+		throws PortalException {
+
+		try {
+			return CustomAttributesUtil.hasCustomAttributes(
+				cpOptionValue.getCompanyId(), CPOptionValue.class.getName(),
+				cpOptionValue.getCPOptionValueId(), null);
+		}
+		catch (Exception e) {
+			throw new PortalException(e);
 		}
 	}
 
