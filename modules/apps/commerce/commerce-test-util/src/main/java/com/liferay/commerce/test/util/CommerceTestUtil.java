@@ -218,14 +218,13 @@ public class CommerceTestUtil {
 
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
 			addCommercePaymentMethodGroupRel(
-				commerceOrder.getCompanyId(), groupId, userId,
-				commerceChannel.getSiteGroupId());
+				userId, commerceChannel.getGroupId());
 
 		commerceOrder.setCommercePaymentMethodKey(
 			commercePaymentMethodGroupRel.getEngineKey());
 
 		CommerceShippingMethod commerceShippingMethod =
-			addCommerceShippingMethod(groupId);
+			addCommerceShippingMethod(userId, commerceChannel.getGroupId());
 
 		commerceOrder.setCommerceShippingMethodId(
 			commerceShippingMethod.getCommerceShippingMethodId());
@@ -337,14 +336,8 @@ public class CommerceTestUtil {
 
 	public static CommercePaymentMethodGroupRel
 			addCommercePaymentMethodGroupRel(
-				long companyId, long groupId, long userId, long scopeGroupId)
+			long userId, long groupId)
 		throws Exception {
-
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(
-				companyId, groupId, userId);
-
-		serviceContext.setScopeGroupId(scopeGroupId);
 
 		return CommercePaymentMethodGroupRelLocalServiceUtil.
 			addCommercePaymentMethodGroupRel(
@@ -377,21 +370,22 @@ public class CommerceTestUtil {
 				serviceContext);
 	}
 
-	public static CommerceShippingMethod addCommerceShippingMethod(long groupId)
+	public static CommerceShippingMethod addCommerceShippingMethod(
+			long userId, long groupId)
 		throws Exception {
 
 		return CommerceShippingMethodLocalServiceUtil.addCommerceShippingMethod(
-			RandomTestUtil.randomLocaleStringMap(),
-			RandomTestUtil.randomLocaleStringMap(), null, "fixedPrice", 1, true,
-			ServiceContextTestUtil.getServiceContext(groupId));
+			userId, groupId, RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomLocaleStringMap(), null, "fixedPrice", 1,
+			true);
 	}
 
 	public static CommerceShippingMethod addFixedRateCommerceShippingMethod(
-			long groupId, BigDecimal value)
+			long userId, long groupId, BigDecimal value)
 		throws Exception {
 
 		CommerceShippingMethod commerceShippingMethod =
-			addCommerceShippingMethod(groupId);
+			addCommerceShippingMethod(userId, groupId);
 
 		addCommerceShippingFixedOption(commerceShippingMethod, value);
 
@@ -464,7 +458,7 @@ public class CommerceTestUtil {
 
 		CommerceShippingMethod commerceShippingMethod =
 			addFixedRateCommerceShippingMethod(
-				commerceOrder.getGroupId(), value);
+				userId, commerceOrder.getGroupId(), value);
 
 		commerceOrder.setCommerceShippingMethodId(
 			commerceShippingMethod.getCommerceShippingMethodId());

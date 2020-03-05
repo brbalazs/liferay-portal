@@ -45,7 +45,8 @@ public class CommerceHealthStatusDisplayContext {
 	}
 
 	public List<CommerceHealthHttpStatus> getCommerceHealthStatuses() {
-		return _commerceHealthHttpStatusRegistry.getCommerceHealthStatuses(_type);
+		return _commerceHealthHttpStatusRegistry.getCommerceHealthStatuses(
+			_type);
 	}
 
 	public SearchContainer<CommerceHealthHttpStatus> getSearchContainer() {

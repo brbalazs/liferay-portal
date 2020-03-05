@@ -111,7 +111,6 @@ List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCom
 	<div class="col-12">
 		<commerce-ui:panel
 			bodyClasses="p-0"
-			title='<%= LanguageUtil.get(request, "healt-check") %>'
 		>
 
 			<%

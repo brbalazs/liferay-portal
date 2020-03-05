@@ -235,7 +235,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 			_importPortletSettings(serviceContext);
 
-			setCommerceShippingMethod("fixed", serviceContext);
+			setCommerceShippingMethod(
+				commerceChannel.getGroupId(), "fixed", serviceContext);
 
 			setDefaultCatalogImage(catalogGroupId, serviceContext);
 
@@ -372,7 +373,7 @@ public class MiniumSiteInitializer implements SiteInitializer {
 	}
 
 	protected void setCommerceShippingMethod(
-			String shippingMethod, ServiceContext serviceContext)
+			long groupId, String shippingMethod, ServiceContext serviceContext)
 		throws PortalException {
 
 		Locale locale = serviceContext.getLocale();
@@ -390,8 +391,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		CommerceShippingMethod commerceShippingMethod =
 			_commerceShippingMethodLocalService.addCommerceShippingMethod(
-				nameMap, descriptionMap, null, shippingMethod, 0, true,
-				serviceContext);
+				serviceContext.getUserId(), groupId, nameMap, descriptionMap,
+				null, shippingMethod, 0, true);
 
 		setCommerceShippingOption(
 			commerceShippingMethod.getCommerceShippingMethodId(),

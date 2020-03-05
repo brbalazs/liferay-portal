@@ -135,7 +135,7 @@ public class CommerceShipmentTest {
 
 		CommerceShippingMethod commerceShippingMethod =
 			CommerceTestUtil.addFixedRateCommerceShippingMethod(
-				commerceOrder.getGroupId(), value);
+				_user.getUserId(), commerceOrder.getGroupId(), value);
 
 		commerceOrder.setCommerceShippingMethodId(
 			commerceShippingMethod.getCommerceShippingMethodId());
