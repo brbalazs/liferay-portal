@@ -12,20 +12,31 @@
  * details.
  */
 
-package com.liferay.commerce.channel.web.internal.channel;
+package com.liferay.commerce.channel.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.channel.web.internal.display.context.SiteCommerceChannelTypeDisplayContext;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
-import com.liferay.commerce.product.channel.CommerceChannelTypeJSPContributor;
-import com.liferay.commerce.product.channel.CommerceChannelTypeJSPContributorRegistry;
+import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
 import com.liferay.commerce.product.channel.CommerceChannelTypeRegistry;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
+import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.item.selector.ItemSelector;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalService;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.workflow.WorkflowDefinitionManager;
+
+import java.io.IOException;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -35,38 +46,67 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alec Sloan
+ * @author Marco Leo
  */
 @Component(
-	immediate = true,
-	property = "commerce.product.channel.type.jsp.contributor.key=site",
-	service = CommerceChannelTypeJSPContributor.class
+	property = {
+		"screen.navigation.category.order:Integer=20",
+		"screen.navigation.entry.order:Integer=10"
+	},
+	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class SiteCommerceChannelTypeJSPContributor
-	implements CommerceChannelTypeJSPContributor {
+public class CommerceChanneSiteScreenNavigationEntry
+	implements ScreenNavigationCategory,
+			   ScreenNavigationEntry<CommerceChannel> {
+
+	@Override
+	public String getCategoryKey() {
+		return CommerceChannelScreenNavigationConstants.
+			CATEGORY_KEY_COMMERCE_CHANNEL_SITE;
+	}
+
+	@Override
+	public String getEntryKey() {
+		return getCategoryKey();
+	}
+
+	@Override
+	public String getLabel(Locale locale) {
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
+
+		return LanguageUtil.get(resourceBundle, getCategoryKey());
+	}
+
+	@Override
+	public String getScreenNavigationKey() {
+		return CommerceChannelScreenNavigationConstants.
+			SCREEN_NAVIGATION_KEY_COMMERCE_CHANNEL_GENERAL;
+	}
 
 	@Override
 	public void render(
-			long commerceChannelId, HttpServletRequest httpServletRequest,
+			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
-		throws Exception {
+		throws IOException {
 
 		SiteCommerceChannelTypeDisplayContext
 			siteCommerceChannelTypeDisplayContext =
 				new SiteCommerceChannelTypeDisplayContext(
 					_commerceChannelModelResourcePermission,
 					_commerceChannelService, _commerceChannelTypeRegistry,
-					_commerceChannelTypeJSPContributorRegistry,
-					_commerceCurrencyService, _groupLocalService,
-					httpServletRequest, _itemSelector, _portal);
+					_commerceCurrencyService, _commercePaymentMethodRegistry,
+					_configurationProvider, _groupLocalService,
+					httpServletRequest, _itemSelector, _portal,
+					_workflowDefinitionLinkLocalService,
+					_workflowDefinitionManager);
 
 		httpServletRequest.setAttribute(
 			"site.jsp-portletDisplayContext",
 			siteCommerceChannelTypeDisplayContext);
 
 		_jspRenderer.renderJSP(
-			_servletContext, httpServletRequest, httpServletResponse,
-			"/contributor/site.jsp");
+			httpServletRequest, httpServletResponse, "/channel/site.jsp");
 	}
 
 	@Reference(
@@ -79,14 +119,16 @@ public class SiteCommerceChannelTypeJSPContributor
 	private CommerceChannelService _commerceChannelService;
 
 	@Reference
-	private CommerceChannelTypeJSPContributorRegistry
-		_commerceChannelTypeJSPContributorRegistry;
-
-	@Reference
 	private CommerceChannelTypeRegistry _commerceChannelTypeRegistry;
 
 	@Reference
 	private CommerceCurrencyService _commerceCurrencyService;
+
+	@Reference
+	private CommercePaymentMethodRegistry _commercePaymentMethodRegistry;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
@@ -104,5 +146,12 @@ public class SiteCommerceChannelTypeJSPContributor
 		target = "(osgi.web.symbolicname=com.liferay.commerce.channel.web)"
 	)
 	private ServletContext _servletContext;
+
+	@Reference
+	private WorkflowDefinitionLinkLocalService
+		_workflowDefinitionLinkLocalService;
+
+	@Reference
+	private WorkflowDefinitionManager _workflowDefinitionManager;
 
 }

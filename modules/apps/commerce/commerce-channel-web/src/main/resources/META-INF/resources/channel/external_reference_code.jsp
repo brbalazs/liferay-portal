@@ -19,26 +19,18 @@
 <%
 CommerceChannelDisplayContext commerceChannelDisplayContext = (CommerceChannelDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-PortletURL portletURL = commerceChannelDisplayContext.getPortletURL();
+CommerceChannel commerceChannel = commerceChannelDisplayContext.getCommerceChannel();
 %>
 
-<div class="row">
-	<div class="col-12">
+<portlet:actionURL name="editCommerceChannelExternalReferenceCode" var="editCommerceChannelExternalReferenceCodeURL" />
 
-		<%
-		java.util.Map<String, String> contextParams = new java.util.HashMap<>();
-		%>
+<commerce-ui:modal-content>
+	<aui:form action="<%= editCommerceChannelExternalReferenceCodeURL %>" cssClass="container-fluid-1280 p-0" method="post" name="fm">
+		<aui:model-context bean="<%= commerceChannel %>" model="<%= CommerceChannel.class %>" />
 
-		<commerce-ui:dataset-display
-			clayCreationMenu="<%= commerceChannelDisplayContext.getClayCreationMenu() %>"
-			contextParams="<%= contextParams %>"
-			dataProviderKey="<%= CommerceChannelClayTable.NAME %>"
-			id="<%= CommerceChannelClayTable.NAME %>"
-			itemsPerPage="<%= 10 %>"
-			namespace="<%= renderResponse.getNamespace() %>"
-			pageNumber="<%= 1 %>"
-			portletURL="<%= portletURL %>"
-			style="fluid"
-		/>
-	</div>
-</div>
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="commerceChannelId" type="hidden" />
+
+		<aui:input name="externalReferenceCode" type="text" wrapperCssClass="form-group-item" />
+	</aui:form>
+</commerce-ui:modal-content>

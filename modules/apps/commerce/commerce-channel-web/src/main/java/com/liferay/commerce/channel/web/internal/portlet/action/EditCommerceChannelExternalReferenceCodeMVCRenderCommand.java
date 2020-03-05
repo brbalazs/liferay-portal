@@ -24,21 +24,24 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Alec Sloan
+ * @author Marco Leo
  */
 @Component(
-	immediate = true,
-	property = "javax.portlet.name=" + CPPortletKeys.COMMERCE_CHANNELS,
+	property = {
+		"javax.portlet.name=" + CPPortletKeys.COMMERCE_CHANNELS,
+		"mvc.command.name=editCommerceChannelExternalReferenceCode"
+	},
 	service = MVCRenderCommand.class
 )
-public class CommerceChannelMVCRenderCommand implements MVCRenderCommand {
+public class EditCommerceChannelExternalReferenceCodeMVCRenderCommand
+	implements MVCRenderCommand {
 
 	@Override
 	public String render(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		return "/view.jsp";
+		return "/channel/external_reference_code.jsp";
 	}
 
 }

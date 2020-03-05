@@ -46,42 +46,51 @@ if (commerceChannel != null) {
 	/>
 </liferay-util:buffer>
 
-<liferay-ui:search-container
-	curParam="commerceChannelSiteCur"
-	headerNames="null,null"
-	id="CommerceChannelSitesSearchContainer"
-	iteratorURL="<%= currentURLObj %>"
-	total="<%= siteAsList.size() %>"
->
-	<liferay-ui:search-container-results
-		results="<%= siteAsList %>"
-	/>
+<div class="row">
+	<div class="col-12">
+		<commerce-ui:panel
+			bodyClasses="flex-fill"
+			title='<%= LanguageUtil.get(request, "details") %>'
+		>
+			<liferay-ui:search-container
+				curParam="commerceChannelSiteCur"
+				headerNames="null,null"
+				id="CommerceChannelSitesSearchContainer"
+				iteratorURL="<%= currentURLObj %>"
+				total="<%= siteAsList.size() %>"
+			>
+				<liferay-ui:search-container-results
+					results="<%= siteAsList %>"
+				/>
 
-	<liferay-ui:search-container-row
-		className="com.liferay.portal.kernel.model.Group"
-		keyProperty="groupId"
-		modelVar="group"
-	>
-		<liferay-ui:search-container-column-text
-			cssClass="table-cell-content"
-			value="<%= HtmlUtil.escape(group.getName(locale)) %>"
-		/>
+				<liferay-ui:search-container-row
+					className="com.liferay.portal.kernel.model.Group"
+					keyProperty="groupId"
+					modelVar="group"
+				>
+					<liferay-ui:search-container-column-text
+						cssClass="table-cell-content"
+						value="<%= HtmlUtil.escape(group.getName(locale)) %>"
+					/>
 
-		<c:if test="<%= !isViewOnly %>">
-			<liferay-ui:search-container-column-text>
-				<a class="float-right modify-link" data-rowId="<%= group.getGroupId() %>" href="javascript:;"><%= removeCommerceChannelSiteIcon %></a>
-			</liferay-ui:search-container-column-text>
-		</c:if>
-	</liferay-ui:search-container-row>
+					<c:if test="<%= !isViewOnly %>">
+						<liferay-ui:search-container-column-text>
+							<a class="float-right modify-link" data-rowId="<%= group.getGroupId() %>" href="javascript:;"><%= removeCommerceChannelSiteIcon %></a>
+						</liferay-ui:search-container-column-text>
+					</c:if>
+				</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator
-		markupView="lexicon"
-	/>
-</liferay-ui:search-container>
+				<liferay-ui:search-iterator
+					markupView="lexicon"
+				/>
+			</liferay-ui:search-container>
 
-<c:if test="<%= !isViewOnly %>">
-	<aui:button cssClass="mb-4" name="selectSite" value='<%= LanguageUtil.format(locale, "select-x", "site") %>' />
-</c:if>
+			<c:if test="<%= !isViewOnly %>">
+				<aui:button cssClass="mb-4" name="selectSite" value='<%= LanguageUtil.format(locale, "select-x", "site") %>' />
+			</c:if>
+		</commerce-ui:panel>
+	</div>
+</div>
 
 <aui:script use="aui-base,liferay-item-selector-dialog">
 	$('#<portlet:namespace />selectSite').on('click', function(event) {
