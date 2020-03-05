@@ -101,9 +101,18 @@ public interface CommerceOrderService extends BaseService {
 	public CommerceOrder fetchCommerceOrder(long commerceOrderId)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceOrder fetchCommerceOrder(
 			long commerceAccountId, long groupId, int orderStatus)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceOrder fetchCommerceOrder(
+			long commerceAccountId, long groupId, long userId, int orderStatus)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

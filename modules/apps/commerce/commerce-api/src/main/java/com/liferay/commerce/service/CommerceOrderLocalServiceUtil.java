@@ -288,11 +288,22 @@ public class CommerceOrderLocalServiceUtil {
 		return getService().fetchCommerceOrder(commerceOrderId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
 		long commerceAccountId, long groupId, int orderStatus) {
 
 		return getService().fetchCommerceOrder(
 			commerceAccountId, groupId, orderStatus);
+	}
+
+	public static com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
+		long commerceAccountId, long groupId, long userId, int orderStatus) {
+
+		return getService().fetchCommerceOrder(
+			commerceAccountId, groupId, userId, orderStatus);
 	}
 
 	/**

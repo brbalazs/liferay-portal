@@ -106,12 +106,24 @@ public class CommerceOrderServiceUtil {
 		return getService().fetchCommerceOrder(commerceOrderId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
 			long commerceAccountId, long groupId, int orderStatus)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().fetchCommerceOrder(
 			commerceAccountId, groupId, orderStatus);
+	}
+
+	public static com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
+			long commerceAccountId, long groupId, long userId, int orderStatus)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().fetchCommerceOrder(
+			commerceAccountId, groupId, userId, orderStatus);
 	}
 
 	public static com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(

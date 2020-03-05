@@ -108,6 +108,10 @@ public class CommerceOrderServiceWrapper
 		return _commerceOrderService.fetchCommerceOrder(commerceOrderId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
 			long commerceAccountId, long groupId, int orderStatus)
@@ -115,6 +119,15 @@ public class CommerceOrderServiceWrapper
 
 		return _commerceOrderService.fetchCommerceOrder(
 			commerceAccountId, groupId, orderStatus);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
+			long commerceAccountId, long groupId, long userId, int orderStatus)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderService.fetchCommerceOrder(
+			commerceAccountId, groupId, userId, orderStatus);
 	}
 
 	@Override

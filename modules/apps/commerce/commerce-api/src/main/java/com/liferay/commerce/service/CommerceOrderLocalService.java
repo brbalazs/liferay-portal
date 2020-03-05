@@ -236,9 +236,17 @@ public interface CommerceOrderLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceOrder fetchCommerceOrder(long commerceOrderId);
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceOrder fetchCommerceOrder(
 		long commerceAccountId, long groupId, int orderStatus);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceOrder fetchCommerceOrder(
+		long commerceAccountId, long groupId, long userId, int orderStatus);
 
 	/**
 	 * Returns the commerce order with the matching external reference code and company.

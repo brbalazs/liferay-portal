@@ -34,6 +34,9 @@ public interface CommerceOrderFinder {
 	public java.util.List<com.liferay.commerce.model.CommerceOrder> findByG_O(
 		long groupId, int[] orderStatuses, int start, int end);
 
+	public com.liferay.commerce.model.CommerceOrder fetchByG_U_C_O_S_First(
+		long groupId, long userId, long commerceAccountId, int orderStatus);
+
 	public java.util.List<com.liferay.commerce.model.CommerceOrder>
 		findByG_U_C_O(
 			long userId,

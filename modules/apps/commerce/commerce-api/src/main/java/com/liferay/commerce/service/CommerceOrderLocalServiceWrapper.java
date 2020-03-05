@@ -303,12 +303,24 @@ public class CommerceOrderLocalServiceWrapper
 		return _commerceOrderLocalService.fetchCommerceOrder(commerceOrderId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
 		long commerceAccountId, long groupId, int orderStatus) {
 
 		return _commerceOrderLocalService.fetchCommerceOrder(
 			commerceAccountId, groupId, orderStatus);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
+		long commerceAccountId, long groupId, long userId, int orderStatus) {
+
+		return _commerceOrderLocalService.fetchCommerceOrder(
+			commerceAccountId, groupId, userId, orderStatus);
 	}
 
 	/**
