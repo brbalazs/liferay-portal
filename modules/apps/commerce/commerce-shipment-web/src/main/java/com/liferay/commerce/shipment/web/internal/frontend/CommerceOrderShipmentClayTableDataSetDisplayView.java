@@ -31,10 +31,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.set.display.name=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS,
+	property = "commerce.data.set.display.name=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_SHIPMENTS,
 	service = ClayDataSetDisplayView.class
 )
-public class CommerceShipmentClayTableDataSetDisplayView
+public class CommerceOrderShipmentClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
@@ -42,25 +42,21 @@ public class CommerceShipmentClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField createDateField = clayTableSchemaBuilder.addField(
-			"createDate", "create-date");
+		ClayTableSchemaField shipmentIdField = clayTableSchemaBuilder.addField(
+			"shipmentId", "shipment-id");
 
-		createDateField.setContentRenderer("actionLink");
+		shipmentIdField.setContentRenderer("actionLink");
 
-		clayTableSchemaBuilder.addField("shipmentId", "shipment-id");
+		clayTableSchemaBuilder.addField("address", "address");
+
+		clayTableSchemaBuilder.addField("createDate", "create-date");
 
 		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
 			"status", "status");
 
 		statusField.setContentRenderer("label");
 
-		clayTableSchemaBuilder.addField("accountName", "account");
-
-		clayTableSchemaBuilder.addField("address", "address");
-
 		clayTableSchemaBuilder.addField("tracking", "tracking");
-
-		clayTableSchemaBuilder.addField("channelName", "channel");
 
 		return clayTableSchemaBuilder.build();
 	}

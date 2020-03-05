@@ -38,10 +38,11 @@ contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrd
 <commerce-ui:dataset-display
 	contextParams="<%= contextParams %>"
 	dataProviderKey="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
-	id="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
+	id="<%= CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_SHIPMENTS %>"
 	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
 	portletURL="<%= portletURL %>"
+	showManagementBar="<%= false %>"
 	style="stacked"
 />
