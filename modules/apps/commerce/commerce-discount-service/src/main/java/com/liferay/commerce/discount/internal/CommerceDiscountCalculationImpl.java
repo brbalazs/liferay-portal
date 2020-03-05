@@ -311,6 +311,10 @@ public class CommerceDiscountCalculationImpl
 		else {
 			currentDiscountAmount = commerceDiscount.getLevel1();
 
+			if (currentDiscountAmount.compareTo(discountedAmount) > 0) {
+				currentDiscountAmount = discountedAmount;
+			}
+
 			discountedAmount = discountedAmount.subtract(currentDiscountAmount);
 		}
 

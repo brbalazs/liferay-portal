@@ -260,6 +260,10 @@ public class CommerceDiscountCalculationV2Impl
 		}
 		else {
 			discountAmount = commerceDiscountValue;
+
+			if (commerceDiscountValue.compareTo(commercePrice) > 0) {
+				discountAmount = commercePrice;
+			}
 		}
 
 		RoundingMode roundingMode = RoundingMode.valueOf(

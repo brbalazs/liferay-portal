@@ -97,6 +97,86 @@ public class CommerceOrderDiscountTest {
 	}
 
 	@Test
+	public void testDiscountWithCouponGreaterThanCartValue() throws Exception {
+		frutillaRule.scenario(
+			"Discount on total is applied to the order only if consistent"
+		).given(
+			"An order with some order items"
+		).and(
+			"A discount coupon on the total price"
+		).when(
+			"I try to get the final price of the order"
+		).then(
+			"The final price will be calculated with the discount"
+		);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency();
+
+		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
+			commerceCurrency.getCode());
+
+		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
+			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
+			commerceChannel.getSiteGroupId(), commerceCurrency);
+
+		_commerceOrders.add(commerceOrder);
+
+		commerceOrder.setCommerceCurrencyId(
+			commerceCurrency.getCommerceCurrencyId());
+
+		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
+
+		CPInstance cpInstanceDiscount = CPTestUtil.addCPInstanceWithRandomSku(
+			_group.getGroupId());
+
+		cpInstanceDiscount.setPrice(BigDecimal.valueOf(0.9));
+
+		_cpInstanceLocalService.updateCPInstance(cpInstanceDiscount);
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
+
+		CommerceTestUtil.addWarehouseCommerceChannelRel(
+			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
+			commerceChannel.getCommerceChannelId());
+
+		int quantity = 10;
+		int orderedQuantity = 1;
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			_user.getUserId(), commerceInventoryWarehouse,
+			cpInstanceDiscount.getSku(), quantity);
+
+		String couponCode = "SCONTO";
+
+		CommerceDiscountTestUtil.addCouponDiscount(
+			_group.getGroupId(), 1, couponCode,
+			CommerceDiscountConstants.TARGET_TOTAL, null);
+
+		CommerceContext commerceContext = new TestCommerceContext(
+			commerceCurrency, null, _user, _group, _commerceAccount,
+			commerceOrder);
+
+		CommerceTestUtil.addCommerceOrderItem(
+			commerceOrder.getCommerceOrderId(),
+			cpInstanceDiscount.getCPInstanceId(), orderedQuantity,
+			commerceContext);
+
+		commerceOrder = _commerceOrderLocalService.applyCouponCode(
+			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
+
+		CommerceMoney total = _commerceOrderPriceCalculation.getTotal(
+			commerceOrder, commerceContext);
+
+		BigDecimal price = BigDecimal.ZERO;
+		BigDecimal totalPrice = total.getPrice();
+
+		Assert.assertEquals(
+			price.stripTrailingZeros(), totalPrice.stripTrailingZeros());
+	}
+
+	@Test
 	public void testMultiTargetDiscounts() throws Exception {
 		frutillaRule.scenario(
 			"Discounts on multiple targets shall be applied on the order"
