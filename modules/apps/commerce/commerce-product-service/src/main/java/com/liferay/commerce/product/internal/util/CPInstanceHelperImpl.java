@@ -82,6 +82,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -136,15 +138,15 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 				getCPDefinitionOptionRelCPInstanceOptionValueRels(
 					cpDefinitionOptionRelId);
 
-		List<CPDefinitionOptionValueRel> filtered = new ArrayList<>();
+		Set<CPDefinitionOptionValueRel> filtered = new TreeSet<>(
+			new CPDefinitionOptionValueRelPriorityComparator(true));
 
 		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
 				cpInstanceOptionValueRels) {
 
-			if (!skuCombinationCPDefinitionOptionValueRelIds.isEmpty() &&
-				!skuCombinationCPDefinitionOptionValueRelIds.contains(
-					cpInstanceOptionValueRel.
-						getCPDefinitionOptionValueRelId())) {
+			if (!_hasCPInstanceCPDefinitionOptionValueRelIds(
+					cpInstanceOptionValueRel.getCPInstanceId(),
+					skuCombinationCPDefinitionOptionValueRelIds)) {
 
 				continue;
 			}
@@ -156,10 +158,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 						cpInstanceOptionValueRel.getCPInstanceId()));
 		}
 
-		Collections.sort(
-			filtered, new CPDefinitionOptionValueRelPriorityComparator(true));
-
-		return filtered;
+		return new ArrayList<>(filtered);
 	}
 
 	@Override
@@ -1017,6 +1016,25 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		}
 
 		return topId;
+	}
+
+	private boolean _hasCPInstanceCPDefinitionOptionValueRelIds(
+		long cpInstanceId,
+		List<Long> skuCombinationCPDefinitionOptionValueRelIds) {
+
+		for (Long skuCombinationCPDefinitionOptionValueRelId :
+				skuCombinationCPDefinitionOptionValueRelIds) {
+
+			if (!_cpInstanceOptionValueRelLocalService.
+					hasCPInstanceCPDefinitionOptionValueRel(
+						skuCombinationCPDefinitionOptionValueRelId,
+						cpInstanceId)) {
+
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	private boolean _isDDMFormRequired(
