@@ -134,20 +134,59 @@ public class CommerceShipmentItemServiceHttp {
 		}
 	}
 
+	public static void deleteCommerceShipmentItem(
+			HttpPrincipal httpPrincipal, long commerceShipmentItemId,
+			boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceShipmentItemServiceUtil.class,
+				"deleteCommerceShipmentItem",
+				_deleteCommerceShipmentItemParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceShipmentItemId, restoreStockQuantity);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.commerce.model.CommerceShipmentItem
 			fetchCommerceShipmentItem(
-				HttpPrincipal httpPrincipal, long commerceOrderItemId,
-				long commerceInventoryWarehouseId)
+				HttpPrincipal httpPrincipal, long commerceShipmentId,
+				long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceShipmentItemServiceUtil.class,
 				"fetchCommerceShipmentItem",
-				_fetchCommerceShipmentItemParameterTypes2);
+				_fetchCommerceShipmentItemParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceOrderItemId, commerceInventoryWarehouseId);
+				methodKey, commerceShipmentId, commerceOrderItemId,
+				commerceInventoryWarehouseId);
 
 			Object returnObj = null;
 
@@ -186,7 +225,7 @@ public class CommerceShipmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceShipmentItemServiceUtil.class,
 				"getCommerceShipmentItem",
-				_getCommerceShipmentItemParameterTypes3);
+				_getCommerceShipmentItemParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceShipmentItemId);
@@ -229,7 +268,7 @@ public class CommerceShipmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceShipmentItemServiceUtil.class,
 				"getCommerceShipmentItems",
-				_getCommerceShipmentItemsParameterTypes4);
+				_getCommerceShipmentItemsParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId);
@@ -277,7 +316,7 @@ public class CommerceShipmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceShipmentItemServiceUtil.class,
 				"getCommerceShipmentItems",
-				_getCommerceShipmentItemsParameterTypes5);
+				_getCommerceShipmentItemsParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceShipmentId, start, end, orderByComparator);
@@ -319,7 +358,7 @@ public class CommerceShipmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceShipmentItemServiceUtil.class,
 				"getCommerceShipmentItemsCount",
-				_getCommerceShipmentItemsCountParameterTypes6);
+				_getCommerceShipmentItemsCountParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceShipmentId);
@@ -361,7 +400,7 @@ public class CommerceShipmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceShipmentItemServiceUtil.class,
 				"getCommerceShipmentOrderItemsQuantity",
-				_getCommerceShipmentOrderItemsQuantityParameterTypes7);
+				_getCommerceShipmentOrderItemsQuantityParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceShipmentId, commerceOrderItemId);
@@ -404,7 +443,7 @@ public class CommerceShipmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceShipmentItemServiceUtil.class,
 				"updateCommerceShipmentItem",
-				_updateCommerceShipmentItemParameterTypes8);
+				_updateCommerceShipmentItemParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceShipmentItemId, quantity);
@@ -447,7 +486,7 @@ public class CommerceShipmentItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceShipmentItemServiceUtil.class,
 				"updateCommerceShipmentItem",
-				_updateCommerceShipmentItemParameterTypes9);
+				_updateCommerceShipmentItemParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceShipmentItemId, commerceInventoryWarehouseId,
@@ -491,28 +530,32 @@ public class CommerceShipmentItemServiceHttp {
 		};
 	private static final Class<?>[] _deleteCommerceShipmentItemParameterTypes1 =
 		new Class[] {long.class};
-	private static final Class<?>[] _fetchCommerceShipmentItemParameterTypes2 =
-		new Class[] {long.class, long.class};
-	private static final Class<?>[] _getCommerceShipmentItemParameterTypes3 =
-		new Class[] {long.class};
-	private static final Class<?>[] _getCommerceShipmentItemsParameterTypes4 =
+	private static final Class<?>[] _deleteCommerceShipmentItemParameterTypes2 =
+		new Class[] {long.class, boolean.class};
+	private static final Class<?>[] _fetchCommerceShipmentItemParameterTypes3 =
+		new Class[] {long.class, long.class, long.class};
+	private static final Class<?>[] _getCommerceShipmentItemParameterTypes4 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getCommerceShipmentItemsParameterTypes5 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getCommerceShipmentItemsParameterTypes6 =
 		new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommerceShipmentItemsCountParameterTypes6 = new Class[] {
+		_getCommerceShipmentItemsCountParameterTypes7 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCommerceShipmentOrderItemsQuantityParameterTypes7 = new Class[] {
+		_getCommerceShipmentOrderItemsQuantityParameterTypes8 = new Class[] {
 			long.class, long.class
 		};
-	private static final Class<?>[] _updateCommerceShipmentItemParameterTypes8 =
-		new Class[] {long.class, int.class};
 	private static final Class<?>[] _updateCommerceShipmentItemParameterTypes9 =
-		new Class[] {long.class, long.class, int.class};
+		new Class[] {long.class, int.class};
+	private static final Class<?>[]
+		_updateCommerceShipmentItemParameterTypes10 = new Class[] {
+			long.class, long.class, int.class
+		};
 
 }

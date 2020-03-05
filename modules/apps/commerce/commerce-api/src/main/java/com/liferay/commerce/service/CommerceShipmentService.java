@@ -71,7 +71,15 @@ public interface CommerceShipmentService extends BaseService {
 			long commerceOrderId, ServiceContext serviceContext)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), pass boolean for restoring stock
+	 */
+	@Deprecated
 	public void deleteCommerceShipment(long commerceShipmentId)
+		throws PortalException;
+
+	public void deleteCommerceShipment(
+			long commerceShipmentId, boolean restoreStockQuantity)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

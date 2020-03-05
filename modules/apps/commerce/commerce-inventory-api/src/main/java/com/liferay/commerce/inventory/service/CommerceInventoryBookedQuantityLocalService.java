@@ -264,6 +264,11 @@ public interface CommerceInventoryBookedQuantityLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public CommerceInventoryBookedQuantity resetCommerceBookedQuantity(
+			long commerceBookedQuantityId, long userId, String sku,
+			int quantity, Date expirationDate, Map<String, String> context)
+		throws PortalException;
+
 	/**
 	 * Updates the commerce inventory booked quantity in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

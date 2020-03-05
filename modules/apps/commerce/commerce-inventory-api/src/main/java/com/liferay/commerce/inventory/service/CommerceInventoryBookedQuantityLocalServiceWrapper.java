@@ -359,6 +359,20 @@ public class CommerceInventoryBookedQuantityLocalServiceWrapper
 			primaryKeyObj);
 	}
 
+	@Override
+	public com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity
+			resetCommerceBookedQuantity(
+				long commerceBookedQuantityId, long userId, String sku,
+				int quantity, java.util.Date expirationDate,
+				java.util.Map<String, String> context)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceInventoryBookedQuantityLocalService.
+			resetCommerceBookedQuantity(
+				commerceBookedQuantityId, userId, sku, quantity, expirationDate,
+				context);
+	}
+
 	/**
 	 * Updates the commerce inventory booked quantity in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

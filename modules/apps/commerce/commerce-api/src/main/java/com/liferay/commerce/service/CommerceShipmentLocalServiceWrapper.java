@@ -98,6 +98,16 @@ public class CommerceShipmentLocalServiceWrapper
 			commerceShipment);
 	}
 
+	@Override
+	public com.liferay.commerce.model.CommerceShipment deleteCommerceShipment(
+			com.liferay.commerce.model.CommerceShipment commerceShipment,
+			boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentLocalService.deleteCommerceShipment(
+			commerceShipment, restoreStockQuantity);
+	}
+
 	/**
 	 * Deletes the commerce shipment with the primary key from the database. Also notifies the appropriate model listeners.
 	 *

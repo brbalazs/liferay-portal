@@ -100,6 +100,16 @@ public class CommerceShipmentLocalServiceUtil {
 		return getService().deleteCommerceShipment(commerceShipment);
 	}
 
+	public static com.liferay.commerce.model.CommerceShipment
+			deleteCommerceShipment(
+				com.liferay.commerce.model.CommerceShipment commerceShipment,
+				boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().deleteCommerceShipment(
+			commerceShipment, restoreStockQuantity);
+	}
+
 	/**
 	 * Deletes the commerce shipment with the primary key from the database. Also notifies the appropriate model listeners.
 	 *

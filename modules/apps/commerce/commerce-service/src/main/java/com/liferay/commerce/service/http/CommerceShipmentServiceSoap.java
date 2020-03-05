@@ -107,12 +107,31 @@ public class CommerceShipmentServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), pass boolean for restoring stock
+	 */
+	@Deprecated
 	public static void deleteCommerceShipment(long commerceShipmentId)
 		throws RemoteException {
 
 		try {
 			CommerceShipmentServiceUtil.deleteCommerceShipment(
 				commerceShipmentId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void deleteCommerceShipment(
+			long commerceShipmentId, boolean restoreStockQuantity)
+		throws RemoteException {
+
+		try {
+			CommerceShipmentServiceUtil.deleteCommerceShipment(
+				commerceShipmentId, restoreStockQuantity);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

@@ -84,6 +84,10 @@ public class CommerceShipmentItemServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), pass boolean for restoring stock
+	 */
+	@Deprecated
 	public static void deleteCommerceShipmentItem(long commerceShipmentItemId)
 		throws RemoteException {
 
@@ -98,15 +102,32 @@ public class CommerceShipmentItemServiceSoap {
 		}
 	}
 
+	public static void deleteCommerceShipmentItem(
+			long commerceShipmentItemId, boolean restoreStockQuantity)
+		throws RemoteException {
+
+		try {
+			CommerceShipmentItemServiceUtil.deleteCommerceShipmentItem(
+				commerceShipmentItemId, restoreStockQuantity);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.model.CommerceShipmentItemSoap
 			fetchCommerceShipmentItem(
-				long commerceOrderItemId, long commerceInventoryWarehouseId)
+				long commerceShipmentId, long commerceOrderItemId,
+				long commerceInventoryWarehouseId)
 		throws RemoteException {
 
 		try {
 			com.liferay.commerce.model.CommerceShipmentItem returnValue =
 				CommerceShipmentItemServiceUtil.fetchCommerceShipmentItem(
-					commerceOrderItemId, commerceInventoryWarehouseId);
+					commerceShipmentId, commerceOrderItemId,
+					commerceInventoryWarehouseId);
 
 			return com.liferay.commerce.model.CommerceShipmentItemSoap.
 				toSoapModel(returnValue);

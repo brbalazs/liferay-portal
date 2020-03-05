@@ -98,9 +98,15 @@ public interface CommerceShipmentItemLocalService
 	 * @return the commerce shipment item that was removed
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceShipmentItem deleteCommerceShipmentItem(
 		CommerceShipmentItem commerceShipmentItem);
+
+	@Indexable(type = IndexableType.DELETE)
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
+	public CommerceShipmentItem deleteCommerceShipmentItem(
+			CommerceShipmentItem commerceShipmentItem,
+			boolean restoreStockQuantity)
+		throws PortalException;
 
 	/**
 	 * Deletes the commerce shipment item with the primary key from the database. Also notifies the appropriate model listeners.
@@ -114,7 +120,13 @@ public interface CommerceShipmentItemLocalService
 			long commerceShipmentItemId)
 		throws PortalException;
 
-	public void deleteCommerceShipmentItems(long commerceShipment);
+	public void deleteCommerceShipmentItem(
+			long commerceShipmentItemId, boolean restoreStockQuantity)
+		throws PortalException;
+
+	public void deleteCommerceShipmentItems(
+			long commerceShipmentId, boolean restoreStockQuantity)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException
@@ -195,7 +207,8 @@ public interface CommerceShipmentItemLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceShipmentItem fetchCommerceShipmentItem(
-		long commerceOrderItemId, long commerceInventoryWarehouseId);
+		long commerceShipmentId, long commerceOrderItemId,
+		long commerceInventoryWarehouseId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

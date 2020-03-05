@@ -92,6 +92,18 @@ public class CommerceShipmentItemLocalServiceWrapper
 			commerceShipmentItem);
 	}
 
+	@Override
+	public com.liferay.commerce.model.CommerceShipmentItem
+			deleteCommerceShipmentItem(
+				com.liferay.commerce.model.CommerceShipmentItem
+					commerceShipmentItem,
+				boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentItemLocalService.deleteCommerceShipmentItem(
+			commerceShipmentItem, restoreStockQuantity);
+	}
+
 	/**
 	 * Deletes the commerce shipment item with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
@@ -109,9 +121,21 @@ public class CommerceShipmentItemLocalServiceWrapper
 	}
 
 	@Override
-	public void deleteCommerceShipmentItems(long commerceShipment) {
+	public void deleteCommerceShipmentItem(
+			long commerceShipmentItemId, boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceShipmentItemLocalService.deleteCommerceShipmentItem(
+			commerceShipmentItemId, restoreStockQuantity);
+	}
+
+	@Override
+	public void deleteCommerceShipmentItems(
+			long commerceShipmentId, boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		_commerceShipmentItemLocalService.deleteCommerceShipmentItems(
-			commerceShipment);
+			commerceShipmentId, restoreStockQuantity);
 	}
 
 	/**
@@ -229,10 +253,12 @@ public class CommerceShipmentItemLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.model.CommerceShipmentItem
 		fetchCommerceShipmentItem(
-			long commerceOrderItemId, long commerceInventoryWarehouseId) {
+			long commerceShipmentId, long commerceOrderItemId,
+			long commerceInventoryWarehouseId) {
 
 		return _commerceShipmentItemLocalService.fetchCommerceShipmentItem(
-			commerceOrderItemId, commerceInventoryWarehouseId);
+			commerceShipmentId, commerceOrderItemId,
+			commerceInventoryWarehouseId);
 	}
 
 	@Override

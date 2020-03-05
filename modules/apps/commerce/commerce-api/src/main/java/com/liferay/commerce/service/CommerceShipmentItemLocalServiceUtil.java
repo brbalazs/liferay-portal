@@ -90,6 +90,17 @@ public class CommerceShipmentItemLocalServiceUtil {
 		return getService().deleteCommerceShipmentItem(commerceShipmentItem);
 	}
 
+	public static com.liferay.commerce.model.CommerceShipmentItem
+			deleteCommerceShipmentItem(
+				com.liferay.commerce.model.CommerceShipmentItem
+					commerceShipmentItem,
+				boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().deleteCommerceShipmentItem(
+			commerceShipmentItem, restoreStockQuantity);
+	}
+
 	/**
 	 * Deletes the commerce shipment item with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
@@ -104,8 +115,20 @@ public class CommerceShipmentItemLocalServiceUtil {
 		return getService().deleteCommerceShipmentItem(commerceShipmentItemId);
 	}
 
-	public static void deleteCommerceShipmentItems(long commerceShipment) {
-		getService().deleteCommerceShipmentItems(commerceShipment);
+	public static void deleteCommerceShipmentItem(
+			long commerceShipmentItemId, boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteCommerceShipmentItem(
+			commerceShipmentItemId, restoreStockQuantity);
+	}
+
+	public static void deleteCommerceShipmentItems(
+			long commerceShipmentId, boolean restoreStockQuantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteCommerceShipmentItems(
+			commerceShipmentId, restoreStockQuantity);
 	}
 
 	/**
@@ -212,10 +235,12 @@ public class CommerceShipmentItemLocalServiceUtil {
 
 	public static com.liferay.commerce.model.CommerceShipmentItem
 		fetchCommerceShipmentItem(
-			long commerceOrderItemId, long commerceInventoryWarehouseId) {
+			long commerceShipmentId, long commerceOrderItemId,
+			long commerceInventoryWarehouseId) {
 
 		return getService().fetchCommerceShipmentItem(
-			commerceOrderItemId, commerceInventoryWarehouseId);
+			commerceShipmentId, commerceOrderItemId,
+			commerceInventoryWarehouseId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

@@ -1672,31 +1672,37 @@ public class CommerceShipmentItemPersistenceImpl
 	private static final String _FINDER_COLUMN_C_C_COMMERCEORDERITEMID_2 =
 		"commerceShipmentItem.commerceOrderItemId = ?";
 
-	private FinderPath _finderPathFetchByCO_C;
-	private FinderPath _finderPathCountByCO_C;
+	private FinderPath _finderPathFetchByC_C_C;
+	private FinderPath _finderPathCountByC_C_C;
 
 	/**
-	 * Returns the commerce shipment item where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or throws a <code>NoSuchShipmentItemException</code> if it could not be found.
+	 * Returns the commerce shipment item where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or throws a <code>NoSuchShipmentItemException</code> if it could not be found.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @return the matching commerce shipment item
 	 * @throws NoSuchShipmentItemException if a matching commerce shipment item could not be found
 	 */
 	@Override
-	public CommerceShipmentItem findByCO_C(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
+	public CommerceShipmentItem findByC_C_C(
+			long commerceShipmentId, long commerceOrderItemId,
+			long commerceInventoryWarehouseId)
 		throws NoSuchShipmentItemException {
 
-		CommerceShipmentItem commerceShipmentItem = fetchByCO_C(
-			commerceOrderItemId, commerceInventoryWarehouseId);
+		CommerceShipmentItem commerceShipmentItem = fetchByC_C_C(
+			commerceShipmentId, commerceOrderItemId,
+			commerceInventoryWarehouseId);
 
 		if (commerceShipmentItem == null) {
-			StringBundler sb = new StringBundler(6);
+			StringBundler sb = new StringBundler(8);
 
 			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			sb.append("commerceOrderItemId=");
+			sb.append("commerceShipmentId=");
+			sb.append(commerceShipmentId);
+
+			sb.append(", commerceOrderItemId=");
 			sb.append(commerceOrderItemId);
 
 			sb.append(", commerceInventoryWarehouseId=");
@@ -1715,38 +1721,43 @@ public class CommerceShipmentItemPersistenceImpl
 	}
 
 	/**
-	 * Returns the commerce shipment item where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the commerce shipment item where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @return the matching commerce shipment item, or <code>null</code> if a matching commerce shipment item could not be found
 	 */
 	@Override
-	public CommerceShipmentItem fetchByCO_C(
-		long commerceOrderItemId, long commerceInventoryWarehouseId) {
+	public CommerceShipmentItem fetchByC_C_C(
+		long commerceShipmentId, long commerceOrderItemId,
+		long commerceInventoryWarehouseId) {
 
-		return fetchByCO_C(
-			commerceOrderItemId, commerceInventoryWarehouseId, true);
+		return fetchByC_C_C(
+			commerceShipmentId, commerceOrderItemId,
+			commerceInventoryWarehouseId, true);
 	}
 
 	/**
-	 * Returns the commerce shipment item where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the commerce shipment item where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching commerce shipment item, or <code>null</code> if a matching commerce shipment item could not be found
 	 */
 	@Override
-	public CommerceShipmentItem fetchByCO_C(
-		long commerceOrderItemId, long commerceInventoryWarehouseId,
-		boolean useFinderCache) {
+	public CommerceShipmentItem fetchByC_C_C(
+		long commerceShipmentId, long commerceOrderItemId,
+		long commerceInventoryWarehouseId, boolean useFinderCache) {
 
 		Object[] finderArgs = null;
 
 		if (useFinderCache) {
 			finderArgs = new Object[] {
-				commerceOrderItemId, commerceInventoryWarehouseId
+				commerceShipmentId, commerceOrderItemId,
+				commerceInventoryWarehouseId
 			};
 		}
 
@@ -1754,14 +1765,16 @@ public class CommerceShipmentItemPersistenceImpl
 
 		if (useFinderCache) {
 			result = finderCache.getResult(
-				_finderPathFetchByCO_C, finderArgs, this);
+				_finderPathFetchByC_C_C, finderArgs, this);
 		}
 
 		if (result instanceof CommerceShipmentItem) {
 			CommerceShipmentItem commerceShipmentItem =
 				(CommerceShipmentItem)result;
 
-			if ((commerceOrderItemId !=
+			if ((commerceShipmentId !=
+					commerceShipmentItem.getCommerceShipmentId()) ||
+				(commerceOrderItemId !=
 					commerceShipmentItem.getCommerceOrderItemId()) ||
 				(commerceInventoryWarehouseId !=
 					commerceShipmentItem.getCommerceInventoryWarehouseId())) {
@@ -1771,13 +1784,15 @@ public class CommerceShipmentItemPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler sb = new StringBundler(5);
 
 			sb.append(_SQL_SELECT_COMMERCESHIPMENTITEM_WHERE);
 
-			sb.append(_FINDER_COLUMN_CO_C_COMMERCEORDERITEMID_2);
+			sb.append(_FINDER_COLUMN_C_C_C_COMMERCESHIPMENTID_2);
 
-			sb.append(_FINDER_COLUMN_CO_C_COMMERCEINVENTORYWAREHOUSEID_2);
+			sb.append(_FINDER_COLUMN_C_C_C_COMMERCEORDERITEMID_2);
+
+			sb.append(_FINDER_COLUMN_C_C_C_COMMERCEINVENTORYWAREHOUSEID_2);
 
 			String sql = sb.toString();
 
@@ -1790,6 +1805,8 @@ public class CommerceShipmentItemPersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
+				queryPos.add(commerceShipmentId);
+
 				queryPos.add(commerceOrderItemId);
 
 				queryPos.add(commerceInventoryWarehouseId);
@@ -1799,7 +1816,7 @@ public class CommerceShipmentItemPersistenceImpl
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						finderCache.putResult(
-							_finderPathFetchByCO_C, finderArgs, list);
+							_finderPathFetchByC_C_C, finderArgs, list);
 					}
 				}
 				else {
@@ -1813,7 +1830,7 @@ public class CommerceShipmentItemPersistenceImpl
 			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(
-						_finderPathFetchByCO_C, finderArgs);
+						_finderPathFetchByC_C_C, finderArgs);
 				}
 
 				throw processException(exception);
@@ -1832,50 +1849,58 @@ public class CommerceShipmentItemPersistenceImpl
 	}
 
 	/**
-	 * Removes the commerce shipment item where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; from the database.
+	 * Removes the commerce shipment item where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; from the database.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @return the commerce shipment item that was removed
 	 */
 	@Override
-	public CommerceShipmentItem removeByCO_C(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
+	public CommerceShipmentItem removeByC_C_C(
+			long commerceShipmentId, long commerceOrderItemId,
+			long commerceInventoryWarehouseId)
 		throws NoSuchShipmentItemException {
 
-		CommerceShipmentItem commerceShipmentItem = findByCO_C(
-			commerceOrderItemId, commerceInventoryWarehouseId);
+		CommerceShipmentItem commerceShipmentItem = findByC_C_C(
+			commerceShipmentId, commerceOrderItemId,
+			commerceInventoryWarehouseId);
 
 		return remove(commerceShipmentItem);
 	}
 
 	/**
-	 * Returns the number of commerce shipment items where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63;.
+	 * Returns the number of commerce shipment items where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63;.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @return the number of matching commerce shipment items
 	 */
 	@Override
-	public int countByCO_C(
-		long commerceOrderItemId, long commerceInventoryWarehouseId) {
+	public int countByC_C_C(
+		long commerceShipmentId, long commerceOrderItemId,
+		long commerceInventoryWarehouseId) {
 
-		FinderPath finderPath = _finderPathCountByCO_C;
+		FinderPath finderPath = _finderPathCountByC_C_C;
 
 		Object[] finderArgs = new Object[] {
-			commerceOrderItemId, commerceInventoryWarehouseId
+			commerceShipmentId, commerceOrderItemId,
+			commerceInventoryWarehouseId
 		};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler sb = new StringBundler(4);
 
 			sb.append(_SQL_COUNT_COMMERCESHIPMENTITEM_WHERE);
 
-			sb.append(_FINDER_COLUMN_CO_C_COMMERCEORDERITEMID_2);
+			sb.append(_FINDER_COLUMN_C_C_C_COMMERCESHIPMENTID_2);
 
-			sb.append(_FINDER_COLUMN_CO_C_COMMERCEINVENTORYWAREHOUSEID_2);
+			sb.append(_FINDER_COLUMN_C_C_C_COMMERCEORDERITEMID_2);
+
+			sb.append(_FINDER_COLUMN_C_C_C_COMMERCEINVENTORYWAREHOUSEID_2);
 
 			String sql = sb.toString();
 
@@ -1887,6 +1912,8 @@ public class CommerceShipmentItemPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(commerceShipmentId);
 
 				queryPos.add(commerceOrderItemId);
 
@@ -1909,11 +1936,14 @@ public class CommerceShipmentItemPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_CO_C_COMMERCEORDERITEMID_2 =
+	private static final String _FINDER_COLUMN_C_C_C_COMMERCESHIPMENTID_2 =
+		"commerceShipmentItem.commerceShipmentId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_C_C_COMMERCEORDERITEMID_2 =
 		"commerceShipmentItem.commerceOrderItemId = ? AND ";
 
 	private static final String
-		_FINDER_COLUMN_CO_C_COMMERCEINVENTORYWAREHOUSEID_2 =
+		_FINDER_COLUMN_C_C_C_COMMERCEINVENTORYWAREHOUSEID_2 =
 			"commerceShipmentItem.commerceInventoryWarehouseId = ?";
 
 	public CommerceShipmentItemPersistenceImpl() {
@@ -1933,8 +1963,9 @@ public class CommerceShipmentItemPersistenceImpl
 			commerceShipmentItem.getPrimaryKey(), commerceShipmentItem);
 
 		finderCache.putResult(
-			_finderPathFetchByCO_C,
+			_finderPathFetchByC_C_C,
 			new Object[] {
+				commerceShipmentItem.getCommerceShipmentId(),
 				commerceShipmentItem.getCommerceOrderItemId(),
 				commerceShipmentItem.getCommerceInventoryWarehouseId()
 			},
@@ -2037,14 +2068,16 @@ public class CommerceShipmentItemPersistenceImpl
 		CommerceShipmentItemModelImpl commerceShipmentItemModelImpl) {
 
 		Object[] args = new Object[] {
+			commerceShipmentItemModelImpl.getCommerceShipmentId(),
 			commerceShipmentItemModelImpl.getCommerceOrderItemId(),
 			commerceShipmentItemModelImpl.getCommerceInventoryWarehouseId()
 		};
 
 		finderCache.putResult(
-			_finderPathCountByCO_C, args, Long.valueOf(1), false);
+			_finderPathCountByC_C_C, args, Long.valueOf(1), false);
 		finderCache.putResult(
-			_finderPathFetchByCO_C, args, commerceShipmentItemModelImpl, false);
+			_finderPathFetchByC_C_C, args, commerceShipmentItemModelImpl,
+			false);
 	}
 
 	protected void clearUniqueFindersCache(
@@ -2053,25 +2086,27 @@ public class CommerceShipmentItemPersistenceImpl
 
 		if (clearCurrent) {
 			Object[] args = new Object[] {
+				commerceShipmentItemModelImpl.getCommerceShipmentId(),
 				commerceShipmentItemModelImpl.getCommerceOrderItemId(),
 				commerceShipmentItemModelImpl.getCommerceInventoryWarehouseId()
 			};
 
-			finderCache.removeResult(_finderPathCountByCO_C, args);
-			finderCache.removeResult(_finderPathFetchByCO_C, args);
+			finderCache.removeResult(_finderPathCountByC_C_C, args);
+			finderCache.removeResult(_finderPathFetchByC_C_C, args);
 		}
 
 		if ((commerceShipmentItemModelImpl.getColumnBitmask() &
-			 _finderPathFetchByCO_C.getColumnBitmask()) != 0) {
+			 _finderPathFetchByC_C_C.getColumnBitmask()) != 0) {
 
 			Object[] args = new Object[] {
+				commerceShipmentItemModelImpl.getOriginalCommerceShipmentId(),
 				commerceShipmentItemModelImpl.getOriginalCommerceOrderItemId(),
 				commerceShipmentItemModelImpl.
 					getOriginalCommerceInventoryWarehouseId()
 			};
 
-			finderCache.removeResult(_finderPathCountByCO_C, args);
-			finderCache.removeResult(_finderPathFetchByCO_C, args);
+			finderCache.removeResult(_finderPathCountByC_C_C, args);
+			finderCache.removeResult(_finderPathFetchByC_C_C, args);
 		}
 	}
 
@@ -2877,21 +2912,26 @@ public class CommerceShipmentItemPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_C",
 			new String[] {Long.class.getName(), Long.class.getName()});
 
-		_finderPathFetchByCO_C = new FinderPath(
+		_finderPathFetchByC_C_C = new FinderPath(
 			CommerceShipmentItemModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceShipmentItemModelImpl.FINDER_CACHE_ENABLED,
 			CommerceShipmentItemImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByCO_C",
-			new String[] {Long.class.getName(), Long.class.getName()},
+			"fetchByC_C_C",
+			new String[] {
+				Long.class.getName(), Long.class.getName(), Long.class.getName()
+			},
+			CommerceShipmentItemModelImpl.COMMERCESHIPMENTID_COLUMN_BITMASK |
 			CommerceShipmentItemModelImpl.COMMERCEORDERITEMID_COLUMN_BITMASK |
 			CommerceShipmentItemModelImpl.
 				COMMERCEINVENTORYWAREHOUSEID_COLUMN_BITMASK);
 
-		_finderPathCountByCO_C = new FinderPath(
+		_finderPathCountByC_C_C = new FinderPath(
 			CommerceShipmentItemModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceShipmentItemModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCO_C",
-			new String[] {Long.class.getName(), Long.class.getName()});
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_C_C",
+			new String[] {
+				Long.class.getName(), Long.class.getName(), Long.class.getName()
+			});
 	}
 
 	public void destroy() {

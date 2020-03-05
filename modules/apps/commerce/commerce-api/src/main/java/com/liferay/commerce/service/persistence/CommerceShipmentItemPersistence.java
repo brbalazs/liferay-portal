@@ -493,59 +493,68 @@ public interface CommerceShipmentItemPersistence
 	public int countByC_C(long commerceShipmentId, long commerceOrderItemId);
 
 	/**
-	 * Returns the commerce shipment item where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or throws a <code>NoSuchShipmentItemException</code> if it could not be found.
+	 * Returns the commerce shipment item where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or throws a <code>NoSuchShipmentItemException</code> if it could not be found.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @return the matching commerce shipment item
 	 * @throws NoSuchShipmentItemException if a matching commerce shipment item could not be found
 	 */
-	public CommerceShipmentItem findByCO_C(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
+	public CommerceShipmentItem findByC_C_C(
+			long commerceShipmentId, long commerceOrderItemId,
+			long commerceInventoryWarehouseId)
 		throws NoSuchShipmentItemException;
 
 	/**
-	 * Returns the commerce shipment item where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the commerce shipment item where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @return the matching commerce shipment item, or <code>null</code> if a matching commerce shipment item could not be found
 	 */
-	public CommerceShipmentItem fetchByCO_C(
-		long commerceOrderItemId, long commerceInventoryWarehouseId);
+	public CommerceShipmentItem fetchByC_C_C(
+		long commerceShipmentId, long commerceOrderItemId,
+		long commerceInventoryWarehouseId);
 
 	/**
-	 * Returns the commerce shipment item where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the commerce shipment item where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching commerce shipment item, or <code>null</code> if a matching commerce shipment item could not be found
 	 */
-	public CommerceShipmentItem fetchByCO_C(
-		long commerceOrderItemId, long commerceInventoryWarehouseId,
-		boolean useFinderCache);
+	public CommerceShipmentItem fetchByC_C_C(
+		long commerceShipmentId, long commerceOrderItemId,
+		long commerceInventoryWarehouseId, boolean useFinderCache);
 
 	/**
-	 * Removes the commerce shipment item where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; from the database.
+	 * Removes the commerce shipment item where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63; from the database.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @return the commerce shipment item that was removed
 	 */
-	public CommerceShipmentItem removeByCO_C(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
+	public CommerceShipmentItem removeByC_C_C(
+			long commerceShipmentId, long commerceOrderItemId,
+			long commerceInventoryWarehouseId)
 		throws NoSuchShipmentItemException;
 
 	/**
-	 * Returns the number of commerce shipment items where commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63;.
+	 * Returns the number of commerce shipment items where commerceShipmentId = &#63; and commerceOrderItemId = &#63; and commerceInventoryWarehouseId = &#63;.
 	 *
+	 * @param commerceShipmentId the commerce shipment ID
 	 * @param commerceOrderItemId the commerce order item ID
 	 * @param commerceInventoryWarehouseId the commerce inventory warehouse ID
 	 * @return the number of matching commerce shipment items
 	 */
-	public int countByCO_C(
-		long commerceOrderItemId, long commerceInventoryWarehouseId);
+	public int countByC_C_C(
+		long commerceShipmentId, long commerceOrderItemId,
+		long commerceInventoryWarehouseId);
 
 	/**
 	 * Caches the commerce shipment item in the entity cache if it is enabled.

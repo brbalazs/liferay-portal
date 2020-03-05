@@ -216,11 +216,12 @@ public class CommerceShipmentItemPersistenceTest {
 	}
 
 	@Test
-	public void testCountByCO_C() throws Exception {
-		_persistence.countByCO_C(
-			RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
+	public void testCountByC_C_C() throws Exception {
+		_persistence.countByC_C_C(
+			RandomTestUtil.nextLong(), RandomTestUtil.nextLong(),
+			RandomTestUtil.nextLong());
 
-		_persistence.countByCO_C(0L, 0L);
+		_persistence.countByC_C_C(0L, 0L, 0L);
 	}
 
 	@Test
@@ -503,6 +504,11 @@ public class CommerceShipmentItemPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCommerceShipmentItem.getPrimaryKey());
 
+		Assert.assertEquals(
+			Long.valueOf(existingCommerceShipmentItem.getCommerceShipmentId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingCommerceShipmentItem, "getOriginalCommerceShipmentId",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceShipmentItem.getCommerceOrderItemId()),
 			ReflectionTestUtil.<Long>invoke(
