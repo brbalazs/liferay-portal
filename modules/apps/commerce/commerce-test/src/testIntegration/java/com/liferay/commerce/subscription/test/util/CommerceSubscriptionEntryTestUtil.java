@@ -29,7 +29,7 @@ import com.liferay.commerce.test.util.CommerceTestUtil;
 public class CommerceSubscriptionEntryTestUtil {
 
 	public static void setUpCommerceSubscriptionEntry(
-			long groupId, long userId, long maxSubscriptionCycles,
+			long userId, long groupId, long maxSubscriptionCycles,
 			CommerceSubscriptionEntryHelper commerceSubscriptionEntryHelper)
 		throws Exception {
 
@@ -47,7 +47,7 @@ public class CommerceSubscriptionEntryTestUtil {
 			cpInstance.getCPDefinition());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			groupId, userId, 0);
+			userId, groupId, 0);
 
 		CommerceAddress commerceAddress =
 			CommerceTestUtil.addUserCommerceAddress(groupId, userId);

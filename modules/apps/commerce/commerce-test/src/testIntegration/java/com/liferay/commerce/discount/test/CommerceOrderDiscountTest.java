@@ -117,8 +117,7 @@ public class CommerceOrderDiscountTest {
 			commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceChannel.getSiteGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -234,8 +233,7 @@ public class CommerceOrderDiscountTest {
 			commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceChannel.getSiteGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 

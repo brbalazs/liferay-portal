@@ -98,7 +98,7 @@ public class CommercePriceListIndexerTest {
 		CommerceCatalog commerceCatalog = commerceCatalogs.get(0);
 
 		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(_group.getGroupId());
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());

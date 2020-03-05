@@ -38,6 +38,12 @@ public class CommerceCurrencyTestUtil {
 	public static CommerceCurrency addCommerceCurrency()
 		throws PortalException {
 
+		return addCommerceCurrency(RandomTestUtil.randomString());
+	}
+
+	public static CommerceCurrency addCommerceCurrency(String code)
+		throws PortalException {
+
 		Map<Locale, String> formatPatternMap = new HashMap();
 
 		formatPatternMap.put(
@@ -45,31 +51,6 @@ public class CommerceCurrencyTestUtil {
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext();
-
-		return CommerceCurrencyLocalServiceUtil.addCommerceCurrency(
-			serviceContext.getUserId(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomLocaleStringMap(), BigDecimal.ONE,
-			formatPatternMap, 2, 2, StringPool.BLANK, false,
-			RandomTestUtil.randomDouble(), true, serviceContext);
-	}
-
-	public static CommerceCurrency addCommerceCurrency(long groupId)
-		throws PortalException {
-
-		return addCommerceCurrency(groupId, RandomTestUtil.randomString());
-	}
-
-	public static CommerceCurrency addCommerceCurrency(
-			long groupId, String code)
-		throws PortalException {
-
-		Map<Locale, String> formatPatternMap = new HashMap();
-
-		formatPatternMap.put(
-			LocaleUtil.US, CommerceCurrencyConstants.DEFAULT_FORMAT_PATTERN);
-
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(groupId);
 
 		return CommerceCurrencyLocalServiceUtil.addCommerceCurrency(
 			serviceContext.getUserId(), code,

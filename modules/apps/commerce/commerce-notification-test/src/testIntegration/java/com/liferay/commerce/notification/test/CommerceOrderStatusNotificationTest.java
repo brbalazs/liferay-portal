@@ -84,8 +84,7 @@ public class CommerceOrderStatusNotificationTest {
 		_group = GroupTestUtil.addGroup(
 			_company.getCompanyId(), _user.getUserId(), 0);
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
-			_group.getGroupId());
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
 			_company.getCompanyId(), _group.getGroupId(), _user.getUserId());
@@ -129,7 +128,7 @@ public class CommerceOrderStatusNotificationTest {
 	@Test
 	public void testOrderStatusNotifications() throws Exception {
 		_commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_group.getGroupId(), _user.getUserId(),
+			_user.getUserId(), _group.getGroupId(),
 			_commerceCurrency.getCommerceCurrencyId());
 
 		CommerceTestUtil.addCheckoutDetailsToUserOrder(

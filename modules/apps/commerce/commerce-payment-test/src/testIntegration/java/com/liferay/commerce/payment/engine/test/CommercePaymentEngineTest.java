@@ -17,6 +17,7 @@ package com.liferay.commerce.payment.engine.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
@@ -34,7 +35,6 @@ import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
@@ -46,7 +46,6 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,19 +83,14 @@ public class CommercePaymentEngineTest {
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel();
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(
-				_company.getCompanyId(), _company.getGroupId(),
-				_user.getUserId());
-
-		serviceContext.setScopeGroupId(_commerceChannel.getSiteGroupId());
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		_commercePaymentMethodGroupRelLocalService.
 			addCommercePaymentMethodGroupRel(
+				_user.getUserId(), _commerceChannel.getGroupId(),
 				RandomTestUtil.randomLocaleStringMap(),
 				RandomTestUtil.randomLocaleStringMap(), null,
-				TestCommercePaymentMethod.KEY, Collections.emptyMap(), 99, true,
-				serviceContext);
+				TestCommercePaymentMethod.KEY, 99, true);
 
 		_commerceOrders = new ArrayList<>();
 
@@ -127,8 +121,8 @@ public class CommercePaymentEngineTest {
 		);
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_company.getGroupId(), _user.getUserId(), 0,
-			_commerceChannel.getSiteGroupId());
+			_user.getUserId(), _commerceChannel.getGroupId(),
+			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -137,11 +131,9 @@ public class CommercePaymentEngineTest {
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
-		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
-
 		CommerceCatalog commerceCatalog =
 			CommerceCatalogLocalServiceUtil.addCommerceCatalog(
-				RandomTestUtil.randomString(), commerceCurrency.getCode(),
+				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.toLanguageId(LocaleUtil.US), null,
 				ServiceContextTestUtil.getServiceContext(
 					_company.getGroupId()));
@@ -150,8 +142,7 @@ public class CommercePaymentEngineTest {
 			commerceCatalog.getGroupId());
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			CommerceInventoryTestUtil.addCommerceInventoryWarehouse(
-				_company.getGroupId());
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
 
 		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
 			_user.getUserId(), commerceInventoryWarehouse, cpInstance.getSku(),
@@ -209,8 +200,8 @@ public class CommercePaymentEngineTest {
 		);
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_company.getGroupId(), _user.getUserId(), 0,
-			_commerceChannel.getSiteGroupId());
+			_user.getUserId(), _commerceChannel.getGroupId(),
+			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -219,21 +210,17 @@ public class CommercePaymentEngineTest {
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
-		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
-
 		CommerceCatalog commerceCatalog =
 			CommerceCatalogLocalServiceUtil.addCommerceCatalog(
-				RandomTestUtil.randomString(), commerceCurrency.getCode(),
+				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.toLanguageId(LocaleUtil.US), null,
-				ServiceContextTestUtil.getServiceContext(
-					_company.getGroupId()));
+				ServiceContextTestUtil.getServiceContext());
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			commerceCatalog.getGroupId());
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			CommerceInventoryTestUtil.addCommerceInventoryWarehouse(
-				_company.getGroupId());
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
 
 		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
 			_user.getUserId(), commerceInventoryWarehouse, cpInstance.getSku(),
@@ -270,6 +257,7 @@ public class CommercePaymentEngineTest {
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
 	private CommerceChannel _commerceChannel;
+	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CommerceOrderEngine _commerceOrderEngine;

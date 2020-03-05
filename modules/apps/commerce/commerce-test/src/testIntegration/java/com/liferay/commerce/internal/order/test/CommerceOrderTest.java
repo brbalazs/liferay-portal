@@ -104,8 +104,7 @@ public class CommerceOrderTest {
 		_group = GroupTestUtil.addGroup();
 		_user = UserTestUtil.addUser(true);
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
-			_group.getGroupId());
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
 			_group.getGroupId());
@@ -162,11 +161,9 @@ public class CommerceOrderTest {
 				new long[] {_user.getUserId()},
 				new String[] {_user.getEmailAddress()}, _serviceContext);
 
-		long commerceChannelGroupId = _commerceChannel.getGroupId();
-
 		CommerceOrder commerceOrder =
 			_commerceOrderLocalService.addCommerceOrder(
-				_user.getUserId(), commerceChannelGroupId,
+				_user.getUserId(), _commerceChannel.getGroupId(),
 				commerceAccount.getCommerceAccountId(),
 				_commerceCurrency.getCommerceCurrencyId());
 
@@ -179,12 +176,12 @@ public class CommerceOrderTest {
 
 		CommerceOrder secondCommerceOrder =
 			_commerceOrderLocalService.addCommerceOrder(
-				secondUser.getUserId(), commerceChannelGroupId,
+				secondUser.getUserId(), _commerceChannel.getGroupId(),
 				secondCommerceAccount.getCommerceAccountId(),
 				_commerceCurrency.getCommerceCurrencyId());
 
 		List<CommerceOrder> commerceOrders = _getUserOrders(
-			commerceChannelGroupId, false);
+			_commerceChannel.getGroupId(), false);
 
 		Assert.assertEquals(
 			commerceOrders.toString(), 1, commerceOrders.size());
@@ -205,7 +202,7 @@ public class CommerceOrderTest {
 			new long[] {_user.getUserId()},
 			new String[] {_user.getEmailAddress()}, null, _serviceContext);
 
-		commerceOrders = _getUserOrders(commerceChannelGroupId, false);
+		commerceOrders = _getUserOrders(_commerceChannel.getGroupId(), false);
 
 		Assert.assertEquals(
 			commerceOrders.toString(), 2, commerceOrders.size());
@@ -213,7 +210,8 @@ public class CommerceOrderTest {
 		Assert.assertEquals(commerceOrder, commerceOrders.get(0));
 		Assert.assertEquals(secondCommerceOrder, commerceOrders.get(1));
 
-		_commerceOrderLocalService.deleteCommerceOrders(commerceChannelGroupId);
+		_commerceOrderLocalService.deleteCommerceOrders(
+			_commerceChannel.getGroupId());
 		_commerceAccountLocalService.deleteCommerceAccount(commerceAccount);
 		_commerceAccountLocalService.deleteCommerceAccount(
 			secondCommerceAccount);

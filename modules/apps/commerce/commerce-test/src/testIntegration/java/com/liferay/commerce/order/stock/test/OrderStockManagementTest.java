@@ -103,7 +103,7 @@ public class OrderStockManagementTest {
 		);
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceChannel.getSiteGroupId(),
+			_user.getUserId(), _commerceChannel.getGroupId(),
 			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
@@ -142,7 +142,7 @@ public class OrderStockManagementTest {
 		);
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceChannel.getSiteGroupId(),
+			_user.getUserId(), _commerceChannel.getGroupId(),
 			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
@@ -212,7 +212,7 @@ public class OrderStockManagementTest {
 		);
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceChannel.getSiteGroupId(),
+			_user.getUserId(), _commerceChannel.getGroupId(),
 			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
@@ -255,7 +255,7 @@ public class OrderStockManagementTest {
 		);
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceChannel.getSiteGroupId(),
+			_user.getUserId(), _commerceChannel.getGroupId(),
 			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
@@ -284,7 +284,7 @@ public class OrderStockManagementTest {
 		);
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceChannel.getSiteGroupId(),
+			_user.getUserId(), _commerceChannel.getGroupId(),
 			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
@@ -324,14 +324,14 @@ public class OrderStockManagementTest {
 		);
 
 		CommerceOrder commerceOrder1 = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceChannel.getSiteGroupId(),
+			_user.getUserId(), _commerceChannel.getGroupId(),
 			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder1);
 
 		CommerceOrder commerceOrder2 = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceOrder1.getCommerceAccountId(),
-			_commerceChannel.getSiteGroupId(), _commerceCurrency);
+			_user.getUserId(), _commerceChannel.getGroupId(),
+			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder2);
 

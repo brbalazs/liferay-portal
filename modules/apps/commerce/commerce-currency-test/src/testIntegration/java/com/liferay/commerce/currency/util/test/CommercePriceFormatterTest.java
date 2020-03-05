@@ -72,7 +72,7 @@ public class CommercePriceFormatterTest {
 		String regexFR = "^\\d{1,3}(.\\d{3})*,\\d\\d\\s[" + _SYMBOLS + "]$";
 
 		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(_group.getGroupId());
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		commerceCurrency.setFormatPattern("###,##0.00 $", LocaleUtil.FRANCE);
 
@@ -100,7 +100,7 @@ public class CommercePriceFormatterTest {
 		String regexIT = "^[" + _SYMBOLS + "]\\s\\d{1,3}(\\.\\d{3})*,\\d\\d$";
 
 		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(_group.getGroupId());
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		commerceCurrency.setFormatPattern("$ ###,##0.00", LocaleUtil.ITALY);
 
@@ -128,7 +128,7 @@ public class CommercePriceFormatterTest {
 		String regexUS = "^[" + _SYMBOLS + "]\\d{1,3}(\\,\\d{3})*\\.\\d\\d$";
 
 		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(_group.getGroupId());
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		commerceCurrency.setFormatPattern("$###,##0.00", LocaleUtil.US);
 

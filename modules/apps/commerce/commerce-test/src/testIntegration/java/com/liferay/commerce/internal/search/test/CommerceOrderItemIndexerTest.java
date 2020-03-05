@@ -107,7 +107,7 @@ public class CommerceOrderItemIndexerTest {
 			_group.getGroupId(), commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_group.getGroupId(), user.getUserId(),
+			user.getUserId(), _group.getGroupId(),
 			commerceCurrency.getCommerceCurrencyId());
 
 		for (int i = 0; i < count; i++) {

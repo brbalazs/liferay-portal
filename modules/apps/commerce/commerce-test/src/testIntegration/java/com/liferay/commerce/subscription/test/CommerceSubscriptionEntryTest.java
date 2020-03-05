@@ -77,6 +77,7 @@ public class CommerceSubscriptionEntryTest {
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
 		_user = UserTestUtil.addUser();
+		_commerceChannel = CommerceTestUtil.addCommerceChannel();
 	}
 
 	@Test
@@ -95,20 +96,14 @@ public class CommerceSubscriptionEntryTest {
 			"The product subscription entry is created"
 		);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
-		CommerceTestUtil.addCommerceChannel(
-			_group.getGroupId(), commerceCurrency.getCode());
-
 		CommerceSubscriptionEntryTestUtil.setUpCommerceSubscriptionEntry(
-			_group.getGroupId(), _user.getUserId(), 1,
+			_commerceChannel.getGroupId(), _user.getUserId(), 1,
 			_commerceSubscriptionEntryHelper);
 
 		int commerceSubscriptionEntriesCount =
 			_commerceSubscriptionEntryLocalService.
 				getCommerceSubscriptionEntriesCount(
-					_group.getCompanyId(), _user.getUserId());
+					_commerceChannel.getGroupId(), _user.getUserId());
 
 		Assert.assertEquals(1, commerceSubscriptionEntriesCount);
 	}
@@ -238,18 +233,14 @@ public class CommerceSubscriptionEntryTest {
 		CommerceCurrency commerceCurrency =
 			CommerceCurrencyTestUtil.addCommerceCurrency();
 
-		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			commerceCurrency.getCode());
-
 		CommerceChannelRelLocalServiceUtil.addCommerceChannelRel(
 			CPDefinition.class.getName(), cpDefinition.getCPDefinitionId(),
-			commerceChannel.getCommerceChannelId(),
+			_commerceChannel.getCommerceChannelId(),
 			ServiceContextTestUtil.getServiceContext(
-				commerceChannel.getGroupId()));
+				_commerceChannel.getGroupId()));
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceChannel.getSiteGroupId(),
-			commerceCurrency);
+			_user.getUserId(), _commerceChannel.getGroupId(), commerceCurrency);
 
 		List<CPInstance> cpInstances =
 			_cpInstanceLocalService.getCPDefinitionInstances(
@@ -360,6 +351,9 @@ public class CommerceSubscriptionEntryTest {
 			}
 		}
 	}
+
+	@DeleteAfterTestRun
+	private CommerceChannel _commerceChannel;
 
 	@Inject
 	private CommerceSubscriptionEntryHelper _commerceSubscriptionEntryHelper;

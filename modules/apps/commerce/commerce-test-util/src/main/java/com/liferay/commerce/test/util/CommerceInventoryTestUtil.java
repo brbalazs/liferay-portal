@@ -46,55 +46,31 @@ public class CommerceInventoryTestUtil {
 	public static CommerceInventoryWarehouse addCommerceInventoryWarehouse()
 		throws Exception {
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext();
-
-		CommerceCountry commerceCountry = _setUpCountry(serviceContext);
-
-		CommerceRegion commerceRegion = _setUpRegion(
-			commerceCountry, serviceContext);
-
-		return CommerceInventoryWarehouseLocalServiceUtil.
-			addCommerceInventoryWarehouse(
-				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-				true, RandomTestUtil.randomString(),
-				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-				RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-				commerceRegion.getCode(),
-				commerceCountry.getTwoLettersISOCode(),
-				RandomTestUtil.nextDouble(), RandomTestUtil.nextDouble(), null,
-				serviceContext);
+		return addCommerceInventoryWarehouse(
+			RandomTestUtil.randomString(), true);
 	}
 
 	public static CommerceInventoryWarehouse addCommerceInventoryWarehouse(
-			long groupId)
+			boolean active)
 		throws Exception {
 
 		return addCommerceInventoryWarehouse(
-			groupId, RandomTestUtil.randomString(), true);
+			RandomTestUtil.randomString(), active);
 	}
 
 	public static CommerceInventoryWarehouse addCommerceInventoryWarehouse(
-			long groupId, boolean active)
+			String name)
 		throws Exception {
 
-		return addCommerceInventoryWarehouse(
-			groupId, RandomTestUtil.randomString(), active);
+		return addCommerceInventoryWarehouse(name, true);
 	}
 
 	public static CommerceInventoryWarehouse addCommerceInventoryWarehouse(
-			long groupId, String name)
-		throws Exception {
-
-		return addCommerceInventoryWarehouse(groupId, name, true);
-	}
-
-	public static CommerceInventoryWarehouse addCommerceInventoryWarehouse(
-			long groupId, String name, boolean active)
+			String name, boolean active)
 		throws Exception {
 
 		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(groupId);
+			ServiceContextTestUtil.getServiceContext();
 
 		CommerceCountry commerceCountry = _setUpCountry(serviceContext);
 
@@ -133,7 +109,7 @@ public class CommerceInventoryTestUtil {
 		throws Exception {
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			addCommerceInventoryWarehouse(serviceContext.getScopeGroupId());
+			addCommerceInventoryWarehouse();
 
 		CommerceChannelRelLocalServiceUtil.addCommerceChannelRel(
 			CommerceInventoryWarehouse.class.getName(),

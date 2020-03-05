@@ -84,7 +84,7 @@ public class CommerceCheckoutTest {
 			_group.getGroupId(), commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_group.getGroupId(), _user.getUserId(),
+			_user.getUserId(), _group.getGroupId(),
 			commerceCurrency.getCommerceCurrencyId());
 
 		CommerceTestUtil.addCheckoutDetailsToUserOrder(
