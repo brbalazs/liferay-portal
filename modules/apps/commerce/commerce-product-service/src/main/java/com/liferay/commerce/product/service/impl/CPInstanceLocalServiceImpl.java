@@ -564,6 +564,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		cpInstancePersistence.remove(cpInstance);
 
+		cpInstanceOptionValueRelPersistence.removeByCPInstanceId(
+			cpInstance.getCPInstanceId());
+
 		// Expando
 
 		expandoRowLocalService.deleteRows(cpInstance.getCPInstanceId());
