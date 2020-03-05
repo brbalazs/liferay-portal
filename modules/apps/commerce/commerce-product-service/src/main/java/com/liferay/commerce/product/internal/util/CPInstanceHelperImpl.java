@@ -330,51 +330,6 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	}
 
 	@Override
-	public List<CPDefinitionOptionValueRel> getCPDefinitionOptionValueRels(
-		long cpDefinitionId, String cpDefinitionOptionRelKey) {
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			_cpDefinitionOptionRelLocalService.fetchCPDefinitionOptionRelByKey(
-				cpDefinitionId, cpDefinitionOptionRelKey);
-
-		List<CPInstanceOptionValueRel> cpDefinitionCPInstanceOptionValueRels =
-			_cpInstanceOptionValueRelLocalService.
-				getCPDefinitionCPInstanceOptionValueRels(cpDefinitionId);
-
-		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-			new ArrayList<>();
-
-		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
-				cpDefinitionCPInstanceOptionValueRels) {
-
-			if (cpDefinitionOptionRel.getCPDefinitionOptionRelId() !=
-					cpInstanceOptionValueRel.getCPDefinitionOptionRelId()) {
-
-				continue;
-			}
-
-			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-				_cpDefinitionOptionValueRelLocalService.
-					fetchCPDefinitionOptionValueRel(
-						cpInstanceOptionValueRel.
-							getCPDefinitionOptionValueRelId());
-
-			if ((cpDefinitionOptionValueRel != null) &&
-				!cpDefinitionOptionValueRels.contains(
-					cpDefinitionOptionValueRel)) {
-
-				cpDefinitionOptionValueRels.add(cpDefinitionOptionValueRel);
-			}
-		}
-
-		Collections.sort(
-			cpDefinitionOptionValueRels,
-			new CPDefinitionOptionValueRelPriorityComparator(true));
-
-		return cpDefinitionOptionValueRels;
-	}
-
-	@Override
 	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 			getCPInstanceCPDefinitionOptionRelsMap(long cpInstanceId)
 		throws PortalException {
@@ -416,6 +371,48 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		}
 
 		return cpDefinitionOptionRelsMap;
+	}
+
+	@Override
+	public List<CPDefinitionOptionValueRel>
+		getCPInstanceCPDefinitionOptionValueRels(
+			long cpDefinitionId, long cpDefinitionOptionRelId) {
+
+		List<CPInstanceOptionValueRel> cpDefinitionCPInstanceOptionValueRels =
+			_cpInstanceOptionValueRelLocalService.
+				getCPDefinitionCPInstanceOptionValueRels(cpDefinitionId);
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			new ArrayList<>();
+
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+				cpDefinitionCPInstanceOptionValueRels) {
+
+			if (cpDefinitionOptionRelId !=
+					cpInstanceOptionValueRel.getCPDefinitionOptionRelId()) {
+
+				continue;
+			}
+
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+				_cpDefinitionOptionValueRelLocalService.
+					fetchCPDefinitionOptionValueRel(
+						cpInstanceOptionValueRel.
+							getCPDefinitionOptionValueRelId());
+
+			if ((cpDefinitionOptionValueRel != null) &&
+				!cpDefinitionOptionValueRels.contains(
+					cpDefinitionOptionValueRel)) {
+
+				cpDefinitionOptionValueRels.add(cpDefinitionOptionValueRel);
+			}
+		}
+
+		Collections.sort(
+			cpDefinitionOptionValueRels,
+			new CPDefinitionOptionValueRelPriorityComparator(true));
+
+		return cpDefinitionOptionValueRels;
 	}
 
 	@Override
@@ -911,8 +908,10 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels = null;
 
 			if (cpDefinitionOptionRel.isSkuContributor() && publicStore) {
-				cpDefinitionOptionValueRels = getCPDefinitionOptionValueRels(
-					cpDefinitionId, cpDefinitionOptionRel.getKey());
+				cpDefinitionOptionValueRels =
+					getCPInstanceCPDefinitionOptionValueRels(
+						cpDefinitionId,
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId());
 			}
 			else {
 				cpDefinitionOptionValueRels =
