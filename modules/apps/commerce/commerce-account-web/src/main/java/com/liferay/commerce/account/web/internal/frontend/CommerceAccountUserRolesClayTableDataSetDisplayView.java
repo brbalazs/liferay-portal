@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.model.UserGroupRole;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -63,11 +64,11 @@ public class CommerceAccountUserRolesClayTableDataSetDisplayView
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
 
 		CommerceAccount commerceAccount =
-			_commerceAccountService.getCommerceAccount(
-				accountFilterImpl.getAccountId());
+			_commerceAccountService.getCommerceAccount(commerceAccountId);
 
 		return _userGroupRoleLocalService.getUserGroupRolesCount(
 			_portal.getUserId(httpServletRequest),
@@ -90,19 +91,19 @@ public class CommerceAccountUserRolesClayTableDataSetDisplayView
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
+
 		CommerceAccount commerceAccount =
-			_commerceAccountService.getCommerceAccount(
-				accountFilterImpl.getAccountId());
+			_commerceAccountService.getCommerceAccount(commerceAccountId);
 
 		List<UserGroupRole> userGroupRoles =
 			_userGroupRoleLocalService.getUserGroupRoles(
-				accountFilterImpl.getUserId(),
+				commerceAccount.getCommerceAccountId(),
 				commerceAccount.getCommerceAccountGroupId(),
 				pagination.getStartPosition(), pagination.getEndPosition());
 

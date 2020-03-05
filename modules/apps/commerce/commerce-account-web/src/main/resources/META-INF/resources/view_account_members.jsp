@@ -19,12 +19,19 @@
 <%
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
+CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommerceAccount();
+
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("commerceAccountId", String.valueOf(commerceAccount.getCommerceAccountId()));
+
 PortletURL portletURL = currentURLObj;
 
 portletURL.setParameter(PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL", backURL);
 %>
 
 <commerce-ui:dataset-display
+	contextParams="<%= contextParams %>"
 	dataProviderKey="<%= CommerceAccountUserClayDataSetDataSetDisplayView.NAME %>"
 	id="<%= CommerceAccountUserClayDataSetDataSetDisplayView.NAME %>"
 	itemsPerPage="<%= 10 %>"

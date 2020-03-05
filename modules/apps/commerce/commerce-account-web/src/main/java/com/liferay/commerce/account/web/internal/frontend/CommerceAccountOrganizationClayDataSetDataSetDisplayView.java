@@ -109,11 +109,11 @@ public class CommerceAccountOrganizationClayDataSetDataSetDisplayView
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
 
 		return _commerceAccountOrganizationRelService.
-			getCommerceAccountOrganizationRelsCount(
-				accountFilterImpl.getAccountId());
+			getCommerceAccountOrganizationRelsCount(commerceAccountId);
 	}
 
 	@Override
@@ -133,15 +133,16 @@ public class CommerceAccountOrganizationClayDataSetDataSetDisplayView
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
-
 		List<Organization> organizations = new ArrayList<>();
+
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
 
 		List<CommerceAccountOrganizationRel> commerceAccountOrganizationRels =
 			_commerceAccountOrganizationRelService.
 				getCommerceAccountOrganizationRels(
-					accountFilterImpl.getAccountId(),
-					pagination.getStartPosition(), pagination.getEndPosition());
+					commerceAccountId, pagination.getStartPosition(),
+					pagination.getEndPosition());
 
 		for (CommerceAccountOrganizationRel commerceAccountOrganizationRel :
 				commerceAccountOrganizationRels) {

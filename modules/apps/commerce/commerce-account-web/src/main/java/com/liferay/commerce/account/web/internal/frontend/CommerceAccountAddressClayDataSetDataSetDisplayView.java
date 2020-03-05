@@ -126,15 +126,16 @@ public class CommerceAccountAddressClayDataSetDataSetDisplayView
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
+
 		return _commerceAddressService.getCommerceAddressesCountByCompanyId(
 			themeDisplay.getCompanyId(), CommerceAccount.class.getName(),
-			accountFilterImpl.getAccountId());
+			commerceAccountId);
 	}
 
 	@Override
@@ -156,18 +157,19 @@ public class CommerceAccountAddressClayDataSetDataSetDisplayView
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
+		List<Address> addresses = new ArrayList<>();
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		List<Address> addresses = new ArrayList<>();
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
 
 		List<CommerceAddress> commerceAddresses =
 			_commerceAddressService.getCommerceAddressesByCompanyId(
 				themeDisplay.getCompanyId(), CommerceAccount.class.getName(),
-				accountFilterImpl.getAccountId(), pagination.getStartPosition(),
+				commerceAccountId, pagination.getStartPosition(),
 				pagination.getEndPosition(), null);
 
 		for (CommerceAddress commerceAddress : commerceAddresses) {

@@ -23,6 +23,10 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 User selectedUser = commerceAccountDisplayContext.getSelectedUser();
 PortletURL portletURL = commerceAccountDisplayContext.getPortletURL();
 
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("commerceAccountId", String.valueOf(commerceAccount.getCommerceAccountId()));
+
 portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccountUser");
 portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 %>
@@ -72,6 +76,7 @@ portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 
 	<div class="commerce-account-container">
 		<commerce-ui:dataset-display
+			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceAccountUserRolesClayTableDataSetDisplayView.NAME %>"
 			id="<%= CommerceAccountUserRolesClayTableDataSetDisplayView.NAME %>"
 			itemsPerPage="<%= 10 %>"

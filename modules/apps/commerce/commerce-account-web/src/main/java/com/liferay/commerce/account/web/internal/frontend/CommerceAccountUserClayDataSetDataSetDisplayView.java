@@ -132,10 +132,11 @@ public class CommerceAccountUserClayDataSetDataSetDisplayView
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
 
 		return _commerceAccountUserRelService.getCommerceAccountUserRelsCount(
-			accountFilterImpl.getAccountId());
+			commerceAccountId);
 	}
 
 	@Override
@@ -158,13 +159,14 @@ public class CommerceAccountUserClayDataSetDataSetDisplayView
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
-
 		List<Member> members = new ArrayList<>();
+
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
 
 		List<CommerceAccountUserRel> commerceAccountUserRels =
 			_commerceAccountUserRelService.getCommerceAccountUserRels(
-				accountFilterImpl.getAccountId(), pagination.getStartPosition(),
+				commerceAccountId, pagination.getStartPosition(),
 				pagination.getEndPosition());
 
 		for (CommerceAccountUserRel commerceAccountUserRel :
@@ -173,12 +175,11 @@ public class CommerceAccountUserClayDataSetDataSetDisplayView
 			User user = commerceAccountUserRel.getUser();
 
 			CommerceAccount commerceAccount =
-				_commerceAccountService.getCommerceAccount(
-					accountFilterImpl.getAccountId());
+				_commerceAccountService.getCommerceAccount(commerceAccountId);
 
 			members.add(
 				new Member(
-					user.getUserId(), accountFilterImpl.getAccountId(),
+					user.getUserId(), commerceAccountId,
 					HtmlUtil.escape(user.getFullName()), user.getEmailAddress(),
 					getUserRoles(
 						user, commerceAccount.getCommerceAccountGroupId()),

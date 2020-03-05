@@ -67,7 +67,9 @@ page import="com.liferay.portal.kernel.webserver.WebServerServletTokenUtil" %><%
 page import="com.liferay.portal.security.auth.ScreenNameValidatorFactory" %><%@
 page import="com.liferay.users.admin.configuration.UserFileUploadsConfiguration" %>
 
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.HashMap" %><%@
+page import="java.util.List" %><%@
+page import="java.util.Map" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 

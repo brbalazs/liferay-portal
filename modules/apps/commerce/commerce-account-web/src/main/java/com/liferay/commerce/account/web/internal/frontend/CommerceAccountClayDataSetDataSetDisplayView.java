@@ -164,8 +164,6 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
-
 		CommerceContext commerceContext = _commerceContextFactory.create(
 			themeDisplay.getCompanyId(),
 			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
@@ -175,8 +173,7 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 		return _commerceAccountService.getUserCommerceAccountsCount(
 			_portal.getUserId(httpServletRequest),
 			CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
-			commerceContext.getCommerceSiteType(),
-			accountFilterImpl.getKeywords());
+			commerceContext.getCommerceSiteType(), filter.getKeywords());
 	}
 
 	@Override
@@ -215,8 +212,6 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 
 		List<Account> accounts = new ArrayList<>();
 
-		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
-
 		CommerceContext commerceContext = _commerceContextFactory.create(
 			themeDisplay.getCompanyId(),
 			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
@@ -227,9 +222,8 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 			_commerceAccountService.getUserCommerceAccounts(
 				_portal.getUserId(httpServletRequest),
 				CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
-				commerceContext.getCommerceSiteType(),
-				accountFilterImpl.getKeywords(), pagination.getStartPosition(),
-				pagination.getEndPosition());
+				commerceContext.getCommerceSiteType(), filter.getKeywords(),
+				pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (CommerceAccount commerceAccount : commerceAccounts) {
 			StringBundler thumbnailSB = new StringBundler(5);

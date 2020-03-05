@@ -18,9 +18,16 @@
 
 <%
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommerceAccount();
+
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("commerceAccountId", String.valueOf(commerceAccount.getCommerceAccountId()));
 %>
 
 <commerce-ui:dataset-display
+	contextParams="<%= contextParams %>"
 	dataProviderKey="<%= CommerceAccountOrganizationClayDataSetDataSetDisplayView.NAME %>"
 	id="<%= CommerceAccountOrganizationClayDataSetDataSetDisplayView.NAME %>"
 	itemsPerPage="<%= 10 %>"
