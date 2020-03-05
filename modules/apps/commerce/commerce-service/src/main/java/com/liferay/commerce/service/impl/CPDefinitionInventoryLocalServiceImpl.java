@@ -17,7 +17,6 @@ package com.liferay.commerce.service.impl;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
-import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.commerce.service.base.CPDefinitionInventoryLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -89,44 +88,6 @@ public class CPDefinitionInventoryLocalServiceImpl
 		cpDefinitionInventory.setMultipleOrderQuantity(multipleOrderQuantity);
 
 		return cpDefinitionInventoryPersistence.update(cpDefinitionInventory);
-	}
-
-	/**
-	 * Adds new CP definition inventory.
-	 *
-	 * @param      cpDefinitionId
-	 * @param      cpDefinitionInventoryEngine
-	 * @param      lowStockActivity
-	 * @param      displayAvailability
-	 * @param      displayStockQuantity
-	 * @param      minStockQuantity
-	 * @param      backOrders
-	 * @param      minOrderQuantity
-	 * @param      maxOrderQuantity
-	 * @param      allowedOrderQuantities
-	 * @param      multipleOrderQuantity
-	 * @param      serviceContext
-	 * @throws     PortalException
-	 * @deprecated As of Mueller (7.2.x), see {@link
-	 *             #addCPDefinitionInventory(long, String, String, boolean,
-	 *             boolean, int, boolean, int, int, String, int)}
-	 */
-	@Deprecated
-	@Override
-	public CPDefinitionInventory addCPDefinitionInventory(
-			long cpDefinitionId, String cpDefinitionInventoryEngine,
-			String lowStockActivity, boolean displayAvailability,
-			boolean displayStockQuantity, int minStockQuantity,
-			boolean backOrders, int minOrderQuantity, int maxOrderQuantity,
-			String allowedOrderQuantities, int multipleOrderQuantity,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		return cpDefinitionInventoryLocalService.addCPDefinitionInventory(
-			cpDefinitionId, cpDefinitionInventoryEngine, lowStockActivity,
-			displayAvailability, displayStockQuantity, minStockQuantity,
-			backOrders, minOrderQuantity, maxOrderQuantity,
-			allowedOrderQuantities, multipleOrderQuantity);
 	}
 
 	@Override
@@ -252,48 +213,7 @@ public class CPDefinitionInventoryLocalServiceImpl
 		return cpDefinitionInventoryPersistence.update(cpDefinitionInventory);
 	}
 
-	/**
-	 * Updates CP definition entry.
-	 *
-	 * @param      cpDefinitionInventoryId
-	 * @param      cpDefinitionInventoryEngine
-	 * @param      lowStockActivity
-	 * @param      displayAvailability
-	 * @param      displayStockQuantity
-	 * @param      minStockQuantity
-	 * @param      backOrders
-	 * @param      minOrderQuantity
-	 * @param      maxOrderQuantity
-	 * @param      allowedOrderQuantities
-	 * @param      multipleOrderQuantity
-	 * @param      serviceContext
-	 * @throws     PortalException
-	 * @deprecated As of Mueller (7.2.x), use {@link
-	 *             #updateCPDefinitionInventory(long, String, String, boolean,
-	 *             boolean, int, boolean, int, int, String, int)}
-	 */
-	@Deprecated
-	@Override
-	public CPDefinitionInventory updateCPDefinitionInventory(
-			long cpDefinitionInventoryId, String cpDefinitionInventoryEngine,
-			String lowStockActivity, boolean displayAvailability,
-			boolean displayStockQuantity, int minStockQuantity,
-			boolean backOrders, int minOrderQuantity, int maxOrderQuantity,
-			String allowedOrderQuantities, int multipleOrderQuantity,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		return cpDefinitionInventoryLocalService.updateCPDefinitionInventory(
-			cpDefinitionInventoryId, cpDefinitionInventoryEngine,
-			lowStockActivity, displayAvailability, displayStockQuantity,
-			minStockQuantity, backOrders, minOrderQuantity, maxOrderQuantity,
-			allowedOrderQuantities, multipleOrderQuantity);
-	}
-
 	@ServiceReference(type = CPDefinitionLocalService.class)
 	private CPDefinitionLocalService _cpDefinitionLocalService;
-
-	@ServiceReference(type = CProductLocalService.class)
-	private CProductLocalService _cProductLocalService;
 
 }
