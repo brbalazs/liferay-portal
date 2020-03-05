@@ -157,13 +157,10 @@ public class CommerceTestUtil {
 			CPDefinition cpDefinition)
 		throws PortalException {
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(cpDefinition.getGroupId());
-
 		return CPDefinitionInventoryLocalServiceUtil.addCPDefinitionInventory(
 			cpDefinition.getCPDefinitionId(), StringPool.BLANK,
 			StringPool.BLANK, false, false, 0, true, 1, 10000, StringPool.BLANK,
-			0, serviceContext);
+			0);
 	}
 
 	public static CommerceOrder addCheckoutDetailsToUserOrder(
