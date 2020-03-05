@@ -102,24 +102,6 @@ public class CommerceShippingMethodLocalServiceImpl
 		return commerceShippingMethod;
 	}
 
-	@Deprecated
-	@Override
-	public CommerceShippingMethod addCommerceShippingMethod(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			File imageFile, String engineKey, double priority, boolean active,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		// Commerce shipping method
-
-		User user = userLocalService.getUser(serviceContext.getUserId());
-		long groupId = serviceContext.getScopeGroupId();
-
-		return commerceShippingMethodLocalService.addCommerceShippingMethod(
-			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-			nameMap, descriptionMap, imageFile, engineKey, priority, active);
-	}
-
 	@Override
 	public void deleteCommerceAddressRestriction(
 			long commerceAddressRestrictionId)
