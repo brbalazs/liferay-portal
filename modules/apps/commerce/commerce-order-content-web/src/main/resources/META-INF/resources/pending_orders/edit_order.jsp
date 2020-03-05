@@ -272,13 +272,15 @@ List<CommerceAddress> billingAddresses = commerceOrderContentDisplayContext.getB
 	</liferay-ui:icon-menu>
 
 	<div class="commerce-cta is-visible">
-		<clay:button
-			elementClasses="btn-fixed btn-secondary"
-			label='<%= LanguageUtil.get(request, "save") %>'
-			size="lg"
-			style="secondary"
-			type="submit"
-		/>
+		<c:if test="<%= commerceOrderContentDisplayContext.hasModelPermission(commerceOrder, ActionKeys.UPDATE) %>">
+			<clay:button
+				elementClasses="btn-fixed btn-secondary"
+				label='<%= LanguageUtil.get(request, "save") %>'
+				size="lg"
+				style="secondary"
+				type="submit"
+			/>
+		</c:if>
 
 		<liferay-commerce:order-transitions
 			commerceOrderId="<%= commerceOrder.getCommerceOrderId() %>"
