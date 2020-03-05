@@ -19,6 +19,14 @@
 <%
 String backURL = ParamUtil.getString(request, "backURL");
 
+PortletURL homeURL = renderResponse.createRenderURL();
+
+homeURL.setParameter("mvcPath", "/view.jsp");
+
+if (Validator.isNull(backURL)) {
+	backURL = homeURL.toString();
+}
+
 long userGroupId = ParamUtil.getLong(request, "userGroupId");
 
 UserGroup userGroup = UserGroupServiceUtil.fetchUserGroup(userGroupId);
@@ -32,14 +40,6 @@ else {
 	portalPreferences.setValue(UserGroupsAdminPortletKeys.USER_GROUPS_ADMIN, "users-display-style", displayStyle);
 
 	request.setAttribute(WebKeys.SINGLE_PAGE_APPLICATION_CLEAR_CACHE, Boolean.TRUE);
-}
-
-PortletURL homeURL = renderResponse.createRenderURL();
-
-homeURL.setParameter("mvcPath", "/view.jsp");
-
-if (Validator.isNull(backURL)) {
-	backURL = homeURL.toString();
 }
 
 portletDisplay.setShowBackIcon(true);
