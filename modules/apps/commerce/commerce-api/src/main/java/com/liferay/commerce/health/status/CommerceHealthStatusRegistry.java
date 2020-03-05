@@ -12,23 +12,20 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.servlet.taglib.ui;
+package com.liferay.commerce.health.status;
+
+import aQute.bnd.annotation.ProviderType;
+
+import java.util.List;
 
 /**
- * @author Andrea Di Giorgi
- * @author Ethan Bustad
+ * @author Marco Leo
  */
-public class CommerceOrderFormNavigatorConstants {
+@ProviderType
+public interface CommerceHealthStatusRegistry {
 
-	public static final String CATEGORY_KEY_COMMERCE_ORDER_DETAILS = "details";
+	public CommerceHealthStatus getCommerceHealthStatus(String key);
 
-	public static final String CATEGORY_KEY_COMMERCE_ORDER_ITEM_DETAILS =
-		"details";
-
-	public static final String FORM_NAVIGATOR_ID_COMMERCE_ORDER_DETAILS =
-		"commerce.order.details.form";
-
-	public static final String FORM_NAVIGATOR_ID_COMMERCE_ORDER_ITEM_DETAILS =
-		"commerce.order.item.details.form";
+	public List<CommerceHealthStatus> getCommerceHealthStatuses(int type);
 
 }

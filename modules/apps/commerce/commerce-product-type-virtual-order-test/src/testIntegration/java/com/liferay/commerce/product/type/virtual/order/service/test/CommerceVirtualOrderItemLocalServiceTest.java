@@ -17,6 +17,7 @@ package com.liferay.commerce.product.type.virtual.order.service.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -105,15 +106,15 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 			"I should be able to see the created virtual order item"
 		);
 
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency();
+
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel();
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_company.getGroupId(), _user.getUserId(), 0,
-			commerceChannel.getSiteGroupId());
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
-
-		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 
 		CommerceCatalog commerceCatalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
@@ -192,15 +193,15 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 			"I should be able to see the created virtual order item"
 		);
 
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency();
+
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel();
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_company.getGroupId(), _user.getUserId(), 0,
-			commerceChannel.getSiteGroupId());
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
-
-		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 
 		CommerceCatalog commerceCatalog =
 			_commerceCatalogLocalService.addCommerceCatalog(

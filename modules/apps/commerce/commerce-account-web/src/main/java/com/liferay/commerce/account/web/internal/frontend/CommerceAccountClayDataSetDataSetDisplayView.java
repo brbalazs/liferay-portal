@@ -33,6 +33,7 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
 import com.liferay.commerce.model.CommerceAddress;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -166,7 +167,9 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),
+			themeDisplay.getCompanyId(),
+			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
+				themeDisplay.getScopeGroupId()),
 			_portal.getUserId(httpServletRequest), 0, 0);
 
 		return _commerceAccountService.getUserCommerceAccountsCount(
@@ -215,7 +218,9 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 		AccountFilterImpl accountFilterImpl = (AccountFilterImpl)filter;
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),
+			themeDisplay.getCompanyId(),
+			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
+				themeDisplay.getScopeGroupId()),
 			_portal.getUserId(httpServletRequest), 0, 0);
 
 		List<CommerceAccount> commerceAccounts =
@@ -329,6 +334,9 @@ public class CommerceAccountClayDataSetDataSetDisplayView
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceContextFactory _commerceContextFactory;

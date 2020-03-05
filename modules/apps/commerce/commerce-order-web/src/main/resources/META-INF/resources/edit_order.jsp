@@ -58,7 +58,6 @@ else {
 	thumbnailUrl="<%= commerceOrderEditDisplayContext.getCommerceAccountThumbnailURL() %>"
 	title="<%= headerTitle %>"
 	transitionPortletURL="<%= commerceOrderEditDisplayContext.getTransitionOrderPortletURL() %>"
-	wrapperCssClasses="side-panel-top-anchor"
 />
 
 <liferay-ui:error embed="<%= false %>" exception="<%= CommerceOrderBillingAddressException.class %>" message="the-order-selected-needs-a-billing-address" />

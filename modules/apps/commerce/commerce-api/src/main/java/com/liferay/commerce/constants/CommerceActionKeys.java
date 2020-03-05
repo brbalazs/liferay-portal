@@ -34,9 +34,6 @@ public class CommerceActionKeys {
 	public static final String MANAGE_COMMERCE_ORDER_PRICES =
 		"MANAGE_COMMERCE_ORDER_PRICES";
 
-	public static final String MANAGE_COMMERCE_ORDER_WORKFLOWS =
-		"MANAGE_COMMERCE_ORDER_WORKFLOWS";
-
 	public static final String MANAGE_COMMERCE_PAYMENT_METHODS =
 		"MANAGE_COMMERCE_PAYMENT_METHODS";
 

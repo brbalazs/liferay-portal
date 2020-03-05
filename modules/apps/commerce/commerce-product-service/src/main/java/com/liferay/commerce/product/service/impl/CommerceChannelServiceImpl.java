@@ -151,6 +151,19 @@ public class CommerceChannelServiceImpl extends CommerceChannelServiceBaseImpl {
 			commerceCurrencyCode);
 	}
 
+	@Override
+	public CommerceChannel updateCommerceChannelExternalReferenceCode(
+			long commerceChannelId, String externalReferenceCode)
+		throws PortalException {
+
+		_commerceChannelModelResourcePermission.check(
+			getPermissionChecker(), commerceChannelId, ActionKeys.UPDATE);
+
+		return commerceChannelLocalService.
+			updateCommerceChannelExternalReferenceCode(
+				commerceChannelId, externalReferenceCode);
+	}
+
 	private static volatile ModelResourcePermission<CommerceChannel>
 		_commerceChannelModelResourcePermission =
 			ModelResourcePermissionFactory.getInstance(

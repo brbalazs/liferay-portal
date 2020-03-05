@@ -31,12 +31,14 @@ import com.liferay.commerce.internal.upgrade.v4_1_0.CommerceAddressUpgradeProces
 import com.liferay.commerce.internal.upgrade.v4_2_1.PrintedNoteUpgradeProcess;
 import com.liferay.commerce.internal.upgrade.v4_3_0.CommerceOrderDateUpgradeProcess;
 import com.liferay.commerce.internal.upgrade.v4_4_0.CommerceOrderManuallyAdjustedUpgradeProcess;
+import com.liferay.commerce.internal.upgrade.v4_5_1.CommerceShippingMethodUpgradeProcess;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.EmailAddressLocalService;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeProcess;
@@ -157,7 +159,8 @@ public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
 
 		registry.register(
 			_SCHEMA_VERSION_4_5_0, _SCHEMA_VERSION_4_5_1,
-			new DummyUpgradeProcess());
+			new CommerceShippingMethodUpgradeProcess(
+				_classNameLocalService, _groupLocalService));
 
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE UPGRADE STEP REGISTRATOR FINISHED");
@@ -227,5 +230,8 @@ public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
 
 	@Reference
 	private UserLocalService _userLocalService;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
 
 }

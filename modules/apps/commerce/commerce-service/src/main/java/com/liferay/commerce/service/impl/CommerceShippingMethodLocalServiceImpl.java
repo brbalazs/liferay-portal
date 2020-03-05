@@ -54,15 +54,14 @@ public class CommerceShippingMethodLocalServiceImpl
 
 	@Override
 	public CommerceShippingMethod addCommerceShippingMethod(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			File imageFile, String engineKey, double priority, boolean active,
-			ServiceContext serviceContext)
+		long userId, long groupId, Map<Locale, String> nameMap,
+		Map<Locale, String> descriptionMap, File imageFile,
+		String engineKey, double priority, boolean active)
 		throws PortalException {
 
 		// Commerce shipping method
 
-		User user = userLocalService.getUser(serviceContext.getUserId());
-		long groupId = serviceContext.getScopeGroupId();
+		User user = userLocalService.getUser(userId);
 
 		if ((imageFile != null) && !imageFile.exists()) {
 			imageFile = null;
@@ -101,6 +100,24 @@ public class CommerceShippingMethodLocalServiceImpl
 		}
 
 		return commerceShippingMethod;
+	}
+
+	@Deprecated
+	@Override
+	public CommerceShippingMethod addCommerceShippingMethod(
+			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
+			File imageFile, String engineKey, double priority, boolean active,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		// Commerce shipping method
+
+		User user = userLocalService.getUser(serviceContext.getUserId());
+		long groupId = serviceContext.getScopeGroupId();
+
+		return commerceShippingMethodLocalService.addCommerceShippingMethod(
+			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+			nameMap, descriptionMap, imageFile, engineKey, priority, active);
 	}
 
 	@Override

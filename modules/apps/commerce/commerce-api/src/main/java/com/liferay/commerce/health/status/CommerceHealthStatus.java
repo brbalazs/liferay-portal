@@ -12,23 +12,31 @@
  * details.
  */
 
-package com.liferay.commerce.order.web.internal.servlet.taglib.ui;
+package com.liferay.commerce.health.status;
+
+import com.liferay.portal.kernel.exception.PortalException;
+
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author Andrea Di Giorgi
- * @author Ethan Bustad
+ * @author Alessio Antonio Rendina
  */
-public class CommerceOrderFormNavigatorConstants {
+public interface CommerceHealthStatus {
 
-	public static final String CATEGORY_KEY_COMMERCE_ORDER_DETAILS = "details";
+	public void fixIssue(HttpServletRequest httpServletRequest)
+		throws PortalException;
 
-	public static final String CATEGORY_KEY_COMMERCE_ORDER_ITEM_DETAILS =
-		"details";
+	public String getDescription(Locale locale);
 
-	public static final String FORM_NAVIGATOR_ID_COMMERCE_ORDER_DETAILS =
-		"commerce.order.details.form";
+	public String getKey();
 
-	public static final String FORM_NAVIGATOR_ID_COMMERCE_ORDER_ITEM_DETAILS =
-		"commerce.order.item.details.form";
+	public String getName(Locale locale);
+
+	public int getType();
+
+	public boolean isFixed(long companyId, long commerceChannelId)
+		throws PortalException;
 
 }

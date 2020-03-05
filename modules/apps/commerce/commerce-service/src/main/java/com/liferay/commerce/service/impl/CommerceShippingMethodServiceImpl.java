@@ -54,6 +54,23 @@ public class CommerceShippingMethodServiceImpl
 
 	@Override
 	public CommerceShippingMethod addCommerceShippingMethod(
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, File imageFile,
+			String engineKey, double priority, boolean active)
+		throws PortalException{
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPPING_METHODS);
+
+		return commerceShippingMethodLocalService.addCommerceShippingMethod(
+			userId, groupId, nameMap, descriptionMap, imageFile, engineKey,
+			priority, active);
+	}
+
+	@Deprecated
+	@Override
+	public CommerceShippingMethod addCommerceShippingMethod(
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			File imageFile, String engineKey, double priority, boolean active,
 			ServiceContext serviceContext)

@@ -37,7 +37,6 @@
 			<supports>
 				<action-key>MANAGE_COMMERCE_ADDRESSES</action-key>
 				<action-key>MANAGE_COMMERCE_HEALTH_STATUS</action-key>
-				<action-key>MANAGE_COMMERCE_ORDER_WORKFLOWS</action-key>
 				<action-key>MANAGE_COMMERCE_PAYMENT_METHODS</action-key>
 				<action-key>MANAGE_COMMERCE_PRODUCT_DEFINITION_INVENTORY</action-key>
 				<action-key>MANAGE_COMMERCE_SHIPPING_METHODS</action-key>
@@ -48,7 +47,6 @@
 			<guest-unsupported>
 				<action-key>MANAGE_COMMERCE_ADDRESSES</action-key>
 				<action-key>MANAGE_COMMERCE_HEALTH_STATUS</action-key>
-				<action-key>MANAGE_COMMERCE_ORDER_WORKFLOWS</action-key>
 				<action-key>MANAGE_COMMERCE_PAYMENT_METHODS</action-key>
 				<action-key>MANAGE_COMMERCE_PRODUCT_DEFINITION_INVENTORY</action-key>
 				<action-key>MANAGE_COMMERCE_SHIPPING_METHODS</action-key>

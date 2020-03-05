@@ -64,7 +64,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.math.BigDecimal;
 
@@ -502,16 +501,12 @@ public class CommerceOrderContentDisplayContext {
 	}
 
 	public boolean isShowPurchaseOrderNumber() throws PortalException {
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)_httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		try {
 			CommerceOrderFieldsConfiguration commerceOrderFieldsConfiguration =
 				ConfigurationProviderUtil.getConfiguration(
 					CommerceOrderFieldsConfiguration.class,
 					new GroupServiceSettingsLocator(
-						themeDisplay.getScopeGroupId(),
+						_cpRequestHelper.getChannelGroupId(),
 						CommerceConstants.ORDER_SERVICE_NAME));
 
 			return commerceOrderFieldsConfiguration.showPurchaseOrderNumber();

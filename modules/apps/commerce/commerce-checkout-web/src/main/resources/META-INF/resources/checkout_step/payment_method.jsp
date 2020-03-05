@@ -60,7 +60,7 @@ String commercePaymentMethodKey = BeanParamUtil.getString(commerceOrder, request
 						</div>
 
 						<%
-						String thumbnailSrc = paymentMethodCheckoutStepDisplayContext.getImageURL(themeDisplay, commercePaymentMethod.getKey());
+						String thumbnailSrc = paymentMethodCheckoutStepDisplayContext.getImageURL(commerceOrder.getGroupId(), commercePaymentMethod.getKey(), themeDisplay);
 						%>
 
 						<c:if test="<%= Validator.isNotNull(thumbnailSrc) %>">

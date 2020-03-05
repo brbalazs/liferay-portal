@@ -7,6 +7,7 @@ Export-Package:\
 	com.liferay.commerce.context,\
 	com.liferay.commerce.discount,\
 	com.liferay.commerce.exception,\
+	com.liferay.commerce.health.status,\
 	com.liferay.commerce.inventory,\
 	com.liferay.commerce.model,\
 	com.liferay.commerce.order,\

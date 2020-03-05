@@ -20,6 +20,10 @@ package com.liferay.commerce.constants;
  */
 public class CommercePortletKeys {
 
+	public static final String COMMERCE_SHIPPING_METHODS =
+		"com_liferay_commerce_shipping_web_internal_portlet" +
+		"CommerceShippingMethodPortlet";
+
 	public static final String COMMERCE_ADDRESS_CONTENT =
 		"com_liferay_commerce_address_content_web_internal_portlet_" +
 			"CommerceAddressContentPortlet";
