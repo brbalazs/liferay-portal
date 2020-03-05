@@ -417,6 +417,10 @@ public class CommerceOrderLocalServiceImpl
 			companyId, externalReferenceCode);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public CommerceOrder fetchCommerceOrder(
 		long commerceAccountId, long groupId, int orderStatus) {
@@ -424,6 +428,14 @@ public class CommerceOrderLocalServiceImpl
 		return commerceOrderPersistence.fetchByG_C_O_First(
 			groupId, commerceAccountId, orderStatus,
 			new CommerceOrderModifiedDateComparator());
+	}
+
+	@Override
+	public CommerceOrder fetchCommerceOrder(
+		long commerceAccountId, long groupId, long userId, int orderStatus) {
+
+		return commerceOrderFinder.fetchByG_U_C_O_S_First(
+			groupId, userId, commerceAccountId, orderStatus);
 	}
 
 	@Override

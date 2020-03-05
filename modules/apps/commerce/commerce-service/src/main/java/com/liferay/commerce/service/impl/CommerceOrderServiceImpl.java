@@ -162,6 +162,10 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 		return commerceOrder;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public CommerceOrder fetchCommerceOrder(
 			long commerceAccountId, long groupId, int orderStatus)
@@ -170,6 +174,23 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 		CommerceOrder commerceOrder =
 			commerceOrderLocalService.fetchCommerceOrder(
 				commerceAccountId, groupId, orderStatus);
+
+		if (commerceOrder != null) {
+			_commerceOrderModelResourcePermission.check(
+				getPermissionChecker(), commerceOrder, ActionKeys.VIEW);
+		}
+
+		return commerceOrder;
+	}
+
+	@Override
+	public CommerceOrder fetchCommerceOrder(
+			long commerceAccountId, long groupId, long userId, int orderStatus)
+		throws PortalException {
+
+		CommerceOrder commerceOrder =
+			commerceOrderLocalService.fetchCommerceOrder(
+				commerceAccountId, groupId, userId, orderStatus);
 
 		if (commerceOrder != null) {
 			_commerceOrderModelResourcePermission.check(
