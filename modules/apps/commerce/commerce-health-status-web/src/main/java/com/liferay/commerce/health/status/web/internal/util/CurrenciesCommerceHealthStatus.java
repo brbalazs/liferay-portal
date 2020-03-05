@@ -14,10 +14,10 @@
 
 package com.liferay.commerce.health.status.web.internal.util;
 
+import com.liferay.commerce.constants.CommerceHealthStatusConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.health.status.CommerceHealthStatus;
-import com.liferay.commerce.health.status.constants.CommerceHealthStatusConstants;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -99,7 +99,7 @@ public class CurrenciesCommerceHealthStatus implements CommerceHealthStatus {
 	}
 
 	@Override
-	public boolean isFixed(long companyId, long groupId)
+	public boolean isFixed(long companyId, long commerceChannelId)
 		throws PortalException {
 
 		List<CommerceCurrency> commerceCurrencies =

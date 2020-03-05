@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.wish.list.web.internal.health.status;
 
+import com.liferay.commerce.constants.CommerceHealthStatusConstants;
 import com.liferay.commerce.health.status.CommerceHealthStatus;
-import com.liferay.commerce.health.status.constants.CommerceHealthStatusConstants;
 import com.liferay.commerce.wish.list.constants.CommerceWishListPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -122,11 +122,12 @@ public class WishListContentCommerceHealthStatus
 	}
 
 	@Override
-	public boolean isFixed(long companyId, long groupId)
+	public boolean isFixed(long companyId, long commerceChannelId)
 		throws PortalException {
 
 		long plid = _portal.getPlidFromPortletId(
-			groupId, CommerceWishListPortletKeys.COMMERCE_WISH_LIST_CONTENT);
+			commerceChannelId,
+			CommerceWishListPortletKeys.COMMERCE_WISH_LIST_CONTENT);
 
 		if (plid > 0) {
 			return true;

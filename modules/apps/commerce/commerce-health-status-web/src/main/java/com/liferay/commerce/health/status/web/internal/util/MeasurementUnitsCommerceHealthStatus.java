@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.health.status.web.internal.util;
 
+import com.liferay.commerce.constants.CommerceHealthStatusConstants;
 import com.liferay.commerce.health.status.CommerceHealthStatus;
-import com.liferay.commerce.health.status.constants.CommerceHealthStatusConstants;
 import com.liferay.commerce.product.model.CPMeasurementUnit;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -92,7 +92,7 @@ public class MeasurementUnitsCommerceHealthStatus
 	}
 
 	@Override
-	public boolean isFixed(long companyId, long groupId)
+	public boolean isFixed(long companyId, long commerceChannelId)
 		throws PortalException {
 
 		List<CPMeasurementUnit> cpMeasurementUnits =
