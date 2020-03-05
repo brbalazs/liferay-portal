@@ -62,7 +62,7 @@ public class NumericDDMFormFieldValueLocalizer
 		catch (ParseException parseException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"Numeric localization failed for locale " + locale,
+					"Unable to parse number for locale " + locale,
 					parseException);
 			}
 		}
