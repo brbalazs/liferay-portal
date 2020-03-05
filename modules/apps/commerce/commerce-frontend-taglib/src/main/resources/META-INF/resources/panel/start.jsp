@@ -44,7 +44,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 			<c:choose>
 				<c:when test="<%= Validator.isNotNull(actionLabel) %>">
 					<clay:link
-						href='<%= Validator.isNotNull(actionUrl) ? actionUrl : "#" %>'
+						href='<%= Validator.isNotNull(actionUrl) && Validator.isNull(actionTargetId) ? actionUrl : "#" %>'
 						id="<%= linkId %>"
 						label="<%= actionLabel %>"
 					/>
@@ -52,7 +52,7 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 				<c:when test="<%= Validator.isNotNull(actionIcon) %>">
 					<clay:link
 						elementClasses="btn btn-monospaced btn-primary btn-sm text-white"
-						href='<%= Validator.isNotNull(actionUrl) ? actionUrl : "#" %>'
+						href='<%= Validator.isNotNull(actionUrl) && Validator.isNull(actionTargetId) ? actionUrl : "#" %>'
 						icon="<%= actionIcon %>"
 						id="<%= linkId %>"
 					/>
@@ -92,20 +92,14 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 
 					<span class="d-flex mr-n2">
 						<c:if test="<%= Validator.isNotNull(collapseLabel) %>">
-							<label
-								for="<%= randomNamespace %>toggle-switch-check"
-								id="<%= randomNamespace %>toggle-label"
-							>
+							<label for="<%= randomNamespace %>toggle-switch-check" id="<%= randomNamespace %>toggle-label">
 								<h5 class="mb-0 mr-3">
 									<%= collapseLabel %>
 								</h5>
 							</label>
 						</c:if>
 
-						<span
-							class="my-lg-n2 toggle-switch"
-							id="<%= randomNamespace %>toggle-switch"
-						>
+						<span class="my-lg-n2 toggle-switch" id="<%= randomNamespace %>toggle-switch">
 							<input
 								aria-expanded="<%= !collapsed %>"
 								<%= collapsed ? StringPool.BLANK : "checked" %>
@@ -113,7 +107,9 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 								data-toggle="collapse"
 								class="toggle-switch-check d-none"
 								id="<%= randomNamespace %>toggle-switch-check"
-								<c:if test="<%= Validator.isNotNull(collapseSwitchName) %>">
+								<c:if
+									test="<%= Validator.isNotNull(collapseSwitchName) %>"
+							>
 									name="<%= collapseSwitchName %>"
 								</c:if>
 								type="checkbox"
