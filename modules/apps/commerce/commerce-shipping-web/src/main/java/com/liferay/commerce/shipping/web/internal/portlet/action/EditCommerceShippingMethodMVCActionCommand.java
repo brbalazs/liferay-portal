@@ -107,9 +107,10 @@ public class EditCommerceShippingMethodMVCActionCommand
 			actionRequest, "commerceShippingMethodId");
 
 		Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
-			actionRequest, "name");
+			actionRequest, "nameMapAsXML");
 		Map<Locale, String> descriptionMap =
-			LocalizationUtil.getLocalizationMap(actionRequest, "description");
+			LocalizationUtil.getLocalizationMap(
+				actionRequest, "descriptionMapAsXML");
 		File imageFile = uploadPortletRequest.getFile("imageFile");
 		String commerceShippingMethodEngineKey = ParamUtil.getString(
 			actionRequest, "commerceShippingMethodEngineKey");

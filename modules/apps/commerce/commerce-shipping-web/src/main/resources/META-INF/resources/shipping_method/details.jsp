@@ -26,11 +26,14 @@ long commerceShippingMethodId = 0;
 if (commerceShippingMethod != null) {
 	commerceShippingMethodId = commerceShippingMethod.getCommerceShippingMethodId();
 }
+
+String name = BeanParamUtil.getString(commerceShippingMethod, request, "name", commerceShippingMethodsDisplayContext.getCommerceShippingMethodEngineName(locale));
+String description = BeanParamUtil.getString(commerceShippingMethod, request, "description", commerceShippingMethodsDisplayContext.getCommerceShippingMethodEngineDescription(locale));
 %>
 
 <portlet:actionURL name="editCommerceShippingMethod" var="editCommerceShippingMethodActionURL" />
 
-<aui:form action="<%= editCommerceShippingMethodActionURL %>" method="post" name="fm">
+<aui:form action="<%= editCommerceShippingMethodActionURL %>" enctype="multipart/form-data" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceShippingMethodId <= 0) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="commerceChannelId" type="hidden" value="<%= commerceShippingMethodsDisplayContext.getCommerceChannelId() %>" />
@@ -39,12 +42,14 @@ if (commerceShippingMethod != null) {
 
 	<liferay-ui:error exception="<%= CommerceShippingMethodNameException.class %>" message="please-enter-a-valid-name" />
 
-	<aui:model-context bean="<%= commerceShippingMethod %>" model="<%= CommerceShippingMethod.class %>" />
-
 	<commerce-ui:panel>
-		<aui:input autoFocus="<%= true %>" name="name" />
+		<aui:input autoFocus="<%= true %>" label="name" localized="<%= true %>" name="nameMapAsXML" type="text" value="<%= name %>">
+			<aui:validator name="required" />
+		</aui:input>
 
-		<aui:input name="description" />
+		<aui:input label="description" localized="<%= true %>" name="descriptionMapAsXML" type="text" value="<%= description %>" />
+
+		<aui:model-context bean="<%= commerceShippingMethod %>" model="<%= CommerceShippingMethod.class %>" />
 
 		<%
 		String thumbnailSrc = StringPool.BLANK;
