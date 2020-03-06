@@ -17,7 +17,7 @@ package com.liferay.commerce.frontend.taglib.servlet.taglib;
 import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
-import com.liferay.commerce.product.service.CPInstanceServiceUtil;
+import com.liferay.commerce.product.service.CPInstanceLocalServiceUtil;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.petra.string.StringPool;
@@ -38,13 +38,14 @@ import javax.servlet.jsp.PageContext;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 public class ProductSubscriptionInfoTag extends IncludeTag {
 
 	@Override
 	public int doStartTag() throws JspException {
 		try {
-			CPInstance cpInstance = CPInstanceServiceUtil.fetchCPInstance(
+			CPInstance cpInstance = CPInstanceLocalServiceUtil.fetchCPInstance(
 				_cpInstanceId);
 
 			if (cpInstance == null) {

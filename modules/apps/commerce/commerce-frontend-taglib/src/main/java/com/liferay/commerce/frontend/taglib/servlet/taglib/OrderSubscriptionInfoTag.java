@@ -19,7 +19,6 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
-import com.liferay.commerce.product.service.CPInstanceServiceUtil;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemLocalServiceUtil;
@@ -42,19 +41,13 @@ import javax.servlet.jsp.PageContext;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 public class OrderSubscriptionInfoTag extends IncludeTag {
 
 	@Override
 	public int doStartTag() throws JspException {
 		try {
-			CommerceOrderItem commerceOrderItem =
-				CommerceOrderItemLocalServiceUtil.fetchCommerceOrderItem(
-					_commerceOrderItemId);
-
-			CPInstance cpInstance = CPInstanceServiceUtil.fetchCPInstance(
-				commerceOrderItem.getCPInstanceId());
-
 			CommerceSubscriptionEntry commerceSubscriptionEntry = null;
 
 			try {
@@ -68,6 +61,12 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 					_log.debug(e, e);
 				}
 			}
+
+			CommerceOrderItem commerceOrderItem =
+				CommerceOrderItemLocalServiceUtil.fetchCommerceOrderItem(
+					_commerceOrderItemId);
+
+			CPInstance cpInstance = commerceOrderItem.getCPInstance();
 
 			if ((commerceSubscriptionEntry == null) && (cpInstance == null)) {
 				return SKIP_BODY;
