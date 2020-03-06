@@ -302,7 +302,7 @@ public class CommerceShipmentItemLocalServiceImpl
 					commerceOrderItem.getCommerceOrderItemId(),
 					commerceInventoryWarehouseId);
 
-		if ((quantity <= 0) || (newQuantity > availableQuantity) ||
+		if ((newQuantity > availableQuantity) ||
 			(newQuantity > commerceInventoryWarehouseQuantity)) {
 
 			throw new CommerceShipmentItemQuantityException();
