@@ -76,17 +76,19 @@ $card-spacer: 20px;
 	}
 
 	&__delete {
+		align-items: center;
 		background: #f1676a;
 		border-radius: 50%;
 		color: white;
 		cursor: pointer;
-		font-size: 11px;
-		height: 17px;
+		display: flex;
+		height: 18px;
+		justify-content: center;
 		left: 18px;
-		line-height: 1.1;
+		line-height: 1;
 		position: absolute;
 		top: 18px;
-		width: 17px;
+		width: 18px;
 		z-index: 10;
 
 		[class*='-icon'] {
