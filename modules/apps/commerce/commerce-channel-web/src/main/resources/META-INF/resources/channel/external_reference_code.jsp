@@ -18,18 +18,16 @@
 
 <%
 CommerceChannelDisplayContext commerceChannelDisplayContext = (CommerceChannelDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-CommerceChannel commerceChannel = commerceChannelDisplayContext.getCommerceChannel();
 %>
 
 <portlet:actionURL name="editCommerceChannelExternalReferenceCode" var="editCommerceChannelExternalReferenceCodeURL" />
 
 <commerce-ui:modal-content>
 	<aui:form action="<%= editCommerceChannelExternalReferenceCodeURL %>" cssClass="container-fluid-1280 p-0" method="post" name="fm">
-		<aui:model-context bean="<%= commerceChannel %>" model="<%= CommerceChannel.class %>" />
-
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commerceChannelId" type="hidden" />
+
+		<aui:model-context bean="<%= commerceChannelDisplayContext.getCommerceChannel() %>" model="<%= CommerceChannel.class %>" />
 
 		<aui:input name="externalReferenceCode" type="text" wrapperCssClass="form-group-item" />
 	</aui:form>

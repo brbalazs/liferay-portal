@@ -33,13 +33,11 @@ boolean isViewOnly = false;
 if (commerceChannel != null) {
 	isViewOnly = !commerceChannelDisplayContext.hasPermission(commerceChannelId, ActionKeys.UPDATE);
 }
-
-portletDisplay.setShowBackIcon(true);
 %>
 
 <commerce-ui:modal-content
 	submitButtonLabel="save"
-	title="add-channel"
+	title='<%= LanguageUtil.get(request, "add-channel") %>'
 >
 	<portlet:actionURL name="editCommerceChannel" var="editCommerceChannelActionURL" />
 
@@ -83,11 +81,6 @@ portletDisplay.setShowBackIcon(true);
 				%>
 
 			</aui:select>
-
-			<liferay-ui:error-marker
-				key="<%= WebKeys.ERROR_SECTION %>"
-				value="custom-fields"
-			/>
 		</div>
 	</aui:form>
 </commerce-ui:modal-content>

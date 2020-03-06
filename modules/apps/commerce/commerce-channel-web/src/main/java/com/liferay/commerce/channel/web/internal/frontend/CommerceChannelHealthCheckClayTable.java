@@ -90,6 +90,7 @@ public class CommerceChannelHealthCheckClayTable
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
 		clayTableSchemaBuilder.addField("name", "name");
+
 		clayTableSchemaBuilder.addField("description", "description");
 
 		return clayTableSchemaBuilder.build();

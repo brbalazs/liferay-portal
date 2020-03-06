@@ -21,6 +21,8 @@ CommerceChannelDisplayContext commerceChannelDisplayContext = (CommerceChannelDi
 
 CommerceChannel commerceChannel = commerceChannelDisplayContext.getCommerceChannel();
 
+String thumbnailUrl = PortalUtil.getPortalURL(request) + "/o/commerce-channel-web/images/channel-default-icon.svg";
+
 portletDisplay.setShowBackIcon(true);
 
 if (Validator.isNull(redirect)) {
@@ -29,13 +31,6 @@ if (Validator.isNull(redirect)) {
 else {
 	portletDisplay.setURLBack(redirect);
 }
-
-List<com.liferay.commerce.frontend.model.HeaderActionModel> headerActionModels = new ArrayList<>();
-com.liferay.commerce.frontend.model.HeaderActionModel headerActionModel = new com.liferay.commerce.frontend.model.HeaderActionModel("", renderResponse.getNamespace() + "channelFm", null, null, "Save");
-
-headerActionModels.add(headerActionModel);
-
-String thumbnailUrl = PortalUtil.getPortalURL(request) + "/o/commerce-channel-web/images/channel-default-icon.svg";
 %>
 
 <liferay-portlet:renderURL var="editCommerceChannelExternalReferenceCodeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
@@ -44,9 +39,9 @@ String thumbnailUrl = PortalUtil.getPortalURL(request) + "/o/commerce-channel-we
 </liferay-portlet:renderURL>
 
 <commerce-ui:header
-	actions="<%= headerActionModels %>"
+	actions="<%= commerceChannelDisplayContext.getHeaderActionModels() %>"
 	bean="<%= commerceChannel %>"
-	beanIdLabel="channel-id"
+	beanIdLabel="id"
 	externalReferenceCode="<%= commerceChannel.getExternalReferenceCode() %>"
 	externalReferenceCodeEditUrl="<%= editCommerceChannelExternalReferenceCodeURL %>"
 	model="<%= CommerceChannel.class %>"

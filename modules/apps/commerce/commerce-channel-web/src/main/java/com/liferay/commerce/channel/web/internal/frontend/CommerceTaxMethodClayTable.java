@@ -26,7 +26,6 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
-import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.tax.CommerceTaxEngine;
@@ -41,7 +40,6 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -91,15 +89,14 @@ public class CommerceTaxMethodClayTable
 				httpServletRequest, "commerceChannelId");
 
 			PortletURL portletURL = PortletProviderUtil.getPortletURL(
-				httpServletRequest,
-				CommercePaymentMethodGroupRel.class.getName(),
+				httpServletRequest, CommerceTaxMethod.class.getName(),
 				PortletProvider.Action.EDIT);
 
 			portletURL.setParameter(
 				"commerceChannelId", String.valueOf(commerceChannelId));
-
 			portletURL.setParameter(
-				"commerceTaxEngineKey", String.valueOf(taxMethod.getKey()));
+				"commerceTaxMethodEngineKey",
+				String.valueOf(taxMethod.getKey()));
 
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
 
@@ -134,10 +131,10 @@ public class CommerceTaxMethodClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField clayTableSchemaField =
-			clayTableSchemaBuilder.addField("name", "name");
+		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
+			"name", "name");
 
-		clayTableSchemaField.setContentRenderer("actionLink");
+		nameField.setContentRenderer("actionLink");
 
 		clayTableSchemaBuilder.addField("description", "description");
 
@@ -190,10 +187,8 @@ public class CommerceTaxMethodClayTable
 
 			taxMethods.add(
 				new TaxMethod(
-					HtmlUtil.escape(commerceTaxDescription), entry.getKey(),
-					HtmlUtil.escape(commerceTaxName),
-					HtmlUtil.escape(
-						commerceTaxEngine.getName(themeDisplay.getLocale()))));
+					commerceTaxDescription, entry.getKey(), commerceTaxName,
+					commerceTaxEngine.getName(themeDisplay.getLocale())));
 		}
 
 		return taxMethods;

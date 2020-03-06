@@ -37,7 +37,6 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
-import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -145,12 +144,12 @@ public class CommerceChannelClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("channelId", "channelId");
+		clayTableSchemaBuilder.addField("channelId", "channel-id");
 
-		ClayTableSchemaField clayTableSchemaField =
-			clayTableSchemaBuilder.addField("name", "name");
+		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
+			"name", "name");
 
-		clayTableSchemaField.setContentRenderer("actionLink");
+		nameField.setContentRenderer("actionLink");
 
 		clayTableSchemaBuilder.addField("type", "type");
 
@@ -175,8 +174,9 @@ public class CommerceChannelClayTable
 			channels.add(
 				new Channel(
 					commerceChannel.getCommerceChannelId(),
-					HtmlUtil.escape(commerceChannel.getName()),
-					HtmlUtil.escape(commerceChannel.getType())));
+					commerceChannel.getName(),
+					LanguageUtil.get(
+						httpServletRequest, commerceChannel.getType())));
 		}
 
 		return channels;

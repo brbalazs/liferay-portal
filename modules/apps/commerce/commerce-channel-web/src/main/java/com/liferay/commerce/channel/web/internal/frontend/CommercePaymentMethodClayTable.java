@@ -96,7 +96,6 @@ public class CommercePaymentMethodClayTable
 
 			portletURL.setParameter(
 				"commerceChannelId", String.valueOf(commerceChannelId));
-
 			portletURL.setParameter(
 				"commercePaymentMethodEngineKey",
 				String.valueOf(paymentMethod.getKey()));
@@ -134,10 +133,10 @@ public class CommercePaymentMethodClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField clayTableSchemaField =
-			clayTableSchemaBuilder.addField("name", "name");
+		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
+			"name", "name");
 
-		clayTableSchemaField.setContentRenderer("actionLink");
+		nameField.setContentRenderer("actionLink");
 
 		clayTableSchemaBuilder.addField("description", "description");
 
