@@ -66,7 +66,10 @@ function List(props) {
 							<Image value={item[props.schema.thumbnail]} />
 						</ClayList.ItemField>
 					)}
-					<ClayList.ItemField className="justify-content-center" expand>
+					<ClayList.ItemField
+						className="justify-content-center"
+						expand
+					>
 						{props.schema.title && (
 							<ClayList.ItemTitle>
 								{item[props.schema.title]}
