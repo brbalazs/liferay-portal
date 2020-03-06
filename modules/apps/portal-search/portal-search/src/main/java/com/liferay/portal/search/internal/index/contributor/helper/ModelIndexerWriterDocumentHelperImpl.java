@@ -44,7 +44,7 @@ public class ModelIndexerWriterDocumentHelperImpl
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
-						"Error indexing ", _className, " with primaryKey=",
+						"Unable to index ", _className, " with primary key ",
 						baseModel.getPrimaryKeyObj()),
 					exception);
 			}
