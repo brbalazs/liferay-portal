@@ -16,6 +16,7 @@ package com.liferay.commerce.tax.web.internal.portlet.action;
 
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.exception.NoSuchTaxMethodException;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.web.internal.display.context.CommerceTaxMethodsDisplayContext;
@@ -61,8 +62,9 @@ public class EditCommerceTaxMethodMVCRenderCommand implements MVCRenderCommand {
 		try {
 			CommerceTaxMethodsDisplayContext commerceTaxMethodsDisplayContext =
 				new CommerceTaxMethodsDisplayContext(
-					_commerceTaxEngineRegistry, _commerceTaxMethodService,
-					_portletResourcePermission, renderRequest, renderResponse);
+					_commerceChannelLocalService, _commerceTaxEngineRegistry,
+					_commerceTaxMethodService, _portletResourcePermission,
+					renderRequest, renderResponse);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -87,6 +89,9 @@ public class EditCommerceTaxMethodMVCRenderCommand implements MVCRenderCommand {
 
 		return MVCRenderConstants.MVC_PATH_VALUE_SKIP_DISPATCH;
 	}
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceTaxEngineRegistry _commerceTaxEngineRegistry;

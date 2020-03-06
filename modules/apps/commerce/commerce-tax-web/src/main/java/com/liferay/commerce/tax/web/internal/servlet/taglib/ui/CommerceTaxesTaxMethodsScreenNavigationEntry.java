@@ -17,6 +17,7 @@ package com.liferay.commerce.tax.web.internal.servlet.taglib.ui;
 import com.liferay.commerce.admin.CommerceAdminModule;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceTaxScreenNavigationConstants;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.web.internal.display.context.CommerceTaxMethodsDisplayContext;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;
@@ -102,8 +103,9 @@ public class CommerceTaxesTaxMethodsScreenNavigationEntry
 
 			CommerceTaxMethodsDisplayContext commerceTaxMethodsDisplayContext =
 				new CommerceTaxMethodsDisplayContext(
-					_commerceTaxEngineRegistry, _commerceTaxMethodService,
-					_portletResourcePermission, renderRequest, renderResponse);
+					_commerceChannelLocalService, _commerceTaxEngineRegistry,
+					_commerceTaxMethodService, _portletResourcePermission,
+					renderRequest, renderResponse);
 
 			httpServletRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -120,6 +122,9 @@ public class CommerceTaxesTaxMethodsScreenNavigationEntry
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceTaxesTaxMethodsScreenNavigationEntry.class);
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceTaxEngineRegistry _commerceTaxEngineRegistry;

@@ -18,6 +18,7 @@ import com.liferay.commerce.admin.CommerceAdminModule;
 import com.liferay.commerce.admin.constants.CommerceAdminConstants;
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.web.internal.display.context.CommerceTaxMethodsDisplayContext;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;
@@ -101,8 +102,9 @@ public class TaxesCommerceAdminModule implements CommerceAdminModule {
 
 		CommerceTaxMethodsDisplayContext commerceTaxMethodsDisplayContext =
 			new CommerceTaxMethodsDisplayContext(
-				_commerceTaxEngineRegistry, _commerceTaxMethodService,
-				_portletResourcePermission, renderRequest, renderResponse);
+				_commerceChannelLocalService, _commerceTaxEngineRegistry,
+				_commerceTaxMethodService, _portletResourcePermission,
+				renderRequest, renderResponse);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceTaxMethodsDisplayContext);
@@ -111,6 +113,9 @@ public class TaxesCommerceAdminModule implements CommerceAdminModule {
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/view.jsp");
 	}
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceTaxEngineRegistry _commerceTaxEngineRegistry;
