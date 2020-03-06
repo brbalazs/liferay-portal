@@ -35,19 +35,37 @@ public class CommerceTaxFixedRateAddressRelServiceImpl
 
 	@Override
 	public CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
+			long userId, long groupId, long commerceTaxMethodId,
+			long cpTaxCategoryId, long commerceCountryId, long commerceRegionId,
+			String zip, double rate)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS);
+
+		return commerceTaxFixedRateAddressRelLocalService.
+			addCommerceTaxFixedRateAddressRel(
+				userId, groupId, commerceTaxMethodId, cpTaxCategoryId,
+				commerceCountryId, commerceRegionId, zip, rate);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
 			long commerceTaxMethodId, long cpTaxCategoryId,
 			long commerceCountryId, long commerceRegionId, String zip,
 			double rate, ServiceContext serviceContext)
 		throws PortalException {
 
-		_portletResourcePermission.check(
-			getPermissionChecker(), serviceContext.getScopeGroupId(),
-			CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS);
-
-		return commerceTaxFixedRateAddressRelLocalService.
+		return commerceTaxFixedRateAddressRelService.
 			addCommerceTaxFixedRateAddressRel(
+				serviceContext.getUserId(), serviceContext.getScopeGroupId(),
 				commerceTaxMethodId, cpTaxCategoryId, commerceCountryId,
-				commerceRegionId, zip, rate, serviceContext);
+				commerceRegionId, zip, rate);
 	}
 
 	@Override
