@@ -29,10 +29,31 @@ import java.util.Map;
 
 /**
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 public class CommerceTaxMethodServiceImpl
 	extends CommerceTaxMethodServiceBaseImpl {
 
+	@Override
+	public CommerceTaxMethod addCommerceTaxMethod(
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, String engineKey,
+			boolean percentage, boolean active)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS);
+
+		return commerceTaxMethodLocalService.addCommerceTaxMethod(
+			userId, groupId, nameMap, descriptionMap, engineKey, percentage,
+			active);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public CommerceTaxMethod addCommerceTaxMethod(
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
@@ -40,13 +61,9 @@ public class CommerceTaxMethodServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		_portletResourcePermission.check(
-			getPermissionChecker(), serviceContext.getScopeGroupId(),
-			CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS);
-
-		return commerceTaxMethodLocalService.addCommerceTaxMethod(
-			nameMap, descriptionMap, engineKey, percentage, active,
-			serviceContext);
+		return commerceTaxMethodService.addCommerceTaxMethod(
+			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+			nameMap, descriptionMap, engineKey, percentage, active);
 	}
 
 	@Override
