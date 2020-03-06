@@ -433,6 +433,10 @@ public class AccountResourceImpl
 	private Account _toAccount(CommerceAccount commerceAccount)
 		throws Exception {
 
+		if (commerceAccount == null) {
+			return null;
+		}
+
 		DTOConverter accountDTOConverter =
 			_dtoConverterRegistry.getDTOConverter(
 				CommerceAccount.class.getName());
