@@ -413,8 +413,8 @@ public class SpeedwellSiteInitializer implements SiteInitializer {
 
 		CommerceShippingMethod commerceShippingMethod =
 			_commerceShippingMethodLocalService.addCommerceShippingMethod(
-				serviceContext.getUserId(), groupId,
-				nameMap, descriptionMap, null, shippingMethod, 0, true);
+				serviceContext.getUserId(), groupId, nameMap, descriptionMap,
+				null, shippingMethod, 0, true);
 
 		setCommerceShippingOption(
 			commerceShippingMethod.getCommerceShippingMethodId(),

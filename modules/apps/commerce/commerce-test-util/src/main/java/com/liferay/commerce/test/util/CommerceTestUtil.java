@@ -335,8 +335,7 @@ public class CommerceTestUtil {
 	}
 
 	public static CommercePaymentMethodGroupRel
-			addCommercePaymentMethodGroupRel(
-			long userId, long groupId)
+			addCommercePaymentMethodGroupRel(long userId, long groupId)
 		throws Exception {
 
 		return CommercePaymentMethodGroupRelLocalServiceUtil.
