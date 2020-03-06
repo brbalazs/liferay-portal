@@ -14,9 +14,6 @@
 
 package com.liferay.headless.discovery.internal.jaxrs.application;
 
-import com.liferay.headless.discovery.internal.dto.Hint;
-import com.liferay.headless.discovery.internal.dto.Resource;
-import com.liferay.headless.discovery.internal.dto.Resources;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.net.URI;
@@ -27,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
@@ -49,104 +45,58 @@ import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
  */
 @Component(
 	property = {
-		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/api",
+		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/openapi",
 		JaxrsWhiteboardConstants.JAX_RS_EXTENSION_SELECT + "=(osgi.jaxrs.name=Liferay.Vulcan)",
-		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Liferay.Headless.Discovery"
+		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Liferay.Headless.Discovery.OpenAPI"
 	},
 	service = Application.class
 )
-public class HeadlessDiscoveryApplication extends Application {
-
-	@GET
-	@Produces({"application/json", "application/xml"})
-	public Resources discovery() {
-		Map<String, List<ResourceMethodInfoDTO>> resourceMethodInfoDTOsMap =
-			_getResourceMethodInfoDTOsMap();
-
-		Map<String, Resource> resourcesMap = new TreeMap<>();
-
-		for (Map.Entry<String, List<ResourceMethodInfoDTO>> entry :
-				resourceMethodInfoDTOsMap.entrySet()) {
-
-			resourcesMap.put(entry.getKey(), _getResource(entry.getValue()));
-		}
-
-		return new Resources(resourcesMap);
-	}
+public class HeadlessDiscoveryOpenAPIApplication extends Application {
 
 	public Set<Object> getSingletons() {
 		return Collections.singleton(this);
 	}
 
-	private Resource _getResource(
-		List<ResourceMethodInfoDTO> resourceMethodInfoDTOS) {
-
-		Resource resource = new Resource();
-
-		Stream<ResourceMethodInfoDTO> stream = resourceMethodInfoDTOS.stream();
-
-		String[] verbs = stream.map(
-			dto -> dto.method
-		).toArray(
-			String[]::new
-		);
-
-		ResourceMethodInfoDTO resourceMethodInfoDTO =
-			resourceMethodInfoDTOS.get(0);
-
-		resource.setHint(
-			new Hint(verbs, resourceMethodInfoDTO.producingMimeType));
-
-		String resourcePath = resourceMethodInfoDTO.path;
-
-		if (resourcePath.contains("{")) {
-			resource.setHrefTemplate(resourcePath);
-		}
-		else {
-			resource.setHref(resourcePath);
-		}
-
-		return resource;
-	}
-
-	private Map<String, List<ResourceMethodInfoDTO>>
-		_getResourceMethodInfoDTOsMap() {
-
-		Map<String, List<ResourceMethodInfoDTO>> resourcesMap = new TreeMap<>();
+	@GET
+	@Produces({"application/json", "application/xml"})
+	public Map<String, List<String>> openAPI() {
+		Map<String, List<String>> pathsMap = new TreeMap<>();
 
 		URI uri = _uriInfo.getAbsolutePath();
 
 		String absolutePath = uri.toString();
 
-		String serverURL = StringUtil.replace(absolutePath, "/api/", "");
+		String serverURL = StringUtil.removeSubstring(
+			absolutePath, "/openapi/");
 
 		RuntimeDTO runtimeDTO = _jaxrsServiceRuntime.getRuntimeDTO();
 
 		for (ApplicationDTO applicationDTO : runtimeDTO.applicationDTOs) {
+			List<String> paths = new ArrayList<>();
+
 			for (ResourceDTO resourceDTO : applicationDTO.resourceDTOs) {
 				for (ResourceMethodInfoDTO resourceMethodInfoDTO :
 						resourceDTO.resourceMethods) {
 
-					resourceMethodInfoDTO.path =
-						applicationDTO.base + resourceMethodInfoDTO.path;
+					String path = resourceMethodInfoDTO.path;
 
-					String path = serverURL + resourceMethodInfoDTO.path;
+					if (path.contains("/openapi")) {
+						String openAPIPath = StringUtil.replace(
+							resourceMethodInfoDTO.path, "{type:json|yaml}",
+							"yaml");
 
-					List<ResourceMethodInfoDTO> resourceMethodInfoDTOS =
-						resourcesMap.get(path);
-
-					if (resourceMethodInfoDTOS == null) {
-						resourceMethodInfoDTOS = new ArrayList<>();
+						paths.add(
+							serverURL + applicationDTO.base + openAPIPath);
 					}
-
-					resourceMethodInfoDTOS.add(resourceMethodInfoDTO);
-
-					resourcesMap.put(path, resourceMethodInfoDTOS);
 				}
+			}
+
+			if (!paths.isEmpty()) {
+				pathsMap.put(applicationDTO.base, paths);
 			}
 		}
 
-		return resourcesMap;
+		return pathsMap;
 	}
 
 	@Reference
