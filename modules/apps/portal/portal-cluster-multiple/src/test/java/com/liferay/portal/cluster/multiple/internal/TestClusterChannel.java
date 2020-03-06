@@ -136,7 +136,6 @@ public class TestClusterChannel implements ClusterChannel {
 	}
 
 	private static final AtomicInteger _atomicInteger = new AtomicInteger();
-
 	private static final Map<String, SortedMap<Address, TestClusterChannel>>
 		_clusters = new HashMap<>();
 	private static final List<Serializable> _multicastMessages =
