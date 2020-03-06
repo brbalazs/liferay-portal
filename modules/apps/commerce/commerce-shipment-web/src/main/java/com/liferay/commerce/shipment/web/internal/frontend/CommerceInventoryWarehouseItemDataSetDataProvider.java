@@ -119,6 +119,10 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 			String inputName =
 				portletNamespace + commerceInventoryWarehouseId + "_quantity";
 
+			int maxShippableQuantity =
+				commerceOrderItem.getQuantity() -
+				commerceOrderItem.getShippedQuantity();
+
 			int shipmentItemWarehouseItemQuantity = 0;
 
 			if (commerceInventoryWarehouseId ==
@@ -126,17 +130,24 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 
 				shipmentItemWarehouseItemQuantity =
 					commerceShipmentItem.getQuantity();
+
+				maxShippableQuantity = commerceShipmentItem.getQuantity();
 			}
 
 			if (commerceInventoryWarehouseItem != null) {
+				if (maxShippableQuantity >
+					commerceInventoryWarehouseItem.getQuantity()) {
+
+					maxShippableQuantity =
+						commerceInventoryWarehouseItem.getQuantity();
+				}
+
 				warehouses.add(
 					new Warehouse(
 						commerceInventoryWarehouseId,
 						new WarehouseItem(
-							inputName,
-							commerceOrderItem.getQuantity() -
-								commerceOrderItem.getShippedQuantity(),
-							0, shipmentItemWarehouseItemQuantity),
+							inputName, maxShippableQuantity, 0,
+							shipmentItemWarehouseItemQuantity),
 						commerceInventoryWarehouseItem.getQuantity(),
 						StringPool.BLANK,
 						commerceInventoryWarehouse.getName()));
