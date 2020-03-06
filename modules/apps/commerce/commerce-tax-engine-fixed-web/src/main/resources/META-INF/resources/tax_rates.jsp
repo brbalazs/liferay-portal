@@ -18,8 +18,6 @@
 
 <%
 CommerceTaxFixedRatesDisplayContext commerceTaxFixedRatesDisplayContext = (CommerceTaxFixedRatesDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-SearchContainer<CPTaxCategory> cpTaxCategorySearchContainer = commerceTaxFixedRatesDisplayContext.getSearchContainer();
 %>
 
 <liferay-frontend:management-bar
@@ -64,7 +62,7 @@ SearchContainer<CPTaxCategory> cpTaxCategorySearchContainer = commerceTaxFixedRa
 
 	<liferay-ui:search-container
 		id="cpTaxCategories"
-		searchContainer="<%= cpTaxCategorySearchContainer %>"
+		searchContainer="<%= commerceTaxFixedRatesDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
 			className="com.liferay.commerce.product.model.CPTaxCategory"
