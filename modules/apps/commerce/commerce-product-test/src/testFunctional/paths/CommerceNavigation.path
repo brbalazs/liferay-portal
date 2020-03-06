@@ -25,7 +25,7 @@
 </tr>
 <tr>
 	<td>ENTRY_NAME</td>
-	<td>//div[@class='searchcontainer-content']//a[contains(.,'${key_entryName}')]</td>
+	<td>//div[@class='dataset-display-wrapper']//a[contains(.,'${key_entryName}')]</td>
 	<td></td>
 </tr>
 <tr>

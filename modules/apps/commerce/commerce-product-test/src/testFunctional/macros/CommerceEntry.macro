@@ -484,4 +484,20 @@ definition {
 			value1 = "${optionDescription}");
 	}
 
+	macro viewProductsEntry {
+		AssertTextEquals(
+			locator1 = "CommerceEntry#NAME_FIELD",
+			value1 = "${productName}");
+
+		AssertTextEquals(
+			locator1 = "CommerceEntry#SHORT_DESCRIPTION_FIELD",
+			value1 = "${productShortDescription}");
+	}
+
+	macro clickNoError {
+		ClickNoError(
+			key_menuItem = "${menuItem}",
+			locator1 = "CommerceEntry#ANY_MENU_ITEM");
+	}
+
 }
