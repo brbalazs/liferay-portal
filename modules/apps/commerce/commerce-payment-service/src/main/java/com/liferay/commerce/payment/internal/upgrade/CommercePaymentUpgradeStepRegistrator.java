@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.upgrade.DummyUpgradeProcess;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
 import org.osgi.service.component.annotations.Component;
@@ -39,10 +38,6 @@ public class CommercePaymentUpgradeStepRegistrator
 		}
 
 		registry.register(
-			_SCHEMA_VERSION_0_0_0, _SCHEMA_VERSION_1_0_0,
-			new DummyUpgradeProcess());
-
-		registry.register(
 			_SCHEMA_VERSION_1_0_0, _SCHEMA_VERSION_1_0_1,
 			new CommercePaymentMethodGroupRelUpgradeProcess(
 				_classNameLocalService, _groupLocalService));
@@ -51,8 +46,6 @@ public class CommercePaymentUpgradeStepRegistrator
 			_log.info("COMMERCE PAYMENT UPGRADE STEP REGISTRATOR FINISHED");
 		}
 	}
-
-	private static final String _SCHEMA_VERSION_0_0_0 = "0.0.0";
 
 	private static final String _SCHEMA_VERSION_1_0_0 = "1.0.0";
 
