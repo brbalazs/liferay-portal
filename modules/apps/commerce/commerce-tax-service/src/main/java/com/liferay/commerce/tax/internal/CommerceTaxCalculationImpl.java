@@ -123,7 +123,7 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 		commerceTaxCalculateRequest.setCommerceShippingAddressId(
 			commerceShippingAddressId);
 		commerceTaxCalculateRequest.setPrice(amount);
-		commerceTaxCalculateRequest.setSiteGroupId(groupId);
+		commerceTaxCalculateRequest.setChannelGroupId(groupId);
 		commerceTaxCalculateRequest.setTaxCategoryId(
 			cpDefinition.getCPTaxCategoryId());
 
