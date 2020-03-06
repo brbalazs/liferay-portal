@@ -12,6 +12,31 @@
  * details.
  */
 
+function showNotification(
+	message,
+	type,
+	closeable = true,
+	duration = 500
+) {
+	if (!window.AUI) {
+		return;
+	}
+	AUI().use('liferay-notification', () => {
+		new Liferay.Notification({
+			closeable,
+			delay: {
+				hide: 5000,
+				show: 0
+			},
+			duration,
+			message,
+			render: true,
+			title: '',
+			type
+		});
+	});
+}
+
 const CURRENT = 'current',
 	NEXT = 'next',
 	WILL_BE_NEXT = 'will-be-next';
@@ -174,8 +199,10 @@ SpeedwellSlider.prototype = {
 			.then(this.setupSliders.bind(this))
 			.then(this.attachListeners.bind(this))
 			.catch(e => {
-				// eslint-disable-next-line no-console
-				console.log(e);
+				const errorMessage = `Request code: ${e.statusCode.toString()}`
+									 || 'API error';
+
+				showNotification(errorMessage, 'danger');
 			});
 	},
 
