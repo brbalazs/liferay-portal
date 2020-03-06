@@ -21,8 +21,12 @@ CommerceChannelDisplayContext commerceChannelDisplayContext = (CommerceChannelDi
 
 CommerceChannel commerceChannel = commerceChannelDisplayContext.getCommerceChannel();
 long commerceChannelId = commerceChannelDisplayContext.getCommerceChannelId();
-String commerceCurrencyCode = commerceChannel.getCommerceCurrencyCode();
 List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCommerceCurrencies();
+String commerceCurrencyCode = commerceChannel.getCommerceCurrencyCode();
+
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerceChannelId()));
 %>
 
 <portlet:actionURL name="editCommerceChannel" var="editCommerceChannelActionURL" />
@@ -80,28 +84,21 @@ List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCom
 
 				<%
 				List<WorkflowDefinition> workflowDefinitions = commerceChannelDisplayContext.getActiveWorkflowDefinitions();
+
+				long typePK = CommerceOrderConstants.TYPE_PK_APPROVAL;
+				String typePrefix = "approval";
 				%>
 
-				<aui:fieldset>
+				<%@ include file="/channel/workflow_definition.jspf" %>
 
-					<%
-					long typePK = CommerceOrderConstants.TYPE_PK_APPROVAL;
-					String typePrefix = "approval";
-					%>
+				<%
+				typePK = CommerceOrderConstants.TYPE_PK_FULFILLMENT;
+				typePrefix = "fulfillment";
+				%>
 
-					<%@ include file="/channel/workflow_definition.jspf" %>
+				<%@ include file="/channel/workflow_definition.jspf" %>
 
-					<%
-					typePK = CommerceOrderConstants.TYPE_PK_FULFILLMENT;
-					typePrefix = "fulfillment";
-					%>
-
-					<%@ include file="/channel/workflow_definition.jspf" %>
-				</aui:fieldset>
-
-				<aui:fieldset>
-					<aui:input checked="<%= commerceChannelDisplayContext.isShowPurchaseOrderNumber() %>" helpMessage="configures-whether-purchase-order-number-is-shown-or-hidden-in-placed-and-pending-order-details" label="purchase-order-number" labelOff="hide" labelOn="show" name="settings--showPurchaseOrderNumber--" type="toggle-switch" />
-				</aui:fieldset>
+				<aui:input checked="<%= commerceChannelDisplayContext.isShowPurchaseOrderNumber() %>" helpMessage="configures-whether-purchase-order-number-is-shown-or-hidden-in-placed-and-pending-order-details" label="purchase-order-number" labelOff="hide" labelOn="show" name="settings--showPurchaseOrderNumber--" type="toggle-switch" />
 			</commerce-ui:panel>
 		</div>
 	</div>
@@ -112,13 +109,6 @@ List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCom
 		<commerce-ui:panel
 			bodyClasses="p-0"
 		>
-
-			<%
-			java.util.Map<String, String> contextParams = new java.util.HashMap<>();
-
-			contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerceChannelId()));
-			%>
-
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
 				dataProviderKey="<%= CommerceChannelHealthCheckClayTable.NAME %>"
@@ -139,13 +129,6 @@ List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCom
 			bodyClasses="p-0"
 			title='<%= LanguageUtil.get(request, "payment-methods") %>'
 		>
-
-			<%
-			java.util.Map<String, String> contextParams = new java.util.HashMap<>();
-
-			contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerceChannelId()));
-			%>
-
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
 				dataProviderKey="<%= CommercePaymentMethodClayTable.NAME %>"
@@ -166,13 +149,6 @@ List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCom
 			bodyClasses="p-0"
 			title='<%= LanguageUtil.get(request, "shipping-methods") %>'
 		>
-
-			<%
-			java.util.Map<String, String> contextParams = new java.util.HashMap<>();
-
-			contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerceChannelId()));
-			%>
-
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
 				dataProviderKey="<%= CommerceShippingMethodClayTable.NAME %>"
@@ -193,13 +169,6 @@ List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCom
 			bodyClasses="p-0"
 			title='<%= LanguageUtil.get(request, "tax-methods") %>'
 		>
-
-			<%
-			java.util.Map<String, String> contextParams = new java.util.HashMap<>();
-
-			contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerceChannelId()));
-			%>
-
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
 				dataProviderKey="<%= CommerceTaxMethodClayTable.NAME %>"
