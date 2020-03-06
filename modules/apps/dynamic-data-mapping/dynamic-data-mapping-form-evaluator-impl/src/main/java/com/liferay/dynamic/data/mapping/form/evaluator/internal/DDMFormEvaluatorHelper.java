@@ -744,6 +744,10 @@ public class DDMFormEvaluatorHelper {
 
 		Value value = ddmFormFieldValue.getValue();
 
+		if (value == null) {
+			return;
+		}
+
 		forEachEntry(
 			value.getValues(),
 			entry -> {
