@@ -62,6 +62,14 @@ public class CommercePaymentMethodGroupRelsDisplayContext {
 			"commerceChannelId");
 	}
 
+	public String getCommercePaymentMethodEngineDescription(Locale locale) {
+		CommercePaymentMethod commercePaymentMethod =
+			_commercePaymentMethodRegistry.getCommercePaymentMethod(
+				getCommercePaymentMethodEngineKey());
+
+		return commercePaymentMethod.getDescription(locale);
+	}
+
 	public String getCommercePaymentMethodEngineKey() {
 		if (_commercePaymentMethodGroupRel != null) {
 			return _commercePaymentMethodGroupRel.getEngineKey();
@@ -72,7 +80,7 @@ public class CommercePaymentMethodGroupRelsDisplayContext {
 			"commercePaymentMethodEngineKey");
 	}
 
-	public String getCommercePaymentMethodEngineLabel(Locale locale) {
+	public String getCommercePaymentMethodEngineName(Locale locale) {
 		CommercePaymentMethod commercePaymentMethod =
 			_commercePaymentMethodRegistry.getCommercePaymentMethod(
 				getCommercePaymentMethodEngineKey());
