@@ -88,6 +88,10 @@ public class CommerceTaxMethodFixedRatesScreenNavigationEntry
 
 	@Override
 	public boolean isVisible(User user, CommerceTaxMethod commerceTaxMethod) {
+		if (commerceTaxMethod == null) {
+			return false;
+		}
+
 		String engineKey = commerceTaxMethod.getEngineKey();
 
 		if (engineKey.equals("fixed-tax")) {

@@ -14,10 +14,11 @@
 
 package com.liferay.commerce.tax.engine.fixed.web.internal.portlet.action;
 
-import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.tax.engine.fixed.exception.NoSuchTaxFixedRateAddressRelException;
@@ -48,7 +49,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"javax.portlet.name=" + CommerceAdminPortletKeys.COMMERCE_ADMIN_GROUP_INSTANCE,
+		"javax.portlet.name=" + CommercePortletKeys.COMMERCE_TAX_METHODS,
 		"mvc.command.name=editCommerceTaxFixedRateAddressRel"
 	},
 	service = MVCRenderCommand.class
@@ -69,8 +70,9 @@ public class EditCommerceTaxFixedRateAddressRelMVCRenderCommand
 			CommerceTaxFixedRateAddressRelsDisplayContext
 				commerceTaxFixedRateAddressRelsDisplayContext =
 					new CommerceTaxFixedRateAddressRelsDisplayContext(
-						_commerceCountryService, _commerceCurrencyLocalService,
-						_commerceRegionService, _commerceTaxMethodService,
+						_commerceChannelLocalService, _commerceCountryService,
+						_commerceCurrencyLocalService, _commerceRegionService,
+						_commerceTaxMethodService,
 						_commerceTaxFixedRateAddressRelService,
 						_cpTaxCategoryService, _portletResourcePermission,
 						renderRequest);
@@ -98,6 +100,9 @@ public class EditCommerceTaxFixedRateAddressRelMVCRenderCommand
 
 		return MVCRenderConstants.MVC_PATH_VALUE_SKIP_DISPATCH;
 	}
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceCountryService _commerceCountryService;

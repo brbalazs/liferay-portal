@@ -18,6 +18,7 @@ import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceTaxScreenNavigationConstants;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateAddressRelService;
@@ -92,6 +93,10 @@ public class CommerceTaxMethodAddressRateRelsScreenNavigationEntry
 
 	@Override
 	public boolean isVisible(User user, CommerceTaxMethod commerceTaxMethod) {
+		if (commerceTaxMethod == null) {
+			return false;
+		}
+
 		String engineKey = commerceTaxMethod.getEngineKey();
 
 		if (engineKey.equals("by-address")) {
@@ -114,8 +119,9 @@ public class CommerceTaxMethodAddressRateRelsScreenNavigationEntry
 		CommerceTaxFixedRateAddressRelsDisplayContext
 			commerceTaxFixedRateAddressRelsDisplayContext =
 				new CommerceTaxFixedRateAddressRelsDisplayContext(
-					_commerceCountryService, _commerceCurrencyLocalService,
-					_commerceRegionService, _commerceTaxMethodService,
+					_commerceChannelLocalService, _commerceCountryService,
+					_commerceCurrencyLocalService, _commerceRegionService,
+					_commerceTaxMethodService,
 					_commerceTaxFixedRateAddressRelService,
 					_cpTaxCategoryService, _portletResourcePermission,
 					renderRequest);
@@ -128,6 +134,9 @@ public class CommerceTaxMethodAddressRateRelsScreenNavigationEntry
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/address_tax_fixed_rates.jsp");
 	}
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceCountryService _commerceCountryService;
