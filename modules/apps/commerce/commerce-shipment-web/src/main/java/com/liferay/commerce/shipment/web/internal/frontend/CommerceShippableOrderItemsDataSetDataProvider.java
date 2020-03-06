@@ -88,7 +88,14 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
-			String icon = _getAddressMatchIcon(commerceShipment, commerceOrder);
+			String iconName = _getAddressMatchIcon(
+				commerceShipment, commerceOrder);
+
+			Icon icon = null;
+
+			if (iconName != null) {
+				icon = new Icon(iconName);
+			}
 
 			orderItems.add(
 				new OrderItem(
@@ -96,7 +103,7 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 						commerceOrderItem.getCompanyId(),
 						commerceOrderItem.getGroupId(),
 						commerceOrderItem.getSku()),
-					new Icon(icon), commerceOrderItem.getCommerceOrderId(),
+					icon, commerceOrderItem.getCommerceOrderId(),
 					commerceOrderItem.getCommerceOrderItemId(),
 					commerceOrderItem.getQuantity() -
 						commerceOrderItem.getShippedQuantity(),
@@ -120,7 +127,7 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 			return "check";
 		}
 
-		return "times";
+		return null;
 	}
 
 	@Reference
