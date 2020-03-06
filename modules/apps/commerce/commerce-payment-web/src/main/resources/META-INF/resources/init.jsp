@@ -32,6 +32,7 @@ page import="com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel" %
 page import="com.liferay.commerce.payment.web.internal.display.context.CommercePaymentMethodGroupRelRestrictionsDisplayContext" %><%@
 page import="com.liferay.commerce.payment.web.internal.display.context.CommercePaymentMethodGroupRelsDisplayContext" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
+page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@

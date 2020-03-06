@@ -154,9 +154,10 @@ public class EditCommercePaymentMethodGroupRelMVCActionCommand
 			_portal.getUploadPortletRequest(actionRequest);
 
 		Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
-			actionRequest, "name");
+			actionRequest, "nameMapAsXML");
 		Map<Locale, String> descriptionMap =
-			LocalizationUtil.getLocalizationMap(actionRequest, "description");
+			LocalizationUtil.getLocalizationMap(
+				actionRequest, "descriptionMapAsXML");
 		File imageFile = uploadPortletRequest.getFile("imageFile");
 		String commercePaymentMethodEngineKey = ParamUtil.getString(
 			actionRequest, "commercePaymentMethodEngineKey");

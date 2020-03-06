@@ -20,30 +20,30 @@
 CommercePaymentMethodGroupRelsDisplayContext commercePaymentMethodsDisplayContext = (CommercePaymentMethodGroupRelsDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommercePaymentMethodGroupRel commercePaymentMethodGroupRel = commercePaymentMethodsDisplayContext.getCommercePaymentMethodGroupRel();
+
+String name = BeanParamUtil.getString(commercePaymentMethodGroupRel, request, "name", commercePaymentMethodsDisplayContext.getCommercePaymentMethodEngineName(locale));
+String description = BeanParamUtil.getString(commercePaymentMethodGroupRel, request, "description", commercePaymentMethodsDisplayContext.getCommercePaymentMethodEngineDescription(locale));
 %>
 
 <portlet:actionURL name="editCommercePaymentMethodGroupRel" var="commercePaymentMethodGroupRelActionURL" />
 
-<aui:form action="<%= commercePaymentMethodGroupRelActionURL %>" method="post" name="fm">
+<aui:form action="<%= commercePaymentMethodGroupRelActionURL %>" enctype="multipart/form-data" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commercePaymentMethodGroupRel != null) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="commerceChannelId" type="hidden" value="<%= commercePaymentMethodsDisplayContext.getCommerceChannelId() %>" />
 	<aui:input name="commercePaymentMethodGroupRelId" type="hidden" value="<%= commercePaymentMethodsDisplayContext.getCommercePaymentMethodGroupRelId() %>" />
 	<aui:input name="commercePaymentMethodEngineKey" type="hidden" value="<%= commercePaymentMethodsDisplayContext.getCommercePaymentMethodEngineKey() %>" />
 
-	<liferay-ui:error-marker
-		key="<%= WebKeys.ERROR_SECTION %>"
-		value="details"
-	/>
-
 	<liferay-ui:error exception="<%= CommercePaymentMethodGroupRelNameException.class %>" message="please-enter-a-valid-name" />
 
-	<aui:model-context bean="<%= commercePaymentMethodGroupRel %>" model="<%= CommercePaymentMethodGroupRel.class %>" />
-
 	<commerce-ui:panel>
-		<aui:input name="name" />
+		<aui:input autoFocus="<%= true %>" label="name" localized="<%= true %>" name="nameMapAsXML" type="text" value="<%= name %>">
+			<aui:validator name="required" />
+		</aui:input>
 
-		<aui:input name="description" />
+		<aui:input label="description" localized="<%= true %>" name="descriptionMapAsXML" type="text" value="<%= description %>" />
+
+		<aui:model-context bean="<%= commercePaymentMethodGroupRel %>" model="<%= CommercePaymentMethodGroupRel.class %>" />
 
 		<%
 		String thumbnailSrc = null;

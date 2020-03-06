@@ -24,5 +24,5 @@ CommercePaymentMethodGroupRelsDisplayContext commercePaymentMethodGroupRelsDispl
 	screenNavigatorKey="<%= CommercePaymentScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_PAYMENT_METHOD %>"
 	screenNavigatorModelBean="<%= commercePaymentMethodGroupRelsDisplayContext.getCommercePaymentMethodGroupRel() %>"
 	screenNavigatorPortletURL="<%= currentURLObj %>"
-	title="<%= commercePaymentMethodGroupRelsDisplayContext.getCommercePaymentMethodEngineLabel(locale) %>"
+	title="<%= commercePaymentMethodGroupRelsDisplayContext.getCommercePaymentMethodEngineName(locale) %>"
 />
