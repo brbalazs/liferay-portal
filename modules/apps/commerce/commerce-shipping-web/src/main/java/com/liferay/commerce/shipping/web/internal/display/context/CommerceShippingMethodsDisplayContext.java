@@ -88,6 +88,14 @@ public class CommerceShippingMethodsDisplayContext {
 		return _commerceShippingMethod;
 	}
 
+	public String getCommerceShippingMethodEngineDescription(Locale locale) {
+		CommerceShippingEngine commerceShippingEngine =
+			_commerceShippingEngineRegistry.getCommerceShippingEngine(
+				getCommerceShippingMethodEngineKey());
+
+		return commerceShippingEngine.getDescription(locale);
+	}
+
 	public String getCommerceShippingMethodEngineKey() {
 		if (_commerceShippingMethod != null) {
 			return _commerceShippingMethod.getEngineKey();
