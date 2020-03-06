@@ -66,7 +66,7 @@ public class ByAddressCommerceTaxEngine implements CommerceTaxEngine {
 			commerceTaxCalculateRequest.getCommerceBillingAddressId();
 
 		if (isTaxAppliedToShippingAddress(
-				commerceTaxCalculateRequest.getSiteGroupId())) {
+				commerceTaxCalculateRequest.getChannelGroupId())) {
 
 			commerceAddressId =
 				commerceTaxCalculateRequest.getCommerceShippingAddressId();
