@@ -27,10 +27,9 @@ CommerceShippingMethod commerceShippingMethod = commerceShippingFixedOptionsDisp
 <aui:form action="<%= editCommerceShippingFixedOptionActionURL %>" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.DELETE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="deleteCommerceShippingFixedOptionIds" type="hidden" />
 
 	<%
-	java.util.Map<String, String> contextParams = new java.util.HashMap<>();
+	Map<String, String> contextParams = new HashMap<>();
 
 	contextParams.put("commerceShippingMethodId", String.valueOf(commerceShippingMethod.getCommerceShippingMethodId()));
 	%>

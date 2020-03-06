@@ -27,11 +27,9 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.product.service.CommerceChannelService;
-import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption;
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionService;
 import com.liferay.commerce.shipping.engine.fixed.web.internal.model.ShippingFixedOption;
-import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -92,7 +90,6 @@ public class CommerceShippingFixedOptionClayTable
 
 			portletURL.setParameter(
 				"mvcRenderCommandName", "editCommerceShippingFixedOption");
-
 			portletURL.setParameter(
 				"commerceShippingFixedOptionId",
 				String.valueOf(shippingFixedOption.getShippingFixedOptionId()));
@@ -186,13 +183,7 @@ public class CommerceShippingFixedOptionClayTable
 	private CommerceChannelService _commerceChannelService;
 
 	@Reference
-	private CommerceShippingEngineRegistry _commerceShippingEngineRegistry;
-
-	@Reference
 	private CommerceShippingFixedOptionService
 		_commerceShippingFixedOptionService;
-
-	@Reference
-	private CommerceShippingMethodService _commerceShippingMethodService;
 
 }
