@@ -37,7 +37,7 @@ import javax.portlet.RenderRequest;
  * @author Marco Leo
  * @author Alessio Antonio Rendina
  */
-public abstract class BaseCommerceTaxFixedRateDisplayContext<T> {
+public class BaseCommerceTaxFixedRateDisplayContext {
 
 	public BaseCommerceTaxFixedRateDisplayContext(
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
@@ -169,9 +169,6 @@ public abstract class BaseCommerceTaxFixedRateDisplayContext<T> {
 			CATEGORY_KEY_COMMERCE_TAX_METHOD_DETAIL;
 	}
 
-	public abstract SearchContainer<T> getSearchContainer()
-		throws PortalException;
-
 	public String getTaxCategoriesURL() {
 		LiferayPortletResponse liferayPortletResponse =
 			commerceTaxFixedRateRequestHelper.getLiferayPortletResponse();
@@ -205,7 +202,6 @@ public abstract class BaseCommerceTaxFixedRateDisplayContext<T> {
 	protected final CommerceTaxFixedRateRequestHelper
 		commerceTaxFixedRateRequestHelper;
 	protected final CommerceTaxMethodService commerceTaxMethodService;
-	protected SearchContainer<T> searchContainer;
 
 	private CommerceTaxMethod _commerceTaxMethod;
 	private String _defaultOrderByCol;

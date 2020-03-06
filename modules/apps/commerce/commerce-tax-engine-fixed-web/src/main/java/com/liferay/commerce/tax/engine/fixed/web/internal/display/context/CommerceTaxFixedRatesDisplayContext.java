@@ -39,7 +39,7 @@ import javax.portlet.RenderRequest;
  * @author Marco Leo
  */
 public class CommerceTaxFixedRatesDisplayContext
-	extends BaseCommerceTaxFixedRateDisplayContext<CPTaxCategory> {
+	extends BaseCommerceTaxFixedRateDisplayContext {
 
 	public CommerceTaxFixedRatesDisplayContext(
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
@@ -68,15 +68,14 @@ public class CommerceTaxFixedRatesDisplayContext
 		return CommerceTaxMethodFixedRatesScreenNavigationEntry.CATEGORY_KEY;
 	}
 
-	@Override
 	public SearchContainer<CPTaxCategory> getSearchContainer()
 		throws PortalException {
 
-		if (searchContainer != null) {
-			return searchContainer;
+		if (_searchContainer != null) {
+			return _searchContainer;
 		}
 
-		searchContainer = new SearchContainer<>(
+		_searchContainer = new SearchContainer<>(
 			commerceTaxFixedRateRequestHelper.getLiferayPortletRequest(),
 			getPortletURL(), null, getEmptyResultsMessage());
 
@@ -84,23 +83,23 @@ public class CommerceTaxFixedRatesDisplayContext
 			CommerceTaxEngineFixedUtil.getCPTaxCategoryOrderByComparator(
 				getOrderByCol(), getOrderByType());
 
-		searchContainer.setOrderByCol(getOrderByCol());
-		searchContainer.setOrderByComparator(orderByComparator);
-		searchContainer.setOrderByType(getOrderByType());
+		_searchContainer.setOrderByCol(getOrderByCol());
+		_searchContainer.setOrderByComparator(orderByComparator);
+		_searchContainer.setOrderByType(getOrderByType());
 
 		int total = _cpTaxCategoryService.getCPTaxCategoriesCount(
 			commerceTaxFixedRateRequestHelper.getCompanyId());
 
-		searchContainer.setTotal(total);
+		_searchContainer.setTotal(total);
 
 		List<CPTaxCategory> results = _cpTaxCategoryService.getCPTaxCategories(
 			commerceTaxFixedRateRequestHelper.getCompanyId(),
-			searchContainer.getStart(), searchContainer.getEnd(),
+			_searchContainer.getStart(), _searchContainer.getEnd(),
 			orderByComparator);
 
-		searchContainer.setResults(results);
+		_searchContainer.setResults(results);
 
-		return searchContainer;
+		return _searchContainer;
 	}
 
 	protected String getEmptyResultsMessage() {
@@ -129,5 +128,6 @@ public class CommerceTaxFixedRatesDisplayContext
 
 	private final CommerceTaxFixedRateService _commerceTaxFixedRateService;
 	private final CPTaxCategoryService _cpTaxCategoryService;
+	private SearchContainer<CPTaxCategory> _searchContainer;
 
 }
