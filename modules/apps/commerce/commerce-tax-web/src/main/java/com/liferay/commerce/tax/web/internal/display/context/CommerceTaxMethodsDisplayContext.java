@@ -16,6 +16,8 @@ package com.liferay.commerce.tax.web.internal.display.context;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.CommerceTaxEngine;
 import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
@@ -47,16 +49,30 @@ import javax.portlet.RenderResponse;
 public class CommerceTaxMethodsDisplayContext {
 
 	public CommerceTaxMethodsDisplayContext(
+		CommerceChannelLocalService commerceChannelLocalService,
 		CommerceTaxEngineRegistry commerceTaxEngineRegistry,
 		CommerceTaxMethodService commerceTaxMethodService,
 		PortletResourcePermission portletResourcePermission,
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
+		_commerceChannelLocalService = commerceChannelLocalService;
 		_commerceTaxEngineRegistry = commerceTaxEngineRegistry;
 		_commerceTaxMethodService = commerceTaxMethodService;
 		_portletResourcePermission = portletResourcePermission;
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
+	}
+
+	public long getCommerceChannelId() throws PortalException {
+		if (_commerceTaxMethod != null) {
+			CommerceChannel commerceChannel =
+				_commerceChannelLocalService.getCommerceChannelByGroupId(
+					_commerceTaxMethod.getGroupId());
+
+			return commerceChannel.getCommerceChannelId();
+		}
+
+		return ParamUtil.getLong(_renderRequest, "commerceChannelId");
 	}
 
 	public CommerceTaxMethod getCommerceTaxMethod() throws PortalException {
@@ -66,17 +82,45 @@ public class CommerceTaxMethodsDisplayContext {
 
 		long commerceTaxMethodId = ParamUtil.getLong(
 			_renderRequest, "commerceTaxMethodId");
-		String engineKey = ParamUtil.getString(_renderRequest, "engineKey");
 
-		if (commerceTaxMethodId > 0) {
-			_commerceTaxMethod = _commerceTaxMethodService.getCommerceTaxMethod(
+		if (commerceTaxMethodId != 0) {
+			return _commerceTaxMethodService.getCommerceTaxMethod(
 				commerceTaxMethodId);
 		}
-		else if (Validator.isNotNull(engineKey)) {
-			_commerceTaxMethod = getDefaultCommerceTaxMethod(engineKey);
-		}
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannel(
+				getCommerceChannelId());
+
+		_commerceTaxMethod = _commerceTaxMethodService.fetchCommerceTaxMethod(
+			commerceChannel.getGroupId(), getCommerceTaxMethodEngineKey());
 
 		return _commerceTaxMethod;
+	}
+
+	public String getCommerceTaxMethodEngineDescription(Locale locale) {
+		CommerceTaxEngine commerceTaxEngine =
+			_commerceTaxEngineRegistry.getCommerceTaxEngine(
+				getCommerceTaxMethodEngineKey());
+
+		return commerceTaxEngine.getDescription(locale);
+	}
+
+	public String getCommerceTaxMethodEngineKey() {
+		if (_commerceTaxMethod != null) {
+			return _commerceTaxMethod.getEngineKey();
+		}
+
+		return ParamUtil.getString(
+			_renderRequest, "commerceTaxMethodEngineKey");
+	}
+
+	public String getCommerceTaxMethodEngineName(Locale locale) {
+		CommerceTaxEngine commerceTaxEngine =
+			_commerceTaxEngineRegistry.getCommerceTaxEngine(
+				getCommerceTaxMethodEngineKey());
+
+		return commerceTaxEngine.getName(locale);
 	}
 
 	public PortletURL getPortletURL() {
@@ -222,6 +266,7 @@ public class CommerceTaxMethodsDisplayContext {
 		return ParamUtil.getString(_renderRequest, "navigation");
 	}
 
+	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceTaxEngineRegistry _commerceTaxEngineRegistry;
 	private CommerceTaxMethod _commerceTaxMethod;
 	private final CommerceTaxMethodService _commerceTaxMethodService;
