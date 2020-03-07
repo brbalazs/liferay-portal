@@ -106,11 +106,16 @@ public class CommerceShipmentTestUtil {
 		CommerceOrder commerceOrder =
 			CommerceOrderLocalServiceUtil.getCommerceOrder(orderId);
 
+		CommerceShipment commerceShipment =
+			CommerceShipmentLocalServiceUtil.addCommerceShipment(
+				orderId, serviceContext);
+
 		for (CommerceOrderItem commerceOrderItem :
 				commerceOrder.getCommerceOrderItems()) {
 
 			CommerceShipmentItemLocalServiceUtil.addCommerceShipmentItem(
-				0, commerceOrderItem.getCommerceOrderItemId(), warehouseId,
+				commerceShipment.getCommerceShipmentId(),
+				commerceOrderItem.getCommerceOrderItemId(), warehouseId,
 				commerceOrderItem.getQuantity(), serviceContext);
 		}
 	}
