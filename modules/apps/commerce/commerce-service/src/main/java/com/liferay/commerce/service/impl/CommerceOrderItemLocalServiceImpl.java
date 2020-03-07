@@ -436,6 +436,10 @@ public class CommerceOrderItemLocalServiceImpl
 		shippedQuantity =
 			commerceOrderItem.getShippedQuantity() + shippedQuantity;
 
+		if (shippedQuantity < 0) {
+			shippedQuantity = 0;
+		}
+
 		commerceOrderItem.setShippedQuantity(shippedQuantity);
 
 		return commerceOrderItemPersistence.update(commerceOrderItem);

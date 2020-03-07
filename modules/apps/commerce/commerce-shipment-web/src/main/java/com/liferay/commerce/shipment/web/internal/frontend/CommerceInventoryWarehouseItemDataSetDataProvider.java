@@ -121,22 +121,30 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 
 			int maxShippableQuantity =
 				commerceOrderItem.getQuantity() -
-				commerceOrderItem.getShippedQuantity();
+					commerceOrderItem.getShippedQuantity();
 
 			int shipmentItemWarehouseItemQuantity = 0;
 
-			if (commerceInventoryWarehouseId ==
-					commerceShipmentItem.getCommerceInventoryWarehouseId()) {
+			long commerceShipmentId = ParamUtil.getLong(
+				httpServletRequest, "commerceShipmentId");
 
+			commerceShipmentItem =
+				_commerceShipmentItemLocalService.fetchCommerceShipmentItem(
+					commerceShipmentId,
+					commerceOrderItem.getCommerceOrderItemId(),
+					commerceInventoryWarehouseId);
+
+			if (commerceShipmentItem != null) {
 				shipmentItemWarehouseItemQuantity =
 					commerceShipmentItem.getQuantity();
 
-				maxShippableQuantity = commerceShipmentItem.getQuantity();
+				maxShippableQuantity =
+					maxShippableQuantity + commerceShipmentItem.getQuantity();
 			}
 
 			if (commerceInventoryWarehouseItem != null) {
 				if (maxShippableQuantity >
-					commerceInventoryWarehouseItem.getQuantity()) {
+						commerceInventoryWarehouseItem.getQuantity()) {
 
 					maxShippableQuantity =
 						commerceInventoryWarehouseItem.getQuantity();

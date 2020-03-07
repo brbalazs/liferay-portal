@@ -65,8 +65,8 @@ public class CommerceShipmentItemLocalServiceImpl
 				commerceOrderItemId);
 
 		validate(
-			commerceOrderItem, commerceInventoryWarehouseId, quantity,
-			quantity);
+			commerceOrderItem, commerceShipmentId, commerceInventoryWarehouseId,
+			quantity, quantity);
 
 		long commerceShipmentItemId = counterLocalService.increment();
 
@@ -89,8 +89,13 @@ public class CommerceShipmentItemLocalServiceImpl
 		// Stock quantity
 
 		_updateStockQuantity(
-			commerceOrderItem,
-			commerceShipmentItem.getCommerceShipmentItemId());
+			commerceOrderItem, commerceShipmentItem.getCommerceShipmentItemId(),
+			commerceShipmentItem.getQuantity());
+
+		// Commerce Order Item
+
+		commerceOrderItemLocalService.incrementShippedQuantity(
+			commerceShipmentItem.getCommerceOrderItemId(), quantity);
 
 		return commerceShipmentItem;
 	}
@@ -116,7 +121,8 @@ public class CommerceShipmentItemLocalServiceImpl
 
 		CommerceOrderItem commerceOrderItem = null;
 
-		int shippedQuantity = commerceShipmentItem.getQuantity() * -1;
+		int shippedQuantity = Math.negateExact(
+			commerceShipmentItem.getQuantity());
 
 		try {
 			commerceOrderItem =
@@ -126,8 +132,12 @@ public class CommerceShipmentItemLocalServiceImpl
 
 			// Stock quantity
 
-			if (commerceShipmentItem.getCommerceInventoryWarehouseId() > 0) {
-				_restoreStockQuantity(commerceOrderItem, commerceShipmentItem);
+			if ((commerceShipmentItem.getCommerceInventoryWarehouseId() > 0) &&
+				(commerceShipmentItem.getQuantity() > 0)) {
+
+				_restoreStockQuantity(
+					commerceOrderItem, commerceShipmentItem,
+					commerceShipmentItem.getQuantity());
 			}
 		}
 		catch (PortalException pe) {
@@ -169,10 +179,12 @@ public class CommerceShipmentItemLocalServiceImpl
 
 	@Override
 	public CommerceShipmentItem fetchCommerceShipmentItem(
-		long commerceOrderItemId, long commerceInventoryWarehouseId) {
+		long commerceShipmentId, long commerceOrderItemId,
+		long commerceInventoryWarehouseId) {
 
-		return commerceShipmentItemPersistence.fetchByCO_C(
-			commerceOrderItemId, commerceInventoryWarehouseId);
+		return commerceShipmentItemPersistence.fetchByC_C_C(
+			commerceShipmentId, commerceOrderItemId,
+			commerceInventoryWarehouseId);
 	}
 
 	@Override
@@ -249,9 +261,11 @@ public class CommerceShipmentItemLocalServiceImpl
 			commerceOrderItemLocalService.getCommerceOrderItem(
 				commerceShipmentItem.getCommerceOrderItemId());
 
+		int originalQuantity = commerceShipmentItem.getQuantity();
+
 		validate(
-			commerceOrderItem, commerceInventoryWarehouseId,
-			commerceShipmentItem.getQuantity(),	quantity);
+			commerceOrderItem, commerceShipmentItem.getCommerceShipmentId(),
+			commerceInventoryWarehouseId, originalQuantity, quantity);
 
 		commerceShipmentItem.setCommerceInventoryWarehouseId(
 			commerceInventoryWarehouseId);
@@ -260,23 +274,34 @@ public class CommerceShipmentItemLocalServiceImpl
 		commerceShipmentItem = commerceShipmentItemPersistence.update(
 			commerceShipmentItem);
 
-		// Commerce order item
-
-		commerceOrderItem =
-			commerceOrderItemLocalService.incrementShippedQuantity(
-				commerceShipmentItem.getCommerceOrderItemId(), quantity);
+		int quantityDelta = quantity - originalQuantity;
 
 		// Stock quantity
 
-		_updateStockQuantity(
-			commerceOrderItem,
-			commerceShipmentItem.getCommerceShipmentItemId());
+		if (commerceOrderItem.getQuantity() ==
+				commerceOrderItem.getShippedQuantity()) {
+
+			_restoreStockQuantity(
+				commerceOrderItem, commerceShipmentItem,
+				Math.abs(quantityDelta));
+		}
+		else {
+			_updateStockQuantity(
+				commerceOrderItem,
+				commerceShipmentItem.getCommerceShipmentItemId(),
+				quantityDelta);
+		}
+
+		// Commerce order item
+
+		commerceOrderItemLocalService.incrementShippedQuantity(
+			commerceShipmentItem.getCommerceOrderItemId(), quantityDelta);
 
 		return commerceShipmentItem;
 	}
 
 	protected void validate(
-			CommerceOrderItem commerceOrderItem,
+			CommerceOrderItem commerceOrderItem, long commerceShipmentId,
 			long commerceInventoryWarehouseId, int quantity, int newQuantity)
 		throws PortalException {
 
@@ -296,13 +321,22 @@ public class CommerceShipmentItemLocalServiceImpl
 			throw new CommerceShipmentInactiveWarehouseException();
 		}
 
+		CommerceShipmentItem commerceShipmentItem = fetchCommerceShipmentItem(
+			commerceShipmentId, commerceOrderItem.getCommerceOrderItemId(),
+			commerceInventoryWarehouseId);
+
+		if (commerceShipmentItem != null) {
+			availableQuantity =
+				availableQuantity + commerceShipmentItem.getQuantity();
+		}
+
 		int commerceInventoryWarehouseQuantity =
 			commerceOrderItemLocalService.
 				getCommerceInventoryWarehouseItemQuantity(
 					commerceOrderItem.getCommerceOrderItemId(),
 					commerceInventoryWarehouseId);
 
-		if ((newQuantity > availableQuantity) ||
+		if (((newQuantity > quantity) && (newQuantity > availableQuantity)) ||
 			(newQuantity > commerceInventoryWarehouseQuantity)) {
 
 			throw new CommerceShipmentItemQuantityException();
@@ -324,13 +358,13 @@ public class CommerceShipmentItemLocalServiceImpl
 
 	private void _restoreStockQuantity(
 			CommerceOrderItem commerceOrderItem,
-			CommerceShipmentItem commerceShipmentItem)
+			CommerceShipmentItem commerceShipmentItem, int quantity)
 		throws PortalException {
 
 		_commerceInventoryEngine.increaseStockQuantity(
 			commerceShipmentItem.getUserId(),
 			commerceShipmentItem.getCommerceInventoryWarehouseId(),
-			commerceOrderItem.getSku(), commerceShipmentItem.getQuantity());
+			commerceOrderItem.getSku(), quantity);
 
 		Map<String, String> context = new HashMap<>();
 
@@ -339,18 +373,18 @@ public class CommerceShipmentItemLocalServiceImpl
 		context.put(
 			"OrderItemId ",
 			String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
-		context.put(
-			"Quantity ", String.valueOf(commerceOrderItem.getQuantity()));
+		context.put("Quantity ", String.valueOf(quantity));
 
 		_commerceInventoryBookedQuantityLocalService.
 			resetCommerceBookedQuantity(
 				commerceOrderItem.getBookedQuantityId(),
 				commerceOrderItem.getUserId(), commerceOrderItem.getSku(),
-				commerceOrderItem.getQuantity(), null, context);
+				quantity, null, context);
 	}
 
 	private void _updateStockQuantity(
-			CommerceOrderItem commerceOrderItem, long commerceShipmentItemId)
+			CommerceOrderItem commerceOrderItem, long commerceShipmentItemId,
+			int quantity)
 		throws PortalException {
 
 		if (commerceOrderItem == null) {
@@ -386,7 +420,7 @@ public class CommerceShipmentItemLocalServiceImpl
 		_commerceInventoryEngine.consumeQuantity(
 			commerceShipmentItem.getUserId(),
 			commerceShipmentItem.getCommerceInventoryWarehouseId(),
-			commerceOrderItem.getSku(), commerceShipmentItem.getQuantity(),
+			commerceOrderItem.getSku(), quantity,
 			commerceOrderItem.getBookedQuantityId(), context);
 	}
 

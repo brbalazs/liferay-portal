@@ -634,7 +634,8 @@
 			<finder-column name="commerceShipmentId" />
 			<finder-column name="commerceOrderItemId" />
 		</finder>
-		<finder name="CO_C" return-type="CommerceShipmentItem" unique="true">
+		<finder name="C_C_C" return-type="CommerceShipmentItem" unique="true">
+			<finder-column name="commerceShipmentId" />
 			<finder-column name="commerceOrderItemId" />
 			<finder-column name="commerceInventoryWarehouseId" />
 		</finder>

@@ -183,7 +183,7 @@ public class EditCommerceShipmentItemMVCActionCommand
 
 		CommerceShipmentItem initialCommerceShipmentItem =
 			_commerceShipmentItemService.fetchCommerceShipmentItem(
-				commerceOrderItemId, 0);
+				commerceShipmentId, commerceOrderItemId, 0);
 
 		CommerceShipmentItem commerceShipmentItem = null;
 
@@ -195,45 +195,36 @@ public class EditCommerceShipmentItemMVCActionCommand
 		for (CommerceInventoryWarehouse commerceInventoryWarehouse :
 				commerceInventoryWarehouses) {
 
-			commerceShipmentItem =
-				_commerceShipmentItemService.fetchCommerceShipmentItem(
-					commerceOrderItemId,
-					commerceInventoryWarehouse.
-						getCommerceInventoryWarehouseId());
-
 			long commerceInventoryWarehouseId =
 				commerceInventoryWarehouse.getCommerceInventoryWarehouseId();
+
+			commerceShipmentItem =
+				_commerceShipmentItemService.fetchCommerceShipmentItem(
+					commerceShipmentId, commerceOrderItemId,
+					commerceInventoryWarehouseId);
 
 			int quantity = ParamUtil.getInteger(
 				actionRequest, commerceInventoryWarehouseId + "_quantity");
 
-			if (quantity > 0) {
-				if (initialCommerceShipmentItem != null) {
-					commerceShipmentItem =
-						_commerceShipmentItemService.updateCommerceShipmentItem(
-							initialCommerceShipmentItem.
-								getCommerceShipmentItemId(),
-							commerceInventoryWarehouseId, quantity);
-				}
-				else if (commerceShipmentItem == null) {
-					commerceShipmentItem =
-						_commerceShipmentItemService.addCommerceShipmentItem(
-							commerceShipmentId, commerceOrderItemId,
-							commerceInventoryWarehouseId, quantity,
-							serviceContext);
-				}
-				else if (quantity != commerceShipmentItem.getQuantity()) {
-					commerceShipmentItem =
-						_commerceShipmentItemService.updateCommerceShipmentItem(
-							commerceShipmentItem.getCommerceShipmentItemId(),
-							commerceInventoryWarehouseId, quantity);
-				}
+			if ((initialCommerceShipmentItem != null) && (quantity > 0)) {
+				commerceShipmentItem =
+					_commerceShipmentItemService.updateCommerceShipmentItem(
+						initialCommerceShipmentItem.getCommerceShipmentItemId(),
+						commerceInventoryWarehouseId, quantity);
 			}
-			else if (commerceShipmentItem != null) {
-				_commerceShipmentItemService.deleteCommerceShipmentItem(
-					commerceShipmentItem.getCommerceShipmentItemId());
+			else if ((commerceShipmentItem == null) && (quantity > 0)) {
+				commerceShipmentItem =
+					_commerceShipmentItemService.addCommerceShipmentItem(
+						commerceShipmentId, commerceOrderItemId,
+						commerceInventoryWarehouseId, quantity, serviceContext);
+			}
+			else if ((commerceShipmentItem != null) &&
+					 (quantity != commerceShipmentItem.getQuantity())) {
 
-				commerceShipmentItem = null;
+				commerceShipmentItem =
+					_commerceShipmentItemService.updateCommerceShipmentItem(
+						commerceShipmentItem.getCommerceShipmentItemId(),
+						commerceInventoryWarehouseId, quantity);
 			}
 		}
 

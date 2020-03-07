@@ -25,8 +25,6 @@ import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.base.CommerceShipmentLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -95,7 +93,7 @@ public class CommerceShipmentLocalServiceImpl
 		CommerceOrder commerceOrder =
 			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
 
-		return addCommerceShipment(
+		return commerceShipmentLocalService.addCommerceShipment(
 			commerceOrder.getGroupId(), commerceOrder.getCommerceAccountId(),
 			commerceOrder.getShippingAddressId(),
 			commerceOrder.getCommerceShippingMethodId(),
@@ -563,8 +561,5 @@ public class CommerceShipmentLocalServiceImpl
 			throw new CommerceShipmentStatusException();
 		}
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceShipmentLocalServiceImpl.class);
 
 }

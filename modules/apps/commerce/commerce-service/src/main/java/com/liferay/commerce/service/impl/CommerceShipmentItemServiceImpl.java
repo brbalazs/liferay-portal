@@ -81,7 +81,8 @@ public class CommerceShipmentItemServiceImpl
 
 	@Override
 	public CommerceShipmentItem fetchCommerceShipmentItem(
-			long commerceOrderItemId, long commerceInventoryWarehouseId)
+			long commerceShipmentId, long commerceOrderItemId,
+			long commerceInventoryWarehouseId)
 		throws PortalException {
 
 		PortalPermissionUtil.contains(
@@ -89,7 +90,8 @@ public class CommerceShipmentItemServiceImpl
 			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
 
 		return commerceShipmentItemLocalService.fetchCommerceShipmentItem(
-			commerceOrderItemId, commerceInventoryWarehouseId);
+			commerceShipmentId, commerceOrderItemId,
+			commerceInventoryWarehouseId);
 	}
 
 	@Override
