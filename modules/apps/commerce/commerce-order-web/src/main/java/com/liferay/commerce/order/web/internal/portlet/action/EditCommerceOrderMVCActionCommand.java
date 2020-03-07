@@ -20,8 +20,11 @@ import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
+import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.service.CommerceAddressService;
@@ -260,6 +263,27 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 			int orderStatus = GetterUtil.getInteger(
 				transitionName, commerceOrder.getOrderStatus());
+
+			if (orderStatus == CommerceOrderConstants.ORDER_STATUS_CANCELLED) {
+				for (CommerceOrderItem commerceOrderItem :
+						commerceOrder.getCommerceOrderItems()) {
+
+					if (commerceOrderItem.getBookedQuantityId() > 0) {
+						CommerceInventoryBookedQuantity
+							commerceInventoryBookedQuantity =
+								_commerceInventoryBookedQuantityLocalService.
+									fetchCommerceInventoryBookedQuantity(
+										commerceOrderItem.
+											getBookedQuantityId());
+
+						if (commerceInventoryBookedQuantity != null) {
+							_commerceInventoryBookedQuantityLocalService.
+								deleteCommerceInventoryBookedQuantity(
+									commerceInventoryBookedQuantity);
+						}
+					}
+				}
+			}
 
 			if ((orderStatus ==
 					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) &&
@@ -556,6 +580,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;
+
+	@Reference
+	private CommerceInventoryBookedQuantityLocalService
+		_commerceInventoryBookedQuantityLocalService;
 
 	@Reference
 	private CommerceOrderEngine _commerceOrderEngine;
