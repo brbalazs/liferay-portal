@@ -76,7 +76,7 @@ public class FulfilledCommerceOrderStatusImpl implements CommerceOrderStatus {
 			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override

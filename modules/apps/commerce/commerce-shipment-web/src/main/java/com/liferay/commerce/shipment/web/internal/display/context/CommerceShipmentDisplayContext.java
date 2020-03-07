@@ -365,22 +365,6 @@ public class CommerceShipmentDisplayContext
 			commerceShipment.getCommerceAddressId());
 	}
 
-	public boolean hasOrderItemsAvailableToShip() throws PortalException {
-		CommerceShipment commerceShipment = getCommerceShipment();
-
-		int commerceOrderItemsCount =
-			_commerceOrderItemService.getCommerceOrderItemsCount(
-				commerceShipment.getGroupId(),
-				commerceShipment.getCommerceAccountId(),
-				CommerceOrderConstants.SHIPPABLE_ORDER_STATUSES);
-
-		if (commerceOrderItemsCount > 0) {
-			return true;
-		}
-
-		return false;
-	}
-
 	private SearchContext _buildSearchContext() throws PortalException {
 		SearchContext searchContext = new SearchContext();
 

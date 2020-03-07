@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -262,9 +261,8 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			int orderStatus = GetterUtil.getInteger(
 				transitionName, commerceOrder.getOrderStatus());
 
-			if (ArrayUtil.contains(
-					CommerceOrderConstants.SHIPPABLE_ORDER_STATUSES,
-					orderStatus) &&
+			if ((orderStatus ==
+					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) &&
 				(commerceOrder.getOrderStatus() !=
 					CommerceOrderConstants.ORDER_STATUS_BLOCKED)) {
 
