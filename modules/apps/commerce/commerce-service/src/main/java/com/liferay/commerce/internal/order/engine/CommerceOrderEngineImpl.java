@@ -20,7 +20,6 @@ import com.liferay.commerce.constants.CommercePaymentConstants;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
-import com.liferay.commerce.exception.CommerceOrderPaymentMethodException;
 import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
 import com.liferay.commerce.exception.CommerceOrderShippingMethodException;
 import com.liferay.commerce.exception.CommerceOrderStatusException;
@@ -61,7 +60,6 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -377,10 +375,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 		if (!_commerceOrderValidatorRegistry.isValid(null, commerceOrder)) {
 			throw new CommerceOrderValidatorException();
-		}
-
-		if (Validator.isNull(commerceOrder.getCommercePaymentMethodKey())) {
-			throw new CommerceOrderPaymentMethodException();
 		}
 
 		if (commerceOrder.isB2B() &&
