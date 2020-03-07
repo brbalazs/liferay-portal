@@ -24,12 +24,6 @@ definition {
 		AssertConfirm.waitForConfirmation(value1 = "${deleteMessage}");
 	}
 
-	macro moveCatalogEntriesToRecycleBin {
-		Click(locator1 = "CommerceNavigation#SELECT_ALL_CHECKBOX");
-
-		Click(locator1 = "Button#RECYCLE_BIN");
-	}
-
 	macro deleteProductsEntry {
 		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
 
@@ -38,6 +32,12 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 
 		AssertElementNotPresent(locator1 = "Message#ERROR");
+	}
+
+	macro moveCatalogEntriesToRecycleBin {
+		Click(locator1 = "CommerceNavigation#SELECT_ALL_CHECKBOX");
+
+		Click(locator1 = "Button#RECYCLE_BIN");
 	}
 
 }

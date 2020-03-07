@@ -284,6 +284,12 @@ definition {
 		CommerceEntry.selectAssociatedOptionsValue(optionValue = "${optionValue}");
 	}
 
+	macro clickNoError {
+		ClickNoError(
+			key_menuItem = "${menuItem}",
+			locator1 = "CommerceEntry#ANY_MENU_ITEM");
+	}
+
 	macro createNewAccountGroup {
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -492,12 +498,6 @@ definition {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#SHORT_DESCRIPTION_FIELD",
 			value1 = "${productShortDescription}");
-	}
-
-	macro clickNoError {
-		ClickNoError(
-			key_menuItem = "${menuItem}",
-			locator1 = "CommerceEntry#ANY_MENU_ITEM");
 	}
 
 }
