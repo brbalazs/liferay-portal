@@ -29,7 +29,6 @@ import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceCountryService;
@@ -130,12 +129,8 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			cartId);
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
+			contextCompany.getCompanyId(), commerceOrder.getGroupId(),
 			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 			commerceOrder.getCommerceAccountId());
 
@@ -155,7 +150,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			cart, commerceChannel.getGroupId(), contextUser.getUserId());
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
+			contextCompany.getCompanyId(), commerceChannel.getGroupId(),
 			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 			cart.getAccountId());
 
@@ -284,13 +279,9 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		long commerceShippingMethodId =
 			commerceOrder.getCommerceShippingMethodId();
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		CommerceShippingMethod commerceShippingMethod =
 			_commerceShippingMethodService.fetchCommerceShippingMethod(
-				commerceChannel.getSiteGroupId(), cart.getShippingMethod());
+				commerceOrder.getGroupId(), cart.getShippingMethod());
 
 		if (commerceShippingMethod != null) {
 			commerceShippingMethodId =
@@ -298,7 +289,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		}
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
+			contextCompany.getCompanyId(), commerceOrder.getGroupId(),
 			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 			commerceOrder.getCommerceAccountId());
 
@@ -488,9 +479,6 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;
-
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceChannelService _commerceChannelService;
