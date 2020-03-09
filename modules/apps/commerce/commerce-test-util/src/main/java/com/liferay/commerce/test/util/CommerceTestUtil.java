@@ -301,14 +301,13 @@ public class CommerceTestUtil {
 
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
 			addCommercePaymentMethodGroupRel(
-				commerceOrder.getCompanyId(), groupId, userId,
-				commerceChannel.getSiteGroupId());
+				userId, commerceChannel.getGroupId());
 
 		commerceOrder.setCommercePaymentMethodKey(
 			commercePaymentMethodGroupRel.getEngineKey());
 
 		CommerceShippingMethod commerceShippingMethod =
-			addCommerceShippingMethod(groupId);
+			addCommerceShippingMethod(userId, commerceChannel.getGroupId());
 
 		commerceOrder.setCommerceShippingMethodId(
 			commerceShippingMethod.getCommerceShippingMethodId());
