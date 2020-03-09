@@ -64,7 +64,7 @@ if (deliveryMaxSubscriptionCycles > 0) {
 }
 %>
 
-<liferay-ui:error exception="<%= CommerceSubscriptionEntryNextIterationDateException.class %>" message="please-enter-a-valid-date-for-non-inactive-subscription" />
+<liferay-ui:error exception="<%= CommerceSubscriptionEntryNextIterationDateException.class %>" message="please-enter-a-valid-date-for-a-non-inactive-subscription" />
 
 <commerce-ui:panel
 	elementClasses="flex-fill"
