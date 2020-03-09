@@ -160,6 +160,16 @@ public class CommerceInventoryWarehouseItemDataSetDataProvider
 						StringPool.BLANK,
 						commerceInventoryWarehouse.getName()));
 			}
+			else {
+				warehouses.add(
+					new Warehouse(
+						commerceInventoryWarehouseId,
+						new WarehouseItem(
+							inputName, shipmentItemWarehouseItemQuantity, 0,
+							shipmentItemWarehouseItemQuantity),
+						0, StringPool.BLANK,
+						commerceInventoryWarehouse.getName()));
+			}
 		}
 
 		return warehouses;
