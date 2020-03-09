@@ -14,6 +14,8 @@
 
 package com.liferay.commerce.account.web.internal.portlet.action;
 
+import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
+
 import com.liferay.commerce.account.configuration.CommerceAccountGroupServiceConfiguration;
 import com.liferay.commerce.account.constants.CommerceAccountActionKeys;
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
@@ -58,6 +60,7 @@ import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserService;
+import com.liferay.portal.kernel.service.permission.UserPermissionUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -76,6 +79,7 @@ import com.liferay.users.admin.kernel.util.UsersAdmin;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
@@ -320,18 +324,28 @@ public class EditCommerceAccountUserMVCActionCommand
 			WebKeys.THEME_DISPLAY);
 
 		try {
-			long commerceAccountId = ParamUtil.getLong(
-				actionRequest, "commerceAccountId");
-
-			_commerceAccountPermission.check(
-				themeDisplay.getPermissionChecker(), commerceAccountId,
-				CommerceAccountActionKeys.MANAGE_MEMBERS);
-
-			_commerceAccountPermission.check(
-				themeDisplay.getPermissionChecker(), commerceAccountId,
-				ActionKeys.UPDATE);
-
 			long userId = ParamUtil.getLong(actionRequest, "userId");
+
+			User user = _userLocalService.getUser(userId);
+
+			User currentUser = _userService.getCurrentUser();
+
+			if (Objects.equals(user, currentUser)) {
+				UserPermissionUtil.check(
+					getPermissionChecker(), userId, ActionKeys.UPDATE);
+			}
+			else {
+				long commerceAccountId = ParamUtil.getLong(
+					actionRequest, "commerceAccountId");
+
+				_commerceAccountPermission.check(
+					themeDisplay.getPermissionChecker(), commerceAccountId,
+					CommerceAccountActionKeys.MANAGE_MEMBERS);
+
+				_commerceAccountPermission.check(
+					themeDisplay.getPermissionChecker(), commerceAccountId,
+					ActionKeys.UPDATE);
+			}
 
 			String screenName = ParamUtil.getString(
 				actionRequest, "screenName");
@@ -356,8 +370,6 @@ public class EditCommerceAccountUserMVCActionCommand
 
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
 				User.class.getName(), actionRequest);
-
-			User user = _userLocalService.getUser(userId);
 
 			Date birthday = user.getBirthday();
 
