@@ -249,7 +249,7 @@ public class MiniumCPContentListEntryRenderer
 
 				String status = "inStock";
 
-				if (stockQuantity == 0) {
+				if (stockQuantity <= 0) {
 					status = "notAvailable";
 				}
 				else if (stockQuantity <=
