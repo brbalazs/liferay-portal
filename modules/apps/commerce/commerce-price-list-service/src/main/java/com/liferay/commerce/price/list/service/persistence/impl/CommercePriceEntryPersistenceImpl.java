@@ -3099,26 +3099,26 @@ public class CommercePriceEntryPersistenceImpl
 			commercePriceListId, CPInstanceUuid, status);
 
 		if (commercePriceEntry == null) {
-			StringBundler msg = new StringBundler(8);
+			StringBundler sb = new StringBundler(8);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("commercePriceListId=");
-			msg.append(commercePriceListId);
+			sb.append("commercePriceListId=");
+			sb.append(commercePriceListId);
 
-			msg.append(", CPInstanceUuid=");
-			msg.append(CPInstanceUuid);
+			sb.append(", CPInstanceUuid=");
+			sb.append(CPInstanceUuid);
 
-			msg.append(", status=");
-			msg.append(status);
+			sb.append(", status=");
+			sb.append(status);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchPriceEntryException(msg.toString());
+			throw new NoSuchPriceEntryException(sb.toString());
 		}
 
 		return commercePriceEntry;
@@ -3184,45 +3184,45 @@ public class CommercePriceEntryPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(5);
+			StringBundler sb = new StringBundler(5);
 
-			query.append(_SQL_SELECT_COMMERCEPRICEENTRY_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEENTRY_WHERE);
 
-			query.append(_FINDER_COLUMN_C_C_S_COMMERCEPRICELISTID_2);
+			sb.append(_FINDER_COLUMN_C_C_S_COMMERCEPRICELISTID_2);
 
 			boolean bindCPInstanceUuid = false;
 
 			if (CPInstanceUuid.isEmpty()) {
-				query.append(_FINDER_COLUMN_C_C_S_CPINSTANCEUUID_3);
+				sb.append(_FINDER_COLUMN_C_C_S_CPINSTANCEUUID_3);
 			}
 			else {
 				bindCPInstanceUuid = true;
 
-				query.append(_FINDER_COLUMN_C_C_S_CPINSTANCEUUID_2);
+				sb.append(_FINDER_COLUMN_C_C_S_CPINSTANCEUUID_2);
 			}
 
-			query.append(_FINDER_COLUMN_C_C_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_C_C_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(commercePriceListId);
+				queryPos.add(commercePriceListId);
 
 				if (bindCPInstanceUuid) {
-					qPos.add(CPInstanceUuid);
+					queryPos.add(CPInstanceUuid);
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				List<CommercePriceEntry> list = q.list();
+				List<CommercePriceEntry> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -3301,45 +3301,45 @@ public class CommercePriceEntryPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEENTRY_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEENTRY_WHERE);
 
-			query.append(_FINDER_COLUMN_C_C_S_COMMERCEPRICELISTID_2);
+			sb.append(_FINDER_COLUMN_C_C_S_COMMERCEPRICELISTID_2);
 
 			boolean bindCPInstanceUuid = false;
 
 			if (CPInstanceUuid.isEmpty()) {
-				query.append(_FINDER_COLUMN_C_C_S_CPINSTANCEUUID_3);
+				sb.append(_FINDER_COLUMN_C_C_S_CPINSTANCEUUID_3);
 			}
 			else {
 				bindCPInstanceUuid = true;
 
-				query.append(_FINDER_COLUMN_C_C_S_CPINSTANCEUUID_2);
+				sb.append(_FINDER_COLUMN_C_C_S_CPINSTANCEUUID_2);
 			}
 
-			query.append(_FINDER_COLUMN_C_C_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_C_C_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(commercePriceListId);
+				queryPos.add(commercePriceListId);
 
 				if (bindCPInstanceUuid) {
-					qPos.add(CPInstanceUuid);
+					queryPos.add(CPInstanceUuid);
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}

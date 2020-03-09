@@ -3600,23 +3600,23 @@ public class CommercePriceListPersistenceImpl
 			groupId, catalogBasePriceList);
 
 		if (commercePriceList == null) {
-			StringBundler msg = new StringBundler(6);
+			StringBundler sb = new StringBundler(6);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("groupId=");
-			msg.append(groupId);
+			sb.append("groupId=");
+			sb.append(groupId);
 
-			msg.append(", catalogBasePriceList=");
-			msg.append(catalogBasePriceList);
+			sb.append(", catalogBasePriceList=");
+			sb.append(catalogBasePriceList);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchPriceListException(msg.toString());
+			throw new NoSuchPriceListException(sb.toString());
 		}
 
 		return commercePriceList;
@@ -3673,31 +3673,31 @@ public class CommercePriceListPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			query.append(_SQL_SELECT_COMMERCEPRICELIST_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICELIST_WHERE);
 
-			query.append(_FINDER_COLUMN_CATALOGBASEPRICELIST_GROUPID_2);
+			sb.append(_FINDER_COLUMN_CATALOGBASEPRICELIST_GROUPID_2);
 
-			query.append(
+			sb.append(
 				_FINDER_COLUMN_CATALOGBASEPRICELIST_CATALOGBASEPRICELIST_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(groupId);
+				queryPos.add(groupId);
 
-				qPos.add(catalogBasePriceList);
+				queryPos.add(catalogBasePriceList);
 
-				List<CommercePriceList> list = q.list();
+				List<CommercePriceList> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -3788,31 +3788,31 @@ public class CommercePriceListPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEPRICELIST_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICELIST_WHERE);
 
-			query.append(_FINDER_COLUMN_CATALOGBASEPRICELIST_GROUPID_2);
+			sb.append(_FINDER_COLUMN_CATALOGBASEPRICELIST_GROUPID_2);
 
-			query.append(
+			sb.append(
 				_FINDER_COLUMN_CATALOGBASEPRICELIST_CATALOGBASEPRICELIST_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(groupId);
+				queryPos.add(groupId);
 
-				qPos.add(catalogBasePriceList);
+				queryPos.add(catalogBasePriceList);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}

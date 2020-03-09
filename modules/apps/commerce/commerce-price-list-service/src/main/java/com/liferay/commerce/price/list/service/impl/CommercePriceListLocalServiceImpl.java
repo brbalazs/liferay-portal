@@ -352,11 +352,6 @@ public class CommercePriceListLocalServiceImpl
 			deleteCommercePriceModifiersByCommercePriceListId(
 				commercePriceList.getCommercePriceListId());
 
-		// Commerce price list commerce price list rel
-
-		commercePriceListRelLocalService.deleteCommercePriceListRels(
-			commercePriceList.getCommercePriceListId());
-
 		// Commerce price list
 
 		commercePriceListPersistence.remove(commercePriceList);
