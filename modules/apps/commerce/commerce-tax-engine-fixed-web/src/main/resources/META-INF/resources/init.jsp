@@ -21,22 +21,17 @@
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
 taglib uri="http://liferay.com/tld/commerce-ui" prefix="commerce-ui" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
-taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
-taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
 <%@ page import="com.liferay.commerce.model.CommerceCountry" %><%@
 page import="com.liferay.commerce.model.CommerceRegion" %><%@
-page import="com.liferay.commerce.product.exception.NoSuchCPTaxCategoryException" %><%@
 page import="com.liferay.commerce.product.model.CPTaxCategory" %><%@
-page import="com.liferay.commerce.tax.engine.fixed.exception.DuplicateCommerceTaxFixedRateException" %><%@
-page import="com.liferay.commerce.tax.engine.fixed.exception.NoSuchTaxFixedRateException" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRateAddressRel" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.display.context.CommerceTaxFixedRateAddressRelsDisplayContext" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.display.context.CommerceTaxFixedRatesDisplayContext" %><%@
+page import="com.liferay.commerce.tax.engine.fixed.web.internal.frontend.CommerceTaxRateClayTable" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.frontend.CommerceTaxRateSettingClayTable" %><%@
-page import="com.liferay.petra.string.StringPool" %><%@
-page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
