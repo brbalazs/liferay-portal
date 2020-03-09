@@ -25,8 +25,6 @@ import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
-import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.product.channel.CommerceChannelHealthStatus;
 import com.liferay.commerce.product.channel.CommerceChannelHealthStatusRegistry;
 import com.liferay.commerce.product.model.CommerceChannel;

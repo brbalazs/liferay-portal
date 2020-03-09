@@ -33,10 +33,6 @@ public class TaxMethod {
 		_taxEngine = taxEngine;
 	}
 
-	public LabelField getStatus() {
-		return _status;
-	}
-
 	public String getDescription() {
 		return _description;
 	}
@@ -47,6 +43,10 @@ public class TaxMethod {
 
 	public String getName() {
 		return _name;
+	}
+
+	public LabelField getStatus() {
+		return _status;
 	}
 
 	public String getTaxEngine() {

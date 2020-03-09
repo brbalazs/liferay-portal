@@ -29,7 +29,6 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
-import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
