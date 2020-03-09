@@ -28,6 +28,7 @@
 					<%= title %>
 				</h3>
 			</div>
+
 			<button class="btn btn-unstyled side-panel-iframe-close">
 				<clay:icon
 					symbol="times"
