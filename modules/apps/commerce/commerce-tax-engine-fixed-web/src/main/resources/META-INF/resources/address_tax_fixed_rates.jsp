@@ -25,7 +25,7 @@ CommerceTaxFixedRateAddressRelsDisplayContext commerceTaxFixedRateAddressRelsDis
 <aui:form action="<%= editCommerceTaxFixedRateAddressRelActionURL %>" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="updateConfiguration" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="commerceChannelId" type="hidden" value="<%= commerceTaxFixedRateAddressRelsDisplayContext.getCommerceChannelId() %>" />
+	<aui:input name="commerceTaxMethodId" type="hidden" value="<%= commerceTaxFixedRateAddressRelsDisplayContext.getCommerceTaxMethodId() %>" />
 
 	<commerce-ui:panel
 		title='<%= LanguageUtil.get(resourceBundle, "taxed-address") %>'
