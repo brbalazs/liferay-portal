@@ -20,7 +20,7 @@ import com.liferay.commerce.constants.CommerceAddressConstants;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrder;
@@ -28,8 +28,8 @@ import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -96,7 +96,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		throws Exception {
 
 		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
+			_commerceChannelLocalService.getCommerceChannel(channelId);
 
 		List<CommerceOrder> commerceOrders =
 			_commerceOrderService.getUserPendingCommerceOrders(
@@ -144,7 +144,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		throws Exception {
 
 		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
+			_commerceChannelLocalService.getCommerceChannel(channelId);
 
 		CommerceOrder commerceOrder = _addCommerceOrder(
 			cart, commerceChannel.getGroupId(), contextUser.getUserId());
@@ -187,7 +187,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		long commerceCurrencyId = 0;
 
 		CommerceCurrency commerceCurrency =
-			_commerceCurrencyService.getCommerceCurrency(
+			_commerceCurrencyLocalService.getCommerceCurrency(
 				contextCompany.getCompanyId(), cart.getCurrencyCode());
 
 		if (commerceCurrency != null) {
@@ -364,7 +364,8 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		CPInstance cpInstance = null;
 
 		if (cartItem.getSkuId() != null) {
-			cpInstance = _cpInstanceService.getCPInstance(cartItem.getSkuId());
+			cpInstance = _cpInstanceLocalService.getCPInstance(
+				cartItem.getSkuId());
 		}
 
 		_commerceOrderItemService.upsertCommerceOrderItem(
@@ -481,7 +482,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	private CommerceAddressService _commerceAddressService;
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceContextFactory _commerceContextFactory;
@@ -490,7 +491,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	private CommerceCountryService _commerceCountryService;
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
@@ -505,7 +506,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	private CommerceShippingMethodService _commerceShippingMethodService;
 
 	@Reference
-	private CPInstanceService _cpInstanceService;
+	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

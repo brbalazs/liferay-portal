@@ -74,12 +74,10 @@ public class CartCommentResourceImpl extends BaseCartCommentResourceImpl {
 		throws Exception {
 
 		List<CommerceOrderNote> commerceOrderNotes =
-			_commerceOrderNoteService.getCommerceOrderNotes(
-				cartId, pagination.getStartPosition(),
-				pagination.getEndPosition());
+			_commerceOrderNoteService.getCommerceOrderNotes(cartId, false);
 
 		int totalItems = _commerceOrderNoteService.getCommerceOrderNotesCount(
-			cartId);
+			cartId, false);
 
 		return Page.of(
 			_toOrderNotes(commerceOrderNotes), pagination, totalItems);

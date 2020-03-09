@@ -54,10 +54,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 
 	@Override
-	public Response deleteCartItem(
-			@NotNull Long cartId, @NotNull Long cartItemId)
-		throws Exception {
-
+	public Response deleteCartItem(@NotNull Long cartItemId) throws Exception {
 		_commerceOrderItemService.deleteCommerceOrderItem(cartItemId);
 
 		Response.ResponseBuilder responseBuilder = Response.noContent();
@@ -110,8 +107,7 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 		return _toCartItem(
 			_commerceOrderItemService.upsertCommerceOrderItem(
 				commerceOrder.getCommerceOrderId(), cartItem.getSkuId(),
-				cartItem.getQuantity(), 0, cartItem.getOptions(),
-				commerceContext, serviceContext));
+				cartItem.getQuantity(), 0, commerceContext, serviceContext));
 	}
 
 	@Override
