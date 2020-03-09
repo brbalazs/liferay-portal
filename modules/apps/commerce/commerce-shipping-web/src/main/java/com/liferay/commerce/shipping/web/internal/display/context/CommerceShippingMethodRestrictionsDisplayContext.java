@@ -14,10 +14,11 @@
 
 package com.liferay.commerce.shipping.web.internal.display.context;
 
-import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.item.selector.criterion.CommerceCountryItemSelectorCriterion;
 import com.liferay.commerce.model.CommerceAddressRestriction;
 import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.commerce.shipping.web.internal.servlet.taglib.ui.CommerceShippingScreenNavigationConstants;
 import com.liferay.commerce.util.CommerceUtil;
@@ -31,7 +32,8 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -54,16 +56,35 @@ import javax.portlet.RenderResponse;
 public class CommerceShippingMethodRestrictionsDisplayContext {
 
 	public CommerceShippingMethodRestrictionsDisplayContext(
+		CommerceChannelLocalService commerceChannelLocalService,
+		ModelResourcePermission<CommerceChannel>
+			commerceChannelModelResourcePermission,
 		CommerceShippingMethodService commerceShippingMethodService,
-		ItemSelector itemSelector,
-		PortletResourcePermission portletResourcePermission,
-		RenderRequest renderRequest, RenderResponse renderResponse) {
+		ItemSelector itemSelector, RenderRequest renderRequest,
+		RenderResponse renderResponse) {
 
+		_commerceChannelLocalService = commerceChannelLocalService;
+		_commerceChannelModelResourcePermission =
+			commerceChannelModelResourcePermission;
 		_commerceShippingMethodService = commerceShippingMethodService;
 		_itemSelector = itemSelector;
-		_portletResourcePermission = portletResourcePermission;
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
+	}
+
+	public long getCommerceChannelId() throws PortalException {
+		CommerceShippingMethod commerceShippingMethod =
+			getCommerceShippingMethod();
+
+		if (commerceShippingMethod != null) {
+			CommerceChannel commerceChannel =
+				_commerceChannelLocalService.getCommerceChannelByGroupId(
+					commerceShippingMethod.getGroupId());
+
+			return commerceChannel.getCommerceChannelId();
+		}
+
+		return ParamUtil.getLong(_renderRequest, "commerceChannelId");
 	}
 
 	public CommerceShippingMethod getCommerceShippingMethod()
@@ -189,13 +210,17 @@ public class CommerceShippingMethodRestrictionsDisplayContext {
 		return _searchContainer;
 	}
 
-	public boolean hasManageCommerceShippingMethodsPermission() {
+	public boolean hasUpdateCommerceChannelPermission() throws PortalException {
 		ThemeDisplay themeDisplay = (ThemeDisplay)_renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		return _portletResourcePermission.contains(
-			themeDisplay.getPermissionChecker(), themeDisplay.getScopeGroupId(),
-			CommerceActionKeys.MANAGE_COMMERCE_SHIPPING_METHODS);
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannel(
+				getCommerceChannelId());
+
+		return _commerceChannelModelResourcePermission.contains(
+			themeDisplay.getPermissionChecker(), commerceChannel,
+			ActionKeys.UPDATE);
 	}
 
 	protected long[] getCheckedCommerceCountryIds() throws PortalException {
@@ -234,10 +259,12 @@ public class CommerceShippingMethodRestrictionsDisplayContext {
 			getCommerceShippingMethodId(), start, end, orderByComparator);
 	}
 
+	private final CommerceChannelLocalService _commerceChannelLocalService;
+	private final ModelResourcePermission<CommerceChannel>
+		_commerceChannelModelResourcePermission;
 	private CommerceShippingMethod _commerceShippingMethod;
 	private final CommerceShippingMethodService _commerceShippingMethodService;
 	private final ItemSelector _itemSelector;
-	private final PortletResourcePermission _portletResourcePermission;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
 	private RowChecker _rowChecker;

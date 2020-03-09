@@ -33,16 +33,15 @@ public class CommerceShippingFixedOptionRelLocalServiceImpl
 
 	@Override
 	public CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
-			long commerceShippingMethodId, long commerceShippingFixedOptionId,
+			long userId, long groupId, long commerceShippingMethodId,
+			long commerceShippingFixedOptionId,
 			long commerceInventoryWarehouseId, long commerceCountryId,
 			long commerceRegionId, String zip, double weightFrom,
 			double weightTo, BigDecimal fixedPrice,
-			BigDecimal rateUnitWeightPrice, double ratePercentage,
-			ServiceContext serviceContext)
+			BigDecimal rateUnitWeightPrice, double ratePercentage)
 		throws PortalException {
 
-		User user = userLocalService.getUser(serviceContext.getUserId());
-		long groupId = serviceContext.getScopeGroupId();
+		User user = userLocalService.getUser(userId);
 
 		long commerceShippingFixedOptionRelId = counterLocalService.increment();
 
@@ -72,6 +71,29 @@ public class CommerceShippingFixedOptionRelLocalServiceImpl
 
 		return commerceShippingFixedOptionRelPersistence.update(
 			commerceShippingFixedOptionRel);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
+			long commerceShippingMethodId, long commerceShippingFixedOptionId,
+			long commerceInventoryWarehouseId, long commerceCountryId,
+			long commerceRegionId, String zip, double weightFrom,
+			double weightTo, BigDecimal fixedPrice,
+			BigDecimal rateUnitWeightPrice, double ratePercentage,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return commerceShippingFixedOptionRelLocalService.
+			addCommerceShippingFixedOptionRel(
+				serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+				commerceShippingMethodId, commerceShippingFixedOptionId,
+				commerceInventoryWarehouseId, commerceCountryId,
+				commerceRegionId, zip, weightFrom, weightTo, fixedPrice,
+				rateUnitWeightPrice, ratePercentage);
 	}
 
 	@Override

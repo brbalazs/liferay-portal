@@ -395,19 +395,17 @@ public class MiniumSiteInitializer implements SiteInitializer {
 				null, shippingMethod, 0, true);
 
 		setCommerceShippingOption(
-			commerceShippingMethod.getCommerceShippingMethodId(),
-			"Standard Delivery", StringPool.BLANK, BigDecimal.valueOf(15),
-			serviceContext);
+			commerceShippingMethod, "Standard Delivery", StringPool.BLANK,
+			BigDecimal.valueOf(15), serviceContext);
 
 		setCommerceShippingOption(
-			commerceShippingMethod.getCommerceShippingMethodId(),
-			"Expedited Delivery", StringPool.BLANK, BigDecimal.valueOf(25),
-			serviceContext);
+			commerceShippingMethod, "Expedited Delivery", StringPool.BLANK,
+			BigDecimal.valueOf(25), serviceContext);
 	}
 
 	protected void setCommerceShippingOption(
-			long commerceShippingMethodId, String name, String description,
-			BigDecimal price, ServiceContext serviceContext)
+			CommerceShippingMethod commerceShippingMethod, String name,
+			String description, BigDecimal price, ServiceContext serviceContext)
 		throws PortalException {
 
 		Map<Locale, String> nameMap = new HashMap<>();
@@ -417,8 +415,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		descriptionMap.put(serviceContext.getLocale(), description);
 
 		_commerceShippingFixedOptionLocalService.addCommerceShippingFixedOption(
-			commerceShippingMethodId, nameMap, descriptionMap, price, 0,
-			serviceContext);
+			serviceContext.getUserId(), commerceShippingMethod.getGroupId(),
+			commerceShippingMethod.getCommerceShippingMethodId(), nameMap,
+			descriptionMap, price, 0);
 	}
 
 	protected void setDefaultCatalogImage(

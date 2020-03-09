@@ -15,11 +15,11 @@
 package com.liferay.commerce.tax.engine.fixed.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
-import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.tax.engine.fixed.configuration.CommerceTaxByAddressTypeConfiguration;
 import com.liferay.commerce.tax.engine.fixed.exception.NoSuchTaxFixedRateAddressRelException;
 import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateAddressRelService;
+import com.liferay.commerce.tax.model.CommerceTaxMethod;
+import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
@@ -139,33 +139,31 @@ public class EditCommerceTaxFixedRateAddressRelMVCActionCommand
 					commerceRegionId, zip, rate);
 		}
 		else {
-			long commerceChannelId = ParamUtil.getLong(
-				actionRequest, "commerceChannelId");
-
-			CommerceChannel commerceChannel =
-				_commerceChannelService.getCommerceChannel(commerceChannelId);
+			CommerceTaxMethod commerceTaxMethod =
+				_commerceTaxMethodService.getCommerceTaxMethod(
+					commerceTaxMethodId);
 
 			_commerceTaxFixedRateAddressRelService.
 				addCommerceTaxFixedRateAddressRel(
 					_portal.getUserId(actionRequest),
-					commerceChannel.getGroupId(), commerceTaxMethodId,
-					cpTaxCategoryId, commerceCountryId, commerceRegionId, zip,
-					rate);
+					commerceTaxMethod.getGroupId(),
+					commerceTaxMethod.getCommerceTaxMethodId(), cpTaxCategoryId,
+					commerceCountryId, commerceRegionId, zip, rate);
 		}
 	}
 
 	protected void updateConfiguration(ActionRequest actionRequest)
 		throws Exception {
 
-		long commerceChannelId = ParamUtil.getLong(
-			actionRequest, "commerceChannelId");
+		long commerceTaxMethodId = ParamUtil.getLong(
+			actionRequest, "commerceTaxMethodId");
 
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(commerceChannelId);
+		CommerceTaxMethod commerceTaxMethod =
+			_commerceTaxMethodService.getCommerceTaxMethod(commerceTaxMethodId);
 
 		Settings settings = _settingsFactory.getSettings(
 			new GroupServiceSettingsLocator(
-				commerceChannel.getGroupId(),
+				commerceTaxMethod.getGroupId(),
 				CommerceTaxByAddressTypeConfiguration.class.getName()));
 
 		boolean applyToShipping = ParamUtil.getBoolean(
@@ -181,11 +179,11 @@ public class EditCommerceTaxFixedRateAddressRelMVCActionCommand
 	}
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
-
-	@Reference
 	private CommerceTaxFixedRateAddressRelService
 		_commerceTaxFixedRateAddressRelService;
+
+	@Reference
+	private CommerceTaxMethodService _commerceTaxMethodService;
 
 	@Reference
 	private Portal _portal;

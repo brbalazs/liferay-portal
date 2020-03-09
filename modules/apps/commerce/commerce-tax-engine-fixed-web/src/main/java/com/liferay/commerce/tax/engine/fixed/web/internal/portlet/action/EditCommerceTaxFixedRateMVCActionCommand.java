@@ -14,21 +14,22 @@
 
 package com.liferay.commerce.tax.engine.fixed.web.internal.portlet.action;
 
-import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
+import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.product.exception.NoSuchCPTaxCategoryException;
 import com.liferay.commerce.tax.engine.fixed.exception.DuplicateCommerceTaxFixedRateException;
 import com.liferay.commerce.tax.engine.fixed.exception.NoSuchTaxFixedRateException;
 import com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate;
 import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateService;
+import com.liferay.commerce.tax.model.CommerceTaxMethod;
+import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -42,7 +43,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"javax.portlet.name=" + CommerceAdminPortletKeys.COMMERCE_ADMIN_GROUP_INSTANCE,
+		"javax.portlet.name=" + CommercePortletKeys.COMMERCE_TAX_METHODS,
 		"mvc.command.name=editCommerceTaxFixedRate"
 	},
 	service = MVCActionCommand.class
@@ -82,7 +83,7 @@ public class EditCommerceTaxFixedRateMVCActionCommand
 		long commerceTaxMethodId = ParamUtil.getLong(
 			actionRequest, "commerceTaxMethodId");
 		long cpTaxCategoryId = ParamUtil.getLong(
-			actionRequest, "cpTaxCategoryId");
+			actionRequest, "CPTaxCategoryId");
 
 		double rate = ParamUtil.getDouble(actionRequest, "rate");
 
@@ -95,15 +96,25 @@ public class EditCommerceTaxFixedRateMVCActionCommand
 				commerceTaxFixedRate.getCommerceTaxFixedRateId(), rate);
 		}
 		else {
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				CommerceTaxFixedRate.class.getName(), actionRequest);
+			CommerceTaxMethod commerceTaxMethod =
+				_commerceTaxMethodService.getCommerceTaxMethod(
+					commerceTaxMethodId);
 
 			_commerceTaxFixedRateService.addCommerceTaxFixedRate(
-				commerceTaxMethodId, cpTaxCategoryId, rate, serviceContext);
+				_portal.getUserId(actionRequest),
+				commerceTaxMethod.getGroupId(),
+				commerceTaxMethod.getCommerceTaxMethodId(), cpTaxCategoryId,
+				rate);
 		}
 	}
 
 	@Reference
 	private CommerceTaxFixedRateService _commerceTaxFixedRateService;
+
+	@Reference
+	private CommerceTaxMethodService _commerceTaxMethodService;
+
+	@Reference
+	private Portal _portal;
 
 }

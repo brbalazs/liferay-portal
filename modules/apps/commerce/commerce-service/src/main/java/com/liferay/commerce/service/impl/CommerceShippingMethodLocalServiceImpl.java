@@ -42,14 +42,29 @@ public class CommerceShippingMethodLocalServiceImpl
 
 	@Override
 	public CommerceAddressRestriction addCommerceAddressRestriction(
-			long commerceShippingMethodId, long commerceCountryId,
-			ServiceContext serviceContext)
+			long userId, long groupId, long commerceShippingMethodId,
+			long commerceCountryId)
 		throws PortalException {
 
 		return commerceAddressRestrictionLocalService.
 			addCommerceAddressRestriction(
-				CommerceShippingMethod.class.getName(),
-				commerceShippingMethodId, commerceCountryId, serviceContext);
+				userId, groupId, CommerceShippingMethod.class.getName(),
+				commerceShippingMethodId, commerceCountryId);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CommerceAddressRestriction addCommerceAddressRestriction(
+			long commerceShippingMethodId, long commerceCountryId,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return commerceShippingMethodLocalService.addCommerceAddressRestriction(
+			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+			commerceShippingMethodId, commerceCountryId);
 	}
 
 	@Override

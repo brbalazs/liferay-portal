@@ -14,12 +14,13 @@
 
 package com.liferay.commerce.payment.web.internal.display.context;
 
-import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.item.selector.criterion.CommerceCountryItemSelectorCriterion;
 import com.liferay.commerce.model.CommerceAddressRestriction;
 import com.liferay.commerce.payment.constants.CommercePaymentScreenNavigationConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.util.CommerceUtil;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
@@ -31,7 +32,8 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -54,18 +56,37 @@ import javax.portlet.RenderResponse;
 public class CommercePaymentMethodGroupRelRestrictionsDisplayContext {
 
 	public CommercePaymentMethodGroupRelRestrictionsDisplayContext(
+		CommerceChannelLocalService commerceChannelLocalService,
+		ModelResourcePermission<CommerceChannel>
+			commerceChannelModelResourcePermission,
 		CommercePaymentMethodGroupRelService
 			commercePaymentMethodGroupRelService,
-		ItemSelector itemSelector,
-		PortletResourcePermission portletResourcePermission,
-		RenderRequest renderRequest, RenderResponse renderResponse) {
+		ItemSelector itemSelector, RenderRequest renderRequest,
+		RenderResponse renderResponse) {
 
+		_commerceChannelLocalService = commerceChannelLocalService;
+		_commerceChannelModelResourcePermission =
+			commerceChannelModelResourcePermission;
 		_commercePaymentMethodGroupRelService =
 			commercePaymentMethodGroupRelService;
 		_itemSelector = itemSelector;
-		_portletResourcePermission = portletResourcePermission;
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
+	}
+
+	public long getCommerceChannelId() throws PortalException {
+		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
+			getCommercePaymentMethodGroupRel();
+
+		if (commercePaymentMethodGroupRel != null) {
+			CommerceChannel commerceChannel =
+				_commerceChannelLocalService.getCommerceChannelByGroupId(
+					commercePaymentMethodGroupRel.getGroupId());
+
+			return commerceChannel.getCommerceChannelId();
+		}
+
+		return ParamUtil.getLong(_renderRequest, "commerceChannelId");
 	}
 
 	public CommercePaymentMethodGroupRel getCommercePaymentMethodGroupRel()
@@ -196,13 +217,17 @@ public class CommercePaymentMethodGroupRelRestrictionsDisplayContext {
 		return _searchContainer;
 	}
 
-	public boolean hasManageCommercePaymentMethodGroupRelsPermission() {
+	public boolean hasUpdateCommerceChannelPermission() throws PortalException {
 		ThemeDisplay themeDisplay = (ThemeDisplay)_renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		return _portletResourcePermission.contains(
-			themeDisplay.getPermissionChecker(), themeDisplay.getScopeGroupId(),
-			CommerceActionKeys.MANAGE_COMMERCE_PAYMENT_METHODS);
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannel(
+				getCommerceChannelId());
+
+		return _commerceChannelModelResourcePermission.contains(
+			themeDisplay.getPermissionChecker(), commerceChannel,
+			ActionKeys.UPDATE);
 	}
 
 	protected long[] getCheckedCommerceCountryIds() throws PortalException {
@@ -244,11 +269,13 @@ public class CommercePaymentMethodGroupRelRestrictionsDisplayContext {
 				orderByComparator);
 	}
 
+	private final CommerceChannelLocalService _commerceChannelLocalService;
+	private final ModelResourcePermission<CommerceChannel>
+		_commerceChannelModelResourcePermission;
 	private CommercePaymentMethodGroupRel _commercePaymentMethodGroupRel;
 	private final CommercePaymentMethodGroupRelService
 		_commercePaymentMethodGroupRelService;
 	private final ItemSelector _itemSelector;
-	private final PortletResourcePermission _portletResourcePermission;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
 	private RowChecker _rowChecker;

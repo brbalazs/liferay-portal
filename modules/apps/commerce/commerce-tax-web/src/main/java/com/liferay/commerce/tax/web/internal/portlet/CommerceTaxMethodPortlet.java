@@ -14,14 +14,14 @@
 
 package com.liferay.commerce.tax.web.internal.portlet;
 
-import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.web.internal.display.context.CommerceTaxMethodsDisplayContext;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -68,8 +68,9 @@ public class CommerceTaxMethodPortlet extends MVCPortlet {
 
 		CommerceTaxMethodsDisplayContext commerceTaxMethodsDisplayContext =
 			new CommerceTaxMethodsDisplayContext(
-				_commerceChannelLocalService, _commerceTaxEngineRegistry,
-				_commerceTaxMethodService, _portletResourcePermission,
+				_commerceChannelLocalService,
+				_commerceChannelModelResourcePermission,
+				_commerceTaxEngineRegistry, _commerceTaxMethodService,
 				renderRequest, renderResponse);
 
 		renderRequest.setAttribute(
@@ -81,6 +82,12 @@ public class CommerceTaxMethodPortlet extends MVCPortlet {
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
 
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.product.model.CommerceChannel)"
+	)
+	private ModelResourcePermission<CommerceChannel>
+		_commerceChannelModelResourcePermission;
+
 	@Reference
 	private CommerceTaxEngineRegistry _commerceTaxEngineRegistry;
 
@@ -89,10 +96,5 @@ public class CommerceTaxMethodPortlet extends MVCPortlet {
 
 	@Reference
 	private Portal _portal;
-
-	@Reference(
-		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"
-	)
-	private PortletResourcePermission _portletResourcePermission;
 
 }

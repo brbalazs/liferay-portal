@@ -20,7 +20,7 @@
 CommercePaymentMethodGroupRelRestrictionsDisplayContext commercePaymentMethodGroupRelRestrictionsDisplayContext = (CommercePaymentMethodGroupRelRestrictionsDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<c:if test="<%= commercePaymentMethodGroupRelRestrictionsDisplayContext.hasManageCommercePaymentMethodGroupRelsPermission() %>">
+<c:if test="<%= commercePaymentMethodGroupRelRestrictionsDisplayContext.hasUpdateCommerceChannelPermission() %>">
 	<div class="container-fluid-1280">
 		<liferay-frontend:management-bar
 			includeCheckBox="<%= true %>"

@@ -39,21 +39,37 @@ import java.util.Map;
 /**
  * @author Luca Pellizzon
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 public class CommercePaymentMethodGroupRelLocalServiceImpl
 	extends CommercePaymentMethodGroupRelLocalServiceBaseImpl {
 
 	@Override
 	public CommerceAddressRestriction addCommerceAddressRestriction(
-			long commercePaymentMethodGroupRelId, long commerceCountryId,
-			ServiceContext serviceContext)
+			long userId, long groupId, long commercePaymentMethodGroupRelId,
+			long commerceCountryId)
 		throws PortalException {
 
 		return _commerceAddressRestrictionLocalService.
 			addCommerceAddressRestriction(
-				CommercePaymentMethodGroupRel.class.getName(),
-				commercePaymentMethodGroupRelId, commerceCountryId,
-				serviceContext);
+				userId, groupId, CommercePaymentMethodGroupRel.class.getName(),
+				commercePaymentMethodGroupRelId, commerceCountryId);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CommerceAddressRestriction addCommerceAddressRestriction(
+			long commercePaymentMethodGroupRelId, long commerceCountryId,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return commercePaymentMethodGroupRelLocalService.
+			addCommerceAddressRestriction(
+				serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+				commercePaymentMethodGroupRelId, commerceCountryId);
 	}
 
 	@Override

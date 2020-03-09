@@ -14,18 +14,15 @@
 
 package com.liferay.commerce.tax.engine.fixed.web.internal.display.context;
 
-import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceRegion;
-import com.liferay.commerce.product.model.CPTaxCategory;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.product.util.comparator.CPTaxCategoryCreateDateComparator;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.tax.engine.fixed.configuration.CommerceTaxByAddressTypeConfiguration;
@@ -34,12 +31,11 @@ import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateAddress
 import com.liferay.commerce.tax.engine.fixed.web.internal.servlet.taglib.ui.CommerceTaxMethodAddressRateRelsScreenNavigationEntry;
 import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -59,6 +55,8 @@ public class CommerceTaxFixedRateAddressRelsDisplayContext
 
 	public CommerceTaxFixedRateAddressRelsDisplayContext(
 		CommerceChannelLocalService commerceChannelLocalService,
+		ModelResourcePermission<CommerceChannel>
+			commerceChannelModelResourcePermission,
 		CommerceCountryService commerceCountryService,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceRegionService commerceRegionService,
@@ -66,20 +64,17 @@ public class CommerceTaxFixedRateAddressRelsDisplayContext
 		CommerceTaxFixedRateAddressRelService
 			commerceTaxFixedRateAddressRelService,
 		CPTaxCategoryService cpTaxCategoryService,
-		PortletResourcePermission portletResourcePermission,
 		RenderRequest renderRequest) {
 
 		super(
+			commerceChannelLocalService, commerceChannelModelResourcePermission,
 			commerceCurrencyLocalService, commerceTaxMethodService,
-			renderRequest);
+			cpTaxCategoryService, renderRequest);
 
-		_commerceChannelLocalService = commerceChannelLocalService;
 		_commerceCountryService = commerceCountryService;
 		_commerceRegionService = commerceRegionService;
 		_commerceTaxFixedRateAddressRelService =
 			commerceTaxFixedRateAddressRelService;
-		_cpTaxCategoryService = cpTaxCategoryService;
-		_portletResourcePermission = portletResourcePermission;
 	}
 
 	public String getAddTaxRateSettingURL() throws Exception {
@@ -98,41 +93,19 @@ public class CommerceTaxFixedRateAddressRelsDisplayContext
 		return portletURL.toString();
 	}
 
-	public List<CPTaxCategory> getAvailableCPTaxCategories()
-		throws PortalException {
-
-		return _cpTaxCategoryService.getCPTaxCategories(
-			commerceTaxFixedRateRequestHelper.getCompanyId(), QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, new CPTaxCategoryCreateDateComparator());
-	}
-
 	public ClayCreationMenu getClayCreationMenu() throws Exception {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
-		clayCreationMenu.addClayCreationMenuActionItem(
-			getAddTaxRateSettingURL(),
-			LanguageUtil.get(
-				commerceTaxFixedRateRequestHelper.getLocale(),
-				"add-tax-rate-setting"),
-			ClayCreationMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL);
-
-		return clayCreationMenu;
-	}
-
-	public long getCommerceChannelId() throws PortalException {
-		CommerceTaxMethod commerceTaxMethod = getCommerceTaxMethod();
-
-		if (commerceTaxMethod != null) {
-			CommerceChannel commerceChannel =
-				_commerceChannelLocalService.getCommerceChannelByGroupId(
-					commerceTaxMethod.getGroupId());
-
-			return commerceChannel.getCommerceChannelId();
+		if (hasUpdateCommerceChannelPermission()) {
+			clayCreationMenu.addClayCreationMenuActionItem(
+				getAddTaxRateSettingURL(),
+				LanguageUtil.get(
+					commerceTaxFixedRateRequestHelper.getRequest(),
+					"add-tax-rate-setting"),
+				ClayCreationMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL);
 		}
 
-		return ParamUtil.getLong(
-			commerceTaxFixedRateRequestHelper.getRequest(),
-			"commerceChannelId");
+		return clayCreationMenu;
 	}
 
 	public List<CommerceCountry> getCommerceCountries() {
@@ -191,13 +164,6 @@ public class CommerceTaxFixedRateAddressRelsDisplayContext
 			CATEGORY_KEY;
 	}
 
-	public boolean hasManageCommerceTaxMethodsPermission() {
-		return _portletResourcePermission.contains(
-			commerceTaxFixedRateRequestHelper.getPermissionChecker(),
-			commerceTaxFixedRateRequestHelper.getScopeGroupId(),
-			CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS);
-	}
-
 	public boolean isTaxAppliedToShippingAddress() throws PortalException {
 		CommerceTaxMethod commerceTaxMethod = getCommerceTaxMethod();
 
@@ -213,12 +179,9 @@ public class CommerceTaxFixedRateAddressRelsDisplayContext
 			taxAppliedToShippingAddress();
 	}
 
-	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceCountryService _commerceCountryService;
 	private final CommerceRegionService _commerceRegionService;
 	private final CommerceTaxFixedRateAddressRelService
 		_commerceTaxFixedRateAddressRelService;
-	private final CPTaxCategoryService _cpTaxCategoryService;
-	private final PortletResourcePermission _portletResourcePermission;
 
 }

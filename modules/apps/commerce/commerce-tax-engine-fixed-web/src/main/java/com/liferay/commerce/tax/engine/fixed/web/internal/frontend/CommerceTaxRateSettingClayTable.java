@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.tax.engine.fixed.web.internal.frontend;
 
-import com.liferay.commerce.constants.CommerceActionKeys;
-import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -43,7 +41,8 @@ import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -96,14 +95,15 @@ public class CommerceTaxRateSettingClayTable
 
 			long commerceChannelId = ParamUtil.getLong(
 				httpServletRequest, "commerceChannelId");
+			long commerceTaxMethodId = ParamUtil.getLong(
+				httpServletRequest, "commerceTaxMethodId");
 
 			CommerceChannel commerceChannel =
 				_commerceChannelService.getCommerceChannel(commerceChannelId);
 
-			if (!_portletResourcePermission.contains(
-					themeDisplay.getPermissionChecker(),
-					commerceChannel.getGroupId(),
-					CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS)) {
+			if (!_commerceChannelModelResourcePermission.contains(
+					themeDisplay.getPermissionChecker(), commerceChannel,
+					ActionKeys.UPDATE)) {
 
 				return clayTableActions;
 			}
@@ -114,6 +114,8 @@ public class CommerceTaxRateSettingClayTable
 
 			portletURL.setParameter(
 				"mvcRenderCommandName", "editCommerceTaxFixedRateAddressRel");
+			portletURL.setParameter(
+				"commerceTaxMethodId", String.valueOf(commerceTaxMethodId));
 			portletURL.setParameter(
 				"commerceTaxFixedRateAddressRelId",
 				String.valueOf(taxRateSetting.getTaxRateSettingId()));
@@ -254,16 +256,17 @@ public class CommerceTaxRateSettingClayTable
 	@Reference
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.product.model.CommerceChannel)"
+	)
+	private ModelResourcePermission<CommerceChannel>
+		_commerceChannelModelResourcePermission;
+
 	@Reference
 	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceTaxFixedRateAddressRelService
 		_commerceTaxFixedRateAddressRelService;
-
-	@Reference(
-		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"
-	)
-	private PortletResourcePermission _portletResourcePermission;
 
 }

@@ -15,6 +15,8 @@
 package com.liferay.commerce.shipping.engine.fixed.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.commerce.shipping.engine.fixed.exception.NoSuchShippingFixedOptionException;
 import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption;
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionService;
@@ -24,13 +26,12 @@ import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.math.BigDecimal;
@@ -166,9 +167,6 @@ public class EditCommerceShippingFixedOptionMVCActionCommand
 			actionRequest, "amount", BigDecimal.ZERO);
 		double priority = ParamUtil.getDouble(actionRequest, "priority");
 
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CommerceShippingFixedOption.class.getName(), actionRequest);
-
 		CommerceShippingFixedOption commerceShippingFixedOption = null;
 
 		if (commerceShippingFixedOptionId > 0) {
@@ -179,11 +177,17 @@ public class EditCommerceShippingFixedOptionMVCActionCommand
 						amount, priority);
 		}
 		else {
+			CommerceShippingMethod commerceShippingMethod =
+				_commerceShippingMethodService.getCommerceShippingMethod(
+					commerceShippingMethodId);
+
 			commerceShippingFixedOption =
 				_commerceShippingFixedOptionService.
 					addCommerceShippingFixedOption(
-						commerceShippingMethodId, nameMap, descriptionMap,
-						amount, priority, serviceContext);
+						_portal.getUserId(actionRequest),
+						commerceShippingMethod.getGroupId(),
+						commerceShippingMethod.getCommerceShippingMethodId(),
+						nameMap, descriptionMap, amount, priority);
 		}
 
 		return commerceShippingFixedOption;
@@ -192,5 +196,11 @@ public class EditCommerceShippingFixedOptionMVCActionCommand
 	@Reference
 	private CommerceShippingFixedOptionService
 		_commerceShippingFixedOptionService;
+
+	@Reference
+	private CommerceShippingMethodService _commerceShippingMethodService;
+
+	@Reference
+	private Portal _portal;
 
 }

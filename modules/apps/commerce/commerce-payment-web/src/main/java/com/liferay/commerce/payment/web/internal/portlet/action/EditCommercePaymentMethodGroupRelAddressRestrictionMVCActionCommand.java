@@ -15,18 +15,17 @@
 package com.liferay.commerce.payment.web.internal.portlet.action;
 
 import com.liferay.commerce.exception.NoSuchAddressRestrictionException;
-import com.liferay.commerce.model.CommerceAddressRestriction;
+import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import javax.portlet.ActionRequest;
@@ -67,12 +66,17 @@ public class EditCommercePaymentMethodGroupRelAddressRestrictionMVCActionCommand
 				ParamUtil.getString(actionRequest, "commerceCountryIds"), 0L);
 		}
 
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CommerceAddressRestriction.class.getName(), actionRequest);
+		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
+			_commercePaymentMethodGroupRelService.
+				getCommercePaymentMethodGroupRel(classPK);
 
 		for (long addCommerceCountryId : addCommerceCountryIds) {
 			_commercePaymentMethodGroupRelService.addCommerceAddressRestriction(
-				classPK, addCommerceCountryId, serviceContext);
+				_portal.getUserId(actionRequest),
+				commercePaymentMethodGroupRel.getGroupId(),
+				commercePaymentMethodGroupRel.
+					getCommercePaymentMethodGroupRelId(),
+				addCommerceCountryId);
 		}
 	}
 
@@ -146,5 +150,8 @@ public class EditCommercePaymentMethodGroupRelAddressRestrictionMVCActionCommand
 	@Reference
 	private CommercePaymentMethodGroupRelService
 		_commercePaymentMethodGroupRelService;
+
+	@Reference
+	private Portal _portal;
 
 }

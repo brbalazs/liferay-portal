@@ -20,7 +20,7 @@
 CommerceShippingMethodRestrictionsDisplayContext commerceShippingMethodRestrictionsDisplayContext = (CommerceShippingMethodRestrictionsDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<c:if test="<%= commerceShippingMethodRestrictionsDisplayContext.hasManageCommerceShippingMethodsPermission() %>">
+<c:if test="<%= commerceShippingMethodRestrictionsDisplayContext.hasUpdateCommerceChannelPermission() %>">
 	<liferay-frontend:management-bar
 		includeCheckBox="<%= true %>"
 		searchContainerId="commerceAddressRestrictions"

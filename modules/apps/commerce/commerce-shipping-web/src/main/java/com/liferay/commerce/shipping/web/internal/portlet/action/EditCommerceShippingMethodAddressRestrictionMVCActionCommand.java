@@ -16,14 +16,12 @@ package com.liferay.commerce.shipping.web.internal.portlet.action;
 
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.exception.NoSuchAddressRestrictionException;
-import com.liferay.commerce.model.CommerceAddressRestriction;
+import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -68,12 +66,15 @@ public class EditCommerceShippingMethodAddressRestrictionMVCActionCommand
 				ParamUtil.getString(actionRequest, "commerceCountryIds"), 0L);
 		}
 
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CommerceAddressRestriction.class.getName(), actionRequest);
+		CommerceShippingMethod commerceShippingMethod =
+			_commerceShippingMethodService.getCommerceShippingMethod(classPK);
 
 		for (long addCommerceCountryId : addCommerceCountryIds) {
 			_commerceShippingMethodService.addCommerceAddressRestriction(
-				classPK, addCommerceCountryId, serviceContext);
+				_portal.getUserId(actionRequest),
+				commerceShippingMethod.getGroupId(),
+				commerceShippingMethod.getCommerceShippingMethodId(),
+				addCommerceCountryId);
 		}
 	}
 

@@ -84,7 +84,7 @@ public class CommerceAccountAddressClayDataSetDataSetDisplayView
 
 		if (!_modelResourcePermission.contains(
 				themeDisplay.getPermissionChecker(), commerceAccountId,
-				CommerceAccountActionKeys.MANAGE_ADDRESS)) {
+				CommerceAccountActionKeys.MANAGE_ADDRESSES)) {
 
 			return Collections.emptyList();
 		}
