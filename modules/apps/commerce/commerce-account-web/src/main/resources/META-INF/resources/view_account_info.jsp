@@ -39,7 +39,7 @@ contextParams.put("commerceAccountId", String.valueOf(commerceAccount.getCommerc
 
 <c:if test="<%= commerceAccountDisplayContext.hasCommerceAccountModelPermissions(CommerceAccountActionKeys.MANAGE_ORGANIZATIONS) %>">
 	<div class="commerce-cta is-visible">
-		<aui:button cssClass="commerce-button commerce-button--big js-invite-user" onClick='<%= renderResponse.getNamespace() + "openAddOrganizationsModal();" %>' value="add-organizations" />
+		<aui:button cssClass="btn-primary btn-lg js-invite-user" onClick='<%= renderResponse.getNamespace() + "openAddOrganizationsModal();" %>' value="add-organizations" />
 	</div>
 
 	<commerce-ui:add-organizations-modal

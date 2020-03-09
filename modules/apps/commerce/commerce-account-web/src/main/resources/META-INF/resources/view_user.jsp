@@ -58,7 +58,7 @@ portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 				<div class="align-items-center col-auto d-flex">
 					<div class="account-management__action">
 						<c:if test="<%= (selectedUser.getUserId() == user.getUserId()) || commerceAccountDisplayContext.hasCommerceAccountModelPermissions(commerceAccount.getCommerceAccountId(), CommerceAccountActionKeys.MANAGE_MEMBERS) %>">
-							<aui:button cssClass="commerce-button commerce-button--big commerce-button--outline" href="<%= editCommerceAccountURL %>" value='<%= LanguageUtil.get(request, "edit-user") %>' />
+							<aui:button cssClass="btn btn-lg btn-secondary" href="<%= editCommerceAccountURL %>" value='<%= LanguageUtil.get(request, "edit-user") %>' />
 						</c:if>
 					</div>
 				</div>
@@ -70,7 +70,7 @@ portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 <c:if test="<%= commerceAccount != null %>">
 	<div class="commerce-cta is-visible">
 		<c:if test="<%= (selectedUser.getUserId() != user.getUserId()) && commerceAccountDisplayContext.hasCommerceAccountModelPermissions(commerceAccount.getCommerceAccountId(), CommerceAccountActionKeys.MANAGE_MEMBERS) %>">
-			<aui:button cssClass="commerce-button commerce-button--big js-invite-user" onClick='<%= renderResponse.getNamespace() + "openUserRolesModal();" %>' value="roles" />
+			<aui:button cssClass="btn-primary btn-lg js-invite-user" onClick='<%= renderResponse.getNamespace() + "openUserRolesModal();" %>' value="roles" />
 		</c:if>
 	</div>
 

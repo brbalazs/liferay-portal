@@ -84,7 +84,7 @@ if (Validator.isNotNull(backURL)) {
 									<aui:input id='<%= "commerceInventoryWarehouseItemQuantity" + curIndex %>' label="" name="quantity" wrapperCssClass="m-0" />
 								</td>
 								<td class="text-center">
-									<aui:button cssClass="btn btn-primary" name='<%= "saveButton" + curIndex %>' onClick="<%= commerceInventoryWarehouseItemsDisplayContext.getUpdateCommerceInventoryWarehouseItemTaglibOnClick(commerceInventoryWarehouse.getCommerceInventoryWarehouseId(), commerceInventoryWarehouseItemId, curIndex) %>" primary="<%= true %>" value="save" />
+									<aui:button cssClass="btn-primary" name='<%= "saveButton" + curIndex %>' onClick="<%= commerceInventoryWarehouseItemsDisplayContext.getUpdateCommerceInventoryWarehouseItemTaglibOnClick(commerceInventoryWarehouse.getCommerceInventoryWarehouseId(), commerceInventoryWarehouseItemId, curIndex) %>" primary="<%= true %>" value="save" />
 								</td>
 							</tr>
 
