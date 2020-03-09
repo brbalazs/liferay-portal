@@ -120,7 +120,6 @@ components:
                     $ref: "#/components/schemas/Address"
                 billingAddressId:
                     format: int64
-                    readOnly: true
                     type: integer
                 cartComments:
                     items:
@@ -179,7 +178,6 @@ components:
                     $ref: "#/components/schemas/Address"
                 shippingAddressId:
                     format: int64
-                    readOnly: true
                     type: integer
                 shippingMethod:
                     type: string
@@ -599,16 +597,6 @@ paths:
                 Deletes an Cart Item by ID.
             operationId: deleteCartItem
             parameters:
-                - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
                 - in: path
                   explode: false
                   name: cartItemId
