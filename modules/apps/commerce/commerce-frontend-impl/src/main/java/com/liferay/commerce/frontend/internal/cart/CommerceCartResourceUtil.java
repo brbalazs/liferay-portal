@@ -103,17 +103,8 @@ public class CommerceCartResourceUtil {
 			commerceOrder.getCommerceOrderItems();
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			PriceModel prices = null;
-
-			if (commerceOrderItem.isManuallyAdjusted()) {
-				prices = _getCommerceOrderItemPriceModel(
-					commerceOrderItem, locale);
-			}
-			else {
-				prices = _productHelper.getPrice(
-					commerceOrderItem.getCPInstanceId(),
-					commerceOrderItem.getQuantity(), commerceContext, locale);
-			}
+			PriceModel prices = _getCommerceOrderItemPriceModel(
+				commerceOrderItem, locale);
 
 			ProductSettingsModel settings =
 				_productHelper.getProductSettingsModel(
