@@ -23,99 +23,36 @@ CommerceTaxFixedRateAddressRel commerceTaxFixedRateAddressRel = commerceTaxFixed
 
 long commerceCountryId = commerceTaxFixedRateAddressRelsDisplayContext.getCommerceCountryId();
 long commerceRegionId = commerceTaxFixedRateAddressRelsDisplayContext.getCommerceRegionId();
-long commerceTaxMethodId = commerceTaxFixedRateAddressRelsDisplayContext.getCommerceTaxMethodId();
-
-long commerceTaxFixedRateAddressRelId = 0;
-
-if (commerceTaxFixedRateAddressRel != null) {
-	commerceTaxFixedRateAddressRelId = commerceTaxFixedRateAddressRel.getCommerceTaxFixedRateAddressRelId();
-}
 %>
 
-<commerce-ui:side-panel-content>
-	<portlet:actionURL name="editCommerceTaxFixedRateAddressRel" var="editCommerceTaxFixedRateAddressRelActionURL" />
+<portlet:actionURL name="editCommerceTaxFixedRateAddressRel" var="editCommerceTaxFixedRateAddressRelActionURL" />
 
-	<aui:form action="<%= editCommerceTaxFixedRateAddressRelActionURL %>" method="post" name="fm">
-		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceTaxFixedRateAddressRel == null) ? Constants.ADD : Constants.UPDATE %>" />
-		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-		<aui:input name="commerceTaxFixedRateAddressRelId" type="hidden" value="<%= commerceTaxFixedRateAddressRelId %>" />
-		<aui:input name="commerceTaxMethodId" type="hidden" value="<%= commerceTaxMethodId %>" />
+<c:choose>
+	<c:when test="<%= commerceTaxFixedRateAddressRel == null %>">
+		<commerce-ui:modal-content
+			title='<%= LanguageUtil.get(resourceBundle, "add-tax-rate-setting") %>'
+		>
+			<aui:form action="<%= editCommerceTaxFixedRateAddressRelActionURL %>" method="post" name="fm">
+				<%@ include file="/edit_address_tax_fixed_rate.jspf" %>
+			</aui:form>
+		</commerce-ui:modal-content>
+	</c:when>
+	<c:otherwise>
+		<commerce-ui:side-panel-content
+			title='<%= LanguageUtil.get(resourceBundle, "edit-tax-rate-setting") %>'
+		>
+			<aui:form action="<%= editCommerceTaxFixedRateAddressRelActionURL %>" method="post" name="fm">
+				<commerce-ui:panel>
+					<%@ include file="/edit_address_tax_fixed_rate.jspf" %>
+				</commerce-ui:panel>
 
-		<aui:model-context bean="<%= commerceTaxFixedRateAddressRel %>" model="<%= CommerceTaxFixedRateAddressRel.class %>" />
-
-		<commerce-ui:panel>
-			<div class="row">
-				<div class="col-md-6">
-					<aui:select disabled="<%= commerceTaxFixedRateAddressRel != null %>" label="tax-category" name="CPTaxCategoryId">
-
-						<%
-						List<CPTaxCategory> cpTaxCategories = commerceTaxFixedRateAddressRelsDisplayContext.getAvailableCPTaxCategories();
-
-						for (CPTaxCategory cpTaxCategory : cpTaxCategories) {
-						%>
-
-							<aui:option label="<%= HtmlUtil.escape(cpTaxCategory.getName(languageId)) %>" value="<%= cpTaxCategory.getCPTaxCategoryId() %>" />
-
-						<%
-						}
-						%>
-
-					</aui:select>
-				</div>
-
-				<div class="col-md-6">
-					<aui:input name="rate" suffix="<%= commerceTaxFixedRateAddressRelsDisplayContext.getCommerceCurrencyCode() %>" />
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-4">
-					<aui:select label="country" name="commerceCountryId" showEmptyOption="<%= true %>">
-
-						<%
-						List<CommerceCountry> commerceCountries = commerceTaxFixedRateAddressRelsDisplayContext.getCommerceCountries();
-
-						for (CommerceCountry commerceCountry : commerceCountries) {
-						%>
-
-							<aui:option label="<%= commerceCountry.getName(languageId) %>" selected="<%= (commerceTaxFixedRateAddressRel != null) && (commerceTaxFixedRateAddressRel.getCommerceCountryId() == commerceCountry.getCommerceCountryId()) %>" value="<%= commerceCountry.getCommerceCountryId() %>" />
-
-						<%
-						}
-						%>
-
-					</aui:select>
-				</div>
-
-				<div class="col-md-4">
-					<aui:select label="region" name="commerceRegionId" showEmptyOption="<%= true %>">
-
-						<%
-						List<CommerceRegion> commerceRegions = commerceTaxFixedRateAddressRelsDisplayContext.getCommerceRegions();
-
-						for (CommerceRegion commerceRegion : commerceRegions) {
-						%>
-
-							<aui:option label="<%= commerceRegion.getName() %>" selected="<%= (commerceTaxFixedRateAddressRel != null) && (commerceTaxFixedRateAddressRel.getCommerceRegionId() == commerceRegion.getCommerceRegionId()) %>" value="<%= commerceRegion.getCommerceRegionId() %>" />
-
-						<%
-						}
-						%>
-
-					</aui:select>
-				</div>
-
-				<div class="col-md-4">
-					<aui:input name="zip" />
-				</div>
-			</div>
-		</commerce-ui:panel>
-
-		<aui:button-row>
-			<aui:button cssClass="btn-lg" type="submit" />
-		</aui:button-row>
-	</aui:form>
-</commerce-ui:side-panel-content>
+				<aui:button-row>
+					<aui:button cssClass="btn-lg" type="submit" />
+				</aui:button-row>
+			</aui:form>
+		</commerce-ui:side-panel-content>
+	</c:otherwise>
+</c:choose>
 
 <aui:script use="aui-base,liferay-dynamic-select">
 	new Liferay.DynamicSelect([
