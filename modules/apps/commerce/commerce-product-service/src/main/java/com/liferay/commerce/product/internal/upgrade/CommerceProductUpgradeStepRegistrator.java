@@ -143,7 +143,7 @@ public class CommerceProductUpgradeStepRegistrator
 
 		registry.register(
 			_SCHEMA_VERSION_2_0_0, _SCHEMA_VERSION_2_1_0,
-			new CommerceCatalogSystemUpgradeProcess(), 
+			new CommerceCatalogSystemUpgradeProcess(),
 			new SubscriptionUpgradeProcess());
 
 		if (_log.isInfoEnabled()) {
