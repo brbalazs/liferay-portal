@@ -63,7 +63,7 @@ public class PortalImplEscapeRedirectTest {
 
 		try {
 
-			// Relative Path
+			// Relative path
 
 			Assert.assertEquals("/", _portalImpl.escapeRedirect("/"));
 			Assert.assertEquals(
@@ -79,12 +79,12 @@ public class PortalImplEscapeRedirectTest {
 				"test@google.com",
 				_portalImpl.escapeRedirect("test@google.com"));
 
-			// Relative Path with protocol
+			// Relative path with protocol
 
 			Assert.assertNull(_portalImpl.escapeRedirect("https:/path"));
 			Assert.assertNull(_portalImpl.escapeRedirect("test:/google.com"));
 
-			// Allowed Domains
+			// Allowed domains
 
 			Assert.assertEquals(
 				"http://localhost",
@@ -105,7 +105,7 @@ public class PortalImplEscapeRedirectTest {
 				_portalImpl.escapeRedirect(
 					"https://liferay.com:8080/a/b;c=d?e=f&g=h#x=y"));
 
-			// Disabled Domains
+			// Disabled domains
 
 			Assert.assertNull(
 				_portalImpl.escapeRedirect("https://google.comsuffix"));
@@ -147,7 +147,7 @@ public class PortalImplEscapeRedirectTest {
 
 		try {
 
-			// Relative Path
+			// Relative path
 
 			Assert.assertEquals("/", _portalImpl.escapeRedirect("/"));
 			Assert.assertEquals(
@@ -216,7 +216,7 @@ public class PortalImplEscapeRedirectTest {
 
 		try {
 
-			// Relative Path
+			// Relative path
 
 			Assert.assertEquals("/", _portalImpl.escapeRedirect("/"));
 			Assert.assertEquals(
