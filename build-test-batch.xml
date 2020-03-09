@@ -1531,6 +1531,14 @@ app.server.type=@{app.server.type}]]></echo>
 								test.sql.zip.url="${test.sql.zip.url}"
 							/>
 
+							<gradle-execute dir="modules/core" task="deploy">
+								<arg value="--parallel" />
+								<arg value="-Dbuild.profile=portal-pre" />
+								<arg value="-Pforced.deploy.dir=${project.dir}/tmp/lib-pre" />
+							</gradle-execute>
+
+							<ant dir="portal-kernel" inheritAll="false" target="install-portal-snapshot" />
+
 							<ant dir="portal-test" inheritAll="false" target="jar" />
 
 							<local name="artifact.version" />
