@@ -80,9 +80,6 @@ public class CommercePaymentSubscriptionsTest {
 		_group = GroupTestUtil.addGroup(
 			_company.getCompanyId(), _user.getUserId(), 0);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(_group.getGroupId());
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(
 				_company.getCompanyId(), _group.getGroupId(),
@@ -109,6 +106,9 @@ public class CommercePaymentSubscriptionsTest {
 			_company.getCompanyId(), RandomTestUtil.randomString(),
 			CommerceAccountConstants.ACCOUNT_GROUP_TYPE_STATIC,
 			_commerceAccount.getCommerceAccountId(), serviceContext);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		_commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_group.getGroupId(), _user.getUserId(),

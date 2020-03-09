@@ -155,17 +155,6 @@ public class EditCommerceSubscriptionEntryMVCActionCommand
 			actionRequest, "maxSubscriptionCycles");
 		int subscriptionStatus = ParamUtil.getInteger(
 			actionRequest, "subscriptionStatus");
-		int deliverySubscriptionLength = ParamUtil.getInteger(
-			actionRequest, "deliverySubscriptionLength");
-		String deliverySubscriptionType = ParamUtil.getString(
-			actionRequest, "deliverySubscriptionType");
-		UnicodeProperties deliverySubscriptionTypeSettingsProperties =
-			PropertiesParamUtil.getProperties(
-				actionRequest, "deliverySubscriptionTypeSettings--");
-		long deliveryMaxSubscriptionCycles = ParamUtil.getLong(
-			actionRequest, "deliveryMaxSubscriptionCycles");
-		int deliverySubscriptionStatus = ParamUtil.getInteger(
-			actionRequest, "deliverySubscriptionStatus");
 
 		int nextIterationDateMonth = ParamUtil.getInteger(
 			actionRequest, "nextIterationDateMonth");
@@ -183,6 +172,18 @@ public class EditCommerceSubscriptionEntryMVCActionCommand
 		if (nextIterationDateAmPm == Calendar.PM) {
 			nextIterationDateHour += 12;
 		}
+
+		int deliverySubscriptionLength = ParamUtil.getInteger(
+			actionRequest, "deliverySubscriptionLength");
+		String deliverySubscriptionType = ParamUtil.getString(
+			actionRequest, "deliverySubscriptionType");
+		UnicodeProperties deliverySubscriptionTypeSettingsProperties =
+			PropertiesParamUtil.getProperties(
+				actionRequest, "deliverySubscriptionTypeSettings--");
+		long deliveryMaxSubscriptionCycles = ParamUtil.getLong(
+			actionRequest, "deliveryMaxSubscriptionCycles");
+		int deliverySubscriptionStatus = ParamUtil.getInteger(
+			actionRequest, "deliverySubscriptionStatus");
 
 		int deliveryNextIterationDateMonth = ParamUtil.getInteger(
 			actionRequest, "deliveryNextIterationDateMonth");

@@ -80,9 +80,6 @@ public class CommerceDeliverySubscriptionsTest {
 		_group = GroupTestUtil.addGroup(
 			_company.getCompanyId(), _user.getUserId(), 0);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(_group.getGroupId());
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(
 				_company.getCompanyId(), _group.getGroupId(),
@@ -93,6 +90,9 @@ public class CommerceDeliverySubscriptionsTest {
 			_group.getName(serviceContext.getLanguageId()) + " Portal",
 			CommerceChannelConstants.CHANNEL_TYPE_SITE, null, StringPool.BLANK,
 			StringPool.BLANK, serviceContext);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		_commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_group.getGroupId(), _user.getUserId(),
