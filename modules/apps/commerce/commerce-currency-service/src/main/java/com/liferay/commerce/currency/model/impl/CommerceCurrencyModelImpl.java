@@ -87,8 +87,9 @@ public class CommerceCurrencyModelImpl
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"code_", Types.VARCHAR},
-		{"name", Types.VARCHAR}, {"rate", Types.DECIMAL},
-		{"formatPattern", Types.VARCHAR}, {"maxFractionDigits", Types.INTEGER},
+		{"name", Types.VARCHAR}, {"symbol", Types.VARCHAR},
+		{"rate", Types.DECIMAL}, {"formatPattern", Types.VARCHAR},
+		{"maxFractionDigits", Types.INTEGER},
 		{"minFractionDigits", Types.INTEGER}, {"roundingMode", Types.VARCHAR},
 		{"primary_", Types.BOOLEAN}, {"priority", Types.DOUBLE},
 		{"active_", Types.BOOLEAN}, {"lastPublishDate", Types.TIMESTAMP}
@@ -107,6 +108,7 @@ public class CommerceCurrencyModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("code_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("symbol", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("rate", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("formatPattern", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("maxFractionDigits", Types.INTEGER);
@@ -119,7 +121,7 @@ public class CommerceCurrencyModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceCurrency (uuid_ VARCHAR(75) null,commerceCurrencyId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,code_ VARCHAR(75) null,name STRING null,rate DECIMAL(30, 16) null,formatPattern STRING null,maxFractionDigits INTEGER,minFractionDigits INTEGER,roundingMode VARCHAR(75) null,primary_ BOOLEAN,priority DOUBLE,active_ BOOLEAN,lastPublishDate DATE null)";
+		"create table CommerceCurrency (uuid_ VARCHAR(75) null,commerceCurrencyId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,code_ VARCHAR(75) null,name STRING null,symbol VARCHAR(75) null,rate DECIMAL(30, 16) null,formatPattern STRING null,maxFractionDigits INTEGER,minFractionDigits INTEGER,roundingMode VARCHAR(75) null,primary_ BOOLEAN,priority DOUBLE,active_ BOOLEAN,lastPublishDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommerceCurrency";
 
@@ -184,6 +186,7 @@ public class CommerceCurrencyModelImpl
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setCode(soapModel.getCode());
 		model.setName(soapModel.getName());
+		model.setSymbol(soapModel.getSymbol());
 		model.setRate(soapModel.getRate());
 		model.setFormatPattern(soapModel.getFormatPattern());
 		model.setMaxFractionDigits(soapModel.getMaxFractionDigits());
@@ -552,6 +555,28 @@ public class CommerceCurrencyModelImpl
 					CommerceCurrency commerceCurrency, Object nameObject) {
 
 					commerceCurrency.setName((String)nameObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"symbol",
+			new Function<CommerceCurrency, Object>() {
+
+				@Override
+				public Object apply(CommerceCurrency commerceCurrency) {
+					return commerceCurrency.getSymbol();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"symbol",
+			new BiConsumer<CommerceCurrency, Object>() {
+
+				@Override
+				public void accept(
+					CommerceCurrency commerceCurrency, Object symbolObject) {
+
+					commerceCurrency.setSymbol((String)symbolObject);
 				}
 
 			});
@@ -1032,6 +1057,22 @@ public class CommerceCurrencyModelImpl
 
 	@JSON
 	@Override
+	public String getSymbol() {
+		if (_symbol == null) {
+			return "";
+		}
+		else {
+			return _symbol;
+		}
+	}
+
+	@Override
+	public void setSymbol(String symbol) {
+		_symbol = symbol;
+	}
+
+	@JSON
+	@Override
 	public BigDecimal getRate() {
 		return _rate;
 	}
@@ -1408,6 +1449,7 @@ public class CommerceCurrencyModelImpl
 		commerceCurrencyImpl.setModifiedDate(getModifiedDate());
 		commerceCurrencyImpl.setCode(getCode());
 		commerceCurrencyImpl.setName(getName());
+		commerceCurrencyImpl.setSymbol(getSymbol());
 		commerceCurrencyImpl.setRate(getRate());
 		commerceCurrencyImpl.setFormatPattern(getFormatPattern());
 		commerceCurrencyImpl.setMaxFractionDigits(getMaxFractionDigits());
@@ -1572,6 +1614,14 @@ public class CommerceCurrencyModelImpl
 			commerceCurrencyCacheModel.name = null;
 		}
 
+		commerceCurrencyCacheModel.symbol = getSymbol();
+
+		String symbol = commerceCurrencyCacheModel.symbol;
+
+		if ((symbol != null) && (symbol.length() == 0)) {
+			commerceCurrencyCacheModel.symbol = null;
+		}
+
 		commerceCurrencyCacheModel.rate = getRate();
 
 		commerceCurrencyCacheModel.formatPattern = getFormatPattern();
@@ -1698,6 +1748,7 @@ public class CommerceCurrencyModelImpl
 	private String _originalCode;
 	private String _name;
 	private String _nameCurrentLanguageId;
+	private String _symbol;
 	private BigDecimal _rate;
 	private String _formatPattern;
 	private String _formatPatternCurrentLanguageId;

@@ -313,6 +313,21 @@ public interface CommerceCurrencyModel
 	public void setNameMap(Map<Locale, String> nameMap, Locale defaultLocale);
 
 	/**
+	 * Returns the symbol of this commerce currency.
+	 *
+	 * @return the symbol of this commerce currency
+	 */
+	@AutoEscape
+	public String getSymbol();
+
+	/**
+	 * Sets the symbol of this commerce currency.
+	 *
+	 * @param symbol the symbol of this commerce currency
+	 */
+	public void setSymbol(String symbol);
+
+	/**
 	 * Returns the rate of this commerce currency.
 	 *
 	 * @return the rate of this commerce currency

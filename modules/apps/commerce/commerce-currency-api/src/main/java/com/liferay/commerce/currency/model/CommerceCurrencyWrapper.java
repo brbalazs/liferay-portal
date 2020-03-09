@@ -67,6 +67,7 @@ public class CommerceCurrencyWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("code", getCode());
 		attributes.put("name", getName());
+		attributes.put("symbol", getSymbol());
 		attributes.put("rate", getRate());
 		attributes.put("formatPattern", getFormatPattern());
 		attributes.put("maxFractionDigits", getMaxFractionDigits());
@@ -134,6 +135,12 @@ public class CommerceCurrencyWrapper
 
 		if (name != null) {
 			setName(name);
+		}
+
+		String symbol = (String)attributes.get("symbol");
+
+		if (symbol != null) {
+			setSymbol(symbol);
 		}
 
 		BigDecimal rate = (BigDecimal)attributes.get("rate");
@@ -516,6 +523,16 @@ public class CommerceCurrencyWrapper
 	@Override
 	public String getRoundingMode() {
 		return _commerceCurrency.getRoundingMode();
+	}
+
+	/**
+	 * Returns the symbol of this commerce currency.
+	 *
+	 * @return the symbol of this commerce currency
+	 */
+	@Override
+	public String getSymbol() {
+		return _commerceCurrency.getSymbol();
 	}
 
 	/**
@@ -931,6 +948,16 @@ public class CommerceCurrencyWrapper
 	@Override
 	public void setRoundingMode(String roundingMode) {
 		_commerceCurrency.setRoundingMode(roundingMode);
+	}
+
+	/**
+	 * Sets the symbol of this commerce currency.
+	 *
+	 * @param symbol the symbol of this commerce currency
+	 */
+	@Override
+	public void setSymbol(String symbol) {
+		_commerceCurrency.setSymbol(symbol);
 	}
 
 	/**
