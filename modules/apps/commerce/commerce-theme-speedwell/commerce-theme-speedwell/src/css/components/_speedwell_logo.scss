@@ -1,7 +1,7 @@
 .speedwell-logo {
-	&-icon {
-		font-size: 4em;
-		transform: scale(2, 2);
+	.logo {
+		width: 130px;
+		height: auto;
 	}
 
 	@media screen and (max-width: 375px) {

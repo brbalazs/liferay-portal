@@ -70,13 +70,12 @@
 	&__closing {
 		display: flex;
 		flex-wrap: wrap;
-		font-size: 12px;
-		line-height: 25px;
 		margin: 0 20px;
 		padding: 20px calc((100vw - 1240px) / 2);
 
 		.logo {
-			height: 30px;
+			width: 100px;
+			height: auto;
 		}
 
 		nav {
