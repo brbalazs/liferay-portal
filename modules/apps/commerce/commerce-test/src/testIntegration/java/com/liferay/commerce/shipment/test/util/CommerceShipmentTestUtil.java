@@ -48,7 +48,7 @@ public class CommerceShipmentTestUtil {
 		throws Exception {
 
 		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(groupId);
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
@@ -66,7 +66,7 @@ public class CommerceShipmentTestUtil {
 		}
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			CommerceInventoryTestUtil.addCommerceInventoryWarehouse(groupId);
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
 
 		CommerceChannelRelLocalServiceUtil.addCommerceChannelRel(
 			CommerceInventoryWarehouse.class.getName(),

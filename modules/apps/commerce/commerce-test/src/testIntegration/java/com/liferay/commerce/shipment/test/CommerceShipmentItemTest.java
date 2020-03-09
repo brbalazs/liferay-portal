@@ -76,13 +76,12 @@ public class CommerceShipmentItemTest {
 		_user = UserTestUtil.addUser();
 
 		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(_group.getGroupId());
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
-			_group.getGroupId());
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		_commerceChannel = CommerceChannelLocalServiceUtil.addCommerceChannel(
 			_group.getGroupId(), "Test Channel",
