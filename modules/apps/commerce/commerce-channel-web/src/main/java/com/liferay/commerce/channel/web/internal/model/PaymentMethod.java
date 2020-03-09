@@ -14,18 +14,23 @@
 
 package com.liferay.commerce.channel.web.internal.model;
 
+import com.liferay.commerce.frontend.model.LabelField;
+
 /**
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 public class PaymentMethod {
 
 	public PaymentMethod(
-		String description, String key, String name, String paymentEngine) {
+		String description, String key, String name, String paymentEngine,
+		LabelField status) {
 
 		_description = description;
 		_key = key;
 		_name = name;
 		_paymentEngine = paymentEngine;
+		_status = status;
 	}
 
 	public String getDescription() {
@@ -44,9 +49,14 @@ public class PaymentMethod {
 		return _paymentEngine;
 	}
 
+	public LabelField getStatus() {
+		return _status;
+	}
+
 	private final String _description;
 	private final String _key;
 	private final String _name;
 	private final String _paymentEngine;
+	private final LabelField _status;
 
 }

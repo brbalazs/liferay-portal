@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.channel.web.internal.frontend;
 
+import com.liferay.commerce.channel.web.internal.frontend.util.CommerceChannelClayTableUtil;
 import com.liferay.commerce.channel.web.internal.model.PaymentMethod;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
@@ -142,6 +143,11 @@ public class CommercePaymentMethodClayTable
 
 		clayTableSchemaBuilder.addField("paymentEngine", "payment-engine");
 
+		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
+			"status", "status");
+
+		statusField.setContentRenderer("label");
+
 		return clayTableSchemaBuilder.build();
 	}
 
@@ -197,10 +203,22 @@ public class CommercePaymentMethodClayTable
 					HtmlUtil.escape(commercePaymentName),
 					HtmlUtil.escape(
 						commercePaymentMethod.getName(
-							themeDisplay.getLocale()))));
+							themeDisplay.getLocale())),
+					CommerceChannelClayTableUtil.getLabelField(
+						_isActive(commercePaymentMethodGroupRel))));
 		}
 
 		return paymentMethods;
+	}
+
+	private boolean _isActive(
+		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel) {
+
+		if (commercePaymentMethodGroupRel == null) {
+			return false;
+		}
+
+		return commercePaymentMethodGroupRel.isActive();
 	}
 
 	@Reference

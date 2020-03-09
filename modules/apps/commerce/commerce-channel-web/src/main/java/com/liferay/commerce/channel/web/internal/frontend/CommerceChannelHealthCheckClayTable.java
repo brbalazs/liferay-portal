@@ -25,6 +25,8 @@ import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
+import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.product.channel.CommerceChannelHealthStatus;
 import com.liferay.commerce.product.channel.CommerceChannelHealthStatusRegistry;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -114,10 +116,10 @@ public class CommerceChannelHealthCheckClayTable
 
 		List<HealthCheck> healthChecks = new ArrayList<>();
 
-		for (CommerceChannelHealthStatus commerceChannelHealthStatuse :
+		for (CommerceChannelHealthStatus commerceChannelHealthStatus :
 				commerceChannelHealthStatuses) {
 
-			if (commerceChannelHealthStatuse.isFixed(
+			if (commerceChannelHealthStatus.isFixed(
 					commerceChannel.getCompanyId(),
 					commerceChannel.getCommerceChannelId())) {
 
@@ -126,12 +128,12 @@ public class CommerceChannelHealthCheckClayTable
 
 			healthChecks.add(
 				new HealthCheck(
-					commerceChannelHealthStatuse.getKey(),
+					commerceChannelHealthStatus.getKey(),
 					HtmlUtil.escape(
-						commerceChannelHealthStatuse.getName(
+						commerceChannelHealthStatus.getName(
 							_portal.getLocale(httpServletRequest))),
 					HtmlUtil.escape(
-						commerceChannelHealthStatuse.getDescription(
+						commerceChannelHealthStatus.getDescription(
 							_portal.getLocale(httpServletRequest)))));
 		}
 

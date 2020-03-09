@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.channel.web.internal.frontend;
 
+import com.liferay.commerce.channel.web.internal.frontend.util.CommerceChannelClayTableUtil;
 import com.liferay.commerce.channel.web.internal.model.TaxMethod;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
@@ -140,6 +141,11 @@ public class CommerceTaxMethodClayTable
 
 		clayTableSchemaBuilder.addField("taxEngine", "tax-engine");
 
+		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
+			"status", "status");
+
+		statusField.setContentRenderer("label");
+
 		return clayTableSchemaBuilder.build();
 	}
 
@@ -188,10 +194,20 @@ public class CommerceTaxMethodClayTable
 			taxMethods.add(
 				new TaxMethod(
 					commerceTaxDescription, entry.getKey(), commerceTaxName,
+					CommerceChannelClayTableUtil.getLabelField(
+						_isActive(commerceTaxMethod)),
 					commerceTaxEngine.getName(themeDisplay.getLocale())));
 		}
 
 		return taxMethods;
+	}
+
+	private boolean _isActive(CommerceTaxMethod commerceTaxMethod) {
+		if (commerceTaxMethod == null) {
+			return false;
+		}
+
+		return commerceTaxMethod.isActive();
 	}
 
 	@Reference
