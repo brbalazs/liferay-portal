@@ -32,6 +32,7 @@ import {exposeSidePanel} from '../../utilities/sidePanels.es';
 import Modal from '../modal/Modal.es';
 import SideMenu from './SideMenu.es';
 
+const SIDE_PANEL_TITLE_HEIGHT = 65;
 export default class SidePanel extends React.Component {
 	static defaultSize = 'md';
 
@@ -145,6 +146,10 @@ export default class SidePanel extends React.Component {
 
 			this.setState({
 				menuCoverTopDistance: top + 'px'
+			});
+		} else if (isPageInIframe()) {
+			this.setState({
+				menuCoverTopDistance: SIDE_PANEL_TITLE_HEIGHT + 'px'
 			});
 		}
 	}
