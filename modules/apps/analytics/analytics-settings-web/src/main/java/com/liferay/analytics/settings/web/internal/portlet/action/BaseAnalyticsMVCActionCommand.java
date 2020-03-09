@@ -67,16 +67,6 @@ public abstract class BaseAnalyticsMVCActionCommand
 		}
 	}
 
-	protected void clearConfiguration(long companyId) throws Exception {
-		removeChannelId(
-			PrefsPropsUtil.getStringArray(
-				companyId, "liferayAnalyticsGroupIds", StringPool.COMMA));
-
-		removeCompanyPreferences(companyId);
-
-		analyticsConfigurationTracker.deleteCompanyConfiguration(companyId);
-	}
-
 	protected void checkResponse(
 			long companyId, HttpResponse httpResponse)
 		throws Exception {
@@ -104,6 +94,16 @@ public abstract class BaseAnalyticsMVCActionCommand
 
 			throw new PortalException("Invalid token");
 		}
+	}
+
+	protected void clearConfiguration(long companyId) throws Exception {
+		removeChannelId(
+			PrefsPropsUtil.getStringArray(
+				companyId, "liferayAnalyticsGroupIds", StringPool.COMMA));
+
+		removeCompanyPreferences(companyId);
+
+		analyticsConfigurationTracker.deleteCompanyConfiguration(companyId);
 	}
 
 	@Override
