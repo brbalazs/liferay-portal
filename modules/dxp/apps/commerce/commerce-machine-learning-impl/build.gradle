@@ -25,7 +25,3 @@ dependencies {
 
 	testCompile group: "org.mockito", name: "mockito-core", version: "1.10.8"
 }
-
-tasks.withType(FindBugs) {
-	excludeFilter = file("fb-exclude.xml")
-}
