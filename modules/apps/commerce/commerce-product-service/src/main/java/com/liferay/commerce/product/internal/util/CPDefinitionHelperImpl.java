@@ -295,7 +295,7 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 			sortType = Sort.LONG_TYPE;
 		}
 		else if (fieldType.equals(Field.PRIORITY) ||
-				 fieldType.equals("basePrice")) {
+				 fieldType.equals(CPField.BASE_PRICE)) {
 
 			sortType = Sort.DOUBLE_TYPE;
 		}

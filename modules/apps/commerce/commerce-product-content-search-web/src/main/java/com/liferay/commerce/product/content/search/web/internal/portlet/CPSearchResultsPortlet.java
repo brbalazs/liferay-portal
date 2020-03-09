@@ -279,11 +279,13 @@ public class CPSearchResultsPortlet
 
 		if (orderByCol.equals("price-low-to-high")) {
 			searchContext.setSorts(
-				SortFactoryUtil.create("basePrice", Sort.DOUBLE_TYPE, false));
+				SortFactoryUtil.create(
+					CPField.BASE_PRICE, Sort.DOUBLE_TYPE, false));
 		}
 		else if (orderByCol.equals("price-high-to-low")) {
 			searchContext.setSorts(
-				SortFactoryUtil.create("basePrice", Sort.DOUBLE_TYPE, true));
+				SortFactoryUtil.create(
+					CPField.BASE_PRICE, Sort.DOUBLE_TYPE, true));
 		}
 		else if (orderByCol.equals("name-ascending")) {
 			searchContext.setSorts(SortFactoryUtil.create(Field.NAME, false));

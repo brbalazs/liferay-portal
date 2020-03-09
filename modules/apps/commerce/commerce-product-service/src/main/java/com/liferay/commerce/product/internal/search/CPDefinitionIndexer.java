@@ -132,16 +132,16 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 
 		Map<String, Serializable> attributes = searchContext.getAttributes();
 
-		if (attributes.containsKey("basePrice")) {
+		if (attributes.containsKey(CPField.BASE_PRICE)) {
 			String[] basePriceRanges = GetterUtil.getStringValues(
-				attributes.get("basePrice"));
+				attributes.get(CPField.BASE_PRICE));
 
 			for (String basePriceRange : basePriceRanges) {
 				String[] rangeArray = RangeParserUtil.parserRange(
 					basePriceRange);
 
 				contextBooleanFilter.addRangeTerm(
-					"basePrice", rangeArray[0], rangeArray[1]);
+					CPField.BASE_PRICE, rangeArray[0], rangeArray[1]);
 			}
 		}
 
@@ -672,7 +672,7 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 
 			CPInstance cpInstance = cpInstances.get(0);
 
-			document.addNumber("basePrice", cpInstance.getPrice());
+			document.addNumber(CPField.BASE_PRICE, cpInstance.getPrice());
 		}
 
 		if (_log.isDebugEnabled()) {

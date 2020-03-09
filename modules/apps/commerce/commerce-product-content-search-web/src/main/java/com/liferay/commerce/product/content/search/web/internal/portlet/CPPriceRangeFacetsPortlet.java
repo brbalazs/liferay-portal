@@ -237,7 +237,7 @@ public class CPPriceRangeFacetsPortlet
 
 		facet.setFacetConfiguration(facetConfiguration);
 
-		facet.setFieldName("basePrice");
+		facet.setFieldName(CPField.BASE_PRICE);
 
 		searchContext.addFacet(facet);
 
