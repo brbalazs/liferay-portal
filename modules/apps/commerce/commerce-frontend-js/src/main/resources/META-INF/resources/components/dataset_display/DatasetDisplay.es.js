@@ -384,7 +384,7 @@ function DatasetDisplay(props) {
 		) : null;
 
 	function executeAsyncItemAction(url, method) {
-		executeAsyncAction(url, method)
+		return executeAsyncAction(url, method)
 			.then(_ => {
 				refreshData();
 				Liferay.fire(DATASET_ACTION_PERFORMED, {

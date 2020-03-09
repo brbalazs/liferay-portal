@@ -15,61 +15,42 @@
 import ClayButton from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
+import ClayLink from '@clayui/link';
+import ClayLoadingIndicator from '@clayui/loading-indicator';
 import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
 
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
 
-function ActionItem(props) {
-	const {
-		executeAsyncItemAction,
-		highlightItems,
-		openModal,
-		openSidePanel
-	} = useContext(DatasetDisplayContext);
+function isNotALink(target, onClick) {
+	return Boolean((target && target !== 'link') || onClick);
+}
 
+function ActionItem(props) {
 	function handleClickOnLink(e) {
 		e.preventDefault();
 
-		if (props.target === 'modal') {
-			openModal({
-				size: props.size || 'lg',
-				title: props.title,
-				url: props.href
-			});
-		}
-
-		if (props.target === 'sidePanel') {
-			highlightItems([props.itemId]);
-			openSidePanel({
-				size: props.size || 'lg',
-				title: props.title,
-				url: props.href
-			});
-		}
-
-		if (props.target === 'async') {
-			executeAsyncItemAction(props.href, props.method);
-		}
-
-		if (props.onClick) {
-			eval(props.onClick);
-		}
+		props.handleAction({
+			method: props.method,
+			onClick: props.onClick,
+			size: props.size || 'lg',
+			target: props.target,
+			title: props.title,
+			url: props.href
+		});
 
 		props.closeMenu();
-	}
-
-	function isNotALink() {
-		return Boolean(
-			(props.target && props.target !== 'link') || props.onClick
-		);
 	}
 
 	return (
 		<ClayDropDown.Item
 			data-senna-off
 			href={props.href || '#'}
-			onClick={isNotALink() ? handleClickOnLink : null}
+			onClick={
+				isNotALink(props.target, props.onClick)
+					? handleClickOnLink
+					: null
+			}
 		>
 			{props.icon && (
 				<span className="pr-2">
@@ -82,10 +63,97 @@ function ActionItem(props) {
 }
 
 function ActionsDropdown(props) {
+	const {
+		executeAsyncItemAction,
+		highlightItems,
+		openModal,
+		openSidePanel
+	} = useContext(DatasetDisplayContext);
+
 	const [active, setActive] = useState(false);
+	const [loading, setLoading] = useState(false);
+
+	function handleAction({method, onClick, size, target, title, url}) {
+		if (target === 'modal') {
+			openModal({
+				size: size || 'lg',
+				title,
+				url
+			});
+		}
+
+		if (target === 'sidePanel') {
+			highlightItems([props.itemId]);
+			openSidePanel({
+				size: size || 'lg',
+				title,
+				url
+			});
+		}
+
+		if (target === 'async') {
+			setLoading(true);
+			executeAsyncItemAction(url, method).then(() => setLoading(false));
+		}
+
+		if (onClick) {
+			eval(onClick);
+		}
+	}
 
 	if (!props.actions || !props.actions.length) {
 		return null;
+	}
+
+	if (props.actions.length === 1) {
+		const action = props.actions[0];
+
+		if (loading) {
+			return (
+				<ClayButton className="btn-sm" disabled monospaced>
+					<ClayLoadingIndicator small />
+				</ClayButton>
+			);
+		}
+
+		return (
+			<ClayLink
+				className="btn btn-primary btn-sm"
+				data-senna-off
+				href={props.href || '#'}
+				monospaced={Boolean(action.icon)}
+				onClick={
+					isNotALink(action.target, action.onClick)
+						? e => {
+								e.preventDefault();
+								return handleAction({
+									method: action.method,
+									onClick: action.onClick,
+									size: action.size,
+									target: action.target,
+									title: action.title,
+									url: action.href
+								});
+						  }
+						: null
+				}
+			>
+				{action.icon ? <ClayIcon symbol={action.icon} /> : action.label}
+			</ClayLink>
+		);
+	}
+
+	if (loading) {
+		return (
+			<ClayButton
+				className="btn-sm"
+				disabled
+				displayType="secondary"
+				monospaced
+			>
+				<ClayLoadingIndicator small />
+			</ClayButton>
+		);
 	}
 
 	return (
@@ -105,6 +173,7 @@ function ActionsDropdown(props) {
 							key={i}
 							{...action}
 							closeMenu={() => setActive(false)}
+							handleAction={handleAction}
 							itemId={props.itemId}
 						/>
 					))}

@@ -473,15 +473,12 @@ const dataSetDisplayProps = {
 		{
 			actionItems: [
 				{
-					cssClasses: '',
-					href:
-						'http://localhost:8080/group/guest/~/control_panel/manage?p_p_id=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&p_p_lifecycle=0&p_p_state=maximized&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_javax.portlet.action=editCommerceOrderItem&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_cmd=delete&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_redirect=%2Fgroup%2Fguest%2F%7E%2Fcontrol_panel%2Fmanage%3Fp_p_id%3Dcom_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet%26p_p_lifecycle%3D0%26p_p_state%3Dmaximized%26p_p_mode%3Dview%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_redirect%3Dhttp%253A%252F%252Flocalhost%253A8080%252Fgroup%252Fguest%252F%7E%252Fcontrol_panel%252Fmanage%253Fp_p_id%253Dcom_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet%2526p_p_lifecycle%253D0%2526p_p_state%253Dmaximized%2526p_p_mode%253Dview%2526p_p_auth%253DVLNBjvR0%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_mvcRenderCommandName%3DeditCommerceOrder%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_commerceOrderId%3D38938%26p_p_auth%3DVLNBjvR0&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_commerceOrderItemId=38943&p_p_auth=VLNBjvR0',
+					href: '/delete/url',
 					icon: 'trash',
+					id: 'delete',
 					label: 'Delete',
-					onClick: '',
-					order: 0,
-					quickAction: false,
-					separator: false
+					method: 'delete',
+					target: 'async'
 				}
 			],
 			bookedQuantityId: 0,
