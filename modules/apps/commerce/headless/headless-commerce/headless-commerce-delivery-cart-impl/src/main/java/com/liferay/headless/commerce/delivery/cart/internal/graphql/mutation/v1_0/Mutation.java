@@ -252,20 +252,6 @@ public class Mutation {
 				callbackURL, object));
 	}
 
-	@GraphQLField
-	public Response deleteCartItemBatch(
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("callbackURL") String callbackURL,
-			@GraphQLName("object") Object object)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_cartItemResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			cartItemResource -> cartItemResource.deleteCartItemBatch(
-				cartId, callbackURL, object));
-	}
-
 	@GraphQLField(description = "Retrive information of the given Cart.")
 	public CartItem patchCartItem(
 			@GraphQLName("cartItemId") Long cartItemId,

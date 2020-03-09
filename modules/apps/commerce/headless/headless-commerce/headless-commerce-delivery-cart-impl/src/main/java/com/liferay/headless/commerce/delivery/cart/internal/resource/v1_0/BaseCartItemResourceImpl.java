@@ -91,16 +91,12 @@ public abstract class BaseCartItemResourceImpl
 	@DELETE
 	@Operation(description = "Deletes an Cart Item by ID.")
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartItemId")
-		}
+		value = {@Parameter(in = ParameterIn.PATH, name = "cartItemId")}
 	)
 	@Path("/cart-items/{cartItemId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CartItem")})
 	public Response deleteCartItem(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
 			@NotNull @Parameter(hidden = true) @PathParam("cartItemId") Long
 				cartItemId)
 		throws Exception {
@@ -119,16 +115,12 @@ public abstract class BaseCartItemResourceImpl
 	@Consumes("application/json")
 	@DELETE
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
-		}
+		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
 	@Path("/cart-items/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "CartItem")})
 	public Response deleteCartItemBatch(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
 			@Parameter(hidden = true) @QueryParam("callbackURL") String
 				callbackURL,
 			Object object)

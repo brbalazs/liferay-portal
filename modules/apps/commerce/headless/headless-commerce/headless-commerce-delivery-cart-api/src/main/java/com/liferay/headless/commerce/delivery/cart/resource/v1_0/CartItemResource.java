@@ -46,10 +46,6 @@ public interface CartItemResource {
 	public Response deleteCartItemBatch(String callbackURL, Object object)
 		throws Exception;
 
-	public Response deleteCartItemBatch(
-			Long cartId, String callbackURL, Object object)
-		throws Exception;
-
 	public CartItem getCartItem(Long cartItemId) throws Exception;
 
 	public CartItem patchCartItem(Long cartItemId, CartItem cartItem)
