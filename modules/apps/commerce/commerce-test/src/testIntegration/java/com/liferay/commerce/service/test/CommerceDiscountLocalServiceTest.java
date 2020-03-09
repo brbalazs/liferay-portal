@@ -318,7 +318,7 @@ public class CommerceDiscountLocalServiceTest {
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			_commerceChannel.getSiteGroupId(), _commerceCurrency);
+			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 

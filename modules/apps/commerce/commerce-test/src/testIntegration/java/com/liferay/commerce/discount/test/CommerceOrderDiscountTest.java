@@ -118,7 +118,7 @@ public class CommerceOrderDiscountTest {
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceChannel.getSiteGroupId(), commerceCurrency);
+			commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 

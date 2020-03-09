@@ -144,7 +144,7 @@ public class CommerceOrderDiscountV2Test {
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceChannel.getSiteGroupId(), commerceCurrency);
+			commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -169,12 +169,11 @@ public class CommerceOrderDiscountV2Test {
 
 		CPDefinition cpDefinition = cpInstanceDiscount.getCPDefinition();
 
-		CommercePriceEntry commercePriceEntryDiscount =
-			CommercePriceEntryTestUtil.addCommercePriceEntry(
-				cpDefinition.getCProductId(),
-				cpInstanceDiscount.getCPInstanceUuid(),
-				commercePriceList.getCommercePriceListId(), "",
-				BigDecimal.valueOf(0.9));
+		CommercePriceEntryTestUtil.addCommercePriceEntry(
+			cpDefinition.getCProductId(),
+			cpInstanceDiscount.getCPInstanceUuid(),
+			commercePriceList.getCommercePriceListId(), "",
+			BigDecimal.valueOf(0.9));
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
@@ -240,7 +239,7 @@ public class CommerceOrderDiscountV2Test {
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceChannel.getSiteGroupId(), commerceCurrency);
+			commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -379,7 +378,7 @@ public class CommerceOrderDiscountV2Test {
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceChannel.getSiteGroupId(), commerceCurrency);
+			commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 

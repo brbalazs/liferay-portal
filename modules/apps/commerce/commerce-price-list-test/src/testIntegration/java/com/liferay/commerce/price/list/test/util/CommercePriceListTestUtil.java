@@ -216,7 +216,7 @@ public class CommercePriceListTestUtil {
 		throws Exception {
 
 		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(groupId);
+			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);

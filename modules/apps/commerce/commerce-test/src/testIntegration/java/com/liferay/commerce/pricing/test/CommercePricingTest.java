@@ -106,8 +106,7 @@ public class CommercePricingTest {
 				_user.getCompanyId(), RandomTestUtil.randomString(), 0, false,
 				"", ServiceContextTestUtil.getServiceContext());
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
-			_group.getGroupId());
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
 			_user.getCompanyId(), _user.getGroupId(), _user.getUserId());
