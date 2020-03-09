@@ -334,7 +334,8 @@ public class CPSearchResultsDisplayContext {
 	}
 
 	protected String getURLString() {
-		return HttpUtil.getCompleteURL(getSharedRequest());
+		return HttpUtil.removeParameter(
+			HttpUtil.getCompleteURL(getSharedRequest()), "start");
 	}
 
 	private final CPContentListEntryRendererRegistry
