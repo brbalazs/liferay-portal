@@ -15,19 +15,12 @@
 package com.liferay.commerce.tax.web.internal.portlet.action;
 
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
-import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.exception.NoSuchTaxMethodException;
-import com.liferay.commerce.tax.service.CommerceTaxMethodService;
-import com.liferay.commerce.tax.web.internal.display.context.CommerceTaxMethodsDisplayContext;
-import com.liferay.commerce.util.CommerceTaxEngineRegistry;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderConstants;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -60,16 +53,6 @@ public class EditCommerceTaxMethodMVCRenderCommand implements MVCRenderCommand {
 			_servletContext.getRequestDispatcher("/edit_tax_method.jsp");
 
 		try {
-			CommerceTaxMethodsDisplayContext commerceTaxMethodsDisplayContext =
-				new CommerceTaxMethodsDisplayContext(
-					_commerceChannelLocalService, _commerceTaxEngineRegistry,
-					_commerceTaxMethodService, _portletResourcePermission,
-					renderRequest, renderResponse);
-
-			renderRequest.setAttribute(
-				WebKeys.PORTLET_DISPLAY_CONTEXT,
-				commerceTaxMethodsDisplayContext);
-
 			requestDispatcher.include(
 				_portal.getHttpServletRequest(renderRequest),
 				_portal.getHttpServletResponse(renderResponse));
@@ -91,21 +74,7 @@ public class EditCommerceTaxMethodMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference
-	private CommerceTaxEngineRegistry _commerceTaxEngineRegistry;
-
-	@Reference
-	private CommerceTaxMethodService _commerceTaxMethodService;
-
-	@Reference
 	private Portal _portal;
-
-	@Reference(
-		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"
-	)
-	private PortletResourcePermission _portletResourcePermission;
 
 	@Reference(target = "(osgi.web.symbolicname=com.liferay.commerce.tax.web)")
 	private ServletContext _servletContext;
