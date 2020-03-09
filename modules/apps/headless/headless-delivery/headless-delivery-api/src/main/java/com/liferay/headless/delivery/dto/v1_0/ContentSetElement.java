@@ -220,11 +220,7 @@ public class ContentSetElement {
 
 			sb.append("\"content\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(content));
-
-			sb.append("\"");
+			sb.append(String.valueOf(content));
 		}
 
 		if (contentType != null) {
@@ -272,11 +268,7 @@ public class ContentSetElement {
 
 			sb.append("\"title_i18n\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(title_i18n));
-
-			sb.append("\"");
+			sb.append(String.valueOf(title_i18n));
 		}
 
 		sb.append("}");

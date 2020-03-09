@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class CartItem {
+public class CartItem implements Cloneable {
 
 	public Map<String, ?> getCustomFields() {
 		return customFields;
@@ -228,6 +228,11 @@ public class CartItem {
 	}
 
 	protected Boolean subscription;
+
+	@Override
+	public CartItem clone() throws CloneNotSupportedException {
+		return (CartItem)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

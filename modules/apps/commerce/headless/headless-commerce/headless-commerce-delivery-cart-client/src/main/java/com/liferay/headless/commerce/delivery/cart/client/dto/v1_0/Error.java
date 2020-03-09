@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Error {
+public class Error implements Cloneable {
 
 	public Integer getErrorCode() {
 		return errorCode;
@@ -111,6 +111,11 @@ public class Error {
 	}
 
 	protected Integer status;
+
+	@Override
+	public Error clone() throws CloneNotSupportedException {
+		return (Error)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

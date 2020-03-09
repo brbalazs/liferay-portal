@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Address {
+public class Address implements Cloneable {
 
 	public String getCity() {
 		return city;
@@ -395,6 +395,11 @@ public class Address {
 	}
 
 	protected String zip;
+
+	@Override
+	public Address clone() throws CloneNotSupportedException {
+		return (Address)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

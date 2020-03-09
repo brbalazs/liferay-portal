@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class CouponCode {
+public class CouponCode implements Cloneable {
 
 	public String getCode() {
 		return code;
@@ -46,6 +46,11 @@ public class CouponCode {
 	}
 
 	protected String code;
+
+	@Override
+	public CouponCode clone() throws CloneNotSupportedException {
+		return (CouponCode)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

@@ -68,7 +68,6 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.log4j.Level;
 
@@ -197,6 +196,7 @@ public abstract class BaseCartItemResourceTestCase {
 
 	@Test
 	public void testDeleteCartItem() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		CartItem cartItem = testDeleteCartItem_addCartItem();
 
 		assertHttpResponseStatusCode(
@@ -205,11 +205,10 @@ public abstract class BaseCartItemResourceTestCase {
 				null, cartItem.getId()));
 
 		assertHttpResponseStatusCode(
-			404,
-			cartItemResource.getCartItemHttpResponse(cartItem.getId()));
+			404, cartItemResource.getCartItemHttpResponse(cartItem.getId()));
 
 		assertHttpResponseStatusCode(
-			404, cartItemResource.getCartItemHttpResponse( 0L));
+			404, cartItemResource.getCartItemHttpResponse(0L));
 	}
 
 	protected CartItem testDeleteCartItem_addCartItem() throws Exception {
@@ -315,8 +314,7 @@ public abstract class BaseCartItemResourceTestCase {
 		CartItem patchCartItem = cartItemResource.patchCartItem(
 			postCartItem.getId(), randomPatchCartItem);
 
-		CartItem expectedPatchCartItem = (CartItem)BeanUtils.cloneBean(
-			postCartItem);
+		CartItem expectedPatchCartItem = postCartItem.clone();
 
 		_beanUtilsBean.copyProperties(
 			expectedPatchCartItem, randomPatchCartItem);

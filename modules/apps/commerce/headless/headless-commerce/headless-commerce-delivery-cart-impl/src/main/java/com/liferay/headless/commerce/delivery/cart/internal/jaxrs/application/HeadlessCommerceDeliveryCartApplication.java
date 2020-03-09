@@ -29,8 +29,7 @@ import org.osgi.service.component.annotations.Component;
 		"liferay.jackson=false",
 		"osgi.jaxrs.application.base=/headless-commerce-delivery-cart",
 		"osgi.jaxrs.extension.select=(osgi.jaxrs.name=Liferay.Vulcan)",
-		"osgi.jaxrs.name=Liferay.Headless.Commerce.Delivery.Cart",
-		"auth.verifier.guest.allowed=true", "liferay.oauth2=false"
+		"osgi.jaxrs.name=Liferay.Headless.Commerce.Delivery.Cart"
 	},
 	service = Application.class
 )

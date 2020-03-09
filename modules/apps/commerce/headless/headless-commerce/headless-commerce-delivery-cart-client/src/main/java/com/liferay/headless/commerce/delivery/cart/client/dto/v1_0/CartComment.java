@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class CartComment {
+public class CartComment implements Cloneable {
 
 	public String getAuthor() {
 		return author;
@@ -130,6 +130,11 @@ public class CartComment {
 	}
 
 	protected Boolean restricted;
+
+	@Override
+	public CartComment clone() throws CloneNotSupportedException {
+		return (CartComment)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

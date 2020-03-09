@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Summary {
+public class Summary implements Cloneable {
 
 	public String getCurrency() {
 		return currency;
@@ -449,6 +449,11 @@ public class Summary {
 	}
 
 	protected String totalFormatted;
+
+	@Override
+	public Summary clone() throws CloneNotSupportedException {
+		return (Summary)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

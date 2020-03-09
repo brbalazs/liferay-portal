@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Cart {
+public class Cart implements Cloneable {
 
 	public String getAccount() {
 		return account;
@@ -615,6 +615,11 @@ public class Cart {
 	}
 
 	protected Boolean useAsBilling;
+
+	@Override
+	public Cart clone() throws CloneNotSupportedException {
+		return (Cart)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

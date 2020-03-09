@@ -44,12 +44,19 @@ public interface CartItemResource {
 	public Response deleteCartItem(Long cartId, Long cartItemId)
 		throws Exception;
 
+	public Response deleteCartItemBatch(
+			Long cartId, String callbackURL, Object object)
+		throws Exception;
+
 	public CartItem getCartItem(Long cartItemId) throws Exception;
 
 	public CartItem patchCartItem(Long cartItemId, CartItem cartItem)
 		throws Exception;
 
 	public CartItem putCartItem(Long cartItemId, CartItem cartItem)
+		throws Exception;
+
+	public Response putCartItemBatch(String callbackURL, Object object)
 		throws Exception;
 
 	public Page<CartItem> getCartItemsPage(Long cartId, Pagination pagination)

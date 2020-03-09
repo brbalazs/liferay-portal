@@ -68,7 +68,6 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
@@ -216,6 +215,7 @@ public abstract class BaseCartResourceTestCase {
 
 	@Test
 	public void testDeleteCart() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Cart cart = testDeleteCart_addCart();
 
 		assertHttpResponseStatusCode(
@@ -328,7 +328,7 @@ public abstract class BaseCartResourceTestCase {
 		Cart patchCart = cartResource.patchCart(
 			postCart.getId(), randomPatchCart);
 
-		Cart expectedPatchCart = (Cart)BeanUtils.cloneBean(postCart);
+		Cart expectedPatchCart = postCart.clone();
 
 		_beanUtilsBean.copyProperties(expectedPatchCart, randomPatchCart);
 

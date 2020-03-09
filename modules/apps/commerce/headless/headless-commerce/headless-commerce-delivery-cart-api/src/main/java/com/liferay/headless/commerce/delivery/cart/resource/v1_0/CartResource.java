@@ -44,11 +44,17 @@ public interface CartResource {
 
 	public Response deleteCart(Long cartId) throws Exception;
 
+	public Response deleteCartBatch(String callbackURL, Object object)
+		throws Exception;
+
 	public Cart getCart(Long cartId) throws Exception;
 
 	public Cart patchCart(Long cartId, Cart cart) throws Exception;
 
 	public Cart putCart(Long cartId, Cart cart) throws Exception;
+
+	public Response putCartBatch(String callbackURL, Object object)
+		throws Exception;
 
 	public Cart postCartCouponCode(Long cartId, CouponCode couponCode)
 		throws Exception;

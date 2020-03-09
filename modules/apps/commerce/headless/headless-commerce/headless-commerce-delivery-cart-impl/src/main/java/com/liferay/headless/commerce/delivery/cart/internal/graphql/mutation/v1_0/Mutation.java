@@ -79,6 +79,18 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Response deleteCartBatch(
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartResource -> cartResource.deleteCartBatch(callbackURL, object));
+	}
+
+	@GraphQLField
 	public Cart patchCart(
 			@GraphQLName("cartId") Long cartId, @GraphQLName("cart") Cart cart)
 		throws Exception {
@@ -98,6 +110,18 @@ public class Mutation {
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartResource -> cartResource.putCart(cartId, cart));
+	}
+
+	@GraphQLField
+	public Response updateCartBatch(
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartResource -> cartResource.putCartBatch(callbackURL, object));
 	}
 
 	@GraphQLField(
@@ -139,6 +163,20 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Response deleteCartCommentBatch(
+			@GraphQLName("commentId") Long commentId,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartCommentResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartCommentResource -> cartCommentResource.deleteCartCommentBatch(
+				commentId, callbackURL, object));
+	}
+
+	@GraphQLField
 	public CartComment patchCartComment(
 			@GraphQLName("commentId") Long commentId,
 			@GraphQLName("cartComment") CartComment cartComment)
@@ -162,6 +200,20 @@ public class Mutation {
 			this::_populateResourceContext,
 			cartCommentResource -> cartCommentResource.putCartComment(
 				commentId, cartComment));
+	}
+
+	@GraphQLField
+	public Response updateCartCommentBatch(
+			@GraphQLName("commentId") Long commentId,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartCommentResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartCommentResource -> cartCommentResource.putCartCommentBatch(
+				commentId, callbackURL, object));
 	}
 
 	@GraphQLField
@@ -190,6 +242,20 @@ public class Mutation {
 				cartId, cartItemId));
 	}
 
+	@GraphQLField
+	public Response deleteCartItemBatch(
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartItemResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartItemResource -> cartItemResource.deleteCartItemBatch(
+				cartId, callbackURL, object));
+	}
+
 	@GraphQLField(description = "Retrive information of the given Cart.")
 	public CartItem patchCartItem(
 			@GraphQLName("cartItemId") Long cartItemId,
@@ -214,6 +280,19 @@ public class Mutation {
 			this::_populateResourceContext,
 			cartItemResource -> cartItemResource.putCartItem(
 				cartItemId, cartItem));
+	}
+
+	@GraphQLField
+	public Response updateCartItemBatch(
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartItemResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartItemResource -> cartItemResource.putCartItemBatch(
+				callbackURL, object));
 	}
 
 	@GraphQLField(

@@ -43,12 +43,20 @@ public interface CartCommentResource {
 
 	public Response deleteCartComment(Long commentId) throws Exception;
 
+	public Response deleteCartCommentBatch(
+			Long commentId, String callbackURL, Object object)
+		throws Exception;
+
 	public CartComment getCartComment(Long commentId) throws Exception;
 
 	public CartComment patchCartComment(Long commentId, CartComment cartComment)
 		throws Exception;
 
 	public CartComment putCartComment(Long commentId, CartComment cartComment)
+		throws Exception;
+
+	public Response putCartCommentBatch(
+			Long commentId, String callbackURL, Object object)
 		throws Exception;
 
 	public Page<CartComment> getCartCommentsPage(
