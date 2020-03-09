@@ -136,7 +136,8 @@ CommerceAccountAdminDisplayContext commerceAccountAdminDisplayContext = (Commerc
 					<liferay-ui:search-container-column-text
 						cssClass="important table-cell-content"
 						href="<%= rowURL %>"
-						property="name"
+						title="name"
+						value="<%= HtmlUtil.escape(commerceAccount.getName()) %>"
 					/>
 
 					<liferay-ui:search-container-column-text
