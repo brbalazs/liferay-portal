@@ -13,7 +13,7 @@
  */
 
 import ClayButton from '@clayui/button';
-import ClayIcon, {ClayIconSpriteContext} from '@clayui/icon';
+import ClayIcon from '@clayui/icon';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -134,17 +134,17 @@ export default class SidePanel extends React.Component {
 		if (topAnchor) {
 			const {height, top} = topAnchor.getBoundingClientRect();
 			this.setState({
-				topDistance: top + height + 'px',
+				topDistance: top + height + 'px'
 			});
 		}
 
 		const pageHeader = document.querySelector('.page-header');
-		
-		if(pageHeader) {
+
+		if (pageHeader) {
 			const {top} = pageHeader.getBoundingClientRect();
 
 			this.setState({
-				menuCoverTopDistance: top + 'px',
+				menuCoverTopDistance: top + 'px'
 			});
 		}
 	}
@@ -208,7 +208,7 @@ export default class SidePanel extends React.Component {
 		return new Promise(resolve => {
 			this.setState({moving: true, visible: status});
 
-			if(!this.panel.current) return;
+			if (!this.panel.current) return;
 
 			this.panel.current.addEventListener(
 				'transitionend',
@@ -294,89 +294,85 @@ export default class SidePanel extends React.Component {
 				: '';
 
 		return ReactDOM.createPortal(
-			(
-				<>
-					<Modal id={iframeHandlerModalId} />
-					{/* {!isPageInIframe() && ( */}
-						<div
-							className={classNames(
-								'side-panel-nav-cover border-bottom',
-								visibility
-							)}
-							style={{top: this.state.menuCoverTopDistance}}
-						>
-							<div className={classNames(
-								!isPageInIframe() && 'container'
-							)}>
-								<ul className="nav nav-underline">
-									<li className="nav-item">
-										<button
-											className="btn btn-unstyled nav-link"
-											onClick={() => this.close()}
-										>
-											<ClayIcon symbol="angle-left" />
-										</button>
-									</li>
-								</ul>
-							</div>
-						</div>
-					{/* )} */}
+			<>
+				<Modal id={iframeHandlerModalId} />
+				<div
+					className={classNames(
+						'side-panel-nav-cover border-bottom',
+						visibility
+					)}
+					style={{top: this.state.menuCoverTopDistance}}
+				>
 					<div
-						className={classNames(
-							'side-panel',
-							`side-panel-${this.state.size}`,
-							visibility,
-							loading
-						)}
-						ref={this.panel}
-						style={{top: this.state.topDistance}}
+						className={classNames(!isPageInIframe() && 'container')}
 					>
-						{this.props.items && this.props.items.length && (
-							<SideMenu
-								active={this.state.active}
-								items={this.props.items}
-								open={this.open}
-							/>
+						<ul className="nav nav-underline">
+							<li className="nav-item">
+								<button
+									className="btn btn-unstyled nav-link"
+									onClick={() => this.close()}
+								>
+									<ClayIcon symbol="angle-left" />
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div
+					className={classNames(
+						'side-panel',
+						`side-panel-${this.state.size}`,
+						visibility,
+						loading
+					)}
+					ref={this.panel}
+					style={{top: this.state.topDistance}}
+				>
+					{this.props.items && this.props.items.length && (
+						<SideMenu
+							active={this.state.active}
+							items={this.props.items}
+							open={this.open}
+						/>
+					)}
+
+					<ClayButton
+						className={classNames(
+							'side-panel-close',
+							this.state.closeButtonStyle === 'simple' &&
+								'side-panel-close-simple',
+							this.state.closeButtonStyle === 'menu' &&
+								'side-panel-close-menu'
 						)}
+						displayType="monospaced"
+						onClick={() => this.close()}
+					>
+						<ClayIcon
+							spritemap={this.props.spritemap}
+							symbol="times"
+						/>
+					</ClayButton>
 
-						<ClayButton
-							className={classNames(
-								'side-panel-close',
-								this.state.closeButtonStyle === 'simple' &&
-									'side-panel-close-simple',
-								this.state.closeButtonStyle === 'menu' &&
-									'side-panel-close-menu'
-							)}
-							displayType="monospaced"
-							onClick={() => this.close()}
+					<div className="tab-content">
+						<div className="loader">
+							<ClayLoadingIndicator />
+						</div>
+						<div
+							className="active fade show tab-pane"
+							role="tabpanel"
 						>
-							<ClayIcon
-								spritemap={this.props.spritemap}
-								symbol="times"
-							/>
-						</ClayButton>
-
-						<div className="tab-content">
-							<div className="loader">
-								<ClayLoadingIndicator />
-							</div>
-							<div
-								className="active fade show tab-pane"
-								role="tabpanel"
-							>
-								{!(this.state.moving && this.state.visible) && (
-									<iframe
-										frameBorder="0"
-										onLoad={this.handleContentLoaded}
-										ref={this.iframeRef}
-										src={this.state.currentUrl}
-									></iframe>
-								)}
-							</div>
+							{!(this.state.moving && this.state.visible) && (
+								<iframe
+									frameBorder="0"
+									onLoad={this.handleContentLoaded}
+									ref={this.iframeRef}
+									src={this.state.currentUrl}
+								></iframe>
+							)}
 						</div>
 					</div>
-				</>
-			),
+				</div>
+			</>,
 			this.state.wrapper
 		);
 	}
