@@ -16,6 +16,7 @@ package com.liferay.analytics.settings.web.internal.portlet.action;
 
 import com.liferay.analytics.settings.configuration.AnalyticsConfiguration;
 import com.liferay.analytics.settings.configuration.AnalyticsConfigurationTracker;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -66,6 +67,16 @@ public abstract class BaseAnalyticsMVCActionCommand
 		}
 	}
 
+	protected void disconnectDataSource(long companyId) throws Exception {
+		removeChannelId(
+			PrefsPropsUtil.getStringArray(
+				companyId, "liferayAnalyticsGroupIds", StringPool.COMMA));
+
+		removeCompanyPreferences(companyId);
+
+		analyticsConfigurationTracker.deleteCompanyConfiguration(companyId);
+	}
+
 	protected void disconnectDataSource(
 			long companyId, HttpResponse httpResponse)
 		throws Exception {
@@ -78,13 +89,7 @@ public abstract class BaseAnalyticsMVCActionCommand
 		String message = responseJSONObject.getString("message");
 
 		if (message.equals("INVALID_TOKEN")) {
-			removeChannelId(
-				PrefsPropsUtil.getStringArray(
-					companyId, "liferayAnalyticsGroupIds", StringPool.COMMA));
-
-			removeCompanyPreferences(companyId);
-
-			analyticsConfigurationTracker.deleteCompanyConfiguration(companyId);
+			disconnectDataSource(companyId);
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
@@ -158,15 +163,6 @@ public abstract class BaseAnalyticsMVCActionCommand
 				"liferayAnalyticsFaroBackendURL", "liferayAnalyticsGroupIds",
 				"liferayAnalyticsURL"
 			});
-	}
-
-	protected void removeConfigurationProperties(
-			long companyId, Dictionary<String, Object> configurationProperties)
-		throws Exception {
-
-		configurationProperties.remove("token");
-
-		analyticsConfigurationTracker.deleteCompanyConfiguration(companyId);
 	}
 
 	protected void saveCompanyConfiguration(
