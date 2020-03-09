@@ -24,16 +24,17 @@
 	<c:if test="<%= Validator.isNotNull(title) %>">
 		<div class="side-panel-iframe-header">
 			<div class="side-panel-iframe-title">
-				<%= title %>
+				<h3 class="mb-0">
+					<%= title %>
+				</h3>
 			</div>
+			<button class="btn btn-unstyled side-panel-iframe-close">
+				<clay:icon
+					symbol="times"
+				/>
+			</button>
 		</div>
 	</c:if>
-
-	<button class="btn btn-unstyled side-panel-iframe-close">
-		<clay:icon
-			symbol="times"
-		/>
-	</button>
 
 	<c:if test="<%= Validator.isNull(screenNavigatorKey) %>">
 		<div class="side-panel-iframe-content">

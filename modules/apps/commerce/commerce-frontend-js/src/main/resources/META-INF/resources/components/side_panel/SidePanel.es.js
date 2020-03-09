@@ -42,6 +42,7 @@ export default class SidePanel extends React.Component {
 			closeButtonStyle: null,
 			currentUrl: props.url || null,
 			loading: true,
+			menuCoverTopDistance: 0,
 			moving: false,
 			onAfterSubmit: props.onAfterSubmit || null,
 			size: props.size || this.defaultSize,
@@ -128,21 +129,24 @@ export default class SidePanel extends React.Component {
 	}
 
 	updateTop() {
-		if (!this.props.topAnchorSelector) {
-			return;
-		}
-
 		const topAnchor = document.querySelector(this.props.topAnchorSelector);
 
-		if (!topAnchor) {
-			return;
+		if (topAnchor) {
+			const {height, top} = topAnchor.getBoundingClientRect();
+			this.setState({
+				topDistance: top + height + 'px',
+			});
 		}
 
-		const {height, top} = topAnchor.getBoundingClientRect();
+		const pageHeader = document.querySelector('.page-header');
+		
+		if(pageHeader) {
+			const {top} = pageHeader.getBoundingClientRect();
 
-		this.setState({
-			topDistance: top + height + 'px'
-		});
+			this.setState({
+				menuCoverTopDistance: top + 'px',
+			});
+		}
 	}
 
 	load(url, refreshPageAfterSubmit) {
@@ -203,6 +207,9 @@ export default class SidePanel extends React.Component {
 	toggle(status = !this.state.visible) {
 		return new Promise(resolve => {
 			this.setState({moving: true, visible: status});
+
+			if(!this.panel.current) return;
+
 			this.panel.current.addEventListener(
 				'transitionend',
 				() => {
@@ -286,95 +293,89 @@ export default class SidePanel extends React.Component {
 				? 'is-loading'
 				: '';
 
-		const content = (
-			<>
-				<Modal id={iframeHandlerModalId} />
-				{!isPageInIframe() && (
+		return ReactDOM.createPortal(
+			(
+				<>
+					<Modal id={iframeHandlerModalId} />
+					{/* {!isPageInIframe() && ( */}
+						<div
+							className={classNames(
+								'side-panel-nav-cover border-bottom',
+								visibility
+							)}
+							style={{top: this.state.menuCoverTopDistance}}
+						>
+							<div className={classNames(
+								!isPageInIframe() && 'container'
+							)}>
+								<ul className="nav nav-underline">
+									<li className="nav-item">
+										<button
+											className="btn btn-unstyled nav-link"
+											onClick={() => this.close()}
+										>
+											<ClayIcon symbol="angle-left" />
+										</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					{/* )} */}
 					<div
 						className={classNames(
-							'side-panel-nav-cover border-bottom',
-							visibility
+							'side-panel',
+							`side-panel-${this.state.size}`,
+							visibility,
+							loading
 						)}
+						ref={this.panel}
 						style={{top: this.state.topDistance}}
 					>
-						<div className="container">
-							<ul className="nav nav-underline">
-								<li className="nav-item">
-									<button
-										className="btn btn-unstyled nav-link"
-										onClick={() => this.close()}
-									>
-										<ClayIcon symbol="angle-left" />
-									</button>
-								</li>
-							</ul>
-						</div>
-					</div>
-				)}
-				<div
-					className={classNames(
-						'side-panel',
-						`side-panel-${this.state.size}`,
-						visibility,
-						loading
-					)}
-					ref={this.panel}
-					style={{top: this.state.topDistance}}
-				>
-					{this.props.items && this.props.items.length && (
-						<SideMenu
-							active={this.state.active}
-							items={this.props.items}
-							open={this.open}
-						/>
-					)}
-
-					<ClayButton
-						className={classNames(
-							'side-panel-close',
-							this.state.closeButtonStyle === 'simple' &&
-								'side-panel-close-simple',
-							this.state.closeButtonStyle === 'menu' &&
-								'side-panel-close-menu'
+						{this.props.items && this.props.items.length && (
+							<SideMenu
+								active={this.state.active}
+								items={this.props.items}
+								open={this.open}
+							/>
 						)}
-						displayType="monospaced"
-						onClick={() => this.close()}
-					>
-						<ClayIcon
-							spritemap={this.props.spritemap}
-							symbol="times"
-						/>
-					</ClayButton>
 
-					<div className="tab-content">
-						<div className="loader">
-							<ClayLoadingIndicator />
-						</div>
-						<div
-							className="active fade show tab-pane"
-							role="tabpanel"
-						>
-							{!(this.state.moving && this.state.visible) && (
-								<iframe
-									frameBorder="0"
-									onLoad={this.handleContentLoaded}
-									ref={this.iframeRef}
-									src={this.state.currentUrl}
-								></iframe>
+						<ClayButton
+							className={classNames(
+								'side-panel-close',
+								this.state.closeButtonStyle === 'simple' &&
+									'side-panel-close-simple',
+								this.state.closeButtonStyle === 'menu' &&
+									'side-panel-close-menu'
 							)}
+							displayType="monospaced"
+							onClick={() => this.close()}
+						>
+							<ClayIcon
+								spritemap={this.props.spritemap}
+								symbol="times"
+							/>
+						</ClayButton>
+
+						<div className="tab-content">
+							<div className="loader">
+								<ClayLoadingIndicator />
+							</div>
+							<div
+								className="active fade show tab-pane"
+								role="tabpanel"
+							>
+								{!(this.state.moving && this.state.visible) && (
+									<iframe
+										frameBorder="0"
+										onLoad={this.handleContentLoaded}
+										ref={this.iframeRef}
+										src={this.state.currentUrl}
+									></iframe>
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
-			</>
-		);
-
-		return ReactDOM.createPortal(
-			this.props.spritemap ? (
-				<ClayIconSpriteContext.Provider value={this.props.spritemap}>
-					{content}
-				</ClayIconSpriteContext.Provider>
-			) : (
-				content
+				</>
 			),
 			this.state.wrapper
 		);
@@ -392,6 +393,6 @@ SidePanel.propTypes = {
 
 SidePanel.defaultProps = {
 	size: 'lg',
-	topAnchorSelector: '.side-panel-top-anchor',
+	topAnchorSelector: '.control-menu',
 	wrapperSelector: '.side-panel-wrapper'
 };

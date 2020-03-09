@@ -342,6 +342,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 	var pageHeader = document.querySelector('.page-header');
 
 	function updateMenuDistanceFromTop() {
+		if(!commerceHeader) return;
 		var distanceFromTop = commerceHeader.getClientRects()[0].bottom;
 		pageHeader.style.top = distanceFromTop + 'px';
 	}
