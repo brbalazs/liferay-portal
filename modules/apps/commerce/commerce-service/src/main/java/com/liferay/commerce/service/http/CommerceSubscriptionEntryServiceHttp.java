@@ -420,7 +420,17 @@ public class CommerceSubscriptionEntryServiceHttp {
 				long maxSubscriptionCycles, int subscriptionStatus,
 				int nextIterationDateMonth, int nextIterationDateDay,
 				int nextIterationDateYear, int nextIterationDateHour,
-				int nextIterationDateMinute)
+				int nextIterationDateMinute, int deliverySubscriptionLength,
+				String deliverySubscriptionType,
+				com.liferay.portal.kernel.util.UnicodeProperties
+					deliverySubscriptionTypeSettingsProperties,
+				long deliveryMaxSubscriptionCycles,
+				int deliverySubscriptionStatus,
+				int deliveryNextIterationDateMonth,
+				int deliveryNextIterationDateDay,
+				int deliveryNextIterationDateYear,
+				int deliveryNextIterationDateHour,
+				int deliveryNextIterationDateMinute)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -435,7 +445,13 @@ public class CommerceSubscriptionEntryServiceHttp {
 				maxSubscriptionCycles, subscriptionStatus,
 				nextIterationDateMonth, nextIterationDateDay,
 				nextIterationDateYear, nextIterationDateHour,
-				nextIterationDateMinute);
+				nextIterationDateMinute, deliverySubscriptionLength,
+				deliverySubscriptionType,
+				deliverySubscriptionTypeSettingsProperties,
+				deliveryMaxSubscriptionCycles, deliverySubscriptionStatus,
+				deliveryNextIterationDateMonth, deliveryNextIterationDateDay,
+				deliveryNextIterationDateYear, deliveryNextIterationDateHour,
+				deliveryNextIterationDateMinute);
 
 			Object returnObj = null;
 
@@ -552,6 +568,9 @@ public class CommerceSubscriptionEntryServiceHttp {
 	private static final Class<?>[]
 		_updateCommerceSubscriptionEntryParameterTypes8 = new Class[] {
 			long.class, int.class, String.class,
+			com.liferay.portal.kernel.util.UnicodeProperties.class, long.class,
+			int.class, int.class, int.class, int.class, int.class, int.class,
+			int.class, String.class,
 			com.liferay.portal.kernel.util.UnicodeProperties.class, long.class,
 			int.class, int.class, int.class, int.class, int.class, int.class
 		};

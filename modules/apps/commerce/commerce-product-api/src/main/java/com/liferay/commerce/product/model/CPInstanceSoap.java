@@ -67,6 +67,16 @@ public class CPInstanceSoap implements Serializable {
 		soapModel.setSubscriptionTypeSettings(
 			model.getSubscriptionTypeSettings());
 		soapModel.setMaxSubscriptionCycles(model.getMaxSubscriptionCycles());
+		soapModel.setDeliverySubscriptionEnabled(
+			model.isDeliverySubscriptionEnabled());
+		soapModel.setDeliverySubscriptionLength(
+			model.getDeliverySubscriptionLength());
+		soapModel.setDeliverySubscriptionType(
+			model.getDeliverySubscriptionType());
+		soapModel.setDeliverySubscriptionTypeSettings(
+			model.getDeliverySubscriptionTypeSettings());
+		soapModel.setDeliveryMaxSubscriptionCycles(
+			model.getDeliveryMaxSubscriptionCycles());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setStatusByUserId(model.getStatusByUserId());
 		soapModel.setStatusByUserName(model.getStatusByUserName());
@@ -396,6 +406,56 @@ public class CPInstanceSoap implements Serializable {
 		_maxSubscriptionCycles = maxSubscriptionCycles;
 	}
 
+	public boolean getDeliverySubscriptionEnabled() {
+		return _deliverySubscriptionEnabled;
+	}
+
+	public boolean isDeliverySubscriptionEnabled() {
+		return _deliverySubscriptionEnabled;
+	}
+
+	public void setDeliverySubscriptionEnabled(
+		boolean deliverySubscriptionEnabled) {
+
+		_deliverySubscriptionEnabled = deliverySubscriptionEnabled;
+	}
+
+	public int getDeliverySubscriptionLength() {
+		return _deliverySubscriptionLength;
+	}
+
+	public void setDeliverySubscriptionLength(int deliverySubscriptionLength) {
+		_deliverySubscriptionLength = deliverySubscriptionLength;
+	}
+
+	public String getDeliverySubscriptionType() {
+		return _deliverySubscriptionType;
+	}
+
+	public void setDeliverySubscriptionType(String deliverySubscriptionType) {
+		_deliverySubscriptionType = deliverySubscriptionType;
+	}
+
+	public String getDeliverySubscriptionTypeSettings() {
+		return _deliverySubscriptionTypeSettings;
+	}
+
+	public void setDeliverySubscriptionTypeSettings(
+		String deliverySubscriptionTypeSettings) {
+
+		_deliverySubscriptionTypeSettings = deliverySubscriptionTypeSettings;
+	}
+
+	public long getDeliveryMaxSubscriptionCycles() {
+		return _deliveryMaxSubscriptionCycles;
+	}
+
+	public void setDeliveryMaxSubscriptionCycles(
+		long deliveryMaxSubscriptionCycles) {
+
+		_deliveryMaxSubscriptionCycles = deliveryMaxSubscriptionCycles;
+	}
+
 	public int getStatus() {
 		return _status;
 	}
@@ -460,6 +520,11 @@ public class CPInstanceSoap implements Serializable {
 	private String _subscriptionType;
 	private String _subscriptionTypeSettings;
 	private long _maxSubscriptionCycles;
+	private boolean _deliverySubscriptionEnabled;
+	private int _deliverySubscriptionLength;
+	private String _deliverySubscriptionType;
+	private String _deliverySubscriptionTypeSettings;
+	private long _deliveryMaxSubscriptionCycles;
 	private int _status;
 	private long _statusByUserId;
 	private String _statusByUserName;

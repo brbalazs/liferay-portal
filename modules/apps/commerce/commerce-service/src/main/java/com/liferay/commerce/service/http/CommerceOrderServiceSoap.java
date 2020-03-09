@@ -215,27 +215,6 @@ public class CommerceOrderServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderSoap
-			fetchCommerceOrder(
-				long commerceAccountId, long groupId, long userId,
-				int orderStatus)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.model.CommerceOrder returnValue =
-				CommerceOrderServiceUtil.fetchCommerceOrder(
-					commerceAccountId, groupId, userId, orderStatus);
-
-			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
@@ -249,6 +228,27 @@ public class CommerceOrderServiceSoap {
 			com.liferay.commerce.model.CommerceOrder returnValue =
 				CommerceOrderServiceUtil.fetchCommerceOrder(
 					commerceAccountId, groupId, orderStatus);
+
+			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderSoap
+			fetchCommerceOrder(
+				long commerceAccountId, long groupId, long userId,
+				int orderStatus)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceOrder returnValue =
+				CommerceOrderServiceUtil.fetchCommerceOrder(
+					commerceAccountId, groupId, userId, orderStatus);
 
 			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
 				returnValue);

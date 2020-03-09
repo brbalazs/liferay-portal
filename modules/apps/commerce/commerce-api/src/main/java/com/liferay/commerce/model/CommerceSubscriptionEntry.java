@@ -78,7 +78,14 @@ public interface CommerceSubscriptionEntry
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public com.liferay.portal.kernel.util.UnicodeProperties
+		getDeliverySubscriptionTypeSettingsProperties();
+
+	public com.liferay.portal.kernel.util.UnicodeProperties
 		getSubscriptionTypeSettingsProperties();
+
+	public void setDeliverySubscriptionTypeSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties
+			deliverySubscriptionTypeSettingsProperties);
 
 	public void setSubscriptionTypeSettingsProperties(
 		com.liferay.portal.kernel.util.UnicodeProperties

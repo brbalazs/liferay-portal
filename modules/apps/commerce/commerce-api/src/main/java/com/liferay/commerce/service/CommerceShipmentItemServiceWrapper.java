@@ -88,6 +88,10 @@ public class CommerceShipmentItemServiceWrapper
 			commerceShipmentItemId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceShipmentItem>
 			getCommerceShipmentItems(long commerceOrderItemId)
@@ -111,11 +115,31 @@ public class CommerceShipmentItemServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceShipmentItem>
+			getCommerceShipmentItemsByCommerceOrderItemId(
+				long commerceOrderItemId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentItemService.
+			getCommerceShipmentItemsByCommerceOrderItemId(commerceOrderItemId);
+	}
+
+	@Override
 	public int getCommerceShipmentItemsCount(long commerceShipmentId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceShipmentItemService.getCommerceShipmentItemsCount(
 			commerceShipmentId);
+	}
+
+	@Override
+	public int getCommerceShipmentItemsCountByCommerceOrderItemId(
+			long commerceOrderItemId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentItemService.
+			getCommerceShipmentItemsCountByCommerceOrderItemId(
+				commerceOrderItemId);
 	}
 
 	@Override

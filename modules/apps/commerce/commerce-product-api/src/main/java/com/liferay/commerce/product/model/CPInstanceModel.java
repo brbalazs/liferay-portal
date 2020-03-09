@@ -585,6 +585,88 @@ public interface CPInstanceModel
 	public void setMaxSubscriptionCycles(long maxSubscriptionCycles);
 
 	/**
+	 * Returns the delivery subscription enabled of this cp instance.
+	 *
+	 * @return the delivery subscription enabled of this cp instance
+	 */
+	public boolean getDeliverySubscriptionEnabled();
+
+	/**
+	 * Returns <code>true</code> if this cp instance is delivery subscription enabled.
+	 *
+	 * @return <code>true</code> if this cp instance is delivery subscription enabled; <code>false</code> otherwise
+	 */
+	public boolean isDeliverySubscriptionEnabled();
+
+	/**
+	 * Sets whether this cp instance is delivery subscription enabled.
+	 *
+	 * @param deliverySubscriptionEnabled the delivery subscription enabled of this cp instance
+	 */
+	public void setDeliverySubscriptionEnabled(
+		boolean deliverySubscriptionEnabled);
+
+	/**
+	 * Returns the delivery subscription length of this cp instance.
+	 *
+	 * @return the delivery subscription length of this cp instance
+	 */
+	public int getDeliverySubscriptionLength();
+
+	/**
+	 * Sets the delivery subscription length of this cp instance.
+	 *
+	 * @param deliverySubscriptionLength the delivery subscription length of this cp instance
+	 */
+	public void setDeliverySubscriptionLength(int deliverySubscriptionLength);
+
+	/**
+	 * Returns the delivery subscription type of this cp instance.
+	 *
+	 * @return the delivery subscription type of this cp instance
+	 */
+	@AutoEscape
+	public String getDeliverySubscriptionType();
+
+	/**
+	 * Sets the delivery subscription type of this cp instance.
+	 *
+	 * @param deliverySubscriptionType the delivery subscription type of this cp instance
+	 */
+	public void setDeliverySubscriptionType(String deliverySubscriptionType);
+
+	/**
+	 * Returns the delivery subscription type settings of this cp instance.
+	 *
+	 * @return the delivery subscription type settings of this cp instance
+	 */
+	@AutoEscape
+	public String getDeliverySubscriptionTypeSettings();
+
+	/**
+	 * Sets the delivery subscription type settings of this cp instance.
+	 *
+	 * @param deliverySubscriptionTypeSettings the delivery subscription type settings of this cp instance
+	 */
+	public void setDeliverySubscriptionTypeSettings(
+		String deliverySubscriptionTypeSettings);
+
+	/**
+	 * Returns the delivery max subscription cycles of this cp instance.
+	 *
+	 * @return the delivery max subscription cycles of this cp instance
+	 */
+	public long getDeliveryMaxSubscriptionCycles();
+
+	/**
+	 * Sets the delivery max subscription cycles of this cp instance.
+	 *
+	 * @param deliveryMaxSubscriptionCycles the delivery max subscription cycles of this cp instance
+	 */
+	public void setDeliveryMaxSubscriptionCycles(
+		long deliveryMaxSubscriptionCycles);
+
+	/**
 	 * Returns the status of this cp instance.
 	 *
 	 * @return the status of this cp instance

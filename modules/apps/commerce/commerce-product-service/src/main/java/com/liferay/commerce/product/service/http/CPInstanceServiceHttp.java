@@ -854,6 +854,62 @@ public class CPInstanceServiceHttp {
 				int subscriptionLength, String subscriptionType,
 				com.liferay.portal.kernel.util.UnicodeProperties
 					subscriptionTypeSettingsProperties,
+				long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+				int deliverySubscriptionLength, String deliverySubscriptionType,
+				com.liferay.portal.kernel.util.UnicodeProperties
+					deliverySubscriptionTypeSettingsProperties,
+				long deliveryMaxSubscriptionCycles)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CPInstanceServiceUtil.class, "updateSubscriptionInfo",
+				_updateSubscriptionInfoParameterTypes18);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, cpInstanceId, overrideSubscriptionInfo,
+				subscriptionEnabled, subscriptionLength, subscriptionType,
+				subscriptionTypeSettingsProperties, maxSubscriptionCycles,
+				deliverySubscriptionEnabled, deliverySubscriptionLength,
+				deliverySubscriptionType,
+				deliverySubscriptionTypeSettingsProperties,
+				deliveryMaxSubscriptionCycles);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.product.model.CPInstance)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.commerce.product.model.CPInstance
+			updateSubscriptionInfo(
+				HttpPrincipal httpPrincipal, long cpInstanceId,
+				boolean overrideSubscriptionInfo, boolean subscriptionEnabled,
+				int subscriptionLength, String subscriptionType,
+				com.liferay.portal.kernel.util.UnicodeProperties
+					subscriptionTypeSettingsProperties,
 				long maxSubscriptionCycles,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -861,7 +917,7 @@ public class CPInstanceServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CPInstanceServiceUtil.class, "updateSubscriptionInfo",
-				_updateSubscriptionInfoParameterTypes18);
+				_updateSubscriptionInfoParameterTypes19);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpInstanceId, overrideSubscriptionInfo,
@@ -916,7 +972,7 @@ public class CPInstanceServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CPInstanceServiceUtil.class, "upsertCPInstance",
-				_upsertCPInstanceParameterTypes19);
+				_upsertCPInstanceParameterTypes20);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpDefinitionId, groupId, sku, gtin,
@@ -1045,9 +1101,16 @@ public class CPInstanceServiceHttp {
 		new Class[] {
 			long.class, boolean.class, boolean.class, int.class, String.class,
 			com.liferay.portal.kernel.util.UnicodeProperties.class, long.class,
+			boolean.class, int.class, String.class,
+			com.liferay.portal.kernel.util.UnicodeProperties.class, long.class
+		};
+	private static final Class<?>[] _updateSubscriptionInfoParameterTypes19 =
+		new Class[] {
+			long.class, boolean.class, boolean.class, int.class, String.class,
+			com.liferay.portal.kernel.util.UnicodeProperties.class, long.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _upsertCPInstanceParameterTypes19 =
+	private static final Class<?>[] _upsertCPInstanceParameterTypes20 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, String.class,
 			boolean.class, String.class, double.class, double.class,

@@ -303,6 +303,10 @@ public class CommerceShipmentItemLocalServiceWrapper
 			start, end);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceShipmentItem>
 		getCommerceShipmentItems(long commerceOrderItemId) {
@@ -337,6 +341,15 @@ public class CommerceShipmentItemLocalServiceWrapper
 			orderByComparator);
 	}
 
+	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceShipmentItem>
+		getCommerceShipmentItemsByCommerceOrderItemId(
+			long commerceOrderItemId) {
+
+		return _commerceShipmentItemLocalService.
+			getCommerceShipmentItemsByCommerceOrderItemId(commerceOrderItemId);
+	}
+
 	/**
 	 * Returns the number of commerce shipment items.
 	 *
@@ -352,6 +365,15 @@ public class CommerceShipmentItemLocalServiceWrapper
 	public int getCommerceShipmentItemsCount(long commerceShipmentId) {
 		return _commerceShipmentItemLocalService.getCommerceShipmentItemsCount(
 			commerceShipmentId);
+	}
+
+	@Override
+	public int getCommerceShipmentItemsCountByCommerceOrderItemId(
+		long commerceOrderItemId) {
+
+		return _commerceShipmentItemLocalService.
+			getCommerceShipmentItemsCountByCommerceOrderItemId(
+				commerceOrderItemId);
 	}
 
 	@Override

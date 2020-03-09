@@ -281,8 +281,8 @@ public class CommerceShipmentPersistenceTest {
 			"companyId", true, "userId", true, "userName", true, "createDate",
 			true, "modifiedDate", true, "commerceAccountId", true,
 			"commerceAddressId", true, "commerceShippingMethodId", true,
-			"shippingOptionName", true, "carrier", true, "trackingNumber", true,
-			"shippingDate", true, "expectedDate", true, "status", true);
+			"carrier", true, "trackingNumber", true, "shippingDate", true,
+			"expectedDate", true, "status", true);
 	}
 
 	@Test

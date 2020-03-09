@@ -85,6 +85,9 @@ public interface CPDefinition extends CPDefinitionModel, PersistedModel {
 
 	public String getDefaultImageThumbnailSrc() throws Exception;
 
+	public com.liferay.portal.kernel.util.UnicodeProperties
+		getDeliverySubscriptionTypeSettingsProperties();
+
 	public java.util.Map<java.util.Locale, String> getDescriptionMap();
 
 	public String getLayoutUuid();
@@ -107,6 +110,10 @@ public interface CPDefinition extends CPDefinitionModel, PersistedModel {
 	public String getURL(String languageId);
 
 	public java.util.Map<java.util.Locale, String> getUrlTitleMap();
+
+	public void setDeliverySubscriptionTypeSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties
+			deliverySubscriptionTypeSettingsProperties);
 
 	public void setDescriptionMap(
 		java.util.Map<java.util.Locale, String> descriptionMap);

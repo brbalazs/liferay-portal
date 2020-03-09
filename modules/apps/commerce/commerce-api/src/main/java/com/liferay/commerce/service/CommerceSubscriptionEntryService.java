@@ -72,6 +72,10 @@ public interface CommerceSubscriptionEntryService extends BaseService {
 			long commerceSubscriptionEntryId)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceSubscriptionEntry> getCommerceSubscriptionEntries(
 			long companyId, long userId, int start, int end,
@@ -84,6 +88,10 @@ public interface CommerceSubscriptionEntryService extends BaseService {
 			OrderByComparator<CommerceSubscriptionEntry> orderByComparator)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceSubscriptionEntriesCount(long companyId, long userId)
 		throws PortalException;
@@ -108,6 +116,10 @@ public interface CommerceSubscriptionEntryService extends BaseService {
 				Sort sort)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommerceSubscriptionEntry>
 			searchCommerceSubscriptionEntries(
@@ -123,9 +135,20 @@ public interface CommerceSubscriptionEntryService extends BaseService {
 			long maxSubscriptionCycles, int subscriptionStatus,
 			int nextIterationDateMonth, int nextIterationDateDay,
 			int nextIterationDateYear, int nextIterationDateHour,
-			int nextIterationDateMinute)
+			int nextIterationDateMinute, int deliverySubscriptionLength,
+			String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles, int deliverySubscriptionStatus,
+			int deliveryNextIterationDateMonth,
+			int deliveryNextIterationDateDay, int deliveryNextIterationDateYear,
+			int deliveryNextIterationDateHour,
+			int deliveryNextIterationDateMinute)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public CommerceSubscriptionEntry updateSubscriptionStatus(
 			long commerceSubscriptionEntryId, int subscriptionStatus)
 		throws PortalException;

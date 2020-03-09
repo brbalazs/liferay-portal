@@ -62,7 +62,7 @@ public class CPDefinitionCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(83);
+		StringBundler sb = new StringBundler(93);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -132,6 +132,16 @@ public class CPDefinitionCacheModel
 		sb.append(subscriptionTypeSettings);
 		sb.append(", maxSubscriptionCycles=");
 		sb.append(maxSubscriptionCycles);
+		sb.append(", deliverySubscriptionEnabled=");
+		sb.append(deliverySubscriptionEnabled);
+		sb.append(", deliverySubscriptionLength=");
+		sb.append(deliverySubscriptionLength);
+		sb.append(", deliverySubscriptionType=");
+		sb.append(deliverySubscriptionType);
+		sb.append(", deliverySubscriptionTypeSettings=");
+		sb.append(deliverySubscriptionTypeSettings);
+		sb.append(", deliveryMaxSubscriptionCycles=");
+		sb.append(deliveryMaxSubscriptionCycles);
 		sb.append(", accountGroupFilterEnabled=");
 		sb.append(accountGroupFilterEnabled);
 		sb.append(", channelFilterEnabled=");
@@ -267,6 +277,29 @@ public class CPDefinitionCacheModel
 		}
 
 		cpDefinitionImpl.setMaxSubscriptionCycles(maxSubscriptionCycles);
+		cpDefinitionImpl.setDeliverySubscriptionEnabled(
+			deliverySubscriptionEnabled);
+		cpDefinitionImpl.setDeliverySubscriptionLength(
+			deliverySubscriptionLength);
+
+		if (deliverySubscriptionType == null) {
+			cpDefinitionImpl.setDeliverySubscriptionType("");
+		}
+		else {
+			cpDefinitionImpl.setDeliverySubscriptionType(
+				deliverySubscriptionType);
+		}
+
+		if (deliverySubscriptionTypeSettings == null) {
+			cpDefinitionImpl.setDeliverySubscriptionTypeSettings("");
+		}
+		else {
+			cpDefinitionImpl.setDeliverySubscriptionTypeSettings(
+				deliverySubscriptionTypeSettings);
+		}
+
+		cpDefinitionImpl.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
 		cpDefinitionImpl.setAccountGroupFilterEnabled(
 			accountGroupFilterEnabled);
 		cpDefinitionImpl.setChannelFilterEnabled(channelFilterEnabled);
@@ -351,6 +384,14 @@ public class CPDefinitionCacheModel
 		subscriptionTypeSettings = objectInput.readUTF();
 
 		maxSubscriptionCycles = objectInput.readLong();
+
+		deliverySubscriptionEnabled = objectInput.readBoolean();
+
+		deliverySubscriptionLength = objectInput.readInt();
+		deliverySubscriptionType = objectInput.readUTF();
+		deliverySubscriptionTypeSettings = objectInput.readUTF();
+
+		deliveryMaxSubscriptionCycles = objectInput.readLong();
 
 		accountGroupFilterEnabled = objectInput.readBoolean();
 
@@ -466,6 +507,26 @@ public class CPDefinitionCacheModel
 
 		objectOutput.writeLong(maxSubscriptionCycles);
 
+		objectOutput.writeBoolean(deliverySubscriptionEnabled);
+
+		objectOutput.writeInt(deliverySubscriptionLength);
+
+		if (deliverySubscriptionType == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(deliverySubscriptionType);
+		}
+
+		if (deliverySubscriptionTypeSettings == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(deliverySubscriptionTypeSettings);
+		}
+
+		objectOutput.writeLong(deliveryMaxSubscriptionCycles);
+
 		objectOutput.writeBoolean(accountGroupFilterEnabled);
 
 		objectOutput.writeBoolean(channelFilterEnabled);
@@ -520,6 +581,11 @@ public class CPDefinitionCacheModel
 	public String subscriptionType;
 	public String subscriptionTypeSettings;
 	public long maxSubscriptionCycles;
+	public boolean deliverySubscriptionEnabled;
+	public int deliverySubscriptionLength;
+	public String deliverySubscriptionType;
+	public String deliverySubscriptionTypeSettings;
+	public long deliveryMaxSubscriptionCycles;
 	public boolean accountGroupFilterEnabled;
 	public boolean channelFilterEnabled;
 	public int version;

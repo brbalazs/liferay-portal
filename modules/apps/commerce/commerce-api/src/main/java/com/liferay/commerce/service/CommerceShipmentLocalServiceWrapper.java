@@ -33,6 +33,22 @@ public class CommerceShipmentLocalServiceWrapper
 		_commerceShipmentLocalService = commerceShipmentLocalService;
 	}
 
+	@Override
+	public com.liferay.commerce.model.CommerceShipment
+			addCommerceDeliverySubscriptionShipment(
+				long userId, long commerceOrderId, String name,
+				String description, String street1, String street2,
+				String street3, String city, String zip, long commerceRegionId,
+				long commerceCountryId, String phoneNumber)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentLocalService.
+			addCommerceDeliverySubscriptionShipment(
+				userId, commerceOrderId, name, description, street1, street2,
+				street3, city, zip, commerceRegionId, commerceCountryId,
+				phoneNumber);
+	}
+
 	/**
 	 * Adds the commerce shipment to the database. Also notifies the appropriate model listeners.
 	 *

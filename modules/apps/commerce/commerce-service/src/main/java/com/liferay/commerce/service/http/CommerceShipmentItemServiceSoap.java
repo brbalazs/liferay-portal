@@ -158,6 +158,10 @@ public class CommerceShipmentItemServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.model.CommerceShipmentItemSoap[]
 			getCommerceShipmentItems(long commerceOrderItemId)
 		throws RemoteException {
@@ -202,6 +206,28 @@ public class CommerceShipmentItemServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.model.CommerceShipmentItemSoap[]
+			getCommerceShipmentItemsByCommerceOrderItemId(
+				long commerceOrderItemId)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.commerce.model.CommerceShipmentItem>
+				returnValue =
+					CommerceShipmentItemServiceUtil.
+						getCommerceShipmentItemsByCommerceOrderItemId(
+							commerceOrderItemId);
+
+			return com.liferay.commerce.model.CommerceShipmentItemSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getCommerceShipmentItemsCount(long commerceShipmentId)
 		throws RemoteException {
 
@@ -209,6 +235,25 @@ public class CommerceShipmentItemServiceSoap {
 			int returnValue =
 				CommerceShipmentItemServiceUtil.getCommerceShipmentItemsCount(
 					commerceShipmentId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceShipmentItemsCountByCommerceOrderItemId(
+			long commerceOrderItemId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceShipmentItemServiceUtil.
+					getCommerceShipmentItemsCountByCommerceOrderItemId(
+						commerceOrderItemId);
 
 			return returnValue;
 		}

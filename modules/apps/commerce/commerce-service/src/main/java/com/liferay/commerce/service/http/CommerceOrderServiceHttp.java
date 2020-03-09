@@ -383,7 +383,7 @@ public class CommerceOrderServiceHttp {
 
 	public static com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
 			HttpPrincipal httpPrincipal, long commerceAccountId, long groupId,
-			long userId, int orderStatus)
+			int orderStatus)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -392,7 +392,7 @@ public class CommerceOrderServiceHttp {
 				_fetchCommerceOrderParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceAccountId, groupId, userId, orderStatus);
+				methodKey, commerceAccountId, groupId, orderStatus);
 
 			Object returnObj = null;
 
@@ -424,7 +424,7 @@ public class CommerceOrderServiceHttp {
 
 	public static com.liferay.commerce.model.CommerceOrder fetchCommerceOrder(
 			HttpPrincipal httpPrincipal, long commerceAccountId, long groupId,
-			int orderStatus)
+			long userId, int orderStatus)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -433,7 +433,7 @@ public class CommerceOrderServiceHttp {
 				_fetchCommerceOrderParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceAccountId, groupId, orderStatus);
+				methodKey, commerceAccountId, groupId, userId, orderStatus);
 
 			Object returnObj = null;
 
@@ -2399,9 +2399,9 @@ public class CommerceOrderServiceHttp {
 	private static final Class<?>[] _fetchCommerceOrderParameterTypes7 =
 		new Class[] {long.class};
 	private static final Class<?>[] _fetchCommerceOrderParameterTypes8 =
-		new Class[] {long.class, long.class, long.class, int.class};
-	private static final Class<?>[] _fetchCommerceOrderParameterTypes9 =
 		new Class[] {long.class, long.class, int.class};
+	private static final Class<?>[] _fetchCommerceOrderParameterTypes9 =
+		new Class[] {long.class, long.class, long.class, int.class};
 	private static final Class<?>[] _fetchCommerceOrderParameterTypes10 =
 		new Class[] {String.class, long.class};
 	private static final Class<?>[] _getAvailableOrderStatusesParameterTypes11 =

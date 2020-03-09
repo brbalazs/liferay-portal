@@ -240,6 +240,10 @@ public interface CommerceShipmentItemLocalService
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 		int start, int end);
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 		long commerceOrderItemId);
@@ -254,6 +258,10 @@ public interface CommerceShipmentItemLocalService
 		long commerceShipmentId, long commerceOrderItemId, int start, int end,
 		OrderByComparator<CommerceShipmentItem> orderByComparator);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceShipmentItem>
+		getCommerceShipmentItemsByCommerceOrderItemId(long commerceOrderItemId);
+
 	/**
 	 * Returns the number of commerce shipment items.
 	 *
@@ -264,6 +272,10 @@ public interface CommerceShipmentItemLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceShipmentItemsCount(long commerceShipmentId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceShipmentItemsCountByCommerceOrderItemId(
+		long commerceOrderItemId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceShipmentOrderItemsQuantity(

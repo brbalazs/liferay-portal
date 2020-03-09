@@ -281,6 +281,10 @@ public class CommerceShipmentItemLocalServiceUtil {
 		return getService().getCommerceShipmentItems(start, end);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static java.util.List
 		<com.liferay.commerce.model.CommerceShipmentItem>
 			getCommerceShipmentItems(long commerceOrderItemId) {
@@ -314,6 +318,15 @@ public class CommerceShipmentItemLocalServiceUtil {
 			orderByComparator);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.model.CommerceShipmentItem>
+			getCommerceShipmentItemsByCommerceOrderItemId(
+				long commerceOrderItemId) {
+
+		return getService().getCommerceShipmentItemsByCommerceOrderItemId(
+			commerceOrderItemId);
+	}
+
 	/**
 	 * Returns the number of commerce shipment items.
 	 *
@@ -325,6 +338,13 @@ public class CommerceShipmentItemLocalServiceUtil {
 
 	public static int getCommerceShipmentItemsCount(long commerceShipmentId) {
 		return getService().getCommerceShipmentItemsCount(commerceShipmentId);
+	}
+
+	public static int getCommerceShipmentItemsCountByCommerceOrderItemId(
+		long commerceOrderItemId) {
+
+		return getService().getCommerceShipmentItemsCountByCommerceOrderItemId(
+			commerceOrderItemId);
 	}
 
 	public static int getCommerceShipmentOrderItemsQuantity(

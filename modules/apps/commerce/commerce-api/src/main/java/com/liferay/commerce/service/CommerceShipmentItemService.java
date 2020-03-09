@@ -89,6 +89,10 @@ public interface CommerceShipmentItemService extends BaseService {
 			long commerceShipmentItemId)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 			long commerceOrderItemId)
@@ -101,7 +105,18 @@ public interface CommerceShipmentItemService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceShipmentItem>
+			getCommerceShipmentItemsByCommerceOrderItemId(
+				long commerceOrderItemId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceShipmentItemsCount(long commerceShipmentId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceShipmentItemsCountByCommerceOrderItemId(
+			long commerceOrderItemId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

@@ -37,6 +37,19 @@ public class CommerceShipmentLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.service.impl.CommerceShipmentLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.commerce.model.CommerceShipment
+			addCommerceDeliverySubscriptionShipment(
+				long userId, long commerceOrderId, String name,
+				String description, String street1, String street2,
+				String street3, String city, String zip, long commerceRegionId,
+				long commerceCountryId, String phoneNumber)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceDeliverySubscriptionShipment(
+			userId, commerceOrderId, name, description, street1, street2,
+			street3, city, zip, commerceRegionId, commerceCountryId,
+			phoneNumber);
+	}
 
 	/**
 	 * Adds the commerce shipment to the database. Also notifies the appropriate model listeners.

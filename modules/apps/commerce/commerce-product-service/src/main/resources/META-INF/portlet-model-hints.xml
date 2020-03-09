@@ -123,6 +123,11 @@
 			<hint-collection name="CLOB" />
 		</field>
 		<field name="maxSubscriptionCycles" type="long" />
+		<field name="deliverySubscriptionEnabled" type="boolean" />
+		<field name="deliverySubscriptionLength" type="int" />
+		<field name="deliverySubscriptionType" type="String" />
+		<field name="deliverySubscriptionTypeSettings" type="String" />
+		<field name="deliveryMaxSubscriptionCycles" type="long" />
 		<field name="accountGroupFilterEnabled" type="boolean" />
 		<field name="channelFilterEnabled" type="boolean" />
 		<field name="version" type="int" />
@@ -327,6 +332,11 @@
 			<hint-collection name="CLOB" />
 		</field>
 		<field name="maxSubscriptionCycles" type="long" />
+		<field name="deliverySubscriptionEnabled" type="boolean" />
+		<field name="deliverySubscriptionLength" type="int" />
+		<field name="deliverySubscriptionType" type="String" />
+		<field name="deliverySubscriptionTypeSettings" type="String" />
+		<field name="deliveryMaxSubscriptionCycles" type="long" />
 		<field name="status" type="int" />
 		<field name="statusByUserId" type="long" />
 		<field name="statusByUserName" type="String" />

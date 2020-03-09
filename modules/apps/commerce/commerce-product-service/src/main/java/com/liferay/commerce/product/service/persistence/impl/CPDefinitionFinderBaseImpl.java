@@ -40,6 +40,8 @@ public class CPDefinitionFinderBaseImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
+		dbColumnNames.put(
+			"deliverySubscriptionTypeSettings", "deliverySubTypeSettings");
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(

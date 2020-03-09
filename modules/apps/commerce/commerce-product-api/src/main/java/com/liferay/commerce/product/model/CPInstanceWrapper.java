@@ -91,6 +91,18 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 		attributes.put(
 			"subscriptionTypeSettings", getSubscriptionTypeSettings());
 		attributes.put("maxSubscriptionCycles", getMaxSubscriptionCycles());
+		attributes.put(
+			"deliverySubscriptionEnabled", isDeliverySubscriptionEnabled());
+		attributes.put(
+			"deliverySubscriptionLength", getDeliverySubscriptionLength());
+		attributes.put(
+			"deliverySubscriptionType", getDeliverySubscriptionType());
+		attributes.put(
+			"deliverySubscriptionTypeSettings",
+			getDeliverySubscriptionTypeSettings());
+		attributes.put(
+			"deliveryMaxSubscriptionCycles",
+			getDeliveryMaxSubscriptionCycles());
 		attributes.put("status", getStatus());
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
@@ -300,6 +312,42 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 			setMaxSubscriptionCycles(maxSubscriptionCycles);
 		}
 
+		Boolean deliverySubscriptionEnabled = (Boolean)attributes.get(
+			"deliverySubscriptionEnabled");
+
+		if (deliverySubscriptionEnabled != null) {
+			setDeliverySubscriptionEnabled(deliverySubscriptionEnabled);
+		}
+
+		Integer deliverySubscriptionLength = (Integer)attributes.get(
+			"deliverySubscriptionLength");
+
+		if (deliverySubscriptionLength != null) {
+			setDeliverySubscriptionLength(deliverySubscriptionLength);
+		}
+
+		String deliverySubscriptionType = (String)attributes.get(
+			"deliverySubscriptionType");
+
+		if (deliverySubscriptionType != null) {
+			setDeliverySubscriptionType(deliverySubscriptionType);
+		}
+
+		String deliverySubscriptionTypeSettings = (String)attributes.get(
+			"deliverySubscriptionTypeSettings");
+
+		if (deliverySubscriptionTypeSettings != null) {
+			setDeliverySubscriptionTypeSettings(
+				deliverySubscriptionTypeSettings);
+		}
+
+		Long deliveryMaxSubscriptionCycles = (Long)attributes.get(
+			"deliveryMaxSubscriptionCycles");
+
+		if (deliveryMaxSubscriptionCycles != null) {
+			setDeliveryMaxSubscriptionCycles(deliveryMaxSubscriptionCycles);
+		}
+
 		Integer status = (Integer)attributes.get("status");
 
 		if (status != null) {
@@ -414,6 +462,63 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	@Override
 	public Date getCreateDate() {
 		return _cpInstance.getCreateDate();
+	}
+
+	/**
+	 * Returns the delivery max subscription cycles of this cp instance.
+	 *
+	 * @return the delivery max subscription cycles of this cp instance
+	 */
+	@Override
+	public long getDeliveryMaxSubscriptionCycles() {
+		return _cpInstance.getDeliveryMaxSubscriptionCycles();
+	}
+
+	/**
+	 * Returns the delivery subscription enabled of this cp instance.
+	 *
+	 * @return the delivery subscription enabled of this cp instance
+	 */
+	@Override
+	public boolean getDeliverySubscriptionEnabled() {
+		return _cpInstance.getDeliverySubscriptionEnabled();
+	}
+
+	/**
+	 * Returns the delivery subscription length of this cp instance.
+	 *
+	 * @return the delivery subscription length of this cp instance
+	 */
+	@Override
+	public int getDeliverySubscriptionLength() {
+		return _cpInstance.getDeliverySubscriptionLength();
+	}
+
+	/**
+	 * Returns the delivery subscription type of this cp instance.
+	 *
+	 * @return the delivery subscription type of this cp instance
+	 */
+	@Override
+	public String getDeliverySubscriptionType() {
+		return _cpInstance.getDeliverySubscriptionType();
+	}
+
+	/**
+	 * Returns the delivery subscription type settings of this cp instance.
+	 *
+	 * @return the delivery subscription type settings of this cp instance
+	 */
+	@Override
+	public String getDeliverySubscriptionTypeSettings() {
+		return _cpInstance.getDeliverySubscriptionTypeSettings();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.util.UnicodeProperties
+		getDeliverySubscriptionTypeSettingsProperties() {
+
+		return _cpInstance.getDeliverySubscriptionTypeSettingsProperties();
 	}
 
 	/**
@@ -784,6 +889,16 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	}
 
 	/**
+	 * Returns <code>true</code> if this cp instance is delivery subscription enabled.
+	 *
+	 * @return <code>true</code> if this cp instance is delivery subscription enabled; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isDeliverySubscriptionEnabled() {
+		return _cpInstance.isDeliverySubscriptionEnabled();
+	}
+
+	/**
 	 * Returns <code>true</code> if this cp instance is denied.
 	 *
 	 * @return <code>true</code> if this cp instance is denied; <code>false</code> otherwise
@@ -971,6 +1086,73 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	@Override
 	public void setCreateDate(Date createDate) {
 		_cpInstance.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the delivery max subscription cycles of this cp instance.
+	 *
+	 * @param deliveryMaxSubscriptionCycles the delivery max subscription cycles of this cp instance
+	 */
+	@Override
+	public void setDeliveryMaxSubscriptionCycles(
+		long deliveryMaxSubscriptionCycles) {
+
+		_cpInstance.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
+	}
+
+	/**
+	 * Sets whether this cp instance is delivery subscription enabled.
+	 *
+	 * @param deliverySubscriptionEnabled the delivery subscription enabled of this cp instance
+	 */
+	@Override
+	public void setDeliverySubscriptionEnabled(
+		boolean deliverySubscriptionEnabled) {
+
+		_cpInstance.setDeliverySubscriptionEnabled(deliverySubscriptionEnabled);
+	}
+
+	/**
+	 * Sets the delivery subscription length of this cp instance.
+	 *
+	 * @param deliverySubscriptionLength the delivery subscription length of this cp instance
+	 */
+	@Override
+	public void setDeliverySubscriptionLength(int deliverySubscriptionLength) {
+		_cpInstance.setDeliverySubscriptionLength(deliverySubscriptionLength);
+	}
+
+	/**
+	 * Sets the delivery subscription type of this cp instance.
+	 *
+	 * @param deliverySubscriptionType the delivery subscription type of this cp instance
+	 */
+	@Override
+	public void setDeliverySubscriptionType(String deliverySubscriptionType) {
+		_cpInstance.setDeliverySubscriptionType(deliverySubscriptionType);
+	}
+
+	/**
+	 * Sets the delivery subscription type settings of this cp instance.
+	 *
+	 * @param deliverySubscriptionTypeSettings the delivery subscription type settings of this cp instance
+	 */
+	@Override
+	public void setDeliverySubscriptionTypeSettings(
+		String deliverySubscriptionTypeSettings) {
+
+		_cpInstance.setDeliverySubscriptionTypeSettings(
+			deliverySubscriptionTypeSettings);
+	}
+
+	@Override
+	public void setDeliverySubscriptionTypeSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties
+			deliverySubscriptionTypeSettingsProperties) {
+
+		_cpInstance.setDeliverySubscriptionTypeSettingsProperties(
+			deliverySubscriptionTypeSettingsProperties);
 	}
 
 	/**

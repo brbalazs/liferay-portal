@@ -79,7 +79,7 @@ public class CommerceShipmentModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"commerceAccountId", Types.BIGINT},
 		{"commerceAddressId", Types.BIGINT},
 		{"commerceShippingMethodId", Types.BIGINT},
-		{"shippingOptionName", Types.VARCHAR}, {"carrier", Types.VARCHAR},
+		{"shippingOptionName", Types.CLOB}, {"carrier", Types.VARCHAR},
 		{"trackingNumber", Types.VARCHAR}, {"shippingDate", Types.TIMESTAMP},
 		{"expectedDate", Types.TIMESTAMP}, {"status", Types.INTEGER}
 	};
@@ -98,7 +98,7 @@ public class CommerceShipmentModelImpl
 		TABLE_COLUMNS_MAP.put("commerceAccountId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("commerceAddressId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("commerceShippingMethodId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("shippingOptionName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("shippingOptionName", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("carrier", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("trackingNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("shippingDate", Types.TIMESTAMP);
@@ -107,7 +107,7 @@ public class CommerceShipmentModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceShipment (commerceShipmentId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceAccountId LONG,commerceAddressId LONG,commerceShippingMethodId LONG,shippingOptionName VARCHAR(75) null,carrier VARCHAR(75) null,trackingNumber VARCHAR(75) null,shippingDate DATE null,expectedDate DATE null,status INTEGER)";
+		"create table CommerceShipment (commerceShipmentId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceAccountId LONG,commerceAddressId LONG,commerceShippingMethodId LONG,shippingOptionName TEXT null,carrier VARCHAR(75) null,trackingNumber VARCHAR(75) null,shippingDate DATE null,expectedDate DATE null,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommerceShipment";
 

@@ -51,6 +51,10 @@ public class CommerceSubscriptionEntryServiceWrapper
 			commerceSubscriptionEntryId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceSubscriptionEntry>
 			getCommerceSubscriptionEntries(
@@ -77,6 +81,10 @@ public class CommerceSubscriptionEntryServiceWrapper
 			companyId, groupId, userId, start, end, orderByComparator);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public int getCommerceSubscriptionEntriesCount(long companyId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -119,6 +127,10 @@ public class CommerceSubscriptionEntryServiceWrapper
 				start, end, sort);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.commerce.model.CommerceSubscriptionEntry>
@@ -144,7 +156,17 @@ public class CommerceSubscriptionEntryServiceWrapper
 				long maxSubscriptionCycles, int subscriptionStatus,
 				int nextIterationDateMonth, int nextIterationDateDay,
 				int nextIterationDateYear, int nextIterationDateHour,
-				int nextIterationDateMinute)
+				int nextIterationDateMinute, int deliverySubscriptionLength,
+				String deliverySubscriptionType,
+				com.liferay.portal.kernel.util.UnicodeProperties
+					deliverySubscriptionTypeSettingsProperties,
+				long deliveryMaxSubscriptionCycles,
+				int deliverySubscriptionStatus,
+				int deliveryNextIterationDateMonth,
+				int deliveryNextIterationDateDay,
+				int deliveryNextIterationDateYear,
+				int deliveryNextIterationDateHour,
+				int deliveryNextIterationDateMinute)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceSubscriptionEntryService.
@@ -154,9 +176,19 @@ public class CommerceSubscriptionEntryServiceWrapper
 				maxSubscriptionCycles, subscriptionStatus,
 				nextIterationDateMonth, nextIterationDateDay,
 				nextIterationDateYear, nextIterationDateHour,
-				nextIterationDateMinute);
+				nextIterationDateMinute, deliverySubscriptionLength,
+				deliverySubscriptionType,
+				deliverySubscriptionTypeSettingsProperties,
+				deliveryMaxSubscriptionCycles, deliverySubscriptionStatus,
+				deliveryNextIterationDateMonth, deliveryNextIterationDateDay,
+				deliveryNextIterationDateYear, deliveryNextIterationDateHour,
+				deliveryNextIterationDateMinute);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.model.CommerceSubscriptionEntry
 			updateSubscriptionStatus(

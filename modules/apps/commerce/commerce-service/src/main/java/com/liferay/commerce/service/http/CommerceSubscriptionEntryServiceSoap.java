@@ -95,6 +95,10 @@ public class CommerceSubscriptionEntryServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.model.CommerceSubscriptionEntrySoap[]
 			getCommerceSubscriptionEntries(
 				long companyId, long userId, int start, int end,
@@ -146,6 +150,10 @@ public class CommerceSubscriptionEntryServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static int getCommerceSubscriptionEntriesCount(
 			long companyId, long userId)
 		throws RemoteException {
@@ -183,6 +191,10 @@ public class CommerceSubscriptionEntryServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.model.CommerceSubscriptionEntrySoap
 			updateSubscriptionStatus(
 				long commerceSubscriptionEntryId, int subscriptionStatus)

@@ -59,6 +59,7 @@ create index IX_3BC85C89 on CommerceRegion (uuid_[$COLUMN_LENGTH:75$], companyId
 create index IX_616BDD15 on CommerceShipment (groupId, commerceAddressId);
 create index IX_68FBA2B5 on CommerceShipment (groupId, status);
 
+create index IX_3615B923 on CommerceShipmentItem (commerceOrderItemId);
 create unique index IX_4FAC36D0 on CommerceShipmentItem (commerceShipmentId, commerceOrderItemId, commerceInventoryWarehouseId);
 create index IX_DB0BB83C on CommerceShipmentItem (groupId);
 

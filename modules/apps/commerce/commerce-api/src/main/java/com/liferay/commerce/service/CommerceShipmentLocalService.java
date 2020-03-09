@@ -65,6 +65,13 @@ public interface CommerceShipmentLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CommerceShipmentLocalServiceUtil} to access the commerce shipment local service. Add custom service methods to <code>com.liferay.commerce.service.impl.CommerceShipmentLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceShipment addCommerceDeliverySubscriptionShipment(
+			long userId, long commerceOrderId, String name, String description,
+			String street1, String street2, String street3, String city,
+			String zip, long commerceRegionId, long commerceCountryId,
+			String phoneNumber)
+		throws PortalException;
 
 	/**
 	 * Adds the commerce shipment to the database. Also notifies the appropriate model listeners.
