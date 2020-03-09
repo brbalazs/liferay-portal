@@ -89,10 +89,6 @@ public class CommerceProductPriceCalculationV2Impl
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
-
 		long commercePriceListId = _getCommercePriceListId(
 			cpInstanceId, commerceContext);
 
@@ -141,9 +137,6 @@ public class CommerceProductPriceCalculationV2Impl
 		commerceProductPriceImpl.setCommerceDiscountValue(
 			commerceDiscountValue);
 
-		commerceProductPriceImpl.setTaxValue(
-			_getTaxValue(cpInstanceId, commerceContext, finalPrice));
-
 		commerceProductPriceImpl.setFinalPrice(
 			_commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), finalPrice));
@@ -165,10 +158,6 @@ public class CommerceProductPriceCalculationV2Impl
 			long cpInstanceId, int quantity, boolean secure,
 			CommerceContext commerceContext)
 		throws PortalException {
-
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
 
 		CommerceProductPrice commerceProductPrice = getCommerceProductPrice(
 			cpInstanceId, quantity, commerceContext);
@@ -194,10 +183,6 @@ public class CommerceProductPriceCalculationV2Impl
 			boolean secure, CommerceContext commerceContext)
 		throws PortalException {
 
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
-
 		long commercePromoPriceListId = _getCommercePromoPriceListId(
 			cpInstanceId, commerceContext);
 
@@ -210,10 +195,6 @@ public class CommerceProductPriceCalculationV2Impl
 			long cpDefinitionId, int quantity, boolean secure,
 			CommerceContext commerceContext)
 		throws PortalException {
-
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
 
 		CommerceMoney commerceMoney = null;
 		BigDecimal maxPrice = BigDecimal.ZERO;
@@ -251,10 +232,6 @@ public class CommerceProductPriceCalculationV2Impl
 			long cpDefinitionId, int quantity, boolean secure,
 			CommerceContext commerceContext)
 		throws PortalException {
-
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
 
 		CommerceMoney commerceMoney = null;
 		BigDecimal minPrice = BigDecimal.ZERO;
@@ -294,10 +271,6 @@ public class CommerceProductPriceCalculationV2Impl
 			long cpInstanceId, int quantity, CommerceCurrency commerceCurrency,
 			boolean secure, CommerceContext commerceContext)
 		throws PortalException {
-
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
 
 		long commercePriceListId = _getCommercePriceListId(
 			cpInstanceId, commerceContext);
@@ -852,50 +825,6 @@ public class CommerceProductPriceCalculationV2Impl
 			commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
 	}
 
-	private BigDecimal _getTaxValue(
-			long cpInstanceId, CommerceContext commerceContext,
-			BigDecimal finalPrice)
-		throws PortalException {
-
-		List<CommerceTaxValue> commerceTaxValues = null;
-
-		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
-
-		if (commerceOrder == null) {
-			CommerceAccount commerceAccount =
-				commerceContext.getCommerceAccount();
-
-			if (commerceAccount == null) {
-				return BigDecimal.ZERO;
-			}
-
-			CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-				cpInstanceId);
-
-			commerceTaxValues = _commerceTaxCalculation.getCommerceTaxValues(
-				commerceContext.getSiteGroupId(), cpInstance.getCPInstanceId(),
-				commerceAccount.getDefaultBillingAddressId(),
-				commerceAccount.getDefaultShippingAddressId(), finalPrice,
-				commerceContext);
-		}
-		else {
-			commerceTaxValues = _commerceTaxCalculation.getCommerceTaxValues(
-				commerceOrder, commerceContext);
-		}
-
-		if ((commerceTaxValues == null) || commerceTaxValues.isEmpty()) {
-			return BigDecimal.ZERO;
-		}
-
-		BigDecimal taxAmount = BigDecimal.ZERO;
-
-		for (CommerceTaxValue commerceTaxValue : commerceTaxValues) {
-			taxAmount = taxAmount.add(commerceTaxValue.getAmount());
-		}
-
-		return taxAmount;
-	}
-
 	private CommerceMoney _getUnitPrice(
 			long commercePriceListId, long cpInstanceId, int quantity,
 			CommerceContext commerceContext)
@@ -934,28 +863,6 @@ public class CommerceProductPriceCalculationV2Impl
 		return _getCommerceMoney(
 			commercePriceListId, commerceContext.getCommerceCurrency(),
 			unitPrice);
-	}
-
-	private boolean _hasViewPricePermission(CommerceContext commerceContext)
-		throws PortalException {
-
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
-		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
-
-		if ((commerceAccount != null) &&
-			(commerceAccount.getType() ==
-				CommerceAccountConstants.ACCOUNT_TYPE_BUSINESS)) {
-
-			return _portletResourcePermission.contains(
-				permissionChecker, commerceAccount.getCommerceAccountGroupId(),
-				CPActionKeys.VIEW_PRICE);
-		}
-
-		return _portletResourcePermission.contains(
-			permissionChecker, commerceContext.getSiteGroupId(),
-			CPActionKeys.VIEW_PRICE);
 	}
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);

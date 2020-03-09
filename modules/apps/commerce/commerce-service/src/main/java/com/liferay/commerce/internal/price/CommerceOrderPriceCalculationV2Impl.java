@@ -58,10 +58,6 @@ public class CommerceOrderPriceCalculationV2Impl
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
-
 		if (commerceOrder == null) {
 			return _getEmptyCommerceOrderPrice(
 				commerceContext.getCommerceCurrency());
@@ -154,10 +150,6 @@ public class CommerceOrderPriceCalculationV2Impl
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
-
 		BigDecimal subtotal = BigDecimal.ZERO;
 
 		if (commerceOrder == null) {
@@ -195,10 +187,6 @@ public class CommerceOrderPriceCalculationV2Impl
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
-
 		if (commerceOrder == null) {
 			return _commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
@@ -227,10 +215,6 @@ public class CommerceOrderPriceCalculationV2Impl
 			CommerceOrder commerceOrder, boolean secure,
 			CommerceContext commerceContext)
 		throws PortalException {
-
-		if (secure && !_hasViewPricePermission(commerceContext)) {
-			return null;
-		}
 
 		if (!commerceOrder.isOpen()) {
 			return _commerceMoneyFactory.create(
@@ -362,28 +346,6 @@ public class CommerceOrderPriceCalculationV2Impl
 		commerceOrderPriceImpl.setTotal(zero);
 
 		return commerceOrderPriceImpl;
-	}
-
-	private boolean _hasViewPricePermission(CommerceContext commerceContext)
-		throws PortalException {
-
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
-		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
-
-		if ((commerceAccount != null) &&
-			(commerceAccount.getType() ==
-				CommerceAccountConstants.ACCOUNT_TYPE_BUSINESS)) {
-
-			return _portletResourcePermission.contains(
-				permissionChecker, commerceAccount.getCommerceAccountGroupId(),
-				CPActionKeys.VIEW_PRICE);
-		}
-
-		return _portletResourcePermission.contains(
-			permissionChecker, commerceContext.getSiteGroupId(),
-			CPActionKeys.VIEW_PRICE);
 	}
 
 	@Reference(target = "(commerce.discount.calculation.key=v2.0)")
