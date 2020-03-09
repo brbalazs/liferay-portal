@@ -66,10 +66,10 @@ public class CommerceCurrencyLocalServiceImpl
 	@Override
 	public CommerceCurrency addCommerceCurrency(
 			long userId, String code, Map<Locale, String> nameMap,
-			BigDecimal rate, Map<Locale, String> formatPatternMap,
-			int maxFractionDigits, int minFractionDigits, String roundingMode,
-			boolean primary, double priority, boolean active,
-			ServiceContext serviceContext)
+			String symbol, BigDecimal rate,
+			Map<Locale, String> formatPatternMap, int maxFractionDigits,
+			int minFractionDigits, String roundingMode, boolean primary,
+			double priority, boolean active, ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -108,6 +108,7 @@ public class CommerceCurrencyLocalServiceImpl
 		commerceCurrency.setUserName(user.getFullName());
 		commerceCurrency.setCode(code);
 		commerceCurrency.setNameMap(nameMap);
+		commerceCurrency.setSymbol(symbol);
 		commerceCurrency.setRate(rate);
 		commerceCurrency.setFormatPatternMap(formatPatternMap);
 		commerceCurrency.setMaxFractionDigits(maxFractionDigits);
@@ -240,8 +241,8 @@ public class CommerceCurrencyLocalServiceImpl
 					roundingTypeConfiguration.roundingMode();
 
 				commerceCurrencyLocalService.addCommerceCurrency(
-					serviceContext.getUserId(), code, nameMap, BigDecimal.ONE,
-					formatPatternMap,
+					serviceContext.getUserId(), code, nameMap, symbol,
+					BigDecimal.ONE, formatPatternMap,
 					roundingTypeConfiguration.maximumFractionDigits(),
 					roundingTypeConfiguration.minimumFractionDigits(),
 					roundingMode.name(), primary, priority, true,
@@ -290,10 +291,10 @@ public class CommerceCurrencyLocalServiceImpl
 	@Override
 	public CommerceCurrency updateCommerceCurrency(
 			long commerceCurrencyId, String code, Map<Locale, String> nameMap,
-			BigDecimal rate, Map<Locale, String> formatPatternMap,
-			int maxFractionDigits, int minFractionDigits, String roundingMode,
-			boolean primary, double priority, boolean active,
-			ServiceContext serviceContext)
+			String symbol, BigDecimal rate,
+			Map<Locale, String> formatPatternMap, int maxFractionDigits,
+			int minFractionDigits, String roundingMode, boolean primary,
+			double priority, boolean active, ServiceContext serviceContext)
 		throws PortalException {
 
 		CommerceCurrency commerceCurrency =
@@ -327,6 +328,7 @@ public class CommerceCurrencyLocalServiceImpl
 
 		commerceCurrency.setCode(code);
 		commerceCurrency.setNameMap(nameMap);
+		commerceCurrency.setSymbol(symbol);
 		commerceCurrency.setRate(rate);
 		commerceCurrency.setFormatPatternMap(formatPatternMap);
 		commerceCurrency.setMaxFractionDigits(maxFractionDigits);

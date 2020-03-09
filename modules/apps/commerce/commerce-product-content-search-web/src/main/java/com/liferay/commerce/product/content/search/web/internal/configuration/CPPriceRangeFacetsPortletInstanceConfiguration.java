@@ -40,9 +40,6 @@ public interface CPPriceRangeFacetsPortletInstanceConfiguration {
 	)
 	public String rangesJSONArrayString();
 
-	@Meta.AD(deflt = "false", name = "show-decimals", required = false)
-	public boolean showDecimals();
-
 	@Meta.AD(deflt = "true", name = "show-input-range", required = false)
 	public boolean showInputRange();
 

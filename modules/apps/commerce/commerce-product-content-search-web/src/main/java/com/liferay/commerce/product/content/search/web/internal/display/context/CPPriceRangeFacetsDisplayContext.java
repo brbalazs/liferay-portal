@@ -17,7 +17,6 @@ package com.liferay.commerce.product.content.search.web.internal.display.context
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyLocalServiceUtil;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.product.content.search.web.internal.configuration.CPPriceRangeFacetsPortletInstanceConfiguration;
 import com.liferay.petra.string.StringBundler;
@@ -71,25 +70,7 @@ public class CPPriceRangeFacetsDisplayContext {
 		CommerceCurrency commerceCurrency =
 			commerceContext.getCommerceCurrency();
 
-		if (commerceCurrency == null) {
-			commerceCurrency =
-				CommerceCurrencyLocalServiceUtil.fetchPrimaryCommerceCurrency(
-					_themeDisplay.getCompanyId());
-		}
-
-		String currencyFormatPattern = commerceCurrency.getFormatPattern(
-			_themeDisplay.getLocale());
-
-		currencyFormatPattern = currencyFormatPattern.replace(
-			",", StringPool.BLANK);
-		currencyFormatPattern = currencyFormatPattern.replace(
-			".", StringPool.BLANK);
-		currencyFormatPattern = currencyFormatPattern.replace(
-			"#", StringPool.BLANK);
-		currencyFormatPattern = currencyFormatPattern.replace(
-			"0", StringPool.BLANK);
-
-		return currencyFormatPattern;
+		return commerceCurrency.getSymbol();
 	}
 
 	public Facet getFacet() {
@@ -102,26 +83,10 @@ public class CPPriceRangeFacetsDisplayContext {
 		BigDecimal rangeLow = new BigDecimal(priceRange[0]);
 		BigDecimal rangeHigh = new BigDecimal(priceRange[1]);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyLocalServiceUtil.fetchPrimaryCommerceCurrency(
-				_themeDisplay.getCompanyId());
-
 		String formattedRangeLow = _commercePriceFormatter.format(
 			_themeDisplay.getCompanyId(), rangeLow, _themeDisplay.getLocale());
 		String formattedRangeHigh = _commercePriceFormatter.format(
 			_themeDisplay.getCompanyId(), rangeHigh, _themeDisplay.getLocale());
-
-		if (!showDecimals()) {
-			int maxFractionDigits = commerceCurrency.getMaxFractionDigits();
-			int minFractionDigits = commerceCurrency.getMinFractionDigits();
-
-			if (maxFractionDigits == minFractionDigits) {
-				formattedRangeLow = formattedRangeLow.substring(
-					0, formattedRangeLow.length() - (maxFractionDigits + 1));
-				formattedRangeHigh = formattedRangeHigh.substring(
-					0, formattedRangeHigh.length() - (maxFractionDigits + 1));
-			}
-		}
 
 		if (Double.valueOf(priceRange[1]) == Double.MAX_VALUE) {
 			return formattedRangeLow + StringPool.PLUS;
@@ -151,10 +116,6 @@ public class CPPriceRangeFacetsDisplayContext {
 		}
 
 		return false;
-	}
-
-	public boolean showDecimals() {
-		return _cpPriceRangeFacetsPortletInstanceConfiguration.showDecimals();
 	}
 
 	public boolean showInputRange() {

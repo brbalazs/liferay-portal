@@ -43,8 +43,6 @@ CPPriceRangeFacetsDisplayContext cpPriceRangeFacetsDisplayContext = (CPPriceRang
 		<aui:fieldset markupView="lexicon">
 			<aui:input checked="<%= cpPriceRangeFacetsDisplayContext.showInputRange() %>" label="show-input-range" name="preferences--showInputRange--" type="toggle-switch" />
 
-			<aui:input checked="<%= cpPriceRangeFacetsDisplayContext.showDecimals() %>" label="show-decimals" name="preferences--showDecimals--" type="toggle-switch" />
-
 			<aui:input helpMessage="ranges-json-array-help" label="ranges-json-array" name="preferences--rangesJSONArray--" type="textarea" value="<%= cpPriceRangeFacetsDisplayContext.getRangesJSONArrayString() %>" />
 		</aui:fieldset>
 	</liferay-frontend:edit-form-body>

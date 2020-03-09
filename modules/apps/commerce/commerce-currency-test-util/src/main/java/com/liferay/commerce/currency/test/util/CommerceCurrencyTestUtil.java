@@ -54,8 +54,8 @@ public class CommerceCurrencyTestUtil {
 
 		return CommerceCurrencyLocalServiceUtil.addCommerceCurrency(
 			serviceContext.getUserId(), code,
-			RandomTestUtil.randomLocaleStringMap(), BigDecimal.ONE,
-			formatPatternMap, 2, 2, StringPool.BLANK, false,
+			RandomTestUtil.randomLocaleStringMap(), StringPool.DOLLAR,
+			BigDecimal.ONE, formatPatternMap, 2, 2, StringPool.BLANK, false,
 			RandomTestUtil.randomDouble(), true, serviceContext);
 	}
 
