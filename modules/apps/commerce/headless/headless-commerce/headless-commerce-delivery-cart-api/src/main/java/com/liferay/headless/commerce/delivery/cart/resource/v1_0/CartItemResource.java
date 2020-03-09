@@ -41,7 +41,9 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CartItemResource {
 
-	public Response deleteCartItem(Long cartId, Long cartItemId)
+	public Response deleteCartItem(Long cartItemId) throws Exception;
+
+	public Response deleteCartItemBatch(String callbackURL, Object object)
 		throws Exception;
 
 	public Response deleteCartItemBatch(

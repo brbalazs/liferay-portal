@@ -230,16 +230,26 @@ public class Mutation {
 	}
 
 	@GraphQLField(description = "Deletes an Cart Item by ID.")
-	public Response deleteCartItem(
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("cartItemId") Long cartItemId)
+	public Response deleteCartItem(@GraphQLName("cartItemId") Long cartItemId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartItemResource -> cartItemResource.deleteCartItem(
-				cartId, cartItemId));
+			cartItemResource -> cartItemResource.deleteCartItem(cartItemId));
+	}
+
+	@GraphQLField
+	public Response deleteCartItemBatch(
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartItemResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartItemResource -> cartItemResource.deleteCartItemBatch(
+				callbackURL, object));
 	}
 
 	@GraphQLField

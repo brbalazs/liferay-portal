@@ -40,10 +40,16 @@ public interface CartItemResource {
 		return new Builder();
 	}
 
-	public void deleteCartItem(Long cartId, Long cartItemId) throws Exception;
+	public void deleteCartItem(Long cartItemId) throws Exception;
 
-	public HttpInvoker.HttpResponse deleteCartItemHttpResponse(
-			Long cartId, Long cartItemId)
+	public HttpInvoker.HttpResponse deleteCartItemHttpResponse(Long cartItemId)
+		throws Exception;
+
+	public void deleteCartItemBatch(String callbackURL, Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteCartItemBatchHttpResponse(
+			String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteCartItemBatch(
@@ -149,11 +155,9 @@ public interface CartItemResource {
 
 	public static class CartItemResourceImpl implements CartItemResource {
 
-		public void deleteCartItem(Long cartId, Long cartItemId)
-			throws Exception {
-
+		public void deleteCartItem(Long cartItemId) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = deleteCartItemHttpResponse(
-				cartId, cartItemId);
+				cartItemId);
 
 			String content = httpResponse.getContent();
 
@@ -165,7 +169,7 @@ public interface CartItemResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteCartItemHttpResponse(
-				Long cartId, Long cartItemId)
+				Long cartItemId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -193,7 +197,63 @@ public interface CartItemResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/headless-commerce-delivery-cart/v1.0/cart-items/{cartItemId}",
-				cartId, cartItemId);
+				cartItemId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteCartItemBatch(String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteCartItemBatchHttpResponse(callbackURL, object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteCartItemBatchHttpResponse(
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-delivery-cart/v1.0/cart-items/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

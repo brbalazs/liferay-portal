@@ -200,9 +200,7 @@ public abstract class BaseCartItemResourceTestCase {
 		CartItem cartItem = testDeleteCartItem_addCartItem();
 
 		assertHttpResponseStatusCode(
-			204,
-			cartItemResource.deleteCartItemHttpResponse(
-				null, cartItem.getId()));
+			204, cartItemResource.deleteCartItemHttpResponse(cartItem.getId()));
 
 		assertHttpResponseStatusCode(
 			404, cartItemResource.getCartItemHttpResponse(cartItem.getId()));
@@ -395,9 +393,9 @@ public abstract class BaseCartItemResourceTestCase {
 			(List<CartItem>)page.getItems());
 		assertValid(page);
 
-		cartItemResource.deleteCartItem(null, cartItem1.getId());
+		cartItemResource.deleteCartItem(cartItem1.getId());
 
-		cartItemResource.deleteCartItem(null, cartItem2.getId());
+		cartItemResource.deleteCartItem(cartItem2.getId());
 	}
 
 	@Test
