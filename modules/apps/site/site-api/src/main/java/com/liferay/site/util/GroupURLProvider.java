@@ -137,7 +137,7 @@ public class GroupURLProvider {
 
 			if (layoutsCount != 0) {
 				layoutsCount = _layoutLocalService.getLayoutsCount(
-					group, false, StringPool.BLANK,
+					group, false,
 					new String[] {
 						StringPool.CONTENT, LayoutConstants.TYPE_EMBEDDED,
 						LayoutConstants.TYPE_LINK_TO_LAYOUT,
