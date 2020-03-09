@@ -67,7 +67,7 @@ public abstract class BaseAnalyticsMVCActionCommand
 		}
 	}
 
-	protected void disconnectDataSource(long companyId) throws Exception {
+	protected void clearConfiguration(long companyId) throws Exception {
 		removeChannelId(
 			PrefsPropsUtil.getStringArray(
 				companyId, "liferayAnalyticsGroupIds", StringPool.COMMA));
@@ -77,7 +77,7 @@ public abstract class BaseAnalyticsMVCActionCommand
 		analyticsConfigurationTracker.deleteCompanyConfiguration(companyId);
 	}
 
-	protected void disconnectDataSource(
+	protected void checkResponse(
 			long companyId, HttpResponse httpResponse)
 		throws Exception {
 
@@ -89,7 +89,7 @@ public abstract class BaseAnalyticsMVCActionCommand
 		String message = responseJSONObject.getString("message");
 
 		if (message.equals("INVALID_TOKEN")) {
-			disconnectDataSource(companyId);
+			clearConfiguration(companyId);
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
