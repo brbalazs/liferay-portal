@@ -67,9 +67,7 @@ String collapseSwitchId = Validator.isNotNull(collapseSwitchName) ? collapseSwit
 							var toggleLabel = document.getElementById(
 								'<%= randomNamespace %>toggle-label'
 							);
-							var toggleCheckbox = document.getElementById(
-								'<%= collapseSwitchId %>'
-							);
+							var toggleCheckbox = document.getElementById('<%= collapseSwitchId %>');
 							var collapseClickable = true;
 
 							[toggleSwitch, toggleLabel].forEach(function(el) {
