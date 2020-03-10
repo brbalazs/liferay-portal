@@ -12,18 +12,21 @@
  * details.
  */
 
-package com.liferay.commerce.product.tax.category.web.internal.servlet.taglib.ui;
+package com.liferay.commerce.product.tax.category.web.internal.admin;
 
 import com.liferay.commerce.admin.CommerceAdminModule;
-import com.liferay.commerce.constants.CommerceTaxScreenNavigationConstants;
+import com.liferay.commerce.admin.constants.CommerceAdminConstants;
+import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.tax.category.web.internal.display.context.CPTaxCategoryDisplayContext;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
-import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
-import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -32,6 +35,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -46,43 +50,39 @@ import org.osgi.service.component.annotations.Reference;
  * @author Alessio Antonio Rendina
  */
 @Component(
-	property = {
-		"screen.navigation.category.order:Integer=20",
-		"screen.navigation.entry.order:Integer=10"
-	},
-	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
+	immediate = true,
+	property = "commerce.admin.module.key=" + TaxCategoriesCommerceAdminModule.KEY,
+	service = CommerceAdminModule.class
 )
-public class CPTaxCategoryScreenNavigationEntry
-	implements ScreenNavigationCategory,
-			   ScreenNavigationEntry<CommerceAdminModule> {
+public class TaxCategoriesCommerceAdminModule implements CommerceAdminModule {
 
-	public static final String CATEGORY_KEY =
-		CPTaxCategoryScreenNavigationEntry.ENTRY_KEY;
-
-	public static final String ENTRY_KEY = "tax-categories";
-
-	@Override
-	public String getCategoryKey() {
-		return CATEGORY_KEY;
-	}
-
-	@Override
-	public String getEntryKey() {
-		return ENTRY_KEY;
-	}
+	public static final String KEY = "tax-categories";
 
 	@Override
 	public String getLabel(Locale locale) {
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, ENTRY_KEY);
+		return LanguageUtil.get(resourceBundle, KEY);
 	}
 
 	@Override
-	public String getScreenNavigationKey() {
-		return CommerceTaxScreenNavigationConstants.
-			SCREEN_NAVIGATION_KEY_COMMERCE_TAXES;
+	public PortletURL getSearchURL(
+		RenderRequest renderRequest, RenderResponse renderResponse) {
+
+		return null;
+	}
+
+	@Override
+	public int getType() {
+		return CommerceAdminConstants.COMMERCE_ADMIN_TYPE_VIRTUAL_INSTANCE;
+	}
+
+	@Override
+	public boolean isVisible(long groupId) throws PortalException {
+		return PortalPermissionUtil.contains(
+			PermissionThreadLocal.getPermissionChecker(),
+			CPActionKeys.MANAGE_COMMERCE_PRODUCT_TAX_CATEGORIES);
 	}
 
 	@Override
@@ -94,6 +94,7 @@ public class CPTaxCategoryScreenNavigationEntry
 		RenderRequest renderRequest =
 			(RenderRequest)httpServletRequest.getAttribute(
 				JavaConstants.JAVAX_PORTLET_REQUEST);
+
 		RenderResponse renderResponse =
 			(RenderResponse)httpServletRequest.getAttribute(
 				JavaConstants.JAVAX_PORTLET_RESPONSE);
@@ -103,12 +104,12 @@ public class CPTaxCategoryScreenNavigationEntry
 				_commerceTaxMethodService, _cpTaxCategoryService, renderRequest,
 				renderResponse);
 
-		httpServletRequest.setAttribute(
+		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, cpTaxCategoryDisplayContext);
 
 		_jspRenderer.renderJSP(
-			_servletContext, httpServletRequest, httpServletResponse,
-			"/view_tax_categories.jsp");
+			_servletContext, _portal.getHttpServletRequest(renderRequest),
+			httpServletResponse, "/view.jsp");
 	}
 
 	@Reference
@@ -119,6 +120,9 @@ public class CPTaxCategoryScreenNavigationEntry
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.product.tax.category.web)"
