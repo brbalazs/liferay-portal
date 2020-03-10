@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.tax.web.internal.display.context;
 
-import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.CommerceTaxEngine;
@@ -127,10 +126,6 @@ public class CommerceTaxMethodsDisplayContext {
 
 	public PortletURL getPortletURL() {
 		PortletURL portletURL = _renderResponse.createRenderURL();
-
-		portletURL.setParameter(
-			"commerceAdminModuleKey",
-			CommerceConstants.TAXES_COMMERCE_ADMIN_MODULE_KEY);
 
 		String delta = ParamUtil.getString(_renderRequest, "delta");
 
