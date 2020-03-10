@@ -19,30 +19,19 @@
 <%
 CommerceShippingFixedOptionsDisplayContext commerceShippingFixedOptionsDisplayContext = (CommerceShippingFixedOptionsDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-CommerceShippingMethod commerceShippingMethod = commerceShippingFixedOptionsDisplayContext.getCommerceShippingMethod();
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("commerceShippingMethodId", String.valueOf(commerceShippingFixedOptionsDisplayContext.getCommerceShippingMethodId()));
 %>
 
-<portlet:actionURL name="editCommerceShippingFixedOption" var="editCommerceShippingFixedOptionActionURL" />
-
-<aui:form action="<%= editCommerceShippingFixedOptionActionURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.DELETE %>" />
-	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-
-	<%
-	Map<String, String> contextParams = new HashMap<>();
-
-	contextParams.put("commerceShippingMethodId", String.valueOf(commerceShippingMethod.getCommerceShippingMethodId()));
-	%>
-
-	<commerce-ui:dataset-display
-		clayCreationMenu="<%= commerceShippingFixedOptionsDisplayContext.getClayCreationMenu() %>"
-		contextParams="<%= contextParams %>"
-		dataProviderKey="<%= CommerceShippingFixedOptionClayTable.NAME %>"
-		id="<%= CommerceShippingFixedOptionClayTable.NAME %>"
-		itemsPerPage="<%= 10 %>"
-		namespace="<%= renderResponse.getNamespace() %>"
-		pageNumber="<%= 1 %>"
-		portletURL="<%= commerceShippingFixedOptionsDisplayContext.getPortletURL() %>"
-		showManagementBar="<%= true %>"
-	/>
-</aui:form>
+<commerce-ui:dataset-display
+	clayCreationMenu="<%= commerceShippingFixedOptionsDisplayContext.getClayCreationMenu() %>"
+	contextParams="<%= contextParams %>"
+	dataProviderKey="<%= CommerceShippingFixedOptionClayTable.NAME %>"
+	id="<%= CommerceShippingFixedOptionClayTable.NAME %>"
+	itemsPerPage="<%= 10 %>"
+	namespace="<%= renderResponse.getNamespace() %>"
+	pageNumber="<%= 1 %>"
+	portletURL="<%= commerceShippingFixedOptionsDisplayContext.getPortletURL() %>"
+	showManagementBar="<%= true %>"
+/>
