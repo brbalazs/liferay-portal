@@ -69,20 +69,20 @@ public class CommerceDiscountFinderImpl
 
 	@Override
 	public List<CommerceDiscount> findByUnqualifiedProduct(
-		long cpDefinitionId, long[] assetCategoriesId,
+		long companyId, long cpDefinitionId, long[] assetCategoriesId,
 		long[] commercePricingClassesId) {
 
 		return _findProductDiscount(
-			FIND_BY_UNQUALIFIED_PRODUCT, -1, null, -1, cpDefinitionId,
-			assetCategoriesId, commercePricingClassesId);
+			FIND_BY_UNQUALIFIED_PRODUCT, companyId, -1, null, -1,
+			cpDefinitionId, assetCategoriesId, commercePricingClassesId);
 	}
 
 	@Override
 	public List<CommerceDiscount> findByUnqualifiedOrder(
-		String commerceDiscountTargetType) {
+		long companyId, String commerceDiscountTargetType) {
 
 		return _findOrderDiscount(
-			FIND_BY_UNQUALIFIED_ORDER, -1, null, -1,
+			FIND_BY_UNQUALIFIED_ORDER, companyId, -1, null, -1,
 			commerceDiscountTargetType);
 	}
 
@@ -92,8 +92,8 @@ public class CommerceDiscountFinderImpl
 		long[] commercePricingClassesId) {
 
 		return _findProductDiscount(
-			FIND_BY_A_C_C_PRODUCT, commerceAccountId, null, -1, cpDefinitionId,
-			assetCategoriesId, commercePricingClassesId);
+			FIND_BY_A_C_C_PRODUCT, -1, commerceAccountId, null, -1,
+			cpDefinitionId, assetCategoriesId, commercePricingClassesId);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class CommerceDiscountFinderImpl
 		long commerceAccountId, String commerceDiscountTargetType) {
 
 		return _findOrderDiscount(
-			FIND_BY_A_C_C_ORDER, commerceAccountId, null, -1,
+			FIND_BY_A_C_C_ORDER, -1, commerceAccountId, null, -1,
 			commerceDiscountTargetType);
 	}
 
@@ -111,7 +111,7 @@ public class CommerceDiscountFinderImpl
 		long[] assetCategoriesId, long[] commercePricingClassesId) {
 
 		return _findProductDiscount(
-			FIND_BY_AG_C_C_PRODUCT, -1, commerceAccountGroupIds, -1,
+			FIND_BY_AG_C_C_PRODUCT, -1, -1, commerceAccountGroupIds, -1,
 			cpDefinitionId, assetCategoriesId, commercePricingClassesId);
 	}
 
@@ -120,7 +120,7 @@ public class CommerceDiscountFinderImpl
 		long[] commerceAccountGroupIds, String commerceDiscountTargetType) {
 
 		return _findOrderDiscount(
-			FIND_BY_AG_C_C_ORDER, -1, commerceAccountGroupIds, -1,
+			FIND_BY_AG_C_C_ORDER, -1, -1, commerceAccountGroupIds, -1,
 			commerceDiscountTargetType);
 	}
 
@@ -130,8 +130,8 @@ public class CommerceDiscountFinderImpl
 		long[] commercePricingClassesId) {
 
 		return _findProductDiscount(
-			FIND_BY_C_C_C_PRODUCT, -1, null, commerceChannelId, cpDefinitionId,
-			assetCategoriesId, commercePricingClassesId);
+			FIND_BY_C_C_C_PRODUCT, -1, -1, null, commerceChannelId,
+			cpDefinitionId, assetCategoriesId, commercePricingClassesId);
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class CommerceDiscountFinderImpl
 		long commerceChannelId, String commerceDiscountTargetType) {
 
 		return _findOrderDiscount(
-			FIND_BY_C_C_C_ORDER, -1, null, commerceChannelId,
+			FIND_BY_C_C_C_ORDER, -1, -1, null, commerceChannelId,
 			commerceDiscountTargetType);
 	}
 
@@ -229,7 +229,7 @@ public class CommerceDiscountFinderImpl
 	}
 
 	private List<CommerceDiscount> _findOrderDiscount(
-		String queryString, long commerceAccountId,
+		String queryString, long companyId, long commerceAccountId,
 		long[] commerceAccountGroupIds, long commerceChannelId,
 		String commerceDiscountTargetType) {
 
@@ -258,6 +258,10 @@ public class CommerceDiscountFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
+			if (companyId != -1) {
+				qPos.add(companyId);
+			}
+
 			if (commerceAccountId != -1) {
 				qPos.add(commerceAccountId);
 			}
@@ -280,7 +284,7 @@ public class CommerceDiscountFinderImpl
 	}
 
 	private List<CommerceDiscount> _findProductDiscount(
-		String queryString, long commerceAccountId,
+		String queryString, long companyId, long commerceAccountId,
 		long[] commerceAccountGroupIds, long commerceChannelId,
 		long cpDefinitionId, long[] assetCategoriesId,
 		long[] commercePricingClassesId) {
@@ -330,6 +334,10 @@ public class CommerceDiscountFinderImpl
 				CommerceDiscountImpl.TABLE_NAME, CommerceDiscountImpl.class);
 
 			QueryPos qPos = QueryPos.getInstance(q);
+
+			if (companyId != -1) {
+				qPos.add(companyId);
+			}
 
 			if (commerceAccountId != -1) {
 				qPos.add(commerceAccountId);

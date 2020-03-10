@@ -41,6 +41,7 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
+import com.liferay.commerce.price.CommerceOrderPriceCalculationFactory;
 import com.liferay.commerce.product.util.DDMFormValuesHelper;
 import com.liferay.commerce.search.facet.NegatableMultiValueFacet;
 import com.liferay.commerce.service.base.CommerceOrderLocalServiceBaseImpl;
@@ -695,8 +696,12 @@ public class CommerceOrderLocalServiceImpl
 				commerceOrderItem.getCommerceOrderItemId(), commerceContext);
 		}
 
+		CommerceOrderPriceCalculation commerceOrderPriceCalculation =
+			_commerceOrderPriceCalculationFactory.
+				getCommerceOrderPriceCalculation();
+
 		CommerceOrderPrice commerceOrderPrice =
-			_commerceOrderPriceCalculation.getCommerceOrderPrice(
+			commerceOrderPriceCalculation.getCommerceOrderPrice(
 				commerceOrder, false, commerceContext);
 
 		CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
@@ -943,8 +948,12 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setSubtotal(subtotal);
 
 		if (commerceContext != null) {
+			CommerceOrderPriceCalculation commerceOrderPriceCalculation =
+				_commerceOrderPriceCalculationFactory.
+					getCommerceOrderPriceCalculation();
+
 			CommerceOrderPrice commerceOrderPrice =
-				_commerceOrderPriceCalculation.getCommerceOrderPrice(
+				commerceOrderPriceCalculation.getCommerceOrderPrice(
 					commerceOrder, false, commerceContext);
 
 			CommerceDiscountValue shippingDiscountValue =
@@ -1782,8 +1791,9 @@ public class CommerceOrderLocalServiceImpl
 	@ServiceReference(type = CommerceOrderConfiguration.class)
 	private CommerceOrderConfiguration _commerceOrderConfiguration;
 
-	@ServiceReference(type = CommerceOrderPriceCalculation.class)
-	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
+	@ServiceReference(type = CommerceOrderPriceCalculationFactory.class)
+	private CommerceOrderPriceCalculationFactory
+		_commerceOrderPriceCalculationFactory;
 
 	@ServiceReference(type = CommerceShippingHelper.class)
 	private CommerceShippingHelper _commerceShippingHelper;

@@ -363,18 +363,18 @@ public class CommerceDiscountLocalServiceImpl
 
 	@Override
 	public List<CommerceDiscount> findByUnqualifiedOrder(
-		String commerceDiscountTargetType) {
+		long companyId, String commerceDiscountTargetType) {
 
 		return commerceDiscountFinder.findByUnqualifiedOrder(
-			commerceDiscountTargetType);
+			companyId, commerceDiscountTargetType);
 	}
 
 	@Override
 	public List<CommerceDiscount> findByUnqualifiedProduct(
-		long cpDefinitionId) {
+		long companyId, long cpDefinitionId) {
 
 		return commerceDiscountFinder.findByUnqualifiedProduct(
-			cpDefinitionId, _getAssetCategoryIds(cpDefinitionId),
+			companyId, cpDefinitionId, _getAssetCategoryIds(cpDefinitionId),
 			_commercePricingClassLocalService.
 				getCommercePricingClassByCPDefinition(cpDefinitionId));
 	}

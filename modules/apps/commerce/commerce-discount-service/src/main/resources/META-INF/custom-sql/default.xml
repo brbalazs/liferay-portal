@@ -20,6 +20,7 @@
 				CommerceChannelRel ON
 					CommerceChannelRel.classPK = CommerceDiscount.commerceDiscountId
 			WHERE
+				(CommerceDiscount.companyId = ?) AND
 				(CommerceDiscount.active_ = [$TRUE$]) AND
 				(CommerceDiscountAccountRel.commerceDiscountAccountRelId IS NULL) AND
 				(CDiscountCAccountGroupRel.cDiscountCAccountGroupRelId IS NULL) AND
@@ -56,6 +57,7 @@
 				CommerceChannelRel ON
 					CommerceChannelRel.classPK = CommerceDiscount.commerceDiscountId
 			WHERE
+				(CommerceDiscount.companyId = ?) AND
 				(CommerceDiscount.active_ = [$TRUE$]) AND
 				(CommerceDiscountAccountRel.commerceDiscountAccountRelId IS NULL) AND
 				(CDiscountCAccountGroupRel.cDiscountCAccountGroupRelId IS NULL) AND

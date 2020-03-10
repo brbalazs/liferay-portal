@@ -81,7 +81,7 @@ public class CommerceDiscountCalculationV2Impl
 		}
 
 		return _getCommerceDiscountValue(
-			shippingAmount, commerceContext,
+			commerceOrder, shippingAmount, commerceContext,
 			CommerceDiscountConstants.TARGET_SHIPPING);
 	}
 
@@ -96,7 +96,7 @@ public class CommerceDiscountCalculationV2Impl
 		}
 
 		return _getCommerceDiscountValue(
-			subtotalAmount, commerceContext,
+			commerceOrder, subtotalAmount, commerceContext,
 			CommerceDiscountConstants.TARGET_SUBTOTAL);
 	}
 
@@ -111,7 +111,7 @@ public class CommerceDiscountCalculationV2Impl
 		}
 
 		return _getCommerceDiscountValue(
-			totalAmount, commerceContext,
+			commerceOrder, totalAmount, commerceContext,
 			CommerceDiscountConstants.TARGET_TOTAL);
 	}
 
@@ -162,7 +162,8 @@ public class CommerceDiscountCalculationV2Impl
 
 		List<CommerceDiscount> commerceDiscounts =
 			_getProductCommerceDiscountByHierarchy(
-				commerceContext, cpInstance.getCPDefinitionId());
+				cpInstance.getCompanyId(), commerceContext,
+				cpInstance.getCPDefinitionId());
 
 		if (commerceDiscounts.isEmpty()) {
 			return null;
@@ -288,16 +289,17 @@ public class CommerceDiscountCalculationV2Impl
 	}
 
 	private BigDecimal[] _getCommerceDiscountLevels(
-			BigDecimal commercePrice, CommerceContext commerceContext,
+			String couponCode, BigDecimal commercePrice,
+			CommerceContext commerceContext,
 			List<CommerceDiscount> commerceDiscounts)
 		throws PortalException {
 
-		String couponCode = "";
+		if (couponCode.isEmpty()) {
+			CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
-		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
-
-		if (commerceOrder != null) {
-			couponCode = commerceOrder.getCouponCode();
+			if (commerceOrder != null) {
+				couponCode = commerceOrder.getCouponCode();
+			}
 		}
 
 		CommerceCurrency commerceCurrency =
@@ -370,8 +372,8 @@ public class CommerceDiscountCalculationV2Impl
 	}
 
 	private CommerceDiscountValue _getCommerceDiscountValue(
-			BigDecimal amount, CommerceContext commerceContext,
-			String discountType)
+			CommerceOrder commerceOrder, BigDecimal amount,
+			CommerceContext commerceContext, String discountType)
 		throws PortalException {
 
 		if ((amount == null) || (amount.compareTo(BigDecimal.ZERO) <= 0)) {
@@ -379,14 +381,16 @@ public class CommerceDiscountCalculationV2Impl
 		}
 
 		List<CommerceDiscount> commerceDiscounts =
-			_getOrderCommerceDiscountByHierarchy(commerceContext, discountType);
+			_getOrderCommerceDiscountByHierarchy(
+				commerceOrder.getCompanyId(), commerceContext, discountType);
 
 		if (commerceDiscounts.isEmpty()) {
 			return null;
 		}
 
 		BigDecimal[] commerceDiscountLevels = _getCommerceDiscountLevels(
-			amount, commerceContext, commerceDiscounts);
+			commerceOrder.getCouponCode(), amount, commerceContext,
+			commerceDiscounts);
 
 		CommerceDiscountApplicationStrategy
 			commerceDiscountApplicationStrategy =
@@ -423,7 +427,7 @@ public class CommerceDiscountCalculationV2Impl
 		throws PortalException {
 
 		BigDecimal[] commerceDiscountLevels = _getCommerceDiscountLevels(
-			commercePrice, commerceContext, commerceDiscounts);
+			"", commercePrice, commerceContext, commerceDiscounts);
 
 		CommerceDiscountApplicationStrategy
 			commerceDiscountApplicationStrategy =
@@ -476,7 +480,8 @@ public class CommerceDiscountCalculationV2Impl
 	}
 
 	private List<CommerceDiscount> _getOrderCommerceDiscountByHierarchy(
-			CommerceContext commerceContext, String commerceDiscountTargetType)
+			long companyId, CommerceContext commerceContext,
+			String commerceDiscountTargetType)
 		throws PortalException {
 
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
@@ -488,12 +493,12 @@ public class CommerceDiscountCalculationV2Impl
 		}
 
 		return _getOrderCommerceDiscountByHierarchy(
-			commerceAccountId, commerceContext.getCommerceChannelId(),
-			commerceDiscountTargetType);
+			companyId, commerceAccountId,
+			commerceContext.getCommerceChannelId(), commerceDiscountTargetType);
 	}
 
 	private List<CommerceDiscount> _getOrderCommerceDiscountByHierarchy(
-			long commerceAccountId, long commerceChannelId,
+			long companyId, long commerceAccountId, long commerceChannelId,
 			String commerceDiscountTargetType)
 		throws PortalException {
 
@@ -524,11 +529,12 @@ public class CommerceDiscountCalculationV2Impl
 		}
 
 		return _commerceDiscountLocalService.findByUnqualifiedOrder(
-			commerceDiscountTargetType);
+			companyId, commerceDiscountTargetType);
 	}
 
 	private List<CommerceDiscount> _getProductCommerceDiscountByHierarchy(
-			CommerceContext commerceContext, long cpDefinitionId)
+			long companyId, CommerceContext commerceContext,
+			long cpDefinitionId)
 		throws PortalException {
 
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
@@ -540,12 +546,13 @@ public class CommerceDiscountCalculationV2Impl
 		}
 
 		return _getProductCommerceDiscountByHierarchy(
-			commerceAccountId, commerceContext.getCommerceChannelId(),
-			cpDefinitionId);
+			companyId, commerceAccountId,
+			commerceContext.getCommerceChannelId(), cpDefinitionId);
 	}
 
 	private List<CommerceDiscount> _getProductCommerceDiscountByHierarchy(
-			long commerceAccountId, long commerceChannelId, long cpDefinitionId)
+			long companyId, long commerceAccountId, long commerceChannelId,
+			long cpDefinitionId)
 		throws PortalException {
 
 		List<CommerceDiscount> commerceDiscounts =
@@ -575,7 +582,7 @@ public class CommerceDiscountCalculationV2Impl
 		}
 
 		return _commerceDiscountLocalService.findByUnqualifiedProduct(
-			cpDefinitionId);
+			companyId, cpDefinitionId);
 	}
 
 	private boolean _isValidDiscount(
