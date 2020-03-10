@@ -38,7 +38,6 @@ import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -150,8 +149,8 @@ public class CustomFieldsUtil {
 					else if (ExpandoColumnConstants.STRING_LOCALIZED ==
 								attributeType) {
 
-						return (Serializable)Collections.singletonMap(
-							locale, data);
+						return (Serializable)LocalizedMapUtil.getLocalizedMap(
+							locale, (String)data, customValue.getData_i18n());
 					}
 
 					return (Serializable)data;

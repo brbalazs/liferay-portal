@@ -100,9 +100,10 @@ public class StructuredContentDTOConverter
 				availableLanguages = LocaleUtil.toW3cLanguageIds(
 					journalArticle.getAvailableLanguageIds());
 				contentFields = _toContentFields(
-					dtoConverterContext, journalArticle, _dlAppService,
-					_fieldsToDDMFormValuesConverter, _journalArticleService,
-					_journalConverter, _layoutLocalService);
+					_dlAppService, dtoConverterContext,
+					_fieldsToDDMFormValuesConverter, journalArticle,
+					_journalArticleService, _journalConverter,
+					_layoutLocalService);
 				contentStructureId = ddmStructure.getStructureId();
 				creator = CreatorUtil.toCreator(
 					_portal, dtoConverterContext.getUriInfoOptional(),
@@ -171,9 +172,9 @@ public class StructuredContentDTOConverter
 	}
 
 	private ContentField[] _toContentFields(
-			DTOConverterContext dtoConverterContext,
-			JournalArticle journalArticle, DLAppService dlAppService,
+			DLAppService dlAppService, DTOConverterContext dtoConverterContext,
 			FieldsToDDMFormValuesConverter fieldsToDDMFormValuesConverter,
+			JournalArticle journalArticle,
 			JournalArticleService journalArticleService,
 			JournalConverter journalConverter,
 			LayoutLocalService layoutLocalService)

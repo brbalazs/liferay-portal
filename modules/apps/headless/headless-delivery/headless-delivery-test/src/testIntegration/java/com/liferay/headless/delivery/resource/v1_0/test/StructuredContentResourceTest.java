@@ -85,10 +85,11 @@ public class StructuredContentResourceTest
 
 		_ddmFormJSONDeserializer = registry.getService(_serviceReference);
 
-		_ddmStructure = _addDDMStructure(
-			testGroup, "test-structured-content-structure.json");
 		_ddmLocalizedStructure = _addDDMStructure(
 			testGroup, "test-localized-structured-content-structure.json");
+
+		_ddmStructure = _addDDMStructure(
+			testGroup, "test-structured-content-structure.json");
 
 		_irrelevantDDMStructure = _addDDMStructure(
 			irrelevantGroup, "test-structured-content-structure.json");
@@ -351,7 +352,7 @@ public class StructuredContentResourceTest
 			randomStructuredContent());
 	}
 
-	private DDMStructure _addDDMStructure(Group group, String filename)
+	private DDMStructure _addDDMStructure(Group group, String fileName)
 		throws Exception {
 
 		DDMStructureTestHelper ddmStructureTestHelper =
@@ -361,7 +362,7 @@ public class StructuredContentResourceTest
 		return ddmStructureTestHelper.addStructure(
 			PortalUtil.getClassNameId(JournalArticle.class),
 			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			_deserialize(_read(filename)), StorageType.JSON.getValue(),
+			_deserialize(_read(fileName)), StorageType.JSON.getValue(),
 			DDMStructureConstants.TYPE_DEFAULT);
 	}
 
