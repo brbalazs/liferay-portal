@@ -211,6 +211,8 @@ public class EditCommerceShipmentItemMVCActionCommand
 					_commerceShipmentItemService.updateCommerceShipmentItem(
 						initialCommerceShipmentItem.getCommerceShipmentItemId(),
 						commerceInventoryWarehouseId, quantity);
+
+				initialCommerceShipmentItem = null;
 			}
 			else if ((commerceShipmentItem == null) && (quantity > 0)) {
 				commerceShipmentItem =
