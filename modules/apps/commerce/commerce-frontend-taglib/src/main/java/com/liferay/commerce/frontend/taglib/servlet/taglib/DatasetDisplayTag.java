@@ -74,7 +74,6 @@ public class DatasetDisplayTag extends IncludeTag {
 			}
 
 			_setTableContext();
-			_setItems();
 			_setPagination();
 
 			StringBundler sb = new StringBundler(
@@ -285,7 +284,6 @@ public class DatasetDisplayTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-commerce:dataset-display:formId", _formId);
 		request.setAttribute("liferay-commerce:dataset-display:id", _id);
-		request.setAttribute("liferay-commerce:dataset-display:items", _items);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:itemsPerPage", _itemsPerPage);
 		request.setAttribute(
@@ -317,8 +315,6 @@ public class DatasetDisplayTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-commerce:dataset-display:spritemap", _spritemap);
 		request.setAttribute("liferay-commerce:dataset-display:style", _style);
-		request.setAttribute(
-			"liferay-commerce:dataset-display:totalItems", _totalItems);
 	}
 
 	private void _setItems() throws Exception {

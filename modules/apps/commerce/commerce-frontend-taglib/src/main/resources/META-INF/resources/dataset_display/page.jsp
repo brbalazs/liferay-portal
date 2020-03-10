@@ -30,7 +30,6 @@
 		formId: '<%= formId %>',
 		dataProviderKey: '<%= dataProviderKey %>',
 		id: '<%= id %>',
-		items: <%= jsonSerializer.serializeDeep(items) %>,
 		showPagination: <%= showPagination %>,
 		showManagementBar: <%= showManagementBar %>,
 		showSearch: <%= showSearch %>,
@@ -38,7 +37,6 @@
 			deltas: <%= jsonSerializer.serializeDeep(paginationEntries) %>,
 			initialDelta: <%= itemsPerPage %>,
 			initialPageNumber: <%= pageNumber %>,
-			initialTotalItems: <%= totalItems %>
 		},
 		namespace: '<%= namespace %>',
 		portletURL: '<%= portletURL %>',

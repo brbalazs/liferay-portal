@@ -76,7 +76,6 @@ function loadData(
 
 function DatasetDisplay(props) {
 	const wrapperRef = useRef(null);
-	const [changesCount, setChangesCount] = useState(0);
 	const [views, updateViews] = useState(props.views);
 	const [loading, setLoading] = useState(false);
 	const [datasetDisplaySupportSidePanelId] = useState(
@@ -181,6 +180,7 @@ function DatasetDisplay(props) {
 		sorting,
 		successNotification = {}
 	) {
+		setLoading(true);
 		return loadData(
 			apiUrl,
 			currentUrl,
@@ -210,27 +210,22 @@ function DatasetDisplay(props) {
 					Liferay.Language.get('unexpected-error'),
 					'danger'
 				);
-			});
+			})
+			.finally(() => setLoading(false));
 	}
 
 	useEffect(() => {
-		if (changesCount > 1) {
-			getData(
-				props.apiUrl,
-				props.currentUrl,
-				filters.filter(e => !!e.value),
-				searchParam,
-				delta,
-				pageNumber,
-				sorting,
-				false
-			);
-		}
+		getData(
+			props.apiUrl,
+			props.currentUrl,
+			filters.filter(e => !!e.value),
+			searchParam,
+			delta,
+			pageNumber,
+			sorting,
+			false
+		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [changesCount]);
-
-	useEffect(() => {
-		setChangesCount(c => c + 1);
 	}, [
 		props.apiUrl,
 		props.currentUrl,
@@ -239,8 +234,7 @@ function DatasetDisplay(props) {
 		delta,
 		pageNumber,
 		sorting,
-		refreshData,
-		setChangesCount
+		refreshData
 	]);
 
 	function selectItems(val) {
@@ -336,7 +330,7 @@ function DatasetDisplay(props) {
 				setActiveView={setActiveView}
 				showSearch={props.showSearch}
 				sidePanelId={datasetDisplaySupportSidePanelId}
-				totalItemsCount={props.items.length}
+				totalItemsCount={items ? items.length : 0}
 				views={props.views}
 			/>
 		</div>
@@ -359,9 +353,8 @@ function DatasetDisplay(props) {
 						items={items}
 						{...currentViewProps}
 					/>
-				) : (
-					<EmptyResultMessage />
-				)}
+				) : null}
+				{items && items.length === 0 && <EmptyResultMessage />}
 			</div>
 		) : (
 			<span aria-hidden="true" className="loading-animation my-7" />
@@ -534,7 +527,7 @@ DatasetDisplay.propTypes = {
 DatasetDisplay.defaultProps = {
 	bulkActions: [],
 	filters: [],
-	items: [],
+	items: null,
 	selectedItemsKey: 'id',
 	selectionType: 'multiple',
 	showManagementBar: true,

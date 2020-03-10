@@ -42,7 +42,6 @@ String dataProviderKey = (String)request.getAttribute("liferay-commerce:dataset-
 String dataSetAPI = (String)request.getAttribute("liferay-commerce:dataset-display:dataSetAPI");
 String formId = (String)request.getAttribute("liferay-commerce:dataset-display:formId");
 String id = (String)request.getAttribute("liferay-commerce:dataset-display:id");
-Object items = request.getAttribute("liferay-commerce:dataset-display:items");
 int itemsPerPage = (int)request.getAttribute("liferay-commerce:dataset-display:itemsPerPage");
 String namespace = (String)request.getAttribute("liferay-commerce:dataset-display:namespace");
 int pageNumber = (int)request.getAttribute("liferay-commerce:dataset-display:pageNumber");
@@ -56,7 +55,6 @@ boolean showPagination = (boolean)request.getAttribute("liferay-commerce:dataset
 boolean showSearch = (boolean)request.getAttribute("liferay-commerce:dataset-display:showSearch");
 String spritemap = (String)request.getAttribute("liferay-commerce:dataset-display:spritemap");
 String style = (String)request.getAttribute("liferay-commerce:dataset-display:style");
-int totalItems = (int)request.getAttribute("liferay-commerce:dataset-display:totalItems");
 
 JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
 
