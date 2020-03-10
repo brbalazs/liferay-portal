@@ -89,7 +89,7 @@ public class CommerceShipmentItemTest {
 			_commerceCurrency.getCode(), null, serviceContext);
 
 		_commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_group.getGroupId(), _user.getUserId(),
+			_user.getUserId(), _commerceChannel.getGroupId(),
 			commerceCurrency.getCommerceCurrencyId());
 
 		_commerceShipment = CommerceShipmentTestUtil.createEmptyOrderShipment(
@@ -271,7 +271,8 @@ public class CommerceShipmentItemTest {
 
 		int actualCPInstanceStockQuantity =
 			_commerceInventoryEngine.getStockQuantity(
-				_user.getCompanyId(), cpInstance.getSku());
+				_user.getCompanyId(), _commerceChannel.getGroupId(),
+				cpInstance.getSku());
 
 		Assert.assertEquals(1, actualCPInstanceStockQuantity);
 
