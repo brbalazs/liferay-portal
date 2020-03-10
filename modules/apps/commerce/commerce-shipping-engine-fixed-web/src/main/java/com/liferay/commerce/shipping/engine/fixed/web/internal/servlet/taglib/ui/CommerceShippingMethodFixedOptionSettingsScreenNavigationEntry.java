@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -133,7 +134,7 @@ public class CommerceShippingMethodFixedOptionSettingsScreenNavigationEntry
 					_commerceInventoryWarehouseService,
 					_commerceShippingFixedOptionRelService,
 					_cpMeasurementUnitLocalService, _portletResourcePermission,
-					renderRequest, renderResponse);
+					_portal, renderRequest, renderResponse);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -176,6 +177,9 @@ public class CommerceShippingMethodFixedOptionSettingsScreenNavigationEntry
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference(
 		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"

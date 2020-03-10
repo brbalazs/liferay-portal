@@ -79,7 +79,7 @@ public class EditCommerceShippingFixedOptionRelMVCRenderCommand
 						_commerceInventoryWarehouseService,
 						_commerceShippingFixedOptionRelService,
 						_cpMeasurementUnitLocalService,
-						_portletResourcePermission, renderRequest,
+						_portletResourcePermission, _portal, renderRequest,
 						renderResponse);
 
 			renderRequest.setAttribute(
