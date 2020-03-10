@@ -183,7 +183,8 @@ public class CPDefinitionInventoryServiceHttp {
 
 	public static com.liferay.commerce.model.CPDefinitionInventory
 			updateCPDefinitionInventory(
-				HttpPrincipal httpPrincipal, long cpDefinitionInventoryId,
+				HttpPrincipal httpPrincipal, long groupId,
+				long cpDefinitionInventoryId,
 				String cpDefinitionInventoryEngine, String lowStockActivity,
 				boolean displayAvailability, boolean displayStockQuantity,
 				int minStockQuantity, boolean backOrders, int minOrderQuantity,
@@ -198,11 +199,11 @@ public class CPDefinitionInventoryServiceHttp {
 				_updateCPDefinitionInventoryParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, cpDefinitionInventoryId, cpDefinitionInventoryEngine,
-				lowStockActivity, displayAvailability, displayStockQuantity,
-				minStockQuantity, backOrders, minOrderQuantity,
-				maxOrderQuantity, allowedOrderQuantities,
-				multipleOrderQuantity);
+				methodKey, groupId, cpDefinitionInventoryId,
+				cpDefinitionInventoryEngine, lowStockActivity,
+				displayAvailability, displayStockQuantity, minStockQuantity,
+				backOrders, minOrderQuantity, maxOrderQuantity,
+				allowedOrderQuantities, multipleOrderQuantity);
 
 			Object returnObj = null;
 
@@ -234,8 +235,7 @@ public class CPDefinitionInventoryServiceHttp {
 
 	public static com.liferay.commerce.model.CPDefinitionInventory
 			updateCPDefinitionInventory(
-				HttpPrincipal httpPrincipal, long groupId,
-				long cpDefinitionInventoryId,
+				HttpPrincipal httpPrincipal, long cpDefinitionInventoryId,
 				String cpDefinitionInventoryEngine, String lowStockActivity,
 				boolean displayAvailability, boolean displayStockQuantity,
 				int minStockQuantity, boolean backOrders, int minOrderQuantity,
@@ -250,11 +250,11 @@ public class CPDefinitionInventoryServiceHttp {
 				_updateCPDefinitionInventoryParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, cpDefinitionInventoryId,
-				cpDefinitionInventoryEngine, lowStockActivity,
-				displayAvailability, displayStockQuantity, minStockQuantity,
-				backOrders, minOrderQuantity, maxOrderQuantity,
-				allowedOrderQuantities, multipleOrderQuantity);
+				methodKey, cpDefinitionInventoryId, cpDefinitionInventoryEngine,
+				lowStockActivity, displayAvailability, displayStockQuantity,
+				minStockQuantity, backOrders, minOrderQuantity,
+				maxOrderQuantity, allowedOrderQuantities,
+				multipleOrderQuantity);
 
 			Object returnObj = null;
 
@@ -300,13 +300,13 @@ public class CPDefinitionInventoryServiceHttp {
 			new Class[] {long.class};
 	private static final Class<?>[]
 		_updateCPDefinitionInventoryParameterTypes3 = new Class[] {
-			long.class, String.class, String.class, boolean.class,
+			long.class, long.class, String.class, String.class, boolean.class,
 			boolean.class, int.class, boolean.class, int.class, int.class,
 			String.class, int.class
 		};
 	private static final Class<?>[]
 		_updateCPDefinitionInventoryParameterTypes4 = new Class[] {
-			long.class, long.class, String.class, String.class, boolean.class,
+			long.class, String.class, String.class, boolean.class,
 			boolean.class, int.class, boolean.class, int.class, int.class,
 			String.class, int.class
 		};

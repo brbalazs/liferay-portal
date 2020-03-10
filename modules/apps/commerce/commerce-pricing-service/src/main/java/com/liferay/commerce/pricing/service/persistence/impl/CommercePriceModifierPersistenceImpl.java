@@ -202,54 +202,54 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindUuid = false;
 
 			if (uuid.isEmpty()) {
-				query.append(_FINDER_COLUMN_UUID_UUID_3);
+				sb.append(_FINDER_COLUMN_UUID_UUID_3);
 			}
 			else {
 				bindUuid = true;
 
-				query.append(_FINDER_COLUMN_UUID_UUID_2);
+				sb.append(_FINDER_COLUMN_UUID_UUID_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindUuid) {
-					qPos.add(uuid);
+					queryPos.add(uuid);
 				}
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -293,16 +293,16 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("uuid=");
-		msg.append(uuid);
+		sb.append("uuid=");
+		sb.append(uuid);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -348,16 +348,16 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("uuid=");
-		msg.append(uuid);
+		sb.append("uuid=");
+		sb.append(uuid);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -438,28 +438,28 @@ public class CommercePriceModifierPersistenceImpl
 		String uuid, OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 		boolean bindUuid = false;
 
 		if (uuid.isEmpty()) {
-			query.append(_FINDER_COLUMN_UUID_UUID_3);
+			sb.append(_FINDER_COLUMN_UUID_UUID_3);
 		}
 		else {
 			bindUuid = true;
 
-			query.append(_FINDER_COLUMN_UUID_UUID_2);
+			sb.append(_FINDER_COLUMN_UUID_UUID_2);
 		}
 
 		if (orderByComparator != null) {
@@ -467,72 +467,72 @@ public class CommercePriceModifierPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
 		if (bindUuid) {
-			qPos.add(uuid);
+			queryPos.add(uuid);
 		}
 
 		if (orderByComparator != null) {
@@ -540,11 +540,11 @@ public class CommercePriceModifierPersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -585,37 +585,37 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindUuid = false;
 
 			if (uuid.isEmpty()) {
-				query.append(_FINDER_COLUMN_UUID_UUID_3);
+				sb.append(_FINDER_COLUMN_UUID_UUID_3);
 			}
 			else {
 				bindUuid = true;
 
-				query.append(_FINDER_COLUMN_UUID_UUID_2);
+				sb.append(_FINDER_COLUMN_UUID_UUID_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindUuid) {
-					qPos.add(uuid);
+					queryPos.add(uuid);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -657,23 +657,23 @@ public class CommercePriceModifierPersistenceImpl
 			uuid, groupId);
 
 		if (commercePriceModifier == null) {
-			StringBundler msg = new StringBundler(6);
+			StringBundler sb = new StringBundler(6);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("uuid=");
-			msg.append(uuid);
+			sb.append("uuid=");
+			sb.append(uuid);
 
-			msg.append(", groupId=");
-			msg.append(groupId);
+			sb.append(", groupId=");
+			sb.append(groupId);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchPriceModifierException(msg.toString());
+			throw new NoSuchPriceModifierException(sb.toString());
 		}
 
 		return commercePriceModifier;
@@ -730,41 +730,41 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindUuid = false;
 
 			if (uuid.isEmpty()) {
-				query.append(_FINDER_COLUMN_UUID_G_UUID_3);
+				sb.append(_FINDER_COLUMN_UUID_G_UUID_3);
 			}
 			else {
 				bindUuid = true;
 
-				query.append(_FINDER_COLUMN_UUID_G_UUID_2);
+				sb.append(_FINDER_COLUMN_UUID_G_UUID_2);
 			}
 
-			query.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
+			sb.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindUuid) {
-					qPos.add(uuid);
+					queryPos.add(uuid);
 				}
 
-				qPos.add(groupId);
+				queryPos.add(groupId);
 
-				List<CommercePriceModifier> list = q.list();
+				List<CommercePriceModifier> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -836,41 +836,41 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindUuid = false;
 
 			if (uuid.isEmpty()) {
-				query.append(_FINDER_COLUMN_UUID_G_UUID_3);
+				sb.append(_FINDER_COLUMN_UUID_G_UUID_3);
 			}
 			else {
 				bindUuid = true;
 
-				query.append(_FINDER_COLUMN_UUID_G_UUID_2);
+				sb.append(_FINDER_COLUMN_UUID_G_UUID_2);
 			}
 
-			query.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
+			sb.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindUuid) {
-					qPos.add(uuid);
+					queryPos.add(uuid);
 				}
 
-				qPos.add(groupId);
+				queryPos.add(groupId);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1019,58 +1019,58 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(4);
+				sb = new StringBundler(4);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindUuid = false;
 
 			if (uuid.isEmpty()) {
-				query.append(_FINDER_COLUMN_UUID_C_UUID_3);
+				sb.append(_FINDER_COLUMN_UUID_C_UUID_3);
 			}
 			else {
 				bindUuid = true;
 
-				query.append(_FINDER_COLUMN_UUID_C_UUID_2);
+				sb.append(_FINDER_COLUMN_UUID_C_UUID_2);
 			}
 
-			query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindUuid) {
-					qPos.add(uuid);
+					queryPos.add(uuid);
 				}
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1115,19 +1115,19 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("uuid=");
-		msg.append(uuid);
+		sb.append("uuid=");
+		sb.append(uuid);
 
-		msg.append(", companyId=");
-		msg.append(companyId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -1175,19 +1175,19 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("uuid=");
-		msg.append(uuid);
+		sb.append("uuid=");
+		sb.append(uuid);
 
-		msg.append(", companyId=");
-		msg.append(companyId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -1273,117 +1273,117 @@ public class CommercePriceModifierPersistenceImpl
 		OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 		boolean bindUuid = false;
 
 		if (uuid.isEmpty()) {
-			query.append(_FINDER_COLUMN_UUID_C_UUID_3);
+			sb.append(_FINDER_COLUMN_UUID_C_UUID_3);
 		}
 		else {
 			bindUuid = true;
 
-			query.append(_FINDER_COLUMN_UUID_C_UUID_2);
+			sb.append(_FINDER_COLUMN_UUID_C_UUID_2);
 		}
 
-		query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+		sb.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
 		if (bindUuid) {
-			qPos.add(uuid);
+			queryPos.add(uuid);
 		}
 
-		qPos.add(companyId);
+		queryPos.add(companyId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1428,41 +1428,41 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindUuid = false;
 
 			if (uuid.isEmpty()) {
-				query.append(_FINDER_COLUMN_UUID_C_UUID_3);
+				sb.append(_FINDER_COLUMN_UUID_C_UUID_3);
 			}
 			else {
 				bindUuid = true;
 
-				query.append(_FINDER_COLUMN_UUID_C_UUID_2);
+				sb.append(_FINDER_COLUMN_UUID_C_UUID_2);
 			}
 
-			query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindUuid) {
-					qPos.add(uuid);
+					queryPos.add(uuid);
 				}
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -1600,43 +1600,43 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1680,16 +1680,16 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("companyId=");
-		msg.append(companyId);
+		sb.append("companyId=");
+		sb.append(companyId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -1735,16 +1735,16 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("companyId=");
-		msg.append(companyId);
+		sb.append("companyId=");
+		sb.append(companyId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -1826,102 +1826,102 @@ public class CommercePriceModifierPersistenceImpl
 		OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+		sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(companyId);
+		queryPos.add(companyId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -1961,26 +1961,26 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -2118,44 +2118,43 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(
-				_FINDER_COLUMN_COMMERCEPRICELISTID_COMMERCEPRICELISTID_2);
+			sb.append(_FINDER_COLUMN_COMMERCEPRICELISTID_COMMERCEPRICELISTID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(commercePriceListId);
+				queryPos.add(commercePriceListId);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2200,16 +2199,16 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("commercePriceListId=");
-		msg.append(commercePriceListId);
+		sb.append("commercePriceListId=");
+		sb.append(commercePriceListId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -2256,16 +2255,16 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("commercePriceListId=");
-		msg.append(commercePriceListId);
+		sb.append("commercePriceListId=");
+		sb.append(commercePriceListId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -2347,102 +2346,102 @@ public class CommercePriceModifierPersistenceImpl
 		OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-		query.append(_FINDER_COLUMN_COMMERCEPRICELISTID_COMMERCEPRICELISTID_2);
+		sb.append(_FINDER_COLUMN_COMMERCEPRICELISTID_COMMERCEPRICELISTID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(commercePriceListId);
+		queryPos.add(commercePriceListId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -2483,27 +2482,26 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(
-				_FINDER_COLUMN_COMMERCEPRICELISTID_COMMERCEPRICELISTID_2);
+			sb.append(_FINDER_COLUMN_COMMERCEPRICELISTID_COMMERCEPRICELISTID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(commercePriceListId);
+				queryPos.add(commercePriceListId);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -2647,58 +2645,58 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(4);
+				sb = new StringBundler(4);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_C_T_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_C_T_COMPANYID_2);
 
 			boolean bindTarget = false;
 
 			if (target.isEmpty()) {
-				query.append(_FINDER_COLUMN_C_T_TARGET_3);
+				sb.append(_FINDER_COLUMN_C_T_TARGET_3);
 			}
 			else {
 				bindTarget = true;
 
-				query.append(_FINDER_COLUMN_C_T_TARGET_2);
+				sb.append(_FINDER_COLUMN_C_T_TARGET_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
 				if (bindTarget) {
-					qPos.add(target);
+					queryPos.add(target);
 				}
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2743,19 +2741,19 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("companyId=");
-		msg.append(companyId);
+		sb.append("companyId=");
+		sb.append(companyId);
 
-		msg.append(", target=");
-		msg.append(target);
+		sb.append(", target=");
+		sb.append(target);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -2803,19 +2801,19 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("companyId=");
-		msg.append(companyId);
+		sb.append("companyId=");
+		sb.append(companyId);
 
-		msg.append(", target=");
-		msg.append(target);
+		sb.append(", target=");
+		sb.append(target);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -2901,30 +2899,30 @@ public class CommercePriceModifierPersistenceImpl
 		OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-		query.append(_FINDER_COLUMN_C_T_COMPANYID_2);
+		sb.append(_FINDER_COLUMN_C_T_COMPANYID_2);
 
 		boolean bindTarget = false;
 
 		if (target.isEmpty()) {
-			query.append(_FINDER_COLUMN_C_T_TARGET_3);
+			sb.append(_FINDER_COLUMN_C_T_TARGET_3);
 		}
 		else {
 			bindTarget = true;
 
-			query.append(_FINDER_COLUMN_C_T_TARGET_2);
+			sb.append(_FINDER_COLUMN_C_T_TARGET_2);
 		}
 
 		if (orderByComparator != null) {
@@ -2932,74 +2930,74 @@ public class CommercePriceModifierPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(companyId);
+		queryPos.add(companyId);
 
 		if (bindTarget) {
-			qPos.add(target);
+			queryPos.add(target);
 		}
 
 		if (orderByComparator != null) {
@@ -3007,11 +3005,11 @@ public class CommercePriceModifierPersistenceImpl
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -3056,41 +3054,41 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_C_T_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_C_T_COMPANYID_2);
 
 			boolean bindTarget = false;
 
 			if (target.isEmpty()) {
-				query.append(_FINDER_COLUMN_C_T_TARGET_3);
+				sb.append(_FINDER_COLUMN_C_T_TARGET_3);
 			}
 			else {
 				bindTarget = true;
 
-				query.append(_FINDER_COLUMN_C_T_TARGET_2);
+				sb.append(_FINDER_COLUMN_C_T_TARGET_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
 				if (bindTarget) {
-					qPos.add(target);
+					queryPos.add(target);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -3227,58 +3225,58 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(4);
+				sb = new StringBundler(4);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindDisplayDate = false;
 
 			if (displayDate == null) {
-				query.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_1);
+				sb.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_1);
 			}
 			else {
 				bindDisplayDate = true;
 
-				query.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_2);
+				sb.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_2);
 			}
 
-			query.append(_FINDER_COLUMN_LTD_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_LTD_S_STATUS_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindDisplayDate) {
-					qPos.add(new Timestamp(displayDate.getTime()));
+					queryPos.add(new Timestamp(displayDate.getTime()));
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -3323,19 +3321,19 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("displayDate<");
-		msg.append(displayDate);
+		sb.append("displayDate<");
+		sb.append(displayDate);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -3383,19 +3381,19 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("displayDate<");
-		msg.append(displayDate);
+		sb.append("displayDate<");
+		sb.append(displayDate);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -3479,117 +3477,117 @@ public class CommercePriceModifierPersistenceImpl
 		OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 		boolean bindDisplayDate = false;
 
 		if (displayDate == null) {
-			query.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_1);
+			sb.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_1);
 		}
 		else {
 			bindDisplayDate = true;
 
-			query.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_2);
+			sb.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_2);
 		}
 
-		query.append(_FINDER_COLUMN_LTD_S_STATUS_2);
+		sb.append(_FINDER_COLUMN_LTD_S_STATUS_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
 		if (bindDisplayDate) {
-			qPos.add(new Timestamp(displayDate.getTime()));
+			queryPos.add(new Timestamp(displayDate.getTime()));
 		}
 
-		qPos.add(status);
+		queryPos.add(status);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -3632,41 +3630,41 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindDisplayDate = false;
 
 			if (displayDate == null) {
-				query.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_1);
+				sb.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_1);
 			}
 			else {
 				bindDisplayDate = true;
 
-				query.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_2);
+				sb.append(_FINDER_COLUMN_LTD_S_DISPLAYDATE_2);
 			}
 
-			query.append(_FINDER_COLUMN_LTD_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_LTD_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindDisplayDate) {
-					qPos.add(new Timestamp(displayDate.getTime()));
+					queryPos.add(new Timestamp(displayDate.getTime()));
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -3804,58 +3802,58 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(4);
+				sb = new StringBundler(4);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindExpirationDate = false;
 
 			if (expirationDate == null) {
-				query.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_1);
+				sb.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_1);
 			}
 			else {
 				bindExpirationDate = true;
 
-				query.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_2);
+				sb.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_2);
 			}
 
-			query.append(_FINDER_COLUMN_LTE_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_LTE_S_STATUS_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindExpirationDate) {
-					qPos.add(new Timestamp(expirationDate.getTime()));
+					queryPos.add(new Timestamp(expirationDate.getTime()));
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -3900,19 +3898,19 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("expirationDate<");
-		msg.append(expirationDate);
+		sb.append("expirationDate<");
+		sb.append(expirationDate);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -3960,19 +3958,19 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(6);
+		StringBundler sb = new StringBundler(6);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("expirationDate<");
-		msg.append(expirationDate);
+		sb.append("expirationDate<");
+		sb.append(expirationDate);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -4056,117 +4054,117 @@ public class CommercePriceModifierPersistenceImpl
 		OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 		boolean bindExpirationDate = false;
 
 		if (expirationDate == null) {
-			query.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_1);
+			sb.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_1);
 		}
 		else {
 			bindExpirationDate = true;
 
-			query.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_2);
+			sb.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_2);
 		}
 
-		query.append(_FINDER_COLUMN_LTE_S_STATUS_2);
+		sb.append(_FINDER_COLUMN_LTE_S_STATUS_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
 		if (bindExpirationDate) {
-			qPos.add(new Timestamp(expirationDate.getTime()));
+			queryPos.add(new Timestamp(expirationDate.getTime()));
 		}
 
-		qPos.add(status);
+		queryPos.add(status);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -4209,41 +4207,41 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
 			boolean bindExpirationDate = false;
 
 			if (expirationDate == null) {
-				query.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_1);
+				sb.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_1);
 			}
 			else {
 				bindExpirationDate = true;
 
-				query.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_2);
+				sb.append(_FINDER_COLUMN_LTE_S_EXPIRATIONDATE_2);
 			}
 
-			query.append(_FINDER_COLUMN_LTE_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_LTE_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindExpirationDate) {
-					qPos.add(new Timestamp(expirationDate.getTime()));
+					queryPos.add(new Timestamp(expirationDate.getTime()));
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -4397,51 +4395,51 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					5 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(5);
+				sb = new StringBundler(5);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_G_C_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_C_S_GROUPID_2);
 
-			query.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_G_C_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_G_C_S_STATUS_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(groupId);
+				queryPos.add(groupId);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -4487,22 +4485,22 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(8);
+		StringBundler sb = new StringBundler(8);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("groupId=");
-		msg.append(groupId);
+		sb.append("groupId=");
+		sb.append(groupId);
 
-		msg.append(", companyId=");
-		msg.append(companyId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -4552,22 +4550,22 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(8);
+		StringBundler sb = new StringBundler(8);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("groupId=");
-		msg.append(groupId);
+		sb.append("groupId=");
+		sb.append(groupId);
 
-		msg.append(", companyId=");
-		msg.append(companyId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 
-		msg.append(", status=");
-		msg.append(status);
+		sb.append(", status=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -4654,110 +4652,110 @@ public class CommercePriceModifierPersistenceImpl
 		OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(5);
+			sb = new StringBundler(5);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-		query.append(_FINDER_COLUMN_G_C_S_GROUPID_2);
+		sb.append(_FINDER_COLUMN_G_C_S_GROUPID_2);
 
-		query.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
+		sb.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
 
-		query.append(_FINDER_COLUMN_G_C_S_STATUS_2);
+		sb.append(_FINDER_COLUMN_G_C_S_STATUS_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(groupId);
+		queryPos.add(groupId);
 
-		qPos.add(companyId);
+		queryPos.add(companyId);
 
-		qPos.add(status);
+		queryPos.add(status);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -4909,57 +4907,56 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = new StringBundler();
+			StringBundler sb = new StringBundler();
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 			if (groupIds.length > 0) {
-				query.append("(");
+				sb.append("(");
 
-				query.append(_FINDER_COLUMN_G_C_S_GROUPID_7);
+				sb.append(_FINDER_COLUMN_G_C_S_GROUPID_7);
 
-				query.append(StringUtil.merge(groupIds));
+				sb.append(StringUtil.merge(groupIds));
 
-				query.append(")");
+				sb.append(")");
 
-				query.append(")");
+				sb.append(")");
 
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_G_C_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_G_C_S_STATUS_2);
 
-			query.setStringAt(
-				removeConjunction(query.stringAt(query.index() - 1)),
-				query.index() - 1);
+			sb.setStringAt(
+				removeConjunction(sb.stringAt(sb.index() - 1)), sb.index() - 1);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -5019,34 +5016,34 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_G_C_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_C_S_GROUPID_2);
 
-			query.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_G_C_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_G_C_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(groupId);
+				queryPos.add(groupId);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -5090,48 +5087,47 @@ public class CommercePriceModifierPersistenceImpl
 			_finderPathWithPaginationCountByG_C_S, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler();
+			StringBundler sb = new StringBundler();
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
 			if (groupIds.length > 0) {
-				query.append("(");
+				sb.append("(");
 
-				query.append(_FINDER_COLUMN_G_C_S_GROUPID_7);
+				sb.append(_FINDER_COLUMN_G_C_S_GROUPID_7);
 
-				query.append(StringUtil.merge(groupIds));
+				sb.append(StringUtil.merge(groupIds));
 
-				query.append(")");
+				sb.append(")");
 
-				query.append(")");
+				sb.append(")");
 
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_G_C_S_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_G_C_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_G_C_S_STATUS_2);
 
-			query.setStringAt(
-				removeConjunction(query.stringAt(query.index() - 1)),
-				query.index() - 1);
+			sb.setStringAt(
+				removeConjunction(sb.stringAt(sb.index() - 1)), sb.index() - 1);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathWithPaginationCountByG_C_S, finderArgs, count);
@@ -5278,51 +5274,51 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					5 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(5);
+				sb = new StringBundler(5);
 			}
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_2);
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(groupId);
+				queryPos.add(groupId);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -5368,22 +5364,22 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(8);
+		StringBundler sb = new StringBundler(8);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("groupId=");
-		msg.append(groupId);
+		sb.append("groupId=");
+		sb.append(groupId);
 
-		msg.append(", companyId=");
-		msg.append(companyId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 
-		msg.append(", status!=");
-		msg.append(status);
+		sb.append(", status!=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -5433,22 +5429,22 @@ public class CommercePriceModifierPersistenceImpl
 			return commercePriceModifier;
 		}
 
-		StringBundler msg = new StringBundler(8);
+		StringBundler sb = new StringBundler(8);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("groupId=");
-		msg.append(groupId);
+		sb.append("groupId=");
+		sb.append(groupId);
 
-		msg.append(", companyId=");
-		msg.append(companyId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 
-		msg.append(", status!=");
-		msg.append(status);
+		sb.append(", status!=");
+		sb.append(status);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchPriceModifierException(msg.toString());
+		throw new NoSuchPriceModifierException(sb.toString());
 	}
 
 	/**
@@ -5535,110 +5531,110 @@ public class CommercePriceModifierPersistenceImpl
 		OrderByComparator<CommercePriceModifier> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(5);
+			sb = new StringBundler(5);
 		}
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-		query.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_2);
+		sb.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_2);
 
-		query.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
+		sb.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
 
-		query.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
+		sb.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+			sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(groupId);
+		queryPos.add(groupId);
 
-		qPos.add(companyId);
+		queryPos.add(companyId);
 
-		qPos.add(status);
+		queryPos.add(status);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						commercePriceModifier)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<CommercePriceModifier> list = q.list();
+		List<CommercePriceModifier> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -5790,57 +5786,56 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = new StringBundler();
+			StringBundler sb = new StringBundler();
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
 			if (groupIds.length > 0) {
-				query.append("(");
+				sb.append("(");
 
-				query.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_7);
+				sb.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_7);
 
-				query.append(StringUtil.merge(groupIds));
+				sb.append(StringUtil.merge(groupIds));
 
-				query.append(")");
+				sb.append(")");
 
-				query.append(")");
+				sb.append(")");
 
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
 
-			query.setStringAt(
-				removeConjunction(query.stringAt(query.index() - 1)),
-				query.index() - 1);
+			sb.setStringAt(
+				removeConjunction(sb.stringAt(sb.index() - 1)), sb.index() - 1);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
+				sb.append(CommercePriceModifierModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -5901,34 +5896,34 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_2);
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(groupId);
+				queryPos.add(groupId);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -5972,48 +5967,47 @@ public class CommercePriceModifierPersistenceImpl
 			_finderPathWithPaginationCountByG_C_NotS, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler();
+			StringBundler sb = new StringBundler();
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
 			if (groupIds.length > 0) {
-				query.append("(");
+				sb.append("(");
 
-				query.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_7);
+				sb.append(_FINDER_COLUMN_G_C_NOTS_GROUPID_7);
 
-				query.append(StringUtil.merge(groupIds));
+				sb.append(StringUtil.merge(groupIds));
 
-				query.append(")");
+				sb.append(")");
 
-				query.append(")");
+				sb.append(")");
 
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
+			sb.append(_FINDER_COLUMN_G_C_NOTS_STATUS_2);
 
-			query.setStringAt(
-				removeConjunction(query.stringAt(query.index() - 1)),
-				query.index() - 1);
+			sb.setStringAt(
+				removeConjunction(sb.stringAt(sb.index() - 1)), sb.index() - 1);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathWithPaginationCountByG_C_NotS, finderArgs,
@@ -6065,23 +6059,23 @@ public class CommercePriceModifierPersistenceImpl
 			companyId, externalReferenceCode);
 
 		if (commercePriceModifier == null) {
-			StringBundler msg = new StringBundler(6);
+			StringBundler sb = new StringBundler(6);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("companyId=");
-			msg.append(companyId);
+			sb.append("companyId=");
+			sb.append(companyId);
 
-			msg.append(", externalReferenceCode=");
-			msg.append(externalReferenceCode);
+			sb.append(", externalReferenceCode=");
+			sb.append(externalReferenceCode);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchPriceModifierException(msg.toString());
+			throw new NoSuchPriceModifierException(sb.toString());
 		}
 
 		return commercePriceModifier;
@@ -6142,41 +6136,41 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_C_ERC_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_C_ERC_COMPANYID_2);
 
 			boolean bindExternalReferenceCode = false;
 
 			if (externalReferenceCode.isEmpty()) {
-				query.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_3);
+				sb.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_3);
 			}
 			else {
 				bindExternalReferenceCode = true;
 
-				query.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_2);
+				sb.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
 				if (bindExternalReferenceCode) {
-					qPos.add(externalReferenceCode);
+					queryPos.add(externalReferenceCode);
 				}
 
-				List<CommercePriceModifier> list = q.list();
+				List<CommercePriceModifier> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -6266,41 +6260,41 @@ public class CommercePriceModifierPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
+			sb.append(_SQL_COUNT_COMMERCEPRICEMODIFIER_WHERE);
 
-			query.append(_FINDER_COLUMN_C_ERC_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_C_ERC_COMPANYID_2);
 
 			boolean bindExternalReferenceCode = false;
 
 			if (externalReferenceCode.isEmpty()) {
-				query.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_3);
+				sb.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_3);
 			}
 			else {
 				bindExternalReferenceCode = true;
 
-				query.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_2);
+				sb.append(_FINDER_COLUMN_C_ERC_EXTERNALREFERENCECODE_2);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(companyId);
+				queryPos.add(companyId);
 
 				if (bindExternalReferenceCode) {
-					qPos.add(externalReferenceCode);
+					queryPos.add(externalReferenceCode);
 				}
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
@@ -7111,32 +7105,32 @@ public class CommercePriceModifierPersistenceImpl
 			return map;
 		}
 
-		StringBundler query = new StringBundler(
+		StringBundler sb = new StringBundler(
 			uncachedPrimaryKeys.size() * 2 + 1);
 
-		query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE_PKS_IN);
+		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE_PKS_IN);
 
 		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			query.append((long)primaryKey);
+			sb.append((long)primaryKey);
 
-			query.append(",");
+			sb.append(",");
 		}
 
-		query.setIndex(query.index() - 1);
+		sb.setIndex(sb.index() - 1);
 
-		query.append(")");
+		sb.append(")");
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			Query q = session.createQuery(sql);
+			Query query = session.createQuery(sql);
 
 			for (CommercePriceModifier commercePriceModifier :
-					(List<CommercePriceModifier>)q.list()) {
+					(List<CommercePriceModifier>)query.list()) {
 
 				map.put(
 					commercePriceModifier.getPrimaryKeyObj(),
@@ -7253,19 +7247,19 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					2 + (orderByComparator.getOrderByFields().length * 2));
 
-				query.append(_SQL_SELECT_COMMERCEPRICEMODIFIER);
+				sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER);
 
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
-				sql = query.toString();
+				sql = sb.toString();
 			}
 			else {
 				sql = _SQL_SELECT_COMMERCEPRICEMODIFIER;
@@ -7278,10 +7272,10 @@ public class CommercePriceModifierPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
 				list = (List<CommercePriceModifier>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -7331,9 +7325,10 @@ public class CommercePriceModifierPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(_SQL_COUNT_COMMERCEPRICEMODIFIER);
+				Query query = session.createQuery(
+					_SQL_COUNT_COMMERCEPRICEMODIFIER);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
