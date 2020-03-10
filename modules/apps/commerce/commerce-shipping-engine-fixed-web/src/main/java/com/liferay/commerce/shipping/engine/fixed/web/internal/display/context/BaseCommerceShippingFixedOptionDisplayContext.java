@@ -19,7 +19,6 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -36,7 +35,7 @@ import javax.portlet.RenderResponse;
 /**
  * @author Alessio Antonio Rendina
  */
-public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
+public class BaseCommerceShippingFixedOptionDisplayContext {
 
 	public BaseCommerceShippingFixedOptionDisplayContext(
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
@@ -49,9 +48,6 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 		this.portletResourcePermission = portletResourcePermission;
 		this.renderRequest = renderRequest;
 		this.renderResponse = renderResponse;
-
-		_defaultOrderByCol = "priority";
-		_defaultOrderByType = "asc";
 	}
 
 	public String getCommerceCurrencyCode() {
@@ -94,18 +90,6 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 		return commerceShippingMethod.getCommerceShippingMethodId();
 	}
 
-	public String getOrderByCol() {
-		return ParamUtil.getString(
-			renderRequest, SearchContainer.DEFAULT_ORDER_BY_COL_PARAM,
-			_defaultOrderByCol);
-	}
-
-	public String getOrderByType() {
-		return ParamUtil.getString(
-			renderRequest, SearchContainer.DEFAULT_ORDER_BY_TYPE_PARAM,
-			_defaultOrderByType);
-	}
-
 	public PortletURL getPortletURL() throws PortalException {
 		PortletURL portletURL = renderResponse.createRenderURL();
 
@@ -137,9 +121,6 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 			portletURL.setParameter("delta", delta);
 		}
 
-		portletURL.setParameter("orderByCol", getOrderByCol());
-		portletURL.setParameter("orderByType", getOrderByType());
-
 		return portletURL;
 	}
 
@@ -155,14 +136,6 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 		}
 
 		return commerceCurrency.round(value);
-	}
-
-	public void setDefaultOrderByCol(String defaultOrderByCol) {
-		_defaultOrderByCol = defaultOrderByCol;
-	}
-
-	public void setDefaultOrderByType(String defaultOrderByType) {
-		_defaultOrderByType = defaultOrderByType;
 	}
 
 	protected CommerceCurrency getCommerceCurrency() {
@@ -184,10 +157,7 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 	protected final PortletResourcePermission portletResourcePermission;
 	protected final RenderRequest renderRequest;
 	protected final RenderResponse renderResponse;
-	protected SearchContainer<T> searchContainer;
 
 	private CommerceShippingMethod _commerceShippingMethod;
-	private String _defaultOrderByCol;
-	private String _defaultOrderByType;
 
 }
