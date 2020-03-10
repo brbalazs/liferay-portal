@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -51,6 +52,32 @@ import org.osgi.service.component.annotations.Reference;
 public class EditCommerceTaxFixedRateMVCActionCommand
 	extends BaseMVCActionCommand {
 
+	protected void deleteCommerceTaxFixedRates(ActionRequest actionRequest)
+		throws PortalException {
+
+		long[] deleteCommerceTaxFixedRateIds = null;
+
+		long commerceTaxFixedRateId = ParamUtil.getLong(
+			actionRequest, "commerceTaxFixedRateId");
+
+		if (commerceTaxFixedRateId > 0) {
+			deleteCommerceTaxFixedRateIds = new long[] {commerceTaxFixedRateId};
+		}
+		else {
+			deleteCommerceTaxFixedRateIds = StringUtil.split(
+				ParamUtil.getString(
+					actionRequest, "deleteCommerceTaxFixedRateIds"),
+				0L);
+		}
+
+		for (long deleteCommerceTaxFixedRateId :
+				deleteCommerceTaxFixedRateIds) {
+
+			_commerceTaxFixedRateService.deleteCommerceTaxFixedRate(
+				deleteCommerceTaxFixedRateId);
+		}
+	}
+
 	@Override
 	protected void doProcessAction(
 			ActionRequest actionRequest, ActionResponse actionResponse)
@@ -61,6 +88,9 @@ public class EditCommerceTaxFixedRateMVCActionCommand
 		try {
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
 				updateCommerceTaxFixedRate(actionRequest);
+			}
+			else if (cmd.equals(Constants.DELETE)) {
+				deleteCommerceTaxFixedRates(actionRequest);
 			}
 		}
 		catch (Exception e) {

@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.shipping.engine.fixed.web.internal.frontend;
 
+import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -38,13 +39,17 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,26 +89,28 @@ public class CommerceShippingFixedOptionClayTable
 			ShippingFixedOption shippingFixedOption =
 				(ShippingFixedOption)model;
 
-			PortletURL portletURL = PortletProviderUtil.getPortletURL(
-				httpServletRequest, CommerceShippingMethod.class.getName(),
-				PortletProvider.Action.EDIT);
+			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK,
+				_getShippingFixedOptionEditURL(
+					httpServletRequest,
+					shippingFixedOption.getShippingFixedOptionId()),
+				StringPool.BLANK, LanguageUtil.get(httpServletRequest, "edit"),
+				null, false, false);
 
-			portletURL.setParameter(
-				"mvcRenderCommandName", "editCommerceShippingFixedOption");
-			portletURL.setParameter(
-				"commerceShippingFixedOptionId",
-				String.valueOf(shippingFixedOption.getShippingFixedOptionId()));
+			editClayDataSetAction.setTarget("sidePanel");
 
-			portletURL.setWindowState(LiferayWindowState.POP_UP);
+			clayTableActions.add(editClayDataSetAction);
 
-			ClayDataSetAction clayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, portletURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "edit"), null, false,
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK,
+				_getShippingFixedOptionDeleteURL(
+					httpServletRequest,
+					shippingFixedOption.getShippingFixedOptionId()),
+				StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "delete"), null, false,
 				false);
 
-			clayDataSetAction.setTarget("sidePanel");
-
-			clayTableActions.add(clayDataSetAction);
+			clayTableActions.add(deleteClayDataSetAction);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -128,10 +135,10 @@ public class CommerceShippingFixedOptionClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField clayTableSchemaField =
-			clayTableSchemaBuilder.addField("name", "name");
+		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
+			"name", "name");
 
-		clayTableSchemaField.setContentRenderer("actionLink");
+		nameField.setContentRenderer("actionLink");
 
 		clayTableSchemaBuilder.addField("description", "description");
 
@@ -176,6 +183,47 @@ public class CommerceShippingFixedOptionClayTable
 		return shippingFixedOptions;
 	}
 
+	private String _getShippingFixedOptionDeleteURL(
+		HttpServletRequest httpServletRequest, long shippingFixedOptionId) {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest, CommercePortletKeys.COMMERCE_SHIPPING_METHODS,
+			PortletRequest.ACTION_PHASE);
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter(
+			ActionRequest.ACTION_NAME, "editCommerceShippingFixedOption");
+		portletURL.setParameter(Constants.CMD, Constants.DELETE);
+		portletURL.setParameter("redirect", redirect);
+		portletURL.setParameter(
+			"commerceShippingFixedOptionId",
+			String.valueOf(shippingFixedOptionId));
+
+		return portletURL.toString();
+	}
+
+	private String _getShippingFixedOptionEditURL(
+			HttpServletRequest httpServletRequest, long shippingFixedOptionId)
+		throws Exception {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, CommerceShippingMethod.class.getName(),
+			PortletProvider.Action.EDIT);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceShippingFixedOption");
+		portletURL.setParameter(
+			"commerceShippingFixedOptionId",
+			String.valueOf(shippingFixedOptionId));
+
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		return portletURL.toString();
+	}
+
 	@Reference
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
@@ -185,5 +233,8 @@ public class CommerceShippingFixedOptionClayTable
 	@Reference
 	private CommerceShippingFixedOptionService
 		_commerceShippingFixedOptionService;
+
+	@Reference
+	private Portal _portal;
 
 }
