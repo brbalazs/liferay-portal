@@ -60,6 +60,9 @@ import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Andrea Di Giorgi
@@ -246,7 +249,7 @@ public class CommerceTestUtil {
 
 		long groupId = commerceOrder.getGroupId();
 
-		CPInstance cpInstance = CPTestUtil.addCPInstance(groupId);
+		CPInstance cpInstance = CPTestUtil.addCPInstanceWithRandomSku(groupId);
 
 		BigDecimal price = BigDecimal.valueOf(RandomTestUtil.randomDouble());
 
@@ -421,9 +424,12 @@ public class CommerceTestUtil {
 			addCommercePaymentMethodGroupRel(long userId, long groupId)
 		throws Exception {
 
+		Map<Locale, String> nameMap = Collections.singletonMap(
+			LocaleUtil.US, "Test Payment Method Group Rel");
+
 		return CommercePaymentMethodGroupRelLocalServiceUtil.
 			addCommercePaymentMethodGroupRel(
-				userId, groupId, null, null, null,
+				userId, groupId, nameMap, null, null,
 				TestCommercePaymentMethod.KEY, 1, true);
 	}
 

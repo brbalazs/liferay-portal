@@ -18,7 +18,6 @@ import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.test.util.CommerceAccountTestUtil;
-import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
@@ -28,20 +27,14 @@ import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.model.CommerceChannelConstants;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.commerce.test.util.CommerceTestUtil;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
-import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
@@ -73,53 +66,40 @@ public class CommercePaymentSubscriptionsTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_company = CompanyTestUtil.addCompany();
-
-		_user = UserTestUtil.addUser(_company);
+		_user = UserTestUtil.addUser();
 
 		_group = GroupTestUtil.addGroup(
-			_company.getCompanyId(), _user.getUserId(), 0);
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(
-				_company.getCompanyId(), _group.getGroupId(),
-				_user.getUserId());
+				_user.getCompanyId(), _group.getGroupId(), _user.getUserId());
 
-		_commerceChannel = _commerceChannelLocalService.addCommerceChannel(
-			_group.getGroupId(),
-			_group.getName(serviceContext.getLanguageId()) + " Portal",
-			CommerceChannelConstants.CHANNEL_TYPE_SITE, null, StringPool.BLANK,
-			StringPool.BLANK, serviceContext);
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
 
-		User user = UserTestUtil.addUser(
-			_user.getCompanyId(), _user.getUserId(), "businessUser",
-			serviceContext.getLocale(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(),
-			new long[] {serviceContext.getScopeGroupId()}, serviceContext);
+		_commerceChannel = CommerceTestUtil.addCommerceChannel(
+			_group.getGroupId(), _commerceCurrency.getCode());
 
 		_commerceAccount = CommerceAccountTestUtil.addBusinessCommerceAccount(
 			_user.getUserId(), RandomTestUtil.randomString(),
 			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			new long[] {user.getUserId()}, null, serviceContext);
+			serviceContext);
 
 		CommerceAccountTestUtil.addCommerceAccountGroupAndAccountRel(
-			_company.getCompanyId(), RandomTestUtil.randomString(),
+			_user.getCompanyId(), RandomTestUtil.randomString(),
 			CommerceAccountConstants.ACCOUNT_GROUP_TYPE_STATIC,
 			_commerceAccount.getCommerceAccountId(), serviceContext);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		_commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_group.getGroupId(), _user.getUserId(),
-			commerceCurrency.getCommerceCurrencyId());
+			_user.getUserId(), _commerceChannel.getGroupId(),
+			_commerceCurrency.getCommerceCurrencyId());
 	}
 
 	@After
 	public void tearDown() {
 		_commerceInventoryWarehouseItemLocalService.
 			deleteCommerceInventoryWarehouseItemsByCompanyId(
-				_company.getCompanyId());
+				_user.getCompanyId());
 	}
 
 	@Test
@@ -130,16 +110,12 @@ public class CommercePaymentSubscriptionsTest {
 		_commerceOrder = _commerceOrderEngine.checkoutCommerceOrder(
 			_commerceOrder, _user.getUserId());
 
-		_commerceOrderEngine.transitionCommerceOrder(
-			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
-			_commerceOrder.getUserId());
-
 		Thread.sleep(1000);
 
 		List<CommerceSubscriptionEntry> commerceSubscriptionEntries =
 			_commerceSubscriptionEntryLocalService.
 				getCommerceSubscriptionEntries(
-					_company.getCompanyId(), _commerceChannel.getGroupId(),
+					_user.getCompanyId(), _commerceChannel.getGroupId(),
 					_user.getUserId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 					null);
 
@@ -191,10 +167,11 @@ public class CommercePaymentSubscriptionsTest {
 	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
 
+	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
 
-	@Inject
-	private CommerceChannelLocalService _commerceChannelLocalService;
+	@DeleteAfterTestRun
+	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CommerceInventoryWarehouseItemLocalService
@@ -207,9 +184,6 @@ public class CommercePaymentSubscriptionsTest {
 	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Inject
-	private CommerceOrderLocalService _commerceOrderLocalService;
-
-	@Inject
 	private CommerceSubscriptionEngine _commerceSubscriptionEngine;
 
 	@Inject
@@ -217,8 +191,6 @@ public class CommercePaymentSubscriptionsTest {
 		_commerceSubscriptionEntryLocalService;
 
 	@DeleteAfterTestRun
-	private Company _company;
-
 	private Group _group;
 
 	@DeleteAfterTestRun
