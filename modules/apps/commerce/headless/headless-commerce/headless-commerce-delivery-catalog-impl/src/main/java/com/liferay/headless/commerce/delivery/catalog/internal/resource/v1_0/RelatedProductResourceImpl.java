@@ -17,8 +17,8 @@ package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionLink;
-import com.liferay.commerce.product.service.CPDefinitionLinkService;
-import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CPDefinitionLinkLocalService;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.RelatedProduct;
@@ -57,7 +57,7 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 		throws Exception {
 
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
+			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException(
@@ -75,21 +75,25 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 		int totalItems;
 
 		if (Validator.isNull(type)) {
-			cpDefinitionLinks = _cpDefinitionLinkService.getCPDefinitionLinks(
-				cpDefinition.getCPDefinitionId(), pagination.getStartPosition(),
-				pagination.getEndPosition());
+			cpDefinitionLinks =
+				_cpDefinitionLinkLocalService.getCPDefinitionLinks(
+					cpDefinition.getCPDefinitionId(),
+					pagination.getStartPosition(), pagination.getEndPosition());
 
-			totalItems = _cpDefinitionLinkService.getCPDefinitionLinksCount(
-				cpDefinition.getCPDefinitionId());
+			totalItems =
+				_cpDefinitionLinkLocalService.getCPDefinitionLinksCount(
+					cpDefinition.getCPDefinitionId());
 		}
 		else {
-			cpDefinitionLinks = _cpDefinitionLinkService.getCPDefinitionLinks(
-				cpDefinition.getCPDefinitionId(), type,
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+			cpDefinitionLinks =
+				_cpDefinitionLinkLocalService.getCPDefinitionLinks(
+					cpDefinition.getCPDefinitionId(), type,
+					pagination.getStartPosition(), pagination.getEndPosition(),
+					null);
 
-			totalItems = _cpDefinitionLinkService.getCPDefinitionLinksCount(
-				cpDefinition.getCPDefinitionId(), type);
+			totalItems =
+				_cpDefinitionLinkLocalService.getCPDefinitionLinksCount(
+					cpDefinition.getCPDefinitionId(), type);
 		}
 
 		return Page.of(
@@ -114,10 +118,10 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 	}
 
 	@Reference
-	private CPDefinitionLinkService _cpDefinitionLinkService;
+	private CPDefinitionLinkLocalService _cpDefinitionLinkLocalService;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Reference
 	private RelatedProductDTOConverter _relatedProductDTOConverter;

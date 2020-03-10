@@ -20,6 +20,7 @@ import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -38,6 +39,10 @@ public interface CPDefinitionHelper {
 	public CPCatalogEntry getCPCatalogEntry(
 			long commerceAccountId, long groupId, long cpDefinitionId,
 			Locale locale)
+		throws PortalException;
+
+	public String getFriendlyURL(
+			long cpDefinitionId, String languageId, Locale locale, Group group)
 		throws PortalException;
 
 	public String getFriendlyURL(long cpDefinitionId, ThemeDisplay themeDisplay)

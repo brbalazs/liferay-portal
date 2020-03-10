@@ -17,8 +17,8 @@ package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
-import com.liferay.commerce.product.service.CPDefinitionService;
-import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueService;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductSpecification;
@@ -58,7 +58,7 @@ public class ProductSpecificationResourceImpl
 		throws Exception {
 
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
+			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException(
@@ -67,14 +67,14 @@ public class ProductSpecificationResourceImpl
 
 		List<CPDefinitionSpecificationOptionValue>
 			cpDefinitionSpecificationOptionValues =
-				_cpDefinitionSpecificationOptionValueService.
+				_cpDefinitionSpecificationOptionValueLocalService.
 					getCPDefinitionSpecificationOptionValues(
 						cpDefinition.getCPDefinitionId(),
 						pagination.getStartPosition(),
 						pagination.getEndPosition(), null);
 
 		int totalItems =
-			_cpDefinitionSpecificationOptionValueService.
+			_cpDefinitionSpecificationOptionValueLocalService.
 				getCPDefinitionSpecificationOptionValuesCount(
 					cpDefinition.getCPDefinitionId());
 
@@ -106,11 +106,11 @@ public class ProductSpecificationResourceImpl
 	}
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Reference
-	private CPDefinitionSpecificationOptionValueService
-		_cpDefinitionSpecificationOptionValueService;
+	private CPDefinitionSpecificationOptionValueLocalService
+		_cpDefinitionSpecificationOptionValueLocalService;
 
 	@Reference
 	private ProductSpecificationDTOConverter _productSpecificationDTOConverter;

@@ -59,6 +59,15 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceAccountHelperImpl implements CommerceAccountHelper {
 
 	@Override
+	public int countUserCommerceAccounts(long userId, long channelGroupId)
+		throws PortalException {
+
+		return _commerceAccountLocalService.getUserCommerceAccountsCount(
+			userId, CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
+			_getCommerceSiteType(channelGroupId), StringPool.BLANK);
+	}
+
+	@Override
 	public String getAccountManagementPortletURL(
 			HttpServletRequest httpServletRequest)
 		throws PortalException {

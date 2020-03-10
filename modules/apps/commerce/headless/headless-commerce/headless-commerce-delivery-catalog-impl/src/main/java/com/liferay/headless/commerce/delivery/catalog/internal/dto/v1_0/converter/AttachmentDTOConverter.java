@@ -16,7 +16,7 @@ package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.convert
 
 import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
-import com.liferay.commerce.product.service.CPAttachmentFileEntryService;
+import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Attachment;
@@ -40,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Sbarra
  */
 @Component(
-	property = "model.class.name=com.liferay.commerce.product.model.CPAttachmentFileEntry",
+	property = "model.class.name=CPAttachmentFileEntry",
 	service = {AttachmentDTOConverter.class, DTOConverter.class}
 )
 public class AttachmentDTOConverter implements DTOConverter {
@@ -54,7 +54,7 @@ public class AttachmentDTOConverter implements DTOConverter {
 		throws Exception {
 
 		CPAttachmentFileEntry cpAttachmentFileEntry =
-			_cpAttachmentFileEntryService.getCPAttachmentFileEntry(
+			_cpAttachmentFileEntryLocalService.getCPAttachmentFileEntry(
 				dtoConverterContext.getResourcePrimKey());
 
 		String languageId = LanguageUtil.getLanguageId(
@@ -117,7 +117,8 @@ public class AttachmentDTOConverter implements DTOConverter {
 	private CompanyLocalService _companyLocalService;
 
 	@Reference
-	private CPAttachmentFileEntryService _cpAttachmentFileEntryService;
+	private CPAttachmentFileEntryLocalService
+		_cpAttachmentFileEntryLocalService;
 
 	@Reference
 	private JSONFactory _jsonFactory;

@@ -15,25 +15,23 @@
 package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter;
 
 import com.liferay.asset.kernel.model.AssetTag;
-import com.liferay.asset.kernel.service.AssetTagService;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.product.content.util.CPContentHelper;
+import com.liferay.asset.kernel.service.AssetTagLocalService;
 import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.model.CommerceCatalog;
-import com.liferay.commerce.product.service.CPDefinitionService;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
-import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
@@ -43,7 +41,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Sbarra
  */
 @Component(
-	property = "model.class.name=com.liferay.commerce.product.model.CPDefinition",
+	property = "model.class.name=CPDefinition",
 	service = {DTOConverter.class, ProductDTOConverter.class}
 )
 public class ProductDTOConverter implements DTOConverter {
@@ -59,7 +57,10 @@ public class ProductDTOConverter implements DTOConverter {
 		ProductDTOConverterContext cpCatalogEntryDTOConverterConvertContext =
 			(ProductDTOConverterContext)dtoConverterContext;
 
-		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
+		CommerceChannel commerceChannel =
+			cpCatalogEntryDTOConverterConvertContext.getCommerceChannel();
+
+		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
 			cpCatalogEntryDTOConverterConvertContext.getResourcePrimKey());
 
 		String languageId = LanguageUtil.getLanguageId(
@@ -78,7 +79,9 @@ public class ProductDTOConverter implements DTOConverter {
 				description = cpDefinition.getDescription();
 				expando = expandoBridge.getAttributes();
 				friendlyUrl = _getFriendlyUrl(
-					cpDefinition, languageId, portalURL);
+					cpDefinition, languageId,
+					cpCatalogEntryDTOConverterConvertContext.getLocale(),
+					portalURL, commerceChannel);
 				id = cpDefinition.getCPDefinitionId();
 				metaDescription = cpDefinition.getMetaDescription(languageId);
 				metaKeyword = cpDefinition.getMetaKeywords(languageId);
@@ -96,17 +99,20 @@ public class ProductDTOConverter implements DTOConverter {
 	}
 
 	private String _getFriendlyUrl(
-		CPDefinition cpDefinition, String languageId, String portalURL) {
+			CPDefinition cpDefinition, String languageId, Locale locale,
+			String portalURL, CommerceChannel commerceChannel)
+		throws PortalException {
 
-		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
+		String commerceChannelType = commerceChannel.getType();
 
-		return StringBundler.concat(
-			portalURL, "/group/", commerceCatalog.getName(), "/p/",
-			cpDefinition.getURL(languageId));
+		return portalURL + "/" +
+			_cpDefinitionHelper.getFriendlyURL(
+				cpDefinition.getCPDefinitionId(), languageId, locale,
+				commerceChannel.getGroup());
 	}
 
 	private String[] _getTags(CPDefinition cpDefinition) {
-		List<AssetTag> assetEntryAssetTags = _assetTagService.getTags(
+		List<AssetTag> assetEntryAssetTags = _assetTagLocalService.getTags(
 			cpDefinition.getModelClassName(), cpDefinition.getCPDefinitionId());
 
 		Stream<AssetTag> stream = assetEntryAssetTags.stream();
@@ -119,28 +125,18 @@ public class ProductDTOConverter implements DTOConverter {
 	}
 
 	@Reference
-	private AssetTagService _assetTagService;
+	private AssetTagLocalService _assetTagLocalService;
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CompanyLocalService _companyLocalService;
 
 	@Reference
-	private CPContentHelper _cpContentHelper;
-
-	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
-	private CPDefinitionInventoryEngineRegistry
-		_cpDefinitionInventoryEngineRegistry;
-
-	@Reference
-	private CPDefinitionService _cpDefinitionService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 }

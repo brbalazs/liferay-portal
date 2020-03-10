@@ -16,6 +16,7 @@ package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.convert
 
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 
 import java.util.Locale;
@@ -26,19 +27,27 @@ import java.util.Locale;
 public class ProductDTOConverterContext extends DefaultDTOConverterContext {
 
 	public ProductDTOConverterContext(
-		Locale locale, long resourcePrimKey, CPCatalogEntry cpCatalogEntry) {
+		Locale locale, long resourcePrimKey, CPCatalogEntry cpCatalogEntry,
+		CommerceChannel commerceChannel) {
 
 		super(locale, resourcePrimKey);
 
 		_cpCatalogEntry = cpCatalogEntry;
+		_commerceChannel = commerceChannel;
 	}
 
 	public ProductDTOConverterContext(
-		Locale locale, long resourcePrimKey, CPDefinition cpDefinition) {
+		Locale locale, long resourcePrimKey, CPDefinition cpDefinition,
+		CommerceChannel commerceChannel) {
 
 		super(locale, resourcePrimKey);
 
 		_cpDefinition = cpDefinition;
+		_commerceChannel = commerceChannel;
+	}
+
+	public CommerceChannel getCommerceChannel() {
+		return _commerceChannel;
 	}
 
 	public CPCatalogEntry getCpCatalogEntry() {
@@ -49,6 +58,7 @@ public class ProductDTOConverterContext extends DefaultDTOConverterContext {
 		return _cpDefinition;
 	}
 
+	private final CommerceChannel _commerceChannel;
 	private CPCatalogEntry _cpCatalogEntry;
 	private CPDefinition _cpDefinition;
 

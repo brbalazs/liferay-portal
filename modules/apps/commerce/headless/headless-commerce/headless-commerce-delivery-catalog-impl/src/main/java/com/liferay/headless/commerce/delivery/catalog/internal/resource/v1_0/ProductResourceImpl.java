@@ -18,12 +18,13 @@ import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
+import com.liferay.commerce.product.exception.NoSuchChannelException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
-import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.ProductDTOConverter;
@@ -69,15 +70,18 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 			@NotNull Long channelId, @NotNull Long productId)
 		throws Exception {
 
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannel(channelId);
+
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
+			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException(
 				"Unable to find Product with ID: " + productId);
 		}
 
-		return _toProduct(cpDefinition);
+		return _toProduct(cpDefinition, commerceChannel);
 	}
 
 	@Override
@@ -94,11 +98,15 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
 
 		CommerceChannel commerceChannel =
-			_commerceChannelService.fetchCommerceChannel(channelId);
+			_commerceChannelLocalService.fetchCommerceChannel(channelId);
 
 		if (commerceChannel != null) {
 			attributes.put(
 				"commerceChannelGroupId", commerceChannel.getGroupId());
+		}
+		else {
+			throw new NoSuchChannelException(
+				"Cannot find channel with id: " + channelId);
 		}
 
 		searchContext.setAttributes(attributes);
@@ -128,21 +136,27 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 			pagination.getStartPosition(), pagination.getEndPosition());
 
 		return Page.of(
-			_toProducts(cpDataSourceResult), pagination,
+			_toProducts(cpDataSourceResult, commerceChannel), pagination,
 			cpDataSourceResult.getLength());
 	}
 
 	@Context
 	protected Company contextCompany;
 
-	private Product _toProduct(CPDefinition cpDefinition) throws Exception {
+	private Product _toProduct(
+			CPDefinition cpDefinition, CommerceChannel commerceChannel)
+		throws Exception {
+
 		return _productDTOConverter.toDTO(
 			new ProductDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
-				cpDefinition.getCPDefinitionId(), cpDefinition));
+				cpDefinition.getCPDefinitionId(), cpDefinition,
+				commerceChannel));
 	}
 
-	private List<Product> _toProducts(CPDataSourceResult cpDataSourceResult)
+	private List<Product> _toProducts(
+			CPDataSourceResult cpDataSourceResult,
+			CommerceChannel commerceChannel)
 		throws Exception {
 
 		List<Product> products = new ArrayList<>();
@@ -154,7 +168,8 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 				_productDTOConverter.toDTO(
 					new ProductDTOConverterContext(
 						contextAcceptLanguage.getPreferredLocale(),
-						cpCatalogEntry.getCPDefinitionId(), cpCatalogEntry)));
+						cpCatalogEntry.getCPDefinitionId(), cpCatalogEntry,
+						commerceChannel)));
 		}
 
 		return products;
@@ -164,13 +179,13 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Reference
 	private ProductDTOConverter _productDTOConverter;

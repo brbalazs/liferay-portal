@@ -17,8 +17,8 @@ package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
-import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
-import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductOption;
@@ -56,7 +56,7 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 		throws Exception {
 
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
+			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException(
@@ -64,12 +64,12 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 		}
 
 		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
-			_cpDefinitionOptionRelService.getCPDefinitionOptionRels(
+			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
 				cpDefinition.getCPDefinitionId(), pagination.getStartPosition(),
 				pagination.getEndPosition());
 
 		int totalItems =
-			_cpDefinitionOptionRelService.getCPDefinitionOptionRelsCount(
+			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRelsCount(
 				cpDefinition.getCPDefinitionId());
 
 		return Page.of(
@@ -96,10 +96,11 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 	}
 
 	@Reference
-	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionOptionRelLocalService
+		_cpDefinitionOptionRelLocalService;
 
 	@Reference
 	private ProductOptionDTOConverter _productOptionDTOConverter;

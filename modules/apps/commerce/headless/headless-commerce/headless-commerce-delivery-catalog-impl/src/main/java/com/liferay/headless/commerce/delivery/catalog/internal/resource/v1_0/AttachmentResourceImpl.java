@@ -18,8 +18,8 @@ import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.service.CPAttachmentFileEntryService;
-import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Attachment;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
@@ -59,7 +59,7 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 		throws Exception {
 
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
+			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException(
@@ -67,7 +67,7 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 		}
 
 		return _getAttachmentPage(
-			cpDefinition, CPAttachmentFileEntryConstants.TYPE_IMAGE,
+			cpDefinition, CPAttachmentFileEntryConstants.TYPE_OTHER,
 			pagination);
 	}
 
@@ -80,7 +80,7 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 		throws Exception {
 
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
+			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException(
@@ -97,7 +97,7 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 		throws Exception {
 
 		List<CPAttachmentFileEntry> cpAttachmentFileEntries =
-			_cpAttachmentFileEntryService.getCPAttachmentFileEntries(
+			_cpAttachmentFileEntryLocalService.getCPAttachmentFileEntries(
 				_classNameLocalService.getClassNameId(
 					cpDefinition.getModelClass()),
 				cpDefinition.getCPDefinitionId(), type,
@@ -105,7 +105,7 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 				pagination.getStartPosition(), pagination.getEndPosition());
 
 		int totalItems =
-			_cpAttachmentFileEntryService.getCPAttachmentFileEntriesCount(
+			_cpAttachmentFileEntryLocalService.getCPAttachmentFileEntriesCount(
 				_classNameLocalService.getClassNameId(
 					cpDefinition.getModelClass()),
 				cpDefinition.getCPDefinitionId(), type,
@@ -141,9 +141,10 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 	private ClassNameLocalService _classNameLocalService;
 
 	@Reference
-	private CPAttachmentFileEntryService _cpAttachmentFileEntryService;
+	private CPAttachmentFileEntryLocalService
+		_cpAttachmentFileEntryLocalService;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 }

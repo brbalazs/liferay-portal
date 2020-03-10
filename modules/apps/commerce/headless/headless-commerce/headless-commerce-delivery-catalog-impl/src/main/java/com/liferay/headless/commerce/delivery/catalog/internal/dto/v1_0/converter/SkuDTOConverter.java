@@ -26,8 +26,10 @@ import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
-import com.liferay.commerce.product.service.CPInstanceService;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
+import com.liferay.commerce.product.util.DDMFormValuesUtil;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Availability;
@@ -35,6 +37,7 @@ import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Price;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.language.LanguageResources;
 
@@ -54,7 +57,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Sbarra
  */
 @Component(
-	property = "model.class.name=com.liferay.commerce.product.catalog.CPSku",
+	property = "model.class.name=CPSku",
 	service = {DTOConverter.class, SkuDTOConverter.class}
 )
 public class SkuDTOConverter implements DTOConverter {
@@ -68,7 +71,7 @@ public class SkuDTOConverter implements DTOConverter {
 		SkuDTOConverterContext cpSkuDTOConverterConvertContext =
 			(SkuDTOConverterContext)dtoConverterContext;
 
-		CPInstance cpInstance = _cpInstanceService.getCPInstance(
+		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
 			cpSkuDTOConverterConvertContext.getResourcePrimKey());
 
 		CommerceContext commerceContext =
@@ -155,10 +158,20 @@ public class SkuDTOConverter implements DTOConverter {
 
 		Map<String, String> options = new HashMap<>();
 
+		Map<String, List<String>>
+			cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys =
+				_cpDefinitionOptionRelLocalService.
+					getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
+						cpInstance.getCPInstanceId());
+
+		JSONArray keyValuesJSONArray = DDMFormValuesUtil.toJSONArray(
+			cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys);
+
 		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 			cpDefinitionOptionRelsMap =
 				_cpInstanceHelper.getCPDefinitionOptionRelsMap(
-					cpInstance.getCPDefinitionId(), cpInstance.getJson());
+					cpInstance.getCPDefinitionId(),
+					keyValuesJSONArray.toString());
 
 		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 				entry : cpDefinitionOptionRelsMap.entrySet()) {
@@ -258,9 +271,13 @@ public class SkuDTOConverter implements DTOConverter {
 	private CPDefinitionInventoryEngine _cpDefinitionInventoryEngine;
 
 	@Reference
+	private CPDefinitionOptionRelLocalService
+		_cpDefinitionOptionRelLocalService;
+
+	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
 
 	@Reference
-	private CPInstanceService _cpInstanceService;
+	private CPInstanceLocalService _cpInstanceLocalService;
 
 }

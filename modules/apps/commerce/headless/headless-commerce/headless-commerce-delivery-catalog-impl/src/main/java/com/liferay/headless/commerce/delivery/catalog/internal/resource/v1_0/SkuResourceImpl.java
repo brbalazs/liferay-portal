@@ -14,14 +14,16 @@
 
 package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0;
 
+import com.liferay.commerce.account.exception.NoSuchAccountException;
+import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CPDefinitionService;
-import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.SkuDTOConverter;
@@ -55,47 +57,67 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 	@Override
 	public Page<Sku> getChannelProductSkusPage(
 			@NotNull Long channelId,
-			@NestedFieldId("productId") @NotNull Long productId,
+			@NestedFieldId("productId") @NotNull Long productId, Long accountId,
 			Pagination pagination)
 		throws Exception {
 
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
+			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			return super.getChannelProductSkusPage(
-				channelId, productId, pagination);
+				channelId, productId, accountId, pagination);
 		}
 
 		List<CPInstance> cpInstances =
-			_cpInstanceService.getCPDefinitionInstances(
+			_cpInstanceLocalService.getCPDefinitionInstances(
 				cpDefinition.getCPDefinitionId(),
 				WorkflowConstants.STATUS_APPROVED,
 				pagination.getStartPosition(), pagination.getEndPosition(),
 				null);
 
-		int totalItems = _cpInstanceService.getCPDefinitionInstancesCount(
+		int totalItems = _cpInstanceLocalService.getCPDefinitionInstancesCount(
 			cpDefinition.getCPDefinitionId(),
 			WorkflowConstants.STATUS_APPROVED);
 
 		return Page.of(
-			_toSKUs(channelId, cpInstances, cpDefinition), pagination,
-			totalItems);
+			_toSKUs(channelId, accountId, cpInstances, cpDefinition),
+			pagination, totalItems);
 	}
 
 	private List<Sku> _toSKUs(
-			Long channelId, List<CPInstance> cpInstances,
+			Long channelId, Long accountId, List<CPInstance> cpInstances,
 			CPDefinition cpDefinition)
 		throws Exception {
 
 		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
+			_commerceChannelLocalService.getCommerceChannel(channelId);
 
 		List<Sku> skus = new ArrayList<>();
 
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
-			contextUser.getUserId(), 0, contextCompany.getAccountId());
+		int countUserCommerceAccounts =
+			_commerceAccountHelper.countUserCommerceAccounts(
+				contextUser.getUserId(), commerceChannel.getGroupId());
+
+		CommerceContext commerceContext;
+
+		if (countUserCommerceAccounts > 1) {
+			if (accountId == null) {
+				throw new NoSuchAccountException();
+			}
+
+			commerceContext = _commerceContextFactory.create(
+				contextCompany.getCompanyId(), commerceChannel.getGroupId(),
+				contextUser.getUserId(), 0, accountId);
+		}
+		else {
+			long[] commerceAccountIds =
+				_commerceAccountHelper.getUserCommerceAccountIds(
+					contextUser.getUserId(), commerceChannel.getGroupId());
+			commerceContext = _commerceContextFactory.create(
+				contextCompany.getCompanyId(), commerceChannel.getGroupId(),
+				contextUser.getUserId(), 0, commerceAccountIds[0]);
+		}
 
 		for (CPInstance cpInstance : cpInstances) {
 			skus.add(
@@ -110,16 +132,19 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 	}
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceAccountHelper _commerceAccountHelper;
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceContextFactory _commerceContextFactory;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Reference
-	private CPInstanceService _cpInstanceService;
+	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private SkuDTOConverter _skuDTOConverter;

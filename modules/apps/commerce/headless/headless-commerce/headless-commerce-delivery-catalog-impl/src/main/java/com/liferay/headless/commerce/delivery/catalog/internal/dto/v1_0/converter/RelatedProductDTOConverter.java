@@ -16,7 +16,7 @@ package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.convert
 
 import com.liferay.commerce.product.model.CPDefinitionLink;
 import com.liferay.commerce.product.model.CProduct;
-import com.liferay.commerce.product.service.CPDefinitionLinkService;
+import com.liferay.commerce.product.service.CPDefinitionLinkLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.RelatedProduct;
@@ -28,7 +28,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Sbarra
  */
 @Component(
-	property = "model.class.name=com.liferay.commerce.product.model.CPDefinitionLink",
+	property = "model.class.name=CPDefinitionLink",
 	service = {DTOConverter.class, RelatedProductDTOConverter.class}
 )
 public class RelatedProductDTOConverter implements DTOConverter {
@@ -42,7 +42,7 @@ public class RelatedProductDTOConverter implements DTOConverter {
 		throws Exception {
 
 		CPDefinitionLink cpDefinitionLink =
-			_cpDefinitionLinkService.getCPDefinitionLink(
+			_cpDefinitionLinkLocalService.getCPDefinitionLink(
 				dtoConverterContext.getResourcePrimKey());
 
 		CProduct cProduct = cpDefinitionLink.getCProduct();
@@ -58,6 +58,6 @@ public class RelatedProductDTOConverter implements DTOConverter {
 	}
 
 	@Reference
-	private CPDefinitionLinkService _cpDefinitionLinkService;
+	private CPDefinitionLinkLocalService _cpDefinitionLinkLocalService;
 
 }

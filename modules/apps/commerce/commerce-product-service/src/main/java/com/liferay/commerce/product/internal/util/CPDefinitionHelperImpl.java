@@ -99,6 +99,18 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 	}
 
 	@Override
+	public String getFriendlyURL(
+			long cpDefinitionId, String languageId, Locale locale, Group group)
+		throws PortalException {
+
+		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
+			cpDefinitionId);
+
+		return _getFriendlyURL(
+			cpDefinition.getCProductId(), languageId, locale, group);
+	}
+
+	@Override
 	public String getFriendlyURL(long cpDefinitionId, ThemeDisplay themeDisplay)
 		throws PortalException {
 
@@ -173,6 +185,75 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 		searchContext.setStart(start);
 
 		return cpDefinitionSearcher;
+	}
+
+	private String _getFriendlyURL(
+			long cProductId, String languageId, Locale locale, Group group)
+		throws PortalException {
+
+		long classNameId = _portal.getClassNameId(CProduct.class);
+
+		CPFriendlyURLEntry cpFriendlyURLEntry =
+			_cpFriendlyURLEntryLocalService.fetchCPFriendlyURLEntry(
+				GroupConstants.DEFAULT_LIVE_GROUP_ID, classNameId, cProductId,
+				languageId, true);
+
+		if (cpFriendlyURLEntry == null) {
+			cpFriendlyURLEntry =
+				_cpFriendlyURLEntryLocalService.fetchCPFriendlyURLEntry(
+					GroupConstants.DEFAULT_LIVE_GROUP_ID, classNameId,
+					cProductId, LocaleUtil.toLanguageId(locale), true);
+		}
+
+		if (cpFriendlyURLEntry == null) {
+			if (_log.isInfoEnabled()) {
+				_log.info("No friendly URL found for " + cProductId);
+			}
+
+			return StringPool.BLANK;
+		}
+
+		Layout layout = null;
+
+		CProduct cProduct = _cProductLocalService.getCProduct(cProductId);
+
+		String layoutUuid = _cpDefinitionLocalService.getLayoutUuid(
+			cProduct.getPublishedCPDefinitionId());
+
+		if (Validator.isNotNull(layoutUuid)) {
+			try {
+				layout = _layoutLocalService.getLayoutByUuidAndGroupId(
+					layoutUuid, group.getGroupId(), true);
+			}
+			catch (PortalException pe) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(pe, pe);
+				}
+			}
+
+			if (layout == null) {
+				try {
+					layout = _layoutLocalService.getLayoutByUuidAndGroupId(
+						layoutUuid, group.getGroupId(), false);
+				}
+				catch (PortalException pe) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(pe, pe);
+					}
+				}
+			}
+		}
+
+		if (layout == null) {
+			long plid = _portal.getPlidFromPortletId(
+				group.getGroupId(), CPPortletKeys.CP_CONTENT_WEB);
+
+			if (plid > 0) {
+				layout = _layoutLocalService.getLayout(plid);
+			}
+		}
+
+		return cpFriendlyURLEntry.getUrlTitle();
 	}
 
 	private String _getFriendlyURL(long cProductId, ThemeDisplay themeDisplay)

@@ -17,8 +17,8 @@ package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.convert
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPOption;
-import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
-import com.liferay.commerce.product.service.CPDefinitionOptionValueRelService;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductOption;
@@ -36,7 +36,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Sbarra
  */
 @Component(
-	property = "model.class.name=com.liferay.commerce.product.model.CPDefinitionOptionRel",
+	property = "model.class.name=CPDefinitionOptionRel",
 	service = {DTOConverter.class, ProductOptionDTOConverter.class}
 )
 public class ProductOptionDTOConverter implements DTOConverter {
@@ -50,7 +50,7 @@ public class ProductOptionDTOConverter implements DTOConverter {
 		throws Exception {
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
-			_cpDefinitionOptionRelService.getCPDefinitionOptionRel(
+			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
 				dtoConverterContext.getResourcePrimKey());
 
 		String languageId = LanguageUtil.getLanguageId(
@@ -94,13 +94,15 @@ public class ProductOptionDTOConverter implements DTOConverter {
 		throws PortalException {
 
 		int total =
-			_cpDefinitionOptionValueRelService.
+			_cpDefinitionOptionValueRelLocalService.
 				getCPDefinitionOptionValueRelsCount(
 					cpDefinitionOptionRel.getCPDefinitionOptionRelId());
 
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-			_cpDefinitionOptionValueRelService.getCPDefinitionOptionValueRels(
-				cpDefinitionOptionRel.getCPDefinitionOptionRelId(), 0, total);
+			_cpDefinitionOptionValueRelLocalService.
+				getCPDefinitionOptionValueRels(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId(), 0,
+					total);
 
 		List<ProductOptionValue> productOptionValues = new ArrayList<>();
 
@@ -115,10 +117,11 @@ public class ProductOptionDTOConverter implements DTOConverter {
 	}
 
 	@Reference
-	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
+	private CPDefinitionOptionRelLocalService
+		_cpDefinitionOptionRelLocalService;
 
 	@Reference
-	private CPDefinitionOptionValueRelService
-		_cpDefinitionOptionValueRelService;
+	private CPDefinitionOptionValueRelLocalService
+		_cpDefinitionOptionValueRelLocalService;
 
 }

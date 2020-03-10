@@ -18,7 +18,7 @@ import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.service.AssetCategoryService;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
@@ -57,7 +57,7 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 		throws Exception {
 
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
+			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException(
@@ -65,13 +65,13 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 		}
 
 		List<AssetCategory> assetCategories =
-			_assetCategoryService.getCategories(
+			_assetCategoryLocalService.getCategories(
 				_classNameLocalService.getClassNameId(
 					cpDefinition.getModelClass()),
 				cpDefinition.getCPDefinitionId(), pagination.getStartPosition(),
 				pagination.getEndPosition());
 
-		int totalItems = _assetCategoryService.getCategoriesCount(
+		int totalItems = _assetCategoryLocalService.getCategoriesCount(
 			_classNameLocalService.getClassNameId(cpDefinition.getModelClass()),
 			cpDefinition.getCPDefinitionId());
 
@@ -97,7 +97,7 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 	}
 
 	@Reference
-	private AssetCategoryService _assetCategoryService;
+	private AssetCategoryService _assetCategoryLocalService;
 
 	@Reference
 	private CategoryDTOConverter _categoryDTOConverter;
@@ -106,6 +106,6 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 	private ClassNameLocalService _classNameLocalService;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 }

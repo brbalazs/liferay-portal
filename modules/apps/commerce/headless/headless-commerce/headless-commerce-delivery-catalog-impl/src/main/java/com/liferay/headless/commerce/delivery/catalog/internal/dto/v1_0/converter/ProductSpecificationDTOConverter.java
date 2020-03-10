@@ -17,7 +17,7 @@ package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.convert
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.model.CPSpecificationOption;
-import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueService;
+import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductSpecification;
@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Sbarra
  */
 @Component(
-	property = "model.class.name=com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue",
+	property = "model.class.name=CPDefinitionSpecificationOptionValue",
 	service = {DTOConverter.class, ProductSpecificationDTOConverter.class}
 )
 public class ProductSpecificationDTOConverter implements DTOConverter {
@@ -45,7 +45,7 @@ public class ProductSpecificationDTOConverter implements DTOConverter {
 
 		CPDefinitionSpecificationOptionValue
 			cpDefinitionSpecificationOptionValue =
-				_cpDefinitionSpecificationOptionValueService.
+				_cpDefinitionSpecificationOptionValueLocalService.
 					getCPDefinitionSpecificationOptionValue(
 						dtoConverterContext.getResourcePrimKey());
 
@@ -77,7 +77,7 @@ public class ProductSpecificationDTOConverter implements DTOConverter {
 	}
 
 	@Reference
-	private CPDefinitionSpecificationOptionValueService
-		_cpDefinitionSpecificationOptionValueService;
+	private CPDefinitionSpecificationOptionValueLocalService
+		_cpDefinitionSpecificationOptionValueLocalService;
 
 }
