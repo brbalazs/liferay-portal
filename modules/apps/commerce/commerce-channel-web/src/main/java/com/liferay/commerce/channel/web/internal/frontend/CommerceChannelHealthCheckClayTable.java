@@ -27,17 +27,23 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.product.channel.CommerceChannelHealthStatus;
 import com.liferay.commerce.product.channel.CommerceChannelHealthStatusRegistry;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,6 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -70,7 +77,42 @@ public class CommerceChannelHealthCheckClayTable
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
-		return Collections.emptyList();
+		List<ClayDataSetAction> clayTableActions = new ArrayList<>();
+
+		try {
+			HealthCheck healthCheck = (HealthCheck)model;
+
+			PortletURL portletURL = _portal.getControlPanelPortletURL(
+				httpServletRequest, CPPortletKeys.COMMERCE_CHANNELS,
+				PortletRequest.ACTION_PHASE);
+
+			String redirect = ParamUtil.getString(
+				httpServletRequest, "currentUrl",
+				_portal.getCurrentURL(httpServletRequest));
+
+			portletURL.setParameter(
+				ActionRequest.ACTION_NAME, "editCommerceChannelHealthStatus");
+			portletURL.setParameter("redirect", redirect);
+			portletURL.setParameter(
+				"commerceChannelHealthStatusKey", healthCheck.getKey());
+
+			long commerceChannelId = ParamUtil.getLong(
+				httpServletRequest, "commerceChannelId");
+
+			portletURL.setParameter(
+				"commerceChannelId", String.valueOf(commerceChannelId));
+
+			clayTableActions.add(
+				new ClayDataSetAction(
+					StringPool.BLANK, portletURL.toString(), StringPool.BLANK,
+					LanguageUtil.get(httpServletRequest, "fix-issue"), null,
+					false, false));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return clayTableActions;
 	}
 
 	@Override
