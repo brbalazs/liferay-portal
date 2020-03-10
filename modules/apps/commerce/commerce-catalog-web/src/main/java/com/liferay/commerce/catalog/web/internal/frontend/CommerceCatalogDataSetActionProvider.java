@@ -130,6 +130,13 @@ public class CommerceCatalogDataSetActionProvider
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("mvcRenderCommandName", "editCommerceCatalog");
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter("redirect", redirect);
+
 		portletURL.setParameter("commerceCatalogId", String.valueOf(catalogId));
 
 		return portletURL;

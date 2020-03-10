@@ -101,7 +101,8 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 
 				SessionErrors.add(actionRequest, e.getClass());
 
-				String redirect = _portal.getCurrentURL(actionRequest);
+				String redirect = ParamUtil.getString(
+					actionRequest, "redirect");
 
 				sendRedirect(actionRequest, actionResponse, redirect);
 			}

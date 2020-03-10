@@ -28,6 +28,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.commerce.catalog.web.internal.frontend.CommerceCatalogDataSetConstants" %><%@
 page import="com.liferay.commerce.catalog.web.internal.servlet.taglib.ui.CommerceCatalogScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
+page import="com.liferay.commerce.product.exception.CommerceCatalogProductsException" %><%@
 page import="com.liferay.commerce.product.exception.NoSuchCatalogException" %><%@
 page import="com.liferay.commerce.product.model.CommerceCatalog" %><%@
 page import="com.liferay.document.library.kernel.exception.NoSuchFileEntryException" %><%@
