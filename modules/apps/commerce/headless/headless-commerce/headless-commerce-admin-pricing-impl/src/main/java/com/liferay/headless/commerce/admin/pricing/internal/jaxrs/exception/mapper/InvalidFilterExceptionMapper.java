@@ -12,40 +12,39 @@
  * details.
  */
 
-package com.liferay.headless.commerce.admin.inventory.internal.jaxrs.exception.mapper;
+package com.liferay.headless.commerce.admin.pricing.internal.jaxrs.exception.mapper;
 
-import com.liferay.commerce.inventory.exception.NoSuchInventoryWarehouseException;
 import com.liferay.headless.commerce.core.exception.mapper.BaseExceptionMapper;
+import com.liferay.portal.odata.filter.InvalidFilterException;
+import org.osgi.service.component.annotations.Component;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-
-import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Andrea Sbarra
  */
 @Component(
 	property = {
-		"osgi.jaxrs.application.select=(osgi.jaxrs.name=Liferay.Headless.Commerce.Admin.Inventory)",
+		"osgi.jaxrs.application.select=(osgi.jaxrs.name=Liferay.Headless.Commerce.Admin.Pricing)",
 		"osgi.jaxrs.extension=true",
-		"osgi.jaxrs.name=Liferay.Headless.Commerce.Admin.Inventory.NoSuchInventoryWarehouseException"
+		"osgi.jaxrs.name=Liferay.Headless.Commerce.Admin.Pricing.InvalidFilterException"
 	},
 	service = ExceptionMapper.class
 )
 @Provider
-public class NoSuchInventoryWarehouseExceptionMapper
-	extends BaseExceptionMapper<NoSuchInventoryWarehouseException> {
+public class InvalidFilterExceptionMapper
+	extends BaseExceptionMapper<InvalidFilterException> {
 
 	@Override
 	public String getErrorDescription() {
-		return "Warehouse not found";
+		return "Filters do not support such field";
 	}
 
 	@Override
 	public Response.Status getStatus() {
-		return Response.Status.NOT_FOUND;
+		return Response.Status.BAD_REQUEST;
 	}
 
 }
