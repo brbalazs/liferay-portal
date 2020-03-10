@@ -7,11 +7,24 @@
 	position: fixed;
 	right: 0;
 	top: $liferay-topbar-height;
-	transition: background-color 0.2s $easeOutQuart;
+	transition: background-color 0.2s $easeOutQuart,
+				margin 500ms ease;
 	z-index: 988;
 
 	@media screen and (max-width: $bp-xsmall) {
 		top: $liferay-topbar-height-small;
+	}
+
+	body.open & {
+		margin-left: $liferay-sidebars-width;
+	}
+
+	body.open-admin-panel & {
+		margin-right: $liferay-sidebars-width;
+	}
+
+	body.open-admin-panel.lfr-has-simulation-panel & {
+		display: none;
 	}
 
 	&__button,

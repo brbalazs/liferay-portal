@@ -52,3 +52,10 @@ body .multi-step-item.success-page.complete .multi-step-divider {
 	height: 2rem !important;
 	width: 2rem !important;
 }
+
+// overridden variables
+$wrapper-padding-top: 0;
+
+#wrapper {
+	padding-top: $wrapper-padding-top;
+}
