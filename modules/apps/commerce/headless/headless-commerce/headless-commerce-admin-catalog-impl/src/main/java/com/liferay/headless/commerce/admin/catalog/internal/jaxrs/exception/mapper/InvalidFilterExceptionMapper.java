@@ -16,11 +16,12 @@ package com.liferay.headless.commerce.admin.catalog.internal.jaxrs.exception.map
 
 import com.liferay.headless.commerce.core.exception.mapper.BaseExceptionMapper;
 import com.liferay.portal.odata.filter.InvalidFilterException;
-import org.osgi.service.component.annotations.Component;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Andrea Sbarra
