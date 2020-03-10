@@ -464,7 +464,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 			if (attributeName.equalsIgnoreCase("expando") ||
 				attributeName.equalsIgnoreCase("memberships") ||
 				(attributeName.equalsIgnoreCase("modifiedDate") &&
-				 Objects.equals(
+				 !Objects.equals(
 					 model.getModelClassName(), ExpandoRow.class.getName()))) {
 
 				continue;
