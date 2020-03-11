@@ -58,12 +58,15 @@ String addToCartId = PortalUtil.generateRandomKey(request, "add-to-cart");
 
 			<p class="mt-3 procuct-description"><%= cpCatalogEntry.getDescription() %></p>
 
-			<h4 class="commerce-subscription-info mt-3 w-100" data-text-cp-instance-subscription-info>
+			<h4 class="commerce-subscription-info mt-3 w-100">
 				<c:if test="<%= cpSku != null %>">
 					<commerce-ui:product-subscription-info
 						CPInstanceId="<%= cpSku.getCPInstanceId() %>"
 					/>
 				</c:if>
+
+				<span data-text-cp-instance-subscription-info></span>
+				<span data-text-cp-instance-delivery-subscription-info></span>
 			</h4>
 
 			<div class="product-detail-options">

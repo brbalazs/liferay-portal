@@ -107,6 +107,9 @@ AUI.add(
 					var subscriptionInfo = productContent.all(
 						'[data-text-cp-instance-subscription-info]'
 					);
+					var deliverySubscriptionInfo = productContent.all(
+						'[data-text-cp-instance-delivery-subscription-info]'
+					);
 					var availabilities = productContent.all(
 						'[data-text-cp-instance-availability]'
 					);
@@ -134,6 +137,11 @@ AUI.add(
 						.hide();
 					var subscriptionInfoShow = productContent
 						.all('[data-text-cp-instance-subscription-info-show]')
+						.hide();
+					var deliverySubscriptionInfoShow = productContent
+						.all(
+							'[data-text-cp-instance-delivery-subscription-info-show]'
+						)
 						.hide();
 					var availabilitiesShow = productContent
 						.all('[data-text-cp-instance-availability-show]')
@@ -171,6 +179,13 @@ AUI.add(
 					if (cpInstance.subscriptionInfo) {
 						subscriptionInfo.setHTML(cpInstance.subscriptionInfo);
 						subscriptionInfoShow.show();
+					}
+
+					if (cpInstance.deliverySubscriptionInfo) {
+						deliverySubscriptionInfo.setHTML(
+							cpInstance.deliverySubscriptionInfo
+						);
+						deliverySubscriptionInfoShow.show();
 					}
 
 					if (cpInstance.gtin) {

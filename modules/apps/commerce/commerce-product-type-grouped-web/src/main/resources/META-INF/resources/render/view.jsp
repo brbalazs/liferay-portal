@@ -86,6 +86,8 @@ String productContentAuthToken = AuthTokenUtil.getToken(request, plid, CPPortlet
 
 						<div class="subscription-info" data-text-cp-instance-subscription-info="" data-text-cp-instance-subscription-info-show></div>
 
+						<div class="subscription-info" data-text-cp-instance-delivery-subscription-info="" data-text-cp-instance-delivery-subscription-info-show></div>
+
 						<div class="availability" data-text-cp-instance-availability=""></div>
 
 						<div class="availabilityEstimate" data-text-cp-instance-availability-estimate=""></div>

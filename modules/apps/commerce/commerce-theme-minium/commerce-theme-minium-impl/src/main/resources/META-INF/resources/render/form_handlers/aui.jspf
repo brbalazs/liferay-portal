@@ -89,6 +89,7 @@ const eventsDefinitions = {
 					stockQuantityContainer.innerHTML = response.stockQuantity || '';
 				}
 				document.querySelector('[data-text-cp-instance-subscription-info]').innerHTML = response.subscriptionInfo || '';
+				document.querySelector('[data-text-cp-instance-delivery-subscription-info]').innerHTML = response.deliverySubscriptionInfo || '';
 
 				var priceElement = document.querySelector('[data-text-cp-instance-price]');
 

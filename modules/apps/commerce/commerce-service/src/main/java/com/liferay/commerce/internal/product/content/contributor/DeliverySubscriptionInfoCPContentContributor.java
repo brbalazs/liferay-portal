@@ -38,19 +38,19 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 @Component(
 	immediate = true,
-	property = "commerce.product.content.contributor.name=" + CPContentContributorConstants.SUBSCRIPTION_INFO,
+	property = "commerce.product.content.contributor.name=" + CPContentContributorConstants.DELIVERY_SUBSCRIPTION_INFO,
 	service = CPContentContributor.class
 )
-public class SubscriptionInfoCPContentContributor
+public class DeliverySubscriptionInfoCPContentContributor
 	implements CPContentContributor {
 
 	@Override
 	public String getName() {
-		return CPContentContributorConstants.SUBSCRIPTION_INFO;
+		return CPContentContributorConstants.DELIVERY_SUBSCRIPTION_INFO;
 	}
 
 	@Override
@@ -76,7 +76,8 @@ public class SubscriptionInfoCPContentContributor
 			cpInstance.getCPSubscriptionInfo(), httpServletRequest);
 
 		jsonObject.put(
-			CPContentContributorConstants.SUBSCRIPTION_INFO, subscriptionInfo);
+			CPContentContributorConstants.DELIVERY_SUBSCRIPTION_INFO,
+			subscriptionInfo);
 
 		return jsonObject;
 	}
@@ -97,15 +98,16 @@ public class SubscriptionInfoCPContentContributor
 			return StringPool.BLANK;
 		}
 
-		long maxSubscriptionCycles =
-			cpSubscriptionInfo.getMaxSubscriptionCycles();
-		int subscriptionLength = cpSubscriptionInfo.getSubscriptionLength();
+		long maxDeliverySubscriptionCycles =
+			cpSubscriptionInfo.getDeliveryMaxSubscriptionCycles();
+		int deliverySubscriptionLength =
+			cpSubscriptionInfo.getDeliverySubscriptionLength();
 
 		String period = StringPool.BLANK;
 
 		CPSubscriptionType cpSubscriptionType =
 			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
-				cpSubscriptionInfo.getSubscriptionType());
+				cpSubscriptionInfo.getDeliverySubscriptionType());
 
 		if (cpSubscriptionType != null) {
 			period = cpSubscriptionType.getLabel(
@@ -113,34 +115,40 @@ public class SubscriptionInfoCPContentContributor
 		}
 
 		StringBundler sb = new StringBundler(
-			(maxSubscriptionCycles > 0) ? 6 : 3);
+			(maxDeliverySubscriptionCycles > 0) ? 6 : 3);
 
-		sb.append(LanguageUtil.get(httpServletRequest, "payment-subscription"));
+		sb.append(
+			LanguageUtil.get(httpServletRequest, "delivery-subscription"));
 		sb.append(StringPool.OPEN_PARENTHESIS);
 
-		String subscriptionPeriodKey = _getPeriodKey(
-			subscriptionLength, period);
+		String deliverySubscriptionPeriodKey = _getPeriodKey(
+			deliverySubscriptionLength, period);
 
-		String subscriptionMessage = LanguageUtil.format(
+		String deliverySubscriptionMessage = LanguageUtil.format(
 			httpServletRequest, "every-x-x",
-			new Object[] {subscriptionLength, subscriptionPeriodKey}, true);
+			new Object[] {
+				deliverySubscriptionLength, deliverySubscriptionPeriodKey
+			},
+			true);
 
-		sb.append(subscriptionMessage);
+		sb.append(deliverySubscriptionMessage);
 
 		sb.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (maxSubscriptionCycles > 0) {
-			long totalLength = subscriptionLength * maxSubscriptionCycles;
+		if (maxDeliverySubscriptionCycles > 0) {
+			long totalLength =
+				deliverySubscriptionLength * maxDeliverySubscriptionCycles;
 
 			sb.append(StringPool.SPACE);
 
-			String durationPeriodKey = _getPeriodKey(totalLength, period);
+			String deliveryDurationPeriodKey = _getPeriodKey(
+				totalLength, period);
 
-			String durationMessage = LanguageUtil.format(
+			String deliveryDurationMessage = LanguageUtil.format(
 				httpServletRequest, "duration-x-x",
-				new Object[] {totalLength, durationPeriodKey}, true);
+				new Object[] {totalLength, deliveryDurationPeriodKey}, true);
 
-			sb.append(durationMessage);
+			sb.append(deliveryDurationMessage);
 
 			sb.append(StringPool.SPACE);
 		}

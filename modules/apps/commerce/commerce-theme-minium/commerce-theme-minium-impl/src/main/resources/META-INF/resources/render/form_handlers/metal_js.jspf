@@ -153,6 +153,7 @@
 		}
 
 		document.querySelector('[data-text-cp-instance-subscription-info]').innerHTML = productData.subscriptionInfo || '';
+		document.querySelector('[data-text-cp-instance-delivery-subscription-info]').innerHTML = productData.deliverySubscriptionInfo || '';
 
 		var priceElement = document.querySelector('[data-text-cp-instance-price]');
 
