@@ -291,9 +291,12 @@ public class CPSearchResultsPortlet
 		else if (orderByCol.equals("name-descending")) {
 			searchContext.setSorts(SortFactoryUtil.create(Field.NAME, true));
 		}
-		else {
+		else if (orderByCol.equals("new-items")) {
 			searchContext.setSorts(
-				SortFactoryUtil.create(Field.CREATE_DATE, false));
+				SortFactoryUtil.create(Field.CREATE_DATE + "_sortable", true));
+		}
+		else {
+			searchContext.setSorts(SortFactoryUtil.getDefaultSorts());
 		}
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
