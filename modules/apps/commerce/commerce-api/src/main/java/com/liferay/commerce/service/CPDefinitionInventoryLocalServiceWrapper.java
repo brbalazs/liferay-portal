@@ -52,17 +52,18 @@ public class CPDefinitionInventoryLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.model.CPDefinitionInventory
 			addCPDefinitionInventory(
-				long cpDefinitionId, String cpDefinitionInventoryEngine,
-				String lowStockActivity, boolean displayAvailability,
-				boolean displayStockQuantity, int minStockQuantity,
-				boolean backOrders, int minOrderQuantity, int maxOrderQuantity,
-				String allowedOrderQuantities, int multipleOrderQuantity)
+				long userId, long cpDefinitionId,
+				String cpDefinitionInventoryEngine, String lowStockActivity,
+				boolean displayAvailability, boolean displayStockQuantity,
+				int minStockQuantity, boolean backOrders, int minOrderQuantity,
+				int maxOrderQuantity, String allowedOrderQuantities,
+				int multipleOrderQuantity)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _cpDefinitionInventoryLocalService.addCPDefinitionInventory(
-			cpDefinitionId, cpDefinitionInventoryEngine, lowStockActivity,
-			displayAvailability, displayStockQuantity, minStockQuantity,
-			backOrders, minOrderQuantity, maxOrderQuantity,
+			userId, cpDefinitionId, cpDefinitionInventoryEngine,
+			lowStockActivity, displayAvailability, displayStockQuantity,
+			minStockQuantity, backOrders, minOrderQuantity, maxOrderQuantity,
 			allowedOrderQuantities, multipleOrderQuantity);
 	}
 

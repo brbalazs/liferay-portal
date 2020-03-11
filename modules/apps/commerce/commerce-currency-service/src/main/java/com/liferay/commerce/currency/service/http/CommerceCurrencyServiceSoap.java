@@ -72,8 +72,7 @@ public class CommerceCurrencyServiceSoap {
 				java.math.BigDecimal rate, String[] formatPatternMapLanguageIds,
 				String[] formatPatternMapValues, int maxFractionDigits,
 				int minFractionDigits, String roundingMode, boolean primary,
-				double priority, boolean active,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+				double priority, boolean active)
 		throws RemoteException {
 
 		try {
@@ -87,7 +86,7 @@ public class CommerceCurrencyServiceSoap {
 				CommerceCurrencyServiceUtil.addCommerceCurrency(
 					userId, code, nameMap, symbol, rate, formatPatternMap,
 					maxFractionDigits, minFractionDigits, roundingMode, primary,
-					priority, active, serviceContext);
+					priority, active);
 
 			return com.liferay.commerce.currency.model.CommerceCurrencySoap.
 				toSoapModel(returnValue);

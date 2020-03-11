@@ -76,11 +76,12 @@ public interface CPDefinitionInventoryLocalService
 		CPDefinitionInventory cpDefinitionInventory);
 
 	public CPDefinitionInventory addCPDefinitionInventory(
-			long cpDefinitionId, String cpDefinitionInventoryEngine,
-			String lowStockActivity, boolean displayAvailability,
-			boolean displayStockQuantity, int minStockQuantity,
-			boolean backOrders, int minOrderQuantity, int maxOrderQuantity,
-			String allowedOrderQuantities, int multipleOrderQuantity)
+			long userId, long cpDefinitionId,
+			String cpDefinitionInventoryEngine, String lowStockActivity,
+			boolean displayAvailability, boolean displayStockQuantity,
+			int minStockQuantity, boolean backOrders, int minOrderQuantity,
+			int maxOrderQuantity, String allowedOrderQuantities,
+			int multipleOrderQuantity)
 		throws PortalException;
 
 	public void cloneCPDefinitionInventory(
