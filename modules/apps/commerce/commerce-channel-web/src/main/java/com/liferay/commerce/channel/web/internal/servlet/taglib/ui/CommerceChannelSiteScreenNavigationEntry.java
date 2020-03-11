@@ -19,12 +19,14 @@ import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
 import com.liferay.commerce.product.channel.CommerceChannelTypeRegistry;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.GroupLocalService;
@@ -55,7 +57,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CommerceChanneSiteScreenNavigationEntry
+public class CommerceChannelSiteScreenNavigationEntry
 	implements ScreenNavigationCategory,
 			   ScreenNavigationEntry<CommerceChannel> {
 
@@ -82,6 +84,17 @@ public class CommerceChanneSiteScreenNavigationEntry
 	public String getScreenNavigationKey() {
 		return CommerceChannelScreenNavigationConstants.
 			SCREEN_NAVIGATION_KEY_COMMERCE_CHANNEL_GENERAL;
+	}
+
+	@Override
+	public boolean isVisible(User user, CommerceChannel commerceChannel) {
+		if (CommerceChannelConstants.CHANNEL_TYPE_SITE.equals(
+				commerceChannel.getType())) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
