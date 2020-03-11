@@ -119,7 +119,7 @@
 </tr>
 <tr>
 	<td>STAGING_CONNECTION_TOOLTIP</td>
-	<td>//span[contains(@class,'lfr-portal-tooltip') and contains(@data-title,'${key_connectionInfo}')]</td>
+	<td>//span[contains(@class,'lfr-portal-tooltip') and contains(@title,'${key_connectionInfo}')]</td>
 	<td></td>
 </tr>
 <tr>
