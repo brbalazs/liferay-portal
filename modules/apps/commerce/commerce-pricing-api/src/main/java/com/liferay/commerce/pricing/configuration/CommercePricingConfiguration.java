@@ -31,7 +31,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 )
 public interface CommercePricingConfiguration {
 
-	@Meta.AD(deflt = "v1.0", required = false)
+	@Meta.AD(deflt = "v1.0", name = "pricing-calculation-key", required = false)
 	public String commercePricingCalculationKey();
 
 	@Meta.AD(
