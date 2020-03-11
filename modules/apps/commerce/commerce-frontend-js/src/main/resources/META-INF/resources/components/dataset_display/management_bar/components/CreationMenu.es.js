@@ -35,6 +35,7 @@ function CreationMenu(props) {
 				Liferay.fire(OPEN_MODAL, {
 					id: datasetContext.modalId,
 					onClose: datasetContext.loadData,
+					title: clickedItem.label,
 					url: clickedItem.href
 				});
 				break;
