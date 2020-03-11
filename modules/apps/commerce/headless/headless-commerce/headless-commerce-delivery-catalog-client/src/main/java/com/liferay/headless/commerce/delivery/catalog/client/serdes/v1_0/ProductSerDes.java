@@ -144,20 +144,6 @@ public class ProductSerDes {
 			sb.append(_toJSON(product.getExpando()));
 		}
 
-		if (product.getFriendlyUrl() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"friendlyUrl\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(product.getFriendlyUrl()));
-
-			sb.append("\"");
-		}
-
 		if (product.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -495,13 +481,6 @@ public class ProductSerDes {
 			map.put("expando", String.valueOf(product.getExpando()));
 		}
 
-		if (product.getFriendlyUrl() == null) {
-			map.put("friendlyUrl", null);
-		}
-		else {
-			map.put("friendlyUrl", String.valueOf(product.getFriendlyUrl()));
-		}
-
 		if (product.getId() == null) {
 			map.put("id", null);
 		}
@@ -694,11 +673,6 @@ public class ProductSerDes {
 				if (jsonParserFieldValue != null) {
 					product.setExpando(
 						(Map)ProductSerDes.toMap((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "friendlyUrl")) {
-				if (jsonParserFieldValue != null) {
-					product.setFriendlyUrl((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
