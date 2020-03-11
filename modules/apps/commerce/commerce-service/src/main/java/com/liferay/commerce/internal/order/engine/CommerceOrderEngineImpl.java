@@ -343,6 +343,9 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		}
 	}
 
+	@Transactional(
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
+	)
 	private void _sendOrderStatusMessage(
 		CommerceOrder commerceOrder, int orderStatus) {
 
