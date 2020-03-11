@@ -40,6 +40,7 @@ import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderLocalService;
@@ -775,9 +776,11 @@ public class CommerceDiscountV2Test {
 		CommerceCurrency commerceCurrency =
 			CommerceCurrencyTestUtil.addCommerceCurrency();
 
+		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
+			commerceCurrency.getCode());
+
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		commerceOrder.setCommerceCurrencyId(
 			commerceCurrency.getCommerceCurrencyId());

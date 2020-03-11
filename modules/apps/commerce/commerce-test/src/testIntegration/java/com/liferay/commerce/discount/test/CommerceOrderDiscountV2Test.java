@@ -23,6 +23,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.model.CommerceDiscount;
+import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.model.CommerceOrder;
@@ -120,6 +121,9 @@ public class CommerceOrderDiscountV2Test {
 
 		ConfigurationProviderUtil.saveSystemConfiguration(
 			CommercePricingConfiguration.class, _properties);
+
+		_commerceDiscountLocalService.deleteCommerceDiscounts(
+			_user.getCompanyId());
 	}
 
 	@Test
@@ -143,8 +147,7 @@ public class CommerceOrderDiscountV2Test {
 			commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -191,9 +194,9 @@ public class CommerceOrderDiscountV2Test {
 
 		String couponCode = "SCONTO";
 
-		CommerceDiscountTestUtil.addFixedCommerceDiscount(
-			_group.getGroupId(), 1, CommerceDiscountConstants.TARGET_TOTAL,
-			null);
+		CommerceDiscountTestUtil.addCouponDiscount(
+			_user.getGroupId(), 1, couponCode,
+			CommerceDiscountConstants.TARGET_TOTAL, null);
 
 		CommerceContext commerceContext = new TestCommerceContext(
 			commerceCurrency, null, _user, _group, _commerceAccount,
@@ -238,8 +241,7 @@ public class CommerceOrderDiscountV2Test {
 			commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -302,13 +304,13 @@ public class CommerceOrderDiscountV2Test {
 
 		CommerceDiscount commerceDiscount1 =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
-				_group.getGroupId(), 10,
+				_user.getGroupId(), 10,
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount2 =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
-				_group.getGroupId(), 10, CommerceDiscountConstants.TARGET_TOTAL,
+				_user.getGroupId(), 10, CommerceDiscountConstants.TARGET_TOTAL,
 				null);
 
 		CommerceTestUtil.addCommerceOrderItem(
@@ -377,8 +379,7 @@ public class CommerceOrderDiscountV2Test {
 			commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -441,7 +442,7 @@ public class CommerceOrderDiscountV2Test {
 
 		CommerceDiscount commerceDiscount1 =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
-				_group.getGroupId(), 10,
+				_user.getGroupId(), 10,
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition.getCPDefinitionId());
 
@@ -449,7 +450,7 @@ public class CommerceOrderDiscountV2Test {
 
 		CommerceDiscount commerceDiscount2 =
 			CommerceDiscountTestUtil.addCouponDiscount(
-				_group.getGroupId(), 10, couponCode,
+				_user.getGroupId(), 10, couponCode,
 				CommerceDiscountConstants.TARGET_TOTAL, null);
 
 		CommerceContext commerceContext = new TestCommerceContext(
@@ -515,6 +516,9 @@ public class CommerceOrderDiscountV2Test {
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
 
 	private CommerceCurrency _commerceCurrency;
+
+	@Inject
+	private CommerceDiscountLocalService _commerceDiscountLocalService;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;

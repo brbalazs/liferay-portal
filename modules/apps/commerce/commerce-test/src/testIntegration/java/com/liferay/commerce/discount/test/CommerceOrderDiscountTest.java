@@ -23,6 +23,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.model.CommerceDiscount;
+import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.model.CommerceOrder;
@@ -91,6 +92,9 @@ public class CommerceOrderDiscountTest {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
 
+		_commerceDiscountLocalService.deleteCommerceDiscounts(
+			_user.getCompanyId());
+
 		_commerceAccountLocalService.deleteCommerceAccount(_commerceAccount);
 		GroupTestUtil.deleteGroup(_group);
 		_userLocalService.deleteUser(_user);
@@ -117,8 +121,7 @@ public class CommerceOrderDiscountTest {
 			commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceAccount.getCommerceAccountId(),
-			commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -431,6 +434,9 @@ public class CommerceOrderDiscountTest {
 
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;
+
+	@Inject
+	private CommerceDiscountLocalService _commerceDiscountLocalService;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;
