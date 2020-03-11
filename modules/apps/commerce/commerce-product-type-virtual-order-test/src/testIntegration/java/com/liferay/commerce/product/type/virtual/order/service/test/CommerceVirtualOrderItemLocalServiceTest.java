@@ -82,6 +82,8 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 
 		_user = UserTestUtil.addUser(_company);
 
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_company.getCompanyId());
 		_commerceOrders = new ArrayList<>();
 	}
 
@@ -106,13 +108,11 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 			"I should be able to see the created virtual order item"
 		);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel();
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
+			_commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
@@ -192,9 +192,6 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 		).then(
 			"I should be able to see the created virtual order item"
 		);
-
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
 
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel();
 
@@ -298,6 +295,9 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 
 	@Inject
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
+
+	@DeleteAfterTestRun
+	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;

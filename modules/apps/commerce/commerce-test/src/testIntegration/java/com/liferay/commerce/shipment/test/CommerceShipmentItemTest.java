@@ -75,13 +75,11 @@ public class CommerceShipmentItemTest {
 		_group = GroupTestUtil.addGroup();
 		_user = UserTestUtil.addUser();
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_group.getCompanyId());
 
 		_commerceChannel = CommerceChannelLocalServiceUtil.addCommerceChannel(
 			_group.getGroupId(), "Test Channel",
@@ -90,7 +88,7 @@ public class CommerceShipmentItemTest {
 
 		_commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), _commerceChannel.getGroupId(),
-			commerceCurrency.getCommerceCurrencyId());
+			_commerceCurrency.getCommerceCurrencyId());
 
 		_commerceShipment = CommerceShipmentTestUtil.createEmptyOrderShipment(
 			_group.getGroupId(), _commerceOrder.getCommerceOrderId());

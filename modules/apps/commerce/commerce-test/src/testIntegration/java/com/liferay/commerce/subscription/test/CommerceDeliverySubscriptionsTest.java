@@ -68,7 +68,8 @@ public class CommerceDeliverySubscriptionsTest {
 
 		_user = UserTestUtil.addUser();
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_group.getCompanyId());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
 			_group.getGroupId(), _commerceCurrency.getCode());

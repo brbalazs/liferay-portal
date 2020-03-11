@@ -67,7 +67,8 @@ public class CommerceShippingHelperTest {
 	public void setUp() throws Exception {
 		_user = UserTestUtil.addUser();
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_user.getCompanyId());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
 			_commerceCurrency.getCode());

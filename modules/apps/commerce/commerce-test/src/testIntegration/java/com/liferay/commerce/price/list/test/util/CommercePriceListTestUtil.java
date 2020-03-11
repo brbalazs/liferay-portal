@@ -45,11 +45,12 @@ public class CommercePriceListTestUtil {
 			long groupId, boolean catalogBasePriceList, double priority)
 		throws Exception {
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(
+				serviceContext.getCompanyId());
 
 		User user = UserLocalServiceUtil.getDefaultUser(
 			serviceContext.getCompanyId());
@@ -75,11 +76,12 @@ public class CommercePriceListTestUtil {
 			double priority)
 		throws Exception {
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(
+				serviceContext.getCompanyId());
 
 		User user = UserLocalServiceUtil.getDefaultUser(
 			serviceContext.getCompanyId());
@@ -103,11 +105,12 @@ public class CommercePriceListTestUtil {
 			long groupId, double priority)
 		throws Exception {
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(
+				serviceContext.getCompanyId());
 
 		User user = UserLocalServiceUtil.getDefaultUser(
 			serviceContext.getCompanyId());
@@ -149,11 +152,12 @@ public class CommercePriceListTestUtil {
 	public static CommercePriceList addPromotion(long groupId, double priority)
 		throws Exception {
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(
+				serviceContext.getCompanyId());
 
 		User user = UserLocalServiceUtil.getDefaultUser(
 			serviceContext.getCompanyId());

@@ -77,6 +77,9 @@ public class CommerceOrderItemIndexerTest {
 	@Before
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
+
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_group.getCompanyId());
 		_indexer = _indexerRegistry.getIndexer(CommerceOrderItem.class);
 	}
 
@@ -100,15 +103,12 @@ public class CommerceOrderItemIndexerTest {
 
 		CommerceOrderItem[] commerceOrderItems = new CommerceOrderItem[count];
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceTestUtil.addCommerceChannel(
-			_group.getGroupId(), commerceCurrency.getCode());
+			_group.getGroupId(), _commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			user.getUserId(), _group.getGroupId(),
-			commerceCurrency.getCommerceCurrencyId());
+			_commerceCurrency.getCommerceCurrencyId());
 
 		for (int i = 0; i < count; i++) {
 			CPInstance cpInstance = CPTestUtil.addCPInstance(
@@ -220,6 +220,9 @@ public class CommerceOrderItemIndexerTest {
 
 	@Inject
 	private static IndexerRegistry _indexerRegistry;
+
+	@DeleteAfterTestRun
+	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CPInstanceLocalService _cpInstanceLocalService;

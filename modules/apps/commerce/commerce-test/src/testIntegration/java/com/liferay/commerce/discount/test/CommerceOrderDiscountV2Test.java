@@ -95,7 +95,8 @@ public class CommerceOrderDiscountV2Test {
 			_commerceAccountLocalService.getPersonalCommerceAccount(
 				_user.getUserId());
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_group.getCompanyId());
 
 		_commerceOrders = new ArrayList<>();
 
@@ -140,19 +141,16 @@ public class CommerceOrderDiscountV2Test {
 			"The final price will be calculated with the discount"
 		);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			commerceCurrency.getCode());
+			_commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
 		commerceOrder.setCommerceCurrencyId(
-			commerceCurrency.getCommerceCurrencyId());
+			_commerceCurrency.getCommerceCurrencyId());
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
@@ -199,7 +197,7 @@ public class CommerceOrderDiscountV2Test {
 			CommerceDiscountConstants.TARGET_TOTAL, null);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, _user, _group, _commerceAccount,
+			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 
 		CommerceTestUtil.addCommerceOrderItem(
@@ -234,19 +232,16 @@ public class CommerceOrderDiscountV2Test {
 			"The final price will be calculated with the discounts"
 		);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			commerceCurrency.getCode());
+			_commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
 		commerceOrder.setCommerceCurrencyId(
-			commerceCurrency.getCommerceCurrencyId());
+			_commerceCurrency.getCommerceCurrencyId());
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
@@ -322,7 +317,7 @@ public class CommerceOrderDiscountV2Test {
 			cpInstancePlain.getCPInstanceId(), orderedQuantity);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, _user, _group, _commerceAccount,
+			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 
 		CommerceMoney total = _commerceOrderPriceCalculation.getTotal(
@@ -372,19 +367,16 @@ public class CommerceOrderDiscountV2Test {
 		).then(
 			"The final price will be calculated with the discounts"
 		);
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			commerceCurrency.getCode());
+			_commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
 		commerceOrder.setCommerceCurrencyId(
-			commerceCurrency.getCommerceCurrencyId());
+			_commerceCurrency.getCommerceCurrencyId());
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
@@ -454,7 +446,7 @@ public class CommerceOrderDiscountV2Test {
 				CommerceDiscountConstants.TARGET_TOTAL, null);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, _user, _group, _commerceAccount,
+			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 
 		CommerceTestUtil.addCommerceOrderItem(

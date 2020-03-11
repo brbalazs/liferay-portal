@@ -86,7 +86,8 @@ public class CommerceNotificationTest {
 		_group = GroupTestUtil.addGroup(
 			_company.getCompanyId(), _user.getUserId(), 0);
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_company.getCompanyId());
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
 			_company.getCompanyId(), _group.getGroupId(), _user.getUserId());

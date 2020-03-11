@@ -72,7 +72,8 @@ public class OrderStockManagementTest {
 		_user = UserTestUtil.addUser();
 		_commerceOrders = new ArrayList<>();
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_user.getCompanyId());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
 			_commerceCurrency.getCode());

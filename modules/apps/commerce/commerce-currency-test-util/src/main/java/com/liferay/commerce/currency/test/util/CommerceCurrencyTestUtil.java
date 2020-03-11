@@ -19,6 +19,9 @@ import com.liferay.commerce.currency.model.CommerceCurrencyConstants;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalServiceUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
@@ -31,17 +34,18 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * @author Luca Pellizzon
+ * @author Alec Sloan
  */
 public class CommerceCurrencyTestUtil {
 
-	public static CommerceCurrency addCommerceCurrency()
+	public static CommerceCurrency addCommerceCurrency(long companyId)
 		throws PortalException {
 
-		return addCommerceCurrency(RandomTestUtil.randomString());
+		return addCommerceCurrency(companyId, RandomTestUtil.randomString());
 	}
 
-	public static CommerceCurrency addCommerceCurrency(String code)
+	public static CommerceCurrency addCommerceCurrency(
+			long companyId, String code)
 		throws PortalException {
 
 		Map<Locale, String> formatPatternMap = new HashMap();
@@ -49,8 +53,13 @@ public class CommerceCurrencyTestUtil {
 		formatPatternMap.put(
 			LocaleUtil.US, CommerceCurrencyConstants.DEFAULT_FORMAT_PATTERN);
 
+		Company company = CompanyLocalServiceUtil.getCompany(companyId);
+
+		User user = company.getDefaultUser();
+
 		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext();
+			ServiceContextTestUtil.getServiceContext(
+				company.getCompanyId(), company.getGroupId(), user.getUserId());
 
 		return CommerceCurrencyLocalServiceUtil.addCommerceCurrency(
 			serviceContext.getUserId(), code,

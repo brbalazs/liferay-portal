@@ -104,7 +104,8 @@ public class CommerceOrderTest {
 		_group = GroupTestUtil.addGroup();
 		_user = UserTestUtil.addUser(true);
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_group.getCompanyId());
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
 			_group.getGroupId());

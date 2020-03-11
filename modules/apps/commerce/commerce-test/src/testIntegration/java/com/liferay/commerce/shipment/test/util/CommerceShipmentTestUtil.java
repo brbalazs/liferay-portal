@@ -47,11 +47,12 @@ public class CommerceShipmentTestUtil {
 			long commerceShipmentId, int createQuantity, int addQuantity)
 		throws Exception {
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(
+				serviceContext.getCompanyId());
 
 		CommerceChannel commerceChannel =
 			CommerceChannelLocalServiceUtil.fetchCommerceChannel(

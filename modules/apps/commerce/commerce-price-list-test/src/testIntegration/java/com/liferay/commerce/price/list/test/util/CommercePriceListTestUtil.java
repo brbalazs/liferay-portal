@@ -215,11 +215,12 @@ public class CommercePriceListTestUtil {
 			double priority)
 		throws Exception {
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyTestUtil.addCommerceCurrency(
+				serviceContext.getCompanyId());
 
 		User user = UserLocalServiceUtil.getDefaultUser(
 			serviceContext.getCompanyId());

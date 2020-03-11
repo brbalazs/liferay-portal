@@ -75,7 +75,8 @@ public class CommercePaymentSubscriptionsTest {
 			ServiceContextTestUtil.getServiceContext(
 				_user.getCompanyId(), _group.getGroupId(), _user.getUserId());
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_group.getCompanyId());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
 			_group.getGroupId(), _commerceCurrency.getCode());

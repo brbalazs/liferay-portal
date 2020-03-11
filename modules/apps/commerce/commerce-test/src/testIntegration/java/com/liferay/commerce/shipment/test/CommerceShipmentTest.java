@@ -100,7 +100,8 @@ public class CommerceShipmentTest {
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel();
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_company.getCompanyId());
 
 		_commerceOrders = new ArrayList<>();
 	}

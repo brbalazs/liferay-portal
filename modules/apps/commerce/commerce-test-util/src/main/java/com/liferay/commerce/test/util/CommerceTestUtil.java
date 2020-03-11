@@ -91,13 +91,6 @@ public class CommerceTestUtil {
 			userId = serviceContext.getUserId();
 		}
 
-		if (commerceCurrencyId == 0) {
-			CommerceCurrency commerceCurrency =
-				CommerceCurrencyTestUtil.addCommerceCurrency();
-
-			commerceCurrencyId = commerceCurrency.getCommerceCurrencyId();
-		}
-
 		long commerceChannelGroupId =
 			CommerceChannelLocalServiceUtil.
 				getCommerceChannelGroupIdBySiteGroupId(groupId);
@@ -118,10 +111,6 @@ public class CommerceTestUtil {
 			userId = serviceContext.getUserId();
 		}
 
-		if (commerceCurrency == null) {
-			commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
-		}
-
 		CommerceAccount commerceAccount =
 			CommerceAccountLocalServiceUtil.getPersonalCommerceAccount(userId);
 
@@ -139,13 +128,6 @@ public class CommerceTestUtil {
 
 		if (userId == 0) {
 			userId = serviceContext.getUserId();
-		}
-
-		if (commerceCurrencyId == 0) {
-			CommerceCurrency commerceCurrency =
-				CommerceCurrencyTestUtil.addCommerceCurrency();
-
-			commerceCurrencyId = commerceCurrency.getCommerceCurrencyId();
 		}
 
 		CommerceAccount commerceAccount =
@@ -384,7 +366,8 @@ public class CommerceTestUtil {
 
 		if (commerceOrder.getCommerceCurrency() == null) {
 			CommerceCurrency commerceCurrency =
-				CommerceCurrencyTestUtil.addCommerceCurrency();
+				CommerceCurrencyTestUtil.addCommerceCurrency(
+					commerceOrder.getCompanyId());
 
 			commerceOrder.setCommerceCurrencyId(
 				commerceCurrency.getCommerceCurrencyId());

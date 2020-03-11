@@ -32,9 +32,11 @@ import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
+import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
@@ -75,11 +77,13 @@ public class CommercePaymentEngineTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_user = UserTestUtil.addUser();
+		_company = CompanyTestUtil.addCompany();
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel();
+		_user = UserTestUtil.addUser(_company);
 
-		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_company.getCompanyId());
 
 		_commercePaymentMethodGroupRelLocalService.
 			addCommercePaymentMethodGroupRel(
@@ -271,6 +275,9 @@ public class CommercePaymentEngineTest {
 	@Inject
 	private CommercePaymentMethodGroupRelLocalService
 		_commercePaymentMethodGroupRelLocalService;
+
+	@DeleteAfterTestRun
+	private Company _company;
 
 	private HttpServletRequest _httpServletRequest;
 

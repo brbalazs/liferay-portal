@@ -23,7 +23,6 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.model.CommerceDiscount;
-import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.model.CommerceOrder;
@@ -41,6 +40,7 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
+import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -83,6 +83,9 @@ public class CommerceOrderDiscountTest {
 			_commerceAccountLocalService.getPersonalCommerceAccount(
 				_user.getUserId());
 
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_group.getCompanyId());
+
 		_commerceOrders = new ArrayList<>();
 	}
 
@@ -91,9 +94,6 @@ public class CommerceOrderDiscountTest {
 		for (CommerceOrder commerceOrder : _commerceOrders) {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
-
-		_commerceDiscountLocalService.deleteCommerceDiscounts(
-			_user.getCompanyId());
 
 		_commerceAccountLocalService.deleteCommerceAccount(_commerceAccount);
 		GroupTestUtil.deleteGroup(_group);
@@ -114,19 +114,16 @@ public class CommerceOrderDiscountTest {
 			"The final price will be calculated with the discount"
 		);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			commerceCurrency.getCode());
+			_commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
 		commerceOrder.setCommerceCurrencyId(
-			commerceCurrency.getCommerceCurrencyId());
+			_commerceCurrency.getCommerceCurrencyId());
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
@@ -158,7 +155,7 @@ public class CommerceOrderDiscountTest {
 			CommerceDiscountConstants.TARGET_TOTAL, null);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, _user, _group, _commerceAccount,
+			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 
 		CommerceTestUtil.addCommerceOrderItem(
@@ -193,19 +190,16 @@ public class CommerceOrderDiscountTest {
 			"The final price will be calculated with the discounts"
 		);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			commerceCurrency.getCode());
+			_commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
 		commerceOrder.setCommerceCurrencyId(
-			commerceCurrency.getCommerceCurrencyId());
+			_commerceCurrency.getCommerceCurrencyId());
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
@@ -261,7 +255,7 @@ public class CommerceOrderDiscountTest {
 			cpInstancePlain.getCPInstanceId(), orderedQuantity);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, _user, _group, _commerceAccount,
+			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 
 		CommerceMoney total = _commerceOrderPriceCalculation.getTotal(
@@ -311,19 +305,16 @@ public class CommerceOrderDiscountTest {
 		).then(
 			"The final price will be calculated with the discounts"
 		);
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			commerceCurrency.getCode());
+			_commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
 
 		_commerceOrders.add(commerceOrder);
 
 		commerceOrder.setCommerceCurrencyId(
-			commerceCurrency.getCommerceCurrencyId());
+			_commerceCurrency.getCommerceCurrencyId());
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
@@ -373,11 +364,11 @@ public class CommerceOrderDiscountTest {
 				CommerceDiscountConstants.TARGET_TOTAL, null);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, _user, _group, _commerceAccount,
+			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 
 		commerceContext = new TestCommerceContext(
-			commerceCurrency, null, _user, _group, _commerceAccount,
+			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 
 		CommerceTestUtil.addCommerceOrderItem(
@@ -435,8 +426,8 @@ public class CommerceOrderDiscountTest {
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;
 
-	@Inject
-	private CommerceDiscountLocalService _commerceDiscountLocalService;
+	@DeleteAfterTestRun
+	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;

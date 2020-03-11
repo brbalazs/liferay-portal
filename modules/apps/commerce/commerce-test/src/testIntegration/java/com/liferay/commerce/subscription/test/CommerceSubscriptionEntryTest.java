@@ -78,6 +78,9 @@ public class CommerceSubscriptionEntryTest {
 		_group = GroupTestUtil.addGroup();
 		_user = UserTestUtil.addUser();
 		_commerceChannel = CommerceTestUtil.addCommerceChannel();
+
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_user.getCompanyId());
 	}
 
 	@Test
@@ -230,9 +233,6 @@ public class CommerceSubscriptionEntryTest {
 
 		CPTestUtil.buildCPInstances(cpDefinition);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
 		CommerceChannelRelLocalServiceUtil.addCommerceChannelRel(
 			CPDefinition.class.getName(), cpDefinition.getCPDefinitionId(),
 			_commerceChannel.getCommerceChannelId(),
@@ -240,7 +240,8 @@ public class CommerceSubscriptionEntryTest {
 				_commerceChannel.getGroupId()));
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceChannel.getGroupId(), commerceCurrency);
+			_user.getUserId(), _commerceChannel.getGroupId(),
+			_commerceCurrency);
 
 		List<CPInstance> cpInstances =
 			_cpInstanceLocalService.getCPDefinitionInstances(
@@ -354,6 +355,9 @@ public class CommerceSubscriptionEntryTest {
 
 	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
+
+	@DeleteAfterTestRun
+	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CommerceSubscriptionEntryHelper _commerceSubscriptionEntryHelper;
