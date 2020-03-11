@@ -89,6 +89,7 @@ public abstract class BaseProductResourceImpl
 	@GET
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "search"),
 			@Parameter(in = ParameterIn.QUERY, name = "filter"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
@@ -99,6 +100,7 @@ public abstract class BaseProductResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
 	public Page<Product> getProductsPage(
+			@Parameter(hidden = true) @QueryParam("search") String search,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -376,7 +378,7 @@ public abstract class BaseProductResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getProductsPage(filter, pagination, sorts);
+		return getProductsPage(search, filter, pagination, sorts);
 	}
 
 	@Override

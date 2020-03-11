@@ -44,7 +44,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductResource {
 
 	public Page<Product> getProductsPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Product postProduct(Product product) throws Exception;
