@@ -15,7 +15,6 @@
 package com.liferay.commerce.notification.web.internal.portlet.action;
 
 import com.liferay.commerce.notification.exception.NoSuchNotificationTemplateException;
-import com.liferay.commerce.notification.service.CommerceNotificationTemplateCommerceAccountGroupRelService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
 import com.liferay.commerce.notification.type.CommerceNotificationTypeRegistry;
 import com.liferay.commerce.notification.web.internal.display.context.CommerceNotificationTemplatesDisplayContext;

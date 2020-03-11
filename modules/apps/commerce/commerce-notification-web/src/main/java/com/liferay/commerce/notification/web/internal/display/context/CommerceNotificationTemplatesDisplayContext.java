@@ -15,7 +15,6 @@
 package com.liferay.commerce.notification.web.internal.display.context;
 
 import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
-import com.liferay.commerce.notification.service.CommerceNotificationTemplateCommerceAccountGroupRelService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
 import com.liferay.commerce.notification.type.CommerceNotificationType;
 import com.liferay.commerce.notification.type.CommerceNotificationTypeRegistry;
@@ -25,16 +24,12 @@ import com.liferay.commerce.order.CommerceDefinitionTermContributorRegistry;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
