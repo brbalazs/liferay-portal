@@ -353,16 +353,18 @@ public class CommerceDiscountLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.discount.model.CommerceDiscount>
-			findByUnqualifiedOrder(String commerceDiscountTargetType) {
+			findByUnqualifiedOrder(
+				long companyId, String commerceDiscountTargetType) {
 
-		return getService().findByUnqualifiedOrder(commerceDiscountTargetType);
+		return getService().findByUnqualifiedOrder(
+			companyId, commerceDiscountTargetType);
 	}
 
 	public static java.util.List
 		<com.liferay.commerce.discount.model.CommerceDiscount>
-			findByUnqualifiedProduct(long cpDefinitionId) {
+			findByUnqualifiedProduct(long companyId, long cpDefinitionId) {
 
-		return getService().findByUnqualifiedProduct(cpDefinitionId);
+		return getService().findByUnqualifiedProduct(companyId, cpDefinitionId);
 	}
 
 	public static java.util.List

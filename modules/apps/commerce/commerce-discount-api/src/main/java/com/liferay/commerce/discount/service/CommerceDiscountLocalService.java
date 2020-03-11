@@ -269,9 +269,10 @@ public interface CommerceDiscountLocalService
 		long commerceChannelId, long cpDefinitionId);
 
 	public List<CommerceDiscount> findByUnqualifiedOrder(
-		String commerceDiscountTargetType);
+		long companyId, String commerceDiscountTargetType);
 
-	public List<CommerceDiscount> findByUnqualifiedProduct(long cpDefinitionId);
+	public List<CommerceDiscount> findByUnqualifiedProduct(
+		long companyId, long cpDefinitionId);
 
 	public List<CommerceDiscount> findPriceListDiscountProduct(
 		long[] commerceDiscountIds, long cpDefinitionId);

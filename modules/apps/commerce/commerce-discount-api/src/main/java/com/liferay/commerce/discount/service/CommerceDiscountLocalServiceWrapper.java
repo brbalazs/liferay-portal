@@ -372,18 +372,19 @@ public class CommerceDiscountLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
-		findByUnqualifiedOrder(String commerceDiscountTargetType) {
+		findByUnqualifiedOrder(
+			long companyId, String commerceDiscountTargetType) {
 
 		return _commerceDiscountLocalService.findByUnqualifiedOrder(
-			commerceDiscountTargetType);
+			companyId, commerceDiscountTargetType);
 	}
 
 	@Override
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
-		findByUnqualifiedProduct(long cpDefinitionId) {
+		findByUnqualifiedProduct(long companyId, long cpDefinitionId) {
 
 		return _commerceDiscountLocalService.findByUnqualifiedProduct(
-			cpDefinitionId);
+			companyId, cpDefinitionId);
 	}
 
 	@Override

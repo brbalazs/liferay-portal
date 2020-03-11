@@ -25,11 +25,12 @@ public interface CommerceDiscountFinder {
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByUnqualifiedProduct(
-			long cpDefinitionId, long[] assetCategoriesId,
+			long companyId, long cpDefinitionId, long[] assetCategoriesId,
 			long[] commercePricingClassesId);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
-		findByUnqualifiedOrder(String commerceDiscountTargetType);
+		findByUnqualifiedOrder(
+			long companyId, String commerceDiscountTargetType);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByA_C_C_Product(
