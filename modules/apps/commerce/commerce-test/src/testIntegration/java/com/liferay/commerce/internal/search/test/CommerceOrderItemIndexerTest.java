@@ -80,6 +80,7 @@ public class CommerceOrderItemIndexerTest {
 
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
 			_group.getCompanyId());
+
 		_indexer = _indexerRegistry.getIndexer(CommerceOrderItem.class);
 	}
 

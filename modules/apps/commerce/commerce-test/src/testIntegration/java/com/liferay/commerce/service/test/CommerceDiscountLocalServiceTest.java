@@ -33,7 +33,6 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.test.util.CommerceTestUtil;
@@ -107,7 +106,12 @@ public class CommerceDiscountLocalServiceTest {
 				_commerceAccountGroup.getCommerceAccountGroupId(),
 				_commerceAccount.getCommerceAccountId(), _serviceContext);
 
-		_commerceChannel = CommerceTestUtil.addCommerceChannel();
+		_commerceCatalog = CommerceTestUtil.addCommerceCatalog(
+			_company.getCompanyId(), _company.getGroupId(), _user.getUserId(),
+			_commerceCurrency.getCode());
+
+		_commerceChannel = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
 
 		_commercePricingConfiguration =
 			_configurationProvider.getSystemConfiguration(
@@ -137,13 +141,8 @@ public class CommerceDiscountLocalServiceTest {
 			"The discount is matching the created one"
 		);
 
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
+			_commerceCatalog.getGroupId());
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
@@ -185,7 +184,7 @@ public class CommerceDiscountLocalServiceTest {
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
+			_commerceCatalog.getGroupId());
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
@@ -226,7 +225,7 @@ public class CommerceDiscountLocalServiceTest {
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
+			_commerceCatalog.getGroupId());
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
@@ -406,8 +405,8 @@ public class CommerceDiscountLocalServiceTest {
 	@Inject
 	private CommerceAccountHelper _commerceAccountHelper;
 
-	@Inject
-	private CommerceCatalogLocalService _commerceCatalogLocalService;
+	@DeleteAfterTestRun
+	private CommerceCatalog _commerceCatalog;
 
 	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;

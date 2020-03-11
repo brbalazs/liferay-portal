@@ -76,11 +76,14 @@ public class CommerceSubscriptionEntryTest {
 	@Before
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
+
 		_user = UserTestUtil.addUser();
-		_commerceChannel = CommerceTestUtil.addCommerceChannel();
 
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
 			_user.getCompanyId());
+
+		_commerceChannel = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
 	}
 
 	@Test

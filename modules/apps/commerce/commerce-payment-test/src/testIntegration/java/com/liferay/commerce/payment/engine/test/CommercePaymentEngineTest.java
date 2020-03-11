@@ -79,11 +79,13 @@ public class CommercePaymentEngineTest {
 	public void setUp() throws Exception {
 		_company = CompanyTestUtil.addCompany();
 
-		_commerceChannel = CommerceTestUtil.addCommerceChannel();
 		_user = UserTestUtil.addUser(_company);
 
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
 			_company.getCompanyId());
+
+		_commerceChannel = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
 
 		_commercePaymentMethodGroupRelLocalService.
 			addCommercePaymentMethodGroupRel(

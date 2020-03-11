@@ -96,7 +96,8 @@ public class CommercePriceListHierarchyDiscoveryTest {
 				_commerceAccountGroup.getCommerceAccountGroupId(),
 				_commerceAccount.getCommerceAccountId(), _serviceContext);
 
-		_commerceChannel = CommerceTestUtil.addCommerceChannel();
+		_commerceChannel = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
 
 		_catalog = _commerceCatalogLocalService.addCommerceCatalog(
 			RandomTestUtil.randomString(), _commerceCurrency.getCode(),
@@ -137,10 +138,14 @@ public class CommercePriceListHierarchyDiscoveryTest {
 		CommerceAccountGroupTestUtil.addCommerceAccountToAccountGroup(
 			_commerceAccount4);
 
-		_commerceChannel1 = CommerceTestUtil.addCommerceChannel();
-		_commerceChannel2 = CommerceTestUtil.addCommerceChannel();
-		_commerceChannel3 = CommerceTestUtil.addCommerceChannel();
-		_commerceChannel4 = CommerceTestUtil.addCommerceChannel();
+		_commerceChannel1 = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
+		_commerceChannel2 = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
+		_commerceChannel3 = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
+		_commerceChannel4 = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
 
 		long[] commerceAccount3AccountGroups =
 			_commerceAccountHelper.getCommerceAccountGroupIds(

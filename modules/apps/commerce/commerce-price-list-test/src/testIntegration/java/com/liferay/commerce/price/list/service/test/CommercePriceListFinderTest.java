@@ -35,7 +35,6 @@ import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
@@ -47,7 +46,6 @@ import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
-import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
@@ -99,7 +97,12 @@ public class CommercePriceListFinderTest {
 				_commerceAccountGroup.getCommerceAccountGroupId(),
 				_commerceAccount.getCommerceAccountId(), _serviceContext);
 
-		_commerceChannel = CommerceTestUtil.addCommerceChannel();
+		_commerceCatalog = CommerceTestUtil.addCommerceCatalog(
+			_company.getCompanyId(), _company.getGroupId(), _user.getUserId(),
+			_commerceCurrency.getCode());
+
+		_commerceChannel = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
 	}
 
 	@Test
@@ -115,20 +118,16 @@ public class CommercePriceListFinderTest {
 			"The price list is qualified for the account and channel"
 		);
 
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addAccountAndChannelPriceList(
-				catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
+				_commerceCatalog.getGroupId(),
+				_commerceAccount.getCommerceAccountId(),
 				_commerceChannel.getCommerceChannelId(), _TYPE);
 
 		CommercePriceList retrievedPriceList =
 			_commercePriceListLocalService.
 				getCommercePriceListByAccountAndChannelId(
-					catalog.getGroupId(), _TYPE,
+					_commerceCatalog.getGroupId(), _TYPE,
 					_commerceAccount.getCommerceAccountId(),
 					_commerceChannel.getCommerceChannelId());
 
@@ -169,24 +168,20 @@ public class CommercePriceListFinderTest {
 			"The price list is qualified for the account groups and channel"
 		);
 
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
 		long[] commerceAccountGroupIds =
 			_commerceAccountHelper.getCommerceAccountGroupIds(
 				_commerceAccount.getCommerceAccountId());
 
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addAccountGroupAndChannelPriceList(
-				catalog.getGroupId(), commerceAccountGroupIds,
+				_commerceCatalog.getGroupId(), commerceAccountGroupIds,
 				_commerceChannel.getCommerceChannelId(), _TYPE);
 
 		CommercePriceList retrievedPriceList =
 			_commercePriceListLocalService.
 				getCommercePriceListByAccountGroupsAndChannelId(
-					catalog.getGroupId(), _TYPE, commerceAccountGroupIds,
+					_commerceCatalog.getGroupId(), _TYPE,
+					commerceAccountGroupIds,
 					_commerceChannel.getCommerceChannelId());
 
 		Assert.assertEquals(
@@ -226,23 +221,19 @@ public class CommercePriceListFinderTest {
 			"The price list is qualified for the account group"
 		);
 
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
 		long[] commerceAccountGroupIds =
 			_commerceAccountHelper.getCommerceAccountGroupIds(
 				_commerceAccount.getCommerceAccountId());
 
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addAccountGroupPriceList(
-				catalog.getGroupId(), commerceAccountGroupIds, _TYPE);
+				_commerceCatalog.getGroupId(), commerceAccountGroupIds, _TYPE);
 
 		CommercePriceList retrievedPriceList =
 			_commercePriceListLocalService.
 				getCommercePriceListByAccountGroupIds(
-					catalog.getGroupId(), _TYPE, commerceAccountGroupIds);
+					_commerceCatalog.getGroupId(), _TYPE,
+					commerceAccountGroupIds);
 
 		Assert.assertEquals(
 			commercePriceList.getCommercePriceListId(),
@@ -271,19 +262,14 @@ public class CommercePriceListFinderTest {
 			"The price list is qualified for the account"
 		);
 
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addAccountPriceList(
-				catalog.getGroupId(), _commerceAccount.getCommerceAccountId(),
-				_TYPE);
+				_commerceCatalog.getGroupId(),
+				_commerceAccount.getCommerceAccountId(), _TYPE);
 
 		CommercePriceList retrievedPriceList =
 			_commercePriceListLocalService.getCommercePriceListByAccountId(
-				catalog.getGroupId(), _TYPE,
+				_commerceCatalog.getGroupId(), _TYPE,
 				_commerceAccount.getCommerceAccountId());
 
 		Assert.assertEquals(
@@ -312,19 +298,14 @@ public class CommercePriceListFinderTest {
 			"The price list is qualified for the channel"
 		);
 
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addChannelPriceList(
-				catalog.getGroupId(), _commerceChannel.getCommerceChannelId(),
-				_TYPE);
+				_commerceCatalog.getGroupId(),
+				_commerceChannel.getCommerceChannelId(), _TYPE);
 
 		CommercePriceList retrievedPriceList =
 			_commercePriceListLocalService.getCommercePriceListByChannelId(
-				catalog.getGroupId(), _TYPE,
+				_commerceCatalog.getGroupId(), _TYPE,
 				_commerceChannel.getCommerceChannelId());
 
 		Assert.assertEquals(
@@ -352,18 +333,13 @@ public class CommercePriceListFinderTest {
 			"The price list has no qualifiers"
 		);
 
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), false, _TYPE, 1.0);
+				_commerceCatalog.getGroupId(), false, _TYPE, 1.0);
 
 		CommercePriceList retrievedPriceList =
 			_commercePriceListLocalService.getCommercePriceListByUnqualified(
-				catalog.getGroupId(), _TYPE);
+				_commerceCatalog.getGroupId(), _TYPE);
 
 		Assert.assertEquals(
 			commercePriceList.getCommercePriceListId(),
@@ -419,8 +395,8 @@ public class CommercePriceListFinderTest {
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;
 
-	@Inject
-	private CommerceCatalogLocalService _commerceCatalogLocalService;
+	@DeleteAfterTestRun
+	private CommerceCatalog _commerceCatalog;
 
 	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;

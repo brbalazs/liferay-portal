@@ -311,20 +311,15 @@ public class CommerceTestUtil {
 	}
 
 	public static CommerceCatalog addCommerceCatalog(
-			long groupId, String commerceCurrencyCode)
+			long companyId, long groupId, long userId,
+			String commerceCurrencyCode)
 		throws Exception {
 
 		return CommerceCatalogServiceUtil.addCommerceCatalog(
 			RandomTestUtil.randomString(), commerceCurrencyCode,
 			LocaleUtil.toLanguageId(LocaleUtil.US), null,
-			ServiceContextTestUtil.getServiceContext(groupId));
-	}
-
-	public static CommerceChannel addCommerceChannel() throws Exception {
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
-		return addCommerceChannel(commerceCurrency.getCode());
+			ServiceContextTestUtil.getServiceContext(
+				companyId, groupId, userId));
 	}
 
 	public static CommerceChannel addCommerceChannel(
