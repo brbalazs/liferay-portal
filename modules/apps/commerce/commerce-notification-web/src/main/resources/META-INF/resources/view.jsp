@@ -34,7 +34,7 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannelId));
 <%@ include file="/navbar.jspf" %>
 
 <c:choose>
-	<c:when test="<%= notificationNavigationItem.equals("view-all-notification-queue-entries") %>">
+	<c:when test='<%= notificationNavigationItem.equals("view-all-notification-queue-entries") %>'>
 		<commerce-ui:dataset-display
 			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceNotificationEntryClayTable.NAME %>"
@@ -46,7 +46,7 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannelId));
 			showManagementBar="<%= false %>"
 		/>
 	</c:when>
-	<c:when test="<%= notificationNavigationItem.equals("view-all-notification-templates") %>">
+	<c:when test='<%= notificationNavigationItem.equals("view-all-notification-templates") %>'>
 		<commerce-ui:dataset-display
 			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceNotificationTemplateClayTable.NAME %>"
