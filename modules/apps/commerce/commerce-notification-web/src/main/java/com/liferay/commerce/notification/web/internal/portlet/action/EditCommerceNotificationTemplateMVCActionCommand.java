@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.notification.web.internal.portlet.action;
 
-import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.notification.exception.CommerceNotificationTemplateFromException;
 import com.liferay.commerce.notification.exception.CommerceNotificationTemplateNameException;
 import com.liferay.commerce.notification.exception.CommerceNotificationTemplateTypeException;
@@ -22,6 +21,7 @@ import com.liferay.commerce.notification.exception.NoSuchNotificationTemplateExc
 import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateCommerceAccountGroupRelService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
@@ -49,7 +49,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"javax.portlet.name=" + CommerceAdminPortletKeys.COMMERCE_ADMIN_GROUP_INSTANCE,
+		"javax.portlet.name=" + CPPortletKeys.COMMERCE_CHANNELS,
 		"mvc.command.name=editCommerceNotificationTemplate"
 	},
 	service = MVCActionCommand.class
