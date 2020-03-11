@@ -189,6 +189,10 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+                images:
+                    items:
+                        $ref: "#/components/schemas/Attachment"
+                    type: array
                 metaDescription:
                     type: string
                 metaKeyword:
@@ -1115,6 +1119,16 @@ paths:
                       minimum: 0
                       type: integer
                   style: simple
+                - in: query
+                  name: accountId
+                  required: false
+                  schema:
+                      description:
+                          Account Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
                 - in: query
                   name: page
                   required: false
