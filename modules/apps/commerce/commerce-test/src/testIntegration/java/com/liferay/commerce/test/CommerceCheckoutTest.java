@@ -15,13 +15,13 @@
 package com.liferay.commerce.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
@@ -62,6 +62,11 @@ public class CommerceCheckoutTest {
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
 		_user = UserTestUtil.addUser();
+
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency();
+
+		_commerceChannel = CommerceTestUtil.addCommerceChannel(
+			_group.getGroupId(), _commerceCurrency.getCode());
 	}
 
 	@Test
@@ -77,22 +82,15 @@ public class CommerceCheckoutTest {
 			"The price list with the highest priority should be retrieved"
 		);
 
-		CommerceCurrency commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency();
-
-		CommerceTestUtil.addCommerceChannel(
-			_group.getGroupId(), commerceCurrency.getCode());
-
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _group.getGroupId(),
-			commerceCurrency.getCommerceCurrencyId());
+			_user.getUserId(), _commerceChannel.getGroupId(),
+			_commerceCurrency.getCommerceCurrencyId());
 
 		CommerceTestUtil.addCheckoutDetailsToUserOrder(
 			commerceOrder, commerceOrder.getUserId(), false);
 
-		commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
-			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-			_user.getUserId());
+		commerceOrder = _commerceOrderEngine.checkoutCommerceOrder(
+			commerceOrder, _user.getUserId());
 
 		Assert.assertEquals(
 			WorkflowConstants.STATUS_APPROVED, commerceOrder.getStatus());
@@ -132,6 +130,12 @@ public class CommerceCheckoutTest {
 
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
+
+	@DeleteAfterTestRun
+	private CommerceChannel _commerceChannel;
+
+	@DeleteAfterTestRun
+	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CommerceOrderEngine _commerceOrderEngine;
