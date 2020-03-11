@@ -421,6 +421,7 @@ public class CommerceOrderDiscountTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
 
 	@Inject

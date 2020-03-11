@@ -292,7 +292,10 @@ public class CommercePriceListLowestDiscoveryTest {
 	private static final String _TYPE =
 		CommercePriceListTypeKeys.TYPE_PRICE_LIST;
 
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
+
+	@DeleteAfterTestRun
 	private CommerceAccountGroup _commerceAccountGroup;
 
 	@Inject
@@ -310,6 +313,7 @@ public class CommercePriceListLowestDiscoveryTest {
 	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
 
+	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
 
 	@Inject(

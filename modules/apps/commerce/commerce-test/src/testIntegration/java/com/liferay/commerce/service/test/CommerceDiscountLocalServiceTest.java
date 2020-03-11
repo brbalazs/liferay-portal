@@ -388,7 +388,10 @@ public class CommerceDiscountLocalServiceTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
+
+	@DeleteAfterTestRun
 	private CommerceAccountGroup _commerceAccountGroup;
 
 	@Inject
@@ -403,6 +406,7 @@ public class CommerceDiscountLocalServiceTest {
 	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
 
+	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
 
 	@Inject

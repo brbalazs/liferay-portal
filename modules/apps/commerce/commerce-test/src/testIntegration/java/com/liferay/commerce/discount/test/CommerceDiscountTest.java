@@ -586,7 +586,8 @@ public class CommerceDiscountTest {
 		);
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), _commerceChannel.getGroupId(), _commerceCurrency);
+			_user.getUserId(), _commerceChannel.getGroupId(),
+			_commerceCurrency);
 
 		commerceOrder.setCommerceCurrencyId(
 			_commerceCurrency.getCommerceCurrencyId());
@@ -668,6 +669,7 @@ public class CommerceDiscountTest {
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
 
 	@Inject

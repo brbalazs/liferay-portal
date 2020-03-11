@@ -304,6 +304,7 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 	private CommerceVirtualOrderItemLocalService
 		_commerceVirtualOrderItemLocalService;
 
+	@DeleteAfterTestRun
 	private Company _company;
 
 	@Inject
@@ -312,6 +313,7 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 	@Inject
 	private CPInstanceLocalService _cpInstanceLocalService;
 
+	@DeleteAfterTestRun
 	private User _user;
 
 }

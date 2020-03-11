@@ -189,8 +189,7 @@ public class EditCommerceCurrencyMVCActionCommand extends BaseMVCActionCommand {
 			commerceCurrency = _commerceCurrencyService.addCommerceCurrency(
 				serviceContext.getUserId(), code, nameMap, symbol,
 				new BigDecimal(rate), formatPatternMap, maxFractionDigits,
-				minFractionDigits, roundingMode, primary, priority, active,
-				serviceContext);
+				minFractionDigits, roundingMode, primary, priority, active);
 		}
 		else {
 			commerceCurrency = _commerceCurrencyService.updateCommerceCurrency(

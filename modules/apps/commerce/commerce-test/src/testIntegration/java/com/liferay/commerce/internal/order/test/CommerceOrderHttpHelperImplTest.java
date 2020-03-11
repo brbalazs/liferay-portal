@@ -109,8 +109,8 @@ public class CommerceOrderHttpHelperImplTest {
 
 		_httpServletRequest = new MockHttpServletRequest();
 
-		_commerceCurrency =
-			CommerceCurrencyTestUtil.addCommerceCurrency(_group.getCompanyId());
+		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
+			_group.getCompanyId());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
 			_group.getGroupId(), _commerceCurrency.getCode());
@@ -231,13 +231,11 @@ public class CommerceOrderHttpHelperImplTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
 
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;
-
-	@DeleteAfterTestRun
-	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CommerceInventoryBookedQuantityLocalService
@@ -245,6 +243,9 @@ public class CommerceOrderHttpHelperImplTest {
 
 	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
+
+	@DeleteAfterTestRun
+	private CommerceCurrency _commerceCurrency;
 
 	@Inject
 	private CommerceDiscountLocalService _commerceDiscountLocalService;

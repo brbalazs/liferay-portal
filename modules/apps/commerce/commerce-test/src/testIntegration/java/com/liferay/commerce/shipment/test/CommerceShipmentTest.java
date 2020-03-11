@@ -58,6 +58,7 @@ import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.CompanyLocalService;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
@@ -120,6 +121,8 @@ public class CommerceShipmentTest {
 		_commerceChannelLocalService.deleteCommerceChannel(_commerceChannel);
 
 		_commerceCurrencyLocalService.deleteCommerceCurrency(_commerceCurrency);
+
+		_userLocalService.deleteUser(_user);
 
 		_companyLocalService.deleteCompany(_company);
 	}
@@ -967,5 +970,8 @@ public class CommerceShipmentTest {
 	private CPInstanceLocalService _cpInstanceLocalService;
 
 	private User _user;
+
+	@Inject
+	private UserLocalService _userLocalService;
 
 }
