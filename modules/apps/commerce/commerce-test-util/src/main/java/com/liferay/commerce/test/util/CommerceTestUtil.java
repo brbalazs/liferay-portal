@@ -60,6 +60,7 @@ import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
 import java.math.BigDecimal;
+
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
@@ -173,7 +174,7 @@ public class CommerceTestUtil {
 
 		long groupId = commerceOrder.getGroupId();
 
-		CPInstance cpInstance = CPTestUtil.addCPInstance(groupId);
+		CPInstance cpInstance = CPTestUtil.addCPInstanceWithRandomSku(groupId);
 
 		BigDecimal price = BigDecimal.valueOf(RandomTestUtil.randomDouble());
 
