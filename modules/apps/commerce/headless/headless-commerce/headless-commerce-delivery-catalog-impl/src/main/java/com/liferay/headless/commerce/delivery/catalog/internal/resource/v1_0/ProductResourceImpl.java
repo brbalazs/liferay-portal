@@ -70,9 +70,6 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 			@NotNull Long channelId, @NotNull Long productId)
 		throws Exception {
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannel(channelId);
-
 		CPDefinition cpDefinition =
 			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
@@ -81,7 +78,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 				"Unable to find Product with ID: " + productId);
 		}
 
-		return _toProduct(cpDefinition, commerceChannel);
+		return _toProduct(cpDefinition);
 	}
 
 	@Override
@@ -136,27 +133,23 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 			pagination.getStartPosition(), pagination.getEndPosition());
 
 		return Page.of(
-			_toProducts(cpDataSourceResult, commerceChannel), pagination,
+			_toProducts(cpDataSourceResult), pagination,
 			cpDataSourceResult.getLength());
 	}
 
 	@Context
 	protected Company contextCompany;
 
-	private Product _toProduct(
-			CPDefinition cpDefinition, CommerceChannel commerceChannel)
+	private Product _toProduct(CPDefinition cpDefinition)
 		throws Exception {
 
 		return _productDTOConverter.toDTO(
 			new ProductDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
-				cpDefinition.getCPDefinitionId(), cpDefinition,
-				commerceChannel));
+				cpDefinition.getCPDefinitionId(), cpDefinition));
 	}
 
-	private List<Product> _toProducts(
-			CPDataSourceResult cpDataSourceResult,
-			CommerceChannel commerceChannel)
+	private List<Product> _toProducts(CPDataSourceResult cpDataSourceResult)
 		throws Exception {
 
 		List<Product> products = new ArrayList<>();
@@ -168,8 +161,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 				_productDTOConverter.toDTO(
 					new ProductDTOConverterContext(
 						contextAcceptLanguage.getPreferredLocale(),
-						cpCatalogEntry.getCPDefinitionId(), cpCatalogEntry,
-						commerceChannel)));
+						cpCatalogEntry.getCPDefinitionId(), cpCatalogEntry)));
 		}
 
 		return products;

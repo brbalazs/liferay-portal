@@ -27,27 +27,19 @@ import java.util.Locale;
 public class ProductDTOConverterContext extends DefaultDTOConverterContext {
 
 	public ProductDTOConverterContext(
-		Locale locale, long resourcePrimKey, CPCatalogEntry cpCatalogEntry,
-		CommerceChannel commerceChannel) {
+		Locale locale, long resourcePrimKey, CPCatalogEntry cpCatalogEntry) {
 
 		super(locale, resourcePrimKey);
 
 		_cpCatalogEntry = cpCatalogEntry;
-		_commerceChannel = commerceChannel;
 	}
 
 	public ProductDTOConverterContext(
-		Locale locale, long resourcePrimKey, CPDefinition cpDefinition,
-		CommerceChannel commerceChannel) {
+		Locale locale, long resourcePrimKey, CPDefinition cpDefinition) {
 
 		super(locale, resourcePrimKey);
 
 		_cpDefinition = cpDefinition;
-		_commerceChannel = commerceChannel;
-	}
-
-	public CommerceChannel getCommerceChannel() {
-		return _commerceChannel;
 	}
 
 	public CPCatalogEntry getCpCatalogEntry() {
@@ -58,7 +50,6 @@ public class ProductDTOConverterContext extends DefaultDTOConverterContext {
 		return _cpDefinition;
 	}
 
-	private final CommerceChannel _commerceChannel;
 	private CPCatalogEntry _cpCatalogEntry;
 	private CPDefinition _cpDefinition;
 

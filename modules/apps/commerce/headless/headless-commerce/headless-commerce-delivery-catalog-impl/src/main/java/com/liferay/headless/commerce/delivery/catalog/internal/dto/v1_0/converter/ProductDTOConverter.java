@@ -57,9 +57,6 @@ public class ProductDTOConverter implements DTOConverter {
 		ProductDTOConverterContext cpCatalogEntryDTOConverterConvertContext =
 			(ProductDTOConverterContext)dtoConverterContext;
 
-		CommerceChannel commerceChannel =
-			cpCatalogEntryDTOConverterConvertContext.getCommerceChannel();
-
 		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
 			cpCatalogEntryDTOConverterConvertContext.getResourcePrimKey());
 
@@ -78,10 +75,6 @@ public class ProductDTOConverter implements DTOConverter {
 				createDate = cpDefinition.getCreateDate();
 				description = cpDefinition.getDescription();
 				expando = expandoBridge.getAttributes();
-				friendlyUrl = _getFriendlyUrl(
-					cpDefinition, languageId,
-					cpCatalogEntryDTOConverterConvertContext.getLocale(),
-					portalURL, commerceChannel);
 				id = cpDefinition.getCPDefinitionId();
 				metaDescription = cpDefinition.getMetaDescription(languageId);
 				metaKeyword = cpDefinition.getMetaKeywords(languageId);
@@ -96,19 +89,6 @@ public class ProductDTOConverter implements DTOConverter {
 				urlImage = portalURL + cpDefinition.getDefaultImageFileURL();
 			}
 		};
-	}
-
-	private String _getFriendlyUrl(
-			CPDefinition cpDefinition, String languageId, Locale locale,
-			String portalURL, CommerceChannel commerceChannel)
-		throws PortalException {
-
-		String commerceChannelType = commerceChannel.getType();
-
-		return portalURL + "/" +
-			_cpDefinitionHelper.getFriendlyURL(
-				cpDefinition.getCPDefinitionId(), languageId, locale,
-				commerceChannel.getGroup());
 	}
 
 	private String[] _getTags(CPDefinition cpDefinition) {
@@ -128,13 +108,7 @@ public class ProductDTOConverter implements DTOConverter {
 	private AssetTagLocalService _assetTagLocalService;
 
 	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference
 	private CompanyLocalService _companyLocalService;
-
-	@Reference
-	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
 	private CPDefinitionLocalService _cpDefinitionLocalService;

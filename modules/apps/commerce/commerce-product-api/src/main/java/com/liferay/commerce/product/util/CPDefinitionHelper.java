@@ -41,10 +41,6 @@ public interface CPDefinitionHelper {
 			Locale locale)
 		throws PortalException;
 
-	public String getFriendlyURL(
-			long cpDefinitionId, String languageId, Locale locale, Group group)
-		throws PortalException;
-
 	public String getFriendlyURL(long cpDefinitionId, ThemeDisplay themeDisplay)
 		throws PortalException;
 
