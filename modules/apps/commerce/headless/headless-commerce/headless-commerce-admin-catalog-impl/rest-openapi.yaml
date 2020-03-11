@@ -499,6 +499,10 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+                images:
+                    items:
+                        $ref: "#/components/schemas/Attachment"
+                    type: array
                 metaDescription:
                     additionalProperties:
                         type: string
