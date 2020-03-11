@@ -181,8 +181,6 @@ components:
                 expando:
                     additionalProperties: true
                     type: object
-                friendlyUrl:
-                    type: string
                 id:
                     example: 30130
                     format: int64
