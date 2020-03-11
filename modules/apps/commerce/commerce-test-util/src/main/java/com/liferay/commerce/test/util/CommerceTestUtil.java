@@ -162,9 +162,9 @@ public class CommerceTestUtil {
 		throws PortalException {
 
 		return CPDefinitionInventoryLocalServiceUtil.addCPDefinitionInventory(
-			cpDefinition.getCPDefinitionId(), StringPool.BLANK,
-			StringPool.BLANK, false, false, 0, true, 1, 10000, StringPool.BLANK,
-			0);
+			cpDefinition.getUserId(), cpDefinition.getCPDefinitionId(),
+			StringPool.BLANK, StringPool.BLANK, false, false, 0, true, 1, 10000,
+			StringPool.BLANK, 0);
 	}
 
 	public static CommerceOrder addCheckoutDetailsToUserOrder(

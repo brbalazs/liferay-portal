@@ -417,7 +417,8 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 
 		if (cpDefinitionInventoryId <= 0) {
 			_cpDefinitionInventoryService.addCPDefinitionInventory(
-				cpDefinitionId, cpDefinitionInventoryEngine, lowStockActivity,
+				serviceContext.getUserId(), cpDefinitionId,
+				cpDefinitionInventoryEngine, lowStockActivity,
 				displayAvailability, displayStockQuantity, minStockQuantity,
 				backOrders, minOrderQuantity, maxOrderQuantity,
 				allowedOrderQuantities, multipleOrderQuantity);

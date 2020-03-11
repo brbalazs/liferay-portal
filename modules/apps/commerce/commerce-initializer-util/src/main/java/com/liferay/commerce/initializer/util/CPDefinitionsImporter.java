@@ -576,10 +576,11 @@ public class CPDefinitionsImporter {
 			CPDefinitionInventoryConstants.DEFAULT_MULTIPLE_ORDER_QUANTITY);
 
 		_cpDefinitionInventoryLocalService.addCPDefinitionInventory(
-			cpDefinition.getCPDefinitionId(), cpDefinitionInventoryEngine,
-			lowStockActivity, displayAvailability, displayStockQuantity,
-			minStockQuantity, backOrders, minOrderQuantity, maxOrderQuantity,
-			allowedOrderQuantities, multipleOrderQuantity);
+			serviceContext.getUserId(), cpDefinition.getCPDefinitionId(),
+			cpDefinitionInventoryEngine, lowStockActivity, displayAvailability,
+			displayStockQuantity, minStockQuantity, backOrders,
+			minOrderQuantity, maxOrderQuantity, allowedOrderQuantities,
+			multipleOrderQuantity);
 
 		// Commerce product definition availability estimate
 
