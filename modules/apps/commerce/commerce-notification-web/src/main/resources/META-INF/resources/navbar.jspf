@@ -1,3 +1,5 @@
+<%@ page import="com.liferay.commerce.product.constants.CPPortletKeys" %>
+
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -14,15 +16,18 @@
  */
 --%>
 
-<liferay-portlet:renderURL portletName="<%= CommerceAdminPortletKeys.COMMERCE_ADMIN_GROUP_INSTANCE %>" varImpl="viewNotificationQueueEntriesURL">
-	<portlet:param name="commerceAdminModuleKey" value="<%= commerceAdminModuleKey %>" />
+<liferay-portlet:renderURL portletName="<%= CPPortletKeys.COMMERCE_CHANNELS %>" varImpl="viewNotificationQueueEntriesURL">
+	<portlet:param name="mvcRenderCommandName" value="editCommerceChannel" />
+	<portlet:param name="commerceChannelId" value="<%= String.valueOf(commerceChannelId) %>" />
 	<portlet:param name="notificationNavigationItem" value="view-all-notification-queue-entries" />
+	<portlet:param name="screenNavigationCategoryKey" value="notifications" />
 </liferay-portlet:renderURL>
 
-<liferay-portlet:renderURL portletName="<%= CommerceAdminPortletKeys.COMMERCE_ADMIN_GROUP_INSTANCE %>" varImpl="viewNotificationTemplatesURL">
-	<portlet:param name="mvcRenderCommandName" value="viewCommerceNotificationTemplates" />
-	<portlet:param name="commerceAdminModuleKey" value="<%= commerceAdminModuleKey %>" />
+<liferay-portlet:renderURL portletName="<%= CPPortletKeys.COMMERCE_CHANNELS %>" varImpl="viewNotificationTemplatesURL">
+	<portlet:param name="mvcRenderCommandName" value="editCommerceChannel" />
+	<portlet:param name="commerceChannelId" value="<%= String.valueOf(commerceChannelId) %>" />
 	<portlet:param name="notificationNavigationItem" value="view-all-notification-templates" />
+	<portlet:param name="screenNavigationCategoryKey" value="notifications" />
 </liferay-portlet:renderURL>
 
 <%
