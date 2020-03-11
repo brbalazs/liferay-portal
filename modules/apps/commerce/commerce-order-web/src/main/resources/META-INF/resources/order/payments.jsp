@@ -96,7 +96,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 		<commerce-ui:panel
 			bodyClasses="p-0"
 			elementClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "payment-transactions") %>'
+			title='<%= LanguageUtil.get(request, "transaction-history") %>'
 		>
 
 			<%
