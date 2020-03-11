@@ -32,11 +32,9 @@ import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
-import com.liferay.portal.kernel.test.util.CompanyTestUtil;
+import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
@@ -77,9 +75,7 @@ public class CommercePaymentEngineTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_company = CompanyTestUtil.addCompany();
-
-		_user = UserTestUtil.addUser(_company);
+		_user = UserTestUtil.addUser();
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel();
 
@@ -104,8 +100,6 @@ public class CommercePaymentEngineTest {
 		for (CommerceOrder commerceOrder : _commerceOrders) {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
-
-		_companyLocalService.deleteCompany(_company);
 	}
 
 	@Test
@@ -135,11 +129,11 @@ public class CommercePaymentEngineTest {
 			CommerceCatalogLocalServiceUtil.addCommerceCatalog(
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.toLanguageId(LocaleUtil.US), null,
-				ServiceContextTestUtil.getServiceContext(
-					_company.getGroupId()));
+				ServiceContextTestUtil.getServiceContext(_user.getGroupId()));
 
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			commerceCatalog.getGroupId());
+		CPInstance cpInstance =
+			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(
+				commerceCatalog.getGroupId());
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
@@ -216,8 +210,9 @@ public class CommercePaymentEngineTest {
 				LocaleUtil.toLanguageId(LocaleUtil.US), null,
 				ServiceContextTestUtil.getServiceContext());
 
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			commerceCatalog.getGroupId());
+		CPInstance cpInstance =
+			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(
+				commerceCatalog.getGroupId());
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
@@ -256,7 +251,10 @@ public class CommercePaymentEngineTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
+	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
+
+	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
 
 	@Inject
@@ -274,12 +272,9 @@ public class CommercePaymentEngineTest {
 	private CommercePaymentMethodGroupRelLocalService
 		_commercePaymentMethodGroupRelLocalService;
 
-	private Company _company;
-
-	@Inject
-	private CompanyLocalService _companyLocalService;
-
 	private HttpServletRequest _httpServletRequest;
+
+	@DeleteAfterTestRun
 	private User _user;
 
 }
