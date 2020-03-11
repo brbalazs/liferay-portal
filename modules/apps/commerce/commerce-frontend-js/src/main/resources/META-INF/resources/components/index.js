@@ -23,6 +23,13 @@ module.exports = [
 	{
 		entry: 'entry.es.js',
 		entry_dev: 'entry.dev.es.js',
+		folder: 'headless_dataset_display',
+		name: 'Headless dataset display',
+		page: 'headless-dataset-display.html'
+	},
+	{
+		entry: 'entry.es.js',
+		entry_dev: 'entry.dev.es.js',
 		folder: 'item_finder',
 		name: 'Item finder',
 		page: 'item-finder.html'

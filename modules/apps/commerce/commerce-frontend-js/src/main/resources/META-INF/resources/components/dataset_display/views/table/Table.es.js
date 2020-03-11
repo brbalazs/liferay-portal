@@ -17,11 +17,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useContext} from 'react';
 
+import {getValueFromItem} from '../../../../utilities/index.es';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es';
-import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
-import Checkbox from '../../data_renderer/Checkbox.es';
-import Comment from '../../data_renderer/Comment.es';
-import Radio from '../../data_renderer/Radio.es';
+import ActionsDropdownRenderer from '../../data_renderer/ActionsDropdownRenderer.es';
+import CheckboxRenderer from '../../data_renderer/CheckboxRenderer.es';
+import CommentRenderer from '../../data_renderer/CommentRenderer.es';
+import RadioRenderer from '../../data_renderer/RadioRenderer.es';
 import {
 	getDataRendererById,
 	getDataRendererByUrl
@@ -62,6 +63,7 @@ function CustomTableCell(props) {
 			{currentView.Component && !loading ? (
 				<currentView.Component
 					actions={props.actions}
+					itemData={props.itemData}
 					itemId={props.itemId}
 					options={props.options}
 					value={props.value}
@@ -72,7 +74,9 @@ function CustomTableCell(props) {
 					className="loading-animation loading-animation-sm"
 				/>
 			)}
-			{props.comment && <Comment>{props.comment}</Comment>}
+			{props.comment && (
+				<CommentRenderer>{props.comment}</CommentRenderer>
+			)}
 		</ClayTable.Cell>
 	);
 }
@@ -89,9 +93,13 @@ function Table(props) {
 		updateSorting
 	} = useContext(DatasetDisplayContext);
 
-	const showActionItems = !!props.items.find(el => el.actionItems);
+	const showActionItems = Boolean(
+		(props.itemActions && props.itemActions.length) ||
+			props.items.find(el => el.actionItems)
+	);
 
-	const SelectionComponent = selectionType === 'multiple' ? Checkbox : Radio;
+	const SelectionComponent =
+		selectionType === 'multiple' ? CheckboxRenderer : RadioRenderer;
 
 	return (
 		<ClayTable borderless responsive={false}>
@@ -136,22 +144,28 @@ function Table(props) {
 							)}
 							{props.schema.fields.map((field, i) => {
 								const fieldName = field.fieldName;
-								const {
-									actionItems,
-									[fieldName]: value,
-									...otherProps
-								} = item;
+								const {actionItems, ...otherProps} = item;
+								const rawValue = getValueFromItem(
+									item,
+									fieldName
+								);
+								const formattedValue = field.mapData
+									? field.mapData(rawValue)
+									: rawValue;
 								const comment = otherProps.comments
 									? otherProps.comments[field.fieldName]
 									: null;
 								return (
 									<CustomTableCell
-										actions={actionItems}
+										actions={
+											props.itemActions || actionItems
+										}
 										comment={comment}
+										itemData={item}
 										itemId={itemId}
 										key={fieldName || i}
 										options={field}
-										value={value}
+										value={formattedValue}
 										view={{
 											contentRenderer:
 												field.contentRenderer,
@@ -162,10 +176,14 @@ function Table(props) {
 								);
 							})}
 							{showActionItems ? (
-								item.actionItems ? (
+								props.itemActions || item.actionItems ? (
 									<ClayTable.Cell>
-										<ActionsDropdown
-											actions={item.actionItems}
+										<ActionsDropdownRenderer
+											actions={
+												props.itemActions ||
+												item.actionItems
+											}
+											itemData={item}
 											itemId={itemId}
 										/>
 									</ClayTable.Cell>
@@ -182,6 +200,7 @@ function Table(props) {
 }
 
 Table.propTypes = {
+	itemActions: PropTypes.array,
 	items: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -189,7 +208,15 @@ Table.propTypes = {
 		})
 	),
 	schema: PropTypes.shape({
-		fields: PropTypes.array.isRequired
+		fields: PropTypes.arrayOf(
+			PropTypes.shape({
+				fieldName: PropTypes.string,
+				mapData: PropTypes.oneOfType([
+					PropTypes.string,
+					PropTypes.arrayOf(PropTypes.string)
+				])
+			})
+		).isRequired
 	}).isRequired
 };
 

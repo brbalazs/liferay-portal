@@ -17,10 +17,11 @@ import ClayLink from '@clayui/link';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
+import {formatActionUrl} from '../../../utilities/index.es';
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
-import DefaultContent from './Default.es';
+import DefaultContent from './DefaultRenderer.es';
 
-function ActionLink(props) {
+function ActionLinkRenderer(props) {
 	const {
 		executeAsyncItemAction,
 		highlightItems,
@@ -33,6 +34,8 @@ function ActionLink(props) {
 			? props.actions.find(action => action.id === props.options.actionId)
 			: props.actions[0];
 
+	const formattedHref = formatActionUrl(currentAction.href, props.itemData);
+
 	if (!currentAction) {
 		return <DefaultContent value={props.value} />;
 	}
@@ -44,7 +47,7 @@ function ActionLink(props) {
 			openModal({
 				size: currentAction.size || 'lg',
 				title: currentAction.title,
-				url: currentAction.href
+				url: formattedHref
 			});
 		}
 
@@ -53,12 +56,12 @@ function ActionLink(props) {
 			openSidePanel({
 				size: currentAction.size || 'lg',
 				title: currentAction.title,
-				url: currentAction.href
+				url: formattedHref
 			});
 		}
 
 		if (currentAction.target === 'async') {
-			executeAsyncItemAction(currentAction.href, currentAction.method);
+			executeAsyncItemAction(formattedHref, currentAction.method);
 		}
 
 		if (currentAction.onClick) {
@@ -76,7 +79,7 @@ function ActionLink(props) {
 	return (
 		<ClayLink
 			data-senna-off
-			href={currentAction.href || '#'}
+			href={formattedHref || '#'}
 			onClick={isNotALink() ? handleClickOnLink : null}
 		>
 			{props.value || <ClayIcon symbol={currentAction.icon} />}
@@ -84,7 +87,7 @@ function ActionLink(props) {
 	);
 }
 
-ActionLink.propTypes = {
+ActionLinkRenderer.propTypes = {
 	actions: PropTypes.arrayOf(
 		PropTypes.shape({
 			disabled: PropTypes.bool,
@@ -97,6 +100,7 @@ ActionLink.propTypes = {
 			title: PropTypes.string
 		})
 	),
+	itemData: PropTypes.object,
 	itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	options: PropTypes.shape({
 		actionId: PropTypes.string
@@ -104,4 +108,4 @@ ActionLink.propTypes = {
 	value: PropTypes.string
 };
 
-export default ActionLink;
+export default ActionLinkRenderer;

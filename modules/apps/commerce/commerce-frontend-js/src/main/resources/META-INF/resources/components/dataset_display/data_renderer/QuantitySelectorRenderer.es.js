@@ -12,25 +12,23 @@
  * details.
  */
 
-import ClayLink from '@clayui/link';
-import PropTypes from 'prop-types';
+import PropType from 'prop-types';
 import React from 'react';
 
-import DefaultContent from './Default.es';
+import DefaultSelector from '../../quantity_selector/QuantitySelector.es';
 
-function Link(props) {
+function QuantitySelectorRenderer(props) {
 	return (
-		<ClayLink href={props.value.href}>
-			<DefaultContent value={props.value.label} />
-		</ClayLink>
+		<div className="row">
+			<div className="col-auto">
+				<DefaultSelector size="small" style="simple" {...props.value} />
+			</div>
+		</div>
 	);
 }
 
-Link.propTypes = {
-	value: PropTypes.shape({
-		href: PropTypes.string,
-		label: PropTypes.string
-	})
+QuantitySelectorRenderer.propTypes = {
+	value: PropType.object
 };
 
-export default Link;
+export default QuantitySelectorRenderer;

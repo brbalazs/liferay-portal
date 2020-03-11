@@ -32,16 +32,19 @@ import {
 	getJsModule
 } from '../../utilities/index.es';
 import {createOdataFilterStrings} from '../../utilities/odata.es';
+import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext.es';
+import EmptyResultMessage from '../dataset_display/EmptyResultMessage.es';
+import ManagementBar from '../dataset_display/management_bar/index.es';
+import {getViewById} from '../dataset_display/views/index.es';
 import Modal from '../modal/Modal.es';
 import SidePanel from '../side_panel/SidePanel.es';
-import DatasetDisplayContext from './DatasetDisplayContext.es';
-import EmptyResultMessage from './EmptyResultMessage.es';
-import ManagementBar from './management_bar/index.es';
-import {getViewById} from './views/index.es';
 
 const headers = {
 	credentials: 'include',
-	headers: new Headers({'x-csrf-token': Liferay.authToken})
+	headers: new Headers({
+		Authorization: 'Basic ' + btoa('test@liferay.com' + ':' + 'test'),
+		'x-csrf-token': Liferay.authToken
+	})
 };
 
 function executeAsyncAction(url, method = 'GET') {
@@ -51,17 +54,7 @@ function executeAsyncAction(url, method = 'GET') {
 	});
 }
 
-function loadData(
-	apiUrl,
-	currentUrl,
-	filters,
-	searchParam,
-	delta,
-	page = 1,
-	sorting = []
-) {
-	const authString = `&p_auth=${window.Liferay.authToken}`;
-	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
+function loadData(apiUrl, filters, searchParam, delta, page = 1, sorting = []) {
 	const pagination = `&pageSize=${delta}&page=${page}`;
 	const searchParamString = searchParam ? `&q=${searchParam}` : '';
 	const sortingString = sorting.length
@@ -69,7 +62,7 @@ function loadData(
 		: ``;
 	const filterString = `&${createOdataFilterStrings(filters)}`;
 
-	const url = `${apiUrl}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}${filterString}`;
+	const url = `${apiUrl}?${pagination}${sortingString}${searchParamString}${filterString}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }
@@ -166,24 +159,22 @@ function DatasetDisplay(props) {
 			return updateItems(dataSetData);
 		}
 		setPageNumber(1);
-		setTotalItems(dataSetData.totalItems);
+		setTotalItems(dataSetData.totalCount);
 		return updateItems(dataSetData.items);
 	}
 
 	function getData(
 		apiUrl,
-		currentUrl,
 		filters,
 		searchParam,
 		delta,
 		pageNumber,
 		sorting,
-		successNotification = {}
+		showSuccessNotification = false
 	) {
 		setLoading(true);
 		return loadData(
 			apiUrl,
-			currentUrl,
 			filters,
 			searchParam,
 			delta,
@@ -192,20 +183,16 @@ function DatasetDisplay(props) {
 		)
 			.then(updateDataset)
 			.then(() => {
-				const {message, showSuccessNotification} = successNotification;
-
 				if (showSuccessNotification) {
-					const notificationMessage =
-						message || Liferay.Language.get('table-data-updated');
-
-					showNotification(notificationMessage, 'success');
+					showNotification(
+						Liferay.Language.get('table-data-updated'),
+						'success'
+					);
 				}
-
 				Liferay.fire(DATASET_DISPLAY_UPDATED, {id: props.id});
 			})
 			.catch(e => {
 				console.error(e);
-
 				showNotification(
 					Liferay.Language.get('unexpected-error'),
 					'danger'
@@ -217,7 +204,6 @@ function DatasetDisplay(props) {
 	useEffect(() => {
 		getData(
 			props.apiUrl,
-			props.currentUrl,
 			filters.filter(e => !!e.value),
 			searchParam,
 			delta,
@@ -228,7 +214,6 @@ function DatasetDisplay(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
 		props.apiUrl,
-		props.currentUrl,
 		filters,
 		searchParam,
 		delta,
@@ -268,16 +253,15 @@ function DatasetDisplay(props) {
 	}
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const refreshData = successNotification =>
+	const refreshData = () =>
 		getData(
 			props.apiUrl,
-			props.currentUrl,
 			filters.filter(e => !!e.value),
 			searchParam,
 			delta,
 			pageNumber,
 			sorting,
-			successNotification
+			false
 		);
 
 	useEffect(() => {
@@ -328,7 +312,6 @@ function DatasetDisplay(props) {
 				selectedItemsValue={selectedItemsValue}
 				selectionType={props.selectionType}
 				setActiveView={setActiveView}
-				showSearch={props.showSearch}
 				sidePanelId={datasetDisplaySupportSidePanelId}
 				totalItemsCount={items ? items.length : 0}
 				views={props.views}
@@ -350,6 +333,7 @@ function DatasetDisplay(props) {
 				{items && items.length ? (
 					<CurrentViewComponent
 						datasetDisplayContext={DatasetDisplayContext}
+						itemActions={props.itemActions}
 						items={items}
 						{...currentViewProps}
 					/>
@@ -422,6 +406,7 @@ function DatasetDisplay(props) {
 				formRef,
 				highlightItems,
 				highlightedItemsValue,
+				itemActions: props.itemActions,
 				loadData: refreshData,
 				modalId: datasetDisplaySupportModalId,
 				openModal,
@@ -485,11 +470,11 @@ DatasetDisplay.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
 	bulkActions: PropTypes.array,
 	creationMenuItems: PropTypes.array,
-	currentUrl: PropTypes.string,
 	filters: PropTypes.array,
 	formId: PropTypes.string,
 	id: PropTypes.string.isRequired,
-	items: PropTypes.array.isRequired,
+	itemActions: PropTypes.array,
+	items: PropTypes.array,
 	namespace: PropTypes.string,
 	pagination: PropTypes.shape({
 		deltas: PropTypes.arrayOf(
@@ -507,7 +492,6 @@ DatasetDisplay.propTypes = {
 	selectionType: PropTypes.oneOf(['single', 'multiple']),
 	showManagementBar: PropTypes.bool,
 	showPagination: PropTypes.bool,
-	showSearch: PropTypes.bool,
 	sidePanelId: PropTypes.string,
 	sorting: PropTypes.array,
 	spritemap: PropTypes.string.isRequired,
@@ -527,12 +511,12 @@ DatasetDisplay.propTypes = {
 DatasetDisplay.defaultProps = {
 	bulkActions: [],
 	filters: [],
+	itemActions: null,
 	items: null,
 	selectedItemsKey: 'id',
 	selectionType: 'multiple',
 	showManagementBar: true,
 	showPagination: true,
-	showSearch: true,
 	sorting: [],
 	style: 'default'
 };

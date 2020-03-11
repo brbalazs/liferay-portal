@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Checkbox from '../../data_renderer/Checkbox.es';
+import Checkbox from '../../data_renderer/CheckboxRenderer.es';
 
 function TableHeadCell(props) {
 	const sortingMatch = props.sorting.find(
@@ -152,7 +152,10 @@ TableHeadRow.propTypes = {
 		fields: PropTypes.arrayOf(
 			PropTypes.shape({
 				contentRenderer: PropTypes.string,
-				fieldName: PropTypes.string,
+				fieldName: PropTypes.oneOfType([
+					PropTypes.string,
+					PropTypes.array
+				]),
 				label: PropTypes.string,
 				sortable: PropTypes.bool
 			}).isRequired
@@ -166,7 +169,7 @@ TableHeadRow.propTypes = {
 	sorting: PropTypes.arrayOf(
 		PropTypes.shape({
 			direction: PropTypes.oneOf(['ASC', 'DESC']).isRequired,
-			fieldName: PropTypes.string.isRequired
+			fieldName: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
 		})
 	)
 };

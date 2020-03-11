@@ -19,7 +19,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
+import ActionsDropdownRenderer from '../../data_renderer/ActionsDropdownRenderer.es';
 
 function Email(props) {
 	const {openSidePanel} = useContext(props.datasetDisplayContext);
@@ -96,7 +96,7 @@ function Email(props) {
 				</div>
 				{props.actionItems.length ? (
 					<div className="col-auto d-flex flex-column justify-content-center">
-						<ActionsDropdown actions={props.actionItems} />
+						<ActionsDropdownRenderer actions={props.actionItems} />
 					</div>
 				) : null}
 			</div>

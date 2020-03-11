@@ -15,8 +15,8 @@
 import {ClayRadio} from '@clayui/form';
 import React from 'react';
 
-function Checkbox(props) {
+function RadioRenderer(props) {
 	return <ClayRadio {...props} />;
 }
 
-export default Checkbox;
+export default RadioRenderer;

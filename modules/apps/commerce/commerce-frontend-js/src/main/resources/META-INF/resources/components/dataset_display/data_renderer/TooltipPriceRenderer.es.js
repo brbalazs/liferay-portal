@@ -49,7 +49,7 @@ function TooltipTable(props) {
 	);
 }
 
-function TooltipPrice(props) {
+function TooltipPriceRenderer(props) {
 	if (!props.value) return null;
 
 	return (
@@ -72,7 +72,7 @@ function TooltipPrice(props) {
 	);
 }
 
-TooltipPrice.propTypes = {
+TooltipPriceRenderer.propTypes = {
 	value: Proptypes.shape({
 		details: Proptypes.arrayOf(
 			Proptypes.oneOfType([
@@ -101,4 +101,4 @@ TooltipPrice.propTypes = {
 	})
 };
 
-export default TooltipPrice;
+export default TooltipPriceRenderer;

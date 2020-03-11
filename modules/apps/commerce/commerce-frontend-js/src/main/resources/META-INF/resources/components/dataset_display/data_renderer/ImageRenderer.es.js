@@ -16,7 +16,7 @@ import ClaySticker from '@clayui/sticker';
 import PropType from 'prop-types';
 import React from 'react';
 
-function Image(props) {
+function ImageRenderer(props) {
 	return (
 		<div className="row">
 			<div className="col-auto">
@@ -37,7 +37,7 @@ function Image(props) {
 	);
 }
 
-Image.propTypes = {
+ImageRenderer.propTypes = {
 	value: PropType.shape({
 		alt: PropType.string.isRequired,
 		shape: PropType.oneOf(['circle', 'rounded']),
@@ -46,4 +46,4 @@ Image.propTypes = {
 	})
 };
 
-export default Image;
+export default ImageRenderer;

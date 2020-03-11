@@ -12,44 +12,45 @@
  * details.
  */
 
-import ClayLink from '@clayui/link';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
-import DefaultContent from './Default.es';
+import DefaultContent from './DefaultRenderer.es';
 
-function ModalLink(props) {
-	const {openModal} = useContext(DatasetDisplayContext);
+function SidePanelLinkRenderer(props) {
+	const {highlightItems, openSidePanel} = useContext(DatasetDisplayContext);
 
 	function handleClickOnLink(e, payload) {
 		e.preventDefault();
 
-		return openModal(payload);
+		highlightItems([props.itemId]);
+		openSidePanel(payload);
 	}
 
 	return (
-		<ClayLink
-			href="#"
+		<button
+			className="btn btn-link btn-sm p-0"
 			onClick={e =>
 				handleClickOnLink(e, {
-					size: props.value.size,
-					title: props.value.title,
+					size: props.value.size || 'lg',
 					url: props.value.href
 				})
 			}
 		>
 			<DefaultContent value={props.value} />
-		</ClayLink>
+		</button>
 	);
 }
 
-ModalLink.propTypes = {
+SidePanelLinkRenderer.propTypes = {
+	itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	value: PropTypes.shape({
 		href: PropTypes.string.isRequired,
 		icon: PropTypes.string,
 		label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+			.isRequired
 	}).isRequired
 };
 
-export default ModalLink;
+export default SidePanelLinkRenderer;

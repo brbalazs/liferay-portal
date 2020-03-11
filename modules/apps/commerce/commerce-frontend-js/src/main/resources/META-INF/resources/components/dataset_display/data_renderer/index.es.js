@@ -13,34 +13,36 @@
  */
 
 import {getJsModule} from '../../../utilities/index.es';
-import ActionsLink from './ActionLink.es';
-import ActionsDropdown from './ActionsDropdown.es';
-import Checkbox from './Checkbox.es';
-import Default from './Default.es';
-import Image from './Image.es';
-import Label from './Label.es';
-import Link from './Link.es';
-import ModalLink from './ModalLink.es';
-import QuantitySelector from './QuantitySelector.es';
-import SidePanelLink from './SidePanelLink.es';
-import TooltipPrice from './TooltipPrice.es';
+import ActionsLinkRenderer from './ActionLinkRenderer.es';
+import ActionsDropdownRenderer from './ActionsDropdownRenderer.es';
+import CheckboxRenderer from './CheckboxRenderer.es';
+import DateRenderer from './DateRenderer.es';
+import DefaultRenderer from './DefaultRenderer.es';
+import ImageRenderer from './ImageRenderer.es';
+import LabelRenderer from './LabelRenderer.es';
+import LinkRenderer from './LinkRenderer.es';
+import ModalLinkRenderer from './ModalLinkRenderer.es';
+import QuantitySelectorRenderer from './QuantitySelectorRenderer.es';
+import SidePanelLinkRenderer from './SidePanelLinkRenderer.es';
+import TooltipPriceRenderer from './TooltipPriceRenderer.es';
 
 const dataRenderers = {
-	actionLink: ActionsLink,
-	actionsDropdown: ActionsDropdown,
-	checkbox: Checkbox,
-	default: Default,
-	image: Image,
-	label: Label,
-	link: Link,
-	modalLink: ModalLink,
-	quantitySelector: QuantitySelector,
-	sidePanelLink: SidePanelLink,
-	tooltipPrice: TooltipPrice
+	actionLink: ActionsLinkRenderer,
+	actionsDropdown: ActionsDropdownRenderer,
+	checkbox: CheckboxRenderer,
+	date: DateRenderer,
+	default: DefaultRenderer,
+	image: ImageRenderer,
+	label: LabelRenderer,
+	link: LinkRenderer,
+	modalLink: ModalLinkRenderer,
+	quantitySelector: QuantitySelectorRenderer,
+	sidePanelLink: SidePanelLinkRenderer,
+	tooltipPrice: TooltipPriceRenderer
 };
 
 export function getDataRendererById(id) {
-	return dataRenderers[id] || Default;
+	return dataRenderers[id] || DefaultRenderer;
 }
 
 export const fetchedContentRenderers = [];

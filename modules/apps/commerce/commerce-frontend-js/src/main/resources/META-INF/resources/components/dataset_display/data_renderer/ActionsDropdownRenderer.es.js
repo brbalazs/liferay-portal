@@ -20,6 +20,7 @@ import ClayLoadingIndicator from '@clayui/loading-indicator';
 import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
 
+import {formatActionUrl} from '../../../utilities/index.es';
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
 
 function isNotALink(target, onClick) {
@@ -62,7 +63,7 @@ function ActionItem(props) {
 	);
 }
 
-function ActionsDropdown(props) {
+function ActionsDropdownRenderer(props) {
 	const {
 		executeAsyncItemAction,
 		highlightItems,
@@ -107,6 +108,7 @@ function ActionsDropdown(props) {
 
 	if (props.actions.length === 1) {
 		const action = props.actions[0];
+		const formattedHref = formatActionUrl(action.href, props.itemData);
 
 		if (loading) {
 			return (
@@ -145,7 +147,7 @@ function ActionsDropdown(props) {
 		) : (
 			<ClayLink
 				className="btn btn-primary btn-sm"
-				href={action.href}
+				href={formattedHref}
 				monospaced={Boolean(action.icon)}
 			>
 				{content}
@@ -178,22 +180,27 @@ function ActionsDropdown(props) {
 		>
 			<ClayDropDown.ItemList>
 				<ClayDropDown.Group>
-					{props.actions.map((action, i) => (
-						<ActionItem
-							key={i}
-							{...action}
-							closeMenu={() => setActive(false)}
-							handleAction={handleAction}
-							itemId={props.itemId}
-						/>
-					))}
+					{props.actions.map((action, i) => {
+						return (
+							<ActionItem
+								key={i}
+								{...action}
+								closeMenu={() => setActive(false)}
+								handleAction={handleAction}
+								href={
+									action.href &&
+									formatActionUrl(action.href, props.itemData)
+								}
+							/>
+						);
+					})}
 				</ClayDropDown.Group>
 			</ClayDropDown.ItemList>
 		</ClayDropDown>
 	);
 }
 
-ActionsDropdown.propTypes = {
+ActionsDropdownRenderer.propTypes = {
 	actions: PropTypes.arrayOf(
 		PropTypes.shape({
 			href: PropTypes.string,
@@ -204,7 +211,8 @@ ActionsDropdown.propTypes = {
 			target: PropTypes.oneOf(['modal', 'sidePanel', 'link', 'async'])
 		})
 	),
+	itemData: PropTypes.object,
 	itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
-export default ActionsDropdown;
+export default ActionsDropdownRenderer;

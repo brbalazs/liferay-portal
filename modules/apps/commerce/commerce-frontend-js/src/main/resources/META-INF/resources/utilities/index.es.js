@@ -93,6 +93,10 @@ if (!window.Liferay) {
 			window.addEventListener(name, fn);
 		}
 	};
+
+	window.themeDisplay = {
+		getLanguageId: () => 'en_US'
+	};
 }
 
 export function liferayNavigate(url) {
@@ -119,6 +123,24 @@ export function slugify(str) {
 		.replace(/-+/g, '-');
 
 	return str;
+}
+
+export function getValueFromItem(item, fieldName) {
+	if (Array.isArray(fieldName)) {
+		return fieldName.reduce((acc, key) => acc[key], item);
+	}
+	return item[fieldName];
+}
+
+export function formatActionUrl(url, item) {
+	const regex = new RegExp('{(.*?)}', 'mg');
+
+	return url.replace(regex, matched =>
+		getValueFromItem(
+			item,
+			matched.substring(1, matched.length - 1).split('|')
+		)
+	);
 }
 
 export function launcher(Component, componentId, rootId, props) {

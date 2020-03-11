@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import Image from '../../data_renderer/Image.es';
+import ImageRenderer from '../../data_renderer/ImageRenderer.es';
 
 function List(props) {
 	const {
@@ -63,7 +63,9 @@ function List(props) {
 					</ClayList.ItemField>
 					{props.schema.thumbnail && item[props.schema.thumbnail] && (
 						<ClayList.ItemField>
-							<Image value={item[props.schema.thumbnail]} />
+							<ImageRenderer
+								value={item[props.schema.thumbnail]}
+							/>
 						</ClayList.ItemField>
 					)}
 					<ClayList.ItemField

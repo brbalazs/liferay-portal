@@ -12,23 +12,32 @@
  * details.
  */
 
-import PropType from 'prop-types';
+import ClayLabel from '@clayui/label';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import DefaultSelector from '../../quantity_selector/QuantitySelector.es';
-
-function QuantitySelector(props) {
-	return (
-		<div className="row">
-			<div className="col-auto">
-				<DefaultSelector size="small" style="simple" {...props.value} />
-			</div>
-		</div>
-	);
+function LabelRenderer(props) {
+	return props.value ? (
+		<ClayLabel displayType={props.value.displayStyle || 'info'}>
+			{typeof props.value === 'string' ? props.value : props.value.label}
+		</ClayLabel>
+	) : null;
 }
 
-QuantitySelector.propTypes = {
-	value: PropType.object
+LabelRenderer.propTypes = {
+	value: PropTypes.oneOfType([
+		PropTypes.shape({
+			displayStyle: PropTypes.oneOf([
+				'success',
+				'info',
+				'secondary',
+				'warning',
+				'danger'
+			]),
+			label: PropTypes.string
+		}),
+		PropTypes.string
+	])
 };
 
-export default QuantitySelector;
+export default LabelRenderer;

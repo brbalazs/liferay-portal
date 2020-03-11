@@ -12,34 +12,11 @@
  * details.
  */
 
-import ClayLabel from '@clayui/label';
-import PropTypes from 'prop-types';
+import {ClayCheckbox} from '@clayui/form';
 import React from 'react';
 
-function Label(props) {
-	return props.value ? (
-		<ClayLabel displayType={props.value.displayStyle || 'info'}>
-			{typeof props.value === 'string' ? props.value : props.value.label}
-		</ClayLabel>
-	) : (
-		<></>
-	);
+function CheckboxRenderer(props) {
+	return <ClayCheckbox {...props} />;
 }
 
-Label.propTypes = {
-	value: PropTypes.oneOfType([
-		PropTypes.shape({
-			displayStyle: PropTypes.oneOf([
-				'success',
-				'info',
-				'secondary',
-				'warning',
-				'danger'
-			]),
-			label: PropTypes.string
-		}),
-		PropTypes.string
-	])
-};
-
-export default Label;
+export default CheckboxRenderer;
