@@ -36,6 +36,7 @@ page import="com.liferay.commerce.notification.web.internal.display.context.Comm
 page import="com.liferay.commerce.notification.web.internal.display.context.CommerceNotificationTemplatesDisplayContext" %><%@
 page import="com.liferay.commerce.notification.web.internal.frontend.CommerceNotificationEntryClayTable" %><%@
 page import="com.liferay.commerce.notification.web.internal.frontend.CommerceNotificationTemplateClayTable" %><%@
+page import="com.liferay.commerce.product.constants.CPPortletKeys" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
