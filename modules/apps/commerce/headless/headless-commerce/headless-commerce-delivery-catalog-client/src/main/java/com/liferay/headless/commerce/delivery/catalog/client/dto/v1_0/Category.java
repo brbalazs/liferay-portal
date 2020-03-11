@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Category {
+public class Category implements Cloneable {
 
 	public Long getId() {
 		return id;
@@ -107,6 +107,11 @@ public class Category {
 	}
 
 	protected String vocabulary;
+
+	@Override
+	public Category clone() throws CloneNotSupportedException {
+		return (Category)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

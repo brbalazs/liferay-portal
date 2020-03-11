@@ -41,11 +41,13 @@ public interface SkuResource {
 	}
 
 	public Page<Sku> getChannelProductSkusPage(
-			Long channelId, Long productId, Pagination pagination)
+			Long channelId, Long productId, Long accountId,
+			Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getChannelProductSkusPageHttpResponse(
-			Long channelId, Long productId, Pagination pagination)
+			Long channelId, Long productId, Long accountId,
+			Pagination pagination)
 		throws Exception;
 
 	public static class Builder {
@@ -104,12 +106,13 @@ public interface SkuResource {
 	public static class SkuResourceImpl implements SkuResource {
 
 		public Page<Sku> getChannelProductSkusPage(
-				Long channelId, Long productId, Pagination pagination)
+				Long channelId, Long productId, Long accountId,
+				Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getChannelProductSkusPageHttpResponse(
-					channelId, productId, pagination);
+					channelId, productId, accountId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -132,7 +135,8 @@ public interface SkuResource {
 		}
 
 		public HttpInvoker.HttpResponse getChannelProductSkusPageHttpResponse(
-				Long channelId, Long productId, Pagination pagination)
+				Long channelId, Long productId, Long accountId,
+				Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -155,6 +159,10 @@ public interface SkuResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (accountId != null) {
+				httpInvoker.parameter("accountId", String.valueOf(accountId));
+			}
 
 			if (pagination != null) {
 				httpInvoker.parameter(

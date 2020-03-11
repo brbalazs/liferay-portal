@@ -395,9 +395,11 @@ public abstract class BaseProductResourceTestCase {
 				}
 				else {
 					BeanUtils.setProperty(
-						product1, entityField.getName(), "Aaa");
+						product1, entityField.getName(),
+						"Aaa" + RandomTestUtil.randomString());
 					BeanUtils.setProperty(
-						product2, entityField.getName(), "Bbb");
+						product2, entityField.getName(),
+						"Bbb" + RandomTestUtil.randomString());
 				}
 			});
 	}
@@ -470,7 +472,7 @@ public abstract class BaseProductResourceTestCase {
 		Product postProduct = testGetChannelProduct_addProduct();
 
 		Product getProduct = productResource.getChannelProduct(
-			postProduct.getChannelId(), postProduct.getId());
+			null, postProduct.getId());
 
 		assertEquals(postProduct, getProduct);
 		assertValid(getProduct);
@@ -493,7 +495,7 @@ public abstract class BaseProductResourceTestCase {
 				"channelProduct",
 				new HashMap<String, Object>() {
 					{
-						put("channelId", product.getChannelId());
+						put("channelId", null);
 						put("productId", product.getId());
 					}
 				},
@@ -633,6 +635,14 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("friendlyUrl", additionalAssertFieldName)) {
 				if (product.getFriendlyUrl() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("images", additionalAssertFieldName)) {
+				if (product.getImages() == null) {
 					valid = false;
 				}
 
@@ -886,6 +896,16 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(product1.getId(), product2.getId())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("images", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getImages(), product2.getImages())) {
+
 					return false;
 				}
 
@@ -1333,6 +1353,11 @@ public abstract class BaseProductResourceTestCase {
 		}
 
 		if (entityFieldName.equals("id")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("images")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class RelatedProduct {
+public class RelatedProduct implements Cloneable {
 
 	public Long getId() {
 		return id;
@@ -107,6 +107,11 @@ public class RelatedProduct {
 	}
 
 	protected String type;
+
+	@Override
+	public RelatedProduct clone() throws CloneNotSupportedException {
+		return (RelatedProduct)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

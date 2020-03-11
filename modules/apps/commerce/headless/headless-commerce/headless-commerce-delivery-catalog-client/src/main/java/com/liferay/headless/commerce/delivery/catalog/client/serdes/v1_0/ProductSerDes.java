@@ -168,6 +168,26 @@ public class ProductSerDes {
 			sb.append(product.getId());
 		}
 
+		if (product.getImages() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"images\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < product.getImages().length; i++) {
+				sb.append(String.valueOf(product.getImages()[i]));
+
+				if ((i + 1) < product.getImages().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (product.getMetaDescription() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -489,6 +509,13 @@ public class ProductSerDes {
 			map.put("id", String.valueOf(product.getId()));
 		}
 
+		if (product.getImages() == null) {
+			map.put("images", null);
+		}
+		else {
+			map.put("images", String.valueOf(product.getImages()));
+		}
+
 		if (product.getMetaDescription() == null) {
 			map.put("metaDescription", null);
 		}
@@ -677,6 +704,18 @@ public class ProductSerDes {
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					product.setId(Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "images")) {
+				if (jsonParserFieldValue != null) {
+					product.setImages(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> AttachmentSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Attachment[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "metaDescription")) {

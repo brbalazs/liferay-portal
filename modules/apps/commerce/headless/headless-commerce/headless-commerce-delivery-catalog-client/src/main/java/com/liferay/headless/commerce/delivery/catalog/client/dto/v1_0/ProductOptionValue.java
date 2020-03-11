@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductOptionValue {
+public class ProductOptionValue implements Cloneable {
 
 	public Long getId() {
 		return id;
@@ -105,6 +105,11 @@ public class ProductOptionValue {
 	}
 
 	protected Double priority;
+
+	@Override
+	public ProductOptionValue clone() throws CloneNotSupportedException {
+		return (ProductOptionValue)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

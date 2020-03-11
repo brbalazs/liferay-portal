@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductSpecification {
+public class ProductSpecification implements Cloneable {
 
 	public Long getId() {
 		return id;
@@ -172,6 +172,11 @@ public class ProductSpecification {
 	}
 
 	protected String value;
+
+	@Override
+	public ProductSpecification clone() throws CloneNotSupportedException {
+		return (ProductSpecification)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

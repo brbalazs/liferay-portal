@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Availability {
+public class Availability implements Cloneable {
 
 	public String getLabel() {
 		return label;
@@ -69,6 +69,11 @@ public class Availability {
 	}
 
 	protected Integer stockQuantity;
+
+	@Override
+	public Availability clone() throws CloneNotSupportedException {
+		return (Availability)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

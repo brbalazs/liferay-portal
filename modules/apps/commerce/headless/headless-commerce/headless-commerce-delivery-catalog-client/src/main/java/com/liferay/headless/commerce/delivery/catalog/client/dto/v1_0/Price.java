@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Price {
+public class Price implements Cloneable {
 
 	public String getCurrency() {
 		return currency;
@@ -258,6 +258,11 @@ public class Price {
 	}
 
 	protected String tierPriceFormatted;
+
+	@Override
+	public Price clone() throws CloneNotSupportedException {
+		return (Price)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

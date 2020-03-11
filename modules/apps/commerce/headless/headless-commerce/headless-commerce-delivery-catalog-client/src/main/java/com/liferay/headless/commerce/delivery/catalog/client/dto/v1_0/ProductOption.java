@@ -26,12 +26,12 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductOption {
+public class ProductOption implements Cloneable {
 
 	public static enum FieldType {
 
-		SELECT("select"), RADIO("radio"), DATE("date"), CHECKBOX("checkbox"),
-		CHECKBOX_MULTIPLE("checkbox_multiple"), NUMERIC("numeric");
+		CHECKBOX("checkbox"), CHECKBOX_MULTIPLE("checkbox_multiple"),
+		DATE("date"), NUMERIC("numeric"), RADIO("radio"), SELECT("select");
 
 		public static FieldType create(String value) {
 			for (FieldType fieldType : values()) {
@@ -253,6 +253,11 @@ public class ProductOption {
 	}
 
 	protected ProductOptionValue[] productOptionValues;
+
+	@Override
+	public ProductOption clone() throws CloneNotSupportedException {
+		return (ProductOption)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

@@ -195,7 +195,8 @@ public abstract class BaseSkuResourceTestCase {
 	public void testGetChannelProductSkusPage() throws Exception {
 		Page<Sku> page = skuResource.getChannelProductSkusPage(
 			testGetChannelProductSkusPage_getChannelId(),
-			testGetChannelProductSkusPage_getProductId(), Pagination.of(1, 2));
+			testGetChannelProductSkusPage_getProductId(), null,
+			Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -212,7 +213,8 @@ public abstract class BaseSkuResourceTestCase {
 				randomIrrelevantSku());
 
 			page = skuResource.getChannelProductSkusPage(
-				irrelevantChannelId, irrelevantProductId, Pagination.of(1, 2));
+				irrelevantChannelId, irrelevantProductId, null,
+				Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -228,7 +230,7 @@ public abstract class BaseSkuResourceTestCase {
 			channelId, productId, randomSku());
 
 		page = skuResource.getChannelProductSkusPage(
-			channelId, productId, Pagination.of(1, 2));
+			channelId, productId, null, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -252,14 +254,14 @@ public abstract class BaseSkuResourceTestCase {
 			channelId, productId, randomSku());
 
 		Page<Sku> page1 = skuResource.getChannelProductSkusPage(
-			channelId, productId, Pagination.of(1, 2));
+			channelId, productId, null, Pagination.of(1, 2));
 
 		List<Sku> skus1 = (List<Sku>)page1.getItems();
 
 		Assert.assertEquals(skus1.toString(), 2, skus1.size());
 
 		Page<Sku> page2 = skuResource.getChannelProductSkusPage(
-			channelId, productId, Pagination.of(2, 2));
+			channelId, productId, null, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -268,7 +270,7 @@ public abstract class BaseSkuResourceTestCase {
 		Assert.assertEquals(skus2.toString(), 1, skus2.size());
 
 		Page<Sku> page3 = skuResource.getChannelProductSkusPage(
-			channelId, productId, Pagination.of(1, 3));
+			channelId, productId, null, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(sku1, sku2, sku3), (List<Sku>)page3.getItems());

@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Attachment {
+public class Attachment implements Cloneable {
 
 	public String getAttachment() {
 		return attachment;
@@ -233,6 +233,11 @@ public class Attachment {
 	}
 
 	protected Integer type;
+
+	@Override
+	public Attachment clone() throws CloneNotSupportedException {
+		return (Attachment)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Sku {
+public class Sku implements Cloneable {
 
 	public String[] getAllowedOrderQuantities() {
 		return allowedOrderQuantities;
@@ -422,6 +422,11 @@ public class Sku {
 	}
 
 	protected Double width;
+
+	@Override
+	public Sku clone() throws CloneNotSupportedException {
+		return (Sku)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

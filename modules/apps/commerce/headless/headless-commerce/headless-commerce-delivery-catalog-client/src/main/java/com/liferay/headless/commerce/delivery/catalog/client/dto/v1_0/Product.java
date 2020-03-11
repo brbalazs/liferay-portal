@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Product {
+public class Product implements Cloneable {
 
 	public Attachment[] getAttachments() {
 		return attachments;
@@ -174,6 +174,27 @@ public class Product {
 	}
 
 	protected Long id;
+
+	public Attachment[] getImages() {
+		return images;
+	}
+
+	public void setImages(Attachment[] images) {
+		this.images = images;
+	}
+
+	public void setImages(
+		UnsafeSupplier<Attachment[], Exception> imagesUnsafeSupplier) {
+
+		try {
+			images = imagesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Attachment[] images;
 
 	public String getMetaDescription() {
 		return metaDescription;
@@ -510,6 +531,11 @@ public class Product {
 	}
 
 	protected String urlImage;
+
+	@Override
+	public Product clone() throws CloneNotSupportedException {
+		return (Product)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {
