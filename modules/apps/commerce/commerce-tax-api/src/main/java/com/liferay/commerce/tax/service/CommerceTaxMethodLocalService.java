@@ -75,6 +75,16 @@ public interface CommerceTaxMethodLocalService
 		CommerceTaxMethod commerceTaxMethod);
 
 	public CommerceTaxMethod addCommerceTaxMethod(
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, String engineKey,
+			boolean percentage, boolean active)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceTaxMethod addCommerceTaxMethod(
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			String engineKey, boolean percentage, boolean active,
 			ServiceContext serviceContext)

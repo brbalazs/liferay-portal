@@ -39,6 +39,19 @@ public class CommercePaymentMethodGroupRelServiceUtil {
 	 */
 	public static com.liferay.commerce.model.CommerceAddressRestriction
 			addCommerceAddressRestriction(
+				long userId, long groupId, long classPK, long commerceCountryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceAddressRestriction(
+			userId, groupId, classPK, commerceCountryId);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static com.liferay.commerce.model.CommerceAddressRestriction
+			addCommerceAddressRestriction(
 				long classPK, long commerceCountryId,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {

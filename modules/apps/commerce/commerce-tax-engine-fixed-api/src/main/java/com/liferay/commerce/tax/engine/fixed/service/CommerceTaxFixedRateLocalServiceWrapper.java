@@ -49,6 +49,10 @@ public class CommerceTaxFixedRateLocalServiceWrapper
 			commerceTaxFixedRate);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate
 			addCommerceTaxFixedRate(
@@ -58,6 +62,17 @@ public class CommerceTaxFixedRateLocalServiceWrapper
 
 		return _commerceTaxFixedRateLocalService.addCommerceTaxFixedRate(
 			commerceTaxMethodId, cpTaxCategoryId, rate, serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate
+			addCommerceTaxFixedRate(
+				long userId, long groupId, long commerceTaxMethodId,
+				long cpTaxCategoryId, double rate)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceTaxFixedRateLocalService.addCommerceTaxFixedRate(
+			userId, groupId, commerceTaxMethodId, cpTaxCategoryId, rate);
 	}
 
 	/**

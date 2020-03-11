@@ -39,6 +39,20 @@ public class CommerceShippingMethodLocalServiceUtil {
 	 */
 	public static com.liferay.commerce.model.CommerceAddressRestriction
 			addCommerceAddressRestriction(
+				long userId, long groupId, long commerceShippingMethodId,
+				long commerceCountryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceAddressRestriction(
+			userId, groupId, commerceShippingMethodId, commerceCountryId);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static com.liferay.commerce.model.CommerceAddressRestriction
+			addCommerceAddressRestriction(
 				long commerceShippingMethodId, long commerceCountryId,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {

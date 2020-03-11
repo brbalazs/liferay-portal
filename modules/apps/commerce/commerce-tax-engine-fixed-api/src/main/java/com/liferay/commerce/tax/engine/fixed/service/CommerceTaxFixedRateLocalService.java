@@ -72,9 +72,18 @@ public interface CommerceTaxFixedRateLocalService
 	public CommerceTaxFixedRate addCommerceTaxFixedRate(
 		CommerceTaxFixedRate commerceTaxFixedRate);
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public CommerceTaxFixedRate addCommerceTaxFixedRate(
 			long commerceTaxMethodId, long cpTaxCategoryId, double rate,
 			ServiceContext serviceContext)
+		throws PortalException;
+
+	public CommerceTaxFixedRate addCommerceTaxFixedRate(
+			long userId, long groupId, long commerceTaxMethodId,
+			long cpTaxCategoryId, double rate)
 		throws PortalException;
 
 	/**

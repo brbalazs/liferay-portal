@@ -53,6 +53,10 @@ public class CommerceTaxFixedRateLocalServiceUtil {
 		return getService().addCommerceTaxFixedRate(commerceTaxFixedRate);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static
 		com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate
 				addCommerceTaxFixedRate(
@@ -63,6 +67,17 @@ public class CommerceTaxFixedRateLocalServiceUtil {
 
 		return getService().addCommerceTaxFixedRate(
 			commerceTaxMethodId, cpTaxCategoryId, rate, serviceContext);
+	}
+
+	public static
+		com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate
+				addCommerceTaxFixedRate(
+					long userId, long groupId, long commerceTaxMethodId,
+					long cpTaxCategoryId, double rate)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceTaxFixedRate(
+			userId, groupId, commerceTaxMethodId, cpTaxCategoryId, rate);
 	}
 
 	/**

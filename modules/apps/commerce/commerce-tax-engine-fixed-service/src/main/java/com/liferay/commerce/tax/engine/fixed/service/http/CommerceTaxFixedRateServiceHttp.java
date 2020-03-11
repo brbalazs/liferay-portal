@@ -99,6 +99,52 @@ public class CommerceTaxFixedRateServiceHttp {
 		}
 	}
 
+	public static
+		com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate
+				addCommerceTaxFixedRate(
+					HttpPrincipal httpPrincipal, long userId, long groupId,
+					long commerceTaxMethodId, long cpTaxCategoryId, double rate)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceTaxFixedRateServiceUtil.class,
+				"addCommerceTaxFixedRate",
+				_addCommerceTaxFixedRateParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, groupId, commerceTaxMethodId,
+				cpTaxCategoryId, rate);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.tax.engine.fixed.model.
+				CommerceTaxFixedRate)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static void deleteCommerceTaxFixedRate(
 			HttpPrincipal httpPrincipal, long commerceTaxFixedRateId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -107,7 +153,7 @@ public class CommerceTaxFixedRateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTaxFixedRateServiceUtil.class,
 				"deleteCommerceTaxFixedRate",
-				_deleteCommerceTaxFixedRateParameterTypes1);
+				_deleteCommerceTaxFixedRateParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTaxFixedRateId);
@@ -146,7 +192,7 @@ public class CommerceTaxFixedRateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTaxFixedRateServiceUtil.class,
 				"fetchCommerceTaxFixedRate",
-				_fetchCommerceTaxFixedRateParameterTypes2);
+				_fetchCommerceTaxFixedRateParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTaxFixedRateId);
@@ -191,7 +237,7 @@ public class CommerceTaxFixedRateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTaxFixedRateServiceUtil.class,
 				"fetchCommerceTaxFixedRate",
-				_fetchCommerceTaxFixedRateParameterTypes3);
+				_fetchCommerceTaxFixedRateParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpTaxCategoryId, commerceTaxMethodId);
@@ -239,7 +285,7 @@ public class CommerceTaxFixedRateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTaxFixedRateServiceUtil.class,
 				"getCommerceTaxFixedRates",
-				_getCommerceTaxFixedRatesParameterTypes4);
+				_getCommerceTaxFixedRatesParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, commerceTaxMethodId, start, end,
@@ -283,7 +329,7 @@ public class CommerceTaxFixedRateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTaxFixedRateServiceUtil.class,
 				"getCommerceTaxFixedRatesCount",
-				_getCommerceTaxFixedRatesCountParameterTypes5);
+				_getCommerceTaxFixedRatesCountParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, commerceTaxMethodId);
@@ -327,7 +373,7 @@ public class CommerceTaxFixedRateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTaxFixedRateServiceUtil.class,
 				"updateCommerceTaxFixedRate",
-				_updateCommerceTaxFixedRateParameterTypes6);
+				_updateCommerceTaxFixedRateParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTaxFixedRateId, rate);
@@ -369,22 +415,26 @@ public class CommerceTaxFixedRateServiceHttp {
 			long.class, long.class, double.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _deleteCommerceTaxFixedRateParameterTypes1 =
-		new Class[] {long.class};
-	private static final Class<?>[] _fetchCommerceTaxFixedRateParameterTypes2 =
+	private static final Class<?>[] _addCommerceTaxFixedRateParameterTypes1 =
+		new Class[] {
+			long.class, long.class, long.class, long.class, double.class
+		};
+	private static final Class<?>[] _deleteCommerceTaxFixedRateParameterTypes2 =
 		new Class[] {long.class};
 	private static final Class<?>[] _fetchCommerceTaxFixedRateParameterTypes3 =
+		new Class[] {long.class};
+	private static final Class<?>[] _fetchCommerceTaxFixedRateParameterTypes4 =
 		new Class[] {long.class, long.class};
-	private static final Class<?>[] _getCommerceTaxFixedRatesParameterTypes4 =
+	private static final Class<?>[] _getCommerceTaxFixedRatesParameterTypes5 =
 		new Class[] {
 			long.class, long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommerceTaxFixedRatesCountParameterTypes5 = new Class[] {
+		_getCommerceTaxFixedRatesCountParameterTypes6 = new Class[] {
 			long.class, long.class
 		};
-	private static final Class<?>[] _updateCommerceTaxFixedRateParameterTypes6 =
+	private static final Class<?>[] _updateCommerceTaxFixedRateParameterTypes7 =
 		new Class[] {long.class, double.class};
 
 }

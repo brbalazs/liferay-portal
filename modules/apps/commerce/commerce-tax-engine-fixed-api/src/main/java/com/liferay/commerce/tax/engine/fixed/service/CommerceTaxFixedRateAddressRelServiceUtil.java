@@ -40,6 +40,23 @@ public class CommerceTaxFixedRateAddressRelServiceUtil {
 	public static
 		com.liferay.commerce.tax.engine.fixed.model.
 			CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
+					long userId, long groupId, long commerceTaxMethodId,
+					long cpTaxCategoryId, long commerceCountryId,
+					long commerceRegionId, String zip, double rate)
+				throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceTaxFixedRateAddressRel(
+			userId, groupId, commerceTaxMethodId, cpTaxCategoryId,
+			commerceCountryId, commerceRegionId, zip, rate);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static
+		com.liferay.commerce.tax.engine.fixed.model.
+			CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
 					long commerceTaxMethodId, long cpTaxCategoryId,
 					long commerceCountryId, long commerceRegionId, String zip,
 					double rate,

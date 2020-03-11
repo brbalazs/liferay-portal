@@ -77,6 +77,16 @@ public interface CommerceShippingFixedOptionLocalService
 		CommerceShippingFixedOption commerceShippingFixedOption);
 
 	public CommerceShippingFixedOption addCommerceShippingFixedOption(
+			long userId, long groupId, long commerceShippingMethodId,
+			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
+			BigDecimal amount, double priority)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceShippingFixedOption addCommerceShippingFixedOption(
 			long commerceShippingMethodId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, BigDecimal amount,
 			double priority, ServiceContext serviceContext)

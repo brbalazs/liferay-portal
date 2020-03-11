@@ -67,6 +67,15 @@ public interface CommercePaymentMethodGroupRelLocalService
 	 * Never modify or reference this interface directly. Always use {@link CommercePaymentMethodGroupRelLocalServiceUtil} to access the commerce payment method group rel local service. Add custom service methods to <code>com.liferay.commerce.payment.service.impl.CommercePaymentMethodGroupRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommerceAddressRestriction addCommerceAddressRestriction(
+			long userId, long groupId, long commercePaymentMethodGroupRelId,
+			long commerceCountryId)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceAddressRestriction addCommerceAddressRestriction(
 			long commercePaymentMethodGroupRelId, long commerceCountryId,
 			ServiceContext serviceContext)
 		throws PortalException;

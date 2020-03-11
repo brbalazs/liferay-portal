@@ -67,6 +67,40 @@ public class CommerceTaxMethodServiceSoap {
 
 	public static com.liferay.commerce.tax.model.CommerceTaxMethodSoap
 			addCommerceTaxMethod(
+				long userId, long groupId, String[] nameMapLanguageIds,
+				String[] nameMapValues, String[] descriptionMapLanguageIds,
+				String[] descriptionMapValues, String engineKey,
+				boolean percentage, boolean active)
+		throws RemoteException {
+
+		try {
+			Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
+				nameMapLanguageIds, nameMapValues);
+			Map<Locale, String> descriptionMap =
+				LocalizationUtil.getLocalizationMap(
+					descriptionMapLanguageIds, descriptionMapValues);
+
+			com.liferay.commerce.tax.model.CommerceTaxMethod returnValue =
+				CommerceTaxMethodServiceUtil.addCommerceTaxMethod(
+					userId, groupId, nameMap, descriptionMap, engineKey,
+					percentage, active);
+
+			return com.liferay.commerce.tax.model.CommerceTaxMethodSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static com.liferay.commerce.tax.model.CommerceTaxMethodSoap
+			addCommerceTaxMethod(
 				String[] nameMapLanguageIds, String[] nameMapValues,
 				String[] descriptionMapLanguageIds,
 				String[] descriptionMapValues, String engineKey,

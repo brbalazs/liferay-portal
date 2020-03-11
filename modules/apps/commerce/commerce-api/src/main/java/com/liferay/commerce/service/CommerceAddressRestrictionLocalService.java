@@ -73,6 +73,15 @@ public interface CommerceAddressRestrictionLocalService
 		CommerceAddressRestriction commerceAddressRestriction);
 
 	public CommerceAddressRestriction addCommerceAddressRestriction(
+			long userId, long groupId, String className, long classPK,
+			long commerceCountryId)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceAddressRestriction addCommerceAddressRestriction(
 			String className, long classPK, long commerceCountryId,
 			ServiceContext serviceContext)
 		throws PortalException;

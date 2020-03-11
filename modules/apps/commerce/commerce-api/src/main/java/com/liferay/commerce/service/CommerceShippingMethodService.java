@@ -67,6 +67,15 @@ public interface CommerceShippingMethodService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link CommerceShippingMethodServiceUtil} to access the commerce shipping method remote service. Add custom service methods to <code>com.liferay.commerce.service.impl.CommerceShippingMethodServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommerceAddressRestriction addCommerceAddressRestriction(
+			long userId, long groupId, long commerceShippingMethodId,
+			long commerceCountryId)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceAddressRestriction addCommerceAddressRestriction(
 			long commerceShippingMethodId, long commerceCountryId,
 			ServiceContext serviceContext)
 		throws PortalException;

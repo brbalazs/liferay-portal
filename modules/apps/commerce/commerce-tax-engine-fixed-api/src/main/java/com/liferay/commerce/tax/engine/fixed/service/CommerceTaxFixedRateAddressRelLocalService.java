@@ -73,6 +73,16 @@ public interface CommerceTaxFixedRateAddressRelLocalService
 		CommerceTaxFixedRateAddressRel commerceTaxFixedRateAddressRel);
 
 	public CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
+			long userId, long groupId, long commerceTaxMethodId,
+			long cpTaxCategoryId, long commerceCountryId, long commerceRegionId,
+			String zip, double rate)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
 			long commerceTaxMethodId, long cpTaxCategoryId,
 			long commerceCountryId, long commerceRegionId, String zip,
 			double rate, ServiceContext serviceContext)

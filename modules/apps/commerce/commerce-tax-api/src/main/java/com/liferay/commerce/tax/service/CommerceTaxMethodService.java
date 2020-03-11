@@ -63,6 +63,16 @@ public interface CommerceTaxMethodService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link CommerceTaxMethodServiceUtil} to access the commerce tax method remote service. Add custom service methods to <code>com.liferay.commerce.tax.service.impl.CommerceTaxMethodServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommerceTaxMethod addCommerceTaxMethod(
+			long userId, long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, String engineKey,
+			boolean percentage, boolean active)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceTaxMethod addCommerceTaxMethod(
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			String engineKey, boolean percentage, boolean active,
 			ServiceContext serviceContext)

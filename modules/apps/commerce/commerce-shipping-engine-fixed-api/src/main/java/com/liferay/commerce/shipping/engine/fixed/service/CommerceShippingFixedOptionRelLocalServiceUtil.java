@@ -55,6 +55,27 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 
 	public static com.liferay.commerce.shipping.engine.fixed.model.
 		CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
+				long userId, long groupId, long commerceShippingMethodId,
+				long commerceShippingFixedOptionId,
+				long commerceInventoryWarehouseId, long commerceCountryId,
+				long commerceRegionId, String zip, double weightFrom,
+				double weightTo, java.math.BigDecimal fixedPrice,
+				java.math.BigDecimal rateUnitWeightPrice, double ratePercentage)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceShippingFixedOptionRel(
+			userId, groupId, commerceShippingMethodId,
+			commerceShippingFixedOptionId, commerceInventoryWarehouseId,
+			commerceCountryId, commerceRegionId, zip, weightFrom, weightTo,
+			fixedPrice, rateUnitWeightPrice, ratePercentage);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static com.liferay.commerce.shipping.engine.fixed.model.
+		CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
 				long commerceShippingMethodId,
 				long commerceShippingFixedOptionId,
 				long commerceInventoryWarehouseId, long commerceCountryId,

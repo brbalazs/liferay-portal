@@ -36,6 +36,24 @@ public class CommerceTaxMethodServiceWrapper
 	@Override
 	public com.liferay.commerce.tax.model.CommerceTaxMethod
 			addCommerceTaxMethod(
+				long userId, long groupId,
+				java.util.Map<java.util.Locale, String> nameMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String engineKey, boolean percentage, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceTaxMethodService.addCommerceTaxMethod(
+			userId, groupId, nameMap, descriptionMap, engineKey, percentage,
+			active);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public com.liferay.commerce.tax.model.CommerceTaxMethod
+			addCommerceTaxMethod(
 				java.util.Map<java.util.Locale, String> nameMap,
 				java.util.Map<java.util.Locale, String> descriptionMap,
 				String engineKey, boolean percentage, boolean active,

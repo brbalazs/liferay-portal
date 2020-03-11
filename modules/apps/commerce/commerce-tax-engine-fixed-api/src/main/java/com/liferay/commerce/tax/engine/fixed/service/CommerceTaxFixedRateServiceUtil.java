@@ -37,6 +37,11 @@ public class CommerceTaxFixedRateServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.tax.engine.fixed.service.impl.CommerceTaxFixedRateServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static
 		com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate
 				addCommerceTaxFixedRate(
@@ -47,6 +52,17 @@ public class CommerceTaxFixedRateServiceUtil {
 
 		return getService().addCommerceTaxFixedRate(
 			commerceTaxMethodId, cpTaxCategoryId, rate, serviceContext);
+	}
+
+	public static
+		com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate
+				addCommerceTaxFixedRate(
+					long userId, long groupId, long commerceTaxMethodId,
+					long cpTaxCategoryId, double rate)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceTaxFixedRate(
+			userId, groupId, commerceTaxMethodId, cpTaxCategoryId, rate);
 	}
 
 	public static void deleteCommerceTaxFixedRate(long commerceTaxFixedRateId)

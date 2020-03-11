@@ -75,6 +75,19 @@ public interface CommerceShippingFixedOptionRelLocalService
 		CommerceShippingFixedOptionRel commerceShippingFixedOptionRel);
 
 	public CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
+			long userId, long groupId, long commerceShippingMethodId,
+			long commerceShippingFixedOptionId,
+			long commerceInventoryWarehouseId, long commerceCountryId,
+			long commerceRegionId, String zip, double weightFrom,
+			double weightTo, BigDecimal fixedPrice,
+			BigDecimal rateUnitWeightPrice, double ratePercentage)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
 			long commerceShippingMethodId, long commerceShippingFixedOptionId,
 			long commerceInventoryWarehouseId, long commerceCountryId,
 			long commerceRegionId, String zip, double weightFrom,

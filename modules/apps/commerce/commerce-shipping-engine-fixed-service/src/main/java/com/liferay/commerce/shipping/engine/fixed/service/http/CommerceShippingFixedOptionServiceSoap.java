@@ -67,6 +67,43 @@ public class CommerceShippingFixedOptionServiceSoap {
 
 	public static com.liferay.commerce.shipping.engine.fixed.model.
 		CommerceShippingFixedOptionSoap addCommerceShippingFixedOption(
+				long userId, long groupId, long commerceShippingMethodId,
+				String[] nameMapLanguageIds, String[] nameMapValues,
+				String[] descriptionMapLanguageIds,
+				String[] descriptionMapValues, java.math.BigDecimal amount,
+				double priority)
+			throws RemoteException {
+
+		try {
+			Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
+				nameMapLanguageIds, nameMapValues);
+			Map<Locale, String> descriptionMap =
+				LocalizationUtil.getLocalizationMap(
+					descriptionMapLanguageIds, descriptionMapValues);
+
+			com.liferay.commerce.shipping.engine.fixed.model.
+				CommerceShippingFixedOption returnValue =
+					CommerceShippingFixedOptionServiceUtil.
+						addCommerceShippingFixedOption(
+							userId, groupId, commerceShippingMethodId, nameMap,
+							descriptionMap, amount, priority);
+
+			return com.liferay.commerce.shipping.engine.fixed.model.
+				CommerceShippingFixedOptionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static com.liferay.commerce.shipping.engine.fixed.model.
+		CommerceShippingFixedOptionSoap addCommerceShippingFixedOption(
 				long commerceShippingMethodId, String[] nameMapLanguageIds,
 				String[] nameMapValues, String[] descriptionMapLanguageIds,
 				String[] descriptionMapValues, java.math.BigDecimal amount,
