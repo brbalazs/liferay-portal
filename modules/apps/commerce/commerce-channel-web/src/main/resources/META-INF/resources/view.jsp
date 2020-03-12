@@ -26,7 +26,7 @@ PortletURL portletURL = commerceChannelDisplayContext.getPortletURL();
 	<div class="col-12">
 
 		<%
-		java.util.Map<String, String> contextParams = new java.util.HashMap<>();
+		Map<String, String> contextParams = new HashMap<>();
 		%>
 
 		<commerce-ui:dataset-display
