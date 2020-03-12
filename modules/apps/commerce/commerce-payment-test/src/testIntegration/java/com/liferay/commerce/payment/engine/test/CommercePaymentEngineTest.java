@@ -157,9 +157,8 @@ public class CommercePaymentEngineTest {
 			1);
 
 		CommerceOrder checkoutOrder =
-			_commerceOrderEngine.transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-				_user.getUserId());
+			_commerceOrderEngine.checkoutCommerceOrder(
+				commerceOrder, _user.getUserId());
 
 		_commercePaymentEngine.processPayment(
 			commerceOrder.getCommerceOrderId(), null, _httpServletRequest);
@@ -236,9 +235,8 @@ public class CommercePaymentEngineTest {
 			1);
 
 		CommerceOrder checkoutOrder =
-			_commerceOrderEngine.transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-				_user.getUserId());
+			_commerceOrderEngine.checkoutCommerceOrder(
+				commerceOrder, _user.getUserId());
 
 		_commercePaymentEngine.processPayment(
 			commerceOrder.getCommerceOrderId(), null, _httpServletRequest);

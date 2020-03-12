@@ -399,10 +399,8 @@ public class CommerceOrderTest {
 					commerceOrder);
 
 				placedCommerceOrders.add(
-					_commerceOrderEngine.transitionCommerceOrder(
-						commerceOrder,
-						CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-						_user.getUserId()));
+					_commerceOrderEngine.checkoutCommerceOrder(
+						commerceOrder, _user.getUserId()));
 			}
 		}
 
@@ -589,9 +587,8 @@ public class CommerceOrderTest {
 		commerceOrder = _commerceOrderLocalService.updateCommerceOrder(
 			commerceOrder);
 
-		commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
-			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-			_user.getUserId());
+		commerceOrder = _commerceOrderEngine.checkoutCommerceOrder(
+			commerceOrder, _user.getUserId());
 
 		ordersCountByUser = _getUserOrdersCount(commerceChannelGroupId, true);
 
@@ -620,9 +617,8 @@ public class CommerceOrderTest {
 		secondCommerceOrder = _commerceOrderLocalService.updateCommerceOrder(
 			secondCommerceOrder);
 
-		secondCommerceOrder = _commerceOrderEngine.transitionCommerceOrder(
-			secondCommerceOrder,
-			CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS, _user.getUserId());
+		secondCommerceOrder = _commerceOrderEngine.checkoutCommerceOrder(
+			secondCommerceOrder, _user.getUserId());
 
 		ordersCountByUser = _getUserOrdersCount(commerceChannelGroupId, true);
 
@@ -808,9 +804,8 @@ public class CommerceOrderTest {
 		commerceOrder = _commerceOrderLocalService.updateCommerceOrder(
 			commerceOrder);
 
-		commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
-			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-			_user.getUserId());
+		commerceOrder = _commerceOrderEngine.checkoutCommerceOrder(
+			commerceOrder, _user.getUserId());
 
 		int ordersCountByAccountId =
 			_commerceOrderService.getPlacedCommerceOrdersCount(

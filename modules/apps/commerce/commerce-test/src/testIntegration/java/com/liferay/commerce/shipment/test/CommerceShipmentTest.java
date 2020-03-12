@@ -146,9 +146,8 @@ public class CommerceShipmentTest {
 
 		_commerceOrders.add(commerceOrder);
 
-		_commerceOrderEngine.transitionCommerceOrder(
-			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-			_user.getUserId());
+		_commerceOrderEngine.checkoutCommerceOrder(
+			commerceOrder, _user.getUserId());
 	}
 
 	@Test
@@ -617,9 +616,8 @@ public class CommerceShipmentTest {
 		CommerceShipmentTestUtil.createEmptyOrderShipment(
 			commerceOrder.getGroupId(), commerceOrder.getCommerceOrderId());
 
-		_commerceOrderEngine.transitionCommerceOrder(
-			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-			_user.getUserId());
+		_commerceOrderEngine.checkoutCommerceOrder(
+			commerceOrder, _user.getUserId());
 	}
 
 	@Test
