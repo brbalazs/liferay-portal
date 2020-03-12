@@ -18,8 +18,8 @@ import ClayPanel from '@clayui/panel';
 import classNames from 'classnames';
 import React, {useState, useEffect} from 'react';
 
-import {renderFilter} from '../../utilities/filters.es';
-import getAppContext from './Context.es';
+import {renderFilter} from '../../utilities/filters';
+import getAppContext from './Context';
 
 function FiltersDropdown() {
 	const [active, setActive] = useState(false);

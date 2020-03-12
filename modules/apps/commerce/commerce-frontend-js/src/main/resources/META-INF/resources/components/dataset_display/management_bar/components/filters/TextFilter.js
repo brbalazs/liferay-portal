@@ -13,30 +13,40 @@
  */
 
 import ClayButton from '@clayui/button';
-import {ClayRadio, ClayRadioGroup} from '@clayui/form';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import getAppContext from '../Context.es';
+import getAppContext from '../Context';
 
-function RadioFilter(props) {
+function TextFilter(props) {
 	const {actions} = getAppContext();
 	const [value, setValue] = useState(props.value);
 
 	return (
-		<>
-			<ClayRadioGroup
-				onSelectedValueChange={setValue}
-				selectedValue={value || ''}
-			>
-				{props.items.map(item => (
-					<ClayRadio
-						key={item.value}
-						label={item.label}
-						value={item.value}
+		<div className="form-group">
+			<div className="input-group">
+				<div
+					className={classNames('input-group-item', {
+						'input-group-prepend': props.inputText
+					})}
+				>
+					<input
+						aria-label={props.label}
+						className="form-control"
+						onChange={e => setValue(e.target.value)}
+						type="text"
+						value={value || ''}
 					/>
-				))}
-			</ClayRadioGroup>
+				</div>
+				{props.inputText && (
+					<div className="input-group-append input-group-item input-group-item-shrink">
+						<span className="input-group-text">
+							{props.inputText}
+						</span>
+					</div>
+				)}
+			</div>
 			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
@@ -48,34 +58,18 @@ function RadioFilter(props) {
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
 			</div>
-		</>
+		</div>
 	);
 }
 
-RadioFilter.propTypes = {
+TextFilter.propTypes = {
 	id: PropTypes.string.isRequired,
+	inputText: PropTypes.string,
 	invisible: PropTypes.bool,
-	items: PropTypes.arrayOf(
-		PropTypes.shape({
-			label: PropTypes.string,
-			value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-		})
-	),
 	label: PropTypes.string.isRequired,
-	operator: PropTypes.oneOf([
-		'eq',
-		'ne',
-		'gt',
-		'ge',
-		'lt',
-		'le',
-		'and',
-		'or',
-		'not',
-		'startswith'
-	]).isRequired,
-	type: PropTypes.oneOf(['radio']).isRequired,
-	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+	operator: PropTypes.oneOf(['eq', 'startswith']).isRequired,
+	type: PropTypes.oneOf(['text']).isRequired,
+	value: PropTypes.string
 };
 
-export default RadioFilter;
+export default TextFilter;

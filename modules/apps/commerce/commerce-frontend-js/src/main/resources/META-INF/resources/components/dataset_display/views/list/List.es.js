@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import ImageRenderer from '../../data_renderer/ImageRenderer.es';
+import ImageRenderer from '../../data_renderer/ImageRenderer';
 
 function List(props) {
 	const {

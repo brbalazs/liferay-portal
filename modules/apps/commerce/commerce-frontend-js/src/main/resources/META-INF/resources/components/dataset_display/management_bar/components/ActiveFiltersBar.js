@@ -15,8 +15,8 @@
 import ClayButton from '@clayui/button';
 import React from 'react';
 
-import getAppContext from './Context.es';
-import FilterResume from './filters/Resume.es';
+import getAppContext from './Context';
+import FilterResume from './filters/ResumeFilter';
 
 function ActiveFiltersBar(props) {
 	const {actions, state} = getAppContext();

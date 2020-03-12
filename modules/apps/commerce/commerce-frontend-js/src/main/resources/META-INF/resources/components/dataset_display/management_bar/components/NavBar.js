@@ -15,11 +15,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ActiveViewSelector from './ActiveViewSelector.es';
-import getAppContext from './Context.es';
-import CreationMenu from './CreationMenu.es';
-import FiltersDropdown from './FiltersDropdown.es';
-import MainSearch from './MainSearch.es';
+import ActiveViewSelector from './ActiveViewSelector';
+import getAppContext from './Context';
+import CreationMenu from './CreationMenu';
+import FiltersDropdown from './FiltersDropdown';
+import MainSearch from './MainSearch';
 
 function NavBar(props) {
 	const {state} = getAppContext();

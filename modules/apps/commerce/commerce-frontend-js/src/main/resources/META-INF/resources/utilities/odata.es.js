@@ -75,7 +75,7 @@ export function createOdataFilterStrings(filters) {
 		.join(' and ');
 
 	const oDataFilters = oDataFilterStrings.length
-		? `&$filter=${oDataFilterStrings}`
+		? `filter=${oDataFilterStrings}`
 		: '';
 	return oDataFilters;
 }

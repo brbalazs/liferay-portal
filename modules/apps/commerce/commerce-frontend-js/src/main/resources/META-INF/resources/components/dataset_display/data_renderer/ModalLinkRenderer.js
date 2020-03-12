@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
-import DefaultContent from './DefaultRenderer.es';
+import DefaultContent from './DefaultRenderer';
 
 function ModalLinkRenderer(props) {
 	const {openModal} = useContext(DatasetDisplayContext);

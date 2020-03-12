@@ -47,76 +47,83 @@ const dataSetDisplayProps = {
 	],
 	filters: [
 		{
-			id: 'text-test',
-			label: 'Text test',
+			id: 'name',
+			label: 'Name',
 			operator: 'eq',
 			type: 'text',
 			value: 'Test input'
 		},
 		{
-			id: 'select-test',
-			items: [
-				{
-					label: 'First option',
-					value: 'first-option'
-				},
-				{
-					label: 'Second option',
-					value: 'second-option'
-				}
-			],
-			label: 'Select test',
+			id: 'createDate',
+			label: 'Creation date',
 			operator: 'eq',
-			type: 'select',
-			value: 'second-option'
+			type: 'date',
+			// value: 'Test input'
 		},
-		{
-			id: 'radio-test',
-			items: [
-				{
-					label: 'First option',
-					value: 'first-option'
-				},
-				{
-					label: 'Second option',
-					value: 'second-option'
-				}
-			],
-			label: 'Radio test',
-			operator: 'eq',
-			type: 'radio'
-		},
-		{
-			id: 'checkbox-test',
-			items: [
-				{
-					label: 'First option',
-					value: 'first-option'
-				},
-				{
-					label: 'Second option',
-					value: 'second-option'
-				},
-				{
-					label: 'Third option',
-					value: 'third-option'
-				}
-			],
-			label: 'Checkbox test',
-			operator: 'eq',
-			type: 'checkbox',
-			value: ['first-option', 'third-option']
-		},
-		{
-			id: 'number-test',
-			inputText: '$',
-			label: 'Number test',
-			max: 200,
-			min: 20,
-			operator: 'gt',
-			type: 'number',
-			value: 123
-		}
+		// {
+		// 	id: 'select-test',
+		// 	items: [
+		// 		{
+		// 			label: 'First option',
+		// 			value: 'first-option'
+		// 		},
+		// 		{
+		// 			label: 'Second option',
+		// 			value: 'second-option'
+		// 		}
+		// 	],
+		// 	label: 'Select test',
+		// 	operator: 'eq',
+		// 	type: 'select',
+		// 	value: 'second-option'
+		// },
+		// {
+		// 	id: 'radio-test',
+		// 	items: [
+		// 		{
+		// 			label: 'First option',
+		// 			value: 'first-option'
+		// 		},
+		// 		{
+		// 			label: 'Second option',
+		// 			value: 'second-option'
+		// 		}
+		// 	],
+		// 	label: 'Radio test',
+		// 	operator: 'eq',
+		// 	type: 'radio'
+		// },
+		// {
+		// 	id: 'checkbox-test',
+		// 	items: [
+		// 		{
+		// 			label: 'First option',
+		// 			value: 'first-option'
+		// 		},
+		// 		{
+		// 			label: 'Second option',
+		// 			value: 'second-option'
+		// 		},
+		// 		{
+		// 			label: 'Third option',
+		// 			value: 'third-option'
+		// 		}
+		// 	],
+		// 	label: 'Checkbox test',
+		// 	operator: 'eq',
+		// 	type: 'checkbox',
+		// 	value: ['first-option', 'third-option']
+		// },
+		// {
+		// 	id: 'number-test',
+		// 	inputText: '$',
+		// 	label: 'Number test',
+		// 	max: 200,
+		// 	min: 20,
+		// 	operator: 'gt',
+		// 	type: 'number',
+		// 	value: 123
+		// }
 	],
 	id: 'tableTest',
 	itemActions: [

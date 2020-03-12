@@ -20,10 +20,10 @@ import React, {useState, useEffect} from 'react';
 import {
 	formatDateObject,
 	getDateFromDateString
-} from '../../../utilities/dates.es';
-import getAppContext from '../Context.es';
+} from '../../../utilities/dates';
+import getAppContext from '../Context';
 
-function DateFilter(props) {
+function DateRangeFilter(props) {
 	const {actions} = getAppContext();
 
 	const [fromValue, setFromValue] = useState(
@@ -116,7 +116,7 @@ function DateFilter(props) {
 	);
 }
 
-DateFilter.propTypes = {
+DateRangeFilter.propTypes = {
 	id: PropTypes.string.isRequired,
 	invisible: PropTypes.bool,
 	label: PropTypes.string.isRequired,
@@ -146,4 +146,4 @@ DateFilter.propTypes = {
 	})
 };
 
-export default DateFilter;
+export default DateRangeFilter;

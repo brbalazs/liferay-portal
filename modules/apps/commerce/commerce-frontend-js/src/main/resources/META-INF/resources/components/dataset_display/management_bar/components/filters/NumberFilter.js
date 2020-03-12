@@ -17,9 +17,9 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import getAppContext from '../Context.es';
+import getAppContext from '../Context';
 
-function TextFilter(props) {
+function NumberFilter(props) {
 	const {actions} = getAppContext();
 	const [value, setValue] = useState(props.value);
 
@@ -32,10 +32,11 @@ function TextFilter(props) {
 					})}
 				>
 					<input
-						aria-label={props.label}
 						className="form-control"
+						max={props.max}
+						min={props.min}
 						onChange={e => setValue(e.target.value)}
-						type="text"
+						type="number"
 						value={value || ''}
 					/>
 				</div>
@@ -50,8 +51,10 @@ function TextFilter(props) {
 			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
-					disabled={value === props.value}
-					onClick={() => actions.updateFilterValue(props.id, value)}
+					disabled={Number(value) === props.value}
+					onClick={() =>
+						actions.updateFilterValue(props.id, Number(value))
+					}
 				>
 					{props.panelType === 'edit'
 						? Liferay.Language.get('edit-filter')
@@ -62,14 +65,16 @@ function TextFilter(props) {
 	);
 }
 
-TextFilter.propTypes = {
+NumberFilter.propTypes = {
 	id: PropTypes.string.isRequired,
 	inputText: PropTypes.string,
 	invisible: PropTypes.bool,
 	label: PropTypes.string.isRequired,
-	operator: PropTypes.oneOf(['eq', 'startswith']).isRequired,
-	type: PropTypes.oneOf(['text']).isRequired,
-	value: PropTypes.string
+	max: PropTypes.number,
+	min: PropTypes.number,
+	operator: PropTypes.oneOf(['eq', 'ne', 'gt', 'ge', 'lt', 'le']).isRequired,
+	type: PropTypes.oneOf(['number']).isRequired,
+	value: PropTypes.number
 };
 
-export default TextFilter;
+export default NumberFilter;

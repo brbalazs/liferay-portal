@@ -19,14 +19,14 @@ import React, {useState, useEffect, useContext} from 'react';
 
 import {getValueFromItem} from '../../../../utilities/index.es';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es';
-import ActionsDropdownRenderer from '../../data_renderer/ActionsDropdownRenderer.es';
-import CheckboxRenderer from '../../data_renderer/CheckboxRenderer.es';
-import CommentRenderer from '../../data_renderer/CommentRenderer.es';
-import RadioRenderer from '../../data_renderer/RadioRenderer.es';
+import ActionsDropdownRenderer from '../../data_renderer/ActionsDropdownRenderer';
+import CheckboxRenderer from '../../data_renderer/CheckboxRenderer';
+import CommentRenderer from '../../data_renderer/CommentRenderer';
+import RadioRenderer from '../../data_renderer/RadioRenderer';
 import {
 	getDataRendererById,
 	getDataRendererByUrl
-} from '../../data_renderer/index.es';
+} from '../../data_renderer';
 import TableHeadRow from './TableHeadRow.es';
 
 function CustomTableCell(props) {

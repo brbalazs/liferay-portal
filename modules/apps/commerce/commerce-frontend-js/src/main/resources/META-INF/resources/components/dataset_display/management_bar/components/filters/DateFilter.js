@@ -15,13 +15,23 @@
 import ClayButton from '@clayui/button';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
-import getAppContext from '../Context.es';
+import {
+	formatDateObject,
+	getDateFromDateString
+} from '../../../utilities/dates';
+import getAppContext from '../Context';
 
-function NumberFilter(props) {
+function DateFilter(props) {
 	const {actions} = getAppContext();
-	const [value, setValue] = useState(props.value);
+	const [value, setValue] = useState(
+		props.value ? formatDateObject(props.value) : ''
+	);
+
+	useEffect(() => {
+		setValue(() => (props.value ? formatDateObject(props.value) : ''));
+	}, [props.value]);
 
 	return (
 		<div className="form-group">
@@ -33,28 +43,29 @@ function NumberFilter(props) {
 				>
 					<input
 						className="form-control"
-						max={props.max}
-						min={props.min}
+						max={props.max && formatDateObject(props.max)}
+						min={props.min && formatDateObject(props.min)}
 						onChange={e => setValue(e.target.value)}
-						type="number"
-						value={value || ''}
+						pattern="\d{4}-\d{2}-\d{2}"
+						placeholder={props.placeholder || 'yyyy-mm-dd'}
+						type="date"
+						value={value}
 					/>
 				</div>
-				{props.inputText && (
-					<div className="input-group-append input-group-item input-group-item-shrink">
-						<span className="input-group-text">
-							{props.inputText}
-						</span>
-					</div>
-				)}
 			</div>
 			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
-					disabled={Number(value) === props.value}
-					onClick={() =>
-						actions.updateFilterValue(props.id, Number(value))
+					disabled={
+						value ==
+						(props.value ? formatDateObject(props.value) : '')
 					}
+					onClick={() => {
+						actions.updateFilterValue(
+							props.id,
+							value ? getDateFromDateString(value) : null
+						);
+					}}
 				>
 					{props.panelType === 'edit'
 						? Liferay.Language.get('edit-filter')
@@ -65,16 +76,27 @@ function NumberFilter(props) {
 	);
 }
 
-NumberFilter.propTypes = {
+DateFilter.propTypes = {
 	id: PropTypes.string.isRequired,
-	inputText: PropTypes.string,
 	invisible: PropTypes.bool,
 	label: PropTypes.string.isRequired,
-	max: PropTypes.number,
-	min: PropTypes.number,
-	operator: PropTypes.oneOf(['eq', 'ne', 'gt', 'ge', 'lt', 'le']).isRequired,
-	type: PropTypes.oneOf(['number']).isRequired,
-	value: PropTypes.number
+	max: PropTypes.shape({
+		day: PropTypes.number,
+		month: PropTypes.number,
+		year: PropTypes.number
+	}),
+	min: PropTypes.shape({
+		day: PropTypes.number,
+		month: PropTypes.number,
+		year: PropTypes.number
+	}),
+	placeholder: PropTypes.string,
+	type: PropTypes.oneOf(['date']).isRequired,
+	value: PropTypes.shape({
+		day: PropTypes.number,
+		month: PropTypes.number,
+		year: PropTypes.number
+	})
 };
 
-export default NumberFilter;
+export default DateFilter;

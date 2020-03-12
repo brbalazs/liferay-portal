@@ -15,10 +15,10 @@
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 
-import ActiveFiltersBar from './components/ActiveFiltersBar.es';
-import BulkActions from './components/BulkActions.es';
-import useAppState, {StoreProvider} from './components/Context.es';
-import NavBar from './components/NavBar.es';
+import ActiveFiltersBar from './components/ActiveFiltersBar';
+import BulkActions from './components/BulkActions';
+import useAppState, {StoreProvider} from './components/Context';
+import NavBar from './components/NavBar';
 
 function ManagementBar(props) {
 	const {state} = useAppState();

@@ -13,33 +13,52 @@
  */
 
 import ClayButton from '@clayui/button';
-import {ClaySelect} from '@clayui/form';
+import {ClayCheckbox} from '@clayui/form';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import getAppContext from '../Context.es';
+import getAppContext from '../Context';
 
-function SelectFilter(props) {
+function CheckboxesFilter(props) {
 	const {actions} = getAppContext();
 	const [value, setValue] = useState(props.value);
 
+	function selectCheckbox(itemValue) {
+		if (!value) {
+			return setValue([itemValue]);
+		}
+
+		if (!value.includes(itemValue)) {
+			return setValue(value.concat(itemValue));
+		} else if (value.length === 1) {
+			return setValue(undefined);
+		} else {
+			return setValue(value.filter(v => v !== itemValue));
+		}
+	}
+
 	return (
 		<>
-			<ClaySelect
-				aria-label="Select Label"
-				id="mySelectId"
-				onChange={e => setValue(e.target.value)}
-				value={value || ''}
-			>
-				<ClaySelect.Option label={''} value={''} />
-				{props.items.map(item => (
-					<ClaySelect.Option
-						key={item.value}
+			{props.items.map((item, i) => {
+				let checked = false;
+
+				if (value) {
+					checked = value.reduce(
+						(acc, el) => acc || el === item.value,
+						false
+					);
+				}
+
+				return (
+					<ClayCheckbox
+						aria-label={item.label}
+						checked={checked}
+						key={i}
 						label={item.label}
-						value={item.value}
+						onChange={() => selectCheckbox(item.value)}
 					/>
-				))}
-			</ClaySelect>
+				);
+			})}
 			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
@@ -55,7 +74,7 @@ function SelectFilter(props) {
 	);
 }
 
-SelectFilter.propTypes = {
+CheckboxesFilter.propTypes = {
 	id: PropTypes.string.isRequired,
 	invisible: PropTypes.bool,
 	items: PropTypes.arrayOf(
@@ -76,8 +95,10 @@ SelectFilter.propTypes = {
 		'or',
 		'not'
 	]).isRequired,
-	type: PropTypes.oneOf(['select']).isRequired,
-	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+	type: PropTypes.oneOf(['checkbox']).isRequired,
+	value: PropTypes.arrayOf(
+		PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+	)
 };
 
-export default SelectFilter;
+export default CheckboxesFilter;

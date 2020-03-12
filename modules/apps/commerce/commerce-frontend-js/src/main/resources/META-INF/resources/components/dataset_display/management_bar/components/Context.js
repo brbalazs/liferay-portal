@@ -14,9 +14,9 @@
 
 import React, {createContext, useContext, useReducer} from 'react';
 
-import {actions} from '../actions/index.es';
-import applyMiddleware from '../middleware/index.es';
-import reducer, {initialState} from '../reducers/index.es';
+import {actions} from '../actions';
+import applyMiddleware from '../middleware';
+import reducer, {initialState} from '../reducers';
 
 export const StoreContext = createContext(null);
 

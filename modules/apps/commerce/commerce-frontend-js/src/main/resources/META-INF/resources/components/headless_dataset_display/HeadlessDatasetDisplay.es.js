@@ -34,8 +34,8 @@ import {
 import {createOdataFilterStrings} from '../../utilities/odata.es';
 import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext.es';
 import EmptyResultMessage from '../dataset_display/EmptyResultMessage.es';
-import ManagementBar from '../dataset_display/management_bar/index.es';
-import {getViewById} from '../dataset_display/views/index.es';
+import ManagementBar from '../dataset_display/management_bar';
+import {getViewById} from '../dataset_display/views';
 import Modal from '../modal/Modal.es';
 import SidePanel from '../side_panel/SidePanel.es';
 

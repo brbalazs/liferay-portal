@@ -14,13 +14,13 @@
 
 import React from 'react';
 
-import CheckboxesFilter from '../management_bar/components/filters/Checkboxes.es';
-import DateFilter from '../management_bar/components/filters/Date.es';
-import DateRangeFilter from '../management_bar/components/filters/DateRange.es';
-import NumberFilter from '../management_bar/components/filters/Number.es';
-import RadioFilter from '../management_bar/components/filters/Radio.es';
-import SelectFilter from '../management_bar/components/filters/Select.es';
-import TextFilter from '../management_bar/components/filters/Text.es';
+import CheckboxesFilter from '../management_bar/components/filters/CheckboxesFilter';
+import DateFilter from '../management_bar/components/filters/DateFilter';
+import DateRangeFilter from '../management_bar/components/filters/DateRangeFilter';
+import NumberFilter from '../management_bar/components/filters/NumberFilter';
+import RadioFilter from '../management_bar/components/filters/RadioFilter';
+import SelectFilter from '../management_bar/components/filters/SelectFilter';
+import TextFilter from '../management_bar/components/filters/TextFilter';
 
 export const filterIdToComponentMap = {
 	checkbox: CheckboxesFilter,

@@ -16,7 +16,7 @@ import ClayLink from '@clayui/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import DefaultContent from './DefaultRenderer.es';
+import DefaultContent from './DefaultRenderer';
 
 function LinkRenderer(props) {
 	return (

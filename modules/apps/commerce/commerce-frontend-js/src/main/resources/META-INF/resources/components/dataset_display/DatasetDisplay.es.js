@@ -36,8 +36,8 @@ import Modal from '../modal/Modal.es';
 import SidePanel from '../side_panel/SidePanel.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
-import ManagementBar from './management_bar/index.es';
-import {getViewById} from './views/index.es';
+import ManagementBar from './management_bar';
+import {getViewById} from './views';
 
 const headers = {
 	credentials: 'include',

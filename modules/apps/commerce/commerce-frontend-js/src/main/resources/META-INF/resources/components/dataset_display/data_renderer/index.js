@@ -13,18 +13,18 @@
  */
 
 import {getJsModule} from '../../../utilities/index.es';
-import ActionsLinkRenderer from './ActionLinkRenderer.es';
-import ActionsDropdownRenderer from './ActionsDropdownRenderer.es';
-import CheckboxRenderer from './CheckboxRenderer.es';
-import DateRenderer from './DateRenderer.es';
-import DefaultRenderer from './DefaultRenderer.es';
-import ImageRenderer from './ImageRenderer.es';
-import LabelRenderer from './LabelRenderer.es';
-import LinkRenderer from './LinkRenderer.es';
-import ModalLinkRenderer from './ModalLinkRenderer.es';
-import QuantitySelectorRenderer from './QuantitySelectorRenderer.es';
-import SidePanelLinkRenderer from './SidePanelLinkRenderer.es';
-import TooltipPriceRenderer from './TooltipPriceRenderer.es';
+import ActionsLinkRenderer from './ActionLinkRenderer';
+import ActionsDropdownRenderer from './ActionsDropdownRenderer';
+import CheckboxRenderer from './CheckboxRenderer';
+import DateRenderer from './DateRenderer';
+import DefaultRenderer from './DefaultRenderer';
+import ImageRenderer from './ImageRenderer';
+import LabelRenderer from './LabelRenderer';
+import LinkRenderer from './LinkRenderer';
+import ModalLinkRenderer from './ModalLinkRenderer';
+import QuantitySelectorRenderer from './QuantitySelectorRenderer';
+import SidePanelLinkRenderer from './SidePanelLinkRenderer';
+import TooltipPriceRenderer from './TooltipPriceRenderer';
 
 const dataRenderers = {
 	actionLink: ActionsLinkRenderer,

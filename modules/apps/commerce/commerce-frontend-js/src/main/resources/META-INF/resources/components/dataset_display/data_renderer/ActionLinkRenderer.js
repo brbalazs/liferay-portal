@@ -19,7 +19,7 @@ import React, {useContext} from 'react';
 
 import {formatActionUrl} from '../../../utilities/index.es';
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
-import DefaultContent from './DefaultRenderer.es';
+import DefaultContent from './DefaultRenderer';
 
 function ActionLinkRenderer(props) {
 	const {

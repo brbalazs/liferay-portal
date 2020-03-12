@@ -18,9 +18,9 @@ import ClayLabel from '@clayui/label';
 import classNames from 'classnames';
 import React, {useState} from 'react';
 
-import {prettifyFilterValue} from '../../../utilities/dates.es';
-import {renderFilter} from '../../../utilities/filters.es';
-import getAppContext from '../Context.es';
+import {prettifyFilterValue} from '../../../utilities/dates';
+import {renderFilter} from '../../../utilities/filters';
+import getAppContext from '../Context';
 
 function Resume(props) {
 	const {actions} = getAppContext();
