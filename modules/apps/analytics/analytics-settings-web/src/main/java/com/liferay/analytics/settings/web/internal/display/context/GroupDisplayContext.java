@@ -64,13 +64,16 @@ import org.apache.http.util.EntityUtils;
 public class GroupDisplayContext {
 
 	public GroupDisplayContext(
-		RenderRequest renderRequest, RenderResponse renderResponse) {
+		RenderRequest renderRequest, RenderResponse renderResponse,
+		String mvcRenderCommandName) {
+
+		_renderRequest = renderRequest;
+		_renderResponse = renderResponse;
+		_mvcRenderCommandName = mvcRenderCommandName;
 
 		_analyticsConfiguration =
 			(AnalyticsConfiguration)renderRequest.getAttribute(
 				AnalyticsSettingsWebKeys.ANALYTICS_CONFIGURATION);
-		_renderRequest = renderRequest;
-		_renderResponse = renderResponse;
 	}
 
 	public String getChannelName(Long groupId) {
@@ -134,8 +137,7 @@ public class GroupDisplayContext {
 	public PortletURL getPortletURL() {
 		PortletURL portletURL = _renderResponse.createRenderURL();
 
-		portletURL.setParameter(
-			"mvcRenderCommandName", "/analytics/edit_synced_sites");
+		portletURL.setParameter("mvcRenderCommandName", _mvcRenderCommandName);
 
 		return portletURL;
 	}
@@ -264,6 +266,7 @@ public class GroupDisplayContext {
 	private Map<String, String> _channelNames;
 	private long[] _classNameIds;
 	private String _keywords;
+	private final String _mvcRenderCommandName;
 	private String _orderByCol;
 	private String _orderByType;
 	private final RenderRequest _renderRequest;

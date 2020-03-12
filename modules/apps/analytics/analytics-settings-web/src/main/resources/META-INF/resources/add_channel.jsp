@@ -17,7 +17,14 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirect = ParamUtil.getString(request, "redirect");
+GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest, renderResponse, "/analytics_settings/add_channel");
+
+PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setParameter("mvcRenderCommandName", "/view_configuration_screen");
+portletURL.setParameter("configurationScreenKey", "synced-sites");
+
+String redirect = portletURL.toString();
 
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(ParamUtil.getString(request, "backURL", redirect));
@@ -42,12 +49,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 </div>
 
 <aui:form action="<%= addChannelURL %>" method="post" name="fm">
-	<liferay-portlet:renderURL varImpl="selectSitesURL">
-		<portlet:param name="mvcRenderCommandName" value="/view_configuration_screen" />
-		<portlet:param name="configurationScreenKey" value="synced-sites" />
-	</liferay-portlet:renderURL>
-
-	<aui:input name="redirect" type="hidden" value="<%= selectSitesURL %>" />
+	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 
 	<div class="portlet-analytics-settings sheet sheet-lg">
 		<h2 class="autofit-row">
@@ -75,10 +77,6 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 				</small>
 			</label>
 		</div>
-
-		<%
-		GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest, renderResponse);
-		%>
 
 		<clay:management-toolbar
 			displayContext="<%= new GroupManagementToolbarDisplayContext(request, liferayPortletRequest, liferayPortletResponse, groupDisplayContext) %>"
@@ -128,12 +126,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 
 		<div class="text-right">
 			<aui:button-row>
-				<liferay-portlet:renderURL varImpl="cancel">
-					<portlet:param name="mvcRenderCommandName" value="/view_configuration_screen" />
-					<portlet:param name="configurationScreenKey" value="synced-sites" />
-				</liferay-portlet:renderURL>
-
-				<aui:button href="<%= cancel.toString() %>" value="cancel" />
+				<aui:button href="<%= redirect %>" value="cancel" />
 
 				<aui:button disabled="<%= true %>" id="add-channel-button" type="submit" value="done" />
 			</aui:button-row>

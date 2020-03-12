@@ -17,9 +17,14 @@
 <%@ include file="/init.jsp" %>
 
 <%
-GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest, renderResponse);
+GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest, renderResponse, "/analytics_settings/edit_channel");
 
-String redirect = ParamUtil.getString(request, "redirect");
+PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setParameter("mvcRenderCommandName", "/view_configuration_screen");
+portletURL.setParameter("configurationScreenKey", "synced-sites");
+
+String redirect = portletURL.toString();
 
 String channelId = ParamUtil.getString(request, "channelId");
 String channelName = ParamUtil.getString(request, "channelName");
@@ -48,13 +53,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 
 <aui:form action="<%= editChannelURL %>" method="post" name="fm">
 	<aui:input name="channelId" type="hidden" value="<%= channelId %>" />
-
-	<liferay-portlet:renderURL varImpl="selectSitesURL">
-		<portlet:param name="mvcRenderCommandName" value="/view_configuration_screen" />
-		<portlet:param name="configurationScreenKey" value="synced-sites" />
-	</liferay-portlet:renderURL>
-
-	<aui:input name="redirect" type="hidden" value="<%= selectSitesURL %>" />
+	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 
 	<div class="portlet-analytics-settings sheet sheet-lg">
 		<h2 class="autofit-row">
@@ -113,12 +112,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 
 		<div class="text-right">
 			<aui:button-row>
-				<liferay-portlet:renderURL varImpl="cancel">
-					<portlet:param name="mvcRenderCommandName" value="/view_configuration_screen" />
-					<portlet:param name="configurationScreenKey" value="synced-sites" />
-				</liferay-portlet:renderURL>
-
-				<aui:button href="<%= cancel.toString() %>" value="cancel" />
+				<aui:button href="<%= redirect %>" value="cancel" />
 
 				<aui:button type="submit" value="done" />
 			</aui:button-row>
