@@ -36,9 +36,11 @@ import com.liferay.portal.kernel.search.filter.QueryFilter;
 import com.liferay.portal.kernel.search.filter.TermsFilter;
 import com.liferay.portal.kernel.search.generic.TermQueryImpl;
 import com.liferay.portal.kernel.search.generic.WildcardQueryImpl;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.OrganizationLocalServiceUtil;
+import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -125,7 +127,10 @@ public class OrganizationIndexer extends BaseIndexer<Organization> {
 					(permissionChecker.isOrganizationAdmin(
 						organization.getOrganizationId()) ||
 					 permissionChecker.isOrganizationOwner(
-						 organization.getOrganizationId()))) {
+						 organization.getOrganizationId()) ||
+					 OrganizationPermissionUtil.contains(
+						 permissionChecker, organization,
+						 ActionKeys.MANAGE_SUBORGANIZATIONS))) {
 
 					treePath = treePath + "*";
 				}

@@ -21,10 +21,13 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.portal.kernel.service.persistence.OrganizationFinder;
 import com.liferay.portal.kernel.service.persistence.OrganizationUtil;
 import com.liferay.portal.kernel.service.persistence.UserUtil;
@@ -864,8 +867,9 @@ public class OrganizationFinderImpl
 	}
 
 	protected int countO_ByOrganizationId(
-		Session session, long organizationId,
-		LinkedHashMap<String, Object> params) {
+			Session session, long organizationId,
+			LinkedHashMap<String, Object> params)
+		throws PortalException {
 
 		String sql = CustomSQLUtil.get(COUNT_O_BY_ORGANIZATION_ID);
 
@@ -1105,8 +1109,8 @@ public class OrganizationFinderImpl
 		return join;
 	}
 
-	protected void setJoin(
-		QueryPos qPos, LinkedHashMap<String, Object> params) {
+	protected void setJoin(QueryPos qPos, LinkedHashMap<String, Object> params)
+		throws PortalException {
 
 		if (params == null) {
 			return;
@@ -1143,7 +1147,10 @@ public class OrganizationFinderImpl
 							(permissionChecker.isOrganizationAdmin(
 								organization.getOrganizationId()) ||
 							 permissionChecker.isOrganizationOwner(
-								 organization.getOrganizationId()))) {
+								 organization.getOrganizationId()) ||
+							 OrganizationPermissionUtil.contains(
+								 permissionChecker, organization,
+								 ActionKeys.MANAGE_SUBORGANIZATIONS))) {
 
 							sb.append(StringPool.PERCENT);
 						}
