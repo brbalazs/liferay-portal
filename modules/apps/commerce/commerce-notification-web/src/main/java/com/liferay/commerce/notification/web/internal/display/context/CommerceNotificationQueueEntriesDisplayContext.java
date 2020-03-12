@@ -14,11 +14,17 @@
 
 package com.liferay.commerce.notification.web.internal.display.context;
 
+import com.liferay.commerce.frontend.ClayCreationMenu;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.notification.web.internal.display.context.util.CommerceNotificationsRequestHelper;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -39,6 +45,21 @@ public class CommerceNotificationQueueEntriesDisplayContext {
 
 		_commerceNotificationsRequestHelper =
 			new CommerceNotificationsRequestHelper(httpServletRequest);
+	}
+
+	public String getAddNotificationTemplateURL() throws Exception {
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			_commerceNotificationsRequestHelper.getRequest(),
+			CommerceChannel.class.getName(), PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceNotificationTemplate");
+		portletURL.setParameter(
+			"commerceChannelId", String.valueOf(getCommerceChannelId()));
+
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		return portletURL.toString();
 	}
 
 	public CommerceChannel getCommerceChannel() throws PortalException {
@@ -62,6 +83,21 @@ public class CommerceNotificationQueueEntriesDisplayContext {
 		}
 
 		return commerceChannel.getCommerceChannelId();
+	}
+
+	public ClayCreationMenu getNotificationTemplateClayCreationMenu()
+		throws Exception {
+
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
+
+		clayCreationMenu.addClayCreationMenuActionItem(
+			getAddNotificationTemplateURL(),
+			LanguageUtil.get(
+				_commerceNotificationsRequestHelper.getRequest(),
+				"add-notification-template"),
+			ClayCreationMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL);
+
+		return clayCreationMenu;
 	}
 
 	public PortletURL getPortletURL() {

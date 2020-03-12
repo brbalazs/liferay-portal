@@ -48,6 +48,7 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannelId));
 	</c:when>
 	<c:when test='<%= notificationNavigationItem.equals("view-all-notification-templates") %>'>
 		<commerce-ui:dataset-display
+			clayCreationMenu="<%= commerceNotificationQueueEntriesDisplayContext.getNotificationTemplateClayCreationMenu() %>"
 			contextParams="<%= contextParams %>"
 			dataProviderKey="<%= CommerceNotificationTemplateClayTable.NAME %>"
 			id="<%= CommerceNotificationTemplateClayTable.NAME %>"

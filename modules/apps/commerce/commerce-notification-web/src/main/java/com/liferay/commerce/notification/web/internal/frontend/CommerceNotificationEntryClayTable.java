@@ -33,22 +33,24 @@ import com.liferay.commerce.notification.service.CommerceNotificationTemplateSer
 import com.liferay.commerce.notification.type.CommerceNotificationType;
 import com.liferay.commerce.notification.type.CommerceNotificationTypeRegistry;
 import com.liferay.commerce.notification.web.internal.model.NotificationEntry;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,29 +89,36 @@ public class CommerceNotificationEntryClayTable
 		try {
 			NotificationEntry notificationEntry = (NotificationEntry)model;
 
-			long commerceChannelId = ParamUtil.getLong(
-				httpServletRequest, "commerceChannelId");
+			PortletURL portletURL = _portal.getControlPanelPortletURL(
+				httpServletRequest, CPPortletKeys.COMMERCE_CHANNELS,
+				PortletRequest.ACTION_PHASE);
 
-			PortletURL portletURL = PortletProviderUtil.getPortletURL(
-				httpServletRequest, CommerceChannel.class.getName(),
-				PortletProvider.Action.MANAGE);
+			String redirect = ParamUtil.getString(
+				httpServletRequest, "currentUrl",
+				_portal.getCurrentURL(httpServletRequest));
 
 			portletURL.setParameter(
-				"commerceChannelId", String.valueOf(commerceChannelId));
+				ActionRequest.ACTION_NAME,
+				"editCommerceNotificationQueueEntry");
+			portletURL.setParameter(Constants.CMD, "resend");
+			portletURL.setParameter("redirect", redirect);
 			portletURL.setParameter(
 				"commerceNotificationQueueEntryId",
 				String.valueOf(notificationEntry.getNotificationEntryId()));
 
-			portletURL.setWindowState(LiferayWindowState.POP_UP);
+			clayTableActions.add(
+				new ClayDataSetAction(
+					StringPool.BLANK, portletURL.toString(), StringPool.BLANK,
+					LanguageUtil.get(httpServletRequest, "resend"), null, false,
+					false));
 
-			ClayDataSetAction clayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, portletURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "edit"), null, false,
-				false);
+			portletURL.setParameter(Constants.CMD, Constants.DELETE);
 
-			clayDataSetAction.setTarget("sidePanel");
-
-			clayTableActions.add(clayDataSetAction);
+			clayTableActions.add(
+				new ClayDataSetAction(
+					StringPool.BLANK, portletURL.toString(), StringPool.BLANK,
+					LanguageUtil.get(httpServletRequest, "delete"), null, false,
+					false));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -138,10 +147,7 @@ public class CommerceNotificationEntryClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField fromField = clayTableSchemaBuilder.addField(
-			"from", "from");
-
-		fromField.setContentRenderer("actionLink");
+		clayTableSchemaBuilder.addField("from", "from");
 
 		clayTableSchemaBuilder.addField("to", "to");
 
@@ -240,5 +246,8 @@ public class CommerceNotificationEntryClayTable
 
 	@Reference
 	private CommerceNotificationTypeRegistry _commerceNotificationTypeRegistry;
+
+	@Reference
+	private Portal _portal;
 
 }
