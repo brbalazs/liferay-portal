@@ -23,7 +23,10 @@ import ActionsDropdownRenderer from '../../data_renderer/ActionsDropdownRenderer
 import CheckboxRenderer from '../../data_renderer/CheckboxRenderer';
 import CommentRenderer from '../../data_renderer/CommentRenderer';
 import RadioRenderer from '../../data_renderer/RadioRenderer';
-import {getDataRendererById, getDataRendererByUrl} from '../../data_renderer/index';
+import {
+	getDataRendererById,
+	getDataRendererByUrl
+} from '../../data_renderer/index';
 import TableHeadRow from './TableHeadRow.es';
 
 function CustomTableCell(props) {

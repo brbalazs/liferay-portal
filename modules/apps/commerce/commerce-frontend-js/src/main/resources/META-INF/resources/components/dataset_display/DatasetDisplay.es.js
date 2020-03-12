@@ -494,7 +494,7 @@ DatasetDisplay.propTypes = {
 			}).isRequired
 		),
 		initialDelta: PropTypes.number.isRequired,
-		initialPageNumber: PropTypes.number,
+		initialPageNumber: PropTypes.number
 	}),
 	selectedItems: PropTypes.array,
 	selectedItemsKey: PropTypes.string,

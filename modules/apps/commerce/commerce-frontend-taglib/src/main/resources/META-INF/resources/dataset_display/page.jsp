@@ -36,7 +36,7 @@
 		pagination: {
 			deltas: <%= jsonSerializer.serializeDeep(paginationEntries) %>,
 			initialDelta: <%= itemsPerPage %>,
-			initialPageNumber: <%= pageNumber %>,
+			initialPageNumber: <%= pageNumber %>
 		},
 		namespace: '<%= namespace %>',
 		portletURL: '<%= portletURL %>',
