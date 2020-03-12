@@ -306,6 +306,19 @@ public class AnalyticsConfigurationTrackerImpl
 			AnalyticsConfiguration.class, properties);
 	}
 
+	private void _activate() {
+		if (!_active) {
+			_active = true;
+		}
+
+		if (!_authVerifierEnabled) {
+			_componentContext.enableComponent(
+				AnalyticsSecurityAuthVerifier.class.getName());
+
+			_authVerifierEnabled = true;
+		}
+	}
+
 	private void _addAnalyticsAdmin(long companyId) throws Exception {
 		User user = _userLocalService.fetchUserByScreenName(
 			companyId, AnalyticsSecurityConstants.SCREEN_NAME_ANALYTICS_ADMIN);
@@ -436,6 +449,19 @@ public class AnalyticsConfigurationTrackerImpl
 		_addAnalyticsMessages(contacts);
 	}
 
+	private void _deactivate() throws Exception {
+		if (_active && !_hasConfiguration()) {
+			_active = false;
+		}
+
+		if (_authVerifierEnabled && !_hasConfiguration()) {
+			_componentContext.disableComponent(
+				AnalyticsSecurityAuthVerifier.class.getName());
+
+			_authVerifierEnabled = false;
+		}
+	}
+
 	private void _deleteAnalyticsAdmin(long companyId) throws Exception {
 		User user = _userLocalService.fetchUserByScreenName(
 			companyId, AnalyticsSecurityConstants.SCREEN_NAME_ANALYTICS_ADMIN);
@@ -464,39 +490,21 @@ public class AnalyticsConfigurationTrackerImpl
 				_deleteSAPEntry(companyId);
 			}
 
-			_disableAuthVerifier();
+			_deactivate();
 		}
 		catch (Exception e) {
 			_log.error(e, e);
-		}
-	}
-
-	private void _disableAuthVerifier() throws Exception {
-		if (!_hasConfiguration() && _authVerifierEnabled) {
-			_componentContext.disableComponent(
-				AnalyticsSecurityAuthVerifier.class.getName());
-
-			_authVerifierEnabled = false;
 		}
 	}
 
 	private void _enable(long companyId) {
 		try {
+			_activate();
 			_addAnalyticsAdmin(companyId);
 			_addSAPEntry(companyId);
-			_enableAuthVerifier();
 		}
 		catch (Exception e) {
 			_log.error(e, e);
-		}
-	}
-
-	private void _enableAuthVerifier() {
-		if (!_authVerifierEnabled) {
-			_componentContext.enableComponent(
-				AnalyticsSecurityAuthVerifier.class.getName());
-
-			_authVerifierEnabled = true;
 		}
 	}
 
@@ -716,6 +724,7 @@ public class AnalyticsConfigurationTrackerImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		AnalyticsConfigurationTrackerImpl.class);
 
+	private boolean _active;
 	private final Map
 		<Long, ObjectValuePair<Configuration, AnalyticsConfiguration>>
 			_analyticsConfigurations = new ConcurrentHashMap<>();
