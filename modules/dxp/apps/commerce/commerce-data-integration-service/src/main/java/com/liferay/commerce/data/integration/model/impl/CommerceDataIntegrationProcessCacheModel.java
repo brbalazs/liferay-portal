@@ -187,7 +187,9 @@ public class CommerceDataIntegrationProcessCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput) throws IOException {
+	public void readExternal(ObjectInput objectInput)
+		throws ClassNotFoundException, IOException {
+
 		commerceDataIntegrationProcessId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -198,7 +200,7 @@ public class CommerceDataIntegrationProcessCacheModel
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
 		type = objectInput.readUTF();
-		typeSettings = objectInput.readUTF();
+		typeSettings = (String)objectInput.readObject();
 
 		system = objectInput.readBoolean();
 
@@ -241,10 +243,10 @@ public class CommerceDataIntegrationProcessCacheModel
 		}
 
 		if (typeSettings == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(typeSettings);
+			objectOutput.writeObject(typeSettings);
 		}
 
 		objectOutput.writeBoolean(system);

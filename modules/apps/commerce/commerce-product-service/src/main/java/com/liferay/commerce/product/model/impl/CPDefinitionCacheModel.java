@@ -327,7 +327,9 @@ public class CPDefinitionCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput) throws IOException {
+	public void readExternal(ObjectInput objectInput)
+		throws ClassNotFoundException, IOException {
+
 		uuid = objectInput.readUTF();
 		defaultLanguageId = objectInput.readUTF();
 
@@ -381,7 +383,7 @@ public class CPDefinitionCacheModel
 
 		subscriptionLength = objectInput.readInt();
 		subscriptionType = objectInput.readUTF();
-		subscriptionTypeSettings = objectInput.readUTF();
+		subscriptionTypeSettings = (String)objectInput.readObject();
 
 		maxSubscriptionCycles = objectInput.readLong();
 
@@ -499,10 +501,10 @@ public class CPDefinitionCacheModel
 		}
 
 		if (subscriptionTypeSettings == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(subscriptionTypeSettings);
+			objectOutput.writeObject(subscriptionTypeSettings);
 		}
 
 		objectOutput.writeLong(maxSubscriptionCycles);

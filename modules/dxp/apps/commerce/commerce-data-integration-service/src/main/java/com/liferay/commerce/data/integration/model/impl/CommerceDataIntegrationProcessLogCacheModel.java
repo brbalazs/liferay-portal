@@ -172,7 +172,9 @@ public class CommerceDataIntegrationProcessLogCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput) throws IOException {
+	public void readExternal(ObjectInput objectInput)
+		throws ClassNotFoundException, IOException {
+
 		commerceDataIntegrationProcessLogId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -183,8 +185,8 @@ public class CommerceDataIntegrationProcessLogCacheModel
 		modifiedDate = objectInput.readLong();
 
 		CDataIntegrationProcessId = objectInput.readLong();
-		error = objectInput.readUTF();
-		output = objectInput.readUTF();
+		error = (String)objectInput.readObject();
+		output = (String)objectInput.readObject();
 		startDate = objectInput.readLong();
 		endDate = objectInput.readLong();
 
@@ -212,17 +214,17 @@ public class CommerceDataIntegrationProcessLogCacheModel
 		objectOutput.writeLong(CDataIntegrationProcessId);
 
 		if (error == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(error);
+			objectOutput.writeObject(error);
 		}
 
 		if (output == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(output);
+			objectOutput.writeObject(output);
 		}
 
 		objectOutput.writeLong(startDate);
