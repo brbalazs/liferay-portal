@@ -766,7 +766,7 @@ public class CommerceDiscountV2Test {
 			_commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			_user.getUserId(), commerceChannel.getGroupId(), commerceCurrency);
+			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
 
 		commerceOrder.setCommerceCurrencyId(
 			_commerceCurrency.getCommerceCurrencyId());
