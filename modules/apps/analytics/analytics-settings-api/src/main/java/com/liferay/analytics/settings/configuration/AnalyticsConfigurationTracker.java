@@ -35,6 +35,8 @@ public interface AnalyticsConfigurationTracker {
 
 	public long getCompanyId(String pid);
 
+	public boolean isActive();
+
 	public void saveCompanyConfiguration(
 		long companyId, Dictionary<String, Object> properties);
 

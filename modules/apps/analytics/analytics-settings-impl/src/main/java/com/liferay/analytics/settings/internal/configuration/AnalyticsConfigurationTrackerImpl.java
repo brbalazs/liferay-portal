@@ -204,6 +204,24 @@ public class AnalyticsConfigurationTrackerImpl
 	}
 
 	@Override
+	public boolean isActive() {
+		try {
+			if (!_active && _hasConfiguration()) {
+				_active = true;
+			}
+		}
+		catch (Exception e) {
+			if (_log.isInfoEnabled()) {
+				_log.info("Unable to check analytics configurations");
+			}
+
+			return false;
+		}
+
+		return _active;
+	}
+
+	@Override
 	public void saveCompanyConfiguration(
 		long companyId, Dictionary<String, Object> properties) {
 
