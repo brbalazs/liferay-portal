@@ -21,6 +21,7 @@ import com.liferay.commerce.product.model.CPDisplayLayout;
 import com.liferay.commerce.product.service.base.CPDisplayLayoutLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -35,12 +36,29 @@ import java.util.List;
 public class CPDisplayLayoutLocalServiceImpl
 	extends CPDisplayLayoutLocalServiceBaseImpl {
 
-	@Indexable(type = IndexableType.REINDEX)
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public CPDisplayLayout addCPDisplayLayout(
 			Class<?> clazz, long classPK, String layoutUuid,
 			ServiceContext serviceContext)
 		throws PortalException {
+
+		return cpDisplayLayoutLocalService.addCPDisplayLayout(
+			serviceContext.getUserId(), serviceContext.getScopeGroupId(), clazz,
+			classPK, layoutUuid);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CPDisplayLayout addCPDisplayLayout(
+			long userId, long groupId, Class<?> clazz, long classPK,
+			String layoutUuid)
+		throws PortalException {
+
+		User user = userLocalService.getUser(userId);
 
 		validate(classPK, layoutUuid);
 
@@ -77,8 +95,8 @@ public class CPDisplayLayoutLocalServiceImpl
 		CPDisplayLayout cpDisplayLayout = createCPDisplayLayout(
 			cpDisplayLayoutId);
 
-		cpDisplayLayout.setGroupId(serviceContext.getScopeGroupId());
-		cpDisplayLayout.setCompanyId(serviceContext.getCompanyId());
+		cpDisplayLayout.setGroupId(groupId);
+		cpDisplayLayout.setCompanyId(user.getCompanyId());
 		cpDisplayLayout.setClassNameId(classNameId);
 		cpDisplayLayout.setClassPK(classPK);
 		cpDisplayLayout.setLayoutUuid(layoutUuid);

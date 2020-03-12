@@ -35,20 +35,34 @@ import com.liferay.portlet.asset.service.permission.AssetCategoryPermission;
  */
 public class CPDisplayLayoutServiceImpl extends CPDisplayLayoutServiceBaseImpl {
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public CPDisplayLayout addCPDisplayLayout(
 			Class<?> clazz, long classPK, String layoutUuid,
 			ServiceContext serviceContext)
 		throws PortalException {
 
+		return cpDisplayLayoutService.addCPDisplayLayout(
+			serviceContext.getUserId(), serviceContext.getScopeGroupId(), clazz,
+			classPK, layoutUuid);
+	}
+
+	@Override
+	public CPDisplayLayout addCPDisplayLayout(
+			long userId, long groupId, Class<?> clazz, long classPK,
+			String layoutUuid)
+		throws PortalException {
+
 		GroupPermissionUtil.check(
-			getPermissionChecker(), serviceContext.getScopeGroupId(),
-			ActionKeys.ADD_LAYOUT);
+			getPermissionChecker(), groupId, ActionKeys.ADD_LAYOUT);
 
 		_checkPermissionByC_C(clazz.getName(), classPK, ActionKeys.VIEW);
 
 		return cpDisplayLayoutLocalService.addCPDisplayLayout(
-			clazz, classPK, layoutUuid, serviceContext);
+			userId, groupId, clazz, classPK, layoutUuid);
 	}
 
 	@Override
