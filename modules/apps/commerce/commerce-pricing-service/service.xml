@@ -24,9 +24,9 @@
 
 		<!-- Other fields -->
 
+		<column name="commercePriceListId" type="long" />
 		<column name="title" type="String" />
 		<column name="target" type="String" />
-		<column name="commercePriceListId" type="long" />
 		<column name="modifierAmount" type="BigDecimal" />
 		<column name="modifierType" type="String" />
 		<column name="priority" type="double" />
