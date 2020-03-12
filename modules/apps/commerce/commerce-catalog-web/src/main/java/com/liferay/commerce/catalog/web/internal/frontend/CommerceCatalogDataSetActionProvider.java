@@ -82,7 +82,8 @@ public class CommerceCatalogDataSetActionProvider
 
 		if (_commerceCatalogModelResourcePermission.contains(
 				themeDisplay.getPermissionChecker(), catalog.getCatalogId(),
-				ActionKeys.DELETE)) {
+				ActionKeys.DELETE) &&
+			!catalog.isSystem()) {
 
 			PortletURL deleteURL = _getCatalogDeleteURL(
 				catalog.getCatalogId(), httpServletRequest);

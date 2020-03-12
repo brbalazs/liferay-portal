@@ -80,7 +80,8 @@ public class CommerceCatalogDataSetDataProvider
 				new Catalog(
 					catalog.getCommerceCatalogId(),
 					catalog.getCommerceCurrencyCode(),
-					catalog.getCatalogDefaultLanguageId(), catalog.getName()));
+					catalog.getCatalogDefaultLanguageId(), catalog.getName(),
+					catalog.isSystem()));
 		}
 
 		return catalogs;

@@ -21,12 +21,13 @@ public class Catalog {
 
 	public Catalog(
 		long catalogId, String currencyCode, String defaultLanguageId,
-		String name) {
+		String name, boolean system) {
 
 		_catalogId = catalogId;
 		_currencyCode = currencyCode;
 		_defaultLanguageId = defaultLanguageId;
 		_name = name;
+		_system = system;
 	}
 
 	public long getCatalogId() {
@@ -45,9 +46,14 @@ public class Catalog {
 		return _name;
 	}
 
+	public boolean isSystem() {
+		return _system;
+	}
+
 	private final long _catalogId;
 	private final String _currencyCode;
 	private final String _defaultLanguageId;
 	private final String _name;
+	private final boolean _system;
 
 }
