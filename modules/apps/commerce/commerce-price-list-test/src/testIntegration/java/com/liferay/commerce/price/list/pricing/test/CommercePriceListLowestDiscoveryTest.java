@@ -34,6 +34,7 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.portal.kernel.model.Company;
@@ -53,6 +54,7 @@ import java.math.BigDecimal;
 
 import org.frutilla.FrutillaRule;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -105,6 +107,11 @@ public class CommercePriceListLowestDiscoveryTest {
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
 			_commerceCurrency.getCode());
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		_cpDefinitionLocalService.deleteCPDefinitions(_company.getCompanyId());
 	}
 
 	@Test
@@ -312,6 +319,9 @@ public class CommercePriceListLowestDiscoveryTest {
 
 	@DeleteAfterTestRun
 	private Company _company;
+
+	@Inject
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	private ServiceContext _serviceContext;
 

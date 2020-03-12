@@ -113,7 +113,7 @@ public class CommerceShipmentTest {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
 
-		_companyLocalService.deleteCompany(_company);
+		_cpDefinitionLocalService.deleteCPDefinitions(_company.getCompanyId());
 	}
 
 	@Test(expected = CommerceOrderShippingAddressException.class)
@@ -944,9 +944,6 @@ public class CommerceShipmentTest {
 	private CommerceShippingHelper _commerceShippingHelper;
 
 	private Company _company;
-
-	@Inject
-	private CompanyLocalService _companyLocalService;
 
 	@Inject
 	private CPDefinitionLocalService _cpDefinitionLocalService;

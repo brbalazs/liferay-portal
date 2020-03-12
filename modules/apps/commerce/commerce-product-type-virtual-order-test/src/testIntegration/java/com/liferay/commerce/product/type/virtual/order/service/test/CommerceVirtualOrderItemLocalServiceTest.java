@@ -97,7 +97,7 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
 
-		_companyLocalService.deleteCompany(_company);
+		_cpDefinitionLocalService.deleteCPDefinitions(_company.getCompanyId());
 	}
 
 	@Test
@@ -307,7 +307,7 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 	private Company _company;
 
 	@Inject
-	private CompanyLocalService _companyLocalService;
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Inject
 	private CPInstanceLocalService _cpInstanceLocalService;

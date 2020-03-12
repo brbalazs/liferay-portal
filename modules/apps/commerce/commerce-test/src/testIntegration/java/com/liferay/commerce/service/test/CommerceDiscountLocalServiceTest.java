@@ -33,6 +33,7 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.test.util.CommerceTestUtil;
@@ -125,6 +126,8 @@ public class CommerceDiscountLocalServiceTest {
 		for (CommerceOrder commerceOrder : _commerceOrders) {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
+
+		_cpDefinitionLocalService.deleteCPDefinitions(_company.getCompanyId());
 	}
 
 	@Test
@@ -427,6 +430,9 @@ public class CommerceDiscountLocalServiceTest {
 
 	@Inject
 	private ConfigurationProvider _configurationProvider;
+
+	@Inject
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	private ServiceContext _serviceContext;
 
