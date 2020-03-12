@@ -129,6 +129,10 @@
 
 		<column name="commercePricingClassId" primary="true" type="long" />
 
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
 		<!-- Audit fields -->
 
 		<column name="companyId" type="long" />
@@ -139,7 +143,6 @@
 
 		<!-- Other fields -->
 
-		<column name="groupId" type="long" />
 		<column name="title" type="String" />
 		<column name="description" type="String" />
 		<column name="lastPublishDate" type="Date" />
