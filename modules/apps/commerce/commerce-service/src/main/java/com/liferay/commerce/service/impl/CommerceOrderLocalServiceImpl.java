@@ -69,7 +69,6 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -437,27 +436,6 @@ public class CommerceOrderLocalServiceImpl
 
 		return commerceOrderFinder.fetchByG_U_C_O_S_First(
 			groupId, userId, commerceAccountId, orderStatus);
-	}
-
-	@Override
-	public int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws PortalException {
-
-		if (commerceOrderId <= 0) {
-			return AVAILABLE_ORDER_STATUSES.clone();
-		}
-
-		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
-			commerceOrderId);
-
-		if (!commerceOrder.isPending() &&
-			ArrayUtil.contains(
-				AVAILABLE_ORDER_STATUSES, commerceOrder.getOrderStatus())) {
-
-			return AVAILABLE_ORDER_STATUSES.clone();
-		}
-
-		return new int[] {commerceOrder.getOrderStatus()};
 	}
 
 	@Override
@@ -1626,20 +1604,6 @@ public class CommerceOrderLocalServiceImpl
 			throw new CommerceOrderPurchaseOrderNumberException();
 		}
 	}
-
-	protected static final int[] AVAILABLE_ORDER_STATUSES = {
-		CommerceOrderConstants.ORDER_STATUS_PENDING,
-		CommerceOrderConstants.ORDER_STATUS_AWAITING_PICKUP,
-		CommerceOrderConstants.ORDER_STATUS_FULFILLED,
-		CommerceOrderConstants.ORDER_STATUS_PARTIALLY_REFUNDED,
-		CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED,
-		CommerceOrderConstants.ORDER_STATUS_REFUNDED,
-		CommerceOrderConstants.ORDER_STATUS_SHIPPED,
-		CommerceOrderConstants.ORDER_STATUS_COMPLETED,
-		CommerceOrderConstants.ORDER_STATUS_CANCELLED,
-		CommerceOrderConstants.ORDER_STATUS_DECLINED,
-		CommerceOrderConstants.ORDER_STATUS_DISPUTED
-	};
 
 	private void _setCommerceOrderShippingDiscountValue(
 		CommerceOrder commerceOrder,

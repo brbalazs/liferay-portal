@@ -33,9 +33,6 @@ public class CommerceOrderScreenNavigationConstants {
 
 	public static final String CATEGORY_KEY_COMMERCE_ORDER_NOTES = "notes";
 
-	public static final String CATEGORY_KEY_COMMERCE_ORDER_OVERVIEW =
-		"overview";
-
 	public static final String CATEGORY_KEY_COMMERCE_ORDER_PAYMENTS =
 		"payments";
 

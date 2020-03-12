@@ -129,11 +129,6 @@ public class CommerceOrderEditDisplayContext {
 				themeDisplay.getTimeZone());
 	}
 
-	public int[] getAvailableOrderStatuses() throws PortalException {
-		return _commerceOrderService.getAvailableOrderStatuses(
-			getCommerceOrderId());
-	}
-
 	public String getCommerceAccountThumbnailURL() throws PortalException {
 		if (_commerceOrder == null) {
 			return StringPool.BLANK;

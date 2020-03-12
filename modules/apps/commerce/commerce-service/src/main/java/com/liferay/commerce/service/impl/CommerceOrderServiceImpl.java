@@ -217,19 +217,6 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 	}
 
 	@Override
-	public int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws PortalException {
-
-		if (commerceOrderId > 0) {
-			_commerceOrderModelResourcePermission.check(
-				getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
-		}
-
-		return commerceOrderLocalService.getAvailableOrderStatuses(
-			commerceOrderId);
-	}
-
-	@Override
 	public CommerceOrder getCommerceOrder(long commerceOrderId)
 		throws PortalException {
 
