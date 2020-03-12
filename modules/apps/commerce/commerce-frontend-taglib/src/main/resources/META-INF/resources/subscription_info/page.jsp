@@ -16,34 +16,38 @@
 
 <%@ include file="/subscription_info/init.jsp" %>
 
-<div class="row">
-	<div>
-		<%= LanguageUtil.get(request, "payment-subscription") %>
+<c:if test="<%= Validator.isNotNull(subscriptionPeriod) || Validator.isNotNull(durationPeriod) %>">
+	<div class="row">
+		<div>
+			<%= LanguageUtil.get(request, "payment-subscription") %>
+		</div>
+
+		<div>
+			<c:if test="<%= Validator.isNotNull(subscriptionPeriod) %>">
+				<span class="product-subscription-period">(<%= subscriptionPeriod %>)</span>
+			</c:if>
+
+			<c:if test="<%= Validator.isNotNull(durationPeriod) %>">
+				<span class="product-subscription-period"> <%= durationPeriod %></span>
+			</c:if>
+		</div>
 	</div>
+</c:if>
 
-	<div>
-		<c:if test="<%= Validator.isNotNull(subscriptionPeriod) %>">
-			<span class="product-subscription-period">(<%= subscriptionPeriod %>)</span>
-		</c:if>
+<c:if test="<%= Validator.isNotNull(deliverySubscriptionPeriod) || Validator.isNotNull(deliveryDurationPeriod) %>">
+	<div class="row">
+		<div>
+			<%= LanguageUtil.get(request, "delivery-subscription") %>
+		</div>
 
-		<c:if test="<%= Validator.isNotNull(durationPeriod) %>">
-			<span class="product-subscription-period"> <%= durationPeriod %></span>
-		</c:if>
+		<div>
+			<c:if test="<%= Validator.isNotNull(deliverySubscriptionPeriod) %>">
+				<span class="product-subscription-period">(<%= deliverySubscriptionPeriod %>)</span>
+			</c:if>
+
+			<c:if test="<%= Validator.isNotNull(deliveryDurationPeriod) %>">
+				<span class="product-subscription-period"> <%= deliveryDurationPeriod %></span>
+			</c:if>
+		</div>
 	</div>
-</div>
-
-<div class="row">
-	<div>
-		<%= LanguageUtil.get(request, "delivery-subscription") %>
-	</div>
-
-	<div>
-		<c:if test="<%= Validator.isNotNull(subscriptionPeriod) %>">
-			<span class="product-subscription-period">(<%= deliverySubscriptionPeriod %>)</span>
-		</c:if>
-
-		<c:if test="<%= Validator.isNotNull(durationPeriod) %>">
-			<span class="product-subscription-period"> <%= deliveryDurationPeriod %></span>
-		</c:if>
-	</div>
-</div>
+</c:if>
