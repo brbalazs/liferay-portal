@@ -65,6 +65,10 @@ import java.util.Map;
  */
 public class CommerceNotificationTemplateServiceSoap {
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static
 		com.liferay.commerce.notification.model.CommerceNotificationTemplateSoap
 				addCommerceNotificationTemplate(
@@ -94,6 +98,47 @@ public class CommerceNotificationTemplateServiceSoap {
 						addCommerceNotificationTemplate(
 							name, description, from, fromNameMap, to, cc, bcc,
 							type, enabled, subjectMap, bodyMap, serviceContext);
+
+			return com.liferay.commerce.notification.model.
+				CommerceNotificationTemplateSoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.notification.model.CommerceNotificationTemplateSoap
+				addCommerceNotificationTemplate(
+					long userId, long groupId, String name, String description,
+					String from, String[] fromNameMapLanguageIds,
+					String[] fromNameMapValues, String to, String cc,
+					String bcc, String type, boolean enabled,
+					String[] subjectMapLanguageIds, String[] subjectMapValues,
+					String[] bodyMapLanguageIds, String[] bodyMapValues,
+					com.liferay.portal.kernel.service.ServiceContext
+						serviceContext)
+			throws RemoteException {
+
+		try {
+			Map<Locale, String> fromNameMap =
+				LocalizationUtil.getLocalizationMap(
+					fromNameMapLanguageIds, fromNameMapValues);
+			Map<Locale, String> subjectMap =
+				LocalizationUtil.getLocalizationMap(
+					subjectMapLanguageIds, subjectMapValues);
+			Map<Locale, String> bodyMap = LocalizationUtil.getLocalizationMap(
+				bodyMapLanguageIds, bodyMapValues);
+
+			com.liferay.commerce.notification.model.CommerceNotificationTemplate
+				returnValue =
+					CommerceNotificationTemplateServiceUtil.
+						addCommerceNotificationTemplate(
+							userId, groupId, name, description, from,
+							fromNameMap, to, cc, bcc, type, enabled, subjectMap,
+							bodyMap, serviceContext);
 
 			return com.liferay.commerce.notification.model.
 				CommerceNotificationTemplateSoap.toSoapModel(returnValue);

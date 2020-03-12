@@ -58,9 +58,19 @@ public interface CPDisplayLayoutService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CPDisplayLayoutServiceUtil} to access the cp display layout remote service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPDisplayLayoutServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public CPDisplayLayout addCPDisplayLayout(
 			Class<?> clazz, long classPK, String layoutUuid,
 			ServiceContext serviceContext)
+		throws PortalException;
+
+	public CPDisplayLayout addCPDisplayLayout(
+			long userId, long groupId, Class<?> clazz, long classPK,
+			String layoutUuid)
 		throws PortalException;
 
 	public void deleteCPDisplayLayout(Class<?> clazz, long classPK)

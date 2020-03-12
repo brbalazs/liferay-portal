@@ -33,6 +33,10 @@ public class CPDisplayLayoutLocalServiceWrapper
 		_cpDisplayLayoutLocalService = cpDisplayLayoutLocalService;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.product.model.CPDisplayLayout
 			addCPDisplayLayout(
@@ -57,6 +61,17 @@ public class CPDisplayLayoutLocalServiceWrapper
 				cpDisplayLayout) {
 
 		return _cpDisplayLayoutLocalService.addCPDisplayLayout(cpDisplayLayout);
+	}
+
+	@Override
+	public com.liferay.commerce.product.model.CPDisplayLayout
+			addCPDisplayLayout(
+				long userId, long groupId, Class<?> clazz, long classPK,
+				String layoutUuid)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDisplayLayoutLocalService.addCPDisplayLayout(
+			userId, groupId, clazz, classPK, layoutUuid);
 	}
 
 	/**

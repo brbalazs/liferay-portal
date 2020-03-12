@@ -64,6 +64,18 @@ public interface CommerceNotificationTemplateService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link CommerceNotificationTemplateServiceUtil} to access the commerce notification template remote service. Add custom service methods to <code>com.liferay.commerce.notification.service.impl.CommerceNotificationTemplateServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommerceNotificationTemplate addCommerceNotificationTemplate(
+			long userId, long groupId, String name, String description,
+			String from, Map<Locale, String> fromNameMap, String to, String cc,
+			String bcc, String type, boolean enabled,
+			Map<Locale, String> subjectMap, Map<Locale, String> bodyMap,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public CommerceNotificationTemplate addCommerceNotificationTemplate(
 			String name, String description, String from,
 			Map<Locale, String> fromNameMap, String to, String cc, String bcc,
 			String type, boolean enabled, Map<Locale, String> subjectMap,

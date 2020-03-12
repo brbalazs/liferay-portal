@@ -40,6 +40,29 @@ public class CommerceNotificationTemplateServiceUtil {
 	public static
 		com.liferay.commerce.notification.model.CommerceNotificationTemplate
 				addCommerceNotificationTemplate(
+					long userId, long groupId, String name, String description,
+					String from,
+					java.util.Map<java.util.Locale, String> fromNameMap,
+					String to, String cc, String bcc, String type,
+					boolean enabled,
+					java.util.Map<java.util.Locale, String> subjectMap,
+					java.util.Map<java.util.Locale, String> bodyMap,
+					com.liferay.portal.kernel.service.ServiceContext
+						serviceContext)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceNotificationTemplate(
+			userId, groupId, name, description, from, fromNameMap, to, cc, bcc,
+			type, enabled, subjectMap, bodyMap, serviceContext);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static
+		com.liferay.commerce.notification.model.CommerceNotificationTemplate
+				addCommerceNotificationTemplate(
 					String name, String description, String from,
 					java.util.Map<java.util.Locale, String> fromNameMap,
 					String to, String cc, String bcc, String type,

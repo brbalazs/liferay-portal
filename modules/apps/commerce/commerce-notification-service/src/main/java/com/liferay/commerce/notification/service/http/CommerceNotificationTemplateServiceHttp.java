@@ -104,6 +104,60 @@ public class CommerceNotificationTemplateServiceHttp {
 		}
 	}
 
+	public static
+		com.liferay.commerce.notification.model.CommerceNotificationTemplate
+				addCommerceNotificationTemplate(
+					HttpPrincipal httpPrincipal, long userId, long groupId,
+					String name, String description, String from,
+					java.util.Map<java.util.Locale, String> fromNameMap,
+					String to, String cc, String bcc, String type,
+					boolean enabled,
+					java.util.Map<java.util.Locale, String> subjectMap,
+					java.util.Map<java.util.Locale, String> bodyMap,
+					com.liferay.portal.kernel.service.ServiceContext
+						serviceContext)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceNotificationTemplateServiceUtil.class,
+				"addCommerceNotificationTemplate",
+				_addCommerceNotificationTemplateParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, groupId, name, description, from,
+				fromNameMap, to, cc, bcc, type, enabled, subjectMap, bodyMap,
+				serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.notification.model.
+				CommerceNotificationTemplate)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static void deleteCommerceNotificationTemplate(
 			HttpPrincipal httpPrincipal, long commerceNotificationTemplateId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -112,7 +166,7 @@ public class CommerceNotificationTemplateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceNotificationTemplateServiceUtil.class,
 				"deleteCommerceNotificationTemplate",
-				_deleteCommerceNotificationTemplateParameterTypes1);
+				_deleteCommerceNotificationTemplateParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceNotificationTemplateId);
@@ -152,7 +206,7 @@ public class CommerceNotificationTemplateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceNotificationTemplateServiceUtil.class,
 				"getCommerceNotificationTemplate",
-				_getCommerceNotificationTemplateParameterTypes2);
+				_getCommerceNotificationTemplateParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceNotificationTemplateId);
@@ -200,7 +254,7 @@ public class CommerceNotificationTemplateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceNotificationTemplateServiceUtil.class,
 				"getCommerceNotificationTemplates",
-				_getCommerceNotificationTemplatesParameterTypes3);
+				_getCommerceNotificationTemplatesParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, enabled, start, end, orderByComparator);
@@ -249,7 +303,7 @@ public class CommerceNotificationTemplateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceNotificationTemplateServiceUtil.class,
 				"getCommerceNotificationTemplates",
-				_getCommerceNotificationTemplatesParameterTypes4);
+				_getCommerceNotificationTemplatesParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, start, end, orderByComparator);
@@ -292,7 +346,7 @@ public class CommerceNotificationTemplateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceNotificationTemplateServiceUtil.class,
 				"getCommerceNotificationTemplatesCount",
-				_getCommerceNotificationTemplatesCountParameterTypes5);
+				_getCommerceNotificationTemplatesCountParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
 
@@ -332,7 +386,7 @@ public class CommerceNotificationTemplateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceNotificationTemplateServiceUtil.class,
 				"getCommerceNotificationTemplatesCount",
-				_getCommerceNotificationTemplatesCountParameterTypes6);
+				_getCommerceNotificationTemplatesCountParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, enabled);
@@ -384,7 +438,7 @@ public class CommerceNotificationTemplateServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceNotificationTemplateServiceUtil.class,
 				"updateCommerceNotificationTemplate",
-				_updateCommerceNotificationTemplateParameterTypes7);
+				_updateCommerceNotificationTemplateParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceNotificationTemplateId, name, description,
@@ -431,33 +485,41 @@ public class CommerceNotificationTemplateServiceHttp {
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_deleteCommerceNotificationTemplateParameterTypes1 = new Class[] {
+		_addCommerceNotificationTemplateParameterTypes1 = new Class[] {
+			long.class, long.class, String.class, String.class, String.class,
+			java.util.Map.class, String.class, String.class, String.class,
+			String.class, boolean.class, java.util.Map.class,
+			java.util.Map.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[]
+		_deleteCommerceNotificationTemplateParameterTypes2 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCommerceNotificationTemplateParameterTypes2 = new Class[] {
+		_getCommerceNotificationTemplateParameterTypes3 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCommerceNotificationTemplatesParameterTypes3 = new Class[] {
+		_getCommerceNotificationTemplatesParameterTypes4 = new Class[] {
 			long.class, boolean.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommerceNotificationTemplatesParameterTypes4 = new Class[] {
+		_getCommerceNotificationTemplatesParameterTypes5 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommerceNotificationTemplatesCountParameterTypes5 = new Class[] {
+		_getCommerceNotificationTemplatesCountParameterTypes6 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCommerceNotificationTemplatesCountParameterTypes6 = new Class[] {
+		_getCommerceNotificationTemplatesCountParameterTypes7 = new Class[] {
 			long.class, boolean.class
 		};
 	private static final Class<?>[]
-		_updateCommerceNotificationTemplateParameterTypes7 = new Class[] {
+		_updateCommerceNotificationTemplateParameterTypes8 = new Class[] {
 			long.class, String.class, String.class, String.class,
 			java.util.Map.class, String.class, String.class, String.class,
 			String.class, boolean.class, java.util.Map.class,
