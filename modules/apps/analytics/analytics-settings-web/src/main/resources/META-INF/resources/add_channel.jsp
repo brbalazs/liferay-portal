@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-GroupDisplayContext groupDisplayContext = new GroupDisplayContext(renderRequest, renderResponse, "/analytics_settings/add_channel");
+GroupDisplayContext groupDisplayContext = new GroupDisplayContext("/analytics_settings/add_channel", renderRequest, renderResponse);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
