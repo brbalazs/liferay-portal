@@ -42,7 +42,6 @@ import SidePanel from '../side_panel/SidePanel.es';
 const headers = {
 	credentials: 'include',
 	headers: new Headers({
-		Authorization: 'Basic ' + btoa('test@liferay.com' + ':' + 'test'),
 		'x-csrf-token': Liferay.authToken
 	})
 };
