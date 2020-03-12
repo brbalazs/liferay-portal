@@ -43,7 +43,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.search.BaseIndexer;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
@@ -633,12 +632,10 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 		}
 
 		if (cpAttachmentFileEntryId == 0) {
-			Company company = _companyLocalService.getCompany(
-				cpDefinition.getCompanyId());
-
 			document.addKeyword(
 				CPField.DEFAULT_IMAGE_FILE_URL,
-				_commerceMediaResolver.getDefaultUrl(company.getGroupId()));
+				_commerceMediaResolver.getDefaultUrl(
+					cpDefinition.getGroupId()));
 		}
 		else {
 			document.addKeyword(
