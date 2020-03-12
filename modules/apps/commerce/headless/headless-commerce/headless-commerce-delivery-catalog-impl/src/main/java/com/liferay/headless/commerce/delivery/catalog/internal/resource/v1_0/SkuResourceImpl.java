@@ -114,6 +114,7 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 			long[] commerceAccountIds =
 				_commerceAccountHelper.getUserCommerceAccountIds(
 					contextUser.getUserId(), commerceChannel.getGroupId());
+
 			commerceContext = _commerceContextFactory.create(
 				contextCompany.getCompanyId(), commerceChannel.getGroupId(),
 				contextUser.getUserId(), 0, commerceAccountIds[0]);

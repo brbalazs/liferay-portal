@@ -140,9 +140,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	@Context
 	protected Company contextCompany;
 
-	private Product _toProduct(CPDefinition cpDefinition)
-		throws Exception {
-
+	private Product _toProduct(CPDefinition cpDefinition) throws Exception {
 		return _productDTOConverter.toDTO(
 			new ProductDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
