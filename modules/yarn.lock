@@ -1138,19 +1138,7 @@
     classnames "^2.2.6"
     warning "^4.0.3"
 
-"@clayui/pagination-bar@3.0.7":
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/@clayui/pagination-bar/-/pagination-bar-3.0.7.tgz#b983ed02dad10c8f0042faf8a6e4422801916c96"
-  integrity sha512-nMcYcwicvRsNqVLXh8x8FnoxV4LktEjZ6DKAcoRfHGUEKFUqyB1CVQEmnpc6hrR5uHUO6GXCJjQidJvw071H9Q==
-  dependencies:
-    "@clayui/button" "^3.2.0"
-    "@clayui/drop-down" "^3.2.0"
-    "@clayui/icon" "^3.0.3"
-    "@clayui/pagination" "^3.0.7"
-    "@clayui/shared" "^3.0.7"
-    classnames "^2.2.6"
-
-"@clayui/pagination-bar@^3.1.0":
+"@clayui/pagination-bar@3.1.0", "@clayui/pagination-bar@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@clayui/pagination-bar/-/pagination-bar-3.1.0.tgz#bdcc9c3dd801444dc5e617c55d969dd918d5e767"
   integrity sha512-4xY4nWJhFy4zwQeruNyfP1pdqHFcQh9VkuwlaJAqFue2qbvgZucjK3VeeLXWxkPCWKl6q3b1u43VMTcHL5MUOg==
@@ -1162,7 +1150,7 @@
     "@clayui/shared" "^3.1.0"
     classnames "^2.2.6"
 
-"@clayui/pagination@3.0.7", "@clayui/pagination@^3.0.7":
+"@clayui/pagination@3.0.7":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@clayui/pagination/-/pagination-3.0.7.tgz#2de333c5156dea4864239629554986c22c7135cd"
   integrity sha512-VTRni5ZARsnMNuGXvYQtrL3bXFzl7C2PUMB3lc1USXvSl9OL12VAOZ1P6UvPgdybAM0mw7lZFHyH7/1ULu8AOg==
