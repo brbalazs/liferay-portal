@@ -152,12 +152,12 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 		);
 
 		if (selectedItems.isEmpty()) {
-			button.setAttribute('disabled', 'disabled');
 			button.classList.add('disabled');
+			button.setAttribute('disabled', 'disabled');
 		}
 		else {
-			button.removeAttribute('disabled');
 			button.classList.remove('disabled');
+			button.removeAttribute('disabled');
 		}
 	}
 
