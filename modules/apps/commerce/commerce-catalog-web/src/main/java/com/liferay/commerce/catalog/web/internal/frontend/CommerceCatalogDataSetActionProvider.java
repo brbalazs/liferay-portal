@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -109,6 +110,13 @@ public class CommerceCatalogDataSetActionProvider
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editCommerceCatalog");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter("redirect", redirect);
+
 		portletURL.setParameter("commerceCatalogId", String.valueOf(catalogId));
 
 		return portletURL;

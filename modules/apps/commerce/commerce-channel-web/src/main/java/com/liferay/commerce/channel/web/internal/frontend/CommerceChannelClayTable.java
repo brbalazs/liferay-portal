@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -118,6 +119,13 @@ public class CommerceChannelClayTable
 			deleteURL.setParameter(
 				ActionRequest.ACTION_NAME, "editCommerceChannel");
 			deleteURL.setParameter(Constants.CMD, Constants.DELETE);
+
+			String redirect = ParamUtil.getString(
+				httpServletRequest, "currentUrl",
+				_portal.getCurrentURL(httpServletRequest));
+
+			deleteURL.setParameter("redirect", redirect);
+
 			deleteURL.setParameter(
 				"commerceChannelId", String.valueOf(channel.getChannelId()));
 
