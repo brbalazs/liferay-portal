@@ -277,7 +277,9 @@ public class CPDefinitionsImporter {
 				if (commerceInventoryWarehouseItem != null) {
 					_commerceInventoryWarehouseItemLocalService.
 						updateCommerceInventoryWarehouseItem(
-							commerceInventoryWarehouseId, quantity);
+							commerceInventoryWarehouseItem.
+								getCommerceInventoryWarehouseItemId(),
+							quantity);
 				}
 				else {
 					_commerceInventoryWarehouseItemLocalService.
