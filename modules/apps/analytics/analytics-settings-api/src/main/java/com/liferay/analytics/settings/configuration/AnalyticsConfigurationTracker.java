@@ -17,9 +17,12 @@ package com.liferay.analytics.settings.configuration;
 import java.util.Dictionary;
 import java.util.Map;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * @author Rachael Koestartyo
  */
+@ProviderType
 public interface AnalyticsConfigurationTracker {
 
 	public boolean deleteCompanyConfiguration(long companyId);
