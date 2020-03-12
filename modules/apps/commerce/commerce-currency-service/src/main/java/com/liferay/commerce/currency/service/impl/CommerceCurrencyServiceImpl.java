@@ -41,7 +41,7 @@ public class CommerceCurrencyServiceImpl
 			String symbol, BigDecimal rate,
 			Map<Locale, String> formatPatternMap, int maxFractionDigits,
 			int minFractionDigits, String roundingMode, boolean primary,
-			double priority, boolean active, ServiceContext serviceContext)
+			double priority, boolean active)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -51,7 +51,7 @@ public class CommerceCurrencyServiceImpl
 		return commerceCurrencyLocalService.addCommerceCurrency(
 			userId, code, nameMap, symbol, rate, formatPatternMap,
 			maxFractionDigits, minFractionDigits, roundingMode, primary,
-			priority, active, serviceContext);
+			priority, active);
 	}
 
 	@Override

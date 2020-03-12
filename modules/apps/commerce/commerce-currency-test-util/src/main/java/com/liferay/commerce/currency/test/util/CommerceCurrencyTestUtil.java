@@ -65,7 +65,7 @@ public class CommerceCurrencyTestUtil {
 			serviceContext.getUserId(), code,
 			RandomTestUtil.randomLocaleStringMap(), StringPool.DOLLAR,
 			BigDecimal.ONE, formatPatternMap, 2, 2, StringPool.BLANK, false,
-			RandomTestUtil.randomDouble(), true, serviceContext);
+			RandomTestUtil.randomDouble(), true);
 	}
 
 }
