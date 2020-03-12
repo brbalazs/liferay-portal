@@ -22,6 +22,8 @@ import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateCommerceAccountGroupRelService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
@@ -32,6 +34,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.util.Locale;
@@ -134,6 +137,9 @@ public class EditCommerceNotificationTemplateMVCActionCommand
 			ActionRequest actionRequest)
 		throws PortalException {
 
+		long commerceChannelId = ParamUtil.getLong(
+			actionRequest, "commerceChannelId");
+
 		long commerceNotificationTemplateId = ParamUtil.getLong(
 			actionRequest, "commerceNotificationTemplateId");
 
@@ -158,11 +164,16 @@ public class EditCommerceNotificationTemplateMVCActionCommand
 		CommerceNotificationTemplate commerceNotificationTemplate = null;
 
 		if (commerceNotificationTemplateId <= 0) {
+			CommerceChannel commerceChannel =
+				_commerceChannelService.getCommerceChannel(commerceChannelId);
+
 			commerceNotificationTemplate =
 				_commerceNotificationTemplateService.
 					addCommerceNotificationTemplate(
-						name, description, from, fromNameMap, to, cc, bcc, type,
-						enabled, subjectMap, bodyMap, serviceContext);
+						_portal.getUserId(actionRequest),
+						commerceChannel.getSiteGroupId(), name, description,
+						from, fromNameMap, to, cc, bcc, type, enabled,
+						subjectMap, bodyMap, serviceContext);
 		}
 		else {
 			commerceNotificationTemplate =
@@ -177,11 +188,17 @@ public class EditCommerceNotificationTemplateMVCActionCommand
 	}
 
 	@Reference
+	private CommerceChannelService _commerceChannelService;
+
+	@Reference
 	private CommerceNotificationTemplateCommerceAccountGroupRelService
 		_commerceNotificationTemplateCommerceAccountGroupRelService;
 
 	@Reference
 	private CommerceNotificationTemplateService
 		_commerceNotificationTemplateService;
+
+	@Reference
+	private Portal _portal;
 
 }

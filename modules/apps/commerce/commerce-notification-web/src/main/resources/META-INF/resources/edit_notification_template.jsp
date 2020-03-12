@@ -33,7 +33,11 @@ String type = BeanParamUtil.getString(commerceNotificationTemplate, renderReques
 
 CommerceNotificationType commerceNotificationType = commerceNotificationTemplatesDisplayContext.getCommerceNotificationType(type);
 
-Map<String, String> definitionTerms = commerceNotificationTemplatesDisplayContext.getDefinitionTerms(CommerceDefinitionTermConstants.RECIPIENT_DEFINITION_TERMS_CONTRIBUTOR, commerceNotificationType.getKey(), locale);
+Map<String, String> definitionTerms = null;
+
+if (commerceNotificationType != null) {
+	definitionTerms = commerceNotificationTemplatesDisplayContext.getDefinitionTerms(CommerceDefinitionTermConstants.RECIPIENT_DEFINITION_TERMS_CONTRIBUTOR, commerceNotificationType.getKey(), locale);
+}
 
 String title = LanguageUtil.get(resourceBundle, "add-notification-template");
 
@@ -49,7 +53,8 @@ if (commerceNotificationTemplate != null) {
 
 	<aui:form action="<%= editCommerceNotificationTemplateActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceNotificationTemplate == null) ? Constants.ADD : Constants.UPDATE %>" />
-		<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="commerceChannelId" type="hidden" value="<%= commerceNotificationTemplatesDisplayContext.getCommerceChannelId() %>" />
 		<aui:input name="commerceNotificationTemplateId" type="hidden" value="<%= (commerceNotificationTemplate == null) ? 0 : commerceNotificationTemplate.getCommerceNotificationTemplateId() %>" />
 
 		<liferay-ui:error exception="<%= CommerceNotificationTemplateFromException.class %>" message="please-enter-a-valid-email-address" />
@@ -94,7 +99,7 @@ if (commerceNotificationTemplate != null) {
 		</commerce-ui:panel>
 
 		<commerce-ui:panel
-			title='<%= LanguageUtil.get(request, "email-settings") %>'
+			title='<%= LanguageUtil.get(resourceBundle, "email-settings") %>'
 		>
 			<div class="row">
 				<div class="col-12">
@@ -119,36 +124,34 @@ if (commerceNotificationTemplate != null) {
 				</div>
 
 				<c:if test="<%= (definitionTerms != null) && !definitionTerms.isEmpty() %>">
-					<commerce-ui:panel
-						collapsed="<%= true %>"
-						collapsible="<%= true %>"
-						title='<%= LanguageUtil.get(request, "definition-of-terms") %>'
-					>
-						<dl>
+					<div class="col-12">
+						<aui:fieldset collapsed="<%= true %>" collapsible="<%= true %>" label="definition-of-terms" markupView="lexicon">
+							<dl>
 
-							<%
-							for (Map.Entry<String, String> entry : definitionTerms.entrySet()) {
-							%>
+								<%
+								for (Map.Entry<String, String> entry : definitionTerms.entrySet()) {
+								%>
 
-								<dt>
-									<%= entry.getKey() %>
-								</dt>
-								<dd>
-									<%= entry.getValue() %>
-								</dd>
+									<dt>
+										<%= entry.getKey() %>
+									</dt>
+									<dd>
+										<%= entry.getValue() %>
+									</dd>
 
-							<%
-							}
-							%>
+								<%
+								}
+								%>
 
-						</dl>
-					</commerce-ui:panel>
+							</dl>
+						</aui:fieldset>
+					</div>
 				</c:if>
 			</div>
 		</commerce-ui:panel>
 
 		<commerce-ui:panel
-			title='<%= LanguageUtil.get(request, "email-content") %>'
+			title='<%= LanguageUtil.get(resourceBundle, "email-content") %>'
 		>
 			<aui:field-wrapper label="subject">
 				<liferay-ui:input-localized
@@ -158,7 +161,9 @@ if (commerceNotificationTemplate != null) {
 			</aui:field-wrapper>
 
 			<%
-			definitionTerms = commerceNotificationTemplatesDisplayContext.getDefinitionTerms(CommerceDefinitionTermConstants.BODY_AND_SUBJECT_DEFINITION_TERMS_CONTRIBUTOR, commerceNotificationType.getKey(), locale);
+			if (commerceNotificationType != null) {
+				definitionTerms = commerceNotificationTemplatesDisplayContext.getDefinitionTerms(CommerceDefinitionTermConstants.BODY_AND_SUBJECT_DEFINITION_TERMS_CONTRIBUTOR, commerceNotificationType.getKey(), locale);
+			}
 			%>
 
 			<aui:field-wrapper label="body">
@@ -172,11 +177,7 @@ if (commerceNotificationTemplate != null) {
 			</aui:field-wrapper>
 
 			<c:if test="<%= (definitionTerms != null) && !definitionTerms.isEmpty() %>">
-				<commerce-ui:panel
-					collapsed="<%= true %>"
-					collapsible="<%= true %>"
-					title='<%= LanguageUtil.get(request, "definition-of-terms") %>'
-				>
+				<aui:fieldset collapsed="<%= true %>" collapsible="<%= true %>" label="definition-of-terms" markupView="lexicon">
 					<dl>
 
 						<%
@@ -195,7 +196,7 @@ if (commerceNotificationTemplate != null) {
 						%>
 
 					</dl>
-				</commerce-ui:panel>
+				</aui:fieldset>
 			</c:if>
 		</commerce-ui:panel>
 
