@@ -116,11 +116,17 @@ function ActionsDropdown(props) {
 			);
 		}
 
-		return (
+		const content = action.icon ? (
+			<ClayIcon symbol={action.icon} />
+		) : (
+			action.label
+		);
+
+		return isNotALink ? (
 			<ClayLink
 				className="btn btn-primary btn-sm"
 				data-senna-off
-				href={props.href || '#'}
+				href="#"
 				monospaced={Boolean(action.icon)}
 				onClick={
 					isNotALink(action.target, action.onClick)
@@ -138,7 +144,15 @@ function ActionsDropdown(props) {
 						: null
 				}
 			>
-				{action.icon ? <ClayIcon symbol={action.icon} /> : action.label}
+				{content}
+			</ClayLink>
+		) : (
+			<ClayLink
+				className="btn btn-primary btn-sm"
+				href={action.href}
+				monospaced={Boolean(action.icon)}
+			>
+				{content}
 			</ClayLink>
 		);
 	}
