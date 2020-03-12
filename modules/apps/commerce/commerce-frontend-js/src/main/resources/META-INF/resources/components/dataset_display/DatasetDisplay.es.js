@@ -36,8 +36,8 @@ import Modal from '../modal/Modal.es';
 import SidePanel from '../side_panel/SidePanel.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
-import ManagementBar from './management_bar';
-import {getViewById} from './views';
+import ManagementBar from './management_bar/index';
+import {getViewById} from './views/index';
 
 const headers = {
 	credentials: 'include',
@@ -100,9 +100,7 @@ function DatasetDisplay(props) {
 	const [delta, setDelta] = useState(
 		props.pagination.initialDelta || props.pagination.deltas[0].label
 	);
-	const [totalItems, setTotalItems] = useState(
-		props.pagination.initialTotalItems
-	);
+	const [totalItems, setTotalItems] = useState(0);
 	const [activeView, setActiveView] = useState(props.activeView || 0);
 	const {
 		component: CurrentViewComponent,
@@ -162,9 +160,6 @@ function DatasetDisplay(props) {
 	const formRef = useRef(null);
 
 	function updateDataset(dataSetData) {
-		if (dataSetData instanceof Array) {
-			return updateItems(dataSetData);
-		}
 		setPageNumber(1);
 		setTotalItems(dataSetData.totalItems);
 		return updateItems(dataSetData.items);
@@ -500,7 +495,6 @@ DatasetDisplay.propTypes = {
 		),
 		initialDelta: PropTypes.number.isRequired,
 		initialPageNumber: PropTypes.number,
-		initialTotalItems: PropTypes.number.isRequired
 	}),
 	selectedItems: PropTypes.array,
 	selectedItemsKey: PropTypes.string,

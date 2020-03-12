@@ -34,8 +34,8 @@ import {
 import {createOdataFilterStrings} from '../../utilities/odata.es';
 import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext.es';
 import EmptyResultMessage from '../dataset_display/EmptyResultMessage.es';
-import ManagementBar from '../dataset_display/management_bar';
-import {getViewById} from '../dataset_display/views';
+import ManagementBar from '../dataset_display/management_bar/index';
+import {getViewById} from '../dataset_display/views/index';
 import Modal from '../modal/Modal.es';
 import SidePanel from '../side_panel/SidePanel.es';
 
@@ -56,7 +56,7 @@ function executeAsyncAction(url, method = 'GET') {
 
 function loadData(apiUrl, filters, searchParam, delta, page = 1, sorting = []) {
 	const pagination = `&pageSize=${delta}&page=${page}`;
-	const searchParamString = searchParam ? `&q=${searchParam}` : '';
+	const searchParamString = searchParam ? `&search=${searchParam}` : '';
 	const sortingString = sorting.length
 		? `&orderBy=${JSON.stringify(sorting)}`
 		: ``;

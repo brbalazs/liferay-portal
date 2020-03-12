@@ -12,7 +12,7 @@
  * details.
  */
 
-import {actionsDefinition} from '../actions';
+import {actionsDefinition} from '../actions/index';
 
 export const initialState = {
 	filters: [],

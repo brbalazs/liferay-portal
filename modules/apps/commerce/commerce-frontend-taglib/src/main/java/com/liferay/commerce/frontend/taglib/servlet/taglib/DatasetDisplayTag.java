@@ -221,7 +221,7 @@ public class DatasetDisplayTag extends IncludeTag {
 		_selectedItemsKey = null;
 		_selectionType = null;
 		_showManagementBar = true;
-		_showPagination = false;
+		_showPagination = true;
 		_showSearch = true;
 		_spritemap = null;
 		_style = "default";
@@ -340,13 +340,6 @@ public class DatasetDisplayTag extends IncludeTag {
 		_items = JSONFactoryUtil.looseDeserialize(json);
 
 		_totalItems = commerceDataSetDataProvider.countItems(request, filter);
-
-		if (_totalItems > getMinPageSize()) {
-			_showPagination = true;
-		}
-		else {
-			_showPagination = false;
-		}
 	}
 
 	private void _setPagination() {
@@ -400,8 +393,12 @@ public class DatasetDisplayTag extends IncludeTag {
 	private String _selectedItemsKey;
 	private String _selectionType;
 	private boolean _showManagementBar = true;
+<<<<<<< HEAD
 	private boolean _showPagination;
 	private boolean _showSearch = true;
+=======
+	private boolean _showPagination = true;
+>>>>>>> COMMERCE-3055 fixed issues with module loading on dataset display
 	private String _spritemap;
 	private String _style = "default";
 	private int _totalItems;
