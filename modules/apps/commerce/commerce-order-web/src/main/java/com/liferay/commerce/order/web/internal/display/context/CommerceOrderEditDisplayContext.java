@@ -497,7 +497,7 @@ public class CommerceOrderEditDisplayContext {
 				}
 			}
 			else if ((commerceOrderStatus.getKey() ==
-						CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) &&
+						CommerceOrderConstants.ORDER_STATUS_PENDING) &&
 					 (_commerceOrder.getPaymentStatus() ==
 						 CommerceOrderConstants.PAYMENT_STATUS_PENDING)) {
 

@@ -23,7 +23,7 @@ public class CommerceShipmentConstants {
 
 	public static final int[] ALLOWED_ORDER_STATUSES = {
 		CommerceOrderConstants.ORDER_STATUS_DISPUTED,
-		CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+		CommerceOrderConstants.ORDER_STATUS_PENDING,
 		CommerceOrderConstants.ORDER_STATUS_PARTIALLY_REFUNDED,
 		CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED
 	};

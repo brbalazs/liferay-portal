@@ -233,7 +233,7 @@ public class CommerceOrderDataSetDataProvider
 		}
 		else if (activeTab.equals("pending")) {
 			orderStatuses = new int[] {
-				CommerceOrderConstants.ORDER_STATUS_TO_FULFILL
+				CommerceOrderConstants.ORDER_STATUS_PENDING
 			};
 		}
 		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_ANY) {
@@ -242,7 +242,7 @@ public class CommerceOrderDataSetDataProvider
 			orderStatuses = new int[] {
 				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
 				CommerceOrderConstants.ORDER_STATUS_OPEN,
-				CommerceOrderConstants.ORDER_STATUS_TO_FULFILL
+				CommerceOrderConstants.ORDER_STATUS_PENDING
 			};
 		}
 		else {

@@ -139,7 +139,7 @@ public class CommerceOrderStatusNotificationTest {
 			_serviceContext.getUserId());
 
 		_commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
-			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
 			_serviceContext.getUserId());
 
 		// Notifications are asynchronous, give time to send

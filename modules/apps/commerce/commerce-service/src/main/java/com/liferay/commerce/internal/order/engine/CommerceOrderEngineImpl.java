@@ -164,7 +164,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 				 CommerceOrderConstants.PAYMENT_STATUS_PENDING))) {
 
 			commerceOrder = transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
 				userId);
 		}
 
@@ -352,7 +352,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 				@Override
 				public Void call() throws Exception {
 					if ((orderStatus ==
-							CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) &&
+							CommerceOrderConstants.ORDER_STATUS_PENDING) &&
 						(commerceOrder.getPaymentStatus() ==
 							CommerceOrderConstants.PAYMENT_STATUS_PAID)) {
 

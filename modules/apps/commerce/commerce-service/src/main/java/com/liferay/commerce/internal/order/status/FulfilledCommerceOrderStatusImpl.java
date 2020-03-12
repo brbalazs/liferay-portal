@@ -71,7 +71,7 @@ public class FulfilledCommerceOrderStatusImpl implements CommerceOrderStatus {
 	public boolean isComplete(CommerceOrder commerceOrder) {
 		if (!commerceOrder.isOpen() && commerceOrder.isApproved() &&
 			(commerceOrder.getOrderStatus() !=
-				CommerceOrderConstants.ORDER_STATUS_TO_FULFILL)) {
+				CommerceOrderConstants.ORDER_STATUS_PENDING)) {
 
 			return true;
 		}
@@ -84,7 +84,7 @@ public class FulfilledCommerceOrderStatusImpl implements CommerceOrderStatus {
 		throws PortalException {
 
 		if ((commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) ||
+				CommerceOrderConstants.ORDER_STATUS_PENDING) ||
 			(commerceOrder.getOrderStatus() ==
 				CommerceOrderConstants.ORDER_STATUS_BLOCKED)) {
 

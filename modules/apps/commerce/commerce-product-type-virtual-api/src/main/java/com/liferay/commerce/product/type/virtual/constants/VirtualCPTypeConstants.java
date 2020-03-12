@@ -23,7 +23,7 @@ public class VirtualCPTypeConstants {
 
 	public static final int[] ACTIVATION_STATUSES = {
 		CommerceOrderConstants.ORDER_STATUS_COMPLETED,
-		CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+		CommerceOrderConstants.ORDER_STATUS_PENDING,
 		CommerceOrderConstants.ORDER_STATUS_FULFILLED
 	};
 

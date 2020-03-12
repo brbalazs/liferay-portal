@@ -66,17 +66,17 @@ public class CommerceOrderConstants {
 
 	public static final int ORDER_STATUS_PARTIALLY_SHIPPED = 14;
 
+	public static final int ORDER_STATUS_PENDING =
+		WorkflowConstants.STATUS_PENDING;
+
 	public static final int ORDER_STATUS_REFUNDED = 17;
 
 	public static final int ORDER_STATUS_SHIPPED = 15;
 
 	public static final int ORDER_STATUS_SUBSCRIPTION = 9;
 
-	public static final int ORDER_STATUS_TO_FULFILL =
-		WorkflowConstants.STATUS_PENDING;
-
 	public static final int[] ORDER_STATUSES = {
-		ORDER_STATUS_ANY, ORDER_STATUS_COMPLETED, ORDER_STATUS_TO_FULFILL,
+		ORDER_STATUS_ANY, ORDER_STATUS_COMPLETED, ORDER_STATUS_PENDING,
 		ORDER_STATUS_OPEN, ORDER_STATUS_IN_PROGRESS, ORDER_STATUS_CANCELLED,
 		ORDER_STATUS_SUBSCRIPTION, ORDER_STATUS_FULFILLED,
 		ORDER_STATUS_AWAITING_PICKUP, ORDER_STATUS_PARTIALLY_SHIPPED,
@@ -88,9 +88,7 @@ public class CommerceOrderConstants {
 		ORDER_STATUS_IN_PROGRESS, ORDER_STATUS_OPEN
 	};
 
-	public static final int[] ORDER_STATUSES_PENDING = {
-		ORDER_STATUS_TO_FULFILL
-	};
+	public static final int[] ORDER_STATUSES_PENDING = {ORDER_STATUS_PENDING};
 
 	public static final int PAYMENT_STATUS_AUTHORIZED =
 		WorkflowConstants.STATUS_DRAFT;
@@ -112,7 +110,7 @@ public class CommerceOrderConstants {
 	public static final long TYPE_PK_FULFILLMENT = 1;
 
 	public static String getNotificationKey(int orderStatus) {
-		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) {
+		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_PENDING) {
 			return ORDER_NOTIFICATION_PLACED;
 		}
 		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_FULFILLED) {
@@ -185,8 +183,8 @@ public class CommerceOrderConstants {
 		else if (orderStatus == ORDER_STATUS_SUBSCRIPTION) {
 			return "subscription";
 		}
-		else if (orderStatus == ORDER_STATUS_TO_FULFILL) {
-			return "to-fulfill";
+		else if (orderStatus == ORDER_STATUS_PENDING) {
+			return "pending";
 		}
 
 		return null;

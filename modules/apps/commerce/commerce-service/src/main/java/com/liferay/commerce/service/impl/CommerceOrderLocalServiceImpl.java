@@ -1628,7 +1628,7 @@ public class CommerceOrderLocalServiceImpl
 	}
 
 	protected static final int[] AVAILABLE_ORDER_STATUSES = {
-		CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+		CommerceOrderConstants.ORDER_STATUS_PENDING,
 		CommerceOrderConstants.ORDER_STATUS_AWAITING_PICKUP,
 		CommerceOrderConstants.ORDER_STATUS_FULFILLED,
 		CommerceOrderConstants.ORDER_STATUS_PARTIALLY_REFUNDED,

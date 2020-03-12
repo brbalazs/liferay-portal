@@ -426,8 +426,7 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 			StringPool.BLANK);
 
 		_commerceOrderEngine.transitionCommerceOrder(
-			commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
-			userId);
+			commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING, userId);
 	}
 
 	private List<CommercePaymentMethod> _getCommercePaymentMethodsList(

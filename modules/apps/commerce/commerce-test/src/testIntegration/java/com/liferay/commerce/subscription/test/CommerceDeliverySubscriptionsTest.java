@@ -115,7 +115,7 @@ public class CommerceDeliverySubscriptionsTest {
 			_commerceOrder, _user.getUserId());
 
 		_commerceOrderEngine.transitionCommerceOrder(
-			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
 			_commerceOrder.getUserId());
 
 		Thread.sleep(1000);
@@ -190,7 +190,7 @@ public class CommerceDeliverySubscriptionsTest {
 			_commerceOrder, _user.getUserId());
 
 		_commerceOrderEngine.transitionCommerceOrder(
-			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
 			_commerceOrder.getUserId());
 
 		Thread.sleep(1000);
@@ -256,7 +256,7 @@ public class CommerceDeliverySubscriptionsTest {
 			_commerceOrder, _user.getUserId());
 
 		_commerceOrderEngine.transitionCommerceOrder(
-			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
 			_commerceOrder.getUserId());
 
 		Thread.sleep(1000);
