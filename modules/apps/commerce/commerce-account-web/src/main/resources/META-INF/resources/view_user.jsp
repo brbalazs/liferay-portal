@@ -70,7 +70,7 @@ portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 <c:if test="<%= commerceAccount != null %>">
 	<div class="commerce-cta is-visible">
 		<c:if test="<%= (selectedUser.getUserId() != user.getUserId()) && commerceAccountDisplayContext.hasCommerceAccountModelPermissions(commerceAccount.getCommerceAccountId(), CommerceAccountActionKeys.MANAGE_MEMBERS) %>">
-			<aui:button cssClass="btn-primary btn-lg js-invite-user" onClick='<%= renderResponse.getNamespace() + "openUserRolesModal();" %>' value="roles" />
+			<aui:button cssClass="btn-lg btn-primary js-invite-user" onClick='<%= renderResponse.getNamespace() + "openUserRolesModal();" %>' value="roles" />
 		</c:if>
 	</div>
 
