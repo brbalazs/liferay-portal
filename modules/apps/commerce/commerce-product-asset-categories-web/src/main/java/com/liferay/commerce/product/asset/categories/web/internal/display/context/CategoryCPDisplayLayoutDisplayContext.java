@@ -15,34 +15,30 @@
 package com.liferay.commerce.product.asset.categories.web.internal.display.context;
 
 import com.liferay.asset.kernel.model.AssetCategory;
-import com.liferay.commerce.product.asset.categories.web.internal.admin.CategoryDisplayLayoutsCommerceAdminModule;
+import com.liferay.commerce.frontend.ClayCreationMenu;
+import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.model.CPDisplayLayout;
+import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPDisplayLayoutService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
 import com.liferay.layout.item.selector.criterion.LayoutItemSelectorCriterion;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
-import com.liferay.portal.kernel.dao.search.RowChecker;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
-import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -51,7 +47,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.Serializable;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -71,13 +66,59 @@ public class CategoryCPDisplayLayoutDisplayContext
 
 	public CategoryCPDisplayLayoutDisplayContext(
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
+		CommerceChannelLocalService commerceChannelLocalService,
 		CPDisplayLayoutService cpDisplayLayoutService,
 		ItemSelector itemSelector) {
 
 		super(actionHelper, httpServletRequest);
 
+		_commerceChannelLocalService = commerceChannelLocalService;
 		_cpDisplayLayoutService = cpDisplayLayoutService;
 		_itemSelector = itemSelector;
+	}
+
+	public String getAddCategoryDisplayPageURL() throws Exception {
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, CommerceChannel.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCategoryDisplayLayout");
+		portletURL.setParameter(
+			"commerceChannelId", String.valueOf(getCommerceChannelId()));
+
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		return portletURL.toString();
+	}
+
+	public ClayCreationMenu getClayCreationMenu() throws Exception {
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
+
+		clayCreationMenu.addClayCreationMenuActionItem(
+			getAddCategoryDisplayPageURL(),
+			LanguageUtil.get(httpServletRequest, "add-display-layout"),
+			ClayCreationMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL);
+
+		return clayCreationMenu;
+	}
+
+	public CommerceChannel getCommerceChannel() {
+		long commerceChannelId = ParamUtil.getLong(
+			httpServletRequest, "commerceChannelId");
+
+		return _commerceChannelLocalService.fetchCommerceChannel(
+			commerceChannelId);
+	}
+
+	public long getCommerceChannelId() {
+		CommerceChannel commerceChannel = getCommerceChannel();
+
+		if (commerceChannel == null) {
+			return 0;
+		}
+
+		return commerceChannel.getCommerceChannelId();
 	}
 
 	public CPDisplayLayout getCPDisplayLayout() throws PortalException {
@@ -185,50 +226,10 @@ public class CategoryCPDisplayLayoutDisplayContext
 			portletURL.setParameter("keywords", keywords);
 		}
 
-		String commerceAdminModuleKey = ParamUtil.getString(
-			httpServletRequest, "commerceAdminModuleKey",
-			CategoryDisplayLayoutsCommerceAdminModule.KEY);
-
 		portletURL.setParameter(
-			"commerceAdminModuleKey", commerceAdminModuleKey);
+			"commerceChannelId", String.valueOf(getCommerceChannelId()));
 
 		return portletURL;
-	}
-
-	public RowChecker getRowChecker() {
-		if (_rowChecker == null) {
-			_rowChecker = new EmptyOnClickRowChecker(liferayPortletResponse);
-		}
-
-		return _rowChecker;
-	}
-
-	public SearchContainer<CPDisplayLayout> getSearchContainer()
-		throws PortalException {
-
-		if (_searchContainer != null) {
-			return _searchContainer;
-		}
-
-		_searchContainer = new SearchContainer<>(
-			liferayPortletRequest, getPortletURL(), null, null);
-
-		_searchContainer.setRowChecker(getRowChecker());
-
-		Indexer<CPDisplayLayout> indexer =
-			IndexerRegistryUtil.nullSafeGetIndexer(CPDisplayLayout.class);
-
-		_searchContainer.setTotal(
-			(int)indexer.searchCount(
-				buildSearchContext(QueryUtil.ALL_POS, QueryUtil.ALL_POS)));
-
-		Hits hits = indexer.search(
-			buildSearchContext(
-				_searchContainer.getStart(), _searchContainer.getEnd()));
-
-		_searchContainer.setResults(getCPDisplayLayouts(indexer, hits));
-
-		return _searchContainer;
 	}
 
 	protected SearchContext buildSearchContext(int start, int end) {
@@ -255,42 +256,9 @@ public class CategoryCPDisplayLayoutDisplayContext
 		return searchContext;
 	}
 
-	protected List<CPDisplayLayout> getCPDisplayLayouts(
-			Indexer<CPDisplayLayout> indexer, Hits hits)
-		throws PortalException {
-
-		List<Document> documents = hits.toList();
-
-		List<CPDisplayLayout> cpDisplayLayouts = new ArrayList<>(
-			documents.size());
-
-		for (Document document : documents) {
-			long cpDisplayLayoutId = GetterUtil.getLong(
-				document.get(Field.ENTRY_CLASS_PK));
-
-			CPDisplayLayout cpDisplayLayout =
-				_cpDisplayLayoutService.fetchCPDisplayLayout(cpDisplayLayoutId);
-
-			if (cpDisplayLayout == null) {
-				cpDisplayLayouts = null;
-
-				long companyId = GetterUtil.getLong(
-					document.get(Field.COMPANY_ID));
-
-				indexer.delete(companyId, document.getUID());
-			}
-			else if (cpDisplayLayouts != null) {
-				cpDisplayLayouts.add(cpDisplayLayout);
-			}
-		}
-
-		return cpDisplayLayouts;
-	}
-
+	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private CPDisplayLayout _cpDisplayLayout;
 	private final CPDisplayLayoutService _cpDisplayLayoutService;
 	private final ItemSelector _itemSelector;
-	private RowChecker _rowChecker;
-	private SearchContainer<CPDisplayLayout> _searchContainer;
 
 }
