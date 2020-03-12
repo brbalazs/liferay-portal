@@ -213,7 +213,7 @@ public class CommercePaymentEngineTest {
 			CommerceCatalogLocalServiceUtil.addCommerceCatalog(
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.toLanguageId(LocaleUtil.US), null,
-				ServiceContextTestUtil.getServiceContext());
+				ServiceContextTestUtil.getServiceContext(_user.getGroupId()));
 
 		CPInstance cpInstance =
 			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(

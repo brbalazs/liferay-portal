@@ -30,6 +30,7 @@ public class CommerceSubscriptionEntryTestUtil {
 
 	public static void setUpCommerceSubscriptionEntry(
 			long userId, long groupId, long maxSubscriptionCycles,
+			long commerceCurrencyId,
 			CommerceSubscriptionEntryHelper commerceSubscriptionEntryHelper)
 		throws Exception {
 
@@ -47,7 +48,7 @@ public class CommerceSubscriptionEntryTestUtil {
 			cpInstance.getCPDefinition());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
-			userId, groupId, 0);
+			userId, groupId, commerceCurrencyId);
 
 		CommerceAddress commerceAddress =
 			CommerceTestUtil.addUserCommerceAddress(groupId, userId);

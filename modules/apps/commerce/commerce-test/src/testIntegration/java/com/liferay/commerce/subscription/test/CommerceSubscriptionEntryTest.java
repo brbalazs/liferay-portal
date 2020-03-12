@@ -103,13 +103,14 @@ public class CommerceSubscriptionEntryTest {
 		);
 
 		CommerceSubscriptionEntryTestUtil.setUpCommerceSubscriptionEntry(
-			_commerceChannel.getGroupId(), _user.getUserId(), 1,
+			_user.getUserId(), _commerceChannel.getGroupId(), 1,
+			_commerceCurrency.getCommerceCurrencyId(),
 			_commerceSubscriptionEntryHelper);
 
 		int commerceSubscriptionEntriesCount =
 			_commerceSubscriptionEntryLocalService.
 				getCommerceSubscriptionEntriesCount(
-					_commerceChannel.getGroupId(), _user.getUserId());
+					_user.getCompanyId(), _user.getUserId());
 
 		Assert.assertEquals(1, commerceSubscriptionEntriesCount);
 	}

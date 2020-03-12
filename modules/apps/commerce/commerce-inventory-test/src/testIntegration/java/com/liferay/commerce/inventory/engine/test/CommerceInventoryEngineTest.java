@@ -462,13 +462,15 @@ public class CommerceInventoryEngineTest {
 		String name = RandomTestUtil.randomString();
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			CommerceInventoryTestUtil.addCommerceInventoryWarehouse(name);
+			CommerceInventoryTestUtil.
+				addCommerceInventoryWarehouseWithExternalReferenceCode(
+					_user.getGroupId(), name);
 
 		Assert.assertEquals(name, commerceInventoryWarehouse.getName());
 
 		List<CommerceInventoryWarehouse> commerceInventoryWarehouses =
 			_commerceInventoryWarehouseLocalService.
-				getCommerceInventoryWarehouses(_company.getCompanyId());
+				getCommerceInventoryWarehouses(_user.getCompanyId());
 
 		CommerceInventoryWarehouse retrievedCommerceInventoryWarehouse =
 			commerceInventoryWarehouses.get(0);
@@ -754,16 +756,19 @@ public class CommerceInventoryEngineTest {
 				getCommerceInventoryWarehouseId(),
 			_commerceChannel.getCommerceChannelId(), _serviceContext);
 
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext();
+
 		List<CommerceInventoryWarehouse> activeWarehouses =
 			_commerceInventoryWarehouseLocalService.
 				getCommerceInventoryWarehouses(
-					_company.getCompanyId(), _commerceChannel.getGroupId(),
-					true);
+					serviceContext.getCompanyId(),
+					_commerceChannel.getGroupId(), true);
 		List<CommerceInventoryWarehouse> inactiveWarehouses =
 			_commerceInventoryWarehouseLocalService.
 				getCommerceInventoryWarehouses(
-					_company.getCompanyId(), _commerceChannel.getGroupId(),
-					false);
+					serviceContext.getCompanyId(),
+					_commerceChannel.getGroupId(), false);
 
 		Assert.assertEquals(
 			activeWarehouses.toString(), 1, activeWarehouses.size());

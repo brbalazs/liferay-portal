@@ -38,7 +38,7 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelRel;
 import com.liferay.commerce.product.service.CPInstanceLocalServiceUtil;
-import com.liferay.commerce.product.service.CommerceCatalogServiceUtil;
+import com.liferay.commerce.product.service.CommerceCatalogLocalServiceUtil;
 import com.liferay.commerce.product.service.CommerceChannelLocalServiceUtil;
 import com.liferay.commerce.product.service.CommerceChannelRelLocalServiceUtil;
 import com.liferay.commerce.product.test.util.CPTestUtil;
@@ -315,7 +315,7 @@ public class CommerceTestUtil {
 			String commerceCurrencyCode)
 		throws Exception {
 
-		return CommerceCatalogServiceUtil.addCommerceCatalog(
+		return CommerceCatalogLocalServiceUtil.addCommerceCatalog(
 			RandomTestUtil.randomString(), commerceCurrencyCode,
 			LocaleUtil.toLanguageId(LocaleUtil.US), null,
 			ServiceContextTestUtil.getServiceContext(

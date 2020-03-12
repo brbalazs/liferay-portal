@@ -27,11 +27,13 @@ import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
 import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.test.util.CommerceAccountGroupTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.portal.kernel.model.Company;
@@ -50,6 +52,7 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
 import org.frutilla.FrutillaRule;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -184,6 +187,26 @@ public class CommercePriceListHierarchyDiscoveryTest {
 		CommercePriceListTestUtil.addChannelToPriceList(
 			_catalog.getGroupId(), _commerceChannel3.getCommerceChannelId(),
 			_commercePriceList4.getCommercePriceListId());
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		_commercePriceListLocalService.deleteCommercePriceList(
+			_commercePriceList1);
+		_commercePriceListLocalService.deleteCommercePriceList(
+			_commercePriceList2);
+		_commercePriceListLocalService.deleteCommercePriceList(
+			_commercePriceList3);
+		_commercePriceListLocalService.deleteCommercePriceList(
+			_commercePriceList4);
+		_commercePriceListLocalService.deleteCommercePriceList(
+			_commercePriceList5);
+
+		_commerceChannelLocalService.deleteCommerceChannel(_commerceChannel);
+		_commerceChannelLocalService.deleteCommerceChannel(_commerceChannel1);
+		_commerceChannelLocalService.deleteCommerceChannel(_commerceChannel2);
+		_commerceChannelLocalService.deleteCommerceChannel(_commerceChannel3);
+		_commerceChannelLocalService.deleteCommerceChannel(_commerceChannel4);
 	}
 
 	@Test
@@ -463,14 +486,31 @@ public class CommercePriceListHierarchyDiscoveryTest {
 	private static final String _TYPE =
 		CommercePriceListTypeKeys.TYPE_PRICE_LIST;
 
+	@DeleteAfterTestRun
 	private CommerceCatalog _catalog;
+
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
+
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount1;
+
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount2;
+
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount3;
+
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount4;
+
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount5;
+
+	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount6;
+
+	@DeleteAfterTestRun
 	private CommerceAccountGroup _commerceAccountGroup;
 
 	@Inject
@@ -490,27 +530,26 @@ public class CommercePriceListHierarchyDiscoveryTest {
 	private CommerceChannel _commerceChannel2;
 	private CommerceChannel _commerceChannel3;
 	private CommerceChannel _commerceChannel4;
+
+	@Inject
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
 
-	@DeleteAfterTestRun
 	private CommercePriceList _commercePriceList1;
-
-	@DeleteAfterTestRun
 	private CommercePriceList _commercePriceList2;
-
-	@DeleteAfterTestRun
 	private CommercePriceList _commercePriceList3;
-
-	@DeleteAfterTestRun
 	private CommercePriceList _commercePriceList4;
-
-	@DeleteAfterTestRun
 	private CommercePriceList _commercePriceList5;
 
 	@Inject(
 		filter = "commerce.price.list.discovery.key=" + CommercePricingConstants.ORDER_BY_HIERARCHY
 	)
 	private CommercePriceListDiscovery _commercePriceListDiscovery;
+
+	@Inject
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 	@DeleteAfterTestRun
 	private Company _company;

@@ -19,6 +19,7 @@ import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
@@ -41,6 +42,7 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelRelLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
@@ -55,8 +57,8 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
-import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
@@ -114,6 +116,12 @@ public class CommerceShipmentTest {
 		}
 
 		_cpDefinitionLocalService.deleteCPDefinitions(_company.getCompanyId());
+
+		_commerceChannelLocalService.deleteCommerceChannel(_commerceChannel);
+
+		_commerceCurrencyLocalService.deleteCommerceCurrency(_commerceCurrency);
+
+		_companyLocalService.deleteCompany(_company);
 	}
 
 	@Test(expected = CommerceOrderShippingAddressException.class)
@@ -392,7 +400,7 @@ public class CommerceShipmentTest {
 
 		CommerceOrder commerceOrder =
 			CommerceTestUtil.createCommerceOrderForShipping(
-				_user.getUserId(), _company.getGroupId(),
+				_user.getUserId(), _commerceChannel.getGroupId(),
 				_commerceCurrency.getCommerceCurrencyId(), value);
 
 		BigDecimal expectedDiscountAmount = BigDecimal.valueOf(3);
@@ -917,9 +925,15 @@ public class CommerceShipmentTest {
 	private CommerceChannel _commerceChannel;
 
 	@Inject
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Inject
 	private CommerceChannelRelLocalService _commerceChannelRelLocalService;
 
 	private CommerceCurrency _commerceCurrency;
+
+	@Inject
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Inject
 	private CommerceOrderEngine _commerceOrderEngine;
@@ -942,6 +956,9 @@ public class CommerceShipmentTest {
 	private CommerceShippingHelper _commerceShippingHelper;
 
 	private Company _company;
+
+	@Inject
+	private CompanyLocalService _companyLocalService;
 
 	@Inject
 	private CPDefinitionLocalService _cpDefinitionLocalService;

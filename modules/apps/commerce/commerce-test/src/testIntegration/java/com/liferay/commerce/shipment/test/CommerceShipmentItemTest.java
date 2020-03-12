@@ -253,7 +253,7 @@ public class CommerceShipmentItemTest {
 
 		CommerceShipmentItem commerceShipmentItem =
 			CommerceShipmentTestUtil.addCommerceShipmentItem(
-				_commerceContext, cpInstance, _group.getGroupId(),
+				_commerceContext, cpInstance, _commerceChannel.getGroupId(),
 				_user.getUserId(), _commerceOrder.getCommerceOrderId(),
 				_commerceShipment.getCommerceShipmentId(), 1, 1);
 
@@ -320,7 +320,7 @@ public class CommerceShipmentItemTest {
 
 	private void _resetCommerceShipment() throws PortalException {
 		CommerceShipmentLocalServiceUtil.deleteCommerceShipment(
-			_commerceShipment, false);
+			_commerceShipment, true);
 
 		CommerceShipmentLocalServiceUtil.addCommerceShipment(_commerceShipment);
 	}

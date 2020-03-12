@@ -100,7 +100,7 @@ public class CommercePriceListFinderTest {
 				_commerceAccount.getCommerceAccountId(), _serviceContext);
 
 		_commerceCatalog = CommerceTestUtil.addCommerceCatalog(
-			_company.getCompanyId(), _company.getGroupId(), _user.getUserId(),
+			_user.getCompanyId(), _user.getGroupId(), _user.getUserId(),
 			_commerceCurrency.getCode());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
