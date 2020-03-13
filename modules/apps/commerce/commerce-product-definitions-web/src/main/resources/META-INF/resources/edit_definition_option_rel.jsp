@@ -100,7 +100,7 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 		<div class="d-none" id="values-container">
 			<commerce-ui:panel
 				bodyClasses="p-0"
-				title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+				title='<%= LanguageUtil.get(request, "values") %>'
 			>
 
 				<%
