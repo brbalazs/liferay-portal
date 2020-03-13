@@ -48,11 +48,12 @@ List<CommercePaymentMethodGroupRel> commercePaymentMethodGroupRels = commerceOrd
 
 					<%
 					for (CommercePaymentMethodGroupRel commercePaymentMethodGroupRel : commercePaymentMethodGroupRels) {
+						String engineKey = commercePaymentMethodGroupRel.getEngineKey();
 					%>
 
 						<li class="commerce-payment-types list-group-item list-group-item-flex">
 							<div class="autofit-col autofit-col-expand">
-								<aui:input checked="<%= commercePaymentMethodGroupRel.getEngineKey() == commerceOrder.getCommercePaymentMethodKey() %>" label="<%= commercePaymentMethodGroupRel.getName(locale) %>" name="commercePaymentMethodKey" type="radio" value="<%= commercePaymentMethodGroupRel.getEngineKey() %>" />
+								<aui:input checked="<%= engineKey.equals(commerceOrder.getCommercePaymentMethodKey()) %>" label="<%= commercePaymentMethodGroupRel.getName(locale) %>" name="commercePaymentMethodKey" type="radio" value="<%= engineKey %>" />
 							</div>
 
 							<%
