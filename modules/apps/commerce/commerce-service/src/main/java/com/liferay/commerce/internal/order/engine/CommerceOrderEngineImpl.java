@@ -351,8 +351,10 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 				@Override
 				public Void call() throws Exception {
-					if (orderStatus ==
-							CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) {
+					if ((orderStatus ==
+							CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) &&
+						(commerceOrder.getPaymentStatus() ==
+							CommerceOrderConstants.PAYMENT_STATUS_PAID)) {
 
 						CommerceSubscriptionEntryHelperUtil.
 							checkCommerceSubscriptions(commerceOrder);

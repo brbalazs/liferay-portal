@@ -21,7 +21,6 @@ import com.liferay.commerce.notification.util.CommerceNotificationHelper;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
-import com.liferay.commerce.subscription.CommerceSubscriptionEntryHelper;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageListener;
@@ -52,25 +51,10 @@ public class CommerceOrderStatusMessageListener extends BaseMessageListener {
 			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
 				commerceOrder.getGroupId());
 
-		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) {
-			_commerceNotificationHelper.sendNotifications(
-				commerceChannel.getSiteGroupId(), commerceOrder.getUserId(),
-				CommerceOrderConstants.ORDER_NOTIFICATION_PLACED,
-				commerceOrder);
-
-			if (commerceOrder.getPaymentStatus() ==
-					CommerceOrderConstants.PAYMENT_STATUS_PAID) {
-
-				_commerceSubscriptionEntryHelper.checkCommerceSubscriptions(
-					commerceOrder);
-			}
-		}
-		else {
-			_commerceNotificationHelper.sendNotifications(
-				commerceChannel.getSiteGroupId(), commerceOrder.getUserId(),
-				CommerceOrderConstants.getNotificationKey(orderStatus),
-				commerceOrder);
-		}
+		_commerceNotificationHelper.sendNotifications(
+			commerceChannel.getSiteGroupId(), commerceOrder.getUserId(),
+			CommerceOrderConstants.getNotificationKey(orderStatus),
+			commerceOrder);
 	}
 
 	@Reference
@@ -81,8 +65,5 @@ public class CommerceOrderStatusMessageListener extends BaseMessageListener {
 
 	@Reference
 	private CommerceOrderLocalService _commerceOrderLocalService;
-
-	@Reference
-	private CommerceSubscriptionEntryHelper _commerceSubscriptionEntryHelper;
 
 }
