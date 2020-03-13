@@ -23,8 +23,6 @@ import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelLocalService;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
-import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeJSPContributor;
 import com.liferay.commerce.product.util.CPSubscriptionTypeJSPContributorRegistry;
@@ -65,7 +63,6 @@ import javax.servlet.http.HttpServletRequest;
 public class CommerceSubscriptionEntryDisplayContext {
 
 	public CommerceSubscriptionEntryDisplayContext(
-		CommerceChannelLocalService commerceChannelLocalService,
 		CommercePaymentMethodGroupRelLocalService
 			commercePaymentMethodGroupRelLocalService,
 		CommerceSubscriptionEntryLocalService commerceSubscriptionEntryService,
@@ -75,7 +72,6 @@ public class CommerceSubscriptionEntryDisplayContext {
 		CPSubscriptionTypeRegistry cpSubscriptionTypeRegistry,
 		HttpServletRequest httpServletRequest) {
 
-		_commerceChannelLocalService = commerceChannelLocalService;
 		_commercePaymentMethodGroupRelLocalService =
 			commercePaymentMethodGroupRelLocalService;
 		_commerceSubscriptionEntryLocalService =
@@ -252,14 +248,10 @@ public class CommerceSubscriptionEntryDisplayContext {
 
 		String paymentMethodKey = commerceOrder.getCommercePaymentMethodKey();
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
 			_commercePaymentMethodGroupRelLocalService.
 				fetchCommercePaymentMethodGroupRel(
-					commerceChannel.getSiteGroupId(), paymentMethodKey);
+					commerceOrder.getGroupId(), paymentMethodKey);
 
 		return commercePaymentMethodGroupRel.getImageURL(
 			_cpRequestHelper.getThemeDisplay());
@@ -277,14 +269,10 @@ public class CommerceSubscriptionEntryDisplayContext {
 
 		String paymentMethodKey = commerceOrder.getCommercePaymentMethodKey();
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
 			_commercePaymentMethodGroupRelLocalService.
 				fetchCommercePaymentMethodGroupRel(
-					commerceChannel.getSiteGroupId(), paymentMethodKey);
+					commerceOrder.getGroupId(), paymentMethodKey);
 
 		return commercePaymentMethodGroupRel.getName(
 			_cpRequestHelper.getLocale());
@@ -388,7 +376,6 @@ public class CommerceSubscriptionEntryDisplayContext {
 		return ParamUtil.getString(_httpServletRequest, "navigation", "all");
 	}
 
-	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceOrderItemLocalService _commerceOrderItemLocalService;
 	private final CommercePaymentMethodGroupRelLocalService
 		_commercePaymentMethodGroupRelLocalService;
