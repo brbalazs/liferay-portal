@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.discount.application.type;
+package com.liferay.commerce.discount.application.strategy;
 
 import aQute.bnd.annotation.ProviderType;
 

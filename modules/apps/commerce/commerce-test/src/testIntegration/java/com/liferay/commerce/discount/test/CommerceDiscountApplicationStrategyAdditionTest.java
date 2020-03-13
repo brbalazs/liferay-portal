@@ -15,7 +15,7 @@
 package com.liferay.commerce.discount.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-import com.liferay.commerce.discount.application.type.CommerceDiscountApplicationStrategy;
+import com.liferay.commerce.discount.application.strategy.CommerceDiscountApplicationStrategy;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.test.rule.Inject;

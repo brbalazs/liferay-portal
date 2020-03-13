@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.liferay.commerce.discount.internal.helper;
+package com.liferay.commerce.discount.internal.application.strategy;
 
-import com.liferay.commerce.discount.application.type.CommerceDiscountApplicationStrategy;
+import com.liferay.commerce.discount.application.strategy.CommerceDiscountApplicationStrategy;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.portal.kernel.exception.PortalException;
 
