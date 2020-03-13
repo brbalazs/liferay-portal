@@ -52,7 +52,7 @@ public class OnHoldCommerceOrderStatusImpl implements CommerceOrderStatus {
 
 		if (commerceOrder.getOrderStatus() == KEY) {
 			return _commerceOrderEngine.transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_FULFILLED,
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_PROCESSING,
 				userId);
 		}
 

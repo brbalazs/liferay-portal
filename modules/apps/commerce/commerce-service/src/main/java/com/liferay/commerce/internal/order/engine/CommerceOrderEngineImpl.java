@@ -265,7 +265,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			 (commerceOrderStatus.getKey() !=
 				 CommerceOrderConstants.ORDER_STATUS_ON_HOLD) &&
 			 (commerceOrderStatus.getKey() !=
-				 CommerceOrderConstants.ORDER_STATUS_FULFILLED))) {
+				 CommerceOrderConstants.ORDER_STATUS_PROCESSING))) {
 
 			throw new CommerceOrderStatusException();
 		}

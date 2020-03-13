@@ -106,7 +106,7 @@ public class ShippedCommerceOrderStatusImpl implements CommerceOrderStatus {
 		}
 
 		if (((commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_FULFILLED) ||
+				CommerceOrderConstants.ORDER_STATUS_PROCESSING) ||
 			 (commerceOrder.getOrderStatus() ==
 				 CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED)) &&
 			(allOrderItemsShipped ||

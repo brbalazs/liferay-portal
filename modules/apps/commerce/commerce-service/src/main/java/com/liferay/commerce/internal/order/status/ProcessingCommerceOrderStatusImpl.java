@@ -34,14 +34,15 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.order.status.key=" + FulfilledCommerceOrderStatusImpl.KEY,
-		"commerce.order.status.priority:Integer=" + FulfilledCommerceOrderStatusImpl.PRIORITY
+		"commerce.order.status.key=" + ProcessingCommerceOrderStatusImpl.KEY,
+		"commerce.order.status.priority:Integer=" + ProcessingCommerceOrderStatusImpl.PRIORITY
 	},
 	service = CommerceOrderStatus.class
 )
-public class FulfilledCommerceOrderStatusImpl implements CommerceOrderStatus {
+public class ProcessingCommerceOrderStatusImpl implements CommerceOrderStatus {
 
-	public static final int KEY = CommerceOrderConstants.ORDER_STATUS_FULFILLED;
+	public static final int KEY =
+		CommerceOrderConstants.ORDER_STATUS_PROCESSING;
 
 	public static final int PRIORITY = 50;
 

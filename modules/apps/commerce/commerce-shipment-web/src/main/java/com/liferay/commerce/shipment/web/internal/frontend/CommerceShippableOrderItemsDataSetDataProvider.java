@@ -114,7 +114,7 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 	}
 
 	protected int[] orderStatuses = {
-		CommerceOrderConstants.ORDER_STATUS_FULFILLED,
+		CommerceOrderConstants.ORDER_STATUS_PROCESSING,
 		CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED
 	};
 

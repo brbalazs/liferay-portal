@@ -30,12 +30,13 @@ public class CommerceOrderConstants {
 
 	public static final String ORDER_NOTIFICATION_COMPLETED = "order-completed";
 
-	public static final String ORDER_NOTIFICATION_FULFILLED = "order-fulfilled";
-
 	public static final String ORDER_NOTIFICATION_PARTIALLY_SHIPPED =
 		"order-partially-shipped";
 
 	public static final String ORDER_NOTIFICATION_PLACED = "order-placed";
+
+	public static final String ORDER_NOTIFICATION_PROCESSING =
+		"order-processing";
 
 	public static final String ORDER_NOTIFICATION_SHIPPED = "order-shipped";
 
@@ -53,8 +54,6 @@ public class CommerceOrderConstants {
 
 	public static final int ORDER_STATUS_DISPUTED = 18;
 
-	public static final int ORDER_STATUS_FULFILLED = 10;
-
 	public static final int ORDER_STATUS_IN_PROGRESS =
 		WorkflowConstants.STATUS_INCOMPLETE;
 
@@ -68,6 +67,8 @@ public class CommerceOrderConstants {
 
 	public static final int ORDER_STATUS_PENDING =
 		WorkflowConstants.STATUS_PENDING;
+
+	public static final int ORDER_STATUS_PROCESSING = 10;
 
 	public static final int ORDER_STATUS_REFUNDED = 17;
 
@@ -113,10 +114,13 @@ public class CommerceOrderConstants {
 		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_PENDING) {
 			return ORDER_NOTIFICATION_PLACED;
 		}
-		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_FULFILLED) {
-			return ORDER_NOTIFICATION_FULFILLED;
+		else if (orderStatus ==
+					CommerceOrderConstants.ORDER_STATUS_PROCESSING) {
+
+			return ORDER_NOTIFICATION_PROCESSING;
 		}
-		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_FULFILLED) {
+		else if (orderStatus ==
+					CommerceOrderConstants.ORDER_STATUS_PROCESSING) {
 
 			//TODO check correct status
 
@@ -159,8 +163,8 @@ public class CommerceOrderConstants {
 		else if (orderStatus == ORDER_STATUS_DISPUTED) {
 			return "disputed";
 		}
-		else if (orderStatus == ORDER_STATUS_FULFILLED) {
-			return "fulfilled";
+		else if (orderStatus == ORDER_STATUS_PROCESSING) {
+			return "processing";
 		}
 		else if (orderStatus == ORDER_STATUS_IN_PROGRESS) {
 			return "in-progress";

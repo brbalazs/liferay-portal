@@ -31,12 +31,12 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.notification.type.key=" + CommerceOrderConstants.ORDER_NOTIFICATION_FULFILLED,
+		"commerce.notification.type.key=" + CommerceOrderConstants.ORDER_NOTIFICATION_PROCESSING,
 		"commerce.notification.type.order:Integer=40"
 	},
 	service = CommerceNotificationType.class
 )
-public class OrderFulfilledCommerceNotificationTypeImpl
+public class OrderProcessingCommerceNotificationTypeImpl
 	implements CommerceNotificationType {
 
 	@Override
@@ -61,7 +61,7 @@ public class OrderFulfilledCommerceNotificationTypeImpl
 
 	@Override
 	public String getKey() {
-		return CommerceOrderConstants.ORDER_NOTIFICATION_FULFILLED;
+		return CommerceOrderConstants.ORDER_NOTIFICATION_PROCESSING;
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class OrderFulfilledCommerceNotificationTypeImpl
 
 		return LanguageUtil.get(
 			resourceBundle,
-			CommerceOrderConstants.ORDER_NOTIFICATION_FULFILLED);
+			CommerceOrderConstants.ORDER_NOTIFICATION_PROCESSING);
 	}
 
 }
