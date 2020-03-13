@@ -148,12 +148,12 @@ public class CommercePriceModifierPersistenceTest {
 
 		newCommercePriceModifier.setModifiedDate(RandomTestUtil.nextDate());
 
+		newCommercePriceModifier.setCommercePriceListId(
+			RandomTestUtil.nextLong());
+
 		newCommercePriceModifier.setTitle(RandomTestUtil.randomString());
 
 		newCommercePriceModifier.setTarget(RandomTestUtil.randomString());
-
-		newCommercePriceModifier.setCommercePriceListId(
-			RandomTestUtil.nextLong());
 
 		newCommercePriceModifier.setModifierAmount(
 			new BigDecimal(RandomTestUtil.nextDouble()));
@@ -216,14 +216,14 @@ public class CommercePriceModifierPersistenceTest {
 				existingCommercePriceModifier.getModifiedDate()),
 			Time.getShortTimestamp(newCommercePriceModifier.getModifiedDate()));
 		Assert.assertEquals(
+			existingCommercePriceModifier.getCommercePriceListId(),
+			newCommercePriceModifier.getCommercePriceListId());
+		Assert.assertEquals(
 			existingCommercePriceModifier.getTitle(),
 			newCommercePriceModifier.getTitle());
 		Assert.assertEquals(
 			existingCommercePriceModifier.getTarget(),
 			newCommercePriceModifier.getTarget());
-		Assert.assertEquals(
-			existingCommercePriceModifier.getCommercePriceListId(),
-			newCommercePriceModifier.getCommercePriceListId());
 		Assert.assertEquals(
 			existingCommercePriceModifier.getModifierAmount(),
 			newCommercePriceModifier.getModifierAmount());
@@ -403,9 +403,9 @@ public class CommercePriceModifierPersistenceTest {
 			"CommercePriceModifier", "uuid", true, "externalReferenceCode",
 			true, "commercePriceModifierId", true, "groupId", true, "companyId",
 			true, "userId", true, "userName", true, "createDate", true,
-			"modifiedDate", true, "title", true, "target", true,
-			"commercePriceListId", true, "modifierAmount", true, "modifierType",
-			true, "priority", true, "active", true, "displayDate", true,
+			"modifiedDate", true, "commercePriceListId", true, "title", true,
+			"target", true, "modifierAmount", true, "modifierType", true,
+			"priority", true, "active", true, "displayDate", true,
 			"expirationDate", true, "lastPublishDate", true, "status", true,
 			"statusByUserId", true, "statusByUserName", true, "statusDate",
 			true);
@@ -707,11 +707,11 @@ public class CommercePriceModifierPersistenceTest {
 
 		commercePriceModifier.setModifiedDate(RandomTestUtil.nextDate());
 
+		commercePriceModifier.setCommercePriceListId(RandomTestUtil.nextLong());
+
 		commercePriceModifier.setTitle(RandomTestUtil.randomString());
 
 		commercePriceModifier.setTarget(RandomTestUtil.randomString());
-
-		commercePriceModifier.setCommercePriceListId(RandomTestUtil.nextLong());
 
 		commercePriceModifier.setModifierAmount(
 			new BigDecimal(RandomTestUtil.nextDouble()));

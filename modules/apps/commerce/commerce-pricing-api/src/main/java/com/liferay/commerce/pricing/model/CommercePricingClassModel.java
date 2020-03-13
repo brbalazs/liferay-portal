@@ -110,6 +110,22 @@ public interface CommercePricingClassModel
 	public void setCommercePricingClassId(long commercePricingClassId);
 
 	/**
+	 * Returns the group ID of this commerce pricing class.
+	 *
+	 * @return the group ID of this commerce pricing class
+	 */
+	@Override
+	public long getGroupId();
+
+	/**
+	 * Sets the group ID of this commerce pricing class.
+	 *
+	 * @param groupId the group ID of this commerce pricing class
+	 */
+	@Override
+	public void setGroupId(long groupId);
+
+	/**
 	 * Returns the company ID of this commerce pricing class.
 	 *
 	 * @return the company ID of this commerce pricing class
@@ -205,22 +221,6 @@ public interface CommercePricingClassModel
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate);
-
-	/**
-	 * Returns the group ID of this commerce pricing class.
-	 *
-	 * @return the group ID of this commerce pricing class
-	 */
-	@Override
-	public long getGroupId();
-
-	/**
-	 * Sets the group ID of this commerce pricing class.
-	 *
-	 * @param groupId the group ID of this commerce pricing class
-	 */
-	@Override
-	public void setGroupId(long groupId);
 
 	/**
 	 * Returns the title of this commerce pricing class.

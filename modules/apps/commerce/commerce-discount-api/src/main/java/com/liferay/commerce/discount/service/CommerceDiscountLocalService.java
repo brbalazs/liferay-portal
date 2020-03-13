@@ -250,35 +250,32 @@ public interface CommerceDiscountLocalService
 	public CommerceDiscount fetchCommerceDiscountByUuidAndCompanyId(
 		String uuid, long companyId);
 
-	public List<CommerceDiscount> findByA_C_C_Order(
-		long commerceAccountId, String commerceDiscountTargetType);
-
-	public List<CommerceDiscount> findByA_C_C_Product(
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getAccountCommerceDiscounts(
 		long commerceAccountId, long cpDefinitionId);
 
-	public List<CommerceDiscount> findByAG_C_C_Order(
-		long[] commerceAccountGroupIds, String commerceDiscountTargetType);
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getAccountCommerceDiscounts(
+		long commerceAccountId, String commerceDiscountTargetType);
 
-	public List<CommerceDiscount> findByAG_C_C_Product(
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getAccountGroupCommerceDiscount(
 		long[] commerceAccountGroupIds, long cpDefinitionId);
 
-	public List<CommerceDiscount> findByC_C_C_Order(
-		long commerceChannelId, String commerceDiscountTargetType);
-
-	public List<CommerceDiscount> findByC_C_C_Product(
-		long commerceChannelId, long cpDefinitionId);
-
-	public List<CommerceDiscount> findByUnqualifiedOrder(
-		long companyId, String commerceDiscountTargetType);
-
-	public List<CommerceDiscount> findByUnqualifiedProduct(
-		long companyId, long cpDefinitionId);
-
-	public List<CommerceDiscount> findPriceListDiscountProduct(
-		long[] commerceDiscountIds, long cpDefinitionId);
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getAccountGroupCommerceDiscount(
+		long[] commerceAccountGroupIds, String commerceDiscountTargetType);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getChannelCommerceDiscounts(
+		long commerceChannelId, long cpDefinitionId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getChannelCommerceDiscounts(
+		long commerceChannelId, String commerceDiscountTargetType);
 
 	/**
 	 * Returns the commerce discount with the primary key.
@@ -354,6 +351,18 @@ public interface CommerceDiscountLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getPriceListCommerceDiscounts(
+		long[] commerceDiscountIds, long cpDefinitionId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getUnqualifiedCommerceDiscounts(
+		long companyId, long cpDefinitionId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> getUnqualifiedCommerceDiscounts(
+		long companyId, String commerceDiscountTargetType);
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceDiscount incrementCommerceDiscountNumberOfUse(

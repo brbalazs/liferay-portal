@@ -86,12 +86,12 @@ public class CommercePriceModifierCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", commercePriceListId=");
+		sb.append(commercePriceListId);
 		sb.append(", title=");
 		sb.append(title);
 		sb.append(", target=");
 		sb.append(target);
-		sb.append(", commercePriceListId=");
-		sb.append(commercePriceListId);
 		sb.append(", modifierAmount=");
 		sb.append(modifierAmount);
 		sb.append(", modifierType=");
@@ -166,6 +166,8 @@ public class CommercePriceModifierCacheModel
 			commercePriceModifierImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		commercePriceModifierImpl.setCommercePriceListId(commercePriceListId);
+
 		if (title == null) {
 			commercePriceModifierImpl.setTitle("");
 		}
@@ -180,7 +182,6 @@ public class CommercePriceModifierCacheModel
 			commercePriceModifierImpl.setTarget(target);
 		}
 
-		commercePriceModifierImpl.setCommercePriceListId(commercePriceListId);
 		commercePriceModifierImpl.setModifierAmount(modifierAmount);
 
 		if (modifierType == null) {
@@ -255,10 +256,10 @@ public class CommercePriceModifierCacheModel
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		title = objectInput.readUTF();
-		target = objectInput.readUTF();
 
 		commercePriceListId = objectInput.readLong();
+		title = objectInput.readUTF();
+		target = objectInput.readUTF();
 		modifierAmount = (BigDecimal)objectInput.readObject();
 		modifierType = objectInput.readUTF();
 
@@ -310,6 +311,8 @@ public class CommercePriceModifierCacheModel
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		objectOutput.writeLong(commercePriceListId);
+
 		if (title == null) {
 			objectOutput.writeUTF("");
 		}
@@ -324,7 +327,6 @@ public class CommercePriceModifierCacheModel
 			objectOutput.writeUTF(target);
 		}
 
-		objectOutput.writeLong(commercePriceListId);
 		objectOutput.writeObject(modifierAmount);
 
 		if (modifierType == null) {
@@ -364,9 +366,9 @@ public class CommercePriceModifierCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long commercePriceListId;
 	public String title;
 	public String target;
-	public long commercePriceListId;
 	public BigDecimal modifierAmount;
 	public String modifierType;
 	public double priority;

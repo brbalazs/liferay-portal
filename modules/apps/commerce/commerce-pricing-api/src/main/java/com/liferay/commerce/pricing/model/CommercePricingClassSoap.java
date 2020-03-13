@@ -36,12 +36,12 @@ public class CommercePricingClassSoap implements Serializable {
 		soapModel.setUuid(model.getUuid());
 		soapModel.setExternalReferenceCode(model.getExternalReferenceCode());
 		soapModel.setCommercePricingClassId(model.getCommercePricingClassId());
+		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setGroupId(model.getGroupId());
 		soapModel.setTitle(model.getTitle());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setLastPublishDate(model.getLastPublishDate());
@@ -131,6 +131,14 @@ public class CommercePricingClassSoap implements Serializable {
 		_commercePricingClassId = commercePricingClassId;
 	}
 
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -171,14 +179,6 @@ public class CommercePricingClassSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public long getGroupId() {
-		return _groupId;
-	}
-
-	public void setGroupId(long groupId) {
-		_groupId = groupId;
-	}
-
 	public String getTitle() {
 		return _title;
 	}
@@ -206,12 +206,12 @@ public class CommercePricingClassSoap implements Serializable {
 	private String _uuid;
 	private String _externalReferenceCode;
 	private long _commercePricingClassId;
+	private long _groupId;
 	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _groupId;
 	private String _title;
 	private String _description;
 	private Date _lastPublishDate;

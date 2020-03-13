@@ -61,12 +61,12 @@ public class CommercePricingClassWrapper
 		attributes.put("uuid", getUuid());
 		attributes.put("externalReferenceCode", getExternalReferenceCode());
 		attributes.put("commercePricingClassId", getCommercePricingClassId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("groupId", getGroupId());
 		attributes.put("title", getTitle());
 		attributes.put("description", getDescription());
 		attributes.put("lastPublishDate", getLastPublishDate());
@@ -94,6 +94,12 @@ public class CommercePricingClassWrapper
 
 		if (commercePricingClassId != null) {
 			setCommercePricingClassId(commercePricingClassId);
+		}
+
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -124,12 +130,6 @@ public class CommercePricingClassWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
-		}
-
-		Long groupId = (Long)attributes.get("groupId");
-
-		if (groupId != null) {
-			setGroupId(groupId);
 		}
 
 		String title = (String)attributes.get("title");

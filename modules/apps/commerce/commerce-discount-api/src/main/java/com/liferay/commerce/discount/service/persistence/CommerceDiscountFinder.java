@@ -25,8 +25,8 @@ public interface CommerceDiscountFinder {
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByUnqualifiedProduct(
-			long companyId, long cpDefinitionId, long[] assetCategoriesId,
-			long[] commercePricingClassesId);
+			long companyId, long cpDefinitionId, long[] assetCategoryIds,
+			long[] commercePricingClassIds);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByUnqualifiedOrder(
@@ -35,7 +35,7 @@ public interface CommerceDiscountFinder {
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByA_C_C_Product(
 			long commerceAccountId, long cpDefinitionId,
-			long[] assetCategoriesId, long[] commercePricingClassesId);
+			long[] assetCategoryIds, long[] commercePricingClassIds);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByA_C_C_Order(
@@ -44,7 +44,7 @@ public interface CommerceDiscountFinder {
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByAG_C_C_Product(
 			long[] commerceAccountGroupIds, long cpDefinitionId,
-			long[] assetCategoriesId, long[] commercePricingClassesId);
+			long[] assetCategoryIds, long[] commercePricingClassIds);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByAG_C_C_Order(
@@ -53,7 +53,7 @@ public interface CommerceDiscountFinder {
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByC_C_C_Product(
 			long commerceChannelId, long cpDefinitionId,
-			long[] assetCategoriesId, long[] commercePricingClassesId);
+			long[] assetCategoryIds, long[] commercePricingClassIds);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByC_C_C_Order(
@@ -62,6 +62,6 @@ public interface CommerceDiscountFinder {
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findPriceListDiscountProduct(
 			long[] commerceDiscountIds, long cpDefinitionId,
-			long[] assetCategoriesId, long[] commercePricingClassesId);
+			long[] assetCategoryIds, long[] commercePricingClassIds);
 
 }

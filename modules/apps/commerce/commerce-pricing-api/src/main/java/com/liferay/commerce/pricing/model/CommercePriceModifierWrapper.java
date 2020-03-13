@@ -69,9 +69,9 @@ public class CommercePriceModifierWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("commercePriceListId", getCommercePriceListId());
 		attributes.put("title", getTitle());
 		attributes.put("target", getTarget());
-		attributes.put("commercePriceListId", getCommercePriceListId());
 		attributes.put("modifierAmount", getModifierAmount());
 		attributes.put("modifierType", getModifierType());
 		attributes.put("priority", getPriority());
@@ -145,6 +145,12 @@ public class CommercePriceModifierWrapper
 			setModifiedDate(modifiedDate);
 		}
 
+		Long commercePriceListId = (Long)attributes.get("commercePriceListId");
+
+		if (commercePriceListId != null) {
+			setCommercePriceListId(commercePriceListId);
+		}
+
 		String title = (String)attributes.get("title");
 
 		if (title != null) {
@@ -155,12 +161,6 @@ public class CommercePriceModifierWrapper
 
 		if (target != null) {
 			setTarget(target);
-		}
-
-		Long commercePriceListId = (Long)attributes.get("commercePriceListId");
-
-		if (commercePriceListId != null) {
-			setCommercePriceListId(commercePriceListId);
 		}
 
 		BigDecimal modifierAmount = (BigDecimal)attributes.get(

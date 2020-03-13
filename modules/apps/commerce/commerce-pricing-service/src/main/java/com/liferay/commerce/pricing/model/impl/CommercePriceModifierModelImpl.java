@@ -83,11 +83,12 @@ public class CommercePriceModifierModelImpl
 		{"commercePriceModifierId", Types.BIGINT}, {"groupId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"title", Types.VARCHAR},
-		{"target", Types.VARCHAR}, {"commercePriceListId", Types.BIGINT},
-		{"modifierAmount", Types.DECIMAL}, {"modifierType", Types.VARCHAR},
-		{"priority", Types.DOUBLE}, {"active_", Types.BOOLEAN},
-		{"displayDate", Types.TIMESTAMP}, {"expirationDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP},
+		{"commercePriceListId", Types.BIGINT}, {"title", Types.VARCHAR},
+		{"target", Types.VARCHAR}, {"modifierAmount", Types.DECIMAL},
+		{"modifierType", Types.VARCHAR}, {"priority", Types.DOUBLE},
+		{"active_", Types.BOOLEAN}, {"displayDate", Types.TIMESTAMP},
+		{"expirationDate", Types.TIMESTAMP},
 		{"lastPublishDate", Types.TIMESTAMP}, {"status", Types.INTEGER},
 		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
 		{"statusDate", Types.TIMESTAMP}
@@ -106,9 +107,9 @@ public class CommercePriceModifierModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("commercePriceListId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("target", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("commercePriceListId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("modifierAmount", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("modifierType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("priority", Types.DOUBLE);
@@ -123,7 +124,7 @@ public class CommercePriceModifierModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommercePriceModifier (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePriceModifierId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,target VARCHAR(75) null,commercePriceListId LONG,modifierAmount DECIMAL(30, 16) null,modifierType VARCHAR(75) null,priority DOUBLE,active_ BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+		"create table CommercePriceModifier (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePriceModifierId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commercePriceListId LONG,title VARCHAR(75) null,target VARCHAR(75) null,modifierAmount DECIMAL(30, 16) null,modifierType VARCHAR(75) null,priority DOUBLE,active_ BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CommercePriceModifier";
@@ -202,9 +203,9 @@ public class CommercePriceModifierModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setCommercePriceListId(soapModel.getCommercePriceListId());
 		model.setTitle(soapModel.getTitle());
 		model.setTarget(soapModel.getTarget());
-		model.setCommercePriceListId(soapModel.getCommercePriceListId());
 		model.setModifierAmount(soapModel.getModifierAmount());
 		model.setModifierType(soapModel.getModifierType());
 		model.setPriority(soapModel.getPriority());
@@ -608,6 +609,32 @@ public class CommercePriceModifierModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"commercePriceListId",
+			new Function<CommercePriceModifier, Object>() {
+
+				@Override
+				public Object apply(
+					CommercePriceModifier commercePriceModifier) {
+
+					return commercePriceModifier.getCommercePriceListId();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"commercePriceListId",
+			new BiConsumer<CommercePriceModifier, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceModifier commercePriceModifier,
+					Object commercePriceListIdObject) {
+
+					commercePriceModifier.setCommercePriceListId(
+						(Long)commercePriceListIdObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"title",
 			new Function<CommercePriceModifier, Object>() {
 
@@ -654,32 +681,6 @@ public class CommercePriceModifierModelImpl
 					Object targetObject) {
 
 					commercePriceModifier.setTarget((String)targetObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"commercePriceListId",
-			new Function<CommercePriceModifier, Object>() {
-
-				@Override
-				public Object apply(
-					CommercePriceModifier commercePriceModifier) {
-
-					return commercePriceModifier.getCommercePriceListId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"commercePriceListId",
-			new BiConsumer<CommercePriceModifier, Object>() {
-
-				@Override
-				public void accept(
-					CommercePriceModifier commercePriceModifier,
-					Object commercePriceListIdObject) {
-
-					commercePriceModifier.setCommercePriceListId(
-						(Long)commercePriceListIdObject);
 				}
 
 			});
@@ -1156,6 +1157,29 @@ public class CommercePriceModifierModelImpl
 
 	@JSON
 	@Override
+	public long getCommercePriceListId() {
+		return _commercePriceListId;
+	}
+
+	@Override
+	public void setCommercePriceListId(long commercePriceListId) {
+		_columnBitmask |= COMMERCEPRICELISTID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommercePriceListId) {
+			_setOriginalCommercePriceListId = true;
+
+			_originalCommercePriceListId = _commercePriceListId;
+		}
+
+		_commercePriceListId = commercePriceListId;
+	}
+
+	public long getOriginalCommercePriceListId() {
+		return _originalCommercePriceListId;
+	}
+
+	@JSON
+	@Override
 	public String getTitle() {
 		if (_title == null) {
 			return "";
@@ -1194,29 +1218,6 @@ public class CommercePriceModifierModelImpl
 
 	public String getOriginalTarget() {
 		return GetterUtil.getString(_originalTarget);
-	}
-
-	@JSON
-	@Override
-	public long getCommercePriceListId() {
-		return _commercePriceListId;
-	}
-
-	@Override
-	public void setCommercePriceListId(long commercePriceListId) {
-		_columnBitmask |= COMMERCEPRICELISTID_COLUMN_BITMASK;
-
-		if (!_setOriginalCommercePriceListId) {
-			_setOriginalCommercePriceListId = true;
-
-			_originalCommercePriceListId = _commercePriceListId;
-		}
-
-		_commercePriceListId = commercePriceListId;
-	}
-
-	public long getOriginalCommercePriceListId() {
-		return _originalCommercePriceListId;
 	}
 
 	@JSON
@@ -1541,10 +1542,10 @@ public class CommercePriceModifierModelImpl
 		commercePriceModifierImpl.setUserName(getUserName());
 		commercePriceModifierImpl.setCreateDate(getCreateDate());
 		commercePriceModifierImpl.setModifiedDate(getModifiedDate());
-		commercePriceModifierImpl.setTitle(getTitle());
-		commercePriceModifierImpl.setTarget(getTarget());
 		commercePriceModifierImpl.setCommercePriceListId(
 			getCommercePriceListId());
+		commercePriceModifierImpl.setTitle(getTitle());
+		commercePriceModifierImpl.setTarget(getTarget());
 		commercePriceModifierImpl.setModifierAmount(getModifierAmount());
 		commercePriceModifierImpl.setModifierType(getModifierType());
 		commercePriceModifierImpl.setPriority(getPriority());
@@ -1663,13 +1664,13 @@ public class CommercePriceModifierModelImpl
 
 		commercePriceModifierModelImpl._setModifiedDate = false;
 
-		commercePriceModifierModelImpl._originalTarget =
-			commercePriceModifierModelImpl._target;
-
 		commercePriceModifierModelImpl._originalCommercePriceListId =
 			commercePriceModifierModelImpl._commercePriceListId;
 
 		commercePriceModifierModelImpl._setOriginalCommercePriceListId = false;
+
+		commercePriceModifierModelImpl._originalTarget =
+			commercePriceModifierModelImpl._target;
 
 		commercePriceModifierModelImpl._originalDisplayDate =
 			commercePriceModifierModelImpl._displayDate;
@@ -1746,6 +1747,9 @@ public class CommercePriceModifierModelImpl
 			commercePriceModifierCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		commercePriceModifierCacheModel.commercePriceListId =
+			getCommercePriceListId();
+
 		commercePriceModifierCacheModel.title = getTitle();
 
 		String title = commercePriceModifierCacheModel.title;
@@ -1761,9 +1765,6 @@ public class CommercePriceModifierModelImpl
 		if ((target != null) && (target.length() == 0)) {
 			commercePriceModifierCacheModel.target = null;
 		}
-
-		commercePriceModifierCacheModel.commercePriceListId =
-			getCommercePriceListId();
 
 		commercePriceModifierCacheModel.modifierAmount = getModifierAmount();
 
@@ -1922,12 +1923,12 @@ public class CommercePriceModifierModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
-	private String _title;
-	private String _target;
-	private String _originalTarget;
 	private long _commercePriceListId;
 	private long _originalCommercePriceListId;
 	private boolean _setOriginalCommercePriceListId;
+	private String _title;
+	private String _target;
+	private String _originalTarget;
 	private BigDecimal _modifierAmount;
 	private String _modifierType;
 	private double _priority;

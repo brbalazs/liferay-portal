@@ -72,6 +72,8 @@ public class CommercePricingClassCacheModel
 		sb.append(externalReferenceCode);
 		sb.append(", commercePricingClassId=");
 		sb.append(commercePricingClassId);
+		sb.append(", groupId=");
+		sb.append(groupId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", userId=");
@@ -82,8 +84,6 @@ public class CommercePricingClassCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", groupId=");
-		sb.append(groupId);
 		sb.append(", title=");
 		sb.append(title);
 		sb.append(", description=");
@@ -117,6 +117,7 @@ public class CommercePricingClassCacheModel
 
 		commercePricingClassImpl.setCommercePricingClassId(
 			commercePricingClassId);
+		commercePricingClassImpl.setGroupId(groupId);
 		commercePricingClassImpl.setCompanyId(companyId);
 		commercePricingClassImpl.setUserId(userId);
 
@@ -140,8 +141,6 @@ public class CommercePricingClassCacheModel
 		else {
 			commercePricingClassImpl.setModifiedDate(new Date(modifiedDate));
 		}
-
-		commercePricingClassImpl.setGroupId(groupId);
 
 		if (title == null) {
 			commercePricingClassImpl.setTitle("");
@@ -177,14 +176,14 @@ public class CommercePricingClassCacheModel
 
 		commercePricingClassId = objectInput.readLong();
 
+		groupId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
 
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-
-		groupId = objectInput.readLong();
 		title = objectInput.readUTF();
 		description = objectInput.readUTF();
 		lastPublishDate = objectInput.readLong();
@@ -208,6 +207,8 @@ public class CommercePricingClassCacheModel
 
 		objectOutput.writeLong(commercePricingClassId);
 
+		objectOutput.writeLong(groupId);
+
 		objectOutput.writeLong(companyId);
 
 		objectOutput.writeLong(userId);
@@ -221,8 +222,6 @@ public class CommercePricingClassCacheModel
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
-
-		objectOutput.writeLong(groupId);
 
 		if (title == null) {
 			objectOutput.writeUTF("");
@@ -244,12 +243,12 @@ public class CommercePricingClassCacheModel
 	public String uuid;
 	public String externalReferenceCode;
 	public long commercePricingClassId;
+	public long groupId;
 	public long companyId;
 	public long userId;
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public long groupId;
 	public String title;
 	public String description;
 	public long lastPublishDate;

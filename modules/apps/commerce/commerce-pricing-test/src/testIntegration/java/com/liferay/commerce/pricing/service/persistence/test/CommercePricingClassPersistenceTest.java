@@ -132,6 +132,8 @@ public class CommercePricingClassPersistenceTest {
 		newCommercePricingClass.setExternalReferenceCode(
 			RandomTestUtil.randomString());
 
+		newCommercePricingClass.setGroupId(RandomTestUtil.nextLong());
+
 		newCommercePricingClass.setCompanyId(RandomTestUtil.nextLong());
 
 		newCommercePricingClass.setUserId(RandomTestUtil.nextLong());
@@ -141,8 +143,6 @@ public class CommercePricingClassPersistenceTest {
 		newCommercePricingClass.setCreateDate(RandomTestUtil.nextDate());
 
 		newCommercePricingClass.setModifiedDate(RandomTestUtil.nextDate());
-
-		newCommercePricingClass.setGroupId(RandomTestUtil.nextLong());
 
 		newCommercePricingClass.setTitle(RandomTestUtil.randomString());
 
@@ -167,6 +167,9 @@ public class CommercePricingClassPersistenceTest {
 			existingCommercePricingClass.getCommercePricingClassId(),
 			newCommercePricingClass.getCommercePricingClassId());
 		Assert.assertEquals(
+			existingCommercePricingClass.getGroupId(),
+			newCommercePricingClass.getGroupId());
+		Assert.assertEquals(
 			existingCommercePricingClass.getCompanyId(),
 			newCommercePricingClass.getCompanyId());
 		Assert.assertEquals(
@@ -183,9 +186,6 @@ public class CommercePricingClassPersistenceTest {
 			Time.getShortTimestamp(
 				existingCommercePricingClass.getModifiedDate()),
 			Time.getShortTimestamp(newCommercePricingClass.getModifiedDate()));
-		Assert.assertEquals(
-			existingCommercePricingClass.getGroupId(),
-			newCommercePricingClass.getGroupId());
 		Assert.assertEquals(
 			existingCommercePricingClass.getTitle(),
 			newCommercePricingClass.getTitle());
@@ -278,9 +278,9 @@ public class CommercePricingClassPersistenceTest {
 	protected OrderByComparator<CommercePricingClass> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
 			"CommercePricingClass", "uuid", true, "externalReferenceCode", true,
-			"commercePricingClassId", true, "companyId", true, "userId", true,
-			"userName", true, "createDate", true, "modifiedDate", true,
-			"groupId", true, "title", true, "description", true,
+			"commercePricingClassId", true, "groupId", true, "companyId", true,
+			"userId", true, "userName", true, "createDate", true,
+			"modifiedDate", true, "title", true, "description", true,
 			"lastPublishDate", true);
 	}
 
@@ -566,6 +566,8 @@ public class CommercePricingClassPersistenceTest {
 		commercePricingClass.setExternalReferenceCode(
 			RandomTestUtil.randomString());
 
+		commercePricingClass.setGroupId(RandomTestUtil.nextLong());
+
 		commercePricingClass.setCompanyId(RandomTestUtil.nextLong());
 
 		commercePricingClass.setUserId(RandomTestUtil.nextLong());
@@ -575,8 +577,6 @@ public class CommercePricingClassPersistenceTest {
 		commercePricingClass.setCreateDate(RandomTestUtil.nextDate());
 
 		commercePricingClass.setModifiedDate(RandomTestUtil.nextDate());
-
-		commercePricingClass.setGroupId(RandomTestUtil.nextLong());
 
 		commercePricingClass.setTitle(RandomTestUtil.randomString());
 

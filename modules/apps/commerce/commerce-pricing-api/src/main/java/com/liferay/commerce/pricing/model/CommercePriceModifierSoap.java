@@ -45,9 +45,9 @@ public class CommercePriceModifierSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setCommercePriceListId(model.getCommercePriceListId());
 		soapModel.setTitle(model.getTitle());
 		soapModel.setTarget(model.getTarget());
-		soapModel.setCommercePriceListId(model.getCommercePriceListId());
 		soapModel.setModifierAmount(model.getModifierAmount());
 		soapModel.setModifierType(model.getModifierType());
 		soapModel.setPriority(model.getPriority());
@@ -193,6 +193,14 @@ public class CommercePriceModifierSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public long getCommercePriceListId() {
+		return _commercePriceListId;
+	}
+
+	public void setCommercePriceListId(long commercePriceListId) {
+		_commercePriceListId = commercePriceListId;
+	}
+
 	public String getTitle() {
 		return _title;
 	}
@@ -207,14 +215,6 @@ public class CommercePriceModifierSoap implements Serializable {
 
 	public void setTarget(String target) {
 		_target = target;
-	}
-
-	public long getCommercePriceListId() {
-		return _commercePriceListId;
-	}
-
-	public void setCommercePriceListId(long commercePriceListId) {
-		_commercePriceListId = commercePriceListId;
 	}
 
 	public BigDecimal getModifierAmount() {
@@ -318,9 +318,9 @@ public class CommercePriceModifierSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private long _commercePriceListId;
 	private String _title;
 	private String _target;
-	private long _commercePriceListId;
 	private BigDecimal _modifierAmount;
 	private String _modifierType;
 	private double _priority;

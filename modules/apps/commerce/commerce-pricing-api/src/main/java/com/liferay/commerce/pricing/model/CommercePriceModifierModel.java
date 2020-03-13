@@ -227,6 +227,20 @@ public interface CommercePriceModifierModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the commerce price list ID of this commerce price modifier.
+	 *
+	 * @return the commerce price list ID of this commerce price modifier
+	 */
+	public long getCommercePriceListId();
+
+	/**
+	 * Sets the commerce price list ID of this commerce price modifier.
+	 *
+	 * @param commercePriceListId the commerce price list ID of this commerce price modifier
+	 */
+	public void setCommercePriceListId(long commercePriceListId);
+
+	/**
 	 * Returns the title of this commerce price modifier.
 	 *
 	 * @return the title of this commerce price modifier
@@ -255,20 +269,6 @@ public interface CommercePriceModifierModel
 	 * @param target the target of this commerce price modifier
 	 */
 	public void setTarget(String target);
-
-	/**
-	 * Returns the commerce price list ID of this commerce price modifier.
-	 *
-	 * @return the commerce price list ID of this commerce price modifier
-	 */
-	public long getCommercePriceListId();
-
-	/**
-	 * Sets the commerce price list ID of this commerce price modifier.
-	 *
-	 * @param commercePriceListId the commerce price list ID of this commerce price modifier
-	 */
-	public void setCommercePriceListId(long commercePriceListId);
 
 	/**
 	 * Returns the modifier amount of this commerce price modifier.
