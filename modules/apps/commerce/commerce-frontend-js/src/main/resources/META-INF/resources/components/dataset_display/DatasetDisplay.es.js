@@ -113,7 +113,7 @@ function DatasetDisplay(props) {
 						`Requested module: ${currentViewModuleUrl} not available`,
 						err
 					);
-				})
+				});
 		}
 	}, [
 		activeView,
