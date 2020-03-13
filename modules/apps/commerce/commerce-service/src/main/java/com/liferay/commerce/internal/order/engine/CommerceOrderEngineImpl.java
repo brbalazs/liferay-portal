@@ -200,11 +200,11 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			return nextCommerceOrderStatuses;
 		}
 		else if (currentCommerceOrderStatus.getKey() ==
-					CommerceOrderConstants.ORDER_STATUS_BLOCKED) {
+					CommerceOrderConstants.ORDER_STATUS_ON_HOLD) {
 
 			nextCommerceOrderStatuses.add(
 				_commerceOrderStatusRegistry.getCommerceOrderStatus(
-					CommerceOrderConstants.ORDER_STATUS_BLOCKED));
+					CommerceOrderConstants.ORDER_STATUS_ON_HOLD));
 
 			return nextCommerceOrderStatuses;
 		}
@@ -261,9 +261,9 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		if (!currentCommerceOrderStatus.isComplete(commerceOrder) ||
 			!commerceOrderStatus.isTransitionCriteriaMet(commerceOrder) ||
 			((currentCommerceOrderStatus.getKey() ==
-				CommerceOrderConstants.ORDER_STATUS_BLOCKED) &&
+				CommerceOrderConstants.ORDER_STATUS_ON_HOLD) &&
 			 (commerceOrderStatus.getKey() !=
-				 CommerceOrderConstants.ORDER_STATUS_BLOCKED) &&
+				 CommerceOrderConstants.ORDER_STATUS_ON_HOLD) &&
 			 (commerceOrderStatus.getKey() !=
 				 CommerceOrderConstants.ORDER_STATUS_FULFILLED))) {
 

@@ -509,10 +509,10 @@ public class CommerceOrderEditDisplayContext {
 				label = "cancel";
 			}
 			else if (commerceOrderStatus.getKey() ==
-						CommerceOrderConstants.ORDER_STATUS_BLOCKED) {
+						CommerceOrderConstants.ORDER_STATUS_ON_HOLD) {
 
 				if (currentCommerceOrderStatus.getKey() ==
-						CommerceOrderConstants.ORDER_STATUS_BLOCKED) {
+						CommerceOrderConstants.ORDER_STATUS_ON_HOLD) {
 
 					label = "unblock";
 				}

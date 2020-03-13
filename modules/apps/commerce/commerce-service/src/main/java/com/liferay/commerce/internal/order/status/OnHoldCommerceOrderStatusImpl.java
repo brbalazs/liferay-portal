@@ -35,14 +35,14 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.order.status.key=" + BlockedCommerceOrderStatusImpl.KEY,
-		"commerce.order.status.priority:Integer=" + BlockedCommerceOrderStatusImpl.PRIORITY
+		"commerce.order.status.key=" + OnHoldCommerceOrderStatusImpl.KEY,
+		"commerce.order.status.priority:Integer=" + OnHoldCommerceOrderStatusImpl.PRIORITY
 	},
 	service = CommerceOrderStatus.class
 )
-public class BlockedCommerceOrderStatusImpl implements CommerceOrderStatus {
+public class OnHoldCommerceOrderStatusImpl implements CommerceOrderStatus {
 
-	public static final int KEY = CommerceOrderConstants.ORDER_STATUS_BLOCKED;
+	public static final int KEY = CommerceOrderConstants.ORDER_STATUS_ON_HOLD;
 
 	public static final int PRIORITY = -1;
 

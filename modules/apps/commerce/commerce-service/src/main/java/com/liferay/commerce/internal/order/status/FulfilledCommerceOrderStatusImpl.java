@@ -86,7 +86,7 @@ public class FulfilledCommerceOrderStatusImpl implements CommerceOrderStatus {
 		if ((commerceOrder.getOrderStatus() ==
 				CommerceOrderConstants.ORDER_STATUS_PENDING) ||
 			(commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_BLOCKED)) {
+				CommerceOrderConstants.ORDER_STATUS_ON_HOLD)) {
 
 			return true;
 		}
