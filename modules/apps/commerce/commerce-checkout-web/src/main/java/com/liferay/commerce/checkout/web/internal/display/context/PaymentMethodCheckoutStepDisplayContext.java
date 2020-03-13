@@ -35,7 +35,6 @@ public class PaymentMethodCheckoutStepDisplayContext {
 		HttpServletRequest httpServletRequest) {
 
 		_commercePaymentEngine = commercePaymentEngine;
-		_httpServletRequest = httpServletRequest;
 
 		_commerceOrder = (CommerceOrder)httpServletRequest.getAttribute(
 			CommerceCheckoutWebKeys.COMMERCE_ORDER);
@@ -62,6 +61,5 @@ public class PaymentMethodCheckoutStepDisplayContext {
 
 	private final CommerceOrder _commerceOrder;
 	private final CommercePaymentEngine _commercePaymentEngine;
-	private final HttpServletRequest _httpServletRequest;
 
 }
