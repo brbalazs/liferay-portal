@@ -33,10 +33,6 @@ public abstract class ClayTableDataSetDisplayView
 		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_TABLE;
 	}
 
-	public String getIcon() {
-		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_TABLE;
-	}
-
 	public String getLabel() {
 		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_TABLE;
 	}
@@ -44,6 +40,10 @@ public abstract class ClayTableDataSetDisplayView
 	public ResourceBundle getResourceBundle(Locale locale) {
 		return ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
+	}
+
+	public String getThumbnail() {
+		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_TABLE;
 	}
 
 }

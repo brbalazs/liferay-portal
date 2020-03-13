@@ -25,8 +25,8 @@ public interface ClayDataSetDisplayView {
 		return null;
 	}
 
-	public String getIcon();
-
 	public String getLabel();
+
+	public String getThumbnail();
 
 }

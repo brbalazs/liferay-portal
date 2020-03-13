@@ -16,6 +16,7 @@ package com.liferay.commerce.frontend.clay.list;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetConstants;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
+import com.liferay.petra.string.StringPool;
 
 /**
  * @author Alessio Antonio Rendina
@@ -29,12 +30,12 @@ public abstract class ClayListDataSetDisplayView
 
 	public abstract String getDescription();
 
-	public String getIcon() {
+	public String getLabel() {
 		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_LIST;
 	}
 
-	public String getLabel() {
-		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_LIST;
+	public String getThumbnail() {
+		return StringPool.BLANK;
 	}
 
 	public abstract String getTitle();

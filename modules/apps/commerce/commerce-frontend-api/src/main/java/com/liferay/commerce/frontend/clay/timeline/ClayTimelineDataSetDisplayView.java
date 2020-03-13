@@ -31,11 +31,11 @@ public abstract class ClayTimelineDataSetDisplayView
 
 	public abstract String getDescription();
 
-	public String getIcon() {
+	public String getLabel() {
 		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_TIMELINE;
 	}
 
-	public String getLabel() {
+	public String getThumbnail() {
 		return ClayDataSetConstants.CLAY_DATA_SET_CONTENT_RENDERER_TIMELINE;
 	}
 
