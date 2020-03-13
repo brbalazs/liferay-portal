@@ -20,59 +20,38 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
-List<CommercePaymentMethodGroupRel> commercePaymentMethodGroupRels = commerceOrderEditDisplayContext.getCommercePaymentMethods();
+
+long commerceOrderId = commerceOrder.getCommerceOrderId();
+
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
 %>
 
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderPaymentMethodActionURL" />
 
-<commerce-ui:modal-content>
-	<aui:form action="<%= editCommerceOrderPaymentMethodActionURL %>" cssClass="container-fluid-1280 p-0" method="post" name="fm">
+<commerce-ui:modal-content
+	contentCssClasses="p-0"
+>
+	<aui:form action="<%= editCommerceOrderPaymentMethodActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="paymentMethod" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrder.getCommerceOrderId() %>" />
+		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrderId %>" />
 
 		<liferay-ui:error exception="<%= CommerceOrderPaymentMethodException.class %>" message="please-select-a-valid-payment-method" />
 
-		<c:choose>
-			<c:when test="<%= commercePaymentMethodGroupRels.isEmpty() %>">
-				<aui:row>
-					<aui:col width="<%= 100 %>">
-						<aui:alert closeable="<%= false %>" type="info">
-							<liferay-ui:message key="there-are-no-available-payment-methods" />
-						</aui:alert>
-					</aui:col>
-				</aui:row>
-			</c:when>
-			<c:otherwise>
-				<ul class="list-group">
-
-					<%
-					for (CommercePaymentMethodGroupRel commercePaymentMethodGroupRel : commercePaymentMethodGroupRels) {
-						String engineKey = commercePaymentMethodGroupRel.getEngineKey();
-					%>
-
-						<li class="commerce-payment-types list-group-item list-group-item-flex">
-							<div class="autofit-col autofit-col-expand">
-								<aui:input checked="<%= engineKey.equals(commerceOrder.getCommercePaymentMethodKey()) %>" label="<%= commercePaymentMethodGroupRel.getName(locale) %>" name="commercePaymentMethodKey" type="radio" value="<%= engineKey %>" />
-							</div>
-
-							<%
-							String thumbnailSrc = commercePaymentMethodGroupRel.getImageURL(themeDisplay);
-							%>
-
-							<c:if test="<%= Validator.isNotNull(thumbnailSrc) %>">
-								<div class="autofit-col">
-									<img alt="<%= commercePaymentMethodGroupRel.getName(locale) %>" class="payment-icon" src="<%= thumbnailSrc %>" style="height: 45px; width: auto;" />
-								</div>
-							</c:if>
-						</li>
-
-					<%
-					}
-					%>
-
-				</ul>
-			</c:otherwise>
-		</c:choose>
+		<commerce-ui:dataset-display
+			contextParams="<%= contextParams %>"
+			dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PAYMENT_METHODS %>"
+			formId="fm"
+			id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PAYMENT_METHODS %>"
+			itemsPerPage="<%= 10 %>"
+			namespace="<%= renderResponse.getNamespace() %>"
+			pageNumber="<%= 1 %>"
+			portletURL="<%= currentURLObj %>"
+			selectedItems="<%= Collections.singletonList(String.valueOf(commerceOrder.getCommercePaymentMethodKey())) %>"
+			selectedItemsKey="paymentMethodKey"
+			selectionType="single"
+		/>
 	</aui:form>
 </commerce-ui:modal-content>

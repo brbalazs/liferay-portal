@@ -373,7 +373,7 @@ public class CommerceOrderEditDisplayContext {
 				_commerceOrder.getGroupId(),
 				_commerceOrder.getCommercePaymentMethodKey());
 	}
-	
+
 	public CommerceShipment getCommerceShipment() throws PortalException {
 		if (_commerceShipment != null) {
 			return _commerceShipment;
