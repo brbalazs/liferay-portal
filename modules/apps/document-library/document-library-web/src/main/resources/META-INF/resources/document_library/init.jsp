@@ -26,10 +26,6 @@ page import="com.liferay.portal.util.RepositoryUtil" %><%@
 page import="com.liferay.staging.StagingGroupHelper" %><%@
 page import="com.liferay.staging.StagingGroupHelperUtil" %>
 
-<%@ page import="java.util.Locale" %><%@
-page import="java.util.Objects" %><%@
-page import="java.util.Set" %>
-
 <%
 DLRequestHelper dlRequestHelper = new DLRequestHelper(request);
 
