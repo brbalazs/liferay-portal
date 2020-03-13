@@ -156,7 +156,7 @@ public class CommerceSubscriptionEntryDataSetDataProvider
 
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
 			httpServletRequest, themeDisplay.getScopeGroup(),
-			CommerceAccount.class.getName(), PortletProvider.Action.MANAGE);
+			CommerceAccount.class.getName(), PortletProvider.Action.EDIT);
 
 		portletURL.setParameter("mvcRenderCommandName", "editCommerceAccount");
 		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
