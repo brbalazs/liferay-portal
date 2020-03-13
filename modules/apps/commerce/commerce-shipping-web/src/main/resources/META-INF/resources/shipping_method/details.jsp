@@ -42,6 +42,13 @@ String description = BeanParamUtil.getString(commerceShippingMethod, request, "d
 
 	<liferay-ui:error exception="<%= CommerceShippingMethodNameException.class %>" message="please-enter-a-valid-name" />
 
+	<c:if test="<%= commerceShippingMethodsDisplayContext.getCommerceShippingOptionsCount() <= 0 %>">
+		<div class="alert alert-warning">
+			<liferay-ui:message key="there-are-no-shipping-options" />
+			<liferay-ui:message key="please-configure-shipping-method" />
+		</div>
+	</c:if>
+
 	<commerce-ui:panel>
 		<aui:input autoFocus="<%= true %>" label="name" localized="<%= true %>" name="nameMapAsXML" type="text" value="<%= name %>">
 			<aui:validator name="required" />
