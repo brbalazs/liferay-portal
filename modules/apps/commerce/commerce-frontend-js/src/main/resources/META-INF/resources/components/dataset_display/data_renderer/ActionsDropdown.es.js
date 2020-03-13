@@ -122,7 +122,7 @@ function ActionsDropdown(props) {
 			action.label
 		);
 
-		return isNotALink ? (
+		return isNotALink() ? (
 			<ClayLink
 				className="btn btn-primary btn-sm"
 				data-senna-off
