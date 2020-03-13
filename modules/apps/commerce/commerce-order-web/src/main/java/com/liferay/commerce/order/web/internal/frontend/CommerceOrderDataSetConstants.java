@@ -31,6 +31,9 @@ public class CommerceOrderDataSetConstants {
 
 	public static final String COMMERCE_DATA_SET_KEY_ORDERS = "commerceOrders";
 
+	public static final String COMMERCE_DATA_SET_KEY_PAYMENT_METHODS =
+		"CommerceOrderPaymentMethods";
+
 	public static final String COMMERCE_DATA_SET_KEY_PAYMENTS =
 		"commerceOrderPayments";
 
