@@ -17,6 +17,7 @@ package com.liferay.dynamic.data.mapping.web.internal.portlet.action;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.model.DDMTemplateConstants;
+import com.liferay.journal.constants.JournalContentPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.PortletPreferencesException;
 import com.liferay.portal.kernel.model.Layout;
@@ -229,10 +230,12 @@ public abstract class DDMBaseMVCActionCommand extends BaseMVCActionCommand {
 		throws Exception {
 
 		String redirect = getRedirect(actionRequest);
+
 		long structureId = ParamUtil.getLong(actionRequest, "structureId");
 		long classPK = ParamUtil.getLong(actionRequest, "classPK");
 
-		if ((classPK == 0) && (structureId > 0)) {
+		if ((classPK == 0) && (structureId > 0) && 
+			!redirect.contains(JournalContentPortletKeys.JOURNAL_CONTENT)) {
 			redirect = getSaveTemplateWithNewStructureRedirect(
 				actionRequest, template, redirect);
 		}
