@@ -26,17 +26,23 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 
 <c:choose>
 	<c:when test="<%= cpDefinitionOptionValueRel == null %>">
-		<commerce-ui:modal-content
-			title='<%= LanguageUtil.get(request, "add-value") %>'
-		>
-			<%@ include file="/edit_definition_option_value_rel.jspf" %>
+		<commerce-ui:modal-content>
+			<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
+				<%@ include file="/edit_definition_option_value_rel.jspf" %>
+			</aui:form>
 		</commerce-ui:modal-content>
 	</c:when>
 	<c:otherwise>
 		<commerce-ui:side-panel-content
 			title='<%= LanguageUtil.format(request, "edit-x", cpDefinitionOptionValueRel.getName(languageId), false) %>'
 		>
-			<%@ include file="/edit_definition_option_value_rel.jspf" %>
+			<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
+				<%@ include file="/edit_definition_option_value_rel.jspf" %>
+
+				<aui:button-row>
+					<aui:button cssClass="btn-lg" type="submit" value="save" />
+				</aui:button-row>
+			</aui:form>
 		</commerce-ui:side-panel-content>
 	</c:otherwise>
 </c:choose>
