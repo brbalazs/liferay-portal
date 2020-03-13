@@ -45,7 +45,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = CommercePriceModifierType.class
 )
-public class CommercePriceModifierPercentageTypeImpl
+public class PercentageCommercePriceModifierTypeImpl
 	implements CommercePriceModifierType {
 
 	@Override

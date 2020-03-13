@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Component;
 	property = "commerce.discount.application.strategy.key=" + CommercePricingConstants.DISCOUNT_CHAIN_METHOD,
 	service = CommerceDiscountApplicationStrategy.class
 )
-public class CommerceDiscountApplicationStrategyChainImpl
+public class ChainCommerceDiscountApplicationStrategyImpl
 	implements CommerceDiscountApplicationStrategy {
 
 	@Override

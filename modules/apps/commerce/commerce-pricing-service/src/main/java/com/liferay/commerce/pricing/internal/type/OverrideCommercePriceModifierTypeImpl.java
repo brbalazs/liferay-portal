@@ -39,7 +39,7 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = CommercePriceModifierType.class
 )
-public class CommercePriceModifierOverrideTypeImpl
+public class OverrideCommercePriceModifierTypeImpl
 	implements CommercePriceModifierType {
 
 	@Override
