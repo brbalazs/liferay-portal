@@ -182,8 +182,7 @@ public class CommerceSubscriptionShipmentsDataSetDataProvider
 			httpServletRequest, CommerceShipment.class.getName(),
 			PortletProvider.Action.MANAGE);
 
-		portletURL.setParameter(
-			"mvcRenderCommandName", "viewCommerceShipmentDetail");
+		portletURL.setParameter("mvcRenderCommandName", "editCommerceShipment");
 		portletURL.setParameter(
 			"redirect", _portal.getCurrentURL(httpServletRequest));
 		portletURL.setParameter(
