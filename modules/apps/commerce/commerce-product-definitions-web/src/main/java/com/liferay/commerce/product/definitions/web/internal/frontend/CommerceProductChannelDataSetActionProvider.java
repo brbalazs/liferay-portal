@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -84,8 +85,8 @@ public class CommerceProductChannelDataSetActionProvider
 
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"),
-				StringPool.BLANK, false, false);
+				LanguageUtil.get(httpServletRequest, "delete"), null, false,
+				false);
 
 			clayDataSetActions.add(deleteClayDataSetAction);
 		}
@@ -98,14 +99,17 @@ public class CommerceProductChannelDataSetActionProvider
 		HttpServletRequest httpServletRequest) {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			_portal.getOriginalServletRequest(httpServletRequest),
-			CPPortletKeys.CP_DEFINITIONS, PortletRequest.ACTION_PHASE);
+			httpServletRequest, CPPortletKeys.CP_DEFINITIONS,
+			PortletRequest.ACTION_PHASE);
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
 
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editProductDefinition");
 		portletURL.setParameter(Constants.CMD, "deleteChannel");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter("redirect", redirect);
 		portletURL.setParameter(
 			"commerceChannelRelId",
 			String.valueOf(commerceChannelRel.getCommerceChannelRelId()));
