@@ -36,25 +36,17 @@ import com.liferay.commerce.order.web.internal.display.context.util.CommerceOrde
 import com.liferay.commerce.order.web.internal.servlet.taglib.ui.CommerceOrderScreenNavigationConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
-import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
@@ -76,7 +68,6 @@ import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderURL;
-import javax.portlet.WindowStateException;
 
 /**
  * @author Andrea Di Giorgi
@@ -87,8 +78,6 @@ import javax.portlet.WindowStateException;
 public class CommerceOrderEditDisplayContext {
 
 	public CommerceOrderEditDisplayContext(
-			CommerceAddressService commerceAddressService,
-			CommerceChannelLocalService commerceChannelLocalService,
 			CommerceNotificationTemplateService
 				commerceNotificationTemplateService,
 			CommerceNotificationQueueEntryLocalService
@@ -100,13 +89,10 @@ public class CommerceOrderEditDisplayContext {
 			CommerceOrderStatusRegistry commerceOrderStatusRegistry,
 			CommercePaymentMethodGroupRelService
 				commercePaymentMethodGroupRelService,
-			CommerceOrderPriceCalculation commerceOrderPriceCalculation,
 			CommerceShipmentService commerceShipmentService,
 			RenderRequest renderRequest)
 		throws PortalException {
 
-		_commerceAddressService = commerceAddressService;
-		_commerceChannelLocalService = commerceChannelLocalService;
 		_commerceNotificationTemplateService =
 			commerceNotificationTemplateService;
 		_commerceNotificationQueueEntryLocalService =
@@ -118,7 +104,6 @@ public class CommerceOrderEditDisplayContext {
 		_commerceOrderStatusRegistry = commerceOrderStatusRegistry;
 		_commercePaymentMethodGroupRelService =
 			commercePaymentMethodGroupRelService;
-		_commerceOrderPriceCalculation = commerceOrderPriceCalculation;
 		_commerceShipmentService = commerceShipmentService;
 
 		long commerceOrderId = ParamUtil.getLong(
@@ -198,17 +183,6 @@ public class CommerceOrderEditDisplayContext {
 				_commerceOrderRequestHelper.getRequest(), "add-new-address"));
 
 		return clayCreationMenu;
-	}
-
-	public List<CommerceAddress> getCommerceAddresses() throws PortalException {
-		if (_commerceOrder == null) {
-			return Collections.emptyList();
-		}
-
-		return _commerceAddressService.getCommerceAddresses(
-			CommerceAccount.class.getName(),
-			_commerceOrder.getCommerceAccountId(), QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
 	}
 
 	public PortletURL getCommerceNotificationQueueEntriesPortletURL() {
@@ -399,18 +373,7 @@ public class CommerceOrderEditDisplayContext {
 				_commerceOrder.getGroupId(),
 				_commerceOrder.getCommercePaymentMethodKey());
 	}
-
-	public List<CommercePaymentMethodGroupRel> getCommercePaymentMethods()
-		throws PortalException {
-
-		if (_commerceOrder == null) {
-			return Collections.emptyList();
-		}
-
-		return _commercePaymentMethodGroupRelService.
-			getCommercePaymentMethodGroupRels(_commerceOrder.getGroupId());
-	}
-
+	
 	public CommerceShipment getCommerceShipment() throws PortalException {
 		if (_commerceShipment != null) {
 			return _commerceShipment;
@@ -425,34 +388,6 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		return _commerceShipment;
-	}
-
-	public PortletURL getCommerceShipmentEditURL() throws PortalException {
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			_commerceOrderRequestHelper.getRequest(),
-			CommerceShipment.class.getName(), PortletProvider.Action.MANAGE);
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "viewCommerceShipmentDetail");
-		portletURL.setParameter(
-			"redirect", _commerceOrderRequestHelper.getCurrentURL());
-
-		CommerceShipment commerceShipment = getCommerceShipment();
-
-		if (commerceShipment != null) {
-			portletURL.setParameter(
-				"commerceShipmentId",
-				String.valueOf(commerceShipment.getCommerceShipmentId()));
-		}
-
-		try {
-			portletURL.setWindowState(LiferayWindowState.POP_UP);
-		}
-		catch (WindowStateException wse) {
-			_log.error(wse, wse);
-		}
-
-		return portletURL;
 	}
 
 	public PortletURL getCommerceShipmentsPortletURL() {
@@ -503,29 +438,6 @@ public class CommerceOrderEditDisplayContext {
 		sb.append(commerceAddress.getZip());
 
 		return sb.toString();
-	}
-
-	public List<DropdownItem> getDropdownItems() {
-		List<DropdownItem> headerDropdownItems = new ArrayList<>();
-
-		DropdownItem headerDropdownItem1 = new DropdownItem();
-
-		headerDropdownItem1.setLabel("First link");
-		headerDropdownItem1.setHref("/first-link");
-		headerDropdownItem1.setIcon("home");
-
-		headerDropdownItems.add(headerDropdownItem1);
-
-		DropdownItem headerDropdownItem2 = new DropdownItem();
-
-		headerDropdownItem2.setLabel("Second link");
-		headerDropdownItem2.setIcon("blogs");
-		headerDropdownItem2.setHref("/second-link");
-		headerDropdownItem2.setActive(true);
-
-		headerDropdownItems.add(headerDropdownItem2);
-
-		return headerDropdownItems;
 	}
 
 	public List<HeaderActionModel> getHeaderActionModels()
@@ -755,11 +667,6 @@ public class CommerceOrderEditDisplayContext {
 		return steps;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceOrderEditDisplayContext.class);
-
-	private final CommerceAddressService _commerceAddressService;
-	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceNotificationQueueEntryLocalService
 		_commerceNotificationQueueEntryLocalService;
 	private final CommerceNotificationTemplateService
@@ -770,7 +677,6 @@ public class CommerceOrderEditDisplayContext {
 	private CommerceOrderItem _commerceOrderItem;
 	private final CommerceOrderItemService _commerceOrderItemService;
 	private final CommerceOrderNoteService _commerceOrderNoteService;
-	private final CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 	private final CommerceOrderRequestHelper _commerceOrderRequestHelper;
 	private final CommerceOrderService _commerceOrderService;
 	private final CommerceOrderStatusRegistry _commerceOrderStatusRegistry;
