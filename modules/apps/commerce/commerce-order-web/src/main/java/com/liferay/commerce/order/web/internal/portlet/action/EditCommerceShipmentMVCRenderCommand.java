@@ -22,9 +22,6 @@ import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
 import com.liferay.commerce.order.web.internal.display.context.CommerceOrderEditDisplayContext;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
-import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
@@ -61,15 +58,13 @@ public class EditCommerceShipmentMVCRenderCommand implements MVCRenderCommand {
 		try {
 			CommerceOrderEditDisplayContext commerceOrderEditDisplayContext =
 				new CommerceOrderEditDisplayContext(
-					_commerceAddressService, _commerceChannelLocalService,
 					_commerceNotificationTemplateService,
 					_commerceNotificationQueueEntryLocalService,
 					_commerceOrderEngine, _commerceOrderService,
 					_commerceOrderItemService, _commerceOrderNoteService,
 					_commerceOrderStatusRegistry,
 					_commercePaymentMethodGroupRelService,
-					_commerceOrderPriceCalculation, _commerceShipmentService,
-					renderRequest);
+					_commerceShipmentService, renderRequest);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -91,12 +86,6 @@ public class EditCommerceShipmentMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private CommerceAddressService _commerceAddressService;
-
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference
 	private CommerceNotificationQueueEntryLocalService
 		_commerceNotificationQueueEntryLocalService;
 
@@ -112,9 +101,6 @@ public class EditCommerceShipmentMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CommerceOrderNoteService _commerceOrderNoteService;
-
-	@Reference
-	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;

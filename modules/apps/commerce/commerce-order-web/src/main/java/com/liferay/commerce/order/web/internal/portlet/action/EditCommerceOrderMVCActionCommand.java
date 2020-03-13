@@ -457,11 +457,11 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
 
-		String commercePaymentMethodKey = ParamUtil.getString(
-			actionRequest, "commercePaymentMethodKey");
+		String paymentMethodKey = ParamUtil.getString(
+			actionRequest, "paymentMethodKey");
 
 		_commerceOrderService.updateCommercePaymentMethodKey(
-			commerceOrderId, commercePaymentMethodKey);
+			commerceOrderId, paymentMethodKey);
 	}
 
 	protected void updatePrintedNote(ActionRequest actionRequest)
