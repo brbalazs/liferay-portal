@@ -58,6 +58,8 @@ public class ClayListContextContributor
 
 		schemaJSONObject.put(
 			"description", clayListDataSetDisplayView.getDescription());
+		schemaJSONObject.put(
+			"thumbnail", clayListDataSetDisplayView.getThumbnail());
 		schemaJSONObject.put("title", clayListDataSetDisplayView.getTitle());
 
 		context.put("schema", schemaJSONObject);

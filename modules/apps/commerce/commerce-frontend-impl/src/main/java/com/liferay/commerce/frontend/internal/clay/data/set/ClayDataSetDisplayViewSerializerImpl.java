@@ -64,7 +64,6 @@ public class ClayDataSetDisplayViewSerializerImpl
 			jsonObject.put(
 				"contentRendererModuleUrl",
 				clayDataSetDisplayView.getContentRendererModuleUrl());
-			jsonObject.put("icon", clayDataSetDisplayView.getIcon());
 			jsonObject.put("label", label);
 
 			List<ClayDataSetContentRendererContextContributor>
