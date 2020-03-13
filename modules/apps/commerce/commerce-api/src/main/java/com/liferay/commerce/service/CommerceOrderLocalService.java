@@ -273,10 +273,6 @@ public interface CommerceOrderLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws PortalException;
-
 	/**
 	 * Returns the commerce order with the primary key.
 	 *

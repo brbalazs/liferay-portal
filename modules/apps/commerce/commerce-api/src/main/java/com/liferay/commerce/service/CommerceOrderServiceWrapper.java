@@ -139,13 +139,6 @@ public class CommerceOrderServiceWrapper
 	}
 
 	@Override
-	public int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderService.getAvailableOrderStatuses(commerceOrderId);
-	}
-
-	@Override
 	public com.liferay.commerce.model.CommerceOrder getCommerceOrder(
 			long commerceOrderId)
 		throws com.liferay.portal.kernel.exception.PortalException {

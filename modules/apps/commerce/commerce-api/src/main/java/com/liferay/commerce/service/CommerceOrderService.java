@@ -120,10 +120,6 @@ public interface CommerceOrderService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceOrder getCommerceOrder(long commerceOrderId)
 		throws PortalException;
 

@@ -278,23 +278,6 @@ public class CommerceOrderServiceSoap {
 		}
 	}
 
-	public static int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws RemoteException {
-
-		try {
-			int[] returnValue =
-				CommerceOrderServiceUtil.getAvailableOrderStatuses(
-					commerceOrderId);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.model.CommerceOrderSoap getCommerceOrder(
 			long commerceOrderId)
 		throws RemoteException {

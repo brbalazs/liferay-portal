@@ -340,12 +340,6 @@ public class CommerceOrderLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getAvailableOrderStatuses(commerceOrderId);
-	}
-
 	/**
 	 * Returns the commerce order with the primary key.
 	 *

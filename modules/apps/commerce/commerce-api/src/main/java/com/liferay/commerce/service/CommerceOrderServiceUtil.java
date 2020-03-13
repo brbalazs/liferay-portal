@@ -133,12 +133,6 @@ public class CommerceOrderServiceUtil {
 		return getService().fetchCommerceOrder(uuid, groupId);
 	}
 
-	public static int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getAvailableOrderStatuses(commerceOrderId);
-	}
-
 	public static com.liferay.commerce.model.CommerceOrder getCommerceOrder(
 			long commerceOrderId)
 		throws com.liferay.portal.kernel.exception.PortalException {

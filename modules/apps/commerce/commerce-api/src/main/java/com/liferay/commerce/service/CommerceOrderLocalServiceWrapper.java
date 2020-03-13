@@ -361,14 +361,6 @@ public class CommerceOrderLocalServiceWrapper
 		return _commerceOrderLocalService.getActionableDynamicQuery();
 	}
 
-	@Override
-	public int[] getAvailableOrderStatuses(long commerceOrderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderLocalService.getAvailableOrderStatuses(
-			commerceOrderId);
-	}
-
 	/**
 	 * Returns the commerce order with the primary key.
 	 *
