@@ -24,7 +24,7 @@ import com.liferay.commerce.account.test.util.CommerceAccountTestUtil;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
-import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
@@ -484,7 +484,7 @@ public class CommercePriceListHierarchyDiscoveryTest {
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
 	private static final String _TYPE =
-		CommercePriceListTypeKeys.TYPE_PRICE_LIST;
+		CommercePriceListConstants.TYPE_PRICE_LIST;
 
 	@DeleteAfterTestRun
 	private CommerceCatalog _catalog;

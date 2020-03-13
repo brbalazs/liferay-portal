@@ -189,7 +189,7 @@ public class CommerceDiscountLocalServiceTest {
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_user.getGroupId(),
 				BigDecimal.valueOf(RandomTestUtil.randomDouble()),
-				CommerceDiscountConstants.LEVEL1,
+				CommerceDiscountConstants.LEVEL_L1,
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition.getCPDefinitionId());
 
@@ -225,7 +225,7 @@ public class CommerceDiscountLocalServiceTest {
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_user.getGroupId(),
 				BigDecimal.valueOf(RandomTestUtil.randomDouble()),
-				CommerceDiscountConstants.LEVEL2,
+				CommerceDiscountConstants.LEVEL_L2,
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition.getCPDefinitionId());
 
@@ -242,7 +242,7 @@ public class CommerceDiscountLocalServiceTest {
 		CommerceDiscount commerceChannelDiscount =
 			CommerceDiscountTestUtil.addChannelDiscount(
 				_user.getGroupId(), _commerceChannel.getCommerceChannelId(),
-				CommerceDiscountConstants.LEVEL1,
+				CommerceDiscountConstants.LEVEL_L1,
 				cpDefinition.getCPDefinitionId());
 
 		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Product(
@@ -262,7 +262,7 @@ public class CommerceDiscountLocalServiceTest {
 		CommerceDiscount commerceAccountGroupsDiscount =
 			CommerceDiscountTestUtil.addAccountGroupDiscount(
 				_user.getGroupId(), commerceAccountGroups,
-				CommerceDiscountConstants.LEVEL3,
+				CommerceDiscountConstants.LEVEL_L3,
 				cpDefinition.getCPDefinitionId());
 
 		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Product(
@@ -277,7 +277,7 @@ public class CommerceDiscountLocalServiceTest {
 		CommerceDiscount commerceAccountDiscount =
 			CommerceDiscountTestUtil.addAccountDiscount(
 				_user.getGroupId(), _commerceAccount.getCommerceAccountId(),
-				CommerceDiscountConstants.LEVEL4,
+				CommerceDiscountConstants.LEVEL_L4,
 				cpDefinition.getCPDefinitionId());
 
 		commerceDiscounts = _commerceDiscountLocalService.findByA_C_C_Product(

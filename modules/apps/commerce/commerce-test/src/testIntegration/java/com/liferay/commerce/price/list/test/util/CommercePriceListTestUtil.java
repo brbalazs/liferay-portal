@@ -18,7 +18,7 @@ import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupLocalServiceUtil;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
-import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelServiceUtil;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalServiceUtil;
@@ -61,7 +61,7 @@ public class CommercePriceListTestUtil {
 
 		return CommercePriceListLocalServiceUtil.addCommercePriceList(
 			groupId, user.getUserId(), commerceCurrency.getCommerceCurrencyId(),
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, 0, catalogBasePriceList,
+			CommercePriceListConstants.TYPE_PRICE_LIST, 0, catalogBasePriceList,
 			RandomTestUtil.randomString(), priority,
 			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
 			calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
@@ -168,7 +168,7 @@ public class CommercePriceListTestUtil {
 
 		return CommercePriceListLocalServiceUtil.addCommercePriceList(
 			groupId, user.getUserId(), commerceCurrency.getCommerceCurrencyId(),
-			CommercePriceListTypeKeys.TYPE_PROMOTION,
+			CommercePriceListConstants.TYPE_PROMOTION,
 			RandomTestUtil.randomString(), priority,
 			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
 			calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),

@@ -12,17 +12,17 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.constants;
+package com.liferay.commerce.price.list.constants;
 
 /**
  * @author Riccardo Alberti
  */
-public class CommercePriceModifierTypeConstants {
+public class CommercePriceListConstants {
 
-	public static final String ABSOLUTE = "absolute";
+	public static final String TYPE_CONTRACT = "contract";
 
-	public static final String OVERRIDE = "override";
+	public static final String TYPE_PRICE_LIST = "price-list";
 
-	public static final String PERCENTAGE = "percentage";
+	public static final String TYPE_PROMOTION = "promotion";
 
 }

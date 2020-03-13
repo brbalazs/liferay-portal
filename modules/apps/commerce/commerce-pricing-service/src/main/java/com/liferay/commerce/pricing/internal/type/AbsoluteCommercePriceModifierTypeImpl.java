@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.pricing.internal.type;
 
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTypeConstants;
+import com.liferay.commerce.pricing.constants.CommercePriceModifierConstants;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -34,7 +34,7 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.price.modifier.type.key=" + CommercePriceModifierTypeConstants.ABSOLUTE,
+		"commerce.price.modifier.type.key=" + CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
 		"commerce.price.modifier.type.order:Integer=20"
 	},
 	service = CommercePriceModifierType.class
@@ -61,7 +61,7 @@ public class AbsoluteCommercePriceModifierTypeImpl
 
 	@Override
 	public String getKey() {
-		return CommercePriceModifierTypeConstants.ABSOLUTE;
+		return CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE;
 	}
 
 	@Override

@@ -12,17 +12,25 @@
  * details.
  */
 
-package com.liferay.commerce.price.list.constants;
+package com.liferay.commerce.pricing.constants;
 
 /**
  * @author Riccardo Alberti
  */
-public class CommercePriceListTypeKeys {
+public class CommercePriceModifierConstants {
 
-	public static final String TYPE_CONTRACT = "contract";
+	public static final String MODIFIER_TYPE_ABSOLUTE = "absolute";
 
-	public static final String TYPE_PRICE_LIST = "price-list";
+	public static final String MODIFIER_TYPE_OVERRIDE = "override";
 
-	public static final String TYPE_PROMOTION = "promotion";
+	public static final String MODIFIER_TYPE_PERCENTAGE = "percentage";
+
+	public static final String TARGET_CATALOG = "catalog";
+
+	public static final String TARGET_CATEGORIES = "categories";
+
+	public static final String TARGET_PRICING_CLASS = "pricing-classes";
+
+	public static final String TARGET_PRODUCT = "product";
 
 }

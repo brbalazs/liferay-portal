@@ -164,16 +164,16 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setLevel(level);
 
 		if (!level.isEmpty()) {
-			if (level.equals(CommerceDiscountConstants.LEVEL1)) {
+			if (level.equals(CommerceDiscountConstants.LEVEL_L1)) {
 				commerceDiscount.setLevel1(level1);
 			}
-			else if (level.equals(CommerceDiscountConstants.LEVEL2)) {
+			else if (level.equals(CommerceDiscountConstants.LEVEL_L2)) {
 				commerceDiscount.setLevel2(level1);
 			}
-			else if (level.equals(CommerceDiscountConstants.LEVEL3)) {
+			else if (level.equals(CommerceDiscountConstants.LEVEL_L3)) {
 				commerceDiscount.setLevel3(level1);
 			}
-			else if (level.equals(CommerceDiscountConstants.LEVEL4)) {
+			else if (level.equals(CommerceDiscountConstants.LEVEL_L4)) {
 				commerceDiscount.setLevel4(level1);
 			}
 		}

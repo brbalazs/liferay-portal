@@ -15,7 +15,7 @@
 package com.liferay.commerce.pricing.service.persistence.impl;
 
 import com.liferay.asset.kernel.model.AssetCategory;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTargetConstants;
+import com.liferay.commerce.pricing.constants.CommercePriceModifierConstants;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.model.impl.CommercePriceModifierImpl;
@@ -94,7 +94,7 @@ public class CommercePriceModifierFinderImpl
 			qPos.add(
 				PortalUtil.getClassNameId(
 					CommercePricingClass.class.getName()));
-			qPos.add(CommercePriceModifierTargetConstants.TARGET_CATALOG);
+			qPos.add(CommercePriceModifierConstants.TARGET_CATALOG);
 
 			return (List<CommercePriceModifier>)QueryUtil.list(
 				q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);

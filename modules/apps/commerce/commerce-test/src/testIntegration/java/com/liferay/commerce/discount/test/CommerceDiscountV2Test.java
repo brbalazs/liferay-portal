@@ -579,77 +579,77 @@ public class CommerceDiscountV2Test {
 		CommerceDiscount commerceDiscount11 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), BigDecimal.valueOf(10),
-				CommerceDiscountConstants.LEVEL1,
+				CommerceDiscountConstants.LEVEL_L1,
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount12 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), BigDecimal.valueOf(15),
-				CommerceDiscountConstants.LEVEL2,
+				CommerceDiscountConstants.LEVEL_L2,
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount13 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), BigDecimal.valueOf(20),
-				CommerceDiscountConstants.LEVEL3,
+				CommerceDiscountConstants.LEVEL_L3,
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(0),
-			CommerceDiscountConstants.LEVEL4,
+			CommerceDiscountConstants.LEVEL_L4,
 			CommerceDiscountConstants.TARGET_PRODUCT,
 			cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount21 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), BigDecimal.valueOf(30),
-				CommerceDiscountConstants.LEVEL1,
+				CommerceDiscountConstants.LEVEL_L1,
 				CommerceDiscountConstants.TARGET_CATEGORIES,
 				assetCategory1.getCategoryId());
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(0),
-			CommerceDiscountConstants.LEVEL2,
+			CommerceDiscountConstants.LEVEL_L2,
 			CommerceDiscountConstants.TARGET_CATEGORIES,
 			assetCategory1.getCategoryId());
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(0),
-			CommerceDiscountConstants.LEVEL3,
+			CommerceDiscountConstants.LEVEL_L3,
 			CommerceDiscountConstants.TARGET_CATEGORIES,
 			assetCategory1.getCategoryId());
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(0),
-			CommerceDiscountConstants.LEVEL4,
+			CommerceDiscountConstants.LEVEL_L4,
 			CommerceDiscountConstants.TARGET_CATEGORIES,
 			assetCategory1.getCategoryId());
 
 		CommerceDiscount commerceDiscount31 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), BigDecimal.valueOf(50),
-				CommerceDiscountConstants.LEVEL1,
+				CommerceDiscountConstants.LEVEL_L1,
 				CommerceDiscountConstants.TARGET_CATEGORIES,
 				assetCategory2.getCategoryId());
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(0),
-			CommerceDiscountConstants.LEVEL2,
+			CommerceDiscountConstants.LEVEL_L2,
 			CommerceDiscountConstants.TARGET_CATEGORIES,
 			assetCategory2.getCategoryId());
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(0),
-			CommerceDiscountConstants.LEVEL3,
+			CommerceDiscountConstants.LEVEL_L3,
 			CommerceDiscountConstants.TARGET_CATEGORIES,
 			assetCategory2.getCategoryId());
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(0),
-			CommerceDiscountConstants.LEVEL4,
+			CommerceDiscountConstants.LEVEL_L4,
 			CommerceDiscountConstants.TARGET_CATEGORIES,
 			assetCategory2.getCategoryId());
 
@@ -1078,14 +1078,15 @@ public class CommerceDiscountV2Test {
 		BigDecimal percentage1 = BigDecimal.valueOf(5);
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
-			_group.getGroupId(), percentage1, CommerceDiscountConstants.LEVEL1,
+			_group.getGroupId(), percentage1,
+			CommerceDiscountConstants.LEVEL_L1,
 			CommerceDiscountConstants.TARGET_PRODUCT,
 			cpDefinition.getCPDefinitionId());
 
 		BigDecimal percentage3 = BigDecimal.valueOf(70);
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
-			_group.getGroupId(), percentage3, CommerceDiscountConstants.LEVEL3,
+			_group.getGroupId(), percentage3, CommerceDiscountConstants.LEVEL_L3,
 			CommerceDiscountConstants.TARGET_PRODUCT,
 			cpDefinition.getCPDefinitionId());
 
@@ -1263,7 +1264,7 @@ public class CommerceDiscountV2Test {
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(5),
-			CommerceDiscountConstants.LEVEL2,
+			CommerceDiscountConstants.LEVEL_L2,
 			CommerceDiscountConstants.TARGET_PRODUCT,
 			cpDefinition.getCPDefinitionId());
 

@@ -26,7 +26,7 @@ import com.liferay.commerce.discount.application.strategy.CommerceDiscountApplic
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
-import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
@@ -686,13 +686,13 @@ public class CommerceProductPriceCalculationV2Impl
 		String discoveryMethod = CommercePricingConstants.ORDER_BY_HIERARCHY;
 
 		if (commercePriceListType.equals(
-				CommercePriceListTypeKeys.TYPE_PRICE_LIST)) {
+				CommercePriceListConstants.TYPE_PRICE_LIST)) {
 
 			discoveryMethod =
 				commercePricingConfiguration.commercePriceListDiscovery();
 		}
 		else if (commercePriceListType.equals(
-					CommercePriceListTypeKeys.TYPE_PROMOTION)) {
+					CommercePriceListConstants.TYPE_PROMOTION)) {
 
 			discoveryMethod =
 				commercePricingConfiguration.commercePromotionDiscovery();
@@ -717,7 +717,7 @@ public class CommerceProductPriceCalculationV2Impl
 
 		CommercePriceList commercePriceList = _getCommercePriceList(
 			cpInstanceId, commerceContext,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST);
+			CommercePriceListConstants.TYPE_PRICE_LIST);
 
 		long commercePriceListId = 0;
 
@@ -753,7 +753,7 @@ public class CommerceProductPriceCalculationV2Impl
 
 		CommercePriceList commercePriceList = _getCommercePriceList(
 			cpInstanceId, commerceContext,
-			CommercePriceListTypeKeys.TYPE_PROMOTION);
+			CommercePriceListConstants.TYPE_PROMOTION);
 
 		if (commercePriceList != null) {
 			return commercePriceList.getCommercePriceListId();

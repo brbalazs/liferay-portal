@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.price.list.internal.upgrade.v2_1_0;
 
-import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.internal.upgrade.base.BaseCommercePriceListUpgradeProcess;
 import com.liferay.commerce.price.list.model.impl.CommercePriceListModelImpl;
 
@@ -37,7 +37,7 @@ public class CommercePriceListUpgradeProcess
 
 		runSQL(
 			"UPDATE CommercePriceList SET type_ = '" +
-				CommercePriceListTypeKeys.TYPE_PRICE_LIST + "'");
+				CommercePriceListConstants.TYPE_PRICE_LIST + "'");
 
 		runSQL("UPDATE CommercePriceList SET catalogBasePriceList = [$FALSE$]");
 	}

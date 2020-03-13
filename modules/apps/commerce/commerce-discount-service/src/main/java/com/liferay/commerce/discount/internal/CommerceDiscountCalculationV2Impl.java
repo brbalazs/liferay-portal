@@ -323,7 +323,7 @@ public class CommerceDiscountCalculationV2Impl
 				String discountLevel = commerceDiscount.getLevel();
 
 				if (discountLevel.isEmpty() ||
-					discountLevel.equals(CommerceDiscountConstants.LEVEL1)) {
+					discountLevel.equals(CommerceDiscountConstants.LEVEL_L1)) {
 
 					levels[0] = _getCommerceDiscountLevel(
 						levels[0], commercePrice, commerceCurrency,
@@ -335,7 +335,7 @@ public class CommerceDiscountCalculationV2Impl
 				if (commerceDiscount.isUsePercentage()) {
 					if (discountLevel.isEmpty() ||
 						discountLevel.equals(
-							CommerceDiscountConstants.LEVEL2)) {
+							CommerceDiscountConstants.LEVEL_L2)) {
 
 						levels[1] = _getCommerceDiscountLevel(
 							levels[1], commercePrice, commerceCurrency,
@@ -346,7 +346,7 @@ public class CommerceDiscountCalculationV2Impl
 
 					if (discountLevel.isEmpty() ||
 						discountLevel.equals(
-							CommerceDiscountConstants.LEVEL3)) {
+							CommerceDiscountConstants.LEVEL_L3)) {
 
 						levels[2] = _getCommerceDiscountLevel(
 							levels[2], commercePrice, commerceCurrency,
@@ -357,7 +357,7 @@ public class CommerceDiscountCalculationV2Impl
 
 					if (discountLevel.isEmpty() ||
 						discountLevel.equals(
-							CommerceDiscountConstants.LEVEL4)) {
+							CommerceDiscountConstants.LEVEL_L4)) {
 
 						levels[3] = _getCommerceDiscountLevel(
 							levels[3], commercePrice, commerceCurrency,

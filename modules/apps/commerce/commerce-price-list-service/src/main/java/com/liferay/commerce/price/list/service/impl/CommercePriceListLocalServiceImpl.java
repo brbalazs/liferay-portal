@@ -16,7 +16,7 @@ package com.liferay.commerce.price.list.service.impl;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
-import com.liferay.commerce.price.list.constants.CommercePriceListTypeKeys;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.exception.CommercePriceListCurrencyException;
 import com.liferay.commerce.price.list.exception.CommercePriceListDisplayDateException;
 import com.liferay.commerce.price.list.exception.CommercePriceListExpirationDateException;
@@ -99,7 +99,7 @@ public class CommercePriceListLocalServiceImpl
 
 		return commercePriceListLocalService.addCommercePriceList(
 			groupId, userId, commerceCurrencyId,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			CommercePriceListConstants.TYPE_PRICE_LIST,
 			parentCommercePriceListId, false, name, priority, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
@@ -121,7 +121,7 @@ public class CommercePriceListLocalServiceImpl
 
 		return commercePriceListLocalService.addCommercePriceList(
 			groupId, userId, commerceCurrencyId,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			CommercePriceListConstants.TYPE_PRICE_LIST,
 			parentCommercePriceListId, false, name, priority, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
@@ -142,11 +142,11 @@ public class CommercePriceListLocalServiceImpl
 
 		return commercePriceListLocalService.addCommercePriceList(
 			groupId, userId, commerceCurrencyId,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, 0, false, name, priority,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute, null,
-			neverExpire, serviceContext);
+			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
+			priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, null, neverExpire, serviceContext);
 	}
 
 	@Override
@@ -162,11 +162,12 @@ public class CommercePriceListLocalServiceImpl
 
 		return commercePriceListLocalService.addCommercePriceList(
 			groupId, userId, commerceCurrencyId,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, 0, false, name, priority,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute,
-			externalReferenceCode, neverExpire, serviceContext);
+			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
+			priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, externalReferenceCode, neverExpire,
+			serviceContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -751,7 +752,7 @@ public class CommercePriceListLocalServiceImpl
 
 		return commercePriceListLocalService.updateCommercePriceList(
 			commercePriceListId, commerceCurrencyId,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			CommercePriceListConstants.TYPE_PRICE_LIST,
 			parentCommercePriceListId, false, name, priority, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
@@ -772,11 +773,11 @@ public class CommercePriceListLocalServiceImpl
 
 		return updateCommercePriceList(
 			commercePriceListId, commerceCurrencyId,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, 0, false, name, priority,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute,
-			neverExpire, serviceContext);
+			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
+			priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, serviceContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -986,7 +987,7 @@ public class CommercePriceListLocalServiceImpl
 
 		return commercePriceListLocalService.upsertCommercePriceList(
 			groupId, userId, commercePriceListId, commerceCurrencyId,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST,
+			CommercePriceListConstants.TYPE_PRICE_LIST,
 			parentCommercePriceListId, false, name, priority, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
@@ -1008,11 +1009,12 @@ public class CommercePriceListLocalServiceImpl
 
 		return commercePriceListLocalService.upsertCommercePriceList(
 			groupId, userId, commercePriceListId, commerceCurrencyId,
-			CommercePriceListTypeKeys.TYPE_PRICE_LIST, 0, false, name, priority,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute,
-			externalReferenceCode, neverExpire, serviceContext);
+			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
+			priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, externalReferenceCode, neverExpire,
+			serviceContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)

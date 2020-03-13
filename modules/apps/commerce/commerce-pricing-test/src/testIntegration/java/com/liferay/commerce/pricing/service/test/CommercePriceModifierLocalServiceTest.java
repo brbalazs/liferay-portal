@@ -21,8 +21,7 @@ import com.liferay.asset.test.util.AssetTestUtil;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.price.list.model.CommercePriceList;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTargetConstants;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTypeConstants;
+import com.liferay.commerce.pricing.constants.CommercePriceModifierConstants;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierAmountException;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierTargetException;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierTitleException;
@@ -128,9 +127,10 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_CATEGORIES,
+				CommercePriceModifierConstants.TARGET_CATEGORIES,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier1.getGroupId(),
@@ -149,7 +149,7 @@ public class CommercePriceModifierLocalServiceTest {
 			commercePriceModifier2.getCommercePriceModifierId());
 
 		Assert.assertEquals(
-			CommercePriceModifierTargetConstants.TARGET_CATEGORIES,
+			CommercePriceModifierConstants.TARGET_CATEGORIES,
 			commercePriceModifier2.getTarget());
 
 		List<CommercePriceModifierRel> commercePriceModifierRels =
@@ -189,9 +189,10 @@ public class CommercePriceModifierLocalServiceTest {
 
 		CommercePriceModifierTestUtil.addCommercePriceModifier(
 			catalog.getGroupId(),
-			CommercePriceModifierTargetConstants.TARGET_PRICING_CLASS,
+			CommercePriceModifierConstants.TARGET_PRICING_CLASS,
 			commercePriceList.getCommercePriceListId(),
-			CommercePriceModifierTypeConstants.PERCENTAGE, null, true);
+			CommercePriceModifierConstants.MODIFIER_TYPE_PERCENTAGE, null,
+			true);
 	}
 
 	@Test(expected = CommercePriceModifierTargetException.class)
@@ -221,7 +222,8 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifierTestUtil.addCommercePriceModifier(
 			catalog.getGroupId(), RandomTestUtil.randomString(),
 			commercePriceList.getCommercePriceListId(),
-			CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+			CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+			true);
 	}
 
 	@Test(expected = CommercePriceModifierTypeException.class)
@@ -250,7 +252,7 @@ public class CommercePriceModifierLocalServiceTest {
 
 		CommercePriceModifierTestUtil.addCommercePriceModifier(
 			catalog.getGroupId(),
-			CommercePriceModifierTargetConstants.TARGET_PRICING_CLASS,
+			CommercePriceModifierConstants.TARGET_PRICING_CLASS,
 			commercePriceList.getCommercePriceListId(),
 			RandomTestUtil.randomString(), amount, true);
 	}
@@ -282,7 +284,8 @@ public class CommercePriceModifierLocalServiceTest {
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				true);
 
 		List<CommercePriceModifier> commercePriceModifiers =
 			_commercePriceModifierLocalService.getCommercePriceModifiers(
@@ -296,7 +299,7 @@ public class CommercePriceModifierLocalServiceTest {
 			commercePriceModifier2.getCommercePriceModifierId());
 
 		Assert.assertEquals(
-			CommercePriceModifierTargetConstants.TARGET_CATALOG,
+			CommercePriceModifierConstants.TARGET_CATALOG,
 			commercePriceModifier2.getTarget());
 	}
 
@@ -326,9 +329,10 @@ public class CommercePriceModifierLocalServiceTest {
 
 		CommercePriceModifierTestUtil.addCommercePriceModifier(
 			catalog.getGroupId(), null,
-			CommercePriceModifierTargetConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCT,
 			commercePriceList.getCommercePriceListId(),
-			CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+			CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+			true);
 	}
 
 	@Test
@@ -377,9 +381,10 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_PRICING_CLASS,
+				CommercePriceModifierConstants.TARGET_PRICING_CLASS,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier1.getGroupId(),
@@ -399,7 +404,7 @@ public class CommercePriceModifierLocalServiceTest {
 			commercePriceModifier2.getCommercePriceModifierId());
 
 		Assert.assertEquals(
-			CommercePriceModifierTargetConstants.TARGET_PRICING_CLASS,
+			CommercePriceModifierConstants.TARGET_PRICING_CLASS,
 			commercePriceModifier2.getTarget());
 
 		List<CommercePriceModifierRel> commercePriceModifierRels =
@@ -463,9 +468,10 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_PRODUCT,
+				CommercePriceModifierConstants.TARGET_PRODUCT,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier1.getGroupId(),
@@ -484,7 +490,7 @@ public class CommercePriceModifierLocalServiceTest {
 			commercePriceModifier2.getCommercePriceModifierId());
 
 		Assert.assertEquals(
-			CommercePriceModifierTargetConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCT,
 			commercePriceModifier2.getTarget());
 
 		List<CommercePriceModifierRel> commercePriceModifierRels =
@@ -534,9 +540,10 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_PRODUCT,
+				CommercePriceModifierConstants.TARGET_PRODUCT,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier1.getGroupId(),
@@ -602,9 +609,10 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_PRODUCT,
+				CommercePriceModifierConstants.TARGET_PRODUCT,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier1.getGroupId(),
@@ -631,7 +639,7 @@ public class CommercePriceModifierLocalServiceTest {
 			CommercePriceModifierTestUtil.updateCommercePriceModifier(
 				catalog.getGroupId(),
 				commercePriceModifier1.getCommercePriceModifierId(),
-				CommercePriceModifierTargetConstants.TARGET_PRICING_CLASS);
+				CommercePriceModifierConstants.TARGET_PRICING_CLASS);
 
 		commercePriceModifierRels =
 			_commercePriceModifierRelLocalService.getCommercePriceModifierRels(

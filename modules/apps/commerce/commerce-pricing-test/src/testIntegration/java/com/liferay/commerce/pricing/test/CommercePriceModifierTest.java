@@ -26,8 +26,7 @@ import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalServiceUtil;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalServiceUtil;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTargetConstants;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTypeConstants;
+import com.liferay.commerce.pricing.constants.CommercePriceModifierConstants;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.modifier.CommercePriceModifierHelper;
@@ -160,9 +159,10 @@ public class CommercePriceModifierTest {
 		CommercePriceModifier commercePriceModifier =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_PRICING_CLASS,
+				CommercePriceModifierConstants.TARGET_PRICING_CLASS,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.ABSOLUTE, amount, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE, amount,
+				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier.getGroupId(),
@@ -270,9 +270,10 @@ public class CommercePriceModifierTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_CATEGORIES,
+				CommercePriceModifierConstants.TARGET_CATEGORIES,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.PERCENTAGE, amount1, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_PERCENTAGE,
+				amount1, true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier1.getGroupId(),
@@ -282,9 +283,10 @@ public class CommercePriceModifierTest {
 		CommercePriceModifier commercePriceModifier2 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_CATEGORIES,
+				CommercePriceModifierConstants.TARGET_CATEGORIES,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.PERCENTAGE, amount2, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_PERCENTAGE,
+				amount2, true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier2.getGroupId(),
@@ -370,9 +372,10 @@ public class CommercePriceModifierTest {
 		CommercePriceModifier commercePriceModifier =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_PRODUCT,
+				CommercePriceModifierConstants.TARGET_PRODUCT,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.OVERRIDE, amount, true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier.getGroupId(),

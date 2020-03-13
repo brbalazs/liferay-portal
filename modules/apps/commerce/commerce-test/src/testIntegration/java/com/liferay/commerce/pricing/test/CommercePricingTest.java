@@ -34,8 +34,7 @@ import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListAccountRelLocalService;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTargetConstants;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTypeConstants;
+import com.liferay.commerce.pricing.constants.CommercePriceModifierConstants;
 import com.liferay.commerce.pricing.exception.CommerceUndefinedBasePriceListException;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
@@ -445,9 +444,9 @@ public class CommercePricingTest {
 
 		CommercePriceModifier commercePriceModifier = _addCommercePriceModifier(
 			commercePriceList1.getGroupId(),
-			CommercePriceModifierTargetConstants.TARGET_PRICING_CLASS,
+			CommercePriceModifierConstants.TARGET_PRICING_CLASS,
 			commercePriceList1.getCommercePriceListId(),
-			CommercePriceModifierTypeConstants.PERCENTAGE,
+			CommercePriceModifierConstants.MODIFIER_TYPE_PERCENTAGE,
 			BigDecimal.valueOf(-10), true);
 
 		_commercePriceModifierRelLocalService.addCommercePriceModifierRel(
@@ -459,9 +458,9 @@ public class CommercePricingTest {
 		CommercePriceModifier commercePriceModifier1 =
 			_addCommercePriceModifier(
 				commercePriceList1.getGroupId(),
-				CommercePriceModifierTargetConstants.TARGET_CATEGORIES,
+				CommercePriceModifierConstants.TARGET_CATEGORIES,
 				commercePriceList1.getCommercePriceListId(),
-				CommercePriceModifierTypeConstants.OVERRIDE,
+				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE,
 				BigDecimal.valueOf(19), true);
 
 		_commercePriceModifierRelLocalService.addCommercePriceModifierRel(
@@ -536,9 +535,9 @@ public class CommercePricingTest {
 
 		CommercePriceModifier commercePriceModifier = _addCommercePriceModifier(
 			commercePriceList1.getGroupId(),
-			CommercePriceModifierTargetConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCT,
 			commercePriceList1.getCommercePriceListId(),
-			CommercePriceModifierTypeConstants.ABSOLUTE,
+			CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
 			BigDecimal.valueOf(-10), true);
 
 		_commercePriceModifierRelLocalService.addCommercePriceModifierRel(

@@ -17,7 +17,7 @@ package com.liferay.commerce.pricing.service.impl;
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierTargetConstants;
+import com.liferay.commerce.pricing.constants.CommercePriceModifierConstants;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierAmountException;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierDisplayDateException;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierExpirationDateException;
@@ -78,7 +78,7 @@ public class CommercePriceModifierLocalServiceImpl
 		throws PortalException {
 
 		return addCommercePriceModifier(
-			groupId, title, CommercePriceModifierTargetConstants.TARGET_CATALOG,
+			groupId, title, CommercePriceModifierConstants.TARGET_CATALOG,
 			commercePriceListId, modifierType, modifierAmount, priority, active,
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
@@ -481,14 +481,11 @@ public class CommercePriceModifierLocalServiceImpl
 			throw new CommercePriceModifierTitleException();
 		}
 
-		if (!CommercePriceModifierTargetConstants.TARGET_CATALOG.equals(
+		if (!CommercePriceModifierConstants.TARGET_CATALOG.equals(target) &&
+			!CommercePriceModifierConstants.TARGET_CATEGORIES.equals(target) &&
+			!CommercePriceModifierConstants.TARGET_PRICING_CLASS.equals(
 				target) &&
-			!CommercePriceModifierTargetConstants.TARGET_CATEGORIES.equals(
-				target) &&
-			!CommercePriceModifierTargetConstants.TARGET_PRICING_CLASS.equals(
-				target) &&
-			!CommercePriceModifierTargetConstants.TARGET_PRODUCT.equals(
-				target)) {
+			!CommercePriceModifierConstants.TARGET_PRODUCT.equals(target)) {
 
 			throw new CommercePriceModifierTargetException();
 		}
