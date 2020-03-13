@@ -24,7 +24,7 @@ public class CommerceDiscountCommerceAccountGroupRelUpgradeProcess
 	extends UpgradeProcess {
 
 	@Override
-	public void doUpgrade() throws Exception {
+	protected void doUpgrade() throws Exception {
 		if (!hasTable(CommerceDiscountCommerceAccountGroupRelImpl.TABLE_NAME)) {
 			runSQL(
 				CommerceDiscountCommerceAccountGroupRelImpl.TABLE_SQL_CREATE);

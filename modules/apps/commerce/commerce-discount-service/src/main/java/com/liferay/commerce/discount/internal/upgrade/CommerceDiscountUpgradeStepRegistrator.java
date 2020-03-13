@@ -59,7 +59,8 @@ public class CommerceDiscountUpgradeStepRegistrator
 				CommerceDiscountUpgradeProcess(),
 			new CommerceDiscountAccountRelUpgradeProcess(),
 			new CommerceDiscountRuleNameUpgradeProcess(),
-			new CommerceDiscountCommerceAccountGroupRelUpgradeProcess());
+			new com.liferay.commerce.discount.internal.upgrade.v2_2_0.
+				CommerceDiscountCommerceAccountGroupRelUpgradeProcess());
 
 		registry.register(
 			_SCHEMA_VERSION_2_2_0, _SCHEMA_VERSION_2_3_0,

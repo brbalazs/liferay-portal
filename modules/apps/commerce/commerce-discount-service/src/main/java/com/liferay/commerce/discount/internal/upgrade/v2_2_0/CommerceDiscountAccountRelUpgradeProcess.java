@@ -23,7 +23,7 @@ import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 public class CommerceDiscountAccountRelUpgradeProcess extends UpgradeProcess {
 
 	@Override
-	public void doUpgrade() throws Exception {
+	protected void doUpgrade() throws Exception {
 		if (!hasTable(CommerceDiscountAccountRelImpl.TABLE_NAME)) {
 			runSQL(CommerceDiscountAccountRelImpl.TABLE_SQL_CREATE);
 		}
