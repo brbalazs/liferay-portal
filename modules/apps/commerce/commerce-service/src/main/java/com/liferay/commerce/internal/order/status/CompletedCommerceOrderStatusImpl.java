@@ -34,12 +34,12 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.order.status.key=" + CompleteCommerceOrderStatusImpl.KEY,
-		"commerce.order.status.priority:Integer=" + CompleteCommerceOrderStatusImpl.PRIORITY
+		"commerce.order.status.key=" + CompletedCommerceOrderStatusImpl.KEY,
+		"commerce.order.status.priority:Integer=" + CompletedCommerceOrderStatusImpl.PRIORITY
 	},
 	service = CommerceOrderStatus.class
 )
-public class CompleteCommerceOrderStatusImpl implements CommerceOrderStatus {
+public class CompletedCommerceOrderStatusImpl implements CommerceOrderStatus {
 
 	public static final int KEY = CommerceOrderConstants.ORDER_STATUS_COMPLETED;
 
