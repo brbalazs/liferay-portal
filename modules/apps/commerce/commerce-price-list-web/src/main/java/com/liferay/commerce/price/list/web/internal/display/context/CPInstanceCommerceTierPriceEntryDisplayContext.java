@@ -26,6 +26,7 @@ import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefini
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
@@ -61,9 +62,8 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 
 		clayCreationMenu.addClayCreationMenuActionItem(
 			new ClayCreationMenuActionItem(
-				_getAddCommerceTierPriceEntryURL(),
-				LanguageUtil.get(httpServletRequest, "add-tier-price-entry"),
-				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
+				_getAddCommerceTierPriceEntryURL(), StringPool.BLANK,
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 
 		return clayCreationMenu;
 	}
@@ -115,6 +115,14 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		CommerceTierPriceEntry commerceTierPriceEntry =
+			getCommerceTierPriceEntry();
+
+		if (commerceTierPriceEntry == null) {
+			return LanguageUtil.get(
+				themeDisplay.getRequest(), "add-tier-price-entry");
+		}
+
 		StringBundler sb = new StringBundler(5);
 
 		CommercePriceEntry commercePriceEntry = getCommercePriceEntry();
@@ -142,18 +150,7 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 			}
 		}
 
-		CommerceTierPriceEntry commerceTierPriceEntry =
-			getCommerceTierPriceEntry();
-
-		String contextTitle = sb.toString();
-
-		if (commerceTierPriceEntry == null) {
-			contextTitle = LanguageUtil.format(
-				themeDisplay.getRequest(), "add-tier-price-entry-to-x",
-				contextTitle);
-		}
-
-		return contextTitle;
+		return sb.toString();
 	}
 
 	public CPInstance getCPInstance() throws PortalException {

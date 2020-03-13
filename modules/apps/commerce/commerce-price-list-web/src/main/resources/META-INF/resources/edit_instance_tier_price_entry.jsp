@@ -32,7 +32,7 @@ CommercePriceList commercePriceList = commercePriceEntry.getCommercePriceList();
 CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 %>
 
-<commerce-ui:side-panel-content
+<commerce-ui:modal-content
 	title="<%= title %>"
 >
 	<portlet:actionURL name="editCPInstanceCommerceTierPriceEntry" var="editCommerceTierPriceEntryActionURL" />
@@ -49,43 +49,29 @@ CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 
 		<div class="row">
 			<div class="col-12">
-				<commerce-ui:panel
-					title='<%= LanguageUtil.get(request, "details") %>'
-				>
-					<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= (commerceTierPriceEntry == null) ? BigDecimal.ZERO : commerceCurrency.round(commerceTierPriceEntry.getPrice()) %>">
-						<aui:validator name="min">0</aui:validator>
-						<aui:validator name="number" />
-					</aui:input>
+				<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= (commerceTierPriceEntry == null) ? BigDecimal.ZERO : commerceCurrency.round(commerceTierPriceEntry.getPrice()) %>">
+					<aui:validator name="min">0</aui:validator>
+					<aui:validator name="number" />
+				</aui:input>
 
-					<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= (commerceTierPriceEntry == null) ? BigDecimal.ZERO : commerceCurrency.round(commerceTierPriceEntry.getPromoPrice()) %>">
-						<aui:validator name="min">0</aui:validator>
-						<aui:validator name="number" />
-					</aui:input>
+				<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= (commerceTierPriceEntry == null) ? BigDecimal.ZERO : commerceCurrency.round(commerceTierPriceEntry.getPromoPrice()) %>">
+					<aui:validator name="min">0</aui:validator>
+					<aui:validator name="number" />
+				</aui:input>
 
-					<aui:input bean="<%= commerceTierPriceEntry %>" model="<%= CommerceTierPriceEntry.class %>" name="minQuantity">
-						<aui:validator name="min">0</aui:validator>
-					</aui:input>
-				</commerce-ui:panel>
+				<aui:input bean="<%= commerceTierPriceEntry %>" model="<%= CommerceTierPriceEntry.class %>" name="minQuantity">
+					<aui:validator name="min">0</aui:validator>
+				</aui:input>
 
 				<c:if test="<%= cpInstanceCommerceTierPriceEntryDisplayContext.hasCustomAttributes() %>">
-					<commerce-ui:panel
-						title='<%= LanguageUtil.get(request, "custom-attribute") %>'
-					>
-						<liferay-expando:custom-attribute-list
-							className="<%= CommerceTierPriceEntry.class.getName() %>"
-							classPK="<%= (commerceTierPriceEntry != null) ? commerceTierPriceEntry.getCommerceTierPriceEntryId() : 0 %>"
-							editable="<%= true %>"
-							label="<%= true %>"
-						/>
-					</commerce-ui:panel>
+					<liferay-expando:custom-attribute-list
+						className="<%= CommerceTierPriceEntry.class.getName() %>"
+						classPK="<%= (commerceTierPriceEntry != null) ? commerceTierPriceEntry.getCommerceTierPriceEntryId() : 0 %>"
+						editable="<%= true %>"
+						label="<%= true %>"
+					/>
 				</c:if>
 			</div>
 		</div>
-
-		<aui:button-row cssClass="tier-price-entry-button-row">
-			<aui:button cssClass="btn-lg" type="submit" />
-
-			<aui:button cssClass="btn-lg" type="cancel" />
-		</aui:button-row>
 	</aui:form>
-</commerce-ui:side-panel-content>
+</commerce-ui:modal-content>

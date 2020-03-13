@@ -90,7 +90,7 @@ public class CPInstanceTierPriceEntryDataSetActionProvider
 				LanguageUtil.get(httpServletRequest, "edit"), StringPool.BLANK,
 				false, false);
 
-			editClayDataSetAction.setTarget("sidePanel");
+			editClayDataSetAction.setTarget("modal");
 
 			clayDataSetActions.add(editClayDataSetAction);
 
