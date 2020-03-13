@@ -69,38 +69,38 @@ public class CommerceDiscountFinderImpl
 
 	@Override
 	public List<CommerceDiscount> findByUnqualifiedProduct(
-		long companyId, long cpDefinitionId, long[] assetCategoriesId,
-		long[] commercePricingClassesId) {
+		long companyId, long cpDefinitionId, long[] assetCategoryIds,
+		long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
 			FIND_BY_UNQUALIFIED_PRODUCT, companyId, -1, null, -1,
-			cpDefinitionId, assetCategoriesId, commercePricingClassesId);
+			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
 	@Override
 	public List<CommerceDiscount> findByUnqualifiedOrder(
 		long companyId, String commerceDiscountTargetType) {
 
-		return _findOrderDiscount(
+		return _findOrderDiscounts(
 			FIND_BY_UNQUALIFIED_ORDER, companyId, -1, null, -1,
 			commerceDiscountTargetType);
 	}
 
 	@Override
 	public List<CommerceDiscount> findByA_C_C_Product(
-		long commerceAccountId, long cpDefinitionId, long[] assetCategoriesId,
-		long[] commercePricingClassesId) {
+		long commerceAccountId, long cpDefinitionId, long[] assetCategoryIds,
+		long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
 			FIND_BY_A_C_C_PRODUCT, -1, commerceAccountId, null, -1,
-			cpDefinitionId, assetCategoriesId, commercePricingClassesId);
+			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
 	@Override
 	public List<CommerceDiscount> findByA_C_C_Order(
 		long commerceAccountId, String commerceDiscountTargetType) {
 
-		return _findOrderDiscount(
+		return _findOrderDiscounts(
 			FIND_BY_A_C_C_ORDER, -1, commerceAccountId, null, -1,
 			commerceDiscountTargetType);
 	}
@@ -108,37 +108,37 @@ public class CommerceDiscountFinderImpl
 	@Override
 	public List<CommerceDiscount> findByAG_C_C_Product(
 		long[] commerceAccountGroupIds, long cpDefinitionId,
-		long[] assetCategoriesId, long[] commercePricingClassesId) {
+		long[] assetCategoryIds, long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
 			FIND_BY_AG_C_C_PRODUCT, -1, -1, commerceAccountGroupIds, -1,
-			cpDefinitionId, assetCategoriesId, commercePricingClassesId);
+			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
 	@Override
 	public List<CommerceDiscount> findByAG_C_C_Order(
 		long[] commerceAccountGroupIds, String commerceDiscountTargetType) {
 
-		return _findOrderDiscount(
+		return _findOrderDiscounts(
 			FIND_BY_AG_C_C_ORDER, -1, -1, commerceAccountGroupIds, -1,
 			commerceDiscountTargetType);
 	}
 
 	@Override
 	public List<CommerceDiscount> findByC_C_C_Product(
-		long commerceChannelId, long cpDefinitionId, long[] assetCategoriesId,
-		long[] commercePricingClassesId) {
+		long commerceChannelId, long cpDefinitionId, long[] assetCategoryIds,
+		long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
 			FIND_BY_C_C_C_PRODUCT, -1, -1, null, commerceChannelId,
-			cpDefinitionId, assetCategoriesId, commercePricingClassesId);
+			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
 	@Override
 	public List<CommerceDiscount> findByC_C_C_Order(
 		long commerceChannelId, String commerceDiscountTargetType) {
 
-		return _findOrderDiscount(
+		return _findOrderDiscounts(
 			FIND_BY_C_C_C_ORDER, -1, -1, null, commerceChannelId,
 			commerceDiscountTargetType);
 	}
@@ -146,7 +146,7 @@ public class CommerceDiscountFinderImpl
 	@Override
 	public List<CommerceDiscount> findPriceListDiscountProduct(
 		long[] commerceDiscountIds, long cpDefinitionId,
-		long[] assetCategoriesId, long[] commercePricingClassesId) {
+		long[] assetCategoryIds, long[] commercePricingClassIds) {
 
 		Session session = null;
 
@@ -166,21 +166,21 @@ public class CommerceDiscountFinderImpl
 					sql, "[$DISCOUNT_IDS$]", new long[] {0});
 			}
 
-			if ((assetCategoriesId != null) && (assetCategoriesId.length > 0)) {
+			if ((assetCategoryIds != null) && (assetCategoryIds.length > 0)) {
 				sql = replaceQueryClassPKs(
-					sql, "[$CLASS_PK_CATEGORIES$]", assetCategoriesId);
+					sql, "[$CLASS_PK_CATEGORIES$]", assetCategoryIds);
 			}
 			else {
 				sql = replaceQueryClassPKs(
 					sql, "[$CLASS_PK_CATEGORIES$]", new long[] {0});
 			}
 
-			if ((commercePricingClassesId != null) &&
-				(commercePricingClassesId.length > 0)) {
+			if ((commercePricingClassIds != null) &&
+				(commercePricingClassIds.length > 0)) {
 
 				sql = replaceQueryClassPKs(
 					sql, "[$CLASS_PK_PRICING_CLASSES$]",
-					commercePricingClassesId);
+					commercePricingClassIds);
 			}
 			else {
 				sql = replaceQueryClassPKs(
@@ -228,7 +228,7 @@ public class CommerceDiscountFinderImpl
 		return StringUtil.replace(sql, queryPlaceholder, sb.toString());
 	}
 
-	private List<CommerceDiscount> _findOrderDiscount(
+	private List<CommerceDiscount> _findOrderDiscounts(
 		String queryString, long companyId, long commerceAccountId,
 		long[] commerceAccountGroupIds, long commerceChannelId,
 		String commerceDiscountTargetType) {
@@ -286,8 +286,8 @@ public class CommerceDiscountFinderImpl
 	private List<CommerceDiscount> _findProductDiscount(
 		String queryString, long companyId, long commerceAccountId,
 		long[] commerceAccountGroupIds, long commerceChannelId,
-		long cpDefinitionId, long[] assetCategoriesId,
-		long[] commercePricingClassesId) {
+		long cpDefinitionId, long[] assetCategoryIds,
+		long[] commercePricingClassIds) {
 
 		Session session = null;
 
@@ -307,21 +307,21 @@ public class CommerceDiscountFinderImpl
 					sql, "[$ACCOUNT_GROUP_IDS$]", new long[] {0});
 			}
 
-			if ((assetCategoriesId != null) && (assetCategoriesId.length > 0)) {
+			if ((assetCategoryIds != null) && (assetCategoryIds.length > 0)) {
 				sql = replaceQueryClassPKs(
-					sql, "[$CLASS_PK_CATEGORIES$]", assetCategoriesId);
+					sql, "[$CLASS_PK_CATEGORIES$]", assetCategoryIds);
 			}
 			else {
 				sql = replaceQueryClassPKs(
 					sql, "[$CLASS_PK_CATEGORIES$]", new long[] {0});
 			}
 
-			if ((commercePricingClassesId != null) &&
-				(commercePricingClassesId.length > 0)) {
+			if ((commercePricingClassIds != null) &&
+				(commercePricingClassIds.length > 0)) {
 
 				sql = replaceQueryClassPKs(
 					sql, "[$CLASS_PK_PRICING_CLASSES$]",
-					commercePricingClassesId);
+					commercePricingClassIds);
 			}
 			else {
 				sql = replaceQueryClassPKs(
