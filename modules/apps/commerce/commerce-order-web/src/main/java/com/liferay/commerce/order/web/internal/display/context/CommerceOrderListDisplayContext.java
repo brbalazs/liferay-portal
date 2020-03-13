@@ -50,7 +50,7 @@ public class CommerceOrderListDisplayContext {
 
 		_keywords = ParamUtil.getString(renderRequest, "keywords");
 		_showFilter = ParamUtil.getBoolean(renderRequest, "showFilter");
-		_activeTab = ParamUtil.getString(renderRequest, "activeTab", "open");
+		_activeTab = ParamUtil.getString(renderRequest, "activeTab", "all");
 	}
 
 	public String getActiveTab() {
@@ -131,11 +131,13 @@ public class CommerceOrderListDisplayContext {
 	}
 
 	private void _initNavigationItems() {
-		_navigationItems = new ArrayList<>(3);
+		_navigationItems = new ArrayList<>(5);
 
+		_navigationItems.add(_buildNavigationItem("all"));
 		_navigationItems.add(_buildNavigationItem("open"));
 		_navigationItems.add(_buildNavigationItem("pending"));
-		_navigationItems.add(_buildNavigationItem("fulfilled"));
+		_navigationItems.add(_buildNavigationItem("processing"));
+		_navigationItems.add(_buildNavigationItem("completed"));
 	}
 
 	private final String _activeTab;

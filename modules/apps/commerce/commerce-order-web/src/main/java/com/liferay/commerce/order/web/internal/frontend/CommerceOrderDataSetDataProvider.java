@@ -76,7 +76,7 @@ public class CommerceOrderDataSetDataProvider
 		OrderFilterImpl orderFilterImpl = (OrderFilterImpl)filter;
 
 		String activeTab = ParamUtil.getString(
-			httpServletRequest, "activeTab", "open");
+			httpServletRequest, "activeTab", "all");
 
 		SearchContext searchContext = buildSearchContext(
 			_portal.getCompanyId(httpServletRequest), activeTab,
@@ -103,7 +103,7 @@ public class CommerceOrderDataSetDataProvider
 				WebKeys.THEME_DISPLAY);
 
 		String activeTab = ParamUtil.getString(
-			httpServletRequest, "activeTab", "open");
+			httpServletRequest, "activeTab", "all");
 
 		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
 			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
@@ -222,34 +222,24 @@ public class CommerceOrderDataSetDataProvider
 	private SearchContext _addFacetOrderStatus(
 		SearchContext searchContext, String activeTab, int orderStatus) {
 
-		boolean negated = false;
 		int[] orderStatuses = null;
 
 		if (activeTab.equals("open")) {
-			orderStatuses = new int[] {
-				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-				CommerceOrderConstants.ORDER_STATUS_OPEN
-			};
+			orderStatuses = CommerceOrderConstants.ORDER_STATUSES_OPEN;
 		}
 		else if (activeTab.equals("pending")) {
-			orderStatuses = new int[] {
-				CommerceOrderConstants.ORDER_STATUS_PENDING
-			};
+			orderStatuses = CommerceOrderConstants.ORDER_STATUSES_PENDING;
 		}
-		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_ANY) {
-			negated = true;
-
-			orderStatuses = new int[] {
-				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-				CommerceOrderConstants.ORDER_STATUS_OPEN,
-				CommerceOrderConstants.ORDER_STATUS_PENDING
-			};
+		else if (activeTab.equals("processing")) {
+			orderStatuses = CommerceOrderConstants.ORDER_STATUSES_PROCESSING;
 		}
-		else {
+		else if (activeTab.equals("completed")) {
+			orderStatuses = CommerceOrderConstants.ORDER_STATUSES_COMPLETED;
+		}
+		else if (orderStatus != CommerceOrderConstants.ORDER_STATUS_ANY) {
 			orderStatuses = new int[] {orderStatus};
 		}
 
-		searchContext.setAttribute("negateOrderStatuses", negated);
 		searchContext.setAttribute("orderStatuses", orderStatuses);
 
 		return searchContext;

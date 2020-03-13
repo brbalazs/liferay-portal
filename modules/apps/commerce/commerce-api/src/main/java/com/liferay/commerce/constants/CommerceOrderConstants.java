@@ -76,11 +76,22 @@ public class CommerceOrderConstants {
 
 	public static final int ORDER_STATUS_SUBSCRIPTION = 9;
 
+	public static final int[] ORDER_STATUSES_COMPLETED = {
+		ORDER_STATUS_COMPLETED, ORDER_STATUS_CANCELLED
+	};
+
 	public static final int[] ORDER_STATUSES_OPEN = {
 		ORDER_STATUS_IN_PROGRESS, ORDER_STATUS_OPEN
 	};
 
-	public static final int[] ORDER_STATUSES_PENDING = {ORDER_STATUS_PENDING};
+	public static final int[] ORDER_STATUSES_PENDING = {
+		ORDER_STATUS_PENDING, ORDER_STATUS_ON_HOLD
+	};
+
+	public static final int[] ORDER_STATUSES_PROCESSING = {
+		ORDER_STATUS_PROCESSING, ORDER_STATUS_PARTIALLY_SHIPPED,
+		ORDER_STATUS_SHIPPED
+	};
 
 	public static final int PAYMENT_STATUS_AUTHORIZED =
 		WorkflowConstants.STATUS_DRAFT;
