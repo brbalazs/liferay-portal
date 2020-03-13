@@ -2390,6 +2390,8 @@ public class DLFileEntryLocalServiceImpl
 		DLFileEntry dlFileEntry = dlFileEntryPersistence.findByPrimaryKey(
 			fileEntryId);
 
+		long oldDataRepositoryId = dlFileEntry.getDataRepositoryId();
+
 		validateFile(
 			dlFileEntry.getGroupId(), newFolderId, dlFileEntry.getFileEntryId(),
 			dlFileEntry.getFileName(), dlFileEntry.getTitle());
@@ -2417,6 +2419,12 @@ public class DLFileEntryLocalServiceImpl
 
 		dlFolderLocalService.updateLastPostDate(
 			newFolderId, serviceContext.getModifiedDate(null));
+
+		// File
+
+		DLStoreUtil.updateFile(
+			user.getCompanyId(), oldDataRepositoryId,
+			dlFileEntry.getDataRepositoryId(), dlFileEntry.getName());
 
 		return dlFileEntry;
 	}
