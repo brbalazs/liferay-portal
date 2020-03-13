@@ -23,6 +23,7 @@ const themeDisplay = {
 
 var headers = new Headers({
 	Accept: 'application/json',
+	Authorization: 'Basic ' + btoa('test@liferay.com' + ':' + 'test'),
 	'Content-Type': 'application/json',
 	'x-csrf-token': Liferay.authToken
 });

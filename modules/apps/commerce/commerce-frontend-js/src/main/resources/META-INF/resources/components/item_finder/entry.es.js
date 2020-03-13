@@ -13,6 +13,6 @@
  */
 
 import {launcher} from '../../utilities/index.es';
-import ItemFinder from './ItemFinder.es';
+import ItemFinder from './ItemFinder';
 
 export default (...data) => launcher(ItemFinder, ...data);

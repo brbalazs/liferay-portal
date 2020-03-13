@@ -16,15 +16,16 @@ import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
 import ClayList from '@clayui/list';
 import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 import {getSchemaString} from '../../utilities/index.es';
-import Expose from './Expose.es';
+import Expose from './Expose';
 
 function Item(props) {
 	return (
-		<ClayList.Item className="py-2" flex>
+		<ClayList.Item className={classNames('py-3', props.className)} flex>
 			<ClayList.ItemField expand>
 				<ClayList.ItemTitle>{props.title}</ClayList.ItemTitle>
 			</ClayList.ItemField>
@@ -33,6 +34,7 @@ function Item(props) {
 					disabled={props.selected}
 					displayType="secondary"
 					onClick={props.onSelect}
+					small
 				>
 					{Liferay.Language.get('select')}
 				</ClayButton>
@@ -87,7 +89,9 @@ class AddOrCreateBase extends Component {
 				}`}
 				onFocus={e => this.handleFocusIn(e)}
 			>
-				<div className="card-header">{this.props.panelHeaderLabel}</div>
+				<h4 className="card-header align-items-center py-3">
+					{this.props.panelHeaderLabel}
+				</h4>
 				<div className="card-body">
 					<div className="input-group">
 						<div className="input-group-item">
@@ -128,10 +132,20 @@ class AddOrCreateBase extends Component {
 									<ClayList.Header>
 										{this.props.createNewItemLabel}
 									</ClayList.Header>
-									<ClayList.Item flex>
+									<ClayList.Item
+										className={classNames(
+											'py-3',
+											this.props.items &&
+												this.props.items.length &&
+												'border-bottom mb-3'
+										)}
+										flex
+									>
 										<ClayList.ItemField expand>
 											<ClayList.ItemTitle>
+												&quot;
 												{this.props.inputSearchValue}
+												&quot;
 											</ClayList.ItemTitle>
 										</ClayList.ItemField>
 
@@ -140,21 +154,29 @@ class AddOrCreateBase extends Component {
 												onClick={
 													this.props.onItemCreated
 												}
+												small
 											>
-												{Liferay.Language.get('create')}
+												{Liferay.Language.get(
+													'create-new'
+												)}
 											</ClayButton>
 										</ClayList.ItemField>
 									</ClayList.Item>
 								</>
 							)}
 
-							{this.props.items.length ? (
+							{this.props.items && this.props.items.length ? (
 								<>
 									<ClayList.Header>
 										{this.props.titleLabel}
 									</ClayList.Header>
 									{this.props.items.map((item, i) => (
 										<Item
+											className={classNames(
+												i !==
+													this.props.items.length -
+														1 && 'border-bottom'
+											)}
 											key={item[this.props.itemsKey] || i}
 											onSelect={() =>
 												this.props.onItemSelected(

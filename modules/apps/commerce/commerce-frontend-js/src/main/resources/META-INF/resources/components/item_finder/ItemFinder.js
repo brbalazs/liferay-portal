@@ -18,7 +18,7 @@ import React, {useEffect, useState} from 'react';
 
 import {DATASET_ACTION_PERFORMED} from '../../utilities/eventsDefinitions.es';
 import {showErrorNotification} from '../../utilities/index.es';
-import AddOrCreate from './AddOrCreate.es';
+import AddOrCreate from './AddOrCreate';
 
 function ItemFinder(props) {
 	const [items, updateItems] = useState([]);
@@ -29,13 +29,19 @@ function ItemFinder(props) {
 	const [selectedItems, updateSelectedItems] = useState([]);
 
 	useEffect(() => {
+		if (!textFilter) {
+			updateItems(null);
+			updateItemsCount(0);
+			return;
+		}
+
 		fetch(
-			`${props.apiUrl}?pageSize=${pageSize}&page=${currentPage}${
-				textFilter ? `&search=${textFilter}` : ''
-			}`,
+			`${props.apiUrl}?pageSize=${pageSize}&page=${currentPage}&search=${textFilter}`,
 			{
 				credentials: 'include',
-				headers: new Headers({'x-csrf-token': Liferay.authToken}),
+				headers: new Headers({
+					'x-csrf-token': Liferay.authToken
+				}),
 				method: 'GET'
 			}
 		)
@@ -43,7 +49,8 @@ function ItemFinder(props) {
 			.then(jsonResponse => {
 				updateItems(jsonResponse.items);
 				updateItemsCount(jsonResponse.totalCount);
-			});
+			})
+			.catch(showErrorNotification);
 	}, [
 		pageSize,
 		currentPage,
@@ -93,6 +100,7 @@ function ItemFinder(props) {
 			<AddOrCreate
 				createNewItemLabel={props.createNewItemLabel}
 				currentPage={currentPage}
+				inputPlaceholder={props.inputPlaceholder}
 				inputSearchValue={textFilter}
 				items={items}
 				itemsCount={itemsCount}
@@ -118,6 +126,7 @@ ItemFinder.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
 	createNewItemLabel: PropTypes.string,
 	getSelectedItems: PropTypes.func.isRequired,
+	inputPlaceholder: PropTypes.string,
 	itemsKey: PropTypes.string.isRequired,
 	linkedDatasetsId: PropTypes.arrayOf(PropTypes.string),
 	onItemCreated: PropTypes.func.isRequired,

@@ -69,7 +69,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				return fetch('/o/headless-commerce-admin-catalog/v1.0/options', {
 					body: JSON.stringify({
 						fieldType: 'select',
-						key: utilities.slugify(name),
+						key: utilities.slugify(encodeURIComponent(name)),
 						name: {
 							[themeDisplay.getLanguageId()]: name
 						}
@@ -108,6 +108,8 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/options',
 				createNewItemLabel: '<%= LanguageUtil.get(request, "create-new-option") %>',
 				getSelectedItems: getSelectedItems,
+				inputPlaceholder:
+					'<%= LanguageUtil.get(request, "find-an-option-or-create-one") %>',
 				itemsKey: 'id',
 				linkedDatasetsId: [
 					'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'
@@ -115,12 +117,12 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				onItemCreated: addNewItem,
 				onItemSelected: selectItem,
 				pageSize: 10,
-				panelHeaderLabel: '<%= LanguageUtil.get(request, "add-new-option") %>',
+				panelHeaderLabel: '<%= LanguageUtil.get(request, "add-option") %>',
 				schema: {
 					itemTitle: ['name', themeDisplay.getLanguageId()]
 				},
 				spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-				titleLabel: '<%= LanguageUtil.get(request, "select-an-existing-option") %>'
+				titleLabel: '<%= LanguageUtil.get(request, "add-existing-option") %>'
 			});
 		</aui:script>
 

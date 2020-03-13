@@ -230,7 +230,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					function addNewItem(name) {
 						return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
 							body: JSON.stringify({
-								key: utilities.slugify(name),
+								key: utilities.slugify(encodeURIComponent(name)),
 								title: {
 									[themeDisplay.getLanguageId()]: name
 								}
@@ -270,6 +270,8 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						createNewItemLabel:
 							'<%= LanguageUtil.get(request, "create-new-specification") %>',
 						getSelectedItems: getSelectedItems,
+						inputPlaceholder:
+							'<%= LanguageUtil.get(request, "find-a-specification-or-create-one") %>',
 						itemsKey: 'id',
 						linkedDatasetsId: [
 							'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
@@ -277,14 +279,12 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						onItemCreated: addNewItem,
 						onItemSelected: selectItem,
 						pageSize: 10,
-						panelHeaderLabel:
-							'<%= LanguageUtil.get(request, "add-new-specification") %>',
+						panelHeaderLabel: '<%= LanguageUtil.get(request, "add-specification") %>',
 						schema: {
 							itemTitle: ['title', themeDisplay.getLanguageId()]
 						},
 						spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-						titleLabel:
-							'<%= LanguageUtil.get(request, "select-an-existing-specification") %>'
+						titleLabel: '<%= LanguageUtil.get(request, "add-existing-specification") %>'
 					});
 				</aui:script>
 			</div>
