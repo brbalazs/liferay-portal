@@ -61,7 +61,7 @@ function List(props) {
 							/>
 						)}
 					</ClayList.ItemField>
-					{props.schema.thumbnail && (
+					{props.schema.thumbnail && item[props.schema.thumbnail] && (
 						<ClayList.ItemField>
 							<Image value={item[props.schema.thumbnail]} />
 						</ClayList.ItemField>
