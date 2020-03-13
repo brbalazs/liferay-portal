@@ -21,6 +21,7 @@ import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
 import com.liferay.commerce.price.list.web.internal.model.InstanceTierPriceEntry;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.petra.string.StringPool;
@@ -34,6 +35,7 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -41,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
 
@@ -113,15 +116,18 @@ public class CPInstanceTierPriceEntryDataSetActionProvider
 			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CPDefinition.class.getName(),
-			PortletProvider.Action.MANAGE);
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest, CPPortletKeys.CP_DEFINITIONS,
+			PortletRequest.ACTION_PHASE);
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
 
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editCPInstanceCommerceTierPriceEntry");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter("redirect", redirect);
 		portletURL.setParameter(
 			"commercePriceEntryId",
 			String.valueOf(commerceTierPriceEntry.getCommercePriceEntryId()));
