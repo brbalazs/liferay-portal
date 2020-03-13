@@ -39,6 +39,7 @@
 	]}
 	{@param? draggingItemPosition: string}
 	{@param? hoveredLayoutColumnItemPlid: string}
+	{@param? _handleLayoutColumnItemTitleClick: any}
 
 	{let $layoutColumnClasses kind="text"}
 		col-11
@@ -74,6 +75,7 @@
 			{/let}
 
 			{call .layoutColumnItem}
+				{param _handleLayoutColumnItemTitleClick: $_handleLayoutColumnItemTitleClick /}
 				{param key: $layoutColumnItem.plid /}
 				{param layoutColumnIndex: $layoutColumnIndex /}
 				{param layoutColumnItem: $layoutColumnItem /}
@@ -127,6 +129,7 @@
 	{@param pathThemeImages: string}
 	{@param portletNamespace: string}
 	{@param? styleModifier: string}
+	{@param? _handleLayoutColumnItemTitleClick: any}
 
 	{let $listGroupItemClasses kind="text"}
 		layout-item
@@ -211,7 +214,7 @@
 				</div>
 			{/if}
 
-			<div class="autofit-col flex-col flex-col-expand layout-column-item-title">
+			<div class="autofit-col flex-col flex-col-expand layout-column-item-title" data-onclick="{$_handleLayoutColumnItemTitleClick}">
 				<h4 class="list-group-title">
 					<span
 						class="text-truncate"
