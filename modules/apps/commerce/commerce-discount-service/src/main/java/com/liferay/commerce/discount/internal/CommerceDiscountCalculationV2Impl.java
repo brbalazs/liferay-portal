@@ -150,7 +150,7 @@ public class CommerceDiscountCalculationV2Impl
 			).toArray();
 
 			List<CommerceDiscount> commerceDiscounts =
-				_commerceDiscountLocalService.findPriceListDiscountProduct(
+				_commerceDiscountLocalService.getPriceListCommerceDiscounts(
 					commerceDiscountIds, cpInstance.getCPDefinitionId());
 
 			if (commerceDiscounts.isEmpty()) {
@@ -505,7 +505,7 @@ public class CommerceDiscountCalculationV2Impl
 		throws PortalException {
 
 		List<CommerceDiscount> commerceDiscounts =
-			_commerceDiscountLocalService.findByA_C_C_Order(
+			_commerceDiscountLocalService.getAccountCommerceDiscounts(
 				commerceAccountId, commerceDiscountTargetType);
 
 		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
@@ -516,21 +516,23 @@ public class CommerceDiscountCalculationV2Impl
 			_commerceAccountHelper.getCommerceAccountGroupIds(
 				commerceAccountId);
 
-		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Order(
-			commerceAccountGroupIds, commerceDiscountTargetType);
+		commerceDiscounts =
+			_commerceDiscountLocalService.getAccountGroupCommerceDiscount(
+				commerceAccountGroupIds, commerceDiscountTargetType);
 
 		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
-		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Order(
-			commerceChannelId, commerceDiscountTargetType);
+		commerceDiscounts =
+			_commerceDiscountLocalService.getChannelCommerceDiscounts(
+				commerceChannelId, commerceDiscountTargetType);
 
 		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
-		return _commerceDiscountLocalService.findByUnqualifiedOrder(
+		return _commerceDiscountLocalService.getUnqualifiedCommerceDiscounts(
 			companyId, commerceDiscountTargetType);
 	}
 
@@ -558,7 +560,7 @@ public class CommerceDiscountCalculationV2Impl
 		throws PortalException {
 
 		List<CommerceDiscount> commerceDiscounts =
-			_commerceDiscountLocalService.findByA_C_C_Product(
+			_commerceDiscountLocalService.getAccountCommerceDiscounts(
 				commerceAccountId, cpDefinitionId);
 
 		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
@@ -569,21 +571,23 @@ public class CommerceDiscountCalculationV2Impl
 			_commerceAccountHelper.getCommerceAccountGroupIds(
 				commerceAccountId);
 
-		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Product(
-			commerceAccountGroupIds, cpDefinitionId);
+		commerceDiscounts =
+			_commerceDiscountLocalService.getAccountGroupCommerceDiscount(
+				commerceAccountGroupIds, cpDefinitionId);
 
 		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
-		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Product(
-			commerceChannelId, cpDefinitionId);
+		commerceDiscounts =
+			_commerceDiscountLocalService.getChannelCommerceDiscounts(
+				commerceChannelId, cpDefinitionId);
 
 		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
 			return commerceDiscounts;
 		}
 
-		return _commerceDiscountLocalService.findByUnqualifiedProduct(
+		return _commerceDiscountLocalService.getUnqualifiedCommerceDiscounts(
 			companyId, cpDefinitionId);
 	}
 

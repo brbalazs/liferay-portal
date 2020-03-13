@@ -305,15 +305,7 @@ public class CommerceDiscountLocalServiceImpl
 	}
 
 	@Override
-	public List<CommerceDiscount> findByA_C_C_Order(
-		long commerceAccountId, String commerceDiscountTargetType) {
-
-		return commerceDiscountFinder.findByA_C_C_Order(
-			commerceAccountId, commerceDiscountTargetType);
-	}
-
-	@Override
-	public List<CommerceDiscount> findByA_C_C_Product(
+	public List<CommerceDiscount> getAccountCommerceDiscounts(
 		long commerceAccountId, long cpDefinitionId) {
 
 		return commerceDiscountFinder.findByA_C_C_Product(
@@ -324,15 +316,15 @@ public class CommerceDiscountLocalServiceImpl
 	}
 
 	@Override
-	public List<CommerceDiscount> findByAG_C_C_Order(
-		long[] commerceAccountGroupIds, String commerceDiscountTargetType) {
+	public List<CommerceDiscount> getAccountCommerceDiscounts(
+		long commerceAccountId, String commerceDiscountTargetType) {
 
-		return commerceDiscountFinder.findByAG_C_C_Order(
-			commerceAccountGroupIds, commerceDiscountTargetType);
+		return commerceDiscountFinder.findByA_C_C_Order(
+			commerceAccountId, commerceDiscountTargetType);
 	}
 
 	@Override
-	public List<CommerceDiscount> findByAG_C_C_Product(
+	public List<CommerceDiscount> getAccountGroupCommerceDiscount(
 		long[] commerceAccountGroupIds, long cpDefinitionId) {
 
 		return commerceDiscountFinder.findByAG_C_C_Product(
@@ -343,15 +335,15 @@ public class CommerceDiscountLocalServiceImpl
 	}
 
 	@Override
-	public List<CommerceDiscount> findByC_C_C_Order(
-		long commerceChannelId, String commerceDiscountTargetType) {
+	public List<CommerceDiscount> getAccountGroupCommerceDiscount(
+		long[] commerceAccountGroupIds, String commerceDiscountTargetType) {
 
-		return commerceDiscountFinder.findByC_C_C_Order(
-			commerceChannelId, commerceDiscountTargetType);
+		return commerceDiscountFinder.findByAG_C_C_Order(
+			commerceAccountGroupIds, commerceDiscountTargetType);
 	}
 
 	@Override
-	public List<CommerceDiscount> findByC_C_C_Product(
+	public List<CommerceDiscount> getChannelCommerceDiscounts(
 		long commerceChannelId, long cpDefinitionId) {
 
 		return commerceDiscountFinder.findByC_C_C_Product(
@@ -362,32 +354,11 @@ public class CommerceDiscountLocalServiceImpl
 	}
 
 	@Override
-	public List<CommerceDiscount> findByUnqualifiedOrder(
-		long companyId, String commerceDiscountTargetType) {
+	public List<CommerceDiscount> getChannelCommerceDiscounts(
+		long commerceChannelId, String commerceDiscountTargetType) {
 
-		return commerceDiscountFinder.findByUnqualifiedOrder(
-			companyId, commerceDiscountTargetType);
-	}
-
-	@Override
-	public List<CommerceDiscount> findByUnqualifiedProduct(
-		long companyId, long cpDefinitionId) {
-
-		return commerceDiscountFinder.findByUnqualifiedProduct(
-			companyId, cpDefinitionId, _getAssetCategoryIds(cpDefinitionId),
-			_commercePricingClassLocalService.
-				getCommercePricingClassByCPDefinition(cpDefinitionId));
-	}
-
-	@Override
-	public List<CommerceDiscount> findPriceListDiscountProduct(
-		long[] commerceDiscountIds, long cpDefinitionId) {
-
-		return commerceDiscountFinder.findPriceListDiscountProduct(
-			commerceDiscountIds, cpDefinitionId,
-			_getAssetCategoryIds(cpDefinitionId),
-			_commercePricingClassLocalService.
-				getCommercePricingClassByCPDefinition(cpDefinitionId));
+		return commerceDiscountFinder.findByC_C_C_Order(
+			commerceChannelId, commerceDiscountTargetType);
 	}
 
 	@Override
@@ -400,6 +371,35 @@ public class CommerceDiscountLocalServiceImpl
 	@Override
 	public int getCommerceDiscountsCount(long companyId, String couponCode) {
 		return commerceDiscountPersistence.countByC_C(companyId, couponCode);
+	}
+
+	@Override
+	public List<CommerceDiscount> getPriceListCommerceDiscounts(
+		long[] commerceDiscountIds, long cpDefinitionId) {
+
+		return commerceDiscountFinder.findPriceListDiscountProduct(
+			commerceDiscountIds, cpDefinitionId,
+			_getAssetCategoryIds(cpDefinitionId),
+			_commercePricingClassLocalService.
+				getCommercePricingClassByCPDefinition(cpDefinitionId));
+	}
+
+	@Override
+	public List<CommerceDiscount> getUnqualifiedCommerceDiscounts(
+		long companyId, long cpDefinitionId) {
+
+		return commerceDiscountFinder.findByUnqualifiedProduct(
+			companyId, cpDefinitionId, _getAssetCategoryIds(cpDefinitionId),
+			_commercePricingClassLocalService.
+				getCommercePricingClassByCPDefinition(cpDefinitionId));
+	}
+
+	@Override
+	public List<CommerceDiscount> getUnqualifiedCommerceDiscounts(
+		long companyId, String commerceDiscountTargetType) {
+
+		return commerceDiscountFinder.findByUnqualifiedOrder(
+			companyId, commerceDiscountTargetType);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)

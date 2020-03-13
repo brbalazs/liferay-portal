@@ -155,7 +155,7 @@ public class CommerceDiscountLocalServiceTest {
 				cpDefinition.getCPDefinitionId());
 
 		List<CommerceDiscount> commerceDiscounts =
-			_commerceDiscountLocalService.findByUnqualifiedProduct(
+			_commerceDiscountLocalService.getUnqualifiedCommerceDiscounts(
 				_company.getCompanyId(), cpDefinition.getCPDefinitionId());
 
 		Assert.assertEquals(
@@ -194,7 +194,7 @@ public class CommerceDiscountLocalServiceTest {
 				cpDefinition.getCPDefinitionId());
 
 		List<CommerceDiscount> commerceDiscounts =
-			_commerceDiscountLocalService.findByUnqualifiedProduct(
+			_commerceDiscountLocalService.getUnqualifiedCommerceDiscounts(
 				_company.getCompanyId(), cpDefinition.getCPDefinitionId());
 
 		Assert.assertEquals(
@@ -230,7 +230,7 @@ public class CommerceDiscountLocalServiceTest {
 				cpDefinition.getCPDefinitionId());
 
 		List<CommerceDiscount> commerceDiscounts =
-			_commerceDiscountLocalService.findByUnqualifiedProduct(
+			_commerceDiscountLocalService.getUnqualifiedCommerceDiscounts(
 				_company.getCompanyId(), cpDefinition.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount = commerceDiscounts.get(0);
@@ -245,9 +245,10 @@ public class CommerceDiscountLocalServiceTest {
 				CommerceDiscountConstants.LEVEL_L1,
 				cpDefinition.getCPDefinitionId());
 
-		commerceDiscounts = _commerceDiscountLocalService.findByC_C_C_Product(
-			_commerceChannel.getCommerceChannelId(),
-			cpDefinition.getCPDefinitionId());
+		commerceDiscounts =
+			_commerceDiscountLocalService.getChannelCommerceDiscounts(
+				_commerceChannel.getCommerceChannelId(),
+				cpDefinition.getCPDefinitionId());
 
 		commerceDiscount = commerceDiscounts.get(0);
 
@@ -265,8 +266,9 @@ public class CommerceDiscountLocalServiceTest {
 				CommerceDiscountConstants.LEVEL_L3,
 				cpDefinition.getCPDefinitionId());
 
-		commerceDiscounts = _commerceDiscountLocalService.findByAG_C_C_Product(
-			commerceAccountGroups, cpDefinition.getCPDefinitionId());
+		commerceDiscounts =
+			_commerceDiscountLocalService.getAccountGroupCommerceDiscount(
+				commerceAccountGroups, cpDefinition.getCPDefinitionId());
 
 		commerceDiscount = commerceDiscounts.get(0);
 
@@ -280,9 +282,10 @@ public class CommerceDiscountLocalServiceTest {
 				CommerceDiscountConstants.LEVEL_L4,
 				cpDefinition.getCPDefinitionId());
 
-		commerceDiscounts = _commerceDiscountLocalService.findByA_C_C_Product(
-			_commerceAccount.getCommerceAccountId(),
-			cpDefinition.getCPDefinitionId());
+		commerceDiscounts =
+			_commerceDiscountLocalService.getAccountCommerceDiscounts(
+				_commerceAccount.getCommerceAccountId(),
+				cpDefinition.getCPDefinitionId());
 
 		commerceDiscount = commerceDiscounts.get(0);
 
@@ -328,7 +331,7 @@ public class CommerceDiscountLocalServiceTest {
 				CommerceDiscountConstants.TARGET_TOTAL);
 
 		List<CommerceDiscount> commerceDiscounts =
-			_commerceDiscountLocalService.findByA_C_C_Order(
+			_commerceDiscountLocalService.getAccountCommerceDiscounts(
 				_commerceAccount.getCommerceAccountId(),
 				CommerceDiscountConstants.TARGET_TOTAL);
 
@@ -351,9 +354,10 @@ public class CommerceDiscountLocalServiceTest {
 				_user.getGroupId(), _commerceAccount.getCommerceAccountId(),
 				CommerceDiscountConstants.TARGET_SHIPPING);
 
-		commerceDiscounts = _commerceDiscountLocalService.findByA_C_C_Order(
-			_commerceAccount.getCommerceAccountId(),
-			CommerceDiscountConstants.TARGET_SHIPPING);
+		commerceDiscounts =
+			_commerceDiscountLocalService.getAccountCommerceDiscounts(
+				_commerceAccount.getCommerceAccountId(),
+				CommerceDiscountConstants.TARGET_SHIPPING);
 
 		commerceDiscount = commerceDiscounts.get(0);
 
@@ -374,9 +378,10 @@ public class CommerceDiscountLocalServiceTest {
 				_user.getGroupId(), _commerceAccount.getCommerceAccountId(),
 				CommerceDiscountConstants.TARGET_SUBTOTAL);
 
-		commerceDiscounts = _commerceDiscountLocalService.findByA_C_C_Order(
-			_commerceAccount.getCommerceAccountId(),
-			CommerceDiscountConstants.TARGET_SUBTOTAL);
+		commerceDiscounts =
+			_commerceDiscountLocalService.getAccountCommerceDiscounts(
+				_commerceAccount.getCommerceAccountId(),
+				CommerceDiscountConstants.TARGET_SUBTOTAL);
 
 		commerceDiscount = commerceDiscounts.get(0);
 
