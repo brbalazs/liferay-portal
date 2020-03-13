@@ -56,12 +56,12 @@ CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 			<aui:validator name="number" />
 		</aui:input>
 
-		<aui:input label="shipping-and-handing" name="shippingAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getShippingAmount()) %>" wrapperCssClass="form-group-item">
+		<aui:input label="shipping-and-handling" name="shippingAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getShippingAmount()) %>" wrapperCssClass="form-group-item">
 			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>
 
-		<aui:input label="shipping-and-handing-discount" name="shippingDiscountAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getShippingDiscountAmount()) %>" wrapperCssClass="form-group-item">
+		<aui:input label="shipping-and-handling-discount" name="shippingDiscountAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getShippingDiscountAmount()) %>" wrapperCssClass="form-group-item">
 			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>

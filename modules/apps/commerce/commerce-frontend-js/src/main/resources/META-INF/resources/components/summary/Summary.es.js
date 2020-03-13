@@ -175,11 +175,11 @@ Summary.defaultProps = {
 				value: jsonData.taxAmountFormatted
 			},
 			{
-				label: Liferay.Language.get('shipping-and-handing'),
+				label: Liferay.Language.get('shipping-and-handling'),
 				value: jsonData.shippingAmountFormatted
 			},
 			{
-				label: Liferay.Language.get('shipping-and-handing-discount'),
+				label: Liferay.Language.get('shipping-and-handling-discount'),
 				value: jsonData.shippingDiscountAmountFormatted
 			},
 			{
