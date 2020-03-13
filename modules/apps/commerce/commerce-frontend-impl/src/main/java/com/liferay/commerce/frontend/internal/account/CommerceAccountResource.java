@@ -347,6 +347,7 @@ public class CommerceAccountResource {
 				new Order(
 					commerceOrder.getCommerceOrderId(),
 					commerceOrder.getCommerceAccountId(),
+					commerceOrder.getCommerceAccountName(),
 					commerceOrder.getPurchaseOrderNumber(),
 					LanguageUtil.format(
 						httpServletRequest, "x-ago",
