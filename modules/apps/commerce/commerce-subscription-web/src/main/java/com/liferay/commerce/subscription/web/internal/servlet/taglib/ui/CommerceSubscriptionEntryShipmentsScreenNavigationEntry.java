@@ -16,7 +16,6 @@ package com.liferay.commerce.subscription.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelLocalService;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPSubscriptionTypeJSPContributorRegistry;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
@@ -84,7 +83,6 @@ public class CommerceSubscriptionEntryShipmentsScreenNavigationEntry
 		CommerceSubscriptionEntryDisplayContext
 			commerceSubscriptionEntryDisplayContext =
 				new CommerceSubscriptionEntryDisplayContext(
-					_commerceChannelLocalService,
 					_commercePaymentMethodGroupRelLocalService,
 					_commerceSubscriptionEntryLocalService,
 					_commerceOrderItemLocalService,
@@ -99,9 +97,6 @@ public class CommerceSubscriptionEntryShipmentsScreenNavigationEntry
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/subscription_entry/shipments.jsp");
 	}
-
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
