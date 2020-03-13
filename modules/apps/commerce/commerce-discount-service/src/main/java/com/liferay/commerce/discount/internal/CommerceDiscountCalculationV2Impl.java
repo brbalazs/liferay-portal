@@ -36,6 +36,7 @@ import com.liferay.commerce.price.list.service.CommercePriceListDiscountRelLocal
 import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -427,7 +428,8 @@ public class CommerceDiscountCalculationV2Impl
 		throws PortalException {
 
 		BigDecimal[] commerceDiscountLevels = _getCommerceDiscountLevels(
-			"", commercePrice, commerceContext, commerceDiscounts);
+			StringPool.BLANK, commercePrice, commerceContext,
+			commerceDiscounts);
 
 		CommerceDiscountApplicationStrategy
 			commerceDiscountApplicationStrategy =
