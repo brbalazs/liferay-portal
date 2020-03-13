@@ -17,6 +17,7 @@ package com.liferay.commerce.shipping.web.internal.portlet;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
+import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionService;
 import com.liferay.commerce.shipping.web.internal.display.context.CommerceShippingMethodsDisplayContext;
 import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -69,6 +70,7 @@ public class CommerceShippingMethodPortlet extends MVCPortlet {
 				new CommerceShippingMethodsDisplayContext(
 					_commerceChannelLocalService,
 					_commerceShippingEngineRegistry,
+					_commerceShippingFixedOptionService,
 					_commerceShippingMethodService,
 					_portal.getHttpServletRequest(renderRequest));
 
@@ -84,6 +86,10 @@ public class CommerceShippingMethodPortlet extends MVCPortlet {
 
 	@Reference
 	private CommerceShippingEngineRegistry _commerceShippingEngineRegistry;
+
+	@Reference
+	private CommerceShippingFixedOptionService
+		_commerceShippingFixedOptionService;
 
 	@Reference
 	private CommerceShippingMethodService _commerceShippingMethodService;
