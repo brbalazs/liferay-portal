@@ -31,6 +31,7 @@ import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -45,7 +46,6 @@ import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.TextFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,9 +109,9 @@ public class CommerceOrderItemDataSetDataProvider
 					commerceOrderItem.getName(locale),
 					_getPrice(commerceOrderItem, locale),
 					_getSubscriptionDuration(
-						commerceOrderItem, httpServletRequest, locale),
+						commerceOrderItem, httpServletRequest),
 					_getSubscriptionPeriod(
-						commerceOrderItem, httpServletRequest, locale),
+						commerceOrderItem, httpServletRequest),
 					_getDiscount(commerceOrderItem, locale),
 					commerceOrderItem.getQuantity(),
 					_getTotal(commerceOrderItem, locale)));
@@ -203,7 +203,7 @@ public class CommerceOrderItemDataSetDataProvider
 		if (plural) {
 			return LanguageUtil.get(
 				httpServletRequest,
-				TextFormatter.formatPlural(StringUtil.toLowerCase(period)));
+				StringUtil.toLowerCase(period + CharPool.LOWER_CASE_S));
 		}
 
 		return LanguageUtil.get(httpServletRequest, period);
@@ -219,7 +219,7 @@ public class CommerceOrderItemDataSetDataProvider
 
 	private String _getSubscriptionDuration(
 			CommerceOrderItem commerceOrderItem,
-			HttpServletRequest httpServletRequest, Locale locale)
+			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
 		String subscriptionDuration = StringPool.BLANK;
@@ -246,7 +246,7 @@ public class CommerceOrderItemDataSetDataProvider
 						cpSubscriptionInfo.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(locale);
+					period = cpSubscriptionType.getLabel(Locale.US);
 				}
 
 				long duration = cpSubscriptionInfo.getMaxSubscriptionCycles();
@@ -273,6 +273,14 @@ public class CommerceOrderItemDataSetDataProvider
 
 				String period = StringPool.BLANK;
 
+				CPSubscriptionType cpSubscriptionType =
+					_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+						commerceSubscriptionEntry.getSubscriptionType());
+
+				if (cpSubscriptionType != null) {
+					period = cpSubscriptionType.getLabel(Locale.US);
+				}
+
 				long duration =
 					commerceSubscriptionEntry.getMaxSubscriptionCycles();
 
@@ -290,7 +298,7 @@ public class CommerceOrderItemDataSetDataProvider
 
 	private String _getSubscriptionPeriod(
 			CommerceOrderItem commerceOrderItem,
-			HttpServletRequest httpServletRequest, Locale locale)
+			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
 		String subscriptionPeriod = StringPool.BLANK;
@@ -317,7 +325,7 @@ public class CommerceOrderItemDataSetDataProvider
 						cpSubscriptionInfo.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(locale);
+					period = cpSubscriptionType.getLabel(Locale.US);
 				}
 
 				int subscriptionLength =
@@ -342,6 +350,14 @@ public class CommerceOrderItemDataSetDataProvider
 				}
 
 				String period = StringPool.BLANK;
+
+				CPSubscriptionType cpSubscriptionType =
+					_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+						commerceSubscriptionEntry.getSubscriptionType());
+
+				if (cpSubscriptionType != null) {
+					period = cpSubscriptionType.getLabel(Locale.US);
+				}
 
 				int subscriptionLength =
 					commerceSubscriptionEntry.getSubscriptionLength();

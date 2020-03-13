@@ -20,6 +20,7 @@ import com.liferay.commerce.product.model.CPSubscriptionInfo;
 import com.liferay.commerce.product.service.CPInstanceLocalServiceUtil;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
+import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -27,7 +28,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
@@ -35,6 +35,7 @@ import com.liferay.taglib.util.IncludeTag;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import java.util.Locale;
 
 /**
  * @author Alessio Antonio Rendina
@@ -91,12 +92,12 @@ public class ProductSubscriptionInfoTag extends IncludeTag {
 					deliverySubscriptionType);
 
 			if (cpSubscriptionType != null) {
-				period = cpSubscriptionType.getLabel(themeDisplay.getLocale());
+				period = cpSubscriptionType.getLabel(Locale.US);
 			}
 
 			if (cpDeliverySubscriptionType != null) {
 				deliveryPeriod = cpDeliverySubscriptionType.getLabel(
-					themeDisplay.getLocale());
+					Locale.US);
 			}
 
 			_subscriptionPeriodKey = _getPeriodKey(period, _length != 1);
@@ -219,7 +220,7 @@ public class ProductSubscriptionInfoTag extends IncludeTag {
 		if (plural) {
 			return LanguageUtil.get(
 				request,
-				TextFormatter.formatPlural(StringUtil.toLowerCase(period)));
+				StringUtil.toLowerCase(period + CharPool.LOWER_CASE_S));
 		}
 
 		return LanguageUtil.get(request, period);

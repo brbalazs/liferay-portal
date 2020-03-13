@@ -33,6 +33,7 @@ import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryService;
 import com.liferay.commerce.subscription.web.internal.model.OrderItem;
+import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -41,7 +42,6 @@ import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.TextFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,7 +147,7 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 		if (plural) {
 			return LanguageUtil.get(
 				httpServletRequest,
-				TextFormatter.formatPlural(StringUtil.toLowerCase(period)));
+				StringUtil.toLowerCase(period + CharPool.LOWER_CASE_S));
 		}
 
 		return LanguageUtil.get(httpServletRequest, period);
@@ -182,7 +182,7 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 						cpSubscriptionInfo.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(locale);
+					period = cpSubscriptionType.getLabel(Locale.US);
 				}
 
 				long duration = cpSubscriptionInfo.getMaxSubscriptionCycles();
@@ -208,6 +208,14 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 				}
 
 				String period = StringPool.BLANK;
+
+				CPSubscriptionType cpSubscriptionType =
+					_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+						commerceSubscriptionEntry.getSubscriptionType());
+
+				if (cpSubscriptionType != null) {
+					period = cpSubscriptionType.getLabel(Locale.US);
+				}
 
 				long duration =
 					commerceSubscriptionEntry.getMaxSubscriptionCycles();
