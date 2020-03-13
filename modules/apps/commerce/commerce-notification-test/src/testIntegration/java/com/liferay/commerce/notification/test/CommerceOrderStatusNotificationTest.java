@@ -145,7 +145,7 @@ public class CommerceOrderStatusNotificationTest {
 			CommerceOrderConstants.ORDER_NOTIFICATION_PLACED);
 
 		_commerceOrderEngine.transitionCommerceOrder(
-			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_FULFILLED,
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_PROCESSING,
 			_user.getUserId());
 
 		// Notifications are asynchronous, give time to send
@@ -160,7 +160,7 @@ public class CommerceOrderStatusNotificationTest {
 		Assert.assertEquals(2, commerceNotificationQueueEntriesCount);
 
 		_checkCommerceNotificationTemplate(
-			CommerceOrderConstants.ORDER_NOTIFICATION_FULFILLED);
+			CommerceOrderConstants.ORDER_NOTIFICATION_PROCESSING);
 
 		CommerceShipment commerceShipment =
 			_commerceShipmentLocalService.addCommerceShipment(
@@ -275,7 +275,7 @@ public class CommerceOrderStatusNotificationTest {
 
 	private static final String[] _COMMERCE_ORDER_NOTIFICATIONS = {
 		CommerceOrderConstants.ORDER_NOTIFICATION_PLACED,
-		CommerceOrderConstants.ORDER_NOTIFICATION_FULFILLED,
+		CommerceOrderConstants.ORDER_NOTIFICATION_PROCESSING,
 		CommerceOrderConstants.ORDER_NOTIFICATION_SHIPPED,
 		CommerceOrderConstants.ORDER_NOTIFICATION_COMPLETED
 	};
