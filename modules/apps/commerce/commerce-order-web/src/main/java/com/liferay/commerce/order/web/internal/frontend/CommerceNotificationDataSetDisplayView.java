@@ -35,12 +35,12 @@ public class CommerceNotificationDataSetDisplayView
 	}
 
 	@Override
-	public String getIcon() {
+	public String getLabel() {
 		return "emails";
 	}
 
 	@Override
-	public String getLabel() {
+	public String getThumbnail() {
 		return "emails";
 	}
 
