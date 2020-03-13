@@ -319,8 +319,8 @@ public class CommerceShipmentDisplayContext
 			clayCreationMenu.addClayCreationMenuActionItem(
 				new ClayCreationMenuActionItem(
 					portletURL.toString(),
-					LanguageUtil.format(
-						cpRequestHelper.getRequest(), "add-x", "shipment-item"),
+					LanguageUtil.get(
+						httpServletRequest, "add-products-to-this-shipment"),
 					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
 
