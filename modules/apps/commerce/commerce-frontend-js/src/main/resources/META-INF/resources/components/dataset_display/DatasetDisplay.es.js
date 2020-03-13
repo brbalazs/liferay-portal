@@ -101,18 +101,19 @@ function DatasetDisplay(props) {
 								: view
 						)
 					);
+					setLoading(false);
 				})
 				.catch(err => {
 					showNotification(
 						Liferay.Language.get('unexpected-error'),
 						'danger'
 					);
+					setLoading(false);
 					throw new Error(
 						`Requested module: ${currentViewModuleUrl} not available`,
 						err
 					);
 				})
-				.finally(() => setLoading(false));
 		}
 	}, [
 		activeView,
