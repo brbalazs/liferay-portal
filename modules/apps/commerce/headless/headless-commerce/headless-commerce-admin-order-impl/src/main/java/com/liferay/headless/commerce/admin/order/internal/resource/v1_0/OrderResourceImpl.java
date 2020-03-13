@@ -303,16 +303,12 @@ public class OrderResourceImpl
 	private CommerceOrder _updateOrder(CommerceOrder commerceOrder, Order order)
 		throws Exception {
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		long commerceShippingMethodId =
 			commerceOrder.getCommerceShippingMethodId();
 
 		CommerceShippingMethod commerceShippingMethod =
 			_commerceShippingMethodService.fetchCommerceShippingMethod(
-				commerceChannel.getSiteGroupId(), order.getShippingMethod());
+				commerceOrder.getGroupId(), order.getShippingMethod());
 
 		if (commerceShippingMethod != null) {
 			commerceShippingMethodId =
@@ -349,7 +345,7 @@ public class OrderResourceImpl
 				order.getExternalReferenceCode(),
 				commerceOrder.getExternalReferenceCode()),
 			_commerceContextFactory.create(
-				contextCompany.getCompanyId(), commerceChannel.getGroupId(),
+				contextCompany.getCompanyId(), commerceOrder.getGroupId(),
 				_user.getUserId(), 0,
 				GetterUtil.getLong(
 					order.getAccountId(),
@@ -389,7 +385,7 @@ public class OrderResourceImpl
 
 		CommerceShippingMethod commerceShippingMethod =
 			_commerceShippingMethodService.fetchCommerceShippingMethod(
-				commerceChannel.getSiteGroupId(), order.getShippingMethod());
+				commerceChannel.getGroupId(), order.getShippingMethod());
 
 		if (commerceShippingMethod != null) {
 			commerceShippingMethodId =

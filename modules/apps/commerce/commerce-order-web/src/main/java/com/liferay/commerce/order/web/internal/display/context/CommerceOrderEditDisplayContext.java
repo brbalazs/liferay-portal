@@ -37,7 +37,6 @@ import com.liferay.commerce.order.web.internal.servlet.taglib.ui.CommerceOrderSc
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -395,13 +394,9 @@ public class CommerceOrderEditDisplayContext {
 	public CommercePaymentMethodGroupRel getCommercePaymentMethodGroupRel()
 		throws PortalException {
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				_commerceOrder.getGroupId());
-
 		return _commercePaymentMethodGroupRelService.
 			getCommercePaymentMethodGroupRel(
-				commerceChannel.getSiteGroupId(),
+				_commerceOrder.getGroupId(),
 				_commerceOrder.getCommercePaymentMethodKey());
 	}
 
@@ -412,12 +407,8 @@ public class CommerceOrderEditDisplayContext {
 			return Collections.emptyList();
 		}
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				_commerceOrder.getGroupId());
-
 		return _commercePaymentMethodGroupRelService.
-			getCommercePaymentMethodGroupRels(commerceChannel.getSiteGroupId());
+			getCommercePaymentMethodGroupRels(_commerceOrder.getGroupId());
 	}
 
 	public CommerceShipment getCommerceShipment() throws PortalException {
