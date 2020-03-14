@@ -39,6 +39,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface SpotResource {
 
+	public static Builder builder() {
+		return FactoryHolder.factory.create();
+	}
+
 	public Spot postAreaIdSpot(Long id, Spot spot) throws Exception;
 
 	public Response deleteAreaIdSpot(Long id, Long spotId) throws Exception;
@@ -66,5 +70,29 @@ public interface SpotResource {
 
 	public void setContextUser(
 		com.liferay.portal.kernel.model.User contextUser);
+
+	public static class FactoryHolder {
+
+		public static volatile Factory factory;
+
+	}
+
+	@ProviderType
+	public interface Builder {
+
+		public SpotResource build();
+
+		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder user(com.liferay.portal.kernel.model.User user);
+
+	}
+
+	@ProviderType
+	public interface Factory {
+
+		public Builder create();
+
+	}
 
 }

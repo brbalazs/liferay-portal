@@ -39,6 +39,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ProductTaxConfigurationResource {
 
+	public static Builder builder() {
+		return FactoryHolder.factory.create();
+	}
+
 	public ProductTaxConfiguration
 			getProductByExternalReferenceCodeTaxConfiguration(
 				String externalReferenceCode)
@@ -76,5 +80,29 @@ public interface ProductTaxConfigurationResource {
 
 	public void setContextUser(
 		com.liferay.portal.kernel.model.User contextUser);
+
+	public static class FactoryHolder {
+
+		public static volatile Factory factory;
+
+	}
+
+	@ProviderType
+	public interface Builder {
+
+		public ProductTaxConfigurationResource build();
+
+		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder user(com.liferay.portal.kernel.model.User user);
+
+	}
+
+	@ProviderType
+	public interface Factory {
+
+		public Builder create();
+
+	}
 
 }

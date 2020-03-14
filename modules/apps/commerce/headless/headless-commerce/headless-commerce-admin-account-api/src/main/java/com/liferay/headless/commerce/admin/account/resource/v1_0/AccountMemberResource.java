@@ -42,6 +42,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface AccountMemberResource {
 
+	public static Builder builder() {
+		return FactoryHolder.factory.create();
+	}
+
 	public Page<AccountMember>
 			getAccountByExternalReferenceCodeAccountMembersPage(
 				String externalReferenceCode, Pagination pagination)
@@ -102,5 +106,29 @@ public interface AccountMemberResource {
 
 	public void setContextUser(
 		com.liferay.portal.kernel.model.User contextUser);
+
+	public static class FactoryHolder {
+
+		public static volatile Factory factory;
+
+	}
+
+	@ProviderType
+	public interface Builder {
+
+		public AccountMemberResource build();
+
+		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder user(com.liferay.portal.kernel.model.User user);
+
+	}
+
+	@ProviderType
+	public interface Factory {
+
+		public Builder create();
+
+	}
 
 }

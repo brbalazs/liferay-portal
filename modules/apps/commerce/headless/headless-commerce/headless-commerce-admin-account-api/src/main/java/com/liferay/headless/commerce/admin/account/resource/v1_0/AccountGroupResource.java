@@ -44,6 +44,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface AccountGroupResource {
 
+	public static Builder builder() {
+		return FactoryHolder.factory.create();
+	}
+
 	public Page<AccountGroup> getAccountGroupsPage(
 			Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
@@ -97,5 +101,29 @@ public interface AccountGroupResource {
 
 	public void setContextUser(
 		com.liferay.portal.kernel.model.User contextUser);
+
+	public static class FactoryHolder {
+
+		public static volatile Factory factory;
+
+	}
+
+	@ProviderType
+	public interface Builder {
+
+		public AccountGroupResource build();
+
+		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder user(com.liferay.portal.kernel.model.User user);
+
+	}
+
+	@ProviderType
+	public interface Factory {
+
+		public Builder create();
+
+	}
 
 }

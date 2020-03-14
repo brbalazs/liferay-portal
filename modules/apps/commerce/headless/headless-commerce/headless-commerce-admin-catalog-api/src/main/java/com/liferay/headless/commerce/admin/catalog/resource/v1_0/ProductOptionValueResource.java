@@ -40,6 +40,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ProductOptionValueResource {
 
+	public static Builder builder() {
+		return FactoryHolder.factory.create();
+	}
+
 	public Page<ProductOptionValue> getProductOptionIdProductOptionValuesPage(
 			Long id, Pagination pagination)
 		throws Exception;
@@ -68,5 +72,29 @@ public interface ProductOptionValueResource {
 
 	public void setContextUser(
 		com.liferay.portal.kernel.model.User contextUser);
+
+	public static class FactoryHolder {
+
+		public static volatile Factory factory;
+
+	}
+
+	@ProviderType
+	public interface Builder {
+
+		public ProductOptionValueResource build();
+
+		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder user(com.liferay.portal.kernel.model.User user);
+
+	}
+
+	@ProviderType
+	public interface Factory {
+
+		public Builder create();
+
+	}
 
 }

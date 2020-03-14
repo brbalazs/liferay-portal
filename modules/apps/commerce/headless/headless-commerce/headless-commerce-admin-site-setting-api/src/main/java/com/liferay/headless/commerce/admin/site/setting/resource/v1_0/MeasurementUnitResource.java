@@ -41,6 +41,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface MeasurementUnitResource {
 
+	public static Builder builder() {
+		return FactoryHolder.factory.create();
+	}
+
 	public Page<MeasurementUnit>
 			getCommerceAdminSiteSettingGroupMeasurementUnitPage(
 				Long groupId, Integer type, Pagination pagination)
@@ -85,5 +89,29 @@ public interface MeasurementUnitResource {
 
 	public void setContextUser(
 		com.liferay.portal.kernel.model.User contextUser);
+
+	public static class FactoryHolder {
+
+		public static volatile Factory factory;
+
+	}
+
+	@ProviderType
+	public interface Builder {
+
+		public MeasurementUnitResource build();
+
+		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder user(com.liferay.portal.kernel.model.User user);
+
+	}
+
+	@ProviderType
+	public interface Factory {
+
+		public Builder create();
+
+	}
 
 }

@@ -15,7 +15,6 @@
 package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartComment;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartCommentResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
@@ -383,10 +382,7 @@ public abstract class BaseCartCommentResourceImpl
 		throws Exception {
 
 		for (CartComment cartComment : cartComments) {
-			putCartComment(
-				cartComment.getId() != null ? cartComment.getId() :
-					(Long)parameters.get("cartCommentId"),
-				cartComment);
+			putCartComment(commentId, cartComment);
 		}
 	}
 

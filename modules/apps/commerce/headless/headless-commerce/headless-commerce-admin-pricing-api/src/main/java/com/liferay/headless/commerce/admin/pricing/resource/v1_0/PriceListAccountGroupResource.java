@@ -41,6 +41,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface PriceListAccountGroupResource {
 
+	public static Builder builder() {
+		return FactoryHolder.factory.create();
+	}
+
 	public Response deletePriceListAccountGroup(Long id) throws Exception;
 
 	public Response deletePriceListAccountGroupBatch(
@@ -86,5 +90,29 @@ public interface PriceListAccountGroupResource {
 
 	public void setContextUser(
 		com.liferay.portal.kernel.model.User contextUser);
+
+	public static class FactoryHolder {
+
+		public static volatile Factory factory;
+
+	}
+
+	@ProviderType
+	public interface Builder {
+
+		public PriceListAccountGroupResource build();
+
+		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder user(com.liferay.portal.kernel.model.User user);
+
+	}
+
+	@ProviderType
+	public interface Factory {
+
+		public Builder create();
+
+	}
 
 }

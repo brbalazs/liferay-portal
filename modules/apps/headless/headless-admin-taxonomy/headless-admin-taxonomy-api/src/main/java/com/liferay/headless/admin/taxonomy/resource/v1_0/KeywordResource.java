@@ -43,6 +43,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface KeywordResource {
 
+	public static Builder builder() {
+		return FactoryHolder.factory.create();
+	}
+
 	public void deleteKeyword(Long keywordId) throws Exception;
 
 	public Response deleteKeywordBatch(String callbackURL, Object object)
@@ -87,5 +91,29 @@ public interface KeywordResource {
 
 	public void setContextUser(
 		com.liferay.portal.kernel.model.User contextUser);
+
+	public static class FactoryHolder {
+
+		public static volatile Factory factory;
+
+	}
+
+	@ProviderType
+	public interface Builder {
+
+		public KeywordResource build();
+
+		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder user(com.liferay.portal.kernel.model.User user);
+
+	}
+
+	@ProviderType
+	public interface Factory {
+
+		public Builder create();
+
+	}
 
 }
