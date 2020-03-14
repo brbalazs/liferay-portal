@@ -129,9 +129,9 @@ public class CommercePriceModifierLocalServiceImpl
 		commercePriceModifier.setCompanyId(user.getCompanyId());
 		commercePriceModifier.setUserId(user.getUserId());
 		commercePriceModifier.setUserName(user.getFullName());
+		commercePriceModifier.setCommercePriceListId(commercePriceListId);
 		commercePriceModifier.setTitle(title);
 		commercePriceModifier.setTarget(target);
-		commercePriceModifier.setCommercePriceListId(commercePriceListId);
 		commercePriceModifier.setModifierAmount(modifierAmount);
 		commercePriceModifier.setModifierType(modifierType);
 		commercePriceModifier.setPriority(priority);
@@ -318,9 +318,9 @@ public class CommercePriceModifierLocalServiceImpl
 		}
 
 		commercePriceModifier.setGroupId(groupId);
+		commercePriceModifier.setCommercePriceListId(commercePriceListId);
 		commercePriceModifier.setTitle(title);
 		commercePriceModifier.setTarget(target);
-		commercePriceModifier.setCommercePriceListId(commercePriceListId);
 		commercePriceModifier.setModifierAmount(modifierAmount);
 		commercePriceModifier.setModifierType(modifierType);
 		commercePriceModifier.setPriority(priority);

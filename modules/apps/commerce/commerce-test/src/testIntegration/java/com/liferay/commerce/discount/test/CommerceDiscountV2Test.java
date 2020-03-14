@@ -1086,7 +1086,8 @@ public class CommerceDiscountV2Test {
 		BigDecimal percentage3 = BigDecimal.valueOf(70);
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
-			_group.getGroupId(), percentage3, CommerceDiscountConstants.LEVEL_L3,
+			_group.getGroupId(), percentage3,
+			CommerceDiscountConstants.LEVEL_L3,
 			CommerceDiscountConstants.TARGET_PRODUCT,
 			cpDefinition.getCPDefinitionId());
 

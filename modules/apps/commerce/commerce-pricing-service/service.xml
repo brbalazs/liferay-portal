@@ -155,11 +155,11 @@
 
 		<!-- Finder methods -->
 
-		<finder name="CompanyId" return-type="Collection">
-			<finder-column name="companyId" />
-		</finder>
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
+		</finder>
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="CommercePricingClassCPDefinitionRel" remote-service="true" table="CPricingClassCPDefinitionRel">
