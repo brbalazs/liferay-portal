@@ -381,9 +381,9 @@ public abstract class BaseCartCommentResourceImpl
 			Map<String, Serializable> parameters)
 		throws Exception {
 
-		for (CartComment cartComment : cartComments) {
+		/*for (CartComment cartComment : cartComments) {
 			putCartComment(commentId, cartComment);
-		}
+		}*/
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
