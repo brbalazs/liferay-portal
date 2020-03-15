@@ -66,7 +66,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.stream.Stream;
 
 import javax.portlet.PortletURL;
 
@@ -119,9 +118,13 @@ public class CommerceSearchResource {
 				searchProducts(
 					themeDisplay.getCompanyId(), layout.getGroupId(),
 					queryString, themeDisplay));
-			searchItemModels.addAll(searchAccounts(queryString, themeDisplay));
-			searchItemModels.addAll(
-				searchOrders(queryString, themeDisplay, commerceAccount));
+
+			if (themeDisplay.isSignedIn()) {
+				searchItemModels.addAll(
+					searchAccounts(queryString, themeDisplay));
+				searchItemModels.addAll(
+					searchOrders(queryString, themeDisplay, commerceAccount));
+			}
 
 			String url = _commerceSearchUtil.getSearchFriendlyURL(themeDisplay);
 
@@ -403,9 +406,6 @@ public class CommerceSearchResource {
 
 	@Reference
 	private CommerceAccountResource _commerceAccountResource;
-
-	@Reference
-	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
