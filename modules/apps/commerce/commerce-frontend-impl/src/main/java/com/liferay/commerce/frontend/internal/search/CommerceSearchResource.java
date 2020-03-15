@@ -36,14 +36,11 @@ import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
-import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -289,21 +286,24 @@ public class CommerceSearchResource {
 				"commerceChannelGroupId", commerceChannel.getGroupId());
 		}
 
+		CommerceAccount commerceAccount =
+			_commerceAccountHelper.getCurrentCommerceAccount(
+				commerceChannel.getGroupId(), themeDisplay.getRequest());
+
+		long[] commerceAccountGroupIds = null;
+
+		if (commerceAccount != null) {
+			commerceAccountGroupIds =
+				_commerceAccountHelper.getCommerceAccountGroupIds(
+					commerceAccount.getCommerceAccountId());
+		}
+
+		searchContext.setAttribute(
+			"commerceAccountGroupIds", commerceAccountGroupIds);
+
 		searchContext.setAttributes(attributes);
 
 		searchContext.setCompanyId(companyId);
-
-		List<CommerceCatalog> commerceCatalogs =
-			_commerceCatalogService.getCommerceCatalogs(
-				companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-		Stream<CommerceCatalog> commerceCatalogStream =
-			commerceCatalogs.stream();
-
-		searchContext.setGroupIds(
-			commerceCatalogStream.mapToLong(
-				CommerceCatalog::getGroupId
-			).toArray());
 
 		searchContext.setKeywords(queryString);
 
