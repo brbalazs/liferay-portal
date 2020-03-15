@@ -226,9 +226,7 @@ public class CommerceNotificationQueueEntryCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput)
-		throws ClassNotFoundException, IOException {
-
+	public void readExternal(ObjectInput objectInput) throws IOException {
 		commerceNotificationQueueEntryId = objectInput.readLong();
 
 		groupId = objectInput.readLong();
@@ -252,7 +250,7 @@ public class CommerceNotificationQueueEntryCacheModel
 		cc = objectInput.readUTF();
 		bcc = objectInput.readUTF();
 		subject = objectInput.readUTF();
-		body = (String)objectInput.readObject();
+		body = objectInput.readUTF();
 
 		priority = objectInput.readDouble();
 
@@ -336,10 +334,10 @@ public class CommerceNotificationQueueEntryCacheModel
 		}
 
 		if (body == null) {
-			objectOutput.writeObject("");
+			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeObject(body);
+			objectOutput.writeUTF(body);
 		}
 
 		objectOutput.writeDouble(priority);

@@ -230,9 +230,7 @@ public class CommerceNotificationTemplateCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput)
-		throws ClassNotFoundException, IOException {
-
+	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 
 		commerceNotificationTemplateId = objectInput.readLong();
@@ -256,7 +254,7 @@ public class CommerceNotificationTemplateCacheModel
 
 		enabled = objectInput.readBoolean();
 		subject = objectInput.readUTF();
-		body = (String)objectInput.readObject();
+		body = objectInput.readUTF();
 	}
 
 	@Override
@@ -352,10 +350,10 @@ public class CommerceNotificationTemplateCacheModel
 		}
 
 		if (body == null) {
-			objectOutput.writeObject("");
+			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeObject(body);
+			objectOutput.writeUTF(body);
 		}
 	}
 
