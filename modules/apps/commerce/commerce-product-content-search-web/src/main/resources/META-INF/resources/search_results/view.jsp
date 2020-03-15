@@ -50,7 +50,6 @@ String orderByCol = cpSearchResultsDisplayContext.getOrderByCol();
 				<liferay-ui:search-paginator
 					markupView="lexicon"
 					searchContainer="<%= cpCatalogEntrySearchContainer %>"
-					type="<%= cpSearchResultsDisplayContext.getPaginationType() %>"
 				/>
 			</aui:form>
 		</c:if>
@@ -82,8 +81,8 @@ String orderByCol = cpSearchResultsDisplayContext.getOrderByCol();
 		<c:if test="<%= cpSearchResultsDisplayContext.isPaginate() %>">
 			<aui:form useNamespace="<%= false %>">
 				<liferay-ui:search-paginator
+					markupView="lexicon"
 					searchContainer="<%= cpCatalogEntrySearchContainer %>"
-					type="<%= cpSearchResultsDisplayContext.getPaginationType() %>"
 				/>
 			</aui:form>
 		</c:if>

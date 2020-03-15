@@ -216,10 +216,6 @@ public class CPSearchResultsDisplayContext {
 		return _cpSearchResultsPortletInstanceConfiguration.paginationDelta();
 	}
 
-	public String getPaginationType() {
-		return _cpSearchResultsPortletInstanceConfiguration.paginationType();
-	}
-
 	public SearchContainer<CPCatalogEntry> getSearchContainer() {
 		if (_searchContainer != null) {
 			return _searchContainer;
