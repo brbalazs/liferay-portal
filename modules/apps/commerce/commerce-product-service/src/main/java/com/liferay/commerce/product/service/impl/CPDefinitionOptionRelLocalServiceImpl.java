@@ -149,6 +149,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				cpDefinitionOptionRelId, serviceContext);
 		}
 
+		checkCPDefinition(cpDefinitionId, serviceContext);
+
 		// Commerce product instances
 
 		checkCPInstances(cpDefinitionId, serviceContext);
@@ -214,6 +216,9 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		expandoRowLocalService.deleteRows(
 			cpDefinitionOptionRel.getCPDefinitionOptionRelId());
+
+		checkCPDefinition(
+			cpDefinitionOptionRel.getCPDefinitionId(), new ServiceContext());
 
 		// Commerce product instances
 
@@ -513,6 +518,9 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		cpDefinitionOptionRel = cpDefinitionOptionRelPersistence.update(
 			cpDefinitionOptionRel);
 
+		checkCPDefinition(
+			cpDefinitionOptionRel.getCPDefinitionId(), serviceContext);
+
 		// Commerce product instances
 
 		checkCPInstances(
@@ -566,6 +574,23 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		return searchContext;
 	}
 
+	protected void checkCPDefinition(
+			long cpDefintionId, ServiceContext serviceContext)
+		throws PortalException {
+
+		if (_hasCPDefinitionSKUContributorCPDefinitionOptionRel(
+				cpDefintionId)) {
+
+			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
+				cpDefintionId, true, serviceContext);
+
+			return;
+		}
+
+		cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
+			cpDefintionId, false, serviceContext);
+	}
+
 	protected void checkCPInstances(CPDefinitionOptionRel cpDefinitionOptionRel)
 		throws PortalException {
 
@@ -595,21 +620,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 			cpInstanceLocalService.updateStatus(
 				userId, cpInstance.getCPInstanceId(),
-				WorkflowConstants.STATUS_INACTIVE, new ServiceContext(),
-				Collections.emptyMap());
-		}
-
-		int cpDefinitionOptionRelsCount =
-			cpDefinitionOptionRelPersistence.countByC_SC(
-				cpDefinition.getCPDefinitionId(), true);
-
-		if (cpDefinitionOptionRelsCount == 0) {
-			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
-				cpDefinition.getCPDefinitionId(), true, new ServiceContext());
-		}
-		else {
-			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
-				cpDefinition.getCPDefinitionId(), false, new ServiceContext());
+				WorkflowConstants.STATUS_INACTIVE);
 		}
 	}
 
@@ -617,38 +628,28 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			long cpDefinitionId, ServiceContext serviceContext)
 		throws PortalException {
 
+		if (!_hasCPDefinitionSKUContributorCPDefinitionOptionRel(
+				cpDefinitionId)) {
+
+			return;
+		}
+
 		CPDefinition cpDefinition = cpDefinitionLocalService.getCPDefinition(
 			cpDefinitionId);
 
-		int cpDefinitionOptionRelsCount =
-			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRelsCount(
-				cpDefinition.getCPDefinitionId(), true);
+		List<CPInstance> cpInstances =
+			cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
 
-		if (cpDefinitionOptionRelsCount == 0) {
-			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
-				cpDefinition.getCPDefinitionId(), true, serviceContext);
-		}
-		else {
-			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
-				cpDefinition.getCPDefinitionId(), false, serviceContext);
+		for (CPInstance cpInstance : cpInstances) {
+			if (cpInstanceOptionValueRelLocalService.
+					hasCPInstanceOptionValueRel(cpInstance.getCPInstanceId())) {
 
-			List<CPInstance> cpInstances =
-				cpInstanceLocalService.getCPDefinitionInstances(
-					cpDefinition.getCPDefinitionId(),
-					WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-					QueryUtil.ALL_POS, null);
-
-			for (CPInstance cpInstance : cpInstances) {
-				if (cpInstanceOptionValueRelLocalService.
-						hasCPInstanceOptionValueRel(
-							cpInstance.getCPInstanceId())) {
-
-					cpInstanceLocalService.updateStatus(
-						serviceContext.getUserId(),
-						cpInstance.getCPInstanceId(),
-						WorkflowConstants.STATUS_INACTIVE, serviceContext,
-						new HashMap<String, Serializable>());
-				}
+				cpInstanceLocalService.updateStatus(
+					serviceContext.getUserId(), cpInstance.getCPInstanceId(),
+					WorkflowConstants.STATUS_INACTIVE);
 			}
 		}
 	}
@@ -729,6 +730,19 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		if (cpDefinitionOptionRel != null) {
 			throw new DuplicateCPDefinitionOptionRelKeyException();
 		}
+	}
+
+	private boolean _hasCPDefinitionSKUContributorCPDefinitionOptionRel(
+		long cpDefinitionId) {
+
+		int cpDefinitionOptionRelsCount =
+			cpDefinitionOptionRelPersistence.countByC_SC(cpDefinitionId, true);
+
+		if (cpDefinitionOptionRelsCount > 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private static final String[] _SELECTED_FIELD_NAMES = {
