@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.UserBag;
-import com.liferay.portal.kernel.security.permission.contributor.RoleContributor;
 
 import java.util.List;
 import java.util.Map;
@@ -152,11 +151,6 @@ public class PermissionCheckerWrapper implements PermissionChecker {
 
 	@Override
 	public final void init(User user) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public final void init(User user, RoleContributor[] roleContributors) {
 		throw new UnsupportedOperationException();
 	}
 
