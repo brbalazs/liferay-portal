@@ -68,14 +68,12 @@ public interface CommerceSubscriptionEntry
 	public com.liferay.commerce.product.model.CPDefinition fetchCPDefinition()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public com.liferay.commerce.product.model.CPInstance fetchCPInstance()
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public com.liferay.commerce.product.model.CPInstance fetchCPInstance();
 
 	public long getCPDefinitionId()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public long getCPInstanceId()
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public long getCPInstanceId();
 
 	public com.liferay.portal.kernel.util.UnicodeProperties
 		getDeliverySubscriptionTypeSettingsProperties();

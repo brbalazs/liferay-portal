@@ -318,9 +318,7 @@ public class CommerceSubscriptionEntryWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.product.model.CPInstance fetchCPInstance()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public com.liferay.commerce.product.model.CPInstance fetchCPInstance() {
 		return _commerceSubscriptionEntry.fetchCPInstance();
 	}
 
@@ -362,9 +360,7 @@ public class CommerceSubscriptionEntryWrapper
 	}
 
 	@Override
-	public long getCPInstanceId()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public long getCPInstanceId() {
 		return _commerceSubscriptionEntry.getCPInstanceId();
 	}
 

@@ -283,9 +283,7 @@ public class CommerceSubscriptionEntryCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput)
-		throws ClassNotFoundException, IOException {
-
+	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 
 		commerceSubscriptionEntryId = objectInput.readLong();
@@ -306,7 +304,7 @@ public class CommerceSubscriptionEntryCacheModel
 
 		subscriptionLength = objectInput.readInt();
 		subscriptionType = objectInput.readUTF();
-		subscriptionTypeSettings = (String)objectInput.readObject();
+		subscriptionTypeSettings = objectInput.readUTF();
 
 		currentCycle = objectInput.readLong();
 
@@ -379,10 +377,10 @@ public class CommerceSubscriptionEntryCacheModel
 		}
 
 		if (subscriptionTypeSettings == null) {
-			objectOutput.writeObject("");
+			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeObject(subscriptionTypeSettings);
+			objectOutput.writeUTF(subscriptionTypeSettings);
 		}
 
 		objectOutput.writeLong(currentCycle);

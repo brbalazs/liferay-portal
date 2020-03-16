@@ -181,9 +181,7 @@ public class CommerceShipmentCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput)
-		throws ClassNotFoundException, IOException {
-
+	public void readExternal(ObjectInput objectInput) throws IOException {
 		commerceShipmentId = objectInput.readLong();
 
 		groupId = objectInput.readLong();
@@ -200,7 +198,7 @@ public class CommerceShipmentCacheModel
 		commerceAddressId = objectInput.readLong();
 
 		commerceShippingMethodId = objectInput.readLong();
-		shippingOptionName = (String)objectInput.readObject();
+		shippingOptionName = objectInput.readUTF();
 		carrier = objectInput.readUTF();
 		trackingNumber = objectInput.readUTF();
 		shippingDate = objectInput.readLong();
@@ -236,10 +234,10 @@ public class CommerceShipmentCacheModel
 		objectOutput.writeLong(commerceShippingMethodId);
 
 		if (shippingOptionName == null) {
-			objectOutput.writeObject("");
+			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeObject(shippingOptionName);
+			objectOutput.writeUTF(shippingOptionName);
 		}
 
 		if (carrier == null) {
