@@ -12,7 +12,6 @@
  * details.
  */
 
-import ClayButton from '@clayui/button';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayModal, {useModal} from '@clayui/modal';
 import PropTypes from 'prop-types';
@@ -147,19 +146,6 @@ function Modal(props) {
 		}
 	}
 
-	function handleClickOnSubmit(e) {
-		e.preventDefault();
-		const iframeForm = iframeRef.current.contentDocument.querySelector(
-			'form'
-		);
-
-		if (iframeForm) {
-			iframeRef.current.contentWindow.submitForm(iframeForm);
-		} else {
-			throw new Error('Form not available');
-		}
-	}
-
 	return visible ? (
 		<ClayModal
 			observer={observer}
@@ -184,58 +170,20 @@ function Modal(props) {
 					</div>
 				)}
 			</div>
-			{(props.showSubmit ||
-				props.submitLabel ||
-				props.showCancel ||
-				props.cancelLabel) && (
-				<ClayModal.Footer
-					last={
-						<ClayButton.Group spaced>
-							{(props.showCancel || props.cancelLabel) && (
-								<ClayButton
-									displayType="secondary"
-									onClick={closeOnIframeRefresh}
-								>
-									{props.cancelLabel ||
-										Liferay.Language.get('cancel')}
-								</ClayButton>
-							)}
-							{(props.showSubmit || props.submitLabel) && (
-								<ClayButton
-									displayType="primary"
-									onClick={handleClickOnSubmit}
-								>
-									{props.submitLabel ||
-										Liferay.Language.get('submit')}
-								</ClayButton>
-							)}
-						</ClayButton.Group>
-					}
-				/>
-			)}
 		</ClayModal>
 	) : null;
 }
 
 Modal.propTypes = {
-	cancelLabel: PropTypes.string,
 	closeOnSubmit: PropTypes.bool,
 	id: PropTypes.string.isRequired,
 	onClose: PropTypes.func,
 	portletId: PropTypes.string,
-	showCancel: PropTypes.bool,
-	showSubmit: PropTypes.bool,
 	size: PropTypes.string,
 	spritemap: PropTypes.string,
 	status: PropTypes.string,
-	submitLabel: PropTypes.string,
 	title: PropTypes.string,
 	url: PropTypes.string
-};
-
-Modal.defaultProps = {
-	showCancel: false,
-	showSubmit: false
 };
 
 export default Modal;
