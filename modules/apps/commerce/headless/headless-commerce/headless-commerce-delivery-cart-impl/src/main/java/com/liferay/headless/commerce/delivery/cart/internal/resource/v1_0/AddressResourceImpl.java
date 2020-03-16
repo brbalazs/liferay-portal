@@ -44,7 +44,7 @@ public class AddressResourceImpl extends BaseAddressResourceImpl {
 	@NestedField(parentClass = Cart.class, value = "billingAddress")
 	@Override
 	public Address getCartBillingAddres(
-			@NestedFieldId("id") @NotNull Long cartId, @NotNull Long addressId)
+			@NestedFieldId("id") @NotNull Long cartId)
 		throws Exception {
 
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
@@ -63,7 +63,7 @@ public class AddressResourceImpl extends BaseAddressResourceImpl {
 	@NestedField(parentClass = Cart.class, value = "shippingAddress")
 	@Override
 	public Address getCartShippingAddres(
-			@NestedFieldId("id") @NotNull Long cartId, @NotNull Long addressId)
+			@NestedFieldId("id") @NotNull Long cartId)
 		throws Exception {
 
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
