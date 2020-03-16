@@ -179,7 +179,7 @@ function DatasetDisplay(props) {
 		delta,
 		pageNumber,
 		sorting,
-		showSuccessNotification = false
+		successNotification = {}
 	) {
 		return loadData(
 			apiUrl,
@@ -192,16 +192,23 @@ function DatasetDisplay(props) {
 		)
 			.then(updateDataset)
 			.then(() => {
+				const {
+					showSuccessNotification,
+					message
+				} = successNotification;
+
 				if (showSuccessNotification) {
-					showNotification(
-						Liferay.Language.get('table-data-updated'),
-						'success'
-					);
+					const notificationMessage =
+						message || Liferay.Language.get('table-data-updated');
+
+					showNotification(notificationMessage,'success');
 				}
+
 				Liferay.fire(DATASET_DISPLAY_UPDATED, {id: props.id});
 			})
 			.catch(e => {
 				console.error(e);
+
 				showNotification(
 					Liferay.Language.get('unexpected-error'),
 					'danger'
@@ -270,7 +277,7 @@ function DatasetDisplay(props) {
 	}
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const refreshData = () =>
+	const refreshData = successNotification =>
 		getData(
 			props.apiUrl,
 			props.currentUrl,
@@ -279,7 +286,7 @@ function DatasetDisplay(props) {
 			delta,
 			pageNumber,
 			sorting,
-			false
+			successNotification
 		);
 
 	useEffect(() => {

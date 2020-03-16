@@ -71,9 +71,9 @@ public class CommerceCatalogDataSetDataProvider
 		long companyId = themeDisplay.getCompanyId();
 
 		List<CommerceCatalog> commerceCatalogs =
-			_commerceCatalogService.getCommerceCatalogs(
-				companyId, pagination.getStartPosition(),
-				pagination.getEndPosition());
+			_commerceCatalogService.searchCommerceCatalogs(
+				companyId, filter.getKeywords(), pagination.getStartPosition(),
+				pagination.getEndPosition(), null);
 
 		for (CommerceCatalog catalog : commerceCatalogs) {
 			catalogs.add(

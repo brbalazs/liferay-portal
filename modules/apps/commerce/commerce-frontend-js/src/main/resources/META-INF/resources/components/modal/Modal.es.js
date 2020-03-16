@@ -17,8 +17,14 @@ import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayModal, {useModal} from '@clayui/modal';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
+import { liferayNavigate } from '../../utilities/index.es';
 
-import {OPEN_MODAL, CLOSE_MODAL} from '../../utilities/eventsDefinitions.es';
+import {
+	CLOSE_MODAL,
+	IS_LOADING_MODAL,
+	OPEN_MODAL
+} from '../../utilities/eventsDefinitions.es';
+
 import {isPageInIframe} from '../../utilities/iframes.es';
 
 function Modal(props) {
@@ -30,19 +36,29 @@ function Modal(props) {
 	const [url, setUrl] = useState(props.url);
 	const iframeRef = useRef(null);
 
-	const {observer, onClose: closeModal} = useModal({
+	function cleanUpModal() {
+		setIframeLoadingCounter(() => 0);
+		setLoading(false);
+		setVisible(false);
+	}
+
+	function doClose(successNotification) {
+		if (onClose) {
+			onClose(successNotification);
+		} else if (props.onClose) {
+			props.onClose(successNotification);
+		}
+
+		cleanUpModal();
+	}
+
+	const {observer, onClose: closeOnIframeRefresh} = useModal({
 		onClose: () => {
 			if (iframeLoadingCounter > 1) {
-				if (onClose) {
-					onClose();
-				} else if (props.onClose) {
-					props.onClose();
-				}
+				doClose();
+			} else {
+				cleanUpModal();
 			}
-
-			setIframeLoadingCounter(() => 0);
-			setLoading(false);
-			setVisible(false);
 		}
 	});
 
@@ -68,22 +84,47 @@ function Modal(props) {
 			}
 		}
 
+		function handleCloseModal({
+			redirectURL = '',
+			successNotification = {},
+			willIframeRefresh = true
+		}) {
+
+			if (redirectURL) {
+				liferayNavigate(redirectURL);
+			}
+
+			if (willIframeRefresh) {
+				closeOnIframeRefresh(successNotification);
+			} else {
+				doClose(successNotification);
+			}
+		}
+
+		function handleSetLoading(data) {
+			const { isLoading } = data;
+
+			setLoading(isLoading || false);
+		}
+
 		function cleanUpListeners(e) {
 			if (e.portletId === props.portletId) {
 				Liferay.detach(OPEN_MODAL, handleOpenEvent);
-				Liferay.detach(CLOSE_MODAL, closeModal);
+				Liferay.detach(CLOSE_MODAL, handleCloseModal);
+				Liferay.detach(IS_LOADING_MODAL, handleSetLoading);
 				Liferay.detach('destroyPortlet', cleanUpListeners);
 			}
 		}
 
 		if (Liferay.on) {
 			Liferay.on(OPEN_MODAL, handleOpenEvent);
-			Liferay.on(CLOSE_MODAL, closeModal);
+			Liferay.on(CLOSE_MODAL, handleCloseModal);
+			Liferay.on(IS_LOADING_MODAL, handleSetLoading);
 			Liferay.on('destroyPortlet', cleanUpListeners);
 		}
 
 		return () => cleanUpListeners({portletId: props.portletId});
-	}, [props.id, props.portletId, closeModal, visible]);
+	}, [props.id, props.portletId, closeOnIframeRefresh, visible]);
 
 	useEffect(() => {
 		setOnClose(() => props.onClose);
@@ -153,7 +194,7 @@ function Modal(props) {
 							{(props.showCancel || props.cancelLabel) && (
 								<ClayButton
 									displayType="secondary"
-									onClick={closeModal}
+									onClick={closeOnIframeRefresh}
 								>
 									{props.cancelLabel ||
 										Liferay.Language.get('cancel')}

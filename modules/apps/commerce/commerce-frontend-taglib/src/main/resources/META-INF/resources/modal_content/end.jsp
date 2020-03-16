@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.liferay.portal.kernel.servlet.SessionMessages" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -34,6 +34,10 @@
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/index.es as utilities">
+	<c:if test='<%= SessionMessages.contains(renderRequest, "requestProcessed") %>'>
+		window.parent.Liferay.fire(events.CLOSE_MODAL);
+	</c:if>
+
 	document.querySelectorAll('.modal-closer').forEach(function(trigger) {
 		trigger.addEventListener('click', function(e) {
 			e.preventDefault();
@@ -41,22 +45,24 @@
 		});
 	});
 
-	document.querySelectorAll('.form-submitter').forEach(function(trigger) {
-		trigger.addEventListener('click', function(e) {
-			e.preventDefault();
+	var iframeContent = window.document.querySelector('.modal-iframe-content'),
+		iframeFooter = window.document.querySelector('.modal-iframe-footer'),
+		iframeForm = iframeContent.querySelector('form');
 
-			var form = document.querySelector('form');
+	var formSubmitterButton = document.querySelector('.form-submitter');
 
-			if (form) {
-				submitForm(form);
-			} else {
-				throw new Error('no forms found');
-			}
-		});
-	});
+	function handleSubmit(event) {
+		event.preventDefault();
 
-	var iframeContent = document.querySelector('.modal-iframe-content');
-	var iframeFooter = document.querySelector('.modal-iframe-footer');
+		window.parent.Liferay.fire(events.IS_LOADING_MODAL, { isLoading: true });
+
+		submitForm(iframeForm);
+	}
+
+	if (iframeForm) {
+		window.addEventListener('submit', handleSubmit);
+		formSubmitterButton.addEventListener('click', handleSubmit);
+	}
 
 	if (iframeContent && iframeFooter) {
 		function adjustBottomSpace() {

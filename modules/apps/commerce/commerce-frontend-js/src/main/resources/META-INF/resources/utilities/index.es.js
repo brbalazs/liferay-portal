@@ -95,6 +95,14 @@ if (!window.Liferay) {
 	};
 }
 
+export function liferayNavigate(url) {
+	if (Liferay.SPA) {
+		Liferay.SPA.app.navigate(url);
+	} else {
+		window.location.href = url;
+	}
+}
+
 export function slugify(str) {
 	str = str.replace(/^\s+|\s+$/g, '');
 	str = str.toLowerCase();

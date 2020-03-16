@@ -28,14 +28,14 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 
 <portlet:actionURL name="editCommerceCatalog" var="editCommerceCatalogActionURL" />
 
-<commerce-ui:modal-content>
-	<div class="col-12 lfr-form-content">
-		<aui:form action="<%= editCommerceCatalogActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
-			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
+<commerce-ui:modal-content
+	title='<%= LanguageUtil.get(request, "add-catalog") %>'>
 
+	<div class="col-12 lfr-form-content">
+		<aui:form useNamespace="<%= false %>" cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit(this.form);" %>'>
 			<aui:input bean="<%= commerceCatalog %>" model="<%= CommerceCatalog.class %>" name="name" required="<%= true %>" />
 
-			<aui:select helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="catalogDefaultLanguageId" required="<%= true %>" title="language">
+			<aui:select helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="defaultLanguageId" required="<%= true %>" title="language">
 
 				<%
 				String catalogDefaultLanguageId = themeDisplay.getLanguageId();
@@ -57,7 +57,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 
 			</aui:select>
 
-			<aui:select label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
+			<aui:select label="currency" name="currencyCode" required="<%= true %>" title="currency">
 
 				<%
 				for (CommerceCurrency commerceCurrency : commerceCurrencies) {
@@ -72,5 +72,48 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 
 			</aui:select>
 		</aui:form>
+		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/forms/index.es as FormUtils, clay-alert/src/ClayToast as ClayToast">
+
+			Liferay.provide(
+				window,
+				'<portlet:namespace/>apiSubmit',
+				function(form) {
+					const API_URL = '/o/headless-commerce-admin-catalog/v1.0/catalogs';
+
+					window.parent.Liferay.fire(events.IS_LOADING_MODAL, {
+						isLoading: true
+					});
+
+					FormUtils.apiSubmit(form, API_URL)
+						.then(function() {
+							window.parent.Liferay.fire(events.CLOSE_MODAL, {
+								willIframeRefresh: false,
+								successNotification: {
+									showSuccessNotification: true,
+									message: '<liferay-ui:message key="your-request-completed-successfully" />'
+								}
+							});
+						})
+						.catch(function() {
+							window.parent.Liferay.fire(events.IS_LOADING_MODAL, {
+								isLoading: false
+							});
+
+							new Liferay.Notification({
+								closeable: true,
+								delay: {
+									hide: 5000,
+									show: 0
+								},
+								duration: 500,
+								message: '<liferay-ui:message key="an-unexpected-error-occurred" />',
+								render: true,
+								title: '<liferay-ui:message key="danger" />',
+								type: 'danger'
+							});
+						});
+				}
+			);
+		</aui:script>
 	</div>
 </commerce-ui:modal-content>
