@@ -19,6 +19,7 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPInstanceConstants;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
@@ -134,6 +135,159 @@ public class CPInstanceLocalServiceTest {
 			"Product instance count",
 			(int)Math.pow(cpOptionValuesCount, cpOptionsCount),
 			cpDefinitionInstances.size());
+	}
+
+	@Test
+	public void testCPInstanceActiveIfNewNonskuContributorOptionAdded()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Product SKU will stay ACTIVE if new non SKU contributor option " +
+				"added"
+		).given(
+			StringBundler.concat(
+				"I have a product definition with one SKU contributor option ",
+				"with three values assigned to it. There is product instance ",
+				"A that refers to first option value")
+		).when(
+			"new non SKU contributor option is added to definition"
+		).and(
+			"option has three values"
+		).then(
+			"product instance A should stay activated"
+		);
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		CPOption cpOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), true);
+
+		CPTestUtil.addCPOptionValue(cpOption);
+		CPTestUtil.addCPOptionValue(cpOption);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPTestUtil.addCPDefinitionOptionRel(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				cpOption.getCPOptionId());
+
+		_addSingleCPDefinitionInstance(cpDefinition, cpDefinitionOptionRel);
+
+		List<CPInstance> approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product approved instances count", 1,
+			approvedCPDefinitionInstances.size());
+
+		CPInstance approvedCPInstance = approvedCPDefinitionInstances.get(0);
+
+		cpOption = CPTestUtil.addCPOption(_commerceCatalog.getGroupId(), false);
+
+		CPTestUtil.addCPOptionValue(cpOption);
+		CPTestUtil.addCPOptionValue(cpOption);
+
+		CPTestUtil.addCPDefinitionOptionRel(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOption.getCPOptionId());
+
+		approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product approved instances count", 1,
+			approvedCPDefinitionInstances.size());
+
+		approvedCPInstance = _cpInstanceLocalService.getCPInstance(
+			approvedCPInstance.getCPInstanceId());
+
+		Assert.assertEquals(
+			"Product instance A status", WorkflowConstants.STATUS_APPROVED,
+			approvedCPInstance.getStatus());
+	}
+
+	@Test
+	public void testDefaultCPInstanceIfNewNonskuContributorOptionAdded()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Default product SKU will stay ACTIVE if new non SKU contributor " +
+				"option added"
+		).given(
+			StringBundler.concat(
+				"I have a product definition with one non SKU contributor ",
+				"option with three values assigned to it. There is product ",
+				"default instance active")
+		).when(
+			"new non SKU contributor option is added to definition"
+		).and(
+			"option has three values"
+		).then(
+			"product default instance should stay activated"
+		);
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		CPOption cpOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), false);
+
+		CPTestUtil.addCPOptionValue(cpOption);
+		CPTestUtil.addCPOptionValue(cpOption);
+
+		CPTestUtil.addCPDefinitionOptionRel(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOption.getCPOptionId());
+
+		List<CPInstance> approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product approved instances count", 1,
+			approvedCPDefinitionInstances.size());
+
+		CPInstance approvedCPInstance = approvedCPDefinitionInstances.get(0);
+
+		cpOption = CPTestUtil.addCPOption(_commerceCatalog.getGroupId(), false);
+
+		CPTestUtil.addCPOptionValue(cpOption);
+		CPTestUtil.addCPOptionValue(cpOption);
+
+		CPTestUtil.addCPDefinitionOptionRel(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOption.getCPOptionId());
+
+		approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product approved instances count", 1,
+			approvedCPDefinitionInstances.size());
+
+		approvedCPInstance = _cpInstanceLocalService.getCPInstance(
+			approvedCPInstance.getCPInstanceId());
+
+		Assert.assertEquals(
+			"Product instance sku", CPInstanceConstants.DEFAULT_SKU,
+			approvedCPInstance.getSku());
+
+		Assert.assertEquals(
+			"Product instance status", WorkflowConstants.STATUS_APPROVED,
+			approvedCPInstance.getStatus());
 	}
 
 	@Test
@@ -332,6 +486,36 @@ public class CPInstanceLocalServiceTest {
 
 	@Rule
 	public final FrutillaRule frutillaRule = new FrutillaRule();
+
+	private CPInstance _addSingleCPDefinitionInstance(
+			CPDefinition cpDefinition,
+			CPDefinitionOptionRel... cpDefinitionOptionRels)
+		throws Exception {
+
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds =
+				new HashMap<>();
+
+		for (CPDefinitionOptionRel cpDefinitionOptionRel :
+				cpDefinitionOptionRels) {
+
+			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+					cpDefinitionOptionRel.getCPDefinitionOptionValueRels()) {
+
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds.put(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+					Arrays.asList(
+						cpDefinitionOptionValueRel.
+							getCPDefinitionOptionValueRelId()));
+
+				break;
+			}
+		}
+
+		return CPTestUtil.addCPDefinitionCPInstance(
+			cpDefinition.getCPDefinitionId(),
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
+	}
 
 	private CommerceCatalog _commerceCatalog;
 
