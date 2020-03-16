@@ -21,7 +21,6 @@ import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
 import com.liferay.commerce.exception.CommerceOrderPaymentMethodException;
 import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
 import com.liferay.commerce.exception.CommerceOrderShippingMethodException;
-import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
@@ -38,7 +37,6 @@ import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -231,6 +229,16 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 			throw new CommerceOrderPaymentMethodException();
 		}
+
+		int subscriptionCommerceOrderItemsCount =
+			_commerceOrderItemService.countSubscriptionCommerceOrderItems(
+				commerceOrderId);
+
+		if ((subscriptionCommerceOrderItemsCount > 0) &&
+			commercePaymentMethodKey.isEmpty()) {
+
+			throw new CommerceOrderPaymentMethodException();
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -238,9 +246,6 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Reference
 	private CommerceCheckoutStepHelper _commerceCheckoutStepHelper;
-
-	@Reference
-	private CommerceInventoryEngine _commerceInventoryEngine;
 
 	@Reference
 	private CommerceOrderEngine _commerceOrderEngine;
@@ -265,9 +270,6 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Reference
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
-
-	@Reference
-	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
