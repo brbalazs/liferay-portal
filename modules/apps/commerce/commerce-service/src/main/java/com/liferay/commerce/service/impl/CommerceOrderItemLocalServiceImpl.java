@@ -540,7 +540,7 @@ public class CommerceOrderItemLocalServiceImpl
 		validate(
 			serviceContext.getLocale(), commerceOrderItem.getCommerceOrder(),
 			commerceOrderItem.getCPDefinition(),
-			commerceOrderItem.getCPInstance(), quantity);
+			commerceOrderItem.fetchCPInstance(), quantity);
 
 		validateWorkflow(commerceOrderItem.getCommerceOrder(), serviceContext);
 
@@ -625,7 +625,9 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
 
-		if (commerceOrderItem.isManuallyAdjusted()) {
+		CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
+
+		if ((cpInstance == null) || commerceOrderItem.isManuallyAdjusted()) {
 			return commerceOrderItem;
 		}
 
@@ -748,9 +750,8 @@ public class CommerceOrderItemLocalServiceImpl
 			}
 		}
 
-		return addCommerceOrderItem(
-			commerceOrderId, cpInstanceId, quantity, 0,
-			cpInstanceOptionValueRelJSONString, commerceContext,
+		return commerceOrderItemLocalService.addCommerceOrderItem(
+			commerceOrderId, cpInstanceId, quantity, 0, commerceContext,
 			serviceContext);
 	}
 
