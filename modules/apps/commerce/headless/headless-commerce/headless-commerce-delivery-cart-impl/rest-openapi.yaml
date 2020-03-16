@@ -1006,16 +1006,6 @@ paths:
             parameters:
                 - in: path
                   explode: false
-                  name: addressId
-                  required: true
-                  schema:
-                      description:
-                          Address Id
-                      format: int64
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
                   name: cartId
                   required: true
                   schema:
@@ -1393,16 +1383,6 @@ paths:
                 Retrive cart billing address.
             operationId: getCartShippingAddres
             parameters:
-                - in: path
-                  explode: false
-                  name: addressId
-                  required: true
-                  schema:
-                      description:
-                          Address Id
-                      format: int64
-                      type: integer
-                  style: simple
                 - in: path
                   explode: false
                   name: cartId
