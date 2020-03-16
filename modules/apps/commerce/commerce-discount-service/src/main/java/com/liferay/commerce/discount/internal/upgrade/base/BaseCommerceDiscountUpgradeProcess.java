@@ -75,8 +75,8 @@ public abstract class BaseCommerceDiscountUpgradeProcess
 			if (_log.isInfoEnabled()) {
 				_log.info(
 					String.format(
-						"Column %s already does not exist on table %s",
-						columnName, tableName));
+						"Column %s does not exist on table %s", columnName,
+						tableName));
 			}
 		}
 	}
@@ -89,8 +89,8 @@ public abstract class BaseCommerceDiscountUpgradeProcess
 		if (_log.isInfoEnabled()) {
 			_log.info(
 				String.format(
-					"Renaming column %s to table %s", oldColumnName,
-					tableName));
+					"Renaming column %s to %s for table %s", oldColumnName,
+					newColumnName, tableName));
 		}
 
 		String newColumnSimpleName = StringUtil.extractFirst(
