@@ -42,11 +42,9 @@ public interface AddressResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Address getCartBillingAddres(Long addressId, Long cartId)
-		throws Exception;
+	public Address getCartBillingAddres(Long cartId) throws Exception;
 
-	public Address getCartShippingAddres(Long addressId, Long cartId)
-		throws Exception;
+	public Address getCartShippingAddres(Long cartId) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

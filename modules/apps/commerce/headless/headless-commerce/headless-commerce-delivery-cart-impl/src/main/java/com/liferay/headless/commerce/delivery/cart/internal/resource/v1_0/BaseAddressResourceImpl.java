@@ -81,18 +81,11 @@ public abstract class BaseAddressResourceImpl
 	@Override
 	@GET
 	@Operation(description = "Retrive cart billing address.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "addressId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
-		}
-	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
 	@Path("/carts/{cartId}/billing-address")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Address")})
 	public Address getCartBillingAddres(
-			@NotNull @Parameter(hidden = true) @PathParam("addressId") Long
-				addressId,
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId)
 		throws Exception {
 
@@ -107,18 +100,11 @@ public abstract class BaseAddressResourceImpl
 	@Override
 	@GET
 	@Operation(description = "Retrive cart billing address.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "addressId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
-		}
-	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
 	@Path("/carts/{cartId}/shipping-address")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Address")})
 	public Address getCartShippingAddres(
-			@NotNull @Parameter(hidden = true) @PathParam("addressId") Long
-				addressId,
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId)
 		throws Exception {
 

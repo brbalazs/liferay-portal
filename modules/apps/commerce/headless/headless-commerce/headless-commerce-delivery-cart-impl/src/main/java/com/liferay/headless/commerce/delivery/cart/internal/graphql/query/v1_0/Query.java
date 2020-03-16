@@ -87,37 +87,31 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartBillingAddres(addressId: ___, cartId: ___){city, country, countryISOCode, description, id, latitude, longitude, name, phoneNumber, region, regionISOCode, street1, street2, street3, type, typeId, vatNumber, zip}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartBillingAddres(cartId: ___){city, country, countryISOCode, description, id, latitude, longitude, name, phoneNumber, region, regionISOCode, street1, street2, street3, type, typeId, vatNumber, zip}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrive cart billing address.")
-	public Address cartBillingAddres(
-			@GraphQLName("addressId") Long addressId,
-			@GraphQLName("cartId") Long cartId)
+	public Address cartBillingAddres(@GraphQLName("cartId") Long cartId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_addressResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			addressResource -> addressResource.getCartBillingAddres(
-				addressId, cartId));
+			addressResource -> addressResource.getCartBillingAddres(cartId));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartShippingAddres(addressId: ___, cartId: ___){city, country, countryISOCode, description, id, latitude, longitude, name, phoneNumber, region, regionISOCode, street1, street2, street3, type, typeId, vatNumber, zip}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartShippingAddres(cartId: ___){city, country, countryISOCode, description, id, latitude, longitude, name, phoneNumber, region, regionISOCode, street1, street2, street3, type, typeId, vatNumber, zip}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrive cart billing address.")
-	public Address cartShippingAddres(
-			@GraphQLName("addressId") Long addressId,
-			@GraphQLName("cartId") Long cartId)
+	public Address cartShippingAddres(@GraphQLName("cartId") Long cartId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_addressResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			addressResource -> addressResource.getCartShippingAddres(
-				addressId, cartId));
+			addressResource -> addressResource.getCartShippingAddres(cartId));
 	}
 
 	/**
@@ -252,6 +246,26 @@ public class Query {
 	}
 
 	@GraphQLTypeExtension(Cart.class)
+	public class GetCartShippingAddresTypeExtension {
+
+		public GetCartShippingAddresTypeExtension(Cart cart) {
+			_cart = cart;
+		}
+
+		@GraphQLField(description = "Retrive cart billing address.")
+		public Address shippingAddres() throws Exception {
+			return _applyComponentServiceObjects(
+				_addressResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				addressResource -> addressResource.getCartShippingAddres(
+					_cart.getId()));
+		}
+
+		private Cart _cart;
+
+	}
+
+	@GraphQLTypeExtension(Cart.class)
 	public class GetCartItemsPageTypeExtension {
 
 		public GetCartItemsPageTypeExtension(Cart cart) {
@@ -270,6 +284,26 @@ public class Query {
 				cartItemResource -> new CartItemPage(
 					cartItemResource.getCartItemsPage(
 						_cart.getId(), Pagination.of(page, pageSize))));
+		}
+
+		private Cart _cart;
+
+	}
+
+	@GraphQLTypeExtension(Cart.class)
+	public class GetCartBillingAddresTypeExtension {
+
+		public GetCartBillingAddresTypeExtension(Cart cart) {
+			_cart = cart;
+		}
+
+		@GraphQLField(description = "Retrive cart billing address.")
+		public Address billingAddres() throws Exception {
+			return _applyComponentServiceObjects(
+				_addressResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				addressResource -> addressResource.getCartBillingAddres(
+					_cart.getId()));
 		}
 
 		private Cart _cart;

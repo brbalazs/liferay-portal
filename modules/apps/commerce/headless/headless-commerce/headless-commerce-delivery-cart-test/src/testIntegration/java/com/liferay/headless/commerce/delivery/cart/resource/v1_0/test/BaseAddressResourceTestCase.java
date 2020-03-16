@@ -215,8 +215,7 @@ public abstract class BaseAddressResourceTestCase {
 	public void testGetCartBillingAddres() throws Exception {
 		Address postAddress = testGetCartBillingAddres_addAddress();
 
-		Address getAddress = addressResource.getCartBillingAddres(
-			postAddress.getId(), null);
+		Address getAddress = addressResource.getCartBillingAddres(null);
 
 		assertEquals(postAddress, getAddress);
 		assertValid(getAddress);
@@ -239,7 +238,6 @@ public abstract class BaseAddressResourceTestCase {
 				"cartBillingAddres",
 				new HashMap<String, Object>() {
 					{
-						put("addressId", address.getId());
 						put("cartId", null);
 					}
 				},
@@ -259,8 +257,7 @@ public abstract class BaseAddressResourceTestCase {
 	public void testGetCartShippingAddres() throws Exception {
 		Address postAddress = testGetCartShippingAddres_addAddress();
 
-		Address getAddress = addressResource.getCartShippingAddres(
-			postAddress.getId(), null);
+		Address getAddress = addressResource.getCartShippingAddres(null);
 
 		assertEquals(postAddress, getAddress);
 		assertValid(getAddress);
@@ -283,7 +280,6 @@ public abstract class BaseAddressResourceTestCase {
 				"cartShippingAddres",
 				new HashMap<String, Object>() {
 					{
-						put("addressId", address.getId());
 						put("cartId", null);
 					}
 				},
