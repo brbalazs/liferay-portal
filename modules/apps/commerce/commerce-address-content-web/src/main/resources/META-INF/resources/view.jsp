@@ -91,7 +91,7 @@ CommerceAddressDisplayContext commerceAddressDisplayContext = (CommerceAddressDi
 
 								<liferay-ui:search-container-column-text
 									name="region"
-									property="commerceRegion.name"
+									value='<%= (commerceAddress.getCommerceRegion() != null) ? commerceAddress.getCommerceRegion().getName() : "" %>'
 								/>
 
 								<liferay-ui:search-container-column-jsp
