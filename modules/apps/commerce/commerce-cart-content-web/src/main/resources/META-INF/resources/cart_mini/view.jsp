@@ -127,10 +127,10 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 						<div class="list-group-subtitle"><%= HtmlUtil.escape(stringJoiner.toString()) %></div>
 
 						<%
-						CPInstance cpInstance = commerceOrderItem.getCPInstance();
+						CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
 						%>
 
-						<c:if test="<%= Validator.isNotNull(cpInstance.getCPSubscriptionInfo()) %>">
+						<c:if test="<%= (cpInstance != null) && Validator.isNotNull(cpInstance.getCPSubscriptionInfo()) %>">
 							<div class="list-group-subtitle">
 								<commerce-ui:product-subscription-info
 									CPInstanceId="<%= commerceOrderItem.getCPInstanceId() %>"

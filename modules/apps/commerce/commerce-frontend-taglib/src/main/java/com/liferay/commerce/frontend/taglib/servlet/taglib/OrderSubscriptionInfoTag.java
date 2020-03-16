@@ -66,7 +66,7 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 				CommerceOrderItemLocalServiceUtil.fetchCommerceOrderItem(
 					_commerceOrderItemId);
 
-			CPInstance cpInstance = commerceOrderItem.getCPInstance();
+			CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
 
 			if ((commerceSubscriptionEntry == null) && (cpInstance == null)) {
 				return SKIP_BODY;

@@ -580,6 +580,10 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			commercePaymentRequest, commerceOrder, apiContext,
 			commercePaymentRequest.getLocale());
 
+		if (plan == null) {
+			return null;
+		}
+
 		String url = null;
 
 		Agreement agreement = _getAgreement(
@@ -982,7 +986,11 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 
 		CommerceOrderItem commerceOrderItem = commerceOrderItems.get(0);
 
-		CPInstance cpInstance = commerceOrderItem.getCPInstance();
+		CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
+
+		if (cpInstance == null) {
+			return null;
+		}
 
 		CPSubscriptionInfo cpSubscriptionInfo =
 			cpInstance.getCPSubscriptionInfo();

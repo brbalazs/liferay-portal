@@ -164,14 +164,16 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
 			if (commerceOrder.isOpen()) {
-				CPInstance cpInstance = commerceOrderItem.getCPInstance();
+				CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
+
+				if ((cpInstance == null) ||
+					(cpInstance.getCPSubscriptionInfo() == null)) {
+
+					return subscriptionDuration;
+				}
 
 				CPSubscriptionInfo cpSubscriptionInfo =
 					cpInstance.getCPSubscriptionInfo();
-
-				if (cpSubscriptionInfo == null) {
-					return subscriptionDuration;
-				}
 
 				String period = StringPool.BLANK;
 
@@ -233,14 +235,16 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
 			if (commerceOrder.isOpen()) {
-				CPInstance cpInstance = commerceOrderItem.getCPInstance();
+				CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
+
+				if ((cpInstance == null) ||
+					(cpInstance.getCPSubscriptionInfo() == null)) {
+
+					return subscriptionPeriod;
+				}
 
 				CPSubscriptionInfo cpSubscriptionInfo =
 					cpInstance.getCPSubscriptionInfo();
-
-				if (cpSubscriptionInfo == null) {
-					return subscriptionPeriod;
-				}
 
 				String period = StringPool.BLANK;
 

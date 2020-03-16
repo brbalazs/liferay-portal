@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -97,18 +98,20 @@ public class CommerceProductDefinitionDataSetActionProvider
 	}
 
 	private PortletURL _getProductDeleteURL(
-			long cpDefinitionId, HttpServletRequest httpServletRequest)
-		throws PortalException {
+		long cpDefinitionId, HttpServletRequest httpServletRequest) {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
 			_portal.getOriginalServletRequest(httpServletRequest),
 			CPPortletKeys.CP_DEFINITIONS, PortletRequest.ACTION_PHASE);
 
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editProductDefinition");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter("redirect", redirect);
 		portletURL.setParameter(
 			"cpDefinitionId", String.valueOf(cpDefinitionId));
 

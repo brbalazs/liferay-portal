@@ -102,7 +102,11 @@ public class CommerceCheckoutTest {
 		BigDecimal expectedSubTotal = BigDecimal.ZERO;
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			CPInstance cpInstance = commerceOrderItem.getCPInstance();
+			CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
+
+			if (cpInstance == null) {
+				continue;
+			}
 
 			BigDecimal price = cpInstance.getPrice();
 

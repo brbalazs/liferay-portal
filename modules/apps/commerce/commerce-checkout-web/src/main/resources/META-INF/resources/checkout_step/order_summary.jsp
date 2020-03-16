@@ -140,7 +140,7 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 
 						<%
 						CommerceProductPrice commerceProductPrice = orderSummaryCheckoutStepDisplayContext.getCommerceProductPrice(commerceOrderItem);
-						CPInstance cpInstance = commerceOrderItem.getCPInstance();
+						CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
 						%>
 
 						<liferay-ui:search-container-column-text
@@ -174,7 +174,7 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 										</c:choose>
 									</span>
 
-									<c:if test="<%= Validator.isNotNull(cpInstance.getCPSubscriptionInfo()) %>">
+									<c:if test="<%= (cpInstance != null) && Validator.isNotNull(cpInstance.getCPSubscriptionInfo()) %>">
 										<span class="commerce-subscription-info">
 											<commerce-ui:product-subscription-info
 												CPInstanceId="<%= commerceOrderItem.getCPInstanceId() %>"

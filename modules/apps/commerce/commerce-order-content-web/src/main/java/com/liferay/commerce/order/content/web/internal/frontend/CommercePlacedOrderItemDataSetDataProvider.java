@@ -129,12 +129,14 @@ public class CommercePlacedOrderItemDataSetDataProvider
 
 				String formattedSubscriptionPeriod = null;
 
-				CPInstance cpInstance = commerceOrderItem.getCPInstance();
+				CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
 
-				CPSubscriptionInfo cpSubscriptionInfo =
-					cpInstance.getCPSubscriptionInfo();
+				if ((cpInstance != null) &&
+					(cpInstance.getCPSubscriptionInfo() != null)) {
 
-				if (cpSubscriptionInfo != null) {
+					CPSubscriptionInfo cpSubscriptionInfo =
+						cpInstance.getCPSubscriptionInfo();
+
 					String period = StringPool.BLANK;
 
 					CPSubscriptionType cpSubscriptionType =

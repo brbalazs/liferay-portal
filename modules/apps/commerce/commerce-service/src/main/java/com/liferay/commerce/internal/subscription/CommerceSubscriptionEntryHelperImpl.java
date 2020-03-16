@@ -55,9 +55,13 @@ public class CommerceSubscriptionEntryHelperImpl
 				commerceOrder.getCommerceOrderId());
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			CPInstance cpInstance = commerceOrderItem.getCPInstance();
-
 			if (_isNewSubscription(commerceOrderItem)) {
+				CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
+
+				if (cpInstance == null) {
+					continue;
+				}
+
 				CPSubscriptionInfo cpSubscriptionInfo =
 					cpInstance.getCPSubscriptionInfo();
 
