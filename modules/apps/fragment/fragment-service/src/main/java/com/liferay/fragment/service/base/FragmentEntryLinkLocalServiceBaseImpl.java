@@ -46,6 +46,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -406,6 +407,10 @@ public abstract class FragmentEntryLinkLocalServiceBaseImpl
 
 		return fragmentEntryLinkLocalService.deleteFragmentEntryLink(
 			(FragmentEntryLink)persistedModel);
+	}
+
+	public BasePersistence<FragmentEntryLink> getBasePersistence() {
+		return fragmentEntryLinkPersistence;
 	}
 
 	/**

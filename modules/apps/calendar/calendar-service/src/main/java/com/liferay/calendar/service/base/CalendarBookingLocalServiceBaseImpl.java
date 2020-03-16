@@ -58,6 +58,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.CompanyPersistence;
 import com.liferay.portal.kernel.service.persistence.GroupPersistence;
@@ -454,6 +455,10 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 
 		return calendarBookingLocalService.deleteCalendarBooking(
 			(CalendarBooking)persistedModel);
+	}
+
+	public BasePersistence<CalendarBooking> getBasePersistence() {
+		return calendarBookingPersistence;
 	}
 
 	/**

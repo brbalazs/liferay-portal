@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.OrgLaborLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ListTypePersistence;
 import com.liferay.portal.kernel.service.persistence.OrgLaborPersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -273,6 +274,10 @@ public abstract class OrgLaborLocalServiceBaseImpl
 		throws PortalException {
 
 		return orgLaborLocalService.deleteOrgLabor((OrgLabor)persistedModel);
+	}
+
+	public BasePersistence<OrgLabor> getBasePersistence() {
+		return orgLaborPersistence;
 	}
 
 	/**

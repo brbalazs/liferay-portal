@@ -47,6 +47,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.LayoutPersistence;
 import com.liferay.portal.kernel.service.persistence.LayoutSetPersistence;
@@ -420,6 +421,10 @@ public abstract class MDRRuleGroupInstanceLocalServiceBaseImpl
 
 		return mdrRuleGroupInstanceLocalService.deleteMDRRuleGroupInstance(
 			(MDRRuleGroupInstance)persistedModel);
+	}
+
+	public BasePersistence<MDRRuleGroupInstance> getBasePersistence() {
+		return mdrRuleGroupInstancePersistence;
 	}
 
 	/**

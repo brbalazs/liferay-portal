@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.ListTypeLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.ListTypePersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -273,6 +274,10 @@ public abstract class ListTypeLocalServiceBaseImpl
 		throws PortalException {
 
 		return listTypeLocalService.deleteListType((ListType)persistedModel);
+	}
+
+	public BasePersistence<ListType> getBasePersistence() {
+		return listTypePersistence;
 	}
 
 	/**

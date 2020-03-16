@@ -47,6 +47,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.GroupFinder;
 import com.liferay.portal.kernel.service.persistence.GroupPersistence;
@@ -387,6 +388,10 @@ public abstract class LayoutLocalServiceBaseImpl
 		throws PortalException {
 
 		return layoutLocalService.deleteLayout((Layout)persistedModel);
+	}
+
+	public BasePersistence<Layout> getBasePersistence() {
+		return layoutPersistence;
 	}
 
 	/**

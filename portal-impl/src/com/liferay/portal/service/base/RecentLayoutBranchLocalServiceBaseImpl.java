@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.RecentLayoutBranchLocalService;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.LayoutBranchPersistence;
 import com.liferay.portal.kernel.service.persistence.RecentLayoutBranchPersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -295,6 +296,10 @@ public abstract class RecentLayoutBranchLocalServiceBaseImpl
 
 		return recentLayoutBranchLocalService.deleteRecentLayoutBranch(
 			(RecentLayoutBranch)persistedModel);
+	}
+
+	public BasePersistence<RecentLayoutBranch> getBasePersistence() {
+		return recentLayoutBranchPersistence;
 	}
 
 	/**

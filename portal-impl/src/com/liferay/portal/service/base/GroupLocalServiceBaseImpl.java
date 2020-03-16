@@ -48,6 +48,7 @@ import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.persistence.AccountPersistence;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.CompanyPersistence;
 import com.liferay.portal.kernel.service.persistence.GroupFinder;
@@ -328,6 +329,10 @@ public abstract class GroupLocalServiceBaseImpl
 		throws PortalException {
 
 		return groupLocalService.deleteGroup((Group)persistedModel);
+	}
+
+	public BasePersistence<Group> getBasePersistence() {
+		return groupPersistence;
 	}
 
 	/**

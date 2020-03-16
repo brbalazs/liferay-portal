@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.BrowserTrackerLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.BrowserTrackerPersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -278,6 +279,10 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 
 		return browserTrackerLocalService.deleteBrowserTracker(
 			(BrowserTracker)persistedModel);
+	}
+
+	public BasePersistence<BrowserTracker> getBasePersistence() {
+		return browserTrackerPersistence;
 	}
 
 	/**

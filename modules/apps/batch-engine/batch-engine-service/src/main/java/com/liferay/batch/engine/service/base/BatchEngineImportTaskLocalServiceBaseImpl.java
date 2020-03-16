@@ -47,6 +47,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.File;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -396,6 +397,10 @@ public abstract class BatchEngineImportTaskLocalServiceBaseImpl
 
 		return batchEngineImportTaskLocalService.deleteBatchEngineImportTask(
 			(BatchEngineImportTask)persistedModel);
+	}
+
+	public BasePersistence<BatchEngineImportTask> getBasePersistence() {
+		return batchEngineImportTaskPersistence;
 	}
 
 	/**

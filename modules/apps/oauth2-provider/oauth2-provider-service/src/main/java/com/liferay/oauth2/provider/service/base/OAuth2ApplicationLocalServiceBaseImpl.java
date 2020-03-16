@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.GroupPersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -290,6 +291,10 @@ public abstract class OAuth2ApplicationLocalServiceBaseImpl
 
 		return oAuth2ApplicationLocalService.deleteOAuth2Application(
 			(OAuth2Application)persistedModel);
+	}
+
+	public BasePersistence<OAuth2Application> getBasePersistence() {
+		return oAuth2ApplicationPersistence;
 	}
 
 	/**

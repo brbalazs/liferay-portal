@@ -44,6 +44,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.WebsiteLocalService;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.ListTypePersistence;
 import com.liferay.portal.kernel.service.persistence.UserFinder;
@@ -387,6 +388,10 @@ public abstract class WebsiteLocalServiceBaseImpl
 		throws PortalException {
 
 		return websiteLocalService.deleteWebsite((Website)persistedModel);
+	}
+
+	public BasePersistence<Website> getBasePersistence() {
+		return websitePersistence;
 	}
 
 	/**

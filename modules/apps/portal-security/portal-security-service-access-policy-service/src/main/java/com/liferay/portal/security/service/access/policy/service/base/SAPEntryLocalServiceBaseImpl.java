@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.ResourcePermissionPersistence;
 import com.liferay.portal.kernel.service.persistence.RolePersistence;
@@ -363,6 +364,10 @@ public abstract class SAPEntryLocalServiceBaseImpl
 		throws PortalException {
 
 		return sapEntryLocalService.deleteSAPEntry((SAPEntry)persistedModel);
+	}
+
+	public BasePersistence<SAPEntry> getBasePersistence() {
+		return sapEntryPersistence;
 	}
 
 	/**

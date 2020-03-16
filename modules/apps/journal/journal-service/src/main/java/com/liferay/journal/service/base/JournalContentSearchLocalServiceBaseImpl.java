@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.GroupPersistence;
 import com.liferay.portal.kernel.service.persistence.LayoutPersistence;
 import com.liferay.portal.kernel.service.persistence.PortletPreferencesPersistence;
@@ -296,6 +297,10 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 
 		return journalContentSearchLocalService.deleteJournalContentSearch(
 			(JournalContentSearch)persistedModel);
+	}
+
+	public BasePersistence<JournalContentSearch> getBasePersistence() {
+		return journalContentSearchPersistence;
 	}
 
 	/**

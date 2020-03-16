@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.GroupPersistence;
 import com.liferay.portal.kernel.service.persistence.SystemEventPersistence;
@@ -278,6 +279,10 @@ public abstract class TrashEntryLocalServiceBaseImpl
 
 		return trashEntryLocalService.deleteTrashEntry(
 			(TrashEntry)persistedModel);
+	}
+
+	public BasePersistence<TrashEntry> getBasePersistence() {
+		return trashEntryPersistence;
 	}
 
 	/**

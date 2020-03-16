@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.ClusterGroupLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClusterGroupPersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -278,6 +279,10 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 
 		return clusterGroupLocalService.deleteClusterGroup(
 			(ClusterGroup)persistedModel);
+	}
+
+	public BasePersistence<ClusterGroup> getBasePersistence() {
+		return clusterGroupPersistence;
 	}
 
 	/**

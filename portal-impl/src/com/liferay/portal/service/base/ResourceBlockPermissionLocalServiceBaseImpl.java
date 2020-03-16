@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.ResourceBlockPermissionLocalService;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ResourceBlockFinder;
 import com.liferay.portal.kernel.service.persistence.ResourceBlockPermissionPersistence;
 import com.liferay.portal.kernel.service.persistence.ResourceBlockPersistence;
@@ -306,6 +307,10 @@ public abstract class ResourceBlockPermissionLocalServiceBaseImpl
 		return resourceBlockPermissionLocalService.
 			deleteResourceBlockPermission(
 				(ResourceBlockPermission)persistedModel);
+	}
+
+	public BasePersistence<ResourceBlockPermission> getBasePersistence() {
+		return resourceBlockPermissionPersistence;
 	}
 
 	/**

@@ -56,6 +56,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.GroupPersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.service.persistence.WorkflowInstanceLinkPersistence;
@@ -438,6 +439,10 @@ public abstract class MBThreadLocalServiceBaseImpl
 		throws PortalException {
 
 		return mbThreadLocalService.deleteMBThread((MBThread)persistedModel);
+	}
+
+	public BasePersistence<MBThread> getBasePersistence() {
+		return mbThreadPersistence;
 	}
 
 	/**

@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.WebDAVPropsLocalService;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.WebDAVPropsPersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -279,6 +280,10 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 
 		return webDAVPropsLocalService.deleteWebDAVProps(
 			(WebDAVProps)persistedModel);
+	}
+
+	public BasePersistence<WebDAVProps> getBasePersistence() {
+		return webDAVPropsPersistence;
 	}
 
 	/**

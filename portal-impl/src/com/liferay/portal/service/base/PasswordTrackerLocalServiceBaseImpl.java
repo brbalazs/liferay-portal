@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PasswordTrackerLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.PasswordPolicyFinder;
 import com.liferay.portal.kernel.service.persistence.PasswordPolicyPersistence;
 import com.liferay.portal.kernel.service.persistence.PasswordTrackerPersistence;
@@ -284,6 +285,10 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 
 		return passwordTrackerLocalService.deletePasswordTracker(
 			(PasswordTracker)persistedModel);
+	}
+
+	public BasePersistence<PasswordTracker> getBasePersistence() {
+		return passwordTrackerPersistence;
 	}
 
 	/**
