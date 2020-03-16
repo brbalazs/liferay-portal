@@ -415,6 +415,13 @@ public class CPInstanceOptionValueRelLocalServiceUtil {
 		return getService().hasCPInstanceOptionValueRel(cpInstanceId);
 	}
 
+	public static boolean matchesCPDefinitionOptionRels(
+		long cpDefinitionId, long cpInstanceId) {
+
+		return getService().matchesCPDefinitionOptionRels(
+			cpDefinitionId, cpInstanceId);
+	}
+
 	public static boolean matchesCPInstanceOptionValueRels(
 		long cpInstanceId,
 		java.util.List

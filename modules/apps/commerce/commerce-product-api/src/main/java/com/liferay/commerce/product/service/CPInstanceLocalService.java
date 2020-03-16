@@ -591,6 +591,10 @@ public interface CPInstanceLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public String[] getSKUs(long cpDefinitionId);
 
+	public void inactivateIncompatibleCPInstances(
+			long userId, long cpDefinitionId)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Hits search(SearchContext searchContext);
 
@@ -660,6 +664,21 @@ public interface CPInstanceLocalService
 			double weight, ServiceContext serviceContext)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CPInstance updateStatus(long userId, long cpInstanceId, int status)
+		throws PortalException;
+
+	/**
+	 * @param userId
+	 * @param cpInstanceId
+	 * @param status
+	 * @param serviceContext
+	 * @param workflowContext
+	 * @return
+	 * @throws PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long, long, int)}
+	 */
+	@Deprecated
 	@Indexable(type = IndexableType.REINDEX)
 	public CPInstance updateStatus(
 			long userId, long cpInstanceId, int status,

@@ -331,6 +331,9 @@ public interface CPInstanceOptionValueRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public boolean hasCPInstanceOptionValueRel(long cpInstanceId);
 
+	public boolean matchesCPDefinitionOptionRels(
+		long cpDefinitionId, long cpInstanceId);
+
 	public boolean matchesCPInstanceOptionValueRels(
 		long cpInstanceId,
 		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels);

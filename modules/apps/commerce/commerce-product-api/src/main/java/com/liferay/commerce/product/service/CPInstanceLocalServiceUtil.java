@@ -761,6 +761,13 @@ public class CPInstanceLocalServiceUtil {
 		return getService().getSKUs(cpDefinitionId);
 	}
 
+	public static void inactivateIncompatibleCPInstances(
+			long userId, long cpDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().inactivateIncompatibleCPInstances(userId, cpDefinitionId);
+	}
+
 	public static com.liferay.portal.kernel.search.Hits search(
 		com.liferay.portal.kernel.search.SearchContext searchContext) {
 
@@ -886,6 +893,24 @@ public class CPInstanceLocalServiceUtil {
 			cpInstanceId, width, height, depth, weight, serviceContext);
 	}
 
+	public static com.liferay.commerce.product.model.CPInstance updateStatus(
+			long userId, long cpInstanceId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateStatus(userId, cpInstanceId, status);
+	}
+
+	/**
+	 * @param userId
+	 * @param cpInstanceId
+	 * @param status
+	 * @param serviceContext
+	 * @param workflowContext
+	 * @return
+	 * @throws PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long, long, int)}
+	 */
+	@Deprecated
 	public static com.liferay.commerce.product.model.CPInstance updateStatus(
 			long userId, long cpInstanceId, int status,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext,

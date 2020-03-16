@@ -458,6 +458,14 @@ public class CPInstanceOptionValueRelLocalServiceWrapper
 	}
 
 	@Override
+	public boolean matchesCPDefinitionOptionRels(
+		long cpDefinitionId, long cpInstanceId) {
+
+		return _cpInstanceOptionValueRelLocalService.
+			matchesCPDefinitionOptionRels(cpDefinitionId, cpInstanceId);
+	}
+
+	@Override
 	public boolean matchesCPInstanceOptionValueRels(
 		long cpInstanceId,
 		java.util.List
