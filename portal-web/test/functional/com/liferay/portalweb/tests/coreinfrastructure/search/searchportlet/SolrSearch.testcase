@@ -1821,12 +1821,12 @@ definition {
 		property osgi.app.includes = "bookmarks,portal-search-solr7";
 		var searchPage = "Search Page";
 
-		JSONCategory.addVocabularyByGroupName(
+		JSONCategory.addVocabulary(
 			groupName = "Guest",
 			title = "Fruit Vocabulary"
 		);
 
-		JSONCategory.addCategoryByGroupName(
+		JSONCategory.addCategory(
 			groupName = "Guest",
 			title = "organic",
 			vocabularyName = "Fruit Vocabulary"
@@ -1838,7 +1838,6 @@ definition {
 			vocabularyName = "Fruit Vocabulary"
 		);
 
-		var liferaySiteId = JSONGroup._getSiteIdByGroupName(groupName = "Guest");
 		var portalURL = PropsUtil.get("portal.url");
 		var webContentFolderName1 = "WC Folder Name 1";
 
@@ -1890,8 +1889,6 @@ definition {
 		);
 
 		JSONGroup.addGroup(groupName = "New Site");
-
-		var newSiteId = JSONGroup._getSiteIdByGroupName(groupName = "New Site");
 
 		SitePages.openPagesAdmin(siteURLKey = "New Site");
 
