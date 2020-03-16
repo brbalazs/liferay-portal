@@ -26,7 +26,7 @@
 		<column name="couponCode" type="String" />
 		<column name="usePercentage" type="boolean" />
 		<column name="maximumDiscountAmount" type="BigDecimal" />
-		<column name="level" type="String" />
+		<column db-name="levelType" name="level" type="String" />
 		<column name="level1" type="BigDecimal" />
 		<column name="level2" type="BigDecimal" />
 		<column name="level3" type="BigDecimal" />
