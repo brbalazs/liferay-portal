@@ -155,7 +155,6 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			cart.getAccountId());
 
 		_updateOrder(commerceOrder, cart);
-		_upsertNestedResources(cart, commerceOrder, commerceContext);
 
 		return _toCart(commerceOrder);
 	}
