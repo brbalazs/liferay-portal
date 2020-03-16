@@ -196,6 +196,27 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 		}
 
 		if (cpFriendlyURLEntry == null) {
+			cpFriendlyURLEntry =
+				_cpFriendlyURLEntryLocalService.fetchCPFriendlyURLEntry(
+					GroupConstants.DEFAULT_LIVE_GROUP_ID, classNameId,
+					cProductId,
+					LocaleUtil.toLanguageId(
+						themeDisplay.getSiteDefaultLocale()),
+					true);
+		}
+
+		if (cpFriendlyURLEntry == null) {
+			List<CPFriendlyURLEntry> cpFriendlyURLEntries =
+				_cpFriendlyURLEntryLocalService.getCPFriendlyURLEntries(
+					GroupConstants.DEFAULT_LIVE_GROUP_ID, classNameId,
+					cProductId);
+
+			if (!cpFriendlyURLEntries.isEmpty()) {
+				cpFriendlyURLEntry = cpFriendlyURLEntries.get(0);
+			}
+		}
+
+		if (cpFriendlyURLEntry == null) {
 			if (_log.isInfoEnabled()) {
 				_log.info("No friendly URL found for " + cProductId);
 			}

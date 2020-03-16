@@ -110,7 +110,8 @@ public class ProductFriendlyURLResolver implements FriendlyURLResolver {
 		if (cpFriendlyURLEntry == null) {
 			List<CPFriendlyURLEntry> cpFriendlyURLEntries =
 				_cpFriendlyURLEntryLocalService.getCPFriendlyURLEntries(
-					groupId, classNameId, urlTitle);
+					GroupConstants.DEFAULT_LIVE_GROUP_ID, classNameId,
+					urlTitle);
 
 			cpFriendlyURLEntry = cpFriendlyURLEntries.get(0);
 		}
@@ -236,7 +237,8 @@ public class ProductFriendlyURLResolver implements FriendlyURLResolver {
 		if (cpFriendlyURLEntry == null) {
 			List<CPFriendlyURLEntry> cpFriendlyURLEntries =
 				_cpFriendlyURLEntryLocalService.getCPFriendlyURLEntries(
-					groupId, classNameId, urlTitle);
+					GroupConstants.DEFAULT_LIVE_GROUP_ID, classNameId,
+					urlTitle);
 
 			if (cpFriendlyURLEntries.isEmpty()) {
 				return null;
