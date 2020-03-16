@@ -48,14 +48,14 @@ public class CommerceSubscriptionEntryImpl
 	}
 
 	@Override
-	public CPInstance fetchCPInstance() throws PortalException {
+	public CPInstance fetchCPInstance() {
 		CommerceOrderItem commerceOrderItem = fetchCommerceOrderItem();
 
 		if (commerceOrderItem == null) {
 			return null;
 		}
 
-		return commerceOrderItem.getCPInstance();
+		return commerceOrderItem.fetchCPInstance();
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class CommerceSubscriptionEntryImpl
 	}
 
 	@Override
-	public long getCPInstanceId() throws PortalException {
+	public long getCPInstanceId() {
 		CPInstance cpInstance = fetchCPInstance();
 
 		if (cpInstance == null) {
