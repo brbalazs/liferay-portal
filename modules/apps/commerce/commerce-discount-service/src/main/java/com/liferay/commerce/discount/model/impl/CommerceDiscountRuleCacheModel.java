@@ -151,9 +151,7 @@ public class CommerceDiscountRuleCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput)
-		throws ClassNotFoundException, IOException {
-
+	public void readExternal(ObjectInput objectInput) throws IOException {
 		commerceDiscountRuleId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -166,7 +164,7 @@ public class CommerceDiscountRuleCacheModel
 
 		commerceDiscountId = objectInput.readLong();
 		type = objectInput.readUTF();
-		typeSettings = (String)objectInput.readObject();
+		typeSettings = objectInput.readUTF();
 	}
 
 	@Override
@@ -204,10 +202,10 @@ public class CommerceDiscountRuleCacheModel
 		}
 
 		if (typeSettings == null) {
-			objectOutput.writeObject("");
+			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeObject(typeSettings);
+			objectOutput.writeUTF(typeSettings);
 		}
 	}
 

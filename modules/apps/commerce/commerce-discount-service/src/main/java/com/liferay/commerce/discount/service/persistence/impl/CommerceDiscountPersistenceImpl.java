@@ -6330,6 +6330,7 @@ public class CommerceDiscountPersistenceImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
+		dbColumnNames.put("level", "levelType");
 		dbColumnNames.put("active", "active_");
 
 		try {
@@ -7466,6 +7467,6 @@ public class CommerceDiscountPersistenceImpl
 		CommerceDiscountPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "active"});
+		new String[] {"uuid", "level", "active"});
 
 }

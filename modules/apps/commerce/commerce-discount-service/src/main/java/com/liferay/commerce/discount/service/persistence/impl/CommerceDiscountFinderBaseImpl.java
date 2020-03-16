@@ -40,6 +40,7 @@ public class CommerceDiscountFinderBaseImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
+		dbColumnNames.put("level", "levelType");
 		dbColumnNames.put("active", "active_");
 
 		try {

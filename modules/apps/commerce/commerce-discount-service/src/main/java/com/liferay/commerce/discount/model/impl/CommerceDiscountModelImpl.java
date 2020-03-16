@@ -85,7 +85,7 @@ public class CommerceDiscountModelImpl
 		{"title", Types.VARCHAR}, {"target", Types.VARCHAR},
 		{"useCouponCode", Types.BOOLEAN}, {"couponCode", Types.VARCHAR},
 		{"usePercentage", Types.BOOLEAN},
-		{"maximumDiscountAmount", Types.DECIMAL}, {"level", Types.VARCHAR},
+		{"maximumDiscountAmount", Types.DECIMAL}, {"levelType", Types.VARCHAR},
 		{"level1", Types.DECIMAL}, {"level2", Types.DECIMAL},
 		{"level3", Types.DECIMAL}, {"level4", Types.DECIMAL},
 		{"limitationType", Types.VARCHAR}, {"limitationTimes", Types.INTEGER},
@@ -115,7 +115,7 @@ public class CommerceDiscountModelImpl
 		TABLE_COLUMNS_MAP.put("couponCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("usePercentage", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("maximumDiscountAmount", Types.DECIMAL);
-		TABLE_COLUMNS_MAP.put("level", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("levelType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("level1", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("level2", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("level3", Types.DECIMAL);
@@ -135,7 +135,7 @@ public class CommerceDiscountModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceDiscount (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commerceDiscountId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,target VARCHAR(75) null,useCouponCode BOOLEAN,couponCode VARCHAR(75) null,usePercentage BOOLEAN,maximumDiscountAmount DECIMAL(30, 16) null,level VARCHAR(75) null,level1 DECIMAL(30, 16) null,level2 DECIMAL(30, 16) null,level3 DECIMAL(30, 16) null,level4 DECIMAL(30, 16) null,limitationType VARCHAR(75) null,limitationTimes INTEGER,numberOfUse INTEGER,rulesConjunction BOOLEAN,active_ BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+		"create table CommerceDiscount (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commerceDiscountId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,target VARCHAR(75) null,useCouponCode BOOLEAN,couponCode VARCHAR(75) null,usePercentage BOOLEAN,maximumDiscountAmount DECIMAL(30, 16) null,levelType VARCHAR(75) null,level1 DECIMAL(30, 16) null,level2 DECIMAL(30, 16) null,level3 DECIMAL(30, 16) null,level4 DECIMAL(30, 16) null,limitationType VARCHAR(75) null,limitationTimes INTEGER,numberOfUse INTEGER,rulesConjunction BOOLEAN,active_ BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommerceDiscount";
 

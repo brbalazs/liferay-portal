@@ -24,7 +24,7 @@ create table CommerceDiscount (
 	couponCode VARCHAR(75) null,
 	usePercentage BOOLEAN,
 	maximumDiscountAmount DECIMAL(30, 16) null,
-	level VARCHAR(75) null,
+	levelType VARCHAR(75) null,
 	level1 DECIMAL(30, 16) null,
 	level2 DECIMAL(30, 16) null,
 	level3 DECIMAL(30, 16) null,
