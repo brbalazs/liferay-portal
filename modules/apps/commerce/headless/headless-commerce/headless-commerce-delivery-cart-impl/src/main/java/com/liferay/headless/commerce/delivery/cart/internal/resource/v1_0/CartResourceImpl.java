@@ -149,11 +149,6 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		CommerceOrder commerceOrder = _addCommerceOrder(
 			cart, commerceChannel.getGroupId(), contextUser.getUserId());
 
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getGroupId(),
-			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
-			cart.getAccountId());
-
 		_updateOrder(commerceOrder, cart);
 
 		return _toCart(commerceOrder);
