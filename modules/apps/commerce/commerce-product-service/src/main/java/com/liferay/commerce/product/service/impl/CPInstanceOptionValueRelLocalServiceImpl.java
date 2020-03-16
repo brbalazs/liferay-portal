@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.service.impl;
 
+import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.service.base.CPInstanceOptionValueRelLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
@@ -156,6 +157,48 @@ public class CPInstanceOptionValueRelLocalServiceImpl
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean matchesCPDefinitionOptionRels(
+		long cpDefinitionId, long cpInstanceId) {
+
+		List<CPDefinitionOptionRel> cpDefinitionCPDefinitionOptionRels =
+			cpDefinitionOptionRelPersistence.findByC_SC(cpDefinitionId, true);
+
+		List<CPInstanceOptionValueRel> cpInstanceCPInstanceOptionValueRels =
+			cpInstanceOptionValueRelLocalService.
+				getCPInstanceCPInstanceOptionValueRels(cpInstanceId);
+
+		if (cpDefinitionCPDefinitionOptionRels.size() !=
+				cpInstanceCPInstanceOptionValueRels.size()) {
+
+			return false;
+		}
+
+		for (CPDefinitionOptionRel cpDefinitionOptionRel :
+				cpDefinitionCPDefinitionOptionRels) {
+
+			boolean matched = false;
+
+			for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+					cpInstanceCPInstanceOptionValueRels) {
+
+				if (cpDefinitionOptionRel.getCPDefinitionOptionRelId() ==
+						cpInstanceOptionValueRel.getCPDefinitionOptionRelId()) {
+
+					matched = true;
+
+					break;
+				}
+			}
+
+			if (!matched) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	@Override

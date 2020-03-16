@@ -153,7 +153,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		// Commerce product instances
 
-		checkCPInstances(cpDefinitionId, serviceContext);
+		cpInstanceLocalService.inactivateIncompatibleCPInstances(
+			user.getUserId(), cpDefinitionId);
 
 		// Commerce product definition
 
@@ -523,8 +524,9 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		// Commerce product instances
 
-		checkCPInstances(
-			cpDefinitionOptionRel.getCPDefinitionId(), serviceContext);
+		cpInstanceLocalService.inactivateIncompatibleCPInstances(
+			serviceContext.getUserId(),
+			cpDefinitionOptionRel.getCPDefinitionId());
 
 		// Commerce product definition
 
@@ -582,13 +584,13 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				cpDefintionId)) {
 
 			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
-				cpDefintionId, true, serviceContext);
+				cpDefintionId, false, serviceContext);
 
 			return;
 		}
 
 		cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
-			cpDefintionId, false, serviceContext);
+			cpDefintionId, true, serviceContext);
 	}
 
 	protected void checkCPInstances(CPDefinitionOptionRel cpDefinitionOptionRel)
@@ -621,36 +623,6 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			cpInstanceLocalService.updateStatus(
 				userId, cpInstance.getCPInstanceId(),
 				WorkflowConstants.STATUS_INACTIVE);
-		}
-	}
-
-	protected void checkCPInstances(
-			long cpDefinitionId, ServiceContext serviceContext)
-		throws PortalException {
-
-		if (!_hasCPDefinitionSKUContributorCPDefinitionOptionRel(
-				cpDefinitionId)) {
-
-			return;
-		}
-
-		CPDefinition cpDefinition = cpDefinitionLocalService.getCPDefinition(
-			cpDefinitionId);
-
-		List<CPInstance> cpInstances =
-			cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		for (CPInstance cpInstance : cpInstances) {
-			if (cpInstanceOptionValueRelLocalService.
-					hasCPInstanceOptionValueRel(cpInstance.getCPInstanceId())) {
-
-				cpInstanceLocalService.updateStatus(
-					serviceContext.getUserId(), cpInstance.getCPInstanceId(),
-					WorkflowConstants.STATUS_INACTIVE);
-			}
 		}
 	}
 

@@ -812,6 +812,28 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 	}
 
 	@Override
+	public void inactivateIncompatibleCPInstances(
+			long userId, long cpDefinitionId)
+		throws PortalException {
+
+		List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
+			cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
+
+		for (CPInstance curCPInstance : cpInstances) {
+			if (cpInstanceOptionValueRelLocalService.
+					matchesCPDefinitionOptionRels(
+						cpDefinitionId, curCPInstance.getCPInstanceId())) {
+
+				continue;
+			}
+
+			cpInstanceLocalService.updateStatus(
+				userId, curCPInstance.getCPInstanceId(),
+				WorkflowConstants.STATUS_INACTIVE);
+		}
+	}
+
+	@Override
 	public Hits search(SearchContext searchContext) {
 		try {
 			Indexer<CPInstance> indexer =
