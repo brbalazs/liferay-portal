@@ -15,6 +15,7 @@
 package com.liferay.commerce.subscription.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
@@ -25,6 +26,7 @@ import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.service.CommerceOrderLocalServiceUtil;
 import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.commerce.subscription.CommerceSubscriptionEntryHelper;
@@ -90,6 +92,11 @@ public class CommerceDeliverySubscriptionsTest {
 	public void testDeliveryAndPaymentSubscription() throws Exception {
 		_commerceOrder = CommerceTestUtil.addCheckoutDetailsToUserOrder(
 			_commerceOrder, _user.getUserId(), true, true);
+
+		_commerceOrder.setPaymentStatus(
+			CommerceOrderConstants.PAYMENT_STATUS_PAID);
+
+		CommerceOrderLocalServiceUtil.updateCommerceOrder(_commerceOrder);
 
 		_commerceOrder = _commerceOrderEngine.checkoutCommerceOrder(
 			_commerceOrder, _user.getUserId());
@@ -183,6 +190,11 @@ public class CommerceDeliverySubscriptionsTest {
 	public void testDeliverySubscriptionRenew() throws Exception {
 		_commerceOrder = CommerceTestUtil.addCheckoutDetailsToUserOrder(
 			_commerceOrder, _user.getUserId(), true, true);
+
+		_commerceOrder.setPaymentStatus(
+			CommerceOrderConstants.PAYMENT_STATUS_PAID);
+
+		CommerceOrderLocalServiceUtil.updateCommerceOrder(_commerceOrder);
 
 		_commerceOrder = _commerceOrderEngine.checkoutCommerceOrder(
 			_commerceOrder, _user.getUserId());
