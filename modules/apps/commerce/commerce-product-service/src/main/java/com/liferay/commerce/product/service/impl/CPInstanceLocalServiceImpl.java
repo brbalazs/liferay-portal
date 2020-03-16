@@ -70,7 +70,6 @@ import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -219,10 +218,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			if (!cpInstanceOptionValueRelLocalService.
 					hasCPInstanceOptionValueRel(cpInstanceId)) {
 
-				cpInstance = updateStatus(
+				cpInstance = cpInstanceLocalService.updateStatus(
 					user.getUserId(), cpInstance.getCPInstanceId(),
-					WorkflowConstants.STATUS_INACTIVE, serviceContext,
-					Collections.emptyMap());
+					WorkflowConstants.STATUS_INACTIVE);
 			}
 
 			_expireApprovedSiblingMatchingCPInstances(
@@ -580,8 +578,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 			cpInstanceLocalService.updateStatus(
 				userId, cpInstance.getCPInstanceId(),
-				WorkflowConstants.STATUS_APPROVED, serviceContext,
-				Collections.emptyMap());
+				WorkflowConstants.STATUS_APPROVED);
 		}
 	}
 
@@ -1005,10 +1002,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			if (!cpInstanceOptionValueRelLocalService.
 					hasCPInstanceOptionValueRel(cpInstanceId)) {
 
-				cpInstance = updateStatus(
+				cpInstance = cpInstanceLocalService.updateStatus(
 					user.getUserId(), cpInstance.getCPInstanceId(),
-					WorkflowConstants.STATUS_INACTIVE, serviceContext,
-					Collections.emptyMap());
+					WorkflowConstants.STATUS_INACTIVE);
 			}
 
 			_inactivateNoOptionSiblingCPInstances(
@@ -1084,10 +1080,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public CPInstance updateStatus(
-			long userId, long cpInstanceId, int status,
-			ServiceContext serviceContext,
-			Map<String, Serializable> workflowContext)
+	public CPInstance updateStatus(long userId, long cpInstanceId, int status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -1112,8 +1105,6 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			status = WorkflowConstants.STATUS_SCHEDULED;
 		}
 
-		Date modifiedDate = serviceContext.getModifiedDate(now);
-
 		if (status == WorkflowConstants.STATUS_APPROVED) {
 			Date expirationDate = cpInstance.getExpirationDate();
 
@@ -1129,9 +1120,32 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setStatus(status);
 		cpInstance.setStatusByUserId(user.getUserId());
 		cpInstance.setStatusByUserName(user.getFullName());
-		cpInstance.setStatusDate(modifiedDate);
+		cpInstance.setStatusDate(now);
 
 		return cpInstancePersistence.update(cpInstance);
+	}
+
+	/**
+	 * @param userId
+	 * @param cpInstanceId
+	 * @param status
+	 * @param serviceContext
+	 * @param workflowContext
+	 * @return
+	 *
+	 * @throws PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long, long, int)}
+	 */
+	@Deprecated
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CPInstance updateStatus(
+			long userId, long cpInstanceId, int status,
+			ServiceContext serviceContext,
+			Map<String, Serializable> workflowContext)
+		throws PortalException {
+
+		return updateStatus(userId, cpInstanceId, status);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -1435,8 +1449,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 				cpInstanceLocalService.updateStatus(
 					userId, cpInstance.getCPInstanceId(),
-					WorkflowConstants.STATUS_EXPIRED, serviceContext,
-					new HashMap<String, Serializable>());
+					WorkflowConstants.STATUS_EXPIRED);
 			}
 		}
 	}
@@ -1507,10 +1520,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				continue;
 			}
 
-			updateStatus(
+			cpInstanceLocalService.updateStatus(
 				serviceContext.getUserId(), cpInstance.getCPInstanceId(),
-				WorkflowConstants.STATUS_EXPIRED, serviceContext,
-				Collections.emptyMap());
+				WorkflowConstants.STATUS_EXPIRED);
 		}
 	}
 
@@ -1535,10 +1547,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				continue;
 			}
 
-			updateStatus(
+			cpInstanceLocalService.updateStatus(
 				serviceContext.getUserId(), curCPInstance.getCPInstanceId(),
-				WorkflowConstants.STATUS_EXPIRED, serviceContext,
-				Collections.emptyMap());
+				WorkflowConstants.STATUS_EXPIRED);
 		}
 	}
 
@@ -1561,10 +1572,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				continue;
 			}
 
-			updateStatus(
+			cpInstanceLocalService.updateStatus(
 				serviceContext.getUserId(), curCPInstance.getCPInstanceId(),
-				WorkflowConstants.STATUS_EXPIRED, serviceContext,
-				Collections.emptyMap());
+				WorkflowConstants.STATUS_EXPIRED);
 		}
 	}
 
@@ -1637,10 +1647,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				continue;
 			}
 
-			updateStatus(
+			cpInstanceLocalService.updateStatus(
 				serviceContext.getUserId(), curCPInstance.getCPInstanceId(),
-				WorkflowConstants.STATUS_INACTIVE, serviceContext,
-				Collections.emptyMap());
+				WorkflowConstants.STATUS_INACTIVE);
 		}
 	}
 
