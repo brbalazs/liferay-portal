@@ -15,7 +15,6 @@
 package com.liferay.commerce.product.tax.category.web.internal.admin;
 
 import com.liferay.commerce.admin.CommerceAdminModule;
-import com.liferay.commerce.admin.constants.CommerceAdminConstants;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.tax.category.web.internal.display.context.CPTaxCategoryDisplayContext;
@@ -71,11 +70,6 @@ public class TaxCategoriesCommerceAdminModule implements CommerceAdminModule {
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		return null;
-	}
-
-	@Override
-	public int getType() {
-		return CommerceAdminConstants.COMMERCE_ADMIN_TYPE_VIRTUAL_INSTANCE;
 	}
 
 	@Override

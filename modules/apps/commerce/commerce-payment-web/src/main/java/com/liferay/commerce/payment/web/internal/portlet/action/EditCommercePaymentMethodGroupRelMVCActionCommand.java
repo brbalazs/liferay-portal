@@ -120,8 +120,7 @@ public class EditCommercePaymentMethodGroupRelMVCActionCommand
 		String mvcRenderCommandName) {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			actionRequest,
-			CommerceAdminPortletKeys.COMMERCE_ADMIN_GROUP_INSTANCE,
+			actionRequest, CommerceAdminPortletKeys.COMMERCE_ADMIN,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
