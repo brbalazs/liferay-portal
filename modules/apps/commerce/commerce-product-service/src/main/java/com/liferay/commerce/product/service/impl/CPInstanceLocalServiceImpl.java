@@ -274,7 +274,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			expirationDateHour, expirationDateMinute, neverExpire,
 			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
 			subscriptionType, subscriptionTypeSettingsProperties,
-			maxSubscriptionCycles, false, 0, null, null, 0, serviceContext);
+			maxSubscriptionCycles, false, 1, null, null, 0, serviceContext);
 	}
 
 	/**
