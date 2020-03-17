@@ -172,11 +172,6 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 
 				runSQL(
 					String.format(
-						updateTableGroupIdSQL, "CProduct",
-						catalogGroup.getGroupId(), siteGroup.getGroupId()));
-
-				runSQL(
-					String.format(
 						updateTableGroupIdSQL, "CPFriendlyURLEntry",
 						GroupConstants.DEFAULT_LIVE_GROUP_ID,
 						siteGroup.getGroupId()));
