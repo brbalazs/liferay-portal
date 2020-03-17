@@ -97,7 +97,7 @@ function FiltersDropdown() {
 				</ClayDropDown.ItemList>
 			) : (
 				<div className="dropdown-section text-muted">
-					{Liferay.Language.get('no-filters-found')}
+					{Liferay.Language.get('no-filters-were-found')}
 				</div>
 			)}
 		</ClayDropDown>

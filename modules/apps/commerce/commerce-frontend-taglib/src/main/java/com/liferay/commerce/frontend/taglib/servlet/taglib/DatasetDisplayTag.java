@@ -17,11 +17,7 @@ package com.liferay.commerce.frontend.taglib.servlet.taglib;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.CommerceDataProviderRegistry;
-import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
-import com.liferay.commerce.frontend.Filter;
-import com.liferay.commerce.frontend.FilterFactory;
 import com.liferay.commerce.frontend.FilterFactoryRegistry;
-import com.liferay.commerce.frontend.PaginationImpl;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDataJSONBuilder;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayViewSerializer;
 import com.liferay.commerce.frontend.taglib.internal.model.ClayPaginationEntry;
@@ -29,7 +25,6 @@ import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
@@ -315,31 +310,6 @@ public class DatasetDisplayTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-commerce:dataset-display:spritemap", _spritemap);
 		request.setAttribute("liferay-commerce:dataset-display:style", _style);
-	}
-
-	private void _setItems() throws Exception {
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		CommerceDataSetDataProvider commerceDataSetDataProvider =
-			_commerceDataProviderRegistry.getCommerceDataProvider(
-				_dataProviderKey);
-
-		FilterFactory filterFactory = _filterFactoryRegistry.getFilterFactory(
-			_dataProviderKey);
-
-		Filter filter = filterFactory.create(request);
-
-		List<Object> items = commerceDataSetDataProvider.getItems(
-			request, filter, new PaginationImpl(_itemsPerPage, _pageNumber),
-			null);
-
-		String json = _clayDataSetDataJSONBuilder.build(
-			themeDisplay.getScopeGroupId(), _id, items, request);
-
-		_items = JSONFactoryUtil.looseDeserialize(json);
-
-		_totalItems = commerceDataSetDataProvider.countItems(request, filter);
 	}
 
 	private void _setPagination() {

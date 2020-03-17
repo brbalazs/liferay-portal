@@ -14,7 +14,7 @@
 
 import ClayButton from '@clayui/button';
 import {ClayCheckbox, ClayRadio} from '@clayui/form';
-import ClayIcon, { ClayIconSpriteContext } from '@clayui/icon';
+import {ClayIconSpriteContext} from '@clayui/icon';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayMultiSelect from '@clayui/multi-select';
 
@@ -162,7 +162,7 @@ function AutocompleteFilter(props) {
 
 	return (
 		<ClayIconSpriteContext.Consumer>
-			{(spritemap) => (
+			{spritemap => (
 				<div className="form-group">
 					{props.selectionType === 'multiple' ? (
 						<ClayMultiSelect
@@ -170,21 +170,34 @@ function AutocompleteFilter(props) {
 							items={selectedItems}
 							onChange={setQuery}
 							onItemsChange={e => {
-								if(e.length < selectedItems.length) {
-									return setSelectedItems(e)
+								if (e.length < selectedItems.length) {
+									return setSelectedItems(e);
 								} else {
-									if(!items.length)return;
+									if (!items.length) return;
 
 									const firstEl = {
-										label: getValueFromItem(items[0], props.itemLabel),
-										value: getValueFromItem(items[0], props.itemKey),
+										label: getValueFromItem(
+											items[0],
+											props.itemLabel
+										),
+										value: getValueFromItem(
+											items[0],
+											props.itemKey
+										)
 									};
-									const added = selectedItems.find(selectedItem => selectedItem.value === firstEl.value)
+									const added = selectedItems.find(
+										selectedItem =>
+											selectedItem.value === firstEl.value
+									);
 									return setSelectedItems(
 										added
-											? selectedItems.filter(selectedItem => selectedItem.value !== firstEl.value)
+											? selectedItems.filter(
+													selectedItem =>
+														selectedItem.value !==
+														firstEl.value
+											  )
 											: [...selectedItems, firstEl]
-									)
+									);
 								}
 							}}
 							placeholder={props.inputPlaceholder}
@@ -193,7 +206,7 @@ function AutocompleteFilter(props) {
 					) : (
 						<input
 							className="form-control"
-							onChange={(e) => setQuery(e.target.value)}
+							onChange={e => setQuery(e.target.value)}
 							placeholder={props.inputPlaceholder}
 							type="text"
 							value={query}
@@ -221,18 +234,27 @@ function AutocompleteFilter(props) {
 										label={itemLabel}
 										onChange={() => {
 											setSelectedItems(
-												selectedItems.find(el => el.value === itemValue)
+												selectedItems.find(
+													el => el.value === itemValue
+												)
 													? selectedItems.filter(
-															el => el.value !== itemValue
-													)
+															el =>
+																el.value !==
+																itemValue
+													  )
 													: props.selectionType ===
-													'multiple'
-													? [...selectedItems, newValue]
+													  'multiple'
+													? [
+															...selectedItems,
+															newValue
+													  ]
 													: [newValue]
 											);
 										}}
 										selected={Boolean(
-											selectedItems.find(el => el.value === itemValue)
+											selectedItems.find(
+												el => el.value === itemValue
+											)
 										)}
 										selectionType={props.selectionType}
 										value={itemValue}
@@ -248,14 +270,24 @@ function AutocompleteFilter(props) {
 						</ul>
 					) : (
 						<div className="text-muted p-2 mt-2">
-							{Liferay.Language.get('no-items-found')}
+							{Liferay.Language.get('no-items-were-found')}
 						</div>
 					)}
 					<div className="mt-3">
 						<ClayButton
 							className="btn-sm"
-							disabled={!isValueChanged(props.value || [], selectedItems)}
-							onClick={() => actions.updateFilterValue(props.id, selectedItems.length ? selectedItems : null)}
+							disabled={
+								!isValueChanged(
+									props.value || [],
+									selectedItems
+								)
+							}
+							onClick={() =>
+								actions.updateFilterValue(
+									props.id,
+									selectedItems.length ? selectedItems : null
+								)
+							}
 						>
 							{props.panelType === 'edit'
 								? Liferay.Language.get('edit-filter')

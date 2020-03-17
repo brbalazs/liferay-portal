@@ -17,12 +17,22 @@ export function convertObjectDateToIsoString(objDate) {
 	return date.toISOString();
 }
 
-export function createOdataFilterString(key, operator = 'eq', type, value, selectionType) {
+export function createOdataFilterString(
+	key,
+	operator = 'eq',
+	type,
+	value,
+	selectionType
+) {
 	switch (type) {
 		case 'autocomplete':
-			if(selectionType !== 'multiple') {
-				const firstItemVal = value[0].value
-				return `${key} eq ${firstItemVal instanceof Number ? firstItemVal : `'${firstItemVal}'`}`;
+			if (selectionType !== 'multiple') {
+				const firstItemVal = value[0].value;
+				return `${key} eq ${
+					firstItemVal instanceof Number
+						? firstItemVal
+						: `'${firstItemVal}'`
+				}`;
 			}
 			break;
 		case 'date':
@@ -49,10 +59,10 @@ export function createOdataFilterString(key, operator = 'eq', type, value, selec
 								key,
 								operator,
 								type,
-								el,
+								el
 							)})`
 					)
-					.join(' or ')
+					.join(' or ');
 			}
 			if (value instanceof String) {
 				return `${key} ${operator} '${value}'`;
