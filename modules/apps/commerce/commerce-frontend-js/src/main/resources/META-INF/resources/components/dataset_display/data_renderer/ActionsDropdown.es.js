@@ -122,27 +122,23 @@ function ActionsDropdown(props) {
 			action.label
 		);
 
-		return isNotALink() ? (
+		return isNotALink(action.target, action.onClick) ? (
 			<ClayLink
 				className="btn btn-primary btn-sm"
 				data-senna-off
 				href="#"
 				monospaced={Boolean(action.icon)}
-				onClick={
-					isNotALink(action.target, action.onClick)
-						? e => {
-								e.preventDefault();
-								return handleAction({
-									method: action.method,
-									onClick: action.onClick,
-									size: action.size,
-									target: action.target,
-									title: action.title,
-									url: action.href
-								});
-						  }
-						: null
-				}
+				onClick={e => {
+					e.preventDefault();
+					return handleAction({
+						method: action.method,
+						onClick: action.onClick,
+						size: action.size,
+						target: action.target,
+						title: action.title,
+						url: action.href
+					});
+				}}
 			>
 				{content}
 			</ClayLink>
