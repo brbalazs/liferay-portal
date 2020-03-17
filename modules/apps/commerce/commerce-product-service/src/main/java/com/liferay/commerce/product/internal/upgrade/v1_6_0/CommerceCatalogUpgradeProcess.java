@@ -18,6 +18,8 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.model.impl.CommerceCatalogModelImpl;
+import com.liferay.commerce.product.model.impl.CommerceChannelModelImpl;
+import com.liferay.commerce.product.model.impl.CommerceChannelRelModelImpl;
 import com.liferay.portal.kernel.dao.jdbc.AutoBatchPreparedStatementUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
@@ -41,6 +43,14 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
+		if (!hasTable(CommerceChannelModelImpl.TABLE_NAME)) {
+			runSQL(CommerceChannelModelImpl.TABLE_SQL_CREATE);
+		}
+
+		if (!hasTable(CommerceChannelRelModelImpl.TABLE_NAME)) {
+			runSQL(CommerceChannelRelModelImpl.TABLE_SQL_CREATE);
+		}
+
 		if (!hasTable(CommerceCatalogModelImpl.TABLE_NAME)) {
 			runSQL(CommerceCatalogModelImpl.TABLE_SQL_CREATE);
 		}
@@ -129,6 +139,7 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 					String.format(
 						updateTableGroupIdSQL, "CPDefinition",
 						catalogGroup.getGroupId(), siteGroup.getGroupId()));
+
 				runSQL(
 					String.format(
 						updateTableGroupIdSQL, "AssetEntry",
