@@ -76,7 +76,7 @@ public class EditCPDefinitionLinkMVCActionCommand extends BaseMVCActionCommand {
 			CPDefinitionLink.class.getName(), actionRequest);
 
 		long[] cProductIds = ListUtil.toLongArray(
-			_cpDefinitionLinkService.getCPDefinitionLinks(cpDefinitionId),
+			_cpDefinitionLinkService.getCPDefinitionLinks(cpDefinitionId, type),
 			CPDefinitionLinkModel::getCProductId);
 
 		boolean successMessage = false;
