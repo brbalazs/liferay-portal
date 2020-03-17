@@ -109,18 +109,17 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			long cpDefinitionId, String serializedDDMFormValues)
 		throws PortalException {
 
-		if (Validator.isNull(serializedDDMFormValues) ||
-			Objects.equals(serializedDDMFormValues, "[]")) {
-
-			throw new IllegalArgumentException("Required parameter missing");
-		}
-
 		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
 			cpDefinitionId);
 
 		if (cpDefinition.isIgnoreSKUCombinations()) {
-			throw new CPDefinitionIgnoreSKUCombinationsException(
-				"Unable to get CP instance if SKU combination is ignored");
+			return getDefaultCPInstance(cpDefinitionId);
+		}
+
+		if (Validator.isNull(serializedDDMFormValues) ||
+			Objects.equals(serializedDDMFormValues, "[]")) {
+
+			throw new IllegalArgumentException("Required parameter missing");
 		}
 
 		return _fetchCPInstanceBySKUContributors(
