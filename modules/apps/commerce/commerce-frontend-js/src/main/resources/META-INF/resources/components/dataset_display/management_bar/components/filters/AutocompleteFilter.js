@@ -27,7 +27,6 @@ import getAppContext from '../Context';
 
 var headers = new Headers({
 	Accept: 'application/json',
-	Authorization: `Basic ${window.btoa('test@liferay.com:test')}`,
 	'Content-Type': 'application/json',
 	'x-csrf-token': Liferay.authToken
 });
