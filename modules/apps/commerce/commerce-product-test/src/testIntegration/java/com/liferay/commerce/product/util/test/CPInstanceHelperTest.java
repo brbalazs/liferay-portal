@@ -99,7 +99,9 @@ public class CPInstanceHelperTest {
 	}
 
 	@Test
-	public void testFetchCPInstance() throws Exception {
+	public void testFetchCPInstanceIgnoreSkuCombinationsFalse()
+		throws Exception {
+
 		frutillaRule.scenario(
 			"Fetch CP instance with specified SKU contributor options"
 		).given(
@@ -190,6 +192,71 @@ public class CPInstanceHelperTest {
 					cpDefinition.getCPDefinitionId(),
 					deletedCPInstanceDDMFormSerializedValue));
 		}
+	}
+
+	@Test
+	public void testFetchCPInstanceIgnoreSkuCombinationsTrue()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Fetch CP instance for product with no SKU contributor options"
+		).given(
+			"I have a product definition with no SKU contributor options"
+		).when(
+			"Preview of product is invoked"
+		).then(
+			"Product default ACTIVE CP instance must be returned"
+		);
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		CPOption cpOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), false);
+
+		CPTestUtil.addCPOptionValue(cpOption);
+		CPTestUtil.addCPOptionValue(cpOption);
+
+		CPTestUtil.addCPDefinitionOptionRel(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOption.getCPOptionId());
+
+		List<CPInstance> cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Approved instances count", 1, cpDefinitionInstances.size());
+
+		CPInstance expectedCPInstance = cpDefinitionInstances.get(0);
+
+		CPInstance fetchCPInstance = _cpInstanceHelper.fetchCPInstance(
+			cpDefinition.getCPDefinitionId(), null);
+
+		Assert.assertEquals(
+			"Default CP instance cpInstanceId",
+			expectedCPInstance.getCPInstanceId(),
+			fetchCPInstance.getCPInstanceId());
+
+		_cpInstanceLocalService.deleteCPInstance(expectedCPInstance);
+
+		cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product instance count", 0, cpDefinitionInstances.size());
+
+		fetchCPInstance = _cpInstanceHelper.fetchCPInstance(
+			cpDefinition.getCPDefinitionId(), null);
+
+		Assert.assertNull(
+			"Fetched CP instance does not exist", fetchCPInstance);
 	}
 
 	@Test
