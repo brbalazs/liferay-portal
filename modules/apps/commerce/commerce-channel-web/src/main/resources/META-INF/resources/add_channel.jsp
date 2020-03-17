@@ -37,11 +37,10 @@ if (commerceChannel != null) {
 
 <commerce-ui:modal-content
 	submitButtonLabel="save"
-	title='<%= LanguageUtil.get(request, "add-channel") %>'
 >
 	<portlet:actionURL name="editCommerceChannel" var="editCommerceChannelActionURL" />
 
-	<aui:form action="<%= editCommerceChannelActionURL %>" cssClass="container-fluid-1280" method="post" name="channelFm">
+	<aui:form action="<%= editCommerceChannelActionURL %>" method="post" name="channelFm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceChannel == null) ? Constants.ADD : Constants.UPDATE %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURLObj %>" />
 		<aui:input name="addTypeSettings" type="hidden" />
