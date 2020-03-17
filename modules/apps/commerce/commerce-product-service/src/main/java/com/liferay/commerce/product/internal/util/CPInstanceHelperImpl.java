@@ -1004,8 +1004,15 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			return new LocalizedValue(ddmFormFieldOptions.getDefaultLocale());
 		}
 
-		for (LocalizedValue value : options.values()) {
-			return value;
+		for (Map.Entry<String, LocalizedValue> entry : options.entrySet()) {
+			LocalizedValue localizedValue = new LocalizedValue();
+
+			LocalizedValue curLocalizedValue = entry.getValue();
+
+			localizedValue.addString(
+				curLocalizedValue.getDefaultLocale(), entry.getKey());
+
+			return localizedValue;
 		}
 
 		throw new IllegalArgumentException(
