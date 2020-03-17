@@ -79,16 +79,17 @@ public class AcceptLanguageImpl implements AcceptLanguage {
 
 			if (ListUtil.isEmpty(locales)) {
 				throw new ClientErrorException(
-					"No available locale matches the accepted languages: " +
+					"No locales match the accepted languages: " +
 						acceptLanguage,
 					422);
 			}
 
 			return locales;
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			throw new InternalServerErrorException(
-				"Unable to get preferred locale: " + pe.getMessage(), pe);
+				"Unable to get locales: " + portalException.getMessage(),
+				portalException);
 		}
 	}
 
@@ -110,13 +111,15 @@ public class AcceptLanguageImpl implements AcceptLanguage {
 
 			return user.getLocale();
 		}
-		catch (NoSuchUserException nsue) {
+		catch (NoSuchUserException noSuchUserException) {
 			throw new NotFoundException(
-				"Unable to get preferred locale from nonexistent user", nsue);
+				"Unable to get preferred locale from nonexistent user",
+				noSuchUserException);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			throw new InternalServerErrorException(
-				"Unable to get preferred locale: " + e.getMessage(), e);
+				"Unable to get preferred locale: " + exception.getMessage(),
+				exception);
 		}
 	}
 
