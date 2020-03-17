@@ -84,20 +84,26 @@ public class CartCommentResourceImpl extends BaseCartCommentResourceImpl {
 	}
 
 	@Override
-	public CartComment patchCartComment(Long commentId, CartComment cartComment)
-		throws Exception {
-
-		return _updateOrderNote(
-			_commerceOrderNoteService.getCommerceOrderNote(commentId),
-			cartComment);
-	}
-
-	@Override
 	public CartComment postCartComment(Long cartId, CartComment cartComment)
 		throws Exception {
 
 		return _upsertOrderNote(
 			_commerceOrderService.getCommerceOrder(cartId), cartComment);
+	}
+
+	@Override
+	public CartComment putCartComment(Long commentId, CartComment cartComment)
+		throws Exception {
+
+		CommerceOrderNote commerceOrderNote =
+			_commerceOrderNoteService.getCommerceOrderNote(commentId);
+
+		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+			commerceOrderNote.getCommerceOrderId());
+
+		cartComment.setId(commentId);
+
+		return _upsertOrderNote(commerceOrder, cartComment);
 	}
 
 	private List<CartComment> _toOrderNotes(

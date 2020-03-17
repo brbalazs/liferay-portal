@@ -169,22 +169,21 @@ public class CommerceOrderNoteLocalServiceImpl
 		if (Validator.isBlank(externalReferenceCode)) {
 			externalReferenceCode = null;
 		}
+
+		CommerceOrderNote commerceOrderNote;
+
+		if (commerceOrderNoteId > 0) {
+			commerceOrderNote = getCommerceOrderNote(commerceOrderNoteId);
+		}
 		else {
-			CommerceOrderNote commerceOrderNote;
+			commerceOrderNote = commerceOrderNotePersistence.fetchByC_ERC(
+				serviceContext.getCompanyId(), externalReferenceCode);
+		}
 
-			if (commerceOrderNoteId > 0) {
-				commerceOrderNote = getCommerceOrderNote(commerceOrderNoteId);
-			}
-			else {
-				commerceOrderNote = commerceOrderNotePersistence.fetchByC_ERC(
-					serviceContext.getCompanyId(), externalReferenceCode);
-			}
-
-			if (commerceOrderNote != null) {
-				return updateCommerceOrderNote(
-					commerceOrderNote.getCommerceOrderNoteId(), content,
-					restricted, externalReferenceCode);
-			}
+		if (commerceOrderNote != null) {
+			return updateCommerceOrderNote(
+				commerceOrderNote.getCommerceOrderNoteId(), content, restricted,
+				externalReferenceCode);
 		}
 
 		return addCommerceOrderNote(
