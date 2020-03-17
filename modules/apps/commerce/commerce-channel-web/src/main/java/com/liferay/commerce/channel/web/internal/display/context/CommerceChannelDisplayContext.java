@@ -27,6 +27,8 @@ import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
+import com.liferay.commerce.product.channel.CommerceChannelHealthStatus;
+import com.liferay.commerce.product.channel.CommerceChannelHealthStatusRegistry;
 import com.liferay.commerce.product.channel.CommerceChannelType;
 import com.liferay.commerce.product.channel.CommerceChannelTypeRegistry;
 import com.liferay.commerce.product.constants.CPActionKeys;
@@ -77,6 +79,7 @@ public class CommerceChannelDisplayContext
 	public CommerceChannelDisplayContext(
 		ModelResourcePermission<CommerceChannel>
 			commerceChannelModelResourcePermission,
+		CommerceChannelHealthStatusRegistry commerceChannelHealthStatusRegistry,
 		CommerceChannelService commerceChannelService,
 		CommerceChannelTypeRegistry commerceChannelTypeRegistry,
 		CommerceCurrencyService commerceCurrencyService,
@@ -90,6 +93,8 @@ public class CommerceChannelDisplayContext
 
 		_commerceChannelModelResourcePermission =
 			commerceChannelModelResourcePermission;
+		_commerceChannelHealthStatusRegistry =
+			commerceChannelHealthStatusRegistry;
 		_commerceChannelService = commerceChannelService;
 		_commerceChannelTypeRegistry = commerceChannelTypeRegistry;
 		_commerceCurrencyService = commerceCurrencyService;
@@ -306,6 +311,25 @@ public class CommerceChannelDisplayContext
 			CPActionKeys.ADD_COMMERCE_CHANNEL);
 	}
 
+	public boolean hasUnsatisfiedCommerceHealthChecks() throws PortalException {
+		List<CommerceChannelHealthStatus> commerceChannelHealthStatuses =
+			_commerceChannelHealthStatusRegistry.
+				getCommerceChannelHealthStatuses();
+
+		for (CommerceChannelHealthStatus commerceChannelHealthStatus :
+				commerceChannelHealthStatuses) {
+
+			if (!commerceChannelHealthStatus.isFixed(
+					_commerceChannelRequestHelper.getCompanyId(),
+					getCommerceChannelId())) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public boolean hasPermission(long commerceChannelId, String actionId)
 		throws PortalException {
 
@@ -355,6 +379,8 @@ public class CommerceChannelDisplayContext
 
 	private CommerceAccountGroupServiceConfiguration
 		_commerceAccountGroupServiceConfiguration;
+	private final CommerceChannelHealthStatusRegistry
+		_commerceChannelHealthStatusRegistry;
 	private final ModelResourcePermission<CommerceChannel>
 		_commerceChannelModelResourcePermission;
 	private final CommerceChannelRequestHelper _commerceChannelRequestHelper;
