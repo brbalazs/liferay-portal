@@ -288,7 +288,7 @@ public class CommerceProductPriceCalculationImpl
 
 		if (commercePriceList.isPresent()) {
 			BigDecimal priceListPrice = _getPriceListPrice(
-				cpInstanceId, quantity, commercePriceList.get(),
+				cpInstance.getCPInstanceId(), quantity, commercePriceList.get(),
 				commerceContext.getCommerceCurrency(), false);
 
 			if (priceListPrice != null) {
