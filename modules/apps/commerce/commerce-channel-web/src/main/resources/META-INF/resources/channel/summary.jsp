@@ -104,24 +104,27 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 	</div>
 </aui:form>
 
-<div class="row">
-	<div class="col-12">
-		<commerce-ui:panel
-			bodyClasses="p-0"
-		>
-			<commerce-ui:dataset-display
-				contextParams="<%= contextParams %>"
-				dataProviderKey="<%= CommerceChannelHealthCheckClayTable.NAME %>"
-				id="<%= CommerceChannelHealthCheckClayTable.NAME %>"
-				itemsPerPage="<%= 10 %>"
-				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="<%= 1 %>"
-				portletURL="<%= commerceChannelDisplayContext.getPortletURL() %>"
-				showManagementBar="<%= false %>"
-			/>
-		</commerce-ui:panel>
+<c:if test="<%= (commerceChannel.getSiteGroupId() > 0) && commerceChannelDisplayContext.hasUnsatisfiedCommerceHealthChecks() %>">
+	<div class="row">
+		<div class="col-12">
+			<commerce-ui:panel
+				bodyClasses="p-0"
+				title='<%= LanguageUtil.get(request, "health-checks") %>'
+			>
+				<commerce-ui:dataset-display
+					contextParams="<%= contextParams %>"
+					dataProviderKey="<%= CommerceChannelHealthCheckClayTable.NAME %>"
+					id="<%= CommerceChannelHealthCheckClayTable.NAME %>"
+					itemsPerPage="<%= 10 %>"
+					namespace="<%= renderResponse.getNamespace() %>"
+					pageNumber="<%= 1 %>"
+					portletURL="<%= commerceChannelDisplayContext.getPortletURL() %>"
+					showManagementBar="<%= false %>"
+				/>
+			</commerce-ui:panel>
+		</div>
 	</div>
-</div>
+</c:if>
 
 <div class="row">
 	<div class="col-12">
