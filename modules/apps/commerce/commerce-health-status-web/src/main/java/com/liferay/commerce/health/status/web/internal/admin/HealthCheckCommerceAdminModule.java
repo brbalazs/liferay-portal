@@ -15,7 +15,6 @@
 package com.liferay.commerce.health.status.web.internal.admin;
 
 import com.liferay.commerce.admin.CommerceAdminModule;
-import com.liferay.commerce.admin.constants.CommerceAdminConstants;
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceHealthStatusConstants;
@@ -52,11 +51,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.admin.module.key=" + VirtualInstanceHealthCheckCommerceAdminModule.KEY,
+	property = "commerce.admin.module.key=" + HealthCheckCommerceAdminModule.KEY,
 	service = CommerceAdminModule.class
 )
-public class VirtualInstanceHealthCheckCommerceAdminModule
-	implements CommerceAdminModule {
+public class HealthCheckCommerceAdminModule implements CommerceAdminModule {
 
 	public static final String KEY = "virtual-instance-health-check";
 
@@ -73,11 +71,6 @@ public class VirtualInstanceHealthCheckCommerceAdminModule
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		return null;
-	}
-
-	@Override
-	public int getType() {
-		return CommerceAdminConstants.COMMERCE_ADMIN_TYPE_VIRTUAL_INSTANCE;
 	}
 
 	@Override

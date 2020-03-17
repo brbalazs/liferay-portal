@@ -17,7 +17,6 @@ package com.liferay.commerce.admin.web.internal.application.list;
 import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
 import com.liferay.commerce.admin.CommerceAdminModule;
-import com.liferay.commerce.admin.constants.CommerceAdminConstants;
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.admin.web.internal.util.CommerceAdminModuleRegistry;
 import com.liferay.commerce.application.list.constants.CommercePanelCategoryKeys;
@@ -43,11 +42,11 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = PanelApp.class
 )
-public class CommerceAdminVirtualInstancePanelApp extends BasePanelApp {
+public class CommerceAdminPanelApp extends BasePanelApp {
 
 	@Override
 	public String getPortletId() {
-		return CommerceAdminPortletKeys.COMMERCE_ADMIN_VIRTUAL_INSTANCE;
+		return CommerceAdminPortletKeys.COMMERCE_ADMIN;
 	}
 
 	@Override
@@ -58,9 +57,7 @@ public class CommerceAdminVirtualInstancePanelApp extends BasePanelApp {
 
 		if (show) {
 			Map<String, CommerceAdminModule> commerceAdminModules =
-				_commerceAdminModuleRegistry.getCommerceAdminModules(
-					CommerceAdminConstants.
-						COMMERCE_ADMIN_TYPE_VIRTUAL_INSTANCE);
+				_commerceAdminModuleRegistry.getCommerceAdminModules();
 
 			if (commerceAdminModules.isEmpty()) {
 				show = false;
@@ -72,7 +69,7 @@ public class CommerceAdminVirtualInstancePanelApp extends BasePanelApp {
 
 	@Override
 	@Reference(
-		target = "(javax.portlet.name=" + CommerceAdminPortletKeys.COMMERCE_ADMIN_VIRTUAL_INSTANCE + ")",
+		target = "(javax.portlet.name=" + CommerceAdminPortletKeys.COMMERCE_ADMIN + ")",
 		unbind = "-"
 	)
 	public void setPortlet(Portlet portlet) {

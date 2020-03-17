@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.admin.web.internal.portlet;
 
-import com.liferay.commerce.admin.constants.CommerceAdminConstants;
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.admin.constants.CommerceAdminWebKeys;
 import com.liferay.commerce.admin.web.internal.util.CommerceAdminModuleRegistry;
@@ -50,13 +49,13 @@ import org.osgi.service.component.annotations.Reference;
 		"javax.portlet.display-name=Commerce Admin",
 		"javax.portlet.expiration-cache=0",
 		"javax.portlet.init-param.view-template=/view.jsp",
-		"javax.portlet.name=" + CommerceAdminPortletKeys.COMMERCE_ADMIN_VIRTUAL_INSTANCE,
+		"javax.portlet.name=" + CommerceAdminPortletKeys.COMMERCE_ADMIN,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
 	},
-	service = {CommerceAdminVirtualInstancePortlet.class, Portlet.class}
+	service = {CommerceAdminPortlet.class, Portlet.class}
 )
-public class CommerceAdminVirtualInstancePortlet extends MVCPortlet {
+public class CommerceAdminPortlet extends MVCPortlet {
 
 	@Override
 	public void render(
@@ -70,10 +69,6 @@ public class CommerceAdminVirtualInstancePortlet extends MVCPortlet {
 		renderRequest.setAttribute(
 			CommerceAdminWebKeys.COMMERCE_ADMIN_SERVLET_CONTEXT,
 			getServletContext());
-
-		renderRequest.setAttribute(
-			CommerceAdminWebKeys.COMMERCE_ADMIN_TYPE,
-			CommerceAdminConstants.COMMERCE_ADMIN_TYPE_VIRTUAL_INSTANCE);
 
 		super.render(renderRequest, renderResponse);
 	}
