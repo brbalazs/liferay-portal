@@ -32,6 +32,8 @@ public class CPDefinitionFiltersUpgradeProcess
 		addColumn(
 			CPDefinitionModelImpl.class, CPDefinitionModelImpl.TABLE_NAME,
 			"channelFilterEnabled", "BOOLEAN");
+
+		runSQL("update CPDefinition set channelFilterEnabled = 1");
 	}
 
 }

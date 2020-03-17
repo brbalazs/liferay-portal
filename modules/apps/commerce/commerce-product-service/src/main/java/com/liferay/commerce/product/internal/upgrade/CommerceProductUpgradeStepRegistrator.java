@@ -90,7 +90,8 @@ public class CommerceProductUpgradeStepRegistrator
 
 		registry.register(
 			_SCHEMA_VERSION_1_5_0, _SCHEMA_VERSION_1_6_0,
-			new CommerceCatalogUpgradeProcess(_groupLocalService),
+			new CommerceCatalogUpgradeProcess(
+				_classNameLocalService, _groupLocalService),
 			new CPDefinitionTrashEntriesUpgradeProcess(_classNameLocalService));
 
 		registry.register(
