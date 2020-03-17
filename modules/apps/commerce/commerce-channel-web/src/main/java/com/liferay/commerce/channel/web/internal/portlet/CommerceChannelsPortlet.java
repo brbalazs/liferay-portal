@@ -17,6 +17,7 @@ package com.liferay.commerce.channel.web.internal.portlet;
 import com.liferay.commerce.channel.web.internal.display.context.CommerceChannelDisplayContext;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
+import com.liferay.commerce.product.channel.CommerceChannelHealthStatusRegistry;
 import com.liferay.commerce.product.channel.CommerceChannelTypeRegistry;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -91,9 +92,9 @@ public class CommerceChannelsPortlet extends MVCPortlet {
 		CommerceChannelDisplayContext commerceChannelDisplayContext =
 			new CommerceChannelDisplayContext(
 				_commerceChannelModelResourcePermission,
-				_commerceChannelService, _commerceChannelTypeRegistry,
-				_commerceCurrencyService, _commercePaymentMethodRegistry,
-				_configurationProvider,
+				_commerceChannelHealthStatusRegistry, _commerceChannelService,
+				_commerceChannelTypeRegistry, _commerceCurrencyService,
+				_commercePaymentMethodRegistry, _configurationProvider,
 				_portal.getHttpServletRequest(renderRequest), _portal,
 				_workflowDefinitionLinkLocalService,
 				_workflowDefinitionManager);
@@ -103,6 +104,10 @@ public class CommerceChannelsPortlet extends MVCPortlet {
 
 		super.render(renderRequest, renderResponse);
 	}
+
+	@Reference
+	private CommerceChannelHealthStatusRegistry
+		_commerceChannelHealthStatusRegistry;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CommerceChannel)"

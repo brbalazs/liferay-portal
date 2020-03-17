@@ -17,6 +17,7 @@ package com.liferay.commerce.channel.web.internal.servlet.taglib.ui;
 import com.liferay.commerce.channel.web.internal.display.context.SiteCommerceChannelTypeDisplayContext;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
+import com.liferay.commerce.product.channel.CommerceChannelHealthStatusRegistry;
 import com.liferay.commerce.product.channel.CommerceChannelTypeRegistry;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
@@ -107,6 +108,7 @@ public class CommerceChannelSiteScreenNavigationEntry
 			siteCommerceChannelTypeDisplayContext =
 				new SiteCommerceChannelTypeDisplayContext(
 					_commerceChannelModelResourcePermission,
+					_commerceChannelHealthStatusRegistry,
 					_commerceChannelService, _commerceChannelTypeRegistry,
 					_commerceCurrencyService, _commercePaymentMethodRegistry,
 					_configurationProvider, _groupLocalService,
@@ -121,6 +123,10 @@ public class CommerceChannelSiteScreenNavigationEntry
 		_jspRenderer.renderJSP(
 			httpServletRequest, httpServletResponse, "/channel/site.jsp");
 	}
+
+	@Reference
+	private CommerceChannelHealthStatusRegistry
+		_commerceChannelHealthStatusRegistry;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CommerceChannel)"
