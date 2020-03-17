@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.liferay.commerce.product.constants.CPPortletKeys" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -73,24 +73,34 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 			</aui:select>
 		</aui:form>
 		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/forms/index.es as FormUtils, clay-alert/src/ClayToast as ClayToast">
-
 			Liferay.provide(
 				window,
 				'<portlet:namespace/>apiSubmit',
 				function(form) {
-					const API_URL = '/o/headless-commerce-admin-catalog/v1.0/catalogs';
+					var API_URL = '/o/headless-commerce-admin-catalog/v1.0/catalogs';
 
 					window.parent.Liferay.fire(events.IS_LOADING_MODAL, {
 						isLoading: true
 					});
 
 					FormUtils.apiSubmit(form, API_URL)
-						.then(function() {
+						.then(function(payload) {
+							var portletURL = new Liferay.PortletURL.createURL(
+								'<%= currentURLObj %>'
+							);
+
+							portletURL.setParameter('commerceCatalogId', payload.id);
+							portletURL.setParameter('javax.portlet.action', 'editCommerceCatalog');
+							portletURL.setParameter('p_auth', Liferay.authToken);
+							portletURL.setPortletId('<%= CPPortletKeys.COMMERCE_CATALOGS %>');
+
+
 							window.parent.Liferay.fire(events.CLOSE_MODAL, {
 								willIframeRefresh: false,
 								successNotification: {
 									showSuccessNotification: true,
-									message: '<liferay-ui:message key="your-request-completed-successfully" />'
+									message: '<liferay-ui:message key="your-request-completed-successfully" />',
+									redirectURL: portletURL.toString()
 								}
 							});
 						})
@@ -112,7 +122,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 								type: 'danger'
 							});
 						});
-				}
+				}, ['liferay-portlet-url']
 			);
 		</aui:script>
 	</div>
