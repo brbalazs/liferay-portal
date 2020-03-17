@@ -141,7 +141,8 @@ public class CPCompareContentCommerceHealthStatus
 		}
 
 		long plid = _portal.getPlidFromPortletId(
-			commerceChannel.getGroupId(), CPPortletKeys.CP_COMPARE_CONTENT_WEB);
+			commerceChannel.getSiteGroupId(),
+			CPPortletKeys.CP_COMPARE_CONTENT_WEB);
 
 		if (plid > 0) {
 			return true;

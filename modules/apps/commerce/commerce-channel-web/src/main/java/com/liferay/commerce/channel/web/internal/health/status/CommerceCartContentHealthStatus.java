@@ -141,7 +141,7 @@ public class CommerceCartContentHealthStatus
 		}
 
 		long plid = _portal.getPlidFromPortletId(
-			commerceChannel.getGroupId(),
+			commerceChannel.getSiteGroupId(),
 			CommercePortletKeys.COMMERCE_CART_CONTENT);
 
 		if (plid > 0) {

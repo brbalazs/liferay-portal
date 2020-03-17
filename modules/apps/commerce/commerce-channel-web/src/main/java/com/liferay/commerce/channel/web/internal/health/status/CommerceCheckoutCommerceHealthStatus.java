@@ -155,7 +155,7 @@ public class CommerceCheckoutCommerceHealthStatus
 		}
 
 		long plid = _portal.getPlidFromPortletId(
-			commerceChannel.getGroupId(),
+			commerceChannel.getSiteGroupId(),
 			CommercePortletKeys.COMMERCE_CHECKOUT);
 
 		if (plid > 0) {

@@ -139,7 +139,7 @@ public class CPContentHealthStatus implements CommerceChannelHealthStatus {
 		}
 
 		long plid = _portal.getPlidFromPortletId(
-			commerceChannel.getGroupId(), CPPortletKeys.CP_CONTENT_WEB);
+			commerceChannel.getSiteGroupId(), CPPortletKeys.CP_CONTENT_WEB);
 
 		if (plid > 0) {
 			return true;
