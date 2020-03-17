@@ -196,3 +196,22 @@
 .filters-dropdown-button {
 	padding: map-get($spacers, 2);
 }
+
+.filter-body {
+	.inline-scroller {
+		max-height: 200px;
+	}
+
+	.form-control {
+		padding-left: map-get($spacers, 2);
+		padding-right: map-get($spacers, 2);
+	}
+
+	.custom-control-label {
+		display: flex;
+
+		&::before {
+			flex-shrink: 0;
+		}
+	}
+}

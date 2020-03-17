@@ -17,10 +17,14 @@ export function convertObjectDateToIsoString(objDate) {
 	return date.toISOString();
 }
 
-export function createOdataFilterString(key, defaultOperator, type, value) {
-	const operator = defaultOperator || 'eq';
-
+export function createOdataFilterString(key, operator = 'eq', type, value, selectionType) {
 	switch (type) {
+		case 'autocomplete':
+			if(selectionType !== 'multiple') {
+				const firstItemVal = value[0].value
+				return `${key} eq ${firstItemVal instanceof Number ? firstItemVal : `'${firstItemVal}'`}`;
+			}
+			break;
 		case 'date':
 			return `${key} ${operator} ${convertObjectDateToIsoString(value)}`;
 		case 'dateRange':
@@ -37,11 +41,21 @@ export function createOdataFilterString(key, defaultOperator, type, value) {
 			}
 			break;
 		default:
+			if (Array.isArray(value)) {
+				return value
+					.map(
+						el =>
+							`(${createOdataFilterString(
+								key,
+								operator,
+								type,
+								el,
+							)})`
+					)
+					.join(' or ')
+			}
 			if (value instanceof String) {
 				return `${key} ${operator} '${value}'`;
-			}
-			if (value instanceof Object) {
-				return `${key} ${operator} ${JSON.stringify(value)}`;
 			}
 	}
 	return `${key} ${operator} ${value}`;
@@ -50,25 +64,12 @@ export function createOdataFilterString(key, defaultOperator, type, value) {
 export function createOdataFilterStrings(filters) {
 	const oDataFilterStrings = filters
 		.map(filter => {
-			if (filter.value instanceof Array) {
-				return filter.value
-					.map(
-						value =>
-							`(${createOdataFilterString(
-								filter.id,
-								filter.operator,
-								filter.type,
-								value
-							)})`
-					)
-					.join(' or ');
-			}
-
 			return createOdataFilterString(
 				filter.id,
 				filter.operator,
 				filter.type,
-				filter.value
+				filter.value,
+				filter.selectionType
 			);
 		})
 		.map(filterString => `(${filterString})`)

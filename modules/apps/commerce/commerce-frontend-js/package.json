@@ -13,6 +13,7 @@
 		"@clayui/list": "3.1.0",
 		"@clayui/loading-indicator": "^3.0.1",
 		"@clayui/modal": "3.2.0",
+		"@clayui/multi-select": "^3.5.1",
 		"@clayui/pagination-bar": "^3.1.0",
 		"@clayui/panel": "3.0.7",
 		"@clayui/shared": "3.0.7",

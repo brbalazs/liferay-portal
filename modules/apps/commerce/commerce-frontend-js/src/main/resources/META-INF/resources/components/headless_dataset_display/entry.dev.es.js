@@ -58,6 +58,16 @@ const dataSetDisplayProps = {
 			label: 'Creation date',
 			operator: 'eq',
 			type: 'date'
+		},
+		{
+			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
+			id: 'accountId',
+			inputPlaceholder: 'Search for products...',
+			itemKey: 'productId',
+			itemLabel: ['name', lang_id],
+			label: 'Product ID',
+			selectionType: 'single',
+			type: 'autocomplete'
 		}
 	],
 	id: 'tableTest',

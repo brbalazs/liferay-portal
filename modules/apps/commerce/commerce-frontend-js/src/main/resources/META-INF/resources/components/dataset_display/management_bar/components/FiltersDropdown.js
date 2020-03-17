@@ -51,6 +51,7 @@ function FiltersDropdown() {
 	return state.filters.length ? (
 		<ClayDropDown
 			active={active}
+			className="filters-dropdown"
 			onActiveChange={setActive}
 			trigger={
 				<button
