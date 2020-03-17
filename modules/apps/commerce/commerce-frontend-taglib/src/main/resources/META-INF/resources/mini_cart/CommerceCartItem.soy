@@ -113,9 +113,11 @@
 		{if isNonnull($errorMessages) and length($errorMessages) > 0}
 			<div class="commerce-cart-item__errors">
 				{foreach $error in $errorMessages}
-					<div class="commerce-cart-item__error">
-						- {$error}
-					</div>
+					{if $error != ''}
+						<div class="commerce-cart-item__error">
+							{$error}
+						</div>
+					{/if}
 				{/foreach}
 			</div>
 		{/if}
