@@ -108,6 +108,10 @@ public class ExpandoColumnModelListener
 				_classNameLocalService.getClassNameId(
 					CPDefinitionOptionValueRel.class.getName()));
 
+		if (cpDefinitionOptionValueRelExpandoTable == null) {
+			return;
+		}
+
 		_expandoColumnLocalService.deleteColumn(
 			cpDefinitionOptionValueRelExpandoTable.getTableId(),
 			cpOptionValueExpandoColumn.getName());
