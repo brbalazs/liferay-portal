@@ -12,9 +12,7 @@
  * details.
  */
 
-const FIELD_BLACKLIST = [
-	'formDate'
-];
+const FIELD_BLACKLIST = ['formDate'];
 
 export function isFormElement(form) {
 	return form instanceof HTMLFormElement;
@@ -27,9 +25,8 @@ function isBlacklistedField(field) {
 export function toJSON(formData) {
 	const json = {};
 
-	for (let entry of formData.entries()) {
-		const [ key, value ] = entry;
-
+	// eslint-disable-next-line no-for-of-loops/no-for-of-loops, no-unused-vars
+	for (const [key, value] of formData.entries()) {
 		if (!isBlacklistedField(key)) {
 			if (!(key in json)) {
 				json[key] = value;

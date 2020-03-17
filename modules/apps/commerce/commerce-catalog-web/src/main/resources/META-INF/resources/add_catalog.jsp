@@ -1,4 +1,4 @@
-<%@ page import="com.liferay.commerce.product.constants.CPPortletKeys" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -29,10 +29,10 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 <portlet:actionURL name="editCommerceCatalog" var="editCommerceCatalogActionURL" />
 
 <commerce-ui:modal-content
-	title='<%= LanguageUtil.get(request, "add-catalog") %>'>
-
+	title='<%= LanguageUtil.get(request, "add-catalog") %>'
+>
 	<div class="col-12 lfr-form-content">
-		<aui:form useNamespace="<%= false %>" cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit(this.form);" %>'>
+		<aui:form cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit(this.form);" %>' useNamespace="<%= false %>">
 			<aui:input bean="<%= commerceCatalog %>" model="<%= CommerceCatalog.class %>" name="name" required="<%= true %>" />
 
 			<aui:select helpMessage="the-default-language-for-the-content-within-this-catalog" label="default-catalog-language" name="defaultLanguageId" required="<%= true %>" title="language">
@@ -72,6 +72,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 
 			</aui:select>
 		</aui:form>
+
 		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/forms/index.es as FormUtils, clay-alert/src/ClayToast as ClayToast">
 			Liferay.provide(
 				window,
@@ -90,16 +91,21 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 							);
 
 							portletURL.setParameter('commerceCatalogId', payload.id);
-							portletURL.setParameter('javax.portlet.action', 'editCommerceCatalog');
+							portletURL.setParameter(
+								'javax.portlet.action',
+								'editCommerceCatalog'
+							);
 							portletURL.setParameter('p_auth', Liferay.authToken);
-							portletURL.setPortletId('<%= CPPortletKeys.COMMERCE_CATALOGS %>');
-
+							portletURL.setPortletId(
+								'<%= CPPortletKeys.COMMERCE_CATALOGS %>'
+							);
 
 							window.parent.Liferay.fire(events.CLOSE_MODAL, {
 								willIframeRefresh: false,
 								successNotification: {
 									showSuccessNotification: true,
-									message: '<liferay-ui:message key="your-request-completed-successfully" />',
+									message:
+										'<liferay-ui:message key="your-request-completed-successfully" />',
 									redirectURL: portletURL.toString()
 								}
 							});
@@ -116,13 +122,15 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 									show: 0
 								},
 								duration: 500,
-								message: '<liferay-ui:message key="an-unexpected-error-occurred" />',
+								message:
+									'<liferay-ui:message key="an-unexpected-error-occurred" />',
 								render: true,
 								title: '<liferay-ui:message key="danger" />',
 								type: 'danger'
 							});
 						});
-				}, ['liferay-portlet-url']
+				},
+				['liferay-portlet-url']
 			);
 		</aui:script>
 	</div>

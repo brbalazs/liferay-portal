@@ -16,15 +16,14 @@ import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayModal, {useModal} from '@clayui/modal';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
-import { liferayNavigate } from '../../utilities/index.es';
 
 import {
 	CLOSE_MODAL,
 	IS_LOADING_MODAL,
 	OPEN_MODAL
 } from '../../utilities/eventsDefinitions.es';
-
 import {isPageInIframe} from '../../utilities/iframes.es';
+import {liferayNavigate} from '../../utilities/index.es';
 
 function Modal(props) {
 	const [visible, setVisible] = useState(false);
@@ -88,7 +87,6 @@ function Modal(props) {
 			successNotification = {},
 			willIframeRefresh = true
 		}) {
-
 			if (redirectURL) {
 				liferayNavigate(redirectURL);
 			}
@@ -101,7 +99,7 @@ function Modal(props) {
 		}
 
 		function handleSetLoading(data) {
-			const { isLoading } = data;
+			const {isLoading} = data;
 
 			setLoading(isLoading || false);
 		}
@@ -123,7 +121,7 @@ function Modal(props) {
 		}
 
 		return () => cleanUpListeners({portletId: props.portletId});
-	}, [props.id, props.portletId, closeOnIframeRefresh, visible]);
+	}, [props.id, props.portletId, closeOnIframeRefresh, visible, doClose]);
 
 	useEffect(() => {
 		setOnClose(() => props.onClose);

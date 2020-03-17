@@ -12,10 +12,7 @@
  * details.
  */
 
-import {
-	isFormElement,
-	toJSON
-} from './formsHelper.es';
+import {isFormElement, toJSON} from './formsHelper.es';
 
 function doSubmit(apiUrl, method = 'POST', json = {}) {
 	const headers = new Headers({
@@ -27,8 +24,8 @@ function doSubmit(apiUrl, method = 'POST', json = {}) {
 	const options = {
 		body: JSON.stringify(json),
 		credentials: 'include',
-		headers: headers,
-		method: 'POST'
+		headers,
+		method
 	};
 
 	return fetch(apiUrl, options)
@@ -49,4 +46,4 @@ export function apiSubmit(formElement, API_URL = null) {
 	return Promise.reject(new Error('Not a form.'));
 }
 
-export default { apiSubmit }
+export default {apiSubmit};

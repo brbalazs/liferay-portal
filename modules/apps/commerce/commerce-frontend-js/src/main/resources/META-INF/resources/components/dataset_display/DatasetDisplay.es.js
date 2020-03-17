@@ -192,16 +192,13 @@ function DatasetDisplay(props) {
 		)
 			.then(updateDataset)
 			.then(() => {
-				const {
-					showSuccessNotification,
-					message
-				} = successNotification;
+				const {message, showSuccessNotification} = successNotification;
 
 				if (showSuccessNotification) {
 					const notificationMessage =
 						message || Liferay.Language.get('table-data-updated');
 
-					showNotification(notificationMessage,'success');
+					showNotification(notificationMessage, 'success');
 				}
 
 				Liferay.fire(DATASET_DISPLAY_UPDATED, {id: props.id});

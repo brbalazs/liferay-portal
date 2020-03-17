@@ -1,4 +1,4 @@
-<%@ page import="com.liferay.portal.kernel.servlet.SessionMessages" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -54,7 +54,7 @@
 	function handleSubmit(event) {
 		event.preventDefault();
 
-		window.parent.Liferay.fire(events.IS_LOADING_MODAL, { isLoading: true });
+		window.parent.Liferay.fire(events.IS_LOADING_MODAL, {isLoading: true});
 
 		submitForm(iframeForm);
 	}
