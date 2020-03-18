@@ -11,6 +11,17 @@ components:
                 format: int64
                 type: integer
             style: simple
+        cartCommentId:
+            in: path
+            explode: false
+            name: cartCommentId
+            required: true
+            schema:
+                description:
+                    Comment Id
+                format: int64
+                type: integer
+            style: simple
         cartId:
             in: path
             explode: false
@@ -41,17 +52,6 @@ components:
             schema:
                 description:
                     Channel Id
-                format: int64
-                type: integer
-            style: simple
-        commentId:
-            in: path
-            explode: false
-            name: commentId
-            required: true
-            schema:
-                description:
-                    Comment Id
                 format: int64
                 type: integer
             style: simple
@@ -121,10 +121,6 @@ components:
                 billingAddressId:
                     format: int64
                     type: integer
-                cartComments:
-                    items:
-                        $ref: "#/components/schemas/CartComment"
-                    type: array
                 cartItems:
                     items:
                         $ref: "#/components/schemas/CartItem"
@@ -157,6 +153,10 @@ components:
                     format: date
                     readOnly: true
                     type: string
+                notes:
+                    items:
+                        $ref: "#/components/schemas/CartComment"
+                    type: array
                 paymentMethod:
                     type: string
                 paymentMethodLabel:
@@ -380,13 +380,13 @@ info:
     version: v1.0
 openapi: 3.0.1
 paths:
-    /cart-comments/{commentId}:
+    /cart-comments/{cartCommentId}:
         delete:
             operationId: deleteCartComment
             parameters:
                 - in: path
                   explode: false
-                  name: commentId
+                  name: cartCommentId
                   required: true
                   schema:
                       description:
@@ -413,7 +413,7 @@ paths:
             parameters:
                 - in: path
                   explode: false
-                  name: commentId
+                  name: cartCommentId
                   required: true
                   schema:
                       description:
@@ -468,7 +468,7 @@ paths:
             parameters:
                 - in: path
                   explode: false
-                  name: commentId
+                  name: cartCommentId
                   required: true
                   schema:
                       description:
@@ -532,7 +532,7 @@ paths:
             parameters:
                 - in: path
                   explode: false
-                  name: commentId
+                  name: cartCommentId
                   required: true
                   schema:
                       description:
