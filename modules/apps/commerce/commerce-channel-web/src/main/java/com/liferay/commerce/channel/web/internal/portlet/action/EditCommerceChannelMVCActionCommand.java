@@ -147,6 +147,9 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			else if (cmd.equals(Constants.UPDATE)) {
 				updateCommerceChannel(actionRequest);
 			}
+			else if (cmd.equals("selectSite")) {
+				selectSite(actionRequest);
+			}
 		}
 		catch (PrincipalException pe) {
 			SessionErrors.add(actionRequest, pe.getClass());
@@ -162,6 +165,24 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, typePrefix + "WorkflowDefinition");
 
 		return new ObjectValuePair<>(typePK, workflowDefinition);
+	}
+
+	protected CommerceChannel selectSite(ActionRequest actionRequest)
+		throws Exception {
+
+		long commerceChannelId = ParamUtil.getLong(
+			actionRequest, "commerceChannelId");
+
+		long siteGroupId = ParamUtil.getLong(actionRequest, "siteGroupId");
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannel(commerceChannelId);
+
+		return _commerceChannelService.updateCommerceChannel(
+			commerceChannel.getCommerceChannelId(), siteGroupId,
+			commerceChannel.getName(), commerceChannel.getType(),
+			commerceChannel.getTypeSettingsProperties(),
+			commerceChannel.getCommerceCurrencyCode());
 	}
 
 	protected CommerceChannel updateCommerceChannel(ActionRequest actionRequest)

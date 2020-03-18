@@ -28,6 +28,7 @@ if (site != null) {
 }
 
 CommerceChannel commerceChannel = siteCommerceChannelTypeDisplayContext.getCommerceChannel();
+long commerceChannelId = siteCommerceChannelTypeDisplayContext.getCommerceChannelId();
 
 boolean isViewOnly = false;
 
@@ -46,51 +47,60 @@ if (commerceChannel != null) {
 	/>
 </liferay-util:buffer>
 
-<div class="row">
-	<div class="col-12">
-		<commerce-ui:panel
-			bodyClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "details") %>'
-		>
-			<liferay-ui:search-container
-				curParam="commerceChannelSiteCur"
-				headerNames="null,null"
-				id="CommerceChannelSitesSearchContainer"
-				iteratorURL="<%= currentURLObj %>"
-				total="<%= siteAsList.size() %>"
-			>
-				<liferay-ui:search-container-results
-					results="<%= siteAsList %>"
-				/>
+<portlet:actionURL name="editCommerceChannel" var="editCommerceChannelActionURL" />
 
-				<liferay-ui:search-container-row
-					className="com.liferay.portal.kernel.model.Group"
-					keyProperty="groupId"
-					modelVar="group"
+<aui:form action="<%= editCommerceChannelActionURL %>" method="post" name="fm">
+	<aui:input name="<%= Constants.CMD %>" type="hidden" value="selectSite" />
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+	<aui:input name="commerceChannelId" type="hidden" value="<%= commerceChannelId %>" />
+	<aui:input name="siteGroupId" type="hidden" value="<%= (commerceChannel == null) ? 0 : commerceChannel.getSiteGroupId() %>" />
+
+	<div class="row">
+		<div class="col-12">
+			<commerce-ui:panel
+				bodyClasses="flex-fill"
+				title='<%= LanguageUtil.get(request, "details") %>'
+			>
+				<liferay-ui:search-container
+					curParam="commerceChannelSiteCur"
+					headerNames="null,null"
+					id="CommerceChannelSitesSearchContainer"
+					iteratorURL="<%= currentURLObj %>"
+					total="<%= siteAsList.size() %>"
 				>
-					<liferay-ui:search-container-column-text
-						cssClass="table-cell-content"
-						value="<%= HtmlUtil.escape(group.getName(locale)) %>"
+					<liferay-ui:search-container-results
+						results="<%= siteAsList %>"
 					/>
 
-					<c:if test="<%= !isViewOnly %>">
-						<liferay-ui:search-container-column-text>
-							<a class="float-right modify-link" data-rowId="<%= group.getGroupId() %>" href="javascript:;"><%= removeCommerceChannelSiteIcon %></a>
-						</liferay-ui:search-container-column-text>
-					</c:if>
-				</liferay-ui:search-container-row>
+					<liferay-ui:search-container-row
+						className="com.liferay.portal.kernel.model.Group"
+						keyProperty="groupId"
+						modelVar="group"
+					>
+						<liferay-ui:search-container-column-text
+							cssClass="table-cell-content"
+							value="<%= HtmlUtil.escape(group.getName(locale)) %>"
+						/>
 
-				<liferay-ui:search-iterator
-					markupView="lexicon"
-				/>
-			</liferay-ui:search-container>
+						<c:if test="<%= !isViewOnly %>">
+							<liferay-ui:search-container-column-text>
+								<a class="float-right modify-link" data-rowId="<%= group.getGroupId() %>" href="javascript:;"><%= removeCommerceChannelSiteIcon %></a>
+							</liferay-ui:search-container-column-text>
+						</c:if>
+					</liferay-ui:search-container-row>
 
-			<c:if test="<%= !isViewOnly %>">
-				<aui:button cssClass="mb-4" name="selectSite" value='<%= LanguageUtil.format(locale, "select-x", "site") %>' />
-			</c:if>
-		</commerce-ui:panel>
+					<liferay-ui:search-iterator
+						markupView="lexicon"
+					/>
+				</liferay-ui:search-container>
+
+				<c:if test="<%= !isViewOnly %>">
+					<aui:button cssClass="mb-4" name="selectSite" value='<%= LanguageUtil.format(locale, "select-x", "site") %>' />
+				</c:if>
+			</commerce-ui:panel>
+		</div>
 	</div>
-</div>
+</aui:form>
 
 <aui:script use="aui-base,liferay-item-selector-dialog">
 	$('#<portlet:namespace />selectSite').on('click', function(event) {

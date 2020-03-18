@@ -22,6 +22,7 @@ CommerceChannelDisplayContext commerceChannelDisplayContext = (CommerceChannelDi
 CommerceChannel commerceChannel = commerceChannelDisplayContext.getCommerceChannel();
 long commerceChannelId = commerceChannelDisplayContext.getCommerceChannelId();
 List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCommerceCurrencies();
+
 String commerceCurrencyCode = commerceChannel.getCommerceCurrencyCode();
 
 Map<String, String> contextParams = new HashMap<>();
@@ -31,9 +32,9 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 
 <portlet:actionURL name="editCommerceChannel" var="editCommerceChannelActionURL" />
 
-<aui:form action="<%= editCommerceChannelActionURL %>" cssClass="m-0 p-0" method="post" name="channelFm">
+<aui:form action="<%= editCommerceChannelActionURL %>" cssClass="m-0 p-0" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceChannel == null) ? Constants.ADD : Constants.UPDATE %>" />
-	<aui:input name="redirect" type="hidden" value="<%= currentURLObj %>" />
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="commerceChannelId" type="hidden" value="<%= commerceChannelId %>" />
 
 	<aui:model-context bean="<%= commerceChannel %>" model="<%= CommerceChannel.class %>" />
