@@ -90,12 +90,12 @@ public class CProductUpgradeProcess
 
 				ps1.setLong(9, cpDefinitionId);
 
-				ps1.executeUpdate();
+				ps1.addBatch();
 
 				ps2.setLong(1, cProductId);
 				ps2.setLong(2, cpDefinitionId);
 
-				ps2.executeUpdate();
+				ps2.addBatch();
 			}
 
 			ps1.executeBatch();

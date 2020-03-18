@@ -119,7 +119,7 @@ public class CommerceAddressUpgradeProcess
 		ps.setInt(1, type);
 		ps.setLong(2, commerceAddressId);
 
-		ps.executeUpdate();
+		ps.addBatch();
 	}
 
 	protected void updateCommerceAccountAndSetType(
@@ -137,7 +137,7 @@ public class CommerceAddressUpgradeProcess
 				rs.getBoolean("defaultBilling"),
 				rs.getBoolean("defaultShipping"), commerceAddressId);
 
-			ps.executeUpdate();
+			ps.addBatch();
 		}
 	}
 

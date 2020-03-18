@@ -50,7 +50,7 @@ public class CPDefinitionOptionRelUpgradeProcess
 				ps.setString(1, rs.getString("key_"));
 				ps.setLong(2, rs.getLong("CPOptionId"));
 
-				ps.executeUpdate();
+				ps.addBatch();
 			}
 
 			ps.executeBatch();

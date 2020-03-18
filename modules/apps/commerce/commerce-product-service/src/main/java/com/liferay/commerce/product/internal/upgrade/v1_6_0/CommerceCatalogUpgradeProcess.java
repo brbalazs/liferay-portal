@@ -118,7 +118,7 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 
 				ps1.setString(8, defaultLanguageId);
 
-				ps1.executeUpdate();
+				ps1.addBatch();
 
 				ps2.setLong(1, commerceChannelId);
 				ps2.setLong(2, companyId);
@@ -130,7 +130,7 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 				ps2.setLong(8, siteGroup.getGroupId());
 				ps2.setString(9, CommerceChannelConstants.CHANNEL_TYPE_SITE);
 
-				ps2.executeUpdate();
+				ps2.addBatch();
 
 				Group catalogGroup = _groupLocalService.addGroup(
 					userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
@@ -176,7 +176,7 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 						8, cpDefinitionsResultSet.getLong("cpDefinitionId"));
 					ps3.setLong(9, commerceChannelId);
 
-					ps3.executeUpdate();
+					ps3.addBatch();
 				}
 
 				runSQL(

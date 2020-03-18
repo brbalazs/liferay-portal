@@ -81,7 +81,7 @@ public class CPAttachmentFileEntryGroupUpgradeProcess extends UpgradeProcess {
 					ps.setLong(2, classNameId);
 					ps.setLong(3, classPK);
 
-					ps.executeUpdate();
+					ps.addBatch();
 				}
 
 				ps.executeBatch();
