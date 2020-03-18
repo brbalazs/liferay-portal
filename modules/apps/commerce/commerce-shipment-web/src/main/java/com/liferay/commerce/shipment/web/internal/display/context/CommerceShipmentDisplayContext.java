@@ -138,6 +138,16 @@ public class CommerceShipmentDisplayContext
 		return sb.toString();
 	}
 
+	public String getCommerceChannelName() throws PortalException {
+		CommerceShipment commerceShipment = getCommerceShipment();
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannelByOrderGroupId(
+				commerceShipment.getGroupId());
+
+		return commerceChannel.getName();
+	}
+
 	public List<CommerceChannel> getCommerceChannels() throws PortalException {
 		return _commerceChannelService.searchCommerceChannels(
 			cpRequestHelper.getCompanyId());

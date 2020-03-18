@@ -110,6 +110,14 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 					<%= HtmlUtil.replaceNewLine(commerceShipmentDisplayContext.getDescriptiveShippingAddress()) %>
 				</div>
 			</commerce-ui:info-box>
+
+			<commerce-ui:info-box
+				title='<%= LanguageUtil.get(request, "channel") %>'
+			>
+				<div class="item">
+					<%= commerceShipmentDisplayContext.getCommerceChannelName() %>
+				</div>
+			</commerce-ui:info-box>
 		</div>
 
 		<div class="col-md-4">
