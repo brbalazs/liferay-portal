@@ -26,9 +26,7 @@ CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem = commerce
 
 <c:choose>
 	<c:when test="<%= commerceInventoryReplenishmentItem == null %>">
-		<commerce-ui:modal-content
-			title='<%= LanguageUtil.get(request, "add-income") %>'
-		>
+		<commerce-ui:modal-content>
 			<aui:form action="<%= editCommerceInventoryReplenishmentItemActionURL %>" method="post" name="fm">
 				<%@ include file="/edit_inventory_replenishment_item.jspf" %>
 			</aui:form>
