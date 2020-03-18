@@ -141,7 +141,7 @@ if (commerceChannel != null) {
 		'.modify-link'
 	);
 
-	Liferay.on('sitesSelectItem', function(event) {
+	var sitesSelectItemHandle = Liferay.on('sitesSelectItem', function(event) {
 		var item = event.data;
 
 		if (item) {
@@ -174,5 +174,9 @@ if (commerceChannel != null) {
 				searchContainer.updateDataStore();
 			}
 		}
+	});
+
+	Liferay.on('beforeNavigate', function(event) {
+		sitesSelectItemHandle.detach();
 	});
 </aui:script>
