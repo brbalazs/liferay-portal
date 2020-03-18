@@ -27,7 +27,12 @@ public class CommerceInventoryConstants {
 	public static final String AUDIT_TYPE_INCREASE_QUANTITY =
 		"increase-quantity";
 
+	public static final String AUDIT_TYPE_MOVE_QUANTITY = "move-quantity";
+
 	public static final String AUDIT_TYPE_RESTORE_QUANTITY = "restore-quantity";
+
+	public static final String AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM =
+		"update-warehouse-item";
 
 	public static final String DEFAULT_METHOD_NAME = "default";
 
