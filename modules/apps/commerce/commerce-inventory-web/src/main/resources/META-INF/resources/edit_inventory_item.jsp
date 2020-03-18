@@ -18,6 +18,8 @@
 
 <%
 CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+String thumbnailUrl = PortalUtil.getPortalURL(request) + "/o/commerce-inventory-web/images/inventory-default-icon.svg";
 %>
 
 <commerce-ui:header
@@ -26,7 +28,7 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 	externalReferenceCode=""
 	externalReferenceCodeEditUrl=""
 	model="<%= CommerceInventoryWarehouseItem.class %>"
-	thumbnailUrl=""
+	thumbnailUrl="<%= thumbnailUrl %>"
 	title="<%= commerceInventoryDisplayContext.getSku() %>"
 	transitionPortletURL="<%= commerceInventoryDisplayContext.getTransitionInventoryPortletURL() %>"
 	wrapperCssClasses="side-panel-top-anchor"
