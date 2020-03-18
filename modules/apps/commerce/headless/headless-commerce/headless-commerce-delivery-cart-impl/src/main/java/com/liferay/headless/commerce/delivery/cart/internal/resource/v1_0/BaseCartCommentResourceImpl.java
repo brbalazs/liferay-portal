@@ -84,17 +84,19 @@ public abstract class BaseCartCommentResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{cartCommentId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "commentId")})
-	@Path("/cart-comments/{commentId}")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "cartCommentId")}
+	)
+	@Path("/cart-comments/{cartCommentId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CartComment")})
 	public Response deleteCartComment(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
-				commentId)
+			@NotNull @Parameter(hidden = true) @PathParam("cartCommentId") Long
+				cartCommentId)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -105,23 +107,18 @@ public abstract class BaseCartCommentResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
 	@DELETE
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "commentId"),
-			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
-		}
+		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
-	@Path("/cart-comments/{commentId}/batch")
+	@Path("/cart-comments/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "CartComment")})
 	public Response deleteCartCommentBatch(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
-				commentId,
 			@Parameter(hidden = true) @QueryParam("callbackURL") String
 				callbackURL,
 			Object object)
@@ -146,17 +143,19 @@ public abstract class BaseCartCommentResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{cartCommentId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "commentId")})
-	@Path("/cart-comments/{commentId}")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "cartCommentId")}
+	)
+	@Path("/cart-comments/{cartCommentId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CartComment")})
 	public CartComment getCartComment(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
-				commentId)
+			@NotNull @Parameter(hidden = true) @PathParam("cartCommentId") Long
+				cartCommentId)
 		throws Exception {
 
 		return new CartComment();
@@ -165,22 +164,24 @@ public abstract class BaseCartCommentResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{cartCommentId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PATCH
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "commentId")})
-	@Path("/cart-comments/{commentId}")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "cartCommentId")}
+	)
+	@Path("/cart-comments/{cartCommentId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CartComment")})
 	public CartComment patchCartComment(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
-				commentId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartCommentId") Long
+				cartCommentId,
 			CartComment cartComment)
 		throws Exception {
 
-		CartComment existingCartComment = getCartComment(commentId);
+		CartComment existingCartComment = getCartComment(cartCommentId);
 
 		if (cartComment.getAuthor() != null) {
 			existingCartComment.setAuthor(cartComment.getAuthor());
@@ -200,24 +201,26 @@ public abstract class BaseCartCommentResourceImpl
 
 		preparePatch(cartComment, existingCartComment);
 
-		return putCartComment(commentId, existingCartComment);
+		return putCartComment(cartCommentId, existingCartComment);
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{cartCommentId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "commentId")})
-	@Path("/cart-comments/{commentId}")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "cartCommentId")}
+	)
+	@Path("/cart-comments/{cartCommentId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CartComment")})
 	public CartComment putCartComment(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
-				commentId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartCommentId") Long
+				cartCommentId,
 			CartComment cartComment)
 		throws Exception {
 
@@ -227,23 +230,18 @@ public abstract class BaseCartCommentResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-comments/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
 	@PUT
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "commentId"),
-			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
-		}
+		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
-	@Path("/cart-comments/{commentId}/batch")
+	@Path("/cart-comments/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "CartComment")})
 	public Response putCartCommentBatch(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
-				commentId,
 			@Parameter(hidden = true) @QueryParam("callbackURL") String
 				callbackURL,
 			Object object)
@@ -384,7 +382,7 @@ public abstract class BaseCartCommentResourceImpl
 		for (CartComment cartComment : cartComments) {
 			putCartComment(
 				cartComment.getId() != null ? cartComment.getId() :
-					(Long)parameters.get("cartCommentId"),
+				(Long)parameters.get("cartCommentId"),
 				cartComment);
 		}
 	}

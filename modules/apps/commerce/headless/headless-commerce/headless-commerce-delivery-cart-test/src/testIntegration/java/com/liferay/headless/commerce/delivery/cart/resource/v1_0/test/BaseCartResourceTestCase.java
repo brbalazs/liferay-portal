@@ -605,14 +605,6 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("cartComments", additionalAssertFieldName)) {
-				if (cart.getCartComments() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("cartItems", additionalAssertFieldName)) {
 				if (cart.getCartItems() == null) {
 					valid = false;
@@ -673,6 +665,14 @@ public abstract class BaseCartResourceTestCase {
 
 			if (Objects.equals("modifiedDate", additionalAssertFieldName)) {
 				if (cart.getModifiedDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("notes", additionalAssertFieldName)) {
+				if (cart.getNotes() == null) {
 					valid = false;
 				}
 
@@ -893,16 +893,6 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("cartComments", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						cart1.getCartComments(), cart2.getCartComments())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("cartItems", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cart1.getCartItems(), cart2.getCartItems())) {
@@ -988,6 +978,14 @@ public abstract class BaseCartResourceTestCase {
 				if (!Objects.deepEquals(
 						cart1.getModifiedDate(), cart2.getModifiedDate())) {
 
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("notes", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(cart1.getNotes(), cart2.getNotes())) {
 					return false;
 				}
 
@@ -1436,11 +1434,6 @@ public abstract class BaseCartResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("cartComments")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("cartItems")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1570,6 +1563,11 @@ public abstract class BaseCartResourceTestCase {
 			}
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("notes")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("paymentMethod")) {

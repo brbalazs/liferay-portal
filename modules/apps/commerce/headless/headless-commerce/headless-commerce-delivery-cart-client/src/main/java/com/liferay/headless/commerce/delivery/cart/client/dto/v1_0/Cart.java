@@ -135,27 +135,6 @@ public class Cart implements Cloneable {
 
 	protected Long billingAddressId;
 
-	public CartComment[] getCartComments() {
-		return cartComments;
-	}
-
-	public void setCartComments(CartComment[] cartComments) {
-		this.cartComments = cartComments;
-	}
-
-	public void setCartComments(
-		UnsafeSupplier<CartComment[], Exception> cartCommentsUnsafeSupplier) {
-
-		try {
-			cartComments = cartCommentsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected CartComment[] cartComments;
-
 	public CartItem[] getCartItems() {
 		return cartItems;
 	}
@@ -342,6 +321,27 @@ public class Cart implements Cloneable {
 	}
 
 	protected Date modifiedDate;
+
+	public CartComment[] getNotes() {
+		return notes;
+	}
+
+	public void setNotes(CartComment[] notes) {
+		this.notes = notes;
+	}
+
+	public void setNotes(
+		UnsafeSupplier<CartComment[], Exception> notesUnsafeSupplier) {
+
+		try {
+			notes = notesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected CartComment[] notes;
 
 	public String getPaymentMethod() {
 		return paymentMethod;

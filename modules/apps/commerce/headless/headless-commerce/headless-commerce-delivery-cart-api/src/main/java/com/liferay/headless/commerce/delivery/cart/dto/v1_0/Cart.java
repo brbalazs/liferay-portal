@@ -193,35 +193,6 @@ public class Cart {
 
 	@Schema
 	@Valid
-	public CartComment[] getCartComments() {
-		return cartComments;
-	}
-
-	public void setCartComments(CartComment[] cartComments) {
-		this.cartComments = cartComments;
-	}
-
-	@JsonIgnore
-	public void setCartComments(
-		UnsafeSupplier<CartComment[], Exception> cartCommentsUnsafeSupplier) {
-
-		try {
-			cartComments = cartCommentsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected CartComment[] cartComments;
-
-	@Schema
-	@Valid
 	public CartItem[] getCartItems() {
 		return cartItems;
 	}
@@ -471,6 +442,35 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date modifiedDate;
+
+	@Schema
+	@Valid
+	public CartComment[] getNotes() {
+		return notes;
+	}
+
+	public void setNotes(CartComment[] notes) {
+		this.notes = notes;
+	}
+
+	@JsonIgnore
+	public void setNotes(
+		UnsafeSupplier<CartComment[], Exception> notesUnsafeSupplier) {
+
+		try {
+			notes = notesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected CartComment[] notes;
 
 	@Schema
 	public String getPaymentMethod() {
@@ -926,26 +926,6 @@ public class Cart {
 			sb.append(billingAddressId);
 		}
 
-		if (cartComments != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"cartComments\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < cartComments.length; i++) {
-				sb.append(String.valueOf(cartComments[i]));
-
-				if ((i + 1) < cartComments.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (cartItems != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1064,6 +1044,26 @@ public class Cart {
 			sb.append(liferayToJSONDateFormat.format(modifiedDate));
 
 			sb.append("\"");
+		}
+
+		if (notes != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"notes\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < notes.length; i++) {
+				sb.append(String.valueOf(notes[i]));
+
+				if ((i + 1) < notes.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (paymentMethod != null) {

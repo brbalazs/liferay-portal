@@ -44,23 +44,22 @@ public interface CartCommentResource {
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
+	public Response deleteCartComment(Long cartCommentId) throws Exception;
 
-	public Response deleteCartComment(Long commentId) throws Exception;
-
-	public Response deleteCartCommentBatch(
-			Long commentId, String callbackURL, Object object)
+	public Response deleteCartCommentBatch(String callbackURL, Object object)
 		throws Exception;
 
-	public CartComment getCartComment(Long commentId) throws Exception;
+	public CartComment getCartComment(Long cartCommentId) throws Exception;
 
-	public CartComment patchCartComment(Long commentId, CartComment cartComment)
+	public CartComment patchCartComment(
+			Long cartCommentId, CartComment cartComment)
 		throws Exception;
 
-	public CartComment putCartComment(Long commentId, CartComment cartComment)
+	public CartComment putCartComment(
+			Long cartCommentId, CartComment cartComment)
 		throws Exception;
 
-	public Response putCartCommentBatch(
-			Long commentId, String callbackURL, Object object)
+	public Response putCartCommentBatch(String callbackURL, Object object)
 		throws Exception;
 
 	public Page<CartComment> getCartCommentsPage(

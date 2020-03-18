@@ -40,45 +40,46 @@ public interface CartCommentResource {
 		return new Builder();
 	}
 
-	public void deleteCartComment(Long commentId) throws Exception;
+	public void deleteCartComment(Long cartCommentId) throws Exception;
 
 	public HttpInvoker.HttpResponse deleteCartCommentHttpResponse(
-			Long commentId)
+			Long cartCommentId)
 		throws Exception;
 
-	public void deleteCartCommentBatch(
-			Long commentId, String callbackURL, Object object)
+	public void deleteCartCommentBatch(String callbackURL, Object object)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteCartCommentBatchHttpResponse(
-			Long commentId, String callbackURL, Object object)
+			String callbackURL, Object object)
 		throws Exception;
 
-	public CartComment getCartComment(Long commentId) throws Exception;
+	public CartComment getCartComment(Long cartCommentId) throws Exception;
 
-	public HttpInvoker.HttpResponse getCartCommentHttpResponse(Long commentId)
+	public HttpInvoker.HttpResponse getCartCommentHttpResponse(
+			Long cartCommentId)
 		throws Exception;
 
-	public CartComment patchCartComment(Long commentId, CartComment cartComment)
+	public CartComment patchCartComment(
+			Long cartCommentId, CartComment cartComment)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse patchCartCommentHttpResponse(
-			Long commentId, CartComment cartComment)
+			Long cartCommentId, CartComment cartComment)
 		throws Exception;
 
-	public CartComment putCartComment(Long commentId, CartComment cartComment)
+	public CartComment putCartComment(
+			Long cartCommentId, CartComment cartComment)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putCartCommentHttpResponse(
-			Long commentId, CartComment cartComment)
+			Long cartCommentId, CartComment cartComment)
 		throws Exception;
 
-	public void putCartCommentBatch(
-			Long commentId, String callbackURL, Object object)
+	public void putCartCommentBatch(String callbackURL, Object object)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putCartCommentBatchHttpResponse(
-			Long commentId, String callbackURL, Object object)
+			String callbackURL, Object object)
 		throws Exception;
 
 	public Page<CartComment> getCartCommentsPage(
@@ -151,9 +152,9 @@ public interface CartCommentResource {
 
 	public static class CartCommentResourceImpl implements CartCommentResource {
 
-		public void deleteCartComment(Long commentId) throws Exception {
+		public void deleteCartComment(Long cartCommentId) throws Exception {
 			HttpInvoker.HttpResponse httpResponse =
-				deleteCartCommentHttpResponse(commentId);
+				deleteCartCommentHttpResponse(cartCommentId);
 
 			String content = httpResponse.getContent();
 
@@ -165,7 +166,7 @@ public interface CartCommentResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteCartCommentHttpResponse(
-				Long commentId)
+				Long cartCommentId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -192,8 +193,8 @@ public interface CartCommentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}",
-				commentId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{cartCommentId}",
+				cartCommentId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -201,13 +202,11 @@ public interface CartCommentResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteCartCommentBatch(
-				Long commentId, String callbackURL, Object object)
+		public void deleteCartCommentBatch(String callbackURL, Object object)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteCartCommentBatchHttpResponse(
-					commentId, callbackURL, object);
+				deleteCartCommentBatchHttpResponse(callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -219,7 +218,7 @@ public interface CartCommentResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteCartCommentBatchHttpResponse(
-				Long commentId, String callbackURL, Object object)
+				String callbackURL, Object object)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -251,8 +250,7 @@ public interface CartCommentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}/batch",
-				commentId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -260,9 +258,9 @@ public interface CartCommentResource {
 			return httpInvoker.invoke();
 		}
 
-		public CartComment getCartComment(Long commentId) throws Exception {
+		public CartComment getCartComment(Long cartCommentId) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = getCartCommentHttpResponse(
-				commentId);
+				cartCommentId);
 
 			String content = httpResponse.getContent();
 
@@ -285,7 +283,7 @@ public interface CartCommentResource {
 		}
 
 		public HttpInvoker.HttpResponse getCartCommentHttpResponse(
-				Long commentId)
+				Long cartCommentId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -312,8 +310,8 @@ public interface CartCommentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}",
-				commentId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{cartCommentId}",
+				cartCommentId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -322,11 +320,11 @@ public interface CartCommentResource {
 		}
 
 		public CartComment patchCartComment(
-				Long commentId, CartComment cartComment)
+				Long cartCommentId, CartComment cartComment)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				patchCartCommentHttpResponse(commentId, cartComment);
+				patchCartCommentHttpResponse(cartCommentId, cartComment);
 
 			String content = httpResponse.getContent();
 
@@ -349,7 +347,7 @@ public interface CartCommentResource {
 		}
 
 		public HttpInvoker.HttpResponse patchCartCommentHttpResponse(
-				Long commentId, CartComment cartComment)
+				Long cartCommentId, CartComment cartComment)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -378,8 +376,8 @@ public interface CartCommentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}",
-				commentId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{cartCommentId}",
+				cartCommentId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -388,11 +386,11 @@ public interface CartCommentResource {
 		}
 
 		public CartComment putCartComment(
-				Long commentId, CartComment cartComment)
+				Long cartCommentId, CartComment cartComment)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = putCartCommentHttpResponse(
-				commentId, cartComment);
+				cartCommentId, cartComment);
 
 			String content = httpResponse.getContent();
 
@@ -415,7 +413,7 @@ public interface CartCommentResource {
 		}
 
 		public HttpInvoker.HttpResponse putCartCommentHttpResponse(
-				Long commentId, CartComment cartComment)
+				Long cartCommentId, CartComment cartComment)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -444,8 +442,8 @@ public interface CartCommentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}",
-				commentId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{cartCommentId}",
+				cartCommentId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -453,12 +451,11 @@ public interface CartCommentResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putCartCommentBatch(
-				Long commentId, String callbackURL, Object object)
+		public void putCartCommentBatch(String callbackURL, Object object)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putCartCommentBatchHttpResponse(commentId, callbackURL, object);
+				putCartCommentBatchHttpResponse(callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -470,7 +467,7 @@ public interface CartCommentResource {
 		}
 
 		public HttpInvoker.HttpResponse putCartCommentBatchHttpResponse(
-				Long commentId, String callbackURL, Object object)
+				String callbackURL, Object object)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -504,8 +501,7 @@ public interface CartCommentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/{commentId}/batch",
-				commentId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-comments/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

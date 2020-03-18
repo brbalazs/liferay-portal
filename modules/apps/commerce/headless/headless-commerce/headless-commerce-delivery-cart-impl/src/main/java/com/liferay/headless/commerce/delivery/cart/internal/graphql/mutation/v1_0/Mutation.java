@@ -152,19 +152,19 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deleteCartComment(@GraphQLName("commentId") Long commentId)
+	public Response deleteCartComment(
+			@GraphQLName("cartCommentId") Long cartCommentId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartCommentResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartCommentResource -> cartCommentResource.deleteCartComment(
-				commentId));
+				cartCommentId));
 	}
 
 	@GraphQLField
 	public Response deleteCartCommentBatch(
-			@GraphQLName("commentId") Long commentId,
 			@GraphQLName("callbackURL") String callbackURL,
 			@GraphQLName("object") Object object)
 		throws Exception {
@@ -173,12 +173,12 @@ public class Mutation {
 			_cartCommentResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartCommentResource -> cartCommentResource.deleteCartCommentBatch(
-				commentId, callbackURL, object));
+				callbackURL, object));
 	}
 
 	@GraphQLField
 	public CartComment patchCartComment(
-			@GraphQLName("commentId") Long commentId,
+			@GraphQLName("cartCommentId") Long cartCommentId,
 			@GraphQLName("cartComment") CartComment cartComment)
 		throws Exception {
 
@@ -186,12 +186,12 @@ public class Mutation {
 			_cartCommentResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartCommentResource -> cartCommentResource.patchCartComment(
-				commentId, cartComment));
+				cartCommentId, cartComment));
 	}
 
 	@GraphQLField
 	public CartComment updateCartComment(
-			@GraphQLName("commentId") Long commentId,
+			@GraphQLName("cartCommentId") Long cartCommentId,
 			@GraphQLName("cartComment") CartComment cartComment)
 		throws Exception {
 
@@ -199,12 +199,11 @@ public class Mutation {
 			_cartCommentResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartCommentResource -> cartCommentResource.putCartComment(
-				commentId, cartComment));
+				cartCommentId, cartComment));
 	}
 
 	@GraphQLField
 	public Response updateCartCommentBatch(
-			@GraphQLName("commentId") Long commentId,
 			@GraphQLName("callbackURL") String callbackURL,
 			@GraphQLName("object") Object object)
 		throws Exception {
@@ -213,7 +212,7 @@ public class Mutation {
 			_cartCommentResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartCommentResource -> cartCommentResource.putCartCommentBatch(
-				commentId, callbackURL, object));
+				callbackURL, object));
 	}
 
 	@GraphQLField

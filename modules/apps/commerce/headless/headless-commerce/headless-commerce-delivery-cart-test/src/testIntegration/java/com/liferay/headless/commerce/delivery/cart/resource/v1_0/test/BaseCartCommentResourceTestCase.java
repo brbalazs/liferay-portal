@@ -198,13 +198,17 @@ public abstract class BaseCartCommentResourceTestCase {
 		CartComment cartComment = testDeleteCartComment_addCartComment();
 
 		assertHttpResponseStatusCode(
-			204, cartCommentResource.deleteCartCommentHttpResponse(null));
+			204,
+			cartCommentResource.deleteCartCommentHttpResponse(
+				cartComment.getId()));
 
 		assertHttpResponseStatusCode(
-			404, cartCommentResource.getCartCommentHttpResponse(null));
+			404,
+			cartCommentResource.getCartCommentHttpResponse(
+				cartComment.getId()));
 
 		assertHttpResponseStatusCode(
-			404, cartCommentResource.getCartCommentHttpResponse(null));
+			404, cartCommentResource.getCartCommentHttpResponse(0L));
 	}
 
 	protected CartComment testDeleteCartComment_addCartComment()
@@ -264,7 +268,8 @@ public abstract class BaseCartCommentResourceTestCase {
 	public void testGetCartComment() throws Exception {
 		CartComment postCartComment = testGetCartComment_addCartComment();
 
-		CartComment getCartComment = cartCommentResource.getCartComment(null);
+		CartComment getCartComment = cartCommentResource.getCartComment(
+			postCartComment.getId());
 
 		assertEquals(postCartComment, getCartComment);
 		assertValid(getCartComment);
@@ -287,7 +292,7 @@ public abstract class BaseCartCommentResourceTestCase {
 				"cartComment",
 				new HashMap<String, Object>() {
 					{
-						put("commentId", null);
+						put("cartCommentId", cartComment.getId());
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -337,7 +342,7 @@ public abstract class BaseCartCommentResourceTestCase {
 		CartComment randomCartComment = randomCartComment();
 
 		CartComment putCartComment = cartCommentResource.putCartComment(
-			null, randomCartComment);
+			postCartComment.getId(), randomCartComment);
 
 		assertEquals(randomCartComment, putCartComment);
 		assertValid(putCartComment);
@@ -396,9 +401,9 @@ public abstract class BaseCartCommentResourceTestCase {
 			(List<CartComment>)page.getItems());
 		assertValid(page);
 
-		cartCommentResource.deleteCartComment(null);
+		cartCommentResource.deleteCartComment(cartComment1.getId());
 
-		cartCommentResource.deleteCartComment(null);
+		cartCommentResource.deleteCartComment(cartComment2.getId());
 	}
 
 	@Test
