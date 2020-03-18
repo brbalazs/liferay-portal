@@ -334,6 +334,7 @@ function DatasetDisplay(props) {
 				selectedItemsValue={selectedItemsValue}
 				selectionType={props.selectionType}
 				setActiveView={setActiveView}
+				showSearch={props.showSearch}
 				sidePanelId={datasetDisplaySupportSidePanelId}
 				totalItemsCount={props.items.length}
 				views={props.views}
@@ -513,6 +514,7 @@ DatasetDisplay.propTypes = {
 	selectionType: PropTypes.oneOf(['single', 'multiple']),
 	showManagementBar: PropTypes.bool,
 	showPagination: PropTypes.bool,
+	showSearch: PropTypes.bool,
 	sidePanelId: PropTypes.string,
 	sorting: PropTypes.array,
 	spritemap: PropTypes.string.isRequired,
@@ -537,6 +539,7 @@ DatasetDisplay.defaultProps = {
 	selectionType: 'multiple',
 	showManagementBar: true,
 	showPagination: true,
+	showSearch: true,
 	sorting: [],
 	style: 'default'
 };

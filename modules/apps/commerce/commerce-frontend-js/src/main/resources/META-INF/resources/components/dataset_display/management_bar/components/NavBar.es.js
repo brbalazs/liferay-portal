@@ -32,9 +32,11 @@ function NavBar(props) {
 						<FiltersDropdown />
 					</div>
 				) : null}
-				<div className="navbar-form navbar-overlay-sm-down pl-0">
-					<MainSearch />
-				</div>
+				{props.showSearch ? (
+					<div className="navbar-form navbar-overlay-sm-down pl-0">
+						<MainSearch />
+					</div>
+				) : null}
 				<div className="navbar-form navbar-form-autofit navbar-overlay navbar-overlay-sm-down pl-0">
 					{props.views && props.views.length > 1 ? (
 						<ActiveViewSelector
@@ -56,6 +58,7 @@ NavBar.propTypes = {
 	activeView: PropTypes.number,
 	creationMenuItems: PropTypes.array,
 	setActiveView: PropTypes.func,
+	showSearch: PropTypes.bool,
 	views: PropTypes.arrayOf(
 		PropTypes.shape({
 			icon: PropTypes.string.isRequired,
@@ -65,7 +68,8 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-	creationMenuItems: []
+	creationMenuItems: [],
+	showSearch: true
 };
 
 export default NavBar;

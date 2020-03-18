@@ -33,6 +33,7 @@
 		items: <%= jsonSerializer.serializeDeep(items) %>,
 		showPagination: <%= showPagination %>,
 		showManagementBar: <%= showManagementBar %>,
+		showSearch: <%= showSearch %>,
 		pagination: {
 			deltas: <%= jsonSerializer.serializeDeep(paginationEntries) %>,
 			initialDelta: <%= itemsPerPage %>,

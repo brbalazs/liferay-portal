@@ -181,6 +181,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>showSearch</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>style</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>

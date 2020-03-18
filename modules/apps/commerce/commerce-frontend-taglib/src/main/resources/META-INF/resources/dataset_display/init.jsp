@@ -53,6 +53,7 @@ String selectedItemsKey = (String)request.getAttribute("liferay-commerce:dataset
 String selectionType = (String)request.getAttribute("liferay-commerce:dataset-display:selectionType");
 boolean showManagementBar = (boolean)request.getAttribute("liferay-commerce:dataset-display:showManagementBar");
 boolean showPagination = (boolean)request.getAttribute("liferay-commerce:dataset-display:showPagination");
+boolean showSearch = (boolean)request.getAttribute("liferay-commerce:dataset-display:showSearch");
 String spritemap = (String)request.getAttribute("liferay-commerce:dataset-display:spritemap");
 String style = (String)request.getAttribute("liferay-commerce:dataset-display:style");
 int totalItems = (int)request.getAttribute("liferay-commerce:dataset-display:totalItems");

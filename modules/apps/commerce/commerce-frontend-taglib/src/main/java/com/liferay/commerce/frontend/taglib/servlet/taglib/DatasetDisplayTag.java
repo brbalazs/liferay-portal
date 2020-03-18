@@ -186,6 +186,10 @@ public class DatasetDisplayTag extends IncludeTag {
 		_showManagementBar = showManagementBar;
 	}
 
+	public void setShowSearch(boolean showSearch) {
+		_showSearch = showSearch;
+	}
+
 	public void setStyle(String style) {
 		_style = style;
 	}
@@ -219,6 +223,7 @@ public class DatasetDisplayTag extends IncludeTag {
 		_selectionType = null;
 		_showManagementBar = true;
 		_showPagination = false;
+		_showSearch = true;
 		_spritemap = null;
 		_style = "default";
 		_totalItems = 0;
@@ -307,6 +312,8 @@ public class DatasetDisplayTag extends IncludeTag {
 			_showManagementBar);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:showPagination", _showPagination);
+		request.setAttribute(
+			"liferay-commerce:dataset-display:showSearch", _showSearch);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:spritemap", _spritemap);
 		request.setAttribute("liferay-commerce:dataset-display:style", _style);
@@ -398,6 +405,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private String _selectionType;
 	private boolean _showManagementBar = true;
 	private boolean _showPagination;
+	private boolean _showSearch = true;
 	private String _spritemap;
 	private String _style = "default";
 	private int _totalItems;

@@ -47,6 +47,7 @@ function ManagementBar(props) {
 					activeView={props.activeView}
 					creationMenuItems={props.creationMenuItems}
 					setActiveView={props.setActiveView}
+					showSearch={props.showSearch}
 					views={props.views}
 				/>
 			)}
@@ -74,12 +75,14 @@ Wrapper.propTypes = {
 	selectedItemsKey: PropTypes.string.isRequired,
 	selectionType: PropTypes.oneOf(['single', 'multiple']).isRequired,
 	setActiveView: PropTypes.func.isRequired,
+	showSearch: PropTypes.bool,
 	views: PropTypes.array.isRequired
 };
 
 Wrapper.defaultProps = {
 	filters: [],
-	fluid: false
+	fluid: false,
+	showSearch: true
 };
 
 export default Wrapper;
