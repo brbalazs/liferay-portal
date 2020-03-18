@@ -130,8 +130,12 @@ public class CommerceShipmentDataSetDataProvider
 		User user = _portal.getUser(httpServletRequest);
 
 		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
-			DateFormat.SHORT, DateFormat.SHORT,
+			DateFormat.MEDIUM, DateFormat.MEDIUM,
 			_portal.getLocale(httpServletRequest), user.getTimeZone());
+
+		Format dateFormat = FastDateFormatFactoryUtil.getDate(
+			DateFormat.MEDIUM, _portal.getLocale(httpServletRequest),
+			user.getTimeZone());
 
 		for (CommerceShipment commerceShipment : commerceShipments) {
 			CommerceChannel commerceChannel =
@@ -144,6 +148,8 @@ public class CommerceShipmentDataSetDataProvider
 					_getDescriptiveAddress(commerceShipment),
 					commerceChannel.getName(),
 					dateTimeFormat.format(commerceShipment.getCreateDate()),
+					dateFormat.format(commerceShipment.getExpectedDate()),
+					dateFormat.format(commerceShipment.getShippingDate()),
 					commerceShipment.getCommerceShipmentId(),
 					new LabelField(
 						CommerceShipmentConstants.getShipmentLabelStyle(

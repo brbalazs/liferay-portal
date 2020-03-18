@@ -62,7 +62,7 @@ CommerceShipmentContentDisplayContext commerceShipmentContentDisplayContext = (C
 		/>
 
 		<liferay-ui:search-container-column-date
-			name="expected-delivery-date"
+			name="esitmated-delivery-date"
 			property="expectedDate"
 		/>
 

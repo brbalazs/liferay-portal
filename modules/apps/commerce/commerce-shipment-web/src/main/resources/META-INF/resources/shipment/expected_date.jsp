@@ -39,7 +39,7 @@ if (expectedDate != null) {
 <portlet:actionURL name="editCommerceShipment" var="editCommerceShipmentURL" />
 
 <commerce-ui:modal-content
-	title='<%= LanguageUtil.format(request, "edit-x", "expected-delivery-date") %>'
+	title='<%= LanguageUtil.format(request, "edit-x", "estimated-delivery-date") %>'
 >
 	<liferay-ui:error exception="<%= CommerceShipmentExpectedDateException.class %>" />
 

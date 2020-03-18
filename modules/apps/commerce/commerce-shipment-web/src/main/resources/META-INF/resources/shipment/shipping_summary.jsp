@@ -26,7 +26,7 @@ String carrier = commerceShipment.getCarrier();
 Date expectedDate = commerceShipment.getExpectedDate();
 Date shippingDate = commerceShipment.getShippingDate();
 
-Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
+Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale, user.getTimeZone());
 %>
 
 <div class="mb-4">
@@ -137,7 +137,7 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 							<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
 						</c:when>
 						<c:otherwise>
-							<b><%= dateFormatDateTime.format(shippingDate) %></b>
+							<b><%= dateFormat.format(shippingDate) %></b>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -159,7 +159,7 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 				actionLabel='<%= LanguageUtil.get(request, "edit") %>'
 				actionTargetId="edit-expected-date-modal"
 				actionUrl=""
-				title='<%= LanguageUtil.get(request, "expected-delivery-date") %>'
+				title='<%= LanguageUtil.get(request, "estimated-delivery-date") %>'
 			>
 				<div class="item">
 					<c:choose>
@@ -167,7 +167,7 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDate(locale);
 							<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
 						</c:when>
 						<c:otherwise>
-							<b><%= dateFormatDateTime.format(expectedDate) %></b>
+							<b><%= dateFormat.format(expectedDate) %></b>
 						</c:otherwise>
 					</c:choose>
 				</div>

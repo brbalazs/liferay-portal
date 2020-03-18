@@ -22,13 +22,15 @@ public class Shipment {
 
 	public Shipment(
 		String accountName, String address, String channelName,
-		String createDate, long shipmentId, LabelField status,
-		String tracking) {
+		String createDate, String expectedDeliveryDate, String expectedShipDate,
+		long shipmentId, LabelField status, String tracking) {
 
 		_accountName = accountName;
 		_address = address;
 		_channelName = channelName;
 		_createDate = createDate;
+		_expectedDeliveryDate = expectedDeliveryDate;
+		_expectedShipDate = expectedShipDate;
 		_shipmentId = shipmentId;
 		_status = status;
 		_tracking = tracking;
@@ -50,6 +52,14 @@ public class Shipment {
 		return _createDate;
 	}
 
+	public String getExpectedDeliveryDate() {
+		return _expectedDeliveryDate;
+	}
+
+	public String getExpectedShipDate() {
+		return _expectedShipDate;
+	}
+
 	public long getShipmentId() {
 		return _shipmentId;
 	}
@@ -66,6 +76,8 @@ public class Shipment {
 	private final String _address;
 	private final String _channelName;
 	private final String _createDate;
+	private final String _expectedDeliveryDate;
+	private final String _expectedShipDate;
 	private final long _shipmentId;
 	private final LabelField _status;
 	private final String _tracking;
