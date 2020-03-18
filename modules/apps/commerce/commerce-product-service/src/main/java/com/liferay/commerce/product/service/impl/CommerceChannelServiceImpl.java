@@ -84,6 +84,20 @@ public class CommerceChannelServiceImpl extends CommerceChannelServiceBaseImpl {
 	}
 
 	@Override
+	public CommerceChannel getCommerceChannelByOrderGroupId(long groupId)
+		throws PortalException {
+
+		CommerceChannel commerceChannel =
+			commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				groupId);
+
+		_commerceChannelModelResourcePermission.check(
+			getPermissionChecker(), commerceChannel, ActionKeys.VIEW);
+
+		return commerceChannel;
+	}
+
+	@Override
 	public List<CommerceChannel> getCommerceChannels(int start, int end)
 		throws PortalException {
 
