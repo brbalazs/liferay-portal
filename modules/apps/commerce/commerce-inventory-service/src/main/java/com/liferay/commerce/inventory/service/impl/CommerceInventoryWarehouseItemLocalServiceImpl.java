@@ -347,15 +347,17 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
 				CommerceInventoryConstants.AUDIT_TYPE_MOVE_QUANTITY);
 
+		Map<String, String> context = new HashMap<>();
+
 		CommerceInventoryWarehouse fromCommerceInventoryWarehouse =
 			fromWarehouseItem.getCommerceInventoryWarehouse();
-		CommerceInventoryWarehouse toCommerceInventoryWarehouse =
-			toWarehouseItem.getCommerceInventoryWarehouse();
-
-		Map<String, String> context = new HashMap<>();
 
 		context.put(
 			"From", String.valueOf(fromCommerceInventoryWarehouse.getName()));
+
+		CommerceInventoryWarehouse toCommerceInventoryWarehouse =
+			toWarehouseItem.getCommerceInventoryWarehouse();
+
 		context.put(
 			"To", String.valueOf(toCommerceInventoryWarehouse.getName()));
 
@@ -385,10 +387,10 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
 				CommerceInventoryConstants.AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM);
 
+		Map<String, String> context = new HashMap<>();
+
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
-
-		Map<String, String> context = new HashMap<>();
 
 		context.put(
 			"Warehouse", String.valueOf(commerceInventoryWarehouse.getName()));
@@ -424,12 +426,13 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
 				CommerceInventoryConstants.AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM);
 
-		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
-
 		Map<String, String> context = new HashMap<>();
 
 		context.put("Reserved", String.valueOf(reservedQuantity));
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
+
 		context.put(
 			"Warehouse", String.valueOf(commerceInventoryWarehouse.getName()));
 

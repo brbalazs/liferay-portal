@@ -92,11 +92,6 @@ public class CommerceInventoryAuditDataSetDataProvider
 		for (CommerceInventoryAudit commerceInventoryAudit :
 				commerceInventoryAudits) {
 
-			CommerceInventoryAuditType commerceInventoryAuditType =
-				_commerceInventoryAuditTypeRegistry.
-					getCommerceInventoryAuditType(
-						commerceInventoryAudit.getLogType());
-
 			StringBundler titleSB = new StringBundler(3);
 
 			titleSB.append(
@@ -105,6 +100,11 @@ public class CommerceInventoryAuditDataSetDataProvider
 			titleSB.append(CharPool.SPACE);
 
 			try {
+				CommerceInventoryAuditType commerceInventoryAuditType =
+					_commerceInventoryAuditTypeRegistry.
+						getCommerceInventoryAuditType(
+							commerceInventoryAudit.getLogType());
+
 				titleSB.append(
 					commerceInventoryAuditType.formatLog(
 						commerceInventoryAudit.getUserId(),
