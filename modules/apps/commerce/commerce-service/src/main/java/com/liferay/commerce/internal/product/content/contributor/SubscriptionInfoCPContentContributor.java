@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -36,8 +37,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import java.util.Locale;
 
 /**
  * @author Alessio Antonio Rendina
@@ -110,7 +109,7 @@ public class SubscriptionInfoCPContentContributor
 				cpSubscriptionInfo.getSubscriptionType());
 
 		if (cpSubscriptionType != null) {
-			period = cpSubscriptionType.getLabel(Locale.US);
+			period = cpSubscriptionType.getLabel(LocaleUtil.US);
 		}
 
 		StringBundler sb = new StringBundler(

@@ -29,13 +29,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
-
-import java.util.Locale;
+import com.liferay.taglib.util.LocaleUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -136,15 +133,13 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 				cpSubscriptionTypeRegistry.getCPSubscriptionType(
 					deliverySubscriptionType);
 
-			ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 			if (cpSubscriptionType != null) {
-				period = cpSubscriptionType.getLabel(Locale.US);
+				period = cpSubscriptionType.getLabel(LocaleUtil.US);
 			}
 
 			if (deliveryCPSubscriptionType != null) {
-				deliveryPeriod = deliveryCPSubscriptionType.getLabel(Locale.US);
+				deliveryPeriod = deliveryCPSubscriptionType.getLabel(
+					LocaleUtil.US);
 			}
 
 			_subscriptionPeriodKey = _getPeriodKey(period, _length != 1);

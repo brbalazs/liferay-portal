@@ -43,6 +43,7 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -246,7 +247,7 @@ public class CommerceOrderItemDataSetDataProvider
 						cpSubscriptionInfo.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(Locale.US);
+					period = cpSubscriptionType.getLabel(LocaleUtil.US);
 				}
 
 				long duration = cpSubscriptionInfo.getMaxSubscriptionCycles();
@@ -278,7 +279,7 @@ public class CommerceOrderItemDataSetDataProvider
 						commerceSubscriptionEntry.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(Locale.US);
+					period = cpSubscriptionType.getLabel(LocaleUtil.US);
 				}
 
 				long duration =
@@ -325,7 +326,7 @@ public class CommerceOrderItemDataSetDataProvider
 						cpSubscriptionInfo.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(Locale.US);
+					period = cpSubscriptionType.getLabel(LocaleUtil.US);
 				}
 
 				int subscriptionLength =
@@ -356,7 +357,7 @@ public class CommerceOrderItemDataSetDataProvider
 						commerceSubscriptionEntry.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(Locale.US);
+					period = cpSubscriptionType.getLabel(LocaleUtil.US);
 				}
 
 				int subscriptionLength =

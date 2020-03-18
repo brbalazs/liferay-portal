@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -150,7 +151,7 @@ public class CommercePlacedOrderItemDataSetDataProvider
 							period = LanguageUtil.get(
 								locale,
 								StringUtil.toLowerCase(
-									cpSubscriptionType.getLabel(Locale.US) +
+									cpSubscriptionType.getLabel(LocaleUtil.US) +
 										CharPool.LOWER_CASE_S));
 						}
 					}

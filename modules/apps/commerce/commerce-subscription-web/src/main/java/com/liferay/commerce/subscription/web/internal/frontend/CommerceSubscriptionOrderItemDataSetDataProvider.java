@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -132,8 +133,7 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 				commerceOrderItem.getCommerceOrderId(),
 				commerceOrderItem.getSku(), commerceOrderItem.getName(locale),
 				price,
-				_getSubscriptionDuration(
-					commerceOrderItem, locale, httpServletRequest),
+				_getSubscriptionDuration(commerceOrderItem, httpServletRequest),
 				_getSubscriptionPeriod(
 					commerceOrderItem, locale, httpServletRequest),
 				discount, commerceOrderItem.getQuantity(), total));
@@ -154,7 +154,7 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 	}
 
 	private String _getSubscriptionDuration(
-			CommerceOrderItem commerceOrderItem, Locale locale,
+			CommerceOrderItem commerceOrderItem,
 			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
@@ -182,7 +182,7 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 						cpSubscriptionInfo.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(Locale.US);
+					period = cpSubscriptionType.getLabel(LocaleUtil.US);
 				}
 
 				long duration = cpSubscriptionInfo.getMaxSubscriptionCycles();
@@ -214,7 +214,7 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 						commerceSubscriptionEntry.getSubscriptionType());
 
 				if (cpSubscriptionType != null) {
-					period = cpSubscriptionType.getLabel(Locale.US);
+					period = cpSubscriptionType.getLabel(LocaleUtil.US);
 				}
 
 				long duration =
