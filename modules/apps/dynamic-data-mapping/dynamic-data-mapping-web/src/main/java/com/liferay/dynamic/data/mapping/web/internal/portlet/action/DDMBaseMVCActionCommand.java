@@ -234,8 +234,9 @@ public abstract class DDMBaseMVCActionCommand extends BaseMVCActionCommand {
 		long structureId = ParamUtil.getLong(actionRequest, "structureId");
 		long classPK = ParamUtil.getLong(actionRequest, "classPK");
 
-		if ((classPK == 0) && (structureId > 0) && 
+		if ((classPK == 0) && (structureId > 0) &&
 			!redirect.contains(JournalContentPortletKeys.JOURNAL_CONTENT)) {
+
 			redirect = getSaveTemplateWithNewStructureRedirect(
 				actionRequest, template, redirect);
 		}
