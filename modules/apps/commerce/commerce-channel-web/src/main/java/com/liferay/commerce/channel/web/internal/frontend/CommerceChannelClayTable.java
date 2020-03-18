@@ -152,8 +152,6 @@ public class CommerceChannelClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("channelId", "channel-id");
-
 		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
 			"name", "name");
 
