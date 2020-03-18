@@ -14,21 +14,29 @@
 
 package com.liferay.commerce.inventory.service.impl;
 
+import com.liferay.commerce.inventory.constants.CommerceInventoryConstants;
 import com.liferay.commerce.inventory.exception.DuplicateCommerceInventoryWarehouseItemException;
 import com.liferay.commerce.inventory.exception.NoSuchInventoryWarehouseItemException;
 import com.liferay.commerce.inventory.model.CIWarehouseItem;
+import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryWarehouseItemLocalServiceBaseImpl;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditType;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeRegistry;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserService;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Luca Pellizzon
@@ -283,8 +291,22 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 		commerceInventoryWarehouseItem.setQuantity(quantity);
 
-		return commerceInventoryWarehouseItemPersistence.update(
-			commerceInventoryWarehouseItem);
+		commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.update(
+				commerceInventoryWarehouseItem);
+
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_INCREASE_QUANTITY);
+
+		User currentUser = userService.getCurrentUser();
+
+		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
+			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
+			commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(null), quantity);
+
+		return commerceInventoryWarehouseItem;
 	}
 
 	@Override
@@ -318,6 +340,28 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			updateCommerceInventoryWarehouseItem(
 				toWarehouseItem.getCommerceInventoryWarehouseItemId(),
 				toWarehouseItem.getQuantity() + quantity);
+
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_MOVE_QUANTITY);
+
+		User currentUser = userService.getCurrentUser();
+
+		CommerceInventoryWarehouse fromCommerceInventoryWarehouse =
+			fromWarehouseItem.getCommerceInventoryWarehouse();
+		CommerceInventoryWarehouse toCommerceInventoryWarehouse =
+			toWarehouseItem.getCommerceInventoryWarehouse();
+
+		Map<String, String> context = new HashMap<>();
+
+		context.put(
+			"From", String.valueOf(fromCommerceInventoryWarehouse.getName()));
+		context.put(
+			"To", String.valueOf(toCommerceInventoryWarehouse.getName()));
+
+		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
+			currentUser.getUserId(), sku, commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(context), quantity);
 	}
 
 	@Override
@@ -331,8 +375,30 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 		commerceInventoryWarehouseItem.setQuantity(quantity);
 
-		return commerceInventoryWarehouseItemPersistence.update(
-			commerceInventoryWarehouseItem);
+		commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.update(
+				commerceInventoryWarehouseItem);
+
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM);
+
+		User currentUser = userService.getCurrentUser();
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
+
+		Map<String, String> context = new HashMap<>();
+
+		context.put(
+			"Warehouse", String.valueOf(commerceInventoryWarehouse.getName()));
+
+		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
+			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
+			commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(context), quantity);
+
+		return commerceInventoryWarehouseItem;
 	}
 
 	@Override
@@ -348,8 +414,31 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 		commerceInventoryWarehouseItem.setQuantity(quantity);
 		commerceInventoryWarehouseItem.setReservedQuantity(reservedQuantity);
 
-		return commerceInventoryWarehouseItemPersistence.update(
-			commerceInventoryWarehouseItem);
+		commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.update(
+				commerceInventoryWarehouseItem);
+
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM);
+
+		User currentUser = userService.getCurrentUser();
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
+
+		Map<String, String> context = new HashMap<>();
+
+		context.put("Reserved", String.valueOf(reservedQuantity));
+		context.put(
+			"Warehouse", String.valueOf(commerceInventoryWarehouse.getName()));
+
+		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
+			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
+			commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(context), quantity);
+
+		return commerceInventoryWarehouseItem;
 	}
 
 	@Override
@@ -415,5 +504,12 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			throw new DuplicateCommerceInventoryWarehouseItemException();
 		}
 	}
+
+	@ServiceReference(type = CommerceInventoryAuditTypeRegistry.class)
+	protected CommerceInventoryAuditTypeRegistry
+		commerceInventoryAuditTypeRegistry;
+
+	@ServiceReference(type = UserService.class)
+	protected UserService userService;
 
 }
