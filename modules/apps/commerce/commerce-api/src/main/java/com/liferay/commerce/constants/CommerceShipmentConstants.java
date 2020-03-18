@@ -64,7 +64,7 @@ public class CommerceShipmentConstants {
 		else if (label.equals("processing")) {
 			return SHIPMENT_STATUS_PROCESSING;
 		}
-		else if (label.equals("ready-to-be-shipped")) {
+		else if (label.equals("ready-to-ship")) {
 			return SHIPMENT_STATUS_READY_TO_BE_SHIPPED;
 		}
 		else if (label.equals("shipped")) {
@@ -82,7 +82,7 @@ public class CommerceShipmentConstants {
 			return "processing";
 		}
 		else if (shipmentStatus == SHIPMENT_STATUS_READY_TO_BE_SHIPPED) {
-			return "ready-to-be-shipped";
+			return "ready-to-ship";
 		}
 		else if (shipmentStatus == SHIPMENT_STATUS_SHIPPED) {
 			return "shipped";
