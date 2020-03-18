@@ -382,15 +382,18 @@ public class StructuredContentResourceImpl
 				LocalizedMapUtil.patch(
 					journalArticle.getTitleMap(),
 					contextAcceptLanguage.getPreferredLocale(),
-					structuredContent.getTitle()),
+					structuredContent.getTitle(),
+					structuredContent.getTitle_i18n()),
 				LocalizedMapUtil.patch(
 					journalArticle.getDescriptionMap(),
 					contextAcceptLanguage.getPreferredLocale(),
-					structuredContent.getDescription()),
+					structuredContent.getDescription(),
+					structuredContent.getDescription_i18n()),
 				LocalizedMapUtil.patch(
 					journalArticle.getFriendlyURLMap(),
 					contextAcceptLanguage.getPreferredLocale(),
-					structuredContent.getFriendlyUrlPath()),
+					structuredContent.getFriendlyUrlPath(),
+					structuredContent.getFriendlyUrlPath_i18n()),
 				_journalConverter.getContent(
 					ddmStructure,
 					_toPatchedFields(

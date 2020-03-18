@@ -55,6 +55,7 @@ import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.service.WebsiteService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 import com.liferay.portal.odata.entity.EntityModel;
@@ -279,7 +280,7 @@ public class OrganizationResourceImpl
 
 								return localesStream.collect(
 									Collectors.toMap(
-										Locale::toLanguageTag,
+										LocaleUtil::toBCP47LanguageId,
 										country::getName));
 							});
 						setAddressRegion(
