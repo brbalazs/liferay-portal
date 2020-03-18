@@ -363,12 +363,8 @@ public class DatasetDisplayTag extends IncludeTag {
 	private String _selectedItemsKey;
 	private String _selectionType;
 	private boolean _showManagementBar = true;
-<<<<<<< HEAD
-	private boolean _showPagination;
-	private boolean _showSearch = true;
-=======
 	private boolean _showPagination = true;
->>>>>>> COMMERCE-3055 fixed issues with module loading on dataset display
+	private boolean _showSearch = true;
 	private String _spritemap;
 	private String _style = "default";
 	private int _totalItems;
