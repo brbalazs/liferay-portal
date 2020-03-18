@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.util.comparator.GroupNameComparator;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,12 +189,16 @@ public class GroupDisplayContext {
 			JSONObject channelsJSONObject = JSONFactoryUtil.createJSONObject(
 				EntityUtils.toString(httpResponse.getEntity()));
 
-			for (String key : channelsJSONObject.keySet()) {
+			Iterator<String> keys = channelsJSONObject.keys();
+
+			while (keys.hasNext()) {
+				String key = keys.next();
+
 				_channelNames.put(key, channelsJSONObject.getString(key));
 			}
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 		}
 	}
 
