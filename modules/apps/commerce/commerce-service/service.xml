@@ -419,6 +419,7 @@
 
 		<!-- References -->
 
+		<reference entity="WorkflowDefinitionLink" package-path="com.liferay.portal" />
 		<reference entity="ExpandoRow" package-path="com.liferay.portlet.expando" />
 	</entity>
 	<entity external-reference-code="true" local-service="true" name="CommerceOrderNote" remote-service="true">

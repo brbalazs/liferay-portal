@@ -15,6 +15,7 @@
 package com.liferay.commerce.service.impl;
 
 import com.liferay.commerce.configuration.CommerceOrderConfiguration;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
@@ -49,6 +50,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.WorkflowDefinitionLink;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
@@ -62,15 +64,18 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -106,6 +111,8 @@ public class CommerceOrderItemLocalServiceImpl
 		validate(
 			serviceContext.getLocale(), commerceOrder, cpDefinition, cpInstance,
 			quantity);
+
+		validateWorkflow(commerceOrder, serviceContext);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
 			_commerceProductPriceCalculationFactory.
@@ -248,9 +255,7 @@ public class CommerceOrderItemLocalServiceImpl
 		expandoRowLocalService.deleteRows(
 			commerceOrderItem.getCommerceOrderItemId());
 
-		CommerceOrder commerceOrder =
-			commerceOrderLocalService.getCommerceOrder(
-				commerceOrderItem.getCommerceOrderId());
+		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
 		if (_commerceShippingHelper.isFreeShipping(commerceOrder)) {
 			commerceOrderLocalService.updateShippingMethod(
@@ -273,6 +278,11 @@ public class CommerceOrderItemLocalServiceImpl
 						commerceInventoryBookedQuantity);
 			}
 		}
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		validateWorkflow(commerceOrder, serviceContext);
 
 		return commerceOrderItem;
 	}
@@ -531,6 +541,8 @@ public class CommerceOrderItemLocalServiceImpl
 			serviceContext.getLocale(), commerceOrderItem.getCommerceOrder(),
 			commerceOrderItem.getCPDefinition(),
 			commerceOrderItem.getCPInstance(), quantity);
+
+		validateWorkflow(commerceOrderItem.getCommerceOrder(), serviceContext);
 
 		commerceOrderItem.setQuantity(quantity);
 		commerceOrderItem.setJson(json);
@@ -891,6 +903,24 @@ public class CommerceOrderItemLocalServiceImpl
 				throw new CommerceOrderValidatorException(
 					commerceCartValidatorResults);
 			}
+		}
+	}
+
+	protected void validateWorkflow(
+			CommerceOrder commerceOrder, ServiceContext serviceContext)
+		throws PortalException {
+
+		WorkflowDefinitionLink workflowDefinitionLink =
+			workflowDefinitionLinkLocalService.fetchWorkflowDefinitionLink(
+				commerceOrder.getCompanyId(), commerceOrder.getGroupId(),
+				CommerceOrder.class.getName(), 0,
+				CommerceOrderConstants.TYPE_PK_APPROVAL, true);
+
+		if ((workflowDefinitionLink != null) && commerceOrder.isApproved()) {
+			commerceOrderLocalService.updateStatus(
+				serviceContext.getUserId(), commerceOrder.getCommerceOrderId(),
+				WorkflowConstants.STATUS_DRAFT, serviceContext,
+				Collections.emptyMap());
 		}
 	}
 
