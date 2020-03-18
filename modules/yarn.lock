@@ -877,6 +877,16 @@
     "@clayui/loading-indicator" "^3.0.0"
     fuzzy "^0.1.3"
 
+"@clayui/autocomplete@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@clayui/autocomplete/-/autocomplete-3.1.1.tgz#7560d0ba199e069ad6f29ec3392ea8665d199adc"
+  integrity sha512-kSgkPXICGHLKmP6Fny0LUKr5KEppCOcXRJ/XYhywqdglimcox+rg7tj+9cYI4M5xI3JVs98ZQWwPVKcVCvzHXw==
+  dependencies:
+    "@clayui/drop-down" "^3.4.0"
+    "@clayui/form" "^3.6.0"
+    "@clayui/loading-indicator" "^3.0.1"
+    fuzzy "^0.1.3"
+
 "@clayui/badge@3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@clayui/badge/-/badge-3.0.0.tgz#985973849c09e25b0e2450802c688b2264d9daab"
@@ -997,6 +1007,20 @@
     dom-align "^1.10.2"
     warning "^4.0.3"
 
+"@clayui/drop-down@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@clayui/drop-down/-/drop-down-3.4.0.tgz#2d0b03eeeffe72be2744c6fbf83823be93fbdd52"
+  integrity sha512-Dv+mwIPrgGetG9M/y/RYK9PEMXgzY8TimmX4c+n1veKXVnvMVjnvXNgxj/8Djg4IK5S+KIlPr4rFpJ23JPId7A==
+  dependencies:
+    "@clayui/button" "^3.3.0"
+    "@clayui/form" "^3.6.0"
+    "@clayui/icon" "^3.0.4"
+    "@clayui/link" "^3.1.0"
+    "@clayui/shared" "^3.1.0"
+    classnames "^2.2.6"
+    dom-align "^1.10.2"
+    warning "^4.0.3"
+
 "@clayui/form@3.5.0", "@clayui/form@^3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@clayui/form/-/form-3.5.0.tgz#7cfe75f16d85c77e95d6d8c147e46418b8817ebe"
@@ -1035,6 +1059,15 @@
   integrity sha512-MDpiNx7ML5sXQ1EWjkmnpGzn4lCcEMV2MvvY5bxFf3hQJzpwgwKuhFNu3zaAkAWAhCHZkpjdEkrnZVqgBleLpA==
   dependencies:
     "@clayui/icon" "^3.0.3"
+    classnames "^2.2.6"
+
+"@clayui/label@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@clayui/label/-/label-3.1.1.tgz#10d76c5a52a0d39b4134cd93c924e24282630610"
+  integrity sha512-AVxgS2jcrK5fQApFLWFcUxynvcKc6SkZqzisu4IK+DHXVC2vlnwDOCwxfN3r24kJkuDOmqz/bA80dSw0n/g5ag==
+  dependencies:
+    "@clayui/icon" "^3.0.4"
+    "@clayui/link" "^3.1.0"
     classnames "^2.2.6"
 
 "@clayui/link@3.0.3", "@clayui/link@^3.0.3":
@@ -1106,6 +1139,19 @@
     "@clayui/icon" "^3.0.3"
     "@clayui/label" "^3.0.3"
     "@clayui/shared" "^3.0.7"
+    classnames "^2.2.6"
+
+"@clayui/multi-select@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@clayui/multi-select/-/multi-select-3.5.1.tgz#2e2aa63cda77d28a94f08273efdad09298401f4e"
+  integrity sha512-nhJSFvpDCFWU130B5i8fHrvCpaJKk9PktPSNPoTPeVhR1EdG5rDJqgPgezZVqmHgx/+AqADRIPaOt+pujn65RA==
+  dependencies:
+    "@clayui/autocomplete" "^3.1.1"
+    "@clayui/drop-down" "^3.4.0"
+    "@clayui/form" "^3.6.0"
+    "@clayui/icon" "^3.0.4"
+    "@clayui/label" "^3.1.1"
+    "@clayui/shared" "^3.1.0"
     classnames "^2.2.6"
 
 "@clayui/multi-step-nav@3.0.7":
