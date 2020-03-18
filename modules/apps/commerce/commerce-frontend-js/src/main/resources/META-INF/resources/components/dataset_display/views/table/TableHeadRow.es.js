@@ -53,7 +53,9 @@ function TableHeadCell(props) {
 			className={classNames(
 				props.contentRenderer &&
 					`content-renderer-${props.contentRenderer}`,
-				'table-cell-expand-smaller'
+				props.expandableColumns
+					? props.expand && 'table-cell-expand-small'
+					: 'table-cell-expand-smaller'
 			)}
 			headingCell
 			headingTitle
@@ -97,10 +99,15 @@ function TableHeadCell(props) {
 
 function TableHeadRow(props) {
 	const getColumns = fields => {
+		const expandableColumns = fields.reduce(
+			(expandable, field) => expandable || Boolean(field.expand),
+			false
+		);
 		return fields.map((field, i) => {
 			return (
 				<TableHeadCell
 					{...field}
+					expandableColumns={expandableColumns}
 					key={field.fieldName || i}
 					sorting={props.sorting}
 					updateSorting={props.updateSorting}
@@ -152,6 +159,7 @@ TableHeadRow.propTypes = {
 		fields: PropTypes.arrayOf(
 			PropTypes.shape({
 				contentRenderer: PropTypes.string,
+				expand: PropTypes.bool,
 				fieldName: PropTypes.oneOfType([
 					PropTypes.string,
 					PropTypes.array

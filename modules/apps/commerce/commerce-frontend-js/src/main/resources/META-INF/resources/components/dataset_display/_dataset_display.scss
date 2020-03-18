@@ -127,6 +127,17 @@
 	}
 }
 
+.table-style-fluid,
+.table-style-stacked {
+	border: 1px solid $border-color;
+	border-radius: 4px;
+	overflow: hidden;
+
+	.table {
+		margin-bottom: -1px;
+	}
+}
+
 .tooltip-table {
 	background: transparent;
 	border: none;

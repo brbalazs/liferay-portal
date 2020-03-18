@@ -34,7 +34,9 @@ function ActionLinkRenderer(props) {
 			? props.actions.find(action => action.id === props.options.actionId)
 			: props.actions[0];
 
-	const formattedHref = formatActionUrl(currentAction.href, props.itemData);
+	const formattedHref =
+		currentAction.href &&
+		formatActionUrl(currentAction.href, props.itemData);
 
 	if (!currentAction) {
 		return <DefaultContent value={props.value} />;
@@ -52,7 +54,7 @@ function ActionLinkRenderer(props) {
 		}
 
 		if (currentAction.target === 'sidePanel') {
-			highlightItems([currentAction.itemId]);
+			highlightItems([props.itemId]);
 			openSidePanel({
 				size: currentAction.size || 'lg',
 				title: currentAction.title,

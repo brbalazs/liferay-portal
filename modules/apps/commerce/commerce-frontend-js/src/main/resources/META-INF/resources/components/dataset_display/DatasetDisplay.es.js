@@ -311,6 +311,7 @@ function DatasetDisplay(props) {
 					<CurrentViewComponent
 						datasetDisplayContext={DatasetDisplayContext}
 						items={items}
+						style={props.style}
 						{...currentViewProps}
 					/>
 				) : null}

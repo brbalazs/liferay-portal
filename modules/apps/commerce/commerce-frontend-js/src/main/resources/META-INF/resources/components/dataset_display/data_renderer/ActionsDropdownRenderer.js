@@ -126,7 +126,7 @@ function ActionsDropdownRenderer(props) {
 
 		return isNotALink(action.target, action.onClick) ? (
 			<ClayLink
-				className="btn btn-primary btn-sm"
+				className="btn btn-secondary btn-sm"
 				data-senna-off
 				href="#"
 				monospaced={Boolean(action.icon)}
@@ -146,7 +146,7 @@ function ActionsDropdownRenderer(props) {
 			</ClayLink>
 		) : (
 			<ClayLink
-				className="btn btn-primary btn-sm"
+				className="btn btn-secondary btn-sm"
 				href={formattedHref}
 				monospaced={Boolean(action.icon)}
 			>
@@ -173,7 +173,10 @@ function ActionsDropdownRenderer(props) {
 			active={active}
 			onActiveChange={setActive}
 			trigger={
-				<ClayButton className="btn-sm px-1" displayType="unstyled">
+				<ClayButton
+					className="component-action dropdown-toggle"
+					displayType="unstyled"
+				>
 					<ClayIcon symbol="ellipsis-v" />
 				</ClayButton>
 			}

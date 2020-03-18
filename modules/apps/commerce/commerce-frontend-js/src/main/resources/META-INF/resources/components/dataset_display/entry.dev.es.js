@@ -196,6 +196,12 @@ const fluidDataSetDisplayProps = {
 					id: 'edit',
 					label: 'Edit',
 					target: 'sidePanel'
+				},
+				{
+					icon: 'warning-full',
+					id: 'alert',
+					label: 'Alert',
+					onClick: 'alert("asd")'
 				}
 			],
 			id: 'sdf',
@@ -366,7 +372,7 @@ const fluidDataSetDisplayProps = {
 };
 
 const dataSetDisplayProps = {
-	activeView: 3,
+	activeView: 2,
 	apiUrl:
 		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	bulkActions: [
@@ -474,7 +480,6 @@ const dataSetDisplayProps = {
 			actionItems: [
 				{
 					href: '/delete/url',
-					icon: 'trash',
 					id: 'delete',
 					label: 'Delete',
 					method: 'delete',
@@ -522,6 +527,22 @@ const dataSetDisplayProps = {
 			unitPrice: 50
 		},
 		{
+			actionItems: [
+				{
+					href: '/delete/url',
+					icon: 'trash',
+					id: 'delete',
+					label: 'Delete',
+					method: 'delete',
+					target: 'async'
+				},
+				{
+					href: '/edit/url',
+					icon: 'pencil',
+					id: 'edit',
+					label: 'Edit'
+				}
+			],
 			bookedQuantityId: 0,
 			comments: {
 				name: 'Square pls',
@@ -1093,6 +1114,7 @@ const dataSetDisplayProps = {
 					},
 					{
 						contentRenderer: 'sidePanelLink',
+						expand: true,
 						fieldName: 'sku',
 						label: 'SKU',
 						sortable: true

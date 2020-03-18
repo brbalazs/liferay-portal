@@ -102,100 +102,102 @@ function Table(props) {
 		selectionType === 'multiple' ? CheckboxRenderer : RadioRenderer;
 
 	return (
-		<ClayTable borderless responsive={false}>
-			<TableHeadRow
-				items={props.items}
-				schema={props.schema}
-				selectItems={selectItems}
-				selectable={selectable}
-				selectedItemsKey={selectedItemsKey}
-				selectedItemsValue={selectedItemsValue}
-				selectionType={selectionType}
-				showActionItems={showActionItems}
-				sorting={sorting}
-				updateSorting={updateSorting}
-			/>
-			<ClayTable.Body>
-				{props.items.map((item, i) => {
-					const itemId = item[selectedItemsKey] || i;
+		<div className={`table-style-${props.style}`}>
+			<ClayTable borderless hover={false} responsive={false}>
+				<TableHeadRow
+					items={props.items}
+					schema={props.schema}
+					selectItems={selectItems}
+					selectable={selectable}
+					selectedItemsKey={selectedItemsKey}
+					selectedItemsValue={selectedItemsValue}
+					selectionType={selectionType}
+					showActionItems={showActionItems}
+					sorting={sorting}
+					updateSorting={updateSorting}
+				/>
+				<ClayTable.Body>
+					{props.items.map((item, i) => {
+						const itemId = item[selectedItemsKey] || i;
 
-					return (
-						<ClayTable.Row
-							className={classNames(
-								highlightedItemsValue.includes(itemId) &&
-									'active'
-							)}
-							key={itemId}
-						>
-							{selectable && (
-								<ClayTable.Cell>
-									<SelectionComponent
-										checked={
-											!!selectedItemsValue.find(
-												el =>
-													String(el) ===
-													String(itemId)
-											)
-										}
-										onChange={() => selectItems(itemId)}
-										value={itemId}
-									/>
-								</ClayTable.Cell>
-							)}
-							{props.schema.fields.map((field, i) => {
-								const fieldName = field.fieldName;
-								const {actionItems, ...otherProps} = item;
-								const rawValue = getValueFromItem(
-									item,
-									fieldName
-								);
-								const formattedValue = field.mapData
-									? field.mapData(rawValue)
-									: rawValue;
-								const comment = otherProps.comments
-									? otherProps.comments[field.fieldName]
-									: null;
-								return (
-									<CustomTableCell
-										actions={
-											props.itemActions || actionItems
-										}
-										comment={comment}
-										itemData={item}
-										itemId={itemId}
-										key={fieldName || i}
-										options={field}
-										value={formattedValue}
-										view={{
-											contentRenderer:
-												field.contentRenderer,
-											contentRendererModuleUrl:
-												field.contentRendererModuleUrl
-										}}
-									/>
-								);
-							})}
-							{showActionItems ? (
-								props.itemActions || item.actionItems ? (
+						return (
+							<ClayTable.Row
+								className={classNames(
+									highlightedItemsValue.includes(itemId) &&
+										'active'
+								)}
+								key={itemId}
+							>
+								{selectable && (
 									<ClayTable.Cell>
-										<ActionsDropdownRenderer
-											actions={
-												props.itemActions ||
-												item.actionItems
+										<SelectionComponent
+											checked={
+												!!selectedItemsValue.find(
+													el =>
+														String(el) ===
+														String(itemId)
+												)
 											}
-											itemData={item}
-											itemId={itemId}
+											onChange={() => selectItems(itemId)}
+											value={itemId}
 										/>
 									</ClayTable.Cell>
-								) : (
-									<ClayTable.Cell />
-								)
-							) : null}
-						</ClayTable.Row>
-					);
-				})}
-			</ClayTable.Body>
-		</ClayTable>
+								)}
+								{props.schema.fields.map((field, i) => {
+									const fieldName = field.fieldName;
+									const {actionItems, ...otherProps} = item;
+									const rawValue = getValueFromItem(
+										item,
+										fieldName
+									);
+									const formattedValue = field.mapData
+										? field.mapData(rawValue)
+										: rawValue;
+									const comment = otherProps.comments
+										? otherProps.comments[field.fieldName]
+										: null;
+									return (
+										<CustomTableCell
+											actions={
+												props.itemActions || actionItems
+											}
+											comment={comment}
+											itemData={item}
+											itemId={itemId}
+											key={fieldName || i}
+											options={field}
+											value={formattedValue}
+											view={{
+												contentRenderer:
+													field.contentRenderer,
+												contentRendererModuleUrl:
+													field.contentRendererModuleUrl
+											}}
+										/>
+									);
+								})}
+								{showActionItems ? (
+									props.itemActions || item.actionItems ? (
+										<ClayTable.Cell className="text-right">
+											<ActionsDropdownRenderer
+												actions={
+													props.itemActions ||
+													item.actionItems
+												}
+												itemData={item}
+												itemId={itemId}
+											/>
+										</ClayTable.Cell>
+									) : (
+										<ClayTable.Cell />
+									)
+								) : null}
+							</ClayTable.Row>
+						);
+					})}
+				</ClayTable.Body>
+			</ClayTable>
+		</div>
 	);
 }
 
@@ -217,7 +219,8 @@ Table.propTypes = {
 				mapData: PropTypes.func
 			})
 		).isRequired
-	}).isRequired
+	}).isRequired,
+	style: PropTypes.string.isRequired
 };
 
 Table.defaultProps = {
