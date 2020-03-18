@@ -46,13 +46,13 @@ const dataSetDisplayProps = {
 		}
 	],
 	filters: [
-		{
-			id: 'name',
-			label: 'Name',
-			operator: 'eq',
-			type: 'text',
-			value: 'Test input'
-		},
+		// {
+		// 	id: 'name',
+		// 	label: 'Name',
+		// 	operator: 'eq',
+		// 	type: 'text',
+		// 	value: 'Test input'
+		// },
 		{
 			id: 'createDate',
 			label: 'Creation date',
@@ -127,7 +127,8 @@ const dataSetDisplayProps = {
 					{
 						contentRenderer: 'actionLink',
 						fieldName: ['name', lang_id],
-						label: 'Name'
+						label: 'Name',
+						sortable: true
 					},
 					{
 						fieldName: 'productType',

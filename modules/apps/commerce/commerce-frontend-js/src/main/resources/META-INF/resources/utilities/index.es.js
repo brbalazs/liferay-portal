@@ -15,6 +15,8 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
+import {createOdataFilterStrings} from './odata.es';
+
 export function debounce(func, wait, immediate) {
 	let timeout;
 
@@ -132,6 +134,13 @@ export function getValueFromItem(item, fieldName) {
 	return item[fieldName];
 }
 
+export function executeAsyncAction(url, method = 'GET') {
+	return fetch(url, {
+		...fetchParams,
+		method
+	});
+}
+
 export function formatActionUrl(url, item) {
 	const regex = new RegExp('{(.*?)}', 'mg');
 
@@ -219,15 +228,63 @@ export function getFakeJsModule() {
 	});
 }
 
+export const fetchParams = {
+	credentials: 'include',
+	headers: new Headers({
+		Authorization: `Basic ${window.btoa('test@liferay.com:test')}`,
+		'x-csrf-token': Liferay.authToken
+	})
+};
+
+export function createSortingString(values) {
+	if (!values.length) return null;
+
+	return `sort=${values
+		.map(value => {
+			return `${
+				Array.isArray(value.fieldName)
+					? value.fieldName[0]
+					: value.fieldName
+			}:${value.direction}`;
+		})
+		.join(',')}`;
+}
+
+export function loadData(
+	apiUrl,
+	currentUrl,
+	filters = [],
+	searchParam,
+	delta,
+	page = 1,
+	sorting = []
+) {
+	const pagination = `pageSize=${delta}&page=${page}`;
+	const currentUrlString = currentUrl
+		? `&currentUrl=${encodeURIComponent(currentUrl)}`
+		: null;
+	const searchParamString = searchParam
+		? `&search=${encodeURIComponent(searchParam)}`
+		: null;
+	const sortingString = createSortingString(sorting);
+	const filterString = createOdataFilterStrings(filters);
+
+	const urlParams = [
+		pagination,
+		currentUrlString,
+		searchParamString,
+		sortingString,
+		filterString
+	]
+		.filter(param => Boolean(param))
+		.join('&');
+
+	const url = `${apiUrl}${apiUrl.indexOf('?') > -1 ? '&' : '?'}${urlParams}`;
+
+	return executeAsyncAction(url, 'GET').then(response => response.json());
+}
+
 export const getJsModule =
 	Liferay.Loader && Liferay.Loader.require
 		? getLiferayJsModule
 		: getFakeJsModule;
-
-export default {
-	debounce,
-	getJsModule,
-	getRandomId,
-	launcher,
-	showNotification
-};

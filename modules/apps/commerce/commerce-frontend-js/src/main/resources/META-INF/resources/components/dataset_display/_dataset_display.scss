@@ -65,16 +65,16 @@
 
 		tr {
 			background: white;
-		}
 
-		.active {
-			background-color: #f0f5ff;
-			box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.3);
-			position: relative;
-			z-index: 1;
+			&.active {
+				background-color: #f0f5ff;
+				box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.3);
+				position: relative;
+				z-index: 1;
 
-			td::after {
-				opacity: 1;
+				td::after {
+					opacity: 1;
+				}
 			}
 		}
 	}

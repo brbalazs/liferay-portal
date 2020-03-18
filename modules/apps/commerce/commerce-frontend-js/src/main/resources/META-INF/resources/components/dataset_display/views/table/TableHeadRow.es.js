@@ -33,7 +33,7 @@ function TableHeadCell(props) {
 				el.fieldName === props.fieldName
 					? {
 							...el,
-							direction: el.direction === 'ASC' ? 'DESC' : 'ASC'
+							direction: el.direction === 'asc' ? 'desc' : 'asc'
 					  }
 					: el
 			);
@@ -41,7 +41,7 @@ function TableHeadCell(props) {
 		} else {
 			props.updateSorting([
 				{
-					direction: 'ASC',
+					direction: 'asc',
 					fieldName: props.fieldName
 				}
 			]);
@@ -70,7 +70,7 @@ function TableHeadCell(props) {
 							className={classNames(
 								'sorting-icon',
 								sortingMatch &&
-									sortingMatch.direction === 'ASC' &&
+									sortingMatch.direction === 'asc' &&
 									'active'
 							)}
 							draggable
@@ -80,7 +80,7 @@ function TableHeadCell(props) {
 							className={classNames(
 								'sorting-icon',
 								sortingMatch &&
-									sortingMatch.direction === 'DESC' &&
+									sortingMatch.direction === 'desc' &&
 									'active'
 							)}
 							draggable
@@ -168,7 +168,7 @@ TableHeadRow.propTypes = {
 	showActionItems: PropTypes.bool,
 	sorting: PropTypes.arrayOf(
 		PropTypes.shape({
-			direction: PropTypes.oneOf(['ASC', 'DESC']).isRequired,
+			direction: PropTypes.oneOf(['asc', 'desc']).isRequired,
 			fieldName: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
 		})
 	)

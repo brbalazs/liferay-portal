@@ -29,42 +29,16 @@ import {
 import {
 	getRandomId,
 	showNotification,
-	getJsModule
+	getJsModule,
+	executeAsyncAction,
+	loadData
 } from '../../utilities/index.es';
-import {createOdataFilterStrings} from '../../utilities/odata.es';
 import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext.es';
 import EmptyResultMessage from '../dataset_display/EmptyResultMessage.es';
 import ManagementBar from '../dataset_display/management_bar/index';
 import {getViewById} from '../dataset_display/views/index';
 import Modal from '../modal/Modal.es';
 import SidePanel from '../side_panel/SidePanel.es';
-
-const headers = {
-	credentials: 'include',
-	headers: new Headers({
-		'x-csrf-token': Liferay.authToken
-	})
-};
-
-function executeAsyncAction(url, method = 'GET') {
-	return fetch(url, {
-		...headers,
-		method
-	});
-}
-
-function loadData(apiUrl, filters, searchParam, delta, page = 1, sorting = []) {
-	const pagination = `&pageSize=${delta}&page=${page}`;
-	const searchParamString = searchParam ? `&search=${searchParam}` : '';
-	const sortingString = sorting.length
-		? `&orderBy=${JSON.stringify(sorting)}`
-		: ``;
-	const filterString = `&${createOdataFilterStrings(filters)}`;
-
-	const url = `${apiUrl}?${pagination}${sortingString}${searchParamString}${filterString}`;
-
-	return executeAsyncAction(url, 'GET').then(response => response.json());
-}
 
 function DatasetDisplay(props) {
 	const wrapperRef = useRef(null);
@@ -154,16 +128,13 @@ function DatasetDisplay(props) {
 	const formRef = useRef(null);
 
 	function updateDataset(dataSetData) {
-		if (dataSetData instanceof Array) {
-			return updateItems(dataSetData);
-		}
-		setPageNumber(1);
 		setTotalItems(dataSetData.totalCount);
-		return updateItems(dataSetData.items);
+		updateItems(dataSetData.items);
 	}
 
 	function getData(
 		apiUrl,
+		currentUrl,
 		filters,
 		searchParam,
 		delta,
@@ -174,6 +145,7 @@ function DatasetDisplay(props) {
 		setLoading(true);
 		return loadData(
 			apiUrl,
+			currentUrl,
 			filters,
 			searchParam,
 			delta,
@@ -203,6 +175,7 @@ function DatasetDisplay(props) {
 	useEffect(() => {
 		getData(
 			props.apiUrl,
+			props.currentUrl,
 			filters.filter(e => !!e.value),
 			searchParam,
 			delta,
@@ -213,6 +186,7 @@ function DatasetDisplay(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
 		props.apiUrl,
+		props.currentUrl,
 		filters,
 		searchParam,
 		delta,
@@ -359,6 +333,7 @@ function DatasetDisplay(props) {
 						setDelta(deltaVal);
 					}}
 					onPageChange={setPageNumber}
+					spritemap={props.spritemap}
 					totalItems={totalItems}
 				/>
 			</div>
@@ -469,6 +444,7 @@ DatasetDisplay.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
 	bulkActions: PropTypes.array,
 	creationMenuItems: PropTypes.array,
+	currentUrl: PropTypes.string,
 	filters: PropTypes.array,
 	formId: PropTypes.string,
 	id: PropTypes.string.isRequired,

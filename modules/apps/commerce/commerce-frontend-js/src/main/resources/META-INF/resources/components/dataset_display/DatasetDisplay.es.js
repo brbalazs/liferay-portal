@@ -29,50 +29,16 @@ import {
 import {
 	getRandomId,
 	showNotification,
-	getJsModule
+	getJsModule,
+	executeAsyncAction,
+	loadData
 } from '../../utilities/index.es';
-import {createOdataFilterStrings} from '../../utilities/odata.es';
 import Modal from '../modal/Modal.es';
 import SidePanel from '../side_panel/SidePanel.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index';
 import {getViewById} from './views/index';
-
-const headers = {
-	credentials: 'include',
-	headers: new Headers({'x-csrf-token': Liferay.authToken})
-};
-
-function executeAsyncAction(url, method = 'GET') {
-	return fetch(url, {
-		...headers,
-		method
-	});
-}
-
-function loadData(
-	apiUrl,
-	currentUrl,
-	filters,
-	searchParam,
-	delta,
-	page = 1,
-	sorting = []
-) {
-	const authString = `&p_auth=${window.Liferay.authToken}`;
-	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
-	const pagination = `&pageSize=${delta}&page=${page}`;
-	const searchParamString = searchParam ? `&q=${searchParam}` : '';
-	const sortingString = sorting.length
-		? `&orderBy=${JSON.stringify(sorting)}`
-		: ``;
-	const filterString = `&${createOdataFilterStrings(filters)}`;
-
-	const url = `${apiUrl}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}${filterString}`;
-
-	return executeAsyncAction(url, 'GET').then(response => response.json());
-}
 
 function DatasetDisplay(props) {
 	const wrapperRef = useRef(null);
@@ -160,9 +126,8 @@ function DatasetDisplay(props) {
 	const formRef = useRef(null);
 
 	function updateDataset(dataSetData) {
-		setPageNumber(1);
 		setTotalItems(dataSetData.totalItems);
-		return updateItems(dataSetData.items);
+		updateItems(dataSetData.items);
 	}
 
 	function getData(

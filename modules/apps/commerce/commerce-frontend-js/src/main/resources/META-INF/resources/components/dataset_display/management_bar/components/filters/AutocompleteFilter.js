@@ -22,14 +22,8 @@ import ClayMultiSelect from '@clayui/multi-select';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 
-import {getValueFromItem} from '../../../../../utilities/index.es';
+import {getValueFromItem, fetchParams} from '../../../../../utilities/index.es';
 import getAppContext from '../Context';
-
-var headers = new Headers({
-	Accept: 'application/json',
-	'Content-Type': 'application/json',
-	'x-csrf-token': Liferay.authToken
-});
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -39,8 +33,7 @@ function fetchData(apiUrl, searchParam, currentPage = 1) {
 			searchParam ? `&search=${encodeURIComponent(searchParam)}` : ''
 		}`,
 		{
-			credentials: 'include',
-			headers,
+			...fetchParams,
 			method: 'GET'
 		}
 	).then(response => response.json());

@@ -72,6 +72,8 @@ export function createOdataFilterString(
 }
 
 export function createOdataFilterStrings(filters) {
+	if (!filters.length) return null;
+
 	const oDataFilterStrings = filters
 		.map(filter => {
 			return createOdataFilterString(
@@ -85,8 +87,5 @@ export function createOdataFilterStrings(filters) {
 		.map(filterString => `(${filterString})`)
 		.join(' and ');
 
-	const oDataFilters = oDataFilterStrings.length
-		? `filter=${oDataFilterStrings}`
-		: '';
-	return oDataFilters;
+	return `filter=${oDataFilterStrings}`;
 }

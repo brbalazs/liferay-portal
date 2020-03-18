@@ -210,11 +210,11 @@ Table.propTypes = {
 	schema: PropTypes.shape({
 		fields: PropTypes.arrayOf(
 			PropTypes.shape({
-				fieldName: PropTypes.string,
-				mapData: PropTypes.oneOfType([
+				fieldName: PropTypes.oneOfType([
 					PropTypes.string,
-					PropTypes.arrayOf(PropTypes.string)
-				])
+					PropTypes.array
+				]).isRequired,
+				mapData: PropTypes.func
 			})
 		).isRequired
 	}).isRequired
