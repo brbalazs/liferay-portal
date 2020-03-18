@@ -34,6 +34,7 @@ else {
 %>
 
 <liferay-ui:error embed="<%= false %>" exception="<%= CommerceShipmentStatusException.class %>" message="please-select-a-valid-warehouse-and-quantity-for-all-shipment-items" />
+<liferay-ui:error embed="<%= false %>" exception="<%= CommerceShipmentItemQuantityException.class %>" message="please-add-at-least-one-item-to-the-shipment" />
 
 <commerce-ui:header
 	actions="<%= commerceShipmentDisplayContext.getHeaderActionModels() %>"

@@ -16,6 +16,7 @@ package com.liferay.commerce.service.impl;
 
 import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.exception.CommerceShipmentExpectedDateException;
+import com.liferay.commerce.exception.CommerceShipmentItemQuantityException;
 import com.liferay.commerce.exception.CommerceShipmentShippingDateException;
 import com.liferay.commerce.exception.CommerceShipmentStatusException;
 import com.liferay.commerce.model.CommerceAddress;
@@ -486,6 +487,10 @@ public class CommerceShipmentLocalServiceImpl
 		List<CommerceShipmentItem> commerceShipmentItems =
 			commerceShipmentItemLocalService.getCommerceShipmentItems(
 				commerceShipmentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		if (commerceShipmentItems.isEmpty()) {
+			throw new CommerceShipmentItemQuantityException();
+		}
 
 		for (CommerceShipmentItem commerceShipmentItem :
 				commerceShipmentItems) {

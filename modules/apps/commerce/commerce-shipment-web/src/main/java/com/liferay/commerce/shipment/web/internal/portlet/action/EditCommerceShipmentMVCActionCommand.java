@@ -15,6 +15,7 @@
 package com.liferay.commerce.shipment.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.exception.CommerceShipmentItemQuantityException;
 import com.liferay.commerce.exception.CommerceShipmentShippingDateException;
 import com.liferay.commerce.exception.CommerceShipmentStatusException;
 import com.liferay.commerce.exception.NoSuchShipmentException;
@@ -156,7 +157,8 @@ public class EditCommerceShipmentMVCActionCommand extends BaseMVCActionCommand {
 			}
 		}
 		catch (Exception e) {
-			if (e instanceof CommerceShipmentShippingDateException ||
+			if (e instanceof CommerceShipmentItemQuantityException ||
+				e instanceof CommerceShipmentShippingDateException ||
 				e instanceof CommerceShipmentStatusException ||
 				e instanceof NoSuchShipmentException ||
 				e instanceof PrincipalException) {
