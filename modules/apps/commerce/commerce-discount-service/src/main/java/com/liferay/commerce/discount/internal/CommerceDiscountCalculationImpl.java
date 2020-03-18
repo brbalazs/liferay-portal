@@ -306,6 +306,8 @@ public class CommerceDiscountCalculationImpl
 
 				currentDiscountAmount =
 					commerceDiscount.getMaximumDiscountAmount();
+
+				discountedAmount = amount.subtract(currentDiscountAmount);
 			}
 		}
 		else {

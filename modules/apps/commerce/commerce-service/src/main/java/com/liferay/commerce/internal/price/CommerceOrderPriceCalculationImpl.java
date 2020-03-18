@@ -254,8 +254,7 @@ public class CommerceOrderPriceCalculationImpl
 		};
 
 		BigDecimal discountPercentage = discountAmount.divide(
-			amount.add(discountAmount),
-			RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+			amount, RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
 
 		discountPercentage = discountPercentage.multiply(
 			BigDecimal.valueOf(100));
