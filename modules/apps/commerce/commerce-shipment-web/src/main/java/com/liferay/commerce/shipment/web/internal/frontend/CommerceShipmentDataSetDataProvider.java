@@ -142,14 +142,27 @@ public class CommerceShipmentDataSetDataProvider
 				_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
 					commerceShipment.getGroupId());
 
+			String expectedDate = null;
+
+			if (commerceShipment.getExpectedDate() != null) {
+				expectedDate = dateFormat.format(
+					commerceShipment.getExpectedDate());
+			}
+
+			String shippingDate = null;
+
+			if (commerceShipment.getShippingDate() != null) {
+				shippingDate = dateFormat.format(
+					commerceShipment.getShippingDate());
+			}
+
 			shipments.add(
 				new Shipment(
 					commerceShipment.getCommerceAccountName(),
 					_getDescriptiveAddress(commerceShipment),
 					commerceChannel.getName(),
 					dateTimeFormat.format(commerceShipment.getCreateDate()),
-					dateFormat.format(commerceShipment.getExpectedDate()),
-					dateFormat.format(commerceShipment.getShippingDate()),
+					expectedDate, shippingDate,
 					commerceShipment.getCommerceShipmentId(),
 					new LabelField(
 						CommerceShipmentConstants.getShipmentLabelStyle(
