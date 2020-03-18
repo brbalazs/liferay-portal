@@ -132,10 +132,15 @@ public class CPOptionFacetsPortlet
 			ThemeDisplay themeDisplay =
 				(ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-			long commerceChannelGroupId =
-				_commerceChannelLocalService.
-					getCommerceChannelGroupIdBySiteGroupId(
-						themeDisplay.getScopeGroupId());
+			CommerceChannel commerceChannel =
+				_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
+					themeDisplay.getScopeGroupId());
+
+			long commerceChannelGroupId = 0;
+
+			if (commerceChannel != null) {
+				commerceChannelGroupId = commerceChannel.getGroupId();
+			}
 
 			if (commerceChannelGroupId > 0) {
 				searchContext.setAttribute(

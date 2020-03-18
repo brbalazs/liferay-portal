@@ -101,6 +101,20 @@ public class CPPriceRangeFacetsDisplayContext {
 			rangesJSONArrayString();
 	}
 
+	public boolean hasCommerceChannel() throws PortalException {
+		CommerceContext commerceContext =
+			(CommerceContext)_renderRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
+		long commerceChannelId = commerceContext.getCommerceChannelId();
+
+		if (commerceChannelId > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public boolean isCPPriceRangeValueSelected(
 			String fieldName, String fieldValue)
 		throws PortalException {
