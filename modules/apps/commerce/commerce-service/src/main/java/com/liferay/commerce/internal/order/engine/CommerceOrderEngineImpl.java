@@ -285,10 +285,10 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			Map<String, String> context = new HashMap<>();
 
 			context.put(
-				"OrderId ",
+				"OrderId",
 				String.valueOf(commerceOrderItem.getCommerceOrderId()));
 			context.put(
-				"OrderItemId ",
+				"OrderItemId",
 				String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
 
 			CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =

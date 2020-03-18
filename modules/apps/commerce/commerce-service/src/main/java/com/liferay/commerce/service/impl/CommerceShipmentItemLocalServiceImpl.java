@@ -410,11 +410,10 @@ public class CommerceShipmentItemLocalServiceImpl
 		Map<String, String> context = new HashMap<>();
 
 		context.put(
-			"OrderId ", String.valueOf(commerceOrderItem.getCommerceOrderId()));
+			"OrderId", String.valueOf(commerceOrderItem.getCommerceOrderId()));
 		context.put(
-			"OrderItemId ",
+			"OrderItemId",
 			String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
-		context.put("Quantity ", String.valueOf(quantity));
 
 		_commerceInventoryBookedQuantityLocalService.
 			resetCommerceBookedQuantity(
