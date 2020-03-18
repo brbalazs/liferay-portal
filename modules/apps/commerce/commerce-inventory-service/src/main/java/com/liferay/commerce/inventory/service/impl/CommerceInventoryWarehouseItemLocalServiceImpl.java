@@ -295,11 +295,11 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryWarehouseItemPersistence.update(
 				commerceInventoryWarehouseItem);
 
+		User currentUser = userService.getCurrentUser();
+
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
 				CommerceInventoryConstants.AUDIT_TYPE_INCREASE_QUANTITY);
-
-		User currentUser = userService.getCurrentUser();
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
 			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
@@ -341,11 +341,11 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 				toWarehouseItem.getCommerceInventoryWarehouseItemId(),
 				toWarehouseItem.getQuantity() + quantity);
 
+		User currentUser = userService.getCurrentUser();
+
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
 				CommerceInventoryConstants.AUDIT_TYPE_MOVE_QUANTITY);
-
-		User currentUser = userService.getCurrentUser();
 
 		CommerceInventoryWarehouse fromCommerceInventoryWarehouse =
 			fromWarehouseItem.getCommerceInventoryWarehouse();
@@ -379,11 +379,11 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryWarehouseItemPersistence.update(
 				commerceInventoryWarehouseItem);
 
+		User currentUser = userService.getCurrentUser();
+
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
 				CommerceInventoryConstants.AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM);
-
-		User currentUser = userService.getCurrentUser();
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
@@ -418,11 +418,11 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryWarehouseItemPersistence.update(
 				commerceInventoryWarehouseItem);
 
+		User currentUser = userService.getCurrentUser();
+
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
 				CommerceInventoryConstants.AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM);
-
-		User currentUser = userService.getCurrentUser();
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
