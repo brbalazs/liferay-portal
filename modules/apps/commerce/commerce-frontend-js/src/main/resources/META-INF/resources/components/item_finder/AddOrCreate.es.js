@@ -253,7 +253,7 @@ AddOrCreateBase.defaultProps = {
 			label: 75
 		}
 	],
-	inputPlaceholder: Liferay.Language.get('search-for'),
+	inputPlaceholder: Liferay.Language.get('search'),
 	inputSearchValue: '',
 	panelHeaderLabel: Liferay.Language.get('add-new'),
 	titleLabel: Liferay.Language.get('select-an-existing-one')

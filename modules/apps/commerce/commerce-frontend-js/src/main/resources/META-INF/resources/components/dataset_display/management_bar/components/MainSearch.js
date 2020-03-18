@@ -43,7 +43,7 @@ function MainSearch() {
 							className="main-input-search form-control input-group-inset input-group-inset-after"
 							onChange={e => updateInputValue(e.target.value)}
 							onKeyDown={handleKeyDown}
-							placeholder={Liferay.Language.get('search-for')}
+							placeholder={Liferay.Language.get('search')}
 							type="text"
 							value={inputValue}
 						/>

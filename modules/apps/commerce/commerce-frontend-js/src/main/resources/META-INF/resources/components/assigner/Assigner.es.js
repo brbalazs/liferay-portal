@@ -47,7 +47,7 @@ function Assigner(props) {
 										<input
 											className="form-control input-group-inset input-group-inset-after"
 											placeholder={Liferay.Language.get(
-												'search-for'
+												'search'
 											)}
 											type="text"
 										/>
