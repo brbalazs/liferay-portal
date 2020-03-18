@@ -22,6 +22,7 @@ import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.service.base.CommerceCountryLocalServiceBaseImpl;
 import com.liferay.commerce.starter.CommerceRegionsStarter;
 import com.liferay.commerce.starter.CommerceRegionsStarterRegistry;
+import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateAddressRelLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -140,6 +141,12 @@ public class CommerceCountryLocalServiceImpl
 
 		commerceAddressRestrictionLocalService.
 			deleteCommerceAddressRestrictions(
+				commerceCountry.getCommerceCountryId());
+
+		// Commerce tax fixed rate address rel
+
+		_commerceTaxFixedRateAddressRelLocalService.
+			deleteCommerceTaxFixedRateAddressRelsByCommerceCountryId(
 				commerceCountry.getCommerceCountryId());
 
 		return commerceCountry;
@@ -452,5 +459,9 @@ public class CommerceCountryLocalServiceImpl
 
 	@ServiceReference(type = CommerceRegionsStarterRegistry.class)
 	private CommerceRegionsStarterRegistry _commerceRegionsStarterRegistry;
+
+	@ServiceReference(type = CommerceTaxFixedRateAddressRelLocalService.class)
+	private CommerceTaxFixedRateAddressRelLocalService
+		_commerceTaxFixedRateAddressRelLocalService;
 
 }

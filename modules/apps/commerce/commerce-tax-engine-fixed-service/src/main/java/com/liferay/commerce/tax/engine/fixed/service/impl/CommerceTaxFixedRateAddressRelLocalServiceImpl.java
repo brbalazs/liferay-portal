@@ -79,6 +79,14 @@ public class CommerceTaxFixedRateAddressRelLocalServiceImpl
 	}
 
 	@Override
+	public void deleteCommerceTaxFixedRateAddressRelsByCommerceCountryId(
+		long commerceCountryId) {
+
+		commerceTaxFixedRateAddressRelPersistence.removeByCommerceCountryId(
+			commerceCountryId);
+	}
+
+	@Override
 	public void deleteCommerceTaxFixedRateAddressRelsByCommerceTaxMethodId(
 		long commerceTaxMethodId) {
 
