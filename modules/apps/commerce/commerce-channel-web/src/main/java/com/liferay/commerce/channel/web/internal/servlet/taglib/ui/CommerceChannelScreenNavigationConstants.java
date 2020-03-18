@@ -19,10 +19,10 @@ package com.liferay.commerce.channel.web.internal.servlet.taglib.ui;
  */
 public class CommerceChannelScreenNavigationConstants {
 
-	public static final String CATEGORY_KEY_COMMERCE_CHANNEL_SITE = "site";
+	public static final String CATEGORY_KEY_COMMERCE_CHANNEL_GENERAL =
+		"general";
 
-	public static final String CATEGORY_KEY_COMMERCE_CHANNEL_SUMMARY =
-		"summary";
+	public static final String CATEGORY_KEY_COMMERCE_CHANNEL_SITE = "site";
 
 	public static final String SCREEN_NAVIGATION_KEY_COMMERCE_CHANNEL_GENERAL =
 		"commerce.channel.general";
