@@ -87,14 +87,14 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 				List<WorkflowDefinition> workflowDefinitions = commerceChannelDisplayContext.getActiveWorkflowDefinitions();
 
 				long typePK = CommerceOrderConstants.TYPE_PK_APPROVAL;
-				String typePrefix = "approval";
+				String typePrefix = "buyer-order-approval";
 				%>
 
 				<%@ include file="/channel/workflow_definition.jspf" %>
 
 				<%
 				typePK = CommerceOrderConstants.TYPE_PK_FULFILLMENT;
-				typePrefix = "fulfillment";
+				typePrefix = "seller-order-acceptance";
 				%>
 
 				<%@ include file="/channel/workflow_definition.jspf" %>
@@ -171,7 +171,7 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 	<div class="col-12">
 		<commerce-ui:panel
 			bodyClasses="p-0"
-			title='<%= LanguageUtil.get(request, "tax-methods") %>'
+			title='<%= LanguageUtil.get(request, "tax-calculations") %>'
 		>
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"

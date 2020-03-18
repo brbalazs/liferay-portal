@@ -225,11 +225,11 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 		workflowDefinitionOVPs.add(
 			getWorkflowDefinitionOVP(
 				actionRequest, CommerceOrderConstants.TYPE_PK_APPROVAL,
-				"approval"));
+				"buyer-order-approval"));
 		workflowDefinitionOVPs.add(
 			getWorkflowDefinitionOVP(
 				actionRequest, CommerceOrderConstants.TYPE_PK_FULFILLMENT,
-				"fulfillment"));
+				"seller-order-acceptance"));
 
 		_workflowDefinitionLinkLocalService.updateWorkflowDefinitionLinks(
 			_portal.getUserId(actionRequest), commerceChannel.getCompanyId(),
