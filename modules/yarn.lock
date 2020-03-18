@@ -1282,6 +1282,13 @@
   dependencies:
     classnames "^2.2.6"
 
+"@clayui/table@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@clayui/table/-/table-4.0.0.tgz#c5de480ee725a5328a0ac5327ff91a3009284fa2"
+  integrity sha512-G8IhJf98HIKWmrrtmXZZJBdSxOqnM7BjhiyyxHnRpzYbeae8Q2HKmrO874YKaM1fdro4+dtB/YdsFQ2812Xmxg==
+  dependencies:
+    classnames "^2.2.6"
+
 "@clayui/tabs@3.0.6":
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/@clayui/tabs/-/tabs-3.0.6.tgz#e836dbfc89b21e876742c1f826ccc7145ff68662"
