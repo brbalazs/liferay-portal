@@ -150,7 +150,8 @@ public class CommercePlacedOrderItemDataSetDataProvider
 							period = LanguageUtil.get(
 								locale,
 								StringUtil.toLowerCase(
-									cpSubscriptionType.getLabel(Locale.US) + CharPool.LOWER_CASE_S));
+									cpSubscriptionType.getLabel(Locale.US) +
+										CharPool.LOWER_CASE_S));
 						}
 					}
 

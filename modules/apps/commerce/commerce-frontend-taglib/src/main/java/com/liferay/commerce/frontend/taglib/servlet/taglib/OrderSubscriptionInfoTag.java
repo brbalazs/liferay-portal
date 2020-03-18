@@ -35,10 +35,11 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import java.util.Locale;
 
 /**
  * @author Alessio Antonio Rendina
@@ -143,8 +144,7 @@ public class OrderSubscriptionInfoTag extends IncludeTag {
 			}
 
 			if (deliveryCPSubscriptionType != null) {
-				deliveryPeriod = deliveryCPSubscriptionType.getLabel(
-					Locale.US);
+				deliveryPeriod = deliveryCPSubscriptionType.getLabel(Locale.US);
 			}
 
 			_subscriptionPeriodKey = _getPeriodKey(period, _length != 1);
