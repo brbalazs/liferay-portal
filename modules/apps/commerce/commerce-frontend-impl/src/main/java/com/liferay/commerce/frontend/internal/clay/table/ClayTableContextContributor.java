@@ -86,16 +86,15 @@ public class ClayTableContextContributor
 				label = StringPool.BLANK;
 			}
 
+			String name = clayTableSchemaField.getFieldName();
+
 			jsonObject.put(
 				"contentRenderer", clayTableSchemaField.getContentRenderer());
 			jsonObject.put(
 				"contentRendererModuleUrl",
 				clayTableSchemaField.getContentRendererModuleUrl());
-
-			String name = clayTableSchemaField.getFieldName();
-
+			jsonObject.put("expand", clayTableSchemaField.isExpand());
 			jsonObject.put("fieldName", name);
-
 			jsonObject.put("label", label);
 			jsonObject.put("sortable", clayTableSchemaField.isSortable());
 

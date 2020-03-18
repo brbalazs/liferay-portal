@@ -39,6 +39,10 @@ public class ClayTableSchemaField {
 		return _sortingOrder;
 	}
 
+	public boolean isExpand() {
+		return _expand;
+	}
+
 	public boolean isSortable() {
 		return _sortable;
 	}
@@ -49,6 +53,10 @@ public class ClayTableSchemaField {
 
 	public void setContentRendererModuleUrl(String contentRendererModuleUrl) {
 		_contentRendererModuleUrl = contentRendererModuleUrl;
+	}
+
+	public void setExpand(boolean expand) {
+		_expand = expand;
 	}
 
 	public void setFieldName(String fieldName) {
@@ -75,6 +83,7 @@ public class ClayTableSchemaField {
 
 	private String _contentRenderer;
 	private String _contentRendererModuleUrl;
+	private boolean _expand;
 	private String _fieldName;
 	private String _label;
 	private boolean _sortable;
