@@ -112,7 +112,7 @@ public class CommerceOrderItemLocalServiceImpl
 			serviceContext.getLocale(), commerceOrder, cpDefinition, cpInstance,
 			quantity);
 
-		validateWorkflow(commerceOrder, serviceContext);
+		updateWorkflow(commerceOrder, serviceContext);
 
 		CommerceProductPriceCalculation commerceProductPriceCalculation =
 			_commerceProductPriceCalculationFactory.
@@ -282,7 +282,7 @@ public class CommerceOrderItemLocalServiceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		validateWorkflow(commerceOrder, serviceContext);
+		updateWorkflow(commerceOrder, serviceContext);
 
 		return commerceOrderItem;
 	}
@@ -542,7 +542,7 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceOrderItem.getCPDefinition(),
 			commerceOrderItem.fetchCPInstance(), quantity);
 
-		validateWorkflow(commerceOrderItem.getCommerceOrder(), serviceContext);
+		updateWorkflow(commerceOrderItem.getCommerceOrder(), serviceContext);
 
 		commerceOrderItem.setQuantity(quantity);
 		commerceOrderItem.setJson(json);
@@ -868,6 +868,24 @@ public class CommerceOrderItemLocalServiceImpl
 			"Unable to fix the search index after 10 attempts");
 	}
 
+	protected void updateWorkflow(
+			CommerceOrder commerceOrder, ServiceContext serviceContext)
+		throws PortalException {
+
+		WorkflowDefinitionLink workflowDefinitionLink =
+			workflowDefinitionLinkLocalService.fetchWorkflowDefinitionLink(
+				commerceOrder.getCompanyId(), commerceOrder.getGroupId(),
+				CommerceOrder.class.getName(), 0,
+				CommerceOrderConstants.TYPE_PK_APPROVAL, true);
+
+		if ((workflowDefinitionLink != null) && commerceOrder.isApproved()) {
+			commerceOrderLocalService.updateStatus(
+				serviceContext.getUserId(), commerceOrder.getCommerceOrderId(),
+				WorkflowConstants.STATUS_DRAFT, serviceContext,
+				Collections.emptyMap());
+		}
+	}
+
 	protected void validate(
 			Locale locale, CommerceOrder commerceOrder,
 			CPDefinition cpDefinition, CPInstance cpInstance, int quantity)
@@ -904,24 +922,6 @@ public class CommerceOrderItemLocalServiceImpl
 				throw new CommerceOrderValidatorException(
 					commerceCartValidatorResults);
 			}
-		}
-	}
-
-	protected void validateWorkflow(
-			CommerceOrder commerceOrder, ServiceContext serviceContext)
-		throws PortalException {
-
-		WorkflowDefinitionLink workflowDefinitionLink =
-			workflowDefinitionLinkLocalService.fetchWorkflowDefinitionLink(
-				commerceOrder.getCompanyId(), commerceOrder.getGroupId(),
-				CommerceOrder.class.getName(), 0,
-				CommerceOrderConstants.TYPE_PK_APPROVAL, true);
-
-		if ((workflowDefinitionLink != null) && commerceOrder.isApproved()) {
-			commerceOrderLocalService.updateStatus(
-				serviceContext.getUserId(), commerceOrder.getCommerceOrderId(),
-				WorkflowConstants.STATUS_DRAFT, serviceContext,
-				Collections.emptyMap());
 		}
 	}
 
