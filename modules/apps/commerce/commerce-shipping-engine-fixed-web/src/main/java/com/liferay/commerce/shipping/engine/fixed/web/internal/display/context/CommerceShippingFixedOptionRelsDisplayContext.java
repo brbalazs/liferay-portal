@@ -22,9 +22,9 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.product.model.CPMeasurementUnit;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
@@ -59,7 +59,6 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 	extends BaseCommerceShippingFixedOptionDisplayContext {
 
 	public CommerceShippingFixedOptionRelsDisplayContext(
-		CommerceChannelLocalService commerceChannelLocalService,
 		CommerceCountryService commerceCountryService,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceRegionService commerceRegionService,
@@ -76,7 +75,6 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 			commerceCurrencyLocalService, commerceShippingMethodService,
 			portletResourcePermission, renderRequest, renderResponse);
 
-		_commerceChannelLocalService = commerceChannelLocalService;
 		_commerceCountryService = commerceCountryService;
 		_commerceRegionService = commerceRegionService;
 		_commerceShippingFixedOptionService =
@@ -145,16 +143,13 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 	public List<CommerceInventoryWarehouse> getCommerceInventoryWarehouses()
 		throws PortalException {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		CommerceShippingMethod commerceShippingMethod =
+			getCommerceShippingMethod();
 
 		return _commerceInventoryWarehouseService.
 			getCommerceInventoryWarehouses(
-				themeDisplay.getCompanyId(),
-				_commerceChannelLocalService.
-					getCommerceChannelGroupIdBySiteGroupId(
-						themeDisplay.getScopeGroupId()),
-				true);
+				commerceShippingMethod.getCompanyId(),
+				commerceShippingMethod.getGroupId(), true);
 	}
 
 	public long getCommerceRegionId() throws PortalException {
@@ -249,7 +244,6 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 		return true;
 	}
 
-	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceCountryService _commerceCountryService;
 	private final CommerceInventoryWarehouseService
 		_commerceInventoryWarehouseService;
