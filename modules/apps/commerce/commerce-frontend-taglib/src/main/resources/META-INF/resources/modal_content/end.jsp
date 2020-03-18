@@ -21,11 +21,11 @@
 	<c:if test="<%= Validator.isNotNull(submitButtonLabel) || showCancelButton || showSubmitButton %>">
 		<div class="modal-iframe-footer">
 			<c:if test="<%= showCancelButton %>">
-				<button class="btn btn-secondary ml-3 modal-closer"><%= LanguageUtil.get(request, "cancel") %></button>
+				<div class="btn btn-secondary ml-3 modal-closer"><%= LanguageUtil.get(request, "cancel") %></div>
 			</c:if>
 
 			<c:if test="<%= showSubmitButton || Validator.isNotNull(submitButtonLabel) %>">
-				<button class="btn btn-primary form-submitter ml-3">
+				<button class="btn btn-primary form-submitter ml-3" type="submit">
 					<%= Validator.isNotNull(submitButtonLabel) ? submitButtonLabel : LanguageUtil.get(request, "submit") %>
 				</button>
 			</c:if>
@@ -35,7 +35,14 @@
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/index.es as utilities">
 	<c:if test='<%= SessionMessages.contains(renderRequest, "requestProcessed") %>'>
-		window.parent.Liferay.fire(events.CLOSE_MODAL);
+		window.parent.Liferay.fire(events.CLOSE_MODAL, {
+			willIframeRefresh: false,
+			successNotification: {
+				message:
+					'<%= LanguageUtil.get(request, "your-request-completed-successfully") %>',
+				showSuccessNotification: true
+			}
+		});
 	</c:if>
 
 	document.querySelectorAll('.modal-closer').forEach(function(trigger) {
@@ -49,19 +56,22 @@
 		iframeFooter = window.document.querySelector('.modal-iframe-footer'),
 		iframeForm = iframeContent.querySelector('form');
 
-	var formSubmitterButton = document.querySelector('.form-submitter');
-
-	function handleSubmit(event) {
-		event.preventDefault();
-
+	function handleSubmit() {
 		window.parent.Liferay.fire(events.IS_LOADING_MODAL, {isLoading: true});
 
 		submitForm(iframeForm);
 	}
 
 	if (iframeForm) {
-		window.addEventListener('submit', handleSubmit);
-		formSubmitterButton.addEventListener('click', handleSubmit);
+		iframeForm.appendChild(iframeFooter);
+
+		var debouncedHandleSubmit = utilities.debounce(handleSubmit, 1000);
+
+		iframeForm.addEventListener('submit', function(event) {
+			event.preventDefault();
+
+			return debouncedHandleSubmit();
+		});
 	}
 
 	if (iframeContent && iframeFooter) {

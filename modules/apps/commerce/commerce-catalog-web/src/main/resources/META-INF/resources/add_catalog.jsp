@@ -19,11 +19,9 @@
 <%
 CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
+PortletURL editCatalogPortletURL = commerceCatalogDisplayContext.getEditCommerceCatalogRenderURL();
 CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
 List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCommerceCurrencies();
-
-portletURL.setParameter("searchContainerId", "commerceCatalogs");
 %>
 
 <portlet:actionURL name="editCommerceCatalog" var="editCommerceCatalogActionURL" />
@@ -73,7 +71,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 			</aui:select>
 		</aui:form>
 
-		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/forms/index.es as FormUtils, clay-alert/src/ClayToast as ClayToast">
+		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/forms/index.es as FormUtils">
 			Liferay.provide(
 				window,
 				'<portlet:namespace/>apiSubmit',
@@ -86,28 +84,21 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 
 					FormUtils.apiSubmit(form, API_URL)
 						.then(function(payload) {
-							var portletURL = new Liferay.PortletURL.createURL(
-								'<%= currentURLObj %>'
+							var redirectURL = new Liferay.PortletURL.createURL(
+								'<%= editCatalogPortletURL.toString() %>'
 							);
 
-							portletURL.setParameter('commerceCatalogId', payload.id);
-							portletURL.setParameter(
-								'javax.portlet.action',
-								'editCommerceCatalog'
-							);
-							portletURL.setParameter('p_auth', Liferay.authToken);
-							portletURL.setPortletId(
-								'<%= CPPortletKeys.COMMERCE_CATALOGS %>'
-							);
+							redirectURL.setParameter('commerceCatalogId', payload.id);
+							redirectURL.setParameter('p_auth', Liferay.authToken);
 
 							window.parent.Liferay.fire(events.CLOSE_MODAL, {
-								willIframeRefresh: false,
+								redirectURL: redirectURL.toString(),
 								successNotification: {
 									showSuccessNotification: true,
 									message:
-										'<liferay-ui:message key="your-request-completed-successfully" />',
-									redirectURL: portletURL.toString()
-								}
+										'<liferay-ui:message key="your-request-completed-successfully" />'
+								},
+								willIframeRefresh: false
 							});
 						})
 						.catch(function() {

@@ -89,9 +89,7 @@ function Modal(props) {
 		}) {
 			if (redirectURL) {
 				liferayNavigate(redirectURL);
-			}
-
-			if (willIframeRefresh) {
+			} else if (willIframeRefresh) {
 				closeOnIframeRefresh(successNotification);
 			} else {
 				doClose(successNotification);

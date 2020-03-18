@@ -190,6 +190,16 @@ public class CommerceCatalogDisplayContext {
 		return portletURL.toString();
 	}
 
+	public PortletURL getEditCommerceCatalogRenderURL() {
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			cpRequestHelper.getRequest(), CPPortletKeys.COMMERCE_CATALOGS,
+			PortletRequest.RENDER_PHASE);
+
+		portletURL.setParameter("mvcRenderCommandName", "editCommerceCatalog");
+
+		return portletURL;
+	}
+
 	public List<HeaderActionModel> getHeaderActionModels() throws Exception {
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 

@@ -36,7 +36,8 @@ if (commerceChannel != null) {
 %>
 
 <commerce-ui:modal-content
-	submitButtonLabel="add"
+	submitButtonLabel='<%= LanguageUtil.get(request, "add") %>'
+	title='<%= LanguageUtil.get(request, "add-channel") %>'
 >
 	<portlet:actionURL name="editCommerceChannel" var="editCommerceChannelActionURL" />
 

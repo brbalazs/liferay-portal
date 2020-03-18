@@ -37,13 +37,14 @@ export function debounce(func, wait, immediate) {
 
 export function showNotification(
 	message,
-	type,
+	type = 'success',
 	closeable = true,
 	duration = 500
 ) {
 	if (!window.AUI) {
 		return;
 	}
+
 	AUI().use('liferay-notification', () => {
 		new Liferay.Notification({
 			closeable,
@@ -54,7 +55,7 @@ export function showNotification(
 			duration,
 			message,
 			render: true,
-			title: '',
+			title: Liferay.Language.get(type),
 			type
 		});
 	});

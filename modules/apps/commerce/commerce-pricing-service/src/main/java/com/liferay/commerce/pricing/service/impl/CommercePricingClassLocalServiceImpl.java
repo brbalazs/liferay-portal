@@ -53,10 +53,10 @@ public class CommercePricingClassLocalServiceImpl
 		CommercePricingClass commercePricingClass =
 			commercePricingClassPersistence.create(commercePricingClassId);
 
+		commercePricingClass.setGroupId(groupId);
 		commercePricingClass.setCompanyId(serviceContext.getCompanyId());
 		commercePricingClass.setUserId(user.getUserId());
 		commercePricingClass.setUserName(user.getFullName());
-		commercePricingClass.setGroupId(groupId);
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
 
@@ -160,10 +160,10 @@ public class CommercePricingClassLocalServiceImpl
 
 		validate(title);
 
+		commercePricingClass.setGroupId(groupId);
 		commercePricingClass.setCompanyId(serviceContext.getCompanyId());
 		commercePricingClass.setUserId(user.getUserId());
 		commercePricingClass.setUserName(user.getFullName());
-		commercePricingClass.setGroupId(groupId);
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
 
