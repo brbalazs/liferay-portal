@@ -37,5 +37,6 @@ contextParams.put("sku", commerceInventoryDisplayContext.getSku());
 		namespace="<%= renderResponse.getNamespace() %>"
 		pageNumber="<%= 1 %>"
 		portletURL="<%= commerceInventoryDisplayContext.getPortletURL() %>"
+		showSearch="<%= false %>"
 	/>
 </commerce-ui:panel>
