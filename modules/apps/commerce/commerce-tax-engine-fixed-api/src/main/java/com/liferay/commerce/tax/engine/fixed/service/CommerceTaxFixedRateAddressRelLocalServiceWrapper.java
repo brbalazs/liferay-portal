@@ -145,6 +145,15 @@ public class CommerceTaxFixedRateAddressRelLocalServiceWrapper
 	}
 
 	@Override
+	public void deleteCommerceTaxFixedRateAddressRelsByCommerceCountryId(
+		long commerceCountryId) {
+
+		_commerceTaxFixedRateAddressRelLocalService.
+			deleteCommerceTaxFixedRateAddressRelsByCommerceCountryId(
+				commerceCountryId);
+	}
+
+	@Override
 	public void deleteCommerceTaxFixedRateAddressRelsByCommerceTaxMethodId(
 		long commerceTaxMethodId) {
 

@@ -136,6 +136,13 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 			commerceTaxFixedRateAddressRelId);
 	}
 
+	public static void deleteCommerceTaxFixedRateAddressRelsByCommerceCountryId(
+		long commerceCountryId) {
+
+		getService().deleteCommerceTaxFixedRateAddressRelsByCommerceCountryId(
+			commerceCountryId);
+	}
+
 	public static void
 		deleteCommerceTaxFixedRateAddressRelsByCommerceTaxMethodId(
 			long commerceTaxMethodId) {

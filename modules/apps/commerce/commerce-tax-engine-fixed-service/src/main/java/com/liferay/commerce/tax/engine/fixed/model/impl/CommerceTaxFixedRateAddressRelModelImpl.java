@@ -138,9 +138,11 @@ public class CommerceTaxFixedRateAddressRelModelImpl
 
 	public static final long CPTAXCATEGORYID_COLUMN_BITMASK = 1L;
 
-	public static final long COMMERCETAXMETHODID_COLUMN_BITMASK = 2L;
+	public static final long COMMERCECOUNTRYID_COLUMN_BITMASK = 2L;
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 4L;
+	public static final long COMMERCETAXMETHODID_COLUMN_BITMASK = 4L;
+
+	public static final long CREATEDATE_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -874,7 +876,19 @@ public class CommerceTaxFixedRateAddressRelModelImpl
 
 	@Override
 	public void setCommerceCountryId(long commerceCountryId) {
+		_columnBitmask |= COMMERCECOUNTRYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommerceCountryId) {
+			_setOriginalCommerceCountryId = true;
+
+			_originalCommerceCountryId = _commerceCountryId;
+		}
+
 		_commerceCountryId = commerceCountryId;
+	}
+
+	public long getOriginalCommerceCountryId() {
+		return _originalCommerceCountryId;
 	}
 
 	@JSON
@@ -1052,6 +1066,12 @@ public class CommerceTaxFixedRateAddressRelModelImpl
 		commerceTaxFixedRateAddressRelModelImpl._setOriginalCPTaxCategoryId =
 			false;
 
+		commerceTaxFixedRateAddressRelModelImpl._originalCommerceCountryId =
+			commerceTaxFixedRateAddressRelModelImpl._commerceCountryId;
+
+		commerceTaxFixedRateAddressRelModelImpl._setOriginalCommerceCountryId =
+			false;
+
 		commerceTaxFixedRateAddressRelModelImpl._columnBitmask = 0;
 	}
 
@@ -1217,6 +1237,8 @@ public class CommerceTaxFixedRateAddressRelModelImpl
 	private long _originalCPTaxCategoryId;
 	private boolean _setOriginalCPTaxCategoryId;
 	private long _commerceCountryId;
+	private long _originalCommerceCountryId;
+	private boolean _setOriginalCommerceCountryId;
 	private long _commerceRegionId;
 	private String _zip;
 	private double _rate;

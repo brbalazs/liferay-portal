@@ -120,6 +120,9 @@ public interface CommerceTaxFixedRateAddressRelLocalService
 			long commerceTaxFixedRateAddressRelId)
 		throws PortalException;
 
+	public void deleteCommerceTaxFixedRateAddressRelsByCommerceCountryId(
+		long commerceCountryId);
+
 	public void deleteCommerceTaxFixedRateAddressRelsByCommerceTaxMethodId(
 		long commerceTaxMethodId);
 
