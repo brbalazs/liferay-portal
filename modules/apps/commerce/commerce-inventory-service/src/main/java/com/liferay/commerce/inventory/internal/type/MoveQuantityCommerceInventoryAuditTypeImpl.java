@@ -32,14 +32,14 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 @Component(
 	immediate = true,
-	property = "commerce.inventory.audit.type.key=" + CommerceInventoryConstants.AUDIT_TYPE_CONSUME_QUANTITY,
+	property = "commerce.inventory.audit.type.key=" + CommerceInventoryConstants.AUDIT_TYPE_MOVE_QUANTITY,
 	service = CommerceInventoryAuditType.class
 )
-public class ConsumeQuantityCommerceInventoryAuditTypeImpl
+public class MoveQuantityCommerceInventoryAuditTypeImpl
 	implements CommerceInventoryAuditType {
 
 	@Override
@@ -52,15 +52,17 @@ public class ConsumeQuantityCommerceInventoryAuditTypeImpl
 
 		StringBundler contextSB = new StringBundler(12);
 
-		contextSB.append(LanguageUtil.get(locale, "order"));
+		contextSB.append(
+			LanguageUtil.get(locale, CommerceInventoryAuditTypeConstants.FROM));
 		contextSB.append(CharPool.SPACE);
 		contextSB.append(
-			jsonObject.get(CommerceInventoryAuditTypeConstants.ORDER_ID));
-		contextSB.append(CharPool.SPACE);
-		contextSB.append(LanguageUtil.get(locale, "shipment"));
+			jsonObject.get(CommerceInventoryAuditTypeConstants.FROM));
 		contextSB.append(CharPool.SPACE);
 		contextSB.append(
-			jsonObject.get(CommerceInventoryAuditTypeConstants.SHIPMENT_ID));
+			LanguageUtil.get(locale, CommerceInventoryAuditTypeConstants.TO));
+		contextSB.append(CharPool.SPACE);
+		contextSB.append(
+			jsonObject.get(CommerceInventoryAuditTypeConstants.TO));
 		contextSB.append(CharPool.COMMA);
 		contextSB.append(CharPool.SPACE);
 		contextSB.append(LanguageUtil.get(locale, "user"));
@@ -83,7 +85,7 @@ public class ConsumeQuantityCommerceInventoryAuditTypeImpl
 
 	@Override
 	public String getType() {
-		return CommerceInventoryConstants.AUDIT_TYPE_CONSUME_QUANTITY;
+		return CommerceInventoryConstants.AUDIT_TYPE_MOVE_QUANTITY;
 	}
 
 	@Reference

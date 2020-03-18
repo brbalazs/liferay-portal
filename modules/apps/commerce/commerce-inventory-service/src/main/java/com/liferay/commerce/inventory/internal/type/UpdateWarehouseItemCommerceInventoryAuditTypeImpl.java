@@ -18,12 +18,12 @@ import com.liferay.commerce.inventory.constants.CommerceInventoryConstants;
 import com.liferay.commerce.inventory.type.CommerceInventoryAuditType;
 import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeConstants;
 import com.liferay.petra.string.CharPool;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.StringBundler;
 
 import java.util.Locale;
 import java.util.Map;
@@ -32,14 +32,14 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 @Component(
 	immediate = true,
-	property = "commerce.inventory.audit.type.key=" + CommerceInventoryConstants.AUDIT_TYPE_CONSUME_QUANTITY,
+	property = "commerce.inventory.audit.type.key=" + CommerceInventoryConstants.AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM,
 	service = CommerceInventoryAuditType.class
 )
-public class ConsumeQuantityCommerceInventoryAuditTypeImpl
+public class UpdateWarehouseItemCommerceInventoryAuditTypeImpl
 	implements CommerceInventoryAuditType {
 
 	@Override
@@ -50,17 +50,10 @@ public class ConsumeQuantityCommerceInventoryAuditTypeImpl
 
 		User user = _userLocalService.getUserById(userId);
 
-		StringBundler contextSB = new StringBundler(12);
+		StringBundler contextSB = new StringBundler(6);
 
-		contextSB.append(LanguageUtil.get(locale, "order"));
-		contextSB.append(CharPool.SPACE);
 		contextSB.append(
-			jsonObject.get(CommerceInventoryAuditTypeConstants.ORDER_ID));
-		contextSB.append(CharPool.SPACE);
-		contextSB.append(LanguageUtil.get(locale, "shipment"));
-		contextSB.append(CharPool.SPACE);
-		contextSB.append(
-			jsonObject.get(CommerceInventoryAuditTypeConstants.SHIPMENT_ID));
+			jsonObject.get(CommerceInventoryAuditTypeConstants.WAREHOUSE));
 		contextSB.append(CharPool.COMMA);
 		contextSB.append(CharPool.SPACE);
 		contextSB.append(LanguageUtil.get(locale, "user"));
@@ -83,7 +76,7 @@ public class ConsumeQuantityCommerceInventoryAuditTypeImpl
 
 	@Override
 	public String getType() {
-		return CommerceInventoryConstants.AUDIT_TYPE_CONSUME_QUANTITY;
+		return CommerceInventoryConstants.AUDIT_TYPE_UPDATE_WAREHOUSE_ITEM;
 	}
 
 	@Reference

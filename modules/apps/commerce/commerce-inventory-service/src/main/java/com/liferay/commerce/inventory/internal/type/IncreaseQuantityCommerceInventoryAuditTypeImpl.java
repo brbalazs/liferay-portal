@@ -16,7 +16,10 @@ package com.liferay.commerce.inventory.internal.type;
 
 import com.liferay.commerce.inventory.constants.CommerceInventoryConstants;
 import com.liferay.commerce.inventory.type.CommerceInventoryAuditType;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.json.JSONException;
 
+import java.util.Locale;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
@@ -31,6 +34,13 @@ import org.osgi.service.component.annotations.Component;
 )
 public class IncreaseQuantityCommerceInventoryAuditTypeImpl
 	implements CommerceInventoryAuditType {
+
+	@Override
+	public String formatLog(long userId, String context, Locale locale)
+		throws JSONException {
+
+		return StringPool.BLANK;
+	}
 
 	@Override
 	public String getLog(Map<String, String> context) {
