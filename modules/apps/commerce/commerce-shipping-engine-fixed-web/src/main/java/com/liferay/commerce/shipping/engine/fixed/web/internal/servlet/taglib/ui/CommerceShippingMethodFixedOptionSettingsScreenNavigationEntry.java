@@ -19,7 +19,6 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
@@ -127,9 +126,8 @@ public class CommerceShippingMethodFixedOptionSettingsScreenNavigationEntry
 		CommerceShippingFixedOptionRelsDisplayContext
 			commerceShippingFixedOptionRelsDisplayContext =
 				new CommerceShippingFixedOptionRelsDisplayContext(
-					_commerceChannelLocalService, _commerceCountryService,
-					_commerceCurrencyLocalService, _commerceRegionService,
-					_commerceShippingMethodService,
+					_commerceCountryService, _commerceCurrencyLocalService,
+					_commerceRegionService, _commerceShippingMethodService,
 					_commerceShippingFixedOptionService,
 					_commerceInventoryWarehouseService,
 					_commerceShippingFixedOptionRelService,
@@ -144,9 +142,6 @@ public class CommerceShippingMethodFixedOptionSettingsScreenNavigationEntry
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/shipping_option_settings.jsp");
 	}
-
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceCountryService _commerceCountryService;
