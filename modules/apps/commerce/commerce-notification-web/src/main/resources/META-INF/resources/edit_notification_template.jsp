@@ -155,7 +155,9 @@ if (commerceNotificationTemplate != null) {
 		<commerce-ui:panel
 			title='<%= LanguageUtil.get(resourceBundle, "email-content") %>'
 		>
-			<aui:field-wrapper label="subject">
+			<label for="<portlet:namespace />subjectFieldWrapper"><%= LanguageUtil.get(resourceBundle, "subject") %></label>
+
+			<aui:field-wrapper label="" name="subjectFieldWrapper">
 				<liferay-ui:input-localized
 					name="subject"
 					xml="<%= (commerceNotificationTemplate == null) ? StringPool.BLANK : commerceNotificationTemplate.getSubject() %>"
@@ -168,7 +170,9 @@ if (commerceNotificationTemplate != null) {
 			}
 			%>
 
-			<aui:field-wrapper label="body">
+			<label for="<portlet:namespace />bodyFieldWrapper"><%= LanguageUtil.get(resourceBundle, "body") %></label>
+
+			<aui:field-wrapper label="" name="bodyFieldWrapper">
 				<liferay-ui:input-localized
 					editorName='<%= PropsUtil.get("editor.wysiwyg.portal-web.docroot.html.taglib.ui.email_notification_settings.jsp") %>'
 					name="body"
