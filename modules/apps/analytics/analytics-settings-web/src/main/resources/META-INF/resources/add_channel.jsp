@@ -19,12 +19,39 @@
 <%
 GroupDisplayContext groupDisplayContext = new GroupDisplayContext("/analytics_settings/add_channel", renderRequest, renderResponse);
 
-PortletURL portletURL = renderResponse.createRenderURL();
+String redirect = ParamUtil.getString(request, "redirect");
 
-portletURL.setParameter("mvcRenderCommandName", "/view_configuration_screen");
-portletURL.setParameter("configurationScreenKey", "synced-sites");
+int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
+int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+String entriesNavigation = ParamUtil.getString(request, "entriesNavigation");
+String orderByCol = ParamUtil.getString(request, "orderByCol", "site-name");
+String orderByType = ParamUtil.getString(request, "orderByType", "asc");
 
-String redirect = portletURL.toString();
+PortletURL navigationPortletURL = renderResponse.createRenderURL();
+
+navigationPortletURL.setParameter("mvcRenderCommandName", "/analytics_settings/add_channel");
+navigationPortletURL.setParameter("redirect", redirect);
+
+if (delta > 0) {
+	navigationPortletURL.setParameter("delta", String.valueOf(delta));
+}
+
+PortletURL sortURL = PortletURLUtil.clone(navigationPortletURL, liferayPortletResponse);
+
+sortURL.setParameter("entriesNavigation", entriesNavigation);
+
+navigationPortletURL.setParameter("orderBycol", orderByCol);
+navigationPortletURL.setParameter("orderByType", orderByType);
+
+PortletURL portletURL = PortletURLUtil.clone(navigationPortletURL, liferayPortletResponse);
+
+portletURL.setParameter("entriesNavigation", entriesNavigation);
+
+PortletURL displayStyleURL = PortletURLUtil.clone(portletURL, liferayPortletResponse);
+
+if (cur > 0) {
+	displayStyleURL.setParameter("cur", String.valueOf(cur));
+}
 
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(ParamUtil.getString(request, "backURL", redirect));
@@ -78,9 +105,33 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 			</label>
 		</div>
 
-		<clay:management-toolbar
-			displayContext="<%= new GroupManagementToolbarDisplayContext(request, liferayPortletRequest, liferayPortletResponse, groupDisplayContext) %>"
-		/>
+		<liferay-frontend:management-bar
+			includeCheckBox="<%= true %>"
+			searchContainerId="selectGroups"
+		>
+			<liferay-frontend:management-bar-buttons>
+				<liferay-frontend:management-bar-display-buttons
+					displayViews='<%= new String[] {"list"} %>'
+					portletURL="<%= displayStyleURL %>"
+					selectedDisplayStyle="list"
+				/>
+			</liferay-frontend:management-bar-buttons>
+
+			<liferay-frontend:management-bar-filters>
+				<liferay-frontend:management-bar-navigation
+					navigationKeys='<%= new String[] {"all"} %>'
+					navigationParam="entriesNavigation"
+					portletURL="<%= navigationPortletURL %>"
+				/>
+
+				<liferay-frontend:management-bar-sort
+					orderByCol="<%= orderByCol %>"
+					orderByType="<%= orderByType %>"
+					orderColumns='<%= new String[] {"site-name", "site-friendly-url"} %>'
+					portletURL="<%= sortURL %>"
+				/>
+			</liferay-frontend:management-bar-filters>
+		</liferay-frontend:management-bar>
 
 		<liferay-ui:search-container
 			id="selectGroups"
