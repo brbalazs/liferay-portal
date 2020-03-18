@@ -20,6 +20,9 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.TimelineModel;
 import com.liferay.commerce.inventory.model.CommerceInventoryAudit;
 import com.liferay.commerce.inventory.service.CommerceInventoryAuditService;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditType;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeRegistry;
+import com.liferay.petra.string.CharPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Sort;
@@ -27,6 +30,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.text.DateFormat;
@@ -88,15 +92,36 @@ public class CommerceInventoryAuditDataSetDataProvider
 		for (CommerceInventoryAudit commerceInventoryAudit :
 				commerceInventoryAudits) {
 
+			CommerceInventoryAuditType commerceInventoryAuditType =
+				_commerceInventoryAuditTypeRegistry.
+					getCommerceInventoryAuditType(
+						commerceInventoryAudit.getLogType());
+
+			StringBundler titleSB = new StringBundler(3);
+
+			titleSB.append(
+				LanguageUtil.get(
+					httpServletRequest, commerceInventoryAudit.getLogType()));
+			titleSB.append(CharPool.SPACE);
+
+			try {
+				titleSB.append(
+					commerceInventoryAuditType.formatLog(
+						commerceInventoryAudit.getUserId(),
+						commerceInventoryAudit.getLogTypeSettings(),
+						httpServletRequest.getLocale()));
+			}
+			catch (Exception e) {
+				throw new PortalException(e.getMessage(), e);
+			}
+
 			timelineModels.add(
 				new TimelineModel(
 					commerceInventoryAudit.getCommerceInventoryAuditId(),
 					dateTimeFormat.format(
 						commerceInventoryAudit.getCreateDate()),
-					commerceInventoryAudit.getLogTypeSettings(),
-					LanguageUtil.get(
-						httpServletRequest,
-						commerceInventoryAudit.getLogType())));
+					String.valueOf(commerceInventoryAudit.getQuantity()),
+					titleSB.toString()));
 		}
 
 		return timelineModels;
@@ -104,6 +129,10 @@ public class CommerceInventoryAuditDataSetDataProvider
 
 	@Reference
 	private CommerceInventoryAuditService _commerceInventoryAuditService;
+
+	@Reference
+	private CommerceInventoryAuditTypeRegistry
+		_commerceInventoryAuditTypeRegistry;
 
 	@Reference
 	private Portal _portal;
