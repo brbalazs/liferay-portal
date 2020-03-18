@@ -106,7 +106,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 
 			itemFinder.default('itemFinder', 'item-finder-root', {
 				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/options',
-				createNewItemLabel: '<%= LanguageUtil.get(request, "create-new-option") %>',
+				createNewItemLabel: '<%= LanguageUtil.get(request, "create-new") %>',
 				getSelectedItems: getSelectedItems,
 				inputPlaceholder:
 					'<%= LanguageUtil.get(request, "find-an-option-or-create-one") %>',
@@ -117,12 +117,12 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				onItemCreated: addNewItem,
 				onItemSelected: selectItem,
 				pageSize: 10,
-				panelHeaderLabel: '<%= LanguageUtil.get(request, "add-option") %>',
+				panelHeaderLabel: '<%= LanguageUtil.get(request, "add-options") %>',
 				schema: {
 					itemTitle: ['name', themeDisplay.getLanguageId()]
 				},
 				spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-				titleLabel: '<%= LanguageUtil.get(request, "add-existing-option") %>'
+				titleLabel: '<%= LanguageUtil.get(request, "add-an-existing-option") %>'
 			});
 		</aui:script>
 
