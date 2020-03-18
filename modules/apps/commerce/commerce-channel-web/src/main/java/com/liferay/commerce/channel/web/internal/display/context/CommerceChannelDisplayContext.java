@@ -311,6 +311,17 @@ public class CommerceChannelDisplayContext
 			CPActionKeys.ADD_COMMERCE_CHANNEL);
 	}
 
+	public boolean hasPermission(long commerceChannelId, String actionId)
+		throws PortalException {
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		return _commerceChannelModelResourcePermission.contains(
+			themeDisplay.getPermissionChecker(), commerceChannelId, actionId);
+	}
+
 	public boolean hasUnsatisfiedCommerceHealthChecks() throws PortalException {
 		List<CommerceChannelHealthStatus> commerceChannelHealthStatuses =
 			_commerceChannelHealthStatusRegistry.
@@ -328,17 +339,6 @@ public class CommerceChannelDisplayContext
 		}
 
 		return false;
-	}
-
-	public boolean hasPermission(long commerceChannelId, String actionId)
-		throws PortalException {
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		return _commerceChannelModelResourcePermission.contains(
-			themeDisplay.getPermissionChecker(), commerceChannelId, actionId);
 	}
 
 	public boolean isShowPurchaseOrderNumber() throws PortalException {
