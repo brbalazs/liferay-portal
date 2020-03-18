@@ -223,8 +223,9 @@ public class CommerceShipmentDisplayContext
 				shipmentStatuses[currentShipmentStatus + 1]);
 
 			for (int shipmentStatus : availableShipmentStatuses) {
-				String label = CommerceShipmentConstants.getShipmentStatusLabel(
-					shipmentStatus);
+				String label =
+					CommerceShipmentConstants.getShipmentTransitionLabel(
+						shipmentStatus);
 
 				PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
 					httpServletRequest, CommercePortletKeys.COMMERCE_SHIPMENT,

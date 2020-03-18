@@ -91,4 +91,21 @@ public class CommerceShipmentConstants {
 		return null;
 	}
 
+	public static String getShipmentTransitionLabel(int shipmentStatus) {
+		if (shipmentStatus == SHIPMENT_STATUS_DELIVERED) {
+			return "deliver";
+		}
+		else if (shipmentStatus == SHIPMENT_STATUS_PROCESSING) {
+			return "reprocess";
+		}
+		else if (shipmentStatus == SHIPMENT_STATUS_READY_TO_BE_SHIPPED) {
+			return "finish-processing";
+		}
+		else if (shipmentStatus == SHIPMENT_STATUS_SHIPPED) {
+			return "ship";
+		}
+
+		return null;
+	}
+
 }
