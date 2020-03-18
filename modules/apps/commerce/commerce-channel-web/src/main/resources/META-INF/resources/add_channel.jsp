@@ -25,8 +25,8 @@ List<CommerceChannelType> commerceChannelTypes = commerceChannelDisplayContext.g
 List<CommerceCurrency> commerceCurrencies = commerceChannelDisplayContext.getCommerceCurrencies();
 
 String name = BeanParamUtil.getString(commerceChannel, request, "name");
-String type = BeanParamUtil.getString(commerceChannel, request, "type");
 String commerceCurrencyCode = BeanParamUtil.getString(commerceChannel, request, "commerceCurrencyCode");
+String type = BeanParamUtil.getString(commerceChannel, request, "type");
 
 boolean isViewOnly = false;
 
@@ -36,7 +36,7 @@ if (commerceChannel != null) {
 %>
 
 <commerce-ui:modal-content
-	submitButtonLabel="save"
+	submitButtonLabel="add"
 >
 	<portlet:actionURL name="editCommerceChannel" var="editCommerceChannelActionURL" />
 
@@ -52,6 +52,20 @@ if (commerceChannel != null) {
 
 			<aui:input autoFocus="<%= true %>" disabled="<%= isViewOnly %>" name="name" value="<%= name %>" />
 
+			<aui:select label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
+
+				<%
+				for (CommerceCurrency commerceCurrency : commerceCurrencies) {
+				%>
+
+					<aui:option label="<%= commerceCurrency.getName(locale) %>" selected="<%= (commerceChannel == null) ? commerceCurrency.isPrimary() : commerceCurrencyCode.equals(commerceCurrency.getCode()) %>" value="<%= commerceCurrency.getCode() %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
+
 			<aui:select disabled="<%= isViewOnly %>" name="type" showEmptyOption="<%= true %>">
 
 				<%
@@ -60,20 +74,6 @@ if (commerceChannel != null) {
 				%>
 
 					<aui:option label="<%= commerceChannelType.getLabel(locale) %>" selected="<%= (commerceChannel != null) && commerceChannelTypeKey.equals(type) %>" value="<%= commerceChannelTypeKey %>" />
-
-				<%
-				}
-				%>
-
-			</aui:select>
-
-			<aui:select label="currency" name="commerceCurrencyCode" required="<%= true %>" title="currency">
-
-				<%
-				for (CommerceCurrency commerceCurrency : commerceCurrencies) {
-				%>
-
-					<aui:option label="<%= commerceCurrency.getName(locale) %>" selected="<%= (commerceChannel == null) ? commerceCurrency.isPrimary() : commerceCurrencyCode.equals(commerceCurrency.getCode()) %>" value="<%= commerceCurrency.getCode() %>" />
 
 				<%
 				}
