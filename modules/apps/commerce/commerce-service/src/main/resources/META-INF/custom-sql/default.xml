@@ -201,6 +201,9 @@
 				(CommerceOrderItem.groupId = ?) AND
 				(CommerceOrder.orderStatus IN ([$ORDER_STATUS$])) AND
 				(CommerceOrderItem.shippedQuantity < CommerceOrderItem.quantity)
+			ORDER BY
+				 CommerceOrderItem.sku ASC,
+				 CommerceOrderItem.commerceOrderId ASC
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.getCommerceOrderItemsQuantity">
