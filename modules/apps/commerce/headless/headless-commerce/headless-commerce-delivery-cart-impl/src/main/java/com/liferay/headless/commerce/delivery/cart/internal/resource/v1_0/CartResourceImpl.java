@@ -114,6 +114,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 
 	@Override
 	public Cart patchCart(@NotNull Long cartId, Cart cart) throws Exception {
+
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			cartId);
 
@@ -148,6 +149,17 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 
 		CommerceOrder commerceOrder = _addCommerceOrder(
 			cart, commerceChannel.getGroupId(), contextUser.getUserId());
+
+		_updateOrder(commerceOrder, cart);
+
+		return _toCart(commerceOrder);
+	}
+
+	@Override
+	public Cart putCart(Long cartId, Cart cart) throws Exception {
+
+		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+			cartId);
 
 		_updateOrder(commerceOrder, cart);
 
@@ -381,6 +393,10 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		CartItem[] orderItems = cart.getCartItems();
 
 		if (orderItems != null) {
+
+			_commerceOrderItemService.deleteCommerceOrderItems(
+				commerceOrder.getCommerceOrderId());
+
 			for (CartItem cartItem : orderItems) {
 				_upsertCommerceOrderItem(
 					cartItem, commerceOrder, commerceContext, serviceContext);
