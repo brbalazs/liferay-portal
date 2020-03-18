@@ -64,7 +64,7 @@ if (commerceNotificationTemplate != null) {
 		<aui:model-context bean="<%= commerceNotificationTemplate %>" model="<%= CommerceNotificationTemplate.class %>" />
 
 		<commerce-ui:panel
-			title='<%= LanguageUtil.get(request, "info") %>'
+			title='<%= LanguageUtil.get(request, "details") %>'
 		>
 			<div class="row">
 				<div class="col-12">
@@ -103,7 +103,9 @@ if (commerceNotificationTemplate != null) {
 		>
 			<div class="row">
 				<div class="col-12">
-					<aui:field-wrapper label="to">
+					<label for="<portlet:namespace />toFieldWrapper"><%= LanguageUtil.get(resourceBundle, "to") %></label>
+
+					<aui:field-wrapper label="" name="toFieldWrapper">
 						<liferay-ui:input-localized
 							name="to"
 							xml="<%= (commerceNotificationTemplate == null) ? StringPool.BLANK : commerceNotificationTemplate.getTo() %>"
