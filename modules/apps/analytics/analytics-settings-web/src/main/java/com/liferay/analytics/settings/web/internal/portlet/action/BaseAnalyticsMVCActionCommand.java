@@ -67,8 +67,7 @@ public abstract class BaseAnalyticsMVCActionCommand
 		}
 	}
 
-	protected void checkResponse(
-			long companyId, HttpResponse httpResponse)
+	protected void checkResponse(long companyId, HttpResponse httpResponse)
 		throws Exception {
 
 		HttpEntity httpEntity = httpResponse.getEntity();

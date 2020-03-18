@@ -52,8 +52,8 @@ public class AnalyticsSettingsUtil {
 					String.format(
 						"%s/%s", getAsahFaroBackendURL(companyId), path)));
 		}
-		catch (IOException ioException) {
-			throw new PortalException(ioException);
+		catch (IOException ioe) {
+			throw new PortalException(ioe);
 		}
 	}
 
@@ -68,8 +68,8 @@ public class AnalyticsSettingsUtil {
 					String.format(
 						"%s/%s", getAsahFaroBackendURL(companyId), path)));
 		}
-		catch (IOException ioException) {
-			throw new PortalException(ioException);
+		catch (IOException ioe) {
+			throw new PortalException(ioe);
 		}
 	}
 
@@ -168,7 +168,7 @@ public class AnalyticsSettingsUtil {
 					new StringEntity(bodyJSONObject.toString()));
 			}
 
-			httpRequestBase.setHeader("Content-type", "application/json");
+			httpRequestBase.setHeader("Content-Type", "application/json");
 			httpRequestBase.setHeader(
 				"OSB-Asah-Faro-Backend-Security-Signature",
 				getAsahFaroBackendSecuritySignature(companyId));
