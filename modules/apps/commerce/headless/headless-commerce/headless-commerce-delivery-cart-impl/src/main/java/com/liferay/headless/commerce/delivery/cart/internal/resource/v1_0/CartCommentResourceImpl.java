@@ -123,23 +123,6 @@ public class CartCommentResourceImpl extends BaseCartCommentResourceImpl {
 		return orders;
 	}
 
-	private CartComment _updateOrderNote(
-			CommerceOrderNote commerceOrderNote, CartComment cartComment)
-		throws Exception {
-
-		commerceOrderNote = _commerceOrderNoteService.updateCommerceOrderNote(
-			commerceOrderNote.getCommerceOrderNoteId(),
-			GetterUtil.get(
-				cartComment.getContent(), commerceOrderNote.getContent()),
-			GetterUtil.get(
-				cartComment.getRestricted(), commerceOrderNote.isRestricted()));
-
-		return _noteDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrderNote.getCommerceOrderNoteId()));
-	}
-
 	private CartComment _upsertOrderNote(
 			CommerceOrder commerceOrder, CartComment cartComment)
 		throws Exception {
