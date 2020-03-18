@@ -43,6 +43,11 @@ String keywords = ParamUtil.getString(request, "keywords");
 		<liferay-ui:message key="select-or-create-a-property-to-manage-synced-sites" />
 	</p>
 
+	<portlet:renderURL var="addNewChannelURL">
+		<portlet:param name="mvcRenderCommandName" value="/analytics_settings/add_channel" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+	</portlet:renderURL>
+
 	<c:choose>
 		<c:when test="<%= !connected %>">
 			<liferay-ui:message key="your-dxp-instance-is-not-connected-to-analytics-cloud" />
@@ -64,21 +69,38 @@ String keywords = ParamUtil.getString(request, "keywords");
 					</p>
 
 					<aui:button-row>
-						<portlet:renderURL var="addNewChannelURL">
-							<portlet:param name="mvcRenderCommandName" value="/analytics_settings/add_channel" />
-							<portlet:param name="redirect" value="<%= currentURL %>" />
-						</portlet:renderURL>
-
 						<aui:button href="<%= addNewChannelURL %>" primary="<%= true %>" value="new-property" />
 					</aui:button-row>
 				</div>
 			</div>
 		</c:when>
 		<c:otherwise>
-			<clay:management-toolbar
-				displayContext="<%= new ChannelManagementToolbarDisplayContext(request, liferayPortletRequest, liferayPortletResponse, channelDisplayContext, channelSearch) %>"
-				elementClasses="custom-management-toolbar"
-			/>
+			<liferay-frontend:management-bar
+				includeCheckBox="<%= false %>"
+				searchContainerId="selectChannels"
+			>
+				<liferay-frontend:management-bar-filters>
+					<li>
+						<aui:form action="<%= currentURL.toString() %>" name="searchFm">
+							<liferay-ui:input-search
+								markupView="lexicon"
+								placeholder='<%= LanguageUtil.get(request, "search") %>'
+							/>
+						</aui:form>
+					</li>
+				</liferay-frontend:management-bar-filters>
+
+				<liferay-frontend:management-bar-buttons>
+					<liferay-frontend:add-menu
+						inline="<%= true %>"
+					>
+						<liferay-frontend:add-menu-item
+							title='<%= LanguageUtil.get(request, "new-property") %>'
+							url="<%= addNewChannelURL.toString() %>"
+						/>
+					</liferay-frontend:add-menu>
+				</liferay-frontend:management-bar-buttons>
+			</liferay-frontend:management-bar>
 
 			<liferay-ui:search-container
 				id="selectChannels"
