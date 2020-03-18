@@ -72,6 +72,15 @@ public class CommerceChannelServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.product.model.CommerceChannel
+			getCommerceChannelByOrderGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceChannelService.getCommerceChannelByOrderGroupId(
+			groupId);
+	}
+
+	@Override
 	public java.util.List<com.liferay.commerce.product.model.CommerceChannel>
 			getCommerceChannels(int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {

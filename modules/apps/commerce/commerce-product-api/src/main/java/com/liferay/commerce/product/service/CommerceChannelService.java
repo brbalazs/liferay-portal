@@ -81,6 +81,10 @@ public interface CommerceChannelService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceChannel getCommerceChannelByOrderGroupId(long groupId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceChannel> getCommerceChannels(int start, int end)
 		throws PortalException;
 

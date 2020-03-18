@@ -231,9 +231,7 @@ public class CPAttachmentFileEntryCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput)
-		throws ClassNotFoundException, IOException {
-
+	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		externalReferenceCode = objectInput.readUTF();
 
@@ -256,7 +254,7 @@ public class CPAttachmentFileEntryCacheModel
 		displayDate = objectInput.readLong();
 		expirationDate = objectInput.readLong();
 		title = objectInput.readUTF();
-		json = (String)objectInput.readObject();
+		json = objectInput.readUTF();
 
 		priority = objectInput.readDouble();
 
@@ -320,10 +318,10 @@ public class CPAttachmentFileEntryCacheModel
 		}
 
 		if (json == null) {
-			objectOutput.writeObject("");
+			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeObject(json);
+			objectOutput.writeUTF(json);
 		}
 
 		objectOutput.writeDouble(priority);

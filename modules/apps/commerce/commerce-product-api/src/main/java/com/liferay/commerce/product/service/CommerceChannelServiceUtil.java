@@ -72,6 +72,13 @@ public class CommerceChannelServiceUtil {
 		return getService().getCommerceChannel(commerceChannelId);
 	}
 
+	public static com.liferay.commerce.product.model.CommerceChannel
+			getCommerceChannelByOrderGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceChannelByOrderGroupId(groupId);
+	}
+
 	public static java.util.List
 		<com.liferay.commerce.product.model.CommerceChannel>
 				getCommerceChannels(int start, int end)
