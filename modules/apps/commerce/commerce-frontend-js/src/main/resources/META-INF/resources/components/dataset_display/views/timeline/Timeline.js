@@ -29,24 +29,22 @@ function TimelineEntry(props) {
 						<div className="col">
 							<h4 className="mb-0">{props.title}</h4>
 						</div>
-						<div className=" col-auto">
-							<small>{props.date}</small>
-						</div>
+						<div className=" col-auto">{props.description}</div>
 					</div>
-					<small>{props.description}</small>
+					<small>{props.date}</small>
 				</div>
 			</div>
 		</li>
 	);
 }
 
-Timeline.propTypes = {
+TimelineEntry.propTypes = {
 	date: PropTypes.string.isRequired,
 	description: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired
 };
 
-Timeline.defaultProps = {};
+TimelineEntry.defaultProps = {};
 
 function Timeline(props) {
 	return (
