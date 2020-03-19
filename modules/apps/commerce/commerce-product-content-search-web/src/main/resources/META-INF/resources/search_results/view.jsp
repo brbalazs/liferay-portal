@@ -91,7 +91,7 @@ String orderByCol = cpSearchResultsDisplayContext.getOrderByCol();
 								.querySelector('#<%= renderResponse.getNamespace() + sortOption %>')
 								.addEventListener('click', function(e) {
 									e.preventDefault();
-									<%= renderResponse.getNamespace() + "changeOrderBy('" + sortOption + "');" %>
+									<%= renderResponse.getNamespace() + "changeOrderBy('" + sortOption + "');" %>;
 								});
 						</aui:script>
 
