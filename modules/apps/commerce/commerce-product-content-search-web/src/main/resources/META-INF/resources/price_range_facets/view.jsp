@@ -177,6 +177,6 @@ CPPriceRangeFacetsDisplayContext cpPriceRangeFacetsDisplayContext = (CPPriceRang
 			</liferay-ui:panel>
 		</liferay-ui:panel-container>
 
-		<aui:script use="liferay-search-facet-util"></aui:script>CPPriceRangeFacetsDisplayContext.java:110
+		<aui:script use="liferay-search-facet-util"></aui:script>
 	</c:otherwise>
 </c:choose>
