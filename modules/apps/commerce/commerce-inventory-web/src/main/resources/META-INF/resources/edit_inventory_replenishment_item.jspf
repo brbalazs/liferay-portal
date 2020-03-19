@@ -21,8 +21,12 @@
 
 <aui:model-context bean="<%= commerceInventoryReplenishmentItem %>" model="<%= CommerceInventoryReplenishmentItem.class %>" />
 
+<aui:input name="quantity" required="<%= true %>">
+	<aui:validator name="min">1</aui:validator>
+</aui:input>
+
 <c:if test="<%= commerceInventoryReplenishmentItem == null %>">
-	<aui:select label="warehouse" name="commerceInventoryWarehouseId" required="<%= true %>">
+	<aui:select label="destination" name="commerceInventoryWarehouseId" required="<%= true %>">
 
 		<%
 		List<CommerceInventoryWarehouse> commerceInventoryWarehouses = commerceInventoryDisplayContext.getCommerceInventoryWarehouses();
@@ -39,10 +43,6 @@
 	</aui:select>
 </c:if>
 
-<aui:input name="quantity" required="<%= true %>">
-	<aui:validator name="min">1</aui:validator>
-</aui:input>
-
 <%
 Calendar startCalendar;
 
@@ -56,6 +56,7 @@ else {
 }
 %>
 
+<label><liferay-ui:message key="expected-delivery-date" /></label>
 <liferay-ui:input-date
 	dayParam="dateDay"
 	dayValue="<%= startCalendar.get(Calendar.DATE) %>"

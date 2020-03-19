@@ -41,11 +41,11 @@ public class CommerceInventoryReplenishmentClayTableDataSetDisplayView
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
 		ClayTableSchemaField warehouseField = clayTableSchemaBuilder.addField(
-			"warehouse", "warehouse");
+			"warehouse", "destination");
 
 		warehouseField.setContentRenderer("actionLink");
 
-		clayTableSchemaBuilder.addField("date", "date");
+		clayTableSchemaBuilder.addField("date", "expected-delivery-date");
 
 		clayTableSchemaBuilder.addField("quantity", "quantity");
 

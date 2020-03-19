@@ -23,10 +23,10 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 <portlet:actionURL name="editCommerceInventoryWarehouseItem" var="editCommerceInventoryWarehouseItemActionURL" />
 
 <commerce-ui:side-panel-content
-	title='<%= LanguageUtil.get(request, "edit-warehouse") %>'
+	title='<%= LanguageUtil.get(request, "edit-inventory") %>'
 >
 	<commerce-ui:panel
-		title='<%= LanguageUtil.get(request, "edit-warehouse") %>'
+		title='<%= LanguageUtil.get(request, "details") %>'
 	>
 		<aui:form action="<%= editCommerceInventoryWarehouseItemActionURL %>" method="post" name="fm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
@@ -35,11 +35,11 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 
 			<aui:model-context bean="<%= commerceInventoryDisplayContext.getCommerceInventoryWarehouseItem() %>" model="<%= CommerceInventoryWarehouseItem.class %>" />
 
-			<aui:input name="quantity">
+			<aui:input label="quantity-on-hand" name="quantity">
 				<aui:validator name="min">1</aui:validator>
 			</aui:input>
 
-			<aui:input name="reservedQuantity">
+			<aui:input label="safety-stock-quantity" name="reservedQuantity">
 				<aui:validator name="min">0</aui:validator>
 			</aui:input>
 

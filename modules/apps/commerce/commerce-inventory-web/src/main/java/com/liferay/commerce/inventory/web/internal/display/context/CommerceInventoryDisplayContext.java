@@ -315,7 +315,7 @@ public class CommerceInventoryDisplayContext {
 				new ClayCreationMenuActionItem(
 					getAddQuantityActionURL(),
 					LanguageUtil.get(
-						_cpRequestHelper.getRequest(), "add-quantity"),
+						_cpRequestHelper.getRequest(), "add-inventory"),
 					ClayCreationMenuActionItem.
 						CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 
@@ -323,7 +323,7 @@ public class CommerceInventoryDisplayContext {
 				new ClayCreationMenuActionItem(
 					getTransferQuantitiesActionURL(),
 					LanguageUtil.get(
-						_cpRequestHelper.getRequest(), "transfer-quantity"),
+						_cpRequestHelper.getRequest(), "create-transfer"),
 					ClayCreationMenuActionItem.
 						CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}

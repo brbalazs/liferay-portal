@@ -75,8 +75,8 @@ public class CommerceInventoryReplenishmentDataSetDataProvider
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
-			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDate(
+			DateFormat.MEDIUM, themeDisplay.getLocale(),
 			themeDisplay.getTimeZone());
 
 		String sku = ParamUtil.getString(httpServletRequest, "sku");

@@ -34,10 +34,10 @@ CommerceInventoryReplenishmentItem commerceInventoryReplenishmentItem = commerce
 	</c:when>
 	<c:otherwise>
 		<commerce-ui:side-panel-content
-			title='<%= LanguageUtil.get(request, "edit-income") %>'
+			title='<%= LanguageUtil.get(request, "edit-incoming-quantity") %>'
 		>
 			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "edit-income") %>'
+				title='<%= LanguageUtil.get(request, "details") %>'
 			>
 				<aui:form action="<%= editCommerceInventoryReplenishmentItemActionURL %>" method="post" name="fm">
 					<%@ include file="/edit_inventory_replenishment_item.jspf" %>

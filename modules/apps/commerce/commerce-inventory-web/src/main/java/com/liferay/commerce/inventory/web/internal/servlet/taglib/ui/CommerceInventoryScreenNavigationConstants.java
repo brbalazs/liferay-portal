@@ -36,6 +36,6 @@ public class CommerceInventoryScreenNavigationConstants {
 
 	public static final String
 		SCREEN_NAVIGATION_KEY_COMMERCE_INVENTORY_WAREHOUSES =
-			"inventory-warehouses";
+			"inventory-overview";
 
 }

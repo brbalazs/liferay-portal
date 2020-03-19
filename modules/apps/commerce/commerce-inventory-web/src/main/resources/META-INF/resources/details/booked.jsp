@@ -26,7 +26,7 @@ contextParams.put("sku", commerceInventoryDisplayContext.getSku());
 
 <commerce-ui:panel
 	bodyClasses="p-0"
-	title='<%= LanguageUtil.get(request, "on-order-quantities") %>'
+	title='<%= LanguageUtil.get(request, "details") %>'
 >
 	<commerce-ui:dataset-display
 		contextParams="<%= contextParams %>"

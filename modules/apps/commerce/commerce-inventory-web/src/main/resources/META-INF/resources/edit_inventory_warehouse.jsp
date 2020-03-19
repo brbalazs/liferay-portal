@@ -23,7 +23,7 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 <portlet:actionURL name="editCommerceInventoryWarehouse" var="editCommerceInventoryWarehouseActionURL" />
 
 <commerce-ui:modal-content
-	title='<%= LanguageUtil.get(request, "add-quantity") %>'
+	title='<%= LanguageUtil.get(request, "add-inventory") %>'
 >
 	<aui:form action="<%= editCommerceInventoryWarehouseActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
@@ -31,6 +31,10 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 		<aui:input name="sku" type="hidden" value="<%= commerceInventoryDisplayContext.getSku() %>" />
 
 		<aui:model-context bean="<%= commerceInventoryDisplayContext.getCommerceInventoryWarehouseItem() %>" model="<%= CommerceInventoryWarehouseItem.class %>" />
+
+		<aui:input name="quantity" required="<%= true %>">
+			<aui:validator name="min">1</aui:validator>
+		</aui:input>
 
 		<aui:select label="warehouse" name="commerceInventoryWarehouseId" required="<%= true %>">
 
@@ -47,9 +51,5 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 			%>
 
 		</aui:select>
-
-		<aui:input name="quantity" required="<%= true %>">
-			<aui:validator name="min">1</aui:validator>
-		</aui:input>
 	</aui:form>
 </commerce-ui:modal-content>

@@ -22,11 +22,17 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 
 <portlet:actionURL name="transferQuantities" var="transferQuantitiesActionURL" />
 
-<commerce-ui:modal-content>
+<commerce-ui:modal-content
+	title='<%= LanguageUtil.get(request, "create-transfer") %>'
+>
 	<aui:form action="<%= transferQuantitiesActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.MOVE %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="sku" type="hidden" value="<%= commerceInventoryDisplayContext.getSku() %>" />
+
+		<aui:input label="quantity" name="quantity" required="<%= true %>" type="text">
+			<aui:validator name="min">1</aui:validator>
+		</aui:input>
 
 		<aui:select label="from-warehouse" name="fromCommerceInventoryWarehouseId" required="<%= true %>">
 
@@ -59,9 +65,5 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 			%>
 
 		</aui:select>
-
-		<aui:input label="quantity" name="quantity" required="<%= true %>" type="text">
-			<aui:validator name="min">1</aui:validator>
-		</aui:input>
 	</aui:form>
 </commerce-ui:modal-content>

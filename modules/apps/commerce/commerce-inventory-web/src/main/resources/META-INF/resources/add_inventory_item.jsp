@@ -29,6 +29,8 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 
 		<liferay-ui:error exception="<%= DuplicateCommerceInventoryWarehouseItemException.class %>" message="inventory-item-with-this-sku-already-exists-in-the-selected-warehouse" />
 
+		<aui:input name="sku" required="<%= true %>" type="text" />
+
 		<aui:select label="warehouse" name="commerceInventoryWarehouseId" required="<%= true %>">
 
 			<%
@@ -44,8 +46,6 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 			%>
 
 		</aui:select>
-
-		<aui:input name="sku" required="<%= true %>" type="text" />
 
 		<aui:input name="quantity" required="<%= true %>" type="text">
 			<aui:validator name="min">1</aui:validator>
