@@ -84,7 +84,7 @@ class AddOrCreateBase extends Component {
 	render() {
 		return (
 			<div
-				className={`card add-or-create ${
+				className={`card mb-0 add-or-create ${
 					this.state.focus ? 'has-focus' : ''
 				}`}
 				onFocus={e => this.handleFocusIn(e)}
@@ -124,95 +124,108 @@ class AddOrCreateBase extends Component {
 						</div>
 					</div>
 				</div>
-				{this.props.active && (
-					<div className="card-body">
-						<ClayList>
-							{this.props.inputSearchValue && (
-								<>
-									<ClayList.Header>
-										{this.props.createNewItemLabel}
-									</ClayList.Header>
-									<ClayList.Item
-										className={classNames(
-											'py-3',
-											this.props.items &&
-												this.props.items.length &&
-												'border-bottom mb-3'
-										)}
-										flex
-									>
-										<ClayList.ItemField expand>
-											<ClayList.ItemTitle>
-												&quot;
-												{this.props.inputSearchValue}
-												&quot;
-											</ClayList.ItemTitle>
-										</ClayList.ItemField>
-
-										<ClayList.ItemField>
-											<ClayButton
-												onClick={
-													this.props.onItemCreated
-												}
-												small
-											>
-												{Liferay.Language.get(
-													'create-new'
-												)}
-											</ClayButton>
-										</ClayList.ItemField>
-									</ClayList.Item>
-								</>
-							)}
-
-							{this.props.items && this.props.items.length ? (
-								<>
-									<ClayList.Header>
-										{this.props.titleLabel}
-									</ClayList.Header>
-									{this.props.items.map((item, i) => (
-										<Item
+				{this.props.active &&
+					(this.props.inputSearchValue ||
+						(this.props.items && this.props.items.length)) && (
+						<div className="card-body">
+							<ClayList>
+								{this.props.inputSearchValue && (
+									<>
+										<ClayList.Header>
+											{this.props.createNewItemLabel}
+										</ClayList.Header>
+										<ClayList.Item
 											className={classNames(
-												i !==
-													this.props.items.length -
-														1 && 'border-bottom'
+												'py-3',
+												this.props.items &&
+													this.props.items.length &&
+													'border-bottom mb-3'
 											)}
-											key={item[this.props.itemsKey] || i}
-											onSelect={() =>
-												this.props.onItemSelected(
+											flex
+										>
+											<ClayList.ItemField expand>
+												<ClayList.ItemTitle>
+													&quot;
+													{
+														this.props
+															.inputSearchValue
+													}
+													&quot;
+												</ClayList.ItemTitle>
+											</ClayList.ItemField>
+
+											<ClayList.ItemField>
+												<ClayButton
+													onClick={
+														this.props.onItemCreated
+													}
+													small
+												>
+													{Liferay.Language.get(
+														'create-new'
+													)}
+												</ClayButton>
+											</ClayList.ItemField>
+										</ClayList.Item>
+									</>
+								)}
+
+								{this.props.items && this.props.items.length ? (
+									<>
+										<ClayList.Header>
+											{this.props.titleLabel}
+										</ClayList.Header>
+										{this.props.items.map((item, i) => (
+											<Item
+												className={classNames(
+													i !==
+														this.props.items
+															.length -
+															1 && 'border-bottom'
+												)}
+												key={
+													item[this.props.itemsKey] ||
+													i
+												}
+												onSelect={() =>
+													this.props.onItemSelected(
+														item[
+															this.props.itemsKey
+														]
+													)
+												}
+												selected={this.props.selectedItems.includes(
 													item[this.props.itemsKey]
-												)
+												)}
+												title={getSchemaString(
+													item,
+													this.props.schema.itemTitle
+												)}
+											/>
+										))}
+										<ClayPaginationBarWithBasicItems
+											activeDelta={this.props.pageSize}
+											activePage={this.props.currentPage}
+											className="mt-3"
+											deltas={this.props.deltas}
+											ellipsisBuffer={3}
+											onDeltaChange={deltaVal => {
+												this.props.updateCurrentPage(1);
+												this.props.updatePageSize(
+													deltaVal
+												);
+											}}
+											onPageChange={
+												this.props.updateCurrentPage
 											}
-											selected={this.props.selectedItems.includes(
-												item[this.props.itemsKey]
-											)}
-											title={getSchemaString(
-												item,
-												this.props.schema.itemTitle
-											)}
+											spritemap={this.props.spritemap}
+											totalItems={this.props.itemsCount}
 										/>
-									))}
-									<ClayPaginationBarWithBasicItems
-										activeDelta={this.props.pageSize}
-										activePage={this.props.currentPage}
-										className="mt-3"
-										deltas={this.props.deltas}
-										ellipsisBuffer={3}
-										onDeltaChange={deltaVal => {
-											this.props.updateCurrentPage(1);
-											this.props.updatePageSize(deltaVal);
-										}}
-										onPageChange={
-											this.props.updateCurrentPage
-										}
-										spritemap={this.props.spritemap}
-										totalItems={this.props.itemsCount}
-									/>
-								</>
-							) : null}
-						</ClayList>
-					</div>
-				)}
+									</>
+								) : null}
+							</ClayList>
+						</div>
+					)}
 			</div>
 		);
 	}

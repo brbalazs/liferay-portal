@@ -53,7 +53,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 							}
 						]),
 						credentials: 'include',
-						headers,
+						headers: headers,
 						method: 'POST'
 					}
 				).then(function() {
@@ -75,7 +75,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 						}
 					}),
 					credentials: 'include',
-					headers,
+					headers: headers,
 					method: 'POST'
 				})
 					.then(function(response) {
@@ -91,7 +91,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 						'/productOptions/',
 					{
 						credentials: 'include',
-						headers
+						headers: headers
 					}
 				)
 					.then(function(response) {
@@ -109,7 +109,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				createNewItemLabel: '<%= LanguageUtil.get(request, "create-new") %>',
 				getSelectedItems: getSelectedItems,
 				inputPlaceholder:
-					'<%= LanguageUtil.get(request, "find-an-option-or-create-one") %>',
+					'<%= LanguageUtil.get(request, "find-or-create-an-option") %>',
 				itemsKey: 'id',
 				linkedDatasetsId: [
 					'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'

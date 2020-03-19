@@ -215,7 +215,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 									}
 								}),
 								credentials: 'include',
-								headers,
+								headers: headers,
 								method: 'POST'
 							}
 						).then(function() {
@@ -236,7 +236,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 								}
 							}),
 							credentials: 'include',
-							headers,
+							headers: headers,
 							method: 'POST'
 						})
 							.then(function(response) {
@@ -252,7 +252,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 								'/productSpecifications/',
 							{
 								credentials: 'include',
-								headers
+								headers: headers
 							}
 						)
 							.then(function(response) {
@@ -271,7 +271,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 							'<%= LanguageUtil.get(request, "create-new-specification") %>',
 						getSelectedItems: getSelectedItems,
 						inputPlaceholder:
-							'<%= LanguageUtil.get(request, "find-a-specification-or-create-one") %>',
+							'<%= LanguageUtil.get(request, "find-or-create-a-specification") %>',
 						itemsKey: 'id',
 						linkedDatasetsId: [
 							'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
@@ -279,7 +279,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						onItemCreated: addNewItem,
 						onItemSelected: selectItem,
 						pageSize: 10,
-						panelHeaderLabel: '<%= LanguageUtil.get(request, "add-specification") %>',
+						panelHeaderLabel: '<%= LanguageUtil.get(request, "add-specifications") %>',
 						schema: {
 							itemTitle: ['title', themeDisplay.getLanguageId()]
 						},

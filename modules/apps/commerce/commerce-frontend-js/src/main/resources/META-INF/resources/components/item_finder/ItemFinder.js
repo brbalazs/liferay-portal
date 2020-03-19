@@ -36,7 +36,11 @@ function ItemFinder(props) {
 		}
 
 		fetch(
-			`${props.apiUrl}?pageSize=${pageSize}&page=${currentPage}&search=${textFilter}`,
+			`${
+				props.apiUrl
+			}?pageSize=${pageSize}&page=${currentPage}&search=${encodeURIComponent(
+				textFilter
+			)}`,
 			{
 				credentials: 'include',
 				headers: new Headers({

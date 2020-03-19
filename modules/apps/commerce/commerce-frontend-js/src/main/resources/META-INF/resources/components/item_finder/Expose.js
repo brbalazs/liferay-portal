@@ -34,7 +34,7 @@ export default function Expose({active, children, onClose}) {
 
 	return (
 		<div
-			className={`expose ${active ? 'is-open' : 'is-closed'}`}
+			className={`expose mb-4 ${active ? 'is-open' : 'is-closed'}`}
 			style={active ? {height} : {}}
 		>
 			<div className="expose__backdrop" onClick={onClose} />
