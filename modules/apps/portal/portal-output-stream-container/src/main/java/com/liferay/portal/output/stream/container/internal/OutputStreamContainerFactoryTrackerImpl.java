@@ -53,6 +53,10 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 public class OutputStreamContainerFactoryTrackerImpl
 	implements OutputStreamContainerFactoryTracker {
 
+	public OutputStreamContainerFactory getDummyOutputStreamContainerFactory() {
+		return _dummyOutputStreamContainerFactory;
+	}
+
 	@Override
 	public OutputStreamContainerFactory getOutputStreamContainerFactory() {
 		OutputStreamContainerFactory outputStreamContainerFactory =
@@ -196,6 +200,9 @@ public class OutputStreamContainerFactoryTrackerImpl
 	private final OutputStreamContainerFactory
 		_consoleOutputStreamContainerFactory =
 			new ConsoleOutputStreamContainerFactory();
+	private final OutputStreamContainerFactory
+		_dummyOutputStreamContainerFactory =
+			new DummyOutputStreamContainerFactory();
 	private org.apache.felix.utils.log.Logger _logger;
 	private ServiceTrackerMap<String, OutputStreamContainerFactory>
 		_outputStreamContainerFactories;
