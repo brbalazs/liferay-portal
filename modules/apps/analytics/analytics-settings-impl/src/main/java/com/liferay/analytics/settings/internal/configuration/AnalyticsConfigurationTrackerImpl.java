@@ -156,6 +156,10 @@ public class AnalyticsConfigurationTrackerImpl
 	public Dictionary<String, Object> getAnalyticsConfigurationProperties(
 		long companyId) {
 
+		if (!isActive()) {
+			return null;
+		}
+
 		ObjectValuePair<Configuration, AnalyticsConfiguration> objectValuePair =
 			_analyticsConfigurations.get(companyId);
 
