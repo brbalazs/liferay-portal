@@ -24,6 +24,8 @@ import {
 } from '../../utilities/eventsDefinitions.es';
 import {isPageInIframe} from '../../utilities/iframes.es';
 import {liferayNavigate} from '../../utilities/index.es';
+import {resolveModalHeight} from '../../utilities/modals/index';
+import {INITIAL_MODAL_SIZE} from '../../utilities/modals/constants';
 
 function Modal(props) {
 	const [visible, setVisible] = useState(false);
@@ -32,6 +34,7 @@ function Modal(props) {
 	const [iframeLoadingCounter, setIframeLoadingCounter] = useState(0);
 	const [title, setTitle] = useState(props.title);
 	const [url, setUrl] = useState(props.url);
+	const [size, setSize] = useState(INITIAL_MODAL_SIZE);
 	const iframeRef = useRef(null);
 
 	function cleanUpModal() {
@@ -79,6 +82,15 @@ function Modal(props) {
 
 			if (data.title) {
 				setTitle(data.title);
+			}
+
+			/**
+			 * Based on ClayModal specs, the default size of a modal is 'null'.
+			 * Our initial modal size is 'lg'. If the input size is undefined,
+			 * the initial size won't be altered.
+			 */
+			if (data.size !== INITIAL_MODAL_SIZE && data.size !== undefined) {
+				setSize(data.size);
 			}
 		}
 
@@ -142,32 +154,36 @@ function Modal(props) {
 		}
 	}
 
-	return visible ? (
-		<ClayModal
-			observer={observer}
-			size="lg"
-			spritemap={props.spritemap}
-			status={props.status}
-		>
-			{title && <ClayModal.Header>{title}</ClayModal.Header>}
-			<div
-				className="modal-body modal-body-iframe"
-				style={{height: '450px', maxHeight: '100%'}}
-			>
-				<iframe
-					onLoad={handleIframeLoad}
-					ref={iframeRef}
-					src={url}
-					title={title}
-				/>
-				{loading && (
-					<div className="loader-container">
-						<ClayLoadingIndicator />
+	return (
+		<>
+			{visible && (
+				<ClayModal
+					observer={observer}
+					size={size}
+					spritemap={props.spritemap}
+					status={props.status}
+				>
+					{title && <ClayModal.Header>{title}</ClayModal.Header>}
+					<div
+						className="modal-body modal-body-iframe"
+						style={{height: resolveModalHeight(size), maxHeight: '100%'}}
+					>
+						<iframe
+							onLoad={handleIframeLoad}
+							ref={iframeRef}
+							src={url}
+							title={title}
+						/>
+						{loading && (
+							<div className="loader-container">
+								<ClayLoadingIndicator />
+							</div>
+						)}
 					</div>
-				)}
-			</div>
-		</ClayModal>
-	) : null;
+				</ClayModal>
+			)}
+		</>
+	);
 }
 
 Modal.propTypes = {

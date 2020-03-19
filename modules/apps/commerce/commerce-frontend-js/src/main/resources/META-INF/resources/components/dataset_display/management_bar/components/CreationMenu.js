@@ -17,46 +17,15 @@ import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React, {useState, useContext} from 'react';
 
-import {
-	OPEN_MODAL,
-	OPEN_SIDE_PANEL
-} from '../../../../utilities/eventsDefinitions.es';
+import { triggerAction } from '../../../../utilities/actionItems/index';
+import { ACTION_ITEM_TARGETS } from '../../../../utilities/actionItems/constants';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es';
 
 function CreationMenu(props) {
 	const [active, setActive] = useState(false);
 	const datasetContext = useContext(DatasetDisplayContext);
 
-	function executeAction(i) {
-		const clickedItem = props.items[i];
-
-		switch (clickedItem.target) {
-			case 'modal':
-				Liferay.fire(OPEN_MODAL, {
-					id: datasetContext.modalId,
-					onClose: datasetContext.loadData,
-					url: clickedItem.href
-				});
-				break;
-			case 'sidePanel':
-				Liferay.fire(OPEN_SIDE_PANEL, {
-					id: datasetContext.sidePanelId,
-					onAfterSubmit: datasetContext.loadData,
-					url: clickedItem.href
-				});
-				break;
-			case 'event':
-				Liferay.fire(clickedItem.href);
-				break;
-			default:
-				window.location.href = clickedItem.href;
-				break;
-		}
-	}
-
-	if (!props.items || !props.items.length) return;
-
-	return (
+	return (props.items && props.items.length && (
 		<ul className="navbar-nav">
 			<li className="nav-item">
 				{props.items.length > 1 ? (
@@ -72,11 +41,11 @@ function CreationMenu(props) {
 									key={i}
 									onClick={
 										item.target &&
-										item.target !== 'link' &&
+										item.target !== ACTION_ITEM_TARGETS.LINK &&
 										(e => {
 											e.preventDefault();
 											setActive(false);
-											executeAction(i);
+											triggerAction(item, datasetContext);
 										})
 									}
 								>
@@ -87,13 +56,14 @@ function CreationMenu(props) {
 					</ClayDropDown>
 				) : (
 					<ClayButtonWithIcon
-						onClick={() => executeAction(0)}
+						onClick={() =>
+							triggerAction(props.items[0], datasetContext)}
 						symbol="plus"
 					/>
 				)}
 			</li>
 		</ul>
-	);
+	));
 }
 
 CreationMenu.propTypes = {

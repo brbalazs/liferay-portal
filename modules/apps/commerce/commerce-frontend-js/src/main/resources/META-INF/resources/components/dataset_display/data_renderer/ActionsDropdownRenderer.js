@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
 
 import {formatActionUrl} from '../../../utilities/index.es';
+import {resolveModalSize} from '../../../utilities/modals/index';
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
 
 function isNotALink(target, onClick) {
@@ -75,9 +76,9 @@ function ActionsDropdownRenderer(props) {
 	const [loading, setLoading] = useState(false);
 
 	function handleAction({method, onClick, size, target, title, url}) {
-		if (target === 'modal') {
+		if (target.includes('modal')) {
 			openModal({
-				size: size || 'lg',
+				size: resolveModalSize(target),
 				title,
 				url
 			});
