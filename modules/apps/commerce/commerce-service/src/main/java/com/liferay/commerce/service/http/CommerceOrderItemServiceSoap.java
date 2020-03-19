@@ -378,6 +378,23 @@ public class CommerceOrderItemServiceSoap {
 		}
 	}
 
+	public static int countSubscriptionCommerceOrderItems(long commerceOrderId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceOrderItemServiceUtil.
+					countSubscriptionCommerceOrderItems(commerceOrderId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.model.CommerceOrderItemSoap
 			updateCommerceOrderItem(
 				long commerceOrderItemId, int quantity,

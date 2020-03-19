@@ -78,6 +78,13 @@ public class CommerceOrderItemServiceUtil {
 			commerceContext, serviceContext);
 	}
 
+	public static int countSubscriptionCommerceOrderItems(long commerceOrderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().countSubscriptionCommerceOrderItems(
+			commerceOrderId);
+	}
+
 	public static void deleteCommerceOrderItem(long commerceOrderItemId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

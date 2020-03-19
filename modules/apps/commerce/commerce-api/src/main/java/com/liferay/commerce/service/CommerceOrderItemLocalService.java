@@ -107,6 +107,8 @@ public interface CommerceOrderItemLocalService
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public int countSubscriptionCommerceOrderItems(long commerceOrderId);
+
 	/**
 	 * Creates a new commerce order item with the primary key. Does not add the commerce order item to the database.
 	 *

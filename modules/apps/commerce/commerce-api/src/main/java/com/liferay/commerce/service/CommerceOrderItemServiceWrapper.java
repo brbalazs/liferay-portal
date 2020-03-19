@@ -75,6 +75,14 @@ public class CommerceOrderItemServiceWrapper
 	}
 
 	@Override
+	public int countSubscriptionCommerceOrderItems(long commerceOrderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItemService.countSubscriptionCommerceOrderItems(
+			commerceOrderId);
+	}
+
+	@Override
 	public void deleteCommerceOrderItem(long commerceOrderItemId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

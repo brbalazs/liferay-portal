@@ -92,6 +92,9 @@ public interface CommerceOrderItemService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public int countSubscriptionCommerceOrderItems(long commerceOrderId)
+		throws PortalException;
+
 	public void deleteCommerceOrderItem(long commerceOrderItemId)
 		throws PortalException;
 
