@@ -289,7 +289,7 @@ public class ReleaseManagerOSGiCommands {
 					_upgradeExecutor.execute(
 						bundleSymbolicName, upgradeSteps,
 						OutputStreamContainerConstants.
-							DUMMY_OUTPUT_STREAM_CONTAINER_FACTORY_NAME);
+							FACTORY_NAME_DUMMY);
 				}
 
 				bundleSymbolicNames = _serviceTrackerMap.keySet();
