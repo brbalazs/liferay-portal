@@ -212,6 +212,9 @@ public class AnalyticsConfigurationTrackerImpl
 		if (!_active && _hasConfiguration()) {
 			_active = true;
 		}
+		else if (_active && !_hasConfiguration()) {
+			_active = false;
+		}
 
 		return _active;
 	}
