@@ -96,7 +96,7 @@ public class CPDefinitionOptionRelDisplayContext
 			new ClayCreationMenuActionItem(
 				portletURL.toString(),
 				LanguageUtil.get(cpRequestHelper.getRequest(), "add-value"),
-				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE));
 
 		return clayCreationMenu;
 	}

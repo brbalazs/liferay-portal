@@ -63,7 +63,7 @@ public class CPInstanceCommerceTierPriceEntryDisplayContext
 		clayCreationMenu.addClayCreationMenuActionItem(
 			new ClayCreationMenuActionItem(
 				_getAddCommerceTierPriceEntryURL(), StringPool.BLANK,
-				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE));
 
 		return clayCreationMenu;
 	}

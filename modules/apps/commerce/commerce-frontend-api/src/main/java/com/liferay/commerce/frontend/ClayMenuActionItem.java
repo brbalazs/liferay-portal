@@ -27,6 +27,12 @@ public class ClayMenuActionItem {
 
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL = "modal";
 
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL_FULL_SCREEN = "modal-full-screen";
+
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE = "modal-lg";
+
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL_SMALL = "modal-sm";
+
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL =
 		"sidePanel";
 

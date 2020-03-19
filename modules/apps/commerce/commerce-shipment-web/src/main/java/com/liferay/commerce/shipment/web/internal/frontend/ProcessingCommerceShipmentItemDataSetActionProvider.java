@@ -18,6 +18,7 @@ import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.frontend.model.ShipmentItem;
@@ -93,7 +94,8 @@ public class ProcessingCommerceShipmentItemDataSetActionProvider
 				StringPool.BLANK, LanguageUtil.get(httpServletRequest, "edit"),
 				StringPool.BLANK, false, false);
 
-			editClayDataSetAction.setTarget("sidePanel");
+			editClayDataSetAction.setTarget(
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL);
 
 			clayDataSetActions.add(editClayDataSetAction);
 
@@ -105,7 +107,8 @@ public class ProcessingCommerceShipmentItemDataSetActionProvider
 				LanguageUtil.get(httpServletRequest, "delete"),
 				StringPool.BLANK, false, false);
 
-			deleteClayDataSetAction.setTarget("modal");
+			deleteClayDataSetAction.setTarget(
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL);
 
 			clayDataSetActions.add(deleteClayDataSetAction);
 		}

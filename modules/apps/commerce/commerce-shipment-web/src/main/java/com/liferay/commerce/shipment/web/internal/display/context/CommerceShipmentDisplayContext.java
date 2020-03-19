@@ -332,7 +332,7 @@ public class CommerceShipmentDisplayContext
 					portletURL.toString(),
 					LanguageUtil.get(
 						httpServletRequest, "add-products-to-this-shipment"),
-					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
+					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE));
 		}
 
 		return clayCreationMenu;

@@ -184,7 +184,7 @@ public class CommerceChannelDisplayContext
 			clayCreationMenu.addClayCreationMenuActionItem(
 				getAddChannelURL(),
 				LanguageUtil.get(httpServletRequest, "add-channel"),
-				ClayCreationMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL);
+				ClayCreationMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE);
 		}
 
 		return clayCreationMenu;
