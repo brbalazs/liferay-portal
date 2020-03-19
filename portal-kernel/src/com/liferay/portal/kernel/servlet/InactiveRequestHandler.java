@@ -27,7 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 @ProviderType
 public interface InactiveRequestHandler {
 
-	public boolean isShowInactiveRequestMessageEnabled();
+	public default boolean isShowInactiveRequestMessageEnabled() {
+		return false;
+	}
 
 	public void processInactiveRequest(
 			HttpServletRequest request, HttpServletResponse response,
