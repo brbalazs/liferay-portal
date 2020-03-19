@@ -273,11 +273,12 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 								}
 
 								String actionId = Validator.isNotNull(action.getId()) ? action.getId() : "header-action" + StringPool.UNDERLINE + PortalUtil.generateRandomKey(request, "taglib_step_tracker");
+								String actionHref = Validator.isNotNull(action.getHref()) ? action.getHref() : "#";
 							%>
 
 								<clay:link
 									elementClasses="<%= buttonClasses %>"
-									href="<%= action.getHref() %>"
+									href="<%= actionHref %>"
 									id="<%= actionId %>"
 									label="<%= LanguageUtil.get(request, action.getLabel()) %>"
 								/>
