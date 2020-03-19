@@ -935,7 +935,7 @@ public class CPDefinitionsImporter {
 					commerceAvailabilityEstimate.getTitle(
 						LocaleUtil.getSiteDefault()))) {
 
-				_cpdAvailabilityEstimateLocalService.
+				return _cpdAvailabilityEstimateLocalService.
 					updateCPDAvailabilityEstimateByCProductId(
 						0, cProductId,
 						commerceAvailabilityEstimate.
