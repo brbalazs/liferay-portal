@@ -468,9 +468,7 @@ public class VerifyProcessTrackerOSGiCommands {
 
 			_execute(
 				verifyProcessTrackerMap, key,
-				OutputStreamContainerConstants.
-					FACTORY_NAME_DUMMY,
-				false);
+				OutputStreamContainerConstants.FACTORY_NAME_DUMMY, false);
 		}
 
 		@Override

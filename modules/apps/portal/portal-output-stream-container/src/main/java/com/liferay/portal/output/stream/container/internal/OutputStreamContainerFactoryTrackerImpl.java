@@ -192,9 +192,7 @@ public class OutputStreamContainerFactoryTrackerImpl
 				new ConsoleOutputStreamContainerFactory(), dictionary));
 
 		dictionary.put(
-			"name",
-			OutputStreamContainerConstants.
-				FACTORY_NAME_DUMMY);
+			"name", OutputStreamContainerConstants.FACTORY_NAME_DUMMY);
 		dictionary.put("service.ranking:Integer", "-100");
 
 		_serviceRegistrations.add(
