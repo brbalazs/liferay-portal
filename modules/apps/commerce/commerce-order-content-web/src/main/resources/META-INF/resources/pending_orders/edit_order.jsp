@@ -178,7 +178,7 @@ List<CommerceAddress> billingAddresses = commerceOrderContentDisplayContext.getB
 							<c:choose>
 								<c:when test="<%= commerceOrderContentDisplayContext.hasModelPermission(commerceOrder, ActionKeys.UPDATE) %>">
 									<dl class="commerce-list">
-										<aui:select cssClass="commerce-input" inlineField="<%= true %>" label="" name="billingAddressId" wrappedField="<%= false %>">
+										<aui:select cssClass="commerce-input" inlineField="<%= true %>" label="" name="billingAddressId" showEmptyOption="<%= true %>" wrappedField="<%= false %>">
 
 											<%
 											for (CommerceAddress commerceAddress : billingAddresses) {
@@ -215,7 +215,7 @@ List<CommerceAddress> billingAddresses = commerceOrderContentDisplayContext.getB
 							<c:choose>
 								<c:when test="<%= commerceOrderContentDisplayContext.hasModelPermission(commerceOrder, ActionKeys.UPDATE) %>">
 									<dl class="commerce-list">
-										<aui:select cssClass="commerce-input" inlineField="<%= true %>" label="" name="shippingAddressId" wrappedField="<%= false %>">
+										<aui:select cssClass="commerce-input" inlineField="<%= true %>" label="" name="shippingAddressId" showEmptyOption="<%= true %>" wrappedField="<%= false %>">
 
 											<%
 											for (CommerceAddress commerceAddress : shippingAddresses) {
