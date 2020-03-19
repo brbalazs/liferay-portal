@@ -34,8 +34,15 @@
 	}
 }
 
-.commerce-order-by {
+.btn.commerce-order-by.dropdown-toggle {
 	background-color: #fff;
-	font-size: 18px;
+	border: 1px solid lightgrey;
+	font-size: 12px;
+	font-weight: bold;
 	line-height: 18px;
+	text-transform: none;
+
+	span {
+		font-weight: normal;
+	}
 }

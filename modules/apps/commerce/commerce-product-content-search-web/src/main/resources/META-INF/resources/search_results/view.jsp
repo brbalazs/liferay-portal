@@ -61,14 +61,45 @@ String orderByCol = cpSearchResultsDisplayContext.getOrderByCol();
 					<liferay-ui:message arguments="<%= cpCatalogEntrySearchContainer.getTotal() %>" key="x-products-available" />
 				</p>
 
-				<aui:select cssClass="commerce-order-by" label="<%= StringPool.BLANK %>" name="orderBy" onChange='<%= renderResponse.getNamespace() + "changeOrderBy();" %>' wrapperCssClass="mb-0">
-					<aui:option label="sort-by" selected="<%= orderByCol.equals(StringPool.BLANK) %>" value="<%= null %>" />
-					<aui:option label="price-low-to-high" selected='<%= orderByCol.equals("price-low-to-high") %>' value="price-low-to-high" />
-					<aui:option label="price-high-to-low" selected='<%= orderByCol.equals("price-high-to-low") %>' value="price-high-to-low" />
-					<aui:option label="new-items" selected='<%= orderByCol.equals("new-items") %>' value="new-items" />
-					<aui:option label="name-ascending" selected='<%= orderByCol.equals("name-ascending") %>' value="name-ascending" />
-					<aui:option label="name-descending" selected='<%= orderByCol.equals("name-descending") %>' value="name-descending" />
-				</aui:select>
+				<button aria-expanded="false" aria-haspopup="true" class="btn btn-default commerce-order-by dropdown-toggle" data-toggle="dropdown" type="button">
+					<liferay-ui:message key="sort-by" />:
+					<span class="ml-1">
+						<liferay-ui:message key="<%= orderByCol %>" />
+					</span>
+
+					<aui:icon image="caret-double-l" markupView="lexicon" />
+				</button>
+
+				<div class="dropdown-menu dropdown-menu-right">
+
+					<%
+					String[] sortOptions = {"relevance", "price-low-to-high", "price-high-to-low", "new-items", "name-ascending", "name-descending"};
+
+					for (String sortOption : sortOptions) {
+					%>
+
+						<clay:link
+							elementClasses="dropdown-item transition-link"
+							href="#"
+							id="<%= renderResponse.getNamespace() + sortOption %>"
+							label="<%= LanguageUtil.get(request, sortOption) %>"
+							style="secondary"
+						/>
+
+						<aui:script>
+							document
+								.querySelector('#<%= renderResponse.getNamespace() + sortOption %>')
+								.addEventListener('click', function(e) {
+									e.preventDefault();
+									<%= renderResponse.getNamespace() + "changeOrderBy('" + sortOption + "');" %>
+								});
+						</aui:script>
+
+					<%
+					}
+					%>
+
+				</div>
 			</div>
 		</div>
 
@@ -95,16 +126,10 @@ String orderByCol = cpSearchResultsDisplayContext.getOrderByCol();
 	Liferay.provide(
 		window,
 		'<portlet:namespace />changeOrderBy',
-		function() {
+		function(orderBy) {
 			var portletURL = new Liferay.PortletURL.createURL(
 				'<%= themeDisplay.getURLCurrent() %>'
 			);
-
-			var orderBySelect = document.getElementById(
-				'<portlet:namespace />orderBy'
-			);
-
-			var orderBy = orderBySelect.options[orderBySelect.selectedIndex].value;
 
 			portletURL.setParameter('orderByCol', orderBy);
 			portletURL.setPortletId('<%= portletDisplay.getId() %>');
