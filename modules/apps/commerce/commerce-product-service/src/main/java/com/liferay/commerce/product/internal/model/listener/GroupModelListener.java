@@ -40,12 +40,14 @@ public class GroupModelListener extends BaseModelListener<Group> {
 				_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
 					group.getGroupId());
 
-			_commerceChannelLocalService.updateCommerceChannel(
-				commerceChannel.getCommerceChannelId(),
-				GroupConstants.DEFAULT_PARENT_GROUP_ID,
-				commerceChannel.getName(), commerceChannel.getType(),
-				commerceChannel.getTypeSettingsProperties(),
-				commerceChannel.getCommerceCurrencyCode());
+			if (commerceChannel != null) {
+				_commerceChannelLocalService.updateCommerceChannel(
+					commerceChannel.getCommerceChannelId(),
+					GroupConstants.DEFAULT_PARENT_GROUP_ID,
+					commerceChannel.getName(), commerceChannel.getType(),
+					commerceChannel.getTypeSettingsProperties(),
+					commerceChannel.getCommerceCurrencyCode());
+			}
 		}
 		catch (PortalException pe) {
 			if (_log.isWarnEnabled()) {
