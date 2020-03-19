@@ -24,8 +24,8 @@ public class SearchItemModel {
 		_title = title;
 	}
 
-	public String getIconId() {
-		return _iconId;
+	public String getIcon() {
+		return _icon;
 	}
 
 	public String getImage() {
@@ -52,8 +52,8 @@ public class SearchItemModel {
 		return _url;
 	}
 
-	public void setIconId(String iconId) {
-		_iconId = iconId;
+	public void setIcon(String icon) {
+		_icon = icon;
 	}
 
 	public void setImage(String image) {
@@ -72,7 +72,7 @@ public class SearchItemModel {
 		_url = url;
 	}
 
-	private String _iconId;
+	private String _icon;
 	private String _image;
 	private String _subtitle;
 	private String _thumbnailUrl;

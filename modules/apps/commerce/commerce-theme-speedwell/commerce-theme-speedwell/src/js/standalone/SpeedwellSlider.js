@@ -12,12 +12,7 @@
  * details.
  */
 
-function showNotification(
-	message,
-	type,
-	closeable = true,
-	duration = 500
-) {
+function showNotification(message, type, closeable = true, duration = 500) {
 	if (!window.AUI) {
 		return;
 	}
@@ -199,8 +194,8 @@ SpeedwellSlider.prototype = {
 			.then(this.setupSliders.bind(this))
 			.then(this.attachListeners.bind(this))
 			.catch(e => {
-				const errorMessage = `Request code: ${e.statusCode.toString()}`
-									 || 'API error';
+				const errorMessage =
+					`Request code: ${e.statusCode.toString()}` || 'API error';
 
 				showNotification(errorMessage, 'danger');
 			});

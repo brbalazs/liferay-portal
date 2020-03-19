@@ -7,8 +7,7 @@
 	position: fixed;
 	right: 0;
 	top: $liferay-topbar-height;
-	transition: background-color 0.2s $easeOutQuart,
-				margin 500ms ease;
+	transition: background-color 0.2s $easeOutQuart, margin 500ms ease;
 	z-index: 988;
 
 	@media screen and (max-width: $bp-xsmall) {

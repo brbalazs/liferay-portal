@@ -233,7 +233,7 @@ public class CommerceSearchResource {
 			SearchItemModel searchItemModel = new SearchItemModel(
 				"item", HtmlUtil.escape(String.valueOf(order.getId())));
 
-			searchItemModel.setIconId("pending-orders");
+			searchItemModel.setIcon("document");
 
 			searchItemModel.setSubtitle(order.getAccountName());
 
