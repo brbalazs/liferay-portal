@@ -72,17 +72,14 @@ import org.osgi.service.component.annotations.Reference;
 public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 
 	@Override
-	public int count(
+	public long searchCount(
 		long groupId, SearchContext searchContext, CPQuery cpQuery)
 		throws PortalException {
 
 		CPDefinitionSearcher cpDefinitionSearcher = _getCPDefinitionSearcher(
-			groupId, searchContext, cpQuery, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS);
+			groupId, searchContext, cpQuery, 0, 0);
 
-		Hits hits = cpDefinitionSearcher.search(searchContext);
-
-		return hits.getLength();
+		return cpDefinitionSearcher.searchCount(searchContext);
 	}
 
 	@Override

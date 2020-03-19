@@ -33,7 +33,7 @@ import java.util.Locale;
 @ProviderType
 public interface CPDefinitionHelper {
 
-	public int count(
+	public long searchCount(
 			long groupId, SearchContext searchContext, CPQuery cpQuery)
 		throws PortalException;
 

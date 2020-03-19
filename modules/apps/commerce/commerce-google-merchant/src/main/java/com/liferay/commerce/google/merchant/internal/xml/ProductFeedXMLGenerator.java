@@ -41,6 +41,7 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.util.DateUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.TimeZoneUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -151,8 +152,9 @@ public class ProductFeedXMLGenerator {
 
 		SearchContext searchContext = _getSearchContext(commerceChannel);
 
-		return _cpDefinitionHelper.count(
-			commerceChannelGroupId, searchContext, new CPQuery());
+		return GetterUtil.getInteger(
+			_cpDefinitionHelper.searchCount(
+				commerceChannelGroupId, searchContext, new CPQuery()));
 	}
 
 	private List<CPCatalogEntry> _getCPCatalogEntriesByChannel(
