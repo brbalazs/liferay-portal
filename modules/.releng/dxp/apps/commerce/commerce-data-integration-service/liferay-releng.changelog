@@ -37,3 +37,8 @@ b24a85251f9081e54ee66ed50aa53b7dd9abfb61^..48473b8e438dddef95cd2617f2ca5e68e68e2
 # Bundle Version 2.0.11
 #
 48473b8e438dddef95cd2617f2ca5e68e68e2ed1^..f2ebdeca58c3cfa2a3a7394a1452a67cfbeff4a3=COMMERCE-2952
+
+#
+# Bundle Version 2.0.12
+#
+f2ebdeca58c3cfa2a3a7394a1452a67cfbeff4a3^..eb459c9f2d42c5acb71c2f9cb7d06f12a7e07bb2=COMMERCE-2952 LPS-108120 LPS-109812 LPS-110419
