@@ -23,7 +23,7 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 <portlet:actionURL name="transferQuantities" var="transferQuantitiesActionURL" />
 
 <commerce-ui:modal-content
-	title='<%= LanguageUtil.get(request, "create-transfer") %>'
+	title='<%= LanguageUtil.get(request, "create-a-transfer") %>'
 >
 	<aui:form action="<%= transferQuantitiesActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.MOVE %>" />

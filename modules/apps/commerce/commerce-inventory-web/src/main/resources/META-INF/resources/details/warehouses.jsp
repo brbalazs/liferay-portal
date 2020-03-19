@@ -26,7 +26,7 @@ contextParams.put("sku", commerceInventoryDisplayContext.getSku());
 
 <commerce-ui:panel
 	bodyClasses="p-0"
-	title='<%= LanguageUtil.get(request, "inventory-warehouse") %>'
+	title='<%= LanguageUtil.get(request, "inventory-by-warehouse") %>'
 >
 	<commerce-ui:dataset-display
 		clayCreationMenu="<%= commerceInventoryDisplayContext.getWarehousesClayCreationMenu() %>"
