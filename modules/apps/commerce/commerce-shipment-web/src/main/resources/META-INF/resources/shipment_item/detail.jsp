@@ -77,7 +77,7 @@ portletDisplay.setURLBack(redirect);
 		/>
 
 		<aui:button-row>
-			<aui:button cssClass="btn-lg" type="submit" value="save" />
+			<aui:button type="submit" value="save" />
 		</aui:button-row>
 	</aui:form>
 </commerce-ui:side-panel-content>
