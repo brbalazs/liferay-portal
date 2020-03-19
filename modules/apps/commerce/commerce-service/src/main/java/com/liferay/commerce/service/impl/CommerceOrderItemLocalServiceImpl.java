@@ -216,6 +216,11 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceContext, serviceContext);
 	}
 
+	@Override
+	public int countSubscriptionCommerceOrderItems(long commerceOrderId) {
+		return commerceOrderItemPersistence.countByC_S(commerceOrderId, true);
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), use
 	 *             deleteCommerceOrderItem(CommerceOrderItem, CommerceContext)

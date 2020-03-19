@@ -89,6 +89,17 @@ public class CommerceOrderItemServiceImpl
 	}
 
 	@Override
+	public int countSubscriptionCommerceOrderItems(long commerceOrderId)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.VIEW);
+
+		return commerceOrderItemLocalService.
+			countSubscriptionCommerceOrderItems(commerceOrderId);
+	}
+
+	@Override
 	public void deleteCommerceOrderItem(long commerceOrderItemId)
 		throws PortalException {
 
