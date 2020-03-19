@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.upgrade.UpgradeStep;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
-import com.liferay.portal.output.stream.container.OutputStreamContainerFactoryTracker;
 import com.liferay.portal.upgrade.internal.configuration.ReleaseManagerConfiguration;
 import com.liferay.portal.upgrade.internal.executor.SwappedLogExecutor;
 import com.liferay.portal.upgrade.internal.executor.UpgradeExecutor;
@@ -179,9 +178,7 @@ public class UpgradeStepRegistratorTracker {
 			if (_releaseManagerConfiguration.autoUpgrade()) {
 				try {
 					_upgradeExecutor.execute(
-						bundleSymbolicName, upgradeInfos,
-						OutputStreamContainerFactoryTracker.
-							DUMMY_OUTPUT_STREAM_CONTAINER_FACTORY_NAME);
+						bundleSymbolicName, upgradeInfos, "dummy");
 				}
 				catch (Throwable t) {
 					_swappedLogExecutor.execute(
