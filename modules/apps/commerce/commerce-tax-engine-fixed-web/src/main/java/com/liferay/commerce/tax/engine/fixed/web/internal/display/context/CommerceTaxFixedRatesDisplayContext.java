@@ -86,7 +86,8 @@ public class CommerceTaxFixedRatesDisplayContext
 				LanguageUtil.get(
 					commerceTaxFixedRateRequestHelper.getRequest(),
 					"add-tax-rate"),
-				ClayCreationMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE);
+				ClayCreationMenuActionItem.
+					CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE);
 		}
 
 		return clayCreationMenu;

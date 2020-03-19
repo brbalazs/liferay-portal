@@ -17,53 +17,61 @@ import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React, {useState, useContext} from 'react';
 
-import { triggerAction } from '../../../../utilities/actionItems/index';
-import { ACTION_ITEM_TARGETS } from '../../../../utilities/actionItems/constants';
+import {ACTION_ITEM_TARGETS} from '../../../../utilities/actionItems/constants';
+import {triggerAction} from '../../../../utilities/actionItems/index';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es';
 
 function CreationMenu(props) {
 	const [active, setActive] = useState(false);
 	const datasetContext = useContext(DatasetDisplayContext);
 
-	return (props.items && props.items.length && (
-		<ul className="navbar-nav">
-			<li className="nav-item">
-				{props.items.length > 1 ? (
-					<ClayDropDown
-						active={active}
-						onActiveChange={setActive}
-						trigger={<ClayButtonWithIcon symbol="plus" />}
-					>
-						<ClayDropDown.ItemList>
-							{props.items.map((item, i) => (
-								<ClayDropDown.Item
-									href={item.href || '#'}
-									key={i}
-									onClick={
-										item.target &&
-										item.target !== ACTION_ITEM_TARGETS.LINK &&
-										(e => {
-											e.preventDefault();
-											setActive(false);
-											triggerAction(item, datasetContext);
-										})
-									}
-								>
-									{item.label}
-								</ClayDropDown.Item>
-							))}
-						</ClayDropDown.ItemList>
-					</ClayDropDown>
-				) : (
-					<ClayButtonWithIcon
-						onClick={() =>
-							triggerAction(props.items[0], datasetContext)}
-						symbol="plus"
-					/>
-				)}
-			</li>
-		</ul>
-	));
+	return (
+		props.items &&
+		props.items.length && (
+			<ul className="navbar-nav">
+				<li className="nav-item">
+					{props.items.length > 1 ? (
+						<ClayDropDown
+							active={active}
+							onActiveChange={setActive}
+							trigger={<ClayButtonWithIcon symbol="plus" />}
+						>
+							<ClayDropDown.ItemList>
+								{props.items.map((item, i) => (
+									<ClayDropDown.Item
+										href={item.href || '#'}
+										key={i}
+										onClick={
+											item.target &&
+											item.target !==
+												ACTION_ITEM_TARGETS.LINK &&
+											(e => {
+												e.preventDefault();
+												setActive(false);
+												triggerAction(
+													item,
+													datasetContext
+												);
+											})
+										}
+									>
+										{item.label}
+									</ClayDropDown.Item>
+								))}
+							</ClayDropDown.ItemList>
+						</ClayDropDown>
+					) : (
+						<ClayButtonWithIcon
+							onClick={() =>
+								triggerAction(props.items[0], datasetContext)
+							}
+							symbol="plus"
+						/>
+					)}
+				</li>
+			</ul>
+		)
+	);
 }
 
 CreationMenu.propTypes = {

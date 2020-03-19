@@ -12,10 +12,7 @@
  * details.
  */
 
-import {
-	CLAY_MODAL_SIZES_MAP,
-	MODAL_HEIGHT_MAP
-} from './constants';
+import {CLAY_MODAL_SIZES_MAP, MODAL_HEIGHT_MAP} from './constants';
 
 export function resolveModalSize(modalTarget) {
 	const modalSize = modalTarget.split('-')[1];
@@ -36,4 +33,3 @@ export function resolveModalHeight(size) {
 		? MODAL_HEIGHT_MAP.INITIAL
 		: MODAL_HEIGHT_MAP[size];
 }
-

@@ -12,16 +12,9 @@
  * details.
  */
 
-import {
-	OPEN_MODAL,
-	OPEN_SIDE_PANEL
-} from '../eventsDefinitions.es';
-
-import {
-	ACTION_ITEM_TARGETS
-} from './constants';
-
+import {OPEN_MODAL, OPEN_SIDE_PANEL} from '../eventsDefinitions.es';
 import {resolveModalSize} from '../modals/index';
+import {ACTION_ITEM_TARGETS} from './constants';
 
 const {
 	EVENT,
@@ -33,14 +26,8 @@ const {
 } = ACTION_ITEM_TARGETS;
 
 export function triggerAction(item, context) {
-	const { 
-		target: actionTarget,
-		href: actionTargetURL
-	} = item, {
-		loadData,
-		modalId,
-		sidePanelId
-	} = context;
+	const {href: actionTargetURL, target: actionTarget} = item,
+		{loadData, modalId, sidePanelId} = context;
 
 	switch (actionTarget) {
 		case MODAL:

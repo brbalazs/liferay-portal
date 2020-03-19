@@ -24,8 +24,8 @@ import {
 } from '../../utilities/eventsDefinitions.es';
 import {isPageInIframe} from '../../utilities/iframes.es';
 import {liferayNavigate} from '../../utilities/index.es';
-import {resolveModalHeight} from '../../utilities/modals/index';
 import {INITIAL_MODAL_SIZE} from '../../utilities/modals/constants';
+import {resolveModalHeight} from '../../utilities/modals/index';
 
 function Modal(props) {
 	const [visible, setVisible] = useState(false);
@@ -166,7 +166,10 @@ function Modal(props) {
 					{title && <ClayModal.Header>{title}</ClayModal.Header>}
 					<div
 						className="modal-body modal-body-iframe"
-						style={{height: resolveModalHeight(size), maxHeight: '100%'}}
+						style={{
+							height: resolveModalHeight(size),
+							maxHeight: '100%'
+						}}
 					>
 						<iframe
 							onLoad={handleIframeLoad}

@@ -16,8 +16,8 @@ export const ACTION_ITEM_TARGETS = {
 	EVENT: 'event',
 	LINK: 'link',
 	MODAL: 'modal',
+	MODAL_FULL_SCREEN: 'modal-full-screen',
 	MODAL_LARGE: 'modal-lg',
 	MODAL_SMALL: 'modal-sm',
-	MODAL_FULL_SCREEN: 'modal-full-screen',
 	SIDE_PANEL: 'sidePanel'
 };

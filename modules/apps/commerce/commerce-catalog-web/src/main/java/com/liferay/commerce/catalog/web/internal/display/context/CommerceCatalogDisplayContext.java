@@ -112,7 +112,8 @@ public class CommerceCatalogDisplayContext {
 					getAddCommerceCatalogRenderURL(),
 					LanguageUtil.get(
 						cpRequestHelper.getRequest(), "add-catalog"),
-					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE));
+					ClayMenuActionItem.
+						CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE));
 		}
 
 		return clayCreationMenu;
