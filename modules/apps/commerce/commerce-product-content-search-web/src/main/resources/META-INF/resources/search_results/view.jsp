@@ -62,10 +62,13 @@ String orderByCol = cpSearchResultsDisplayContext.getOrderByCol();
 				</p>
 
 				<button aria-expanded="false" aria-haspopup="true" class="btn btn-default commerce-order-by dropdown-toggle" data-toggle="dropdown" type="button">
-					<liferay-ui:message key="sort-by" />:
-					<span class="ml-1">
-						<liferay-ui:message key="<%= orderByCol %>" />
-					</span>
+					<c:set var="orderByColArgument">
+						<span class="ml-1">
+							<liferay-ui:message key="<%= orderByCol %>" />
+						</span>
+					</c:set>
+
+					<liferay-ui:message arguments="${orderByColArgument}" key="sort-by-colon-x" />
 
 					<aui:icon image="caret-double-l" markupView="lexicon" />
 				</button>
