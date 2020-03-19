@@ -6,6 +6,7 @@
 		"portletPreferences": {
 			"cpContentListRendererKey": "list-minium",
 			"grouped--cpTypeListEntryRendererKey": "list-entry-minium",
+			"paginationDelta": "5",
 			"simple--cpTypeListEntryRendererKey": "list-entry-minium",
 			"virtual--cpTypeListEntryRendererKey": "list-entry-minium"
 		}
