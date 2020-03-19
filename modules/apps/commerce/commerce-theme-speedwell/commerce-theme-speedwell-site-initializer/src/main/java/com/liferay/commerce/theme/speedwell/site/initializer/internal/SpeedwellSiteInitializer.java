@@ -47,6 +47,7 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.service.CPDefinitionLinkLocalService;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
@@ -96,6 +97,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.TempFileEntryUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
@@ -235,7 +237,17 @@ public class SpeedwellSiteInitializer implements SiteInitializer {
 			setCommerceShippingMethod(
 				commerceChannel.getGroupId(), "fixed", serviceContext);
 
-			setDefaultCatalogImage(catalogGroupId, serviceContext);
+			int catalogCPDefinitionsCount =
+				_cpDefinitionLocalService.getCPDefinitionsCount(
+					catalogGroupId, WorkflowConstants.STATUS_ANY);
+
+			if (catalogCPDefinitionsCount > 0) {
+				setDefaultCatalogImage(catalogGroupId, serviceContext);
+			}
+			else {
+				_commerceCatalogLocalService.deleteCommerceCatalog(
+					commerceCatalog);
+			}
 
 			setThemeSettings(serviceContext);
 		}
@@ -1024,6 +1036,9 @@ public class SpeedwellSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CPDefinitionLinkLocalService _cpDefinitionLinkLocalService;
+
+	@Reference
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	private Map<String, CPDefinition> _cpDefinitions;
 
