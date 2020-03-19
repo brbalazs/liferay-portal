@@ -24,6 +24,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseLocalService;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeConstants;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
@@ -46,6 +47,7 @@ import java.util.Map;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 public class CommerceShipmentItemLocalServiceImpl
 	extends CommerceShipmentItemLocalServiceBaseImpl {
@@ -410,9 +412,10 @@ public class CommerceShipmentItemLocalServiceImpl
 		Map<String, String> context = new HashMap<>();
 
 		context.put(
-			"OrderId", String.valueOf(commerceOrderItem.getCommerceOrderId()));
+			CommerceInventoryAuditTypeConstants.ORDER_ID,
+			String.valueOf(commerceOrderItem.getCommerceOrderId()));
 		context.put(
-			"OrderItemId",
+			CommerceInventoryAuditTypeConstants.ORDER_ITEM_ID,
 			String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
 
 		_commerceInventoryBookedQuantityLocalService.
@@ -446,16 +449,17 @@ public class CommerceShipmentItemLocalServiceImpl
 		Map<String, String> context = new HashMap<>();
 
 		context.put(
-			"commerceOrderId",
+			CommerceInventoryAuditTypeConstants.ORDER_ID,
 			String.valueOf(commerceOrderItem.getCommerceOrderId()));
 		context.put(
-			"commerceOrderItemId",
+			CommerceInventoryAuditTypeConstants.ORDER_ITEM_ID,
 			String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
 		context.put(
-			"commerceShipmentId",
+			CommerceInventoryAuditTypeConstants.SHIPMENT_ID,
 			String.valueOf(commerceShipmentItem.getCommerceShipmentId()));
 		context.put(
-			"commerceShipmentItemId", String.valueOf(commerceShipmentItemId));
+			CommerceInventoryAuditTypeConstants.SHIPMENT_ITEM_ID,
+			String.valueOf(commerceShipmentItemId));
 
 		_commerceInventoryEngine.consumeQuantity(
 			commerceShipmentItem.getUserId(),

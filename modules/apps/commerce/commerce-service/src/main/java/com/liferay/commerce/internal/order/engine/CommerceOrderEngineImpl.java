@@ -29,6 +29,7 @@ import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeConstants;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
@@ -285,10 +286,10 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			Map<String, String> context = new HashMap<>();
 
 			context.put(
-				"OrderId",
+				CommerceInventoryAuditTypeConstants.ORDER_ID,
 				String.valueOf(commerceOrderItem.getCommerceOrderId()));
 			context.put(
-				"OrderItemId",
+				CommerceInventoryAuditTypeConstants.ORDER_ITEM_ID,
 				String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
 
 			CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =

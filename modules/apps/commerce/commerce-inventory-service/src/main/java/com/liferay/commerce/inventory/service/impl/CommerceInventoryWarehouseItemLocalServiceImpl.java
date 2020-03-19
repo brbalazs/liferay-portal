@@ -22,6 +22,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.base.CommerceInventoryWarehouseItemLocalServiceBaseImpl;
 import com.liferay.commerce.inventory.type.CommerceInventoryAuditType;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeConstants;
 import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeRegistry;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -353,13 +354,15 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			fromWarehouseItem.getCommerceInventoryWarehouse();
 
 		context.put(
-			"From", String.valueOf(fromCommerceInventoryWarehouse.getName()));
+			CommerceInventoryAuditTypeConstants.FROM,
+			String.valueOf(fromCommerceInventoryWarehouse.getName()));
 
 		CommerceInventoryWarehouse toCommerceInventoryWarehouse =
 			toWarehouseItem.getCommerceInventoryWarehouse();
 
 		context.put(
-			"To", String.valueOf(toCommerceInventoryWarehouse.getName()));
+			CommerceInventoryAuditTypeConstants.TO,
+			String.valueOf(toCommerceInventoryWarehouse.getName()));
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
 			currentUser.getUserId(), sku, commerceInventoryAuditType.getType(),
@@ -393,7 +396,8 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
 
 		context.put(
-			"Warehouse", String.valueOf(commerceInventoryWarehouse.getName()));
+			CommerceInventoryAuditTypeConstants.WAREHOUSE,
+			String.valueOf(commerceInventoryWarehouse.getName()));
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
 			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
@@ -428,13 +432,16 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 		Map<String, String> context = new HashMap<>();
 
-		context.put("Reserved", String.valueOf(reservedQuantity));
+		context.put(
+			CommerceInventoryAuditTypeConstants.RESERVED,
+			String.valueOf(reservedQuantity));
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			commerceInventoryWarehouseItem.getCommerceInventoryWarehouse();
 
 		context.put(
-			"Warehouse", String.valueOf(commerceInventoryWarehouse.getName()));
+			CommerceInventoryAuditTypeConstants.WAREHOUSE,
+			String.valueOf(commerceInventoryWarehouse.getName()));
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
 			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
