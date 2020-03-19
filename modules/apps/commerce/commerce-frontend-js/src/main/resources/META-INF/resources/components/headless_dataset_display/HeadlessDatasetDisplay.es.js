@@ -141,7 +141,7 @@ function DatasetDisplay(props) {
 		delta,
 		pageNumber,
 		sorting,
-		showSuccessNotification = false
+		successNotification = {}
 	) {
 		setLoading(true);
 		return loadData(
@@ -155,22 +155,27 @@ function DatasetDisplay(props) {
 		)
 			.then(updateDataset)
 			.then(() => {
+				const {message, showSuccessNotification} = successNotification;
+
 				if (showSuccessNotification) {
-					showNotification(
-						Liferay.Language.get('table-data-updated'),
-						'success'
-					);
+					const notificationMessage =
+						message || Liferay.Language.get('table-data-updated');
+
+					showNotification(notificationMessage, 'success');
 				}
+
+				setLoading(false);
 				Liferay.fire(DATASET_DISPLAY_UPDATED, {id: props.id});
 			})
 			.catch(e => {
 				console.error(e);
+				setLoading(false);
+
 				showNotification(
 					Liferay.Language.get('unexpected-error'),
 					'danger'
 				);
-			})
-			.finally(() => setLoading(false));
+			});
 	}
 
 	useEffect(() => {

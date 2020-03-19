@@ -162,17 +162,18 @@ function DatasetDisplay(props) {
 					showNotification(notificationMessage, 'success');
 				}
 
+				setLoading(false);
 				Liferay.fire(DATASET_DISPLAY_UPDATED, {id: props.id});
 			})
 			.catch(e => {
 				console.error(e);
+				setLoading(false);
 
 				showNotification(
 					Liferay.Language.get('unexpected-error'),
 					'danger'
 				);
-			})
-			.finally(() => setLoading(false));
+			});
 	}
 
 	useEffect(() => {
