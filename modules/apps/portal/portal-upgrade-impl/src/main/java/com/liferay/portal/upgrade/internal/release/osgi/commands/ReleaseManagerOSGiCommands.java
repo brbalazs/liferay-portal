@@ -139,7 +139,7 @@ public class ReleaseManagerOSGiCommands {
 			List<UpgradeInfo> upgradeInfos = _serviceTrackerMap.getService(
 				bundleSymbolicName);
 
-			_upgradeExecutor.execute(bundleSymbolicName, upgradeInfos);
+			_upgradeExecutor.execute(bundleSymbolicName, upgradeInfos, null);
 		}
 		catch (Throwable t) {
 			_swappedLogExecutor.execute(
@@ -148,7 +148,8 @@ public class ReleaseManagerOSGiCommands {
 					Logger.LOG_ERROR,
 					"Failed upgrade process for module ".concat(
 						bundleSymbolicName),
-					t));
+					t),
+				null);
 		}
 
 		return null;
@@ -324,7 +325,7 @@ public class ReleaseManagerOSGiCommands {
 					upgradableBundleSymbolicName);
 
 				_upgradeExecutor.execute(
-					upgradableBundleSymbolicName, upgradeInfos);
+					upgradableBundleSymbolicName, upgradeInfos, null);
 			}
 			catch (Throwable t) {
 				_swappedLogExecutor.execute(
@@ -333,7 +334,8 @@ public class ReleaseManagerOSGiCommands {
 						Logger.LOG_ERROR,
 						"Failed upgrade process for module ".concat(
 							upgradableBundleSymbolicName),
-						t));
+						t),
+					null);
 
 				upgradeThrewExceptionBundleSymbolicNames.add(
 					upgradableBundleSymbolicName);
@@ -496,7 +498,7 @@ public class ReleaseManagerOSGiCommands {
 			List<UpgradeInfo> upgradeInfos) {
 
 			if (_activated && UpgradeStepRegistratorThreadLocal.isEnabled()) {
-				_upgradeExecutor.execute(key, upgradeInfos);
+				_upgradeExecutor.execute(key, upgradeInfos, null);
 			}
 		}
 

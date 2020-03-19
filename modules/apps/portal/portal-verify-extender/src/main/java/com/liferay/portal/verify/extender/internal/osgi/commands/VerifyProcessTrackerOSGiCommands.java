@@ -136,11 +136,10 @@ public class VerifyProcessTrackerOSGiCommands {
 
 	@Descriptor("Execute all verify processes")
 	public void executeAll() {
-		OutputStreamContainerFactory outputStreamContainerFactory =
-			outputStreamContainerFactoryTracker.
-				getOutputStreamContainerFactory();
-
-		_runAllVerifiersWithFactory(outputStreamContainerFactory, true);
+		_runAllVerifiersWithFactory(
+			outputStreamContainerFactoryTracker.getOutputStreamContainerFactory(
+				null),
+			true);
 	}
 
 	@Descriptor("Execute all verify processes with a specific output")
@@ -327,19 +326,9 @@ public class VerifyProcessTrackerOSGiCommands {
 		final String verifyProcessName, String outputStreamContainerFactoryName,
 		String outputStreamName, final boolean force) {
 
-		OutputStreamContainerFactory outputStreamContainerFactory;
-
-		if (outputStreamContainerFactoryName != null) {
-			outputStreamContainerFactory =
-				outputStreamContainerFactoryTracker.
-					getOutputStreamContainerFactory(
-						outputStreamContainerFactoryName);
-		}
-		else {
-			outputStreamContainerFactory =
-				outputStreamContainerFactoryTracker.
-					getOutputStreamContainerFactory();
-		}
+		OutputStreamContainerFactory outputStreamContainerFactory =
+			outputStreamContainerFactoryTracker.getOutputStreamContainerFactory(
+				outputStreamContainerFactoryName);
 
 		OutputStreamContainer outputStreamContainer =
 			outputStreamContainerFactory.create(outputStreamName);
