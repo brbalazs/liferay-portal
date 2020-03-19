@@ -17,8 +17,6 @@
 <%@ include file="/init.jsp" %>
 
 <%
-GroupDisplayContext groupDisplayContext = new GroupDisplayContext("/analytics_settings/edit_channel", renderRequest, renderResponse);
-
 String redirect = ParamUtil.getString(request, "redirect");
 
 String channelId = ParamUtil.getString(request, "channelId");
@@ -119,6 +117,10 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 				/>
 			</liferay-frontend:management-bar-filters>
 		</liferay-frontend:management-bar>
+
+		<%
+		GroupDisplayContext groupDisplayContext = new GroupDisplayContext("/analytics_settings/edit_channel", renderRequest, renderResponse);
+		%>
 
 		<liferay-ui:search-container
 			id="selectGroups"
