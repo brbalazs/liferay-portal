@@ -62,6 +62,12 @@ String editUserRoleId = "editUserRoles" + commerceAccountUser.getUserId();
 	$('#<portlet:namespace /><%= editUserRoleId %>').on('click', function(event) {
 		event.preventDefault();
 
+		var form = AUI.$(document.<portlet:namespace />fm);
+
+		form.fm('originalRoleIds').val(
+			<%= commerceAccountUserRelAdminDisplayContext.getUserRoleIds(commerceAccountUserRel) %>
+		);
+
 		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
 			eventName: 'userRoleItemSelector',
 			on: {
@@ -78,8 +84,6 @@ String editUserRoleId = "editUserRoles" + commerceAccountUser.getUserId();
 						) {
 							<portlet:namespace />addUserRolesIds.push(item.id);
 						});
-
-						var form = AUI.$(document.<portlet:namespace />fm);
 
 						form.fm('<%= Constants.CMD %>').val(
 							'<%= Constants.UPDATE %>'

@@ -82,6 +82,7 @@ PortletURL portletURL = commerceAccountUserRelAdminDisplayContext.getPortletURL(
 			<aui:input name="commerceAccountGroupId" type="hidden" value="<%= commerceAccount.getCommerceAccountGroupId() %>" />
 			<aui:input name="commerceAccountUserId" type="hidden" />
 			<aui:input name="deleteCommerceAccountUserRelIds" type="hidden" />
+			<aui:input name="originalRoleIds" type="hidden" />
 			<aui:input name="roleIds" type="hidden" />
 
 			<liferay-ui:search-container
