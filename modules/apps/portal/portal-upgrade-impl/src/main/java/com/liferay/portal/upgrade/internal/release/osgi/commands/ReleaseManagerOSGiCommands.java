@@ -330,7 +330,10 @@ public class ReleaseManagerOSGiCommands {
 					List<UpgradeInfo> upgradeSteps =
 						_serviceTrackerMap.getService(bundleSymbolicName);
 
-					_upgradeExecutor.execute(bundleSymbolicName, upgradeSteps);
+					_upgradeExecutor.execute(
+						bundleSymbolicName, upgradeSteps,
+						_swappedLogExecutor.
+							getDummyOutputStreamContainerFactoryName());
 				}
 
 				bundleSymbolicNames = _serviceTrackerMap.keySet();
