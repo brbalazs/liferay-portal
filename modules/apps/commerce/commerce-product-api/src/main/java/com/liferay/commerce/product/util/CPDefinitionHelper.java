@@ -33,10 +33,6 @@ import java.util.Locale;
 @ProviderType
 public interface CPDefinitionHelper {
 
-	public long searchCount(
-			long groupId, SearchContext searchContext, CPQuery cpQuery)
-		throws PortalException;
-
 	public CPCatalogEntry getCPCatalogEntry(Document document, Locale locale);
 
 	public CPCatalogEntry getCPCatalogEntry(
@@ -50,6 +46,10 @@ public interface CPDefinitionHelper {
 	public CPDataSourceResult search(
 			long groupId, SearchContext searchContext, CPQuery cpQuery,
 			int start, int end)
+		throws PortalException;
+
+	public long searchCount(
+			long groupId, SearchContext searchContext, CPQuery cpQuery)
 		throws PortalException;
 
 }

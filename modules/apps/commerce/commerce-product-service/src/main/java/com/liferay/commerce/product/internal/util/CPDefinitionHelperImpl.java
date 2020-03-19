@@ -35,7 +35,6 @@ import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -70,17 +69,6 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true, service = CPDefinitionHelper.class)
 public class CPDefinitionHelperImpl implements CPDefinitionHelper {
-
-	@Override
-	public long searchCount(
-		long groupId, SearchContext searchContext, CPQuery cpQuery)
-		throws PortalException {
-
-		CPDefinitionSearcher cpDefinitionSearcher = _getCPDefinitionSearcher(
-			groupId, searchContext, cpQuery, 0, 0);
-
-		return cpDefinitionSearcher.searchCount(searchContext);
-	}
 
 	@Override
 	public CPCatalogEntry getCPCatalogEntry(Document document, Locale locale) {
@@ -141,6 +129,17 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 		}
 
 		return new CPDataSourceResult(cpCatalogEntries, hits.getLength());
+	}
+
+	@Override
+	public long searchCount(
+			long groupId, SearchContext searchContext, CPQuery cpQuery)
+		throws PortalException {
+
+		CPDefinitionSearcher cpDefinitionSearcher = _getCPDefinitionSearcher(
+			groupId, searchContext, cpQuery, 0, 0);
+
+		return cpDefinitionSearcher.searchCount(searchContext);
 	}
 
 	private long _checkChannelGroupId(long groupId) {
