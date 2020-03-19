@@ -56,6 +56,10 @@ public class AnalyticsMessageSenderClientImpl
 
 	@Override
 	public Object send(String body, long companyId) throws Exception {
+		if (!_analyticsConfigurationTracker.isActive()) {
+			return null;
+		}
+
 		AnalyticsConfiguration analyticsConfiguration =
 			_analyticsConfigurationTracker.getAnalyticsConfiguration(companyId);
 
@@ -76,6 +80,10 @@ public class AnalyticsMessageSenderClientImpl
 
 	@Override
 	public void validateConnection(long companyId) throws Exception {
+		if (!_analyticsConfigurationTracker.isActive()) {
+			return;
+		}
+
 		AnalyticsConfiguration analyticsConfiguration =
 			_analyticsConfigurationTracker.getAnalyticsConfiguration(companyId);
 
