@@ -65,7 +65,7 @@ String editUserRoleId = "editUserRoles" + commerceAccountUser.getUserId();
 		var form = AUI.$(document.<portlet:namespace />fm);
 
 		form.fm('originalRoleIds').val(
-			<%= commerceAccountUserRelAdminDisplayContext.getUserRoleIds(commerceAccountUserRel) %>
+			'<%= commerceAccountUserRelAdminDisplayContext.getUserRoleIds(commerceAccountUserRel) %>'
 		);
 
 		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
