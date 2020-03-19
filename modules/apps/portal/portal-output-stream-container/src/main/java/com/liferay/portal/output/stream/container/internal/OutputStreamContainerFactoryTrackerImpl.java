@@ -87,6 +87,11 @@ public class OutputStreamContainerFactoryTrackerImpl
 		return _outputStreamContainerFactories.keySet();
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *			   #runWithSwappedLog(Runnable, String, OutputStream)}
+	 */
+	@Deprecated
 	@Override
 	public void runWithSwappedLog(Runnable runnable, String outputStreamHint) {
 		OutputStreamContainerFactory outputStreamContainerFactory =
@@ -132,6 +137,11 @@ public class OutputStreamContainerFactoryTrackerImpl
 		}
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *			   #runWithSwappedLog(Runnable, String, OutputStream)}
+	 */
+	@Deprecated
 	@Override
 	public void runWithSwappedLog(
 		Runnable runnable, String outputStreamHint,
