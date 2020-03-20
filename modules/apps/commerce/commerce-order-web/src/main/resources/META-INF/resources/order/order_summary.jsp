@@ -32,8 +32,6 @@ CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrder.getCommerceOrderId() %>" />
 
-		<aui:model-context bean="<%= commerceOrder %>" model="<%= CommerceOrder.class %>" />
-
 		<aui:input label="items-subtotal" name="subtotal" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getSubtotal()) %>" wrapperCssClass="form-group-item">
 			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
