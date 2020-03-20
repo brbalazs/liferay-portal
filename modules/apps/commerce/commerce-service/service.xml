@@ -41,6 +41,7 @@
 		<column name="defaultBilling" type="boolean" />
 		<column name="defaultShipping" type="boolean" />
 		<column name="type" type="int" />
+		<column name="externalReferenceCodeCopy" type="String" />
 
 		<!-- Order -->
 

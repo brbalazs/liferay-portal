@@ -160,14 +160,24 @@ public class CommerceAddressLocalServiceImpl
 		CommerceAddress commerceAddress =
 			commerceAddressPersistence.findByPrimaryKey(commerceAddressId);
 
-		return commerceAddressLocalService.addCommerceAddress(
-			className, classPK, commerceAddress.getName(),
-			commerceAddress.getDescription(), commerceAddress.getStreet1(),
-			commerceAddress.getStreet2(), commerceAddress.getStreet3(),
-			commerceAddress.getCity(), commerceAddress.getZip(),
-			commerceAddress.getCommerceRegionId(),
-			commerceAddress.getCommerceCountryId(),
-			commerceAddress.getPhoneNumber(), false, false, serviceContext);
+		CommerceAddress copiedCommerceAddress =
+			commerceAddressLocalService.addCommerceAddress(
+				className, classPK, commerceAddress.getName(),
+				commerceAddress.getDescription(), commerceAddress.getStreet1(),
+				commerceAddress.getStreet2(), commerceAddress.getStreet3(),
+				commerceAddress.getCity(), commerceAddress.getZip(),
+				commerceAddress.getCommerceRegionId(),
+				commerceAddress.getCommerceCountryId(),
+				commerceAddress.getPhoneNumber(), false, false, serviceContext);
+
+		if (Validator.isNotNull(commerceAddress.getExternalReferenceCode())) {
+			copiedCommerceAddress.setExternalReferenceCodeCopy(
+				commerceAddress.getExternalReferenceCode());
+			commerceAddressLocalService.updateCommerceAddress(
+				copiedCommerceAddress);
+		}
+
+		return copiedCommerceAddress;
 	}
 
 	@Indexable(type = IndexableType.DELETE)
