@@ -22,6 +22,8 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -36,6 +38,7 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -79,6 +82,30 @@ public class CommerceCatalogDataSetActionProvider
 				StringPool.BLANK, false, false);
 
 			clayDataSetActions.add(editClayDataSetAction);
+		}
+
+		if (_commerceCatalogModelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(), catalog.getCatalogId(),
+				ActionKeys.PERMISSIONS)) {
+
+			try {
+				PortletURL permissionsURL = _getManageCatalogPermissionsURL(
+					catalog, httpServletRequest);
+
+				ClayDataSetAction permissionsClayDataSetAction =
+					new ClayDataSetAction(
+						StringPool.BLANK, permissionsURL.toString(),
+						StringPool.BLANK,
+						LanguageUtil.get(httpServletRequest, "permissions"),
+						StringPool.BLANK, false, false);
+
+				permissionsClayDataSetAction.setTarget("modal");
+
+				clayDataSetActions.add(permissionsClayDataSetAction);
+			}
+			catch (Exception e) {
+				throw new PortalException(e);
+			}
 		}
 
 		if (_commerceCatalogModelResourcePermission.contains(
@@ -138,6 +165,40 @@ public class CommerceCatalogDataSetActionProvider
 		portletURL.setParameter("redirect", redirect);
 
 		portletURL.setParameter("commerceCatalogId", String.valueOf(catalogId));
+
+		return portletURL;
+	}
+
+	private PortletURL _getManageCatalogPermissionsURL(
+			Catalog catalog, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest,
+			"com_liferay_portlet_configuration_web_portlet_" +
+				"PortletConfigurationPortlet",
+			ActionRequest.RENDER_PHASE);
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter("mvcPath", "/edit_permissions.jsp");
+		portletURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			redirect);
+		portletURL.setParameter(
+			"modelResource", CommerceCatalog.class.getName());
+		portletURL.setParameter("modelResourceDescription", catalog.getName());
+		portletURL.setParameter(
+			"resourcePrimKey", String.valueOf(catalog.getCatalogId()));
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			throw new PortalException(wse);
+		}
 
 		return portletURL;
 	}
