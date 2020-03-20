@@ -60,7 +60,7 @@ public class AnalyticsUsersManager {
 				catch (Exception e) {
 					if (_log.isDebugEnabled()) {
 						_log.debug(
-							"Unable to get analytics administrators count");
+							"Unable to get analytics administrators count", e);
 					}
 				}
 			}
@@ -110,7 +110,7 @@ public class AnalyticsUsersManager {
 			}
 			catch (Exception e) {
 				if (_log.isDebugEnabled()) {
-					_log.debug("Unable to get organization users count");
+					_log.debug("Unable to get organization users count", e);
 				}
 
 				return 0;
@@ -136,7 +136,7 @@ public class AnalyticsUsersManager {
 			}
 			catch (Exception e) {
 				if (_log.isDebugEnabled()) {
-					_log.debug("Unable to get user group users count");
+					_log.debug("Unable to get user group users count", e);
 				}
 
 				return 0;

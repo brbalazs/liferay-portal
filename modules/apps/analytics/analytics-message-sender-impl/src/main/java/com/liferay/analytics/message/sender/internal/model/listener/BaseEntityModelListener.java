@@ -114,9 +114,10 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 				analyticsMessageJSON.getBytes(Charset.defaultCharset()));
 		}
 		catch (Exception e) {
-			if (_log.isInfoEnabled()) {
-				_log.info(
-					"Unable to add analytics message " + jsonObject.toString());
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Unable to add analytics message " + jsonObject.toString(),
+					e);
 			}
 		}
 	}
@@ -250,8 +251,8 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 			}
 		}
 		catch (Exception exception) {
-			if (_log.isInfoEnabled()) {
-				_log.info("Unable to get expando table " + tableId);
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to get expando table " + tableId, e);
 			}
 		}
 
@@ -414,8 +415,8 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 			catch (Exception e) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
-						"Unable to update preferences for company " +
-							companyId);
+						"Unable to update preferences for company " + companyId,
+						e);
 				}
 			}
 		}
@@ -429,7 +430,8 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to update configuration for company " + companyId);
+					"Unable to update configuration for company " + companyId,
+					e);
 			}
 		}
 	}
@@ -576,9 +578,9 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 		catch (Exception e) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					StringBundler.concat(
-						"Unable to get ", modelClassName, StringPool.SPACE,
-						classPK));
+					String.format(
+						"Unable to get %s %s", modelClassName, classPK),
+					e);
 			}
 		}
 	}
