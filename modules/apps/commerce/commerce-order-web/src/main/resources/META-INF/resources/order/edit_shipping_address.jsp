@@ -24,7 +24,7 @@ CommerceAddress shippingAddress = null;
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
 
 if (commerceOrder != null) {
-	shippingAddress = commerceOrder.getBillingAddress();
+	shippingAddress = commerceOrder.getShippingAddress();
 }
 
 long commerceCountryId = BeanParamUtil.getLong(shippingAddress, request, "commerceCountryId");

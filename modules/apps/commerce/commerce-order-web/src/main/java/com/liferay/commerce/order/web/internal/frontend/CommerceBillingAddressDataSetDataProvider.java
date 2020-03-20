@@ -61,7 +61,7 @@ public class CommerceBillingAddressDataSetDataProvider
 
 		return _commerceAddressService.getBillingCommerceAddressesCount(
 			commerceOrder.getCompanyId(), CommerceAccount.class.getName(),
-			commerceOrder.getCommerceAccountId(), StringPool.BLANK);
+			commerceOrder.getCommerceAccountId(), filter.getKeywords());
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class CommerceBillingAddressDataSetDataProvider
 		List<CommerceAddress> commerceAddresses =
 			_commerceAddressService.getBillingCommerceAddresses(
 				commerceOrder.getCompanyId(), CommerceAccount.class.getName(),
-				commerceOrder.getCommerceAccountId(), StringPool.BLANK,
+				commerceOrder.getCommerceAccountId(), filter.getKeywords(),
 				pagination.getStartPosition(), pagination.getEndPosition(),
 				sort);
 
