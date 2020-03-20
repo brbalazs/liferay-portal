@@ -465,7 +465,16 @@ paths:
                       format: int64
                       minimum: 0
                       type: integer
-                  style: simple
+                - in: query
+                  name: accountId
+                  required: false
+                  schema:
+                      description:
+                          Account Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
                 - in: query
                   name: filter
                   required: false
@@ -556,6 +565,16 @@ paths:
                       minimum: 0
                       type: integer
                   style: simple
+                - in: query
+                  name: accountId
+                  required: false
+                  schema:
+                      description:
+                          Account Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
             responses:
                 200:
                     content:
