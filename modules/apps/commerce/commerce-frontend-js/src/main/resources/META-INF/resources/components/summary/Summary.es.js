@@ -155,11 +155,11 @@ Summary.defaultProps = {
 	dataMapper: jsonData => {
 		const values = [
 			{
-				label: Liferay.Language.get('items-subtotal'),
+				label: Liferay.Language.get('subtotal'),
 				value: jsonData.subtotalFormatted
 			},
 			{
-				label: Liferay.Language.get('items-subtotal-discount'),
+				label: Liferay.Language.get('line-item-discount'),
 				value: jsonData.subtotalDiscountAmountFormatted
 			},
 			{
@@ -171,7 +171,7 @@ Summary.defaultProps = {
 				value: jsonData.couponCode || '--'
 			},
 			{
-				label: Liferay.Language.get('estimated-tax'),
+				label: Liferay.Language.get('tax'),
 				value: jsonData.taxAmountFormatted
 			},
 			{
