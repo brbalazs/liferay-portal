@@ -109,7 +109,7 @@ public class CommerceInventoryAuditDataSetDataProvider
 					commerceInventoryAuditType.formatLog(
 						commerceInventoryAudit.getUserId(),
 						commerceInventoryAudit.getLogTypeSettings(),
-						httpServletRequest.getLocale()));
+						_portal.getLocale(httpServletRequest)));
 			}
 			catch (Exception e) {
 				throw new PortalException(e.getMessage(), e);

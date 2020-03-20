@@ -18,12 +18,17 @@
 
 <%
 CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInventoryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("sku", commerceInventoryDisplayContext.getSku());
 %>
 
 <commerce-ui:panel
 	title='<%= LanguageUtil.get(request, "change-logs") %>'
 >
 	<commerce-ui:dataset-display
+		contextParams="<%= contextParams %>"
 		dataProviderKey="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_AUDIT %>"
 		id="<%= CommerceInventoryDataSetConstants.COMMERCE_DATA_SET_KEY_INVENTORY_AUDIT %>"
 		itemsPerPage="<%= 10 %>"
