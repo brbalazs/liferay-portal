@@ -124,6 +124,23 @@ public class CommerceOrderItemServiceSoap {
 		}
 	}
 
+	public static int countSubscriptionCommerceOrderItems(long commerceOrderId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceOrderItemServiceUtil.
+					countSubscriptionCommerceOrderItems(commerceOrderId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void deleteCommerceOrderItem(long commerceOrderItemId)
 		throws RemoteException {
 
@@ -378,23 +395,6 @@ public class CommerceOrderItemServiceSoap {
 		}
 	}
 
-	public static int countSubscriptionCommerceOrderItems(long commerceOrderId)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommerceOrderItemServiceUtil.
-					countSubscriptionCommerceOrderItems(commerceOrderId);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.model.CommerceOrderItemSoap
 			updateCommerceOrderItem(
 				long commerceOrderItemId, int quantity,
@@ -441,6 +441,35 @@ public class CommerceOrderItemServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.model.CommerceOrderItemSoap
+			updateCommerceOrderItemInfo(
+				long commerceOrderItemId, String deliveryGroup,
+				long shippingAddressId, String printedNote,
+				int requestedDeliveryDateMonth, int requestedDeliveryDateDay,
+				int requestedDeliveryDateYear)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceOrderItem returnValue =
+				CommerceOrderItemServiceUtil.updateCommerceOrderItemInfo(
+					commerceOrderItemId, deliveryGroup, shippingAddressId,
+					printedNote, requestedDeliveryDateMonth,
+					requestedDeliveryDateDay, requestedDeliveryDateYear);
+
+			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.model.CommerceOrderItemSoap
 			updateCommerceOrderItemInfo(
 				long commerceOrderItemId, String deliveryGroup,
