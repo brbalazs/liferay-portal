@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.model;
 
-import com.liferay.commerce.frontend.model.Sku;
+import com.liferay.commerce.frontend.model.ImageField;
 
 /**
  * @author Alessio Antonio Rendina
@@ -22,24 +22,36 @@ import com.liferay.commerce.frontend.model.Sku;
 public class OrderItem {
 
 	public OrderItem(
-		long orderItemId, long orderId, Sku sku, String name, String price,
-		String subscriptionDuration, String subscriptionPeriod, String discount,
-		int quantity, String total) {
+		String deliveryGroup, String discount, ImageField image, String name,
+		long orderId, long orderItemId, String price, int quantity,
+		String requestedDeliveryDate, String sku, String subscriptionDuration,
+		String subscriptionPeriod, String total) {
 
-		_orderItemId = orderItemId;
-		_orderId = orderId;
-		_sku = sku;
+		_deliveryGroup = deliveryGroup;
+		_discount = discount;
+		_image = image;
 		_name = name;
+		_orderId = orderId;
+		_orderItemId = orderItemId;
 		_price = price;
+		_quantity = quantity;
+		_requestedDeliveryDate = requestedDeliveryDate;
+		_sku = sku;
 		_subscriptionDuration = subscriptionDuration;
 		_subscriptionPeriod = subscriptionPeriod;
-		_discount = discount;
-		_quantity = quantity;
 		_total = total;
+	}
+
+	public String getDeliveryGroup() {
+		return _deliveryGroup;
 	}
 
 	public String getDiscount() {
 		return _discount;
+	}
+
+	public ImageField getImage() {
+		return _image;
 	}
 
 	public String getName() {
@@ -62,7 +74,11 @@ public class OrderItem {
 		return _quantity;
 	}
 
-	public Sku getSku() {
+	public String getRequestedDeliveryDate() {
+		return _requestedDeliveryDate;
+	}
+
+	public String getSku() {
 		return _sku;
 	}
 
@@ -78,13 +94,16 @@ public class OrderItem {
 		return _total;
 	}
 
+	private final String _deliveryGroup;
 	private final String _discount;
+	private final ImageField _image;
 	private final String _name;
 	private final long _orderId;
 	private final long _orderItemId;
 	private final String _price;
 	private final int _quantity;
-	private final Sku _sku;
+	private final String _requestedDeliveryDate;
+	private final String _sku;
 	private final String _subscriptionDuration;
 	private final String _subscriptionPeriod;
 	private final String _total;

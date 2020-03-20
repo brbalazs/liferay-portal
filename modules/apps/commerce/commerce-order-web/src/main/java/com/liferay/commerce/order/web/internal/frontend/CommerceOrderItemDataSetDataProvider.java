@@ -19,11 +19,12 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.frontend.model.Sku;
+import com.liferay.commerce.frontend.model.ImageField;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.web.internal.model.OrderItem;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
 import com.liferay.commerce.product.util.CPSubscriptionType;
@@ -37,23 +38,23 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+
+import java.text.DateFormat;
+import java.text.Format;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import javax.portlet.PortletURL;
-import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -89,33 +90,50 @@ public class CommerceOrderItemDataSetDataProvider
 
 		List<OrderItem> orderItems = new ArrayList<>();
 
-		Locale locale = _portal.getLocale(httpServletRequest);
+		try {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)httpServletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
 
-		BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
-			_getBaseModelSearchResult(
-				httpServletRequest, filter, pagination, sort);
+			Locale locale = themeDisplay.getLocale();
 
-		for (CommerceOrderItem commerceOrderItem :
-				baseModelSearchResult.getBaseModels()) {
+			Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
+				DateFormat.MEDIUM, DateFormat.MEDIUM, locale,
+				themeDisplay.getTimeZone());
 
-			orderItems.add(
-				new OrderItem(
-					commerceOrderItem.getCommerceOrderItemId(),
-					commerceOrderItem.getCommerceOrderId(),
-					new Sku(
+			BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
+				_getBaseModelSearchResult(
+					httpServletRequest, filter, pagination, sort);
+
+			for (CommerceOrderItem commerceOrderItem :
+					baseModelSearchResult.getBaseModels()) {
+
+				String name = commerceOrderItem.getName(locale);
+
+				orderItems.add(
+					new OrderItem(
+						commerceOrderItem.getDeliveryGroup(),
+						_getDiscount(commerceOrderItem, locale),
+						new ImageField(
+							name, "rounded", "lg",
+							_getImage(commerceOrderItem)),
+						name, commerceOrderItem.getCommerceOrderId(),
+						commerceOrderItem.getCommerceOrderItemId(),
+						_getPrice(commerceOrderItem, locale),
+						commerceOrderItem.getQuantity(),
+						_getRequestedDeliveryDateTime(
+							dateTimeFormat,
+							commerceOrderItem.getRequestedDeliveryDate()),
 						commerceOrderItem.getSku(),
-						_getOrderItemPanelURL(
-							commerceOrderItem.getCommerceOrderItemId(),
-							httpServletRequest)),
-					commerceOrderItem.getName(locale),
-					_getPrice(commerceOrderItem, locale),
-					_getSubscriptionDuration(
-						commerceOrderItem, httpServletRequest),
-					_getSubscriptionPeriod(
-						commerceOrderItem, httpServletRequest),
-					_getDiscount(commerceOrderItem, locale),
-					commerceOrderItem.getQuantity(),
-					_getTotal(commerceOrderItem, locale)));
+						_getSubscriptionDuration(
+							commerceOrderItem, httpServletRequest),
+						_getSubscriptionPeriod(
+							commerceOrderItem, httpServletRequest),
+						_getTotal(commerceOrderItem, locale)));
+			}
+		}
+		catch (Exception e) {
+			_log.error(e, e);
 		}
 
 		return orderItems;
@@ -166,36 +184,18 @@ public class CommerceOrderItemDataSetDataProvider
 		return HtmlUtil.escape(discountAmount.format(locale));
 	}
 
-	private String _getOrderItemPanelURL(
-			long commerceOrderItemId, HttpServletRequest httpServletRequest)
-		throws PortalException {
+	private String _getImage(CommerceOrderItem commerceOrderItem)
+		throws Exception {
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommerceOrder.class.getName(),
-			PortletProvider.Action.MANAGE);
+		CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
 
-		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommerceOrderItem");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-
-		long commerceOrderId = ParamUtil.getLong(
-			httpServletRequest, "commerceOrderId");
-
-		portletURL.setParameter(
-			"commerceOrderId", String.valueOf(commerceOrderId));
-
-		portletURL.setParameter(
-			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
-
-		try {
-			portletURL.setWindowState(LiferayWindowState.POP_UP);
-		}
-		catch (WindowStateException wse) {
-			_log.error(wse, wse);
+		if (cpInstance == null) {
+			return StringPool.BLANK;
 		}
 
-		return portletURL.toString();
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+		return cpDefinition.getDefaultImageThumbnailSrc();
 	}
 
 	private String _getPeriodKey(
@@ -216,6 +216,16 @@ public class CommerceOrderItemDataSetDataProvider
 		CommerceMoney unitPrice = commerceOrderItem.getUnitPriceMoney();
 
 		return HtmlUtil.escape(unitPrice.format(locale));
+	}
+
+	private String _getRequestedDeliveryDateTime(
+		Format dateTimeFormat, Date requestedDeliveryDate) {
+
+		if (requestedDeliveryDate == null) {
+			return StringPool.BLANK;
+		}
+
+		return dateTimeFormat.format(requestedDeliveryDate);
 	}
 
 	private String _getSubscriptionDuration(
@@ -402,8 +412,5 @@ public class CommerceOrderItemDataSetDataProvider
 
 	@Reference
 	private CPSubscriptionTypeRegistry _cpSubscriptionTypeRegistry;
-
-	@Reference
-	private Portal _portal;
 
 }

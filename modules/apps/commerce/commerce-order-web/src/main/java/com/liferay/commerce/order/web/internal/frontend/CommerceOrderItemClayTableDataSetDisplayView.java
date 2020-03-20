@@ -40,12 +40,22 @@ public class CommerceOrderItemClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
+		ClayTableSchemaField imageField = clayTableSchemaBuilder.addField(
+			"image", "");
+
+		imageField.setContentRenderer("image");
+
 		ClayTableSchemaField skuField = clayTableSchemaBuilder.addField(
 			"sku", "sku");
 
-		skuField.setContentRenderer("sidePanelLink");
+		skuField.setContentRenderer("actionLink");
 
 		clayTableSchemaBuilder.addField("name", "name");
+
+		clayTableSchemaBuilder.addField(
+			"requestedDeliveryDate", "delivery-date");
+
+		clayTableSchemaBuilder.addField("deliveryGroup", "delivery-group");
 
 		ClayTableSchemaField priceField = clayTableSchemaBuilder.addField(
 			"price", "price");

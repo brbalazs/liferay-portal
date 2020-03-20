@@ -17,11 +17,17 @@ package com.liferay.commerce.order.web.internal.frontend;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.web.internal.model.OrderItem;
 import com.liferay.commerce.order.web.internal.security.permission.resource.CommerceOrderPermission;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
@@ -35,6 +41,7 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,6 +75,17 @@ public class CommerceOrderItemClayDataSetActionProvider
 		if (_commerceOrderPermission.contains(
 				themeDisplay.getPermissionChecker(), orderItem.getOrderId(),
 				ActionKeys.UPDATE)) {
+
+			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK,
+				_getOrderItemEditURL(
+					orderItem.getOrderItemId(), httpServletRequest),
+				StringPool.BLANK, LanguageUtil.get(httpServletRequest, "edit"),
+				StringPool.BLANK, false, false);
+
+			editClayDataSetAction.setTarget("sidePanel");
+
+			clayDataSetActions.add(editClayDataSetAction);
 
 			PortletURL deleteURL = _getOrderItemDeleteURL(
 				orderItem.getOrderItemId(), httpServletRequest);
@@ -103,6 +121,41 @@ public class CommerceOrderItemClayDataSetActionProvider
 
 		return portletURL;
 	}
+
+	private String _getOrderItemEditURL(
+			long commerceOrderItemId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, CommerceOrder.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceOrderItem");
+		portletURL.setParameter(
+			"redirect", _portal.getCurrentURL(httpServletRequest));
+
+		long commerceOrderId = ParamUtil.getLong(
+			httpServletRequest, "commerceOrderId");
+
+		portletURL.setParameter(
+			"commerceOrderId", String.valueOf(commerceOrderId));
+
+		portletURL.setParameter(
+			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			_log.error(wse, wse);
+		}
+
+		return portletURL.toString();
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceOrderItemClayDataSetActionProvider.class);
 
 	@Reference
 	private CommerceOrderPermission _commerceOrderPermission;
