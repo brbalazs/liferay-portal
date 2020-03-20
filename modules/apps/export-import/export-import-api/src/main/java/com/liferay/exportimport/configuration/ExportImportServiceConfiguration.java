@@ -33,6 +33,19 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface ExportImportServiceConfiguration {
 
 	@Meta.AD(
+		deflt = "false",
+		description = "replicate-individual-deletions-by-default-help",
+		name = "replicate-individual-deletions-by-default", required = false
+	)
+	public boolean replicateIndividualDeletionsByDefault();
+
+	@Meta.AD(
+		deflt = "false", description = "publish-permissions-by-default-help",
+		name = "publish-permissions-by-default", required = false
+	)
+	public boolean publishPermissionsByDefault();
+
+	@Meta.AD(
 		deflt = "true", description = "validate-file-entry-references-help",
 		name = "validate-file-entry-references", required = false
 	)
