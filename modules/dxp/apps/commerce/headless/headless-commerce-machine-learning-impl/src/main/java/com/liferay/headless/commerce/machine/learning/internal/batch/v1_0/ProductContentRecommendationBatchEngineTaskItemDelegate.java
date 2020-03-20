@@ -16,13 +16,13 @@ package com.liferay.headless.commerce.machine.learning.internal.batch.v1_0;
 
 import com.liferay.batch.engine.BaseBatchEngineTaskItemDelegate;
 import com.liferay.batch.engine.BatchEngineTaskItemDelegate;
+import com.liferay.batch.engine.pagination.Page;
+import com.liferay.batch.engine.pagination.Pagination;
 import com.liferay.commerce.machine.learning.recommendation.model.ProductContentCommerceMLRecommendation;
 import com.liferay.commerce.machine.learning.recommendation.service.ProductContentCommerceMLRecommendationService;
 import com.liferay.headless.commerce.machine.learning.dto.v1_0.ProductContentRecommendation;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
-import com.liferay.portal.vulcan.pagination.Page;
-import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.io.Serializable;
 
