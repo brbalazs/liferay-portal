@@ -62,7 +62,7 @@ public class CommerceAddressCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(51);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{externalReferenceCode=");
 		sb.append(externalReferenceCode);
@@ -114,6 +114,8 @@ public class CommerceAddressCacheModel
 		sb.append(defaultShipping);
 		sb.append(", type=");
 		sb.append(type);
+		sb.append(", externalReferenceCodeCopy=");
+		sb.append(externalReferenceCodeCopy);
 		sb.append("}");
 
 		return sb.toString();
@@ -224,6 +226,14 @@ public class CommerceAddressCacheModel
 		commerceAddressImpl.setDefaultShipping(defaultShipping);
 		commerceAddressImpl.setType(type);
 
+		if (externalReferenceCodeCopy == null) {
+			commerceAddressImpl.setExternalReferenceCodeCopy("");
+		}
+		else {
+			commerceAddressImpl.setExternalReferenceCodeCopy(
+				externalReferenceCodeCopy);
+		}
+
 		commerceAddressImpl.resetOriginalValues();
 
 		return commerceAddressImpl;
@@ -269,6 +279,7 @@ public class CommerceAddressCacheModel
 		defaultShipping = objectInput.readBoolean();
 
 		type = objectInput.readInt();
+		externalReferenceCodeCopy = objectInput.readUTF();
 	}
 
 	@Override
@@ -371,6 +382,13 @@ public class CommerceAddressCacheModel
 		objectOutput.writeBoolean(defaultShipping);
 
 		objectOutput.writeInt(type);
+
+		if (externalReferenceCodeCopy == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(externalReferenceCodeCopy);
+		}
 	}
 
 	public String externalReferenceCode;
@@ -398,5 +416,6 @@ public class CommerceAddressCacheModel
 	public boolean defaultBilling;
 	public boolean defaultShipping;
 	public int type;
+	public String externalReferenceCodeCopy;
 
 }

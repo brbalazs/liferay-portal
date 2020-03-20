@@ -58,7 +58,8 @@ create table CommerceAddress (
 	phoneNumber VARCHAR(75) null,
 	defaultBilling BOOLEAN,
 	defaultShipping BOOLEAN,
-	type_ INTEGER
+	type_ INTEGER,
+	externalReferenceCodeCopy VARCHAR(75) null
 );
 
 create table CommerceAddressRestriction (

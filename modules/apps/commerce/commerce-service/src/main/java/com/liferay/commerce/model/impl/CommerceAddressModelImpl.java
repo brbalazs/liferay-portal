@@ -87,7 +87,8 @@ public class CommerceAddressModelImpl
 		{"commerceRegionId", Types.BIGINT}, {"commerceCountryId", Types.BIGINT},
 		{"latitude", Types.DOUBLE}, {"longitude", Types.DOUBLE},
 		{"phoneNumber", Types.VARCHAR}, {"defaultBilling", Types.BOOLEAN},
-		{"defaultShipping", Types.BOOLEAN}, {"type_", Types.INTEGER}
+		{"defaultShipping", Types.BOOLEAN}, {"type_", Types.INTEGER},
+		{"externalReferenceCodeCopy", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -119,10 +120,11 @@ public class CommerceAddressModelImpl
 		TABLE_COLUMNS_MAP.put("defaultBilling", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("defaultShipping", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("externalReferenceCodeCopy", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceAddress (externalReferenceCode VARCHAR(75) null,commerceAddressId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,classNameId LONG,classPK LONG,name VARCHAR(255) null,description STRING null,street1 VARCHAR(255) null,street2 VARCHAR(255) null,street3 VARCHAR(255) null,city VARCHAR(75) null,zip VARCHAR(75) null,commerceRegionId LONG,commerceCountryId LONG,latitude DOUBLE,longitude DOUBLE,phoneNumber VARCHAR(75) null,defaultBilling BOOLEAN,defaultShipping BOOLEAN,type_ INTEGER)";
+		"create table CommerceAddress (externalReferenceCode VARCHAR(75) null,commerceAddressId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,classNameId LONG,classPK LONG,name VARCHAR(255) null,description STRING null,street1 VARCHAR(255) null,street2 VARCHAR(255) null,street3 VARCHAR(255) null,city VARCHAR(75) null,zip VARCHAR(75) null,commerceRegionId LONG,commerceCountryId LONG,latitude DOUBLE,longitude DOUBLE,phoneNumber VARCHAR(75) null,defaultBilling BOOLEAN,defaultShipping BOOLEAN,type_ INTEGER,externalReferenceCodeCopy VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommerceAddress";
 
@@ -213,6 +215,8 @@ public class CommerceAddressModelImpl
 		model.setDefaultBilling(soapModel.isDefaultBilling());
 		model.setDefaultShipping(soapModel.isDefaultShipping());
 		model.setType(soapModel.getType());
+		model.setExternalReferenceCodeCopy(
+			soapModel.getExternalReferenceCodeCopy());
 
 		return model;
 	}
@@ -935,6 +939,30 @@ public class CommerceAddressModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"externalReferenceCodeCopy",
+			new Function<CommerceAddress, Object>() {
+
+				@Override
+				public Object apply(CommerceAddress commerceAddress) {
+					return commerceAddress.getExternalReferenceCodeCopy();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"externalReferenceCodeCopy",
+			new BiConsumer<CommerceAddress, Object>() {
+
+				@Override
+				public void accept(
+					CommerceAddress commerceAddress,
+					Object externalReferenceCodeCopyObject) {
+
+					commerceAddress.setExternalReferenceCodeCopy(
+						(String)externalReferenceCodeCopyObject);
+				}
+
+			});
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -1441,6 +1469,22 @@ public class CommerceAddressModelImpl
 		return _originalType;
 	}
 
+	@JSON
+	@Override
+	public String getExternalReferenceCodeCopy() {
+		if (_externalReferenceCodeCopy == null) {
+			return "";
+		}
+		else {
+			return _externalReferenceCodeCopy;
+		}
+	}
+
+	@Override
+	public void setExternalReferenceCodeCopy(String externalReferenceCodeCopy) {
+		_externalReferenceCodeCopy = externalReferenceCodeCopy;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -1503,6 +1547,8 @@ public class CommerceAddressModelImpl
 		commerceAddressImpl.setDefaultBilling(isDefaultBilling());
 		commerceAddressImpl.setDefaultShipping(isDefaultShipping());
 		commerceAddressImpl.setType(getType());
+		commerceAddressImpl.setExternalReferenceCodeCopy(
+			getExternalReferenceCodeCopy());
 
 		commerceAddressImpl.resetOriginalValues();
 
@@ -1751,6 +1797,18 @@ public class CommerceAddressModelImpl
 
 		commerceAddressCacheModel.type = getType();
 
+		commerceAddressCacheModel.externalReferenceCodeCopy =
+			getExternalReferenceCodeCopy();
+
+		String externalReferenceCodeCopy =
+			commerceAddressCacheModel.externalReferenceCodeCopy;
+
+		if ((externalReferenceCodeCopy != null) &&
+			(externalReferenceCodeCopy.length() == 0)) {
+
+			commerceAddressCacheModel.externalReferenceCodeCopy = null;
+		}
+
 		return commerceAddressCacheModel;
 	}
 
@@ -1869,6 +1927,7 @@ public class CommerceAddressModelImpl
 	private int _type;
 	private int _originalType;
 	private boolean _setOriginalType;
+	private String _externalReferenceCodeCopy;
 	private long _columnBitmask;
 	private CommerceAddress _escapedModel;
 

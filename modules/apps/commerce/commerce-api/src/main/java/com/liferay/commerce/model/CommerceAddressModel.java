@@ -481,6 +481,21 @@ public interface CommerceAddressModel
 	 */
 	public void setType(int type);
 
+	/**
+	 * Returns the external reference code copy of this commerce address.
+	 *
+	 * @return the external reference code copy of this commerce address
+	 */
+	@AutoEscape
+	public String getExternalReferenceCodeCopy();
+
+	/**
+	 * Sets the external reference code copy of this commerce address.
+	 *
+	 * @param externalReferenceCodeCopy the external reference code copy of this commerce address
+	 */
+	public void setExternalReferenceCodeCopy(String externalReferenceCodeCopy);
+
 	@Override
 	public boolean isNew();
 

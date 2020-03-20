@@ -174,6 +174,9 @@ public class CommerceAddressPersistenceTest {
 
 		newCommerceAddress.setType(RandomTestUtil.nextInt());
 
+		newCommerceAddress.setExternalReferenceCodeCopy(
+			RandomTestUtil.randomString());
+
 		_commerceAddresses.add(_persistence.update(newCommerceAddress));
 
 		CommerceAddress existingCommerceAddress = _persistence.findByPrimaryKey(
@@ -250,6 +253,9 @@ public class CommerceAddressPersistenceTest {
 			newCommerceAddress.isDefaultShipping());
 		Assert.assertEquals(
 			existingCommerceAddress.getType(), newCommerceAddress.getType());
+		Assert.assertEquals(
+			existingCommerceAddress.getExternalReferenceCodeCopy(),
+			newCommerceAddress.getExternalReferenceCodeCopy());
 	}
 
 	@Test
@@ -363,7 +369,8 @@ public class CommerceAddressPersistenceTest {
 			"street3", true, "city", true, "zip", true, "commerceRegionId",
 			true, "commerceCountryId", true, "latitude", true, "longitude",
 			true, "phoneNumber", true, "defaultBilling", true,
-			"defaultShipping", true, "type", true);
+			"defaultShipping", true, "type", true, "externalReferenceCodeCopy",
+			true);
 	}
 
 	@Test
@@ -655,6 +662,9 @@ public class CommerceAddressPersistenceTest {
 		commerceAddress.setDefaultShipping(RandomTestUtil.randomBoolean());
 
 		commerceAddress.setType(RandomTestUtil.nextInt());
+
+		commerceAddress.setExternalReferenceCodeCopy(
+			RandomTestUtil.randomString());
 
 		_commerceAddresses.add(_persistence.update(commerceAddress));
 
