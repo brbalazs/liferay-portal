@@ -108,7 +108,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 	<div class="col-12">
 		<commerce-ui:panel
 			elementClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "info") %>'
+			title='<%= LanguageUtil.get(request, "details") %>'
 		>
 			<div class="row vertically-divided">
 				<div class="col-xl-4">

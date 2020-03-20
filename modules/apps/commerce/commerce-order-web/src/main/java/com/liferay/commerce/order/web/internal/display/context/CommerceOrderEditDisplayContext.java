@@ -281,7 +281,7 @@ public class CommerceOrderEditDisplayContext {
 		portletURL.setParameter(
 			"screenNavigationCategoryKey",
 			CommerceOrderScreenNavigationConstants.
-				CATEGORY_KEY_COMMERCE_ORDER_SUMMARY);
+				CATEGORY_KEY_COMMERCE_ORDER_GENERAL);
 
 		String redirect = ParamUtil.getString(
 			_commerceOrderRequestHelper.getRequest(), "redirect");

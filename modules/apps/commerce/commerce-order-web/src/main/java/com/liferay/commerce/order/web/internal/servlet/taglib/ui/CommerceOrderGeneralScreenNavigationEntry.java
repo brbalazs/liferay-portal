@@ -43,13 +43,13 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CommerceOrderSummaryScreenNavigationEntry
+public class CommerceOrderGeneralScreenNavigationEntry
 	implements ScreenNavigationCategory, ScreenNavigationEntry<CommerceOrder> {
 
 	@Override
 	public String getCategoryKey() {
 		return CommerceOrderScreenNavigationConstants.
-			CATEGORY_KEY_COMMERCE_ORDER_SUMMARY;
+			CATEGORY_KEY_COMMERCE_ORDER_GENERAL;
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class CommerceOrderSummaryScreenNavigationEntry
 		throws IOException {
 
 		_jspRenderer.renderJSP(
-			httpServletRequest, httpServletResponse, "/order/summary.jsp");
+			httpServletRequest, httpServletResponse, "/order/general.jsp");
 	}
 
 	@Reference
