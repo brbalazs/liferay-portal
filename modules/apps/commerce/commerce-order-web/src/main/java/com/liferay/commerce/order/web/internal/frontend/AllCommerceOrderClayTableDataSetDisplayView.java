@@ -40,8 +40,8 @@ public class AllCommerceOrderClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField orderIdField =
-			clayTableSchemaBuilder.addField("orderId", "order-id");
+		ClayTableSchemaField orderIdField = clayTableSchemaBuilder.addField(
+			"orderId", "order-id");
 
 		orderIdField.setContentRenderer("actionLink");
 
