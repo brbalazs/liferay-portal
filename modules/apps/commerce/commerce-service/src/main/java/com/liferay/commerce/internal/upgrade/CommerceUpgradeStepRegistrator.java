@@ -172,7 +172,8 @@ public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
 
 		registry.register(
 			_SCHEMA_VERSION_4_6_0, _SCHEMA_VERSION_4_7_0,
-			new com.liferay.commerce.internal.upgrade.v4_7_0.CommerceAddressUpgradeProcess());
+			new com.liferay.commerce.internal.upgrade.v4_7_0.
+				CommerceAddressUpgradeProcess());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE UPGRADE STEP REGISTRATOR FINISHED");

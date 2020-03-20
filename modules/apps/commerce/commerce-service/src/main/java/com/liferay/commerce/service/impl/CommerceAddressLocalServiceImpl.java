@@ -173,6 +173,7 @@ public class CommerceAddressLocalServiceImpl
 		if (Validator.isNotNull(commerceAddress.getExternalReferenceCode())) {
 			copiedCommerceAddress.setExternalReferenceCodeCopy(
 				commerceAddress.getExternalReferenceCode());
+
 			commerceAddressLocalService.updateCommerceAddress(
 				copiedCommerceAddress);
 		}
