@@ -29,14 +29,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = {
-		"commerce.data.set.display.name=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_COMPLETED_ORDERS,
-		"commerce.data.set.display.name=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS,
-		"commerce.data.set.display.name=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PROCESSING_ORDERS
-	},
+	property = "commerce.data.set.display.name=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ALL_ORDERS,
 	service = ClayDataSetDisplayView.class
 )
-public class CommerceOrderClayTableDataSetDisplayView
+public class AllCommerceOrderClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
@@ -44,8 +40,8 @@ public class CommerceOrderClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField orderIdField = clayTableSchemaBuilder.addField(
-			"orderId", "order-id");
+		ClayTableSchemaField orderIdField =
+			clayTableSchemaBuilder.addField("orderId", "order-id");
 
 		orderIdField.setContentRenderer("actionLink");
 
@@ -57,7 +53,7 @@ public class CommerceOrderClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("amount", "amount");
 
-		clayTableSchemaBuilder.addField("createDate", "order-date");
+		clayTableSchemaBuilder.addField("createDate", "create-date");
 
 		clayTableSchemaBuilder.addField("orderStatus", "order-status");
 
