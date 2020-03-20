@@ -45,7 +45,7 @@ public interface ExportTaskResource {
 
 	public ExportTask postExportTask(
 			String className, String contentType, String callbackURL,
-			String fieldNames)
+			String fieldNames, String taskItemDelegateName)
 		throws Exception;
 
 	public ExportTask getExportTask(Long exportTaskId) throws Exception;
@@ -85,6 +85,9 @@ public interface ExportTaskResource {
 		public ExportTaskResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder httpServletRequest(
+			HttpServletRequest httpServletRequest);
 
 		public Builder user(com.liferay.portal.kernel.model.User user);
 

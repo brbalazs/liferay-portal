@@ -77,6 +77,7 @@ public class BatchEngineExportTaskWrapper
 		attributes.put("executeStatus", getExecuteStatus());
 		attributes.put("parameters", getParameters());
 		attributes.put("startTime", getStartTime());
+		attributes.put("taskItemDelegateName", getTaskItemDelegateName());
 
 		return attributes;
 	}
@@ -185,6 +186,13 @@ public class BatchEngineExportTaskWrapper
 
 		if (startTime != null) {
 			setStartTime(startTime);
+		}
+
+		String taskItemDelegateName = (String)attributes.get(
+			"taskItemDelegateName");
+
+		if (taskItemDelegateName != null) {
+			setTaskItemDelegateName(taskItemDelegateName);
 		}
 	}
 
@@ -372,6 +380,16 @@ public class BatchEngineExportTaskWrapper
 	@Override
 	public Date getStartTime() {
 		return _batchEngineExportTask.getStartTime();
+	}
+
+	/**
+	 * Returns the task item delegate name of this batch engine export task.
+	 *
+	 * @return the task item delegate name of this batch engine export task
+	 */
+	@Override
+	public String getTaskItemDelegateName() {
+		return _batchEngineExportTask.getTaskItemDelegateName();
 	}
 
 	/**
@@ -625,6 +643,16 @@ public class BatchEngineExportTaskWrapper
 	@Override
 	public void setStartTime(Date startTime) {
 		_batchEngineExportTask.setStartTime(startTime);
+	}
+
+	/**
+	 * Sets the task item delegate name of this batch engine export task.
+	 *
+	 * @param taskItemDelegateName the task item delegate name of this batch engine export task
+	 */
+	@Override
+	public void setTaskItemDelegateName(String taskItemDelegateName) {
+		_batchEngineExportTask.setTaskItemDelegateName(taskItemDelegateName);
 	}
 
 	/**

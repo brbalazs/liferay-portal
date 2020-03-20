@@ -44,29 +44,33 @@ public interface ImportTaskResource {
 	}
 
 	public ImportTask deleteImportTask(
-			String className, String callbackURL, Object object)
-		throws Exception;
-
-	public ImportTask deleteImportTask(
-			String className, String callbackURL, MultipartBody multipartBody)
-		throws Exception;
-
-	public ImportTask postImportTask(
-			String className, String callbackURL, String fieldNameMapping,
+			String className, String callbackURL, String taskItemDelegateName,
 			Object object)
 		throws Exception;
 
-	public ImportTask postImportTask(
-			String className, String callbackURL, String fieldNameMapping,
+	public ImportTask deleteImportTask(
+			String className, String callbackURL, String taskItemDelegateName,
 			MultipartBody multipartBody)
 		throws Exception;
 
-	public ImportTask putImportTask(
-			String className, String callbackURL, Object object)
+	public ImportTask postImportTask(
+			String className, String callbackURL, String fieldNameMapping,
+			String taskItemDelegateName, Object object)
+		throws Exception;
+
+	public ImportTask postImportTask(
+			String className, String callbackURL, String fieldNameMapping,
+			String taskItemDelegateName, MultipartBody multipartBody)
 		throws Exception;
 
 	public ImportTask putImportTask(
-			String className, String callbackURL, MultipartBody multipartBody)
+			String className, String callbackURL, String taskItemDelegateName,
+			Object object)
+		throws Exception;
+
+	public ImportTask putImportTask(
+			String className, String callbackURL, String taskItemDelegateName,
+			MultipartBody multipartBody)
 		throws Exception;
 
 	public ImportTask getImportTask(Long importTaskId) throws Exception;
@@ -104,6 +108,9 @@ public interface ImportTaskResource {
 		public ImportTaskResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder httpServletRequest(
+			HttpServletRequest httpServletRequest);
 
 		public Builder user(com.liferay.portal.kernel.model.User user);
 
