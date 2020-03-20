@@ -132,6 +132,36 @@ public class ShippingAddress {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
+	@Schema
+	public String getExternalReferenceCodeCopy() {
+		return externalReferenceCodeCopy;
+	}
+
+	public void setExternalReferenceCodeCopy(String externalReferenceCodeCopy) {
+		this.externalReferenceCodeCopy = externalReferenceCodeCopy;
+	}
+
+	@JsonIgnore
+	public void setExternalReferenceCodeCopy(
+		UnsafeSupplier<String, Exception>
+			externalReferenceCodeCopyUnsafeSupplier) {
+
+		try {
+			externalReferenceCodeCopy =
+				externalReferenceCodeCopyUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String externalReferenceCodeCopy;
+
 	@DecimalMin("0")
 	@Schema
 	public Long getId() {
@@ -474,6 +504,20 @@ public class ShippingAddress {
 			sb.append("\"");
 
 			sb.append(_escape(description));
+
+			sb.append("\"");
+		}
+
+		if (externalReferenceCodeCopy != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"externalReferenceCodeCopy\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(externalReferenceCodeCopy));
 
 			sb.append("\"");
 		}
