@@ -19,6 +19,8 @@
 <%
 CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrderListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
+String datasetDisplayKey = commerceOrderListDisplayContext.getDatasetDisplayKey();
+
 Map<String, String> contextParams = new HashMap<>();
 
 contextParams.put("activeTab", commerceOrderListDisplayContext.getActiveTab());
@@ -29,21 +31,13 @@ contextParams.put("activeTab", commerceOrderListDisplayContext.getActiveTab());
 	navigationItems="<%= commerceOrderListDisplayContext.getNavigationItems() %>"
 />
 
-<portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />
-
-<aui:form action="<%= editCommerceOrderURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" />
-	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="deleteCommerceOrderIds" type="hidden" />
-
-	<commerce-ui:dataset-display
-		contextParams="<%= contextParams %>"
-		dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDERS %>"
-		id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDERS %>"
-		itemsPerPage="<%= 20 %>"
-		namespace="<%= renderResponse.getNamespace() %>"
-		pageNumber="<%= 1 %>"
-		portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
-		style="fluid"
-	/>
-</aui:form>
+<commerce-ui:dataset-display
+	contextParams="<%= contextParams %>"
+	dataProviderKey="<%= datasetDisplayKey %>"
+	id="<%= datasetDisplayKey %>"
+	itemsPerPage="<%= 20 %>"
+	namespace="<%= renderResponse.getNamespace() %>"
+	pageNumber="<%= 1 %>"
+	portletURL="<%= commerceOrderListDisplayContext.getPortletURL() %>"
+	style="fluid"
+/>

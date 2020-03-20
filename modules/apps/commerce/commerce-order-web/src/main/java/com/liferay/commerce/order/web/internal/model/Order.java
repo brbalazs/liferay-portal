@@ -22,18 +22,18 @@ import com.liferay.commerce.frontend.model.LabelField;
 public class Order {
 
 	public Order(
-		long orderId, String createDate, String orderStatus,
-		String paymentStatus, LabelField fulfillmentWorkflow, String account,
-		String accountCode, String amount) {
+		String account, String accountCode, String amount, String channel,
+		String createDate, LabelField fulfillmentWorkflow, long orderId,
+		String orderStatus) {
 
-		_orderId = orderId;
-		_createDate = createDate;
-		_orderStatus = orderStatus;
-		_paymentStatus = paymentStatus;
-		_fulfillmentWorkflow = fulfillmentWorkflow;
 		_account = account;
 		_accountCode = accountCode;
 		_amount = amount;
+		_channel = channel;
+		_createDate = createDate;
+		_fulfillmentWorkflow = fulfillmentWorkflow;
+		_orderId = orderId;
+		_orderStatus = orderStatus;
 	}
 
 	public String getAccount() {
@@ -46,6 +46,10 @@ public class Order {
 
 	public String getAmount() {
 		return _amount;
+	}
+
+	public String getChannel() {
+		return _channel;
 	}
 
 	public String getCreateDate() {
@@ -64,17 +68,13 @@ public class Order {
 		return _orderStatus;
 	}
 
-	public String getPaymentStatus() {
-		return _paymentStatus;
-	}
-
 	private final String _account;
 	private final String _accountCode;
 	private final String _amount;
+	private final String _channel;
 	private final String _createDate;
 	private final LabelField _fulfillmentWorkflow;
 	private final long _orderId;
 	private final String _orderStatus;
-	private final String _paymentStatus;
 
 }

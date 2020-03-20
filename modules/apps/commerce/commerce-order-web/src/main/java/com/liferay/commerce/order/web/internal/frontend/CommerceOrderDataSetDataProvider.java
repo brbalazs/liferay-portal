@@ -21,6 +21,7 @@ import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.order.web.internal.constants.CommerceOrderPortletConstants;
 import com.liferay.commerce.order.web.internal.model.Order;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
@@ -63,7 +64,13 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDERS,
+	property = {
+		"commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ALL_ORDERS,
+		"commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_COMPLETED_ORDERS,
+		"commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_OPEN_ORDERS,
+		"commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS,
+		"commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PROCESSING_ORDERS
+	},
 	service = CommerceDataSetDataProvider.class
 )
 public class CommerceOrderDataSetDataProvider
@@ -76,7 +83,8 @@ public class CommerceOrderDataSetDataProvider
 		OrderFilterImpl orderFilterImpl = (OrderFilterImpl)filter;
 
 		String activeTab = ParamUtil.getString(
-			httpServletRequest, "activeTab", "all");
+			httpServletRequest, "activeTab",
+			CommerceOrderPortletConstants.NAVIGATION_ITEM_ALL);
 
 		SearchContext searchContext = buildSearchContext(
 			_portal.getCompanyId(httpServletRequest), activeTab,
@@ -103,7 +111,8 @@ public class CommerceOrderDataSetDataProvider
 				WebKeys.THEME_DISPLAY);
 
 		String activeTab = ParamUtil.getString(
-			httpServletRequest, "activeTab", "all");
+			httpServletRequest, "activeTab",
+			CommerceOrderPortletConstants.NAVIGATION_ITEM_ALL);
 
 		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
 			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
@@ -126,18 +135,17 @@ public class CommerceOrderDataSetDataProvider
 		for (CommerceOrder commerceOrder : commerceOrders) {
 			CommerceMoney totalMoney = commerceOrder.getTotalMoney();
 
+			CommerceChannel commerceChannel =
+				_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+					commerceOrder.getGroupId());
+
 			orders.add(
 				new Order(
-					commerceOrder.getCommerceOrderId(),
+					commerceOrder.getCommerceAccountName(),
+					String.valueOf(commerceOrder.getCommerceAccountId()),
+					totalMoney.format(themeDisplay.getLocale()),
+					commerceChannel.getName(),
 					getCommerceOrderDateTime(commerceOrder, dateTimeFormat),
-					LanguageUtil.get(
-						httpServletRequest,
-						CommerceOrderConstants.getOrderStatusLabel(
-							commerceOrder.getOrderStatus())),
-					LanguageUtil.get(
-						httpServletRequest,
-						CommerceOrderConstants.getPaymentStatusLabel(
-							commerceOrder.getPaymentStatus())),
 					new LabelField(
 						CommerceOrderConstants.getOrderStatusLabelStyle(
 							commerceOrder.getOrderStatus()),
@@ -145,9 +153,11 @@ public class CommerceOrderDataSetDataProvider
 							httpServletRequest,
 							CommerceOrderConstants.getOrderStatusLabel(
 								commerceOrder.getOrderStatus()))),
-					commerceOrder.getCommerceAccountName(),
-					String.valueOf(commerceOrder.getCommerceAccountId()),
-					totalMoney.format(themeDisplay.getLocale())));
+					commerceOrder.getCommerceOrderId(),
+					LanguageUtil.get(
+						httpServletRequest,
+						CommerceOrderConstants.getOrderStatusLabel(
+							commerceOrder.getOrderStatus()))));
 		}
 
 		return orders;
