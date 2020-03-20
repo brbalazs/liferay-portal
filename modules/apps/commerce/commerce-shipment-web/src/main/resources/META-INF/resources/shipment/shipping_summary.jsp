@@ -40,7 +40,7 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 	title='<%= LanguageUtil.get(request, "info") %>'
 >
 	<div class="row vertically-divided">
-		<div class="col-md-4">
+		<div class="col-xl-4">
 			<liferay-portlet:renderURL var="editCommerceShipmentCourierDetailURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 				<portlet:param name="mvcRenderCommandName" value="editCommerceShipmentCourierDetail" />
 				<portlet:param name="commerceShipmentId" value="<%= String.valueOf(commerceShipment.getCommerceShipmentId()) %>" />
@@ -90,7 +90,7 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 			</commerce-ui:info-box>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-xl-4">
 			<liferay-portlet:renderURL var="editCommerceShipmentAddressURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 				<portlet:param name="mvcRenderCommandName" value="editCommerceShipmentAddress" />
 				<portlet:param name="commerceShipmentId" value="<%= String.valueOf(commerceShipment.getCommerceShipmentId()) %>" />
@@ -120,7 +120,7 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 			</commerce-ui:info-box>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-xl-4">
 			<liferay-portlet:renderURL var="editCommerceShipmentShippingDateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 				<portlet:param name="mvcRenderCommandName" value="editCommerceShipmentShippingDate" />
 				<portlet:param name="commerceShipmentId" value="<%= String.valueOf(commerceShipment.getCommerceShipmentId()) %>" />

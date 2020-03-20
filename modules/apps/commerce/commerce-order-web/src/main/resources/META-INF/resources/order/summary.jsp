@@ -111,7 +111,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			title='<%= LanguageUtil.get(request, "info") %>'
 		>
 			<div class="row vertically-divided">
-				<div class="col-md-4">
+				<div class="col-xl-4">
 
 					<%
 					CommerceAddress billingAddress = commerceOrder.getBillingAddress();
@@ -158,7 +158,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 					</commerce-ui:info-box>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-xl-4">
 
 					<%
 					String purchaseOrderNumber = commerceOrder.getPurchaseOrderNumber();
@@ -209,7 +209,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 				String printedNote = commerceOrder.getPrintedNote();
 				%>
 
-				<div class="col-md-4">
+				<div class="col-xl-4">
 					<commerce-ui:info-box
 						actionLabel='<%= LanguageUtil.get(request, Validator.isNull(printedNote) ? "add" : "edit") %>'
 						actionTargetId="printed-note-modal"
