@@ -179,11 +179,12 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelProducts(channelId: ___, filter: ___, page: ___, pageSize: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelProducts(accountId: ___, channelId: ___, filter: ___, page: ___, pageSize: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves products from selected channel.")
 	public ProductPage channelProducts(
 			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("accountId") Long accountId,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page,
@@ -195,7 +196,7 @@ public class Query {
 			this::_populateResourceContext,
 			productResource -> new ProductPage(
 				productResource.getChannelProductsPage(
-					channelId,
+					channelId, accountId,
 					_filterBiFunction.apply(productResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(productResource, sortsString))));
@@ -204,19 +205,20 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelProduct(channelId: ___, productId: ___){attachments, categories, createDate, description, expando, id, images, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productOptions, productSpecifications, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelProduct(accountId: ___, channelId: ___, productId: ___){attachments, categories, createDate, description, expando, id, images, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productOptions, productSpecifications, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves products from selected channel.")
 	public Product channelProduct(
 			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("productId") Long productId)
+			@GraphQLName("productId") Long productId,
+			@GraphQLName("accountId") Long accountId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productResource -> productResource.getChannelProduct(
-				channelId, productId));
+				channelId, productId, accountId));
 	}
 
 	/**

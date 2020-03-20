@@ -43,10 +43,12 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductResource {
 
 	public Page<Product> getChannelProductsPage(
-			Long channelId, Filter filter, Pagination pagination, Sort[] sorts)
+			Long channelId, Long accountId, Filter filter,
+			Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public Product getChannelProduct(Long channelId, Long productId)
+	public Product getChannelProduct(
+			Long channelId, Long productId, Long accountId)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

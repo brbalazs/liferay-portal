@@ -41,20 +41,21 @@ public interface ProductResource {
 	}
 
 	public Page<Product> getChannelProductsPage(
-			Long channelId, String filterString, Pagination pagination,
-			String sortString)
+			Long channelId, Long accountId, String filterString,
+			Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getChannelProductsPageHttpResponse(
-			Long channelId, String filterString, Pagination pagination,
-			String sortString)
+			Long channelId, Long accountId, String filterString,
+			Pagination pagination, String sortString)
 		throws Exception;
 
-	public Product getChannelProduct(Long channelId, Long productId)
+	public Product getChannelProduct(
+			Long channelId, Long productId, Long accountId)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getChannelProductHttpResponse(
-			Long channelId, Long productId)
+			Long channelId, Long productId, Long accountId)
 		throws Exception;
 
 	public static class Builder {
@@ -113,13 +114,13 @@ public interface ProductResource {
 	public static class ProductResourceImpl implements ProductResource {
 
 		public Page<Product> getChannelProductsPage(
-				Long channelId, String filterString, Pagination pagination,
-				String sortString)
+				Long channelId, Long accountId, String filterString,
+				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getChannelProductsPageHttpResponse(
-					channelId, filterString, pagination, sortString);
+					channelId, accountId, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -142,8 +143,8 @@ public interface ProductResource {
 		}
 
 		public HttpInvoker.HttpResponse getChannelProductsPageHttpResponse(
-				Long channelId, String filterString, Pagination pagination,
-				String sortString)
+				Long channelId, Long accountId, String filterString,
+				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -166,6 +167,10 @@ public interface ProductResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (accountId != null) {
+				httpInvoker.parameter("accountId", String.valueOf(accountId));
+			}
 
 			if (filterString != null) {
 				httpInvoker.parameter("filter", filterString);
@@ -194,11 +199,12 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public Product getChannelProduct(Long channelId, Long productId)
+		public Product getChannelProduct(
+				Long channelId, Long productId, Long accountId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getChannelProductHttpResponse(channelId, productId);
+				getChannelProductHttpResponse(channelId, productId, accountId);
 
 			String content = httpResponse.getContent();
 
@@ -221,7 +227,7 @@ public interface ProductResource {
 		}
 
 		public HttpInvoker.HttpResponse getChannelProductHttpResponse(
-				Long channelId, Long productId)
+				Long channelId, Long productId, Long accountId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -244,6 +250,10 @@ public interface ProductResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (accountId != null) {
+				httpInvoker.parameter("accountId", String.valueOf(accountId));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

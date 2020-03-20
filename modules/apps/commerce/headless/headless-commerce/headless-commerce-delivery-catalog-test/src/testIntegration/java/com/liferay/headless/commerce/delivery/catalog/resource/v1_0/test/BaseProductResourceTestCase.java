@@ -213,7 +213,7 @@ public abstract class BaseProductResourceTestCase {
 	@Test
 	public void testGetChannelProductsPage() throws Exception {
 		Page<Product> page = productResource.getChannelProductsPage(
-			testGetChannelProductsPage_getChannelId(), null,
+			testGetChannelProductsPage_getChannelId(), null, null,
 			Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
@@ -227,7 +227,7 @@ public abstract class BaseProductResourceTestCase {
 				irrelevantChannelId, randomIrrelevantProduct());
 
 			page = productResource.getChannelProductsPage(
-				irrelevantChannelId, null, Pagination.of(1, 2), null);
+				irrelevantChannelId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -244,7 +244,7 @@ public abstract class BaseProductResourceTestCase {
 			channelId, randomProduct());
 
 		page = productResource.getChannelProductsPage(
-			channelId, null, Pagination.of(1, 2), null);
+			channelId, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -272,7 +272,8 @@ public abstract class BaseProductResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Product> page = productResource.getChannelProductsPage(
-				channelId, getFilterString(entityField, "between", product1),
+				channelId, null,
+				getFilterString(entityField, "between", product1),
 				Pagination.of(1, 2), null);
 
 			assertEquals(
@@ -303,7 +304,7 @@ public abstract class BaseProductResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Product> page = productResource.getChannelProductsPage(
-				channelId, getFilterString(entityField, "eq", product1),
+				channelId, null, getFilterString(entityField, "eq", product1),
 				Pagination.of(1, 2), null);
 
 			assertEquals(
@@ -326,14 +327,14 @@ public abstract class BaseProductResourceTestCase {
 			channelId, randomProduct());
 
 		Page<Product> page1 = productResource.getChannelProductsPage(
-			channelId, null, Pagination.of(1, 2), null);
+			channelId, null, null, Pagination.of(1, 2), null);
 
 		List<Product> products1 = (List<Product>)page1.getItems();
 
 		Assert.assertEquals(products1.toString(), 2, products1.size());
 
 		Page<Product> page2 = productResource.getChannelProductsPage(
-			channelId, null, Pagination.of(2, 2), null);
+			channelId, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -342,7 +343,7 @@ public abstract class BaseProductResourceTestCase {
 		Assert.assertEquals(products2.toString(), 1, products2.size());
 
 		Page<Product> page3 = productResource.getChannelProductsPage(
-			channelId, null, Pagination.of(1, 3), null);
+			channelId, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(product1, product2, product3),
@@ -429,7 +430,7 @@ public abstract class BaseProductResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Product> ascPage = productResource.getChannelProductsPage(
-				channelId, null, Pagination.of(1, 2),
+				channelId, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":asc");
 
 			assertEquals(
@@ -437,7 +438,7 @@ public abstract class BaseProductResourceTestCase {
 				(List<Product>)ascPage.getItems());
 
 			Page<Product> descPage = productResource.getChannelProductsPage(
-				channelId, null, Pagination.of(1, 2),
+				channelId, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":desc");
 
 			assertEquals(
@@ -470,7 +471,7 @@ public abstract class BaseProductResourceTestCase {
 		Product postProduct = testGetChannelProduct_addProduct();
 
 		Product getProduct = productResource.getChannelProduct(
-			null, postProduct.getId());
+			null, postProduct.getId(), null);
 
 		assertEquals(postProduct, getProduct);
 		assertValid(getProduct);

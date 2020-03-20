@@ -60,6 +60,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -86,6 +87,7 @@ public abstract class BaseProductResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.QUERY, name = "accountId"),
 			@Parameter(in = ParameterIn.QUERY, name = "filter"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
@@ -98,6 +100,7 @@ public abstract class BaseProductResourceImpl
 	public Page<Product> getChannelProductsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
+			@Parameter(hidden = true) @QueryParam("accountId") Long accountId,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -116,7 +119,8 @@ public abstract class BaseProductResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "productId")
+			@Parameter(in = ParameterIn.PATH, name = "productId"),
+			@Parameter(in = ParameterIn.QUERY, name = "accountId")
 		}
 	)
 	@Path("/channels/{channelId}/products/{productId}")
@@ -126,7 +130,8 @@ public abstract class BaseProductResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
-				productId)
+				productId,
+			@Parameter(hidden = true) @QueryParam("accountId") Long accountId)
 		throws Exception {
 
 		return new Product();
