@@ -38,7 +38,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 
 import java.math.BigDecimal;
 
-import java.util.Calendar;
 import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
@@ -193,16 +192,6 @@ public class EditCommerceOrderItemMVCActionCommand
 			actionRequest, "requestedDeliveryDateDay");
 		int requestedDeliveryDateYear = ParamUtil.getInteger(
 			actionRequest, "requestedDeliveryDateYear");
-		int requestedDeliveryDateHour = ParamUtil.getInteger(
-			actionRequest, "requestedDeliveryDateHour");
-		int requestedDeliveryDateMinute = ParamUtil.getInteger(
-			actionRequest, "requestedDeliveryDateMinute");
-		int requestedDeliveryDateAmPm = ParamUtil.getInteger(
-			actionRequest, "requestedDeliveryDateAmPm");
-
-		if (requestedDeliveryDateAmPm == Calendar.PM) {
-			requestedDeliveryDateHour += 12;
-		}
 
 		String deliveryGroup = ParamUtil.getString(
 			actionRequest, "deliveryGroup");
@@ -211,9 +200,7 @@ public class EditCommerceOrderItemMVCActionCommand
 			commerceOrderItem.getCommerceOrderItemId(), deliveryGroup,
 			commerceOrderItem.getShippingAddressId(),
 			commerceOrderItem.getPrintedNote(), requestedDeliveryDateMonth,
-			requestedDeliveryDateDay, requestedDeliveryDateYear,
-			requestedDeliveryDateHour, requestedDeliveryDateMinute,
-			serviceContext);
+			requestedDeliveryDateDay, requestedDeliveryDateYear);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
