@@ -102,17 +102,19 @@ public class CommerceOrderDataSetActionProvider
 	}
 
 	private PortletURL _getOrderDeleteURL(
-			long commerceOrderId, HttpServletRequest httpServletRequest)
-		throws PortalException {
+		long commerceOrderId, HttpServletRequest httpServletRequest) {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
 			_portal.getOriginalServletRequest(httpServletRequest),
 			CommercePortletKeys.COMMERCE_ORDER, PortletRequest.ACTION_PHASE);
 
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
 		portletURL.setParameter(ActionRequest.ACTION_NAME, "editCommerceOrder");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter("redirect", redirect);
 		portletURL.setParameter(
 			"commerceOrderId", String.valueOf(commerceOrderId));
 

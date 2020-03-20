@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -83,18 +84,20 @@ public class CommerceOrderItemClayDataSetActionProvider
 	}
 
 	private PortletURL _getOrderItemDeleteURL(
-			long commerceOrderItemId, HttpServletRequest httpServletRequest)
-		throws PortalException {
+		long commerceOrderItemId, HttpServletRequest httpServletRequest) {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
 			_portal.getOriginalServletRequest(httpServletRequest),
 			CommercePortletKeys.COMMERCE_ORDER, PortletRequest.ACTION_PHASE);
 
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
 		portletURL.setParameter(
 			ActionRequest.ACTION_NAME, "editCommerceOrderItem");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter("redirect", redirect);
 		portletURL.setParameter(
 			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
 
