@@ -46,11 +46,11 @@ portletDisplay.setURLBack(redirect);
 
 		<div class="row text-center">
 			<div class="col-sm-6">
-				<liferay-ui:message key="ordered" />: <%= commerceOrderItem.getQuantity() - commerceOrderItem.getShippedQuantity() %>
+				<liferay-ui:message key="outstanding-quantity" />: <%= commerceOrderItem.getQuantity() - commerceOrderItem.getShippedQuantity() %>
 			</div>
 
 			<div class="col-sm-6">
-				<liferay-ui:message key="to-send" />: <%= commerceShipmentItemDisplayContext.getToSendQuantity() %>
+				<liferay-ui:message key="quantity-in-shipment" />: <%= commerceShipmentItemDisplayContext.getToSendQuantity() %>
 			</div>
 		</div>
 
@@ -76,7 +76,7 @@ portletDisplay.setURLBack(redirect);
 		/>
 
 		<aui:button-row>
-			<aui:button cssClass="btn-lg" type="submit" value="add-to-shipment" />
+			<aui:button cssClass="btn-lg" type="submit" value="save" />
 		</aui:button-row>
 	</aui:form>
 </commerce-ui:side-panel-content>

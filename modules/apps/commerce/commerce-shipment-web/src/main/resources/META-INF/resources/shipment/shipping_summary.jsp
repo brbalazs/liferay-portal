@@ -37,7 +37,7 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 
 <commerce-ui:panel
 	elementClasses="flex-fill"
-	title='<%= LanguageUtil.get(request, "info") %>'
+	title='<%= LanguageUtil.get(request, "details") %>'
 >
 	<div class="row vertically-divided">
 		<div class="col-xl-4">
@@ -60,21 +60,6 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 			>
 				<div class="item">
 					<span class="title">
-						<liferay-ui:message key="tracking-number" />
-					</span>
-
-					<c:choose>
-						<c:when test="<%= Validator.isBlank(trackingNumber) %>">
-							<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
-						</c:when>
-						<c:otherwise>
-							<b><%= trackingNumber %></b>
-						</c:otherwise>
-					</c:choose>
-				</div>
-
-				<div class="item">
-					<span class="title">
 						<liferay-ui:message key="carrier" />
 					</span>
 
@@ -84,6 +69,21 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 						</c:when>
 						<c:otherwise>
 							<b><%= carrier %></b>
+						</c:otherwise>
+					</c:choose>
+				</div>
+
+				<div class="item">
+					<span class="title">
+						<liferay-ui:message key="tracking-number" />
+					</span>
+
+					<c:choose>
+						<c:when test="<%= Validator.isBlank(trackingNumber) %>">
+							<span class="text-muted"><liferay-ui:message key="click-edit-to-insert" /></span>
+						</c:when>
+						<c:otherwise>
+							<b><%= trackingNumber %></b>
 						</c:otherwise>
 					</c:choose>
 				</div>

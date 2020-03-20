@@ -35,8 +35,8 @@ CommerceShipment commerceShipment = commerceShipmentDisplayContext.getCommerceSh
 
 		<aui:input name="commerceShipmentId" type="hidden" />
 
-		<aui:input name="trackingNumber" wrapperCssClass="form-group-item" />
-
 		<aui:input name="carrier" wrapperCssClass="form-group-item" />
+
+		<aui:input name="trackingNumber" wrapperCssClass="form-group-item" />
 	</aui:form>
 </commerce-ui:modal-content>

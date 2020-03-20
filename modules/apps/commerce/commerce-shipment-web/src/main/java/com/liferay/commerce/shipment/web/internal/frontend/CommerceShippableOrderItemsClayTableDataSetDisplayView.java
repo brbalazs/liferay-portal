@@ -44,7 +44,7 @@ public class CommerceShippableOrderItemsClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("orderId", "order-id");
 
-		clayTableSchemaBuilder.addField("quantity", "ordered");
+		clayTableSchemaBuilder.addField("quantity", "outstanding-quantity");
 
 		clayTableSchemaBuilder.addField("available", "available");
 

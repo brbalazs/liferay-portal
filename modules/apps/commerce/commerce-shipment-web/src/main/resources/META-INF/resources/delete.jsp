@@ -52,6 +52,8 @@ String title = "shipment";
 			</c:when>
 		</c:choose>
 
-		<aui:input label="do-you-wish-to-restock-the-items-that-are-being-deleted" labelOff="no" labelOn="yes" name="restoreStockQuantity" type="toggle-switch" value="true" />
+		<h2><liferay-ui:message key="restock-the-items-that-are-being-deleted" /></h2>
+
+		<aui:input label="yes-restock-the-items" name="restoreStockQuantity" type="checkbox" value="true" />
 	</aui:form>
 </commerce-ui:modal-content>

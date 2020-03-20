@@ -51,9 +51,11 @@ public class ProcessingCommerceShipmentItemClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("warehouse", "warehouse");
 
-		clayTableSchemaBuilder.addField("orderedQuantity", "ordered");
+		clayTableSchemaBuilder.addField(
+			"orderedQuantity", "outstanding-quantity");
 
-		clayTableSchemaBuilder.addField("toSendQuantity", "to-send");
+		clayTableSchemaBuilder.addField(
+			"toSendQuantity", "quantity-in-shipment");
 
 		return clayTableSchemaBuilder.build();
 	}

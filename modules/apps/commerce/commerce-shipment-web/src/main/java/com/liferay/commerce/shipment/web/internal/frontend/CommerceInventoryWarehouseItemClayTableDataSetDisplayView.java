@@ -46,7 +46,7 @@ public class CommerceInventoryWarehouseItemClayTableDataSetDisplayView
 		clayTableSchemaBuilder.addField("available", "available");
 
 		ClayTableSchemaField allowedField = clayTableSchemaBuilder.addField(
-			"warehouseItem", "to-send");
+			"warehouseItem", "quantity-in-shipment");
 
 		allowedField.setContentRenderer("quantitySelector");
 
