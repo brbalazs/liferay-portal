@@ -385,15 +385,15 @@ paths:
             operationId: deleteCartComment
             parameters:
                 - in: path
-                  explode: false
-                  name: cartCommentId
-                  required: true
-                  schema:
-                      description:
-                          Comment Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartCommentId
+                      required: true
+                      schema:
+                          description:
+                              Comment Id
+                          format: int64
+                          type: integer
+                      style: simple
             responses:
                 "204":
                     description:
@@ -412,15 +412,15 @@ paths:
             operationId: getCartComment
             parameters:
                 - in: path
-                  explode: false
-                  name: cartCommentId
-                  required: true
-                  schema:
-                      description:
-                          Comment Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartCommentId
+                      required: true
+                      schema:
+                          description:
+                              Comment Id
+                          format: int64
+                          type: integer
+                      style: simple
             responses:
                 200:
                     content:
@@ -467,15 +467,15 @@ paths:
             operationId: patchCartComment
             parameters:
                 - in: path
-                  explode: false
-                  name: cartCommentId
-                  required: true
-                  schema:
-                      description:
-                          Comment Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartCommentId
+                      required: true
+                      schema:
+                          description:
+                              Comment Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -531,15 +531,15 @@ paths:
             operationId: putCartComment
             parameters:
                 - in: path
-                  explode: false
-                  name: cartCommentId
-                  required: true
-                  schema:
-                      description:
-                          Comment Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartCommentId
+                      required: true
+                      schema:
+                          description:
+                              Comment Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -598,15 +598,15 @@ paths:
             operationId: deleteCartItem
             parameters:
                 - in: path
-                  explode: false
-                  name: cartItemId
-                  required: true
-                  schema:
-                      description:
-                          Cart Item Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartItemId
+                      required: true
+                      schema:
+                          description:
+                              Cart Item Id
+                          format: int64
+                          type: integer
+                      style: simple
             responses:
                 "204":
                     description:
@@ -626,15 +626,15 @@ paths:
             operationId: getCartItem
             parameters:
                 - in: path
-                  explode: false
-                  name: cartItemId
-                  required: true
-                  schema:
-                      description:
-                          Cart Item Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartItemId
+                      required: true
+                      schema:
+                          description:
+                              Cart Item Id
+                          format: int64
+                          type: integer
+                      style: simple
             responses:
                 200:
                     content:
@@ -677,15 +677,15 @@ paths:
             operationId: patchCartItem
             parameters:
                 - in: path
-                  explode: false
-                  name: cartItemId
-                  required: true
-                  schema:
-                      description:
-                          Cart Item Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartItemId
+                      required: true
+                      schema:
+                          description:
+                              Cart Item Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -737,15 +737,15 @@ paths:
             operationId: putCartItem
             parameters:
                 - in: path
-                  explode: false
-                  name: cartItemId
-                  required: true
-                  schema:
-                      description:
-                          Cart Item Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartItemId
+                      required: true
+                      schema:
+                          description:
+                              Cart Item Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -796,15 +796,15 @@ paths:
             operationId: deleteCart
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             responses:
                 "204":
                     description:
@@ -825,15 +825,15 @@ paths:
             operationId: getCart
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             responses:
                 200:
                     content:
@@ -874,15 +874,15 @@ paths:
             operationId: patchCart
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -938,15 +938,15 @@ paths:
             operationId: putCart
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -1005,15 +1005,15 @@ paths:
             operationId: getCartBillingAddres
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             responses:
                 200:
                     content:
@@ -1055,25 +1055,25 @@ paths:
             operationId: getCartCommentsPage
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
                 - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
+                      name: page
+                      required: false
+                      schema:
+                          type: integer
                 - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
+                      name: pageSize
+                      required: false
+                      schema:
+                          type: integer
             responses:
                 200:
                     content:
@@ -1124,15 +1124,15 @@ paths:
             operationId: postCartComment
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -1191,15 +1191,15 @@ paths:
             operationId: postCartCouponCode
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -1254,25 +1254,25 @@ paths:
             operationId: getCartItemsPage
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
                 - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
+                      name: page
+                      required: false
+                      schema:
+                          type: integer
                 - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
+                      name: pageSize
+                      required: false
+                      schema:
+                          type: integer
             responses:
                 200:
                     content:
@@ -1321,15 +1321,15 @@ paths:
             operationId: postCartItem
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
@@ -1384,15 +1384,15 @@ paths:
             operationId: getCartShippingAddres
             parameters:
                 - in: path
-                  explode: false
-                  name: cartId
-                  required: true
-                  schema:
-                      description:
-                          Cart Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: cartId
+                      required: true
+                      schema:
+                          description:
+                              Cart Id
+                          format: int64
+                          type: integer
+                      style: simple
             responses:
                 200:
                     content:
@@ -1436,25 +1436,25 @@ paths:
             operationId: getChannelCartsPage
             parameters:
                 - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: channelId
+                      required: true
+                      schema:
+                          description:
+                              Channel Id
+                          format: int64
+                          type: integer
+                      style: simple
                 - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
+                      name: page
+                      required: false
+                      schema:
+                          type: integer
                 - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
+                      name: pageSize
+                      required: false
+                      schema:
+                          type: integer
             responses:
                 200:
                     content:
@@ -1501,15 +1501,15 @@ paths:
             operationId: postChannelCart
             parameters:
                 - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      format: int64
-                      type: integer
-                  style: simple
+                      explode: false
+                      name: channelId
+                      required: true
+                      schema:
+                          description:
+                              Channel Id
+                          format: int64
+                          type: integer
+                      style: simple
             requestBody:
                 content:
                     application/json:
