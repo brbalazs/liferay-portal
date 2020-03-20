@@ -509,23 +509,24 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 			increaseCommerceInventoryWarehouseItemQuantity(
-				long commerceInventoryWarehouseItemId, int quantity)
+				long userId, long commerceInventoryWarehouseItemId,
+				int quantity)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceInventoryWarehouseItemLocalService.
 			increaseCommerceInventoryWarehouseItemQuantity(
-				commerceInventoryWarehouseItemId, quantity);
+				userId, commerceInventoryWarehouseItemId, quantity);
 	}
 
 	@Override
 	public void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
+			long userId, long fromCommerceInventoryWarehouseId,
 			long toCommerceInventoryWarehouseId, String sku, int quantity)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_commerceInventoryWarehouseItemLocalService.
 			moveQuantitiesBetweenWarehouses(
-				fromCommerceInventoryWarehouseId,
+				userId, fromCommerceInventoryWarehouseId,
 				toCommerceInventoryWarehouseId, sku, quantity);
 	}
 
@@ -549,24 +550,26 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 			updateCommerceInventoryWarehouseItem(
-				long commerceInventoryWarehouseItemId, int quantity)
+				long userId, long commerceInventoryWarehouseItemId,
+				int quantity)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
-				commerceInventoryWarehouseItemId, quantity);
+				userId, commerceInventoryWarehouseItemId, quantity);
 	}
 
 	@Override
 	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 			updateCommerceInventoryWarehouseItem(
-				long commerceInventoryWarehouseItemId, int quantity,
-				int reservedQuantity)
+				long userId, long commerceInventoryWarehouseItemId,
+				int quantity, int reservedQuantity)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
-				commerceInventoryWarehouseItemId, quantity, reservedQuantity);
+				userId, commerceInventoryWarehouseItemId, quantity,
+				reservedQuantity);
 	}
 
 	@Override

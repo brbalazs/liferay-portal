@@ -151,9 +151,7 @@ public class CommerceInventoryAuditCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput)
-		throws ClassNotFoundException, IOException {
-
+	public void readExternal(ObjectInput objectInput) throws IOException {
 		commerceInventoryAuditId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -164,7 +162,7 @@ public class CommerceInventoryAuditCacheModel
 		modifiedDate = objectInput.readLong();
 		sku = objectInput.readUTF();
 		logType = objectInput.readUTF();
-		logTypeSettings = (String)objectInput.readObject();
+		logTypeSettings = objectInput.readUTF();
 
 		quantity = objectInput.readInt();
 	}
@@ -202,10 +200,10 @@ public class CommerceInventoryAuditCacheModel
 		}
 
 		if (logTypeSettings == null) {
-			objectOutput.writeObject("");
+			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeObject(logTypeSettings);
+			objectOutput.writeUTF(logTypeSettings);
 		}
 
 		objectOutput.writeInt(quantity);

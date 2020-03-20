@@ -463,21 +463,22 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 				increaseCommerceInventoryWarehouseItemQuantity(
-					long commerceInventoryWarehouseItemId, int quantity)
+					long userId, long commerceInventoryWarehouseItemId,
+					int quantity)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().increaseCommerceInventoryWarehouseItemQuantity(
-			commerceInventoryWarehouseItemId, quantity);
+			userId, commerceInventoryWarehouseItemId, quantity);
 	}
 
 	public static void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
+			long userId, long fromCommerceInventoryWarehouseId,
 			long toCommerceInventoryWarehouseId, String sku, int quantity)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		getService().moveQuantitiesBetweenWarehouses(
-			fromCommerceInventoryWarehouseId, toCommerceInventoryWarehouseId,
-			sku, quantity);
+			userId, fromCommerceInventoryWarehouseId,
+			toCommerceInventoryWarehouseId, sku, quantity);
 	}
 
 	/**
@@ -500,22 +501,24 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 				updateCommerceInventoryWarehouseItem(
-					long commerceInventoryWarehouseItemId, int quantity)
+					long userId, long commerceInventoryWarehouseItemId,
+					int quantity)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateCommerceInventoryWarehouseItem(
-			commerceInventoryWarehouseItemId, quantity);
+			userId, commerceInventoryWarehouseItemId, quantity);
 	}
 
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 				updateCommerceInventoryWarehouseItem(
-					long commerceInventoryWarehouseItemId, int quantity,
-					int reservedQuantity)
+					long userId, long commerceInventoryWarehouseItemId,
+					int quantity, int reservedQuantity)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateCommerceInventoryWarehouseItem(
-			commerceInventoryWarehouseItemId, quantity, reservedQuantity);
+			userId, commerceInventoryWarehouseItemId, quantity,
+			reservedQuantity);
 	}
 
 	public static

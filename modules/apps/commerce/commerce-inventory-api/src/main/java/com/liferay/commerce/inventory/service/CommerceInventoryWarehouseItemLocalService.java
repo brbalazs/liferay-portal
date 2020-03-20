@@ -334,7 +334,8 @@ public interface CommerceInventoryWarehouseItemLocalService
 
 	public CommerceInventoryWarehouseItem
 			increaseCommerceInventoryWarehouseItemQuantity(
-				long commerceInventoryWarehouseItemId, int quantity)
+				long userId, long commerceInventoryWarehouseItemId,
+				int quantity)
 		throws PortalException;
 
 	@Transactional(
@@ -342,7 +343,7 @@ public interface CommerceInventoryWarehouseItemLocalService
 		rollbackFor = Exception.class
 	)
 	public void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
+			long userId, long fromCommerceInventoryWarehouseId,
 			long toCommerceInventoryWarehouseId, String sku, int quantity)
 		throws PortalException;
 
@@ -357,11 +358,11 @@ public interface CommerceInventoryWarehouseItemLocalService
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem);
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
-			long commerceInventoryWarehouseItemId, int quantity)
+			long userId, long commerceInventoryWarehouseItemId, int quantity)
 		throws PortalException;
 
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
-			long commerceInventoryWarehouseItemId, int quantity,
+			long userId, long commerceInventoryWarehouseItemId, int quantity,
 			int reservedQuantity)
 		throws PortalException;
 
