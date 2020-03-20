@@ -33,6 +33,8 @@ import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -47,6 +49,7 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -106,6 +109,30 @@ public class CommerceChannelClayTable
 					StringPool.BLANK, portletURL.toString(), StringPool.BLANK,
 					LanguageUtil.get(httpServletRequest, "edit"), null, false,
 					false));
+		}
+
+		if (_commerceChannelPermission.contains(
+				themeDisplay.getPermissionChecker(), channel.getChannelId(),
+				ActionKeys.PERMISSIONS)) {
+
+			try {
+				PortletURL permissionsURL = _getManageChannelPermissionsURL(
+					channel, httpServletRequest);
+
+				ClayDataSetAction permissionsClayDataSetAction =
+					new ClayDataSetAction(
+						StringPool.BLANK, permissionsURL.toString(),
+						StringPool.BLANK,
+						LanguageUtil.get(httpServletRequest, "permissions"),
+						StringPool.BLANK, false, false);
+
+				permissionsClayDataSetAction.setTarget("modal");
+
+				clayTableActions.add(permissionsClayDataSetAction);
+			}
+			catch (Exception e) {
+				throw new PortalException(e);
+			}
 		}
 
 		if (_commerceChannelPermission.contains(
@@ -186,6 +213,40 @@ public class CommerceChannelClayTable
 		}
 
 		return channels;
+	}
+
+	private PortletURL _getManageChannelPermissionsURL(
+			Channel channel, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest,
+			"com_liferay_portlet_configuration_web_portlet_" +
+				"PortletConfigurationPortlet",
+			ActionRequest.RENDER_PHASE);
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter("mvcPath", "/edit_permissions.jsp");
+		portletURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			redirect);
+		portletURL.setParameter(
+			"modelResource", CommerceChannel.class.getName());
+		portletURL.setParameter("modelResourceDescription", channel.getName());
+		portletURL.setParameter(
+			"resourcePrimKey", String.valueOf(channel.getChannelId()));
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			throw new PortalException(wse);
+		}
+
+		return portletURL;
 	}
 
 	@Reference
