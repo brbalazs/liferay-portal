@@ -18,9 +18,11 @@ import com.liferay.commerce.account.exception.NoSuchAccountException;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
+import com.liferay.commerce.product.exception.NoSuchCProductException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.permission.CommerceProductViewPermission;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
@@ -29,6 +31,7 @@ import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.SkuDTOConverter;
 import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.SkuDTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.SkuResource;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
@@ -61,13 +64,36 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 			Pagination pagination)
 		throws Exception {
 
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannel(channelId);
+
 		CPDefinition cpDefinition =
 			_cpDefinitionLocalService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
-			return super.getChannelProductSkusPage(
-				channelId, productId, accountId, pagination);
+			throw new NoSuchCProductException();
 		}
+
+		int countUserCommerceAccounts =
+			_commerceAccountHelper.countUserCommerceAccounts(
+				contextUser.getUserId(), commerceChannel.getGroupId());
+
+		if (countUserCommerceAccounts > 1) {
+			if (accountId == null) {
+				throw new NoSuchAccountException();
+			}
+		}
+		else {
+			long[] commerceAccountIds =
+				_commerceAccountHelper.getUserCommerceAccountIds(
+					contextUser.getUserId(), commerceChannel.getGroupId());
+
+			accountId = commerceAccountIds[0];
+		}
+
+		_commerceProductViewPermission.check(
+			PermissionThreadLocal.getPermissionChecker(), accountId,
+			commerceChannel.getGroupId(), cpDefinition.getCPDefinitionId());
 
 		List<CPInstance> cpInstances =
 			_cpInstanceLocalService.getCPDefinitionInstances(
@@ -140,6 +166,9 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 
 	@Reference
 	private CommerceContextFactory _commerceContextFactory;
+
+	@Reference
+	private CommerceProductViewPermission _commerceProductViewPermission;
 
 	@Reference
 	private CPDefinitionLocalService _cpDefinitionLocalService;
