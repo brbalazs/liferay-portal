@@ -61,6 +61,7 @@ portletDisplay.setURLBack(redirect);
 
 		contextParams.put("commerceOrderItemId", String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
 		contextParams.put("commerceShipmentId", String.valueOf(commerceShipmentItem.getCommerceShipmentId()));
+		contextParams.put("commerceShipmentItemId", String.valueOf(commerceShipmentItem.getCommerceShipmentItemId()));
 		%>
 
 		<commerce-ui:dataset-display
