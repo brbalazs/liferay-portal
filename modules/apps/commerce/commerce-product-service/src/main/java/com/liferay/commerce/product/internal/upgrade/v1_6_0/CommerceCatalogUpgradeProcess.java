@@ -159,7 +159,8 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 						catalogGroup.getGroupId(), siteGroup.getGroupId()));
 
 				ResultSet cpDefinitionsResultSet = s.executeQuery(
-					"select distinct cpDefinitionId from CPDefinition");
+					"select distinct cpDefinitionId from CPDefinition where " +
+						"groupId = " + catalogGroup.getGroupId());
 
 				while (cpDefinitionsResultSet.next()) {
 					long commerceChannelRelId = increment();
