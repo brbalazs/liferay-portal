@@ -183,10 +183,12 @@ export function getFakeJsModule() {
 
 export const fetchHeaders = new Headers({
 	'x-csrf-token': window.Liferay && window.Liferay.authToken,
-	...(!window.Liferay ? {
-		Authorization: `Basic ${window.btoa('test@liferay.com:test')}`,
-	} : {})
-})
+	...(!window.Liferay
+		? {
+				Authorization: `Basic ${window.btoa('test@liferay.com:test')}`
+		  }
+		: {})
+});
 
 export const fetchParams = {
 	credentials: 'include',
