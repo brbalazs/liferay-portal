@@ -364,9 +364,9 @@ public abstract class BaseCommerceMLForecastServiceImpl
 
 		searchSearchRequest.setQuery(query);
 
-		searchSearchRequest.setStart(start);
+		searchSearchRequest.setStart(Integer.valueOf(start));
 
-		searchSearchRequest.setSize(size);
+		searchSearchRequest.setSize(Integer.valueOf(size));
 
 		searchSearchRequest.setSorts(sorts);
 
