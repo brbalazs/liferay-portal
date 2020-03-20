@@ -58,11 +58,10 @@ public class CommercePlacedOrderItemClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("total", "total");
 
-		clayTableSchemaBuilder.addField("shippedQuantity", "shippedQuantity");
+		clayTableSchemaBuilder.addField("shippedQuantity", "shipped-quantity");
 
 		ClayTableSchemaField clayTableSchemaField =
-			clayTableSchemaBuilder.addField(
-				"viewShipmentsURL", "viewShipmentsURL");
+			clayTableSchemaBuilder.addField("viewShipmentsURL", "");
 
 		clayTableSchemaField.setContentRenderer("commerceTableCellModalLink");
 
