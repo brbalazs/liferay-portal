@@ -20,22 +20,35 @@ package com.liferay.commerce.order.web.internal.frontend;
  */
 public class CommerceOrderDataSetConstants {
 
+	public static final String COMMERCE_DATA_SET_KEY_ALL_ORDERS =
+		"allCommerceOrders";
+
 	public static final String COMMERCE_DATA_SET_KEY_BILLING_ADDRESSES =
 		"billingCommerceAddresses";
+
+	public static final String COMMERCE_DATA_SET_KEY_COMPLETED_ORDERS =
+		"completedCommerceOrders";
 
 	public static final String COMMERCE_DATA_SET_KEY_NOTIFICATIONS =
 		"commerceNotificationQueueEntries";
 
+	public static final String COMMERCE_DATA_SET_KEY_OPEN_ORDERS =
+		"openCommerceOrders";
+
 	public static final String COMMERCE_DATA_SET_KEY_ORDER_ITEMS =
 		"commerceOrderItems";
-
-	public static final String COMMERCE_DATA_SET_KEY_ORDERS = "commerceOrders";
 
 	public static final String COMMERCE_DATA_SET_KEY_PAYMENT_METHODS =
 		"CommerceOrderPaymentMethods";
 
 	public static final String COMMERCE_DATA_SET_KEY_PAYMENTS =
 		"commerceOrderPayments";
+
+	public static final String COMMERCE_DATA_SET_KEY_PENDING_ORDERS =
+		"pendingCommerceOrders";
+
+	public static final String COMMERCE_DATA_SET_KEY_PROCESSING_ORDERS =
+		"processingCommerceOrders";
 
 	public static final String COMMERCE_DATA_SET_KEY_SHIPPING_ADDRESSES =
 		"shippingCommerceAddresses";
