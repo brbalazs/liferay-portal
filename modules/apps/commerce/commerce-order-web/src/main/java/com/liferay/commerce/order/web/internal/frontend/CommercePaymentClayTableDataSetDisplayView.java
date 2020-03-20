@@ -47,9 +47,9 @@ public class CommercePaymentClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("amount", "amount");
 
-		clayTableSchemaBuilder.addField("createDate", "create-date");
+		clayTableSchemaBuilder.addField("createDate", "timestamp");
 
-		clayTableSchemaBuilder.addField("content", "content");
+		clayTableSchemaBuilder.addField("content", "details");
 
 		return clayTableSchemaBuilder.build();
 	}

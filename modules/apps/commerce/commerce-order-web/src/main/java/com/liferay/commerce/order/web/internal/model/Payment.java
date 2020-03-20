@@ -16,15 +16,13 @@ package com.liferay.commerce.order.web.internal.model;
 
 import com.liferay.commerce.frontend.model.LabelField;
 
-import java.util.Date;
-
 /**
  * @author Alessio Antonio Rendina
  */
 public class Payment {
 
 	public Payment(
-		long paymentId, LabelField type, String amount, Date createDate,
+		long paymentId, LabelField type, String amount, String createDate,
 		String content) {
 
 		_paymentId = paymentId;
@@ -42,7 +40,7 @@ public class Payment {
 		return _content;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return _createDate;
 	}
 
@@ -56,7 +54,7 @@ public class Payment {
 
 	private final String _amount;
 	private final String _content;
-	private final Date _createDate;
+	private final String _createDate;
 	private final long _paymentId;
 	private final LabelField _type;
 

@@ -29,8 +29,13 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
+
+import java.text.DateFormat;
+import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +75,14 @@ public class CommercePaymentDataSetDataProvider
 
 		List<Payment> payments = new ArrayList<>();
 
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
+			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
+			themeDisplay.getTimeZone());
+
 		long commerceOrderId = ParamUtil.getLong(
 			httpServletRequest, "commerceOrderId");
 
@@ -81,7 +94,7 @@ public class CommercePaymentDataSetDataProvider
 		CommerceMoney totalMoney = commerceOrder.getTotalMoney();
 
 		if (totalMoney != null) {
-			amount = totalMoney.format(_portal.getLocale(httpServletRequest));
+			amount = totalMoney.format(themeDisplay.getLocale());
 		}
 
 		List<CommerceOrderPayment> commerceOrderPayments =
@@ -104,7 +117,8 @@ public class CommercePaymentDataSetDataProvider
 							CommerceOrderPaymentConstants.
 								getOrderPaymentStatusLabel(
 									commerceOrderPayment.getStatus()))),
-					amount, commerceOrderPayment.getCreateDate(),
+					amount,
+					dateTimeFormat.format(commerceOrderPayment.getCreateDate()),
 					commerceOrderPayment.getContent()));
 		}
 
@@ -116,8 +130,5 @@ public class CommercePaymentDataSetDataProvider
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
-
-	@Reference
-	private Portal _portal;
 
 }
