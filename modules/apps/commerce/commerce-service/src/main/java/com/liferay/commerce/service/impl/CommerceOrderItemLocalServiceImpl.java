@@ -603,20 +603,23 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
 
-		Date requestedDeliveryDate = PortalUtil.getDate(
-			requestedDeliveryDateMonth, requestedDeliveryDateDay,
-			requestedDeliveryDateYear, requestedDeliveryDateHour,
-			requestedDeliveryDateMinute, user.getTimeZone(),
-			CommerceOrderItemRequestedDeliveryDateException.class);
-
-		if (requestedDeliveryDate.before(new Date())) {
-			throw new CommerceOrderItemRequestedDeliveryDateException();
-		}
-
 		commerceOrderItem.setDeliveryGroup(deliveryGroup);
 		commerceOrderItem.setShippingAddressId(shippingAddressId);
 		commerceOrderItem.setPrintedNote(printedNote);
-		commerceOrderItem.setRequestedDeliveryDate(requestedDeliveryDate);
+
+		if (requestedDeliveryDateMonth != -1) {
+			Date requestedDeliveryDate = PortalUtil.getDate(
+				requestedDeliveryDateMonth, requestedDeliveryDateDay,
+				requestedDeliveryDateYear, requestedDeliveryDateHour,
+				requestedDeliveryDateMinute, user.getTimeZone(),
+				CommerceOrderItemRequestedDeliveryDateException.class);
+
+			if (requestedDeliveryDate.before(new Date())) {
+				throw new CommerceOrderItemRequestedDeliveryDateException();
+			}
+
+			commerceOrderItem.setRequestedDeliveryDate(requestedDeliveryDate);
+		}
 
 		return commerceOrderItemPersistence.update(commerceOrderItem);
 	}
