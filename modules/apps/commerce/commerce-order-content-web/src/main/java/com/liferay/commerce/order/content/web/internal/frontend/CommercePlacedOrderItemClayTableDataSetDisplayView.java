@@ -20,6 +20,7 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
+import com.liferay.petra.string.StringPool;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -61,7 +62,8 @@ public class CommercePlacedOrderItemClayTableDataSetDisplayView
 		clayTableSchemaBuilder.addField("shippedQuantity", "shipped-quantity");
 
 		ClayTableSchemaField clayTableSchemaField =
-			clayTableSchemaBuilder.addField("viewShipmentsURL", "");
+			clayTableSchemaBuilder.addField(
+				"viewShipmentsURL", StringPool.BLANK);
 
 		clayTableSchemaField.setContentRenderer("commerceTableCellModalLink");
 
