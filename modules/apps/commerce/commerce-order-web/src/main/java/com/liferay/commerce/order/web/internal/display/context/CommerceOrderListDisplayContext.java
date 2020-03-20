@@ -15,11 +15,14 @@
 package com.liferay.commerce.order.web.internal.display.context;
 
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.order.web.internal.constants.CommerceOrderPortletConstants;
 import com.liferay.commerce.order.web.internal.display.context.util.CommerceOrderRequestHelper;
+import com.liferay.commerce.order.web.internal.frontend.CommerceOrderDataSetConstants;
 import com.liferay.commerce.order.web.internal.search.CommerceOrderDisplayTerms;
 import com.liferay.commerce.order.web.internal.security.permission.resource.CommerceOrderPermission;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -50,7 +53,9 @@ public class CommerceOrderListDisplayContext {
 
 		_keywords = ParamUtil.getString(renderRequest, "keywords");
 		_showFilter = ParamUtil.getBoolean(renderRequest, "showFilter");
-		_activeTab = ParamUtil.getString(renderRequest, "activeTab", "all");
+		_activeTab = ParamUtil.getString(
+			renderRequest, "activeTab",
+			CommerceOrderPortletConstants.NAVIGATION_ITEM_ALL);
 	}
 
 	public String getActiveTab() {
@@ -70,6 +75,41 @@ public class CommerceOrderListDisplayContext {
 
 		return _commerceOrderNoteService.getCommerceOrderNotesCount(
 			commerceOrder.getCommerceOrderId(), false);
+	}
+
+	public String getDatasetDisplayKey() {
+		if (_activeTab.equals(
+				CommerceOrderPortletConstants.NAVIGATION_ITEM_ALL)) {
+
+			return CommerceOrderDataSetConstants.
+				COMMERCE_DATA_SET_KEY_ALL_ORDERS;
+		}
+		else if (_activeTab.equals(
+					CommerceOrderPortletConstants.NAVIGATION_ITEM_COMPLETED)) {
+
+			return CommerceOrderDataSetConstants.
+				COMMERCE_DATA_SET_KEY_COMPLETED_ORDERS;
+		}
+		else if (_activeTab.equals(
+					CommerceOrderPortletConstants.NAVIGATION_ITEM_OPEN)) {
+
+			return CommerceOrderDataSetConstants.
+				COMMERCE_DATA_SET_KEY_OPEN_ORDERS;
+		}
+		else if (_activeTab.equals(
+					CommerceOrderPortletConstants.NAVIGATION_ITEM_PENDING)) {
+
+			return CommerceOrderDataSetConstants.
+				COMMERCE_DATA_SET_KEY_PENDING_ORDERS;
+		}
+		else if (_activeTab.equals(
+					CommerceOrderPortletConstants.NAVIGATION_ITEM_PROCESSING)) {
+
+			return CommerceOrderDataSetConstants.
+				COMMERCE_DATA_SET_KEY_PROCESSING_ORDERS;
+		}
+
+		return StringPool.BLANK;
 	}
 
 	public List<NavigationItem> getNavigationItems() {
@@ -131,13 +171,13 @@ public class CommerceOrderListDisplayContext {
 	}
 
 	private void _initNavigationItems() {
-		_navigationItems = new ArrayList<>(5);
+		_navigationItems = new ArrayList<>();
 
-		_navigationItems.add(_buildNavigationItem("all"));
-		_navigationItems.add(_buildNavigationItem("open"));
-		_navigationItems.add(_buildNavigationItem("pending"));
-		_navigationItems.add(_buildNavigationItem("processing"));
-		_navigationItems.add(_buildNavigationItem("completed"));
+		for (String navigationItem :
+				CommerceOrderPortletConstants.NAVIGATION_ITEMS) {
+
+			_navigationItems.add(_buildNavigationItem(navigationItem));
+		}
 	}
 
 	private final String _activeTab;
