@@ -286,7 +286,7 @@ public class CommerceInventoryWarehouseItemServiceImpl
 
 		return commerceInventoryWarehouseItemLocalService.
 			increaseCommerceInventoryWarehouseItemQuantity(
-				commerceInventoryWarehouseItemId, quantity);
+				getUserId(), commerceInventoryWarehouseItemId, quantity);
 	}
 
 	@Override
@@ -301,7 +301,7 @@ public class CommerceInventoryWarehouseItemServiceImpl
 
 		commerceInventoryWarehouseItemLocalService.
 			moveQuantitiesBetweenWarehouses(
-				fromCommerceInventoryWarehouseId,
+				getUserId(), fromCommerceInventoryWarehouseId,
 				toCommerceInventoryWarehouseId, sku, quantity);
 	}
 
@@ -316,7 +316,7 @@ public class CommerceInventoryWarehouseItemServiceImpl
 
 		return commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
-				commerceInventoryWarehouseItemId, quantity);
+				getUserId(), commerceInventoryWarehouseItemId, quantity);
 	}
 
 	@Override

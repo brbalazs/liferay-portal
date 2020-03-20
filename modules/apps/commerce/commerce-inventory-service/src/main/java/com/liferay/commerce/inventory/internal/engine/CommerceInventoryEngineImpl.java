@@ -54,7 +54,8 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 				bookedQuantityId, quantity);
 		}
 
-		decreaseStockQuantity(commerceInventoryWarehouseId, sku, quantity);
+		decreaseStockQuantity(
+			userId, commerceInventoryWarehouseId, sku, quantity);
 
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
@@ -70,7 +71,8 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
 	)
 	public void decreaseStockQuantity(
-			long commerceInventoryWarehouseId, String sku, int quantity)
+			long userId, long commerceInventoryWarehouseId, String sku,
+			int quantity)
 		throws PortalException {
 
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
@@ -80,6 +82,7 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 
 		_commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
+				userId,
 				commerceInventoryWarehouseItem.
 					getCommerceInventoryWarehouseItemId(),
 				commerceInventoryWarehouseItem.getQuantity() - quantity);
@@ -145,6 +148,7 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 
 		_commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
+				userId,
 				commerceInventoryWarehouseItem.
 					getCommerceInventoryWarehouseItemId(),
 				commerceInventoryWarehouseItem.getQuantity() + quantity);

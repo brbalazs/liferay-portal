@@ -277,6 +277,7 @@ public class CPDefinitionsImporter {
 				if (commerceInventoryWarehouseItem != null) {
 					_commerceInventoryWarehouseItemLocalService.
 						updateCommerceInventoryWarehouseItem(
+							serviceContext.getUserId(),
 							commerceInventoryWarehouseItem.
 								getCommerceInventoryWarehouseItemId(),
 							quantity);

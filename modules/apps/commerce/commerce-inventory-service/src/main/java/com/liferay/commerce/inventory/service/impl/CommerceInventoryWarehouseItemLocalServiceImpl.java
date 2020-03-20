@@ -281,7 +281,8 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	@Override
 	public CommerceInventoryWarehouseItem
 			increaseCommerceInventoryWarehouseItemQuantity(
-				long commerceInventoryWarehouseItemId, int quantity)
+				long userId, long commerceInventoryWarehouseItemId,
+				int quantity)
 		throws PortalException {
 
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
@@ -296,14 +297,12 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryWarehouseItemPersistence.update(
 				commerceInventoryWarehouseItem);
 
-		User currentUser = userService.getCurrentUser();
-
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
 				CommerceInventoryConstants.AUDIT_TYPE_INCREASE_QUANTITY);
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
+			userId, commerceInventoryWarehouseItem.getSku(),
 			commerceInventoryAuditType.getType(),
 			commerceInventoryAuditType.getLog(null), quantity);
 
@@ -316,7 +315,7 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 		rollbackFor = Exception.class
 	)
 	public void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
+			long userId, long fromCommerceInventoryWarehouseId,
 			long toCommerceInventoryWarehouseId, String sku, int quantity)
 		throws PortalException {
 
@@ -330,7 +329,7 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 		commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
-				fromWarehouseItem.getCommerceInventoryWarehouseItemId(),
+				userId, fromWarehouseItem.getCommerceInventoryWarehouseItemId(),
 				fromWarehouseItem.getQuantity() - quantity);
 
 		CommerceInventoryWarehouseItem toWarehouseItem =
@@ -339,10 +338,8 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 		commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
-				toWarehouseItem.getCommerceInventoryWarehouseItemId(),
+				userId, toWarehouseItem.getCommerceInventoryWarehouseItemId(),
 				toWarehouseItem.getQuantity() + quantity);
-
-		User currentUser = userService.getCurrentUser();
 
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
@@ -365,13 +362,13 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			String.valueOf(toCommerceInventoryWarehouse.getName()));
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			currentUser.getUserId(), sku, commerceInventoryAuditType.getType(),
+			userId, sku, commerceInventoryAuditType.getType(),
 			commerceInventoryAuditType.getLog(context), quantity);
 	}
 
 	@Override
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
-			long commerceInventoryWarehouseItemId, int quantity)
+			long userId, long commerceInventoryWarehouseItemId, int quantity)
 		throws PortalException {
 
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
@@ -383,8 +380,6 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 		commerceInventoryWarehouseItem =
 			commerceInventoryWarehouseItemPersistence.update(
 				commerceInventoryWarehouseItem);
-
-		User currentUser = userService.getCurrentUser();
 
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
@@ -400,7 +395,7 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			String.valueOf(commerceInventoryWarehouse.getName()));
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
+			userId, commerceInventoryWarehouseItem.getSku(),
 			commerceInventoryAuditType.getType(),
 			commerceInventoryAuditType.getLog(context), quantity);
 
@@ -409,7 +404,7 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 	@Override
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
-			long commerceInventoryWarehouseItemId, int quantity,
+			long userId, long commerceInventoryWarehouseItemId, int quantity,
 			int reservedQuantity)
 		throws PortalException {
 
@@ -423,8 +418,6 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 		commerceInventoryWarehouseItem =
 			commerceInventoryWarehouseItemPersistence.update(
 				commerceInventoryWarehouseItem);
-
-		User currentUser = userService.getCurrentUser();
 
 		CommerceInventoryAuditType commerceInventoryAuditType =
 			commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
@@ -444,7 +437,7 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			String.valueOf(commerceInventoryWarehouse.getName()));
 
 		commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			currentUser.getUserId(), commerceInventoryWarehouseItem.getSku(),
+			userId, commerceInventoryWarehouseItem.getSku(),
 			commerceInventoryAuditType.getType(),
 			commerceInventoryAuditType.getLog(context), quantity);
 
@@ -468,6 +461,7 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			if (commerceInventoryWarehouseItem != null) {
 				return commerceInventoryWarehouseItemLocalService.
 					updateCommerceInventoryWarehouseItem(
+						userId,
 						commerceInventoryWarehouseItem.
 							getCommerceInventoryWarehouseItemId(),
 						quantity);
@@ -498,6 +492,7 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 
 		return commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
+				userId,
 				commerceInventoryWarehouseItem.
 					getCommerceInventoryWarehouseItemId(),
 				quantity);
