@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
 
 import {DATASET_DISPLAY_UPDATED} from '../../utilities/eventsDefinitions.es';
+import { fetchParams } from '../../utilities/index.es';
 
 function SummaryItemDividerVariant() {
 	return (
@@ -34,10 +35,10 @@ function SummaryItemBase(props) {
 	return (
 		<>
 			<div className="col-6 col-md-9">
-				<p className="m-0">{props.label}</p>
+				<span className="summary-table-item">{props.label}</span>
 			</div>
 			<div className="col-6 col-md-3">
-				<p className="m-0">{props.value}</p>
+				<span className="summary-table-item">{props.value}</span>
 			</div>
 		</>
 	);
@@ -49,10 +50,10 @@ function SummaryItemBigVariant(props) {
 	return (
 		<>
 			<div className="col-6 col-md-9">
-				<h3 className="my-2">{props.label}</h3>
+				<h4 className="summary-table-item-big my-2">{props.label}</h4>
 			</div>
 			<div className="col-6 col-md-3">
-				<h3 className="my-2">{props.value}</h3>
+				<h4 className="summary-table-item-big my-2">{props.value}</h4>
 			</div>
 		</>
 	);
@@ -64,10 +65,10 @@ function SummaryItemDangerVariant(props) {
 	return (
 		<>
 			<div className="col-6 col-md-9 text-danger">
-				<p className="m-0">{props.label}</p>
+				<span className="summary-table-item">{props.label}</span>
 			</div>
 			<div className="col-6 col-md-3 text-danger">
-				<p className="m-0">{props.value}</p>
+				<span className="summary-table-item">{props.value}</span>
 			</div>
 		</>
 	);
@@ -108,8 +109,7 @@ function Summary(props) {
 	useEffect(() => {
 		function getData() {
 			fetch(props.apiUrl, {
-				credentials: 'include',
-				headers: new Headers({'x-csrf-token': Liferay.authToken}),
+				...fetchParams,
 				method: 'GET'
 			})
 				.then(data => data.json())

@@ -14,6 +14,8 @@
 
 import launcher from './entry.es';
 
+import '../../styles/main.scss';
+
 launcher('summary', 'summary', {
 	apiUrl: '/o/headless-commerce-admin-order/v1.0/orders/40977',
 	datasetDisplayId: 'testId'
