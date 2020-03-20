@@ -21,6 +21,7 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -73,7 +74,7 @@ public class CommerceCatalogDataSetDataProvider
 		List<CommerceCatalog> commerceCatalogs =
 			_commerceCatalogService.searchCommerceCatalogs(
 				companyId, filter.getKeywords(), pagination.getStartPosition(),
-				pagination.getEndPosition(), null);
+				pagination.getEndPosition(), new Sort(Field.NAME, false));
 
 		for (CommerceCatalog catalog : commerceCatalogs) {
 			catalogs.add(
