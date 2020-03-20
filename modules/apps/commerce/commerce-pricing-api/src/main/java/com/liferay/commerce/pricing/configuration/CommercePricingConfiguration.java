@@ -27,7 +27,8 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 )
 @Meta.OCD(
 	id = "com.liferay.commerce.pricing.configuration.CommercePricingConfiguration",
-	localization = "content/Language"
+	localization = "content/Language",
+	name = "commerce-pricing-configuration-name"
 )
 public interface CommercePricingConfiguration {
 
