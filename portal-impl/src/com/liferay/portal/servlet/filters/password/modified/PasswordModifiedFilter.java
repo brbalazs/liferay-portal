@@ -46,15 +46,12 @@ public class PasswordModifiedFilter extends BasePortalFilter {
 		if (_isPasswordModified(request)) {
 			AuthenticatedSessionManagerUtil.logout(request, response);
 
-			if (StringUtil.equals(
-					httpServletRequest.getMethod(), HttpMethods.GET)) {
-
-				httpServletResponse.sendRedirect(
-					PortalUtil.getCurrentCompleteURL(httpServletRequest));
+			if (StringUtil.equals(request.getMethod(), HttpMethods.GET)) {
+				response.sendRedirect(
+					PortalUtil.getCurrentCompleteURL(request));
 			}
 			else {
-				httpServletResponse.sendRedirect(
-					PortalUtil.getPortalURL(httpServletRequest));
+				response.sendRedirect(PortalUtil.getPortalURL(request));
 			}
 		}
 		else {
