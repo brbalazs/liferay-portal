@@ -361,8 +361,7 @@ public class CommerceOrderItemServiceImpl
 			long commerceOrderItemId, String deliveryGroup,
 			long shippingAddressId, String printedNote,
 			int requestedDeliveryDateMonth, int requestedDeliveryDateDay,
-			int requestedDeliveryDateYear, int requestedDeliveryDateHour,
-			int requestedDeliveryDateMinute, ServiceContext serviceContext)
+			int requestedDeliveryDateYear)
 		throws PortalException {
 
 		CommerceOrderItem commerceOrderItem =
@@ -376,8 +375,26 @@ public class CommerceOrderItemServiceImpl
 		return commerceOrderItemLocalService.updateCommerceOrderItemInfo(
 			commerceOrderItemId, deliveryGroup, shippingAddressId, printedNote,
 			requestedDeliveryDateMonth, requestedDeliveryDateDay,
-			requestedDeliveryDateYear, requestedDeliveryDateHour,
-			requestedDeliveryDateMinute, serviceContext);
+			requestedDeliveryDateYear);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemInfo(
+			long commerceOrderItemId, String deliveryGroup,
+			long shippingAddressId, String printedNote,
+			int requestedDeliveryDateMonth, int requestedDeliveryDateDay,
+			int requestedDeliveryDateYear, int requestedDeliveryDateHour,
+			int requestedDeliveryDateMinute, ServiceContext serviceContext)
+		throws PortalException {
+
+		return commerceOrderItemService.updateCommerceOrderItemInfo(
+			commerceOrderItemId, deliveryGroup, shippingAddressId, printedNote,
+			requestedDeliveryDateMonth, requestedDeliveryDateDay,
+			requestedDeliveryDateYear);
 	}
 
 	@Override

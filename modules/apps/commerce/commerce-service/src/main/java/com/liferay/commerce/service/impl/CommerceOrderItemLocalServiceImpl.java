@@ -594,34 +594,46 @@ public class CommerceOrderItemLocalServiceImpl
 			long commerceOrderItemId, String deliveryGroup,
 			long shippingAddressId, String printedNote,
 			int requestedDeliveryDateMonth, int requestedDeliveryDateDay,
-			int requestedDeliveryDateYear, int requestedDeliveryDateHour,
-			int requestedDeliveryDateMinute, ServiceContext serviceContext)
+			int requestedDeliveryDateYear)
 		throws PortalException {
-
-		User user = userLocalService.getUser(serviceContext.getUserId());
 
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
+
+		Date requestedDeliveryDate = PortalUtil.getDate(
+			requestedDeliveryDateMonth, requestedDeliveryDateDay,
+			requestedDeliveryDateYear);
+
+		if ((requestedDeliveryDate != null) &&
+			requestedDeliveryDate.before(new Date())) {
+
+			throw new CommerceOrderItemRequestedDeliveryDateException();
+		}
 
 		commerceOrderItem.setDeliveryGroup(deliveryGroup);
 		commerceOrderItem.setShippingAddressId(shippingAddressId);
 		commerceOrderItem.setPrintedNote(printedNote);
 
-		if (requestedDeliveryDateMonth != -1) {
-			Date requestedDeliveryDate = PortalUtil.getDate(
-				requestedDeliveryDateMonth, requestedDeliveryDateDay,
-				requestedDeliveryDateYear, requestedDeliveryDateHour,
-				requestedDeliveryDateMinute, user.getTimeZone(),
-				CommerceOrderItemRequestedDeliveryDateException.class);
-
-			if (requestedDeliveryDate.before(new Date())) {
-				throw new CommerceOrderItemRequestedDeliveryDateException();
-			}
-
-			commerceOrderItem.setRequestedDeliveryDate(requestedDeliveryDate);
-		}
-
 		return commerceOrderItemPersistence.update(commerceOrderItem);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemInfo(
+			long commerceOrderItemId, String deliveryGroup,
+			long shippingAddressId, String printedNote,
+			int requestedDeliveryDateMonth, int requestedDeliveryDateDay,
+			int requestedDeliveryDateYear, int requestedDeliveryDateHour,
+			int requestedDeliveryDateMinute, ServiceContext serviceContext)
+		throws PortalException {
+
+		return commerceOrderItemLocalService.updateCommerceOrderItemInfo(
+			commerceOrderItemId, deliveryGroup, shippingAddressId, printedNote,
+			requestedDeliveryDateMonth, requestedDeliveryDateDay,
+			requestedDeliveryDateYear);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
