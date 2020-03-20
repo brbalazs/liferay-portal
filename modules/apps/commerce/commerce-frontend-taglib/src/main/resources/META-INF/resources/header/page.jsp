@@ -48,7 +48,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 					<div class="col">
 						<div class="row">
 							<div class="border-left col-auto">
-								<h3 class="mb-0">
+								<h3 class="mb-0 truncate-text">
 									<%= HtmlUtil.escape(title) %>
 								</h3>
 
