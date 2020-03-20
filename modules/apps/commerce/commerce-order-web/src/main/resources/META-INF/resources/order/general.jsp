@@ -227,6 +227,15 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 							</c:otherwise>
 						</c:choose>
 					</commerce-ui:info-box>
+
+					<c:if test="<%= commerceOrder.getOrderDate() != null %>">
+						<commerce-ui:info-box
+							elementClasses="py-3"
+							title='<%= LanguageUtil.get(request, "order-date") %>'
+						>
+							<%= commerceOrderEditDisplayContext.getCommerceOrderDateTime(commerceOrder.getOrderDate()) %>
+						</commerce-ui:info-box>
+					</c:if>
 				</div>
 			</div>
 		</commerce-ui:panel>
