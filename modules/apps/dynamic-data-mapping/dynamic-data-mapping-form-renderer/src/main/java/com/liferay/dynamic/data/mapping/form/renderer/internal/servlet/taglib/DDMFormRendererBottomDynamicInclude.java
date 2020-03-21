@@ -37,17 +37,17 @@ public class DDMFormRendererBottomDynamicInclude
 			String key)
 		throws IOException {
 
-		Object fieldTypesRequested = httpServletRequest.getAttribute(
+		Object value = httpServletRequest.getAttribute(
 			DDMFormFieldTypesDynamicInclude.
-				LIFERAY_SHARED_FIELD_TYPES_REQUESTED_ATTRIBUTE);
+				LIFERAY_SHARED_DDM_FORM_FIELD_TYPES_INCLUDED);
 
-		if (fieldTypesRequested != null) {
+		if (value != null) {
 			include(httpServletResponse);
 		}
 
 		httpServletRequest.removeAttribute(
 			DDMFormFieldTypesDynamicInclude.
-				LIFERAY_SHARED_FIELD_TYPES_REQUESTED_ATTRIBUTE);
+				LIFERAY_SHARED_DDM_FORM_FIELD_TYPES_INCLUDED);
 	}
 
 	@Override
