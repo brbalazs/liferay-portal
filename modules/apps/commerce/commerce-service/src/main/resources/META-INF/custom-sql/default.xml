@@ -167,8 +167,8 @@
 				CommerceShipmentItem ON
 					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
 			WHERE
-				(commerceAccountId = ?) AND
-				(commerceOrderItem.groupId = ?) AND
+				(CommerceOrder.commerceAccountId = ?) AND
+				(CommerceOrder.groupId = ?) AND
 				(CommerceOrder.orderStatus IN ([$ORDER_STATUS$])) AND
 				(CommerceOrderItem.shippedQuantity < CommerceOrderItem.quantity)
 		]]>
