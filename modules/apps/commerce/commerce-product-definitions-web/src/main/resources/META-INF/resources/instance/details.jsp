@@ -152,6 +152,8 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 		</div>
 	</commerce-ui:panel>
 
+	<aui:model-context bean="<%= cpInstance %>" model="<%= CPInstance.class %>" />
+
 	<commerce-ui:panel
 		title='<%= LanguageUtil.get(request, "schedule") %>'
 	>
