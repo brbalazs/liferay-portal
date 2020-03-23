@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Headless Commerce Admin Order Implementation
 Bundle-SymbolicName: com.liferay.headless.commerce.admin.order.impl
-Bundle-Version: 1.0.19
+Bundle-Version: 1.0.20
 Import-Package:\
 	com.liferay.portal.vulcan.accept.language;version="[1.0.0,2.0.0)",\
 	com.liferay.portal.vulcan.fields;version="[1.0.0,2.0.0)",\
