@@ -51,7 +51,8 @@ public class CommerceAccountFinderImpl
 
 	@Override
 	public int countByU_P(
-		long userId, QueryDefinition<CommerceAccount> queryDefinition) {
+		List<Long> organizationIds, long userId,
+		QueryDefinition<CommerceAccount> queryDefinition) {
 
 		Session session = null;
 
@@ -59,6 +60,8 @@ public class CommerceAccountFinderImpl
 			session = openSession();
 
 			String sql = _customSQL.get(getClass(), COUNT_BY_U_P);
+
+			sql = _replaceOrganizationIds(organizationIds, sql);
 
 			sql = StringUtil.replace(
 				sql, "[$USER_ID$]", String.valueOf(userId));
@@ -157,7 +160,8 @@ public class CommerceAccountFinderImpl
 
 	@Override
 	public List<CommerceAccount> findByU_P(
-		long userId, QueryDefinition<CommerceAccount> queryDefinition) {
+		List<Long> organizationIds, long userId,
+		QueryDefinition<CommerceAccount> queryDefinition) {
 
 		Session session = null;
 
@@ -165,6 +169,8 @@ public class CommerceAccountFinderImpl
 			session = openSession();
 
 			String sql = _customSQL.get(getClass(), FIND_BY_U_P);
+
+			sql = _replaceOrganizationIds(organizationIds, sql);
 
 			sql = StringUtil.replace(
 				sql, "[$USER_ID$]", String.valueOf(userId));
@@ -257,13 +263,17 @@ public class CommerceAccountFinderImpl
 	}
 
 	@Override
-	public CommerceAccount findByU_C(long userId, long commerceAccountId) {
+	public CommerceAccount findByU_C(
+		List<Long> organizationIds, long userId, long commerceAccountId) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
 			String sql = _customSQL.get(getClass(), FIND_BY_U_C);
+
+			sql = _replaceOrganizationIds(organizationIds, sql);
 
 			sql = StringUtil.replace(
 				sql, "[$USER_ID$]", String.valueOf(userId));
@@ -299,6 +309,19 @@ public class CommerceAccountFinderImpl
 
 		return "(CommerceAccount.parentCommerceAccountId = " +
 			parentCommerceAccountId + ") AND";
+	}
+
+	private String _replaceOrganizationIds(
+		List<Long> organizationIds, String sql) {
+
+		if (organizationIds.isEmpty()) {
+			organizationIds.add(0L);
+		}
+
+		sql = StringUtil.replace(
+			sql, "[$ORGANIZATION_IDS$]", StringUtil.merge(organizationIds));
+
+		return sql;
 	}
 
 	@ServiceReference(type = CustomSQL.class)
