@@ -22,6 +22,8 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.base.CPDisplayLayoutServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.search.BaseModelSearchResult;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
@@ -123,6 +125,19 @@ public class CPDisplayLayoutServiceImpl extends CPDisplayLayoutServiceBaseImpl {
 		}
 
 		return cpDisplayLayout;
+	}
+
+	@Override
+	public BaseModelSearchResult<CPDisplayLayout> searchCPDisplayLayout(
+			long companyId, long groupId, String className, String keywords,
+			int start, int end, Sort sort)
+		throws PortalException {
+
+		GroupPermissionUtil.check(
+			getPermissionChecker(), groupId, ActionKeys.UPDATE);
+
+		return cpDisplayLayoutLocalService.searchCPDisplayLayout(
+			companyId, groupId, className, keywords, start, end, sort);
 	}
 
 	@Override
