@@ -22,20 +22,13 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -74,37 +67,26 @@ public class CommercePendingOrderItemDataSetActionProvider
 				ActionKeys.UPDATE) &&
 			commerceOrder.isOpen()) {
 
-			ClayDataSetAction clayDataSetAction = new ClayDataSetAction(
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
-				_getDeleteCommerceOrderItemURL(
-					orderItem.getOrderItemId(), themeDisplay),
+				_getDeleteCommerceOrderItemURL(orderItem.getOrderItemId()),
 				StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"), null, false,
-				false);
+				LanguageUtil.get(httpServletRequest, "delete"),
+				StringPool.BLANK, false, false);
 
-			clayDataSetActions.add(clayDataSetAction);
+			deleteClayDataSetAction.setTarget("async");
+
+			deleteClayDataSetAction.setMethod("delete");
+
+			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
 		return clayDataSetActions;
 	}
 
-	private String _getDeleteCommerceOrderItemURL(
-		long commerceOrderItemId, ThemeDisplay themeDisplay) {
-
-		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
-
-		PortletURL portletURL = PortletURLFactoryUtil.create(
-			themeDisplay.getRequest(), portletDisplay.getId(),
-			themeDisplay.getPlid(), PortletRequest.ACTION_PHASE);
-
-		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCommerceOrderItem");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
-		portletURL.setParameter(
-			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
-
-		return portletURL.toString();
+	private String _getDeleteCommerceOrderItemURL(long commerceOrderItemId) {
+		return "/o/headless-commerce-delivery-cart/v1.0/cart-items/" +
+			commerceOrderItemId;
 	}
 
 	@Reference
