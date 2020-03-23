@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -62,13 +63,14 @@ public class CPDefinitionDisplayLayoutDisplayContext
 		CommerceChannelLocalService commerceChannelLocalService,
 		CPDefinitionService cpDefinitionService,
 		CPDisplayLayoutService cpDisplayLayoutService,
-		ItemSelector itemSelector) {
+		GroupLocalService groupLocalService, ItemSelector itemSelector) {
 
 		super(actionHelper, httpServletRequest);
 
 		_commerceChannelLocalService = commerceChannelLocalService;
 		_cpDefinitionService = cpDefinitionService;
 		_cpDisplayLayoutService = cpDisplayLayoutService;
+		_groupLocalService = groupLocalService;
 		_itemSelector = itemSelector;
 	}
 
@@ -130,7 +132,7 @@ public class CPDefinitionDisplayLayoutDisplayContext
 		return _cpDisplayLayout;
 	}
 
-	public String getDisplayPageItemSelectorUrl() {
+	public String getDisplayPageItemSelectorUrl() throws PortalException {
 		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
 			RequestBackedPortletURLFactoryUtil.create(
 				cpRequestHelper.getRenderRequest());
@@ -139,13 +141,19 @@ public class CPDefinitionDisplayLayoutDisplayContext
 			new LayoutItemSelectorCriterion();
 
 		layoutItemSelectorCriterion.setShowHiddenPages(true);
+		layoutItemSelectorCriterion.setShowPrivatePages(true);
+		layoutItemSelectorCriterion.setShowPublicPages(true);
 
 		layoutItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
 			Collections.<ItemSelectorReturnType>singletonList(
 				new UUIDItemSelectorReturnType()));
 
+		CommerceChannel commerceChannel = getCommerceChannel();
+
 		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
-			requestBackedPortletURLFactory, "selectDisplayPage",
+			requestBackedPortletURLFactory,
+			_groupLocalService.getGroup(commerceChannel.getSiteGroupId()),
+			commerceChannel.getSiteGroupId(), "selectDisplayPage",
 			layoutItemSelectorCriterion);
 
 		return itemSelectorURL.toString();
@@ -187,16 +195,6 @@ public class CPDefinitionDisplayLayoutDisplayContext
 		return sb.toString();
 	}
 
-	public String getLayoutUuid() throws PortalException {
-		long cpDefinitionId = getCPDefinitionId();
-
-		if (cpDefinitionId <= 0) {
-			return null;
-		}
-
-		return _cpDefinitionService.getLayoutUuid(cpDefinitionId);
-	}
-
 	public String getProductItemSelectorUrl() {
 		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
 			RequestBackedPortletURLFactoryUtil.create(
@@ -222,6 +220,7 @@ public class CPDefinitionDisplayLayoutDisplayContext
 	private final CPDefinitionService _cpDefinitionService;
 	private CPDisplayLayout _cpDisplayLayout;
 	private final CPDisplayLayoutService _cpDisplayLayoutService;
+	private final GroupLocalService _groupLocalService;
 	private final ItemSelector _itemSelector;
 
 }

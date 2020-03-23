@@ -21,7 +21,6 @@ CPDefinitionDisplayLayoutDisplayContext cpDefinitionDisplayLayoutDisplayContext 
 
 CommerceChannel commerceChannel = cpDefinitionDisplayLayoutDisplayContext.getCommerceChannel();
 CPDisplayLayout cpDisplayLayout = cpDefinitionDisplayLayoutDisplayContext.getCPDisplayLayout();
-String layoutUuid = cpDefinitionDisplayLayoutDisplayContext.getLayoutUuid();
 
 List<CPDefinition> cpDefinitionAsList = new ArrayList<>();
 
@@ -31,11 +30,11 @@ if (cpDisplayLayout != null) {
 
 String layoutBreadcrumb = StringPool.BLANK;
 
-if (Validator.isNotNull(layoutUuid)) {
-	Layout selLayout = LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(layoutUuid, commerceChannel.getSiteGroupId(), false);
+if (cpDisplayLayout != null) {
+	Layout selLayout = LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(cpDisplayLayout.getLayoutUuid(), commerceChannel.getSiteGroupId(), false);
 
 	if (selLayout == null) {
-		selLayout = LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(layoutUuid, commerceChannel.getSiteGroupId(), true);
+		selLayout = LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(cpDisplayLayout.getLayoutUuid(), commerceChannel.getSiteGroupId(), true);
 	}
 
 	if (selLayout != null) {
@@ -106,7 +105,7 @@ if (Validator.isNotNull(layoutUuid)) {
 
 				<aui:button cssClass="mb-4" name="selectProduct" value='<%= LanguageUtil.format(locale, "select-x", "product") %>' />
 
-				<aui:input id="pagesContainerInput" ignoreRequestValue="<%= true %>" name="layoutUuid" type="hidden" value="<%= layoutUuid %>" />
+				<aui:input id="pagesContainerInput" ignoreRequestValue="<%= true %>" name="layoutUuid" type="hidden" value="<%= (cpDisplayLayout == null) ? StringPool.BLANK : cpDisplayLayout.getLayoutUuid() %>" />
 
 				<aui:field-wrapper helpMessage="product-display-page-help" label="product-display-page">
 					<p class="text-default">

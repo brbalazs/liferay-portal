@@ -24,6 +24,7 @@ import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderConstants;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -73,7 +74,7 @@ public class EditCPDisplayLayoutMVCRenderCommand implements MVCRenderCommand {
 					new CategoryCPDisplayLayoutDisplayContext(
 						_actionHelper, httpServletRequest,
 						_commerceChannelLocalService, _cpDisplayLayoutService,
-						_itemSelector);
+						_groupLocalService, _itemSelector);
 
 			httpServletRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -105,6 +106,9 @@ public class EditCPDisplayLayoutMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CPDisplayLayoutService _cpDisplayLayoutService;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
 
 	@Reference
 	private ItemSelector _itemSelector;

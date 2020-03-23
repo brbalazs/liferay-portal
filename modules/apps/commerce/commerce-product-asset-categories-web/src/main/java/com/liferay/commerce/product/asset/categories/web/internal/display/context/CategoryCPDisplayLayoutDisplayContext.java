@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.product.asset.categories.web.internal.display.context;
 
-import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
@@ -36,8 +35,7 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
-import com.liferay.portal.kernel.search.QueryConfig;
-import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -45,13 +43,9 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.io.Serializable;
-
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
@@ -68,12 +62,13 @@ public class CategoryCPDisplayLayoutDisplayContext
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
 		CommerceChannelLocalService commerceChannelLocalService,
 		CPDisplayLayoutService cpDisplayLayoutService,
-		ItemSelector itemSelector) {
+		GroupLocalService groupLocalService, ItemSelector itemSelector) {
 
 		super(actionHelper, httpServletRequest);
 
 		_commerceChannelLocalService = commerceChannelLocalService;
 		_cpDisplayLayoutService = cpDisplayLayoutService;
+		_groupLocalService = groupLocalService;
 		_itemSelector = itemSelector;
 	}
 
@@ -135,7 +130,9 @@ public class CategoryCPDisplayLayoutDisplayContext
 		return _cpDisplayLayout;
 	}
 
-	public String getItemSelectorUrl(RenderRequest renderRequest) {
+	public String getItemSelectorUrl(RenderRequest renderRequest)
+		throws PortalException {
+
 		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
 			RequestBackedPortletURLFactoryUtil.create(renderRequest);
 
@@ -143,13 +140,19 @@ public class CategoryCPDisplayLayoutDisplayContext
 			new LayoutItemSelectorCriterion();
 
 		layoutItemSelectorCriterion.setShowHiddenPages(true);
+		layoutItemSelectorCriterion.setShowPrivatePages(true);
+		layoutItemSelectorCriterion.setShowPublicPages(true);
 
 		layoutItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
 			Collections.<ItemSelectorReturnType>singletonList(
 				new UUIDItemSelectorReturnType()));
 
+		CommerceChannel commerceChannel = getCommerceChannel();
+
 		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
-			requestBackedPortletURLFactory, "selectDisplayPage",
+			requestBackedPortletURLFactory,
+			_groupLocalService.getGroup(commerceChannel.getSiteGroupId()),
+			commerceChannel.getSiteGroupId(), "selectDisplayPage",
 			layoutItemSelectorCriterion);
 
 		return itemSelectorURL.toString();
