@@ -252,5 +252,9 @@
 			<contains>No score point assigners available</contains>
 			<matches></matches>
 		</ignore-error>
+		<ignore-error description="COMMERCE-3272">
+			<contains>commerce-media/default</contains>
+			<matches></matches>
+		</ignore-error>
 	</log>
 </ignore-errors>
