@@ -91,6 +91,19 @@ public class CPDisplayLayoutServiceWrapper
 	}
 
 	@Override
+	public com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.product.model.CPDisplayLayout>
+				searchCPDisplayLayout(
+					long companyId, long groupId, String className,
+					String keywords, int start, int end,
+					com.liferay.portal.kernel.search.Sort sort)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDisplayLayoutService.searchCPDisplayLayout(
+			companyId, groupId, className, keywords, start, end, sort);
+	}
+
+	@Override
 	public com.liferay.commerce.product.model.CPDisplayLayout
 			updateCPDisplayLayout(long cpDisplayLayoutId, String layoutUuid)
 		throws com.liferay.portal.kernel.exception.PortalException {

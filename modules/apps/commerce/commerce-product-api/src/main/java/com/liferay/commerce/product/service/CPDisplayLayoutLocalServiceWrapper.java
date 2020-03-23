@@ -438,6 +438,19 @@ public class CPDisplayLayoutLocalServiceWrapper
 		return _cpDisplayLayoutLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.product.model.CPDisplayLayout>
+				searchCPDisplayLayout(
+					long companyId, long groupId, String className,
+					String keywords, int start, int end,
+					com.liferay.portal.kernel.search.Sort sort)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDisplayLayoutLocalService.searchCPDisplayLayout(
+			companyId, groupId, className, keywords, start, end, sort);
+	}
+
 	/**
 	 * Updates the cp display layout in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

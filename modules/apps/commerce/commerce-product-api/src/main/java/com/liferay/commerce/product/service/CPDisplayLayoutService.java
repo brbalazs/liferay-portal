@@ -20,6 +20,8 @@ import com.liferay.commerce.product.model.CPDisplayLayout;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
+import com.liferay.portal.kernel.search.BaseModelSearchResult;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -89,6 +91,12 @@ public interface CPDisplayLayoutService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public BaseModelSearchResult<CPDisplayLayout> searchCPDisplayLayout(
+			long companyId, long groupId, String className, String keywords,
+			int start, int end, Sort sort)
+		throws PortalException;
 
 	public CPDisplayLayout updateCPDisplayLayout(
 			long cpDisplayLayoutId, String layoutUuid)
