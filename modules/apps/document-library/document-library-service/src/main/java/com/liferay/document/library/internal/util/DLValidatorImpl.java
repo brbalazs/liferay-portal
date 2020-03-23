@@ -308,10 +308,6 @@ public final class DLValidatorImpl implements DLValidator {
 		return title;
 	}
 
-	protected void setDLConfiguration(DLConfiguration dlConfiguration) {
-		_dlConfiguration = dlConfiguration;
-	}
-
 	private volatile DLConfiguration _dlConfiguration;
 
 	@Reference
