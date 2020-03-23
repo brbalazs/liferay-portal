@@ -15,7 +15,6 @@
 package com.liferay.commerce.payment.method.authorize.net.internal.taglib.ui;
 
 import com.liferay.commerce.payment.constants.CommercePaymentScreenNavigationConstants;
-import com.liferay.commerce.payment.method.authorize.net.internal.AuthorizeNetCommercePaymentMethod;
 import com.liferay.commerce.payment.method.authorize.net.internal.configuration.AuthorizeNetGroupServiceConfiguration;
 import com.liferay.commerce.payment.method.authorize.net.internal.constants.AuthorizeNetCommercePaymentMethodConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
@@ -86,17 +85,7 @@ public class AuthorizeNetCommercePaymentMethodConfigurationScreenNavigationEntry
 		User user,
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel) {
 
-		if (commercePaymentMethodGroupRel == null) {
-			return false;
-		}
-
-		if (AuthorizeNetCommercePaymentMethod.KEY.equals(
-				commercePaymentMethodGroupRel.getEngineKey())) {
-
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 
 	@Override

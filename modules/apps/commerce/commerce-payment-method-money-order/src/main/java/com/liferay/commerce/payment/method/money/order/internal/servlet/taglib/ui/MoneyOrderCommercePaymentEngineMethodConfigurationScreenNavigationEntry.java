@@ -15,7 +15,6 @@
 package com.liferay.commerce.payment.method.money.order.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.payment.constants.CommercePaymentScreenNavigationConstants;
-import com.liferay.commerce.payment.method.money.order.internal.MoneyOrderCommercePaymentMethod;
 import com.liferay.commerce.payment.method.money.order.internal.configuration.MoneyOrderGroupServiceConfiguration;
 import com.liferay.commerce.payment.method.money.order.internal.constants.MoneyOrderCommercePaymentEngineMethodConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
@@ -87,17 +86,7 @@ public class
 		User user,
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel) {
 
-		if (commercePaymentMethodGroupRel == null) {
-			return false;
-		}
-
-		if (MoneyOrderCommercePaymentMethod.KEY.equals(
-				commercePaymentMethodGroupRel.getEngineKey())) {
-
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 
 	@Override
