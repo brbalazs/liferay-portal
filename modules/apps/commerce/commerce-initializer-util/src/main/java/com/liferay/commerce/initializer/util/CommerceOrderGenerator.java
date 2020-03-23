@@ -379,10 +379,13 @@ public class CommerceOrderGenerator {
 			commerceShippingMethod.getEngineKey());
 	}
 
-	private long _getCommerceShippingMethodId(long groupId) {
+	private long _getCommerceShippingMethodId(long groupId)
+		throws PortalException {
+
 		List<CommerceShippingMethod> commerceShippingMethods =
 			_commerceShippingMethodLocalService.getCommerceShippingMethods(
-				groupId);
+				_commerceChannelLocalService.
+					getCommerceChannelGroupIdBySiteGroupId(groupId));
 
 		if (commerceShippingMethods.isEmpty()) {
 			return 0;
