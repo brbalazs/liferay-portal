@@ -56,6 +56,7 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannelId));
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
 			portletURL="<%= portletURL %>"
+			showSearch="<%= false %>"
 		/>
 	</c:when>
 	<c:otherwise>

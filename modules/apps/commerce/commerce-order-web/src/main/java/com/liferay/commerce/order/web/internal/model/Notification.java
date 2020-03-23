@@ -24,7 +24,7 @@ public class Notification {
 
 	public Notification(
 		long notificationId, AuthorField author, String date, LabelField status,
-		String subject, String summary, String url) {
+		String subject, String summary, String href) {
 
 		_notificationId = notificationId;
 		_author = author;
@@ -32,7 +32,7 @@ public class Notification {
 		_status = status;
 		_subject = subject;
 		_summary = summary;
-		_url = url;
+		_href = href;
 	}
 
 	public AuthorField getAuthor() {
@@ -41,6 +41,10 @@ public class Notification {
 
 	public String getDate() {
 		return _date;
+	}
+
+	public String getHref() {
+		return _href;
 	}
 
 	public long getNotificationId() {
@@ -59,16 +63,12 @@ public class Notification {
 		return _summary;
 	}
 
-	public String getUrl() {
-		return _url;
-	}
-
 	private final AuthorField _author;
 	private final String _date;
+	private final String _href;
 	private final long _notificationId;
 	private final LabelField _status;
 	private final String _subject;
 	private final String _summary;
-	private final String _url;
 
 }

@@ -22,24 +22,10 @@ CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrder
 CommerceNotificationQueueEntry commerceNotificationQueueEntry = commerceOrderEditDisplayContext.getCommerceNotificationQueueEntry();
 %>
 
-<commerce-ui:modal-content
-	showCancelButton="<%= false %>"
-	showSubmitButton="<%= false %>"
+<commerce-ui:side-panel-content
+	title="<%= commerceNotificationQueueEntry.getSubject() %>"
 >
-	<div class="commerce-notification-queue-entry-header"></div>
-
-	<div class="commerce-notification-queue-entry-type">
-		<clay:label
-			label="<%= commerceOrderEditDisplayContext.getCommerceNotificationTemplateType() %>"
-			style="success"
-		/>
-	</div>
-
-	<div class="commerce-notification-queue-entry-subject">
-		<h3><%= commerceNotificationQueueEntry.getSubject() %></h3>
-	</div>
-
 	<div class="commerce-notification-queue-entry-body">
 		<%= commerceNotificationQueueEntry.getBody() %>
 	</div>
-</commerce-ui:modal-content>
+</commerce-ui:side-panel-content>

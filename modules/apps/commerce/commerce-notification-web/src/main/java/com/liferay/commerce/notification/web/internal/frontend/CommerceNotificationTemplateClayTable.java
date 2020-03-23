@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.notification.web.internal.frontend;
 
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -31,6 +32,7 @@ import com.liferay.commerce.notification.service.CommerceNotificationTemplateSer
 import com.liferay.commerce.notification.type.CommerceNotificationType;
 import com.liferay.commerce.notification.type.CommerceNotificationTypeRegistry;
 import com.liferay.commerce.notification.web.internal.model.NotificationTemplate;
+import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.petra.string.StringPool;
@@ -41,13 +43,17 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
@@ -95,6 +101,9 @@ public class CommerceNotificationTemplateClayTable
 				PortletProvider.Action.MANAGE);
 
 			portletURL.setParameter(
+				"mvcRenderCommandName", "editCommerceNotificationTemplate");
+
+			portletURL.setParameter(
 				"commerceChannelId", String.valueOf(commerceChannelId));
 			portletURL.setParameter(
 				"commerceNotificationTemplateId",
@@ -108,9 +117,34 @@ public class CommerceNotificationTemplateClayTable
 				LanguageUtil.get(httpServletRequest, "edit"), null, false,
 				false);
 
-			clayDataSetAction.setTarget("sidePanel");
+			clayDataSetAction.setTarget(
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL);
 
 			clayTableActions.add(clayDataSetAction);
+
+			PortletURL deletePortletURL = _portal.getControlPanelPortletURL(
+				httpServletRequest, CPPortletKeys.COMMERCE_CHANNELS,
+				PortletRequest.ACTION_PHASE);
+
+			String redirect = ParamUtil.getString(
+				httpServletRequest, "currentUrl",
+				_portal.getCurrentURL(httpServletRequest));
+
+			deletePortletURL.setParameter(
+				ActionRequest.ACTION_NAME, "editCommerceNotificationTemplate");
+			deletePortletURL.setParameter(Constants.CMD, Constants.DELETE);
+			deletePortletURL.setParameter("redirect", redirect);
+			deletePortletURL.setParameter(
+				"commerceNotificationTemplateId",
+				String.valueOf(
+					notificationTemplate.getNotificationTemplateId()));
+
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK, deletePortletURL.toString(), StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "delete"), null, false,
+				false);
+
+			clayTableActions.add(deleteClayDataSetAction);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -235,5 +269,8 @@ public class CommerceNotificationTemplateClayTable
 
 	@Reference
 	private CommerceNotificationTypeRegistry _commerceNotificationTypeRegistry;
+
+	@Reference
+	private Portal _portal;
 
 }

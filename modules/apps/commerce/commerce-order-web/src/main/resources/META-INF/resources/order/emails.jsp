@@ -39,5 +39,6 @@ CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrder
 		namespace="<%= renderResponse.getNamespace() %>"
 		pageNumber="<%= 1 %>"
 		portletURL="<%= commerceOrderEditDisplayContext.getCommerceNotificationQueueEntriesPortletURL() %>"
+		showManagementBar="<%= false %>"
 	/>
 </commerce-ui:panel>
