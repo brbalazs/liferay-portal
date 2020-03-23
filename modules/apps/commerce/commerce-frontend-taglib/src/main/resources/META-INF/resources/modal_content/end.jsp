@@ -59,7 +59,15 @@
 	function handleSubmit() {
 		window.parent.Liferay.fire(events.IS_LOADING_MODAL, {isLoading: true});
 
-		submitForm(iframeForm);
+		let form = Liferay.Form.get(iframeForm.id);
+
+		form.formValidator.validate();
+
+		if (form.formValidator.hasErrors()) {
+			window.parent.Liferay.fire(events.IS_LOADING_MODAL, {isLoading: false});
+		} else {
+			submitForm(form.form);
+		}
 	}
 
 	if (iframeForm) {
