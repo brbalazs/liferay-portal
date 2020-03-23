@@ -44,6 +44,7 @@ import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductSubscriptionC
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductTaxConfiguration;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Sku;
+import com.liferay.headless.commerce.admin.catalog.internal.helper.v1_0.ProductHelper;
 import com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0.ProductEntityModel;
 import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.AttachmentUtil;
 import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.ProductConfigurationUtil;
@@ -64,7 +65,6 @@ import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
@@ -78,16 +78,13 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
-import com.liferay.portal.vulcan.util.SearchUtil;
 import com.liferay.upload.UniqueFileNameProvider;
 
 import java.io.Serializable;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
@@ -205,27 +202,11 @@ public class ProductResourceImpl
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
 
-		return SearchUtil.search(
-			booleanQuery -> booleanQuery.getPreBooleanFilter(), filter,
-			CPDefinition.class, search, pagination,
-			queryConfig -> queryConfig.setSelectedFieldNames(
-				Field.ENTRY_CLASS_PK),
-			searchContext -> {
-				searchContext.setCompanyId(contextCompany.getCompanyId());
-
-				long[] getCommerceCatalogGroupIds =
-					_getCommerceCatalogGroupIds();
-
-				if ((getCommerceCatalogGroupIds != null) &&
-					(getCommerceCatalogGroupIds.length > 0)) {
-
-					searchContext.setGroupIds(getCommerceCatalogGroupIds);
-				}
-			},
+		return _productHelper.getProductsPage(
+			contextCompany.getCompanyId(), search, filter, pagination, sorts,
 			document -> _toProduct(
 				_cpDefinitionService.getCPDefinition(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
-			sorts);
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))));
 	}
 
 	@Override
@@ -279,18 +260,6 @@ public class ProductResourceImpl
 			new DefaultDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
 				cpDefinition.getCPDefinitionId()));
-	}
-
-	private long[] _getCommerceCatalogGroupIds() throws PortalException {
-		List<CommerceCatalog> commerceCatalogs =
-			_commerceCatalogLocalService.searchCommerceCatalogs(
-				contextCompany.getCompanyId());
-
-		Stream<CommerceCatalog> stream = commerceCatalogs.stream();
-
-		return stream.mapToLong(
-			CommerceCatalog::getGroupId
-		).toArray();
 	}
 
 	private ProductShippingConfiguration _getProductShippingConfiguration(
@@ -772,6 +741,9 @@ public class ProductResourceImpl
 
 	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;
+
+	@Reference
+	private ProductHelper _productHelper;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
