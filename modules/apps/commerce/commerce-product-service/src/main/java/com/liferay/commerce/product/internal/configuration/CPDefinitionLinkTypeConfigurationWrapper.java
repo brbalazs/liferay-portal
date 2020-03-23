@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Modified;
 
 /**
@@ -28,7 +29,8 @@ import org.osgi.service.component.annotations.Modified;
  */
 @Component(
 	configurationPid = "com.liferay.commerce.product.configuration.CPDefinitionLinkTypeConfiguration",
-	immediate = true, service = CPDefinitionLinkTypeConfigurationWrapper.class
+	configurationPolicy = ConfigurationPolicy.REQUIRE, immediate = true,
+	service = CPDefinitionLinkTypeConfigurationWrapper.class
 )
 public class CPDefinitionLinkTypeConfigurationWrapper {
 
