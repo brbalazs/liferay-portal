@@ -35,19 +35,16 @@ import com.liferay.headless.commerce.admin.order.dto.v1_0.BillingAddress;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.OrderItem;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.ShippingAddress;
+import com.liferay.headless.commerce.admin.order.internal.helper.v1_0.OrderHelper;
 import com.liferay.headless.commerce.admin.order.internal.odata.entity.v1_0.OrderEntityModel;
 import com.liferay.headless.commerce.admin.order.internal.util.v1_0.BillingAddressUtil;
 import com.liferay.headless.commerce.admin.order.internal.util.v1_0.OrderItemUtil;
 import com.liferay.headless.commerce.admin.order.internal.util.v1_0.ShippingAddressUtil;
 import com.liferay.headless.commerce.admin.order.resource.v1_0.OrderResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
@@ -60,14 +57,11 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
-import com.liferay.portal.vulcan.util.SearchUtil;
 
 import java.math.BigDecimal;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
@@ -126,13 +120,8 @@ public class OrderResourceImpl
 
 	@Override
 	public Order getOrder(Long id) throws Exception {
-		DTOConverter orderDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CommerceOrder.class.getName());
-
-		return (Order)orderDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+		return _orderHelper.toOrder(
+			GetterUtil.getLong(id), contextAcceptLanguage.getPreferredLocale());
 	}
 
 	@Override
@@ -149,13 +138,9 @@ public class OrderResourceImpl
 					externalReferenceCode);
 		}
 
-		DTOConverter orderDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CommerceOrder.class.getName());
-
-		return (Order)orderDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrder.getCommerceOrderId()));
+		return _orderHelper.toOrder(
+			commerceOrder.getCommerceOrderId(),
+			contextAcceptLanguage.getPreferredLocale());
 	}
 
 	@Override
@@ -163,26 +148,12 @@ public class OrderResourceImpl
 			Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
 
-		return SearchUtil.search(
-			booleanQuery -> booleanQuery.getPreBooleanFilter(), filter,
-			CommerceOrder.class, StringPool.BLANK, pagination,
-			queryConfig -> queryConfig.setSelectedFieldNames(
-				Field.ENTRY_CLASS_PK),
-			searchContext -> {
-				searchContext.setCompanyId(contextCompany.getCompanyId());
-
-				long[] commerceChannelGroupIds = _getCommerceChannelGroupIds();
-
-				if ((commerceChannelGroupIds != null) &&
-					(commerceChannelGroupIds.length > 0)) {
-
-					searchContext.setGroupIds(commerceChannelGroupIds);
-				}
-			},
-			document -> _toOrder(
-				_commerceOrderService.getCommerceOrder(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
-			sorts);
+		return _orderHelper.getOrdersPage(
+			contextCompany.getCompanyId(), filter, pagination, StringPool.BLANK,
+			sorts,
+			document -> _orderHelper.toOrder(
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -220,35 +191,9 @@ public class OrderResourceImpl
 	public Order postOrder(Order order) throws Exception {
 		CommerceOrder commerceOrder = _upsertOrder(order);
 
-		DTOConverter orderDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CommerceOrder.class.getName());
-
-		return (Order)orderDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrder.getCommerceOrderId()));
-	}
-
-	private long[] _getCommerceChannelGroupIds() throws PortalException {
-		List<CommerceChannel> commerceChannels =
-			_commerceChannelLocalService.searchCommerceChannels(
-				contextCompany.getCompanyId());
-
-		Stream<CommerceChannel> stream = commerceChannels.stream();
-
-		return stream.mapToLong(
-			CommerceChannel::getGroupId
-		).toArray();
-	}
-
-	private Order _toOrder(CommerceOrder commerceOrder) throws Exception {
-		DTOConverter orderDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CommerceOrder.class.getName());
-
-		return (Order)orderDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrder.getCommerceOrderId()));
+		return _orderHelper.toOrder(
+			commerceOrder.getCommerceOrderId(),
+			contextAcceptLanguage.getPreferredLocale());
 	}
 
 	private CommerceOrder _updateNestedResources(
@@ -506,7 +451,7 @@ public class OrderResourceImpl
 	private CPInstanceService _cpInstanceService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private OrderHelper _orderHelper;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
