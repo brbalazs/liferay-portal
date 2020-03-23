@@ -12,10 +12,13 @@
  * details.
  */
 
-package com.liferay.commerce.product.search;
+package com.liferay.commerce.product.internal.search;
 
+import com.liferay.asset.kernel.model.AssetCategory;
+import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDisplayLayout;
+import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDisplayLayoutLocalService;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -32,9 +35,9 @@ import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Summary;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
-import com.liferay.portal.kernel.search.filter.TermsFilter;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -81,46 +84,14 @@ public class CPDisplayLayoutIndexer extends BaseIndexer<CPDisplayLayout> {
 
 		Map<String, Serializable> attributes = searchContext.getAttributes();
 
-		// Temporary search filter workaround. See LPS-98023.
-
-		boolean searchFilterEnabled = GetterUtil.getBoolean(
-			attributes.get("searchFilterEnabled"));
-
-		if (!searchFilterEnabled) {
-			return;
-		}
-
 		String entryModelClassName = (String)attributes.get(
 			FIELD_ENTRY_MODEL_CLASS_NAME);
 
-		contextBooleanFilter.addTerm(
-			FIELD_ENTRY_MODEL_CLASS_NAME, entryModelClassName,
-			BooleanClauseOccur.MUST);
-
-		if (Validator.isNotNull(entryModelClassName) &&
-			!entryModelClassName.equals(CPDefinition.class.getName())) {
-
-			return;
+		if (Validator.isNotNull(entryModelClassName)) {
+			contextBooleanFilter.addTerm(
+				FIELD_ENTRY_MODEL_CLASS_NAME, entryModelClassName,
+				BooleanClauseOccur.MUST);
 		}
-
-		long[] commerceCatalogGroupIds = GetterUtil.getLongValues(
-			attributes.get(FIELD_COMMERCE_CATALOG_GROUP_ID));
-
-		if (ArrayUtil.isEmpty(commerceCatalogGroupIds)) {
-			long commerceCatalogGroupId = GetterUtil.getLong(
-				attributes.getOrDefault(FIELD_COMMERCE_CATALOG_GROUP_ID, -1));
-
-			commerceCatalogGroupIds = new long[] {commerceCatalogGroupId};
-		}
-
-		TermsFilter commerceCatalogGroupIdsTermsFilter = new TermsFilter(
-			FIELD_COMMERCE_CATALOG_GROUP_ID);
-
-		commerceCatalogGroupIdsTermsFilter.addValues(
-			ArrayUtil.toStringArray(commerceCatalogGroupIds));
-
-		contextBooleanFilter.add(
-			commerceCatalogGroupIdsTermsFilter, BooleanClauseOccur.MUST);
 	}
 
 	@Override
@@ -159,8 +130,40 @@ public class CPDisplayLayoutIndexer extends BaseIndexer<CPDisplayLayout> {
 				_cpDefinitionLocalService.getCPDefinition(
 					cpDisplayLayout.getClassPK());
 
+			CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
+
 			document.addKeyword(
 				FIELD_COMMERCE_CATALOG_GROUP_ID, cpDefinition.getGroupId());
+
+			Locale locale = LocaleUtil.fromLanguageId(
+				commerceCatalog.getCatalogDefaultLanguageId());
+
+			addLocalizedField(
+				document, Field.TITLE, locale, cpDefinition.getNameMap());
+
+			document.addText(
+				Field.NAME,
+				cpDefinition.getName(
+					commerceCatalog.getCatalogDefaultLanguageId()));
+		}
+
+		if (className.equals(AssetCategory.class.getName())) {
+			AssetCategory assetCategory =
+				_assetCategoryLocalService.getAssetCategory(
+					cpDisplayLayout.getClassPK());
+
+			Locale siteDefaultLocale = _portal.getSiteDefaultLocale(
+				assetCategory.getGroupId());
+
+			addLocalizedField(
+				document, Field.DESCRIPTION, siteDefaultLocale,
+				assetCategory.getDescriptionMap());
+
+			document.addText(Field.NAME, assetCategory.getName());
+
+			addLocalizedField(
+				document, Field.TITLE, siteDefaultLocale,
+				assetCategory.getTitleMap());
 		}
 
 		document.addKeyword(Field.GROUP_ID, cpDisplayLayout.getGroupId());
@@ -235,6 +238,9 @@ public class CPDisplayLayoutIndexer extends BaseIndexer<CPDisplayLayout> {
 		CPDisplayLayoutIndexer.class);
 
 	@Reference
+	private AssetCategoryLocalService _assetCategoryLocalService;
+
+	@Reference
 	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Reference
@@ -242,5 +248,8 @@ public class CPDisplayLayoutIndexer extends BaseIndexer<CPDisplayLayout> {
 
 	@Reference
 	private IndexWriterHelper _indexWriterHelper;
+
+	@Reference
+	private Portal _portal;
 
 }
