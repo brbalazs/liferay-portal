@@ -130,8 +130,7 @@ public class CommerceNotificationTemplateClayTable
 			_commerceChannelService.getCommerceChannel(commerceChannelId);
 
 		return _commerceNotificationTemplateService.
-			getCommerceNotificationTemplatesCount(
-				commerceChannel.getSiteGroupId());
+			getCommerceNotificationTemplatesCount(commerceChannel.getGroupId());
 	}
 
 	@Override
@@ -173,9 +172,8 @@ public class CommerceNotificationTemplateClayTable
 		List<CommerceNotificationTemplate> commerceNotificationTemplates =
 			_commerceNotificationTemplateService.
 				getCommerceNotificationTemplates(
-					commerceChannel.getSiteGroupId(),
-					pagination.getStartPosition(), pagination.getEndPosition(),
-					null);
+					commerceChannel.getGroupId(), pagination.getStartPosition(),
+					pagination.getEndPosition(), null);
 
 		List<NotificationTemplate> notificationTemplates = new ArrayList<>();
 

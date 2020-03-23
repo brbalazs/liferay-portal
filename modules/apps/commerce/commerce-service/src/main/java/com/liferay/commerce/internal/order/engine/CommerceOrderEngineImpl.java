@@ -365,8 +365,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 					}
 
 					_commerceNotificationHelper.sendNotifications(
-						commerceOrder.getScopeGroupId(),
-						commerceOrder.getUserId(),
+						commerceOrder.getGroupId(), commerceOrder.getUserId(),
 						CommerceOrderConstants.getNotificationKey(orderStatus),
 						commerceOrder);
 

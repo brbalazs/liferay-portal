@@ -25,8 +25,6 @@ import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
 import com.liferay.commerce.order.web.internal.model.Notification;
-import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -79,13 +77,9 @@ public class CommerceNotificationDataSetDataProvider
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			commerceOrderId);
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		return _commerceNotificationQueueEntryLocalService.
 			getCommerceNotificationQueueEntriesCount(
-				commerceChannel.getSiteGroupId(), CommerceOrder.class.getName(),
+				commerceOrder.getGroupId(), CommerceOrder.class.getName(),
 				commerceOrder.getCommerceOrderId(), true);
 	}
 
@@ -103,15 +97,10 @@ public class CommerceNotificationDataSetDataProvider
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			commerceOrderId);
 
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
-
 		List<CommerceNotificationQueueEntry> commerceNotificationQueueEntries =
 			_commerceNotificationQueueEntryLocalService.
 				getCommerceNotificationQueueEntries(
-					commerceChannel.getSiteGroupId(),
-					CommerceOrder.class.getName(),
+					commerceOrder.getGroupId(), CommerceOrder.class.getName(),
 					commerceOrder.getCommerceOrderId(), true,
 					pagination.getStartPosition(), pagination.getEndPosition(),
 					null);
@@ -137,7 +126,8 @@ public class CommerceNotificationDataSetDataProvider
 							commerceNotificationQueueEntry)),
 					HtmlUtil.escape(
 						commerceNotificationQueueEntry.getSubject()),
-					HtmlUtil.escape(commerceNotificationQueueEntry.getBody()),
+					HtmlUtil.extractText(
+						commerceNotificationQueueEntry.getBody()),
 					getNotificationPanelURL(
 						commerceNotificationQueueEntry.
 							getCommerceNotificationQueueEntryId(),
@@ -232,9 +222,6 @@ public class CommerceNotificationDataSetDataProvider
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceNotificationDataSetDataProvider.class);
-
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceNotificationQueueEntryLocalService

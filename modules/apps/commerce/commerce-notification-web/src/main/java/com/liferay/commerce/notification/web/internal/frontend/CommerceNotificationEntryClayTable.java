@@ -139,7 +139,7 @@ public class CommerceNotificationEntryClayTable
 
 		return _commerceNotificationQueueEntryService.
 			getCommerceNotificationQueueEntriesCount(
-				commerceChannel.getSiteGroupId());
+				commerceChannel.getGroupId());
 	}
 
 	@Override
@@ -182,9 +182,8 @@ public class CommerceNotificationEntryClayTable
 		List<CommerceNotificationQueueEntry> commerceNotificationQueueEntries =
 			_commerceNotificationQueueEntryService.
 				getCommerceNotificationQueueEntries(
-					commerceChannel.getSiteGroupId(),
-					pagination.getStartPosition(), pagination.getEndPosition(),
-					null);
+					commerceChannel.getGroupId(), pagination.getStartPosition(),
+					pagination.getEndPosition(), null);
 
 		List<NotificationEntry> notificationEntries = new ArrayList<>();
 

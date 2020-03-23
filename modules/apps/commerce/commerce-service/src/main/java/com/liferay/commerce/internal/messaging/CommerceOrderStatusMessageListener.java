@@ -52,7 +52,7 @@ public class CommerceOrderStatusMessageListener extends BaseMessageListener {
 				commerceOrder.getGroupId());
 
 		_commerceNotificationHelper.sendNotifications(
-			commerceChannel.getSiteGroupId(), commerceOrder.getUserId(),
+			commerceChannel.getGroupId(), commerceOrder.getUserId(),
 			CommerceOrderConstants.getNotificationKey(orderStatus),
 			commerceOrder);
 	}
