@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -137,19 +138,26 @@ public class ExpandoColumnModelListener
 			className = Organization.class.getName();
 		}
 
+		String dataType = ExpandoColumnUtil.getDataType(
+			expandoColumn.getType());
+
+		if (Validator.isBlank(dataType)) {
+			dataType = ExpandoColumnUtil.DATA_TYPE_TEXT;
+		}
+
 		return JSONUtil.put(
 			"className", className
 		).put(
 			"companyId", expandoColumn.getColumnId()
 		).put(
-			"dataType", ExpandoColumnUtil.getDataType(expandoColumn.getType())
+			"dataType", dataType
 		).put(
 			"displayType",
 			ExpandoColumnUtil.getDefaultDisplayTypeProperty(
 				expandoColumn.getType(),
 				expandoColumn.getTypeSettingsProperties())
 		).put(
-			"name", expandoColumn.getName()
+			"name", expandoColumn.getName() + "-" + dataType
 		).put(
 			"typeLabel",
 			ExpandoColumnConstants.getTypeLabel(expandoColumn.getType())
