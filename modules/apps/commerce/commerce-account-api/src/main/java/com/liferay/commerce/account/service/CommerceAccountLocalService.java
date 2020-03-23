@@ -238,7 +238,8 @@ public interface CommerceAccountLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceAccount getCommerceAccount(
-		long userId, long commerceAccountId);
+			long userId, long commerceAccountId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Group getCommerceAccountGroup(long commerceAccountId)
@@ -294,23 +295,27 @@ public interface CommerceAccountLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceAccount> getUserCommerceAccounts(
-		long userId, Long parentCommerceAccountId, int commerceSiteType,
-		String keywords, Boolean active, int start, int end);
+			long userId, Long parentCommerceAccountId, int commerceSiteType,
+			String keywords, Boolean active, int start, int end)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceAccount> getUserCommerceAccounts(
-		long userId, Long parentCommerceAccountId, int commerceSiteType,
-		String keywords, int start, int end);
+			long userId, Long parentCommerceAccountId, int commerceSiteType,
+			String keywords, int start, int end)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getUserCommerceAccountsCount(
-		long userId, Long parentCommerceAccountId, int commerceSiteType,
-		String keywords);
+			long userId, Long parentCommerceAccountId, int commerceSiteType,
+			String keywords)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getUserCommerceAccountsCount(
-		long userId, Long parentCommerceAccountId, int commerceSiteType,
-		String keywords, Boolean active);
+			long userId, Long parentCommerceAccountId, int commerceSiteType,
+			String keywords, Boolean active)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceAccount> searchCommerceAccounts(

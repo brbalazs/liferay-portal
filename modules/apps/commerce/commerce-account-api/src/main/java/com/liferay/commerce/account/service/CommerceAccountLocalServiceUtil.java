@@ -287,7 +287,8 @@ public class CommerceAccountLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.account.model.CommerceAccount
-		getCommerceAccount(long userId, long commerceAccountId) {
+			getCommerceAccount(long userId, long commerceAccountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getCommerceAccount(userId, commerceAccountId);
 	}
@@ -368,9 +369,11 @@ public class CommerceAccountLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.account.model.CommerceAccount>
-			getUserCommerceAccounts(
-				long userId, Long parentCommerceAccountId, int commerceSiteType,
-				String keywords, Boolean active, int start, int end) {
+				getUserCommerceAccounts(
+					long userId, Long parentCommerceAccountId,
+					int commerceSiteType, String keywords, Boolean active,
+					int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getUserCommerceAccounts(
 			userId, parentCommerceAccountId, commerceSiteType, keywords, active,
@@ -379,9 +382,10 @@ public class CommerceAccountLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.account.model.CommerceAccount>
-			getUserCommerceAccounts(
-				long userId, Long parentCommerceAccountId, int commerceSiteType,
-				String keywords, int start, int end) {
+				getUserCommerceAccounts(
+					long userId, Long parentCommerceAccountId,
+					int commerceSiteType, String keywords, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getUserCommerceAccounts(
 			userId, parentCommerceAccountId, commerceSiteType, keywords, start,
@@ -389,16 +393,18 @@ public class CommerceAccountLocalServiceUtil {
 	}
 
 	public static int getUserCommerceAccountsCount(
-		long userId, Long parentCommerceAccountId, int commerceSiteType,
-		String keywords) {
+			long userId, Long parentCommerceAccountId, int commerceSiteType,
+			String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getUserCommerceAccountsCount(
 			userId, parentCommerceAccountId, commerceSiteType, keywords);
 	}
 
 	public static int getUserCommerceAccountsCount(
-		long userId, Long parentCommerceAccountId, int commerceSiteType,
-		String keywords, Boolean active) {
+			long userId, Long parentCommerceAccountId, int commerceSiteType,
+			String keywords, Boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getUserCommerceAccountsCount(
 			userId, parentCommerceAccountId, commerceSiteType, keywords,
