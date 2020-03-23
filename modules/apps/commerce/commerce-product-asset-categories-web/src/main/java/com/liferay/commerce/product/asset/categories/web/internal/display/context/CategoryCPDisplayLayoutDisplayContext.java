@@ -232,33 +232,10 @@ public class CategoryCPDisplayLayoutDisplayContext
 		return portletURL;
 	}
 
-	protected SearchContext buildSearchContext(int start, int end) {
-		SearchContext searchContext = new SearchContext();
-
-		Map<String, Serializable> attributes = new HashMap<>();
-
-		attributes.put("entryModelClassName", AssetCategory.class.getName());
-		attributes.put("searchFilterEnabled", true);
-
-		searchContext.setAttributes(attributes);
-
-		searchContext.setCompanyId(cpRequestHelper.getCompanyId());
-		searchContext.setGroupIds(
-			new long[] {cpRequestHelper.getScopeGroupId()});
-		searchContext.setStart(start);
-		searchContext.setEnd(end);
-
-		QueryConfig queryConfig = searchContext.getQueryConfig();
-
-		queryConfig.setHighlightEnabled(false);
-		queryConfig.setScoreEnabled(false);
-
-		return searchContext;
-	}
-
 	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private CPDisplayLayout _cpDisplayLayout;
 	private final CPDisplayLayoutService _cpDisplayLayoutService;
+	private final GroupLocalService _groupLocalService;
 	private final ItemSelector _itemSelector;
 
 }

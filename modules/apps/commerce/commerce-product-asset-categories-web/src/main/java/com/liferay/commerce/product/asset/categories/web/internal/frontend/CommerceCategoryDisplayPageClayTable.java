@@ -33,34 +33,22 @@ import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPDisplayLayoutService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistryUtil;
-import com.liferay.portal.kernel.search.QueryConfig;
-import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.io.Serializable;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
@@ -143,12 +131,15 @@ public class CommerceCategoryDisplayPageClayTable
 		CommerceChannel commerceChannel =
 			_commerceChannelService.getCommerceChannel(commerceChannelId);
 
-		Indexer<CPDisplayLayout> indexer =
-			IndexerRegistryUtil.nullSafeGetIndexer(CPDisplayLayout.class);
+		BaseModelSearchResult<CPDisplayLayout>
+			cpDisplayLayoutBaseModelSearchResult =
+				_cpDisplayLayoutService.searchCPDisplayLayout(
+					commerceChannel.getCompanyId(),
+					commerceChannel.getSiteGroupId(),
+					AssetCategory.class.getName(), filter.getKeywords(), 0, 0,
+					null);
 
-		return (int)indexer.searchCount(
-			_buildSearchContext(
-				commerceChannel, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null));
+		return cpDisplayLayoutBaseModelSearchResult.getLength();
 	}
 
 	@Override
@@ -184,11 +175,18 @@ public class CommerceCategoryDisplayPageClayTable
 
 		List<CategoryDisplayPage> categoryDisplayPages = new ArrayList<>();
 
-		List<CPDisplayLayout> cpDisplayLayouts = _getCPDisplayLayouts(
-			commerceChannel, pagination.getStartPosition(),
-			pagination.getEndPosition(), sort);
+		BaseModelSearchResult<CPDisplayLayout>
+			cpDisplayLayoutBaseModelSearchResult =
+				_cpDisplayLayoutService.searchCPDisplayLayout(
+					commerceChannel.getCompanyId(),
+					commerceChannel.getSiteGroupId(),
+					AssetCategory.class.getName(), filter.getKeywords(),
+					pagination.getStartPosition(), pagination.getEndPosition(),
+					sort);
 
-		for (CPDisplayLayout cpDisplayLayout : cpDisplayLayouts) {
+		for (CPDisplayLayout cpDisplayLayout :
+				cpDisplayLayoutBaseModelSearchResult.getBaseModels()) {
+
 			categoryDisplayPages.add(
 				new CategoryDisplayPage(
 					cpDisplayLayout.getCPDisplayLayoutId(),
@@ -197,36 +195,6 @@ public class CommerceCategoryDisplayPageClayTable
 		}
 
 		return categoryDisplayPages;
-	}
-
-	private SearchContext _buildSearchContext(
-		CommerceChannel commerceChannel, int start, int end, Sort sort) {
-
-		SearchContext searchContext = new SearchContext();
-
-		Map<String, Serializable> attributes = new HashMap<>();
-
-		attributes.put("entryModelClassName", AssetCategory.class.getName());
-		attributes.put("searchFilterEnabled", true);
-
-		searchContext.setAttributes(attributes);
-
-		searchContext.setCompanyId(commerceChannel.getCompanyId());
-		searchContext.setGroupIds(
-			new long[] {commerceChannel.getSiteGroupId()});
-		searchContext.setStart(start);
-		searchContext.setEnd(end);
-
-		if (sort != null) {
-			searchContext.setSorts(sort);
-		}
-
-		QueryConfig queryConfig = searchContext.getQueryConfig();
-
-		queryConfig.setHighlightEnabled(false);
-		queryConfig.setScoreEnabled(false);
-
-		return searchContext;
 	}
 
 	private String _getCategoryDisplayPageDeleteURL(
@@ -283,44 +251,6 @@ public class CommerceCategoryDisplayPageClayTable
 		}
 
 		return assetCategory.getName();
-	}
-
-	private List<CPDisplayLayout> _getCPDisplayLayouts(
-			CommerceChannel commerceChannel, int start, int end, Sort sort)
-		throws PortalException {
-
-		Indexer<CPDisplayLayout> indexer =
-			IndexerRegistryUtil.nullSafeGetIndexer(CPDisplayLayout.class);
-
-		Hits hits = indexer.search(
-			_buildSearchContext(commerceChannel, start, end, sort));
-
-		List<Document> documents = hits.toList();
-
-		List<CPDisplayLayout> cpDisplayLayouts = new ArrayList<>(
-			documents.size());
-
-		for (Document document : documents) {
-			long cpDisplayLayoutId = GetterUtil.getLong(
-				document.get(Field.ENTRY_CLASS_PK));
-
-			CPDisplayLayout cpDisplayLayout =
-				_cpDisplayLayoutService.fetchCPDisplayLayout(cpDisplayLayoutId);
-
-			if (cpDisplayLayout == null) {
-				cpDisplayLayouts = null;
-
-				long companyId = GetterUtil.getLong(
-					document.get(Field.COMPANY_ID));
-
-				indexer.delete(companyId, document.getUID());
-			}
-			else if (cpDisplayLayouts != null) {
-				cpDisplayLayouts.add(cpDisplayLayout);
-			}
-		}
-
-		return cpDisplayLayouts;
 	}
 
 	private String _getLayout(
