@@ -160,6 +160,7 @@ function Modal(props) {
 		<>
 			{visible && (
 				<ClayModal
+					className="commerce-modal"
 					observer={observer}
 					size={size}
 					spritemap={props.spritemap}
