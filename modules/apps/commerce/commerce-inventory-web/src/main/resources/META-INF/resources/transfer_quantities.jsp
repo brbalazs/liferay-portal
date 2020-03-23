@@ -34,7 +34,7 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 			<aui:validator name="min">1</aui:validator>
 		</aui:input>
 
-		<aui:select label="from-warehouse" name="fromCommerceInventoryWarehouseId" required="<%= true %>">
+		<aui:select label="source" name="fromCommerceInventoryWarehouseId" required="<%= true %>">
 
 			<%
 			List<CommerceInventoryWarehouse> commerceInventoryWarehouses = commerceInventoryDisplayContext.getCommerceInventoryWarehouses();
@@ -50,7 +50,7 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 
 		</aui:select>
 
-		<aui:select label="to-warehouse" name="toCommerceInventoryWarehouseId" required="<%= true %>">
+		<aui:select label="destination" name="toCommerceInventoryWarehouseId" required="<%= true %>">
 
 			<%
 			List<CommerceInventoryWarehouse> commerceInventoryWarehouses = commerceInventoryDisplayContext.getCommerceInventoryWarehouses();
