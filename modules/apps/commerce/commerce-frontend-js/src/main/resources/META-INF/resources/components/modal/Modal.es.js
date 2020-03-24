@@ -99,7 +99,7 @@ function Modal(props) {
 			successNotification = {},
 			willIframeRefresh = true
 		}) {
-			if(!visible) return;
+			if (!visible) return;
 
 			if (redirectURL) {
 				liferayNavigate(redirectURL);
