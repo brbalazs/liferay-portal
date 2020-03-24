@@ -292,7 +292,8 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 					apiUrl:
 						'/o/headless-commerce-admin-order/v1.0/orders/<%= commerceOrderEditDisplayContext.getCommerceOrderId() %>',
 					datasetDisplayId:
-						'<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>'
+						'<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>',
+					portletId: '<%= portletDisplay.getRootPortletId() %>',
 				});
 			</aui:script>
 		</commerce-ui:panel>

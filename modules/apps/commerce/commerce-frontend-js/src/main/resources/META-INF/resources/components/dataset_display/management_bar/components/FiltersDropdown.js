@@ -45,7 +45,7 @@ function FiltersDropdown() {
 			}
 		});
 
-		return setVisibleFilter(results);
+		setVisibleFilter(results);
 	}, [state.filters, query]);
 
 	return state.filters.length ? (

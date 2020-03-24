@@ -118,6 +118,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				onItemSelected: selectItem,
 				pageSize: 10,
 				panelHeaderLabel: '<%= LanguageUtil.get(request, "add-options") %>',
+				portletId: '<%= portletDisplay.getRootPortletId() %>',
 				schema: {
 					itemTitle: ['name', themeDisplay.getLanguageId()]
 				},

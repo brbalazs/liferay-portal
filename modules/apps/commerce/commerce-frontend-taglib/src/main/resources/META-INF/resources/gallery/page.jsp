@@ -20,6 +20,7 @@
 
 <aui:script require="commerce-frontend-js/components/gallery/entry.es as gallery">
 	gallery.default('<%= galleryId %>', '<%= galleryId %>', {
-		images: <%= jsonSerializer.serializeDeep(images) %>
+		images: <%= jsonSerializer.serializeDeep(images) %>,
+		portletId: '<%= portletDisplay.getRootPortletId() %>'
 	});
 </aui:script>

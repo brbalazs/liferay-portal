@@ -38,6 +38,7 @@
 			initialDelta: <%= itemsPerPage %>,
 			initialPageNumber: <%= pageNumber %>
 		},
+		portletId: '<%= portletDisplay.getRootPortletId() %>',
 		namespace: '<%= namespace %>',
 		portletURL: '<%= portletURL %>',
 		selectedItems: <%= jsonSerializer.serializeDeep(selectedItems) %>,

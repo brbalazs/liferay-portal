@@ -162,7 +162,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 						}
 						%>
 
-						<div class="border-left col col-12 col-lg-auto d-flex mt-3 mt-lg-0">
+						<div class="border-right col col-12 col-lg-auto d-flex mt-3 mt-lg-0">
 							<small class="d-block">
 								<span class="header-info-title mr-1">
 									<liferay-ui:message key="assigned-to" />:

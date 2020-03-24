@@ -43,11 +43,13 @@ class AccountSelector extends Component {
 		this._getOrders().then(orders => {
 			this.orders = orders;
 			if (orderId) {
-				this.currentOrder = this.orders.reduce(
-					(found, order) =>
-						found || (order.id == orderId ? order : null),
-					null
-				);
+				this.currentOrder = Array.isArray(this.orders)
+					? this.orders.reduce(
+							(found, order) =>
+								found || (order.id == orderId ? order : null),
+							null
+					  )
+					: orderId;
 				this.currentView = 'orders';
 			}
 		});

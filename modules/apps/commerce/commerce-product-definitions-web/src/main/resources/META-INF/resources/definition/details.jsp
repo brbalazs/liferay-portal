@@ -280,6 +280,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						onItemSelected: selectItem,
 						pageSize: 10,
 						panelHeaderLabel: '<%= LanguageUtil.get(request, "add-specifications") %>',
+						portletId: '<%= portletDisplay.getRootPortletId() %>',
 						schema: {
 							itemTitle: ['title', themeDisplay.getLanguageId()]
 						},

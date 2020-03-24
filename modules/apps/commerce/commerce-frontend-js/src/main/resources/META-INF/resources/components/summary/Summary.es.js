@@ -132,8 +132,8 @@ function Summary(props) {
 
 		getData();
 		Liferay.on(DATASET_DISPLAY_UPDATED, refreshItems);
-		return Liferay.detach(DATASET_DISPLAY_UPDATED, refreshItems);
-	}, [props, props.apiUrl, props.datasetDisplayId]);
+		return () => Liferay.detach(DATASET_DISPLAY_UPDATED, refreshItems);
+	}, [props.dataMapper, props.apiUrl, props.datasetDisplayId, props]);
 
 	return (
 		<div className="row summary-table text-right">
