@@ -79,6 +79,12 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 
 		List<OrderItem> orderItems = new ArrayList<>();
 
+		Locale locale = _portal.getLocale(httpServletRequest);
+
+		String price = StringPool.BLANK;
+		String total = StringPool.BLANK;
+		String discount = StringPool.BLANK;
+
 		long commerceSubscriptionEntryId = ParamUtil.getLong(
 			httpServletRequest, "commerceSubscriptionEntryId");
 
@@ -86,25 +92,19 @@ public class CommerceSubscriptionOrderItemDataSetDataProvider
 			_commerceSubscriptionEntryService.fetchCommerceSubscriptionEntry(
 				commerceSubscriptionEntryId);
 
+		CommerceOrderItem commerceOrderItem =
+			_commerceOrderItemService.getCommerceOrderItem(
+				commerceSubscriptionEntry.getCommerceOrderItemId());
+
 		CommerceContext commerceContext = _commerceContextFactory.create(
 			_portal.getCompanyId(httpServletRequest),
 			commerceSubscriptionEntry.getGroupId(),
 			_portal.getUserId(httpServletRequest), 0, 0);
 
-		CommerceOrderItem commerceOrderItem =
-			_commerceOrderItemService.getCommerceOrderItem(
-				commerceSubscriptionEntry.getCommerceOrderItemId());
-
-		String price = StringPool.BLANK;
-		String total = StringPool.BLANK;
-		String discount = StringPool.BLANK;
-
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
 				commerceOrderItem.getCPInstanceId(),
 				commerceOrderItem.getQuantity(), commerceContext);
-
-		Locale locale = _portal.getLocale(httpServletRequest);
 
 		if (commerceProductPrice != null) {
 			CommerceMoney unitPrice = commerceProductPrice.getUnitPrice();
