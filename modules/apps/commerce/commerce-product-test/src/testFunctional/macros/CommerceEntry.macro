@@ -525,6 +525,22 @@ definition {
 			value1 = "${productName}");
 	}
 
+	macro viewCatalogsEntry {
+		AssertTextEquals(
+			locator1 = "CommerceEntry#NAME_FIELD",
+			value1 = "${entryName}");
+
+		AssertSelectedLabel(
+			locator1 = "CommerceEntry#CATALOGS_FORM",
+			key_title = "Default Catalog Language",
+			value1 = "${language}");
+
+		AssertSelectedLabel(
+			locator1 = "CommerceEntry#CATALOGS_FORM",
+			key_title = "Currency",
+			value1 = "${currency}");
+	}
+
 	macro viewChannelsEntry {
 		AssertTextEquals(
 			locator1 = "TextInput#NAME",
@@ -536,8 +552,8 @@ definition {
 			value1 = "${currency}");
 
 		AssertElementPresent(
-			key_breadcrumbName = "Site",
-			locator1 = "CommerceEntry#BREADCRUMB_ENTRY");
+			key_menuTab = "${channelType}",
+			locator1 = "CommerceEntry#MENU_TAB");
 	}
 
 	macro viewDiscountsEntry {
