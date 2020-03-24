@@ -480,12 +480,12 @@ public class CommerceOrderEditDisplayContext {
 			if (commerceOrderStatus.getKey() ==
 					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) {
 
-				label = "ship-order";
+				label = "create-shipment";
 			}
 			else if (commerceOrderStatus.getKey() ==
 						CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) {
 
-				label = "checkout";
+				label = "check-out";
 
 				if (!_commerceOrder.isApproved()) {
 					label = "submit";
@@ -509,10 +509,10 @@ public class CommerceOrderEditDisplayContext {
 				if (currentCommerceOrderStatus.getKey() ==
 						CommerceOrderConstants.ORDER_STATUS_ON_HOLD) {
 
-					label = "unblock";
+					label = "release-hold";
 				}
 				else {
-					label = "block";
+					label = "hold";
 				}
 			}
 
