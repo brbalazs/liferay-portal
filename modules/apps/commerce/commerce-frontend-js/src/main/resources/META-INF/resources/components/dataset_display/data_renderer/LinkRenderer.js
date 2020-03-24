@@ -20,9 +20,11 @@ import DefaultContent from './DefaultRenderer';
 
 function LinkRenderer(props) {
 	return (
-		<ClayLink href={props.value.href}>
-			<DefaultContent value={props.value.label} />
-		</ClayLink>
+		<div className="table-list-title">
+			<ClayLink href={props.value.href}>
+				<DefaultContent value={props.value.label} />
+			</ClayLink>
+		</div>
 	);
 }
 

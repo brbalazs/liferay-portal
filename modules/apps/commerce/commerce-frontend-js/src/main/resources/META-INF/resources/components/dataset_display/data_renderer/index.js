@@ -23,7 +23,6 @@ import LabelRenderer from './LabelRenderer';
 import LinkRenderer from './LinkRenderer';
 import ModalLinkRenderer from './ModalLinkRenderer';
 import QuantitySelectorRenderer from './QuantitySelectorRenderer';
-import SidePanelLinkRenderer from './SidePanelLinkRenderer';
 import TooltipPriceRenderer from './TooltipPriceRenderer';
 
 const dataRenderers = {
@@ -37,7 +36,6 @@ const dataRenderers = {
 	link: LinkRenderer,
 	modalLink: ModalLinkRenderer,
 	quantitySelector: QuantitySelectorRenderer,
-	sidePanelLink: SidePanelLinkRenderer,
 	tooltipPrice: TooltipPriceRenderer
 };
 

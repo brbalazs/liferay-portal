@@ -29,18 +29,20 @@ function ModalLinkRenderer(props) {
 	}
 
 	return (
-		<ClayLink
-			href="#"
-			onClick={e =>
-				handleClickOnLink(e, {
-					size: props.value.size,
-					title: props.value.title,
-					url: props.value.href
-				})
-			}
-		>
-			<DefaultContent value={props.value} />
-		</ClayLink>
+		<div className="table-list-title">
+			<ClayLink
+				href="#"
+				onClick={e =>
+					handleClickOnLink(e, {
+						size: props.value.size,
+						title: props.value.title,
+						url: props.value.href
+					})
+				}
+			>
+				<DefaultContent value={props.value} />
+			</ClayLink>
+		</div>
 	);
 }
 

@@ -79,13 +79,15 @@ function ActionLinkRenderer(props) {
 	}
 
 	return (
-		<ClayLink
-			data-senna-off
-			href={formattedHref || '#'}
-			onClick={isNotALink() ? handleClickOnLink : null}
-		>
-			{props.value || <ClayIcon symbol={currentAction.icon} />}
-		</ClayLink>
+		<div className="table-list-title">
+			<ClayLink
+				data-senna-off
+				href={formattedHref || '#'}
+				onClick={isNotALink() ? handleClickOnLink : null}
+			>
+				{props.value || <ClayIcon symbol={currentAction.icon} />}
+			</ClayLink>
+		</div>
 	);
 }
 
