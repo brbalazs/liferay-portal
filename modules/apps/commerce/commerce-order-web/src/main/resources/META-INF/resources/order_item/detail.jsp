@@ -39,6 +39,8 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrderItem.getCommerceOrderId() %>" />
 		<aui:input name="commerceOrderItemId" type="hidden" value="<%= commerceOrderItem.getCommerceOrderItemId() %>" />
 
+		<liferay-ui:error exception="<%= CommerceOrderItemRequestedDeliveryDateException.class %>" message="please-enter-a-valid-requested-delivery-date" />
+
 		<liferay-ui:error exception="<%= CommerceOrderValidatorException.class %>">
 
 			<%

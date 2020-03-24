@@ -17,6 +17,7 @@ package com.liferay.commerce.order.web.internal.portlet.action;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.exception.CommerceOrderItemRequestedDeliveryDateException;
 import com.liferay.commerce.exception.CommerceOrderValidatorException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -134,6 +135,16 @@ public class EditCommerceOrderItemMVCActionCommand
 		}
 		catch (Throwable t) {
 			if (t instanceof CommerceOrderValidatorException) {
+				SessionErrors.add(actionRequest, t.getClass(), t);
+
+				String redirect = ParamUtil.getString(
+					actionRequest, "redirect");
+
+				sendRedirect(actionRequest, actionResponse, redirect);
+			}
+			else if (t instanceof
+						CommerceOrderItemRequestedDeliveryDateException) {
+
 				SessionErrors.add(actionRequest, t.getClass(), t);
 
 				String redirect = ParamUtil.getString(
