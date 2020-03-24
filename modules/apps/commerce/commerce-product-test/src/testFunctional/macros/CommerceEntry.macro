@@ -41,9 +41,21 @@ definition {
 	}
 
 	macro addNewCatalogsEntry {
+		IFrame.selectModalFrame();
+
 		Type(
 			locator1 = "CommerceEntry#NAME_FIELD",
 			value1 = "${entryName}");
+
+		Select(
+			locator1 = "CommerceEntry#CATALOGS_FORM",
+			key_title = "Default Catalog Language",
+			value1 = "${language}");
+
+		Select(
+			locator1 = "CommerceEntry#CATALOGS_FORM",
+			key_title = "Currency",
+			value1 = "${currency}");
 	}
 
 	macro addNewChannelsEntry {
