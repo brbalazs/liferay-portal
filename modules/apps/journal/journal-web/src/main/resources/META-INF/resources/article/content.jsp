@@ -92,7 +92,7 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 <liferay-ui:error exception="<%= NoSuchTemplateException.class %>" message="please-select-an-existing-template" />
 <liferay-ui:error exception="<%= StorageFieldRequiredException.class %>" message="please-fill-out-all-required-fields" />
 
-<liferay-frontend:fieldset>
+<liferay-frontend:fieldset id="journalTitle">
 	<aui:input autoFocus="<%= true %>" defaultLanguageId="<%= journalEditArticleDisplayContext.getDefaultArticleLanguageId() %>" label="title" localized="<%= true %>" name="titleMapAsXML" selectedLanguageId="<%= journalEditArticleDisplayContext.getSelectedLanguageId() %>" type="text" wrapperCssClass="article-content-title">
 		<c:if test="<%= classNameId == JournalArticleConstants.CLASSNAME_ID_DEFAULT %>">
 			<aui:validator name="required" />
