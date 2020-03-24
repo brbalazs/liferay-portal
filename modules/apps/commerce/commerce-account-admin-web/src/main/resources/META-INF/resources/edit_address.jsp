@@ -37,7 +37,7 @@ long commerceRegionId = commerceAccountAddressAdminDisplayContext.getCommerceReg
 <div class="container-fluid-1280 mt-4 sheet">
 	<aui:form action="<%= editCommerceAddressActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceAddress == null) ? Constants.ADD : Constants.UPDATE %>" />
-		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 		<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
 		<aui:input name="commerceAddressId" type="hidden" value="<%= commerceAddressId %>" />
 		<aui:input name="commerceAccountId" type="hidden" value="<%= (commerceAddress == null) ? commerceAccountAddressAdminDisplayContext.getCommerceAccountId() : commerceAddress.getClassPK() %>" />
