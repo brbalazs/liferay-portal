@@ -82,6 +82,13 @@ definition {
 			locator1 = "Button#SUBMIT",
 			value1 = "Submit");
 
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Catalogs");
+
+		CommerceNavigator.gotoEntry(entryName = "Liferay");	
+
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 
 		CommerceEntry.viewCatalogsEntry(
