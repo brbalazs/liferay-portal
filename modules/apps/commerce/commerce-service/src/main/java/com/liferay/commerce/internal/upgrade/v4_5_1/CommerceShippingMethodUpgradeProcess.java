@@ -68,7 +68,7 @@ public class CommerceShippingMethodUpgradeProcess
 				ps.setLong(1, channelGroupId);
 				ps.setLong(2, commerceShippingMethodId);
 
-				ps.executeQuery();
+				ps.executeUpdate();
 			}
 		}
 	}

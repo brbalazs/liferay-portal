@@ -69,7 +69,7 @@ public class CommercePaymentMethodGroupRelUpgradeProcess
 				ps.setLong(1, channelGroupId);
 				ps.setLong(2, cPaymentMethodGroupRelId);
 
-				ps.executeQuery();
+				ps.executeUpdate();
 			}
 		}
 	}
