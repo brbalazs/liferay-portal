@@ -33,6 +33,8 @@
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
+	document.querySelector('body').classList.remove('open');
+
 	document
 		.querySelectorAll('.side-panel-iframe-close, .btn-cancel')
 		.forEach(function(trigger) {
