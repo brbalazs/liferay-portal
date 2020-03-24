@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.SimpleFacet;
 import com.liferay.portal.kernel.search.facet.config.FacetConfiguration;
@@ -203,7 +204,7 @@ public class CommerceOrderDataSetDataProvider
 		queryConfig.setHighlightEnabled(false);
 		queryConfig.setScoreEnabled(false);
 
-		searchContext.setSorts(sort);
+		searchContext.setSorts(getSorts(activeTab, sort));
 
 		return searchContext;
 	}
@@ -216,6 +217,28 @@ public class CommerceOrderDataSetDataProvider
 		}
 
 		return dateTimeFormat.format(commerceOrder.getOrderDate());
+	}
+
+	protected Sort[] getSorts(String activeTab, Sort sort) {
+		if (sort != null) {
+			return new Sort[] {sort};
+		}
+
+		if (activeTab.equals(
+				CommerceOrderPortletConstants.NAVIGATION_ITEM_ALL) ||
+			activeTab.equals(
+				CommerceOrderPortletConstants.NAVIGATION_ITEM_OPEN)) {
+
+			return new Sort[] {
+				SortFactoryUtil.create(Field.CREATE_DATE + "_sortable", true),
+				SortFactoryUtil.create(null, Sort.SCORE_TYPE, false)
+			};
+		}
+
+		return new Sort[] {
+			SortFactoryUtil.create("orderDate_sortable", true),
+			SortFactoryUtil.create(null, Sort.SCORE_TYPE, false)
+		};
 	}
 
 	private void _addFacetAdvanceStatus(
