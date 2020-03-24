@@ -12,6 +12,7 @@
  * details.
  */
 
+import {liferayNavigate} from '../../utilities/index.es';
 import {OPEN_MODAL, OPEN_SIDE_PANEL} from '../eventsDefinitions.es';
 import {resolveModalSize} from '../modals/index';
 import {ACTION_ITEM_TARGETS} from './constants';
@@ -52,7 +53,7 @@ export function triggerAction(item, context) {
 			Liferay.fire(actionTargetURL);
 			break;
 		default:
-			window.location.href = actionTargetURL;
+			liferayNavigate(actionTargetURL);
 			break;
 	}
 }
