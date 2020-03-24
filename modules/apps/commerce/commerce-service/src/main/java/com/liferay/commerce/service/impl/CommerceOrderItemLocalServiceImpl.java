@@ -613,6 +613,7 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setDeliveryGroup(deliveryGroup);
 		commerceOrderItem.setShippingAddressId(shippingAddressId);
 		commerceOrderItem.setPrintedNote(printedNote);
+		commerceOrderItem.setRequestedDeliveryDate(requestedDeliveryDate);
 
 		return commerceOrderItemPersistence.update(commerceOrderItem);
 	}
