@@ -148,20 +148,18 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 
 		long fileEntryId = ParamUtil.getLong(actionRequest, "fileEntryId");
 
-		if (fileEntryId > 0) {
-			Settings settings = _settingsFactory.getSettings(
-				new GroupServiceSettingsLocator(
-					commerceCatalog.getGroupId(),
-					CommerceMediaConstants.SERVICE_NAME));
+		Settings settings = _settingsFactory.getSettings(
+			new GroupServiceSettingsLocator(
+				commerceCatalog.getGroupId(),
+				CommerceMediaConstants.SERVICE_NAME));
 
-			ModifiableSettings modifiableSettings =
-				settings.getModifiableSettings();
+		ModifiableSettings modifiableSettings =
+			settings.getModifiableSettings();
 
-			modifiableSettings.setValue(
-				"defaultFileEntryId", String.valueOf(fileEntryId));
+		modifiableSettings.setValue(
+			"defaultFileEntryId", String.valueOf(fileEntryId));
 
-			modifiableSettings.store();
-		}
+		modifiableSettings.store();
 
 		return commerceCatalog;
 	}
