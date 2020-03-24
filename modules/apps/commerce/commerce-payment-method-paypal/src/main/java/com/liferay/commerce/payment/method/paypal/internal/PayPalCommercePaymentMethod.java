@@ -550,15 +550,15 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			CommercePaymentRequest commercePaymentRequest)
 		throws Exception {
 
-		CommerceOrder commerceOrder =
-			_commerceOrderLocalService.getCommerceOrder(
-				commercePaymentRequest.getCommerceOrderId());
-
 		boolean success = false;
 		int status = CommerceOrderPaymentConstants.STATUS_FAILED;
 
 		try {
 			String url = null;
+
+			CommerceOrder commerceOrder =
+				_commerceOrderLocalService.getCommerceOrder(
+					commercePaymentRequest.getCommerceOrderId());
 
 			Payment payment = _getPayment(
 				commercePaymentRequest, commerceOrder,
