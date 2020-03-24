@@ -21,6 +21,12 @@ OrderConfirmationCheckoutStepDisplayContext orderConfirmationCheckoutStepDisplay
 
 CommerceOrderPayment commerceOrderPayment = orderConfirmationCheckoutStepDisplayContext.getCommerceOrderPayment();
 
+String commerceOrderPaymentContent = null;
+
+if (commerceOrderPayment != null) {
+	commerceOrderPaymentContent = commerceOrderPayment.getContent();
+}
+
 int paymentStatus = CommerceOrderPaymentConstants.STATUS_ANY;
 
 if (commerceOrderPayment != null) {
@@ -44,6 +50,10 @@ if (commerceOrderPayment != null) {
 				%>
 
 				<liferay-ui:message key="<%= taglibMessageKey %>" />
+
+				<c:if test="<%= !commerceOrderPaymentContent.isEmpty() %>">
+					<div><%= commerceOrderPaymentContent %></div>
+				</c:if>
 
 				<aui:button-row>
 					<aui:button cssClass="alert-link btn-link" href="<%= orderConfirmationCheckoutStepDisplayContext.getRetryPaymentURL(commerceOrderPayment.getCommerceOrderId()) %>" type="submit" value="<%= taglibValue %>" />

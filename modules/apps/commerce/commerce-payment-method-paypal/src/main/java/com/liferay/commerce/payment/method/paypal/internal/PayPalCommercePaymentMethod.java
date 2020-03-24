@@ -40,12 +40,15 @@ import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -57,6 +60,8 @@ import com.paypal.api.payments.Authorization;
 import com.paypal.api.payments.Capture;
 import com.paypal.api.payments.Currency;
 import com.paypal.api.payments.DetailedRefund;
+import com.paypal.api.payments.Error;
+import com.paypal.api.payments.ErrorDetails;
 import com.paypal.api.payments.Item;
 import com.paypal.api.payments.ItemList;
 import com.paypal.api.payments.Links;
@@ -253,39 +258,52 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			CommercePaymentRequest commercePaymentRequest)
 		throws Exception {
 
-		boolean success = true;
+		try {
+			boolean success = true;
 
-		Payment payment = new Payment();
+			Payment payment = new Payment();
 
-		PayPalCommercePaymentRequest payPalCommercePaymentRequest =
-			(PayPalCommercePaymentRequest)commercePaymentRequest;
+			PayPalCommercePaymentRequest payPalCommercePaymentRequest =
+				(PayPalCommercePaymentRequest)commercePaymentRequest;
 
-		payment.setId(payPalCommercePaymentRequest.getTransactionId());
+			payment.setId(payPalCommercePaymentRequest.getTransactionId());
 
-		CommerceOrder commerceOrder =
-			_commerceOrderLocalService.getCommerceOrder(
-				payPalCommercePaymentRequest.getCommerceOrderId());
+			CommerceOrder commerceOrder =
+				_commerceOrderLocalService.getCommerceOrder(
+					payPalCommercePaymentRequest.getCommerceOrderId());
 
-		APIContext apiContext = _getAPIContext(commerceOrder.getGroupId());
+			APIContext apiContext = _getAPIContext(commerceOrder.getGroupId());
 
-		PaymentExecution paymentExecution = new PaymentExecution();
+			PaymentExecution paymentExecution = new PaymentExecution();
 
-		paymentExecution.setPayerId(payPalCommercePaymentRequest.getPayerId());
+			paymentExecution.setPayerId(
+				payPalCommercePaymentRequest.getPayerId());
 
-		payment.execute(apiContext, paymentExecution);
+			payment.execute(apiContext, paymentExecution);
 
-		if (PayPalCommercePaymentMethodConstants.PAYMENT_STATE_FAILED.equals(
-				payment.getState())) {
+			if (PayPalCommercePaymentMethodConstants.PAYMENT_STATE_FAILED.
+					equals(payment.getState())) {
 
-			success = false;
+				success = false;
+			}
+
+			List<String> messages = Arrays.asList(payment.getFailureReason());
+
+			return new CommercePaymentResult(
+				null, payPalCommercePaymentRequest.getCommerceOrderId(),
+				CommerceOrderConstants.PAYMENT_STATUS_PAID, false, null, null,
+				messages, success);
 		}
+		catch (PayPalRESTException ppre) {
+			_log.error(ppre.getMessage(), ppre);
 
-		List<String> messages = Arrays.asList(payment.getFailureReason());
+			List<String> resultMessages = _getErrorMessages(ppre);
 
-		return new CommercePaymentResult(
-			null, payPalCommercePaymentRequest.getCommerceOrderId(),
-			CommerceOrderConstants.PAYMENT_STATUS_PAID, false, null, null,
-			messages, success);
+			return new CommercePaymentResult(
+				null, commercePaymentRequest.getCommerceOrderId(),
+				CommerceOrderConstants.PAYMENT_STATUS_AUTHORIZED, true, null,
+				null, resultMessages, false);
+		}
 	}
 
 	@Override
@@ -293,37 +311,50 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			CommercePaymentRequest commercePaymentRequest)
 		throws Exception {
 
-		boolean success = true;
+		try {
+			boolean success = true;
 
-		Agreement agreement = new Agreement();
+			Agreement agreement = new Agreement();
 
-		PayPalCommercePaymentRequest payPalCommercePaymentRequest =
-			(PayPalCommercePaymentRequest)commercePaymentRequest;
+			PayPalCommercePaymentRequest payPalCommercePaymentRequest =
+				(PayPalCommercePaymentRequest)commercePaymentRequest;
 
-		agreement.setToken(payPalCommercePaymentRequest.getTransactionId());
+			agreement.setToken(payPalCommercePaymentRequest.getTransactionId());
 
-		CommerceOrder commerceOrder =
-			_commerceOrderLocalService.getCommerceOrder(
-				commercePaymentRequest.getCommerceOrderId());
+			CommerceOrder commerceOrder =
+				_commerceOrderLocalService.getCommerceOrder(
+					commercePaymentRequest.getCommerceOrderId());
 
-		APIContext apiContext = _getAPIContext(commerceOrder.getGroupId());
+			APIContext apiContext = _getAPIContext(commerceOrder.getGroupId());
 
-		Agreement activeAgreement = agreement.execute(
-			apiContext, agreement.getToken());
+			Agreement activeAgreement = agreement.execute(
+				apiContext, agreement.getToken());
 
-		if (PayPalCommercePaymentMethodConstants.PAYMENT_STATE_FAILED.equals(
-				activeAgreement.getState())) {
+			if (PayPalCommercePaymentMethodConstants.PAYMENT_STATE_FAILED.
+					equals(activeAgreement.getState())) {
 
-			success = false;
+				success = false;
+			}
+
+			List<String> messages = Arrays.asList(
+				activeAgreement.getDescription());
+
+			return new CommercePaymentResult(
+				activeAgreement.getId(),
+				commercePaymentRequest.getCommerceOrderId(),
+				CommerceOrderConstants.PAYMENT_STATUS_PAID, false, null, null,
+				messages, success);
 		}
+		catch (PayPalRESTException ppre) {
+			_log.error(ppre.getMessage(), ppre);
 
-		List<String> messages = Arrays.asList(activeAgreement.getDescription());
+			List<String> resultMessages = _getErrorMessages(ppre);
 
-		return new CommercePaymentResult(
-			activeAgreement.getId(),
-			commercePaymentRequest.getCommerceOrderId(),
-			CommerceOrderConstants.PAYMENT_STATUS_PAID, false, null, null,
-			messages, success);
+			return new CommercePaymentResult(
+				null, commercePaymentRequest.getCommerceOrderId(),
+				CommerceOrderConstants.PAYMENT_STATUS_AUTHORIZED, true, null,
+				null, resultMessages, false);
+		}
 	}
 
 	@Override
@@ -523,46 +554,57 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			_commerceOrderLocalService.getCommerceOrder(
 				commercePaymentRequest.getCommerceOrderId());
 
-		Payment payment = _getPayment(
-			commercePaymentRequest, commerceOrder,
-			PayPalCommercePaymentMethodConstants.INTENT_SALE);
-
-		String url = null;
-
-		for (Links links : payment.getLinks()) {
-			if (Objects.equals(
-					PayPalCommercePaymentMethodConstants.APPROVAL_URL,
-					links.getRel())) {
-
-				url = links.getHref();
-
-				break;
-			}
-		}
-
-		if (Validator.isNull(url)) {
-			throw new PortalException("Unable to get PayPal payment URL");
-		}
-
-		url = _http.addParameter(
-			url, PayPalCommercePaymentMethodConstants.USER_ACTION,
-			PayPalCommercePaymentMethodConstants.USER_ACTION_COMMIT);
-
 		boolean success = false;
 		int status = CommerceOrderPaymentConstants.STATUS_FAILED;
 
-		if (PayPalCommercePaymentMethodConstants.AUTHORIZATION_STATE_CREATED.
-				equals(payment.getState())) {
+		try {
+			Payment payment = _getPayment(
+				commercePaymentRequest, commerceOrder,
+				PayPalCommercePaymentMethodConstants.INTENT_SALE);
 
-			success = true;
-			status = CommerceOrderConstants.PAYMENT_STATUS_AUTHORIZED;
+			String url = null;
+
+			for (Links links : payment.getLinks()) {
+				if (Objects.equals(
+						PayPalCommercePaymentMethodConstants.APPROVAL_URL,
+						links.getRel())) {
+
+					url = links.getHref();
+
+					break;
+				}
+			}
+
+			if (Validator.isNull(url)) {
+				throw new PortalException("Unable to get PayPal payment URL");
+			}
+
+			url = _http.addParameter(
+				url, PayPalCommercePaymentMethodConstants.USER_ACTION,
+				PayPalCommercePaymentMethodConstants.USER_ACTION_COMMIT);
+
+			if (PayPalCommercePaymentMethodConstants.
+					AUTHORIZATION_STATE_CREATED.equals(payment.getState())) {
+
+				success = true;
+				status = CommerceOrderConstants.PAYMENT_STATUS_AUTHORIZED;
+			}
+
+			List<String> messages = Arrays.asList(payment.getFailureReason());
+
+			return new CommercePaymentResult(
+				payment.getId(), commercePaymentRequest.getCommerceOrderId(),
+				status, true, url, null, messages, success);
 		}
+		catch (PayPalRESTException ppre) {
+			_log.error(ppre.getMessage(), ppre);
 
-		List<String> messages = Arrays.asList(payment.getFailureReason());
+			List<String> resultMessages = _getErrorMessages(ppre);
 
-		return new CommercePaymentResult(
-			payment.getId(), commercePaymentRequest.getCommerceOrderId(),
-			status, true, url, null, messages, success);
+			return new CommercePaymentResult(
+				null, commercePaymentRequest.getCommerceOrderId(), status, true,
+				null, null, resultMessages, success);
+		}
 	}
 
 	@Override
@@ -574,51 +616,63 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			_commerceOrderLocalService.getCommerceOrder(
 				commercePaymentRequest.getCommerceOrderId());
 
-		APIContext apiContext = _getAPIContext(commerceOrder.getGroupId());
-
-		Plan plan = _getPlan(
-			commercePaymentRequest, commerceOrder, apiContext,
-			commercePaymentRequest.getLocale());
-
-		if (plan == null) {
-			return null;
-		}
-
-		String url = null;
-
-		Agreement agreement = _getAgreement(
-			commerceOrder, apiContext, plan,
-			commercePaymentRequest.getLocale());
-
-		for (Links links : agreement.getLinks()) {
-			if (Objects.equals(
-					PayPalCommercePaymentMethodConstants.APPROVAL_URL,
-					links.getRel())) {
-
-				url = links.getHref();
-
-				break;
-			}
-		}
-
 		boolean success = false;
 		int status = CommerceOrderPaymentConstants.STATUS_FAILED;
 
-		String token = agreement.getToken();
+		try {
+			APIContext apiContext = _getAPIContext(commerceOrder.getGroupId());
 
-		if (PayPalCommercePaymentMethodConstants.AUTHORIZATION_STATE_CREATED.
-				equalsIgnoreCase(plan.getState()) &&
-			Validator.isNotNull(token)) {
+			Plan plan = _getPlan(
+				commercePaymentRequest, commerceOrder, apiContext,
+				commercePaymentRequest.getLocale());
 
-			success = true;
-			status = CommerceOrderConstants.PAYMENT_STATUS_AUTHORIZED;
+			if (plan == null) {
+				return null;
+			}
+
+			String url = null;
+
+			Agreement agreement = _getAgreement(
+				commerceOrder, apiContext, plan,
+				commercePaymentRequest.getLocale());
+
+			for (Links links : agreement.getLinks()) {
+				if (Objects.equals(
+						PayPalCommercePaymentMethodConstants.APPROVAL_URL,
+						links.getRel())) {
+
+					url = links.getHref();
+
+					break;
+				}
+			}
+
+			String token = agreement.getToken();
+
+			if (PayPalCommercePaymentMethodConstants.
+					AUTHORIZATION_STATE_CREATED.equalsIgnoreCase(
+						plan.getState()) &&
+				Validator.isNotNull(token)) {
+
+				success = true;
+				status = CommerceOrderConstants.PAYMENT_STATUS_AUTHORIZED;
+			}
+
+			List<String> messages = Arrays.asList(plan.getState());
+
+			return new CommercePaymentResult(
+				token, commercePaymentRequest.getCommerceOrderId(), status,
+				true, url, null, messages, success);
 		}
+		catch (PayPalRESTException ppre) {
+			_log.error(ppre.getMessage(), ppre);
 
-		List<String> messages = Arrays.asList(plan.getState());
+			List<String> resultMessages = _getErrorMessages(ppre);
 
-		return new CommercePaymentResult(
-			token, commercePaymentRequest.getCommerceOrderId(), status, true,
-			url, null, messages, success);
+			return new CommercePaymentResult(
+				null, commercePaymentRequest.getCommerceOrderId(), status, true,
+				null, null, resultMessages, success);
+		}
 	}
 
 	@Override
@@ -821,6 +875,29 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			payPalGroupServiceConfiguration.clientId(),
 			payPalGroupServiceConfiguration.clientSecret(),
 			payPalGroupServiceConfiguration.mode());
+	}
+
+	private List<String> _getErrorMessages(PayPalRESTException ppre) {
+		List<String> resultMessages = new ArrayList<>();
+
+		Error details = ppre.getDetails();
+
+		resultMessages.add(details.getName());
+		resultMessages.add(details.getMessage());
+
+		List<ErrorDetails> detailsList = details.getDetails();
+
+		for (ErrorDetails errorDetails : detailsList) {
+			StringBundler detailsSB = new StringBundler(3);
+
+			detailsSB.append(errorDetails.getField());
+			detailsSB.append(CharPool.SPACE);
+			detailsSB.append(errorDetails.getIssue());
+
+			resultMessages.add(detailsSB.toString());
+		}
+
+		return resultMessages;
 	}
 
 	private ItemList _getItemList(CommerceOrder commerceOrder, Locale locale)
@@ -1194,6 +1271,9 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 	}
 
 	private static final String _DATE_FORMAT = "yyyy-MM-dd'T'hh:mm:ss'Z'";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		PayPalCommercePaymentMethod.class);
 
 	private static final DecimalFormat _payPalDecimalFormat = new DecimalFormat(
 		"#,###.##");

@@ -172,7 +172,7 @@ public class CommercePaymentServlet extends HttpServlet {
 				_commercePaymentEngine.updateOrderPaymentStatus(
 					_commerceOrderId,
 					CommerceOrderPaymentConstants.STATUS_FAILED,
-					StringPool.BLANK);
+					StringPool.BLANK, StringPool.BLANK);
 
 				httpServletResponse.sendRedirect(_nextUrl);
 			}

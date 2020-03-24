@@ -46,6 +46,7 @@ import java.math.RoundingMode;
 
 import java.net.URLEncoder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +57,7 @@ import net.authorize.api.contract.v1.ArrayOfSetting;
 import net.authorize.api.contract.v1.GetHostedPaymentPageRequest;
 import net.authorize.api.contract.v1.GetHostedPaymentPageResponse;
 import net.authorize.api.contract.v1.MerchantAuthenticationType;
+import net.authorize.api.contract.v1.MessagesType;
 import net.authorize.api.contract.v1.SettingType;
 import net.authorize.api.contract.v1.TransactionRequestType;
 import net.authorize.api.contract.v1.TransactionTypeEnum;
@@ -218,9 +220,20 @@ public class AuthorizeNetCommercePaymentMethod
 				URLCodec.encodeURL(redirectUrl), StringPool.AMPERSAND, "token=",
 				URLEncoder.encode(token, "UTF-8"));
 
+			MessagesType responseMessages = response.getMessages();
+
+			List<MessagesType.Message> messages = responseMessages.getMessage();
+
+			List<String> resultMessages = new ArrayList<>();
+
+			for (MessagesType.Message message : messages) {
+				resultMessages.add(message.getText());
+			}
+
 			return new CommercePaymentResult(
 				token, authorizeNetCommercePaymentRequest.getCommerceOrderId(),
-				-1, true, url, null, Collections.emptyList(), true);
+				CommerceOrderConstants.PAYMENT_STATUS_PENDING, true, url, null,
+				resultMessages, true);
 		}
 
 		return _emptyResult(
