@@ -72,11 +72,23 @@ definition {
 
 		Click(locator1 = "Button#PLUS");
 
-		CommerceEntry.addNewCatalogsEntry(entryName = "Liferay");
+		CommerceEntry.addNewCatalogsEntry(
+			entryName = "Liferay",
+			language = "English (United States)",
+			currency = "US Dollar"
+		);
 
-		Button.clickSave();
+		AssertClickNoError(
+			locator1 = "Button#SUBMIT",
+			value1 = "Submit");
 
 		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		CommerceEntry.viewCatalogsEntry(
+			entryName = "Liferay",
+			language = "English (United States)",
+			currency = "US Dollar"
+		);
 	}
 
 	test CreateNewChannel {
