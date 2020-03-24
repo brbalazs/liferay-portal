@@ -87,6 +87,11 @@ public interface CommercePaymentEngine {
 			long commerceOrderId, int paymentStatus, String transactionId)
 		throws PortalException;
 
+	public CommerceOrder updateOrderPaymentStatus(
+			long commerceOrderId, int paymentStatus, String transactionId,
+			String result)
+		throws PortalException;
+
 	public CommercePaymentResult voidTransaction(
 			long commerceOrderId, String transactionId,
 			HttpServletRequest httpServletRequest)
