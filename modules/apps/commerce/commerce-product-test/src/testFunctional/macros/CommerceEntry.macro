@@ -47,19 +47,36 @@ definition {
 	}
 
 	macro addNewChannelEntry {
+		IFrame.selectModalFrame();
+
+		Pause(locator1 = "3000");
+
 		Type(
-			locator1 = "CommerceEntry#NAME_FIELD",
+			locator1 = "TextInput#NAME",
 			value1 = "${entryName}");
+
+		Select(
+			key_fieldLabel = "Currency",
+			locator1 = "Select#GENERIC_SELECT_FIELD",
+			value1 = "${currency}");
 
 		Select(
 			locator1 = "Select#TYPE",
 			value1 = "${criteriaType}");
 
+		Click(locator1 = "Button#ADD");
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		CommerceNavigator.gotoEntry(entryName = "Liferay");
+
+		Click(
+			key_breadcrumbName = "Site",
+			locator1 = "CommerceEntry#BREADCRUMB_ENTRY");
+
 		AssertClick(
 			locator1 = "Button#SELECT",
 			value1 = "Select Site");
-
-		var key_siteName = "${siteName}";
 
 		IFrame.selectModalFrame();
 
