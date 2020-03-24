@@ -50,7 +50,7 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 	>
 		<div class="row">
 			<div class="col-6">
-				<aui:input name="sku" />
+				<aui:input bean="<%= cpInstance %>" model="<%= CPInstance.class %>" name="sku" />
 
 				<c:if test="<%= !cpDefinition.isIgnoreSKUCombinations() %>">
 					<c:choose>
@@ -92,9 +92,9 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 			</div>
 
 			<div class="col-6">
-				<aui:input helpMessage="gtin-help" label="global-trade-item-number" name="gtin" />
+				<aui:input bean="<%= cpInstance %>" helpMessage="gtin-help" label="global-trade-item-number" model="<%= CPInstance.class %>" name="gtin" />
 
-				<aui:input name="manufacturerPartNumber" />
+				<aui:input bean="<%= cpInstance %>" model="<%= CPInstance.class %>" name="manufacturerPartNumber" />
 			</div>
 		</div>
 	</commerce-ui:panel>
@@ -152,16 +152,14 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 		</div>
 	</commerce-ui:panel>
 
-	<aui:model-context bean="<%= cpInstance %>" model="<%= CPInstance.class %>" />
-
 	<commerce-ui:panel
 		title='<%= LanguageUtil.get(request, "schedule") %>'
 	>
-		<aui:input name="published" />
+		<aui:input bean="<%= cpInstance %>" model="<%= CPInstance.class %>" name="published" />
 
-		<aui:input formName="fm" name="displayDate" />
+		<aui:input bean="<%= cpInstance %>" formName="fm" model="<%= CPInstance.class %>" name="displayDate" />
 
-		<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
+		<aui:input bean="<%= cpInstance %>" dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" model="<%= CPInstance.class %>" name="expirationDate" />
 	</commerce-ui:panel>
 
 	<c:if test="<%= cpInstanceDisplayContext.hasCustomAttributesAvailable() %>">
