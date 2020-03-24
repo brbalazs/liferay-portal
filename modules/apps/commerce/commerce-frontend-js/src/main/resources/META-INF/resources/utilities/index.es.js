@@ -284,6 +284,7 @@ export function loadData(
 	page = 1,
 	sorting = []
 ) {
+	const authString = `p_auth=${window.Liferay.authToken}`;
 	const pagination = `pageSize=${delta}&page=${page}`;
 	const currentUrlString = currentUrl
 		? `&currentUrl=${encodeURIComponent(currentUrl)}`
@@ -295,6 +296,7 @@ export function loadData(
 	const filterString = createOdataFilterStrings(filters);
 
 	const urlParams = [
+		authString,
 		pagination,
 		currentUrlString,
 		searchParamString,
