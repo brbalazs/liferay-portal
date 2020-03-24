@@ -71,7 +71,7 @@ public class KaleoDesignerWebUpgrade implements UpgradeStepRegistrator {
 		_kaleoDefinitionVersionLocalService;
 
 	@Reference(
-		target = "(&(release.bundle.symbolic.name=com.liferay.portal.workflow.kaleo.service)(release.schema.version=1.4.1))"
+		target = "(&(release.bundle.symbolic.name=com.liferay.portal.workflow.kaleo.service)(release.schema.version=1.4.2))"
 	)
 	private Release _release;
 
