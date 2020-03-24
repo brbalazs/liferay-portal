@@ -620,6 +620,8 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 		int status = CommerceOrderPaymentConstants.STATUS_FAILED;
 
 		try {
+			String url = null;
+
 			APIContext apiContext = _getAPIContext(commerceOrder.getGroupId());
 
 			Plan plan = _getPlan(
@@ -629,8 +631,6 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 			if (plan == null) {
 				return null;
 			}
-
-			String url = null;
 
 			Agreement agreement = _getAgreement(
 				commerceOrder, apiContext, plan,
