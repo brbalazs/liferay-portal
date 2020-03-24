@@ -220,11 +220,11 @@ public class AuthorizeNetCommercePaymentMethod
 				URLCodec.encodeURL(redirectUrl), StringPool.AMPERSAND, "token=",
 				URLEncoder.encode(token, "UTF-8"));
 
+			List<String> resultMessages = new ArrayList<>();
+
 			MessagesType responseMessages = response.getMessages();
 
 			List<MessagesType.Message> messages = responseMessages.getMessage();
-
-			List<String> resultMessages = new ArrayList<>();
 
 			for (MessagesType.Message message : messages) {
 				resultMessages.add(message.getText());

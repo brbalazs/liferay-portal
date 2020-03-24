@@ -558,11 +558,11 @@ public class PayPalCommercePaymentMethod implements CommercePaymentMethod {
 		int status = CommerceOrderPaymentConstants.STATUS_FAILED;
 
 		try {
+			String url = null;
+
 			Payment payment = _getPayment(
 				commercePaymentRequest, commerceOrder,
 				PayPalCommercePaymentMethodConstants.INTENT_SALE);
-
-			String url = null;
 
 			for (Links links : payment.getLinks()) {
 				if (Objects.equals(
