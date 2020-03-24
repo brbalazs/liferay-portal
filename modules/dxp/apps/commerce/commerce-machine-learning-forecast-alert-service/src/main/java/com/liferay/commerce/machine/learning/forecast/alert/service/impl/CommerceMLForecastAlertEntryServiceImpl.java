@@ -152,7 +152,9 @@ public class CommerceMLForecastAlertEntryServiceImpl
 			userId, commerceMLForecastAlertEntryId, status);
 	}
 
-	private long[] _getUserCommerceAccountIds(long userId) {
+	private long[] _getUserCommerceAccountIds(long userId)
+		throws PortalException {
+
 		List<CommerceAccount> commerceAccounts =
 			_commerceAccountLocalService.getUserCommerceAccounts(
 				userId, null, CommerceAccountConstants.SITE_TYPE_B2C_B2B, null,
