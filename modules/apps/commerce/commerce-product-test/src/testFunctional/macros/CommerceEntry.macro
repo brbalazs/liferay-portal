@@ -501,6 +501,21 @@ definition {
 			value1 = "${productName}");
 	}
 
+	macro viewChannelsEntry {
+		AssertTextEquals(
+			locator1 = "TextInput#NAME",
+			value1 = "${entryName}");
+
+		AssertSelectedLabel(
+			key_fieldLabel = "Currency",
+			locator1 = "Select#GENERIC_SELECT_FIELD",
+			value1 = "${currency}");
+
+		AssertElementPresent(
+			key_breadcrumbName = "Site",
+			locator1 = "CommerceEntry#BREADCRUMB_ENTRY");
+	}
+
 	macro viewDiscountsEntry {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#TITLE_FIELD",
