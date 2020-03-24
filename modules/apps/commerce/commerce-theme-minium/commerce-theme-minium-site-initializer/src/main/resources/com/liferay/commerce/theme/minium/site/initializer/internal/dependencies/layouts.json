@@ -266,7 +266,7 @@
 			"lfr-theme:regular:redirect-to-private-layouts": true,
 			"lfr-theme:regular:show-sidebar": false,
 			"lfr-theme:regular:show-topbar": false,
-			"lfr-theme:regular:wide-layout": true,
+			"lfr-theme:regular:wide-layout": false,
 			"sitemap-changefreq": "daily",
 			"sitemap-include": 1
 		},
