@@ -366,6 +366,10 @@
 <tr>
 	<td>BODY_VERTICAL_ELLIPSIS</td>
 	<td>//button[contains(@class,'dropdown-toggle')]//*[contains(@class,'lexicon-icon-ellipsis')]</td>
+<!--CATALOGS-->
+<tr>
+	<td>CATALOGS_FORM</td>
+	<td>//label[contains(.,'${key_title}')]/../select[contains(@class,'form-control')]</td>
 	<td></td>
 </tr>
 </tbody>
