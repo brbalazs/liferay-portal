@@ -24,7 +24,7 @@ String linkId = PortalUtil.generateRandomKey(request, "info-box") + StringPool.U
 <div class="<%= infoxBoxCssClasses %>">
 	<header class="header pb-2">
 		<c:if test="<%= Validator.isNotNull(title) %>">
-			<h5 class="title mb-0"><%= title %></h5>
+			<h5 class="mb-0 title"><%= title %></h5>
 		</c:if>
 
 		<c:if test="<%= Validator.isNotNull(actionLabel) %>">
