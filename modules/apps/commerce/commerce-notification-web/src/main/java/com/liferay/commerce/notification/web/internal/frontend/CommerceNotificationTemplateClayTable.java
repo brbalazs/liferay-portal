@@ -102,7 +102,6 @@ public class CommerceNotificationTemplateClayTable
 
 			portletURL.setParameter(
 				"mvcRenderCommandName", "editCommerceNotificationTemplate");
-
 			portletURL.setParameter(
 				"commerceChannelId", String.valueOf(commerceChannelId));
 			portletURL.setParameter(
