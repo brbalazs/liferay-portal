@@ -55,7 +55,10 @@ public class OpenCommerceOrderClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("createDate", "create-date");
 
-		clayTableSchemaBuilder.addField("orderStatus", "order-status");
+		ClayTableSchemaField orderStatusField = clayTableSchemaBuilder.addField(
+			"orderStatus", "order-status");
+
+		orderStatusField.setContentRenderer("label");
 
 		return clayTableSchemaBuilder.build();
 	}

@@ -147,17 +147,18 @@ public class CommerceOrderDataSetDataProvider
 					commerceChannel.getName(),
 					getCommerceOrderDateTime(commerceOrder, dateTimeFormat),
 					new LabelField(
+						LanguageUtil.get(
+							httpServletRequest,
+							WorkflowConstants.getStatusLabel(
+								commerceOrder.getStatus()))),
+					commerceOrder.getCommerceOrderId(),
+					new LabelField(
 						CommerceOrderConstants.getOrderStatusLabelStyle(
 							commerceOrder.getOrderStatus()),
 						LanguageUtil.get(
 							httpServletRequest,
 							CommerceOrderConstants.getOrderStatusLabel(
-								commerceOrder.getOrderStatus()))),
-					commerceOrder.getCommerceOrderId(),
-					LanguageUtil.get(
-						httpServletRequest,
-						CommerceOrderConstants.getOrderStatusLabel(
-							commerceOrder.getOrderStatus()))));
+								commerceOrder.getOrderStatus())))));
 		}
 
 		return orders;

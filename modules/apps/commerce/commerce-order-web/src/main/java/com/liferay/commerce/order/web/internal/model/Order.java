@@ -24,7 +24,7 @@ public class Order {
 	public Order(
 		String account, String accountCode, String amount, String channel,
 		String createDate, LabelField fulfillmentWorkflow, long orderId,
-		String orderStatus) {
+		LabelField orderStatus) {
 
 		_account = account;
 		_accountCode = accountCode;
@@ -64,7 +64,7 @@ public class Order {
 		return _orderId;
 	}
 
-	public String getOrderStatus() {
+	public LabelField getOrderStatus() {
 		return _orderStatus;
 	}
 
@@ -75,6 +75,6 @@ public class Order {
 	private final String _createDate;
 	private final LabelField _fulfillmentWorkflow;
 	private final long _orderId;
-	private final String _orderStatus;
+	private final LabelField _orderStatus;
 
 }
