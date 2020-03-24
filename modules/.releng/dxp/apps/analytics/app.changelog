@@ -158,3 +158,21 @@ app.artifacts-1.0.13=\
 app.change.log-1.0.13=LPS-103302
 
 app.git.id-1.0.13=b3675c680ca5ae87ffd390dfd99a7f3bc1909693
+
+#
+# Liferay App Version 1.0.14
+#
+
+app.artifacts-1.0.14=\
+	com.liferay.analytics.message.sender.api-2.1.0.jar,\
+	com.liferay.analytics.message.sender.impl-2.0.2.jar,\
+	com.liferay.analytics.message.storage.api-2.0.1.jar,\
+	com.liferay.analytics.message.storage.service-2.0.4.jar,\
+	com.liferay.analytics.settings.api-2.1.0.jar,\
+	com.liferay.analytics.settings.impl-2.0.4.jar,\
+	com.liferay.analytics.settings.web-2.0.7.jar,\
+	com.liferay.analytics.web-1.0.9.jar
+
+app.change.log-1.0.14=LPS-103302 LPS-105380 LPS-108386 LPS-110419 LPS-77699 LRAC-4948 LRAC-4949 LRAC-5139 LRAC-5183 LRAC-5185 LRAC-5187 LRAC-5190 LRAC-5209 LRAC-5214 LRAC-5230 LRAC-5236 LRAC-5245 LRAC-5266 LRAC-5333 LRAC-5338 LRAC-5340 LRAC-5406 LRAC-5411 LRAC-5419
+
+app.git.id-1.0.14=12cb80c0dbcf7b55f291875b1eaa930ebb43dead

@@ -354,3 +354,24 @@ app.artifacts-1.0.16=\
 app.change.log-1.0.16=LPS-103302 LPS-104129 LPS-77699 LPS-80332 LPS-84119 LPS-85765 LPS-92284 LPS-95319 LPS-98088
 
 app.git.id-1.0.16=b3675c680ca5ae87ffd390dfd99a7f3bc1909693
+
+#
+# Liferay App Version 1.0.17
+#
+
+app.artifacts-1.0.17=\
+	com.liferay.blogs.api-4.0.19.jar,\
+	com.liferay.blogs.editor.configuration-2.0.5.jar,\
+	com.liferay.blogs.item.selector.api-2.0.5.jar,\
+	com.liferay.blogs.item.selector.web-3.0.6.jar,\
+	com.liferay.blogs.layout.prototype-3.0.2.jar,\
+	com.liferay.blogs.reading.time-1.0.4.jar,\
+	com.liferay.blogs.recent.bloggers.api-2.0.0.jar,\
+	com.liferay.blogs.recent.bloggers.web-3.0.13.jar,\
+	com.liferay.blogs.service-2.0.56.jar,\
+	com.liferay.blogs.uad-3.0.5.jar,\
+	com.liferay.blogs.web-3.0.60.jar
+
+app.change.log-1.0.17=LPS-103302 LPS-105380 LPS-106613 LPS-106662 LPS-106666 LPS-107321 LPS-108120 LPS-108386 LPS-110419 LPS-75754 LPS-77699 LPS-80332 LPS-85419 LPS-85765 LPS-92284 LPS-95319
+
+app.git.id-1.0.17=12cb80c0dbcf7b55f291875b1eaa930ebb43dead
