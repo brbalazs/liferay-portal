@@ -75,7 +75,23 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 	</div>
 
 	<div class="col-md-6 d-flex">
+		<liferay-portlet:renderURL var="editOrderPaymentStatusURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+			<portlet:param name="mvcRenderCommandName" value="editCommerceOrderPaymentStatus" />
+			<portlet:param name="commerceOrderId" value="<%= String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderId()) %>" />
+		</liferay-portlet:renderURL>
+
+		<commerce-ui:modal
+			id="order-payment-status-modal"
+			refreshPageOnClose="<%= true %>"
+			size="lg"
+			title='<%= LanguageUtil.format(request, "edit-x", "payment-status", true) %>'
+			url="<%= editOrderPaymentStatusURL %>"
+		/>
+
 		<commerce-ui:panel
+			actionLabel='<%= LanguageUtil.get(request, "edit") %>'
+			actionTargetId="order-payment-status-modal"
+			actionUrl="<%= editOrderPaymentStatusURL %>"
 			elementClasses="flex-fill"
 			title='<%= LanguageUtil.get(request, "payment-status") %>'
 		>
@@ -83,9 +99,9 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 				<div class="col d-flex">
 					<clay:label
 						elementClasses="align-self-center"
-						label="<%= LanguageUtil.get(request, CommerceOrderConstants.getPaymentStatusLabel(commerceOrder.getPaymentStatus())) %>"
+						label="<%= LanguageUtil.get(request, CommerceOrderPaymentConstants.getOrderPaymentStatusLabel(commerceOrder.getPaymentStatus())) %>"
 						size="lg"
-						style="<%= CommerceOrderConstants.getPaymentLabelStyle(commerceOrder.getPaymentStatus()) %>"
+						style="<%= CommerceOrderPaymentConstants.getOrderPaymentLabelStyle(commerceOrder.getPaymentStatus()) %>"
 					/>
 				</div>
 			</div>
