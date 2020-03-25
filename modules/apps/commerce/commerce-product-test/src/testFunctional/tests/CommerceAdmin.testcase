@@ -9,8 +9,6 @@ definition {
 		TestCase.setUpPortalInstance();
 
 		User.firstLoginPG();
-
-		CommerceConfiguration.commerceAdminSetUp();
 	}
 
 	tearDown {
@@ -20,7 +18,25 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
-			CommerceConfiguration.commerceAdminTearDown();
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Commerce",
+				panel = "Control Panel",
+				portlet = "Channels");
+
+			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				CommerceEntry.deleteCommerceEntry();
+			}
+
+			ProductMenu.gotoPortlet(
+				category = "Commerce",
+				panel = "Control Panel",
+				portlet = "Discounts");
+
+			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				CommerceProducts.deleteEntries(deleteMessage = "Are you sure you want to delete the selected discounts?");
+			}
 		}
 	}
 
