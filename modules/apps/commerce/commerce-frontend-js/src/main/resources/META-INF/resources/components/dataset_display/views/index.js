@@ -15,6 +15,7 @@
 import Cards from './cards/Cards.es';
 import EmailsList from './emails_list/EmailsList';
 import List from './list/List.es';
+import SelectableTable from './selectable_table/SelectableTable';
 import Table from './table/Table.es';
 import Timeline from './timeline/Timeline';
 
@@ -22,6 +23,10 @@ const views = [
 	{
 		component: Table,
 		id: 'table'
+	},
+	{
+		component: SelectableTable,
+		id: 'selectableTable'
 	},
 	{
 		component: Timeline,

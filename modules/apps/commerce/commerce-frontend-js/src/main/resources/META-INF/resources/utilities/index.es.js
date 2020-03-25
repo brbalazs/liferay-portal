@@ -76,6 +76,7 @@ export function getSchemaString(object, path) {
 
 if (!window.Liferay) {
 	window.Liferay = {
+		Component: () => {},
 		Language: {
 			get: v => v
 		},
@@ -160,68 +161,24 @@ export function launcher(Component, componentId, containerId, props) {
 
 	const destroyOnNavigate = !portletId;
 
-	Liferay.component(
-		componentId,
-		{
-			destroy: () => {
-				ReactDOM.unmountComponentAtNode(container);
+	if (Liferay && Liferay.component) {
+		Liferay.component(
+			componentId,
+			{
+				destroy: () => {
+					ReactDOM.unmountComponentAtNode(container);
+				}
+			},
+			{
+				destroyOnNavigate,
+				portletId
 			}
-		},
-		{
-			destroyOnNavigate,
-			portletId
-		}
-	);
+		);
+	}
 
 	// eslint-disable-next-line liferay-portal/no-react-dom-render
 	ReactDOM.render(<Component {...props} />, container);
 }
-
-// export function launcher(Component, componentId, rootId, props) {
-// 	const portletFrame = window.document.getElementById(rootId);
-
-// 	if (!portletFrame) {
-// 		throw new Error(`Component container not found: "${rootId}"`);
-// 	}
-
-// 	let componentInstance = null;
-
-// 	// eslint-disable-next-line liferay-portal/no-react-dom-render
-// 	ReactDOM.render(
-// 		Component.prototype.render ? (
-// 			<Component
-// 				ref={e => {
-// 					componentInstance = e;
-// 				}}
-// 				{...props}
-// 			/>
-// 		) : (
-// 			<Component {...props} />
-// 		),
-// 		portletFrame
-// 	);
-
-// 	function destroyComponent() {
-// 		try {
-// 			ReactDOM.unmountComponentAtNode(portletFrame);
-// 		} catch (e) {
-// 			console.error(e);
-// 		}
-
-// 		Liferay.destroyComponent(componentId);
-// 		Liferay.detach('beforeNavigate', destroyComponent);
-// 	}
-
-// 	if (Liferay && Liferay.component && Liferay.on && Liferay.detach) {
-// 		Liferay.component(componentId, componentInstance);
-// 		Liferay.on('beforeNavigate', destroyComponent);
-// 	} else {
-// 		// eslint-disable-next-line no-console
-// 		console.info('Liferay env not found');
-// 	}
-
-// 	return componentInstance;
-// }
 
 export function getRandomId() {
 	return Math.random()

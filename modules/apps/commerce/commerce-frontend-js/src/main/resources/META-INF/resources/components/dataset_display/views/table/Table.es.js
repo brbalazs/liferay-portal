@@ -203,12 +203,7 @@ function Table(props) {
 
 Table.propTypes = {
 	itemActions: PropTypes.array,
-	items: PropTypes.arrayOf(
-		PropTypes.shape({
-			id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-				.isRequired
-		})
-	),
+	items: PropTypes.arrayOf(PropTypes.object),
 	schema: PropTypes.shape({
 		fields: PropTypes.arrayOf(
 			PropTypes.shape({

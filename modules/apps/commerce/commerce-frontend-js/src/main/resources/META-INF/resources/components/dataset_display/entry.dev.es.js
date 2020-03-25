@@ -1276,10 +1276,173 @@ const emailsDataSetDisplayProps = {
 	]
 };
 
+const selectableTableProps = {
+	apiUrl:
+		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
+	formId: 'form-id',
+	id: 'tableTest',
+	items: [
+		{
+			countryId: '001',
+			countryName: 'United States',
+			fields: [
+				{
+					label: 'Money Order',
+					name: 'autorizeDotNet',
+					value: false
+				},
+				{
+					label: 'Money Order',
+					name: 'moneyOrder',
+					value: false
+				},
+				{
+					label: 'PayPal',
+					name: 'payPal',
+					value: false
+				}
+			]
+		},
+		{
+			countryId: '002',
+			countryName: 'Afghanistan',
+			fields: [
+				{
+					label: 'Money Order',
+					name: 'autorizeDotNet',
+					value: true
+				},
+				{
+					label: 'Money Order',
+					name: 'moneyOrder',
+					value: false
+				},
+				{
+					label: 'PayPal',
+					name: 'payPal',
+					value: false
+				}
+			]
+		},
+		{
+			countryId: '003',
+			countryName: 'Albania',
+			fields: [
+				{
+					label: 'Money Order',
+					name: 'autorizeDotNet',
+					value: false
+				},
+				{
+					label: 'Money Order',
+					name: 'moneyOrder',
+					value: true
+				},
+				{
+					label: 'PayPal',
+					name: 'payPal',
+					value: false
+				}
+			]
+		},
+		{
+			countryId: '004',
+			countryName: 'Algeria',
+			fields: [
+				{
+					label: 'Money Order',
+					name: 'autorizeDotNet',
+					value: false
+				},
+				{
+					label: 'Money Order',
+					name: 'moneyOrder',
+					value: false
+				},
+				{
+					label: 'PayPal',
+					name: 'payPal',
+					value: false
+				}
+			]
+		},
+		{
+			countryId: '005',
+			countryName: 'American Samoa',
+			fields: [
+				{
+					label: 'Money Order',
+					name: 'autorizeDotNet',
+					value: true
+				},
+				{
+					label: 'Money Order',
+					name: 'moneyOrder',
+					value: false
+				},
+				{
+					label: 'PayPal',
+					name: 'payPal',
+					value: true
+				}
+			]
+		}
+	],
+	pageSize: 5,
+	pagination: {
+		deltas: [
+			{
+				label: 5
+			},
+			{
+				label: 10
+			},
+			{
+				label: 20
+			},
+			{
+				label: 30
+			},
+			{
+				label: 50
+			},
+			{
+				href:
+					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
+				label: 75
+			}
+		],
+		initialDelta: 10,
+		initialPageNumber: 1,
+		initialTotalItems: 40
+	},
+	selectedItemsKey: 'countryId',
+	showPagination: true,
+	sidePanelId: 'sidePanelTestId',
+	spritemap: './assets/icons.svg',
+	views: [
+		{
+			contentRenderer: 'selectableTable',
+			icon: 'table',
+			label: 'Table',
+			schema: {
+				firstColumnLabel: 'Country',
+				firstColumnName: 'countryName'
+			}
+		}
+	]
+};
+
 datasetDisplayLauncher(
 	'fluid-dataset-display',
 	'fluid-dataset-display-root-id',
 	fluidDataSetDisplayProps
+);
+
+datasetDisplayLauncher(
+	'selectable-dataset-display',
+	'selectable-dataset-display-root-id',
+	selectableTableProps
 );
 
 datasetDisplayLauncher(
