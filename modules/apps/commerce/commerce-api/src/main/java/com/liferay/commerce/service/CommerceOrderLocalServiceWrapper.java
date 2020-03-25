@@ -612,6 +612,16 @@ public class CommerceOrderLocalServiceWrapper
 		return _commerceOrderLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceOrder>
+		getShippedCommerceOrdersByCommerceShipmentId(
+			long commerceShipmentId, int start, int end) {
+
+		return _commerceOrderLocalService.
+			getShippedCommerceOrdersByCommerceShipmentId(
+				commerceShipmentId, start, end);
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x)
 	 */

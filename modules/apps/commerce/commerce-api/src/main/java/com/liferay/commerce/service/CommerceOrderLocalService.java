@@ -425,6 +425,10 @@ public interface CommerceOrderLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceOrder> getShippedCommerceOrdersByCommerceShipmentId(
+		long commerceShipmentId, int start, int end);
+
 	/**
 	 * @deprecated As of Mueller (7.2.x)
 	 */

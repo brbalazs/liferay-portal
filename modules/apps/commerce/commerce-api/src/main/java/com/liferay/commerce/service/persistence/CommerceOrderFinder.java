@@ -43,4 +43,8 @@ public interface CommerceOrderFinder {
 			com.liferay.portal.kernel.dao.orm.QueryDefinition
 				<com.liferay.commerce.model.CommerceOrder> queryDefinition);
 
+	public java.util.List<com.liferay.commerce.model.CommerceOrder>
+		getShippedCommerceOrdersByCommerceShipmentId(
+			long shipmentId, int start, int end);
+
 }

@@ -566,6 +566,14 @@ public class CommerceOrderLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static java.util.List<com.liferay.commerce.model.CommerceOrder>
+		getShippedCommerceOrdersByCommerceShipmentId(
+			long commerceShipmentId, int start, int end) {
+
+		return getService().getShippedCommerceOrdersByCommerceShipmentId(
+			commerceShipmentId, start, end);
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x)
 	 */
