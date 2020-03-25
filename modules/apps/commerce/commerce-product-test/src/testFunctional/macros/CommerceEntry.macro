@@ -438,7 +438,7 @@ definition {
 			Click(locator1 = "CommerceEntry#OPTION_SELECT");
 
 			Click(
-				key_selectValue = "${optionValue}",
+				key_selectValue = "${optionValue}",commerce-product-test/src/testFunctional/paths/CommerceNavigation.path
 				locator1 = "CommerceEntry#OPTIONS_SELECT_LIST");
 		}
 
@@ -502,6 +502,29 @@ definition {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#SHORT_DESCRIPTION_FIELD",
 			value1 = "${productShortDescription}");
+			
+	}
+	
+	macro viewDiscountsEntry {
+		AssertTextEquals(
+			locator1 = "CommerceEntry#TITLE_FIELD",
+			value1 = "${entryTitle}");
+
+		AssertSelectedLabel(
+			locator1 = "CommerceEntry#DISCOUNT_TARGET_SELECT",
+			value1 = "${discountTarget}");
+
+		AssertChecked(
+			checkboxName = "${channelsEntryName}",
+			locator1 = "Checkbox#ANY_CHECKBOX");
+
+		AssertValue(
+			locator1 = "CommerceEntry#MAXIMUM_DISCOUNT_AMOUNT_FIELD",
+			value1 = "${maximumDiscountAmount}");
+
+		AssertValue(
+			locator1 = "CommerceEntry#DISCOUNT_LEVEL_1_FIELD",
+			value1 = "${discountLevel}");
 	}
 
 }
