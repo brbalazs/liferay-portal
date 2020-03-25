@@ -370,7 +370,7 @@ public class CPInstanceCacheModel
 
 		subscriptionLength = objectInput.readInt();
 		subscriptionType = objectInput.readUTF();
-		subscriptionTypeSettings = objectInput.readUTF();
+		subscriptionTypeSettings = (String)objectInput.readObject();
 
 		maxSubscriptionCycles = objectInput.readLong();
 
@@ -485,10 +485,10 @@ public class CPInstanceCacheModel
 		}
 
 		if (subscriptionTypeSettings == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(subscriptionTypeSettings);
+			objectOutput.writeObject(subscriptionTypeSettings);
 		}
 
 		objectOutput.writeLong(maxSubscriptionCycles);

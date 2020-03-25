@@ -67,6 +67,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -415,6 +416,10 @@ public abstract class CPDefinitionOptionRelLocalServiceBaseImpl
 
 		return cpDefinitionOptionRelLocalService.deleteCPDefinitionOptionRel(
 			(CPDefinitionOptionRel)persistedModel);
+	}
+
+	public BasePersistence<CPDefinitionOptionRel> getBasePersistence() {
+		return cpDefinitionOptionRelPersistence;
 	}
 
 	/**

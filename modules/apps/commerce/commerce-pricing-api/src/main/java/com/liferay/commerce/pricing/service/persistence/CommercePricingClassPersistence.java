@@ -398,149 +398,6 @@ public interface CommercePricingClassPersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
-	 * Returns all the commerce pricing classes where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @return the matching commerce pricing classes
-	 */
-	public java.util.List<CommercePricingClass> findByCompanyId(long companyId);
-
-	/**
-	 * Returns a range of all the commerce pricing classes where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePricingClassModelImpl</code>.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param start the lower bound of the range of commerce pricing classes
-	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
-	 * @return the range of matching commerce pricing classes
-	 */
-	public java.util.List<CommercePricingClass> findByCompanyId(
-		long companyId, int start, int end);
-
-	/**
-	 * Returns an ordered range of all the commerce pricing classes where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePricingClassModelImpl</code>.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param start the lower bound of the range of commerce pricing classes
-	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching commerce pricing classes
-	 */
-	public java.util.List<CommercePricingClass> findByCompanyId(
-		long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<CommercePricingClass>
-			orderByComparator);
-
-	/**
-	 * Returns an ordered range of all the commerce pricing classes where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePricingClassModelImpl</code>.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param start the lower bound of the range of commerce pricing classes
-	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching commerce pricing classes
-	 */
-	public java.util.List<CommercePricingClass> findByCompanyId(
-		long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<CommercePricingClass>
-			orderByComparator,
-		boolean useFinderCache);
-
-	/**
-	 * Returns the first commerce pricing class in the ordered set where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching commerce pricing class
-	 * @throws NoSuchPricingClassException if a matching commerce pricing class could not be found
-	 */
-	public CommercePricingClass findByCompanyId_First(
-			long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<CommercePricingClass> orderByComparator)
-		throws NoSuchPricingClassException;
-
-	/**
-	 * Returns the first commerce pricing class in the ordered set where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching commerce pricing class, or <code>null</code> if a matching commerce pricing class could not be found
-	 */
-	public CommercePricingClass fetchByCompanyId_First(
-		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<CommercePricingClass>
-			orderByComparator);
-
-	/**
-	 * Returns the last commerce pricing class in the ordered set where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching commerce pricing class
-	 * @throws NoSuchPricingClassException if a matching commerce pricing class could not be found
-	 */
-	public CommercePricingClass findByCompanyId_Last(
-			long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<CommercePricingClass> orderByComparator)
-		throws NoSuchPricingClassException;
-
-	/**
-	 * Returns the last commerce pricing class in the ordered set where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching commerce pricing class, or <code>null</code> if a matching commerce pricing class could not be found
-	 */
-	public CommercePricingClass fetchByCompanyId_Last(
-		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<CommercePricingClass>
-			orderByComparator);
-
-	/**
-	 * Returns the commerce pricing classes before and after the current commerce pricing class in the ordered set where companyId = &#63;.
-	 *
-	 * @param commercePricingClassId the primary key of the current commerce pricing class
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next commerce pricing class
-	 * @throws NoSuchPricingClassException if a commerce pricing class with the primary key could not be found
-	 */
-	public CommercePricingClass[] findByCompanyId_PrevAndNext(
-			long commercePricingClassId, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<CommercePricingClass> orderByComparator)
-		throws NoSuchPricingClassException;
-
-	/**
-	 * Removes all the commerce pricing classes where companyId = &#63; from the database.
-	 *
-	 * @param companyId the company ID
-	 */
-	public void removeByCompanyId(long companyId);
-
-	/**
-	 * Returns the number of commerce pricing classes where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @return the number of matching commerce pricing classes
-	 */
-	public int countByCompanyId(long companyId);
-
-	/**
 	 * Returns all the commerce pricing classes where groupId = &#63;.
 	 *
 	 * @param groupId the group ID
@@ -682,6 +539,149 @@ public interface CommercePricingClassPersistence
 	 * @return the number of matching commerce pricing classes
 	 */
 	public int countByGroupId(long groupId);
+
+	/**
+	 * Returns all the commerce pricing classes where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the matching commerce pricing classes
+	 */
+	public java.util.List<CommercePricingClass> findByCompanyId(long companyId);
+
+	/**
+	 * Returns a range of all the commerce pricing classes where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePricingClassModelImpl</code>.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of commerce pricing classes
+	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
+	 * @return the range of matching commerce pricing classes
+	 */
+	public java.util.List<CommercePricingClass> findByCompanyId(
+		long companyId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the commerce pricing classes where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePricingClassModelImpl</code>.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of commerce pricing classes
+	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching commerce pricing classes
+	 */
+	public java.util.List<CommercePricingClass> findByCompanyId(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommercePricingClass>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the commerce pricing classes where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePricingClassModelImpl</code>.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of commerce pricing classes
+	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching commerce pricing classes
+	 */
+	public java.util.List<CommercePricingClass> findByCompanyId(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommercePricingClass>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first commerce pricing class in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce pricing class
+	 * @throws NoSuchPricingClassException if a matching commerce pricing class could not be found
+	 */
+	public CommercePricingClass findByCompanyId_First(
+			long companyId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CommercePricingClass> orderByComparator)
+		throws NoSuchPricingClassException;
+
+	/**
+	 * Returns the first commerce pricing class in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce pricing class, or <code>null</code> if a matching commerce pricing class could not be found
+	 */
+	public CommercePricingClass fetchByCompanyId_First(
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommercePricingClass>
+			orderByComparator);
+
+	/**
+	 * Returns the last commerce pricing class in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce pricing class
+	 * @throws NoSuchPricingClassException if a matching commerce pricing class could not be found
+	 */
+	public CommercePricingClass findByCompanyId_Last(
+			long companyId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CommercePricingClass> orderByComparator)
+		throws NoSuchPricingClassException;
+
+	/**
+	 * Returns the last commerce pricing class in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce pricing class, or <code>null</code> if a matching commerce pricing class could not be found
+	 */
+	public CommercePricingClass fetchByCompanyId_Last(
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommercePricingClass>
+			orderByComparator);
+
+	/**
+	 * Returns the commerce pricing classes before and after the current commerce pricing class in the ordered set where companyId = &#63;.
+	 *
+	 * @param commercePricingClassId the primary key of the current commerce pricing class
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next commerce pricing class
+	 * @throws NoSuchPricingClassException if a commerce pricing class with the primary key could not be found
+	 */
+	public CommercePricingClass[] findByCompanyId_PrevAndNext(
+			long commercePricingClassId, long companyId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CommercePricingClass> orderByComparator)
+		throws NoSuchPricingClassException;
+
+	/**
+	 * Removes all the commerce pricing classes where companyId = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 */
+	public void removeByCompanyId(long companyId);
+
+	/**
+	 * Returns the number of commerce pricing classes where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching commerce pricing classes
+	 */
+	public int countByCompanyId(long companyId);
 
 	/**
 	 * Returns the commerce pricing class where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchPricingClassException</code> if it could not be found.
