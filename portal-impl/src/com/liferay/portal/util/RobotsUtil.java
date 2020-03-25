@@ -40,11 +40,9 @@ public class RobotsUtil {
 		String virtualHost, boolean secure, int port) {
 
 		if (Validator.isNotNull(virtualHost)) {
-			String content = ContentUtil.get(
+			return ContentUtil.get(
 				RobotsUtil.class.getClassLoader(),
 				PropsValues.ROBOTS_TXT_WITH_SITEMAP);
-
-			return _replaceWildcards(content, virtualHostname, secure, port);
 		}
 
 		return ContentUtil.get(
