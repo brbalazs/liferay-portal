@@ -28,6 +28,10 @@ import java.util.List;
 @ProviderType
 public interface CommerceOrderEngine {
 
+	public CommerceOrder checkCommerceOrderShipmentStatus(
+			CommerceOrder commerceOrder)
+		throws PortalException;
+
 	public CommerceOrder checkoutCommerceOrder(
 			CommerceOrder commerceOrder, long userId)
 		throws PortalException;

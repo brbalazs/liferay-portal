@@ -24,6 +24,7 @@ import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
 import com.liferay.commerce.exception.CommerceOrderShippingMethodException;
 import com.liferay.commerce.exception.CommerceOrderStatusException;
 import com.liferay.commerce.exception.CommerceOrderValidatorException;
+import com.liferay.commerce.internal.order.status.ShippedCommerceOrderStatusImpl;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
@@ -79,6 +80,31 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
  */
 @Component(immediate = true, service = CommerceOrderEngine.class)
 public class CommerceOrderEngineImpl implements CommerceOrderEngine {
+
+	@Override
+	@Transactional(
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
+	)
+	public CommerceOrder checkCommerceOrderShipmentStatus(
+			CommerceOrder commerceOrder)
+		throws PortalException {
+
+		CommerceOrderStatus shippedCommerceOrderStatus =
+			_commerceOrderStatusRegistry.getCommerceOrderStatus(
+				ShippedCommerceOrderStatusImpl.KEY);
+
+		if (shippedCommerceOrderStatus.isTransitionCriteriaMet(commerceOrder)) {
+			commerceOrder = transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED, 0);
+		}
+		else {
+			commerceOrder = transitionCommerceOrder(
+				commerceOrder,
+				CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED, 0);
+		}
+
+		return commerceOrder;
+	}
 
 	@Override
 	@Transactional(

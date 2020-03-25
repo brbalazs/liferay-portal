@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.service.impl;
 
+import com.liferay.commerce.constants.CommerceDestinationNames;
 import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.exception.CommerceShipmentExpectedDateException;
 import com.liferay.commerce.exception.CommerceShipmentItemQuantityException;
@@ -26,6 +27,8 @@ import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.base.CommerceShipmentLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.messaging.Message;
+import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -42,6 +45,9 @@ import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
+import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -50,6 +56,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 
 /**
  * @author Alessio Antonio Rendina
@@ -504,6 +511,10 @@ public class CommerceShipmentLocalServiceImpl
 
 		commerceShipment.setStatus(status);
 
+		if (status == CommerceShipmentConstants.SHIPMENT_STATUS_SHIPPED) {
+			sendShipmentStatusMessage(commerceShipmentId);
+		}
+
 		return commerceShipmentPersistence.update(commerceShipment);
 	}
 
@@ -571,6 +582,28 @@ public class CommerceShipmentLocalServiceImpl
 		}
 
 		return commerceShipments;
+	}
+
+	@Transactional(
+		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
+	)
+	protected void sendShipmentStatusMessage(long commerceShipmentId) {
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				@Override
+				public Void call() throws Exception {
+					Message message = new Message();
+
+					message.put("commerceShipmentId", commerceShipmentId);
+
+					MessageBusUtil.sendMessage(
+						CommerceDestinationNames.SHIPMENT_STATUS, message);
+
+					return null;
+				}
+
+			});
 	}
 
 	protected CommerceAddress updateCommerceShipmentAddress(
