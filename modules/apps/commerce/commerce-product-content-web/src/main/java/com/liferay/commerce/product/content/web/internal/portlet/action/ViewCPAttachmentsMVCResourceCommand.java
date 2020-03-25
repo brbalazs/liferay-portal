@@ -83,9 +83,15 @@ public class ViewCPAttachmentsMVCResourceCommand
 			CommerceAccount commerceAccount =
 				commerceContext.getCommerceAccount();
 
+			long commerceAccountId = 0;
+
+			if (commerceAccount != null) {
+				commerceAccountId = commerceAccount.getCommerceAccountId();
+			}
+
 			List<CPAttachmentFileEntry> cpAttachmentFileEntries =
 				_cpInstanceHelper.getCPAttachmentFileEntries(
-					commerceAccount.getCommerceAccountId(),
+					commerceAccountId,
 					commerceContext.getCommerceChannelGroupId(), cpDefinitionId,
 					ddmFormValues, type);
 
