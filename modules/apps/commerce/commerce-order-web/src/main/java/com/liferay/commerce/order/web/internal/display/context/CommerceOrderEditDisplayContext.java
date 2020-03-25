@@ -40,6 +40,7 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
+import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -51,6 +52,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
@@ -89,6 +91,7 @@ public class CommerceOrderEditDisplayContext {
 			CommercePaymentMethodGroupRelService
 				commercePaymentMethodGroupRelService,
 			CommerceShipmentService commerceShipmentService,
+			CommerceShippingHelper commerceShippingHelper,
 			RenderRequest renderRequest)
 		throws PortalException {
 
@@ -103,6 +106,7 @@ public class CommerceOrderEditDisplayContext {
 		_commercePaymentMethodGroupRelService =
 			commercePaymentMethodGroupRelService;
 		_commerceShipmentService = commerceShipmentService;
+		_commerceShippingHelper = commerceShippingHelper;
 
 		long commerceOrderId = ParamUtil.getLong(
 			renderRequest, "commerceOrderId");
@@ -561,6 +565,18 @@ public class CommerceOrderEditDisplayContext {
 			return steps;
 		}
 
+		if (!_commerceShippingHelper.isShippable(_commerceOrder)) {
+			commerceOrderStatuses = ListUtil.copy(commerceOrderStatuses);
+
+			for (int shippingOrderStatus :
+					CommerceOrderConstants.ORDER_STATUSES_SHIPPING) {
+
+				commerceOrderStatuses.remove(
+					_commerceOrderStatusRegistry.getCommerceOrderStatus(
+						shippingOrderStatus));
+			}
+		}
+
 		for (CommerceOrderStatus commerceOrderStatus : commerceOrderStatuses) {
 			if (((commerceOrderStatus.getKey() ==
 					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) &&
@@ -675,5 +691,6 @@ public class CommerceOrderEditDisplayContext {
 		_commercePaymentMethodGroupRelService;
 	private CommerceShipment _commerceShipment;
 	private final CommerceShipmentService _commerceShipmentService;
+	private final CommerceShippingHelper _commerceShippingHelper;
 
 }

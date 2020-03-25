@@ -93,6 +93,10 @@ public class CommerceOrderConstants {
 		ORDER_STATUS_SHIPPED
 	};
 
+	public static final int[] ORDER_STATUSES_SHIPPING = {
+		ORDER_STATUS_PARTIALLY_SHIPPED, ORDER_STATUS_SHIPPED
+	};
+
 	public static final int PAYMENT_STATUS_AUTHORIZED =
 		WorkflowConstants.STATUS_DRAFT;
 

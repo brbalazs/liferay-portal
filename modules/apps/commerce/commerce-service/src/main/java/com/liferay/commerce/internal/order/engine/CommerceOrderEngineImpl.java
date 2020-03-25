@@ -74,6 +74,7 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.ListUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -283,6 +284,18 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			currentCommerceOrderStatus);
 
 		if (currentOrderStatusIndex != (commerceOrderStatuses.size() - 1)) {
+			if (!_commerceShippingHelper.isShippable(commerceOrder)) {
+				commerceOrderStatuses = ListUtil.copy(commerceOrderStatuses);
+
+				for (int shippingOrderStatus :
+						CommerceOrderConstants.ORDER_STATUSES_SHIPPING) {
+
+					commerceOrderStatuses.remove(
+						_commerceOrderStatusRegistry.getCommerceOrderStatus(
+							shippingOrderStatus));
+				}
+			}
+
 			CommerceOrderStatus nextCommerceOrderStatus =
 				commerceOrderStatuses.get(currentOrderStatusIndex + 1);
 
