@@ -133,17 +133,21 @@ definition {
 			locator1 = "CommerceEntry#DISCOUNT_TARGET_SELECT",
 			value1 = "${discountTarget}");
 
-		Check.checkToggleSwitch(locator1 = "CommerceEntry#CHANNEL_CHECKBOX");
+		Check.checkToggleSwitch(
+			checkboxName = "${channelsEntryName}",
+			locator1 = "Checkbox#ANY_CHECKBOX");
 
-		AssertClick(
-			locator1 = "Button#SELECT",
-			value1 = "Select");
+		if (isSet(accountGroup)) {
+			AssertClick(
+				locator1 = "Button#SELECT",
+				value1 = "Select");
 
-		CommerceItemSelector.selectEntry(entryName = "${accountGroup}");
+			CommerceItemSelector.selectEntry(entryName = "${accountGroup}");
 
-		Click(
-			locator1 = "ItemSelector#ADD_BUTTON",
-			value1 = "Add");
+			Click(
+				locator1 = "ItemSelector#ADD_BUTTON",
+				value1 = "Add");
+		}
 
 		Type(
 			locator1 = "CommerceEntry#MAXIMUM_DISCOUNT_AMOUNT_FIELD",
