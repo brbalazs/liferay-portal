@@ -104,6 +104,16 @@ public class CommerceTaxFixedRateAddressRelLocalServiceImpl
 
 	@Override
 	public CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
+		long commerceTaxMethodId, long cpTaxCategoryId, long commerceCountryId,
+		long commerceRegionId, String zip) {
+
+		return commerceTaxFixedRateAddressRelFinder.fetchByC_C_C_C_Z_First(
+			commerceTaxMethodId, cpTaxCategoryId, commerceCountryId,
+			commerceRegionId, zip);
+	}
+
+	@Override
+	public CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
 		long commerceTaxMethodId, long commerceCountryId, long commerceRegionId,
 		String zip) {
 
