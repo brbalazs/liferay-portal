@@ -89,69 +89,7 @@ public class CommercePriceListLocalServiceImpl
 	@Override
 	public CommercePriceList addCommercePriceList(
 			long groupId, long userId, long commerceCurrencyId,
-			long parentCommercePriceListId, String name, double priority,
-			int displayDateMonth, int displayDateDay, int displayDateYear,
-			int displayDateHour, int displayDateMinute, int expirationDateMonth,
-			int expirationDateDay, int expirationDateYear,
-			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
-		throws PortalException {
-
-		return commercePriceListLocalService.addCommercePriceList(
-			groupId, userId, commerceCurrencyId,
-			CommercePriceListConstants.TYPE_PRICE_LIST,
-			parentCommercePriceListId, false, name, priority, displayDateMonth,
-			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, null, neverExpire,
-			serviceContext);
-	}
-
-	@Override
-	public CommercePriceList addCommercePriceList(
-			long groupId, long userId, long commerceCurrencyId,
-			long parentCommercePriceListId, String name, double priority,
-			int displayDateMonth, int displayDateDay, int displayDateYear,
-			int displayDateHour, int displayDateMinute, int expirationDateMonth,
-			int expirationDateDay, int expirationDateYear,
-			int expirationDateHour, int expirationDateMinute,
-			String externalReferenceCode, boolean neverExpire,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		return commercePriceListLocalService.addCommercePriceList(
-			groupId, userId, commerceCurrencyId,
-			CommercePriceListConstants.TYPE_PRICE_LIST,
-			parentCommercePriceListId, false, name, priority, displayDateMonth,
-			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, externalReferenceCode,
-			neverExpire, serviceContext);
-	}
-
-	@Override
-	public CommercePriceList addCommercePriceList(
-			long groupId, long userId, long commerceCurrencyId, String name,
-			double priority, int displayDateMonth, int displayDateDay,
-			int displayDateYear, int displayDateHour, int displayDateMinute,
-			int expirationDateMonth, int expirationDateDay,
-			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		return commercePriceListLocalService.addCommercePriceList(
-			groupId, userId, commerceCurrencyId,
-			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
-			priority, displayDateMonth, displayDateDay, displayDateYear,
-			displayDateHour, displayDateMinute, expirationDateMonth,
-			expirationDateDay, expirationDateYear, expirationDateHour,
-			expirationDateMinute, null, neverExpire, serviceContext);
-	}
-
-	@Override
-	public CommercePriceList addCommercePriceList(
-			long groupId, long userId, long commerceCurrencyId, String name,
+			boolean netPrice, long parentCommercePriceListId, String name,
 			double priority, int displayDateMonth, int displayDateDay,
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
@@ -161,23 +99,23 @@ public class CommercePriceListLocalServiceImpl
 		throws PortalException {
 
 		return commercePriceListLocalService.addCommercePriceList(
-			groupId, userId, commerceCurrencyId,
-			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
-			priority, displayDateMonth, displayDateDay, displayDateYear,
-			displayDateHour, displayDateMinute, expirationDateMonth,
-			expirationDateDay, expirationDateYear, expirationDateHour,
-			expirationDateMinute, externalReferenceCode, neverExpire,
-			serviceContext);
+			groupId, userId, commerceCurrencyId, netPrice,
+			CommercePriceListConstants.TYPE_PRICE_LIST,
+			parentCommercePriceListId, false, name, priority, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, externalReferenceCode,
+			neverExpire, serviceContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommercePriceList addCommercePriceList(
-			long groupId, long userId, long commerceCurrencyId, String type,
-			long parentCommercePriceListId, boolean catalogBasePriceList,
-			String name, double priority, int displayDateMonth,
-			int displayDateDay, int displayDateYear, int displayDateHour,
-			int displayDateMinute, int expirationDateMonth,
+			long groupId, long userId, long commerceCurrencyId,
+			boolean netPrice, String type, long parentCommercePriceListId,
+			boolean catalogBasePriceList, String name, double priority,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
 			String externalReferenceCode, boolean neverExpire,
@@ -227,6 +165,7 @@ public class CommercePriceListLocalServiceImpl
 		commercePriceList.setParentCommercePriceListId(
 			parentCommercePriceListId);
 		commercePriceList.setCatalogBasePriceList(catalogBasePriceList);
+		commercePriceList.setNetPrice(netPrice);
 		commercePriceList.setType(type);
 		commercePriceList.setName(name);
 		commercePriceList.setPriority(priority);
@@ -262,6 +201,90 @@ public class CommercePriceListLocalServiceImpl
 
 	@Override
 	public CommercePriceList addCommercePriceList(
+			long groupId, long userId, long commerceCurrencyId,
+			long parentCommercePriceListId, String name, double priority,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+
+		return commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, true,
+			CommercePriceListConstants.TYPE_PRICE_LIST,
+			parentCommercePriceListId, false, name, priority, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, null, neverExpire,
+			serviceContext);
+	}
+
+	@Override
+	public CommercePriceList addCommercePriceList(
+			long groupId, long userId, long commerceCurrencyId,
+			long parentCommercePriceListId, String name, double priority,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			String externalReferenceCode, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, true,
+			CommercePriceListConstants.TYPE_PRICE_LIST,
+			parentCommercePriceListId, false, name, priority, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, externalReferenceCode,
+			neverExpire, serviceContext);
+	}
+
+	@Override
+	public CommercePriceList addCommercePriceList(
+			long groupId, long userId, long commerceCurrencyId, String name,
+			double priority, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, true,
+			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
+			priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, null, neverExpire, serviceContext);
+	}
+
+	@Override
+	public CommercePriceList addCommercePriceList(
+			long groupId, long userId, long commerceCurrencyId, String name,
+			double priority, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, String externalReferenceCode,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+
+		return commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, true,
+			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
+			priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, externalReferenceCode, neverExpire,
+			serviceContext);
+	}
+
+	@Override
+	public CommercePriceList addCommercePriceList(
 			long groupId, long userId, long commerceCurrencyId, String type,
 			long parentCommercePriceListId, String name, double priority,
 			int displayDateMonth, int displayDateDay, int displayDateYear,
@@ -272,7 +295,7 @@ public class CommercePriceListLocalServiceImpl
 		throws PortalException {
 
 		return commercePriceListLocalService.addCommercePriceList(
-			groupId, userId, commerceCurrencyId, type,
+			groupId, userId, commerceCurrencyId, true, type,
 			parentCommercePriceListId, false, name, priority, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
@@ -292,11 +315,11 @@ public class CommercePriceListLocalServiceImpl
 		throws PortalException {
 
 		return commercePriceListLocalService.addCommercePriceList(
-			groupId, userId, commerceCurrencyId, type, 0, false, name, priority,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute, null,
-			neverExpire, serviceContext);
+			groupId, userId, commerceCurrencyId, true, type, 0, false, name,
+			priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, null, neverExpire, serviceContext);
 	}
 
 	@Override
@@ -740,7 +763,7 @@ public class CommercePriceListLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommercePriceList updateCommercePriceList(
-			long commercePriceListId, long commerceCurrencyId,
+			long commercePriceListId, long commerceCurrencyId, boolean netPrice,
 			long parentCommercePriceListId, String name, double priority,
 			int displayDateMonth, int displayDateDay, int displayDateYear,
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
@@ -750,7 +773,7 @@ public class CommercePriceListLocalServiceImpl
 		throws PortalException {
 
 		return commercePriceListLocalService.updateCommercePriceList(
-			commercePriceListId, commerceCurrencyId,
+			commercePriceListId, commerceCurrencyId, netPrice,
 			CommercePriceListConstants.TYPE_PRICE_LIST,
 			parentCommercePriceListId, false, name, priority, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
@@ -759,34 +782,14 @@ public class CommercePriceListLocalServiceImpl
 			serviceContext);
 	}
 
-	@Override
-	public CommercePriceList updateCommercePriceList(
-			long commercePriceListId, long commerceCurrencyId, String name,
-			double priority, int displayDateMonth, int displayDateDay,
-			int displayDateYear, int displayDateHour, int displayDateMinute,
-			int expirationDateMonth, int expirationDateDay,
-			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		return updateCommercePriceList(
-			commercePriceListId, commerceCurrencyId,
-			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
-			priority, displayDateMonth, displayDateDay, displayDateYear,
-			displayDateHour, displayDateMinute, expirationDateMonth,
-			expirationDateDay, expirationDateYear, expirationDateHour,
-			expirationDateMinute, neverExpire, serviceContext);
-	}
-
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommercePriceList updateCommercePriceList(
-			long commercePriceListId, long commerceCurrencyId, String type,
-			long parentCommercePriceListId, boolean catalogBasePriceList,
-			String name, double priority, int displayDateMonth,
-			int displayDateDay, int displayDateYear, int displayDateHour,
-			int displayDateMinute, int expirationDateMonth,
+			long commercePriceListId, long commerceCurrencyId, boolean netPrice,
+			String type, long parentCommercePriceListId,
+			boolean catalogBasePriceList, String name, double priority,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, ServiceContext serviceContext)
@@ -823,6 +826,7 @@ public class CommercePriceListLocalServiceImpl
 		commercePriceList.setParentCommercePriceListId(
 			parentCommercePriceListId);
 		commercePriceList.setCatalogBasePriceList(catalogBasePriceList);
+		commercePriceList.setNetPrice(netPrice);
 		commercePriceList.setType(type);
 		commercePriceList.setName(name);
 		commercePriceList.setPriority(priority);
@@ -851,6 +855,48 @@ public class CommercePriceListLocalServiceImpl
 		cleanPriceListCache(commercePriceList.getCompanyId());
 
 		return commercePriceList;
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommercePriceList updateCommercePriceList(
+			long commercePriceListId, long commerceCurrencyId,
+			long parentCommercePriceListId, String name, double priority,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+
+		return commercePriceListLocalService.updateCommercePriceList(
+			commercePriceListId, commerceCurrencyId, true,
+			CommercePriceListConstants.TYPE_PRICE_LIST,
+			parentCommercePriceListId, false, name, priority, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, neverExpire,
+			serviceContext);
+	}
+
+	@Override
+	public CommercePriceList updateCommercePriceList(
+			long commercePriceListId, long commerceCurrencyId, String name,
+			double priority, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return updateCommercePriceList(
+			commercePriceListId, commerceCurrencyId, true,
+			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
+			priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, serviceContext);
 	}
 
 	@Override
@@ -941,6 +987,74 @@ public class CommercePriceListLocalServiceImpl
 		return commercePriceList;
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommercePriceList upsertCommercePriceList(
+			long groupId, long userId, long commercePriceListId,
+			long commerceCurrencyId, boolean netPrice, String type,
+			long parentCommercePriceListId, boolean catalogBasePriceList,
+			String name, double priority, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			String externalReferenceCode, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		// Update
+
+		if (commercePriceListId > 0) {
+			try {
+				return updateCommercePriceList(
+					commercePriceListId, commerceCurrencyId, netPrice, type,
+					parentCommercePriceListId, catalogBasePriceList, name,
+					priority, displayDateMonth, displayDateDay, displayDateYear,
+					displayDateHour, displayDateMinute, expirationDateMonth,
+					expirationDateDay, expirationDateYear, expirationDateHour,
+					expirationDateMinute, neverExpire, serviceContext);
+			}
+			catch (NoSuchPriceListException nsple) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Unable to find price list with ID: " +
+							commercePriceListId);
+				}
+			}
+		}
+
+		if (Validator.isBlank(externalReferenceCode)) {
+			externalReferenceCode = null;
+		}
+
+		if (Validator.isNotNull(externalReferenceCode)) {
+			CommercePriceList commercePriceList =
+				commercePriceListPersistence.fetchByC_ERC(
+					serviceContext.getCompanyId(), externalReferenceCode);
+
+			if (commercePriceList != null) {
+				return commercePriceListLocalService.updateCommercePriceList(
+					commercePriceList.getCommercePriceListId(),
+					commerceCurrencyId, netPrice, type,
+					parentCommercePriceListId, catalogBasePriceList, name,
+					priority, displayDateMonth, displayDateDay, displayDateYear,
+					displayDateHour, displayDateMinute, expirationDateMonth,
+					expirationDateDay, expirationDateYear, expirationDateHour,
+					expirationDateMinute, neverExpire, serviceContext);
+			}
+		}
+
+		// Add
+
+		return commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, netPrice, type,
+			parentCommercePriceListId, catalogBasePriceList, name, priority,
+			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
+			displayDateMinute, expirationDateMonth, expirationDateDay,
+			expirationDateYear, expirationDateHour, expirationDateMinute,
+			externalReferenceCode, neverExpire, serviceContext);
+	}
+
 	/**
 	 * This method is used to insert a new CommercePriceList or update an
 	 * existing one
@@ -984,7 +1098,7 @@ public class CommercePriceListLocalServiceImpl
 		throws PortalException {
 
 		return commercePriceListLocalService.upsertCommercePriceList(
-			groupId, userId, commercePriceListId, commerceCurrencyId,
+			groupId, userId, commercePriceListId, commerceCurrencyId, true,
 			CommercePriceListConstants.TYPE_PRICE_LIST,
 			parentCommercePriceListId, false, name, priority, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
@@ -1006,81 +1120,13 @@ public class CommercePriceListLocalServiceImpl
 		throws PortalException {
 
 		return commercePriceListLocalService.upsertCommercePriceList(
-			groupId, userId, commercePriceListId, commerceCurrencyId,
+			groupId, userId, commercePriceListId, commerceCurrencyId, true,
 			CommercePriceListConstants.TYPE_PRICE_LIST, 0, false, name,
 			priority, displayDateMonth, displayDateDay, displayDateYear,
 			displayDateHour, displayDateMinute, expirationDateMonth,
 			expirationDateDay, expirationDateYear, expirationDateHour,
 			expirationDateMinute, externalReferenceCode, neverExpire,
 			serviceContext);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommercePriceList upsertCommercePriceList(
-			long groupId, long userId, long commercePriceListId,
-			long commerceCurrencyId, String type,
-			long parentCommercePriceListId, boolean catalogBasePriceList,
-			String name, double priority, int displayDateMonth,
-			int displayDateDay, int displayDateYear, int displayDateHour,
-			int displayDateMinute, int expirationDateMonth,
-			int expirationDateDay, int expirationDateYear,
-			int expirationDateHour, int expirationDateMinute,
-			String externalReferenceCode, boolean neverExpire,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		// Update
-
-		if (commercePriceListId > 0) {
-			try {
-				return updateCommercePriceList(
-					commercePriceListId, commerceCurrencyId, type,
-					parentCommercePriceListId, catalogBasePriceList, name,
-					priority, displayDateMonth, displayDateDay, displayDateYear,
-					displayDateHour, displayDateMinute, expirationDateMonth,
-					expirationDateDay, expirationDateYear, expirationDateHour,
-					expirationDateMinute, neverExpire, serviceContext);
-			}
-			catch (NoSuchPriceListException nsple) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(
-						"Unable to find price list with ID: " +
-							commercePriceListId);
-				}
-			}
-		}
-
-		if (Validator.isBlank(externalReferenceCode)) {
-			externalReferenceCode = null;
-		}
-
-		if (Validator.isNotNull(externalReferenceCode)) {
-			CommercePriceList commercePriceList =
-				commercePriceListPersistence.fetchByC_ERC(
-					serviceContext.getCompanyId(), externalReferenceCode);
-
-			if (commercePriceList != null) {
-				return commercePriceListLocalService.updateCommercePriceList(
-					commercePriceList.getCommercePriceListId(),
-					commerceCurrencyId, type, parentCommercePriceListId,
-					catalogBasePriceList, name, priority, displayDateMonth,
-					displayDateDay, displayDateYear, displayDateHour,
-					displayDateMinute, expirationDateMonth, expirationDateDay,
-					expirationDateYear, expirationDateHour,
-					expirationDateMinute, neverExpire, serviceContext);
-			}
-		}
-
-		// Add
-
-		return commercePriceListLocalService.addCommercePriceList(
-			groupId, userId, commerceCurrencyId, type,
-			parentCommercePriceListId, catalogBasePriceList, name, priority,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute,
-			externalReferenceCode, neverExpire, serviceContext);
 	}
 
 	protected SearchContext buildSearchContext(
