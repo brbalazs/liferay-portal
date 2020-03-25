@@ -131,13 +131,7 @@ public class ViewCPAttachmentsMVCResourceCommand
 		ViewCPAttachmentsMVCResourceCommand.class);
 
 	@Reference
-	private ClassNameLocalService _classNameLocalService;
-
-	@Reference
 	private CommerceMediaResolver _commerceMediaResolver;
-
-	@Reference
-	private CPAttachmentFileEntryService _cpAttachmentFileEntryService;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
