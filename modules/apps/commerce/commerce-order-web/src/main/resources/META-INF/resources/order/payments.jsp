@@ -33,7 +33,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			id="order-payment-method-modal"
 			refreshPageOnClose="<%= true %>"
 			size="lg"
-			title='<%= LanguageUtil.get(request, "payment-method") %>'
+			title='<%= LanguageUtil.format(request, Validator.isNull(commerceOrder.getCommercePaymentMethodKey()) ? "add-x" : "edit-x", "payment-method", true) %>'
 			url="<%= editOrderPaymentMethodURL %>"
 		/>
 
