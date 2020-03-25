@@ -19,7 +19,6 @@ import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPSku;
-import com.liferay.commerce.product.constants.CPField;
 import com.liferay.commerce.product.exception.CPDefinitionIgnoreSKUCombinationsException;
 import com.liferay.commerce.product.exception.NoSuchCPInstanceException;
 import com.liferay.commerce.product.internal.catalog.CPSkuImpl;
@@ -30,6 +29,7 @@ import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
+import com.liferay.commerce.product.permission.CommerceProductViewPermission;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
@@ -56,24 +56,12 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistryUtil;
-import com.liferay.portal.kernel.search.QueryConfig;
-import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.SortFactoryUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
-
-import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -162,105 +150,32 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 	@Override
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
+			long commerceAccountId, long commerceChannelGroupId,
 			long cpDefinitionId, String serializedDDMFormValues, int type)
 		throws Exception {
 
 		return getCPAttachmentFileEntries(
-			cpDefinitionId, serializedDDMFormValues, type, QueryUtil.ALL_POS,
+			commerceAccountId, commerceChannelGroupId, cpDefinitionId,
+			serializedDDMFormValues, type, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS);
 	}
 
 	@Override
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
+			long commerceAccountId, long commerceChannelGroupId,
 			long cpDefinitionId, String serializedDDMFormValues, int type,
 			int start, int end)
 		throws Exception {
 
-		List<CPAttachmentFileEntry> cpAttachmentFileEntries = new ArrayList<>();
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
 
-		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
+		_commerceProductViewPermission.check(
+			permissionChecker, commerceAccountId, commerceChannelGroupId,
 			cpDefinitionId);
 
-		long cpDefinitionClassNameId = _portal.getClassNameId(
-			CPDefinition.class);
-
-		JSONArray jsonArray = _jsonFactory.createJSONArray(
-			serializedDDMFormValues);
-
-		Indexer<CPAttachmentFileEntry> indexer =
-			IndexerRegistryUtil.nullSafeGetIndexer(CPAttachmentFileEntry.class);
-
-		SearchContext searchContext = new SearchContext();
-
-		Map<String, Serializable> attributes = new HashMap<>();
-
-		attributes.put(
-			CPField.RELATED_ENTITY_CLASS_NAME_ID, cpDefinitionClassNameId);
-		attributes.put(CPField.RELATED_ENTITY_CLASS_PK, cpDefinitionId);
-		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
-		attributes.put(Field.TYPE, type);
-
-		List<String> optionsKeys = new ArrayList<>();
-
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-			JSONArray valuesJSONArray = _jsonFactory.createJSONArray(
-				jsonObject.getString("value"));
-
-			String[] values = new String[valuesJSONArray.length()];
-
-			if (values.length == 0) {
-				continue;
-			}
-
-			for (int j = 0; j < valuesJSONArray.length(); j++) {
-				values[j] = valuesJSONArray.getString(j);
-			}
-
-			String key = jsonObject.getString("key");
-
-			String fieldName = "ATTRIBUTE_" + key + "_VALUES_IDS";
-
-			attributes.put(fieldName, values);
-
-			optionsKeys.add(fieldName);
-		}
-
-		attributes.put("OPTIONS", ArrayUtil.toStringArray(optionsKeys));
-
-		searchContext.setAttributes(attributes);
-
-		searchContext.setCompanyId(cpDefinition.getCompanyId());
-		searchContext.setGroupIds(new long[] {cpDefinition.getGroupId()});
-		searchContext.setStart(start);
-		searchContext.setEnd(end);
-
-		QueryConfig queryConfig = searchContext.getQueryConfig();
-
-		queryConfig.setHighlightEnabled(false);
-		queryConfig.setScoreEnabled(false);
-
-		Sort prioritySort = SortFactoryUtil.create(Field.PRIORITY, false);
-
-		searchContext.setSorts(prioritySort);
-
-		queryConfig.addSelectedFieldNames(Field.ENTRY_CLASS_PK);
-
-		Hits hits = indexer.search(searchContext);
-
-		Document[] documents = hits.getDocs();
-
-		for (Document document : documents) {
-			long classPK = GetterUtil.getLong(
-				document.get(Field.ENTRY_CLASS_PK));
-
-			cpAttachmentFileEntries.add(
-				_cpAttachmentFileEntryLocalService.getCPAttachmentFileEntry(
-					classPK));
-		}
-
-		return cpAttachmentFileEntries;
+		return _cpAttachmentFileEntryLocalService.getCPAttachmentFileEntries(
+			cpDefinitionId, serializedDDMFormValues, type, start, end);
 	}
 
 	@Override
@@ -1141,6 +1056,9 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 	@Reference
 	private CommerceMediaResolver _commerceMediaResolver;
+
+	@Reference
+	private CommerceProductViewPermission _commerceProductViewPermission;
 
 	@Reference
 	private CPAttachmentFileEntryLocalService

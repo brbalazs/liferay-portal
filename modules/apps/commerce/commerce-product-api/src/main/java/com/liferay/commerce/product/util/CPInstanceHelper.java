@@ -52,10 +52,12 @@ public interface CPInstanceHelper {
 		throws PortalException;
 
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
+			long commerceAccountId, long commerceChannelGroupId,
 			long cpDefinitionId, String serializedDDMFormValues, int type)
 		throws Exception;
 
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
+			long commerceAccountId, long commerceChannelGroupId,
 			long cpDefinitionId, String serializedDDMFormValues, int type,
 			int start, int end)
 		throws Exception;
