@@ -18,8 +18,10 @@ import com.liferay.commerce.product.exception.NoSuchCPOptionException;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.CPOptionService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Option;
+import com.liferay.headless.commerce.admin.catalog.dto.v1_0.OptionValue;
 import com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0.OptionEntityModel;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionResource;
+import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionValueResource;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
@@ -218,6 +220,8 @@ public class OptionResourceImpl
 			option.getExternalReferenceCode(),
 			_serviceContextHelper.getServiceContext());
 
+		_upsertOptionValues(cpOption, option.getOptionValues());
+
 		DTOConverter optionDTOConverter = _dtoConverterRegistry.getDTOConverter(
 			CPOption.class.getName());
 
@@ -227,6 +231,22 @@ public class OptionResourceImpl
 				cpOption.getCPOptionId()));
 	}
 
+	private void _upsertOptionValues(
+			CPOption cpOption, OptionValue[] optionValues)
+		throws Exception {
+
+		if (optionValues.length <= 0) {
+			return;
+		}
+
+		_optionValueResource.setContextAcceptLanguage(contextAcceptLanguage);
+
+		for (OptionValue optionValue : optionValues) {
+			_optionValueResource.postOptionIdOptionValue(
+				cpOption.getCPOptionId(), optionValue);
+		}
+	}
+
 	private static final EntityModel _entityModel = new OptionEntityModel();
 
 	@Reference
@@ -234,6 +254,9 @@ public class OptionResourceImpl
 
 	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;
+
+	@Reference
+	private OptionValueResource _optionValueResource;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
