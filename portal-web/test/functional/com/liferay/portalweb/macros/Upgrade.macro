@@ -758,59 +758,6 @@ definition {
 		User.loginPG(password = "test2", userEmailAddress = "test@liferay.com");
 	}
 
-	macro searchForAssetsAfterUpgrade {
-		Navigator.openURL();
-
-		/*<execute macro="SearchPortlets#searchEmbedded">
-			<var name="searchTerm" value="Web Content" />
-		</execute>
-
-		<execute macro="SearchResultPortlet#viewSearchResults">
-			<var name="searchAssetSummary" value="Web Content Content" />
-			<var name="searchAssetTitle" value="Web Content Title" />
-			<var name="searchAssetType" value="Web Content Article" />
-		</execute>
-
-		<execute macro="SearchPortlets#searchEmbedded">
-			<var name="searchTerm" value="Document1" />
-		</execute>
-
-		<execute macro="SearchResultPortlet#viewSearchResults">
-			<var name="searchAssetTitle" value="Document1" />
-			<var name="searchAssetType" value="Document" />
-		</execute>
-
-		<execute macro="SearchPortlets#searchEmbedded">
-			<var name="searchTerm" value="Message Boards" />
-		</execute>
-
-		<execute macro="SearchResultPortlet#viewSearchResults">
-			<var name="searchAssetSummary" value="Message Boards Body" />
-			<var name="searchAssetTitle" value="Message Boards Subject" />
-			<var name="searchAssetType" value="Message Boards Message" />
-		</execute>
-
-		<execute macro="SearchPortlets#searchEmbedded">
-			<var name="searchTerm" value="Wiki" />
-		</execute>
-
-		<execute macro="SearchResultPortlet#viewSearchResults">
-			<var name="searchAssetSummary" value="Wiki Front Page Content" />
-			<var name="searchAssetTitle" value="FrontPage" />
-			<var name="searchAssetType" value="Wiki Page" />
-		</execute>
-
-		<execute macro="SearchPortlets#searchEmbedded">
-			<var name="searchTerm" value="Blogs" />
-		</execute>
-
-		<execute macro="SearchResultPortlet#viewSearchResults">
-			<var name="searchAssetSummary" value="Blogs Entry Content" />
-			<var name="searchAssetTitle" value="Blogs Entry Title" />
-			<var name="searchAssetType" value="Blogs Entry" />
-		</execute> */
-	}
-
 	macro submitNewWorkflow {
 		Navigator.openURL();
 
