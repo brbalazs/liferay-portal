@@ -23,8 +23,8 @@ CommerceInventoryDisplayContext commerceInventoryDisplayContext = (CommerceInven
 <portlet:actionURL name="editCommerceInventoryWarehouse" var="editCommerceInventoryWarehouseActionURL" />
 
 <commerce-ui:modal-content
-	title='<%= LanguageUtil.get(request, "add-inventory-item")%>'>
-
+	title='<%= LanguageUtil.get(request, "add-inventory-item") %>'
+>
 	<aui:form action="<%= editCommerceInventoryWarehouseActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
