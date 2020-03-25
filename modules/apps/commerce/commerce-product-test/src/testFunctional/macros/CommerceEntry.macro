@@ -230,13 +230,6 @@ definition {
 			locator1 = "CommerceEntry#CURRENCY_SELECT",
 			value1 = "${currencyCode}");
 
-		Click(locator1 = "CommerceEntry#ACCOUNT_GROUPS_RELS_SELECT");
-
-		CommerceItemSelector.selectEntry(entryName = "${accountGroupsEntryName}");
-
-		Click(
-			locator1 = "ItemSelector#ADD_BUTTON",
-			value1 = "Add");
 	}
 
 	macro addNewRegionsEntry {
@@ -596,6 +589,16 @@ definition {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#SHORT_DESCRIPTION_FIELD",
 			value1 = "${productShortDescription}");
+	}
+	
+	macro viewPriceListEntry {
+		AssertTextEquals(
+			locator1 = "CommerceEntry#NAME_FIELD",
+			value1 = "${entryName}");
+
+		AssertSelectedLabel(
+			locator1 = "CommerceEntry#CURRENCY_SELECT",
+			value1 = "${currencyCode}");
 	}
 
 }
