@@ -250,7 +250,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 				return true;
 			}
 		}
-		catch (Exception exception) {
+		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
 				_log.warn("Unable to get expando table " + tableId, e);
 			}

@@ -15,7 +15,6 @@
 package com.liferay.analytics.message.sender.util;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -37,11 +36,11 @@ public class AnalyticsExpandoBridgeUtil {
 			false);
 
 		for (Map.Entry<String, Serializable> entry : attributes.entrySet()) {
-			String dataType = ExpandoColumnConstants.getDataType(
+			String dataType = ExpandoColumnUtil.getDataType(
 				expandoBridge.getAttributeType(entry.getKey()));
 
 			if (Validator.isBlank(dataType)) {
-				dataType = ExpandoColumnConstants.DATA_TYPE_TEXT;
+				dataType = ExpandoColumnUtil.DATA_TYPE_TEXT;
 			}
 
 			newAttributes.put(
