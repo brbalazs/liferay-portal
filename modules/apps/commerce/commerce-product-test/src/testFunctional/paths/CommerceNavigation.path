@@ -68,6 +68,11 @@
 	<td>//tr/td[contains(.,'${key_siteName}')]//..//button[contains(.,'Choose')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>ANY_ENTRY_NAME</td>
+	<td>//a[contains(.,'${key_entry}')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
