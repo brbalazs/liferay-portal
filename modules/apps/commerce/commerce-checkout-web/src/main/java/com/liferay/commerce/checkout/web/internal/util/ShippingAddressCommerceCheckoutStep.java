@@ -30,6 +30,7 @@ import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
+import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -63,6 +64,19 @@ public class ShippingAddressCommerceCheckoutStep
 	@Override
 	public String getName() {
 		return NAME;
+	}
+
+	@Override
+	public boolean isActive(
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
+		throws Exception {
+
+		CommerceOrder commerceOrder =
+			(CommerceOrder)httpServletRequest.getAttribute(
+				CommerceCheckoutWebKeys.COMMERCE_ORDER);
+
+		return _commerceShippingHelper.isShippable(commerceOrder);
 	}
 
 	@Override
@@ -171,6 +185,9 @@ public class ShippingAddressCommerceCheckoutStep
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private CommerceShippingHelper _commerceShippingHelper;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

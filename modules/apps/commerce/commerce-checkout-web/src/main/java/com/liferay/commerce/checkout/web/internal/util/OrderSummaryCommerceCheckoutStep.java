@@ -34,6 +34,7 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
+import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -203,7 +204,9 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			_commerceOrderService.getCommerceOrderByUuidAndGroupId(
 				commerceOrderUuid, groupId);
 
-		if (commerceOrder.getShippingAddressId() <= 0) {
+		if ((commerceOrder.getShippingAddressId() <= 0) &&
+			_commerceShippingHelper.isShippable(commerceOrder)) {
+
 			throw new CommerceOrderShippingAddressException();
 		}
 
@@ -279,6 +282,9 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Reference
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
+
+	@Reference
+	private CommerceShippingHelper _commerceShippingHelper;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
