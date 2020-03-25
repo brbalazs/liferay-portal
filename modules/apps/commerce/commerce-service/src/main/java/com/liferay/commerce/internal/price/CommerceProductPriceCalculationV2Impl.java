@@ -540,6 +540,10 @@ public class CommerceProductPriceCalculationV2Impl
 			_commercePriceListLocalService.getCommercePriceList(
 				commercePriceEntry.getCommercePriceListId());
 
+		CommercePriceList modifierCommercePriceList =
+			_commercePriceListLocalService.getCommercePriceList(
+				commercePriceListId);
+
 		CommerceCurrency commerceCurrency =
 			_commerceCurrencyLocalService.getCommerceCurrency(
 				commercePriceList.getCommerceCurrencyId());
@@ -547,8 +551,10 @@ public class CommerceProductPriceCalculationV2Impl
 		BigDecimal commercePrice = commercePriceEntry.getPrice();
 
 		if (!commercePriceEntry.isHasTierPrice()) {
-			if (commercePriceEntry.getCommercePriceListId() !=
-					commercePriceListId) {
+			if ((commercePriceEntry.getCommercePriceListId() !=
+					commercePriceListId) &&
+				(commercePriceList.isNetPrice() ==
+					modifierCommercePriceList.isNetPrice())) {
 
 				commercePrice =
 					_commercePriceModifierHelper.applyCommercePriceModifier(
@@ -572,8 +578,10 @@ public class CommerceProductPriceCalculationV2Impl
 				commercePrice = commerceTierPriceEntry.getPrice();
 			}
 
-			if (commercePriceEntry.getCommercePriceListId() !=
-					commercePriceListId) {
+			if ((commercePriceEntry.getCommercePriceListId() !=
+					commercePriceListId) &&
+				(commercePriceList.isNetPrice() ==
+					modifierCommercePriceList.isNetPrice())) {
 
 				commercePrice =
 					_commercePriceModifierHelper.applyCommercePriceModifier(
@@ -652,8 +660,10 @@ public class CommerceProductPriceCalculationV2Impl
 				BigDecimal.valueOf(quantity), _SCALE, roundingMode);
 		}
 
-		if (commercePriceEntry.getCommercePriceListId() !=
-				commercePriceListId) {
+		if ((commercePriceEntry.getCommercePriceListId() !=
+				commercePriceListId) &&
+			(commercePriceList.isNetPrice() ==
+				modifierCommercePriceList.isNetPrice())) {
 
 			commercePrice =
 				_commercePriceModifierHelper.applyCommercePriceModifier(
