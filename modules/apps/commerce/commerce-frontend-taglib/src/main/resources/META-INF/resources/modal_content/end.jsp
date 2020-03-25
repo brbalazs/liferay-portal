@@ -34,15 +34,32 @@
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/index.es as utilities">
-	<c:if test='<%= SessionMessages.contains(renderRequest, "requestProcessed") %>'>
-		window.parent.Liferay.fire(events.CLOSE_MODAL, {
-			willIframeRefresh: false,
-			successNotification: {
+	function closeModal(isSuccessful) {
+		var eventDetail = {
+			willIframeRefresh: false
+		};
+
+		if (isSuccessful) {
+			eventDetail.successNotification = {
 				message:
 					'<%= LanguageUtil.get(request, "your-request-completed-successfully") %>',
 				showSuccessNotification: true
-			}
-		});
+			};
+		}
+
+		window.parent.Liferay.fire(events.CLOSE_MODAL, eventDetail);
+	}
+
+	window.addEventListener('keyup', function(event) {
+		event.preventDefault();
+
+		if (event.key === 'Escape') {
+			closeModal(false);
+		}
+	});
+
+	<c:if test='<%= SessionMessages.contains(renderRequest, "requestProcessed") %>'>
+		closeModal(true);
 	</c:if>
 
 	document.querySelectorAll('.modal-closer').forEach(function(trigger) {
