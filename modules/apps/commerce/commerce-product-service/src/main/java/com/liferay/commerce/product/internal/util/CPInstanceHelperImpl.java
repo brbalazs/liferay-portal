@@ -368,7 +368,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys);
 
 		List<CPAttachmentFileEntry> cpAttachmentFileEntries =
-			getCPAttachmentFileEntries(
+			_cpAttachmentFileEntryLocalService.getCPAttachmentFileEntries(
 				cpInstance.getCPDefinitionId(), keyValuesJSONArray.toString(),
 				CPAttachmentFileEntryConstants.TYPE_IMAGE, 0, 1);
 
