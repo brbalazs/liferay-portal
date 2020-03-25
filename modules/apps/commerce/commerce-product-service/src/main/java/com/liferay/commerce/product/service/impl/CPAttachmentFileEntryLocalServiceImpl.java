@@ -450,7 +450,9 @@ public class CPAttachmentFileEntryLocalServiceImpl
 			optionsKeys.add(fieldName);
 		}
 
-		attributes.put("OPTIONS", ArrayUtil.toStringArray(optionsKeys));
+		if (!optionsKeys.isEmpty()) {
+			attributes.put("OPTIONS", ArrayUtil.toStringArray(optionsKeys));
+		}
 
 		searchContext.setAttributes(attributes);
 
