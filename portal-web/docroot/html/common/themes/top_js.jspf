@@ -433,6 +433,7 @@
 <%-- Analytics --%>
 
 <%
+String liferayAnalyticsChannelId = group.getTypeSettingsProperty("analyticsChannelId");
 String liferayAnalyticsDataSourceId = PrefsPropsUtil.getString(company.getCompanyId(), "liferayAnalyticsDataSourceId");
 String liferayAnalyticsEndpointURL = PrefsPropsUtil.getString(company.getCompanyId(), "liferayAnalyticsEndpointURL");
 boolean liferayAnalyticsEnableAllGroupIds = PrefsPropsUtil.getBoolean(company.getCompanyId(), "liferayAnalyticsEnableAllGroupIds");
@@ -452,6 +453,7 @@ String[] liferayAnalyticsGroupIds = PrefsPropsUtil.getStringArray(company.getCom
 			m.parentNode.insertBefore(a, m);
 		})('https://analytics-js-cdn.liferay.com', function() {
 			var config = {
+				channelId: '<%= HtmlUtil.escapeJS(liferayAnalyticsChannelId) %>',
 				dataSourceId: '<%= HtmlUtil.escapeJS(liferayAnalyticsDataSourceId) %>',
 				endpointUrl: '<%= HtmlUtil.escapeJS(liferayAnalyticsEndpointURL) %>'
 			};
