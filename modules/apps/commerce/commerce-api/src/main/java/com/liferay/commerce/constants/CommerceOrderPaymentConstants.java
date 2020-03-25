@@ -37,6 +37,11 @@ public class CommerceOrderPaymentConstants {
 
 	public static final int STATUS_PENDING = WorkflowConstants.STATUS_PENDING;
 
+	public static final int[] STATUSES = {
+		STATUS_ANY, STATUS_AUTHORIZED, STATUS_CANCELLED, STATUS_COMPLETED,
+		STATUS_FAILED, STATUS_PENDING
+	};
+
 	public static String getOrderPaymentLabelStyle(int orderPaymentStatus) {
 		if ((orderPaymentStatus == STATUS_ANY) ||
 			(orderPaymentStatus == STATUS_AUTHORIZED)) {
