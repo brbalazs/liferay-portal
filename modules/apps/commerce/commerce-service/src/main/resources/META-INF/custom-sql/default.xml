@@ -154,6 +154,31 @@
 				CommerceOrder.modifieddate DESC
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.service.persistence.CommerceOrderFinder.getShippedCommerceOrdersByCommerceShipmentId">
+		<![CDATA[
+			SELECT
+				DISTINCT {CommerceOrder.*}
+			FROM
+				CommerceOrder
+			WHERE
+				CommerceOrder.commerceOrderId IN
+					(
+						SELECT
+							DISTINCT CommerceOrderItem.commerceOrderId
+						FROM
+							CommerceOrderItem
+						JOIN
+							CommerceShipmentItem ON
+								CommerceShipmentItem.commerceOrderItemId = CommerceOrderItem.commerceOrderItemId
+						WHERE
+							CommerceShipmentItem.commerceShipmentId = ?
+						GROUP BY
+							CommerceOrderItem.commerceorderId
+						HAVING
+							SUM(CommerceOrderItem.shippedQuantity) = SUM(CommerceOrderItem.quantity)
+					)
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderItemFinder.countByG_A_O">
 		<![CDATA[
 			SELECT

@@ -554,6 +554,14 @@ public class CommerceOrderLocalServiceImpl
 			commerceAccountId);
 	}
 
+	@Override
+	public List<CommerceOrder> getShippedCommerceOrdersByCommerceShipmentId(
+		long commerceShipmentId, int start, int end) {
+
+		return commerceOrderFinder.getShippedCommerceOrdersByCommerceShipmentId(
+			commerceShipmentId, start, end);
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x)
 	 */
