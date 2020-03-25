@@ -23,8 +23,6 @@ definition {
 		property test.assert.warning.exceptions = "true";
 
 		Upgrade.viewUpgrade();
-
-		Upgrade.searchForAssetsAfterUpgrade();
 	}
 
 	@priority = "5"
@@ -36,8 +34,6 @@ definition {
 		property test.assert.warning.exceptions = "true";
 
 		Upgrade.viewUpgrade();
-
-		Upgrade.searchForAssetsAfterUpgrade();
 	}
 
 	@priority = "5"
@@ -50,8 +46,6 @@ definition {
 		property test.assert.warning.exceptions = "true";
 
 		Upgrade.viewUpgrade();
-
-		Upgrade.searchForAssetsAfterUpgrade();
 	}
 
 	@priority = "5"
@@ -62,8 +56,6 @@ definition {
 		property test.assert.warning.exceptions = "true";
 
 		Upgrade.viewUpgrade();
-
-		Upgrade.searchForAssetsAfterUpgrade();
 	}
 
 	@priority = "5"
@@ -76,8 +68,6 @@ definition {
 		property test.run.environment = "EE";
 
 		Upgrade.viewUpgrade();
-
-		Upgrade.searchForAssetsAfterUpgrade();
 	}
 
 	@priority = "5"
@@ -88,8 +78,6 @@ definition {
 		property test.assert.warning.exceptions = "true";
 
 		Upgrade.viewUpgrade();
-
-		Upgrade.searchForAssetsAfterUpgrade();
 	}
 
 	@priority = "5"
@@ -100,8 +88,6 @@ definition {
 		property test.assert.warning.exceptions = "true";
 
 		Upgrade.viewUpgrade();
-
-		Upgrade.searchForAssetsAfterUpgrade();
 	}
 
 	@priority = "5"
@@ -112,8 +98,6 @@ definition {
 		property test.assert.warning.exceptions = "true";
 
 		Upgrade.viewUpgrade();
-
-		Upgrade.searchForAssetsAfterUpgrade();
 	}
 
 }
