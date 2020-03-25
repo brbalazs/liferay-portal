@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.analytics.message.sender.internal.util;
+package com.liferay.analytics.message.sender.util;
 
 import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.petra.string.StringPool;
