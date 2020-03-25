@@ -354,10 +354,16 @@ public class CommerceShipmentDisplayContext
 					CommerceShipmentConstants.getShipmentStatusLabel(
 						shipmentStatus)));
 
-			if (commerceShipment.getStatus() == shipmentStatus) {
+			if ((commerceShipment.getStatus() == shipmentStatus) &&
+				(shipmentStatus !=
+					CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED)) {
+
 				step.setState("active");
 			}
-			else if (commerceShipment.getStatus() > shipmentStatus) {
+			else if ((commerceShipment.getStatus() > shipmentStatus) ||
+					 (commerceShipment.getStatus() ==
+						 CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED)) {
+
 				step.setState("completed");
 			}
 			else {
