@@ -68,23 +68,25 @@ definition {
 
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 
-		CommerceNavigator.gotoEntry(entryName = "Liferay");
+		if(isSet(siteName)) {
+			CommerceNavigator.gotoEntry(entryName = "Liferay");
 
-		Click(
-			key_breadcrumbName = "Site",
-			locator1 = "CommerceEntry#BREADCRUMB_ENTRY");
+			Click(
+				key_breadcrumbName = "Site",
+				locator1 = "CommerceEntry#BREADCRUMB_ENTRY");
 
-		AssertClick(
-			locator1 = "Button#SELECT",
-			value1 = "Select Site");
+			AssertClick(
+				locator1 = "Button#SELECT",
+				value1 = "Select Site");
 
-		IFrame.selectModalFrame();
+			IFrame.selectModalFrame();
 
-		Click(
-			key_siteName = "${siteName}",
-			locator1 = "CommerceNavigation#CHOOSE_SITE_BUTTON");
+			Click(
+				key_siteName = "${siteName}",
+				locator1 = "CommerceNavigation#CHOOSE_SITE_BUTTON");
 
-		SelectFrameTop(value1 = "relative=top");
+			SelectFrameTop(value1 = "relative=top");
+		}
 
 		Pause(locator1 = "5000");
 	}
