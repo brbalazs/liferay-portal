@@ -86,6 +86,7 @@ public class ByAddressCommerceTaxEngine implements CommerceTaxEngine {
 			_commerceTaxFixedRateAddressRelLocalService.
 				fetchCommerceTaxFixedRateAddressRel(
 					commerceTaxCalculateRequest.getCommerceTaxMethodId(),
+					commerceTaxCalculateRequest.getTaxCategoryId(),
 					commerceCountryId, commerceRegionId, zip);
 
 		if (commerceTaxFixedRateAddressRel == null) {
