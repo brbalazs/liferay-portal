@@ -208,6 +208,11 @@ public interface CommerceTaxFixedRateAddressRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
+		long commerceTaxMethodId, long cpTaxCategoryId, long commerceCountryId,
+		long commerceRegionId, String zip);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
 		long commerceTaxMethodId, long commerceCountryId, long commerceRegionId,
 		String zip);
 

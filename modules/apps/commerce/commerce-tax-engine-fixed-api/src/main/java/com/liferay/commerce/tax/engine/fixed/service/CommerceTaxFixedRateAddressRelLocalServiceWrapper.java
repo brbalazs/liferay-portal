@@ -291,6 +291,19 @@ public class CommerceTaxFixedRateAddressRelLocalServiceWrapper
 	public
 		com.liferay.commerce.tax.engine.fixed.model.
 			CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
+				long commerceTaxMethodId, long cpTaxCategoryId,
+				long commerceCountryId, long commerceRegionId, String zip) {
+
+		return _commerceTaxFixedRateAddressRelLocalService.
+			fetchCommerceTaxFixedRateAddressRel(
+				commerceTaxMethodId, cpTaxCategoryId, commerceCountryId,
+				commerceRegionId, zip);
+	}
+
+	@Override
+	public
+		com.liferay.commerce.tax.engine.fixed.model.
+			CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
 				long commerceTaxMethodId, long commerceCountryId,
 				long commerceRegionId, String zip) {
 

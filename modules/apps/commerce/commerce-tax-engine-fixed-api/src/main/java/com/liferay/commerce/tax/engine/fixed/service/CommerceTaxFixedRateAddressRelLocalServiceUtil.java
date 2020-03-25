@@ -266,6 +266,17 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	public static
 		com.liferay.commerce.tax.engine.fixed.model.
 			CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
+				long commerceTaxMethodId, long cpTaxCategoryId,
+				long commerceCountryId, long commerceRegionId, String zip) {
+
+		return getService().fetchCommerceTaxFixedRateAddressRel(
+			commerceTaxMethodId, cpTaxCategoryId, commerceCountryId,
+			commerceRegionId, zip);
+	}
+
+	public static
+		com.liferay.commerce.tax.engine.fixed.model.
+			CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
 				long commerceTaxMethodId, long commerceCountryId,
 				long commerceRegionId, String zip) {
 
