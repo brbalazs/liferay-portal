@@ -301,6 +301,19 @@ definition {
 		Button.clickPublish();
 
 		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Price Lists");
+
+		Click(
+			locator1 = "CommerceNavigation#ANY_ENTRY_NAME",
+			key_entry = "New Price List");
+
+		CommerceEntry.viewPriceListEntry(
+			currencyCode = "USD",
+			entryName = "New Price List");
 	}
 
 }
