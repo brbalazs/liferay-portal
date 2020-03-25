@@ -361,6 +361,17 @@ public class CPAttachmentFileEntryLocalServiceUtil {
 			classNameId, classPK, type, status, start, end, orderByComparator);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.product.model.CPAttachmentFileEntry>
+				getCPAttachmentFileEntries(
+					long cpDefinitionId, String serializedDDMFormValues,
+					int type, int start, int end)
+			throws Exception {
+
+		return getService().getCPAttachmentFileEntries(
+			cpDefinitionId, serializedDDMFormValues, type, start, end);
+	}
+
 	/**
 	 * Returns all the cp attachment file entries matching the UUID and company.
 	 *

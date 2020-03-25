@@ -288,6 +288,12 @@ public interface CPAttachmentFileEntryLocalService
 			int end, OrderByComparator<CPAttachmentFileEntry> orderByComparator)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
+			long cpDefinitionId, String serializedDDMFormValues, int type,
+			int start, int end)
+		throws Exception;
+
 	/**
 	 * Returns all the cp attachment file entries matching the UUID and company.
 	 *
