@@ -97,7 +97,6 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	@ignore = "true"
 	test CreateNewDiscount {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAdmin#CreateNewDiscount";
