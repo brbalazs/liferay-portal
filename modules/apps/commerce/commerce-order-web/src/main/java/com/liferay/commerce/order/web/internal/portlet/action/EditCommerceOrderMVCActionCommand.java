@@ -544,7 +544,7 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CommerceOrder.class.getName(), actionRequest);
 
-		_commerceOrderService.updateBillingAddress(
+		_commerceOrderService.updateShippingAddress(
 			commerceOrderId, name, description, street1, street2, street3, city,
 			zip, commerceRegionId, commerceCountryId, phoneNumber,
 			serviceContext);

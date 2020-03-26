@@ -30,6 +30,8 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrder.getCommerceOrderId() %>" />
 
+		<liferay-ui:error exception="<%= CommerceOrderPurchaseOrderNumberException.class %>" message="please-enter-a-valid-purchase-order-number" />
+
 		<aui:model-context bean="<%= commerceOrder %>" model="<%= CommerceOrder.class %>" />
 
 		<aui:input name="purchaseOrderNumber" wrapperCssClass="form-group-item" />
