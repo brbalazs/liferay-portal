@@ -26,6 +26,7 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
+import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -64,7 +65,8 @@ public class EditCommerceOrderMVCRenderCommand implements MVCRenderCommand {
 					_commerceOrderItemService, _commerceOrderNoteService,
 					_commerceOrderStatusRegistry,
 					_commercePaymentMethodGroupRelService,
-					_commerceShipmentService, renderRequest);
+					_commerceShipmentService, _commerceShippingHelper,
+					renderRequest);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -113,5 +115,8 @@ public class EditCommerceOrderMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CommerceShipmentService _commerceShipmentService;
+
+	@Reference
+	private CommerceShippingHelper _commerceShippingHelper;
 
 }
