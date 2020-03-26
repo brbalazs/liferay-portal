@@ -19,6 +19,7 @@ const DatasetDisplayContext = React.createContext({
 	formRef: null,
 	loadData: () => {},
 	modalId: null,
+	namespace: null,
 	openModal: () => {},
 	openSidePanel: () => {},
 	selectItems: () => {},

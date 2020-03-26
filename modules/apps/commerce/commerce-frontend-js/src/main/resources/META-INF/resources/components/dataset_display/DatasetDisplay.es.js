@@ -387,6 +387,7 @@ function DatasetDisplay(props) {
 				highlightedItemsValue,
 				loadData: refreshData,
 				modalId: datasetDisplaySupportModalId,
+				namespace: props.namespace,
 				openModal,
 				openSidePanel,
 				searchParam,
