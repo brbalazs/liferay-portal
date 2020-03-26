@@ -412,7 +412,7 @@ public class CPDefinitionImpl extends CPDefinitionBaseImpl {
 				new UnicodeProperties();
 		}
 
-		super.setSubscriptionTypeSettings(
+		super.setDeliverySubscriptionTypeSettings(
 			_deliverySubscriptionTypeSettingsProperties.toString());
 	}
 
