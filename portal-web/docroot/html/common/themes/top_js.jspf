@@ -433,7 +433,15 @@
 <%-- Analytics --%>
 
 <%
-String liferayAnalyticsChannelId = group.getTypeSettingsProperty("analyticsChannelId");
+String liferayAnalyticsChannelId = null;
+
+if (group != null) {
+	liferayAnalyticsChannelId = group.getTypeSettingsProperty("analyticsChannelId");
+}
+else {
+	liferayAnalyticsChannelId = liveGroup.getTypeSettingsProperty("analyticsChannelId");
+}
+
 String liferayAnalyticsDataSourceId = PrefsPropsUtil.getString(company.getCompanyId(), "liferayAnalyticsDataSourceId");
 String liferayAnalyticsEndpointURL = PrefsPropsUtil.getString(company.getCompanyId(), "liferayAnalyticsEndpointURL");
 boolean liferayAnalyticsEnableAllGroupIds = PrefsPropsUtil.getBoolean(company.getCompanyId(), "liferayAnalyticsEnableAllGroupIds");
