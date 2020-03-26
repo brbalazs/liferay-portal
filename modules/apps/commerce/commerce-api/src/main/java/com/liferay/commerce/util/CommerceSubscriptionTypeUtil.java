@@ -51,14 +51,27 @@ public class CommerceSubscriptionTypeUtil {
 		else if (object instanceof CPDefinition) {
 			CPDefinition cpDefinition = (CPDefinition)object;
 
-			subscriptionTypeSettingsProperties =
-				cpDefinition.getSubscriptionTypeSettingsProperties();
+			if (payment) {
+				subscriptionTypeSettingsProperties =
+					cpDefinition.getSubscriptionTypeSettingsProperties();
+			}
+			else {
+				subscriptionTypeSettingsProperties =
+					cpDefinition.
+						getDeliverySubscriptionTypeSettingsProperties();
+			}
 		}
 		else if (object instanceof CPInstance) {
 			CPInstance cpInstance = (CPInstance)object;
 
-			subscriptionTypeSettingsProperties =
-				cpInstance.getSubscriptionTypeSettingsProperties();
+			if (payment) {
+				subscriptionTypeSettingsProperties =
+					cpInstance.getSubscriptionTypeSettingsProperties();
+			}
+			else {
+				subscriptionTypeSettingsProperties =
+					cpInstance.getDeliverySubscriptionTypeSettingsProperties();
+			}
 		}
 
 		return subscriptionTypeSettingsProperties;
