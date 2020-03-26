@@ -16,6 +16,7 @@ package com.liferay.commerce.shipping.web.internal.portlet;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionService;
 import com.liferay.commerce.shipping.web.internal.display.context.CommerceShippingMethodsDisplayContext;
@@ -66,9 +67,9 @@ public class CommerceShippingMethodPortlet extends MVCPortlet {
 		throws IOException, PortletException {
 
 		CommerceShippingMethodsDisplayContext
-			commercePaymentMethodGroupRelsDisplayContext =
+			commerceShippingMethodsDisplayContext =
 				new CommerceShippingMethodsDisplayContext(
-					_commerceChannelLocalService,
+					_commerceChannelLocalService, _commerceCountryService,
 					_commerceShippingEngineRegistry,
 					_commerceShippingFixedOptionService,
 					_commerceShippingMethodService,
@@ -76,13 +77,16 @@ public class CommerceShippingMethodPortlet extends MVCPortlet {
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			commercePaymentMethodGroupRelsDisplayContext);
+			commerceShippingMethodsDisplayContext);
 
 		super.render(renderRequest, renderResponse);
 	}
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceCountryService _commerceCountryService;
 
 	@Reference
 	private CommerceShippingEngineRegistry _commerceShippingEngineRegistry;
