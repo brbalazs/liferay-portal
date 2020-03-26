@@ -74,8 +74,7 @@ public class CommercePaymentRestrictionsPageClayTable
 			commerceCountryBaseModelSearchResult =
 				_commerceCountryService.searchCommerceCountries(
 					_portal.getCompanyId(httpServletRequest), true,
-					filter.getKeywords(), QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-					null);
+					filter.getKeywords(), 0, 0, null);
 
 		return commerceCountryBaseModelSearchResult.getLength();
 	}
