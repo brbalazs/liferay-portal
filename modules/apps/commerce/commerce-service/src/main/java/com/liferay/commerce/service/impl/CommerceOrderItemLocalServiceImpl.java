@@ -221,11 +221,6 @@ public class CommerceOrderItemLocalServiceImpl
 		return commerceOrderItemPersistence.countByC_S(commerceOrderId, true);
 	}
 
-	/**
-	 * @deprecated As of Mueller (7.2.x), use
-	 *             deleteCommerceOrderItem(CommerceOrderItem, CommerceContext)
-	 */
-	@Deprecated
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceOrderItem deleteCommerceOrderItem(
@@ -236,40 +231,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 		commerceOrderItemPersistence.remove(commerceOrderItem);
 
-		// Expando
-
-		expandoRowLocalService.deleteRows(
-			commerceOrderItem.getCommerceOrderItemId());
-
-		return commerceOrderItem;
-	}
-
-	@Indexable(type = IndexableType.DELETE)
-	@Override
-	public CommerceOrderItem deleteCommerceOrderItem(
-			CommerceOrderItem commerceOrderItem,
-			CommerceContext commerceContext)
-		throws PortalException {
-
-		// Commerce order item
-
-		commerceOrderItemPersistence.remove(commerceOrderItem);
-
-		// Expando
-
-		expandoRowLocalService.deleteRows(
-			commerceOrderItem.getCommerceOrderItemId());
-
-		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
-
-		if (_commerceShippingHelper.isFreeShipping(commerceOrder)) {
-			commerceOrderLocalService.updateShippingMethod(
-				commerceOrder.getCommerceOrderId(), 0, null, BigDecimal.ZERO,
-				commerceContext);
-		}
-
-		commerceOrderLocalService.recalculatePrice(
-			commerceOrder.getCommerceOrderId(), commerceContext);
+		// Booked quantities
 
 		if (commerceOrderItem.getBookedQuantityId() > 0) {
 			CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
@@ -284,10 +246,43 @@ public class CommerceOrderItemLocalServiceImpl
 			}
 		}
 
+		// Expando
+
+		expandoRowLocalService.deleteRows(
+			commerceOrderItem.getCommerceOrderItemId());
+
+		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
 		updateWorkflow(commerceOrder, serviceContext);
+
+		return commerceOrderItem;
+	}
+
+	@Indexable(type = IndexableType.DELETE)
+	@Override
+	public CommerceOrderItem deleteCommerceOrderItem(
+			CommerceOrderItem commerceOrderItem,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		// Commerce order item
+
+		commerceOrderItemLocalService.deleteCommerceOrderItem(
+			commerceOrderItem);
+
+		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
+		if (_commerceShippingHelper.isFreeShipping(commerceOrder)) {
+			commerceOrderLocalService.updateShippingMethod(
+				commerceOrder.getCommerceOrderId(), 0, null, BigDecimal.ZERO,
+				commerceContext);
+		}
+
+		commerceOrderLocalService.recalculatePrice(
+			commerceOrder.getCommerceOrderId(), commerceContext);
 
 		return commerceOrderItem;
 	}
