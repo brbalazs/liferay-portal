@@ -21,6 +21,7 @@ import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService
 import com.liferay.commerce.payment.web.internal.display.context.util.CommercePaymentMethodRequestHelper;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -35,12 +36,14 @@ public class CommercePaymentMethodGroupRelsDisplayContext {
 
 	public CommercePaymentMethodGroupRelsDisplayContext(
 		CommerceChannelLocalService commerceChannelLocalService,
+		CommerceCountryService commerceCountryService,
 		CommercePaymentMethodGroupRelService
 			commercePaymentMethodGroupRelService,
 		CommercePaymentMethodRegistry commercePaymentMethodRegistry,
 		HttpServletRequest httpServletRequest) {
 
 		_commerceChannelLocalService = commerceChannelLocalService;
+		_commerceCountryService = commerceCountryService;
 		_commercePaymentMethodGroupRelService =
 			commercePaymentMethodGroupRelService;
 		_commercePaymentMethodRegistry = commercePaymentMethodRegistry;
@@ -60,6 +63,11 @@ public class CommercePaymentMethodGroupRelsDisplayContext {
 		return ParamUtil.getLong(
 			_commercePaymentMethodRequestHelper.getRequest(),
 			"commerceChannelId");
+	}
+
+	public int getCommerceCountriesCount() throws PortalException {
+		return _commerceCountryService.getCommerceCountriesCount(
+			_commercePaymentMethodRequestHelper.getCompanyId());
 	}
 
 	public String getCommercePaymentMethodEngineDescription(Locale locale) {
@@ -118,6 +126,7 @@ public class CommercePaymentMethodGroupRelsDisplayContext {
 	}
 
 	private final CommerceChannelLocalService _commerceChannelLocalService;
+	private final CommerceCountryService _commerceCountryService;
 	private CommercePaymentMethodGroupRel _commercePaymentMethodGroupRel;
 	private final CommercePaymentMethodGroupRelService
 		_commercePaymentMethodGroupRelService;
