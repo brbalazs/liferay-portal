@@ -116,6 +116,23 @@ public class CommerceShippingMethodServiceImpl
 	}
 
 	@Override
+	public void deleteCommerceAddressRestrictions(long commerceShippingMethodId)
+		throws PortalException {
+
+		CommerceShippingMethod commerceShippingMethod =
+			commerceShippingMethodLocalService.getCommerceShippingMethod(
+				commerceShippingMethodId);
+
+		_checkCommerceChannelPermissionByGroupId(
+			commerceShippingMethod.getGroupId());
+
+		commerceAddressRestrictionLocalService.
+			deleteCommerceAddressRestrictions(
+				CommerceShippingMethod.class.getName(),
+				commerceShippingMethodId);
+	}
+
+	@Override
 	public void deleteCommerceShippingMethod(long commerceShippingMethodId)
 		throws PortalException {
 
