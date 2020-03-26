@@ -15,6 +15,7 @@
 package com.liferay.commerce.payment.method.paypal.internal.taglib.ui;
 
 import com.liferay.commerce.payment.constants.CommercePaymentScreenNavigationConstants;
+import com.liferay.commerce.payment.method.paypal.internal.PayPalCommercePaymentMethod;
 import com.liferay.commerce.payment.method.paypal.internal.configuration.PayPalGroupServiceConfiguration;
 import com.liferay.commerce.payment.method.paypal.internal.constants.PayPalCommercePaymentMethodConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
@@ -83,7 +84,17 @@ public class PayPalCommercePaymentMethodConfigurationScreenNavigationEntry
 	public boolean isVisible(
 		User user, CommercePaymentMethodGroupRel commercePaymentMethod) {
 
-		return true;
+		if (commercePaymentMethod == null) {
+			return false;
+		}
+
+		if (PayPalCommercePaymentMethod.KEY.equals(
+				commercePaymentMethod.getEngineKey())) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
