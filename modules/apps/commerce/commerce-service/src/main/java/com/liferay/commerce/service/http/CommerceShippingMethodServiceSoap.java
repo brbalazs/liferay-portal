@@ -128,6 +128,21 @@ public class CommerceShippingMethodServiceSoap {
 		}
 	}
 
+	public static void deleteCommerceAddressRestrictions(
+			long commerceShippingMethodId)
+		throws RemoteException {
+
+		try {
+			CommerceShippingMethodServiceUtil.deleteCommerceAddressRestrictions(
+				commerceShippingMethodId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void deleteCommerceAddressRestriction(
 			long commerceAddressRestrictionId)
 		throws RemoteException {

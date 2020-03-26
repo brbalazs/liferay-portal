@@ -93,6 +93,14 @@ public class CommerceShippingMethodServiceWrapper
 	}
 
 	@Override
+	public void deleteCommerceAddressRestrictions(long commerceShippingMethodId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceShippingMethodService.deleteCommerceAddressRestrictions(
+			commerceShippingMethodId);
+	}
+
+	@Override
 	public void deleteCommerceShippingMethod(long commerceShippingMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

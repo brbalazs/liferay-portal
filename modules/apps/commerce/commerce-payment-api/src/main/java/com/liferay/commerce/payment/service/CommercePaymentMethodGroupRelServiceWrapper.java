@@ -88,6 +88,15 @@ public class CommercePaymentMethodGroupRelServiceWrapper
 	}
 
 	@Override
+	public void deleteCommerceAddressRestrictions(
+			long commercePaymentMethodGroupRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commercePaymentMethodGroupRelService.deleteCommerceAddressRestrictions(
+			commercePaymentMethodGroupRelId);
+	}
+
+	@Override
 	public void deleteCommercePaymentMethodGroupRel(
 			long commercePaymentMethodGroupRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {

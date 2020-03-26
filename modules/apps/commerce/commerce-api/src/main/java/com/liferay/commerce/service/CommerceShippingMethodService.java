@@ -94,6 +94,9 @@ public interface CommerceShippingMethodService extends BaseService {
 			long commerceAddressRestrictionId)
 		throws PortalException;
 
+	public void deleteCommerceAddressRestrictions(long commerceShippingMethodId)
+		throws PortalException;
+
 	public void deleteCommerceShippingMethod(long commerceShippingMethodId)
 		throws PortalException;
 

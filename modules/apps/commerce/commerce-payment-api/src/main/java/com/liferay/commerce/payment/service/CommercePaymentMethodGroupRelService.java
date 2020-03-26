@@ -88,6 +88,10 @@ public interface CommercePaymentMethodGroupRelService extends BaseService {
 			long commerceAddressRestrictionId)
 		throws PortalException;
 
+	public void deleteCommerceAddressRestrictions(
+			long commercePaymentMethodGroupRelId)
+		throws PortalException;
+
 	public void deleteCommercePaymentMethodGroupRel(
 			long commercePaymentMethodGroupRelId)
 		throws PortalException;

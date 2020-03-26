@@ -429,6 +429,20 @@ public class CommerceCountryLocalServiceUtil {
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.commerce.model.CommerceCountry> searchCommerceCountries(
+				long companyId, Boolean active, String keywords, int start,
+				int end, com.liferay.portal.kernel.search.Sort sort)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().searchCommerceCountries(
+			companyId, active, keywords, start, end, sort);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.model.CommerceCountry> searchCommerceCountries(
 				com.liferay.portal.kernel.search.SearchContext searchContext)
 			throws com.liferay.portal.kernel.exception.PortalException {
 

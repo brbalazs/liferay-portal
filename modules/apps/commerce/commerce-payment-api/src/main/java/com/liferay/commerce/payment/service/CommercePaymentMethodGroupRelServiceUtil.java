@@ -83,6 +83,14 @@ public class CommercePaymentMethodGroupRelServiceUtil {
 			commerceAddressRestrictionId);
 	}
 
+	public static void deleteCommerceAddressRestrictions(
+			long commercePaymentMethodGroupRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteCommerceAddressRestrictions(
+			commercePaymentMethodGroupRelId);
+	}
+
 	public static void deleteCommercePaymentMethodGroupRel(
 			long commercePaymentMethodGroupRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {

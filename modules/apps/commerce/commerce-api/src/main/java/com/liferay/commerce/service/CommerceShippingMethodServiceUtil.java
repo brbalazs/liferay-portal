@@ -91,6 +91,14 @@ public class CommerceShippingMethodServiceUtil {
 			commerceAddressRestrictionId);
 	}
 
+	public static void deleteCommerceAddressRestrictions(
+			long commerceShippingMethodId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteCommerceAddressRestrictions(
+			commerceShippingMethodId);
+	}
+
 	public static void deleteCommerceShippingMethod(
 			long commerceShippingMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {

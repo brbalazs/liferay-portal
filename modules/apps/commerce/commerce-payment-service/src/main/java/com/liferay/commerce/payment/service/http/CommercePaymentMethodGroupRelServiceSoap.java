@@ -106,6 +106,22 @@ public class CommercePaymentMethodGroupRelServiceSoap {
 		}
 	}
 
+	public static void deleteCommerceAddressRestrictions(
+			long commercePaymentMethodGroupRelId)
+		throws RemoteException {
+
+		try {
+			CommercePaymentMethodGroupRelServiceUtil.
+				deleteCommerceAddressRestrictions(
+					commercePaymentMethodGroupRelId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void deleteCommerceAddressRestriction(
 			long commerceAddressRestrictionId)
 		throws RemoteException {
