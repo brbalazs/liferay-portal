@@ -188,10 +188,14 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 
 		ServletContext servletContext = httpServletRequest.getServletContext();
 
-		addTaglibApplication(contextObjects, "Application", servletContext);
+		contextObjects.put(
+			"Application", getServletContextHashModel(servletContext));
 
-		addTaglibRequest(
-			contextObjects, "Request", httpServletRequest, httpServletResponse);
+		contextObjects.put(
+			"Request",
+			new HttpRequestHashModel(
+				httpServletRequest, httpServletResponse,
+				_configuration.getObjectWrapper()));
 
 		// Legacy
 
