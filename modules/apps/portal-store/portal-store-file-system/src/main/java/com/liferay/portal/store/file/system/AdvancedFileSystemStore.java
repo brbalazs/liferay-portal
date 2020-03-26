@@ -23,6 +23,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.convert.documentlibrary.FileSystemStoreRootDirException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -60,6 +61,27 @@ import org.osgi.service.component.annotations.Modified;
 	service = Store.class
 )
 public class AdvancedFileSystemStore extends FileSystemStore {
+
+	@Override
+	public String[] getFileVersions(
+			long companyId, long repositoryId, String fileName)
+		throws PortalException {
+
+		String[] versions = super.getFileVersions(
+			companyId, repositoryId, fileName);
+
+		for (int i = 0; i < versions.length; i++) {
+			int x = versions[i].lastIndexOf(CharPool.UNDERLINE);
+
+			if (x > -1) {
+				int y = versions[i].lastIndexOf(CharPool.PERIOD);
+
+				versions[i] = versions[i].substring(x + 1, y);
+			}
+		}
+
+		return versions;
+	}
 
 	@Override
 	public void updateFile(
