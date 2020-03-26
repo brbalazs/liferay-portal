@@ -33,6 +33,7 @@
 		<field name="commerceCurrencyCode" type="String">
 			<validator name="required" />
 		</field>
+		<field name="priceDisplayType" type="String" />
 	</model>
 	<model name="com.liferay.commerce.product.model.CommerceChannelRel">
 		<field name="commerceChannelRelId" type="long" />

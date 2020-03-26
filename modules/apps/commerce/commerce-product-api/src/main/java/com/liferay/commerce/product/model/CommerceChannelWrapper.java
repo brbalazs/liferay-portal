@@ -67,6 +67,7 @@ public class CommerceChannelWrapper
 		attributes.put("type", getType());
 		attributes.put("typeSettings", getTypeSettings());
 		attributes.put("commerceCurrencyCode", getCommerceCurrencyCode());
+		attributes.put("priceDisplayType", getPriceDisplayType());
 
 		return attributes;
 	}
@@ -145,6 +146,12 @@ public class CommerceChannelWrapper
 
 		if (commerceCurrencyCode != null) {
 			setCommerceCurrencyCode(commerceCurrencyCode);
+		}
+
+		String priceDisplayType = (String)attributes.get("priceDisplayType");
+
+		if (priceDisplayType != null) {
+			setPriceDisplayType(priceDisplayType);
 		}
 	}
 
@@ -242,6 +249,16 @@ public class CommerceChannelWrapper
 	@Override
 	public String getName() {
 		return _commerceChannel.getName();
+	}
+
+	/**
+	 * Returns the price display type of this commerce channel.
+	 *
+	 * @return the price display type of this commerce channel
+	 */
+	@Override
+	public String getPriceDisplayType() {
+		return _commerceChannel.getPriceDisplayType();
 	}
 
 	/**
@@ -446,6 +463,16 @@ public class CommerceChannelWrapper
 	@Override
 	public void setNew(boolean n) {
 		_commerceChannel.setNew(n);
+	}
+
+	/**
+	 * Sets the price display type of this commerce channel.
+	 *
+	 * @param priceDisplayType the price display type of this commerce channel
+	 */
+	@Override
+	public void setPriceDisplayType(String priceDisplayType) {
+		_commerceChannel.setPriceDisplayType(priceDisplayType);
 	}
 
 	/**

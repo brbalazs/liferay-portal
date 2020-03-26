@@ -311,6 +311,12 @@ public interface CommerceChannelLocalService
 			String commerceCurrencyCode)
 		throws PortalException;
 
+	public CommerceChannel updateCommerceChannel(
+			long commerceChannelId, long siteGroupId, String name, String type,
+			UnicodeProperties typeSettingsProperties,
+			String commerceCurrencyCode, String priceDisplayType)
+		throws PortalException;
+
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceChannel updateCommerceChannelExternalReferenceCode(
 			long commerceChannelId, String externalReferenceCode)

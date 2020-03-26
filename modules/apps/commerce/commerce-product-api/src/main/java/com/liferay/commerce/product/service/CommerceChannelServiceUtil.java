@@ -145,6 +145,20 @@ public class CommerceChannelServiceUtil {
 	}
 
 	public static com.liferay.commerce.product.model.CommerceChannel
+			updateCommerceChannel(
+				long commerceChannelId, long siteGroupId, String name,
+				String type,
+				com.liferay.portal.kernel.util.UnicodeProperties
+					typeSettingsProperties,
+				String commerceCurrencyCode, String priceDisplayType)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceChannel(
+			commerceChannelId, siteGroupId, name, type, typeSettingsProperties,
+			commerceCurrencyCode, priceDisplayType);
+	}
+
+	public static com.liferay.commerce.product.model.CommerceChannel
 			updateCommerceChannelExternalReferenceCode(
 				long commerceChannelId, String externalReferenceCode)
 		throws com.liferay.portal.kernel.exception.PortalException {

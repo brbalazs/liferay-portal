@@ -263,6 +263,21 @@ public interface CommerceChannelModel
 	 */
 	public void setCommerceCurrencyCode(String commerceCurrencyCode);
 
+	/**
+	 * Returns the price display type of this commerce channel.
+	 *
+	 * @return the price display type of this commerce channel
+	 */
+	@AutoEscape
+	public String getPriceDisplayType();
+
+	/**
+	 * Sets the price display type of this commerce channel.
+	 *
+	 * @param priceDisplayType the price display type of this commerce channel
+	 */
+	public void setPriceDisplayType(String priceDisplayType);
+
 	@Override
 	public boolean isNew();
 

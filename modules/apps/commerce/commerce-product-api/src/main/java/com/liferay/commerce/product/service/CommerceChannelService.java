@@ -118,6 +118,12 @@ public interface CommerceChannelService extends BaseService {
 			String commerceCurrencyCode)
 		throws PortalException;
 
+	public CommerceChannel updateCommerceChannel(
+			long commerceChannelId, long siteGroupId, String name, String type,
+			UnicodeProperties typeSettingsProperties,
+			String commerceCurrencyCode, String priceDisplayType)
+		throws PortalException;
+
 	public CommerceChannel updateCommerceChannelExternalReferenceCode(
 			long commerceChannelId, String externalReferenceCode)
 		throws PortalException;
