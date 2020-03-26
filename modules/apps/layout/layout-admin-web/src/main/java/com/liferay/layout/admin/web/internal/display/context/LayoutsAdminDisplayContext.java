@@ -720,6 +720,24 @@ public class LayoutsAdminDisplayContext {
 		return portletURL;
 	}
 
+	public String getRobots() {
+		String robots = StringPool.BLANK;
+
+		try {
+			robots = ParamUtil.getString(
+				_request, "robots",
+				RobotsUtil.getStrictRobots(
+					getSelLayoutSet(), _request.isSecure()));
+		}
+		catch (PortalException portalException) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(portalException, portalException);
+			}
+		}
+
+		return robots;
+	}
+
 	public String getRootNodeName() {
 		if (_rootNodeName != null) {
 			return _rootNodeName;
