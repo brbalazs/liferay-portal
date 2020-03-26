@@ -118,8 +118,9 @@ public class CommerceAddressRestrictionLocalServiceImpl
 		String className, long classPK, long commerceCountryId) {
 
 		CommerceAddressRestriction commerceAddressRestriction =
-			fetchCommerceAddressRestriction(
-				className, classPK, commerceCountryId);
+			commerceAddressRestrictionLocalService.
+				fetchCommerceAddressRestriction(
+					className, classPK, commerceCountryId);
 
 		if (commerceAddressRestriction != null) {
 			return true;
