@@ -103,6 +103,26 @@ public class CommercePaymentMethodGroupRelServiceImpl
 	}
 
 	@Override
+	public void deleteCommerceAddressRestrictions(
+			long commercePaymentMethodGroupRelId)
+		throws PortalException {
+
+		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
+			commercePaymentMethodGroupRelLocalService.
+				getCommercePaymentMethodGroupRel(
+					commercePaymentMethodGroupRelId);
+
+		_checkCommerceChannelPermissionByGroupId(
+			commercePaymentMethodGroupRel.getGroupId());
+
+		_commerceAddressRestrictionLocalService.
+			deleteCommerceAddressRestrictions(
+				CommercePaymentMethodGroupRel.class.getName(),
+				commercePaymentMethodGroupRel.
+					getCommercePaymentMethodGroupRelId());
+	}
+
+	@Override
 	public void deleteCommercePaymentMethodGroupRel(
 			long commercePaymentMethodGroupRelId)
 		throws PortalException {
