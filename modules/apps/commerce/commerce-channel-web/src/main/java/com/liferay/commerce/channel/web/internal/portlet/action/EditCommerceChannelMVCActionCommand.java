@@ -194,6 +194,8 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 		String name = ParamUtil.getString(actionRequest, "name");
 		String commerceCurrencyCode = ParamUtil.getString(
 			actionRequest, "commerceCurrencyCode");
+		String priceDisplayType = ParamUtil.getString(
+			actionRequest, "priceDisplayType");
 
 		CommerceChannel commerceChannel =
 			_commerceChannelService.getCommerceChannel(commerceChannelId);
@@ -206,7 +208,8 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 		return _commerceChannelService.updateCommerceChannel(
 			commerceChannelId, commerceChannel.getSiteGroupId(), name,
 			commerceChannel.getType(),
-			commerceChannel.getTypeSettingsProperties(), commerceCurrencyCode);
+			commerceChannel.getTypeSettingsProperties(), commerceCurrencyCode,
+			priceDisplayType);
 	}
 
 	protected void updateWorkflowDefinitionLinks(
