@@ -51,9 +51,9 @@ public class CommerceShipmentClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("channelName", "channel");
 
-		clayTableSchemaBuilder.addField("address", "address");
+		clayTableSchemaBuilder.addField("address", "shipping-address");
 
-		clayTableSchemaBuilder.addField("tracking", "tracking");
+		clayTableSchemaBuilder.addField("tracking", "tracking-number");
 
 		clayTableSchemaBuilder.addField("createDate", "create-date");
 
