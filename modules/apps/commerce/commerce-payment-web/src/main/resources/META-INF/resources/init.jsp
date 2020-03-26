@@ -24,21 +24,18 @@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.commerce.model.CommerceAddressRestriction" %><%@
-page import="com.liferay.commerce.model.CommerceCountry" %><%@
-page import="com.liferay.commerce.payment.constants.CommercePaymentScreenNavigationConstants" %><%@
+<%@ page import="com.liferay.commerce.payment.constants.CommercePaymentScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.payment.exception.CommercePaymentMethodGroupRelNameException" %><%@
 page import="com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel" %><%@
-page import="com.liferay.commerce.payment.web.internal.display.context.CommercePaymentMethodGroupRelRestrictionsDisplayContext" %><%@
 page import="com.liferay.commerce.payment.web.internal.display.context.CommercePaymentMethodGroupRelsDisplayContext" %><%@
-page import="com.liferay.petra.string.StringPool" %><%@
+page import="com.liferay.commerce.payment.web.internal.frontend.CommercePaymentRestrictionsPageClayTable" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
-page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
-page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
-page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %>
+
+<%@ page import="java.util.HashMap" %><%@
+page import="java.util.Map" %>
 
 <liferay-frontend:defineObjects />
 
