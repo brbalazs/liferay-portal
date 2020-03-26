@@ -20,6 +20,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es';
 
 function SelectableTable(props) {
+	const {namespace} = useContext(DatasetDisplayContext);
 	const {selectedItemsKey} = useContext(DatasetDisplayContext);
 
 	const [items, updateItems] = useState(props.items);
@@ -125,13 +126,14 @@ function SelectableTable(props) {
 										<ClayTable.Cell key={field.name}>
 											<ClayCheckbox
 												checked={field.value}
-												name={`${itemId}_${field.name}`}
+												name={namespace + itemId}
 												onChange={() => {
 													handleCheckboxChange(
 														field.name,
 														itemId
 													);
 												}}
+												value={field.name}
 											/>
 										</ClayTable.Cell>
 									);
