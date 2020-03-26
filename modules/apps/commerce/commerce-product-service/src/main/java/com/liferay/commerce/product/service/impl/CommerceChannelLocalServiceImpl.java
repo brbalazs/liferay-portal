@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.service.impl;
 
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.exception.DuplicateCommerceChannelSiteGroupIdException;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.base.CommerceChannelLocalServiceBaseImpl;
@@ -83,6 +84,8 @@ public class CommerceChannelLocalServiceImpl
 		commerceChannel.setType(type);
 		commerceChannel.setTypeSettingsProperties(typeSettingsProperties);
 		commerceChannel.setCommerceCurrencyCode(commerceCurrencyCode);
+		commerceChannel.setPriceDisplayType(
+			CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE);
 		commerceChannel.setExternalReferenceCode(externalReferenceCode);
 
 		commerceChannel = commerceChannelPersistence.update(commerceChannel);
@@ -267,6 +270,26 @@ public class CommerceChannelLocalServiceImpl
 		commerceChannel.setType(type);
 		commerceChannel.setTypeSettingsProperties(typeSettingsProperties);
 		commerceChannel.setCommerceCurrencyCode(commerceCurrencyCode);
+
+		return commerceChannelPersistence.update(commerceChannel);
+	}
+
+	@Override
+	public CommerceChannel updateCommerceChannel(
+			long commerceChannelId, long siteGroupId, String name, String type,
+			UnicodeProperties typeSettingsProperties,
+			String commerceCurrencyCode, String priceDisplayType)
+		throws PortalException {
+
+		CommerceChannel commerceChannel =
+			commerceChannelPersistence.findByPrimaryKey(commerceChannelId);
+
+		commerceChannel.setSiteGroupId(siteGroupId);
+		commerceChannel.setName(name);
+		commerceChannel.setType(type);
+		commerceChannel.setTypeSettingsProperties(typeSettingsProperties);
+		commerceChannel.setCommerceCurrencyCode(commerceCurrencyCode);
+		commerceChannel.setPriceDisplayType(priceDisplayType);
 
 		return commerceChannelPersistence.update(commerceChannel);
 	}
