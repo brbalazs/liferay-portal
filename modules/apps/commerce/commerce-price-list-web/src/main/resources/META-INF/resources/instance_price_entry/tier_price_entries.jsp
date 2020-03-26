@@ -48,6 +48,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= portletURL %>"
+				style="stacked"
 			/>
 		</aui:form>
 	</div>

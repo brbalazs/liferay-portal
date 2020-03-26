@@ -15,7 +15,7 @@
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayModal, {useModal} from '@clayui/modal';
 import PropTypes from 'prop-types';
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {
 	CLOSE_MODAL,
@@ -31,17 +31,9 @@ function Modal(props) {
 	const [visible, setVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [onClose, setOnClose] = useState(null);
-	const [iframeLoadingCounter, setIframeLoadingCounter] = useState(0);
 	const [title, setTitle] = useState(props.title);
 	const [url, setUrl] = useState(props.url);
 	const [size, setSize] = useState(INITIAL_MODAL_SIZE);
-	const iframeRef = useRef(null);
-
-	function cleanUpModal() {
-		setIframeLoadingCounter(() => 0);
-		setLoading(false);
-		setVisible(false);
-	}
 
 	function doClose(successNotification) {
 		if (onClose) {
@@ -50,17 +42,12 @@ function Modal(props) {
 			props.onClose(successNotification);
 		}
 
-		cleanUpModal();
+		setLoading(false);
+		setVisible(false);
 	}
 
 	const {observer, onClose: closeOnIframeRefresh} = useModal({
-		onClose: () => {
-			if (iframeLoadingCounter > 1) {
-				doClose();
-			} else {
-				cleanUpModal();
-			}
-		}
+		onClose: doClose
 	});
 
 	useEffect(() => {
@@ -139,23 +126,6 @@ function Modal(props) {
 		setOnClose(() => props.onClose);
 	}, [props.onClose]);
 
-	function handleIframeLoad() {
-		setLoading(false);
-		setIframeLoadingCounter(c => c + 1);
-
-		const iframeDocument = iframeRef.current.contentDocument;
-		const iframeWindow = iframeRef.current.contentWindow;
-
-		if (iframeDocument && iframeWindow) {
-			if (iframeWindow.Liferay && iframeWindow.Liferay.on) {
-				iframeWindow.Liferay.on('endNavigate', e => {
-					e.preventDefault();
-					setIframeLoadingCounter(c => c + 1);
-				});
-			}
-		}
-	}
-
 	return (
 		<>
 			{visible && (
@@ -174,12 +144,7 @@ function Modal(props) {
 							maxHeight: '100%'
 						}}
 					>
-						<iframe
-							onLoad={handleIframeLoad}
-							ref={iframeRef}
-							src={url}
-							title={title}
-						/>
+						<iframe src={url} title={title} />
 						{loading && (
 							<div className="loader-container">
 								<ClayLoadingIndicator />

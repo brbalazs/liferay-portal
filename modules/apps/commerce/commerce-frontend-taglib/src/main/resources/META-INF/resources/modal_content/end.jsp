@@ -62,6 +62,8 @@
 		closeModal(true);
 	</c:if>
 
+	window.parent.Liferay.fire(events.IS_LOADING_MODAL, {isLoading: false});
+
 	document.querySelectorAll('.modal-closer').forEach(function(trigger) {
 		trigger.addEventListener('click', function(e) {
 			e.preventDefault();
@@ -76,7 +78,7 @@
 	function handleSubmit() {
 		window.parent.Liferay.fire(events.IS_LOADING_MODAL, {isLoading: true});
 
-		let form = Liferay.Form.get(iframeForm.id);
+		var form = Liferay.Form.get(iframeForm.id);
 
 		form.formValidator.validate();
 
