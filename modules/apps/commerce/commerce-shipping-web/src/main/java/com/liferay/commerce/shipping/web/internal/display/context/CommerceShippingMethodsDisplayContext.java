@@ -18,6 +18,7 @@ import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionService;
 import com.liferay.commerce.shipping.web.internal.display.context.util.CommerceShippingMethodRequestHelper;
@@ -37,12 +38,14 @@ public class CommerceShippingMethodsDisplayContext {
 
 	public CommerceShippingMethodsDisplayContext(
 		CommerceChannelLocalService commerceChannelLocalService,
+		CommerceCountryService commerceCountryService,
 		CommerceShippingEngineRegistry commerceShippingEngineRegistry,
 		CommerceShippingFixedOptionService commerceShippingFixedOptionService,
 		CommerceShippingMethodService commerceShippingMethodService,
 		HttpServletRequest httpServletRequest) {
 
 		_commerceChannelLocalService = commerceChannelLocalService;
+		_commerceCountryService = commerceCountryService;
 		_commerceShippingEngineRegistry = commerceShippingEngineRegistry;
 		_commerceShippingFixedOptionService =
 			commerceShippingFixedOptionService;
@@ -63,6 +66,11 @@ public class CommerceShippingMethodsDisplayContext {
 		return ParamUtil.getLong(
 			_commerceShippingMethodRequestHelper.getRequest(),
 			"commerceChannelId");
+	}
+
+	public int getCommerceCountriesCount() throws PortalException {
+		return _commerceCountryService.getCommerceCountriesCount(
+			_commerceShippingMethodRequestHelper.getCompanyId());
 	}
 
 	public CommerceShippingMethod getCommerceShippingMethod()
@@ -133,6 +141,7 @@ public class CommerceShippingMethodsDisplayContext {
 	}
 
 	private final CommerceChannelLocalService _commerceChannelLocalService;
+	private final CommerceCountryService _commerceCountryService;
 	private final CommerceShippingEngineRegistry
 		_commerceShippingEngineRegistry;
 	private final CommerceShippingFixedOptionService
