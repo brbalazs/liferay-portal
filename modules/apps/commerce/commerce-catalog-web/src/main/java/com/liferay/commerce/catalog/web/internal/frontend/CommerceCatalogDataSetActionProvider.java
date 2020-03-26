@@ -100,8 +100,9 @@ public class CommerceCatalogDataSetActionProvider
 						LanguageUtil.get(httpServletRequest, "permissions"),
 						StringPool.BLANK, false, false);
 
-				permissionsClayDataSetAction.setTarget(ClayMenuActionItem.
-					CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS);
+				permissionsClayDataSetAction.setTarget(
+					ClayMenuActionItem.
+						CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS);
 
 				clayDataSetActions.add(permissionsClayDataSetAction);
 			}
