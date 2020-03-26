@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.nio.charset.Charset;
 
 import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.Objects;
 
 import javax.portlet.ActionRequest;
@@ -171,6 +172,10 @@ public abstract class BaseAnalyticsMVCActionCommand
 		Dictionary<String, Object> configurationProperties =
 			analyticsConfigurationTracker.getAnalyticsConfigurationProperties(
 				themeDisplay.getCompanyId());
+
+		if (configurationProperties == null) {
+			configurationProperties = new Hashtable<>();
+		}
 
 		updateConfigurationProperties(actionRequest, configurationProperties);
 
