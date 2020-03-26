@@ -16,10 +16,14 @@ package com.liferay.commerce.frontend.clay.data.set;
 
 /**
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 public class ClayDataSetConstants {
 
 	public static final String CLAY_DATA_SET_CONTENT_RENDERER_LIST = "list";
+
+	public static final String CLAY_DATA_SET_CONTENT_RENDERER_SELECTABLE_TABLE =
+		"selectableTable";
 
 	public static final String CLAY_DATA_SET_CONTENT_RENDERER_TABLE = "table";
 
