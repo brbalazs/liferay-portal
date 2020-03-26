@@ -118,7 +118,6 @@ public class CommerceOrderItemLocalServiceUtil {
 	 * @return the commerce order item that was removed
 	 * @throws PortalException
 	 */
-	@Deprecated
 	public static com.liferay.commerce.model.CommerceOrderItem
 			deleteCommerceOrderItem(
 				com.liferay.commerce.model.CommerceOrderItem commerceOrderItem)

@@ -115,7 +115,6 @@ public class CommerceOrderItemLocalServiceWrapper
 	 * @return the commerce order item that was removed
 	 * @throws PortalException
 	 */
-	@Deprecated
 	@Override
 	public com.liferay.commerce.model.CommerceOrderItem deleteCommerceOrderItem(
 			com.liferay.commerce.model.CommerceOrderItem commerceOrderItem)
