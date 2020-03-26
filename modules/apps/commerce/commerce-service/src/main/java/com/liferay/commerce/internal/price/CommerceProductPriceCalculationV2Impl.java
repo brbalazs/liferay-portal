@@ -536,8 +536,6 @@ public class CommerceProductPriceCalculationV2Impl
 
 		BigDecimal commercePrice = commercePriceEntry.getPrice();
 
-		CPInstance cpInstance = commercePriceEntry.getCPInstance();
-
 		CommercePriceList commercePriceList =
 			_commercePriceListLocalService.getCommercePriceList(
 				commercePriceEntry.getCommercePriceListId());
@@ -545,6 +543,8 @@ public class CommerceProductPriceCalculationV2Impl
 		CommercePriceList modifierCommercePriceList =
 			_commercePriceListLocalService.getCommercePriceList(
 				commercePriceListId);
+
+		CPInstance cpInstance = commercePriceEntry.getCPInstance();
 
 		CommerceCurrency commerceCurrency =
 			_commerceCurrencyLocalService.getCommerceCurrency(
