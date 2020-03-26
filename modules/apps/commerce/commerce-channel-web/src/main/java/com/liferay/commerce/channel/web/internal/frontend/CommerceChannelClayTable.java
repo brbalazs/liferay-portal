@@ -15,6 +15,7 @@
 package com.liferay.commerce.channel.web.internal.frontend;
 
 import com.liferay.commerce.channel.web.internal.model.Channel;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -126,7 +127,7 @@ public class CommerceChannelClayTable
 						LanguageUtil.get(httpServletRequest, "permissions"),
 						StringPool.BLANK, false, false);
 
-				permissionsClayDataSetAction.setTarget("modal");
+				permissionsClayDataSetAction.setTarget(ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS);
 
 				clayTableActions.add(permissionsClayDataSetAction);
 			}

@@ -15,6 +15,7 @@
 package com.liferay.commerce.catalog.web.internal.frontend;
 
 import com.liferay.commerce.catalog.web.internal.model.Catalog;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.product.constants.CPPortletKeys;
@@ -99,7 +100,8 @@ public class CommerceCatalogDataSetActionProvider
 						LanguageUtil.get(httpServletRequest, "permissions"),
 						StringPool.BLANK, false, false);
 
-				permissionsClayDataSetAction.setTarget("modal");
+				permissionsClayDataSetAction.setTarget(ClayMenuActionItem.
+					CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS);
 
 				clayDataSetActions.add(permissionsClayDataSetAction);
 			}

@@ -33,3 +33,16 @@ export function resolveModalHeight(size) {
 		? MODAL_HEIGHT_MAP.INITIAL
 		: MODAL_HEIGHT_MAP[size];
 }
+
+export function openPermissionsModal(uri) {
+	Liferay.Util.openWindow({
+		dialog: {
+			destroyOnHide: true
+		},
+		dialogIframe: {
+			bodyCssClass: 'dialog-with-footer'
+		},
+		title: Liferay.Language.get('permissions'),
+		uri
+	});
+}

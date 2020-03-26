@@ -18,6 +18,7 @@ export const ACTION_ITEM_TARGETS = {
 	MODAL: 'modal',
 	MODAL_FULL_SCREEN: 'modal-full-screen',
 	MODAL_LARGE: 'modal-lg',
+	MODAL_PERMISSIONS: 'modal-permissions',
 	MODAL_SMALL: 'modal-sm',
 	SIDE_PANEL: 'sidePanel'
 };

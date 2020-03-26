@@ -21,8 +21,14 @@ import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
 
 import {formatActionUrl} from '../../../utilities/index.es';
-import {resolveModalSize} from '../../../utilities/modals/index';
+import {
+	openPermissionsModal,
+	resolveModalSize
+} from '../../../utilities/modals/index';
+import {ACTION_ITEM_TARGETS} from '../../../utilities/actionItems/constants';
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
+
+const { MODAL_PERMISSIONS } = ACTION_ITEM_TARGETS;
 
 function isNotALink(target, onClick) {
 	return Boolean((target && target !== 'link') || onClick);
@@ -77,11 +83,18 @@ function ActionsDropdownRenderer(props) {
 
 	function handleAction({method, onClick, size, target, title, url}) {
 		if (target.includes('modal')) {
-			openModal({
-				size: resolveModalSize(target),
-				title,
-				url
-			});
+			switch(target) {
+				case MODAL_PERMISSIONS:
+					openPermissionsModal(url);
+					break;
+				default:
+					openModal({
+						size: resolveModalSize(target),
+						title,
+						url
+					});
+					break;
+			}
 		}
 
 		if (target === 'sidePanel') {

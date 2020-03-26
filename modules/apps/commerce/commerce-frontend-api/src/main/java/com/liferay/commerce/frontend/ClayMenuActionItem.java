@@ -33,6 +33,9 @@ public class ClayMenuActionItem {
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE =
 		"modal-lg";
 
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS =
+		"modal-permissions";
+
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_MODAL_SMALL =
 		"modal-sm";
 
