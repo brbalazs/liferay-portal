@@ -16,15 +16,11 @@ package com.liferay.commerce.shipment.web.internal.frontend;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommercePortletKeys;
-import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.constants.CommerceShipmentDataSetConstants;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.frontend.model.ShipmentItem;
-import com.liferay.commerce.model.CommerceShipment;
-import com.liferay.commerce.model.CommerceShipmentItem;
-import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -40,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
 
@@ -51,14 +46,13 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alec Sloan
- * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_PROCESSING_SHIPMENT_ITEMS,
+	property = "commerce.data.provider.key=" + CommerceShipmentDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPPED_SHIPMENT_ITEMS,
 	service = ClayDataSetActionProvider.class
 )
-public class ProcessingCommerceShipmentItemDataSetActionProvider
+public class ShippedCommerceShipmentItemDataSetActionProvider
 	implements ClayDataSetActionProvider {
 
 	@Override
@@ -70,37 +64,13 @@ public class ProcessingCommerceShipmentItemDataSetActionProvider
 
 		ShipmentItem shipmentItem = (ShipmentItem)model;
 
-		CommerceShipmentItem commerceShipmentItem =
-			_commerceShipmentItemService.getCommerceShipmentItem(
-				shipmentItem.getShipmentItemId());
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		CommerceShipment commerceShipment =
-			commerceShipmentItem.getCommerceShipment();
-
 		if (PortalPermissionUtil.contains(
 				themeDisplay.getPermissionChecker(),
 				CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS)) {
-
-			if (commerceShipment.getStatus() ==
-					CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING) {
-
-				ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
-					StringPool.BLANK,
-					_getShipmentItemEditURL(
-						commerceShipmentItem, httpServletRequest),
-					StringPool.BLANK,
-					LanguageUtil.get(httpServletRequest, "edit"),
-					StringPool.BLANK, false, false);
-
-				editClayDataSetAction.setTarget(
-					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL);
-
-				clayDataSetActions.add(editClayDataSetAction);
-			}
 
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
@@ -143,40 +113,8 @@ public class ProcessingCommerceShipmentItemDataSetActionProvider
 		return portletURL.toString();
 	}
 
-	private String _getShipmentItemEditURL(
-		CommerceShipmentItem commerceShipmentItem,
-		HttpServletRequest httpServletRequest) {
-
-		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
-			PortletRequest.RENDER_PHASE);
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommerceShipmentItem");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter(
-			"commerceShipmentId",
-			String.valueOf(commerceShipmentItem.getCommerceShipmentId()));
-		portletURL.setParameter(
-			"commerceShipmentItemId",
-			String.valueOf(commerceShipmentItem.getCommerceShipmentItemId()));
-
-		try {
-			portletURL.setWindowState(LiferayWindowState.POP_UP);
-		}
-		catch (WindowStateException wse) {
-			_log.error(wse, wse);
-		}
-
-		return portletURL.toString();
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
-		ProcessingCommerceShipmentItemDataSetActionProvider.class);
-
-	@Reference
-	private CommerceShipmentItemService _commerceShipmentItemService;
+		ShippedCommerceShipmentItemDataSetActionProvider.class);
 
 	@Reference
 	private Portal _portal;
