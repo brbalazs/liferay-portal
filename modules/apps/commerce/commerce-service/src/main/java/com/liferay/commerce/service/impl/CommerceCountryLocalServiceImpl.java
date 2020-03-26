@@ -38,8 +38,10 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -48,6 +50,8 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -317,26 +321,26 @@ public class CommerceCountryLocalServiceImpl
 
 	@Override
 	public BaseModelSearchResult<CommerceCountry> searchCommerceCountries(
+			long companyId, Boolean active, String keywords, int start, int end,
+			Sort sort)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			companyId, active, keywords, start, end, sort);
+
+		return _searchCommerceCountries(searchContext);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	@Override
+	public BaseModelSearchResult<CommerceCountry> searchCommerceCountries(
 			SearchContext searchContext)
 		throws PortalException {
 
-		Indexer<CommerceCountry> indexer =
-			IndexerRegistryUtil.nullSafeGetIndexer(CommerceCountry.class);
-
-		for (int i = 0; i < 10; i++) {
-			Hits hits = indexer.search(searchContext, _SELECTED_FIELD_NAMES);
-
-			List<CommerceCountry> commerceCountries = getCommerceCountries(
-				hits);
-
-			if (commerceCountries != null) {
-				return new BaseModelSearchResult<>(
-					commerceCountries, hits.getLength());
-			}
-		}
-
-		throw new SearchException(
-			"Unable to fix the search index after 10 attempts");
+		return _searchCommerceCountries(searchContext);
 	}
 
 	@Override
@@ -391,6 +395,44 @@ public class CommerceCountryLocalServiceImpl
 		commerceCountry.setChannelFilterEnabled(enable);
 
 		return commerceCountryPersistence.update(commerceCountry);
+	}
+
+	protected SearchContext buildSearchContext(
+		long companyId, Boolean active, String keywords, int start, int end,
+		Sort sort) {
+
+		SearchContext searchContext = new SearchContext();
+
+		Map<String, Serializable> attributes = new HashMap<>();
+
+		attributes.put("active", active);
+
+		attributes.put(Field.ENTRY_CLASS_PK, keywords);
+		attributes.put(Field.NAME, keywords);
+		attributes.put("numericISOCode", keywords);
+		attributes.put("threeLettersISOCode", keywords);
+		attributes.put("twoLettersISOCode", keywords);
+
+		searchContext.setAttributes(attributes);
+
+		searchContext.setCompanyId(companyId);
+		searchContext.setStart(start);
+		searchContext.setEnd(end);
+
+		if (Validator.isNotNull(keywords)) {
+			searchContext.setKeywords(keywords);
+		}
+
+		QueryConfig queryConfig = searchContext.getQueryConfig();
+
+		queryConfig.setHighlightEnabled(false);
+		queryConfig.setScoreEnabled(false);
+
+		if (sort != null) {
+			searchContext.setSorts(new Sort[] {sort});
+		}
+
+		return searchContext;
 	}
 
 	protected List<CommerceCountry> getCommerceCountries(Hits hits)
@@ -451,6 +493,29 @@ public class CommerceCountryLocalServiceImpl
 
 			throw new CommerceCountryThreeLettersISOCodeException();
 		}
+	}
+
+	private BaseModelSearchResult<CommerceCountry> _searchCommerceCountries(
+			SearchContext searchContext)
+		throws PortalException {
+
+		Indexer<CommerceCountry> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(CommerceCountry.class);
+
+		for (int i = 0; i < 10; i++) {
+			Hits hits = indexer.search(searchContext, _SELECTED_FIELD_NAMES);
+
+			List<CommerceCountry> commerceCountries = getCommerceCountries(
+				hits);
+
+			if (commerceCountries != null) {
+				return new BaseModelSearchResult<>(
+					commerceCountries, hits.getLength());
+			}
+		}
+
+		throw new SearchException(
+			"Unable to fix the search index after 10 attempts");
 	}
 
 	private static final String[] _SELECTED_FIELD_NAMES = {
