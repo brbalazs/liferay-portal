@@ -16,9 +16,6 @@ package com.liferay.commerce.frontend.taglib.servlet.taglib;
 
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
-import com.liferay.commerce.frontend.CommerceDataProviderRegistry;
-import com.liferay.commerce.frontend.FilterFactoryRegistry;
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDataJSONBuilder;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayViewSerializer;
 import com.liferay.commerce.frontend.taglib.internal.model.ClayPaginationEntry;
 import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
@@ -143,13 +140,8 @@ public class DatasetDisplayTag extends IncludeTag {
 
 	@Override
 	public void setPageContext(PageContext pageContext) {
-		_clayDataSetDataJSONBuilder =
-			ServletContextUtil.getClayTableDataJSONBuilder();
 		_clayDataSetDisplayViewSerializer =
 			ServletContextUtil.getClayDataSetDisplayViewSerializer();
-		_commerceDataProviderRegistry =
-			ServletContextUtil.getCommerceDataProviderRegistry();
-		_filterFactoryRegistry = ServletContextUtil.getFilterFactoryRegistry();
 
 		super.setPageContext(pageContext);
 
@@ -180,6 +172,10 @@ public class DatasetDisplayTag extends IncludeTag {
 		_showManagementBar = showManagementBar;
 	}
 
+	public void setShowPagination(boolean showPagination) {
+		_showPagination = showPagination;
+	}
+
 	public void setShowSearch(boolean showSearch) {
 		_showSearch = showSearch;
 	}
@@ -194,18 +190,14 @@ public class DatasetDisplayTag extends IncludeTag {
 
 		_bulkActions = new ArrayList<>();
 		_clayCreationMenu = new ClayCreationMenu();
-		_clayDataSetDataJSONBuilder = null;
 		_clayDataSetDisplayViewsContext = null;
 		_clayDataSetDisplayViewSerializer = null;
-		_commerceDataProviderRegistry = null;
 		_contextParams = new HashMap<>();
 		_dataProviderKey = null;
 		_dataSetAPI = null;
 		_deltaParam = null;
-		_filterFactoryRegistry = null;
 		_formId = null;
 		_id = null;
-		_items = null;
 		_itemsPerPage = 0;
 		_namespace = null;
 		_pageNumber = 0;
@@ -220,7 +212,6 @@ public class DatasetDisplayTag extends IncludeTag {
 		_showSearch = true;
 		_spritemap = null;
 		_style = "default";
-		_totalItems = 0;
 	}
 
 	protected List<ClayPaginationEntry> getClayPaginationEntries() {
@@ -241,17 +232,6 @@ public class DatasetDisplayTag extends IncludeTag {
 		}
 
 		return clayPaginationEntries;
-	}
-
-	protected int getMinPageSize() {
-		int[] searchContainerPageDeltaValues =
-			PropsValues.SEARCH_CONTAINER_PAGE_DELTA_VALUES;
-
-		if (searchContainerPageDeltaValues.length > 0) {
-			return searchContainerPageDeltaValues[0];
-		}
-
-		return 5;
 	}
 
 	@Override
@@ -341,18 +321,14 @@ public class DatasetDisplayTag extends IncludeTag {
 
 	private List<ClayMenuActionItem> _bulkActions = new ArrayList<>();
 	private ClayCreationMenu _clayCreationMenu = new ClayCreationMenu();
-	private ClayDataSetDataJSONBuilder _clayDataSetDataJSONBuilder;
 	private Object _clayDataSetDisplayViewsContext;
 	private ClayDataSetDisplayViewSerializer _clayDataSetDisplayViewSerializer;
-	private CommerceDataProviderRegistry _commerceDataProviderRegistry;
 	private Map<String, String> _contextParams = new HashMap<>();
 	private String _dataProviderKey;
 	private String _dataSetAPI;
 	private String _deltaParam;
-	private FilterFactoryRegistry _filterFactoryRegistry;
 	private String _formId;
 	private String _id;
-	private Object _items;
 	private int _itemsPerPage;
 	private String _namespace;
 	private int _pageNumber;
@@ -367,6 +343,5 @@ public class DatasetDisplayTag extends IncludeTag {
 	private boolean _showSearch = true;
 	private String _spritemap;
 	private String _style = "default";
-	private int _totalItems;
 
 }

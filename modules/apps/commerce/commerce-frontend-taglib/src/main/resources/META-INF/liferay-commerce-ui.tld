@@ -181,6 +181,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>showPagination</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>showSearch</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
