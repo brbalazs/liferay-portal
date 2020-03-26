@@ -26,7 +26,6 @@ import com.liferay.commerce.model.CommerceOrderNote;
 import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.notification.model.CommerceNotificationQueueEntry;
-import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
@@ -218,19 +217,6 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		return null;
-	}
-
-	public String getCommerceNotificationTemplateType() throws PortalException {
-		CommerceNotificationQueueEntry commerceNotificationQueueEntry =
-			getCommerceNotificationQueueEntry();
-
-		CommerceNotificationTemplate commerceNotificationTemplate =
-			_commerceNotificationTemplateService.
-				getCommerceNotificationTemplate(
-					commerceNotificationQueueEntry.
-						getCommerceNotificationTemplateId());
-
-		return commerceNotificationTemplate.getType();
 	}
 
 	public CommerceOrder getCommerceOrder() {
@@ -492,9 +478,11 @@ public class CommerceOrderEditDisplayContext {
 				}
 			}
 			else if ((commerceOrderStatus.getKey() ==
-						CommerceOrderConstants.ORDER_STATUS_PENDING) &&
-					 (_commerceOrder.getPaymentStatus() ==
-						 CommerceOrderConstants.PAYMENT_STATUS_PENDING)) {
+						CommerceOrderConstants.ORDER_STATUS_PROCESSING) ||
+					 ((commerceOrderStatus.getKey() ==
+						 CommerceOrderConstants.ORDER_STATUS_PENDING) &&
+					  (_commerceOrder.getPaymentStatus() ==
+						  CommerceOrderConstants.PAYMENT_STATUS_PENDING))) {
 
 				label = "accept-order";
 			}
