@@ -182,17 +182,12 @@ export function getFakeJsModule() {
 }
 
 export const fetchHeaders = new Headers({
-	'x-csrf-token': window.Liferay && window.Liferay.authToken,
-	...(!window.Liferay
-		? {
-				Authorization: `Basic ${window.btoa('test@liferay.com:test')}`
-		  }
-		: {})
+	'x-csrf-token': window.Liferay && window.Liferay.authToken
 });
 
 export const fetchParams = {
 	credentials: 'include',
-	headers: fetchHeaders
+	headers: (window.Liferay && window.Liferay.staticEnvHeaders) || fetchHeaders
 };
 
 export function createSortingString(values) {
@@ -243,34 +238,6 @@ export function loadData(
 	const url = `${apiUrl}${apiUrl.indexOf('?') > -1 ? '&' : '?'}${urlParams}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
-}
-
-if (!window.Liferay) {
-	window.Liferay = {
-		Language: {
-			get: v => v
-		},
-		detach: (name, fn) => {
-			window.removeEventListener(name, fn);
-		},
-		fire: (name, payload) => {
-			var e = document.createEvent('CustomEvent');
-			e.initCustomEvent(name);
-			if (payload) {
-				Object.keys(payload).forEach(key => {
-					e[key] = payload[key];
-				});
-			}
-			window.dispatchEvent(e);
-		},
-		on: (name, fn) => {
-			window.addEventListener(name, fn);
-		}
-	};
-
-	window.themeDisplay = {
-		getLanguageId: () => 'en_US'
-	};
 }
 
 export const getJsModule =
