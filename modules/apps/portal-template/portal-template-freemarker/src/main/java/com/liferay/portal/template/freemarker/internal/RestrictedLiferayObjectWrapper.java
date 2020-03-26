@@ -144,6 +144,11 @@ public class RestrictedLiferayObjectWrapper extends LiferayObjectWrapper {
 							cnfe);
 					}
 
+					if (restrictedClassName.endsWith(StringPool.STAR)) {
+						restrictedClassName = restrictedClassName.substring(
+							0, restrictedClassName.length() - 1);
+					}
+
 					_restrictedPackageNames.add(restrictedClassName);
 				}
 			}
