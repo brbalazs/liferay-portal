@@ -48,16 +48,6 @@ public interface CommercePricingConfiguration {
 	public String commercePromotionDiscovery();
 
 	@Meta.AD(
-		deflt = "" + CommercePricingConstants.TAX_INCLUDED_IN_FINAL_PRICE,
-		name = "tax-display",
-		optionLabels = {
-			"tax-included-in-final-price", "tax-excluded-from-final-price"
-		},
-		optionValues = {"0", "1"}, required = false
-	)
-	public int commerceDisplayTax();
-
-	@Meta.AD(
 		deflt = "" + CommercePricingConstants.DISCOUNT_CHAIN_METHOD,
 		name = "discount-application-strategy", required = false
 	)
