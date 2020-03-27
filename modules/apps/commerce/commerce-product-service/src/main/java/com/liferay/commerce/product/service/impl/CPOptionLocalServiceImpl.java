@@ -18,6 +18,7 @@ import com.liferay.commerce.product.configuration.CPOptionConfiguration;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.constants.CPField;
 import com.liferay.commerce.product.exception.CPOptionKeyException;
+import com.liferay.commerce.product.exception.CPOptionSKUContributorException;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.base.CPOptionLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -369,10 +370,10 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 
 	protected void validateDDMFormFieldTypeName(
 			String ddmFormFieldTypeName, boolean skuContributor)
-		throws ConfigurationException {
+		throws PortalException {
 
 		if (Validator.isNull(ddmFormFieldTypeName)) {
-			throw new IllegalArgumentException("Illegal DDM form field type");
+			throw new CPOptionSKUContributorException();
 		}
 
 		CPOptionConfiguration cpOptionConfiguration =
@@ -392,10 +393,7 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 			return;
 		}
 
-		throw new IllegalArgumentException(
-			String.format(
-				"Illegal DDM form field type {%s} for SKU contributor {%s}",
-				ddmFormFieldTypeName, skuContributor));
+		throw new CPOptionSKUContributorException();
 	}
 
 	private CPOptionConfiguration _getCPOptionConfiguration()
