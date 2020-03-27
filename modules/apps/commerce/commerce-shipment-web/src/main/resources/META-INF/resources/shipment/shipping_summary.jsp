@@ -204,5 +204,6 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 		namespace="<%= renderResponse.getNamespace() %>"
 		pageNumber="<%= 1 %>"
 		portletURL="<%= currentURLObj %>"
+		showSearch="<%= false %>"
 	/>
 </commerce-ui:panel>
