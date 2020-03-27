@@ -289,6 +289,10 @@ public interface CommerceShipmentLocalService
 		long[] groupIds, long commerceAddressId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int[] getCommerceShipmentStatusesByCommerceOrderId(
+		long commerceOrderId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**

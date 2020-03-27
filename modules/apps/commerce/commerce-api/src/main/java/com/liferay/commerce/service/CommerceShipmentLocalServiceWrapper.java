@@ -398,6 +398,14 @@ public class CommerceShipmentLocalServiceWrapper
 	}
 
 	@Override
+	public int[] getCommerceShipmentStatusesByCommerceOrderId(
+		long commerceOrderId) {
+
+		return _commerceShipmentLocalService.
+			getCommerceShipmentStatusesByCommerceOrderId(commerceOrderId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 

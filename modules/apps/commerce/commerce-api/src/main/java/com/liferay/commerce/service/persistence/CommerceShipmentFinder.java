@@ -28,4 +28,7 @@ public interface CommerceShipmentFinder {
 	public java.util.List<com.liferay.commerce.model.CommerceShipment>
 		findByCommerceOrderId(long commerceOrderId, int start, int end);
 
+	public int[] findCommerceShipmentStatusesByCommerceOrderId(
+		long commerceOrderId);
+
 }

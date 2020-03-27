@@ -128,13 +128,13 @@ public class CommerceShippingMethodServiceSoap {
 		}
 	}
 
-	public static void deleteCommerceAddressRestrictions(
-			long commerceShippingMethodId)
+	public static void deleteCommerceAddressRestriction(
+			long commerceAddressRestrictionId)
 		throws RemoteException {
 
 		try {
-			CommerceShippingMethodServiceUtil.deleteCommerceAddressRestrictions(
-				commerceShippingMethodId);
+			CommerceShippingMethodServiceUtil.deleteCommerceAddressRestriction(
+				commerceAddressRestrictionId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -143,13 +143,13 @@ public class CommerceShippingMethodServiceSoap {
 		}
 	}
 
-	public static void deleteCommerceAddressRestriction(
-			long commerceAddressRestrictionId)
+	public static void deleteCommerceAddressRestrictions(
+			long commerceShippingMethodId)
 		throws RemoteException {
 
 		try {
-			CommerceShippingMethodServiceUtil.deleteCommerceAddressRestriction(
-				commerceAddressRestrictionId);
+			CommerceShippingMethodServiceUtil.deleteCommerceAddressRestrictions(
+				commerceShippingMethodId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

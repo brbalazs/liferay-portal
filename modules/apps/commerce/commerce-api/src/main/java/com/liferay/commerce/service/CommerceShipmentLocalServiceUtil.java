@@ -366,6 +366,13 @@ public class CommerceShipmentLocalServiceUtil {
 			groupIds, commerceAddressId);
 	}
 
+	public static int[] getCommerceShipmentStatusesByCommerceOrderId(
+		long commerceOrderId) {
+
+		return getService().getCommerceShipmentStatusesByCommerceOrderId(
+			commerceOrderId);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
