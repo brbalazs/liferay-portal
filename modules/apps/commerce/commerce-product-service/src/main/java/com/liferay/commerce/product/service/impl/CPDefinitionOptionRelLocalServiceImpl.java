@@ -627,7 +627,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		for (CPInstance cpInstance : cpInstances) {
 			if (!cpInstanceOptionValueRelLocalService.
-					hasCPInstanceCPDefinitionOptionValueRel(
+					hasCPInstanceCPDefinitionOptionRel(
 						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
 						cpInstance.getCPInstanceId())) {
 
