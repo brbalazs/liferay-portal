@@ -61,6 +61,14 @@ if (commerceChannel != null) {
 				bodyClasses="flex-fill"
 				title='<%= LanguageUtil.get(request, "details") %>'
 			>
+				<commerce-ui:info-box
+					title='<%= LanguageUtil.get(request, "type") %>'
+				>
+					<div class="item mb-4 pl-4">
+						<liferay-ui:message key="site" />
+					</div>
+				</commerce-ui:info-box>
+
 				<liferay-ui:search-container
 					curParam="commerceChannelSiteCur"
 					headerNames="null,null"

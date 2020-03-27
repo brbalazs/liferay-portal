@@ -78,7 +78,7 @@ public class CommerceChannelSiteScreenNavigationEntry
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, getCategoryKey());
+		return LanguageUtil.get(resourceBundle, "type");
 	}
 
 	@Override
