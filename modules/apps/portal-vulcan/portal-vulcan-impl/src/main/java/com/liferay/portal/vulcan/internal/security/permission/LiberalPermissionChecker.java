@@ -25,7 +25,8 @@ import com.liferay.portal.kernel.security.permission.UserBag;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.util.PropsValues;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public class LiberalPermissionChecker implements PermissionChecker {
 	public List<Long> getOwnerResourceBlockIds(
 		long companyId, long groupId, String name, String actionId) {
 
-		return Collections.<Long>emptyList();
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class LiberalPermissionChecker implements PermissionChecker {
 
 	@Override
 	public Map<Object, Object> getPermissionChecksMap() {
-		return Collections.emptyMap();
+		return new HashMap<>();
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class LiberalPermissionChecker implements PermissionChecker {
 		long companyId, long groupId, long userId, String name,
 		String actionId) {
 
-		return Collections.<Long>emptyList();
+		return new ArrayList<>();
 	}
 
 	@Override
