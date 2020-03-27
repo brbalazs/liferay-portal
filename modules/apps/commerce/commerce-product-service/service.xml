@@ -1145,6 +1145,7 @@
 		<exception>CPDefinitionMetaKeywords</exception>
 		<exception>CPDefinitionMetaTitle</exception>
 		<exception>CPDefinitionNameDefaultLanguage</exception>
+		<exception>CPDefinitionOptionSKUContributor</exception>
 		<exception>CPDefinitionOptionValueRelKey</exception>
 		<exception>CPDefinitionProductTypeName</exception>
 		<exception>CPDisplayLayoutEntry</exception>
@@ -1157,6 +1158,7 @@
 		<exception>CPMeasurementUnitKey</exception>
 		<exception>CPOptionCategoryKey</exception>
 		<exception>CPOptionKey</exception>
+		<exception>CPOptionSKUContributor</exception>
 		<exception>CPOptionValueKey</exception>
 		<exception>CPSpecificationOptionKey</exception>
 		<exception>CPSpecificationOptionTitle</exception>
