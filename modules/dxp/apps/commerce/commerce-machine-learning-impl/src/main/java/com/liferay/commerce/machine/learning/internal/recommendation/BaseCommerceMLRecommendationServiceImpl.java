@@ -161,7 +161,7 @@ public abstract class BaseCommerceMLRecommendationServiceImpl
 
 		searchRequest.setIndexNames(new String[] {indexName});
 
-		searchRequest.setSize(_DEFAULT_FETCH_SIZE);
+		searchRequest.setSize(Integer.valueOf(_DEFAULT_FETCH_SIZE));
 
 		TermFilter companyTermFilter = new TermFilter(
 			Field.COMPANY_ID, String.valueOf(companyId));
