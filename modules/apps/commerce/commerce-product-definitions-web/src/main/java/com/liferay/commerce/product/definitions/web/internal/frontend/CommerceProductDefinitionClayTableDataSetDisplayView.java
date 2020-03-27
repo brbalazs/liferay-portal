@@ -49,6 +49,7 @@ public class CommerceProductDefinitionClayTableDataSetDisplayView
 			"name", "name");
 
 		nameField.setContentRenderer("actionLink");
+		nameField.setExpand(true);
 
 		clayTableSchemaBuilder.addField("type", "type");
 

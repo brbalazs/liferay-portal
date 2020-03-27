@@ -44,6 +44,7 @@ public class CommerceCatalogClayTableDataSetDisplayView
 			"name", "name");
 
 		nameField.setContentRenderer("actionLink");
+		nameField.setExpand(true);
 
 		clayTableSchemaBuilder.addField(
 			"defaultLanguageId", "default-language");
