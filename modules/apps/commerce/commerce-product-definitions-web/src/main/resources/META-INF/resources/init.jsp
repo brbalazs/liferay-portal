@@ -60,6 +60,7 @@ page import="com.liferay.commerce.product.exception.CPDefinitionMetaDescriptionE
 page import="com.liferay.commerce.product.exception.CPDefinitionMetaKeywordsException" %><%@
 page import="com.liferay.commerce.product.exception.CPDefinitionMetaTitleException" %><%@
 page import="com.liferay.commerce.product.exception.CPDefinitionNameDefaultLanguageException" %><%@
+page import="com.liferay.commerce.product.exception.CPDefinitionOptionSKUContributorException" %><%@
 page import="com.liferay.commerce.product.exception.CPDefinitionOptionValueRelKeyException" %><%@
 page import="com.liferay.commerce.product.exception.CPDefinitionProductTypeNameException" %><%@
 page import="com.liferay.commerce.product.exception.CPDisplayLayoutEntryException" %><%@
