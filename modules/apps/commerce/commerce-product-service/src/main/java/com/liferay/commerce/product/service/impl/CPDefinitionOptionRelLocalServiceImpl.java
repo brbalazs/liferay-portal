@@ -14,6 +14,9 @@
 
 package com.liferay.commerce.product.service.impl;
 
+import com.liferay.commerce.product.configuration.CPOptionConfiguration;
+import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.exception.CPDefinitionOptionSKUContributorException;
 import com.liferay.commerce.product.exception.DuplicateCPDefinitionOptionRelKeyException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -30,6 +33,8 @@ import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
@@ -44,7 +49,9 @@ import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
@@ -96,6 +103,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		throws PortalException {
 
 		// Commerce product definition option rel
+
+		validateDDMFormFieldTypeName(ddmFormFieldTypeName, skuContributor);
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
 		long groupId = serviceContext.getScopeGroupId();
@@ -489,6 +498,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
+		validateDDMFormFieldTypeName(ddmFormFieldTypeName, skuContributor);
+
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionRelPersistence.findByPrimaryKey(
 				cpDefinitionOptionRelId);
@@ -704,6 +715,42 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		}
 	}
 
+	protected void validateDDMFormFieldTypeName(
+			String ddmFormFieldTypeName, boolean skuContributor)
+		throws PortalException {
+
+		if (Validator.isNull(ddmFormFieldTypeName)) {
+			throw new CPDefinitionOptionSKUContributorException();
+		}
+
+		CPOptionConfiguration cpOptionConfiguration =
+			_getCPOptionConfiguration();
+
+		String[] ddmFormFieldTypesAllowed =
+			cpOptionConfiguration.ddmFormFieldTypesAllowed();
+
+		if (skuContributor) {
+			ddmFormFieldTypesAllowed =
+				cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
+		}
+
+		if (ArrayUtil.contains(
+				ddmFormFieldTypesAllowed, ddmFormFieldTypeName)) {
+
+			return;
+		}
+
+		throw new CPDefinitionOptionSKUContributorException();
+	}
+
+	private CPOptionConfiguration _getCPOptionConfiguration()
+		throws ConfigurationException {
+
+		return _configurationProvider.getConfiguration(
+			CPOptionConfiguration.class,
+			new SystemSettingsLocator(CPConstants.CP_OPTION_SERVICE_NAME));
+	}
+
 	private boolean _hasCPDefinitionSKUContributorCPDefinitionOptionRel(
 		long cpDefinitionId) {
 
@@ -720,6 +767,9 @@ public class CPDefinitionOptionRelLocalServiceImpl
 	private static final String[] _SELECTED_FIELD_NAMES = {
 		Field.ENTRY_CLASS_PK, Field.COMPANY_ID, Field.GROUP_ID, Field.UID
 	};
+
+	@ServiceReference(type = ConfigurationProvider.class)
+	private ConfigurationProvider _configurationProvider;
 
 	@ServiceReference(type = JSONFactory.class)
 	private JSONFactory _jsonFactory;
