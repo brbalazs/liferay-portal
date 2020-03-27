@@ -1531,8 +1531,7 @@ public class CPDefinitionLocalServiceImpl
 		throws PortalException {
 
 		checkCPInstances(
-			serviceContext.getUserId(), cpDefinitionId, ignoreSKUCombinations,
-			serviceContext);
+			serviceContext.getUserId(), cpDefinitionId, ignoreSKUCombinations);
 
 		CPDefinition cpDefinition = cpDefinitionPersistence.findByPrimaryKey(
 			cpDefinitionId);
@@ -1963,8 +1962,7 @@ public class CPDefinitionLocalServiceImpl
 	}
 
 	protected void checkCPInstances(
-			long userId, long cpDefinitionId, boolean ignoreSKUCombinations,
-			ServiceContext serviceContext)
+			long userId, long cpDefinitionId, boolean ignoreSKUCombinations)
 		throws PortalException {
 
 		if (ignoreSKUCombinations) {
@@ -1997,8 +1995,7 @@ public class CPDefinitionLocalServiceImpl
 
 					cpInstanceLocalService.updateStatus(
 						userId, cpInstance.getCPInstanceId(),
-						WorkflowConstants.STATUS_INACTIVE, serviceContext,
-						Collections.emptyMap());
+						WorkflowConstants.STATUS_INACTIVE);
 				}
 			}
 		}
