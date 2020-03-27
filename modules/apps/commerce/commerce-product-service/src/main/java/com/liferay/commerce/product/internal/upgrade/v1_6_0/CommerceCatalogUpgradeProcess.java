@@ -85,9 +85,9 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 			PreparedStatement ps3 =
 				AutoBatchPreparedStatementUtil.concurrentAutoBatch(
 					connection, insertCommerceChannelRelSQL);
-			Statement s = connection.createStatement(
+			Statement s1 = connection.createStatement(
 				ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = s.executeQuery(
+			ResultSet rs = s1.executeQuery(
 				"select distinct groupId, companyId, userId, userName, " +
 					"defaultLanguageId from CPDefinition")) {
 
@@ -158,7 +158,10 @@ public class CommerceCatalogUpgradeProcess extends UpgradeProcess {
 						updateTableGroupIdSQL, "CPDefinition",
 						catalogGroup.getGroupId(), siteGroup.getGroupId()));
 
-				ResultSet cpDefinitionsResultSet = s.executeQuery(
+				Statement s2 = connection.createStatement(
+					ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+
+				ResultSet cpDefinitionsResultSet = s2.executeQuery(
 					"select distinct cpDefinitionId from CPDefinition where " +
 						"groupId = " + catalogGroup.getGroupId());
 
