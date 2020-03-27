@@ -291,6 +291,22 @@
 				CommerceOrderItem.commerceOrderId = ?
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.service.persistence.CommerceShipmentFinder.findCommerceShipmentStatusesByCommerceOrderId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceShipment.status
+			FROM
+				CommerceShipment
+			LEFT JOIN
+				CommerceShipmentItem ON
+					CommerceShipmentItem.commerceShipmentId = CommerceShipment.commerceShipmentId
+			INNER JOIN
+				CommerceOrderItem ON
+					CommerceOrderItem.commerceOrderItemId = CommerceShipmentItem.commerceOrderItemId
+			WHERE
+				CommerceOrderItem.commerceOrderId = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceShipmentItemFinder.findByCommerceOrderItemId">
 		<![CDATA[
 			SELECT

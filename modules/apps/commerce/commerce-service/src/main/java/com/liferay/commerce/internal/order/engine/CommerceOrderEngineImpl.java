@@ -18,6 +18,7 @@ import com.liferay.commerce.constants.CommerceDestinationNames;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePaymentConstants;
+import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
@@ -25,6 +26,7 @@ import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
 import com.liferay.commerce.exception.CommerceOrderShippingMethodException;
 import com.liferay.commerce.exception.CommerceOrderStatusException;
 import com.liferay.commerce.exception.CommerceOrderValidatorException;
+import com.liferay.commerce.internal.order.status.CompletedCommerceOrderStatusImpl;
 import com.liferay.commerce.internal.order.status.ShippedCommerceOrderStatusImpl;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
@@ -51,6 +53,7 @@ import com.liferay.commerce.service.CommerceAddressLocalService;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalServiceUtil;
 import com.liferay.commerce.service.CommerceOrderService;
+import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.service.CommerceShippingMethodLocalService;
 import com.liferay.commerce.stock.activity.CommerceLowStockActivity;
 import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
@@ -95,9 +98,28 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			_commerceOrderStatusRegistry.getCommerceOrderStatus(
 				ShippedCommerceOrderStatusImpl.KEY);
 
+		CommerceOrderStatus completedCommerceOrderStatus =
+			_commerceOrderStatusRegistry.getCommerceOrderStatus(
+				CompletedCommerceOrderStatusImpl.KEY);
+
+		int[] commerceShipmentStatuses =
+			_commerceShipmentLocalService.
+				getCommerceShipmentStatusesByCommerceOrderId(
+					commerceOrder.getCommerceOrderId());
+
 		if (shippedCommerceOrderStatus.isTransitionCriteriaMet(commerceOrder)) {
 			commerceOrder = transitionCommerceOrder(
 				commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED, 0);
+		}
+		else if (completedCommerceOrderStatus.isTransitionCriteriaMet(
+					commerceOrder) &&
+				 (commerceShipmentStatuses.length == 1) &&
+				 (commerceShipmentStatuses[0] ==
+					 CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED)) {
+
+			commerceOrder = transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_COMPLETED,
+				0);
 		}
 		else {
 			commerceOrder = transitionCommerceOrder(
@@ -497,6 +519,9 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 	@Reference
 	private CommercePaymentMethodRegistry _commercePaymentMethodRegistry;
+
+	@Reference
+	private CommerceShipmentLocalService _commerceShipmentLocalService;
 
 	@Reference
 	private CommerceShippingHelper _commerceShippingHelper;

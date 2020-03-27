@@ -48,6 +48,7 @@ import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -273,6 +274,14 @@ public class CommerceShipmentLocalServiceImpl
 
 		return commerceShipmentPersistence.countByG_C(
 			groupIds, commerceAddressId);
+	}
+
+	@Override
+	public int[] getCommerceShipmentStatusesByCommerceOrderId(
+		long commerceOrderId) {
+
+		return commerceShipmentFinder.
+			findCommerceShipmentStatusesByCommerceOrderId(commerceOrderId);
 	}
 
 	@Override
@@ -511,7 +520,7 @@ public class CommerceShipmentLocalServiceImpl
 
 		commerceShipment.setStatus(status);
 
-		if (status == CommerceShipmentConstants.SHIPMENT_STATUS_SHIPPED) {
+		if (ArrayUtil.contains(messageShipmentStatuses, status)) {
 			sendShipmentStatusMessage(commerceShipmentId);
 		}
 
@@ -645,5 +654,10 @@ public class CommerceShipmentLocalServiceImpl
 			throw new CommerceShipmentStatusException();
 		}
 	}
+
+	protected int[] messageShipmentStatuses = {
+		CommerceShipmentConstants.SHIPMENT_STATUS_SHIPPED,
+		CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED
+	};
 
 }

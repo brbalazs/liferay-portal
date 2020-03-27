@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Iterator;
@@ -40,6 +41,11 @@ public class CommerceShipmentFinderImpl
 
 	public static final String FIND_BY_COMMERCE_ORDER_ID =
 		CommerceShipmentFinder.class.getName() + ".findByCommerceOrderId";
+
+	public static final String
+		FIND_COMMERCE_SHIPMENT_STATUSES_BY_COMMERCE_ORDER_ID =
+			CommerceShipmentFinder.class.getName() +
+				".findCommerceShipmentStatusesByCommerceOrderId";
 
 	@Override
 	public int countByCommerceOrderId(long commerceOrderId) {
@@ -99,6 +105,39 @@ public class CommerceShipmentFinderImpl
 
 			return (List<CommerceShipment>)QueryUtil.list(
 				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	public int[] findCommerceShipmentStatusesByCommerceOrderId(
+		long commerceOrderId) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(
+				getClass(),
+				FIND_COMMERCE_SHIPMENT_STATUSES_BY_COMMERCE_ORDER_ID);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(commerceOrderId);
+
+			List<Integer> commerceShipmentStatuses =
+				(List<Integer>)QueryUtil.list(
+					q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+			return ArrayUtil.toIntArray(commerceShipmentStatuses);
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
