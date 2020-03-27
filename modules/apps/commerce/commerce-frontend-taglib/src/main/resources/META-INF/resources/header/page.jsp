@@ -271,7 +271,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 								else {
 									buttonClasses += "btn-default";
 								}
-
+								boolean submitCheck = Validator.isNull(action.getId());
 								String actionId = Validator.isNotNull(action.getId()) ? action.getId() : "header-action" + StringPool.UNDERLINE + PortalUtil.generateRandomKey(request, "taglib_step_tracker");
 								String actionHref = Validator.isNotNull(action.getHref()) ? action.getHref() : StringPool.POUND;
 							%>
@@ -284,7 +284,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 								/>
 
 								<%
-								if (Validator.isNotNull(action.getFormId())) {
+								if (submitCheck && Validator.isNotNull(action.getFormId())) {
 								%>
 
 									<aui:script>
