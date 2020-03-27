@@ -35,6 +35,7 @@ page import="com.liferay.analytics.settings.web.internal.user.AnalyticsUsersMana
 page import="com.liferay.analytics.settings.web.internal.util.AnalyticsSettingsUtil" %><%@
 page import="com.liferay.portal.kernel.dao.search.SearchContainer" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
+page import="com.liferay.portal.kernel.model.Group" %><%@
 page import="com.liferay.portal.kernel.portlet.PortletURLUtil" %><%@
 page import="com.liferay.portal.kernel.util.ArrayUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
@@ -45,7 +46,8 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.SetUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %>
 
-<%@ page import="java.util.Set" %>
+<%@ page import="java.util.List" %><%@
+page import="java.util.Set" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 
