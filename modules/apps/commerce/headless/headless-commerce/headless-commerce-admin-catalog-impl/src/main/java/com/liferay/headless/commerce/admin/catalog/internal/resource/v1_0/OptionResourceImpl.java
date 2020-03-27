@@ -30,6 +30,7 @@ import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -235,7 +236,7 @@ public class OptionResourceImpl
 			CPOption cpOption, OptionValue[] optionValues)
 		throws Exception {
 
-		if ((optionValues == null) || (optionValues.length <= 0)) {
+		if (ArrayUtil.isEmpty(optionValues)) {
 			return;
 		}
 
