@@ -69,4 +69,5 @@ public interface ExportImportServiceConfiguration {
 		name = "staging-use-virtual-host-of-the-remote-site", required = false
 	)
 	public boolean stagingUseVirtualHostForRemoteSite();
+
 }
