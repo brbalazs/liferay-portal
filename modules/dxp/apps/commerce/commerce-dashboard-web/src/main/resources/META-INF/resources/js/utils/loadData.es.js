@@ -13,7 +13,7 @@
  */
 
 /* eslint-disable require-jsdoc */
-const NULL_VALUE = 1.4e-45;
+export const NULL_VALUE = 1.4e-45;
 const headers = {
 	'Content-Type': 'application/json'
 };
@@ -124,9 +124,14 @@ export function getPredictionDate(points) {
 		  );
 }
 
+export function hasNoActualNorForecastValue({actual, forecast}) {
+	return !(actual === NULL_VALUE && forecast === NULL_VALUE);
+}
+
 export function getValuesForCategory(points, category) {
 	return points
 		.filter(isPartOfCategory(category.id))
+		.filter(hasNoActualNorForecastValue)
 		.map(formatPointForForecast);
 }
 

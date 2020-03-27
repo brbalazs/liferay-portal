@@ -29,8 +29,10 @@ import {
 	getPoints,
 	getPredictionDate,
 	getValuesForCategory,
+	hasNoActualNorForecastValue,
 	isPartOfCategory,
-	parseData
+	parseData,
+	NULL_VALUE
 } from '../loadData.es';
 import {input, output, simpleInput, simpleOutput} from '../mock/data';
 
@@ -142,6 +144,22 @@ describe('Chart loadData utils', () => {
 		expect(isPartOfCategory(1)({category: 1})).toBe(true);
 		expect(isPartOfCategory(1)({category: 2})).toBe(false);
 		expect(isPartOfCategory(2)({category: 1})).toBe(false);
+	});
+
+	it('Filters out points whose actual AND forecast values are NULL', () => {
+		const invalidSample = {
+				actual: NULL_VALUE,
+				forecast: NULL_VALUE
+			},
+			validSample = {
+				actual: 1232,
+				forecast: NULL_VALUE
+			};
+
+		const result = [invalidSample, validSample].filter(
+			hasNoActualNorForecastValue);
+
+		expect(result).toEqual([validSample]);
 	});
 
 	it('Parse data', () => {
