@@ -42,6 +42,91 @@ definition {
 			folderName = "WC Folder Name");
 	}
 
+	@priority = "4"
+	test AddMultipleTemplatesToSameStructure {
+		property testray.component.names = "Web Content Administration";
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoStructures();
+
+		AssertVisible(locator1 = "Button#PLUS");
+
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "Structure1");
+
+		for (var structureFieldName : list "Image") {
+			DynamicDataMapping.addField(
+				field = "${structureFieldName}",
+				fieldFieldLabel = "${structureFieldName}",
+				fieldName = "${structureFieldName}");
+		}
+
+		WebContentStructures.saveCP(structureName = "Structure1");
+
+		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
+
+		WebContentTemplates.addCP(
+			templateDescription = "Template for Structure1",
+			templateName = "Structure1_Template1",
+			validateStructureFields = "true");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoStructures();
+
+		AssertVisible(locator1 = "Button#PLUS");
+
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "Structure2");
+
+		for (var structureFieldName : list "Text") {
+			DynamicDataMapping.addField(
+				field = "${structureFieldName}",
+				fieldFieldLabel = "${structureFieldName}",
+				fieldName = "${structureFieldName}");
+		}
+
+		WebContentStructures.saveCP(structureName = "Structure2");
+
+		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
+
+		WebContentTemplates.addCP(
+			templateDescription = "First template for Structure2",
+			templateName = "Structure2_Template1",
+			validateStructureFields = "true");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoStructures();
+
+		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
+
+		WebContentTemplates.addCP(
+			templateDescription = "Second template for Structure2",
+			templateName = "Structure2_Template2",
+			validateStructureFields = "true");
+
+		Check(
+			key_rowEntry = "Structure2_Template1",
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
+
+		AssertTextEquals(
+			locator1 = "ManagementBar#NAVBAR_TEXT",
+			value1 = "1 of 2 Selected");
+	}
+
 	@priority = "5"
 	test AddStructures {
 		property testray.component.names = "Training,Web Content Administration";
@@ -174,6 +259,95 @@ definition {
 				fieldFieldLabel = "${structureFieldName}",
 				fieldName = StringUtil.replace("${structureFieldName}", " ", ""));
 		}
+	}
+
+	@priority = "4"
+	test AddStructuresWithTemplates {
+		property testray.component.names = "Web Content Administration";
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoStructures();
+
+		AssertVisible(locator1 = "Button#PLUS");
+
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "Structure1");
+
+		for (var structureFieldName : list "Image") {
+			DynamicDataMapping.addField(
+				field = "${structureFieldName}",
+				fieldFieldLabel = "${structureFieldName}",
+				fieldName = "${structureFieldName}");
+		}
+
+		WebContentStructures.saveCP(structureName = "Structure1");
+
+		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
+
+		WebContentTemplates.addCP(
+			templateDescription = "Template for Structure1",
+			templateName = "Structure1_Template1",
+			validateStructureFields = "true");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoStructures();
+
+		AssertVisible(locator1 = "Button#PLUS");
+
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "Structure2");
+
+		for (var structureFieldName : list "Text") {
+			DynamicDataMapping.addField(
+				field = "${structureFieldName}",
+				fieldFieldLabel = "${structureFieldName}",
+				fieldName = "${structureFieldName}");
+		}
+
+		WebContentStructures.saveCP(structureName = "Structure2");
+
+		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
+
+		WebContentTemplates.addCP(
+			templateDescription = "Template for Structure2",
+			templateName = "Structure2_Template1",
+			validateStructureFields = "true");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoTemplates();
+
+		WebContentTemplates.addCP(
+			templateDescription = "Template without structure",
+			templateName = "Template without structure");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoTemplates();
+
+		Check(
+			key_rowEntry = "Structure2_Template1",
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
+
+		AssertTextEquals(
+			locator1 = "ManagementBar#NAVBAR_TEXT",
+			value1 = "1 of 3 Selected");
 	}
 
 	@description = "This is a use case for LPS-77387."
@@ -1254,6 +1428,97 @@ definition {
 			version = "1.1");
 	}
 
+	@priority = "4"
+	test CorrectTemplateNumberAfterDeletion {
+		property testray.component.names = "Web Content Administration";
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoStructures();
+
+		AssertVisible(locator1 = "Button#PLUS");
+
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "Structure1");
+
+		for (var structureFieldName : list "Image") {
+			DynamicDataMapping.addField(
+				field = "${structureFieldName}",
+				fieldFieldLabel = "${structureFieldName}",
+				fieldName = "${structureFieldName}");
+		}
+
+		WebContentStructures.saveCP(structureName = "Structure1");
+
+		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
+
+		WebContentTemplates.addCP(
+			templateDescription = "Template for Structure1",
+			templateName = "Structure1_Template1",
+			validateStructureFields = "true");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoStructures();
+
+		AssertVisible(locator1 = "Button#PLUS");
+
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "Structure2");
+
+		for (var structureFieldName : list "Text") {
+			DynamicDataMapping.addField(
+				field = "${structureFieldName}",
+				fieldFieldLabel = "${structureFieldName}",
+				fieldName = "${structureFieldName}");
+		}
+
+		WebContentStructures.saveCP(structureName = "Structure2");
+
+		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
+
+		WebContentTemplates.addCP(
+			templateDescription = "Template for Structure2",
+			templateName = "Structure2_Template1",
+			validateStructureFields = "true");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoTemplates();
+
+		WebContentTemplates.addCP(
+			templateDescription = "Template without structure",
+			templateName = "Template without structure");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoTemplates();
+
+		WebContentTemplates.deleteCP(templateName = "Structure1_Template1");
+
+		Check(
+			key_rowEntry = "Structure2_Template1",
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
+
+		AssertTextEquals(
+			locator1 = "ManagementBar#NAVBAR_TEXT",
+			value1 = "1 of 2 Selected");
+	}
+
 	@priority = "5"
 	test DeleteWebContent {
 		property testray.component.names = "Web Content Administration";
@@ -1314,272 +1579,6 @@ definition {
 			siteURLKey = "guest",
 			webContentTitle = '''<!-- -->''',
 			webContentTitleEscapeCharacter = '''&lt;!-- --&gt;''');
-	}
-
-	@priority = "4"
-	test AddStructuresWithTemplates {
-		property testray.component.names = "Web Content Administration";
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoStructures();
-
-		AssertVisible(locator1 = "Button#PLUS");
-
-		LexiconEntry.gotoAdd();
-
-		PortletEntry.inputName(name = "Structure1");
-
-		for (var structureFieldName : list "Image") {
-			DynamicDataMapping.addField(
-				field = "${structureFieldName}",
-				fieldFieldLabel = "${structureFieldName}",
-				fieldName = "${structureFieldName}");
-		}
-
-		WebContentStructures.saveCP(structureName = "Structure1");
-
-		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
-
-		WebContentTemplates.addCP(
-			templateDescription = "Template for Structure1",
-			templateName = "Structure1_Template1",
-			validateStructureFields= "true");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoStructures();
-
-		AssertVisible(locator1 = "Button#PLUS");
-
-		LexiconEntry.gotoAdd();
-
-		PortletEntry.inputName(name = "Structure2");
-
-		for (var structureFieldName : list "Text") {
-			DynamicDataMapping.addField(
-				field = "${structureFieldName}",
-				fieldFieldLabel = "${structureFieldName}",
-				fieldName = "${structureFieldName}");
-		}
-
-		WebContentStructures.saveCP(structureName = "Structure2");
-
-		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
-
-		WebContentTemplates.addCP(
-			templateDescription = "Template for Structure2",
-			templateName = "Structure2_Template1",
-			validateStructureFields= "true");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoTemplates();
-
-		WebContentTemplates.addCP(
-			templateDescription = "Template without structure",
-			templateName = "Template without structure");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoTemplates();
-
-		Check(
-				key_rowEntry = "Structure2_Template1",
-				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
-
-		AssertTextEquals(
-			locator1 = "ManagementBar#NAVBAR_TEXT",
-			value1 = "1 of 3 Selected");
-
-	}
-
-@priority = "4"
-	test CorrectTemplateNumberAfterDeletion {
-		property testray.component.names = "Web Content Administration";
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoStructures();
-
-		AssertVisible(locator1 = "Button#PLUS");
-
-		LexiconEntry.gotoAdd();
-
-		PortletEntry.inputName(name = "Structure1");
-
-		for (var structureFieldName : list "Image") {
-			DynamicDataMapping.addField(
-				field = "${structureFieldName}",
-				fieldFieldLabel = "${structureFieldName}",
-				fieldName = "${structureFieldName}");
-		}
-
-		WebContentStructures.saveCP(structureName = "Structure1");
-
-		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
-
-		WebContentTemplates.addCP(
-			templateDescription = "Template for Structure1",
-			templateName = "Structure1_Template1",
-			validateStructureFields= "true");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoStructures();
-
-		AssertVisible(locator1 = "Button#PLUS");
-
-		LexiconEntry.gotoAdd();
-
-		PortletEntry.inputName(name = "Structure2");
-
-		for (var structureFieldName : list "Text") {
-			DynamicDataMapping.addField(
-				field = "${structureFieldName}",
-				fieldFieldLabel = "${structureFieldName}",
-				fieldName = "${structureFieldName}");
-		}
-
-		WebContentStructures.saveCP(structureName = "Structure2");
-
-		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
-
-		WebContentTemplates.addCP(
-			templateDescription = "Template for Structure2",
-			templateName = "Structure2_Template1",
-			validateStructureFields= "true");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoTemplates();
-
-		WebContentTemplates.addCP(
-			templateDescription = "Template without structure",
-			templateName = "Template without structure");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoTemplates();
-
-		WebContentTemplates.deleteCP(templateName = "Structure1_Template1");
-
-		Check(
-				key_rowEntry = "Structure2_Template1",
-				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
-
-		AssertTextEquals(
-			locator1 = "ManagementBar#NAVBAR_TEXT",
-			value1 = "1 of 2 Selected");
-	}
-
-	@priority = "4"
-	test AddMultipleTemplatesToSameStructure {
-		property testray.component.names = "Web Content Administration";
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoStructures();
-
-		AssertVisible(locator1 = "Button#PLUS");
-
-		LexiconEntry.gotoAdd();
-
-		PortletEntry.inputName(name = "Structure1");
-
-		for (var structureFieldName : list "Image") {
-			DynamicDataMapping.addField(
-				field = "${structureFieldName}",
-				fieldFieldLabel = "${structureFieldName}",
-				fieldName = "${structureFieldName}");
-		}
-
-		WebContentStructures.saveCP(structureName = "Structure1");
-
-		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
-
-		WebContentTemplates.addCP(
-			templateDescription = "Template for Structure1",
-			templateName = "Structure1_Template1",
-			validateStructureFields= "true");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoStructures();
-
-		AssertVisible(locator1 = "Button#PLUS");
-
-		LexiconEntry.gotoAdd();
-
-		PortletEntry.inputName(name = "Structure2");
-
-		for (var structureFieldName : list "Text") {
-			DynamicDataMapping.addField(
-				field = "${structureFieldName}",
-				fieldFieldLabel = "${structureFieldName}",
-				fieldName = "${structureFieldName}");
-		}
-
-		WebContentStructures.saveCP(structureName = "Structure2");
-
-		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
-
-		WebContentTemplates.addCP(
-			templateDescription = "First template for Structure2",
-			templateName = "Structure2_Template1",
-			validateStructureFields= "true");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		NavItem.gotoStructures();
-
-		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
-
-		WebContentTemplates.addCP(
-			templateDescription = "Second template for Structure2",
-			templateName = "Structure2_Template2",
-			validateStructureFields= "true");
-
-		Check(
-				key_rowEntry = "Structure2_Template1",
-				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
-
-		AssertTextEquals(
-			locator1 = "ManagementBar#NAVBAR_TEXT",
-			value1 = "1 of 2 Selected");
 	}
 
 	@priority = "4"

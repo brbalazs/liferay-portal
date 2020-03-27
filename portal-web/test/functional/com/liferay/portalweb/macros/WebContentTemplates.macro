@@ -101,8 +101,6 @@ definition {
 		}
 	}
 
-
-
 	macro inputDescription {
 		if (isSet(templateDescription)) {
 			Panel.expandPanel(panel = "Details");
