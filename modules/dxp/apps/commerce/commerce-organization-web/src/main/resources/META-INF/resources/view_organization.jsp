@@ -46,7 +46,7 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceOrganization");
 		<c:if test="<%= OrganizationPermissionUtil.contains(permissionChecker, organization.getOrganizationId(), ActionKeys.UPDATE) %>">
 			<div class="align-items-center col-auto d-flex">
 				<div class="account-management__action">
-					<aui:button cssClass="commerce-button commerce-button--big commerce-button--outline" href="<%= editCommerceOrganizationURL %>" value='<%= LanguageUtil.get(request, "edit-organization") %>' />
+					<aui:button cssClass="btn-lg btn-secondary" href="<%= editCommerceOrganizationURL %>" value='<%= LanguageUtil.get(request, "edit-organization") %>' />
 				</div>
 			</div>
 		</c:if>

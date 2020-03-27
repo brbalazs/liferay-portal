@@ -35,7 +35,7 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 
 <c:if test="<%= commerceOrganizationDisplayContext.hasAddOrganizationPermissions() %>">
 	<div class="commerce-cta is-visible">
-		<aui:button cssClass="commerce-button commerce-button--big" name="addOrganizationButton" value="add-organization" />
+		<aui:button cssClass="btn-lg btn-primary" name="addOrganizationButton" value="add-organization" />
 	</div>
 
 	<portlet:actionURL name="editCommerceOrganization" var="editCommerceOrganizationActionURL">

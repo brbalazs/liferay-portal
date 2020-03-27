@@ -101,7 +101,7 @@ wrapperCssClass = viewMode + " " + wrapperCssClass;
 				{
 					assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
 					namespace: '<portlet:namespace/>',
-					spritemap: '<%= themeDisplay.getPathThemeImages() + "/commerce-icons.svg" %>',
+					spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>',
 					imagesPath: '<%= themeDisplay.getPathThemeImages() %>',
 					apiURL : '<%= PortalUtil.getPortalURL(request) + "/o/commerce-organization" %>'
 				}
@@ -112,7 +112,7 @@ wrapperCssClass = viewMode + " " + wrapperCssClass;
 
 <c:if test="<%= commerceOrganizationDisplayContext.hasAddOrganizationPermissions() %>">
 	<div class="commerce-cta is-visible">
-		<aui:button cssClass="commerce-button commerce-button--big" name="addOrganizationButton" value="add-organization" />
+		<aui:button cssClass="btn-lg btn-primary" name="addOrganizationButton" value="add-organization" />
 	</div>
 
 	<portlet:actionURL name="editCommerceOrganization" var="editCommerceOrganizationActionURL">

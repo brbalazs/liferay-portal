@@ -67,10 +67,10 @@ Organization organization = commerceOrganizationDisplayContext.getOrganization()
 
 		<div class="commerce-cta is-visible">
 			<c:if test="<%= Validator.isNotNull(backURL) %>">
-				<aui:button cssClass="commerce-button commerce-button--big commerce-button--outline" href="<%= backURL %>" value="cancel" />
+				<aui:button cssClass="btn-lg btn-secondary mr-3" href="<%= backURL %>" value="cancel" />
 			</c:if>
 
-			<aui:button cssClass="commerce-button commerce-button--big" type="submit" />
+			<aui:button cssClass="btn-lg btn-primary" type="submit" />
 		</div>
 	</aui:form>
 </div>
