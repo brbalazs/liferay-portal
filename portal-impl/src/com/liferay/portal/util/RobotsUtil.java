@@ -90,9 +90,7 @@ public class RobotsUtil {
 		return robotsTxt;
 	}
 
-	public static String getStrictRobots(LayoutSet layoutSet, boolean secure)
-		throws PortalException {
-
+	public static String getStrictRobots(LayoutSet layoutSet, boolean secure) {
 		String strictRobots = null;
 
 		if (layoutSet != null) {
