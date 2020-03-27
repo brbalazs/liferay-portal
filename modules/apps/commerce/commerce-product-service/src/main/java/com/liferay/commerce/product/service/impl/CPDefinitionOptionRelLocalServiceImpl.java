@@ -228,12 +228,12 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		expandoRowLocalService.deleteRows(
 			cpDefinitionOptionRel.getCPDefinitionOptionRelId());
 
-		checkCPDefinition(
-			cpDefinitionOptionRel.getCPDefinitionId(), new ServiceContext());
-
 		// Commerce product instances
 
 		checkCPInstances(cpDefinitionOptionRel);
+
+		checkCPDefinition(
+			cpDefinitionOptionRel.getCPDefinitionId(), new ServiceContext());
 
 		// Commerce product definition
 
@@ -379,6 +379,13 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				long cpInstanceId)
 		throws PortalException {
 
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		if (cpInstance.isInactive()) {
+			return Collections.emptyMap();
+		}
+
 		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels =
 			cpInstanceOptionValueRelPersistence.findByCPInstanceId(
 				cpInstanceId);
@@ -391,8 +398,12 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				cpInstanceOptionValueRels) {
 
 			CPDefinitionOptionRel cpDefinitionOptionRel =
-				cpDefinitionOptionRelPersistence.findByPrimaryKey(
+				cpDefinitionOptionRelPersistence.fetchByPrimaryKey(
 					cpInstanceOptionValueRel.getCPDefinitionOptionRelId());
+
+			if (cpDefinitionOptionRel == null) {
+				continue;
+			}
 
 			List<String> cpDefinitionOptionValueRelKeys =
 				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.get(
