@@ -133,11 +133,6 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 				keyProperty="groupId"
 				modelVar="group"
 			>
-
-				<%
-				List<Group> childrenGroups = group.getChildren(true);
-				%>
-
 				<liferay-ui:search-container-column-text
 					cssClass="table-cell-expand"
 					name="site-name"
@@ -155,6 +150,10 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 					name="assigned-property"
 					value="<%= HtmlUtil.escape(groupDisplayContext.getChannelName(group.getGroupId())) %>"
 				/>
+
+				<%
+				List<Group> childrenGroups = group.getChildren(true);
+				%>
 
 				<liferay-ui:search-container-column-text
 					cssClass="table-cell-expand-smaller table-cell-ws-nowrap"
