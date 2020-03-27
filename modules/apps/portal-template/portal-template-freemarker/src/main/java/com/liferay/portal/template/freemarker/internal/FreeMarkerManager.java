@@ -280,6 +280,14 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 		if (isEnableDebuggerService()) {
 			DebuggerService.getBreakpoints("*");
 		}
+
+		FreeMarkerTemplateContextHelper freeMarkerTemplateContextHelper =
+			(FreeMarkerTemplateContextHelper)templateContextHelper;
+
+		freeMarkerTemplateContextHelper.setDefaultBeansWrapper(
+			_defaultBeanWrapper);
+		freeMarkerTemplateContextHelper.setRestrictedBeansWrapper(
+			_restrictedBeanWrapper);
 	}
 
 	@Reference(unbind = "-")
