@@ -56,7 +56,6 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
@@ -230,7 +229,10 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		// Commerce product instances
 
-		checkCPInstances(cpDefinitionOptionRel);
+		cpInstanceLocalService.inactivateCPDefinitionOptionRelCPInstances(
+			PrincipalThreadLocal.getUserId(),
+			cpDefinitionOptionRel.getCPDefinitionId(),
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId());
 
 		checkCPDefinition(
 			cpDefinitionOptionRel.getCPDefinitionId(), new ServiceContext());
@@ -622,39 +624,6 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
 			cpDefintionId, true, serviceContext);
-	}
-
-	protected void checkCPInstances(CPDefinitionOptionRel cpDefinitionOptionRel)
-		throws PortalException {
-
-		CPDefinition cpDefinition = cpDefinitionLocalService.getCPDefinition(
-			cpDefinitionOptionRel.getCPDefinitionId());
-
-		List<CPInstance> cpInstances =
-			cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		for (CPInstance cpInstance : cpInstances) {
-			if (!cpInstanceOptionValueRelLocalService.
-					hasCPInstanceCPDefinitionOptionRel(
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-						cpInstance.getCPInstanceId())) {
-
-				continue;
-			}
-
-			long userId = PrincipalThreadLocal.getUserId();
-
-			if (userId <= 0) {
-				userId = cpInstance.getUserId();
-			}
-
-			cpInstanceLocalService.updateStatus(
-				userId, cpInstance.getCPInstanceId(),
-				WorkflowConstants.STATUS_INACTIVE);
-		}
 	}
 
 	protected List<CPDefinitionOptionRel> getCPDefinitionOptionRels(Hits hits)

@@ -812,6 +812,30 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 	}
 
 	@Override
+	public void inactivateCPDefinitionOptionRelCPInstances(
+			long userId, long cpDefinitionId, long cpDefinitionOptionRelId)
+		throws PortalException {
+
+		_inactivateCPDefinitionOptionRelCPInstances(
+			userId, cpDefinitionOptionRelId,
+			cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinitionId, WorkflowConstants.STATUS_ANY, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null));
+	}
+
+	@Override
+	public void inactivateCPDefinitionOptionValueRelCPInstances(
+			long userId, long cpDefinitionId, long cpDefinitionOptionValueRelId)
+		throws PortalException {
+
+		_inactivateCPDefinitionOptionValueRelCPInstances(
+			userId, cpDefinitionOptionValueRelId,
+			cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinitionId, WorkflowConstants.STATUS_ANY, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null));
+	}
+
+	@Override
 	public void inactivateIncompatibleCPInstances(
 			long userId, long cpDefinitionId)
 		throws PortalException {
@@ -1652,6 +1676,56 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		}
 
 		return new SKUCombinationsIterator(combinationGeneratorMap);
+	}
+
+	private void _inactivateCPDefinitionOptionRelCPInstances(
+			long userId, long cpDefinitionOptionRelId,
+			List<CPInstance> cpInstances)
+		throws PortalException {
+
+		for (CPInstance cpInstance : cpInstances) {
+			if (cpInstance.isInactive() ||
+				!cpInstanceOptionValueRelLocalService.
+					hasCPInstanceCPDefinitionOptionRel(
+						cpDefinitionOptionRelId,
+						cpInstance.getCPInstanceId())) {
+
+				continue;
+			}
+
+			if (userId <= 0) {
+				userId = cpInstance.getUserId();
+			}
+
+			cpInstanceLocalService.updateStatus(
+				userId, cpInstance.getCPInstanceId(),
+				WorkflowConstants.STATUS_INACTIVE);
+		}
+	}
+
+	private void _inactivateCPDefinitionOptionValueRelCPInstances(
+			long userId, long cpDefinitionOptionValueRelId,
+			List<CPInstance> cpInstances)
+		throws PortalException {
+
+		for (CPInstance cpInstance : cpInstances) {
+			if (cpInstance.isInactive() ||
+				!cpInstanceOptionValueRelLocalService.
+					hasCPInstanceCPDefinitionOptionValueRel(
+						cpDefinitionOptionValueRelId,
+						cpInstance.getCPInstanceId())) {
+
+				continue;
+			}
+
+			if (userId <= 0) {
+				userId = cpInstance.getUserId();
+			}
+
+			cpInstanceLocalService.updateStatus(
+				userId, cpInstance.getCPInstanceId(),
+				WorkflowConstants.STATUS_INACTIVE);
+		}
 	}
 
 	private void _inactivateNoOptionSiblingCPInstances(

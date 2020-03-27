@@ -46,6 +46,7 @@ import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
@@ -182,6 +183,11 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		// Expando
 
 		expandoRowLocalService.deleteRows(
+			cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId());
+
+		cpInstanceLocalService.inactivateCPDefinitionOptionValueRelCPInstances(
+			PrincipalThreadLocal.getUserId(),
+			cpDefinitionOptionRel.getCPDefinitionId(),
 			cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId());
 
 		// Commerce product definition
