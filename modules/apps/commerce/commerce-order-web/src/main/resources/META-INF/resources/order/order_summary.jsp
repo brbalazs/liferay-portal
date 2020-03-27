@@ -32,12 +32,12 @@ CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="commerceOrderId" type="hidden" value="<%= commerceOrder.getCommerceOrderId() %>" />
 
-		<aui:input label="items-subtotal" name="subtotal" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getSubtotal()) %>" wrapperCssClass="form-group-item">
+		<aui:input label="subtotal" name="subtotal" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getSubtotal()) %>" wrapperCssClass="form-group-item">
 			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>
 
-		<aui:input label="items-subtotal-discount" name="subtotalDiscountAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getSubtotalDiscountAmount()) %>" wrapperCssClass="form-group-item">
+		<aui:input label="line-item-discount" name="subtotalDiscountAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getSubtotalDiscountAmount()) %>" wrapperCssClass="form-group-item">
 			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>
@@ -49,7 +49,7 @@ CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 
 		<aui:input label="promotion-code" name="couponCode" wrapperCssClass="form-group-item" />
 
-		<aui:input label="estimated-tax" name="taxAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getTaxAmount()) %>" wrapperCssClass="form-group-item">
+		<aui:input label="tax" name="taxAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getTaxAmount()) %>" wrapperCssClass="form-group-item">
 			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>
