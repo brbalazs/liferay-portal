@@ -23,17 +23,23 @@ import com.liferay.commerce.frontend.model.LabelField;
 public class Product {
 
 	public Product(
-		long cpDefinitionId, long catalogId, ImageField image, String name,
-		String type, String sku, String modifiedDate, LabelField status) {
+		String catalog, long catalogId, long cpDefinitionId, ImageField image,
+		String modifiedDate, String name, String sku, LabelField status,
+		String type) {
 
-		_cpDefinitionId = cpDefinitionId;
+		_catalog = catalog;
 		_catalogId = catalogId;
+		_cpDefinitionId = cpDefinitionId;
 		_image = image;
-		_name = name;
-		_type = type;
-		_sku = sku;
 		_modifiedDate = modifiedDate;
+		_name = name;
+		_sku = sku;
 		_status = status;
+		_type = type;
+	}
+
+	public String getCatalog() {
+		return _catalog;
 	}
 
 	public long getCatalogId() {
@@ -68,6 +74,7 @@ public class Product {
 		return _type;
 	}
 
+	private final String _catalog;
 	private final long _catalogId;
 	private final long _cpDefinitionId;
 	private final ImageField _image;

@@ -106,21 +106,22 @@ public class CommerceProductDefinitionDataSetDataProvider
 
 				products.add(
 					new Product(
-						cpDefinition.getCPDefinitionId(),
+						commerceCatalog.getName(),
 						commerceCatalog.getCommerceCatalogId(),
+						cpDefinition.getCPDefinitionId(),
 						new ImageField(
 							name, "rounded", "lg",
 							cpDefinition.getDefaultImageThumbnailSrc()),
-						HtmlUtil.escape(name), cpType.getLabel(locale),
-						_getSku(cpDefinition, locale),
 						LanguageUtil.format(
 							httpServletRequest, "x-ago",
 							modifiedDateDescription, false),
+						HtmlUtil.escape(name), _getSku(cpDefinition, locale),
 						new LabelField(
 							LanguageUtil.get(
 								httpServletRequest,
 								WorkflowConstants.getStatusLabel(
-									cpDefinition.getStatus())))));
+									cpDefinition.getStatus()))),
+						cpType.getLabel(locale)));
 			}
 		}
 		catch (Exception e) {

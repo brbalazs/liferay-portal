@@ -55,6 +55,8 @@ public class CommerceProductDefinitionClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("sku", "sku");
 
+		clayTableSchemaBuilder.addField("catalog", "catalog");
+
 		clayTableSchemaBuilder.addField("modifiedDate", "modified-date");
 
 		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
