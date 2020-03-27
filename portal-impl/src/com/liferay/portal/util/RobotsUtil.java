@@ -84,12 +84,6 @@ public class RobotsUtil {
 		robotsTxt = _replaceWildcards(
 			robotsTxt, virtualHostname, secure, portalServerPort);
 
-		if (robotsTxt.contains("[$HOST$]") && _log.isWarnEnabled()) {
-			_log.warn(
-				"Wildcard [$HOST$] could not be replaced with the actual " +
-					"virtualhost");
-		}
-
 		return robotsTxt;
 	}
 
@@ -99,6 +93,11 @@ public class RobotsUtil {
 		if (Validator.isNotNull(virtualHostname)) {
 			robotsTxt = StringUtil.replace(
 				robotsTxt, "[$HOST$]", virtualHostname);
+		}
+		else if (_log.isWarnEnabled()) {
+			_log.warn(
+				"Wildcard [$HOST$] could not be replaced with the actual " +
+					"virtualhost");
 		}
 
 		robotsTxt = StringUtil.replace(
