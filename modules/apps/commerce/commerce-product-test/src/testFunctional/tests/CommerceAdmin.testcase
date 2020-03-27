@@ -141,7 +141,7 @@ definition {
 			channelsEntryName = "Test Channel",
 			discountLevel = "15",
 			discountTarget = "Apply to Product",
-			entryTitle = "New Discount",
+			entryTitle = "Test Discount",
 			maximumDiscountAmount = "10");
 
 		Button.clickPublish();
@@ -153,13 +153,13 @@ definition {
 			panel = "Control Panel",
 			portlet = "Discounts");
 
-		CommerceNavigator.gotoEntry(entryName = "New Discount");
+		CommerceNavigator.gotoEntry(entryName = "Test Discount");
 
 		CommerceEntry.viewDiscountsEntry(
 			channelsEntryName = "Test Channel",
 			discountLevel = "15.00",
 			discountTarget = "Apply to Product",
-			entryTitle = "New Discount",
+			entryTitle = "Test Discount",
 			maximumDiscountAmount = "10.00");
 	}
 
