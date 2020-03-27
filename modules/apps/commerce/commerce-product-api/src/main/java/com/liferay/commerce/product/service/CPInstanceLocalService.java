@@ -591,6 +591,14 @@ public interface CPInstanceLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public String[] getSKUs(long cpDefinitionId);
 
+	public void inactivateCPDefinitionOptionRelCPInstances(
+			long userId, long cpDefinitionId, long cpDefinitionOptionRelId)
+		throws PortalException;
+
+	public void inactivateCPDefinitionOptionValueRelCPInstances(
+			long userId, long cpDefinitionId, long cpDefinitionOptionValueRelId)
+		throws PortalException;
+
 	public void inactivateIncompatibleCPInstances(
 			long userId, long cpDefinitionId)
 		throws PortalException;

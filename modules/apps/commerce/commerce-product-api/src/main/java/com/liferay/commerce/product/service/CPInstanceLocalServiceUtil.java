@@ -761,6 +761,22 @@ public class CPInstanceLocalServiceUtil {
 		return getService().getSKUs(cpDefinitionId);
 	}
 
+	public static void inactivateCPDefinitionOptionRelCPInstances(
+			long userId, long cpDefinitionId, long cpDefinitionOptionRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().inactivateCPDefinitionOptionRelCPInstances(
+			userId, cpDefinitionId, cpDefinitionOptionRelId);
+	}
+
+	public static void inactivateCPDefinitionOptionValueRelCPInstances(
+			long userId, long cpDefinitionId, long cpDefinitionOptionValueRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().inactivateCPDefinitionOptionValueRelCPInstances(
+			userId, cpDefinitionId, cpDefinitionOptionValueRelId);
+	}
+
 	public static void inactivateIncompatibleCPInstances(
 			long userId, long cpDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {

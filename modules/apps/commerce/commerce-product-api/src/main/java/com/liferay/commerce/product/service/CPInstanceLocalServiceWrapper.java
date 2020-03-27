@@ -805,6 +805,24 @@ public class CPInstanceLocalServiceWrapper
 	}
 
 	@Override
+	public void inactivateCPDefinitionOptionRelCPInstances(
+			long userId, long cpDefinitionId, long cpDefinitionOptionRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_cpInstanceLocalService.inactivateCPDefinitionOptionRelCPInstances(
+			userId, cpDefinitionId, cpDefinitionOptionRelId);
+	}
+
+	@Override
+	public void inactivateCPDefinitionOptionValueRelCPInstances(
+			long userId, long cpDefinitionId, long cpDefinitionOptionValueRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_cpInstanceLocalService.inactivateCPDefinitionOptionValueRelCPInstances(
+			userId, cpDefinitionId, cpDefinitionOptionValueRelId);
+	}
+
+	@Override
 	public void inactivateIncompatibleCPInstances(
 			long userId, long cpDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
