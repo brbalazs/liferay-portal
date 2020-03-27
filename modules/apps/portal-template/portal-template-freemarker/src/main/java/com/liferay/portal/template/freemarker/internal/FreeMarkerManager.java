@@ -50,7 +50,6 @@ import freemarker.ext.servlet.HttpRequestHashModel;
 import freemarker.ext.servlet.ServletContextHashModel;
 
 import freemarker.template.Configuration;
-import freemarker.template.ObjectWrapper;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
@@ -298,8 +297,8 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 			throw new TemplateException("Unable to init FreeMarker manager", e);
 		}
 
-		_defaultObjectWrapper = new LiferayObjectWrapper();
-		_restrictedObjectWrapper = new RestrictedLiferayObjectWrapper(
+		_defaultBeanWrapper = new LiferayObjectWrapper();
+		_restrictedBeanWrapper = new RestrictedLiferayObjectWrapper(
 			_freeMarkerEngineConfiguration.allowedClasses(),
 			_freeMarkerEngineConfiguration.restrictedClasses(),
 			_freeMarkerEngineConfiguration.restrictedMethods());
@@ -364,17 +363,17 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 		TemplateResource errorTemplateResource, boolean restricted,
 		Map<String, Object> helperUtilities) {
 
-		ObjectWrapper objectWrapper = _defaultObjectWrapper;
+		BeansWrapper beansWrapper = _defaultBeanWrapper;
 
 		if (restricted) {
-			objectWrapper = _restrictedObjectWrapper;
+			beansWrapper = _restrictedBeanWrapper;
 		}
 
 		return new FreeMarkerTemplate(
 			templateResource, errorTemplateResource, helperUtilities,
 			_configuration, templateContextHelper,
 			_freeMarkerEngineConfiguration.resourceModificationCheck(),
-			restricted, objectWrapper);
+			restricted, beansWrapper);
 	}
 
 	protected FreeMarkerBundleClassloader getFreeMarkerBundleClassloader() {
@@ -460,11 +459,11 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 
 	private volatile int _bundleTrackingCount = -2;
 	private Configuration _configuration;
-	private ObjectWrapper _defaultObjectWrapper;
+	private BeansWrapper _defaultBeanWrapper;
 	private volatile FreeMarkerBundleClassloader _freeMarkerBundleClassloader;
 	private volatile FreeMarkerEngineConfiguration
 		_freeMarkerEngineConfiguration;
-	private ObjectWrapper _restrictedObjectWrapper;
+	private BeansWrapper _restrictedBeanWrapper;
 	private SingleVMPool _singleVMPool;
 	private final Map<String, String> _taglibMappings =
 		new ConcurrentHashMap<>();
