@@ -106,6 +106,10 @@ import org.osgi.util.tracker.BundleTrackerCustomizer;
 )
 public class FreeMarkerManager extends BaseSingleTemplateManager {
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	public static BeansWrapper getBeansWrapper() {
 		Thread currentThread = Thread.currentThread();
 
@@ -125,6 +129,10 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 		return beansWrapper;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public void addStaticClassSupport(
 		Map<String, Object> contextObjects, String variableName,
@@ -149,6 +157,10 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public void addTaglibApplication(
 		Map<String, Object> contextObjects, String applicationName,
@@ -160,6 +172,10 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 				servletContext, _configuration.getObjectWrapper()));
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public void addTaglibFactory(
 		Map<String, Object> contextObjects, String taglibFactoryName,
@@ -170,6 +186,10 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 			new TaglibFactoryWrapper(servletContext, getBeansWrapper()));
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public void addTaglibRequest(
 		Map<String, Object> contextObjects, String applicationName,
@@ -183,6 +203,10 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 				_configuration.getObjectWrapper()));
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public void addTaglibSupport(
 		Map<String, Object> contextObjects,
