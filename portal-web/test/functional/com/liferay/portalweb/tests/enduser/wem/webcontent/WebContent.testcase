@@ -71,6 +71,7 @@ definition {
 		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
 
 		WebContentTemplates.addCP(
+			fieldName = "Image",
 			templateDescription = "Template for Structure1",
 			templateName = "Structure1_Template1",
 			validateStructureFields = "true");
@@ -100,6 +101,7 @@ definition {
 		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
 
 		WebContentTemplates.addCP(
+			fieldName = "Text",
 			templateDescription = "First template for Structure2",
 			templateName = "Structure2_Template1",
 			validateStructureFields = "true");
@@ -114,6 +116,7 @@ definition {
 		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
 
 		WebContentTemplates.addCP(
+			fieldName = "Text",
 			templateDescription = "Second template for Structure2",
 			templateName = "Structure2_Template2",
 			validateStructureFields = "true");
@@ -290,6 +293,7 @@ definition {
 		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
 
 		WebContentTemplates.addCP(
+			fieldName = "Image",
 			templateDescription = "Template for Structure1",
 			templateName = "Structure1_Template1",
 			validateStructureFields = "true");
@@ -319,6 +323,7 @@ definition {
 		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
 
 		WebContentTemplates.addCP(
+			fieldName = "Text",
 			templateDescription = "Template for Structure2",
 			templateName = "Structure2_Template1",
 			validateStructureFields = "true");
@@ -1457,6 +1462,7 @@ definition {
 		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure1");
 
 		WebContentTemplates.addCP(
+			fieldName = "Image",
 			templateDescription = "Template for Structure1",
 			templateName = "Structure1_Template1",
 			validateStructureFields = "true");
@@ -1486,6 +1492,7 @@ definition {
 		WebContentNavigator.gotoManageTemplatesViaStructures(structureName = "Structure2");
 
 		WebContentTemplates.addCP(
+			fieldName = "Text",
 			templateDescription = "Template for Structure2",
 			templateName = "Structure2_Template1",
 			validateStructureFields = "true");
@@ -2116,12 +2123,16 @@ definition {
 
 		WebContentTemplates.deleteCP(templateName = "WC Template Name");
 
+		Portlet.viewEmptyMessage(message = "There are no templates.");
+
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
 			portlet = "Web Content");
 
 		WebContentStructures.deleteCP(structureName = "WC Structure Name");
+
+		Portlet.viewEmptyMessage(message = "There are no Structures.");
 
 		Navigator.openURL();
 
