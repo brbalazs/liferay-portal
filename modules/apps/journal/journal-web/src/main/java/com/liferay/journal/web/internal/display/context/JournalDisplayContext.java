@@ -54,13 +54,10 @@ import com.liferay.journal.web.internal.search.EntriesChecker;
 import com.liferay.journal.web.internal.search.EntriesMover;
 import com.liferay.journal.web.internal.search.JournalSearcher;
 import com.liferay.journal.web.internal.security.permission.resource.JournalFolderPermission;
-import com.liferay.journal.web.util.JournalPortletUtil;
 import com.liferay.journal.web.internal.servlet.taglib.util.JournalArticleActionDropdownItemsProvider;
-import com.liferay.journal.web.internal.servlet.taglib.util.JournalFolderActionDropdownItems;
 import com.liferay.journal.web.internal.util.JournalArticleTranslation;
 import com.liferay.journal.web.internal.util.JournalArticleTranslationRowChecker;
-import com.liferay.journal.web.internal.util.JournalChangeTrackingHelperUtil;
-import com.liferay.journal.web.internal.util.JournalPortletUtil;
+import com.liferay.journal.web.util.JournalPortletUtil;
 import com.liferay.message.boards.model.MBMessage;
 import com.liferay.message.boards.service.MBMessageLocalServiceUtil;
 import com.liferay.petra.string.StringBundler;
@@ -165,7 +162,7 @@ public class JournalDisplayContext {
 			WebKeys.THEME_DISPLAY);
 	}
 
-	public List<DropdownItem> getActionDropdownItems() {
+	public List<DropdownItem> getActionDropdownItems() throws Exception {
 		return new DropdownItemList() {
 			{
 				add(
@@ -284,31 +281,6 @@ public class JournalDisplayContext {
 		return _articleDisplay;
 	}
 
-	public List<Locale> getAvailableArticleLocales() throws PortalException {
-		JournalArticle article = getArticle();
-
-		if (article == null) {
-			return Collections.emptyList();
-		}
-
-		List<Locale> availableLocales = new ArrayList<>();
-
-		for (String languageId : article.getAvailableLanguageIds()) {
-			availableLocales.add(LocaleUtil.fromLanguageId(languageId));
-		}
-
-		return availableLocales;
-	}
-
-	public String[] getCharactersBlacklist() throws PortalException {
-		JournalServiceConfiguration journalServiceConfiguration =
-			ConfigurationProviderUtil.getCompanyConfiguration(
-				JournalServiceConfiguration.class, _themeDisplay.getCompanyId());
-
-		return journalServiceConfiguration.charactersblacklist();
-
-	}
-
 	public SearchContainer getArticleTranslationsSearchContainer()
 		throws Exception {
 
@@ -370,17 +342,42 @@ public class JournalDisplayContext {
 	}
 
 	public List<DropdownItem> getArticleVersionActionDropdownItems(
-		JournalArticle article)
+			JournalArticle article)
 		throws Exception {
 
 		JournalArticleActionDropdownItemsProvider
 			articleActionDropdownItemsProvider =
-			new JournalArticleActionDropdownItemsProvider(
-				article, _liferayPortletRequest, _liferayPortletResponse,
-				_assetDisplayPageFriendlyURLProvider, _trashHelper);
+				new JournalArticleActionDropdownItemsProvider(
+					article, _liferayPortletRequest, _liferayPortletResponse,
+					_trashHelper);
 
 		return articleActionDropdownItemsProvider.
 			getArticleVersionActionDropdownItems();
+	}
+
+	public List<Locale> getAvailableArticleLocales() throws PortalException {
+		JournalArticle article = getArticle();
+
+		if (article == null) {
+			return Collections.emptyList();
+		}
+
+		List<Locale> availableLocales = new ArrayList<>();
+
+		for (String languageId : article.getAvailableLanguageIds()) {
+			availableLocales.add(LocaleUtil.fromLanguageId(languageId));
+		}
+
+		return availableLocales;
+	}
+
+	public String[] getCharactersBlacklist() throws PortalException {
+		JournalServiceConfiguration journalServiceConfiguration =
+			ConfigurationProviderUtil.getCompanyConfiguration(
+				JournalServiceConfiguration.class,
+				_themeDisplay.getCompanyId());
+
+		return journalServiceConfiguration.charactersblacklist();
 	}
 
 	public String getClearResultsURL() {
@@ -630,6 +627,19 @@ public class JournalDisplayContext {
 			WebKeys.THEME_DISPLAY);
 
 		return LocaleUtil.toLanguageId(themeDisplay.getSiteDefaultLocale());
+	}
+
+	public String getDeleteTranslationsActionURL(JournalArticle article)
+		throws Exception {
+
+		JournalArticleActionDropdownItemsProvider
+			articleActionDropdownItemsProvider =
+				new JournalArticleActionDropdownItemsProvider(
+					article, _liferayPortletRequest, _liferayPortletResponse,
+					_trashHelper);
+
+		return articleActionDropdownItemsProvider.
+			getArticleTranslationActionDropdownItems();
 	}
 
 	public String getDeleteTranslationsEventName() {
@@ -2071,10 +2081,7 @@ public class JournalDisplayContext {
 	private String[] _addMenuFavItems;
 	private JournalArticle _article;
 	private JournalArticleDisplay _articleDisplay;
-	private SearchContainer _articleSearchContainer;
 	private SearchContainer _articleTranslationsSearchContainer;
-	private final AssetDisplayPageFriendlyURLProvider
-		_assetDisplayPageFriendlyURLProvider;
 	private String _ddmStructureKey;
 	private String _ddmStructureName;
 	private List<DDMStructure> _ddmStructures;

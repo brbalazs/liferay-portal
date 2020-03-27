@@ -20,7 +20,7 @@
 	displayContext="<%= new JournalSelectArticleTranslationsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, journalDisplayContext) %>"
 />
 
-<aui:form cssClass="container-fluid-1280" name="fm">
+<aui:form action="<%= journalDisplayContext.getDeleteTranslationsActionURL(journalDisplayContext.getArticle()) %>" cssClass="container-fluid-1280" name="fm">
 	<liferay-ui:search-container
 		id="articleTranslations"
 		searchContainer="<%= journalDisplayContext.getArticleTranslationsSearchContainer() %>"
@@ -61,6 +61,12 @@
 	</liferay-ui:search-container>
 </aui:form>
 
+<aui:button-row>
+	<aui:button name="saveButton" type="submit" value="delete" />
+
+	<aui:button type="cancel" />
+</aui:button-row>
+
 <aui:script use="liferay-search-container">
 	var searchContainer = Liferay.SearchContainer.get('<portlet:namespace />articleTranslations');
 
@@ -75,4 +81,25 @@
 			);
 		}
 	);
+</aui:script>
+
+<aui:script>
+	var <portlet:namespace />saveButton = document.getElementById('<portlet:namespace />saveButton');
+
+	if (<portlet:namespace />saveButton) {
+	<portlet:namespace />saveButton.addEventListener(
+	'click',
+	function(event) {
+	event.preventDefault();
+
+	if (<%= journalDisplayContext.getArticleTranslationsSearchContainer().getTotal() != 0 %>) {
+	var form = document.getElementById('<portlet:namespace />fm');
+
+	if (form) {
+	submitForm(form);
+	}
+	}
+	}
+	);
+	}
 </aui:script>

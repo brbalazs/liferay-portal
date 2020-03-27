@@ -78,7 +78,6 @@ public class JournalSelectArticleTranslationsManagementToolbarDisplayContext
 		return portletURL.toString();
 	}
 
-	@Override
 	protected String[] getDisplayViews() {
 		return new String[] {"list"};
 	}

@@ -156,6 +156,7 @@ class ElementsDefaultEventHandler extends DefaultEventHandler {
 	 * @private
 	 * @review
 	 */
+
 	_openArticleTranslationsItemSelector(
 		dialogButtonLabel,
 		dialogTitle,
