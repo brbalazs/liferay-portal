@@ -235,7 +235,7 @@ public class OptionResourceImpl
 			CPOption cpOption, OptionValue[] optionValues)
 		throws Exception {
 
-		if (optionValues.length <= 0) {
+		if ((optionValues == null) || (optionValues.length <= 0)) {
 			return;
 		}
 
