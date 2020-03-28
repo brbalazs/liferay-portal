@@ -110,6 +110,8 @@ public class EditCommerceTaxFixedRateMVCActionCommand
 	protected void updateCommerceTaxFixedRate(ActionRequest actionRequest)
 		throws PortalException {
 
+		long commerceTaxFixedRateId = ParamUtil.getLong(
+			actionRequest, "commerceTaxFixedRateId");
 		long commerceTaxMethodId = ParamUtil.getLong(
 			actionRequest, "commerceTaxMethodId");
 		long cpTaxCategoryId = ParamUtil.getLong(
@@ -122,8 +124,13 @@ public class EditCommerceTaxFixedRateMVCActionCommand
 				cpTaxCategoryId, commerceTaxMethodId);
 
 		if (commerceTaxFixedRate != null) {
+			commerceTaxFixedRateId =
+				commerceTaxFixedRate.getCommerceTaxFixedRateId();
+		}
+
+		if (commerceTaxFixedRateId > 0) {
 			_commerceTaxFixedRateService.updateCommerceTaxFixedRate(
-				commerceTaxFixedRate.getCommerceTaxFixedRateId(), rate);
+				commerceTaxFixedRateId, rate);
 		}
 		else {
 			CommerceTaxMethod commerceTaxMethod =
