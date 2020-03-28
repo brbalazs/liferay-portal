@@ -36,4 +36,5 @@ contextParams.put("commerceTaxMethodId", String.valueOf(commerceTaxFixedRatesDis
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
 	portletURL="<%= commerceTaxFixedRatesDisplayContext.getPortletURL() %>"
+	showSearch="<%= false %>"
 />
