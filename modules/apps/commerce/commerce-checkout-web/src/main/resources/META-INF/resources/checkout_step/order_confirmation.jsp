@@ -27,7 +27,7 @@ if (commerceOrderPayment != null) {
 	commerceOrderPaymentContent = commerceOrderPayment.getContent();
 }
 
-int paymentStatus = CommerceOrderPaymentConstants.STATUS_ANY;
+int paymentStatus = CommerceOrderPaymentConstants.STATUS_PENDING;
 
 if (commerceOrderPayment != null) {
 	paymentStatus = commerceOrderPayment.getStatus();
