@@ -34,6 +34,8 @@ import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.util.comparator.GroupNameComparator;
@@ -105,15 +107,26 @@ public class GroupDisplayContext {
 			_log.error(pe, pe);
 		}
 
-		_fetchChannelNames(groups);
-
 		groupSearch.setResults(groups);
 
-		groupSearch.setRowChecker(
-			new GroupChecker(
-				_renderResponse,
-				ParamUtil.getString(_renderRequest, "channelId"),
-				_getDisabledGroupIds()));
+		if (StringUtil.equalsIgnoreCase(
+				_mvcRenderCommandName, "/analytics/edit_synced_sites")) {
+
+			groupSearch.setRowChecker(
+				new GroupChecker(
+					_renderResponse, null,
+					SetUtil.fromArray(
+						_analyticsConfiguration.syncedGroupIds())));
+		}
+		else {
+			_fetchChannelNames(groups);
+
+			groupSearch.setRowChecker(
+				new GroupChecker(
+					_renderResponse,
+					ParamUtil.getString(_renderRequest, "channelId"),
+					_getDisabledGroupIds()));
+		}
 
 		int total = GroupLocalServiceUtil.searchCount(
 			_getCompanyId(), _getClassNameIds(), _getKeywords(),
