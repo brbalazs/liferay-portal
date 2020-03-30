@@ -319,30 +319,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 	</div>
 </aui:form>
 
-<aui:script>
-	document
-		.getElementById('<portlet:namespace />publishButton')
-		.addEventListener('click', function(e) {
-			e.preventDefault();
 
-			var form = document.getElementById('<portlet:namespace />fm');
-
-			if (!form) {
-				throw new Error('Form with id: <portlet:namespace />fm not found!');
-			}
-
-			var workflowActionInput = document.getElementById(
-				'<portlet:namespace />workflowAction'
-			);
-
-			if (workflowActionInput) {
-				workflowActionInput.value =
-					'<%= WorkflowConstants.ACTION_PUBLISH %>';
-			}
-
-			submitForm(form);
-		});
-</aui:script>
 
 <c:if test="<%= cpDefinition == null %>">
 	<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
