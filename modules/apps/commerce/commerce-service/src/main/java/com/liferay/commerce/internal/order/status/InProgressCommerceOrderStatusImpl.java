@@ -18,8 +18,8 @@ import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
-import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.order.status.CommerceOrderStatus;
+import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -83,8 +83,10 @@ public class InProgressCommerceOrderStatusImpl implements CommerceOrderStatus {
 			return commerceOrder;
 		}
 
-		return _commerceOrderEngine.checkoutCommerceOrder(
-			commerceOrder, userId);
+		commerceOrder.setOrderDate(new Date());
+		commerceOrder.setOrderStatus(KEY);
+
+		return _commerceOrderService.updateCommerceOrder(commerceOrder);
 	}
 
 	public int getKey() {
@@ -132,14 +134,14 @@ public class InProgressCommerceOrderStatusImpl implements CommerceOrderStatus {
 		return false;
 	}
 
-	@Reference
-	private CommerceOrderEngine _commerceOrderEngine;
-
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
 	)
 	private ModelResourcePermission<CommerceOrder>
 		_commerceOrderModelResourcePermission;
+
+	@Reference
+	private CommerceOrderService _commerceOrderService;
 
 	@Reference
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;

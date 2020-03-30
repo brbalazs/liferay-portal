@@ -15,9 +15,12 @@
 package com.liferay.commerce.internal.order.status;
 
 import com.liferay.commerce.constants.CommerceOrderConstants;
+import com.liferay.commerce.constants.CommercePaymentConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.status.CommerceOrderStatus;
+import com.liferay.commerce.payment.method.CommercePaymentMethod;
+import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -56,6 +59,11 @@ public class PendingCommerceOrderStatusImpl implements CommerceOrderStatus {
 	public CommerceOrder doTransition(CommerceOrder commerceOrder, long userId)
 		throws PortalException {
 
+		commerceOrder.setOrderStatus(KEY);
+
+		commerceOrder = _commerceOrderService.updateCommerceOrder(
+			commerceOrder);
+
 		if (isWorkflowEnabled(commerceOrder)) {
 
 			// Commerce order
@@ -76,8 +84,6 @@ public class PendingCommerceOrderStatusImpl implements CommerceOrderStatus {
 				commerceOrder.getCommerceOrderId(), commerceOrder,
 				serviceContext, new HashMap<>());
 		}
-
-		commerceOrder.setOrderStatus(KEY);
 
 		return _commerceOrderService.updateCommerceOrder(commerceOrder);
 	}
@@ -108,11 +114,21 @@ public class PendingCommerceOrderStatusImpl implements CommerceOrderStatus {
 	public boolean isTransitionCriteriaMet(CommerceOrder commerceOrder)
 		throws PortalException {
 
-		if ((commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
-			_commerceOrderValidatorRegistry.isValid(null, commerceOrder)) {
+		CommercePaymentMethod commercePaymentMethod =
+			_commercePaymentMethodRegistry.getCommercePaymentMethod(
+				commerceOrder.getCommercePaymentMethodKey());
 
+		if (commercePaymentMethod == null) {
 			return true;
+		}
+
+		if ((commerceOrder.getPaymentStatus() ==
+				CommerceOrderConstants.PAYMENT_STATUS_PAID) ||
+			(commercePaymentMethod.getPaymentType() ==
+				CommercePaymentConstants.
+					COMMERCE_PAYMENT_METHOD_TYPE_OFFLINE)) {
+
+			return _commerceOrderValidatorRegistry.isValid(null, commerceOrder);
 		}
 
 		return false;
@@ -143,6 +159,9 @@ public class PendingCommerceOrderStatusImpl implements CommerceOrderStatus {
 
 	@Reference
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
+
+	@Reference
+	private CommercePaymentMethodRegistry _commercePaymentMethodRegistry;
 
 	@Reference
 	private WorkflowDefinitionLinkLocalService

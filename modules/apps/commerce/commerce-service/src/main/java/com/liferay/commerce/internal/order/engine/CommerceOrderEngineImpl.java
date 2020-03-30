@@ -67,7 +67,6 @@ import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -174,12 +173,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 				commerceAddress.getCommerceAddressId());
 		}
 
-		// Set Order Status
-
-		commerceOrder.setOrderDate(new Date());
-		commerceOrder.setOrderStatus(
-			CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS);
-
 		CommercePaymentMethod commercePaymentMethod =
 			_commercePaymentMethodRegistry.getCommercePaymentMethod(
 				commerceOrder.getCommercePaymentMethodKey());
@@ -193,12 +186,14 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			 (commerceOrder.getPaymentStatus() ==
 				 CommerceOrderConstants.PAYMENT_STATUS_PENDING))) {
 
-			commerceOrder = transitionCommerceOrder(
+			return transitionCommerceOrder(
 				commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
 				userId);
 		}
 
-		return _commerceOrderService.updateCommerceOrder(commerceOrder);
+		return transitionCommerceOrder(
+			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+			userId);
 	}
 
 	@Override
