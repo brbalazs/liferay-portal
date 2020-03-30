@@ -69,8 +69,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -122,8 +120,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 				getCPDefinitionOptionRelCPInstanceOptionValueRels(
 					cpDefinitionOptionRelId);
 
-		Set<CPDefinitionOptionValueRel> filtered = new TreeSet<>(
-			new CPDefinitionOptionValueRelPriorityComparator(true));
+		List<CPDefinitionOptionValueRel> filtered = new ArrayList<>();
 
 		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
 				cpInstanceOptionValueRels) {
@@ -135,14 +132,22 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 				continue;
 			}
 
-			filtered.add(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 				_cpDefinitionOptionValueRelLocalService.
 					getCPInstanceCPDefinitionOptionValueRel(
 						cpDefinitionOptionRelId,
-						cpInstanceOptionValueRel.getCPInstanceId()));
+						cpInstanceOptionValueRel.getCPInstanceId());
+
+			if (filtered.contains(cpDefinitionOptionValueRel)) {
+				continue;
+			}
+
+			filtered.add(cpDefinitionOptionValueRel);
 		}
 
-		return new ArrayList<>(filtered);
+		Collections.sort(filtered);
+
+		return filtered;
 	}
 
 	@Override
