@@ -85,13 +85,13 @@ public class CommerceAddressUpgradeProcess
 			ps = connection.prepareStatement(
 				"select commerceAddressId, classPK, defaultBilling, " +
 					"defaultShipping from CommerceAddress where classNameId =" +
-						"? and defaultBilling = 1");
+						"? and defaultBilling = [$TRUE$]");
 		}
 		else {
 			ps = connection.prepareStatement(
 				"select commerceAddressId, classPK, defaultBilling, " +
 					"defaultShipping from CommerceAddress where classNameId =" +
-						"? and defaultShipping = 1");
+						"? and defaultShipping = [$TRUE$]");
 		}
 
 		ps.setLong(1, commerceAccountClassNameId);
