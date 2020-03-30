@@ -3038,25 +3038,30 @@ paths:
             operationId: getProductsPage
             parameters:
                 - in: query
-                      name: filter
-                      required: false
-                      schema:
-                          type: string
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
                 - in: query
-                      name: sort
-                      required: false
-                      schema:
-                          type: string
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
