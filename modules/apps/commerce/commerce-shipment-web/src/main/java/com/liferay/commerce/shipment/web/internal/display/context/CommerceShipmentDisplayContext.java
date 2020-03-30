@@ -267,7 +267,7 @@ public class CommerceShipmentDisplayContext
 				headerActionModels.add(
 					new HeaderActionModel(
 						buttonClass, null, portletURL.toString(),
-						cpRequestHelper.getPortletName() + label, label));
+						null, label));
 			}
 		}
 

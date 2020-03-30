@@ -518,7 +518,7 @@ public class CommerceOrderEditDisplayContext {
 			headerActionModels.add(
 				new HeaderActionModel(
 					buttonCssClass, null, portletURL.toString(),
-					_commerceOrderRequestHelper.getPortletName() + label,
+					null,
 					label));
 		}
 
