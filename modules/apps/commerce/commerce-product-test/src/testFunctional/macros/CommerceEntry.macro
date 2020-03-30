@@ -48,13 +48,13 @@ definition {
 			value1 = "${entryName}");
 
 		Select(
-			locator1 = "CommerceEntry#CATALOGS_FORM",
 			key_title = "Default Catalog Language",
+			locator1 = "CommerceEntry#CATALOGS_FORM",
 			value1 = "${language}");
 
 		Select(
-			locator1 = "CommerceEntry#CATALOGS_FORM",
 			key_title = "Currency",
+			locator1 = "CommerceEntry#CATALOGS_FORM",
 			value1 = "${currency}");
 	}
 
@@ -80,7 +80,7 @@ definition {
 
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 
-		if(isSet(siteName)) {
+		if (isSet(siteName)) {
 			CommerceNavigator.gotoEntry(entryName = "${entryName}");
 
 			Click(
@@ -229,7 +229,6 @@ definition {
 		Select(
 			locator1 = "CommerceEntry#CURRENCY_SELECT",
 			value1 = "${currencyCode}");
-
 	}
 
 	macro addNewRegionsEntry {
@@ -472,7 +471,7 @@ definition {
 			Click(locator1 = "CommerceEntry#OPTION_SELECT");
 
 			Click(
-				key_selectValue = "${optionValue}",commerce-product-test/src/testFunctional/paths/CommerceNavigation.path
+				key_selectValue = "${optionValue}",
 				locator1 = "CommerceEntry#OPTIONS_SELECT_LIST");
 		}
 
@@ -524,13 +523,13 @@ definition {
 			value1 = "${catalogName}");
 
 		AssertSelectedLabel(
-			locator1 = "CommerceEntry#CATALOGS_FORM",
 			key_title = "Default Catalog Language",
+			locator1 = "CommerceEntry#CATALOGS_FORM",
 			value1 = "${catalogLanguage}");
 
 		AssertSelectedLabel(
-			locator1 = "CommerceEntry#CATALOGS_FORM",
 			key_title = "Currency",
+			locator1 = "CommerceEntry#CATALOGS_FORM",
 			value1 = "${catalogCurrency}");
 	}
 
@@ -622,6 +621,16 @@ definition {
 		AssertSelectedLabel(
 			locator1 = "CommerceEntry#CURRENCY_SELECT",
 			value1 = "${currencyCode}");
+	}
+
+	macro viewProductsEntry {
+		AssertTextEquals(
+			locator1 = "CommerceEntry#NAME_FIELD",
+			value1 = "${productName}");
+
+		AssertTextEquals(
+			locator1 = "CommerceEntry#SHORT_DESCRIPTION_FIELD",
+			value1 = "${productShortDescription}");
 	}
 
 }

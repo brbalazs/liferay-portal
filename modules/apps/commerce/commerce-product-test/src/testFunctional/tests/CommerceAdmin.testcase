@@ -91,10 +91,9 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		CommerceEntry.addNewCatalogsEntry(
-			catalogName = "Test Catalog",
+			catalogCurrency = "US Dollar",
 			catalogLanguage = "English (United States)",
-			catalogCurrency = "US Dollar"
-		);
+			catalogName = "Test Catalog");
 
 		AssertClickNoError(
 			locator1 = "Button#SUBMIT",
@@ -107,13 +106,12 @@ definition {
 			panel = "Control Panel",
 			portlet = "Catalogs");
 
-		CommerceNavigator.gotoEntry(entryName = "Test Catalog");	
+		CommerceNavigator.gotoEntry(entryName = "Test Catalog");
 
 		CommerceEntry.viewCatalogsEntry(
-			catalogName = "Test Catalog",
+			catalogCurrency = "US Dollar",
 			catalogLanguage = "English (United States)",
-			catalogCurrency = "US Dollar"
-		);
+			catalogName = "Test Catalog");
 	}
 
 	test CreateNewChannel {
@@ -128,9 +126,9 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		CommerceEntry.addNewChannelsEntry(
+			channelName = "Test Channel",
 			channelType = "Site",
 			currency = "US Dollar",
-			channelName = "Test Channel",
 			siteName = "Guest");
 
 		ProductMenu.gotoPortlet(
@@ -142,8 +140,8 @@ definition {
 
 		CommerceEntry.viewChannelsEntry(
 			channelCurrency = "US Dollar",
-			channelType = "Site",
-			channelName = "Test Channel");
+			channelName = "Test Channel",
+			channelType = "Site");
 	}
 
 	@ignore = "true"
@@ -318,8 +316,8 @@ definition {
 			portlet = "Price Lists");
 
 		Click(
-			locator1 = "CommerceNavigation#ANY_ENTRY_NAME",
-			key_entry = "New Price List");
+			key_entry = "New Price List",
+			locator1 = "CommerceNavigation#ANY_ENTRY_NAME");
 
 		CommerceEntry.viewPriceListEntry(
 			currencyCode = "USD",
