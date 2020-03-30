@@ -411,7 +411,7 @@ public class CPDefinitionsImporter {
 			subscriptionEnabled = GetterUtil.getBoolean(
 				subscriptionInfoJSONObject.get("SubscriptionEnabled"));
 			subscriptionLength = GetterUtil.getInteger(
-				subscriptionInfoJSONObject.get("SubscriptionLength"));
+				subscriptionInfoJSONObject.get("SubscriptionLength"), 1);
 			subscriptionType = GetterUtil.getString(
 				subscriptionInfoJSONObject.get("SubscriptionType"));
 			maxSubscriptionCycles = GetterUtil.getLong(
@@ -869,7 +869,7 @@ public class CPDefinitionsImporter {
 			subscriptionEnabled = GetterUtil.getBoolean(
 				subscriptionInfoJSONObject.get("SubscriptionEnabled"));
 			subscriptionLength = GetterUtil.getInteger(
-				subscriptionInfoJSONObject.get("SubscriptionLength"));
+				subscriptionInfoJSONObject.get("SubscriptionLength"), 1);
 			subscriptionType = GetterUtil.getString(
 				subscriptionInfoJSONObject.get("SubscriptionType"));
 			maxSubscriptionCycles = GetterUtil.getLong(
