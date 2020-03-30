@@ -363,6 +363,22 @@ public class ProductResourceImpl
 					cpDefinition);
 		}
 
+		// Images
+
+		Attachment[] images = product.getImages();
+
+		if (images != null) {
+			for (Attachment attachment : images) {
+				AttachmentUtil.upsertCPAttachmentFileEntry(
+					cpDefinition.getGroupId(), _cpAttachmentFileEntryService,
+					_uniqueFileNameProvider, attachment,
+					_classNameLocalService.getClassNameId(
+						cpDefinition.getModelClassName()),
+					cpDefinition.getCPDefinitionId(),
+					CPAttachmentFileEntryConstants.TYPE_IMAGE, serviceContext);
+			}
+		}
+
 		// Attachments
 
 		Attachment[] attachments = product.getAttachments();
