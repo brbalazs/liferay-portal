@@ -319,8 +319,6 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 	</div>
 </aui:form>
 
-
-
 <c:if test="<%= cpDefinition == null %>">
 	<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
 		function slugify(string) {
