@@ -81,7 +81,15 @@ function ActionsDropdownRenderer(props) {
 	const [active, setActive] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	function handleAction({method, onClick, size, target, title, url}) {
+	function handleAction({
+		method = '',
+		onClick = '',
+		size = '',
+		target = '',
+		title = '',
+		url = ''
+	}) {
+
 		if (target.includes('modal')) {
 			switch (target) {
 				case MODAL_PERMISSIONS:
