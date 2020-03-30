@@ -3320,18 +3320,7 @@ public abstract class BaseStructuredContentResourceTestCase {
 
 					sb.append(entry.getKey());
 					sb.append(":");
-
-					Object value = entry.getValue();
-
-					if (value instanceof String) {
-						sb.append("\"");
-						sb.append(value);
-						sb.append("\"");
-					}
-					else {
-						sb.append(value);
-					}
-
+					sb.append(entry.getValue());
 					sb.append(",");
 				}
 
