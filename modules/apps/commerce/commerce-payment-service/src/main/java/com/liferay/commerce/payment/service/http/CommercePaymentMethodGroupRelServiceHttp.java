@@ -189,18 +189,18 @@ public class CommercePaymentMethodGroupRelServiceHttp {
 		}
 	}
 
-	public static void deleteCommerceAddressRestrictions(
-			HttpPrincipal httpPrincipal, long commercePaymentMethodGroupRelId)
+	public static void deleteCommerceAddressRestriction(
+			HttpPrincipal httpPrincipal, long commerceAddressRestrictionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePaymentMethodGroupRelServiceUtil.class,
-				"deleteCommerceAddressRestrictions",
-				_deleteCommerceAddressRestrictionsParameterTypes3);
+				"deleteCommerceAddressRestriction",
+				_deleteCommerceAddressRestrictionParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commercePaymentMethodGroupRelId);
+				methodKey, commerceAddressRestrictionId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -226,18 +226,18 @@ public class CommercePaymentMethodGroupRelServiceHttp {
 		}
 	}
 
-	public static void deleteCommerceAddressRestriction(
-			HttpPrincipal httpPrincipal, long commerceAddressRestrictionId)
+	public static void deleteCommerceAddressRestrictions(
+			HttpPrincipal httpPrincipal, long commercePaymentMethodGroupRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePaymentMethodGroupRelServiceUtil.class,
-				"deleteCommerceAddressRestriction",
-				_deleteCommerceAddressRestrictionParameterTypes4);
+				"deleteCommerceAddressRestrictions",
+				_deleteCommerceAddressRestrictionsParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceAddressRestrictionId);
+				methodKey, commercePaymentMethodGroupRelId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -993,11 +993,11 @@ public class CommercePaymentMethodGroupRelServiceHttp {
 			java.io.File.class, String.class, double.class, boolean.class
 		};
 	private static final Class<?>[]
-		_deleteCommerceAddressRestrictionsParameterTypes3 = new Class[] {
+		_deleteCommerceAddressRestrictionParameterTypes3 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_deleteCommerceAddressRestrictionParameterTypes4 = new Class[] {
+		_deleteCommerceAddressRestrictionsParameterTypes4 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]

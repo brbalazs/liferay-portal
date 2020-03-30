@@ -106,14 +106,13 @@ public class CommercePaymentMethodGroupRelServiceSoap {
 		}
 	}
 
-	public static void deleteCommerceAddressRestrictions(
-			long commercePaymentMethodGroupRelId)
+	public static void deleteCommerceAddressRestriction(
+			long commerceAddressRestrictionId)
 		throws RemoteException {
 
 		try {
 			CommercePaymentMethodGroupRelServiceUtil.
-				deleteCommerceAddressRestrictions(
-					commercePaymentMethodGroupRelId);
+				deleteCommerceAddressRestriction(commerceAddressRestrictionId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -122,13 +121,14 @@ public class CommercePaymentMethodGroupRelServiceSoap {
 		}
 	}
 
-	public static void deleteCommerceAddressRestriction(
-			long commerceAddressRestrictionId)
+	public static void deleteCommerceAddressRestrictions(
+			long commercePaymentMethodGroupRelId)
 		throws RemoteException {
 
 		try {
 			CommercePaymentMethodGroupRelServiceUtil.
-				deleteCommerceAddressRestriction(commerceAddressRestrictionId);
+				deleteCommerceAddressRestrictions(
+					commercePaymentMethodGroupRelId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
