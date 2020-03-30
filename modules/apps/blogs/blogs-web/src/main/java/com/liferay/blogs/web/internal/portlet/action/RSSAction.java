@@ -176,7 +176,8 @@ public class RSSAction extends BaseStrutsAction {
 
 		long groupId = ParamUtil.getLong(httpServletRequest, "groupId");
 
-		if (GroupPermissionUtil.contains(
+		if ((groupId == 0) ||
+			GroupPermissionUtil.contains(
 				themeDisplay.getPermissionChecker(), groupId,
 				ActionKeys.VIEW)) {
 
