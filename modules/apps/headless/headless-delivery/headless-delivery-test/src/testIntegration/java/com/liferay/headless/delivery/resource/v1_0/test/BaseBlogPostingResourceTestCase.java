@@ -766,12 +766,12 @@ public abstract class BaseBlogPostingResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			blogPostingResource.putSiteBlogPostingSubscribeHttpResponse(
-				testGroup.getGroupId()));
+				blogPosting.getSiteId()));
 
 		assertHttpResponseStatusCode(
 			404,
 			blogPostingResource.putSiteBlogPostingSubscribeHttpResponse(
-				testGroup.getGroupId()));
+				blogPosting.getSiteId()));
 	}
 
 	protected BlogPosting testPutSiteBlogPostingSubscribe_addBlogPosting()
@@ -790,12 +790,12 @@ public abstract class BaseBlogPostingResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			blogPostingResource.putSiteBlogPostingUnsubscribeHttpResponse(
-				testGroup.getGroupId()));
+				blogPosting.getSiteId()));
 
 		assertHttpResponseStatusCode(
 			404,
 			blogPostingResource.putSiteBlogPostingUnsubscribeHttpResponse(
-				testGroup.getGroupId()));
+				blogPosting.getSiteId()));
 	}
 
 	protected BlogPosting testPutSiteBlogPostingUnsubscribe_addBlogPosting()
@@ -2237,7 +2237,18 @@ public abstract class BaseBlogPostingResourceTestCase {
 
 					sb.append(entry.getKey());
 					sb.append(":");
-					sb.append(entry.getValue());
+
+					Object value = entry.getValue();
+
+					if (value instanceof String) {
+						sb.append("\"");
+						sb.append(value);
+						sb.append("\"");
+					}
+					else {
+						sb.append(value);
+					}
+
 					sb.append(",");
 				}
 

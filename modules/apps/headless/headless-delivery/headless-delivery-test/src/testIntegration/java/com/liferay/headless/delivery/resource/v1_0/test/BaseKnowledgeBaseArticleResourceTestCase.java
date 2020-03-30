@@ -1658,13 +1658,13 @@ public abstract class BaseKnowledgeBaseArticleResourceTestCase {
 			204,
 			knowledgeBaseArticleResource.
 				putSiteKnowledgeBaseArticleSubscribeHttpResponse(
-					testGroup.getGroupId()));
+					knowledgeBaseArticle.getSiteId()));
 
 		assertHttpResponseStatusCode(
 			404,
 			knowledgeBaseArticleResource.
 				putSiteKnowledgeBaseArticleSubscribeHttpResponse(
-					testGroup.getGroupId()));
+					knowledgeBaseArticle.getSiteId()));
 	}
 
 	protected KnowledgeBaseArticle
@@ -1685,13 +1685,13 @@ public abstract class BaseKnowledgeBaseArticleResourceTestCase {
 			204,
 			knowledgeBaseArticleResource.
 				putSiteKnowledgeBaseArticleUnsubscribeHttpResponse(
-					testGroup.getGroupId()));
+					knowledgeBaseArticle.getSiteId()));
 
 		assertHttpResponseStatusCode(
 			404,
 			knowledgeBaseArticleResource.
 				putSiteKnowledgeBaseArticleUnsubscribeHttpResponse(
-					testGroup.getGroupId()));
+					knowledgeBaseArticle.getSiteId()));
 	}
 
 	protected KnowledgeBaseArticle
@@ -3264,7 +3264,18 @@ public abstract class BaseKnowledgeBaseArticleResourceTestCase {
 
 					sb.append(entry.getKey());
 					sb.append(":");
-					sb.append(entry.getValue());
+
+					Object value = entry.getValue();
+
+					if (value instanceof String) {
+						sb.append("\"");
+						sb.append(value);
+						sb.append("\"");
+					}
+					else {
+						sb.append(value);
+					}
+
 					sb.append(",");
 				}
 
