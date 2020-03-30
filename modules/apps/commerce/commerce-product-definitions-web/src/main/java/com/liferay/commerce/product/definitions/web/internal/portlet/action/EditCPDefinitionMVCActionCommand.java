@@ -355,7 +355,7 @@ public class EditCPDefinitionMVCActionCommand extends BaseMVCActionCommand {
 				displayDateHour, displayDateMinute, expirationDateMonth,
 				expirationDateDay, expirationDateYear, expirationDateHour,
 				expirationDateMinute, neverExpire,
-				CPInstanceConstants.DEFAULT_SKU, false, 0, null, null, 0L, null,
+				CPInstanceConstants.DEFAULT_SKU, false, 1, null, null, 0L, null,
 				serviceContext);
 		}
 		else {
