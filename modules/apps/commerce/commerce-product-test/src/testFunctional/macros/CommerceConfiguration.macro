@@ -24,9 +24,9 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		CommerceEntry.addNewChannelsEntry(
+			channelCurrency = "US Dollar",
 			channelName = "Test Channel",
 			channelType = "Site",
-			channelCurrency = "US Dollar",
 			siteName = "Guest");
 
 		Button.clickSave();
@@ -179,9 +179,9 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		CommerceEntry.addNewChannelsEntry(
+			channelCurrency = "US Dollar",
 			channelName = "Test Channel",
 			channelType = "Site",
-			channelCurrency = "US Dollar",
 			siteName = "Guest");
 
 		Button.clickSave();
