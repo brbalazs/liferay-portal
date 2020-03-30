@@ -26,7 +26,10 @@ import {
 	IFRAME_LOADED,
 	SIDE_PANEL_CLOSED
 } from '../../utilities/eventsDefinitions.es';
-import {iframeHandlerModalId, isPageInIframe} from '../../utilities/iframes.es';
+import {
+	getIframeHandlerModalId,
+	isPageInIframe
+} from '../../utilities/iframes.es';
 import {debounce} from '../../utilities/index.es';
 import {exposeSidePanel} from '../../utilities/sidePanels.es';
 import Modal from '../modal/Modal.es';
@@ -53,6 +56,7 @@ export default class SidePanel extends React.Component {
 				document.querySelector(this.props.wrapperSelector) ||
 				document.querySelector('body')
 		};
+		this.iframeHandlerModalId = getIframeHandlerModalId();
 		this.handleIframeClickOnSubmit = this.handleIframeClickOnSubmit.bind(
 			this
 		);
@@ -300,7 +304,7 @@ export default class SidePanel extends React.Component {
 
 		return ReactDOM.createPortal(
 			<>
-				<Modal id={iframeHandlerModalId} />
+				<Modal id={this.iframeHandlerModalId} />
 				<div
 					className={classNames(
 						'side-panel-nav-cover border-bottom',

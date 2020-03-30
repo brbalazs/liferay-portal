@@ -14,7 +14,13 @@
 
 import {OPEN_MODAL} from './eventsDefinitions.es';
 
-export const iframeHandlerModalId = 'iframe-handler-modal';
+export const iframeHandlerModalNamespace = 'iframe-handler-modal_';
+export let counter = 0;
+export const iframeInitialHandlerModalId = `${iframeHandlerModalNamespace}${counter}`;
+
+export function getIframeHandlerModalId() {
+	return `${iframeHandlerModalNamespace}${counter++}`;
+}
 
 export function isPageInIframe() {
 	return window.location !== window.parent.location;
@@ -24,7 +30,7 @@ export function initializeIframeListeners() {
 	Liferay.on(OPEN_MODAL, payload => {
 		window.top.Liferay.fire(OPEN_MODAL, {
 			...payload,
-			id: iframeHandlerModalId
+			id: iframeInitialHandlerModalId
 		});
 	});
 }

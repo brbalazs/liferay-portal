@@ -22,10 +22,6 @@ export function exposeSidePanel(id, callback = null) {
 	}
 }
 
-export function getSidePanelData(id) {
-	return registeredPanels.get(id);
-}
-
 export function getOpenedSidePanel() {
 	let openedSidePanel = null;
 
