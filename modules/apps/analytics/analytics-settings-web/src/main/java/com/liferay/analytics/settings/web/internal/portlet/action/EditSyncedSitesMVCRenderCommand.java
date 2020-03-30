@@ -23,7 +23,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Francisco Dias
+ * @author Rachael Koestartyo
  */
 @Component(
 	property = {
@@ -37,7 +37,7 @@ public class EditSyncedSitesMVCRenderCommand
 
 	@Override
 	protected String getJspPath() {
-		return "/edit_synced_sites.jsp";
+		return "/edit_sites.jsp";
 	}
 
 	@Reference(
