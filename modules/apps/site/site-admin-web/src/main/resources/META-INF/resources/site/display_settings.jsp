@@ -189,7 +189,7 @@ if ((publicLayoutSet.isLayoutSetPrototypeLinkEnabled() || privateLayoutSet.isLay
 </aui:script>
 
 <aui:script use="aui-alert,aui-base">
-	var languageSelectInput = A.one('#<portlet:namespace />languageId');
+	const languageSelectInput = A.one('#<portlet:namespace />languageId');
 
 	if (languageSelectInput) {
 		const nameInput = Liferay.component('<portlet:namespace />name');
