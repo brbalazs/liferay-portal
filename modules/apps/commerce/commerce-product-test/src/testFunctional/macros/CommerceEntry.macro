@@ -528,28 +528,28 @@ definition {
 	macro viewCatalogsEntry {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#NAME_FIELD",
-			value1 = "${entryName}");
+			value1 = "${catalogName}");
 
 		AssertSelectedLabel(
 			locator1 = "CommerceEntry#CATALOGS_FORM",
 			key_title = "Default Catalog Language",
-			value1 = "${language}");
+			value1 = "${catalogLanguage}");
 
 		AssertSelectedLabel(
 			locator1 = "CommerceEntry#CATALOGS_FORM",
 			key_title = "Currency",
-			value1 = "${currency}");
+			value1 = "${catalogCurrency}");
 	}
 
 	macro viewChannelsEntry {
 		AssertTextEquals(
 			locator1 = "TextInput#NAME",
-			value1 = "${entryName}");
+			value1 = "${channelName}");
 
 		AssertSelectedLabel(
 			key_fieldLabel = "Currency",
 			locator1 = "Select#GENERIC_SELECT_FIELD",
-			value1 = "${currency}");
+			value1 = "${channelCurrency}");
 
 		AssertElementPresent(
 			key_menuTab = "${channelType}",

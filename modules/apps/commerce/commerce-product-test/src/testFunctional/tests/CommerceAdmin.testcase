@@ -73,9 +73,9 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		CommerceEntry.addNewCatalogsEntry(
-			entryName = "Liferay",
-			language = "English (United States)",
-			currency = "US Dollar"
+			catalogName = "Test Catalog",
+			catalogLanguage = "English (United States)",
+			catalogCurrency = "US Dollar"
 		);
 
 		AssertClickNoError(
@@ -89,12 +89,12 @@ definition {
 			panel = "Control Panel",
 			portlet = "Catalogs");
 
-		CommerceNavigator.gotoEntry(entryName = "Liferay");	
+		CommerceNavigator.gotoEntry(entryName = "Test Catalog");	
 
 		CommerceEntry.viewCatalogsEntry(
-			entryName = "Liferay",
-			language = "English (United States)",
-			currency = "US Dollar"
+			catalogName = "Test Catalog",
+			catalogLanguage = "English (United States)",
+			catalogCurrency = "US Dollar"
 		);
 	}
 
@@ -112,7 +112,7 @@ definition {
 		CommerceEntry.addNewChannelsEntry(
 			channelType = "Site",
 			currency = "US Dollar",
-			entryName = "Test Channel",
+			channelName = "Test Channel",
 			siteName = "Guest");
 
 		ProductMenu.gotoPortlet(
@@ -124,7 +124,8 @@ definition {
 
 		CommerceEntry.viewChannelsEntry(
 			channelCurrency = "US Dollar",
-			entryName = "Test Channel");
+			channelType = "Site",
+			channelName = "Test Channel");
 	}
 
 	@ignore = "true"
