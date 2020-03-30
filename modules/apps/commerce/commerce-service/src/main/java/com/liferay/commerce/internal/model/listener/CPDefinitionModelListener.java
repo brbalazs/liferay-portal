@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.internal.model.listener;
 
+import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -36,7 +37,10 @@ public class CPDefinitionModelListener extends BaseModelListener<CPDefinition> {
 		try {
 			_cpDefinitionInventoryLocalService.addCPDefinitionInventory(
 				cpDefinition.getUserId(), cpDefinition.getCPDefinitionId(),
-				null, null, false, false, 0, true, 1, 10000, null, 1);
+				"default", null, false, false, 0, true,
+				CPDefinitionInventoryConstants.DEFAULT_MIN_ORDER_QUANTITY,
+				CPDefinitionInventoryConstants.DEFAULT_MAX_ORDER_QUANTITY, null,
+				CPDefinitionInventoryConstants.DEFAULT_MULTIPLE_ORDER_QUANTITY);
 		}
 		catch (PortalException pe) {
 			if (_log.isWarnEnabled()) {
