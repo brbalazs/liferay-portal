@@ -157,19 +157,8 @@ public class CommerceOrderItemDataSetDataProvider
 			end = pagination.getEndPosition();
 		}
 
-		OrderItemFilterImpl orderItemFilterImpl = (OrderItemFilterImpl)filter;
-
-		if (orderItemFilterImpl.isAdvancedSearch()) {
-			baseModelSearchResult = _commerceOrderItemService.search(
-				commerceOrderId, orderItemFilterImpl.getSku(),
-				orderItemFilterImpl.getName(),
-				orderItemFilterImpl.isAndOperator(), start, end, sort);
-		}
-		else {
-			baseModelSearchResult = _commerceOrderItemService.search(
-				commerceOrderId, orderItemFilterImpl.getKeywords(), start, end,
-				sort);
-		}
+		baseModelSearchResult = _commerceOrderItemService.search(
+			commerceOrderId, filter.getKeywords(), start, end, sort);
 
 		return baseModelSearchResult;
 	}

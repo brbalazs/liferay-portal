@@ -27,7 +27,6 @@ import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.search.facet.NegatableSimpleFacet;
 import com.liferay.commerce.service.CommerceOrderLocalService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -37,14 +36,11 @@ import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
-import com.liferay.portal.kernel.search.facet.Facet;
-import com.liferay.portal.kernel.search.facet.SimpleFacet;
 import com.liferay.portal.kernel.search.facet.config.FacetConfiguration;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -81,22 +77,16 @@ public class CommerceOrderDataSetDataProvider
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		OrderFilterImpl orderFilterImpl = (OrderFilterImpl)filter;
-
 		String activeTab = ParamUtil.getString(
 			httpServletRequest, "activeTab",
 			CommerceOrderPortletConstants.NAVIGATION_ITEM_ALL);
 
 		SearchContext searchContext = buildSearchContext(
-			_portal.getCompanyId(httpServletRequest), activeTab,
-			orderFilterImpl.getOrderStatus(),
-			orderFilterImpl.getAdvanceStatus(), orderFilterImpl.getKeywords(),
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+			_portal.getCompanyId(httpServletRequest), activeTab, filter, 0, 0,
+			null);
 
-		BaseModelSearchResult<CommerceOrder> baseModelSearchResult =
-			_commerceOrderLocalService.searchCommerceOrders(searchContext);
-
-		return baseModelSearchResult.getLength();
+		return (int)_commerceOrderLocalService.searchCommerceOrdersCount(
+			searchContext);
 	}
 
 	@Override
@@ -119,12 +109,8 @@ public class CommerceOrderDataSetDataProvider
 			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
 			themeDisplay.getTimeZone());
 
-		OrderFilterImpl orderFilterImpl = (OrderFilterImpl)filter;
-
 		SearchContext searchContext = buildSearchContext(
-			_portal.getCompanyId(httpServletRequest), activeTab,
-			orderFilterImpl.getOrderStatus(),
-			orderFilterImpl.getAdvanceStatus(), orderFilterImpl.getKeywords(),
+			_portal.getCompanyId(httpServletRequest), activeTab, filter,
 			pagination.getStartPosition(), pagination.getEndPosition(), sort);
 
 		BaseModelSearchResult<CommerceOrder> baseModelSearchResult =
@@ -166,28 +152,23 @@ public class CommerceOrderDataSetDataProvider
 	}
 
 	protected SearchContext buildSearchContext(
-			long companyId, String activeTab, int orderStatus,
-			String advanceStatus, String keywords, int start, int end,
+			long companyId, String activeTab, Filter filter, int start, int end,
 			Sort sort)
 		throws PortalException {
 
 		SearchContext searchContext = new SearchContext();
 
-		_addFacetOrderStatus(searchContext, activeTab, orderStatus);
+		_addFacetOrderStatus(searchContext, activeTab);
 		_addFacetStatus(searchContext);
 
-		if (Validator.isNotNull(advanceStatus)) {
-			_addFacetAdvanceStatus(searchContext, advanceStatus);
-		}
-
-		searchContext.setAttribute(Field.ENTRY_CLASS_PK, keywords);
+		searchContext.setAttribute(Field.ENTRY_CLASS_PK, filter.getKeywords());
 		searchContext.setAttribute("faceted", Boolean.TRUE);
-		searchContext.setAttribute("purchaseOrderNumber", keywords);
+		searchContext.setAttribute("purchaseOrderNumber", filter.getKeywords());
 		searchContext.setAttribute(
 			"useSearchResultPermissionFilter", Boolean.FALSE);
 
 		searchContext.setCompanyId(companyId);
-		searchContext.setKeywords(keywords);
+		searchContext.setKeywords(filter.getKeywords());
 		searchContext.setStart(start);
 		searchContext.setEnd(end);
 
@@ -241,20 +222,8 @@ public class CommerceOrderDataSetDataProvider
 		};
 	}
 
-	private void _addFacetAdvanceStatus(
-		SearchContext searchContext, String advanceStatus) {
-
-		Facet facet = new SimpleFacet(searchContext);
-
-		facet.setFieldName("advanceStatus");
-
-		searchContext.addFacet(facet);
-
-		searchContext.setAttribute(facet.getFieldId(), advanceStatus);
-	}
-
 	private SearchContext _addFacetOrderStatus(
-		SearchContext searchContext, String activeTab, int orderStatus) {
+		SearchContext searchContext, String activeTab) {
 
 		int[] orderStatuses = null;
 
@@ -269,9 +238,6 @@ public class CommerceOrderDataSetDataProvider
 		}
 		else if (activeTab.equals("completed")) {
 			orderStatuses = CommerceOrderConstants.ORDER_STATUSES_COMPLETED;
-		}
-		else if (orderStatus != CommerceOrderConstants.ORDER_STATUS_ANY) {
-			orderStatuses = new int[] {orderStatus};
 		}
 
 		searchContext.setAttribute("orderStatuses", orderStatuses);
