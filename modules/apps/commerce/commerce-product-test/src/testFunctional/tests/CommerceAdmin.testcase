@@ -23,6 +23,15 @@ definition {
 			ProductMenu.gotoPortlet(
 				category = "Commerce",
 				panel = "Control Panel",
+				portlet = "Catalogs");
+
+			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				CommerceProducts.deleteProductsEntry();
+			}
+
+			ProductMenu.gotoPortlet(
+				category = "Commerce",
+				panel = "Control Panel",
 				portlet = "Channels");
 
 			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
@@ -82,21 +91,22 @@ definition {
 
 		Click(locator1 = "Button#PLUS");
 
-		CommerceEntry.addNewChannelEntry(
-			criteriaType = "Site",
+		CommerceEntry.addNewChannelsEntry(
+			channelType = "Site",
 			currency = "US Dollar",
-			entryName = "Liferay");
+			entryName = "Test Channel",
+			siteName = "Guest");
 
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
 			panel = "Control Panel",
 			portlet = "Channels");
 
-		CommerceNavigator.gotoEntry(entryName = "Liferay");
+		CommerceNavigator.gotoEntry(entryName = "Test Channel");
 
 		CommerceEntry.viewChannelsEntry(
-			currency = "US Dollar",
-			entryName = "Liferay");
+			channelCurrency = "US Dollar",
+			entryName = "Test Channel");
 	}
 
 	@ignore = "true"

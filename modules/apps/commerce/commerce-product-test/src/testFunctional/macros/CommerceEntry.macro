@@ -46,7 +46,7 @@ definition {
 			value1 = "${entryName}");
 	}
 
-	macro addNewChannelEntry {
+	macro addNewChannelsEntry {
 		IFrame.selectModalFrame();
 
 		Pause(locator1 = "3000");
@@ -58,22 +58,22 @@ definition {
 		Select(
 			key_fieldLabel = "Currency",
 			locator1 = "Select#GENERIC_SELECT_FIELD",
-			value1 = "${currency}");
+			value1 = "${channelCurrency}");
 
 		Select(
 			locator1 = "Select#TYPE",
-			value1 = "${criteriaType}");
+			value1 = "${channelType}");
 
 		Click(locator1 = "Button#ADD");
 
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 
 		if(isSet(siteName)) {
-			CommerceNavigator.gotoEntry(entryName = "Liferay");
+			CommerceNavigator.gotoEntry(entryName = "${entryName}");
 
 			Click(
-				key_breadcrumbName = "Site",
-				locator1 = "CommerceEntry#BREADCRUMB_ENTRY");
+				key_menuTab = "${channelType}",
+				locator1 = "CommerceEntry#MENU_TAB");
 
 			AssertClick(
 				locator1 = "Button#SELECT",
