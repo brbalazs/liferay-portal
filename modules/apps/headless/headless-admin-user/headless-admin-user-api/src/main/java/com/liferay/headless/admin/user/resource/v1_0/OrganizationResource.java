@@ -21,6 +21,8 @@ import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
+import java.util.Locale;
+
 import javax.annotation.Generated;
 
 import javax.servlet.http.HttpServletRequest;
@@ -94,6 +96,8 @@ public interface OrganizationResource {
 
 		public Builder httpServletRequest(
 			HttpServletRequest httpServletRequest);
+
+		public Builder preferredLocale(Locale preferredLocale);
 
 		public Builder user(com.liferay.portal.kernel.model.User user);
 
