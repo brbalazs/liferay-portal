@@ -288,12 +288,6 @@ definition {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAdmin#CreateNewPriceList";
 
-		CommerceEntry.createNewAccountGroup(
-			accountCriteriaType = "Business",
-			accountGroupsEntryName = "Commerce Account Group",
-			accountsEntryName = "Commerce Account",
-			user = "Commerce");
-
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
 			panel = "Control Panel",
@@ -302,7 +296,6 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		CommerceEntry.addNewPriceListsEntry(
-			accountGroupsEntryName = "Commerce Account Group",
 			currencyCode = "USD",
 			entryName = "New Price List");
 
