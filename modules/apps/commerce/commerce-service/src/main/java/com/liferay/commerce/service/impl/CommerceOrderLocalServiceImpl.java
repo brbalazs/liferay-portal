@@ -218,10 +218,9 @@ public class CommerceOrderLocalServiceImpl
 		// Workflow
 
 		return WorkflowHandlerRegistryUtil.startWorkflowInstance(
-			commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
-			userId, CommerceOrder.class.getName(),
-			commerceOrder.getCommerceOrderId(), commerceOrder, serviceContext,
-			new HashMap<>());
+			commerceOrder.getCompanyId(), commerceOrder.getGroupId(), userId,
+			CommerceOrder.class.getName(), commerceOrder.getCommerceOrderId(),
+			commerceOrder, serviceContext, new HashMap<>());
 	}
 
 	@Override
@@ -347,7 +346,7 @@ public class CommerceOrderLocalServiceImpl
 		// Workflow
 
 		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
-			commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
+			commerceOrder.getCompanyId(), commerceOrder.getGroupId(),
 			CommerceOrder.class.getName(), commerceOrder.getCommerceOrderId());
 
 		return commerceOrder;
