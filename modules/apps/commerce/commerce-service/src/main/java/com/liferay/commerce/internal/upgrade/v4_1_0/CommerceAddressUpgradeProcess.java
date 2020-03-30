@@ -19,6 +19,7 @@ import com.liferay.commerce.constants.CommerceAddressConstants;
 import com.liferay.commerce.internal.upgrade.base.BaseCommerceServiceUpgradeProcess;
 import com.liferay.commerce.model.impl.CommerceAddressImpl;
 import com.liferay.commerce.model.impl.CommerceAddressModelImpl;
+import com.liferay.portal.dao.orm.common.SQLTransformer;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeException;
 
@@ -83,15 +84,17 @@ public class CommerceAddressUpgradeProcess
 
 		if (type.equals("defaultBilling")) {
 			ps = connection.prepareStatement(
-				"select commerceAddressId, classPK, defaultBilling, " +
-					"defaultShipping from CommerceAddress where classNameId =" +
-						"? and defaultBilling = [$TRUE$]");
+				SQLTransformer.transform(
+					"select commerceAddressId, classPK, defaultBilling, " +
+						"defaultShipping from CommerceAddress where classNameId =" +
+							"? and defaultBilling = [$TRUE$]"));
 		}
 		else {
 			ps = connection.prepareStatement(
-				"select commerceAddressId, classPK, defaultBilling, " +
-					"defaultShipping from CommerceAddress where classNameId =" +
-						"? and defaultShipping = [$TRUE$]");
+				SQLTransformer.transform(
+					"select commerceAddressId, classPK, defaultBilling, " +
+						"defaultShipping from CommerceAddress where classNameId =" +
+							"? and defaultShipping = [$TRUE$]"));
 		}
 
 		ps.setLong(1, commerceAccountClassNameId);
