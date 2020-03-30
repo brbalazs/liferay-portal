@@ -70,8 +70,7 @@ public class JsonHelper {
 
 	public static boolean isArray(String json) {
 		if (isEmpty(json)) {
-			throw new IllegalArgumentException(
-				"Method argument must not be null");
+			return false;
 		}
 
 		if (json.startsWith(StringPool.OPEN_BRACKET) &&
