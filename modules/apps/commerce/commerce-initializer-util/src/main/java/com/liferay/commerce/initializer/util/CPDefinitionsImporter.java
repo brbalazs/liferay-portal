@@ -26,6 +26,7 @@ import com.liferay.commerce.account.service.CommerceAccountGroupRelLocalService;
 import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
 import com.liferay.commerce.model.CPDAvailabilityEstimate;
+import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.model.CommerceAvailabilityEstimate;
 import com.liferay.commerce.product.exception.NoSuchSkuContributorCPDefinitionOptionRelException;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
@@ -562,12 +563,27 @@ public class CPDefinitionsImporter {
 			"MultipleOrderQuantity",
 			CPDefinitionInventoryConstants.DEFAULT_MULTIPLE_ORDER_QUANTITY);
 
-		_cpDefinitionInventoryLocalService.addCPDefinitionInventory(
-			serviceContext.getUserId(), cpDefinition.getCPDefinitionId(),
-			cpDefinitionInventoryEngine, lowStockActivity, displayAvailability,
-			displayStockQuantity, minStockQuantity, backOrders,
-			minOrderQuantity, maxOrderQuantity, allowedOrderQuantities,
-			multipleOrderQuantity);
+		CPDefinitionInventory cpDefinitionInventory =
+			_cpDefinitionInventoryLocalService.
+				fetchCPDefinitionInventoryByCPDefinitionId(
+					cpDefinition.getCPDefinitionId());
+
+		if (cpDefinitionInventory == null) {
+			_cpDefinitionInventoryLocalService.addCPDefinitionInventory(
+				serviceContext.getUserId(), cpDefinition.getCPDefinitionId(),
+				cpDefinitionInventoryEngine, lowStockActivity,
+				displayAvailability, displayStockQuantity, minStockQuantity,
+				backOrders, minOrderQuantity, maxOrderQuantity,
+				allowedOrderQuantities, multipleOrderQuantity);
+		}
+		else {
+			_cpDefinitionInventoryLocalService.updateCPDefinitionInventory(
+				cpDefinitionInventory.getCPDefinitionInventoryId(),
+				cpDefinitionInventoryEngine, lowStockActivity,
+				displayAvailability, displayStockQuantity, minStockQuantity,
+				backOrders, minOrderQuantity, maxOrderQuantity,
+				allowedOrderQuantities, multipleOrderQuantity);
+		}
 
 		// Commerce product definition availability estimate
 
