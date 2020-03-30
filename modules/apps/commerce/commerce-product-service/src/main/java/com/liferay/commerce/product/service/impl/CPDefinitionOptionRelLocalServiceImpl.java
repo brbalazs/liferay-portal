@@ -18,6 +18,7 @@ import com.liferay.commerce.product.configuration.CPOptionConfiguration;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.exception.CPDefinitionOptionSKUContributorException;
 import com.liferay.commerce.product.exception.DuplicateCPDefinitionOptionRelKeyException;
+import com.liferay.commerce.product.internal.util.JsonHelper;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
@@ -291,7 +292,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				long cpDefinitionId, boolean skuContributorsOnly, String json)
 		throws PortalException {
 
-		if (Validator.isNull(json)) {
+		if (JsonHelper.isEmpty(json)) {
 			return Collections.emptyMap();
 		}
 
@@ -299,7 +300,14 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds =
 				new HashMap<>();
 
-		JSONArray jsonArray = _jsonFactory.createJSONArray(json);
+		JSONArray jsonArray = _jsonFactory.createJSONArray();
+
+		if (JsonHelper.isArray(json)) {
+			jsonArray = _jsonFactory.createJSONArray(json);
+		}
+		else {
+			jsonArray.put(_jsonFactory.createJSONObject(json));
+		}
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -319,7 +327,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				continue;
 			}
 
-			JSONArray valueJSONArray = jsonObject.getJSONArray("value");
+			JSONArray valueJSONArray = JsonHelper.getValueAsJSONArray(
+				"value", jsonObject);
 
 			for (int j = 0; j < valueJSONArray.length(); j++) {
 				CPDefinitionOptionValueRel cpDefinitionOptionValueRel =

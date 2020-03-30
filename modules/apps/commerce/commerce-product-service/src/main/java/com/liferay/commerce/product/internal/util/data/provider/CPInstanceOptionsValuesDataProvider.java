@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.internal.util.data.provider;
 
+import com.liferay.commerce.product.internal.util.JsonHelper;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.permission.CommerceProductViewPermission;
@@ -33,7 +34,6 @@ import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.ReleaseInfo;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -136,16 +136,23 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 
 				// Collect filters and outputs
 
-				if (Validator.isNull(parameterValue)) {
+				if (JsonHelper.isEmpty(parameterValue)) {
 					requestedCPDefinitionOptionRels.add(cpDefinitionOptionRel);
 				}
 				else {
+					String optionValueKey = parameterValue;
+
+					if (JsonHelper.isArray(parameterValue)) {
+						optionValueKey = JsonHelper.getFirstElementStringValue(
+							parameterValue);
+					}
+
 					CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 						_cpDefinitionOptionValueRelLocalService.
 							fetchCPDefinitionOptionValueRel(
 								cpDefinitionOptionRel.
 									getCPDefinitionOptionRelId(),
-								parameterValue);
+								optionValueKey);
 
 					if (cpDefinitionOptionValueRel != null) {
 						skuCombinationCPDefinitionOptionValueRelIds.add(

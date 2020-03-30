@@ -69,7 +69,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -104,9 +103,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			return getDefaultCPInstance(cpDefinitionId);
 		}
 
-		if (Validator.isNull(serializedDDMFormValues) ||
-			Objects.equals(serializedDDMFormValues, "[]")) {
-
+		if (JsonHelper.isEmpty(serializedDDMFormValues)) {
 			throw new IllegalArgumentException("Required parameter missing");
 		}
 
