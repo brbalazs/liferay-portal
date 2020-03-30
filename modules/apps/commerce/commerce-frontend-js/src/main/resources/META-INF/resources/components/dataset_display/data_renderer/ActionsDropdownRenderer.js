@@ -89,7 +89,6 @@ function ActionsDropdownRenderer(props) {
 		title = '',
 		url = ''
 	}) {
-
 		if (target.includes('modal')) {
 			switch (target) {
 				case MODAL_PERMISSIONS:
