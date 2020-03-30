@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.internal.order.engine;
 
+import com.liferay.commerce.constants.CommerceDestinationNames;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePaymentConstants;
@@ -56,6 +57,8 @@ import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
 import com.liferay.commerce.subscription.CommerceSubscriptionEntryHelperUtil;
 import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.messaging.Message;
+import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -381,6 +384,9 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 				@Override
 				public Void call() throws Exception {
+
+					//Commerce Subscription
+
 					if ((orderStatus ==
 							CommerceOrderConstants.ORDER_STATUS_PENDING) &&
 						(commerceOrder.getPaymentStatus() ==
@@ -390,10 +396,22 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 							checkCommerceSubscriptions(commerceOrder);
 					}
 
+					//Commerce Notification
+
 					_commerceNotificationHelper.sendNotifications(
 						commerceOrder.getGroupId(), commerceOrder.getUserId(),
 						CommerceOrderConstants.getNotificationKey(orderStatus),
 						commerceOrder);
+
+					//Commerce Order Status Message
+
+					Message message = new Message();
+
+					message.put(
+						"commerceOrderId", commerceOrder.getCommerceOrderId());
+
+					MessageBusUtil.sendMessage(
+						CommerceDestinationNames.ORDER_STATUS, message);
 
 					return null;
 				}
