@@ -23,9 +23,10 @@ definition {
 
 		Click(locator1 = "Button#PLUS");
 
-		CommerceEntry.addNewChannelEntry(
-			criteriaType = "Site",
-			entryName = "Liferay",
+		CommerceEntry.addNewChannelsEntry(
+			channelName = "Test Channel",
+			channelType = "Site",
+			channelCurrency = "US Dollar",
 			siteName = "Guest");
 
 		Button.clickSave();
@@ -177,9 +178,10 @@ definition {
 
 		Click(locator1 = "Button#PLUS");
 
-		CommerceEntry.addNewChannelEntry(
-			criteriaType = "Site",
-			entryName = "Liferay",
+		CommerceEntry.addNewChannelsEntry(
+			channelName = "Test Channel",
+			channelType = "Site",
+			channelCurrency = "US Dollar",
 			siteName = "Guest");
 
 		Button.clickSave();

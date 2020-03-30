@@ -126,9 +126,9 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		CommerceEntry.addNewChannelsEntry(
+			channelCurrency = "US Dollar",
 			channelName = "Test Channel",
 			channelType = "Site",
-			currency = "US Dollar",
 			siteName = "Guest");
 
 		ProductMenu.gotoPortlet(
@@ -188,10 +188,10 @@ definition {
 
 		Click(locator1 = "Button#PLUS");
 
-		CommerceEntry.addNewChannelEntry(
+		CommerceEntry.addNewChannelsEntry(
+			channelCurrency = "US Dollar",
+			channelName = "Test Channel",
 			channelType = "Site",
-			currency = "US Dollar",
-			entryName = "Test Channel",
 			siteName = "Guest");
 
 		ProductMenu.gotoPortlet(
