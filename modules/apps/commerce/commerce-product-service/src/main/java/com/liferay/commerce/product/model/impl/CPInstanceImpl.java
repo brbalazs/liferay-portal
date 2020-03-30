@@ -124,7 +124,7 @@ public class CPInstanceImpl extends CPInstanceBaseImpl {
 				new UnicodeProperties();
 		}
 
-		super.setSubscriptionTypeSettings(
+		super.setDeliverySubscriptionTypeSettings(
 			_deliverySubscriptionTypeSettingsProperties.toString());
 	}
 
