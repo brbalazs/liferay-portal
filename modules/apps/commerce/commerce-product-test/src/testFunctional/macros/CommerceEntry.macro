@@ -582,4 +582,18 @@ definition {
 			value1 = "${productShortDescription}");
 	}
 
+	macro createNewSpecificationLabels {
+		Click(locator1 = "Button#PLUS");
+
+		Type(
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			key_fieldLabel = "Label",
+			value1 = "${specificationTitle}");
+
+		Type(
+			locator1 = "CommerceEntry#DESCRIPTION_FIELD",
+			value1 = "${specificationDescription}");
+
+		Button.clickSave();
+	}
 }
