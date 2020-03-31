@@ -38,6 +38,23 @@ definition {
 				CommerceProducts.deleteProductsEntry();
 			}
 
+			ProductMenu.gotoPortlet(
+				category = "Commerce",
+				panel = "Control Panel",
+				portlet = "Products");
+
+			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specifications");
+
+			while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				PortletEntry.deleteViaMenuItem(rowEntry = "");
+			}
+
+			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
+
+			while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				PortletEntry.deleteViaMenuItem(rowEntry = "");
+			}
+
 			User.logoutPG();
 		}
 	}
