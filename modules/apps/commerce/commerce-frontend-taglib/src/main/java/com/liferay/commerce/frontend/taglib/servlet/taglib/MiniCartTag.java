@@ -26,7 +26,6 @@ import com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver;
 import com.liferay.frontend.taglib.soy.servlet.taglib.ComponentRendererTag;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
@@ -117,13 +116,6 @@ public class MiniCartTag extends ComponentRendererTag {
 			putValue("productsCount", 0);
 			putValue(
 				"spritemap", themeDisplay.getPathThemeImages() + "/icons.svg");
-
-			putValue(
-				"placeholder",
-				LanguageUtil.format(
-					request, "add-a-x-product-x-to-the-cart",
-					new Object[] {"<span class='stress'>", "</span><br />"},
-					false));
 
 			setTemplateNamespace("MiniCart.render");
 		}

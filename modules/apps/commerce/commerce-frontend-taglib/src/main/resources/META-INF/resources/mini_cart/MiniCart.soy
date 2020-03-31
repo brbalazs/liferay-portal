@@ -6,7 +6,6 @@
 {template .render}
 	{@param? detailsUrl: string}
 	{@param checkoutUrl: string}
-	{@param placeholder: string}
 	{@param spritemap: string }
 	{@param? displayDiscountLevels: bool}
 
@@ -156,9 +155,11 @@
 								{/call}
 							</div>
 
-							<div class="empty-cart-label">
-								<p>{$placeholder}</p>
-							</div>
+							<p class="empty-cart-label">
+								{msg desc="Add a product to the cart"}
+									add-a-product-to-the-cart
+								{/msg}
+							</p>
 						</div>
 					{/if}
 				</div>
