@@ -89,7 +89,7 @@ function ActionsDropdownRenderer(props) {
 		title = '',
 		url = ''
 	}) {
-		if (target.includes('modal')) {
+		if (!!target && target.includes('modal')) {
 			switch (target) {
 				case MODAL_PERMISSIONS:
 					openPermissionsModal(url);
