@@ -187,6 +187,8 @@ AUI.add(
 						}
 
 						instance._createTitleForEditingLanguageId();
+
+						instance._uiSetActivePageNumber(1);
 					},
 
 					destructor: function() {
@@ -1270,10 +1272,24 @@ AUI.add(
 						instance._getWizard().set('disabled', disabled);
 					},
 
-					_uiSetActivePageNumber: function(event) {
+					_uiSetActivePageNumber: function(activePageNumber) {
 						var instance = this;
 
 						FormBuilderPagesManager.superclass._uiSetActivePageNumber.apply(instance, arguments);
+
+						var title = instance.get('titles')[activePageNumber - 1];
+
+						if (title) {
+							var pageHeader = instance.get('pageHeader');
+
+							var pagesQuantity = instance.get('pagesQuantity');
+
+							var titleNode = pageHeader.one('.' + CSS_PAGE_HEADER_TITLE);
+
+							var untitledPageTemplate = instance._createUntitledPageLabel(activePageNumber, pagesQuantity);
+
+							titleNode.attr('placeholder', untitledPageTemplate);
+						}
 
 						instance._syncPageInformationHeight();
 					},
