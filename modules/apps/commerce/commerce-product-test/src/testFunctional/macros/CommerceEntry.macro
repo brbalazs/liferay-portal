@@ -632,4 +632,25 @@ definition {
 
 		ClickNoError(locator1 = "CommerceEntry#SAVE_BUTTON");
 	}
+
+	macro viewSpecificationGroups {
+		Click(
+			locator1 = "CommerceEntry#ANY_ENTRY_NAME",
+			key_entry = "${specificationTitle}");
+
+		AssertTextEquals(
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			key_fieldLabel = "Title",
+			value1 = "${specificationTitle}");
+
+		AssertTextEquals(
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			key_fieldLabel = "Description",
+			value1 = "${specificationDescription}");
+
+		AssertTextEquals(
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			key_fieldLabel = "Key",
+			value1 = "${specificationTitle}");
+	}
 }
