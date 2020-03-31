@@ -17,11 +17,14 @@ package com.liferay.frontend.js.loader.modules.extender.internal.resolution;
 import com.liferay.frontend.js.loader.modules.extender.npm.JSBundle;
 import com.liferay.frontend.js.loader.modules.extender.npm.JSBundleTracker;
 import com.liferay.frontend.js.loader.modules.extender.npm.NPMRegistry;
+import com.liferay.osgi.util.ServiceTrackerFactory;
 
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * @author Iván Zaera
@@ -34,8 +37,11 @@ public class BrowserModuleNameMapperCacheInvalidator
 	public void addedJSBundle(
 		JSBundle jsBundle, Bundle bundle, NPMRegistry npmRegistry) {
 
-		if (_browserModuleNameMapper != null) {
-			_browserModuleNameMapper.clearCache();
+		BrowserModuleNameMapper browserModuleNameMapper =
+			_serviceTracker.getService();
+
+		if (browserModuleNameMapper != null) {
+			browserModuleNameMapper.clearCache();
 		}
 	}
 
@@ -43,12 +49,28 @@ public class BrowserModuleNameMapperCacheInvalidator
 	public void removedJSBundle(
 		JSBundle jsBundle, Bundle bundle, NPMRegistry npmRegistry) {
 
-		if (_browserModuleNameMapper != null) {
-			_browserModuleNameMapper.clearCache();
+		BrowserModuleNameMapper browserModuleNameMapper =
+			_serviceTracker.getService();
+
+		if (browserModuleNameMapper != null) {
+			browserModuleNameMapper.clearCache();
 		}
 	}
 
-	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
-	private volatile BrowserModuleNameMapper _browserModuleNameMapper;
+	@Activate
+	protected void activate(BundleContext bundleContext) {
+		_serviceTracker = ServiceTrackerFactory.create(
+			bundleContext, BrowserModuleNameMapper.class, null);
+
+		_serviceTracker.open();
+	}
+
+	@Deactivate
+	protected void deactivate() {
+		_serviceTracker.close();
+	}
+
+	private ServiceTracker<BrowserModuleNameMapper, BrowserModuleNameMapper>
+		_serviceTracker;
 
 }
