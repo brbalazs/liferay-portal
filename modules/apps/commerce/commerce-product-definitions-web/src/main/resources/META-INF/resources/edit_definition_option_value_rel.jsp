@@ -26,9 +26,20 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 
 <c:choose>
 	<c:when test="<%= cpDefinitionOptionValueRel == null %>">
-		<commerce-ui:modal-content>
+		<commerce-ui:modal-content
+			title='<%= LanguageUtil.get(request, "add-value") %>'
+		>
 			<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
 				<%@ include file="/edit_definition_option_value_rel.jspf" %>
+
+				<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
+					<liferay-expando:custom-attribute-list
+						className="<%= CPDefinitionOptionValueRel.class.getName() %>"
+						classPK="<%= (cpDefinitionOptionValueRel != null) ? cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId() : 0 %>"
+						editable="<%= true %>"
+						label="<%= true %>"
+					/>
+				</c:if>
 			</aui:form>
 		</commerce-ui:modal-content>
 	</c:when>
@@ -37,7 +48,24 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 			title='<%= LanguageUtil.format(request, "edit-x", cpDefinitionOptionValueRel.getName(languageId), false) %>'
 		>
 			<aui:form action="<%= editProductDefinitionOptionValueRelActionURL %>" method="post" name="cpDefinitionOptionValueRelfm">
-				<%@ include file="/edit_definition_option_value_rel.jspf" %>
+				<commerce-ui:panel
+					title='<%= LanguageUtil.get(request, "details") %>'
+				>
+					<%@ include file="/edit_definition_option_value_rel.jspf" %>
+				</commerce-ui:panel>
+
+				<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
+					<commerce-ui:panel
+						title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+					>
+						<liferay-expando:custom-attribute-list
+							className="<%= CPDefinitionOptionValueRel.class.getName() %>"
+							classPK="<%= (cpDefinitionOptionValueRel != null) ? cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId() : 0 %>"
+							editable="<%= true %>"
+							label="<%= true %>"
+						/>
+					</commerce-ui:panel>
+				</c:if>
 
 				<aui:button-row>
 					<aui:button cssClass="btn-lg" type="submit" value="save" />
