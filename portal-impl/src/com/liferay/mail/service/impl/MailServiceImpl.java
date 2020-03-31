@@ -172,7 +172,7 @@ public class MailServiceImpl implements IdentifiableOSGiService, MailService {
 		int smtpPort = PrefsPropsUtil.getInteger(
 			PropsKeys.MAIL_SESSION_MAIL_SMTP_PORT,
 			PropsValues.MAIL_SESSION_MAIL_SMTP_PORT);
-		boolean smtpStartTlsEnable = PrefsPropsUtil.getBoolean(
+		boolean smtpStartTLSEnable = PrefsPropsUtil.getBoolean(
 			PropsKeys.MAIL_SESSION_MAIL_SMTP_STARTTLS_ENABLE,
 			PropsValues.MAIL_SESSION_MAIL_SMTP_STARTTLS_ENABLE);
 		String smtpUser = PrefsPropsUtil.getString(
@@ -228,7 +228,7 @@ public class MailServiceImpl implements IdentifiableOSGiService, MailService {
 			transportPrefix + "port", String.valueOf(smtpPort));
 		properties.setProperty(
 			transportPrefix + "starttls.enable",
-			String.valueOf(smtpStartTlsEnable));
+			String.valueOf(smtpStartTLSEnable));
 		properties.setProperty(transportPrefix + "user", smtpUser);
 
 		// Advanced

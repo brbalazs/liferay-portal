@@ -536,8 +536,8 @@ public class EditServerMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "smtpPassword");
 		int smtpPort = ParamUtil.getInteger(actionRequest, "smtpPort");
 		boolean smtpSecure = ParamUtil.getBoolean(actionRequest, "smtpSecure");
-		boolean smtpStartTlsEnable = ParamUtil.getBoolean(
-			actionRequest, "smtpStartTlsEnable");
+		boolean smtpStartTLSEnable = ParamUtil.getBoolean(
+			actionRequest, "smtpStartTLSEnable");
 		String smtpUser = ParamUtil.getString(actionRequest, "smtpUser");
 
 		String storeProtocol = Account.PROTOCOL_POP;
@@ -566,7 +566,7 @@ public class EditServerMVCActionCommand extends BaseMVCActionCommand {
 
 		portletPreferences.setValue(
 			PropsKeys.MAIL_SESSION_MAIL_SMTP_STARTTLS_ENABLE,
-			String.valueOf(smtpStartTlsEnable));
+			String.valueOf(smtpStartTLSEnable));
 		portletPreferences.setValue(
 			PropsKeys.MAIL_SESSION_MAIL_POP3_PORT, String.valueOf(pop3Port));
 		portletPreferences.setValue(
