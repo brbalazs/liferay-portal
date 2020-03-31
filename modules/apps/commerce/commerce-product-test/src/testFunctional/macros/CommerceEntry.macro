@@ -616,4 +616,20 @@ definition {
 			key_fieldLabel = "Key",
 			value1 = "${specificationTitle}");
 	}
+
+	macro createNewSpecificationGroups {
+		Click(locator1 = "Button#PLUS");
+
+		Type(
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			key_fieldLabel = "Title",
+			value1 = "${specificationTitle}");
+
+		Type(
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			key_fieldLabel = "Description",
+			value1 = "${specificationDescription}");
+
+		ClickNoError(locator1 = "CommerceEntry#SAVE_BUTTON");
+	}
 }
