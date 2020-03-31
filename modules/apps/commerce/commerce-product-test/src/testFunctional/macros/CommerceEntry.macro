@@ -596,4 +596,24 @@ definition {
 
 		Button.clickSave();
 	}
+
+	macro viewSpecificationLabels {
+		Click(
+			locator1 = "CommerceEntry#ANY_ENTRY_NAME",
+			key_entry = "${specificationTitle}");
+
+		AssertTextEquals(
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			key_fieldLabel = "Label",
+			value1 = "${specificationTitle}");
+
+		AssertTextEquals(
+			locator1 = "CommerceEntry#DESCRIPTION_FIELD",
+			value1 = "${specificationDescription}");
+
+		AssertTextEquals(
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			key_fieldLabel = "Key",
+			value1 = "${specificationTitle}");
+	}
 }
