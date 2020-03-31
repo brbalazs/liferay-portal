@@ -28,11 +28,9 @@ KaleoDefinitionVersionSearch kaleoDefinitionVersionSearch = kaleoDesignerDisplay
 	RequiredWorkflowDefinitionException requiredWorkflowDefinitionException = (RequiredWorkflowDefinitionException)errorException;
 
 	Object[] messageArguments = kaleoDesignerDisplayContext.getMessageArguments(requiredWorkflowDefinitionException.getWorkflowDefinitionLinks(), request);
-
-	String messageKey = kaleoDesignerDisplayContext.getMessageKey(requiredWorkflowDefinitionException.getWorkflowDefinitionLinks());
 	%>
 
-	<liferay-ui:message arguments="<%= messageArguments %>" key="<%= messageKey %>" translateArguments="<%= false %>" />
+	<liferay-ui:message arguments="<%= messageArguments %>" key="<%= kaleoDesignerDisplayContext.getMessageKey(requiredWorkflowDefinitionException.getWorkflowDefinitionLinks()) %>" translateArguments="<%= false %>" />
 </liferay-ui:error>
 
 <liferay-util:include page="/designer/management_bar.jsp" servletContext="<%= application %>" />
