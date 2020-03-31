@@ -90,8 +90,8 @@ public class RobotsUtil {
 		}
 		else if (_log.isWarnEnabled()) {
 			_log.warn(
-				"Wildcard [$HOST$] could not be replaced with the actual " +
-					"virtualhost");
+				"Placeholder [$HOST$] could not be replaced with the actual " +
+					"host");
 		}
 
 		robotsTxt = StringUtil.replace(
