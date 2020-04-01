@@ -77,6 +77,7 @@ definition {
 			parentGroupName = "Site Name");
 
 		JSONGroup.addChildSite(
+			grandParentGroupName = "Site Name",
 			groupName = "Child Child SiteName",
 			parentGroupName = "Child SiteName");
 
@@ -372,7 +373,8 @@ definition {
 			layoutName = "Site Page");
 
 		JSONGroup.addChildSite(
-			groupName = "Child ChildSiteName",
+			grandParentGroupName = "Site Name",
+			groupName = "Child Child SiteName",
 			parentGroupName = "Child SiteName");
 
 		JSONLayout.addPublicLayout(
@@ -423,6 +425,7 @@ definition {
 			layoutName = "Site Page");
 
 		JSONGroup.addChildSite(
+			grandParentGroupName = "Site Name",
 			groupName = "Child ChildSite1Name",
 			parentGroupName = "Child Site1Name");
 

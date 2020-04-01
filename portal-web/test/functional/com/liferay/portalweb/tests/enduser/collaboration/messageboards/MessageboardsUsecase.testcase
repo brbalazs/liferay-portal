@@ -340,6 +340,7 @@ definition {
 			threadSubject = "MB Thread Message Subject");
 
 		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = '''<script>alert(123);</script>''',
 			threadSubject = '''<script>alert(123);</script>''');
 
