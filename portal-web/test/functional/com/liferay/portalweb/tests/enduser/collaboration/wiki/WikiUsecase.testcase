@@ -357,6 +357,8 @@ definition {
 			wikiNodeName = "Main");
 	}
 
+	@description = "This will be ignored until LPS-87430 is backported on BPR-23065."
+	@ignore = "true"
 	@priority = "4"
 	test SearchChildPageComment {
 		WikiPage.addFrontPagePG(

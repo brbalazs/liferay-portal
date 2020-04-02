@@ -1106,7 +1106,8 @@ definition {
 		AssetPublisherPortlet.viewConfigureSiteScope(siteName = "Site Name B");
 	}
 
-	@description = "This is a use case for LPS-96470."
+	@description = "This will be ignored until LPS-96928 is fixed. This is a use case for LPS-96470."
+	@ignore = "true"
 	@priority = "3"
 	test ExportImportSiteWithCommentsAndRatingsUnderBlogsEntry {
 		JSONLayout.addPublicLayout(
@@ -2161,7 +2162,8 @@ definition {
 			siteName = "Site C");
 	}
 
-	@description = "This is a use case for LPS-97544 and LPS-90886."
+	@description = "This will be ignored until LPS-90886 is fixed and backported on BPR-32057. This is a use case for LPS-97544 and LPS-90886."
+	@ignore = "true"
 	@priority = "3"
 	test ImportStagedSiteWithCircularReference {
 		JSONGroup.addGroup(groupName = "Site Name");

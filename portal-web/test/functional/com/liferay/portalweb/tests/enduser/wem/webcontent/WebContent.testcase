@@ -553,6 +553,8 @@ definition {
 		}
 	}
 
+	@description = "This will be ignored until LPS-96630 is fixed and backported on BPR-47052."
+	@ignore = "true"
 	@priority = "4"
 	test AddStructureWithUnlocalizableFields {
 		property testray.component.names = "Localization,Web Content Administration";

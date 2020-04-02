@@ -336,7 +336,8 @@ definition {
 			entryTitle = "Blogs Entry Title Edit");
 	}
 
-	@description = "This test covers LPS-103502. It ensures that notifications are displayed correctly after being mentioned."
+	@description = "This will be ignored until LPS-103502 is backported on BPR-46081. This test covers LPS-103502."
+	@ignore = "true"
 	@priority = "3"
 	test ViewWebsiteNotificationdForMention {
 		Navigator.gotoPage(pageName = "Blogs Page");

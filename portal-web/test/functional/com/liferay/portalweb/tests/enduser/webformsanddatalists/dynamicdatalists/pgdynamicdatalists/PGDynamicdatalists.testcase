@@ -747,6 +747,8 @@ definition {
 		);
 	}
 
+	@description = "This will be ignored until LPS-88647 is fixed and backported on BPR-47059."
+	@ignore = "true"
 	@priority = "4"
 	test EditListRecordViaRecordView {
 		Navigator.openURL();

@@ -50,6 +50,8 @@ definition {
 			userScreenName = "test");
 	}
 
+	@description = "This will be ignored until LRCI-1050 is fixed."
+	@ignore = "true"
 	@priority = "4"
 	test FacebookSSOSmoke {
 		property dummy.socket.proxy.disabled = "true";

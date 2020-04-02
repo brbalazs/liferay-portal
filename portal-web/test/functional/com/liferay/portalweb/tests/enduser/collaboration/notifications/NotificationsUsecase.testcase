@@ -316,7 +316,8 @@ definition {
 		NotificationsPortlet.viewDefaultNotificationDeliveries();
 	}
 
-	@description = "This test covers LPS-104398. It views a notification of a web content article created in a folder."
+	@description = "This will be ignored until LPS-104398 is backported on BPR-46990. This test covers LPS-104398. "
+	@ignore = "true"
 	@priority = "4"
 	test ViewFolderArticleNotification {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
