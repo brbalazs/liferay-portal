@@ -724,8 +724,7 @@ public class LayoutsAdminDisplayContext {
 	}
 
 	public String getRobots() {
-		return ParamUtil.getString(
-			_request, "robots", _getStrictRobots());
+		return ParamUtil.getString(_request, "robots", _getStrictRobots());
 	}
 
 	public String getRootNodeName() {

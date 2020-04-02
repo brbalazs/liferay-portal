@@ -61,14 +61,7 @@ public class RobotsUtil {
 
 		int portalServerPort = PortalUtil.getPortalServerPort(secure);
 
-		TreeMap<String, String> virtualHostnames =
-			PortalUtil.getVirtualHostnames(layoutSet);
-
-		String virtualHostname = StringPool.BLANK;
-
-		if (!virtualHostnames.isEmpty()) {
-			virtualHostname = virtualHostnames.firstKey();
-		}
+		String virtualHostname = PortalUtil.getVirtualHostname(layoutSet);
 
 		String robotsTxt = GetterUtil.getString(
 			layoutSet.getSettingsProperty(
