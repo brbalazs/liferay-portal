@@ -69,9 +69,7 @@ public class GeneralTabDefaultViewDisplayContext {
 			X509CertificateStatus.Status status;
 
 			if (cause != null) {
-				Throwable unrecoverableKeyException;
-
-				unrecoverableKeyException = _getCause(
+				Throwable unrecoverableKeyException = _getCause(
 					cause, UnrecoverableKeyException.class);
 
 				if (unrecoverableKeyException != null) {

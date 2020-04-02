@@ -1038,8 +1038,6 @@ public class DLAppHelperLocalServiceImpl
 			String[] assetTagNames, long[] assetLinkEntryIds)
 		throws PortalException {
 
-		AssetEntry assetEntry = null;
-
 		boolean visible = false;
 
 		if (folder instanceof LiferayFolder) {
@@ -1061,7 +1059,7 @@ public class DLAppHelperLocalServiceImpl
 			publishDate = folder.getCreateDate();
 		}
 
-		assetEntry = assetEntryLocalService.updateEntry(
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
 			userId, folder.getGroupId(), folder.getCreateDate(),
 			folder.getModifiedDate(), DLFolderConstants.getClassName(),
 			folder.getFolderId(), folder.getUuid(), 0, assetCategoryIds,
