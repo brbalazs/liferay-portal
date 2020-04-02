@@ -227,9 +227,13 @@ public class CommerceAccountUserClayDataSetDataSetDisplayView
 
 		viewURL.setParameter("userId", String.valueOf(userId));
 
+		String backURL = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
 		viewURL.setParameter(
 			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
-			_portal.getCurrentURL(httpServletRequest));
+			backURL);
 
 		return viewURL.toString();
 	}
