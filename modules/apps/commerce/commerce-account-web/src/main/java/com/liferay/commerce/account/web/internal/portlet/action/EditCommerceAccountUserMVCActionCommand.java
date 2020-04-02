@@ -117,7 +117,7 @@ public class EditCommerceAccountUserMVCActionCommand
 
 				TransactionInvokerUtil.invoke(_transactionConfig, userCallable);
 			}
-			else if (cmd.equals("EDIT_ROLES")) {
+			else if (cmd.equals(_EDIT_ROLES)) {
 				Callable<User> userCallable = new EditRoleCallable(
 					actionRequest);
 
@@ -222,8 +222,16 @@ public class EditCommerceAccountUserMVCActionCommand
 			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
 			backPortletURL.toString());
 
-		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommerceAccountUser");
+		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+		if (cmd.equals(_EDIT_ROLES)) {
+			portletURL.setParameter(
+				"mvcRenderCommandName", "viewCommerceAccountUser");
+		}
+		else {
+			portletURL.setParameter(
+				"mvcRenderCommandName", "editCommerceAccountUser");
+		}
 
 		portletURL.setParameter(
 			"userId", ParamUtil.getString(actionRequest, "userId"));
@@ -419,6 +427,8 @@ public class EditCommerceAccountUserMVCActionCommand
 			}
 		}
 	}
+
+	private static final String _EDIT_ROLES = "EDIT_ROLES";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		EditCommerceAccountUserMVCActionCommand.class);
