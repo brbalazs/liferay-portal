@@ -61,9 +61,8 @@ export function showNotification(
 	});
 }
 
-export function showErrorNotification(e) {
-	console.error(e);
-	showNotification(Liferay.Language.get('unexpected-error'), 'danger');
+export function showErrorNotification(e = Liferay.Language.get('unexpected-error')) {
+	showNotification(e, 'danger');
 }
 
 export function getSchemaString(object, path) {

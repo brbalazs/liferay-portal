@@ -96,7 +96,7 @@ function ItemFinder(props) {
 				updateTextFilter('');
 				updateSelectedItems(i => [...i, id]);
 			})
-			.catch(showErrorNotification);
+			.catch(error => showErrorNotification(error));
 	}
 
 	return (
