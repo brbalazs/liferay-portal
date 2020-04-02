@@ -43,6 +43,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 					{
 						body: JSON.stringify([
 							{
+								facetable: option.facetable,
 								fieldType: option.fieldType,
 								key: option.key,
 								name: option.name,
