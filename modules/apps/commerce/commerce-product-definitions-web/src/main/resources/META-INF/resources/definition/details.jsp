@@ -244,7 +244,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 									return response.json();
 								}
 
-								return response.json().then(data => {
+								return response.json().then(function(data) {
 									return Promise.reject(data.message);
 								});
 							})

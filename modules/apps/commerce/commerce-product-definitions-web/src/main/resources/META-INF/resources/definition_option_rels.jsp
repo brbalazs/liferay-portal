@@ -84,7 +84,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 							return response.json();
 						}
 
-						return response.json().then(data => {
+						return response.json().then(function(data) {
 							return Promise.reject(data.message);
 						});
 					})
