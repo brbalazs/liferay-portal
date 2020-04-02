@@ -18,6 +18,10 @@ export const iframeHandlerModalNamespace = 'iframe-handler-modal_';
 export let counter = 0;
 export const iframeInitialHandlerModalId = `${iframeHandlerModalNamespace}${counter}`;
 
+Liferay.on('endNavigate', () => {
+	counter = 0;
+});
+
 export function getIframeHandlerModalId() {
 	return `${iframeHandlerModalNamespace}${counter++}`;
 }
