@@ -41,8 +41,8 @@ SearchContainer<CommerceDiscountRel> cpDefinitionCommerceDiscountRelSearchContai
 		<aui:form action="<%= addCommerceDiscountRelURL %>" cssClass="hide" name="addCommerceDiscountRelFm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
 			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-			<aui:input name="addClassPKs" type="hidden" value="" />
 			<aui:input name="className" type="hidden" value="<%= CPDefinition.class.getName() %>" />
+			<aui:input name="classPKs" type="hidden" value="" />
 			<aui:input name="commerceDiscountId" type="hidden" value="<%= commerceDiscountId %>" />
 		</aui:form>
 
@@ -126,12 +126,10 @@ SearchContainer<CommerceDiscountRel> cpDefinitionCommerceDiscountRelSearchContai
 			eventName: 'productDefinitionsSelectItem',
 			on: {
 				selectedItemChange: function(event) {
-					var <portlet:namespace />addCPDefinitionIds = [];
-
 					var selectedItems = event.newVal;
 
 					if (selectedItems) {
-						$('#<portlet:namespace />addClassPKs').val(selectedItems);
+						$('#<portlet:namespace />classPKs').val(selectedItems);
 
 						var addCommerceDiscountRelFm = $(
 							'#<portlet:namespace />addCommerceDiscountRelFm'
