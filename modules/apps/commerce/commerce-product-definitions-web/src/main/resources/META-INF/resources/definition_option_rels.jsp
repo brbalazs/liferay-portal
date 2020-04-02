@@ -79,7 +79,13 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 					method: 'POST'
 				})
 					.then(function(response) {
-						return response.json();
+						if (response.ok) {
+							return response.json();
+						}
+
+						return response.json().then(data => {
+							return Promise.reject(data.message);
+						});
 					})
 					.then(selectItem);
 			}
