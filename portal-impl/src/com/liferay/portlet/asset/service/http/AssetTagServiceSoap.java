@@ -360,6 +360,21 @@ public class AssetTagServiceSoap {
 		}
 	}
 
+	public static int getTagsCount(long[] groupIds, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue = AssetTagServiceUtil.getTagsCount(groupIds, name);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getVisibleAssetsTagsCount(
 			long groupId, long classNameId, String name)
 		throws RemoteException {
