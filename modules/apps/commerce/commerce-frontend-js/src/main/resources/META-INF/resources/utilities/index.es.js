@@ -15,7 +15,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import {createOdataFilterStrings} from './odata.es';
+import { createOdataFilterStrings } from './odata.es';
 
 export function debounce(func, wait, immediate) {
 	let timeout;
@@ -127,7 +127,7 @@ export function formatActionUrl(url, item) {
 }
 
 export function launcher(Component, componentId, containerId, props) {
-	const {portletId} = props;
+	const { portletId } = props;
 
 	const container = window.document.getElementById(containerId);
 

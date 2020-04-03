@@ -85,11 +85,11 @@ function SummaryItem(props) {
 		case 'big':
 			ItemVariant = SummaryItemBigVariant;
 			break;
-		case 'divider':
-			ItemVariant = SummaryItemDividerVariant;
-			break;
 		case 'danger':
 			ItemVariant = SummaryItemDangerVariant;
+			break;
+		case 'divider':
+			ItemVariant = SummaryItemDividerVariant;
 			break;
 		default:
 			ItemVariant = SummaryItemBase;
