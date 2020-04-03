@@ -200,7 +200,7 @@ function DatasetDisplay(props) {
 	]);
 
 	function selectItems(val) {
-		if (val instanceof Array) {
+		if (Array.isArray(val)) {
 			return setSelectedItemsValue(val);
 		}
 
@@ -218,7 +218,7 @@ function DatasetDisplay(props) {
 	}
 
 	function highlightItems(val = []) {
-		if (val instanceof Array) {
+		if (Array.isArray(val)) {
 			return setHighlightedItemsValue(val);
 		}
 
