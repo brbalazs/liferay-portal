@@ -219,7 +219,7 @@ public class CASFilter extends BaseFilter {
 
 		if (Validator.isNull(serviceURL)) {
 			serviceURL = CommonUtils.constructServiceUrl(
-				request, response, serviceURL, serverName, "ticket", false);
+				request, response, serviceURL, serverName, "ticket", true);
 		}
 
 		String ticket = ParamUtil.getString(request, "ticket");
