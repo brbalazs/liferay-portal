@@ -14,10 +14,10 @@
 
 import React from 'react';
 
-import sidePanelLauncher from './../side_panel/entry.es';
-import datasetDisplayLauncher from './entry.es';
+import sidePanelLauncher from '../../../src/main/resources/META-INF/resources/components/side_panel/entry.es';
+import datasetDisplayLauncher from '../../../src/main/resources/META-INF/resources/components/dataset_display/entry.es';
 
-import '../../styles/main.scss';
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
 const fluidDataSetDisplayProps = {
 	activeView: 2,

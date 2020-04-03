@@ -12,31 +12,19 @@
  * details.
  */
 
-import launcher from './entry.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/quantity_selector/entry.es';
 
-import '../../styles/main.scss';
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
-window.SidePanel = launcher('sidePanel', 'side-panel-root-id', {
-	containerSelector: '.container',
-	id: 'sidePanelTestId',
-	items: [
-		{
-			href: '/side-panel/comments.html',
-			icon: 'comments',
-			slug: 'comments'
-		},
-		{
-			href: '/side-panel/edit.html',
-			icon: 'pencil',
-			slug: 'edit'
-		},
-		{
-			href: '/side-panel/changelog.html',
-			icon: 'restore',
-			slug: 'changelog'
-		}
-	],
-	size: 'md',
-	spritemap: './assets/icons.svg',
-	topAnchorSelector: '.top-anchor'
+launcher('quantity-selector', 'quantity-selector-root-id', {
+	// allowedQuantities: [3, 5, 10, 15],
+	// disabled: true,
+	inputName: 'test-name',
+	maxQuantity: 10000,
+	minQuantity: 2,
+	multipleQuantity: 2,
+	quantity: 10,
+	size: 'large',
+	spritemap: './assets/icons.svg'
+	// style: 'simple'
 });

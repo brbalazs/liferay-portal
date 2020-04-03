@@ -12,9 +12,9 @@
  * details.
  */
 
-import launcher from './entry.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/gallery/entry.es';
 
-import '../../styles/main.scss';
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
 function getImgUrl(img, width) {
 	return `https://images.unsplash.com/${img}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=${width}&q=80`;

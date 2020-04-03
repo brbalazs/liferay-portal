@@ -12,10 +12,10 @@
  * details.
  */
 
-import {slugify} from '../../utilities/index.es';
-import launcher from './entry.es';
+import {slugify} from '../../../src/main/resources/META-INF/resources/utilities/index.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/item_finder/entry.es';
 
-import '../../styles/main.scss';
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
 const themeDisplay = {
 	getLanguageId: () => 'en_US'

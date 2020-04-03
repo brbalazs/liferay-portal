@@ -12,9 +12,9 @@
  * details.
  */
 
-import headlessDatasetDisplayLauncher from './entry.es';
+import headlessDatasetDisplayLauncher from '../../../src/main/resources/META-INF/resources/components/headless_dataset_display/entry.es';
 
-import '../../styles/main.scss';
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
 const lang_id = themeDisplay.getLanguageId();
 

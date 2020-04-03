@@ -14,13 +14,11 @@
 
 import React from 'react';
 
-import {OPEN_MODAL} from '../../utilities/eventsDefinitions.es';
-import {launcher} from '../../utilities/index.es';
-import modalLauncher from './entry.es';
+import {OPEN_MODAL} from '../../../src/main/resources/META-INF/resources/utilities/eventsDefinitions.es';
+import {launcher} from '../../../src/main/resources/META-INF/resources/utilities/index.es';
+import modalLauncher from '../../../src/main/resources/META-INF/resources/components/modal/entry.es';
 
-import './_modal.scss';
-
-import '../../styles/main.scss';
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
 const props = {
 	actions: [

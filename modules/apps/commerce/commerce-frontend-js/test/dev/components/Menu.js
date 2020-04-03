@@ -18,16 +18,17 @@ import ClayList from '@clayui/list';
 import ClaySticker from '@clayui/sticker';
 import React from 'react';
 
-import components from '../index';
+import {launcher} from '../../../src/main/resources/META-INF/resources/utilities/index.es';
+import components from './index';
 
 function getCurrentPage() {
 	return (
 		window.location.hash &&
-		components.find(c => c.folder === window.location.hash.slice(1)).page
+		components.find(c => c.entry === window.location.hash.slice(1)).page
 	);
 }
 
-function Example({spritemap}) {
+function Menu({spritemap}) {
 	const [current, setComponent] = React.useState(getCurrentPage());
 
 	return (
@@ -40,7 +41,7 @@ function Example({spritemap}) {
 						{components
 							.filter(c => c.page)
 							.map(component => (
-								<ClayList.Item flex key={component.folder}>
+								<ClayList.Item flex key={component.entry}>
 									<ClayList.ItemField>
 										<ClaySticker
 											displayType="light"
@@ -54,7 +55,7 @@ function Example({spritemap}) {
 									</ClayList.ItemField>
 									<ClayList.ItemField>
 										<ClayLink
-											href={`#${component.folder}`}
+											href={`#${component.entry}`}
 											onClick={() =>
 												setComponent(component.page)
 											}
@@ -74,4 +75,6 @@ function Example({spritemap}) {
 	);
 }
 
-export default Example;
+launcher(Menu, 'menu', 'menu-root', {
+	spritemap: './assets/icons.svg'
+});

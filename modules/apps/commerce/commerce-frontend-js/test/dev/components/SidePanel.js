@@ -12,37 +12,31 @@
  * details.
  */
 
-import launcher from './entry.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/side_panel/entry.es';
 
-import '../../styles/main.scss';
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
-launcher('step_tracker', 'step-tracker', {
-	spritemap: './assets/icons.svg',
-	steps: [
+window.SidePanel = launcher('sidePanel', 'side-panel-root-id', {
+	containerSelector: '.container',
+	id: 'sidePanelTestId',
+	items: [
 		{
-			id: 'received',
-			label: 'Received asd asd',
-			state: 'completed'
+			href: '/side-panel/comments.html',
+			icon: 'comments',
+			slug: 'comments'
 		},
 		{
-			id: 'confirmed',
-			label: 'Confirmed',
-			state: 'active'
+			href: '/side-panel/edit.html',
+			icon: 'pencil',
+			slug: 'edit'
 		},
 		{
-			id: 'trasmitted',
-			label: 'Trasmitted',
-			state: 'inactive'
-		},
-		{
-			id: 'shipped',
-			label: 'Shipped',
-			state: 'inactive'
-		},
-		{
-			id: 'completed',
-			label: 'Completed',
-			state: 'inactive'
+			href: '/side-panel/changelog.html',
+			icon: 'restore',
+			slug: 'changelog'
 		}
-	]
+	],
+	size: 'md',
+	spritemap: './assets/icons.svg',
+	topAnchorSelector: '.top-anchor'
 });

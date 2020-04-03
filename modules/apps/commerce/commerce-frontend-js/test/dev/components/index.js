@@ -14,9 +14,7 @@
 
 module.exports = [
 	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'dataset_display',
+		entry: 'DatasetDisplay',
 		name: 'Dataset display',
 		page: 'dataset-display.html'
 	},
@@ -35,57 +33,32 @@ module.exports = [
 		page: 'headless-dataset-display.html'
 	},
 	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'item_finder',
+		entry: 'ItemFinder',
 		name: 'Item finder',
 		page: 'item-finder.html'
 	},
 	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'example',
-		name: 'Example'
-	},
-	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'summary',
+		entry: 'Summary',
 		name: 'Summary',
 		page: 'summary.html'
 	},
 	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'assigner',
-		name: 'Assigner',
-		page: 'assigner.html'
-	},
-	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'gallery',
+		entry: 'Gallery',
 		name: 'Gallery',
 		page: 'gallery.html'
 	},
 	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'modal',
+		entry: 'Modal',
 		name: 'Modal',
 		page: 'modal.html'
 	},
 	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'side_panel',
+		entry: 'SidePanel',
 		name: 'Side panel',
 		page: 'side-panel.html'
 	},
 	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'step_tracker',
+		entry: 'StepTracker',
 		name: 'Step tracker',
 		page: 'step-tracker.html'
 	}

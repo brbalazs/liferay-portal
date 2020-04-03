@@ -16,21 +16,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
-const {defineServerResponses} = require('./dev/fakeServerUtilities');
-const components = require('./src/main/resources/META-INF/resources/components/index');
+const components = require('./test/dev/components/index');
+const {defineServerResponses} = require('./test/dev/fakeServerUtilities');
 
 const outputPath = path.resolve(__dirname, './dev/public');
 
-const getComponentPath = (component, entry) =>
+const getComponentPath = (entry) =>
 	path.join(
 		__dirname,
-		'src',
-		'main',
-		'resources',
-		'META-INF',
-		'resources',
+		'test',
+		'dev',
 		'components',
-		component,
 		entry
 	);
 
@@ -41,7 +37,7 @@ module.exports = {
 			defineServerResponses(app);
 		},
 		compress: false,
-		contentBase: './dev/public',
+		contentBase: './test/dev/public',
 		open: true,
 		openPage: 'index.html',
 		port: 9000,
@@ -53,10 +49,9 @@ module.exports = {
 		publicPath: '/'
 	},
 	devtool: 'inline-source-map',
-	entry: components.reduce((comp, current) => {
-		comp[current.folder] = getComponentPath(
-			current.folder,
-			current.entry_dev
+	entry: [...components, {entry: 'Menu'}].reduce((comp, current) => {
+		comp[current.entry] = getComponentPath(
+			current.entry
 		);
 		return comp;
 	}, {}),
@@ -95,7 +90,7 @@ module.exports = {
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new HtmlWebpackPlugin({
 			inject: false,
-			template: path.resolve(__dirname, './dev/public/index.html')
+			template: path.resolve(__dirname, './test/dev/public/index.html')
 		})
 	],
 	resolve: {

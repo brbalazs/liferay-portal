@@ -12,7 +12,11 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import Assigner from './Assigner.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/summary/entry.es';
 
-export default (...data) => launcher(Assigner, ...data);
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
+
+launcher('summary', 'summary', {
+	apiUrl: '/o/headless-commerce-admin-order/v1.0/orders/40977',
+	datasetDisplayId: 'testId'
+});
