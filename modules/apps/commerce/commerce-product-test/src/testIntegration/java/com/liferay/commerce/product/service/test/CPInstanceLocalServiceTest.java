@@ -21,9 +21,13 @@ import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceConstants;
 import com.liferay.commerce.product.model.CPOption;
+import com.liferay.commerce.product.model.CPOptionValue;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalServiceUtil;
+import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CPInstanceLocalServiceUtil;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalServiceUtil;
 import com.liferay.commerce.product.test.util.CPTestUtil;
@@ -92,6 +96,75 @@ public class CPInstanceLocalServiceTest {
 	}
 
 	@Test
+	public void testActiveCPInstanceNewSkuContributorOptionValueAdded()
+		throws Exception {
+
+		int cpOptionsCount = 2;
+		int cpOptionValuesCount = 2;
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		_assertBuildCPInstancesSuccess(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOptionsCount, cpOptionValuesCount);
+
+		CPDefinitionOptionValueRel randomCPDefinitionOptionValueRel =
+			CPTestUtil.getRandomCPDefinitionOptionValueRel(
+				cpDefinition.getCPDefinitionId());
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPDefinitionOptionRelLocalServiceUtil.getCPDefinitionOptionRel(
+				randomCPDefinitionOptionValueRel.getCPDefinitionOptionRelId());
+
+		CPOption cpOption = cpDefinitionOptionRel.getCPOption();
+
+		CPOptionValue cpOptionValue = CPTestUtil.addCPOptionValue(cpOption);
+
+		CPDefinitionOptionValueRel newCPDefinitionOptionValueRel =
+			CPDefinitionOptionValueRelLocalServiceUtil.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+					cpOptionValue,
+					ServiceContextTestUtil.getServiceContext(
+						_commerceCatalog.getGroupId()));
+
+		List<CPInstance> cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		int combinationsSize = (int)Math.pow(
+			cpOptionValuesCount, cpOptionsCount);
+
+		Assert.assertEquals(
+			"Product instance count", combinationsSize,
+			cpDefinitionInstances.size());
+
+		_assertNoCPInstanceWithCPDefinitionOptionValue(
+			newCPDefinitionOptionValueRel, cpDefinitionInstances);
+
+		CPInstanceLocalServiceUtil.buildCPInstances(
+			cpDefinition.getCPDefinitionId(),
+			ServiceContextTestUtil.getServiceContext(
+				_commerceCatalog.getGroupId()));
+
+		cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product instance count",
+			combinationsSize +
+				(int)Math.pow(cpOptionValuesCount, cpOptionsCount - 1),
+			cpDefinitionInstances.size());
+	}
+
+	@Test
 	public void testBuildCPInstances() throws Exception {
 		frutillaRule.scenario(
 			"Build all product SKU combinations"
@@ -108,33 +181,13 @@ public class CPInstanceLocalServiceTest {
 		).and(
 			"all product instances are APPROVED"
 		);
-
-		int cpOptionsCount = 2;
-		int cpOptionValuesCount = 3;
-
 		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		CPTestUtil.addCPOption(
-			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-			cpOptionsCount, cpOptionValuesCount);
-
-		_cpInstanceLocalService.buildCPInstances(
-			cpDefinition.getCPDefinitionId(),
-			ServiceContextTestUtil.getServiceContext(
-				cpDefinition.getGroupId()));
-
-		List<CPInstance> cpDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		Assert.assertEquals(
-			"Product instance count",
-			(int)Math.pow(cpOptionValuesCount, cpOptionsCount),
-			cpDefinitionInstances.size());
+		_assertBuildCPInstancesSuccess(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(), 2,
+			3);
 	}
 
 	@Test
@@ -484,6 +537,75 @@ public class CPInstanceLocalServiceTest {
 			cpInstance.getStatus());
 	}
 
+	@Test
+	public void testInactivateCPInstanceSkuContributorOptionDeleted()
+		throws Exception {
+
+		int cpOptionsCount = 2;
+		int cpOptionValuesCount = 2;
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		_assertBuildCPInstancesSuccess(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOptionsCount, cpOptionValuesCount);
+
+		CPDefinitionOptionValueRel randomCPDefinitionOptionValueRel =
+			CPTestUtil.getRandomCPDefinitionOptionValueRel(
+				cpDefinition.getCPDefinitionId());
+
+		CPDefinitionOptionRelLocalServiceUtil.deleteCPDefinitionOptionRel(
+			randomCPDefinitionOptionValueRel.getCPDefinitionOptionRelId());
+
+		List<CPInstance> cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertTrue(
+			"No any active CP instances", cpDefinitionInstances.isEmpty());
+	}
+
+	@Test
+	public void testInactivateCPInstanceSkuContributorOptionValueDeleted()
+		throws Exception {
+
+		int cpOptionsCount = 2;
+		int cpOptionValuesCount = 2;
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		_assertBuildCPInstancesSuccess(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOptionsCount, cpOptionValuesCount);
+
+		CPDefinitionOptionValueRel deletedCPDefinitionOptionValueRel =
+			CPDefinitionOptionValueRelLocalServiceUtil.
+				deleteCPDefinitionOptionValueRel(
+					CPTestUtil.getRandomCPDefinitionOptionValueRel(
+						cpDefinition.getCPDefinitionId()));
+
+		List<CPInstance> cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product instance count",
+			(int)Math.pow(cpOptionValuesCount, cpOptionsCount - 1) *
+				(cpOptionValuesCount - 1),
+			cpDefinitionInstances.size());
+
+		_assertNoCPInstanceWithCPDefinitionOptionValue(
+			deletedCPDefinitionOptionValueRel, cpDefinitionInstances);
+	}
+
 	@Rule
 	public final FrutillaRule frutillaRule = new FrutillaRule();
 
@@ -515,6 +637,49 @@ public class CPInstanceLocalServiceTest {
 		return CPTestUtil.addCPDefinitionCPInstance(
 			cpDefinition.getCPDefinitionId(),
 			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
+	}
+
+	private void _assertBuildCPInstancesSuccess(
+			long groupId, long cpDefinitionId, int cpOptionsCount,
+			int cpOptionValuesCount)
+		throws Exception {
+
+		CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), cpDefinitionId, cpOptionsCount,
+			cpOptionValuesCount);
+
+		_cpInstanceLocalService.buildCPInstances(
+			cpDefinitionId, ServiceContextTestUtil.getServiceContext(groupId));
+
+		List<CPInstance> cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinitionId, WorkflowConstants.STATUS_APPROVED,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product instance count",
+			(int)Math.pow(cpOptionValuesCount, cpOptionsCount),
+			cpDefinitionInstances.size());
+	}
+
+	private void _assertNoCPInstanceWithCPDefinitionOptionValue(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			List<CPInstance> cpInstances)
+		throws Exception {
+
+		for (CPInstance cpInstance : cpInstances) {
+			CPDefinitionOptionValueRel cpInstanceCPDefinitionOptionValueRel =
+				CPDefinitionOptionValueRelLocalServiceUtil.
+					getCPInstanceCPDefinitionOptionValueRel(
+						cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+						cpInstance.getCPInstanceId());
+
+			Assert.assertNotEquals(
+				"CP instance definnition option value",
+				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
+				cpInstanceCPDefinitionOptionValueRel.
+					getCPDefinitionOptionValueRelId());
+		}
 	}
 
 	private CommerceCatalog _commerceCatalog;
