@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import HeadlessDatasetDisplay from './HeadlessDatasetDisplay.es';
+import {launcher} from '../../utilities/index';
+import StepTracker from './StepTracker';
 
-export default (...data) => launcher(HeadlessDatasetDisplay, ...data);
+export default (...data) => launcher(StepTracker, ...data);

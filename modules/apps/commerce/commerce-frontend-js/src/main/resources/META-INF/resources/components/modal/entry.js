@@ -12,7 +12,9 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import QuantitySelector from './QuantitySelector.es';
+import {launcher} from '../../utilities/index';
+import Modal from './Modal';
 
-export default (...data) => launcher(QuantitySelector, ...data);
+const ModalLauncher = (...data) => launcher(Modal, ...data);
+
+export default ModalLauncher;

@@ -15,7 +15,7 @@
 import PropType from 'prop-types';
 import React from 'react';
 
-import DefaultSelector from '../../quantity_selector/QuantitySelector.es';
+import DefaultSelector from '../../quantity_selector/QuantitySelector';
 
 function QuantitySelectorRenderer(props) {
 	return (

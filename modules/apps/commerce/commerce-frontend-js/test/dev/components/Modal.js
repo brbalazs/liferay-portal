@@ -14,9 +14,9 @@
 
 import React from 'react';
 
-import {OPEN_MODAL} from '../../../src/main/resources/META-INF/resources/utilities/eventsDefinitions.es';
-import {launcher} from '../../../src/main/resources/META-INF/resources/utilities/index.es';
-import modalLauncher from '../../../src/main/resources/META-INF/resources/components/modal/entry.es';
+import modalLauncher from '../../../src/main/resources/META-INF/resources/components/modal/entry';
+import {OPEN_MODAL} from '../../../src/main/resources/META-INF/resources/utilities/eventsDefinitions';
+import {launcher} from '../../../src/main/resources/META-INF/resources/utilities/index';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 

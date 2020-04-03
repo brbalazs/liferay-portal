@@ -15,7 +15,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import createOdataFilter from './odata.es';
+import createOdataFilter from './odata';
 
 export function debounce(func, wait, immediate) {
 	let timeout;
@@ -127,7 +127,7 @@ export function formatActionUrl(url, item) {
 }
 
 export function launcher(Component, componentId, containerId, props) {
-	const { portletId } = props;
+	const {portletId} = props;
 
 	const container = window.document.getElementById(containerId);
 
@@ -220,23 +220,25 @@ export function loadData(
 	params.set('pageSize', delta);
 	params.set('page', page);
 
-	if(currentUrl) {
+	if (currentUrl) {
 		params.set('currentUrl', encodeURIComponent(currentUrl));
 	}
 
-	if(searchParam) {
+	if (searchParam) {
 		params.set('search', encodeURIComponent(searchParam));
 	}
 
-	if(sorting && sorting.length) {
+	if (sorting && sorting.length) {
 		params.set('sort', createSortingString(sorting));
 	}
 
-	if(filters && filters.length) {
+	if (filters && filters.length) {
 		params.set('sort', createOdataFilter(filters));
 	}
 
-	const url = `${apiUrl}${apiUrl.indexOf('?') > -1 ? '&' : '?'}${params.toString()}`;
+	const url = `${apiUrl}${
+		apiUrl.indexOf('?') > -1 ? '&' : '?'
+	}${params.toString()}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }

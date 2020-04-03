@@ -17,8 +17,8 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useContext} from 'react';
 
-import {getValueFromItem} from '../../../../utilities/index.es';
-import DatasetDisplayContext from '../../DatasetDisplayContext.es';
+import {getValueFromItem} from '../../../../utilities/index';
+import DatasetDisplayContext from '../../DatasetDisplayContext';
 import ActionsDropdownRenderer from '../../data_renderer/ActionsDropdownRenderer';
 import CheckboxRenderer from '../../data_renderer/CheckboxRenderer';
 import CommentRenderer from '../../data_renderer/CommentRenderer';
@@ -27,7 +27,7 @@ import {
 	getDataRendererById,
 	getDataRendererByUrl
 } from '../../data_renderer/index';
-import TableHeadRow from './TableHeadRow.es';
+import TableHeadRow from './TableHeadRow';
 
 function CustomTableCell(props) {
 	const {view} = props;

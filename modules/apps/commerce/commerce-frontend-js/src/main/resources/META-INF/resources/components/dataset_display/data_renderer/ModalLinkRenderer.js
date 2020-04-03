@@ -16,7 +16,7 @@ import ClayLink from '@clayui/link';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import DatasetDisplayContext from '../DatasetDisplayContext.es';
+import DatasetDisplayContext from '../DatasetDisplayContext';
 import DefaultContent from './DefaultRenderer';
 
 function ModalLinkRenderer(props) {

@@ -13,31 +13,31 @@
  */
 
 window.Liferay = {
-    Language: {
-        get: v => v
-    },
-    component: () => {},
-    detach: (name, fn) => {
-        window.removeEventListener(name, fn);
-    },
-    fire: (name, payload) => {
-        var e = document.createEvent('CustomEvent');
-        e.initCustomEvent(name);
-        if (payload) {
-            Object.keys(payload).forEach(key => {
-                e[key] = payload[key];
-            });
-        }
-        window.dispatchEvent(e);
-    },
-    on: (name, fn) => {
-        window.addEventListener(name, fn);
-    },
-    staticEnvHeaders: new Headers({
-        Authorization: `Basic ${window.btoa('test@liferay.com:test')}`
-    })
+	Language: {
+		get: v => v
+	},
+	component: () => {},
+	detach: (name, fn) => {
+		window.removeEventListener(name, fn);
+	},
+	fire: (name, payload) => {
+		var e = document.createEvent('CustomEvent');
+		e.initCustomEvent(name);
+		if (payload) {
+			Object.keys(payload).forEach(key => {
+				e[key] = payload[key];
+			});
+		}
+		window.dispatchEvent(e);
+	},
+	on: (name, fn) => {
+		window.addEventListener(name, fn);
+	},
+	staticEnvHeaders: new Headers({
+		Authorization: `Basic ${window.btoa('test@liferay.com:test')}`
+	})
 };
 
 window.themeDisplay = {
-    getLanguageId: () => 'en_US'
+	getLanguageId: () => 'en_US'
 };

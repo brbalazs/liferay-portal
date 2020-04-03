@@ -18,7 +18,7 @@ import ClayList from '@clayui/list';
 import ClaySticker from '@clayui/sticker';
 import React from 'react';
 
-import {launcher} from '../../../src/main/resources/META-INF/resources/utilities/index.es';
+import {launcher} from '../../../src/main/resources/META-INF/resources/utilities/index';
 import components from './index';
 
 function getCurrentPage() {

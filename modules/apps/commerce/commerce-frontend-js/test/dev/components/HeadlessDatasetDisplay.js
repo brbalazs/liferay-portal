@@ -12,7 +12,7 @@
  * details.
  */
 
-import headlessDatasetDisplayLauncher from '../../../src/main/resources/META-INF/resources/components/headless_dataset_display/entry.es';
+import headlessDatasetDisplayLauncher from '../../../src/main/resources/META-INF/resources/components/headless_dataset_display/entry';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 

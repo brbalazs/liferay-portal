@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import Summary from './Summary.es';
+import {launcher} from '../../utilities/index';
+import Example from './Gallery';
 
-export default (...data) => launcher(Summary, ...data);
+export default (...data) => launcher(Example, ...data);

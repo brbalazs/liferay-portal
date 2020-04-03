@@ -12,7 +12,7 @@
  * details.
  */
 
-import launcher from '../../../src/main/resources/META-INF/resources/components/quantity_selector/entry.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/quantity_selector/entry';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 

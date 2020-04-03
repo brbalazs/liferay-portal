@@ -14,8 +14,8 @@
 
 import React from 'react';
 
-import sidePanelLauncher from '../../../src/main/resources/META-INF/resources/components/side_panel/entry.es';
-import datasetDisplayLauncher from '../../../src/main/resources/META-INF/resources/components/dataset_display/entry.es';
+import datasetDisplayLauncher from '../../../src/main/resources/META-INF/resources/components/dataset_display/entry';
+import sidePanelLauncher from '../../../src/main/resources/META-INF/resources/components/side_panel/entry';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 

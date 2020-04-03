@@ -12,7 +12,7 @@
  * details.
  */
 
-import {isFormElement, toJSON} from './formsHelper.es';
+import {isFormElement, toJSON} from './formsHelper';
 
 function doSubmit(apiUrl, method = 'POST', json = {}) {
 	const headers = new Headers({

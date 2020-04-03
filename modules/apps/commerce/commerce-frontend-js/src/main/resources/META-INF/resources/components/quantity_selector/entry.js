@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import StepTracker from './StepTracker.es';
+import {launcher} from '../../utilities/index';
+import QuantitySelector from './QuantitySelector';
 
-export default (...data) => launcher(StepTracker, ...data);
+export default (...data) => launcher(QuantitySelector, ...data);

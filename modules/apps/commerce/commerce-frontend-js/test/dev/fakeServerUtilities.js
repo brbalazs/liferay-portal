@@ -12,16 +12,14 @@
  * details.
  */
 
-
-
 function defineServerResponses(app) {
 	app.get('/test-endpoint', (_, res) => {
 		res.json({
-			message: 'test-message',
+			message: 'test-message'
 		});
 	});
 }
 
 module.exports = {
-	defineServerResponses,
+	defineServerResponses
 };

@@ -12,7 +12,7 @@
  * details.
  */
 
-import launcher from '../../../src/main/resources/META-INF/resources/components/step_tracker/entry.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/step_tracker/entry';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 

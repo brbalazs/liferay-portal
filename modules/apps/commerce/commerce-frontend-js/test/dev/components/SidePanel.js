@@ -12,7 +12,7 @@
  * details.
  */
 
-import launcher from '../../../src/main/resources/META-INF/resources/components/side_panel/entry.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/side_panel/entry';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 

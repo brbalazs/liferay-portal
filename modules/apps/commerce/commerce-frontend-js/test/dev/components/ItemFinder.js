@@ -12,8 +12,8 @@
  * details.
  */
 
-import {slugify} from '../../../src/main/resources/META-INF/resources/utilities/index.es';
-import launcher from '../../../src/main/resources/META-INF/resources/components/item_finder/entry.es';
+import launcher from '../../../src/main/resources/META-INF/resources/components/item_finder/entry';
+import {slugify} from '../../../src/main/resources/META-INF/resources/utilities/index';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 

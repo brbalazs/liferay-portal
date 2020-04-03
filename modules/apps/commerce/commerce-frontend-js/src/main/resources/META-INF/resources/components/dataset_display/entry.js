@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import ItemFinder from './ItemFinder';
+import {launcher} from '../../utilities/index';
+import DatasetDisplay from './DatasetDisplay';
 
-export default (...data) => launcher(ItemFinder, ...data);
+export default (...data) => launcher(DatasetDisplay, ...data);

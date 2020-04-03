@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import DatasetDisplay from './DatasetDisplay.es';
+import {launcher} from '../../utilities/index';
+import HeadlessDatasetDisplay from './HeadlessDatasetDisplay';
 
-export default (...data) => launcher(DatasetDisplay, ...data);
+export default (...data) => launcher(HeadlessDatasetDisplay, ...data);

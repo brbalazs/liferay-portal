@@ -15,8 +15,8 @@
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
 
-import {DATASET_DISPLAY_UPDATED} from '../../utilities/eventsDefinitions.es';
-import {fetchParams} from '../../utilities/index.es';
+import {DATASET_DISPLAY_UPDATED} from '../../utilities/eventsDefinitions';
+import {fetchParams} from '../../utilities/index';
 
 function SummaryItemDividerVariant() {
 	return (

@@ -21,9 +21,9 @@ import {
 	CLOSE_MODAL,
 	IS_LOADING_MODAL,
 	OPEN_MODAL
-} from '../../utilities/eventsDefinitions.es';
-import {isPageInIframe} from '../../utilities/iframes.es';
-import {liferayNavigate} from '../../utilities/index.es';
+} from '../../utilities/eventsDefinitions';
+import {isPageInIframe} from '../../utilities/iframes';
+import {liferayNavigate} from '../../utilities/index';
 import {INITIAL_MODAL_SIZE} from '../../utilities/modals/constants';
 import {resolveModalHeight} from '../../utilities/modals/index';
 

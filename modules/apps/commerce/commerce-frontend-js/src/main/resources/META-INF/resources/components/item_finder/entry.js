@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import Example from './Gallery.es';
+import {launcher} from '../../utilities/index';
+import ItemFinder from './ItemFinder';
 
-export default (...data) => launcher(Example, ...data);
+export default (...data) => launcher(ItemFinder, ...data);

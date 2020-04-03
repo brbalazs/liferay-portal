@@ -17,7 +17,7 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {closest} from '../../utilities/closest.es';
+import {closest} from '../../utilities/closest';
 import {
 	DATASET_ACTION_PERFORMED,
 	DATASET_DISPLAY_UPDATED,
@@ -25,20 +25,20 @@ import {
 	OPEN_SIDE_PANEL,
 	SIDE_PANEL_CLOSED,
 	UPDATE_DATASET_DISPLAY
-} from '../../utilities/eventsDefinitions.es';
+} from '../../utilities/eventsDefinitions';
 import {
 	getRandomId,
 	showNotification,
 	getJsModule,
 	executeAsyncAction,
 	loadData
-} from '../../utilities/index.es';
-import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext.es';
-import EmptyResultMessage from '../dataset_display/EmptyResultMessage.es';
+} from '../../utilities/index';
+import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext';
+import EmptyResultMessage from '../dataset_display/EmptyResultMessage';
 import ManagementBar from '../dataset_display/management_bar/index';
 import {getViewById} from '../dataset_display/views/index';
-import Modal from '../modal/Modal.es';
-import SidePanel from '../side_panel/SidePanel.es';
+import Modal from '../modal/Modal';
+import SidePanel from '../side_panel/SidePanel';
 
 function DatasetDisplay(props) {
 	const wrapperRef = useRef(null);

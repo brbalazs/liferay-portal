@@ -12,7 +12,7 @@
  * details.
  */
 
-import {OPEN_MODAL} from './eventsDefinitions.es';
+import {OPEN_MODAL} from './eventsDefinitions';
 
 export const iframeHandlerModalNamespace = 'iframe-handler-modal_';
 export let counter = 0;

@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import SidePanel from './SidePanel.es';
+import {launcher} from '../../utilities/index';
+import SidePanel from './SidePanel';
 
 export default (...data) => launcher(SidePanel, ...data);

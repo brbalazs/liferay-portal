@@ -15,7 +15,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {PRODUCT_OPTIONS_CHANGED} from '../../utilities/eventsDefinitions.es';
+import {PRODUCT_OPTIONS_CHANGED} from '../../utilities/eventsDefinitions';
 import MainImage from './MainImage';
 import Overlay from './Overlay';
 import Thumbnails from './Thumbnails';
