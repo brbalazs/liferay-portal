@@ -30,8 +30,8 @@ import {
 	getIframeHandlerModalId,
 	isPageInIframe
 } from '../../utilities/iframes.es';
-import {debounce} from '../../utilities/index.es';
-import {exposeSidePanel} from '../../utilities/sidePanels.es';
+import { debounce } from '../../utilities/index.es';
+import { exposeSidePanel } from '../../utilities/sidePanels.es';
 import Modal from '../modal/Modal.es';
 import SideMenu from './SideMenu.es';
 
@@ -73,6 +73,8 @@ export default class SidePanel extends React.Component {
 	}
 
 	componentDidMount() {
+		this._isMounted = true;
+
 		if (this.props.topAnchorSelector) {
 			window.addEventListener('resize', this.debouncedUpdateTop);
 			this.updateTop();
@@ -124,6 +126,8 @@ export default class SidePanel extends React.Component {
 	}
 
 	componentWillUnmount() {
+		this._isMounted = false;
+
 		if (this.props.topAnchorSelector) {
 			window.removeEventListener('resize', this.debouncedUpdateTop);
 		}
@@ -134,10 +138,12 @@ export default class SidePanel extends React.Component {
 	}
 
 	updateTop() {
+		if(!this._isMounted) return;
+
 		const topAnchor = document.querySelector(this.props.topAnchorSelector);
 
 		if (topAnchor) {
-			const {height, top} = topAnchor.getBoundingClientRect();
+			const { height, top } = topAnchor.getBoundingClientRect();
 			this.setState({
 				topDistance: top + height + 'px'
 			});
@@ -146,7 +152,7 @@ export default class SidePanel extends React.Component {
 		const pageHeader = document.querySelector('.page-header');
 
 		if (pageHeader) {
-			const {top} = pageHeader.getBoundingClientRect();
+			const { top } = pageHeader.getBoundingClientRect();
 
 			this.setState({
 				menuCoverTopDistance: top + 'px'
@@ -159,6 +165,8 @@ export default class SidePanel extends React.Component {
 	}
 
 	load(url, refreshPageAfterSubmit) {
+		if (!this._isMounted) return;
+
 		this.setState(
 			{
 				currentUrl: url,
@@ -179,7 +187,7 @@ export default class SidePanel extends React.Component {
 	}
 
 	open(url = this.state.currentUrl, active = null) {
-		this.setState({active, closeButtonStyle: null});
+		this.setState({ active, closeButtonStyle: null });
 		switch (true) {
 			case !this.state.visible:
 				return this.toggle(true).then(() => {
@@ -194,6 +202,8 @@ export default class SidePanel extends React.Component {
 
 	close() {
 		this.toggle(false).then(() => {
+			if (!this._isMounted) return;
+
 			this.setState({
 				active: null,
 				closeButtonStyle: null,
@@ -208,14 +218,16 @@ export default class SidePanel extends React.Component {
 
 	toggle(status = !this.state.visible) {
 		return new Promise(resolve => {
-			this.setState({moving: true, visible: status});
+			this.setState({ moving: true, visible: status });
 
 			if (!this.panel.current) return;
 
 			this.panel.current.addEventListener(
 				'transitionend',
 				() => {
-					this.setState({moving: false}, () => resolve(status));
+					if (this._isMounted) {
+						this.setState({ moving: false }, () => resolve(status));
+					}
 				},
 				{
 					once: true
@@ -259,7 +271,7 @@ export default class SidePanel extends React.Component {
 
 			if (iframeWindow.Liferay) {
 				iframeWindow.Liferay.on('endNavigate', () =>
-					this.handleIframeSubmit({id: this.props.id})
+					this.handleIframeSubmit({ id: this.props.id })
 				);
 			}
 
@@ -303,7 +315,7 @@ export default class SidePanel extends React.Component {
 						'side-panel-nav-cover border-bottom',
 						visibility
 					)}
-					style={{top: this.state.menuCoverTopDistance}}
+					style={{ top: this.state.menuCoverTopDistance }}
 				>
 					<div
 						className={classNames(!isPageInIframe() && 'container')}
@@ -328,7 +340,7 @@ export default class SidePanel extends React.Component {
 						loading
 					)}
 					ref={this.panel}
-					style={{top: this.state.topDistance}}
+					style={{ top: this.state.topDistance }}
 				>
 					{this.props.items && this.props.items.length && (
 						<SideMenu
