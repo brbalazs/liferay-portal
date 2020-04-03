@@ -15,6 +15,7 @@
 package com.liferay.commerce.product.service.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.commerce.product.exception.CPOptionSKUContributorException;
 import com.liferay.commerce.product.service.CPOptionLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -86,7 +87,7 @@ public class CPOptionLocalServiceTest {
 				_serviceContext.getCompanyId()));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = CPOptionSKUContributorException.class)
 	public void testAddOptionIfOptionTypeIsInvalid() throws Exception {
 		frutillaRule.scenario(
 			"Add option with invalid option type"
@@ -105,7 +106,7 @@ public class CPOptionLocalServiceTest {
 			false, RandomTestUtil.randomString(), null, _serviceContext);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = CPOptionSKUContributorException.class)
 	public void testAddOptionIfOptionTypeIsNull() throws Exception {
 		frutillaRule.scenario(
 			"Add SKU contributor option with boolean option option type"
@@ -158,7 +159,7 @@ public class CPOptionLocalServiceTest {
 				_serviceContext.getCompanyId()));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = CPOptionSKUContributorException.class)
 	public void testAddOptionSKUContributorIfInvalidOptionType()
 		throws Exception {
 
