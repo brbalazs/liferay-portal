@@ -205,7 +205,7 @@ public class CommerceSubscriptionEntryTest {
 		CPDefinition cpDefinition = CPTestUtil.addCPDefinition(
 			groupId, SimpleCPTypeConstants.NAME, false, false);
 
-		CommerceTestUtil.addBackOrderCPDefinitionInventory(cpDefinition);
+		CommerceTestUtil.updateBackOrderCPDefinitionInventory(cpDefinition);
 
 		CPOption cpOption = CPTestUtil.addCPOption(groupId, true);
 

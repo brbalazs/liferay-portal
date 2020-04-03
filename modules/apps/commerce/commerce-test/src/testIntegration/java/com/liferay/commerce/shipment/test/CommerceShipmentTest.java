@@ -24,7 +24,7 @@ import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
 import com.liferay.commerce.exception.CommerceOrderStatusException;
-import com.liferay.commerce.exception.CommerceOrderValidatorException;
+import com.liferay.commerce.exception.CommerceShipmentInactiveWarehouseException;
 import com.liferay.commerce.exception.CommerceShipmentItemQuantityException;
 import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.exception.NoSuchShipmentItemException;
@@ -707,7 +707,7 @@ public class CommerceShipmentTest {
 		}
 	}
 
-	@Test(expected = CommerceOrderValidatorException.class)
+	@Test(expected = CommerceShipmentInactiveWarehouseException.class)
 	public void testCreateShippingFromInactiveWarehouse() throws Exception {
 		frutillaRule.scenario(
 			"Attach a shipment to a item that is stocked in an inactive " +

@@ -127,7 +127,7 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 			cpDefinition.getCPDefinitionId(), 0,
 			CommerceOrderConstants.ORDER_STATUS_PENDING, 0, 0, 0);
 
-		CommerceTestUtil.addBackOrderCPDefinitionInventory(cpDefinition);
+		CommerceTestUtil.updateBackOrderCPDefinitionInventory(cpDefinition);
 
 		for (CPInstance cpInstance : cpDefinition.getCPInstances()) {
 			CommerceTestUtil.addCommerceOrderItem(
@@ -203,7 +203,7 @@ public class CommerceVirtualOrderItemLocalServiceTest {
 			cpDefinition.getCPDefinitionId(), 0L,
 			CommerceOrderConstants.ORDER_STATUS_PENDING, 0L, 0L, 0L);
 
-		CommerceTestUtil.addBackOrderCPDefinitionInventory(cpDefinition);
+		CommerceTestUtil.updateBackOrderCPDefinitionInventory(cpDefinition);
 
 		int subscriptionLength = 1;
 

@@ -139,16 +139,6 @@ public class CommerceTestUtil {
 			commerceCurrencyId);
 	}
 
-	public static CPDefinitionInventory addBackOrderCPDefinitionInventory(
-			CPDefinition cpDefinition)
-		throws PortalException {
-
-		return CPDefinitionInventoryLocalServiceUtil.addCPDefinitionInventory(
-			cpDefinition.getUserId(), cpDefinition.getCPDefinitionId(),
-			StringPool.BLANK, StringPool.BLANK, false, false, 0, true, 1, 10000,
-			StringPool.BLANK, 0);
-	}
-
 	public static CommerceOrder addCheckoutDetailsToUserOrder(
 			CommerceOrder commerceOrder, long userId,
 			boolean paymentSubscription)
@@ -540,6 +530,26 @@ public class CommerceTestUtil {
 			commerceShippingFixedOption.getAmount());
 
 		return CommerceOrderLocalServiceUtil.updateCommerceOrder(commerceOrder);
+	}
+
+	public static CPDefinitionInventory updateBackOrderCPDefinitionInventory(
+			CPDefinition cpDefinition)
+		throws PortalException {
+
+		CPDefinitionInventory cpDefinitioninventory =
+			CPDefinitionInventoryLocalServiceUtil.
+				fetchCPDefinitionInventoryByCPDefinitionId(
+					cpDefinition.getCPDefinitionId());
+
+		if (cpDefinitioninventory != null) {
+			cpDefinitioninventory.setBackOrders(true);
+
+			cpDefinitioninventory =
+				CPDefinitionInventoryLocalServiceUtil.
+					updateCPDefinitionInventory(cpDefinitioninventory);
+		}
+
+		return cpDefinitioninventory;
 	}
 
 	private static CommerceCountry _setUpCountry(ServiceContext serviceContext)

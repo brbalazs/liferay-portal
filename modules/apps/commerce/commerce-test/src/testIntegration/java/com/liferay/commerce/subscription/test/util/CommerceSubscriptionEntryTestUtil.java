@@ -44,7 +44,7 @@ public class CommerceSubscriptionEntryTestUtil {
 
 		cpInstance = CPInstanceLocalServiceUtil.updateCPInstance(cpInstance);
 
-		CommerceTestUtil.addBackOrderCPDefinitionInventory(
+		CommerceTestUtil.updateBackOrderCPDefinitionInventory(
 			cpInstance.getCPDefinition());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
