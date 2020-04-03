@@ -133,7 +133,7 @@ export function launcher(Component, componentId, containerId, props) {
 
 	const destroyOnNavigate = !portletId;
 
-	if (Liferay && Liferay.component) {
+	if (Liferay.component) {
 		Liferay.component(
 			componentId,
 			{
@@ -183,12 +183,12 @@ export function getFakeJsModule() {
 }
 
 export const fetchHeaders = new Headers({
-	'x-csrf-token': window.Liferay && window.Liferay.authToken
+	'x-csrf-token': Liferay.authToken
 });
 
 export const fetchParams = {
 	credentials: 'include',
-	headers: (window.Liferay && window.Liferay.staticEnvHeaders) || fetchHeaders
+	headers: Liferay.staticEnvHeaders || fetchHeaders
 };
 
 export function createSortingString(values) {
