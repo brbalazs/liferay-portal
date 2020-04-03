@@ -7136,48 +7136,38 @@ public class JournalArticleLocalServiceImpl
 					"between ", _previousCheckDate, " and ", reviewDate));
 		}
 
-		Set<Long> latestArticleIds = new HashSet<>();
-
 		List<JournalArticle> articles = journalArticleFinder.findByReviewDate(
 			JournalArticleConstants.CLASSNAME_ID_DEFAULT, reviewDate,
 			_previousCheckDate);
 
 		for (JournalArticle article : articles) {
-			if (article.isInTrash()) {
+			long groupId = article.getGroupId();
+			String articleId = article.getArticleId();
+
+			if (article.isInTrash() ||
+				!journalArticleLocalService.isLatestVersion(
+					groupId, articleId, article.getVersion())) {
+
 				continue;
 			}
 
-			long groupId = article.getGroupId();
-			String articleId = article.getArticleId();
-			double version = article.getVersion();
-
-			if (!journalArticleLocalService.isLatestVersion(
-					groupId, articleId, version)) {
-
-				article = journalArticleLocalService.getLatestArticle(
-					groupId, articleId);
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Sending review notification for article " +
+						article.getId());
 			}
 
-			if (latestArticleIds.add(article.getPrimaryKey())) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(
-						"Sending review notification for article " +
-							article.getId());
-				}
+			String portletId = PortletProviderUtil.getPortletId(
+				JournalArticle.class.getName(), PortletProvider.Action.EDIT);
 
-				String portletId = PortletProviderUtil.getPortletId(
-					JournalArticle.class.getName(),
-					PortletProvider.Action.EDIT);
+			String articleURL = PortalUtil.getControlPanelFullURL(
+				article.getGroupId(), portletId, null);
 
-				String articleURL = PortalUtil.getControlPanelFullURL(
-					article.getGroupId(), portletId, null);
+			articleURL = buildArticleURL(
+				articleURL, article.getGroupId(), article.getFolderId(),
+				article.getArticleId());
 
-				articleURL = buildArticleURL(
-					articleURL, article.getGroupId(), article.getFolderId(),
-					article.getArticleId());
-
-				sendEmail(article, articleURL, "review", new ServiceContext());
-			}
+			sendEmail(article, articleURL, "review", new ServiceContext());
 		}
 	}
 
