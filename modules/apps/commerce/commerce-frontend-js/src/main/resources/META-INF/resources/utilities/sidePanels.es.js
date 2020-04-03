@@ -14,12 +14,8 @@
 
 export const registeredPanels = new Map();
 
-export function exposeSidePanel(id, callback = null) {
-	if (callback) {
-		registeredPanels.set(id, callback);
-	} else {
-		registeredPanels.delete(id);
-	}
+export function exposeSidePanel(id, callback) {
+	registeredPanels.set(id, callback);
 }
 
 export function getOpenedSidePanel() {
