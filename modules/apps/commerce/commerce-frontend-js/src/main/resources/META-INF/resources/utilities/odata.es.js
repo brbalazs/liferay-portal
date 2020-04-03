@@ -17,7 +17,7 @@ export function convertObjectDateToIsoString(objDate) {
 	return date.toISOString();
 }
 
-export function createOdataFilterString(
+function createOdataFilterString(
 	key,
 	operator = 'eq',
 	type,
@@ -71,10 +71,10 @@ export function createOdataFilterString(
 	return `${key} ${operator} ${value}`;
 }
 
-export function createOdataFilterStrings(filters) {
+export default function createOdataFilter(filters) {
 	if (!filters.length) return null;
 
-	const oDataFilterStrings = filters
+	return filters
 		.map(filter => {
 			return createOdataFilterString(
 				filter.id,
@@ -86,6 +86,4 @@ export function createOdataFilterStrings(filters) {
 		})
 		.map(filterString => `(${filterString})`)
 		.join(' and ');
-
-	return `filter=${oDataFilterStrings}`;
 }

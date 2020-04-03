@@ -15,7 +15,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import { createOdataFilterStrings } from './odata.es';
+import createOdataFilter from './odata.es';
 
 export function debounce(func, wait, immediate) {
 	let timeout;
@@ -194,7 +194,7 @@ export const fetchParams = {
 export function createSortingString(values) {
 	if (!values.length) return null;
 
-	return `sort=${values
+	return values
 		.map(value => {
 			return `${
 				Array.isArray(value.fieldName)
@@ -202,7 +202,7 @@ export function createSortingString(values) {
 					: value.fieldName
 			}:${value.direction}`;
 		})
-		.join(',')}`;
+		.join(',');
 }
 
 export function loadData(
@@ -214,29 +214,29 @@ export function loadData(
 	page = 1,
 	sorting = []
 ) {
-	const authString = `p_auth=${window.Liferay.authToken}`;
-	const pagination = `pageSize=${delta}&page=${page}`;
-	const currentUrlString = currentUrl
-		? `&currentUrl=${encodeURIComponent(currentUrl)}`
-		: null;
-	const searchParamString = searchParam
-		? `&search=${encodeURIComponent(searchParam)}`
-		: null;
-	const sortingString = createSortingString(sorting);
-	const filterString = createOdataFilterStrings(filters);
+	const params = new URLSearchParams();
 
-	const urlParams = [
-		authString,
-		pagination,
-		currentUrlString,
-		searchParamString,
-		sortingString,
-		filterString
-	]
-		.filter(param => Boolean(param))
-		.join('&');
+	params.set('p_auth', window.Liferay.authToken);
+	params.set('pageSize', delta);
+	params.set('page', page);
 
-	const url = `${apiUrl}${apiUrl.indexOf('?') > -1 ? '&' : '?'}${urlParams}`;
+	if(currentUrl) {
+		params.set('currentUrl', encodeURIComponent(currentUrl));
+	}
+
+	if(searchParam) {
+		params.set('search', encodeURIComponent(searchParam));
+	}
+
+	if(sorting && sorting.length) {
+		params.set('sort', createSortingString(sorting));
+	}
+
+	if(filters && filters.length) {
+		params.set('sort', createOdataFilter(filters));
+	}
+
+	const url = `${apiUrl}${apiUrl.indexOf('?') > -1 ? '&' : '?'}${params.toString()}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }
