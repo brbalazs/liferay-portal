@@ -67,8 +67,12 @@ public class ExpandoColumnModelListener
 	private boolean _checkCPOptionValueExpandoColumn(long tableId)
 		throws PortalException {
 
-		ExpandoTable expandoTable = _expandoTableLocalService.getExpandoTable(
+		ExpandoTable expandoTable = _expandoTableLocalService.fetchExpandoTable(
 			tableId);
+
+		if (expandoTable == null) {
+			return false;
+		}
 
 		return Objects.equals(
 			expandoTable.getClassName(), CPOptionValue.class.getName());
