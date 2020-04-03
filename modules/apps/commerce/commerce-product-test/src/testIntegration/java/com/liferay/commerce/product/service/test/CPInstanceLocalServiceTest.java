@@ -138,7 +138,7 @@ public class CPInstanceLocalServiceTest {
 	}
 
 	@Test
-	public void testCPInstanceActiveIfNewNonskuContributorOptionAdded()
+	public void testCPInstanceActiveNewNonskuContributorOptionAdded()
 		throws Exception {
 
 		frutillaRule.scenario(
@@ -214,7 +214,7 @@ public class CPInstanceLocalServiceTest {
 	}
 
 	@Test
-	public void testDefaultCPInstanceIfNewNonskuContributorOptionAdded()
+	public void testDefaultCPInstanceNewNonskuContributorOptionAdded()
 		throws Exception {
 
 		frutillaRule.scenario(
@@ -291,7 +291,7 @@ public class CPInstanceLocalServiceTest {
 	}
 
 	@Test
-	public void testInactivateCPInstanceIfCPInstanceWithSameOptionAdded()
+	public void testInactivateCPInstanceCPInstanceWithSameOptionAdded()
 		throws Exception {
 
 		frutillaRule.scenario(
@@ -373,7 +373,7 @@ public class CPInstanceLocalServiceTest {
 	}
 
 	@Test
-	public void testInactivateCPInstanceIfNewSKUContributorOptionAdded()
+	public void testInactivateCPInstanceNewSKUContributorOptionAdded()
 		throws Exception {
 
 		frutillaRule.scenario(

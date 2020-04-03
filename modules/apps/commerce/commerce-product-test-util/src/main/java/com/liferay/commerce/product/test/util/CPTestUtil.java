@@ -23,6 +23,7 @@ import com.liferay.commerce.product.configuration.CPOptionConfiguration;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceConstants;
 import com.liferay.commerce.product.model.CPOption;
@@ -58,6 +59,7 @@ import java.io.Serializable;
 
 import java.math.BigDecimal;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -66,6 +68,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author Andrea Di Giorgi
@@ -310,10 +313,12 @@ public class CPTestUtil {
 			groupId, _getDefaultDDMFormFieldType(), skuContributor);
 	}
 
-	public static void addCPOption(
+	public static List<CPDefinitionOptionRel> addCPOption(
 			long groupId, long cpDefinitionId, int cpOptionsCount,
 			int cpOptionValuesCount)
 		throws Exception {
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels = new ArrayList<>();
 
 		for (int i = 0; i < cpOptionsCount; i++) {
 			CPOption cpOption = addCPOption(groupId, true);
@@ -322,9 +327,12 @@ public class CPTestUtil {
 				addCPOptionValue(cpOption);
 			}
 
-			addCPDefinitionOptionRel(
-				groupId, cpDefinitionId, cpOption.getCPOptionId());
+			cpDefinitionOptionRels.add(
+				addCPDefinitionOptionRel(
+					groupId, cpDefinitionId, cpOption.getCPOptionId()));
 		}
+
+		return cpDefinitionOptionRels;
 	}
 
 	public static CPOption addCPOption(
@@ -377,6 +385,26 @@ public class CPTestUtil {
 			_getCPOptionConfiguration();
 
 		return cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
+	}
+
+	public static CPDefinitionOptionValueRel
+		getRandomCPDefinitionOptionValueRel(long cpDefinitionId) {
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+			CPDefinitionOptionRelLocalServiceUtil.getCPDefinitionOptionRels(
+				cpDefinitionId);
+
+		Random random = new Random();
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionRels.get(
+				random.nextInt(cpDefinitionOptionRels.size()));
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
+
+		return cpDefinitionOptionValueRels.get(
+			random.nextInt(cpDefinitionOptionValueRels.size()));
 	}
 
 	public static SearchContext getSearchContext(
