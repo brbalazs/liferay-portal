@@ -50,12 +50,12 @@ definition {
 		Select(
 			key_title = "Default Catalog Language",
 			locator1 = "CommerceEntry#CATALOGS_FORM",
-			value1 = "${language}");
+			value1 = "${catalogLanguage}");
 
 		Select(
 			key_title = "Currency",
 			locator1 = "CommerceEntry#CATALOGS_FORM",
-			value1 = "${currency}");
+			value1 = "${catalogCurrency}");
 	}
 
 	macro addNewChannelsEntry {
@@ -496,25 +496,6 @@ definition {
 			value1 = "Select File");
 
 		CommerceItemSelector.uploadSingleFile(uploadFileName = "${uploadFileName}");
-	}
-
-	macro viewCatalogEntry {
-		AssertTextEquals(
-			locator1 = "CommerceEntry#NAME_FIELD",
-			value1 = "${productName}");
-
-		AssertTextEquals(
-			locator1 = "CommerceEntry#SHORT_DESCRIPTION_FIELD",
-			value1 = "${productShortDescription}");
-
-		AssertTextEquals(
-			locator1 = "CommerceEntry#FULL_DESCRIPTION_FIELD",
-			value1 = "${productFullDescription}");
-
-		AssertTextEquals(
-			key_productName = "${productName}",
-			locator1 = "CommerceEntry#SEO_FRIENDLYURL",
-			value1 = "${productName}");
 	}
 
 	macro viewCatalogsEntry {
