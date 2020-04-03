@@ -194,17 +194,17 @@ class AddToCartButton extends Component {
 	}
 
 	_handleCurrentProductStatusChange(e) {
-		if (this.id && this.id !== e.addToCartId) {
-			return;
-		}
-		if (e.productId) {
-			this.productId = e.productId;
-			this.options = e.options;
-			this.quantity = e.quantity;
-			this.settings = e.settings;
-			this.disabled = false;
-		} else {
-			this.disabled = true;
+		if (this.id) {
+			if (this.id !== e.addToCartId) return;
+			if (e.productId) {
+				this.productId = e.productId;
+				this.options = e.options;
+				this.quantity = e.quantity;
+				this.settings = e.settings;
+				this.disabled = false;
+			} else {
+				this.disabled = true;
+			}
 		}
 	}
 
