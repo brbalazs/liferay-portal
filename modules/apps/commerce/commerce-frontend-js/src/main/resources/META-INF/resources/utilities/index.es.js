@@ -61,7 +61,9 @@ export function showNotification(
 	});
 }
 
-export function showErrorNotification(e = Liferay.Language.get('unexpected-error')) {
+export function showErrorNotification(
+	e = Liferay.Language.get('unexpected-error')
+) {
 	showNotification(e, 'danger');
 }
 
