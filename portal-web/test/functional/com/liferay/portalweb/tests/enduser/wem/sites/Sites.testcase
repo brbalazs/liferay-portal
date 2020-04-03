@@ -370,16 +370,19 @@ definition {
 
 		JSONLayout.addPublicLayout(
 			groupName = "Child SiteName",
-			layoutName = "Site Page");
+			layoutName = "Site Page",
+			parentGroupName = "Site Name");
 
 		JSONGroup.addChildSite(
 			grandParentGroupName = "Site Name",
-			groupName = "Child Child SiteName",
+			groupName = "Child ChildSiteName",
 			parentGroupName = "Child SiteName");
 
 		JSONLayout.addPublicLayout(
+			grandParentGroupName = "Site Name",
 			groupName = "Child ChildSiteName",
-			layoutName = "Site Page");
+			layoutName = "Site Page",
+			parentGroupName = "Child SiteName");
 
 		Site.openSitesAdmin();
 
@@ -422,7 +425,8 @@ definition {
 
 		JSONLayout.addPublicLayout(
 			groupName = "Child Site1Name",
-			layoutName = "Site Page");
+			layoutName = "Site Page",
+			parentGroupName = "Site Name");
 
 		JSONGroup.addChildSite(
 			grandParentGroupName = "Site Name",
@@ -430,16 +434,21 @@ definition {
 			parentGroupName = "Child Site1Name");
 
 		JSONLayout.addPublicLayout(
+			grandParentGroupName = "Site Name",
 			groupName = "Child ChildSite1Name",
-			layoutName = "Site Page");
+			layoutName = "Site Page",
+			parentGroupName = "Child Site1Name");
 
 		JSONGroup.addChildSite(
+			grandParentGroupName = "Site Name",
 			groupName = "Child ChildSite2Name",
 			parentGroupName = "Child Site1Name");
 
 		JSONLayout.addPublicLayout(
+			grandParentGroupName = "Site Name",
 			groupName = "Child ChildSite2Name",
-			layoutName = "Site Page");
+			layoutName = "Site Page",
+			parentGroupName = "Child Site1Name");
 
 		JSONGroup.addChildSite(
 			groupName = "Child Site2Name",
@@ -447,7 +456,8 @@ definition {
 
 		JSONLayout.addPublicLayout(
 			groupName = "Child Site2Name",
-			layoutName = "Site Page");
+			layoutName = "Site Page",
+			parentGroupName = "Site Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Site Page",

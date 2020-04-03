@@ -339,8 +339,7 @@ definition {
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 
-		JSONMBMessage.addMessage(
-			groupName = "Guest",
+		JSONMBMessage.addMessageReply(
 			threadBody = '''<script>alert(123);</script>''',
 			threadSubject = '''<script>alert(123);</script>''');
 
