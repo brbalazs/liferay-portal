@@ -31,7 +31,7 @@ public class JsonHelper {
 		if (!isArray(jsonArrayString)) {
 			throw new IllegalArgumentException(
 				String.format(
-					"% is not valid json array expression", jsonArrayString));
+					"%s is not valid json array expression", jsonArrayString));
 		}
 
 		int start = jsonArrayString.indexOf(StringPool.QUOTE);
@@ -39,7 +39,7 @@ public class JsonHelper {
 		if (start == -1) {
 			throw new IndexOutOfBoundsException(
 				String.format(
-					"% json array has no first element", jsonArrayString));
+					"%s json array has no first element", jsonArrayString));
 		}
 
 		return jsonArrayString.substring(
@@ -69,7 +69,7 @@ public class JsonHelper {
 	}
 
 	public static boolean isArray(String json) {
-		if (isEmpty(json)) {
+		if (Validator.isNull(json)) {
 			return false;
 		}
 
