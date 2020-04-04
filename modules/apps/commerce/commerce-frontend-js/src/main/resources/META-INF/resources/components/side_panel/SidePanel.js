@@ -26,10 +26,7 @@ import {
 	IFRAME_LOADED,
 	SIDE_PANEL_CLOSED
 } from '../../utilities/eventsDefinitions';
-import {
-	getIframeHandlerModalId,
-	isPageInIframe
-} from '../../utilities/iframes';
+import {getIframeHandlerModalId, isPageInIframe} from '../../utilities/iframes';
 import {debounce} from '../../utilities/index';
 import {exposeSidePanel} from '../../utilities/sidePanels';
 import Modal from '../modal/Modal';
