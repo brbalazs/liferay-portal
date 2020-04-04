@@ -26,7 +26,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 	<div class="pt-4" id="<portlet:namespace />productOptionRelsContainer">
 		<div id="item-finder-root"></div>
 
-		<aui:script require="commerce-frontend-js/components/item_finder/entry.es as itemFinder, commerce-frontend-js/utilities/index.es as utilities, commerce-frontend-js/utilities/eventsDefinitions.es as events">
+		<aui:script require="commerce-frontend-js/components/item_finder/entry as itemFinder, commerce-frontend-js/utilities/index as utilities, commerce-frontend-js/utilities/eventsDefinitions as events">
 			var headers = new Headers({
 				Accept: 'application/json',
 				'Content-Type': 'application/json',

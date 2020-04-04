@@ -28,7 +28,7 @@ String collapseSwitchId = Validator.isNotNull(collapseSwitchName) ? collapseSwit
 			<%= title %>
 
 			<c:if test="<%= Validator.isNotNull(actionTargetId) %>">
-				<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as eventsDefinitions">
+				<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as eventsDefinitions">
 					var link = document.getElementById('<%= linkId %>');
 
 					if (link) {

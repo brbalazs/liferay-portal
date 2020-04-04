@@ -303,7 +303,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 		>
 			<div id="summary-root"></div>
 
-			<aui:script require="commerce-frontend-js/components/summary/entry.es as summary">
+			<aui:script require="commerce-frontend-js/components/summary/entry as summary">
 				summary.default('summary', 'summary-root', {
 					apiUrl:
 						'/o/headless-commerce-admin-order/v1.0/orders/<%= commerceOrderEditDisplayContext.getCommerceOrderId() %>',

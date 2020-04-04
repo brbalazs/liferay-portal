@@ -40,7 +40,7 @@ CPOptionCategory cpOptionCategory = (CPOptionCategory)request.getAttribute(CPWeb
 </aui:fieldset>
 
 <c:if test="<%= cpOptionCategory == null %>">
-	<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
+	<aui:script require="commerce-frontend-js/utilities/index as utilities">
 		const form = document.getElementById('<portlet:namespace />fm');
 
 		const keyInput = form.querySelector('#<portlet:namespace />key');

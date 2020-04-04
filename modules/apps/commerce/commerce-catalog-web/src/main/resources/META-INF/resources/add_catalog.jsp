@@ -71,7 +71,7 @@ List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCom
 			</aui:select>
 		</aui:form>
 
-		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/forms/index.es as FormUtils">
+		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/forms/index as FormUtils">
 			Liferay.provide(
 				window,
 				'<portlet:namespace/>apiSubmit',

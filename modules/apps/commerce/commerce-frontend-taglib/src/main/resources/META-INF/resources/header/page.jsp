@@ -101,7 +101,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 												label='<%= LanguageUtil.get(request, "edit") %>'
 											/>
 
-											<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
+											<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events">
 												document
 													.querySelector('#erc-edit-modal-opener')
 													.addEventListener('click', function(e) {
@@ -339,7 +339,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 	</div>
 </div>
 
-<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
+<aui:script require="commerce-frontend-js/utilities/index as utilities">
 	var commerceHeader = document.querySelector('.commerce-header');
 	var pageHeader = document.querySelector('.page-header');
 
