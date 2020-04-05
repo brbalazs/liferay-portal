@@ -35,6 +35,7 @@ function Modal(props) {
 	const [url, setUrl] = useState(props.url);
 	const [size, setSize] = useState(INITIAL_MODAL_SIZE);
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	function doClose(successNotification) {
 		if (onClose) {
 			onClose(successNotification);
