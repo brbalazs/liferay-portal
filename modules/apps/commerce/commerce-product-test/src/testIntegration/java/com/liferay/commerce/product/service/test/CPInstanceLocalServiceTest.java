@@ -566,7 +566,7 @@ public class CPInstanceLocalServiceTest {
 				QueryUtil.ALL_POS, null);
 
 		Assert.assertTrue(
-			"No any active CP instances", cpDefinitionInstances.isEmpty());
+			"No active CP instances", cpDefinitionInstances.isEmpty());
 	}
 
 	@Test
