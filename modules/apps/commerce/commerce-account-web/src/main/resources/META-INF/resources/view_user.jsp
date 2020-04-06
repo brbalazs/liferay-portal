@@ -26,6 +26,7 @@ PortletURL portletURL = commerceAccountDisplayContext.getPortletURL();
 Map<String, String> contextParams = new HashMap<>();
 
 contextParams.put("commerceAccountId", String.valueOf(commerceAccount.getCommerceAccountId()));
+contextParams.put("userId", String.valueOf(selectedUser.getUserId()));
 
 portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccountUser");
 portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));

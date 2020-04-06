@@ -66,13 +66,13 @@ public class CommerceAccountUserRolesClayTableDataSetDisplayView
 
 		long commerceAccountId = ParamUtil.getLong(
 			httpServletRequest, "commerceAccountId");
+		long userId = ParamUtil.getLong(httpServletRequest, "userId");
 
 		CommerceAccount commerceAccount =
 			_commerceAccountService.getCommerceAccount(commerceAccountId);
 
 		return _userGroupRoleLocalService.getUserGroupRolesCount(
-			_portal.getUserId(httpServletRequest),
-			commerceAccount.getCommerceAccountGroupId());
+			userId, commerceAccount.getCommerceAccountGroupId());
 	}
 
 	@Override
@@ -97,14 +97,14 @@ public class CommerceAccountUserRolesClayTableDataSetDisplayView
 
 		long commerceAccountId = ParamUtil.getLong(
 			httpServletRequest, "commerceAccountId");
+		long userId = ParamUtil.getLong(httpServletRequest, "userId");
 
 		CommerceAccount commerceAccount =
 			_commerceAccountService.getCommerceAccount(commerceAccountId);
 
 		List<UserGroupRole> userGroupRoles =
 			_userGroupRoleLocalService.getUserGroupRoles(
-				commerceAccount.getCommerceAccountId(),
-				commerceAccount.getCommerceAccountGroupId(),
+				userId, commerceAccount.getCommerceAccountGroupId(),
 				pagination.getStartPosition(), pagination.getEndPosition());
 
 		List<AccountRole> accountRoles = new ArrayList<>();
