@@ -29,6 +29,8 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.math.BigDecimal;
+
 import java.util.Locale;
 import java.util.Map;
 
@@ -108,6 +110,10 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 			actionRequest, "name");
 		double priority = ParamUtil.getDouble(actionRequest, "priority");
 		String key = ParamUtil.getString(actionRequest, "key");
+		long cpInstanceId = ParamUtil.getLong(actionRequest, "cpInstanceId");
+		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
+		BigDecimal price = (BigDecimal)ParamUtil.getNumber(
+			actionRequest, "price", BigDecimal.ZERO);
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CPDefinitionOptionValueRel.class.getName(), actionRequest);
@@ -127,7 +133,7 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 		return _cpDefinitionOptionValueRelService.
 			updateCPDefinitionOptionValueRel(
 				cpDefinitionOptionValueRelId, nameMap, priority, key,
-				serviceContext);
+				cpInstanceId, quantity, price, serviceContext);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
