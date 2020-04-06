@@ -408,6 +408,7 @@
 		<column name="required" type="boolean" />
 		<column name="skuContributor" type="boolean" />
 		<column name="key" type="String" />
+		<column name="priceType" type="String" />
 
 		<!-- Order -->
 
