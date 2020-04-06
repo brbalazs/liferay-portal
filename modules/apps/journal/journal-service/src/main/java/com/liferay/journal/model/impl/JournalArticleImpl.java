@@ -80,6 +80,7 @@ import java.util.TreeSet;
  * @author Brian Wing Shun Chan
  * @author Wesley Gong
  */
+@JSON(strict = true)
 public class JournalArticleImpl extends JournalArticleBaseImpl {
 
 	public static String getContentByLocale(
@@ -307,6 +308,14 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 		return StringPool.BLANK;
 	}
 
+	@JSON
+	@Override
+	public String getDescriptionCurrentValue() {
+		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
+
+		return getDescription(locale, true);
+	}
+
 	@Override
 	public Map<Locale, String> getDescriptionMap() {
 		if (_descriptionMap != null) {
@@ -319,6 +328,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 		return _descriptionMap;
 	}
 
+	@JSON
 	@Override
 	public String getDescriptionMapAsXML() {
 		return LocalizationUtil.updateLocalization(
@@ -326,6 +336,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 			getDefaultLanguageId());
 	}
 
+	@JSON
 	@Override
 	public Date getDisplayDate() {
 		if (!PropsValues.SCHEDULER_ENABLED &&
@@ -354,6 +365,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 		return _document;
 	}
 
+	@JSON
 	@Override
 	public Date getExpirationDate() {
 		if (!PropsValues.SCHEDULER_ENABLED &&
@@ -528,6 +540,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 		return _title;
 	}
 
+	@JSON
 	@Override
 	public Date getReviewDate() {
 		if (!PropsValues.SCHEDULER_ENABLED &&
@@ -650,6 +663,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 		return _titleMap;
 	}
 
+	@JSON
 	@Override
 	public String getTitleMapAsXML() {
 		return LocalizationUtil.updateLocalization(
