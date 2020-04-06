@@ -94,7 +94,6 @@ Use method
 #getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(long, java.lang.String)`
 to supply option configuration for CPInstance creation.
 Use method
-Use method
 `com.liferay.commerce.product.service.impl.
 CPInstanceOptionValueRelLocalServiceImpl#matchesCPInstanceOptionValueRels(long,
 java.util.Map<java.lang.Long,java.util.List<java.lang.Long>>)`
@@ -102,7 +101,7 @@ to compare a particular option combination with an existing instance option
 combination.
 
 Outter usage via CPInstanceHelper interface:
-Use method:
+Use method
 `com.liferay.commerce.product.internal.util.CPInstanceHelperImpl#
 getCPDefinitionOptionRelsMap(long, java.lang.String)`
 to pull all existing cpDefinitionOption and cpDefinitionOptionValue IDs from
