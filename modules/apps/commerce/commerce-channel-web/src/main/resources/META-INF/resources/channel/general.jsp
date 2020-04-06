@@ -74,6 +74,21 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 					%>
 
 				</aui:select>
+
+				<aui:select label="shipping-tax-category" name="shippingTaxSettings--taxCategoryId--">
+					<aui:option label="no-tax-category" selected="<%= 0 == commerceChannelDisplayContext.getActiveShippingTaxCategory() %>" value="0" />
+
+					<%
+					for (CPTaxCategory taxCategory : commerceChannelDisplayContext.getTaxCategories()) {
+					%>
+
+						<aui:option label="<%= taxCategory.getName() %>" selected="<%= taxCategory.getCPTaxCategoryId() == commerceChannelDisplayContext.getActiveShippingTaxCategory() %>" value="<%= taxCategory.getCPTaxCategoryId() %>" />
+
+					<%
+					}
+					%>
+
+				</aui:select>
 			</commerce-ui:panel>
 		</div>
 

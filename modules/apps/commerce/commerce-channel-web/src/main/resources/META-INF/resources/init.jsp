@@ -39,6 +39,7 @@ page import="com.liferay.commerce.constants.CommerceOrderConstants" %><%@
 page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
 page import="com.liferay.commerce.product.channel.CommerceChannelType" %><%@
 page import="com.liferay.commerce.product.exception.NoSuchChannelException" %><%@
+page import="com.liferay.commerce.product.model.CPTaxCategory" %><%@
 page import="com.liferay.commerce.product.model.CommerceChannel" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
