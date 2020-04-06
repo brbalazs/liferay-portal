@@ -79,8 +79,8 @@ in ascending chronological order.
 
 #### What changed?
 
-The CPInstance field `json` that holds product options configuration replaced with entity
-CPInstanceOptionValueRel.
+The CPInstance field `json` that holds product options configuration is replaced
+with entity CPInstanceOptionValueRel.
 
 #### Who is affected?
 
@@ -94,10 +94,12 @@ Use method
     getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(long, java.lang.String)` to
 supply option configuration for CPInstance creation.
 Use method
-`com.liferay.commerce.product.service.impl.CPInstanceOptionValueRelLocalServiceImpl#
-  matchesCPInstanceOptionValueRels(
-    long, java.util.Map<java.lang.Long,java.util.List<java.lang.Long>>)` to
-compare particular option combination with an existing instance option combination.
+Use method
+`com.liferay.commerce.product.service.impl.
+CPInstanceOptionValueRelLocalServiceImpl#matchesCPInstanceOptionValueRels(long,
+java.util.Map<java.lang.Long,java.util.List<java.lang.Long>>)`
+to compare a particular option combination with an existing instance option
+combination.
 
 Outter usage via CPInstanceHelper interface:
 Use method:
@@ -139,7 +141,7 @@ for given CPInstance.
 
 #### Why was this change made?
 
-Change is introduced to make possible to implement Product Bundles and allow administrators
-providing products with advanced pricing scenarios.
+This change was introduced to implement Product Bundles and allow administrators
+to provide products with advanced pricing scenarios.
 
 ---------------------------------------
