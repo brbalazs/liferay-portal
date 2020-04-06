@@ -169,7 +169,8 @@ public class CommerceChannelServiceImpl extends CommerceChannelServiceBaseImpl {
 	public CommerceChannel updateCommerceChannel(
 			long commerceChannelId, long siteGroupId, String name, String type,
 			UnicodeProperties typeSettingsProperties,
-			String commerceCurrencyCode, String priceDisplayType)
+			String commerceCurrencyCode, String priceDisplayType,
+			boolean discountsTargetNetPrice)
 		throws PortalException {
 
 		_commerceChannelModelResourcePermission.check(
@@ -177,7 +178,7 @@ public class CommerceChannelServiceImpl extends CommerceChannelServiceBaseImpl {
 
 		return commerceChannelLocalService.updateCommerceChannel(
 			commerceChannelId, siteGroupId, name, type, typeSettingsProperties,
-			commerceCurrencyCode, priceDisplayType);
+			commerceCurrencyCode, priceDisplayType, discountsTargetNetPrice);
 	}
 
 	@Override

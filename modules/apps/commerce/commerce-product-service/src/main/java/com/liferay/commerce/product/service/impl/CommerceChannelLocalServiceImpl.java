@@ -86,6 +86,7 @@ public class CommerceChannelLocalServiceImpl
 		commerceChannel.setCommerceCurrencyCode(commerceCurrencyCode);
 		commerceChannel.setPriceDisplayType(
 			CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE);
+		commerceChannel.setDiscountsTargetNetPrice(true);
 		commerceChannel.setExternalReferenceCode(externalReferenceCode);
 
 		commerceChannel = commerceChannelPersistence.update(commerceChannel);
@@ -278,7 +279,8 @@ public class CommerceChannelLocalServiceImpl
 	public CommerceChannel updateCommerceChannel(
 			long commerceChannelId, long siteGroupId, String name, String type,
 			UnicodeProperties typeSettingsProperties,
-			String commerceCurrencyCode, String priceDisplayType)
+			String commerceCurrencyCode, String priceDisplayType,
+			boolean discountsTargetNetPrice)
 		throws PortalException {
 
 		CommerceChannel commerceChannel =
@@ -290,6 +292,7 @@ public class CommerceChannelLocalServiceImpl
 		commerceChannel.setTypeSettingsProperties(typeSettingsProperties);
 		commerceChannel.setCommerceCurrencyCode(commerceCurrencyCode);
 		commerceChannel.setPriceDisplayType(priceDisplayType);
+		commerceChannel.setDiscountsTargetNetPrice(discountsTargetNetPrice);
 
 		return commerceChannelPersistence.update(commerceChannel);
 	}

@@ -68,6 +68,7 @@
 		<column name="typeSettings" type="String" />
 		<column name="commerceCurrencyCode" type="String" />
 		<column name="priceDisplayType" type="String" />
+		<column name="discountsTargetNetPrice" type="boolean" />
 
 		<!-- Order -->
 
