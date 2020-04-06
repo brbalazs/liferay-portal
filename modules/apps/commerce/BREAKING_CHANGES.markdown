@@ -73,7 +73,7 @@ in ascending chronological order.
 
 ## Breaking Changes List
 
-### `CPInstance` entity field `json` is replaced with new entity `CPInstanceOptionValueRel`
+### `CPInstance` Entity Field `json` Is Replaced With New Entity `CPInstanceOptionValueRel`
 - **Date:** 2020-Feb-25
 - **JIRA Ticket:** [COMMERCE-2692](https://issues.liferay.com/browse/COMMERCE-2692)
 
@@ -90,9 +90,9 @@ Commerce CPInstace Service layer API and Helper classes.
 
 Internal parent module usage:
 Use method
-`com.liferay.commerce.product.service.impl.CPDefinitionOptionRelLocalServiceImpl#
-    getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(long, java.lang.String)` to
-supply option configuration for CPInstance creation.
+`com.liferay.commerce.product.service.impl.CPDefinitionOptionRelLocalServiceImpl
+#getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(long, java.lang.String)`
+to supply option configuration for CPInstance creation.
 Use method
 Use method
 `com.liferay.commerce.product.service.impl.
@@ -104,18 +104,18 @@ combination.
 Outter usage via CPInstanceHelper interface:
 Use method:
 `com.liferay.commerce.product.internal.util.CPInstanceHelperImpl#
-  getCPDefinitionOptionRelsMap(long, java.lang.String)`
-to pull all existing cpDefinitionOption and cpDefinitionOptionValue IDs from given
-JSON structure.
+getCPDefinitionOptionRelsMap(long, java.lang.String)`
+to pull all existing cpDefinitionOption and cpDefinitionOptionValue IDs from
+given JSON structure.
 Method is applicable to content of orderItem.json field.
 
 Use method
 `com.liferay.commerce.product.internal.util.CPInstanceHelperImpl#
-  getCPInstanceCPDefinitionOptionRelsMap(long)` to
-get CPDefinitionOption and CPDefintionOptionValue Map, representing option configuration
-for given CPInstance.
+getCPInstanceCPDefinitionOptionRelsMap(long)` to get CPDefinitionOption and
+CPDefintionOptionValue Map, representing option configuration for a given
+CPInstance.
 
-#### Changes in data structure
+#### Changes in Data Structure
 **Before:**
 
 ```
