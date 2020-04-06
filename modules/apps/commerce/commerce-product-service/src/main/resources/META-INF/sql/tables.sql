@@ -384,7 +384,8 @@ create table CommerceChannel (
 	type_ VARCHAR(75) null,
 	typeSettings VARCHAR(75) null,
 	commerceCurrencyCode VARCHAR(75) null,
-	priceDisplayType VARCHAR(75) null
+	priceDisplayType VARCHAR(75) null,
+	discountsTargetNetPrice BOOLEAN
 );
 
 create table CommerceChannelRel (

@@ -44,6 +44,7 @@ public class CommerceChannelSoap implements Serializable {
 		soapModel.setTypeSettings(model.getTypeSettings());
 		soapModel.setCommerceCurrencyCode(model.getCommerceCurrencyCode());
 		soapModel.setPriceDisplayType(model.getPriceDisplayType());
+		soapModel.setDiscountsTargetNetPrice(model.isDiscountsTargetNetPrice());
 
 		return soapModel;
 	}
@@ -207,6 +208,18 @@ public class CommerceChannelSoap implements Serializable {
 		_priceDisplayType = priceDisplayType;
 	}
 
+	public boolean getDiscountsTargetNetPrice() {
+		return _discountsTargetNetPrice;
+	}
+
+	public boolean isDiscountsTargetNetPrice() {
+		return _discountsTargetNetPrice;
+	}
+
+	public void setDiscountsTargetNetPrice(boolean discountsTargetNetPrice) {
+		_discountsTargetNetPrice = discountsTargetNetPrice;
+	}
+
 	private String _externalReferenceCode;
 	private long _commerceChannelId;
 	private long _companyId;
@@ -220,5 +233,6 @@ public class CommerceChannelSoap implements Serializable {
 	private String _typeSettings;
 	private String _commerceCurrencyCode;
 	private String _priceDisplayType;
+	private boolean _discountsTargetNetPrice;
 
 }

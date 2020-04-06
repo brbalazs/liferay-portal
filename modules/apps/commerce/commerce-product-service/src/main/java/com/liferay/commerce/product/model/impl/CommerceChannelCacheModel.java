@@ -62,7 +62,7 @@ public class CommerceChannelCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{externalReferenceCode=");
 		sb.append(externalReferenceCode);
@@ -90,6 +90,8 @@ public class CommerceChannelCacheModel
 		sb.append(commerceCurrencyCode);
 		sb.append(", priceDisplayType=");
 		sb.append(priceDisplayType);
+		sb.append(", discountsTargetNetPrice=");
+		sb.append(discountsTargetNetPrice);
 		sb.append("}");
 
 		return sb.toString();
@@ -168,6 +170,8 @@ public class CommerceChannelCacheModel
 			commerceChannelImpl.setPriceDisplayType(priceDisplayType);
 		}
 
+		commerceChannelImpl.setDiscountsTargetNetPrice(discountsTargetNetPrice);
+
 		commerceChannelImpl.resetOriginalValues();
 
 		return commerceChannelImpl;
@@ -192,6 +196,8 @@ public class CommerceChannelCacheModel
 		typeSettings = objectInput.readUTF();
 		commerceCurrencyCode = objectInput.readUTF();
 		priceDisplayType = objectInput.readUTF();
+
+		discountsTargetNetPrice = objectInput.readBoolean();
 	}
 
 	@Override
@@ -255,6 +261,8 @@ public class CommerceChannelCacheModel
 		else {
 			objectOutput.writeUTF(priceDisplayType);
 		}
+
+		objectOutput.writeBoolean(discountsTargetNetPrice);
 	}
 
 	public String externalReferenceCode;
@@ -270,5 +278,6 @@ public class CommerceChannelCacheModel
 	public String typeSettings;
 	public String commerceCurrencyCode;
 	public String priceDisplayType;
+	public boolean discountsTargetNetPrice;
 
 }

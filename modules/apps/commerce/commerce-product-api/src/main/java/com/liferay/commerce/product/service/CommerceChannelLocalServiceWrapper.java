@@ -440,12 +440,13 @@ public class CommerceChannelLocalServiceWrapper
 				String type,
 				com.liferay.portal.kernel.util.UnicodeProperties
 					typeSettingsProperties,
-				String commerceCurrencyCode, String priceDisplayType)
+				String commerceCurrencyCode, String priceDisplayType,
+				boolean discountsTargetNetPrice)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceChannelLocalService.updateCommerceChannel(
 			commerceChannelId, siteGroupId, name, type, typeSettingsProperties,
-			commerceCurrencyCode, priceDisplayType);
+			commerceCurrencyCode, priceDisplayType, discountsTargetNetPrice);
 	}
 
 	@Override

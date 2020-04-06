@@ -68,6 +68,7 @@ public class CommerceChannelWrapper
 		attributes.put("typeSettings", getTypeSettings());
 		attributes.put("commerceCurrencyCode", getCommerceCurrencyCode());
 		attributes.put("priceDisplayType", getPriceDisplayType());
+		attributes.put("discountsTargetNetPrice", isDiscountsTargetNetPrice());
 
 		return attributes;
 	}
@@ -153,6 +154,13 @@ public class CommerceChannelWrapper
 		if (priceDisplayType != null) {
 			setPriceDisplayType(priceDisplayType);
 		}
+
+		Boolean discountsTargetNetPrice = (Boolean)attributes.get(
+			"discountsTargetNetPrice");
+
+		if (discountsTargetNetPrice != null) {
+			setDiscountsTargetNetPrice(discountsTargetNetPrice);
+		}
 	}
 
 	@Override
@@ -204,6 +212,16 @@ public class CommerceChannelWrapper
 	@Override
 	public Date getCreateDate() {
 		return _commerceChannel.getCreateDate();
+	}
+
+	/**
+	 * Returns the discounts target net price of this commerce channel.
+	 *
+	 * @return the discounts target net price of this commerce channel
+	 */
+	@Override
+	public boolean getDiscountsTargetNetPrice() {
+		return _commerceChannel.getDiscountsTargetNetPrice();
 	}
 
 	@Override
@@ -353,6 +371,16 @@ public class CommerceChannelWrapper
 		return _commerceChannel.isCachedModel();
 	}
 
+	/**
+	 * Returns <code>true</code> if this commerce channel is discounts target net price.
+	 *
+	 * @return <code>true</code> if this commerce channel is discounts target net price; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isDiscountsTargetNetPrice() {
+		return _commerceChannel.isDiscountsTargetNetPrice();
+	}
+
 	@Override
 	public boolean isEscapedModel() {
 		return _commerceChannel.isEscapedModel();
@@ -411,6 +439,16 @@ public class CommerceChannelWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		_commerceChannel.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets whether this commerce channel is discounts target net price.
+	 *
+	 * @param discountsTargetNetPrice the discounts target net price of this commerce channel
+	 */
+	@Override
+	public void setDiscountsTargetNetPrice(boolean discountsTargetNetPrice) {
+		_commerceChannel.setDiscountsTargetNetPrice(discountsTargetNetPrice);
 	}
 
 	@Override

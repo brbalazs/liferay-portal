@@ -150,6 +150,9 @@ public class CommerceChannelPersistenceTest {
 
 		newCommerceChannel.setPriceDisplayType(RandomTestUtil.randomString());
 
+		newCommerceChannel.setDiscountsTargetNetPrice(
+			RandomTestUtil.randomBoolean());
+
 		_commerceChannels.add(_persistence.update(newCommerceChannel));
 
 		CommerceChannel existingCommerceChannel = _persistence.findByPrimaryKey(
@@ -192,6 +195,9 @@ public class CommerceChannelPersistenceTest {
 		Assert.assertEquals(
 			existingCommerceChannel.getPriceDisplayType(),
 			newCommerceChannel.getPriceDisplayType());
+		Assert.assertEquals(
+			existingCommerceChannel.isDiscountsTargetNetPrice(),
+			newCommerceChannel.isDiscountsTargetNetPrice());
 	}
 
 	@Test
@@ -246,7 +252,8 @@ public class CommerceChannelPersistenceTest {
 			"commerceChannelId", true, "companyId", true, "userId", true,
 			"userName", true, "createDate", true, "modifiedDate", true,
 			"siteGroupId", true, "name", true, "type", true, "typeSettings",
-			true, "commerceCurrencyCode", true, "priceDisplayType", true);
+			true, "commerceCurrencyCode", true, "priceDisplayType", true,
+			"discountsTargetNetPrice", true);
 	}
 
 	@Test
@@ -520,6 +527,9 @@ public class CommerceChannelPersistenceTest {
 		commerceChannel.setCommerceCurrencyCode(RandomTestUtil.randomString());
 
 		commerceChannel.setPriceDisplayType(RandomTestUtil.randomString());
+
+		commerceChannel.setDiscountsTargetNetPrice(
+			RandomTestUtil.randomBoolean());
 
 		_commerceChannels.add(_persistence.update(commerceChannel));
 

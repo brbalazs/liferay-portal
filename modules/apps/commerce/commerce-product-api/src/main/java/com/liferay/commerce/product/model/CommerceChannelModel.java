@@ -278,6 +278,27 @@ public interface CommerceChannelModel
 	 */
 	public void setPriceDisplayType(String priceDisplayType);
 
+	/**
+	 * Returns the discounts target net price of this commerce channel.
+	 *
+	 * @return the discounts target net price of this commerce channel
+	 */
+	public boolean getDiscountsTargetNetPrice();
+
+	/**
+	 * Returns <code>true</code> if this commerce channel is discounts target net price.
+	 *
+	 * @return <code>true</code> if this commerce channel is discounts target net price; <code>false</code> otherwise
+	 */
+	public boolean isDiscountsTargetNetPrice();
+
+	/**
+	 * Sets whether this commerce channel is discounts target net price.
+	 *
+	 * @param discountsTargetNetPrice the discounts target net price of this commerce channel
+	 */
+	public void setDiscountsTargetNetPrice(boolean discountsTargetNetPrice);
+
 	@Override
 	public boolean isNew();
 

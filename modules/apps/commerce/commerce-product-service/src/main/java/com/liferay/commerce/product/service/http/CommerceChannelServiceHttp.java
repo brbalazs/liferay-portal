@@ -533,7 +533,8 @@ public class CommerceChannelServiceHttp {
 				long siteGroupId, String name, String type,
 				com.liferay.portal.kernel.util.UnicodeProperties
 					typeSettingsProperties,
-				String commerceCurrencyCode, String priceDisplayType)
+				String commerceCurrencyCode, String priceDisplayType,
+				boolean discountsTargetNetPrice)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -543,7 +544,8 @@ public class CommerceChannelServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceChannelId, siteGroupId, name, type,
-				typeSettingsProperties, commerceCurrencyCode, priceDisplayType);
+				typeSettingsProperties, commerceCurrencyCode, priceDisplayType,
+				discountsTargetNetPrice);
 
 			Object returnObj = null;
 
@@ -662,7 +664,7 @@ public class CommerceChannelServiceHttp {
 		new Class[] {
 			long.class, long.class, String.class, String.class,
 			com.liferay.portal.kernel.util.UnicodeProperties.class,
-			String.class, String.class
+			String.class, String.class, boolean.class
 		};
 	private static final Class<?>[]
 		_updateCommerceChannelExternalReferenceCodeParameterTypes12 =

@@ -314,7 +314,8 @@ public interface CommerceChannelLocalService
 	public CommerceChannel updateCommerceChannel(
 			long commerceChannelId, long siteGroupId, String name, String type,
 			UnicodeProperties typeSettingsProperties,
-			String commerceCurrencyCode, String priceDisplayType)
+			String commerceCurrencyCode, String priceDisplayType,
+			boolean discountsTargetNetPrice)
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
