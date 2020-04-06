@@ -14,125 +14,48 @@
 
 package com.liferay.commerce.product.internal.upgrade.v2_1_0;
 
+import com.liferay.commerce.product.internal.upgrade.base.BaseCommerceProductServiceUpgradeProcess;
 import com.liferay.commerce.product.model.impl.CPDefinitionImpl;
 import com.liferay.commerce.product.model.impl.CPInstanceImpl;
-import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 
 /**
  * @author Luca Pellizzon
  */
-public class SubscriptionUpgradeProcess extends UpgradeProcess {
-
-	protected void addColumn(
-			Class<?> entityClass, String tableName, String columnName,
-			String columnType)
-		throws Exception {
-
-		if (_log.isInfoEnabled()) {
-			_log.info(
-				String.format(
-					"Adding column %s to table %s", columnName, tableName));
-		}
-
-		if (!hasColumn(tableName, columnName)) {
-			alter(
-				entityClass,
-				new UpgradeProcess.AlterTableAddColumn(
-					columnName + StringPool.SPACE + columnType));
-		}
-		else {
-			if (_log.isInfoEnabled()) {
-				_log.info(
-					String.format(
-						"Column %s already exists on table %s", columnName,
-						tableName));
-			}
-		}
-	}
+public class SubscriptionUpgradeProcess
+	extends BaseCommerceProductServiceUpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		if (!hasColumn(
-				CPDefinitionImpl.TABLE_NAME, "deliverySubscriptionEnabled")) {
-
-			addColumn(
-				CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
-				"deliverySubscriptionEnabled", "BOOLEAN");
-		}
-
-		if (!hasColumn(
-				CPDefinitionImpl.TABLE_NAME, "deliverySubscriptionLength")) {
-
-			addColumn(
-				CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
-				"deliverySubscriptionLength", "INTEGER");
-		}
-
-		if (!hasColumn(
-				CPDefinitionImpl.TABLE_NAME, "deliverySubscriptionType")) {
-
-			addColumn(
-				CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
-				"deliverySubscriptionType", "VARCHAR(75)");
-		}
-
-		if (!hasColumn(
-				CPDefinitionImpl.TABLE_NAME, "deliverySubTypeSettings")) {
-
-			addColumn(
-				CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
-				"deliverySubTypeSettings", "TEXT");
-		}
-
-		if (!hasColumn(
-				CPDefinitionImpl.TABLE_NAME, "deliveryMaxSubscriptionCycles")) {
-
-			addColumn(
-				CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
-				"deliveryMaxSubscriptionCycles", "LONG");
-		}
-
-		if (!hasColumn(
-				CPInstanceImpl.TABLE_NAME, "deliverySubscriptionEnabled")) {
-
-			addColumn(
-				CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
-				"deliverySubscriptionEnabled", "BOOLEAN");
-		}
-
-		if (!hasColumn(
-				CPInstanceImpl.TABLE_NAME, "deliverySubscriptionLength")) {
-
-			addColumn(
-				CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
-				"deliverySubscriptionLength", "INTEGER");
-		}
-
-		if (!hasColumn(CPInstanceImpl.TABLE_NAME, "deliverySubscriptionType")) {
-			addColumn(
-				CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
-				"deliverySubscriptionType", "VARCHAR(75)");
-		}
-
-		if (!hasColumn(CPInstanceImpl.TABLE_NAME, "deliverySubTypeSettings")) {
-			addColumn(
-				CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
-				"deliverySubTypeSettings", "TEXT");
-		}
-
-		if (!hasColumn(
-				CPInstanceImpl.TABLE_NAME, "deliveryMaxSubscriptionCycles")) {
-
-			addColumn(
-				CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
-				"deliveryMaxSubscriptionCycles", "LONG");
-		}
+		addColumn(
+			CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
+			"deliverySubscriptionEnabled", "BOOLEAN");
+		addColumn(
+			CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
+			"deliverySubscriptionLength", "INTEGER");
+		addColumn(
+			CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
+			"deliverySubscriptionType", "VARCHAR(75)");
+		addColumn(
+			CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
+			"deliverySubTypeSettings", "TEXT");
+		addColumn(
+			CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
+			"deliveryMaxSubscriptionCycles", "LONG");
+		addColumn(
+			CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
+			"deliverySubscriptionEnabled", "BOOLEAN");
+		addColumn(
+			CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
+			"deliverySubscriptionLength", "INTEGER");
+		addColumn(
+			CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
+			"deliverySubscriptionType", "VARCHAR(75)");
+		addColumn(
+			CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
+			"deliverySubTypeSettings", "TEXT");
+		addColumn(
+			CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
+			"deliveryMaxSubscriptionCycles", "LONG");
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		SubscriptionUpgradeProcess.class);
 
 }
