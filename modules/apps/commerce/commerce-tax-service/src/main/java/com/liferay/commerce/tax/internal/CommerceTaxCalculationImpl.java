@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.tax.internal;
 
+import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
@@ -27,12 +28,15 @@ import com.liferay.commerce.tax.CommerceTaxCalculateRequest;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.commerce.tax.CommerceTaxEngine;
 import com.liferay.commerce.tax.CommerceTaxValue;
+import com.liferay.commerce.tax.configuration.CommerceShippingTaxConfiguration;
 import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.tax.service.CommerceTaxMethodLocalService;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 
 import java.math.BigDecimal;
 
@@ -119,6 +123,55 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 			return commerceTaxValues;
 		}
 
+		return _getCommerceTaxValues(
+			groupId, commerceBillingAddressId, commerceShippingAddressId,
+			amount, cpDefinition.getCPTaxCategoryId());
+	}
+
+	@Override
+	public List<CommerceTaxValue> getShippingTaxAmount(
+			CommerceOrder commerceOrder, CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceShippingTaxConfiguration
+			commerceShippingTaxConfiguration =
+				_configurationProvider.getConfiguration(
+					CommerceShippingTaxConfiguration.class,
+					new GroupServiceSettingsLocator(
+						commerceOrder.getGroupId(),
+						CommerceConstants.TAX_SERVICE_NAME));
+
+		return _getCommerceTaxValues(
+			commerceOrder.getGroupId(), commerceOrder.getBillingAddressId(),
+			commerceOrder.getShippingAddressId(),
+			commerceOrder.getShippingAmount(),
+			commerceShippingTaxConfiguration.taxCategoryId());
+	}
+
+	@Override
+	public CommerceMoney getTaxAmount(
+			CommerceOrder commerceOrder, CommerceContext commerceContext)
+		throws PortalException {
+
+		BigDecimal taxAmount = BigDecimal.ZERO;
+
+		List<CommerceTaxValue> commerceTaxValues = getCommerceTaxValues(
+			commerceOrder, commerceContext);
+
+		for (CommerceTaxValue commerceTaxValue : commerceTaxValues) {
+			taxAmount = taxAmount.add(commerceTaxValue.getAmount());
+		}
+
+		return _commerceMoneyFactory.create(
+			commerceContext.getCommerceCurrency(), taxAmount);
+	}
+
+	private List<CommerceTaxValue> _getCommerceTaxValues(
+		long groupId, long commerceBillingAddressId,
+		long commerceShippingAddressId, BigDecimal amount, long taxCategoryId) {
+
+		List<CommerceTaxValue> commerceTaxValues = new ArrayList<>();
+
 		CommerceTaxCalculateRequest commerceTaxCalculateRequest =
 			new CommerceTaxCalculateRequest();
 
@@ -128,8 +181,7 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 			commerceShippingAddressId);
 		commerceTaxCalculateRequest.setPrice(amount);
 		commerceTaxCalculateRequest.setChannelGroupId(groupId);
-		commerceTaxCalculateRequest.setTaxCategoryId(
-			cpDefinition.getCPTaxCategoryId());
+		commerceTaxCalculateRequest.setTaxCategoryId(taxCategoryId);
 
 		List<CommerceTaxMethod> commerceTaxMethods =
 			_commerceTaxMethodLocalService.getCommerceTaxMethods(groupId, true);
@@ -161,24 +213,6 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 		return commerceTaxValues;
 	}
 
-	@Override
-	public CommerceMoney getTaxAmount(
-			CommerceOrder commerceOrder, CommerceContext commerceContext)
-		throws PortalException {
-
-		BigDecimal taxAmount = BigDecimal.ZERO;
-
-		List<CommerceTaxValue> commerceTaxValues = getCommerceTaxValues(
-			commerceOrder, commerceContext);
-
-		for (CommerceTaxValue commerceTaxValue : commerceTaxValues) {
-			taxAmount = taxAmount.add(commerceTaxValue.getAmount());
-		}
-
-		return _commerceMoneyFactory.create(
-			commerceContext.getCommerceCurrency(), taxAmount);
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceTaxCalculationImpl.class);
 
@@ -190,6 +224,9 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 
 	@Reference
 	private CommerceTaxMethodLocalService _commerceTaxMethodLocalService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;

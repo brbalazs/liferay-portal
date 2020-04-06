@@ -41,6 +41,10 @@ public interface CommerceTaxCalculation {
 			CommerceContext commerceContext)
 		throws PortalException;
 
+	public List<CommerceTaxValue> getShippingTaxAmount(
+			CommerceOrder commerceOrder, CommerceContext commerceContext)
+		throws PortalException;
+
 	public CommerceMoney getTaxAmount(
 			CommerceOrder commerceOrder, CommerceContext commerceContext)
 		throws PortalException;
