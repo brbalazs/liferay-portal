@@ -1280,15 +1280,15 @@ AUI.add(
 						var title = instance.get('titles')[activePageNumber - 1];
 
 						if (title) {
-							var pageHeader = instance.get('pageHeader');
-
 							var pagesQuantity = instance.get('pagesQuantity');
+
+							var untitledPageLabel = instance._createUntitledPageLabel(activePageNumber, pagesQuantity);
+
+							var pageHeader = instance.get('pageHeader');
 
 							var titleNode = pageHeader.one('.' + CSS_PAGE_HEADER_TITLE);
 
-							var untitledPageTemplate = instance._createUntitledPageLabel(activePageNumber, pagesQuantity);
-
-							titleNode.attr('placeholder', untitledPageTemplate);
+							titleNode.attr('placeholder', untitledPageLabel);
 						}
 
 						instance._syncPageInformationHeight();
