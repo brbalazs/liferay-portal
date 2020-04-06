@@ -144,8 +144,6 @@ public class CommerceOrderItemDataSetDataProvider
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult = null;
-
 		long commerceOrderId = ParamUtil.getLong(
 			httpServletRequest, "commerceOrderId");
 
@@ -157,10 +155,8 @@ public class CommerceOrderItemDataSetDataProvider
 			end = pagination.getEndPosition();
 		}
 
-		baseModelSearchResult = _commerceOrderItemService.search(
+		return _commerceOrderItemService.search(
 			commerceOrderId, filter.getKeywords(), start, end, sort);
-
-		return baseModelSearchResult;
 	}
 
 	private String _getDiscount(

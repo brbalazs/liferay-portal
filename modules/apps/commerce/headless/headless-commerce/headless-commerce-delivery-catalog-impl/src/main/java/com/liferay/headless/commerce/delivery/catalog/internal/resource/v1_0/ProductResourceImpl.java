@@ -107,9 +107,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 
 		attributes.put("commerceChannelGroupId", commerceChannel.getGroupId());
 
-		long[] commerceAccountGroupIds = null;
-
-		commerceAccountGroupIds =
+		long[] commerceAccountGroupIds =
 			_commerceAccountHelper.getCommerceAccountGroupIds(
 				_getAccountId(accountId, commerceChannel));
 

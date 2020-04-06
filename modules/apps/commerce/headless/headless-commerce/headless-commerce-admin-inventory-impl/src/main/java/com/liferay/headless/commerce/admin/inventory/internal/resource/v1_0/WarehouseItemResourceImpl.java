@@ -337,9 +337,7 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 				"Unable to find Warehouse");
 		}
 
-		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem = null;
-
-		commerceInventoryWarehouseItem =
+		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
 			_commerceInventoryWarehouseItemService.
 				fetchCommerceInventoryWarehouseItemByReferenceCode(
 					contextCompany.getCompanyId(), externalReferenceCode);

@@ -186,8 +186,6 @@ public class CommercePricingTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
-		BigDecimal expectedPrice = price.multiply(BigDecimal.valueOf(quantity));
-
 		Assert.assertEquals(
 			price.stripTrailingZeros(), finalPrice.stripTrailingZeros());
 
@@ -201,7 +199,8 @@ public class CommercePricingTest {
 
 		finalPrice = finalPriceMoney.getPrice();
 
-		expectedPrice = price10.multiply(BigDecimal.valueOf(quantity));
+		BigDecimal expectedPrice = price10.multiply(
+			BigDecimal.valueOf(quantity));
 
 		Assert.assertEquals(
 			expectedPrice.stripTrailingZeros(),

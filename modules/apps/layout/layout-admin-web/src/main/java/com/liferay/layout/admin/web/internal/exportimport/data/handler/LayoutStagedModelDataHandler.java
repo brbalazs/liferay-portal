@@ -1188,9 +1188,7 @@ public class LayoutStagedModelDataHandler
 						layout.getCompanyId());
 				}
 				else if (scopeType.equals("layout")) {
-					Layout scopeLayout = null;
-
-					scopeLayout =
+					Layout scopeLayout =
 						_layoutLocalService.fetchLayoutByUuidAndGroupId(
 							scopeLayoutUuid, portletDataContext.getGroupId(),
 							portletDataContext.isPrivateLayout());

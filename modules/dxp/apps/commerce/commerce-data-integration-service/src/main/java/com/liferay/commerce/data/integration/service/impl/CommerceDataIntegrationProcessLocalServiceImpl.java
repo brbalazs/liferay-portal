@@ -204,10 +204,9 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 			commerceDataIntegrationProcessPersistence.fetchByPrimaryKey(
 				commerceDataIntegrationProcessId);
 
-		Date sartDate = null;
 		Date endDate = null;
 
-		sartDate = PortalUtil.getDate(
+		Date sartDate = PortalUtil.getDate(
 			startDateMonth, startDateDay, startDateYear, startDateHour,
 			startDateMinute,
 			CommerceDataIntegrationProcessStartDateException.class);

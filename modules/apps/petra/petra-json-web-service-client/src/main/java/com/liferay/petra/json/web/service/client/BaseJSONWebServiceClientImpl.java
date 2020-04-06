@@ -1010,14 +1010,12 @@ public abstract class BaseJSONWebServiceClientImpl
 			getPoolingNHttpClientConnectionManager()
 		throws IOReactorException {
 
-		PoolingNHttpClientConnectionManager
-			poolingNHttpClientConnectionManager = null;
-
-		poolingNHttpClientConnectionManager =
-			new PoolingNHttpClientConnectionManager(
-				new DefaultConnectingIOReactor(), null,
-				getSchemeIOSessionStrategyRegistry(), null, null, 60000,
-				TimeUnit.MILLISECONDS);
+		poolingNHttpClientConnectionManager
+			poolingNHttpClientConnectionManager =
+				new PoolingNHttpClientConnectionManager(
+					new DefaultConnectingIOReactor(), null,
+					getSchemeIOSessionStrategyRegistry(), null, null, 60000,
+					TimeUnit.MILLISECONDS);
 
 		poolingNHttpClientConnectionManager.setMaxTotal(20);
 

@@ -363,11 +363,11 @@ public class CommerceOrderDiscountTest {
 				_group.getGroupId(), 10, couponCode,
 				CommerceDiscountConstants.TARGET_TOTAL, null);
 
-		CommerceContext commerceContext = new TestCommerceContext(
+		new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 
-		commerceContext = new TestCommerceContext(
+		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount,
 			commerceOrder);
 

@@ -159,11 +159,10 @@ public class CommercePriceEntryLocalServiceImpl
 		validateExternalReferenceCode(
 			serviceContext.getCompanyId(), externalReferenceCode);
 
-		Date displayDate = null;
 		Date expirationDate = null;
 		Date now = new Date();
 
-		displayDate = PortalUtil.getDate(
+		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
 			CommercePriceEntryDisplayDateException.class);
@@ -627,11 +626,10 @@ public class CommercePriceEntryLocalServiceImpl
 			commercePriceEntryPersistence.findByPrimaryKey(
 				commercePriceEntryId);
 
-		Date displayDate = null;
 		Date expirationDate = null;
 		Date now = new Date();
 
-		displayDate = PortalUtil.getDate(
+		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
 			CommercePriceEntryDisplayDateException.class);

@@ -154,11 +154,10 @@ public class CPDefinitionLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
-		Date displayDate = null;
 		Date expirationDate = null;
 		Date now = new Date();
 
-		displayDate = PortalUtil.getDate(
+		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
 			CPDefinitionDisplayDateException.class);
@@ -1327,11 +1326,10 @@ public class CPDefinitionLocalServiceImpl
 
 		long groupId = cpDefinition.getGroupId();
 
-		Date displayDate = null;
 		Date expirationDate = null;
 		Date now = new Date();
 
-		displayDate = PortalUtil.getDate(
+		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
 			CPDefinitionDisplayDateException.class);

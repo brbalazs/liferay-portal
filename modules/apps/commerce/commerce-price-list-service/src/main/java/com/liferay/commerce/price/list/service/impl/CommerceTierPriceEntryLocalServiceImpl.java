@@ -145,11 +145,10 @@ public class CommerceTierPriceEntryLocalServiceImpl
 		validateExternalReferenceCode(
 			serviceContext.getCompanyId(), externalReferenceCode);
 
-		Date displayDate = null;
 		Date expirationDate = null;
 		Date now = new Date();
 
-		displayDate = PortalUtil.getDate(
+		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
 			CommerceTierPriceEntryDisplayDateException.class);
@@ -436,11 +435,10 @@ public class CommerceTierPriceEntryLocalServiceImpl
 			commerceTierPriceEntryId,
 			commerceTierPriceEntry.getCommercePriceEntryId(), minQuantity);
 
-		Date displayDate = null;
 		Date expirationDate = null;
 		Date now = new Date();
 
-		displayDate = PortalUtil.getDate(
+		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
 			CommercePriceEntryDisplayDateException.class);
