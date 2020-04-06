@@ -92,13 +92,29 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			cpOption.isSkuContributor(), importOptionValue, serviceContext);
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CPDefinitionOptionRel addCPDefinitionOptionRel(
 			long cpDefinitionId, long cpOptionId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, String ddmFormFieldTypeName,
 			double priority, boolean facetable, boolean required,
 			boolean skuContributor, boolean importOptionValue,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return cpDefinitionOptionRelLocalService.addCPDefinitionOptionRel(
+			cpDefinitionId, cpOptionId, nameMap, descriptionMap,
+			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
+			importOptionValue, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+			serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CPDefinitionOptionRel addCPDefinitionOptionRel(
+			long cpDefinitionId, long cpOptionId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, String ddmFormFieldTypeName,
+			double priority, boolean facetable, boolean required,
+			boolean skuContributor, boolean importOptionValue, String priceType,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -146,6 +162,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		cpDefinitionOptionRel.setRequired(required);
 		cpDefinitionOptionRel.setSkuContributor(skuContributor);
 		cpDefinitionOptionRel.setKey(cpOption.getKey());
+		cpDefinitionOptionRel.setPriceType(priceType);
 		cpDefinitionOptionRel.setExpandoBridgeAttributes(serviceContext);
 
 		cpDefinitionOptionRel = cpDefinitionOptionRelPersistence.update(
@@ -510,13 +527,28 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		return searchCPOptions(searchContext);
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CPDefinitionOptionRel updateCPDefinitionOptionRel(
 			long cpDefinitionOptionRelId, long cpOptionId,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			String ddmFormFieldTypeName, double priority, boolean facetable,
 			boolean required, boolean skuContributor,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
+			cpDefinitionOptionRelId, cpOptionId, nameMap, descriptionMap,
+			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CPDefinitionOptionRel updateCPDefinitionOptionRel(
+			long cpDefinitionOptionRelId, long cpOptionId,
+			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
+			String ddmFormFieldTypeName, double priority, boolean facetable,
+			boolean required, boolean skuContributor, String priceType,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -547,6 +579,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		cpDefinitionOptionRel.setFacetable(facetable);
 		cpDefinitionOptionRel.setRequired(required);
 		cpDefinitionOptionRel.setSkuContributor(skuContributor);
+		cpDefinitionOptionRel.setPriceType(priceType);
 		cpDefinitionOptionRel.setExpandoBridgeAttributes(serviceContext);
 
 		cpDefinitionOptionRel = cpDefinitionOptionRelPersistence.update(

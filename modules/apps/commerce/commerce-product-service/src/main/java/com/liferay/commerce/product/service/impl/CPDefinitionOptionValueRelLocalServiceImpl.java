@@ -19,6 +19,7 @@ import com.liferay.commerce.product.exception.NoSuchCPDefinitionOptionValueRelEx
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CPOptionValue;
@@ -57,6 +58,8 @@ import com.liferay.taglib.util.CustomAttributesUtil;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -94,7 +97,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		// Commerce product definition option value rel
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
-		long groupId = serviceContext.getScopeGroupId();
 
 		key = FriendlyURLNormalizerUtil.normalize(key);
 
@@ -126,7 +128,8 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 				cpDefinitionOptionRel.getCPDefinitionOptionRelId();
 		}
 
-		cpDefinitionOptionValueRel.setGroupId(groupId);
+		cpDefinitionOptionValueRel.setGroupId(
+			cpDefinitionOptionRel.getGroupId());
 		cpDefinitionOptionValueRel.setCompanyId(user.getCompanyId());
 		cpDefinitionOptionValueRel.setUserId(user.getUserId());
 		cpDefinitionOptionValueRel.setUserName(user.getFullName());
@@ -135,6 +138,7 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setNameMap(nameMap);
 		cpDefinitionOptionValueRel.setPriority(priority);
 		cpDefinitionOptionValueRel.setKey(key);
+		cpDefinitionOptionValueRel.setPrice(BigDecimal.ZERO);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
 
 		cpDefinitionOptionValueRel =
@@ -399,7 +403,8 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 	@Override
 	public CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
 			long cpDefinitionOptionValueRelId, Map<Locale, String> nameMap,
-			double priority, String key, ServiceContext serviceContext)
+			double priority, String key, long cpInstanceId, int quantity,
+			BigDecimal price, ServiceContext serviceContext)
 		throws PortalException {
 
 		// Commerce product definition option value rel
@@ -407,6 +412,9 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 			cpDefinitionOptionValueRelPersistence.findByPrimaryKey(
 				cpDefinitionOptionValueRelId);
+
+		CPInstance cpInstance = cpInstanceLocalService.fetchCPInstance(
+			cpInstanceId);
 
 		key = FriendlyURLNormalizerUtil.normalize(key);
 
@@ -440,6 +448,18 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setKey(key);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
 
+		if (cpInstance != null) {
+			CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+			cpDefinitionOptionValueRel.setCPInstanceUuid(
+				cpInstance.getCPInstanceUuid());
+			cpDefinitionOptionValueRel.setCProductId(
+				cpDefinition.getCProductId());
+		}
+
+		cpDefinitionOptionValueRel.setQuantity(quantity);
+		cpDefinitionOptionValueRel.setPrice(price);
+
 		cpDefinitionOptionValueRel =
 			cpDefinitionOptionValueRelPersistence.update(
 				cpDefinitionOptionValueRel);
@@ -449,6 +469,18 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		reindexCPDefinition(cpDefinitionOptionRel);
 
 		return cpDefinitionOptionValueRel;
+	}
+
+	@Override
+	public CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
+			long cpDefinitionOptionValueRelId, Map<Locale, String> nameMap,
+			double priority, String key, ServiceContext serviceContext)
+		throws PortalException {
+
+		return cpDefinitionOptionValueRelLocalService.
+			updateCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRelId, nameMap, priority, key, 0, 0,
+				BigDecimal.ZERO, serviceContext);
 	}
 
 	protected SearchContext buildSearchContext(

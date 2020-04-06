@@ -61,6 +61,24 @@ public class CPDefinitionOptionRelServiceImpl
 
 	@Override
 	public CPDefinitionOptionRel addCPDefinitionOptionRel(
+			long cpDefinitionId, long cpOptionId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, String ddmFormFieldTypeName,
+			double priority, boolean facetable, boolean required,
+			boolean skuContributor, boolean importOptionValue, String priceType,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		_checkCommerceCatalogPermissionByCPDefinitionId(
+			cpDefinitionId, ActionKeys.UPDATE);
+
+		return cpDefinitionOptionRelLocalService.addCPDefinitionOptionRel(
+			cpDefinitionId, cpOptionId, nameMap, descriptionMap,
+			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
+			importOptionValue, priceType, serviceContext);
+	}
+
+	@Override
+	public CPDefinitionOptionRel addCPDefinitionOptionRel(
 			long cpDefinitionId, long cpOptionId, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -241,6 +259,28 @@ public class CPDefinitionOptionRelServiceImpl
 			cpDefinitionOptionRel.getCPDefinitionOptionRelId(), cpOptionId,
 			nameMap, descriptionMap, ddmFormFieldTypeName, priority, facetable,
 			required, skuContributor, serviceContext);
+	}
+
+	@Override
+	public CPDefinitionOptionRel updateCPDefinitionOptionRel(
+			long cpDefinitionOptionRelId, long cpOptionId,
+			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
+			String ddmFormFieldTypeName, double priority, boolean facetable,
+			boolean required, boolean skuContributor, String priceType,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
+				cpDefinitionOptionRelId);
+
+		_checkCommerceCatalogPermissionByCPDefinitionId(
+			cpDefinitionOptionRel.getCPDefinitionId(), ActionKeys.UPDATE);
+
+		return cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId(), cpOptionId,
+			nameMap, descriptionMap, ddmFormFieldTypeName, priority, facetable,
+			required, skuContributor, priceType, serviceContext);
 	}
 
 	private void _checkCommerceCatalogPermissionByCPDefinitionId(
