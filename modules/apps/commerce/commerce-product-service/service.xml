@@ -467,6 +467,9 @@
 		<column localized="true" name="name" type="String" />
 		<column name="priority" type="double" />
 		<column name="key" type="String" />
+		<column name="CPInstanceUuid" type="String" />
+		<column name="CProductId" type="long" />
+		<column name="quantity" type="int" />
 
 		<!-- Order -->
 
