@@ -23,6 +23,13 @@ module.exports = [
 	{
 		entry: 'entry.es.js',
 		entry_dev: 'entry.dev.es.js',
+		folder: 'autocomplete',
+		name: 'Autocomplete',
+		page: 'autocomplete.html'
+	},
+	{
+		entry: 'entry.es.js',
+		entry_dev: 'entry.dev.es.js',
 		folder: 'headless_dataset_display',
 		name: 'Headless dataset display',
 		page: 'headless-dataset-display.html'

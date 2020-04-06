@@ -61,22 +61,6 @@ class AddOrCreateBase extends Component {
 		}
 	}
 
-	blur() {
-		this.setState({focus: false});
-	}
-
-	select(selected) {
-		this.setState({selected});
-	}
-
-	handleFocusOut(_e) {
-		this._timeoutID = setTimeout(() => {
-			if (this.props.onFocusOut) {
-				this.props.onFocusOut();
-			}
-		}, 0);
-	}
-
 	handleFocusIn(_e) {
 		clearTimeout(this._timeoutID);
 	}
