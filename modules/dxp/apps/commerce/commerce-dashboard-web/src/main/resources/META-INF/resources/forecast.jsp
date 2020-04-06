@@ -30,7 +30,13 @@ if (Validator.isNotNull(assetCategoryIdsString)) {
 	categoryIds = jsonSerializer.serializeDeep(assetCategoryIdsString.split(StringPool.COMMA));
 }
 
+String accountIds = "[]";
+
 CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
+
+if (commerceAccount != null) {
+	accountIds = jsonSerializer.serializeDeep(new Long[] {commerceAccount.getCommerceAccountId()});
+}
 %>
 
 <div id="<%= forecastChartRootElementId %>">
@@ -40,7 +46,7 @@ CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
 <aui:script require="commerce-dashboard-web/js/forecast/index.es as chart">
 chart.default('<%= forecastChartRootElementId %>', {
 	APIBaseUrl: `/o/headless-commerce-machine-learning/v1.0/accountCategoryForecasts/by-monthlyRevenue`,
-	accountIds: ['<%= commerceAccount.getCommerceAccountId() %>'],
+	accountIds: <%= accountIds %>,
 	categoryIds: <%= categoryIds %>,
 	noAccountErrorMessage: Liferay.Language.get('no-account-selected'),
 	noDataErrorMessage: Liferay.Language.get('no-data-available'),
