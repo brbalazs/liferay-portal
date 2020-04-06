@@ -206,7 +206,7 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 
 		Date endDate = null;
 
-		Date sartDate = PortalUtil.getDate(
+		Date startDate = PortalUtil.getDate(
 			startDateMonth, startDateDay, startDateYear, startDateHour,
 			startDateMinute,
 			CommerceDataIntegrationProcessStartDateException.class);
@@ -220,7 +220,7 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 
 		commerceDataIntegrationProcess.setActive(active);
 		commerceDataIntegrationProcess.setCronExpression(cronExpression);
-		commerceDataIntegrationProcess.setStartDate(sartDate);
+		commerceDataIntegrationProcess.setStartDate(startDate);
 		commerceDataIntegrationProcess.setEndDate(endDate);
 
 		commerceDataIntegrationProcess =
@@ -231,7 +231,7 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 
 		if (active) {
 			_commerceDataIntegrationProcessTriggerHelper.addScheduledTask(
-				commerceDataIntegrationProcessId, cronExpression, sartDate,
+				commerceDataIntegrationProcessId, cronExpression, startDate,
 				endDate);
 		}
 		else {
