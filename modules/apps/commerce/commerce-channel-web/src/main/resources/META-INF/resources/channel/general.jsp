@@ -93,13 +93,27 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 				<commerce-ui:info-box
 					title='<%= LanguageUtil.get(request, "price-type") %>'
 				>
-					<div class="row">
+					<div class="mb-4 row">
 						<div class="col-3">
 							<aui:input checked="<%= commerceChannel.getPriceDisplayType().equals(CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE) %>" label="net-price" name="priceDisplayType" type="radio" value="<%= CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE %>" />
 						</div>
 
 						<div class="col-3">
 							<aui:input checked="<%= commerceChannel.getPriceDisplayType().equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE) %>" label="gross-price" name="priceDisplayType" type="radio" value="<%= CommercePricingConstants.TAX_INCLUDED_IN_PRICE %>" />
+						</div>
+					</div>
+				</commerce-ui:info-box>
+
+				<commerce-ui:info-box
+					title='<%= LanguageUtil.get(request, "discounts-target-price-type") %>'
+				>
+					<div class="row">
+						<div class="col-3">
+							<aui:input checked="<%= commerceChannel.isDiscountsTargetNetPrice() %>" label="net-price" name="discountsTargetNetPrice" type="radio" value="true" />
+						</div>
+
+						<div class="col-3">
+							<aui:input checked="<%= !commerceChannel.isDiscountsTargetNetPrice() %>" label="gross-price" name="discountsTargetNetPrice" type="radio" value="false" />
 						</div>
 					</div>
 				</commerce-ui:info-box>
