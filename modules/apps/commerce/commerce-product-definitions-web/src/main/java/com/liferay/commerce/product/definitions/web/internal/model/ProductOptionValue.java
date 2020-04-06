@@ -20,11 +20,13 @@ package com.liferay.commerce.product.definitions.web.internal.model;
 public class ProductOptionValue {
 
 	public ProductOptionValue(
-		long cpDefinitionOptionValueRelId, String name, double order) {
+		long cpDefinitionOptionValueRelId, String name, double order,
+		String sku) {
 
 		_cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelId;
 		_name = name;
 		_order = order;
+		_sku = sku;
 	}
 
 	public long getCPDefinitionOptionValueRelId() {
@@ -39,8 +41,13 @@ public class ProductOptionValue {
 		return _order;
 	}
 
+	public String getSku() {
+		return _sku;
+	}
+
 	private final long _cpDefinitionOptionValueRelId;
 	private final String _name;
 	private final double _order;
+	private final String _sku;
 
 }

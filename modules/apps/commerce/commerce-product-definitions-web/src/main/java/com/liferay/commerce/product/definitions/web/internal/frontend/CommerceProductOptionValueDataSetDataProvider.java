@@ -15,15 +15,15 @@
 package com.liferay.commerce.product.definitions.web.internal.frontend;
 
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
-import com.liferay.commerce.frontend.DefaultFilterImpl;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.product.definitions.web.internal.model.ProductOptionValue;
-import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
+import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelService;
-import com.liferay.commerce.product.service.CPDefinitionService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,24 +56,14 @@ public class CommerceProductOptionValueDataSetDataProvider
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		DefaultFilterImpl defaultFilterImpl = (DefaultFilterImpl)filter;
-
-		String keywords = defaultFilterImpl.getKeywords();
-
 		long cpDefinitionOptionRelId = ParamUtil.getLong(
 			httpServletRequest, "cpDefinitionOptionRelId");
 
-		if (Validator.isNotNull(keywords) || (cpDefinitionOptionRelId == 0)) {
-			BaseModelSearchResult<CPDefinitionOptionValueRel>
-				baseModelSearchResult = _getBaseModelSearchResult(
-					cpDefinitionOptionRelId, keywords, QueryUtil.ALL_POS,
-					QueryUtil.ALL_POS, null);
+		BaseModelSearchResult<CPDefinitionOptionValueRel>
+			baseModelSearchResult = _getBaseModelSearchResult(
+				cpDefinitionOptionRelId, filter.getKeywords(), 0, 0, null);
 
-			return baseModelSearchResult.getLength();
-		}
-
-		return _cpDefinitionOptionValueRelService.
-			getCPDefinitionOptionValueRelsCount(cpDefinitionOptionRelId);
+		return baseModelSearchResult.getLength();
 	}
 
 	@Override
@@ -85,21 +74,31 @@ public class CommerceProductOptionValueDataSetDataProvider
 
 		List<ProductOptionValue> productOptionValues = new ArrayList<>();
 
-		DefaultFilterImpl defaultFilterImpl = (DefaultFilterImpl)filter;
-
 		long cpDefinitionOptionRelId = ParamUtil.getLong(
 			httpServletRequest, "cpDefinitionOptionRelId");
 
 		Locale locale = _portal.getLocale(httpServletRequest);
 
-		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-			_getCPDefinitionOptionValueRels(
-				cpDefinitionOptionRelId, defaultFilterImpl.getKeywords(),
+		BaseModelSearchResult<CPDefinitionOptionValueRel>
+			baseModelSearchResult = _getBaseModelSearchResult(
+				cpDefinitionOptionRelId, filter.getKeywords(),
 				pagination.getStartPosition(), pagination.getEndPosition(),
 				sort);
 
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			baseModelSearchResult.getBaseModels();
+
 		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 				cpDefinitionOptionValueRels) {
+
+			CPInstance cpInstance =
+				cpDefinitionOptionValueRel.fetchCPInstance();
+
+			String sku = StringPool.BLANK;
+
+			if (cpInstance != null) {
+				sku = cpInstance.getSku();
+			}
 
 			productOptionValues.add(
 				new ProductOptionValue(
@@ -108,7 +107,7 @@ public class CommerceProductOptionValueDataSetDataProvider
 					HtmlUtil.escape(
 						cpDefinitionOptionValueRel.getName(
 							LanguageUtil.getLanguageId(locale))),
-					cpDefinitionOptionValueRel.getPriority()));
+					cpDefinitionOptionValueRel.getPriority(), sku));
 		}
 
 		return productOptionValues;
@@ -120,38 +119,23 @@ public class CommerceProductOptionValueDataSetDataProvider
 				int end, Sort sort)
 		throws PortalException {
 
-		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
-			cpDefinitionOptionRelId);
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			_cpDefinitionOptionRelService.getCPDefinitionOptionRel(
+				cpDefinitionOptionRelId);
 
 		return _cpDefinitionOptionValueRelService.
 			searchCPDefinitionOptionValueRels(
-				cpDefinition.getCompanyId(), cpDefinition.getGroupId(),
-				cpDefinitionOptionRelId, keywords, start, end, sort);
+				cpDefinitionOptionRel.getCompanyId(),
+				cpDefinitionOptionRel.getGroupId(), cpDefinitionOptionRelId,
+				keywords, start, end, sort);
 	}
 
-	private List<CPDefinitionOptionValueRel> _getCPDefinitionOptionValueRels(
-			long cpDefinitionOptionRelId, String keywords, int start, int end,
-			Sort sort)
-		throws PortalException {
-
-		if (Validator.isNotNull(keywords) || (cpDefinitionOptionRelId == 0)) {
-			BaseModelSearchResult<CPDefinitionOptionValueRel>
-				baseModelSearchResult = _getBaseModelSearchResult(
-					cpDefinitionOptionRelId, keywords, start, end, sort);
-
-			return baseModelSearchResult.getBaseModels();
-		}
-
-		return _cpDefinitionOptionValueRelService.
-			getCPDefinitionOptionValueRels(cpDefinitionOptionRelId, start, end);
-	}
+	@Reference
+	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
 
 	@Reference
 	private CPDefinitionOptionValueRelService
 		_cpDefinitionOptionValueRelService;
-
-	@Reference
-	private CPDefinitionService _cpDefinitionService;
 
 	@Reference
 	private Portal _portal;

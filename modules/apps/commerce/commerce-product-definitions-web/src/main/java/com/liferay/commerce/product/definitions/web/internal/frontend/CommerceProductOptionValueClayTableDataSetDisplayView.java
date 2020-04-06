@@ -47,6 +47,8 @@ public class CommerceProductOptionValueClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("order", "order");
 
+		clayTableSchemaBuilder.addField("sku", "sku");
+
 		return clayTableSchemaBuilder.build();
 	}
 
