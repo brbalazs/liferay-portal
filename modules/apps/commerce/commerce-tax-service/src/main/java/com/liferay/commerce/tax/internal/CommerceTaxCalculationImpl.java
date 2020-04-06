@@ -133,13 +133,12 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 			CommerceOrder commerceOrder, CommerceContext commerceContext)
 		throws PortalException {
 
-		CommerceShippingTaxConfiguration
-			commerceShippingTaxConfiguration =
-				_configurationProvider.getConfiguration(
-					CommerceShippingTaxConfiguration.class,
-					new GroupServiceSettingsLocator(
-						commerceOrder.getGroupId(),
-						CommerceConstants.TAX_SERVICE_NAME));
+		CommerceShippingTaxConfiguration commerceShippingTaxConfiguration =
+			_configurationProvider.getConfiguration(
+				CommerceShippingTaxConfiguration.class,
+				new GroupServiceSettingsLocator(
+					commerceOrder.getGroupId(),
+					CommerceConstants.TAX_SERVICE_NAME));
 
 		return _getCommerceTaxValues(
 			commerceOrder.getGroupId(), commerceOrder.getBillingAddressId(),

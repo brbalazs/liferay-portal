@@ -118,13 +118,12 @@ public class CommerceChannelDisplayContext
 	public long getActiveShippingTaxCategory() throws PortalException {
 		CommerceChannel commerceChannel = getCommerceChannel();
 
-		CommerceShippingTaxConfiguration
-			commerceShippingTaxConfiguration =
-				_configurationProvider.getConfiguration(
-					CommerceShippingTaxConfiguration.class,
-					new GroupServiceSettingsLocator(
-						commerceChannel.getGroupId(),
-						CommerceConstants.TAX_SERVICE_NAME));
+		CommerceShippingTaxConfiguration commerceShippingTaxConfiguration =
+			_configurationProvider.getConfiguration(
+				CommerceShippingTaxConfiguration.class,
+				new GroupServiceSettingsLocator(
+					commerceChannel.getGroupId(),
+					CommerceConstants.TAX_SERVICE_NAME));
 
 		return commerceShippingTaxConfiguration.taxCategoryId();
 	}
