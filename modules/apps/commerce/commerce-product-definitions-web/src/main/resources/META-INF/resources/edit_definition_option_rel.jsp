@@ -44,28 +44,16 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 			title='<%= LanguageUtil.get(request, "details") %>'
 		>
 			<div class="row">
-				<div class="col-6">
+				<div class="col-12">
 					<aui:input name="name" />
 				</div>
 
 				<div class="col-6">
-					<aui:select inlineField="<%= true %>" label="field-type" name="DDMFormFieldTypeName" showEmptyOption="<%= true %>">
-
-						<%
-						for (DDMFormFieldType ddmFormFieldType : ddmFormFieldTypes) {
-						%>
-
-							<aui:option label="<%= cpDefinitionOptionRelDisplayContext.getDDMFormFieldTypeLabel(ddmFormFieldType, locale) %>" selected="<%= (cpDefinitionOptionRel != null) && cpDefinitionOptionRel.getDDMFormFieldTypeName().equals(ddmFormFieldType.getName()) %>" value="<%= ddmFormFieldType.getName() %>" />
-
-						<%
-						}
-						%>
-
-					</aui:select>
+					<aui:input name="description" />
 				</div>
 
-				<div class="col-12">
-					<aui:input name="description" />
+				<div class="col-6">
+					<aui:input name="priority" />
 				</div>
 
 				<div class="col-4">
@@ -81,7 +69,31 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 				</div>
 
 				<div class="col-12">
-					<aui:input name="priority" />
+					<aui:select label="field-type" name="DDMFormFieldTypeName" showEmptyOption="<%= true %>">
+
+						<%
+						for (DDMFormFieldType ddmFormFieldType : ddmFormFieldTypes) {
+						%>
+
+							<aui:option label="<%= cpDefinitionOptionRelDisplayContext.getDDMFormFieldTypeLabel(ddmFormFieldType, locale) %>" selected="<%= (cpDefinitionOptionRel != null) && cpDefinitionOptionRel.getDDMFormFieldTypeName().equals(ddmFormFieldType.getName()) %>" value="<%= ddmFormFieldType.getName() %>" />
+
+						<%
+						}
+						%>
+
+					</aui:select>
+				</div>
+
+				<div class="col-12">
+
+					<%
+					String priceType = BeanParamUtil.getString(cpDefinitionOptionRel, request, "priceType", CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC);
+					%>
+
+					<aui:select name="priceType" showEmptyOption="<%= false %>">
+						<aui:option label="static" selected="<%= priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) %>" value="<%= CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC %>" />
+						<aui:option label="dynamic" selected="<%= priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC) %>" value="<%= CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC %>" />
+					</aui:select>
 				</div>
 			</div>
 		</commerce-ui:panel>
