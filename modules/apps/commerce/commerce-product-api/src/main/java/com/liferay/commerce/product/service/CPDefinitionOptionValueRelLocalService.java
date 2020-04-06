@@ -45,6 +45,8 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -383,6 +385,12 @@ public interface CPDefinitionOptionValueRelLocalService
 		CPDefinitionOptionValueRel cpDefinitionOptionValueRel);
 
 	@Indexable(type = IndexableType.REINDEX)
+	public CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
+			long cpDefinitionOptionValueRelId, Map<Locale, String> nameMap,
+			double priority, String key, long cpInstanceId, int quantity,
+			BigDecimal price, ServiceContext serviceContext)
+		throws PortalException;
+
 	public CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
 			long cpDefinitionOptionValueRelId, Map<Locale, String> nameMap,
 			double priority, String key, ServiceContext serviceContext)

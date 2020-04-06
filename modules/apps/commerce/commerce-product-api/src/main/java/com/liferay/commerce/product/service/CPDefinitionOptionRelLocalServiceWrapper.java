@@ -82,6 +82,24 @@ public class CPDefinitionOptionRelLocalServiceWrapper
 	public com.liferay.commerce.product.model.CPDefinitionOptionRel
 			addCPDefinitionOptionRel(
 				long cpDefinitionId, long cpOptionId,
+				java.util.Map<java.util.Locale, String> nameMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String ddmFormFieldTypeName, double priority, boolean facetable,
+				boolean required, boolean skuContributor,
+				boolean importOptionValue, String priceType,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionRelLocalService.addCPDefinitionOptionRel(
+			cpDefinitionId, cpOptionId, nameMap, descriptionMap,
+			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
+			importOptionValue, priceType, serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.product.model.CPDefinitionOptionRel
+			addCPDefinitionOptionRel(
+				long cpDefinitionId, long cpOptionId,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -579,6 +597,23 @@ public class CPDefinitionOptionRelLocalServiceWrapper
 			cpDefinitionOptionRelId, cpOptionId, nameMap, descriptionMap,
 			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
 			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.product.model.CPDefinitionOptionRel
+			updateCPDefinitionOptionRel(
+				long cpDefinitionOptionRelId, long cpOptionId,
+				java.util.Map<java.util.Locale, String> nameMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String ddmFormFieldTypeName, double priority, boolean facetable,
+				boolean required, boolean skuContributor, String priceType,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
+			cpDefinitionOptionRelId, cpOptionId, nameMap, descriptionMap,
+			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
+			priceType, serviceContext);
 	}
 
 	@Override

@@ -90,7 +90,8 @@ public class CPDefinitionOptionRelModelImpl
 		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
 		{"DDMFormFieldTypeName", Types.VARCHAR}, {"priority", Types.DOUBLE},
 		{"facetable", Types.BOOLEAN}, {"required", Types.BOOLEAN},
-		{"skuContributor", Types.BOOLEAN}, {"key_", Types.VARCHAR}
+		{"skuContributor", Types.BOOLEAN}, {"key_", Types.VARCHAR},
+		{"priceType", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -115,10 +116,11 @@ public class CPDefinitionOptionRelModelImpl
 		TABLE_COLUMNS_MAP.put("required", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("skuContributor", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("key_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("priceType", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CPDefinitionOptionRel (uuid_ VARCHAR(75) null,CPDefinitionOptionRelId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CPDefinitionId LONG,CPOptionId LONG,name STRING null,description STRING null,DDMFormFieldTypeName VARCHAR(75) null,priority DOUBLE,facetable BOOLEAN,required BOOLEAN,skuContributor BOOLEAN,key_ VARCHAR(75) null)";
+		"create table CPDefinitionOptionRel (uuid_ VARCHAR(75) null,CPDefinitionOptionRelId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CPDefinitionId LONG,CPOptionId LONG,name STRING null,description STRING null,DDMFormFieldTypeName VARCHAR(75) null,priority DOUBLE,facetable BOOLEAN,required BOOLEAN,skuContributor BOOLEAN,key_ VARCHAR(75) null,priceType VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CPDefinitionOptionRel";
@@ -200,6 +202,7 @@ public class CPDefinitionOptionRelModelImpl
 		model.setRequired(soapModel.isRequired());
 		model.setSkuContributor(soapModel.isSkuContributor());
 		model.setKey(soapModel.getKey());
+		model.setPriceType(soapModel.getPriceType());
 
 		return model;
 	}
@@ -820,6 +823,31 @@ public class CPDefinitionOptionRelModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"priceType",
+			new Function<CPDefinitionOptionRel, Object>() {
+
+				@Override
+				public Object apply(
+					CPDefinitionOptionRel cpDefinitionOptionRel) {
+
+					return cpDefinitionOptionRel.getPriceType();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"priceType",
+			new BiConsumer<CPDefinitionOptionRel, Object>() {
+
+				@Override
+				public void accept(
+					CPDefinitionOptionRel cpDefinitionOptionRel,
+					Object priceTypeObject) {
+
+					cpDefinitionOptionRel.setPriceType((String)priceTypeObject);
+				}
+
+			});
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -1356,6 +1384,22 @@ public class CPDefinitionOptionRelModelImpl
 		return GetterUtil.getString(_originalKey);
 	}
 
+	@JSON
+	@Override
+	public String getPriceType() {
+		if (_priceType == null) {
+			return "";
+		}
+		else {
+			return _priceType;
+		}
+	}
+
+	@Override
+	public void setPriceType(String priceType) {
+		_priceType = priceType;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -1508,6 +1552,7 @@ public class CPDefinitionOptionRelModelImpl
 		cpDefinitionOptionRelImpl.setRequired(isRequired());
 		cpDefinitionOptionRelImpl.setSkuContributor(isSkuContributor());
 		cpDefinitionOptionRelImpl.setKey(getKey());
+		cpDefinitionOptionRelImpl.setPriceType(getPriceType());
 
 		cpDefinitionOptionRelImpl.resetOriginalValues();
 
@@ -1710,6 +1755,14 @@ public class CPDefinitionOptionRelModelImpl
 			cpDefinitionOptionRelCacheModel.key = null;
 		}
 
+		cpDefinitionOptionRelCacheModel.priceType = getPriceType();
+
+		String priceType = cpDefinitionOptionRelCacheModel.priceType;
+
+		if ((priceType != null) && (priceType.length() == 0)) {
+			cpDefinitionOptionRelCacheModel.priceType = null;
+		}
+
 		return cpDefinitionOptionRelCacheModel;
 	}
 
@@ -1818,6 +1871,7 @@ public class CPDefinitionOptionRelModelImpl
 	private boolean _setOriginalSkuContributor;
 	private String _key;
 	private String _originalKey;
+	private String _priceType;
 	private long _columnBitmask;
 	private CPDefinitionOptionRel _escapedModel;
 

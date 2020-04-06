@@ -548,6 +548,21 @@ public interface CPDefinitionOptionRelModel
 	 */
 	public void setKey(String key);
 
+	/**
+	 * Returns the price type of this cp definition option rel.
+	 *
+	 * @return the price type of this cp definition option rel
+	 */
+	@AutoEscape
+	public String getPriceType();
+
+	/**
+	 * Sets the price type of this cp definition option rel.
+	 *
+	 * @param priceType the price type of this cp definition option rel
+	 */
+	public void setPriceType(String priceType);
+
 	@Override
 	public boolean isNew();
 

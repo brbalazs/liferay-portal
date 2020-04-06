@@ -57,6 +57,23 @@ public class CPDefinitionOptionRelServiceUtil {
 	public static com.liferay.commerce.product.model.CPDefinitionOptionRel
 			addCPDefinitionOptionRel(
 				long cpDefinitionId, long cpOptionId,
+				java.util.Map<java.util.Locale, String> nameMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String ddmFormFieldTypeName, double priority, boolean facetable,
+				boolean required, boolean skuContributor,
+				boolean importOptionValue, String priceType,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCPDefinitionOptionRel(
+			cpDefinitionId, cpOptionId, nameMap, descriptionMap,
+			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
+			importOptionValue, priceType, serviceContext);
+	}
+
+	public static com.liferay.commerce.product.model.CPDefinitionOptionRel
+			addCPDefinitionOptionRel(
+				long cpDefinitionId, long cpOptionId,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -184,6 +201,22 @@ public class CPDefinitionOptionRelServiceUtil {
 			cpDefinitionOptionRelId, cpOptionId, nameMap, descriptionMap,
 			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
 			serviceContext);
+	}
+
+	public static com.liferay.commerce.product.model.CPDefinitionOptionRel
+			updateCPDefinitionOptionRel(
+				long cpDefinitionOptionRelId, long cpOptionId,
+				java.util.Map<java.util.Locale, String> nameMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String ddmFormFieldTypeName, double priority, boolean facetable,
+				boolean required, boolean skuContributor, String priceType,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCPDefinitionOptionRel(
+			cpDefinitionOptionRelId, cpOptionId, nameMap, descriptionMap,
+			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
+			priceType, serviceContext);
 	}
 
 	public static CPDefinitionOptionRelService getService() {

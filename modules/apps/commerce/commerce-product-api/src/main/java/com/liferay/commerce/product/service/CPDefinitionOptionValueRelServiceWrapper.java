@@ -158,6 +158,22 @@ public class CPDefinitionOptionValueRelServiceWrapper
 			updateCPDefinitionOptionValueRel(
 				long cpDefinitionOptionValueRelId,
 				java.util.Map<java.util.Locale, String> nameMap,
+				double priority, String key, long cpInstanceId, int quantity,
+				java.math.BigDecimal price,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionValueRelService.
+			updateCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRelId, nameMap, priority, key,
+				cpInstanceId, quantity, price, serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.product.model.CPDefinitionOptionValueRel
+			updateCPDefinitionOptionValueRel(
+				long cpDefinitionOptionValueRelId,
+				java.util.Map<java.util.Locale, String> nameMap,
 				double priority, String key,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {

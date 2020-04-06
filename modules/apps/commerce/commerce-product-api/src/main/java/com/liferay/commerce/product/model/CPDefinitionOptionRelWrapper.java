@@ -76,6 +76,7 @@ public class CPDefinitionOptionRelWrapper
 		attributes.put("required", isRequired());
 		attributes.put("skuContributor", isSkuContributor());
 		attributes.put("key", getKey());
+		attributes.put("priceType", getPriceType());
 
 		return attributes;
 	}
@@ -190,6 +191,12 @@ public class CPDefinitionOptionRelWrapper
 
 		if (key != null) {
 			setKey(key);
+		}
+
+		String priceType = (String)attributes.get("priceType");
+
+		if (priceType != null) {
+			setPriceType(priceType);
 		}
 	}
 
@@ -490,6 +497,16 @@ public class CPDefinitionOptionRelWrapper
 	@Override
 	public Map<java.util.Locale, String> getNameMap() {
 		return _cpDefinitionOptionRel.getNameMap();
+	}
+
+	/**
+	 * Returns the price type of this cp definition option rel.
+	 *
+	 * @return the price type of this cp definition option rel
+	 */
+	@Override
+	public String getPriceType() {
+		return _cpDefinitionOptionRel.getPriceType();
 	}
 
 	/**
@@ -905,6 +922,16 @@ public class CPDefinitionOptionRelWrapper
 	@Override
 	public void setNew(boolean n) {
 		_cpDefinitionOptionRel.setNew(n);
+	}
+
+	/**
+	 * Sets the price type of this cp definition option rel.
+	 *
+	 * @param priceType the price type of this cp definition option rel
+	 */
+	@Override
+	public void setPriceType(String priceType) {
+		_cpDefinitionOptionRel.setPriceType(priceType);
 	}
 
 	/**

@@ -103,6 +103,43 @@ public class CPDefinitionOptionRelServiceSoap {
 	public static com.liferay.commerce.product.model.CPDefinitionOptionRelSoap
 			addCPDefinitionOptionRel(
 				long cpDefinitionId, long cpOptionId,
+				String[] nameMapLanguageIds, String[] nameMapValues,
+				String[] descriptionMapLanguageIds,
+				String[] descriptionMapValues, String ddmFormFieldTypeName,
+				double priority, boolean facetable, boolean required,
+				boolean skuContributor, boolean importOptionValue,
+				String priceType,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
+				nameMapLanguageIds, nameMapValues);
+			Map<Locale, String> descriptionMap =
+				LocalizationUtil.getLocalizationMap(
+					descriptionMapLanguageIds, descriptionMapValues);
+
+			com.liferay.commerce.product.model.CPDefinitionOptionRel
+				returnValue =
+					CPDefinitionOptionRelServiceUtil.addCPDefinitionOptionRel(
+						cpDefinitionId, cpOptionId, nameMap, descriptionMap,
+						ddmFormFieldTypeName, priority, facetable, required,
+						skuContributor, importOptionValue, priceType,
+						serviceContext);
+
+			return com.liferay.commerce.product.model.CPDefinitionOptionRelSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.product.model.CPDefinitionOptionRelSoap
+			addCPDefinitionOptionRel(
+				long cpDefinitionId, long cpOptionId,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 
@@ -327,6 +364,43 @@ public class CPDefinitionOptionRelServiceSoap {
 							cpDefinitionOptionRelId, cpOptionId, nameMap,
 							descriptionMap, ddmFormFieldTypeName, priority,
 							facetable, required, skuContributor,
+							serviceContext);
+
+			return com.liferay.commerce.product.model.CPDefinitionOptionRelSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.product.model.CPDefinitionOptionRelSoap
+			updateCPDefinitionOptionRel(
+				long cpDefinitionOptionRelId, long cpOptionId,
+				String[] nameMapLanguageIds, String[] nameMapValues,
+				String[] descriptionMapLanguageIds,
+				String[] descriptionMapValues, String ddmFormFieldTypeName,
+				double priority, boolean facetable, boolean required,
+				boolean skuContributor, String priceType,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
+				nameMapLanguageIds, nameMapValues);
+			Map<Locale, String> descriptionMap =
+				LocalizationUtil.getLocalizationMap(
+					descriptionMapLanguageIds, descriptionMapValues);
+
+			com.liferay.commerce.product.model.CPDefinitionOptionRel
+				returnValue =
+					CPDefinitionOptionRelServiceUtil.
+						updateCPDefinitionOptionRel(
+							cpDefinitionOptionRelId, cpOptionId, nameMap,
+							descriptionMap, ddmFormFieldTypeName, priority,
+							facetable, required, skuContributor, priceType,
 							serviceContext);
 
 			return com.liferay.commerce.product.model.CPDefinitionOptionRelSoap.

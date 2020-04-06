@@ -66,4 +66,6 @@ public interface CPDefinitionOptionValueRel
 	public CPDefinitionOptionRel getCPDefinitionOptionRel()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public CPInstance fetchCPInstance();
+
 }

@@ -204,6 +204,7 @@
 		<field name="key" type="String">
 			<validator name="required" />
 		</field>
+		<field name="priceType" type="String" />
 	</model>
 	<model name="com.liferay.commerce.product.model.CPDefinitionOptionValueRel">
 		<field name="uuid" type="String" />
@@ -224,6 +225,10 @@
 		<field name="key" type="String">
 			<validator name="required" />
 		</field>
+		<field name="CPInstanceUuid" type="String" />
+		<field name="CProductId" type="long" />
+		<field name="quantity" type="int" />
+		<field name="price" type="BigDecimal" />
 	</model>
 	<model name="com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue">
 		<field name="uuid" type="String" />

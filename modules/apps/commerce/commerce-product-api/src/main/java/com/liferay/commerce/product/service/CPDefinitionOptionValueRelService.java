@@ -31,6 +31,8 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import java.math.BigDecimal;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -121,6 +123,12 @@ public interface CPDefinitionOptionValueRelService extends BaseService {
 			searchCPDefinitionOptionValueRels(
 				long companyId, long groupId, long cpDefinitionOptionRelId,
 				String keywords, int start, int end, Sort sort)
+		throws PortalException;
+
+	public CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
+			long cpDefinitionOptionValueRelId, Map<Locale, String> nameMap,
+			double priority, String key, long cpInstanceId, int quantity,
+			BigDecimal price, ServiceContext serviceContext)
 		throws PortalException;
 
 	public CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(

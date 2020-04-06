@@ -137,7 +137,8 @@ create table CPDefinitionOptionRel (
 	facetable BOOLEAN,
 	required BOOLEAN,
 	skuContributor BOOLEAN,
-	key_ VARCHAR(75) null
+	key_ VARCHAR(75) null,
+	priceType VARCHAR(75) null
 );
 
 create table CPDefinitionOptionValueRel (
@@ -152,7 +153,11 @@ create table CPDefinitionOptionValueRel (
 	CPDefinitionOptionRelId LONG,
 	name STRING null,
 	priority DOUBLE,
-	key_ VARCHAR(75) null
+	key_ VARCHAR(75) null,
+	CPInstanceUuid VARCHAR(75) null,
+	CProductId LONG,
+	quantity INTEGER,
+	price DECIMAL(30, 16) null
 );
 
 create table CPDisplayLayout (
