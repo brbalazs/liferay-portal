@@ -357,13 +357,13 @@ public class SubscriptionSender implements Serializable {
 
 		_context.put(
 			_getFilterKey(key, "attr"),
-			new HtmlAtributeEscapableObject<>(value.getOriginalValue(), true));
+			new HTMLAtributeEscapableObject<>(value.getOriginalValue(), true));
 		_context.put(
 			_getFilterKey(key, "html"),
 			new HtmlEscapableObject<>(value.getOriginalValue(), true));
 		_context.put(
 			_getFilterKey(key, "uri"),
-			new UriEscapableObject<>(value.getOriginalValue(), true));
+			new URIEscapableObject<>(value.getOriginalValue(), true));
 	}
 
 	public void setContextAttribute(String key, Object value) {
@@ -1111,14 +1111,14 @@ public class SubscriptionSender implements Serializable {
 		_runtimeSubscribersOVPs = new ArrayList<>();
 	private final Set<String> _sentEmailAddresses = new HashSet<>();
 
-	private static class HtmlAtributeEscapableObject<T>
+	private static class HTMLAtributeEscapableObject<T>
 		extends EscapableObject<T> {
 
-		public HtmlAtributeEscapableObject(T originalValue) {
+		public HTMLAtributeEscapableObject(T originalValue) {
 			super(originalValue);
 		}
 
-		public HtmlAtributeEscapableObject(T originalValue, boolean escape) {
+		public HTMLAtributeEscapableObject(T originalValue, boolean escape) {
 			super(originalValue, escape);
 		}
 
@@ -1129,13 +1129,13 @@ public class SubscriptionSender implements Serializable {
 
 	}
 
-	private static class UriEscapableObject<T> extends EscapableObject<T> {
+	private static class URIEscapableObject<T> extends EscapableObject<T> {
 
-		public UriEscapableObject(T originalValue) {
+		public URIEscapableObject(T originalValue) {
 			super(originalValue);
 		}
 
-		public UriEscapableObject(T originalValue, boolean escape) {
+		public URIEscapableObject(T originalValue, boolean escape) {
 			super(originalValue, escape);
 		}
 
