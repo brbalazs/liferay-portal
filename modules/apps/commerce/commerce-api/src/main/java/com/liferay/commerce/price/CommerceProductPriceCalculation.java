@@ -21,6 +21,8 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 /**
  * @author Marco Leo
  * @author Alessio Antonio Rendina
@@ -31,6 +33,12 @@ public interface CommerceProductPriceCalculation {
 	public CommerceProductPrice getCommerceProductPrice(
 			long cpInstanceId, int quantity, boolean secure,
 			CommerceContext commerceContext)
+		throws PortalException;
+
+	public CommerceProductPrice getCommerceProductPrice(
+			long cpInstanceId, int quantity, boolean secure,
+			CommerceContext commerceContext,
+			List<CommerceOptionPrice> commerceOptionPrices)
 		throws PortalException;
 
 	public CommerceProductPrice getCommerceProductPrice(

@@ -23,6 +23,7 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.discount.application.strategy.CommerceDiscountApplicationStrategy;
+import com.liferay.commerce.price.CommerceOptionPrice;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
@@ -83,6 +84,17 @@ public class CommerceProductPriceCalculationV2Impl
 			CommerceContext commerceContext)
 		throws PortalException {
 
+		return getCommerceProductPrice(
+			cpInstanceId, quantity, secure, commerceContext, null);
+	}
+
+	@Override
+	public CommerceProductPrice getCommerceProductPrice(
+			long cpInstanceId, int quantity, boolean secure,
+			CommerceContext commerceContext,
+			List<CommerceOptionPrice> commerceOptionPrices)
+		throws PortalException {
+
 		long commercePriceListId = _getCommercePriceListId(
 			cpInstanceId, commerceContext);
 
@@ -113,6 +125,34 @@ public class CommerceProductPriceCalculationV2Impl
 			finalPrice = promoPriceMoney.getPrice();
 
 			commercePriceListId = commercePromoPriceListId;
+		}
+
+		if (commerceOptionPrices != null) {
+			for (CommerceOptionPrice commerceOptionPrice :
+					commerceOptionPrices) {
+
+				String optionPriceType = commerceOptionPrice.getPriceType();
+
+				if (optionPriceType.equals(
+						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+					finalPrice = finalPrice.add(
+						commerceOptionPrice.getOptionValuePrice());
+				}
+				else {
+					CommerceProductPrice optionValueProductPrice =
+						getCommerceProductPrice(
+							commerceOptionPrice.getCPInstanceId(),
+							commerceOptionPrice.getQuantity(), true,
+							commerceContext);
+
+					CommerceMoney optionValuePriceMoney =
+						optionValueProductPrice.getFinalPrice();
+
+					finalPrice = finalPrice.add(
+						optionValuePriceMoney.getPrice());
+				}
+			}
 		}
 
 		CommerceDiscountValue commerceDiscountValue = _getCommerceDiscountValue(

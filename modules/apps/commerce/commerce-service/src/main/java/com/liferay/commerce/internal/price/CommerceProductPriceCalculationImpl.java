@@ -24,6 +24,7 @@ import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.price.CommerceOptionPrice;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
@@ -69,6 +70,17 @@ public class CommerceProductPriceCalculationImpl
 			CommerceContext commerceContext)
 		throws PortalException {
 
+		return getCommerceProductPrice(
+			cpInstanceId, quantity, secure, commerceContext, null);
+	}
+
+	@Override
+	public CommerceProductPrice getCommerceProductPrice(
+			long cpInstanceId, int quantity, boolean secure,
+			CommerceContext commerceContext,
+			List<CommerceOptionPrice> commerceOptionPrices)
+		throws PortalException {
+
 		CommerceMoney unitPriceMoney = getUnitPrice(
 			cpInstanceId, quantity, commerceContext.getCommerceCurrency(),
 			secure, commerceContext);
@@ -93,6 +105,34 @@ public class CommerceProductPriceCalculationImpl
 			(promoPrice.compareTo(unitPriceMoney.getPrice()) <= 0)) {
 
 			finalPrice = promoPriceMoney.getPrice();
+		}
+
+		if (commerceOptionPrices != null) {
+			for (CommerceOptionPrice commerceOptionPrice :
+					commerceOptionPrices) {
+
+				String optionPriceType = commerceOptionPrice.getPriceType();
+
+				if (optionPriceType.equals(
+						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+					finalPrice = finalPrice.add(
+						commerceOptionPrice.getOptionValuePrice());
+				}
+				else {
+					CommerceProductPrice optionValueProductPrice =
+						getCommerceProductPrice(
+							commerceOptionPrice.getCPInstanceId(),
+							commerceOptionPrice.getQuantity(), true,
+							commerceContext);
+
+					CommerceMoney optionValuePriceMoney =
+						optionValueProductPrice.getFinalPrice();
+
+					finalPrice = finalPrice.add(
+						optionValuePriceMoney.getPrice());
+				}
+			}
 		}
 
 		CommerceDiscountValue commerceDiscountValue =
