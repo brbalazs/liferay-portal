@@ -65,7 +65,6 @@ import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -86,7 +85,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
@@ -564,7 +562,7 @@ public class ProductResourceImpl
 			Map<String, Serializable> workflowContext = new HashMap<>();
 
 			_cpDefinitionService.updateStatus(
-				_user.getUserId(), cpDefinition.getCPDefinitionId(),
+				contextUser.getUserId(), cpDefinition.getCPDefinitionId(),
 				WorkflowConstants.STATUS_INACTIVE, serviceContext,
 				workflowContext);
 		}
@@ -646,7 +644,7 @@ public class ProductResourceImpl
 		}
 
 		cpDefinition = _cpDefinitionService.upsertCPDefinition(
-			commerceCatalog.getGroupId(), _user.getUserId(),
+			commerceCatalog.getGroupId(), contextUser.getUserId(),
 			LanguageUtils.getLocalizedMap(product.getName()),
 			LanguageUtils.getLocalizedMap(shortDescriptionMap),
 			LanguageUtils.getLocalizedMap(descriptionMap), null,
@@ -687,7 +685,7 @@ public class ProductResourceImpl
 			Map<String, Serializable> workflowContext = new HashMap<>();
 
 			_cpDefinitionService.updateStatus(
-				_user.getUserId(), cpDefinition.getCPDefinitionId(),
+				contextUser.getUserId(), cpDefinition.getCPDefinitionId(),
 				WorkflowConstants.STATUS_INACTIVE, serviceContext,
 				workflowContext);
 		}
@@ -763,8 +761,5 @@ public class ProductResourceImpl
 
 	@Reference
 	private UniqueFileNameProvider _uniqueFileNameProvider;
-
-	@Context
-	private User _user;
 
 }
