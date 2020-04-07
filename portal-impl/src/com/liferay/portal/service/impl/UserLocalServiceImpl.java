@@ -4175,7 +4175,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		Organization organization = organizationPersistence.findByPrimaryKey(
 			organizationId);
 
-		final Group group = organization.getGroup();
+		Group group = organization.getGroup();
 
 		userGroupRoleLocalService.deleteUserGroupRoles(
 			userIds, group.getGroupId());
@@ -6347,7 +6347,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				companyPortletPreferences, "adminEmailUserAddedSubject",
 				PropsKeys.ADMIN_EMAIL_USER_ADDED_SUBJECT);
 
-		final Map<Locale, String> localizedBodyMap;
+		Map<Locale, String> localizedBodyMap = null;
 
 		try {
 			company = companyLocalService.getCompany(user.getCompanyId());
@@ -6439,7 +6439,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 	}
 
-	protected void reindex(final List<User> users) throws SearchException {
+	protected void reindex(List<User> users) throws SearchException {
 		Indexer<User> indexer = IndexerRegistryUtil.nullSafeGetIndexer(
 			User.class);
 
@@ -6475,7 +6475,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		indexer.reindex(users);
 	}
 
-	protected void reindex(final User user) throws SearchException {
+	protected void reindex(User user) throws SearchException {
 		Indexer<User> indexer = IndexerRegistryUtil.nullSafeGetIndexer(
 			User.class);
 
@@ -6547,9 +6547,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			ReflectionUtil.throwException(pe);
 		}
 
-		final String bodyProperty;
-		final String prefix;
-		final String subjectProperty;
+		String bodyProperty = null;
+		String prefix = null;
+		String subjectProperty = null;
 
 		if (Validator.isNotNull(passwordResetURL)) {
 			bodyProperty = PropsKeys.ADMIN_EMAIL_PASSWORD_RESET_BODY;
