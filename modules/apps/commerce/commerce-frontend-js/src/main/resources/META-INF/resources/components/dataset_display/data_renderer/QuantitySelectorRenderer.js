@@ -21,7 +21,12 @@ function QuantitySelectorRenderer(props) {
 	return (
 		<div className="row">
 			<div className="col-auto">
-				<DefaultSelector size="small" style="simple" {...props.value} />
+				<DefaultSelector
+					size="small"
+					style="simple"
+					{...props.options}
+					{...props.value}
+				/>
 			</div>
 		</div>
 	);

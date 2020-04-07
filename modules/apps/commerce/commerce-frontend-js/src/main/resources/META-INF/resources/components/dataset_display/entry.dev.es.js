@@ -361,9 +361,11 @@ const fluidDataSetDisplayProps = {
 						label: 'Price'
 					},
 					{
+						appendedText: 'USD',
 						contentRenderer: 'quantitySelector',
 						fieldName: 'testQuantity',
-						label: 'Qt. Selector'
+						label: 'Qt. Selector',
+						prependedText: '+'
 					}
 				]
 			}

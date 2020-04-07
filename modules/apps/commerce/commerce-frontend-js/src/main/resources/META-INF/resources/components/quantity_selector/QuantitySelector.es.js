@@ -116,21 +116,51 @@ function QuantitySelector(props) {
 					</select>
 				</>
 			) : props.style === 'simple' ? (
-				<div className="input-group-item input-group-item-shrink input-group-prepend">
-					<input
+				<div className="input-group input-group-sm simple">
+					{(props.prependedIcon || props.prependedText) && (
+						<div className="input-group-item input-group-item-shrink input-group-prepend">
+							<span className="input-group-text">
+								{props.prependedIcon ? (
+									<ClayIcon symbol={props.prependedIcon} />
+								) : (
+									props.prependedText
+								)}
+							</span>
+						</div>
+					)}
+					<div
 						className={classnames(
-							'form-control text-center',
-							formControlSizeClass
+							'input-group-item input-group-item-shrink',
+							(props.appendedIcon || props.appendedText) &&
+								'input-group-prepend'
 						)}
-						disabled={props.disabled}
-						max={props.maxQuantity}
-						min={props.minQuantity}
-						name={props.inputName}
-						onChange={handleInputChange}
-						step={props.multipleQuantity}
-						type="number"
-						value={currentQuantity}
-					/>
+					>
+						<input
+							className={classnames(
+								'form-control text-center',
+								formControlSizeClass
+							)}
+							disabled={props.disabled}
+							max={props.maxQuantity}
+							min={props.minQuantity}
+							name={props.inputName}
+							onChange={handleInputChange}
+							step={props.multipleQuantity}
+							type="number"
+							value={currentQuantity}
+						/>
+					</div>
+					{(props.appendedIcon || props.appendedText) && (
+						<div className="input-group-append input-group-item input-group-item-shrink">
+							<span className="input-group-text">
+								{props.appendedIcon ? (
+									<ClayIcon symbol={props.appendedIcon} />
+								) : (
+									props.appendedText
+								)}
+							</span>
+						</div>
+					)}
 				</div>
 			) : (
 				<div className="input-group justify-content-center">
@@ -147,7 +177,7 @@ function QuantitySelector(props) {
 						</button>
 					</div>
 
-					<div className="input-group-item input-group-item-shrink input-group-prepend">
+					<div className="input-group-item input-group-prepend">
 						<input
 							className={classnames(
 								'form-control text-center',
@@ -190,11 +220,15 @@ function QuantitySelector(props) {
 
 QuantitySelector.propTypes = {
 	allowedQuantities: PropTypes.arrayOf(PropTypes.number),
+	appendedIcon: PropTypes.string,
+	appendedText: PropTypes.string,
 	disabled: PropTypes.bool,
 	inputName: PropTypes.string,
 	maxQuantity: PropTypes.number,
 	minQuantity: PropTypes.number,
 	multipleQuantity: PropTypes.number,
+	prependedIcon: PropTypes.string,
+	prependedText: PropTypes.string,
 	quantity: PropTypes.number.isRequired,
 	size: PropTypes.oneOf(['large', 'medium', 'small']),
 	spritemap: PropTypes.string,
