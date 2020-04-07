@@ -23,6 +23,8 @@ import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
@@ -47,6 +49,7 @@ import java.util.ResourceBundle;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -179,8 +182,7 @@ public class CommerceOrderClayTableUtil {
 	}
 
 	public static String getViewShipmentURL(
-			long commerceOrderItemId, ThemeDisplay themeDisplay)
-		throws Exception {
+		long commerceOrderItemId, ThemeDisplay themeDisplay) {
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
@@ -192,13 +194,20 @@ public class CommerceOrderClayTableUtil {
 			"mvcRenderCommandName", "viewCommerceOrderShipments");
 		portletURL.setParameter(
 			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
-		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
-		portletURL.setParameter(
-			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
-			themeDisplay.getURLCurrent());
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			_log.error(wse, wse);
+		}
+
+		portletURL.setParameter("backURL", portletURL.toString());
 
 		return portletURL.toString();
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceOrderClayTableUtil.class);
 
 }

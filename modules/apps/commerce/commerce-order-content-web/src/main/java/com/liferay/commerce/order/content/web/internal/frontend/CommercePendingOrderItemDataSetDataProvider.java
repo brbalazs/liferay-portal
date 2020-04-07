@@ -21,7 +21,6 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
-import com.liferay.commerce.order.content.web.internal.frontend.util.CommerceOrderClayTableUtil;
 import com.liferay.commerce.order.content.web.internal.model.OrderItem;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
@@ -364,8 +363,6 @@ public class CommercePendingOrderItemDataSetDataProvider
 						commerceOrderItem, priceDisplayType, locale),
 					_cpInstanceHelper.getCPInstanceThumbnailSrc(
 						commerceOrderItem.getCPInstanceId()),
-					CommerceOrderClayTableUtil.getViewShipmentURL(
-						commerceOrderItem.getCommerceOrderId(), themeDisplay),
 					0,
 					_getCommerceOrderErrorMessages(
 						commerceOrderItem, commerceOrderValidatorResultMap),

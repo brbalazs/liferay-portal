@@ -19,7 +19,6 @@ import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.order.content.web.internal.frontend.util.CommerceOrderClayTableUtil;
 import com.liferay.commerce.order.content.web.internal.model.OrderItem;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
@@ -156,15 +155,6 @@ public class CommercePlacedOrderItemDataSetDataProvider
 						themeDisplay.getLocale());
 				}
 
-				String viewShipmentURL = null;
-
-				if (commerceOrderItem.getShippedQuantity() > 0) {
-					viewShipmentURL =
-						CommerceOrderClayTableUtil.getViewShipmentURL(
-							commerceOrderItem.getCommerceOrderItemId(),
-							themeDisplay);
-				}
-
 				String formattedSubscriptionPeriod = null;
 
 				CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
@@ -222,8 +212,8 @@ public class CommercePlacedOrderItemDataSetDataProvider
 						commerceOrderItem.getQuantity(), formattedFinalPrice,
 						_cpInstanceHelper.getCPInstanceThumbnailSrc(
 							commerceOrderItem.getCPInstanceId()),
-						viewShipmentURL, commerceOrderItem.getShippedQuantity(),
-						null, formattedSubscriptionPeriod));
+						commerceOrderItem.getShippedQuantity(), null,
+						formattedSubscriptionPeriod));
 			}
 		}
 		catch (Exception e) {
