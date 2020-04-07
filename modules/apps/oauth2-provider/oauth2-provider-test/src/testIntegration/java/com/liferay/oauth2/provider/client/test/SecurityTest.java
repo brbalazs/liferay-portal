@@ -27,6 +27,7 @@ import java.net.URI;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.ws.rs.core.Response;
 
@@ -142,19 +143,22 @@ public class SecurityTest extends BaseClientTestCase {
 	 */
 	@Test
 	public void testPreventOpenRedirect() {
+		Response response = getCodeResponse(
+			"test@liferay.com", "test", null,
+			getCodeFunction(
+				webTarget -> webTarget.queryParam(
+					"client_id", "oauthTestApplicationCode"
+				).queryParam(
+					"redirect_uri", "http://invalid:8080"
+				).queryParam(
+					"response_type", "code"
+				)),
+			Function.identity());
+
+		Assert.assertEquals(400, response.getStatus());
 		Assert.assertEquals(
-			"invalid_request",
-			getCodeResponse(
-				"test@liferay.com", "test", null,
-				getCodeFunction(
-					webTarget -> webTarget.queryParam(
-						"client_id", "oauthTestApplicationCode"
-					).queryParam(
-						"redirect_uri", "http://invalid:8080"
-					).queryParam(
-						"response_type", "code"
-					)),
-				this::parseError));
+			"<html><body>HTTP 400 Bad Request</body></html>",
+			getBodyAsString(response));
 	}
 
 	@Test
@@ -203,6 +207,10 @@ public class SecurityTest extends BaseClientTestCase {
 				Collections.singletonList("http://redirecturi:8080"));
 		}
 
+	}
+
+	protected String getBodyAsString(Response response) {
+		return response.readEntity(String.class);
 	}
 
 	@Override
