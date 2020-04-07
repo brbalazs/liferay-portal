@@ -108,19 +108,21 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 				getCommerceShipmentStatusesByCommerceOrderId(
 					commerceOrder.getCommerceOrderId());
 
-		if (shippedCommerceOrderStatus.isTransitionCriteriaMet(commerceOrder)) {
-			commerceOrder = transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED, 0);
-		}
-		else if (completedCommerceOrderStatus.isTransitionCriteriaMet(
-					commerceOrder) &&
-				 (commerceShipmentStatuses.length == 1) &&
-				 (commerceShipmentStatuses[0] ==
-					 CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED)) {
+		if (completedCommerceOrderStatus.isTransitionCriteriaMet(
+				commerceOrder) &&
+			(commerceShipmentStatuses.length == 1) &&
+			(commerceShipmentStatuses[0] ==
+				CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED)) {
 
 			commerceOrder = transitionCommerceOrder(
 				commerceOrder, CommerceOrderConstants.ORDER_STATUS_COMPLETED,
 				0);
+		}
+		else if (shippedCommerceOrderStatus.isTransitionCriteriaMet(
+					commerceOrder)) {
+
+			commerceOrder = transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED, 0);
 		}
 		else {
 			commerceOrder = transitionCommerceOrder(
