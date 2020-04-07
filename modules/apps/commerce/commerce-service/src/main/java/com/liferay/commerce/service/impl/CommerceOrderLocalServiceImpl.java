@@ -172,10 +172,6 @@ public class CommerceOrderLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
-		if (user.isDefaultUser()) {
-			userId = 0;
-		}
-
 		validateGuestOrders();
 
 		if (commerceCurrencyId <= 0) {
@@ -1431,6 +1427,10 @@ public class CommerceOrderLocalServiceImpl
 			ServiceContext serviceContext,
 			Map<String, Serializable> workflowContext)
 		throws PortalException {
+
+		if (userId == 0) {
+			userId = serviceContext.getUserId();
+		}
 
 		User user = userLocalService.getUser(userId);
 		Date now = new Date();
