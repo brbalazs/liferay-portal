@@ -604,7 +604,7 @@ public class CPTestUtil {
 			RandomTestUtil.randomLocaleStringMap();
 		Map<Locale, String> urlTitleMap =
 			RandomTestUtil.randomLocaleStringMap();
-		boolean shippable = RandomTestUtil.randomBoolean();
+		boolean shippable = true;
 		boolean freeShipping = RandomTestUtil.randomBoolean();
 		boolean shipSeparately = RandomTestUtil.randomBoolean();
 		double shippingExtraPrice = RandomTestUtil.randomDouble();
