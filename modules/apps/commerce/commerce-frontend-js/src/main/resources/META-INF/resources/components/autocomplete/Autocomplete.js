@@ -107,7 +107,7 @@ function Autocomplete(props) {
 						<ClayDropDown.ItemList className="mb-0">
 							{items && items.length === 0 && (
 								<ClayDropDown.Item className="disabled">
-									{Liferay.Language.get('no-results-found')}
+									{Liferay.Language.get('no-results-were-found')}
 								</ClayDropDown.Item>
 							)}
 							{items &&
