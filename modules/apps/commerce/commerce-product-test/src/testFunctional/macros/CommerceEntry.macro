@@ -595,6 +595,12 @@ definition {
 		}
 	}
 
+	macro viewPaginationResults {
+		AssertTextEquals(
+			locator1 = "CommerceEntry#PAGINATION_RESULTS",
+			value1 = "${results}");
+	}
+
 	macro viewPriceListEntry {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#NAME_FIELD",
