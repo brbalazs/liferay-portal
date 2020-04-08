@@ -143,32 +143,6 @@ definition {
 		CommerceEntry.viewSpecificationGroupsEntries(specificationGroupsEntries = "Quantity,Fit,Material,Dimensions,Warranty");
 	}
 
-	test PublishSimpleProduct {
-		property environment.acceptance = "true";
-		property portal.acceptance = "true";
-
-		ProductMenu.gotoPortlet(
-			category = "Commerce",
-			panel = "Control Panel",
-			portlet = "Products");
-
-		CPCommerceCatalog.newProductsEntry(
-			productName = "Simple T-Shirt",
-			productType = "Simple");
-
-		ProductMenu.gotoPortlet(
-			category = "Commerce",
-			panel = "Control Panel",
-			portlet = "Products");
-
-		CommerceNavigator.gotoEntry(entryName = "Simple T-Shirt");
-
-		CommerceEntry.viewProductsEntry(
-			productFullDescription = "Simple T-Shirt Full Description",
-			productName = "Simple T-Shirt",
-			productShortDescription = "Simple T-Shirt Short Description");
-	}
-
 	test InitializeNewMiniumSite {
 		property portal.acceptance = "true";
 
@@ -218,7 +192,32 @@ definition {
 		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
 
 		CommerceEntry.viewSpecificationGroupsEntries(specificationGroupsEntries = "Warranty,Fit,Dimensions,Quantity,Material");
+	}
 
+	test PublishSimpleProduct {
+		property environment.acceptance = "true";
+		property portal.acceptance = "true";
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Products");
+
+		CPCommerceCatalog.newProductsEntry(
+			productName = "Simple T-Shirt",
+			productType = "Simple");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Products");
+
+		CommerceNavigator.gotoEntry(entryName = "Simple T-Shirt");
+
+		CommerceEntry.viewProductsEntry(
+			productFullDescription = "Simple T-Shirt Full Description",
+			productName = "Simple T-Shirt",
+			productShortDescription = "Simple T-Shirt Short Description");
 	}
 
 }

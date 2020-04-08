@@ -556,7 +556,7 @@ definition {
 			locator1 = "Select#GENERIC_SELECT_FIELD",
 			value1 = "${channelCurrency}");
 
-		if(isSet(commerceSiteType)) {
+		if (isSet(commerceSiteType)) {
 			AssertSelectedLabel(
 				key_fieldLabel = "Commerce Site Type",
 				locator1 = "Select#GENERIC_SELECT_FIELD",
@@ -571,7 +571,7 @@ definition {
 			locator1 = "CommerceEntry#CHANNEL_TYPE_VALUE",
 			value1 = "${channelType}");
 
-		if(isSet(channelSiteName)) {
+		if (isSet(channelSiteName)) {
 			AssertElementPresent(
 				key_rowEntry = "${channelSiteName}",
 				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME");
@@ -605,7 +605,7 @@ definition {
 			locator1 = "CommerceEntry#NAME_FIELD",
 			value1 = "${optionName}");
 
-		if(isSet(optionDescription)) {
+		if (isSet(optionDescription)) {
 			AssertTextEquals(
 				locator1 = "CommerceEntry#DESCRIPTION_FIELD",
 				value1 = "${optionDescription}");
