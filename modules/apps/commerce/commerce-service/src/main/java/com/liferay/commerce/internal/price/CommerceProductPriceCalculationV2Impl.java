@@ -136,7 +136,20 @@ public class CommerceProductPriceCalculationV2Impl
 				if (optionPriceType.equals(
 						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
 
-					finalPrice = finalPrice.add(commerceOptionValue.getPrice());
+					BigDecimal optionValuePrice =
+						commerceOptionValue.getPrice();
+
+					if ((optionValuePrice != null) &&
+						(optionValuePrice.compareTo(BigDecimal.ZERO) > 0)) {
+
+						if (commerceOptionValue.getCPInstanceId() > 0) {
+							optionValuePrice = optionValuePrice.multiply(
+								BigDecimal.valueOf(
+									commerceOptionValue.getQuantity()));
+						}
+
+						finalPrice = finalPrice.add(optionValuePrice);
+					}
 				}
 				else {
 					CommerceProductPrice optionValueProductPrice =
@@ -645,7 +658,11 @@ public class CommerceProductPriceCalculationV2Impl
 
 			commercePrice = commercePrice.add(currentPrice);
 
-			commercePrice = commercePrice.divide(BigDecimal.valueOf(quantity));
+			RoundingMode roundingMode = RoundingMode.valueOf(
+				commerceCurrency.getRoundingMode());
+
+			commercePrice = commercePrice.divide(
+				BigDecimal.valueOf(quantity), _SCALE, roundingMode);
 		}
 
 		if (commercePriceEntry.getCommercePriceListId() !=

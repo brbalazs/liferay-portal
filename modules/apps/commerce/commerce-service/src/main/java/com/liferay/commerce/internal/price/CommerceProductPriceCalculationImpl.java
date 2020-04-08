@@ -116,7 +116,20 @@ public class CommerceProductPriceCalculationImpl
 				if (optionPriceType.equals(
 						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
 
-					finalPrice = finalPrice.add(commerceOptionValue.getPrice());
+					BigDecimal optionValuePrice =
+						commerceOptionValue.getPrice();
+
+					if ((optionValuePrice != null) &&
+						(optionValuePrice.compareTo(BigDecimal.ZERO) > 0)) {
+
+						if (commerceOptionValue.getCPInstanceId() > 0) {
+							optionValuePrice = optionValuePrice.multiply(
+								BigDecimal.valueOf(
+									commerceOptionValue.getQuantity()));
+						}
+
+						finalPrice = finalPrice.add(optionValuePrice);
+					}
 				}
 				else {
 					CommerceProductPrice optionValueProductPrice =
