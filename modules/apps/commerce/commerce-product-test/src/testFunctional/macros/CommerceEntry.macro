@@ -556,9 +556,26 @@ definition {
 			locator1 = "Select#GENERIC_SELECT_FIELD",
 			value1 = "${channelCurrency}");
 
-		AssertElementPresent(
+		if(isSet(commerceSiteType)) {
+			AssertSelectedLabel(
+				key_fieldLabel = "Commerce Site Type",
+				locator1 = "Select#GENERIC_SELECT_FIELD",
+				value1 = "${commerceSiteType}");
+		}
+
+		Click(
 			key_menuTab = "Type",
 			locator1 = "CommerceEntry#MENU_TAB");
+
+		AssertTextEquals(
+			locator1 = "CommerceEntry#CHANNEL_TYPE_VALUE",
+			value1 = "${channelType}");
+
+		if(isSet(channelSiteName)) {
+			AssertElementPresent(
+				key_rowEntry = "${channelSiteName}",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME");
+		}
 	}
 
 	macro viewDiscountsEntry {
