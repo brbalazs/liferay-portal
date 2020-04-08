@@ -80,7 +80,7 @@
 	</log>]]></replacevalue>
 			</replace>
 		</sequential>
-
+	</macrodef>
 
 	<macrodef name="update-jboss-java-opts">
 		<sequential>
