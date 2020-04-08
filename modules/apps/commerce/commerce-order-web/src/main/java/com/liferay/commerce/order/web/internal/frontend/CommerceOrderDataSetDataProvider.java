@@ -134,6 +134,8 @@ public class CommerceOrderDataSetDataProvider
 					commerceChannel.getName(),
 					getCommerceOrderDateTime(commerceOrder, dateTimeFormat),
 					new LabelField(
+						CommerceOrderConstants.getStatusLabelStyle(
+							commerceOrder.getStatus()),
 						LanguageUtil.get(
 							httpServletRequest,
 							WorkflowConstants.getStatusLabel(

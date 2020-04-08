@@ -526,12 +526,14 @@ public class CommerceOrderEditDisplayContext {
 	public List<StepModel> getOrderSteps() throws PortalException {
 		List<StepModel> steps = new ArrayList<>();
 
-		if (_commerceOrder == null) {
-			return steps;
-		}
-
 		CommerceOrderStatus currentCommerceOrderStatus =
 			_commerceOrderEngine.getCurrentCommerceOrderStatus(_commerceOrder);
+
+		if ((_commerceOrder == null) || (currentCommerceOrderStatus == null) ||
+			(currentCommerceOrderStatus.getPriority() == -1)) {
+
+			return steps;
+		}
 
 		List<CommerceOrderStatus> commerceOrderStatuses =
 			_commerceOrderStatusRegistry.getCommerceOrderStatuses();
@@ -544,8 +546,7 @@ public class CommerceOrderEditDisplayContext {
 
 		if (ArrayUtil.contains(
 				CommerceOrderConstants.ORDER_STATUSES_OPEN,
-				_commerceOrder.getOrderStatus()) ||
-			(currentCommerceOrderStatus.getPriority() == -1)) {
+				_commerceOrder.getOrderStatus())) {
 
 			return steps;
 		}

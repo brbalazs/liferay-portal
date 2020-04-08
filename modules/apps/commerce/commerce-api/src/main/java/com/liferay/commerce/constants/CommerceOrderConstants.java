@@ -77,7 +77,7 @@ public class CommerceOrderConstants {
 	public static final int ORDER_STATUS_SUBSCRIPTION = 9;
 
 	public static final int[] ORDER_STATUSES_COMPLETED = {
-		ORDER_STATUS_COMPLETED, ORDER_STATUS_CANCELLED
+		ORDER_STATUS_COMPLETED, ORDER_STATUS_CANCELLED, ORDER_STATUS_DECLINED
 	};
 
 	public static final int[] ORDER_STATUSES_OPEN = {
@@ -193,13 +193,15 @@ public class CommerceOrderConstants {
 	}
 
 	public static String getOrderStatusLabelStyle(int orderStatus) {
-		if (orderStatus == ORDER_STATUS_CANCELLED) {
+		if ((orderStatus == ORDER_STATUS_CANCELLED) ||
+			(orderStatus == ORDER_STATUS_DECLINED)) {
+
 			return "danger";
 		}
 		else if (orderStatus == ORDER_STATUS_COMPLETED) {
 			return "success";
 		}
-		else if (orderStatus == ORDER_STATUS_DECLINED) {
+		else if (orderStatus == ORDER_STATUS_ON_HOLD) {
 			return "warning";
 		}
 
@@ -232,6 +234,17 @@ public class CommerceOrderConstants {
 		}
 
 		return null;
+	}
+
+	public static String getStatusLabelStyle(int status) {
+		if (status == WorkflowConstants.STATUS_DENIED) {
+			return "danger";
+		}
+		else if (status == WorkflowConstants.STATUS_APPROVED) {
+			return "success";
+		}
+
+		return "info";
 	}
 
 }
