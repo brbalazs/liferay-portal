@@ -19,13 +19,13 @@ import java.math.BigDecimal;
 /**
  * @author Riccardo Alberti
  */
-public interface CommerceOptionPrice {
+public interface CommerceOptionValue {
 
 	public long getCPInstanceId();
 
-	public String getOptionName();
+	public String getOptionKey();
 
-	public BigDecimal getOptionValuePrice();
+	public BigDecimal getPrice();
 
 	public String getPriceType();
 

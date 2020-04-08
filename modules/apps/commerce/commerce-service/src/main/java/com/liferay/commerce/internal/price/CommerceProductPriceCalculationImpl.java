@@ -24,7 +24,7 @@ import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.commerce.price.CommerceOptionPrice;
+import com.liferay.commerce.price.CommerceOptionValue;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
@@ -78,7 +78,7 @@ public class CommerceProductPriceCalculationImpl
 	public CommerceProductPrice getCommerceProductPrice(
 			long cpInstanceId, int quantity, boolean secure,
 			CommerceContext commerceContext,
-			List<CommerceOptionPrice> commerceOptionPrices)
+			List<CommerceOptionValue> commerceOptionValues)
 		throws PortalException {
 
 		CommerceMoney unitPriceMoney = getUnitPrice(
@@ -107,23 +107,22 @@ public class CommerceProductPriceCalculationImpl
 			finalPrice = promoPriceMoney.getPrice();
 		}
 
-		if (commerceOptionPrices != null) {
-			for (CommerceOptionPrice commerceOptionPrice :
-					commerceOptionPrices) {
+		if (commerceOptionValues != null) {
+			for (CommerceOptionValue commerceOptionValue :
+					commerceOptionValues) {
 
-				String optionPriceType = commerceOptionPrice.getPriceType();
+				String optionPriceType = commerceOptionValue.getPriceType();
 
 				if (optionPriceType.equals(
 						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
 
-					finalPrice = finalPrice.add(
-						commerceOptionPrice.getOptionValuePrice());
+					finalPrice = finalPrice.add(commerceOptionValue.getPrice());
 				}
 				else {
 					CommerceProductPrice optionValueProductPrice =
 						getCommerceProductPrice(
-							commerceOptionPrice.getCPInstanceId(),
-							commerceOptionPrice.getQuantity(), true,
+							commerceOptionValue.getCPInstanceId(),
+							commerceOptionValue.getQuantity(), true,
 							commerceContext);
 
 					CommerceMoney optionValuePriceMoney =
