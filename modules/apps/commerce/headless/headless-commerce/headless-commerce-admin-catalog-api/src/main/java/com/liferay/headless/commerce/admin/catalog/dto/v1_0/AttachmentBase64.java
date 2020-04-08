@@ -48,7 +48,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("AttachmentBase64")
 @JsonFilter("Liferay.Vulcan")
-@Schema(requiredProperties = {"sku"})
 @XmlRootElement(name = "AttachmentBase64")
 public class AttachmentBase64 {
 
