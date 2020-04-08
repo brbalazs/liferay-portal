@@ -64,12 +64,11 @@ public class ImageBlogsUploadFileEntryHandler
 			ActionKeys.ADD_ENTRY);
 
 		String fileName = uploadPortletRequest.getFileName(_PARAMETER_NAME);
-
 		String contentType = uploadPortletRequest.getContentType(
 			_PARAMETER_NAME);
 
 		_validateFile(
-			contentType, fileName,
+			fileName, contentType,
 			uploadPortletRequest.getSize(_PARAMETER_NAME));
 
 		try (InputStream inputStream = uploadPortletRequest.getFileAsStream(
@@ -104,7 +103,7 @@ public class ImageBlogsUploadFileEntryHandler
 	@Reference(target = "(resource.name=" + BlogsConstants.RESOURCE_NAME + ")")
 	protected PortletResourcePermission portletResourcePermission;
 
-	private void _validateFile(String contentType, String fileName, long size)
+	private void _validateFile(String fileName, String contentType, long size)
 		throws PortalException {
 
 		if ((PropsValues.BLOGS_IMAGE_MAX_SIZE > 0) &&
