@@ -63,6 +63,7 @@ export default class SidePanel extends React.Component {
 		this.open = this.open.bind(this);
 		this.handlePanelOpenEvent = this.handlePanelOpenEvent.bind(this);
 		this.handlePanelCloseEvent = this.handlePanelCloseEvent.bind(this);
+		this.handleKeyupEvent = this.handleKeyupEvent.bind(this);
 		this.updateTop = this.updateTop.bind(this);
 		this.debouncedUpdateTop = debounce(this.updateTop, 250);
 		this.panel = React.createRef();
@@ -122,8 +123,30 @@ export default class SidePanel extends React.Component {
 		return this.close();
 	}
 
+	handleKeyupEvent(e) {
+		if (
+			e.keyCode !== 27 ||
+			window.top.document.querySelector('.modal-content')
+		)
+			return;
+
+		if (this.iframeRef.current && this.iframeRef.current.contentWindow) {
+			const nestedIframe = this.iframeRef.current.contentDocument.querySelector(
+				'.side-panel iframe'
+			);
+
+			if (
+				!nestedIframe ||
+				nestedIframe.contentDocument.location.origin === 'null'
+			) {
+				this.close();
+			}
+		}
+	}
+
 	componentWillUnmount() {
 		this._isMounted = false;
+		window.removeEventListener('keyup', this.handleKeyupEvent);
 
 		if (this.props.topAnchorSelector) {
 			window.removeEventListener('resize', this.debouncedUpdateTop);
@@ -213,9 +236,16 @@ export default class SidePanel extends React.Component {
 		});
 	}
 
-	toggle(status = !this.state.visible) {
+	toggle(visible = !this.state.visible) {
+		if (visible) {
+			window.addEventListener('keyup', this.handleKeyupEvent);
+		} else {
+			window.removeEventListener('keyup', this.handleKeyupEvent);
+			window.focus();
+		}
+
 		return new Promise(resolve => {
-			this.setState({moving: true, visible: status});
+			this.setState({moving: true, visible});
 
 			if (!this.panel.current) return;
 
@@ -266,10 +296,17 @@ export default class SidePanel extends React.Component {
 			const iframeDocument = this.iframeRef.current.contentDocument;
 			const iframeWindow = this.iframeRef.current.contentWindow;
 
+			iframeWindow.addEventListener('keyup', e =>
+				this.handleKeyupEvent(e)
+			);
+
 			if (iframeWindow.Liferay) {
-				iframeWindow.Liferay.on('endNavigate', () =>
-					this.handleIframeSubmit({id: this.props.id})
-				);
+				iframeWindow.Liferay.on('endNavigate', () => {
+					this.handleIframeSubmit({id: this.props.id});
+					iframeWindow.addEventListener('keyup', e =>
+						this.handleKeyupEvent(e)
+					);
+				});
 			}
 
 			const submitButton = iframeDocument.querySelector(
@@ -282,14 +319,6 @@ export default class SidePanel extends React.Component {
 					this.handleIframeClickOnSubmit
 				);
 			}
-
-			this.setState({
-				closeButtonStyle: iframeDocument.querySelector(
-					'.side-panel-iframe-menu-wrapper'
-				)
-					? 'menu'
-					: 'simple'
-			});
 		} catch (error) {
 			throw new Error(
 				`Cannot access to iframe body. Url: "${this.state.currentUrl}"`
