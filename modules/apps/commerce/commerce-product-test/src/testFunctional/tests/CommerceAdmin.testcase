@@ -114,6 +114,7 @@ definition {
 			catalogName = "Test Catalog");
 	}
 
+	@ignore = "true"
 	test CreateNewChannel {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAdmin#CreateNewChannel";
@@ -291,6 +292,7 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
+	@ignore = "true"
 	test CreateNewPriceList {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAdmin#CreateNewPriceList";
