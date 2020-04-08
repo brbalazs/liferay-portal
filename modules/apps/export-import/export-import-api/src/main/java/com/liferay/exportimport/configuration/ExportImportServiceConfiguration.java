@@ -18,6 +18,8 @@ import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * @author Michael Bowerman
  */
@@ -30,6 +32,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	localization = "content/Language",
 	name = "export-import-service-configuration-name"
 )
+@ProviderType
 public interface ExportImportServiceConfiguration {
 
 	@Meta.AD(
