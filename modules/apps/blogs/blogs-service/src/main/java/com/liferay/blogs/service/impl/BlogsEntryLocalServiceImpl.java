@@ -109,7 +109,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -117,6 +116,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
@@ -2467,19 +2467,29 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	}
 
 	private boolean _isValidImageMimeType(FileEntry fileEntry) {
-		List<String> imageExtensions = Arrays.asList(
-			PrefsPropsUtil.getStringArray(
-				PropsKeys.BLOGS_IMAGE_EXTENSIONS, StringPool.COMMA));
+		if (ArrayUtil.contains(
+				PrefsPropsUtil.getStringArray(
+					PropsKeys.BLOGS_IMAGE_EXTENSIONS, StringPool.COMMA),
+				StringPool.STAR)) {
 
-		if (imageExtensions.contains(StringPool.STAR)) {
 			return true;
 		}
 
-		Set<String> supportedMimeTypes = MimeTypesUtil.getExtensionsMimeTypes(
-			PrefsPropsUtil.getStringArray(
-				PropsKeys.BLOGS_IMAGE_MIME_TYPES, StringPool.COMMA));
+		Set<String> extensions = MimeTypesUtil.getExtensions(
+			fileEntry.getMimeType());
 
-		return supportedMimeTypes.contains(fileEntry.getMimeType());
+		if (Stream.of(
+				PrefsPropsUtil.getStringArray(
+					PropsKeys.BLOGS_IMAGE_EXTENSIONS, StringPool.COMMA)).
+						anyMatch(
+							extension ->
+								extension.equals(StringPool.STAR) ||
+								extensions.contains(extension))) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private static final String _COVER_IMAGE_FOLDER_NAME = "Cover Image";

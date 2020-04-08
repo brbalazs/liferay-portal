@@ -38,9 +38,8 @@ import com.liferay.upload.UploadFileEntryHandler;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -114,24 +113,21 @@ public class ImageBlogsUploadFileEntryHandler
 			throw new EntryImageSizeException();
 		}
 
-		List<String> imageExtensions = Arrays.asList(
+		Set<String> extensions = MimeTypesUtil.getExtensions(contentType);
+
+		boolean validContentType = Stream.of(
 			PrefsPropsUtil.getStringArray(
-				PropsKeys.BLOGS_IMAGE_EXTENSIONS, StringPool.COMMA));
+				PropsKeys.BLOGS_IMAGE_EXTENSIONS, StringPool.COMMA)
+		).anyMatch(
+			extension ->
+				extension.equals(StringPool.STAR) ||
+				extensions.contains(extension)
+		);
 
-		if (imageExtensions.contains(StringPool.STAR)) {
-			return;
+		if (!validContentType) {
+			throw new EntryImageNameException(
+				"Invalid image for file name " + fileName);
 		}
-
-		Set<String> supportedMimeTypes = MimeTypesUtil.getExtensionsMimeTypes(
-			PrefsPropsUtil.getStringArray(
-				PropsKeys.BLOGS_IMAGE_MIME_TYPES, StringPool.COMMA));
-
-		if (supportedMimeTypes.contains(contentType)) {
-			return;
-		}
-
-		throw new EntryImageNameException(
-			"Invalid image for file name " + fileName);
 	}
 
 	private static final String _PARAMETER_NAME = "imageSelectorFileName";
