@@ -99,7 +99,7 @@ definition {
 			locator1 = "Button#SUBMIT",
 			value1 = "Submit");
 
-		AssertElementPresent(locator1 = "Message#SUCCESS");
+		Refresh();
 
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
@@ -136,6 +136,8 @@ definition {
 			category = "Commerce",
 			panel = "Control Panel",
 			portlet = "Channels");
+
+		Refresh();
 
 		CommerceNavigator.gotoEntry(entryName = "Test Channel");
 
