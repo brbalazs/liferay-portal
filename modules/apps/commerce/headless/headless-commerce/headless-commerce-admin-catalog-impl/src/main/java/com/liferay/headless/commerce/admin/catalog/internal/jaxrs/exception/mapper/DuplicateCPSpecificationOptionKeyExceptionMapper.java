@@ -36,7 +36,7 @@ import org.osgi.service.component.annotations.Component;
 	service = ExceptionMapper.class
 )
 @Provider
-public class CPSpecificationOptionKeyExceptionMustNotBeDuplicateMapper
+public class DuplicateCPSpecificationOptionKeyExceptionMapper
 	extends BaseExceptionMapper
 		<CPSpecificationOptionKeyException.MustNotBeDuplicate> {
 
