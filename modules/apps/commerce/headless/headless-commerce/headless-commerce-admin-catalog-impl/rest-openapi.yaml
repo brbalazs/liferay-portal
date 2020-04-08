@@ -859,7 +859,6 @@ components:
                     example: 30130
                     format: int64
                     minimum: 0
-                    readOnly: true
                     type: integer
                 priority:
                     example: 1.2
