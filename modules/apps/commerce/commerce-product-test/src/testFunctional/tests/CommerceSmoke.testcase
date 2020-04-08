@@ -29,14 +29,9 @@ definition {
 		else {
 			Navigator.openURL();
 
-			ProductMenu.gotoPortlet(
-				category = "Commerce",
-				panel = "Control Panel",
-				portlet = "Products");
+			CommerceConfiguration.commerceAdminTearDown();
 
-			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
-				CommerceProducts.deleteProductsEntry();
-			}
+			CommerceConfiguration.commerceInitializersTearDown();
 
 			ProductMenu.gotoPortlet(
 				category = "Commerce",
