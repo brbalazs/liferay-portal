@@ -656,4 +656,12 @@ definition {
 			value1 = "${specificationTitle}");
 	}
 
+	macro viewSpecificationGroupsEntries {
+		for (var specificationGroupsEntry : list "${specificationGroupsEntries}") {
+			AssertElementPresent(
+				key_rowEntry = "${specificationGroupsEntry}",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
+		}
+	}
+
 }
