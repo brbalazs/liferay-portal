@@ -107,7 +107,8 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 		return _toCartItem(
 			_commerceOrderItemService.upsertCommerceOrderItem(
 				commerceOrder.getCommerceOrderId(), cartItem.getSkuId(),
-				cartItem.getQuantity(), 0, commerceContext, serviceContext));
+				cartItem.getQuantity(), 0, cartItem.getOptions(),
+				commerceContext, serviceContext));
 	}
 
 	@Override

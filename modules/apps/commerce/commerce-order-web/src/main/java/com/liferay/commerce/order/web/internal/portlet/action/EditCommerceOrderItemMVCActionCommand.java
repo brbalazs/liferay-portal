@@ -80,7 +80,7 @@ public class EditCommerceOrderItemMVCActionCommand
 
 		for (long cpInstanceId : cpInstanceIds) {
 			_commerceOrderItemService.addCommerceOrderItem(
-				commerceOrderId, cpInstanceId, 1, 0, commerceContext,
+				commerceOrderId, cpInstanceId, 1, 0, null, commerceContext,
 				serviceContext);
 		}
 	}
