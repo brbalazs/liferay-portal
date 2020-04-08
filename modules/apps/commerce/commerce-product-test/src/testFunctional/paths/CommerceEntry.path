@@ -368,6 +368,26 @@
 	<td>//button[contains(@class,'dropdown-toggle')]//*[contains(@class,'lexicon-icon-ellipsis')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>CHANNEL_TYPE_VALUE</td>
+	<td>//header[contains(., 'Type')]/../div[@class='description']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGINATION_RESULTS</td>
+	<td>//div[@class='pagination-results']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_CONTENT_ROW_NUMBER</td>
+	<td>//table[@class='table table-autofit']/tbody/tr[${key_rowNumber}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BODY_VERTICAL_ELLIPSIS_NUMBER</td>
+	<td>xpath=(//button[contains(@class,'dropdown-toggle')]//*[contains(@class,'lexicon-icon-ellipsis')])[${key_rowNumber}]</td>
+	<td></td>
+</tr>
 <!--CATALOGS-->
 <tr>
 	<td>CATALOGS_FORM</td>
