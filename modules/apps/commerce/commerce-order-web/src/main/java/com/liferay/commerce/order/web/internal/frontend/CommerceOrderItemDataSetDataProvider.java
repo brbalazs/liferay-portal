@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.order.web.internal.frontend;
 
-import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
@@ -27,10 +26,10 @@ import com.liferay.commerce.order.web.internal.model.OrderItem;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
+import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemService;
-import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
@@ -43,6 +42,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -55,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringJoiner;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -110,6 +111,17 @@ public class CommerceOrderItemDataSetDataProvider
 
 				String name = commerceOrderItem.getName(locale);
 
+				List<KeyValuePair> keyValuePairs =
+					_cpInstanceHelper.getKeyValuePairs(
+						commerceOrderItem.getCPDefinitionId(),
+						commerceOrderItem.getJson(), locale);
+
+				StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+
+				for (KeyValuePair keyValuePair : keyValuePairs) {
+					stringJoiner.add(keyValuePair.getValue());
+				}
+
 				orderItems.add(
 					new OrderItem(
 						commerceOrderItem.getDeliveryGroup(),
@@ -117,7 +129,8 @@ public class CommerceOrderItemDataSetDataProvider
 						new ImageField(
 							name, "rounded", "lg",
 							_getImage(commerceOrderItem)),
-						name, commerceOrderItem.getCommerceOrderId(),
+						name, stringJoiner.toString(),
+						commerceOrderItem.getCommerceOrderId(),
 						commerceOrderItem.getCommerceOrderItemId(),
 						_getPrice(commerceOrderItem, locale),
 						commerceOrderItem.getQuantity(),
@@ -383,17 +396,14 @@ public class CommerceOrderItemDataSetDataProvider
 		CommerceOrderItemDataSetDataProvider.class);
 
 	@Reference
-	private CommerceContextFactory _commerceContextFactory;
-
-	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
-
-	@Reference
-	private CommerceOrderService _commerceOrderService;
 
 	@Reference
 	private CommerceSubscriptionEntryLocalService
 		_commerceSubscriptionEntryLocalService;
+
+	@Reference
+	private CPInstanceHelper _cpInstanceHelper;
 
 	@Reference
 	private CPSubscriptionTypeRegistry _cpSubscriptionTypeRegistry;

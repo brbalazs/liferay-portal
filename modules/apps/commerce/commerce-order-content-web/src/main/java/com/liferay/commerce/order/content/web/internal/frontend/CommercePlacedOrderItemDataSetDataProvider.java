@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -44,6 +45,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringJoiner;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -163,14 +165,25 @@ public class CommercePlacedOrderItemDataSetDataProvider
 						});
 				}
 
+				List<KeyValuePair> keyValuePairs =
+					_cpInstanceHelper.getKeyValuePairs(
+						commerceOrderItem.getCPDefinitionId(),
+						commerceOrderItem.getJson(), themeDisplay.getLocale());
+
+				StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+
+				for (KeyValuePair keyValuePair : keyValuePairs) {
+					stringJoiner.add(keyValuePair.getValue());
+				}
+
 				orderItems.add(
 					new OrderItem(
 						commerceOrderItem.getCommerceOrderItemId(),
 						commerceOrderItem.getCommerceOrderId(),
 						commerceOrderItem.getSku(),
 						commerceOrderItem.getName(themeDisplay.getLocale()),
-						formattedUnitPrice, formattedPromoPrice,
-						formattedDiscountAmount,
+						stringJoiner.toString(), formattedUnitPrice,
+						formattedPromoPrice, formattedDiscountAmount,
 						commerceOrderItem.getQuantity(), formattedFinalPrice,
 						_cpInstanceHelper.getCPInstanceThumbnailSrc(
 							commerceOrderItem.getCPInstanceId()),

@@ -23,14 +23,15 @@ public class OrderItem {
 
 	public OrderItem(
 		String deliveryGroup, String discount, ImageField image, String name,
-		long orderId, long orderItemId, String price, int quantity,
-		String requestedDeliveryDate, String sku, String subscriptionDuration,
-		String subscriptionPeriod, String total) {
+		String options, long orderId, long orderItemId, String price,
+		int quantity, String requestedDeliveryDate, String sku,
+		String subscriptionDuration, String subscriptionPeriod, String total) {
 
 		_deliveryGroup = deliveryGroup;
 		_discount = discount;
 		_image = image;
 		_name = name;
+		_options = options;
 		_orderId = orderId;
 		_orderItemId = orderItemId;
 		_price = price;
@@ -56,6 +57,10 @@ public class OrderItem {
 
 	public String getName() {
 		return _name;
+	}
+
+	public String getOptions() {
+		return _options;
 	}
 
 	public long getOrderId() {
@@ -98,6 +103,7 @@ public class OrderItem {
 	private final String _discount;
 	private final ImageField _image;
 	private final String _name;
+	private final String _options;
 	private final long _orderId;
 	private final long _orderItemId;
 	private final String _price;

@@ -53,6 +53,8 @@ public class CommerceOrderItemClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("name", "name");
 
+		clayTableSchemaBuilder.addField("options", "options");
+
 		clayTableSchemaBuilder.addField(
 			"requestedDeliveryDate", "delivery-date");
 

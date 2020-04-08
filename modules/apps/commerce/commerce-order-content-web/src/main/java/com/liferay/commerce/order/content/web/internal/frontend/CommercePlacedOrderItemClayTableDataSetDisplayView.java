@@ -48,6 +48,8 @@ public class CommercePlacedOrderItemClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("name", "name");
 
+		clayTableSchemaBuilder.addField("options", "options");
+
 		ClayTableSchemaField priceField = clayTableSchemaBuilder.addField(
 			"price", "price");
 

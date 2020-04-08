@@ -50,6 +50,8 @@ public class CommercePendingOrderItemClayTableDataSetDisplayView
 
 		nameField.setContentRenderer("commerceTableCellNameWithError");
 
+		clayTableSchemaBuilder.addField("options", "options");
+
 		ClayTableSchemaField priceField = clayTableSchemaBuilder.addField(
 			"price", "price");
 
