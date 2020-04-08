@@ -1,5 +1,9 @@
 definition {
 
+	macro initializeAccelerator {
+		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "${siteName}");
+	}
+
 	macro initializeNewSiteViaAccelerator {
 
 		ProductMenu.gotoPortlet(
