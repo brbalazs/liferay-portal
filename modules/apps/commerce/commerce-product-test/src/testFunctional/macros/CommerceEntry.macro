@@ -45,7 +45,7 @@ definition {
 
 		Type(
 			locator1 = "CommerceEntry#NAME_FIELD",
-			value1 = "${entryName}");
+			value1 = "${catalogName}");
 
 		Select(
 			key_title = "Default Catalog Language",
@@ -65,7 +65,7 @@ definition {
 
 		Type(
 			locator1 = "TextInput#NAME",
-			value1 = "${entryName}");
+			value1 = "${channelName}");
 
 		Select(
 			key_fieldLabel = "Currency",
@@ -81,10 +81,11 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 
 		if (isSet(siteName)) {
-			CommerceNavigator.gotoEntry(entryName = "${entryName}");
+			
+			CommerceNavigator.gotoEntry(entryName = "${channelName}");
 
 			Click(
-				key_menuTab = "${channelType}",
+				key_menuTab = "Type",
 				locator1 = "CommerceEntry#MENU_TAB");
 
 			AssertClick(
