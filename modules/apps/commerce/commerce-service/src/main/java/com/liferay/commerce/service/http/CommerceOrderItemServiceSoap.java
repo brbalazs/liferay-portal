@@ -64,45 +64,6 @@ public class CommerceOrderItemServiceSoap {
 	public static com.liferay.commerce.model.CommerceOrderItemSoap
 			addCommerceOrderItem(
 				long commerceOrderId, long cpInstanceId, int quantity,
-				int shippedQuantity,
-				com.liferay.commerce.context.CommerceContext commerceContext,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.model.CommerceOrderItem returnValue =
-				CommerceOrderItemServiceUtil.addCommerceOrderItem(
-					commerceOrderId, cpInstanceId, quantity, shippedQuantity,
-					commerceContext, serviceContext);
-
-			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	/**
-	 * @param commerceOrderId
-	 * @param cpInstanceId
-	 * @param quantity
-	 * @param shippedQuantity
-	 * @param json
-	 * @param commerceContext
-	 * @param serviceContext
-	 * @return
-	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link
-	 #addCommerceOrderItem(long, long, int, int, CommerceContext,
-	 ServiceContext)} instead
-	 */
-	@Deprecated
-	public static com.liferay.commerce.model.CommerceOrderItemSoap
-			addCommerceOrderItem(
-				long commerceOrderId, long cpInstanceId, int quantity,
 				int shippedQuantity, String json,
 				com.liferay.commerce.context.CommerceContext commerceContext,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -574,45 +535,6 @@ public class CommerceOrderItemServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderItemSoap
-			upsertCommerceOrderItem(
-				long commerceOrderId, long cpInstanceId, int quantity,
-				int shippedQuantity,
-				com.liferay.commerce.context.CommerceContext commerceContext,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.model.CommerceOrderItem returnValue =
-				CommerceOrderItemServiceUtil.upsertCommerceOrderItem(
-					commerceOrderId, cpInstanceId, quantity, shippedQuantity,
-					commerceContext, serviceContext);
-
-			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	/**
-	 * @param commerceOrderId
-	 * @param cpInstanceId
-	 * @param quantity
-	 * @param shippedQuantity
-	 * @param json
-	 * @param commerceContext
-	 * @param serviceContext
-	 * @return
-	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link
-	 #upsertCommerceOrderItem(long, long, int, int,
-	 CommerceContext, ServiceContext)}
-	 */
-	@Deprecated
 	public static com.liferay.commerce.model.CommerceOrderItemSoap
 			upsertCommerceOrderItem(
 				long commerceOrderId, long cpInstanceId, int quantity,

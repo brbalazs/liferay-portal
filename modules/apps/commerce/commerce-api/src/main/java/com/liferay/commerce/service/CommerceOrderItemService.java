@@ -67,27 +67,6 @@ public interface CommerceOrderItemService extends BaseService {
 	 */
 	public CommerceOrderItem addCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
-			int shippedQuantity, CommerceContext commerceContext,
-			ServiceContext serviceContext)
-		throws PortalException;
-
-	/**
-	 * @param commerceOrderId
-	 * @param cpInstanceId
-	 * @param quantity
-	 * @param shippedQuantity
-	 * @param json
-	 * @param commerceContext
-	 * @param serviceContext
-	 * @return
-	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link
-	 #addCommerceOrderItem(long, long, int, int, CommerceContext,
-	 ServiceContext)} instead
-	 */
-	@Deprecated
-	public CommerceOrderItem addCommerceOrderItem(
-			long commerceOrderId, long cpInstanceId, int quantity,
 			int shippedQuantity, String json, CommerceContext commerceContext,
 			ServiceContext serviceContext)
 		throws PortalException;
@@ -226,27 +205,6 @@ public interface CommerceOrderItemService extends BaseService {
 			long commerceOrderItemId, BigDecimal unitPrice, int quantity)
 		throws PortalException;
 
-	public CommerceOrderItem upsertCommerceOrderItem(
-			long commerceOrderId, long cpInstanceId, int quantity,
-			int shippedQuantity, CommerceContext commerceContext,
-			ServiceContext serviceContext)
-		throws PortalException;
-
-	/**
-	 * @param commerceOrderId
-	 * @param cpInstanceId
-	 * @param quantity
-	 * @param shippedQuantity
-	 * @param json
-	 * @param commerceContext
-	 * @param serviceContext
-	 * @return
-	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link
-	 #upsertCommerceOrderItem(long, long, int, int,
-	 CommerceContext, ServiceContext)}
-	 */
-	@Deprecated
 	public CommerceOrderItem upsertCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
 			int shippedQuantity, String json, CommerceContext commerceContext,

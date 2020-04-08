@@ -50,34 +50,6 @@ public class CommerceOrderItemLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.model.CommerceOrderItem addCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
-			int shippedQuantity,
-			com.liferay.commerce.context.CommerceContext commerceContext,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderItemLocalService.addCommerceOrderItem(
-			commerceOrderId, cpInstanceId, quantity, shippedQuantity,
-			commerceContext, serviceContext);
-	}
-
-	/**
-	 * @param commerceOrderId
-	 * @param cpInstanceId
-	 * @param quantity
-	 * @param shippedQuantity
-	 * @param json
-	 * @param commerceContext
-	 * @param serviceContext
-	 * @return
-	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link
-	 #addCommerceOrderItem(long, long, int, int, CommerceContext,
-	 ServiceContext)} instead
-	 */
-	@Deprecated
-	@Override
-	public com.liferay.commerce.model.CommerceOrderItem addCommerceOrderItem(
-			long commerceOrderId, long cpInstanceId, int quantity,
 			int shippedQuantity, String json,
 			com.liferay.commerce.context.CommerceContext commerceContext,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -680,21 +652,6 @@ public class CommerceOrderItemLocalServiceWrapper
 			commerceContext, serviceContext);
 	}
 
-	/**
-	 * @param commerceOrderId
-	 * @param cpInstanceId
-	 * @param quantity
-	 * @param shippedQuantity
-	 * @param json
-	 * @param commerceContext
-	 * @param serviceContext
-	 * @return
-	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link
-	 #upsertCommerceOrderItem(long, long, int, int,
-	 CommerceContext, ServiceContext)}
-	 */
-	@Deprecated
 	@Override
 	public com.liferay.commerce.model.CommerceOrderItem upsertCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
