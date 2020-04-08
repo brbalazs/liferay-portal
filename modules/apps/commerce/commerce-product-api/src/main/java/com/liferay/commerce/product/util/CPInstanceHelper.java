@@ -95,9 +95,6 @@ public interface CPInstanceHelper {
 	public CPSku getDefaultCPSku(CPCatalogEntry cpCatalogEntry)
 		throws Exception;
 
-	public List<KeyValuePair> getKeyValuePairs(long cpInstanceId, Locale locale)
-		throws PortalException;
-
 	public List<KeyValuePair> getKeyValuePairs(
 			long cpDefinitionId, String json, Locale locale)
 		throws PortalException;

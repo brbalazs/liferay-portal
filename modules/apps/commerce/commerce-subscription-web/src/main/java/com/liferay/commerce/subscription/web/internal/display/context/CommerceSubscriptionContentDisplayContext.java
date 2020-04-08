@@ -16,6 +16,7 @@ package com.liferay.commerce.subscription.web.internal.display.context;
 
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelLocalService;
@@ -106,14 +107,18 @@ public class CommerceSubscriptionContentDisplayContext {
 			CommerceSubscriptionEntry commerceSubscriptionEntry)
 		throws PortalException {
 
-		CPInstance cpInstance = commerceSubscriptionEntry.fetchCPInstance();
+		CommerceOrderItem commerceOrderItem =
+			commerceSubscriptionEntry.fetchCommerceOrderItem();
+
+		CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
 
 		if (cpInstance == null) {
 			return Collections.emptyList();
 		}
 
 		return _cpInstanceHelper.getKeyValuePairs(
-			cpInstance.getCPInstanceId(), _cpRequestHelper.getLocale());
+			cpInstance.getCPDefinitionId(), commerceOrderItem.getJson(),
+			_cpRequestHelper.getLocale());
 	}
 
 	public PortletURL getPortletURL() throws PortalException {

@@ -435,105 +435,53 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	}
 
 	@Override
-	public List<KeyValuePair> getKeyValuePairs(long cpInstanceId, Locale locale)
+	public List<KeyValuePair> getKeyValuePairs(
+			long cpDefinitionId, String json, Locale locale)
 		throws PortalException {
 
 		List<KeyValuePair> values = new ArrayList<>();
 
-		Map<String, List<String>>
-			cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys =
-				_cpDefinitionOptionRelLocalService.
-					getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
-						cpInstanceId);
-
-		if (cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.isEmpty()) {
-			return Collections.emptyList();
+		if (Validator.isNull(json)) {
+			return values;
 		}
 
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-			cpInstanceId);
+		JSONArray jsonArray = _jsonFactory.createJSONArray(json);
 
-		for (Map.Entry<String, List<String>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry :
-					cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys.
-						entrySet()) {
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+			String key = jsonObject.getString("key");
 
 			CPDefinitionOptionRel cpDefinitionOptionRel =
 				_cpDefinitionOptionRelLocalService.
-					fetchCPDefinitionOptionRelByKey(
-						cpInstance.getCPDefinitionId(),
-						cpDefinitionOptionRelCPDefinitionOptionValueRelEntry.
-							getKey());
+					fetchCPDefinitionOptionRelByKey(cpDefinitionId, key);
 
 			if (cpDefinitionOptionRel == null) {
 				continue;
 			}
 
-			List<String> cpDefinitionOptionValueRelKeys =
-				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry.getValue();
+			JSONArray valueJSONArray = jsonObject.getJSONArray("value");
 
-			for (String cpDefinitionOptionValueRelKey :
-					cpDefinitionOptionValueRelKeys) {
-
-				KeyValuePair keyValuePair = new KeyValuePair();
-
-				keyValuePair.setKey(cpDefinitionOptionRel.getName(locale));
+			for (int j = 0; j < valueJSONArray.length(); j++) {
+				String value = valueJSONArray.getString(j);
 
 				CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 					_cpDefinitionOptionValueRelLocalService.
 						fetchCPDefinitionOptionValueRel(
 							cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-							cpDefinitionOptionValueRelKey);
+							value);
 
 				if (cpDefinitionOptionValueRel != null) {
-					keyValuePair.setValue(
-						cpDefinitionOptionValueRel.getName(locale));
+					value = cpDefinitionOptionValueRel.getName(locale);
 				}
 				else {
-					keyValuePair.setValue(cpDefinitionOptionValueRelKey);
+					value = valueJSONArray.getString(j);
 				}
-
-				values.add(keyValuePair);
-			}
-		}
-
-		return values;
-	}
-
-	@Override
-	public List<KeyValuePair> getKeyValuePairs(
-			long cpDefinitionId, String json, Locale locale)
-		throws PortalException {
-
-		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelsCPDefinitionOptionValueRels =
-				getCPDefinitionOptionRelsMap(cpDefinitionId, json);
-
-		if (cpDefinitionOptionRelsCPDefinitionOptionValueRels.isEmpty()) {
-			return Collections.emptyList();
-		}
-
-		List<KeyValuePair> values = new ArrayList<>();
-
-		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry :
-					cpDefinitionOptionRelsCPDefinitionOptionValueRels.
-						entrySet()) {
-
-			CPDefinitionOptionRel cpDefinitionOptionRel =
-				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry.getKey();
-
-			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRelKeys =
-				cpDefinitionOptionRelCPDefinitionOptionValueRelEntry.getValue();
-
-			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-					cpDefinitionOptionValueRelKeys) {
 
 				KeyValuePair keyValuePair = new KeyValuePair();
 
 				keyValuePair.setKey(cpDefinitionOptionRel.getName(locale));
-				keyValuePair.setValue(
-					cpDefinitionOptionValueRel.getName(locale));
+				keyValuePair.setValue(value);
 
 				values.add(keyValuePair);
 			}
