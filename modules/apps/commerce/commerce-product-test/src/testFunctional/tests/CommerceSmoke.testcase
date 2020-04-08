@@ -97,6 +97,57 @@ definition {
 			specificationTitle = "specification-1");
 	}
 
+	test InitializeNewSpeedwellSite {
+		property portal.acceptance = "true";
+
+		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Channels");
+
+		CommerceNavigator.gotoEntry(entryName = "Speedwell Portal");
+
+		CommerceEntry.viewChannelsEntry(
+			channelCurrency = "US Dollar",
+			channelName = "Speedwell Portal",
+			channelSiteName = "Speedwell",
+			channelType = "Site",
+			commerceSiteType = "B2C");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Catalogs");
+
+		CommerceNavigator.gotoEntry(entryName = "Speedwell");
+
+		CommerceEntry.viewCatalogsEntry(
+			catalogCurrency = "US Dollar",
+			catalogLanguage = "English (United States)",
+			catalogName = "Speedwell");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Products");
+
+		CommerceEntry.viewPaginationResults(results = "Showing 1 to 10 of 50");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
+
+		CommerceEntry.viewOptionsEntry(optionName = "Package Quantity");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specifications");
+
+		CommerceEntry.viewSpecificationLabelsEntries(specificationLabelsEntries = "Quantity,Material,Fit,Dimensions,Weight,Width,Warranty,Length,Height");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
+
+		CommerceEntry.viewSpecificationGroupsEntries(specificationGroupsEntries = "Quantity,Fit,Material,Dimensions,Warranty");
+	}
+
 	test PublishSimpleProduct {
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
