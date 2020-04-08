@@ -443,7 +443,8 @@ public interface CommerceOrderItemLocalService
 		throws PortalException;
 
 	public CommerceOrderItem updateCommerceOrderItemUnitPrice(
-			long commerceOrderItemId, BigDecimal unitPrice, int quantity)
+			long userId, long commerceOrderItemId, BigDecimal unitPrice,
+			int quantity)
 		throws PortalException;
 
 	public CommerceOrderItem upsertCommerceOrderItem(

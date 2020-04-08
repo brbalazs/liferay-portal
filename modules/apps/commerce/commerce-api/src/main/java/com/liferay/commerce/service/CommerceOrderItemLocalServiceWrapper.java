@@ -685,12 +685,12 @@ public class CommerceOrderItemLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.model.CommerceOrderItem
 			updateCommerceOrderItemUnitPrice(
-				long commerceOrderItemId, java.math.BigDecimal unitPrice,
-				int quantity)
+				long userId, long commerceOrderItemId,
+				java.math.BigDecimal unitPrice, int quantity)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceOrderItemLocalService.updateCommerceOrderItemUnitPrice(
-			commerceOrderItemId, unitPrice, quantity);
+			userId, commerceOrderItemId, unitPrice, quantity);
 	}
 
 	@Override
