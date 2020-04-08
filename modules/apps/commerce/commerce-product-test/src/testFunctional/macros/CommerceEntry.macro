@@ -526,7 +526,7 @@ definition {
 			value1 = "${channelCurrency}");
 
 		AssertElementPresent(
-			key_menuTab = "${channelType}",
+			key_menuTab = "Type",
 			locator1 = "CommerceEntry#MENU_TAB");
 	}
 
