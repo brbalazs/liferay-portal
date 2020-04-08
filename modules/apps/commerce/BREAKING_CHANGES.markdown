@@ -20,7 +20,7 @@ Here are some of the types of changes documented in this file:
   replaces an old API, in spite of the old API being kept in Liferay Portal for
   backwards compatibility.
 
-*This document has been reviewed through commit ``.*
+*This document has been reviewed through commit `0a185c9`.*
 
 ## Breaking Changes Contribution Guidelines
 
@@ -73,7 +73,44 @@ in ascending chronological order.
 
 ## Breaking Changes List
 
-### `CPInstance` Entity Field `json` Is Replaced With New Entity `CPInstanceOptionValueRel`
+### Changed How to Get Booked Quantities
+- **Date:** 2020-Jan-28
+- **JIRA Ticket:** [Commerce-2866](https://issues.liferay.com/browse/COMMERCE-2866)
+
+#### What changed?
+
+The method `getCommerceBookedQuantity` inside the class
+`CommerceBookedQuantityLocalService` now requires two parameters instead of one.
+
+Old: `getCommerceBookedQuantity(String sku)`
+New: `getCommerceBookedQuantity(long companyId, String sku)`
+
+#### Who is affected?
+
+End Users: Booked quantity inventory counts may change.
+
+Developers: Inventory services usage will change.
+
+#### How should I update my code?
+
+Internal parent module usage:
+
+Every call to the method `getCommerceBookedQuantity(String sku)` should be
+replaced by the new method `getCommerceBookedQuantity(long companyId,
+String sku)`.
+
+#### Why was this change made?
+
+The breaking changes have been made, instead of following the deprecation
+process, because the old behavior was just wrong. When getting the inventory's
+booked quantity, the `CompanyId` was not being considered.
+
+The result may not have been valid in the case of multi-tenant systems. In this
+specific scenario, data was not separated between one instance and the others.
+
+---------------------------------------
+
+### CPInstance Entity Field json Is Replaced With New Entity CPInstanceOptionValueRel
 - **Date:** 2020-Feb-25
 - **JIRA Ticket:** [COMMERCE-2692](https://issues.liferay.com/browse/COMMERCE-2692)
 
@@ -89,10 +126,12 @@ Commerce CPInstace Service layer API and Helper classes.
 #### How should I update my code?
 
 Internal parent module usage:
+
 Use method
 `com.liferay.commerce.product.service.impl.CPDefinitionOptionRelLocalServiceImpl
 #getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(long, java.lang.String)`
 to supply option configuration for CPInstance creation.
+
 Use method
 `com.liferay.commerce.product.service.impl.
 CPInstanceOptionValueRelLocalServiceImpl#matchesCPInstanceOptionValueRels(long,
@@ -101,11 +140,13 @@ to compare a particular option combination with an existing instance option
 combination.
 
 Outter usage via CPInstanceHelper interface:
+
 Use method
 `com.liferay.commerce.product.internal.util.CPInstanceHelperImpl#
 getCPDefinitionOptionRelsMap(long, java.lang.String)`
 to pull all existing cpDefinitionOption and cpDefinitionOptionValue IDs from
 given JSON structure.
+
 Method is applicable to content of orderItem.json field.
 
 Use method
@@ -142,5 +183,94 @@ CPInstance.
 
 This change was introduced to implement Product Bundles and allow administrators
 to provide products with advanced pricing scenarios.
+
+---------------------------------------
+
+### Channels Refactor
+- **Date:** 2020-Mar-12
+- **JIRA Ticket:** [COMMERCE-2702](https://issues.liferay.com/browse/COMMERCE-2702)
+
+#### What changed?
+
+Payments, shipments, taxes, notifications, health checks, and commerce
+site-related configurations (site type, buyer order approval workflow, and
+seller order acceptance workflow) are now scoped to channels instead of sites.
+
+Affected entities:
+- `CommercePaymentMethodGroupRel`
+- `CommerceShippingMethod`
+- `CommerceNotificationTemplate`
+- `CommerceTaxMethod`
+
+#### Who is affected?
+
+Developers: Have to change the scope of custom code.
+
+#### How should I update my code?
+
+Any custom code has to be reviewed and aligned to the new scope. Changing scope
+means that those items are associated with their channel groupId instead of the
+site groupId.
+
+#### Why was this change made?
+
+This change has been made in order to have a flexible system where everything is
+associated with a channel so that there are no limitations related to sites.
+This is because a channel can be associated with a Liferay site or as an
+external integration. This change will help keep all configurations consistent
+across the whole platform.
+
+---------------------------------------
+
+### Concurrency Management for Inventory
+- **Date:** 2020-Mar-24
+- **JIRA Ticket:** [COMMERCE-2780](https://issues.liferay.com/browse/COMMERCE-2780)
+
+#### What changed?
+
+Any update action affecting:
+- `CommerceInventoryBookedQuantity`
+- `CommerceInventoryReplenishmentItem`
+- `CommerceInventoryWarehouse`
+- `CommerceInventoryWarehouseItem`
+
+now requires a new parameter `mvccVersion`, used for concurrency management.
+
+#### Who is affected?
+
+Developers: Inventory services usage will change.
+
+#### How should I update my code?
+
+Every call to methods that update the previous mentioned entities require a
+parameter `mvccVersion` used for concurrency management. The value to put in
+this parameter can be found in the entity itself.
+
+For example commerceInventoryWarehouse.getMvccVersion()
+
+#### Why was this change made?
+
+This change has been made in order to manage situations where a user tries to
+update an entity that has already been updated by another user while the first
+one was setting their changes.
+
+**Example:**
+- Given: An entity `commerceWarehouse` exists with an `mvccVersion` attribute
+  set to `1` and the `name` set to `WarehouseName`.
+- Two users access the `commerceWarehouse` entity.
+- The first one changes the entity with parameters:
+  - `name = "WarehouseNameChanged"`
+  - `mvccVersion = 1`
+
+- The system will update the `name` and automatically increase the `mvccVersion`
+  to `2`.
+- The second user then tries to change the entity with:
+  - `name = "WarehouseWithoutName"`
+  - `mvccVersion = 1`
+
+  This time the system will refuse to do the update because the second user is
+  trying to update an entity version that is no longer valid/available. This is
+  because the actual `mvccVersion` is `2` and the user is trying to update the
+  entity with `mvccVersion` is `1`.
 
 ---------------------------------------
