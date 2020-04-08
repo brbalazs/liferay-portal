@@ -20,14 +20,6 @@
 CPDefinitionOptionValueRelDisplayContext cpDefinitionOptionValueRelDisplayContext = (CPDefinitionOptionValueRelDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionValueRel();
-
-CPInstance cpInstance = cpDefinitionOptionValueRelDisplayContext.fetchCPInstance();
-
-long cpInstanceId = 0;
-
-if (cpInstance != null) {
-	cpInstanceId = cpInstance.getCPInstanceId();
-}
 %>
 
 <portlet:actionURL name="editProductDefinitionOptionValueRel" var="editProductDefinitionOptionValueRelActionURL" />
@@ -60,29 +52,6 @@ if (cpInstance != null) {
 					title='<%= LanguageUtil.get(request, "details") %>'
 				>
 					<%@ include file="/edit_definition_option_value_rel.jspf" %>
-				</commerce-ui:panel>
-
-				<commerce-ui:panel
-					title='<%= LanguageUtil.get(request, "linked-product") %>'
-				>
-					<aui:input id="cpInstanceId" label="product" name="cpInstanceId" type="number" value="<%= cpInstanceId %>" />
-
-					<aui:input name="quantity" />
-
-					<%
-					CommerceCurrency commerceCurrency = cpDefinitionOptionValueRelDisplayContext.getCommerceCurrency();
-
-					BigDecimal price = cpDefinitionOptionValueRel.getPrice();
-
-					if (price == null) {
-						price = BigDecimal.ZERO;
-					}
-					%>
-
-					<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(price) %>">
-						<aui:validator name="min">0</aui:validator>
-						<aui:validator name="number" />
-					</aui:input>
 				</commerce-ui:panel>
 
 				<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
