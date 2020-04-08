@@ -17,6 +17,7 @@ import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 
+import {AUTOCOMPLETE_VALUE_UPDATED} from '../../utilities/eventsDefinitions.es';
 import {
 	fetchParams,
 	showErrorNotification,
@@ -26,10 +27,10 @@ import {
 
 function Autocomplete(props) {
 	const [query, setQuery] = useState('');
-	const [label, setLabel] = useState('');
+	const [label, setLabel] = useState(props.initialLabel);
 	const [renderingCounter, updateRenderingCounter] = useState(0);
 	const [active, setActive] = useState(false);
-	const [value, setValue] = useState('');
+	const [value, setValue] = useState(props.initialValue);
 	const [items, updateItems] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const node = useRef();
@@ -51,7 +52,22 @@ function Autocomplete(props) {
 			});
 	};
 
-	const debouncedGetData = debounce(getData, 100);
+	useEffect(() => {
+		if (items && items.length === 1) {
+			const firstItem = items[0];
+			setValue(firstItem[props.itemsKey]);
+			setLabel(getSchemaString(firstItem, props.itemsLabel));
+		}
+	}, [items, props.itemsKey, props.itemsLabel]);
+
+	useEffect(() => {
+		Liferay.fire(AUTOCOMPLETE_VALUE_UPDATED, {
+			id: props.id,
+			value
+		});
+	}, [value, props.id]);
+
+	const debouncedGetData = debounce(getData, 50);
 	const memoizedGetData = useCallback(debouncedGetData, [
 		query,
 		props.apiUrl
@@ -89,11 +105,17 @@ function Autocomplete(props) {
 
 	return (
 		<ClayAutocomplete ref={node}>
-			<input name={props.inputName} type="hidden" value={value || ''} />
+			<input
+				id={props.inputId || props.inputName}
+				name={props.inputName}
+				type="hidden"
+				value={value || ''}
+			/>
 			<ClayAutocomplete.Input
 				onChange={event => {
 					setLabel(null);
 					setValue(null);
+
 					if (event.target.value !== query) {
 						setQuery(event.target.value);
 					}
@@ -102,12 +124,14 @@ function Autocomplete(props) {
 				value={label || query}
 			/>
 			{active && (
-				<ClayAutocomplete.DropDown active={active}>
+				<ClayAutocomplete.DropDown active={true}>
 					<div className="autocomplete-items" ref={dropdownNode}>
 						<ClayDropDown.ItemList className="mb-0">
 							{items && items.length === 0 && (
 								<ClayDropDown.Item className="disabled">
-									{Liferay.Language.get('no-results-were-found')}
+									{Liferay.Language.get(
+										'no-items-were-found'
+									)}
 								</ClayDropDown.Item>
 							)}
 							{items &&
@@ -124,6 +148,7 @@ function Autocomplete(props) {
 												)
 											);
 											setActive(false);
+											Liferay.fire();
 										}}
 										value={String(
 											getSchemaString(
@@ -144,6 +169,12 @@ function Autocomplete(props) {
 
 Autocomplete.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
+	initialLabel: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+		.isRequired,
+	initialValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+		.isRequired,
+	inputId: PropTypes.string,
 	inputName: PropTypes.string.isRequired,
 	inputPlaceholder: PropTypes.string,
 	itemsKey: PropTypes.string.isRequired,
@@ -154,6 +185,8 @@ Autocomplete.propTypes = {
 };
 
 Autocomplete.defaultProps = {
+	initialLabel: '',
+	initialValue: '',
 	inputPlaceholder: Liferay.Language.get('type-here')
 };
 

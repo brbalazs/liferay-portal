@@ -52,6 +52,51 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 					title='<%= LanguageUtil.get(request, "details") %>'
 				>
 					<%@ include file="/edit_definition_option_value_rel.jspf" %>
+
+					<div class="sheet-section">
+						<h3 class="sheet-subtitle"><%= LanguageUtil.get(request, "product-options") %></h3>
+
+						<div class="row">
+							<div class="col">
+								<label class="control-label" for="productSkuId"><%= LanguageUtil.get(request, "sku") %></label>
+
+								<div id="autocomplete-root"></div>
+							</div>
+
+							<div class="col-4">
+								<aui:input name="quantity" wrapperCssClass="mb-0" />
+							</div>
+
+							<div class="align-items-end col-auto d-flex">
+								<button class="btn btn-monospaced btn-secondary" id="remove-sku-button">
+									<clay:icon
+										symbol="trash"
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<aui:script require="commerce-frontend-js/components/autocomplete/entry.es as autocomplete, commerce-frontend-js/utilities/eventsDefinitions.es as events">
+						autocomplete.default('autocomplete', 'autocomplete-root', {
+							apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products/',
+							initialLabel: 'Initial Label',
+							initialValue: 'initial-value',
+							inputId: 'productSkuId',
+							inputName: '<%= renderResponse.getNamespace() %>cpInstanceId',
+							itemsKey: 'productId',
+							itemsLabel: 'externalReferenceCode'
+						});
+
+						Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, (e) => {
+							var quantityInput = document.getElementById('<%= renderResponse.getNamespace() %>quantity');
+							if(e.value) {
+								quantityInput.disabled = false;
+							} else {
+								quantityInput.disabled = true;
+							}
+						})
+					</aui:script>
 				</commerce-ui:panel>
 
 				<c:if test="<%= cpDefinitionOptionValueRelDisplayContext.hasCustomAttributesAvailable() %>">
@@ -67,9 +112,7 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 					</commerce-ui:panel>
 				</c:if>
 
-				<aui:button-row>
-					<aui:button cssClass="btn-lg" type="submit" value="save" />
-				</aui:button-row>
+				<aui:button cssClass="btn-lg ml-3" type="submit" value="save" />
 			</aui:form>
 		</commerce-ui:side-panel-content>
 	</c:otherwise>
