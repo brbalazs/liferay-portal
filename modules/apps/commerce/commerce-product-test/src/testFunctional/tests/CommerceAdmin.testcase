@@ -132,6 +132,8 @@ definition {
 			channelType = "Site",
 			siteName = "Guest");
 
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
 			panel = "Control Panel",
