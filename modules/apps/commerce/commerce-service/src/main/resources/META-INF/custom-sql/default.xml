@@ -97,7 +97,7 @@
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderFinder.findByG_U_C_O">
 		<![CDATA[
 			SELECT
-				DISTINCT CommerceOrder.*
+				DISTINCT {CommerceOrder.*}
 			FROM
 				User_
 			LEFT JOIN
@@ -136,7 +136,7 @@
 	<sql id="com.liferay.commerce.service.persistence.CommerceOrderFinder.findByG_U_C_O_S">
 		<![CDATA[
 			SELECT
-				DISTINCT CommerceOrder.*
+				DISTINCT {CommerceOrder.*}
 			FROM
 				CommerceOrder
 			WHERE
