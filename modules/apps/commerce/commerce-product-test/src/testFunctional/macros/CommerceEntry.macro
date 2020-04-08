@@ -79,7 +79,7 @@ definition {
 		Click(locator1 = "Button#ADD");
 
 		if (isSet(siteName)) {
-			
+
 			CommerceNavigator.gotoEntry(entryName = "${channelName}");
 
 			Click(
