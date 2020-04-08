@@ -588,9 +588,11 @@ definition {
 			locator1 = "CommerceEntry#NAME_FIELD",
 			value1 = "${optionName}");
 
-		AssertTextEquals(
-			locator1 = "CommerceEntry#DESCRIPTION_FIELD",
-			value1 = "${optionDescription}");
+		if(isSet(optionDescription)) {
+			AssertTextEquals(
+				locator1 = "CommerceEntry#DESCRIPTION_FIELD",
+				value1 = "${optionDescription}");
+		}
 	}
 
 	macro viewPriceListEntry {
