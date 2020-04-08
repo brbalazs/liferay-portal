@@ -157,6 +157,15 @@ definition {
 		}
 	}
 
+	macro commerceInitializersTearDown {
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
+
+		Site.deleteAllCP();
+	}
+
 	macro commerceStoreFrontSetUp {
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
