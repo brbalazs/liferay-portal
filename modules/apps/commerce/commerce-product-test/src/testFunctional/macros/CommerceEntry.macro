@@ -97,6 +97,8 @@ definition {
 				locator1 = "CommerceNavigation#CHOOSE_SITE_BUTTON");
 
 			SelectFrameTop(value1 = "relative=top");
+
+			Button.clickSave();
 		}
 
 		Pause(locator1 = "5000");
