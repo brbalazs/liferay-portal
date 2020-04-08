@@ -664,4 +664,12 @@ definition {
 		}
 	}
 
+	macro viewSpecificationLabelsEntries {
+		for (var specificationLabelsEntry : list "${specificationLabelsEntries}") {
+			AssertElementPresent(
+				key_rowEntry = "${specificationLabelsEntry}",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
+		}
+	}
+
 }
