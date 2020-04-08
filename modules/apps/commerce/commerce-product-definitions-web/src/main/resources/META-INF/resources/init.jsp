@@ -32,7 +32,6 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.asset.kernel.model.AssetRenderer" %><%@
 page import="com.liferay.commerce.constants.CPDefinitionInventoryConstants" %><%@
-page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
 page import="com.liferay.commerce.inventory.CPDefinitionInventoryEngine" %><%@
 page import="com.liferay.commerce.model.CPDAvailabilityEstimate" %><%@
 page import="com.liferay.commerce.model.CPDefinitionInventory" %><%@
@@ -122,8 +121,6 @@ page import="com.liferay.portal.kernel.util.UnicodeFormatter" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %>
-
-<%@ page import="java.math.BigDecimal" %>
 
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.Arrays" %><%@
