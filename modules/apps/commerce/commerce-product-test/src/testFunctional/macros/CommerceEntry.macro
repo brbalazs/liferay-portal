@@ -78,8 +78,6 @@ definition {
 
 		Click(locator1 = "Button#ADD");
 
-		AssertElementPresent(locator1 = "Message#SUCCESS");
-
 		if (isSet(siteName)) {
 			
 			CommerceNavigator.gotoEntry(entryName = "${channelName}");
