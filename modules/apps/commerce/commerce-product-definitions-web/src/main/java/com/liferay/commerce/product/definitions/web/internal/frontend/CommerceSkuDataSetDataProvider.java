@@ -22,12 +22,13 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.product.definitions.web.internal.model.Sku;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
-import com.liferay.commerce.product.util.JsonHelper;
+import com.liferay.commerce.product.util.DDMFormValuesUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -58,10 +59,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_INSTANCES,
+	property = "commerce.data.provider.key=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_SKUS,
 	service = CommerceDataSetDataProvider.class
 )
-public class CommerceProductInstanceDataSetDataProvider
+public class CommerceSkuDataSetDataProvider
 	implements CommerceDataSetDataProvider<Sku> {
 
 	@Override
@@ -103,6 +104,8 @@ public class CommerceProductInstanceDataSetDataProvider
 
 		Locale locale = _portal.getLocale(httpServletRequest);
 
+		String languageId = LanguageUtil.getLanguageId(locale);
+
 		List<CPInstance> cpInstances = _getCPInstances(
 			_portal.getCompanyId(httpServletRequest), cpDefinitionId,
 			defaultFilterImpl.getKeywords(), pagination.getStartPosition(),
@@ -115,17 +118,15 @@ public class CommerceProductInstanceDataSetDataProvider
 						getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
 							cpInstance.getCPInstanceId());
 
-			JSONArray keyValuesJSONArray = _jsonHelper.toJSONArray(
+			CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+			String cpDefinitionName = cpDefinition.getName(languageId);
+
+			JSONArray keyValuesJSONArray = DDMFormValuesUtil.toJSONArray(
 				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys);
 
 			int stockQuantity = _commerceInventoryEngine.getStockQuantity(
 				cpInstance.getCompanyId(), cpInstance.getSku());
-
-			String statusDisplayStyle = StringPool.BLANK;
-
-			if (cpInstance.getStatus() == WorkflowConstants.STATUS_APPROVED) {
-				statusDisplayStyle = "success";
-			}
 
 			skus.add(
 				new Sku(
@@ -134,10 +135,9 @@ public class CommerceProductInstanceDataSetDataProvider
 						_getOptions(
 							cpInstance.getCPDefinitionId(),
 							keyValuesJSONArray.toString(), locale)),
-					HtmlUtil.escape(_formatPrice(cpInstance, locale)), "",
-					stockQuantity,
+					HtmlUtil.escape(_formatPrice(cpInstance, locale)),
+					cpDefinitionName, stockQuantity,
 					new LabelField(
-						statusDisplayStyle,
 						LanguageUtil.get(
 							httpServletRequest,
 							WorkflowConstants.getStatusLabel(
@@ -216,9 +216,6 @@ public class CommerceProductInstanceDataSetDataProvider
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
-
-	@Reference
-	private JsonHelper _jsonHelper;
 
 	@Reference
 	private Portal _portal;
