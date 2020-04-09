@@ -310,7 +310,8 @@ public class CPTestUtil {
 		throws PortalException {
 
 		return addCPOption(
-			groupId, _getDefaultDDMFormFieldType(), skuContributor);
+			groupId, getDefaultDDMFormFieldType(skuContributor),
+			skuContributor);
 	}
 
 	public static List<CPDefinitionOptionRel> addCPOption(
@@ -385,6 +386,23 @@ public class CPTestUtil {
 			_getCPOptionConfiguration();
 
 		return cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
+	}
+
+	public static String getDefaultDDMFormFieldType(boolean skuContributor)
+		throws ConfigurationException {
+
+		CPOptionConfiguration cpOptionConfiguration =
+			_getCPOptionConfiguration();
+
+		String[] ddmFormFieldTypesAllowed =
+			cpOptionConfiguration.ddmFormFieldTypesAllowed();
+
+		if (skuContributor) {
+			ddmFormFieldTypesAllowed =
+				cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
+		}
+
+		return ddmFormFieldTypesAllowed[0];
 	}
 
 	public static CPDefinitionOptionValueRel
@@ -670,18 +688,6 @@ public class CPTestUtil {
 		return ConfigurationProviderUtil.getConfiguration(
 			CPOptionConfiguration.class,
 			new SystemSettingsLocator(CPConstants.CP_OPTION_SERVICE_NAME));
-	}
-
-	private static String _getDefaultDDMFormFieldType()
-		throws ConfigurationException {
-
-		CPOptionConfiguration cpOptionConfiguration =
-			_getCPOptionConfiguration();
-
-		String[] ddmFormFieldTypesAllowed =
-			cpOptionConfiguration.ddmFormFieldTypesAllowed();
-
-		return ddmFormFieldTypesAllowed[0];
 	}
 
 }
