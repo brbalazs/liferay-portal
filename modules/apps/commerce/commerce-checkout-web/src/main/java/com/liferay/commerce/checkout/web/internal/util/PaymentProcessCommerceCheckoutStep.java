@@ -141,7 +141,9 @@ public class PaymentProcessCommerceCheckoutStep
 
 		String redirect = _portal.escapeRedirect(paymentServletURL);
 
-		if (Validator.isNotNull(redirect)) {
+		if (Validator.isNotNull(redirect) &&
+			!originalHttpServletResponse.isCommitted()) {
+
 			originalHttpServletResponse.sendRedirect(redirect);
 		}
 
