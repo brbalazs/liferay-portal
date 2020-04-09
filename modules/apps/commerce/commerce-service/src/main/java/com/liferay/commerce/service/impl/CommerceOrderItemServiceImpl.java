@@ -397,6 +397,48 @@ public class CommerceOrderItemServiceImpl
 			discountPercentageLevel3, discountPercentageLevel4);
 	}
 
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemPrices(
+			long commerceOrderItemId, BigDecimal unitPrice,
+			BigDecimal promoPrice, BigDecimal discountAmount,
+			BigDecimal finalPrice, BigDecimal discountPercentageLevel1,
+			BigDecimal discountPercentageLevel2,
+			BigDecimal discountPercentageLevel3,
+			BigDecimal discountPercentageLevel4,
+			BigDecimal unitPriceWithTaxAmount,
+			BigDecimal promoPriceWithTaxAmount,
+			BigDecimal discountAmountWithTaxAmount,
+			BigDecimal finalPriceWithTaxAmount,
+			BigDecimal discountPercentageLevel1WithTaxAmount,
+			BigDecimal discountPercentageLevel2WithTaxAmount,
+			BigDecimal discountPercentageLevel3WithTaxAmount,
+			BigDecimal discountPercentageLevel4WithTaxAmount)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemLocalService.getCommerceOrderItem(
+				commerceOrderItemId);
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderItem.getCommerceOrderId(),
+			ActionKeys.UPDATE);
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_ORDER_PRICES);
+
+		return commerceOrderItemLocalService.updateCommerceOrderItemPrices(
+			commerceOrderItemId, unitPrice, promoPrice, discountAmount,
+			finalPrice, discountPercentageLevel1, discountPercentageLevel2,
+			discountPercentageLevel3, discountPercentageLevel4,
+			unitPriceWithTaxAmount, promoPriceWithTaxAmount,
+			discountAmountWithTaxAmount, finalPriceWithTaxAmount,
+			discountPercentageLevel1WithTaxAmount,
+			discountPercentageLevel2WithTaxAmount,
+			discountPercentageLevel3WithTaxAmount,
+			discountPercentageLevel4WithTaxAmount);
+	}
+
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */

@@ -171,9 +171,14 @@ public class CommerceOrderItemLocalServiceImpl
 
 			_setCommerceOrderItemPrice(
 				childCommerceOrderItem, commerceProductPrice);
+
 			_setCommerceOrderItemDiscountValue(
 				childCommerceOrderItem,
-				commerceProductPrice.getDiscountValue());
+				commerceProductPrice.getDiscountValue(), false);
+
+			_setCommerceOrderItemDiscountValue(
+				childCommerceOrderItem,
+				commerceProductPrice.getDiscountValueWithTaxAmount(), true);
 
 			commerceOrderItemPersistence.update(childCommerceOrderItem);
 		}
@@ -665,6 +670,53 @@ public class CommerceOrderItemLocalServiceImpl
 		return commerceOrderItemPersistence.update(commerceOrderItem);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemPrices(
+			long commerceOrderItemId, BigDecimal unitPrice,
+			BigDecimal promoPrice, BigDecimal discountAmount,
+			BigDecimal finalPrice, BigDecimal discountPercentageLevel1,
+			BigDecimal discountPercentageLevel2,
+			BigDecimal discountPercentageLevel3,
+			BigDecimal discountPercentageLevel4,
+			BigDecimal unitPriceWithTaxAmount,
+			BigDecimal promoPriceWithTaxAmount,
+			BigDecimal discountAmountWithTaxAmount,
+			BigDecimal finalPriceWithTaxAmount,
+			BigDecimal discountPercentageLevel1WithTaxAmount,
+			BigDecimal discountPercentageLevel2WithTaxAmount,
+			BigDecimal discountPercentageLevel3WithTaxAmount,
+			BigDecimal discountPercentageLevel4WithTaxAmount)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
+
+		commerceOrderItem.setUnitPrice(unitPrice);
+		commerceOrderItem.setPromoPrice(promoPrice);
+		commerceOrderItem.setDiscountAmount(discountAmount);
+		commerceOrderItem.setFinalPrice(finalPrice);
+		commerceOrderItem.setDiscountPercentageLevel1(discountPercentageLevel1);
+		commerceOrderItem.setDiscountPercentageLevel2(discountPercentageLevel2);
+		commerceOrderItem.setDiscountPercentageLevel3(discountPercentageLevel3);
+		commerceOrderItem.setDiscountPercentageLevel4(discountPercentageLevel4);
+		commerceOrderItem.setUnitPriceWithTaxAmount(unitPriceWithTaxAmount);
+		commerceOrderItem.setPromoPriceWithTaxAmount(promoPriceWithTaxAmount);
+		commerceOrderItem.setDiscountWithTaxAmount(discountAmountWithTaxAmount);
+		commerceOrderItem.setFinalPriceWithTaxAmount(finalPriceWithTaxAmount);
+		commerceOrderItem.setDiscountPercentageLevel1WithTaxAmount(
+			discountPercentageLevel1WithTaxAmount);
+		commerceOrderItem.setDiscountPercentageLevel2WithTaxAmount(
+			discountPercentageLevel2WithTaxAmount);
+		commerceOrderItem.setDiscountPercentageLevel3WithTaxAmount(
+			discountPercentageLevel3WithTaxAmount);
+		commerceOrderItem.setDiscountPercentageLevel4WithTaxAmount(
+			discountPercentageLevel4WithTaxAmount);
+		commerceOrderItem.setManuallyAdjusted(true);
+
+		return commerceOrderItemPersistence.update(commerceOrderItem);
+	}
+
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
@@ -942,7 +994,11 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setExpandoBridgeAttributes(serviceContext);
 
 		_setCommerceOrderItemDiscountValue(
-			commerceOrderItem, commerceProductPrice.getDiscountValue());
+			commerceOrderItem, commerceProductPrice.getDiscountValue(), false);
+
+		_setCommerceOrderItemDiscountValue(
+			commerceOrderItem,
+			commerceProductPrice.getDiscountValueWithTaxAmount(), true);
 
 		commerceOrderItem.setSubscription(_isSubscription(cpInstance));
 
@@ -1134,7 +1190,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 	private void _setCommerceOrderItemDiscountValue(
 		CommerceOrderItem commerceOrderItem,
-		CommerceDiscountValue commerceDiscountValue) {
+		CommerceDiscountValue commerceDiscountValue, boolean includeTax) {
 
 		BigDecimal discountAmount = BigDecimal.ZERO;
 		BigDecimal discountPercentageLevel1 = BigDecimal.ZERO;
@@ -1155,23 +1211,40 @@ public class CommerceOrderItemLocalServiceImpl
 			}
 
 			if (percentages.length >= 2) {
-				discountPercentageLevel1 = percentages[1];
+				discountPercentageLevel2 = percentages[1];
 			}
 
 			if (percentages.length >= 3) {
-				discountPercentageLevel1 = percentages[2];
+				discountPercentageLevel3 = percentages[2];
 			}
 
 			if (percentages.length >= 4) {
-				discountPercentageLevel1 = percentages[3];
+				discountPercentageLevel4 = percentages[3];
 			}
 		}
 
-		commerceOrderItem.setDiscountAmount(discountAmount);
-		commerceOrderItem.setDiscountPercentageLevel1(discountPercentageLevel1);
-		commerceOrderItem.setDiscountPercentageLevel2(discountPercentageLevel2);
-		commerceOrderItem.setDiscountPercentageLevel3(discountPercentageLevel3);
-		commerceOrderItem.setDiscountPercentageLevel4(discountPercentageLevel4);
+		if (includeTax) {
+			commerceOrderItem.setDiscountWithTaxAmount(discountAmount);
+			commerceOrderItem.setDiscountPercentageLevel1WithTaxAmount(
+				discountPercentageLevel1);
+			commerceOrderItem.setDiscountPercentageLevel2WithTaxAmount(
+				discountPercentageLevel2);
+			commerceOrderItem.setDiscountPercentageLevel3WithTaxAmount(
+				discountPercentageLevel3);
+			commerceOrderItem.setDiscountPercentageLevel4WithTaxAmount(
+				discountPercentageLevel4);
+		}
+		else {
+			commerceOrderItem.setDiscountAmount(discountAmount);
+			commerceOrderItem.setDiscountPercentageLevel1(
+				discountPercentageLevel1);
+			commerceOrderItem.setDiscountPercentageLevel2(
+				discountPercentageLevel2);
+			commerceOrderItem.setDiscountPercentageLevel3(
+				discountPercentageLevel3);
+			commerceOrderItem.setDiscountPercentageLevel4(
+				discountPercentageLevel4);
+		}
 	}
 
 	private void _setCommerceOrderItemPrice(
@@ -1183,19 +1256,38 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setUnitPrice(unitPriceMoney.getPrice());
 
 		BigDecimal promoPrice = BigDecimal.ZERO;
+		BigDecimal promoPriceWithTaxAmount = BigDecimal.ZERO;
 
 		CommerceMoney unitPromoPriceMoney =
 			commerceProductPrice.getUnitPromoPrice();
 
+		CommerceMoney unitPromoMoneyPriceWithTaxAmount =
+			commerceProductPrice.getUnitPromoPriceWithTaxAmount();
+
 		if (unitPromoPriceMoney != null) {
 			promoPrice = unitPromoPriceMoney.getPrice();
+			promoPriceWithTaxAmount =
+				unitPromoMoneyPriceWithTaxAmount.getPrice();
 		}
 
 		commerceOrderItem.setPromoPrice(promoPrice);
+		commerceOrderItem.setPromoPriceWithTaxAmount(promoPriceWithTaxAmount);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
 		commerceOrderItem.setFinalPrice(finalPriceMoney.getPrice());
+
+		CommerceMoney unitPriceMoneyWithTaxAmount =
+			commerceProductPrice.getUnitPriceWithTaxAmount();
+
+		commerceOrderItem.setUnitPriceWithTaxAmount(
+			unitPriceMoneyWithTaxAmount.getPrice());
+
+		CommerceMoney finalPriceMoneyWithTaxAmount =
+			commerceProductPrice.getFinalPriceWithTaxAmount();
+
+		commerceOrderItem.setFinalPriceWithTaxAmount(
+			finalPriceMoneyWithTaxAmount.getPrice());
 	}
 
 	private void _setCommerceOrderItemPrice(
@@ -1221,7 +1313,11 @@ public class CommerceOrderItemLocalServiceImpl
 		_setCommerceOrderItemPrice(commerceOrderItem, commerceProductPrice);
 
 		_setCommerceOrderItemDiscountValue(
-			commerceOrderItem, commerceProductPrice.getDiscountValue());
+			commerceOrderItem, commerceProductPrice.getDiscountValue(), false);
+
+		_setCommerceOrderItemDiscountValue(
+			commerceOrderItem,
+			commerceProductPrice.getDiscountValueWithTaxAmount(), true);
 	}
 
 	private CommerceOrderItem _updateCommerceOrderItem(
@@ -1255,7 +1351,11 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setExpandoBridgeAttributes(serviceContext);
 
 		_setCommerceOrderItemDiscountValue(
-			commerceOrderItem, commerceProductPrice.getDiscountValue());
+			commerceOrderItem, commerceProductPrice.getDiscountValue(), false);
+
+		_setCommerceOrderItemDiscountValue(
+			commerceOrderItem,
+			commerceProductPrice.getDiscountValueWithTaxAmount(), true);
 
 		commerceOrderItem = commerceOrderItemPersistence.update(
 			commerceOrderItem);
