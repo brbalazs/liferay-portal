@@ -67,7 +67,7 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 						<aui:validator name="min">0</aui:validator>
 						<aui:validator name="number" />
 					</aui:input>
-					
+
 					<div class="sheet-section">
 						<h3 class="sheet-subtitle"><%= LanguageUtil.get(request, "product-options") %></h3>
 
@@ -105,10 +105,14 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 
 						Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, (e) => {
 							var quantityInput = document.getElementById('<%= renderResponse.getNamespace() %>quantity');
+							var deleteButton = document.getElementById('remove-sku-button');
+
 							if(e.value) {
 								quantityInput.disabled = false;
+								deleteButton.disabled = false;
 							} else {
 								quantityInput.disabled = true;
+								deleteButton.disabled = true;
 							}
 						})
 					</aui:script>
