@@ -171,6 +171,36 @@ definition {
 		Site.deleteAllCP();
 	}
 
+	macro commerceCatalogsTearDown {
+		var catalogsList = "";
+		
+		var count = "1";
+
+		while(IsElementPresent(key_rowNumber = "${count}", locator1 = "CommerceNavigation#ENTRY_NAME_N")) {
+			var key_rowNumber = "${count}";
+
+			var entryName = selenium.getText("CommerceNavigation#ENTRY_NAME_N");
+
+			if("${entryName}" != "Master") {
+				catalogsList = StringUtil.add("${catalogsList}", "${entryName}");
+			}
+
+			var count = ${count} + 1;
+		}
+
+		for (var catalogName : list "${catalogsList}") {
+			ClickNoError(
+				key_entryName = "${catalogName}",
+				locator1 = "CommerceEntry#ENTRY_NAME_BODY_VERTICAL_ELLIPSIS");
+
+			CommerceEntry.clickNoError(menuItem = "Delete");
+
+			AssertElementPresent(locator1 = "Message#SUCCESS");
+
+			AssertElementNotPresent(locator1 = "Message#ERROR");
+		}
+	}
+
 	macro commerceStoreFrontSetUp {
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
