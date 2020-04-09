@@ -104,7 +104,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 		Map<Long, List<CommerceOrderValidatorResult>>
 			commerceOrderValidatorResultMap = null;
 
-		if (!baseModelSearchResult.getBaseModels().isEmpty()) {
+		if (!commerceOrderItems.isEmpty()) {
 			CommerceOrderItem firstCommerceOrderItem = commerceOrderItems.get(
 				0);
 
