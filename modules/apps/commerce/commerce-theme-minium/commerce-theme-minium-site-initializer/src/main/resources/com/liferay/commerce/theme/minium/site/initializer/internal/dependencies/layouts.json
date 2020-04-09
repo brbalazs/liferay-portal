@@ -64,7 +64,8 @@
 						"portletPreferences": {
 							"cpContentListRendererKey": "list-minium",
 							"dataSource": "assetCategoriesAndTagsDataSource",
-							"groupe--cpTypeListEntryRendererKey": "list-entry-minium",
+							"grouped--cpTypeListEntryRendererKey": "list-entry-minium",
+							"paginationDelta": 5,
 							"renderSelection": "custom",
 							"selectionStyle": "dataSource",
 							"simple--cpTypeListEntryRendererKey": "list-entry-minium",
