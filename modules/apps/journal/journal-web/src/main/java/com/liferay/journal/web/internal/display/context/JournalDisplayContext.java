@@ -1267,9 +1267,7 @@ public class JournalDisplayContext {
 				else if (Objects.equals(getOrderByCol(), "title")) {
 					sort = new Sort(
 						Field.getSortableFieldName(
-							"localized_title_".concat(
-								LocaleUtil.toLanguageId(
-									_themeDisplay.getLocale()))),
+							"localized_title_" + _themeDisplay.getLanguageId()),
 						!orderByAsc);
 				}
 
