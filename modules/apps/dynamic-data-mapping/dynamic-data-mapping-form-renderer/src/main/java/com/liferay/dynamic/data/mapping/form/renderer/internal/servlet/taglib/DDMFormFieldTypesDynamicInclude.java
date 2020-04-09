@@ -38,12 +38,13 @@ public class DDMFormFieldTypesDynamicInclude
 
 	@Override
 	public void include(
-			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-			String key)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, String key)
 		throws IOException {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
 		if (themeDisplay.isAjax()) {
 			include(httpServletResponse);
