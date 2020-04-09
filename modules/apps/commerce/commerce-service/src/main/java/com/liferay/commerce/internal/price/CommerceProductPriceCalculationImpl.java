@@ -24,7 +24,6 @@ import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.commerce.price.CommerceOptionValue;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
@@ -37,6 +36,7 @@ import com.liferay.commerce.price.list.service.CommerceTierPriceEntryLocalServic
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
