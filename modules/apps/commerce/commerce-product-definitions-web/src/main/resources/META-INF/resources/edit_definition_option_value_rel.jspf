@@ -36,21 +36,6 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 
 <aui:input helpMessage="key-help" name="key" />
 
-<%
-CommerceCurrency commerceCurrency = cpDefinitionOptionValueRelDisplayContext.getCommerceCurrency();
-
-BigDecimal price = cpDefinitionOptionValueRel.getPrice();
-
-if (price == null) {
-	price = BigDecimal.ZERO;
-}
-%>
-
-<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(price) %>">
-	<aui:validator name="min">0</aui:validator>
-	<aui:validator name="number" />
-</aui:input>
-
 <c:if test="<%= cpDefinitionOptionValueRel == null %>">
 	<aui:script require="commerce-frontend-js/utilities/index.es as utilities">
 		function slugify(string) {

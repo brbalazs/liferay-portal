@@ -53,6 +53,21 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 				>
 					<%@ include file="/edit_definition_option_value_rel.jspf" %>
 
+					<%
+					CommerceCurrency commerceCurrency = cpDefinitionOptionValueRelDisplayContext.getCommerceCurrency();
+
+					BigDecimal price = cpDefinitionOptionValueRel.getPrice();
+
+					if (price == null) {
+						price = BigDecimal.ZERO;
+					}
+					%>
+
+					<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(price) %>">
+						<aui:validator name="min">0</aui:validator>
+						<aui:validator name="number" />
+					</aui:input>
+					
 					<div class="sheet-section">
 						<h3 class="sheet-subtitle"><%= LanguageUtil.get(request, "product-options") %></h3>
 
