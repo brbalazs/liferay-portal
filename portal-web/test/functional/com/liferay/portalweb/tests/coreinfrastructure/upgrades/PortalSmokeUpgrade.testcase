@@ -60,7 +60,6 @@ definition {
 
 	@priority = "5"
 	test ViewPortalSmokeArchive7110 {
-		property app.server.types = "jboss,resin,tcserver,weblogic,websphere,wildfly";
 		property data.archive.type = "data-archive-portal";
 		property portal.upgrades = "true";
 		property portal.version = "7.1.10";
