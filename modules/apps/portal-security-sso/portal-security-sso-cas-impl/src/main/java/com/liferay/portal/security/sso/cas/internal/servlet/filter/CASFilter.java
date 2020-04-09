@@ -14,6 +14,7 @@
 
 package com.liferay.portal.security.sso.cas.internal.servlet.filter;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
@@ -243,9 +244,20 @@ public class CASFilter extends BaseFilter {
 			assertion = ticketValidator.validate(ticket, serviceURL);
 		}
 		catch (TicketValidationException ticketValidationException) {
-			_log.error(ticketValidationException, ticketValidationException);
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					ticketValidationException.getMessage(),
+					ticketValidationException);
+			}
+			else if (_log.isInfoEnabled()) {
+				_log.info(ticketValidationException.getMessage());
+			}
 
-			_portal.sendError(ticketValidationException, request, response);
+			_portal.sendError(
+				new PortalException(
+					"Error occured whilst validating CAS ticket: " + ticket,
+					ticketValidationException),
+				request, response);
 
 			return;
 		}
