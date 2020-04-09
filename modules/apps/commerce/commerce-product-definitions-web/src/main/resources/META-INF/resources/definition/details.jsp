@@ -71,19 +71,31 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 			<commerce-ui:panel
 				title='<%= LanguageUtil.get(request, "details") %>'
 			>
-				<aui:select disabled="<%= cpDefinition != null %>" label="catalog" name="commerceCatalogGroupId" required="<%= true %>" showEmptyOption="<%= true %>">
+				<c:choose>
+					<c:when test="<%= (cpDefinition != null) || ((cpDefinition == null) && (commerceCatalogs.size() > 1)) %>">
+						<aui:select disabled="<%= cpDefinition != null %>" label="catalog" name="commerceCatalogGroupId" required="<%= true %>">
 
-					<%
-					for (CommerceCatalog commerceCatalog : commerceCatalogs) {
-					%>
+							<%
+							for (CommerceCatalog commerceCatalog : commerceCatalogs) {
+							%>
 
-						<aui:option label="<%= commerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(commerceCatalog) %>" value="<%= commerceCatalog.getGroupId() %>" />
+								<aui:option label="<%= commerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(commerceCatalog) %>" value="<%= commerceCatalog.getGroupId() %>" />
 
-					<%
-					}
-					%>
+							<%
+							}
+							%>
 
-				</aui:select>
+						</aui:select>
+					</c:when>
+					<c:otherwise>
+
+						<%
+						CommerceCatalog commerceCatalog = commerceCatalogs.get(0);
+						%>
+
+						<aui:input name="commerceCatalogGroupId" type="hidden" value="<%= commerceCatalog.getGroupId() %>" />
+					</c:otherwise>
+				</c:choose>
 
 				<aui:input autoFocus="<%= true %>" label="name" localized="<%= true %>" name="nameMapAsXML" type="text">
 					<aui:validator name="required" />
