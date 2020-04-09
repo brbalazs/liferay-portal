@@ -406,6 +406,24 @@ public interface CommerceOrderItemLocalService
 			BigDecimal discountPercentageLevel4)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrderItem updateCommerceOrderItemPrices(
+			long commerceOrderItemId, BigDecimal unitPrice,
+			BigDecimal promoPrice, BigDecimal discountAmount,
+			BigDecimal finalPrice, BigDecimal discountPercentageLevel1,
+			BigDecimal discountPercentageLevel2,
+			BigDecimal discountPercentageLevel3,
+			BigDecimal discountPercentageLevel4,
+			BigDecimal unitPriceWithTaxAmount,
+			BigDecimal promoPriceWithTaxAmount,
+			BigDecimal discountAmountWithTaxAmount,
+			BigDecimal finalPriceWithTaxAmount,
+			BigDecimal discountPercentageLevel1WithTaxAmount,
+			BigDecimal discountPercentageLevel2WithTaxAmount,
+			BigDecimal discountPercentageLevel3WithTaxAmount,
+			BigDecimal discountPercentageLevel4WithTaxAmount)
+		throws PortalException;
+
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */

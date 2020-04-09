@@ -1155,4 +1155,7 @@ public interface CommerceOrderItemPersistence
 	 */
 	public int countAll();
 
+	@Override
+	public Set<String> getBadColumnNames();
+
 }

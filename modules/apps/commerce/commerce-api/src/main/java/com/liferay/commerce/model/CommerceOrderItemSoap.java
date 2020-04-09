@@ -42,6 +42,7 @@ public class CommerceOrderItemSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setCommerceOrderId(model.getCommerceOrderId());
+		soapModel.setCommercePriceListId(model.getCommercePriceListId());
 		soapModel.setCProductId(model.getCProductId());
 		soapModel.setCPInstanceId(model.getCPInstanceId());
 		soapModel.setParentCommerceOrderItemId(
@@ -63,6 +64,20 @@ public class CommerceOrderItemSoap implements Serializable {
 			model.getDiscountPercentageLevel3());
 		soapModel.setDiscountPercentageLevel4(
 			model.getDiscountPercentageLevel4());
+		soapModel.setUnitPriceWithTaxAmount(model.getUnitPriceWithTaxAmount());
+		soapModel.setPromoPriceWithTaxAmount(
+			model.getPromoPriceWithTaxAmount());
+		soapModel.setDiscountWithTaxAmount(model.getDiscountWithTaxAmount());
+		soapModel.setFinalPriceWithTaxAmount(
+			model.getFinalPriceWithTaxAmount());
+		soapModel.setDiscountPercentageLevel1WithTaxAmount(
+			model.getDiscountPercentageLevel1WithTaxAmount());
+		soapModel.setDiscountPercentageLevel2WithTaxAmount(
+			model.getDiscountPercentageLevel2WithTaxAmount());
+		soapModel.setDiscountPercentageLevel3WithTaxAmount(
+			model.getDiscountPercentageLevel3WithTaxAmount());
+		soapModel.setDiscountPercentageLevel4WithTaxAmount(
+			model.getDiscountPercentageLevel4WithTaxAmount());
 		soapModel.setSubscription(model.isSubscription());
 		soapModel.setDeliveryGroup(model.getDeliveryGroup());
 		soapModel.setShippingAddressId(model.getShippingAddressId());
@@ -203,6 +218,14 @@ public class CommerceOrderItemSoap implements Serializable {
 		_commerceOrderId = commerceOrderId;
 	}
 
+	public long getCommercePriceListId() {
+		return _commercePriceListId;
+	}
+
+	public void setCommercePriceListId(long commercePriceListId) {
+		_commercePriceListId = commercePriceListId;
+	}
+
 	public long getCProductId() {
 		return _CProductId;
 	}
@@ -339,6 +362,82 @@ public class CommerceOrderItemSoap implements Serializable {
 		_discountPercentageLevel4 = discountPercentageLevel4;
 	}
 
+	public BigDecimal getUnitPriceWithTaxAmount() {
+		return _unitPriceWithTaxAmount;
+	}
+
+	public void setUnitPriceWithTaxAmount(BigDecimal unitPriceWithTaxAmount) {
+		_unitPriceWithTaxAmount = unitPriceWithTaxAmount;
+	}
+
+	public BigDecimal getPromoPriceWithTaxAmount() {
+		return _promoPriceWithTaxAmount;
+	}
+
+	public void setPromoPriceWithTaxAmount(BigDecimal promoPriceWithTaxAmount) {
+		_promoPriceWithTaxAmount = promoPriceWithTaxAmount;
+	}
+
+	public BigDecimal getDiscountWithTaxAmount() {
+		return _discountWithTaxAmount;
+	}
+
+	public void setDiscountWithTaxAmount(BigDecimal discountWithTaxAmount) {
+		_discountWithTaxAmount = discountWithTaxAmount;
+	}
+
+	public BigDecimal getFinalPriceWithTaxAmount() {
+		return _finalPriceWithTaxAmount;
+	}
+
+	public void setFinalPriceWithTaxAmount(BigDecimal finalPriceWithTaxAmount) {
+		_finalPriceWithTaxAmount = finalPriceWithTaxAmount;
+	}
+
+	public BigDecimal getDiscountPercentageLevel1WithTaxAmount() {
+		return _discountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setDiscountPercentageLevel1WithTaxAmount(
+		BigDecimal discountPercentageLevel1WithTaxAmount) {
+
+		_discountPercentageLevel1WithTaxAmount =
+			discountPercentageLevel1WithTaxAmount;
+	}
+
+	public BigDecimal getDiscountPercentageLevel2WithTaxAmount() {
+		return _discountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setDiscountPercentageLevel2WithTaxAmount(
+		BigDecimal discountPercentageLevel2WithTaxAmount) {
+
+		_discountPercentageLevel2WithTaxAmount =
+			discountPercentageLevel2WithTaxAmount;
+	}
+
+	public BigDecimal getDiscountPercentageLevel3WithTaxAmount() {
+		return _discountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setDiscountPercentageLevel3WithTaxAmount(
+		BigDecimal discountPercentageLevel3WithTaxAmount) {
+
+		_discountPercentageLevel3WithTaxAmount =
+			discountPercentageLevel3WithTaxAmount;
+	}
+
+	public BigDecimal getDiscountPercentageLevel4WithTaxAmount() {
+		return _discountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setDiscountPercentageLevel4WithTaxAmount(
+		BigDecimal discountPercentageLevel4WithTaxAmount) {
+
+		_discountPercentageLevel4WithTaxAmount =
+			discountPercentageLevel4WithTaxAmount;
+	}
+
 	public boolean getSubscription() {
 		return _subscription;
 	}
@@ -412,6 +511,7 @@ public class CommerceOrderItemSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _commerceOrderId;
+	private long _commercePriceListId;
 	private long _CProductId;
 	private long _CPInstanceId;
 	private long _parentCommerceOrderItemId;
@@ -428,6 +528,14 @@ public class CommerceOrderItemSoap implements Serializable {
 	private BigDecimal _discountPercentageLevel2;
 	private BigDecimal _discountPercentageLevel3;
 	private BigDecimal _discountPercentageLevel4;
+	private BigDecimal _unitPriceWithTaxAmount;
+	private BigDecimal _promoPriceWithTaxAmount;
+	private BigDecimal _discountWithTaxAmount;
+	private BigDecimal _finalPriceWithTaxAmount;
+	private BigDecimal _discountPercentageLevel1WithTaxAmount;
+	private BigDecimal _discountPercentageLevel2WithTaxAmount;
+	private BigDecimal _discountPercentageLevel3WithTaxAmount;
+	private BigDecimal _discountPercentageLevel4WithTaxAmount;
 	private boolean _subscription;
 	private String _deliveryGroup;
 	private long _shippingAddressId;

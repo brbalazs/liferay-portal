@@ -7254,6 +7254,42 @@ public class CommerceOrderPersistenceImpl
 		dbColumnNames.put(
 			"shippingDiscountPercentageLevel4",
 			"shippingDiscountPercentLevel4");
+		dbColumnNames.put(
+			"subtotalDiscountPercentageLevel1WithTaxAmount",
+			"subtotalDiscountPctLev1WithTax");
+		dbColumnNames.put(
+			"subtotalDiscountPercentageLevel2WithTaxAmount",
+			"subtotalDiscountPctLev2WithTax");
+		dbColumnNames.put(
+			"subtotalDiscountPercentageLevel3WithTaxAmount",
+			"subtotalDiscountPctLev3WithTax");
+		dbColumnNames.put(
+			"subtotalDiscountPercentageLevel4WithTaxAmount",
+			"subtotalDiscountPctLev4WithTax");
+		dbColumnNames.put(
+			"shippingDiscountPercentageLevel1WithTaxAmount",
+			"shippingDiscountPctLev1WithTax");
+		dbColumnNames.put(
+			"shippingDiscountPercentageLevel2WithTaxAmount",
+			"shippingDiscountPctLev2WithTax");
+		dbColumnNames.put(
+			"shippingDiscountPercentageLevel3WithTaxAmount",
+			"shippingDiscountPctLev3WithTax");
+		dbColumnNames.put(
+			"shippingDiscountPercentageLevel4WithTaxAmount",
+			"shippingDiscountPctLev4WithTax");
+		dbColumnNames.put(
+			"totalDiscountPercentageLevel1WithTaxAmount",
+			"totalDiscountPctLev1WithTax");
+		dbColumnNames.put(
+			"totalDiscountPercentageLevel2WithTaxAmount",
+			"totalDiscountPctLev2WithTax");
+		dbColumnNames.put(
+			"totalDiscountPercentageLevel3WithTaxAmount",
+			"totalDiscountPctLev3WithTax");
+		dbColumnNames.put(
+			"totalDiscountPercentageLevel4WithTaxAmount",
+			"totalDiscountPctLev4WithTax");
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
@@ -8808,7 +8844,19 @@ public class CommerceOrderPersistenceImpl
 			"shippingDiscountPercentageLevel1",
 			"shippingDiscountPercentageLevel2",
 			"shippingDiscountPercentageLevel3",
-			"shippingDiscountPercentageLevel4"
+			"shippingDiscountPercentageLevel4",
+			"subtotalDiscountPercentageLevel1WithTaxAmount",
+			"subtotalDiscountPercentageLevel2WithTaxAmount",
+			"subtotalDiscountPercentageLevel3WithTaxAmount",
+			"subtotalDiscountPercentageLevel4WithTaxAmount",
+			"shippingDiscountPercentageLevel1WithTaxAmount",
+			"shippingDiscountPercentageLevel2WithTaxAmount",
+			"shippingDiscountPercentageLevel3WithTaxAmount",
+			"shippingDiscountPercentageLevel4WithTaxAmount",
+			"totalDiscountPercentageLevel1WithTaxAmount",
+			"totalDiscountPercentageLevel2WithTaxAmount",
+			"totalDiscountPercentageLevel3WithTaxAmount",
+			"totalDiscountPercentageLevel4WithTaxAmount"
 		});
 
 }

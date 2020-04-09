@@ -144,6 +144,8 @@ public class CommerceOrderItemPersistenceTest {
 
 		newCommerceOrderItem.setCommerceOrderId(RandomTestUtil.nextLong());
 
+		newCommerceOrderItem.setCommercePriceListId(RandomTestUtil.nextLong());
+
 		newCommerceOrderItem.setCProductId(RandomTestUtil.nextLong());
 
 		newCommerceOrderItem.setCPInstanceId(RandomTestUtil.nextLong());
@@ -183,6 +185,30 @@ public class CommerceOrderItemPersistenceTest {
 			new BigDecimal(RandomTestUtil.nextDouble()));
 
 		newCommerceOrderItem.setDiscountPercentageLevel4(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setUnitPriceWithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setPromoPriceWithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountWithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setFinalPriceWithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountPercentageLevel1WithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountPercentageLevel2WithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountPercentageLevel3WithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountPercentageLevel4WithTaxAmount(
 			new BigDecimal(RandomTestUtil.nextDouble()));
 
 		newCommerceOrderItem.setSubscription(RandomTestUtil.randomBoolean());
@@ -234,6 +260,9 @@ public class CommerceOrderItemPersistenceTest {
 			existingCommerceOrderItem.getCommerceOrderId(),
 			newCommerceOrderItem.getCommerceOrderId());
 		Assert.assertEquals(
+			existingCommerceOrderItem.getCommercePriceListId(),
+			newCommerceOrderItem.getCommercePriceListId());
+		Assert.assertEquals(
 			existingCommerceOrderItem.getCProductId(),
 			newCommerceOrderItem.getCProductId());
 		Assert.assertEquals(
@@ -280,6 +309,34 @@ public class CommerceOrderItemPersistenceTest {
 		Assert.assertEquals(
 			existingCommerceOrderItem.getDiscountPercentageLevel4(),
 			newCommerceOrderItem.getDiscountPercentageLevel4());
+		Assert.assertEquals(
+			existingCommerceOrderItem.getUnitPriceWithTaxAmount(),
+			newCommerceOrderItem.getUnitPriceWithTaxAmount());
+		Assert.assertEquals(
+			existingCommerceOrderItem.getPromoPriceWithTaxAmount(),
+			newCommerceOrderItem.getPromoPriceWithTaxAmount());
+		Assert.assertEquals(
+			existingCommerceOrderItem.getDiscountWithTaxAmount(),
+			newCommerceOrderItem.getDiscountWithTaxAmount());
+		Assert.assertEquals(
+			existingCommerceOrderItem.getFinalPriceWithTaxAmount(),
+			newCommerceOrderItem.getFinalPriceWithTaxAmount());
+		Assert.assertEquals(
+			existingCommerceOrderItem.
+				getDiscountPercentageLevel1WithTaxAmount(),
+			newCommerceOrderItem.getDiscountPercentageLevel1WithTaxAmount());
+		Assert.assertEquals(
+			existingCommerceOrderItem.
+				getDiscountPercentageLevel2WithTaxAmount(),
+			newCommerceOrderItem.getDiscountPercentageLevel2WithTaxAmount());
+		Assert.assertEquals(
+			existingCommerceOrderItem.
+				getDiscountPercentageLevel3WithTaxAmount(),
+			newCommerceOrderItem.getDiscountPercentageLevel3WithTaxAmount());
+		Assert.assertEquals(
+			existingCommerceOrderItem.
+				getDiscountPercentageLevel4WithTaxAmount(),
+			newCommerceOrderItem.getDiscountPercentageLevel4WithTaxAmount());
 		Assert.assertEquals(
 			existingCommerceOrderItem.isSubscription(),
 			newCommerceOrderItem.isSubscription());
@@ -394,13 +451,19 @@ public class CommerceOrderItemPersistenceTest {
 			"CommerceOrderItem", "externalReferenceCode", true,
 			"commerceOrderItemId", true, "groupId", true, "companyId", true,
 			"userId", true, "userName", true, "createDate", true,
-			"modifiedDate", true, "commerceOrderId", true, "CProductId", true,
-			"CPInstanceId", true, "parentCommerceOrderItemId", true, "quantity",
-			true, "shippedQuantity", true, "name", true, "sku", true,
-			"unitPrice", true, "promoPrice", true, "discountAmount", true,
-			"finalPrice", true, "discountPercentageLevel1", true,
-			"discountPercentageLevel2", true, "discountPercentageLevel3", true,
-			"discountPercentageLevel4", true, "subscription", true,
+			"modifiedDate", true, "commerceOrderId", true,
+			"commercePriceListId", true, "CProductId", true, "CPInstanceId",
+			true, "parentCommerceOrderItemId", true, "quantity", true,
+			"shippedQuantity", true, "name", true, "sku", true, "unitPrice",
+			true, "promoPrice", true, "discountAmount", true, "finalPrice",
+			true, "discountPercentageLevel1", true, "discountPercentageLevel2",
+			true, "discountPercentageLevel3", true, "discountPercentageLevel4",
+			true, "unitPriceWithTaxAmount", true, "promoPriceWithTaxAmount",
+			true, "discountWithTaxAmount", true, "finalPriceWithTaxAmount",
+			true, "discountPercentageLevel1WithTaxAmount", true,
+			"discountPercentageLevel2WithTaxAmount", true,
+			"discountPercentageLevel3WithTaxAmount", true,
+			"discountPercentageLevel4WithTaxAmount", true, "subscription", true,
 			"deliveryGroup", true, "shippingAddressId", true, "printedNote",
 			true, "requestedDeliveryDate", true, "bookedQuantityId", true,
 			"manuallyAdjusted", true);
@@ -676,6 +739,8 @@ public class CommerceOrderItemPersistenceTest {
 
 		commerceOrderItem.setCommerceOrderId(RandomTestUtil.nextLong());
 
+		commerceOrderItem.setCommercePriceListId(RandomTestUtil.nextLong());
+
 		commerceOrderItem.setCProductId(RandomTestUtil.nextLong());
 
 		commerceOrderItem.setCPInstanceId(RandomTestUtil.nextLong());
@@ -715,6 +780,30 @@ public class CommerceOrderItemPersistenceTest {
 			new BigDecimal(RandomTestUtil.nextDouble()));
 
 		commerceOrderItem.setDiscountPercentageLevel4(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setUnitPriceWithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setPromoPriceWithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountWithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setFinalPriceWithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountPercentageLevel1WithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountPercentageLevel2WithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountPercentageLevel3WithTaxAmount(
+			new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountPercentageLevel4WithTaxAmount(
 			new BigDecimal(RandomTestUtil.nextDouble()));
 
 		commerceOrderItem.setSubscription(RandomTestUtil.randomBoolean());

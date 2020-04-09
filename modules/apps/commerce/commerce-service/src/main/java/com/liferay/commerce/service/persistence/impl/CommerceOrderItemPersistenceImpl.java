@@ -34,12 +34,14 @@ import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -3768,6 +3770,35 @@ public class CommerceOrderItemPersistenceImpl
 
 	public CommerceOrderItemPersistenceImpl() {
 		setModelClass(CommerceOrderItem.class);
+
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put(
+			"discountPercentageLevel1WithTaxAmount",
+			"discountPctLevel1WithTaxAmount");
+		dbColumnNames.put(
+			"discountPercentageLevel2WithTaxAmount",
+			"discountPctLevel2WithTaxAmount");
+		dbColumnNames.put(
+			"discountPercentageLevel3WithTaxAmount",
+			"discountPctLevel3WithTaxAmount");
+		dbColumnNames.put(
+			"discountPercentageLevel4WithTaxAmount",
+			"discountPctLevel4WithTaxAmount");
+
+		try {
+			Field field = BasePersistenceImpl.class.getDeclaredField(
+				"_dbColumnNames");
+
+			field.setAccessible(true);
+
+			field.set(this, dbColumnNames);
+		}
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception, exception);
+			}
+		}
 	}
 
 	/**
@@ -4733,6 +4764,11 @@ public class CommerceOrderItemPersistenceImpl
 	}
 
 	@Override
+	public Set<String> getBadColumnNames() {
+		return _badColumnNames;
+	}
+
+	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return CommerceOrderItemModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -4987,5 +5023,13 @@ public class CommerceOrderItemPersistenceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderItemPersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {
+			"discountPercentageLevel1WithTaxAmount",
+			"discountPercentageLevel2WithTaxAmount",
+			"discountPercentageLevel3WithTaxAmount",
+			"discountPercentageLevel4WithTaxAmount"
+		});
 
 }

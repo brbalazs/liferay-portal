@@ -1040,6 +1040,71 @@ public class CommerceOrderItemServiceHttp {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderItem
+			updateCommerceOrderItemPrices(
+				HttpPrincipal httpPrincipal, long commerceOrderItemId,
+				java.math.BigDecimal unitPrice, java.math.BigDecimal promoPrice,
+				java.math.BigDecimal discountAmount,
+				java.math.BigDecimal finalPrice,
+				java.math.BigDecimal discountPercentageLevel1,
+				java.math.BigDecimal discountPercentageLevel2,
+				java.math.BigDecimal discountPercentageLevel3,
+				java.math.BigDecimal discountPercentageLevel4,
+				java.math.BigDecimal unitPriceWithTaxAmount,
+				java.math.BigDecimal promoPriceWithTaxAmount,
+				java.math.BigDecimal discountAmountWithTaxAmount,
+				java.math.BigDecimal finalPriceWithTaxAmount,
+				java.math.BigDecimal discountPercentageLevel1WithTaxAmount,
+				java.math.BigDecimal discountPercentageLevel2WithTaxAmount,
+				java.math.BigDecimal discountPercentageLevel3WithTaxAmount,
+				java.math.BigDecimal discountPercentageLevel4WithTaxAmount)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceOrderItemServiceUtil.class,
+				"updateCommerceOrderItemPrices",
+				_updateCommerceOrderItemPricesParameterTypes23);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceOrderItemId, unitPrice, promoPrice,
+				discountAmount, finalPrice, discountPercentageLevel1,
+				discountPercentageLevel2, discountPercentageLevel3,
+				discountPercentageLevel4, unitPriceWithTaxAmount,
+				promoPriceWithTaxAmount, discountAmountWithTaxAmount,
+				finalPriceWithTaxAmount, discountPercentageLevel1WithTaxAmount,
+				discountPercentageLevel2WithTaxAmount,
+				discountPercentageLevel3WithTaxAmount,
+				discountPercentageLevel4WithTaxAmount);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.model.CommerceOrderItem)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderItem
 			updateCommerceOrderItemUnitPrice(
 				HttpPrincipal httpPrincipal, long commerceOrderItemId,
 				java.math.BigDecimal unitPrice)
@@ -1049,7 +1114,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemUnitPrice",
-				_updateCommerceOrderItemUnitPriceParameterTypes23);
+				_updateCommerceOrderItemUnitPriceParameterTypes24);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, unitPrice);
@@ -1092,7 +1157,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemUnitPrice",
-				_updateCommerceOrderItemUnitPriceParameterTypes24);
+				_updateCommerceOrderItemUnitPriceParameterTypes25);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, unitPrice, quantity);
@@ -1137,7 +1202,7 @@ public class CommerceOrderItemServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class, "upsertCommerceOrderItem",
-				_upsertCommerceOrderItemParameterTypes25);
+				_upsertCommerceOrderItemParameterTypes26);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderId, cpInstanceId, quantity,
@@ -1263,14 +1328,25 @@ public class CommerceOrderItemServiceHttp {
 			java.math.BigDecimal.class, java.math.BigDecimal.class
 		};
 	private static final Class<?>[]
-		_updateCommerceOrderItemUnitPriceParameterTypes23 = new Class[] {
-			long.class, java.math.BigDecimal.class
+		_updateCommerceOrderItemPricesParameterTypes23 = new Class[] {
+			long.class, java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class
 		};
 	private static final Class<?>[]
 		_updateCommerceOrderItemUnitPriceParameterTypes24 = new Class[] {
+			long.class, java.math.BigDecimal.class
+		};
+	private static final Class<?>[]
+		_updateCommerceOrderItemUnitPriceParameterTypes25 = new Class[] {
 			long.class, java.math.BigDecimal.class, int.class
 		};
-	private static final Class<?>[] _upsertCommerceOrderItemParameterTypes25 =
+	private static final Class<?>[] _upsertCommerceOrderItemParameterTypes26 =
 		new Class[] {
 			long.class, long.class, int.class, int.class, String.class,
 			com.liferay.commerce.context.CommerceContext.class,
