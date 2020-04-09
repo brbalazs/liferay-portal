@@ -1265,7 +1265,12 @@ public class JournalDisplayContext {
 						Field.MODIFIED_DATE, Sort.LONG_TYPE, !orderByAsc);
 				}
 				else if (Objects.equals(getOrderByCol(), "title")) {
-					sort = new Sort("title", Sort.STRING_TYPE, !orderByAsc);
+					sort = new Sort(
+						Field.getSortableFieldName(
+							"localized_title_".concat(
+								LocaleUtil.toLanguageId(
+									_themeDisplay.getLocale()))),
+						!orderByAsc);
 				}
 
 				LinkedHashMap<String, Object> params = new LinkedHashMap<>();
