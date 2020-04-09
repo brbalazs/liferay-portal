@@ -30,8 +30,18 @@ public class CommerceProductPriceImpl implements CommerceProductPrice {
 	}
 
 	@Override
+	public CommerceDiscountValue getDiscountValueWithTaxAmount() {
+		return _commerceDiscountValueWithTaxAmount;
+	}
+
+	@Override
 	public CommerceMoney getFinalPrice() {
 		return _finalPrice;
+	}
+
+	@Override
+	public CommerceMoney getFinalPriceWithTaxAmount() {
+		return _finalPriceWithTaxAmount;
 	}
 
 	@Override
@@ -50,8 +60,18 @@ public class CommerceProductPriceImpl implements CommerceProductPrice {
 	}
 
 	@Override
+	public CommerceMoney getUnitPriceWithTaxAmount() {
+		return _unitPriceWithTaxAmount;
+	}
+
+	@Override
 	public CommerceMoney getUnitPromoPrice() {
 		return _unitPromoPrice;
+	}
+
+	@Override
+	public CommerceMoney getUnitPromoPriceWithTaxAmount() {
+		return _unitPromoPriceWithTaxAmount;
 	}
 
 	public void setCommerceDiscountValue(
@@ -60,8 +80,21 @@ public class CommerceProductPriceImpl implements CommerceProductPrice {
 		_commerceDiscountValue = commerceDiscountValue;
 	}
 
+	public void setCommerceDiscountValueWithTaxAmount(
+		CommerceDiscountValue commerceDiscountValueWithTaxAmount) {
+
+		_commerceDiscountValueWithTaxAmount =
+			commerceDiscountValueWithTaxAmount;
+	}
+
 	public void setFinalPrice(CommerceMoney finalPrice) {
 		_finalPrice = finalPrice;
+	}
+
+	public void setFinalPriceWithTaxAmount(
+		CommerceMoney finalPriceWithTaxAmount) {
+
+		_finalPriceWithTaxAmount = finalPriceWithTaxAmount;
 	}
 
 	public void setQuantity(int quantity) {
@@ -76,15 +109,31 @@ public class CommerceProductPriceImpl implements CommerceProductPrice {
 		_unitPrice = unitPrice;
 	}
 
+	public void setUnitPriceWithTaxAmount(
+		CommerceMoney unitPriceWithTaxAmount) {
+
+		_unitPriceWithTaxAmount = unitPriceWithTaxAmount;
+	}
+
 	public void setUnitPromoPrice(CommerceMoney unitPromoPrice) {
 		_unitPromoPrice = unitPromoPrice;
 	}
 
+	public void setUnitPromoPriceWithTaxAmount(
+		CommerceMoney unitPromoPriceWithTaxAmount) {
+
+		_unitPromoPriceWithTaxAmount = unitPromoPriceWithTaxAmount;
+	}
+
 	private CommerceDiscountValue _commerceDiscountValue;
+	private CommerceDiscountValue _commerceDiscountValueWithTaxAmount;
 	private CommerceMoney _finalPrice;
+	private CommerceMoney _finalPriceWithTaxAmount;
 	private int _quantity;
 	private BigDecimal _taxValue;
 	private CommerceMoney _unitPrice;
+	private CommerceMoney _unitPriceWithTaxAmount;
 	private CommerceMoney _unitPromoPrice;
+	private CommerceMoney _unitPromoPriceWithTaxAmount;
 
 }
