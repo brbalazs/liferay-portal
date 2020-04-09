@@ -76,19 +76,24 @@ definition {
 			panel = "Control Panel",
 			portlet = "Catalogs");
 
-		var rowNumber = "2";
+		CommerceConfiguration.commerceCatalogsTearDown();
 
-		while (IsElementPresent(key_rowNumber = "${rowNumber}", locator1 = "CommerceEntry#ENTRY_CONTENT_ROW_NUMBER")) {
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Price Lists");
 
-			ClickNoError(
-				key_rowNumber = "${rowNumber}",
-				locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS_NUMBER");
+		while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+			CommerceProducts.deleteEntries(deleteMessage = "Are you sure you want to delete the selected price lists?");
+		}
 
-			CommerceEntry.clickNoError(menuItem = "Delete");
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Discounts");
 
-			AssertElementPresent(locator1 = "Message#SUCCESS");
-
-			AssertElementNotPresent(locator1 = "Message#ERROR");
+		while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+			CommerceProducts.deleteEntries(deleteMessage = "Are you sure you want to delete the selected discounts?");
 		}
 
 		ProductMenu.gotoPortlet(
