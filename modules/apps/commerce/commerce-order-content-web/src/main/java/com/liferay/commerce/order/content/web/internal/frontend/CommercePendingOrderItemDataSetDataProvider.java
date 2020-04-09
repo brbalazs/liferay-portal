@@ -37,11 +37,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -87,22 +89,22 @@ public class CommercePendingOrderItemDataSetDataProvider
 
 		List<OrderItem> orderItems = new ArrayList<>();
 
-		OrderFilterImpl orderFilterImpl = (OrderFilterImpl)filter;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
+			_getBaseModelSearchResult(
+				httpServletRequest, filter, pagination, sort);
+
 		List<CommerceOrderItem> commerceOrderItems =
-			_commerceOrderItemService.getCommerceOrderItems(
-				orderFilterImpl.getCommerceOrderId(),
-				pagination.getStartPosition(), pagination.getEndPosition());
+			baseModelSearchResult.getBaseModels();
 
 		CommerceOrder commerceOrder = null;
 		Map<Long, List<CommerceOrderValidatorResult>>
 			commerceOrderValidatorResultMap = null;
 
-		if (!commerceOrderItems.isEmpty()) {
+		if (!baseModelSearchResult.getBaseModels().isEmpty()) {
 			CommerceOrderItem firstCommerceOrderItem = commerceOrderItems.get(
 				0);
 
@@ -243,6 +245,26 @@ public class CommercePendingOrderItemDataSetDataProvider
 		}
 
 		return orderItems;
+	}
+
+	private BaseModelSearchResult<CommerceOrderItem> _getBaseModelSearchResult(
+			HttpServletRequest httpServletRequest, Filter filter,
+			Pagination pagination, Sort sort)
+		throws PortalException {
+
+		long commerceOrderId = ParamUtil.getLong(
+			httpServletRequest, "commerceOrderId");
+
+		int start = 0;
+		int end = 0;
+
+		if (pagination != null) {
+			start = pagination.getStartPosition();
+			end = pagination.getEndPosition();
+		}
+
+		return _commerceOrderItemService.search(
+			commerceOrderId, filter.getKeywords(), start, end, sort);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
