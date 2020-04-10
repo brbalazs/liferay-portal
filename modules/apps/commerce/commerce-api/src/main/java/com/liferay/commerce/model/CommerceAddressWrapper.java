@@ -80,8 +80,6 @@ public class CommerceAddressWrapper
 		attributes.put("defaultBilling", isDefaultBilling());
 		attributes.put("defaultShipping", isDefaultShipping());
 		attributes.put("type", getType());
-		attributes.put(
-			"externalReferenceCodeCopy", getExternalReferenceCodeCopy());
 
 		return attributes;
 	}
@@ -237,13 +235,6 @@ public class CommerceAddressWrapper
 
 		if (type != null) {
 			setType(type);
-		}
-
-		String externalReferenceCodeCopy = (String)attributes.get(
-			"externalReferenceCodeCopy");
-
-		if (externalReferenceCodeCopy != null) {
-			setExternalReferenceCodeCopy(externalReferenceCodeCopy);
 		}
 	}
 
@@ -410,16 +401,6 @@ public class CommerceAddressWrapper
 	@Override
 	public String getExternalReferenceCode() {
 		return _commerceAddress.getExternalReferenceCode();
-	}
-
-	/**
-	 * Returns the external reference code copy of this commerce address.
-	 *
-	 * @return the external reference code copy of this commerce address
-	 */
-	@Override
-	public String getExternalReferenceCodeCopy() {
-		return _commerceAddress.getExternalReferenceCodeCopy();
 	}
 
 	/**
@@ -777,17 +758,6 @@ public class CommerceAddressWrapper
 	@Override
 	public void setExternalReferenceCode(String externalReferenceCode) {
 		_commerceAddress.setExternalReferenceCode(externalReferenceCode);
-	}
-
-	/**
-	 * Sets the external reference code copy of this commerce address.
-	 *
-	 * @param externalReferenceCodeCopy the external reference code copy of this commerce address
-	 */
-	@Override
-	public void setExternalReferenceCodeCopy(String externalReferenceCodeCopy) {
-		_commerceAddress.setExternalReferenceCodeCopy(
-			externalReferenceCodeCopy);
 	}
 
 	/**

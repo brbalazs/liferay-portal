@@ -56,8 +56,6 @@ public class CommerceAddressSoap implements Serializable {
 		soapModel.setDefaultBilling(model.isDefaultBilling());
 		soapModel.setDefaultShipping(model.isDefaultShipping());
 		soapModel.setType(model.getType());
-		soapModel.setExternalReferenceCodeCopy(
-			model.getExternalReferenceCodeCopy());
 
 		return soapModel;
 	}
@@ -325,14 +323,6 @@ public class CommerceAddressSoap implements Serializable {
 		_type = type;
 	}
 
-	public String getExternalReferenceCodeCopy() {
-		return _externalReferenceCodeCopy;
-	}
-
-	public void setExternalReferenceCodeCopy(String externalReferenceCodeCopy) {
-		_externalReferenceCodeCopy = externalReferenceCodeCopy;
-	}
-
 	private String _externalReferenceCode;
 	private long _commerceAddressId;
 	private long _groupId;
@@ -358,6 +348,5 @@ public class CommerceAddressSoap implements Serializable {
 	private boolean _defaultBilling;
 	private boolean _defaultShipping;
 	private int _type;
-	private String _externalReferenceCodeCopy;
 
 }

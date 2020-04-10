@@ -45,7 +45,6 @@
 		<field name="defaultBilling" type="boolean" />
 		<field name="defaultShipping" type="boolean" />
 		<field name="type" type="int" />
-		<field name="externalReferenceCodeCopy" type="String" />
 	</model>
 	<model name="com.liferay.commerce.model.CommerceAddressRestriction">
 		<field name="commerceAddressRestrictionId" type="long" />
