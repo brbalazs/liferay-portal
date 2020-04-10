@@ -150,7 +150,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		String uniqueFileName = uniqueFileNameProvider.provide(
 			fileName,
-			curFileName -> _attachmentExists(
+			curFileName -> _fileEntryExists(
 				blogsEntry.getGroupId(), folder.getFolderId(), curFileName));
 
 		return PortletFileRepositoryUtil.addPortletFileEntry(
@@ -2336,43 +2336,20 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	protected UnsubscribeHelper unsubscribeHelper;
 
 	@ServiceReference(type = UploadServletRequestConfigurationHelper.class)
-	protected UploadServletRequestConfigurationHelper uploadServletRequestConfigurationHelper;
+	protected UploadServletRequestConfigurationHelper
+		uploadServletRequestConfigurationHelper;
 
-	private boolean _attachmentExists(
+	private boolean _fileEntryExists(
 		long groupId, long folderId, String fileName) {
 
-		try {
-			if (PortletFileRepositoryUtil.getPortletFileEntry(
-					groupId, folderId, fileName) != null) {
+		FileEntry fileEntry = _portletFileRepository.fetchPortletFileEntry(
+			groupId, folderId, fileName);
 
-				return true;
-			}
-
+		if (fileEntry == null) {
 			return false;
 		}
-		catch (PortalException pe) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
-			}
 
-			return false;
-		}
-	}
-
-	private FileEntry _fetchPortletFileEntry(
-		long groupId, String fileName, long folderId) {
-
-		try {
-			return PortletFileRepositoryUtil.getPortletFileEntry(
-				groupId, folderId, fileName);
-		}
-		catch (PortalException pe) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
-			}
-
-			return null;
-		}
+		return true;
 	}
 
 	private String _getGroupDescriptiveName(Group group, Locale locale) {
@@ -2393,36 +2370,9 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			long groupId, String fileName, long folderId)
 		throws PortalException {
 
-		fileName = FileUtil.stripParentheticalSuffix(fileName);
-
-		FileEntry fileEntry = _fetchPortletFileEntry(
-			groupId, fileName, folderId);
-
-		if (fileEntry == null) {
-			return fileName;
-		}
-
-		int suffix = 1;
-
-		for (int i = 0;
-			 i < uploadServletRequestConfigurationHelper.getMaxTries(); i++) {
-
-			String curFileName = FileUtil.appendParentheticalSuffix(
-				fileName, String.valueOf(suffix));
-
-			fileEntry = _fetchPortletFileEntry(groupId, curFileName, folderId);
-
-			if (fileEntry == null) {
-				return curFileName;
-			}
-
-			suffix++;
-		}
-
-		throw new PortalException(
-			StringBundler.concat(
-				"Unable to get a unique file name for ", fileName,
-				" in folder ", folderId));
+		return uniqueFileNameProvider.provide(
+			fileName,
+			curFileName -> _fileEntryExists(groupId, folderId, fileName));
 	}
 
 	private String _getUniqueUrlTitle(BlogsEntry entry) {
