@@ -68,10 +68,4 @@ public class AccountDTOConverter implements DTOConverter {
 	@Reference
 	private CommerceAccountService _commerceAccountService;
 
-	@Reference
-	private CommerceAddressService _commerceAddressService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
-
 }

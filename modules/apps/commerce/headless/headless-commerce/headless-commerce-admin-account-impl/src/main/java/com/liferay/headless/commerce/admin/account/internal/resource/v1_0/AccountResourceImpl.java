@@ -610,9 +610,6 @@ public class AccountResourceImpl
 		_commerceAccountGroupCommerceAccountRelService;
 
 	@Reference
-	private CommerceAccountGroupRelService _commerceAccountGroupRelService;
-
-	@Reference
 	private CommerceAccountGroupService _commerceAccountGroupService;
 
 	@Reference
