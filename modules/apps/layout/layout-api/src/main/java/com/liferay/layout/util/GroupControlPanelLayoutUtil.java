@@ -35,8 +35,6 @@ public class GroupControlPanelLayoutUtil {
 	public static Layout getGroupControlPanelLayout(Group group)
 		throws PortalException {
 
-		Layout groupControlPanelLayout = null;
-
 		long groupId = group.getGroupId();
 
 		List<Layout> layouts = LayoutLocalServiceUtil.getLayouts(
