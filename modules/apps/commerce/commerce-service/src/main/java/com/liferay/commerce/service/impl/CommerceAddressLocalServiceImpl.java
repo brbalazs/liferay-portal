@@ -174,8 +174,9 @@ public class CommerceAddressLocalServiceImpl
 			copiedCommerceAddress.setExternalReferenceCode(
 				commerceAddress.getExternalReferenceCode());
 
-			copiedCommerceAddress = commerceAddressLocalService.updateCommerceAddress(
-				copiedCommerceAddress);
+			copiedCommerceAddress =
+				commerceAddressLocalService.updateCommerceAddress(
+					copiedCommerceAddress);
 		}
 
 		return copiedCommerceAddress;
