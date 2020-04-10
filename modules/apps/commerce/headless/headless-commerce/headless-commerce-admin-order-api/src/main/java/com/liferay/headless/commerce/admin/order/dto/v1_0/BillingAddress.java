@@ -133,22 +133,20 @@ public class BillingAddress {
 	protected String description;
 
 	@Schema
-	public String getExternalReferenceCodeCopy() {
-		return externalReferenceCodeCopy;
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
 	}
 
-	public void setExternalReferenceCodeCopy(String externalReferenceCodeCopy) {
-		this.externalReferenceCodeCopy = externalReferenceCodeCopy;
+	public void setExternalReferenceCode(String externalReferenceCode) {
+		this.externalReferenceCode = externalReferenceCode;
 	}
 
 	@JsonIgnore
-	public void setExternalReferenceCodeCopy(
-		UnsafeSupplier<String, Exception>
-			externalReferenceCodeCopyUnsafeSupplier) {
+	public void setExternalReferenceCode(
+		UnsafeSupplier<String, Exception> externalReferenceCodeUnsafeSupplier) {
 
 		try {
-			externalReferenceCodeCopy =
-				externalReferenceCodeCopyUnsafeSupplier.get();
+			externalReferenceCode = externalReferenceCodeUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -160,7 +158,7 @@ public class BillingAddress {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String externalReferenceCodeCopy;
+	protected String externalReferenceCode;
 
 	@DecimalMin("0")
 	@Schema
@@ -536,16 +534,16 @@ public class BillingAddress {
 			sb.append("\"");
 		}
 
-		if (externalReferenceCodeCopy != null) {
+		if (externalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"externalReferenceCodeCopy\": ");
+			sb.append("\"externalReferenceCode\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(externalReferenceCodeCopy));
+			sb.append(_escape(externalReferenceCode));
 
 			sb.append("\"");
 		}

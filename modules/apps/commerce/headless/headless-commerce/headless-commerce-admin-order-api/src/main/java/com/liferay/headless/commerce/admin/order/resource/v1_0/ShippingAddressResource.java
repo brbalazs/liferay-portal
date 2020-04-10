@@ -17,6 +17,8 @@ package com.liferay.headless.commerce.admin.order.resource.v1_0;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.ShippingAddress;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 
+import java.util.Locale;
+
 import javax.annotation.Generated;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,6 +95,8 @@ public interface ShippingAddressResource {
 
 		public Builder httpServletRequest(
 			HttpServletRequest httpServletRequest);
+
+		public Builder preferredLocale(Locale preferredLocale);
 
 		public Builder user(com.liferay.portal.kernel.model.User user);
 
