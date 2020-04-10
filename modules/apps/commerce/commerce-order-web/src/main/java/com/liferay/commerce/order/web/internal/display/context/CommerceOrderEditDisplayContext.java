@@ -165,6 +165,7 @@ public class CommerceOrderEditDisplayContext {
 		RenderURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
+		portletURL.setParameter(Constants.CMD, Constants.ADD);
 		portletURL.setParameter(
 			"commerceOrderId", String.valueOf(getCommerceOrderId()));
 
