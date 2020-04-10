@@ -216,6 +216,8 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="CPDefinitionOptionRelId" type="long" />
+		<field name="CPInstanceUuid" type="String" />
+		<field name="CProductId" type="long" />
 		<field localized="true" name="name" type="String">
 			<validator name="required" />
 		</field>
@@ -225,8 +227,6 @@
 		<field name="key" type="String">
 			<validator name="required" />
 		</field>
-		<field name="CPInstanceUuid" type="String" />
-		<field name="CProductId" type="long" />
 		<field name="quantity" type="int" />
 		<field name="price" type="BigDecimal" />
 	</model>

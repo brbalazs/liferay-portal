@@ -151,11 +151,11 @@ create table CPDefinitionOptionValueRel (
 	createDate DATE null,
 	modifiedDate DATE null,
 	CPDefinitionOptionRelId LONG,
+	CPInstanceUuid VARCHAR(75) null,
+	CProductId LONG,
 	name STRING null,
 	priority DOUBLE,
 	key_ VARCHAR(75) null,
-	CPInstanceUuid VARCHAR(75) null,
-	CProductId LONG,
 	quantity INTEGER,
 	price DECIMAL(30, 16) null
 );
