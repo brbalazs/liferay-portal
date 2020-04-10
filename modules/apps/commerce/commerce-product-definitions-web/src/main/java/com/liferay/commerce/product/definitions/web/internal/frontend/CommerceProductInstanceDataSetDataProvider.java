@@ -134,8 +134,8 @@ public class CommerceProductInstanceDataSetDataProvider
 						_getOptions(
 							cpInstance.getCPDefinitionId(),
 							keyValuesJSONArray.toString(), locale)),
-					HtmlUtil.escape(_formatPrice(cpInstance, locale)), StringPool.BLANK,
-					stockQuantity,
+					HtmlUtil.escape(_formatPrice(cpInstance, locale)),
+					StringPool.BLANK, stockQuantity,
 					new LabelField(
 						statusDisplayStyle,
 						LanguageUtil.get(
