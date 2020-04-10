@@ -48,7 +48,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.text.DateFormat;
 import java.text.Format;
 
 import java.util.ArrayList;
@@ -98,9 +97,8 @@ public class CommerceOrderItemDataSetDataProvider
 
 			Locale locale = themeDisplay.getLocale();
 
-			Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
-				DateFormat.MEDIUM, DateFormat.MEDIUM, locale,
-				themeDisplay.getTimeZone());
+			Format dateTimeFormat = FastDateFormatFactoryUtil.getDate(
+				locale, themeDisplay.getTimeZone());
 
 			BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
 				_getBaseModelSearchResult(
