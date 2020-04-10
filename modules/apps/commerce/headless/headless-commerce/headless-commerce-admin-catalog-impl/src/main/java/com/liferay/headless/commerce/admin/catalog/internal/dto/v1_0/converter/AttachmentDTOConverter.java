@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.util.File;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Collections;
@@ -120,9 +119,6 @@ public class AttachmentDTOConverter implements DTOConverter {
 
 	@Reference
 	private CPAttachmentFileEntryService _cpAttachmentFileEntryService;
-
-	@Reference
-	private File _file;
 
 	@Reference
 	private JSONFactory _jsonFactory;
