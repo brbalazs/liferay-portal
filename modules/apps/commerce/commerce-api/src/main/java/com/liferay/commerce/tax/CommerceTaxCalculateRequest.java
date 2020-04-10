@@ -49,6 +49,10 @@ public class CommerceTaxCalculateRequest {
 		return _percentage;
 	}
 
+	public boolean isWithTaxAmount() {
+		return _withTaxAmount;
+	}
+
 	public void setChannelGroupId(long channelGroupId) {
 		_channelGroupId = channelGroupId;
 	}
@@ -77,6 +81,10 @@ public class CommerceTaxCalculateRequest {
 		_taxCategoryId = taxCategoryId;
 	}
 
+	public void setWithTaxAmount(boolean withTaxAmount) {
+		_withTaxAmount = withTaxAmount;
+	}
+
 	private long _channelGroupId;
 	private long _commerceBillingAddressId;
 	private long _commerceShippingAddressId;
@@ -84,5 +92,6 @@ public class CommerceTaxCalculateRequest {
 	private boolean _percentage;
 	private BigDecimal _price;
 	private long _taxCategoryId;
+	private boolean _withTaxAmount;
 
 }

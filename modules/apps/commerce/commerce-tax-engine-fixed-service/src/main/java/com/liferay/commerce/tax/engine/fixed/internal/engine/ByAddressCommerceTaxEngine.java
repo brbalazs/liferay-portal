@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -103,7 +104,13 @@ public class ByAddressCommerceTaxEngine implements CommerceTaxEngine {
 		if (commerceTaxCalculateRequest.isPercentage()) {
 			taxValue = amount.multiply(rate);
 
-			taxValue = taxValue.divide(_ONE_HUNDRED);
+			BigDecimal denominator = _ONE_HUNDRED;
+
+			if (commerceTaxCalculateRequest.isWithTaxAmount()) {
+				denominator = _ONE_HUNDRED.add(rate);
+			}
+
+			taxValue = taxValue.divide(denominator, RoundingMode.HALF_EVEN);
 		}
 
 		return new CommerceTaxValue(KEY, KEY, taxValue);
