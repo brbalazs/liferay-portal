@@ -55,8 +55,8 @@ public class BillingAddressDTOConverter implements DTOConverter {
 				city = commerceAddress.getCity();
 				countryISOCode = commerceCountry.getTwoLettersISOCode();
 				description = commerceAddress.getDescription();
-				externalReferenceCodeCopy =
-					commerceAddress.getExternalReferenceCodeCopy();
+				externalReferenceCode =
+					commerceAddress.getExternalReferenceCode();
 				id = commerceAddress.getCommerceAddressId();
 				latitude = commerceAddress.getLatitude();
 				longitude = commerceAddress.getLongitude();
