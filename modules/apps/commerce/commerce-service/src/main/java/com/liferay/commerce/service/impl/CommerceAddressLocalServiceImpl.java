@@ -171,10 +171,10 @@ public class CommerceAddressLocalServiceImpl
 				commerceAddress.getPhoneNumber(), false, false, serviceContext);
 
 		if (Validator.isNotNull(commerceAddress.getExternalReferenceCode())) {
-			copiedCommerceAddress.setExternalReferenceCodeCopy(
+			copiedCommerceAddress.setExternalReferenceCode(
 				commerceAddress.getExternalReferenceCode());
 
-			commerceAddressLocalService.updateCommerceAddress(
+			copiedCommerceAddress = commerceAddressLocalService.updateCommerceAddress(
 				copiedCommerceAddress);
 		}
 
