@@ -469,11 +469,11 @@
 		<!-- Other fields -->
 
 		<column name="CPDefinitionOptionRelId" type="long" />
+		<column name="CPInstanceUuid" type="String" />
+		<column name="CProductId" type="long" />
 		<column localized="true" name="name" type="String" />
 		<column name="priority" type="double" />
 		<column name="key" type="String" />
-		<column name="CPInstanceUuid" type="String" />
-		<column name="CProductId" type="long" />
 		<column name="quantity" type="int" />
 		<column name="price" type="BigDecimal" />
 
@@ -494,11 +494,11 @@
 		<finder name="CPDefinitionOptionRelId" return-type="Collection">
 			<finder-column name="CPDefinitionOptionRelId" />
 		</finder>
-		<finder name="Key" return-type="Collection">
-			<finder-column name="key" />
-		</finder>
 		<finder name="CPInstanceUuid" return-type="Collection">
 			<finder-column name="CPInstanceUuid" />
+		</finder>
+		<finder name="Key" return-type="Collection">
+			<finder-column name="key" />
 		</finder>
 		<finder name="C_K" return-type="CPDefinitionOptionValueRel" unique="true">
 			<finder-column name="CPDefinitionOptionRelId" />
