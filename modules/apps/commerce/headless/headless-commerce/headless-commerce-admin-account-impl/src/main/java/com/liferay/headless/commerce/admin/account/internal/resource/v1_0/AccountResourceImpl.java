@@ -75,7 +75,6 @@ import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
@@ -643,9 +642,6 @@ public class AccountResourceImpl
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
-
-	@Context
-	private User _user;
 
 	@Reference
 	private UserLocalService _userLocalService;
