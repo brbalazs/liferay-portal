@@ -72,6 +72,8 @@ public class CommerceMLGatewayClientImpl implements CommerceMLGatewayClient {
 
 		HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
 
+		httpClientBuilder.useSystemProperties();
+
 		try (CloseableHttpClient closeableHttpClient =
 				httpClientBuilder.build()) {
 
