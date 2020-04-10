@@ -23,7 +23,6 @@ import com.liferay.commerce.account.model.CommerceAccountGroupCommerceAccountRel
 import com.liferay.commerce.account.model.CommerceAccountOrganizationRel;
 import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountGroupCommerceAccountRelService;
-import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.account.service.CommerceAccountGroupService;
 import com.liferay.commerce.account.service.CommerceAccountOrganizationRelService;
 import com.liferay.commerce.account.service.CommerceAccountService;
