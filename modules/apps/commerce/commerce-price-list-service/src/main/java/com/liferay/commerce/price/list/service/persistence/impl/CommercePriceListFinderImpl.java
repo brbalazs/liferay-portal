@@ -95,7 +95,7 @@ public class CommercePriceListFinderImpl
 			FIND_BY_COMMERCE_ACCOUNT_ID,
 			(Long)queryDefinition.getAttribute("groupId"),
 			(String)queryDefinition.getAttribute("type"),
-			(Long)queryDefinition.getAttribute("commerceAccountId"), -1,
+			(Long)queryDefinition.getAttribute("commerceAccountId"),
 			queryDefinition.getStart(), queryDefinition.getEnd());
 	}
 
@@ -194,7 +194,7 @@ public class CommercePriceListFinderImpl
 			FIND_BY_COMMERCE_CHANNEL_ID,
 			(Long)queryDefinition.getAttribute("groupId"),
 			(String)queryDefinition.getAttribute("type"),
-			(Long)queryDefinition.getAttribute("commerceChannelId"), -1,
+			(Long)queryDefinition.getAttribute("commerceChannelId"),
 			queryDefinition.getStart(), queryDefinition.getEnd());
 	}
 
@@ -324,6 +324,39 @@ public class CommercePriceListFinderImpl
 	}
 
 	protected List<CommercePriceList> doFindByPK(
+		String queryName, long groupId, String type, long classPK, int start,
+		int end) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), queryName);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addEntity(
+				CommercePriceListImpl.TABLE_NAME, CommercePriceListImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(classPK);
+			qPos.add(groupId);
+			qPos.add(type);
+
+			return (List<CommercePriceList>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected List<CommercePriceList> doFindByPK(
 		String queryName, long groupId, String type, long classPK1,
 		long classPK2, int start, int end) {
 
@@ -342,11 +375,7 @@ public class CommercePriceListFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(classPK1);
-
-			if (classPK2 > -1) {
-				qPos.add(classPK2);
-			}
-
+			qPos.add(classPK2);
 			qPos.add(groupId);
 			qPos.add(type);
 
