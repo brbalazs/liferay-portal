@@ -548,11 +548,9 @@ public class LDAPAuth implements Authenticator {
 			return result;
 		}
 
-		result = authenticate(
+		return authenticate(
 			ldapServerId, companyId, emailAddress, screenName, userId,
 			password);
-
-		return result;
 	}
 
 	protected int authenticateOmniadmin(

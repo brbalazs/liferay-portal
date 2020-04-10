@@ -116,9 +116,7 @@ public class CommercePriceModifierHelperImpl
 		RoundingMode roundingMode = RoundingMode.valueOf(
 			originalCommerceCurrency.getRoundingMode());
 
-		lowestPrice = lowestPrice.setScale(_SCALE, roundingMode);
-
-		return lowestPrice;
+		return lowestPrice.setScale(_SCALE, roundingMode);
 	}
 
 	@Override

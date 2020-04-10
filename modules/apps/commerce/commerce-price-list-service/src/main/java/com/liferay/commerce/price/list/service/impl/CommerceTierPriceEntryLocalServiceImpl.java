@@ -201,10 +201,8 @@ public class CommerceTierPriceEntryLocalServiceImpl
 		commercePriceEntryLocalService.setHasTierPrice(
 			commercePriceEntryId, true, bulkPricing);
 
-		commerceTierPriceEntry = startWorkflowInstance(
+		return startWorkflowInstance(
 			user.getUserId(), commerceTierPriceEntry, serviceContext);
-
-		return commerceTierPriceEntry;
 	}
 
 	@Override
@@ -586,10 +584,7 @@ public class CommerceTierPriceEntryLocalServiceImpl
 		commerceTierPriceEntry.setStatusByUserName(user.getFullName());
 		commerceTierPriceEntry.setStatusDate(modifiedDate);
 
-		commerceTierPriceEntry = commerceTierPriceEntryPersistence.update(
-			commerceTierPriceEntry);
-
-		return commerceTierPriceEntry;
+		return commerceTierPriceEntryPersistence.update(commerceTierPriceEntry);
 	}
 
 	@Override

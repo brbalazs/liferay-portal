@@ -350,10 +350,8 @@ public class PriceListResourceImpl
 
 		// Update nested resources
 
-		commercePriceList = _updateNestedResources(
+		return _updateNestedResources(
 			priceList, commercePriceList, serviceContext);
-
-		return commercePriceList;
 	}
 
 	private CommercePriceList _upsertPriceList(PriceList priceList)
@@ -409,10 +407,8 @@ public class PriceListResourceImpl
 
 		// Update nested resources
 
-		commercePriceList = _updateNestedResources(
+		return _updateNestedResources(
 			priceList, commercePriceList, serviceContext);
-
-		return commercePriceList;
 	}
 
 	private static final EntityModel _entityModel = new PriceListEntityModel();

@@ -261,11 +261,9 @@ public abstract class BaseSocialActivityInterpreter
 				return HtmlUtil.escape(groupName);
 			}
 
-			groupName = StringBundler.concat(
+			return StringBundler.concat(
 				"<a class=\"group\" href=\"", groupDisplayURL, "\">",
 				HtmlUtil.escape(groupName), "</a>");
-
-			return groupName;
 		}
 		catch (Exception e) {
 			return StringPool.BLANK;
@@ -303,11 +301,9 @@ public abstract class BaseSocialActivityInterpreter
 				return HtmlUtil.escape(groupName);
 			}
 
-			groupName = StringBundler.concat(
+			return StringBundler.concat(
 				"<a class=\"group\" href=\"", groupDisplayURL, "\">",
 				HtmlUtil.escape(groupName), "</a>");
-
-			return groupName;
 		}
 		catch (Exception e) {
 			return StringPool.BLANK;
@@ -477,11 +473,9 @@ public abstract class BaseSocialActivityInterpreter
 			String userDisplayURL = user.getDisplayURL(
 				serviceContext.getThemeDisplay());
 
-			userName = StringBundler.concat(
+			return StringBundler.concat(
 				"<a class=\"user\" href=\"", userDisplayURL, "\">",
 				HtmlUtil.escape(userName), "</a>");
-
-			return userName;
 		}
 		catch (Exception e) {
 			return StringPool.BLANK;
@@ -515,11 +509,9 @@ public abstract class BaseSocialActivityInterpreter
 
 			String userDisplayURL = user.getDisplayURL(themeDisplay);
 
-			userName = StringBundler.concat(
+			return StringBundler.concat(
 				"<a class=\"user\" href=\"", userDisplayURL, "\">",
 				HtmlUtil.escape(userName), "</a>");
-
-			return userName;
 		}
 		catch (Exception e) {
 			return StringPool.BLANK;

@@ -581,10 +581,7 @@ public class ProductResourceImpl
 
 		// Update nested resources
 
-		cpDefinition = _updateNestedResources(
-			product, cpDefinition, serviceContext);
-
-		return cpDefinition;
+		return _updateNestedResources(product, cpDefinition, serviceContext);
 	}
 
 	private CPDefinition _upsertProduct(Product product) throws Exception {

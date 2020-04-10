@@ -50,11 +50,8 @@ public class CommerceDiscountAccountRelLocalServiceImpl
 		commerceDiscountAccountRel.setCommerceAccountId(commerceAccountId);
 		commerceDiscountAccountRel.setCommerceDiscountId(commerceDiscountId);
 
-		commerceDiscountAccountRel =
-			commerceDiscountAccountRelPersistence.update(
-				commerceDiscountAccountRel);
-
-		return commerceDiscountAccountRel;
+		return commerceDiscountAccountRelPersistence.update(
+			commerceDiscountAccountRel);
 	}
 
 	@Override

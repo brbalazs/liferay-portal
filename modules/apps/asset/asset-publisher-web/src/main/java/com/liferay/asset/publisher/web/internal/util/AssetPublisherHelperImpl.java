@@ -566,10 +566,8 @@ public class AssetPublisherHelperImpl implements AssetPublisherHelper {
 			viewURL = viewFullContentURL.toString();
 		}
 
-		viewURL = _replacePortletIdIfLinkedToAnotherLayout(
+		return _replacePortletIdIfLinkedToAnotherLayout(
 			liferayPortletRequest, viewURL);
-
-		return viewURL;
 	}
 
 	@Override

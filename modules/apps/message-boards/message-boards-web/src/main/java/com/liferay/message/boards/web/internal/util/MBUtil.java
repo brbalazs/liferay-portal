@@ -89,9 +89,7 @@ public class MBUtil {
 			categoryId = category.getCategoryId();
 		}
 
-		categoryId = ParamUtil.getLong(request, "mbCategoryId", categoryId);
-
-		return categoryId;
+		return ParamUtil.getLong(request, "mbCategoryId", categoryId);
 	}
 
 	public static long getCategoryId(
@@ -103,9 +101,7 @@ public class MBUtil {
 			categoryId = message.getCategoryId();
 		}
 
-		categoryId = ParamUtil.getLong(request, "mbCategoryId", categoryId);
-
-		return categoryId;
+		return ParamUtil.getLong(request, "mbCategoryId", categoryId);
 	}
 
 	public static String getHtmlQuoteBody(

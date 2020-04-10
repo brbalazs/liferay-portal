@@ -300,10 +300,8 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 		// Update nested resources
 
-		commerceDiscount = _updateNestedResources(
+		return _updateNestedResources(
 			discount, commerceDiscount, serviceContext);
-
-		return commerceDiscount;
 	}
 
 	private CommerceDiscount _updateNestedResources(
@@ -474,10 +472,8 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 		// Update nested resources
 
-		commerceDiscount = _updateNestedResources(
+		return _updateNestedResources(
 			discount, commerceDiscount, serviceContext);
-
-		return commerceDiscount;
 	}
 
 	@Reference

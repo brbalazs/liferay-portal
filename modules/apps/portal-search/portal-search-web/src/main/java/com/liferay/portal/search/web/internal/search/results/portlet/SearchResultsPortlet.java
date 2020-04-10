@@ -364,10 +364,7 @@ public class SearchResultsPortlet extends MVCPortlet {
 		String urlString = portletSharedRequestHelper.getCompleteURL(
 			renderRequest);
 
-		urlString = http.removeParameter(
-			urlString, paginationStartParameterName);
-
-		return urlString;
+		return http.removeParameter(urlString, paginationStartParameterName);
 	}
 
 	protected boolean isRenderNothing(

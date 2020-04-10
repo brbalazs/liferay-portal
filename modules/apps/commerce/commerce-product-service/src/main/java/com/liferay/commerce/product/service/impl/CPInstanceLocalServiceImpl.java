@@ -805,9 +805,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			skus.add(cpInstance.getSku());
 		}
 
-		skusArray = skus.toArray(skusArray);
-
-		return skusArray;
+		return skus.toArray(skusArray);
 	}
 
 	@Override

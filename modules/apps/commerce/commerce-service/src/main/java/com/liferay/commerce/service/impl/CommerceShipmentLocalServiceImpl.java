@@ -106,9 +106,7 @@ public class CommerceShipmentLocalServiceImpl
 		commerceShipment.setCommerceAddressId(
 			commerceAddress.getCommerceAddressId());
 
-		commerceShipment = commerceShipmentPersistence.update(commerceShipment);
-
-		return commerceShipment;
+		return commerceShipmentPersistence.update(commerceShipment);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)

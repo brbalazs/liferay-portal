@@ -280,11 +280,9 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 		double depth = ParamUtil.getDouble(actionRequest, "depth");
 		double weight = ParamUtil.getDouble(actionRequest, "weight");
 
-		cpInstance = _cpInstanceService.updateShippingInfo(
+		return _cpInstanceService.updateShippingInfo(
 			cpInstance.getCPInstanceId(), width, height, depth, weight,
 			serviceContext);
-
-		return cpInstance;
 	}
 
 	protected void updateSubscriptionInfo(ActionRequest actionRequest)

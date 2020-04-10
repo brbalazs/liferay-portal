@@ -67,11 +67,8 @@ public class CommerceDiscountTestUtil {
 			CommerceDiscountConstants.LIMITATION_TYPE_LIMITED);
 		commerceDiscount.setLimitationTimes(1);
 
-		commerceDiscount =
-			CommerceDiscountLocalServiceUtil.updateCommerceDiscount(
-				commerceDiscount);
-
-		return commerceDiscount;
+		return CommerceDiscountLocalServiceUtil.updateCommerceDiscount(
+			commerceDiscount);
 	}
 
 	public static CommerceDiscountCommerceAccountGroupRel

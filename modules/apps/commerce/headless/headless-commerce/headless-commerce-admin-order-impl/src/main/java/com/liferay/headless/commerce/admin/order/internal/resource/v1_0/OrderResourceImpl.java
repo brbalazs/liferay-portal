@@ -412,10 +412,7 @@ public class OrderResourceImpl
 
 		// Update nested resources
 
-		commerceOrder = _updateNestedResources(
-			order, commerceOrder, serviceContext);
-
-		return commerceOrder;
+		return _updateNestedResources(order, commerceOrder, serviceContext);
 	}
 
 	private static final EntityModel _entityModel = new OrderEntityModel();

@@ -386,10 +386,7 @@ public class CommercePriceModifierLocalServiceImpl
 		commercePriceModifier.setStatusDate(
 			serviceContext.getModifiedDate(now));
 
-		commercePriceModifier = commercePriceModifierPersistence.update(
-			commercePriceModifier);
-
-		return commercePriceModifier;
+		return commercePriceModifierPersistence.update(commercePriceModifier);
 	}
 
 	@Override

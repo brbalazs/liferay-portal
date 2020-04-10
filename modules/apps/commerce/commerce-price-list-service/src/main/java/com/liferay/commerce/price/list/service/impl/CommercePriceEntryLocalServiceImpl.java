@@ -766,10 +766,7 @@ public class CommercePriceEntryLocalServiceImpl
 		commercePriceEntry.setStatusByUserName(user.getFullName());
 		commercePriceEntry.setStatusDate(modifiedDate);
 
-		commercePriceEntry = commercePriceEntryPersistence.update(
-			commercePriceEntry);
-
-		return commercePriceEntry;
+		return commercePriceEntryPersistence.update(commercePriceEntry);
 	}
 
 	/**

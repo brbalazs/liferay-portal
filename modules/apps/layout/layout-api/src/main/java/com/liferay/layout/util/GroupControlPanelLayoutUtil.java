@@ -43,9 +43,7 @@ public class GroupControlPanelLayoutUtil {
 			groupId, true, LayoutConstants.TYPE_CONTROL_PANEL);
 
 		if (!layouts.isEmpty()) {
-			groupControlPanelLayout = layouts.get(0);
-
-			return groupControlPanelLayout;
+			return layouts.get(0);
 		}
 
 		long defaultUserId = UserLocalServiceUtil.getDefaultUserId(
@@ -59,14 +57,12 @@ public class GroupControlPanelLayoutUtil {
 		serviceContext.setAttribute(
 			"layout.instanceable.allowed", Boolean.TRUE);
 
-		groupControlPanelLayout = LayoutLocalServiceUtil.addLayout(
+		return LayoutLocalServiceUtil.addLayout(
 			defaultUserId, group.getGroupId(), true,
 			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
 			PropsValues.CONTROL_PANEL_LAYOUT_NAME, StringPool.BLANK,
 			StringPool.BLANK, LayoutConstants.TYPE_CONTROL_PANEL, false,
 			friendlyURL, serviceContext);
-
-		return groupControlPanelLayout;
 	}
 
 	public static long getGroupControlPanelPlid(Group group)

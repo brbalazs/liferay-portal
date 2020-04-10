@@ -55,10 +55,8 @@ public class CommercePriceModifierRelLocalServiceImpl
 		commercePriceModifierRel.setClassName(className);
 		commercePriceModifierRel.setClassPK(classPK);
 
-		commercePriceModifierRel = commercePriceModifierRelPersistence.update(
+		return commercePriceModifierRelPersistence.update(
 			commercePriceModifierRel);
-
-		return commercePriceModifierRel;
 	}
 
 	@Override

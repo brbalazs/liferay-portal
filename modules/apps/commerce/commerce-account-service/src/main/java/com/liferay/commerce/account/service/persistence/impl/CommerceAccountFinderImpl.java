@@ -318,10 +318,8 @@ public class CommerceAccountFinderImpl
 			organizationIds.add(0L);
 		}
 
-		sql = StringUtil.replace(
+		return StringUtil.replace(
 			sql, "[$ORGANIZATION_IDS$]", StringUtil.merge(organizationIds));
-
-		return sql;
 	}
 
 	@ServiceReference(type = CustomSQL.class)

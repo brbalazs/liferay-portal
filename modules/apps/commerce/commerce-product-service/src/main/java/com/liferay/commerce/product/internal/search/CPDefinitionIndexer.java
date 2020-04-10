@@ -726,10 +726,7 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 				String.valueOf(cpDefinitionLink.getCPDefinitionId()));
 		}
 
-		reverseCPDefinitionIdsArray = reverseCPDefinitionIds.toArray(
-			reverseCPDefinitionIdsArray);
-
-		return reverseCPDefinitionIdsArray;
+		return reverseCPDefinitionIds.toArray(reverseCPDefinitionIdsArray);
 	}
 
 	protected void reindexCPDefinitions(long companyId) throws PortalException {
