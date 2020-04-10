@@ -194,7 +194,7 @@ public class CommerceOrderPriceCalculationV2Impl
 		}
 
 		return _commerceTaxCalculation.getTaxAmount(
-			commerceOrder, commerceContext);
+			commerceOrder, commerceContext.getCommerceCurrency());
 	}
 
 	@Override
