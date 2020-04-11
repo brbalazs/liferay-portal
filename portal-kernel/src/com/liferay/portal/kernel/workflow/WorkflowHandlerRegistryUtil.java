@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.function.Predicate;
 
 /**
  * @author Bruno Farache
@@ -253,65 +254,39 @@ public class WorkflowHandlerRegistryUtil {
 		return null;
 	}
 
-	private WorkflowHandlerRegistryUtil() {
-		_workflowHandlerServiceTrackerMap =
-			ServiceTrackerCollections.openSingleValueMap(
-				(Class<WorkflowHandler<?>>)(Class<?>)WorkflowHandler.class,
-				null,
-				new ServiceReferenceMapper<String, WorkflowHandler<?>>() {
+	private static List<WorkflowHandler<?>> _getWorkflowHandlers(
+		ServiceTrackerMap<String, WorkflowHandler<?>>
+			workflowHandlerServiceTrackerMap) {
 
-					@Override
-					public void map(
-						ServiceReference<WorkflowHandler<?>> serviceReference,
-						ServiceReferenceMapper.Emitter<String> emitter) {
-
-						Registry registry = RegistryUtil.getRegistry();
-
-						WorkflowHandler<?> workflowHandler =
-							registry.getService(serviceReference);
-
-						emitter.emit(workflowHandler.getClassName());
-					}
-
-				});
-
-		_scopeableWorkflowHandlerServiceTrackerMap =
-			ServiceTrackerCollections.openSingleValueMap(
-				(Class<WorkflowHandler<?>>)(Class<?>)WorkflowHandler.class,
-				null,
-				new ServiceReferenceMapper<String, WorkflowHandler<?>>() {
-
-					@Override
-					public void map(
-						ServiceReference<WorkflowHandler<?>> serviceReference,
-						ServiceReferenceMapper.Emitter<String> emitter) {
-
-						Registry registry = RegistryUtil.getRegistry();
-
-						WorkflowHandler<?> workflowHandler =
-							registry.getService(serviceReference);
-
-						if (workflowHandler.isScopeable()) {
-							emitter.emit(workflowHandler.getClassName());
-						}
-					}
-
-				});
-	}
-
-	private List<WorkflowHandler<?>> _getScopeableWorkflowHandlers() {
-		Set<String> modelClassNames =
-			_scopeableWorkflowHandlerServiceTrackerMap.keySet();
+		Set<String> modelClassNames = workflowHandlerServiceTrackerMap.keySet();
 
 		List<WorkflowHandler<?>> workflowHandlers = new ArrayList<>();
 
 		for (String modelClassName : modelClassNames) {
 			workflowHandlers.add(
-				_scopeableWorkflowHandlerServiceTrackerMap.getService(
-					modelClassName));
+				workflowHandlerServiceTrackerMap.getService(modelClassName));
 		}
 
 		return workflowHandlers;
+	}
+
+	private WorkflowHandlerRegistryUtil() {
+		_workflowHandlerServiceTrackerMap =
+			ServiceTrackerCollections.openSingleValueMap(
+				(Class<WorkflowHandler<?>>)(Class<?>)WorkflowHandler.class,
+				null,
+				new WorkflowHandlerServiceReferenceMapper(handler -> true));
+
+		_scopeableWorkflowHandlerServiceTrackerMap =
+			ServiceTrackerCollections.openSingleValueMap(
+				(Class<WorkflowHandler<?>>)(Class<?>)WorkflowHandler.class,
+				null,
+				new WorkflowHandlerServiceReferenceMapper(
+					handler -> handler.isScopeable()));
+	}
+
+	private List<WorkflowHandler<?>> _getScopeableWorkflowHandlers() {
+		return _getWorkflowHandlers(_scopeableWorkflowHandlerServiceTrackerMap);
 	}
 
 	private WorkflowHandler<?> _getWorkflowHandler(String className) {
@@ -319,17 +294,7 @@ public class WorkflowHandlerRegistryUtil {
 	}
 
 	private List<WorkflowHandler<?>> _getWorkflowHandlers() {
-		Set<String> modelClassNames =
-			_workflowHandlerServiceTrackerMap.keySet();
-
-		List<WorkflowHandler<?>> workflowHandlers = new ArrayList<>();
-
-		for (String modelClassName : modelClassNames) {
-			workflowHandlers.add(
-				_workflowHandlerServiceTrackerMap.getService(modelClassName));
-		}
-
-		return workflowHandlers;
+		return _getWorkflowHandlers(_workflowHandlerServiceTrackerMap);
 	}
 
 	private boolean _hasWorkflowInstanceInProgress(
@@ -387,5 +352,33 @@ public class WorkflowHandlerRegistryUtil {
 		_serviceRegistrations = new ServiceRegistrationMapImpl<>();
 	private final ServiceTrackerMap<String, WorkflowHandler<?>>
 		_workflowHandlerServiceTrackerMap;
+
+	private class WorkflowHandlerServiceReferenceMapper
+		implements ServiceReferenceMapper<String, WorkflowHandler<?>> {
+
+		public WorkflowHandlerServiceReferenceMapper(
+			Predicate<WorkflowHandler<?>> filter) {
+
+			_filter = filter;
+		}
+
+		@Override
+		public void map(
+			ServiceReference<WorkflowHandler<?>> serviceReference,
+			Emitter<String> emitter) {
+
+			Registry registry = RegistryUtil.getRegistry();
+
+			WorkflowHandler<?> workflowHandler = registry.getService(
+				serviceReference);
+
+			if (_filter.test(workflowHandler)) {
+				emitter.emit(workflowHandler.getClassName());
+			}
+		}
+
+		private final Predicate<WorkflowHandler<?>> _filter;
+
+	}
 
 }
