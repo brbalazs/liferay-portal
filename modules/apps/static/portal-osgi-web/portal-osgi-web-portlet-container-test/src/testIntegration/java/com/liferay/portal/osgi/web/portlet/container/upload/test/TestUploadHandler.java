@@ -104,12 +104,10 @@ public class TestUploadHandler extends BaseUploadHandler {
 
 			String parameterName = getParameterName();
 
-			String fileName = uploadPortletRequest.getFileName(parameterName);
-			String contentType = uploadPortletRequest.getContentType(
-				parameterName);
-			long size = uploadPortletRequest.getSize(parameterName);
-
-			validateFile(fileName, contentType, size);
+			validateFile(
+				uploadPortletRequest.getFileName(parameterName),
+				uploadPortletRequest.getContentType(parameterName),
+				uploadPortletRequest.getSize(parameterName));
 
 			try (InputStream inputStream = uploadPortletRequest.getFileAsStream(
 					parameterName)) {
@@ -118,9 +116,7 @@ public class TestUploadHandler extends BaseUploadHandler {
 					_uniqueFileNameProvider.provide(
 						uploadPortletRequest.getFileName(parameterName),
 						curFileName -> _fileEntryExists(
-							themeDisplay.getScopeGroupId(),
-							DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
-							curFileName)),
+							themeDisplay.getScopeGroupId(), curFileName)),
 					DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
 					themeDisplay.getScopeGroupId(), inputStream);
 
@@ -167,11 +163,10 @@ public class TestUploadHandler extends BaseUploadHandler {
 		String fileName, String contentType, long size) {
 	}
 
-	private boolean _fileEntryExists(
-		long groupId, long folderId, String fileName) {
-
+	private boolean _fileEntryExists(long groupId, String fileName) {
 		FileEntry fileEntry = new TestFileEntry(
-			fileName, folderId, groupId, null);
+			fileName, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID, groupId,
+			null);
 
 		TestFileEntry testFileEntry = _testUploadPortlet.get(
 			fileEntry.toString());
