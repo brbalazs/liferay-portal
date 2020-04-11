@@ -150,7 +150,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		String uniqueFileName = uniqueFileNameProvider.provide(
 			fileName,
-			curFileName -> _fileEntryExists(
+			curFileName -> _hasFileEntry(
 				blogsEntry.getGroupId(), folder.getFolderId(), curFileName));
 
 		return PortletFileRepositoryUtil.addPortletFileEntry(
@@ -2339,7 +2339,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	protected UploadServletRequestConfigurationHelper
 		uploadServletRequestConfigurationHelper;
 
-	private boolean _fileEntryExists(
+	private boolean _hasFileEntry(
 		long groupId, long folderId, String fileName) {
 
 		FileEntry fileEntry = _portletFileRepository.fetchPortletFileEntry(
@@ -2372,7 +2372,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		return uniqueFileNameProvider.provide(
 			fileName,
-			curFileName -> _fileEntryExists(groupId, folderId, fileName));
+			curFileName -> _hasFileEntry(groupId, folderId, fileName));
 	}
 
 	private String _getUniqueUrlTitle(BlogsEntry entry) {
