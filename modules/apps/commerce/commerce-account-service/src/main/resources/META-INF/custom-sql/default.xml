@@ -27,7 +27,7 @@
 	<sql id="com.liferay.commerce.account.service.persistence.CommerceAccountFinder.findByU_P">
 		<![CDATA[
 			SELECT
-				DISTINCT CommerceAccount.*
+				DISTINCT {CommerceAccount.*}
 			FROM
 				User_
 			LEFT JOIN
@@ -50,7 +50,7 @@
 	<sql id="com.liferay.commerce.account.service.persistence.CommerceAccountFinder.findByU_C">
 		<![CDATA[
 			SELECT
-				DISTINCT CommerceAccount.*
+				DISTINCT {CommerceAccount.*}
 			FROM
 				User_
 			LEFT JOIN

@@ -119,9 +119,8 @@ public class CommerceAccountFinderImpl
 			Boolean active = (Boolean)queryDefinition.getAttribute("active");
 
 			if (active != null) {
-				sql = StringUtil.add(
-					sql, " AND (CommerceAccount.active_ = " + active + ")",
-					StringPool.BLANK);
+				sql = _customSQL.appendCriteria(
+					sql, "AND (CommerceAccount.active_ = ?)");
 			}
 
 			sql = _customSQL.replaceAndOperator(sql, true);
@@ -132,6 +131,10 @@ public class CommerceAccountFinderImpl
 
 			if (Validator.isNotNull(keywords)) {
 				qPos.add(names, 2);
+			}
+
+			if (active != null) {
+				qPos.add(active);
 			}
 
 			q.addScalar(COUNT_COLUMN_NAME, Type.LONG);
@@ -232,9 +235,8 @@ public class CommerceAccountFinderImpl
 			Boolean active = (Boolean)queryDefinition.getAttribute("active");
 
 			if (active != null) {
-				sql = StringUtil.add(
-					sql, " AND (CommerceAccount.active_ = " + active + ")",
-					StringPool.BLANK);
+				sql = _customSQL.appendCriteria(
+					sql, "AND (CommerceAccount.active_ = ?)");
 			}
 
 			sql = _customSQL.replaceAndOperator(sql, true);
@@ -248,6 +250,10 @@ public class CommerceAccountFinderImpl
 
 			if (Validator.isNotNull(keywords)) {
 				qPos.add(names, 2);
+			}
+
+			if (active != null) {
+				qPos.add(active);
 			}
 
 			return (List<CommerceAccount>)QueryUtil.list(
