@@ -21,7 +21,7 @@ import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.status.CommerceOrderStatus;
 import com.liferay.commerce.payment.method.CommercePaymentMethod;
 import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
-import com.liferay.commerce.service.CommerceOrderService;
+import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.WorkflowDefinitionLink;
@@ -61,7 +61,7 @@ public class PendingCommerceOrderStatusImpl implements CommerceOrderStatus {
 
 		commerceOrder.setOrderStatus(KEY);
 
-		commerceOrder = _commerceOrderService.updateCommerceOrder(
+		commerceOrder = _commerceOrderLocalService.updateCommerceOrder(
 			commerceOrder);
 
 		if (isWorkflowEnabled(commerceOrder)) {
@@ -85,7 +85,7 @@ public class PendingCommerceOrderStatusImpl implements CommerceOrderStatus {
 				serviceContext, new HashMap<>());
 		}
 
-		return _commerceOrderService.updateCommerceOrder(commerceOrder);
+		return _commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 	}
 
 	public int getKey() {
@@ -155,7 +155,7 @@ public class PendingCommerceOrderStatusImpl implements CommerceOrderStatus {
 		policy = ReferencePolicy.DYNAMIC,
 		policyOption = ReferencePolicyOption.GREEDY
 	)
-	private volatile CommerceOrderService _commerceOrderService;
+	private volatile CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
