@@ -51,6 +51,9 @@ import java.security.PrivilegedExceptionAction;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author Mika Koivisto
  * @author Tina Tian
@@ -62,7 +65,8 @@ public class FreeMarkerTemplate extends AbstractSingleResourceTemplate {
 		TemplateResource errorTemplateResource, Map<String, Object> context,
 		Configuration configuration,
 		TemplateContextHelper templateContextHelper, long interval,
-		boolean restricted, BeansWrapper beansWrapper) {
+		boolean restricted, BeansWrapper beansWrapper,
+		FreeMarkerManager freeMarkerManager) {
 
 		super(
 			templateResource, errorTemplateResource, context,
@@ -71,6 +75,16 @@ public class FreeMarkerTemplate extends AbstractSingleResourceTemplate {
 
 		_configuration = configuration;
 		_beansWrapper = beansWrapper;
+		_freeMarkerManager = freeMarkerManager;
+	}
+
+	@Override
+	public void prepareTaglib(
+		HttpServletRequest httpServletRequest,
+		HttpServletResponse httpServletResponse) {
+
+		_freeMarkerManager.addTaglibSupport(
+			context, httpServletRequest, httpServletResponse, _beansWrapper);
 	}
 
 	@Override
@@ -166,6 +180,7 @@ public class FreeMarkerTemplate extends AbstractSingleResourceTemplate {
 
 	private final BeansWrapper _beansWrapper;
 	private final Configuration _configuration;
+	private final FreeMarkerManager _freeMarkerManager;
 
 	private class CachableDefaultMapAdapter
 		extends WrappingTemplateModel

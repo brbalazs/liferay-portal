@@ -19,10 +19,14 @@ import java.io.Writer;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Tina Tian
  */
+@ProviderType
 public interface Template extends Map<String, Object> {
 
 	public void doProcessTemplate(Writer writer) throws Exception;
@@ -32,6 +36,10 @@ public interface Template extends Map<String, Object> {
 	public String[] getKeys();
 
 	public void prepare(HttpServletRequest request);
+
+	public void prepareTaglib(
+		HttpServletRequest httpServletRequest,
+		HttpServletResponse httpServletResponse);
 
 	public void processTemplate(Writer writer) throws TemplateException;
 
