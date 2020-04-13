@@ -1190,19 +1190,17 @@ assets with a given category.
 #### What changed?
 
 Previously, the Web Content description field was a plain text field. This field
-is now managed by AlloyEditor allowing some styles and formatting, being the
-resulting HTML tags controlled by AlloyEditor, while HTML characters entered by
-users are escaped to be rendered as is and not as HTML.
+is now managed by AlloyEditor, so any HTML characters entered into the field are escaped and rendered as plain text instead of HTML.
 
 #### Who is affected?
 
-This affects anyone with explicit HTML tags in Web Content descriptions
-expecting to be rendered as regular HTML tags by the browser.
+This affects explicit HTML tags in Web Content descriptions that a developer
+expects to be rendered as regular HTML tags by the browser.
 
 #### How should I update my code?
 
-If you want these values to keep being rendered as HTML, you should unescape
-them using the proper unescape sequence `HtmlUtil.unescape`.
+If you want these values rendered as HTML, you must unescape
+them using the proper unescape sequence: `HtmlUtil.unescape`.
 
 For example, the FreeMarker expression
 `${.vars['reserved-article-description'].data}` should be unescaped like
@@ -1210,7 +1208,6 @@ For example, the FreeMarker expression
 
 #### Why was this change made?
 
-This change was made to allow some basic styling and formatting in Web Content
-description fields in a WYSIWYG way.
+This change was made to take advantage of the AlloyEditor's styling and formatting tools in Web Content description fields.
 
 ---------------------------------------
