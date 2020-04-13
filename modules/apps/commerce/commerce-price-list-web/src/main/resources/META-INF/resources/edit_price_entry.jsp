@@ -22,9 +22,6 @@ CommercePriceEntryDisplayContext commercePriceEntryDisplayContext = (CommercePri
 CommercePriceEntry commercePriceEntry = commercePriceEntryDisplayContext.getCommercePriceEntry();
 
 CommercePriceList commercePriceList = commercePriceEntry.getCommercePriceList();
-CPInstance cpInstance = commercePriceEntry.getCPInstance();
-
-CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
 long commercePriceEntryId = commercePriceEntryDisplayContext.getCommercePriceEntryId();
 long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceListId();
@@ -42,8 +39,6 @@ PortletURL editPriceListURL = renderResponse.createRenderURL();
 
 editPriceListURL.setParameter("mvcRenderCommandName", "editCommercePriceList");
 editPriceListURL.setParameter("commercePriceListId", String.valueOf(commercePriceListId));
-
-String title = cpDefinition.getName(languageId);
 
 editPriceListURL.setParameter("screenNavigationCategoryKey", CommercePriceListScreenNavigationConstants.CATEGORY_KEY_ENTRIES);
 

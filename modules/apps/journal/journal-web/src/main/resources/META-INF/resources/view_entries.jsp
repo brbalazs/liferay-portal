@@ -22,13 +22,11 @@ String referringPortletResource = ParamUtil.getString(request, "referringPortlet
 SearchContainer articleSearchContainer = journalDisplayContext.getSearchContainer(false);
 
 String displayStyle = journalDisplayContext.getDisplayStyle();
-
-String searchContainerId = ParamUtil.getString(request, "searchContainerId");
 %>
 
 <liferay-ui:search-container
 	emptyResultsMessage="no-web-content-was-found"
-	id="<%= searchContainerId %>"
+	id='<%= ParamUtil.getString(request, "searchContainerId") %>'
 	searchContainer="<%= articleSearchContainer %>"
 >
 	<liferay-ui:search-container-row

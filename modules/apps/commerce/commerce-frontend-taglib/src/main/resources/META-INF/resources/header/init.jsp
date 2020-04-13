@@ -60,7 +60,6 @@ String externalReferenceCodeEditUrl = (String)request.getAttribute("liferay-comm
 boolean fullWidth = (boolean)request.getAttribute("liferay-commerce:header:fullWidth");
 Class<?> model = (Class<?>)request.getAttribute("liferay-commerce:header:model");
 String previewUrl = (String)request.getAttribute("liferay-commerce:header:previewUrl");
-String spritemap = (String)request.getAttribute("liferay-commerce:header:spritemap");
 String thumbnailUrl = (String)request.getAttribute("liferay-commerce:header:thumbnailUrl");
 String title = (String)request.getAttribute("liferay-commerce:header:title");
 PortletURL transitionPortletURL = (PortletURL)request.getAttribute("liferay-commerce:header:transitionPortletURL");

@@ -19,15 +19,6 @@
 <%
 JournalArticle article = journalDisplayContext.getArticle();
 
-long groupId = BeanParamUtil.getLong(article, request, "groupId", scopeGroupId);
-
-long folderId = BeanParamUtil.getLong(article, request, "folderId", JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID);
-
-long classNameId = BeanParamUtil.getLong(article, request, "classNameId");
-long classPK = BeanParamUtil.getLong(article, request, "classPK");
-
-String articleId = BeanParamUtil.getString(article, request, "articleId");
-
 double version = BeanParamUtil.getDouble(article, request, "version", JournalArticleConstants.VERSION_DEFAULT);
 
 String ddmStructureKey = ParamUtil.getString(request, "ddmStructureKey");

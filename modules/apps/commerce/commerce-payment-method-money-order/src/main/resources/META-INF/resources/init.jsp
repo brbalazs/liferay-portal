@@ -36,7 +36,3 @@ page import="com.liferay.portal.kernel.util.Validator" %>
 <liferay-frontend:defineObjects />
 
 <liferay-theme:defineObjects />
-
-<%
-String redirect = ParamUtil.getString(request, "redirect");
-%>

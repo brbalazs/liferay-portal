@@ -403,7 +403,6 @@ if (dlViewFileVersionDisplayContext.isVersionInfoVisible()) {
 						}
 
 						if (ddmFormValues != null) {
-							String name = "metadata." + ddmStructure.getStructureKey();
 				%>
 
 							<liferay-ui:panel
@@ -413,7 +412,7 @@ if (dlViewFileVersionDisplayContext.isVersionInfoVisible()) {
 								id='<%= "documentLibraryMetadataPanel" + StringPool.UNDERLINE + ddmStructure.getStructureId() %>'
 								markupView="lexicon"
 								persistState="<%= true %>"
-								title="<%= name %>"
+								title='<%= "metadata." + ddmStructure.getStructureKey() %>'
 							>
 								<liferay-ddm:html
 									classNameId="<%= PortalUtil.getClassNameId(com.liferay.dynamic.data.mapping.model.DDMStructure.class) %>"

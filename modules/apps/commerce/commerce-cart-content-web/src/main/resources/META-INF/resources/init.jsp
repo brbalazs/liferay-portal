@@ -52,7 +52,6 @@ page import="com.liferay.portal.kernel.security.permission.ActionKeys" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.KeyValuePair" %><%@
-page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %>
@@ -72,7 +71,5 @@ page import="java.util.StringJoiner" %>
 <portlet:defineObjects />
 
 <%
-String redirect = ParamUtil.getString(request, "redirect");
-
 String languageId = LanguageUtil.getLanguageId(locale);
 %>

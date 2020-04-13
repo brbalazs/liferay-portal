@@ -22,7 +22,6 @@ CommerceInventoryWarehouseItemSelectorViewDisplayContext commerceInventoryWareho
 long commerceCountryId = commerceInventoryWarehouseItemSelectorViewDisplayContext.getCommerceCountryId();
 String itemSelectedEventName = commerceInventoryWarehouseItemSelectorViewDisplayContext.getItemSelectedEventName();
 List<ManagementBarFilterItem> managementBarFilterItems = commerceInventoryWarehouseItemSelectorViewDisplayContext.getManagementBarFilterItems();
-PortletURL portletURL = commerceInventoryWarehouseItemSelectorViewDisplayContext.getPortletURL();
 
 String managementBarFilterValue = null;
 
