@@ -23,6 +23,8 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 long cpDefinitionId = cpDefinitionsDisplayContext.getCPDefinitionId();
 List<CommerceCatalog> commerceCatalogs = cpDefinitionsDisplayContext.getCommerceCatalogs();
 
+String defaultLanguageId = cpDefinitionsDisplayContext.getCatalogDefaultLanguageId();
+
 String productTypeName = BeanParamUtil.getString(cpDefinition, request, "productTypeName");
 
 String friendlyURLBase = themeDisplay.getPortalURL() + CPConstants.SEPARATOR_PRODUCT_URL;
@@ -75,15 +77,15 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					<c:when test="<%= (cpDefinition != null) || ((cpDefinition == null) && (commerceCatalogs.size() > 1)) %>">
 						<aui:select disabled="<%= cpDefinition != null %>" label="catalog" name="commerceCatalogGroupId" required="<%= true %>">
 
-							<%
-							for (CommerceCatalog commerceCatalog : commerceCatalogs) {
-							%>
+					<%
+					for (CommerceCatalog curCommerceCatalog : commerceCatalogs) {
+					%>
 
-								<aui:option label="<%= commerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(commerceCatalog) %>" value="<%= commerceCatalog.getGroupId() %>" />
+						<aui:option data-languageId="<%= curCommerceCatalog.getCatalogDefaultLanguageId() %>" label="<%= curCommerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(curCommerceCatalog) %>" value="<%= curCommerceCatalog.getGroupId() %>" />
 
-							<%
-							}
-							%>
+					<%
+					}
+					%>
 
 						</aui:select>
 					</c:when>
@@ -97,11 +99,11 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					</c:otherwise>
 				</c:choose>
 
-				<aui:input autoFocus="<%= true %>" label="name" localized="<%= true %>" name="nameMapAsXML" type="text">
+				<aui:input autoFocus="<%= true %>" defaultLanguageId="<%= defaultLanguageId %>" label="name" localized="<%= true %>" name="nameMapAsXML" type="text">
 					<aui:validator name="required" />
 				</aui:input>
 
-				<aui:input label="short-description" localized="<%= true %>" name="shortDescriptionMapAsXML" resizable="<%= true %>" type="textarea" />
+				<aui:input defaultLanguageId="<%= defaultLanguageId %>" label="short-description" localized="<%= true %>" name="shortDescriptionMapAsXML" resizable="<%= true %>" type="textarea" />
 
 				<%
 				String descriptionMapAsXML = StringPool.BLANK;
@@ -116,6 +118,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 					<div class="entry-content form-group">
 						<liferay-ui:input-localized
+							defaultLanguageId="<%= defaultLanguageId %>"
 							editorName="alloyeditor"
 							name="descriptionMapAsXML"
 							type="editor"
@@ -132,18 +135,18 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					<label for="<portlet:namespace />urlTitleMapAsXML"><liferay-ui:message key="friendly-url" /><liferay-ui:icon-help message='<%= LanguageUtil.format(request, "for-example-x", "<em>news</em>", false) %>' /></label>
 
 					<liferay-ui:input-localized
-						defaultLanguageId="<%= LocaleUtil.toLanguageId(themeDisplay.getSiteDefaultLocale()) %>"
+						defaultLanguageId="<%= defaultLanguageId %>"
 						inputAddon="<%= StringUtil.shorten(friendlyURLBase, 40) %>"
 						name="urlTitleMapAsXML"
 						xml="<%= HttpUtil.decodeURL(cpDefinitionsDisplayContext.getUrlTitleMapAsXML()) %>"
 					/>
 				</div>
 
-				<aui:input label="meta-title" localized="<%= true %>" name="metaTitleMapAsXML" type="text" />
+				<aui:input defaultLanguageId="<%= defaultLanguageId %>" label="meta-title" localized="<%= true %>" name="metaTitleMapAsXML" type="text" />
 
-				<aui:input label="meta-description" localized="<%= true %>" name="metaDescriptionMapAsXML" type="textarea" />
+				<aui:input defaultLanguageId="<%= defaultLanguageId %>" label="meta-description" localized="<%= true %>" name="metaDescriptionMapAsXML" type="textarea" />
 
-				<aui:input label="meta-keywords" localized="<%= true %>" name="metaKeywordsMapAsXML" type="textarea" />
+				<aui:input defaultLanguageId="<%= defaultLanguageId %>" label="meta-keywords" localized="<%= true %>" name="metaKeywordsMapAsXML" type="textarea" />
 			</commerce-ui:panel>
 		</div>
 
@@ -341,5 +344,89 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 		};
 
 		nameInput.addEventListener('input', debounce.default(handleOnNameInput, 200));
+	</aui:script>
+
+	<aui:script>
+		document
+			.getElementById('<portlet:namespace />commerceCatalogGroupId')
+			.addEventListener('change', function(event) {
+				var languageId = event.target.querySelector(
+					'[value="' + event.target.value + '"]'
+				).dataset.languageid;
+
+				var nameInput = document.getElementById(
+					'<portlet:namespace />nameMapAsXML'
+				);
+				var shortDescriptionInput = document.getElementById(
+					'<portlet:namespace />shortDescriptionMapAsXML'
+				);
+				var descriptionInput =
+					window.<portlet:namespace />descriptionMapAsXMLEditor;
+				var urlInput = document.getElementById(
+					'<portlet:namespace />urlTitleMapAsXML'
+				);
+				var metaTitleInput = document.getElementById(
+					'<portlet:namespace />metaTitleMapAsXML'
+				);
+				var metaDescriptionInput = document.getElementById(
+					'<portlet:namespace />metaDescriptionMapAsXML'
+				);
+				var metaKeywordsInput = document.getElementById(
+					'<portlet:namespace />metaKeywordsMapAsXML'
+				);
+
+				var nameInputLocalized = Liferay.component(
+					'<portlet:namespace />nameMapAsXML'
+				);
+				var shortDescriptionInputLocalized = Liferay.component(
+					'<portlet:namespace />shortDescriptionMapAsXML'
+				);
+				var descriptionInputLocalized = Liferay.component(
+					'<portlet:namespace />descriptionMapAsXML'
+				);
+				var urlTitleInputLocalized = Liferay.component(
+					'<portlet:namespace />urlTitleMapAsXML'
+				);
+				var metaTitleInputLocalized = Liferay.component(
+					'<portlet:namespace />metaTitleMapAsXML'
+				);
+				var metaDescriptionInputLocalized = Liferay.component(
+					'<portlet:namespace />metaDescriptionMapAsXML'
+				);
+				var metaKeywordsInputLocalized = Liferay.component(
+					'<portlet:namespace />metaKeywordsMapAsXML'
+				);
+
+				nameInputLocalized.updateInputLanguage(nameInput.value, languageId);
+				shortDescriptionInputLocalized.updateInputLanguage(
+					shortDescriptionInput.value,
+					languageId
+				);
+				descriptionInputLocalized.updateInputLanguage(
+					descriptionInput.getHTML(),
+					languageId
+				);
+				urlTitleInputLocalized.updateInputLanguage(urlInput.value, languageId);
+				metaTitleInputLocalized.updateInputLanguage(
+					metaTitleInput.value,
+					languageId
+				);
+				metaDescriptionInputLocalized.updateInputLanguage(
+					metaDescriptionInput.value,
+					languageId
+				);
+				metaKeywordsInputLocalized.updateInputLanguage(
+					metaKeywordsInput.value,
+					languageId
+				);
+
+				nameInputLocalized.selectFlag(languageId, false);
+				shortDescriptionInputLocalized.selectFlag(languageId, false);
+				descriptionInputLocalized.selectFlag(languageId, false);
+				urlTitleInputLocalized.selectFlag(languageId, false);
+				metaTitleInputLocalized.selectFlag(languageId, false);
+				metaDescriptionInputLocalized.selectFlag(languageId, false);
+				metaKeywordsInputLocalized.selectFlag(languageId, false);
+			});
 	</aui:script>
 </c:if>
