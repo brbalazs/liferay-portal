@@ -14,14 +14,14 @@
 
 package com.liferay.portal.kernel.template;
 
+import aQute.bnd.annotation.ProviderType;
+
 import java.io.Writer;
 
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Tina Tian

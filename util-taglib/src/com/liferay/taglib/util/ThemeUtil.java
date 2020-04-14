@@ -417,10 +417,6 @@ public class ThemeUtil {
 				"Unable to load template resource " + resourcePath);
 		}
 
-		TemplateManager templateManager =
-			TemplateManagerUtil.getTemplateManager(
-				TemplateConstants.LANG_TYPE_VM);
-
 		Template template = TemplateManagerUtil.getTemplate(
 			TemplateConstants.LANG_TYPE_VM, templateResource, restricted);
 
@@ -456,9 +452,6 @@ public class ThemeUtil {
 			httpServletResponse = new PipingServletResponse(
 				httpServletResponse, writer);
 		}
-
-		templateManager.addTaglibTheme(
-			template, "taglibLiferay", httpServletRequest, httpServletResponse);
 
 		template.put(TemplateConstants.WRITER, writer);
 
