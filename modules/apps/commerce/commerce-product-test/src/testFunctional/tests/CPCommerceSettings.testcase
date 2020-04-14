@@ -139,4 +139,5 @@ definition {
 
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
+
 }

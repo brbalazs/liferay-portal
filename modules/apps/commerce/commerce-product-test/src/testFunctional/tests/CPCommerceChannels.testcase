@@ -74,4 +74,5 @@ definition {
 			channelName = "Test Channel",
 			channelType = "Site");
 	}
+
 }

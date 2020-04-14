@@ -64,4 +64,5 @@ definition {
 			currencyCode = "USD",
 			entryName = "New Price List");
 	}
+
 }

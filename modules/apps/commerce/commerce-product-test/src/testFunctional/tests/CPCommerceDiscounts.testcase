@@ -81,4 +81,5 @@ definition {
 			entryTitle = "New Discount",
 			maximumDiscountAmount = "10.00");
 	}
+
 }

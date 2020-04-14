@@ -74,4 +74,5 @@ definition {
 			catalogLanguage = "English (United States)",
 			catalogName = "Test Catalog");
 	}
+
 }
