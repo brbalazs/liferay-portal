@@ -19,7 +19,6 @@ import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.headless.commerce.admin.inventory.dto.v1_0.Warehouse;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -76,4 +75,5 @@ public class WarehouseDTOConverter implements DTOConverter {
 	@Reference
 	private CommerceInventoryWarehouseService
 		_commerceInventoryWarehouseService;
+
 }
