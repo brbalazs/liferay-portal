@@ -29,6 +29,8 @@ CommerceDiscountValue subtotalDiscountValue = null;
 
 CommerceOrderPrice commerceOrderPrice = commerceCartContentTotalDisplayContext.getCommerceOrderPrice();
 
+String priceDisplayType = commerceCartContentTotalDisplayContext.getCommercePriceDisplayType();
+
 if (commerceOrderPrice != null) {
 	subtotal = commerceOrderPrice.getSubtotal();
 	subtotalDiscountValue = commerceOrderPrice.getSubtotalDiscountValue();
@@ -43,6 +45,22 @@ if (commerceOrderPrice != null) {
 
 	if (totalDiscountValue != null) {
 		totalDiscountAmount = totalDiscountValue.getDiscountAmount();
+	}
+
+	if (priceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+		subtotal = commerceOrderPrice.getSubtotalWithTaxAmount();
+		subtotalDiscountValue = commerceOrderPrice.getSubtotalDiscountValueWithTaxAmount();
+
+		if (subtotalDiscountValue != null) {
+			subtotalDiscountAmount = subtotalDiscountValue.getDiscountAmount();
+		}
+
+		totalOrder = commerceOrderPrice.getTotalWithTaxAmount();
+		totalDiscountValue = commerceOrderPrice.getTotalDiscountValueWithTaxAmount();
+
+		if (totalDiscountValue != null) {
+			totalDiscountAmount = totalDiscountValue.getDiscountAmount();
+		}
 	}
 }
 
@@ -83,7 +101,7 @@ SearchContainer<CommerceOrderItem> commerceOrderItemSearchContainer = commerceCa
 			</div>
 		</c:if>
 
-		<c:if test="<%= taxValue != null %>">
+		<c:if test="<%= (taxValue != null) && priceDisplayType.equals(CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE) %>">
 			<div class="row">
 				<div class="col-auto">
 					<h3 class="h4"><liferay-ui:message key="tax" /></h3>

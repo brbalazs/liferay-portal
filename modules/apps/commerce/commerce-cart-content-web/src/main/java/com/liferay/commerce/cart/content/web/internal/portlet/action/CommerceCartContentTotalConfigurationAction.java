@@ -21,6 +21,7 @@ import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -68,7 +69,8 @@ public class CommerceCartContentTotalConfigurationAction
 			CommerceCartContentTotalDisplayContext
 				commerceCartContentTotalDisplayContext =
 					new CommerceCartContentTotalDisplayContext(
-						httpServletRequest, _commerceOrderItemService,
+						httpServletRequest, _commerceChannelService,
+						_commerceOrderItemService,
 						_commerceOrderPriceCalculation,
 						_commerceOrderValidatorRegistry,
 						_commerceProductPriceCalculation, _cpDefinitionHelper,
@@ -98,6 +100,9 @@ public class CommerceCartContentTotalConfigurationAction
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceCartContentTotalConfigurationAction.class);
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;

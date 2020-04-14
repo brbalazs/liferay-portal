@@ -31,12 +31,21 @@ CommerceMoney totalOrder = null;
 
 CommerceOrderPrice commerceOrderPrice = commerceCartContentMiniDisplayContext.getCommerceOrderPrice();
 
+String priceDisplayType = commerceCartContentMiniDisplayContext.getCommercePriceDisplayType();
+
 if (commerceOrderPrice != null) {
 	subtotal = commerceOrderPrice.getSubtotal();
 	subtotalDiscountValue = commerceOrderPrice.getSubtotalDiscountValue();
 	taxValue = commerceOrderPrice.getTaxValue();
 	totalDiscountValue = commerceOrderPrice.getTotalDiscountValue();
 	totalOrder = commerceOrderPrice.getTotal();
+
+	if (priceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+		subtotal = commerceOrderPrice.getSubtotalWithTaxAmount();
+		subtotalDiscountValue = commerceOrderPrice.getSubtotalDiscountValueWithTaxAmount();
+		totalDiscountValue = commerceOrderPrice.getTotalDiscountValueWithTaxAmount();
+		totalOrder = commerceOrderPrice.getTotalWithTaxAmount();
+	}
 }
 
 SearchContainer<CommerceOrderItem> commerceOrderItemSearchContainer = commerceCartContentMiniDisplayContext.getSearchContainer();
@@ -210,7 +219,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 			</c:if>
 		</li>
 		<li class="autofit-row commerce-tax">
-			<c:if test="<%= taxValue != null %>">
+			<c:if test="<%= (taxValue != null) && priceDisplayType.equals(CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE) %>">
 				<div class="autofit-col autofit-col-expand">
 					<div class="commerce-description"><liferay-ui:message key="tax" /></div>
 				</div>

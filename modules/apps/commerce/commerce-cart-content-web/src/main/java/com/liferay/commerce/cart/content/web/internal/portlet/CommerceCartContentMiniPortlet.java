@@ -22,6 +22,7 @@ import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -81,7 +82,8 @@ public class CommerceCartContentMiniPortlet extends MVCPortlet {
 				commerceCartContentDisplayContext =
 					new CommerceCartContentMiniDisplayContext(
 						_portal.getHttpServletRequest(renderRequest),
-						_commerceOrderHttpHelper, _commerceOrderItemService,
+						_commerceChannelService, _commerceOrderHttpHelper,
+						_commerceOrderItemService,
 						_commerceOrderPriceCalculation,
 						_commerceOrderValidatorRegistry,
 						_commerceProductPriceCalculation, _cpDefinitionHelper,
@@ -102,6 +104,9 @@ public class CommerceCartContentMiniPortlet extends MVCPortlet {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceCartContentMiniPortlet.class);
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;

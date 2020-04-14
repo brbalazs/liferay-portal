@@ -28,6 +28,8 @@ import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPActionKeys;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -60,6 +62,7 @@ public class CommerceCartContentDisplayContext {
 
 	public CommerceCartContentDisplayContext(
 			HttpServletRequest httpServletRequest,
+			CommerceChannelService commerceChannelService,
 			CommerceOrderItemService commerceOrderItemService,
 			CommerceOrderPriceCalculation commerceOrderPriceCalculation,
 			CommerceOrderValidatorRegistry commerceOrderValidatorRegistry,
@@ -71,6 +74,7 @@ public class CommerceCartContentDisplayContext {
 			PortletResourcePermission commerceProductPortletResourcePermission)
 		throws PortalException {
 
+		_commerceChannelService = commerceChannelService;
 		_commerceOrderItemService = commerceOrderItemService;
 		_commerceOrderPriceCalculation = commerceOrderPriceCalculation;
 		_commerceOrderValidatorRegistry = commerceOrderValidatorRegistry;
@@ -135,6 +139,16 @@ public class CommerceCartContentDisplayContext {
 
 		return _commerceOrderValidatorRegistry.getCommerceOrderValidatorResults(
 			commerceCartContentRequestHelper.getLocale(), getCommerceOrder());
+	}
+
+	public String getCommercePriceDisplayType() throws PortalException {
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannelByOrderGroupId(
+				commerceOrder.getGroupId());
+
+		return commerceChannel.getPriceDisplayType();
 	}
 
 	public CommerceProductPrice getCommerceProductPrice(
@@ -325,6 +339,7 @@ public class CommerceCartContentDisplayContext {
 
 	private final CommerceCartContentPortletInstanceConfiguration
 		_commerceCartContentPortletInstanceConfiguration;
+	private final CommerceChannelService _commerceChannelService;
 	private CommerceOrder _commerceOrder;
 	private final CommerceOrderItemService _commerceOrderItemService;
 	private final CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
