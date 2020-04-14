@@ -7574,6 +7574,91 @@ paths:
             summary: Gets a Related Product by ID.
             tags:
                 - RelatedProduct
+    /skus:
+        get:
+            operationId: getSkusPage
+            parameters:
+                - in: query
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
+        responses:
+            200:
+                content:
+                    application/json:
+                        schema:
+                            items:
+                                $ref: "#/components/schemas/Sku"
+                            type: array
+                    application/xml:
+                        schema:
+                            items:
+                                $ref: "#/components/schemas/Sku"
+                            type: array
+                description:
+                    Successful operation
+            400:
+                description:
+                    Invalid input
+            401:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Error"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Error"
+                description:
+                    Authentication information is missing or invalid
+            404:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Error"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Error"
+                description:
+                    The specified resource was not found
+            500:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Error"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Error"
+                description:
+                    Unexpected error
+        security:
+            - BasicAuth: []
+            - BearerAuth: []
+            - OAuth2:
+                  - HeadlessCommerceAdminCatalog.read
+        summary: Gets a list of Skus.
+        tags:
+            - Sku
     /skus/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deleteSkuByExternalReferenceCode
