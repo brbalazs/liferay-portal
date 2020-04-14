@@ -60,8 +60,8 @@ public interface CommerceTaxCalculation {
 			CommerceContext commerceContext)
 		throws PortalException;
 
-	public List<CommerceTaxValue> getShippingTaxValue(
-			CommerceOrder commerceOrder)
+	public CommerceMoney getShippingTaxValue(
+			CommerceOrder commerceOrder, CommerceCurrency commerceCurrency)
 		throws PortalException;
 
 	/**

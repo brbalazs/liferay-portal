@@ -150,8 +150,8 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 	}
 
 	@Override
-	public List<CommerceTaxValue> getShippingTaxValue(
-			CommerceOrder commerceOrder)
+	public CommerceMoney getShippingTaxValue(
+			CommerceOrder commerceOrder, CommerceCurrency commerceCurrency)
 		throws PortalException {
 
 		CommerceShippingTaxConfiguration commerceShippingTaxConfiguration =
@@ -161,11 +161,21 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 					commerceOrder.getGroupId(),
 					CommerceConstants.TAX_SERVICE_NAME));
 
-		return _getCommerceTaxValues(
+		List<CommerceTaxValue> commerceTaxValues = _getCommerceTaxValues(
 			commerceOrder.getGroupId(), commerceOrder.getBillingAddressId(),
 			commerceOrder.getShippingAddressId(),
 			commerceOrder.getShippingAmount(), false,
 			commerceShippingTaxConfiguration.taxCategoryId());
+
+		BigDecimal taxAmount = BigDecimal.ZERO;
+
+		if (commerceTaxValues != null) {
+			for (CommerceTaxValue commerceTaxValue : commerceTaxValues) {
+				taxAmount = taxAmount.add(commerceTaxValue.getAmount());
+			}
+		}
+
+		return _commerceMoneyFactory.create(commerceCurrency, taxAmount);
 	}
 
 	@Override
