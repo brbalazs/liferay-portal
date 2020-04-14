@@ -33,7 +33,6 @@ import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistr
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -46,7 +45,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
@@ -74,7 +72,7 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 			commerceOrderItem.getCommerceOrderItemId(),
 			_commerceContextFactory.create(
 				contextCompany.getCompanyId(), commerceOrder.getGroupId(),
-				_user.getUserId(), commerceOrder.getCommerceOrderId(),
+				contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 				commerceOrder.getCommerceAccountId()));
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -104,7 +102,7 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 			commerceOrderItem.getCommerceOrderItemId(),
 			_commerceContextFactory.create(
 				contextCompany.getCompanyId(), commerceOrder.getGroupId(),
-				_user.getUserId(), commerceOrder.getCommerceOrderId(),
+				contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 				commerceOrder.getCommerceAccountId()));
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -258,7 +256,7 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 				orderItem.getQuantity(), commerceOrderItem.getQuantity()),
 			_commerceContextFactory.create(
 				contextCompany.getCompanyId(), commerceOrder.getGroupId(),
-				_user.getUserId(), commerceOrder.getCommerceOrderId(),
+				contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 				commerceOrder.getCommerceAccountId()),
 			_serviceContextHelper.getServiceContext(
 				commerceOrderItem.getGroupId()));
@@ -321,7 +319,7 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 				commerceOrder,
 				_commerceContextFactory.create(
 					contextCompany.getCompanyId(), commerceOrder.getGroupId(),
-					_user.getUserId(), commerceOrder.getCommerceOrderId(),
+					contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 					commerceOrder.getCommerceAccountId()),
 				_serviceContextHelper.getServiceContext(
 					commerceOrder.getGroupId()));
@@ -394,8 +392,5 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
-
-	@Context
-	private User _user;
 
 }
