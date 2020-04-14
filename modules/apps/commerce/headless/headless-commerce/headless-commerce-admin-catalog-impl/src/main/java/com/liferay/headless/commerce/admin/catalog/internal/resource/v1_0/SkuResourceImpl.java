@@ -159,13 +159,7 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 					externalReferenceCode);
 		}
 
-		DTOConverter skuDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CPInstance.class.getName());
-
-		return (Sku)skuDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpInstance.getCPInstanceId()));
+		return _toSku(cpInstance);
 	}
 
 	@Override
@@ -228,6 +222,16 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 		}
 
 		return _upsertSKU(cpDefinition, sku);
+	}
+
+	private Sku _toSku(CPInstance cpInstance) throws Exception {
+		DTOConverter skuDTOConverter = _dtoConverterRegistry.getDTOConverter(
+			CPInstance.class.getName());
+
+		return (Sku)skuDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				contextAcceptLanguage.getPreferredLocale(),
+				cpInstance.getCPInstanceId()));
 	}
 
 	private Sku _updateSKU(CPInstance cpInstance, Sku sku) throws Exception {
