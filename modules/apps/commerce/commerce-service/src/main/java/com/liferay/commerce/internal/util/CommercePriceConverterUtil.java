@@ -15,9 +15,9 @@
 package com.liferay.commerce.internal.util;
 
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.currency.model.CommerceMoneyFactoryUtil;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.commerce.tax.CommerceTaxValue;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -31,6 +31,41 @@ import java.util.List;
  * @author Riccardo Alberti
  */
 public class CommercePriceConverterUtil {
+
+	public static CommerceDiscountValue getConvertedCommerceDiscountValue(
+		CommerceDiscountValue commerceDiscountValue, boolean withTaxAmount,
+		BigDecimal taxValue, RoundingMode roundingMode,
+		CommerceMoneyFactory commerceMoneyFactory) {
+
+		CommerceMoney discountAmount =
+			commerceDiscountValue.getDiscountAmount();
+
+		BigDecimal discountAmountPrice = discountAmount.getPrice();
+
+		BigDecimal convertedDiscountAmountPrice;
+
+		if (withTaxAmount) {
+			convertedDiscountAmountPrice = discountAmountPrice.subtract(
+				taxValue);
+		}
+		else {
+			convertedDiscountAmountPrice = discountAmountPrice.add(taxValue);
+		}
+
+		CommerceMoney convertedDiscountAmount = commerceMoneyFactory.create(
+			discountAmount.getCommerceCurrency(), convertedDiscountAmountPrice);
+
+		return new CommerceDiscountValue(
+			commerceDiscountValue.getId(), convertedDiscountAmount,
+			_getPercentage(
+				commerceDiscountValue.getDiscountPercentage(), withTaxAmount,
+				discountAmountPrice, convertedDiscountAmountPrice,
+				roundingMode),
+			_getPercentages(
+				commerceDiscountValue.getPercentages(), withTaxAmount,
+				discountAmountPrice, convertedDiscountAmountPrice,
+				roundingMode));
+	}
 
 	public static CommerceDiscountValue getConvertedCommerceDiscountValue(
 			long commerceChannelGroupId, long cpInstanceId,
@@ -92,48 +127,6 @@ public class CommercePriceConverterUtil {
 		}
 
 		return price.add(taxAmount);
-	}
-
-	public static CommerceDiscountValue getConvertedShippingDiscountValue(
-		CommerceDiscountValue commerceDiscountValue, boolean withTaxAmount,
-		CommerceMoney convertedDiscountAmount, RoundingMode roundingMode) {
-
-		CommerceMoney discountAmount =
-			commerceDiscountValue.getDiscountAmount();
-
-		return new CommerceDiscountValue(
-			commerceDiscountValue.getId(), convertedDiscountAmount,
-			_getPercentage(
-				commerceDiscountValue.getDiscountPercentage(), withTaxAmount,
-				discountAmount.getPrice(), convertedDiscountAmount.getPrice(),
-				roundingMode),
-			_getPercentages(
-				commerceDiscountValue.getPercentages(), withTaxAmount,
-				discountAmount.getPrice(), convertedDiscountAmount.getPrice(),
-				roundingMode));
-	}
-
-	public static BigDecimal getShippingWithTaxAmount(
-			CommerceOrder commerceOrder,
-			CommerceTaxCalculation commerceTaxCalculation)
-		throws PortalException {
-
-		BigDecimal shippingAmount = commerceOrder.getShippingAmount();
-
-		List<CommerceTaxValue> commerceTaxValues =
-			commerceTaxCalculation.getShippingTaxValue(commerceOrder);
-
-		if ((commerceTaxValues == null) || commerceTaxValues.isEmpty()) {
-			return BigDecimal.ZERO;
-		}
-
-		BigDecimal taxAmount = BigDecimal.ZERO;
-
-		for (CommerceTaxValue commerceTaxValue : commerceTaxValues) {
-			taxAmount = taxAmount.add(commerceTaxValue.getAmount());
-		}
-
-		return shippingAmount.add(taxAmount);
 	}
 
 	private static BigDecimal _getPercentage(
