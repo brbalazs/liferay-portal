@@ -22,6 +22,7 @@ CPDefinitionOptionRelDisplayContext cpDefinitionOptionRelDisplayContext = (CPDef
 CPDefinitionOptionRel cpDefinitionOptionRel = cpDefinitionOptionRelDisplayContext.getCPDefinitionOptionRel();
 long cpDefinitionOptionRelId = cpDefinitionOptionRelDisplayContext.getCPDefinitionOptionRelId();
 List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.getDDMFormFieldTypes();
+String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefaultLanguageId();
 %>
 
 <portlet:actionURL name="editProductDefinitionOptionRel" var="editProductDefinitionOptionRelActionURL" />
@@ -45,11 +46,11 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 		>
 			<div class="row">
 				<div class="col-12">
-					<aui:input name="name" />
+					<aui:input defaultLanguageId="<%= defaultLanguageId %>" name="name" />
 				</div>
 
 				<div class="col-6">
-					<aui:input name="description" />
+					<aui:input defaultLanguageId="<%= defaultLanguageId %>" name="description" />
 				</div>
 
 				<div class="col-6">

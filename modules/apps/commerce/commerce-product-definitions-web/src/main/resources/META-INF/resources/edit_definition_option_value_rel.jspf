@@ -33,7 +33,7 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 
 <liferay-ui:error exception="<%= CPDefinitionOptionValueRelKeyException.class %>" message="that-key-is-already-being-used" />
 
-<aui:input id="optionValueName" name="name" />
+<aui:input defaultLanguageId="<%= cpDefinitionOptionValueRelDisplayContext.getCatalogDefaultLanguageId() %>" id="optionValueName" name="name" />
 
 <aui:input label="position" name="priority" />
 
