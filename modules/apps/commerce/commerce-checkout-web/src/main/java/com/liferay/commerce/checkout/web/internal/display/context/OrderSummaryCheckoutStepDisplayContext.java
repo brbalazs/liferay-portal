@@ -31,6 +31,8 @@ import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -56,6 +58,7 @@ import javax.servlet.http.HttpServletRequest;
 public class OrderSummaryCheckoutStepDisplayContext {
 
 	public OrderSummaryCheckoutStepDisplayContext(
+		CommerceChannelService commerceChannelService,
 		CommerceOrderHttpHelper commerceOrderHttpHelper,
 		CommerceOrderPriceCalculation commerceOrderPriceCalculation,
 		CommerceOrderValidatorRegistry commerceOrderValidatorRegistry,
@@ -64,6 +67,7 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		CPInstanceHelper cpInstanceHelper,
 		HttpServletRequest httpServletRequest) {
 
+		_commerceChannelService = commerceChannelService;
 		_commerceOrderHttpHelper = commerceOrderHttpHelper;
 		_commerceOrderPriceCalculation = commerceOrderPriceCalculation;
 		_commerceOrderValidatorRegistry = commerceOrderValidatorRegistry;
@@ -121,6 +125,16 @@ public class OrderSummaryCheckoutStepDisplayContext {
 			themeDisplay.getLocale(), _commerceOrder);
 	}
 
+	public String getCommercePriceDisplayType() throws PortalException {
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannelByOrderGroupId(
+				commerceOrder.getGroupId());
+
+		return commerceChannel.getPriceDisplayType();
+	}
+
 	public CommerceProductPrice getCommerceProductPrice(
 			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
@@ -131,12 +145,21 @@ public class OrderSummaryCheckoutStepDisplayContext {
 
 			commerceProductPriceImpl.setQuantity(
 				commerceOrderItem.getQuantity());
+
 			commerceProductPriceImpl.setFinalPrice(
 				commerceOrderItem.getFinalPriceMoney());
+			commerceProductPriceImpl.setFinalPriceWithTaxAmount(
+				commerceOrderItem.getFinalPriceMoneyWithTaxAmount());
+
 			commerceProductPriceImpl.setUnitPrice(
 				commerceOrderItem.getUnitPriceMoney());
+			commerceProductPriceImpl.setUnitPriceWithTaxAmount(
+				commerceOrderItem.getUnitPriceMoneyWithTaxAmount());
+
 			commerceProductPriceImpl.setUnitPromoPrice(
 				commerceOrderItem.getPromoPriceMoney());
+			commerceProductPriceImpl.setUnitPromoPriceWithTaxAmount(
+				commerceOrderItem.getPromoPriceMoneyWithTaxAmount());
 
 			BigDecimal[] values = {
 				commerceOrderItem.getDiscountPercentageLevel1(),
@@ -145,7 +168,16 @@ public class OrderSummaryCheckoutStepDisplayContext {
 				commerceOrderItem.getDiscountPercentageLevel4()
 			};
 
+			BigDecimal[] valuesWithTaxAmount = {
+				commerceOrderItem.getDiscountPercentageLevel1WithTaxAmount(),
+				commerceOrderItem.getDiscountPercentageLevel2WithTaxAmount(),
+				commerceOrderItem.getDiscountPercentageLevel3WithTaxAmount(),
+				commerceOrderItem.getDiscountPercentageLevel4WithTaxAmount()
+			};
+
 			BigDecimal activePrice = commerceOrderItem.getUnitPrice();
+			BigDecimal activePriceWithTaxAmount =
+				commerceOrderItem.getUnitPriceWithTaxAmount();
 
 			BigDecimal promoPrice = commerceOrderItem.getPromoPrice();
 
@@ -154,13 +186,22 @@ public class OrderSummaryCheckoutStepDisplayContext {
 				(promoPrice.compareTo(activePrice) <= 0)) {
 
 				activePrice = promoPrice;
+				activePriceWithTaxAmount =
+					commerceOrderItem.getPromoPriceWithTaxAmount();
 			}
 
 			BigDecimal discountedAmount = activePrice.subtract(
 				commerceOrderItem.getDiscountAmount());
 
+			BigDecimal discountedAmountWithTaxAmount =
+				activePriceWithTaxAmount.subtract(
+					commerceOrderItem.getDiscountWithTaxAmount());
+
 			CommerceMoney discountAmountMoney =
 				commerceOrderItem.getDiscountAmountMoney();
+
+			CommerceMoney discountAmountMoneyWithTaxAmount =
+				commerceOrderItem.getDiscountAmountMoneyWithTaxAmount();
 
 			CommerceCurrency commerceCurrency =
 				discountAmountMoney.getCommerceCurrency();
@@ -176,6 +217,18 @@ public class OrderSummaryCheckoutStepDisplayContext {
 
 			commerceProductPriceImpl.setCommerceDiscountValue(
 				commerceDiscountValue);
+
+			CommerceDiscountValue commerceDiscountValueWithTaxAmount =
+				new CommerceDiscountValue(
+					0, discountAmountMoneyWithTaxAmount,
+					_getDiscountPercentage(
+						discountedAmountWithTaxAmount, activePriceWithTaxAmount,
+						RoundingMode.valueOf(
+							commerceCurrency.getRoundingMode())),
+					valuesWithTaxAmount);
+
+			commerceProductPriceImpl.setCommerceDiscountValueWithTaxAmount(
+				commerceDiscountValueWithTaxAmount);
 
 			return commerceProductPriceImpl;
 		}
@@ -244,6 +297,7 @@ public class OrderSummaryCheckoutStepDisplayContext {
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
+	private final CommerceChannelService _commerceChannelService;
 	private final CommerceContext _commerceContext;
 	private final CommerceOrder _commerceOrder;
 	private final CommerceOrderHttpHelper _commerceOrderHttpHelper;
