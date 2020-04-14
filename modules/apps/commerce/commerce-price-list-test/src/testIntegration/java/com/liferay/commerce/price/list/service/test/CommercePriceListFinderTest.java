@@ -15,6 +15,7 @@
 package com.liferay.commerce.price.list.service.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupCommerceAccountRelLocalServiceUtil;
@@ -326,6 +327,90 @@ public class CommercePriceListFinderTest {
 					retrievedPriceList.getCommercePriceListId());
 
 		Assert.assertNotNull(commercePriceListChannelRel);
+	}
+
+	@Test
+	public void testRetrieveGuestAccountAndChannelPriceList() throws Exception {
+		frutillaRule.scenario(
+			"When a price list has a guest account and a channel as " +
+				"qualifier i shall be able to retrieve it"
+		).given(
+			"A catalog with a price list qualified for a guest account and a " +
+				"channel"
+		).when(
+			"The price list is discovered"
+		).then(
+			"The price list is qualified for the account and channel"
+		);
+
+		CommercePriceList commercePriceList =
+			CommercePriceListTestUtil.addAccountAndChannelPriceList(
+				_commerceCatalog.getGroupId(),
+				CommerceAccountConstants.ACCOUNT_ID_GUEST,
+				_commerceChannel.getCommerceChannelId(), _TYPE);
+
+		CommercePriceList retrievedPriceList =
+			_commercePriceListLocalService.
+				getCommercePriceListByAccountAndChannelId(
+					_commerceCatalog.getGroupId(), _TYPE,
+					CommerceAccountConstants.ACCOUNT_ID_GUEST,
+					_commerceChannel.getCommerceChannelId());
+
+		Assert.assertEquals(
+			commercePriceList.getCommercePriceListId(),
+			retrievedPriceList.getCommercePriceListId());
+
+		CommercePriceListAccountRel commercePriceListAccountRel =
+			_commercePriceListAccountRelLocalService.
+				fetchCommercePriceListAccountRel(
+					CommerceAccountConstants.ACCOUNT_ID_GUEST,
+					retrievedPriceList.getCommercePriceListId());
+
+		Assert.assertNotNull(commercePriceListAccountRel);
+
+		CommercePriceListChannelRel commercePriceListChannelRel =
+			_commercePriceListChannelRelLocalService.
+				fetchCommercePriceListChannelRel(
+					_commerceChannel.getCommerceChannelId(),
+					retrievedPriceList.getCommercePriceListId());
+
+		Assert.assertNotNull(commercePriceListChannelRel);
+	}
+
+	@Test
+	public void testRetrieveGuestAccountPriceList() throws Exception {
+		frutillaRule.scenario(
+			"When a price list has a guest account as qualifier i shall be " +
+				"able to retrieve it"
+		).given(
+			"A catalog with a price list qualified for the guest account"
+		).when(
+			"The price list is discovered"
+		).then(
+			"The price list is qualified for the account"
+		);
+
+		CommercePriceList commercePriceList =
+			CommercePriceListTestUtil.addAccountPriceList(
+				_commerceCatalog.getGroupId(),
+				CommerceAccountConstants.ACCOUNT_ID_GUEST, _TYPE);
+
+		CommercePriceList retrievedPriceList =
+			_commercePriceListLocalService.getCommercePriceListByAccountId(
+				_commerceCatalog.getGroupId(), _TYPE,
+				CommerceAccountConstants.ACCOUNT_ID_GUEST);
+
+		Assert.assertEquals(
+			commercePriceList.getCommercePriceListId(),
+			retrievedPriceList.getCommercePriceListId());
+
+		CommercePriceListAccountRel commercePriceListAccountRel =
+			_commercePriceListAccountRelLocalService.
+				fetchCommercePriceListAccountRel(
+					CommerceAccountConstants.ACCOUNT_ID_GUEST,
+					retrievedPriceList.getCommercePriceListId());
+
+		Assert.assertNotNull(commercePriceListAccountRel);
 	}
 
 	@Test

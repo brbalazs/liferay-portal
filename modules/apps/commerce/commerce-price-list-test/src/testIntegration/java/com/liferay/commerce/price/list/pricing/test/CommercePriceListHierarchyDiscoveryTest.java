@@ -15,6 +15,7 @@
 package com.liferay.commerce.price.list.pricing.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupCommerceAccountRelLocalServiceUtil;
@@ -159,6 +160,9 @@ public class CommercePriceListHierarchyDiscoveryTest {
 
 		CommercePriceListTestUtil.addAccountToPriceList(
 			_catalog.getGroupId(), _commerceAccount1.getCommerceAccountId(),
+			_commercePriceList1.getCommercePriceListId());
+		CommercePriceListTestUtil.addAccountToPriceList(
+			_catalog.getGroupId(), CommerceAccountConstants.ACCOUNT_ID_GUEST,
 			_commercePriceList1.getCommercePriceListId());
 		CommercePriceListTestUtil.addChannelToPriceList(
 			_catalog.getGroupId(), _commerceChannel1.getCommerceChannelId(),
@@ -454,6 +458,30 @@ public class CommercePriceListHierarchyDiscoveryTest {
 
 		Assert.assertEquals(
 			_commercePriceList4.getCommercePriceListId(),
+			discoveredPriceList.getCommercePriceListId());
+	}
+
+	@Test
+	public void testRetrievePriceListForGuestAccount() throws Exception {
+		frutillaRule.scenario(
+			"When multiple price list are defined for the same catalog the " +
+				"highest in the hierarchy shall be taken"
+		).given(
+			"A catalog with multiple price lists"
+		).when(
+			"The price list is discovered"
+		).then(
+			"The price list associated to the guest account is retrieved"
+		);
+
+		CommercePriceList discoveredPriceList =
+			_commercePriceListDiscovery.getCommercePriceList(
+				_catalog.getGroupId(),
+				CommerceAccountConstants.ACCOUNT_ID_GUEST,
+				_commerceChannel1.getCommerceChannelId(), null, _TYPE);
+
+		Assert.assertEquals(
+			_commercePriceList1.getCommercePriceListId(),
 			discoveredPriceList.getCommercePriceListId());
 	}
 
