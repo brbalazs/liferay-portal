@@ -73,7 +73,7 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 
 						<div class="row">
 							<div class="col">
-								<label class="control-label" for="productSkuId"><%= LanguageUtil.get(request, "sku") %></label>
+								<label class="control-label" for="skuId"><%= LanguageUtil.get(request, "sku") %></label>
 
 								<div id="autocomplete-root"></div>
 							</div>
@@ -92,15 +92,27 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 						</div>
 					</div>
 
+					<%
+					String cpInstanceId = "";
+					String cpInstanceLabel = "";
+
+					CPInstance cpInstance = cpDefinitionOptionValueRel.fetchCPInstance();
+
+					if (cpInstance != null) {
+						cpInstanceId = String.valueOf(cpInstance.getCPInstanceId());
+						cpInstanceLabel = cpInstance.getSku();
+					}
+					%>
+
 					<aui:script require="commerce-frontend-js/components/autocomplete/entry.es as autocomplete, commerce-frontend-js/utilities/eventsDefinitions.es as events">
 						autocomplete.default('autocomplete', 'autocomplete-root', {
-							apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products/',
-							initialLabel: 'Initial Label',
-							initialValue: 'initial-value',
-							inputId: 'productSkuId',
+							apiUrl: '/o/headless-commerce-admin-catalog/v1.0/skus',
+							initialLabel: '<%= cpInstanceLabel %>',
+							initialValue: '<%= cpInstanceId %>',
+							inputId: 'skuId',
 							inputName: '<%= renderResponse.getNamespace() %>cpInstanceId',
-							itemsKey: 'productId',
-							itemsLabel: 'externalReferenceCode'
+							itemsKey: 'id',
+							itemsLabel: 'sku'
 						});
 
 						Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, (e) => {
