@@ -102,11 +102,32 @@ public class CommerceOrderItemImpl extends CommerceOrderItemBaseImpl {
 	}
 
 	@Override
+	public CommerceMoney getDiscountAmountMoneyWithTaxAmount()
+		throws PortalException {
+
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		return CommerceMoneyFactoryUtil.create(
+			commerceOrder.getCommerceCurrencyId(), getDiscountWithTaxAmount());
+	}
+
+	@Override
 	public CommerceMoney getFinalPriceMoney() throws PortalException {
 		CommerceOrder commerceOrder = getCommerceOrder();
 
 		return CommerceMoneyFactoryUtil.create(
 			commerceOrder.getCommerceCurrencyId(), getFinalPrice());
+	}
+
+	@Override
+	public CommerceMoney getFinalPriceMoneyWithTaxAmount()
+		throws PortalException {
+
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		return CommerceMoneyFactoryUtil.create(
+			commerceOrder.getCommerceCurrencyId(),
+			getFinalPriceWithTaxAmount());
 	}
 
 	@Override
@@ -135,11 +156,32 @@ public class CommerceOrderItemImpl extends CommerceOrderItemBaseImpl {
 	}
 
 	@Override
+	public CommerceMoney getPromoPriceMoneyWithTaxAmount()
+		throws PortalException {
+
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		return CommerceMoneyFactoryUtil.create(
+			commerceOrder.getCommerceCurrencyId(),
+			getPromoPriceWithTaxAmount());
+	}
+
+	@Override
 	public CommerceMoney getUnitPriceMoney() throws PortalException {
 		CommerceOrder commerceOrder = getCommerceOrder();
 
 		return CommerceMoneyFactoryUtil.create(
 			commerceOrder.getCommerceCurrencyId(), getUnitPrice());
+	}
+
+	@Override
+	public CommerceMoney getUnitPriceMoneyWithTaxAmount()
+		throws PortalException {
+
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		return CommerceMoneyFactoryUtil.create(
+			commerceOrder.getCommerceCurrencyId(), getUnitPriceWithTaxAmount());
 	}
 
 	@Override
