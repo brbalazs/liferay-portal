@@ -2359,7 +2359,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		return uniqueFileNameProvider.provide(
 			fileName,
-			curFileName -> _hasFileEntry(groupId, folderId, fileName));
+			curFileName -> _hasFileEntry(groupId, folderId, curFileName));
 	}
 
 	private String _getUniqueUrlTitle(BlogsEntry entry) {
