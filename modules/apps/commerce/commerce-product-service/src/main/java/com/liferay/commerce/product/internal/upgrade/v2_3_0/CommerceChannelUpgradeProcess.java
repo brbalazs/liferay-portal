@@ -30,9 +30,15 @@ public class CommerceChannelUpgradeProcess
 			CommerceChannelModelImpl.class, CommerceChannelModelImpl.TABLE_NAME,
 			"priceDisplayType", "VARCHAR(75)");
 
+		addColumn(
+			CommerceChannelModelImpl.class, CommerceChannelModelImpl.TABLE_NAME,
+			"discountsTargetNetPrice", "BOOLEAN");
+
 		runSQL(
 			"UPDATE CommerceChannel SET priceDisplayType = '" +
 				CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE + "'");
+
+		runSQL("UPDATE CommerceChannel SET discountsTargetNetPrice = [$TRUE$]");
 	}
 
 }
