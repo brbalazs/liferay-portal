@@ -1800,7 +1800,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 			Value value = extractDDMFormFieldValueValues(
 				fieldName, ddmFormField, rootElement, ddmFieldsCounter);
 
-			if (value != null) {
+			if ((value != null) || ddmFormField.isTransient()) {
 				ddmFormFieldValue = new DDMFormFieldValue();
 
 				ddmFormFieldValue.setName(fieldName);
