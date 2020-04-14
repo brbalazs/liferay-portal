@@ -91,9 +91,7 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 	}
 
 	@Test
-	public void testCleanCPDefinitionOptionValueRelAttributes()
-		throws Exception {
-
+	public void testResetCPDefinitionOptionValueRel() throws Exception {
 		frutillaRule.scenario(
 			"Delete a product instance which is referenced as an option " +
 				"value of another product (product bundle)"
@@ -160,19 +158,28 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 					cpDefinitionOptionValueRel.
 						getCPDefinitionOptionValueRelId());
 
-		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
-
-		Assert.assertEquals(
-			BigDecimal.ZERO.stripTrailingZeros(), price.stripTrailingZeros());
-
-		Assert.assertEquals(0, cpDefinitionOptionValueRel.getQuantity());
 		Assert.assertEquals(
 			StringPool.BLANK, cpDefinitionOptionValueRel.getCPInstanceUuid());
 		Assert.assertEquals(0, cpDefinitionOptionValueRel.getCProductId());
+
+		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
+
+		Assert.assertEquals(
+			_stripTrailingZeros(BigDecimal.ZERO), _stripTrailingZeros(price));
+
+		Assert.assertEquals(0, cpDefinitionOptionValueRel.getQuantity());
 	}
 
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
+
+	private BigDecimal _stripTrailingZeros(BigDecimal bigDecimal) {
+		if (bigDecimal == null) {
+			return bigDecimal;
+		}
+
+		return bigDecimal.stripTrailingZeros();
+	}
 
 	private CommerceCatalog _commerceCatalog;
 
