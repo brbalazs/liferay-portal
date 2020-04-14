@@ -48,7 +48,6 @@ import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
@@ -64,7 +63,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
@@ -439,7 +437,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 		CommerceDiscount commerceDiscount =
 			_commerceDiscountService.upsertCommerceDiscount(
-				_user.getUserId(), GetterUtil.getLong(discount.getId()),
+				contextUser.getUserId(), GetterUtil.getLong(discount.getId()),
 				discount.getTitle(), discount.getTarget(),
 				GetterUtil.getBoolean(discount.getUseCouponCode()),
 				discount.getCouponCode(),
@@ -503,8 +501,5 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
-
-	@Context
-	private User _user;
 
 }
