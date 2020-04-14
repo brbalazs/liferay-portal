@@ -26,8 +26,11 @@ import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 
@@ -59,43 +62,9 @@ public class ProductHelperImpl implements ProductHelper {
 			return null;
 		}
 
-		CommerceMoney unitPriceMoney = commerceProductPrice.getUnitPrice();
-
-		PriceModel priceModel = new PriceModel(unitPriceMoney.format(locale));
-
-		CommerceMoney unitPromoPriceMoney =
-			commerceProductPrice.getUnitPromoPrice();
-
-		BigDecimal unitPromoPrice = unitPromoPriceMoney.getPrice();
-
-		if ((unitPromoPrice != null) &&
-			(unitPromoPrice.compareTo(BigDecimal.ZERO) > 0) &&
-			(unitPromoPrice.compareTo(unitPriceMoney.getPrice()) < 0)) {
-
-			priceModel.setPromoPrice(unitPromoPriceMoney.format(locale));
-		}
-
-		CommerceDiscountValue discountValue =
-			commerceProductPrice.getDiscountValue();
-
-		if (discountValue != null) {
-			CommerceMoney discountAmount = discountValue.getDiscountAmount();
-			CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
-
-			priceModel.setDiscount(discountAmount.format(locale));
-
-			priceModel.setDiscountPercentage(
-				_commercePriceFormatter.format(
-					discountValue.getDiscountPercentage(), locale));
-
-			priceModel.setDiscountPercentages(
-				_getFormattedDiscountPercentages(
-					discountValue.getPercentages(), locale));
-
-			priceModel.setFinalPrice(finalPrice.format(locale));
-		}
-
-		return priceModel;
+		return _getPriceModel(
+			commerceContext.getCommerceChannelId(), commerceProductPrice,
+			locale);
 	}
 
 	public ProductSettingsModel getProductSettingsModel(long cpInstanceId)
@@ -163,6 +132,108 @@ public class ProductHelperImpl implements ProductHelper {
 
 		return formattedDiscountPercentages.toArray(new String[0]);
 	}
+
+	private PriceModel _getPriceModel(
+			long commerceChannelId, CommerceProductPrice commerceProductPrice,
+			Locale locale)
+		throws PortalException {
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannel(commerceChannelId);
+
+		String priceDisplayType = commerceChannel.getPriceDisplayType();
+
+		if (priceDisplayType.equals(
+				CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE)) {
+
+			CommerceMoney unitPriceMoney = commerceProductPrice.getUnitPrice();
+
+			PriceModel priceModel = new PriceModel(
+				unitPriceMoney.format(locale));
+
+			CommerceMoney unitPromoPriceMoney =
+				commerceProductPrice.getUnitPromoPrice();
+
+			BigDecimal unitPromoPrice = unitPromoPriceMoney.getPrice();
+
+			if ((unitPromoPrice != null) &&
+				(unitPromoPrice.compareTo(BigDecimal.ZERO) > 0) &&
+				(unitPromoPrice.compareTo(unitPriceMoney.getPrice()) < 0)) {
+
+				priceModel.setPromoPrice(unitPromoPriceMoney.format(locale));
+			}
+
+			CommerceDiscountValue discountValue =
+				commerceProductPrice.getDiscountValue();
+
+			if (discountValue != null) {
+				CommerceMoney discountAmount =
+					discountValue.getDiscountAmount();
+				CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
+
+				priceModel.setDiscount(discountAmount.format(locale));
+
+				priceModel.setDiscountPercentage(
+					_commercePriceFormatter.format(
+						discountValue.getDiscountPercentage(), locale));
+
+				priceModel.setDiscountPercentages(
+					_getFormattedDiscountPercentages(
+						discountValue.getPercentages(), locale));
+
+				priceModel.setFinalPrice(finalPrice.format(locale));
+			}
+
+			return priceModel;
+		}
+
+		CommerceMoney unitPriceWithTaxAmountMoney =
+			commerceProductPrice.getUnitPriceWithTaxAmount();
+
+		PriceModel priceModel = new PriceModel(
+			unitPriceWithTaxAmountMoney.format(locale));
+
+		CommerceMoney unitPromoPriceWithTaxAmountMoney =
+			commerceProductPrice.getUnitPromoPriceWithTaxAmount();
+
+		BigDecimal unitPromoPriceWithTaxAmount =
+			unitPromoPriceWithTaxAmountMoney.getPrice();
+
+		if ((unitPromoPriceWithTaxAmount != null) &&
+			(unitPromoPriceWithTaxAmount.compareTo(BigDecimal.ZERO) > 0) &&
+			(unitPromoPriceWithTaxAmount.compareTo(
+				unitPriceWithTaxAmountMoney.getPrice()) < 0)) {
+
+			priceModel.setPromoPrice(
+				unitPromoPriceWithTaxAmountMoney.format(locale));
+		}
+
+		CommerceDiscountValue discountValue =
+			commerceProductPrice.getDiscountValueWithTaxAmount();
+
+		if (discountValue != null) {
+			CommerceMoney discountAmount = discountValue.getDiscountAmount();
+			CommerceMoney finalPriceWithTaxAmount =
+				commerceProductPrice.getFinalPriceWithTaxAmount();
+
+			priceModel.setDiscount(discountAmount.format(locale));
+
+			priceModel.setDiscountPercentage(
+				_commercePriceFormatter.format(
+					discountValue.getDiscountPercentage(), locale));
+
+			priceModel.setDiscountPercentages(
+				_getFormattedDiscountPercentages(
+					discountValue.getPercentages(), locale));
+
+			priceModel.setFinalPrice(finalPriceWithTaxAmount.format(locale));
+		}
+
+		return priceModel;
+	}
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;

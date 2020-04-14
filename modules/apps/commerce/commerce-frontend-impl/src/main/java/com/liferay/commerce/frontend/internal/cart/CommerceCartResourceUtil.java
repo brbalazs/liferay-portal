@@ -30,6 +30,9 @@ import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
@@ -192,6 +195,32 @@ public class CommerceCartResourceUtil {
 		BigDecimal level3 = commerceOrderItem.getDiscountPercentageLevel3();
 		BigDecimal level4 = commerceOrderItem.getDiscountPercentageLevel4();
 
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannelByOrderGroupId(
+				commerceOrderItem.getGroupId());
+
+		String priceDisplayType = commerceChannel.getPriceDisplayType();
+
+		if (priceDisplayType.equals(
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+
+			unitPriceMoney = commerceOrderItem.getUnitPriceMoneyWithTaxAmount();
+			promoPriceMoney =
+				commerceOrderItem.getPromoPriceMoneyWithTaxAmount();
+
+			discountAmountMoney =
+				commerceOrderItem.getDiscountAmountMoneyWithTaxAmount();
+
+			level1 =
+				commerceOrderItem.getDiscountPercentageLevel1WithTaxAmount();
+			level2 =
+				commerceOrderItem.getDiscountPercentageLevel2WithTaxAmount();
+			level3 =
+				commerceOrderItem.getDiscountPercentageLevel3WithTaxAmount();
+			level4 =
+				commerceOrderItem.getDiscountPercentageLevel4WithTaxAmount();
+		}
+
 		String[] discountPercentages = {
 			level1.toString(), level2.toString(), level3.toString(),
 			level4.toString()
@@ -247,6 +276,9 @@ public class CommerceCartResourceUtil {
 
 		return new ArrayList(productMap.values());
 	}
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
