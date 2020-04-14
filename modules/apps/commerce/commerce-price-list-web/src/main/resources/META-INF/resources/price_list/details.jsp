@@ -79,7 +79,9 @@ List<CommercePriceListCommerceAccountGroupRel> commercePriceListAccountGroupEntr
 
 	</aui:select>
 
-	<aui:input name="priority" />
+	<aui:input name="priority">
+		<aui:validator name="number" />
+	</aui:input>
 
 	<aui:select label="price-type" name="netPrice">
 
