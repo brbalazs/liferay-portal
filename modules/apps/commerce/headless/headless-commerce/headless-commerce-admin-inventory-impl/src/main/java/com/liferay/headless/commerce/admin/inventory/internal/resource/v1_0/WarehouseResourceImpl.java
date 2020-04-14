@@ -255,7 +255,7 @@ public class WarehouseResourceImpl
 			for (WarehouseItem warehouseItem : warehouseItems) {
 				_commerceInventoryWarehouseItemService.
 					upsertCommerceInventoryWarehouseItem(
-						_user.getUserId(),
+						contextUser.getUserId(),
 						commerceInventoryWarehouse.
 							getCommerceInventoryWarehouseId(),
 						warehouseItem.getSku(), warehouseItem.getQuantity());
@@ -331,8 +331,5 @@ public class WarehouseResourceImpl
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
-
-	@Context
-	private User _user;
 
 }
