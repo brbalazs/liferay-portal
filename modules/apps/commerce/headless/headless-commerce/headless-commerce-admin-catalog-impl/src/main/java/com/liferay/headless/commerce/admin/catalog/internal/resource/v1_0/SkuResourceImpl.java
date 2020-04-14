@@ -31,6 +31,9 @@ import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistr
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -160,6 +163,18 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 		}
 
 		return _toSku(cpInstance);
+	}
+
+	@Override
+	public Page<Sku> getSkusPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception {
+
+		return _skuHelper.getSkusPage(
+			contextCompany.getCompanyId(), search, filter, pagination, sorts,
+			document -> _toSku(
+				_cpInstanceService.getCPInstance(
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))));
 	}
 
 	@Override
