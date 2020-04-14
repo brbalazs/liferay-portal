@@ -34,6 +34,17 @@ CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
 CommerceDiscountValue totalDiscountValue = commerceOrderPrice.getTotalDiscountValue();
 CommerceMoney totalOrder = commerceOrderPrice.getTotal();
 
+String priceDisplayType = commerceOrderContentDisplayContext.getCommercePriceDisplayType();
+
+if (priceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+	shippingValue = commerceOrderPrice.getShippingValueWithTaxAmount();
+	shippingDiscountValue = commerceOrderPrice.getShippingDiscountValueWithTaxAmount();
+	subtotal = commerceOrderPrice.getSubtotalWithTaxAmount();
+	subtotalDiscountValue = commerceOrderPrice.getSubtotalDiscountValueWithTaxAmount();
+	totalDiscountValue = commerceOrderPrice.getTotalDiscountValueWithTaxAmount();
+	totalOrder = commerceOrderPrice.getTotalWithTaxAmount();
+}
+
 CommerceAccount commerceAccount = commerceOrderContentDisplayContext.getCommerceAccount();
 
 if (commerceOrder != null) {
@@ -247,8 +258,10 @@ if (commerceOrder != null) {
 						<dd class="text-right"><%= HtmlUtil.escape(commerceOrderContentDisplayContext.getFormattedPercentage(shippingDiscountValue.getDiscountPercentage())) %></dd>
 					</c:if>
 
-					<dt><liferay-ui:message key="tax" /></dt>
-					<dd class="text-right"><%= HtmlUtil.escape(taxValue.format(locale)) %></dd>
+					<c:if test="<%= priceDisplayType.equals(CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE) %>">
+						<dt><liferay-ui:message key="tax" /></dt>
+						<dd class="text-right"><%= HtmlUtil.escape(taxValue.format(locale)) %></dd>
+					</c:if>
 
 					<c:if test="<%= (totalDiscountValue != null) && (BigDecimal.ZERO.compareTo(totalDiscountValue.getDiscountPercentage()) < 0) %>">
 

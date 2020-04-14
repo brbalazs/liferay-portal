@@ -19,6 +19,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.content.web.internal.frontend.CommerceOrderDataSetConstants;
 import com.liferay.commerce.order.content.web.internal.model.Order;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -86,7 +87,8 @@ public class CommerceOrderClayTableUtil {
 	}
 
 	public static List<Order> getOrders(
-			List<CommerceOrder> commerceOrders, ThemeDisplay themeDisplay)
+			List<CommerceOrder> commerceOrders, ThemeDisplay themeDisplay,
+			String priceDisplayType)
 		throws PortalException {
 
 		List<Order> orders = new ArrayList<>();
@@ -95,6 +97,12 @@ public class CommerceOrderClayTableUtil {
 			String amount = StringPool.BLANK;
 
 			CommerceMoney totalMoney = commerceOrder.getTotalMoney();
+
+			if (priceDisplayType ==
+					CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+
+				totalMoney = commerceOrder.getTotalMoneyWithTaxAmount();
+			}
 
 			if (totalMoney != null) {
 				amount = totalMoney.format(themeDisplay.getLocale());

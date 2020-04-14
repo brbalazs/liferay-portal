@@ -23,8 +23,11 @@ import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.order.content.web.internal.frontend.util.CommerceOrderClayTableUtil;
 import com.liferay.commerce.order.content.web.internal.model.OrderItem;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
@@ -45,8 +48,6 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-
-import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,9 +95,19 @@ public class CommercePendingOrderItemDataSetDataProvider
 		List<CommerceOrderItem> commerceOrderItems =
 			baseModelSearchResult.getBaseModels();
 
+		if (commerceOrderItems.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		CommerceOrderItem commerceOrderItem = commerceOrderItems.get(0);
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannelByOrderGroupId(
+				commerceOrderItem.getGroupId());
+
 		try {
 			return _getOrderItems(
-				commerceOrderItems,
+				commerceOrderItems, commerceChannel.getPriceDisplayType(),
 				(ThemeDisplay)httpServletRequest.getAttribute(
 					WebKeys.THEME_DISPLAY));
 		}
@@ -108,49 +119,69 @@ public class CommercePendingOrderItemDataSetDataProvider
 	}
 
 	private String _formatDiscountAmount(
-			CommerceOrderItem commerceOrderItem, Locale locale)
+			CommerceOrderItem commerceOrderItem, String priceDisplayType,
+			Locale locale)
 		throws PortalException {
 
-		if (commerceOrderItem.getDiscountAmountMoney() == null) {
+		CommerceMoney activeDiscountAmounteMoney =
+			commerceOrderItem.getDiscountAmountMoney();
+
+		if (priceDisplayType ==
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+
+			activeDiscountAmounteMoney =
+				commerceOrderItem.getDiscountAmountMoneyWithTaxAmount();
+		}
+
+		if (activeDiscountAmounteMoney == null) {
 			return StringPool.BLANK;
 		}
 
-		CommerceMoney discountAmountMoney =
-			commerceOrderItem.getDiscountAmountMoney();
-
-		return discountAmountMoney.format(locale);
+		return activeDiscountAmounteMoney.format(locale);
 	}
 
 	private String _formatFinalPrice(
-			CommerceOrderItem commerceOrderItem, Locale locale)
+			CommerceOrderItem commerceOrderItem, String priceDisplayType,
+			Locale locale)
 		throws PortalException {
 
-		if (commerceOrderItem.getFinalPriceMoney() == null) {
+		CommerceMoney activeFinalPriceMoney =
+			commerceOrderItem.getFinalPriceMoney();
+
+		if (priceDisplayType ==
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+
+			activeFinalPriceMoney =
+				commerceOrderItem.getFinalPriceMoneyWithTaxAmount();
+		}
+
+		if (activeFinalPriceMoney == null) {
 			return StringPool.BLANK;
 		}
 
-		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
-
-		return finalPriceMoney.format(locale);
+		return activeFinalPriceMoney.format(locale);
 	}
 
 	private String _formatPromoPrice(
-			CommerceOrderItem commerceOrderItem, Locale locale)
+			CommerceOrderItem commerceOrderItem, String priceDisplayType,
+			Locale locale)
 		throws PortalException {
 
-		CommerceMoney promoPriceMoney = commerceOrderItem.getPromoPriceMoney();
+		CommerceMoney activePromoPriceMoney =
+			commerceOrderItem.getPromoPriceMoney();
 
-		if (promoPriceMoney == null) {
+		if (priceDisplayType ==
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+
+			activePromoPriceMoney =
+				commerceOrderItem.getPromoPriceMoneyWithTaxAmount();
+		}
+
+		if (activePromoPriceMoney == null) {
 			return StringPool.BLANK;
 		}
 
-		BigDecimal price = promoPriceMoney.getPrice();
-
-		if (price.compareTo(BigDecimal.ZERO) <= 0) {
-			return StringPool.BLANK;
-		}
-
-		return promoPriceMoney.format(locale);
+		return activePromoPriceMoney.format(locale);
 	}
 
 	private String _formatSubscriptionPeriod(
@@ -192,16 +223,25 @@ public class CommercePendingOrderItemDataSetDataProvider
 	}
 
 	private String _formatUnitPrice(
-			CommerceOrderItem commerceOrderItem, Locale locale)
+			CommerceOrderItem commerceOrderItem, String priceDisplayType,
+			Locale locale)
 		throws PortalException {
 
-		if (commerceOrderItem.getUnitPriceMoney() == null) {
+		CommerceMoney activeUnitPriceMoney =
+			commerceOrderItem.getUnitPriceMoney();
+
+		if (priceDisplayType ==
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+
+			activeUnitPriceMoney =
+				commerceOrderItem.getUnitPriceMoneyWithTaxAmount();
+		}
+
+		if (activeUnitPriceMoney == null) {
 			return StringPool.BLANK;
 		}
 
-		CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();
-
-		return unitPriceMoney.format(locale);
+		return activeUnitPriceMoney.format(locale);
 	}
 
 	private BaseModelSearchResult<CommerceOrderItem> _getBaseModelSearchResult(
@@ -292,7 +332,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 	}
 
 	private List<OrderItem> _getOrderItems(
-			List<CommerceOrderItem> commerceOrderItems,
+			List<CommerceOrderItem> commerceOrderItems, String priceDisplayType,
 			ThemeDisplay themeDisplay)
 		throws Exception {
 
@@ -313,11 +353,15 @@ public class CommercePendingOrderItemDataSetDataProvider
 					commerceOrderItem.getSku(),
 					commerceOrderItem.getName(locale),
 					_getCommerceOrderOptions(commerceOrderItem, locale),
-					_formatUnitPrice(commerceOrderItem, locale),
-					_formatPromoPrice(commerceOrderItem, locale),
-					_formatDiscountAmount(commerceOrderItem, locale),
+					_formatUnitPrice(
+						commerceOrderItem, priceDisplayType, locale),
+					_formatPromoPrice(
+						commerceOrderItem, priceDisplayType, locale),
+					_formatDiscountAmount(
+						commerceOrderItem, priceDisplayType, locale),
 					commerceOrderItem.getQuantity(),
-					_formatFinalPrice(commerceOrderItem, locale),
+					_formatFinalPrice(
+						commerceOrderItem, priceDisplayType, locale),
 					_cpInstanceHelper.getCPInstanceThumbnailSrc(
 						commerceOrderItem.getCPInstanceId()),
 					CommerceOrderClayTableUtil.getViewShipmentURL(
@@ -333,6 +377,9 @@ public class CommercePendingOrderItemDataSetDataProvider
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePendingOrderItemDataSetDataProvider.class);
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;

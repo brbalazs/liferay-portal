@@ -21,8 +21,11 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.content.web.internal.frontend.util.CommerceOrderClayTableUtil;
 import com.liferay.commerce.order.content.web.internal.model.OrderItem;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
@@ -95,6 +98,20 @@ public class CommercePlacedOrderItemDataSetDataProvider
 			baseModelSearchResult.getBaseModels();
 
 		try {
+			String priceDisplayType =
+				CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE;
+
+			if ((commerceOrderItems != null) && !commerceOrderItems.isEmpty()) {
+				CommerceOrderItem firstCommerceOrderItem =
+					commerceOrderItems.get(0);
+
+				CommerceChannel commerceChannel =
+					_commerceChannelService.getCommerceChannelByOrderGroupId(
+						firstCommerceOrderItem.getGroupId());
+
+				priceDisplayType = commerceChannel.getPriceDisplayType();
+			}
+
 			for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 				CommerceMoney unitPriceMoney =
 					commerceOrderItem.getUnitPriceMoney();
@@ -104,6 +121,22 @@ public class CommercePlacedOrderItemDataSetDataProvider
 					commerceOrderItem.getDiscountAmountMoney();
 				CommerceMoney finalPriceMoney =
 					commerceOrderItem.getFinalPriceMoney();
+
+				if (priceDisplayType ==
+						CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+
+					unitPriceMoney =
+						commerceOrderItem.getUnitPriceMoneyWithTaxAmount();
+
+					promoPriceMoney =
+						commerceOrderItem.getPromoPriceMoneyWithTaxAmount();
+
+					finalPriceMoney =
+						commerceOrderItem.getFinalPriceMoneyWithTaxAmount();
+
+					discountAmountMoney =
+						commerceOrderItem.getDiscountAmountMoneyWithTaxAmount();
+				}
 
 				Locale locale = themeDisplay.getLocale();
 
@@ -222,6 +255,9 @@ public class CommercePlacedOrderItemDataSetDataProvider
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePlacedOrderItemDataSetDataProvider.class);
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;

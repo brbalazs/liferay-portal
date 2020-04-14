@@ -332,6 +332,12 @@ public class CommerceOrderContentDisplayContext {
 		return total.format(_cpRequestHelper.getLocale());
 	}
 
+	public String getCommercePriceDisplayType() {
+		CommerceChannel commerceChannel = fetchCommerceChannel();
+
+		return commerceChannel.getPriceDisplayType();
+	}
+
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
 			long commerceOrderItemId)
 		throws PortalException {
