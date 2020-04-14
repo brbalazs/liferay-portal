@@ -186,36 +186,36 @@
 			</library>
 			<library>
 				<file-name>com.liferay.batch.engine.service.jar!poi-ooxml-schemas.jar</file-name>
-				<version>4.1.0</version>
+				<version>4.1.1</version>
 				<project-name>Apache POI</project-name>
 				<project-url>http://poi.apache.org/</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
 			</library>
 			<library>
 				<file-name>com.liferay.batch.engine.service.jar!poi-ooxml.jar</file-name>
-				<version>4.1.0</version>
+				<version>4.1.1</version>
 				<project-name>Apache POI</project-name>
 				<project-url>http://poi.apache.org/</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
 			</library>
 			<library>
 				<file-name>com.liferay.batch.engine.service.jar!poi.jar</file-name>
-				<version>4.1.0</version>
+				<version>4.1.1</version>
 				<project-name>Apache POI</project-name>
 				<project-url>http://poi.apache.org/</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
@@ -430,6 +430,42 @@
 					<license>
 						<license-name>The Apache Software License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.commerce.google.merchant.jar!jackson-dataformat-xml.jar</file-name>
+				<version>2.9.10</version>
+				<project-name>Jackson-dataformat-XML</project-name>
+				<project-url>http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding</project-url>
+				<licenses>
+					<license>
+						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.commerce.google.merchant.jar!jsch.jar</file-name>
+				<version>0.1.55</version>
+				<project-name>JSch</project-name>
+				<project-url>http://www.jcraft.com/jsch/</project-url>
+				<licenses>
+					<license>
+						<license-name>Revised BSD</license-name>
+						<license-url>http://www.jcraft.com/jsch/LICENSE.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.commerce.google.merchant.jar!jzlib.jar</file-name>
+				<version>1.1.3</version>
+				<project-name>JZlib</project-name>
+				<project-url>http://www.jcraft.com/jzlib/</project-url>
+				<licenses>
+					<license>
+						<license-name>BSD</license-name>
+						<license-url>http://www.jcraft.com/jzlib/LICENSE.txt</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -1307,7 +1343,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-bmp.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: BMP plugin</project-name>
 				<licenses>
 					<license>
@@ -1318,7 +1354,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-core.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: Core</project-name>
 				<licenses>
 					<license>
@@ -1329,7 +1365,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-hdr.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: HDR plugin</project-name>
 				<licenses>
 					<license>
@@ -1340,7 +1376,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-icns.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: ICNS plugin</project-name>
 				<licenses>
 					<license>
@@ -1351,7 +1387,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-iff.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: IFF plugin</project-name>
 				<licenses>
 					<license>
@@ -1362,7 +1398,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-jpeg.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: JPEG plugin</project-name>
 				<licenses>
 					<license>
@@ -1373,7 +1409,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-metadata.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: Metadata</project-name>
 				<licenses>
 					<license>
@@ -1384,7 +1420,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-pcx.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: PCX plugin</project-name>
 				<licenses>
 					<license>
@@ -1395,7 +1431,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-pict.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: PICT plugin</project-name>
 				<licenses>
 					<license>
@@ -1406,7 +1442,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-pnm.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: PNM plugin</project-name>
 				<licenses>
 					<license>
@@ -1417,7 +1453,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-psd.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: PSD plugin</project-name>
 				<licenses>
 					<license>
@@ -1428,7 +1464,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-sgi.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: SGI plugin</project-name>
 				<licenses>
 					<license>
@@ -1439,7 +1475,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-tga.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: TGA plugin</project-name>
 				<licenses>
 					<license>
@@ -1450,7 +1486,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-thumbsdb.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: Thumbs.db plugin</project-name>
 				<licenses>
 					<license>
@@ -1461,7 +1497,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.imageio.plugins.jar!imageio-tiff.jar</file-name>
-				<version>3.3.2</version>
+				<version>3.5</version>
 				<project-name>TwelveMonkeys :: ImageIO :: TIFF plugin</project-name>
 				<licenses>
 					<license>
@@ -1635,6 +1671,78 @@
 					<license>
 						<license-name>GNU Lesser General Public License 2.1</license-name>
 						<license-url>http://www.gnu.org/licenses/lgpl-2.1.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.petra.json.validator.jar!handy-uri-templates.jar</file-name>
+				<version>2.1.7</version>
+				<project-name>Handy URI Templates</project-name>
+				<project-url>https://github.com/damnhandy/Handy-URI-Templates</project-url>
+				<licenses>
+					<license>
+						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.petra.json.validator.jar!joda-convert.jar</file-name>
+				<version>2.2.1</version>
+				<project-name>Joda-Convert</project-name>
+				<project-url>https://www.joda.org/${joda.artifactId}/</project-url>
+				<licenses>
+					<license>
+						<license-name>Apache License, Version 2.0</license-name>
+						<license-url>https://www.apache.org/licenses/LICENSE-2.0</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.petra.json.validator.jar!joda-time.jar</file-name>
+				<version>2.9.1</version>
+				<project-name>Joda-Time</project-name>
+				<project-url>http://www.joda.org/joda-time/</project-url>
+				<licenses>
+					<license>
+						<license-name>Apache License, Version 2.0</license-name>
+						<license-url>https://www.apache.org/licenses/LICENSE-2.0</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.petra.json.validator.jar!json.jar</file-name>
+				<version>20180813</version>
+				<project-name>JSON in Java</project-name>
+				<project-url>https://github.com/douglascrockford/JSON-java</project-url>
+				<licenses>
+					<license>
+						<license-name>The JSON License</license-name>
+						<license-url>http://json.org/license.html</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.petra.json.validator.jar!org.everit.json.schema.jar</file-name>
+				<version>1.11.1</version>
+				<project-name>everit-org/json-schema</project-name>
+				<project-url>https://github.com/everit-org/json-schema</project-url>
+				<licenses>
+					<license>
+						<license-name>Apache License, Version 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.petra.json.validator.jar!re2j.jar</file-name>
+				<version>1.2</version>
+				<project-name>RE2/J</project-name>
+				<project-url>http://github.com/google/re2j</project-url>
+				<licenses>
+					<license>
+						<license-name>Go License</license-name>
+						<license-url>https://golang.org/LICENSE</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -2556,7 +2664,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!netty-all.jar</file-name>
-				<version>4.1.11.Final</version>
+				<version>4.1.43.Final</version>
 				<project-name>Netty/All-in-One</project-name>
 				<licenses>
 					<license>
@@ -2742,9 +2850,9 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!unboundid-ldapsdk.jar</file-name>
-				<version>4.0.2</version>
+				<version>4.0.14</version>
 				<project-name>UnboundID LDAP SDK for Java</project-name>
-				<project-url>https://www.ldap.com/unboundid-ldap-sdk-for-java</project-url>
+				<project-url>https://github.com/pingidentity/ldapsdk</project-url>
 				<licenses>
 					<license>
 						<license-name>UnboundID LDAP SDK Free Use License</license-name>
@@ -3853,6 +3961,18 @@
 				<licenses>
 					<license>
 						<license-name>Apache License, Version 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.portal.vulcan.compat.api.jar!jackson-dataformat-xml.jar</file-name>
+				<version>2.9.8</version>
+				<project-name>Jackson-dataformat-XML</project-name>
+				<project-url>http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding</project-url>
+				<licenses>
+					<license>
+						<license-name>The Apache Software License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
