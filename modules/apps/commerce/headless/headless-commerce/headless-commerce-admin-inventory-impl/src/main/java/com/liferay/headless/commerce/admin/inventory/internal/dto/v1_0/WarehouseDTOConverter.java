@@ -76,8 +76,4 @@ public class WarehouseDTOConverter implements DTOConverter {
 	@Reference
 	private CommerceInventoryWarehouseService
 		_commerceInventoryWarehouseService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
-
 }
