@@ -15,18 +15,22 @@
 package com.liferay.commerce.internal.security.permission.resource;
 
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.configuration.CommerceOrderCheckoutConfiguration;
+import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionLogic;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalService;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ListUtil;
 
 import java.util.List;
@@ -39,10 +43,12 @@ public class CommerceOrderModelResourcePermissionLogic
 	implements ModelResourcePermissionLogic<CommerceOrder> {
 
 	public CommerceOrderModelResourcePermissionLogic(
+		ConfigurationProvider configurationProvider,
 		GroupLocalService groupLocalService,
 		PortletResourcePermission portletResourcePermission,
 		WorkflowDefinitionLinkLocalService workflowDefinitionLinkLocalService) {
 
+		_configurationProvider = configurationProvider;
 		_groupLocalService = groupLocalService;
 		_portletResourcePermission = portletResourcePermission;
 		_workflowDefinitionLinkLocalService =
@@ -104,6 +110,18 @@ public class CommerceOrderModelResourcePermissionLogic
 		return false;
 	}
 
+	protected boolean isGuestCheckoutEnabled(long groupId)
+		throws PortalException {
+
+		CommerceOrderCheckoutConfiguration commerceOrderCheckoutConfiguration =
+			_configurationProvider.getConfiguration(
+				CommerceOrderCheckoutConfiguration.class,
+				new GroupServiceSettingsLocator(
+					groupId, CommerceConstants.ORDER_SERVICE_NAME));
+
+		return commerceOrderCheckoutConfiguration.guestCheckoutEnabled();
+	}
+
 	private boolean _containsCheckoutPermission(
 			PermissionChecker permissionChecker, CommerceOrder commerceOrder)
 		throws PortalException {
@@ -117,8 +135,10 @@ public class CommerceOrderModelResourcePermissionLogic
 
 		User user = permissionChecker.getUser();
 
-		if (user.isDefaultUser() && commerceOrder.isGuestOrder()) {
-			return false;
+		if (user.isDefaultUser() && commerceOrder.isGuestOrder() &&
+			isGuestCheckoutEnabled(commerceOrder.getGroupId())) {
+
+			return true;
 		}
 
 		CommerceAccount commerceAccount = commerceOrder.getCommerceAccount();
@@ -235,9 +255,7 @@ public class CommerceOrderModelResourcePermissionLogic
 			return true;
 		}
 
-		User user = permissionChecker.getUser();
-
-		if (user.isDefaultUser() && commerceOrder.isGuestOrder()) {
+		if (commerceOrder.isGuestOrder()) {
 			return true;
 		}
 
@@ -309,6 +327,7 @@ public class CommerceOrderModelResourcePermissionLogic
 		return false;
 	}
 
+	private final ConfigurationProvider _configurationProvider;
 	private final GroupLocalService _groupLocalService;
 	private final PortletResourcePermission _portletResourcePermission;
 	private final WorkflowDefinitionLinkLocalService
