@@ -1,5 +1,71 @@
 definition {
-	
+
+    macro initializersCheckout {
+        if (isSet(newAddressName)) {
+			Type(
+				key_fieldName = "Name",
+				locator1 = "CommerceAccelerators#CHECKOUT_GENERIC_TEXT_INPUT",
+				value1 = "${newAddressName}");
+
+			Type(
+				key_fieldName = "Address",
+				locator1 = "CommerceAccelerators#CHECKOUT_GENERIC_TEXT_INPUT",
+				value1 = "${newAddressAddress}");
+
+			Select(
+				key_fieldName = "Country",
+				locator1 = "CommerceAccelerators#CHECKOUT_GENERIC_SELECT",
+				value1 = "${newAddressCountry}");
+
+			Type(
+				key_fieldName = "Zip",
+				locator1 = "CommerceAccelerators#CHECKOUT_GENERIC_TEXT_INPUT",
+				value1 = "${newAddressZipCode}");
+
+			Type(
+				key_fieldName = "City",
+				locator1 = "CommerceAccelerators#CHECKOUT_GENERIC_TEXT_INPUT",
+				value1 = "${newAddressCity}");
+		}
+
+		Click(locator1 = "Button#CONTINUE");
+
+		Click(
+			key_radioOption = "${shippingMethod}",
+			locator1 = "CommerceAccelerators#CHECKOUT_SHIPPING_OPTION_RADIO");
+
+		if ("${shippingMethod}" == "Standard") {
+			deliveryValue = "15";
+		}
+		else {
+			if ("${shippingMethod}" == "Expedited") {
+				deliveryValue = "25";
+			}
+		}
+
+		Click(locator1 = "Button#CONTINUE");
+
+		subtotal = MathUtil.product("${productUnitPrice}", "${productQuantity}");
+
+		total = MathUtil.sum("${subtotal}", "${deliveryValue}");
+
+		CommerceCheckout.viewCheckoutOrderSummary(
+			addressAddress = "${newAddressAddress}",
+			addressCity = "${newAddressCity}",
+			addressCountry = "${newAddressCountry}",
+			addressName = "${newAddressName}",
+			deliveryValue = "${deliveryValue}",
+			paymentMethod = "${paymentMethod}",
+			productName = "${productName}",
+			productPrice = "${productUnitPrice}",
+			productQuantity = "${productQuantity}",
+			subtotalValue = "${subtotal}",
+			totalValue = "${total}");
+
+
+		Click(locator1 = "Button#CONTINUE");
+	}
+
 	macro viewCheckoutOrderSummary {
 		AssertTextEquals.assertPartialText(
 			key_addressInfo = "${addressName}",
