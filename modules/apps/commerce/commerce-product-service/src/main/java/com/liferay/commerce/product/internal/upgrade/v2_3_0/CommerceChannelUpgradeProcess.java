@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.product.internal.upgrade.v2_2_0;
+package com.liferay.commerce.product.internal.upgrade.v2_3_0;
 
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.internal.upgrade.base.BaseCommerceProductServiceUpgradeProcess;
