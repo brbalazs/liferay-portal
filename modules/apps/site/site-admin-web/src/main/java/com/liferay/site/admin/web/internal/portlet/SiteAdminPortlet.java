@@ -44,7 +44,6 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.Layout;
@@ -902,14 +901,10 @@ public class SiteAdminPortlet extends MVCPortlet {
 		}
 
 		if (inheritLocales) {
-			Company company = themeDisplay.getCompany();
-
-			User user = company.getDefaultUser();
-
-			Locale defaultLocale = user.getLocale();
+			User user = themeDisplay.getDefaultUser();
 
 			formTypeSettingsProperties.setProperty(
-				"languageId", LocaleUtil.toLanguageId(defaultLocale));
+				"languageId", user.getLanguageId());
 
 			formTypeSettingsProperties.setProperty(
 				PropsKeys.LOCALES,
