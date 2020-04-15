@@ -348,13 +348,16 @@ class Cart extends Component {
 
 	_handleProductUpdate(productId, products) {
 		const updatedPrice = products.reduce((acc, el) => {
-			return el.id === productId ? el.price : acc;
+			return el.id === productId ? el.prices.price : acc;
 		}, null);
+
 		this._removePendingOperation(productId);
 		return this._setProductProperties(productId, {
 			deleteDisabled: false,
 			errorMessages: null,
-			price: updatedPrice,
+			prices: {
+				price: updatedPrice
+			},
 			updating: false
 		});
 	}
