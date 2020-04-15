@@ -37,4 +37,39 @@ definition {
             locator1 = "CommerceAccelerators#ANY_BUTTON");
 	}
 
+    macro inviteNewMemberWithRoleToAccount {
+		Click(
+			key_text = "Invite User",
+			locator1 = "Button#ANY");
+
+		Type(
+            key_fieldLabel = "Name or Email",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			value1 = "${emailAddress}");
+
+		Click(
+            key_userEmailAddress = "${emailAddress}",
+            locator1 = "CommerceAccelerators#ACCOUNT_MANAGEMENT_ADD_MODAL_PLUS_BUTTON");
+
+		Click(
+			key_button = "Invite user",
+			locator1 = "CommerceAccelerators#ANY_BUTTON");
+
+		Click(
+			key_memberEmailAddress = "${emailAddress}",
+			locator1 = "CommerceAccelerators#ACCOUNT_MANAGEMENT_MEMBER_ACTIONS_DROPDOWN");
+
+		CommerceEntry.clickNoError(menuItem = "View");
+
+		Click(locator1 = "CommerceAccelerators#ROLES_BUTTON");
+
+		Click(
+			key_role = "${role}",
+			locator1 = "CommerceAccelerators#ROLES_MODAL_ROLE_CHECKBOX");
+
+		Click(
+			key_button = "Done",
+			locator1 = "CommerceAccelerators#ANY_BUTTON");
+	}
+
 }
