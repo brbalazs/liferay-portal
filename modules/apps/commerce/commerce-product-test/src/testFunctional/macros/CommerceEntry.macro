@@ -338,6 +338,36 @@ definition {
 
 	}
 
+	macro viewProductSkus {
+		for (var skusList : list "${skusList}") {
+			var sku = StringUtil.extractFirst("${skusList}", ":");
+			var price = StringUtil.extractLast("${skusList}", ":");
+
+			Refresh();
+
+			Click(
+				locator1 = "CommerceNavigation#ENTRY_NAME",
+				key_entryName = "${sku}");
+
+			SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
+
+			AssertTextEquals(
+				locator1 = "CommerceEntry#SKU_FIELD",
+				value1 = "${sku}");
+
+			AssertChecked.assertCheckedNotVisible(
+				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH",
+				key_toggleSwitchLabel = "Purchasable");
+
+			AssertTextEquals(
+				locator1 = "CommerceEntry#INPUT_PRICE",
+				value1 = "${price}");
+
+			Click(locator1 = "Icon#CLOSE");
+			
+		}
+	}
+
 	macro addSKUsEntry {
 		Type(
 			locator1 = "CommerceEntry#SKU_FIELD",
