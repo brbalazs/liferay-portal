@@ -394,6 +394,12 @@
 	<td>//label[contains(.,'${key_title}')]/../select[contains(@class,'form-control')]</td>
 	<td></td>
 </tr>
+<!--OPTION-->
+<tr>
+	<td>ADD_RELATION_FIELD</td>
+	<td>//div[h4[contains(.,'${key_title}')]]//input[@type='text']</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
