@@ -22,6 +22,7 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.product.definitions.web.internal.model.Sku;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
@@ -58,7 +59,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_INSTANCES,
+	property = {
+		"commerce.data.provider.key=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_ALL_PRODUCT_INSTANCES,
+		"commerce.data.provider.key=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_INSTANCES
+	},
 	service = CommerceDataSetDataProvider.class
 )
 public class CommerceProductInstanceDataSetDataProvider
@@ -103,6 +107,8 @@ public class CommerceProductInstanceDataSetDataProvider
 
 		Locale locale = _portal.getLocale(httpServletRequest);
 
+		String languageId = LanguageUtil.getLanguageId(locale);
+
 		List<CPInstance> cpInstances = _getCPInstances(
 			_portal.getCompanyId(httpServletRequest), cpDefinitionId,
 			defaultFilterImpl.getKeywords(), pagination.getStartPosition(),
@@ -114,6 +120,10 @@ public class CommerceProductInstanceDataSetDataProvider
 					_cpDefinitionOptionRelLocalService.
 						getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
 							cpInstance.getCPInstanceId());
+
+			CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+			String cpDefinitionName = cpDefinition.getName(languageId);
 
 			JSONArray keyValuesJSONArray = _jsonHelper.toJSONArray(
 				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys);
@@ -135,7 +145,7 @@ public class CommerceProductInstanceDataSetDataProvider
 							cpInstance.getCPDefinitionId(),
 							keyValuesJSONArray.toString(), locale)),
 					HtmlUtil.escape(_formatPrice(cpInstance, locale)),
-					StringPool.BLANK, stockQuantity,
+					cpDefinitionName, stockQuantity,
 					new LabelField(
 						statusDisplayStyle,
 						LanguageUtil.get(
