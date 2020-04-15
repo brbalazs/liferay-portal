@@ -45,4 +45,10 @@ definition {
 		Click(locator1 = "CommerceNavigation#SEARCH");
 	}
 
+	macro gotoMiniumSidebarItem {
+		Click(
+			key_menuItem = "${menuItem}",
+			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
+	}
+
 }
