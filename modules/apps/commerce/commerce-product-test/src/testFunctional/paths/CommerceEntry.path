@@ -400,6 +400,16 @@
 	<td>//div[h4[contains(.,'${key_title}')]]//input[@type='text']</td>
 	<td></td>
 </tr>
+<tr>
+	<td>OPTION_FIELD</td>
+	<td>//fieldset//div[contains(.,'Option')]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_OPTION</td>
+	<td>//fieldset//div[contains(.,'Option')]//a[contains (.,'${key_optionvalue}')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
