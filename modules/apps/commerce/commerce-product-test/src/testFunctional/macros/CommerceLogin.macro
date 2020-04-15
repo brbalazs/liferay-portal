@@ -95,6 +95,14 @@ definition {
 		User.answerPasswordReminder();
 	}
 
+	macro miniumLogoutPG {
+		ClickNoError(locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_USER_AVATAR");
+
+		Click(
+			key_menuItem = "Sign Out",
+			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
+	}
+
 	macro miniumLogin {
 		var baseURL = "${baseURL}";
 
