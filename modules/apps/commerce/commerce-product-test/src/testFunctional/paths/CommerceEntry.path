@@ -410,6 +410,11 @@
 	<td>//fieldset//div[contains(.,'Option')]//a[contains (.,'${key_optionvalue}')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>ADD_RELATION_FIELD_SELECT</td>
+	<td>//div[h4[contains(.,'${key_title}')]]//input[@type='text']/../../../..//button[contains(.,'Select')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
