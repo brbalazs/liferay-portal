@@ -25,27 +25,27 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 
 	@Override
 	public long getCPInstanceId() {
-		return 0;
+		return _cpInstanceId;
 	}
 
 	@Override
 	public String getOptionKey() {
-		return null;
+		return _optionKey;
 	}
 
 	@Override
 	public BigDecimal getPrice() {
-		return null;
+		return _price;
 	}
 
 	@Override
 	public String getPriceType() {
-		return null;
+		return _priceType;
 	}
 
 	@Override
 	public int getQuantity() {
-		return 0;
+		return _quantity;
 	}
 
 	public static class Builder {
