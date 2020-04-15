@@ -1,0 +1,12 @@
+definition {
+
+	macro changeProductsSorting {
+		Click(
+			locator1 = "CommerceAccelerators#SORT_BY_DROPDOWN");
+
+		Click(
+			key_menuItem = "${sortingType}",
+			locator1 = "CommerceEntry#ANY_MENU_ITEM");
+	}
+
+}
