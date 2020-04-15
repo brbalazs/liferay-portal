@@ -415,6 +415,12 @@
 	<td>//div[h4[contains(.,'${key_title}')]]//input[@type='text']/../../../..//button[contains(.,'Select')]</td>
 	<td></td>
 </tr>
+<!--IFRAME-->
+<tr>
+	<td>IFRAME_SIDE_PANEL</td>
+	<td>//div[contains(@class,'side-panel') and contains(@class,'is-visible')]//iframe</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
