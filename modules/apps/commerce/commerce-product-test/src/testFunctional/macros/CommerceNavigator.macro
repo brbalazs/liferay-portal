@@ -21,6 +21,10 @@ definition {
 		Navigator.openSpecificURL(url = "localhost:8080/web/guest/p/${productName}");
 	}
 
+	macro gotoMiniCart {
+		Click.clickNoMouseOver(locator1 = "CommerceAccelerators#MINI_CART_BUTTON");
+	}
+
 	macro gotoOptionValues {
 		Click(
 			key_optionEntryName = "${optionEntryName}",
