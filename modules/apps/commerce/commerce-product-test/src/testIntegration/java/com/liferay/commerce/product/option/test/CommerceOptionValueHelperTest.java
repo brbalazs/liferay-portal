@@ -20,6 +20,7 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.option.CommerceOptionValueHelper;
@@ -28,6 +29,7 @@ import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CPInstanceLocalServiceUtil;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalServiceUtil;
 import com.liferay.commerce.product.test.util.CPTestUtil;
@@ -35,7 +37,11 @@ import com.liferay.commerce.product.type.simple.constants.SimpleCPTypeConstants;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.CompanyTestUtil;
@@ -102,31 +108,28 @@ public class CommerceOptionValueHelperTest {
 	}
 
 	@Test
-	public void testFetchCPInstanceIgnoreSkuCombinationsFalse()
-		throws Exception {
-
+	public void testGetCPInstanceCommerceOptionValues() throws Exception {
 		frutillaRule.scenario(
-			"Fetch CP instance with specified SKU contributor options"
+			"Get CP instance commerce option values"
 		).given(
 			StringBundler.concat(
-				"I have a product definition with SKU contributor options ",
-				"Option_1 and Option_2 with two values assigned to each of ",
-				"them so there are Option_1_Value_1, Option_1_Value_2, ",
-				"Option_2_Value_1, Option_2_Value_2.")
-		).when(
-			"There is only CP instance A that represents SKU value " +
-				"combination Option_1_Value_2, Option_2_Value_1"
+				"I have a product bundle definition with SKU contributor ",
+				"option Option_1 and two option values assigned to it so ",
+				"there are Option_1_Value_1, Option_1_Value_2 values.")
 		).and(
-			"serialized DDM form values contains combination " +
-				"Option_1_Value_2, Option_2_Value_1"
+			"Option_1_Value_1 points to product A"
+		).and(
+			"Option_1_Value_2 points to product B"
+		).when(
+			"There are two CP instances that represents SKU bundle values " +
+				"combination Option_1_Value_1, Option_1_Value_2"
+		).and(
+			"commerce option value is requested for SKU's cpIstanceId"
 		).then(
-			"CP instance A must be fetched"
-		).but(
-			StringBundler.concat(
-				"If serialized DDM form values contains combination other ",
-				"than Option_1_Value_2, Option_2_Value_1 nothing should be ",
-				"fetched")
+			"commerce option value is returned"
 		);
+
+		_setupPermissionChecker();
 
 		CPDefinition optionACPDefinition =
 			CPTestUtil.addCPDefinitionFromCatalog(
@@ -152,13 +155,18 @@ public class CommerceOptionValueHelperTest {
 			ServiceContextTestUtil.getServiceContext(
 				_commerceCatalog.getGroupId());
 
+		CPOption productBundleOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			CPDefinitionOptionRelLocalServiceUtil.addCPDefinitionOptionRel(
-				bundleCPDefinition.getCPDefinitionId(), 0L,
+				bundleCPDefinition.getCPDefinitionId(),
+				productBundleOption.getCPOptionId(),
 				RandomTestUtil.randomLocaleStringMap(),
 				RandomTestUtil.randomLocaleStringMap(),
 				CPTestUtil.getDefaultDDMFormFieldType(true), 0.2, false, false,
-				false, false, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				true, false, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				serviceContext);
 
 		CPDefinitionOptionValueRel optionACPDefinitionOptionValueRel =
@@ -194,14 +202,16 @@ public class CommerceOptionValueHelperTest {
 		_cpInstanceLocalService.buildCPInstances(
 			bundleCPDefinition.getCPDefinitionId(), serviceContext);
 
-		List<CPInstance> cpDefinitionApprovedCPInstances =
+		List<CPInstance> bundleCPDefinitionApprovedCPInstances =
 			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
 				bundleCPDefinition.getCPDefinitionId());
 
-		for (CPInstance cpInstance : cpDefinitionApprovedCPInstances) {
+		for (CPInstance bundleCPInstance :
+				bundleCPDefinitionApprovedCPInstances) {
+
 			List<CommerceOptionValue> cpInstanceCommerceOptionValues =
 				_commerceOptionValueHelper.getCPInstanceCommerceOptionValues(
-					cpInstance.getCPInstanceId());
+					bundleCPInstance.getCPInstanceId());
 
 			for (CommerceOptionValue cpInstanceCommerceOptionValue :
 					cpInstanceCommerceOptionValues) {
@@ -209,12 +219,28 @@ public class CommerceOptionValueHelperTest {
 				Assert.assertNotNull(
 					cpInstanceCommerceOptionValue.getCPInstanceId());
 				Assert.assertNotNull(cpInstanceCommerceOptionValue.getPrice());
+
+				CPInstance optionValueCPInstance =
+					CPInstanceLocalServiceUtil.getCPInstance(
+						cpInstanceCommerceOptionValue.getCPInstanceId());
+
+				Assert.assertNotEquals(
+					"Static price overrides CP instance price",
+					optionValueCPInstance.getPrice(),
+					cpInstanceCommerceOptionValue.getPrice());
 			}
 		}
 	}
 
 	@Rule
 	public final FrutillaRule frutillaRule = new FrutillaRule();
+
+	private void _setupPermissionChecker() throws Exception {
+		User user = UserLocalServiceUtil.getUser(_commerceCatalog.getUserId());
+
+		PermissionThreadLocal.setPermissionChecker(
+			PermissionCheckerFactoryUtil.create(user));
+	}
 
 	private CommerceCatalog _commerceCatalog;
 
