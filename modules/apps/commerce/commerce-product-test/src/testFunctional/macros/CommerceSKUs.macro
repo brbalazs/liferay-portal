@@ -12,6 +12,8 @@ definition {
 			var price = StringUtil.extractLast("${optionValues}", ":");
 			var optionValueUppercase = StringUtil.upperCase("${optionValue}");
 
+			Refresh();
+
 			Click(locator1 = "Button#PLUS");
 
 			AssertClick(
@@ -19,18 +21,26 @@ definition {
 				locator1 = "MenuItem#DROPDOWN_MENU_ITEM",
 				value1 = "${key_menuItem}");
 
+			SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
+
 			CommerceEntry.addSKUsEntry(
 				optionValue = "${optionValue}",
 				productSKU = "${optionValueUppercase}SKU");
 
-			CommerceEntry.publishEntry();
-
-			AssertNotVisible(locator1 = "Message#SUCCESS");
+			Check.checkToggleSwitch(
+				key_toggleSwitchLabel = "Purchasable",
+				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
 
 			CommerceSKUs.addPriceToSKU(price = "${price}");
 
-			CommerceEntry.gotoBreadcrumb(breadcrumb = "SKUs");
+			CommerceEntry.publishEntry();
+
+			AssertVisible(locator1 = "Message#SUCCESS");
+
+			Click(locator1 = "Icon#CLOSE");
 		}
+
+		Refresh();
 	}
 
 }
