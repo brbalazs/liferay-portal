@@ -29,4 +29,12 @@ definition {
             locator1 = "CommerceAccelerators#ANY_BUTTON");
     }
 
+	macro createNewOrderFromAccountSelectorDropdown {
+		Click(locator1 = "CommerceAccelerators#ACCOUNT_SELECTOR_DROPDOWN");
+
+		Click(
+            key_button = "Create New Order",
+            locator1 = "CommerceAccelerators#ANY_BUTTON");
+	}
+
 }
