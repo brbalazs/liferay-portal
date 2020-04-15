@@ -39,13 +39,11 @@ import com.liferay.headless.commerce.admin.account.dto.v1_0.Account;
 import com.liferay.headless.commerce.admin.account.dto.v1_0.AccountAddress;
 import com.liferay.headless.commerce.admin.account.dto.v1_0.AccountMember;
 import com.liferay.headless.commerce.admin.account.dto.v1_0.AccountOrganization;
+import com.liferay.headless.commerce.admin.account.internal.dto.v1_0.converter.AccountDTOConverter;
 import com.liferay.headless.commerce.admin.account.internal.odata.entity.v1_0.AccountEntityModel;
 import com.liferay.headless.commerce.admin.account.internal.util.v1_0.AccountMemberUtil;
 import com.liferay.headless.commerce.admin.account.internal.util.v1_0.AccountOrganizationUtil;
 import com.liferay.headless.commerce.admin.account.resource.v1_0.AccountResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.petra.string.StringPool;
@@ -61,6 +59,7 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -168,14 +167,10 @@ public class AccountResourceImpl
 
 	@Override
 	public Account getAccount(Long id) throws Exception {
-		DTOConverter accountDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceAccount.class.getName());
-
-		return (Account)accountDTOConverter.toDTO(
+		return _accountDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+				GetterUtil.getLong(id),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -193,14 +188,10 @@ public class AccountResourceImpl
 					externalReferenceCode);
 		}
 
-		DTOConverter accountDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceAccount.class.getName());
-
-		return (Account)accountDTOConverter.toDTO(
+		return _accountDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceAccount.getCommerceAccountId()));
+				commerceAccount.getCommerceAccountId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -288,14 +279,10 @@ public class AccountResourceImpl
 			account, commerceAccount,
 			_serviceContextHelper.getServiceContext());
 
-		DTOConverter accountDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceAccount.class.getName());
-
-		return (Account)accountDTOConverter.toDTO(
+		return _accountDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceAccount.getCommerceAccountId()));
+				commerceAccount.getCommerceAccountId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -435,14 +422,10 @@ public class AccountResourceImpl
 			return null;
 		}
 
-		DTOConverter accountDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceAccount.class.getName());
-
-		return (Account)accountDTOConverter.toDTO(
+		return _accountDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceAccount.getCommerceAccountId()));
+				commerceAccount.getCommerceAccountId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private CommerceAccount _updateAccount(Long id, Account account)
@@ -605,6 +588,9 @@ public class AccountResourceImpl
 	private static final EntityModel _entityModel = new AccountEntityModel();
 
 	@Reference
+	private AccountDTOConverter _accountDTOConverter;
+
+	@Reference
 	private CommerceAccountGroupCommerceAccountRelService
 		_commerceAccountGroupCommerceAccountRelService;
 
@@ -629,9 +615,6 @@ public class AccountResourceImpl
 
 	@Reference
 	private CommerceRegionLocalService _commerceRegionLocalService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private OrganizationLocalService _organizationLocalService;

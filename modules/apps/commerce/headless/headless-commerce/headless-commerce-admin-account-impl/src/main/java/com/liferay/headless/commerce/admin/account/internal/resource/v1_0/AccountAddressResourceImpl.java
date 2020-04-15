@@ -27,14 +27,13 @@ import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionLocalService;
 import com.liferay.headless.commerce.admin.account.dto.v1_0.Account;
 import com.liferay.headless.commerce.admin.account.dto.v1_0.AccountAddress;
+import com.liferay.headless.commerce.admin.account.internal.dto.v1_0.converter.AccountAddressDTOConverter;
 import com.liferay.headless.commerce.admin.account.resource.v1_0.AccountAddressResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -262,14 +261,10 @@ public class AccountAddressResourceImpl extends BaseAccountAddressResourceImpl {
 					accountAddress.getExternalReferenceCode(), null),
 				_serviceContextHelper.getServiceContext());
 
-		DTOConverter accountAddressDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceAddress.class.getName());
-
-		return (AccountAddress)accountAddressDTOConverter.toDTO(
+		return _accountAddressDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceAddress.getCommerceAddressId()));
+				commerceAddress.getCommerceAddressId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private Page<AccountAddress> _getAccountAddressesPage(
@@ -312,14 +307,10 @@ public class AccountAddressResourceImpl extends BaseAccountAddressResourceImpl {
 	private AccountAddress _toAccountAddress(CommerceAddress commerceAddress)
 		throws Exception {
 
-		DTOConverter accountAddressDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceAddress.class.getName());
-
-		return (AccountAddress)accountAddressDTOConverter.toDTO(
+		return _accountAddressDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceAddress.getCommerceAddressId()));
+				commerceAddress.getCommerceAddressId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private List<AccountAddress> _toAccountAddresses(
@@ -328,20 +319,19 @@ public class AccountAddressResourceImpl extends BaseAccountAddressResourceImpl {
 
 		List<AccountAddress> accountAddresses = new ArrayList<>();
 
-		DTOConverter accountAddressDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceAddress.class.getName());
-
 		for (CommerceAddress commerceAddress : commerceAddresses) {
 			accountAddresses.add(
-				(AccountAddress)accountAddressDTOConverter.toDTO(
+				_accountAddressDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						commerceAddress.getCommerceAddressId())));
+						commerceAddress.getCommerceAddressId(),
+						contextAcceptLanguage.getPreferredLocale())));
 		}
 
 		return accountAddresses;
 	}
+
+	@Reference
+	private AccountAddressDTOConverter _accountAddressDTOConverter;
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
@@ -354,9 +344,6 @@ public class AccountAddressResourceImpl extends BaseAccountAddressResourceImpl {
 
 	@Reference
 	private CommerceRegionLocalService _commerceRegionLocalService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
