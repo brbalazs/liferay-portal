@@ -9,4 +9,24 @@ definition {
 			locator1 = "CommerceEntry#ANY_MENU_ITEM");
 	}
 
+    macro createNewAccountViaFront {
+        Click.clickNoMouseOver(
+            key_text = "Add Account",
+            locator1 = "Button#ANY");
+
+		Pause(locator1 = "2000");
+
+		Type(
+			locator1 = "TextInput#NAME",
+			value1 = "${accountName}");
+
+		Click(
+			key_userEmailAddress = "${adminEmailAddress}",
+			locator1 = "CommerceAccelerators#ACCOUNT_MANAGEMENT_ADD_MODAL_PLUS_BUTTON");
+
+		Click(
+            key_button = "Create Account",
+            locator1 = "CommerceAccelerators#ANY_BUTTON");
+    }
+
 }
