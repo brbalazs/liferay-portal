@@ -433,6 +433,17 @@
 	<td>//div[(@class = 'card d-flex')]/h4[contains(.,'Images')]//..//button[contains(@class,'btn-primary')]</td>
 	<td></td>
 </tr>
+<!--PRODUCT-->
+<tr>
+	<td>PRODUCT_DETAIL_VIEW_OPTION</td>
+	<td>//div[contains(@class,'card d-flex')]//h4[contains(.,'Option')]/..//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PRODUCT_FULL_DESCRIPTION</td>
+	<td>//div/label[@class='control-label' and contains(.,'${key_customFieldName}')]/..//p</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
