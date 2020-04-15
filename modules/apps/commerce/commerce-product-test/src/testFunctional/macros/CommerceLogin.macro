@@ -25,4 +25,74 @@ definition {
 		PortletEntry.save();
 	}
 
+    macro loginPG {
+		Navigator.openSpecificURL(url = "${specificURL}");
+
+		if ("${samlEnabled}" != "true") {
+			User.loginLocalizationPG(localization = "${localization}");
+		}
+
+		if ((isSet(authenticationMethod)) && ("${authenticationMethod}" == "By Screen Name")) {
+			Type(
+				locator1 = "TextInput#SCREEN_NAME",
+				value1 = "${userScreenName}");
+		}
+		else {
+			Type(
+				locator1 = "TextInput#EMAIL_ADDRESS",
+				value1 = "${userEmailAddress}");
+		}
+
+		Type(
+			locator1 = "TextInput#PASSWORD",
+			value1 = "${password}");
+
+		if ((isSet(rememberMeChecked)) && ("${rememberMeChecked}" == "true")) {
+			Check(locator1 = "Checkbox#REMEMBER_ME");
+		}
+
+		if (isSet(localization)) {
+			var localizedSignIn = User._signInLocalization(localization = "${localization}");
+
+			Button.click(button = "${localizedSignIn}");
+		}
+		else {
+			Button.click(button = "Sign In");
+		}
+
+		if (IsElementPresent(locator1 = "Message#ERROR_FORM_FIELD_REQUIRED")) {
+			echo("Sign in failed due to empty required field. Retrying...");
+
+			if ((isSet(authenticationMethod)) && ("${authenticationMethod}" == "By Screen Name")) {
+				Type(
+					locator1 = "TextInput#SCREEN_NAME",
+					value1 = "${userScreenName}");
+			}
+			else {
+				Type(
+					locator1 = "TextInput#EMAIL_ADDRESS",
+					value1 = "${userEmailAddress}");
+			}
+
+			Type(
+				locator1 = "TextInput#PASSWORD",
+				value1 = "${password}");
+
+			Click.mouseDownMouseUp(
+				key_text = "Sign In",
+				locator1 = "Button#ANY");
+		}
+
+		Button.viewNotPresent(button = "Sign In");
+
+		User.acceptEndUserLicenseAgreement();
+
+		User.resetPassword(
+			resetPassword = "${resetPassword}",
+			setupWizardEnabled = "${setupWizardEnabled}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}");
+
+		User.answerPasswordReminder();
+	}
+
 }
