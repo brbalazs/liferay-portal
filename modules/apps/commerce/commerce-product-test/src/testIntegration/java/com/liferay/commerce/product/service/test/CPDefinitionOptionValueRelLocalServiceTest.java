@@ -91,7 +91,7 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 	}
 
 	@Test
-	public void testResetCPDefinitionOptionValueRel() throws Exception {
+	public void testResetCPDefinitionOptionValueRelOnDelete() throws Exception {
 		frutillaRule.scenario(
 			"Delete a product instance which is referenced as an option " +
 				"value of another product (product bundle)"
@@ -107,23 +107,8 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 				"default values"
 		);
 
-		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
-			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
-			true);
-
-		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
-			CPTestUtil.addCPOption(
-				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-				1, 1);
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			cpDefinitionOptionRels.get(0);
-
 		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-			_cpDefinitionOptionValueRelLocalService.
-				addCPDefinitionOptionValueRel(
-					cpDefinitionOptionRel.getCPDefinitionOptionRelId(), null, 0,
-					"cpInstance-option-value", _serviceContext);
+			_addCPDefinitionWithOptionValue();
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			_commerceCatalog.getGroupId());
@@ -138,9 +123,6 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 					_serviceContext);
 
 		Assert.assertEquals(
-			BigDecimal.TEN, cpDefinitionOptionValueRel.getPrice());
-		Assert.assertEquals(1, cpDefinitionOptionValueRel.getQuantity());
-		Assert.assertEquals(
 			cpInstance.getCPInstanceUuid(),
 			cpDefinitionOptionValueRel.getCPInstanceUuid());
 
@@ -149,6 +131,10 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		Assert.assertEquals(
 			cpInstanceCPDefinition.getCProductId(),
 			cpDefinitionOptionValueRel.getCProductId());
+
+		Assert.assertEquals(
+			BigDecimal.TEN, cpDefinitionOptionValueRel.getPrice());
+		Assert.assertEquals(1, cpDefinitionOptionValueRel.getQuantity());
 
 		_cpInstanceLocalService.deleteCPInstance(cpInstance);
 
@@ -170,8 +156,239 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		Assert.assertEquals(0, cpDefinitionOptionValueRel.getQuantity());
 	}
 
+	@Test
+	public void testResetCPDefinitionOptionValueRelOnUpdateStatusToApproved()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Update a status of APPROVED product instance which is " +
+				"referenced as an option value of another product (product " +
+					"bundle)"
+		).given(
+			"A product bundle and a product instance"
+		).and(
+			"Product instance is referenced as an option value of the " +
+				"product bundle"
+		).when(
+			"The referenced product instance status stays in APPROVED state"
+		).then(
+			"Product bundle's option value attributes should not be changed"
+		);
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			_addCPDefinitionWithOptionValue();
+
+		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId());
+
+		Assert.assertEquals(
+			WorkflowConstants.STATUS_APPROVED, cpInstance.getStatus());
+
+		cpDefinitionOptionValueRel =
+			_cpDefinitionOptionValueRelLocalService.
+				updateCPDefinitionOptionValueRel(
+					cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId(),
+					null, 0, "cpInstance-option-value",
+					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
+					_serviceContext);
+
+		Assert.assertEquals(
+			cpInstance.getCPInstanceUuid(),
+			cpDefinitionOptionValueRel.getCPInstanceUuid());
+
+		CPDefinition cpInstanceCPDefinition = cpInstance.getCPDefinition();
+
+		Assert.assertEquals(
+			cpInstanceCPDefinition.getCProductId(),
+			cpDefinitionOptionValueRel.getCProductId());
+
+		Assert.assertEquals(
+			BigDecimal.TEN, cpDefinitionOptionValueRel.getPrice());
+		Assert.assertEquals(1, cpDefinitionOptionValueRel.getQuantity());
+
+		_cpInstanceLocalService.updateStatus(
+			_serviceContext.getUserId(), cpInstance.getCPInstanceId(),
+			WorkflowConstants.STATUS_APPROVED);
+
+		cpDefinitionOptionValueRel =
+			_cpDefinitionOptionValueRelLocalService.
+				getCPDefinitionOptionValueRel(
+					cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId());
+
+		Assert.assertEquals(
+			cpInstance.getCPInstanceUuid(),
+			cpDefinitionOptionValueRel.getCPInstanceUuid());
+
+		cpInstanceCPDefinition = cpInstance.getCPDefinition();
+
+		Assert.assertEquals(
+			cpInstanceCPDefinition.getCProductId(),
+			cpDefinitionOptionValueRel.getCProductId());
+
+		Assert.assertEquals(
+			_stripTrailingZeros(BigDecimal.TEN),
+			_stripTrailingZeros(cpDefinitionOptionValueRel.getPrice()));
+		Assert.assertEquals(1, cpDefinitionOptionValueRel.getQuantity());
+	}
+
+	@Test
+	public void testResetCPDefinitionOptionValueRelOnUpdateStatusToExpired()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Update a status of APPROVED product instance which is " +
+				"referenced as an option value of another product (product " +
+					"bundle)"
+		).given(
+			"A product bundle and a product instance"
+		).and(
+			"Product instance is referenced as an option value of the " +
+				"product bundle"
+		).when(
+			"The referenced product instance status is changed from APPROVED " +
+				"to EXPIRED"
+		).then(
+			"Product bundle's option value attributes should be reset to " +
+				"default values"
+		);
+
+		testResetCPDefinitionOptionValueRelOnStatusChange(
+			WorkflowConstants.STATUS_EXPIRED);
+	}
+
+	@Test
+	public void testResetCPDefinitionOptionValueRelOnUpdateStatusToInactive()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Update a status of APPROVED product instance which is " +
+				"referenced as an option value of another product (product " +
+					"bundle)"
+		).given(
+			"A product bundle and a product instance"
+		).and(
+			"Product instance is referenced as an option value of the " +
+				"product bundle"
+		).when(
+			"The referenced product instance status is changed from APPROVED " +
+				"to INACTIVE"
+		).then(
+			"Product bundle's option value attributes should be reset to " +
+				"default values"
+		);
+
+		testResetCPDefinitionOptionValueRelOnStatusChange(
+			WorkflowConstants.STATUS_INACTIVE);
+	}
+
+	@Test
+	public void testResetCPDefinitionOptionValueRelOnUpdateStatusToScheduled()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Update a status of APPROVED product instance which is " +
+				"referenced as an option value of another product (product " +
+					"bundle)"
+		).given(
+			"A product bundle and a product instance"
+		).and(
+			"Product instance is referenced as an option value of the " +
+				"product bundle"
+		).when(
+			"The referenced product instance status is changed from APPROVED " +
+				"to SCHEDULED"
+		).then(
+			"Product bundle's option value attributes should be reset to " +
+				"default values"
+		);
+
+		testResetCPDefinitionOptionValueRelOnStatusChange(
+			WorkflowConstants.STATUS_SCHEDULED);
+	}
+
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
+
+	protected void testResetCPDefinitionOptionValueRelOnStatusChange(
+			int newStatus)
+		throws Exception {
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			_addCPDefinitionWithOptionValue();
+
+		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId());
+
+		Assert.assertEquals(
+			WorkflowConstants.STATUS_APPROVED, cpInstance.getStatus());
+
+		cpDefinitionOptionValueRel =
+			_cpDefinitionOptionValueRelLocalService.
+				updateCPDefinitionOptionValueRel(
+					cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId(),
+					null, 0, "cpInstance-option-value",
+					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
+					_serviceContext);
+
+		Assert.assertEquals(
+			cpInstance.getCPInstanceUuid(),
+			cpDefinitionOptionValueRel.getCPInstanceUuid());
+
+		CPDefinition cpInstanceCPDefinition = cpInstance.getCPDefinition();
+
+		Assert.assertEquals(
+			cpInstanceCPDefinition.getCProductId(),
+			cpDefinitionOptionValueRel.getCProductId());
+
+		Assert.assertEquals(
+			BigDecimal.TEN, cpDefinitionOptionValueRel.getPrice());
+		Assert.assertEquals(1, cpDefinitionOptionValueRel.getQuantity());
+
+		_cpInstanceLocalService.updateStatus(
+			_serviceContext.getUserId(), cpInstance.getCPInstanceId(),
+			newStatus);
+
+		cpDefinitionOptionValueRel =
+			_cpDefinitionOptionValueRelLocalService.
+				getCPDefinitionOptionValueRel(
+					cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId());
+
+		Assert.assertEquals(
+			StringPool.BLANK, cpDefinitionOptionValueRel.getCPInstanceUuid());
+		Assert.assertEquals(0, cpDefinitionOptionValueRel.getCProductId());
+
+		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
+
+		Assert.assertEquals(
+			_stripTrailingZeros(BigDecimal.ZERO), _stripTrailingZeros(price));
+
+		Assert.assertEquals(0, cpDefinitionOptionValueRel.getQuantity());
+	}
+
+	private CPDefinitionOptionValueRel _addCPDefinitionWithOptionValue()
+		throws Exception {
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+			CPTestUtil.addCPOption(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				1, 1);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionRels.get(0);
+
+		return _cpDefinitionOptionValueRelLocalService.
+			addCPDefinitionOptionValueRel(
+				cpDefinitionOptionRel.getCPDefinitionOptionRelId(), null, 0,
+				"cpInstance-option-value", _serviceContext);
+	}
 
 	private BigDecimal _stripTrailingZeros(BigDecimal bigDecimal) {
 		if (bigDecimal == null) {
