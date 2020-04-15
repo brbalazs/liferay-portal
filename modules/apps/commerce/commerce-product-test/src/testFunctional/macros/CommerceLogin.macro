@@ -95,4 +95,17 @@ definition {
 		User.answerPasswordReminder();
 	}
 
+	macro miniumLogin {
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		CommerceLogin.loginPG(
+			password = "${password}",
+			samlEnabled = "true",
+			specificURL = "${baseURL}/${urlAppend}",
+			userEmailAddress = "${userEmailAddress}");
+	}
 }
