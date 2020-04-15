@@ -129,6 +129,42 @@
 	<td>//li[contains(@class,'commerce-total')]//div[contains(@class,'commerce-value') and contains (.,'${key_totalValue}')]</td>
 	<td></td>
 </tr>
+<!--ORDERS-->
+<tr>
+	<td>ORDER_DETAILS_DISCOUNT</td>
+	<td>//tbody//td[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ORDER_DETAILS_NAME</td>
+	<td>//tbody//td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ORDER_DETAILS_PRICE</td>
+	<td>//tbody//td[7]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ORDER_DETAILS_QUANTITY</td>
+	<td>//tbody//td[6]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ORDER_DETAILS_SKU</td>
+	<td>//tbody//td[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ORDER_DETAILS_UNIT_PRICE</td>
+	<td>//tbody//td[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ORDERS_ENTRY_VIEW_BUTTON</td>
+	<td>//td[contains(.,'${key_orderAuthor}')]/..//following-sibling::td[contains(.,'View')]/a</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
