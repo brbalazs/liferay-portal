@@ -68,6 +68,67 @@
 	<td>//div/button[contains(.,'Sort By')]</td>
 	<td></td>
 </tr>
+<!--CHECKOUT-->
+<tr>
+	<td>CHECKOUT_GENERIC_SELECT</td>
+	<td>//div[contains(@class,'form-group')]//select[contains(@title,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_GENERIC_TEXT_INPUT</td>
+	<td>//div[contains(@class,'form-group')]//input[contains(@placeholder,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SHIPPING_OPTION_RADIO</td>
+	<td>//label[contains(.,'${key_radioOption}')]/input[@type='radio']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_DELIVERY</td>
+	<td>//li[contains(@class,'commerce-delivery')]//div[contains(@class,'commerce-value') and contains (.,'${key_deliveryValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_PAYMENT_METHOD</td>
+	<td>//div[contains(@class,'payment-method')]/div[contains(.,'${key_paymentMethod}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_PRODUCT_TABLE_PRICE</td>
+	<td>//td[contains(@class,'lfr-price-column')]//*/*[contains(.,'${key_productPrice}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_PRODUCT_TABLE_PRODUCT</td>
+	<td>//td[contains(@class,'product-column')]//*/*[contains(.,'${key_productName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_PRODUCT_TABLE_QUANTITY</td>
+	<td>//td[contains(@class,'quantity-column')]//*/*[contains(.,'${key_productQuantity}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_SHIPPING_ADDRESS</td>
+	<td>//address[@class='shipping-address' and contains(.,'${key_addressInfo}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_SUBTOTAL</td>
+	<td>//li[contains(@class,'commerce-subtotal')]//div[contains(@class,'commerce-value') and contains (.,'${key_subtotalValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_TAX</td>
+	<td>//li[contains(@class,'commerce-tax')]//div[contains(@class,'commerce-value') and contains (.,'${key_taxValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_SUMMARY_TOTAL</td>
+	<td>//li[contains(@class,'commerce-total')]//div[contains(@class,'commerce-value') and contains (.,'${key_totalValue}')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
