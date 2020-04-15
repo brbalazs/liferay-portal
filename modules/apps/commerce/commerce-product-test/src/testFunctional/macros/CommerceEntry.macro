@@ -558,9 +558,12 @@ definition {
 
 	macro selectAssociatedOptionsValue {
 		if (IsElementNotPresent(locator1 = "CommerceEntry#ACCORDION")) {
+
+			Click(locator1 = "CommerceEntry#OPTION_FIELD");
+
 			Click(
-				key_accordionTitle = "Options",
-				locator1 = "CommerceEntry#ACCORDION_TITLE");
+				locator1 = "CommerceEntry#SELECT_OPTION",
+				key_optionvalue = "${optionValue}");
 		}
 
 		if (IsElementPresent(locator1 = "CommerceEntry#OPTION_SELECT")) {
