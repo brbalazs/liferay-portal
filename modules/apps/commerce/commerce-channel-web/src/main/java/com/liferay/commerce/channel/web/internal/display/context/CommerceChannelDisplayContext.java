@@ -17,6 +17,7 @@ package com.liferay.commerce.channel.web.internal.display.context;
 import com.liferay.commerce.account.configuration.CommerceAccountGroupServiceConfiguration;
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.channel.web.internal.display.context.util.CommerceChannelRequestHelper;
+import com.liferay.commerce.configuration.CommerceOrderCheckoutConfiguration;
 import com.liferay.commerce.configuration.CommerceOrderFieldsConfiguration;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
@@ -365,6 +366,19 @@ public class CommerceChannelDisplayContext
 		}
 
 		return false;
+	}
+
+	public boolean isGuestCheckoutEnabled() throws PortalException {
+		CommerceChannel commerceChannel = getCommerceChannel();
+
+		CommerceOrderCheckoutConfiguration commerceOrderCheckoutConfiguration =
+			_configurationProvider.getConfiguration(
+				CommerceOrderCheckoutConfiguration.class,
+				new GroupServiceSettingsLocator(
+					commerceChannel.getGroupId(),
+					CommerceConstants.ORDER_SERVICE_NAME));
+
+		return commerceOrderCheckoutConfiguration.guestCheckoutEnabled();
 	}
 
 	public boolean isShowPurchaseOrderNumber() throws PortalException {
