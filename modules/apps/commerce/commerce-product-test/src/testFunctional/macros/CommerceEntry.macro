@@ -304,6 +304,40 @@ definition {
 		CommerceEntry.addFullDescriptionViaAlloyEditor(entryFullDescription = "${productFullDescription}");
 	}
 
+	macro viewProductOptions {
+		Click(locator1 = "CommerceEntry#PRODUCT_DETAIL_VIEW_OPTION");
+
+		SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
+
+		AssertTextEquals(
+				locator1 = "CommerceEntry#NAME_FIELD",
+				value1 = "${optionName}");
+		
+		AssertChecked.assertCheckedNotVisible(
+				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH",
+				key_toggleSwitchLabel = "Use in Faceted Navigation");
+
+		AssertChecked.assertCheckedNotVisible(
+				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH",
+				key_toggleSwitchLabel = "Required");
+
+		AssertChecked.assertCheckedNotVisible(
+				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH",
+				key_toggleSwitchLabel = "SKU Contributor");
+
+		for (var optionList : list "${optionList}") {
+
+			IsElementPresent(
+				locator1 = "CommerceNavigation#ENTRY_NAME",
+				key_entryName = "${optionList}");
+		}
+
+		Click(locator1 = "Icon#CLOSE");
+
+		Refresh();
+
+	}
+
 	macro addSKUsEntry {
 		Type(
 			locator1 = "CommerceEntry#SKU_FIELD",
