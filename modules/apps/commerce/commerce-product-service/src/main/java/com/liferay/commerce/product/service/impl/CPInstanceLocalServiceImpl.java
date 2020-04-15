@@ -1164,6 +1164,14 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			cpInstance.setExpirationDate(now);
 		}
 
+		if ((cpInstance.getStatus() == WorkflowConstants.STATUS_APPROVED) &&
+			(status != WorkflowConstants.STATUS_APPROVED)) {
+
+			cpDefinitionOptionValueRelLocalService.
+				resetCPInstanceCPDefinitionOptionValueRels(
+					cpInstance.getCPInstanceUuid());
+		}
+
 		cpInstance.setStatus(status);
 		cpInstance.setStatusByUserId(user.getUserId());
 		cpInstance.setStatusByUserName(user.getFullName());
