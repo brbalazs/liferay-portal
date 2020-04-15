@@ -81,7 +81,7 @@ List<CommercePriceListCommerceAccountGroupRel> commercePriceListAccountGroupEntr
 
 	<aui:input name="priority" />
 
-	<aui:select label="price-type" name="pricelistPriceType">
+	<aui:select label="price-type" name="netPrice">
 
 		<%
 		boolean isNetPrice = true;

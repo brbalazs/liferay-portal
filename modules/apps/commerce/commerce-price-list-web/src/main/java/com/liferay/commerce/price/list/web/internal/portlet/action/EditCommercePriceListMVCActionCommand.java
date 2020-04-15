@@ -161,16 +161,16 @@ public class EditCommercePriceListMVCActionCommand
 		long commercePriceListId = ParamUtil.getLong(
 			actionRequest, "commercePriceListId");
 
-		long parentCommercePriceListId = ParamUtil.getLong(
-			actionRequest, "parentCommercePriceListId");
-		long commerceCurrencyId = ParamUtil.getLong(
-			actionRequest, "commerceCurrencyId");
 		long commerceCatalogGroupId = ParamUtil.getLong(
 			actionRequest, "commerceCatalogGroupId");
+		long commerceCurrencyId = ParamUtil.getLong(
+			actionRequest, "commerceCurrencyId");
+		boolean netPrice = ParamUtil.getBoolean(actionRequest, "netPrice");
+		long parentCommercePriceListId = ParamUtil.getLong(
+			actionRequest, "parentCommercePriceListId");
+
 		String name = ParamUtil.getString(actionRequest, "name");
 		double priority = ParamUtil.getDouble(actionRequest, "priority");
-		boolean netPrice = ParamUtil.getBoolean(
-			actionRequest, "pricelistPriceType");
 
 		int displayDateMonth = ParamUtil.getInteger(
 			actionRequest, "displayDateMonth");
