@@ -421,6 +421,12 @@
 	<td>//div[contains(@class,'side-panel') and contains(@class,'is-visible')]//iframe</td>
 	<td></td>
 </tr>
+<!--PRICE-->
+<tr>
+	<td>INPUT_PRICE</td>
+	<td>//div[label[(text() = ' Price ' )]]//input[@type='text']</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
