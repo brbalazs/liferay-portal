@@ -50,6 +50,24 @@ definition {
 				PortletEntry.deleteViaMenuItem(rowEntry = "");
 			}
 
+			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
+
+			ClickNoError(locator1 = "Button#DELETE");
+
+			AssertConfirm.waitForConfirmation(value1 = "Are you sure you want to delete the selected option?");
+
+			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specifications");
+
+			while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				PortletEntry.deleteViaMenuItem(rowEntry = "");
+			}
+
+			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
+
+			while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				PortletEntry.deleteViaMenuItem(rowEntry = "");
+			}
+
 			User.logoutPG();
 		}
 	}
