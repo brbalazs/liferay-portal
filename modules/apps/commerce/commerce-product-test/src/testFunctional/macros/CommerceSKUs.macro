@@ -1,13 +1,9 @@
 definition {
 
 	macro addPriceToSKU {
-		CommerceEntry.gotoNestedMenu(nestedMenu = "Pricing");
-
-		CommerceEntry.addPricingEntry(price = "${price}");
-
-		CommerceEntry.saveEntry();
-
-		AssertNotVisible(locator1 = "Message#SUCCESS");
+		Type(
+			locator1 = "CommerceEntry#INPUT_PRICE",
+			value1 = "${price}");
 	}
 
 	macro addSKU {
