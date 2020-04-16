@@ -19,10 +19,11 @@ import sidePanelLauncher from '../../../src/main/resources/META-INF/resources/co
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
+const lang_id = themeDisplay.getLanguageId();
+
 const fluidDataSetDisplayProps = {
 	activeView: 2,
-	apiUrl:
-		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
+	apiUrl: '/dataset-display-default-data',
 	bulkActions: [
 		{
 			href: '/side-panel/edit.html',
@@ -106,152 +107,6 @@ const fluidDataSetDisplayProps = {
 		}
 	],
 	id: 'tableTest',
-	items: [
-		{
-			actionItems: [
-				{
-					href: '/view/url',
-					icon: 'view',
-					id: 'view',
-					label: 'View'
-				},
-				{
-					href: '/select/url',
-					icon: 'message-boards',
-					id: 'select',
-					label: 'Select',
-					target: 'modal'
-				},
-				{
-					href: '/delete/url',
-					icon: 'trash',
-					id: 'delete',
-					label: 'Delete',
-					method: 'delete',
-					target: 'async'
-				},
-				{
-					href: '/edit/url',
-					icon: 'pencil',
-					id: 'edit',
-					label: 'Edit',
-					target: 'sidePanel'
-				},
-				{
-					icon: 'warning-full',
-					id: 'alert',
-					label: 'Alert',
-					onClick: 'alert("asd")'
-				}
-			],
-			id: 'asd',
-			img: {
-				src: '//via.placeholder.com/250x250'
-			},
-			name: 'ABS Sensor',
-			price: {
-				final: {
-					value: '12 Gazillions'
-				}
-			},
-			productPage: '/test/link/1',
-			skuId: 35663,
-			testLink: {
-				href: '/test/link/1',
-				label: 'Test 1'
-			},
-			testQuantity: {
-				allowedQuantities: [3, 6, 7, 100],
-				disabled: false,
-				inputName: 'asd-quantity',
-				quantity: 6
-			}
-		},
-		{
-			actionItems: [
-				{
-					href: '/view/url',
-					icon: 'view',
-					id: 'view',
-					label: 'View'
-				},
-				{
-					href: '/select/url',
-					icon: 'message-boards',
-					id: 'select',
-					label: 'Select',
-					target: 'modal'
-				},
-				{
-					href: '/delete/url',
-					icon: 'trash',
-					id: 'delete',
-					label: 'Delete',
-					method: 'delete',
-					target: 'async'
-				},
-				{
-					href: '/edit/url',
-					icon: 'pencil',
-					id: 'edit',
-					label: 'Edit',
-					target: 'sidePanel'
-				},
-				{
-					icon: 'warning-full',
-					id: 'alert',
-					label: 'Alert',
-					onClick: 'alert("asd")'
-				}
-			],
-			id: 'sdf',
-			img: {
-				src: '//via.placeholder.com/500x500'
-			},
-			name: 'SBA Sensor',
-			price: {
-				details: [
-					{
-						label: 'Catalog price',
-						value: '$ 15'
-					},
-					{
-						label: 'Final price',
-						value: '$ 31.123'
-					},
-					{
-						label: 'Promo price',
-						value: '$ 15.600'
-					},
-					{
-						label: 'Discounts',
-						value: [40, 30, 20, 10]
-					}
-				],
-				final: {
-					label: 'Final price',
-					value: '12.000 $'
-				}
-			},
-			productPage: '/test/link/1',
-			skuId: 345345,
-			testLink: {
-				href: '/test/link/1',
-				label: 'Test 1'
-			},
-			testQuantity: {
-				inputName: 'sdf-quantity',
-				maxQuantity: 1000,
-				minQuantity: 2,
-				multipleQuantity: 2,
-				quantity: 6
-			},
-			type: {
-				content: 'DOC',
-				displayType: 'danger'
-			}
-		}
-	],
 	pageSize: 5,
 	pagination: {
 		deltas: [
@@ -271,17 +126,14 @@ const fluidDataSetDisplayProps = {
 				label: 50
 			},
 			{
-				href:
-					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
 				label: 75
 			}
 		],
-		initialDelta: 10,
-		initialPageNumber: 1,
-		initialTotalItems: 40
+		initialDelta: 10
 	},
+	selectedItemsKey: 'sku',
 	showPagination: true,
-	sidePanelId: 'sidePanelTestId',
+	// sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
 	style: 'fluid',
 	views: [
@@ -291,11 +143,26 @@ const fluidDataSetDisplayProps = {
 			label: 'Cards',
 			schema: {
 				description: 'name',
-				href: 'productPage',
-				imgProps: 'img',
-				labels: 'status',
+				imgProps: 'image',
+				labels: ['status'],
 				stickerProps: 'type',
-				title: 'skuId'
+				title: 'sku'
+			}
+		},
+		{
+			contentRendererModuleUrl: '/fake/url',
+			icon: 'code',
+			label: 'JSON'
+		},
+		{
+			activeItemValue: 36553,
+			contentRenderer: 'list',
+			icon: 'list',
+			label: 'List',
+			schema: {
+				description: 'name',
+				thumbnail: 'image',
+				title: 'sku'
 			}
 		},
 		{
@@ -308,7 +175,7 @@ const fluidDataSetDisplayProps = {
 						{props.items.map(item => (
 							<div
 								className="p-3 text-center bg-white"
-								key={item.skuId}
+								key={item.sku}
 							>
 								<strong className="mr-3">{item.skuId}</strong>
 								{item.name}
@@ -330,7 +197,14 @@ const fluidDataSetDisplayProps = {
 				fields: [
 					{
 						contentRenderer: 'image',
-						fieldName: 'img',
+						fieldName: 'image',
+						label: ''
+					},
+					{
+						contentRendererModuleUrl:
+							'/fake/content/renderer/picture',
+						expand: false,
+						fieldName: 'thumbnail',
 						label: ''
 					},
 					{
@@ -357,7 +231,7 @@ const fluidDataSetDisplayProps = {
 					},
 					{
 						contentRenderer: 'tooltipPrice',
-						fieldName: 'price',
+						fieldName: 'detailedPrice',
 						label: 'Price'
 					},
 					{
@@ -373,10 +247,108 @@ const fluidDataSetDisplayProps = {
 	]
 };
 
-const dataSetDisplayProps = {
-	activeView: 2,
-	apiUrl:
-		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
+const emailsDataSetDisplayProps = {
+	apiUrl: '/dataset-display-email-data',
+	creationMenuItems: [
+		{
+			href: '/standard/edit',
+			label: 'Add'
+		},
+		{
+			href: 'modal/url',
+			label: 'Add via modal',
+			target: 'modal'
+		}
+	],
+	id: 'emailsDatasetDIsplay',
+	pageSize: 5,
+	pagination: {
+		deltas: [
+			{
+				label: 5
+			},
+			{
+				label: 10
+			},
+			{
+				label: 20
+			},
+			{
+				label: 30
+			},
+			{
+				label: 50
+			},
+			{
+				href:
+					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
+				label: 75
+			}
+		],
+		initialDelta: 10
+	},
+	showPagination: true,
+	sidePanelId: 'sidePanelTestId',
+	spritemap: './assets/icons.svg',
+	style: 'stacked',
+	views: [
+		{
+			contentRenderer: 'emailsList',
+			icon: 'email',
+			label: 'Email'
+		}
+	]
+};
+
+const selectableTableProps = {
+	apiUrl: '/dataset-display-selectable-data',
+	formId: 'form-id',
+	id: 'tableTest',
+	pageSize: 5,
+	pagination: {
+		deltas: [
+			{
+				label: 5
+			},
+			{
+				label: 10
+			},
+			{
+				label: 20
+			},
+			{
+				label: 30
+			},
+			{
+				label: 50
+			},
+			{
+				href:
+					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
+				label: 75
+			}
+		],
+		initialDelta: 10
+	},
+	selectedItemsKey: 'countryId',
+	showPagination: true,
+	sidePanelId: 'sidePanelTestId',
+	spritemap: './assets/icons.svg',
+	views: [
+		{
+			contentRenderer: 'selectableTable',
+			icon: 'table',
+			label: 'Table',
+			schema: {
+				firstColumnLabel: 'Country',
+				firstColumnName: 'countryName'
+			}
+		}
+	]
+};
+
+const headlessDataSetDisplayProps = {
+	apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
 	bulkActions: [
 		{
 			href: '/side-panel/edit.html',
@@ -404,639 +376,35 @@ const dataSetDisplayProps = {
 	],
 	filters: [
 		{
-			id: 'text-test',
-			label: 'Text test',
+			id: 'createDate',
+			label: 'Creation date',
 			operator: 'eq',
-			type: 'text',
-			value: 'Test input'
+			type: 'date'
 		},
 		{
-			id: 'select-test',
-			items: [
-				{
-					label: 'First option',
-					value: 'first-option'
-				},
-				{
-					label: 'Second option',
-					value: 'second-option'
-				}
-			],
-			label: 'Select test',
-			operator: 'eq',
-			type: 'select',
-			value: 'second-option'
-		},
-		{
-			id: 'radio-test',
-			items: [
-				{
-					label: 'First option',
-					value: 'first-option'
-				},
-				{
-					label: 'Second option',
-					value: 'second-option'
-				}
-			],
-			label: 'Radio test',
-			operator: 'eq',
-			type: 'radio'
-		},
-		{
-			id: 'checkbox-test',
-			items: [
-				{
-					label: 'First option',
-					value: 'first-option'
-				},
-				{
-					label: 'Second option',
-					value: 'second-option'
-				},
-				{
-					label: 'Third option',
-					value: 'third-option'
-				}
-			],
-			label: 'Checkbox test',
-			operator: 'eq',
-			type: 'checkbox',
-			value: ['first-option', 'third-option']
-		},
-		{
-			id: 'number-test',
-			inputText: '$',
-			label: 'Number test',
-			max: 200,
-			min: 20,
-			operator: 'gt',
-			type: 'number',
-			value: 123
+			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
+			id: 'accountId',
+			inputPlaceholder: 'Search for products...',
+			itemKey: 'productId',
+			itemLabel: ['name', lang_id],
+			label: 'Product ID',
+			selectionType: 'single',
+			type: 'autocomplete'
 		}
 	],
-	formId: 'form-id',
 	id: 'tableTest',
-	items: [
+	itemActions: [
 		{
-			actionItems: [
-				{
-					href: '/delete/url',
-					id: 'delete',
-					label: 'Delete',
-					method: 'delete',
-					target: 'async'
-				}
-			],
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 200,
-			id: 37175,
-			name: 'ABS Sensor',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 4,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN93015'
-			},
-			skuExternalReferenceCode: 'min93015',
-			skuId: 35663,
-			status: {
-				displayStyle: 'info',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 50
+			href: '/edit/{productId}',
+			icon: 'pencil',
+			label: 'Edit'
 		},
 		{
-			actionItems: [
-				{
-					href: '/delete/url',
-					icon: 'trash',
-					id: 'delete',
-					label: 'Delete',
-					method: 'delete',
-					target: 'async'
-				},
-				{
-					href: '/edit/url',
-					icon: 'pencil',
-					id: 'edit',
-					label: 'Edit'
-				}
-			],
-			bookedQuantityId: 0,
-			comments: {
-				name: 'Square pls',
-				quantity: "This is a test! I don't like this number btw"
-			},
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 304,
-			id: 37176,
-			name: 'Ball Joints',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 2,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN38794'
-			},
-			skuExternalReferenceCode: 'min38794',
-			skuId: 36456,
-			status: {
-				displayStyle: 'secondary',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 152
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 70,
-			id: 37177,
-			name: 'Bearings',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 1,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN00673'
-			},
-			skuExternalReferenceCode: 'min00673',
-			skuId: 36114,
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 70
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 37.8,
-			id: 37178,
-			name: 'Brake Pads',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 2,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN93018'
-			},
-			skuExternalReferenceCode: 'min93018',
-			skuId: 35798,
-			status: {
-				displayStyle: 'success',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 21
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 400,
-			id: 37197,
-			name: 'Brake Rotors',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 10,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN93020'
-			},
-			skuExternalReferenceCode: 'min93020',
-			skuId: 35872,
-			status: {
-				displayStyle: 'warning',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 40
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 36,
-			id: 37198,
-			name: 'Bushings',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 2,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN38795'
-			},
-			skuExternalReferenceCode: 'min38795',
-			skuId: 36474,
-			status: {
-				displayStyle: 'danger',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 18
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 90,
-			id: 37199,
-			name: 'Calipers',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 1,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN93021',
-				size: 'lg'
-			},
-			skuExternalReferenceCode: 'min93021',
-			skuId: 35900,
-			status: {
-				displayStyle: 'success',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 90
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 4170,
-			id: 37200,
-			name: 'Cams',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 6,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN00674',
-				size: 'sm'
-			},
-			skuExternalReferenceCode: 'min00674',
-			skuId: 36132,
-			status: {
-				displayStyle: 'success',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 695
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 624,
-			id: 37201,
-			name: 'Coil Spring - Rear',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 6,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN38799'
-			},
-			skuExternalReferenceCode: 'min38799',
-			skuId: 36553,
-			status: {
-				displayStyle: 'success',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 104
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 623,
-			id: 37202,
-			name: 'CV Axles',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 7,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN38796'
-			},
-			skuExternalReferenceCode: 'min38796',
-			skuId: 36492,
-			status: {
-				displayStyle: 'success',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 89
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 1068,
-			id: 37203,
-			name: 'CV Axles',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 12,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN55853'
-			},
-			skuExternalReferenceCode: 'min55853',
-			skuId: 36700,
-			status: {
-				displayStyle: 'success',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 89
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 10550,
-			id: 37204,
-			name: 'Differential Ring and Pinion - Universal',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 50,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN38801'
-			},
-			skuExternalReferenceCode: 'min38801',
-			skuId: 36604,
-			status: {
-				displayStyle: 'success',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 211
-		},
-		{
-			bookedQuantityId: 0,
-			date: {
-				href: '/modal/date/url',
-				icon: 'date'
-			},
-			discountAmount: 0,
-			discountPercentageLevel1: 0,
-			discountPercentageLevel2: 0,
-			discountPercentageLevel3: 0,
-			discountPercentageLevel4: 0,
-			finalPrice: 396,
-			id: 37205,
-			name: 'Drive Shafts',
-			order: {
-				href: '/modal/order/url',
-				label: '#37174'
-			},
-			quantity: 1,
-			shippedQuantity: 0,
-			shippingAddress: {},
-			shippingAddressId: 0,
-			sku: {
-				href: '/sidepanel-1.html',
-				label: 'MIN55855'
-			},
-			skuExternalReferenceCode: 'min55855',
-			skuId: 36744,
-			status: {
-				displayStyle: 'success',
-				label: 'delivered'
-			},
-			subscription: false,
-			thumbnail: {
-				alt: 'ABS Sensor',
-				shape: 'rounded',
-				size: 'lg',
-				src: 'https://via.placeholder.com/150'
-			},
-			unitPrice: 396
+			href: '/delete/{productId}',
+			icon: 'trash',
+			label: 'Delete',
+			method: 'delete',
+			target: 'async'
 		}
 	],
 	pageSize: 5,
@@ -1063,43 +431,13 @@ const dataSetDisplayProps = {
 				label: 75
 			}
 		],
-		initialDelta: 10,
-		initialPageNumber: 1,
-		initialTotalItems: 40
+		initialDelta: 10
 	},
-	selectedItemsKey: 'id',
-	selectionType: 'single',
+	selectedItemsKey: 'productId',
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
 	views: [
-		{
-			component: props => {
-				return (
-					<>
-						<h4 className="p-3 mb-0 bg-dark text-center text-white">
-							Hey, I&apos;m a custom template from the outside
-						</h4>
-						{props.items.map(item => (
-							<div
-								className="p-3 text-center bg-white"
-								key={item.skuId}
-							>
-								<strong className="mr-3">{item.skuId}</strong>
-								{item.name}
-							</div>
-						))}
-					</>
-				);
-			},
-			icon: 'merge',
-			label: 'Custom list'
-		},
-		{
-			contentRendererModuleUrl: '/fake/url',
-			icon: 'code',
-			label: 'JSON'
-		},
 		{
 			contentRenderer: 'table',
 			icon: 'table',
@@ -1107,359 +445,72 @@ const dataSetDisplayProps = {
 			schema: {
 				fields: [
 					{
-						contentRendererModuleUrl:
-							'/fake/content/renderer/picture',
-						// contentRenderer: 'image',
-						expand: false,
-						fieldName: 'thumbnail',
-						label: ''
-					},
-					{
-						contentRenderer: 'sidePanelLink',
-						expand: true,
-						fieldName: 'sku',
-						label: 'SKU',
-						sortable: true
-					},
-					{
-						fieldName: 'name',
+						contentRenderer: 'actionLink',
+						fieldName: ['name', lang_id],
 						label: 'Name',
 						sortable: true
 					},
 					{
-						fieldName: 'unitPrice',
-						label: 'Price',
-						sortable: true
+						fieldName: 'productType',
+						label: 'Product Type',
+						mapData: value => value.toUpperCase()
 					},
 					{
-						contentRenderer: 'modalLink',
-						fieldName: 'order',
-						label: 'Order'
+						fieldName: 'externalReferenceCode',
+						label: 'SKU'
+					},
+					{
+						contentRenderer: 'date',
+						fieldName: 'modifiedDate',
+						label: 'Modified Date',
+						type: 'relative'
 					},
 					{
 						contentRenderer: 'label',
-						fieldName: 'status',
-						label: 'Status'
-					},
-					{
-						fieldName: 'quantity',
-						label: 'Quantity',
-						sortable: true
-					},
-					{
-						fieldName: 'finalPrice',
-						label: 'Total',
-						sortable: false
-					},
-					{
-						contentRenderer: 'modalLink',
-						fieldName: 'date'
+						fieldName: 'active',
+						label: 'Status',
+						mapData: value =>
+							value
+								? {
+										displayStyle: 'success',
+										label: 'Active'
+								  }
+								: {
+										displayStyle: 'danger',
+										label: 'Disabled'
+								  }
 					}
 				]
-			}
-		},
-		{
-			activeItemValue: 36553,
-			contentRenderer: 'list',
-			icon: 'list',
-			label: 'List',
-			schema: {
-				description: 'name',
-				thumbnail: 'thumbnail',
-				title: 'skuId'
-			}
-		}
-	]
-};
-
-const emailsDataSetDisplayProps = {
-	apiUrl:
-		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
-	creationMenuItems: [
-		{
-			href: '/standard/edit',
-			label: 'Add'
-		},
-		{
-			href: 'modal/url',
-			label: 'Add via modal',
-			target: 'modal'
-		}
-	],
-	id: 'emailsDatasetDIsplay',
-	items: [
-		{
-			actionItems: [
-				{
-					href: '/delete/action/url',
-					icon: 'trash',
-					label: 'Delete'
-				}
-			],
-			author: {
-				avatarSrc: 'https://via.placeholder.com/150',
-				email: 'john.doe@gmail.com',
-				name: 'John Doe'
-			},
-			date: '1 day ago',
-			href: '/side-panel/email.html',
-			status: {
-				displayStyle: 'danger',
-				label: 'Order not placed'
-			},
-			subject:
-				'Mauris blandit aliquet elit, eget tincidunt nibh pulvinar.',
-			summary:
-				'Pellentesque in ipsum id orci porta dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Pellentesque in ipsum id orci porta dapibus...'
-		},
-		{
-			actionItems: [
-				{
-					href: '/delete/action/url',
-					icon: 'trash',
-					label: 'Delete'
-				}
-			],
-			author: {
-				avatarSrc: 'https://via.placeholder.com/150',
-				email: 'john.doe@gmail.com',
-				name: 'John Doe'
-			},
-			date: '14th April 2018',
-			href: '/side-panel/email.html',
-			status: {
-				displayStyle: 'success',
-				label: 'Order placed'
-			},
-			subject:
-				'Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus.',
-			summary:
-				'Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget malesuada. Proin eget tortor risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim...'
-		}
-	],
-	pageSize: 5,
-	pagination: {
-		deltas: [
-			{
-				label: 5
-			},
-			{
-				label: 10
-			},
-			{
-				label: 20
-			},
-			{
-				label: 30
-			},
-			{
-				label: 50
-			},
-			{
-				href:
-					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75
-			}
-		],
-		initialDelta: 10,
-		initialPageNumber: 1,
-		initialTotalItems: 40
-	},
-	showPagination: true,
-	sidePanelId: 'sidePanelTestId',
-	spritemap: './assets/icons.svg',
-	style: 'stacked',
-	views: [
-		{
-			contentRenderer: 'emailsList',
-			icon: 'email',
-			label: 'Email'
-		}
-	]
-};
-
-const selectableTableProps = {
-	apiUrl:
-		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
-	formId: 'form-id',
-	id: 'tableTest',
-	items: [
-		{
-			countryId: '001',
-			countryName: 'United States',
-			fields: [
-				{
-					label: 'Money Order',
-					name: 'autorizeDotNet',
-					value: false
-				},
-				{
-					label: 'Money Order',
-					name: 'moneyOrder',
-					value: false
-				},
-				{
-					label: 'PayPal',
-					name: 'payPal',
-					value: false
-				}
-			]
-		},
-		{
-			countryId: '002',
-			countryName: 'Afghanistan',
-			fields: [
-				{
-					label: 'Money Order',
-					name: 'autorizeDotNet',
-					value: true
-				},
-				{
-					label: 'Money Order',
-					name: 'moneyOrder',
-					value: false
-				},
-				{
-					label: 'PayPal',
-					name: 'payPal',
-					value: false
-				}
-			]
-		},
-		{
-			countryId: '003',
-			countryName: 'Albania',
-			fields: [
-				{
-					label: 'Money Order',
-					name: 'autorizeDotNet',
-					value: false
-				},
-				{
-					label: 'Money Order',
-					name: 'moneyOrder',
-					value: true
-				},
-				{
-					label: 'PayPal',
-					name: 'payPal',
-					value: false
-				}
-			]
-		},
-		{
-			countryId: '004',
-			countryName: 'Algeria',
-			fields: [
-				{
-					label: 'Money Order',
-					name: 'autorizeDotNet',
-					value: false
-				},
-				{
-					label: 'Money Order',
-					name: 'moneyOrder',
-					value: false
-				},
-				{
-					label: 'PayPal',
-					name: 'payPal',
-					value: false
-				}
-			]
-		},
-		{
-			countryId: '005',
-			countryName: 'American Samoa',
-			fields: [
-				{
-					label: 'Money Order',
-					name: 'autorizeDotNet',
-					value: true
-				},
-				{
-					label: 'Money Order',
-					name: 'moneyOrder',
-					value: false
-				},
-				{
-					label: 'PayPal',
-					name: 'payPal',
-					value: true
-				}
-			]
-		}
-	],
-	pageSize: 5,
-	pagination: {
-		deltas: [
-			{
-				label: 5
-			},
-			{
-				label: 10
-			},
-			{
-				label: 20
-			},
-			{
-				label: 30
-			},
-			{
-				label: 50
-			},
-			{
-				href:
-					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75
-			}
-		],
-		initialDelta: 10,
-		initialPageNumber: 1,
-		initialTotalItems: 40
-	},
-	selectedItemsKey: 'countryId',
-	showPagination: true,
-	sidePanelId: 'sidePanelTestId',
-	spritemap: './assets/icons.svg',
-	views: [
-		{
-			contentRenderer: 'selectableTable',
-			icon: 'table',
-			label: 'Table',
-			schema: {
-				firstColumnLabel: 'Country',
-				firstColumnName: 'countryName'
 			}
 		}
 	]
 };
 
 datasetDisplayLauncher(
+	'headless-dataset-display',
+	'headless-dataset-display-root',
+	headlessDataSetDisplayProps
+);
+
+datasetDisplayLauncher(
 	'fluid-dataset-display',
-	'fluid-dataset-display-root-id',
+	'fluid-dataset-display-root',
 	fluidDataSetDisplayProps
 );
 
 datasetDisplayLauncher(
 	'selectable-dataset-display',
-	'selectable-dataset-display-root-id',
+	'selectable-dataset-display-root',
 	selectableTableProps
 );
 
 datasetDisplayLauncher(
 	'emails-dataset-display',
-	'emails-dataset-display-root-id',
+	'emails-dataset-display-root',
 	emailsDataSetDisplayProps
 );
 
-datasetDisplayLauncher(
-	'dataset-display',
-	'dataset-display-root-id',
-	dataSetDisplayProps
-);
-
-sidePanelLauncher('sidePanel', 'side-panel-root-id', {
+sidePanelLauncher('sidePanel', 'side-panel-root', {
 	containerSelector: '.container',
 	id: 'sidePanelTestId',
 	items: [

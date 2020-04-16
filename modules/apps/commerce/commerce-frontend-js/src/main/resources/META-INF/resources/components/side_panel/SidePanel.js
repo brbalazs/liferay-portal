@@ -13,7 +13,7 @@
  */
 
 import ClayButton from '@clayui/button';
-import ClayIcon from '@clayui/icon';
+import ClayIcon, {ClayIconSpriteContext} from '@clayui/icon';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -304,7 +304,7 @@ export default class SidePanel extends React.Component {
 				? 'is-loading'
 				: '';
 
-		return ReactDOM.createPortal(
+		const content = (
 			<>
 				<Modal id={this.iframeHandlerModalId} />
 				<div
@@ -383,7 +383,17 @@ export default class SidePanel extends React.Component {
 						</div>
 					</div>
 				</div>
-			</>,
+			</>
+		);
+
+		return ReactDOM.createPortal(
+			this.props.spritemap ? (
+				<ClayIconSpriteContext.Provider value={this.props.spritemap}>
+					{content}
+				</ClayIconSpriteContext.Provider>
+			) : (
+				content
+			),
 			this.state.wrapper
 		);
 	}

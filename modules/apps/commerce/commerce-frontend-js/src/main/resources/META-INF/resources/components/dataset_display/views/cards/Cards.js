@@ -34,45 +34,48 @@ function Cards(props) {
 			)}
 		>
 			<div className="row">
-				{props.items.map(item => (
-					<div className="col-md-3" key={item[selectedItemsKey]}>
-						<ClayCardWithInfo
-							actions={item.actionItems}
-							description={
-								props.schema.description &&
-								item[props.schema.description]
-							}
-							href={props.schema.href && item[props.schema.href]}
-							imgProps={
-								props.schema.imgProps &&
-								item[props.schema.imgProps]
-							}
-							labels={
-								props.schema.labels && item[props.schema.labels]
-							}
-							onSelectChange={
-								selectable &&
-								(() => selectItems(item[selectedItemsKey]))
-							}
-							selected={
-								selectable &&
-								!!selectedItemsValue.find(
-									el => el === item[selectedItemsKey]
-								)
-							}
-							stickerProps={
-								props.schema.stickerProps &&
-								item[props.schema.stickerProps]
-							}
-							symbol={
-								props.schema.symbol && item[props.schema.symbol]
-							}
-							title={
-								props.schema.title && item[props.schema.title]
-							}
-						/>
-					</div>
-				))}
+				{props.items.map(item => {
+					return (
+						<div className="col-md-3" key={item[selectedItemsKey]}>
+							<ClayCardWithInfo
+								actions={item.actionItems}
+								description={
+									props.schema.description &&
+									item[props.schema.description]
+								}
+								href={
+									props.schema.href && item[props.schema.href]
+								}
+								imgProps={
+									props.schema.imgProps &&
+									item[props.schema.imgProps]
+								}
+								onSelectChange={
+									selectable &&
+									(() => selectItems(item[selectedItemsKey]))
+								}
+								selected={
+									selectable &&
+									!!selectedItemsValue.find(
+										el => el === item[selectedItemsKey]
+									)
+								}
+								stickerProps={
+									props.schema.stickerProps &&
+									item[props.schema.stickerProps]
+								}
+								symbol={
+									props.schema.symbol &&
+									item[props.schema.symbol]
+								}
+								title={
+									props.schema.title &&
+									item[props.schema.title]
+								}
+							/>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
@@ -84,7 +87,7 @@ Cards.propTypes = {
 		description: PropTypes.string,
 		href: PropTypes.string,
 		imgProps: PropTypes.imgProps,
-		labels: PropTypes.string,
+		labels: PropTypes.arrayOf(PropTypes.string),
 		stickerProps: PropTypes.string,
 		title: PropTypes.string
 	}).isRequired

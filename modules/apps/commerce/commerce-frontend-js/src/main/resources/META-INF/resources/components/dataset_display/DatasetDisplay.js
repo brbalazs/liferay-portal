@@ -60,9 +60,7 @@ function DatasetDisplay(props) {
 	const [searchParam, updateSearchParam] = useState('');
 	const [sorting, updateSorting] = useState(props.sorting);
 	const [items, updateItems] = useState(props.items);
-	const [pageNumber, setPageNumber] = useState(
-		props.pagination.initialPageNumber || 1
-	);
+	const [pageNumber, setPageNumber] = useState(1);
 	const [delta, setDelta] = useState(
 		props.pagination.initialDelta || props.pagination.deltas[0].label
 	);
@@ -127,7 +125,7 @@ function DatasetDisplay(props) {
 	const formRef = useRef(null);
 
 	function updateDataset(dataSetData) {
-		setTotalItems(dataSetData.totalItems);
+		setTotalItems(dataSetData.totalItems || dataSetData.totalCount);
 		updateItems(dataSetData.items);
 	}
 
@@ -312,6 +310,7 @@ function DatasetDisplay(props) {
 				{items && items.length ? (
 					<CurrentViewComponent
 						datasetDisplayContext={DatasetDisplayContext}
+						itemActions={props.itemActions}
 						items={items}
 						style={props.style}
 						{...currentViewProps}
@@ -332,13 +331,14 @@ function DatasetDisplay(props) {
 					activeDelta={delta}
 					activePage={pageNumber}
 					className="mb-2"
-					deltas={props.deltas}
+					deltas={props.pagination.deltas}
 					ellipsisBuffer={3}
 					onDeltaChange={deltaVal => {
 						setPageNumber(1);
 						setDelta(deltaVal);
 					}}
 					onPageChange={setPageNumber}
+					spritemap={props.spritemap}
 					totalItems={totalItems}
 				/>
 			</div>
@@ -385,6 +385,7 @@ function DatasetDisplay(props) {
 				formRef,
 				highlightItems,
 				highlightedItemsValue,
+				itemActions: props.itemActions,
 				loadData: refreshData,
 				modalId: datasetDisplaySupportModalId,
 				namespace: props.namespace,
@@ -453,7 +454,8 @@ DatasetDisplay.propTypes = {
 	filters: PropTypes.array,
 	formId: PropTypes.string,
 	id: PropTypes.string.isRequired,
-	items: PropTypes.array.isRequired,
+	itemActions: PropTypes.array,
+	items: PropTypes.array,
 	namespace: PropTypes.string,
 	pagination: PropTypes.shape({
 		deltas: PropTypes.arrayOf(
@@ -462,8 +464,7 @@ DatasetDisplay.propTypes = {
 				label: PropTypes.number.isRequired
 			}).isRequired
 		),
-		initialDelta: PropTypes.number.isRequired,
-		initialPageNumber: PropTypes.number
+		initialDelta: PropTypes.number.isRequired
 	}),
 	selectedItems: PropTypes.array,
 	selectedItemsKey: PropTypes.string,
@@ -490,6 +491,7 @@ DatasetDisplay.propTypes = {
 DatasetDisplay.defaultProps = {
 	bulkActions: [],
 	filters: [],
+	itemActions: null,
 	items: null,
 	selectedItemsKey: 'id',
 	selectionType: 'multiple',
