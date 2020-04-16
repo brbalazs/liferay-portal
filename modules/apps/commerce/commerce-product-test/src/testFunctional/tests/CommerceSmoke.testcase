@@ -50,24 +50,6 @@ definition {
 				PortletEntry.deleteViaMenuItem(rowEntry = "");
 			}
 
-			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
-
-			ClickNoError(locator1 = "Button#DELETE");
-
-			AssertConfirm.waitForConfirmation(value1 = "Are you sure you want to delete the selected option?");
-
-			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specifications");
-
-			while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
-				PortletEntry.deleteViaMenuItem(rowEntry = "");
-			}
-
-			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
-
-			while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
-				PortletEntry.deleteViaMenuItem(rowEntry = "");
-			}
-
 			User.logoutPG();
 		}
 	}
@@ -237,93 +219,4 @@ definition {
 			productName = "Simple T-Shirt",
 			productShortDescription = "Simple T-Shirt Short Description");
 	}
-
-	test ProductPublishing {
-		property portal.acceptance = "true";
-
-		ProductMenu.gotoPortlet(
-			category = "Commerce",
-			panel = "Control Panel",
-			portlet = "Products");
-
-		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
-
-		Pause(locator1 = "2000");
-
-		CPCommerceCatalog.newOptionsEntry(
-			optionDescription = "Option Description",
-			optionFieldType = "Select from List",
-			optionName = "Color",
-			optionValuesList = "Black,Blue,White",
-			valuePriority = "1");
-
-		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Products");
-
-		CPCommerceCatalog.newProductsEntry(
-			productName = "Simple T-Shirt",
-			productType = "Simple");
-
-		CommerceEntry.gotoMenuTab(menuTab = "Options");
-
-		CommerceRelations.assignSingleRelationToProductsEntry(
-			entryName = "Color",
-			title = "Add Option");
-
-		CommerceEntry.gotoMenuTab(menuTab = "SKUs");
-
-		CommerceSKUs.addSKU(optionValuesList = "Black:10.0,Blue:20.0,White:30.0");
-
-		CommerceEntry.gotoMenuTab(menuTab = "Media");
-
-		CommerceProductImages.addProductImages(optionValuesList = "Black,Blue,White");
-
-		ProductMenu.gotoPortlet(
-			category = "Commerce",
-			panel = "Control Panel",
-			portlet = "Products");
-
-		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specifications");
-
-		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
-
-		CommerceEntry.createNewSpecificationGroups(
-			specificationTitle = "SpecificationGroups",
-			specificationDescription = "SpecificationGroups");
-
-		ProductMenu.gotoPortlet(
-			category = "Commerce",
-			panel = "Control Panel",
-			portlet = "Products");
-
-		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specifications");
-
-		CommerceEntry.createNewSpecificationLabels(
-			specificationTitle = "SpecificationLabel",
-			specificationGroupTitle = "SpecificationGroups",
-			specificationDescription = "SpecificationLabel");
-
-		ProductMenu.gotoPortlet(
-			category = "Commerce",
-			panel = "Control Panel",
-			portlet = "Products");
-
-		CommerceNavigator.gotoEntry(entryName = "Simple T-Shirt");
-
-		CommerceRelations.assignSingleRelationToProductsEntry(
-			entryName = "SpecificationLabel",
-			title = "Specifications");
-
-		Refresh();
-
-		CommerceEntry.gotoMenuTab(menuTab = "Options");
-
-		CommerceEntry.viewProductOptions(
-			optionName = "Color",
-			optionList = "Black,Blue,White");
-
-		CommerceEntry.gotoMenuTab(menuTab = "SKUs");
-
-		CommerceEntry.viewProductSkus(skusList = "WHITESKU:30.00,BLUESKU:20.00,BLACKSKU:10.00");
-	}
-
 }
