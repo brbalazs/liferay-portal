@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.product.internal.util.data.provider;
+package com.liferay.commerce.product.internal;
 
 import com.liferay.commerce.product.internal.util.JsonHelper;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
