@@ -29,9 +29,9 @@ CommerceMoney taxValue = null;
 CommerceDiscountValue totalDiscountValue = null;
 CommerceMoney totalOrder = null;
 
-CommerceOrderPrice commerceOrderPrice = commerceCartContentMiniDisplayContext.getCommerceOrderPrice();
-
 String priceDisplayType = commerceCartContentMiniDisplayContext.getCommercePriceDisplayType();
+
+CommerceOrderPrice commerceOrderPrice = commerceCartContentMiniDisplayContext.getCommerceOrderPrice();
 
 if (commerceOrderPrice != null) {
 	subtotal = commerceOrderPrice.getSubtotal();

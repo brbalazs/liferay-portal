@@ -102,7 +102,7 @@ public class CommerceOrderItemImpl extends CommerceOrderItemBaseImpl {
 	}
 
 	@Override
-	public CommerceMoney getDiscountAmountMoneyWithTaxAmount()
+	public CommerceMoney getDiscountWithTaxAmountMoney()
 		throws PortalException {
 
 		CommerceOrder commerceOrder = getCommerceOrder();
@@ -120,7 +120,7 @@ public class CommerceOrderItemImpl extends CommerceOrderItemBaseImpl {
 	}
 
 	@Override
-	public CommerceMoney getFinalPriceMoneyWithTaxAmount()
+	public CommerceMoney getFinalPriceWithTaxAmountMoney()
 		throws PortalException {
 
 		CommerceOrder commerceOrder = getCommerceOrder();
@@ -156,7 +156,7 @@ public class CommerceOrderItemImpl extends CommerceOrderItemBaseImpl {
 	}
 
 	@Override
-	public CommerceMoney getPromoPriceMoneyWithTaxAmount()
+	public CommerceMoney getPromoPriceWithTaxAmountMoney()
 		throws PortalException {
 
 		CommerceOrder commerceOrder = getCommerceOrder();
@@ -175,7 +175,7 @@ public class CommerceOrderItemImpl extends CommerceOrderItemBaseImpl {
 	}
 
 	@Override
-	public CommerceMoney getUnitPriceMoneyWithTaxAmount()
+	public CommerceMoney getUnitPriceWithTaxAmountMoney()
 		throws PortalException {
 
 		CommerceOrder commerceOrder = getCommerceOrder();

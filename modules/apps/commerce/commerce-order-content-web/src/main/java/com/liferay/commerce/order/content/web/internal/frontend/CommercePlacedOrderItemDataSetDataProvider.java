@@ -126,16 +126,16 @@ public class CommercePlacedOrderItemDataSetDataProvider
 						CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
 
 					unitPriceMoney =
-						commerceOrderItem.getUnitPriceMoneyWithTaxAmount();
+						commerceOrderItem.getUnitPriceWithTaxAmountMoney();
 
 					promoPriceMoney =
-						commerceOrderItem.getPromoPriceMoneyWithTaxAmount();
+						commerceOrderItem.getPromoPriceWithTaxAmountMoney();
 
 					finalPriceMoney =
-						commerceOrderItem.getFinalPriceMoneyWithTaxAmount();
+						commerceOrderItem.getFinalPriceWithTaxAmountMoney();
 
 					discountAmountMoney =
-						commerceOrderItem.getDiscountAmountMoneyWithTaxAmount();
+						commerceOrderItem.getDiscountWithTaxAmountMoney();
 				}
 
 				Locale locale = themeDisplay.getLocale();

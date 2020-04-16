@@ -149,17 +149,17 @@ public class OrderSummaryCheckoutStepDisplayContext {
 			commerceProductPriceImpl.setFinalPrice(
 				commerceOrderItem.getFinalPriceMoney());
 			commerceProductPriceImpl.setFinalPriceWithTaxAmount(
-				commerceOrderItem.getFinalPriceMoneyWithTaxAmount());
+				commerceOrderItem.getFinalPriceWithTaxAmountMoney());
 
 			commerceProductPriceImpl.setUnitPrice(
 				commerceOrderItem.getUnitPriceMoney());
 			commerceProductPriceImpl.setUnitPriceWithTaxAmount(
-				commerceOrderItem.getUnitPriceMoneyWithTaxAmount());
+				commerceOrderItem.getUnitPriceWithTaxAmountMoney());
 
 			commerceProductPriceImpl.setUnitPromoPrice(
 				commerceOrderItem.getPromoPriceMoney());
 			commerceProductPriceImpl.setUnitPromoPriceWithTaxAmount(
-				commerceOrderItem.getPromoPriceMoneyWithTaxAmount());
+				commerceOrderItem.getPromoPriceWithTaxAmountMoney());
 
 			BigDecimal[] values = {
 				commerceOrderItem.getDiscountPercentageLevel1(),
@@ -201,7 +201,7 @@ public class OrderSummaryCheckoutStepDisplayContext {
 				commerceOrderItem.getDiscountAmountMoney();
 
 			CommerceMoney discountAmountMoneyWithTaxAmount =
-				commerceOrderItem.getDiscountAmountMoneyWithTaxAmount();
+				commerceOrderItem.getDiscountWithTaxAmountMoney();
 
 			CommerceCurrency commerceCurrency =
 				discountAmountMoney.getCommerceCurrency();

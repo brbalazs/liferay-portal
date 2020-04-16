@@ -130,7 +130,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
 
 			activeDiscountAmounteMoney =
-				commerceOrderItem.getDiscountAmountMoneyWithTaxAmount();
+				commerceOrderItem.getDiscountWithTaxAmountMoney();
 		}
 
 		if (activeDiscountAmounteMoney == null) {
@@ -152,7 +152,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
 
 			activeFinalPriceMoney =
-				commerceOrderItem.getFinalPriceMoneyWithTaxAmount();
+				commerceOrderItem.getFinalPriceWithTaxAmountMoney();
 		}
 
 		if (activeFinalPriceMoney == null) {
@@ -174,7 +174,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
 
 			activePromoPriceMoney =
-				commerceOrderItem.getPromoPriceMoneyWithTaxAmount();
+				commerceOrderItem.getPromoPriceWithTaxAmountMoney();
 		}
 
 		if (activePromoPriceMoney == null) {
@@ -234,7 +234,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
 
 			activeUnitPriceMoney =
-				commerceOrderItem.getUnitPriceMoneyWithTaxAmount();
+				commerceOrderItem.getUnitPriceWithTaxAmountMoney();
 		}
 
 		if (activeUnitPriceMoney == null) {

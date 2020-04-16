@@ -163,7 +163,7 @@ public class CommerceOrderImpl extends CommerceOrderBaseImpl {
 	}
 
 	@Override
-	public CommerceMoney getTotalMoneyWithTaxAmount() throws PortalException {
+	public CommerceMoney getTotalWithTaxAmountMoney() throws PortalException {
 		return CommerceMoneyFactoryUtil.create(
 			getCommerceCurrencyId(), getTotalWithTaxAmount());
 	}

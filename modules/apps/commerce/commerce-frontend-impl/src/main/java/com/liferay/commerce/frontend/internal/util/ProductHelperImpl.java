@@ -169,7 +169,6 @@ public class ProductHelperImpl implements ProductHelper {
 			if (discountValue != null) {
 				CommerceMoney discountAmount =
 					discountValue.getDiscountAmount();
-				CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
 
 				priceModel.setDiscount(discountAmount.format(locale));
 
@@ -180,6 +179,8 @@ public class ProductHelperImpl implements ProductHelper {
 				priceModel.setDiscountPercentages(
 					_getFormattedDiscountPercentages(
 						discountValue.getPercentages(), locale));
+
+				CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
 
 				priceModel.setFinalPrice(finalPrice.format(locale));
 			}
@@ -213,8 +214,6 @@ public class ProductHelperImpl implements ProductHelper {
 
 		if (discountValue != null) {
 			CommerceMoney discountAmount = discountValue.getDiscountAmount();
-			CommerceMoney finalPriceWithTaxAmount =
-				commerceProductPrice.getFinalPriceWithTaxAmount();
 
 			priceModel.setDiscount(discountAmount.format(locale));
 
@@ -225,6 +224,9 @@ public class ProductHelperImpl implements ProductHelper {
 			priceModel.setDiscountPercentages(
 				_getFormattedDiscountPercentages(
 					discountValue.getPercentages(), locale));
+
+			CommerceMoney finalPriceWithTaxAmount =
+				commerceProductPrice.getFinalPriceWithTaxAmount();
 
 			priceModel.setFinalPrice(finalPriceWithTaxAmount.format(locale));
 		}

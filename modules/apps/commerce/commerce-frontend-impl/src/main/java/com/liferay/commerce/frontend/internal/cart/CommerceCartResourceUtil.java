@@ -204,12 +204,12 @@ public class CommerceCartResourceUtil {
 		if (priceDisplayType.equals(
 				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
-			unitPriceMoney = commerceOrderItem.getUnitPriceMoneyWithTaxAmount();
+			unitPriceMoney = commerceOrderItem.getUnitPriceWithTaxAmountMoney();
 			promoPriceMoney =
-				commerceOrderItem.getPromoPriceMoneyWithTaxAmount();
+				commerceOrderItem.getPromoPriceWithTaxAmountMoney();
 
 			discountAmountMoney =
-				commerceOrderItem.getDiscountAmountMoneyWithTaxAmount();
+				commerceOrderItem.getDiscountWithTaxAmountMoney();
 
 			level1 =
 				commerceOrderItem.getDiscountPercentageLevel1WithTaxAmount();

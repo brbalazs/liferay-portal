@@ -139,7 +139,7 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 							CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();
 
 							if (commercePriceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-								unitPriceMoney = commerceOrderItem.getUnitPriceMoneyWithTaxAmount();
+								unitPriceMoney = commerceOrderItem.getUnitPriceWithTaxAmountMoney();
 							}
 							%>
 
@@ -166,7 +166,7 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 							CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
 
 							if (commercePriceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-								finalPriceMoney = commerceOrderItem.getFinalPriceMoneyWithTaxAmount();
+								finalPriceMoney = commerceOrderItem.getFinalPriceWithTaxAmountMoney();
 							}
 							%>
 
