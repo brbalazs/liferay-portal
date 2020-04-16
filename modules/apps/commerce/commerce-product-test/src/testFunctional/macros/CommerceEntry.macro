@@ -599,7 +599,7 @@ definition {
 
 	macro viewSpecificationLabels {
 		Click(
-			locator1 = "CommerceEntry#ANY_ENTRY_NAME",
+			locator1 = "CommerceNavigation#ANY_ENTRY_NAME",
 			key_entry = "${specificationTitle}");
 
 		AssertTextEquals(
@@ -635,7 +635,7 @@ definition {
 
 	macro viewSpecificationGroups {
 		Click(
-			locator1 = "CommerceEntry#ANY_ENTRY_NAME",
+			locator1 = "CommerceNavigation#ANY_ENTRY_NAME",
 			key_entry = "${specificationTitle}");
 
 		AssertTextEquals(
