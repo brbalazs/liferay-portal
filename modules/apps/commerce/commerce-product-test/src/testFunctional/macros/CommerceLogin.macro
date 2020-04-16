@@ -118,4 +118,12 @@ definition {
 			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
 	}
 
+	macro speedwellLogout {
+		Click(locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN");
+
+		Click(
+			key_dropdownItem = "Sign Out",
+			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN_ITEM");
+	}
+
 }
