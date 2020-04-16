@@ -65,4 +65,12 @@ definition {
 			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN_ITEM");
 	}
 
+	macro gotoSpeedwellTopbarItem {
+		Click(locator1 = "CommerceAccelerators#SPEEDWELL_TOPBAR_BUTTON");
+		
+		Click(
+			key_menuItem = "${menuItem}",
+			locator1 = "CommerceAccelerators#SPEEDWELL_TOPBAR_MENU_ITEM");
+	}
+
 }
