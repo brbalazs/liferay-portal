@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * @author Igor Beslic
  */
-public class JsonHelper {
+public class JsonHelperImpl {
 
 	public static String getFirstElementStringValue(String jsonArrayString) {
 		if (!isArray(jsonArrayString)) {
