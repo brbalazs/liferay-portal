@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.internal.util;
 
+import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -22,12 +23,15 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Objects;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Igor Beslic
  */
-public class JsonHelperImpl {
+@Component(immediate = true, service = JsonHelper.class)
+public class JsonHelperImpl implements JsonHelper {
 
-	public static String getFirstElementStringValue(String jsonArrayString) {
+	public String getFirstElementStringValue(String jsonArrayString) {
 		if (!isArray(jsonArrayString)) {
 			throw new IllegalArgumentException(
 				String.format(
@@ -47,9 +51,7 @@ public class JsonHelperImpl {
 			start + 1, jsonArrayString.indexOf(StringPool.QUOTE, start + 1));
 	}
 
-	public static JSONArray getValueAsJSONArray(
-		String key, JSONObject jsonObject) {
-
+	public JSONArray getValueAsJSONArray(String key, JSONObject jsonObject) {
 		JSONArray valueJSONArray = jsonObject.getJSONArray(key);
 
 		if (valueJSONArray != null) {
@@ -69,7 +71,7 @@ public class JsonHelperImpl {
 		return valueJSONArray;
 	}
 
-	public static boolean isArray(String json) {
+	public boolean isArray(String json) {
 		if (Validator.isNull(json)) {
 			return false;
 		}
@@ -83,7 +85,7 @@ public class JsonHelperImpl {
 		return false;
 	}
 
-	public static boolean isEmpty(String json) {
+	public boolean isEmpty(String json) {
 		if (Validator.isNull(json)) {
 			return true;
 		}
