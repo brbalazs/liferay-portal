@@ -68,6 +68,31 @@
 	<td>//div/button[contains(.,'Sort By')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>SPEEDWELL_ACCOUNT_DASHBOARD_ITEM</td>
+	<td>//div[contains(@class,'account-dashboard')]//h3[contains(.,'${key_dashboardItem}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPEEDWELL_ACCOUNT_DROPDOWN</td>
+	<td>//div[@class='speedwell-account']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPEEDWELL_ACCOUNT_DROPDOWN_ITEM</td>
+	<td>//div[contains(@class,'speedwell-user-nav__')]//div[contains(.,'${key_dropdownItem}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPEEDWELL_TOPBAR_BUTTON</td>
+	<td>//div[contains(@class,'speedwell-main-menu')]/../button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPEEDWELL_TOPBAR_MENU_ITEM</td>
+	<td>//div[contains(@class,'speedwell-main-menu__links')]//a/div[contains(.,'${key_menuItem}')]</td>
+	<td></td>
+</tr>
 <!--CHECKOUT-->
 <tr>
 	<td>CHECKOUT_GENERIC_SELECT</td>
