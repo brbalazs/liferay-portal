@@ -1,5 +1,15 @@
 definition {
 
+	macro anonymizeDataViaReviewData {
+		Click(
+			key_application = "${application}",
+			locator1 = "DataErasure#REVIEW_DATA_APPLICATION_ELLIPSIS");
+
+		MenuItem.clickNoError(menuItem = "Anonymize");
+
+		Alert.viewSuccessMessage();
+	}
+
 	macro deactivateUser {
 		AssertElementPresent(
 			key_firstName = "${userFirstName}",
