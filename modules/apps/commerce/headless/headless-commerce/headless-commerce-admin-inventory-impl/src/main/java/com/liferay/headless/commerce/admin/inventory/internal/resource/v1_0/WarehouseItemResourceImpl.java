@@ -28,7 +28,6 @@ import com.liferay.headless.commerce.admin.inventory.resource.v1_0.WarehouseItem
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -41,7 +40,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
@@ -285,7 +283,7 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 			commerceInventoryWarehouseItem =
 				_commerceInventoryWarehouseItemService.
 					upsertCommerceInventoryWarehouseItem(
-						_user.getCompanyId(), _user.getUserId(),
+						contextUser.getCompanyId(), contextUser.getUserId(),
 						commerceInventoryWarehouse.
 							getCommerceInventoryWarehouseId(),
 						warehouseItem.getExternalReferenceCode(),
@@ -295,7 +293,7 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 			commerceInventoryWarehouseItem =
 				_commerceInventoryWarehouseItemService.
 					upsertCommerceInventoryWarehouseItem(
-						_user.getUserId(),
+						contextUser.getUserId(),
 						commerceInventoryWarehouse.
 							getCommerceInventoryWarehouseId(),
 						warehouseItem.getSku(), warehouseItem.getQuantity());
@@ -328,7 +326,7 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 		else if (warehouseItem.getWarehouseExternalReferenceCode() != null) {
 			commerceInventoryWarehouse =
 				_commerceInventoryWarehouseService.fetchByExternalReferenceCode(
-					_user.getCompanyId(),
+					contextUser.getCompanyId(),
 					warehouseItem.getWarehouseExternalReferenceCode());
 		}
 
@@ -351,7 +349,7 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 		commerceInventoryWarehouseItem =
 			_commerceInventoryWarehouseItemService.
 				addCommerceInventoryWarehouseItem(
-					_user.getUserId(),
+					contextUser.getUserId(),
 					commerceInventoryWarehouse.
 						getCommerceInventoryWarehouseId(),
 					externalReferenceCode, warehouseItem.getSku(),
@@ -380,7 +378,7 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
 			_commerceInventoryWarehouseItemService.
 				addCommerceInventoryWarehouseItem(
-					_user.getUserId(),
+					contextUser.getUserId(),
 					commerceInventoryWarehouse.
 						getCommerceInventoryWarehouseId(),
 					warehouseItem.getExternalReferenceCode(),
@@ -459,8 +457,5 @@ public class WarehouseItemResourceImpl extends BaseWarehouseItemResourceImpl {
 
 	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;
-
-	@Context
-	private User _user;
 
 }
