@@ -29,7 +29,7 @@ public class CommercePriceListUpgradeProcess
 			CommercePriceListModelImpl.class,
 			CommercePriceListModelImpl.TABLE_NAME, "netPrice", "BOOLEAN");
 
-		runSQL("UPDATE CommercePriceList SET netPrice = [$TRUE$]");
+		runSQL("update CommercePriceList set netPrice = [$TRUE$]");
 	}
 
 }
