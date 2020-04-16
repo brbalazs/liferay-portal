@@ -1,0 +1,90 @@
+definition {
+
+	macro deactivateUser {
+		AssertElementPresent(
+			key_firstName = "${userFirstName}",
+			key_lastName = "${userLastName}",
+			locator1 = "DataErasure#HEADER");
+
+		Button.clickNoError(button = "Deactivate User");
+
+		AssertConfirm(value1 = "Are you sure you want to deactivate the user?");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro deletePersonalApplicationsData {
+		AssertTextEquals(
+			locator1 = "DataErasure#SHEET_TITLE",
+			value1 = "Application Data Review");
+
+		LexiconEntry.gotoEntry(rowEntry = "${applications}");
+
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Delete",
+			rowEntry = "${rowEntry}");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this entity?");
+
+		Alert.viewSuccessMessage();
+
+		LexiconEntry.viewNoEntry(rowEntry = "${rowEntry}");
+	}
+
+	macro deletePersonalSite {
+		AssertElementPresent(
+			key_firstName = "${userFirstName}",
+			key_lastName = "${userLastName}",
+			locator1 = "DataErasure#HEADER");
+
+		if (IsElementNotPresent(locator1 = "Button#ANY_DISABLED", key_text = "Delete Personal Site")) {
+			Button.clickNoError(button = "Delete Personal Site");
+
+			AssertConfirm(value1 = "Are you sure you want to delete the user's personal site?");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro editPersonalApplicationsData {
+		AssertTextEquals(
+			locator1 = "DataErasure#SHEET_TITLE",
+			value1 = "Application Data Review");
+
+		LexiconEntry.gotoEntry(rowEntry = "${applications}");
+
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Edit",
+			rowEntry = "${rowEntry}");
+	}
+
+	macro reviewPersonalData {
+		AssertElementPresent(
+			key_firstName = "${userFirstName}",
+			key_lastName = "${userLastName}",
+			locator1 = "DataErasure#HEADER");
+
+		Button.clickNoError(button = "Review");
+
+		AssertTextEquals.assertPartialText(
+			key_itemsCount = "${itemsCount}",
+			locator1 = "DataErasure#REMAINING_ITEMS_COUNT",
+			value1 = "Remaining Items: ${itemsCount}");
+
+		AssertTextEquals.assertPartialText(
+			key_rowEntry = "${applications}",
+			locator1 = "ContentRow#ENTRY_CONTENT_ROW_TD_2",
+			value1 = "${itemsCount}");
+	}
+
+	macro viewEntryRowInApplicationCP {
+		for (var tableEntryPartialText : list "${tableEntryPartialTextList}") {
+			AssertTextEquals.assertPartialText(
+				key_tableEntry = "${tableEntry}",
+				key_tableEntryPartialText = "${tableEntryPartialText}",
+				locator1 = "LexiconTable#TABLE_ENTRY_PARTIAL_TEXT",
+				value1 = "${tableEntryPartialText}");
+		}
+	}
+
+}
