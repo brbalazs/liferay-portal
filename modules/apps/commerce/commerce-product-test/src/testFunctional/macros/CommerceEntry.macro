@@ -355,10 +355,6 @@ definition {
 				locator1 = "CommerceEntry#SKU_FIELD",
 				value1 = "${sku}");
 
-			AssertChecked.assertCheckedNotVisible(
-				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH",
-				key_toggleSwitchLabel = "Purchasable");
-
 			AssertTextEquals(
 				locator1 = "CommerceEntry#INPUT_PRICE",
 				value1 = "${price}");
@@ -739,6 +735,10 @@ definition {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#DESCRIPTION_FIELD",
 			value1 = "${specificationDescription}");
+
+		AssertTextEquals(
+			locator1 = "CommerceEntry#INPUT_PRICE",
+			value1 = "${price}");
 
 		AssertTextEquals(
 			key_fieldLabel = "Key",
