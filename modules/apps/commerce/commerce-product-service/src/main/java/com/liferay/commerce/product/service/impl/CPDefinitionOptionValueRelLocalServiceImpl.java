@@ -152,27 +152,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		return cpDefinitionOptionValueRel;
 	}
 
-	@Override
-	public void cleanCPDefinitionOptionValueRelAttributes(
-		String cpInstanceUuid) {
-
-		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-			cpDefinitionOptionValueRelPersistence.findByCPInstanceUuid(
-				cpInstanceUuid);
-
-		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-				cpDefinitionOptionValueRels) {
-
-			cpDefinitionOptionValueRel.setQuantity(0);
-			cpDefinitionOptionValueRel.setPrice(BigDecimal.ZERO);
-			cpDefinitionOptionValueRel.setCPInstanceUuid(null);
-			cpDefinitionOptionValueRel.setCProductId(0);
-
-			cpDefinitionOptionValueRelPersistence.update(
-				cpDefinitionOptionValueRel);
-		}
-	}
-
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -389,6 +368,27 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		}
 		finally {
 			serviceContext.setExpandoBridgeAttributes(expandoBridgeAttributes);
+		}
+	}
+
+	@Override
+	public void resetCPInstanceCPDefinitionOptionValueRels(
+		String cpInstanceUuid) {
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			cpDefinitionOptionValueRelPersistence.findByCPInstanceUuid(
+				cpInstanceUuid);
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			cpDefinitionOptionValueRel.setQuantity(0);
+			cpDefinitionOptionValueRel.setPrice(BigDecimal.ZERO);
+			cpDefinitionOptionValueRel.setCPInstanceUuid(null);
+			cpDefinitionOptionValueRel.setCProductId(0);
+
+			cpDefinitionOptionValueRelPersistence.update(
+				cpDefinitionOptionValueRel);
 		}
 	}
 

@@ -607,7 +607,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			cpInstance.getCPInstanceId());
 
 		cpDefinitionOptionValueRelLocalService.
-			cleanCPDefinitionOptionValueRelAttributes(
+			resetCPInstanceCPDefinitionOptionValueRels(
 				cpInstance.getCPInstanceUuid());
 
 		// Expando
