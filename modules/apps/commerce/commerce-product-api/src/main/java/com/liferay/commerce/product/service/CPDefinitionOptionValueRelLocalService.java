@@ -96,9 +96,6 @@ public interface CPDefinitionOptionValueRelLocalService
 			double priority, String key, ServiceContext serviceContext)
 		throws PortalException;
 
-	public void cleanCPDefinitionOptionValueRelAttributes(
-		String cpInstanceUuid);
-
 	/**
 	 * Creates a new cp definition option value rel with the primary key. Does not add the cp definition option value rel to the database.
 	 *
@@ -366,6 +363,9 @@ public interface CPDefinitionOptionValueRelLocalService
 	public void importCPDefinitionOptionRels(
 			long cpDefinitionOptionRelId, ServiceContext serviceContext)
 		throws PortalException;
+
+	public void resetCPInstanceCPDefinitionOptionValueRels(
+		String cpInstanceUuid);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Hits search(SearchContext searchContext);

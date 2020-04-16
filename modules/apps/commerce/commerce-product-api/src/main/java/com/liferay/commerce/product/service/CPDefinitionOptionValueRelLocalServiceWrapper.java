@@ -79,14 +79,6 @@ public class CPDefinitionOptionValueRelLocalServiceWrapper
 				serviceContext);
 	}
 
-	@Override
-	public void cleanCPDefinitionOptionValueRelAttributes(
-		String cpInstanceUuid) {
-
-		_cpDefinitionOptionValueRelLocalService.
-			cleanCPDefinitionOptionValueRelAttributes(cpInstanceUuid);
-	}
-
 	/**
 	 * Creates a new cp definition option value rel with the primary key. Does not add the cp definition option value rel to the database.
 	 *
@@ -516,6 +508,14 @@ public class CPDefinitionOptionValueRelLocalServiceWrapper
 
 		_cpDefinitionOptionValueRelLocalService.importCPDefinitionOptionRels(
 			cpDefinitionOptionRelId, serviceContext);
+	}
+
+	@Override
+	public void resetCPInstanceCPDefinitionOptionValueRels(
+		String cpInstanceUuid) {
+
+		_cpDefinitionOptionValueRelLocalService.
+			resetCPInstanceCPDefinitionOptionValueRels(cpInstanceUuid);
 	}
 
 	@Override

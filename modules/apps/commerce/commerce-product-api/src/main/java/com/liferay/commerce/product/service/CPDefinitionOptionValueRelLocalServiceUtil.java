@@ -76,12 +76,6 @@ public class CPDefinitionOptionValueRelLocalServiceUtil {
 			cpDefinitionOptionRelId, nameMap, priority, key, serviceContext);
 	}
 
-	public static void cleanCPDefinitionOptionValueRelAttributes(
-		String cpInstanceUuid) {
-
-		getService().cleanCPDefinitionOptionValueRelAttributes(cpInstanceUuid);
-	}
-
 	/**
 	 * Creates a new cp definition option value rel with the primary key. Does not add the cp definition option value rel to the database.
 	 *
@@ -466,6 +460,12 @@ public class CPDefinitionOptionValueRelLocalServiceUtil {
 
 		getService().importCPDefinitionOptionRels(
 			cpDefinitionOptionRelId, serviceContext);
+	}
+
+	public static void resetCPInstanceCPDefinitionOptionValueRels(
+		String cpInstanceUuid) {
+
+		getService().resetCPInstanceCPDefinitionOptionValueRels(cpInstanceUuid);
 	}
 
 	public static com.liferay.portal.kernel.search.Hits search(
