@@ -14,13 +14,13 @@
 
 package com.liferay.commerce.product.definitions.web.internal.frontend;
 
-import com.liferay.commerce.product.internal.util.JsonHelper;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.permission.CommerceProductViewPermission;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
+import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProvider;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderException;
@@ -53,7 +53,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "ddm.data.provider.instance.id=getCPInstanceOptionsValues",
 	service = DDMDataProvider.class
 )
-public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
+public class CommerceProductInstanceOptionsValuesDataProvider
+	implements DDMDataProvider {
 
 	@Override
 	public List<KeyValuePair> getData(
@@ -136,14 +137,14 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 
 				// Collect filters and outputs
 
-				if (JsonHelper.isEmpty(parameterValue)) {
+				if (_jsonHelper.isEmpty(parameterValue)) {
 					requestedCPDefinitionOptionRels.add(cpDefinitionOptionRel);
 				}
 				else {
 					String optionValueKey = parameterValue;
 
-					if (JsonHelper.isArray(parameterValue)) {
-						optionValueKey = JsonHelper.getFirstElementStringValue(
+					if (_jsonHelper.isArray(parameterValue)) {
+						optionValueKey = _jsonHelper.getFirstElementStringValue(
 							parameterValue);
 					}
 
@@ -275,7 +276,7 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 		ReleaseInfo.RELEASE_7_1_0_BUILD_NUMBER + 100;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CPInstanceOptionsValuesDataProvider.class);
+		CommerceProductInstanceOptionsValuesDataProvider.class);
 
 	@Reference
 	private CommerceProductViewPermission _commerceProductViewPermission;
@@ -290,5 +291,8 @@ public class CPInstanceOptionsValuesDataProvider implements DDMDataProvider {
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
+
+	@Reference
+	private JsonHelper _jsonHelper;
 
 }
