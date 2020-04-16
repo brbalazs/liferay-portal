@@ -20,11 +20,9 @@ import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemServ
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseService;
 import com.liferay.headless.commerce.admin.inventory.dto.v1_0.Warehouse;
 import com.liferay.headless.commerce.admin.inventory.dto.v1_0.WarehouseItem;
+import com.liferay.headless.commerce.admin.inventory.internal.dto.v1_0.WarehouseDTOConverter;
 import com.liferay.headless.commerce.admin.inventory.internal.odata.entity.v1_0.WarehouseEntityModel;
 import com.liferay.headless.commerce.admin.inventory.resource.v1_0.WarehouseResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -33,6 +31,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -109,14 +108,10 @@ public class WarehouseResourceImpl
 					externalReferenceCode);
 		}
 
-		DTOConverter warehouseDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceInventoryWarehouse.class.getName());
-
-		return (Warehouse)warehouseDTOConverter.toDTO(
+		return _warehouseDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceInventoryWarehouse.getCommerceInventoryWarehouseId()));
+				commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -141,14 +136,10 @@ public class WarehouseResourceImpl
 
 	@Override
 	public Warehouse getWarehousId(Long id) throws Exception {
-		DTOConverter warehouseDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceInventoryWarehouse.class.getName());
-
-		return (Warehouse)warehouseDTOConverter.toDTO(
+		return _warehouseDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+				GetterUtil.getLong(id),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -218,28 +209,20 @@ public class WarehouseResourceImpl
 
 		_updateNestedResources(warehouse, commerceInventoryWarehouse);
 
-		DTOConverter warehouseDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceInventoryWarehouse.class.getName());
-
-		return (Warehouse)warehouseDTOConverter.toDTO(
+		return _warehouseDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceInventoryWarehouse.getCommerceInventoryWarehouseId()));
+				commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private Warehouse _toWarehouse(
 			CommerceInventoryWarehouse commerceInventoryWarehouse)
 		throws Exception {
 
-		DTOConverter warehouseDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceInventoryWarehouse.class.getName());
-
-		return (Warehouse)warehouseDTOConverter.toDTO(
+		return _warehouseDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceInventoryWarehouse.getCommerceInventoryWarehouseId()));
+				commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private void _updateNestedResources(
@@ -325,9 +308,9 @@ public class WarehouseResourceImpl
 		_commerceInventoryWarehouseService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private ServiceContextHelper _serviceContextHelper;
 
 	@Reference
-	private ServiceContextHelper _serviceContextHelper;
+	private WarehouseDTOConverter _warehouseDTOConverter;
 
 }
