@@ -51,4 +51,10 @@ definition {
 		Click(locator1 = "CommerceNavigation#SEARCH");
 	}
 
+	macro gotoSpeedwellDashboardItem {
+		Click(
+			key_dashboardItem = "${dashboardItem}",
+			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DASHBOARD_ITEM");
+	}
+
 }
