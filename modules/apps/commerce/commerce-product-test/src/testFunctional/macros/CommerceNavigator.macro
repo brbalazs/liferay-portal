@@ -57,4 +57,12 @@ definition {
 			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DASHBOARD_ITEM");
 	}
 
+	macro gotoSpeedwellMyAccountPage {
+		Click(locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN");
+
+		Click(
+			key_dropdownItem = "My Account",
+			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN_ITEM");
+	}
+
 }
