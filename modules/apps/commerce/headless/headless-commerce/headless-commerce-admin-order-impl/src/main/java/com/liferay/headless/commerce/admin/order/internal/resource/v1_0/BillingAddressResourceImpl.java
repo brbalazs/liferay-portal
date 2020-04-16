@@ -65,8 +65,7 @@ public class BillingAddressResourceImpl extends BaseBillingAddressResourceImpl {
 		return _billingAddressDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceAddress.getCommerceAddressId(),
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@NestedField(parentClass = Order.class, value = "billingAddress")
@@ -86,8 +85,7 @@ public class BillingAddressResourceImpl extends BaseBillingAddressResourceImpl {
 		return _billingAddressDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceAddress.getCommerceAddressId(),
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -130,13 +128,13 @@ public class BillingAddressResourceImpl extends BaseBillingAddressResourceImpl {
 	}
 
 	@Reference
+	private BillingAddressDTOConverter _billingAddressDTOConverter;
+
+	@Reference
 	private CommerceAddressService _commerceAddressService;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
-
-	@Reference
-	private BillingAddressDTOConverter _billingAddressDTOConverter;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

@@ -112,12 +112,10 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 
 	@Override
 	public OrderNote getOrderNote(Long id) throws Exception {
-
 		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				GetterUtil.getLong(id),
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -138,8 +136,7 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceOrderNote.getCommerceOrderNoteId(),
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -213,8 +210,7 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 				_orderNoteDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
 						commerceOrderNote.getCommerceOrderNoteId(),
-						contextAcceptLanguage.getPreferredLocale()
-						)));
+						contextAcceptLanguage.getPreferredLocale())));
 		}
 
 		return orders;
@@ -234,8 +230,7 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceOrderNote.getCommerceOrderNoteId(),
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private OrderNote _upsertOrderNote(
@@ -254,8 +249,7 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceOrderNote.getCommerceOrderNoteId(),
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Reference

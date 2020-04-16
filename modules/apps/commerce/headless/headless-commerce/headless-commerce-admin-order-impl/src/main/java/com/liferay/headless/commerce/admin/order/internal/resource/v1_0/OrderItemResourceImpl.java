@@ -232,12 +232,10 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 	}
 
 	private OrderItem _toOrderItem(long commerceOrderItemId) throws Exception {
-
 		return _orderItemDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceOrderItemId,
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private OrderItem _updateOrderItem(

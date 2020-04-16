@@ -70,7 +70,6 @@ public class OrderHelper {
 	}
 
 	public Order toOrder(long commerceOrderId, Locale locale) throws Exception {
-
 		return _orderDTOConverter.toDTO(
 			new DefaultDTOConverterContext(commerceOrderId, locale));
 	}

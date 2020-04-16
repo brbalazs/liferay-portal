@@ -66,8 +66,7 @@ public class ShippingAddressResourceImpl
 		return _shippingAddressDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceAddress.getCommerceAddressId(),
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@NestedField(parentClass = Order.class, value = "shippingAddress")
@@ -87,8 +86,7 @@ public class ShippingAddressResourceImpl
 		return _shippingAddressDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceAddress.getCommerceAddressId(),
-				contextAcceptLanguage.getPreferredLocale()
-				));
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -137,9 +135,9 @@ public class ShippingAddressResourceImpl
 	private CommerceOrderService _commerceOrderService;
 
 	@Reference
-	private ShippingAddressDTOConverter _shippingAddressDTOConverter;
+	private ServiceContextHelper _serviceContextHelper;
 
 	@Reference
-	private ServiceContextHelper _serviceContextHelper;
+	private ShippingAddressDTOConverter _shippingAddressDTOConverter;
 
 }

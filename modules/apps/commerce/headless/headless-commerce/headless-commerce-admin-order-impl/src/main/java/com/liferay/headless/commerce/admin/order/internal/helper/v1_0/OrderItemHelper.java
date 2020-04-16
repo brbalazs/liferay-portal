@@ -69,8 +69,8 @@ public class OrderItemHelper {
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			orderItems.add(
 				_orderItemDTOConverter.toDTO(
-					new DefaultDTOConverterContext(commerceOrderItem.getCommerceOrderItemId(),
-						locale)));
+					new DefaultDTOConverterContext(
+						commerceOrderItem.getCommerceOrderItemId(), locale)));
 		}
 
 		return orderItems;
