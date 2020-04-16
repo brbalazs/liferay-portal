@@ -117,6 +117,25 @@ definition {
 			key_menuItem = "Sign Out",
 			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
 	}
+	
+	macro speedwellLogin {
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		Click(locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN");
+
+		Click(
+			key_dropdownItem = "Sign In",
+			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN_ITEM");
+
+		CommerceLogin.loginPG(
+			password = "${password}",
+			samlEnabled = "true",
+			userEmailAddress = "${userEmailAddress}");
+	}
 
 	macro speedwellLogout {
 		Click(locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN");
