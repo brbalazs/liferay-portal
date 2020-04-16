@@ -374,6 +374,37 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
+	macro createNewSpecificationGroups {
+		Click(locator1 = "Button#PLUS");
+
+		Type(
+			key_fieldLabel = "Title",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			value1 = "${specificationTitle}");
+
+		Type(
+			key_fieldLabel = "Description",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			value1 = "${specificationDescription}");
+
+		ClickNoError(locator1 = "CommerceEntry#SAVE_BUTTON");
+	}
+
+	macro createNewSpecificationLabels {
+		Click(locator1 = "Button#PLUS");
+
+		Type(
+			key_fieldLabel = "Label",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			value1 = "${specificationTitle}");
+
+		Type(
+			locator1 = "CommerceEntry#DESCRIPTION_FIELD",
+			value1 = "${specificationDescription}");
+
+		Button.clickSave();
+	}
+
 	macro deleteCommerceEntry {
 		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
 
@@ -582,29 +613,35 @@ definition {
 			value1 = "${productShortDescription}");
 	}
 
-	macro createNewSpecificationLabels {
-		Click(locator1 = "Button#PLUS");
+	macro viewSpecificationGroups {
+		Click(
+			key_entry = "${specificationTitle}",
+			locator1 = "CommerceNavigation#ANY_ENTRY_NAME");
 
-		Type(
+		AssertTextEquals(
+			key_fieldLabel = "Title",
 			locator1 = "TextInput#GENERIC_TEXT_INPUT",
-			key_fieldLabel = "Label",
 			value1 = "${specificationTitle}");
 
-		Type(
-			locator1 = "CommerceEntry#DESCRIPTION_FIELD",
+		AssertTextEquals(
+			key_fieldLabel = "Description",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			value1 = "${specificationDescription}");
 
-		Button.clickSave();
+		AssertTextEquals(
+			key_fieldLabel = "Key",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			value1 = "${specificationTitle}");
 	}
 
 	macro viewSpecificationLabels {
 		Click(
-			locator1 = "CommerceNavigation#ANY_ENTRY_NAME",
-			key_entry = "${specificationTitle}");
+			key_entry = "${specificationTitle}",
+			locator1 = "CommerceNavigation#ANY_ENTRY_NAME");
 
 		AssertTextEquals(
-			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			key_fieldLabel = "Label",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			value1 = "${specificationTitle}");
 
 		AssertTextEquals(
@@ -612,45 +649,9 @@ definition {
 			value1 = "${specificationDescription}");
 
 		AssertTextEquals(
-			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			key_fieldLabel = "Key",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			value1 = "${specificationTitle}");
 	}
 
-	macro createNewSpecificationGroups {
-		Click(locator1 = "Button#PLUS");
-
-		Type(
-			locator1 = "TextInput#GENERIC_TEXT_INPUT",
-			key_fieldLabel = "Title",
-			value1 = "${specificationTitle}");
-
-		Type(
-			locator1 = "TextInput#GENERIC_TEXT_INPUT",
-			key_fieldLabel = "Description",
-			value1 = "${specificationDescription}");
-
-		ClickNoError(locator1 = "CommerceEntry#SAVE_BUTTON");
-	}
-
-	macro viewSpecificationGroups {
-		Click(
-			locator1 = "CommerceNavigation#ANY_ENTRY_NAME",
-			key_entry = "${specificationTitle}");
-
-		AssertTextEquals(
-			locator1 = "TextInput#GENERIC_TEXT_INPUT",
-			key_fieldLabel = "Title",
-			value1 = "${specificationTitle}");
-
-		AssertTextEquals(
-			locator1 = "TextInput#GENERIC_TEXT_INPUT",
-			key_fieldLabel = "Description",
-			value1 = "${specificationDescription}");
-
-		AssertTextEquals(
-			locator1 = "TextInput#GENERIC_TEXT_INPUT",
-			key_fieldLabel = "Key",
-			value1 = "${specificationTitle}");
-	}
 }
