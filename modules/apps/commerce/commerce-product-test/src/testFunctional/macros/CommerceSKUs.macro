@@ -27,10 +27,6 @@ definition {
 				optionValue = "${optionValue}",
 				productSKU = "${optionValueUppercase}SKU");
 
-			Check.checkToggleSwitch(
-				key_toggleSwitchLabel = "Purchasable",
-				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
-
 			CommerceSKUs.addPriceToSKU(price = "${price}");
 
 			CommerceEntry.publishEntry();
