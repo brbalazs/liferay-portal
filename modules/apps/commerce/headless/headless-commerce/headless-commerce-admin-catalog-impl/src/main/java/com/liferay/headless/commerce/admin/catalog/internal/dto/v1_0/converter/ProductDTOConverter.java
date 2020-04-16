@@ -22,9 +22,9 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -50,7 +50,7 @@ public class ProductDTOConverter implements DTOConverter {
 		throws Exception {
 
 		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
-			dtoConverterContext.getResourcePrimKey());
+			(Long)dtoConverterContext.getId());
 
 		CProduct cProduct = cpDefinition.getCProduct();
 

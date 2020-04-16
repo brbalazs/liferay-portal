@@ -20,11 +20,9 @@ import com.liferay.commerce.product.model.CPSpecificationOption;
 import com.liferay.commerce.product.service.CPSpecificationOptionService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.OptionCategory;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Specification;
+import com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter.SpecificationDTOConverter;
 import com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0.SpecificationEntityModel;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.SpecificationResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -35,6 +33,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -76,14 +75,10 @@ public class SpecificationResourceImpl
 
 	@Override
 	public Specification getSpecification(Long id) throws Exception {
-		DTOConverter specificationDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPSpecificationOption.class.getName());
-
-		return (Specification)specificationDTOConverter.toDTO(
+		return _specificationDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+				GetterUtil.getLong(id),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -146,14 +141,10 @@ public class SpecificationResourceImpl
 			CPSpecificationOption cpSpecificationOption)
 		throws Exception {
 
-		DTOConverter specificationDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPSpecificationOption.class.getName());
-
-		return (Specification)specificationDTOConverter.toDTO(
+		return _specificationDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpSpecificationOption.getCPSpecificationOptionId()));
+				cpSpecificationOption.getCPSpecificationOptionId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private CPSpecificationOption _updateSpecification(
@@ -175,10 +166,6 @@ public class SpecificationResourceImpl
 	private Specification _upsertSpecification(Specification specification)
 		throws Exception {
 
-		DTOConverter specificationDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPSpecificationOption.class.getName());
-
 		Long specificationId = specification.getId();
 
 		if (specificationId != null) {
@@ -186,10 +173,10 @@ public class SpecificationResourceImpl
 				CPSpecificationOption cpSpecificationOption =
 					_updateSpecification(specificationId, specification);
 
-				return (Specification)specificationDTOConverter.toDTO(
+				return _specificationDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						cpSpecificationOption.getCPSpecificationOptionId()));
+						cpSpecificationOption.getCPSpecificationOptionId(),
+						contextAcceptLanguage.getPreferredLocale()));
 			}
 			catch (NoSuchCPSpecificationOptionException nscpsoe) {
 				if (_log.isDebugEnabled()) {
@@ -226,10 +213,10 @@ public class SpecificationResourceImpl
 			}
 		}
 
-		return (Specification)specificationDTOConverter.toDTO(
+		return _specificationDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpSpecificationOption.getCPSpecificationOptionId()));
+				cpSpecificationOption.getCPSpecificationOptionId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -242,9 +229,9 @@ public class SpecificationResourceImpl
 	private CPSpecificationOptionService _cpSpecificationOptionService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private ServiceContextHelper _serviceContextHelper;
 
 	@Reference
-	private ServiceContextHelper _serviceContextHelper;
+	private SpecificationDTOConverter _specificationDTOConverter;
 
 }

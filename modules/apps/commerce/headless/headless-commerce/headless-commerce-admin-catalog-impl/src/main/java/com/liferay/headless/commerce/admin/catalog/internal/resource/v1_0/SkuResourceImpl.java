@@ -31,9 +31,6 @@ import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistr
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -94,6 +91,39 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 		return responseBuilder.build();
 	}
 
+	@Override
+	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
+			String externalReferenceCode, Pagination pagination)
+		throws Exception {
+
+		CPDefinition cpDefinition =
+			_cpDefinitionService.
+				fetchCPDefinitionByCProductExternalReferenceCode(
+					contextCompany.getCompanyId(), externalReferenceCode);
+
+		if (cpDefinition == null) {
+			throw new NoSuchCPDefinitionException(
+				"Unable to find Product with externalReferenceCode: " +
+					externalReferenceCode);
+		}
+
+		List<CPInstance> cpInstances =
+			_cpInstanceService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED,
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
+
+		int totalItems = _cpInstanceService.getCPDefinitionInstancesCount(
+			cpDefinition.getCPDefinitionId(),
+			WorkflowConstants.STATUS_APPROVED);
+
+		return Page.of(
+			_skuHelper.toSKUs(
+				cpInstances, contextAcceptLanguage.getPreferredLocale()),
+			pagination, totalItems);
+	}
+
 	@NestedField(parentClass = Product.class, value = "skus")
 	@Override
 	public Page<Sku> getProductIdSkusPage(
@@ -107,13 +137,10 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 
 	@Override
 	public Sku getSku(Long id) throws Exception {
-		DTOConverter skuDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CPInstance.class.getName());
-
-		return (Sku)skuDTOConverter.toDTO(
+		return _skuDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+				GetterUtil.getLong(id),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -129,7 +156,10 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 					externalReferenceCode);
 		}
 
-		return _toSku(cpInstance);
+		return _skuDTOConverter.toDTO(
+			new com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext(
+				cpInstance.getCPInstanceId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -306,13 +336,10 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 			_cpInstanceService, sku, cpDefinition,
 			_serviceContextHelper.getServiceContext(cpDefinition.getGroupId()));
 
-		DTOConverter skuDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CPInstance.class.getName());
-
-		return (Sku)skuDTOConverter.toDTO(
+		return _skuDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpInstance.getCPInstanceId()));
+				cpInstance.getCPInstanceId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Reference
@@ -322,10 +349,10 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 	private CPInstanceService _cpInstanceService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private ServiceContextHelper _serviceContextHelper;
 
 	@Reference
-	private ServiceContextHelper _serviceContextHelper;
+	private SkuDTOConverter _skuDTOConverter;
 
 	@Reference
 	private SkuHelper _skuHelper;

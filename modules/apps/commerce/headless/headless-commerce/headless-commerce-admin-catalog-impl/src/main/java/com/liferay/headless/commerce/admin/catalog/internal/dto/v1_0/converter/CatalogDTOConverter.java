@@ -17,8 +17,8 @@ package com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Catalog;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -42,7 +42,7 @@ public class CatalogDTOConverter implements DTOConverter {
 
 		CommerceCatalog commerceCatalog =
 			_commerceCatalogService.getCommerceCatalog(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		return new Catalog() {
 			{

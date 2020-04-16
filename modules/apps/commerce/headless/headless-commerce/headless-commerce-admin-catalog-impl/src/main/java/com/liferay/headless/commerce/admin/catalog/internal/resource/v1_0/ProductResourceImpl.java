@@ -44,6 +44,7 @@ import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductSubscriptionC
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductTaxConfiguration;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Sku;
+import com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter.ProductDTOConverter;
 import com.liferay.headless.commerce.admin.catalog.internal.helper.v1_0.ProductHelper;
 import com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0.ProductEntityModel;
 import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.AttachmentUtil;
@@ -58,9 +59,6 @@ import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.ProductUti
 import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.RelatedProductUtil;
 import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.SkuUtil;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
@@ -74,6 +72,7 @@ import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -161,13 +160,10 @@ public class ProductResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		DTOConverter productDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(CPDefinition.class.getName());
-
-		return (Product)productDTOConverter.toDTO(
+		return _productDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpDefinition.getCPDefinitionId()));
+				cpDefinition.getCPDefinitionId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -186,13 +182,10 @@ public class ProductResourceImpl
 					externalReferenceCode);
 		}
 
-		DTOConverter productDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(CPDefinition.class.getName());
-
-		return (Product)productDTOConverter.toDTO(
+		return _productDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpDefinition.getCPDefinitionId()));
+				cpDefinition.getCPDefinitionId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -251,13 +244,10 @@ public class ProductResourceImpl
 	public Product postProduct(Product product) throws Exception {
 		CPDefinition cpDefinition = _upsertProduct(product);
 
-		DTOConverter productDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(CPDefinition.class.getName());
-
-		return (Product)productDTOConverter.toDTO(
+		return _productDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpDefinition.getCPDefinitionId()));
+				cpDefinition.getCPDefinitionId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private ProductShippingConfiguration _getProductShippingConfiguration(
@@ -300,13 +290,10 @@ public class ProductResourceImpl
 	}
 
 	private Product _toProduct(CPDefinition cpDefinition) throws Exception {
-		DTOConverter productDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(CPDefinition.class.getName());
-
-		return (Product)productDTOConverter.toDTO(
+		return _productDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpDefinition.getCPDefinitionId()));
+				cpDefinition.getCPDefinitionId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private CPDefinition _updateNestedResources(
@@ -751,7 +738,7 @@ public class ProductResourceImpl
 	private CPSpecificationOptionService _cpSpecificationOptionService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private ProductDTOConverter _productDTOConverter;
 
 	@Reference
 	private ProductHelper _productHelper;

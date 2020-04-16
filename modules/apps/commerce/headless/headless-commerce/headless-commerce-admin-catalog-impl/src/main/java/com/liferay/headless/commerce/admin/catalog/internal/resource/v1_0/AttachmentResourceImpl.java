@@ -24,14 +24,13 @@ import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Attachment;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.AttachmentBase64;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.AttachmentUrl;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
+import com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter.AttachmentDTOConverter;
 import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.AttachmentUtil;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.AttachmentResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -376,18 +375,14 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 
 		List<Attachment> attachments = new ArrayList<>();
 
-		DTOConverter attachmentDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPAttachmentFileEntry.class.getName());
-
 		for (CPAttachmentFileEntry cpAttachmentFileEntry :
 				cpAttachmentFileEntries) {
 
 			attachments.add(
-				(Attachment)attachmentDTOConverter.toDTO(
+				_attachmentDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						cpAttachmentFileEntry.getCPAttachmentFileEntryId())));
+						cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
+						contextAcceptLanguage.getPreferredLocale())));
 		}
 
 		return attachments;
@@ -407,14 +402,10 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinition.getGroupId()));
 
-		DTOConverter attachmentDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPAttachmentFileEntry.class.getName());
-
-		return (Attachment)attachmentDTOConverter.toDTO(
+		return _attachmentDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpAttachmentFileEntry.getCPAttachmentFileEntryId()));
+				cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private Attachment _upsertAttachment(
@@ -432,14 +423,10 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinition.getGroupId()));
 
-		DTOConverter attachmentDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPAttachmentFileEntry.class.getName());
-
-		return (Attachment)attachmentDTOConverter.toDTO(
+		return _attachmentDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpAttachmentFileEntry.getCPAttachmentFileEntryId()));
+				cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private Attachment _upsertAttachment(
@@ -456,14 +443,10 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinition.getGroupId()));
 
-		DTOConverter attachmentDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPAttachmentFileEntry.class.getName());
-
-		return (Attachment)attachmentDTOConverter.toDTO(
+		return _attachmentDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpAttachmentFileEntry.getCPAttachmentFileEntryId()));
+				cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private Attachment _upsertProductAttachment(
@@ -519,6 +502,9 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 			cpDefinition, CPAttachmentFileEntryConstants.TYPE_IMAGE,
 			attachment);
 	}
+
+	@Reference
+	private AttachmentDTOConverter _attachmentDTOConverter;
 
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
@@ -528,9 +514,6 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

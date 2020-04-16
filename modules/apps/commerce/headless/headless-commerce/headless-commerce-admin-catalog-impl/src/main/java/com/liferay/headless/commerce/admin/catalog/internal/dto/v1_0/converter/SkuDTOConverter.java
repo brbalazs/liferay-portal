@@ -19,8 +19,8 @@ import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Sku;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +45,7 @@ public class SkuDTOConverter implements DTOConverter {
 
 	public Sku toDTO(DTOConverterContext dtoConverterContext) throws Exception {
 		CPInstance cpInstance = _cpInstanceService.getCPInstance(
-			dtoConverterContext.getResourcePrimKey());
+			(Long)dtoConverterContext.getId());
 
 		return new Sku() {
 			{

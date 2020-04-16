@@ -18,8 +18,8 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPTaxCategory;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductTaxConfiguration;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.util.Locale;
 
@@ -45,7 +45,7 @@ public class ProductTaxConfigurationDTOConverter implements DTOConverter {
 		throws Exception {
 
 		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
-			dtoConverterContext.getResourcePrimKey());
+			(Long)dtoConverterContext.getId());
 
 		CPTaxCategory cpTaxCategory = cpDefinition.getCPTaxCategory();
 

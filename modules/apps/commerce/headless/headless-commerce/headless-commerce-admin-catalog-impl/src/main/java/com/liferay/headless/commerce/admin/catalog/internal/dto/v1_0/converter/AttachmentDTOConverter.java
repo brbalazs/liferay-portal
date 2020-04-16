@@ -18,8 +18,6 @@ import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Attachment;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
@@ -28,6 +26,8 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,7 +56,7 @@ public class AttachmentDTOConverter implements DTOConverter {
 
 		CPAttachmentFileEntry cpAttachmentFileEntry =
 			_cpAttachmentFileEntryService.getCPAttachmentFileEntry(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		Company company = _companyLocalService.getCompany(
 			cpAttachmentFileEntry.getCompanyId());

@@ -18,8 +18,8 @@ import com.liferay.commerce.product.model.CPDefinitionLink;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CPDefinitionLinkService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.RelatedProduct;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,7 +43,7 @@ public class RelatedProductDTOConverter implements DTOConverter {
 
 		CPDefinitionLink cpDefinitionLink =
 			_cpDefinitionLinkService.getCPDefinitionLink(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		CProduct cProduct = cpDefinitionLink.getCProduct();
 

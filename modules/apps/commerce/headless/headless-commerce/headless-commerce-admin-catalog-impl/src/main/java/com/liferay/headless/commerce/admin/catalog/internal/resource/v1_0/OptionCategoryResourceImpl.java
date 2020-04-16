@@ -17,11 +17,9 @@ package com.liferay.headless.commerce.admin.catalog.internal.resource.v1_0;
 import com.liferay.commerce.product.model.CPOptionCategory;
 import com.liferay.commerce.product.service.CPOptionCategoryService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.OptionCategory;
+import com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter.OptionCategoryDTOConverter;
 import com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0.OptionCategoryEntityModel;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionCategoryResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.petra.string.StringPool;
@@ -31,6 +29,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -91,14 +90,10 @@ public class OptionCategoryResourceImpl
 
 	@Override
 	public OptionCategory getOptionCategory(Long id) throws Exception {
-		DTOConverter optionCategoryDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPOptionCategory.class.getName());
-
-		return (OptionCategory)optionCategoryDTOConverter.toDTO(
+		return _optionCategoryDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+				GetterUtil.getLong(id),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -116,10 +111,6 @@ public class OptionCategoryResourceImpl
 	public OptionCategory postOptionCategory(OptionCategory optionCategory)
 		throws Exception {
 
-		DTOConverter optionCategoryDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPOptionCategory.class.getName());
-
 		CPOptionCategory cpOptionCategory = null;
 
 		if (optionCategory.getId() != null) {
@@ -135,10 +126,10 @@ public class OptionCategoryResourceImpl
 				optionCategory.getId(), optionCategory);
 		}
 
-		return (OptionCategory)optionCategoryDTOConverter.toDTO(
+		return _optionCategoryDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpOptionCategory.getCPOptionCategoryId()));
+				cpOptionCategory.getCPOptionCategoryId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private CPOptionCategory _addOptionCategory(OptionCategory optionCategory)
@@ -155,14 +146,10 @@ public class OptionCategoryResourceImpl
 	private OptionCategory _toOptionCategory(CPOptionCategory cpOptionCategory)
 		throws Exception {
 
-		DTOConverter optionCategoryDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPOptionCategory.class.getName());
-
-		return (OptionCategory)optionCategoryDTOConverter.toDTO(
+		return _optionCategoryDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpOptionCategory.getCPOptionCategoryId()));
+				cpOptionCategory.getCPOptionCategoryId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private CPOptionCategory _updateOptionCategory(
@@ -188,7 +175,7 @@ public class OptionCategoryResourceImpl
 	private CPOptionCategoryService _cpOptionCategoryService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private OptionCategoryDTOConverter _optionCategoryDTOConverter;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

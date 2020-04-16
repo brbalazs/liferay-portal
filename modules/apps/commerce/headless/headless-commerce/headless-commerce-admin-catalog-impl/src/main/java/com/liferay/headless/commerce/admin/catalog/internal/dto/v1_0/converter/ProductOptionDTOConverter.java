@@ -18,9 +18,9 @@ import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductOption;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -44,7 +44,7 @@ public class ProductOptionDTOConverter implements DTOConverter {
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			_cpDefinitionOptionRelService.getCPDefinitionOptionRel(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		CPOption cpOption = cpDefinitionOptionRel.getCPOption();
 

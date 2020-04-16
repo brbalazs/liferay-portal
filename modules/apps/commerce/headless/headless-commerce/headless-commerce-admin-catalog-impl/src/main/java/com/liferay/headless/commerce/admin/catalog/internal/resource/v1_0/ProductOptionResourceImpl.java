@@ -22,14 +22,13 @@ import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPOptionService;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductOption;
+import com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter.ProductOptionDTOConverter;
 import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.ProductOptionUtil;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductOptionResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -126,14 +125,10 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 
 	@Override
 	public ProductOption getProductOption(Long id) throws Exception {
-		DTOConverter productOptionDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPDefinitionOptionRel.class.getName());
-
-		return (ProductOption)productOptionDTOConverter.toDTO(
+		return _productOptionDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+				GetterUtil.getLong(id),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -189,18 +184,14 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 
 		List<ProductOption> productOptions = new ArrayList<>();
 
-		DTOConverter productOptionDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPDefinitionOptionRel.class.getName());
-
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinitionOptionRels) {
 
 			productOptions.add(
-				(ProductOption)productOptionDTOConverter.toDTO(
+				_productOptionDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId())));
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+						contextAcceptLanguage.getPreferredLocale())));
 		}
 
 		return productOptions;
@@ -237,14 +228,10 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinitionOptionRel.getGroupId()));
 
-		DTOConverter productOptionDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPDefinitionOptionRel.class.getName());
-
-		return (ProductOption)productOptionDTOConverter.toDTO(
+		return _productOptionDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
+				cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private List<ProductOption> _upsertProductOptions(
@@ -264,18 +251,14 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 		cpDefinition = _cpDefinitionService.getCPDefinition(
 			cpDefinition.getCPDefinitionId());
 
-		DTOConverter productOptionDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPDefinitionOptionRel.class.getName());
-
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinition.getCPDefinitionOptionRels()) {
 
 			productOptionList.add(
-				(ProductOption)productOptionDTOConverter.toDTO(
+				_productOptionDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId())));
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+						contextAcceptLanguage.getPreferredLocale())));
 		}
 
 		return productOptionList;
@@ -291,7 +274,7 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 	private CPOptionService _cpOptionService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private ProductOptionDTOConverter _productOptionDTOConverter;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
