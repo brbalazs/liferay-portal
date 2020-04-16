@@ -32,6 +32,7 @@ page import="com.liferay.commerce.tax.engine.fixed.web.internal.display.context.
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.display.context.CommerceTaxFixedRatesDisplayContext" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.frontend.CommerceTaxRateClayTable" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.frontend.CommerceTaxRateSettingClayTable" %><%@
+page import="com.liferay.commerce.tax.model.CommerceTaxMethod" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
