@@ -25,14 +25,14 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
 
 import java.util.Locale;
 
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -55,7 +55,7 @@ public class OrderDTOConverter implements DTOConverter {
 		throws Exception {
 
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			dtoConverterContext.getResourcePrimKey());
+			(Long)dtoConverterContext.getId());
 
 		CommerceAccount commerceAccount = commerceOrder.getCommerceAccount();
 		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();

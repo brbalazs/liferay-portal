@@ -18,15 +18,14 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
+import com.liferay.headless.commerce.admin.order.internal.dto.v1_0.converter.OrderDTOConverter;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
@@ -71,11 +70,9 @@ public class OrderHelper {
 	}
 
 	public Order toOrder(long commerceOrderId, Locale locale) throws Exception {
-		DTOConverter orderDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CommerceOrder.class.getName());
 
-		return (Order)orderDTOConverter.toDTO(
-			new DefaultDTOConverterContext(locale, commerceOrderId));
+		return _orderDTOConverter.toDTO(
+			new DefaultDTOConverterContext(commerceOrderId, locale));
 	}
 
 	private long[] _getCommerceChannelGroupIds(long companyId)
@@ -95,6 +92,6 @@ public class OrderHelper {
 	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private OrderDTOConverter _orderDTOConverter;
 
 }

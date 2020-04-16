@@ -21,12 +21,11 @@ import com.liferay.commerce.model.CommerceOrderNote;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.OrderNote;
+import com.liferay.headless.commerce.admin.order.internal.dto.v1_0.converter.OrderNoteDTOConverter;
 import com.liferay.headless.commerce.admin.order.resource.v1_0.OrderNoteResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -113,14 +112,12 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 
 	@Override
 	public OrderNote getOrderNote(Long id) throws Exception {
-		DTOConverter orderNoteDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceOrderNote.class.getName());
 
-		return (OrderNote)orderNoteDTOConverter.toDTO(
+		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+				GetterUtil.getLong(id),
+				contextAcceptLanguage.getPreferredLocale()
+				));
 	}
 
 	@Override
@@ -138,14 +135,11 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 					externalReferenceCode);
 		}
 
-		DTOConverter orderNoteDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceOrderNote.class.getName());
-
-		return (OrderNote)orderNoteDTOConverter.toDTO(
+		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrderNote.getCommerceOrderNoteId()));
+				commerceOrderNote.getCommerceOrderNoteId(),
+				contextAcceptLanguage.getPreferredLocale()
+				));
 	}
 
 	@Override
@@ -214,16 +208,13 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 
 		List<OrderNote> orders = new ArrayList<>();
 
-		DTOConverter orderNoteDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceOrderNote.class.getName());
-
 		for (CommerceOrderNote commerceOrderNote : commerceOrderNotes) {
 			orders.add(
-				(OrderNote)orderNoteDTOConverter.toDTO(
+				_orderNoteDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						commerceOrderNote.getCommerceOrderNoteId())));
+						commerceOrderNote.getCommerceOrderNoteId(),
+						contextAcceptLanguage.getPreferredLocale()
+						)));
 		}
 
 		return orders;
@@ -240,14 +231,11 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 			GetterUtil.get(
 				orderNote.getRestricted(), commerceOrderNote.isRestricted()));
 
-		DTOConverter orderNoteDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceOrderNote.class.getName());
-
-		return (OrderNote)orderNoteDTOConverter.toDTO(
+		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrderNote.getCommerceOrderNoteId()));
+				commerceOrderNote.getCommerceOrderNoteId(),
+				contextAcceptLanguage.getPreferredLocale()
+				));
 	}
 
 	private OrderNote _upsertOrderNote(
@@ -263,14 +251,11 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					commerceOrder.getGroupId()));
 
-		DTOConverter orderNoteDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceOrderNote.class.getName());
-
-		return (OrderNote)orderNoteDTOConverter.toDTO(
+		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrderNote.getCommerceOrderNoteId()));
+				commerceOrderNote.getCommerceOrderNoteId(),
+				contextAcceptLanguage.getPreferredLocale()
+				));
 	}
 
 	@Reference
@@ -280,7 +265,7 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 	private CommerceOrderService _commerceOrderService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private OrderNoteDTOConverter _orderNoteDTOConverter;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

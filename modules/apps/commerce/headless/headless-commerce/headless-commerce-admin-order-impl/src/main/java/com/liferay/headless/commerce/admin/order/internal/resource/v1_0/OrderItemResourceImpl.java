@@ -25,17 +25,16 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.OrderItem;
+import com.liferay.headless.commerce.admin.order.internal.dto.v1_0.converter.OrderItemDTOConverter;
 import com.liferay.headless.commerce.admin.order.internal.helper.v1_0.OrderItemHelper;
 import com.liferay.headless.commerce.admin.order.internal.util.v1_0.OrderItemUtil;
 import com.liferay.headless.commerce.admin.order.resource.v1_0.OrderItemResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -233,14 +232,12 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 	}
 
 	private OrderItem _toOrderItem(long commerceOrderItemId) throws Exception {
-		DTOConverter orderItemDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommerceOrderItem.class.getName());
 
-		return (OrderItem)orderItemDTOConverter.toDTO(
+		return _orderItemDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrderItemId));
+				commerceOrderItemId,
+				contextAcceptLanguage.getPreferredLocale()
+				));
 	}
 
 	private OrderItem _updateOrderItem(
@@ -385,7 +382,7 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 	private CPInstanceService _cpInstanceService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private OrderItemDTOConverter _orderItemDTOConverter;
 
 	@Reference
 	private OrderItemHelper _orderItemHelper;
