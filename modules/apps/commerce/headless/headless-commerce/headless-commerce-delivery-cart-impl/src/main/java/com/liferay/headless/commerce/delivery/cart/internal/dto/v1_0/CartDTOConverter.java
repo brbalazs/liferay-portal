@@ -49,7 +49,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart",
 	service = {CartDTOConverter.class, DTOConverter.class}
 )
-public class CartDTOConverter implements DTOConverter {
+public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 
 	@Override
 	public String getContentType() {
