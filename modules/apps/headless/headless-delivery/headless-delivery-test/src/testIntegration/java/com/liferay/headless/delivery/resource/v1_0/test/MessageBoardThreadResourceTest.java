@@ -23,8 +23,6 @@ import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 
 import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
@@ -49,18 +47,6 @@ public class MessageBoardThreadResourceTest
 			RandomTestUtil.randomString(), serviceContext);
 	}
 
-	@Ignore
-	@Override
-	@Test
-	public void testGetMessageBoardSectionMessageBoardThreadsPageWithSortInteger() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGetSiteMessageBoardThreadsPageWithSortInteger() {
-	}
-
 	@Override
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[] {"articleBody", "headline"};
@@ -68,7 +54,10 @@ public class MessageBoardThreadResourceTest
 
 	@Override
 	protected String[] getIgnoredEntityFieldNames() {
-		return new String[] {"creatorId", "messageBoardSectionId"};
+		return new String[] {
+			"creatorId", "messageBoardSectionId", "messageBoardThreadId",
+			"parentMessageBoardMessageId", "ratingValue"
+		};
 	}
 
 	@Override
