@@ -32,7 +32,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=AssetCategory",
 	service = {CategoryDTOConverter.class, DTOConverter.class}
 )
-public class CategoryDTOConverter implements DTOConverter<AssetCategory, Category> {
+public class CategoryDTOConverter
+	implements DTOConverter<AssetCategory, Category> {
 
 	@Override
 	public String getContentType() {
