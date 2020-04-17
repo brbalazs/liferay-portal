@@ -33,7 +33,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=ProductTaxConfiguration",
 	service = {DTOConverter.class, ProductTaxConfigurationDTOConverter.class}
 )
-public class ProductTaxConfigurationDTOConverter implements DTOConverter {
+public class ProductTaxConfigurationDTOConverter
+	implements DTOConverter<CPDefinition, ProductTaxConfiguration> {
 
 	@Override
 	public String getContentType() {

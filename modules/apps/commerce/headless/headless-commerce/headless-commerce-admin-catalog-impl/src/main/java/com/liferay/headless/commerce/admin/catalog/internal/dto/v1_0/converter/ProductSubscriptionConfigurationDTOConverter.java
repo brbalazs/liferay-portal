@@ -33,7 +33,7 @@ import org.osgi.service.component.annotations.Reference;
 	}
 )
 public class ProductSubscriptionConfigurationDTOConverter
-	implements DTOConverter {
+	implements DTOConverter<CPDefinition, ProductSubscriptionConfiguration> {
 
 	@Override
 	public String getContentType() {

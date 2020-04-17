@@ -34,7 +34,8 @@ import org.osgi.service.component.annotations.Reference;
 		DTOConverter.class, ProductShippingConfigurationDTOConverter.class
 	}
 )
-public class ProductShippingConfigurationDTOConverter implements DTOConverter {
+public class ProductShippingConfigurationDTOConverter
+	implements DTOConverter<CPDefinition, ProductShippingConfiguration> {
 
 	@Override
 	public String getContentType() {

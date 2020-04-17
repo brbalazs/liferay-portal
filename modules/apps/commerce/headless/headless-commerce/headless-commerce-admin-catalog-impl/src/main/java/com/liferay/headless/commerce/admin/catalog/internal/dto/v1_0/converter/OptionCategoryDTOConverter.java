@@ -31,7 +31,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.commerce.product.model.CPOptionCategory",
 	service = {DTOConverter.class, OptionCategoryDTOConverter.class}
 )
-public class OptionCategoryDTOConverter implements DTOConverter {
+public class OptionCategoryDTOConverter
+	implements DTOConverter<CPOptionCategory, OptionCategory> {
 
 	@Override
 	public String getContentType() {
