@@ -1,18 +1,17 @@
 definition {
 
 	macro changeProductsSorting {
-		Click(
-			locator1 = "CommerceAccelerators#SORT_BY_DROPDOWN");
+		Click(locator1 = "CommerceAccelerators#SORT_BY_DROPDOWN");
 
 		Click(
 			key_menuItem = "${sortingType}",
 			locator1 = "CommerceEntry#ANY_MENU_ITEM");
 	}
 
-    macro createNewAccountViaFront {
-        Click.clickNoMouseOver(
-            key_text = "Add Account",
-            locator1 = "Button#ANY");
+	macro createNewAccountViaFront {
+		Click.clickNoMouseOver(
+			key_text = "Add Account",
+			locator1 = "Button#ANY");
 
 		Pause(locator1 = "2000");
 
@@ -25,31 +24,31 @@ definition {
 			locator1 = "CommerceAccelerators#ACCOUNT_MANAGEMENT_ADD_MODAL_PLUS_BUTTON");
 
 		Click(
-            key_button = "Create Account",
-            locator1 = "CommerceAccelerators#ANY_BUTTON");
-    }
+			key_button = "Create Account",
+			locator1 = "CommerceAccelerators#ANY_BUTTON");
+	}
 
 	macro createNewOrderFromAccountSelectorDropdown {
 		Click(locator1 = "CommerceAccelerators#ACCOUNT_SELECTOR_DROPDOWN");
 
 		Click(
-            key_button = "Create New Order",
-            locator1 = "CommerceAccelerators#ANY_BUTTON");
+			key_button = "Create New Order",
+			locator1 = "CommerceAccelerators#ANY_BUTTON");
 	}
 
-    macro inviteNewMemberWithRoleToAccount {
+	macro inviteNewMemberWithRoleToAccount {
 		Click(
 			key_text = "Invite User",
 			locator1 = "Button#ANY");
 
 		Type(
-            key_fieldLabel = "Name or Email",
+			key_fieldLabel = "Name or Email",
 			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			value1 = "${emailAddress}");
 
 		Click(
-            key_userEmailAddress = "${emailAddress}",
-            locator1 = "CommerceAccelerators#ACCOUNT_MANAGEMENT_ADD_MODAL_PLUS_BUTTON");
+			key_userEmailAddress = "${emailAddress}",
+			locator1 = "CommerceAccelerators#ACCOUNT_MANAGEMENT_ADD_MODAL_PLUS_BUTTON");
 
 		Click(
 			key_button = "Invite user",
@@ -76,7 +75,7 @@ definition {
 		Click(
 			key_orderAuthor = "${orderAuthor}",
 			locator1 = "CommerceAccelerators#ORDERS_ENTRY_VIEW_BUTTON");
-		
+
 		AssertTextEquals(
 			locator1 = "CommerceAccelerators#ORDER_DETAILS_SKU",
 			value1 = "${productSKU}");

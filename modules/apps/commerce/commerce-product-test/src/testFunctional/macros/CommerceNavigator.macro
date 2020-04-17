@@ -25,6 +25,12 @@ definition {
 		Click.clickNoMouseOver(locator1 = "CommerceAccelerators#MINI_CART_BUTTON");
 	}
 
+	macro gotoMiniumSidebarItem {
+		Click(
+			key_menuItem = "${menuItem}",
+			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
+	}
+
 	macro gotoOptionValues {
 		Click(
 			key_optionEntryName = "${optionEntryName}",
@@ -43,12 +49,6 @@ definition {
 			value1 = "${entryName}");
 
 		Click(locator1 = "CommerceNavigation#SEARCH");
-	}
-
-	macro gotoMiniumSidebarItem {
-		Click(
-			key_menuItem = "${menuItem}",
-			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
 	}
 
 }

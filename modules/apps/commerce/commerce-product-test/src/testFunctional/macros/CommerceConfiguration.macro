@@ -46,7 +46,7 @@ definition {
 			CommerceEntry.deleteCommerceEntry();
 		}
 
-		if(isSet(userScreenName)) {
+		if (isSet(userScreenName)) {
 			ProductMenu.gotoPortlet(
 				category = "Users",
 				panel = "Control Panel",
@@ -68,7 +68,7 @@ definition {
 			AssertConfirm.waitForConfirmation(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
 		}
 
-ProductMenu.gotoPortlet(
+		ProductMenu.gotoPortlet(
 			category = "Commerce",
 			panel = "Control Panel",
 			portlet = "Products");
@@ -132,7 +132,7 @@ ProductMenu.gotoPortlet(
 			panel = "Control Panel",
 			portlet = "Inventory");
 
-		while (IsElementPresent(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS")  && (maxIterations = "100")) {
+		while (IsElementPresent(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS") && (maxIterations = "100")) {
 			CommerceEntry.deleteCommerceEntry();
 		}
 

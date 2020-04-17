@@ -1,5 +1,6 @@
 definition {
-    macro editPasswordCP {
+
+	macro editPasswordCP {
 		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
 
 		if (!(isSet(newPassword))) {
@@ -25,7 +26,7 @@ definition {
 		PortletEntry.save();
 	}
 
-    macro loginPG {
+	macro loginPG {
 		Navigator.openSpecificURL(url = "${specificURL}");
 
 		if ("${samlEnabled}" != "true") {
@@ -95,14 +96,6 @@ definition {
 		User.answerPasswordReminder();
 	}
 
-	macro miniumLogoutPG {
-		ClickNoError(locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_USER_AVATAR");
-
-		Click(
-			key_menuItem = "Sign Out",
-			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
-	}
-
 	macro miniumLogin {
 		var baseURL = "${baseURL}";
 
@@ -116,4 +109,13 @@ definition {
 			specificURL = "${baseURL}/${urlAppend}",
 			userEmailAddress = "${userEmailAddress}");
 	}
+
+	macro miniumLogoutPG {
+		ClickNoError(locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_USER_AVATAR");
+
+		Click(
+			key_menuItem = "Sign Out",
+			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
+	}
+
 }

@@ -1,7 +1,7 @@
 definition {
 
-    macro initializersCheckout {
-        if (isSet(newAddressName)) {
+	macro initializersCheckout {
+		if (isSet(newAddressName)) {
 			Type(
 				key_fieldName = "Name",
 				locator1 = "CommerceAccelerators#CHECKOUT_GENERIC_TEXT_INPUT",
@@ -61,7 +61,6 @@ definition {
 			productQuantity = "${productQuantity}",
 			subtotalValue = "${subtotal}",
 			totalValue = "${total}");
-
 
 		Click(locator1 = "Button#CONTINUE");
 	}
@@ -131,4 +130,5 @@ definition {
 			locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_TOTAL",
 			value1 = "${totalValue}");
 	}
+
 }

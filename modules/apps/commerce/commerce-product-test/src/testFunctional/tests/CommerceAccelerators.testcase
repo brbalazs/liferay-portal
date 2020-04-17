@@ -20,7 +20,7 @@ definition {
 		Pause(locator1 = "5000");
 	}
 
-    tearDown {
+	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
 		if ("${testPortalInstance}" == "true") {
@@ -29,15 +29,15 @@ definition {
 		else {
 			Navigator.openURL();
 
-            CommerceConfiguration.commerceAdminTearDown(userScreenName = "buyer");
+			CommerceConfiguration.commerceAdminTearDown(userScreenName = "buyer");
 
-            CommerceConfiguration.commerceInitializersTearDown();
+			CommerceConfiguration.commerceInitializersTearDown();
 
 			User.logoutPG();
 		}
 	}
 
-    test MiniumSiteFullFlow {
+	test MiniumSiteFullFlow {
 		property portal.acceptance = "true";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
@@ -51,7 +51,7 @@ definition {
 
 		CommerceChannels.activatePaymentMethod(paymentMethod = "Money Order");
 
-   		Navigator.openWithAppendToBaseURL(urlAppend = "web/minium");
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/minium");
 
 		CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Account Management");
 
@@ -67,7 +67,7 @@ definition {
 			emailAddress = "buyer@liferay.com",
 			role = "Buyer");
 
-		 ProductMenu.gotoPortlet(
+		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
 			portlet = "Users and Organizations");
