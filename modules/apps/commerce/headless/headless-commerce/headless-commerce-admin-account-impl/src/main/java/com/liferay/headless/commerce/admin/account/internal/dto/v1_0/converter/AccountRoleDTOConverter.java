@@ -33,7 +33,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.portal.kernel.model.UserGroupRole",
 	service = {AccountRoleDTOConverter.class, DTOConverter.class}
 )
-public class AccountRoleDTOConverter implements DTOConverter {
+public class AccountRoleDTOConverter
+	implements DTOConverter<UserGroupRole, AccountRole> {
 
 	@Override
 	public String getContentType() {
