@@ -121,6 +121,12 @@ public class CommerceProductInstanceDataSetDataProvider
 			int stockQuantity = _commerceInventoryEngine.getStockQuantity(
 				cpInstance.getCompanyId(), cpInstance.getSku());
 
+			String statusDisplayStyle = StringPool.BLANK;
+
+			if (cpInstance.getStatus() == WorkflowConstants.STATUS_APPROVED) {
+				statusDisplayStyle = "success";
+			}
+
 			skus.add(
 				new Sku(
 					cpInstance.getCPInstanceId(), cpInstance.getSku(),
@@ -131,6 +137,7 @@ public class CommerceProductInstanceDataSetDataProvider
 					HtmlUtil.escape(_formatPrice(cpInstance, locale)),
 					stockQuantity,
 					new LabelField(
+						statusDisplayStyle,
 						LanguageUtil.get(
 							httpServletRequest,
 							WorkflowConstants.getStatusLabel(
