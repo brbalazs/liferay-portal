@@ -192,4 +192,156 @@ definition {
 			productUnitPrice = "50.00");
 	}
 
+	test SpeedwellSiteFullFlow {
+		property portal.acceptance = "true";
+
+		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Channels");
+
+		CommerceNavigator.gotoEntry(entryName = "Speedwell Portal");
+
+		CommerceChannels.activatePaymentMethod(paymentMethod = "Money Order");
+
+		Refresh();
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.addCP(
+			userEmailAddress = "buyer@liferay.com",
+			userFirstName = "Buyer",
+			userLastName = "User",
+			userScreenName = "buyer");
+
+		Click(locator1 = "Icon#BACK");
+
+		CommerceLogin.editPasswordCP(
+			newPassword = "ttest",
+			requirePasswordReset = "true",
+			userScreenName = "buyer");
+		
+		Click(locator1 = "Icon#BACK");
+
+		User.editUserSiteCP(
+			siteName = "Speedwell",
+			userScreenName = "buyer");
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/speedwell");
+
+		CommerceNavigator.gotoSpeedwellMyAccountPage();
+		
+		CommerceNavigator.gotoSpeedwellDashboardItem(dashboardItem = "Login & Security");
+
+		CommerceAcceleratorsInitializer.viewSpeedwellAccount(			
+			userEmailAddress = "test@liferay.com",
+			userFirstName = "Test",
+			userLastName = "Test",
+			userScreenName = "test");
+
+		CommerceLogin.speedwellLogout();
+
+		CommerceLogin.speedwellLogin(
+			password = "ttest",
+			resetPassword = "test",
+			urlAppend = "web/speedwell",
+			userEmailAddress = "buyer@liferay.com");
+
+		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
+
+		CommerceAcceleratorsInitializer.changeProductsSorting(sortingType = "Name Ascending");
+
+		FrontStore.addInitializerProductToCart(
+			productName = "ABS Sensor",
+			productQuantity = "2");
+
+		Pause(locator1 = "2000");
+
+		CommerceNavigator.gotoMiniCart();
+
+		Click(
+			key_button = "Review Order",
+			locator1 = "CommerceAccelerators#ANY_BUTTON");
+
+		Click(
+			key_text = "Checkout",
+			locator1 = "Button#ANY");
+
+		Pause(locator1 = "3000");
+
+		CommerceCheckout.initializersCheckout(
+			newAddressAddress = "Test Address",
+			newAddressCity = "Test City",
+			newAddressCountry = "United States",
+			newAddressName = "Address Name",
+			newAddressZipCode = "Test Zip Code",
+			paymentMethod = "Money Order",
+			productName = "ABS Sensor",
+			productQuantity = "2",
+			productUnitPrice = "50",
+			shippingMethod = "Standard");
+
+		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
+
+		CommerceAcceleratorsInitializer.changeProductsSorting(sortingType = "Name Ascending");
+
+		FrontStore.addInitializerProductToCart(
+			productName = "ABS Sensor",
+			productQuantity = "2");
+
+		CommerceLogin.speedwellLogout();
+
+		CommerceLogin.speedwellLogin(
+			password = "test",
+			urlAppend = "web/speedwell",
+			userEmailAddress = "test@liferay.com");
+
+		Refresh();
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Orders");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Open");
+
+		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
+
+		CommerceEntry.clickNoError(menuItem = "Edit");
+
+		CommerceOrders.viewOrdersEntry(
+			productName = "ABS Sensor",
+			productPrice = "100.00",
+			productQuantity = "2",
+			productSKU = "SPEED93015",
+			productUnitPrice = "50.00");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Orders");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Pending");
+
+		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
+
+		CommerceEntry.clickNoError(menuItem = "Edit");
+
+		CommerceOrders.viewOrdersEntry(
+			addressAddress = "Test Address",
+			addressCity = "Test City",
+			addressZipCode = "Test Zip Code",
+			paymentMethod = "Money Order",
+			productName = "ABS Sensor",
+			productPrice = "100.00",
+			productQuantity = "2",
+			productSKU = "SPEED93015",
+			productUnitPrice = "50.00");
+	}
+
 }
