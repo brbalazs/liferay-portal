@@ -55,9 +55,10 @@ public class CommerceBOMDefinitionLocalServiceImpl
 		commerceBOMDefinition.setCommerceBOMFolderId(commerceBOMFolderId);
 		commerceBOMDefinition.setCPAttachmentFileEntryId(
 			cpAttachmentFileEntryId);
-		commerceBOMDefinition.setName(
-			FriendlyURLNormalizerUtil.normalizeWithPeriodsAndSlashes(name));
-		commerceBOMDefinition.setFriendlyUrl(friendlyUrl);
+		commerceBOMDefinition.setName(name);
+		commerceBOMDefinition.setFriendlyUrl(
+			FriendlyURLNormalizerUtil.normalizeWithPeriodsAndSlashes(
+				friendlyUrl));
 
 		commerceBOMDefinition = commerceBOMDefinitionPersistence.update(
 			commerceBOMDefinition);
