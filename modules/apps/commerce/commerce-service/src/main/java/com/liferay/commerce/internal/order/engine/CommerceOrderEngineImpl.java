@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.internal.order.engine;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceDestinationNames;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
@@ -328,9 +329,14 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		List<CommerceOrderItem> commerceOrderItems =
 			commerceOrder.getCommerceOrderItems();
 
+		CommerceAccount commerceAccount = commerceOrder.getCommerceAccount();
+
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			Map<String, String> context = new HashMap<>();
 
+			context.put(
+				CommerceInventoryAuditTypeConstants.ACCOUNT_NAME,
+				commerceAccount.getName());
 			context.put(
 				CommerceInventoryAuditTypeConstants.ORDER_ID,
 				String.valueOf(commerceOrderItem.getCommerceOrderId()));
