@@ -14,8 +14,15 @@
 
 package com.liferay.commerce.product.definitions.web.internal.frontend;
 
+import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.context.CommerceContextFactory;
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.price.CommerceProductPrice;
+import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.permission.CommerceProductViewPermission;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
@@ -40,6 +47,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -174,37 +183,36 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			for (CPDefinitionOptionRel cpDefinitionOptionRel :
 					requestedCPDefinitionOptionRels) {
 
-				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-					Collections.emptyList();
-
 				if (skuCombinationCPDefinitionOptionValueRelIds.isEmpty()) {
-					cpDefinitionOptionValueRels =
-						_cpInstanceHelper.
-							getCPInstanceCPDefinitionOptionValueRels(
-								cpDefinitionId,
-								cpDefinitionOptionRel.
-									getCPDefinitionOptionRelId());
-				}
-				else {
-					cpDefinitionOptionValueRels =
-						_cpInstanceHelper.filterCPDefinitionOptionValueRels(
-							cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-							skuCombinationCPDefinitionOptionValueRelIds);
-				}
+					outputs.add(
+						new Output(
+							cpDefinitionOptionRel.getKey(), "list",
+							_toCPDefinitionOptionValueRelKeyValuePairs(
+								_cpInstanceHelper.
+									getCPInstanceCPDefinitionOptionValueRels(
+										cpDefinitionId,
+										cpDefinitionOptionRel.
+											getCPDefinitionOptionRelId()),
+								locale,
+								_getCommerceContext(
+									ddmDataProviderRequest.
+										getHttpServletRequest()))));
 
-				List<KeyValuePair> data = new ArrayList<>();
-
-				for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-						cpDefinitionOptionValueRels) {
-
-					data.add(
-						new KeyValuePair(
-							cpDefinitionOptionValueRel.getKey(),
-							cpDefinitionOptionValueRel.getName(locale)));
+					continue;
 				}
 
 				outputs.add(
-					new Output(cpDefinitionOptionRel.getKey(), "list", data));
+					new Output(
+						cpDefinitionOptionRel.getKey(), "list",
+						_toCPDefinitionOptionValueRelKeyValuePairs(
+							_cpInstanceHelper.filterCPDefinitionOptionValueRels(
+								cpDefinitionOptionRel.
+									getCPDefinitionOptionRelId(),
+								skuCombinationCPDefinitionOptionValueRelIds),
+							locale,
+							_getCommerceContext(
+								ddmDataProviderRequest.
+									getHttpServletRequest()))));
 			}
 
 			return Output.toDDMDataProviderResponse(outputs);
@@ -264,6 +272,41 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	}
 
+	private CommerceContext _getCommerceContext(
+		HttpServletRequest httpServletRequest) {
+
+		return _commerceContextFactory.create(httpServletRequest);
+	}
+
+	private CommerceMoney _getCommerceMoney(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		CPInstance cpInstance = cpDefinitionOptionValueRel.fetchCPInstance();
+
+		if (cpInstance != null) {
+			return _getCommerceProductFinalPrice(
+				cpInstance.getCPInstanceId(),
+				cpDefinitionOptionValueRel.getQuantity(), commerceContext);
+		}
+
+		return _commerceMoneyFactory.create(
+			commerceContext.getCommerceCurrency(),
+			cpDefinitionOptionValueRel.getPrice());
+	}
+
+	private CommerceMoney _getCommerceProductFinalPrice(
+			long cpInstanceId, int quantity, CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceProductPrice commerceProductPrice =
+			_commerceProductPriceCalculation.getCommerceProductPrice(
+				cpInstanceId, quantity, true, commerceContext);
+
+		return commerceProductPrice.getFinalPrice();
+	}
+
 	private long _getParameter(
 		DDMDataProviderRequest ddmDataProviderRequest, String param) {
 
@@ -272,11 +315,48 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 		return GetterUtil.getLong(parameters.get(param));
 	}
 
+	private List<KeyValuePair> _toCPDefinitionOptionValueRelKeyValuePairs(
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+			Locale locale, CommerceContext commerceContext)
+		throws PortalException {
+
+		if (cpDefinitionOptionValueRels.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<KeyValuePair> keyValuePairs = new ArrayList<>();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			CommerceMoney commerceMoney = _getCommerceMoney(
+				cpDefinitionOptionValueRel, commerceContext);
+
+			keyValuePairs.add(
+				new KeyValuePair(
+					cpDefinitionOptionValueRel.getKey(),
+					String.format(
+						"%s %s", cpDefinitionOptionValueRel.getName(locale),
+						commerceMoney.format(locale))));
+		}
+
+		return keyValuePairs;
+	}
+
 	private static final int _RELEASE_7_2_0_BUILD_NUMBER =
 		ReleaseInfo.RELEASE_7_1_0_BUILD_NUMBER + 100;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceProductInstanceOptionsValuesDataProvider.class);
+
+	@Reference
+	private CommerceContextFactory _commerceContextFactory;
+
+	@Reference
+	private CommerceMoneyFactory _commerceMoneyFactory;
+
+	@Reference
+	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Reference
 	private CommerceProductViewPermission _commerceProductViewPermission;
