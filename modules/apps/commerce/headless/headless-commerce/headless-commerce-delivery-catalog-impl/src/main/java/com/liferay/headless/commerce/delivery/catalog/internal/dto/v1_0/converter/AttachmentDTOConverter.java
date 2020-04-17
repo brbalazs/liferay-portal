@@ -43,7 +43,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=CPAttachmentFileEntry",
 	service = {AttachmentDTOConverter.class, DTOConverter.class}
 )
-public class AttachmentDTOConverter implements DTOConverter {
+public class AttachmentDTOConverter implements DTOConverter<CPAttachmentFileEntry, Attachment> {
 
 	@Override
 	public String getContentType() {

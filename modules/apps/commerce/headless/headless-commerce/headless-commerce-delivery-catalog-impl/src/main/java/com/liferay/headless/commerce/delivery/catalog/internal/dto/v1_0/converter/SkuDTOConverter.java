@@ -60,7 +60,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=CPSku",
 	service = {DTOConverter.class, SkuDTOConverter.class}
 )
-public class SkuDTOConverter implements DTOConverter {
+public class SkuDTOConverter implements DTOConverter<CPInstance, Sku> {
 
 	@Override
 	public String getContentType() {
