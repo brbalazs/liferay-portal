@@ -38,7 +38,7 @@ function Captcha({uri}) {
 }
 
 Captcha.propTypes = {
-	uri: PropTypes.string.isRequired,
+	uri: PropTypes.string.isRequired
 };
 
 export default Captcha;
