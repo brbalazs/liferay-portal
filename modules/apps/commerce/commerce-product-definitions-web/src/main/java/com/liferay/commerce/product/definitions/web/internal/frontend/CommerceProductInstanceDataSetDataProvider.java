@@ -27,7 +27,7 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
-import com.liferay.commerce.product.util.DDMFormValuesUtil;
+import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -115,7 +115,7 @@ public class CommerceProductInstanceDataSetDataProvider
 						getCPDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys(
 							cpInstance.getCPInstanceId());
 
-			JSONArray keyValuesJSONArray = DDMFormValuesUtil.toJSONArray(
+			JSONArray keyValuesJSONArray = _jsonHelper.toJSONArray(
 				cpDefinitionOptionRelKeysCPDefinitionOptionValueRelKeys);
 
 			int stockQuantity = _commerceInventoryEngine.getStockQuantity(
@@ -209,6 +209,9 @@ public class CommerceProductInstanceDataSetDataProvider
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
+
+	@Reference
+	private JsonHelper _jsonHelper;
 
 	@Reference
 	private Portal _portal;

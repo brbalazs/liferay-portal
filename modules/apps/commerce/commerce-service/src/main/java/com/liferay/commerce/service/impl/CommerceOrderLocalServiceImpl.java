@@ -42,7 +42,7 @@ import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceCalculationFactory;
-import com.liferay.commerce.product.util.DDMFormValuesHelper;
+import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.commerce.search.facet.NegatableMultiValueFacet;
 import com.liferay.commerce.service.base.CommerceOrderLocalServiceBaseImpl;
 import com.liferay.commerce.util.CommerceShippingHelper;
@@ -633,7 +633,7 @@ public class CommerceOrderLocalServiceImpl
 				for (CommerceOrderItem userCommerceOrderItem :
 						userCommerceOrderItems) {
 
-					if (_ddmFormValuesHelper.equals(
+					if (_jsonHelper.equals(
 							guestCommerceOrderItem.getJson(),
 							userCommerceOrderItem.getJson())) {
 
@@ -1769,8 +1769,8 @@ public class CommerceOrderLocalServiceImpl
 	@ServiceReference(type = CommerceShippingHelper.class)
 	private CommerceShippingHelper _commerceShippingHelper;
 
-	@ServiceReference(type = DDMFormValuesHelper.class)
-	private DDMFormValuesHelper _ddmFormValuesHelper;
+	@ServiceReference(type = JsonHelper.class)
+	private JsonHelper _jsonHelper;
 
 	@ServiceReference(type = WorkflowTaskManager.class)
 	private WorkflowTaskManager _workflowTaskManager;
