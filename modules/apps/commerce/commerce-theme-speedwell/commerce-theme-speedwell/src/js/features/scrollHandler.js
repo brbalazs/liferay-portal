@@ -12,61 +12,60 @@
  * details.
  */
 
-var Speedwell = Speedwell || {features: {}};
+Liferay.component(
+	'SpeedwellScrollHandler',
+	(function() {
 
-Speedwell.features.scroll = (function(w) {
-	'use strict';
+		const SCROLL_EVENT = 'scroll',
+			callbackQueueOnScroll = {};
 
-	const SCROLL_EVENT = 'scroll',
-		callbackQueueOnScroll = {};
+		function sign(x) {
+			return (x > 0) - (x < 0) || +x;
+		}
 
-	function sign(x) {
-		return (x > 0) - (x < 0) || +x;
-	}
+		let lastKnownScrollPosition = 0,
+			lastKnownScrollOffset = 0,
+			ticking = false;
 
-	let lastKnownScrollPosition = 0,
-		lastKnownScrollOffset = 0,
-		ticking = false;
+		const scrollThreshold = 100,
+			myMap = new Map();
 
-	const scrollThreshold = 100,
-		myMap = new Map();
+		myMap.set(-1, 'up');
+		myMap.set(1, 'down');
 
-	myMap.set(-1, 'up');
-	myMap.set(1, 'down');
+		function handleOnScroll() {
+			const offset = window.scrollY - lastKnownScrollPosition;
 
-	function handleOnScroll() {
-		const offset = w.scrollY - lastKnownScrollPosition;
+			lastKnownScrollPosition = window.scrollY;
+			lastKnownScrollOffset =
+				sign(offset) === sign(lastKnownScrollOffset)
+					? lastKnownScrollOffset + offset
+					: offset;
 
-		lastKnownScrollPosition = w.scrollY;
-		lastKnownScrollOffset =
-			sign(offset) === sign(lastKnownScrollOffset)
-				? lastKnownScrollOffset + offset
-				: offset;
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					ticking = false;
+				});
 
-		if (!ticking) {
-			w.requestAnimationFrame(() => {
-				ticking = false;
+				ticking = true;
+			}
+
+			Object.keys(callbackQueueOnScroll).forEach(callbackName => {
+				callbackQueueOnScroll[callbackName](scrollThreshold);
 			});
-
-			ticking = true;
 		}
 
-		Object.keys(callbackQueueOnScroll).forEach(callbackName => {
-			callbackQueueOnScroll[callbackName](scrollThreshold);
-		});
-	}
+		window.addEventListener(SCROLL_EVENT, handleOnScroll, false);
 
-	return {
-		initialize() {
-			w.addEventListener(SCROLL_EVENT, handleOnScroll, false);
-		},
+		return {
+			registerCallback(callback) {
+				callbackQueueOnScroll[callback.name] = callback;
+			},
 
-		registerCallback(callback) {
-			callbackQueueOnScroll[callback.name] = callback;
-		},
-
-		unregisterCallback(callback) {
-			delete callbackQueueOnScroll[callback.name];
-		}
-	};
-})(window);
+			unregisterCallback(callback) {
+				delete callbackQueueOnScroll[callback.name];
+			}
+		};
+	})(),
+	{destroyOnNavigate: true}
+);

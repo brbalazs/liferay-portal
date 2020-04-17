@@ -12,66 +12,66 @@
  * details.
  */
 
-var Speedwell = Speedwell || {features: {}};
 
-Speedwell.features.categoryMenu = (function(_w) {
-	'use strict';
+Liferay.component(
+	'SpeedwellCategoryMenu',
+	(function() {
+		var MAIN_LINK_SELECTOR = '.main-link';
+		var CATEGORY_NAV_SELECTOR = '.speedwell-category-nav';
+		var IS_OPEN = 'is-open';
+		var linkElements;
+		var categoryNavigationElement;
 
-	const MAIN_LINK_SELECTOR = '.main-link',
-		CATEGORY_NAV_SELECTOR = '.speedwell-category-nav',
-		IS_OPEN = 'is-open';
+		const CONTAINER = document.getElementById('speedwell');
 
-	let linkElements, categoryNavigationElement;
+		function showCategoryNavigationMenu(e) {
+			const isCatalogLink =
+				e.currentTarget.href.indexOf('/car-parts') > -1 ||
+				e.currentTarget.href.indexOf('/catalog') > -1;
 
-	const CONTAINER = Speedwell.features.context.getContainer();
+			if (isCatalogLink) {
+				categoryNavigationElement.focus();
+				categoryNavigationElement.classList.add(IS_OPEN);
+			} else {
+				categoryNavigationElement.classList.remove(IS_OPEN);
+			}
+		}
 
-	function showCategoryNavigationMenu(e) {
-		const isCatalogLink =
-			e.currentTarget.href.indexOf('/car-parts') > -1 ||
-			e.currentTarget.href.indexOf('/catalog') > -1;
-
-		if (isCatalogLink) {
-			categoryNavigationElement.focus();
-			categoryNavigationElement.classList.add(IS_OPEN);
-		} else {
+		function hideCategoryNavigationMenu() {
 			categoryNavigationElement.classList.remove(IS_OPEN);
 		}
-	}
 
-	function hideCategoryNavigationMenu() {
-		categoryNavigationElement.classList.remove(IS_OPEN);
-	}
+		function attachListeners() {
+			if (!Liferay.Browser.isMobile) {
+				linkElements.forEach(link => {
+					link.addEventListener('mouseover', showCategoryNavigationMenu);
+				});
 
-	function attachListeners() {
-		if (!Speedwell.features.context.isMobile()) {
-			linkElements.forEach(link => {
-				link.addEventListener('mouseover', showCategoryNavigationMenu);
-			});
+				categoryNavigationElement.addEventListener(
+					'focusout',
+					hideCategoryNavigationMenu
+				);
+			}
+		}
 
-			categoryNavigationElement.addEventListener(
-				'focusout',
-				hideCategoryNavigationMenu
+		function selectElements() {
+			linkElements = Array.from(
+				CONTAINER.querySelectorAll(MAIN_LINK_SELECTOR)
+			);
+
+			categoryNavigationElement = CONTAINER.querySelector(
+				CATEGORY_NAV_SELECTOR
 			);
 		}
-	}
 
-	function selectElements() {
-		linkElements = Array.from(
-			CONTAINER.querySelectorAll(MAIN_LINK_SELECTOR)
-		);
-
-		categoryNavigationElement = CONTAINER.querySelector(
-			CATEGORY_NAV_SELECTOR
-		);
-	}
-
-	return {
-		getElement() {
-			return categoryNavigationElement;
-		},
-		initialize() {
-			selectElements();
-			attachListeners();
-		}
-	};
-})(window);
+		selectElements();
+		attachListeners();
+		
+		return {
+			getElement() {
+				return categoryNavigationElement;
+			},
+		};
+	})(),
+	{destroyOnNavigate: true}
+);
