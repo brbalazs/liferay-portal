@@ -31,7 +31,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem",
 	service = {DTOConverter.class, WarehouseItemDTOConverter.class}
 )
-public class WarehouseItemDTOConverter implements DTOConverter {
+public class WarehouseItemDTOConverter
+	implements DTOConverter<CommerceInventoryWarehouseItem, WarehouseItem> {
 
 	@Override
 	public String getContentType() {
