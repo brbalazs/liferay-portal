@@ -30,8 +30,6 @@ import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.DDMFormValuesUtil;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Availability;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Price;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
@@ -40,6 +38,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.language.LanguageResources;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.math.BigDecimal;
 
@@ -72,7 +72,7 @@ public class SkuDTOConverter implements DTOConverter {
 			(SkuDTOConverterContext)dtoConverterContext;
 
 		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-			cpSkuDTOConverterConvertContext.getResourcePrimKey());
+			(Long)cpSkuDTOConverterConvertContext.getId());
 
 		CommerceContext commerceContext =
 			cpSkuDTOConverterConvertContext.getCommerceContext();

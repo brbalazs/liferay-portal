@@ -19,12 +19,11 @@ import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductOption;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductOptionValue;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class ProductOptionDTOConverter implements DTOConverter {
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		String languageId = LanguageUtil.getLanguageId(
 			dtoConverterContext.getLocale());
@@ -90,8 +89,7 @@ public class ProductOptionDTOConverter implements DTOConverter {
 	}
 
 	private ProductOptionValue[] _toProductOptionValues(
-			CPDefinitionOptionRel cpDefinitionOptionRel, String languageId)
-		throws PortalException {
+		CPDefinitionOptionRel cpDefinitionOptionRel, String languageId) {
 
 		int total =
 			_cpDefinitionOptionValueRelLocalService.
