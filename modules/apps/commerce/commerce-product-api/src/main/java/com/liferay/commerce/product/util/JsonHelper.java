@@ -19,11 +19,16 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Igor Beslic
  */
 @ProviderType
 public interface JsonHelper {
+
+	public boolean equals(String json1, String json2);
 
 	public String getFirstElementStringValue(String jsonArrayString);
 
@@ -32,5 +37,7 @@ public interface JsonHelper {
 	public boolean isArray(String json);
 
 	public boolean isEmpty(String json);
+
+	public JSONArray toJSONArray(Map<String, List<String>> keyValues);
 
 }
