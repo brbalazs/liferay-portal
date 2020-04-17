@@ -15,6 +15,7 @@
 package com.liferay.headless.commerce.admin.pricing.internal.dto.v1_0.converter;
 
 import com.liferay.commerce.account.model.CommerceAccountGroup;
+import com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommercePriceListCommerceAccountGroupRel;
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelService;
@@ -32,7 +33,9 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel",
 	service = {DTOConverter.class, PriceListAccountGroupDTOConverter.class}
 )
-public class PriceListAccountGroupDTOConverter implements DTOConverter {
+public class PriceListAccountGroupDTOConverter
+	implements DTOConverter
+		<CommerceDiscountCommerceAccountGroupRel, PriceListAccountGroup> {
 
 	@Override
 	public String getContentType() {
