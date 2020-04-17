@@ -43,7 +43,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.commerce.model.CommerceOrder",
 	service = {DTOConverter.class, OrderDTOConverter.class}
 )
-public class OrderDTOConverter implements DTOConverter {
+public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 
 	@Override
 	public String getContentType() {

@@ -34,7 +34,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=BillingAddress",
 	service = {BillingAddressDTOConverter.class, DTOConverter.class}
 )
-public class BillingAddressDTOConverter implements DTOConverter {
+public class BillingAddressDTOConverter
+	implements DTOConverter<CommerceAddress, BillingAddress> {
 
 	@Override
 	public String getContentType() {
