@@ -19,8 +19,8 @@ import com.liferay.commerce.price.list.service.CommercePriceEntryService;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.pricing.dto.v1_0.PriceEntry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -44,7 +44,7 @@ public class PriceEntryDTOConverter implements DTOConverter {
 
 		CommercePriceEntry commercePriceEntry =
 			_commercePriceEntryService.getCommercePriceEntry(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		CPInstance cpInstance = commercePriceEntry.getCPInstance();
 

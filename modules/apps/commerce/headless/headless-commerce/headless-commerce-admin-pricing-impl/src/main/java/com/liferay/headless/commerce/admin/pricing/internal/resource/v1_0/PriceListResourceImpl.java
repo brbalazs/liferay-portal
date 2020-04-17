@@ -31,13 +31,11 @@ import com.liferay.headless.commerce.admin.pricing.dto.v1_0.PriceEntry;
 import com.liferay.headless.commerce.admin.pricing.dto.v1_0.PriceList;
 import com.liferay.headless.commerce.admin.pricing.dto.v1_0.PriceListAccountGroup;
 import com.liferay.headless.commerce.admin.pricing.dto.v1_0.TierPrice;
+import com.liferay.headless.commerce.admin.pricing.internal.dto.v1_0.converter.PriceListDTOConverter;
 import com.liferay.headless.commerce.admin.pricing.internal.odata.entity.v1_0.PriceListEntityModel;
 import com.liferay.headless.commerce.admin.pricing.internal.util.v1_0.PriceListAccountGroupUtil;
 import com.liferay.headless.commerce.admin.pricing.internal.util.v1_0.TierPriceUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v1_0.PriceListResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
@@ -49,6 +47,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -118,14 +117,7 @@ public class PriceListResourceImpl
 
 	@Override
 	public PriceList getPriceList(Long id) throws Exception {
-		DTOConverter priceListDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommercePriceList.class.getName());
-
-		return (PriceList)priceListDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
+		return _toPriceList(GetterUtil.getLong(id));
 	}
 
 	@Override
@@ -143,14 +135,7 @@ public class PriceListResourceImpl
 					externalReferenceCode);
 		}
 
-		DTOConverter priceListDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommercePriceList.class.getName());
-
-		return (PriceList)priceListDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commercePriceList.getCommercePriceListId()));
+		return _toPriceList(commercePriceList.getCommercePriceListId());
 	}
 
 	@Override
@@ -166,8 +151,7 @@ public class PriceListResourceImpl
 			searchContext -> searchContext.setCompanyId(
 				contextCompany.getCompanyId()),
 			document -> _toPriceList(
-				_commercePriceListService.getCommercePriceList(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
 			sorts);
 	}
 
@@ -209,27 +193,14 @@ public class PriceListResourceImpl
 	public PriceList postPriceList(PriceList priceList) throws Exception {
 		CommercePriceList commercePriceList = _upsertPriceList(priceList);
 
-		DTOConverter priceListDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommercePriceList.class.getName());
-
-		return (PriceList)priceListDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commercePriceList.getCommercePriceListId()));
+		return _toPriceList(commercePriceList.getCommercePriceListId());
 	}
 
-	private PriceList _toPriceList(CommercePriceList commercePriceList)
-		throws Exception {
-
-		DTOConverter priceListDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CommercePriceList.class.getName());
-
-		return (PriceList)priceListDTOConverter.toDTO(
+	private PriceList _toPriceList(Long commercePriceListId) throws Exception {
+		return _priceListDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commercePriceList.getCommercePriceListId()));
+				commercePriceListId,
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private CommercePriceList _updateNestedResources(
@@ -434,7 +405,7 @@ public class PriceListResourceImpl
 	private CommerceTierPriceEntryService _commerceTierPriceEntryService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private PriceListDTOConverter _priceListDTOConverter;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

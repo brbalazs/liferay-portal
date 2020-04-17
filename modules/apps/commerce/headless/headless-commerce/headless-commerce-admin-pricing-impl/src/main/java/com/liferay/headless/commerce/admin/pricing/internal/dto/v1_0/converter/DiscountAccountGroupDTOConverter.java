@@ -19,8 +19,8 @@ import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel;
 import com.liferay.commerce.discount.service.CommerceDiscountCommerceAccountGroupRelService;
 import com.liferay.headless.commerce.admin.pricing.dto.v1_0.DiscountAccountGroup;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -46,7 +46,7 @@ public class DiscountAccountGroupDTOConverter implements DTOConverter {
 			commerceDiscountCommerceAccountGroupRel =
 				_commerceDiscountCommerceAccountGroupRelService.
 					getCommerceDiscountCommerceAccountGroupRel(
-						dtoConverterContext.getResourcePrimKey());
+						(Long)dtoConverterContext.getId());
 
 		CommerceAccountGroup commerceAccountGroup =
 			commerceDiscountCommerceAccountGroupRel.getCommerceAccountGroup();

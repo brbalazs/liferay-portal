@@ -20,8 +20,8 @@ import com.liferay.commerce.discount.service.CommerceDiscountRelService;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.headless.commerce.admin.pricing.dto.v1_0.DiscountProduct;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -45,7 +45,7 @@ public class DiscountProductDTOConverter implements DTOConverter {
 
 		CommerceDiscountRel commerceDiscountRel =
 			_commerceDiscountRelService.getCommerceDiscountRel(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		CProduct cProduct = _cProductLocalService.getCProduct(
 			commerceDiscountRel.getClassPK());
