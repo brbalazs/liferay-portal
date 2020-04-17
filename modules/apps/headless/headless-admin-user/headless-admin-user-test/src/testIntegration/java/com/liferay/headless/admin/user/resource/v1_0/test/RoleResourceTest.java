@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
@@ -99,12 +100,11 @@ public class RoleResourceTest extends BaseRoleResourceTestCase {
 			"query",
 			new GraphQLField(
 				"roles",
-				new HashMap<String, Object>() {
-					{
-						put("page", 1);
-						put("pageSize", 2);
-					}
-				},
+				(HashMap)HashMapBuilder.put(
+					"page", 1
+				).put(
+					"pageSize", 2
+				).build(),
 				graphQLFields.toArray(new GraphQLField[0])));
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
