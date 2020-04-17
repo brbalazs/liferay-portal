@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String notificationNavigationItem = ParamUtil.getString(request, "notificationNavigationItem", "view-all-notification-queue-entries");
+String notificationNavigationItem = ParamUtil.getString(request, "notificationNavigationItem", "view-all-notification-templates");
 
 CommerceNotificationQueueEntriesDisplayContext commerceNotificationQueueEntriesDisplayContext = (CommerceNotificationQueueEntriesDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
@@ -31,12 +31,13 @@ contextParams.put("commerceChannelId", String.valueOf(commerceNotificationQueueE
 %>
 
 <commerce-ui:dataset-display
+	clayCreationMenu="<%= commerceNotificationQueueEntriesDisplayContext.getNotificationTemplateClayCreationMenu() %>"
 	contextParams="<%= contextParams %>"
-	dataProviderKey="<%= CommerceNotificationEntryClayTable.NAME %>"
-	id="<%= CommerceNotificationEntryClayTable.NAME %>"
+	dataProviderKey="<%= CommerceNotificationTemplateClayTable.NAME %>"
+	id="<%= CommerceNotificationTemplateClayTable.NAME %>"
 	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
 	portletURL="<%= portletURL %>"
-	showManagementBar="<%= false %>"
+	showSearch="<%= false %>"
 />

@@ -40,21 +40,22 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 @Component(
 	property = {
-		"screen.navigation.category.order:Integer=30",
+		"screen.navigation.category.order:Integer=35",
 		"screen.navigation.entry.order:Integer=10"
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CommerceChannelNotificationsScreenNavigationEntry
+public class CommerceChannelNotificationsTemplatesScreenNavigationEntry
 	implements ScreenNavigationCategory,
 			   ScreenNavigationEntry<CommerceChannel> {
 
 	@Override
 	public String getCategoryKey() {
-		return "notifications";
+		return "notification-templates";
 	}
 
 	@Override
@@ -103,7 +104,7 @@ public class CommerceChannelNotificationsScreenNavigationEntry
 
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
-			"/view.jsp");
+			"/view-templates.jsp");
 	}
 
 	@Reference
