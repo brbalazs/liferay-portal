@@ -168,6 +168,7 @@
 		<field name="commerceOrderId" type="long" />
 		<field name="CProductId" type="long" />
 		<field name="CPInstanceId" type="long" />
+		<field name="parentCommerceOrderItemId" type="long" />
 		<field name="quantity" type="int" />
 		<field name="shippedQuantity" type="int" />
 		<field name="json" type="String">

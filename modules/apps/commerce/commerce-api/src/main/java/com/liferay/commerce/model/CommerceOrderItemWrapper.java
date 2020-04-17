@@ -68,6 +68,8 @@ public class CommerceOrderItemWrapper
 		attributes.put("commerceOrderId", getCommerceOrderId());
 		attributes.put("CProductId", getCProductId());
 		attributes.put("CPInstanceId", getCPInstanceId());
+		attributes.put(
+			"parentCommerceOrderItemId", getParentCommerceOrderItemId());
 		attributes.put("quantity", getQuantity());
 		attributes.put("shippedQuantity", getShippedQuantity());
 		attributes.put("json", getJson());
@@ -163,6 +165,13 @@ public class CommerceOrderItemWrapper
 
 		if (CPInstanceId != null) {
 			setCPInstanceId(CPInstanceId);
+		}
+
+		Long parentCommerceOrderItemId = (Long)attributes.get(
+			"parentCommerceOrderItemId");
+
+		if (parentCommerceOrderItemId != null) {
+			setParentCommerceOrderItemId(parentCommerceOrderItemId);
 		}
 
 		Integer quantity = (Integer)attributes.get("quantity");
@@ -649,6 +658,16 @@ public class CommerceOrderItemWrapper
 	@Override
 	public Map<java.util.Locale, String> getNameMap() {
 		return _commerceOrderItem.getNameMap();
+	}
+
+	/**
+	 * Returns the parent commerce order item ID of this commerce order item.
+	 *
+	 * @return the parent commerce order item ID of this commerce order item
+	 */
+	@Override
+	public long getParentCommerceOrderItemId() {
+		return _commerceOrderItem.getParentCommerceOrderItemId();
 	}
 
 	/**
@@ -1151,6 +1170,17 @@ public class CommerceOrderItemWrapper
 	@Override
 	public void setNew(boolean n) {
 		_commerceOrderItem.setNew(n);
+	}
+
+	/**
+	 * Sets the parent commerce order item ID of this commerce order item.
+	 *
+	 * @param parentCommerceOrderItemId the parent commerce order item ID of this commerce order item
+	 */
+	@Override
+	public void setParentCommerceOrderItemId(long parentCommerceOrderItemId) {
+		_commerceOrderItem.setParentCommerceOrderItemId(
+			parentCommerceOrderItemId);
 	}
 
 	/**

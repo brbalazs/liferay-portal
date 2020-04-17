@@ -88,6 +88,7 @@ public class CommerceOrderItemModelImpl
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"commerceOrderId", Types.BIGINT},
 		{"CProductId", Types.BIGINT}, {"CPInstanceId", Types.BIGINT},
+		{"parentCommerceOrderItemId", Types.BIGINT},
 		{"quantity", Types.INTEGER}, {"shippedQuantity", Types.INTEGER},
 		{"json", Types.CLOB}, {"name", Types.VARCHAR}, {"sku", Types.VARCHAR},
 		{"unitPrice", Types.DECIMAL}, {"promoPrice", Types.DECIMAL},
@@ -117,6 +118,7 @@ public class CommerceOrderItemModelImpl
 		TABLE_COLUMNS_MAP.put("commerceOrderId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("CProductId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("CPInstanceId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("parentCommerceOrderItemId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("quantity", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("shippedQuantity", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("json", Types.CLOB);
@@ -140,7 +142,7 @@ public class CommerceOrderItemModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceOrderItem (externalReferenceCode VARCHAR(75) null,commerceOrderItemId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceOrderId LONG,CProductId LONG,CPInstanceId LONG,quantity INTEGER,shippedQuantity INTEGER,json TEXT null,name STRING null,sku VARCHAR(75) null,unitPrice DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,discountAmount DECIMAL(30, 16) null,finalPrice DECIMAL(30, 16) null,discountPercentageLevel1 DECIMAL(30, 16) null,discountPercentageLevel2 DECIMAL(30, 16) null,discountPercentageLevel3 DECIMAL(30, 16) null,discountPercentageLevel4 DECIMAL(30, 16) null,subscription BOOLEAN,deliveryGroup VARCHAR(75) null,shippingAddressId LONG,printedNote STRING null,requestedDeliveryDate DATE null,bookedQuantityId LONG,manuallyAdjusted BOOLEAN)";
+		"create table CommerceOrderItem (externalReferenceCode VARCHAR(75) null,commerceOrderItemId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceOrderId LONG,CProductId LONG,CPInstanceId LONG,parentCommerceOrderItemId LONG,quantity INTEGER,shippedQuantity INTEGER,json TEXT null,name STRING null,sku VARCHAR(75) null,unitPrice DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,discountAmount DECIMAL(30, 16) null,finalPrice DECIMAL(30, 16) null,discountPercentageLevel1 DECIMAL(30, 16) null,discountPercentageLevel2 DECIMAL(30, 16) null,discountPercentageLevel3 DECIMAL(30, 16) null,discountPercentageLevel4 DECIMAL(30, 16) null,subscription BOOLEAN,deliveryGroup VARCHAR(75) null,shippingAddressId LONG,printedNote STRING null,requestedDeliveryDate DATE null,bookedQuantityId LONG,manuallyAdjusted BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommerceOrderItem";
 
@@ -183,9 +185,11 @@ public class CommerceOrderItemModelImpl
 
 	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 32L;
 
-	public static final long SUBSCRIPTION_COLUMN_BITMASK = 64L;
+	public static final long PARENTCOMMERCEORDERITEMID_COLUMN_BITMASK = 64L;
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 128L;
+	public static final long SUBSCRIPTION_COLUMN_BITMASK = 128L;
+
+	public static final long CREATEDATE_COLUMN_BITMASK = 256L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -211,6 +215,8 @@ public class CommerceOrderItemModelImpl
 		model.setCommerceOrderId(soapModel.getCommerceOrderId());
 		model.setCProductId(soapModel.getCProductId());
 		model.setCPInstanceId(soapModel.getCPInstanceId());
+		model.setParentCommerceOrderItemId(
+			soapModel.getParentCommerceOrderItemId());
 		model.setQuantity(soapModel.getQuantity());
 		model.setShippedQuantity(soapModel.getShippedQuantity());
 		model.setJson(soapModel.getJson());
@@ -647,6 +653,30 @@ public class CommerceOrderItemModelImpl
 					Object CPInstanceIdObject) {
 
 					commerceOrderItem.setCPInstanceId((Long)CPInstanceIdObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentCommerceOrderItemId",
+			new Function<CommerceOrderItem, Object>() {
+
+				@Override
+				public Object apply(CommerceOrderItem commerceOrderItem) {
+					return commerceOrderItem.getParentCommerceOrderItemId();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"parentCommerceOrderItemId",
+			new BiConsumer<CommerceOrderItem, Object>() {
+
+				@Override
+				public void accept(
+					CommerceOrderItem commerceOrderItem,
+					Object parentCommerceOrderItemIdObject) {
+
+					commerceOrderItem.setParentCommerceOrderItemId(
+						(Long)parentCommerceOrderItemIdObject);
 				}
 
 			});
@@ -1343,6 +1373,29 @@ public class CommerceOrderItemModelImpl
 
 	@JSON
 	@Override
+	public long getParentCommerceOrderItemId() {
+		return _parentCommerceOrderItemId;
+	}
+
+	@Override
+	public void setParentCommerceOrderItemId(long parentCommerceOrderItemId) {
+		_columnBitmask |= PARENTCOMMERCEORDERITEMID_COLUMN_BITMASK;
+
+		if (!_setOriginalParentCommerceOrderItemId) {
+			_setOriginalParentCommerceOrderItemId = true;
+
+			_originalParentCommerceOrderItemId = _parentCommerceOrderItemId;
+		}
+
+		_parentCommerceOrderItemId = parentCommerceOrderItemId;
+	}
+
+	public long getOriginalParentCommerceOrderItemId() {
+		return _originalParentCommerceOrderItemId;
+	}
+
+	@JSON
+	@Override
 	public int getQuantity() {
 		return _quantity;
 	}
@@ -1832,6 +1885,8 @@ public class CommerceOrderItemModelImpl
 		commerceOrderItemImpl.setCommerceOrderId(getCommerceOrderId());
 		commerceOrderItemImpl.setCProductId(getCProductId());
 		commerceOrderItemImpl.setCPInstanceId(getCPInstanceId());
+		commerceOrderItemImpl.setParentCommerceOrderItemId(
+			getParentCommerceOrderItemId());
 		commerceOrderItemImpl.setQuantity(getQuantity());
 		commerceOrderItemImpl.setShippedQuantity(getShippedQuantity());
 		commerceOrderItemImpl.setJson(getJson());
@@ -1943,6 +1998,12 @@ public class CommerceOrderItemModelImpl
 
 		commerceOrderItemModelImpl._setOriginalCPInstanceId = false;
 
+		commerceOrderItemModelImpl._originalParentCommerceOrderItemId =
+			commerceOrderItemModelImpl._parentCommerceOrderItemId;
+
+		commerceOrderItemModelImpl._setOriginalParentCommerceOrderItemId =
+			false;
+
 		commerceOrderItemModelImpl._originalSubscription =
 			commerceOrderItemModelImpl._subscription;
 
@@ -2013,6 +2074,9 @@ public class CommerceOrderItemModelImpl
 		commerceOrderItemCacheModel.CProductId = getCProductId();
 
 		commerceOrderItemCacheModel.CPInstanceId = getCPInstanceId();
+
+		commerceOrderItemCacheModel.parentCommerceOrderItemId =
+			getParentCommerceOrderItemId();
 
 		commerceOrderItemCacheModel.quantity = getQuantity();
 
@@ -2190,6 +2254,9 @@ public class CommerceOrderItemModelImpl
 	private long _CPInstanceId;
 	private long _originalCPInstanceId;
 	private boolean _setOriginalCPInstanceId;
+	private long _parentCommerceOrderItemId;
+	private long _originalParentCommerceOrderItemId;
+	private boolean _setOriginalParentCommerceOrderItemId;
 	private int _quantity;
 	private int _shippedQuantity;
 	private String _json;

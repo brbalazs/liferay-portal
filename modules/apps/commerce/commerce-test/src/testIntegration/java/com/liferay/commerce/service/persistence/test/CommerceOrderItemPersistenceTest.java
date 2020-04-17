@@ -148,6 +148,9 @@ public class CommerceOrderItemPersistenceTest {
 
 		newCommerceOrderItem.setCPInstanceId(RandomTestUtil.nextLong());
 
+		newCommerceOrderItem.setParentCommerceOrderItemId(
+			RandomTestUtil.nextLong());
+
 		newCommerceOrderItem.setQuantity(RandomTestUtil.nextInt());
 
 		newCommerceOrderItem.setShippedQuantity(RandomTestUtil.nextInt());
@@ -237,6 +240,9 @@ public class CommerceOrderItemPersistenceTest {
 			existingCommerceOrderItem.getCPInstanceId(),
 			newCommerceOrderItem.getCPInstanceId());
 		Assert.assertEquals(
+			existingCommerceOrderItem.getParentCommerceOrderItemId(),
+			newCommerceOrderItem.getParentCommerceOrderItemId());
+		Assert.assertEquals(
 			existingCommerceOrderItem.getQuantity(),
 			newCommerceOrderItem.getQuantity());
 		Assert.assertEquals(
@@ -304,6 +310,14 @@ public class CommerceOrderItemPersistenceTest {
 		_persistence.countByCommerceOrderId(RandomTestUtil.nextLong());
 
 		_persistence.countByCommerceOrderId(0L);
+	}
+
+	@Test
+	public void testCountByParentCommerceOrderItemId() throws Exception {
+		_persistence.countByParentCommerceOrderItemId(
+			RandomTestUtil.nextLong());
+
+		_persistence.countByParentCommerceOrderItemId(0L);
 	}
 
 	@Test
@@ -381,14 +395,15 @@ public class CommerceOrderItemPersistenceTest {
 			"commerceOrderItemId", true, "groupId", true, "companyId", true,
 			"userId", true, "userName", true, "createDate", true,
 			"modifiedDate", true, "commerceOrderId", true, "CProductId", true,
-			"CPInstanceId", true, "quantity", true, "shippedQuantity", true,
-			"name", true, "sku", true, "unitPrice", true, "promoPrice", true,
-			"discountAmount", true, "finalPrice", true,
-			"discountPercentageLevel1", true, "discountPercentageLevel2", true,
-			"discountPercentageLevel3", true, "discountPercentageLevel4", true,
-			"subscription", true, "deliveryGroup", true, "shippingAddressId",
-			true, "printedNote", true, "requestedDeliveryDate", true,
-			"bookedQuantityId", true, "manuallyAdjusted", true);
+			"CPInstanceId", true, "parentCommerceOrderItemId", true, "quantity",
+			true, "shippedQuantity", true, "name", true, "sku", true,
+			"unitPrice", true, "promoPrice", true, "discountAmount", true,
+			"finalPrice", true, "discountPercentageLevel1", true,
+			"discountPercentageLevel2", true, "discountPercentageLevel3", true,
+			"discountPercentageLevel4", true, "subscription", true,
+			"deliveryGroup", true, "shippingAddressId", true, "printedNote",
+			true, "requestedDeliveryDate", true, "bookedQuantityId", true,
+			"manuallyAdjusted", true);
 	}
 
 	@Test
@@ -664,6 +679,9 @@ public class CommerceOrderItemPersistenceTest {
 		commerceOrderItem.setCProductId(RandomTestUtil.nextLong());
 
 		commerceOrderItem.setCPInstanceId(RandomTestUtil.nextLong());
+
+		commerceOrderItem.setParentCommerceOrderItemId(
+			RandomTestUtil.nextLong());
 
 		commerceOrderItem.setQuantity(RandomTestUtil.nextInt());
 

@@ -173,6 +173,7 @@ create table CommerceOrderItem (
 	commerceOrderId LONG,
 	CProductId LONG,
 	CPInstanceId LONG,
+	parentCommerceOrderItemId LONG,
 	quantity INTEGER,
 	shippedQuantity INTEGER,
 	json TEXT null,

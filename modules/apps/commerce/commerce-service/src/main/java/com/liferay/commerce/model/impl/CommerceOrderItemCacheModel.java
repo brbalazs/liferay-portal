@@ -66,7 +66,7 @@ public class CommerceOrderItemCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(63);
+		StringBundler sb = new StringBundler(65);
 
 		sb.append("{externalReferenceCode=");
 		sb.append(externalReferenceCode);
@@ -90,6 +90,8 @@ public class CommerceOrderItemCacheModel
 		sb.append(CProductId);
 		sb.append(", CPInstanceId=");
 		sb.append(CPInstanceId);
+		sb.append(", parentCommerceOrderItemId=");
+		sb.append(parentCommerceOrderItemId);
 		sb.append(", quantity=");
 		sb.append(quantity);
 		sb.append(", shippedQuantity=");
@@ -177,6 +179,8 @@ public class CommerceOrderItemCacheModel
 		commerceOrderItemImpl.setCommerceOrderId(commerceOrderId);
 		commerceOrderItemImpl.setCProductId(CProductId);
 		commerceOrderItemImpl.setCPInstanceId(CPInstanceId);
+		commerceOrderItemImpl.setParentCommerceOrderItemId(
+			parentCommerceOrderItemId);
 		commerceOrderItemImpl.setQuantity(quantity);
 		commerceOrderItemImpl.setShippedQuantity(shippedQuantity);
 
@@ -270,6 +274,8 @@ public class CommerceOrderItemCacheModel
 
 		CPInstanceId = objectInput.readLong();
 
+		parentCommerceOrderItemId = objectInput.readLong();
+
 		quantity = objectInput.readInt();
 
 		shippedQuantity = objectInput.readInt();
@@ -329,6 +335,8 @@ public class CommerceOrderItemCacheModel
 		objectOutput.writeLong(CProductId);
 
 		objectOutput.writeLong(CPInstanceId);
+
+		objectOutput.writeLong(parentCommerceOrderItemId);
 
 		objectOutput.writeInt(quantity);
 
@@ -400,6 +408,7 @@ public class CommerceOrderItemCacheModel
 	public long commerceOrderId;
 	public long CProductId;
 	public long CPInstanceId;
+	public long parentCommerceOrderItemId;
 	public int quantity;
 	public int shippedQuantity;
 	public String json;

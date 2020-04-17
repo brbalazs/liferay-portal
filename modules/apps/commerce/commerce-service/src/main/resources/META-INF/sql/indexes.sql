@@ -46,6 +46,7 @@ create index IX_2D8339EE on CommerceOrderItem (bookedQuantityId);
 create index IX_415AF3E3 on CommerceOrderItem (commerceOrderId, CPInstanceId);
 create index IX_15B37023 on CommerceOrderItem (commerceOrderId, subscription);
 create index IX_12257E21 on CommerceOrderItem (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
+create index IX_8E1472FB on CommerceOrderItem (parentCommerceOrderItemId);
 
 create index IX_CEB86C22 on CommerceOrderNote (commerceOrderId, restricted);
 create index IX_EF4EEF80 on CommerceOrderNote (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);

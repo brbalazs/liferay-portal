@@ -255,6 +255,20 @@ public interface CommerceOrderItemModel
 	public void setCPInstanceId(long CPInstanceId);
 
 	/**
+	 * Returns the parent commerce order item ID of this commerce order item.
+	 *
+	 * @return the parent commerce order item ID of this commerce order item
+	 */
+	public long getParentCommerceOrderItemId();
+
+	/**
+	 * Sets the parent commerce order item ID of this commerce order item.
+	 *
+	 * @param parentCommerceOrderItemId the parent commerce order item ID of this commerce order item
+	 */
+	public void setParentCommerceOrderItemId(long parentCommerceOrderItemId);
+
+	/**
 	 * Returns the quantity of this commerce order item.
 	 *
 	 * @return the quantity of this commerce order item
