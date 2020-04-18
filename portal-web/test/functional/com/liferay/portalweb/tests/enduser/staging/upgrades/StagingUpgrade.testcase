@@ -75,4 +75,32 @@ definition {
 		AssertConsoleTextNotPresent(value1 = "PortletDataException");
 	}
 
+	@description = "This is a use case for LPS-98651."
+	@priority = "4"
+	test PublishArticleCreatedByDeletedUserAfterUpgrade70106 {
+		property data.archive.type = "data-archive-staging-with-deleted-user";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "7.0.10.6";
+
+		WebContent.openWebContentAdmin(siteURLKey = "site-name-staging");
+
+		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+
+		WebContent.openWebContentAdmin(siteURLKey = "site-name");
+
+		WebContent.viewTitle(
+			onLive = "true",
+			webContentTitle = "WC WebContent Title");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		AssertConsoleTextNotPresent(value1 = "PortletDataException");
+	}
+
 }
