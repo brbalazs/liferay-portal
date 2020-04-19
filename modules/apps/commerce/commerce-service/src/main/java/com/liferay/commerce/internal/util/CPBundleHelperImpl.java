@@ -63,7 +63,7 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 
 			String priceType = cpDefinitionOptionRel.getPriceType();
 
-			if (priceType == null) {
+			if (!cpDefinitionOptionRel.isRequired() || (priceType == null)) {
 				continue;
 			}
 
