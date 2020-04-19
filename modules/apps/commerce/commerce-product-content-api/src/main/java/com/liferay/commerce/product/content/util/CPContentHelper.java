@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.portlet.RenderRequest;
@@ -44,6 +45,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @ProviderType
 public interface CPContentHelper {
+
+	public String getCPBundleMinPrice(
+			long cpDefinitionId, HttpServletRequest httpServletRequest)
+		throws Exception;
 
 	public String getAvailabilityEstimateLabel(
 			HttpServletRequest httpServletRequest)
