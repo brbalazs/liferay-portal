@@ -251,13 +251,6 @@ components:
                 description:
                     type: string
                 fieldType:
-                    enum:
-                        - checkbox
-                        - checkbox_multiple
-                        - date
-                        - numeric
-                        - radio
-                        - select
                     example: select
                     type: string
                 id:
