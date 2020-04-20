@@ -78,6 +78,7 @@ if (!usePercentage) {
 <div id="<portlet:namespace />maximumDiscountAmountContainer">
 	<div class="<%= itemRetractableCssClass %>">
 		<aui:input name="maximumDiscountAmount" suffix="<%= HtmlUtil.escape(commerceDiscountDisplayContext.getDefaultCommerceCurrencyCode()) %>" type="text" value="<%= (commerceDiscount == null) ? BigDecimal.ZERO : commerceDiscountDisplayContext.round(commerceDiscount.getMaximumDiscountAmount()) %>">
+			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>
 	</div>
