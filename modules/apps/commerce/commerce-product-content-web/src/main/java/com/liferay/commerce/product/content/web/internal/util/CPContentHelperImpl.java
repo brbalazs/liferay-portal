@@ -30,6 +30,7 @@ import com.liferay.commerce.product.constants.CPWebKeys;
 import com.liferay.commerce.product.content.render.CPContentRenderer;
 import com.liferay.commerce.product.content.render.CPContentRendererRegistry;
 import com.liferay.commerce.product.content.util.CPContentHelper;
+import com.liferay.commerce.product.ddm.DDMHelper;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -502,10 +503,12 @@ public class CPContentHelperImpl implements CPContentHelper {
 			return StringPool.BLANK;
 		}
 
-		return _cpInstanceHelper.renderPublicStoreOptions(
+		return _ddmHelper.renderPublicStoreOptions(
 			cpCatalogEntry.getCPDefinitionId(), null,
-			cpCatalogEntry.isIgnoreSKUCombinations(), false, renderRequest,
-			renderResponse);
+			cpCatalogEntry.isIgnoreSKUCombinations(), renderRequest,
+			renderResponse,
+			_cpInstanceHelper.getCPDefinitionOptionRelsMap(
+				cpCatalogEntry.getCPDefinitionId(), false, true));
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -551,6 +554,9 @@ public class CPContentHelperImpl implements CPContentHelper {
 
 	@Reference
 	private CPTypeServicesTracker _cpTypeServicesTracker;
+
+	@Reference
+	private DDMHelper _ddmHelper;
 
 	@Reference
 	private Portal _portal;
