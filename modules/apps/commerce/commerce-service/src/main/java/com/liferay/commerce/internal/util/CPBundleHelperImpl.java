@@ -110,6 +110,7 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 				cpDefinitionOptionValueRels) {
 
 			BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
+				cpDefinitionOptionValueRel.getCProductId(),
 				cpDefinitionOptionValueRel.getCPInstanceUuid(),
 				commerceContext);
 
@@ -162,12 +163,12 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 	}
 
 	private BigDecimal _getCPInstanceFinalPrice(
-			String cpInstanceUuid, CommerceContext commerceContext)
+			long cProductId, String cpInstanceUuid,
+			CommerceContext commerceContext)
 		throws PortalException {
 
-		CPInstance cpInstance =
-			_cpInstanceLocalService.getCPInstanceByUuidAndGroupId(
-				cpInstanceUuid, commerceContext.getCommerceChannelGroupId());
+		CPInstance cpInstance = _cpInstanceLocalService.getCProductInstance(
+			cProductId, cpInstanceUuid);
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.getFinalPrice(
