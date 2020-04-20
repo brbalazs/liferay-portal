@@ -194,6 +194,7 @@ definition {
 
 	test SpeedwellSiteFullFlow {
 		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceAccelerators#SpeedwellSiteFullFlow";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
