@@ -457,6 +457,11 @@ public class CPContentHelperImpl implements CPContentHelper {
 	}
 
 	@Override
+	public boolean isCPBundle(long cpDefinitionId) {
+		return _cpDefinitionLocalService.isCPBundle(cpDefinitionId);
+	}
+
+	@Override
 	public void renderCPType(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
