@@ -61,8 +61,7 @@ public class ProductOptionDTOConverter
 		return new ProductOption() {
 			{
 				description = cpOption.getDescription(languageId);
-				fieldType = ProductOption.FieldType.create(
-					cpDefinitionOptionRel.getDDMFormFieldTypeName());
+				fieldType = cpDefinitionOptionRel.getDDMFormFieldTypeName();
 				id = cpDefinitionOptionRel.getCPDefinitionOptionRelId();
 				key = cpOption.getKey();
 				name = cpOption.getName(languageId);
