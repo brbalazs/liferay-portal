@@ -634,6 +634,10 @@ public class CPDefinitionLocalServiceUtil {
 		return getService().getUrlTitleMapAsXML(cpDefinitionId);
 	}
 
+	public static boolean isCPBundle(long cpDefinitionId) {
+		return getService().isCPBundle(cpDefinitionId);
+	}
+
 	public static boolean isPublishedCPDefinition(
 		com.liferay.commerce.product.model.CPDefinition cpDefinition) {
 

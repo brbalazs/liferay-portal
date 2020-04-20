@@ -461,6 +461,9 @@ public interface CPDefinitionLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean isCPBundle(long cpDefinitionId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public boolean isPublishedCPDefinition(CPDefinition cpDefinition);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
