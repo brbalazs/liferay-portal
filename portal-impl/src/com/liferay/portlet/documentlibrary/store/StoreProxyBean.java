@@ -15,6 +15,7 @@
 package com.liferay.portlet.documentlibrary.store;
 
 import com.liferay.document.library.kernel.store.Store;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.messaging.proxy.BaseProxyBean;
 
 import java.io.File;
@@ -153,6 +154,14 @@ public class StoreProxyBean extends BaseProxyBean implements Store {
 	@Override
 	public long getFileSize(
 		long companyId, long repositoryId, String fileName) {
+
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String[] getFileVersions(
+		long companyId, long repositoryId, String fileName)
+		throws PortalException {
 
 		throw new UnsupportedOperationException();
 	}

@@ -362,6 +362,11 @@ public abstract class BaseStore implements Store {
 	public abstract String[] getFileNames(
 		long companyId, long repositoryId, String dirName);
 
+	@Override
+	public abstract String[] getFileVersions(
+		long companyId, long repositoryId, String fileName)
+		throws PortalException;
+
 	/**
 	 * Returns the size of the file.
 	 *

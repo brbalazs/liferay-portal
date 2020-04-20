@@ -193,6 +193,14 @@ public class DefaultStoreWrapper implements StoreWrapper {
 		}
 
 		@Override
+		public String[] getFileVersions(
+			long companyId, long repositoryId, String fileName)
+			throws PortalException {
+
+			return _store.getFileVersions(companyId, repositoryId, fileName);
+		}
+
+		@Override
 		public boolean hasDirectory(
 			long companyId, long repositoryId, String dirName) {
 
