@@ -25,14 +25,14 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Andrea Sbarra
  */
 @Component(
 	immediate = true,
 	property = "commerce.data.set.display.name=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_ALL_PRODUCT_INSTANCES,
 	service = ClayDataSetDisplayView.class
 )
-public class AllCommerceProductInstanceClayTableDataSetDisplayView
+public class AllSkusClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
