@@ -88,6 +88,19 @@ public abstract class SafeFileNameStore implements Store {
 	}
 
 	@Override
+	public void addFile(
+			long companyId, long repositoryId, String fileName,
+			String versionLabel, InputStream is)
+		throws PortalException {
+
+		String safeFileName = FileUtil.encodeSafeFileName(fileName);
+
+		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
+
+		store.addFile(companyId, repositoryId, safeFileName, versionLabel, is);
+	}
+
+	@Override
 	public void checkRoot(long companyId) {
 		store.checkRoot(companyId);
 	}
@@ -339,7 +352,7 @@ public abstract class SafeFileNameStore implements Store {
 
 	@Override
 	public String[] getFileVersions(
-		long companyId, long repositoryId, String fileName)
+			long companyId, long repositoryId, String fileName)
 		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);

@@ -112,6 +112,28 @@ public class FileSystemStore extends BaseStore {
 	}
 
 	@Override
+	public void addFile(
+			long companyId, long repositoryId, String fileName,
+			String versionLabel, InputStream is)
+		throws DuplicateFileException {
+
+		try {
+			File fileNameVersionFile = getFileNameVersionFile(
+				companyId, repositoryId, fileName, versionLabel);
+
+			if (fileNameVersionFile.exists()) {
+				throw new DuplicateFileException(
+					companyId, repositoryId, fileName);
+			}
+
+			FileUtil.write(fileNameVersionFile, is);
+		}
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
+		}
+	}
+
+	@Override
 	public void checkRoot(long companyId) {
 	}
 
@@ -338,15 +360,6 @@ public class FileSystemStore extends BaseStore {
 	}
 
 	@Override
-	public boolean hasDirectory(
-		long companyId, long repositoryId, String dirName) {
-
-		File dirNameDir = getDirNameDir(companyId, repositoryId, dirName);
-
-		return dirNameDir.exists();
-	}
-
-	@Override
 	public String[] getFileVersions(
 			long companyId, long repositoryId, String fileName)
 		throws PortalException {
@@ -362,6 +375,15 @@ public class FileSystemStore extends BaseStore {
 		Arrays.sort(versions);
 
 		return versions;
+	}
+
+	@Override
+	public boolean hasDirectory(
+		long companyId, long repositoryId, String dirName) {
+
+		File dirNameDir = getDirNameDir(companyId, repositoryId, dirName);
+
+		return dirNameDir.exists();
 	}
 
 	@Override

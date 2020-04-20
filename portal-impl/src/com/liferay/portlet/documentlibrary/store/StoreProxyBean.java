@@ -56,6 +56,14 @@ public class StoreProxyBean extends BaseProxyBean implements Store {
 	}
 
 	@Override
+	public void addFile(
+		long companyId, long repositoryId, String fileName, String versionLabel,
+		InputStream is) {
+
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public void checkRoot(long companyId) {
 		throw new UnsupportedOperationException();
 	}
@@ -160,7 +168,7 @@ public class StoreProxyBean extends BaseProxyBean implements Store {
 
 	@Override
 	public String[] getFileVersions(
-		long companyId, long repositoryId, String fileName)
+			long companyId, long repositoryId, String fileName)
 		throws PortalException {
 
 		throw new UnsupportedOperationException();

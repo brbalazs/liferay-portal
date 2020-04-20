@@ -74,6 +74,20 @@ public abstract class IgnoreDuplicatesStore implements Store {
 	}
 
 	@Override
+	public void addFile(
+			final long companyId, final long repositoryId,
+			final String fileName, final String versionLabel,
+			final InputStream is)
+		throws PortalException {
+
+		recoverAndRetryOnFailure(
+			createDeleteFileStoreAction(
+				companyId, repositoryId, fileName, Store.VERSION_DEFAULT),
+			() -> store.addFile(
+				companyId, repositoryId, fileName, versionLabel, is));
+	}
+
+	@Override
 	public void checkRoot(long companyId) {
 		store.checkRoot(companyId);
 	}
@@ -200,7 +214,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 
 	@Override
 	public String[] getFileVersions(
-		long companyId, long repositoryId, String fileName)
+			long companyId, long repositoryId, String fileName)
 		throws PortalException {
 
 		return store.getFileVersions(companyId, repositoryId, fileName);

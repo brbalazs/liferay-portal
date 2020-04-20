@@ -72,6 +72,15 @@ public class DefaultStoreWrapper implements StoreWrapper {
 		}
 
 		@Override
+		public void addFile(
+				long companyId, long repositoryId, String fileName,
+				String versionLabel, InputStream is)
+			throws PortalException {
+
+			_store.addFile(companyId, repositoryId, fileName, versionLabel, is);
+		}
+
+		@Override
 		public void checkRoot(long companyId) {
 			_store.checkRoot(companyId);
 		}
@@ -194,7 +203,7 @@ public class DefaultStoreWrapper implements StoreWrapper {
 
 		@Override
 		public String[] getFileVersions(
-			long companyId, long repositoryId, String fileName)
+				long companyId, long repositoryId, String fileName)
 			throws PortalException {
 
 			return _store.getFileVersions(companyId, repositoryId, fileName);
