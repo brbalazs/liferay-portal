@@ -15,6 +15,7 @@
 package com.liferay.commerce.payment.internal.engine;
 
 import com.liferay.commerce.constants.CommerceOrderConstants;
+import com.liferay.commerce.constants.CommerceOrderPaymentConstants;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
@@ -156,11 +157,13 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 			return _commercePaymentUtils.emptyResult(commerceOrderId);
 		}
 
+		CommerceOrder commerceOrder =
+			_commerceOrderLocalService.getCommerceOrder(commerceOrderId);
+
 		CommercePaymentRequest commercePaymentRequest =
 			_commercePaymentUtils.getCommercePaymentRequest(
-				_commerceOrderLocalService.getCommerceOrder(commerceOrderId),
-				_portal.getLocale(httpServletRequest), transactionId, null,
-				httpServletRequest, commercePaymentMethod);
+				commerceOrder, _portal.getLocale(httpServletRequest),
+				transactionId, null, httpServletRequest, commercePaymentMethod);
 
 		CommercePaymentResult commercePaymentResult =
 			commercePaymentMethod.completePayment(commercePaymentRequest);
@@ -171,6 +174,16 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 			commerceOrderId, commercePaymentResult.getNewPaymentStatus(),
 			commercePaymentResult.getAuthTransactionId(),
 			resultMessages.toString());
+
+		if ((commercePaymentResult.getNewPaymentStatus() ==
+				CommerceOrderPaymentConstants.STATUS_COMPLETED) &&
+			(commerceOrder.getOrderStatus() ==
+				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS)) {
+
+			_commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
+				_portal.getUserId(httpServletRequest));
+		}
 
 		return commercePaymentResult;
 	}

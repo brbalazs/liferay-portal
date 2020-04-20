@@ -445,24 +445,15 @@ public class CommerceOrderEditDisplayContext {
 		if ((_commerceOrder == null) || (currentCommerceOrderStatus == null) ||
 			!currentCommerceOrderStatus.isComplete(_commerceOrder) ||
 			(currentCommerceOrderStatus.getKey() ==
-				CommerceOrderConstants.ORDER_STATUS_CANCELLED)) {
+				CommerceOrderConstants.ORDER_STATUS_CANCELLED) ||
+			(currentCommerceOrderStatus.getKey() ==
+				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS)) {
 
 			return headerActionModels;
 		}
 
 		List<CommerceOrderStatus> commerceOrderStatuses =
 			_commerceOrderEngine.getNextCommerceOrderStatuses(_commerceOrder);
-
-		if ((currentCommerceOrderStatus.getKey() ==
-				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
-			(_commerceOrder.getPaymentStatus() !=
-				CommerceOrderConstants.PAYMENT_STATUS_PENDING) &&
-			_commerceOrder.isApproved() && commerceOrderStatuses.isEmpty() &&
-			currentCommerceOrderStatus.isTransitionCriteriaMet(
-				_commerceOrder)) {
-
-			commerceOrderStatuses.add(currentCommerceOrderStatus);
-		}
 
 		PortletURL portletURL = getTransitionOrderPortletURL();
 
@@ -492,12 +483,8 @@ public class CommerceOrderEditDisplayContext {
 					label = "submit";
 				}
 			}
-			else if ((commerceOrderStatus.getKey() ==
-						CommerceOrderConstants.ORDER_STATUS_PROCESSING) ||
-					 ((commerceOrderStatus.getKey() ==
-						 CommerceOrderConstants.ORDER_STATUS_PENDING) &&
-					  (_commerceOrder.getPaymentStatus() ==
-						  CommerceOrderConstants.PAYMENT_STATUS_PENDING))) {
+			else if (commerceOrderStatus.getKey() ==
+						CommerceOrderConstants.ORDER_STATUS_PROCESSING) {
 
 				label = "accept-order";
 			}

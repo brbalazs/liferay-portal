@@ -17,6 +17,7 @@ package com.liferay.commerce.order.web.internal.portlet.action;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceAddressConstants;
 import com.liferay.commerce.constants.CommerceOrderConstants;
+import com.liferay.commerce.constants.CommerceOrderPaymentConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
@@ -464,8 +465,14 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		int paymentStatus = ParamUtil.getInteger(
 			actionRequest, "paymentStatus");
 
-		_commerceOrderService.updatePaymentStatus(
+		CommerceOrder commerceOrder = _commerceOrderService.updatePaymentStatus(
 			commerceOrderId, paymentStatus);
+
+		if (paymentStatus == CommerceOrderPaymentConstants.STATUS_COMPLETED) {
+			_commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
+				_portal.getUserId(actionRequest));
+		}
 	}
 
 	protected void updatePrintedNote(ActionRequest actionRequest)
