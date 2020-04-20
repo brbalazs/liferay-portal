@@ -1049,13 +1049,6 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 
 	<macrodef name="get-test-url">
 		<sequential>
-			<if>
-				<matches pattern="[0-9]+_[0-9]+" string="${test.class}" />
-				<then>
-					<get-test-class />
-				</then>
-			</if>
-
 			<get-testcase-property property.name="analytics.cloud.enabled" />
 			<get-testcase-property property.name="testcase.url" />
 
@@ -1150,13 +1143,6 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 					<property file="${project.dir}/test.generated.properties" />
 
 					<var name="property.name" value="@{property.name}" />
-
-					<if>
-						<matches pattern="[0-9]+_[0-9]+" string="${test.class}" />
-						<then>
-							<get-test-class />
-						</then>
-					</if>
 
 					<get-test-method-name />
 					<get-test-namespace />
@@ -8587,13 +8573,6 @@ session.cookie.use.full.hostname=true
 	</target>
 
 	<target name="prepare-selenium">
-		<if>
-			<matches pattern="[0-9]+_[0-9]+" string="${test.class}" />
-			<then>
-				<get-test-class />
-			</then>
-		</if>
-
 		<delete file="${test.ext.properties.file}" />
 
 		<antcall target="prepare-poshi-runner-properties">
@@ -11762,13 +11741,6 @@ jdbc.default.password=${database.mysql.password}</echo>
 				<antcall inheritAll="false" target="setup-sdk" />
 
 				<antcall inheritAll="false" target="setup-yarn" />
-			</then>
-		</if>
-
-		<if>
-			<matches pattern="[0-9]+_[0-9]+" string="${test.class}" />
-			<then>
-				<get-test-class />
 			</then>
 		</if>
 
