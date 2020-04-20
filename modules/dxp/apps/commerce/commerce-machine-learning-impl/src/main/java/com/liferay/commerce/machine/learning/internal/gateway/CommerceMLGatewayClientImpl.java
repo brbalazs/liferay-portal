@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.liferay.commerce.machine.learning.internal.configuration.CommerceMLConfiguration;
 import com.liferay.petra.json.web.service.client.JSONWebServiceClient;
+import com.liferay.petra.json.web.service.client.JSONWebServiceClientFactory;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -32,8 +33,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -47,11 +47,10 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import org.osgi.service.component.ComponentFactory;
-import org.osgi.service.component.ComponentInstance;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -192,9 +191,12 @@ public class CommerceMLGatewayClientImpl implements CommerceMLGatewayClient {
 	}
 
 	@Activate
+	@Modified
 	protected void activate(Map<String, Object> properties) {
 		_commerceMLConfiguration = ConfigurableUtil.createConfigurable(
 			CommerceMLConfiguration.class, properties);
+
+		_jsonWebServiceClient = null;
 	}
 
 	protected String getCallbackURL(
@@ -212,23 +214,27 @@ public class CommerceMLGatewayClientImpl implements CommerceMLGatewayClient {
 
 	protected JSONWebServiceClient getJSONWebServiceClient(
 			UnicodeProperties contextProperties)
-		throws MalformedURLException {
+		throws Exception {
+
+		if (_jsonWebServiceClient != null) {
+			return _jsonWebServiceClient;
+		}
 
 		URL url = new URL(
 			contextProperties.getProperty(
 				_COMMERCE_ML_BASE_URL,
 				_commerceMLConfiguration.commerceMLBaseURL()));
 
-		Dictionary<String, String> properties = new Hashtable<>();
+		Map<String, Object> properties = new HashMap<>();
 
 		properties.put("hostName", url.getHost());
 		properties.put("hostPort", String.valueOf(url.getPort()));
 		properties.put("protocol", url.getProtocol());
 
-		ComponentInstance componentInstance =
-			_jsonWebServiceClientComponentFactory.newInstance(properties);
+		_jsonWebServiceClient = _jsonWebServiceClientFactory.getInstance(
+			properties, false);
 
-		return (JSONWebServiceClient)componentInstance.getInstance();
+		return _jsonWebServiceClient;
 	}
 
 	private static final String _COMMERCE_ML_BASE_URL = "commerce.ml.base.url";
@@ -246,9 +252,10 @@ public class CommerceMLGatewayClientImpl implements CommerceMLGatewayClient {
 		CommerceMLGatewayClientImpl.class);
 
 	private CommerceMLConfiguration _commerceMLConfiguration;
+	private JSONWebServiceClient _jsonWebServiceClient;
 
-	@Reference(target = "(component.factory=JSONWebServiceClient)")
-	private ComponentFactory _jsonWebServiceClientComponentFactory;
+	@Reference
+	private JSONWebServiceClientFactory _jsonWebServiceClientFactory;
 
 	private final ObjectMapper _objectMapper = new ObjectMapper();
 
