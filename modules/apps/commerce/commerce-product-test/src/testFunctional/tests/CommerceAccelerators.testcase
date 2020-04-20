@@ -39,6 +39,7 @@ definition {
 
 	test MiniumSiteFullFlow {
 		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceAccelerators#MiniumSiteFullFlow";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
 
