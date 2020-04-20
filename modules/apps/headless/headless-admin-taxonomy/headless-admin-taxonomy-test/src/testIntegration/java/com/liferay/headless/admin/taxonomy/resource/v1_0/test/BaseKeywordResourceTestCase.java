@@ -498,27 +498,46 @@ public abstract class BaseKeywordResourceTestCase {
 			(entityField, keyword1, keyword2) -> {
 				Class<?> clazz = keyword1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						keyword1, entityField.getName(),
+						keyword1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						keyword2, entityField.getName(),
+						keyword2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						keyword1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						keyword2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						keyword1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						keyword1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						keyword2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						keyword2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -586,6 +605,8 @@ public abstract class BaseKeywordResourceTestCase {
 
 	@Test
 	public void testGraphQLGetSiteKeywordsPage() throws Exception {
+		Long siteId = testGetSiteKeywordsPage_getSiteId();
+
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
 		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
@@ -605,7 +626,8 @@ public abstract class BaseKeywordResourceTestCase {
 					{
 						put("page", 1);
 						put("pageSize", 2);
-						put("siteKey", "\"" + testGroup.getGroupId() + "\"");
+
+						put("siteKey", "\"" + siteId + "\"");
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -1260,7 +1282,7 @@ public abstract class BaseKeywordResourceTestCase {
 				dateModified = RandomTestUtil.nextDate();
 				id = RandomTestUtil.randomLong();
 				keywordUsageCount = RandomTestUtil.randomInt();
-				name = RandomTestUtil.randomString();
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				siteId = testGroup.getGroupId();
 			}
 		};
