@@ -1163,10 +1163,10 @@ public class CPDefinitionLocalServiceImpl
 				cpDefinitionId);
 
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
-			cpDefinitionOptionRels) {
+				cpDefinitionOptionRels) {
 
 			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-				cpDefinitionOptionRel.getCPDefinitionOptionValueRels()) {
+					cpDefinitionOptionRel.getCPDefinitionOptionValueRels()) {
 
 				if (cpDefinitionOptionValueRel.getCPInstanceUuid() != null) {
 					return true;
