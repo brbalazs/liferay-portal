@@ -30,7 +30,6 @@ import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -83,7 +82,7 @@ public class CommerceProductInstanceDataSetDataProvider
 			BaseModelSearchResult<CPInstance> baseModelSearchResult =
 				_getBaseModelSearchResult(
 					_portal.getCompanyId(httpServletRequest), cpDefinitionId,
-					keywords, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+					keywords, null);
 
 			return baseModelSearchResult.getLength();
 		}
@@ -176,6 +175,15 @@ public class CommerceProductInstanceDataSetDataProvider
 		return _cpInstanceService.searchCPDefinitionInstances(
 			companyId, cpDefinitionId, keywords, WorkflowConstants.STATUS_ANY,
 			start, end, sort);
+	}
+
+	private BaseModelSearchResult<CPInstance> _getBaseModelSearchResult(
+			long companyId, long cpDefinitionId, String keywords, Sort sort)
+		throws PortalException {
+
+		return _cpInstanceService.searchCPDefinitionInstances(
+			companyId, cpDefinitionId, keywords, WorkflowConstants.STATUS_ANY,
+			sort);
 	}
 
 	private List<CPInstance> _getCPInstances(
