@@ -179,6 +179,7 @@ public abstract class BaseProductOptionResourceTestCase {
 
 		ProductOption productOption = randomProductOption();
 
+		productOption.setFieldType(regex);
 		productOption.setKey(regex);
 
 		String json = ProductOptionSerDes.toJSON(productOption);
@@ -187,6 +188,7 @@ public abstract class BaseProductOptionResourceTestCase {
 
 		productOption = ProductOptionSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, productOption.getFieldType());
 		Assert.assertEquals(regex, productOption.getKey());
 	}
 
@@ -987,6 +989,17 @@ public abstract class BaseProductOptionResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("fieldType", fieldName)) {
+				if (!Objects.deepEquals(
+						productOption.getFieldType(),
+						jsonObject.getString("fieldType"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("id", fieldName)) {
 				if (!Objects.deepEquals(
 						productOption.getId(), jsonObject.getLong("id"))) {
@@ -1124,8 +1137,11 @@ public abstract class BaseProductOptionResourceTestCase {
 		}
 
 		if (entityFieldName.equals("fieldType")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
+			sb.append("'");
+			sb.append(String.valueOf(productOption.getFieldType()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("id")) {
@@ -1197,6 +1213,7 @@ public abstract class BaseProductOptionResourceTestCase {
 			{
 				catalogId = RandomTestUtil.randomLong();
 				facetable = RandomTestUtil.randomBoolean();
+				fieldType = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
 				key = RandomTestUtil.randomString();
 				optionId = RandomTestUtil.randomLong();

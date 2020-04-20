@@ -14,11 +14,9 @@
 
 package com.liferay.headless.commerce.admin.catalog.dto.v1_0;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
@@ -51,41 +49,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Schema(requiredProperties = {"fieldType", "key", "name", "optionId"})
 @XmlRootElement(name = "ProductOption")
 public class ProductOption {
-
-	@GraphQLName("FieldType")
-	public static enum FieldType {
-
-		CHECKBOX("checkbox"), CHECKBOX_MULTIPLE("checkbox_multiple"),
-		DATE("date"), NUMERIC("numeric"), RADIO("radio"), SELECT("select");
-
-		@JsonCreator
-		public static FieldType create(String value) {
-			for (FieldType fieldType : values()) {
-				if (Objects.equals(fieldType.getValue(), value)) {
-					return fieldType;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private FieldType(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
 
 	@Schema
 	public Long getCatalogId() {
@@ -174,27 +137,17 @@ public class ProductOption {
 	protected Boolean facetable;
 
 	@Schema
-	@Valid
-	public FieldType getFieldType() {
+	public String getFieldType() {
 		return fieldType;
 	}
 
-	@JsonIgnore
-	public String getFieldTypeAsString() {
-		if (fieldType == null) {
-			return null;
-		}
-
-		return fieldType.toString();
-	}
-
-	public void setFieldType(FieldType fieldType) {
+	public void setFieldType(String fieldType) {
 		this.fieldType = fieldType;
 	}
 
 	@JsonIgnore
 	public void setFieldType(
-		UnsafeSupplier<FieldType, Exception> fieldTypeUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> fieldTypeUnsafeSupplier) {
 
 		try {
 			fieldType = fieldTypeUnsafeSupplier.get();
@@ -209,8 +162,8 @@ public class ProductOption {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	@NotNull
-	protected FieldType fieldType;
+	@NotEmpty
+	protected String fieldType;
 
 	@DecimalMin("0")
 	@Schema
@@ -508,7 +461,7 @@ public class ProductOption {
 
 			sb.append("\"");
 
-			sb.append(fieldType);
+			sb.append(_escape(fieldType));
 
 			sb.append("\"");
 		}
