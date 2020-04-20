@@ -51,6 +51,8 @@ definition {
 
 	@priority = "4"
 	test AnonymizeEntryFromApplication {
+		property test.name.skip.portal.instance = "GDPR#AnonymizeEntryFromApplication";
+
 		User.logoutPG();
 
 		User.loginUserPG(
@@ -170,6 +172,8 @@ definition {
 
 	@priority = "4"
 	test EditEntryFromApplication {
+		property test.name.skip.portal.instance = "GDPR#EditEntryFromApplication";
+
 		User.logoutPG();
 
 		User.loginUserPG(
