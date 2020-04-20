@@ -28,13 +28,13 @@ definition {
 
 	macro assignSingleRelationToProductsEntry {
 		Type(
-			locator1 = "CommerceEntry#ADD_RELATION_FIELD",
 			key_title = "${title}",
+			locator1 = "CommerceEntry#ADD_RELATION_FIELD",
 			value1 = "${entryName}");
-		
+
 		ClickNoError(
-			locator1 = "CommerceEntry#ADD_RELATION_FIELD_SELECT",
-			key_title = "${title}");
+			key_title = "${title}",
+			locator1 = "CommerceEntry#ADD_RELATION_FIELD_SELECT");
 	}
 
 }

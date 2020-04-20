@@ -304,66 +304,6 @@ definition {
 		CommerceEntry.addFullDescriptionViaAlloyEditor(entryFullDescription = "${productFullDescription}");
 	}
 
-	macro viewProductOptions {
-		Click(locator1 = "CommerceEntry#PRODUCT_DETAIL_VIEW_OPTION");
-
-		SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
-
-		AssertTextEquals(
-				locator1 = "CommerceEntry#NAME_FIELD",
-				value1 = "${optionName}");
-		
-		AssertChecked.assertCheckedNotVisible(
-				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH",
-				key_toggleSwitchLabel = "Use in Faceted Navigation");
-
-		AssertChecked.assertCheckedNotVisible(
-				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH",
-				key_toggleSwitchLabel = "Required");
-
-		AssertChecked.assertCheckedNotVisible(
-				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH",
-				key_toggleSwitchLabel = "SKU Contributor");
-
-		for (var optionList : list "${optionList}") {
-
-			IsElementPresent(
-				locator1 = "CommerceNavigation#ENTRY_NAME",
-				key_entryName = "${optionList}");
-		}
-
-		Click(locator1 = "Icon#CLOSE");
-
-		Refresh();
-
-	}
-
-	macro viewProductSkus {
-		for (var skusList : list "${skusList}") {
-			var sku = StringUtil.extractFirst("${skusList}", ":");
-			var price = StringUtil.extractLast("${skusList}", ":");
-
-			Refresh();
-
-			Click(
-				locator1 = "CommerceNavigation#ENTRY_NAME",
-				key_entryName = "${sku}");
-
-			SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
-
-			AssertTextEquals(
-				locator1 = "CommerceEntry#SKU_FIELD",
-				value1 = "${sku}");
-
-			AssertTextEquals(
-				locator1 = "CommerceEntry#INPUT_PRICE",
-				value1 = "${price}");
-
-			Click(locator1 = "Icon#CLOSE");
-			
-		}
-	}
-
 	macro addSKUsEntry {
 		Type(
 			locator1 = "CommerceEntry#SKU_FIELD",
@@ -529,7 +469,7 @@ definition {
 	}
 
 	macro publishProductImage {
-	SelectFrameTop(value1 = "relative=top");
+		SelectFrameTop(value1 = "relative=top");
 
 		//SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
 
@@ -566,7 +506,7 @@ definition {
 		Pause(locator1 = "3000");
 	}
 
-	macro selectAssociatedOptionsValue {		
+	macro selectAssociatedOptionsValue {
 		if (IsElementPresent(locator1 = "CommerceEntry#OPTION_SELECT")) {
 			Click(locator1 = "CommerceEntry#OPTION_SELECT");
 
@@ -696,6 +636,39 @@ definition {
 			value1 = "${currencyCode}");
 	}
 
+	macro viewProductOptions {
+		Click(locator1 = "CommerceEntry#PRODUCT_DETAIL_VIEW_OPTION");
+
+		SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
+
+		AssertTextEquals(
+			locator1 = "CommerceEntry#NAME_FIELD",
+			value1 = "${optionName}");
+
+		AssertChecked.assertCheckedNotVisible(
+			key_toggleSwitchLabel = "Use in Faceted Navigation",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		AssertChecked.assertCheckedNotVisible(
+			key_toggleSwitchLabel = "Required",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		AssertChecked.assertCheckedNotVisible(
+			key_toggleSwitchLabel = "SKU Contributor",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		for (var optionList : list "${optionList}") {
+
+			IsElementPresent(
+				key_entryName = "${optionList}",
+				locator1 = "CommerceNavigation#ENTRY_NAME");
+		}
+
+		Click(locator1 = "Icon#CLOSE");
+
+		Refresh();
+	}
+
 	macro viewProductsEntry {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#NAME_FIELD",
@@ -704,6 +677,32 @@ definition {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#SHORT_DESCRIPTION_FIELD",
 			value1 = "${productShortDescription}");
+	}
+
+	macro viewProductSkus {
+		for (var skusList : list "${skusList}") {
+			var sku = StringUtil.extractFirst("${skusList}", ":");
+			var price = StringUtil.extractLast("${skusList}", ":");
+
+			Refresh();
+
+			Click(
+				key_entryName = "${sku}",
+				locator1 = "CommerceNavigation#ENTRY_NAME");
+
+			SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
+
+			AssertTextEquals(
+				locator1 = "CommerceEntry#SKU_FIELD",
+				value1 = "${sku}");
+
+			AssertTextEquals(
+				locator1 = "CommerceEntry#INPUT_PRICE",
+				value1 = "${price}");
+
+			Click(locator1 = "Icon#CLOSE");
+
+		}
 	}
 
 	macro viewSpecificationGroups {
@@ -725,6 +724,14 @@ definition {
 			key_fieldLabel = "Key",
 			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			value1 = "${specificationTitle}");
+	}
+
+	macro viewSpecificationGroupsEntries {
+		for (var specificationGroupsEntry : list "${specificationGroupsEntries}") {
+			AssertElementPresent(
+				key_rowEntry = "${specificationGroupsEntry}",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
+		}
 	}
 
 	macro viewSpecificationLabels {
@@ -749,14 +756,6 @@ definition {
 			key_fieldLabel = "Key",
 			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			value1 = "${specificationTitle}");
-	}
-
-	macro viewSpecificationGroupsEntries {
-		for (var specificationGroupsEntry : list "${specificationGroupsEntries}") {
-			AssertElementPresent(
-				key_rowEntry = "${specificationGroupsEntry}",
-				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
-		}
 	}
 
 	macro viewSpecificationLabelsEntries {
