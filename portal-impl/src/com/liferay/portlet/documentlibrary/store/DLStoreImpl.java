@@ -409,7 +409,16 @@ public class DLStoreImpl implements DLStore {
 
 		Store store = _storeFactory.getStore();
 
-		store.updateFile(companyId, repositoryId, newRepositoryId, fileName);
+		for (String versionLabel :
+			store.getFileVersions(companyId, repositoryId, fileName)) {
+
+			store.addFile(
+				companyId, newRepositoryId, fileName,
+				store.getFileAsStream(
+					companyId, repositoryId, fileName, versionLabel));
+
+			store.deleteFile(companyId, repositoryId, fileName, versionLabel);
+		}
 	}
 
 	@Override
