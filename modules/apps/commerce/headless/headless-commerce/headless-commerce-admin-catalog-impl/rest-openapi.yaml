@@ -660,14 +660,7 @@ components:
                     example: true
                     type: boolean
                 fieldType:
-                    enum:
-                        - checkbox
-                        - checkbox_multiple
-                        - date
-                        - numeric
-                        - radio
-                        - select
-                    example: select
+                    example: checkbox, checkbox_multiple, date, numeric, radio, select
                     type: string
                 id:
                     example: 30130
