@@ -90,7 +90,7 @@ public class ProductOptionSerDes {
 
 			sb.append("\"");
 
-			sb.append(productOption.getFieldType());
+			sb.append(_escape(productOption.getFieldType()));
 
 			sb.append("\"");
 		}
@@ -295,9 +295,7 @@ public class ProductOptionSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "fieldType")) {
 				if (jsonParserFieldValue != null) {
-					productOption.setFieldType(
-						ProductOption.FieldType.create(
-							(String)jsonParserFieldValue));
+					productOption.setFieldType((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
