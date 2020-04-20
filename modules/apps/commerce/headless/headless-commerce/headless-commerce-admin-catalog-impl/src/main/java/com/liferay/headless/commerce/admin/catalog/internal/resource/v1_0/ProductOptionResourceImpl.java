@@ -204,15 +204,15 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			_cpDefinitionOptionRelService.getCPDefinitionOptionRel(id);
 
-		ProductOption.FieldType fieldType = productOption.getFieldType();
-
 		cpDefinitionOptionRel =
 			_cpDefinitionOptionRelService.updateCPDefinitionOptionRel(
 				cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
 				productOption.getOptionId(),
 				LanguageUtils.getLocalizedMap(productOption.getName()),
 				LanguageUtils.getLocalizedMap(productOption.getDescription()),
-				fieldType.getValue(),
+				GetterUtil.get(
+					productOption.getFieldType(),
+					cpDefinitionOptionRel.getDDMFormFieldTypeName()),
 				GetterUtil.get(
 					productOption.getPriority(),
 					cpDefinitionOptionRel.getPriority()),
