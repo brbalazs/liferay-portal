@@ -528,6 +528,20 @@ definition {
 		Pause(locator1 = "3000");
 	}
 
+	macro publishProductImage {
+	SelectFrameTop(value1 = "relative=top");
+
+		//SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
+
+		SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
+
+		Button.clickPublish();
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		Pause(locator1 = "3000");
+	}
+
 	macro saveEntry {
 		Button.clickSave();
 
@@ -552,16 +566,7 @@ definition {
 		Pause(locator1 = "3000");
 	}
 
-	macro selectAssociatedOptionsValue {
-		if (IsElementNotPresent(locator1 = "CommerceEntry#ACCORDION")) {
-
-			Click(locator1 = "CommerceEntry#OPTION_FIELD");
-
-			Click(
-				locator1 = "CommerceEntry#SELECT_OPTION",
-				key_optionvalue = "${optionValue}");
-		}
-
+	macro selectAssociatedOptionsValue {		
 		if (IsElementPresent(locator1 = "CommerceEntry#OPTION_SELECT")) {
 			Click(locator1 = "CommerceEntry#OPTION_SELECT");
 
