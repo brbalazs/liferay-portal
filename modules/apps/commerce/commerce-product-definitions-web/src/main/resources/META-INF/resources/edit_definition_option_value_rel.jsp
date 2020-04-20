@@ -116,17 +116,19 @@ CPDefinitionOptionValueRel cpDefinitionOptionValueRel = cpDefinitionOptionValueR
 						});
 
 						Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
-							var quantityInput = document.getElementById('<%= renderResponse.getNamespace() %>quantity');
+							var quantityInput = document.getElementById(
+								'<%= renderResponse.getNamespace() %>quantity'
+							);
 							var deleteButton = document.getElementById('remove-sku-button');
 
-							if(e.value) {
+							if (e.value) {
 								quantityInput.disabled = false;
 								deleteButton.disabled = false;
 							} else {
 								quantityInput.disabled = true;
 								deleteButton.disabled = true;
 							}
-						})
+						});
 					</aui:script>
 				</commerce-ui:panel>
 
