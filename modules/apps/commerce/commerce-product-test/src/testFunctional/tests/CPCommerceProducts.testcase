@@ -61,6 +61,7 @@ definition {
 	}
 
 	test ProductPublishing {
+		property environment.acceptance = "true";
 		property portal.acceptance = "true";
 
 		ProductMenu.gotoPortlet(

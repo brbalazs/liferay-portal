@@ -56,7 +56,6 @@ definition {
 
 	test CreateNewSpecificationOptions {
 		property environment.acceptance = "true";
-		property environment.acceptance = "commerce";
 		property portal.acceptance = "true";
 
 		ProductMenu.gotoPortlet(
@@ -93,6 +92,7 @@ definition {
 	}
 
 	test InitializeNewMiniumSite {
+		property environment.acceptance = "true";
 		property portal.acceptance = "true";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
@@ -144,6 +144,7 @@ definition {
 	}
 
 	test InitializeNewSpeedwellSite {
+		property environment.acceptance = "true";
 		property portal.acceptance = "true";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
