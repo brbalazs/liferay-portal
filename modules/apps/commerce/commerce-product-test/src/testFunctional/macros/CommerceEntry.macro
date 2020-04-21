@@ -749,10 +749,6 @@ definition {
 			value1 = "${specificationDescription}");
 
 		AssertTextEquals(
-			locator1 = "CommerceEntry#INPUT_PRICE",
-			value1 = "${price}");
-
-		AssertTextEquals(
 			key_fieldLabel = "Key",
 			locator1 = "TextInput#GENERIC_TEXT_INPUT",
 			value1 = "${specificationTitle}");
