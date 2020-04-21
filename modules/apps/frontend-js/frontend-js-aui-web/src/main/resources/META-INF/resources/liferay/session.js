@@ -666,6 +666,10 @@ AUI.add(
 						if (!instance._alertClosed) {
 							var banner = instance._getBanner();
 
+							var bannerFocused = banner.bodyNode.contains(
+								document.activeElement
+							);
+
 							banner.set(
 								'message',
 								Lang.sub(
@@ -675,6 +679,13 @@ AUI.add(
 									]
 								)
 							);
+
+							if (bannerFocused) {
+								banner.bodyNode
+									.all('a')
+									.item(0)
+									.focus();
+							}
 						}
 
 						DOC.title = Lang.sub(Liferay.Language.get('session-expires-in-x'), [remainingTime]) + ' | ' + instance.get('pageTitle');
