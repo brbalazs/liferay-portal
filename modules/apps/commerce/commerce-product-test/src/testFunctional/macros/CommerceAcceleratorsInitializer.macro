@@ -121,4 +121,13 @@ definition {
 			value1 = "${userLastName}");
 	}
 
+	macro viewMiniumSelectedAccount {
+		Click(locator1 = "CommerceAccelerators#ACCOUNT_SELECTOR_DROPDOWN");
+
+		AssertTextEquals(
+			locator1 = "CommerceAccelerators#ACCOUNT_SELECTOR_SELECTED_ACCOUNT",
+			value1 = "${selectedAccount}"
+		);
+	}
+
 }
