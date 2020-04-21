@@ -94,6 +94,7 @@ definition {
 	test InitializeNewMiniumSite {
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceSmoke#InitializeNewMiniumSite";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
 
@@ -146,6 +147,7 @@ definition {
 	test InitializeNewSpeedwellSite {
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceSmoke#InitializeNewSpeedwellSite";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -198,6 +200,7 @@ definition {
 	test PublishSimpleProduct {
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceSmoke#PublishSimpleProduct";
 
 		ProductMenu.gotoPortlet(
 			category = "Commerce",

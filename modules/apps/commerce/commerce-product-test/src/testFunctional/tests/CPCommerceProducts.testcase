@@ -63,6 +63,7 @@ definition {
 	test ProductPublishing {
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceSmoke#ProductPublishing";
 
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
