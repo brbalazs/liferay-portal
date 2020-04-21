@@ -18,6 +18,7 @@ create unique index IX_551F2ECC on CPDSpecificationOptionValue (uuid_[$COLUMN_LE
 
 create index IX_3D5A0021 on CPDefinition (CPTaxCategoryId);
 create index IX_1F4B9C67 on CPDefinition (CProductId, status);
+create index IX_F1AEC8A7 on CPDefinition (CProductId, version);
 create index IX_217AF702 on CPDefinition (companyId);
 create index IX_A465D100 on CPDefinition (displayDate, status);
 create index IX_419350EA on CPDefinition (groupId, status);
