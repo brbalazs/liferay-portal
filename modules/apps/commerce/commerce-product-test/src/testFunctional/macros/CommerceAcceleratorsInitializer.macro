@@ -151,4 +151,12 @@ definition {
 
 		Alert.viewSuccessMessage();
 	}
+
+	macro viewAllAccountsFromAccountSelector {
+		Click(locator1 = "CommerceAccelerators#ACCOUNT_SELECTOR_DROPDOWN");
+
+		Click(
+			key_button = "View All Accounts",
+			locator1 = "CommerceAccelerators#ANY_BUTTON");
+	}
 }
