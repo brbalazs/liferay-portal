@@ -51,8 +51,8 @@ public interface SearchBarPortletPreferences {
 
 	public String getSearchScopePreferenceString();
 
-
 	public boolean isShowStagedResults();
+
 	public boolean isUseAdvancedSearchSyntax();
 
 }
