@@ -202,6 +202,11 @@ Affected entities:
 - `CommerceNotificationTemplate`
 - `CommerceTaxMethod`
 
+CommerceAdminConstants class from com.liferay.commerce.admin.constants package
+has been removed.
+
+Method getType() has been removed from CommerceAdminModule interface.
+
 #### Who is affected?
 
 Developers: Have to change the scope of custom code.
