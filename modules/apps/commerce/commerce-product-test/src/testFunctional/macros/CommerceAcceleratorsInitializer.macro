@@ -142,4 +142,13 @@ definition {
 			locator1 = "CommerceAccelerators#ADD_TO_CART_BUTTON_DISABLED");
 	}
 
+	macro deactivateCommerceAccountViaFront {
+		Click(
+			key_entryName = "${accountName}",
+			locator1 = "CommerceEntry#ENTRY_NAME_BODY_VERTICAL_ELLIPSIS");
+
+		CommerceEntry.clickNoError(menuItem = "Deactivate");
+
+		Alert.viewSuccessMessage();
+	}
 }
