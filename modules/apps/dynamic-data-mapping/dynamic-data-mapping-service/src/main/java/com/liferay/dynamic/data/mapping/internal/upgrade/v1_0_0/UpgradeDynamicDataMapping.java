@@ -1795,27 +1795,27 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 				String fieldName, Element rootElement)
 			throws PortalException {
 
-			DDMFormFieldValue ddmFormFieldValue = null;
-
 			Value value = extractDDMFormFieldValueValues(
 				fieldName, ddmFormField, rootElement, ddmFieldsCounter);
 
-			if ((value != null) || ddmFormField.isTransient()) {
-				ddmFormFieldValue = new DDMFormFieldValue();
-
-				ddmFormFieldValue.setName(fieldName);
-
-				setDDMFormFieldValueInstanceId(
-					ddmFormFieldValue, rootElement, ddmFieldsCounter);
-
-				setNestedDDMFormFieldValues(
-					ddmFormFieldValue, ddmFormField, rootElement,
-					ddmFieldsCounter);
-
-				ddmFormFieldValue.setValue(value);
-
-				ddmFieldsCounter.incrementKey(fieldName);
+			if ((value == null) && !ddmFormField.isTransient()) {
+				return null;
 			}
+
+			DDMFormFieldValue ddmFormFieldValue = new DDMFormFieldValue() {
+				{
+					setName(fieldName);
+					setValue(value);
+				}
+			};
+
+			setDDMFormFieldValueInstanceId(
+				ddmFormFieldValue, rootElement, ddmFieldsCounter);
+
+			setNestedDDMFormFieldValues(
+				ddmFormFieldValue, ddmFormField, rootElement, ddmFieldsCounter);
+
+			ddmFieldsCounter.incrementKey(fieldName);
 
 			return ddmFormFieldValue;
 		}
