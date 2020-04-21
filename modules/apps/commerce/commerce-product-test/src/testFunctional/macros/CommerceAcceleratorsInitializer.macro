@@ -136,4 +136,10 @@ definition {
 			locator1 = "CommerceAccelerators#ADD_TO_CART_BUTTON_ENABLED");
 	}
 
+	macro viewDisabledAddToCartButton {
+		AssertElementPresent(
+			key_productName = "${productName}",
+			locator1 = "CommerceAccelerators#ADD_TO_CART_BUTTON_DISABLED");
+	}
+
 }
