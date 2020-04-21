@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.product.ddm;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
@@ -31,29 +29,23 @@ import javax.portlet.RenderResponse;
 /**
  * @author Igor Beslic
  */
-@ProviderType
 public interface DDMHelper {
 
 	public DDMForm getCPAttachmentFileEntryDDMForm(
-			long cpDefinitionId, Locale locale,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels)
-		throws PortalException;
+		Locale locale,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 	public DDMForm getCPInstanceDDMForm(
-			long cpDefinitionId, Locale locale, boolean ignoreSKUCombinations,
-			boolean skuContributor,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels)
-		throws PortalException;
+		Locale locale, boolean ignoreSKUCombinations,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 	public DDMForm getPublicStoreDDMForm(
-			long groupId, long commerceAccountId, long cpDefinitionId,
-			Locale locale, boolean ignoreSKUCombinations,
-			boolean skuContributor,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels)
-		throws PortalException;
+		long groupId, long commerceAccountId, long cpDefinitionId,
+		Locale locale, boolean ignoreSKUCombinations,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 	public String renderCPAttachmentFileEntryOptions(
 			long cpDefinitionId, String json, RenderRequest renderRequest,
@@ -64,16 +56,14 @@ public interface DDMHelper {
 
 	public String renderCPInstanceOptions(
 			long cpDefinitionId, String json, boolean ignoreSKUCombinations,
-			boolean skuContributor, RenderRequest renderRequest,
-			RenderResponse renderResponse,
+			RenderRequest renderRequest, RenderResponse renderResponse,
 			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 				cpDefinitionOptionRelCPDefinitionOptionValueRels)
 		throws PortalException;
 
 	public String renderPublicStoreOptions(
 			long cpDefinitionId, String json, boolean ignoreSKUCombinations,
-			boolean skuContributor, RenderRequest renderRequest,
-			RenderResponse renderResponse,
+			RenderRequest renderRequest, RenderResponse renderResponse,
 			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 				cpDefinitionOptionRelCPDefinitionOptionValueRels)
 		throws PortalException;

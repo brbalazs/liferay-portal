@@ -42,10 +42,10 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
-import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -71,41 +71,36 @@ public class DDMHelperImpl implements DDMHelper {
 
 	@Override
 	public DDMForm getCPAttachmentFileEntryDDMForm(
-			long cpDefinitionId, Locale locale,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels)
-		throws PortalException {
+		Locale locale,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
 
 		return _getDDMForm(
-			cpDefinitionId, locale, false, true, true, false,
+			locale, false, true, false,
 			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 	}
 
 	@Override
 	public DDMForm getCPInstanceDDMForm(
-			long cpDefinitionId, Locale locale, boolean ignoreSKUCombinations,
-			boolean skuContributor,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels)
-		throws PortalException {
+		Locale locale, boolean ignoreSKUCombinations,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
 
 		return _getDDMForm(
-			cpDefinitionId, locale, ignoreSKUCombinations, skuContributor,
-			false, false, cpDefinitionOptionRelCPDefinitionOptionValueRels);
+			locale, ignoreSKUCombinations, false, false,
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 	}
 
 	@Override
 	public DDMForm getPublicStoreDDMForm(
-			long groupId, long commerceAccountId, long cpDefinitionId,
-			Locale locale, boolean ignoreSKUCombinations,
-			boolean skuContributor,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels)
-		throws PortalException {
+		long groupId, long commerceAccountId, long cpDefinitionId,
+		Locale locale, boolean ignoreSKUCombinations,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
 
 		DDMForm ddmForm = _getDDMForm(
-			cpDefinitionId, locale, ignoreSKUCombinations, skuContributor,
-			false, true, cpDefinitionOptionRelCPDefinitionOptionValueRels);
+			locale, ignoreSKUCombinations, false, true,
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 		if (!ignoreSKUCombinations) {
 			ddmForm.addDDMFormRule(
@@ -127,8 +122,7 @@ public class DDMHelperImpl implements DDMHelper {
 		Locale locale = _portal.getLocale(renderRequest);
 
 		DDMForm ddmForm = getCPAttachmentFileEntryDDMForm(
-			cpDefinitionId, locale,
-			cpDefinitionOptionRelCPDefinitionOptionValueRels);
+			locale, cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 		return _render(
 			cpDefinitionId, locale, ddmForm, json, renderRequest,
@@ -138,8 +132,7 @@ public class DDMHelperImpl implements DDMHelper {
 	@Override
 	public String renderCPInstanceOptions(
 			long cpDefinitionId, String json, boolean ignoreSKUCombinations,
-			boolean skuContributor, RenderRequest renderRequest,
-			RenderResponse renderResponse,
+			RenderRequest renderRequest, RenderResponse renderResponse,
 			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 				cpDefinitionOptionRelCPDefinitionOptionValueRels)
 		throws PortalException {
@@ -147,7 +140,7 @@ public class DDMHelperImpl implements DDMHelper {
 		Locale locale = _portal.getLocale(renderRequest);
 
 		DDMForm ddmForm = getCPInstanceDDMForm(
-			cpDefinitionId, locale, ignoreSKUCombinations, skuContributor,
+			locale, ignoreSKUCombinations,
 			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 		return _render(
@@ -158,8 +151,7 @@ public class DDMHelperImpl implements DDMHelper {
 	@Override
 	public String renderPublicStoreOptions(
 			long cpDefinitionId, String json, boolean ignoreSKUCombinations,
-			boolean skuContributor, RenderRequest renderRequest,
-			RenderResponse renderResponse,
+			RenderRequest renderRequest, RenderResponse renderResponse,
 			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 				cpDefinitionOptionRelCPDefinitionOptionValueRels)
 		throws PortalException {
@@ -181,7 +173,7 @@ public class DDMHelperImpl implements DDMHelper {
 
 		DDMForm ddmForm = getPublicStoreDDMForm(
 			_portal.getScopeGroupId(renderRequest), commerceAccountId,
-			cpDefinitionId, locale, ignoreSKUCombinations, skuContributor,
+			cpDefinitionId, locale, ignoreSKUCombinations,
 			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 		return _render(
@@ -279,11 +271,10 @@ public class DDMHelperImpl implements DDMHelper {
 	}
 
 	private DDMForm _getDDMForm(
-			long cpDefinitionId, Locale locale, boolean ignoreSKUCombinations,
-			boolean skuContributor, boolean optional, boolean publicStore,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels)
-		throws PortalException {
+		Locale locale, boolean ignoreSKUCombinations, boolean optional,
+		boolean publicStore,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
 
 		if (cpDefinitionOptionRelCPDefinitionOptionValueRels.isEmpty()) {
 			return null;
@@ -291,8 +282,13 @@ public class DDMHelperImpl implements DDMHelper {
 
 		DDMForm ddmForm = new DDMForm();
 
-		for (CPDefinitionOptionRel cpDefinitionOptionRel :
-				cpDefinitionOptionRelCPDefinitionOptionValueRels.keySet()) {
+		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				cpDefinitionOptionRelEntry :
+					cpDefinitionOptionRelCPDefinitionOptionValueRels.
+						entrySet()) {
+
+			CPDefinitionOptionRel cpDefinitionOptionRel =
+				cpDefinitionOptionRelEntry.getKey();
 
 			if (Validator.isNull(
 					cpDefinitionOptionRel.getDDMFormFieldTypeName())) {
@@ -301,16 +297,17 @@ public class DDMHelperImpl implements DDMHelper {
 			}
 
 			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-				cpDefinitionOptionRelCPDefinitionOptionValueRels.get(
-					cpDefinitionOptionRel);
+				cpDefinitionOptionRelEntry.getValue();
 
 			DDMFormField ddmFormField = _getDDMFormField(
 				cpDefinitionOptionRel, cpDefinitionOptionValueRels, locale);
 
-			ddmFormField.setRequired(
-				_isDDMFormRequired(
-					cpDefinitionOptionRel, ignoreSKUCombinations, optional,
-					publicStore));
+			if (!optional) {
+				ddmFormField.setRequired(
+					_isDDMFormFieldRequired(
+						cpDefinitionOptionRel, ignoreSKUCombinations,
+						publicStore));
+			}
 
 			ddmForm.addDDMFormField(ddmFormField);
 		}
@@ -396,24 +393,11 @@ public class DDMHelperImpl implements DDMHelper {
 			"Provided DDM field options miss valid field value");
 	}
 
-	private boolean _isDDMFormRequired(
+	private boolean _isDDMFormFieldRequired(
 		CPDefinitionOptionRel cpDefinitionOptionRel,
-		boolean ignoreSKUCombinations, boolean optional, boolean publicStore) {
+		boolean ignoreSKUCombinations, boolean publicStore) {
 
-		if (optional) {
-			return false;
-		}
-
-		Map<String, Object> properties =
-			_ddmFormFieldTypeServicesTracker.getDDMFormFieldTypeProperties(
-				cpDefinitionOptionRel.getDDMFormFieldTypeName());
-
-		String fieldTypeDataDomain = MapUtil.getString(
-			properties, "ddm.form.field.type.data.domain");
-
-		if (Validator.isNotNull(fieldTypeDataDomain) &&
-			fieldTypeDataDomain.equals("list")) {
-
+		if (_isIterableCPDefinitionOptionRelFieldType(cpDefinitionOptionRel)) {
 			int cpDefinitionOptionValueRelsCount =
 				_cpDefinitionOptionValueRelLocalService.
 					getCPDefinitionOptionValueRelsCount(
@@ -430,6 +414,21 @@ public class DDMHelperImpl implements DDMHelper {
 
 		if (cpDefinitionOptionRel.isSkuContributor() ||
 			(publicStore && cpDefinitionOptionRel.isRequired())) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean _isIterableCPDefinitionOptionRelFieldType(
+		CPDefinitionOptionRel cpDefinitionOptionRel) {
+
+		List<String> iterableFieldTypes = Arrays.asList(
+			"select", "radio", "checkbox", "checkbox_multiple");
+
+		if (iterableFieldTypes.contains(
+				cpDefinitionOptionRel.getDDMFormFieldTypeName())) {
 
 			return true;
 		}
