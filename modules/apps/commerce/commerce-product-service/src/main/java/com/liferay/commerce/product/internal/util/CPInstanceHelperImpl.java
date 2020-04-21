@@ -190,6 +190,52 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 	@Override
 	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+		getCPDefinitionOptionRelsMap(
+			long cpDefinitionId, boolean skuContributor, boolean publicStore) {
+
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelsMap = new HashMap<>();
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels;
+
+		if (skuContributor) {
+			cpDefinitionOptionRels =
+				_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
+					cpDefinitionId, true);
+		}
+		else {
+			cpDefinitionOptionRels =
+				_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
+					cpDefinitionId);
+		}
+
+		if (cpDefinitionOptionRels.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		for (CPDefinitionOptionRel cpDefinitionOptionRel :
+				cpDefinitionOptionRels) {
+
+			if (cpDefinitionOptionRel.isSkuContributor() && publicStore) {
+				cpDefinitionOptionRelsMap.put(
+					cpDefinitionOptionRel,
+					getCPInstanceCPDefinitionOptionValueRels(
+						cpDefinitionId,
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
+
+				continue;
+			}
+
+			cpDefinitionOptionRelsMap.put(
+				cpDefinitionOptionRel,
+				cpDefinitionOptionRel.getCPDefinitionOptionValueRels());
+		}
+
+		return cpDefinitionOptionRelsMap;
+	}
+
+	@Override
+	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 			getCPDefinitionOptionRelsMap(long cpDefinitionId, String json)
 		throws PortalException {
 

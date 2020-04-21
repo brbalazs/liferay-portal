@@ -67,6 +67,10 @@ public interface CPInstanceHelper {
 		throws PortalException;
 
 	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+		getCPDefinitionOptionRelsMap(
+			long cpDefinitionId, boolean skuContributor, boolean publicStore);
+
+	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 			getCPDefinitionOptionRelsMap(long cpDefinitionId, String json)
 		throws PortalException;
 
