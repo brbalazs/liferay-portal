@@ -762,8 +762,15 @@ public class CPDefinitionLocalServiceImpl
 			return null;
 		}
 
-		return cpDefinitionPersistence.fetchByPrimaryKey(
+		CPDefinition cpDefinition = cpDefinitionPersistence.fetchByPrimaryKey(
 			cProduct.getPublishedCPDefinitionId());
+
+		if (cpDefinition != null) {
+			return cpDefinition;
+		}
+
+		return cpDefinitionPersistence.fetchByC_V(
+			cProduct.getCProductId(), cProduct.getLatestVersion());
 	}
 
 	@Override
@@ -774,8 +781,15 @@ public class CPDefinitionLocalServiceImpl
 			return null;
 		}
 
-		return cpDefinitionPersistence.fetchByPrimaryKey(
+		CPDefinition cpDefinition = cpDefinitionPersistence.fetchByPrimaryKey(
 			cProduct.getPublishedCPDefinitionId());
+
+		if (cpDefinition != null) {
+			return cpDefinition;
+		}
+
+		return cpDefinitionPersistence.fetchByC_V(
+			cProduct.getCProductId(), cProduct.getLatestVersion());
 	}
 
 	@Override
