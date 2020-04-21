@@ -112,7 +112,7 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 			BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
 				cpDefinitionOptionValueRel.getCProductId(),
 				cpDefinitionOptionValueRel.getCPInstanceUuid(),
-				commerceContext);
+				cpDefinitionOptionValueRel.getQuantity(), commerceContext);
 
 			if ((cpDefinitionOptionMinDynamicPrice == null) ||
 				(cpDefinitionOptionMinDynamicPrice.compareTo(
@@ -146,12 +146,17 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 				continue;
 			}
 
+			BigDecimal cpDefinitionOptionValueFinalPrice =
+				_getCPDefinitionOptionValueFinalPrice(
+					cpDefinitionOptionValueRel.getPrice(),
+					cpDefinitionOptionValueRel.getQuantity());
+
 			if ((cpDefinitionOptionMinStaticPrice == null) ||
 				(cpDefinitionOptionMinStaticPrice.compareTo(
-					cpDefinitionOptionValueRel.getPrice()) > 0)) {
+					cpDefinitionOptionValueFinalPrice) > 0)) {
 
 				cpDefinitionOptionMinStaticPrice =
-					cpDefinitionOptionValueRel.getPrice();
+					cpDefinitionOptionValueFinalPrice;
 			}
 		}
 
@@ -162,8 +167,14 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 			commerceCurrency.getRate());
 	}
 
+	private BigDecimal _getCPDefinitionOptionValueFinalPrice(
+		BigDecimal price, int quantity) {
+
+		return price.multiply(BigDecimal.valueOf(quantity));
+	}
+
 	private BigDecimal _getCPInstanceFinalPrice(
-			long cProductId, String cpInstanceUuid,
+			long cProductId, String cpInstanceUuid, int quantity,
 			CommerceContext commerceContext)
 		throws PortalException {
 
@@ -172,7 +183,7 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.getFinalPrice(
-				cpInstance.getCPInstanceId(), 1, commerceContext);
+				cpInstance.getCPInstanceId(), quantity, commerceContext);
 
 		return commerceMoney.getPrice();
 	}
