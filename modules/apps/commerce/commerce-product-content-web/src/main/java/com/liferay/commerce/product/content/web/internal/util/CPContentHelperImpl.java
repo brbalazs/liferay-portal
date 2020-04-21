@@ -17,7 +17,6 @@ package com.liferay.commerce.product.content.web.internal.util;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.media.CommerceMediaResolver;
@@ -169,12 +168,7 @@ public class CPContentHelperImpl implements CPContentHelper {
 		CommerceMoney commerceMoney = _cpBundleHelper.getCPBundleMinPrice(
 			cpDefinitionId, commerceContext);
 
-		CommerceCurrency commerceCurrency =
-			commerceContext.getCommerceCurrency();
-
-		return String.format(
-			"%s%s", commerceCurrency.getSymbol(),
-			commerceCurrency.round(commerceMoney.getPrice()));
+		return commerceMoney.format(_portal.getLocale(httpServletRequest));
 	}
 
 	@Override
