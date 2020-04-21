@@ -1833,19 +1833,13 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 				String languageId = dynamicContentElement.attributeValue(
 					"language-id");
 
-				int localizedContentIndex = 0;
-
-				if (dynamicContentValuesMap.containsKey(languageId)) {
-					localizedContentIndex = dynamicContentValuesMap.get(
-						languageId);
-				}
+				int localizedContentIndex = dynamicContentValues.getOrDefault(
+					languageId, 0);
 
 				if (localizedContentIndex == index) {
-					Locale locale = LocaleUtil.fromLanguageId(languageId);
-
-					String content = dynamicContentElement.getText();
-
-					value.addString(locale, content);
+					value.addString(
+						LocaleUtil.fromLanguageId(languageId),
+						dynamicContentElement.getText());
 				}
 
 				dynamicContentValues.put(languageId, localizedContentIndex + 1);
