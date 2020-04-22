@@ -59,12 +59,6 @@ public class BlogPostingImageResourceTest
 	public void testGraphQLGetSiteBlogPostingImagesPage() {
 	}
 
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLPostSiteBlogPostingImage() {
-	}
-
 	@Test
 	public void testPostSiteBlogPostingImageRollback() throws Exception {
 		Folder folder = BlogsEntryLocalServiceUtil.fetchAttachmentsFolder(
