@@ -127,4 +127,48 @@ definition {
 		CommerceEntry.viewProductSkus(skusList = "WHITESKU:30.00,BLUESKU:20.00,BLACKSKU:10.00");
 	}
 
+	test TranslateProductName {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CPCommerceProducts#TranslateProductName";
+
+		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Products");
+
+		CommerceNavigator.searchEntry(entryName = "Shock Absorber");
+
+		CommerceNavigator.gotoEntry(entryName = "Shock Absorber");
+
+		PortletEntry.changeLocale(
+			fieldName = "Name",
+			locale = "es-ES");
+
+		Type(
+			locator1 = "TextInput#NAME",
+			value1 = "Amortiguador");
+
+		Button.clickPublish();
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/minium");
+
+		CommerceAcceleratorsInitializer.addPortlet(portletName = "Language Selector");
+
+		LanguagePortlet.selectLanguagePG(
+			locale = "es_ES",
+			textIcon = "español-España");
+
+		CommerceAcceleratorsInitializer.viewMiniumCardName(productName = "Amortiguador");
+
+		CommerceAcceleratorsInitializer.viewMiniumCardName(productName = "U-Joint");
+
+		CommerceAcceleratorsInitializer.viewMiniumCardName(productName = "Transmission Cooler Line Assembly");
+
+		LanguagePortlet.selectLanguagePG(
+			locale = "en_US",
+			textIcon = "English-United States");
+	}
+
 }
