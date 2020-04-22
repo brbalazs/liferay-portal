@@ -159,4 +159,35 @@ definition {
 			key_button = "View All Accounts",
 			locator1 = "CommerceAccelerators#ANY_BUTTON");
 	}
+	
+	macro addPortlet {
+		if ("${portletName}" == "Where are the Liferay members?") {
+			var portletName = "Map";
+		}
+
+		if (IsNotVisible(locator1 = "ControlMenuAddPanel#CLOSE_ADD_PANEL")) {
+			Click.clickAt(locator1 = "ControlMenu#ADD");
+		}
+
+		AssertElementPresent(locator1 = "ControlMenuAddPanel#APPLICATIONS_ACCORDION_PANEL_TITLE");
+
+		AssertVisible(
+			locator1 = "ControlMenuAddPanel#APPLICATIONS_ACCORDION_PANEL_TITLE",
+			value1 = "Widgets");
+
+		Pause(locator1 = "5000");
+
+		Panel.expandSidebarApplicationsPanel();
+
+		Type.sendKeysApplicationSearch(
+			locator1 = "NavBar#APPLICATION_SEARCH_FIELD",
+			value1 = "${portletName}");
+
+		Portlet._clickAddPortlet(portletName = "${portletName}");
+
+		AssertElementPresent(
+			key_portletName = "Language Selector",
+			locator1 = "CommerceAccelerators#PORTLET_LOADED");
+	}
+
 }
