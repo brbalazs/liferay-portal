@@ -49,6 +49,12 @@ public class CPDefinitionOptionRelImpl extends CPDefinitionOptionRelBaseImpl {
 	}
 
 	@Override
+	public int getCPDefinitionOptionValueRelsCount() {
+		return CPDefinitionOptionValueRelLocalServiceUtil.
+			getCPDefinitionOptionValueRelsCount(getCPDefinitionOptionRelId());
+	}
+
+	@Override
 	public CPOption getCPOption() throws PortalException {
 		return CPOptionLocalServiceUtil.getCPOption(getCPOptionId());
 	}
