@@ -104,8 +104,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		return cpDefinitionOptionRelLocalService.addCPDefinitionOptionRel(
 			cpDefinitionId, cpOptionId, nameMap, descriptionMap,
 			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
-			importOptionValue, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
-			serviceContext);
+			importOptionValue, null, serviceContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -539,7 +538,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		return cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
 			cpDefinitionOptionRelId, cpOptionId, nameMap, descriptionMap,
 			ddmFormFieldTypeName, priority, facetable, required, skuContributor,
-			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, serviceContext);
+			null, serviceContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
