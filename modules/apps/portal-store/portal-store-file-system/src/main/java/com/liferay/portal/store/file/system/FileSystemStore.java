@@ -41,6 +41,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -343,6 +344,24 @@ public class FileSystemStore extends BaseStore {
 		File dirNameDir = getDirNameDir(companyId, repositoryId, dirName);
 
 		return dirNameDir.exists();
+	}
+
+	@Override
+	public String[] getFileVersions(
+			long companyId, long repositoryId, String fileName)
+		throws PortalException {
+
+		File fileNameDir = getFileNameDir(companyId, repositoryId, fileName);
+
+		if (!fileNameDir.exists()) {
+			return StringPool.EMPTY_ARRAY;
+		}
+
+		String[] versions = FileUtil.listFiles(fileNameDir);
+
+		Arrays.sort(versions);
+
+		return versions;
 	}
 
 	@Override

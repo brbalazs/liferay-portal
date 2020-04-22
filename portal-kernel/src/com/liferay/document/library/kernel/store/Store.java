@@ -103,6 +103,10 @@ public interface Store {
 	public long getFileSize(long companyId, long repositoryId, String fileName)
 		throws PortalException;
 
+	public String[] getFileVersions(
+		long companyId, long repositoryId, String fileName)
+		throws PortalException;
+
 	public boolean hasDirectory(
 		long companyId, long repositoryId, String dirName);
 

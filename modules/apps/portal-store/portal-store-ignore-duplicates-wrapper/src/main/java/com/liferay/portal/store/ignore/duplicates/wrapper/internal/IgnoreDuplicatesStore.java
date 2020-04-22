@@ -199,6 +199,14 @@ public abstract class IgnoreDuplicatesStore implements Store {
 	}
 
 	@Override
+	public String[] getFileVersions(
+		long companyId, long repositoryId, String fileName)
+		throws PortalException {
+
+		return store.getFileVersions(companyId, repositoryId, fileName);
+	}
+
+	@Override
 	public boolean hasDirectory(
 		long companyId, long repositoryId, String dirName) {
 
