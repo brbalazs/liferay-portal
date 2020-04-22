@@ -101,6 +101,16 @@ public class CartItemSerDes {
 			sb.append("\"");
 		}
 
+		if (cartItem.getParentCartItemId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"parentCartItemId\": ");
+
+			sb.append(cartItem.getParentCartItemId());
+		}
+
 		if (cartItem.getPrice() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -129,6 +139,16 @@ public class CartItemSerDes {
 			sb.append("\"quantity\": ");
 
 			sb.append(cartItem.getQuantity());
+		}
+
+		if (cartItem.getSettings() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"settings\": ");
+
+			sb.append(String.valueOf(cartItem.getSettings()));
 		}
 
 		if (cartItem.getSku() != null) {
@@ -163,6 +183,20 @@ public class CartItemSerDes {
 			sb.append("\"subscription\": ");
 
 			sb.append(cartItem.getSubscription());
+		}
+
+		if (cartItem.getThumbnail() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"thumbnail\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cartItem.getThumbnail()));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");
@@ -211,6 +245,15 @@ public class CartItemSerDes {
 			map.put("options", String.valueOf(cartItem.getOptions()));
 		}
 
+		if (cartItem.getParentCartItemId() == null) {
+			map.put("parentCartItemId", null);
+		}
+		else {
+			map.put(
+				"parentCartItemId",
+				String.valueOf(cartItem.getParentCartItemId()));
+		}
+
 		if (cartItem.getPrice() == null) {
 			map.put("price", null);
 		}
@@ -232,6 +275,13 @@ public class CartItemSerDes {
 			map.put("quantity", String.valueOf(cartItem.getQuantity()));
 		}
 
+		if (cartItem.getSettings() == null) {
+			map.put("settings", null);
+		}
+		else {
+			map.put("settings", String.valueOf(cartItem.getSettings()));
+		}
+
 		if (cartItem.getSku() == null) {
 			map.put("sku", null);
 		}
@@ -251,6 +301,13 @@ public class CartItemSerDes {
 		}
 		else {
 			map.put("subscription", String.valueOf(cartItem.getSubscription()));
+		}
+
+		if (cartItem.getThumbnail() == null) {
+			map.put("thumbnail", null);
+		}
+		else {
+			map.put("thumbnail", String.valueOf(cartItem.getThumbnail()));
 		}
 
 		return map;
@@ -295,6 +352,12 @@ public class CartItemSerDes {
 					cartItem.setOptions((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "parentCartItemId")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setParentCartItemId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "price")) {
 				if (jsonParserFieldValue != null) {
 					cartItem.setPrice(
@@ -313,6 +376,12 @@ public class CartItemSerDes {
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "settings")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setSettings(
+						SettingsSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "sku")) {
 				if (jsonParserFieldValue != null) {
 					cartItem.setSku((String)jsonParserFieldValue);
@@ -327,6 +396,11 @@ public class CartItemSerDes {
 			else if (Objects.equals(jsonParserFieldName, "subscription")) {
 				if (jsonParserFieldValue != null) {
 					cartItem.setSubscription((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "thumbnail")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setThumbnail((String)jsonParserFieldValue);
 				}
 			}
 			else {

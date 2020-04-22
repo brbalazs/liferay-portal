@@ -156,6 +156,34 @@ public class CartItem {
 	protected String options;
 
 	@Schema
+	public Long getParentCartItemId() {
+		return parentCartItemId;
+	}
+
+	public void setParentCartItemId(Long parentCartItemId) {
+		this.parentCartItemId = parentCartItemId;
+	}
+
+	@JsonIgnore
+	public void setParentCartItemId(
+		UnsafeSupplier<Long, Exception> parentCartItemIdUnsafeSupplier) {
+
+		try {
+			parentCartItemId = parentCartItemIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long parentCartItemId;
+
+	@Schema
 	@Valid
 	public Price getPrice() {
 		return price;
@@ -239,6 +267,35 @@ public class CartItem {
 	protected Integer quantity;
 
 	@Schema
+	@Valid
+	public Settings getSettings() {
+		return settings;
+	}
+
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
+
+	@JsonIgnore
+	public void setSettings(
+		UnsafeSupplier<Settings, Exception> settingsUnsafeSupplier) {
+
+		try {
+			settings = settingsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Settings settings;
+
+	@Schema
 	public String getSku() {
 		return sku;
 	}
@@ -318,6 +375,34 @@ public class CartItem {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Boolean subscription;
 
+	@Schema
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	@JsonIgnore
+	public void setThumbnail(
+		UnsafeSupplier<String, Exception> thumbnailUnsafeSupplier) {
+
+		try {
+			thumbnail = thumbnailUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String thumbnail;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -393,6 +478,16 @@ public class CartItem {
 			sb.append("\"");
 		}
 
+		if (parentCartItemId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"parentCartItemId\": ");
+
+			sb.append(parentCartItemId);
+		}
+
 		if (price != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -421,6 +516,16 @@ public class CartItem {
 			sb.append("\"quantity\": ");
 
 			sb.append(quantity);
+		}
+
+		if (settings != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"settings\": ");
+
+			sb.append(String.valueOf(settings));
 		}
 
 		if (sku != null) {
@@ -455,6 +560,20 @@ public class CartItem {
 			sb.append("\"subscription\": ");
 
 			sb.append(subscription);
+		}
+
+		if (thumbnail != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"thumbnail\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(thumbnail));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");

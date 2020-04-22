@@ -109,6 +109,27 @@ public class CartItem implements Cloneable {
 
 	protected String options;
 
+	public Long getParentCartItemId() {
+		return parentCartItemId;
+	}
+
+	public void setParentCartItemId(Long parentCartItemId) {
+		this.parentCartItemId = parentCartItemId;
+	}
+
+	public void setParentCartItemId(
+		UnsafeSupplier<Long, Exception> parentCartItemIdUnsafeSupplier) {
+
+		try {
+			parentCartItemId = parentCartItemIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long parentCartItemId;
+
 	public Price getPrice() {
 		return price;
 	}
@@ -170,6 +191,27 @@ public class CartItem implements Cloneable {
 
 	protected Integer quantity;
 
+	public Settings getSettings() {
+		return settings;
+	}
+
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
+
+	public void setSettings(
+		UnsafeSupplier<Settings, Exception> settingsUnsafeSupplier) {
+
+		try {
+			settings = settingsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Settings settings;
+
 	public String getSku() {
 		return sku;
 	}
@@ -228,6 +270,27 @@ public class CartItem implements Cloneable {
 	}
 
 	protected Boolean subscription;
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public void setThumbnail(
+		UnsafeSupplier<String, Exception> thumbnailUnsafeSupplier) {
+
+		try {
+			thumbnail = thumbnailUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String thumbnail;
 
 	@Override
 	public CartItem clone() throws CloneNotSupportedException {
