@@ -29,6 +29,10 @@ public class CommerceOrderItemUpgradeProcess
 			CommerceOrderItemModelImpl.class,
 			CommerceOrderItemModelImpl.TABLE_NAME, "parentCommerceOrderItemId",
 			"LONG");
+
+		addColumn(
+			CommerceOrderItemModelImpl.class,
+			CommerceOrderItemModelImpl.TABLE_NAME, "optionValueJSON", "TEXT");
 	}
 
 }

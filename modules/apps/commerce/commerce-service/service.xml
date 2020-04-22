@@ -371,6 +371,7 @@
 		<column name="quantity" type="int" />
 		<column name="shippedQuantity" type="int" />
 		<column name="json" type="String" />
+		<column name="optionValueJSON" type="String" />
 		<column localized="true" name="name" type="String" />
 		<column name="sku" type="String" />
 		<column name="unitPrice" type="BigDecimal" />
@@ -884,5 +885,6 @@
 		<exception>DuplicateCommerceOrderNote</exception>
 		<exception>GuestCartItemMaxAllowed</exception>
 		<exception>GuestCartMaxAllowed</exception>
+		<exception>ProductBundle</exception>
 	</exceptions>
 </service-builder>
