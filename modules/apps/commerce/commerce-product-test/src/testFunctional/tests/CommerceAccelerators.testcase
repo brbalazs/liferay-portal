@@ -37,6 +37,83 @@ definition {
 		}
 	}
 
+	test DeactivateCommerceAccount {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceAccelerators#DeactivateCommerceAccount";
+
+		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/minium");
+
+		CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Account Management");
+
+		CommerceAcceleratorsInitializer.createNewAccountViaFront(
+			accountName = "Commerce Account",
+			adminEmailAddress = "test@liferay.com");
+
+		Click(
+			key_navUnderline = "Members",
+			locator1 = "NavUnderline#NAV_UNDERLINE_LINK");
+
+		CommerceAcceleratorsInitializer.inviteNewMemberWithRoleToAccount(
+			emailAddress = "buyer@liferay.com",
+			role = "Buyer");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		CommerceLogin.editPasswordCP(
+			newPassword = "ttest",
+			requirePasswordReset = "true",
+			userScreenName = "buyer");
+
+		User.logoutPG();
+
+		CommerceLogin.miniumLogin(
+			password = "ttest",
+			resetPassword = "test",
+			urlAppend = "web/minium",
+			userEmailAddress = "buyer@liferay.com");
+
+		CommerceAcceleratorsInitializer.viewMiniumSelectedAccount(selectedAccount = "Commerce Account");
+
+		CommerceAcceleratorsInitializer.changeProductsSorting(sortingType = "Name Ascending");
+
+		CommerceAcceleratorsInitializer.viewEnabledAddToCartButton(productName = "ABS Sensor");
+
+		CommerceLogin.miniumLogoutPG();
+
+		CommerceLogin.miniumLogin(
+			password = "test",
+			urlAppend = "web/minium",
+			userEmailAddress = "test@liferay.com");
+
+		CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Account Management");
+
+		CommerceAcceleratorsInitializer.deactivateCommerceAccountViaFront(accountName = "Commerce Account");
+
+		CommerceLogin.miniumLogoutPG();
+
+		CommerceLogin.miniumLogin(
+			password = "test",
+			urlAppend = "web/minium",
+			userEmailAddress = "buyer@liferay.com");
+
+		Click(locator1 = "CommerceAccelerators#ACCOUNT_SELECTOR_DROPDOWN");
+
+		AssertElementPresent(locator1 = "CommerceAccelerators#ACCOUNT_SWITCHER_EMPTY_TABLE");
+
+		CommerceAcceleratorsInitializer.changeProductsSorting(sortingType = "Name Ascending");
+
+		CommerceAcceleratorsInitializer.viewDisabledAddToCartButton(productName = "ABS Sensor");
+
+		CommerceAcceleratorsInitializer.viewAllAccountsFromAccountSelector();
+
+		AssertElementPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER");
+	}
+
 	test InitializeNewMiniumSite {
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
@@ -449,83 +526,6 @@ definition {
 			productQuantity = "2",
 			productSKU = "SPEED93015",
 			productUnitPrice = "50.00");
-	}
-
-	test DeactivateCommerceAccount {
-		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CommerceAccelerators#DeactivateCommerceAccount";
-
-		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
-
-		Navigator.openWithAppendToBaseURL(urlAppend = "web/minium");
-
-		CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Account Management");
-
-		CommerceAcceleratorsInitializer.createNewAccountViaFront(
-			accountName = "Commerce Account",
-			adminEmailAddress = "test@liferay.com");
-
-		Click(
-			key_navUnderline = "Members",
-			locator1 = "NavUnderline#NAV_UNDERLINE_LINK");
-
-		CommerceAcceleratorsInitializer.inviteNewMemberWithRoleToAccount(
-			emailAddress = "buyer@liferay.com",
-			role = "Buyer");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		CommerceLogin.editPasswordCP(
-			newPassword = "ttest",
-			requirePasswordReset = "true",
-			userScreenName = "buyer");
-
-		User.logoutPG();
-
-		CommerceLogin.miniumLogin(
-			password = "ttest",
-			resetPassword = "test",
-			urlAppend = "web/minium",
-			userEmailAddress = "buyer@liferay.com");
-
-		CommerceAcceleratorsInitializer.viewMiniumSelectedAccount(selectedAccount = "Commerce Account");
-
-		CommerceAcceleratorsInitializer.changeProductsSorting(sortingType = "Name Ascending");
-
-		CommerceAcceleratorsInitializer.viewEnabledAddToCartButton(productName = "ABS Sensor");
-
-		CommerceLogin.miniumLogoutPG();
-
-		CommerceLogin.miniumLogin(
-			password = "test",
-			urlAppend = "web/minium",
-			userEmailAddress = "test@liferay.com");
-
-		CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Account Management");
-
-		CommerceAcceleratorsInitializer.deactivateCommerceAccountViaFront(accountName = "Commerce Account");
-
-		CommerceLogin.miniumLogoutPG();
-
-		CommerceLogin.miniumLogin(
-			password = "test",
-			urlAppend = "web/minium",
-			userEmailAddress = "buyer@liferay.com");
-		
-		Click(locator1 = "CommerceAccelerators#ACCOUNT_SELECTOR_DROPDOWN");
-
-		AssertElementPresent(locator1 = "CommerceAccelerators#ACCOUNT_SWITCHER_EMPTY_TABLE");
-
-		CommerceAcceleratorsInitializer.changeProductsSorting(sortingType = "Name Ascending");
-
-		CommerceAcceleratorsInitializer.viewDisabledAddToCartButton(productName = "ABS Sensor");
-
-		CommerceAcceleratorsInitializer.viewAllAccountsFromAccountSelector();
-
-		AssertElementPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER");
 	}
 
 }
