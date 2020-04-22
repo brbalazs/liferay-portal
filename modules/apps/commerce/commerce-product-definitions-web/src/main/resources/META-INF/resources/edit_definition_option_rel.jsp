@@ -53,7 +53,7 @@ List<DDMFormFieldType> ddmFormFieldTypes = cpDefinitionOptionRelDisplayContext.g
 				</div>
 
 				<div class="col-6">
-					<aui:input name="priority" />
+					<aui:input label="position" name="priority" />
 				</div>
 
 				<div class="col-4">

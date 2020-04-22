@@ -32,7 +32,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 
 <aui:input id="optionValueName" name="name" />
 
-<aui:input name="priority" />
+<aui:input label="position" name="priority" />
 
 <aui:input helpMessage="key-help" name="key" />
 
