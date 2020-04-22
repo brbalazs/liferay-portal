@@ -60,7 +60,10 @@ public abstract class BaseCommerceProductPriceCalculation
 
 			String priceType = cpDefinitionOptionRel.getPriceType();
 
-			if (!cpDefinitionOptionRel.isRequired() || (priceType == null)) {
+			if (!cpDefinitionOptionRel.isRequired() ||
+				!cpDefinitionOptionRel.isSkuContributor() ||
+				(priceType == null)) {
+
 				continue;
 			}
 
