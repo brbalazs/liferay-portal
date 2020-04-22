@@ -345,4 +345,57 @@ definition {
 			productUnitPrice = "50.00");
 	}
 
+	test InitializeNewMiniumSite {
+		property environment.acceptance = "true";
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceAccelerators#InitializeNewMiniumSite";
+
+		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Channels");
+
+		CommerceNavigator.gotoEntry(entryName = "Minium Portal");
+
+		CommerceEntry.viewChannelsEntry(
+			channelCurrency = "US Dollar",
+			channelName = "Minium Portal",
+			channelSiteName = "Minium",
+			channelType = "Site",
+			commerceSiteType = "B2B");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Catalogs");
+
+		CommerceNavigator.gotoEntry(entryName = "Minium");
+
+		CommerceEntry.viewCatalogsEntry(
+			catalogCurrency = "US Dollar",
+			catalogLanguage = "English (United States)",
+			catalogName = "Minium");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Products");
+
+		CommerceEntry.viewPaginationResults(results = "Showing 1 to 10 of 50");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
+
+		CommerceEntry.viewOptionsEntry(optionName = "Package Quantity");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specifications");
+
+		CommerceEntry.viewSpecificationLabelsEntries(specificationLabelsEntries = "Quantity,Dimensions,Fit,Warranty,Length,Weight,Height,Material,Width");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
+
+		CommerceEntry.viewSpecificationGroupsEntries(specificationGroupsEntries = "Warranty,Fit,Dimensions,Quantity,Material");
+	}
+
 }
