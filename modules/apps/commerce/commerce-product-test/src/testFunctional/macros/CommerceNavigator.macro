@@ -65,12 +65,15 @@ definition {
 	}
 
 	macro searchEntry {
+		AssertElementPresent(locator1 = "CommerceNavigation#SEARCH_FIELD");
+
 		Type(
-			entryName = "${entryName}",
-			locator1 = "TextInput#SEARCH",
+			locator1 = "CommerceNavigation#SEARCH_FIELD",
 			value1 = "${entryName}");
 
-		Click(locator1 = "CommerceNavigation#SEARCH");
+		KeyPress(
+			locator1 = "CommerceNavigation#SEARCH_FIELD",
+			value1 = "\RETURN");
 	}
 
 }
