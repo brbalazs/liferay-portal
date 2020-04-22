@@ -29,8 +29,9 @@ public interface CPBundleHelper {
 		throws PortalException;
 
 	public CommerceMoney getCPBundleOptionValueRelativePrice(
-		CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
-		CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
-		CommerceContext commerceContext);
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
+			CommerceContext commerceContext)
+		throws PortalException;
 
 }
