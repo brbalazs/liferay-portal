@@ -73,6 +73,7 @@ public class CommerceOrderItemWrapper
 		attributes.put("quantity", getQuantity());
 		attributes.put("shippedQuantity", getShippedQuantity());
 		attributes.put("json", getJson());
+		attributes.put("optionValueJSON", getOptionValueJSON());
 		attributes.put("name", getName());
 		attributes.put("sku", getSku());
 		attributes.put("unitPrice", getUnitPrice());
@@ -190,6 +191,12 @@ public class CommerceOrderItemWrapper
 
 		if (json != null) {
 			setJson(json);
+		}
+
+		String optionValueJSON = (String)attributes.get("optionValueJSON");
+
+		if (optionValueJSON != null) {
+			setOptionValueJSON(optionValueJSON);
 		}
 
 		String name = (String)attributes.get("name");
@@ -658,6 +665,16 @@ public class CommerceOrderItemWrapper
 	@Override
 	public Map<java.util.Locale, String> getNameMap() {
 		return _commerceOrderItem.getNameMap();
+	}
+
+	/**
+	 * Returns the option value json of this commerce order item.
+	 *
+	 * @return the option value json of this commerce order item
+	 */
+	@Override
+	public String getOptionValueJSON() {
+		return _commerceOrderItem.getOptionValueJSON();
 	}
 
 	/**
@@ -1170,6 +1187,16 @@ public class CommerceOrderItemWrapper
 	@Override
 	public void setNew(boolean n) {
 		_commerceOrderItem.setNew(n);
+	}
+
+	/**
+	 * Sets the option value json of this commerce order item.
+	 *
+	 * @param optionValueJSON the option value json of this commerce order item
+	 */
+	@Override
+	public void setOptionValueJSON(String optionValueJSON) {
+		_commerceOrderItem.setOptionValueJSON(optionValueJSON);
 	}
 
 	/**

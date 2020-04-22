@@ -90,7 +90,8 @@ public class CommerceOrderItemModelImpl
 		{"CProductId", Types.BIGINT}, {"CPInstanceId", Types.BIGINT},
 		{"parentCommerceOrderItemId", Types.BIGINT},
 		{"quantity", Types.INTEGER}, {"shippedQuantity", Types.INTEGER},
-		{"json", Types.CLOB}, {"name", Types.VARCHAR}, {"sku", Types.VARCHAR},
+		{"json", Types.CLOB}, {"optionValueJSON", Types.CLOB},
+		{"name", Types.VARCHAR}, {"sku", Types.VARCHAR},
 		{"unitPrice", Types.DECIMAL}, {"promoPrice", Types.DECIMAL},
 		{"discountAmount", Types.DECIMAL}, {"finalPrice", Types.DECIMAL},
 		{"discountPercentageLevel1", Types.DECIMAL},
@@ -122,6 +123,7 @@ public class CommerceOrderItemModelImpl
 		TABLE_COLUMNS_MAP.put("quantity", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("shippedQuantity", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("json", Types.CLOB);
+		TABLE_COLUMNS_MAP.put("optionValueJSON", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("sku", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("unitPrice", Types.DECIMAL);
@@ -142,7 +144,7 @@ public class CommerceOrderItemModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceOrderItem (externalReferenceCode VARCHAR(75) null,commerceOrderItemId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceOrderId LONG,CProductId LONG,CPInstanceId LONG,parentCommerceOrderItemId LONG,quantity INTEGER,shippedQuantity INTEGER,json TEXT null,name STRING null,sku VARCHAR(75) null,unitPrice DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,discountAmount DECIMAL(30, 16) null,finalPrice DECIMAL(30, 16) null,discountPercentageLevel1 DECIMAL(30, 16) null,discountPercentageLevel2 DECIMAL(30, 16) null,discountPercentageLevel3 DECIMAL(30, 16) null,discountPercentageLevel4 DECIMAL(30, 16) null,subscription BOOLEAN,deliveryGroup VARCHAR(75) null,shippingAddressId LONG,printedNote STRING null,requestedDeliveryDate DATE null,bookedQuantityId LONG,manuallyAdjusted BOOLEAN)";
+		"create table CommerceOrderItem (externalReferenceCode VARCHAR(75) null,commerceOrderItemId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceOrderId LONG,CProductId LONG,CPInstanceId LONG,parentCommerceOrderItemId LONG,quantity INTEGER,shippedQuantity INTEGER,json TEXT null,optionValueJSON TEXT null,name STRING null,sku VARCHAR(75) null,unitPrice DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,discountAmount DECIMAL(30, 16) null,finalPrice DECIMAL(30, 16) null,discountPercentageLevel1 DECIMAL(30, 16) null,discountPercentageLevel2 DECIMAL(30, 16) null,discountPercentageLevel3 DECIMAL(30, 16) null,discountPercentageLevel4 DECIMAL(30, 16) null,subscription BOOLEAN,deliveryGroup VARCHAR(75) null,shippingAddressId LONG,printedNote STRING null,requestedDeliveryDate DATE null,bookedQuantityId LONG,manuallyAdjusted BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommerceOrderItem";
 
@@ -220,6 +222,7 @@ public class CommerceOrderItemModelImpl
 		model.setQuantity(soapModel.getQuantity());
 		model.setShippedQuantity(soapModel.getShippedQuantity());
 		model.setJson(soapModel.getJson());
+		model.setOptionValueJSON(soapModel.getOptionValueJSON());
 		model.setName(soapModel.getName());
 		model.setSku(soapModel.getSku());
 		model.setUnitPrice(soapModel.getUnitPrice());
@@ -746,6 +749,30 @@ public class CommerceOrderItemModelImpl
 					CommerceOrderItem commerceOrderItem, Object jsonObject) {
 
 					commerceOrderItem.setJson((String)jsonObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"optionValueJSON",
+			new Function<CommerceOrderItem, Object>() {
+
+				@Override
+				public Object apply(CommerceOrderItem commerceOrderItem) {
+					return commerceOrderItem.getOptionValueJSON();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"optionValueJSON",
+			new BiConsumer<CommerceOrderItem, Object>() {
+
+				@Override
+				public void accept(
+					CommerceOrderItem commerceOrderItem,
+					Object optionValueJSONObject) {
+
+					commerceOrderItem.setOptionValueJSON(
+						(String)optionValueJSONObject);
 				}
 
 			});
@@ -1434,6 +1461,22 @@ public class CommerceOrderItemModelImpl
 
 	@JSON
 	@Override
+	public String getOptionValueJSON() {
+		if (_optionValueJSON == null) {
+			return "";
+		}
+		else {
+			return _optionValueJSON;
+		}
+	}
+
+	@Override
+	public void setOptionValueJSON(String optionValueJSON) {
+		_optionValueJSON = optionValueJSON;
+	}
+
+	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -1890,6 +1933,7 @@ public class CommerceOrderItemModelImpl
 		commerceOrderItemImpl.setQuantity(getQuantity());
 		commerceOrderItemImpl.setShippedQuantity(getShippedQuantity());
 		commerceOrderItemImpl.setJson(getJson());
+		commerceOrderItemImpl.setOptionValueJSON(getOptionValueJSON());
 		commerceOrderItemImpl.setName(getName());
 		commerceOrderItemImpl.setSku(getSku());
 		commerceOrderItemImpl.setUnitPrice(getUnitPrice());
@@ -2090,6 +2134,14 @@ public class CommerceOrderItemModelImpl
 			commerceOrderItemCacheModel.json = null;
 		}
 
+		commerceOrderItemCacheModel.optionValueJSON = getOptionValueJSON();
+
+		String optionValueJSON = commerceOrderItemCacheModel.optionValueJSON;
+
+		if ((optionValueJSON != null) && (optionValueJSON.length() == 0)) {
+			commerceOrderItemCacheModel.optionValueJSON = null;
+		}
+
 		commerceOrderItemCacheModel.name = getName();
 
 		String name = commerceOrderItemCacheModel.name;
@@ -2260,6 +2312,7 @@ public class CommerceOrderItemModelImpl
 	private int _quantity;
 	private int _shippedQuantity;
 	private String _json;
+	private String _optionValueJSON;
 	private String _name;
 	private String _nameCurrentLanguageId;
 	private String _sku;

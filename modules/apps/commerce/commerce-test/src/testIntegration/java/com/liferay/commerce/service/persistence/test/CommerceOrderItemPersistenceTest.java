@@ -157,6 +157,8 @@ public class CommerceOrderItemPersistenceTest {
 
 		newCommerceOrderItem.setJson(RandomTestUtil.randomString());
 
+		newCommerceOrderItem.setOptionValueJSON(RandomTestUtil.randomString());
+
 		newCommerceOrderItem.setName(RandomTestUtil.randomString());
 
 		newCommerceOrderItem.setSku(RandomTestUtil.randomString());
@@ -252,6 +254,9 @@ public class CommerceOrderItemPersistenceTest {
 			existingCommerceOrderItem.getJson(),
 			newCommerceOrderItem.getJson());
 		Assert.assertEquals(
+			existingCommerceOrderItem.getOptionValueJSON(),
+			newCommerceOrderItem.getOptionValueJSON());
+		Assert.assertEquals(
 			existingCommerceOrderItem.getName(),
 			newCommerceOrderItem.getName());
 		Assert.assertEquals(
@@ -313,14 +318,6 @@ public class CommerceOrderItemPersistenceTest {
 	}
 
 	@Test
-	public void testCountByParentCommerceOrderItemId() throws Exception {
-		_persistence.countByParentCommerceOrderItemId(
-			RandomTestUtil.nextLong());
-
-		_persistence.countByParentCommerceOrderItemId(0L);
-	}
-
-	@Test
 	public void testCountByCProductId() throws Exception {
 		_persistence.countByCProductId(RandomTestUtil.nextLong());
 
@@ -332,6 +329,14 @@ public class CommerceOrderItemPersistenceTest {
 		_persistence.countByCPInstanceId(RandomTestUtil.nextLong());
 
 		_persistence.countByCPInstanceId(0L);
+	}
+
+	@Test
+	public void testCountByParentCommerceOrderItemId() throws Exception {
+		_persistence.countByParentCommerceOrderItemId(
+			RandomTestUtil.nextLong());
+
+		_persistence.countByParentCommerceOrderItemId(0L);
 	}
 
 	@Test
@@ -688,6 +693,8 @@ public class CommerceOrderItemPersistenceTest {
 		commerceOrderItem.setShippedQuantity(RandomTestUtil.nextInt());
 
 		commerceOrderItem.setJson(RandomTestUtil.randomString());
+
+		commerceOrderItem.setOptionValueJSON(RandomTestUtil.randomString());
 
 		commerceOrderItem.setName(RandomTestUtil.randomString());
 

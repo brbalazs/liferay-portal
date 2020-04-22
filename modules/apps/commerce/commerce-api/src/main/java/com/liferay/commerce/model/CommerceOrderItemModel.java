@@ -312,6 +312,21 @@ public interface CommerceOrderItemModel
 	public void setJson(String json);
 
 	/**
+	 * Returns the option value json of this commerce order item.
+	 *
+	 * @return the option value json of this commerce order item
+	 */
+	@AutoEscape
+	public String getOptionValueJSON();
+
+	/**
+	 * Sets the option value json of this commerce order item.
+	 *
+	 * @param optionValueJSON the option value json of this commerce order item
+	 */
+	public void setOptionValueJSON(String optionValueJSON);
+
+	/**
 	 * Returns the name of this commerce order item.
 	 *
 	 * @return the name of this commerce order item

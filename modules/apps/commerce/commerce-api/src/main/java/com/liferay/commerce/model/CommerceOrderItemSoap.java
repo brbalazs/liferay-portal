@@ -49,6 +49,7 @@ public class CommerceOrderItemSoap implements Serializable {
 		soapModel.setQuantity(model.getQuantity());
 		soapModel.setShippedQuantity(model.getShippedQuantity());
 		soapModel.setJson(model.getJson());
+		soapModel.setOptionValueJSON(model.getOptionValueJSON());
 		soapModel.setName(model.getName());
 		soapModel.setSku(model.getSku());
 		soapModel.setUnitPrice(model.getUnitPrice());
@@ -251,6 +252,14 @@ public class CommerceOrderItemSoap implements Serializable {
 		_json = json;
 	}
 
+	public String getOptionValueJSON() {
+		return _optionValueJSON;
+	}
+
+	public void setOptionValueJSON(String optionValueJSON) {
+		_optionValueJSON = optionValueJSON;
+	}
+
 	public String getName() {
 		return _name;
 	}
@@ -418,6 +427,7 @@ public class CommerceOrderItemSoap implements Serializable {
 	private int _quantity;
 	private int _shippedQuantity;
 	private String _json;
+	private String _optionValueJSON;
 	private String _name;
 	private String _sku;
 	private BigDecimal _unitPrice;
