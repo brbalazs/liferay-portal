@@ -42,15 +42,6 @@ definition {
 		AssertElementPresent(locator1 = "CommerceEntry#NAME_FIELD");
 	}
 
-	macro searchEntry {
-		Type(
-			entryName = "${entryName}",
-			locator1 = "TextInput#SEARCH",
-			value1 = "${entryName}");
-
-		Click(locator1 = "CommerceNavigation#SEARCH");
-	}
-
 	macro gotoSpeedwellDashboardItem {
 		Click(
 			key_dashboardItem = "${dashboardItem}",
@@ -67,10 +58,19 @@ definition {
 
 	macro gotoSpeedwellTopbarItem {
 		Click(locator1 = "CommerceAccelerators#SPEEDWELL_TOPBAR_BUTTON");
-		
+
 		Click(
 			key_menuItem = "${menuItem}",
 			locator1 = "CommerceAccelerators#SPEEDWELL_TOPBAR_MENU_ITEM");
+	}
+
+	macro searchEntry {
+		Type(
+			entryName = "${entryName}",
+			locator1 = "TextInput#SEARCH",
+			value1 = "${entryName}");
+
+		Click(locator1 = "CommerceNavigation#SEARCH");
 	}
 
 }

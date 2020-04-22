@@ -26,7 +26,7 @@ definition {
 		PortletEntry.save();
 	}
 
-    macro loginPG {
+	macro loginPG {
 		if ("${samlEnabled}" != "true") {
 			User.loginLocalizationPG(localization = "${localization}");
 		}
@@ -119,7 +119,7 @@ definition {
 			key_menuItem = "Sign Out",
 			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
 	}
-	
+
 	macro speedwellLogin {
 		var baseURL = "${baseURL}";
 

@@ -193,26 +193,17 @@ definition {
 		}
 	}
 
-	macro commerceInitializersTearDown {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
-
-		Site.deleteAllCP();
-	}
-
 	macro commerceCatalogsTearDown {
 		var catalogsList = "";
-		
+
 		var count = "1";
 
-		while(IsElementPresent(key_rowNumber = "${count}", locator1 = "CommerceNavigation#ENTRY_NAME_N")) {
+		while (IsElementPresent(key_rowNumber = "${count}", locator1 = "CommerceNavigation#ENTRY_NAME_N")) {
 			var key_rowNumber = "${count}";
 
 			var entryName = selenium.getText("CommerceNavigation#ENTRY_NAME_N");
 
-			if("${entryName}" != "Master") {
+			if ("${entryName}" != "Master") {
 				catalogsList = StringUtil.add("${catalogsList}", "${entryName}");
 			}
 
@@ -230,6 +221,15 @@ definition {
 
 			AssertElementNotPresent(locator1 = "Message#ERROR");
 		}
+	}
+
+	macro commerceInitializersTearDown {
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
+
+		Site.deleteAllCP();
 	}
 
 	macro commerceStoreFrontSetUp {
