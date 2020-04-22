@@ -71,7 +71,7 @@ public class CartItemDTOConverter
 
 		String languageId = LanguageUtil.getLanguageId(locale);
 
-		CartItem cartItem = new CartItem() {
+		return new CartItem() {
 			{
 				customFields = expandoBridge.getAttributes();
 				id = commerceOrderItem.getCommerceOrderItemId();
@@ -88,8 +88,6 @@ public class CartItemDTOConverter
 					commerceOrderItem.getCPInstanceId());
 			}
 		};
-
-		return cartItem;
 	}
 
 	private Price _getPrice(CommerceOrderItem commerceOrderItem, Locale locale)
