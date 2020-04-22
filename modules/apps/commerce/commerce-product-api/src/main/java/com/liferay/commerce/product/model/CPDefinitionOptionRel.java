@@ -66,6 +66,8 @@ public interface CPDefinitionOptionRel
 	public java.util.List<CPDefinitionOptionValueRel>
 		getCPDefinitionOptionValueRels();
 
+	public int getCPDefinitionOptionValueRelsCount();
+
 	public CPOption getCPOption()
 		throws com.liferay.portal.kernel.exception.PortalException;
 

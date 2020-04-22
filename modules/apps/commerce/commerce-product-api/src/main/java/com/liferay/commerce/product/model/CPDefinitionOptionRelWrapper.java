@@ -261,6 +261,11 @@ public class CPDefinitionOptionRelWrapper
 	}
 
 	@Override
+	public int getCPDefinitionOptionValueRelsCount() {
+		return _cpDefinitionOptionRel.getCPDefinitionOptionValueRelsCount();
+	}
+
+	@Override
 	public CPOption getCPOption()
 		throws com.liferay.portal.kernel.exception.PortalException {
 
