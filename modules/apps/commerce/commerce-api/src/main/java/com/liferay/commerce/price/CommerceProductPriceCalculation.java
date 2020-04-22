@@ -19,10 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.portal.kernel.exception.PortalException;
-
-import java.util.List;
 
 /**
  * @author Marco Leo
@@ -32,14 +29,12 @@ import java.util.List;
 public interface CommerceProductPriceCalculation {
 
 	public CommerceProductPrice getCommerceProductPrice(
-			long cpInstanceId, int quantity, boolean secure,
-			CommerceContext commerceContext)
+			CommerceProductPriceRequest commerceProductPriceRequest)
 		throws PortalException;
 
 	public CommerceProductPrice getCommerceProductPrice(
 			long cpInstanceId, int quantity, boolean secure,
-			CommerceContext commerceContext,
-			List<CommerceOptionValue> commerceOptionValues)
+			CommerceContext commerceContext)
 		throws PortalException;
 
 	public CommerceProductPrice getCommerceProductPrice(

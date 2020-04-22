@@ -25,6 +25,7 @@ import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.commerce.price.CommerceProductPriceRequest;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
@@ -176,10 +177,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -274,10 +285,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -379,10 +400,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -494,10 +525,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -607,10 +648,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -726,10 +777,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -826,10 +887,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -897,10 +968,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -978,10 +1059,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -1081,10 +1172,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
@@ -1174,10 +1275,20 @@ public class CommerceProductBundlesTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, _user, _group, _commerceAccount, null);
 
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(), 1, true, commerceContext,
-				commerceOptionValues);
+				commerceProductPriceRequest);
 
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 

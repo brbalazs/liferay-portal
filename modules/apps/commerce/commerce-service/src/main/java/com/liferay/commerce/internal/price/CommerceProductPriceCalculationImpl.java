@@ -27,6 +27,7 @@ import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
+import com.liferay.commerce.price.CommerceProductPriceRequest;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
@@ -67,20 +68,16 @@ public class CommerceProductPriceCalculationImpl
 
 	@Override
 	public CommerceProductPrice getCommerceProductPrice(
-			long cpInstanceId, int quantity, boolean secure,
-			CommerceContext commerceContext)
+			CommerceProductPriceRequest commerceProductPriceRequest)
 		throws PortalException {
 
-		return getCommerceProductPrice(
-			cpInstanceId, quantity, secure, commerceContext, null);
-	}
-
-	@Override
-	public CommerceProductPrice getCommerceProductPrice(
-			long cpInstanceId, int quantity, boolean secure,
-			CommerceContext commerceContext,
-			List<CommerceOptionValue> commerceOptionValues)
-		throws PortalException {
+		long cpInstanceId = commerceProductPriceRequest.getCpInstanceId();
+		int quantity = commerceProductPriceRequest.getQuantity();
+		boolean secure = commerceProductPriceRequest.isSecure();
+		CommerceContext commerceContext =
+			commerceProductPriceRequest.getCommerceContext();
+		List<CommerceOptionValue> commerceOptionValues =
+			commerceProductPriceRequest.getCommerceOptionValues();
 
 		CommerceMoney unitPriceMoney = getUnitPrice(
 			cpInstanceId, quantity, commerceContext.getCommerceCurrency(),
@@ -140,6 +137,24 @@ public class CommerceProductPriceCalculationImpl
 				commerceContext.getCommerceCurrency(), finalPrice));
 
 		return commerceProductPriceImpl;
+	}
+
+	@Override
+	public CommerceProductPrice getCommerceProductPrice(
+			long cpInstanceId, int quantity, boolean secure,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(cpInstanceId);
+		commerceProductPriceRequest.setQuantity(quantity);
+		commerceProductPriceRequest.setSecure(secure);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(null);
+
+		return getCommerceProductPrice(commerceProductPriceRequest);
 	}
 
 	@Override
