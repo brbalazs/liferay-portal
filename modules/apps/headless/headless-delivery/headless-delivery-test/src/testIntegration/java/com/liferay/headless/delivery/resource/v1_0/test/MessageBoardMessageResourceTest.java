@@ -26,8 +26,6 @@ import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 
 import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
@@ -45,42 +43,6 @@ public class MessageBoardMessageResourceTest
 		ServiceContext serviceContext = new ServiceContext();
 
 		serviceContext.setScopeGroupId(testGroup.getGroupId());
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGetMessageBoardMessageMessageBoardMessagesPageWithSortInteger() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGetMessageBoardThreadMessageBoardMessagesPageWithSortInteger() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGetSiteMessageBoardMessagesPageWithSortInteger() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLDeleteMessageBoardMessage() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetMessageBoardMessage() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetSiteMessageBoardMessagesPage() {
 	}
 
 	@Override
