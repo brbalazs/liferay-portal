@@ -39,7 +39,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>SEARCH</td>
+	<td>SEARCH_FIELD</td>
 	<td>//*[@data-qa-id='searchButton'] | //button[contains(.,'search')]</td>
 	<td></td>
 </tr>
