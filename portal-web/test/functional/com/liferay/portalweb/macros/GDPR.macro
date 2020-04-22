@@ -103,6 +103,18 @@ definition {
 		}
 	}
 
+	macro downloadExportedPersonalData {
+		for (var application : list "${applications}") {
+			var key_rowEntry = "${application}";
+
+			Click(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_ELLIPSIS");
+
+			AssertClick.assertPartialTextClickAt(
+				locator1 = "MenuItem#DOWNLOAD",
+				value1 = "Download");
+		}
+	}
+
 	macro editPersonalApplicationsData {
 		AssertTextEquals(
 			locator1 = "DataErasure#SHEET_TITLE",
