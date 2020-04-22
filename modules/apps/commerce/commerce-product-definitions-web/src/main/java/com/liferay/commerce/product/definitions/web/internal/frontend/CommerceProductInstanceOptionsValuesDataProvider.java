@@ -18,6 +18,7 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -41,6 +42,7 @@ import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.ReleaseInfo;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -183,33 +185,33 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			for (CPDefinitionOptionRel cpDefinitionOptionRel :
 					requestedCPDefinitionOptionRels) {
 
-				if (skuCombinationCPDefinitionOptionValueRelIds.isEmpty()) {
-					outputs.add(
-						new Output(
-							cpDefinitionOptionRel.getKey(), "list",
-							_toCPDefinitionOptionValueRelKeyValuePairs(
-								_cpInstanceHelper.
-									getCPInstanceCPDefinitionOptionValueRels(
-										cpDefinitionId,
-										cpDefinitionOptionRel.
-											getCPDefinitionOptionRelId()),
-								locale,
-								_getCommerceContext(
-									ddmDataProviderRequest.
-										getHttpServletRequest()))));
+				List<CPDefinitionOptionValueRel> renameMe =
+					Collections.emptyList();
 
-					continue;
+				if (skuCombinationCPDefinitionOptionValueRelIds.isEmpty()) {
+					renameMe =
+						_cpInstanceHelper.
+							getCPInstanceCPDefinitionOptionValueRels(
+								cpDefinitionId,
+								cpDefinitionOptionRel.
+									getCPDefinitionOptionRelId());
+				}
+				else {
+					renameMe =
+						_cpInstanceHelper.filterCPDefinitionOptionValueRels(
+							cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+							skuCombinationCPDefinitionOptionValueRelIds);
+				}
+
+				if (Validator.isNotNull(cpDefinitionOptionRel.getPriceType())) {
+					renameMe = _filterByInvenntoryAvailable(renameMe);
 				}
 
 				outputs.add(
 					new Output(
 						cpDefinitionOptionRel.getKey(), "list",
 						_toCPDefinitionOptionValueRelKeyValuePairs(
-							_cpInstanceHelper.filterCPDefinitionOptionValueRels(
-								cpDefinitionOptionRel.
-									getCPDefinitionOptionRelId(),
-								skuCombinationCPDefinitionOptionValueRelIds),
-							locale,
+							renameMe, locale,
 							_getCommerceContext(
 								ddmDataProviderRequest.
 									getHttpServletRequest()))));
@@ -270,6 +272,54 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 		private final String _type;
 		private final Object _value;
 
+	}
+
+	private List<CPDefinitionOptionValueRel> _filterByInvenntoryAvailable(
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels) {
+
+		List<CPDefinitionOptionValueRel> filtered = new ArrayList<>();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			if (Validator.isNull(
+					cpDefinitionOptionValueRel.getCPInstanceUuid())) {
+
+				filtered.add(cpDefinitionOptionValueRel);
+
+				continue;
+			}
+
+			CPInstance cpInstance =
+				cpDefinitionOptionValueRel.fetchCPInstance();
+
+			if (cpInstance == null) {
+				continue;
+			}
+
+			try {
+				if ((cpDefinitionOptionValueRel.getQuantity() >
+						_cpDefinitionInventoryEngine.getMaxOrderQuantity(
+							cpInstance)) ||
+					(cpDefinitionOptionValueRel.getQuantity() <
+						_cpDefinitionInventoryEngine.getMinOrderQuantity(
+							cpInstance))) {
+
+					continue;
+				}
+			}
+			catch (PortalException pe) {
+				_log.error(
+					"Unable to determinate allowed order quantity for CP instance ID " +
+						cpInstance.getCPInstanceId());
+
+				continue;
+			}
+
+			filtered.add(cpDefinitionOptionValueRel);
+		}
+
+		return filtered;
 	}
 
 	private CommerceContext _getCommerceContext(
@@ -360,6 +410,9 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	@Reference
 	private CommerceProductViewPermission _commerceProductViewPermission;
+
+	@Reference
+	private CPDefinitionInventoryEngine _cpDefinitionInventoryEngine;
 
 	@Reference
 	private CPDefinitionOptionRelLocalService
