@@ -40,7 +40,7 @@
 </tr>
 <tr>
 	<td>SEARCH_FIELD</td>
-	<td>//*[@data-qa-id='searchButton'] | //button[contains(.,'search')]</td>
+	<td>//input[contains(@class,'main-input-search')]</td>
 	<td></td>
 </tr>
 <tr>
