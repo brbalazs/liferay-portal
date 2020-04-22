@@ -190,4 +190,11 @@ definition {
 			locator1 = "CommerceAccelerators#PORTLET_LOADED");
 	}
 
+	macro viewMiniumCardName {
+		AssertTextEquals(
+			key_productName = "${productName}",
+			locator1 = "CommerceAccelerators#MINIUM_CARD_NAME",
+			value1 = "${productName}");
+	}
+
 }
