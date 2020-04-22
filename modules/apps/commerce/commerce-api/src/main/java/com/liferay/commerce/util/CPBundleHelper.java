@@ -16,6 +16,7 @@ package com.liferay.commerce.util;
 
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
@@ -26,5 +27,10 @@ public interface CPBundleHelper {
 	public CommerceMoney getCPBundleMinPrice(
 			long cpDefinitionId, CommerceContext commerceContext)
 		throws PortalException;
+
+	public CommerceMoney getCPBundleOptionValueRelativePrice(
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+		CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
+		CommerceContext commerceContext);
 
 }

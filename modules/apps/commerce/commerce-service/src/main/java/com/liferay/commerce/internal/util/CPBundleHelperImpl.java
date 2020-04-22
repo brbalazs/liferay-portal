@@ -92,6 +92,69 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 			commerceContext.getCommerceCurrency(), cpBundleMinPrice);
 	}
 
+	@Override
+	public CommerceMoney getCPBundleOptionValueRelativePrice(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		_validate(
+			cpDefinitionOptionValueRel, selectedCPDefinitionOptionValueRel);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
+
+		if (cpDefinitionOptionRel.getPriceType() == null) {
+			return _commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
+		}
+
+		String priceType = cpDefinitionOptionRel.getPriceType();
+		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
+		BigDecimal relativePrice = null;
+
+		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+			if (selectedCPDefinitionOptionValueRel == null) {
+				relativePrice = price.multiply(commerceCurrency.getRate());
+			}
+			else {
+				relativePrice = price.subtract(
+					selectedCPDefinitionOptionValueRel.getPrice());
+
+				relativePrice = relativePrice.multiply(
+					commerceCurrency.getRate());
+			}
+		}
+
+		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+			BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
+				cpDefinitionOptionValueRel.getCProductId(),
+				cpDefinitionOptionValueRel.getCPInstanceUuid(),
+				cpDefinitionOptionValueRel.getQuantity(), commerceContext);
+
+			if (selectedCPDefinitionOptionValueRel == null) {
+				relativePrice = cpInstanceFinalPrice;
+			}
+			else {
+				BigDecimal selectedCPInstanceFinalPrice =
+					_getCPInstanceFinalPrice(
+						selectedCPDefinitionOptionValueRel.getCProductId(),
+						selectedCPDefinitionOptionValueRel.getCPInstanceUuid(),
+						selectedCPDefinitionOptionValueRel.getQuantity(),
+						commerceContext);
+
+				relativePrice = cpInstanceFinalPrice.subtract(
+					selectedCPInstanceFinalPrice);
+			}
+		}
+
+		return _commerceMoneyFactory.create(commerceCurrency, relativePrice);
+	}
+
 	private BigDecimal _getCPDefinitionOptionMinDynamicPrice(
 			CPDefinitionOptionRel cpDefinitionOptionRel,
 			CommerceContext commerceContext)
@@ -186,6 +249,21 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 				cpInstance.getCPInstanceId(), quantity, commerceContext);
 
 		return commerceMoney.getPrice();
+	}
+
+	private void _validate(
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+		CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel) {
+
+		if ((selectedCPDefinitionOptionValueRel != null) &&
+			(cpDefinitionOptionValueRel.getCPDefinitionOptionRelId() !=
+				selectedCPDefinitionOptionValueRel.
+					getCPDefinitionOptionRelId())) {
+
+			throw new IllegalArgumentException(
+				"Provided CPDefinitionOptionValueRel parameters must belong " +
+					"to the same CPDefinitionOptionRel");
+		}
 	}
 
 	@Reference
