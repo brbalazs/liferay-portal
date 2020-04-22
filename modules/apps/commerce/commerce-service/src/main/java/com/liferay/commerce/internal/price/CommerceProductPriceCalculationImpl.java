@@ -122,10 +122,16 @@ public class CommerceProductPriceCalculationImpl
 						unitPriceMoney = _commerceMoneyFactory.create(
 							commerceContext.getCommerceCurrency(), unitPrice);
 
-						promoPrice = promoPrice.add(optionValuePrice);
+						if ((promoPrice != null) &&
+							(promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
+							(promoPrice.compareTo(unitPrice) <= 0)) {
 
-						promoPriceMoney = _commerceMoneyFactory.create(
-							commerceContext.getCommerceCurrency(), promoPrice);
+							promoPrice = promoPrice.add(optionValuePrice);
+
+							promoPriceMoney = _commerceMoneyFactory.create(
+								commerceContext.getCommerceCurrency(),
+								promoPrice);
+						}
 
 						if (commerceOptionValue.getCPInstanceId() > 0) {
 							optionValuePrice = optionValuePrice.multiply(
