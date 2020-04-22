@@ -1,34 +1,34 @@
 definition {
 
-	macro editOrderItemDetails{
+	macro editOrderItemDetails {
 		Click(
 			key_productName = "${orderItemName}",
 			locator1 = "CommerceOrders#ORDER_ITEMS_PRODUCT_DETAILS");
 
 		SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
 
-		if(isSet(orderItemQuantity)) {
+		if (isSet(orderItemQuantity)) {
 			Type(
 				key_fieldLabel = "Quantity",
 				locator1 = "TextInput#GENERIC_TEXT_INPUT",
 				value1 = "${orderItemQuantity}");
 		}
 
-		if(isSet(orderItemPrice)) {
+		if (isSet(orderItemPrice)) {
 			Type(
 				key_fieldLabel = "Price",
 				locator1 = "TextInput#GENERIC_TEXT_INPUT",
 				value1 = "${orderItemPrice}");
 		}
 
-		if(isSet(orderItemRequestedDeliveryDate)) {
+		if (isSet(orderItemRequestedDeliveryDate)) {
 			Type(
 				key_fieldLabel = "Requested Delivery Date",
 				locator1 = "TextInput#GENERIC_TEXT_INPUT",
 				value1 = "${orderItemRequestedDeliveryDate}");
 		}
 
-		if(isSet(orderItemDeliveryGroup)) {
+		if (isSet(orderItemDeliveryGroup)) {
 			Type(
 				key_fieldLabel = "Delivery Group",
 				locator1 = "TextInput#GENERIC_TEXT_INPUT",
