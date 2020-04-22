@@ -48,6 +48,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -90,7 +91,6 @@ public class CommerceProductPriceCalculationImpl
 			secure, commerceContext);
 
 		BigDecimal unitPrice = unitPriceMoney.getPrice();
-
 		BigDecimal promoPrice = promoPriceMoney.getPrice();
 
 		BigDecimal finalPrice = unitPrice;
@@ -102,86 +102,23 @@ public class CommerceProductPriceCalculationImpl
 			finalPrice = promoPriceMoney.getPrice();
 		}
 
-		if (commerceOptionValues != null) {
-			for (CommerceOptionValue commerceOptionValue :
-					commerceOptionValues) {
-
-				String optionPriceType = commerceOptionValue.getPriceType();
-
-				if (optionPriceType.equals(
-						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
-
-					BigDecimal optionValuePrice =
-						commerceOptionValue.getPrice();
-
-					if ((optionValuePrice != null) &&
-						(optionValuePrice.compareTo(BigDecimal.ZERO) > 0)) {
-
-						unitPrice = unitPrice.add(optionValuePrice);
-
-						unitPriceMoney = _commerceMoneyFactory.create(
-							commerceContext.getCommerceCurrency(), unitPrice);
-
-						if ((promoPrice != null) &&
-							(promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
-							(promoPrice.compareTo(unitPrice) <= 0)) {
-
-							promoPrice = promoPrice.add(optionValuePrice);
-
-							promoPriceMoney = _commerceMoneyFactory.create(
-								commerceContext.getCommerceCurrency(),
-								promoPrice);
-						}
-
-						if (commerceOptionValue.getCPInstanceId() > 0) {
-							optionValuePrice = optionValuePrice.multiply(
-								BigDecimal.valueOf(
-									commerceOptionValue.getQuantity()));
-						}
-
-						finalPrice = finalPrice.add(optionValuePrice);
-					}
-				}
-				else {
-					CommerceProductPrice optionValueProductPrice =
-						getCommerceProductPrice(
-							commerceOptionValue.getCPInstanceId(),
-							commerceOptionValue.getQuantity(), true,
-							commerceContext);
-
-					CommerceMoney optionValueUnitPriceMoney =
-						optionValueProductPrice.getUnitPrice();
-
-					unitPrice = unitPrice.add(
-						optionValueUnitPriceMoney.getPrice());
-
-					unitPriceMoney = _commerceMoneyFactory.create(
-						commerceContext.getCommerceCurrency(), unitPrice);
-
-					CommerceMoney optionValueUnitPromoPriceMoney =
-						optionValueProductPrice.getUnitPromoPrice();
-
-					promoPrice = promoPrice.add(
-						optionValueUnitPromoPriceMoney.getPrice());
-
-					promoPriceMoney = _commerceMoneyFactory.create(
-						commerceContext.getCommerceCurrency(), promoPrice);
-
-					CommerceMoney optionValueFinalPriceMoney =
-						optionValueProductPrice.getFinalPrice();
-
-					finalPrice = finalPrice.add(
-						optionValueFinalPriceMoney.getPrice());
-				}
-			}
-		}
-
 		CommerceProductPriceImpl commerceProductPriceImpl =
 			new CommerceProductPriceImpl();
 
 		commerceProductPriceImpl.setQuantity(quantity);
-		commerceProductPriceImpl.setUnitPrice(unitPriceMoney);
-		commerceProductPriceImpl.setUnitPromoPrice(promoPriceMoney);
+
+		BigDecimal[] updatedPrices = _getUpdatedPrices(
+			unitPrice, promoPrice, finalPrice, commerceContext,
+			commerceOptionValues);
+
+		commerceProductPriceImpl.setUnitPrice(
+			_commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), updatedPrices[0]));
+		commerceProductPriceImpl.setUnitPromoPrice(
+			_commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), updatedPrices[1]));
+
+		finalPrice = updatedPrices[2];
 
 		CommerceDiscountValue commerceDiscountValue =
 			_commerceDiscountCalculation.getProductCommerceDiscountValue(
@@ -489,6 +426,72 @@ public class CommerceProductPriceCalculationImpl
 		}
 
 		return price;
+	}
+
+	private BigDecimal[] _getUpdatedPrices(
+			BigDecimal unitPrice, BigDecimal promoPrice, BigDecimal finalPrice,
+			CommerceContext commerceContext,
+			List<CommerceOptionValue> commerceOptionValues)
+		throws PortalException {
+
+		if ((commerceOptionValues == null) || commerceOptionValues.isEmpty()) {
+			return new BigDecimal[] {unitPrice, promoPrice, finalPrice};
+		}
+
+		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
+			if (Objects.equals(
+					commerceOptionValue.getPriceType(),
+					CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+				BigDecimal optionValuePrice = commerceOptionValue.getPrice();
+
+				if ((optionValuePrice != null) &&
+					(optionValuePrice.compareTo(BigDecimal.ZERO) > 0)) {
+
+					unitPrice = unitPrice.add(optionValuePrice);
+
+					if ((promoPrice != null) &&
+						(promoPrice.compareTo(BigDecimal.ZERO) > 0)) {
+
+						promoPrice = promoPrice.add(optionValuePrice);
+					}
+
+					if (commerceOptionValue.getCPInstanceId() > 0) {
+						optionValuePrice = optionValuePrice.multiply(
+							BigDecimal.valueOf(
+								commerceOptionValue.getQuantity()));
+					}
+
+					finalPrice = finalPrice.add(optionValuePrice);
+				}
+			}
+			else {
+				CommerceProductPrice optionValueProductPrice =
+					getCommerceProductPrice(
+						commerceOptionValue.getCPInstanceId(),
+						commerceOptionValue.getQuantity(), true,
+						commerceContext);
+
+				CommerceMoney optionValueUnitPriceMoney =
+					optionValueProductPrice.getUnitPrice();
+
+				unitPrice = unitPrice.add(optionValueUnitPriceMoney.getPrice());
+
+				CommerceMoney optionValueUnitPromoPriceMoney =
+					optionValueProductPrice.getUnitPromoPrice();
+
+				promoPrice = promoPrice.add(
+					optionValueUnitPromoPriceMoney.getPrice());
+
+				CommerceMoney optionValueFinalPriceMoney =
+					optionValueProductPrice.getFinalPrice();
+
+				finalPrice = finalPrice.add(
+					optionValueFinalPriceMoney.getPrice());
+			}
+		}
+
+		return new BigDecimal[] {unitPrice, promoPrice, finalPrice};
 	}
 
 	@Reference
