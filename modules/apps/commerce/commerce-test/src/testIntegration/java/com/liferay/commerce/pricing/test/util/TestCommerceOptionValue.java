@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.pricing.test.util;
 
-import com.liferay.commerce.price.CommerceOptionValue;
+import com.liferay.commerce.product.option.CommerceOptionValue;
 
 import java.math.BigDecimal;
 
