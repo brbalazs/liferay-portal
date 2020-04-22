@@ -1,5 +1,52 @@
 definition {
 
+	macro addExportProcessCP {
+		var key_application = "${application}";
+
+		LexiconEntry.gotoAdd();
+
+		AssertElementPresent(
+			key_firstName = "${userFirstName}",
+			key_lastName = "${userLastName}",
+			locator1 = "ExportPersonalData#ADD_PROCESS_HEADER");
+
+		if (isSet(applications)) {
+			for (var application : list "${applications}") {
+				Check(
+					key_application = "${application}",
+					locator1 = "ExportPersonalData#APPLICATION_CHECKBOX");
+			}
+		}
+		else {
+			PortletEntry.selectAll();
+		}
+
+		AssertClick(
+			locator1 = "Button#EXPORT",
+			value1 = "Export");
+
+		Alert.viewSuccessMessage();
+
+		AssertElementPresent(
+			key_firstName = "${userFirstName}",
+			key_lastName = "${userLastName}",
+			locator1 = "ExportPersonalData#HEADER");
+
+		while (IsElementPresent(locator1 = "ExportPersonalData#EXPORT_PROCESS_IN_PROGRESS")) {
+			Pause(locator1 = "3000");
+		}
+
+		AssertElementPresent(locator1 = "ExportPersonalData#EXPORT_PROCESS_SUCCESSFUL");
+
+		if (isSet(applications)) {
+			for (var application : list "${applications}") {
+				AssertElementPresent(
+					key_application = "${application}",
+					locator1 = "ExportPersonalData#EXPORT_PROCESS_SPECIFIC_APPLICATION_SUCCESSFUL");
+			}
+		}
+	}
+
 	macro anonymizeDataViaReviewData {
 		Click(
 			key_application = "${application}",
