@@ -223,6 +223,10 @@ components:
                     type: string
                 options:
                     type: string
+                parentCartItemId:
+                    format: int64
+                    readOnly: true
+                    type: integer
                 price:
                     $ref: "#/components/schemas/Price"
                 productId:
@@ -231,6 +235,8 @@ components:
                 quantity:
                     format: int32
                     type: integer
+                settings:
+                    $ref: "#/components/schemas/Settings"
                 sku:
                     readOnly: true
                     type: string
@@ -241,6 +247,9 @@ components:
                     example: true
                     readOnly: true
                     type: boolean
+                thumbnail:
+                    readOnly: true
+                    type: string
             type: object
         CouponCode:
             properties:
@@ -315,6 +324,23 @@ components:
                     type: number
                 promoPriceFormatted:
                     type: string
+            type: object
+        Settings:
+            properties:
+                allowedQuantities:
+                    items:
+                        format: int32
+                        type: integer
+                    type: array
+                maxQuantity:
+                    format: int32
+                    type: integer
+                minQuantity:
+                    format: int32
+                    type: integer
+                multipleQuantity:
+                    format: int32
+                    type: integer
             type: object
         Summary:
             properties:
