@@ -64,6 +64,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>MINIUM_CARD_NAME</td>
+	<td>//a[@class='minium-card__name' and contains(.,'${key_productName}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>MINIUM_SIDEBAR_USER_AVATAR</td>
 	<td>//div[contains(@class,'minium-user-nav__avatar')]</td>
 	<td></td>
@@ -71,6 +76,11 @@
 <tr>
 	<td>MINIUM_SIDEBAR_MENU_ITEM</td>
 	<td>//div[@class='minium-sidebar']//..//a[contains (.,'${key_menuItem}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PORTLET_LOADED</td>
+	<td>//div[contains(@class,'portlet-title-default') and contains(.,'${key_portletName}')]/../../../div[@data-qa-id='app-loaded']/span</td>
 	<td></td>
 </tr>
 <tr>
