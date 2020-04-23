@@ -90,14 +90,14 @@ public class GroupFinderImpl
 	public static final String FIND_BY_SYSTEM =
 		GroupFinder.class.getName() + ".findBySystem";
 
-	public static final String FIND_BY_C_A =
-		GroupFinder.class.getName() + ".findByC_A";
-
 	public static final String FIND_BY_C_P =
 		GroupFinder.class.getName() + ".findByC_P";
 
 	public static final String FIND_BY_C_GK =
 		GroupFinder.class.getName() + ".findByC_GK";
+
+	public static final String FIND_BY_C_A =
+		GroupFinder.class.getName() + ".findByC_A";
 
 	public static final String FIND_BY_L_TS_S_RSGC =
 		GroupFinder.class.getName() + ".findByL_TS_S_RSGC";
@@ -681,34 +681,6 @@ public class GroupFinderImpl
 	}
 
 	@Override
-	public List<Long> findByC_A(long companyId, boolean active) {
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			String sql = CustomSQLUtil.get(FIND_BY_C_A);
-
-			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
-
-			sqlQuery.addScalar("groupId", Type.LONG);
-
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-
-			queryPos.add(companyId);
-			queryPos.add(active);
-
-			return sqlQuery.list(true);
-		}
-		catch (Exception exception) {
-			throw new SystemException(exception);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	@Override
 	public List<Long> findByC_P(
 		long companyId, long parentGroupId, long previousGroupId, int size) {
 
@@ -791,6 +763,34 @@ public class GroupFinderImpl
 		sb.append("}");
 
 		throw new NoSuchGroupException(sb.toString());
+	}
+
+	@Override
+	public List<Long> findByC_A(long companyId, boolean active) {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = CustomSQLUtil.get(FIND_BY_C_A);
+
+			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
+
+			sqlQuery.addScalar("groupId", Type.LONG);
+
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+
+			queryPos.add(companyId);
+			queryPos.add(active);
+
+			return sqlQuery.list(true);
+		}
+		catch (Exception exception) {
+			throw new SystemException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
 	}
 
 	@Override
