@@ -90,10 +90,6 @@ String addToCartId = PortalUtil.generateRandomKey(request, "add-to-cart");
 				</c:otherwise>
 			</c:choose>
 
-			<c:if test="<%= cpContentHelper.isCPBundle(cpDefinitionId) %>">
-				<p>From: <span class="price-value"><%= cpContentHelper.getCPBundleMinPrice(cpDefinitionId, request) %></span></p>
-			</c:if>
-
 			<h2 class="commerce-price mt-3" data-text-cp-instance-price>
 				<c:if test="<%= cpSku != null %>">
 					<commerce-ui:price
