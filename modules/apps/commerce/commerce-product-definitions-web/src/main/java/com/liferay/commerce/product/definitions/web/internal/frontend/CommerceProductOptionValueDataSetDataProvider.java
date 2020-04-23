@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.math.BigDecimal;
 
@@ -99,20 +100,6 @@ public class CommerceProductOptionValueDataSetDataProvider
 		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 				cpDefinitionOptionValueRels) {
 
-			CPInstance cpInstance =
-				cpDefinitionOptionValueRel.fetchCPInstance();
-
-			String sku = StringPool.BLANK;
-
-			if (cpInstance != null) {
-				sku = cpInstance.getSku();
-			}
-
-			BigDecimal price = null;
-
-			CPDefinitionOptionRel cpDefinitionOptionRel =
-				cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
-
 			CommerceCatalog commerceCatalog =
 				_commerceCatalogService.fetchCommerceCatalogByGroupId(
 					cpDefinitionOptionValueRel.getGroupId());
@@ -122,23 +109,7 @@ public class CommerceProductOptionValueDataSetDataProvider
 					commerceCatalog.getCompanyId(),
 					commerceCatalog.getCommerceCurrencyCode());
 
-			String priceType = cpDefinitionOptionRel.getPriceType();
-
-			if (priceType.equals(
-					CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
-
-				price = cpDefinitionOptionValueRel.getPrice();
-			}
-			else if (priceType.equals(
-						CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC) &&
-					 (cpInstance != null)) {
-
-				price = cpInstance.getPrice();
-			}
-
-			if (price == null) {
-				price = BigDecimal.ZERO;
-			}
+			BigDecimal price = _getPrice(cpDefinitionOptionValueRel);
 
 			productOptionValues.add(
 				new ProductOptionValue(
@@ -150,7 +121,8 @@ public class CommerceProductOptionValueDataSetDataProvider
 					HtmlUtil.escape(
 						cpDefinitionOptionValueRel.getName(
 							LanguageUtil.getLanguageId(locale))),
-					cpDefinitionOptionValueRel.getPriority(), sku));
+					cpDefinitionOptionValueRel.getPriority(),
+					_getSku(cpDefinitionOptionValueRel)));
 		}
 
 		return productOptionValues;
@@ -171,6 +143,48 @@ public class CommerceProductOptionValueDataSetDataProvider
 				cpDefinitionOptionRel.getCompanyId(),
 				cpDefinitionOptionRel.getGroupId(), cpDefinitionOptionRelId,
 				keywords, start, end, sort);
+	}
+
+	private BigDecimal _getPrice(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel)
+		throws PortalException {
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		String priceType = cpDefinitionOptionRel.getPriceType();
+
+		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+			return cpDefinitionOptionValueRel.getPrice();
+		}
+		else if (priceType.equals(
+					CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+
+			CPInstance cpInstance =
+				cpDefinitionOptionValueRel.fetchCPInstance();
+
+			if (cpInstance != null) {
+				return cpInstance.getPrice();
+			}
+		}
+
+		return BigDecimal.ZERO;
+	}
+
+	private String _getSku(
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel) {
+
+		if (Validator.isNull(cpDefinitionOptionValueRel.getCPInstanceUuid())) {
+			return StringPool.BLANK;
+		}
+
+		CPInstance cpInstance = cpDefinitionOptionValueRel.fetchCPInstance();
+
+		if (cpInstance == null) {
+			return StringPool.BLANK;
+		}
+
+		return cpInstance.getSku();
 	}
 
 	@Reference
