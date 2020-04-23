@@ -19,6 +19,7 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
@@ -62,12 +63,11 @@ public class CPDefinitionOptionValueRelDisplayContext
 	}
 
 	public CommerceCurrency getCommerceCurrency() throws PortalException {
-		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-			getCPDefinitionOptionValueRel();
+		CPDefinition cpDefinition = getCPDefinition();
 
 		CommerceCatalog commerceCatalog =
 			_commerceCatalogLocalService.fetchCommerceCatalogByGroupId(
-				cpDefinitionOptionValueRel.getGroupId());
+				cpDefinition.getGroupId());
 
 		return _commerceCurrencyLocalService.getCommerceCurrency(
 			commerceCatalog.getCompanyId(),
