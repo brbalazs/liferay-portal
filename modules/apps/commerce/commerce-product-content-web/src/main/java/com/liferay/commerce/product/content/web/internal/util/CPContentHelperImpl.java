@@ -18,6 +18,7 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.inventory.InventoryChecker;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
@@ -33,6 +34,8 @@ import com.liferay.commerce.product.ddm.DDMHelper;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPDefinitionOptionRel;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPOptionCategory;
@@ -68,6 +71,7 @@ import com.liferay.portlet.documentlibrary.lar.FileEntryUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
@@ -501,8 +505,26 @@ public class CPContentHelperImpl implements CPContentHelper {
 			cpCatalogEntry.getCPDefinitionId(), null,
 			cpCatalogEntry.isIgnoreSKUCombinations(), renderRequest,
 			renderResponse,
-			_cpInstanceHelper.getCPDefinitionOptionRelsMap(
-				cpCatalogEntry.getCPDefinitionId(), false, true));
+			_filterByInventoryAvailability(
+				_cpInstanceHelper.getCPDefinitionOptionRelsMap(
+					cpCatalogEntry.getCPDefinitionId(), false, true)));
+	}
+
+	private Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+		_filterByInventoryAvailability(
+			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				cpDefinitionOptionRelstMap) {
+
+		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				cpDefinitionOptionRelEntry :
+					cpDefinitionOptionRelstMap.entrySet()) {
+
+			cpDefinitionOptionRelEntry.setValue(
+				_inventoryChecker.filterByAvailability(
+					cpDefinitionOptionRelEntry.getValue()));
+		}
+
+		return cpDefinitionOptionRelstMap;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -551,6 +573,11 @@ public class CPContentHelperImpl implements CPContentHelper {
 
 	@Reference
 	private DDMHelper _ddmHelper;
+
+	@Reference(
+		target = "(commerce.inventory.checker.target=CPDefinitionOptionValueRel)"
+	)
+	private InventoryChecker<CPDefinitionOptionValueRel> _inventoryChecker;
 
 	@Reference
 	private Portal _portal;
