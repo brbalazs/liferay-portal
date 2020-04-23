@@ -17,7 +17,6 @@ package com.liferay.commerce.product.content.web.internal.util;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.inventory.InventoryChecker;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.media.CommerceMediaResolver;
@@ -51,7 +50,6 @@ import com.liferay.commerce.product.util.CPContentContributor;
 import com.liferay.commerce.product.util.CPContentContributorRegistry;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.product.util.CPInstanceHelper;
-import com.liferay.commerce.util.CPBundleHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -158,21 +156,6 @@ public class CPContentHelperImpl implements CPContentHelper {
 		}
 
 		return cpMedias;
-	}
-
-	@Override
-	public String getCPBundleMinPrice(
-			long cpDefinitionId, HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		CommerceContext commerceContext =
-			(CommerceContext)httpServletRequest.getAttribute(
-				CommerceWebKeys.COMMERCE_CONTEXT);
-
-		CommerceMoney commerceMoney = _cpBundleHelper.getCPBundleMinPrice(
-			cpDefinitionId, commerceContext);
-
-		return commerceMoney.format(_portal.getLocale(httpServletRequest));
 	}
 
 	@Override
@@ -456,11 +439,6 @@ public class CPContentHelperImpl implements CPContentHelper {
 	}
 
 	@Override
-	public boolean isCPBundle(long cpDefinitionId) {
-		return _cpDefinitionLocalService.isCPBundle(cpDefinitionId);
-	}
-
-	@Override
 	public void renderCPType(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
@@ -539,9 +517,6 @@ public class CPContentHelperImpl implements CPContentHelper {
 	@Reference
 	private CPAttachmentFileEntryLocalService
 		_cpAttachmentFileEntryLocalService;
-
-	@Reference
-	private CPBundleHelper _cpBundleHelper;
 
 	@Reference
 	private CPDefinitionSpecificationOptionValueLocalService

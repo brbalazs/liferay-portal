@@ -20,7 +20,6 @@ import com.liferay.commerce.account.service.CommerceAccountGroupLocalService;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
@@ -38,7 +37,6 @@ import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.option.CommerceOptionValue;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -64,7 +62,7 @@ import org.osgi.service.component.annotations.Reference;
 	service = CommerceProductPriceCalculation.class
 )
 public class CommerceProductPriceCalculationImpl
-	implements CommerceProductPriceCalculation {
+	extends BaseCommerceProductPriceCalculation {
 
 	@Override
 	public CommerceProductPrice getCommerceProductPrice(
@@ -109,10 +107,10 @@ public class CommerceProductPriceCalculationImpl
 			commerceOptionValues);
 
 		commerceProductPriceImpl.setUnitPrice(
-			_commerceMoneyFactory.create(
+			commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), updatedPrices[0]));
 		commerceProductPriceImpl.setUnitPromoPrice(
-			_commerceMoneyFactory.create(
+			commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), updatedPrices[1]));
 
 		finalPrice = updatedPrices[2];
@@ -133,7 +131,7 @@ public class CommerceProductPriceCalculationImpl
 		commerceProductPriceImpl.setCommerceDiscountValue(
 			commerceDiscountValue);
 		commerceProductPriceImpl.setFinalPrice(
-			_commerceMoneyFactory.create(
+			commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), finalPrice));
 
 		return commerceProductPriceImpl;
@@ -196,7 +194,7 @@ public class CommerceProductPriceCalculationImpl
 			boolean secure, CommerceContext commerceContext)
 		throws PortalException {
 
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
 			cpInstanceId);
 
 		Optional<CommercePriceList> commercePriceList = _getPriceList(
@@ -208,7 +206,7 @@ public class CommerceProductPriceCalculationImpl
 				commerceContext.getCommerceCurrency(), true);
 
 			if (priceListPrice != null) {
-				return _commerceMoneyFactory.create(
+				return commerceMoneyFactory.create(
 					commerceCurrency, priceListPrice);
 			}
 		}
@@ -235,7 +233,7 @@ public class CommerceProductPriceCalculationImpl
 			price = price.multiply(commerceCurrency.getRate());
 		}
 
-		return _commerceMoneyFactory.create(commerceCurrency, price);
+		return commerceMoneyFactory.create(commerceCurrency, price);
 	}
 
 	@Override
@@ -248,7 +246,7 @@ public class CommerceProductPriceCalculationImpl
 		BigDecimal maxPrice = BigDecimal.ZERO;
 
 		List<CPInstance> cpInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
+			cpInstanceLocalService.getCPDefinitionInstances(
 				cpDefinitionId, WorkflowConstants.STATUS_APPROVED,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
@@ -285,7 +283,7 @@ public class CommerceProductPriceCalculationImpl
 		BigDecimal minPrice = BigDecimal.ZERO;
 
 		List<CPInstance> cpInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
+			cpInstanceLocalService.getCPDefinitionInstances(
 				cpDefinitionId, WorkflowConstants.STATUS_APPROVED,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
@@ -320,7 +318,7 @@ public class CommerceProductPriceCalculationImpl
 			boolean secure, CommerceContext commerceContext)
 		throws PortalException {
 
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
 			cpInstanceId);
 
 		Optional<CommercePriceList> commercePriceList = _getPriceList(
@@ -332,7 +330,7 @@ public class CommerceProductPriceCalculationImpl
 				commerceContext.getCommerceCurrency(), false);
 
 			if (priceListPrice != null) {
-				return _commerceMoneyFactory.create(
+				return commerceMoneyFactory.create(
 					commerceCurrency, priceListPrice);
 			}
 		}
@@ -359,7 +357,7 @@ public class CommerceProductPriceCalculationImpl
 			price = price.multiply(commerceCurrency.getRate());
 		}
 
-		return _commerceMoneyFactory.create(commerceCurrency, price);
+		return commerceMoneyFactory.create(commerceCurrency, price);
 	}
 
 	private Optional<CommercePriceList> _getPriceList(
@@ -522,9 +520,6 @@ public class CommerceProductPriceCalculationImpl
 	private CommerceDiscountCalculation _commerceDiscountCalculation;
 
 	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
-
-	@Reference
 	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
 
 	@Reference
@@ -533,9 +528,6 @@ public class CommerceProductPriceCalculationImpl
 	@Reference
 	private CommerceTierPriceEntryLocalService
 		_commerceTierPriceEntryLocalService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference(target = "(resource.name=" + CPConstants.RESOURCE_NAME + ")")
 	private PortletResourcePermission _portletResourcePermission;

@@ -61,10 +61,6 @@ public interface CPContentHelper {
 			long cpDefinitionId, ThemeDisplay themeDisplay)
 		throws PortalException;
 
-	public String getCPBundleMinPrice(
-			long cpDefinitionId, HttpServletRequest httpServletRequest)
-		throws Exception;
-
 	public CPCatalogEntry getCPCatalogEntry(
 			HttpServletRequest httpServletRequest)
 		throws PortalException;
@@ -122,8 +118,6 @@ public interface CPContentHelper {
 
 	public boolean hasCPDefinitionSpecificationOptionValues(long cpDefinitionId)
 		throws PortalException;
-
-	public boolean isCPBundle(long cpDefinitionId);
 
 	public void renderCPType(
 			HttpServletRequest httpServletRequest,

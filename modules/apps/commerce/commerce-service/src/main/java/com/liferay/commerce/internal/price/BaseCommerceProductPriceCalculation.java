@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.internal.util;
+package com.liferay.commerce.internal.price;
 
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
@@ -25,37 +25,34 @@ import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
-import com.liferay.commerce.util.CPBundleHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
 
 import java.util.List;
 
-import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Matija Petanjek
  */
-@Component(immediate = true, service = CPBundleHelper.class)
-public class CPBundleHelperImpl implements CPBundleHelper {
+public abstract class BaseCommerceProductPriceCalculation
+	implements CommerceProductPriceCalculation {
 
 	@Override
-	public CommerceMoney getCPBundleMinPrice(
+	public CommerceMoney getCPDefinitionMinimumPrice(
 			long cpDefinitionId, CommerceContext commerceContext)
 		throws PortalException {
 
 		BigDecimal cpBundleMinPrice = BigDecimal.ZERO;
 
-		CommerceMoney commerceMoney =
-			_commerceProductPriceCalculation.getUnitMinPrice(
-				cpDefinitionId, 1, commerceContext);
+		CommerceMoney commerceMoney = getUnitMinPrice(
+			cpDefinitionId, 1, commerceContext);
 
 		cpBundleMinPrice = cpBundleMinPrice.add(commerceMoney.getPrice());
 
 		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
-			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
+			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
 				cpDefinitionId);
 
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
@@ -88,12 +85,12 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 				cpDefinitionOptionValueMinPrice);
 		}
 
-		return _commerceMoneyFactory.create(
+		return commerceMoneyFactory.create(
 			commerceContext.getCommerceCurrency(), cpBundleMinPrice);
 	}
 
 	@Override
-	public CommerceMoney getCPBundleOptionValueRelativePrice(
+	public CommerceMoney getCPDefinitionOptionValueRelativePrice(
 			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
 			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
 			CommerceContext commerceContext)
@@ -109,7 +106,7 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 			commerceContext.getCommerceCurrency();
 
 		if (cpDefinitionOptionRel.getPriceType() == null) {
-			return _commerceMoneyFactory.create(
+			return commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
 		}
 
@@ -152,8 +149,18 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 			}
 		}
 
-		return _commerceMoneyFactory.create(commerceCurrency, relativePrice);
+		return commerceMoneyFactory.create(commerceCurrency, relativePrice);
 	}
+
+	@Reference
+	protected CommerceMoneyFactory commerceMoneyFactory;
+
+	@Reference
+	protected CPDefinitionOptionRelLocalService
+		cpDefinitionOptionRelLocalService;
+
+	@Reference
+	protected CPInstanceLocalService cpInstanceLocalService;
 
 	private BigDecimal _getCPDefinitionOptionMinDynamicPrice(
 			CPDefinitionOptionRel cpDefinitionOptionRel,
@@ -241,12 +248,11 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		CPInstance cpInstance = _cpInstanceLocalService.getCProductInstance(
+		CPInstance cpInstance = cpInstanceLocalService.getCProductInstance(
 			cProductId, cpInstanceUuid);
 
-		CommerceMoney commerceMoney =
-			_commerceProductPriceCalculation.getFinalPrice(
-				cpInstance.getCPInstanceId(), quantity, commerceContext);
+		CommerceMoney commerceMoney = getFinalPrice(
+			cpInstance.getCPInstanceId(), quantity, commerceContext);
 
 		return commerceMoney.getPrice();
 	}
@@ -265,18 +271,5 @@ public class CPBundleHelperImpl implements CPBundleHelper {
 					"to the same CPDefinitionOptionRel");
 		}
 	}
-
-	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
-
-	@Reference
-	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
-
-	@Reference
-	private CPDefinitionOptionRelLocalService
-		_cpDefinitionOptionRelLocalService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
 
 }

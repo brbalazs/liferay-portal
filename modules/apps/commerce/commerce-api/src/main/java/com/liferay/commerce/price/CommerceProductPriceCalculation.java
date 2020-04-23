@@ -19,6 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
@@ -39,6 +40,16 @@ public interface CommerceProductPriceCalculation {
 
 	public CommerceProductPrice getCommerceProductPrice(
 			long cpInstanceId, int quantity, CommerceContext commerceContext)
+		throws PortalException;
+
+	public CommerceMoney getCPDefinitionMinimumPrice(
+			long cpDefinitionId, CommerceContext commerceContext)
+		throws PortalException;
+
+	public CommerceMoney getCPDefinitionOptionValueRelativePrice(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
+			CommerceContext commerceContext)
 		throws PortalException;
 
 	public CommerceMoney getFinalPrice(
