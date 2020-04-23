@@ -26,14 +26,9 @@ import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceRequest;
-import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
-import com.liferay.commerce.pricing.constants.CommercePriceModifierConstants;
-import com.liferay.commerce.pricing.model.CommercePriceModifier;
-import com.liferay.commerce.pricing.service.CommercePriceModifierLocalService;
-import com.liferay.commerce.pricing.service.CommercePriceModifierRelLocalService;
 import com.liferay.commerce.pricing.test.util.TestCommerceOptionValue;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -45,7 +40,6 @@ import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -55,17 +49,14 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
-import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
@@ -82,7 +73,7 @@ import org.junit.runner.RunWith;
  * @author Riccardo Alberti
  */
 @RunWith(Arquillian.class)
-public class CommerceProductBundlesV2Test {
+public class CommerceProductPriceCalculationTest {
 
 	@ClassRule
 	@Rule
@@ -130,61 +121,41 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
 
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
+		cpInstance1.setPrice(cpInstancePrice1);
 
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice1);
+		_cpInstanceLocalService.updateCPInstance(cpInstance1);
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
 
-		CPDefinition cpDefinition2 = cpInstance2.getCPDefinition();
+		cpInstance2.setPrice(cpInstancePrice2);
 
-		CProduct cProduct2 = cpDefinition2.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice2);
+		_cpInstanceLocalService.updateCPInstance(cpInstance2);
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
 
-		CPDefinition cpDefinition3 = cpInstance3.getCPDefinition();
+		cpInstance3.setPrice(cpInstancePrice3);
 
-		CProduct cProduct3 = cpDefinition3.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct3.getCProductId(), cpInstance3.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice3);
+		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -256,71 +227,43 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
 
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
+		cpInstance1.setPrice(cpInstancePrice1);
 
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice1);
+		_cpInstanceLocalService.updateCPInstance(cpInstance1);
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		CPDefinition cpDefinition2 = cpInstance2.getCPDefinition();
-
-		CProduct cProduct2 = cpDefinition2.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice2);
-
 		BigDecimal cpInstancePromoPrice2 = BigDecimal.valueOf(100);
 
-		CommercePriceList commercePromotion =
-			CommercePriceListTestUtil.addPromotion(catalog.getGroupId(), 0.0);
+		cpInstance2.setPrice(cpInstancePrice2);
+		cpInstance2.setPromoPrice(cpInstancePromoPrice2);
 
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cpDefinition2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePromotion.getCommercePriceListId(), "",
-			cpInstancePromoPrice2, false, null, null, null, null, true, true);
+		_cpInstanceLocalService.updateCPInstance(cpInstance2);
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
 
-		CPDefinition cpDefinition3 = cpInstance3.getCPDefinition();
+		cpInstance3.setPrice(cpInstancePrice3);
 
-		CProduct cProduct3 = cpDefinition3.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct3.getCProductId(), cpInstance3.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice3);
+		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -392,61 +335,41 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
 
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
+		cpInstance1.setPrice(cpInstancePrice1);
 
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice1);
+		_cpInstanceLocalService.updateCPInstance(cpInstance1);
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
 
-		CPDefinition cpDefinition2 = cpInstance2.getCPDefinition();
+		cpInstance2.setPrice(cpInstancePrice2);
 
-		CProduct cProduct2 = cpDefinition2.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice2);
+		_cpInstanceLocalService.updateCPInstance(cpInstance2);
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
 
-		CPDefinition cpDefinition3 = cpInstance3.getCPDefinition();
+		cpInstance3.setPrice(cpInstancePrice3);
 
-		CProduct cProduct3 = cpDefinition3.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct3.getCProductId(), cpInstance3.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice3);
+		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -532,24 +455,18 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		double discountAmount = 10;
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
 		CommerceDiscountTestUtil.addFixedCommerceDiscount(
 			_group.getGroupId(), discountAmount,
@@ -561,36 +478,20 @@ public class CommerceProductBundlesV2Test {
 
 		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
 
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
+		cpInstance1.setPrice(cpInstancePrice1);
 
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice1);
+		_cpInstanceLocalService.updateCPInstance(cpInstance1);
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		CPDefinition cpDefinition2 = cpInstance2.getCPDefinition();
-
-		CProduct cProduct2 = cpDefinition2.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice2);
-
 		BigDecimal cpInstancePromoPrice2 = BigDecimal.valueOf(100);
 
-		CommercePriceList commercePromotion =
-			CommercePriceListTestUtil.addPromotion(catalog.getGroupId(), 0.0);
+		cpInstance2.setPrice(cpInstancePrice2);
+		cpInstance2.setPromoPrice(cpInstancePromoPrice2);
 
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cpDefinition2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePromotion.getCommercePriceListId(), "",
-			cpInstancePromoPrice2, false, null, null, null, null, true, true);
+		_cpInstanceLocalService.updateCPInstance(cpInstance2);
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
@@ -599,13 +500,9 @@ public class CommerceProductBundlesV2Test {
 
 		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
 
-		CPDefinition cpDefinition3 = cpInstance3.getCPDefinition();
+		cpInstance3.setPrice(cpInstancePrice3);
 
-		CProduct cProduct3 = cpDefinition3.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct3.getCProductId(), cpInstance3.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice3);
+		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -681,65 +578,43 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
 
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
+		cpInstance1.setPrice(cpInstancePrice1);
 
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice1);
+		_cpInstanceLocalService.updateCPInstance(cpInstance1);
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		CPDefinition cpDefinition2 = cpInstance2.getCPDefinition();
-
-		CProduct cProduct2 = cpDefinition2.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice2);
-
 		BigDecimal cpInstancePromoPrice2 = BigDecimal.valueOf(100);
 
-		CommercePriceList commercePromotion =
-			CommercePriceListTestUtil.addPromotion(catalog.getGroupId(), 0.0);
+		cpInstance2.setPrice(cpInstancePrice2);
+		cpInstance2.setPromoPrice(cpInstancePromoPrice2);
 
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cpDefinition2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePromotion.getCommercePriceListId(), "",
-			cpInstancePromoPrice2, true, null, null, null, null, true, true);
+		_cpInstanceLocalService.updateCPInstance(cpInstance2);
+
+		CPDefinition cpDefinition = cpInstance2.getCPDefinition();
 
 		double discountAmount = 10;
 
 		CommerceDiscountTestUtil.addFixedCommerceDiscount(
 			_group.getGroupId(), discountAmount,
 			CommerceDiscountConstants.TARGET_PRODUCT,
-			cpDefinition2.getCPDefinitionId());
+			cpDefinition.getCPDefinitionId());
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
@@ -748,13 +623,9 @@ public class CommerceProductBundlesV2Test {
 
 		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
 
-		CPDefinition cpDefinition3 = cpInstance3.getCPDefinition();
+		cpInstance3.setPrice(cpInstancePrice3);
 
-		CProduct cProduct3 = cpDefinition3.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct3.getCProductId(), cpInstance3.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice3);
+		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -809,7 +680,7 @@ public class CommerceProductBundlesV2Test {
 	}
 
 	@Test
-	public void testCalculatePriceMixedOptionSKUWithOptionLineDiscount()
+	public void testCalculatePriceMixedOptionSKUWithPriceList()
 		throws Exception {
 
 		frutillaRule.scenario(
@@ -818,8 +689,7 @@ public class CommerceProductBundlesV2Test {
 			"A product with 3 option values some linked to SKU and some with " +
 				"price type dynamic"
 		).and(
-			"Some linked SKUs have discount defined at price entry level " +
-				"applied on"
+			"Some linked SKUs have their price defined in a price list"
 		).when(
 			"The price of the product is calculated"
 		).then(
@@ -831,245 +701,49 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
-
-		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
-
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice1);
-
-		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		CPDefinition cpDefinition2 = cpInstance2.getCPDefinition();
-
-		BigDecimal level1 = BigDecimal.valueOf(10);
-		BigDecimal level2 = BigDecimal.valueOf(10);
-		BigDecimal level3 = BigDecimal.valueOf(10);
-		BigDecimal level4 = BigDecimal.valueOf(10);
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cpDefinition2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice2,
-			false, level1, level2, level3, level4, true, true);
-
-		double discountAmount = 10;
-
-		CommerceDiscountTestUtil.addFixedCommerceDiscount(
-			_group.getGroupId(), discountAmount,
-			CommerceDiscountConstants.TARGET_PRODUCT,
-			cpDefinition2.getCPDefinitionId());
-
-		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		BigDecimal optionValuePrice3 = BigDecimal.valueOf(20);
-
-		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
-
-		CPDefinition cpDefinition3 = cpInstance3.getCPDefinition();
-
-		CProduct cProduct3 = cpDefinition3.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct3.getCProductId(), cpInstance3.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice3);
-
-		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
-
-		commerceOptionValues.add(
-			new TestCommerceOptionValue(
-				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
-				null, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
-
-		commerceOptionValues.add(
-			new TestCommerceOptionValue(
-				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
-				null, CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
-
-		commerceOptionValues.add(
-			new TestCommerceOptionValue(
-				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
-				optionValuePrice3, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
-				1));
-
-		CommerceContext commerceContext = new TestCommerceContext(
-			_commerceCurrency, null, _user, _group, _commerceAccount, null);
-
-		CommerceProductPriceRequest commerceProductPriceRequest =
-			new CommerceProductPriceRequest();
-
-		commerceProductPriceRequest.setCpInstanceId(
-			cpInstance.getCPInstanceId());
-		commerceProductPriceRequest.setQuantity(1);
-		commerceProductPriceRequest.setSecure(true);
-		commerceProductPriceRequest.setCommerceContext(commerceContext);
-		commerceProductPriceRequest.setCommerceOptionValues(
-			commerceOptionValues);
-
-		CommerceProductPrice commerceProductPrice =
-			_commerceProductPriceCalculation.getCommerceProductPrice(
-				commerceProductPriceRequest);
-
-		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
-
-		BigDecimal finalPrice = finalPriceMoney.getPrice();
-
-		BigDecimal discountedPercentage1 = level1.divide(_HUNDRED);
-
-		discountedPercentage1 = _ONE.subtract(discountedPercentage1);
-
-		BigDecimal discountedPercentage2 = level2.divide(_HUNDRED);
-
-		discountedPercentage2 = _ONE.subtract(discountedPercentage2);
-
-		BigDecimal discountedPercentage3 = level3.divide(_HUNDRED);
-
-		discountedPercentage3 = _ONE.subtract(discountedPercentage3);
-
-		BigDecimal discountedPercentage4 = level4.divide(_HUNDRED);
-
-		discountedPercentage4 = _ONE.subtract(discountedPercentage4);
-
-		BigDecimal discountedCPInstancePrice2 = cpInstancePrice2.multiply(
-			discountedPercentage1);
-
-		discountedCPInstancePrice2 = discountedCPInstancePrice2.multiply(
-			discountedPercentage2);
-
-		discountedCPInstancePrice2 = discountedCPInstancePrice2.multiply(
-			discountedPercentage3);
-
-		discountedCPInstancePrice2 = discountedCPInstancePrice2.multiply(
-			discountedPercentage4);
-
-		BigDecimal expectedPrice = cpInstancePrice.add(
-			discountedCPInstancePrice2);
-
-		expectedPrice = expectedPrice.add(optionValuePrice3);
-
-		Assert.assertEquals(
-			expectedPrice.stripTrailingZeros(),
-			finalPrice.stripTrailingZeros());
-	}
-
-	@Test
-	public void testCalculatePriceMixedOptionSKUWithPriceModifier()
-		throws Exception {
-
-		frutillaRule.scenario(
-			"The price of a product with 3 option values selected is calculated"
-		).given(
-			"A product with 3 option values some linked to SKU and some with " +
-				"price type dynamic"
-		).and(
-			"Some linked SKUs have their price modifiers applied on"
-		).when(
-			"The price of the product is calculated"
-		).then(
-			"The correct price is returned given the quantity"
-		);
-
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
-		CommercePriceList basePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), true, 0.0);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addCommercePriceList(
 				catalog.getGroupId(), 0.0);
 
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
-
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
+		CPDefinition cpDefinition = cpInstance1.getCPDefinition();
 
-		CProduct cProduct1 = cpDefinition1.getCProduct();
+		CProduct cProduct = cpDefinition.getCProduct();
 
-		BigDecimal cpInstanceBasePrice1 = BigDecimal.valueOf(100);
+		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(300);
+
+		cpInstance1.setPrice(cpInstancePrice1);
+
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
+
+		BigDecimal cpInstancePriceEntryPrice1 = BigDecimal.valueOf(100);
 
 		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			basePriceList.getCommercePriceListId(), "", cpInstanceBasePrice1);
-
-		BigDecimal modifierAmount = BigDecimal.valueOf(-10);
-
-		CommercePriceModifier commercePriceModifier = _addCommercePriceModifier(
-			commercePriceList.getGroupId(),
-			CommercePriceModifierConstants.TARGET_PRODUCT,
-			commercePriceList.getCommercePriceListId(),
-			CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
-			modifierAmount, true);
-
-		_commercePriceModifierRelLocalService.addCommercePriceModifierRel(
-			commercePriceModifier.getCommercePriceModifierId(),
-			CPDefinition.class.getName(), cpDefinition1.getCPDefinitionId(),
-			_serviceContext);
+			cProduct.getCProductId(), cpInstance1.getCPInstanceUuid(),
+			commercePriceList.getCommercePriceListId(), "",
+			cpInstancePriceEntryPrice1);
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		CPDefinition cpDefinition2 = cpInstance2.getCPDefinition();
-
-		CProduct cProduct2 = cpDefinition2.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice2);
-
 		BigDecimal cpInstancePromoPrice2 = BigDecimal.valueOf(100);
 
-		CommercePriceList commercePromotion =
-			CommercePriceListTestUtil.addPromotion(catalog.getGroupId(), 0.0);
+		cpInstance2.setPrice(cpInstancePrice2);
+		cpInstance2.setPromoPrice(cpInstancePromoPrice2);
 
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cpDefinition2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePromotion.getCommercePriceListId(), "",
-			cpInstancePromoPrice2, false, null, null, null, null, true, true);
+		_cpInstanceLocalService.updateCPInstance(cpInstance2);
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
@@ -1078,13 +752,9 @@ public class CommerceProductBundlesV2Test {
 
 		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
 
-		CPDefinition cpDefinition3 = cpInstance3.getCPDefinition();
+		cpInstance3.setPrice(cpInstancePrice3);
 
-		CProduct cProduct3 = cpDefinition3.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct3.getCProductId(), cpInstance3.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice3);
+		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -1126,9 +796,8 @@ public class CommerceProductBundlesV2Test {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
-		BigDecimal expectedPrice = cpInstanceBasePrice1.add(modifierAmount);
-
-		expectedPrice = expectedPrice.add(cpInstancePrice);
+		BigDecimal expectedPrice = cpInstancePrice.add(
+			cpInstancePriceEntryPrice1);
 
 		expectedPrice = expectedPrice.add(optionValuePrice3);
 
@@ -1157,73 +826,45 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
 
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
+		cpInstance1.setPrice(cpInstancePrice1);
 
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice1);
+		_cpInstanceLocalService.updateCPInstance(cpInstance1);
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		CPDefinition cpDefinition2 = cpInstance2.getCPDefinition();
-
-		CProduct cProduct2 = cpDefinition2.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice2);
-
 		BigDecimal cpInstancePromoPrice2 = BigDecimal.valueOf(100);
 
-		CommercePriceList commercePromotion =
-			CommercePriceListTestUtil.addPromotion(catalog.getGroupId(), 0.0);
+		cpInstance2.setPrice(cpInstancePrice2);
+		cpInstance2.setPromoPrice(cpInstancePromoPrice2);
 
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cpDefinition2.getCProductId(), cpInstance2.getCPInstanceUuid(),
-			commercePromotion.getCommercePriceListId(), "",
-			cpInstancePromoPrice2, false, null, null, null, null, true, true);
+		_cpInstanceLocalService.updateCPInstance(cpInstance2);
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
-		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
-
 		BigDecimal optionValuePrice3 = BigDecimal.valueOf(20);
 
-		CPDefinition cpDefinition3 = cpInstance3.getCPDefinition();
+		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
 
-		CProduct cProduct3 = cpDefinition3.getCProduct();
+		cpInstance3.setPrice(cpInstancePrice3);
 
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct3.getCProductId(), cpInstance3.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice3);
+		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -1275,141 +916,6 @@ public class CommerceProductBundlesV2Test {
 	}
 
 	@Test
-	public void testCalculatePriceMixedOptionSKUWithTierPrice()
-		throws Exception {
-
-		frutillaRule.scenario(
-			"The price of a product with 3 option values selected is calculated"
-		).given(
-			"A product with 3 option values linked to SKUs with price type " +
-				"static"
-		).and(
-			"some linked SKUs have tier price entries"
-		).when(
-			"The price of the product is calculated"
-		).then(
-			"The correct price is returned given the quantity"
-		);
-
-		CommerceCatalog catalog =
-			_commerceCatalogLocalService.addCommerceCatalog(
-				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
-				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
-
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
-
-		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
-
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntry commercePriceEntry =
-			CommercePriceEntryTestUtil.addCommercePriceEntry(
-				cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-				commercePriceList.getCommercePriceListId(), "",
-				cpInstancePrice1);
-
-		BigDecimal price5 = BigDecimal.valueOf(40);
-
-		CommercePriceEntryTestUtil.addCommerceTierPriceEntry(
-			commercePriceEntry.getCommercePriceEntryId(), "", price5, 5, false,
-			false, null, null, null, null, true, true);
-
-		BigDecimal price10 = BigDecimal.valueOf(30);
-
-		CommercePriceEntryTestUtil.addCommerceTierPriceEntry(
-			commercePriceEntry.getCommercePriceEntryId(), "", price10, 10,
-			false, false, null, null, null, null, true, true);
-
-		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
-			catalog.getGroupId());
-
-		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
-
-		commerceOptionValues.add(
-			new TestCommerceOptionValue(
-				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
-				null, CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 7));
-
-		BigDecimal optionValuePrice2 = BigDecimal.valueOf(15);
-
-		commerceOptionValues.add(
-			new TestCommerceOptionValue(
-				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
-				optionValuePrice2, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
-				1));
-
-		BigDecimal optionValuePrice3 = BigDecimal.valueOf(20);
-
-		commerceOptionValues.add(
-			new TestCommerceOptionValue(
-				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
-				optionValuePrice3, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
-				1));
-
-		CommerceContext commerceContext = new TestCommerceContext(
-			_commerceCurrency, null, _user, _group, _commerceAccount, null);
-
-		CommerceProductPriceRequest commerceProductPriceRequest =
-			new CommerceProductPriceRequest();
-
-		commerceProductPriceRequest.setCpInstanceId(
-			cpInstance.getCPInstanceId());
-		commerceProductPriceRequest.setQuantity(1);
-		commerceProductPriceRequest.setSecure(true);
-		commerceProductPriceRequest.setCommerceContext(commerceContext);
-		commerceProductPriceRequest.setCommerceOptionValues(
-			commerceOptionValues);
-
-		CommerceProductPrice commerceProductPrice =
-			_commerceProductPriceCalculation.getCommerceProductPrice(
-				commerceProductPriceRequest);
-
-		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
-
-		BigDecimal finalPrice = finalPriceMoney.getPrice();
-
-		BigDecimal tier1OptionValuePrice1 = cpInstancePrice1.multiply(
-			BigDecimal.valueOf(4));
-		BigDecimal tier2OptionValuePrice1 = price5.multiply(
-			BigDecimal.valueOf(3));
-
-		BigDecimal expectedPrice = cpInstancePrice.add(tier1OptionValuePrice1);
-
-		expectedPrice = expectedPrice.add(tier2OptionValuePrice1);
-
-		expectedPrice = expectedPrice.add(optionValuePrice2);
-
-		expectedPrice = expectedPrice.add(optionValuePrice3);
-
-		Assert.assertEquals(
-			expectedPrice,
-			finalPrice.setScale(expectedPrice.scale(), RoundingMode.HALF_UP));
-	}
-
-	@Test
 	public void testCalculatePriceStaticOptionNoSKU() throws Exception {
 		frutillaRule.scenario(
 			"The price of a product with 3 option values selected is calculated"
@@ -1427,22 +933,14 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -1520,22 +1018,14 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -1617,31 +1107,41 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
+		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
+
+		cpInstance1.setPrice(cpInstancePrice1);
+
+		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
+		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
+
+		cpInstance2.setPrice(cpInstancePrice2);
+
+		_cpInstanceLocalService.updateCPInstance(cpInstance2);
+
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
+
+		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
+
+		cpInstance3.setPrice(cpInstancePrice3);
+
+		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -1724,22 +1224,14 @@ public class CommerceProductBundlesV2Test {
 				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
-		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), 0.0);
-
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			catalog.getGroupId());
 
 		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice);
 
-		CProduct cProduct = cpDefinition.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice);
+		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -1750,21 +1242,17 @@ public class CommerceProductBundlesV2Test {
 
 		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
 
-		CPDefinition cpDefinition1 = cpInstance1.getCPDefinition();
+		cpInstance.setPrice(cpInstancePrice1);
 
-		CProduct cProduct1 = cpDefinition1.getCProduct();
-
-		CommercePriceEntryTestUtil.addCommercePriceEntry(
-			cProduct1.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "", cpInstancePrice1);
+		_cpInstanceLocalService.updateCPInstance(cpInstance1);
 
 		int quantity1 = 10;
 
 		commerceOptionValues.add(
 			new TestCommerceOptionValue(
-				cpDefinition1.getCPDefinitionId(),
-				RandomTestUtil.randomString(), optionValuePrice1,
-				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, quantity1));
+				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
+				optionValuePrice1, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				quantity1));
 
 		BigDecimal optionValuePrice2 = BigDecimal.valueOf(15);
 
@@ -1821,31 +1309,6 @@ public class CommerceProductBundlesV2Test {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
-	private CommercePriceModifier _addCommercePriceModifier(
-			long groupId, String target, long commercePriceListId, String type,
-			BigDecimal amount, boolean neverExpire)
-		throws PortalException {
-
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(groupId);
-
-		Calendar calendar = CalendarFactoryUtil.getCalendar(
-			_user.getTimeZone());
-
-		return _commercePriceModifierLocalService.addCommercePriceModifier(
-			groupId, RandomTestUtil.randomString(), target, commercePriceListId,
-			type, amount, 0.0, true, calendar.get(Calendar.MONTH),
-			calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR),
-			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
-			calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
-			calendar.get(Calendar.MINUTE), neverExpire, serviceContext);
-	}
-
-	private static final BigDecimal _HUNDRED = BigDecimal.valueOf(100);
-
-	private static final BigDecimal _ONE = BigDecimal.ONE;
-
 	private CommerceAccount _commerceAccount;
 
 	@Inject
@@ -1856,15 +1319,7 @@ public class CommerceProductBundlesV2Test {
 
 	private CommerceCurrency _commerceCurrency;
 
-	@Inject
-	private CommercePriceModifierLocalService
-		_commercePriceModifierLocalService;
-
-	@Inject
-	private CommercePriceModifierRelLocalService
-		_commercePriceModifierRelLocalService;
-
-	@Inject(filter = "commerce.price.calculation.key=v2.0")
+	@Inject(filter = "commerce.price.calculation.key=v1.0")
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Inject
