@@ -93,7 +93,7 @@ public class CommercePendingOrderDataSetDataProvider
 				pagination.getEndPosition());
 
 		return CommerceOrderClayTableUtil.getOrders(
-			commerceOrders, themeDisplay, true);
+			commerceOrders, themeDisplay);
 	}
 
 	@Reference
