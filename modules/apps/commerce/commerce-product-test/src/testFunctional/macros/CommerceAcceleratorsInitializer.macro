@@ -28,6 +28,8 @@ definition {
 		AssertElementPresent(
 			key_portletName = "${portletName}",
 			locator1 = "CommerceAccelerators#PORTLET_LOADED");
+
+		Refresh();
 	}
 
 	macro changeProductsSorting {
