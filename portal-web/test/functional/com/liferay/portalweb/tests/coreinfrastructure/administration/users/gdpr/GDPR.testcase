@@ -236,6 +236,8 @@ definition {
 
 	@priority = "4"
 	test ExportAllEntries {
+		property test.name.skip.portal.instance = "GDPR#ExportAllEntries";
+
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea@liferay.com",
 			userLoginFullName = "userfn userln");
