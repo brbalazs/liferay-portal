@@ -44,12 +44,13 @@ public abstract class BaseCommerceProductPriceCalculation
 			long cpDefinitionId, CommerceContext commerceContext)
 		throws PortalException {
 
-		BigDecimal cpBundleMinPrice = BigDecimal.ZERO;
+		BigDecimal cpDefinitionMinimumPrice = BigDecimal.ZERO;
 
 		CommerceMoney commerceMoney = getUnitMinPrice(
 			cpDefinitionId, 1, commerceContext);
 
-		cpBundleMinPrice = cpBundleMinPrice.add(commerceMoney.getPrice());
+		cpDefinitionMinimumPrice = cpDefinitionMinimumPrice.add(
+			commerceMoney.getPrice());
 
 		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
 			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
@@ -84,12 +85,12 @@ public abstract class BaseCommerceProductPriceCalculation
 						cpDefinitionOptionRel, commerceContext);
 			}
 
-			cpBundleMinPrice = cpBundleMinPrice.add(
+			cpDefinitionMinimumPrice = cpDefinitionMinimumPrice.add(
 				cpDefinitionOptionValueMinPrice);
 		}
 
 		return commerceMoneyFactory.create(
-			commerceContext.getCommerceCurrency(), cpBundleMinPrice);
+			commerceContext.getCommerceCurrency(), cpDefinitionMinimumPrice);
 	}
 
 	@Override
@@ -119,18 +120,18 @@ public abstract class BaseCommerceProductPriceCalculation
 
 		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
 			if (selectedCPDefinitionOptionValueRel == null) {
-				relativePrice = price.multiply(commerceCurrency.getRate());
+				relativePrice = price;
 			}
 			else {
 				relativePrice = price.subtract(
 					selectedCPDefinitionOptionValueRel.getPrice());
-
-				relativePrice = relativePrice.multiply(
-					commerceCurrency.getRate());
 			}
+			relativePrice = relativePrice.multiply(
+				commerceCurrency.getRate());
 		}
+		else if (
+			priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
 
-		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
 			BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
 				cpDefinitionOptionValueRel.getCProductId(),
 				cpDefinitionOptionValueRel.getCPInstanceUuid(),
