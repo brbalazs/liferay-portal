@@ -12,9 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.test.util;
-
-import com.liferay.commerce.product.option.CommerceOptionValue;
+package com.liferay.commerce.product.option;
 
 import java.math.BigDecimal;
 
