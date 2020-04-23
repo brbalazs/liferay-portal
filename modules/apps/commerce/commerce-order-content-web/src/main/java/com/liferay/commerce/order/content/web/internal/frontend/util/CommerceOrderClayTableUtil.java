@@ -27,9 +27,12 @@ import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.text.DateFormat;
@@ -40,8 +43,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Alessio Antonio Rendina
@@ -49,45 +55,38 @@ import javax.portlet.PortletURL;
 public class CommerceOrderClayTableUtil {
 
 	public static String getEditOrderURL(
-			long commerceOrderId, ThemeDisplay themeDisplay)
+			long commerceOrderId, HttpServletRequest httpServletRequest)
 		throws PortalException {
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
+		HttpServletRequest originalServletRequest =
+			PortalUtil.getOriginalServletRequest(httpServletRequest);
+
 		PortletURL portletURL = PortletURLFactoryUtil.create(
-			themeDisplay.getRequest(), portletDisplay.getId(),
-			themeDisplay.getPlid(), PortletRequest.RENDER_PHASE);
+			originalServletRequest, portletDisplay.getId(),
+			themeDisplay.getPlid(), PortletRequest.ACTION_PHASE);
 
-		PortletURL backURL = portletURL;
-
-		String pageSize = ParamUtil.getString(
-			themeDisplay.getRequest(), "pageSize");
-
-		String pageNumber = ParamUtil.getString(
-			themeDisplay.getRequest(), "page");
-
-		backURL.setParameter("itemsPerPage", pageSize);
-		backURL.setParameter("pageNumber", pageNumber);
-		backURL.setParameter(
-			"tableName",
-			CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS);
-
-		portletURL.setParameter(
-			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
-			backURL.toString());
-
-		portletURL.setParameter("mvcRenderCommandName", "editCommerceOrder");
+		portletURL.setParameter(ActionRequest.ACTION_NAME, "editCommerceOrder");
+		portletURL.setParameter(Constants.CMD, "setCurrent");
 		portletURL.setParameter(
 			"commerceOrderId", String.valueOf(commerceOrderId));
 
-		portletURL.setParameter("backURL", themeDisplay.getURLCurrent());
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			PortalUtil.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter("redirect", redirect);
 
 		return portletURL.toString();
 	}
 
 	public static List<Order> getOrders(
-			List<CommerceOrder> commerceOrders, ThemeDisplay themeDisplay,
-			boolean editable)
+			List<CommerceOrder> commerceOrders, ThemeDisplay themeDisplay)
 		throws PortalException {
 
 		List<Order> orders = new ArrayList<>();
@@ -104,17 +103,6 @@ public class CommerceOrderClayTableUtil {
 			Format dateFormat = FastDateFormatFactoryUtil.getDate(
 				DateFormat.MEDIUM, themeDisplay.getLocale(),
 				themeDisplay.getTimeZone());
-
-			String url = null;
-
-			if (editable) {
-				url = getEditOrderURL(
-					commerceOrder.getCommerceOrderId(), themeDisplay);
-			}
-			else {
-				url = getOrderViewDetailURL(
-					commerceOrder.getCommerceOrderId(), themeDisplay);
-			}
 
 			ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 				"content.Language", themeDisplay.getLocale(),
@@ -140,8 +128,7 @@ public class CommerceOrderClayTableUtil {
 					commerceOrder.getCommerceOrderId(),
 					commerceOrder.getCommerceAccountName(),
 					dateFormat.format(orderDate), commerceOrder.getUserName(),
-					commerceOrderStatusLabel, workflowStatusLabel, amount,
-					url));
+					commerceOrderStatusLabel, workflowStatusLabel, amount));
 		}
 
 		return orders;
