@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.test;
+package com.liferay.commerce.price.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.account.model.CommerceAccount;
