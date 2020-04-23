@@ -38,7 +38,7 @@ if (assetPublisherDisplayContext.isEnableTagBasedNavigation() && assetPublisherD
 }
 %>
 
-<div class="subscribe-action">
+<div class="mb-4 subscribe-action">
 
 	<%
 	boolean enableRSS = !PortalUtil.isRSSFeedsEnabled() ? false : assetPublisherDisplayContext.isEnableRSS();
