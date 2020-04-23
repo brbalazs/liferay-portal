@@ -685,11 +685,6 @@ public class CPDefinitionLocalServiceWrapper
 	}
 
 	@Override
-	public boolean isCPBundle(long cpDefinitionId) {
-		return _cpDefinitionLocalService.isCPBundle(cpDefinitionId);
-	}
-
-	@Override
 	public boolean isPublishedCPDefinition(
 		com.liferay.commerce.product.model.CPDefinition cpDefinition) {
 
