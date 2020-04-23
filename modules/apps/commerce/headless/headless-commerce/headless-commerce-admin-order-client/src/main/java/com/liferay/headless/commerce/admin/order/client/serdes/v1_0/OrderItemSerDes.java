@@ -509,10 +509,15 @@ public class OrderItemSerDes {
 			map.put("quantity", String.valueOf(orderItem.getQuantity()));
 		}
 
-		map.put(
-			"requestedDeliveryDate",
-			liferayToJSONDateFormat.format(
-				orderItem.getRequestedDeliveryDate()));
+		if (orderItem.getRequestedDeliveryDate() == null) {
+			map.put("requestedDeliveryDate", null);
+		}
+		else {
+			map.put(
+				"requestedDeliveryDate",
+				liferayToJSONDateFormat.format(
+					orderItem.getRequestedDeliveryDate()));
+		}
 
 		if (orderItem.getShippedQuantity() == null) {
 			map.put("shippedQuantity", null);

@@ -27,6 +27,7 @@ import com.liferay.headless.commerce.admin.pricing.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v1_0.PriceListResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v1_0.PriceListSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -42,6 +43,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -50,6 +52,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -246,9 +249,11 @@ public abstract class BasePriceListResourceTestCase {
 
 		Assert.assertEquals(2, priceListsJSONObject.get("totalCount"));
 
-		assertEqualsJSONArray(
+		assertEqualsIgnoringOrder(
 			Arrays.asList(priceList1, priceList2),
-			priceListsJSONObject.getJSONArray("items"));
+			Arrays.asList(
+				PriceListSerDes.toDTOs(
+					priceListsJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -347,10 +352,11 @@ public abstract class BasePriceListResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				priceList,
-				dataJSONObject.getJSONObject(
-					"priceListByExternalReferenceCode")));
+				PriceListSerDes.toDTO(
+					dataJSONObject.getString(
+						"priceListByExternalReferenceCode"))));
 	}
 
 	@Test
@@ -464,8 +470,9 @@ public abstract class BasePriceListResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
-				priceList, dataJSONObject.getJSONObject("priceList")));
+			equals(
+				priceList,
+				PriceListSerDes.toDTO(dataJSONObject.getString("priceList"))));
 	}
 
 	@Test
@@ -523,25 +530,6 @@ public abstract class BasePriceListResourceTestCase {
 
 			Assert.assertTrue(
 				priceLists2 + " does not contain " + priceList1, contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<PriceList> priceLists, JSONArray jsonArray) {
-
-		for (PriceList priceList : priceLists) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(priceList, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + priceList, contains);
 		}
 	}
 
@@ -684,13 +672,52 @@ public abstract class BasePriceListResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.pricing.dto.v1_0.
+						PriceList.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -740,9 +767,9 @@ public abstract class BasePriceListResourceTestCase {
 			}
 
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						priceList1.getCustomFields(),
-						priceList2.getCustomFields())) {
+				if (!equals(
+						(Map)priceList1.getCustomFields(),
+						(Map)priceList2.getCustomFields())) {
 
 					return false;
 				}
@@ -858,98 +885,25 @@ public abstract class BasePriceListResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		PriceList priceList, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("active", fieldName)) {
-				if (!Objects.deepEquals(
-						priceList.getActive(),
-						jsonObject.getBoolean("active"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("catalogId", fieldName)) {
-				if (!Objects.deepEquals(
-						priceList.getCatalogId(),
-						jsonObject.getLong("catalogId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("currencyCode", fieldName)) {
-				if (!Objects.deepEquals(
-						priceList.getCurrencyCode(),
-						jsonObject.getString("currencyCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("externalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						priceList.getExternalReferenceCode(),
-						jsonObject.getString("externalReferenceCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						priceList.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("name", fieldName)) {
-				if (!Objects.deepEquals(
-						priceList.getName(), jsonObject.getString("name"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("neverExpire", fieldName)) {
-				if (!Objects.deepEquals(
-						priceList.getNeverExpire(),
-						jsonObject.getBoolean("neverExpire"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("priority", fieldName)) {
-				if (!Objects.deepEquals(
-						priceList.getPriority(),
-						jsonObject.getDouble("priority"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1159,12 +1113,14 @@ public abstract class BasePriceListResourceTestCase {
 			{
 				active = RandomTestUtil.randomBoolean();
 				catalogId = RandomTestUtil.randomLong();
-				currencyCode = RandomTestUtil.randomString();
+				currencyCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				displayDate = RandomTestUtil.nextDate();
 				expirationDate = RandomTestUtil.nextDate();
-				externalReferenceCode = RandomTestUtil.randomString();
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
-				name = RandomTestUtil.randomString();
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				neverExpire = RandomTestUtil.randomBoolean();
 				priority = RandomTestUtil.randomDouble();
 			}

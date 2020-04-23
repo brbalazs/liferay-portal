@@ -456,13 +456,23 @@ public class DiscountSerDes {
 				"discountRules", String.valueOf(discount.getDiscountRules()));
 		}
 
-		map.put(
-			"displayDate",
-			liferayToJSONDateFormat.format(discount.getDisplayDate()));
+		if (discount.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(discount.getDisplayDate()));
+		}
 
-		map.put(
-			"expirationDate",
-			liferayToJSONDateFormat.format(discount.getExpirationDate()));
+		if (discount.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(discount.getExpirationDate()));
+		}
 
 		if (discount.getExternalReferenceCode() == null) {
 			map.put("externalReferenceCode", null);

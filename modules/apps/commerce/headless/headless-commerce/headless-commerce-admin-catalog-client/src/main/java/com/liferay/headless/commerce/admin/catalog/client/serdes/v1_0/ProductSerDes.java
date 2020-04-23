@@ -560,9 +560,14 @@ public class ProductSerDes {
 				"configuration", String.valueOf(product.getConfiguration()));
 		}
 
-		map.put(
-			"createDate",
-			liferayToJSONDateFormat.format(product.getCreateDate()));
+		if (product.getCreateDate() == null) {
+			map.put("createDate", null);
+		}
+		else {
+			map.put(
+				"createDate",
+				liferayToJSONDateFormat.format(product.getCreateDate()));
+		}
 
 		if (product.getDefaultSku() == null) {
 			map.put("defaultSku", null);
@@ -578,9 +583,14 @@ public class ProductSerDes {
 			map.put("description", String.valueOf(product.getDescription()));
 		}
 
-		map.put(
-			"displayDate",
-			liferayToJSONDateFormat.format(product.getDisplayDate()));
+		if (product.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(product.getDisplayDate()));
+		}
 
 		if (product.getExpando() == null) {
 			map.put("expando", null);
@@ -589,9 +599,14 @@ public class ProductSerDes {
 			map.put("expando", String.valueOf(product.getExpando()));
 		}
 
-		map.put(
-			"expirationDate",
-			liferayToJSONDateFormat.format(product.getExpirationDate()));
+		if (product.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(product.getExpirationDate()));
+		}
 
 		if (product.getExternalReferenceCode() == null) {
 			map.put("externalReferenceCode", null);
@@ -639,9 +654,14 @@ public class ProductSerDes {
 			map.put("metaTitle", String.valueOf(product.getMetaTitle()));
 		}
 
-		map.put(
-			"modifiedDate",
-			liferayToJSONDateFormat.format(product.getModifiedDate()));
+		if (product.getModifiedDate() == null) {
+			map.put("modifiedDate", null);
+		}
+		else {
+			map.put(
+				"modifiedDate",
+				liferayToJSONDateFormat.format(product.getModifiedDate()));
+		}
 
 		if (product.getName() == null) {
 			map.put("name", null);

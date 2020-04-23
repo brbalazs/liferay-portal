@@ -320,13 +320,23 @@ public class SkuSerDes {
 			map.put("depth", String.valueOf(sku.getDepth()));
 		}
 
-		map.put(
-			"displayDate",
-			liferayToJSONDateFormat.format(sku.getDisplayDate()));
+		if (sku.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(sku.getDisplayDate()));
+		}
 
-		map.put(
-			"expirationDate",
-			liferayToJSONDateFormat.format(sku.getExpirationDate()));
+		if (sku.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(sku.getExpirationDate()));
+		}
 
 		if (sku.getExternalReferenceCode() == null) {
 			map.put("externalReferenceCode", null);

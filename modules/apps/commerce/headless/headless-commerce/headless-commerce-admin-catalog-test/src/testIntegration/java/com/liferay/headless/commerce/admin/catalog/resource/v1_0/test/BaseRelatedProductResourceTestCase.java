@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.catalog.client.pagination.Page;
 import com.liferay.headless.commerce.admin.catalog.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.RelatedProductResource;
 import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.RelatedProductSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -43,6 +44,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -51,6 +53,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -619,9 +622,10 @@ public abstract class BaseRelatedProductResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				relatedProduct,
-				dataJSONObject.getJSONObject("relatedProduct")));
+				RelatedProductSerDes.toDTO(
+					dataJSONObject.getString("relatedProduct"))));
 	}
 
 	protected RelatedProduct testGraphQLRelatedProduct_addRelatedProduct()
@@ -681,25 +685,6 @@ public abstract class BaseRelatedProductResourceTestCase {
 			Assert.assertTrue(
 				relatedProducts2 + " does not contain " + relatedProduct1,
 				contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<RelatedProduct> relatedProducts, JSONArray jsonArray) {
-
-		for (RelatedProduct relatedProduct : relatedProducts) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(relatedProduct, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + relatedProduct, contains);
 		}
 	}
 
@@ -777,13 +762,52 @@ public abstract class BaseRelatedProductResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.catalog.dto.v1_0.
+						RelatedProduct.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -867,66 +891,25 @@ public abstract class BaseRelatedProductResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		RelatedProduct relatedProduct, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						relatedProduct.getId(), jsonObject.getLong("id"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("priority", fieldName)) {
-				if (!Objects.deepEquals(
-						relatedProduct.getPriority(),
-						jsonObject.getDouble("priority"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("productExternalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						relatedProduct.getProductExternalReferenceCode(),
-						jsonObject.getString("productExternalReferenceCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("productId", fieldName)) {
-				if (!Objects.deepEquals(
-						relatedProduct.getProductId(),
-						jsonObject.getLong("productId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("type", fieldName)) {
-				if (!Objects.deepEquals(
-						relatedProduct.getType(),
-						jsonObject.getString("type"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1042,9 +1025,10 @@ public abstract class BaseRelatedProductResourceTestCase {
 			{
 				id = RandomTestUtil.randomLong();
 				priority = RandomTestUtil.randomDouble();
-				productExternalReferenceCode = RandomTestUtil.randomString();
+				productExternalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				productId = RandomTestUtil.randomLong();
-				type = RandomTestUtil.randomString();
+				type = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}

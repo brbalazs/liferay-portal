@@ -97,16 +97,16 @@ public class ShippingAddressSerDes {
 			sb.append("\"");
 		}
 
-		if (shippingAddress.getExternalReferenceCodeCopy() != null) {
+		if (shippingAddress.getExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"externalReferenceCodeCopy\": ");
+			sb.append("\"externalReferenceCode\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(shippingAddress.getExternalReferenceCodeCopy()));
+			sb.append(_escape(shippingAddress.getExternalReferenceCode()));
 
 			sb.append("\"");
 		}
@@ -283,13 +283,13 @@ public class ShippingAddressSerDes {
 				String.valueOf(shippingAddress.getDescription()));
 		}
 
-		if (shippingAddress.getExternalReferenceCodeCopy() == null) {
-			map.put("externalReferenceCodeCopy", null);
+		if (shippingAddress.getExternalReferenceCode() == null) {
+			map.put("externalReferenceCode", null);
 		}
 		else {
 			map.put(
-				"externalReferenceCodeCopy",
-				String.valueOf(shippingAddress.getExternalReferenceCodeCopy()));
+				"externalReferenceCode",
+				String.valueOf(shippingAddress.getExternalReferenceCode()));
 		}
 
 		if (shippingAddress.getId() == null) {
@@ -406,10 +406,10 @@ public class ShippingAddressSerDes {
 				}
 			}
 			else if (Objects.equals(
-						jsonParserFieldName, "externalReferenceCodeCopy")) {
+						jsonParserFieldName, "externalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
-					shippingAddress.setExternalReferenceCodeCopy(
+					shippingAddress.setExternalReferenceCode(
 						(String)jsonParserFieldValue);
 				}
 			}

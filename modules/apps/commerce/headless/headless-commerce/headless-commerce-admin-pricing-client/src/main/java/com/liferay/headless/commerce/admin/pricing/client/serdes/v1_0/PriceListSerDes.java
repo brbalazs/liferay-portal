@@ -288,13 +288,23 @@ public class PriceListSerDes {
 				"customFields", String.valueOf(priceList.getCustomFields()));
 		}
 
-		map.put(
-			"displayDate",
-			liferayToJSONDateFormat.format(priceList.getDisplayDate()));
+		if (priceList.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(priceList.getDisplayDate()));
+		}
 
-		map.put(
-			"expirationDate",
-			liferayToJSONDateFormat.format(priceList.getExpirationDate()));
+		if (priceList.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(priceList.getExpirationDate()));
+		}
 
 		if (priceList.getExternalReferenceCode() == null) {
 			map.put("externalReferenceCode", null);

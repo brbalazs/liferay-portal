@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Pagination;
 import com.liferay.headless.commerce.delivery.cart.client.resource.v1_0.CartResource;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -43,6 +44,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -51,6 +53,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -316,7 +319,7 @@ public abstract class BaseCartResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(cart, dataJSONObject.getJSONObject("cart")));
+			equals(cart, CartSerDes.toDTO(dataJSONObject.getString("cart"))));
 	}
 
 	@Test
@@ -533,25 +536,6 @@ public abstract class BaseCartResourceTestCase {
 			}
 
 			Assert.assertTrue(carts2 + " does not contain " + cart1, contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<Cart> carts, JSONArray jsonArray) {
-
-		for (Cart cart : carts) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(cart, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + cart, contains);
 		}
 	}
 
@@ -820,13 +804,52 @@ public abstract class BaseCartResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart.
+						class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -944,8 +967,9 @@ public abstract class BaseCartResourceTestCase {
 			}
 
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						cart1.getCustomFields(), cart2.getCustomFields())) {
+				if (!equals(
+						(Map)cart1.getCustomFields(),
+						(Map)cart2.getCustomFields())) {
 
 					return false;
 				}
@@ -1141,213 +1165,25 @@ public abstract class BaseCartResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(Cart cart, JSONObject jsonObject) {
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("account", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getAccount(), jsonObject.getString("account"))) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("accountId", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getAccountId(), jsonObject.getLong("accountId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("author", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getAuthor(), jsonObject.getString("author"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("billingAddressId", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getBillingAddressId(),
-						jsonObject.getLong("billingAddressId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("channelId", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getChannelId(), jsonObject.getLong("channelId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("couponCode", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getCouponCode(),
-						jsonObject.getString("couponCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("currencyCode", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getCurrencyCode(),
-						jsonObject.getString("currencyCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("paymentMethod", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getPaymentMethod(),
-						jsonObject.getString("paymentMethod"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("paymentMethodLabel", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getPaymentMethodLabel(),
-						jsonObject.getString("paymentMethodLabel"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("paymentStatus", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getPaymentStatus(),
-						jsonObject.getInt("paymentStatus"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("paymentStatusLabel", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getPaymentStatusLabel(),
-						jsonObject.getString("paymentStatusLabel"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("printedNote", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getPrintedNote(),
-						jsonObject.getString("printedNote"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("purchaseOrderNumber", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getPurchaseOrderNumber(),
-						jsonObject.getString("purchaseOrderNumber"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingAddressId", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getShippingAddressId(),
-						jsonObject.getLong("shippingAddressId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingMethod", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getShippingMethod(),
-						jsonObject.getString("shippingMethod"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingOption", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getShippingOption(),
-						jsonObject.getString("shippingOption"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("status", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getStatus(), jsonObject.getString("status"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("useAsBilling", fieldName)) {
-				if (!Objects.deepEquals(
-						cart.getUseAsBilling(),
-						jsonObject.getBoolean("useAsBilling"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1683,27 +1519,36 @@ public abstract class BaseCartResourceTestCase {
 	protected Cart randomCart() throws Exception {
 		return new Cart() {
 			{
-				account = RandomTestUtil.randomString();
+				account = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				accountId = RandomTestUtil.randomLong();
-				author = RandomTestUtil.randomString();
+				author = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				billingAddressId = RandomTestUtil.randomLong();
 				channelId = RandomTestUtil.randomLong();
-				couponCode = RandomTestUtil.randomString();
+				couponCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
-				currencyCode = RandomTestUtil.randomString();
+				currencyCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				lastPriceUpdateDate = RandomTestUtil.nextDate();
 				modifiedDate = RandomTestUtil.nextDate();
-				paymentMethod = RandomTestUtil.randomString();
-				paymentMethodLabel = RandomTestUtil.randomString();
+				paymentMethod = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				paymentMethodLabel = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				paymentStatus = RandomTestUtil.randomInt();
-				paymentStatusLabel = RandomTestUtil.randomString();
-				printedNote = RandomTestUtil.randomString();
-				purchaseOrderNumber = RandomTestUtil.randomString();
+				paymentStatusLabel = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				printedNote = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				purchaseOrderNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				shippingAddressId = RandomTestUtil.randomLong();
-				shippingMethod = RandomTestUtil.randomString();
-				shippingOption = RandomTestUtil.randomString();
-				status = RandomTestUtil.randomString();
+				shippingMethod = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				shippingOption = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				status = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				useAsBilling = RandomTestUtil.randomBoolean();
 			}
 		};

@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Pagination;
 import com.liferay.headless.commerce.delivery.cart.client.resource.v1_0.CartCommentResource;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartCommentSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -43,6 +44,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -51,6 +53,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -303,8 +306,10 @@ public abstract class BaseCartCommentResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
-				cartComment, dataJSONObject.getJSONObject("cartComment")));
+			equals(
+				cartComment,
+				CartCommentSerDes.toDTO(
+					dataJSONObject.getString("cartComment"))));
 	}
 
 	@Test
@@ -464,6 +469,8 @@ public abstract class BaseCartCommentResourceTestCase {
 
 	@Test
 	public void testGraphQLGetCartCommentsPage() throws Exception {
+		Long cartId = testGetCartCommentsPage_getCartId();
+
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
 		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
@@ -483,6 +490,8 @@ public abstract class BaseCartCommentResourceTestCase {
 					{
 						put("page", 1);
 						put("pageSize", 2);
+
+						put("cartId", cartId);
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -509,9 +518,11 @@ public abstract class BaseCartCommentResourceTestCase {
 
 		Assert.assertEquals(2, cartCommentsJSONObject.get("totalCount"));
 
-		assertEqualsJSONArray(
+		assertEqualsIgnoringOrder(
 			Arrays.asList(cartComment1, cartComment2),
-			cartCommentsJSONObject.getJSONArray("items"));
+			Arrays.asList(
+				CartCommentSerDes.toDTOs(
+					cartCommentsJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -590,25 +601,6 @@ public abstract class BaseCartCommentResourceTestCase {
 		}
 	}
 
-	protected void assertEqualsJSONArray(
-		List<CartComment> cartComments, JSONArray jsonArray) {
-
-		for (CartComment cartComment : cartComments) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(cartComment, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + cartComment, contains);
-		}
-	}
-
 	protected void assertValid(CartComment cartComment) {
 		boolean valid = true;
 
@@ -680,13 +672,52 @@ public abstract class BaseCartCommentResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.delivery.cart.dto.v1_0.
+						CartComment.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -765,66 +796,25 @@ public abstract class BaseCartCommentResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		CartComment cartComment, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("author", fieldName)) {
-				if (!Objects.deepEquals(
-						cartComment.getAuthor(),
-						jsonObject.getString("author"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("content", fieldName)) {
-				if (!Objects.deepEquals(
-						cartComment.getContent(),
-						jsonObject.getString("content"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						cartComment.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("orderId", fieldName)) {
-				if (!Objects.deepEquals(
-						cartComment.getOrderId(),
-						jsonObject.getLong("orderId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("restricted", fieldName)) {
-				if (!Objects.deepEquals(
-						cartComment.getRestricted(),
-						jsonObject.getBoolean("restricted"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -935,8 +925,8 @@ public abstract class BaseCartCommentResourceTestCase {
 	protected CartComment randomCartComment() throws Exception {
 		return new CartComment() {
 			{
-				author = RandomTestUtil.randomString();
-				content = RandomTestUtil.randomString();
+				author = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				content = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				orderId = RandomTestUtil.randomLong();
 				restricted = RandomTestUtil.randomBoolean();

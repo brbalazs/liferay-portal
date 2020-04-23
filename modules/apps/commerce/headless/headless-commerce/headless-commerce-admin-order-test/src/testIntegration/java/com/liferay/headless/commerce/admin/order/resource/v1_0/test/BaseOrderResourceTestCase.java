@@ -27,6 +27,7 @@ import com.liferay.headless.commerce.admin.order.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.order.client.pagination.Page;
 import com.liferay.headless.commerce.admin.order.client.resource.v1_0.OrderResource;
 import com.liferay.headless.commerce.admin.order.client.serdes.v1_0.OrderSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -42,6 +43,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -50,6 +52,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -275,9 +278,10 @@ public abstract class BaseOrderResourceTestCase {
 
 		Assert.assertEquals(2, ordersJSONObject.get("totalCount"));
 
-		assertEqualsJSONArray(
+		assertEqualsIgnoringOrder(
 			Arrays.asList(order1, order2),
-			ordersJSONObject.getJSONArray("items"));
+			Arrays.asList(
+				OrderSerDes.toDTOs(ordersJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -366,9 +370,10 @@ public abstract class BaseOrderResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				order,
-				dataJSONObject.getJSONObject("orderByExternalReferenceCode")));
+				OrderSerDes.toDTO(
+					dataJSONObject.getString("orderByExternalReferenceCode"))));
 	}
 
 	@Test
@@ -480,7 +485,8 @@ public abstract class BaseOrderResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(order, dataJSONObject.getJSONObject("order")));
+			equals(
+				order, OrderSerDes.toDTO(dataJSONObject.getString("order"))));
 	}
 
 	@Test
@@ -535,25 +541,6 @@ public abstract class BaseOrderResourceTestCase {
 
 			Assert.assertTrue(
 				orders2 + " does not contain " + order1, contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<Order> orders, JSONArray jsonArray) {
-
-		for (Order order : orders) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(order, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + order, contains);
 		}
 	}
 
@@ -1108,13 +1095,52 @@ public abstract class BaseOrderResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.order.dto.v1_0.Order.
+						class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -1229,8 +1255,9 @@ public abstract class BaseOrderResourceTestCase {
 			}
 
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						order1.getCustomFields(), order2.getCustomFields())) {
+				if (!equals(
+						(Map)order1.getCustomFields(),
+						(Map)order2.getCustomFields())) {
 
 					return false;
 				}
@@ -1804,507 +1831,25 @@ public abstract class BaseOrderResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(Order order, JSONObject jsonObject) {
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("accountExternalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getAccountExternalReferenceCode(),
-						jsonObject.getString("accountExternalReferenceCode"))) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("accountId", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getAccountId(),
-						jsonObject.getLong("accountId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("advanceStatus", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getAdvanceStatus(),
-						jsonObject.getString("advanceStatus"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("billingAddressId", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getBillingAddressId(),
-						jsonObject.getLong("billingAddressId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("channelId", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getChannelId(),
-						jsonObject.getLong("channelId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("couponCode", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getCouponCode(),
-						jsonObject.getString("couponCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("currencyCode", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getCurrencyCode(),
-						jsonObject.getString("currencyCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("externalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getExternalReferenceCode(),
-						jsonObject.getString("externalReferenceCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("orderStatus", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getOrderStatus(),
-						jsonObject.getInt("orderStatus"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("paymentMethod", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getPaymentMethod(),
-						jsonObject.getString("paymentMethod"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("paymentStatus", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getPaymentStatus(),
-						jsonObject.getInt("paymentStatus"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("printedNote", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getPrintedNote(),
-						jsonObject.getString("printedNote"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("purchaseOrderNumber", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getPurchaseOrderNumber(),
-						jsonObject.getString("purchaseOrderNumber"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingAddressId", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingAddressId(),
-						jsonObject.getLong("shippingAddressId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingAmountFormatted", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingAmountFormatted(),
-						jsonObject.getString("shippingAmountFormatted"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingAmountValue", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingAmountValue(),
-						jsonObject.getDouble("shippingAmountValue"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingDiscountAmount", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingDiscountAmount(),
-						jsonObject.getDouble("shippingDiscountAmount"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingDiscountAmountFormatted", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingDiscountAmountFormatted(),
-						jsonObject.getString(
-							"shippingDiscountAmountFormatted"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingDiscountPercentageLevel1", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingDiscountPercentageLevel1(),
-						jsonObject.getDouble(
-							"shippingDiscountPercentageLevel1"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingDiscountPercentageLevel2", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingDiscountPercentageLevel2(),
-						jsonObject.getDouble(
-							"shippingDiscountPercentageLevel2"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingDiscountPercentageLevel3", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingDiscountPercentageLevel3(),
-						jsonObject.getDouble(
-							"shippingDiscountPercentageLevel3"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingDiscountPercentageLevel4", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingDiscountPercentageLevel4(),
-						jsonObject.getDouble(
-							"shippingDiscountPercentageLevel4"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingMethod", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingMethod(),
-						jsonObject.getString("shippingMethod"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("shippingOption", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getShippingOption(),
-						jsonObject.getString("shippingOption"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("subtotalAmount", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getSubtotalAmount(),
-						jsonObject.getDouble("subtotalAmount"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("subtotalDiscountAmount", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getSubtotalDiscountAmount(),
-						jsonObject.getDouble("subtotalDiscountAmount"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("subtotalDiscountAmountFormatted", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getSubtotalDiscountAmountFormatted(),
-						jsonObject.getString(
-							"subtotalDiscountAmountFormatted"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("subtotalDiscountPercentageLevel1", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getSubtotalDiscountPercentageLevel1(),
-						jsonObject.getDouble(
-							"subtotalDiscountPercentageLevel1"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("subtotalDiscountPercentageLevel2", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getSubtotalDiscountPercentageLevel2(),
-						jsonObject.getDouble(
-							"subtotalDiscountPercentageLevel2"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("subtotalDiscountPercentageLevel3", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getSubtotalDiscountPercentageLevel3(),
-						jsonObject.getDouble(
-							"subtotalDiscountPercentageLevel3"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("subtotalDiscountPercentageLevel4", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getSubtotalDiscountPercentageLevel4(),
-						jsonObject.getDouble(
-							"subtotalDiscountPercentageLevel4"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("subtotalFormatted", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getSubtotalFormatted(),
-						jsonObject.getString("subtotalFormatted"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("taxAmount", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTaxAmount(),
-						jsonObject.getDouble("taxAmount"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("taxAmountFormatted", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTaxAmountFormatted(),
-						jsonObject.getString("taxAmountFormatted"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("totalAmount", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTotalAmount(),
-						jsonObject.getDouble("totalAmount"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("totalDiscountAmount", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTotalDiscountAmount(),
-						jsonObject.getDouble("totalDiscountAmount"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("totalDiscountAmountFormatted", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTotalDiscountAmountFormatted(),
-						jsonObject.getString("totalDiscountAmountFormatted"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("totalDiscountPercentageLevel1", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTotalDiscountPercentageLevel1(),
-						jsonObject.getDouble(
-							"totalDiscountPercentageLevel1"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("totalDiscountPercentageLevel2", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTotalDiscountPercentageLevel2(),
-						jsonObject.getDouble(
-							"totalDiscountPercentageLevel2"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("totalDiscountPercentageLevel3", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTotalDiscountPercentageLevel3(),
-						jsonObject.getDouble(
-							"totalDiscountPercentageLevel3"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("totalDiscountPercentageLevel4", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTotalDiscountPercentageLevel4(),
-						jsonObject.getDouble(
-							"totalDiscountPercentageLevel4"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("totalFormatted", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTotalFormatted(),
-						jsonObject.getString("totalFormatted"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("transactionId", fieldName)) {
-				if (!Objects.deepEquals(
-						order.getTransactionId(),
-						jsonObject.getString("transactionId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -2854,30 +2399,40 @@ public abstract class BaseOrderResourceTestCase {
 	protected Order randomOrder() throws Exception {
 		return new Order() {
 			{
-				accountExternalReferenceCode = RandomTestUtil.randomString();
+				accountExternalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				accountId = RandomTestUtil.randomLong();
-				advanceStatus = RandomTestUtil.randomString();
+				advanceStatus = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				billingAddressId = RandomTestUtil.randomLong();
 				channelId = RandomTestUtil.randomLong();
-				couponCode = RandomTestUtil.randomString();
+				couponCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
-				currencyCode = RandomTestUtil.randomString();
-				externalReferenceCode = RandomTestUtil.randomString();
+				currencyCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				lastPriceUpdateDate = RandomTestUtil.nextDate();
 				modifiedDate = RandomTestUtil.nextDate();
 				orderDate = RandomTestUtil.nextDate();
 				orderStatus = RandomTestUtil.randomInt();
-				paymentMethod = RandomTestUtil.randomString();
+				paymentMethod = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				paymentStatus = RandomTestUtil.randomInt();
-				printedNote = RandomTestUtil.randomString();
-				purchaseOrderNumber = RandomTestUtil.randomString();
+				printedNote = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				purchaseOrderNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				requestedDeliveryDate = RandomTestUtil.nextDate();
 				shippingAddressId = RandomTestUtil.randomLong();
-				shippingAmountFormatted = RandomTestUtil.randomString();
+				shippingAmountFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				shippingAmountValue = RandomTestUtil.randomDouble();
 				shippingDiscountAmount = RandomTestUtil.randomDouble();
-				shippingDiscountAmountFormatted = RandomTestUtil.randomString();
+				shippingDiscountAmountFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				shippingDiscountPercentageLevel1 =
 					RandomTestUtil.randomDouble();
 				shippingDiscountPercentageLevel2 =
@@ -2886,11 +2441,14 @@ public abstract class BaseOrderResourceTestCase {
 					RandomTestUtil.randomDouble();
 				shippingDiscountPercentageLevel4 =
 					RandomTestUtil.randomDouble();
-				shippingMethod = RandomTestUtil.randomString();
-				shippingOption = RandomTestUtil.randomString();
+				shippingMethod = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				shippingOption = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				subtotalAmount = RandomTestUtil.randomDouble();
 				subtotalDiscountAmount = RandomTestUtil.randomDouble();
-				subtotalDiscountAmountFormatted = RandomTestUtil.randomString();
+				subtotalDiscountAmountFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				subtotalDiscountPercentageLevel1 =
 					RandomTestUtil.randomDouble();
 				subtotalDiscountPercentageLevel2 =
@@ -2899,18 +2457,23 @@ public abstract class BaseOrderResourceTestCase {
 					RandomTestUtil.randomDouble();
 				subtotalDiscountPercentageLevel4 =
 					RandomTestUtil.randomDouble();
-				subtotalFormatted = RandomTestUtil.randomString();
+				subtotalFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				taxAmount = RandomTestUtil.randomDouble();
-				taxAmountFormatted = RandomTestUtil.randomString();
+				taxAmountFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				totalAmount = RandomTestUtil.randomDouble();
 				totalDiscountAmount = RandomTestUtil.randomDouble();
-				totalDiscountAmountFormatted = RandomTestUtil.randomString();
+				totalDiscountAmountFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				totalDiscountPercentageLevel1 = RandomTestUtil.randomDouble();
 				totalDiscountPercentageLevel2 = RandomTestUtil.randomDouble();
 				totalDiscountPercentageLevel3 = RandomTestUtil.randomDouble();
 				totalDiscountPercentageLevel4 = RandomTestUtil.randomDouble();
-				totalFormatted = RandomTestUtil.randomString();
-				transactionId = RandomTestUtil.randomString();
+				totalFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				transactionId = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 			}
 		};
 	}

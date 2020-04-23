@@ -440,7 +440,8 @@ components:
             type: object
 info:
     description:
-        Headless Commerce Delivery Catalog API
+        "Headless Commerce Delivery Catalog API. A Java client JAR is available for use with the group ID 'com.liferay',
+        artifact ID 'com.liferay.headless.commerce.delivery.catalog.client', and version '1.0.4'."
     license:
         name: Apache 2.0
         url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -512,7 +513,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -522,7 +523,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -592,7 +593,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -602,7 +603,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -676,7 +677,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -686,7 +687,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -763,7 +764,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -773,7 +774,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -847,7 +848,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -857,7 +858,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -932,7 +933,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -942,7 +943,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -1017,7 +1018,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -1027,7 +1028,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -1111,7 +1112,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -1121,7 +1122,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -1205,7 +1206,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"
@@ -1215,7 +1216,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Error"                        
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Error"

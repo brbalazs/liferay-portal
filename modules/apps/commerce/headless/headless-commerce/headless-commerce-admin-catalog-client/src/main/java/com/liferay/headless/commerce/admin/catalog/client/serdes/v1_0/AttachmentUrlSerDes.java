@@ -202,13 +202,24 @@ public class AttachmentUrlSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		map.put(
-			"displayDate",
-			liferayToJSONDateFormat.format(attachmentUrl.getDisplayDate()));
+		if (attachmentUrl.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(attachmentUrl.getDisplayDate()));
+		}
 
-		map.put(
-			"expirationDate",
-			liferayToJSONDateFormat.format(attachmentUrl.getExpirationDate()));
+		if (attachmentUrl.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(
+					attachmentUrl.getExpirationDate()));
+		}
 
 		if (attachmentUrl.getExternalReferenceCode() == null) {
 			map.put("externalReferenceCode", null);

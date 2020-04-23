@@ -27,8 +27,8 @@ import com.liferay.headless.commerce.admin.order.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.order.client.pagination.Page;
 import com.liferay.headless.commerce.admin.order.client.resource.v1_0.BillingAddressResource;
 import com.liferay.headless.commerce.admin.order.client.serdes.v1_0.BillingAddressSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -42,12 +42,14 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -178,7 +180,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 		billingAddress.setCity(regex);
 		billingAddress.setCountryISOCode(regex);
 		billingAddress.setDescription(regex);
-		billingAddress.setExternalReferenceCodeCopy(regex);
+		billingAddress.setExternalReferenceCode(regex);
 		billingAddress.setName(regex);
 		billingAddress.setPhoneNumber(regex);
 		billingAddress.setRegionISOCode(regex);
@@ -197,8 +199,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 		Assert.assertEquals(regex, billingAddress.getCity());
 		Assert.assertEquals(regex, billingAddress.getCountryISOCode());
 		Assert.assertEquals(regex, billingAddress.getDescription());
-		Assert.assertEquals(
-			regex, billingAddress.getExternalReferenceCodeCopy());
+		Assert.assertEquals(regex, billingAddress.getExternalReferenceCode());
 		Assert.assertEquals(regex, billingAddress.getName());
 		Assert.assertEquals(regex, billingAddress.getPhoneNumber());
 		Assert.assertEquals(regex, billingAddress.getRegionISOCode());
@@ -218,7 +219,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		BillingAddress getBillingAddress =
 			billingAddressResource.
-				getOrderByExternalReferenceCodeBillingAddress(null);
+				getOrderByExternalReferenceCodeBillingAddress(
+					postBillingAddress.getExternalReferenceCode());
 
 		assertEquals(postBillingAddress, getBillingAddress);
 		assertValid(getBillingAddress);
@@ -247,7 +249,9 @@ public abstract class BaseBillingAddressResourceTestCase {
 				"orderByExternalReferenceCodeBillingAddress",
 				new HashMap<String, Object>() {
 					{
-						put("externalReferenceCode", null);
+						put(
+							"externalReferenceCode",
+							billingAddress.getExternalReferenceCode());
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -258,10 +262,11 @@ public abstract class BaseBillingAddressResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				billingAddress,
-				dataJSONObject.getJSONObject(
-					"orderByExternalReferenceCodeBillingAddress")));
+				BillingAddressSerDes.toDTO(
+					dataJSONObject.getString(
+						"orderByExternalReferenceCodeBillingAddress"))));
 	}
 
 	@Test
@@ -315,9 +320,10 @@ public abstract class BaseBillingAddressResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				billingAddress,
-				dataJSONObject.getJSONObject("orderIdBillingAddress")));
+				BillingAddressSerDes.toDTO(
+					dataJSONObject.getString("orderIdBillingAddress"))));
 	}
 
 	@Test
@@ -385,25 +391,6 @@ public abstract class BaseBillingAddressResourceTestCase {
 		}
 	}
 
-	protected void assertEqualsJSONArray(
-		List<BillingAddress> billingAddresses, JSONArray jsonArray) {
-
-		for (BillingAddress billingAddress : billingAddresses) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(billingAddress, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + billingAddress, contains);
-		}
-	}
-
 	protected void assertValid(BillingAddress billingAddress) {
 		boolean valid = true;
 
@@ -439,9 +426,9 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals(
-					"externalReferenceCodeCopy", additionalAssertFieldName)) {
+					"externalReferenceCode", additionalAssertFieldName)) {
 
-				if (billingAddress.getExternalReferenceCodeCopy() == null) {
+				if (billingAddress.getExternalReferenceCode() == null) {
 					valid = false;
 				}
 
@@ -557,13 +544,52 @@ public abstract class BaseBillingAddressResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.order.dto.v1_0.
+						BillingAddress.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -616,11 +642,11 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals(
-					"externalReferenceCodeCopy", additionalAssertFieldName)) {
+					"externalReferenceCode", additionalAssertFieldName)) {
 
 				if (!Objects.deepEquals(
-						billingAddress1.getExternalReferenceCodeCopy(),
-						billingAddress2.getExternalReferenceCodeCopy())) {
+						billingAddress1.getExternalReferenceCode(),
+						billingAddress2.getExternalReferenceCode())) {
 
 					return false;
 				}
@@ -754,175 +780,25 @@ public abstract class BaseBillingAddressResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		BillingAddress billingAddress, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("city", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getCity(),
-						jsonObject.getString("city"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("countryISOCode", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getCountryISOCode(),
-						jsonObject.getString("countryISOCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("description", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getDescription(),
-						jsonObject.getString("description"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("externalReferenceCodeCopy", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getExternalReferenceCodeCopy(),
-						jsonObject.getString("externalReferenceCodeCopy"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("latitude", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getLatitude(),
-						jsonObject.getDouble("latitude"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("longitude", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getLongitude(),
-						jsonObject.getDouble("longitude"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("name", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getName(),
-						jsonObject.getString("name"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("phoneNumber", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getPhoneNumber(),
-						jsonObject.getString("phoneNumber"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("regionISOCode", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getRegionISOCode(),
-						jsonObject.getString("regionISOCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("street1", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getStreet1(),
-						jsonObject.getString("street1"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("street2", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getStreet2(),
-						jsonObject.getString("street2"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("street3", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getStreet3(),
-						jsonObject.getString("street3"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("vatNumber", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getVatNumber(),
-						jsonObject.getString("vatNumber"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("zip", fieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress.getZip(), jsonObject.getString("zip"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1003,10 +879,10 @@ public abstract class BaseBillingAddressResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("externalReferenceCodeCopy")) {
+		if (entityFieldName.equals("externalReferenceCode")) {
 			sb.append("'");
 			sb.append(
-				String.valueOf(billingAddress.getExternalReferenceCodeCopy()));
+				String.valueOf(billingAddress.getExternalReferenceCode()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1115,21 +991,27 @@ public abstract class BaseBillingAddressResourceTestCase {
 	protected BillingAddress randomBillingAddress() throws Exception {
 		return new BillingAddress() {
 			{
-				city = RandomTestUtil.randomString();
-				countryISOCode = RandomTestUtil.randomString();
-				description = RandomTestUtil.randomString();
-				externalReferenceCodeCopy = RandomTestUtil.randomString();
+				city = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				countryISOCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				description = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				latitude = RandomTestUtil.randomDouble();
 				longitude = RandomTestUtil.randomDouble();
-				name = RandomTestUtil.randomString();
-				phoneNumber = RandomTestUtil.randomString();
-				regionISOCode = RandomTestUtil.randomString();
-				street1 = RandomTestUtil.randomString();
-				street2 = RandomTestUtil.randomString();
-				street3 = RandomTestUtil.randomString();
-				vatNumber = RandomTestUtil.randomString();
-				zip = RandomTestUtil.randomString();
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				phoneNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				regionISOCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				street1 = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				street2 = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				street3 = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				vatNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				zip = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}

@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0.factory;
+package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0.factory;
 
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductResource;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
@@ -50,30 +50,30 @@ import org.osgi.service.component.annotations.ReferenceScope;
  * @author Andrea Sbarra
  * @generated
  */
-@Component(immediate = true, service = CartResource.Factory.class)
+@Component(immediate = true, service = ProductResource.Factory.class)
 @Generated("")
-public class CartResourceFactoryImpl implements CartResource.Factory {
+public class ProductResourceFactoryImpl implements ProductResource.Factory {
 
 	@Override
-	public CartResource.Builder create() {
-		return new CartResource.Builder() {
+	public ProductResource.Builder create() {
+		return new ProductResource.Builder() {
 
 			@Override
-			public CartResource build() {
+			public ProductResource build() {
 				if (_user == null) {
 					throw new IllegalArgumentException("User is not set");
 				}
 
-				return (CartResource)ProxyUtil.newProxyInstance(
-					CartResource.class.getClassLoader(),
-					new Class<?>[] {CartResource.class},
+				return (ProductResource)ProxyUtil.newProxyInstance(
+					ProductResource.class.getClassLoader(),
+					new Class<?>[] {ProductResource.class},
 					(proxy, method, arguments) -> _invoke(
 						method, arguments, _checkPermissions,
 						_httpServletRequest, _preferredLocale, _user));
 			}
 
 			@Override
-			public CartResource.Builder checkPermissions(
+			public ProductResource.Builder checkPermissions(
 				boolean checkPermissions) {
 
 				_checkPermissions = checkPermissions;
@@ -82,7 +82,7 @@ public class CartResourceFactoryImpl implements CartResource.Factory {
 			}
 
 			@Override
-			public CartResource.Builder httpServletRequest(
+			public ProductResource.Builder httpServletRequest(
 				HttpServletRequest httpServletRequest) {
 
 				_httpServletRequest = httpServletRequest;
@@ -91,7 +91,7 @@ public class CartResourceFactoryImpl implements CartResource.Factory {
 			}
 
 			@Override
-			public CartResource.Builder preferredLocale(
+			public ProductResource.Builder preferredLocale(
 				Locale preferredLocale) {
 
 				_preferredLocale = preferredLocale;
@@ -100,7 +100,7 @@ public class CartResourceFactoryImpl implements CartResource.Factory {
 			}
 
 			@Override
-			public CartResource.Builder user(User user) {
+			public ProductResource.Builder user(User user) {
 				_user = user;
 
 				return this;
@@ -116,12 +116,12 @@ public class CartResourceFactoryImpl implements CartResource.Factory {
 
 	@Activate
 	protected void activate() {
-		CartResource.FactoryHolder.factory = this;
+		ProductResource.FactoryHolder.factory = this;
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		CartResource.FactoryHolder.factory = null;
+		ProductResource.FactoryHolder.factory = null;
 	}
 
 	private Object _invoke(
@@ -146,26 +146,26 @@ public class CartResourceFactoryImpl implements CartResource.Factory {
 				_liberalPermissionCheckerFactory.create(user));
 		}
 
-		CartResource cartResource = _componentServiceObjects.getService();
+		ProductResource productResource = _componentServiceObjects.getService();
 
-		cartResource.setContextAcceptLanguage(
+		productResource.setContextAcceptLanguage(
 			new AcceptLanguageImpl(httpServletRequest, preferredLocale, user));
 
 		Company company = _companyLocalService.getCompany(user.getCompanyId());
 
-		cartResource.setContextCompany(company);
+		productResource.setContextCompany(company);
 
-		cartResource.setContextHttpServletRequest(httpServletRequest);
-		cartResource.setContextUser(user);
+		productResource.setContextHttpServletRequest(httpServletRequest);
+		productResource.setContextUser(user);
 
 		try {
-			return method.invoke(cartResource, arguments);
+			return method.invoke(productResource, arguments);
 		}
 		catch (InvocationTargetException invocationTargetException) {
 			throw invocationTargetException.getTargetException();
 		}
 		finally {
-			_componentServiceObjects.ungetService(cartResource);
+			_componentServiceObjects.ungetService(productResource);
 
 			PrincipalThreadLocal.setName(name);
 
@@ -177,7 +177,7 @@ public class CartResourceFactoryImpl implements CartResource.Factory {
 	private CompanyLocalService _companyLocalService;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<CartResource> _componentServiceObjects;
+	private ComponentServiceObjects<ProductResource> _componentServiceObjects;
 
 	@Reference
 	private PermissionCheckerFactory _defaultPermissionCheckerFactory;

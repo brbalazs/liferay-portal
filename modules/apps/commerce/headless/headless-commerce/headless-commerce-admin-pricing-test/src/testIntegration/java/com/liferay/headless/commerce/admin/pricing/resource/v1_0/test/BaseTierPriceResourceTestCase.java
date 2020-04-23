@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v1_0.TierPriceResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v1_0.TierPriceSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -43,6 +44,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -51,6 +53,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -552,10 +555,11 @@ public abstract class BaseTierPriceResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				tierPrice,
-				dataJSONObject.getJSONObject(
-					"tierPriceByExternalReferenceCode")));
+				TierPriceSerDes.toDTO(
+					dataJSONObject.getString(
+						"tierPriceByExternalReferenceCode"))));
 	}
 
 	@Test
@@ -669,8 +673,9 @@ public abstract class BaseTierPriceResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
-				tierPrice, dataJSONObject.getJSONObject("tierPrice")));
+			equals(
+				tierPrice,
+				TierPriceSerDes.toDTO(dataJSONObject.getString("tierPrice"))));
 	}
 
 	@Test
@@ -728,25 +733,6 @@ public abstract class BaseTierPriceResourceTestCase {
 
 			Assert.assertTrue(
 				tierPrices2 + " does not contain " + tierPrice1, contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<TierPrice> tierPrices, JSONArray jsonArray) {
-
-		for (TierPrice tierPrice : tierPrices) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(tierPrice, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + tierPrice, contains);
 		}
 	}
 
@@ -850,13 +836,52 @@ public abstract class BaseTierPriceResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.pricing.dto.v1_0.
+						TierPrice.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -875,9 +900,9 @@ public abstract class BaseTierPriceResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						tierPrice1.getCustomFields(),
-						tierPrice2.getCustomFields())) {
+				if (!equals(
+						(Map)tierPrice1.getCustomFields(),
+						(Map)tierPrice2.getCustomFields())) {
 
 					return false;
 				}
@@ -973,67 +998,25 @@ public abstract class BaseTierPriceResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		TierPrice tierPrice, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("externalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						tierPrice.getExternalReferenceCode(),
-						jsonObject.getString("externalReferenceCode"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						tierPrice.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("minimumQuantity", fieldName)) {
-				if (!Objects.deepEquals(
-						tierPrice.getMinimumQuantity(),
-						jsonObject.getInt("minimumQuantity"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("priceEntryExternalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						tierPrice.getPriceEntryExternalReferenceCode(),
-						jsonObject.getString(
-							"priceEntryExternalReferenceCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("priceEntryId", fieldName)) {
-				if (!Objects.deepEquals(
-						tierPrice.getPriceEntryId(),
-						jsonObject.getLong("priceEntryId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1160,10 +1143,12 @@ public abstract class BaseTierPriceResourceTestCase {
 	protected TierPrice randomTierPrice() throws Exception {
 		return new TierPrice() {
 			{
-				externalReferenceCode = RandomTestUtil.randomString();
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				minimumQuantity = RandomTestUtil.randomInt();
-				priceEntryExternalReferenceCode = RandomTestUtil.randomString();
+				priceEntryExternalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				priceEntryId = RandomTestUtil.randomLong();
 			}
 		};

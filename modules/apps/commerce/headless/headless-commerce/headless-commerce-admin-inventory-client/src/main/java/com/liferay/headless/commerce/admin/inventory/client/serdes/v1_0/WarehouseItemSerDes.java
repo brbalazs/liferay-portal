@@ -198,9 +198,15 @@ public class WarehouseItemSerDes {
 			map.put("id", String.valueOf(warehouseItem.getId()));
 		}
 
-		map.put(
-			"modifiedDate",
-			liferayToJSONDateFormat.format(warehouseItem.getModifiedDate()));
+		if (warehouseItem.getModifiedDate() == null) {
+			map.put("modifiedDate", null);
+		}
+		else {
+			map.put(
+				"modifiedDate",
+				liferayToJSONDateFormat.format(
+					warehouseItem.getModifiedDate()));
+		}
 
 		if (warehouseItem.getQuantity() == null) {
 			map.put("quantity", null);

@@ -803,9 +803,14 @@ public class OrderSerDes {
 			map.put("couponCode", String.valueOf(order.getCouponCode()));
 		}
 
-		map.put(
-			"createDate",
-			liferayToJSONDateFormat.format(order.getCreateDate()));
+		if (order.getCreateDate() == null) {
+			map.put("createDate", null);
+		}
+		else {
+			map.put(
+				"createDate",
+				liferayToJSONDateFormat.format(order.getCreateDate()));
+		}
 
 		if (order.getCurrencyCode() == null) {
 			map.put("currencyCode", null);
@@ -837,16 +842,32 @@ public class OrderSerDes {
 			map.put("id", String.valueOf(order.getId()));
 		}
 
-		map.put(
-			"lastPriceUpdateDate",
-			liferayToJSONDateFormat.format(order.getLastPriceUpdateDate()));
+		if (order.getLastPriceUpdateDate() == null) {
+			map.put("lastPriceUpdateDate", null);
+		}
+		else {
+			map.put(
+				"lastPriceUpdateDate",
+				liferayToJSONDateFormat.format(order.getLastPriceUpdateDate()));
+		}
 
-		map.put(
-			"modifiedDate",
-			liferayToJSONDateFormat.format(order.getModifiedDate()));
+		if (order.getModifiedDate() == null) {
+			map.put("modifiedDate", null);
+		}
+		else {
+			map.put(
+				"modifiedDate",
+				liferayToJSONDateFormat.format(order.getModifiedDate()));
+		}
 
-		map.put(
-			"orderDate", liferayToJSONDateFormat.format(order.getOrderDate()));
+		if (order.getOrderDate() == null) {
+			map.put("orderDate", null);
+		}
+		else {
+			map.put(
+				"orderDate",
+				liferayToJSONDateFormat.format(order.getOrderDate()));
+		}
 
 		if (order.getOrderItems() == null) {
 			map.put("orderItems", null);
@@ -892,9 +913,15 @@ public class OrderSerDes {
 				String.valueOf(order.getPurchaseOrderNumber()));
 		}
 
-		map.put(
-			"requestedDeliveryDate",
-			liferayToJSONDateFormat.format(order.getRequestedDeliveryDate()));
+		if (order.getRequestedDeliveryDate() == null) {
+			map.put("requestedDeliveryDate", null);
+		}
+		else {
+			map.put(
+				"requestedDeliveryDate",
+				liferayToJSONDateFormat.format(
+					order.getRequestedDeliveryDate()));
+		}
 
 		if (order.getShippingAddress() == null) {
 			map.put("shippingAddress", null);

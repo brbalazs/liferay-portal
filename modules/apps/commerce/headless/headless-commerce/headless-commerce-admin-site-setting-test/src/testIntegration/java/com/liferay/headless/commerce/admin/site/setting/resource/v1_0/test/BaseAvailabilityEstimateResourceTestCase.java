@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.site.setting.client.pagination.Page;
 import com.liferay.headless.commerce.admin.site.setting.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.site.setting.client.resource.v1_0.AvailabilityEstimateResource;
 import com.liferay.headless.commerce.admin.site.setting.client.serdes.v1_0.AvailabilityEstimateSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -51,6 +52,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -318,9 +320,10 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				availabilityEstimate,
-				dataJSONObject.getJSONObject("availabilityEstimate")));
+				AvailabilityEstimateSerDes.toDTO(
+					dataJSONObject.getString("availabilityEstimate"))));
 	}
 
 	@Test
@@ -564,30 +567,6 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		}
 	}
 
-	protected void assertEqualsJSONArray(
-		List<AvailabilityEstimate> availabilityEstimates, JSONArray jsonArray) {
-
-		for (AvailabilityEstimate availabilityEstimate :
-				availabilityEstimates) {
-
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(
-						availabilityEstimate, (JSONObject)object)) {
-
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + availabilityEstimate,
-				contains);
-		}
-	}
-
 	protected void assertValid(AvailabilityEstimate availabilityEstimate) {
 		boolean valid = true;
 
@@ -652,13 +631,52 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.site.setting.dto.v1_0.
+						AvailabilityEstimate.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -713,9 +731,9 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 			}
 
 			if (Objects.equals("title", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						availabilityEstimate1.getTitle(),
-						availabilityEstimate2.getTitle())) {
+				if (!equals(
+						(Map)availabilityEstimate1.getTitle(),
+						(Map)availabilityEstimate2.getTitle())) {
 
 					return false;
 				}
@@ -731,45 +749,25 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		AvailabilityEstimate availabilityEstimate, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("groupId", fieldName)) {
-				if (!Objects.deepEquals(
-						availabilityEstimate.getGroupId(),
-						jsonObject.getLong("groupId"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						availabilityEstimate.getId(),
-						jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("priority", fieldName)) {
-				if (!Objects.deepEquals(
-						availabilityEstimate.getPriority(),
-						jsonObject.getDouble("priority"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;

@@ -27,9 +27,8 @@ import com.liferay.headless.commerce.admin.catalog.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.catalog.client.pagination.Page;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.ProductConfigurationResource;
 import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.ProductConfigurationSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -41,12 +40,14 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -290,30 +291,6 @@ public abstract class BaseProductConfigurationResourceTestCase {
 		}
 	}
 
-	protected void assertEqualsJSONArray(
-		List<ProductConfiguration> productConfigurations, JSONArray jsonArray) {
-
-		for (ProductConfiguration productConfiguration :
-				productConfigurations) {
-
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(
-						productConfiguration, (JSONObject)object)) {
-
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + productConfiguration,
-				contains);
-		}
-	}
-
 	protected void assertValid(ProductConfiguration productConfiguration) {
 		boolean valid = true;
 
@@ -438,13 +415,52 @@ public abstract class BaseProductConfigurationResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.catalog.dto.v1_0.
+						ProductConfiguration.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -591,111 +607,25 @@ public abstract class BaseProductConfigurationResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		ProductConfiguration productConfiguration, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("allowBackOrder", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getAllowBackOrder(),
-						jsonObject.getBoolean("allowBackOrder"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("displayAvailability", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getDisplayAvailability(),
-						jsonObject.getBoolean("displayAvailability"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("displayStockQuantity", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getDisplayStockQuantity(),
-						jsonObject.getBoolean("displayStockQuantity"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("inventoryEngine", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getInventoryEngine(),
-						jsonObject.getString("inventoryEngine"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("lowStockAction", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getLowStockAction(),
-						jsonObject.getString("lowStockAction"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("maxOrderQuantity", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getMaxOrderQuantity(),
-						jsonObject.getInt("maxOrderQuantity"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("minOrderQuantity", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getMinOrderQuantity(),
-						jsonObject.getInt("minOrderQuantity"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("minStockQuantity", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getMinStockQuantity(),
-						jsonObject.getInt("minStockQuantity"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("multipleOrderQuantity", fieldName)) {
-				if (!Objects.deepEquals(
-						productConfiguration.getMultipleOrderQuantity(),
-						jsonObject.getInt("multipleOrderQuantity"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -838,8 +768,10 @@ public abstract class BaseProductConfigurationResourceTestCase {
 				allowBackOrder = RandomTestUtil.randomBoolean();
 				displayAvailability = RandomTestUtil.randomBoolean();
 				displayStockQuantity = RandomTestUtil.randomBoolean();
-				inventoryEngine = RandomTestUtil.randomString();
-				lowStockAction = RandomTestUtil.randomString();
+				inventoryEngine = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				lowStockAction = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				maxOrderQuantity = RandomTestUtil.randomInt();
 				minOrderQuantity = RandomTestUtil.randomInt();
 				minStockQuantity = RandomTestUtil.randomInt();

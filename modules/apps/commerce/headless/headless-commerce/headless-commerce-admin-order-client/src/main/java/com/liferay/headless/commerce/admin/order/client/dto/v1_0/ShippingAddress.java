@@ -89,28 +89,26 @@ public class ShippingAddress implements Cloneable {
 
 	protected String description;
 
-	public String getExternalReferenceCodeCopy() {
-		return externalReferenceCodeCopy;
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
 	}
 
-	public void setExternalReferenceCodeCopy(String externalReferenceCodeCopy) {
-		this.externalReferenceCodeCopy = externalReferenceCodeCopy;
+	public void setExternalReferenceCode(String externalReferenceCode) {
+		this.externalReferenceCode = externalReferenceCode;
 	}
 
-	public void setExternalReferenceCodeCopy(
-		UnsafeSupplier<String, Exception>
-			externalReferenceCodeCopyUnsafeSupplier) {
+	public void setExternalReferenceCode(
+		UnsafeSupplier<String, Exception> externalReferenceCodeUnsafeSupplier) {
 
 		try {
-			externalReferenceCodeCopy =
-				externalReferenceCodeCopyUnsafeSupplier.get();
+			externalReferenceCode = externalReferenceCodeUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String externalReferenceCodeCopy;
+	protected String externalReferenceCode;
 
 	public Long getId() {
 		return id;

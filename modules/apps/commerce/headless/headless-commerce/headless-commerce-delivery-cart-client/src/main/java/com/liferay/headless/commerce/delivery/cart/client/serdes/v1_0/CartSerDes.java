@@ -501,8 +501,14 @@ public class CartSerDes {
 			map.put("couponCode", String.valueOf(cart.getCouponCode()));
 		}
 
-		map.put(
-			"createDate", liferayToJSONDateFormat.format(cart.getCreateDate()));
+		if (cart.getCreateDate() == null) {
+			map.put("createDate", null);
+		}
+		else {
+			map.put(
+				"createDate",
+				liferayToJSONDateFormat.format(cart.getCreateDate()));
+		}
 
 		if (cart.getCurrencyCode() == null) {
 			map.put("currencyCode", null);
@@ -525,13 +531,23 @@ public class CartSerDes {
 			map.put("id", String.valueOf(cart.getId()));
 		}
 
-		map.put(
-			"lastPriceUpdateDate",
-			liferayToJSONDateFormat.format(cart.getLastPriceUpdateDate()));
+		if (cart.getLastPriceUpdateDate() == null) {
+			map.put("lastPriceUpdateDate", null);
+		}
+		else {
+			map.put(
+				"lastPriceUpdateDate",
+				liferayToJSONDateFormat.format(cart.getLastPriceUpdateDate()));
+		}
 
-		map.put(
-			"modifiedDate",
-			liferayToJSONDateFormat.format(cart.getModifiedDate()));
+		if (cart.getModifiedDate() == null) {
+			map.put("modifiedDate", null);
+		}
+		else {
+			map.put(
+				"modifiedDate",
+				liferayToJSONDateFormat.format(cart.getModifiedDate()));
+		}
 
 		if (cart.getNotes() == null) {
 			map.put("notes", null);
@@ -890,10 +906,13 @@ public class CartSerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

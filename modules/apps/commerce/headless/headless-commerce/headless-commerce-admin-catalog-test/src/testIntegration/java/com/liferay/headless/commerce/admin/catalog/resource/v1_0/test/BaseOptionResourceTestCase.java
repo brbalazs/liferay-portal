@@ -29,6 +29,7 @@ import com.liferay.headless.commerce.admin.catalog.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.OptionResource;
 import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.OptionSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -53,6 +54,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -333,27 +335,46 @@ public abstract class BaseOptionResourceTestCase {
 			(entityField, option1, option2) -> {
 				Class<?> clazz = option1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						option1, entityField.getName(),
+						option1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						option2, entityField.getName(),
+						option2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						option1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						option2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						option1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						option1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						option2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						option2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -453,9 +474,10 @@ public abstract class BaseOptionResourceTestCase {
 
 		Assert.assertEquals(2, optionsJSONObject.get("totalCount"));
 
-		assertEqualsJSONArray(
+		assertEqualsIgnoringOrder(
 			Arrays.asList(option1, option2),
-			optionsJSONObject.getJSONArray("items"));
+			Arrays.asList(
+				OptionSerDes.toDTOs(optionsJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -544,9 +566,11 @@ public abstract class BaseOptionResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				option,
-				dataJSONObject.getJSONObject("optionByExternalReferenceCode")));
+				OptionSerDes.toDTO(
+					dataJSONObject.getString(
+						"optionByExternalReferenceCode"))));
 	}
 
 	@Test
@@ -658,7 +682,9 @@ public abstract class BaseOptionResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(option, dataJSONObject.getJSONObject("option")));
+			equals(
+				option,
+				OptionSerDes.toDTO(dataJSONObject.getString("option"))));
 	}
 
 	@Test
@@ -713,25 +739,6 @@ public abstract class BaseOptionResourceTestCase {
 
 			Assert.assertTrue(
 				options2 + " does not contain " + option1, contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<Option> options, JSONArray jsonArray) {
-
-		for (Option option : options) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(option, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + option, contains);
 		}
 	}
 
@@ -864,13 +871,52 @@ public abstract class BaseOptionResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.catalog.dto.v1_0.Option.
+						class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -899,8 +945,9 @@ public abstract class BaseOptionResourceTestCase {
 			}
 
 			if (Objects.equals("description", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						option1.getDescription(), option2.getDescription())) {
+				if (!equals(
+						(Map)option1.getDescription(),
+						(Map)option2.getDescription())) {
 
 					return false;
 				}
@@ -958,7 +1005,7 @@ public abstract class BaseOptionResourceTestCase {
 			}
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(option1.getName(), option2.getName())) {
+				if (!equals((Map)option1.getName(), (Map)option2.getName())) {
 					return false;
 				}
 
@@ -1014,96 +1061,25 @@ public abstract class BaseOptionResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(Option option, JSONObject jsonObject) {
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("catalogId", fieldName)) {
-				if (!Objects.deepEquals(
-						option.getCatalogId(),
-						jsonObject.getLong("catalogId"))) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("externalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						option.getExternalReferenceCode(),
-						jsonObject.getString("externalReferenceCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("facetable", fieldName)) {
-				if (!Objects.deepEquals(
-						option.getFacetable(),
-						jsonObject.getBoolean("facetable"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						option.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("key", fieldName)) {
-				if (!Objects.deepEquals(
-						option.getKey(), jsonObject.getString("key"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("priority", fieldName)) {
-				if (!Objects.deepEquals(
-						option.getPriority(),
-						jsonObject.getDouble("priority"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("required", fieldName)) {
-				if (!Objects.deepEquals(
-						option.getRequired(),
-						jsonObject.getBoolean("required"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("skuContributor", fieldName)) {
-				if (!Objects.deepEquals(
-						option.getSkuContributor(),
-						jsonObject.getBoolean("skuContributor"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1250,10 +1226,11 @@ public abstract class BaseOptionResourceTestCase {
 		return new Option() {
 			{
 				catalogId = RandomTestUtil.randomLong();
-				externalReferenceCode = RandomTestUtil.randomString();
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				facetable = RandomTestUtil.randomBoolean();
 				id = RandomTestUtil.randomLong();
-				key = RandomTestUtil.randomString();
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				priority = RandomTestUtil.randomDouble();
 				required = RandomTestUtil.randomBoolean();
 				skuContributor = RandomTestUtil.randomBoolean();

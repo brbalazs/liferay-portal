@@ -29,6 +29,7 @@ import com.liferay.headless.commerce.admin.catalog.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.SpecificationResource;
 import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.SpecificationSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -53,6 +54,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -351,27 +353,46 @@ public abstract class BaseSpecificationResourceTestCase {
 			(entityField, specification1, specification2) -> {
 				Class<?> clazz = specification1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						specification1, entityField.getName(),
+						specification1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						specification2, entityField.getName(),
+						specification2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						specification1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						specification2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						specification1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						specification1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						specification2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						specification2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -482,9 +503,11 @@ public abstract class BaseSpecificationResourceTestCase {
 
 		Assert.assertEquals(2, specificationsJSONObject.get("totalCount"));
 
-		assertEqualsJSONArray(
+		assertEqualsIgnoringOrder(
 			Arrays.asList(specification1, specification2),
-			specificationsJSONObject.getJSONArray("items"));
+			Arrays.asList(
+				SpecificationSerDes.toDTOs(
+					specificationsJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -625,8 +648,10 @@ public abstract class BaseSpecificationResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
-				specification, dataJSONObject.getJSONObject("specification")));
+			equals(
+				specification,
+				SpecificationSerDes.toDTO(
+					dataJSONObject.getString("specification"))));
 	}
 
 	@Test
@@ -691,25 +716,6 @@ public abstract class BaseSpecificationResourceTestCase {
 			Assert.assertTrue(
 				specifications2 + " does not contain " + specification1,
 				contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<Specification> specifications, JSONArray jsonArray) {
-
-		for (Specification specification : specifications) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(specification, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + specification, contains);
 		}
 	}
 
@@ -792,13 +798,52 @@ public abstract class BaseSpecificationResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.catalog.dto.v1_0.
+						Specification.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -819,9 +864,9 @@ public abstract class BaseSpecificationResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("description", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						specification1.getDescription(),
-						specification2.getDescription())) {
+				if (!equals(
+						(Map)specification1.getDescription(),
+						(Map)specification2.getDescription())) {
 
 					return false;
 				}
@@ -872,8 +917,9 @@ public abstract class BaseSpecificationResourceTestCase {
 			}
 
 			if (Objects.equals("title", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						specification1.getTitle(), specification2.getTitle())) {
+				if (!equals(
+						(Map)specification1.getTitle(),
+						(Map)specification2.getTitle())) {
 
 					return false;
 				}
@@ -889,43 +935,25 @@ public abstract class BaseSpecificationResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		Specification specification, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("facetable", fieldName)) {
-				if (!Objects.deepEquals(
-						specification.getFacetable(),
-						jsonObject.getBoolean("facetable"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						specification.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("key", fieldName)) {
-				if (!Objects.deepEquals(
-						specification.getKey(), jsonObject.getString("key"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1040,7 +1068,7 @@ public abstract class BaseSpecificationResourceTestCase {
 			{
 				facetable = RandomTestUtil.randomBoolean();
 				id = RandomTestUtil.randomLong();
-				key = RandomTestUtil.randomString();
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}
