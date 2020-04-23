@@ -1157,27 +1157,6 @@ public class CPDefinitionLocalServiceImpl
 	}
 
 	@Override
-	public boolean isCPBundle(long cpDefinitionId) {
-		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
-			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
-				cpDefinitionId);
-
-		for (CPDefinitionOptionRel cpDefinitionOptionRel :
-				cpDefinitionOptionRels) {
-
-			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-					cpDefinitionOptionRel.getCPDefinitionOptionValueRels()) {
-
-				if (cpDefinitionOptionValueRel.getCPInstanceUuid() != null) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	@Override
 	public boolean isPublishedCPDefinition(CPDefinition cpDefinition) {
 		CProduct cProduct = cProductLocalService.fetchCProduct(
 			cpDefinition.getCProductId());
