@@ -18,7 +18,7 @@ import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
-import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
+import com.liferay.commerce.inventory.InventoryChecker;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -193,11 +193,8 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 				if (Validator.isNotNull(cpDefinitionOptionRel.getPriceType())) {
 					allowedCPDefinitionOptionValueRels =
-						_filterByInventoryAvailability(
-							allowedCPDefinitionOptionValueRels,
-							_getCommerceContext(
-								ddmDataProviderRequest.
-									getHttpServletRequest()));
+						_inventoryChecker.filterByAvailability(
+							allowedCPDefinitionOptionValueRels);
 				}
 
 				outputs.add(
@@ -265,46 +262,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 		private final String _type;
 		private final Object _value;
 
-	}
-
-	private List<CPDefinitionOptionValueRel> _filterByInventoryAvailability(
-			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
-			CommerceContext commerceContext)
-		throws PortalException {
-
-		List<CPDefinitionOptionValueRel> filtered = new ArrayList<>();
-
-		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-				cpDefinitionOptionValueRels) {
-
-			if (Validator.isNull(
-					cpDefinitionOptionValueRel.getCPInstanceUuid())) {
-
-				filtered.add(cpDefinitionOptionValueRel);
-
-				continue;
-			}
-
-			CPInstance cpInstance =
-				cpDefinitionOptionValueRel.fetchCPInstance();
-
-			if (cpInstance == null) {
-				continue;
-			}
-
-			if (cpDefinitionOptionValueRel.getQuantity() >
-					_commerceInventoryEngine.getStockQuantity(
-						cpInstance.getCompanyId(),
-						commerceContext.getCommerceChannelGroupId(),
-						cpInstance.getSku())) {
-
-				continue;
-			}
-
-			filtered.add(cpDefinitionOptionValueRel);
-		}
-
-		return filtered;
 	}
 
 	private List<CPDefinitionOptionValueRel>
@@ -403,9 +360,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 		CommerceProductInstanceOptionsValuesDataProvider.class);
 
 	@Reference
-	private CommerceInventoryEngine _commerceInventoryEngine;
-
-	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;
 
 	@Reference
@@ -424,6 +378,11 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
+
+	@Reference(
+		target = "(commerce.inventory.checker.target=CPDefinitionOptionValueRel)"
+	)
+	private InventoryChecker _inventoryChecker;
 
 	@Reference
 	private JsonHelper _jsonHelper;
