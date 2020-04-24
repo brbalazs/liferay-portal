@@ -76,8 +76,7 @@ public class PaymentProcessCheckoutStepDisplayContext {
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter(
-			"commerceOrderId",
-			String.valueOf(_commerceOrder.getCommerceOrderId()));
+			"commerceOrderUuid", String.valueOf(_commerceOrder.getUuid()));
 
 		CommerceCheckoutStep commerceCheckoutStep =
 			_commerceCheckoutStepServicesTracker.getCommerceCheckoutStep(

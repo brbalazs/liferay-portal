@@ -102,11 +102,12 @@ public class AddressCommerceCheckoutStepUtil {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long commerceOrderId = ParamUtil.getLong(
-			actionRequest, "commerceOrderId");
+		String commerceOrderUuid = ParamUtil.getString(
+			actionRequest, "commerceOrderUuid");
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			commerceOrderId);
+		CommerceOrder commerceOrder =
+			_commerceOrderService.getCommerceOrderByUuidAndGroupId(
+				commerceOrderUuid, commerceContext.getCommerceChannelGroupId());
 
 		boolean newAddress = ParamUtil.getBoolean(actionRequest, "newAddress");
 

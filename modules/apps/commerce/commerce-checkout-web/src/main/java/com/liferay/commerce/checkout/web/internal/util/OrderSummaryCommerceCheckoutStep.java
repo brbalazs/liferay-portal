@@ -27,6 +27,7 @@ import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -85,10 +86,10 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		long commerceOrderId = ParamUtil.getLong(
-			actionRequest, "commerceOrderId");
+		String commerceOrderUuid = ParamUtil.getString(
+			actionRequest, "commerceOrderUuid");
 
-		_validateCommerceOrder(actionRequest, commerceOrderId);
+		_validateCommerceOrder(actionRequest, commerceOrderUuid);
 
 		_checkoutCommerceOrder(_portal.getHttpServletRequest(actionRequest));
 	}
@@ -191,11 +192,16 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	}
 
 	private void _validateCommerceOrder(
-			ActionRequest actionRequest, long commerceOrderId)
+			ActionRequest actionRequest, String commerceOrderUuid)
 		throws PortalException {
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			commerceOrderId);
+		long groupId =
+			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
+				_portal.getScopeGroupId(actionRequest));
+
+		CommerceOrder commerceOrder =
+			_commerceOrderService.getCommerceOrderByUuidAndGroupId(
+				commerceOrderUuid, groupId);
 
 		if (commerceOrder.getShippingAddressId() <= 0) {
 			throw new CommerceOrderShippingAddressException();
@@ -232,7 +238,7 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 		int subscriptionCommerceOrderItemsCount =
 			_commerceOrderItemService.countSubscriptionCommerceOrderItems(
-				commerceOrderId);
+				commerceOrder.getCommerceOrderId());
 
 		if ((subscriptionCommerceOrderItemsCount > 0) &&
 			commercePaymentMethodKey.isEmpty()) {
@@ -243,6 +249,9 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		OrderSummaryCommerceCheckoutStep.class);
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceChannelService _commerceChannelService;

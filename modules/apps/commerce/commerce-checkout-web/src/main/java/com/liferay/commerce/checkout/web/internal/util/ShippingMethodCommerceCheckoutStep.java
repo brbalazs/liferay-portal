@@ -228,11 +228,16 @@ public class ShippingMethodCommerceCheckoutStep
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long commerceOrderId = ParamUtil.getLong(
-			actionRequest, "commerceOrderId");
+		String commerceOrderUuid = ParamUtil.getString(
+			actionRequest, "commerceOrderUuid");
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			commerceOrderId);
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
+		CommerceOrder commerceOrder =
+			_commerceOrderService.getCommerceOrderByUuidAndGroupId(
+				commerceOrderUuid, commerceContext.getCommerceChannelGroupId());
 
 		PermissionChecker permissionChecker =
 			PermissionCheckerFactoryUtil.create(themeDisplay.getUser());
@@ -242,10 +247,6 @@ public class ShippingMethodCommerceCheckoutStep
 
 			return;
 		}
-
-		CommerceContext commerceContext =
-			(CommerceContext)actionRequest.getAttribute(
-				CommerceWebKeys.COMMERCE_CONTEXT);
 
 		int pos = commerceShippingOptionKey.indexOf(
 			COMMERCE_SHIPPING_OPTION_KEY_SEPARATOR);

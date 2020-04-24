@@ -135,11 +135,17 @@ public class CommerceCheckoutPortlet extends MVCPortlet {
 	protected CommerceOrder getCommerceOrder(PortletRequest portletRequest)
 		throws PortalException {
 
-		long commerceOrderId = ParamUtil.getLong(
-			portletRequest, "commerceOrderId");
+		String commerceOrderUuid = ParamUtil.getString(
+			portletRequest, "commerceOrderUuid");
 
-		if (commerceOrderId > 0) {
-			return _commerceOrderService.getCommerceOrder(commerceOrderId);
+		if (Validator.isNotNull(commerceOrderUuid)) {
+			long groupId =
+				_commerceChannelLocalService.
+					getCommerceChannelGroupIdBySiteGroupId(
+						_portal.getScopeGroupId(portletRequest));
+
+			return _commerceOrderService.getCommerceOrderByUuidAndGroupId(
+				commerceOrderUuid, groupId);
 		}
 
 		return _commerceOrderHttpHelper.getCurrentCommerceOrder(
