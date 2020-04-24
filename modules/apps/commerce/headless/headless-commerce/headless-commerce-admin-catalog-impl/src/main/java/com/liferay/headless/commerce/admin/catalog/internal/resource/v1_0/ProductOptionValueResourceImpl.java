@@ -75,6 +75,16 @@ public class ProductOptionValueResourceImpl
 		return _upsertProductOptionValue(id, productOptionValue);
 	}
 
+	private ProductOptionValue _toProductOptionValue(
+			Long cpDefinitionOptionValueRelId)
+		throws Exception {
+
+		return _productOptionValueDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpDefinitionOptionValueRelId,
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	private List<ProductOptionValue> _toProductOptionValues(
 			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels)
 		throws Exception {
@@ -85,11 +95,9 @@ public class ProductOptionValueResourceImpl
 				cpDefinitionOptionValueRels) {
 
 			productOptionValues.add(
-				_productOptionValueDTOConverter.toDTO(
-					new DefaultDTOConverterContext(
-						cpDefinitionOptionValueRel.
-							getCPDefinitionOptionValueRelId(),
-						contextAcceptLanguage.getPreferredLocale())));
+				_toProductOptionValue(
+					cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId()));
 		}
 
 		return productOptionValues;
@@ -110,10 +118,8 @@ public class ProductOptionValueResourceImpl
 				_serviceContextHelper.getServiceContext(
 					cpDefinitionOptionRel.getGroupId()));
 
-		return _productOptionValueDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductOptionValue(
+			cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId());
 	}
 
 	@Reference

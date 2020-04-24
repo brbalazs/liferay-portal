@@ -59,10 +59,7 @@ public class ProductConfigurationResourceImpl
 					externalReferenceCode);
 		}
 
-		return _productConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductConfiguration(cpDefinition.getCPDefinitionId());
 	}
 
 	@NestedField(parentClass = Product.class, value = "configuration")
@@ -79,10 +76,7 @@ public class ProductConfigurationResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _productConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductConfiguration(cpDefinition.getCPDefinitionId());
 	}
 
 	@Override
@@ -131,6 +125,14 @@ public class ProductConfigurationResourceImpl
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
 		return responseBuilder.build();
+	}
+
+	private ProductConfiguration _toProductConfiguration(Long cpDefinitionId)
+		throws Exception {
+
+		return _productConfigurationDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpDefinitionId, contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Reference

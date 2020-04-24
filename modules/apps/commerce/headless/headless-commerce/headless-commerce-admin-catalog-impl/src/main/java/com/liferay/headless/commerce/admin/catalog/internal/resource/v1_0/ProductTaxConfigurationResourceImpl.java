@@ -54,10 +54,7 @@ public class ProductTaxConfigurationResourceImpl
 				fetchCPDefinitionByCProductExternalReferenceCode(
 					contextCompany.getCompanyId(), externalReferenceCode);
 
-		return _productTaxConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductTaxConfiguration(cpDefinition.getCPDefinitionId());
 	}
 
 	@NestedField(parentClass = Product.class, value = "taxConfiguration")
@@ -74,10 +71,7 @@ public class ProductTaxConfigurationResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _productTaxConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductTaxConfiguration(cpDefinition.getCPDefinitionId());
 	}
 
 	@Override
@@ -124,6 +118,15 @@ public class ProductTaxConfigurationResourceImpl
 		return responseBuilder.build();
 	}
 
+	private ProductTaxConfiguration _toProductTaxConfiguration(
+			Long cpDefinitionId)
+		throws Exception {
+
+		return _productTaxConfigurationDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpDefinitionId, contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	private ProductTaxConfiguration _updateProductTaxConfiguration(
 			CPDefinition cpDefinition,
 			ProductTaxConfiguration productTaxConfiguration)
@@ -133,10 +136,7 @@ public class ProductTaxConfigurationResourceImpl
 			ProductTaxConfigurationUtil.updateCPDefinitionTaxCategoryInfo(
 				_cpDefinitionService, productTaxConfiguration, cpDefinition);
 
-		return _productTaxConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductTaxConfiguration(cpDefinition.getCPDefinitionId());
 	}
 
 	@Reference

@@ -125,10 +125,7 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 
 	@Override
 	public ProductOption getProductOption(Long id) throws Exception {
-		return _productOptionDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				GetterUtil.getLong(id),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductOption(GetterUtil.getLong(id));
 	}
 
 	@Override
@@ -178,6 +175,15 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 		return Page.of(_upsertProductOptions(cpDefinition, productOptions));
 	}
 
+	private ProductOption _toProductOption(Long cpDefinitionOptionRelId)
+		throws Exception {
+
+		return _productOptionDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpDefinitionOptionRelId,
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	private List<ProductOption> _toProductOptions(
 			List<CPDefinitionOptionRel> cpDefinitionOptionRels)
 		throws Exception {
@@ -188,10 +194,8 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 				cpDefinitionOptionRels) {
 
 			productOptions.add(
-				_productOptionDTOConverter.toDTO(
-					new DefaultDTOConverterContext(
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-						contextAcceptLanguage.getPreferredLocale())));
+				_toProductOption(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
 		}
 
 		return productOptions;
@@ -228,10 +232,8 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinitionOptionRel.getGroupId()));
 
-		return _productOptionDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductOption(
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId());
 	}
 
 	private List<ProductOption> _upsertProductOptions(
@@ -255,10 +257,8 @@ public class ProductOptionResourceImpl extends BaseProductOptionResourceImpl {
 				cpDefinition.getCPDefinitionOptionRels()) {
 
 			productOptionList.add(
-				_productOptionDTOConverter.toDTO(
-					new DefaultDTOConverterContext(
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-						contextAcceptLanguage.getPreferredLocale())));
+				_toProductOption(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
 		}
 
 		return productOptionList;

@@ -101,10 +101,7 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 
 	@Override
 	public RelatedProduct getRelatedProduct(Long id) throws Exception {
-		return _relatedProductDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				GetterUtil.getLong(id),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toRelatedProduct(GetterUtil.getLong(id));
 	}
 
 	@Override
@@ -171,6 +168,15 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 			_toRelatedProducts(cpDefinitionLinks), pagination, totalItems);
 	}
 
+	private RelatedProduct _toRelatedProduct(Long CPDefinitionLinkId)
+		throws Exception {
+
+		return _relatedProductDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				CPDefinitionLinkId,
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	private List<RelatedProduct> _toRelatedProducts(
 			List<CPDefinitionLink> cpDefinitionLinks)
 		throws Exception {
@@ -179,10 +185,7 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 
 		for (CPDefinitionLink cpDefinitionLink : cpDefinitionLinks) {
 			relatedProducts.add(
-				_relatedProductDTOConverter.toDTO(
-					new DefaultDTOConverterContext(
-						cpDefinitionLink.getCPDefinitionLinkId(),
-						contextAcceptLanguage.getPreferredLocale())));
+				_toRelatedProduct(cpDefinitionLink.getCPDefinitionLinkId()));
 		}
 
 		return relatedProducts;
@@ -199,10 +202,7 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinition.getGroupId()));
 
-		return _relatedProductDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinitionLink.getCPDefinitionLinkId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toRelatedProduct(cpDefinitionLink.getCPDefinitionLinkId());
 	}
 
 	@Reference

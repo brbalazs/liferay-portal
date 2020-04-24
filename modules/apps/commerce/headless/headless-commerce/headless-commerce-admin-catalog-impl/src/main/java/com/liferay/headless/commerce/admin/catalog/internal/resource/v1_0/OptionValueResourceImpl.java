@@ -116,6 +116,12 @@ public class OptionValueResourceImpl extends BaseOptionValueResourceImpl {
 			_cpOptionService.getCPOption(id), optionValue);
 	}
 
+	private OptionValue _toOptionValue(Long cpOptionValueId) throws Exception {
+		return _optionValueDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpOptionValueId, contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	private List<OptionValue> _toOptionValues(
 			List<CPOptionValue> cpOptionValues)
 		throws Exception {
@@ -124,10 +130,7 @@ public class OptionValueResourceImpl extends BaseOptionValueResourceImpl {
 
 		for (CPOptionValue cpOptionValue : cpOptionValues) {
 			productOptionValues.add(
-				_optionValueDTOConverter.toDTO(
-					new DefaultDTOConverterContext(
-						cpOptionValue.getCPOptionValueId(),
-						contextAcceptLanguage.getPreferredLocale())));
+				_toOptionValue(cpOptionValue.getCPOptionValueId()));
 		}
 
 		return productOptionValues;
@@ -144,10 +147,7 @@ public class OptionValueResourceImpl extends BaseOptionValueResourceImpl {
 			optionValue.getExternalReferenceCode(),
 			_serviceContextHelper.getServiceContext());
 
-		return _optionValueDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpOptionValue.getCPOptionValueId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toOptionValue(cpOptionValue.getCPOptionValueId());
 	}
 
 	@Reference

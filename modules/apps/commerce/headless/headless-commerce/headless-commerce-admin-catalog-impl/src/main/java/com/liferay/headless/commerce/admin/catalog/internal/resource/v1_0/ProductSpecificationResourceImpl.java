@@ -66,6 +66,16 @@ public class ProductSpecificationResourceImpl
 		return _upsertProductSpecification(id, productSpecification);
 	}
 
+	private ProductSpecification _toProductSpecification(
+			Long cpDefinitionSpecificationOptionValueId)
+		throws Exception {
+
+		return _productSpecificationDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpDefinitionSpecificationOptionValueId,
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	private CPDefinitionSpecificationOptionValue _updateProductSpecification(
 			Long id, ProductSpecification productSpecification)
 		throws PortalException {
@@ -95,11 +105,9 @@ public class ProductSpecificationResourceImpl
 						_updateProductSpecification(
 							productSpecificationId, productSpecification);
 
-				return _productSpecificationDTOConverter.toDTO(
-					new DefaultDTOConverterContext(
-						cpDefinitionSpecificationOptionValue.
-							getCPDefinitionSpecificationOptionValueId(),
-						contextAcceptLanguage.getPreferredLocale()));
+				return _toProductSpecification(
+					cpDefinitionSpecificationOptionValue.
+						getCPDefinitionSpecificationOptionValueId());
 			}
 			catch (NoSuchCPDefinitionSpecificationOptionValueException
 						nscpdsove) {
@@ -120,11 +128,9 @@ public class ProductSpecificationResourceImpl
 						_cpSpecificationOptionService, id, productSpecification,
 						_serviceContextHelper.getServiceContext());
 
-		return _productSpecificationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinitionSpecificationOptionValue.
-					getCPDefinitionSpecificationOptionValueId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductSpecification(
+			cpDefinitionSpecificationOptionValue.
+				getCPDefinitionSpecificationOptionValueId());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

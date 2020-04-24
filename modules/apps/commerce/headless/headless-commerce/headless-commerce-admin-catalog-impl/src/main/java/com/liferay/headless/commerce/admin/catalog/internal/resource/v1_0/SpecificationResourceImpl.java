@@ -75,10 +75,7 @@ public class SpecificationResourceImpl
 
 	@Override
 	public Specification getSpecification(Long id) throws Exception {
-		return _specificationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				GetterUtil.getLong(id),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toSpecification(GetterUtil.getLong(id));
 	}
 
 	@Override
@@ -94,8 +91,7 @@ public class SpecificationResourceImpl
 			searchContext -> searchContext.setCompanyId(
 				contextCompany.getCompanyId()),
 			document -> _toSpecification(
-				_cpSpecificationOptionService.getCPSpecificationOption(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
 			sorts);
 	}
 
@@ -137,13 +133,12 @@ public class SpecificationResourceImpl
 		return facetable;
 	}
 
-	private Specification _toSpecification(
-			CPSpecificationOption cpSpecificationOption)
+	private Specification _toSpecification(Long cpSpecificationOptionId)
 		throws Exception {
 
 		return _specificationDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				cpSpecificationOption.getCPSpecificationOptionId(),
+				cpSpecificationOptionId,
 				contextAcceptLanguage.getPreferredLocale()));
 	}
 
@@ -173,10 +168,8 @@ public class SpecificationResourceImpl
 				CPSpecificationOption cpSpecificationOption =
 					_updateSpecification(specificationId, specification);
 
-				return _specificationDTOConverter.toDTO(
-					new DefaultDTOConverterContext(
-						cpSpecificationOption.getCPSpecificationOptionId(),
-						contextAcceptLanguage.getPreferredLocale()));
+				return _toSpecification(
+					cpSpecificationOption.getCPSpecificationOptionId());
 			}
 			catch (NoSuchCPSpecificationOptionException nscpsoe) {
 				if (_log.isDebugEnabled()) {
@@ -213,10 +206,8 @@ public class SpecificationResourceImpl
 			}
 		}
 
-		return _specificationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpSpecificationOption.getCPSpecificationOptionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toSpecification(
+			cpSpecificationOption.getCPSpecificationOptionId());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

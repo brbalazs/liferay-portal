@@ -83,17 +83,13 @@ public class OptionCategoryResourceImpl
 			searchContext -> searchContext.setCompanyId(
 				contextCompany.getCompanyId()),
 			document -> _toOptionCategory(
-				_cpOptionCategoryService.getCPOptionCategory(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
 			sorts);
 	}
 
 	@Override
 	public OptionCategory getOptionCategory(Long id) throws Exception {
-		return _optionCategoryDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				GetterUtil.getLong(id),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toOptionCategory(GetterUtil.getLong(id));
 	}
 
 	@Override
@@ -126,10 +122,7 @@ public class OptionCategoryResourceImpl
 				optionCategory.getId(), optionCategory);
 		}
 
-		return _optionCategoryDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpOptionCategory.getCPOptionCategoryId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toOptionCategory(cpOptionCategory.getCPOptionCategoryId());
 	}
 
 	private CPOptionCategory _addOptionCategory(OptionCategory optionCategory)
@@ -143,12 +136,12 @@ public class OptionCategoryResourceImpl
 			_serviceContextHelper.getServiceContext(contextUser));
 	}
 
-	private OptionCategory _toOptionCategory(CPOptionCategory cpOptionCategory)
+	private OptionCategory _toOptionCategory(Long cpOptionCategoryId)
 		throws Exception {
 
 		return _optionCategoryDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				cpOptionCategory.getCPOptionCategoryId(),
+				cpOptionCategoryId,
 				contextAcceptLanguage.getPreferredLocale()));
 	}
 

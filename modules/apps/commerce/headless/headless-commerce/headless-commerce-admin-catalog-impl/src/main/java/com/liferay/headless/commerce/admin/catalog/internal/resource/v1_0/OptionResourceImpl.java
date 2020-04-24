@@ -95,10 +95,7 @@ public class OptionResourceImpl
 
 	@Override
 	public Option getOption(Long id) throws Exception {
-		return _optionDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				GetterUtil.getLong(id),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toOption(GetterUtil.getLong(id));
 	}
 
 	@Override
@@ -108,10 +105,7 @@ public class OptionResourceImpl
 		CPOption cpOption = _cpOptionService.fetchByExternalReferenceCode(
 			contextCompany.getCompanyId(), externalReferenceCode);
 
-		return _optionDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpOption.getCPOptionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toOption(cpOption.getCPOptionId());
 	}
 
 	@Override
@@ -127,8 +121,7 @@ public class OptionResourceImpl
 			searchContext -> searchContext.setCompanyId(
 				contextCompany.getCompanyId()),
 			document -> _toOption(
-				_cpOptionService.getCPOption(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
 			sorts);
 	}
 
@@ -167,11 +160,10 @@ public class OptionResourceImpl
 		return _upsertOption(option);
 	}
 
-	private Option _toOption(CPOption cpOption) throws Exception {
+	private Option _toOption(Long cpOptionId) throws Exception {
 		return _optionDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				cpOption.getCPOptionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+				cpOptionId, contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private Option _updateOption(CPOption cpOption, Option option)
@@ -190,10 +182,7 @@ public class OptionResourceImpl
 				option.getSkuContributor(), cpOption.isSkuContributor()),
 			option.getKey(), _serviceContextHelper.getServiceContext());
 
-		return _optionDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpOption.getCPOptionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toOption(cpOption.getCPOptionId());
 	}
 
 	private Option _upsertOption(Option option) throws Exception {
@@ -210,10 +199,7 @@ public class OptionResourceImpl
 
 		_upsertOptionValues(cpOption, option.getOptionValues());
 
-		return _optionDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpOption.getCPOptionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toOption(cpOption.getCPOptionId());
 	}
 
 	private void _upsertOptionValues(

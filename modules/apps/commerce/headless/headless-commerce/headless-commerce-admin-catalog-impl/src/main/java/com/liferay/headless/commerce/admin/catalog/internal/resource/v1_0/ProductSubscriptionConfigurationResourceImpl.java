@@ -55,10 +55,8 @@ public class ProductSubscriptionConfigurationResourceImpl
 				fetchCPDefinitionByCProductExternalReferenceCode(
 					contextCompany.getCompanyId(), externalReferenceCode);
 
-		return _productSubscriptionConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductSubscriptionConfiguration(
+			cpDefinition.getCPDefinitionId());
 	}
 
 	@NestedField(
@@ -78,10 +76,8 @@ public class ProductSubscriptionConfigurationResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _productSubscriptionConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductSubscriptionConfiguration(
+			cpDefinition.getCPDefinitionId());
 	}
 
 	@Override
@@ -134,6 +130,15 @@ public class ProductSubscriptionConfigurationResourceImpl
 	}
 
 	private ProductSubscriptionConfiguration
+			_toProductSubscriptionConfiguration(Long cpDefinitionId)
+		throws Exception {
+
+		return _productSubscriptionConfigurationDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpDefinitionId, contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	private ProductSubscriptionConfiguration
 			_updateProductSubscriptionConfiguration(
 				CPDefinition cpDefinition,
 				ProductSubscriptionConfiguration
@@ -148,10 +153,8 @@ public class ProductSubscriptionConfigurationResourceImpl
 					_serviceContextHelper.getServiceContext(
 						cpDefinition.getGroupId()));
 
-		return _productSubscriptionConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductSubscriptionConfiguration(
+			cpDefinition.getCPDefinitionId());
 	}
 
 	@Reference

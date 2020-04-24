@@ -369,6 +369,15 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 			_toAttachments(cpAttachmentFileEntries), pagination, totalItems);
 	}
 
+	private Attachment _toAttachment(Long cpAttachmentFileEntryId)
+		throws Exception {
+
+		return _attachmentDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpAttachmentFileEntryId,
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	private List<Attachment> _toAttachments(
 			List<CPAttachmentFileEntry> cpAttachmentFileEntries)
 		throws Exception {
@@ -379,10 +388,8 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 				cpAttachmentFileEntries) {
 
 			attachments.add(
-				_attachmentDTOConverter.toDTO(
-					new DefaultDTOConverterContext(
-						cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
-						contextAcceptLanguage.getPreferredLocale())));
+				_toAttachment(
+					cpAttachmentFileEntry.getCPAttachmentFileEntryId()));
 		}
 
 		return attachments;
@@ -402,10 +409,8 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinition.getGroupId()));
 
-		return _attachmentDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toAttachment(
+			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}
 
 	private Attachment _upsertAttachment(
@@ -423,10 +428,8 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinition.getGroupId()));
 
-		return _attachmentDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toAttachment(
+			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}
 
 	private Attachment _upsertAttachment(
@@ -443,10 +446,8 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 				_serviceContextHelper.getServiceContext(
 					cpDefinition.getGroupId()));
 
-		return _attachmentDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toAttachment(
+			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}
 
 	private Attachment _upsertProductAttachment(

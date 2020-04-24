@@ -44,6 +44,15 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class ProductShippingConfigurationResourceImpl
 	extends BaseProductShippingConfigurationResourceImpl {
 
+	public ProductShippingConfiguration _toProductShippingConfiguration(
+			Long cpDefinitionId)
+		throws Exception {
+
+		return _productShippingConfigurationDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpDefinitionId, contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	@Override
 	public ProductShippingConfiguration
 			getProductByExternalReferenceCodeShippingConfiguration(
@@ -61,10 +70,8 @@ public class ProductShippingConfigurationResourceImpl
 					externalReferenceCode);
 		}
 
-		return _productShippingConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductShippingConfiguration(
+			cpDefinition.getCPDefinitionId());
 	}
 
 	@NestedField(parentClass = Product.class, value = "shippingConfiguration")
@@ -81,10 +88,8 @@ public class ProductShippingConfigurationResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _productShippingConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductShippingConfiguration(
+			cpDefinition.getCPDefinitionId());
 	}
 
 	@Override
@@ -145,10 +150,8 @@ public class ProductShippingConfigurationResourceImpl
 				_serviceContextHelper.getServiceContext(
 					cpDefinition.getGroupId()));
 
-		return _productShippingConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProductShippingConfiguration(
+			cpDefinition.getCPDefinitionId());
 	}
 
 	@Reference
