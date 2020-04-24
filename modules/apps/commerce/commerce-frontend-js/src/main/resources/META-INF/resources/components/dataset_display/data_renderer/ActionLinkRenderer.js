@@ -29,6 +29,13 @@ function ActionLinkRenderer(props) {
 		openSidePanel
 	} = useContext(DatasetDisplayContext);
 
+	if (!props.actions || !props.actions.length) {
+		if (props.value) {
+			return <DefaultContent value={props.value} />;
+		}
+		return null;
+	}
+
 	const currentAction =
 		props.options && props.options.actionId
 			? props.actions.find(action => action.id === props.options.actionId)
@@ -37,10 +44,6 @@ function ActionLinkRenderer(props) {
 	const formattedHref =
 		currentAction.href &&
 		formatActionUrl(currentAction.href, props.itemData);
-
-	if (!currentAction) {
-		return <DefaultContent value={props.value} />;
-	}
 
 	function handleClickOnLink(e) {
 		e.preventDefault();

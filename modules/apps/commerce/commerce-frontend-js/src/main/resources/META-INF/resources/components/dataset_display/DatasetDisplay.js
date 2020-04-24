@@ -12,6 +12,48 @@
  * details.
  */
 
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 import {ClayIconSpriteContext} from '@clayui/icon';
 import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
@@ -256,6 +298,15 @@ function DatasetDisplay(props) {
 			setHighlightedItemsValue([]);
 		}
 
+		if (
+			(props.nestedItemsReferenceKey && !props.nestedItemsKey) ||
+			(!props.nestedItemsReferenceKey && props.nestedItemsKey)
+		) {
+			throw new Error(
+				'"nestedItemsKey" and "nestedItemsReferenceKey" params both mandatory to manage nested items'
+			);
+		}
+
 		Liferay.on(SIDE_PANEL_CLOSED, handleCloseSidePanel);
 		Liferay.on(UPDATE_DATASET_DISPLAY, handleRefreshFromTheOutside);
 
@@ -385,6 +436,8 @@ function DatasetDisplay(props) {
 				loadData: refreshData,
 				modalId: datasetDisplaySupportModalId,
 				namespace: props.namespace,
+				nestedItemsKey: props.nestedItemsKey,
+				nestedItemsReferenceKey: props.nestedItemsReferenceKey,
 				openModal,
 				openSidePanel,
 				searchParam,
@@ -453,6 +506,8 @@ DatasetDisplay.propTypes = {
 	itemActions: PropTypes.array,
 	items: PropTypes.array,
 	namespace: PropTypes.string,
+	nestedItemsKey: PropTypes.string,
+	nestedItemsReferenceKey: PropTypes.string,
 	pagination: PropTypes.shape({
 		deltas: PropTypes.arrayOf(
 			PropTypes.shape({

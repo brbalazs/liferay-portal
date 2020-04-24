@@ -81,9 +81,40 @@ function CustomTableCell(props) {
 	);
 }
 
+function getItemFields(item, fields, itemId, itemActions) {
+	return fields.map((field, i) => {
+		const fieldName = field.fieldName;
+		const {actionItems, ...otherProps} = item;
+		const rawValue = getValueFromItem(item, fieldName);
+		const formattedValue = field.mapData
+			? field.mapData(rawValue)
+			: rawValue;
+		const comment = otherProps.comments
+			? otherProps.comments[field.fieldName]
+			: null;
+		return (
+			<CustomTableCell
+				actions={itemActions || actionItems}
+				comment={comment}
+				itemData={item}
+				itemId={itemId}
+				key={fieldName || i}
+				options={field}
+				value={formattedValue}
+				view={{
+					contentRenderer: field.contentRenderer,
+					contentRendererModuleUrl: field.contentRendererModuleUrl
+				}}
+			/>
+		);
+	});
+}
+
 function Table(props) {
 	const {
 		highlightedItemsValue,
+		nestedItemsKey,
+		nestedItemsReferenceKey,
 		selectItems,
 		selectable,
 		selectedItemsKey,
@@ -119,80 +150,100 @@ function Table(props) {
 				<ClayTable.Body>
 					{props.items.map((item, i) => {
 						const itemId = item[selectedItemsKey] || i;
+						const nestedItems =
+							nestedItemsReferenceKey &&
+							item[nestedItemsReferenceKey];
 
 						return (
-							<ClayTable.Row
-								className={classNames(
-									highlightedItemsValue.includes(itemId) &&
-										'active'
-								)}
-								key={itemId}
-							>
-								{selectable && (
-									<ClayTable.Cell>
-										<SelectionComponent
-											checked={
-												!!selectedItemsValue.find(
-													el =>
-														String(el) ===
-														String(itemId)
-												)
+							<React.Fragment key={itemId}>
+								<ClayTable.Row
+									className={classNames(
+										highlightedItemsValue.includes(
+											itemId
+										) && 'active'
+									)}
+								>
+									{selectable && (
+										<ClayTable.Cell
+											className="dataset-item-selector-wrapper"
+											rowSpan={
+												1 +
+												((nestedItems &&
+													nestedItems.length) ||
+													0)
 											}
-											onChange={() => selectItems(itemId)}
-											value={itemId}
-										/>
-									</ClayTable.Cell>
-								)}
-								{props.schema.fields.map((field, i) => {
-									const fieldName = field.fieldName;
-									const {actionItems, ...otherProps} = item;
-									const rawValue = getValueFromItem(
-										item,
-										fieldName
-									);
-									const formattedValue = field.mapData
-										? field.mapData(rawValue)
-										: rawValue;
-									const comment = otherProps.comments
-										? otherProps.comments[field.fieldName]
-										: null;
-									return (
-										<CustomTableCell
-											actions={
-												props.itemActions || actionItems
-											}
-											comment={comment}
-											itemData={item}
-											itemId={itemId}
-											key={fieldName || i}
-											options={field}
-											value={formattedValue}
-											view={{
-												contentRenderer:
-													field.contentRenderer,
-												contentRendererModuleUrl:
-													field.contentRendererModuleUrl
-											}}
-										/>
-									);
-								})}
-								{showActionItems ? (
-									props.itemActions || item.actionItems ? (
-										<ClayTable.Cell className="text-right">
-											<ActionsDropdownRenderer
-												actions={
-													props.itemActions ||
-													item.actionItems
+										>
+											<SelectionComponent
+												checked={
+													!!selectedItemsValue.find(
+														el =>
+															String(el) ===
+															String(itemId)
+													)
 												}
-												itemData={item}
-												itemId={itemId}
+												onChange={() =>
+													selectItems(itemId)
+												}
+												value={itemId}
 											/>
 										</ClayTable.Cell>
-									) : (
-										<ClayTable.Cell />
-									)
-								) : null}
-							</ClayTable.Row>
+									)}
+									{getItemFields(
+										item,
+										props.schema.fields,
+										itemId,
+										props.itemActions
+									)}
+									{showActionItems && (
+										<ClayTable.Cell
+											className="dataset-item-actions-wrapper"
+											rowSpan={
+												1 +
+												((nestedItems &&
+													nestedItems.length) ||
+													0)
+											}
+										>
+											{props.itemActions ||
+												(item.actionItems && (
+													<ActionsDropdownRenderer
+														actions={
+															props.itemActions ||
+															item.actionItems
+														}
+														itemData={item}
+														itemId={itemId}
+													/>
+												))}
+										</ClayTable.Cell>
+									)}
+								</ClayTable.Row>
+								{nestedItems && nestedItems.length
+									? nestedItems.map((nestedItem, i) => (
+											<ClayTable.Row
+												className={classNames(
+													'dataset-sub-item',
+													highlightedItemsValue.includes(
+														nestedItem[
+															nestedItemsKey
+														]
+													) && 'active',
+													i ===
+														nestedItems.length -
+															1 && 'last-of-group'
+												)}
+												key={nestedItem[nestedItemsKey]}
+											>
+												{getItemFields(
+													nestedItem,
+													props.schema.fields,
+													nestedItem[nestedItemsKey],
+													props.itemActions
+												)}
+											</ClayTable.Row>
+									  ))
+									: null}
+							</React.Fragment>
 						);
 					})}
 				</ClayTable.Body>
@@ -210,7 +261,7 @@ Table.propTypes = {
 				fieldName: PropTypes.oneOfType([
 					PropTypes.string,
 					PropTypes.array
-				]).isRequired,
+				]),
 				mapData: PropTypes.func
 			})
 		).isRequired
