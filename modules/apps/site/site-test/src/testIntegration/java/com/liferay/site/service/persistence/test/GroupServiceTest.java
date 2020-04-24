@@ -836,12 +836,11 @@ public class GroupServiceTest {
 
 		String languageId = LanguageUtil.getLanguageId(LocaleUtil.ENGLISH);
 
-		String i18path = StringPool.SLASH.concat(
-			LocaleUtil.toW3cLanguageId(languageId));
-
 		themeDisplay.setI18nLanguageId(languageId);
 
-		themeDisplay.setI18nPath(i18path);
+		themeDisplay.setI18nPath(
+			StringPool.SLASH.concat(LocaleUtil.toW3cLanguageId(languageId)));
+
 		themeDisplay.setSiteGroupId(group.getGroupId());
 
 		String siteFriendlyURL = PortalUtil.getGroupFriendlyURL(
