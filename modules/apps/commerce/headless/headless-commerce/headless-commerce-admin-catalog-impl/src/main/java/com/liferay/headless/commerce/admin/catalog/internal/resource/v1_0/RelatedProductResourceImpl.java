@@ -168,12 +168,12 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 			_toRelatedProducts(cpDefinitionLinks), pagination, totalItems);
 	}
 
-	private RelatedProduct _toRelatedProduct(Long CPDefinitionLinkId)
+	private RelatedProduct _toRelatedProduct(Long cpDefinitionLinkId)
 		throws Exception {
 
 		return _relatedProductDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				CPDefinitionLinkId,
+				cpDefinitionLinkId,
 				contextAcceptLanguage.getPreferredLocale()));
 	}
 

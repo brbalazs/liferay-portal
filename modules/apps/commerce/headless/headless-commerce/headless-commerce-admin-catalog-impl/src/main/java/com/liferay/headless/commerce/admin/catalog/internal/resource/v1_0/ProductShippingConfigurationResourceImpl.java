@@ -44,7 +44,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class ProductShippingConfigurationResourceImpl
 	extends BaseProductShippingConfigurationResourceImpl {
 
-	public ProductShippingConfiguration _toProductShippingConfiguration(
+	private ProductShippingConfiguration _toProductShippingConfiguration(
 			Long cpDefinitionId)
 		throws Exception {
 
