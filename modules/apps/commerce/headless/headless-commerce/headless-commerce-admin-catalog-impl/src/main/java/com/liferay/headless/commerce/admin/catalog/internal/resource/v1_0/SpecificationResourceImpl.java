@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.admin.catalog.internal.resource.v1_0;
 
+import com.liferay.commerce.product.exception.DuplicateCPSpecificationOptionKeyException;
 import com.liferay.commerce.product.exception.NoSuchCPSpecificationOptionException;
 import com.liferay.commerce.product.model.CPSpecificationOption;
 import com.liferay.commerce.product.service.CPSpecificationOptionService;
@@ -197,15 +198,33 @@ public class SpecificationResourceImpl
 							specificationId);
 				}
 			}
+			catch (DuplicateCPSpecificationOptionKeyException dcpsoke) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Unable to find specification with ID: " +
+							specificationId);
+				}
+			}
 		}
 
-		CPSpecificationOption cpSpecificationOption =
-			_cpSpecificationOptionService.addCPSpecificationOption(
-				_getCPOptionCategoryId(specification),
-				LanguageUtils.getLocalizedMap(specification.getTitle()),
-				LanguageUtils.getLocalizedMap(specification.getDescription()),
-				_isFacetable(specification), specification.getKey(),
-				_serviceContextHelper.getServiceContext());
+		CPSpecificationOption cpSpecificationOption = null;
+
+		try {
+			cpSpecificationOption =
+				_cpSpecificationOptionService.addCPSpecificationOption(
+					_getCPOptionCategoryId(specification),
+					LanguageUtils.getLocalizedMap(specification.getTitle()),
+					LanguageUtils.getLocalizedMap(
+						specification.getDescription()),
+					_isFacetable(specification), specification.getKey(),
+					_serviceContextHelper.getServiceContext());
+		}
+		catch (DuplicateCPSpecificationOptionKeyException dcpsoke) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Unable to find specification with ID: " + specificationId);
+			}
+		}
 
 		return (Specification)specificationDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
