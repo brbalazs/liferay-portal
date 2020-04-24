@@ -1157,6 +1157,23 @@ public class CPDefinitionLocalServiceImpl
 	}
 
 	@Override
+	public boolean hasChildCPDefinitions(long cpDefinitionId) {
+		if (cpDefinitionOptionRelLocalService.getCPDefinitionOptionRelsCount(
+				cpDefinitionId) <= 0) {
+
+			return false;
+		}
+
+		if (!cpDefinitionOptionRelLocalService.
+				hasLinkedCPInstanceCPDefinitionOptionRels(cpDefinitionId)) {
+
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
 	public boolean isPublishedCPDefinition(CPDefinition cpDefinition) {
 		CProduct cProduct = cProductLocalService.fetchCProduct(
 			cpDefinition.getCProductId());

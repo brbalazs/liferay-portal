@@ -500,6 +500,71 @@ public class CPDefinitionOptionRelLocalServiceImpl
 	}
 
 	@Override
+	public boolean hasCPDefinitionPriceContributorCPDefinitionOptionRels(
+		long cpDefinitionId) {
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+			cpDefinitionOptionRelPersistence.findByCPDefinitionId(
+				cpDefinitionId);
+
+		if (cpDefinitionOptionRels.isEmpty()) {
+			return false;
+		}
+
+		for (CPDefinitionOptionRel cpDefinitionOptionRel :
+				cpDefinitionOptionRels) {
+
+			if (Validator.isNotNull(cpDefinitionOptionRel.getPriceType())) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean hasLinkedCPInstanceCPDefinitionOptionRels(
+		long cpDefinitionId) {
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+			cpDefinitionOptionRelPersistence.findByCPDefinitionId(
+				cpDefinitionId);
+
+		if (cpDefinitionOptionRels.isEmpty()) {
+			return false;
+		}
+
+		for (CPDefinitionOptionRel cpDefinitionOptionRel :
+				cpDefinitionOptionRels) {
+
+			if (Validator.isNull(cpDefinitionOptionRel.getPriceType())) {
+				continue;
+			}
+
+			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+					cpDefinitionOptionRel.getCPDefinitionOptionValueRels()) {
+
+				if (Validator.isNull(
+						cpDefinitionOptionValueRel.getCPInstanceUuid())) {
+
+					continue;
+				}
+
+				CPInstance cpInstance =
+					cpDefinitionOptionValueRel.fetchCPInstance();
+
+				if (cpInstance == null) {
+					continue;
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
 	public Hits search(SearchContext searchContext) {
 		try {
 			Indexer<CPDefinitionOptionRel> indexer =
