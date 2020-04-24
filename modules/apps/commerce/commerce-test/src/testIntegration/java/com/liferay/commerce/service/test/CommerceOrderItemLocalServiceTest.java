@@ -121,6 +121,9 @@ public class CommerceOrderItemLocalServiceTest {
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
 			_group.getCompanyId());
 
+		_commerceChannel = CommerceTestUtil.addCommerceChannel(
+			_commerceCurrency.getCode());
+
 		_commerceCatalog = CommerceCatalogLocalServiceUtil.addCommerceCatalog(
 			RandomTestUtil.randomString(), _commerceCurrency.getCode(),
 			LocaleUtil.US.getDisplayLanguage(), null,
@@ -341,6 +344,48 @@ public class CommerceOrderItemLocalServiceTest {
 	}
 
 	@Test
+	public void testAddProductBundleDynamicOptionLinkedToSKUAlreadyInOrder()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Add a product bundle that is linked to a cpInstance already " +
+				"present in the order"
+		).given(
+			"An order with an orderItem containing a cpInstance"
+		).when(
+			"I add a bundle with an option value linked to the same cpInstance"
+		).then(
+			"The order is updated adding 2 orderItems. 1 for the bundle and " +
+				"1 for the option. Price and quantities of orderItems shall " +
+					"be updated accordingly."
+		);
+
+		_assertAddProductBundleLinkedToSKUAlreadyInOrder(
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC);
+	}
+
+	@Test
+	public void testAddProductBundleStaticOptionLinkedToSKUAlreadyInOrder()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Add a product bundle that is linked to a cpInstance already " +
+				"present in the order"
+		).given(
+			"An order with an orderItem containing a cpInstance"
+		).when(
+			"I add a bundle with an option value linked to the same cpInstance"
+		).then(
+			"The order is updated adding 2 orderItems. 1 for the bundle and " +
+				"1 for the option. Price and quantities of orderItems shall " +
+					"be updated accordingly."
+		);
+
+		_assertAddProductBundleLinkedToSKUAlreadyInOrder(
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC);
+	}
+
+	@Test
 	public void testAddProductBundleWithDynamicOption() throws Exception {
 		frutillaRule.scenario(
 			"Add a product bundle with dynamic price option linked to a SKU " +
@@ -360,6 +405,30 @@ public class CommerceOrderItemLocalServiceTest {
 
 		_addProductBundleWithOptionLinkedToSKU(
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC);
+	}
+
+	@Test
+	public void testAddProductBundleWithDynamicOptionWithSameSKU()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Add a product bundle with dynamic price option linked to a SKU " +
+				"to an order"
+		).given(
+			"A catalog with 2 cpInstances"
+		).and(
+			"A product bundles with a dynamic-price option with values " +
+				"linked to the same cpInstance"
+		).when(
+			"I add the bundle to an order"
+		).then(
+			"I should have 2 orderItems in the order. 1 for the bundle and 1 " +
+				"for the selected value of the option with the correct " +
+					"quantities"
+		);
+
+		_addProductBundleWithOptionLinkedToSKU(
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, true);
 	}
 
 	@Test
@@ -408,10 +477,10 @@ public class CommerceOrderItemLocalServiceTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, null, _group, null, null);
 
-		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
-
 		String option1Key = RandomTestUtil.randomString();
 		BigDecimal option1Price = new BigDecimal("100");
+
+		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		commerceOptionValues.add(
 			new TestCommerceOptionValue(
@@ -466,6 +535,30 @@ public class CommerceOrderItemLocalServiceTest {
 
 		Assert.assertEquals(
 			bundleOrderItem.getFinalPrice(), retrievedOrder.getTotal());
+	}
+
+	@Test
+	public void testAddProductBundleWithStaticOptionWithSameSKU()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Add a product bundle with static price option linked to a SKU " +
+				"to an order"
+		).given(
+			"A catalog with 2 cpInstances"
+		).and(
+			"A product bundles with a static-price option with values linked " +
+				"to the same cpInstance"
+		).when(
+			"I add the bundle to an order"
+		).then(
+			"I should have 2 orderItems in the order. 1 for the bundle and 1 " +
+				"for the selected value of the option with the correct " +
+					"quantities"
+		);
+
+		_addProductBundleWithOptionLinkedToSKU(
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, true);
 	}
 
 	@Test
@@ -598,10 +691,10 @@ public class CommerceOrderItemLocalServiceTest {
 		CommerceOrderItem commerceOrderItem2 = commerceOrderItems.get(1);
 
 		if (commerceOrderItem1.getParentCommerceOrderItemId() == 0) {
-			_assertUpdateOrderDelete(commerceOrderItem2);
+			_assertDeleteOrderItem(commerceOrderItem2);
 		}
 		else {
-			_assertUpdateOrderDelete(commerceOrderItem1);
+			_assertDeleteOrderItem(commerceOrderItem1);
 		}
 	}
 
@@ -628,10 +721,10 @@ public class CommerceOrderItemLocalServiceTest {
 		CommerceOrderItem commerceOrderItem2 = commerceOrderItems.get(1);
 
 		if (commerceOrderItem1.getParentCommerceOrderItemId() == 0) {
-			_assertUpdateOrderDelete(commerceOrderItem1);
+			_assertDeleteOrderItem(commerceOrderItem1);
 		}
 		else {
-			_assertUpdateOrderDelete(commerceOrderItem2);
+			_assertDeleteOrderItem(commerceOrderItem2);
 		}
 	}
 
@@ -740,8 +833,17 @@ public class CommerceOrderItemLocalServiceTest {
 			String priceType)
 		throws Exception {
 
+		return _addProductBundleWithOptionLinkedToSKU(priceType, false);
+	}
+
+	private CommerceOrder _addProductBundleWithOptionLinkedToSKU(
+			String priceType, boolean useSameCPInstanceForOptions)
+		throws Exception {
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
+
 		BigDecimal option1Price = new BigDecimal("100");
-		BigDecimal option2Price = new BigDecimal("200");
 
 		CPInstance optionSKU1 =
 			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(
@@ -749,30 +851,30 @@ public class CommerceOrderItemLocalServiceTest {
 
 		optionSKU1.setPrice(option1Price);
 
+		_cpInstanceLocalService.updateCPInstance(optionSKU1);
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			_user.getUserId(), commerceInventoryWarehouse, optionSKU1.getSku(),
+			100);
+
+		BigDecimal option2Price = new BigDecimal("200");
+
 		CPInstance optionSKU2 =
 			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(
 				_commerceCatalog.getGroupId());
 
 		optionSKU2.setPrice(option2Price);
 
-		_cpInstanceLocalService.updateCPInstance(optionSKU1);
 		_cpInstanceLocalService.updateCPInstance(optionSKU2);
-
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
-
-		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
-
-		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
-			_user.getUserId(), commerceInventoryWarehouse, optionSKU1.getSku(),
-			100);
 
 		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
 			_user.getUserId(), commerceInventoryWarehouse, optionSKU2.getSku(),
 			100);
 
 		Assert.assertNotNull(_commerceCurrency);
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
 		CommerceAccount commerceAccount =
 			_commerceAccountLocalService.addPersonalCommerceAccount(
@@ -781,32 +883,33 @@ public class CommerceOrderItemLocalServiceTest {
 
 		Assert.assertNotNull(commerceAccount);
 
-		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
-
 		CommerceTestUtil.addWarehouseCommerceChannelRel(
 			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
-			commerceChannel.getCommerceChannelId());
+			_commerceChannel.getCommerceChannelId());
 
 		CommerceOrder commerceOrder =
 			_commerceOrderLocalService.addCommerceOrder(
-				_user.getUserId(), commerceChannel.getGroupId(),
+				_user.getUserId(), _commerceChannel.getGroupId(),
 				commerceAccount.getCommerceAccountId(),
 				_commerceCurrency.getCommerceCurrencyId());
 
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, null, _group, null, null);
 
-		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
-
 		String option1Key = RandomTestUtil.randomString();
 
-		BigDecimal option1DeltaPrice = null;
-		BigDecimal option2DeltaPrice = null;
+		BigDecimal option1DeltaPrice = BigDecimal.ZERO;
+		BigDecimal option2DeltaPrice = BigDecimal.ZERO;
 
 		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
 			option1DeltaPrice = option1Price;
 			option2DeltaPrice = option2Price;
+		}
+
+		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
+
+		if (useSameCPInstanceForOptions) {
+			optionSKU2 = optionSKU1;
 		}
 
 		commerceOptionValues.add(
@@ -858,7 +961,13 @@ public class CommerceOrderItemLocalServiceTest {
 
 		Assert.assertEquals(option2Quantity, optionOrderItem.getQuantity());
 
-		BigDecimal expectedOrderFinalPrice = option2Price.multiply(
+		BigDecimal expectedOrderFinalPrice = option2Price;
+
+		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+			expectedOrderFinalPrice = optionSKU2.getPrice();
+		}
+
+		expectedOrderFinalPrice = expectedOrderFinalPrice.multiply(
 			BigDecimal.valueOf(option2Quantity));
 
 		expectedOrderFinalPrice = expectedOrderFinalPrice.add(
@@ -873,7 +982,165 @@ public class CommerceOrderItemLocalServiceTest {
 		return retrievedOrder;
 	}
 
-	private void _assertUpdateOrderDelete(CommerceOrderItem bundleOrderItem)
+	private CommerceOrder _assertAddProductBundleLinkedToSKUAlreadyInOrder(
+			String priceType)
+		throws Exception {
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
+
+		CommerceAccount commerceAccount =
+			_commerceAccountLocalService.addPersonalCommerceAccount(
+				_user.getUserId(), StringPool.BLANK, StringPool.BLANK,
+				serviceContext);
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
+
+		CPInstance optionSKU1 =
+			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(
+				_commerceCatalog.getGroupId());
+
+		optionSKU1.setPrice(new BigDecimal("111"));
+
+		_cpInstanceLocalService.updateCPInstance(optionSKU1);
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			_user.getUserId(), commerceInventoryWarehouse, optionSKU1.getSku(),
+			100);
+
+		CommerceTestUtil.addWarehouseCommerceChannelRel(
+			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
+			_commerceChannel.getCommerceChannelId());
+
+		CommerceOrder commerceOrder =
+			_commerceOrderLocalService.addCommerceOrder(
+				_user.getUserId(), _commerceChannel.getGroupId(),
+				commerceAccount.getCommerceAccountId(),
+				_commerceCurrency.getCommerceCurrencyId());
+
+		CommerceContext commerceContext = new TestCommerceContext(
+			_commerceCurrency, null, null, _group, null, null);
+
+		int nonBundleQuantity = 10;
+
+		_commerceOrderItemLocalService.addCommerceOrderItem(
+			commerceOrder.getCommerceOrderId(), optionSKU1.getCPInstanceId(),
+			nonBundleQuantity, 0, null, commerceContext, serviceContext);
+
+		BigDecimal option1Price = new BigDecimal("100");
+		BigDecimal option2Price = new BigDecimal("200");
+
+		CPInstance optionSKU2 =
+			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(
+				_commerceCatalog.getGroupId());
+
+		optionSKU2.setPrice(option2Price);
+
+		_cpInstanceLocalService.updateCPInstance(optionSKU2);
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			_user.getUserId(), commerceInventoryWarehouse, optionSKU2.getSku(),
+			100);
+
+		String option1Key = RandomTestUtil.randomString();
+
+		BigDecimal option1DeltaPrice = BigDecimal.ZERO;
+		BigDecimal option2DeltaPrice = BigDecimal.ZERO;
+
+		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+			option1DeltaPrice = option1Price;
+			option2DeltaPrice = option2Price;
+		}
+
+		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
+		int option1Quantity = 2;
+
+		commerceOptionValues.add(
+			new TestCommerceOptionValue(
+				optionSKU1.getCPInstanceId(), option1Key, option1DeltaPrice,
+				priceType, option1Quantity));
+
+		String option2Key = RandomTestUtil.randomString();
+		int option2Quantity = 3;
+
+		commerceOptionValues.add(
+			new TestCommerceOptionValue(
+				optionSKU2.getCPInstanceId(), option2Key, option2DeltaPrice,
+				priceType, option2Quantity));
+
+		CPInstance bundleCPInstance = _buildProductBundleSingleOptionCPInstance(
+			_commerceCatalog.getGroupId(), true, commerceOptionValues,
+			option1Key);
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			_user.getUserId(), commerceInventoryWarehouse,
+			bundleCPInstance.getSku(), 100);
+
+		int quantity = 1;
+
+		CommerceOrderItem commerceOrderItem =
+			_commerceOrderItemLocalService.addCommerceOrderItem(
+				commerceOrder.getCommerceOrderId(),
+				bundleCPInstance.getCPInstanceId(), quantity, 0, null,
+				commerceContext, serviceContext);
+
+		List<CommerceOrderItem> commerceOrderItems =
+			commerceOrder.getCommerceOrderItems();
+
+		Assert.assertEquals(
+			commerceOrderItems.toString(), 3, commerceOrderItems.size());
+
+		CommerceOrderItem nonBundleOrderItem = _getOrderItemByCPInstanceId(
+			optionSKU1.getCPInstanceId(), false, commerceOrderItems);
+
+		CommerceOrderItem bundleOrderItem = _getOrderItemByCPInstanceId(
+			bundleCPInstance.getCPInstanceId(), false, commerceOrderItems);
+
+		CommerceOrderItem optionOrderItem = _getOrderItemByCPInstanceId(
+			optionSKU1.getCPInstanceId(), true, commerceOrderItems);
+
+		Assert.assertEquals(
+			commerceOrderItem.getCommerceOrderItemId(),
+			bundleOrderItem.getCommerceOrderItemId());
+
+		Assert.assertEquals(quantity, bundleOrderItem.getQuantity());
+
+		Assert.assertEquals(option1Quantity, optionOrderItem.getQuantity());
+
+		Assert.assertEquals(
+			nonBundleQuantity, nonBundleOrderItem.getQuantity());
+
+		BigDecimal expectedOrderFinalPrice = option1Price;
+
+		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+			expectedOrderFinalPrice = optionSKU1.getPrice();
+		}
+
+		expectedOrderFinalPrice = expectedOrderFinalPrice.multiply(
+			BigDecimal.valueOf(option1Quantity));
+
+		expectedOrderFinalPrice = expectedOrderFinalPrice.add(
+			bundleOrderItem.getFinalPrice());
+
+		BigDecimal nonBundleFinalPrice = optionSKU1.getPrice();
+
+		nonBundleFinalPrice = nonBundleFinalPrice.multiply(
+			BigDecimal.valueOf(nonBundleQuantity));
+
+		expectedOrderFinalPrice = expectedOrderFinalPrice.add(
+			nonBundleFinalPrice);
+
+		CommerceOrder retrievedOrder =
+			_commerceOrderLocalService.getCommerceOrder(
+				commerceOrder.getCommerceOrderId());
+
+		Assert.assertEquals(expectedOrderFinalPrice, retrievedOrder.getTotal());
+
+		return commerceOrder;
+	}
+
+	private void _assertDeleteOrderItem(CommerceOrderItem bundleOrderItem)
 		throws PortalException {
 
 		long commerceOrderId = bundleOrderItem.getCommerceOrderId();
@@ -1051,6 +1318,9 @@ public class CommerceOrderItemLocalServiceTest {
 
 	@Inject
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
+
+	@DeleteAfterTestRun
+	private CommerceChannel _commerceChannel;
 
 	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
