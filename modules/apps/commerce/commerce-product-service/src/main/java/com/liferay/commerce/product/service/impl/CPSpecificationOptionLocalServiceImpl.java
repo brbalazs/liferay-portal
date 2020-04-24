@@ -17,6 +17,7 @@ package com.liferay.commerce.product.service.impl;
 import com.liferay.commerce.product.constants.CPField;
 import com.liferay.commerce.product.exception.CPSpecificationOptionKeyException;
 import com.liferay.commerce.product.exception.CPSpecificationOptionTitleException;
+import com.liferay.commerce.product.exception.DuplicateCPSpecificationOptionKeyException;
 import com.liferay.commerce.product.model.CPSpecificationOption;
 import com.liferay.commerce.product.service.base.CPSpecificationOptionLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -355,7 +356,7 @@ public class CPSpecificationOptionLocalServiceImpl
 			(cpSpecificationOption.getCPSpecificationOptionId() !=
 				cpSpecificationOptionId)) {
 
-			throw new CPSpecificationOptionKeyException.MustNotBeDuplicate(key);
+			throw new DuplicateCPSpecificationOptionKeyException();
 		}
 	}
 
