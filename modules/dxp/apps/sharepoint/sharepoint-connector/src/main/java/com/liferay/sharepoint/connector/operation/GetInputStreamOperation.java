@@ -116,6 +116,8 @@ public class GetInputStreamOperation extends BaseOperation {
 
 		authCache.put(httpHost, new BasicScheme());
 
+		httpClientContext.setAuthCache(authCache);
+
 		CredentialsProvider credentialsProvider =
 			new BasicCredentialsProvider();
 
@@ -125,7 +127,6 @@ public class GetInputStreamOperation extends BaseOperation {
 				sharepointConnectionInfo.getUsername(),
 				sharepointConnectionInfo.getPassword()));
 
-		httpClientContext.setAuthCache(authCache);
 		httpClientContext.setCredentialsProvider(credentialsProvider);
 
 		return httpClientContext;
