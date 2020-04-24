@@ -517,7 +517,9 @@ public class CommerceOrderItemLocalServiceImpl
 
 		CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
 
-		if ((cpInstance == null) || commerceOrderItem.isManuallyAdjusted()) {
+		if ((cpInstance == null) || commerceOrderItem.isManuallyAdjusted() ||
+			(commerceOrderItem.getParentCommerceOrderItemId() != 0)) {
+
 			return commerceOrderItem;
 		}
 
