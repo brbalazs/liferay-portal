@@ -70,8 +70,10 @@ import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -160,10 +162,7 @@ public class ProductResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _productDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProduct(cpDefinition.getCPDefinitionId());
 	}
 
 	@Override
@@ -182,10 +181,7 @@ public class ProductResourceImpl
 					externalReferenceCode);
 		}
 
-		return _productDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProduct(cpDefinition.getCPDefinitionId());
 	}
 
 	@Override
@@ -196,8 +192,7 @@ public class ProductResourceImpl
 		return _productHelper.getProductsPage(
 			contextCompany.getCompanyId(), search, filter, pagination, sorts,
 			document -> _toProduct(
-				_cpDefinitionService.getCPDefinition(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))));
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))));
 	}
 
 	@Override
@@ -244,10 +239,34 @@ public class ProductResourceImpl
 	public Product postProduct(Product product) throws Exception {
 		CPDefinition cpDefinition = _upsertProduct(product);
 
-		return _productDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toProduct(cpDefinition.getCPDefinitionId());
+	}
+
+	private Map<String, Map<String, String>> _getActions(
+		CommerceCatalog commerceCatalog) {
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"DELETE", commerceCatalog.getCommerceCatalogId(),
+				"deleteProduct", commerceCatalog.getUserId(),
+				"com.liferay.commerce.product.model.CommerceCatalog",
+				commerceCatalog.getGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", commerceCatalog.getCommerceCatalogId(), "getProduct",
+				commerceCatalog.getUserId(),
+				"com.liferay.commerce.product.model.CommerceCatalog",
+				commerceCatalog.getGroupId())
+		).put(
+			"update",
+			addAction(
+				"UPDATE", commerceCatalog.getCommerceCatalogId(),
+				"patchProduct", commerceCatalog.getUserId(),
+				"com.liferay.commerce.product.model.CommerceCatalog",
+				commerceCatalog.getGroupId())
+		).build();
 	}
 
 	private ProductShippingConfiguration _getProductShippingConfiguration(
@@ -289,11 +308,18 @@ public class ProductResourceImpl
 		return new ProductTaxConfiguration();
 	}
 
-	private Product _toProduct(CPDefinition cpDefinition) throws Exception {
+	private Product _toProduct(Long cpDefinitionId) throws Exception {
+		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
+			cpDefinitionId);
+
+		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
+
 		return _productDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				cpDefinition.getCPDefinitionId(),
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commerceCatalog), _dtoConverterRegistry,
+				cpDefinitionId, contextAcceptLanguage.getPreferredLocale(),
+				contextUriInfo, contextUser));
 	}
 
 	private CPDefinition _updateNestedResources(
@@ -736,6 +762,9 @@ public class ProductResourceImpl
 
 	@Reference
 	private CPSpecificationOptionService _cpSpecificationOptionService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ProductDTOConverter _productDTOConverter;

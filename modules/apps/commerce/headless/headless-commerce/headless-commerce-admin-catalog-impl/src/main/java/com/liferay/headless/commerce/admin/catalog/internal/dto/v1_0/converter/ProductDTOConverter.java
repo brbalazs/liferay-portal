@@ -59,6 +59,7 @@ public class ProductDTOConverter
 
 		return new Product() {
 			{
+				actions = dtoConverterContext.getActions();
 				active = !cpDefinition.isInactive();
 				catalogId = _getCommerceCatalogId(cpDefinition);
 				createDate = cpDefinition.getCreateDate();
