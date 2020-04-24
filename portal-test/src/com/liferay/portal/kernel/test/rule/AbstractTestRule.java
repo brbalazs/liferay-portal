@@ -14,6 +14,13 @@
 
 package com.liferay.portal.kernel.test.rule;
 
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
+
+import org.junit.internal.runners.statements.ExpectException;
+import org.junit.internal.runners.statements.FailOnTimeout;
+import org.junit.internal.runners.statements.InvokeMethod;
+import org.junit.internal.runners.statements.RunAfters;
+import org.junit.internal.runners.statements.RunBefores;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -47,7 +54,7 @@ public abstract class AbstractTestRule<C, M> implements TestRule {
 	protected Statement createClassStatement(
 		Statement statement, Description description) {
 
-		return new BaseTestCallbackTestRule.StatementWrapper(statement) {
+		return new BaseTestRule.StatementWrapper(statement) {
 
 			@Override
 			public void evaluate() throws Throwable {
@@ -67,7 +74,7 @@ public abstract class AbstractTestRule<C, M> implements TestRule {
 	protected Statement createMethodStatement(
 		Statement statement, Description description) {
 
-		return new BaseTestCallbackTestRule.StatementWrapper(statement) {
+		return new BaseTestRule.StatementWrapper(statement) {
 
 			@Override
 			public void evaluate() throws Throwable {
@@ -81,6 +88,36 @@ public abstract class AbstractTestRule<C, M> implements TestRule {
 				finally {
 					afterMethod(description, m, target);
 				}
+			}
+
+			public Object inspectTarget(Statement statement) {
+				while (statement instanceof BaseTestRule.StatementWrapper) {
+					BaseTestRule.StatementWrapper statementWrapper =
+						(BaseTestRule.StatementWrapper)statement;
+
+					statement = statementWrapper.getStatement();
+				}
+
+				if (statement instanceof InvokeMethod ||
+					statement instanceof RunAfters ||
+					statement instanceof RunBefores) {
+
+					return ReflectionTestUtil.getFieldValue(
+						statement, "target");
+				}
+				else if (statement instanceof ExpectException) {
+					return inspectTarget(
+						ReflectionTestUtil.<Statement>getFieldValue(
+							statement, "next"));
+				}
+				else if (statement instanceof FailOnTimeout) {
+					return inspectTarget(
+						ReflectionTestUtil.<Statement>getFieldValue(
+							statement, "originalStatement"));
+				}
+
+				throw new IllegalStateException(
+					"Unknow statement " + statement);
 			}
 
 		};
