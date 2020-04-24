@@ -837,7 +837,6 @@ public class GroupServiceTest {
 		String languageId = LanguageUtil.getLanguageId(LocaleUtil.ENGLISH);
 
 		themeDisplay.setI18nLanguageId(languageId);
-
 		themeDisplay.setI18nPath(
 			StringPool.SLASH.concat(LocaleUtil.toW3cLanguageId(languageId)));
 
