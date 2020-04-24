@@ -66,6 +66,16 @@ public class ProductSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (product.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(product.getActions()));
+		}
+
 		if (product.getActive() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -524,6 +534,13 @@ public class ProductSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (product.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(product.getActions()));
+		}
+
 		if (product.getActive() == null) {
 			map.put("active", null);
 		}
@@ -794,7 +811,13 @@ public class ProductSerDes {
 			Product product, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "active")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					product.setActions(
+						(Map)ProductSerDes.toMap((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "active")) {
 				if (jsonParserFieldValue != null) {
 					product.setActive((Boolean)jsonParserFieldValue);
 				}

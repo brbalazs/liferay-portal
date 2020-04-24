@@ -53,6 +53,16 @@ public class CatalogSerDes {
 
 		sb.append("{");
 
+		if (catalog.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(catalog.getActions()));
+		}
+
 		if (catalog.getCurrencyCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -147,6 +157,13 @@ public class CatalogSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (catalog.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(catalog.getActions()));
+		}
+
 		if (catalog.getCurrencyCode() == null) {
 			map.put("currencyCode", null);
 		}
@@ -213,7 +230,13 @@ public class CatalogSerDes {
 			Catalog catalog, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "currencyCode")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					catalog.setActions(
+						(Map)CatalogSerDes.toMap((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "currencyCode")) {
 				if (jsonParserFieldValue != null) {
 					catalog.setCurrencyCode((String)jsonParserFieldValue);
 				}
