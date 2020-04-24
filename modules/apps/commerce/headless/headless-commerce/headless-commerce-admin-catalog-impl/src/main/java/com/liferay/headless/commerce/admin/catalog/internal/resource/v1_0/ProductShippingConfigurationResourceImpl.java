@@ -44,15 +44,6 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class ProductShippingConfigurationResourceImpl
 	extends BaseProductShippingConfigurationResourceImpl {
 
-	private ProductShippingConfiguration _toProductShippingConfiguration(
-			Long cpDefinitionId)
-		throws Exception {
-
-		return _productShippingConfigurationDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpDefinitionId, contextAcceptLanguage.getPreferredLocale()));
-	}
-
 	@Override
 	public ProductShippingConfiguration
 			getProductByExternalReferenceCodeShippingConfiguration(
@@ -136,6 +127,15 @@ public class ProductShippingConfigurationResourceImpl
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
 		return responseBuilder.build();
+	}
+
+	private ProductShippingConfiguration _toProductShippingConfiguration(
+			Long cpDefinitionId)
+		throws Exception {
+
+		return _productShippingConfigurationDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpDefinitionId, contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	private ProductShippingConfiguration _updateProductShippingConfiguration(
