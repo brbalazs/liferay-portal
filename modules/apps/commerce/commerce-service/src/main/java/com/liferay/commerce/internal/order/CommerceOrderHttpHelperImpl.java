@@ -16,6 +16,8 @@ package com.liferay.commerce.internal.order;
 
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.configuration.CommerceOrderCheckoutConfiguration;
+import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
@@ -36,16 +38,17 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.PortletURLFactory;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -245,6 +248,25 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		}
 
 		return commerceOrder;
+	}
+
+	@Override
+	public boolean isGuestCheckoutEnabled(HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		long groupId = _portal.getScopeGroupId(httpServletRequest);
+
+		groupId =
+			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
+				groupId);
+
+		CommerceOrderCheckoutConfiguration commerceOrderCheckoutConfiguration =
+			_configurationProvider.getConfiguration(
+				CommerceOrderCheckoutConfiguration.class,
+				new GroupServiceSettingsLocator(
+					groupId, CommerceConstants.ORDER_SERVICE_NAME));
+
+		return commerceOrderCheckoutConfiguration.guestCheckoutEnabled();
 	}
 
 	@Override
@@ -466,8 +488,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			Layout currentLayout = (Layout)httpServletRequest.getAttribute(
 				WebKeys.LAYOUT);
 
-			String friendlyURL =
-				StringPool.FORWARD_SLASH + "authentication";
+			String friendlyURL = StringPool.FORWARD_SLASH + "authentication";
 
 			Layout layout = _layoutLocalService.fetchLayoutByFriendlyURL(
 				groupId, false, friendlyURL);
@@ -580,6 +601,9 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
