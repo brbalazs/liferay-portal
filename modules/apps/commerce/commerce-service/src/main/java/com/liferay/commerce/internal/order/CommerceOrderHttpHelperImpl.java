@@ -34,15 +34,18 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.petra.lang.CentralizedThreadLocal;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.PortletURLFactory;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -456,6 +459,51 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 				httpServletRequest, portletId, PortletRequest.RENDER_PHASE);
 		}
 
+		CommerceOrder commerceOrder = getCurrentCommerceOrder(
+			httpServletRequest);
+
+		if ((commerceOrder != null) && commerceOrder.isGuestOrder()) {
+			Layout currentLayout = (Layout)httpServletRequest.getAttribute(
+				WebKeys.LAYOUT);
+
+			String friendlyURL =
+				StringPool.FORWARD_SLASH + "authentication";
+
+			Layout layout = _layoutLocalService.fetchLayoutByFriendlyURL(
+				groupId, false, friendlyURL);
+
+			if (!friendlyURL.equals(currentLayout.getFriendlyURL())) {
+				portletURL = _portletURLFactory.create(
+					httpServletRequest,
+					"com_liferay_login_web_portlet_LoginPortlet", layout,
+					PortletRequest.RENDER_PHASE);
+			}
+			else {
+				portletURL.setParameter(
+					"continueAsGuest", Boolean.TRUE.toString());
+
+				Cookie cookie = new Cookie(
+					"continueAsGuest", Boolean.TRUE.toString());
+
+				String domain = CookieKeys.getDomain(httpServletRequest);
+
+				if (Validator.isNotNull(domain)) {
+					cookie.setDomain(domain);
+				}
+
+				ThemeDisplay themeDisplay =
+					(ThemeDisplay)httpServletRequest.getAttribute(
+						WebKeys.THEME_DISPLAY);
+
+				cookie.setMaxAge(CookieKeys.MAX_AGE);
+				cookie.setPath(StringPool.SLASH);
+
+				CookieKeys.addCookie(
+					themeDisplay.getRequest(), themeDisplay.getResponse(),
+					cookie);
+			}
+		}
+
 		return portletURL;
 	}
 
@@ -535,6 +583,9 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
+	private LayoutLocalService _layoutLocalService;
 
 	@Reference
 	private Portal _portal;
