@@ -169,7 +169,7 @@ public abstract class BaseCommerceProductPriceCalculation
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		BigDecimal cpDefinitionOptionMinDynamicPrice = null;
+		BigDecimal cpDefinitionOptionMinDynamicPrice = BigDecimal.ZERO;
 
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
@@ -186,9 +186,8 @@ public abstract class BaseCommerceProductPriceCalculation
 				cpDefinitionOptionValueRel.getCPInstanceUuid(),
 				cpDefinitionOptionValueRel.getQuantity(), commerceContext);
 
-			if ((cpDefinitionOptionMinDynamicPrice == null) ||
-				(cpDefinitionOptionMinDynamicPrice.compareTo(
-					cpInstanceFinalPrice) > 0)) {
+			if (cpDefinitionOptionMinDynamicPrice.compareTo(
+					cpInstanceFinalPrice) > 0) {
 
 				cpDefinitionOptionMinDynamicPrice = cpInstanceFinalPrice;
 			}
@@ -202,7 +201,7 @@ public abstract class BaseCommerceProductPriceCalculation
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		BigDecimal cpDefinitionOptionMinStaticPrice = null;
+		BigDecimal cpDefinitionOptionMinStaticPrice = BigDecimal.ZERO;
 
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
@@ -223,9 +222,8 @@ public abstract class BaseCommerceProductPriceCalculation
 					cpDefinitionOptionValueRel.getPrice(),
 					cpDefinitionOptionValueRel.getQuantity());
 
-			if ((cpDefinitionOptionMinStaticPrice == null) ||
-				(cpDefinitionOptionMinStaticPrice.compareTo(
-					cpDefinitionOptionValueFinalPrice) > 0)) {
+			if (cpDefinitionOptionMinStaticPrice.compareTo(
+					cpDefinitionOptionValueFinalPrice) > 0) {
 
 				cpDefinitionOptionMinStaticPrice =
 					cpDefinitionOptionValueFinalPrice;
