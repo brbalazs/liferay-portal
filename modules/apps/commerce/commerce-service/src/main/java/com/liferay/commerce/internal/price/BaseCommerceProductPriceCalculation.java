@@ -66,25 +66,19 @@ public abstract class BaseCommerceProductPriceCalculation
 				continue;
 			}
 
-			BigDecimal cpDefinitionOptionValueMinPrice = BigDecimal.ZERO;
-
 			if (priceType.equals(
 					CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
 
-				cpDefinitionOptionValueMinPrice =
+				cpDefinitionMinimumPrice = cpDefinitionMinimumPrice.add(
 					_getCPDefinitionOptionMinStaticPrice(
-						cpDefinitionOptionRel, commerceContext);
-			}
-			else if (priceType.equals(
-						CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+						cpDefinitionOptionRel, commerceContext));
 
-				cpDefinitionOptionValueMinPrice =
-					_getCPDefinitionOptionMinDynamicPrice(
-						cpDefinitionOptionRel, commerceContext);
+				continue;
 			}
 
 			cpDefinitionMinimumPrice = cpDefinitionMinimumPrice.add(
-				cpDefinitionOptionValueMinPrice);
+				_getCPDefinitionOptionMinDynamicPrice(
+					cpDefinitionOptionRel, commerceContext));
 		}
 
 		return commerceMoneyFactory.create(
