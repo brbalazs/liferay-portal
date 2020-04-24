@@ -1180,6 +1180,7 @@
 		<exception>DuplicateCPDefinitionOptionRelKey</exception>
 		<exception>DuplicateCPFriendlyURLEntry</exception>
 		<exception>DuplicateCProduct</exception>
+		<exception>DuplicateCPSpecificationOptionKey</exception>
 		<exception>InvalidCommerceChannelType</exception>
 		<exception>NoSuchSkuContributorCPDefinitionOptionRel</exception>
 	</exceptions>
