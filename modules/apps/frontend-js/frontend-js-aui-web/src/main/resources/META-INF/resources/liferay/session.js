@@ -552,8 +552,52 @@ AUI.add(
 					_formatNumber: function(value) {
 						var instance = this;
 
+<<<<<<< HEAD
 						return Lang.String.padNumber(Math.floor(value), 2);
 					},
+=======
+					if (!banner) {
+						banner = new Liferay.Notification({
+							closeable: true,
+							delay: {
+								hide: 0,
+								show: 0
+							},
+							duration: 500,
+							message: instance._warningText,
+							on: {
+								blur() {
+									A.one('div[role="alert"').setAttribute(
+										'role',
+										'alert'
+									);
+								},
+								click(event) {
+									if (
+										event.domEvent.target.test(
+											'.alert-link'
+										)
+									) {
+										event.domEvent.preventDefault();
+										instance._host.extend();
+									}
+									else if (
+										event.domEvent.target.test('.close')
+									) {
+										instance._destroyBanner();
+										instance._alertClosed = true;
+									}
+								},
+								focus() {
+									A.one('div[role="alert"').removeAttribute(
+										'role'
+									);
+								},
+							},
+							title: Liferay.Language.get('warning'),
+							type: 'warning'
+						}).render('body');
+>>>>>>> a53a1d957f111... LPS-112180 Updating only the counter instead the whole banner every time. Removing role alert when the banner gets focus so screen readers are reading again and again with every update
 
 					_formatTime: function(time) {
 						var instance = this;
@@ -664,28 +708,11 @@ AUI.add(
 						remainingTime = instance._formatTime(remainingTime);
 
 						if (!instance._alertClosed) {
-							var banner = instance._getBanner();
+							var counterTextNode = document.getElementsByClassName(
+								'countdown-timer'
+							)[0];
 
-							var bannerFocused = banner.bodyNode.contains(
-								document.activeElement
-							);
-
-							banner.set(
-								'message',
-								Lang.sub(
-									instance._warningText,
-									[
-										remainingTime
-									]
-								)
-							);
-
-							if (bannerFocused) {
-								banner.bodyNode
-									.all('a')
-									.item(0)
-									.focus();
-							}
+							counterTextNode.innerHTML = remainingTime;
 						}
 
 						DOC.title = Lang.sub(Liferay.Language.get('session-expires-in-x'), [remainingTime]) + ' | ' + instance.get('pageTitle');
