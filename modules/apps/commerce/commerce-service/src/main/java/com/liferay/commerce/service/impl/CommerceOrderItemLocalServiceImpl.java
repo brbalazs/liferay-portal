@@ -531,35 +531,37 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceOrderItemPersistence.findByParentCommerceOrderItemId(
 				commerceOrderItemId);
 
-		if ((bundledCommerceItems != null) && !bundledCommerceItems.isEmpty()) {
-			for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
-				Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
-					bundledCommerceItem.getOptionValueJSON());
+		if (bundledCommerceItems.isEmpty()) {
+			return _updateCommerceOrderItem(
+				commerceOrderItemId, null, commerceContext);
+		}
 
-				if (Objects.equals(
-						commerceOptionValue.get("priceType"),
-						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
+			Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
+				bundledCommerceItem.getOptionValueJSON());
 
-					CommerceProductPrice staticCommerceProductPrice =
-						_getStaticCommerceProductPrice(
-							Long.valueOf(
-								String.valueOf(
-									commerceOptionValue.get("CPInstanceId"))),
-							bundledCommerceItem.getQuantity(),
-							new BigDecimal(
-								String.valueOf(
-									commerceOptionValue.get("price"))),
-							commerceContext.getCommerceCurrency());
+			if (Objects.equals(
+					commerceOptionValue.get("priceType"),
+					CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
 
-					_updateCommerceOrderItem(
-						bundledCommerceItem.getCommerceOrderItemId(),
-						staticCommerceProductPrice, commerceContext);
-				}
-				else {
-					_updateCommerceOrderItem(
-						bundledCommerceItem.getCommerceOrderItemId(), null,
-						commerceContext);
-				}
+				CommerceProductPrice staticCommerceProductPrice =
+					_getStaticCommerceProductPrice(
+						Long.valueOf(
+							String.valueOf(
+								commerceOptionValue.get("CPInstanceId"))),
+						bundledCommerceItem.getQuantity(),
+						new BigDecimal(
+							String.valueOf(commerceOptionValue.get("price"))),
+						commerceContext.getCommerceCurrency());
+
+				_updateCommerceOrderItem(
+					bundledCommerceItem.getCommerceOrderItemId(),
+					staticCommerceProductPrice, commerceContext);
+			}
+			else {
+				_updateCommerceOrderItem(
+					bundledCommerceItem.getCommerceOrderItemId(), null,
+					commerceContext);
 			}
 		}
 
