@@ -184,6 +184,70 @@ const View: React.FC<IViewProps> = ({
 					<PageActions
 						actions={[
 							{
+								label: Liferay.Language.get('clear-data'),
+								onClick: () =>
+									open(modalTypes.CLEAR_DATA_CHANNEL_MODAL, {
+										channelName: name,
+										onClose: close,
+										onSubmit: () => {
+											API.channels
+												.delete({
+													groupId,
+													ids: [id]
+												})
+												.then(() => {
+													const deletedMessage = Liferay.Language.get(
+														'data-from-x-has-been-cleared'
+													);
+
+													close();
+
+													history.push(
+														toRoute(
+															Routes.SETTINGS_CHANNELS,
+															{
+																groupId,
+																id
+															}
+														)
+													);
+
+													addAlert({
+														alertType:
+															Alert.Types.SUCCESS,
+														message: sub(
+															deletedMessage,
+															[name]
+														) as string
+													});
+												})
+												.catch(err =>
+													addAlert({
+														alertType:
+															Alert.Types.ERROR,
+														message:
+															err.message ===
+															UNAUTHORIZED_ACCESS
+																? Liferay.Language.get(
+																		'unauthorized-access'
+																  )
+																: Liferay.Language.get(
+																		'error'
+																  ),
+														timeout: false
+													})
+												);
+										},
+										title: sub(
+											Liferay.Language.get(
+												'clear-x-data?'
+											),
+											[name]
+										)
+									})
+							},
+
+							{
 								label: Liferay.Language.get('delete'),
 								onClick: () =>
 									open(modalTypes.DELETE_CHANNEL_MODAL, {

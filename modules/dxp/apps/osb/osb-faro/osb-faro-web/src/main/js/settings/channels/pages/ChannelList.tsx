@@ -144,6 +144,70 @@ export class ChannelList extends React.Component<IChannelListProps> {
 	}
 
 	@autobind
+	handleClearDataChannel(selectedItems: SelectedItems) {
+		const {
+			context: {selectionDispatch},
+			props: {addAlert, close, groupId, open}
+		} = this;
+
+		const ids = selectedItems.keySeq().toArray();
+
+		const message: string = getPluralMessage(
+			selectedItems.first().name,
+			Liferay.Language.get('x-properties'),
+			ids.length
+		) as string;
+
+		open(modalTypes.CLEAR_DATA_CHANNEL_MODAL, {
+			channelName: message,
+			onClose: close,
+			onSubmit: () =>
+				API.channels
+					.delete({
+						groupId,
+						ids
+					})
+					.then(() => {
+						const deletedMessage: string = getPluralMessage(
+							Liferay.Language.get('x-property-has-been-cleared'),
+							Liferay.Language.get(
+								'x-properties-have-been-cleared'
+							),
+							ids.length
+						) as string;
+
+						addAlert({
+							alertType: Alert.Types.SUCCESS,
+							message: sub(
+								deletedMessage,
+								[<b key='clearedCount'>{ids.length}</b>],
+								false
+							) as string
+						});
+
+						selectionDispatch({type: ACTION_TYPES.clearAll});
+
+						close();
+
+						this._tableRef.current.reload();
+					})
+					.catch(err =>
+						addAlert({
+							alertType: Alert.Types.ERROR,
+							message:
+								err.message === UNAUTHORIZED_ACCESS
+									? Liferay.Language.get(
+											'unauthorized-access'
+									  )
+									: Liferay.Language.get('error'),
+							timeout: false
+						})
+					),
+			title: sub(Liferay.Language.get('clear-x-data?'), [message])
+		});
+	}
+
+	@autobind
 	handleDeleteChannel(selectedItems: SelectedItems) {
 		const {
 			context: {selectionDispatch},
@@ -264,6 +328,17 @@ export class ChannelList extends React.Component<IChannelListProps> {
 		} else {
 			return (
 				<Nav>
+					<Button
+						borderless
+						display='secondary'
+						onClick={() =>
+							this.handleClearDataChannel(checkedItemsISet)
+						}
+						outline
+					>
+						{Liferay.Language.get('clear-data')}
+					</Button>
+
 					<Button
 						borderless
 						display='secondary'
