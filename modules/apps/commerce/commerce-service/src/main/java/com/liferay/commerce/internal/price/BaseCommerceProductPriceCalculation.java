@@ -26,6 +26,7 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.math.BigDecimal;
 
@@ -61,10 +62,7 @@ public abstract class BaseCommerceProductPriceCalculation
 
 			String priceType = cpDefinitionOptionRel.getPriceType();
 
-			if (!cpDefinitionOptionRel.isRequired() ||
-				!cpDefinitionOptionRel.isSkuContributor() ||
-				(priceType == null)) {
-
+			if (!_isPriceContributor(cpDefinitionOptionRel)) {
 				continue;
 			}
 
@@ -126,11 +124,11 @@ public abstract class BaseCommerceProductPriceCalculation
 				relativePrice = price.subtract(
 					selectedCPDefinitionOptionValueRel.getPrice());
 			}
-			relativePrice = relativePrice.multiply(
-				commerceCurrency.getRate());
+
+			relativePrice = relativePrice.multiply(commerceCurrency.getRate());
 		}
-		else if (
-			priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+		else if (priceType.equals(
+					CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
 
 			BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
 				cpDefinitionOptionValueRel.getCProductId(),
@@ -259,6 +257,19 @@ public abstract class BaseCommerceProductPriceCalculation
 			cpInstance.getCPInstanceId(), quantity, commerceContext);
 
 		return commerceMoney.getPrice();
+	}
+
+	private boolean _isPriceContributor(
+		CPDefinitionOptionRel cpDefinitionOptionRel) {
+
+		if (Validator.isNull(cpDefinitionOptionRel.getPriceType()) ||
+			!(cpDefinitionOptionRel.isRequired() ||
+			  cpDefinitionOptionRel.isSkuContributor())) {
+
+			return false;
+		}
+
+		return true;
 	}
 
 	private void _validate(
