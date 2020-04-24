@@ -600,7 +600,23 @@ AUI.add(
 									duration: 500,
 									message: instance._warningText,
 									on: {
-										blur(event) {
+										click(event) {
+											if (
+												event.domEvent.target.test(
+													'.alert-link'
+												)
+											) {
+												event.domEvent.preventDefault();
+												instance._host.extend();
+											}
+											else if (
+												event.domEvent.target.test('.close')
+											) {
+												instance._destroyBanner();
+												instance._alertClosed = true;
+											}
+										},
+										focus(event) {
 											if (instance._alert) {
 												var notificationContainer = A.one(
 													'.lfr-notification-container'
@@ -618,16 +634,6 @@ AUI.add(
 												}
 											}
 										},
-										click: function(event) {
-											if (event.domEvent.target.test('.alert-link')) {
-												event.domEvent.preventDefault();
-												instance._host.extend();
-											}
-											else if (event.domEvent.target.test('.close')) {
-												instance._destroyBanner();
-												instance._alertClosed = true;
-											}
-										}
 									},
 									title: Liferay.Language.get('warning'),
 									type: 'warning'
