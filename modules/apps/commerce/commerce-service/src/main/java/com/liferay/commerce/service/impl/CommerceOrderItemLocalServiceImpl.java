@@ -398,42 +398,44 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceOrderItemPersistence.findByParentCommerceOrderItemId(
 				commerceOrderItemId);
 
-		if ((bundledCommerceItems != null) && !bundledCommerceItems.isEmpty()) {
-			for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
-				Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
-					bundledCommerceItem.getOptionValueJSON());
+		if (bundledCommerceItems.isEmpty()) {
+			return _updateCommerceOrderItem(
+				commerceOrderItemId, quantity, json, null, commerceContext,
+				serviceContext);
+		}
 
-				int currentQuantity =
-					quantity *
-						Integer.valueOf(
-							String.valueOf(
-								commerceOptionValue.get("quantity")));
+		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
+			Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
+				bundledCommerceItem.getOptionValueJSON());
 
-				if (_isStaticPriceType(commerceOptionValue.get("priceType"))) {
-					CommerceProductPrice staticCommerceProductPrice =
-						_getStaticCommerceProductPrice(
-							Long.valueOf(
-								String.valueOf(
-									commerceOptionValue.get("CPInstanceId"))),
-							currentQuantity,
-							new BigDecimal(
-								String.valueOf(
-									commerceOptionValue.get("price"))),
-							commerceContext.getCommerceCurrency());
+			int currentQuantity =
+				quantity *
+					Integer.valueOf(
+						String.valueOf(commerceOptionValue.get("quantity")));
 
-					_updateCommerceOrderItem(
-						bundledCommerceItem.getCommerceOrderItemId(),
-						currentQuantity, bundledCommerceItem.getJson(),
-						staticCommerceProductPrice, commerceContext,
-						serviceContext);
-				}
-				else {
-					_updateCommerceOrderItem(
-						bundledCommerceItem.getCommerceOrderItemId(),
-						currentQuantity, null, null, commerceContext,
-						serviceContext);
-				}
+			if (!_isStaticPriceType(commerceOptionValue.get("priceType"))) {
+				_updateCommerceOrderItem(
+					bundledCommerceItem.getCommerceOrderItemId(),
+					currentQuantity, null, null, commerceContext,
+					serviceContext);
+
+				continue;
 			}
+
+			CommerceProductPrice staticCommerceProductPrice =
+				_getStaticCommerceProductPrice(
+					Long.valueOf(
+						String.valueOf(
+							commerceOptionValue.get("CPInstanceId"))),
+					currentQuantity,
+					new BigDecimal(
+						String.valueOf(commerceOptionValue.get("price"))),
+					commerceContext.getCommerceCurrency());
+
+			_updateCommerceOrderItem(
+				bundledCommerceItem.getCommerceOrderItemId(), currentQuantity,
+				bundledCommerceItem.getJson(), staticCommerceProductPrice,
+				commerceContext, serviceContext);
 		}
 
 		return _updateCommerceOrderItem(
@@ -537,26 +539,27 @@ public class CommerceOrderItemLocalServiceImpl
 			Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
 				bundledCommerceItem.getOptionValueJSON());
 
-			if (_isStaticPriceType(commerceOptionValue.get("priceType"))) {
-				CommerceProductPrice staticCommerceProductPrice =
-					_getStaticCommerceProductPrice(
-						Long.valueOf(
-							String.valueOf(
-								commerceOptionValue.get("CPInstanceId"))),
-						bundledCommerceItem.getQuantity(),
-						new BigDecimal(
-							String.valueOf(commerceOptionValue.get("price"))),
-						commerceContext.getCommerceCurrency());
-
-				_updateCommerceOrderItem(
-					bundledCommerceItem.getCommerceOrderItemId(),
-					staticCommerceProductPrice, commerceContext);
-			}
-			else {
+			if (!_isStaticPriceType(commerceOptionValue.get("priceType"))) {
 				_updateCommerceOrderItem(
 					bundledCommerceItem.getCommerceOrderItemId(), null,
 					commerceContext);
+
+				continue;
 			}
+
+			CommerceProductPrice staticCommerceProductPrice =
+				_getStaticCommerceProductPrice(
+					Long.valueOf(
+						String.valueOf(
+							commerceOptionValue.get("CPInstanceId"))),
+					bundledCommerceItem.getQuantity(),
+					new BigDecimal(
+						String.valueOf(commerceOptionValue.get("price"))),
+					commerceContext.getCommerceCurrency());
+
+			_updateCommerceOrderItem(
+				bundledCommerceItem.getCommerceOrderItemId(),
+				staticCommerceProductPrice, commerceContext);
 		}
 
 		return _updateCommerceOrderItem(
@@ -936,42 +939,47 @@ public class CommerceOrderItemLocalServiceImpl
 			_commerceOptionValueHelper.getCPInstanceCommerceOptionValues(
 				cpInstanceId);
 
-		if ((commerceOptionValues != null) && !commerceOptionValues.isEmpty()) {
-			for (CommerceOptionValue commerceOptionValue :
-					commerceOptionValues) {
+		if (commerceOptionValues.isEmpty()) {
+			commerceOrderItem = commerceOrderItemPersistence.update(
+				commerceOrderItem);
 
-				if (Objects.equals(
-						commerceOptionValue.getPriceType(),
-						CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+			commerceOrderLocalService.recalculatePrice(
+				commerceOrderItem.getCommerceOrderId(), commerceContext);
 
-					_addCommerceOrderItem(
-						commerceOrderId, commerceOptionValue.getCPInstanceId(),
-						commerceOrderItemId, commerceOptionValue.getQuantity(),
-						0, null, _jsonFactory.serialize(commerceOptionValue),
-						null, commerceContext, serviceContext);
-				}
-				else if (_isStaticPriceType(
-							commerceOptionValue.getPriceType())) {
+			return commerceOrderItem;
+		}
 
-					if (commerceOptionValue.getCPInstanceId() > 0) {
-						CommerceProductPrice staticCommerceProductPrice =
-							_getStaticCommerceProductPrice(
-								commerceOptionValue.getCPInstanceId(),
-								commerceOptionValue.getQuantity(),
-								commerceOptionValue.getPrice(),
-								commerceContext.getCommerceCurrency());
-
-						_addCommerceOrderItem(
-							commerceOrderId,
-							commerceOptionValue.getCPInstanceId(),
-							commerceOrderItemId,
-							commerceOptionValue.getQuantity(), 0, null,
-							_jsonFactory.serialize(commerceOptionValue),
-							staticCommerceProductPrice, commerceContext,
-							serviceContext);
-					}
-				}
+		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
+			if (Validator.isNull(commerceOptionValue.getPriceType())) {
+				continue;
 			}
+
+			if (!_isStaticPriceType(commerceOptionValue.getPriceType())) {
+				_addCommerceOrderItem(
+					commerceOrderId, commerceOptionValue.getCPInstanceId(),
+					commerceOrderItemId, commerceOptionValue.getQuantity(), 0,
+					null, _jsonFactory.serialize(commerceOptionValue), null,
+					commerceContext, serviceContext);
+
+				continue;
+			}
+
+			if (commerceOptionValue.getCPInstanceId() <= 0) {
+				continue;
+			}
+
+			CommerceProductPrice staticCommerceProductPrice =
+				_getStaticCommerceProductPrice(
+					commerceOptionValue.getCPInstanceId(),
+					commerceOptionValue.getQuantity(),
+					commerceOptionValue.getPrice(),
+					commerceContext.getCommerceCurrency());
+
+			_addCommerceOrderItem(
+				commerceOrderId, commerceOptionValue.getCPInstanceId(),
+				commerceOrderItemId, commerceOptionValue.getQuantity(), 0, null,
+				_jsonFactory.serialize(commerceOptionValue),
+				staticCommerceProductPrice, commerceContext, serviceContext);
 		}
 
 		commerceOrderItem = commerceOrderItemPersistence.update(
@@ -990,10 +998,8 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceOrderItemPersistence.findByParentCommerceOrderItemId(
 				commerceOrderItemId);
 
-		if ((bundledCommerceItems != null) && !bundledCommerceItems.isEmpty()) {
-			for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
-				_deleteCommerceOrderItem(bundledCommerceItem);
-			}
+		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
+			_deleteCommerceOrderItem(bundledCommerceItem);
 		}
 	}
 
