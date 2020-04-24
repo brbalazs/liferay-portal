@@ -515,11 +515,15 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
 
-		CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
-
-		if ((cpInstance == null) || commerceOrderItem.isManuallyAdjusted() ||
+		if (commerceOrderItem.isManuallyAdjusted() ||
 			(commerceOrderItem.getParentCommerceOrderItemId() != 0)) {
 
+			return commerceOrderItem;
+		}
+
+		CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
+
+		if (cpInstance == null) {
 			return commerceOrderItem;
 		}
 
