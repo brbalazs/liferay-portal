@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.util.Validator;
 import java.math.BigDecimal;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.osgi.service.component.annotations.Reference;
 
@@ -66,9 +67,7 @@ public abstract class BaseCommerceProductPriceCalculation
 				continue;
 			}
 
-			if (priceType.equals(
-					CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
-
+			if (_isStaticPriceType(priceType)) {
 				cpDefinitionMinimumPrice = cpDefinitionMinimumPrice.add(
 					_getCPDefinitionOptionMinStaticPrice(
 						cpDefinitionOptionRel, commerceContext));
@@ -111,7 +110,7 @@ public abstract class BaseCommerceProductPriceCalculation
 		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
 		BigDecimal relativePrice = null;
 
-		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+		if (_isStaticPriceType(priceType)) {
 			if (selectedCPDefinitionOptionValueRel != null) {
 				relativePrice = price.subtract(
 					selectedCPDefinitionOptionValueRel.getPrice());
@@ -256,6 +255,16 @@ public abstract class BaseCommerceProductPriceCalculation
 		}
 
 		return true;
+	}
+
+	private boolean _isStaticPriceType(String value) {
+		if (Objects.equals(
+				value, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private void _validate(
