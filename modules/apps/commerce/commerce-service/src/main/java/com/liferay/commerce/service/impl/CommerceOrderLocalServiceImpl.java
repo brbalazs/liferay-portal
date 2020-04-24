@@ -395,9 +395,21 @@ public class CommerceOrderLocalServiceImpl
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), delete by commerceAccountId
+	 */
+	@Deprecated
 	@Override
 	public void deleteCommerceOrders(long userId, Date date, int status) {
 		commerceOrderPersistence.removeByU_LtC_O(userId, date, status);
+	}
+
+	@Override
+	public void deleteCommerceOrdersByAccountId(
+		long commerceAccountId, Date date, int status) {
+
+		commerceOrderPersistence.removeByC_LtC_O(
+			commerceAccountId, date, status);
 	}
 
 	@Override
