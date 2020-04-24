@@ -409,10 +409,7 @@ public class CommerceOrderItemLocalServiceImpl
 							String.valueOf(
 								commerceOptionValue.get("quantity")));
 
-				if (Objects.equals(
-						commerceOptionValue.get("priceType"),
-						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
-
+				if (_isStaticPriceType(commerceOptionValue.get("priceType"))) {
 					CommerceProductPrice staticCommerceProductPrice =
 						_getStaticCommerceProductPrice(
 							Long.valueOf(
@@ -540,10 +537,7 @@ public class CommerceOrderItemLocalServiceImpl
 			Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
 				bundledCommerceItem.getOptionValueJSON());
 
-			if (Objects.equals(
-					commerceOptionValue.get("priceType"),
-					CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
-
+			if (_isStaticPriceType(commerceOptionValue.get("priceType"))) {
 				CommerceProductPrice staticCommerceProductPrice =
 					_getStaticCommerceProductPrice(
 						Long.valueOf(
@@ -956,9 +950,8 @@ public class CommerceOrderItemLocalServiceImpl
 						0, null, _jsonFactory.serialize(commerceOptionValue),
 						null, commerceContext, serviceContext);
 				}
-				else if (Objects.equals(
-							commerceOptionValue.getPriceType(),
-							CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+				else if (_isStaticPriceType(
+							commerceOptionValue.getPriceType())) {
 
 					if (commerceOptionValue.getCPInstanceId() > 0) {
 						CommerceProductPrice staticCommerceProductPrice =
@@ -1101,12 +1094,20 @@ public class CommerceOrderItemLocalServiceImpl
 		Stream<CommerceOptionValue> commerceOptionValuesFiltered =
 			commerceOptionValuesStream.filter(
 				commerceOptionValue ->
-					Objects.equals(
-						commerceOptionValue.getPriceType(),
-						CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) &&
+					_isStaticPriceType(commerceOptionValue.getPriceType()) &&
 					(commerceOptionValue.getCPInstanceId() == 0));
 
 		return commerceOptionValuesFiltered.collect(Collectors.toList());
+	}
+
+	private boolean _isStaticPriceType(Object value) {
+		if (Objects.equals(
+				value, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private void _setCommerceOrderItemDiscountValue(
