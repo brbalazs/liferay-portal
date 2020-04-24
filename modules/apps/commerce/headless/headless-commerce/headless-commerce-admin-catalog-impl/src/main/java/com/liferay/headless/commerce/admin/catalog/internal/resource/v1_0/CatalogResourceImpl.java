@@ -27,12 +27,16 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
+
+import java.util.Map;
 
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
@@ -90,10 +94,7 @@ public class CatalogResourceImpl
 				"Unable to find Catalog with ID: " + id);
 		}
 
-		return _catalogDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				commerceCatalog.getCommerceCatalogId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toCatalog(commerceCatalog);
 	}
 
 	@Override
@@ -111,10 +112,7 @@ public class CatalogResourceImpl
 					externalReferenceCode);
 		}
 
-		return _catalogDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				commerceCatalog.getCommerceCatalogId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toCatalog(commerceCatalog);
 	}
 
 	@Override
@@ -206,10 +204,34 @@ public class CatalogResourceImpl
 					commerceCatalog.getCatalogDefaultLanguageId()));
 		}
 
-		return _catalogDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				commerceCatalog.getCommerceCatalogId(),
-				contextAcceptLanguage.getPreferredLocale()));
+		return _toCatalog(commerceCatalog);
+	}
+
+	private Map<String, Map<String, String>> _getActions(
+		CommerceCatalog commerceCatalog) {
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"DELETE", commerceCatalog.getCommerceCatalogId(),
+				"deleteCatalog", commerceCatalog.getUserId(),
+				"com.liferay.commerce.product.model.CommerceCatalog",
+				commerceCatalog.getGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", commerceCatalog.getCommerceCatalogId(), "getCatalog",
+				commerceCatalog.getUserId(),
+				"com.liferay.commerce.product.model.CommerceCatalog",
+				commerceCatalog.getGroupId())
+		).put(
+			"update",
+			addAction(
+				"UPDATE", commerceCatalog.getCommerceCatalogId(),
+				"patchCatalog", commerceCatalog.getUserId(),
+				"com.liferay.commerce.product.model.CommerceCatalog",
+				commerceCatalog.getGroupId())
+		).build();
 	}
 
 	private Catalog _toCatalog(CommerceCatalog commerceCatalog)
@@ -217,8 +239,11 @@ public class CatalogResourceImpl
 
 		return _catalogDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commerceCatalog), _dtoConverterRegistry,
 				commerceCatalog.getCommerceCatalogId(),
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private static final EntityModel _entityModel = new CatalogEntityModel();
@@ -228,6 +253,9 @@ public class CatalogResourceImpl
 
 	@Reference
 	private CommerceCatalogService _commerceCatalogService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
