@@ -31,7 +31,6 @@ import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderNote;
 import com.liferay.commerce.model.CommerceShipmentItem;
-import com.liferay.commerce.order.content.web.internal.frontend.OrderFilterImpl;
 import com.liferay.commerce.order.content.web.internal.portlet.configuration.CommerceOrderContentPortletInstanceConfiguration;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
@@ -165,7 +164,18 @@ public class CommerceOrderContentDisplayContext {
 	}
 
 	public CommerceOrder getCommerceOrder() throws PortalException {
-		return _commerceOrderService.fetchCommerceOrder(getCommerceOrderId());
+		long commerceOrderId = getCommerceOrderId();
+
+		if (commerceOrderId > 0) {
+			return _commerceOrderService.fetchCommerceOrder(
+				getCommerceOrderId());
+		}
+
+		String commerceOrderUuid = ParamUtil.getString(
+			_httpServletRequest, "commerceOrderUuid");
+
+		return _commerceOrderService.fetchCommerceOrder(
+			commerceOrderUuid, _cpRequestHelper.getChannelGroupId());
 	}
 
 	public String getCommerceOrderDate(CommerceOrder commerceOrder) {
@@ -423,19 +433,6 @@ public class CommerceOrderContentDisplayContext {
 		throws PortalException {
 
 		return Collections.emptyList();
-	}
-
-	public OrderFilterImpl getOrderFilter() {
-		OrderFilterImpl orderFilterImpl = new OrderFilterImpl();
-
-		if (_commerceAccount != null) {
-			orderFilterImpl.setAccountId(
-				_commerceAccount.getCommerceAccountId());
-		}
-
-		orderFilterImpl.setCommerceOrderId(getCommerceOrderId());
-
-		return orderFilterImpl;
 	}
 
 	public PortletURL getPortletURL() throws PortalException {
