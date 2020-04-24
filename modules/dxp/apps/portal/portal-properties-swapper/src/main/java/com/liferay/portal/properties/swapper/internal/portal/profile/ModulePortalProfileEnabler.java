@@ -16,13 +16,11 @@ package com.liferay.portal.properties.swapper.internal.portal.profile;
 
 import com.liferay.document.library.kernel.store.Store;
 import com.liferay.osgi.util.ComponentUtil;
-import com.liferay.portal.change.tracking.store.CTStoreFactory;
 import com.liferay.portal.util.PropsValues;
 
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Shuyang Zhou
@@ -36,8 +34,5 @@ public class ModulePortalProfileEnabler {
 			Store.class, "(store.type=" + PropsValues.DL_STORE_IMPL + ")",
 			componentContext, ModulePortalProfile.class);
 	}
-
-	@Reference
-	private CTStoreFactory _ctStoreFactory;
 
 }
