@@ -1,6 +1,7 @@
 import AddChannelModal from 'settings/components/AddChannelModal';
 import autobind from 'autobind-decorator';
 import BatchActionModal from 'settings/components/user-list/BatchActionModal';
+import ClearDataChannelModal from 'settings/components/ClearDataChannelModal';
 import ConfirmationModal from './ConfirmationModal';
 import ConnectDXPModal from 'settings/components/ConnectDXPModal';
 import ContactSalesModal from './ContactSalesModal';
@@ -34,6 +35,7 @@ const BODY_CLASSNAME = 'modal-open';
 const COMPONENT_MAP = {
 	[modalTypes.ADD_CHANNEL_MODAL]: AddChannelModal,
 	[modalTypes.BATCH_ACTION_MODAL]: BatchActionModal,
+	[modalTypes.CLEAR_DATA_CHANNEL_MODAL]: ClearDataChannelModal,
 	[modalTypes.CONFIRMATION_MODAL]: ConfirmationModal,
 	[modalTypes.CONNECT_DXP_MODAL]: ConnectDXPModal,
 	[modalTypes.CONTACT_SALES_MODAL]: ContactSalesModal,
