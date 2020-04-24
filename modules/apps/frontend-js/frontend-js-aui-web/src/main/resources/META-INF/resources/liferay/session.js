@@ -504,7 +504,9 @@ AUI.add(
 
 						var banner = instance._getBanner();
 
-						var counterTextNode = banner.one('.countdown-timer');
+						var counterTextNode = banner
+							.one('.countdown-timer')
+							.getDOMNode();
 
 						instance._uiSetRemainingTime(remainingTime, counterTextNode);
 
@@ -552,52 +554,8 @@ AUI.add(
 					_formatNumber: function(value) {
 						var instance = this;
 
-<<<<<<< HEAD
 						return Lang.String.padNumber(Math.floor(value), 2);
 					},
-=======
-					if (!banner) {
-						banner = new Liferay.Notification({
-							closeable: true,
-							delay: {
-								hide: 0,
-								show: 0
-							},
-							duration: 500,
-							message: instance._warningText,
-							on: {
-								blur() {
-									A.one('div[role="alert"').setAttribute(
-										'role',
-										'alert'
-									);
-								},
-								click(event) {
-									if (
-										event.domEvent.target.test(
-											'.alert-link'
-										)
-									) {
-										event.domEvent.preventDefault();
-										instance._host.extend();
-									}
-									else if (
-										event.domEvent.target.test('.close')
-									) {
-										instance._destroyBanner();
-										instance._alertClosed = true;
-									}
-								},
-								focus() {
-									A.one('div[role="alert"').removeAttribute(
-										'role'
-									);
-								},
-							},
-							title: Liferay.Language.get('warning'),
-							type: 'warning'
-						}).render('body');
->>>>>>> a53a1d957f111... LPS-112180 Updating only the counter instead the whole banner every time. Removing role alert when the banner gets focus so screen readers are reading again and again with every update
 
 					_formatTime: function(time) {
 						var instance = this;
@@ -642,6 +600,24 @@ AUI.add(
 									duration: 500,
 									message: instance._warningText,
 									on: {
+										blur(event) {
+											if (instance._alert) {
+												var notificationContainer = A.one(
+													'.lfr-notification-container'
+												);
+		
+												if (
+													!notificationContainer.contains(
+														event.domEvent.relatedTarget
+													)
+												) {
+													instance._alert.setAttribute(
+														'role',
+														'alert'
+													);
+												}
+											}
+										},
 										click: function(event) {
 											if (event.domEvent.target.test('.alert-link')) {
 												event.domEvent.preventDefault();
@@ -702,15 +678,23 @@ AUI.add(
 						DOC.title = instance.get('pageTitle');
 					},
 
-					_uiSetRemainingTime: function(remainingTime) {
+					_uiSetRemainingTime: function(remainingTime, counterTextNode) {
 						var instance = this;
 
 						remainingTime = instance._formatTime(remainingTime);
 
 						if (!instance._alertClosed) {
-							var counterTextNode = document.getElementsByClassName(
-								'countdown-timer'
-							)[0];
+							var alert = counterTextNode.closest(
+								'div[role="alert"]'
+							);
+	
+							// Prevent screen-reader from re-reading alert:
+	
+							if (alert) {
+								alert.removeAttribute('role');
+	
+								instance._alert = alert;
+							}
 
 							counterTextNode.innerHTML = remainingTime;
 						}
