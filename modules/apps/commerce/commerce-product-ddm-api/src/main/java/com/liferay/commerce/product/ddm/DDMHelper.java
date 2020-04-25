@@ -32,20 +32,26 @@ import javax.portlet.RenderResponse;
 public interface DDMHelper {
 
 	public DDMForm getCPAttachmentFileEntryDDMForm(
-		Locale locale,
-		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelCPDefinitionOptionValueRels);
+			Locale locale,
+			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				cpDefinitionOptionRelCPDefinitionOptionValueRels,
+			RenderRequest renderRequest)
+		throws PortalException;
 
 	public DDMForm getCPInstanceDDMForm(
-		Locale locale, boolean ignoreSKUCombinations,
-		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelCPDefinitionOptionValueRels);
+			Locale locale, boolean ignoreSKUCombinations,
+			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				cpDefinitionOptionRelCPDefinitionOptionValueRels,
+			RenderRequest renderRequest)
+		throws PortalException;
 
 	public DDMForm getPublicStoreDDMForm(
-		long groupId, long commerceAccountId, long cpDefinitionId,
-		Locale locale, boolean ignoreSKUCombinations,
-		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelCPDefinitionOptionValueRels);
+			long groupId, long commerceAccountId, long cpDefinitionId,
+			Locale locale, boolean ignoreSKUCombinations,
+			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				cpDefinitionOptionRelCPDefinitionOptionValueRels,
+			RenderRequest renderRequest)
+		throws PortalException;
 
 	public String renderCPAttachmentFileEntryOptions(
 			long cpDefinitionId, String json, RenderRequest renderRequest,
