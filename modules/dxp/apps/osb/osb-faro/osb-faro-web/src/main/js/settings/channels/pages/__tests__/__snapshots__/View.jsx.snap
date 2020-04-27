@@ -83,12 +83,20 @@ exports[`View Channel should render 1`] = `
             Property ID: 1
           </div>
         </div>
-        <button
-          class="button-root btn btn-secondary"
-          type="button"
-        >
-          Delete
-        </button>
+        <div>
+          <button
+            class="button-root btn btn-secondary mr-3"
+            type="button"
+          >
+            Clear Data
+          </button>
+          <button
+            class="button-root btn btn-secondary"
+            type="button"
+          >
+            Delete
+          </button>
+        </div>
       </div>
       <div
         class="card card-root page-display"
