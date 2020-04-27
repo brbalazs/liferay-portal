@@ -50,6 +50,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -1289,6 +1290,9 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 
 		Assert.assertTrue(equals(randomMessageBoardThread, messageBoardThread));
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	@Test
 	public void testGetMessageBoardThreadMyRating() throws Exception {

@@ -17,6 +17,8 @@ package com.liferay.headless.commerce.bom.resource.v1_0;
 import com.liferay.headless.commerce.bom.dto.v1_0.Folder;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 
+import java.util.Locale;
+
 import javax.annotation.Generated;
 
 import javax.servlet.http.HttpServletRequest;
@@ -77,6 +79,11 @@ public interface FolderResource {
 		public FolderResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
+
+		public Builder httpServletRequest(
+			HttpServletRequest httpServletRequest);
+
+		public Builder preferredLocale(Locale preferredLocale);
 
 		public Builder user(com.liferay.portal.kernel.model.User user);
 
