@@ -20,11 +20,12 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.search.internal.spi.model.query.contributor.GroupIdQueryPreFilterContributor;
+import com.liferay.portal.search.internal.contributor.query.GroupIdQueryPreFilterContributor;
 import com.liferay.portal.search.test.util.DocumentsAssert;
 import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +61,7 @@ public abstract class BaseGroupIdQueryPreFilterContributorTestCase
 	public void testScopeEverythingWithInactiveGroups() {
 		addDocuments(1, 2, 3, INACTIVE_GROUP_ID1, INACTIVE_GROUP_ID2);
 
-		assertSearch(0, "[1, 2, 3]");
+		assertSearch(0, Arrays.asList("1", "2", "3"));
 
 		Mockito.verify(
 			groupLocalService, Mockito.never()
@@ -91,7 +92,7 @@ public abstract class BaseGroupIdQueryPreFilterContributorTestCase
 
 		addDocuments(1, 2, 3, INACTIVE_GROUP_ID1, INACTIVE_GROUP_ID2);
 
-		assertSearch(2, "[2]");
+		assertSearch(2, Arrays.asList("2"));
 	}
 
 	protected void addDocuments(long... groupIds) {
@@ -104,7 +105,9 @@ public abstract class BaseGroupIdQueryPreFilterContributorTestCase
 		}
 	}
 
-	protected void assertSearch(long scopeGroupId, String expected) {
+	protected void assertSearch(
+		long scopeGroupId, List<String> expectedValues) {
+
 		assertSearch(
 			indexingTestHelper -> {
 				indexingTestHelper.define(
@@ -117,12 +120,10 @@ public abstract class BaseGroupIdQueryPreFilterContributorTestCase
 
 				indexingTestHelper.search();
 
-				indexingTestHelper.verifyResponse(
-					searchResponse ->
-						DocumentsAssert.assertValuesIgnoreRelevance(
-							searchResponse.getRequestString(),
-							searchResponse.getDocumentsStream(), Field.GROUP_ID,
-							expected));
+				indexingTestHelper.verify(
+					hits -> DocumentsAssert.assertValues(
+						indexingTestHelper.getQueryString(), hits.getDocs(),
+						Field.GROUP_ID, expectedValues));
 			});
 	}
 
