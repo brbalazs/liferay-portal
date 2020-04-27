@@ -35,7 +35,7 @@ definition {
 	@ignore = "true"
 	test CreateNewPriceList {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CommerceAdmin#CreateNewPriceList";
+		property test.name.skip.portal.instance = "CPCommercePriceLists#CreateNewPriceList";
 
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
