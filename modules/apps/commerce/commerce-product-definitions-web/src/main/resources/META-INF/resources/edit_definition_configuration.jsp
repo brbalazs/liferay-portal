@@ -146,7 +146,7 @@ boolean shipSeparately = BeanParamUtil.getBoolean(cpDefinition, request, "shipSe
 							<aui:validator name="digits" />
 						</aui:input>
 
-						<aui:input checked="<%= (cpDefinitionInventory == null) ? true : cpDefinitionInventory.getBackOrders() %>" label="allow-back-orders" name="backOrders" type="toggle-switch" />
+						<aui:input checked="<%= (cpDefinitionInventory == null) ? false : cpDefinitionInventory.getBackOrders() %>" label="allow-back-orders" name="backOrders" type="toggle-switch" />
 
 						<aui:input name="maxOrderQuantity" value="<%= (cpDefinitionInventory == null) ? String.valueOf(CPDefinitionInventoryConstants.DEFAULT_MAX_ORDER_QUANTITY) : String.valueOf(cpDefinitionInventory.getMaxOrderQuantity()) %>">
 							<aui:validator name="digits" />
