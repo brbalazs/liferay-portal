@@ -18,6 +18,7 @@ import com.liferay.commerce.product.constants.CPField;
 import com.liferay.commerce.product.exception.CPSpecificationOptionKeyException;
 import com.liferay.commerce.product.exception.CPSpecificationOptionTitleException;
 import com.liferay.commerce.product.exception.DuplicateCPSpecificationOptionKeyException;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPSpecificationOption;
 import com.liferay.commerce.product.service.base.CPSpecificationOptionLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -224,7 +225,20 @@ public class CPSpecificationOptionLocalServiceImpl
 		cpSpecificationOption.setKey(key);
 		cpSpecificationOption.setExpandoBridgeAttributes(serviceContext);
 
-		return cpSpecificationOptionPersistence.update(cpSpecificationOption);
+		cpSpecificationOption = cpSpecificationOptionPersistence.update(
+			cpSpecificationOption);
+
+		Indexer<CPDefinition> indexer = IndexerRegistryUtil.getIndexer(
+			CPDefinition.class);
+
+		indexer.reindex(
+			new String[] {
+				String.valueOf(cpSpecificationOption.getCompanyId()),
+				String.valueOf(
+					cpSpecificationOption.getCPSpecificationOptionId())
+			});
+
+		return cpSpecificationOption;
 	}
 
 	protected SearchContext buildSearchContext(

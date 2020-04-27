@@ -34,11 +34,13 @@ import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelRel;
 import com.liferay.commerce.product.service.CPDefinitionLinkLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalService;
 import com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceChannelRelLocalService;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -708,6 +710,10 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 	protected void doReindex(String[] ids) throws Exception {
 		long companyId = GetterUtil.getLong(ids[0]);
 
+		if (ids.length > 1) {
+			reindexCPDefinitions(companyId, GetterUtil.getLong(ids[1]));
+		}
+
 		reindexCPDefinitions(companyId);
 	}
 
@@ -754,6 +760,46 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 		indexableActionableDynamicQuery.performActions();
 	}
 
+	protected void reindexCPDefinitions(
+			long companyId, long cpSpecificationOptionId)
+		throws PortalException {
+
+		final IndexableActionableDynamicQuery indexableActionableDynamicQuery =
+			_cpDefinitionSpecificationOptionValueLocalService.
+				getIndexableActionableDynamicQuery();
+
+		indexableActionableDynamicQuery.setCompanyId(companyId);
+		indexableActionableDynamicQuery.setAddCriteriaMethod(
+			dynamicQuery -> dynamicQuery.add(
+				RestrictionsFactoryUtil.eq(
+					"CPSpecificationOptionId", cpSpecificationOptionId)));
+
+		indexableActionableDynamicQuery.setPerformActionMethod(
+			(CPDefinitionSpecificationOptionValue
+				cpDefinitionSpecificationOptionValue) -> {
+
+				try {
+					indexableActionableDynamicQuery.addDocuments(
+						getDocument(
+							cpDefinitionSpecificationOptionValue.
+								getCPDefinition()));
+				}
+				catch (PortalException pe) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							"Unable to index commerce product definition " +
+								cpDefinitionSpecificationOptionValue.
+									getCPDefinition(),
+							pe);
+					}
+				}
+			});
+
+		indexableActionableDynamicQuery.setSearchEngineId(getSearchEngineId());
+
+		indexableActionableDynamicQuery.performActions();
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		CPDefinitionIndexer.class);
 
@@ -780,6 +826,10 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 
 	@Reference
 	private CPDefinitionLocalService _cpDefinitionLocalService;
+
+	@Reference
+	private CPDefinitionSpecificationOptionValueLocalService
+		_cpDefinitionSpecificationOptionValueLocalService;
 
 	@Reference
 	private CPFriendlyURLEntryLocalService _cpFriendlyURLEntryLocalService;
