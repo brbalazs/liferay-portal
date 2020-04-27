@@ -535,7 +535,11 @@ public class DLImpl implements DL {
 			previewQueryString = StringPool.BLANK;
 		}
 
-		if (ImageProcessorUtil.isSupported(fileVersion.getMimeType())) {
+		if (ImageProcessorUtil.isSupported(fileVersion.getMimeType()) ||
+			ArrayUtil.contains(
+				PropsValues.DL_FILE_ENTRY_PREVIEW_IMAGE_MIME_TYPES,
+				fileEntry.getMimeType())) {
+
 			previewQueryString = previewQueryString.concat("&imagePreview=1");
 		}
 		else if (PropsValues.DL_FILE_ENTRY_PREVIEW_ENABLED) {
