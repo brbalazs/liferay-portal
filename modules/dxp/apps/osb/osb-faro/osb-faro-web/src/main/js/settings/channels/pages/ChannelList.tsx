@@ -163,12 +163,12 @@ export class ChannelList extends React.Component<IChannelListProps> {
 			onClose: close,
 			onSubmit: () =>
 				API.channels
-					.delete({
+					.clear({
 						groupId,
 						ids
 					})
 					.then(() => {
-						const deletedMessage: string = getPluralMessage(
+						const clearedMessage: string = getPluralMessage(
 							Liferay.Language.get('x-property-has-been-cleared'),
 							Liferay.Language.get(
 								'x-properties-have-been-cleared'
@@ -179,7 +179,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						addAlert({
 							alertType: Alert.Types.SUCCESS,
 							message: sub(
-								deletedMessage,
+								clearedMessage,
 								[<b key='clearedCount'>{ids.length}</b>],
 								false
 							) as string
