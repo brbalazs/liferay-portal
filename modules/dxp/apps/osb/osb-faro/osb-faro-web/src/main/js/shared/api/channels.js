@@ -5,6 +5,14 @@ import {
 	NAME
 } from 'shared/util/pagination';
 
+export function clear({groupId, ids}) {
+	return sendRequest({
+		data: {ids},
+		method: 'POST',
+		path: `main/${groupId}/channel/clear`
+	});
+}
+
 export function create({groupId, name}) {
 	return sendRequest({
 		data: {name},
