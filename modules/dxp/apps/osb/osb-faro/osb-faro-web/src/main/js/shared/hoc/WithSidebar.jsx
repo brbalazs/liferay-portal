@@ -2,6 +2,7 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import checkExperimentLink from './CheckExperimentLink';
 import checkProjectState from './CheckProjectState';
+import checkValidChannel from './CheckValidChannel';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -51,6 +52,7 @@ export default compose(
 	withError(),
 	withLoading({page: true}),
 	withDefaultChannelId,
+	checkValidChannel,
 	WrappedComponent => {
 		class WithSidebar extends React.Component {
 			static contextType = ChannelContext;
