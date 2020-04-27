@@ -1,6 +1,7 @@
 import * as API from 'shared/api';
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'settings/components/BasePage';
+import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Constants from 'shared/util/constants';
 import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
@@ -20,7 +21,6 @@ import {Alert, HasModal, IPaginationUnsorted} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect} from 'react-redux';
-import {PageActions} from 'shared/components/base-page/Header';
 import {Routes, toRoute} from 'shared/util/router';
 import {SafeResults} from 'shared/hoc/util';
 import {sequence} from 'shared/util/promise';
@@ -181,137 +181,128 @@ const View: React.FC<IViewProps> = ({
 				</div>
 
 				{authorized && (
-					<PageActions
-						actions={[
-							{
-								label: Liferay.Language.get('clear-data'),
-								onClick: () =>
-									open(modalTypes.CLEAR_DATA_CHANNEL_MODAL, {
-										channelName: name,
-										onClose: close,
-										onSubmit: () => {
-											API.channels
-												.delete({
-													groupId,
-													ids: [id]
-												})
-												.then(() => {
-													const deletedMessage = Liferay.Language.get(
-														'data-from-x-has-been-cleared'
-													);
-
-													close();
-
-													history.push(
-														toRoute(
-															Routes.SETTINGS_CHANNELS,
-															{
-																groupId,
-																id
-															}
-														)
-													);
-
-													addAlert({
-														alertType:
-															Alert.Types.SUCCESS,
-														message: sub(
-															deletedMessage,
-															[name]
-														) as string
-													});
-												})
-												.catch(err =>
-													addAlert({
-														alertType:
-															Alert.Types.ERROR,
-														message:
-															err.message ===
-															UNAUTHORIZED_ACCESS
-																? Liferay.Language.get(
-																		'unauthorized-access'
-																  )
-																: Liferay.Language.get(
-																		'error'
-																  ),
-														timeout: false
-													})
+					<div>
+						<Button
+							className='mr-3'
+							onClick={() =>
+								open(modalTypes.CLEAR_DATA_CHANNEL_MODAL, {
+									channelName: name,
+									onClose: close,
+									onSubmit: () => {
+										API.channels
+											.clear({
+												groupId,
+												ids: [id]
+											})
+											.then(() => {
+												const clearedMessage = Liferay.Language.get(
+													'data-from-x-has-been-cleared'
 												);
-										},
-										title: sub(
-											Liferay.Language.get(
-												'clear-x-data?'
-											),
-											[name]
-										)
-									})
-							},
 
-							{
-								label: Liferay.Language.get('delete'),
-								onClick: () =>
-									open(modalTypes.DELETE_CHANNEL_MODAL, {
-										channelIds: [id],
-										channelName: name,
-										groupId,
-										onClose: close,
-										onSubmit: () => {
-											API.channels
-												.delete({
-													groupId,
-													ids: [id]
+												close();
+
+												addAlert({
+													alertType:
+														Alert.Types.SUCCESS,
+													message: sub(
+														clearedMessage,
+														[name]
+													) as string
+												});
+											})
+											.catch(err =>
+												addAlert({
+													alertType:
+														Alert.Types.ERROR,
+													message:
+														err.message ===
+														UNAUTHORIZED_ACCESS
+															? Liferay.Language.get(
+																	'unauthorized-access'
+															  )
+															: Liferay.Language.get(
+																	'error'
+															  ),
+													timeout: false
 												})
-												.then(() => {
-													const deletedMessage = Liferay.Language.get(
-														'x-has-been-deleted'
-													);
-
-													close();
-
-													history.push(
-														toRoute(
-															Routes.SETTINGS_CHANNELS,
-															{
-																groupId,
-																id
-															}
-														)
-													);
-
-													addAlert({
-														alertType:
-															Alert.Types.SUCCESS,
-														message: sub(
-															deletedMessage,
-															[name]
-														) as string
-													});
-												})
-												.catch(err =>
-													addAlert({
-														alertType:
-															Alert.Types.ERROR,
-														message:
-															err.message ===
-															UNAUTHORIZED_ACCESS
-																? Liferay.Language.get(
-																		'unauthorized-access'
-																  )
-																: Liferay.Language.get(
-																		'error'
-																  ),
-														timeout: false
-													})
-												);
-										},
-										title: sub(
-											Liferay.Language.get('delete-x?'),
-											[name]
-										)
-									})
+											);
+									},
+									title: sub(
+										Liferay.Language.get('clear-x-data?'),
+										[name]
+									)
+								})
 							}
-						]}
-					/>
+						>
+							{Liferay.Language.get('clear-data')}
+						</Button>
+
+						<Button
+							onClick={() =>
+								open(modalTypes.DELETE_CHANNEL_MODAL, {
+									channelIds: [id],
+									channelName: name,
+									groupId,
+									onClose: close,
+									onSubmit: () => {
+										API.channels
+											.delete({
+												groupId,
+												ids: [id]
+											})
+											.then(() => {
+												const deletedMessage = Liferay.Language.get(
+													'x-has-been-deleted'
+												);
+
+												close();
+
+												history.push(
+													toRoute(
+														Routes.SETTINGS_CHANNELS,
+														{
+															groupId,
+															id
+														}
+													)
+												);
+
+												addAlert({
+													alertType:
+														Alert.Types.SUCCESS,
+													message: sub(
+														deletedMessage,
+														[name]
+													) as string
+												});
+											})
+											.catch(err =>
+												addAlert({
+													alertType:
+														Alert.Types.ERROR,
+													message:
+														err.message ===
+														UNAUTHORIZED_ACCESS
+															? Liferay.Language.get(
+																	'unauthorized-access'
+															  )
+															: Liferay.Language.get(
+																	'error'
+															  ),
+													timeout: false
+												})
+											);
+									},
+									title: sub(
+										Liferay.Language.get('delete-x?'),
+										[name]
+									)
+								})
+							}
+						>
+							{Liferay.Language.get('delete')}
+						</Button>
+					</div>
 				)}
 			</div>
 
