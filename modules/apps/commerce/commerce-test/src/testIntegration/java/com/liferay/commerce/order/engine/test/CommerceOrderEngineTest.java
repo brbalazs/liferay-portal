@@ -16,6 +16,7 @@ package com.liferay.commerce.order.engine.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.account.service.CommerceAccountLocalService;
 import com.liferay.commerce.account.service.CommerceAccountUserRelLocalService;
 import com.liferay.commerce.account.test.util.CommerceAccountTestUtil;
 import com.liferay.commerce.constants.CommerceOrderConstants;
@@ -49,6 +50,7 @@ import com.liferay.commerce.service.CommerceShipmentItemLocalService;
 import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
@@ -74,6 +76,7 @@ import java.util.stream.Stream;
 
 import org.frutilla.FrutillaRule;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -137,6 +140,13 @@ public class CommerceOrderEngineTest {
 		_commerceContext = new TestCommerceContext(
 			_commerceCurrency, _commerceChannel, _user, _group,
 			_commerceOrder.getCommerceAccount(), _commerceOrder);
+	}
+
+	@After
+	public void tearDown() throws PortalException {
+		_commerceOrderLocalService.deleteCommerceOrder(_commerceOrder);
+
+		_commerceAccountLocalService.deleteCommerceAccount(_commerceAccount);
 	}
 
 	@Test
@@ -855,8 +865,10 @@ public class CommerceOrderEngineTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
-	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
+
+	@Inject
+	private CommerceAccountLocalService _commerceAccountLocalService;
 
 	@Inject
 	private CommerceAccountUserRelLocalService
@@ -874,7 +886,6 @@ public class CommerceOrderEngineTest {
 	private CommerceInventoryWarehouseLocalService
 		_commerceInventoryWarehouseLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceOrder _commerceOrder;
 
 	@Inject
