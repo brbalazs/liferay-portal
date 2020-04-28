@@ -1,19 +1,13 @@
 import * as API from 'shared/api';
 import Button from 'shared/components/Button';
-import Form from 'shared/components/form';
+import Form, {validateInputMessage} from 'shared/components/form';
 import getCN from 'classnames';
 import Modal from 'shared/components/modal';
 import React from 'react';
 import {DataSource} from 'shared/util/records';
-import {flow, toLower, trim} from 'lodash/fp';
 import {SafeResults} from 'shared/hoc/util';
 import {sub} from 'shared/util/lang';
 import {useRequest} from 'shared/hooks';
-
-const lowerCaseString = flow(
-	toLower,
-	trim
-);
 
 interface IDeleteChannelModalProps extends React.HTMLAttributes<HTMLElement> {
 	channelName: string;
@@ -59,22 +53,6 @@ const DeleteChannelModal: React.FC<IDeleteChannelModalProps> = ({
 			groupId
 		}
 	);
-
-	const validate: (value: string) => string = value => {
-		const invalid =
-			lowerCaseString(value) !==
-			lowerCaseString(sub(Liferay.Language.get('delete-x'), [
-				channelName
-			]) as string);
-
-		let error = '';
-
-		if (invalid) {
-			error = Liferay.Language.get('string-does-not-match');
-		}
-
-		return error;
-	};
 
 	return (
 		<Modal
@@ -156,7 +134,10 @@ const DeleteChannelModal: React.FC<IDeleteChannelModalProps> = ({
 										<Form.Input
 											autofocus
 											name='delete'
-											validate={validate}
+											validate={validateInputMessage(sub(
+												Liferay.Language.get('delete-x'),
+												[channelName]
+											) as string)}
 										/>
 									</Modal.Body>
 

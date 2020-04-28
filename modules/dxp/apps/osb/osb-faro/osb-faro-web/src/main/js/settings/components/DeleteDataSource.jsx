@@ -2,7 +2,7 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import FaroConstants from 'shared/util/constants';
-import Form from 'shared/components/form';
+import Form, {validateInputMessage} from 'shared/components/form';
 import getCN from 'classnames';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
@@ -17,9 +17,9 @@ import {
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {DataSource} from 'shared/util/records';
-import {flow, noop, toLower, trim} from 'lodash/fp';
 import {getRouteName} from 'shared/util/router';
 import {getTypeLangKey, sub} from 'shared/util/lang';
+import {noop} from 'lodash/fp';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 
@@ -155,16 +155,6 @@ function getEntityTitle(entityType, dataSourceName) {
 			return Liferay.Language.get('related-segments');
 	}
 }
-
-/**
- * Trim and convert value to lowercase.
- * @param {string} value
- * @return {string} Lowercase & trimmed string.
- */
-const lowerCaseString = flow(
-	toLower,
-	trim
-);
 
 class DataSourceItem extends React.Component {
 	static defaultProps = {
@@ -353,23 +343,6 @@ export class DeleteDataSource extends React.Component {
 		));
 	}
 
-	@autobind
-	validate(value) {
-		const {dataSource, deletePhrase} = this.props;
-
-		const invalid =
-			lowerCaseString(value) !==
-			lowerCaseString(sub(deletePhrase, [dataSource.name]));
-
-		let error = '';
-
-		if (invalid) {
-			error = Liferay.Language.get('string-does-not-match');
-		}
-
-		return error;
-	}
-
 	render() {
 		const {
 			props: {
@@ -418,7 +391,9 @@ export class DeleteDataSource extends React.Component {
 								<Form.Input
 									data-testid='confirmation-input'
 									name='delete'
-									validate={this.validate}
+									validate={validateInputMessage(
+										sub(deletePhrase, [name])
+									)}
 								/>
 							</Sheet.Body>
 
