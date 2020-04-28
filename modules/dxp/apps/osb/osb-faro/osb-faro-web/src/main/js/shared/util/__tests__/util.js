@@ -1,5 +1,6 @@
 import dom from 'metal-dom';
 import {
+	formatStringToLowercase,
 	getAlignPosition,
 	getPercentage,
 	getRangeKeyFromContext,
@@ -12,6 +13,15 @@ import {
 } from '../util';
 
 describe('util', () => {
+	describe('formatStringToLowercase', () => {
+		it('should format a string to lowercase', () => {
+			const text = '   THIS IS A NOT LOWERCASE TEXT   ';
+			const lowercaseText = formatStringToLowercase(text);
+
+			expect(lowercaseText).toEqual('this is a not lowercase text');
+		});
+	});
+
 	describe('getAlignPosition', () => {
 		let source;
 		let target;

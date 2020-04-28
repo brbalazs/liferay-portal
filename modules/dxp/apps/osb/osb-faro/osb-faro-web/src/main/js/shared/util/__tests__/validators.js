@@ -1,6 +1,7 @@
 import Promise from 'metal-promise';
 import {
 	toPromise,
+	validateInputMessage,
 	validateMaxLength,
 	validateMinLength,
 	validateMinValue,
@@ -32,6 +33,24 @@ describe('toPromise', () => {
 		const result = 'errors';
 
 		return expect(toPromise(result)).rejects.toEqual(result);
+	});
+});
+
+describe('validateInputMessage', () => {
+	it('should validate input message as not valid', () => {
+		expect.assertions(1);
+
+		const response = validateInputMessage('bbb')('aaa');
+
+		return expect(response).toEqual('String does not match.');
+	});
+
+	it('should validate input message as valid', () => {
+		expect.assertions(1);
+
+		const response = validateInputMessage('aa')('aa');
+
+		return expect(response).toEqual('');
 	});
 });
 
