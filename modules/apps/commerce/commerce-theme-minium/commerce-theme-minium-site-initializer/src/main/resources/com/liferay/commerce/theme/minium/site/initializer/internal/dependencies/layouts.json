@@ -118,7 +118,8 @@
 				"name": "Checkout",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					}
@@ -131,7 +132,7 @@
 					}
 				],
 				"privateLayout": true
-			},
+			}
 		]
 	},
 	{

@@ -150,7 +150,8 @@
 		"name": "My Account",
 		"permissions": [
 			{
-				"actionIds": [],
+				"actionIds": [
+				],
 				"roleName": "Guest",
 				"scope": 4
 			},
@@ -182,7 +183,8 @@
 				"name": "My Orders",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					},
@@ -218,7 +220,8 @@
 				"name": "Login & Security",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					},
@@ -254,7 +257,8 @@
 				"name": "My Addresses",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					},
@@ -290,7 +294,8 @@
 				"name": "My Subscriptions",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					},
@@ -326,7 +331,8 @@
 				"name": "My Downloads",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					},
@@ -362,7 +368,8 @@
 				"name": "My Lists",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					},
@@ -404,7 +411,8 @@
 				"name": "My Payment Methods",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					},
@@ -488,7 +496,8 @@
 		"name": "Checkout",
 		"permissions": [
 			{
-				"actionIds": [],
+				"actionIds": [
+				],
 				"roleName": "Guest",
 				"scope": 4
 			},

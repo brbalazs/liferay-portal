@@ -43,7 +43,8 @@
 	},
 	"jest": {
 		"globals": {
-			"Liferay": {}
+			"Liferay": {
+			}
 		},
 		"setupFiles": [
 			"<rootDir>/test/liferay/portlet/mock/setup.es.js"

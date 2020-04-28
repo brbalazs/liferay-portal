@@ -11,7 +11,8 @@
 			"lastLevel": false,
 			"name": "Organization 1",
 			"organizationId": 37180,
-			"organizations": [],
+			"organizations": [
+			],
 			"organizationsTotal": 3,
 			"success": true,
 			"total": 0,

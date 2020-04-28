@@ -141,7 +141,8 @@
 				"name": "Checkout",
 				"permissions": [
 					{
-						"actionIds": [],
+						"actionIds": [
+						],
 						"roleName": "Guest",
 						"scope": 4
 					}
@@ -215,7 +216,8 @@
 		"name": "Sales Library",
 		"permissions": [
 			{
-				"actionIds": [],
+				"actionIds": [
+				],
 				"roleName": "Site Member",
 				"scope": 4
 			},
