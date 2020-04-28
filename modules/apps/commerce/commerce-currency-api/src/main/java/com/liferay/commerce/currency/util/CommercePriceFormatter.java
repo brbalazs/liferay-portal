@@ -45,4 +45,7 @@ public interface CommercePriceFormatter {
 			Locale locale)
 		throws PortalException;
 
+	public String formatRelativePrice(
+		CommerceCurrency commerceCurrency, BigDecimal price, Locale locale);
+
 }

@@ -19,6 +19,7 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceCurrencyConstants;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.Validator;
@@ -91,6 +92,30 @@ public class CommercePriceFormatterImpl implements CommercePriceFormatter {
 				companyId, commerceCurrencyCode);
 
 		return format(commerceCurrency, price, locale);
+	}
+
+	@Override
+	public String formatRelativePrice(
+		CommerceCurrency commerceCurrency, BigDecimal relativePrice,
+		Locale locale) {
+
+		DecimalFormat decimalFormat = getDecimalFormat(
+			commerceCurrency, locale);
+
+		if (relativePrice.signum() == -1) {
+			relativePrice = relativePrice.negate();
+
+			return String.format(
+				"%2s %s", StringPool.MINUS,
+				decimalFormat.format(relativePrice));
+		}
+
+		if (relativePrice.signum() == 0) {
+			return StringPool.BLANK;
+		}
+
+		return String.format(
+			"%2s %s", StringPool.PLUS, decimalFormat.format(relativePrice));
 	}
 
 	@Activate
