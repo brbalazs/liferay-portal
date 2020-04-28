@@ -27,4 +27,7 @@ public interface CommerceOptionValueHelper {
 			long cpInstanceId)
 		throws PortalException;
 
+	public List<CommerceOptionValue> getCPDefinitionCommerceOptionValues(
+		long cpDefinitionId, String json) throws PortalException;
+
 }
