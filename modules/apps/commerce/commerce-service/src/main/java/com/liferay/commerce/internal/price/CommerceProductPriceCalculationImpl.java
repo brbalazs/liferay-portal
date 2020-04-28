@@ -72,23 +72,23 @@ public class CommerceProductPriceCalculationImpl
 		long cpInstanceId = commerceProductPriceRequest.getCpInstanceId();
 		int quantity = commerceProductPriceRequest.getQuantity();
 		boolean secure = commerceProductPriceRequest.isSecure();
+
 		CommerceContext commerceContext =
 			commerceProductPriceRequest.getCommerceContext();
-		List<CommerceOptionValue> commerceOptionValues =
-			commerceProductPriceRequest.getCommerceOptionValues();
 
 		CommerceMoney unitPriceMoney = getUnitPrice(
 			cpInstanceId, quantity, commerceContext.getCommerceCurrency(),
 			secure, commerceContext);
 
+		BigDecimal finalPrice = unitPriceMoney.getPrice();
+
 		CommerceMoney promoPriceMoney = getPromoPrice(
 			cpInstanceId, quantity, commerceContext.getCommerceCurrency(),
 			secure, commerceContext);
 
-		BigDecimal unitPrice = unitPriceMoney.getPrice();
 		BigDecimal promoPrice = promoPriceMoney.getPrice();
 
-		BigDecimal finalPrice = unitPrice;
+		BigDecimal unitPrice = unitPriceMoney.getPrice();
 
 		if ((promoPrice != null) &&
 			(promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
@@ -101,6 +101,9 @@ public class CommerceProductPriceCalculationImpl
 			new CommerceProductPriceImpl();
 
 		commerceProductPriceImpl.setQuantity(quantity);
+
+		List<CommerceOptionValue> commerceOptionValues =
+			commerceProductPriceRequest.getCommerceOptionValues();
 
 		BigDecimal[] updatedPrices = _getUpdatedPrices(
 			unitPrice, promoPrice, finalPrice, commerceContext,
@@ -335,6 +338,8 @@ public class CommerceProductPriceCalculationImpl
 			}
 		}
 
+		BigDecimal price = cpInstance.getPrice();
+
 		CommerceCatalog commerceCatalog =
 			_commerceCatalogLocalService.fetchCommerceCatalogByGroupId(
 				cpInstance.getGroupId());
@@ -343,8 +348,6 @@ public class CommerceProductPriceCalculationImpl
 			_commerceCurrencyLocalService.getCommerceCurrency(
 				commerceCatalog.getCompanyId(),
 				commerceCatalog.getCommerceCurrencyCode());
-
-		BigDecimal price = cpInstance.getPrice();
 
 		if (catalogCommerceCurrency.getCommerceCurrencyId() !=
 				commerceCurrency.getCommerceCurrencyId()) {

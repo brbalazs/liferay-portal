@@ -85,16 +85,17 @@ public class CommerceProductPriceCalculationV2Impl
 
 		long cpInstanceId = commerceProductPriceRequest.getCpInstanceId();
 		int quantity = commerceProductPriceRequest.getQuantity();
+
 		CommerceContext commerceContext =
 			commerceProductPriceRequest.getCommerceContext();
-		List<CommerceOptionValue> commerceOptionValues =
-			commerceProductPriceRequest.getCommerceOptionValues();
 
 		long commercePriceListId = _getCommercePriceListId(
 			cpInstanceId, commerceContext);
 
 		CommerceMoney unitPriceMoney = _getUnitPrice(
 			commercePriceListId, cpInstanceId, quantity, commerceContext);
+
+		BigDecimal finalPrice = unitPriceMoney.getPrice();
 
 		long commercePromoPriceListId = _getCommercePromoPriceListId(
 			cpInstanceId, commerceContext);
@@ -104,8 +105,6 @@ public class CommerceProductPriceCalculationV2Impl
 
 		BigDecimal unitPrice = unitPriceMoney.getPrice();
 		BigDecimal promoPrice = promoPriceMoney.getPrice();
-
-		BigDecimal finalPrice = unitPrice;
 
 		if ((promoPrice != null) &&
 			(promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
@@ -120,6 +119,9 @@ public class CommerceProductPriceCalculationV2Impl
 			new CommerceProductPriceImpl();
 
 		commerceProductPriceImpl.setQuantity(quantity);
+
+		List<CommerceOptionValue> commerceOptionValues =
+			commerceProductPriceRequest.getCommerceOptionValues();
 
 		BigDecimal[] updatedPrices = _getUpdatedPrices(
 			unitPrice, promoPrice, finalPrice, commerceContext,

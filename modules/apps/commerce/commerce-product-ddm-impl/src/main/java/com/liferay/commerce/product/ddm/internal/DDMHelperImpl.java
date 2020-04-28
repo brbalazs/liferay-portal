@@ -158,14 +158,14 @@ public class DDMHelperImpl implements DDMHelper {
 
 		Locale locale = _portal.getLocale(renderRequest);
 
+		long commerceAccountId = 0;
+
 		CommerceAccount commerceAccount =
 			_commerceAccountHelper.getCurrentCommerceAccount(
 				_commerceChannelLocalService.
 					getCommerceChannelGroupIdBySiteGroupId(
 						_portal.getScopeGroupId(renderRequest)),
 				_portal.getHttpServletRequest(renderRequest));
-
-		long commerceAccountId = 0;
 
 		if (commerceAccount != null) {
 			commerceAccountId = commerceAccount.getCommerceAccountId();

@@ -130,15 +130,15 @@ public class JsonHelperImpl implements JsonHelper {
 		for (Map.Entry<String, List<String>> keyValuesEntry :
 				keyValues.entrySet()) {
 
-			String key = keyValuesEntry.getKey();
-
 			JSONObject arrayEntryJSONObject = _jsonFactory.createJSONObject();
+
+			String key = keyValuesEntry.getKey();
 
 			arrayEntryJSONObject.put("key", key);
 
-			List<String> values = keyValuesEntry.getValue();
-
 			JSONArray valuesJSONArray = _jsonFactory.createJSONArray();
+
+			List<String> values = keyValuesEntry.getValue();
 
 			for (String value : values) {
 				valuesJSONArray.put(value);

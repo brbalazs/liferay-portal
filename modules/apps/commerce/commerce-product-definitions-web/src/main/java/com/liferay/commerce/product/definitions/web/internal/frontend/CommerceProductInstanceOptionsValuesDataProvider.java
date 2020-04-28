@@ -127,21 +127,21 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			 * 3 - Size empty and Color filled - the same approach that item 2
 			 * 4 - Size and Color both filled - the same approach that item 1
 			 */
-			Map<String, String> parameters =
-				ddmDataProviderRequest.getParameters();
-
-			List<CPDefinitionOptionRel> cpDefinitionOptionRels =
-				_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
-					cpDefinitionId, true);
-
 			List<CPDefinitionOptionRel> requestedCPDefinitionOptionRels =
 				new ArrayList<>();
 
 			List<Long> selectedCPDefinitionOptionValueRelIds =
 				new ArrayList<>();
 
+			List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+				_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
+					cpDefinitionId, true);
+
 			for (CPDefinitionOptionRel cpDefinitionOptionRel :
 					cpDefinitionOptionRels) {
+
+				Map<String, String> parameters =
+					ddmDataProviderRequest.getParameters();
 
 				String parameterValue = parameters.get(
 					cpDefinitionOptionRel.getKey());

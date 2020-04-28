@@ -61,11 +61,11 @@ public abstract class BaseCommerceProductPriceCalculation
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinitionOptionRels) {
 
-			String priceType = cpDefinitionOptionRel.getPriceType();
-
 			if (!_isPriceContributor(cpDefinitionOptionRel)) {
 				continue;
 			}
+
+			String priceType = cpDefinitionOptionRel.getPriceType();
 
 			if (_isStaticPriceType(priceType)) {
 				cpDefinitionMinimumPrice = cpDefinitionMinimumPrice.add(
@@ -94,11 +94,11 @@ public abstract class BaseCommerceProductPriceCalculation
 		_validate(
 			cpDefinitionOptionValueRel, selectedCPDefinitionOptionValueRel);
 
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
-
 		CommerceCurrency commerceCurrency =
 			commerceContext.getCommerceCurrency();
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
 
 		String priceType = cpDefinitionOptionRel.getPriceType();
 
@@ -107,11 +107,12 @@ public abstract class BaseCommerceProductPriceCalculation
 				commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
 		}
 
-		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
-		BigDecimal relativePrice = null;
-
 		if (_isStaticPriceType(priceType)) {
+			BigDecimal relativePrice = null;
+
 			if (selectedCPDefinitionOptionValueRel != null) {
+				BigDecimal price = cpDefinitionOptionValueRel.getPrice();
+
 				relativePrice = price.subtract(
 					selectedCPDefinitionOptionValueRel.getPrice());
 			}

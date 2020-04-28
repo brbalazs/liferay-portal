@@ -393,8 +393,8 @@ public class CommerceOrderItemLocalServiceTest {
 		).given(
 			"A catalog with 2 cpInstances"
 		).and(
-			"A product bundles with a dynamic-price option with values " +
-				"linked to the cpInstances"
+			"A product bundle with a dynamic-price option with values linked " +
+				"to the cpInstances"
 		).when(
 			"I add the bundle to an order"
 		).then(
@@ -417,8 +417,8 @@ public class CommerceOrderItemLocalServiceTest {
 		).given(
 			"A catalog with 2 cpInstances"
 		).and(
-			"A product bundles with a dynamic-price option with values " +
-				"linked to the same cpInstance"
+			"A product bundle with a dynamic-price option with values linked " +
+				"to the same cpInstance"
 		).when(
 			"I add the bundle to an order"
 		).then(
@@ -439,7 +439,7 @@ public class CommerceOrderItemLocalServiceTest {
 			"Add a product bundle with static price option not linked to a " +
 				"SKU to an order"
 		).given(
-			"A product bundles with a static-price option with values linked " +
+			"A product bundle with a static-price option with values linked " +
 				"to the cpInstances"
 		).when(
 			"I add the bundle to an order"
@@ -451,15 +451,15 @@ public class CommerceOrderItemLocalServiceTest {
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
-		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
-
 		CommerceAccount commerceAccount =
 			_commerceAccountLocalService.addPersonalCommerceAccount(
 				_user.getUserId(), StringPool.BLANK, StringPool.BLANK,
 				serviceContext);
 
 		Assert.assertNotNull(commerceAccount);
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
 
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
 			_commerceCurrency.getCode());
@@ -547,7 +547,7 @@ public class CommerceOrderItemLocalServiceTest {
 		).given(
 			"A catalog with 2 cpInstances"
 		).and(
-			"A product bundles with a static-price option with values linked " +
+			"A product bundle with a static-price option with values linked " +
 				"to the same cpInstance"
 		).when(
 			"I add the bundle to an order"
@@ -569,7 +569,7 @@ public class CommerceOrderItemLocalServiceTest {
 		).given(
 			"A catalog with 2 cpInstances"
 		).and(
-			"A product bundles with a static-price option with values linked " +
+			"A product bundle with a static-price option with values linked " +
 				"to the cpInstances"
 		).when(
 			"I add the bundle to an order"
@@ -1169,7 +1169,6 @@ public class CommerceOrderItemLocalServiceTest {
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
 		int originalBundleQuantity = bundleOrderItem.getQuantity();
-		int originalChildQuantity = childOrderItem.getQuantity();
 
 		bundleOrderItem =
 			_commerceOrderItemLocalService.updateCommerceOrderItem(
@@ -1177,26 +1176,32 @@ public class CommerceOrderItemLocalServiceTest {
 				originalBundleQuantity * factor, commerceContext,
 				serviceContext);
 
+		Assert.assertEquals(
+			originalBundleQuantity * factor, bundleOrderItem.getQuantity());
+
+		int originalChildQuantity = childOrderItem.getQuantity();
+
 		CommerceOrderItem updatedChildOrderItem =
 			_commerceOrderItemLocalService.getCommerceOrderItem(
 				childOrderItem.getCommerceOrderItemId());
 
 		Assert.assertEquals(
-			originalBundleQuantity * factor, bundleOrderItem.getQuantity());
-		Assert.assertEquals(
 			originalChildQuantity * factor,
 			updatedChildOrderItem.getQuantity());
 
 		BigDecimal originalBundlePrice = bundleOrderItem.getFinalPrice();
-		BigDecimal originalChildPrice = childOrderItem.getFinalPrice();
 
 		BigDecimal expectedBundlePrice = originalBundlePrice.multiply(
-			BigDecimal.valueOf(factor));
-		BigDecimal expectedChildPrice = originalChildPrice.multiply(
 			BigDecimal.valueOf(factor));
 
 		Assert.assertEquals(
 			expectedBundlePrice, bundleOrderItem.getFinalPrice());
+
+		BigDecimal originalChildPrice = childOrderItem.getFinalPrice();
+
+		BigDecimal expectedChildPrice = originalChildPrice.multiply(
+			BigDecimal.valueOf(factor));
+
 		Assert.assertEquals(
 			expectedChildPrice, updatedChildOrderItem.getFinalPrice());
 	}
