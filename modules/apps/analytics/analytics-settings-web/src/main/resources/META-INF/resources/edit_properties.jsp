@@ -55,12 +55,12 @@ String keywords = ParamUtil.getString(request, "keywords");
 				<liferay-ui:message key="unable-to-retrieve-the-properties-from-analytics-cloud" />
 
 				<div class="mt-4">
-					<liferay-portlet:renderURL varImpl="selectSitesURL">
-						<portlet:param name="mvcRenderCommandName" value="/view_configuration_screen" />
-						<portlet:param name="configurationScreenKey" value="synced-sites" />
-					</liferay-portlet:renderURL>
+					<portlet:renderURL var="selectSitesURL">
+						<portlet:param name="mvcRenderCommandName" value="/analytics/view" />
+						<portlet:param name="tabs1" value="synced-sites" />
+					</portlet:renderURL>
 
-					<a class="btn btn-primary" href="<%= selectSitesURL.toString() %>">
+					<a class="btn btn-primary" href="<%= selectSitesURL %>">
 						<span class="lfr-btn-label"><liferay-ui:message key="retry" /></span>
 					</a>
 				</div>
