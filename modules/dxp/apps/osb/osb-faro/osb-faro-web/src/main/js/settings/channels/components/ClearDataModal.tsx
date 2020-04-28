@@ -6,12 +6,17 @@ import React from 'react';
 import {flow, toLower, trim} from 'lodash/fp';
 import {sub} from 'shared/util/lang';
 
-const lowerCaseString = flow(
+/**
+ * Trim and convert value to lowercase.
+ * @param {string} value
+ * @return {string} Lowercase & trimmed string.
+ */
+const formatStringToLowercase: (value: string) => string = flow(
 	toLower,
 	trim
 );
 
-interface IClearDataChannelModalProps
+interface IClearDataModalProps
 	extends React.HTMLAttributes<HTMLElement> {
 	channelName: string;
 	onClose: () => void;
@@ -19,7 +24,7 @@ interface IClearDataChannelModalProps
 	title?: string;
 }
 
-const ClearDataChannelModal: React.FC<IClearDataChannelModalProps> = ({
+const ClearDataModal: React.FC<IClearDataModalProps> = ({
 	channelName,
 	className,
 	onClose,
@@ -28,8 +33,8 @@ const ClearDataChannelModal: React.FC<IClearDataChannelModalProps> = ({
 }) => {
 	const validate: (value: string) => string = value => {
 		const invalid =
-			lowerCaseString(value) !==
-			lowerCaseString(sub(Liferay.Language.get('clear-x'), [
+		formatStringToLowercase(value) !==
+		formatStringToLowercase(sub(Liferay.Language.get('clear-x'), [
 				channelName
 			]) as string);
 
@@ -70,7 +75,7 @@ const ClearDataChannelModal: React.FC<IClearDataChannelModalProps> = ({
 									<strong>
 										{sub(
 											Liferay.Language.get(
-												'to-clear-data-from-x,-copy-the-sentence-below-to-confirm-your-intention-to-delete-property'
+												'to-clear-data-from-x,-copy-the-sentence-below-to-confirm-your-intention-to-clear-data-from-this-property'
 											),
 											[channelName]
 										)}
@@ -128,4 +133,4 @@ const ClearDataChannelModal: React.FC<IClearDataChannelModalProps> = ({
 	);
 };
 
-export default ClearDataChannelModal;
+export default ClearDataModal;
