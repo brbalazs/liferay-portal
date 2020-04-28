@@ -186,7 +186,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						});
 
 						selectionDispatch({type: ACTION_TYPES.clearAll});
-						
+
 						this._tableRef.current.reload();
 
 						close();
@@ -254,7 +254,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						selectionDispatch({type: ACTION_TYPES.clearAll});
 
 						this._tableRef.current.reload();
-						
+
 						close();
 					})
 					.catch(err =>
@@ -331,9 +331,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 					<Button
 						borderless
 						display='secondary'
-						onClick={() =>
-							this.handleClearData(checkedItemsISet)
-						}
+						onClick={() => this.handleClearData(checkedItemsISet)}
 						outline
 					>
 						{Liferay.Language.get('clear-data')}

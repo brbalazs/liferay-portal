@@ -16,8 +16,7 @@ const formatStringToLowercase: (value: string) => string = flow(
 	trim
 );
 
-interface IClearDataModalProps
-	extends React.HTMLAttributes<HTMLElement> {
+interface IClearDataModalProps extends React.HTMLAttributes<HTMLElement> {
 	channelName: string;
 	onClose: () => void;
 	onSubmit: () => void;
@@ -33,8 +32,8 @@ const ClearDataModal: React.FC<IClearDataModalProps> = ({
 }) => {
 	const validate: (value: string) => string = value => {
 		const invalid =
-		formatStringToLowercase(value) !==
-		formatStringToLowercase(sub(Liferay.Language.get('clear-x'), [
+			formatStringToLowercase(value) !==
+			formatStringToLowercase(sub(Liferay.Language.get('clear-x'), [
 				channelName
 			]) as string);
 
