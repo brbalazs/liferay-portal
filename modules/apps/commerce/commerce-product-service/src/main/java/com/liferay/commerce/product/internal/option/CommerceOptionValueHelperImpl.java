@@ -20,6 +20,8 @@ import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.option.CommerceOptionValueHelper;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
@@ -41,6 +43,86 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = CommerceOptionValueHelper.class)
 public class CommerceOptionValueHelperImpl
 	implements CommerceOptionValueHelper {
+
+	@Override
+	public List<CommerceOptionValue> getCPDefinitionCommerceOptionValues(
+			long cpDefinitionId, String json)
+		throws PortalException {
+
+		Map<Long, List<Long>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRelIds =
+				_cpDefinitionOptionRelLocalService.
+					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
+						cpDefinitionId, json);
+
+		if (cpDefinitionOptionRelCPDefinitionOptionValueRelIds.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
+
+		cpDefinitionOptionRelCPDefinitionOptionValueRelIds.forEach(
+			(key, value) -> {
+				for (long cpDefinitionOpionValueRelId : value) {
+					CPDefinitionOptionRel cpDefinitionOptionRel =
+						_cpDefinitionOptionRelLocalService.
+							fetchCPDefinitionOptionRel(key);
+
+					if (cpDefinitionOptionRel == null) {
+						continue;
+					}
+
+					CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+						_cpDefinitionOptionValueRelLocalService.
+							fetchCPDefinitionOptionValueRel(
+								cpDefinitionOpionValueRelId);
+
+					if (cpDefinitionOptionValueRel == null) {
+						continue;
+					}
+
+					CommerceOptionValueImpl.Builder commerceOptionValueBuilder =
+						new CommerceOptionValueImpl.Builder();
+
+					commerceOptionValueBuilder.optionKey(
+						cpDefinitionOptionRel.getKey());
+					commerceOptionValueBuilder.priceType(
+						cpDefinitionOptionRel.getPriceType());
+
+					commerceOptionValueBuilder.price(
+						cpDefinitionOptionValueRel.getPrice());
+					commerceOptionValueBuilder.quantity(
+						cpDefinitionOptionValueRel.getQuantity());
+
+					if (Objects.equals(
+							cpDefinitionOptionRel.getPriceType(),
+							CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+						commerceOptionValues.add(
+							commerceOptionValueBuilder.build());
+
+						continue;
+					}
+
+					CPInstance cpDefinitionOptionValueRelCPInstance =
+						cpDefinitionOptionValueRel.fetchCPInstance();
+
+					if (cpDefinitionOptionValueRelCPInstance != null) {
+						commerceOptionValueBuilder.cpInstanceId(
+							cpDefinitionOptionValueRelCPInstance.
+								getCPInstanceId());
+
+						commerceOptionValueBuilder.price(
+							cpDefinitionOptionValueRelCPInstance.getPrice());
+					}
+
+					commerceOptionValues.add(
+						commerceOptionValueBuilder.build());
+				}
+			});
+
+		return commerceOptionValues;
+	}
 
 	@Override
 	public List<CommerceOptionValue> getCPInstanceCommerceOptionValues(
@@ -114,6 +196,14 @@ public class CommerceOptionValueHelperImpl
 
 		return commerceOptionValues;
 	}
+
+	@Reference
+	private CPDefinitionOptionRelLocalService
+		_cpDefinitionOptionRelLocalService;
+
+	@Reference
+	private CPDefinitionOptionValueRelLocalService
+		_cpDefinitionOptionValueRelLocalService;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
