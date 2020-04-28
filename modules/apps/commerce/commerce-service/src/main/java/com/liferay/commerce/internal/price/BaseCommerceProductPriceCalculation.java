@@ -18,6 +18,7 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.currency.util.PriceFormat;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -104,7 +105,8 @@ public abstract class BaseCommerceProductPriceCalculation
 
 		if (Validator.isNull(priceType)) {
 			return commerceMoneyFactory.create(
-				commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
+				commerceContext.getCommerceCurrency(), BigDecimal.ZERO,
+				PriceFormat.RELATIVE);
 		}
 
 		if (_isStaticPriceType(priceType)) {
@@ -117,7 +119,8 @@ public abstract class BaseCommerceProductPriceCalculation
 
 			return commerceMoneyFactory.create(
 				commerceCurrency,
-				relativePrice.multiply(commerceCurrency.getRate()));
+				relativePrice.multiply(commerceCurrency.getRate()),
+				PriceFormat.RELATIVE);
 		}
 
 		BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
@@ -127,7 +130,7 @@ public abstract class BaseCommerceProductPriceCalculation
 
 		if (selectedCPDefinitionOptionValueRel == null) {
 			return commerceMoneyFactory.create(
-				commerceCurrency, cpInstanceFinalPrice);
+				commerceCurrency, cpInstanceFinalPrice, PriceFormat.RELATIVE);
 		}
 
 		BigDecimal selectedCPInstanceFinalPrice = _getCPInstanceFinalPrice(
@@ -137,7 +140,8 @@ public abstract class BaseCommerceProductPriceCalculation
 
 		return commerceMoneyFactory.create(
 			commerceCurrency,
-			cpInstanceFinalPrice.subtract(selectedCPInstanceFinalPrice));
+			cpInstanceFinalPrice.subtract(selectedCPInstanceFinalPrice),
+			PriceFormat.RELATIVE);
 	}
 
 	@Reference
