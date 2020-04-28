@@ -1,4 +1,5 @@
 import Promise from 'metal-promise';
+import {formatStringToLowercase} from 'shared/util/util';
 import {isObject, isString} from 'lodash';
 import {sub} from 'shared/util/lang';
 
@@ -16,6 +17,22 @@ export function toPromise(value: Promise | Object | string): Promise {
 	}
 
 	return Promise.resolve(value);
+}
+
+export function validateInputMessage(messageValue: string) {
+	return value => {
+		let error = '';
+
+		const invalid =
+			formatStringToLowercase(value) !==
+			formatStringToLowercase(messageValue);
+
+		if (invalid) {
+			error = Liferay.Language.get('string-does-not-match');
+		}
+
+		return error;
+	};
 }
 
 export function validateRequired(value: {value: any} | string) {
