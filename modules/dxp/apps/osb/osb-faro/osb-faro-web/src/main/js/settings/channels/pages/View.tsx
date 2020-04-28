@@ -185,7 +185,7 @@ const View: React.FC<IViewProps> = ({
 						<Button
 							className='mr-3'
 							onClick={() =>
-								open(modalTypes.CLEAR_DATA_CHANNEL_MODAL, {
+								open(modalTypes.CLEAR_DATA_MODAL, {
 									channelName: name,
 									onClose: close,
 									onSubmit: () => {
@@ -199,8 +199,6 @@ const View: React.FC<IViewProps> = ({
 													'data-from-x-has-been-cleared'
 												);
 
-												close();
-
 												addAlert({
 													alertType:
 														Alert.Types.SUCCESS,
@@ -209,6 +207,8 @@ const View: React.FC<IViewProps> = ({
 														[name]
 													) as string
 												});
+
+												close();
 											})
 											.catch(err =>
 												addAlert({

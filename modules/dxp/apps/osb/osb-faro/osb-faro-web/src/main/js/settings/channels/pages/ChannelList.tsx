@@ -144,7 +144,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 	}
 
 	@autobind
-	handleClearDataChannel(selectedItems: SelectedItems) {
+	handleClearData(selectedItems: SelectedItems) {
 		const {
 			context: {selectionDispatch},
 			props: {addAlert, close, groupId, open}
@@ -158,7 +158,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 			ids.length
 		) as string;
 
-		open(modalTypes.CLEAR_DATA_CHANNEL_MODAL, {
+		open(modalTypes.CLEAR_DATA_MODAL, {
 			channelName: message,
 			onClose: close,
 			onSubmit: () =>
@@ -186,10 +186,10 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						});
 
 						selectionDispatch({type: ACTION_TYPES.clearAll});
+						
+						this._tableRef.current.reload();
 
 						close();
-
-						this._tableRef.current.reload();
 					})
 					.catch(err =>
 						addAlert({
@@ -253,9 +253,9 @@ export class ChannelList extends React.Component<IChannelListProps> {
 
 						selectionDispatch({type: ACTION_TYPES.clearAll});
 
-						close();
-
 						this._tableRef.current.reload();
+						
+						close();
 					})
 					.catch(err =>
 						addAlert({
@@ -332,7 +332,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						borderless
 						display='secondary'
 						onClick={() =>
-							this.handleClearDataChannel(checkedItemsISet)
+							this.handleClearData(checkedItemsISet)
 						}
 						outline
 					>
