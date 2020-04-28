@@ -5,7 +5,7 @@ import {
 	LAST_90_DAYS,
 	POSITIONS
 } from 'shared/util/constants';
-import {isFinite, isNil, isString} from 'lodash';
+import {flow, isFinite, isNil, isString, toLower, trim} from 'lodash';
 
 /**
  * Check if the value is blank.
@@ -214,3 +214,13 @@ export const getRangeKeyFromContext = ({
 
 	return rangeKey;
 };
+
+/**
+ * Trim and convert value to lowercase.
+ * @param {string} value
+ * @return {string} Lowercase & trimmed string.
+ */
+export const formatStringToLowercase: (value: string) => string = flow(
+	toLower,
+	trim
+);
