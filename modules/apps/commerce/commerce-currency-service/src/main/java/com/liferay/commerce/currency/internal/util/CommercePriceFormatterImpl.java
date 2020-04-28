@@ -99,19 +99,17 @@ public class CommercePriceFormatterImpl implements CommercePriceFormatter {
 		CommerceCurrency commerceCurrency, BigDecimal relativePrice,
 		Locale locale) {
 
+		if (relativePrice.signum() == 0) {
+			return StringPool.BLANK;
+		}
+
 		DecimalFormat decimalFormat = getDecimalFormat(
 			commerceCurrency, locale);
 
 		if (relativePrice.signum() == -1) {
-			relativePrice = relativePrice.negate();
-
 			return String.format(
 				"%2s %s", StringPool.MINUS,
-				decimalFormat.format(relativePrice));
-		}
-
-		if (relativePrice.signum() == 0) {
-			return StringPool.BLANK;
+				decimalFormat.format(relativePrice.negate()));
 		}
 
 		return String.format(
