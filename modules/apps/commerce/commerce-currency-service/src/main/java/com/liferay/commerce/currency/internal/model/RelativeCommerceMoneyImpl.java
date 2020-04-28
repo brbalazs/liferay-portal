@@ -41,7 +41,7 @@ public class RelativeCommerceMoneyImpl extends CommerceMoneyImpl {
 			price = BigDecimal.ZERO;
 		}
 
-		return _commercePriceFormatter.formatRelativePrice(
+		return _commercePriceFormatter.formatAsRelative(
 			getCommerceCurrency(), price, locale);
 	}
 

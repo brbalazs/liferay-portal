@@ -95,7 +95,7 @@ public class CommercePriceFormatterImpl implements CommercePriceFormatter {
 	}
 
 	@Override
-	public String formatRelativePrice(
+	public String formatAsRelative(
 		CommerceCurrency commerceCurrency, BigDecimal relativePrice,
 		Locale locale) {
 
