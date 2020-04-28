@@ -40,6 +40,7 @@ import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -731,7 +732,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CommercePriceEntryTestUtil.addCommercePriceEntry(
 			cProduct.getCProductId(), cpInstance1.getCPInstanceUuid(),
-			commercePriceList.getCommercePriceListId(), "",
+			commercePriceList.getCommercePriceListId(), StringPool.BLANK,
 			cpInstancePriceEntryPrice1);
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(

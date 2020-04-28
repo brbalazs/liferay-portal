@@ -84,8 +84,8 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 		</div>
 
 		<%
-		String cpInstanceId = "";
-		String cpInstanceLabel = "";
+		String cpInstanceId = StringPool.BLANK;
+		String cpInstanceLabel = StringPool.BLANK;
 
 		CPInstance cpInstance = cpDefinitionOptionValueRel.fetchCPInstance();
 
