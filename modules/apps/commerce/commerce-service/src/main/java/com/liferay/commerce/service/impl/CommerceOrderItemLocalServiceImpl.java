@@ -855,30 +855,6 @@ public class CommerceOrderItemLocalServiceImpl
 
 		updateWorkflow(commerceOrder, serviceContext);
 
-		CommerceProductPriceCalculation commerceProductPriceCalculation =
-			_commerceProductPriceCalculationFactory.
-				getCommerceProductPriceCalculation();
-
-		if (commerceProductPrice == null) {
-			CommerceProductPriceRequest commerceProductPriceRequest =
-				new CommerceProductPriceRequest();
-
-			commerceProductPriceRequest.setCpInstanceId(cpInstanceId);
-			commerceProductPriceRequest.setQuantity(quantity);
-			commerceProductPriceRequest.setSecure(false);
-			commerceProductPriceRequest.setCommerceContext(commerceContext);
-			commerceProductPriceRequest.setCommerceOptionValues(
-				_getStaticOptionValuesNotLinkedToSku(cpInstanceId));
-
-			commerceProductPrice =
-				commerceProductPriceCalculation.getCommerceProductPrice(
-					commerceProductPriceRequest);
-		}
-
-		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
-		CommerceMoney unitPriceMoney = commerceProductPrice.getUnitPrice();
-		CommerceMoney unitPromoPriceMoney =
-			commerceProductPrice.getUnitPromoPrice();
 		User user = userLocalService.getUser(serviceContext.getUserId());
 
 		long commerceOrderItemId = counterLocalService.increment();
@@ -900,9 +876,20 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setShippedQuantity(shippedQuantity);
 		commerceOrderItem.setJson(json);
 		commerceOrderItem.setOptionValueJSON(optionValueJSON);
+
+		if (commerceProductPrice == null) {
+			commerceProductPrice = _getCommerceProductPrice(
+				quantity, cpInstance, json, commerceContext);
+		}
+
+		CommerceMoney unitPriceMoney = commerceProductPrice.getUnitPrice();
+
 		commerceOrderItem.setUnitPrice(unitPriceMoney.getPrice());
 
 		BigDecimal promoPrice = BigDecimal.ZERO;
+
+		CommerceMoney unitPromoPriceMoney =
+			commerceProductPrice.getUnitPromoPrice();
 
 		if (unitPromoPriceMoney != null) {
 			promoPrice = unitPromoPriceMoney.getPrice();
@@ -910,7 +897,10 @@ public class CommerceOrderItemLocalServiceImpl
 
 		commerceOrderItem.setPromoPrice(promoPrice);
 
+		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
+
 		commerceOrderItem.setFinalPrice(finalPriceMoney.getPrice());
+
 		commerceOrderItem.setNameMap(cpDefinition.getNameMap());
 		commerceOrderItem.setSku(cpInstance.getSku());
 		commerceOrderItem.setManuallyAdjusted(false);
@@ -919,26 +909,11 @@ public class CommerceOrderItemLocalServiceImpl
 		_setCommerceOrderItemDiscountValue(
 			commerceOrderItem, commerceProductPrice.getDiscountValue());
 
-		boolean subscription = false;
-
-		if (cpDefinition.isSubscriptionEnabled() ||
-			cpDefinition.isDeliverySubscriptionEnabled()) {
-
-			subscription = true;
-		}
-
-		if (cpInstance.isOverrideSubscriptionInfo() &&
-			(cpInstance.isSubscriptionEnabled() ||
-			 cpInstance.isDeliverySubscriptionEnabled())) {
-
-			subscription = true;
-		}
-
-		commerceOrderItem.setSubscription(subscription);
+		commerceOrderItem.setSubscription(_isSubscription(cpInstance));
 
 		List<CommerceOptionValue> commerceOptionValues =
-			_commerceOptionValueHelper.getCPInstanceCommerceOptionValues(
-				cpInstanceId);
+			_commerceOptionValueHelper.getCPDefinitionCommerceOptionValues(
+				cpDefinition.getCPDefinitionId(), json);
 
 		if (commerceOptionValues.isEmpty()) {
 			commerceOrderItem = commerceOrderItemPersistence.update(
@@ -950,38 +925,9 @@ public class CommerceOrderItemLocalServiceImpl
 			return commerceOrderItem;
 		}
 
-		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
-			if (Validator.isNull(commerceOptionValue.getPriceType())) {
-				continue;
-			}
-
-			if (!_isStaticPriceType(commerceOptionValue.getPriceType())) {
-				_addCommerceOrderItem(
-					commerceOrderId, commerceOptionValue.getCPInstanceId(),
-					commerceOrderItemId, commerceOptionValue.getQuantity(), 0,
-					null, _jsonFactory.serialize(commerceOptionValue), null,
-					commerceContext, serviceContext);
-
-				continue;
-			}
-
-			if (commerceOptionValue.getCPInstanceId() <= 0) {
-				continue;
-			}
-
-			CommerceProductPrice staticCommerceProductPrice =
-				_getStaticCommerceProductPrice(
-					commerceOptionValue.getCPInstanceId(),
-					commerceOptionValue.getQuantity(),
-					commerceOptionValue.getPrice(),
-					commerceContext.getCommerceCurrency());
-
-			_addCommerceOrderItem(
-				commerceOrderId, commerceOptionValue.getCPInstanceId(),
-				commerceOrderItemId, commerceOptionValue.getQuantity(), 0, null,
-				_jsonFactory.serialize(commerceOptionValue),
-				staticCommerceProductPrice, commerceContext, serviceContext);
-		}
+		_processCommerceOptionValues(
+			commerceOrderId, commerceOrderItemId, commerceOptionValues,
+			commerceContext, serviceContext);
 
 		commerceOrderItem = commerceOrderItemPersistence.update(
 			commerceOrderItem);
@@ -1045,6 +991,31 @@ public class CommerceOrderItemLocalServiceImpl
 		return commerceOrderItem;
 	}
 
+	private CommerceProductPrice _getCommerceProductPrice(
+			int quantity, CPInstance cpInstance, String json,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceProductPriceCalculation commerceProductPriceCalculation =
+			_commerceProductPriceCalculationFactory.
+				getCommerceProductPriceCalculation();
+
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(quantity);
+		commerceProductPriceRequest.setSecure(false);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			_getStaticOptionValuesNotLinkedToSku(
+				cpInstance.getCPDefinitionId(), json));
+
+		return commerceProductPriceCalculation.getCommerceProductPrice(
+			commerceProductPriceRequest);
+	}
+
 	private String _getCPInstanceOptionValueRelsJSONString(long cpInstanceId)
 		throws PortalException {
 
@@ -1088,12 +1059,12 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	private List<CommerceOptionValue> _getStaticOptionValuesNotLinkedToSku(
-			long cpInstanceId)
+			long cpDefinitionId, String jsonArrayString)
 		throws PortalException {
 
 		List<CommerceOptionValue> commerceOptionValues =
-			_commerceOptionValueHelper.getCPInstanceCommerceOptionValues(
-				cpInstanceId);
+			_commerceOptionValueHelper.getCPDefinitionCommerceOptionValues(
+				cpDefinitionId, jsonArrayString);
 
 		Stream<CommerceOptionValue> commerceOptionValuesStream =
 			commerceOptionValues.stream();
@@ -1115,6 +1086,65 @@ public class CommerceOrderItemLocalServiceImpl
 		}
 
 		return false;
+	}
+
+	private boolean _isSubscription(CPInstance cpInstance)
+		throws PortalException {
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+		if (cpDefinition.isSubscriptionEnabled() ||
+			cpDefinition.isDeliverySubscriptionEnabled()) {
+
+			return true;
+		}
+
+		if (cpInstance.isOverrideSubscriptionInfo() &&
+			(cpInstance.isSubscriptionEnabled() ||
+			 cpInstance.isDeliverySubscriptionEnabled())) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private void _processCommerceOptionValues(
+			long commerceOrderId, long commerceOrderItemId,
+			List<CommerceOptionValue> commerceOptionValues,
+			CommerceContext commerceContext, ServiceContext serviceContext)
+		throws PortalException {
+
+		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
+			if (Validator.isNull(commerceOptionValue.getPriceType())) {
+				continue;
+			}
+
+			if (!_isStaticPriceType(commerceOptionValue.getPriceType())) {
+				_addCommerceOrderItem(
+					commerceOrderId, commerceOptionValue.getCPInstanceId(),
+					commerceOrderItemId, commerceOptionValue.getQuantity(), 0,
+					null, _jsonFactory.serialize(commerceOptionValue), null,
+					commerceContext, serviceContext);
+
+				continue;
+			}
+
+			if (commerceOptionValue.getCPInstanceId() <= 0) {
+				continue;
+			}
+
+			_addCommerceOrderItem(
+				commerceOrderId, commerceOptionValue.getCPInstanceId(),
+				commerceOrderItemId, commerceOptionValue.getQuantity(), 0, null,
+				_jsonFactory.serialize(commerceOptionValue),
+				_getStaticCommerceProductPrice(
+					commerceOptionValue.getCPInstanceId(),
+					commerceOptionValue.getQuantity(),
+					commerceOptionValue.getPrice(),
+					commerceContext.getCommerceCurrency()),
+				commerceContext, serviceContext);
+		}
 	}
 
 	private void _setCommerceOrderItemDiscountValue(
@@ -1189,7 +1219,8 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceProductPriceRequest.setCommerceContext(commerceContext);
 			commerceProductPriceRequest.setCommerceOptionValues(
 				_getStaticOptionValuesNotLinkedToSku(
-					commerceOrderItem.getCPInstanceId()));
+					commerceOrderItem.getCPDefinitionId(),
+					commerceOrderItem.getJson()));
 
 			commerceProductPrice =
 				commerceProductPriceCalculation.getCommerceProductPrice(
@@ -1245,7 +1276,8 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceProductPriceRequest.setCommerceContext(commerceContext);
 			commerceProductPriceRequest.setCommerceOptionValues(
 				_getStaticOptionValuesNotLinkedToSku(
-					commerceOrderItem.getCPInstanceId()));
+					commerceOrderItem.getCPDefinitionId(),
+					commerceOrderItem.getJson()));
 
 			commerceProductPrice =
 				commerceProductPriceCalculation.getCommerceProductPrice(
