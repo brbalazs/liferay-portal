@@ -62,46 +62,55 @@ public class CommerceOptionValueHelperImpl
 				_cpInstanceHelper.getCPInstanceCPDefinitionOptionRelsMap(
 					cpInstanceId);
 
-		cpInstanceCPDefinitionOptionRelsMap.forEach(
-			(key, value) -> {
-				if (Validator.isNull(key.getPriceType()) || (value == null) ||
-					(value.size() != 1)) {
+		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				entry : cpInstanceCPDefinitionOptionRelsMap.entrySet()) {
 
-					return;
+			CPDefinitionOptionRel cpDefinitionOptionRel = entry.getKey();
+
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+				entry.getValue();
+
+			if (Validator.isNull(cpDefinitionOptionRel.getPriceType()) ||
+				(cpDefinitionOptionValueRels == null) ||
+				(cpDefinitionOptionValueRels.size() != 1)) {
+
+				continue;
+			}
+
+			CommerceOptionValueImpl.Builder commerceOptionValueBuilder =
+				new CommerceOptionValueImpl.Builder();
+
+			commerceOptionValueBuilder.optionKey(
+				cpDefinitionOptionRel.getKey());
+			commerceOptionValueBuilder.priceType(
+				cpDefinitionOptionRel.getPriceType());
+
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+				cpDefinitionOptionValueRels.get(0);
+
+			commerceOptionValueBuilder.price(
+				cpDefinitionOptionValueRel.getPrice());
+			commerceOptionValueBuilder.quantity(
+				cpDefinitionOptionValueRel.getQuantity());
+
+			CPInstance cpDefinitionOptionValueRelCPInstance =
+				cpDefinitionOptionValueRel.fetchCPInstance();
+
+			if (cpDefinitionOptionValueRelCPInstance != null) {
+				commerceOptionValueBuilder.cpInstanceId(
+					cpDefinitionOptionValueRelCPInstance.getCPInstanceId());
+
+				if (Objects.equals(
+						cpDefinitionOptionRel.getPriceType(),
+						CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+
+					commerceOptionValueBuilder.price(
+						cpDefinitionOptionValueRelCPInstance.getPrice());
 				}
+			}
 
-				CommerceOptionValueImpl.Builder commerceOptionValueBuilder =
-					new CommerceOptionValueImpl.Builder();
-
-				commerceOptionValueBuilder.optionKey(key.getKey());
-				commerceOptionValueBuilder.priceType(key.getPriceType());
-
-				CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-					value.get(0);
-
-				commerceOptionValueBuilder.price(
-					cpDefinitionOptionValueRel.getPrice());
-				commerceOptionValueBuilder.quantity(
-					cpDefinitionOptionValueRel.getQuantity());
-
-				CPInstance cpDefinitionOptionValueRelCPInstance =
-					cpDefinitionOptionValueRel.fetchCPInstance();
-
-				if (cpDefinitionOptionValueRelCPInstance != null) {
-					commerceOptionValueBuilder.cpInstanceId(
-						cpDefinitionOptionValueRelCPInstance.getCPInstanceId());
-
-					if (Objects.equals(
-							key.getPriceType(),
-							CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
-
-						commerceOptionValueBuilder.price(
-							cpDefinitionOptionValueRelCPInstance.getPrice());
-					}
-				}
-
-				commerceOptionValues.add(commerceOptionValueBuilder.build());
-			});
+			commerceOptionValues.add(commerceOptionValueBuilder.build());
+		}
 
 		return commerceOptionValues;
 	}
