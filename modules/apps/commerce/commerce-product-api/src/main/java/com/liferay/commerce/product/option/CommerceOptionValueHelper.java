@@ -23,11 +23,11 @@ import java.util.List;
  */
 public interface CommerceOptionValueHelper {
 
-	public List<CommerceOptionValue> getCPInstanceCommerceOptionValues(
-			long cpInstanceId)
+	public List<CommerceOptionValue> getCPDefinitionCommerceOptionValues(
+			long cpDefinitionId, String json)
 		throws PortalException;
 
-	public List<CommerceOptionValue> getCPDefinitionCommerceOptionValues(
-		long cpDefinitionId, String json) throws PortalException;
+	public CommerceOptionValue toCommerceOptionValue(String json)
+		throws PortalException;
 
 }

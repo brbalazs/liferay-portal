@@ -31,4 +31,6 @@ public interface CommerceOptionValue {
 
 	public int getQuantity();
 
+	public String toJSON();
+
 }
