@@ -567,7 +567,8 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 
 			if (showIncomplete ||
 				!StagingUtil.isIncomplete(wrappedLayout, layoutSetBranchId) ||
-				LayoutConstants.TYPE_CONTROL_PANEL.equals(layoutType)) {
+				LayoutConstants.TYPE_CONTROL_PANEL.equals(layoutType) ||
+				layoutType.equals("content")) {
 
 				wrappedLayouts.add(wrappedLayout);
 			}
