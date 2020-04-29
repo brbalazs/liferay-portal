@@ -17,8 +17,6 @@ import {connect} from 'react-redux';
 import {get} from 'lodash';
 import {getDefaultChannel} from 'shared/components/channels-menu';
 import {hasChanges} from 'shared/util/react';
-import {matchPath} from 'react-router-dom';
-import {Routes, toRoute} from 'shared/util/router';
 import {User} from '../util/records';
 import {withError, withLoading} from './util';
 
@@ -95,8 +93,6 @@ export default compose(
 					payload: props.channels,
 					type: ActionType.setChannels
 				});
-
-				this.updatePath();
 			}
 
 			componentDidMount() {
@@ -122,37 +118,6 @@ export default compose(
 						payload: getDefaultChannel(defaultChannelId, channels),
 						type: ActionType.setSelectedChannel
 					});
-				}
-
-				this.updatePath();
-			}
-
-			updatePath() {
-				const {
-					channels,
-					defaultChannelId,
-					groupId,
-					history,
-					location
-				} = this.props;
-
-				const isHome = matchPath(location.pathname, {
-					exact: true,
-					path: Routes.WORKSPACE_WITH_ID
-				});
-
-				if (isHome) {
-					const channel = getDefaultChannel(
-						defaultChannelId,
-						channels
-					);
-
-					history.replace(
-						toRoute(Routes.SITES, {
-							...(channel && {channelId: channel.id}),
-							groupId
-						})
-					);
 				}
 			}
 
