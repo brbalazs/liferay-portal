@@ -110,6 +110,45 @@ specific scenario, data was not separated between one instance and the others.
 
 ---------------------------------------
 
+### Order Engine Refactor
+- **Date:** 2020-Feb-6
+- **JIRA Ticket:** [COMMERCE-2687](https://issues.liferay.com/browse/COMMERCE-2687)
+
+#### What changed?
+
+Operations that modify an Order's status should be routed through the Order
+Engine now instead of using the order services. This includes submitting,
+checking out, and approving orders.
+
+Affected entities:
+- `CommerceOrderService`
+  - Method approveCommerceOrder() has been removed and is handled by the
+  existing method in the service executeWorkflowTransition()
+  - Method checkoutCommerceOrder() has been moved to the Order Engine
+  - Method setCommerceOrderToTransmit() has been removed and replaced by
+  transitioning an order to "In Progress"
+  - Method submitCommerceOrder() has been removed and is handled by the
+  checkout method in the Order Engine
+
+#### Who is affected?
+
+Developers: Have to change the scope of custom code.
+
+#### How should I update my code?
+
+Any custom code that calls the aforementioned methods should be transitioned
+to use the Order Engine. Any additional code you may have that modifies an
+order's status directly or applies logic to modify an order's status should
+instead be implemented as a new CommerceOrderStatus.
+
+#### Why was this change made?
+
+This change has been made so that the Order flow can be more testable and
+customisable, which can be achieved through custom implementations of the
+Order Engine interface or through the addition of custom order statuses.
+
+---------------------------------------
+
 ### CPInstance Entity Field json Is Replaced With New Entity CPInstanceOptionValueRel
 - **Date:** 2020-Feb-25
 - **JIRA Ticket:** [COMMERCE-2692](https://issues.liferay.com/browse/COMMERCE-2692)
