@@ -825,6 +825,37 @@ public class GroupServiceTest {
 	}
 
 	@Test
+	public void testGroupValidSiteFriendlyURLI18nPath() throws Exception {
+		Group group = GroupTestUtil.addGroup();
+
+		GroupTestUtil.updateDisplaySettings(
+			group.getGroupId(), Arrays.asList(LocaleUtil.SPAIN),
+			LocaleUtil.SPAIN);
+
+		ThemeDisplay themeDisplay = new ThemeDisplay();
+
+		String languageId = LanguageUtil.getLanguageId(LocaleUtil.ENGLISH);
+
+		String i18path = StringPool.SLASH.concat(
+			LocaleUtil.toW3cLanguageId(languageId));
+
+		themeDisplay.setI18nLanguageId(languageId);
+
+		themeDisplay.setI18nPath(i18path);
+		themeDisplay.setSiteGroupId(group.getGroupId());
+
+		String siteFriendlyURL = PortalUtil.getGroupFriendlyURL(
+			group.getPublicLayoutSet(), themeDisplay);
+
+		boolean validSiteFriendlyURLI18nPath = !siteFriendlyURL.contains(
+			themeDisplay.getI18nPath());
+
+		Assert.assertTrue(validSiteFriendlyURLI18nPath);
+
+		GroupLocalServiceUtil.deleteGroup(group);
+	}
+
+	@Test
 	public void testIndividualResourcePermission() throws Exception {
 		int resourcePermissionsCount =
 			ResourcePermissionLocalServiceUtil.getResourcePermissionsCount(
