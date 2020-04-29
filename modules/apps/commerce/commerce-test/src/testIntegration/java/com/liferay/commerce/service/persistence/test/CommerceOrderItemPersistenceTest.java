@@ -157,8 +157,6 @@ public class CommerceOrderItemPersistenceTest {
 
 		newCommerceOrderItem.setJson(RandomTestUtil.randomString());
 
-		newCommerceOrderItem.setOptionValueJSON(RandomTestUtil.randomString());
-
 		newCommerceOrderItem.setName(RandomTestUtil.randomString());
 
 		newCommerceOrderItem.setSku(RandomTestUtil.randomString());
@@ -253,9 +251,6 @@ public class CommerceOrderItemPersistenceTest {
 		Assert.assertEquals(
 			existingCommerceOrderItem.getJson(),
 			newCommerceOrderItem.getJson());
-		Assert.assertEquals(
-			existingCommerceOrderItem.getOptionValueJSON(),
-			newCommerceOrderItem.getOptionValueJSON());
 		Assert.assertEquals(
 			existingCommerceOrderItem.getName(),
 			newCommerceOrderItem.getName());
@@ -693,8 +688,6 @@ public class CommerceOrderItemPersistenceTest {
 		commerceOrderItem.setShippedQuantity(RandomTestUtil.nextInt());
 
 		commerceOrderItem.setJson(RandomTestUtil.randomString());
-
-		commerceOrderItem.setOptionValueJSON(RandomTestUtil.randomString());
 
 		commerceOrderItem.setName(RandomTestUtil.randomString());
 

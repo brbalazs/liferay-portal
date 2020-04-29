@@ -66,7 +66,7 @@ public class CommerceOrderItemCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(67);
+		StringBundler sb = new StringBundler(65);
 
 		sb.append("{externalReferenceCode=");
 		sb.append(externalReferenceCode);
@@ -98,8 +98,6 @@ public class CommerceOrderItemCacheModel
 		sb.append(shippedQuantity);
 		sb.append(", json=");
 		sb.append(json);
-		sb.append(", optionValueJSON=");
-		sb.append(optionValueJSON);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", sku=");
@@ -193,13 +191,6 @@ public class CommerceOrderItemCacheModel
 			commerceOrderItemImpl.setJson(json);
 		}
 
-		if (optionValueJSON == null) {
-			commerceOrderItemImpl.setOptionValueJSON("");
-		}
-		else {
-			commerceOrderItemImpl.setOptionValueJSON(optionValueJSON);
-		}
-
 		if (name == null) {
 			commerceOrderItemImpl.setName("");
 		}
@@ -289,7 +280,6 @@ public class CommerceOrderItemCacheModel
 
 		shippedQuantity = objectInput.readInt();
 		json = (String)objectInput.readObject();
-		optionValueJSON = (String)objectInput.readObject();
 		name = objectInput.readUTF();
 		sku = objectInput.readUTF();
 		unitPrice = (BigDecimal)objectInput.readObject();
@@ -359,13 +349,6 @@ public class CommerceOrderItemCacheModel
 			objectOutput.writeObject(json);
 		}
 
-		if (optionValueJSON == null) {
-			objectOutput.writeObject("");
-		}
-		else {
-			objectOutput.writeObject(optionValueJSON);
-		}
-
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -429,7 +412,6 @@ public class CommerceOrderItemCacheModel
 	public int quantity;
 	public int shippedQuantity;
 	public String json;
-	public String optionValueJSON;
 	public String name;
 	public String sku;
 	public BigDecimal unitPrice;
