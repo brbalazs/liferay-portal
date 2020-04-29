@@ -66,6 +66,20 @@ public interface AccountAddressResource {
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
+	public AccountAddress getAccountAddress(Long id) throws Exception;
+
+	public AccountAddress patchAccountAddress(
+			Long id, AccountAddress accountAddress)
+		throws Exception;
+
+	public AccountAddress putAccountAddress(
+			Long id, AccountAddress accountAddress)
+		throws Exception;
+
+	public Response putAccountAddressBatch(
+			Long id, String callbackURL, Object object)
+		throws Exception;
+
 	public Page<AccountAddress>
 			getAccountByExternalReferenceCodeAccountAddressesPage(
 				String externalReferenceCode, Pagination pagination)
