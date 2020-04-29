@@ -22,6 +22,7 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
+import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
@@ -36,11 +37,13 @@ import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.option.test.TestCommerceOptionValue;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -51,6 +54,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
@@ -104,6 +108,18 @@ public class CommerceProductPriceCalculationTest {
 
 	@After
 	public void tearDown() throws Exception {
+		List<CPDefinition> cpDefinitions =
+			_cpDefinitionLocalService.getCPDefinitions(
+				_commerceCatalog.getGroupId(), WorkflowConstants.STATUS_ANY,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		for (CPDefinition cpDefinition : cpDefinitions) {
+			_cpDefinitionLocalService.deleteCPDefinition(cpDefinition);
+		}
+
+		_commerceDiscountLocalService.deleteCommerceDiscounts(
+			_user.getCompanyId());
+
 		_commerceAccountLocalService.deleteCommerceAccount(
 			_commerceAccount.getCommerceAccountId());
 
@@ -1295,8 +1311,14 @@ public class CommerceProductPriceCalculationTest {
 
 	private CommerceCurrency _commerceCurrency;
 
+	@Inject
+	private CommerceDiscountLocalService _commerceDiscountLocalService;
+
 	@Inject(filter = "commerce.price.calculation.key=v1.0")
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
+
+	@Inject
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Inject
 	private CPInstanceLocalService _cpInstanceLocalService;
