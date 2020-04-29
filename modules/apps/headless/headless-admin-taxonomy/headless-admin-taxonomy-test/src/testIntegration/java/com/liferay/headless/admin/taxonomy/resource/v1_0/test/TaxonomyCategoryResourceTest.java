@@ -48,6 +48,12 @@ public class TaxonomyCategoryResourceTest
 	@Ignore
 	@Override
 	@Test
+	public void testGraphQLDeleteTaxonomyCategory() {
+	}
+
+	@Ignore
+	@Override
+	@Test
 	public void testGraphQLGetTaxonomyCategory() {
 	}
 
