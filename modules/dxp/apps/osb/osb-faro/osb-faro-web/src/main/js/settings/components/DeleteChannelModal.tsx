@@ -135,7 +135,9 @@ const DeleteChannelModal: React.FC<IDeleteChannelModalProps> = ({
 											autofocus
 											name='delete'
 											validate={validateInputMessage(sub(
-												Liferay.Language.get('delete-x'),
+												Liferay.Language.get(
+													'delete-x'
+												),
 												[channelName]
 											) as string)}
 										/>
