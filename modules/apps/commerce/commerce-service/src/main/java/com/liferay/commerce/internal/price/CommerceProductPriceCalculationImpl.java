@@ -23,6 +23,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
@@ -205,14 +206,13 @@ public class CommerceProductPriceCalculationImpl
 			cpInstance.getGroupId(), commerceContext);
 
 		if (commercePriceList.isPresent()) {
-			BigDecimal priceListPrice = _getPriceListPrice(
+			Optional<BigDecimal> priceListPrice = _getPriceListPrice(
 				cpInstance.getCPInstanceUuid(), quantity,
-				commercePriceList.get(), commerceContext.getCommerceCurrency(),
-				true);
+				commercePriceList.get(), commerceContext, true);
 
-			if (priceListPrice != null) {
+			if (priceListPrice.isPresent()) {
 				return commerceMoneyFactory.create(
-					commerceCurrency, priceListPrice);
+					commerceCurrency, priceListPrice.get());
 			}
 		}
 
@@ -330,14 +330,13 @@ public class CommerceProductPriceCalculationImpl
 			cpInstance.getGroupId(), commerceContext);
 
 		if (commercePriceList.isPresent()) {
-			BigDecimal priceListPrice = _getPriceListPrice(
+			Optional<BigDecimal> priceListPrice = _getPriceListPrice(
 				cpInstance.getCPInstanceUuid(), quantity,
-				commercePriceList.get(), commerceContext.getCommerceCurrency(),
-				false);
+				commercePriceList.get(), commerceContext, false);
 
-			if (priceListPrice != null) {
+			if (priceListPrice.isPresent()) {
 				return commerceMoneyFactory.create(
-					commerceCurrency, priceListPrice);
+					commerceCurrency, priceListPrice.get());
 			}
 		}
 
@@ -392,8 +391,9 @@ public class CommerceProductPriceCalculationImpl
 			commerceAccount.getCommerceAccountId(), commerceAccountGroupIds);
 	}
 
-	private BigDecimal _getPriceListPrice(
-			String cpInstanceUuid, int quantity,
+	private Optional<BigDecimal> _getPriceListPrice(
+			long groupId, String cpInstanceUuid, int quantity,
+			long commerceBillingAddressId, long commerceShippingAddressId,
 			CommercePriceList commercePriceList,
 			CommerceCurrency commerceCurrency, boolean promo)
 		throws PortalException {
@@ -405,7 +405,7 @@ public class CommerceProductPriceCalculationImpl
 				commercePriceList.getCommercePriceListId(), cpInstanceUuid);
 
 		if (commercePriceEntry == null) {
-			return null;
+			return Optional.empty();
 		}
 
 		if (promo) {
@@ -445,7 +445,43 @@ public class CommerceProductPriceCalculationImpl
 			price = price.multiply(commerceCurrency.getRate());
 		}
 
-		return price;
+		return Optional.ofNullable(price);
+	}
+
+	private Optional<BigDecimal> _getPriceListPrice(
+			String cpInstanceUUID, int quantity,
+			CommercePriceList commercePriceList,
+			CommerceContext commerceContext, boolean promo)
+		throws PortalException {
+
+		long commerceChannelGroupId =
+			commerceContext.getCommerceChannelGroupId();
+		long commerceBillingAddressId = 0;
+		long commerceShippingAddressId = 0;
+
+		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
+
+		if (commerceOrder != null) {
+			commerceChannelGroupId = commerceOrder.getGroupId();
+			commerceBillingAddressId = commerceOrder.getBillingAddressId();
+			commerceShippingAddressId = commerceOrder.getShippingAddressId();
+		}
+		else {
+			CommerceAccount commerceAccount =
+				commerceContext.getCommerceAccount();
+
+			if (commerceAccount != null) {
+				commerceBillingAddressId =
+					commerceAccount.getDefaultBillingAddressId();
+				commerceShippingAddressId =
+					commerceAccount.getDefaultShippingAddressId();
+			}
+		}
+
+		return _getPriceListPrice(
+			commerceChannelGroupId, cpInstanceUUID, quantity,
+			commerceBillingAddressId, commerceShippingAddressId,
+			commercePriceList, commerceContext.getCommerceCurrency(), promo);
 	}
 
 	private BigDecimal[] _getUpdatedPrices(
