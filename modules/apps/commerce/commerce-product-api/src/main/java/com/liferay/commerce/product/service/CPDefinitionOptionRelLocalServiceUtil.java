@@ -498,6 +498,21 @@ public class CPDefinitionOptionRelLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static boolean hasCPDefinitionPriceContributorCPDefinitionOptionRels(
+		long cpDefinitionId) {
+
+		return getService().
+			hasCPDefinitionPriceContributorCPDefinitionOptionRels(
+				cpDefinitionId);
+	}
+
+	public static boolean hasLinkedCPInstanceCPDefinitionOptionRels(
+		long cpDefinitionId) {
+
+		return getService().hasLinkedCPInstanceCPDefinitionOptionRels(
+			cpDefinitionId);
+	}
+
 	public static com.liferay.portal.kernel.search.Hits search(
 		com.liferay.portal.kernel.search.SearchContext searchContext) {
 

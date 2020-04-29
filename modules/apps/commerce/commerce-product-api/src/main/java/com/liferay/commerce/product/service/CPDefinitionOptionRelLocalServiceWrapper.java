@@ -547,6 +547,23 @@ public class CPDefinitionOptionRelLocalServiceWrapper
 	}
 
 	@Override
+	public boolean hasCPDefinitionPriceContributorCPDefinitionOptionRels(
+		long cpDefinitionId) {
+
+		return _cpDefinitionOptionRelLocalService.
+			hasCPDefinitionPriceContributorCPDefinitionOptionRels(
+				cpDefinitionId);
+	}
+
+	@Override
+	public boolean hasLinkedCPInstanceCPDefinitionOptionRels(
+		long cpDefinitionId) {
+
+		return _cpDefinitionOptionRelLocalService.
+			hasLinkedCPInstanceCPDefinitionOptionRels(cpDefinitionId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.search.Hits search(
 		com.liferay.portal.kernel.search.SearchContext searchContext) {
 
