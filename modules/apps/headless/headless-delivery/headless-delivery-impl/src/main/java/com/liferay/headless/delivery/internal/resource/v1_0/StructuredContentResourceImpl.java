@@ -101,12 +101,14 @@ import java.net.URI;
 
 import java.time.LocalDateTime;
 
-import java.util.AbstractMap;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.ForbiddenException;
@@ -446,6 +448,23 @@ public class StructuredContentResourceImpl
 
 		DDMStructure ddmStructure = journalArticle.getDDMStructure();
 
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getTitle(), structuredContent.getTitle_i18n(),
+			journalArticle.getTitleMap());
+		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getDescription(),
+			structuredContent.getDescription_i18n(),
+			journalArticle.getDescriptionMap());
+		Map<Locale, String> friendlyUrlMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getFriendlyUrlPath(),
+			structuredContent.getFriendlyUrlPath_i18n(),
+			journalArticle.getFriendlyURLMap());
+
+		_validateI18n(false, titleMap, descriptionMap, friendlyUrlMap);
+
 		_validateContentFields(
 			structuredContent.getContentFields(), ddmStructure);
 
@@ -457,21 +476,7 @@ public class StructuredContentResourceImpl
 			_journalArticleService.updateArticle(
 				journalArticle.getGroupId(), journalArticle.getFolderId(),
 				journalArticle.getArticleId(), journalArticle.getVersion(),
-				LocalizedMapUtil.merge(
-					journalArticle.getTitleMap(),
-					new AbstractMap.SimpleEntry<>(
-						contextAcceptLanguage.getPreferredLocale(),
-						structuredContent.getTitle())),
-				LocalizedMapUtil.merge(
-					journalArticle.getDescriptionMap(),
-					new AbstractMap.SimpleEntry<>(
-						contextAcceptLanguage.getPreferredLocale(),
-						structuredContent.getDescription())),
-				LocalizedMapUtil.merge(
-					journalArticle.getFriendlyURLMap(),
-					new AbstractMap.SimpleEntry<>(
-						contextAcceptLanguage.getPreferredLocale(),
-						structuredContent.getFriendlyUrlPath())),
+				titleMap, descriptionMap, friendlyUrlMap,
 				_journalConverter.getContent(
 					ddmStructure,
 					_toFields(
@@ -536,17 +541,19 @@ public class StructuredContentResourceImpl
 		LocalDateTime localDateTime = LocalDateTimeUtil.toLocalDateTime(
 			structuredContent.getDatePublished());
 
-		if (!LocaleUtil.equals(
-				LocaleUtil.fromLanguageId(ddmStructure.getDefaultLanguageId()),
-				contextAcceptLanguage.getPreferredLocale())) {
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getTitle(), structuredContent.getTitle_i18n());
+		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getDescription(),
+			structuredContent.getDescription_i18n());
+		Map<Locale, String> friendlyUrlMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getFriendlyUrlPath(),
+			structuredContent.getFriendlyUrlPath_i18n(), titleMap);
 
-			String w3cLanguageId = LocaleUtil.toW3cLanguageId(
-				ddmStructure.getDefaultLanguageId());
-
-			throw new BadRequestException(
-				"Structured contents can only be created with the default " +
-					"language " + w3cLanguageId);
-		}
+		_validateI18n(true, titleMap, descriptionMap, friendlyUrlMap);
 
 		_validateContentFields(
 			structuredContent.getContentFields(), ddmStructure);
@@ -554,20 +561,7 @@ public class StructuredContentResourceImpl
 		return _toStructuredContent(
 			_journalArticleService.addArticle(
 				siteId, parentStructuredContentFolderId, 0, 0, null, true,
-				new HashMap<Locale, String>() {
-					{
-						put(
-							contextAcceptLanguage.getPreferredLocale(),
-							structuredContent.getTitle());
-					}
-				},
-				new HashMap<Locale, String>() {
-					{
-						put(
-							contextAcceptLanguage.getPreferredLocale(),
-							structuredContent.getDescription());
-					}
-				},
+				titleMap, descriptionMap,
 				_createJournalArticleContent(
 					DDMFormValuesUtil.toDDMFormValues(
 						structuredContent.getContentFields(),
@@ -1007,6 +1001,41 @@ public class StructuredContentResourceImpl
 		catch (DDMFormValuesValidationException ddmfvve) {
 			throw new BadRequestException(
 				"Validation error: " + ddmfvve.getMessage(), ddmfvve);
+		}
+	}
+
+	private void _validateI18n(
+		boolean add, Map<Locale, String> titleMap,
+		Map<Locale, String> descriptionMap,
+		Map<Locale, String> friendlyUrlMap) {
+
+		Locale defaultLocale = LocaleUtil.getSiteDefault();
+
+		if ((add && titleMap.isEmpty()) ||
+			!titleMap.containsKey(defaultLocale)) {
+
+			throw new BadRequestException(
+				"Structured content must include the title in the default " +
+					"language " + LocaleUtil.toW3cLanguageId(defaultLocale));
+		}
+
+		Set<Locale> notFoundLocales = new HashSet<>(descriptionMap.keySet());
+
+		notFoundLocales.addAll(friendlyUrlMap.keySet());
+		notFoundLocales.removeAll(titleMap.keySet());
+
+		if (!notFoundLocales.isEmpty()) {
+			Stream<Locale> notFoundLocaleStream = notFoundLocales.stream();
+
+			String missingLanguages = notFoundLocaleStream.map(
+				LocaleUtil::toW3cLanguageId
+			).collect(
+				Collectors.joining(",")
+			);
+
+			throw new BadRequestException(
+				"Structured Content title missing in the languages: " +
+					missingLanguages);
 		}
 	}
 

@@ -57,11 +57,14 @@ import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.ws.rs.BadRequestException;
@@ -200,6 +203,16 @@ public class TaxonomyVocabularyResourceImpl
 					"language " + w3cLanguageId);
 		}
 
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			taxonomyVocabulary.getName(), taxonomyVocabulary.getName_i18n());
+		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			taxonomyVocabulary.getDescription(),
+			taxonomyVocabulary.getDescription_i18n());
+
+		_validateI18n(true, titleMap, descriptionMap);
+
 		return _toTaxonomyVocabulary(
 			_assetVocabularyService.addVocabulary(
 				siteId, null,
@@ -209,6 +222,10 @@ public class TaxonomyVocabularyResourceImpl
 				Collections.singletonMap(
 					contextAcceptLanguage.getPreferredLocale(),
 					taxonomyVocabulary.getDescription()),
+
+		return _toTaxonomyVocabulary(
+			_assetVocabularyService.addVocabulary(
+				siteId, null, titleMap, descriptionMap,
 				_getSettings(taxonomyVocabulary.getAssetTypes(), siteId),
 				ServiceContextUtil.createServiceContext(
 					siteId, taxonomyVocabulary.getViewableByAsString())));
@@ -221,6 +238,18 @@ public class TaxonomyVocabularyResourceImpl
 
 		AssetVocabulary assetVocabulary = _assetVocabularyService.getVocabulary(
 			taxonomyVocabularyId);
+
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			taxonomyVocabulary.getName(), taxonomyVocabulary.getName_i18n(),
+			assetVocabulary.getTitleMap());
+		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			taxonomyVocabulary.getDescription(),
+			taxonomyVocabulary.getDescription_i18n(),
+			assetVocabulary.getDescriptionMap());
+
+		_validateI18n(false, titleMap, descriptionMap);
 
 		return _toTaxonomyVocabulary(
 			_assetVocabularyService.updateVocabulary(
@@ -235,6 +264,8 @@ public class TaxonomyVocabularyResourceImpl
 					new AbstractMap.SimpleEntry<>(
 						contextAcceptLanguage.getPreferredLocale(),
 						taxonomyVocabulary.getDescription())),
+				assetVocabulary.getVocabularyId(), null, titleMap,
+				descriptionMap,
 				_getSettings(
 					taxonomyVocabulary.getAssetTypes(),
 					assetVocabulary.getGroupId()),
@@ -512,6 +543,40 @@ public class TaxonomyVocabularyResourceImpl
 				siteId = assetVocabulary.getGroupId();
 			}
 		};
+	}
+
+	private void _validateI18n(
+		boolean add, Map<Locale, String> titleMap,
+		Map<Locale, String> descriptionMap) {
+
+		Locale defaultLocale = LocaleUtil.getSiteDefault();
+
+		if ((add && titleMap.isEmpty()) ||
+			!titleMap.containsKey(defaultLocale)) {
+
+			throw new BadRequestException(
+				"Taxonomy vocabulary must include the default language " +
+					LocaleUtil.toW3cLanguageId(defaultLocale));
+		}
+
+		Set<Locale> availableLocale = titleMap.keySet();
+		Set<Locale> notFoundLocales = new HashSet<>(descriptionMap.keySet());
+
+		notFoundLocales.removeAll(availableLocale);
+
+		if (!notFoundLocales.isEmpty()) {
+			Stream<Locale> notFoundLocaleStream = notFoundLocales.stream();
+
+			String missingLanguages = notFoundLocaleStream.map(
+				LocaleUtil::toW3cLanguageId
+			).collect(
+				Collectors.joining(",")
+			);
+
+			throw new BadRequestException(
+				"Taxonomy Vocabulary name missing in the languages: " +
+					missingLanguages);
+		}
 	}
 
 	private static final Map<String, String> _assetTypeTypeToClassNames =

@@ -14,6 +14,8 @@
 
 package com.liferay.portal.vulcan.util;
 
+import com.liferay.portal.kernel.util.LocaleUtil;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -42,6 +44,63 @@ public class LocalizedMapUtil {
 		}
 
 		return map;
+	}
+
+	public static Map<Locale, String> getLocalizedMap(
+		Locale defaultLocale, String defaultValue,
+		Map<String, String> i18nMap) {
+
+		Map<Locale, String> localizedMap = getLocalizedMap(i18nMap);
+
+		if (defaultValue != null) {
+			localizedMap.put(defaultLocale, defaultValue);
+		}
+
+		return localizedMap;
+	}
+
+	public static Map<Locale, String> getLocalizedMap(
+		Locale defaultLocale, String defaultValue, Map<String, String> i18nMap,
+		Map<Locale, String> fallbackLocalizedMap) {
+
+		Map<Locale, String> localizedMap = null;
+
+		if (i18nMap != null) {
+			localizedMap = getLocalizedMap(i18nMap);
+		}
+		else if (defaultValue != null) {
+			localizedMap = new HashMap<>(fallbackLocalizedMap);
+		}
+		else {
+			localizedMap = new HashMap<>();
+		}
+
+		if (defaultValue != null) {
+			localizedMap.put(defaultLocale, defaultValue);
+		}
+
+		return localizedMap;
+	}
+
+	public static Map<Locale, String> getLocalizedMap(
+		Map<String, String> i18nMap) {
+
+		Map<Locale, String> localizedMap = new HashMap<>();
+
+		if (i18nMap == null) {
+			return localizedMap;
+		}
+
+		for (Map.Entry<String, String> entry : i18nMap.entrySet()) {
+			Locale locale = _getLocale(entry.getKey());
+			String value = entry.getValue();
+
+			if ((locale != null) && (value != null)) {
+				localizedMap.put(locale, value);
+			}
+		}
+
+		return localizedMap;
 	}
 
 	public static Map<Locale, String> merge(
@@ -84,6 +143,10 @@ public class LocalizedMapUtil {
 		}
 
 		return map;
+	}
+
+	private static Locale _getLocale(String languageId) {
+		return LocaleUtil.fromLanguageId(languageId, true, false);
 	}
 
 }
