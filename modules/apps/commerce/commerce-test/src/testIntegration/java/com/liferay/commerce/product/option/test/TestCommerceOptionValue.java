@@ -79,6 +79,17 @@ public class TestCommerceOptionValue implements CommerceOptionValue {
 		_quantity = quantity;
 	}
 
+	@Override
+	public String toJSON() {
+		return String.format(
+			_JSON_SERIALIZED_PATTERN, _cpInstanceId, _optionKey, _price,
+			_priceType, _quantity);
+	}
+
+	private static final String _JSON_SERIALIZED_PATTERN =
+		"{\"cpInstanceId\":%d, \"key\":\"%s\", \"price\":\"%s\", " +
+			"\"priceType\":\"%s\", \"quantity\":%d}";
+
 	private long _cpInstanceId;
 	private String _optionKey;
 	private BigDecimal _price;
