@@ -893,10 +893,10 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productByExternalReferenceCodeSkus(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {skus(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public SkuPage productByExternalReferenceCodeSkus(
+	public SkuPage skus(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -905,7 +905,7 @@ public class Query {
 		return _applyComponentServiceObjects(
 			_skuResourceComponentServiceObjects, this::_populateResourceContext,
 			skuResource -> new SkuPage(
-				skuResource.getProductByExternalReferenceCodeSkusPage(
+				skuResource.getSkusPage(
 					externalReferenceCode, Pagination.of(page, pageSize))));
 	}
 
@@ -925,6 +925,29 @@ public class Query {
 			skuResource -> new SkuPage(
 				skuResource.getProductIdSkusPage(
 					id, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {skus(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public SkuPage skus(
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") String filterString,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page,
+			@GraphQLName("sort") String sortsString)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_skuResourceComponentServiceObjects, this::_populateResourceContext,
+			skuResource -> new SkuPage(
+				skuResource.getSkusPage(
+					search, _filterBiFunction.apply(skuResource, filterString),
+					Pagination.of(page, pageSize),
+					_sortsBiFunction.apply(skuResource, sortsString))));
 	}
 
 	/**
@@ -1105,6 +1128,32 @@ public class Query {
 	}
 
 	@GraphQLTypeExtension(Catalog.class)
+	public class GetSkusPageTypeExtension {
+
+		public GetSkusPageTypeExtension(Catalog catalog) {
+			_catalog = catalog;
+		}
+
+		@GraphQLField
+		public SkuPage skus(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_skuResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				skuResource -> new SkuPage(
+					skuResource.getSkusPage(
+						_catalog.getExternalReferenceCode(),
+						Pagination.of(page, pageSize))));
+		}
+
+		private Catalog _catalog;
+
+	}
+
+	@GraphQLTypeExtension(Catalog.class)
 	public class
 		GetProductByExternalReferenceCodeProductOptionsPageTypeExtension {
 
@@ -1180,34 +1229,6 @@ public class Query {
 						getProductByExternalReferenceCodeRelatedProductsPage(
 							_catalog.getExternalReferenceCode(), type,
 							Pagination.of(page, pageSize))));
-		}
-
-		private Catalog _catalog;
-
-	}
-
-	@GraphQLTypeExtension(Catalog.class)
-	public class GetProductByExternalReferenceCodeSkusPageTypeExtension {
-
-		public GetProductByExternalReferenceCodeSkusPageTypeExtension(
-			Catalog catalog) {
-
-			_catalog = catalog;
-		}
-
-		@GraphQLField
-		public SkuPage productByExternalReferenceCodeSkus(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_skuResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				skuResource -> new SkuPage(
-					skuResource.getProductByExternalReferenceCodeSkusPage(
-						_catalog.getExternalReferenceCode(),
-						Pagination.of(page, pageSize))));
 		}
 
 		private Catalog _catalog;

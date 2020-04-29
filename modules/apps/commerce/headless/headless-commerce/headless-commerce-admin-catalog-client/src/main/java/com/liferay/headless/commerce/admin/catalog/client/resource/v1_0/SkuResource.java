@@ -40,13 +40,12 @@ public interface SkuResource {
 		return new Builder();
 	}
 
-	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
+	public Page<Sku> getSkusPage(
 			String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			getProductByExternalReferenceCodeSkusPageHttpResponse(
-				String externalReferenceCode, Pagination pagination)
+	public HttpInvoker.HttpResponse getSkusPageHttpResponse(
+			String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
 	public Sku postProductByExternalReferenceCodeSku(
@@ -69,6 +68,16 @@ public interface SkuResource {
 
 	public HttpInvoker.HttpResponse postProductIdSkuHttpResponse(
 			Long id, Sku sku)
+		throws Exception;
+
+	public Page<Sku> getSkusPage(
+			String search, String filterString, Pagination pagination,
+			String sortString)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getSkusPageHttpResponse(
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public void deleteSkuByExternalReferenceCode(String externalReferenceCode)
@@ -171,13 +180,12 @@ public interface SkuResource {
 
 	public static class SkuResourceImpl implements SkuResource {
 
-		public Page<Sku> getProductByExternalReferenceCodeSkusPage(
+		public Page<Sku> getSkusPage(
 				String externalReferenceCode, Pagination pagination)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse =
-				getProductByExternalReferenceCodeSkusPageHttpResponse(
-					externalReferenceCode, pagination);
+			HttpInvoker.HttpResponse httpResponse = getSkusPageHttpResponse(
+				externalReferenceCode, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -199,9 +207,8 @@ public interface SkuResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				getProductByExternalReferenceCodeSkusPageHttpResponse(
-					String externalReferenceCode, Pagination pagination)
+		public HttpInvoker.HttpResponse getSkusPageHttpResponse(
+				String externalReferenceCode, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -438,6 +445,90 @@ public interface SkuResource {
 					_builder._port +
 						"/o/headless-commerce-admin-catalog/v1.0/products/{id}/skus",
 				id);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Sku> getSkusPage(
+				String search, String filterString, Pagination pagination,
+				String sortString)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = getSkusPageHttpResponse(
+				search, filterString, pagination, sortString);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return Page.of(content, SkuSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse getSkusPageHttpResponse(
+				String search, String filterString, Pagination pagination,
+				String sortString)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-admin-catalog/v1.0/skus");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

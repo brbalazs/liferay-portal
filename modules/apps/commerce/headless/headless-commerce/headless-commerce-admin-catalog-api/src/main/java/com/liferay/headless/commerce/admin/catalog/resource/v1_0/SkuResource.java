@@ -49,12 +49,8 @@ public interface SkuResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
-			String externalReferenceCode, Pagination pagination)
-		throws Exception;
-
 	public Page<Sku> getSkusPage(
-			String search, Filter filter, Pagination pagination, Sort[] sorts)
+			String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
 	public Sku postProductByExternalReferenceCodeSku(
@@ -65,6 +61,10 @@ public interface SkuResource {
 		throws Exception;
 
 	public Sku postProductIdSku(Long id, Sku sku) throws Exception;
+
+	public Page<Sku> getSkusPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception;
 
 	public Response deleteSkuByExternalReferenceCode(
 			String externalReferenceCode)

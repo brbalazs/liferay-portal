@@ -4796,7 +4796,6 @@ paths:
                 - ProductShippingConfiguration
     /products/by-externalReferenceCode/{externalReferenceCode}/skus:
         get:
-            operationId: getProductByExternalReferenceCodeSkusPage
             operationId: getSkusPage
             parameters:
                 - in: path
