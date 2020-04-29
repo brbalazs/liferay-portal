@@ -221,7 +221,10 @@ export default class Sidebar extends React.Component {
 										path: Routes.UI_KIT
 									})
 								}
-								href={toRoute(Routes.UI_KIT, {groupId})}
+								href={toRoute(Routes.UI_KIT, {
+									channelId,
+									groupId
+								})}
 								icon='code'
 								label='UI Kit'
 							/>

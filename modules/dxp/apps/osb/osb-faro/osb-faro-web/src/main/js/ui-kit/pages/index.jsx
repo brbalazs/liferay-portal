@@ -49,7 +49,7 @@ export default class UIKit extends React.Component {
 	}
 
 	render() {
-		const {groupId, history, name: componentName} = this.props;
+		const {channelId, groupId, history, name: componentName} = this.props;
 
 		const {query} = this.state;
 
@@ -97,6 +97,7 @@ export default class UIKit extends React.Component {
 													href={toRoute(
 														Routes.UI_KIT,
 														{
+															channelId,
 															groupId,
 															name
 														}

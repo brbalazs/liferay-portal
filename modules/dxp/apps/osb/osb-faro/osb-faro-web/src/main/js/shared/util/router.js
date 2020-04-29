@@ -216,7 +216,8 @@ export const Routes = buildRoutes({
 								routes: {
 									TESTS_OVERVIEW: '/overview/:id'
 								}
-							}
+							},
+							UI_KIT: '/ui-kit/:name?'
 						}
 					},
 					SETTINGS: {
@@ -288,8 +289,7 @@ export const Routes = buildRoutes({
 							},
 							SETTINGS_WORKSPACE: '/workspace'
 						}
-					},
-					UI_KIT: '/ui-kit/:name?'
+					}
 				}
 			}
 		}
