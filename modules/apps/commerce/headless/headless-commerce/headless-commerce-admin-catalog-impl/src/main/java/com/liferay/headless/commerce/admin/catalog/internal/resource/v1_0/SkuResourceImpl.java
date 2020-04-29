@@ -95,7 +95,7 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 	}
 
 	@Override
-	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
+	public Page<Sku> getSkusPage(
 			String externalReferenceCode, Pagination pagination)
 		throws Exception {
 
