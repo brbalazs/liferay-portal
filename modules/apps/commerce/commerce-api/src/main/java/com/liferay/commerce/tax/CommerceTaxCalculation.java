@@ -47,7 +47,7 @@ public interface CommerceTaxCalculation {
 	public List<CommerceTaxValue> getCommerceTaxValues(
 			long groupId, long cpInstanceId, long commerceBillingAddressId,
 			long commerceShippingAddressId, BigDecimal amount,
-			boolean withTaxAmount)
+			boolean includeTax)
 		throws PortalException;
 
 	/**

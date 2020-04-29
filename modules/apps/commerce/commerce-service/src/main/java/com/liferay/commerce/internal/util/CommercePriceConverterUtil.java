@@ -33,7 +33,7 @@ import java.util.List;
 public class CommercePriceConverterUtil {
 
 	public static CommerceDiscountValue getConvertedCommerceDiscountValue(
-		CommerceDiscountValue commerceDiscountValue, boolean withTaxAmount,
+		CommerceDiscountValue commerceDiscountValue, boolean includeTax,
 		BigDecimal taxValue, RoundingMode roundingMode,
 		CommerceMoneyFactory commerceMoneyFactory) {
 
@@ -44,7 +44,7 @@ public class CommercePriceConverterUtil {
 
 		BigDecimal convertedDiscountAmountPrice;
 
-		if (withTaxAmount) {
+		if (includeTax) {
 			convertedDiscountAmountPrice = discountAmountPrice.subtract(
 				taxValue);
 		}
@@ -58,11 +58,11 @@ public class CommercePriceConverterUtil {
 		return new CommerceDiscountValue(
 			commerceDiscountValue.getId(), convertedDiscountAmount,
 			_getPercentage(
-				commerceDiscountValue.getDiscountPercentage(), withTaxAmount,
+				commerceDiscountValue.getDiscountPercentage(), includeTax,
 				discountAmountPrice, convertedDiscountAmountPrice,
 				roundingMode),
 			_getPercentages(
-				commerceDiscountValue.getPercentages(), withTaxAmount,
+				commerceDiscountValue.getPercentages(), includeTax,
 				discountAmountPrice, convertedDiscountAmountPrice,
 				roundingMode));
 	}
@@ -70,7 +70,7 @@ public class CommercePriceConverterUtil {
 	public static CommerceDiscountValue getConvertedCommerceDiscountValue(
 			long commerceChannelGroupId, long cpInstanceId,
 			long commerceBillingAddressId, long commerceShippingAddressId,
-			CommerceDiscountValue commerceDiscountValue, boolean withTaxAmount,
+			CommerceDiscountValue commerceDiscountValue, boolean includeTax,
 			CommerceTaxCalculation commerceTaxCalculation,
 			RoundingMode roundingMode)
 		throws PortalException {
@@ -82,7 +82,7 @@ public class CommercePriceConverterUtil {
 
 		BigDecimal convertedDiscountAmountPrice = getConvertedPrice(
 			commerceChannelGroupId, cpInstanceId, commerceBillingAddressId,
-			commerceShippingAddressId, discountAmountPrice, withTaxAmount,
+			commerceShippingAddressId, discountAmountPrice, includeTax,
 			commerceTaxCalculation);
 
 		return new CommerceDiscountValue(
@@ -91,11 +91,11 @@ public class CommercePriceConverterUtil {
 				discountAmount.getCommerceCurrency(),
 				convertedDiscountAmountPrice),
 			_getPercentage(
-				commerceDiscountValue.getDiscountPercentage(), withTaxAmount,
+				commerceDiscountValue.getDiscountPercentage(), includeTax,
 				discountAmountPrice, convertedDiscountAmountPrice,
 				roundingMode),
 			_getPercentages(
-				commerceDiscountValue.getPercentages(), withTaxAmount,
+				commerceDiscountValue.getPercentages(), includeTax,
 				discountAmountPrice, convertedDiscountAmountPrice,
 				roundingMode));
 	}
@@ -103,14 +103,14 @@ public class CommercePriceConverterUtil {
 	public static BigDecimal getConvertedPrice(
 			long commerceChannelGroupId, long cpInstanceId,
 			long commerceBillingAddressId, long commerceShippingAddressId,
-			BigDecimal price, boolean withTaxAmount,
+			BigDecimal price, boolean includeTax,
 			CommerceTaxCalculation commerceTaxCalculation)
 		throws PortalException {
 
 		List<CommerceTaxValue> commerceTaxValues =
 			commerceTaxCalculation.getCommerceTaxValues(
 				commerceChannelGroupId, cpInstanceId, commerceBillingAddressId,
-				commerceShippingAddressId, price, withTaxAmount);
+				commerceShippingAddressId, price, includeTax);
 
 		if ((commerceTaxValues == null) || commerceTaxValues.isEmpty()) {
 			return BigDecimal.ZERO;
@@ -122,7 +122,7 @@ public class CommercePriceConverterUtil {
 			taxAmount = taxAmount.add(commerceTaxValue.getAmount());
 		}
 
-		if (withTaxAmount) {
+		if (includeTax) {
 			return price.subtract(taxAmount);
 		}
 
@@ -130,12 +130,12 @@ public class CommercePriceConverterUtil {
 	}
 
 	private static BigDecimal _getPercentage(
-		BigDecimal value, boolean withTaxAmount, BigDecimal discountAmountPrice,
+		BigDecimal value, boolean includeTax, BigDecimal discountAmountPrice,
 		BigDecimal convertedDiscountAmountPrice, RoundingMode roundingMode) {
 
 		BigDecimal result;
 
-		if (withTaxAmount) {
+		if (includeTax) {
 			BigDecimal taxPercentage = discountAmountPrice.divide(
 				convertedDiscountAmountPrice, roundingMode);
 
@@ -166,16 +166,15 @@ public class CommercePriceConverterUtil {
 	}
 
 	private static BigDecimal[] _getPercentages(
-		BigDecimal[] values, boolean withTaxAmount,
-		BigDecimal discountAmountPrice, BigDecimal convertedDiscountAmountPrice,
-		RoundingMode roundingMode) {
+		BigDecimal[] values, boolean includeTax, BigDecimal discountAmountPrice,
+		BigDecimal convertedDiscountAmountPrice, RoundingMode roundingMode) {
 
 		for (int i = 0; i < values.length; i++) {
 			if ((values[i] != null) &&
 				(values[i].compareTo(BigDecimal.ZERO) != 0)) {
 
 				values[i] = _getPercentage(
-					values[i], withTaxAmount, discountAmountPrice,
+					values[i], includeTax, discountAmountPrice,
 					convertedDiscountAmountPrice, roundingMode);
 			}
 		}

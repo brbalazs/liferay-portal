@@ -100,6 +100,10 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 		return new ArrayList<>(taxValueMap.values());
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x)
+	 */
+	@Deprecated
 	@Override
 	public List<CommerceTaxValue> getCommerceTaxValues(
 			CommerceOrder commerceOrder, CommerceContext commerceContext)
@@ -112,7 +116,7 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 	public List<CommerceTaxValue> getCommerceTaxValues(
 			long groupId, long cpInstanceId, long commerceBillingAddressId,
 			long commerceShippingAddressId, BigDecimal amount,
-			boolean withTaxAmount)
+			boolean includeTax)
 		throws PortalException {
 
 		List<CommerceTaxValue> commerceTaxValues = new ArrayList<>();
@@ -134,9 +138,13 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 
 		return _getCommerceTaxValues(
 			groupId, commerceBillingAddressId, commerceShippingAddressId,
-			amount, withTaxAmount, cpDefinition.getCPTaxCategoryId());
+			amount, includeTax, cpDefinition.getCPTaxCategoryId());
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x)
+	 */
+	@Deprecated
 	@Override
 	public List<CommerceTaxValue> getCommerceTaxValues(
 			long groupId, long cpInstanceId, long commerceBillingAddressId,
@@ -178,6 +186,10 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 		return _commerceMoneyFactory.create(commerceCurrency, taxAmount);
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x)
+	 */
+	@Deprecated
 	@Override
 	public CommerceMoney getTaxAmount(
 			CommerceOrder commerceOrder, CommerceContext commerceContext)
@@ -206,8 +218,8 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 
 	private List<CommerceTaxValue> _getCommerceTaxValues(
 		long groupId, long commerceBillingAddressId,
-		long commerceShippingAddressId, BigDecimal amount,
-		boolean withTaxAmount, long taxCategoryId) {
+		long commerceShippingAddressId, BigDecimal amount, boolean includeTax,
+		long taxCategoryId) {
 
 		List<CommerceTaxValue> commerceTaxValues = new ArrayList<>();
 
@@ -219,7 +231,7 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 		commerceTaxCalculateRequest.setCommerceShippingAddressId(
 			commerceShippingAddressId);
 		commerceTaxCalculateRequest.setPrice(amount);
-		commerceTaxCalculateRequest.setWithTaxAmount(withTaxAmount);
+		commerceTaxCalculateRequest.setIncludeTax(includeTax);
 		commerceTaxCalculateRequest.setChannelGroupId(groupId);
 		commerceTaxCalculateRequest.setTaxCategoryId(taxCategoryId);
 

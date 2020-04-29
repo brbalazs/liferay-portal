@@ -45,12 +45,12 @@ public class CommerceTaxCalculateRequest {
 		return _taxCategoryId;
 	}
 
-	public boolean isPercentage() {
-		return _percentage;
+	public boolean isIncludeTax() {
+		return _includeTax;
 	}
 
-	public boolean isWithTaxAmount() {
-		return _withTaxAmount;
+	public boolean isPercentage() {
+		return _percentage;
 	}
 
 	public void setChannelGroupId(long channelGroupId) {
@@ -69,6 +69,10 @@ public class CommerceTaxCalculateRequest {
 		_commerceTaxMethodId = commerceTaxMethodId;
 	}
 
+	public void setIncludeTax(boolean includeTax) {
+		_includeTax = includeTax;
+	}
+
 	public void setPercentage(boolean percentage) {
 		_percentage = percentage;
 	}
@@ -81,17 +85,13 @@ public class CommerceTaxCalculateRequest {
 		_taxCategoryId = taxCategoryId;
 	}
 
-	public void setWithTaxAmount(boolean withTaxAmount) {
-		_withTaxAmount = withTaxAmount;
-	}
-
 	private long _channelGroupId;
 	private long _commerceBillingAddressId;
 	private long _commerceShippingAddressId;
 	private long _commerceTaxMethodId;
+	private boolean _includeTax;
 	private boolean _percentage;
 	private BigDecimal _price;
 	private long _taxCategoryId;
-	private boolean _withTaxAmount;
 
 }

@@ -77,7 +77,7 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 
 				BigDecimal denominator = _ONE_HUNDRED;
 
-				if (commerceTaxCalculateRequest.isWithTaxAmount()) {
+				if (commerceTaxCalculateRequest.isIncludeTax()) {
 					denominator = _ONE_HUNDRED.add(rate);
 				}
 
