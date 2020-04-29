@@ -9,7 +9,7 @@ import {gql} from 'apollo-boost';
  * @returns GraphQL query
  */
 export default entityName => {
-	if (entityName === EntityType.Teams) {
+	if ([EntityType.Teams, EntityType.Groups].includes(entityName)) {
 		return gql`
 			query DXPEntitiesList(
 				$channelId: String
