@@ -57,7 +57,6 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.WorkflowDefinitionLink;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -88,7 +87,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -405,15 +403,13 @@ public class CommerceOrderItemLocalServiceImpl
 		}
 
 		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
-			Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
-				bundledCommerceItem.getJson());
+			CommerceOptionValue commerceOptionValue =
+				_commerceOptionValueHelper.toCommerceOptionValue(
+					commerceOrderItem.getJson());
 
-			int currentQuantity =
-				quantity *
-					Integer.valueOf(
-						String.valueOf(commerceOptionValue.get("quantity")));
+			int currentQuantity = quantity * commerceOptionValue.getQuantity();
 
-			if (!_isStaticPriceType(commerceOptionValue.get("priceType"))) {
+			if (!_isStaticPriceType(commerceOptionValue.getPriceType())) {
 				_updateCommerceOrderItem(
 					bundledCommerceItem.getCommerceOrderItemId(),
 					currentQuantity, null, null, commerceContext,
@@ -424,12 +420,8 @@ public class CommerceOrderItemLocalServiceImpl
 
 			CommerceProductPrice staticCommerceProductPrice =
 				_getStaticCommerceProductPrice(
-					Long.valueOf(
-						String.valueOf(
-							commerceOptionValue.get("CPInstanceId"))),
-					currentQuantity,
-					new BigDecimal(
-						String.valueOf(commerceOptionValue.get("price"))),
+					commerceOptionValue.getCPInstanceId(), currentQuantity,
+					commerceOptionValue.getPrice(),
 					commerceContext.getCommerceCurrency());
 
 			_updateCommerceOrderItem(
@@ -536,10 +528,11 @@ public class CommerceOrderItemLocalServiceImpl
 		}
 
 		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
-			Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
-				bundledCommerceItem.getJson());
+			CommerceOptionValue commerceOptionValue =
+				_commerceOptionValueHelper.toCommerceOptionValue(
+					bundledCommerceItem.getJson());
 
-			if (!_isStaticPriceType(commerceOptionValue.get("priceType"))) {
+			if (!_isStaticPriceType(commerceOptionValue.getPriceType())) {
 				_updateCommerceOrderItem(
 					bundledCommerceItem.getCommerceOrderItemId(), null,
 					commerceContext);
@@ -549,12 +542,9 @@ public class CommerceOrderItemLocalServiceImpl
 
 			CommerceProductPrice staticCommerceProductPrice =
 				_getStaticCommerceProductPrice(
-					Long.valueOf(
-						String.valueOf(
-							commerceOptionValue.get("CPInstanceId"))),
+					commerceOptionValue.getCPInstanceId(),
 					bundledCommerceItem.getQuantity(),
-					new BigDecimal(
-						String.valueOf(commerceOptionValue.get("price"))),
+					commerceOptionValue.getPrice(),
 					commerceContext.getCommerceCurrency());
 
 			_updateCommerceOrderItem(
@@ -831,8 +821,7 @@ public class CommerceOrderItemLocalServiceImpl
 	private CommerceOrderItem _addCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId,
 			long parentCommerceOrderItemId, int quantity, int shippedQuantity,
-			String json,
-			CommerceProductPrice commerceProductPrice,
+			String json, CommerceProductPrice commerceProductPrice,
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -1105,8 +1094,8 @@ public class CommerceOrderItemLocalServiceImpl
 				_addCommerceOrderItem(
 					commerceOrderId, commerceOptionValue.getCPInstanceId(),
 					commerceOrderItemId, commerceOptionValue.getQuantity(), 0,
-					_jsonFactory.serialize(commerceOptionValue), null,
-					commerceContext, serviceContext);
+					commerceOptionValue.toJSON(), null, commerceContext,
+					serviceContext);
 
 				continue;
 			}
@@ -1118,7 +1107,7 @@ public class CommerceOrderItemLocalServiceImpl
 			_addCommerceOrderItem(
 				commerceOrderId, commerceOptionValue.getCPInstanceId(),
 				commerceOrderItemId, commerceOptionValue.getQuantity(), 0,
-				_jsonFactory.serialize(commerceOptionValue),
+				commerceOptionValue.toJSON(),
 				_getStaticCommerceProductPrice(
 					commerceOptionValue.getCPInstanceId(),
 					commerceOptionValue.getQuantity(),
@@ -1306,9 +1295,6 @@ public class CommerceOrderItemLocalServiceImpl
 
 	@ServiceReference(type = CPInstanceLocalService.class)
 	private CPInstanceLocalService _cpInstanceLocalService;
-
-	@ServiceReference(type = JSONFactory.class)
-	private JSONFactory _jsonFactory;
 
 	@ServiceReference(type = JsonHelper.class)
 	private JsonHelper _jsonHelper;
