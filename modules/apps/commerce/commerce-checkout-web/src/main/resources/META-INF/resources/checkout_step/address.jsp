@@ -149,10 +149,15 @@ long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "
 
 			A.all('.address-fields select').set('selectedIndex', 0);
 			A.all('.address-fields input').val('');
-			A.one('#<portlet:namespace />use-as-billing').attr(
-				'checked',
-				<%= baseAddressCheckoutStepDisplayContext.isShippingUsedAsBilling() %>
-			);
+
+			var useAsBillingField = A.one('#<portlet:namespace />use-as-billing');
+
+			if (useAsBillingField) {
+				useAsBillingField.attr(
+					'checked',
+					<%= baseAddressCheckoutStepDisplayContext.isShippingUsedAsBilling() %>
+				);
+			}
 		},
 		['aui-base']
 	);
@@ -185,10 +190,6 @@ long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "
 				}
 
 				commerceAddressParamName.val(commerceAddressVal);
-				Liferay.Util.toggleDisabled(
-					commerceAddressParamName,
-					commerceAddressVal === '0'
-				);
 				newAddress.val(Number(commerceAddressVal === '0'));
 			}
 		},
