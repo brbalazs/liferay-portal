@@ -284,7 +284,7 @@ export default class App extends React.Component {
 																	AppSidebarRoutes
 																}
 																path={
-																	Routes.WORKSPACE_WITH_ID
+																	Routes.CHANNEL
 																}
 															/>
 
