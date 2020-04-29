@@ -112,7 +112,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 		return _addCommerceOrderItem(
 			commerceOrderId, cpInstanceId, 0, quantity, shippedQuantity, json,
-			null, null, commerceContext, serviceContext);
+			null, commerceContext, serviceContext);
 	}
 
 	@Override
@@ -406,7 +406,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
 			Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
-				bundledCommerceItem.getOptionValueJSON());
+				bundledCommerceItem.getJson());
 
 			int currentQuantity =
 				quantity *
@@ -537,7 +537,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
 			Map commerceOptionValue = (Map)_jsonFactory.looseDeserialize(
-				bundledCommerceItem.getOptionValueJSON());
+				bundledCommerceItem.getJson());
 
 			if (!_isStaticPriceType(commerceOptionValue.get("priceType"))) {
 				_updateCommerceOrderItem(
@@ -831,7 +831,7 @@ public class CommerceOrderItemLocalServiceImpl
 	private CommerceOrderItem _addCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId,
 			long parentCommerceOrderItemId, int quantity, int shippedQuantity,
-			String json, String optionValueJSON,
+			String json,
 			CommerceProductPrice commerceProductPrice,
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws PortalException {
@@ -875,7 +875,6 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setQuantity(quantity);
 		commerceOrderItem.setShippedQuantity(shippedQuantity);
 		commerceOrderItem.setJson(json);
-		commerceOrderItem.setOptionValueJSON(optionValueJSON);
 
 		if (commerceProductPrice == null) {
 			commerceProductPrice = _getCommerceProductPrice(
@@ -1106,7 +1105,7 @@ public class CommerceOrderItemLocalServiceImpl
 				_addCommerceOrderItem(
 					commerceOrderId, commerceOptionValue.getCPInstanceId(),
 					commerceOrderItemId, commerceOptionValue.getQuantity(), 0,
-					null, _jsonFactory.serialize(commerceOptionValue), null,
+					_jsonFactory.serialize(commerceOptionValue), null,
 					commerceContext, serviceContext);
 
 				continue;
@@ -1118,7 +1117,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 			_addCommerceOrderItem(
 				commerceOrderId, commerceOptionValue.getCPInstanceId(),
-				commerceOrderItemId, commerceOptionValue.getQuantity(), 0, null,
+				commerceOrderItemId, commerceOptionValue.getQuantity(), 0,
 				_jsonFactory.serialize(commerceOptionValue),
 				_getStaticCommerceProductPrice(
 					commerceOptionValue.getCPInstanceId(),
