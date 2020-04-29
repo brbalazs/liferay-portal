@@ -842,13 +842,13 @@ public class GroupServiceTest {
 
 		themeDisplay.setSiteGroupId(group.getGroupId());
 
-		String siteFriendlyURL = PortalUtil.getGroupFriendlyURL(
+		String groupFriendlyURL = PortalUtil.getGroupFriendlyURL(
 			group.getPublicLayoutSet(), themeDisplay);
 
 		Assert.assertFalse(
-			siteFriendlyURL + " should not contain " +
+			groupFriendlyURL + " should not contain " +
 				themeDisplay.getI18nPath(),
-			siteFriendlyURL.contains(themeDisplay.getI18nPath()));
+			groupFriendlyURL.contains(themeDisplay.getI18nPath()));
 
 		GroupLocalServiceUtil.deleteGroup(group);
 	}
