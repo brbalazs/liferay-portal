@@ -94,39 +94,6 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 		return responseBuilder.build();
 	}
 
-	@Override
-	public Page<Sku> getSkusPage(
-			String externalReferenceCode, Pagination pagination)
-		throws Exception {
-
-		CPDefinition cpDefinition =
-			_cpDefinitionService.
-				fetchCPDefinitionByCProductExternalReferenceCode(
-					contextCompany.getCompanyId(), externalReferenceCode);
-
-		if (cpDefinition == null) {
-			throw new NoSuchCPDefinitionException(
-				"Unable to find Product with externalReferenceCode: " +
-					externalReferenceCode);
-		}
-
-		List<CPInstance> cpInstances =
-			_cpInstanceService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED,
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
-
-		int totalItems = _cpInstanceService.getCPDefinitionInstancesCount(
-			cpDefinition.getCPDefinitionId(),
-			WorkflowConstants.STATUS_APPROVED);
-
-		return Page.of(
-			_skuHelper.toSKUs(
-				cpInstances, contextAcceptLanguage.getPreferredLocale()),
-			pagination, totalItems);
-	}
-
 	@NestedField(parentClass = Product.class, value = "skus")
 	@Override
 	public Page<Sku> getProductIdSkusPage(
@@ -175,6 +142,39 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 			document -> _toSku(
 				_cpInstanceService.getCPInstance(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))));
+	}
+
+	@Override
+	public Page<Sku> getSkusPage(
+			String externalReferenceCode, Pagination pagination)
+		throws Exception {
+
+		CPDefinition cpDefinition =
+			_cpDefinitionService.
+				fetchCPDefinitionByCProductExternalReferenceCode(
+					contextCompany.getCompanyId(), externalReferenceCode);
+
+		if (cpDefinition == null) {
+			throw new NoSuchCPDefinitionException(
+				"Unable to find Product with externalReferenceCode: " +
+					externalReferenceCode);
+		}
+
+		List<CPInstance> cpInstances =
+			_cpInstanceService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED,
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
+
+		int totalItems = _cpInstanceService.getCPDefinitionInstancesCount(
+			cpDefinition.getCPDefinitionId(),
+			WorkflowConstants.STATUS_APPROVED);
+
+		return Page.of(
+			_skuHelper.toSKUs(
+				cpInstances, contextAcceptLanguage.getPreferredLocale()),
+			pagination, totalItems);
 	}
 
 	@Override
