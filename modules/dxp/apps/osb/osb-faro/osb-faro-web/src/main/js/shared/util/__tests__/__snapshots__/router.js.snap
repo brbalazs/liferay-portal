@@ -103,7 +103,7 @@ Object {
   "TEST": "/test",
   "TESTS": "/workspace/:groupId([\\\\w._-]+)/:channelId?/tests",
   "TESTS_OVERVIEW": "/workspace/:groupId([\\\\w._-]+)/:channelId?/tests/overview/:id",
-  "UI_KIT": "/workspace/:groupId([\\\\w._-]+)/ui-kit/:name?",
+  "UI_KIT": "/workspace/:groupId([\\\\w._-]+)/:channelId?/ui-kit/:name?",
   "WORKSPACE": "/workspace",
   "WORKSPACES": "/workspaces",
   "WORKSPACE_ADD": "/workspace/add",
