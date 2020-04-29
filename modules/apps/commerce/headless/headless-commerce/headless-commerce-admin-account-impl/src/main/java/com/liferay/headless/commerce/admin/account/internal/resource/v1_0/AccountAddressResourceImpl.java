@@ -59,6 +59,15 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class AccountAddressResourceImpl extends BaseAccountAddressResourceImpl {
 
 	@Override
+	public Response deleteAccountAddress(Long id) throws Exception {
+		_commerceAddressService.deleteCommerceAddress(id);
+
+		Response.ResponseBuilder responseBuilder = Response.noContent();
+
+		return responseBuilder.build();
+	}
+
+	@Override
 	public Response deleteAccountAddressByExternalReferenceCode(
 			@NotNull String externalReferenceCode)
 		throws Exception {
@@ -79,6 +88,14 @@ public class AccountAddressResourceImpl extends BaseAccountAddressResourceImpl {
 		Response.ResponseBuilder responseBuilder = Response.noContent();
 
 		return responseBuilder.build();
+	}
+
+	@Override
+	public AccountAddress getAccountAddress(Long id) throws Exception {
+		CommerceAddress commerceAddress =
+			_commerceAddressService.getCommerceAddress(id);
+
+		return _toAccountAddress(commerceAddress);
 	}
 
 	@Override
@@ -126,6 +143,43 @@ public class AccountAddressResourceImpl extends BaseAccountAddressResourceImpl {
 
 		return _getAccountAddressesPage(
 			_commerceAccountService.getCommerceAccount(id), pagination);
+	}
+
+	@Override
+	public AccountAddress patchAccountAddress(
+			Long id, AccountAddress accountAddress)
+		throws Exception {
+
+		CommerceAddress commerceAddress =
+			_commerceAddressService.getCommerceAddress(id);
+
+		commerceAddress = _commerceAddressService.updateCommerceAddress(
+			commerceAddress.getCommerceAddressId(),
+			GetterUtil.getString(
+				accountAddress.getName(), commerceAddress.getName()),
+			GetterUtil.getString(
+				accountAddress.getDescription(),
+				commerceAddress.getDescription()),
+			GetterUtil.getString(
+				accountAddress.getStreet1(), commerceAddress.getStreet1()),
+			GetterUtil.getString(
+				accountAddress.getStreet2(), commerceAddress.getStreet2()),
+			GetterUtil.getString(
+				accountAddress.getStreet3(), commerceAddress.getStreet3()),
+			GetterUtil.getString(
+				accountAddress.getCity(), commerceAddress.getCity()),
+			GetterUtil.getString(
+				accountAddress.getZip(), commerceAddress.getZip()),
+			commerceAddress.getCommerceRegionId(),
+			commerceAddress.getCommerceCountryId(),
+			GetterUtil.getString(
+				accountAddress.getPhoneNumber(),
+				commerceAddress.getPhoneNumber()),
+			GetterUtil.getInteger(
+				accountAddress.getType(), commerceAddress.getType()),
+			_serviceContextHelper.getServiceContext());
+
+		return _toAccountAddress(commerceAddress);
 	}
 
 	@Override
@@ -232,6 +286,32 @@ public class AccountAddressResourceImpl extends BaseAccountAddressResourceImpl {
 
 		return _addAccountAddress(
 			_commerceAccountService.getCommerceAccount(id), accountAddress);
+	}
+
+	@Override
+	public AccountAddress putAccountAddress(
+			Long id, AccountAddress accountAddress)
+		throws Exception {
+
+		CommerceAddress commerceAddress =
+			_commerceAddressService.getCommerceAddress(id);
+
+		commerceAddress = _commerceAddressService.updateCommerceAddress(
+			commerceAddress.getCommerceAddressId(),
+			GetterUtil.getString(accountAddress.getName()),
+			GetterUtil.getString(accountAddress.getDescription()),
+			GetterUtil.getString(accountAddress.getStreet1()),
+			GetterUtil.getString(accountAddress.getStreet2()),
+			GetterUtil.getString(accountAddress.getStreet3()),
+			GetterUtil.getString(accountAddress.getCity()),
+			GetterUtil.getString(accountAddress.getZip()),
+			commerceAddress.getCommerceRegionId(),
+			commerceAddress.getCommerceCountryId(),
+			GetterUtil.getString(accountAddress.getPhoneNumber()),
+			GetterUtil.getInteger(accountAddress.getType()),
+			_serviceContextHelper.getServiceContext());
+
+		return _toAccountAddress(commerceAddress);
 	}
 
 	private AccountAddress _addAccountAddress(
