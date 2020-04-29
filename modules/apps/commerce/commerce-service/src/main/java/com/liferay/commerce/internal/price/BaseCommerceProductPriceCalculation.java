@@ -108,12 +108,10 @@ public abstract class BaseCommerceProductPriceCalculation
 		}
 
 		if (_isStaticPriceType(priceType)) {
-			BigDecimal relativePrice = null;
+			BigDecimal relativePrice = cpDefinitionOptionValueRel.getPrice();
 
 			if (selectedCPDefinitionOptionValueRel != null) {
-				BigDecimal price = cpDefinitionOptionValueRel.getPrice();
-
-				relativePrice = price.subtract(
+				relativePrice = relativePrice.subtract(
 					selectedCPDefinitionOptionValueRel.getPrice());
 			}
 
