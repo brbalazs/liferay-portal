@@ -52,7 +52,8 @@ public class JsonHelperTest {
 
 		Assert.assertEquals(
 			"First element string value", "commerce",
-			_jsonHelper.getFirstElementStringValue("[\"commerce\",\"value2\"]"));
+			_jsonHelper.getFirstElementStringValue(
+				"[\"commerce\",\"value2\"]"));
 
 		_assertException(
 			"[\"commerce\",\"value2\"", IllegalArgumentException.class);
