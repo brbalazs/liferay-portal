@@ -26,7 +26,10 @@ import com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONObject;
+
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,76 +128,24 @@ public class CommerceOptionValueHelperImpl
 	}
 
 	@Override
-	public List<CommerceOptionValue> getCPInstanceCommerceOptionValues(
-			long cpInstanceId)
+	public CommerceOptionValue toCommerceOptionValue(String json)
 		throws PortalException {
 
-		CPInstance cpInstance = _cpInstanceService.getCPInstance(cpInstanceId);
+		JSONObject jsonObject = _jsonFactory.createJSONObject(json);
 
-		if (!_cpInstanceOptionValueRelLocalService.hasCPInstanceOptionValueRel(
-				cpInstance.getCPInstanceId())) {
+		CommerceOptionValueImpl.Builder commerceOptionValueBuilder =
+			new CommerceOptionValueImpl.Builder();
 
-			return Collections.emptyList();
-		}
+		commerceOptionValueBuilder.optionKey(jsonObject.getString("key"));
+		commerceOptionValueBuilder.priceType(jsonObject.getString("priceType"));
 
-		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
+		commerceOptionValueBuilder.price(
+			new BigDecimal(jsonObject.getString("price")));
+		commerceOptionValueBuilder.quantity(jsonObject.getInt("quantity"));
+		commerceOptionValueBuilder.cpInstanceId(
+			jsonObject.getLong("cpInstanceId"));
 
-		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpInstanceCPDefinitionOptionRelsMap =
-				_cpInstanceHelper.getCPInstanceCPDefinitionOptionRelsMap(
-					cpInstanceId);
-
-		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				entry : cpInstanceCPDefinitionOptionRelsMap.entrySet()) {
-
-			CPDefinitionOptionRel cpDefinitionOptionRel = entry.getKey();
-
-			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-				entry.getValue();
-
-			if (Validator.isNull(cpDefinitionOptionRel.getPriceType()) ||
-				(cpDefinitionOptionValueRels == null) ||
-				(cpDefinitionOptionValueRels.size() != 1)) {
-
-				continue;
-			}
-
-			CommerceOptionValueImpl.Builder commerceOptionValueBuilder =
-				new CommerceOptionValueImpl.Builder();
-
-			commerceOptionValueBuilder.optionKey(
-				cpDefinitionOptionRel.getKey());
-			commerceOptionValueBuilder.priceType(
-				cpDefinitionOptionRel.getPriceType());
-
-			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-				cpDefinitionOptionValueRels.get(0);
-
-			commerceOptionValueBuilder.price(
-				cpDefinitionOptionValueRel.getPrice());
-			commerceOptionValueBuilder.quantity(
-				cpDefinitionOptionValueRel.getQuantity());
-
-			CPInstance cpDefinitionOptionValueRelCPInstance =
-				cpDefinitionOptionValueRel.fetchCPInstance();
-
-			if (cpDefinitionOptionValueRelCPInstance != null) {
-				commerceOptionValueBuilder.cpInstanceId(
-					cpDefinitionOptionValueRelCPInstance.getCPInstanceId());
-
-				if (Objects.equals(
-						cpDefinitionOptionRel.getPriceType(),
-						CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
-
-					commerceOptionValueBuilder.price(
-						cpDefinitionOptionValueRelCPInstance.getPrice());
-				}
-			}
-
-			commerceOptionValues.add(commerceOptionValueBuilder.build());
-		}
-
-		return commerceOptionValues;
+		return commerceOptionValueBuilder.build();
 	}
 
 	@Reference
@@ -214,5 +165,8 @@ public class CommerceOptionValueHelperImpl
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
+
+	@Reference
+	private JSONFactory _jsonFactory;
 
 }

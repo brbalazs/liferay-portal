@@ -48,6 +48,13 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 		return _quantity;
 	}
 
+	@Override
+	public String toJSON() {
+		return String.format(
+			_JSON_SERIALIZED_PATTERN, _cpInstanceId, _optionKey, _price,
+			_priceType, _quantity);
+	}
+
 	public static class Builder {
 
 		public CommerceOptionValue build() {
@@ -103,6 +110,10 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 
 	private CommerceOptionValueImpl() {
 	}
+
+	private static final String _JSON_SERIALIZED_PATTERN =
+		"{\"cpInstanceId\":%d, \"key\":\"%s\", \"price\":\"%s\", " +
+			"\"priceType\":\"%s\", \"quantity\":%d}";
 
 	private long _cpInstanceId;
 	private String _optionKey;
