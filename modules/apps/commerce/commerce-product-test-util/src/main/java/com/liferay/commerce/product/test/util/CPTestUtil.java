@@ -31,6 +31,7 @@ import com.liferay.commerce.product.model.CPOptionValue;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionLocalServiceUtil;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalServiceUtil;
+import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CPInstanceLocalServiceUtil;
 import com.liferay.commerce.product.service.CPOptionLocalServiceUtil;
 import com.liferay.commerce.product.service.CPOptionValueLocalServiceUtil;
@@ -216,6 +217,74 @@ public class CPTestUtil {
 		return CPDefinitionOptionRelLocalServiceUtil.addCPDefinitionOptionRel(
 			cpDefinitionId, cpOptionId, true,
 			ServiceContextTestUtil.getServiceContext(groupId));
+	}
+
+	public static CPDefinition addCPDefinitionWithChildCPDefinitions(
+			long groupId)
+		throws PortalException {
+
+		CPDefinition optionACPDefinition = addCPDefinitionFromCatalog(
+			groupId, SimpleCPTypeConstants.NAME, true, true);
+
+		CPInstance optionACPInstance = _getRandomApprovedCPInstance(
+			optionACPDefinition.getCPDefinitionId());
+
+		CPDefinition optionBCPDefinition = addCPDefinitionFromCatalog(
+			groupId, SimpleCPTypeConstants.NAME, true, true);
+
+		CPInstance optionBCPInstance = _getRandomApprovedCPInstance(
+			optionBCPDefinition.getCPDefinitionId());
+
+		CPDefinition bundleCPDefinition = addCPDefinitionFromCatalog(
+			groupId, SimpleCPTypeConstants.NAME, true, true);
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CPOption productBundleOption = addCPOption(
+			groupId, getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPDefinitionOptionRelLocalServiceUtil.addCPDefinitionOptionRel(
+				bundleCPDefinition.getCPDefinitionId(),
+				productBundleOption.getCPOptionId(),
+				RandomTestUtil.randomLocaleStringMap(),
+				RandomTestUtil.randomLocaleStringMap(),
+				getDefaultDDMFormFieldType(true), 0.2, false, false, true,
+				false, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				serviceContext);
+
+		CPDefinitionOptionValueRel optionACPDefinitionOptionValueRel =
+			CPDefinitionOptionValueRelLocalServiceUtil.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+					RandomTestUtil.randomLocaleStringMap(), 0.4, "product-a",
+					serviceContext);
+
+		CPDefinitionOptionValueRelLocalServiceUtil.
+			updateCPDefinitionOptionValueRel(
+				optionACPDefinitionOptionValueRel.
+					getCPDefinitionOptionValueRelId(),
+				RandomTestUtil.randomLocaleStringMap(), 0.4, "product-a",
+				optionACPInstance.getCPInstanceId(), 2,
+				new BigDecimal("100.20"), serviceContext);
+
+		CPDefinitionOptionValueRel optionBCPDefinitionOptionValueRel =
+			CPDefinitionOptionValueRelLocalServiceUtil.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+					RandomTestUtil.randomLocaleStringMap(), 0.2, "product-b",
+					serviceContext);
+
+		CPDefinitionOptionValueRelLocalServiceUtil.
+			updateCPDefinitionOptionValueRel(
+				optionBCPDefinitionOptionValueRel.
+					getCPDefinitionOptionValueRelId(),
+				RandomTestUtil.randomLocaleStringMap(), 0.2, "product-b",
+				optionBCPInstance.getCPInstanceId(), 2,
+				new BigDecimal("200.20"), serviceContext);
+
+		return bundleCPDefinition;
 	}
 
 	public static CPInstance addCPInstance() throws PortalException {
@@ -688,6 +757,16 @@ public class CPTestUtil {
 		return ConfigurationProviderUtil.getConfiguration(
 			CPOptionConfiguration.class,
 			new SystemSettingsLocator(CPConstants.CP_OPTION_SERVICE_NAME));
+	}
+
+	private static CPInstance _getRandomApprovedCPInstance(
+		long cpDefinitionId) {
+
+		List<CPInstance> cpDefinitionApprovedCPInstances =
+			CPInstanceLocalServiceUtil.getCPDefinitionApprovedCPInstances(
+				cpDefinitionId);
+
+		return cpDefinitionApprovedCPInstances.get(0);
 	}
 
 }
