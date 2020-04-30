@@ -6,7 +6,7 @@ import {matchPath} from 'react-router-dom';
 import {Routes, toRoute} from 'shared/util/router';
 
 type History = {
-	push: (path: string) => void;
+	replace: (path: string) => void;
 };
 
 type Location = {
@@ -51,19 +51,23 @@ const checkValidChannel = (
 		}
 	}, []);
 
-	if (channelId && !channels.some(({id}) => id === channelId)) {
+	if (
+		channelId &&
+		!!channels.length &&
+		!channels.some(({id}) => id === channelId)
+	) {
 		return <ErrorPage />;
 	}
 
 	return (
 		<WrappedComponent
+			{...otherProps}
 			channelId={channelId}
 			channels={channels}
 			defaultChannelId={defaultChannelId}
 			groupId={groupId}
 			history={history}
 			location={location}
-			{...otherProps}
 		/>
 	);
 };
