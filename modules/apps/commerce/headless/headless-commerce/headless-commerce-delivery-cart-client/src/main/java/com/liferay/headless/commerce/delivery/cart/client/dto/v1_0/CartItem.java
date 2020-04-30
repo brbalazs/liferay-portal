@@ -29,6 +29,27 @@ import javax.annotation.Generated;
 @Generated("")
 public class CartItem implements Cloneable {
 
+	public CartItem[] getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(CartItem[] cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public void setCartItems(
+		UnsafeSupplier<CartItem[], Exception> cartItemsUnsafeSupplier) {
+
+		try {
+			cartItems = cartItemsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected CartItem[] cartItems;
+
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}

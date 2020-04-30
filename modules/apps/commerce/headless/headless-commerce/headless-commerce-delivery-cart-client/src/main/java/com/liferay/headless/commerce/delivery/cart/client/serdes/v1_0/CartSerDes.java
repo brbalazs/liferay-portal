@@ -501,14 +501,8 @@ public class CartSerDes {
 			map.put("couponCode", String.valueOf(cart.getCouponCode()));
 		}
 
-		if (cart.getCreateDate() == null) {
-			map.put("createDate", null);
-		}
-		else {
-			map.put(
-				"createDate",
-				liferayToJSONDateFormat.format(cart.getCreateDate()));
-		}
+		map.put(
+			"createDate", liferayToJSONDateFormat.format(cart.getCreateDate()));
 
 		if (cart.getCurrencyCode() == null) {
 			map.put("currencyCode", null);
@@ -531,23 +525,13 @@ public class CartSerDes {
 			map.put("id", String.valueOf(cart.getId()));
 		}
 
-		if (cart.getLastPriceUpdateDate() == null) {
-			map.put("lastPriceUpdateDate", null);
-		}
-		else {
-			map.put(
-				"lastPriceUpdateDate",
-				liferayToJSONDateFormat.format(cart.getLastPriceUpdateDate()));
-		}
+		map.put(
+			"lastPriceUpdateDate",
+			liferayToJSONDateFormat.format(cart.getLastPriceUpdateDate()));
 
-		if (cart.getModifiedDate() == null) {
-			map.put("modifiedDate", null);
-		}
-		else {
-			map.put(
-				"modifiedDate",
-				liferayToJSONDateFormat.format(cart.getModifiedDate()));
-		}
+		map.put(
+			"modifiedDate",
+			liferayToJSONDateFormat.format(cart.getModifiedDate()));
 
 		if (cart.getNotes() == null) {
 			map.put("notes", null);

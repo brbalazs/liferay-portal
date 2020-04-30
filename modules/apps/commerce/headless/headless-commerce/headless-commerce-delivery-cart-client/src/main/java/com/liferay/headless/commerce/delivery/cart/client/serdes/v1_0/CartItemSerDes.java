@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 import javax.annotation.Generated;
 
@@ -52,6 +53,26 @@ public class CartItemSerDes {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("{");
+
+		if (cartItem.getCartItems() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"cartItems\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < cartItem.getCartItems().length; i++) {
+				sb.append(String.valueOf(cartItem.getCartItems()[i]));
+
+				if ((i + 1) < cartItem.getCartItems().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
 
 		if (cartItem.getCustomFields() != null) {
 			if (sb.length() > 1) {
@@ -217,6 +238,13 @@ public class CartItemSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (cartItem.getCartItems() == null) {
+			map.put("cartItems", null);
+		}
+		else {
+			map.put("cartItems", String.valueOf(cartItem.getCartItems()));
+		}
+
 		if (cartItem.getCustomFields() == null) {
 			map.put("customFields", null);
 		}
@@ -330,7 +358,19 @@ public class CartItemSerDes {
 			CartItem cartItem, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "customFields")) {
+			if (Objects.equals(jsonParserFieldName, "cartItems")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setCartItems(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> CartItemSerDes.toDTO((String)object)
+						).toArray(
+							size -> new CartItem[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "customFields")) {
 				if (jsonParserFieldValue != null) {
 					cartItem.setCustomFields(
 						(Map)CartItemSerDes.toMap(

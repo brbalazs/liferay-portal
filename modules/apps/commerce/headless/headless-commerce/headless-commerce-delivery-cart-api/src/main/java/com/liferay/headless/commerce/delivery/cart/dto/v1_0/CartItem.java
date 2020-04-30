@@ -48,6 +48,35 @@ public class CartItem {
 
 	@Schema
 	@Valid
+	public CartItem[] getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(CartItem[] cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	@JsonIgnore
+	public void setCartItems(
+		UnsafeSupplier<CartItem[], Exception> cartItemsUnsafeSupplier) {
+
+		try {
+			cartItems = cartItemsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected CartItem[] cartItems;
+
+	@Schema
+	@Valid
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}
@@ -429,6 +458,26 @@ public class CartItem {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (cartItems != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"cartItems\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < cartItems.length; i++) {
+				sb.append(String.valueOf(cartItems[i]));
+
+				if ((i + 1) < cartItems.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
 
 		if (customFields != null) {
 			if (sb.length() > 1) {
