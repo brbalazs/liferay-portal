@@ -88,6 +88,7 @@ type Valid = {
 };
 
 interface IBehaviorInputProps extends ISegmentEditorCustomInputBase {
+	channelId: string;
 	close: Modal.close;
 	open: Modal.open;
 	touched: Touched;
@@ -108,12 +109,14 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 	@autobind
 	assetsDataFn({delta, orderBy, orderByField, page, query}) {
 		const {
+			channelId,
 			groupId,
 			property: {entityType, name}
 		} = this.props;
 
 		return API.activities.searchAssets({
 			applicationId: entityType,
+			channelId,
 			cur: page,
 			delta,
 			eventId: name,
