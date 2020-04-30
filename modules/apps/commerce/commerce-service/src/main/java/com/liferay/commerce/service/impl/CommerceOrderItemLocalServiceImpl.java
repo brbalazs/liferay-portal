@@ -195,7 +195,7 @@ public class CommerceOrderItemLocalServiceImpl
 			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
 
-		validateProductBundle(commerceOrderItem);
+		validateParentCommerceOrderId(commerceOrderItem);
 
 		return _deleteCommerceOrderItem(commerceOrderItem);
 	}
@@ -461,13 +461,13 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
 
-		validateProductBundle(commerceOrderItem);
+		validateParentCommerceOrderId(commerceOrderItem);
 
-		List<CommerceOrderItem> bundledCommerceItems =
+		List<CommerceOrderItem> childCommerceOrderItems =
 			commerceOrderItemPersistence.findByParentCommerceOrderItemId(
 				commerceOrderItemId);
 
-		if (bundledCommerceItems.isEmpty()) {
+		if (childCommerceOrderItems.isEmpty()) {
 			return _updateCommerceOrderItem(
 				commerceOrderItemId, quantity, json, null, commerceContext,
 				serviceContext);
@@ -476,10 +476,12 @@ public class CommerceOrderItemLocalServiceImpl
 		List<CommerceOptionValue> commerceOptionValues =
 			_commerceOptionValueHelper.toCommerceOptionValues(json);
 
-		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
+		for (CommerceOrderItem childCommerceOrderItem :
+				childCommerceOrderItems) {
+
 			CommerceOptionValue commerceOptionValue =
 				_commerceOptionValueHelper.toCommerceOptionValue(
-					bundledCommerceItem.getJson());
+					childCommerceOrderItem.getJson());
 
 			CommerceOptionValue matchedCommerceOptionValue =
 				commerceOptionValue.firstMatchIn(commerceOptionValues);
@@ -493,8 +495,8 @@ public class CommerceOrderItemLocalServiceImpl
 
 			if (!_isStaticPriceType(commerceOptionValue.getPriceType())) {
 				_updateCommerceOrderItem(
-					bundledCommerceItem.getCommerceOrderItemId(),
-					currentQuantity, bundledCommerceItem.getJson(), null,
+					childCommerceOrderItem.getCommerceOrderItemId(),
+					currentQuantity, childCommerceOrderItem.getJson(), null,
 					commerceContext, serviceContext);
 
 				continue;
@@ -507,9 +509,9 @@ public class CommerceOrderItemLocalServiceImpl
 					commerceContext.getCommerceCurrency());
 
 			_updateCommerceOrderItem(
-				bundledCommerceItem.getCommerceOrderItemId(), currentQuantity,
-				bundledCommerceItem.getJson(), staticCommerceProductPrice,
-				commerceContext, serviceContext);
+				childCommerceOrderItem.getCommerceOrderItemId(),
+				currentQuantity, childCommerceOrderItem.getJson(),
+				staticCommerceProductPrice, commerceContext, serviceContext);
 		}
 
 		return _updateCommerceOrderItem(
@@ -600,11 +602,13 @@ public class CommerceOrderItemLocalServiceImpl
 			return commerceOrderItem;
 		}
 
-		List<CommerceOrderItem> bundledCommerceItems =
+		List<CommerceOrderItem> childCommerceOrderItems =
 			commerceOrderItemPersistence.findByParentCommerceOrderItemId(
 				commerceOrderItemId);
 
-		for (CommerceOrderItem childCommerceOrderItem : bundledCommerceItems) {
+		for (CommerceOrderItem childCommerceOrderItem :
+				childCommerceOrderItems) {
+
 			CommerceOptionValue commerceOptionValue =
 				_commerceOptionValueHelper.toCommerceOptionValue(
 					childCommerceOrderItem.getJson());
@@ -646,7 +650,7 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
 
-		validateProductBundle(commerceOrderItem);
+		validateParentCommerceOrderId(commerceOrderItem);
 
 		commerceOrderItem.setUnitPrice(unitPrice);
 		commerceOrderItem.setPromoPrice(promoPrice);
@@ -879,7 +883,8 @@ public class CommerceOrderItemLocalServiceImpl
 		}
 	}
 
-	protected void validateProductBundle(CommerceOrderItem commerceOrderItem)
+	protected void validateParentCommerceOrderId(
+			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
 
 		if (commerceOrderItem.getParentCommerceOrderItemId() != 0) {
@@ -887,7 +892,7 @@ public class CommerceOrderItemLocalServiceImpl
 				StringBundler.concat(
 					"Operation not allowed on an item ",
 					commerceOrderItem.getCommerceOrderItemId(),
-					" because it belongs to a product bundle ",
+					" because it is child commerce order item ",
 					commerceOrderItem.getParentCommerceOrderItemId()));
 		}
 	}
@@ -947,12 +952,14 @@ public class CommerceOrderItemLocalServiceImpl
 	private void _deleteBundleChildrenOrderItems(long commerceOrderItemId)
 		throws PortalException {
 
-		List<CommerceOrderItem> bundledCommerceItems =
+		List<CommerceOrderItem> childCommerceOrderItems =
 			commerceOrderItemPersistence.findByParentCommerceOrderItemId(
 				commerceOrderItemId);
 
-		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
-			_deleteCommerceOrderItem(bundledCommerceItem);
+		for (CommerceOrderItem childCommerceOrderItem :
+				childCommerceOrderItems) {
+
+			_deleteCommerceOrderItem(childCommerceOrderItem);
 		}
 	}
 
