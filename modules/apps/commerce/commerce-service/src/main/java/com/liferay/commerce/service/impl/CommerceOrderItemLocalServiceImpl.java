@@ -473,18 +473,29 @@ public class CommerceOrderItemLocalServiceImpl
 				serviceContext);
 		}
 
+		List<CommerceOptionValue> commerceOptionValues =
+			_commerceOptionValueHelper.toCommerceOptionValues(json);
+
 		for (CommerceOrderItem bundledCommerceItem : bundledCommerceItems) {
 			CommerceOptionValue commerceOptionValue =
 				_commerceOptionValueHelper.toCommerceOptionValue(
-					commerceOrderItem.getJson());
+					bundledCommerceItem.getJson());
+
+			CommerceOptionValue matchedCommerceOptionValue =
+				commerceOptionValue.firstMatchIn(commerceOptionValues);
+
+			if (matchedCommerceOptionValue == null) {
+				throw new NoSuchOrderItemException(
+					"Child commerce order item does not match any json item");
+			}
 
 			int currentQuantity = quantity * commerceOptionValue.getQuantity();
 
 			if (!_isStaticPriceType(commerceOptionValue.getPriceType())) {
 				_updateCommerceOrderItem(
 					bundledCommerceItem.getCommerceOrderItemId(),
-					currentQuantity, null, null, commerceContext,
-					serviceContext);
+					currentQuantity, bundledCommerceItem.getJson(), null,
+					commerceContext, serviceContext);
 
 				continue;
 			}
@@ -711,9 +722,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			if ((commerceOrderItem.getParentCommerceOrderItemId() == 0) &&
-				(Objects.equals(json, commerceOrderItem.getJson()) ||
-				 (Objects.equals(json, "[]") &&
-				  Validator.isBlank(commerceOrderItem.getJson())))) {
+				_jsonMatches(json, commerceOrderItem.getJson())) {
 
 				return commerceOrderItemLocalService.updateCommerceOrderItem(
 					commerceOrderItem.getCommerceOrderItemId(),
@@ -1098,6 +1107,18 @@ public class CommerceOrderItemLocalServiceImpl
 			(cpInstance.isSubscriptionEnabled() ||
 			 cpInstance.isDeliverySubscriptionEnabled())) {
 
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean _jsonMatches(String json1, String json2) {
+		if (_jsonHelper.isEmpty(json1) && _jsonHelper.isEmpty(json2)) {
+			return true;
+		}
+
+		if (_jsonHelper.equals(json1, json2)) {
 			return true;
 		}
 
