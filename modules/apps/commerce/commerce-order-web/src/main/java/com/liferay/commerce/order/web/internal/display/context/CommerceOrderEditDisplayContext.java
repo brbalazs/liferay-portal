@@ -27,7 +27,6 @@ import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.notification.model.CommerceNotificationQueueEntry;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
-import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.order.status.CommerceOrderStatus;
 import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
@@ -35,6 +34,8 @@ import com.liferay.commerce.order.web.internal.display.context.util.CommerceOrde
 import com.liferay.commerce.order.web.internal.servlet.taglib.ui.CommerceOrderScreenNavigationConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
@@ -77,8 +78,7 @@ import javax.portlet.RenderURL;
 public class CommerceOrderEditDisplayContext {
 
 	public CommerceOrderEditDisplayContext(
-			CommerceNotificationTemplateService
-				commerceNotificationTemplateService,
+			CommerceChannelLocalService commerceChannelLocalService,
 			CommerceNotificationQueueEntryLocalService
 				commerceNotificationQueueEntryLocalService,
 			CommerceOrderEngine commerceOrderEngine,
@@ -92,8 +92,7 @@ public class CommerceOrderEditDisplayContext {
 			RenderRequest renderRequest)
 		throws PortalException {
 
-		_commerceNotificationTemplateService =
-			commerceNotificationTemplateService;
+		_commerceChannelLocalService = commerceChannelLocalService;
 		_commerceNotificationQueueEntryLocalService =
 			commerceNotificationQueueEntryLocalService;
 		_commerceOrderEngine = commerceOrderEngine;
@@ -177,6 +176,16 @@ public class CommerceOrderEditDisplayContext {
 				_commerceOrderRequestHelper.getRequest(), "add-new-address"));
 
 		return clayCreationMenu;
+	}
+
+	public String getCommerceChannelName() throws PortalException {
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				commerceOrder.getGroupId());
+
+		return commerceChannel.getName();
 	}
 
 	public PortletURL getCommerceNotificationQueueEntriesPortletURL() {
@@ -649,10 +658,9 @@ public class CommerceOrderEditDisplayContext {
 		return steps;
 	}
 
+	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceNotificationQueueEntryLocalService
 		_commerceNotificationQueueEntryLocalService;
-	private final CommerceNotificationTemplateService
-		_commerceNotificationTemplateService;
 	private final CommerceOrder _commerceOrder;
 	private final Format _commerceOrderDateFormatDateTime;
 	private final CommerceOrderEngine _commerceOrderEngine;
