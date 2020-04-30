@@ -17,6 +17,7 @@ package com.liferay.commerce.product.util;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONObject;
 
 import java.util.List;
@@ -27,6 +28,8 @@ import java.util.Map;
  */
 @ProviderType
 public interface JsonHelper {
+
+	public JSONArray asJSONArray(String json) throws JSONException;
 
 	public boolean equals(String json1, String json2);
 
