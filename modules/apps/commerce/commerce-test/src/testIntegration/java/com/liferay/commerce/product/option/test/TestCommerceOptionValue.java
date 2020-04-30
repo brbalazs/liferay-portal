@@ -18,20 +18,38 @@ import com.liferay.commerce.product.option.CommerceOptionValue;
 
 import java.math.BigDecimal;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
  * @author Riccardo Alberti
+ * @author Igor Beslic
  */
 public class TestCommerceOptionValue implements CommerceOptionValue {
 
 	public TestCommerceOptionValue(
-		long cpInstanceId, String optionKey, BigDecimal price, String priceType,
-		int quantity) {
+		long cpInstanceId, String optionKey, String optionValueKey,
+		BigDecimal price, String priceType, int quantity) {
 
 		_cpInstanceId = cpInstanceId;
 		_optionKey = optionKey;
+		_optionValueKey = optionValueKey;
 		_price = price;
 		_priceType = priceType;
 		_quantity = quantity;
+	}
+
+	@Override
+	public CommerceOptionValue firstMatchIn(
+		List<CommerceOptionValue> commerceOptionValues) {
+
+		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
+			if (matches(commerceOptionValue)) {
+				return commerceOptionValue;
+			}
+		}
+
+		return null;
 	}
 
 	@Override
@@ -42,6 +60,11 @@ public class TestCommerceOptionValue implements CommerceOptionValue {
 	@Override
 	public String getOptionKey() {
 		return _optionKey;
+	}
+
+	@Override
+	public String getOptionValueKey() {
+		return _optionValueKey;
 	}
 
 	@Override
@@ -57,6 +80,22 @@ public class TestCommerceOptionValue implements CommerceOptionValue {
 	@Override
 	public int getQuantity() {
 		return _quantity;
+	}
+
+	@Override
+	public boolean matches(CommerceOptionValue commerceOptionValue) {
+		if (commerceOptionValue == null) {
+			return false;
+		}
+
+		if (Objects.equals(_optionKey, commerceOptionValue.getOptionKey()) &&
+			Objects.equals(
+				_optionValueKey, commerceOptionValue.getOptionValueKey())) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public void setCpInstanceId(long cpInstanceId) {
@@ -83,15 +122,16 @@ public class TestCommerceOptionValue implements CommerceOptionValue {
 	public String toJSON() {
 		return String.format(
 			_JSON_SERIALIZED_PATTERN, _cpInstanceId, _optionKey, _price,
-			_priceType, _quantity);
+			_priceType, _quantity, _optionValueKey);
 	}
 
 	private static final String _JSON_SERIALIZED_PATTERN =
 		"{\"cpInstanceId\":%d, \"key\":\"%s\", \"price\":\"%s\", " +
-			"\"priceType\":\"%s\", \"quantity\":%d}";
+			"\"priceType\":\"%s\", \"quantity\":%d, \"value\":\"%s\"}";
 
 	private long _cpInstanceId;
 	private String _optionKey;
+	private final String _optionValueKey;
 	private BigDecimal _price;
 	private String _priceType;
 	private int _quantity;
