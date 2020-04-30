@@ -158,8 +158,31 @@ export class ChannelList extends React.Component<IChannelListProps> {
 			ids.length
 		) as string;
 
-		open(modalTypes.CLEAR_DATA_MODAL, {
-			channelName: message,
+		open(modalTypes.DELETE_CONFIRMATION_MODAL, {
+			children: (
+				<>
+					<p>
+						<strong>
+							{sub(
+								Liferay.Language.get(
+									'to-clear-data-from-x,-copy-the-sentence-below-to-confirm-your-intention-to-clear-data-from-this-property'
+								),
+								[message]
+							)}
+						</strong>
+					</p>
+
+					<p>
+						{Liferay.Language.get(
+							'this-will-result-in-the-complete-removal-of-this-property-and-its-historical-events.-you-will-not-be-able-to-undo-this-operation'
+						)}
+					</p>
+				</>
+			),
+			deleteButtonLabel: Liferay.Language.get('clear-data'),
+			deleteConfirmationText: sub(Liferay.Language.get('clear-x'), [
+				message
+			]),
 			onClose: close,
 			onSubmit: () =>
 				API.channels
@@ -268,8 +291,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 									: Liferay.Language.get('error'),
 							timeout: false
 						})
-					),
-			title: sub(Liferay.Language.get('delete-x?'), [message])
+					)
 		});
 	}
 

@@ -185,8 +185,34 @@ const View: React.FC<IViewProps> = ({
 						<Button
 							className='mr-3'
 							onClick={() =>
-								open(modalTypes.CLEAR_DATA_MODAL, {
-									channelName: name,
+								open(modalTypes.DELETE_CONFIRMATION_MODAL, {
+									children: (
+										<>
+											<p>
+												<strong>
+													{sub(
+														Liferay.Language.get(
+															'to-clear-data-from-x,-copy-the-sentence-below-to-confirm-your-intention-to-clear-data-from-this-property'
+														),
+														[name]
+													)}
+												</strong>
+											</p>
+
+											<p>
+												{Liferay.Language.get(
+													'this-will-result-in-the-complete-removal-of-this-property-and-its-historical-events.-you-will-not-be-able-to-undo-this-operation'
+												)}
+											</p>
+										</>
+									),
+									deleteButtonLabel: Liferay.Language.get(
+										'clear-data'
+									),
+									deleteConfirmationText: sub(
+										Liferay.Language.get('clear-x'),
+										[name]
+									),
 									onClose: close,
 									onSubmit: () => {
 										API.channels
@@ -292,11 +318,7 @@ const View: React.FC<IViewProps> = ({
 													timeout: false
 												})
 											);
-									},
-									title: sub(
-										Liferay.Language.get('delete-x?'),
-										[name]
-									)
+									}
 								})
 							}
 						>
