@@ -491,7 +491,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			return values;
 		}
 
-		JSONArray jsonArray = _jsonFactory.createJSONArray(json);
+		JSONArray jsonArray = _jsonHelper.asJSONArray(json);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -506,7 +506,8 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 				continue;
 			}
 
-			JSONArray valueJSONArray = jsonObject.getJSONArray("value");
+			JSONArray valueJSONArray = _jsonHelper.getValueAsJSONArray(
+				"value", jsonObject);
 
 			for (int j = 0; j < valueJSONArray.length(); j++) {
 				String value = valueJSONArray.getString(j);
