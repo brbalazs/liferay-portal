@@ -53,12 +53,12 @@ exports[`LiferayDataSource should render 1`] = `
         </div>
       </div>
       <div>
-        <a
+        <button
           class="button-root btn btn-secondary"
-          href="/workspace/23/settings/data-source/test/delete"
+          type="button"
         >
           Delete Data Source
-        </a>
+        </button>
       </div>
     </div>
     <div>

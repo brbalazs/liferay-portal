@@ -27,7 +27,7 @@ exports[`DeleteChannelModal renders without data source alert message 1`] = `
                 xlink:href="#warning-full"
               />
             </svg>
-            Confirm
+            Delete ?
           </h4>
         </div>
         <div
@@ -36,14 +36,18 @@ exports[`DeleteChannelModal renders without data source alert message 1`] = `
           <div
             class="text-secondary"
           >
-            <p>
-              <strong>
-                To delete , copy the sentence below to confirm your intention to delete property.
-              </strong>
-            </p>
-            <p>
-              This will result in the complete removal of this property and it's historical events. You will not be able to undo this operation.
-            </p>
+            <div
+              class="text-secondary"
+            >
+              <p>
+                <strong>
+                  To delete , copy the sentence below to confirm your intention to delete property.
+                </strong>
+              </p>
+              <p>
+                This will result in the complete removal of this property and it's historical events. You will not be able to undo this operation.
+              </p>
+            </div>
           </div>
           <div
             class="font-weight-bold mb-3"
@@ -60,6 +64,7 @@ exports[`DeleteChannelModal renders without data source alert message 1`] = `
           >
             <input
               class="input-root form-control"
+              data-testid="delete-confirmation-input"
               id="delete"
               name="delete"
               type="text"

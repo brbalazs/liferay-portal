@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BaseFieldMappingView should render 1`] = `
-<Connect(BaseDataSourcePage)
+<withRouter()
   className="base-field-mapping-view-root"
   currentUser={
     Immutable.Record {
@@ -73,5 +73,5 @@ exports[`BaseFieldMappingView should render 1`] = `
       spacer={true}
     />
   </Sheet>
-</Connect(BaseDataSourcePage)>
+</withRouter()>
 `;

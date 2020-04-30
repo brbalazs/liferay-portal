@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SyncContacts should render 1`] = `
-<Connect(BaseDataSourcePage)
+<withRouter()
   breadcrumbItems={
     Array [
       Object {
@@ -184,7 +184,7 @@ exports[`SyncContacts should render 1`] = `
       />
     </Footer>
   </Sheet>
-</Connect(BaseDataSourcePage)>
+</withRouter()>
 `;
 
 exports[`SyncContacts should render with "Syncing x fewer contacts" verbiage if totalUsersCount is less than currentUsersCount 1`] = `
@@ -203,7 +203,7 @@ exports[`SyncContacts should render with "Syncing x fewer contacts" verbiage if 
 `;
 
 exports[`SyncContacts should render with Sync All contacts count even if contactsConfiguration has no configuration 1`] = `
-<Connect(BaseDataSourcePage)
+<withRouter()
   breadcrumbItems={
     Array [
       Object {
@@ -400,5 +400,5 @@ exports[`SyncContacts should render with Sync All contacts count even if contact
       />
     </Footer>
   </Sheet>
-</Connect(BaseDataSourcePage)>
+</withRouter()>
 `;

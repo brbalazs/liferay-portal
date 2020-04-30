@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ClearDataModal should render 1`] = `
+exports[`DeleteConfirmationModal renders 1`] = `
 <div>
   <div
     aria-modal="true"
@@ -27,7 +27,7 @@ exports[`ClearDataModal should render 1`] = `
                 xlink:href="#warning-full"
               />
             </svg>
-            Confirm
+            Test title
           </h4>
         </div>
         <div
@@ -37,12 +37,7 @@ exports[`ClearDataModal should render 1`] = `
             class="text-secondary"
           >
             <p>
-              <strong>
-                To clear data from , copy the sentence below to confirm your intention to clear data from this property.
-              </strong>
-            </p>
-            <p>
-              This will result in the complete removal of this property and it's historical events. You will not be able to undo this operation.
+              I am child
             </p>
           </div>
           <div
@@ -51,15 +46,14 @@ exports[`ClearDataModal should render 1`] = `
             Copy the following: 
             <span
               class="font-weight-normal text-secondary"
-            >
-              Clear 
-            </span>
+            />
           </div>
           <div
             class=""
           >
             <input
               class="input-root form-control"
+              data-testid="delete-confirmation-input"
               id="delete"
               name="delete"
               type="text"
@@ -81,7 +75,7 @@ exports[`ClearDataModal should render 1`] = `
             disabled=""
             type="submit"
           >
-            Clear Data
+            Delete
           </button>
         </div>
       </form>
