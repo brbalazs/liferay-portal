@@ -118,9 +118,18 @@ public class CommerceCartResourceUtil {
 				prices, settings, getErrorMessages(locale, commerceOrderItem),
 				commerceOrderItem.getCPInstanceId());
 
+			long commerceOptionValueCPDefinitionId =
+				commerceOrderItem.getCPDefinitionId();
+
+			if (commerceOrderItem.hasParentCommerceOrderItem()) {
+				commerceOptionValueCPDefinitionId =
+					commerceOrderItem.
+						getParentCommerceOrderItemCPDefinitionId();
+			}
+
 			product.setOptions(
 				_cpInstanceHelper.getKeyValuePairs(
-					commerceOrderItem.getCPDefinitionId(),
+					commerceOptionValueCPDefinitionId,
 					commerceOrderItem.getJson(), locale));
 
 			products.add(product);
