@@ -96,3 +96,8 @@ export const SafeResults = compose(
 	withLoading(),
 	withError()
 )(({children, data}) => children(data));
+
+export const WrapSafeResults = compose(
+	withLoading(),
+	withError()
+)(({children}) => children);
