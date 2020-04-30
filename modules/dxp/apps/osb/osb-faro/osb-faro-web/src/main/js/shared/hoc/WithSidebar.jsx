@@ -1,5 +1,6 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
+import checkExperimentLink from './CheckExperimentLink';
 import checkProjectState from './CheckProjectState';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
@@ -31,6 +32,7 @@ import {withError, withLoading} from './util';
 
 export default compose(
 	checkProjectState,
+	checkExperimentLink,
 	withCurrentUser,
 	connect(
 		(store, {currentUser}) => ({
