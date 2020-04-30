@@ -1,9 +1,14 @@
 import * as data from 'test/data';
+import BaseDataSourcePage from '../BasePage';
 import FaroConstants from 'shared/util/constants';
+import mockStore from 'test/mock-store';
 import React from 'react';
-import {BaseDataSourcePage} from '../BasePage';
+import {cleanup, render} from '@testing-library/react';
 import {DataSource, User} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {StaticRouter} from 'react-router-dom';
+
+jest.unmock('react-dom');
 
 const {
 	dataSourceStates: {undefinedError},
@@ -11,76 +16,104 @@ const {
 } = FaroConstants;
 
 describe('BaseDataSourcePage', () => {
+	afterEach(cleanup);
+
 	it('should render', () => {
-		const component = shallow(
-			<BaseDataSourcePage
-				currentUser={data.getImmutableMock(User, data.mockUser)}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockLiferayDataSource
-				)}
-				groupId='23'
-				id='test'
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<Provider store={mockStore()}>
+					<BaseDataSourcePage
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockLiferayDataSource
+						)}
+						groupId='23'
+						id='test'
+					/>
+				</Provider>
+			</StaticRouter>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a delete button if showDelete is true', () => {
-		const component = shallow(
-			<BaseDataSourcePage
-				currentUser={data.getImmutableMock(User, data.mockUser)}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockLiferayDataSource
-				)}
-				groupId='23'
-				id='test'
-				showDelete
-			/>
+		const {queryByText} = render(
+			<StaticRouter>
+				<Provider store={mockStore()}>
+					<BaseDataSourcePage
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockLiferayDataSource
+						)}
+						groupId='23'
+						id='test'
+						showDelete
+					/>
+				</Provider>
+			</StaticRouter>
 		);
 
-		expect(component.prop('pageActions')).toMatchSnapshot();
+		expect(queryByText('Delete Data Source')).toBeTruthy();
 	});
 
 	it('should NOT render a delete button if the user is not an admin level', () => {
-		const component = shallow(
-			<BaseDataSourcePage
-				currentUser={data.getImmutableMock(User, data.mockUser, '23', {
-					roleName: member
-				})}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockLiferayDataSource
-				)}
-				groupId='23'
-				id='test'
-				showDelete
-			/>
+		const {queryByText} = render(
+			<StaticRouter>
+				<Provider store={mockStore()}>
+					<BaseDataSourcePage
+						currentUser={data.getImmutableMock(
+							User,
+							data.mockUser,
+							'23',
+							{
+								roleName: member
+							}
+						)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockLiferayDataSource
+						)}
+						groupId='23'
+						id='test'
+						showDelete
+					/>
+				</Provider>
+			</StaticRouter>
 		);
 
-		expect(component.prop('pageActions')).toMatchSnapshot();
+		expect(queryByText('Delete Data Source')).toBeNull();
 	});
 
 	it('should render with an UNDEFINED_ERROR message in the datasource status column', () => {
-		const component = shallow(
-			<BaseDataSourcePage
-				currentUser={data.getImmutableMock(User, data.mockUser, '23', {
-					roleName: member
-				})}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockLiferayDataSource,
-					'test',
-					{state: undefinedError}
-				)}
-				groupId='23'
-				id='test'
-				showDelete
-			/>
+		const {queryByText} = render(
+			<StaticRouter>
+				<Provider store={mockStore()}>
+					<BaseDataSourcePage
+						currentUser={data.getImmutableMock(
+							User,
+							data.mockUser,
+							'23',
+							{
+								roleName: member
+							}
+						)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockLiferayDataSource,
+							'test',
+							{state: undefinedError}
+						)}
+						groupId='23'
+						id='test'
+						showDelete
+					/>
+				</Provider>
+			</StaticRouter>
 		);
 
-		expect(component.find('DataSourceStatus')).toMatchSnapshot();
+		expect(queryByText(/A server error occurred/)).toBeTruthy();
 	});
 });
