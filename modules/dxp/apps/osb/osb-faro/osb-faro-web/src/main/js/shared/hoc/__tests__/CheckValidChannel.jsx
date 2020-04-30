@@ -5,17 +5,17 @@ import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
-const warappedComponentText = () => 'wrapped component text';
+const wrappedComponentText = () => 'wrapped component text';
 
 describe('CheckValidChannel', () => {
 	afterEach(cleanup);
 
 	it('should render a wrapped component', () => {
-		const WrappedComponent = CheckValidChannel(warappedComponentText);
+		const WrappedComponent = CheckValidChannel(wrappedComponentText);
 
 		const {container} = render(
 			<WrappedComponent
-				channelId={'123'}
+				channelId='123'
 				channels={[{id: '123'}]}
 				location={{pathname: 'test'}}
 			/>
@@ -25,12 +25,12 @@ describe('CheckValidChannel', () => {
 	});
 
 	it('should render an error page', () => {
-		const WrappedComponent = CheckValidChannel(warappedComponentText);
+		const WrappedComponent = CheckValidChannel(wrappedComponentText);
 
 		const {container} = render(
 			<StaticRouter>
 				<WrappedComponent
-					channelId={'123'}
+					channelId='123'
 					channels={[{id: '456'}]}
 					location={{pathname: 'test'}}
 				/>
