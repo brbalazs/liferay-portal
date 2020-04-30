@@ -57,6 +57,7 @@ export function fetchGroup({
 
 export function searchAssets({
 	applicationId,
+	channelId = '',
 	eventId,
 	groupId,
 	...otherParams
@@ -64,6 +65,7 @@ export function searchAssets({
 	return sendRequest({
 		data: {
 			applicationId,
+			channelId,
 			eventId,
 			...otherParams
 		},
