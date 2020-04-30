@@ -25,7 +25,10 @@ import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalServi
 import com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
+import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 
@@ -89,6 +92,8 @@ public class CommerceOptionValueHelperImpl
 
 					commerceOptionValueBuilder.optionKey(
 						cpDefinitionOptionRel.getKey());
+					commerceOptionValueBuilder.optionValueKey(
+						cpDefinitionOptionValueRel.getKey());
 					commerceOptionValueBuilder.priceType(
 						cpDefinitionOptionRel.getPriceType());
 
@@ -128,22 +133,61 @@ public class CommerceOptionValueHelperImpl
 	}
 
 	@Override
-	public CommerceOptionValue toCommerceOptionValue(String json)
-		throws PortalException {
+	public CommerceOptionValue toCommerceOptionValue(String json) {
+		return _toCommerceOptionValue(_jsonFactory.createJSONObject());
+	}
 
-		JSONObject jsonObject = _jsonFactory.createJSONObject(json);
+	public List<CommerceOptionValue> toCommerceOptionValues(String json)
+		throws JSONException {
 
+		JSONArray commerceOptionValuesJSONArray = _jsonFactory.createJSONArray(
+			json);
+
+		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
+
+		commerceOptionValuesJSONArray.forEach(
+			object -> {
+				if (object instanceof JSONObject) {
+					commerceOptionValues.add(
+						_toCommerceOptionValue((JSONObject)object));
+				}
+			});
+
+		return commerceOptionValues;
+	}
+
+	private CommerceOptionValue _toCommerceOptionValue(JSONObject jsonObject) {
 		CommerceOptionValueImpl.Builder commerceOptionValueBuilder =
 			new CommerceOptionValueImpl.Builder();
 
 		commerceOptionValueBuilder.optionKey(jsonObject.getString("key"));
-		commerceOptionValueBuilder.priceType(jsonObject.getString("priceType"));
 
-		commerceOptionValueBuilder.price(
-			new BigDecimal(jsonObject.getString("price")));
-		commerceOptionValueBuilder.quantity(jsonObject.getInt("quantity"));
-		commerceOptionValueBuilder.cpInstanceId(
-			jsonObject.getLong("cpInstanceId"));
+		JSONArray valueJSONArray = _jsonHelper.getValueAsJSONArray(
+			"value", jsonObject);
+
+		if (valueJSONArray.length() > 0) {
+			commerceOptionValueBuilder.optionValueKey(
+				valueJSONArray.getString(0));
+		}
+
+		if (jsonObject.has("priceType")) {
+			commerceOptionValueBuilder.priceType(
+				jsonObject.getString("priceType"));
+		}
+
+		if (jsonObject.has("price")) {
+			commerceOptionValueBuilder.price(
+				new BigDecimal(jsonObject.getString("price")));
+		}
+
+		if (jsonObject.has("quantity")) {
+			commerceOptionValueBuilder.quantity(jsonObject.getInt("quantity"));
+		}
+
+		if (jsonObject.has("cpInstanceId")) {
+			commerceOptionValueBuilder.cpInstanceId(
+				jsonObject.getLong("cpInstanceId"));
+		}
 
 		return commerceOptionValueBuilder.build();
 	}
@@ -168,5 +212,8 @@ public class CommerceOptionValueHelperImpl
 
 	@Reference
 	private JSONFactory _jsonFactory;
+
+	@Reference
+	private JsonHelper _jsonHelper;
 
 }

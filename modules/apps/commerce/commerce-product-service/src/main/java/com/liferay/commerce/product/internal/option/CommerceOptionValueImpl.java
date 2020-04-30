@@ -18,10 +18,26 @@ import com.liferay.commerce.product.option.CommerceOptionValue;
 
 import java.math.BigDecimal;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
  * @author Igor Beslic
  */
 public class CommerceOptionValueImpl implements CommerceOptionValue {
+
+	@Override
+	public CommerceOptionValue firstMatchIn(
+		List<CommerceOptionValue> commerceOptionValues) {
+
+		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
+			if (matches(commerceOptionValue)) {
+				return commerceOptionValue;
+			}
+		}
+
+		return null;
+	}
 
 	@Override
 	public long getCPInstanceId() {
@@ -31,6 +47,10 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 	@Override
 	public String getOptionKey() {
 		return _optionKey;
+	}
+
+	public String getOptionValueKey() {
+		return _optionValueKey;
 	}
 
 	@Override
@@ -49,10 +69,26 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 	}
 
 	@Override
+	public boolean matches(CommerceOptionValue commerceOptionValue) {
+		if (commerceOptionValue == null) {
+			return false;
+		}
+
+		if (Objects.equals(_optionKey, commerceOptionValue.getOptionKey()) &&
+			Objects.equals(
+				_optionValueKey, commerceOptionValue.getOptionValueKey())) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
 	public String toJSON() {
 		return String.format(
 			_JSON_SERIALIZED_PATTERN, _cpInstanceId, _optionKey, _price,
-			_priceType, _quantity);
+			_priceType, _quantity, _optionValueKey);
 	}
 
 	public static class Builder {
@@ -63,6 +99,7 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 
 			commerceOptionValue._cpInstanceId = _cpInstanceId;
 			commerceOptionValue._optionKey = _optionKey;
+			commerceOptionValue._optionValueKey = _optionValueKey;
 			commerceOptionValue._price = _price;
 			commerceOptionValue._priceType = _priceType;
 			commerceOptionValue._quantity = _quantity;
@@ -78,6 +115,12 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 
 		public Builder optionKey(String optionKey) {
 			_optionKey = optionKey;
+
+			return this;
+		}
+
+		public Builder optionValueKey(String optionValueKey) {
+			_optionValueKey = optionValueKey;
 
 			return this;
 		}
@@ -102,6 +145,7 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 
 		private long _cpInstanceId;
 		private String _optionKey;
+		private String _optionValueKey;
 		private BigDecimal _price;
 		private String _priceType;
 		private int _quantity;
@@ -113,10 +157,11 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 
 	private static final String _JSON_SERIALIZED_PATTERN =
 		"{\"cpInstanceId\":%d, \"key\":\"%s\", \"price\":\"%s\", " +
-			"\"priceType\":\"%s\", \"quantity\":%d}";
+			"\"priceType\":\"%s\", \"quantity\":%d, \"value\":\"%s\"}";
 
 	private long _cpInstanceId;
 	private String _optionKey;
+	private String _optionValueKey;
 	private BigDecimal _price;
 	private String _priceType;
 	private int _quantity;
