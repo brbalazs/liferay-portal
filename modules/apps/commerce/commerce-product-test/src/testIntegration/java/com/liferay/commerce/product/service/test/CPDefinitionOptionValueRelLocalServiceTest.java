@@ -151,7 +151,8 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
 
 		Assert.assertEquals(
-			_stripTrailingZeros(BigDecimal.ZERO), _stripTrailingZeros(price));
+			CPTestUtil.stripTrailingZeros(BigDecimal.ZERO),
+			CPTestUtil.stripTrailingZeros(price));
 
 		Assert.assertEquals(0, cpDefinitionOptionValueRel.getQuantity());
 	}
@@ -228,8 +229,9 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionValueRel.getCProductId());
 
 		Assert.assertEquals(
-			_stripTrailingZeros(BigDecimal.TEN),
-			_stripTrailingZeros(cpDefinitionOptionValueRel.getPrice()));
+			CPTestUtil.stripTrailingZeros(BigDecimal.TEN),
+			CPTestUtil.stripTrailingZeros(
+				cpDefinitionOptionValueRel.getPrice()));
 		Assert.assertEquals(1, cpDefinitionOptionValueRel.getQuantity());
 	}
 
@@ -364,7 +366,8 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
 
 		Assert.assertEquals(
-			_stripTrailingZeros(BigDecimal.ZERO), _stripTrailingZeros(price));
+			CPTestUtil.stripTrailingZeros(BigDecimal.ZERO),
+			CPTestUtil.stripTrailingZeros(price));
 
 		Assert.assertEquals(0, cpDefinitionOptionValueRel.getQuantity());
 	}
@@ -388,14 +391,6 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			addCPDefinitionOptionValueRel(
 				cpDefinitionOptionRel.getCPDefinitionOptionRelId(), null, 0,
 				"cpInstance-option-value", _serviceContext);
-	}
-
-	private BigDecimal _stripTrailingZeros(BigDecimal bigDecimal) {
-		if (bigDecimal == null) {
-			return bigDecimal;
-		}
-
-		return bigDecimal.stripTrailingZeros();
 	}
 
 	private CommerceCatalog _commerceCatalog;

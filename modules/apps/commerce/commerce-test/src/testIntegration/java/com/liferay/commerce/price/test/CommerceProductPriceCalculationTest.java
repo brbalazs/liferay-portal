@@ -38,6 +38,7 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.option.test.TestCommerceOptionValue;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
@@ -140,40 +141,16 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		cpInstance1.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(100));
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		cpInstance2.setPrice(cpInstancePrice2);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance2);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(150));
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
-
-		cpInstance3.setPrice(cpInstancePrice3);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance3);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(200));
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -217,11 +194,13 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
-		BigDecimal expectedPrice = cpInstancePrice.add(cpInstancePrice1);
+		BigDecimal expectedPrice = cpInstance.getPrice();
 
-		expectedPrice = expectedPrice.add(cpInstancePrice2);
+		expectedPrice = expectedPrice.add(cpInstance1.getPrice());
 
-		expectedPrice = expectedPrice.add(cpInstancePrice3);
+		expectedPrice = expectedPrice.add(cpInstance2.getPrice());
+
+		expectedPrice = expectedPrice.add(cpInstance3.getPrice());
 
 		Assert.assertEquals(
 			expectedPrice.stripTrailingZeros(),
@@ -244,22 +223,10 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		cpInstance1.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(100));
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			_commerceCatalog.getGroupId());
@@ -323,7 +290,9 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
-		BigDecimal expectedPrice = cpInstancePrice.add(cpInstancePrice1);
+		BigDecimal expectedPrice = cpInstance.getPrice();
+
+		expectedPrice = expectedPrice.add(cpInstance1.getPrice());
 
 		expectedPrice = expectedPrice.add(cpInstancePromoPrice2);
 
@@ -350,40 +319,16 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		cpInstance1.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(100));
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		cpInstance2.setPrice(cpInstancePrice2);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance2);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(150));
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
-
-		cpInstance3.setPrice(cpInstancePrice3);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance3);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(200));
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -433,11 +378,19 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
-		BigDecimal expectedPrice = cpInstancePrice.add(
+		BigDecimal expectedPrice = cpInstance.getPrice();
+
+		BigDecimal cpInstancePrice1 = cpInstance1.getPrice();
+
+		expectedPrice = expectedPrice.add(
 			cpInstancePrice1.multiply(BigDecimal.valueOf(quantity1)));
+
+		BigDecimal cpInstancePrice2 = cpInstance2.getPrice();
 
 		expectedPrice = expectedPrice.add(
 			cpInstancePrice2.multiply(BigDecimal.valueOf(quantity2)));
+
+		BigDecimal cpInstancePrice3 = cpInstance3.getPrice();
 
 		expectedPrice = expectedPrice.add(
 			cpInstancePrice3.multiply(BigDecimal.valueOf(quantity3)));
@@ -465,13 +418,7 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		double discountAmount = 10;
 
@@ -483,13 +430,7 @@ public class CommerceProductPriceCalculationTest {
 			cpDefinition.getCPDefinitionId());
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		cpInstance1.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(100));
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			_commerceCatalog.getGroupId());
@@ -555,6 +496,8 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+
 		BigDecimal expectedPrice = cpInstancePrice.subtract(
 			BigDecimal.valueOf(discountAmount));
 
@@ -585,22 +528,10 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		cpInstance1.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(100));
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			_commerceCatalog.getGroupId());
@@ -675,6 +606,8 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+
 		BigDecimal expectedPrice = cpInstancePrice.add(cpInstancePromoPrice2);
 
 		expectedPrice = expectedPrice.subtract(
@@ -705,30 +638,18 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		CommercePriceList commercePriceList =
 			CommercePriceListTestUtil.addCommercePriceList(
 				_commerceCatalog.getGroupId(), 0.0);
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(300));
 
 		CPDefinition cpDefinition = cpInstance1.getCPDefinition();
 
 		CProduct cProduct = cpDefinition.getCProduct();
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(300);
-
-		cpInstance1.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		BigDecimal cpInstancePriceEntryPrice1 = BigDecimal.valueOf(100);
 
@@ -749,15 +670,9 @@ public class CommerceProductPriceCalculationTest {
 		_cpInstanceLocalService.updateCPInstance(cpInstance2);
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(200));
 
 		BigDecimal optionValuePrice3 = BigDecimal.valueOf(20);
-
-		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
-
-		cpInstance3.setPrice(cpInstancePrice3);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -800,6 +715,8 @@ public class CommerceProductPriceCalculationTest {
 		CommerceMoney finalPriceMoney = commerceProductPrice.getFinalPrice();
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
+
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
 
 		BigDecimal expectedPrice = cpInstancePrice.add(
 			cpInstancePriceEntryPrice1);
@@ -827,22 +744,10 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		cpInstance1.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(100));
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
 			_commerceCatalog.getGroupId());
@@ -856,15 +761,9 @@ public class CommerceProductPriceCalculationTest {
 		_cpInstanceLocalService.updateCPInstance(cpInstance2);
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(200));
 
 		BigDecimal optionValuePrice3 = BigDecimal.valueOf(20);
-
-		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
-
-		cpInstance3.setPrice(cpInstancePrice3);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance3);
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -908,6 +807,8 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+
 		BigDecimal expectedPrice = cpInstancePrice.add(cpInstancePromoPrice2);
 
 		expectedPrice = expectedPrice.add(optionValuePrice3);
@@ -931,13 +832,7 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -987,6 +882,8 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+
 		BigDecimal expectedPrice = cpInstancePrice.add(optionValuePrice1);
 
 		expectedPrice = expectedPrice.add(optionValuePrice2);
@@ -1014,13 +911,7 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -1076,6 +967,8 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+
 		BigDecimal expectedPrice = cpInstancePrice.add(optionValuePrice1);
 
 		expectedPrice = expectedPrice.add(optionValuePrice2);
@@ -1101,40 +994,16 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		cpInstance1.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(100));
 
 		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice2 = BigDecimal.valueOf(150);
-
-		cpInstance2.setPrice(cpInstancePrice2);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance2);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(150));
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice3 = BigDecimal.valueOf(200);
-
-		cpInstance3.setPrice(cpInstancePrice3);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance3);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(200));
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
@@ -1184,6 +1053,8 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+
 		BigDecimal expectedPrice = cpInstancePrice.add(optionValuePrice1);
 
 		expectedPrice = expectedPrice.add(optionValuePrice2);
@@ -1213,26 +1084,14 @@ public class CommerceProductPriceCalculationTest {
 		);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
-
-		cpInstance.setPrice(cpInstancePrice);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		BigDecimal optionValuePrice1 = BigDecimal.valueOf(10);
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		BigDecimal cpInstancePrice1 = BigDecimal.valueOf(100);
-
-		cpInstance.setPrice(cpInstancePrice1);
-
-		_cpInstanceLocalService.updateCPInstance(cpInstance1);
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(100));
 
 		int quantity1 = 10;
 
@@ -1284,6 +1143,8 @@ public class CommerceProductPriceCalculationTest {
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+
 		BigDecimal expectedPrice = cpInstancePrice.add(
 			optionValuePrice1.multiply(BigDecimal.valueOf(quantity1)));
 
@@ -1319,6 +1180,10 @@ public class CommerceProductPriceCalculationTest {
 
 	@Inject
 	private CPDefinitionLocalService _cpDefinitionLocalService;
+
+	@Inject
+	private CPDefinitionOptionValueRelLocalService
+		_cpDefinitionOptionValueRelLocalService;
 
 	@Inject
 	private CPInstanceLocalService _cpInstanceLocalService;

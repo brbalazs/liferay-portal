@@ -319,6 +319,17 @@ public class CPTestUtil {
 	}
 
 	public static CPInstance addCPInstanceFromCatalog(
+			long groupId, BigDecimal price)
+		throws PortalException {
+
+		CPInstance cpInstance = addCPInstanceFromCatalog(groupId);
+
+		cpInstance.setPrice(price);
+
+		return CPInstanceLocalServiceUtil.updateCPInstance(cpInstance);
+	}
+
+	public static CPInstance addCPInstanceFromCatalog(
 			long groupId, long[] assetCategoryIds)
 		throws PortalException {
 
@@ -527,6 +538,14 @@ public class CPTestUtil {
 		}
 
 		return searchContext;
+	}
+
+	public static BigDecimal stripTrailingZeros(BigDecimal bigDecimal) {
+		if (bigDecimal == null) {
+			return bigDecimal;
+		}
+
+		return bigDecimal.stripTrailingZeros();
 	}
 
 	private static CPDefinition _addCPDefinition(
