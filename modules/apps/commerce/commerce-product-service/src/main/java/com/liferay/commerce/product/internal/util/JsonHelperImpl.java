@@ -56,6 +56,7 @@ public class JsonHelperImpl implements JsonHelper {
 		return jsonArray;
 	}
 
+	@Override
 	public boolean equals(String jsonArrayString1, String jsonArrayString2) {
 		JSONArray jsonArray1 = _toJSONArray(jsonArrayString1);
 		JSONArray jsonArray2 = _toJSONArray(jsonArrayString2);
@@ -63,6 +64,7 @@ public class JsonHelperImpl implements JsonHelper {
 		return JSONUtil.equals(jsonArray1, jsonArray2);
 	}
 
+	@Override
 	public String getFirstElementStringValue(String jsonArrayString) {
 		if (!isArray(jsonArrayString)) {
 			throw new IllegalArgumentException(
@@ -83,6 +85,7 @@ public class JsonHelperImpl implements JsonHelper {
 			start + 1, jsonArrayString.indexOf(StringPool.QUOTE, start + 1));
 	}
 
+	@Override
 	public JSONArray getValueAsJSONArray(String key, JSONObject jsonObject) {
 		JSONArray valueJSONArray = jsonObject.getJSONArray(key);
 
@@ -103,6 +106,7 @@ public class JsonHelperImpl implements JsonHelper {
 		return valueJSONArray;
 	}
 
+	@Override
 	public boolean isArray(String json) {
 		if (Validator.isNull(json)) {
 			return false;
@@ -117,6 +121,7 @@ public class JsonHelperImpl implements JsonHelper {
 		return false;
 	}
 
+	@Override
 	public boolean isEmpty(String json) {
 		if (Validator.isNull(json)) {
 			return true;
