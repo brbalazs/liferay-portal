@@ -1,15 +1,19 @@
 import BasePage from 'settings/components/BasePage';
 import DataSourceStatus from './DataSourceStatus';
 import getCN from 'classnames';
-import omitDefinedProps from 'shared/util/omitDefinedProps';
-import PropTypes from 'prop-types';
 import React from 'react';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert, Modal} from 'shared/types';
+import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
+import {deleteDataSource} from 'shared/actions/data-sources';
 import {getDataSourceDisplayObject} from 'shared/util/data-sources';
 import {Routes, toRoute} from 'shared/util/router';
+import {sub} from 'shared/util/lang';
 import {truncate} from 'lodash';
+import {withHistory} from 'shared/hoc';
 
 const getPageDescription = dataSource =>
 	dataSource
@@ -19,16 +23,25 @@ const getPageDescription = dataSource =>
 				.join(' - ')
 		: '';
 
-const getOwnChildren = (store, ownProps) => ({
-	passedChildren: ownProps.children
-});
-
 interface IBaseDataSourcePageProps extends React.HTMLAttributes<HTMLElement> {
+	addAlert: Alert.AddAlert;
+	close: Modal.close;
 	currentUser: User;
 	documentTitle: string;
 	dataSource: DataSource;
+	deleteDataSource: ({
+		groupId,
+		id
+	}: {
+		groupId: string;
+		id: string;
+	}) => Promise<void>;
 	groupId: string;
+	history: {
+		push: (path: string) => void;
+	};
 	id: string;
+	open: Modal.open;
 	pageDescription: string;
 	pageTitle: React.ReactNode;
 	passedChildren: React.ReactNode;
@@ -36,49 +49,119 @@ interface IBaseDataSourcePageProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
+	addAlert,
 	className = '',
+	close,
 	currentUser,
 	documentTitle = Liferay.Language.get('configure-data-source'),
 	dataSource,
+	deleteDataSource,
 	groupId,
+	history,
 	id,
+	open,
 	pageDescription,
 	pageTitle = Liferay.Language.get('configure-data-source'),
 	passedChildren,
 	showDelete = false,
 	...otherProps
-}) => (
-	<BasePage
-		{...otherProps}
-		className={getCN('data-source-base-page-root', className)}
-		documentTitle={`${documentTitle || pageTitle} - ${Liferay.Language.get(
-			'data-sources'
-		)}`}
-		groupId={groupId}
-		pageActions={
-			id && showDelete && currentUser.isAdmin()
-				? [
-						{
-							href: toRoute(Routes.SETTINGS_DATA_SOURCE_DELETE, {
-								groupId,
-								id
-							}),
-							label: Liferay.Language.get('delete-data-source')
-						}
-				  ]
-				: []
-		}
-		pageDescription={pageDescription || getPageDescription(dataSource)}
-		pageTitle={pageTitle}
-	>
-		<div className='page-container'>
-			<div className='content-main'>{passedChildren}</div>
+}) => {
+	const {name} = dataSource;
 
-			<div className='content-side'>
-				<DataSourceStatus {...getDataSourceDisplayObject(dataSource)} />
+	const handleDeleteClick = () => {
+		open(modalTypes.DELETE_CONFIRMATION_MODAL, {
+			children: (
+				<p>
+					<strong>
+						{sub(
+							Liferay.Language.get(
+								'to-delete-x,-copy-the-sentence-below-to-confirm-your-intention-to-delete-data-source'
+							),
+							[name]
+						)}
+					</strong>
+				</p>
+			),
+			deleteConfirmationText: sub(Liferay.Language.get('delete-x'), [
+				name
+			]),
+			onClose: close,
+			onSubmit: () => {
+				deleteDataSource({groupId, id})
+					.then(() => {
+						addAlert({
+							alertType: Alert.Types.DEFAULT,
+							message: sub(
+								Liferay.Language.get(
+									'x-is-currently-being-removed-from-analytics-cloud'
+								),
+								[truncate(name, {length: 50})]
+							) as string
+						});
+
+						close();
+
+						history.push(
+							toRoute(Routes.SETTINGS_DATA_SOURCE_LIST, {
+								groupId
+							})
+						);
+					})
+					.catch(() => {
+						addAlert({
+							alertType: Alert.Types.ERROR,
+							message: Liferay.Language.get('error'),
+							timeout: false
+						});
+					});
+			},
+			title: sub(Liferay.Language.get('delete-x'), [name])
+		});
+	};
+
+	return (
+		<BasePage
+			{...otherProps}
+			className={getCN('data-source-base-page-root', className)}
+			documentTitle={`${documentTitle ||
+				pageTitle} - ${Liferay.Language.get('data-sources')}`}
+			groupId={groupId}
+			pageActions={
+				id && showDelete && currentUser.isAdmin()
+					? [
+							{
+								label: Liferay.Language.get(
+									'delete-data-source'
+								),
+								onClick: handleDeleteClick
+							}
+					  ]
+					: []
+			}
+			pageDescription={pageDescription || getPageDescription(dataSource)}
+			pageTitle={pageTitle}
+		>
+			<div className='page-container'>
+				<div className='content-main'>{passedChildren}</div>
+
+				<div className='content-side'>
+					<DataSourceStatus
+						{...getDataSourceDisplayObject(dataSource)}
+					/>
+				</div>
 			</div>
-		</div>
-	</BasePage>
-);
+		</BasePage>
+	);
+};
 
-export default compose(connect(getOwnChildren))(BaseDataSourcePage);
+const getOwnChildren = (store, ownProps) => ({
+	passedChildren: ownProps.children
+});
+
+export default compose<any>(
+	withHistory,
+	connect(
+		getOwnChildren,
+		{addAlert, close, deleteDataSource, open}
+	)
+)(BaseDataSourcePage);
