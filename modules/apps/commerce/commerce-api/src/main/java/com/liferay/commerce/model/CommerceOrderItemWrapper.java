@@ -660,6 +660,11 @@ public class CommerceOrderItemWrapper
 		return _commerceOrderItem.getNameMap();
 	}
 
+	@Override
+	public long getParentCommerceOrderItemCPDefinitionId() {
+		return _commerceOrderItem.getParentCommerceOrderItemCPDefinitionId();
+	}
+
 	/**
 	 * Returns the parent commerce order item ID of this commerce order item.
 	 *
@@ -823,6 +828,11 @@ public class CommerceOrderItemWrapper
 	@Override
 	public int hashCode() {
 		return _commerceOrderItem.hashCode();
+	}
+
+	@Override
+	public boolean hasParentCommerceOrderItem() {
+		return _commerceOrderItem.hasParentCommerceOrderItem();
 	}
 
 	@Override
