@@ -77,6 +77,8 @@ public class CartItemDTOConverter
 				id = commerceOrderItem.getCommerceOrderItemId();
 				name = commerceOrderItem.getName(languageId);
 				options = commerceOrderItem.getJson();
+				parentCartItemId =
+					commerceOrderItem.getParentCommerceOrderItemId();
 				price = _getPrice(commerceOrderItem, locale);
 				productId = commerceOrderItem.getCProductId();
 				quantity = commerceOrderItem.getQuantity();
