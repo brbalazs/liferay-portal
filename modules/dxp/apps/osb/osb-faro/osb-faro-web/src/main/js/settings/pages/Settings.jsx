@@ -41,14 +41,6 @@ const AddDataSource = lazy(() =>
 const DataSource = lazy(() =>
 	import(/* webpackChunkName: "DataSource" */ './data-source/View')
 );
-const DataSourceClearData = lazy(() =>
-	import(
-		/* webpackChunkName: "DataSourceClearData" */ './data-source/ClearData'
-	)
-);
-const DataSourceDelete = lazy(() =>
-	import(/* webpackChunkName: "DataSourceDelete" */ './data-source/Delete')
-);
 const DataSourceEdit = lazy(() =>
 	import(/* webpackChunkName: "DataSourceEdit" */ './data-source/Edit')
 );
@@ -289,20 +281,6 @@ export class Settings extends React.Component {
 									data={AddDataSource}
 									exact
 									path={Routes.SETTINGS_ADD_DATA_SOURCE}
-								/>
-
-								<BundleRouter
-									data={DataSourceClearData}
-									exact
-									path={
-										Routes.SETTINGS_DATA_SOURCE_CLEAR_DATA
-									}
-								/>
-
-								<BundleRouter
-									data={DataSourceDelete}
-									exact
-									path={Routes.SETTINGS_DATA_SOURCE_DELETE}
 								/>
 
 								<BundleRouter
