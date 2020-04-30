@@ -26,10 +26,7 @@ function TooltipText({text}) {
 }
 
 function TooltipTextRenderer({value}) {
-	const {
-		iconSymbol,
-		text
-	} = value;
+	const {iconSymbol, text} = value;
 
 	return (
 		<>
@@ -37,9 +34,7 @@ function TooltipTextRenderer({value}) {
 				contentRenderer={() => <TooltipText text={text} />}
 				delay={0}
 			>
-				<span
-					className="tooltip-provider"
-				>
+				<span className="tooltip-provider">
 					<ClayIcon symbol={iconSymbol} />
 				</span>
 			</ClayTooltipProvider>
