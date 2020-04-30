@@ -154,6 +154,7 @@ export const EXPERIMENT_VARIANTS_HISTOGRAM_QUERY = gql`
 export const EXPERIMENT_ROOT_QUERY = gql`
 	query ExperimentRoot($experimentId: String!) {
 		experiment(experimentId: $experimentId) {
+			channelId
 			id
 			name
 			pageURL
