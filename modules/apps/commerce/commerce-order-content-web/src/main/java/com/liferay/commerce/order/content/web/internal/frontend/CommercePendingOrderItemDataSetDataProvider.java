@@ -213,7 +213,8 @@ public class CommercePendingOrderItemDataSetDataProvider
 
 				List<KeyValuePair> keyValuePairs =
 					_cpInstanceHelper.getKeyValuePairs(
-						commerceOrderItem.getCPDefinitionId(),
+						_getCommerceOptionValueCPDefinitionId(
+							commerceOrderItem),
 						commerceOrderItem.getJson(), themeDisplay.getLocale());
 
 				StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
@@ -265,6 +266,16 @@ public class CommercePendingOrderItemDataSetDataProvider
 
 		return _commerceOrderItemService.search(
 			commerceOrderId, filter.getKeywords(), start, end, sort);
+	}
+
+	private long _getCommerceOptionValueCPDefinitionId(
+		CommerceOrderItem commerceOrderItem) {
+
+		if (!commerceOrderItem.hasParentCommerceOrderItem()) {
+			return commerceOrderItem.getCPDefinitionId();
+		}
+
+		return commerceOrderItem.getParentCommerceOrderItemCPDefinitionId();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
