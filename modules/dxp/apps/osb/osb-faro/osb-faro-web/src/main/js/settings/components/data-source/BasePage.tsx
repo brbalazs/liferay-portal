@@ -2,12 +2,12 @@ import BasePage from 'settings/components/BasePage';
 import DataSourceStatus from './DataSourceStatus';
 import getCN from 'classnames';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
+import PropTypes from 'prop-types';
 import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
 import {getDataSourceDisplayObject} from 'shared/util/data-sources';
-import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {truncate} from 'lodash';
 
@@ -23,7 +23,21 @@ const getOwnChildren = (store, ownProps) => ({
 	passedChildren: ownProps.children
 });
 
-export class BaseDataSourcePage extends React.Component {
+interface IBaseDataSourcePageProps extends React.HTMLAttributes<HTMLElement> {
+	currentUser: User;
+	documentTitle: string;
+	dataSource: DataSource;
+	groupId: string;
+	id: string;
+	pageDescription: string;
+	pageTitle: React.ReactNode;
+	passedChildren: React.ReactNode;
+	showDelete: boolean;
+}
+
+export class BaseDataSourcePage extends React.Component<
+	IBaseDataSourcePageProps
+> {
 	static defaultProps = {
 		className: '',
 		documentTitle: Liferay.Language.get('configure-data-source'),
