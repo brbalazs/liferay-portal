@@ -4322,7 +4322,7 @@ log.sanitizer.enabled=false</echo>
 	</target>
 
 	<target name="integration-sqlserver2017-jdk8">
-		<run-integration-test database.type="sqlserver2017" database.version="2017" />
+		<run-integration-test database.type="sqlserver" database.version="2017" />
 	</target>
 
 	<target name="integration-sybase160-jdk8">
