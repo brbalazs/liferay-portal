@@ -8,6 +8,7 @@ import ContactSalesModal from './ContactSalesModal';
 import CreateMappingModal from './CreateMappingModal';
 import CSVPreviewModal from 'settings/components/csv/CSVPreviewModal';
 import DeleteChannelModal from 'settings/components/DeleteChannelModal';
+import DeleteConfirmationModal from 'shared/components/DeleteConfirmationModal';
 import dom from 'metal-dom';
 import ExportLogModal from 'settings/components/ExportLogModal';
 import FieldPreviewModal from 'settings/components/data-transformation-list/FieldPreviewModal';
@@ -42,6 +43,7 @@ const COMPONENT_MAP = {
 	[modalTypes.CREATE_MAPPING_MODAL]: CreateMappingModal,
 	[modalTypes.CSV_PREVIEW_MODAL]: CSVPreviewModal,
 	[modalTypes.DELETE_CHANNEL_MODAL]: DeleteChannelModal,
+	[modalTypes.DELETE_CONFIRMATION_MODAL]: DeleteConfirmationModal,
 	[modalTypes.EXPORT_LOG_MODAL]: ExportLogModal,
 	[modalTypes.FIELD_PREVIEW_MODAL]: FieldPreviewModal,
 	[modalTypes.INPUT_MODAL]: InputModal,
