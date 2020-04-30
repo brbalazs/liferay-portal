@@ -16,20 +16,30 @@ package com.liferay.commerce.product.option;
 
 import java.math.BigDecimal;
 
+import java.util.List;
+
 /**
  * @author Riccardo Alberti
+ * @author Igor Beslic
  */
 public interface CommerceOptionValue {
+
+	public CommerceOptionValue firstMatchIn(
+		List<CommerceOptionValue> commerceOptionValues);
 
 	public long getCPInstanceId();
 
 	public String getOptionKey();
+
+	public String getOptionValueKey();
 
 	public BigDecimal getPrice();
 
 	public String getPriceType();
 
 	public int getQuantity();
+
+	public boolean matches(CommerceOptionValue commerceOptionValue);
 
 	public String toJSON();
 

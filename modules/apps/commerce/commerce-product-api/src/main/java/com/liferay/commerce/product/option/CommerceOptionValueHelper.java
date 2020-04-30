@@ -15,6 +15,7 @@
 package com.liferay.commerce.product.option;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONException;
 
 import java.util.List;
 
@@ -29,5 +30,8 @@ public interface CommerceOptionValueHelper {
 
 	public CommerceOptionValue toCommerceOptionValue(String json)
 		throws PortalException;
+
+	public List<CommerceOptionValue> toCommerceOptionValues(String json)
+		throws JSONException;
 
 }
