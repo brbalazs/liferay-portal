@@ -399,4 +399,10 @@ public interface CPDefinitionOptionValueRelLocalService
 			double priority, String key, ServiceContext serviceContext)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CPDefinitionOptionValueRel updateLinkedCPInstance(
+			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
+			long cProductId, int quantity)
+		throws PortalException;
+
 }

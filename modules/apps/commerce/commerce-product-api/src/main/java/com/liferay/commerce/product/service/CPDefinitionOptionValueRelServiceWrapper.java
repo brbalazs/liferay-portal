@@ -185,6 +185,17 @@ public class CPDefinitionOptionValueRelServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.product.model.CPDefinitionOptionValueRel
+			updateLinkedCPInstance(
+				long cpDefinitionOptionValueRelId, String cpInstanceUuid,
+				long cProductId, int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionValueRelService.updateLinkedCPInstance(
+			cpDefinitionOptionValueRelId, cpInstanceUuid, cProductId, quantity);
+	}
+
+	@Override
 	public CPDefinitionOptionValueRelService getWrappedService() {
 		return _cpDefinitionOptionValueRelService;
 	}

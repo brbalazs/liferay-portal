@@ -172,6 +172,16 @@ public class CPDefinitionOptionValueRelServiceUtil {
 			serviceContext);
 	}
 
+	public static com.liferay.commerce.product.model.CPDefinitionOptionValueRel
+			updateLinkedCPInstance(
+				long cpDefinitionOptionValueRelId, String cpInstanceUuid,
+				long cProductId, int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateLinkedCPInstance(
+			cpDefinitionOptionValueRelId, cpInstanceUuid, cProductId, quantity);
+	}
+
 	public static CPDefinitionOptionValueRelService getService() {
 		return _serviceTracker.getService();
 	}

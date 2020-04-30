@@ -136,4 +136,9 @@ public interface CPDefinitionOptionValueRelService extends BaseService {
 			double priority, String key, ServiceContext serviceContext)
 		throws PortalException;
 
+	public CPDefinitionOptionValueRel updateLinkedCPInstance(
+			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
+			long cProductId, int quantity)
+		throws PortalException;
+
 }
