@@ -14,6 +14,7 @@ import {get, omit} from 'lodash';
  */
 export const withError = (options = {}) => Component => ({
 	error,
+	errorProps = {},
 	pageDisplay = true,
 	refetch,
 	...otherProps
@@ -22,9 +23,14 @@ export const withError = (options = {}) => Component => ({
 
 	if (error) {
 		return get(options, 'page', pageDisplay) ? (
-			<ErrorPage {...otherOptions} />
+			<ErrorPage {...errorProps} {...otherOptions} />
 		) : (
-			<ErrorDisplay onReload={refetch} spacer {...otherOptions} />
+			<ErrorDisplay
+				onReload={refetch}
+				spacer
+				{...errorProps}
+				{...otherOptions}
+			/>
 		);
 	}
 

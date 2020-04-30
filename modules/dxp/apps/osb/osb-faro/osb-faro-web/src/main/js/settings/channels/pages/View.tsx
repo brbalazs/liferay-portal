@@ -52,8 +52,16 @@ export const ViewContainer: React.FC<Omit<IViewProps, 'channel'>> = ({
 	return (
 		<SafeResults
 			{...{data, error, loading}}
+			errorProps={{
+				href: toRoute(Routes.SETTINGS_CHANNELS, {groupId}),
+				linkLabel: Liferay.Language.get('go-to-properties'),
+				message: Liferay.Language.get(
+					'the-property-you-are-looking-for-does-not-exist'
+				),
+				subtitle: Liferay.Language.get('property-not-found')
+			}}
 			onReload={refetch}
-			pageDisplay={false}
+			pageDisplay
 			spacer
 		>
 			{(channel: Channel) => (
