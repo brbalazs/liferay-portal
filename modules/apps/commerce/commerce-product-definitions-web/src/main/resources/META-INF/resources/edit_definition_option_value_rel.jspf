@@ -74,7 +74,7 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 				</div>
 
 				<div class="align-items-end col-auto d-flex">
-					<button class="btn btn-monospaced btn-secondary" id="remove-sku-button">
+					<button class="btn btn-monospaced btn-secondary" id="remove-sku-button" onclick="<%= renderResponse.getNamespace() + "removeSku();" %>">
 						<clay:icon
 							symbol="trash"
 						/>
@@ -119,6 +119,13 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 					quantityInput.disabled = true;
 					deleteButton.disabled = true;
 				}
+			});
+
+			Liferay.provide(window, '<portlet:namespace />removeSku', function() {
+				var url = new URL(
+					'<%= cpDefinitionOptionValueRelDisplayContext.getRemoveSkuUrl(currentURL) %>'
+				);
+				window.location.href = url.toString();
 			});
 		</aui:script>
 	</c:if>

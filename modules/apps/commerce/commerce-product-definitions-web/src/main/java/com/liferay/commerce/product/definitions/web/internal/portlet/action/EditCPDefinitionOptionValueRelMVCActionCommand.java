@@ -18,6 +18,7 @@ import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelKeyException;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -83,6 +84,9 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteCPDefinitionOptionValueRels(actionRequest);
 			}
+			else if (cmd.equals("deleteSku")) {
+				resetCPInstanceAndQuantity(actionRequest);
+			}
 		}
 		catch (Exception e) {
 			if (e instanceof CPDefinitionOptionValueRelKeyException) {
@@ -95,6 +99,17 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 				_log.error(e, e);
 			}
 		}
+	}
+
+	protected CPDefinitionOptionValueRel resetCPInstanceAndQuantity(
+			ActionRequest actionRequest)
+		throws PortalException {
+
+		long cpDefinitionOptionValueRelId = ParamUtil.getLong(
+			actionRequest, "cpDefinitionOptionValueRelId");
+
+		return _cpDefinitionOptionValueRelService.updateLinkedCPInstance(
+			cpDefinitionOptionValueRelId, null, 0, 0);
 	}
 
 	protected CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
