@@ -37,10 +37,18 @@ public class CommercePriceConverterUtil {
 		BigDecimal taxValue, RoundingMode roundingMode,
 		CommerceMoneyFactory commerceMoneyFactory) {
 
+		if (commerceDiscountValue == null) {
+			return null;
+		}
+
 		CommerceMoney discountAmount =
 			commerceDiscountValue.getDiscountAmount();
 
 		BigDecimal discountAmountPrice = discountAmount.getPrice();
+
+		if (discountAmountPrice.compareTo(BigDecimal.ZERO) == 0) {
+			return null;
+		}
 
 		BigDecimal convertedDiscountAmountPrice;
 
@@ -75,10 +83,18 @@ public class CommercePriceConverterUtil {
 			RoundingMode roundingMode)
 		throws PortalException {
 
+		if (commerceDiscountValue == null) {
+			return null;
+		}
+
 		CommerceMoney discountAmount =
 			commerceDiscountValue.getDiscountAmount();
 
 		BigDecimal discountAmountPrice = discountAmount.getPrice();
+
+		if (discountAmountPrice.compareTo(BigDecimal.ZERO) == 0) {
+			return null;
+		}
 
 		BigDecimal convertedDiscountAmountPrice = getConvertedPrice(
 			commerceChannelGroupId, cpInstanceId, commerceBillingAddressId,
@@ -113,7 +129,7 @@ public class CommercePriceConverterUtil {
 				commerceShippingAddressId, price, includeTax);
 
 		if ((commerceTaxValues == null) || commerceTaxValues.isEmpty()) {
-			return BigDecimal.ZERO;
+			return price;
 		}
 
 		BigDecimal taxAmount = BigDecimal.ZERO;

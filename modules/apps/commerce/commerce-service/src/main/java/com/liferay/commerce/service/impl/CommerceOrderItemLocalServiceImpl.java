@@ -27,6 +27,7 @@ import com.liferay.commerce.exception.GuestCartItemMaxAllowedException;
 import com.liferay.commerce.exception.NoSuchOrderItemException;
 import com.liferay.commerce.exception.ProductBundleException;
 import com.liferay.commerce.internal.search.CommerceOrderItemIndexer;
+import com.liferay.commerce.internal.util.CommercePriceConverterUtil;
 import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
@@ -51,6 +52,7 @@ import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.commerce.service.base.CommerceOrderItemLocalServiceBaseImpl;
+import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.petra.string.StringBundler;
@@ -167,6 +169,7 @@ public class CommerceOrderItemLocalServiceImpl
 					commerceOptionValue.getCPInstanceId(),
 					commerceOptionValue.getQuantity(),
 					commerceOptionValue.getPrice(),
+					childCommerceOrderItem.getCommerceOrder(),
 					commerceContext.getCommerceCurrency());
 
 			_setCommerceOrderItemPrice(
@@ -511,6 +514,7 @@ public class CommerceOrderItemLocalServiceImpl
 				_getStaticCommerceProductPrice(
 					commerceOptionValue.getCPInstanceId(), currentQuantity,
 					commerceOptionValue.getPrice(),
+					childCommerceOrderItem.getCommerceOrder(),
 					commerceContext.getCommerceCurrency());
 
 			_updateCommerceOrderItem(
@@ -629,6 +633,7 @@ public class CommerceOrderItemLocalServiceImpl
 						commerceOptionValue.getCPInstanceId(),
 						childCommerceOrderItem.getQuantity(),
 						commerceOptionValue.getPrice(),
+						childCommerceOrderItem.getCommerceOrder(),
 						commerceContext.getCommerceCurrency()),
 					commerceContext);
 			}
@@ -1083,6 +1088,17 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceProductPriceRequest);
 	}
 
+	private BigDecimal _getConvertedPrice(
+			long cpInstanceId, BigDecimal price, CommerceOrder commerceOrder)
+		throws PortalException {
+
+		return CommercePriceConverterUtil.getConvertedPrice(
+			commerceOrder.getGroupId(), cpInstanceId,
+			commerceOrder.getBillingAddressId(),
+			commerceOrder.getShippingAddressId(), price, false,
+			_commerceTaxCalculation);
+	}
+
 	private String _getCPInstanceOptionValueRelsJSONString(long cpInstanceId)
 		throws PortalException {
 
@@ -1095,8 +1111,9 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	private CommerceProductPrice _getStaticCommerceProductPrice(
-		long cpInstanceId, int quantity, BigDecimal optionValuePrice,
-		CommerceCurrency commerceCurrency) {
+			long cpInstanceId, int quantity, BigDecimal optionValuePrice,
+			CommerceOrder commerceOrder, CommerceCurrency commerceCurrency)
+		throws PortalException {
 
 		CommerceProductPriceImpl commerceProductPrice =
 			new CommerceProductPriceImpl();
@@ -1110,14 +1127,34 @@ public class CommerceOrderItemLocalServiceImpl
 
 		commerceProductPrice.setUnitPromoPrice(
 			_commerceMoneyFactory.create(commerceCurrency, BigDecimal.ZERO));
+		commerceProductPrice.setUnitPromoPriceWithTaxAmount(
+			_commerceMoneyFactory.create(commerceCurrency, BigDecimal.ZERO));
+
+		BigDecimal unitPriceWithTaxAmount = optionValuePrice;
+
+		BigDecimal finalPriceWithTaxAmount = optionValuePrice;
 
 		if (cpInstanceId > 0) {
+			unitPriceWithTaxAmount = _getConvertedPrice(
+				cpInstanceId, optionValuePrice, commerceOrder);
+
 			optionValuePrice = optionValuePrice.multiply(
 				BigDecimal.valueOf(quantity));
+
+			finalPriceWithTaxAmount = _getConvertedPrice(
+				cpInstanceId, optionValuePrice, commerceOrder);
 		}
+
+		commerceProductPrice.setUnitPriceWithTaxAmount(
+			_commerceMoneyFactory.create(
+				commerceCurrency, unitPriceWithTaxAmount));
 
 		commerceProductPrice.setFinalPrice(
 			_commerceMoneyFactory.create(commerceCurrency, optionValuePrice));
+
+		commerceProductPrice.setFinalPriceWithTaxAmount(
+			_commerceMoneyFactory.create(
+				commerceCurrency, finalPriceWithTaxAmount));
 
 		commerceProductPrice.setCommerceDiscountValue(null);
 		commerceProductPrice.setQuantity(quantity);
@@ -1396,6 +1433,9 @@ public class CommerceOrderItemLocalServiceImpl
 
 	@ServiceReference(type = CommerceShippingHelper.class)
 	private CommerceShippingHelper _commerceShippingHelper;
+
+	@ServiceReference(type = CommerceTaxCalculation.class)
+	private CommerceTaxCalculation _commerceTaxCalculation;
 
 	@ServiceReference(type = CPDefinitionLocalService.class)
 	private CPDefinitionLocalService _cpDefinitionLocalService;
