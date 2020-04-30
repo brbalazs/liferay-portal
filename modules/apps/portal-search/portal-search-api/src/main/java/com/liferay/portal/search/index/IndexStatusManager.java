@@ -40,25 +40,6 @@ public interface IndexStatusManager {
 	public boolean isIndexReadOnly(String className);
 
 	/**
-	 * Forces indexing to be enabled, disregarding further requests to disable.
-	 *
-	 * When set to <code>true</code>, calls to
-	 * {@link IndexStatusManager#setIndexReadOnly(boolean)}
-	 * will be ignored and model indexing will continue enabled.
-	 *
-	 * Instead, any processes requiring indexing to be off should run in a
-	 * separate session with configuration in place to disable indexing.
-	 *
-	 * This API will be removed in a future version.
-	 *
-	 * @deprecated As of Athanasius (7.3.x)
-	 * @param required <code>true</code> to enforce or <code>false</code> to forfeit requirement to index.
-	 * @see com.liferay.portal.search.configuration.IndexStatusManagerConfiguration#indexReadOnly()
-	 */
-	@Deprecated
-	public void requireIndexReadWrite(boolean required);
-
-	/**
 	 * Disables all model indexing.
 	 *
 	 * This is strongly discouraged as it may interfere with other running

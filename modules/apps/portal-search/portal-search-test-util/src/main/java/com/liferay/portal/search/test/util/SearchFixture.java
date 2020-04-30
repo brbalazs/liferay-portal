@@ -16,6 +16,8 @@ package com.liferay.portal.search.test.util;
 
 import com.liferay.portal.search.index.IndexStatusManager;
 
+import java.lang.reflect.Method;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -40,11 +42,32 @@ public class SearchFixture {
 	}
 
 	public void setUp() {
-		retry(() -> _indexStatusManager.requireIndexReadWrite(true));
+		retry(
+			() -> {
+				Method method = _getRequireIndexReadWriteMethod();
+
+				if (method != null) {
+					try {
+						method.invoke(_indexStatusManager, true);
+					}
+					catch (Exception exception) {
+						throw new RuntimeException(exception);
+					}
+				}
+			});
 	}
 
 	public void tearDown() {
-		_indexStatusManager.requireIndexReadWrite(false);
+		Method method = _getRequireIndexReadWriteMethod();
+
+		if (method != null) {
+			try {
+				method.invoke(_indexStatusManager, false);
+			}
+			catch (Exception exception) {
+				throw new RuntimeException(exception);
+			}
+		}
 	}
 
 	protected void retry(Runnable runnable) {
@@ -55,6 +78,18 @@ public class SearchFixture {
 		).assertSearch(
 			runnable
 		);
+	}
+
+	private Method _getRequireIndexReadWriteMethod() {
+		try {
+			Class<? extends IndexStatusManager> clazz =
+				_indexStatusManager.getClass();
+
+			return clazz.getMethod("requireIndexReadWrite", boolean.class);
+		}
+		catch (NoSuchMethodException e) {
+			return null;
+		}
 	}
 
 	private final IndexStatusManager _indexStatusManager;
