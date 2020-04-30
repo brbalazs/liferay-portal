@@ -44,6 +44,9 @@ import java.util.List;
 public class LayoutFinderImpl
 	extends LayoutFinderBaseImpl implements LayoutFinder {
 
+	public static final String COUNT_BY_G_P_T =
+		LayoutFinder.class.getName() + ".countByG_P_T";
+
 	public static final String FIND_BY_NO_PERMISSIONS =
 		LayoutFinder.class.getName() + ".findByNoPermissions";
 
@@ -55,6 +58,63 @@ public class LayoutFinderImpl
 
 	public static final String FIND_BY_C_P_P =
 		LayoutFinder.class.getName() + ".findByC_P_P";
+
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	@Override
+	public int countByG_P_T(
+		long groupId, boolean privateLayout, String[] types) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = CustomSQLUtil.get(COUNT_BY_G_P_T);
+
+			sql = StringUtil.replace(sql, "[$TYPE$]", getTypes(types.length));
+
+			if (InlineSQLHelperUtil.isEnabled()) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, Layout.class.getName(), "Layout.plid", groupId);
+			}
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME, Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+			qPos.add(privateLayout);
+
+			for (String type : types) {
+				qPos.add(type);
+			}
+
+			int count = 0;
+
+			Iterator<Long> itr = q.iterate();
+
+			while (itr.hasNext()) {
+				Long l = itr.next();
+
+				if (l != null) {
+					count += l.intValue();
+				}
+			}
+
+			return count;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
 
 	/**
 	 * @deprecated As of Judson (7.1.x), with no direct replacement
@@ -231,6 +291,24 @@ public class LayoutFinderImpl
 		finally {
 			closeSession(session);
 		}
+	}
+
+	protected String getTypes(int size) {
+		if (size == 0) {
+			return StringPool.BLANK;
+		}
+
+		StringBundler sb = new StringBundler(size + 1);
+
+		sb.append(" AND (");
+
+		for (int i = 0; i < (size - 1); i++) {
+			sb.append("Layout.type_ = ? OR ");
+		}
+
+		sb.append("Layout.type_ = ?)");
+
+		return sb.toString();
 	}
 
 }

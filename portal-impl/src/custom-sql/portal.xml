@@ -408,6 +408,18 @@
 				(Users_Groups.userId = ?)
 		]]>
 	</sql>
+	<sql id="com.liferay.portal.kernel.service.persistence.LayoutFinder.countByG_P_T">
+		<![CDATA[
+			SELECT
+				COUNT(*) AS COUNT_VALUE
+			FROM
+				Layout
+			WHERE
+				(Layout.groupId = ?) AND
+				(Layout.privateLayout = ?)
+				[$TYPE$]
+		]]>
+	</sql>
 	<sql id="com.liferay.portal.kernel.service.persistence.LayoutFinder.findByNoPermissions">
 		<![CDATA[
 			SELECT

@@ -50,6 +50,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.GroupPermissionUtil;
 import com.liferay.portal.kernel.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -1072,6 +1073,21 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 		return layoutPersistence.filterCountByG_P_T(
 			groupId, privateLayout, type);
+	}
+
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	@Override
+	public int getLayoutsCount(
+		long groupId, boolean privateLayout, String[] types) {
+
+		if (ArrayUtil.isEmpty(types)) {
+			return 0;
+		}
+
+		return layoutFinder.countByG_P_T(groupId, privateLayout, types);
 	}
 
 	@Override
