@@ -130,6 +130,7 @@ public class ActivityController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@QueryParam("query") String query,
 			@QueryParam("applicationId") String applicationId,
+			@QueryParam("channelId") String channelId,
 			@QueryParam("eventId") String eventId, @QueryParam("cur") int cur,
 			@QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
@@ -139,7 +140,7 @@ public class ActivityController extends BaseFaroController {
 		return new FaroResultsDisplay(
 			contactsEngineClient.getActivityAssets(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId), query,
-				applicationId, eventId, cur, delta,
+				applicationId, channelId, eventId, cur, delta,
 				orderByFieldsFaroParam.getValue()));
 	}
 

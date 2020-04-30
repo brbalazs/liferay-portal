@@ -367,10 +367,11 @@ public abstract class BaseMockContactsEngineClientImpl
 	@Override
 	public Results<ActivityAsset> getActivityAssets(
 		FaroProject faroProject, String query, String applicationId,
-		String eventId, int cur, int delta, List<OrderByField> orderByFields) {
+		String channelId, String eventId, int cur, int delta,
+		List<OrderByField> orderByFields) {
 
 		return contactsEngineClient.getActivityAssets(
-			faroProject, query, applicationId, eventId, cur, delta,
+			faroProject, query, applicationId, channelId, eventId, cur, delta,
 			orderByFields);
 	}
 
