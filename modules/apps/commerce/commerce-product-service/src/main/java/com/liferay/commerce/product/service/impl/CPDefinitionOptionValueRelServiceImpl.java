@@ -274,6 +274,27 @@ public class CPDefinitionOptionValueRelServiceImpl
 				serviceContext);
 	}
 
+	@Override
+	public CPDefinitionOptionValueRel updateLinkedCPInstance(
+			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
+			long cProductId, int quantity)
+		throws PortalException {
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			cpDefinitionOptionValueRelLocalService.
+				getCPDefinitionOptionValueRel(cpDefinitionOptionValueRelId);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionRelId());
+
+		_checkCommerceCatalogPermissionByCPDefinitionId(
+			cpDefinitionOptionRel.getCPDefinitionId(), ActionKeys.UPDATE);
+
+		return cpDefinitionOptionValueRelLocalService.updateLinkedCPInstance(
+			cpDefinitionOptionValueRelId, cpInstanceUuid, cProductId, quantity);
+	}
+
 	private void _checkCommerceCatalogPermissionByCPDefinitionId(
 			long cpDefinitionId, String actionId)
 		throws PortalException {
