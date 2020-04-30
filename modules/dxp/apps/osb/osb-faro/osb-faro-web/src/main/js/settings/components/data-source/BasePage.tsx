@@ -35,86 +35,50 @@ interface IBaseDataSourcePageProps extends React.HTMLAttributes<HTMLElement> {
 	showDelete: boolean;
 }
 
-export class BaseDataSourcePage extends React.Component<
-	IBaseDataSourcePageProps
-> {
-	static defaultProps = {
-		className: '',
-		documentTitle: Liferay.Language.get('configure-data-source'),
-		pageTitle: Liferay.Language.get('configure-data-source'),
-		showDelete: false
-	};
+const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
+	className = '',
+	currentUser,
+	documentTitle = Liferay.Language.get('configure-data-source'),
+	dataSource,
+	groupId,
+	id,
+	pageDescription,
+	pageTitle = Liferay.Language.get('configure-data-source'),
+	passedChildren,
+	showDelete = false,
+	...otherProps
+}) => (
+	<BasePage
+		{...otherProps}
+		className={getCN('data-source-base-page-root', className)}
+		documentTitle={`${documentTitle || pageTitle} - ${Liferay.Language.get(
+			'data-sources'
+		)}`}
+		groupId={groupId}
+		pageActions={
+			id && showDelete && currentUser.isAdmin()
+				? [
+						{
+							href: toRoute(Routes.SETTINGS_DATA_SOURCE_DELETE, {
+								groupId,
+								id
+							}),
+							label: Liferay.Language.get('delete-data-source')
+						}
+				  ]
+				: []
+		}
+		pageDescription={pageDescription || getPageDescription(dataSource)}
+		pageTitle={pageTitle}
+	>
+		<div className='page-container'>
+			<div className='content-main'>{passedChildren}</div>
 
-	static propTypes = {
-		className: PropTypes.string,
-		currentUser: PropTypes.instanceOf(User).isRequired,
-		dataSource: PropTypes.instanceOf(DataSource),
-		documentTitle: PropTypes.string,
-		groupId: PropTypes.string.isRequired,
-		id: PropTypes.string,
-		pageDescription: PropTypes.string,
-		pageTitle: PropTypes.node,
-		passedChildren: PropTypes.node,
-		showDelete: PropTypes.bool
-	};
-
-	render() {
-		const {
-			className,
-			currentUser,
-			dataSource,
-			documentTitle,
-			groupId,
-			id,
-			pageDescription,
-			pageTitle,
-			passedChildren,
-			showDelete,
-			...otherProps
-		} = this.props;
-
-		return (
-			<BasePage
-				{...omitDefinedProps(otherProps, BaseDataSourcePage.propTypes)}
-				className={getCN('data-source-base-page-root', className)}
-				documentTitle={`${documentTitle ||
-					pageTitle} - ${Liferay.Language.get('data-sources')}`}
-				groupId={groupId}
-				pageActions={
-					id && showDelete && currentUser.isAdmin()
-						? [
-								{
-									href: toRoute(
-										Routes.SETTINGS_DATA_SOURCE_DELETE,
-										{
-											groupId,
-											id
-										}
-									),
-									label: Liferay.Language.get(
-										'delete-data-source'
-									)
-								}
-						  ]
-						: []
-				}
-				pageDescription={
-					pageDescription || getPageDescription(dataSource)
-				}
-				pageTitle={pageTitle}
-			>
-				<div className='page-container'>
-					<div className='content-main'>{passedChildren}</div>
-
-					<div className='content-side'>
-						<DataSourceStatus
-							{...getDataSourceDisplayObject(dataSource)}
-						/>
-					</div>
-				</div>
-			</BasePage>
-		);
-	}
-}
+			<div className='content-side'>
+				<DataSourceStatus {...getDataSourceDisplayObject(dataSource)} />
+			</div>
+		</div>
+	</BasePage>
+);
 
 export default compose(connect(getOwnChildren))(BaseDataSourcePage);
