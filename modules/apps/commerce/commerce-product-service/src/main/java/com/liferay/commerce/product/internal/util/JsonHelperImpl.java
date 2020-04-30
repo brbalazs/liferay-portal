@@ -43,6 +43,19 @@ public class JsonHelperImpl implements JsonHelper {
 		_jsonFactory = jsonFactory;
 	}
 
+	@Override
+	public JSONArray asJSONArray(String json) throws JSONException {
+		if (isArray(json)) {
+			return _jsonFactory.createJSONArray(json);
+		}
+
+		JSONArray jsonArray = _jsonFactory.createJSONArray();
+
+		jsonArray.put(_jsonFactory.createJSONObject(json));
+
+		return jsonArray;
+	}
+
 	public boolean equals(String jsonArrayString1, String jsonArrayString2) {
 		JSONArray jsonArray1 = _toJSONArray(jsonArrayString1);
 		JSONArray jsonArray2 = _toJSONArray(jsonArrayString2);
