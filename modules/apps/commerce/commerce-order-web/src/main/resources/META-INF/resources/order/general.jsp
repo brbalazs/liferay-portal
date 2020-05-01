@@ -243,6 +243,15 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 							<%= commerceOrderEditDisplayContext.getCommerceOrderDateTime(commerceOrder.getOrderDate()) %>
 						</commerce-ui:info-box>
 					</c:if>
+
+					<c:if test="<%= Validator.isNotNull(commerceOrder.getAdvanceStatus()) %>">
+						<commerce-ui:info-box
+							elementClasses="py-3"
+							title='<%= LanguageUtil.get(request, "external-order-status") %>'
+						>
+							<%= commerceOrder.getAdvanceStatus() %>
+						</commerce-ui:info-box>
+					</c:if>
 				</div>
 			</div>
 		</commerce-ui:panel>
