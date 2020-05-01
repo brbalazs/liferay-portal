@@ -14,7 +14,6 @@
 
 package com.liferay.headless.discovery.internal.jaxrs.application;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.liferay.headless.discovery.internal.dto.Hint;
@@ -68,7 +67,7 @@ public class HeadlessDiscoveryAPIApplication extends Application {
 	@GET
 	@Produces({"application/json", "application/xml"})
 	public Response discovery(@HeaderParam("Accept") String accept)
-		throws JsonProcessingException {
+		throws Exception {
 
 		Map<String, List<ResourceMethodInfoDTO>> resourceMethodInfoDTOsMap =
 			_getResourceMethodInfoDTOsMap();
