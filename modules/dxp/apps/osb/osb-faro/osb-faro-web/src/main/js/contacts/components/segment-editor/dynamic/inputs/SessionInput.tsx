@@ -18,6 +18,7 @@ import {PROPERTY_TYPES} from '../utils/constants';
 const {SESSION_NUMBER} = PROPERTY_TYPES;
 
 interface ISessionInputProps extends ISegmentEditorCustomInputBase {
+	channelId: string;
 	touched: {
 		customInput: boolean;
 		dateFilter: boolean;
@@ -32,6 +33,7 @@ export default class SessionInput extends React.Component<ISessionInputProps> {
 	@autobind
 	fieldValuesDataSourceFn() {
 		const {
+			channelId,
 			groupId,
 			property: {name},
 			value: valueIMap
@@ -39,6 +41,7 @@ export default class SessionInput extends React.Component<ISessionInputProps> {
 
 		return API.session
 			.fetchFieldValues({
+				channelId,
 				fieldName: name,
 				groupId,
 				query: getPropertyValue(valueIMap, 'value', 0)

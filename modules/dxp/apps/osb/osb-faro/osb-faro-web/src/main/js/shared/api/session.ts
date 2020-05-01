@@ -7,11 +7,13 @@ import {RESTParams} from 'shared/types';
 const {cur: defaultCur, delta: defaultDelta} = FaroConstants.pagination;
 
 interface IFetchFieldValues extends RESTParams {
+	channelId?: string;
 	fieldName?: string;
 	filter?: string;
 }
 
 export const fetchFieldValues = ({
+	channelId = '',
 	delta = defaultDelta,
 	fieldName,
 	filter,
@@ -25,6 +27,7 @@ export const fetchFieldValues = ({
 }> =>
 	sendRequest({
 		data: {
+			channelId,
 			cur: page,
 			delta,
 			fieldName,
