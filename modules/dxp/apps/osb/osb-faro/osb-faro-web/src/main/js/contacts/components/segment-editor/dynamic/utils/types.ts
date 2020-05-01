@@ -51,6 +51,7 @@ export type Operator = {
 };
 
 export interface ISegmentEditorInputBase {
+	channelId?: string;
 	className?: string;
 	displayValue?: string;
 	groupId?: string;

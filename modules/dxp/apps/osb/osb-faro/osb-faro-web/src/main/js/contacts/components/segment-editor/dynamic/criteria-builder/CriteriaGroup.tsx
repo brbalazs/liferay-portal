@@ -246,6 +246,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 			<div className={classes}>
 				{criterionGroup ? (
 					<this.NestedCriteriaGroupWithDrag
+						channelId={channelId}
 						criteria={criterion}
 						criteriaGroupId={criterion.criteriaGroupId}
 						groupId={groupId}

@@ -18,7 +18,6 @@ import {PROPERTY_TYPES} from '../utils/constants';
 const {SESSION_NUMBER} = PROPERTY_TYPES;
 
 interface ISessionInputProps extends ISegmentEditorCustomInputBase {
-	channelId: string;
 	touched: {
 		customInput: boolean;
 		dateFilter: boolean;

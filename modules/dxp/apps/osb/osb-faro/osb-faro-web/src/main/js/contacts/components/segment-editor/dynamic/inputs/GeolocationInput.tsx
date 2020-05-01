@@ -134,10 +134,17 @@ export function updateLocationOperators(
 	) as CustomValue;
 }
 
-function fetchCountries(groupId: string): (query: string) => Promise<string[]> {
+function fetchCountries({
+	channelId,
+	groupId
+}: {
+	channelId: string;
+	groupId: string;
+}): (query: string) => Promise<string[]> {
 	return query =>
 		API.session
 			.fetchFieldValues({
+				channelId,
 				fieldName: `context/${COUNTRY}`,
 				groupId,
 				query
@@ -145,10 +152,15 @@ function fetchCountries(groupId: string): (query: string) => Promise<string[]> {
 			.then(({items}) => items);
 }
 
-function fetchRegions(
-	groupId: string,
-	valueIMap: CustomValue
-): (query: string) => Promise<string[]> {
+function fetchRegions({
+	channelId,
+	groupId,
+	valueIMap
+}: {
+	channelId: string;
+	groupId: string;
+	valueIMap: CustomValue;
+}): (query: string) => Promise<string[]> {
 	const countryInputValue = getLocationTypeValue(valueIMap, COUNTRY);
 
 	let filter = [];
@@ -160,6 +172,7 @@ function fetchRegions(
 	return query =>
 		API.session
 			.fetchFieldValues({
+				channelId,
 				fieldName: `context/${REGION}`,
 				filter: filter.join(' and '),
 				groupId,
@@ -168,10 +181,15 @@ function fetchRegions(
 			.then(({items}) => items);
 }
 
-function fetchCities(
-	groupId: string,
-	valueIMap: CustomValue
-): (query: string) => Promise<string[]> {
+function fetchCities({
+	channelId,
+	groupId,
+	valueIMap
+}: {
+	channelId: string;
+	groupId: string;
+	valueIMap: CustomValue;
+}): (query: string) => Promise<string[]> {
 	const countryInputValue = getLocationTypeValue(valueIMap, COUNTRY);
 	const regionInputValue = getLocationTypeValue(valueIMap, REGION);
 
@@ -188,6 +206,7 @@ function fetchCities(
 	return query =>
 		API.session
 			.fetchFieldValues({
+				channelId,
 				fieldName: `context/${CITY}`,
 				filter: filter.join(' and '),
 				groupId,
@@ -316,6 +335,7 @@ export default class GeolocationInput extends React.Component<
 	render() {
 		const {
 			props: {
+				channelId,
 				displayValue,
 				groupId,
 				property: {entityName},
@@ -367,7 +387,7 @@ export default class GeolocationInput extends React.Component<
 							className={getCN({
 								'has-error': !valid && touched
 							})}
-							dataSourceFn={fetchCountries(groupId)}
+							dataSourceFn={fetchCountries({channelId, groupId})}
 							onBlur={this.handleCountryBlur}
 							onChange={value =>
 								this.handleLocationTypeChange(value, COUNTRY)
@@ -380,7 +400,11 @@ export default class GeolocationInput extends React.Component<
 					<Form.GroupItem shrink>
 						<ButtonInputTrigger
 							className='region'
-							dataSourceFn={fetchRegions(groupId, value)}
+							dataSourceFn={fetchRegions({
+								channelId,
+								groupId,
+								valueIMap: value
+							})}
 							editing={editRegion || !!regionInputValue.length}
 							label={Liferay.Language.get('add-region')}
 							onBlur={() => this.handleLocationOnBlur(REGION)}
@@ -396,7 +420,11 @@ export default class GeolocationInput extends React.Component<
 					<Form.GroupItem shrink>
 						<ButtonInputTrigger
 							className='city'
-							dataSourceFn={fetchCities(groupId, value)}
+							dataSourceFn={fetchCities({
+								channelId,
+								groupId,
+								valueIMap: value
+							})}
 							editing={editCity || !!cityInputValue.length}
 							label={Liferay.Language.get('add-city')}
 							onBlur={() => this.handleLocationOnBlur(CITY)}
