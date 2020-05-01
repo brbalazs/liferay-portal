@@ -29,6 +29,11 @@ function Item(props) {
 			<ClayList.ItemField expand>
 				<ClayList.ItemTitle>{props.title}</ClayList.ItemTitle>
 			</ClayList.ItemField>
+			<ClayList.ItemField expand>
+				<div className="autofit-col">
+					<p className="list-group-subtext">{props.subTitle}</p>
+				</div>
+			</ClayList.ItemField>
 			<ClayList.ItemField>
 				<ClayButton
 					disabled={props.selected}
@@ -181,6 +186,7 @@ class AddOrCreateBase extends Component {
 												selected={this.props.selectedItems.includes(
 													item[this.props.itemsKey]
 												)}
+												subTitle={item.key}
 												title={getSchemaString(
 													item,
 													this.props.schema.itemTitle
