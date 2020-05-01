@@ -204,8 +204,8 @@ public interface ContactsEngineClient {
 		int delta, List<OrderByField> orderByFields);
 
 	public Results<String> getAnalyticsEventValues(
-		FaroProject faroProject, String fieldName, String filter, String query,
-		int cur, int delta);
+		FaroProject faroProject, String channelId, String fieldName,
+		String filter, String query, int cur, int delta);
 
 	public Asset getAsset(FaroProject faroProject, String id)
 		throws FaroEngineClientException;

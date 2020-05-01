@@ -802,14 +802,22 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public Results<String> getAnalyticsEventValues(
-		FaroProject faroProject, String fieldName, String filter, String query,
-		int cur, int delta) {
+		FaroProject faroProject, String channelId, String fieldName,
+		String filter, String query, int cur, int delta) {
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, cur, delta, null);
 
 		uriVariables.put("fieldName", fieldName);
-		uriVariables.put("filter", filter);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(filter);
+		filterBuilder.addFilter(
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+
+		uriVariables.put("filter", filterBuilder.build());
+
 		uriVariables.put("value", query);
 
 		PagedResources pagedResources = get(

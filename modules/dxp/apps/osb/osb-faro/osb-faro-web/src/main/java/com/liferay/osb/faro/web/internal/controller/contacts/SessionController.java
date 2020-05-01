@@ -45,6 +45,7 @@ public class SessionController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public FaroResultsDisplay searchValues(
 			@PathParam("groupId") long groupId,
+			@QueryParam("channelId") String channelId,
 			@QueryParam("fieldName") String fieldName,
 			@QueryParam("filter") String filter,
 			@QueryParam("query") String query, @QueryParam("cur") int cur,
@@ -54,7 +55,7 @@ public class SessionController extends BaseFaroController {
 		return new FaroResultsDisplay(
 			contactsEngineClient.getAnalyticsEventValues(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId),
-				fieldName, filter, query, cur, delta));
+				channelId, fieldName, filter, query, cur, delta));
 	}
 
 }
