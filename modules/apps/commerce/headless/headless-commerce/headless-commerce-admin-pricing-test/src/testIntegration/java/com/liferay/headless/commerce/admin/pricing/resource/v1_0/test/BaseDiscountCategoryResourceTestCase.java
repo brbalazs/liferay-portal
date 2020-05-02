@@ -222,43 +222,38 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		DiscountCategory discountCategory =
 			testGraphQLDiscountCategory_addDiscountCategory();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteDiscountCategory",
-				new HashMap<String, Object>() {
-					{
-						put("discountCategoryId", discountCategory.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteDiscountCategory"));
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteDiscountCategory",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"discountCategoryId",
+									discountCategory.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteDiscountCategory"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"discountCategory",
-					new HashMap<String, Object>() {
-						{
-							put("discountCategoryId", discountCategory.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"discountCategory",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"discountCategoryId",
+									discountCategory.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -758,9 +753,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 					ReflectionUtil.getDeclaredFields(clazz));
 
 				graphQLFields.add(
-					new GraphQLField(
-						field.getName(),
-						childrenGraphQLFields.toArray(new GraphQLField[0])));
+					new GraphQLField(field.getName(), childrenGraphQLFields));
 			}
 		}
 
@@ -981,6 +974,26 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected DiscountCategory randomDiscountCategory() throws Exception {
 		return new DiscountCategory() {
 			{
@@ -1019,9 +1032,22 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1049,7 +1075,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1065,7 +1091,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

@@ -561,38 +561,23 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 
 		Long siteId = testGetSiteStructuredContentFoldersPage_getSiteId();
 
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
-
-		graphQLFields.add(
-			new GraphQLField(
-				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
-
-		graphQLFields.add(new GraphQLField("page"));
-		graphQLFields.add(new GraphQLField("totalCount"));
-
 		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"structuredContentFolders",
-				new HashMap<String, Object>() {
-					{
-						put("page", 1);
-						put("pageSize", 2);
+			"structuredContentFolders",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 2);
 
-						put("siteKey", "\"" + siteId + "\"");
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+					put("siteKey", "\"" + siteId + "\"");
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
 		JSONObject structuredContentFoldersJSONObject =
-			dataJSONObject.getJSONObject("structuredContentFolders");
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/structuredContentFolders");
 
 		Assert.assertEquals(
 			0, structuredContentFoldersJSONObject.get("totalCount"));
@@ -602,13 +587,9 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 		StructuredContentFolder structuredContentFolder2 =
 			testGraphQLStructuredContentFolder_addStructuredContentFolder();
 
-		jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		dataJSONObject = jsonObject.getJSONObject("data");
-
-		structuredContentFoldersJSONObject = dataJSONObject.getJSONObject(
-			"structuredContentFolders");
+		structuredContentFoldersJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/structuredContentFolders");
 
 		Assert.assertEquals(
 			2, structuredContentFoldersJSONObject.get("totalCount"));
@@ -1095,48 +1076,38 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 		StructuredContentFolder structuredContentFolder =
 			testGraphQLStructuredContentFolder_addStructuredContentFolder();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteStructuredContentFolder",
-				new HashMap<String, Object>() {
-					{
-						put(
-							"structuredContentFolderId",
-							structuredContentFolder.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
-			dataJSONObject.getBoolean("deleteStructuredContentFolder"));
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteStructuredContentFolder",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"structuredContentFolderId",
+									structuredContentFolder.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteStructuredContentFolder"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"structuredContentFolder",
-					new HashMap<String, Object>() {
-						{
-							put(
-								"structuredContentFolderId",
-								structuredContentFolder.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"structuredContentFolder",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"structuredContentFolderId",
+									structuredContentFolder.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -1168,31 +1139,23 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 		StructuredContentFolder structuredContentFolder =
 			testGraphQLStructuredContentFolder_addStructuredContentFolder();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"structuredContentFolder",
-				new HashMap<String, Object>() {
-					{
-						put(
-							"structuredContentFolderId",
-							structuredContentFolder.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				structuredContentFolder,
 				StructuredContentFolderSerDes.toDTO(
-					dataJSONObject.getString("structuredContentFolder"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"structuredContentFolder",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"structuredContentFolderId",
+											structuredContentFolder.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/structuredContentFolder"))));
 	}
 
 	@Test
@@ -1378,6 +1341,9 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 				StructuredContentFolder structuredContentFolder)
 		throws Exception {
 
+		JSONDeserializer<StructuredContentFolder> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
 		StringBuilder sb = new StringBuilder("{");
 
 		for (Field field :
@@ -1406,31 +1372,22 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 
 		graphQLFields.add(new GraphQLField("id"));
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"createSiteStructuredContentFolder",
-				new HashMap<String, Object>() {
-					{
-						put("siteKey", "\"" + testGroup.getGroupId() + "\"");
-						put("structuredContentFolder", sb.toString());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONDeserializer<StructuredContentFolder> jsonDeserializer =
-			JSONFactoryUtil.createJSONDeserializer();
-
-		String object = invoke(graphQLField.toString());
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(object);
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		return jsonDeserializer.deserialize(
-			String.valueOf(
-				dataJSONObject.getJSONObject(
-					"createSiteStructuredContentFolder")),
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createSiteStructuredContentFolder",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"siteKey",
+									"\"" + testGroup.getGroupId() + "\"");
+								put("structuredContentFolder", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data",
+				"JSONObject/createSiteStructuredContentFolder"),
 			StructuredContentFolder.class);
 	}
 
@@ -1681,9 +1638,7 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 					ReflectionUtil.getDeclaredFields(clazz));
 
 				graphQLFields.add(
-					new GraphQLField(
-						field.getName(),
-						childrenGraphQLFields.toArray(new GraphQLField[0])));
+					new GraphQLField(field.getName(), childrenGraphQLFields));
 			}
 		}
 
@@ -2090,6 +2045,26 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected StructuredContentFolder randomStructuredContentFolder()
 		throws Exception {
 
@@ -2138,9 +2113,22 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -2168,7 +2156,7 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -2184,7 +2172,7 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

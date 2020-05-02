@@ -251,32 +251,24 @@ public abstract class BaseCatalogResourceTestCase {
 
 		Catalog catalog = testGraphQLCatalog_addCatalog();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"catalogByExternalReferenceCode",
-				new HashMap<String, Object>() {
-					{
-						put(
-							"externalReferenceCode",
-							catalog.getExternalReferenceCode());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				catalog,
 				CatalogSerDes.toDTO(
-					dataJSONObject.getString(
-						"catalogByExternalReferenceCode"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"catalogByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											catalog.getExternalReferenceCode());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/catalogByExternalReferenceCode"))));
 	}
 
 	@Test
@@ -308,43 +300,34 @@ public abstract class BaseCatalogResourceTestCase {
 	public void testGraphQLDeleteCatalog() throws Exception {
 		Catalog catalog = testGraphQLCatalog_addCatalog();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteCatalog",
-				new HashMap<String, Object>() {
-					{
-						put("catalogId", catalog.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteCatalog"));
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteCatalog",
+						new HashMap<String, Object>() {
+							{
+								put("catalogId", catalog.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteCatalog"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"catalog",
-					new HashMap<String, Object>() {
-						{
-							put("catalogId", catalog.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"catalog",
+						new HashMap<String, Object>() {
+							{
+								put("catalogId", catalog.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -369,28 +352,21 @@ public abstract class BaseCatalogResourceTestCase {
 	public void testGraphQLGetCatalog() throws Exception {
 		Catalog catalog = testGraphQLCatalog_addCatalog();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"catalog",
-				new HashMap<String, Object>() {
-					{
-						put("id", catalog.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				catalog,
-				CatalogSerDes.toDTO(dataJSONObject.getString("catalog"))));
+				CatalogSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"catalog",
+								new HashMap<String, Object>() {
+									{
+										put("id", catalog.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/catalog"))));
 	}
 
 	@Test
@@ -405,48 +381,29 @@ public abstract class BaseCatalogResourceTestCase {
 
 	@Test
 	public void testGraphQLGetCatalogsPage() throws Exception {
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
-
-		graphQLFields.add(
-			new GraphQLField(
-				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
-
-		graphQLFields.add(new GraphQLField("page"));
-		graphQLFields.add(new GraphQLField("totalCount"));
-
 		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"catalogs",
-				new HashMap<String, Object>() {
-					{
-						put("page", 1);
-						put("pageSize", 2);
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
+			"catalogs",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 2);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		JSONObject catalogsJSONObject = dataJSONObject.getJSONObject(
-			"catalogs");
+		JSONObject catalogsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/catalogs");
 
 		Assert.assertEquals(0, catalogsJSONObject.get("totalCount"));
 
 		Catalog catalog1 = testGraphQLCatalog_addCatalog();
 		Catalog catalog2 = testGraphQLCatalog_addCatalog();
 
-		jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		dataJSONObject = jsonObject.getJSONObject("data");
-
-		catalogsJSONObject = dataJSONObject.getJSONObject("catalogs");
+		catalogsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/catalogs");
 
 		Assert.assertEquals(2, catalogsJSONObject.get("totalCount"));
 
@@ -651,9 +608,7 @@ public abstract class BaseCatalogResourceTestCase {
 					ReflectionUtil.getDeclaredFields(clazz));
 
 				graphQLFields.add(
-					new GraphQLField(
-						field.getName(),
-						childrenGraphQLFields.toArray(new GraphQLField[0])));
+					new GraphQLField(field.getName(), childrenGraphQLFields));
 			}
 		}
 
@@ -882,6 +837,26 @@ public abstract class BaseCatalogResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected Catalog randomCatalog() throws Exception {
 		return new Catalog() {
 			{
@@ -919,9 +894,22 @@ public abstract class BaseCatalogResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -949,7 +937,7 @@ public abstract class BaseCatalogResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -965,7 +953,7 @@ public abstract class BaseCatalogResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

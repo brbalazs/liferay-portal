@@ -55,6 +55,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -232,29 +233,21 @@ public abstract class BaseAddressResourceTestCase {
 	public void testGraphQLGetCartBillingAddres() throws Exception {
 		Address address = testGraphQLAddress_addAddress();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"cartBillingAddres",
-				new HashMap<String, Object>() {
-					{
-						put("cartId", null);
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				address,
 				AddressSerDes.toDTO(
-					dataJSONObject.getString("cartBillingAddres"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"cartBillingAddres",
+								new HashMap<String, Object>() {
+									{
+										put("cartId", null);
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/cartBillingAddres"))));
 	}
 
 	@Test
@@ -276,29 +269,21 @@ public abstract class BaseAddressResourceTestCase {
 	public void testGraphQLGetCartShippingAddres() throws Exception {
 		Address address = testGraphQLAddress_addAddress();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"cartShippingAddres",
-				new HashMap<String, Object>() {
-					{
-						put("cartId", null);
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				address,
 				AddressSerDes.toDTO(
-					dataJSONObject.getString("cartShippingAddres"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"cartShippingAddres",
+								new HashMap<String, Object>() {
+									{
+										put("cartId", null);
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/cartShippingAddres"))));
 	}
 
 	protected Address testGraphQLAddress_addAddress() throws Exception {
@@ -571,9 +556,7 @@ public abstract class BaseAddressResourceTestCase {
 					ReflectionUtil.getDeclaredFields(clazz));
 
 				graphQLFields.add(
-					new GraphQLField(
-						field.getName(),
-						childrenGraphQLFields.toArray(new GraphQLField[0])));
+					new GraphQLField(field.getName(), childrenGraphQLFields));
 			}
 		}
 
@@ -1005,6 +988,26 @@ public abstract class BaseAddressResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected Address randomAddress() throws Exception {
 		return new Address() {
 			{
@@ -1056,9 +1059,22 @@ public abstract class BaseAddressResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1086,7 +1102,7 @@ public abstract class BaseAddressResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1102,7 +1118,7 @@ public abstract class BaseAddressResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

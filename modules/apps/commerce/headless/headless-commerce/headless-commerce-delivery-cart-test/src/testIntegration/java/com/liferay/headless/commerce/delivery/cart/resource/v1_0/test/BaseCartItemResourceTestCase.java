@@ -221,43 +221,34 @@ public abstract class BaseCartItemResourceTestCase {
 	public void testGraphQLDeleteCartItem() throws Exception {
 		CartItem cartItem = testGraphQLCartItem_addCartItem();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteCartItem",
-				new HashMap<String, Object>() {
-					{
-						put("cartItemId", cartItem.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteCartItem"));
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteCartItem",
+						new HashMap<String, Object>() {
+							{
+								put("cartItemId", cartItem.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteCartItem"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"cartItem",
-					new HashMap<String, Object>() {
-						{
-							put("cartItemId", cartItem.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"cartItem",
+						new HashMap<String, Object>() {
+							{
+								put("cartItemId", cartItem.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -283,28 +274,21 @@ public abstract class BaseCartItemResourceTestCase {
 	public void testGraphQLGetCartItem() throws Exception {
 		CartItem cartItem = testGraphQLCartItem_addCartItem();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"cartItem",
-				new HashMap<String, Object>() {
-					{
-						put("cartItemId", cartItem.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				cartItem,
-				CartItemSerDes.toDTO(dataJSONObject.getString("cartItem"))));
+				CartItemSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"cartItem",
+								new HashMap<String, Object>() {
+									{
+										put("cartItemId", cartItem.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/cartItem"))));
 	}
 
 	@Test
@@ -460,50 +444,31 @@ public abstract class BaseCartItemResourceTestCase {
 	public void testGraphQLGetCartItemsPage() throws Exception {
 		Long cartId = testGetCartItemsPage_getCartId();
 
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
-
-		graphQLFields.add(
-			new GraphQLField(
-				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
-
-		graphQLFields.add(new GraphQLField("page"));
-		graphQLFields.add(new GraphQLField("totalCount"));
-
 		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"cartItems",
-				new HashMap<String, Object>() {
-					{
-						put("page", 1);
-						put("pageSize", 2);
+			"cartItems",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 2);
 
-						put("cartId", cartId);
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
+					put("cartId", cartId);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		JSONObject cartItemsJSONObject = dataJSONObject.getJSONObject(
-			"cartItems");
+		JSONObject cartItemsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/cartItems");
 
 		Assert.assertEquals(0, cartItemsJSONObject.get("totalCount"));
 
 		CartItem cartItem1 = testGraphQLCartItem_addCartItem();
 		CartItem cartItem2 = testGraphQLCartItem_addCartItem();
 
-		jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		dataJSONObject = jsonObject.getJSONObject("data");
-
-		cartItemsJSONObject = dataJSONObject.getJSONObject("cartItems");
+		cartItemsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/cartItems");
 
 		Assert.assertEquals(2, cartItemsJSONObject.get("totalCount"));
 
@@ -736,9 +701,7 @@ public abstract class BaseCartItemResourceTestCase {
 					ReflectionUtil.getDeclaredFields(clazz));
 
 				graphQLFields.add(
-					new GraphQLField(
-						field.getName(),
-						childrenGraphQLFields.toArray(new GraphQLField[0])));
+					new GraphQLField(field.getName(), childrenGraphQLFields));
 			}
 		}
 
@@ -1019,6 +982,26 @@ public abstract class BaseCartItemResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected CartItem randomCartItem() throws Exception {
 		return new CartItem() {
 			{
@@ -1055,9 +1038,22 @@ public abstract class BaseCartItemResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1085,7 +1081,7 @@ public abstract class BaseCartItemResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1101,7 +1097,7 @@ public abstract class BaseCartItemResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

@@ -55,6 +55,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -239,32 +240,25 @@ public abstract class BaseShippingAddressResourceTestCase {
 		ShippingAddress shippingAddress =
 			testGraphQLShippingAddress_addShippingAddress();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"orderByExternalReferenceCodeShippingAddress",
-				new HashMap<String, Object>() {
-					{
-						put(
-							"externalReferenceCode",
-							shippingAddress.getExternalReferenceCode());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				shippingAddress,
 				ShippingAddressSerDes.toDTO(
-					dataJSONObject.getString(
-						"orderByExternalReferenceCodeShippingAddress"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"orderByExternalReferenceCodeShippingAddress",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											shippingAddress.
+												getExternalReferenceCode());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/orderByExternalReferenceCodeShippingAddress"))));
 	}
 
 	@Test
@@ -299,29 +293,21 @@ public abstract class BaseShippingAddressResourceTestCase {
 		ShippingAddress shippingAddress =
 			testGraphQLShippingAddress_addShippingAddress();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"orderIdShippingAddress",
-				new HashMap<String, Object>() {
-					{
-						put("id", shippingAddress.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				shippingAddress,
 				ShippingAddressSerDes.toDTO(
-					dataJSONObject.getString("orderIdShippingAddress"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"orderIdShippingAddress",
+								new HashMap<String, Object>() {
+									{
+										put("id", shippingAddress.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/orderIdShippingAddress"))));
 	}
 
 	@Test
@@ -579,9 +565,7 @@ public abstract class BaseShippingAddressResourceTestCase {
 					ReflectionUtil.getDeclaredFields(clazz));
 
 				graphQLFields.add(
-					new GraphQLField(
-						field.getName(),
-						childrenGraphQLFields.toArray(new GraphQLField[0])));
+					new GraphQLField(field.getName(), childrenGraphQLFields));
 			}
 		}
 
@@ -964,6 +948,26 @@ public abstract class BaseShippingAddressResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected ShippingAddress randomShippingAddress() throws Exception {
 		return new ShippingAddress() {
 			{
@@ -1014,9 +1018,22 @@ public abstract class BaseShippingAddressResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1044,7 +1061,7 @@ public abstract class BaseShippingAddressResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1060,7 +1077,7 @@ public abstract class BaseShippingAddressResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 
