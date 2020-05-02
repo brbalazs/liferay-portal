@@ -41,6 +41,7 @@ const DeleteConfirmationModal: React.FC<IDeleteConfirmationModalProps> = ({
 						onClose={onClose}
 						title={title}
 					/>
+
 					<Modal.Body>
 						<div className='text-secondary'>{children}</div>
 
