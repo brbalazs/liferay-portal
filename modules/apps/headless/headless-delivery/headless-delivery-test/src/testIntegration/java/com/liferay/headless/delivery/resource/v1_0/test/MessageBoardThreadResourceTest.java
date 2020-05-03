@@ -16,13 +16,21 @@ package com.liferay.headless.delivery.resource.v1_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.headless.delivery.client.dto.v1_0.MessageBoardThread;
+import com.liferay.headless.delivery.client.serdes.v1_0.MessageBoardThreadSerDes;
 import com.liferay.message.boards.model.MBCategory;
 import com.liferay.message.boards.service.MBCategoryLocalServiceUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 
+import java.util.Arrays;
+
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
@@ -45,6 +53,43 @@ public class MessageBoardThreadResourceTest
 			UserLocalServiceUtil.getDefaultUserId(testGroup.getCompanyId()),
 			testGroup.getGroupId(), RandomTestUtil.randomString(),
 			RandomTestUtil.randomString(), serviceContext);
+	}
+
+	@Test
+	public void testGraphQLGetSiteMessageBoardThreadsPage() throws Exception {
+		Long siteId = testGetSiteMessageBoardThreadsPage_getSiteId();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"messageBoardThreads",
+			HashMapBuilder.<String, Object>put(
+				"flatten", true
+			).put(
+				"page", 1
+			).put(
+				"pageSize", 2
+			).put(
+				"siteKey", "\"" + siteId + "\""
+			).build(),
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		MessageBoardThread messageBoardThread1 =
+			testGraphQLMessageBoardThread_addMessageBoardThread();
+		MessageBoardThread messageBoardThread2 =
+			testGraphQLMessageBoardThread_addMessageBoardThread();
+
+		JSONObject messageBoardThreadsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/messageBoardThreads");
+
+		Assert.assertEquals(2, messageBoardThreadsJSONObject.get("totalCount"));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(messageBoardThread1, messageBoardThread2),
+			Arrays.asList(
+				MessageBoardThreadSerDes.toDTOs(
+					messageBoardThreadsJSONObject.getString("items"))));
 	}
 
 	@Override
@@ -75,6 +120,15 @@ public class MessageBoardThreadResourceTest
 		testGetMessageBoardSectionMessageBoardThreadsPage_getMessageBoardSectionId() {
 
 		return _mbCategory.getCategoryId();
+	}
+
+	@Override
+	protected MessageBoardThread
+			testGraphQLMessageBoardThread_addMessageBoardThread()
+		throws Exception {
+
+		return testPostMessageBoardSectionMessageBoardThread_addMessageBoardThread(
+			randomMessageBoardThread());
 	}
 
 	private MBCategory _mbCategory;

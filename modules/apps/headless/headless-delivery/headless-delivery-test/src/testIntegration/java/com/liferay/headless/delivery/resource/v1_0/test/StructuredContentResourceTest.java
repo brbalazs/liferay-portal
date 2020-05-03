@@ -27,16 +27,12 @@ import com.liferay.headless.delivery.client.dto.v1_0.ContentField;
 import com.liferay.headless.delivery.client.dto.v1_0.StructuredContent;
 import com.liferay.headless.delivery.client.dto.v1_0.Value;
 import com.liferay.headless.delivery.client.resource.v1_0.StructuredContentResource;
-import com.liferay.headless.delivery.client.serdes.v1_0.StructuredContentSerDes;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.test.util.JournalTestUtil;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -45,9 +41,6 @@ import com.liferay.registry.RegistryUtil;
 import com.liferay.registry.ServiceReference;
 
 import java.io.InputStream;
-
-import java.util.HashMap;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -154,69 +147,6 @@ public class StructuredContentResourceTest
 					structuredContent.getId(), _ddmTemplate.getTemplateId()));
 	}
 
-	@Test
-	public void testGraphQLGetSiteStructuredContentByKey() throws Exception {
-		StructuredContent structuredContent =
-			testPostSiteStructuredContent_addStructuredContent(
-				randomStructuredContent());
-
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"structuredContentByKey",
-				(HashMap)HashMapBuilder.put(
-					"key", "\"" + structuredContent.getKey() + "\""
-				).put(
-					"siteKey", "\"" + structuredContent.getSiteId() + "\""
-				).build(),
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(
-			equals(
-				structuredContent,
-				StructuredContentSerDes.toDTO(
-					dataJSONObject.getString("structuredContentByKey"))));
-	}
-
-	@Override
-	@Test
-	public void testGraphQLGetSiteStructuredContentByUuid() throws Exception {
-		StructuredContent structuredContent =
-			testPostSiteStructuredContent_addStructuredContent(
-				randomStructuredContent());
-
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"structuredContentByUuid",
-				(HashMap)HashMapBuilder.put(
-					"siteKey", "\"" + structuredContent.getSiteId() + "\""
-				).put(
-					"uuid", "\"" + structuredContent.getUuid() + "\""
-				).build(),
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(
-			equals(
-				structuredContent,
-				StructuredContentSerDes.toDTO(
-					dataJSONObject.getString("structuredContentByUuid"))));
-	}
-
 	@Override
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[] {"contentStructureId", "description", "title"};
@@ -291,6 +221,15 @@ public class StructuredContentResourceTest
 		testGetStructuredContentFolderStructuredContentsPage_getStructuredContentFolderId() {
 
 		return _journalFolder.getFolderId();
+	}
+
+	@Override
+	protected StructuredContent
+			testGraphQLStructuredContent_addStructuredContent()
+		throws Exception {
+
+		return testPostSiteStructuredContent_addStructuredContent(
+			randomStructuredContent());
 	}
 
 	private DDMStructure _addDDMStructure(Group group) throws Exception {
