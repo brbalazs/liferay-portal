@@ -488,7 +488,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 			if (matchedCommerceOptionValue == null) {
 				throw new NoSuchOrderItemException(
-					"Child commerce order item does not match any json item");
+					"Child commerce order item does not match any JSON item.");
 			}
 
 			int currentQuantity = quantity * commerceOptionValue.getQuantity();
