@@ -234,6 +234,45 @@ public class CommercePendingOrderItemDataSetDataProvider
 		return commerceOrderItem.getParentCommerceOrderItemCPDefinitionId();
 	}
 
+	private String[] _getCommerceOrderErrorMessages(
+		CommerceOrderItem commerceOrderItem,
+		Map<Long, List<CommerceOrderValidatorResult>>
+			commerceOrderValidatorResultMap) {
+
+		List<CommerceOrderValidatorResult> commerceOrderValidatorResults =
+			commerceOrderValidatorResultMap.get(
+				commerceOrderItem.getCommerceOrderItemId());
+
+		List<String> errorMessages = new ArrayList<>();
+
+		for (CommerceOrderValidatorResult commerceOrderValidatorResult :
+				commerceOrderValidatorResults) {
+
+			errorMessages.add(
+				commerceOrderValidatorResult.getLocalizedMessage());
+		}
+
+		return ArrayUtil.toStringArray(errorMessages);
+	}
+
+	private String _getCommerceOrderOptions(
+			CommerceOrderItem commerceOrderItem, Locale locale)
+		throws PortalException {
+
+		List<KeyValuePair> commerceOptionValueKeyValuePairs =
+			_cpInstanceHelper.getKeyValuePairs(
+				_getCommerceOptionValueCPDefinitionId(commerceOrderItem),
+				commerceOrderItem.getJson(), locale);
+
+		StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+
+		for (KeyValuePair keyValuePair : commerceOptionValueKeyValuePairs) {
+			stringJoiner.add(keyValuePair.getValue());
+		}
+
+		return stringJoiner.toString();
+	}
+
 	private Map<Long, List<CommerceOrderValidatorResult>>
 			_getCommerceOrderValidatorResultMap(
 				List<CommerceOrderItem> commerceOrderItems,
@@ -267,36 +306,13 @@ public class CommercePendingOrderItemDataSetDataProvider
 		Locale locale = themeDisplay.getLocale();
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			List<CommerceOrderValidatorResult> commerceOrderValidatorResults =
-				commerceOrderValidatorResultMap.get(
-					commerceOrderItem.getCommerceOrderItemId());
-
-			List<String> errorMessages = new ArrayList<>();
-
-			for (CommerceOrderValidatorResult commerceOrderValidatorResult :
-					commerceOrderValidatorResults) {
-
-				errorMessages.add(
-					commerceOrderValidatorResult.getLocalizedMessage());
-			}
-
-			List<KeyValuePair> commerceOptionValueKeyValuePairs =
-				_cpInstanceHelper.getKeyValuePairs(
-					_getCommerceOptionValueCPDefinitionId(commerceOrderItem),
-					commerceOrderItem.getJson(), locale);
-
-			StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
-
-			for (KeyValuePair keyValuePair : commerceOptionValueKeyValuePairs) {
-				stringJoiner.add(keyValuePair.getValue());
-			}
-
 			orderItems.add(
 				new OrderItem(
 					commerceOrderItem.getCommerceOrderItemId(),
 					commerceOrderItem.getCommerceOrderId(),
 					commerceOrderItem.getSku(),
-					commerceOrderItem.getName(locale), stringJoiner.toString(),
+					commerceOrderItem.getName(locale),
+					_getCommerceOrderOptions(commerceOrderItem, locale),
 					_formatUnitPrice(commerceOrderItem, locale),
 					_formatPromoPrice(commerceOrderItem, locale),
 					_formatDiscountAmount(commerceOrderItem, locale),
@@ -306,7 +322,9 @@ public class CommercePendingOrderItemDataSetDataProvider
 						commerceOrderItem.getCPInstanceId()),
 					CommerceOrderClayTableUtil.getViewShipmentURL(
 						commerceOrderItem.getCommerceOrderId(), themeDisplay),
-					0, ArrayUtil.toStringArray(errorMessages),
+					0,
+					_getCommerceOrderErrorMessages(
+						commerceOrderItem, commerceOrderValidatorResultMap),
 					_formatSubscriptionPeriod(commerceOrderItem, locale)));
 		}
 
