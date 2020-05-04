@@ -59,20 +59,6 @@ public class MessageBoardThreadResourceTest
 	public void testGraphQLGetSiteMessageBoardThreadsPage() throws Exception {
 		Long siteId = testGetSiteMessageBoardThreadsPage_getSiteId();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"messageBoardThreads",
-			HashMapBuilder.<String, Object>put(
-				"flatten", true
-			).put(
-				"page", 1
-			).put(
-				"pageSize", 2
-			).put(
-				"siteKey", "\"" + siteId + "\""
-			).build(),
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
 		MessageBoardThread messageBoardThread1 =
 			testGraphQLMessageBoardThread_addMessageBoardThread();
 		MessageBoardThread messageBoardThread2 =
@@ -80,8 +66,22 @@ public class MessageBoardThreadResourceTest
 
 		JSONObject messageBoardThreadsJSONObject =
 			JSONUtil.getValueAsJSONObject(
-				invokeGraphQLQuery(graphQLField), "JSONObject/data",
-				"JSONObject/messageBoardThreads");
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"messageBoardThreads",
+						HashMapBuilder.<String, Object>put(
+							"flatten", true
+						).put(
+							"page", 1
+						).put(
+							"pageSize", 2
+						).put(
+							"siteKey", "\"" + siteId + "\""
+						).build(),
+						new GraphQLField("items", getGraphQLFields()),
+						new GraphQLField("page"),
+						new GraphQLField("totalCount"))),
+				"JSONObject/data", "JSONObject/messageBoardThreads");
 
 		Assert.assertEquals(2, messageBoardThreadsJSONObject.get("totalCount"));
 

@@ -47,7 +47,6 @@ import com.liferay.portal.odata.entity.EntityField;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Assert;
@@ -259,19 +258,18 @@ public class UserAccountResourceTest extends BaseUserAccountResourceTestCase {
 		UserAccount userAccount3 = userAccountResource.getUserAccount(
 			_testUser.getUserId());
 
-		GraphQLField graphQLField = new GraphQLField(
-			"userAccounts",
-			HashMapBuilder.<String, Object>put(
-				"page", 1
-			).put(
-				"pageSize", 3
-			).build(),
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
 		JSONObject userAccountsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/userAccounts");
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"userAccounts",
+					HashMapBuilder.<String, Object>put(
+						"page", 1
+					).put(
+						"pageSize", 3
+					).build(),
+					new GraphQLField("items", getGraphQLFields()),
+					new GraphQLField("page"), new GraphQLField("totalCount"))),
+			"JSONObject/data", "JSONObject/userAccounts");
 
 		Assert.assertEquals(3, userAccountsJSONObject.get("totalCount"));
 

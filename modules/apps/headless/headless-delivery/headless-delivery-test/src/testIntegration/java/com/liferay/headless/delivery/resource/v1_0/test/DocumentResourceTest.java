@@ -46,26 +46,25 @@ public class DocumentResourceTest extends BaseDocumentResourceTestCase {
 
 	@Test
 	public void testGraphQLGetSiteDocumentsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"documents",
-			HashMapBuilder.<String, Object>put(
-				"flatten", true
-			).put(
-				"page", 1
-			).put(
-				"pageSize", 2
-			).put(
-				"siteKey", "\"" + testGroup.getGroupId() + "\""
-			).build(),
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
 		Document document1 = testGraphQLDocument_addDocument();
 		Document document2 = testGraphQLDocument_addDocument();
 
 		JSONObject documentsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/documents");
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"documents",
+					HashMapBuilder.<String, Object>put(
+						"flatten", true
+					).put(
+						"page", 1
+					).put(
+						"pageSize", 2
+					).put(
+						"siteKey", "\"" + testGroup.getGroupId() + "\""
+					).build(),
+					new GraphQLField("items", getGraphQLFields()),
+					new GraphQLField("page"), new GraphQLField("totalCount"))),
+			"JSONObject/data", "JSONObject/documents");
 
 		Assert.assertEquals(2, documentsJSONObject.get("totalCount"));
 
