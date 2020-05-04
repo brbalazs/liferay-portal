@@ -19,9 +19,14 @@ import com.liferay.commerce.product.exception.CPSpecificationOptionKeyException;
 import com.liferay.commerce.product.exception.CPSpecificationOptionTitleException;
 import com.liferay.commerce.product.exception.DuplicateCPSpecificationOptionKeyException;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.model.CPSpecificationOption;
 import com.liferay.commerce.product.service.base.CPSpecificationOptionLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
@@ -39,6 +44,7 @@ import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -52,6 +58,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * @author Andrea Di Giorgi
@@ -228,15 +235,8 @@ public class CPSpecificationOptionLocalServiceImpl
 		cpSpecificationOption = cpSpecificationOptionPersistence.update(
 			cpSpecificationOption);
 
-		Indexer<CPDefinition> indexer = IndexerRegistryUtil.getIndexer(
-			CPDefinition.class);
-
-		indexer.reindex(
-			new String[] {
-				String.valueOf(cpSpecificationOption.getCompanyId()),
-				String.valueOf(
-					cpSpecificationOption.getCPSpecificationOptionId())
-			});
+		reindexCPDefinitions(
+			cpSpecificationOption.getCompanyId(), cpSpecificationOptionId);
 
 		return cpSpecificationOption;
 	}
@@ -323,6 +323,22 @@ public class CPSpecificationOptionLocalServiceImpl
 		return cpSpecificationOptions;
 	}
 
+	protected void reindexCPDefinitions(
+		long companyId, long cpSpecificationOptionId) {
+
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				@Override
+				public Void call() throws Exception {
+					_reindexCPDefinitions(companyId, cpSpecificationOptionId);
+
+					return null;
+				}
+
+			});
+	}
+
 	protected BaseModelSearchResult<CPSpecificationOption>
 			searchCPSpecificationOptions(SearchContext searchContext)
 		throws PortalException {
@@ -374,8 +390,55 @@ public class CPSpecificationOptionLocalServiceImpl
 		}
 	}
 
+	private void _reindexCPDefinitions(
+			long companyId, long cpSpecificationOptionId)
+		throws PortalException {
+
+		final Indexer<CPDefinition> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(CPDefinition.class);
+
+		final IndexableActionableDynamicQuery indexableActionableDynamicQuery =
+			cpDefinitionSpecificationOptionValueLocalService.
+				getIndexableActionableDynamicQuery();
+
+		indexableActionableDynamicQuery.setCompanyId(companyId);
+		indexableActionableDynamicQuery.setAddCriteriaMethod(
+			dynamicQuery -> dynamicQuery.add(
+				RestrictionsFactoryUtil.eq(
+					"CPSpecificationOptionId", cpSpecificationOptionId)));
+
+		indexableActionableDynamicQuery.setPerformActionMethod(
+			(CPDefinitionSpecificationOptionValue
+				cpDefinitionSpecificationOptionValue) -> {
+
+				try {
+					indexableActionableDynamicQuery.addDocuments(
+						indexer.getDocument(
+							cpDefinitionSpecificationOptionValue.
+								getCPDefinition()));
+				}
+				catch (PortalException pe) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							"Unable to index commerce product definition " +
+								cpDefinitionSpecificationOptionValue.
+									getCPDefinition(),
+							pe);
+					}
+				}
+			});
+
+		indexableActionableDynamicQuery.setSearchEngineId(
+			indexer.getSearchEngineId());
+
+		indexableActionableDynamicQuery.performActions();
+	}
+
 	private static final String[] _SELECTED_FIELD_NAMES = {
 		Field.ENTRY_CLASS_PK, Field.COMPANY_ID, Field.UID
 	};
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CPSpecificationOptionLocalServiceImpl.class);
 
 }
