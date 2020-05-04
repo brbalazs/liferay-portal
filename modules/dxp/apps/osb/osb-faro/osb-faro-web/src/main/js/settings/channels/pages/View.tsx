@@ -399,7 +399,6 @@ const View: React.FC<IViewProps> = ({
 					) : (
 						<UserList
 							authorized={currentUser.isAdmin()}
-							channelId={id}
 							groupId={groupId}
 							id={channel.id}
 							propertyName={channel.name}

@@ -75,7 +75,6 @@ const UserListNav: React.FC<{
 interface IUserListProps extends HasModal, IPaginationUnsorted {
 	addAlert: Alert.AddAlert;
 	authorized: boolean;
-	channelId: string;
 	groupId: string;
 	id: string;
 	propertyName: string;
@@ -84,7 +83,6 @@ interface IUserListProps extends HasModal, IPaginationUnsorted {
 const UserList: React.FC<IUserListProps> = ({
 	addAlert,
 	authorized,
-	channelId,
 	close,
 	groupId,
 	id,
@@ -142,7 +140,7 @@ const UserList: React.FC<IUserListProps> = ({
 			onSubmit: () => {
 				API.channels
 					.deleteUsers({
-						channelId,
+						channelId: id,
 						groupId,
 						userIds
 					})
@@ -204,7 +202,7 @@ const UserList: React.FC<IUserListProps> = ({
 			dataSourceFn: ({delta, orderBy, orderByField, page, query}) =>
 				API.channels.fetchUsers({
 					available: true,
-					channelId,
+					channelId: id,
 					delta,
 					groupId,
 					orderByFields: buildOrderByFields(
@@ -240,7 +238,7 @@ const UserList: React.FC<IUserListProps> = ({
 
 				API.channels
 					.addUsers({
-						channelId,
+						channelId: id,
 						groupId,
 						userIds
 					})
