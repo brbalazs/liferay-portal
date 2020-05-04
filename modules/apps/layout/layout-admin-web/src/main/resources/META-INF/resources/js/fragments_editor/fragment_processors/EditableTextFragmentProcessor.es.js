@@ -143,7 +143,7 @@ function _getEditorConfiguration(
 		documentBrowseLinkCallback: (editor, url, changeLinkCallback) => {
 				
 			const itemSelectorDialog = new ItemSelectorDialog({
-				eventName: editor.name + 'selectDocument',
+				eventName: editor.title + 'selectItem',
 				singleSelect: true,
 				title: Liferay.Language.get('select-item'),
 				url: url,
