@@ -201,6 +201,8 @@ public class FlagsTag extends IncludeTag {
 			"reasons",
 			FlagsTagUtil.getReasons(themeDisplay.getCompanyId(), request));
 		props.put("signedIn", themeDisplay.isSignedIn());
+		props.put(
+			"spritemap", themeDisplay.getPathThemeImages() + "/clay/icons.svg");
 		props.put("uri", FlagsTagUtil.getURI(request));
 
 		return HashMapBuilder.<String, Object>put(

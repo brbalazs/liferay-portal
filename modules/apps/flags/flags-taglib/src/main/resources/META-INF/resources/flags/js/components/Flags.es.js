@@ -13,7 +13,7 @@
  */
 
 import ClayButton from '@clayui/button';
-import ClayIcon from '@clayui/icon';
+import ClayIcon, {ClayIconSpriteContext} from '@clayui/icon';
 import {useModal} from '@clayui/modal';
 import {useIsMounted} from 'frontend-js-react-web';
 import fetch from 'frontend-js-web/liferay/util/fetch.es';
@@ -42,6 +42,7 @@ const Flags = ({
 	pathTermsOfUse,
 	reasons,
 	signedIn = false,
+	spritemap,
 	uri
 }) => {
 	const [isSending, setIsSending] = useState(false);
@@ -137,7 +138,7 @@ const Flags = ({
 	});
 
 	return (
-		<>
+		<ClayIconSpriteContext.Provider value={spritemap}>
 			<ClayButton
 				className={`btn-outline-borderless btn-outline-secondary ${
 					onlyIcon ? 'lfr-portal-tooltip' : ''
@@ -177,7 +178,7 @@ const Flags = ({
 					status={status}
 				/>
 			)}
-		</>
+		</ClayIconSpriteContext.Provider>
 	);
 };
 Flags.propTypes = {
@@ -191,6 +192,7 @@ Flags.propTypes = {
 	pathTermsOfUse: PropTypes.string.isRequired,
 	reasons: PropTypes.object.isRequired,
 	signedIn: PropTypes.bool,
+	spritemap: PropTypes.string,
 	uri: PropTypes.string.isRequired
 };
 
