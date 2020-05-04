@@ -318,3 +318,30 @@ one was setting their changes.
   entity with `mvccVersion` is `1`.
 
 ---------------------------------------
+
+### Product Sorting
+- **Date:** 2020-May-3
+- **JIRA Ticket:** [COMMERCE-3558](https://issues.liferay.com/browse/COMMERCE-3558)
+
+#### What changed?
+
+The product sorting dropdown has been moved from the Commerce "Search Results"
+widget into its own widget named "Sort".
+
+#### Who is affected?
+
+Anyone who had upgraded to version 2.0.7 and has the Commerce "Search Results"
+widget deployed on any page.
+
+#### How should I update my code?
+
+No code updates are needed, however the "Sort" widget will need to be added
+to your existing catalog page or wherever you're using a "Search Result" widget
+and want users to be able to sort products.
+
+#### Why was this change made?
+
+Give administrators more flexibility on whether or not they want to provide
+sorting functionality of product search results.
+
+---------------------------------------
