@@ -116,8 +116,6 @@ components:
                     format: int32
                     readOnly: true
                     type: integer
-            required:
-                - sku
             type: object
         AttachmentBase64:
             properties:
@@ -173,8 +171,6 @@ components:
                     format: int32
                     readOnly: true
                     type: integer
-            required:
-                - sku
             type: object
         AttachmentUrl:
             properties:
@@ -226,8 +222,6 @@ components:
                     format: int32
                     readOnly: true
                     type: integer
-            required:
-                - sku
             type: object
         Catalog:
             properties:
@@ -375,7 +369,6 @@ components:
                 - fieldType
                 - key
                 - name
-                - optionId
             type: object
         OptionCategory:
             properties:
