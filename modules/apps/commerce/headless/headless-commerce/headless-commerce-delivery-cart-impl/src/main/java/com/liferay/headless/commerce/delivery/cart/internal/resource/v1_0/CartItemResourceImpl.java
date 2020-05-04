@@ -145,8 +145,13 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 				CartItem parent = cartItemMap.get(parentId);
 
 				if (parent != null) {
-					ArrayUtil.append(parent.getCartItems(), cartItem);
-					cartItemMap.put(cartItem.getId(), cartItem);
+					if (parent.getCartItems() == null) {
+						parent.setCartItems(new CartItem[0]);
+					}
+
+					parent.setCartItems(
+						ArrayUtil.append(parent.getCartItems(), cartItem));
+					cartItemMap.remove(cartItem.getId());
 				}
 			}
 		}
