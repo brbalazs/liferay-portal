@@ -1,0 +1,15 @@
+{
+	"flags-taglib": {
+		"dest-mod-name-mapper": {
+			"from": "(.*)\\.js$",
+			"to": "bridge/flags-taglib/$1"
+		},
+		"file-globs": "**/*.es.js,**/*.soy.js",
+		"input": "build/node/packageRunBuild/resources",
+		"output": "build/node/packageRunBuild/resources/bridge/flags-taglib",
+		"src-mod-name-mapper": {
+			"from": "(.*)\\.js$",
+			"to": "flags-taglib/$1"
+		}
+	}
+}
