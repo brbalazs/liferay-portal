@@ -27,7 +27,6 @@ import com.liferay.headless.commerce.admin.account.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.account.client.pagination.Page;
 import com.liferay.headless.commerce.admin.account.client.resource.v1_0.AccountResource;
 import com.liferay.headless.commerce.admin.account.client.serdes.v1_0.AccountSerDes;
-import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -43,7 +42,6 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -52,7 +50,6 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -233,36 +230,54 @@ public abstract class BaseAccountResourceTestCase {
 
 	@Test
 	public void testGraphQLGetAccountsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"accounts",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 2);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
+		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		JSONObject accountsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/accounts");
+		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
+
+		graphQLFields.add(
+			new GraphQLField(
+				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
+
+		graphQLFields.add(new GraphQLField("page"));
+		graphQLFields.add(new GraphQLField("totalCount"));
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"accounts",
+				new HashMap<String, Object>() {
+					{
+						put("page", 1);
+						put("pageSize", 2);
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		JSONObject accountsJSONObject = dataJSONObject.getJSONObject(
+			"accounts");
 
 		Assert.assertEquals(0, accountsJSONObject.get("totalCount"));
 
 		Account account1 = testGraphQLAccount_addAccount();
 		Account account2 = testGraphQLAccount_addAccount();
 
-		accountsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/accounts");
+		jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		dataJSONObject = jsonObject.getJSONObject("data");
+
+		accountsJSONObject = dataJSONObject.getJSONObject("accounts");
 
 		Assert.assertEquals(2, accountsJSONObject.get("totalCount"));
 
-		assertEqualsIgnoringOrder(
+		assertEqualsJSONArray(
 			Arrays.asList(account1, account2),
-			Arrays.asList(
-				AccountSerDes.toDTOs(accountsJSONObject.getString("items"))));
+			accountsJSONObject.getJSONArray("items"));
 	}
 
 	@Test
@@ -335,27 +350,31 @@ public abstract class BaseAccountResourceTestCase {
 
 		Account account = testGraphQLAccount_addAccount();
 
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"accountByExternalReferenceCode",
+				new HashMap<String, Object>() {
+					{
+						put(
+							"externalReferenceCode",
+							account.getExternalReferenceCode());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
 		Assert.assertTrue(
-			equals(
+			equalsJSONObject(
 				account,
-				AccountSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"accountByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"externalReferenceCode",
-											"\"" +
-												account.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/accountByExternalReferenceCode"))));
+				dataJSONObject.getJSONObject(
+					"accountByExternalReferenceCode")));
 	}
 
 	@Test
@@ -417,34 +436,43 @@ public abstract class BaseAccountResourceTestCase {
 	public void testGraphQLDeleteAccount() throws Exception {
 		Account account = testGraphQLAccount_addAccount();
 
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"deleteAccount",
-						new HashMap<String, Object>() {
-							{
-								put("accountId", account.getId());
-							}
-						})),
-				"JSONObject/data", "Object/deleteAccount"));
+		GraphQLField graphQLField = new GraphQLField(
+			"mutation",
+			new GraphQLField(
+				"deleteAccount",
+				new HashMap<String, Object>() {
+					{
+						put("accountId", account.getId());
+					}
+				}));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(dataJSONObject.getBoolean("deleteAccount"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"account",
-						new HashMap<String, Object>() {
-							{
-								put("accountId", account.getId());
-							}
-						},
-						new GraphQLField("id"))),
-				"JSONArray/errors");
+			graphQLField = new GraphQLField(
+				"query",
+				new GraphQLField(
+					"account",
+					new HashMap<String, Object>() {
+						{
+							put("accountId", account.getId());
+						}
+					},
+					new GraphQLField("id")));
+
+			jsonObject = JSONFactoryUtil.createJSONObject(
+				invoke(graphQLField.toString()));
+
+			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -469,21 +497,26 @@ public abstract class BaseAccountResourceTestCase {
 	public void testGraphQLGetAccount() throws Exception {
 		Account account = testGraphQLAccount_addAccount();
 
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"account",
+				new HashMap<String, Object>() {
+					{
+						put("id", account.getId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
 		Assert.assertTrue(
-			equals(
-				account,
-				AccountSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"account",
-								new HashMap<String, Object>() {
-									{
-										put("id", account.getId());
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data", "Object/account"))));
+			equalsJSONObject(account, dataJSONObject.getJSONObject("account")));
 	}
 
 	@Test
@@ -566,6 +599,25 @@ public abstract class BaseAccountResourceTestCase {
 
 			Assert.assertTrue(
 				accounts2 + " does not contain " + account1, contains);
+		}
+	}
+
+	protected void assertEqualsJSONArray(
+		List<Account> accounts, JSONArray jsonArray) {
+
+		for (Account account : accounts) {
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(account, (JSONObject)object)) {
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + account, contains);
 		}
 	}
 
@@ -700,50 +752,13 @@ public abstract class BaseAccountResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() throws Exception {
+	protected List<GraphQLField> getGraphQLFields() {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (Field field :
-				ReflectionUtil.getDeclaredFields(
-					com.liferay.headless.commerce.admin.account.dto.v1_0.
-						Account.class)) {
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
 
-			if (!ArrayUtil.contains(
-					getAdditionalAssertFieldNames(), field.getName())) {
-
-				continue;
-			}
-
-			graphQLFields.addAll(getGraphQLFields(field));
-		}
-
-		return graphQLFields;
-	}
-
-	protected List<GraphQLField> getGraphQLFields(Field... fields)
-		throws Exception {
-
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		for (Field field : fields) {
-			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
-				vulcanGraphQLField = field.getAnnotation(
-					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
-						class);
-
-			if (vulcanGraphQLField != null) {
-				Class<?> clazz = field.getType();
-
-				if (clazz.isArray()) {
-					clazz = clazz.getComponentType();
-				}
-
-				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
-					ReflectionUtil.getDeclaredFields(clazz));
-
-				graphQLFields.add(
-					new GraphQLField(field.getName(), childrenGraphQLFields));
-			}
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
 		}
 
 		return graphQLFields;
@@ -797,9 +812,9 @@ public abstract class BaseAccountResourceTestCase {
 			}
 
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
-				if (!equals(
-						(Map)account1.getCustomFields(),
-						(Map)account2.getCustomFields())) {
+				if (!Objects.deepEquals(
+						account1.getCustomFields(),
+						account2.getCustomFields())) {
 
 					return false;
 				}
@@ -897,25 +912,81 @@ public abstract class BaseAccountResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
+	protected boolean equalsJSONObject(Account account, JSONObject jsonObject) {
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("externalReferenceCode", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getExternalReferenceCode(),
+						jsonObject.getString("externalReferenceCode"))) {
 
 					return false;
 				}
+
+				continue;
 			}
+
+			if (Objects.equals("id", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getId(), jsonObject.getLong("id"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("logoId", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getLogoId(), jsonObject.getLong("logoId"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("name", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getName(), jsonObject.getString("name"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("root", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getRoot(), jsonObject.getBoolean("root"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("taxId", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getTaxId(), jsonObject.getString("taxId"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("type", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getType(), jsonObject.getInt("type"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1061,36 +1132,15 @@ public abstract class BaseAccountResourceTestCase {
 		return httpResponse.getContent();
 	}
 
-	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
-		throws Exception {
-
-		GraphQLField mutationGraphQLField = new GraphQLField(
-			"mutation", graphQLField);
-
-		return JSONFactoryUtil.createJSONObject(
-			invoke(mutationGraphQLField.toString()));
-	}
-
-	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
-		throws Exception {
-
-		GraphQLField queryGraphQLField = new GraphQLField(
-			"query", graphQLField);
-
-		return JSONFactoryUtil.createJSONObject(
-			invoke(queryGraphQLField.toString()));
-	}
-
 	protected Account randomAccount() throws Exception {
 		return new Account() {
 			{
-				externalReferenceCode = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				externalReferenceCode = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
 				logoId = RandomTestUtil.randomLong();
-				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				name = RandomTestUtil.randomString();
 				root = RandomTestUtil.randomBoolean();
-				taxId = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				taxId = RandomTestUtil.randomString();
 				type = RandomTestUtil.randomInt();
 			}
 		};
@@ -1117,22 +1167,9 @@ public abstract class BaseAccountResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
-		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
-			this(key, new HashMap<>(), graphQLFields);
-		}
-
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
-
-			_key = key;
-			_parameterMap = parameterMap;
-			_graphQLFields = Arrays.asList(graphQLFields);
-		}
-
-		public GraphQLField(
-			String key, Map<String, Object> parameterMap,
-			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1160,7 +1197,7 @@ public abstract class BaseAccountResourceTestCase {
 				sb.append(")");
 			}
 
-			if (!_graphQLFields.isEmpty()) {
+			if (_graphQLFields.length > 0) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1176,7 +1213,7 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
-		private final List<GraphQLField> _graphQLFields;
+		private final GraphQLField[] _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

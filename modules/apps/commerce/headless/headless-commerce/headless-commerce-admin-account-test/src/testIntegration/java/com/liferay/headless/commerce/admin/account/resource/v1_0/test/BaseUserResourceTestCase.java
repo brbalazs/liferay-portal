@@ -27,9 +27,8 @@ import com.liferay.headless.commerce.admin.account.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.account.client.pagination.Page;
 import com.liferay.headless.commerce.admin.account.client.resource.v1_0.UserResource;
 import com.liferay.headless.commerce.admin.account.client.serdes.v1_0.UserSerDes;
-import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -42,20 +41,17 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -270,6 +266,25 @@ public abstract class BaseUserResourceTestCase {
 		}
 	}
 
+	protected void assertEqualsJSONArray(
+		List<User> users, JSONArray jsonArray) {
+
+		for (User user : users) {
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(user, (JSONObject)object)) {
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + user, contains);
+		}
+	}
+
 	protected void assertValid(User user) {
 		boolean valid = true;
 
@@ -375,50 +390,13 @@ public abstract class BaseUserResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() throws Exception {
+	protected List<GraphQLField> getGraphQLFields() {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (Field field :
-				ReflectionUtil.getDeclaredFields(
-					com.liferay.headless.commerce.admin.account.dto.v1_0.User.
-						class)) {
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
 
-			if (!ArrayUtil.contains(
-					getAdditionalAssertFieldNames(), field.getName())) {
-
-				continue;
-			}
-
-			graphQLFields.addAll(getGraphQLFields(field));
-		}
-
-		return graphQLFields;
-	}
-
-	protected List<GraphQLField> getGraphQLFields(Field... fields)
-		throws Exception {
-
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		for (Field field : fields) {
-			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
-				vulcanGraphQLField = field.getAnnotation(
-					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
-						class);
-
-			if (vulcanGraphQLField != null) {
-				Class<?> clazz = field.getType();
-
-				if (clazz.isArray()) {
-					clazz = clazz.getComponentType();
-				}
-
-				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
-					ReflectionUtil.getDeclaredFields(clazz));
-
-				graphQLFields.add(
-					new GraphQLField(field.getName(), childrenGraphQLFields));
-			}
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
 		}
 
 		return graphQLFields;
@@ -529,25 +507,93 @@ public abstract class BaseUserResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
+	protected boolean equalsJSONObject(User user, JSONObject jsonObject) {
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("email", fieldName)) {
+				if (!Objects.deepEquals(
+						user.getEmail(), jsonObject.getString("email"))) {
 
 					return false;
 				}
+
+				continue;
 			}
+
+			if (Objects.equals("externalReferenceCode", fieldName)) {
+				if (!Objects.deepEquals(
+						user.getExternalReferenceCode(),
+						jsonObject.getString("externalReferenceCode"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("firstName", fieldName)) {
+				if (!Objects.deepEquals(
+						user.getFirstName(),
+						jsonObject.getString("firstName"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("id", fieldName)) {
+				if (!Objects.deepEquals(
+						user.getId(), jsonObject.getLong("id"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("jobTitle", fieldName)) {
+				if (!Objects.deepEquals(
+						user.getJobTitle(), jsonObject.getString("jobTitle"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("lastName", fieldName)) {
+				if (!Objects.deepEquals(
+						user.getLastName(), jsonObject.getString("lastName"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("male", fieldName)) {
+				if (!Objects.deepEquals(
+						user.getMale(), jsonObject.getBoolean("male"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("middleName", fieldName)) {
+				if (!Objects.deepEquals(
+						user.getMiddleName(),
+						jsonObject.getString("middleName"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -687,44 +733,17 @@ public abstract class BaseUserResourceTestCase {
 		return httpResponse.getContent();
 	}
 
-	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
-		throws Exception {
-
-		GraphQLField mutationGraphQLField = new GraphQLField(
-			"mutation", graphQLField);
-
-		return JSONFactoryUtil.createJSONObject(
-			invoke(mutationGraphQLField.toString()));
-	}
-
-	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
-		throws Exception {
-
-		GraphQLField queryGraphQLField = new GraphQLField(
-			"query", graphQLField);
-
-		return JSONFactoryUtil.createJSONObject(
-			invoke(queryGraphQLField.toString()));
-	}
-
 	protected User randomUser() throws Exception {
 		return new User() {
 			{
-				email =
-					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
-						"@liferay.com";
-				externalReferenceCode = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				firstName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				email = RandomTestUtil.randomString();
+				externalReferenceCode = RandomTestUtil.randomString();
+				firstName = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
-				jobTitle = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				lastName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				jobTitle = RandomTestUtil.randomString();
+				lastName = RandomTestUtil.randomString();
 				male = RandomTestUtil.randomBoolean();
-				middleName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				middleName = RandomTestUtil.randomString();
 			}
 		};
 	}
@@ -750,22 +769,9 @@ public abstract class BaseUserResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
-		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
-			this(key, new HashMap<>(), graphQLFields);
-		}
-
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
-
-			_key = key;
-			_parameterMap = parameterMap;
-			_graphQLFields = Arrays.asList(graphQLFields);
-		}
-
-		public GraphQLField(
-			String key, Map<String, Object> parameterMap,
-			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -793,7 +799,7 @@ public abstract class BaseUserResourceTestCase {
 				sb.append(")");
 			}
 
-			if (!_graphQLFields.isEmpty()) {
+			if (_graphQLFields.length > 0) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -809,7 +815,7 @@ public abstract class BaseUserResourceTestCase {
 			return sb.toString();
 		}
 
-		private final List<GraphQLField> _graphQLFields;
+		private final GraphQLField[] _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 
