@@ -633,7 +633,7 @@ AUI.add(
 													);
 												}
 											}
-										},
+										}
 									},
 									title: Liferay.Language.get('warning'),
 									type: 'warning'
