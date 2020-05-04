@@ -140,6 +140,31 @@ function _getEditorConfiguration(
 	editorName
 ) {
 	return object.mixin({}, defaultEditorConfiguration.editorConfig || {}, {
+		documentBrowseLinkCallback: (editor, url, changeLinkCallback) => {
+				
+			const itemSelectorDialog = new ItemSelectorDialog({
+				eventName: editor.name + 'selectDocument',
+				singleSelect: true,
+				title: Liferay.Language.get('select-item'),
+				url: url,
+			}); 
+
+			itemSelectorDialog.open();
+
+			itemSelectorDialog.on('selectedItemChange', event => {
+				const selectedItem = event.selectedItem;
+
+				if (selectedItem) {
+					changeLinkCallback(selectedItem);
+				}
+			});
+		},
+
+		documentBrowseLinkUrl: editorConfig.documentBrowseLinkUrl.replace(
+			'_EDITOR_NAME_',
+			editorName
+		),
+
 		filebrowserImageBrowseLinkUrl: defaultEditorConfiguration.editorConfig.filebrowserImageBrowseLinkUrl.replace(
 			'_EDITOR_NAME_',
 			editorName
