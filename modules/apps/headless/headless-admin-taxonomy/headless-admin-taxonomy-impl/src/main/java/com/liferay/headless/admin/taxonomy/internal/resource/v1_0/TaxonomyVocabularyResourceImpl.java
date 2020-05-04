@@ -194,7 +194,7 @@ public class TaxonomyVocabularyResourceImpl
 			taxonomyVocabulary.getDescription_i18n());
 
 		LocalizedMapUtil.validateI18n(
-			true, "Taxonomy vocabulary", titleMap,
+			true, LocaleUtil.getSiteDefault(), "Taxonomy vocabulary", titleMap,
 			new HashSet<>(descriptionMap.keySet()));
 
 		return _toTaxonomyVocabulary(
@@ -224,7 +224,7 @@ public class TaxonomyVocabularyResourceImpl
 			assetVocabulary.getDescriptionMap());
 
 		LocalizedMapUtil.validateI18n(
-			false, "Taxonomy vocabulary", titleMap,
+			false, LocaleUtil.getSiteDefault(), "Taxonomy vocabulary", titleMap,
 			new HashSet<>(descriptionMap.keySet()));
 
 		return _toTaxonomyVocabulary(

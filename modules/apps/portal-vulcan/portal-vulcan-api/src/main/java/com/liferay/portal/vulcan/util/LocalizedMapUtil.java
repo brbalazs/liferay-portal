@@ -176,15 +176,6 @@ public class LocalizedMapUtil {
 		}
 	}
 
-	public static void validateI18n(
-		boolean add, String entityName, Map<Locale, String> localizedMap,
-		Set<Locale> notFoundLocales) {
-
-		validateI18n(
-			add, LocaleUtil.getSiteDefault(), entityName, localizedMap,
-			notFoundLocales);
-	}
-
 	private static Locale _getLocale(String languageId) {
 		return LocaleUtil.fromLanguageId(languageId, true, false);
 	}
