@@ -995,7 +995,10 @@ public abstract class BaseStructuredContentResourceTestCase {
 											"\"" +
 												structuredContent.getSiteId() +
 													"\"");
-										put("key", structuredContent.getKey());
+										put(
+											"key",
+											"\"" + structuredContent.getKey() +
+												"\"");
 									}
 								},
 								getGraphQLFields())),
@@ -1046,7 +1049,8 @@ public abstract class BaseStructuredContentResourceTestCase {
 													"\"");
 										put(
 											"uuid",
-											structuredContent.getUuid());
+											"\"" + structuredContent.getUuid() +
+												"\"");
 									}
 								},
 								getGraphQLFields())),

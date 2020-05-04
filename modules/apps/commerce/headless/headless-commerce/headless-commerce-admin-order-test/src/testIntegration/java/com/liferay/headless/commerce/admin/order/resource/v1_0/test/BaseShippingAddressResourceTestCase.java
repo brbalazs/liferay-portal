@@ -252,8 +252,10 @@ public abstract class BaseShippingAddressResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											shippingAddress.
-												getExternalReferenceCode());
+											"\"" +
+												shippingAddress.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

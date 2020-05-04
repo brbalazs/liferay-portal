@@ -273,8 +273,10 @@ public abstract class BaseOrderItemResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											orderItem.
-												getExternalReferenceCode());
+											"\"" +
+												orderItem.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

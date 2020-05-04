@@ -291,8 +291,10 @@ public abstract class BaseAccountAddressResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											accountAddress.
-												getExternalReferenceCode());
+											"\"" +
+												accountAddress.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

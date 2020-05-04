@@ -268,8 +268,10 @@ public abstract class BaseOrderNoteResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											orderNote.
-												getExternalReferenceCode());
+											"\"" +
+												orderNote.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

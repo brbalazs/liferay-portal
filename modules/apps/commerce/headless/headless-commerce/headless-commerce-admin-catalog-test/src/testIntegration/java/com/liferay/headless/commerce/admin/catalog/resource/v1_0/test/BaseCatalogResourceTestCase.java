@@ -263,7 +263,10 @@ public abstract class BaseCatalogResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											catalog.getExternalReferenceCode());
+											"\"" +
+												catalog.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

@@ -274,8 +274,10 @@ public abstract class BaseWarehouseItemResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											warehouseItem.
-												getExternalReferenceCode());
+											"\"" +
+												warehouseItem.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

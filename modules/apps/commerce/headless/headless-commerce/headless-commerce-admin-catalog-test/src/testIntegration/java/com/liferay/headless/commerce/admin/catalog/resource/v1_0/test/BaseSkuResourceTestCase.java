@@ -777,7 +777,9 @@ public abstract class BaseSkuResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											sku.getExternalReferenceCode());
+											"\"" +
+												sku.getExternalReferenceCode() +
+													"\"");
 									}
 								},
 								getGraphQLFields())),

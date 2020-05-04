@@ -540,7 +540,10 @@ public abstract class BaseOptionResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											option.getExternalReferenceCode());
+											"\"" +
+												option.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

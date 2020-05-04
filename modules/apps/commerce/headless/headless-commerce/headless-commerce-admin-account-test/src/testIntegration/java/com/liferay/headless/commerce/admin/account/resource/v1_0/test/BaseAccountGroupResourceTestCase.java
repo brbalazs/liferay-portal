@@ -327,8 +327,10 @@ public abstract class BaseAccountGroupResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											accountGroup.
-												getExternalReferenceCode());
+											"\"" +
+												accountGroup.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

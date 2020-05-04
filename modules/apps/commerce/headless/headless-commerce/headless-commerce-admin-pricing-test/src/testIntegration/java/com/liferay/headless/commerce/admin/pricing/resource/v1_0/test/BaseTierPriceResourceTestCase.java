@@ -546,8 +546,10 @@ public abstract class BaseTierPriceResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											tierPrice.
-												getExternalReferenceCode());
+											"\"" +
+												tierPrice.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

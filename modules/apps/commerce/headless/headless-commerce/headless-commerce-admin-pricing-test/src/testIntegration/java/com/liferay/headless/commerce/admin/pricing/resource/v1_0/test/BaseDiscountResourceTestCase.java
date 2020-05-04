@@ -324,8 +324,10 @@ public abstract class BaseDiscountResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											discount.
-												getExternalReferenceCode());
+											"\"" +
+												discount.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

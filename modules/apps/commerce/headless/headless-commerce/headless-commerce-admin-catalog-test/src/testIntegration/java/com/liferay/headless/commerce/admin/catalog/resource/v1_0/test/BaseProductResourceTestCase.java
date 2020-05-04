@@ -547,7 +547,10 @@ public abstract class BaseProductResourceTestCase {
 									{
 										put(
 											"externalReferenceCode",
-											product.getExternalReferenceCode());
+											"\"" +
+												product.
+													getExternalReferenceCode() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),
