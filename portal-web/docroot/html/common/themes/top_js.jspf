@@ -436,10 +436,24 @@
 String liferayAnalyticsChannelId = null;
 
 if (group != null) {
-	liferayAnalyticsChannelId = group.getTypeSettingsProperty("analyticsChannelId");
+	if (Objects.equals(group.getGroupKey(), "Forms")) {
+		Group tempGroup = GroupLocalServiceUtil.fetchGroup(GetterUtil.getLong(request.getAttribute("refererGroupId")));
+
+		liferayAnalyticsChannelId = tempGroup.getTypeSettingsProperty("analyticsChannelId");
+	}
+	else {
+		liferayAnalyticsChannelId = group.getTypeSettingsProperty("analyticsChannelId");
+	}
 }
 else {
-	liferayAnalyticsChannelId = liveGroup.getTypeSettingsProperty("analyticsChannelId");
+	if (Objects.equals(liveGroup.getGroupKey(), "Forms")) {
+		Group tempGroup = GroupLocalServiceUtil.fetchGroup(GetterUtil.getLong(request.getAttribute("refererGroupId")));
+
+		liferayAnalyticsChannelId = tempGroup.getTypeSettingsProperty("analyticsChannelId");
+	}
+	else {
+		liferayAnalyticsChannelId = liveGroup.getTypeSettingsProperty("analyticsChannelId");
+	}
 }
 
 String liferayAnalyticsDataSourceId = PrefsPropsUtil.getString(company.getCompanyId(), "liferayAnalyticsDataSourceId");
