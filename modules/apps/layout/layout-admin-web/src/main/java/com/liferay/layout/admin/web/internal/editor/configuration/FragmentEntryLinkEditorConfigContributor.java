@@ -74,6 +74,8 @@ public class FragmentEntryLinkEditorConfigContributor
 
 		jsonObject.put("disallowedContent", "br");
 
+		jsonObject.put("documentBrowseLinkUrl", itemSelectorURL.toString());
+
 		jsonObject.put("enterMode", 2);
 
 		jsonObject.put("extraPlugins", getExtraPluginsLists());

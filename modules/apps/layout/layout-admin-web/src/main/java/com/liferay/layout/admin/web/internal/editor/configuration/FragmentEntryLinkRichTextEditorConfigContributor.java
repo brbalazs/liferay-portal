@@ -68,14 +68,16 @@ public class FragmentEntryLinkRichTextEditorConfigContributor
 		sb.append(getAllowedContentTable());
 		sb.append(" span[*](*){*}; ");
 
-		jsonObject.put("allowedContent", sb.toString());
-
-		jsonObject.put("enterMode", 2);
-		jsonObject.put("extraPlugins", getExtraPluginsLists());
-
 		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
 			requestBackedPortletURLFactory, "_EDITOR_NAME_selectItem",
 			getImageItemSelectorCriterion(), getURLItemSelectorCriterion());
+
+		jsonObject.put("allowedContent", sb.toString());
+
+		jsonObject.put("documentBrowseLinkUrl", itemSelectorURL.toString());
+
+		jsonObject.put("enterMode", 2);
+		jsonObject.put("extraPlugins", getExtraPluginsLists());
 
 		jsonObject.put(
 			"filebrowserImageBrowseLinkUrl", itemSelectorURL.toString());
