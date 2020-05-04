@@ -32,19 +32,11 @@ public class CPRequestHelper extends BaseRequestHelper {
 	public CPRequestHelper(HttpServletRequest httpServletRequest) {
 		super(httpServletRequest);
 
-		Object portletRequest = httpServletRequest.getAttribute(
+		_renderRequest = (RenderRequest)httpServletRequest.getAttribute(
 			JavaConstants.JAVAX_PORTLET_REQUEST);
 
-		if (portletRequest instanceof RenderRequest) {
-			_renderRequest = (RenderRequest)portletRequest;
-		}
-
-		Object portletResponse = httpServletRequest.getAttribute(
+		_renderResponse = (RenderResponse)httpServletRequest.getAttribute(
 			JavaConstants.JAVAX_PORTLET_RESPONSE);
-
-		if (portletResponse instanceof RenderResponse) {
-			_renderResponse = (RenderResponse)portletResponse;
-		}
 	}
 
 	public long getChannelGroupId() throws PortalException {
