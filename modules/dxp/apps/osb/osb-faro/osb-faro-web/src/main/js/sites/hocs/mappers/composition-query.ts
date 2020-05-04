@@ -24,12 +24,13 @@ const getMapResultToProps = (compositionBagName: string) =>
 		})
 	);
 
-const mapPropsToOptions: object = ({router: {query}}) => {
+const mapPropsToOptions: object = ({router: {params, query}}) => {
 	const delta = parseInt(get(query, 'delta', defaultDelta));
 	const page = parseInt(get(query, 'page', 1));
 
 	return {
 		variables: {
+			channelId: get(params, 'channelId'),
 			rangeKey: parseInt(get(query, 'rangeKey', LAST_30_DAYS)),
 			size: delta,
 			start: (page - 1) * delta
