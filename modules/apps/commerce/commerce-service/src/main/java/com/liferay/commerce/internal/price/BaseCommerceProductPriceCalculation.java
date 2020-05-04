@@ -62,11 +62,11 @@ public abstract class BaseCommerceProductPriceCalculation
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinitionOptionRels) {
 
-			if (!_isPriceContributor(cpDefinitionOptionRel)) {
+			String priceType = cpDefinitionOptionRel.getPriceType();
+
+			if (Validator.isNull(priceType)) {
 				continue;
 			}
-
-			String priceType = cpDefinitionOptionRel.getPriceType();
 
 			if (_isStaticPriceType(priceType)) {
 				cpDefinitionMinimumPrice = cpDefinitionMinimumPrice.add(
@@ -245,19 +245,6 @@ public abstract class BaseCommerceProductPriceCalculation
 			cpInstance.getCPInstanceId(), quantity, commerceContext);
 
 		return commerceMoney.getPrice();
-	}
-
-	private boolean _isPriceContributor(
-		CPDefinitionOptionRel cpDefinitionOptionRel) {
-
-		if (Validator.isNull(cpDefinitionOptionRel.getPriceType()) ||
-			!(cpDefinitionOptionRel.isRequired() ||
-			  cpDefinitionOptionRel.isSkuContributor())) {
-
-			return false;
-		}
-
-		return true;
 	}
 
 	private boolean _isStaticPriceType(String value) {
