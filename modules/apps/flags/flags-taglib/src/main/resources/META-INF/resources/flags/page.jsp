@@ -34,7 +34,6 @@ boolean onlyIcon = GetterUtil.getBoolean(request.getAttribute("liferay-flags:fla
 				monospaced="<%= true %>"
 				size="sm"
 				style="secondary"
-				title="<%= message %>"
 			/>
 		</c:when>
 		<c:otherwise>
