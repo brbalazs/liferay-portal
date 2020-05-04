@@ -51,7 +51,7 @@ public class MockContactsEngineClientImpl
 
 		// PULPO-304
 
-		Individual individual = getIndividual(faroProject, individualId);
+		Individual individual = getIndividual(faroProject, individualId, null);
 
 		Map<String, List<Field>> demographics = individual.getDemographics();
 
@@ -129,7 +129,7 @@ public class MockContactsEngineClientImpl
 
 		// PULPO-305
 
-		Individual individual = getIndividual(faroProject, individualId);
+		Individual individual = getIndividual(faroProject, individualId, null);
 
 		Map<String, List<Field>> demographics = individual.getDemographics();
 

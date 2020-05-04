@@ -8,11 +8,11 @@ export const actionTypes = {
 	...createActionTypes('fetch', 'individual')
 };
 
-export function fetchIndividual({groupId, individualId}) {
+export function fetchIndividual({channelId, groupId, individualId}) {
 	return {
 		meta: {
 			[CALL_API]: {
-				data: {groupId, individualId},
+				data: {channelId, groupId, individualId},
 				requestFn: API.individuals.fetch,
 				schema: individual,
 				types: [

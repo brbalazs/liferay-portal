@@ -339,7 +339,8 @@ public interface ContactsEngineClient {
 		FaroProject faroProject, String query, String fieldMappingId, int cur,
 		int delta);
 
-	public Individual getIndividual(FaroProject faroProject, String id)
+	public Individual getIndividual(
+			FaroProject faroProject, String id, String channelId)
 		throws FaroEngineClientException;
 
 	public Results<IndividualSegment> getIndividualIndividualSegments(

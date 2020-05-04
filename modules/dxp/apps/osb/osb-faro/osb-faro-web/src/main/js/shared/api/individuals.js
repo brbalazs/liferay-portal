@@ -9,8 +9,9 @@ const {
 	orderDefault
 } = FaroConstants.pagination;
 
-export function fetch({groupId, individualId}) {
+export function fetch({channelId, groupId, individualId}) {
 	return sendRequest({
+		data: {channelId},
 		method: 'GET',
 		path: `contacts/${groupId}/individual/${individualId}`
 	});

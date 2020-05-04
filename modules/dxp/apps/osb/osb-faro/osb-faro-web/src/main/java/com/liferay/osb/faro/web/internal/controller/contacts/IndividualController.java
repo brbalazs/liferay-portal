@@ -99,19 +99,21 @@ public class IndividualController extends BaseFaroController {
 			}
 		}
 
-		return get(groupId, id);
+		return get(groupId, id, null);
 	}
 
 	@GET
 	@Path("/{id}")
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public IndividualDisplay get(
-			@PathParam("groupId") long groupId, @PathParam("id") String id)
+			@PathParam("groupId") long groupId, @PathParam("id") String id,
+			@QueryParam("channelId") String channelId)
 		throws Exception {
 
 		return new IndividualDisplay(
 			contactsEngineClient.getIndividual(
-				faroProjectLocalService.getFaroProjectByGroupId(groupId), id));
+				faroProjectLocalService.getFaroProjectByGroupId(groupId), id,
+				channelId));
 	}
 
 	@GET
@@ -124,7 +126,7 @@ public class IndividualController extends BaseFaroController {
 		Map<String, Map<String, List<Field>>> details = new HashMap<>();
 
 		Individual individual = contactsEngineClient.getIndividual(
-			faroProjectLocalService.getFaroProjectByGroupId(groupId), id);
+			faroProjectLocalService.getFaroProjectByGroupId(groupId), id, null);
 
 		details.put("custom", individual.getCustom());
 		details.put("demographics", individual.getDemographics());

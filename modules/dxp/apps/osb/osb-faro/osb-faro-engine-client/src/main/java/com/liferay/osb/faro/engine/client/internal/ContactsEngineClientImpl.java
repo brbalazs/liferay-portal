@@ -1741,10 +1741,18 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
-	public Individual getIndividual(FaroProject faroProject, String id)
+	public Individual getIndividual(
+			FaroProject faroProject, String id, String channelId)
 		throws FaroEngineClientException {
 
-		return get(faroProject, Rels.INDIVIDUAL, id, Individual.class);
+		Map<String, Object> uriVariables = getUriVariables(faroProject, id);
+
+		if (Validator.isNotNull(channelId)) {
+			uriVariables.put("channelId", channelId);
+		}
+
+		return get(
+			faroProject, Rels.INDIVIDUAL, id, Individual.class, uriVariables);
 	}
 
 	@Override

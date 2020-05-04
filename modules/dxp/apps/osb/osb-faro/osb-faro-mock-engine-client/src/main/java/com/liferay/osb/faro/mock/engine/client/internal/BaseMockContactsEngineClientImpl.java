@@ -706,10 +706,11 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
-	public Individual getIndividual(FaroProject faroProject, String id)
+	public Individual getIndividual(
+			FaroProject faroProject, String id, String channelId)
 		throws FaroEngineClientException {
 
-		return contactsEngineClient.getIndividual(faroProject, id);
+		return contactsEngineClient.getIndividual(faroProject, id, channelId);
 	}
 
 	@Override

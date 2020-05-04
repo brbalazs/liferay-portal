@@ -3,7 +3,8 @@ import {fetchIndividual} from '../actions/individuals';
 import {INDIVIDUALS, Routes, toRoute} from 'shared/util/router';
 
 export default withAction(
-	({groupId, id}) => fetchIndividual({groupId, individualId: id}),
+	({channelId, groupId, id}) =>
+		fetchIndividual({channelId, groupId, individualId: id}),
 	(state, {id}) => state.getIn(['individuals', id]),
 	{
 		errorPageProps: ({channelId, groupId}) => ({

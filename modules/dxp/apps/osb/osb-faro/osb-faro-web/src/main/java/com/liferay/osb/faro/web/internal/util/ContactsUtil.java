@@ -38,7 +38,7 @@ public class ContactsUtil {
 
 		if (type == FaroConstants.TYPE_INDIVIDUAL) {
 			Individual individual = _contactsEngineClient.getIndividual(
-				faroProject, contactsEntityId);
+				faroProject, contactsEntityId, null);
 
 			return new IndividualDisplay(individual);
 		}
