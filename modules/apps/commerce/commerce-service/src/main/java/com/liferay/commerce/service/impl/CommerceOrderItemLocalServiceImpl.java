@@ -173,8 +173,8 @@ public class CommerceOrderItemLocalServiceImpl
 				childCommerceOrderItem, commerceProductPrice);
 
 			_setCommerceOrderItemDiscountValue(
-				childCommerceOrderItem,
-				commerceProductPrice.getDiscountValue(), false);
+				childCommerceOrderItem, commerceProductPrice.getDiscountValue(),
+				false);
 
 			_setCommerceOrderItemDiscountValue(
 				childCommerceOrderItem,
