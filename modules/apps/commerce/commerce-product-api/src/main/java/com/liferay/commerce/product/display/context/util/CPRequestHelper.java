@@ -52,7 +52,15 @@ public class CPRequestHelper extends BaseRequestHelper {
 		return _renderResponse;
 	}
 
-	private final RenderRequest _renderRequest;
-	private final RenderResponse _renderResponse;
+	public void setRenderRequest(RenderRequest renderRequest) {
+		_renderRequest = renderRequest;
+	}
+
+	public void setRenderResponse(RenderResponse renderResponse) {
+		_renderResponse = renderResponse;
+	}
+
+	private RenderRequest _renderRequest;
+	private RenderResponse _renderResponse;
 
 }
