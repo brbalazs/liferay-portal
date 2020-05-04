@@ -40,7 +40,12 @@ public class TestCommerceOptionValue implements CommerceOptionValue {
 	}
 
 	@Override
-	public CommerceOptionValue firstMatchIn(
+	public long getCPInstanceId() {
+		return _cpInstanceId;
+	}
+
+	@Override
+	public CommerceOptionValue getFirstMatch(
 		List<CommerceOptionValue> commerceOptionValues) {
 
 		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
@@ -50,11 +55,6 @@ public class TestCommerceOptionValue implements CommerceOptionValue {
 		}
 
 		return null;
-	}
-
-	@Override
-	public long getCPInstanceId() {
-		return _cpInstanceId;
 	}
 
 	@Override
