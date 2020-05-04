@@ -516,7 +516,8 @@ public class CommerceOrderItemServiceImpl
 			CommerceActionKeys.MANAGE_COMMERCE_ORDER_PRICES);
 
 		return commerceOrderItemLocalService.updateCommerceOrderItemUnitPrice(
-			commerceOrderItemId, unitPrice, quantity);
+			getPermissionChecker().getUserId(), commerceOrderItemId, unitPrice,
+			quantity);
 	}
 
 	@Override

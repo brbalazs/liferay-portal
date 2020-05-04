@@ -32,6 +32,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
+import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
@@ -87,8 +88,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -763,11 +766,16 @@ public class CommerceOrderItemLocalServiceImpl
 
 	@Override
 	public CommerceOrderItem updateCommerceOrderItemUnitPrice(
-			long commerceOrderItemId, BigDecimal unitPrice, int quantity)
+			long userId, long commerceOrderItemId, BigDecimal unitPrice,
+			int quantity)
 		throws PortalException {
 
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
+
+		_updateBookedQuantity(
+			userId, commerceOrderItem, commerceOrderItem.getBookedQuantityId(),
+			quantity, commerceOrderItem.getQuantity());
 
 		commerceOrderItem.setQuantity(quantity);
 		commerceOrderItem.setUnitPrice(unitPrice);
@@ -1401,6 +1409,37 @@ public class CommerceOrderItemLocalServiceImpl
 			commerceProductPrice.getDiscountValueWithTaxAmount(), true);
 	}
 
+	private void _updateBookedQuantity(
+			long userId, CommerceOrderItem commerceOrderItem,
+			long bookedQuantityId, int quantity, int oldQuantity)
+		throws PortalException {
+
+		if ((oldQuantity != quantity) && (bookedQuantityId > 0)) {
+			CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
+				_commerceInventoryBookedQuantityLocalService.
+					fetchCommerceInventoryBookedQuantity(bookedQuantityId);
+
+			if (commerceInventoryBookedQuantity != null) {
+				Map<String, String> context = new HashMap<>();
+
+				context.put(
+					CommerceInventoryAuditTypeConstants.ORDER_ID,
+					String.valueOf(commerceOrderItem.getCommerceOrderId()));
+				context.put(
+					CommerceInventoryAuditTypeConstants.ORDER_ITEM_ID,
+					String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
+
+				_commerceInventoryBookedQuantityLocalService.
+					updateCommerceInventoryBookedQuantity(
+						userId,
+						commerceInventoryBookedQuantity.
+							getCommerceInventoryBookedQuantityId(),
+						quantity, context,
+						commerceInventoryBookedQuantity.getMvccVersion());
+			}
+		}
+	}
+
 	private CommerceOrderItem _updateCommerceOrderItem(
 			long commerceOrderItemId, int quantity, String json,
 			CommerceProductPrice commerceProductPrice,
@@ -1409,6 +1448,11 @@ public class CommerceOrderItemLocalServiceImpl
 
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
+
+		_updateBookedQuantity(
+			serviceContext.getUserId(), commerceOrderItem,
+			commerceOrderItem.getBookedQuantityId(), quantity,
+			commerceOrderItem.getQuantity());
 
 		if (commerceProductPrice == null) {
 			commerceProductPrice = _getCommerceProductPrice(
