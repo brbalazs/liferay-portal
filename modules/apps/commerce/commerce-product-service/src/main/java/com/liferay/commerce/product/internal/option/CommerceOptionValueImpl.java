@@ -27,7 +27,12 @@ import java.util.Objects;
 public class CommerceOptionValueImpl implements CommerceOptionValue {
 
 	@Override
-	public CommerceOptionValue firstMatchIn(
+	public long getCPInstanceId() {
+		return _cpInstanceId;
+	}
+
+	@Override
+	public CommerceOptionValue getFirstMatch(
 		List<CommerceOptionValue> commerceOptionValues) {
 
 		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
@@ -37,11 +42,6 @@ public class CommerceOptionValueImpl implements CommerceOptionValue {
 		}
 
 		return null;
-	}
-
-	@Override
-	public long getCPInstanceId() {
-		return _cpInstanceId;
 	}
 
 	@Override

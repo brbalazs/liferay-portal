@@ -491,7 +491,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			return values;
 		}
 
-		JSONArray jsonArray = _jsonHelper.asJSONArray(json);
+		JSONArray jsonArray = _jsonHelper.getJSONArray(json);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);

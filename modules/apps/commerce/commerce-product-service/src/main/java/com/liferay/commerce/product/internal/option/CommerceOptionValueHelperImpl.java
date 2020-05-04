@@ -140,18 +140,17 @@ public class CommerceOptionValueHelperImpl
 	public List<CommerceOptionValue> toCommerceOptionValues(String json)
 		throws JSONException {
 
+		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
+
 		JSONArray commerceOptionValuesJSONArray = _jsonFactory.createJSONArray(
 			json);
 
-		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
+		for (int i = 0; i < commerceOptionValuesJSONArray.length(); i++) {
+			JSONObject jsonObject = commerceOptionValuesJSONArray.getJSONObject(
+				i);
 
-		commerceOptionValuesJSONArray.forEach(
-			object -> {
-				if (object instanceof JSONObject) {
-					commerceOptionValues.add(
-						_toCommerceOptionValue((JSONObject)object));
-				}
-			});
+			commerceOptionValues.add(_toCommerceOptionValue(jsonObject));
+		}
 
 		return commerceOptionValues;
 	}
