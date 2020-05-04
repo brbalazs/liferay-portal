@@ -126,6 +126,10 @@ public class ProductHelperImpl implements ProductHelper {
 		List<String> formattedDiscountPercentages = new ArrayList<>();
 
 		for (BigDecimal percentage : discountPercentages) {
+			if (percentage == null) {
+				percentage = BigDecimal.ZERO;
+			}
+
 			formattedDiscountPercentages.add(
 				_commercePriceFormatter.format(percentage, locale));
 		}

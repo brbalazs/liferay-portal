@@ -1244,19 +1244,19 @@ public class CommerceOrderItemLocalServiceImpl
 
 			BigDecimal[] percentages = commerceDiscountValue.getPercentages();
 
-			if (percentages.length >= 1) {
+			if (percentages.length >= 1 && percentages[0] != null) {
 				discountPercentageLevel1 = percentages[0];
 			}
 
-			if (percentages.length >= 2) {
+			if (percentages.length >= 2 && percentages[1] != null) {
 				discountPercentageLevel2 = percentages[1];
 			}
 
-			if (percentages.length >= 3) {
+			if (percentages.length >= 3 && percentages[2] != null) {
 				discountPercentageLevel3 = percentages[2];
 			}
 
-			if (percentages.length >= 4) {
+			if (percentages.length >= 4 && percentages[3] != null) {
 				discountPercentageLevel4 = percentages[3];
 			}
 		}

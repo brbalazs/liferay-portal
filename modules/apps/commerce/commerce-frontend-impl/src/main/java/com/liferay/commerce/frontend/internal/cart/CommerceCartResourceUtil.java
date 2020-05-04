@@ -15,7 +15,9 @@
 package com.liferay.commerce.frontend.internal.cart;
 
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.frontend.internal.cart.model.Cart;
 import com.liferay.commerce.frontend.internal.cart.model.Product;
@@ -40,6 +42,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,7 +112,7 @@ public class CommerceCartResourceUtil {
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			PriceModel prices = _getCommerceOrderItemPriceModel(
-				commerceOrderItem, locale);
+				commerceOrderItem, commerceContext, locale);
 
 			ProductSettingsModel settings =
 				_productHelper.getProductSettingsModel(
@@ -181,7 +185,8 @@ public class CommerceCartResourceUtil {
 	}
 
 	private PriceModel _getCommerceOrderItemPriceModel(
-			CommerceOrderItem commerceOrderItem, Locale locale)
+			CommerceOrderItem commerceOrderItem,
+			CommerceContext commerceContext, Locale locale)
 		throws PortalException {
 
 		CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();
@@ -228,19 +233,48 @@ public class CommerceCartResourceUtil {
 
 		PriceModel prices = new PriceModel(unitPriceMoney.format(locale));
 
-		BigDecimal promoPrice = promoPriceMoney.getPrice();
+		BigDecimal activePrice = unitPriceMoney.getPrice();
 
-		if ((promoPriceMoney != null) &&
-			(promoPrice.compareTo(BigDecimal.ZERO) > 0)) {
+		if (promoPriceMoney != null) {
+			BigDecimal promoPrice = promoPriceMoney.getPrice();
 
-			prices.setPromoPrice(promoPriceMoney.format(locale));
+			if (promoPrice.compareTo(BigDecimal.ZERO) > 0) {
+				prices.setPromoPrice(promoPriceMoney.format(locale));
+
+				activePrice = promoPrice;
+			}
 		}
 
 		if (discountAmountMoney != null) {
-			prices.setDiscount(discountAmountMoney.format(locale));
-		}
+			BigDecimal discountAmount = discountAmountMoney.getPrice();
 
-		prices.setDiscountPercentages(discountPercentages);
+			if ((discountAmount == null) ||
+				(discountAmount.compareTo(BigDecimal.ZERO) == 0)) {
+
+				return prices;
+			}
+
+			prices.setDiscount(discountAmountMoney.format(locale));
+
+			BigDecimal discountedAmount = activePrice.subtract(discountAmount);
+
+			CommerceCurrency commerceCurrency =
+				commerceContext.getCommerceCurrency();
+
+			BigDecimal discountPercentage = _getDiscountPercentage(
+				discountedAmount, activePrice,
+				RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+
+			prices.setDiscountPercentage(
+				_commercePriceFormatter.format(discountPercentage, locale));
+
+			prices.setDiscountPercentages(discountPercentages);
+
+			CommerceMoney finalPriceMoney =
+				commerceOrderItem.getFinalPriceMoney();
+
+			prices.setFinalPrice(finalPriceMoney.format(locale));
+		}
 
 		return prices;
 	}
@@ -280,6 +314,27 @@ public class CommerceCartResourceUtil {
 	@Reference
 	private CommerceChannelService _commerceChannelService;
 
+	private BigDecimal _getDiscountPercentage(
+		BigDecimal discountedAmount, BigDecimal amount,
+		RoundingMode roundingMode) {
+
+		double actualPrice = discountedAmount.doubleValue();
+		double originalPrice = amount.doubleValue();
+
+		double percentage = actualPrice / originalPrice;
+
+		BigDecimal discountPercentage = new BigDecimal(percentage);
+
+		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
+
+		MathContext mathContext = new MathContext(
+			discountPercentage.precision(), roundingMode);
+
+		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
+	}
+
+	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
+
 	@Reference
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
 
@@ -294,6 +349,9 @@ public class CommerceCartResourceUtil {
 
 	@Reference
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
+
+	@Reference
+	private CommercePriceFormatter _commercePriceFormatter;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
