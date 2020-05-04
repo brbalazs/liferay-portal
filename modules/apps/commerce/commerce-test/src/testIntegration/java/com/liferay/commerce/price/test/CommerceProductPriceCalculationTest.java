@@ -32,16 +32,20 @@ import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.option.test.TestCommerceOptionValue;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
+import com.liferay.commerce.product.type.simple.constants.SimpleCPTypeConstants;
 import com.liferay.commerce.test.util.TestCommerceContext;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -1157,6 +1161,285 @@ public class CommerceProductPriceCalculationTest {
 			finalPrice.stripTrailingZeros());
 	}
 
+	@Test
+	public void testGetCPDefinitionOptionValueRelativePrice1()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Calculate a relative price of a product option value in a " +
+				"product bundle"
+		).given(
+			"price-contributing static option, and two option values"
+		).and(
+			"one option value is selected in the UI"
+		).when(
+			"The relative price of the non-selected option value is calculated"
+		).and(
+			"The relative price of the selected option value is calculated"
+		).then(
+			"The correct relative price is returned"
+		);
+
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			false);
+
+		CPOption bundleOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionValueRel bundleOptionValueRel =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(), 0,
+				bundleOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				BigDecimal.valueOf(50), 1, false, true, _serviceContext);
+
+		CPDefinitionOptionValueRel selectedBundleOptionValueRel =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(), 0,
+				bundleOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
+
+		CommerceMoney commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					bundleOptionValueRel, selectedBundleOptionValueRel,
+					new TestCommerceContext(
+						_commerceCurrency, null, _user, _group,
+						_commerceAccount, null));
+
+		BigDecimal bundleOptionValueRelPrice = bundleOptionValueRel.getPrice();
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(
+				bundleOptionValueRelPrice.subtract(
+					selectedBundleOptionValueRel.getPrice())),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+
+		commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					selectedBundleOptionValueRel, selectedBundleOptionValueRel,
+					new TestCommerceContext(
+						_commerceCurrency, null, _user, _group,
+						_commerceAccount, null));
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(BigDecimal.ZERO),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+	}
+
+	@Test
+	public void testGetCPDefinitionOptionValueRelativePrice2()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Calculate a relative price of a product option value in a " +
+				"product bundle"
+		).given(
+			"price-contributing static option, and two option values"
+		).and(
+			"no option value is selected in the UI"
+		).when(
+			"The relative price of the option value is calculated"
+		).then(
+			"The correct relative price is returned"
+		);
+
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			false);
+
+		CPOption bundleOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionValueRel bundleOptionValueRel1 =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(), 0,
+				bundleOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				BigDecimal.valueOf(50), 1, false, true, _serviceContext);
+
+		CPDefinitionOptionValueRel bundleOptionValueRel2 =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(), 0,
+				bundleOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
+
+		CommerceMoney commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					bundleOptionValueRel1, null,
+					new TestCommerceContext(
+						_commerceCurrency, null, _user, _group,
+						_commerceAccount, null));
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(bundleOptionValueRel1.getPrice()),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+
+		commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					bundleOptionValueRel2, null,
+					new TestCommerceContext(
+						_commerceCurrency, null, _user, _group,
+						_commerceAccount, null));
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(bundleOptionValueRel2.getPrice()),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+	}
+
+	@Test
+	public void testGetCPDefinitionOptionValueRelativePrice3()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Calculate a relative price of a product option value in a " +
+				"product bundle"
+		).given(
+			"price-contributing dynamic option, and two option values"
+		).and(
+			"no option value is selected in the UI"
+		).when(
+			"The relative price of the option value is calculated"
+		).then(
+			"The correct relative price is returned"
+		);
+
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			false);
+
+		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(20));
+
+		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(30));
+
+		CPOption bundleOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionValueRel bundleOptionValueRel1 =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				cpInstance1.getCPInstanceId(), bundleOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
+				BigDecimal.valueOf(50), 1, false, true, _serviceContext);
+
+		CPDefinitionOptionValueRel bundleOptionValueRel2 =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				cpInstance2.getCPInstanceId(), bundleOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
+				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
+
+		CommerceMoney commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					bundleOptionValueRel1, null,
+					new TestCommerceContext(
+						_commerceCurrency, null, _user, _group,
+						_commerceAccount, null));
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(cpInstance1.getPrice()),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+
+		commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					bundleOptionValueRel2, null,
+					new TestCommerceContext(
+						_commerceCurrency, null, _user, _group,
+						_commerceAccount, null));
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(cpInstance2.getPrice()),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+	}
+
+	@Test
+	public void testGetCPDefinitionOptionValueRelativePrice4()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Calculate a relative price of a product option value in a " +
+				"product bundle"
+		).given(
+			"price-contributing dynamic option, and two option values"
+		).and(
+			"one option value is selected in the UI"
+		).when(
+			"The relative price of the non-selected option value is calculated"
+		).and(
+			"The relative price of the selected option value is calculated"
+		).then(
+			"The correct relative price is returned"
+		);
+
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			false);
+
+		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(20));
+
+		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(30));
+
+		CPOption bundleOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionValueRel bundleOptionValueRel =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				cpInstance1.getCPInstanceId(), bundleOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
+				BigDecimal.valueOf(50), 1, false, true, _serviceContext);
+
+		CPDefinitionOptionValueRel selectedBundleOptionValueRel =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				cpInstance2.getCPInstanceId(), bundleOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
+				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
+
+		CommerceMoney commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					bundleOptionValueRel, selectedBundleOptionValueRel,
+					new TestCommerceContext(
+						_commerceCurrency, null, _user, _group,
+						_commerceAccount, null));
+
+		BigDecimal cpInstance1Price = cpInstance1.getPrice();
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(
+				cpInstance1Price.subtract(cpInstance2.getPrice())),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+
+		commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					selectedBundleOptionValueRel, selectedBundleOptionValueRel,
+					new TestCommerceContext(
+						_commerceCurrency, null, _user, _group,
+						_commerceAccount, null));
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(BigDecimal.ZERO),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+	}
+
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
@@ -1180,6 +1463,10 @@ public class CommerceProductPriceCalculationTest {
 
 	@Inject
 	private CPDefinitionLocalService _cpDefinitionLocalService;
+
+	@Inject
+	private CPDefinitionOptionRelLocalService
+		_cpDefinitionOptionRelLocalService;
 
 	@Inject
 	private CPDefinitionOptionValueRelLocalService

@@ -219,6 +219,46 @@ public class CPTestUtil {
 			ServiceContextTestUtil.getServiceContext(groupId));
 	}
 
+	public static CPDefinitionOptionValueRel
+			addCPDefinitionOptionValueRelWithPrice(
+				long cpDefinitionId, long cpInstanceId, long cpOptionId,
+				String priceType, BigDecimal price, int quantity,
+				boolean required, boolean skuContributor,
+				ServiceContext serviceContext)
+		throws PortalException {
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPDefinitionOptionRelLocalServiceUtil.fetchCPDefinitionOptionRel(
+				cpDefinitionId, cpOptionId);
+
+		if (cpDefinitionOptionRel == null) {
+			cpDefinitionOptionRel =
+				CPDefinitionOptionRelLocalServiceUtil.addCPDefinitionOptionRel(
+					cpDefinitionId, cpOptionId,
+					RandomTestUtil.randomLocaleStringMap(),
+					RandomTestUtil.randomLocaleStringMap(),
+					getDefaultDDMFormFieldType(true),
+					RandomTestUtil.randomDouble(), false, required,
+					skuContributor, false, priceType, serviceContext);
+		}
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			CPDefinitionOptionValueRelLocalServiceUtil.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+					RandomTestUtil.randomLocaleStringMap(),
+					RandomTestUtil.randomDouble(),
+					RandomTestUtil.randomString(), serviceContext);
+
+		return CPDefinitionOptionValueRelLocalServiceUtil.
+			updateCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
+				cpDefinitionOptionValueRel.getNameMap(),
+				cpDefinitionOptionValueRel.getPriority(),
+				cpDefinitionOptionValueRel.getKey(), cpInstanceId, quantity,
+				price, serviceContext);
+	}
+
 	public static CPDefinition addCPDefinitionWithChildCPDefinitions(
 			long groupId)
 		throws PortalException {
