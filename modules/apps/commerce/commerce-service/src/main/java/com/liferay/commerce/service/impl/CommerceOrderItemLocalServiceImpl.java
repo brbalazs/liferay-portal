@@ -484,7 +484,7 @@ public class CommerceOrderItemLocalServiceImpl
 					childCommerceOrderItem.getJson());
 
 			CommerceOptionValue matchedCommerceOptionValue =
-				commerceOptionValue.firstMatchIn(commerceOptionValues);
+				commerceOptionValue.getFirstMatch(commerceOptionValues);
 
 			if (matchedCommerceOptionValue == null) {
 				throw new NoSuchOrderItemException(
