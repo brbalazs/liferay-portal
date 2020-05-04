@@ -29,11 +29,11 @@ import java.util.Map;
 @ProviderType
 public interface JsonHelper {
 
-	public JSONArray asJSONArray(String json) throws JSONException;
-
 	public boolean equals(String json1, String json2);
 
 	public String getFirstElementStringValue(String jsonArrayString);
+
+	public JSONArray getJSONArray(String json) throws JSONException;
 
 	public JSONArray getValueAsJSONArray(String key, JSONObject jsonObject);
 

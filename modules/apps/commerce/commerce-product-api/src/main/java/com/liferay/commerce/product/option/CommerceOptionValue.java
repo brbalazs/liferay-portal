@@ -24,10 +24,10 @@ import java.util.List;
  */
 public interface CommerceOptionValue {
 
-	public CommerceOptionValue firstMatchIn(
-		List<CommerceOptionValue> commerceOptionValues);
-
 	public long getCPInstanceId();
+
+	public CommerceOptionValue getFirstMatch(
+		List<CommerceOptionValue> commerceOptionValues);
 
 	public String getOptionKey();
 
