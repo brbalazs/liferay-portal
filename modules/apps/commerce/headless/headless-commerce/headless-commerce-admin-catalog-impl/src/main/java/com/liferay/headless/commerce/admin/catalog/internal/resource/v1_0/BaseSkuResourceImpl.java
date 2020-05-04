@@ -97,7 +97,7 @@ public abstract class BaseSkuResourceImpl
 	@Path("/products/by-externalReferenceCode/{externalReferenceCode}/skus")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Sku")})
-	public Page<Sku> getSkusPage(
+	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode") String externalReferenceCode,
 			@Context Pagination pagination)

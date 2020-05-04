@@ -40,12 +40,13 @@ public interface SkuResource {
 		return new Builder();
 	}
 
-	public Page<Sku> getSkusPage(
+	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
 			String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getSkusPageHttpResponse(
-			String externalReferenceCode, Pagination pagination)
+	public HttpInvoker.HttpResponse
+			getProductByExternalReferenceCodeSkusPageHttpResponse(
+				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
 	public Sku postProductByExternalReferenceCodeSku(
@@ -180,12 +181,13 @@ public interface SkuResource {
 
 	public static class SkuResourceImpl implements SkuResource {
 
-		public Page<Sku> getSkusPage(
+		public Page<Sku> getProductByExternalReferenceCodeSkusPage(
 				String externalReferenceCode, Pagination pagination)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = getSkusPageHttpResponse(
-				externalReferenceCode, pagination);
+			HttpInvoker.HttpResponse httpResponse =
+				getProductByExternalReferenceCodeSkusPageHttpResponse(
+					externalReferenceCode, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -207,8 +209,9 @@ public interface SkuResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getSkusPageHttpResponse(
-				String externalReferenceCode, Pagination pagination)
+		public HttpInvoker.HttpResponse
+				getProductByExternalReferenceCodeSkusPageHttpResponse(
+					String externalReferenceCode, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

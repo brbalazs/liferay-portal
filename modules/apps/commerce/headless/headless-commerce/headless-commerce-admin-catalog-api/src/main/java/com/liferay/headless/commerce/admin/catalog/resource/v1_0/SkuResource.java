@@ -49,7 +49,7 @@ public interface SkuResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Sku> getSkusPage(
+	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
 			String externalReferenceCode, Pagination pagination)
 		throws Exception;
 

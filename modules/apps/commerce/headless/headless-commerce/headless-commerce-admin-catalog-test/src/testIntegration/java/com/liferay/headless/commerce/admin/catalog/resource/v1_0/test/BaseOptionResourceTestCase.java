@@ -29,7 +29,6 @@ import com.liferay.headless.commerce.admin.catalog.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.OptionResource;
 import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.OptionSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
-import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -48,14 +47,12 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
-import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -336,46 +333,27 @@ public abstract class BaseOptionResourceTestCase {
 			(entityField, option1, option2) -> {
 				Class<?> clazz = option1.getClass();
 
-				String entityFieldName = entityField.getName();
-
 				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						option1, entityFieldName,
+						option1, entityField.getName(),
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						option2, entityFieldName,
+						option2, entityField.getName(),
 						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanUtils.setProperty(
-						option1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanUtils.setProperty(
-						option2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						option1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						option1, entityField.getName(),
+						"Aaa" + RandomTestUtil.randomString());
 					BeanUtils.setProperty(
-						option2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						option2, entityField.getName(),
+						"Bbb" + RandomTestUtil.randomString());
 				}
 			});
 	}
@@ -431,36 +409,53 @@ public abstract class BaseOptionResourceTestCase {
 
 	@Test
 	public void testGraphQLGetOptionsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"options",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 2);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
+		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		JSONObject optionsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/options");
+		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
+
+		graphQLFields.add(
+			new GraphQLField(
+				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
+
+		graphQLFields.add(new GraphQLField("page"));
+		graphQLFields.add(new GraphQLField("totalCount"));
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"options",
+				new HashMap<String, Object>() {
+					{
+						put("page", 1);
+						put("pageSize", 2);
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		JSONObject optionsJSONObject = dataJSONObject.getJSONObject("options");
 
 		Assert.assertEquals(0, optionsJSONObject.get("totalCount"));
 
 		Option option1 = testGraphQLOption_addOption();
 		Option option2 = testGraphQLOption_addOption();
 
-		optionsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/options");
+		jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		dataJSONObject = jsonObject.getJSONObject("data");
+
+		optionsJSONObject = dataJSONObject.getJSONObject("options");
 
 		Assert.assertEquals(2, optionsJSONObject.get("totalCount"));
 
-		assertEqualsIgnoringOrder(
+		assertEqualsJSONArray(
 			Arrays.asList(option1, option2),
-			Arrays.asList(
-				OptionSerDes.toDTOs(optionsJSONObject.getString("items"))));
+			optionsJSONObject.getJSONArray("items"));
 	}
 
 	@Test
@@ -528,27 +523,30 @@ public abstract class BaseOptionResourceTestCase {
 	public void testGraphQLGetOptionByExternalReferenceCode() throws Exception {
 		Option option = testGraphQLOption_addOption();
 
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"optionByExternalReferenceCode",
+				new HashMap<String, Object>() {
+					{
+						put(
+							"externalReferenceCode",
+							option.getExternalReferenceCode());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
 		Assert.assertTrue(
-			equals(
+			equalsJSONObject(
 				option,
-				OptionSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"optionByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"externalReferenceCode",
-											"\"" +
-												option.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/optionByExternalReferenceCode"))));
+				dataJSONObject.getJSONObject("optionByExternalReferenceCode")));
 	}
 
 	@Test
@@ -580,34 +578,43 @@ public abstract class BaseOptionResourceTestCase {
 	public void testGraphQLDeleteOption() throws Exception {
 		Option option = testGraphQLOption_addOption();
 
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"deleteOption",
-						new HashMap<String, Object>() {
-							{
-								put("optionId", option.getId());
-							}
-						})),
-				"JSONObject/data", "Object/deleteOption"));
+		GraphQLField graphQLField = new GraphQLField(
+			"mutation",
+			new GraphQLField(
+				"deleteOption",
+				new HashMap<String, Object>() {
+					{
+						put("optionId", option.getId());
+					}
+				}));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(dataJSONObject.getBoolean("deleteOption"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"option",
-						new HashMap<String, Object>() {
-							{
-								put("optionId", option.getId());
-							}
-						},
-						new GraphQLField("id"))),
-				"JSONArray/errors");
+			graphQLField = new GraphQLField(
+				"query",
+				new GraphQLField(
+					"option",
+					new HashMap<String, Object>() {
+						{
+							put("optionId", option.getId());
+						}
+					},
+					new GraphQLField("id")));
+
+			jsonObject = JSONFactoryUtil.createJSONObject(
+				invoke(graphQLField.toString()));
+
+			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -632,30 +639,32 @@ public abstract class BaseOptionResourceTestCase {
 	public void testGraphQLGetOption() throws Exception {
 		Option option = testGraphQLOption_addOption();
 
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"option",
+				new HashMap<String, Object>() {
+					{
+						put("id", option.getId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
 		Assert.assertTrue(
-			equals(
-				option,
-				OptionSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"option",
-								new HashMap<String, Object>() {
-									{
-										put("id", option.getId());
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data", "Object/option"))));
+			equalsJSONObject(option, dataJSONObject.getJSONObject("option")));
 	}
 
 	@Test
 	public void testPatchOption() throws Exception {
 		Assert.assertTrue(false);
 	}
-
-	@Rule
-	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected Option testGraphQLOption_addOption() throws Exception {
 		throw new UnsupportedOperationException(
@@ -704,6 +713,25 @@ public abstract class BaseOptionResourceTestCase {
 
 			Assert.assertTrue(
 				options2 + " does not contain " + option1, contains);
+		}
+	}
+
+	protected void assertEqualsJSONArray(
+		List<Option> options, JSONArray jsonArray) {
+
+		for (Option option : options) {
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(option, (JSONObject)object)) {
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + option, contains);
 		}
 	}
 
@@ -836,50 +864,13 @@ public abstract class BaseOptionResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() throws Exception {
+	protected List<GraphQLField> getGraphQLFields() {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (Field field :
-				ReflectionUtil.getDeclaredFields(
-					com.liferay.headless.commerce.admin.catalog.dto.v1_0.Option.
-						class)) {
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
 
-			if (!ArrayUtil.contains(
-					getAdditionalAssertFieldNames(), field.getName())) {
-
-				continue;
-			}
-
-			graphQLFields.addAll(getGraphQLFields(field));
-		}
-
-		return graphQLFields;
-	}
-
-	protected List<GraphQLField> getGraphQLFields(Field... fields)
-		throws Exception {
-
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		for (Field field : fields) {
-			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
-				vulcanGraphQLField = field.getAnnotation(
-					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
-						class);
-
-			if (vulcanGraphQLField != null) {
-				Class<?> clazz = field.getType();
-
-				if (clazz.isArray()) {
-					clazz = clazz.getComponentType();
-				}
-
-				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
-					ReflectionUtil.getDeclaredFields(clazz));
-
-				graphQLFields.add(
-					new GraphQLField(field.getName(), childrenGraphQLFields));
-			}
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
 		}
 
 		return graphQLFields;
@@ -908,9 +899,8 @@ public abstract class BaseOptionResourceTestCase {
 			}
 
 			if (Objects.equals("description", additionalAssertFieldName)) {
-				if (!equals(
-						(Map)option1.getDescription(),
-						(Map)option2.getDescription())) {
+				if (!Objects.deepEquals(
+						option1.getDescription(), option2.getDescription())) {
 
 					return false;
 				}
@@ -968,7 +958,7 @@ public abstract class BaseOptionResourceTestCase {
 			}
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
-				if (!equals((Map)option1.getName(), (Map)option2.getName())) {
+				if (!Objects.deepEquals(option1.getName(), option2.getName())) {
 					return false;
 				}
 
@@ -1024,25 +1014,96 @@ public abstract class BaseOptionResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
+	protected boolean equalsJSONObject(Option option, JSONObject jsonObject) {
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("catalogId", fieldName)) {
+				if (!Objects.deepEquals(
+						option.getCatalogId(),
+						jsonObject.getLong("catalogId"))) {
 
 					return false;
 				}
+
+				continue;
 			}
+
+			if (Objects.equals("externalReferenceCode", fieldName)) {
+				if (!Objects.deepEquals(
+						option.getExternalReferenceCode(),
+						jsonObject.getString("externalReferenceCode"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("facetable", fieldName)) {
+				if (!Objects.deepEquals(
+						option.getFacetable(),
+						jsonObject.getBoolean("facetable"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("id", fieldName)) {
+				if (!Objects.deepEquals(
+						option.getId(), jsonObject.getLong("id"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("key", fieldName)) {
+				if (!Objects.deepEquals(
+						option.getKey(), jsonObject.getString("key"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("priority", fieldName)) {
+				if (!Objects.deepEquals(
+						option.getPriority(),
+						jsonObject.getDouble("priority"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("required", fieldName)) {
+				if (!Objects.deepEquals(
+						option.getRequired(),
+						jsonObject.getBoolean("required"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("skuContributor", fieldName)) {
+				if (!Objects.deepEquals(
+						option.getSkuContributor(),
+						jsonObject.getBoolean("skuContributor"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1185,35 +1246,14 @@ public abstract class BaseOptionResourceTestCase {
 		return httpResponse.getContent();
 	}
 
-	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
-		throws Exception {
-
-		GraphQLField mutationGraphQLField = new GraphQLField(
-			"mutation", graphQLField);
-
-		return JSONFactoryUtil.createJSONObject(
-			invoke(mutationGraphQLField.toString()));
-	}
-
-	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
-		throws Exception {
-
-		GraphQLField queryGraphQLField = new GraphQLField(
-			"query", graphQLField);
-
-		return JSONFactoryUtil.createJSONObject(
-			invoke(queryGraphQLField.toString()));
-	}
-
 	protected Option randomOption() throws Exception {
 		return new Option() {
 			{
 				catalogId = RandomTestUtil.randomLong();
-				externalReferenceCode = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				externalReferenceCode = RandomTestUtil.randomString();
 				facetable = RandomTestUtil.randomBoolean();
 				id = RandomTestUtil.randomLong();
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				key = RandomTestUtil.randomString();
 				priority = RandomTestUtil.randomDouble();
 				required = RandomTestUtil.randomBoolean();
 				skuContributor = RandomTestUtil.randomBoolean();
@@ -1242,22 +1282,9 @@ public abstract class BaseOptionResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
-		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
-			this(key, new HashMap<>(), graphQLFields);
-		}
-
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
-
-			_key = key;
-			_parameterMap = parameterMap;
-			_graphQLFields = Arrays.asList(graphQLFields);
-		}
-
-		public GraphQLField(
-			String key, Map<String, Object> parameterMap,
-			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1285,7 +1312,7 @@ public abstract class BaseOptionResourceTestCase {
 				sb.append(")");
 			}
 
-			if (!_graphQLFields.isEmpty()) {
+			if (_graphQLFields.length > 0) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1301,7 +1328,7 @@ public abstract class BaseOptionResourceTestCase {
 			return sb.toString();
 		}
 
-		private final List<GraphQLField> _graphQLFields;
+		private final GraphQLField[] _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 
