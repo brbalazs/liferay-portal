@@ -1083,6 +1083,7 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceProductPriceRequest.setCommerceContext(commerceContext);
 		commerceProductPriceRequest.setCommerceOptionValues(
 			_getStaticOptionValuesNotLinkedToSku(cpDefinitionId, json));
+		commerceProductPriceRequest.setCalculateTax(true);
 
 		return commerceProductPriceCalculation.getCommerceProductPrice(
 			commerceProductPriceRequest);

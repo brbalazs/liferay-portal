@@ -40,8 +40,16 @@ public class CommerceProductPriceRequest {
 		return _quantity;
 	}
 
+	public boolean isCalculateTax() {
+		return _calculateTax;
+	}
+
 	public boolean isSecure() {
 		return _secure;
+	}
+
+	public void setCalculateTax(boolean calculateTax) {
+		_calculateTax = calculateTax;
 	}
 
 	public void setCommerceContext(CommerceContext commerceContext) {
@@ -66,6 +74,7 @@ public class CommerceProductPriceRequest {
 		_secure = secure;
 	}
 
+	private boolean _calculateTax;
 	private CommerceContext _commerceContext;
 	private List<CommerceOptionValue> _commerceOptionValues;
 	private long _cpInstanceId;
