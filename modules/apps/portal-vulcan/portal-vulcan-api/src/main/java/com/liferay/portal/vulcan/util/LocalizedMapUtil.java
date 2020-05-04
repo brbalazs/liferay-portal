@@ -14,6 +14,7 @@
 
 package com.liferay.portal.vulcan.util;
 
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
 import java.util.HashMap;
@@ -164,15 +165,14 @@ public class LocalizedMapUtil {
 		if (!notFoundLocales.isEmpty()) {
 			Stream<Locale> notFoundLocaleStream = notFoundLocales.stream();
 
-			String missingLanguages = notFoundLocaleStream.map(
-				LocaleUtil::toW3cLanguageId
-			).collect(
-				Collectors.joining(",")
-			);
-
 			throw new BadRequestException(
-				entityName + " title missing in the languages: " +
-					missingLanguages);
+				StringBundler.concat(
+					entityName, " title missing in the languages: ",
+					notFoundLocaleStream.map(
+						LocaleUtil::toW3cLanguageId
+					).collect(
+						Collectors.joining(",")
+					)));
 		}
 	}
 
