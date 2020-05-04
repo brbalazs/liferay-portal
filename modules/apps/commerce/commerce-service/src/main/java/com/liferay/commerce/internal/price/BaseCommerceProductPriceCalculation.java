@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.math.BigDecimal;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -159,8 +160,6 @@ public abstract class BaseCommerceProductPriceCalculation
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		BigDecimal cpDefinitionOptionMinDynamicPrice = BigDecimal.ZERO;
-
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
 
@@ -168,8 +167,18 @@ public abstract class BaseCommerceProductPriceCalculation
 			return BigDecimal.ZERO;
 		}
 
-		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-				cpDefinitionOptionValueRels) {
+		Iterator<CPDefinitionOptionValueRel> iterator =
+			cpDefinitionOptionValueRels.iterator();
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel = iterator.next();
+
+		BigDecimal cpDefinitionOptionMinDynamicPrice = _getCPInstanceFinalPrice(
+			cpDefinitionOptionValueRel.getCProductId(),
+			cpDefinitionOptionValueRel.getCPInstanceUuid(),
+			cpDefinitionOptionValueRel.getQuantity(), commerceContext);
+
+		while (iterator.hasNext()) {
+			cpDefinitionOptionValueRel = iterator.next();
 
 			BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
 				cpDefinitionOptionValueRel.getCProductId(),
@@ -191,8 +200,6 @@ public abstract class BaseCommerceProductPriceCalculation
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		BigDecimal cpDefinitionOptionMinStaticPrice = BigDecimal.ZERO;
-
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
 
@@ -200,12 +207,18 @@ public abstract class BaseCommerceProductPriceCalculation
 			return BigDecimal.ZERO;
 		}
 
-		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-				cpDefinitionOptionValueRels) {
+		Iterator<CPDefinitionOptionValueRel> iterator =
+			cpDefinitionOptionValueRels.iterator();
 
-			if (cpDefinitionOptionValueRel.getPrice() == null) {
-				continue;
-			}
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel = iterator.next();
+
+		BigDecimal cpDefinitionOptionMinStaticPrice =
+			_getCPDefinitionOptionValueFinalPrice(
+				cpDefinitionOptionValueRel.getPrice(),
+				cpDefinitionOptionValueRel.getQuantity());
+
+		while (iterator.hasNext()) {
+			cpDefinitionOptionValueRel = iterator.next();
 
 			BigDecimal cpDefinitionOptionValueFinalPrice =
 				_getCPDefinitionOptionValueFinalPrice(
