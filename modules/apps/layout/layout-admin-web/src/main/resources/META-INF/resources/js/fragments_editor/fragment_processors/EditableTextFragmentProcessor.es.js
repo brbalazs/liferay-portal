@@ -155,25 +155,34 @@ function _getEditorConfiguration(
 ) {
 	return object.mixin({}, defaultEditorConfiguration.editorConfig || {}, {
 		documentBrowseLinkCallback: (editor, url, changeLinkCallback) => {
-			const itemSelectorDialog = new ItemSelectorDialog({
-				eventName: editor.title + 'selectItem',
-				singleSelect: true,
-				title: Liferay.Language.get('select-item'),
-				url
-			});
+			AUI().use('liferay-item-selector-dialog', A => {
+				const itemSelectorDialog = new A.LiferayItemSelectorDialog({
+					eventName: editor.title + 'selectItem',
+					title: Liferay.Language.get('select-item'),
+					url
+				});
 
-			itemSelectorDialog.open();
+				itemSelectorDialog.open();
 
-			itemSelectorDialog.on('selectedItemChange', event => {
-				const selectedItem = event.selectedItem;
+				itemSelectorDialog.on('selectedItemChange', event => {
+					const selectedItem = event.newVal;
 
-				if (selectedItem) {
-					changeLinkCallback(selectedItem);
-				}
+					if (selectedItem) {
+						const selectedItemObject = JSON.parse(
+							selectedItem.value
+						);
+
+						selectedItem.value = selectedItemObject.url;
+
+						selectedItem.title = selectedItemObject.title;
+
+						changeLinkCallback(selectedItem);
+					}
+				});
 			});
 		},
 
-		documentBrowseLinkUrl: editorConfig.documentBrowseLinkUrl.replace(
+		documentBrowseLinkUrl: defaultEditorConfiguration.editorConfig.documentBrowseLinkUrl.replace(
 			'_EDITOR_NAME_',
 			editorName
 		),
