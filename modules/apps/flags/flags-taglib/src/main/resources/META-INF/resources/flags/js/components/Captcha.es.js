@@ -12,7 +12,7 @@
  * details.
  */
 
-import {fetch} from 'frontend-js-web';
+import fetch from 'frontend-js-web/liferay/util/fetch.es';
 import {globalEval} from 'metal-dom';
 import PropTypes from 'prop-types';
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
