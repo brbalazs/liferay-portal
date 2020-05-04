@@ -892,7 +892,7 @@ public class CommerceOrderItemLocalServiceImpl
 				StringBundler.concat(
 					"Operation not allowed on an item ",
 					commerceOrderItem.getCommerceOrderItemId(),
-					" because it is child commerce order item ",
+					" because it is a child commerce order item ",
 					commerceOrderItem.getParentCommerceOrderItemId()));
 		}
 	}
