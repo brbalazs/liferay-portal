@@ -68,6 +68,7 @@ export default (
 
 			render() {
 				const {
+					channelId,
 					className,
 					data,
 					error,
@@ -81,7 +82,7 @@ export default (
 					(error && bypassErrorPage && !data)
 				) {
 					const props = isFunction(errorPageProps)
-						? errorPageProps({groupId})
+						? errorPageProps({channelId, groupId})
 						: errorPageProps;
 
 					return renderErrorPage({className, ...props});
@@ -94,6 +95,7 @@ export default (
 						<WrappedComponent
 							{...otherProps}
 							{...componentData}
+							channelId={channelId}
 							className={className}
 							groupId={groupId}
 						/>
