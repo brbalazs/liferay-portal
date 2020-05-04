@@ -732,6 +732,17 @@ public class LayoutServiceWrapper
 		return _layoutService.getLayoutsCount(groupId, privateLayout, type);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	@Override
+	public int getLayoutsCount(
+		long groupId, boolean privateLayout, java.lang.String[] types) {
+
+		return _layoutService.getLayoutsCount(groupId, privateLayout, types);
+	}
+
 	@Override
 	public int getLayoutsCount(long groupId, java.lang.String type) {
 		return _layoutService.getLayoutsCount(groupId, type);

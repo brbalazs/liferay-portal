@@ -688,6 +688,16 @@ public class LayoutServiceUtil {
 		return getService().getLayoutsCount(groupId, privateLayout, type);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	public static int getLayoutsCount(
+		long groupId, boolean privateLayout, String[] types) {
+
+		return getService().getLayoutsCount(groupId, privateLayout, types);
+	}
+
 	public static int getLayoutsCount(long groupId, String type) {
 		return getService().getLayoutsCount(groupId, type);
 	}

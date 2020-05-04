@@ -23,6 +23,9 @@ import aQute.bnd.annotation.ProviderType;
 @ProviderType
 public interface LayoutFinder {
 
+	public int countByG_P_T(
+		long groupId, boolean privateLayout, String[] types);
+
 	public java.util.List<com.liferay.portal.kernel.model.Layout>
 		findByNoPermissions(long roleId);
 

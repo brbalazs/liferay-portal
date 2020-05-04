@@ -558,6 +558,14 @@ public interface LayoutService extends BaseService {
 	public int getLayoutsCount(
 		long groupId, boolean privateLayout, String type);
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getLayoutsCount(
+		long groupId, boolean privateLayout, String[] types);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getLayoutsCount(long groupId, String type);
 

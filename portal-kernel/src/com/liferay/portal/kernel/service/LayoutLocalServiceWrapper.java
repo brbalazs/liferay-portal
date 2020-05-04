@@ -1336,6 +1336,10 @@ public class LayoutLocalServiceWrapper
 			group, privateLayout, keywords, types);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public int getLayoutsCount(
 		com.liferay.portal.kernel.model.Group group, boolean privateLayout,

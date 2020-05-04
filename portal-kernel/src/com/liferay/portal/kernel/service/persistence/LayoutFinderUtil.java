@@ -22,6 +22,12 @@ import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
  */
 public class LayoutFinderUtil {
 
+	public static int countByG_P_T(
+		long groupId, boolean privateLayout, String[] types) {
+
+		return getFinder().countByG_P_T(groupId, privateLayout, types);
+	}
+
 	public static java.util.List<com.liferay.portal.kernel.model.Layout>
 		findByNoPermissions(long roleId) {
 

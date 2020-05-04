@@ -1014,6 +1014,10 @@ public interface LayoutLocalService
 			Group group, boolean privateLayout, String keywords, String[] types)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getLayoutsCount(
 		Group group, boolean privateLayout, String[] types);
