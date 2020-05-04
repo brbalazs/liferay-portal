@@ -41,7 +41,6 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.odata.entity.EntityModel;
@@ -53,7 +52,6 @@ import com.liferay.portal.vulcan.util.LocalizedMapUtil;
 import com.liferay.portal.vulcan.util.SearchUtil;
 import com.liferay.portlet.asset.util.AssetVocabularySettingsHelper;
 
-import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -187,13 +185,13 @@ public class TaxonomyVocabularyResourceImpl
 			Long siteId, TaxonomyVocabulary taxonomyVocabulary)
 		throws Exception {
 
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			taxonomyVocabulary.getName(), taxonomyVocabulary.getName_i18n());
 		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
 			contextAcceptLanguage.getPreferredLocale(),
 			taxonomyVocabulary.getDescription(),
 			taxonomyVocabulary.getDescription_i18n());
-		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
-			contextAcceptLanguage.getPreferredLocale(),
-			taxonomyVocabulary.getName(), taxonomyVocabulary.getName_i18n());
 
 		LocalizedMapUtil.validateI18n(
 			true, "Taxonomy vocabulary", titleMap,
@@ -215,15 +213,15 @@ public class TaxonomyVocabularyResourceImpl
 		AssetVocabulary assetVocabulary = _assetVocabularyService.getVocabulary(
 			taxonomyVocabularyId);
 
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			taxonomyVocabulary.getName(), taxonomyVocabulary.getName_i18n(),
+			assetVocabulary.getTitleMap());
 		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
 			contextAcceptLanguage.getPreferredLocale(),
 			taxonomyVocabulary.getDescription(),
 			taxonomyVocabulary.getDescription_i18n(),
 			assetVocabulary.getDescriptionMap());
-		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
-			contextAcceptLanguage.getPreferredLocale(),
-			taxonomyVocabulary.getName(), taxonomyVocabulary.getName_i18n(),
-			assetVocabulary.getTitleMap());
 
 		LocalizedMapUtil.validateI18n(
 			false, "Taxonomy vocabulary", titleMap,
@@ -231,8 +229,8 @@ public class TaxonomyVocabularyResourceImpl
 
 		return _toTaxonomyVocabulary(
 			_assetVocabularyService.updateVocabulary(
-				assetVocabulary.getVocabularyId(), null,
-				titleMap, descriptionMap,
+				assetVocabulary.getVocabularyId(), null, titleMap,
+				descriptionMap,
 				_getSettings(
 					taxonomyVocabulary.getAssetTypes(),
 					assetVocabulary.getGroupId()),

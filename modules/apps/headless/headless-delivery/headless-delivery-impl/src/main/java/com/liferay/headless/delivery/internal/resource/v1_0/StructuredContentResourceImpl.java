@@ -446,22 +446,24 @@ public class StructuredContentResourceImpl
 
 		DDMStructure ddmStructure = journalArticle.getDDMStructure();
 
-		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
-			contextAcceptLanguage.getPreferredLocale(),
-			structuredContent.getDescription(),
-			structuredContent.getDescription_i18n(),
-			journalArticle.getDescriptionMap());
-		Map<Locale, String> friendlyUrlMap = LocalizedMapUtil.getLocalizedMap(
-			contextAcceptLanguage.getPreferredLocale(),
-			structuredContent.getFriendlyUrlPath(),
-			structuredContent.getFriendlyUrlPath_i18n(),
-			journalArticle.getFriendlyURLMap());
 		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
 			contextAcceptLanguage.getPreferredLocale(),
 			structuredContent.getTitle(), structuredContent.getTitle_i18n(),
 			journalArticle.getTitleMap());
 
+		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getDescription(),
+			structuredContent.getDescription_i18n(),
+			journalArticle.getDescriptionMap());
+
 		Set<Locale> notFoundLocales = new HashSet<>(descriptionMap.keySet());
+
+		Map<Locale, String> friendlyUrlMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getFriendlyUrlPath(),
+			structuredContent.getFriendlyUrlPath_i18n(),
+			journalArticle.getFriendlyURLMap());
 
 		notFoundLocales.addAll(friendlyUrlMap.keySet());
 
@@ -544,21 +546,21 @@ public class StructuredContentResourceImpl
 		LocalDateTime localDateTime = LocalDateTimeUtil.toLocalDateTime(
 			structuredContent.getDatePublished());
 
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			structuredContent.getTitle(), structuredContent.getTitle_i18n());
+
 		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
 			contextAcceptLanguage.getPreferredLocale(),
 			structuredContent.getDescription(),
 			structuredContent.getDescription_i18n());
 
-		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
-			contextAcceptLanguage.getPreferredLocale(),
-			structuredContent.getTitle(), structuredContent.getTitle_i18n());
+		Set<Locale> notFoundLocales = new HashSet<>(descriptionMap.keySet());
 
 		Map<Locale, String> friendlyUrlMap = LocalizedMapUtil.getLocalizedMap(
 			contextAcceptLanguage.getPreferredLocale(),
 			structuredContent.getFriendlyUrlPath(),
 			structuredContent.getFriendlyUrlPath_i18n(), titleMap);
-
-		Set<Locale> notFoundLocales = new HashSet<>(descriptionMap.keySet());
 
 		notFoundLocales.addAll(friendlyUrlMap.keySet());
 

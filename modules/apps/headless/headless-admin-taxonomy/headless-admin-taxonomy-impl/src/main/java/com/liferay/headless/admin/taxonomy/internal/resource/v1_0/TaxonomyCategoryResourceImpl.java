@@ -223,15 +223,15 @@ public class TaxonomyCategoryResourceImpl
 		AssetCategory assetCategory = _assetCategoryService.getCategory(
 			taxonomyCategoryId);
 
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			taxonomyCategory.getName(), taxonomyCategory.getName_i18n(),
+			assetCategory.getTitleMap());
 		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
 			contextAcceptLanguage.getPreferredLocale(),
 			taxonomyCategory.getDescription(),
 			taxonomyCategory.getDescription_i18n(),
 			assetCategory.getDescriptionMap());
-		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
-			contextAcceptLanguage.getPreferredLocale(),
-			taxonomyCategory.getName(), taxonomyCategory.getName_i18n(),
-			assetCategory.getTitleMap());
 
 		LocalizedMapUtil.validateI18n(
 			false,
@@ -239,8 +239,8 @@ public class TaxonomyCategoryResourceImpl
 			"Taxonomy category", titleMap,
 			new HashSet<>(descriptionMap.keySet()));
 
-		assetCategory.setDescriptionMap(descriptionMap);
 		assetCategory.setTitleMap(titleMap);
+		assetCategory.setDescriptionMap(descriptionMap);
 
 		AssetCategoryPermission.check(
 			PermissionThreadLocal.getPermissionChecker(),
@@ -258,13 +258,13 @@ public class TaxonomyCategoryResourceImpl
 			long taxonomyCategoryId, long taxonomyVocabularyId)
 		throws Exception {
 
+		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
+			contextAcceptLanguage.getPreferredLocale(),
+			taxonomyCategory.getName(), taxonomyCategory.getName_i18n());
 		Map<Locale, String> descriptionMap = LocalizedMapUtil.getLocalizedMap(
 			contextAcceptLanguage.getPreferredLocale(),
 			taxonomyCategory.getDescription(),
 			taxonomyCategory.getDescription_i18n());
-		Map<Locale, String> titleMap = LocalizedMapUtil.getLocalizedMap(
-			contextAcceptLanguage.getPreferredLocale(),
-			taxonomyCategory.getName(), taxonomyCategory.getName_i18n());
 
 		LocalizedMapUtil.validateI18n(
 			true, LocaleUtil.fromLanguageId(languageId), "Taxonomy category",
