@@ -29,8 +29,8 @@ import com.liferay.headless.commerce.delivery.catalog.client.pagination.Paginati
 import com.liferay.headless.commerce.delivery.catalog.client.resource.v1_0.ProductResource;
 import com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0.ProductSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
-import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -47,12 +47,10 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
-import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -380,46 +378,27 @@ public abstract class BaseProductResourceTestCase {
 			(entityField, product1, product2) -> {
 				Class<?> clazz = product1.getClass();
 
-				String entityFieldName = entityField.getName();
-
 				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						product1, entityFieldName,
+						product1, entityField.getName(),
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						product2, entityFieldName,
+						product2, entityField.getName(),
 						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanUtils.setProperty(
-						product1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanUtils.setProperty(
-						product2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						product1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						product1, entityField.getName(),
+						"Aaa" + RandomTestUtil.randomString());
 					BeanUtils.setProperty(
-						product2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						product2, entityField.getName(),
+						"Bbb" + RandomTestUtil.randomString());
 				}
 			});
 	}
@@ -507,26 +486,29 @@ public abstract class BaseProductResourceTestCase {
 	public void testGraphQLGetChannelProduct() throws Exception {
 		Product product = testGraphQLProduct_addProduct();
 
-		Assert.assertTrue(
-			equals(
-				product,
-				ProductSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"channelProduct",
-								new HashMap<String, Object>() {
-									{
-										put("channelId", null);
-										put("productId", product.getId());
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data", "Object/channelProduct"))));
-	}
+		List<GraphQLField> graphQLFields = getGraphQLFields();
 
-	@Rule
-	public SearchTestRule searchTestRule = new SearchTestRule();
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"channelProduct",
+				new HashMap<String, Object>() {
+					{
+						put("channelId", null);
+						put("productId", product.getId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(
+			equalsJSONObject(
+				product, dataJSONObject.getJSONObject("channelProduct")));
+	}
 
 	protected Product testGraphQLProduct_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
@@ -578,6 +560,25 @@ public abstract class BaseProductResourceTestCase {
 
 			Assert.assertTrue(
 				products2 + " does not contain " + product1, contains);
+		}
+	}
+
+	protected void assertEqualsJSONArray(
+		List<Product> products, JSONArray jsonArray) {
+
+		for (Product product : products) {
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(product, (JSONObject)object)) {
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + product, contains);
 		}
 	}
 
@@ -800,50 +801,13 @@ public abstract class BaseProductResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() throws Exception {
+	protected List<GraphQLField> getGraphQLFields() {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (Field field :
-				ReflectionUtil.getDeclaredFields(
-					com.liferay.headless.commerce.delivery.catalog.dto.v1_0.
-						Product.class)) {
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
 
-			if (!ArrayUtil.contains(
-					getAdditionalAssertFieldNames(), field.getName())) {
-
-				continue;
-			}
-
-			graphQLFields.addAll(getGraphQLFields(field));
-		}
-
-		return graphQLFields;
-	}
-
-	protected List<GraphQLField> getGraphQLFields(Field... fields)
-		throws Exception {
-
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		for (Field field : fields) {
-			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
-				vulcanGraphQLField = field.getAnnotation(
-					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
-						class);
-
-			if (vulcanGraphQLField != null) {
-				Class<?> clazz = field.getType();
-
-				if (clazz.isArray()) {
-					clazz = clazz.getComponentType();
-				}
-
-				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
-					ReflectionUtil.getDeclaredFields(clazz));
-
-				graphQLFields.add(
-					new GraphQLField(field.getName(), childrenGraphQLFields));
-			}
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
 		}
 
 		return graphQLFields;
@@ -902,9 +866,8 @@ public abstract class BaseProductResourceTestCase {
 			}
 
 			if (Objects.equals("expando", additionalAssertFieldName)) {
-				if (!equals(
-						(Map)product1.getExpando(),
-						(Map)product2.getExpando())) {
+				if (!Objects.deepEquals(
+						product1.getExpando(), product2.getExpando())) {
 
 					return false;
 				}
@@ -1109,25 +1072,139 @@ public abstract class BaseProductResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
+	protected boolean equalsJSONObject(Product product, JSONObject jsonObject) {
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("description", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getDescription(),
+						jsonObject.getString("description"))) {
 
 					return false;
 				}
+
+				continue;
 			}
+
+			if (Objects.equals("id", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getId(), jsonObject.getLong("id"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("metaDescription", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getMetaDescription(),
+						jsonObject.getString("metaDescription"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("metaKeyword", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getMetaKeyword(),
+						jsonObject.getString("metaKeyword"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("metaTitle", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getMetaTitle(),
+						jsonObject.getString("metaTitle"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("multipleOrderQuantity", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getMultipleOrderQuantity(),
+						jsonObject.getInt("multipleOrderQuantity"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("name", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getName(), jsonObject.getString("name"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("productId", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getProductId(),
+						jsonObject.getLong("productId"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("productType", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getProductType(),
+						jsonObject.getString("productType"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("shortDescription", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getShortDescription(),
+						jsonObject.getString("shortDescription"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("slug", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getSlug(), jsonObject.getString("slug"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("urlImage", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getUrlImage(),
+						jsonObject.getString("urlImage"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1398,50 +1475,23 @@ public abstract class BaseProductResourceTestCase {
 		return httpResponse.getContent();
 	}
 
-	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
-		throws Exception {
-
-		GraphQLField mutationGraphQLField = new GraphQLField(
-			"mutation", graphQLField);
-
-		return JSONFactoryUtil.createJSONObject(
-			invoke(mutationGraphQLField.toString()));
-	}
-
-	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
-		throws Exception {
-
-		GraphQLField queryGraphQLField = new GraphQLField(
-			"query", graphQLField);
-
-		return JSONFactoryUtil.createJSONObject(
-			invoke(queryGraphQLField.toString()));
-	}
-
 	protected Product randomProduct() throws Exception {
 		return new Product() {
 			{
 				createDate = RandomTestUtil.nextDate();
-				description = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				description = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
-				metaDescription = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				metaKeyword = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				metaTitle = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				metaDescription = RandomTestUtil.randomString();
+				metaKeyword = RandomTestUtil.randomString();
+				metaTitle = RandomTestUtil.randomString();
 				modifiedDate = RandomTestUtil.nextDate();
 				multipleOrderQuantity = RandomTestUtil.randomInt();
-				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				name = RandomTestUtil.randomString();
 				productId = RandomTestUtil.randomLong();
-				productType = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				shortDescription = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				slug = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				urlImage = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				productType = RandomTestUtil.randomString();
+				shortDescription = RandomTestUtil.randomString();
+				slug = RandomTestUtil.randomString();
+				urlImage = RandomTestUtil.randomString();
 			}
 		};
 	}
@@ -1467,22 +1517,9 @@ public abstract class BaseProductResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
-		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
-			this(key, new HashMap<>(), graphQLFields);
-		}
-
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
-
-			_key = key;
-			_parameterMap = parameterMap;
-			_graphQLFields = Arrays.asList(graphQLFields);
-		}
-
-		public GraphQLField(
-			String key, Map<String, Object> parameterMap,
-			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1510,7 +1547,7 @@ public abstract class BaseProductResourceTestCase {
 				sb.append(")");
 			}
 
-			if (!_graphQLFields.isEmpty()) {
+			if (_graphQLFields.length > 0) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1526,7 +1563,7 @@ public abstract class BaseProductResourceTestCase {
 			return sb.toString();
 		}
 
-		private final List<GraphQLField> _graphQLFields;
+		private final GraphQLField[] _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 
