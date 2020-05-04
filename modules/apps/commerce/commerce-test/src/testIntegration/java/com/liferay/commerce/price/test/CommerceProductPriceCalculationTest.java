@@ -1162,6 +1162,102 @@ public class CommerceProductPriceCalculationTest {
 	}
 
 	@Test
+	public void testGetCPDefinitionMinimumPrice() throws Exception {
+		frutillaRule.scenario(
+			"Calculate a minimum price of a product definition based on its " +
+				"options configuration"
+		).given(
+			"A product with a dynamic, static and null priceType options"
+		).and(
+			"each option has two option values"
+		).when(
+			"The minimum price of the product is calculated"
+		).then(
+			"The correct minimum price is returned"
+		);
+
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			false);
+
+		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(20));
+
+		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(30));
+
+		CPOption dynamicPriceTypeCPOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			bundleCPDefinition.getCPDefinitionId(),
+			cpInstance1.getCPInstanceId(),
+			dynamicPriceTypeCPOption.getCPOptionId(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
+			BigDecimal.valueOf(50), 1, false, true, _serviceContext);
+
+		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			bundleCPDefinition.getCPDefinitionId(),
+			cpInstance2.getCPInstanceId(),
+			dynamicPriceTypeCPOption.getCPOptionId(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
+			BigDecimal.valueOf(100), 1, false, true, _serviceContext);
+
+		CPOption staticPriceTypeCPOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionValueRel staticPriceTypeOptionValueRel1 =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				bundleCPDefinition.getCPDefinitionId(), 0,
+				staticPriceTypeCPOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				BigDecimal.valueOf(5), 1, false, true, _serviceContext);
+
+		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			bundleCPDefinition.getCPDefinitionId(), 0,
+			staticPriceTypeCPOption.getCPOptionId(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+			BigDecimal.valueOf(10), 1, false, true, _serviceContext);
+
+		CPOption nullPriceTypeCPOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			bundleCPDefinition.getCPDefinitionId(), 0,
+			nullPriceTypeCPOption.getCPOptionId(), null, null, 1, false, true,
+			_serviceContext);
+
+		_cpInstanceLocalService.buildCPInstances(
+			bundleCPDefinition.getCPDefinitionId(), _serviceContext);
+
+		BigDecimal bundleCPInstanceMinPrice = BigDecimal.TEN;
+
+		_updateBundleCPInstancePrices(
+			bundleCPDefinition.getCPInstances(), bundleCPInstanceMinPrice);
+
+		CommerceMoney bundleMinimumPrice =
+			_commerceProductPriceCalculation.getCPDefinitionMinimumPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				new TestCommerceContext(
+					_commerceCurrency, null, _user, _group, _commerceAccount,
+					null));
+
+		BigDecimal expectedMinPrice = bundleCPInstanceMinPrice;
+
+		expectedMinPrice = expectedMinPrice.add(cpInstance1.getPrice());
+
+		expectedMinPrice = expectedMinPrice.add(
+			staticPriceTypeOptionValueRel1.getPrice());
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(expectedMinPrice),
+			CPTestUtil.stripTrailingZeros(bundleMinimumPrice.getPrice()));
+	}
+
+	@Test
 	public void testGetCPDefinitionOptionValueRelativePrice1()
 		throws Exception {
 
@@ -1442,6 +1538,18 @@ public class CommerceProductPriceCalculationTest {
 
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
+
+	private void _updateBundleCPInstancePrices(
+		List<CPInstance> cpInstances, BigDecimal minPrice) {
+
+		for (int i = 0; i < cpInstances.size(); i++) {
+			CPInstance cpInstance = cpInstances.get(i);
+
+			cpInstance.setPrice(minPrice.add(BigDecimal.valueOf(i)));
+
+			_cpInstanceLocalService.updateCPInstance(cpInstance);
+		}
+	}
 
 	private CommerceAccount _commerceAccount;
 
