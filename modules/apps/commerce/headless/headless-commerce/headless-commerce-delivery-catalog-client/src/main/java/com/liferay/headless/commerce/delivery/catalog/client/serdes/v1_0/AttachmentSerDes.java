@@ -209,13 +209,23 @@ public class AttachmentSerDes {
 			map.put("attachment", String.valueOf(attachment.getAttachment()));
 		}
 
-		map.put(
-			"displayDate",
-			liferayToJSONDateFormat.format(attachment.getDisplayDate()));
+		if (attachment.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(attachment.getDisplayDate()));
+		}
 
-		map.put(
-			"expirationDate",
-			liferayToJSONDateFormat.format(attachment.getExpirationDate()));
+		if (attachment.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(attachment.getExpirationDate()));
+		}
 
 		if (attachment.getId() == null) {
 			map.put("id", null);

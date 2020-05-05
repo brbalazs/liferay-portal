@@ -29,6 +29,7 @@ import com.liferay.headless.commerce.admin.catalog.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.SkuResource;
 import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.SkuSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -47,12 +48,14 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -568,27 +571,46 @@ public abstract class BaseSkuResourceTestCase {
 			(entityField, sku1, sku2) -> {
 				Class<?> clazz = sku1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						sku1, entityField.getName(),
+						sku1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						sku2, entityField.getName(),
+						sku2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						sku1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						sku2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						sku1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						sku1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						sku2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						sku2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -640,52 +662,35 @@ public abstract class BaseSkuResourceTestCase {
 
 	@Test
 	public void testGraphQLGetSkusPage() throws Exception {
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
-
-		graphQLFields.add(
-			new GraphQLField(
-				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
-
-		graphQLFields.add(new GraphQLField("page"));
-		graphQLFields.add(new GraphQLField("totalCount"));
-
 		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"skus",
-				new HashMap<String, Object>() {
-					{
-						put("page", 1);
-						put("pageSize", 2);
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
+			"skus",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 2);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		JSONObject skusJSONObject = dataJSONObject.getJSONObject("skus");
+		JSONObject skusJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/skus");
 
 		Assert.assertEquals(0, skusJSONObject.get("totalCount"));
 
 		Sku sku1 = testGraphQLSku_addSku();
 		Sku sku2 = testGraphQLSku_addSku();
 
-		jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		dataJSONObject = jsonObject.getJSONObject("data");
-
-		skusJSONObject = dataJSONObject.getJSONObject("skus");
+		skusJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/skus");
 
 		Assert.assertEquals(2, skusJSONObject.get("totalCount"));
 
-		assertEqualsJSONArray(
-			Arrays.asList(sku1, sku2), skusJSONObject.getJSONArray("items"));
+		assertEqualsIgnoringOrder(
+			Arrays.asList(sku1, sku2),
+			Arrays.asList(SkuSerDes.toDTOs(skusJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -736,30 +741,26 @@ public abstract class BaseSkuResourceTestCase {
 	public void testGraphQLGetSkuByExternalReferenceCode() throws Exception {
 		Sku sku = testGraphQLSku_addSku();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"skuByExternalReferenceCode",
-				new HashMap<String, Object>() {
-					{
-						put(
-							"externalReferenceCode",
-							sku.getExternalReferenceCode());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				sku,
-				dataJSONObject.getJSONObject("skuByExternalReferenceCode")));
+				SkuSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"skuByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												sku.getExternalReferenceCode() +
+													"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/skuByExternalReferenceCode"))));
 	}
 
 	@Test
@@ -791,43 +792,34 @@ public abstract class BaseSkuResourceTestCase {
 	public void testGraphQLDeleteSku() throws Exception {
 		Sku sku = testGraphQLSku_addSku();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteSku",
-				new HashMap<String, Object>() {
-					{
-						put("skuId", sku.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteSku"));
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteSku",
+						new HashMap<String, Object>() {
+							{
+								put("skuId", sku.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteSku"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"sku",
-					new HashMap<String, Object>() {
-						{
-							put("skuId", sku.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"sku",
+						new HashMap<String, Object>() {
+							{
+								put("skuId", sku.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -852,32 +844,30 @@ public abstract class BaseSkuResourceTestCase {
 	public void testGraphQLGetSku() throws Exception {
 		Sku sku = testGraphQLSku_addSku();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"sku",
-				new HashMap<String, Object>() {
-					{
-						put("id", sku.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
-			equalsJSONObject(sku, dataJSONObject.getJSONObject("sku")));
+			equals(
+				sku,
+				SkuSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"sku",
+								new HashMap<String, Object>() {
+									{
+										put("id", sku.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/sku"))));
 	}
 
 	@Test
 	public void testPatchSku() throws Exception {
 		Assert.assertTrue(false);
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected Sku testGraphQLSku_addSku() throws Exception {
 		throw new UnsupportedOperationException(
@@ -922,22 +912,6 @@ public abstract class BaseSkuResourceTestCase {
 			}
 
 			Assert.assertTrue(skus2 + " does not contain " + sku1, contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(List<Sku> skus, JSONArray jsonArray) {
-		for (Sku sku : skus) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(sku, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(jsonArray + " does not contain " + sku, contains);
 		}
 	}
 
@@ -1136,13 +1110,50 @@ public abstract class BaseSkuResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.catalog.dto.v1_0.Sku.
+						class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(field.getName(), childrenGraphQLFields));
+			}
 		}
 
 		return graphQLFields;
@@ -1267,7 +1278,7 @@ public abstract class BaseSkuResourceTestCase {
 			}
 
 			if (Objects.equals("options", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(sku1.getOptions(), sku2.getOptions())) {
+				if (!equals((Map)sku1.getOptions(), (Map)sku2.getOptions())) {
 					return false;
 				}
 
@@ -1354,156 +1365,25 @@ public abstract class BaseSkuResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(Sku sku, JSONObject jsonObject) {
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("depth", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getDepth(), jsonObject.getDouble("depth"))) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("externalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getExternalReferenceCode(),
-						jsonObject.getString("externalReferenceCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("gtin", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getGtin(), jsonObject.getString("gtin"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("height", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getHeight(), jsonObject.getDouble("height"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("inventoryLevel", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getInventoryLevel(),
-						jsonObject.getInt("inventoryLevel"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("manufacturerPartNumber", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getManufacturerPartNumber(),
-						jsonObject.getString("manufacturerPartNumber"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("neverExpire", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getNeverExpire(),
-						jsonObject.getBoolean("neverExpire"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("productId", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getProductId(), jsonObject.getLong("productId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("published", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getPublished(),
-						jsonObject.getBoolean("published"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("purchasable", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getPurchasable(),
-						jsonObject.getBoolean("purchasable"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("sku", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getSku(), jsonObject.getString("sku"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("weight", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getWeight(), jsonObject.getDouble("weight"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("width", fieldName)) {
-				if (!Objects.deepEquals(
-						sku.getWidth(), jsonObject.getDouble("width"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1744,23 +1624,45 @@ public abstract class BaseSkuResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected Sku randomSku() throws Exception {
 		return new Sku() {
 			{
 				depth = RandomTestUtil.randomDouble();
 				displayDate = RandomTestUtil.nextDate();
 				expirationDate = RandomTestUtil.nextDate();
-				externalReferenceCode = RandomTestUtil.randomString();
-				gtin = RandomTestUtil.randomString();
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				gtin = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				height = RandomTestUtil.randomDouble();
 				id = RandomTestUtil.randomLong();
 				inventoryLevel = RandomTestUtil.randomInt();
-				manufacturerPartNumber = RandomTestUtil.randomString();
+				manufacturerPartNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				neverExpire = RandomTestUtil.randomBoolean();
 				productId = RandomTestUtil.randomLong();
 				published = RandomTestUtil.randomBoolean();
 				purchasable = RandomTestUtil.randomBoolean();
-				sku = RandomTestUtil.randomString();
+				sku = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				weight = RandomTestUtil.randomDouble();
 				width = RandomTestUtil.randomDouble();
 			}
@@ -1788,9 +1690,22 @@ public abstract class BaseSkuResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1818,7 +1733,7 @@ public abstract class BaseSkuResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1834,7 +1749,7 @@ public abstract class BaseSkuResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

@@ -215,9 +215,6 @@ public abstract class BaseAreaResourceImpl
 			actionName, siteId, methodName, null, permissionName, siteId);
 	}
 
-	protected void preparePatch(Area area, Area existingArea) {
-	}
-
 	protected <T, R> List<R> transform(
 		java.util.Collection<T> collection,
 		UnsafeFunction<T, R, Exception> unsafeFunction) {

@@ -15,6 +15,8 @@
 package com.liferay.headless.commerce.admin.catalog.client.resource.v1_0;
 
 import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.Attachment;
+import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.AttachmentBase64;
+import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.AttachmentUrl;
 import com.liferay.headless.commerce.admin.catalog.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.catalog.client.pagination.Page;
 import com.liferay.headless.commerce.admin.catalog.client.pagination.Pagination;
@@ -59,29 +61,21 @@ public interface AttachmentResource {
 		throws Exception;
 
 	public Attachment postProductByExternalReferenceCodeAttachmentByBase64(
-			String externalReferenceCode,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentBase64 attachmentBase64)
+			String externalReferenceCode, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postProductByExternalReferenceCodeAttachmentByBase64HttpResponse(
-				String externalReferenceCode,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentBase64 attachmentBase64)
+				String externalReferenceCode, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
 	public Attachment postProductByExternalReferenceCodeAttachmentByUrl(
-			String externalReferenceCode,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentUrl attachmentUrl)
+			String externalReferenceCode, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postProductByExternalReferenceCodeAttachmentByUrlHttpResponse(
-				String externalReferenceCode,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentUrl attachmentUrl)
+				String externalReferenceCode, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public Page<Attachment> getProductByExternalReferenceCodeImagesPage(
@@ -103,29 +97,21 @@ public interface AttachmentResource {
 		throws Exception;
 
 	public Attachment postProductByExternalReferenceCodeImageByBase64(
-			String externalReferenceCode,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentBase64 attachmentBase64)
+			String externalReferenceCode, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postProductByExternalReferenceCodeImageByBase64HttpResponse(
-				String externalReferenceCode,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentBase64 attachmentBase64)
+				String externalReferenceCode, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
 	public Attachment postProductByExternalReferenceCodeImageByUrl(
-			String externalReferenceCode,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentUrl attachmentUrl)
+			String externalReferenceCode, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postProductByExternalReferenceCodeImageByUrlHttpResponse(
-				String externalReferenceCode,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentUrl attachmentUrl)
+				String externalReferenceCode, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public Page<Attachment> getProductIdAttachmentsPage(
@@ -144,27 +130,19 @@ public interface AttachmentResource {
 		throws Exception;
 
 	public Attachment postProductIdAttachmentByBase64(
-			Long id,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentBase64 attachmentBase64)
+			Long id, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postProductIdAttachmentByBase64HttpResponse(
-			Long id,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentBase64 attachmentBase64)
+			Long id, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
 	public Attachment postProductIdAttachmentByUrl(
-			Long id,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentUrl attachmentUrl)
+			Long id, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postProductIdAttachmentByUrlHttpResponse(
-			Long id,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentUrl attachmentUrl)
+			Long id, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public Page<Attachment> getProductIdImagesPage(
@@ -183,27 +161,19 @@ public interface AttachmentResource {
 		throws Exception;
 
 	public Attachment postProductIdImageByBase64(
-			Long id,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentBase64 attachmentBase64)
+			Long id, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postProductIdImageByBase64HttpResponse(
-			Long id,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentBase64 attachmentBase64)
+			Long id, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
 	public Attachment postProductIdImageByUrl(
-			Long id,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentUrl attachmentUrl)
+			Long id, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postProductIdImageByUrlHttpResponse(
-			Long id,
-			com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-				AttachmentUrl attachmentUrl)
+			Long id, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public static class Builder {
@@ -404,9 +374,7 @@ public interface AttachmentResource {
 		}
 
 		public Attachment postProductByExternalReferenceCodeAttachmentByBase64(
-				String externalReferenceCode,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentBase64 attachmentBase64)
+				String externalReferenceCode, AttachmentBase64 attachmentBase64)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -436,8 +404,7 @@ public interface AttachmentResource {
 		public HttpInvoker.HttpResponse
 				postProductByExternalReferenceCodeAttachmentByBase64HttpResponse(
 					String externalReferenceCode,
-					com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-						AttachmentBase64 attachmentBase64)
+					AttachmentBase64 attachmentBase64)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -476,9 +443,7 @@ public interface AttachmentResource {
 		}
 
 		public Attachment postProductByExternalReferenceCodeAttachmentByUrl(
-				String externalReferenceCode,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentUrl attachmentUrl)
+				String externalReferenceCode, AttachmentUrl attachmentUrl)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -507,9 +472,7 @@ public interface AttachmentResource {
 
 		public HttpInvoker.HttpResponse
 				postProductByExternalReferenceCodeAttachmentByUrlHttpResponse(
-					String externalReferenceCode,
-					com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-						AttachmentUrl attachmentUrl)
+					String externalReferenceCode, AttachmentUrl attachmentUrl)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -689,9 +652,7 @@ public interface AttachmentResource {
 		}
 
 		public Attachment postProductByExternalReferenceCodeImageByBase64(
-				String externalReferenceCode,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentBase64 attachmentBase64)
+				String externalReferenceCode, AttachmentBase64 attachmentBase64)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -721,8 +682,7 @@ public interface AttachmentResource {
 		public HttpInvoker.HttpResponse
 				postProductByExternalReferenceCodeImageByBase64HttpResponse(
 					String externalReferenceCode,
-					com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-						AttachmentBase64 attachmentBase64)
+					AttachmentBase64 attachmentBase64)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -761,9 +721,7 @@ public interface AttachmentResource {
 		}
 
 		public Attachment postProductByExternalReferenceCodeImageByUrl(
-				String externalReferenceCode,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentUrl attachmentUrl)
+				String externalReferenceCode, AttachmentUrl attachmentUrl)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -792,9 +750,7 @@ public interface AttachmentResource {
 
 		public HttpInvoker.HttpResponse
 				postProductByExternalReferenceCodeImageByUrlHttpResponse(
-					String externalReferenceCode,
-					com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-						AttachmentUrl attachmentUrl)
+					String externalReferenceCode, AttachmentUrl attachmentUrl)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -970,9 +926,7 @@ public interface AttachmentResource {
 		}
 
 		public Attachment postProductIdAttachmentByBase64(
-				Long id,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentBase64 attachmentBase64)
+				Long id, AttachmentBase64 attachmentBase64)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1001,9 +955,7 @@ public interface AttachmentResource {
 
 		public HttpInvoker.HttpResponse
 				postProductIdAttachmentByBase64HttpResponse(
-					Long id,
-					com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-						AttachmentBase64 attachmentBase64)
+					Long id, AttachmentBase64 attachmentBase64)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1042,9 +994,7 @@ public interface AttachmentResource {
 		}
 
 		public Attachment postProductIdAttachmentByUrl(
-				Long id,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentUrl attachmentUrl)
+				Long id, AttachmentUrl attachmentUrl)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1072,9 +1022,7 @@ public interface AttachmentResource {
 
 		public HttpInvoker.HttpResponse
 				postProductIdAttachmentByUrlHttpResponse(
-					Long id,
-					com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-						AttachmentUrl attachmentUrl)
+					Long id, AttachmentUrl attachmentUrl)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1249,9 +1197,7 @@ public interface AttachmentResource {
 		}
 
 		public Attachment postProductIdImageByBase64(
-				Long id,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentBase64 attachmentBase64)
+				Long id, AttachmentBase64 attachmentBase64)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1278,9 +1224,7 @@ public interface AttachmentResource {
 		}
 
 		public HttpInvoker.HttpResponse postProductIdImageByBase64HttpResponse(
-				Long id,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentBase64 attachmentBase64)
+				Long id, AttachmentBase64 attachmentBase64)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1319,9 +1263,7 @@ public interface AttachmentResource {
 		}
 
 		public Attachment postProductIdImageByUrl(
-				Long id,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentUrl attachmentUrl)
+				Long id, AttachmentUrl attachmentUrl)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1348,9 +1290,7 @@ public interface AttachmentResource {
 		}
 
 		public HttpInvoker.HttpResponse postProductIdImageByUrlHttpResponse(
-				Long id,
-				com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.
-					AttachmentUrl attachmentUrl)
+				Long id, AttachmentUrl attachmentUrl)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

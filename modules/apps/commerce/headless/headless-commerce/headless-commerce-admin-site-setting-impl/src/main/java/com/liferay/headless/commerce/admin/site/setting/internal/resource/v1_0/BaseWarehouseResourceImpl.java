@@ -405,10 +405,6 @@ public abstract class BaseWarehouseResourceImpl
 			actionName, siteId, methodName, null, permissionName, siteId);
 	}
 
-	protected void preparePatch(
-		Warehouse warehouse, Warehouse existingWarehouse) {
-	}
-
 	protected <T, R> List<R> transform(
 		java.util.Collection<T> collection,
 		UnsafeFunction<T, R, Exception> unsafeFunction) {

@@ -225,14 +225,25 @@ public class AttachmentBase64SerDes {
 				"attachment", String.valueOf(attachmentBase64.getAttachment()));
 		}
 
-		map.put(
-			"displayDate",
-			liferayToJSONDateFormat.format(attachmentBase64.getDisplayDate()));
+		if (attachmentBase64.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(
+					attachmentBase64.getDisplayDate()));
+		}
 
-		map.put(
-			"expirationDate",
-			liferayToJSONDateFormat.format(
-				attachmentBase64.getExpirationDate()));
+		if (attachmentBase64.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(
+					attachmentBase64.getExpirationDate()));
+		}
 
 		if (attachmentBase64.getExternalReferenceCode() == null) {
 			map.put("externalReferenceCode", null);
