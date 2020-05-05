@@ -20,6 +20,7 @@ import com.liferay.item.selector.ItemSelectorCriterion;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
 import com.liferay.item.selector.criteria.URLItemSelectorReturnType;
+import com.liferay.item.selector.criteria.file.criterion.FileItemSelectorCriterion;
 import com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion;
 import com.liferay.item.selector.criteria.url.criterion.URLItemSelectorCriterion;
 import com.liferay.layout.admin.constants.LayoutAdminPortletKeys;
@@ -60,15 +61,13 @@ public class FragmentEntryLinkEditorConfigContributor
 		ThemeDisplay themeDisplay,
 		RequestBackedPortletURLFactory requestBackedPortletURLFactory) {
 
-		String namespace = GetterUtil.getString(
-			inputEditorTaglibAttributes.get(
-				"liferay-ui:input-editor:namespace"));
-		String name = GetterUtil.getString(
-			inputEditorTaglibAttributes.get("liferay-ui:input-editor:name"));
+		PortletURL imageSelectorURL = _itemSelector.getItemSelectorURL(
+			requestBackedPortletURLFactory, "_EDITOR_NAME_selectImage",
+			getImageItemSelectorCriterion(), getURLItemSelectorCriterion());
 
 		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
-			requestBackedPortletURLFactory, namespace + name + "selectItem",
-			getImageItemSelectorCriterion(), getURLItemSelectorCriterion());
+			requestBackedPortletURLFactory, "_EDITOR_NAME_selectItem",
+			getFileItemSelectorCriterion(), getURLItemSelectorCriterion());
 
 		jsonObject.put("allowedContent", "");
 
@@ -81,8 +80,9 @@ public class FragmentEntryLinkEditorConfigContributor
 		jsonObject.put("extraPlugins", getExtraPluginsLists());
 
 		jsonObject.put(
-			"filebrowserImageBrowseLinkUrl", itemSelectorURL.toString());
-		jsonObject.put("filebrowserImageBrowseUrl", itemSelectorURL.toString());
+			"filebrowserImageBrowseLinkUrl", imageSelectorURL.toString());
+		jsonObject.put(
+			"filebrowserImageBrowseUrl", imageSelectorURL.toString());
 
 		jsonObject.put("removePlugins", getRemovePluginsLists());
 
@@ -97,6 +97,21 @@ public class FragmentEntryLinkEditorConfigContributor
 		return "ae_autolink,ae_dragresize,ae_addimages,ae_imagealignment," +
 			"ae_placeholder,ae_selectionregion,ae_tableresize," +
 				"ae_tabletools,ae_uicore,itemselector,media,adaptivemedia";
+	}
+
+	protected ItemSelectorCriterion getFileItemSelectorCriterion() {
+		ItemSelectorCriterion fileItemSelectorCriterion =
+			new FileItemSelectorCriterion();
+
+		List<ItemSelectorReturnType> desiredItemSelectorReturnTypes =
+			new ArrayList<>();
+
+		desiredItemSelectorReturnTypes.add(new URLItemSelectorReturnType());
+
+		fileItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
+			desiredItemSelectorReturnTypes);
+
+		return fileItemSelectorCriterion;
 	}
 
 	protected ItemSelectorCriterion getImageItemSelectorCriterion() {

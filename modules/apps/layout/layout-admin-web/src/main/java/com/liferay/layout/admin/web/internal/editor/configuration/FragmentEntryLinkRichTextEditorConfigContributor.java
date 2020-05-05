@@ -19,6 +19,7 @@ import com.liferay.item.selector.ItemSelectorCriterion;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
 import com.liferay.item.selector.criteria.URLItemSelectorReturnType;
+import com.liferay.item.selector.criteria.file.criterion.FileItemSelectorCriterion;
 import com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion;
 import com.liferay.item.selector.criteria.url.criterion.URLItemSelectorCriterion;
 import com.liferay.layout.admin.constants.LayoutAdminPortletKeys;
@@ -68,9 +69,13 @@ public class FragmentEntryLinkRichTextEditorConfigContributor
 		sb.append(getAllowedContentTable());
 		sb.append(" span[*](*){*}; ");
 
+		PortletURL imageSelectorURL = _itemSelector.getItemSelectorURL(
+			requestBackedPortletURLFactory, "_EDITOR_NAME_selectImage",
+			getImageItemSelectorCriterion(), getURLItemSelectorCriterion());
+
 		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
 			requestBackedPortletURLFactory, "_EDITOR_NAME_selectItem",
-			getImageItemSelectorCriterion(), getURLItemSelectorCriterion());
+			getFileItemSelectorCriterion(), getURLItemSelectorCriterion());
 
 		jsonObject.put("allowedContent", sb.toString());
 
@@ -80,8 +85,9 @@ public class FragmentEntryLinkRichTextEditorConfigContributor
 		jsonObject.put("extraPlugins", getExtraPluginsLists());
 
 		jsonObject.put(
-			"filebrowserImageBrowseLinkUrl", itemSelectorURL.toString());
-		jsonObject.put("filebrowserImageBrowseUrl", itemSelectorURL.toString());
+			"filebrowserImageBrowseLinkUrl", imageSelectorURL.toString());
+		jsonObject.put(
+			"filebrowserImageBrowseUrl", imageSelectorURL.toString());
 
 		jsonObject.put("removePlugins", getRemovePluginsLists());
 
@@ -109,6 +115,21 @@ public class FragmentEntryLinkRichTextEditorConfigContributor
 		return "ae_autolink,ae_dragresize,ae_addimages,ae_imagealignment," +
 			"ae_placeholder,ae_selectionregion,ae_tableresize," +
 				"ae_tabletools,ae_uicore,itemselector,media,adaptivemedia";
+	}
+
+	protected ItemSelectorCriterion getFileItemSelectorCriterion() {
+		ItemSelectorCriterion fileItemSelectorCriterion =
+			new FileItemSelectorCriterion();
+
+		List<ItemSelectorReturnType> desiredItemSelectorReturnTypes =
+			new ArrayList<>();
+
+		desiredItemSelectorReturnTypes.add(new URLItemSelectorReturnType());
+
+		fileItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
+			desiredItemSelectorReturnTypes);
+
+		return fileItemSelectorCriterion;
 	}
 
 	protected ItemSelectorCriterion getImageItemSelectorCriterion() {
