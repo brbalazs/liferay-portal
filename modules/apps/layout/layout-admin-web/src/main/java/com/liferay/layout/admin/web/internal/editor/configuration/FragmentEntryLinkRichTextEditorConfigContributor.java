@@ -23,6 +23,7 @@ import com.liferay.item.selector.criteria.file.criterion.FileItemSelectorCriteri
 import com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion;
 import com.liferay.item.selector.criteria.url.criterion.URLItemSelectorCriterion;
 import com.liferay.layout.admin.constants.LayoutAdminPortletKeys;
+import com.liferay.layout.item.selector.criterion.LayoutItemSelectorCriterion;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.editor.configuration.BaseEditorConfigContributor;
 import com.liferay.portal.kernel.editor.configuration.EditorConfigContributor;
@@ -71,7 +72,7 @@ public class FragmentEntryLinkRichTextEditorConfigContributor
 
 		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
 			requestBackedPortletURLFactory, "_EDITOR_NAME_selectItem",
-			getFileItemSelectorCriterion(), getURLItemSelectorCriterion());
+			getFileItemSelectorCriterion(), getLayoutItemSelectorURL());
 		PortletURL imageSelectorURL = _itemSelector.getItemSelectorURL(
 			requestBackedPortletURLFactory, "_EDITOR_NAME_selectImage",
 			getImageItemSelectorCriterion(), getURLItemSelectorCriterion());
@@ -145,6 +146,22 @@ public class FragmentEntryLinkRichTextEditorConfigContributor
 			desiredItemSelectorReturnTypes);
 
 		return imageItemSelectorCriterion;
+	}
+
+	protected ItemSelectorCriterion getLayoutItemSelectorURL() {
+		List<ItemSelectorReturnType> desiredItemSelectorReturnTypes =
+			new ArrayList<>();
+
+		desiredItemSelectorReturnTypes.add(new URLItemSelectorReturnType());
+
+		LayoutItemSelectorCriterion layoutItemSelectorCriterion =
+			new LayoutItemSelectorCriterion();
+
+		layoutItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
+			desiredItemSelectorReturnTypes);
+		layoutItemSelectorCriterion.setShowHiddenPages(true);
+
+		return layoutItemSelectorCriterion;
 	}
 
 	protected String getRemovePluginsLists() {
