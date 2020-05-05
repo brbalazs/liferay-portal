@@ -29,7 +29,7 @@ export const useDebounce = (value: any, delay: number) => {
 };
 
 export const useFakeLoading = (data: any, time: number = 125) => {
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		setLoading(true);
