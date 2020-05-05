@@ -1326,6 +1326,9 @@ public class CommerceOrderItemLocalServiceImpl
 
 		commerceOrderItem.setFinalPriceWithTaxAmount(
 			finalPriceMoneyWithTaxAmount.getPrice());
+
+		commerceOrderItem.setCommercePriceListId(
+			commerceProductPrice.getCommercePriceListId());
 	}
 
 	private void _setCommerceOrderItemPrice(

@@ -25,6 +25,11 @@ import java.math.BigDecimal;
 public class CommerceProductPriceImpl implements CommerceProductPrice {
 
 	@Override
+	public long getCommercePriceListId() {
+		return _commercePriceListId;
+	}
+
+	@Override
 	public CommerceDiscountValue getDiscountValue() {
 		return _commerceDiscountValue;
 	}
@@ -87,6 +92,10 @@ public class CommerceProductPriceImpl implements CommerceProductPrice {
 			commerceDiscountValueWithTaxAmount;
 	}
 
+	public void setCommercePriceListId(long commercePriceListId) {
+		_commercePriceListId = commercePriceListId;
+	}
+
 	public void setFinalPrice(CommerceMoney finalPrice) {
 		_finalPrice = finalPrice;
 	}
@@ -127,6 +136,7 @@ public class CommerceProductPriceImpl implements CommerceProductPrice {
 
 	private CommerceDiscountValue _commerceDiscountValue;
 	private CommerceDiscountValue _commerceDiscountValueWithTaxAmount;
+	private long _commercePriceListId;
 	private CommerceMoney _finalPrice;
 	private CommerceMoney _finalPriceWithTaxAmount;
 	private int _quantity;
