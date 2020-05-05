@@ -222,9 +222,10 @@ public class ForgotPasswordMVCActionCommand extends BaseMVCActionCommand {
 		try {
 			return _getUser(actionRequest);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug("Unable to get user: " + e.getMessage(), e);
+				_log.debug(
+					"Unable to get user: " + exception.getMessage(), exception);
 			}
 		}
 
@@ -237,7 +238,7 @@ public class ForgotPasswordMVCActionCommand extends BaseMVCActionCommand {
 		Set<String> reminderQueryQuestions =
 			defaultUser.getReminderQueryQuestions();
 
-		if (reminderQueryQuestions.size() > 0) {
+		if (!reminderQueryQuestions.isEmpty()) {
 			Iterator<String> it = reminderQueryQuestions.iterator();
 
 			defaultUser.setReminderQueryQuestion(it.next());
@@ -256,11 +257,6 @@ public class ForgotPasswordMVCActionCommand extends BaseMVCActionCommand {
 	protected void sendPassword(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		Company company = themeDisplay.getCompany();
 
 		User user = getUser(actionRequest);
 
@@ -295,6 +291,11 @@ public class ForgotPasswordMVCActionCommand extends BaseMVCActionCommand {
 
 			return;
 		}
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		Company company = themeDisplay.getCompany();
 
 		PortletPreferences portletPreferences = actionRequest.getPreferences();
 
