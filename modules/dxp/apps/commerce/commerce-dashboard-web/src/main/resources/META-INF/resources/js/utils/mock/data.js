@@ -862,12 +862,7 @@ export const output = {
 				33250,
 				25930,
 				13300,
-				39900,
-				{
-					high: 0,
-					low: 0,
-					mid: 1.4e-45
-				}
+				39900
 			]
 		],
 		names: {
