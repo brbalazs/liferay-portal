@@ -68,7 +68,6 @@ public class FragmentEntryLinkExportImportContentProcessor
 			_dlReferencesExportImportContentProcessor.
 				replaceExportContentReferences(
 					portletDataContext, stagedModel, content, true, false);
-
 		content =
 			_layoutReferencesExportImportContentProcessor.
 				replaceExportContentReferences(
