@@ -25,13 +25,13 @@ import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.test.util.TestDataConstants;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 
 import java.io.File;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -96,13 +96,10 @@ public class DocumentResourceTest extends BaseDocumentResourceTestCase {
 
 	@Override
 	protected Map<String, File> getMultipartFiles() throws Exception {
-		Map<String, File> files = new HashMap<>();
-
-		String randomString = RandomTestUtil.randomString();
-
-		files.put("file", FileUtil.createTempFile(randomString.getBytes()));
-
-		return files;
+		return HashMapBuilder.<String, File>put(
+			"file",
+			() -> FileUtil.createTempFile(TestDataConstants.TEST_BYTE_ARRAY)
+		).build();
 	}
 
 	@Override
