@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.product.internal.option;
 
-import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
@@ -38,7 +37,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -102,16 +100,6 @@ public class CommerceOptionValueHelperImpl
 					commerceOptionValueBuilder.quantity(
 						cpDefinitionOptionValueRel.getQuantity());
 
-					if (Objects.equals(
-							cpDefinitionOptionRel.getPriceType(),
-							CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
-
-						commerceOptionValues.add(
-							commerceOptionValueBuilder.build());
-
-						continue;
-					}
-
 					CPInstance cpDefinitionOptionValueRelCPInstance =
 						cpDefinitionOptionValueRel.fetchCPInstance();
 
@@ -133,8 +121,10 @@ public class CommerceOptionValueHelperImpl
 	}
 
 	@Override
-	public CommerceOptionValue toCommerceOptionValue(String json) {
-		return _toCommerceOptionValue(_jsonFactory.createJSONObject());
+	public CommerceOptionValue toCommerceOptionValue(String json)
+		throws JSONException {
+
+		return _toCommerceOptionValue(_jsonFactory.createJSONObject(json));
 	}
 
 	public List<CommerceOptionValue> toCommerceOptionValues(String json)
