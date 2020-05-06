@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cell should render 1`] = `
+<td
+  className=""
+/>
+`;
+
+exports[`Cell should render as a table title 1`] = `
+<td
+  className=""
+>
+  <h4
+    className="table-title text-truncate"
+  />
+</td>
+`;

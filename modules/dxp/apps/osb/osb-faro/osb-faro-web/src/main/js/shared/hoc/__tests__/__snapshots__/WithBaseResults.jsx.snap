@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WithBaseResults Renders table w/ data 1`] = `
+<[object Object]
+  defaultSort={
+    Object {
+      "field": "Test",
+      "sortOrder": "desc",
+    }
+  }
+  delta={10}
+  orderBy="desc"
+  orderByField="Test"
+  page={1}
+  router={
+    Object {
+      "params": Object {
+        "groupId": "123",
+      },
+      "query": Object {
+        "delta": 10,
+        "page": 1,
+      },
+    }
+  }
+/>
+`;

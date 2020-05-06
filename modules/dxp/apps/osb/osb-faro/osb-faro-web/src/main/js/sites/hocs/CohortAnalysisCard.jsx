@@ -1,0 +1,96 @@
+import BasePage from 'shared/components/base-page';
+import Card from 'shared/components/Card';
+import CohortAnalysis from 'sites/components/cohort-analysis';
+import CohortQuery from 'sites/queries/CohortQuery';
+import Form from 'shared/components/form';
+import React, {useContext, useState} from 'react';
+import {ClaySelectWithOption} from '@clayui/select';
+import {compose} from 'shared/hoc';
+import {
+	DAY,
+	INTERVAL_OPTIONS,
+	VISITORS,
+	VISITORS_TYPE_OPTIONS
+} from 'sites/components/cohort-analysis/utils';
+import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
+import {graphql} from '@apollo/react-hoc';
+import {mapPropsToOptions, mapResultToProps} from './mappers/cohort-query';
+import {withEmpty} from 'cerebro-shared/hocs/utils';
+import {withError, withLoading} from 'shared/hoc/util';
+
+const CohortAnalysisWithData = compose(
+	graphql(CohortQuery, {
+		options: mapPropsToOptions,
+		props: mapResultToProps
+	}),
+	withError({page: false}),
+	withEmpty({emptyTitle: getFormattedTitle(Liferay.Language.get('cohorts'))}),
+	withLoading({alignCenter: true, page: false})
+)(CohortAnalysis);
+
+const CohortAnalysisCard = () => {
+	const {router} = useContext(BasePage.Context);
+
+	const [interval, setInterval] = useState(DAY);
+	const [visitorsType, setVisitorsType] = useState(VISITORS);
+
+	const handleIntervalSelect = event => {
+		const {value} = event.target;
+
+		setInterval(value);
+	};
+
+	const handleVisitorsTypeSelect = event => {
+		const {value} = event.target;
+
+		setVisitorsType(value);
+	};
+
+	const {
+		params: {channelId}
+	} = router;
+
+	return (
+		<Card className='cohort-analysis-card-root'>
+			<Card.Header>
+				<Card.Title>
+					{Liferay.Language.get('cohort-analysis')}
+				</Card.Title>
+			</Card.Header>
+
+			<Card.Body>
+				<Form.Group autoFit>
+					<Form.GroupItem shrink>
+						<ClaySelectWithOption
+							className='visitors-type-select'
+							onChange={handleVisitorsTypeSelect}
+							options={VISITORS_TYPE_OPTIONS}
+							value={visitorsType}
+						/>
+					</Form.GroupItem>
+
+					<Form.GroupItem label shrink>
+						{Liferay.Language.get('by')}
+					</Form.GroupItem>
+
+					<Form.GroupItem shrink>
+						<ClaySelectWithOption
+							className='interval-select'
+							onChange={handleIntervalSelect}
+							options={INTERVAL_OPTIONS}
+							value={interval}
+						/>
+					</Form.GroupItem>
+				</Form.Group>
+
+				<CohortAnalysisWithData
+					channelId={channelId}
+					interval={interval}
+					visitorsType={visitorsType}
+				/>
+			</Card.Body>
+		</Card>
+	);
+};
+
+export default CohortAnalysisCard;

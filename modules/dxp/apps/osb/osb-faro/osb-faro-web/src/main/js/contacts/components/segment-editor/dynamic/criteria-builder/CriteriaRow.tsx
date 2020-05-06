@@ -1,0 +1,518 @@
+import AccountInput from '../inputs/AccountInput';
+import autobind from 'autobind-decorator';
+import BehaviorInput from '../inputs/BehaviorInput';
+import BooleanInput from '../inputs/BooleanInput';
+import Button from 'shared/components/Button';
+import CustomBooleanInput from '../inputs/CustomBooleanInput';
+import CustomDateInput from '../inputs/CustomDateInput';
+import CustomDateTimeInput from '../inputs/CustomDateTimeInput';
+import CustomNumberInput from '../inputs/CustomNumberInput';
+import DateInput from '../inputs/DateInput';
+import DateTimeInput from '../inputs/DateTimeInput';
+import DurationInput from '../inputs/DurationInput';
+import Form from 'shared/components/form';
+import GeolocationInput from '../inputs/GeolocationInput';
+import getCN from 'classnames';
+import Icon from 'shared/components/Icon';
+import IndividualSelectInput from '../inputs/IndividualSelectInput';
+import InterestBooleanInput from '../inputs/InterestBooleanInput';
+import NumberInput from '../inputs/NumberInput';
+import OrganizationSelectInput from '../inputs/OrganizationSelectInput';
+import OrganizationTextInput from '../inputs/OrganizationTextInput';
+import React from 'react';
+import SessionInput from '../inputs/SessionInput';
+import StringInput from '../inputs/StringInput';
+import {
+	AddProperty,
+	withReferencedObjectsConsumer
+} from '../context/referencedObjects';
+import {ClaySelectWithOption} from '@clayui/select';
+import {compose} from 'redux';
+import {
+	ConnectDragPreview,
+	ConnectDragSource,
+	ConnectDropTarget,
+	DragSource as dragSource,
+	DropTarget as dropTarget,
+	DropTargetMonitor
+} from 'react-dnd';
+import {
+	createNewGroup,
+	findPropertyByCriterion,
+	generateRowId,
+	getSupportedOperatorsFromType,
+	isOfKnownType,
+	isValid
+} from '../utils/utils';
+import {Criterion, CriterionGroup, OnMove, Operator} from '../utils/types';
+import {DragTypes} from '../utils/drag-types';
+import {get} from 'lodash';
+import {
+	isKnown,
+	isUnknown,
+	PROPERTY_TYPES,
+	RELATIONAL_OPERATORS
+} from '../utils/constants';
+import {Map} from 'immutable';
+import {Property} from 'shared/util/records';
+
+const acceptedDragTypes = [DragTypes.CriteriaRow, DragTypes.Property];
+
+/**
+ * Prevents rows from dropping onto itself and adding properties to not matching
+ * contributors.
+ * This method must be called `canDrop`.
+ */
+const canDrop = (
+	{
+		criteriaGroupId: destGroupId,
+		index: destIndex
+	}: {
+		criteriaGroupId: string;
+		index: number;
+	},
+	monitor: DropTargetMonitor
+): boolean => {
+	const {
+		criteriaGroupId: startGroupId,
+		index: startIndex
+	} = monitor.getItem();
+
+	return destGroupId !== startGroupId || destIndex !== startIndex;
+};
+
+/**
+ * Implements the behavior of what will occur when an item is dropped.
+ * Items dropped on top of rows will create a new grouping.
+ * This method must be called `drop`.
+ */
+const drop = (
+	{
+		addProperty,
+		criteriaGroupId: destGroupId,
+		criterion,
+		index: destIndex,
+		onChange,
+		onMove
+	}: {
+		addProperty: AddProperty;
+		criteriaGroupId: string;
+		criterion: Criterion;
+		index: number;
+		onChange: (newGroup: CriterionGroup) => void;
+		onMove: OnMove;
+	},
+	monitor: DropTargetMonitor
+): void => {
+	const {
+		criteriaGroupId: startGroupId,
+		criterion: droppedCriterion,
+		index: startIndex,
+		property
+	} = monitor.getItem();
+
+	const {
+		defaultValue,
+		displayValue,
+		operatorName,
+		propertyName,
+		rowId,
+		touched,
+		type,
+		valid,
+		value
+	} = droppedCriterion;
+
+	if (property) {
+		addProperty(property);
+	}
+
+	const droppedCriterionValue = isValid(value) ? value : defaultValue;
+
+	const operators = getSupportedOperatorsFromType(type);
+
+	const newCriterion = {
+		displayValue,
+		operatorName: operatorName ? operatorName : operators[0].name,
+		propertyName,
+		rowId: rowId || generateRowId(),
+		touched,
+		valid,
+		value: droppedCriterionValue
+	};
+
+	const itemType = monitor.getItemType();
+
+	const newGroup = createNewGroup([criterion, newCriterion]);
+
+	if (itemType === DragTypes.Property) {
+		onChange(newGroup);
+	} else if (itemType === DragTypes.CriteriaRow) {
+		onMove(
+			startGroupId,
+			startIndex,
+			destGroupId,
+			destIndex,
+			newGroup,
+			true
+		);
+	}
+};
+
+/**
+ * Passes the required values to the drop target.
+ * This method must be called `beginDrag`.
+ * @param {Object} props Component's current props
+ * @returns {Object} The props to be passed to the drop target.
+ */
+function beginDrag({criteriaGroupId, criterion, index}) {
+	return {criteriaGroupId, criterion, index};
+}
+
+interface ICriteriaRowProps {
+	addProperty: AddProperty;
+	canDrop: boolean;
+	channelId: string;
+	connectDragPreview: ConnectDragPreview;
+	connectDragSource: ConnectDragSource;
+	connectDropTarget: ConnectDropTarget;
+	criteriaGroupId: string;
+	criterion: Criterion;
+	dragging?: boolean;
+	groupId: string;
+	hover?: boolean;
+	index: number;
+	onAdd: (index: number, criterion: Criterion) => void;
+	onChange: (criterion: Criterion | Criterion[]) => void;
+	onDelete: (index: number) => void;
+	onMove: OnMove;
+	referencedProperties: Map<string, Map<string, Property>>;
+}
+
+interface ICriteriaRowState {
+	selectedProperty: Property;
+	supportedOperators: Operator[];
+}
+
+class CriteriaRow extends React.Component<
+	ICriteriaRowProps,
+	ICriteriaRowState
+> {
+	static defaultProps = {
+		criterion: {}
+	};
+
+	constructor(props) {
+		super(props);
+
+		const selectedProperty = this.getSelectedProperty();
+
+		const supportedOperators = selectedProperty
+			? getSupportedOperatorsFromType(selectedProperty.type)
+			: [];
+
+		this.state = {
+			selectedProperty,
+			supportedOperators
+		};
+	}
+
+	getSelectedOperator() {
+		const {
+			props: {
+				criterion: {operatorName, value}
+			},
+			state: {supportedOperators}
+		} = this;
+
+		let operatorKey = operatorName;
+
+		const valueNull = value === null;
+
+		if (operatorName === RELATIONAL_OPERATORS.EQ && valueNull) {
+			operatorKey = isUnknown;
+		} else if (operatorName === RELATIONAL_OPERATORS.NE && valueNull) {
+			operatorKey = isKnown;
+		}
+
+		const selectedOperator = supportedOperators.find(
+			({key}) => key === operatorKey
+		);
+
+		return (
+			selectedOperator || {
+				key: operatorKey,
+				label: operatorKey,
+				name: operatorName
+			}
+		);
+	}
+
+	getSelectedProperty() {
+		const {
+			props: {criterion, referencedProperties}
+		} = this;
+
+		return findPropertyByCriterion(criterion, referencedProperties);
+	}
+
+	getValue(value, key) {
+		if (isOfKnownType(key)) {
+			return null;
+		} else if (value === null) {
+			return '';
+		}
+
+		return value;
+	}
+
+	@autobind
+	handleDelete(event) {
+		event.preventDefault();
+
+		const {index, onDelete} = this.props;
+
+		onDelete(index);
+	}
+
+	@autobind
+	handleDuplicate(event) {
+		event.preventDefault();
+
+		const {criterion, index, onAdd} = this.props;
+
+		onAdd(index + 1, {...criterion, rowId: generateRowId()});
+	}
+
+	@autobind
+	handleOperatorChange(event) {
+		const {value} = event.target;
+
+		const {
+			props: {criterion, onChange},
+			state: {supportedOperators}
+		} = this;
+
+		const newVal = this.getValue(criterion.value, value);
+
+		let params = {};
+
+		if (isOfKnownType(value) || criterion.value === null) {
+			params = {valid: isValid(newVal)};
+		}
+
+		onChange({
+			...criterion,
+			operatorName: supportedOperators.find(({key}) => key === value)
+				.name,
+			value: newVal,
+			...params
+		});
+	}
+
+	/**
+	 * Updates the criteria with a criterion value change. The param 'value'
+	 * will only be an array when selecting multiple entities (see
+	 * {@link SelectEntityInput.js}). And in the case of an array, a new
+	 * group with multiple criterion rows will be created.
+	 * @param {Array|object} value The properties or list of objects with
+	 * properties to update.
+	 */
+	@autobind
+	handleTypedInputChange(value) {
+		const {criterion, onChange} = this.props;
+
+		if (Array.isArray(value)) {
+			const items = value.map((item, i) => ({
+				...criterion,
+				...item,
+				rowId: i === 0 ? criterion.rowId : generateRowId()
+			}));
+
+			onChange(items);
+		} else {
+			onChange({
+				...criterion,
+				...value
+			});
+		}
+	}
+
+	@autobind
+	renderOperator() {
+		const {supportedOperators} = this.state;
+
+		const {key: selectedOperatorKey} = this.getSelectedOperator();
+
+		const singleOption = supportedOperators.length === 1;
+
+		return (
+			<Form.GroupItem className='operator' label={singleOption} shrink>
+				{singleOption ? (
+					supportedOperators[0].label
+				) : (
+					<ClaySelectWithOption
+						className='criterion-input operator-input'
+						onChange={this.handleOperatorChange}
+						options={supportedOperators.map(({key, label}) => ({
+							label,
+							value: key
+						}))}
+						value={selectedOperatorKey}
+					/>
+				)}
+			</Form.GroupItem>
+		);
+	}
+
+	renderValueInput() {
+		const {
+			props: {channelId, criterion, groupId},
+			state: {selectedProperty}
+		} = this;
+
+		const {label, options, type} = selectedProperty;
+
+		const inputComponentsMap = {
+			[PROPERTY_TYPES.BEHAVIOR]: BehaviorInput,
+			[PROPERTY_TYPES.BOOLEAN]: BooleanInput,
+			[PROPERTY_TYPES.ACCOUNT_NUMBER]: AccountInput,
+			[PROPERTY_TYPES.ACCOUNT_TEXT]: AccountInput,
+			[PROPERTY_TYPES.DATE]: DateInput,
+			[PROPERTY_TYPES.DATE_TIME]: DateTimeInput,
+			[PROPERTY_TYPES.DURATION]: DurationInput,
+			[PROPERTY_TYPES.INTEREST]: InterestBooleanInput,
+			[PROPERTY_TYPES.NUMBER]: NumberInput,
+			[PROPERTY_TYPES.ORGANIZATION_BOOLEAN]: CustomBooleanInput,
+			[PROPERTY_TYPES.ORGANIZATION_NUMBER]: CustomNumberInput,
+			[PROPERTY_TYPES.ORGANIZATION_SELECT_TEXT]: OrganizationSelectInput,
+			[PROPERTY_TYPES.ORGANIZATION_TEXT]: OrganizationTextInput,
+			[PROPERTY_TYPES.ORGANIZATION_DATE]: CustomDateInput,
+			[PROPERTY_TYPES.ORGANIZATION_DATE_TIME]: CustomDateTimeInput,
+			[PROPERTY_TYPES.SELECT_TEXT]: IndividualSelectInput,
+			[PROPERTY_TYPES.SESSION_DATE_TIME]: CustomDateTimeInput,
+			[PROPERTY_TYPES.SESSION_GEOLOCATION]: GeolocationInput,
+			[PROPERTY_TYPES.SESSION_NUMBER]: SessionInput,
+			[PROPERTY_TYPES.SESSION_TEXT]: SessionInput,
+			[PROPERTY_TYPES.TEXT]: StringInput
+		};
+
+		const InputComponent: React.ElementType =
+			inputComponentsMap[type || criterion.type] ||
+			inputComponentsMap[PROPERTY_TYPES.TEXT];
+
+		return (
+			<InputComponent
+				channelId={channelId}
+				displayValue={label || ''}
+				groupId={groupId}
+				onChange={this.handleTypedInputChange}
+				operatorRenderer={this.renderOperator}
+				options={options}
+				property={selectedProperty}
+				touched={criterion.touched}
+				valid={criterion.valid}
+				value={criterion.value}
+			/>
+		);
+	}
+
+	render() {
+		const {
+			props: {
+				canDrop,
+				connectDragPreview,
+				connectDragSource,
+				connectDropTarget,
+				dragging,
+				hover
+			},
+			state: {selectedProperty}
+		} = this;
+
+		const classes = getCN('criterion-row-root', {
+			'dnd-drag': dragging,
+			'dnd-hover': hover && canDrop
+		});
+
+		return connectDropTarget(
+			connectDragPreview(
+				<div className={classes}>
+					<div
+						className={`color-stripe color--${get(
+							selectedProperty,
+							'propertyKey',
+							'disabled'
+						)}`}
+					/>
+
+					<div className='edit-container'>
+						{connectDragSource(
+							<div className='drag-icon'>
+								<Icon symbol='drag' />
+							</div>
+						)}
+
+						{selectedProperty ? (
+							this.renderValueInput()
+						) : (
+							<div className='non-existent-property-message'>
+								{Liferay.Language.get(
+									'attribute-no-longer-exists'
+								)}
+							</div>
+						)}
+
+						<div className='actions'>
+							<Button
+								aria-label={Liferay.Language.get('duplicate')}
+								display='default'
+								onClick={this.handleDuplicate}
+								size='sm'
+							>
+								<Icon symbol='paste' />
+							</Button>
+
+							<Button
+								aria-label={Liferay.Language.get('delete')}
+								display='default'
+								onClick={this.handleDelete}
+								size='sm'
+							>
+								<Icon symbol='trash' />
+							</Button>
+						</div>
+					</div>
+				</div>
+			)
+		);
+	}
+}
+
+const CriteriaRowWithDrag = dragSource(
+	DragTypes.CriteriaRow,
+	{
+		beginDrag
+	},
+	(connect, monitor) => ({
+		connectDragPreview: connect.dragPreview(),
+		connectDragSource: connect.dragSource(),
+		dragging: monitor.isDragging()
+	})
+)(CriteriaRow);
+
+export default compose(
+	withReferencedObjectsConsumer,
+	dropTarget(
+		acceptedDragTypes,
+		{
+			canDrop,
+			drop
+		},
+		(connect, monitor) => ({
+			canDrop: monitor.canDrop(),
+			connectDropTarget: connect.dropTarget(),
+			hover: monitor.isOver()
+		})
+	)
+)(CriteriaRowWithDrag);

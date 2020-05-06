@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Name should render 1`] = `
+<td
+  className="name-cell-root"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="text-truncate"
+    >
+      <div
+        className="table-title text-truncate"
+      >
+        foo
+      </div>
+      <div
+        className="secondary-info text-truncate"
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Name should render the name as a link if a route is passed 1`] = `
+<td
+  className="name-cell-root"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="text-truncate"
+    >
+      <div
+        className="table-title text-truncate"
+      >
+        <Link
+          className="text-truncate"
+          onClick={[Function]}
+          replace={false}
+          to="/foo/test"
+        >
+          foo
+        </Link>
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Name should render with an icon 1`] = `
+<td
+  className="name-cell-root"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="icon-container"
+    >
+      <div>
+        foo icon
+      </div>
+    </div>
+    <div
+      className="text-truncate"
+    >
+      <div
+        className="table-title text-truncate"
+      >
+        foo
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Name should render with secondary info 1`] = `
+<td
+  className="name-cell-root"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="text-truncate"
+    >
+      <div
+        className="table-title text-truncate"
+      >
+        <Link
+          className="text-truncate"
+          onClick={[Function]}
+          replace={false}
+          to="/foo/test"
+        >
+          foo
+        </Link>
+      </div>
+      <div
+        className="secondary-info text-truncate"
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Name should render without a link in the name if disabled is true 1`] = `
+<td
+  className="name-cell-root"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="text-truncate"
+    >
+      <div
+        className="table-title text-truncate"
+      >
+        foo
+      </div>
+    </div>
+  </div>
+</td>
+`;

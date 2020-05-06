@@ -1,0 +1,140 @@
+import Button from 'shared/components/Button';
+import DocumentTitle from 'shared/components/DocumentTitle';
+import getCN from 'classnames';
+import Icon from 'shared/components/Icon';
+import React, {createContext} from 'react';
+import UserDropDown from 'shared/components/user-dropdown';
+import withCurrentUser from 'shared/hoc/WithCurrentUser';
+import {Align} from '@clayui/drop-down';
+import {LocalStorageMechanism, Storage} from 'metal-storage';
+import {PropTypes} from 'prop-types';
+import {Routes} from 'shared/util/router';
+
+export const BasePageContext = createContext({currentUser: {}});
+
+export class WorkspacesBasePage extends React.Component {
+	static defaultProps = {
+		backLabel: Liferay.Language.get('back'),
+		details: ''
+	};
+
+	static propTypes = {
+		backLabel: PropTypes.string,
+		backUrl: PropTypes.string,
+		details: PropTypes.oneOfType([
+			PropTypes.array,
+			PropTypes.string,
+			PropTypes.func
+		]),
+		title: PropTypes.string
+	};
+
+	constructor(props) {
+		super(props);
+
+		const storage = new Storage(new LocalStorageMechanism());
+
+		storage.remove('activeWorkspaceId');
+
+		if (window.setStatus && window.$zopim && window.$zopim.livechat) {
+			window.setStatus();
+		}
+	}
+
+	getUserMenuItems() {
+		const {currentUser} = this.props;
+
+		return [
+			{
+				items: [
+					{
+						externalLink: true,
+						label: Liferay.Language.get('account'),
+						url: `https://web.liferay.com/web/${currentUser.screenName}/account-settings`
+					},
+					{
+						externalLink: true,
+						label: Liferay.Language.get('sign-out'),
+						url: Routes.LOGOUT
+					}
+				],
+				subheaderLabel: currentUser.emailAddress
+			}
+		];
+	}
+
+	render() {
+		const {
+			backLabel,
+			backURL,
+			children,
+			className,
+			currentUser,
+			details,
+			title
+		} = this.props;
+
+		return (
+			<BasePageContext.Provider value={{currentUser}}>
+				<div className={getCN('workspaces-base-page-root', className)}>
+					<DocumentTitle title={title} />
+
+					<div className='header-container'>
+						<a href='https://liferay.com' target='_blank'>
+							<Icon
+								className='liferay-logo'
+								symbol='liferay-logo'
+							/>
+						</a>
+
+						<UserDropDown
+							alignmentPosition={Align.BottomRight}
+							menuItems={this.getUserMenuItems()}
+							showCaret
+							userName={currentUser.name}
+						/>
+					</div>
+
+					<div className='content'>
+						<div className='content-container'>
+							{backURL && (
+								<div className='back-container'>
+									<Button display='unstyled' href={backURL}>
+										<Icon symbol='angle-left' />
+
+										{backLabel}
+									</Button>
+								</div>
+							)}
+
+							<div className='title-container'>
+								<div className='logo-container'>
+									<Icon
+										className='logo-icon'
+										symbol='ac-logo'
+									/>
+
+									<span className='logo-text'>
+										{Liferay.Language.get(
+											'analytics-cloud'
+										)}
+									</span>
+								</div>
+
+								<h1 className='title'>{title}</h1>
+
+								<div className='details-container'>
+									{details}
+								</div>
+							</div>
+
+							{children}
+						</div>
+					</div>
+				</div>
+			</BasePageContext.Provider>
+		);
+	}
+}
+
+export default withCurrentUser(WorkspacesBasePage);

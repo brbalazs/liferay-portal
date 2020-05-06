@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseSelect should defocus the selected item 1`] = `
+<div>
+  <div
+    aria-haspopup="true"
+    class="input-group base-select-input-root select-input-root"
+  >
+    <div
+      class="input-group-item"
+    >
+      <input
+        autocomplete="nope"
+        class="input-root form-control input-group-inset input-group-inset-after"
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        class="input-group-inset-item input-group-inset-item-after"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+          viewBox=""
+        >
+          <use
+            xlink:href="#caret-bottom"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseSelect should fetch items with focus 1`] = `
+<div>
+  <div
+    aria-haspopup="true"
+    class="input-group base-select-input-root select-input-root"
+  >
+    <div
+      class="input-group-item"
+    >
+      <input
+        autocomplete="nope"
+        class="input-root form-control input-group-inset input-group-inset-after"
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        class="input-group-inset-item input-group-inset-item-after"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+          viewBox=""
+        >
+          <use
+            xlink:href="#caret-bottom"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseSelect should focus on the next item 1`] = `
+<div>
+  <div
+    aria-haspopup="true"
+    class="input-group base-select-input-root select-input-root"
+  >
+    <div
+      class="input-group-item"
+    >
+      <input
+        autocomplete="nope"
+        class="input-root form-control input-group-inset input-group-inset-after"
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        class="input-group-inset-item input-group-inset-item-after"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+          viewBox=""
+        >
+          <use
+            xlink:href="#caret-bottom"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseSelect should focus on the previous item 1`] = `
+<div>
+  <div
+    aria-haspopup="true"
+    class="input-group base-select-input-root select-input-root"
+  >
+    <div
+      class="input-group-item"
+    >
+      <input
+        autocomplete="nope"
+        class="input-root form-control input-group-inset input-group-inset-after"
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        class="input-group-inset-item input-group-inset-item-after"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+          viewBox=""
+        >
+          <use
+            xlink:href="#caret-bottom"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseSelect should focus on the selected item 1`] = `
+<div>
+  <div
+    aria-haspopup="true"
+    class="input-group base-select-input-root select-input-root"
+  >
+    <div
+      class="input-group-item"
+    >
+      <input
+        autocomplete="nope"
+        class="input-root form-control input-group-inset input-group-inset-after"
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        class="input-group-inset-item input-group-inset-item-after"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+          viewBox=""
+        >
+          <use
+            xlink:href="#caret-bottom"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="selected-item-container"
+    >
+      test
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseSelect should render 1`] = `
+<div>
+  <div
+    aria-haspopup="true"
+    class="input-group base-select-input-root select-input-root"
+  >
+    <div
+      class="input-group-item"
+    >
+      <input
+        autocomplete="nope"
+        class="input-root form-control input-group-inset input-group-inset-after"
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        class="input-group-inset-item input-group-inset-item-after"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+          viewBox=""
+        >
+          <use
+            xlink:href="#caret-bottom"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseSelect should render as disabled 1`] = `
+<div>
+  <div
+    aria-haspopup="true"
+    class="input-group base-select-input-root select-input-root"
+  >
+    <div
+      class="input-group-item"
+    >
+      <input
+        autocomplete="nope"
+        class="input-root form-control input-group-inset input-group-inset-after"
+        disabled=""
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        class="input-group-inset-item input-group-inset-item-after"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+          viewBox=""
+        >
+          <use
+            xlink:href="#caret-bottom"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Item should render 1`] = `
+<div>
+  <li>
+    <button
+      class="button-root btn btn-unstyled dropdown-item text-truncate"
+      type="button"
+    >
+      test
+    </button>
+  </li>
+</div>
+`;
+
+exports[`Item should select an item 1`] = `
+<div>
+  <li>
+    <button
+      class="button-root btn btn-unstyled dropdown-item text-truncate"
+      type="button"
+    >
+      test
+    </button>
+  </li>
+</div>
+`;

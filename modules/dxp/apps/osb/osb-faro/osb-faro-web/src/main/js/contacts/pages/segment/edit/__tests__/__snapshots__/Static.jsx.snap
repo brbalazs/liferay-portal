@@ -1,0 +1,459 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StaticSegmentEdit should not render a navigation warning after being changed back to the original value 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "dirty": false,
+      "errors": Object {},
+      "handleBlur": [Function],
+      "handleChange": [Function],
+      "handleReset": [Function],
+      "handleSubmit": [Function],
+      "initialValues": Object {
+        "name": "",
+        "segmentType": "STATIC",
+      },
+      "isSubmitting": false,
+      "isValid": false,
+      "isValidating": false,
+      "registerField": [Function],
+      "resetForm": [Function],
+      "setError": [Function],
+      "setErrors": [Function],
+      "setFieldError": [Function],
+      "setFieldTouched": [Function],
+      "setFieldValue": [Function],
+      "setFormikState": [Function],
+      "setStatus": [Function],
+      "setSubmitting": [Function],
+      "setTouched": [Function],
+      "setValues": [Function],
+      "status": undefined,
+      "submitCount": 0,
+      "submitForm": [Function],
+      "touched": Object {},
+      "unregisterField": [Function],
+      "validate": undefined,
+      "validateField": [Function],
+      "validateForm": [Function],
+      "validateOnBlur": true,
+      "validateOnChange": true,
+      "validationSchema": undefined,
+      "values": Object {
+        "name": "",
+        "segmentType": "STATIC",
+      },
+    }
+  }
+>
+  <Form
+    onSubmit={[Function]}
+  >
+    <Sheet
+      className="d-flex flex-column"
+      large={false}
+      pageDisplay={true}
+    >
+      <NavigationWarning
+        when={true}
+      />
+      <Header
+        border={true}
+        divider={true}
+      >
+        <h2
+          className="segment-form-title"
+        >
+          Define Segment
+        </h2>
+      </Header>
+      <Body
+        className="form-content form-content-static d-flex flex-column flex-grow-1"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-lg-4"
+          >
+            <FormGroup
+              autoFit={true}
+              className="name-container"
+            >
+              <FormGroupItem>
+                <ForwardRef
+                  inline={true}
+                  label="Name"
+                  name="name"
+                  placeholder="Segment Name"
+                  required={true}
+                  validate={[Function]}
+                />
+              </FormGroupItem>
+            </FormGroup>
+          </div>
+        </div>
+        <div
+          className="row flex-grow-1"
+        >
+          <div
+            className="form-inputs-container col-lg-12"
+          >
+            <Connect(Component)
+              changeset={
+                Immutable.Record {
+                  "added": Immutable.Map {
+                    "test": Object {},
+                  },
+                  "removed": Immutable.Map {},
+                }
+              }
+              delta={2}
+              entityLabel="Individuals"
+              filterBy={Immutable.Map {}}
+              groupId="23"
+              onChange={[Function]}
+              orderBy="asc"
+              orderByField="name"
+              page={1}
+              query=""
+            />
+          </div>
+        </div>
+        <div>
+          <div
+            className="form-actions"
+          >
+            <Button
+              className="cancel"
+              href="/workspace/23/contacts/segments"
+            >
+              Cancel
+            </Button>
+            <Button
+              className="submit"
+              disabled={false}
+              display="primary"
+              type="submit"
+            >
+              Create
+            </Button>
+          </div>
+        </div>
+      </Body>
+    </Sheet>
+  </Form>
+</ContextProvider>
+`;
+
+exports[`StaticSegmentEdit should not render a navigation warning after being changed back to the original value 2`] = `
+<ContextProvider
+  value={
+    Object {
+      "dirty": false,
+      "errors": Object {},
+      "handleBlur": [Function],
+      "handleChange": [Function],
+      "handleReset": [Function],
+      "handleSubmit": [Function],
+      "initialValues": Object {
+        "name": "",
+        "segmentType": "STATIC",
+      },
+      "isSubmitting": false,
+      "isValid": false,
+      "isValidating": false,
+      "registerField": [Function],
+      "resetForm": [Function],
+      "setError": [Function],
+      "setErrors": [Function],
+      "setFieldError": [Function],
+      "setFieldTouched": [Function],
+      "setFieldValue": [Function],
+      "setFormikState": [Function],
+      "setStatus": [Function],
+      "setSubmitting": [Function],
+      "setTouched": [Function],
+      "setValues": [Function],
+      "status": undefined,
+      "submitCount": 0,
+      "submitForm": [Function],
+      "touched": Object {},
+      "unregisterField": [Function],
+      "validate": undefined,
+      "validateField": [Function],
+      "validateForm": [Function],
+      "validateOnBlur": true,
+      "validateOnChange": true,
+      "validationSchema": undefined,
+      "values": Object {
+        "name": "",
+        "segmentType": "STATIC",
+      },
+    }
+  }
+>
+  <Form
+    onSubmit={[Function]}
+  >
+    <Sheet
+      className="d-flex flex-column"
+      large={false}
+      pageDisplay={true}
+    >
+      <NavigationWarning
+        when={false}
+      />
+      <Header
+        border={true}
+        divider={true}
+      >
+        <h2
+          className="segment-form-title"
+        >
+          Define Segment
+        </h2>
+      </Header>
+      <Body
+        className="form-content form-content-static d-flex flex-column flex-grow-1"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-lg-4"
+          >
+            <FormGroup
+              autoFit={true}
+              className="name-container"
+            >
+              <FormGroupItem>
+                <ForwardRef
+                  inline={true}
+                  label="Name"
+                  name="name"
+                  placeholder="Segment Name"
+                  required={true}
+                  validate={[Function]}
+                />
+              </FormGroupItem>
+            </FormGroup>
+          </div>
+        </div>
+        <div
+          className="row flex-grow-1"
+        >
+          <div
+            className="form-inputs-container col-lg-12"
+          >
+            <Connect(Component)
+              changeset={
+                Immutable.Record {
+                  "added": Immutable.Map {},
+                  "removed": Immutable.Map {},
+                }
+              }
+              delta={2}
+              entityLabel="Individuals"
+              filterBy={Immutable.Map {}}
+              groupId="23"
+              onChange={[Function]}
+              orderBy="asc"
+              orderByField="name"
+              page={1}
+              query=""
+            />
+          </div>
+        </div>
+        <div>
+          <div
+            className="form-actions"
+          >
+            <Button
+              className="cancel"
+              href="/workspace/23/contacts/segments"
+            >
+              Cancel
+            </Button>
+            <Button
+              className="submit"
+              disabled={true}
+              display="primary"
+              type="submit"
+            >
+              Create
+            </Button>
+          </div>
+        </div>
+      </Body>
+    </Sheet>
+  </Form>
+</ContextProvider>
+`;
+
+exports[`StaticSegmentEdit should render 1`] = `
+<Formik
+  enableReinitialize={false}
+  initialValues={
+    Object {
+      "name": "",
+      "segmentType": "STATIC",
+    }
+  }
+  isInitialValid={false}
+  onSubmit={[Function]}
+  validateOnBlur={true}
+  validateOnChange={true}
+>
+  <Component />
+</Formik>
+`;
+
+exports[`StaticSegmentEdit should render a navigation warning 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "dirty": false,
+      "errors": Object {},
+      "handleBlur": [Function],
+      "handleChange": [Function],
+      "handleReset": [Function],
+      "handleSubmit": [Function],
+      "initialValues": Object {
+        "name": "Seattle1",
+        "segmentType": "STATIC",
+      },
+      "isSubmitting": false,
+      "isValid": false,
+      "isValidating": false,
+      "registerField": [Function],
+      "resetForm": [Function],
+      "setError": [Function],
+      "setErrors": [Function],
+      "setFieldError": [Function],
+      "setFieldTouched": [Function],
+      "setFieldValue": [Function],
+      "setFormikState": [Function],
+      "setStatus": [Function],
+      "setSubmitting": [Function],
+      "setTouched": [Function],
+      "setValues": [Function],
+      "status": undefined,
+      "submitCount": 0,
+      "submitForm": [Function],
+      "touched": Object {},
+      "unregisterField": [Function],
+      "validate": undefined,
+      "validateField": [Function],
+      "validateForm": [Function],
+      "validateOnBlur": true,
+      "validateOnChange": true,
+      "validationSchema": undefined,
+      "values": Object {
+        "name": "Seattle1",
+        "segmentType": "STATIC",
+      },
+    }
+  }
+>
+  <Form
+    onSubmit={[Function]}
+  >
+    <Sheet
+      className="d-flex flex-column"
+      large={false}
+      pageDisplay={true}
+    >
+      <NavigationWarning
+        when={true}
+      />
+      <Header
+        border={true}
+        divider={true}
+      >
+        <h2
+          className="segment-form-title"
+        >
+          Define Segment
+        </h2>
+      </Header>
+      <Body
+        className="form-content form-content-static d-flex flex-column flex-grow-1"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-lg-4"
+          >
+            <FormGroup
+              autoFit={true}
+              className="name-container"
+            >
+              <FormGroupItem>
+                <ForwardRef
+                  inline={true}
+                  label="Name"
+                  name="name"
+                  placeholder="Segment Name"
+                  required={true}
+                  validate={[Function]}
+                />
+              </FormGroupItem>
+            </FormGroup>
+          </div>
+        </div>
+        <div
+          className="row flex-grow-1"
+        >
+          <div
+            className="form-inputs-container col-lg-12"
+          >
+            <Connect(Component)
+              changeset={
+                Immutable.Record {
+                  "added": Immutable.Map {
+                    "test": Object {},
+                  },
+                  "removed": Immutable.Map {},
+                }
+              }
+              delta={2}
+              entityLabel="Individuals"
+              filterBy={Immutable.Map {}}
+              groupId="23"
+              membershipCount={10}
+              onChange={[Function]}
+              orderBy="asc"
+              orderByField="name"
+              page={1}
+              query=""
+            />
+          </div>
+        </div>
+        <div>
+          <div
+            className="form-actions"
+          >
+            <Button
+              className="cancel"
+              href="/workspace/23/contacts/segments"
+            >
+              Cancel
+            </Button>
+            <Button
+              className="submit"
+              disabled={false}
+              display="primary"
+              type="submit"
+            >
+              Create
+            </Button>
+          </div>
+        </div>
+      </Body>
+    </Sheet>
+  </Form>
+</ContextProvider>
+`;

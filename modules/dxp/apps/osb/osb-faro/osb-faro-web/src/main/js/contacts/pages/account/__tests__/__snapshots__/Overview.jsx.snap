@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountOverview should render 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-xl-7"
+  >
+    <_class
+      account={
+        Immutable.Record {
+          "activitiesCount": 100,
+          "createTime": null,
+          "engagementScore": 0.4899,
+          "id": "1",
+          "individualCount": 10,
+          "name": "account1",
+          "photoURL": "",
+          "properties": Immutable.Map {
+            "yearStarted": "2003",
+            "numberOfEmployees": "9001",
+            "shippingAddress": "123 Fairy Lane Diamond Bar, CA 91765 USA",
+            "accountType": "customer",
+            "phone": "123-123-1234",
+            "ownership": "private",
+            "accountNumber": "123123123",
+            "billingAddress": "123 Fairy Lane Diamond Bar, CA 91765 USA",
+            "website": "www.liferay.com",
+            "description": "Foo company description",
+            "annualRevenue": "USD $1,000,000,000",
+            "fax": "321-321-4321",
+            "industry": "Agriculture",
+          },
+          "status": null,
+          "type": 0,
+        }
+      }
+      groupId="23"
+    />
+    <InterestsCard
+      groupId="23"
+      id="test"
+    />
+    <_class
+      dataSourceFn={[Function]}
+      groupId="23"
+      id="test"
+      pageUrl="/workspace/23/contacts/accounts/test/segments"
+    />
+  </div>
+  <div
+    className="col-xl-5"
+  >
+    <InfoCard
+      header="Account Firmographics"
+      image=""
+      items={
+        Array [
+          Object {
+            "name": "name",
+            "value": "account1",
+          },
+          Object {
+            "name": "accountType",
+            "value": "customer",
+          },
+          Object {
+            "name": "accountNumber",
+            "value": "123123123",
+          },
+          Object {
+            "name": "industry",
+            "value": "Agriculture",
+          },
+          Object {
+            "name": "annualRevenue",
+            "value": "USD $1,000,000,000",
+          },
+          Object {
+            "name": "ownership",
+            "value": "private",
+          },
+          Object {
+            "name": "numberOfEmployees",
+            "value": "9001",
+          },
+          Object {
+            "name": "yearStarted",
+            "value": "2003",
+          },
+          Object {
+            "name": "description",
+            "value": "Foo company description",
+          },
+        ]
+      }
+    />
+    <InfoCard
+      header="Contact Information"
+      items={
+        Array [
+          Object {
+            "name": "phone",
+            "value": "123-123-1234",
+          },
+          Object {
+            "name": "fax",
+            "value": "321-321-4321",
+          },
+          Object {
+            "name": "billingAddress",
+            "value": "123 Fairy Lane Diamond Bar, CA 91765 USA",
+          },
+          Object {
+            "name": "shippingAddress",
+            "value": "123 Fairy Lane Diamond Bar, CA 91765 USA",
+          },
+          Object {
+            "name": "website",
+            "value": "www.liferay.com",
+          },
+        ]
+      }
+    />
+    <_class
+      dataSourceFn={[Function]}
+      groupId="23"
+      id="test"
+    />
+  </div>
+</div>
+`;

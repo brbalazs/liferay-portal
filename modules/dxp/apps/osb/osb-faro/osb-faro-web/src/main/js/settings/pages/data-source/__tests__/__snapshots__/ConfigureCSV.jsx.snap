@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfigureCSV should render 1`] = `
+<Connect(SettingsBasePage)
+  breadcrumbItems={
+    Array [
+      Object {
+        "href": "/workspace/23/settings/data-source",
+        "label": "Data Sources",
+      },
+      Object {
+        "active": false,
+        "href": "/workspace/23/settings/data-source/123",
+        "label": undefined,
+        "truncate": true,
+      },
+      Object {
+        "active": true,
+        "label": "Configure CSV",
+      },
+    ]
+  }
+  className="csv-root"
+  documentTitle="CSV Data Source"
+  groupId="23"
+>
+  <Sheet
+    className="wizard"
+    large={false}
+    pageDisplay={false}
+  >
+    <Connect(_class)
+      cancelHref="/workspace/23/settings/data-source/123"
+      groupId="23"
+      id="123"
+      key="DATA_TRANSFORMATION"
+      navigationWarning={true}
+      onSubmit={[Function]}
+      sourceFieldPlaceholder="Select Field from CSV File"
+      sourceTitle="CSV Data Model"
+      submitting={false}
+      title={
+        Array [
+          "Map \\"",
+          <TextTruncate
+            inline={true}
+            maxCharLength={50}
+            title=""
+          />,
+          "\\" CSV Data",
+        ]
+      }
+    />
+  </Sheet>
+</Connect(SettingsBasePage)>
+`;

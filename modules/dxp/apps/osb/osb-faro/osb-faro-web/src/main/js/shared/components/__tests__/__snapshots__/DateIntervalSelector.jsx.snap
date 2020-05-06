@@ -1,0 +1,491 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateIntervalSelector should render 1`] = `
+<Button
+  className="date-interval-selector-root"
+  display="unstyled"
+  onClick={[Function]}
+>
+  <div
+    className="label-container"
+  >
+    <span
+      className="button-label-separator"
+    >
+      |
+    </span>
+    <span
+      className="interval-label"
+    />
+  </div>
+  <div
+    className="icon-container"
+  >
+    <Icon
+      symbol="calendar"
+    />
+  </div>
+</Button>
+`;
+
+exports[`DateIntervalSelector should render button label with custom range 1`] = `
+<Overlay
+  active={false}
+  alignment="bottomLeft"
+  className=""
+  containerClass="date-interval-selector-root"
+  forceAlignment={true}
+  hideDelay={400}
+  offset={8}
+  onOutsideClick={[Function]}
+  showDelay={400}
+>
+  <Button
+    className="date-interval-selector-root"
+    display="unstyled"
+    onClick={[Function]}
+  >
+    <div
+      className="label-container"
+    >
+      Jan 1, 1970 - Jan 12, 1970
+      <span
+        className="button-label-separator"
+      >
+        |
+      </span>
+      <span
+        className="interval-label"
+      />
+    </div>
+    <div
+      className="icon-container"
+    >
+      <Icon
+        symbol="calendar"
+      />
+    </div>
+  </Button>
+  <Card
+    horizontal={true}
+  >
+    <Body>
+      <div
+        className="date-interval-selector-content"
+      >
+        <div
+          className="interval-container"
+        >
+          <div
+            className="form-group"
+          >
+            <label>
+              Date Range
+            </label>
+            <SearchableSelect
+              buttonPlaceholder=""
+              buttonProps={
+                Object {
+                  "size": "sm",
+                }
+              }
+              inputPlaceholder=""
+              inputValue=""
+              items={
+                Array [
+                  Object {
+                    "name": "Last Week",
+                    "value": "LAST_WEEK",
+                  },
+                  Object {
+                    "name": "Last Month",
+                    "value": "LAST_MONTH",
+                  },
+                  Object {
+                    "name": "Last 3 Months",
+                    "value": "LAST_THREE_MONTHS",
+                  },
+                  Object {
+                    "name": "Last Year",
+                    "value": "LAST_YEAR",
+                  },
+                  Object {
+                    "name": "Custom",
+                    "value": "CUSTOM",
+                  },
+                ]
+              }
+              onSearchChange={[Function]}
+              onSelect={[Function]}
+              selectedItem={
+                Object {
+                  "name": "Custom",
+                  "value": "CUSTOM",
+                }
+              }
+              showSearch={false}
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <label>
+              Time Interval
+            </label>
+            <RadioGroup
+              onChange={[Function]}
+            >
+              <Option
+                key="DAILY"
+                label="Daily"
+                value="DAILY"
+              />
+              <Option
+                key="WEEKLY"
+                label="Weekly"
+                value="WEEKLY"
+              />
+              <Option
+                key="MONTHLY"
+                label="Monthly"
+                value="MONTHLY"
+              />
+              <Option
+                key="QUARTERLY"
+                label="Quarterly"
+                value="QUARTERLY"
+              />
+              <Option
+                key="YEARLY"
+                label="Yearly"
+                value="YEARLY"
+              />
+            </RadioGroup>
+          </div>
+        </div>
+        <div
+          className="date-picker-container"
+        >
+          <DatePicker
+            date={
+              Object {
+                "end": "1970-01-12T13:46:40.000Z",
+                "start": "1970-01-01T00:00:00.000Z",
+              }
+            }
+            disabled={false}
+            minDate={"1970-01-01T00:00:00.000Z"}
+            onSelect={[Function]}
+            showTimeSelector={false}
+          />
+        </div>
+      </div>
+    </Body>
+  </Card>
+</Overlay>
+`;
+
+exports[`DateIntervalSelector should render button label with different interval 1`] = `
+<Overlay
+  active={false}
+  alignment="bottomLeft"
+  className=""
+  containerClass="date-interval-selector-root"
+  forceAlignment={true}
+  hideDelay={400}
+  offset={8}
+  onOutsideClick={[Function]}
+  showDelay={400}
+>
+  <Button
+    className="date-interval-selector-root"
+    display="unstyled"
+    onClick={[Function]}
+  >
+    <div
+      className="label-container"
+    >
+      <span
+        className="button-label-separator"
+      >
+        |
+      </span>
+      <span
+        className="interval-label"
+      >
+        Yearly
+      </span>
+    </div>
+    <div
+      className="icon-container"
+    >
+      <Icon
+        symbol="calendar"
+      />
+    </div>
+  </Button>
+  <Card
+    horizontal={true}
+  >
+    <Body>
+      <div
+        className="date-interval-selector-content"
+      >
+        <div
+          className="interval-container"
+        >
+          <div
+            className="form-group"
+          >
+            <label>
+              Date Range
+            </label>
+            <SearchableSelect
+              buttonPlaceholder=""
+              buttonProps={
+                Object {
+                  "size": "sm",
+                }
+              }
+              inputPlaceholder=""
+              inputValue=""
+              items={
+                Array [
+                  Object {
+                    "name": "Last Week",
+                    "value": "LAST_WEEK",
+                  },
+                  Object {
+                    "name": "Last Month",
+                    "value": "LAST_MONTH",
+                  },
+                  Object {
+                    "name": "Last 3 Months",
+                    "value": "LAST_THREE_MONTHS",
+                  },
+                  Object {
+                    "name": "Last Year",
+                    "value": "LAST_YEAR",
+                  },
+                  Object {
+                    "name": "Custom",
+                    "value": "CUSTOM",
+                  },
+                ]
+              }
+              onSearchChange={[Function]}
+              onSelect={[Function]}
+              selectedItem={
+                Object {
+                  "name": undefined,
+                  "value": undefined,
+                }
+              }
+              showSearch={false}
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <label>
+              Time Interval
+            </label>
+            <RadioGroup
+              checked="YEARLY"
+              onChange={[Function]}
+            >
+              <Option
+                key="DAILY"
+                label="Daily"
+                value="DAILY"
+              />
+              <Option
+                key="WEEKLY"
+                label="Weekly"
+                value="WEEKLY"
+              />
+              <Option
+                key="MONTHLY"
+                label="Monthly"
+                value="MONTHLY"
+              />
+              <Option
+                key="QUARTERLY"
+                label="Quarterly"
+                value="QUARTERLY"
+              />
+              <Option
+                key="YEARLY"
+                label="Yearly"
+                value="YEARLY"
+              />
+            </RadioGroup>
+          </div>
+        </div>
+        <div
+          className="date-picker-container"
+        >
+          <DatePicker
+            date={"1970-01-01T00:00:00.000Z"}
+            disabled={true}
+            minDate={"1970-01-01T00:00:00.000Z"}
+            onSelect={[Function]}
+            showTimeSelector={false}
+          />
+        </div>
+      </div>
+    </Body>
+  </Card>
+</Overlay>
+`;
+
+exports[`DateIntervalSelector should render content in overlay 1`] = `
+<Overlay
+  active={true}
+  alignment="bottomLeft"
+  className=""
+  containerClass="date-interval-selector-root"
+  forceAlignment={true}
+  hideDelay={400}
+  offset={8}
+  onOutsideClick={[Function]}
+  showDelay={400}
+>
+  <Button
+    className="date-interval-selector-root"
+    display="unstyled"
+    onClick={[Function]}
+  >
+    <div
+      className="label-container"
+    >
+      <span
+        className="button-label-separator"
+      >
+        |
+      </span>
+      <span
+        className="interval-label"
+      />
+    </div>
+    <div
+      className="icon-container"
+    >
+      <Icon
+        symbol="calendar"
+      />
+    </div>
+  </Button>
+  <Card
+    horizontal={true}
+  >
+    <Body>
+      <div
+        className="date-interval-selector-content"
+      >
+        <div
+          className="interval-container"
+        >
+          <div
+            className="form-group"
+          >
+            <label>
+              Date Range
+            </label>
+            <SearchableSelect
+              buttonPlaceholder=""
+              buttonProps={
+                Object {
+                  "size": "sm",
+                }
+              }
+              inputPlaceholder=""
+              inputValue=""
+              items={
+                Array [
+                  Object {
+                    "name": "Last Week",
+                    "value": "LAST_WEEK",
+                  },
+                  Object {
+                    "name": "Last Month",
+                    "value": "LAST_MONTH",
+                  },
+                  Object {
+                    "name": "Last 3 Months",
+                    "value": "LAST_THREE_MONTHS",
+                  },
+                  Object {
+                    "name": "Last Year",
+                    "value": "LAST_YEAR",
+                  },
+                  Object {
+                    "name": "Custom",
+                    "value": "CUSTOM",
+                  },
+                ]
+              }
+              onSearchChange={[Function]}
+              onSelect={[Function]}
+              selectedItem={
+                Object {
+                  "name": undefined,
+                  "value": undefined,
+                }
+              }
+              showSearch={false}
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <label>
+              Time Interval
+            </label>
+            <RadioGroup
+              onChange={[Function]}
+            >
+              <Option
+                key="DAILY"
+                label="Daily"
+                value="DAILY"
+              />
+              <Option
+                key="WEEKLY"
+                label="Weekly"
+                value="WEEKLY"
+              />
+              <Option
+                key="MONTHLY"
+                label="Monthly"
+                value="MONTHLY"
+              />
+              <Option
+                key="QUARTERLY"
+                label="Quarterly"
+                value="QUARTERLY"
+              />
+              <Option
+                key="YEARLY"
+                label="Yearly"
+                value="YEARLY"
+              />
+            </RadioGroup>
+          </div>
+        </div>
+        <div
+          className="date-picker-container"
+        >
+          <DatePicker
+            date={"1970-01-01T00:00:00.000Z"}
+            disabled={true}
+            minDate={"1970-01-01T00:00:00.000Z"}
+            onSelect={[Function]}
+            showTimeSelector={false}
+          />
+        </div>
+      </div>
+    </Body>
+  </Card>
+</Overlay>
+`;

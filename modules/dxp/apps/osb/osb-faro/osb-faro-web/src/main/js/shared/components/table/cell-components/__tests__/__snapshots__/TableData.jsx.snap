@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableData should render 1`] = `
+<td
+  className="table-cell-expand table-first-column"
+/>
+`;
+
+exports[`TableData should render with Empty message 1`] = `
+<td
+  className="table-cell-expand table-first-column"
+>
+  <span
+    className="mb-1 text-secondary"
+  >
+    Empty Message
+  </span>
+</td>
+`;
+
+exports[`TableData should render with Link 1`] = `
+<td
+  className="table-cell-expand table-first-column"
+>
+  <Link
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+    replace={false}
+    to="foo/bar"
+  >
+    <span
+      className="mb-1 text-truncate"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    />
+  </Link>
+</td>
+`;

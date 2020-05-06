@@ -1,0 +1,334 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InterestTopics should render 1`] = `
+<div>
+  <div
+    class="settings-base-page-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <ol
+      class="breadcrumb breadcrumbs-root"
+    >
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/23/settings/definitions"
+        >
+          Definitions
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+      >
+        <span
+          class="breadcrumb-text-truncate"
+        >
+          Interest Topics
+        </span>
+      </li>
+    </ol>
+    <div
+      class="content-header"
+    >
+      <div
+        class="header-text"
+      >
+        <h3>
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Interest Topics
+          </span>
+        </h3>
+        <div
+          class="description"
+        >
+          <p>
+            Approximates what topics individuals are interested in based on their interactions with registered touchpoints.
+            <br />
+            Liferay Analytics Cloud automatically associates registered touchpoints with keywords based on their meta tags, titles and descriptions.
+          </p>
+          <h4>
+            Keywords Blocklist
+          </h4>
+          <p>
+            Keywords can be excluded by adding them to a blocklist. Manage the keywords that you don't want listed in Liferay Analytics Cloud, and don't want them to be used to generate content recommendation in Liferay DXP.
+          </p>
+        </div>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div
+        class="card card-root page-display"
+      >
+        <div
+          class="searchable-table-with-staged-root d-flex flex-column flex-grow-1"
+        >
+          <div
+            class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+          >
+            <div
+              class="toolbar-root"
+            >
+              <nav
+                class="navbar navbar-root management-bar management-bar-light navbar-expand"
+              >
+                <div
+                  class="container-fluid"
+                >
+                  <ul
+                    class="nav-root front-nav navbar-nav"
+                    role="tablist"
+                  >
+                    <li
+                      class="nav-item"
+                      role="presentation"
+                    >
+                      <div
+                        class="custom-control custom-checkbox"
+                      >
+                        <label>
+                          <input
+                            class="custom-control-input"
+                            data-testid="select-all-checkbox"
+                            disabled=""
+                            type="checkbox"
+                            value="false"
+                          />
+                          <span
+                            class="custom-control-label"
+                          />
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                  <div
+                    class="navbar-form navbar-form-autofit"
+                  >
+                    <div
+                      class="input-group search"
+                    >
+                      <div
+                        class="input-group-item"
+                      >
+                        <input
+                          class="input-root form-control input-group-inset input-group-inset-after"
+                          maxlength="900"
+                          placeholder="Search"
+                          type="text"
+                          value=""
+                        />
+                        <div
+                          class="input-group-inset-item input-group-inset-item-after"
+                        >
+                          <button
+                            class="button-root btn btn-unstyled"
+                            type="button"
+                          >
+                            <svg
+                              class="icon-root lexicon-icon lexicon-icon-search"
+                              viewBox=""
+                            >
+                              <use
+                                xlink:href="#search"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ul
+                    class="nav-root navbar-nav"
+                    role="tablist"
+                  >
+                    <li
+                      class="nav-item"
+                      role="presentation"
+                    >
+                      <button
+                        class="button-root btn btn-primary nav-btn"
+                        type="button"
+                      >
+                        Add Keyword
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+            <div
+              class="table-responsive table-root flex-grow-1"
+            >
+              <table
+                class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+              >
+                <thead>
+                  <tr
+                    class=""
+                  >
+                    <th />
+                    <th
+                      class="table-head-title table-cell-expand"
+                    >
+                      <a
+                        class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                        href="/?orderBy=desc&orderByField=keyword&page=1"
+                      >
+                        <span
+                          class="text-truncate"
+                        >
+                          Keyword
+                        </span>
+                        <span
+                          class="inline-item inline-item-after"
+                        >
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="#order-arrow-up"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </th>
+                    <th
+                      class="table-head-title"
+                    >
+                      <a
+                        class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                        href="/?orderBy=desc&orderByField=createDate&page=1"
+                      >
+                        <span
+                          class="text-truncate"
+                        >
+                          Added
+                        </span>
+                      </a>
+                    </th>
+                    <th />
+                  </tr>
+                </thead>
+              </table>
+              <div
+                class="spinner-root spinner-overlay"
+              >
+                <span
+                  class="loading-animation loading-animation-dotted"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`InterestTopics should render a page not found if puts a invalid page 1`] = `
+<div
+  class="no-results-root flex-grow-1"
+>
+  <div
+    class="no-results-content"
+  >
+    <h4
+      class="no-results-title"
+    >
+      Page Not Found
+    </h4>
+    <a
+      class="button-root btn btn-secondary"
+      href="/workspace/23/settings/definitions/interest-topics"
+    >
+      Back to Interest Topics
+    </a>
+  </div>
+</div>
+`;
+
+exports[`InterestTopics should render with a member-specific message to add keywords if there are none 1`] = `
+<div
+  class="no-results-root flex-grow-1 no-results-primary"
+>
+  <div
+    class="no-results-content"
+  >
+    <h4
+      class="no-results-title"
+    >
+      You have not added keywords to the blocklist yet.
+    </h4>
+    <p
+      class="no-results-description"
+    >
+      Please contact your site administrator to add keywords.
+    </p>
+  </div>
+</div>
+`;
+
+exports[`InterestTopics should render with a message to add keywords if there are none 1`] = `
+<div
+  class="no-results-root flex-grow-1 no-results-primary"
+>
+  <div
+    class="no-results-content"
+  >
+    <h4
+      class="no-results-title"
+    >
+      You have not added keywords to the blocklist yet.
+    </h4>
+    <p
+      class="no-results-description"
+    >
+      Click the button below to add the first keywords.
+    </p>
+    <button
+      class="button-root btn btn-secondary"
+      type="button"
+    >
+      Add Keyword
+    </button>
+  </div>
+</div>
+`;
+
+exports[`InterestTopics should render with an empty state 1`] = `
+<div
+  class="no-results-root flex-grow-1"
+>
+  <div
+    class="no-results-content"
+  >
+    <div
+      class="no-results-icon no-results-icon-border"
+    >
+      <svg
+        class="icon-root lexicon-icon lexicon-icon-star-o icon-size-xxl"
+        viewBox=""
+      >
+        <use
+          xlink:href="#star-o"
+        />
+      </svg>
+    </div>
+    <h4
+      class="no-results-title"
+    >
+      There are no Keywords found.
+    </h4>
+  </div>
+</div>
+`;

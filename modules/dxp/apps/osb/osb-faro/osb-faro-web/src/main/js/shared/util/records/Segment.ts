@@ -1,0 +1,80 @@
+import Constants from '../constants';
+import {Map, Record} from 'immutable';
+
+const {entityTypes} = Constants;
+
+interface ISegment {
+	activeIndividualCount: number;
+	activitiesCount: number;
+	anonymousIndividualCount: number;
+	channelId: string;
+	criteriaString?: string; // "filter" has been renamed to criteriaString to avoid clashing with ImmutableMaps filter method.
+	dateCreated: number;
+	dateModified: number;
+	engagementScore: number;
+	id: string;
+	includeAnonymousUsers: boolean;
+	individualCount: number;
+	knownIndividualCount: number;
+	lastActivityDate: number;
+	name: string;
+	properties: Map<string, any>;
+	referencedObjects?: Map<string, any>;
+	segmentType: null;
+	state: string;
+	status: string;
+	type: number;
+	userName: string;
+}
+
+export default class Segment
+	extends Record({
+		activeIndividualCount: 0,
+		activitiesCount: 0,
+		anonymousIndividualCount: 0,
+		channelId: null,
+		criteriaString: '',
+		dateCreated: null,
+		dateModified: null,
+		engagementScore: null,
+		id: '',
+		includeAnonymousUsers: false,
+		individualCount: 0,
+		knownIndividualCount: 0,
+		lastActivityDate: null,
+		name: '',
+		properties: Map(),
+		referencedObjects: Map({assets: Map(), fieldMappings: Map()}),
+		segmentType: null,
+		state: '',
+		status: null,
+		type: entityTypes.individualsSegment,
+		userName: null
+	})
+	implements ISegment {
+	activeIndividualCount: number;
+	activitiesCount: number;
+	anonymousIndividualCount: number;
+	channelId: string;
+	criteriaString?: string;
+	dateCreated: number;
+	dateModified: number;
+	engagementScore: number;
+	id: string;
+	includeAnonymousUsers: boolean;
+	individualCount: number;
+	knownIndividualCount: number;
+	lastActivityDate: number;
+	name: string;
+	properties: Map<string, any>;
+	referencedObjects?: Map<string, any>;
+	segmentType: null;
+	state: string;
+	status: string;
+	type: number;
+	userName: string;
+
+	constructor(props = {}) {
+		super(props);
+	}
+}

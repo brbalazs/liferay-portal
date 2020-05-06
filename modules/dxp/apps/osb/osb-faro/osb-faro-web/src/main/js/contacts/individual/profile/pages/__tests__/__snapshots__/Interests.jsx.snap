@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContributionsCell should render 1`] = `
+<td
+  className="table-cell-expand"
+>
+  <TextTruncate
+    inline={false}
+    title="8 Contributing Pages"
+  />
+</td>
+`;
+
+exports[`Interests should render 1`] = `
+<Card
+  pageDisplay={true}
+>
+  <SearchableEntityTable
+    bordered={false}
+    checkDisabled={[Function]}
+    className="interest-history-table"
+    columns={
+      Array [
+        Object {
+          "accessor": "name",
+          "cellRenderer": [Function],
+          "cellRendererProps": Object {
+            "maxWidth": undefined,
+            "routeFn": [Function],
+          },
+          "label": "Interest",
+        },
+        Object {
+          "accessor": "relatedPagesCount",
+          "cellRenderer": [Function],
+          "label": "Contributing Pages",
+          "sortable": false,
+        },
+      ]
+    }
+    dataSourceFn={[Function]}
+    dataSourceParams={
+      Object {
+        "contactsEntityId": "test",
+        "groupId": "23",
+        "interestMax": 90,
+      }
+    }
+    delta={2}
+    entityLabel="Interests"
+    filterBy={Immutable.Map {}}
+    internalSort={false}
+    nowrap={true}
+    orderBy="asc"
+    orderByField="name"
+    orderByOptions={
+      Array [
+        Object {
+          "label": "Interest",
+          "value": "name",
+        },
+      ]
+    }
+    overrideLoading={false}
+    page={1}
+    query=""
+    rowIdentifier="name"
+    showCheckbox={false}
+  />
+</Card>
+`;

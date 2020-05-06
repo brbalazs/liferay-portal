@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Individuals Dashboard Distribution renders 1`] = `
+<div>
+  <div
+    class="individuals-dashboard-distribution-root container-fluid"
+  >
+    <div
+      class="row"
+    >
+      <div
+        class="col-xl-12"
+      >
+        <div
+          class="body-root page-container"
+        >
+          <span
+            class="children-wrapper"
+          >
+            <div
+              class="card card-root"
+            >
+              <div
+                class="card-header"
+              >
+                <h5
+                  class="card-title"
+                >
+                  Breakdown of Known Individuals
+                </h5>
+              </div>
+              <div
+                class="card-body"
+              >
+                <form
+                  class="form-root chart-options"
+                >
+                  <div
+                    class="form-group form-group-autofit"
+                  >
+                    <div
+                      class="form-group-item form-group-item-shrink"
+                    >
+                      <div
+                        class=""
+                      >
+                        <div
+                          aria-haspopup="true"
+                          class="input-group base-select-input-root select-input-root"
+                        >
+                          <div
+                            class="input-group-item"
+                          >
+                            <input
+                              autocomplete="nope"
+                              class="input-root form-control input-group-inset input-group-inset-after"
+                              id="breakdown"
+                              placeholder="Select Field"
+                              type="text"
+                              value=""
+                            />
+                            <div
+                              class="input-group-inset-item input-group-inset-item-after"
+                            >
+                              <svg
+                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                                viewBox=""
+                              >
+                                <use
+                                  xlink:href="#caret-bottom"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div
+                  class="chart-container"
+                >
+                  <div
+                    class="chart-root selectable"
+                  >
+                    <div
+                      class="no-results-root flex-grow-1"
+                    >
+                      <div
+                        class="no-results-content"
+                      >
+                        <div
+                          class="no-results-icon no-results-icon-border"
+                        >
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-document icon-size-xxl"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="#document"
+                            />
+                          </svg>
+                        </div>
+                        <h4
+                          class="no-results-title"
+                        >
+                          There are no items found.
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

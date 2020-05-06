@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateInput should render 1`] = `
+<div
+  className="form-date-input-root"
+>
+  <DateInput
+    format="YYYY-MM-DD"
+    id="foo"
+    name="foo"
+    onBlur={[Function]}
+    onChange={[Function]}
+    showTimeSelector={false}
+  />
+  <HelpBlock
+    name="foo"
+  />
+</div>
+`;

@@ -1,0 +1,94 @@
+import Card from 'shared/components/Card';
+import getMetricsMapper from 'shared/hoc/mappers/metrics';
+import React from 'react';
+import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
+import urlConstants from 'shared/util/url-constants';
+import {graphql} from '@apollo/react-hoc';
+import {
+	metricsListColumns,
+	sitePagesListColumns
+} from 'shared/util/table-columns';
+import {Routes} from 'shared/util/router';
+import {sub} from 'shared/util/lang';
+import {VISITORS_METRIC} from 'shared/util/pagination';
+import {withBaseResults, withRangeKey} from 'shared/hoc';
+
+const withData = () =>
+	graphql(
+		TouchpointsQuery,
+		getMetricsMapper(result => ({
+			items: result.pages.assetMetrics,
+			total: result.pages.total
+		}))
+	);
+
+const TableWithData = withRangeKey(
+	withBaseResults(withData, {
+		defaultOrderByField: VISITORS_METRIC,
+		emptyDescription: sub(
+			Liferay.Language.get('empty-message-lists'),
+			[
+				<a
+					href={urlConstants.DOCUMENTATION_LINK}
+					key='DOCUMENTATION'
+					target='_blank'
+				>
+					{Liferay.Language.get('documentation').toLowerCase()}
+				</a>
+			],
+			false
+		),
+		emptyTitle: Liferay.Language.get('empty-title-pages'),
+		getColumns: ({
+			router: {
+				params: {channelId, groupId},
+				query: {rangeKey}
+			}
+		}) => [
+			sitePagesListColumns.getTitleUrl({
+				channelId,
+				groupId,
+				rangeKey,
+				route: Routes.SITES_TOUCHPOINTS_OVERVIEW
+			}),
+			metricsListColumns.engagementMetric,
+			metricsListColumns.visitorsMetric,
+			metricsListColumns.viewsMetric,
+			metricsListColumns.avgTimeOnPageMetric,
+			metricsListColumns.bounceRateMetric,
+			metricsListColumns.entrancesMetric,
+			metricsListColumns.exitRateMetric
+		],
+		rowIdentifier: 'assetId',
+		showRangeKeyDropdown: true
+	})
+);
+
+const InterestDetails = ({router}) => {
+	const {
+		params: {interestId},
+		query: {rangeKey}
+	} = router;
+
+	return (
+		<Card className='sites-interest-details-root' pageDisplay>
+			<Card.Header className='align-items-center d-flex justify-content-between'>
+				<Card.Title>
+					{sub(
+						Liferay.Language.get('pages-containing-x'),
+						[
+							<span className='interest-title' key='INTEREST_ID'>
+								{`"${interestId}"`}
+							</span>
+						],
+						false
+					)}
+				</Card.Title>
+			</Card.Header>
+
+			<TableWithData rangeKey={rangeKey} router={router} />
+		</Card>
+	);
+};
+
+export default InterestDetails;

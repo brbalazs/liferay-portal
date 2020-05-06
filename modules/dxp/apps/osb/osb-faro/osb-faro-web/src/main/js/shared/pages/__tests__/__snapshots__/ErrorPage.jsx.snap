@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPage should render 1`] = `
+<div
+  className="error-page-root page-container"
+>
+  <h1>
+    404
+  </h1>
+  <h3>
+    Page Not Found
+  </h3>
+  <p>
+    The page you are looking for does not exist.
+  </p>
+  <Button
+    href="/"
+  >
+    Go to Home
+  </Button>
+</div>
+`;
+
+exports[`ErrorPage should render a custom message 1`] = `
+<div
+  className="error-page-root page-container"
+>
+  <h1>
+    404
+  </h1>
+  <h3>
+    Page Not Found
+  </h3>
+  <p>
+    foo bar
+  </p>
+  <Button
+    href="/"
+  >
+    Go to Home
+  </Button>
+</div>
+`;

@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VariantCard should render 1`] = `
+<ContextProvider
+  value={
+    Array [
+      Object {
+        "allRefetch": Array [],
+        "sessionViewTriggered": "total",
+        "variantChartTriggered": "medians",
+      },
+      [Function],
+    ]
+  }
+>
+  <VariantCard
+    bestVariant={
+      Object {
+        "changes": 30,
+        "confidenceLevel": 0,
+        "control": true,
+        "dxpVariantId": "123",
+        "dxpVariantName": "DXP Variant Name",
+        "improvementChance": 0,
+        "improvementLift": 0,
+        "metricRangeEnd": 0,
+        "metricRangeStart": 0,
+        "probabilityToWin": 0,
+        "trafficSplit": 0,
+        "uniqueVisitors": 0,
+      }
+    }
+    data={
+      Array [
+        Object {
+          "changes": 30,
+          "confidenceLevel": 0,
+          "control": true,
+          "dxpVariantId": "123",
+          "dxpVariantName": "DXP Variant Name",
+          "improvementChance": 0,
+          "improvementLift": 0,
+          "metricRangeEnd": 0,
+          "metricRangeStart": 0,
+          "probabilityToWin": 0,
+          "trafficSplit": 0,
+          "uniqueVisitors": 0,
+        },
+        Object {
+          "changes": 5,
+          "confidenceLevel": 0,
+          "control": false,
+          "dxpVariantId": "456",
+          "dxpVariantName": "Another DXP Variant Name",
+          "improvementChance": 0,
+          "improvementLift": 0,
+          "metricRangeEnd": 0,
+          "metricRangeStart": 0,
+          "probabilityToWin": 0,
+          "trafficSplit": 0,
+          "uniqueVisitors": 0,
+        },
+      ]
+    }
+    label="Variant Report"
+    metric="CLICK_RATE"
+    metricUnit="%"
+    status="RUNNING"
+    winnerDXPVariantId="DEFAULT"
+  />
+</ContextProvider>
+`;

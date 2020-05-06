@@ -1,0 +1,19 @@
+$c-assets: '.analytics-assets-list';
+$c-list: '.analytics-list';
+$c-touchpoints: '.analytics-touchpoints-list';
+
+#{$c-assets},
+#{$c-touchpoints} {
+	.table-root {
+		margin-bottom: 0;
+		max-height: 470px;
+	}
+}
+
+#{$c-list}-card {
+	.empty-list {
+		h1 {
+			font-size: $fontSizeMedium;
+		}
+	}
+}

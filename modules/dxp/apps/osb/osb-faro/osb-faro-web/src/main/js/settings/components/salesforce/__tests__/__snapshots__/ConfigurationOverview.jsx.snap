@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SalesforceConfigurationOverview should render 1`] = `
+<BaseConfigurationOverview
+  configurationItems={
+    Array [
+      Object {
+        "buttonParams": Object {
+          "display": "secondary",
+          "label": "View",
+        },
+        "configuration": undefined,
+        "description": "Represents an organization or person involved with your business.",
+        "href": "/workspace/23/settings/data-source/test/salesforce/field-mapping/accounts",
+        "label": "Accounts",
+        "progress": undefined,
+        "title": "Accounts",
+      },
+      Object {
+        "buttonParams": Object {
+          "display": "secondary",
+          "label": "View",
+        },
+        "configuration": null,
+        "description": "Represented by a contact or lead within Salesforce.",
+        "href": "/workspace/23/settings/data-source/test/salesforce/field-mapping/individuals",
+        "label": "Individuals",
+        "progress": undefined,
+        "title": "Individuals",
+      },
+    ]
+  }
+  status="ACTIVE"
+/>
+`;
+
+exports[`SalesforceConfigurationOverview should render as disabled 1`] = `
+<div
+  className="configuration-overview-root"
+>
+  <Subtitle>
+    Data Configuration
+  </Subtitle>
+  <ConfigurationItem
+    buttonParams={
+      Object {
+        "display": "secondary",
+        "label": "View",
+      }
+    }
+    description="Represents an organization or person involved with your business."
+    disabled={true}
+    href="/workspace/23/settings/data-source/test/salesforce/field-mapping/accounts"
+    key="0"
+    label="Accounts"
+    status="ACTIVE"
+    title="Accounts"
+  />
+  <ConfigurationItem
+    buttonParams={
+      Object {
+        "display": "secondary",
+        "label": "View",
+      }
+    }
+    configuration={null}
+    description="Represented by a contact or lead within Salesforce."
+    disabled={true}
+    href="/workspace/23/settings/data-source/test/salesforce/field-mapping/individuals"
+    key="1"
+    label="Individuals"
+    status="ACTIVE"
+    title="Individuals"
+  />
+</div>
+`;

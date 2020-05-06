@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderDefault should render 1`] = `
+<Header
+  className="align-items-center d-flex justify-content-between"
+>
+  <Title />
+  <div
+    className="d-flex"
+  >
+    <Apollo(Component)
+      onChange={[Function]}
+    />
+  </div>
+</Header>
+`;

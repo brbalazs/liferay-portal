@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddOnsList should render 1`] = `
+<div
+  className="addons-list-root"
+>
+  <Panel
+    expandable={false}
+    initialExpanded={false}
+    key="Liferay Analytics Cloud Enterprise Contacts"
+  >
+    <SubscriptionTitle
+      labelText="2X"
+      name={
+        <span>
+          <Icon
+            symbol="ac-individual"
+          />
+          <span
+            className="limit-amount semibold"
+          >
+            <b
+              className="text-secondary"
+            >
+              +
+            </b>
+            5,000
+          </span>
+          <span
+            className="text-secondary"
+          >
+            <b
+              className="details-label"
+            >
+              Individuals
+            </b>
+          </span>
+        </span>
+      }
+      price={500}
+    />
+  </Panel>
+  <Panel
+    expandable={false}
+    initialExpanded={false}
+    key="Liferay Analytics Cloud Enterprise Tracked Pages"
+  >
+    <SubscriptionTitle
+      labelText="1X"
+      name={
+        <span>
+          <Icon
+            symbol="faro-page-views"
+          />
+          <span
+            className="limit-amount semibold"
+          >
+            <b
+              className="text-secondary"
+            >
+              +
+            </b>
+            5,000,000
+          </span>
+          <span
+            className="text-secondary"
+          >
+            <b
+              className="details-label"
+            >
+              Page Views
+            </b>
+          </span>
+        </span>
+      }
+      price={250}
+    />
+  </Panel>
+</div>
+`;
+
+exports[`AddOnsList should render as inactive when the active prop is false 1`] = `
+<div
+  className="addons-list-root inactive"
+>
+  <Panel
+    expandable={false}
+    initialExpanded={false}
+    key="Liferay Analytics Cloud Enterprise Contacts"
+  >
+    <SubscriptionTitle
+      labelText="2X"
+      name={
+        <span>
+          <Icon
+            symbol="ac-individual"
+          />
+          <span
+            className="limit-amount semibold"
+          >
+            <b
+              className="text-secondary"
+            >
+              +
+            </b>
+            5,000
+          </span>
+          <span
+            className="text-secondary"
+          >
+            <b
+              className="details-label"
+            >
+              Individuals
+            </b>
+          </span>
+        </span>
+      }
+      price={-1}
+    />
+  </Panel>
+  <Panel
+    expandable={false}
+    initialExpanded={false}
+    key="Liferay Analytics Cloud Enterprise Tracked Pages"
+  >
+    <SubscriptionTitle
+      labelText="1X"
+      name={
+        <span>
+          <Icon
+            symbol="faro-page-views"
+          />
+          <span
+            className="limit-amount semibold"
+          >
+            <b
+              className="text-secondary"
+            >
+              +
+            </b>
+            5,000,000
+          </span>
+          <span
+            className="text-secondary"
+          >
+            <b
+              className="details-label"
+            >
+              Page Views
+            </b>
+          </span>
+        </span>
+      }
+      price={-1}
+    />
+  </Panel>
+</div>
+`;
+
+exports[`AddOnsList should render with the quantity of addons subscribed if any 1`] = `
+<div
+  className="addons-list-root inactive"
+>
+  <Panel
+    expandable={false}
+    initialExpanded={false}
+    key="Liferay Analytics Cloud Enterprise Contacts"
+  >
+    <SubscriptionTitle
+      labelText="2X"
+      name={
+        <span>
+          <Icon
+            symbol="ac-individual"
+          />
+          <span
+            className="limit-amount semibold"
+          >
+            <b
+              className="text-secondary"
+            >
+              +
+            </b>
+            5,000
+          </span>
+          <span
+            className="text-secondary"
+          >
+            <b
+              className="details-label"
+            >
+              Individuals
+            </b>
+          </span>
+        </span>
+      }
+      price={-1}
+    />
+  </Panel>
+  <Panel
+    expandable={false}
+    initialExpanded={false}
+    key="Liferay Analytics Cloud Enterprise Tracked Pages"
+  >
+    <SubscriptionTitle
+      labelText="1X"
+      name={
+        <span>
+          <Icon
+            symbol="faro-page-views"
+          />
+          <span
+            className="limit-amount semibold"
+          >
+            <b
+              className="text-secondary"
+            >
+              +
+            </b>
+            5,000,000
+          </span>
+          <span
+            className="text-secondary"
+          >
+            <b
+              className="details-label"
+            >
+              Page Views
+            </b>
+          </span>
+        </span>
+      }
+      price={-1}
+    />
+  </Panel>
+</div>
+`;

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRenderer should render 1`] = `
+<td
+  className=""
+>
+  Jul 10, 2018
+</td>
+`;
+
+exports[`DateRenderer should render with date provided in the datePath Array 1`] = `
+<td
+  className=""
+>
+  Jul 10, 2018
+</td>
+`;
+
+exports[`DateRenderer should render with date provided in the datePath String 1`] = `
+<td
+  className=""
+>
+  Jul 10, 2018
+</td>
+`;
+
+exports[`DateRenderer should use a custom date formatter 1`] = `
+<td
+  className=""
+>
+  2018 July 10
+</td>
+`;

@@ -1,0 +1,50 @@
+.add-workspace-root {
+	.title {
+		font-size: 20px;
+		font-weight: bold;
+		margin-bottom: 2rem;
+	}
+
+	.form-root {
+		.extra-instruction {
+			font-size: $fontSizeSmall;
+			margin-top: 4px;
+		}
+
+		.input-group > .input-group-append .form-control  {
+			border-bottom-left-radius: 0;
+			border-top-left-radius: 0;
+		}
+
+		.label-root {
+			.instructions {
+				font-weight: $fontWeightRegular;
+			}
+
+			p {
+				margin-bottom: 6px;
+			}
+		}
+
+		.terms {
+			font-size: $fontSizeSmall;
+
+			.custom-checkbox {
+				margin-bottom: 8px;
+				margin-right: 8px;
+			}
+		}
+
+		.title {
+			margin-bottom: 0.5rem;
+		}
+	}
+
+	.sheet-footer {
+		display: block;
+	}
+
+	.sheet-section {
+		margin-bottom: 2rem;
+	}
+}

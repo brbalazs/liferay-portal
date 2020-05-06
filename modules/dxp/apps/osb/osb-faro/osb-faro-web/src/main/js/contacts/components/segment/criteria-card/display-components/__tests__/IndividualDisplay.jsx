@@ -1,0 +1,129 @@
+import * as data from 'test/data';
+import IndividualDisplay from '../IndividualDisplay';
+import React from 'react';
+import {cleanup, render} from '@testing-library/react';
+import {Property, Segment} from 'shared/util/records';
+import {
+	PROPERTY_TYPES,
+	RELATIONAL_OPERATORS
+} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+
+jest.unmock('react-dom');
+
+describe('IndividualDisplay', () => {
+	const propertyName = 'demographics/givenName/value';
+
+	const mockCriterion = {
+		operatorName: RELATIONAL_OPERATORS.EQ,
+		propertyName,
+		value: 'Test'
+	};
+
+	const mockProperty = data.getImmutableMock(Property, data.mockProperty, 1, {
+		entityName: 'Individual',
+		label: 'name',
+		name: propertyName,
+		propertykey: 'individual',
+		type: PROPERTY_TYPES.TEXT
+	});
+
+	afterEach(cleanup);
+
+	it('renders', () => {
+		const {container} = render(
+			<IndividualDisplay
+				criterion={mockCriterion}
+				property={mockProperty}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('renders w/ a knownType', () => {
+		const criterion = {...mockCriterion};
+
+		criterion.value = null;
+
+		const {getByText} = render(
+			<IndividualDisplay criterion={criterion} property={mockProperty} />
+		);
+
+		expect(getByText('is unknown')).toBeTruthy();
+	});
+
+	it('renders w/ a duration type', () => {
+		const criterion = {...mockCriterion};
+
+		criterion.value = null;
+
+		const {getByText} = render(
+			<IndividualDisplay
+				criterion={{
+					operatorName: RELATIONAL_OPERATORS.GT,
+					propertyName: 'demographics/duration/value',
+					value: 3600
+				}}
+				property={data.getImmutableMock(
+					Property,
+					data.mockProperty,
+					1,
+					{
+						entityName: 'Individual',
+						label: 'Duration',
+						name: 'demographics/duration/value',
+						propertykey: 'duration',
+						type: PROPERTY_TYPES.DURATION
+					}
+				)}
+			/>
+		);
+
+		expect(getByText('Seconds')).toBeTruthy();
+	});
+
+	it('renders w/ a SelectInput type', () => {
+		const criterion = {...mockCriterion};
+
+		criterion.value = null;
+
+		const mockSegment = data.getImmutableMock(
+			Segment,
+			data.mockSegment,
+			0,
+			{
+				referencedObjects: {
+					roles: {
+						123123: {id: '123123', name: 'Admin'}
+					}
+				}
+			}
+		);
+
+		const {getByText} = render(
+			<ReferencedObjectsProvider segment={mockSegment}>
+				<IndividualDisplay
+					criterion={{
+						operatorName: RELATIONAL_OPERATORS.EQ,
+						propertyName: 'roleIds',
+						value: '123123'
+					}}
+					property={data.getImmutableMock(
+						Property,
+						data.mockProperty,
+						1,
+						{
+							entityName: 'Individual',
+							label: 'Role',
+							name: 'roleIds',
+							type: PROPERTY_TYPES.SELECT_TEXT
+						}
+					)}
+				/>
+			</ReferencedObjectsProvider>
+		);
+
+		expect(getByText("'Admin'")).toBeTruthy();
+	});
+});

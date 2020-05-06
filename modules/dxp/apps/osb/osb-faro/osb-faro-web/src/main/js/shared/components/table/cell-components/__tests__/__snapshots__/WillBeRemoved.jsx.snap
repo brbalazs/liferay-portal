@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WillBeRemovedCell should render 1`] = `
+<td
+  className=""
+/>
+`;
+
+exports[`WillBeRemovedCell should render as will be removed 1`] = `
+<td
+  className=""
+>
+  <Label
+    display="danger"
+    size="lg"
+    uppercase={true}
+  >
+    Will Be Removed
+  </Label>
+</td>
+`;

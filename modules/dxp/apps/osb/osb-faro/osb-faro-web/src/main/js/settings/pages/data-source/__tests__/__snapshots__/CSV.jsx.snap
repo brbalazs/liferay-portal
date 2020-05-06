@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CSV should render 1`] = `
+<Connect(SettingsBasePage)
+  breadcrumbItems={
+    Array [
+      Object {
+        "href": "/workspace/23/settings/data-source",
+        "label": "Data Sources",
+      },
+      Object {
+        "active": true,
+        "label": "CSV1",
+        "truncate": true,
+      },
+    ]
+  }
+  className="csv-data-source-root"
+  documentTitle="CSV1"
+  groupId="23"
+>
+  <Sheet
+    large={false}
+    pageDisplay={false}
+  >
+    <Header
+      border={true}
+      className="header-content"
+    >
+      <div
+        className="page-title-group"
+      >
+        <h3
+          className="w-50"
+        >
+          <DefinitionItem
+            editable={true}
+            name="name"
+            onSubmit={[Function]}
+            validate={[Function]}
+            value="CSV1"
+          />
+        </h3>
+        <div
+          className="button-row"
+        >
+          <Button
+            display="primary"
+            href="/workspace/23/settings/data-source/test/edit"
+          >
+            Edit CSV
+          </Button>
+          <Button
+            href="/workspace/23/settings/data-source/test/delete"
+          >
+            Delete Data Source
+          </Button>
+        </div>
+      </div>
+      <div
+        className="file-info"
+      >
+        <DefinitionItem
+          name="name"
+          value={null}
+        />
+        <Button
+          className="toggle-preview"
+          display="secondary"
+          onClick={[Function]}
+          size="sm"
+        >
+          View File Preview
+        </Button>
+      </div>
+    </Header>
+    <Body>
+      <h3
+        className="mappings-header"
+      >
+        Current Mappings
+      </h3>
+    </Body>
+    <Spinner
+      alignCenter={false}
+      display="dotted"
+      fadeIn={false}
+      inline={false}
+      light={false}
+      overlay={false}
+      spacer={true}
+    />
+  </Sheet>
+</Connect(SettingsBasePage)>
+`;

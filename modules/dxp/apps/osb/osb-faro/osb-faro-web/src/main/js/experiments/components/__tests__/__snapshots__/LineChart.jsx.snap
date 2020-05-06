@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LineChart should get short intervals 1`] = `
+<div>
+  <div
+    class="analytics-experiments-line-chart"
+  >
+    <div
+      class="chart-root"
+    >
+      <div />
+    </div>
+    <ul
+      class="chart-legend"
+      id="legendId"
+    />
+  </div>
+</div>
+`;
+
+exports[`LineChart should render 1`] = `
+<div>
+  <div
+    class="analytics-experiments-line-chart"
+  >
+    <div
+      class="chart-root"
+    >
+      <div />
+    </div>
+    <ul
+      class="chart-legend"
+      id="legendId"
+    />
+  </div>
+</div>
+`;

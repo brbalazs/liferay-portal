@@ -1,0 +1,46 @@
+import React from 'react';
+import {cleanup, render} from '@testing-library/react';
+import {CONTEXT_OPTIONS, Distribution} from '../Distribution';
+import {List} from 'immutable';
+
+jest.unmock('react-dom');
+
+const defaultProps = {
+	distributionsKey: 'test',
+	fieldDistributionIList: new List(),
+	fieldMappingId: 'test',
+	groupId: '23',
+	id: 'test',
+	loading: true,
+	numberOfBins: 10
+};
+
+describe('SegmentDistribution', () => {
+	afterEach(cleanup);
+
+	it('should render', () => {
+		const {container} = render(<Distribution {...defaultProps} />);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render a Chart component if loading is false', () => {
+		const {container} = render(
+			<Distribution {...defaultProps} loading={false} />
+		);
+
+		expect(container.querySelector('.chart-root')).toBeTruthy();
+	});
+
+	it('should not render a dropdown of context items if contextOptions is less than 2', () => {
+		const {container, queryByText} = render(
+			<Distribution
+				{...defaultProps}
+				contextOptions={[CONTEXT_OPTIONS[0]]}
+			/>
+		);
+
+		expect(container.querySelector('.context-select')).toBeNull();
+		expect(queryByText('by')).toBeNull();
+	});
+});

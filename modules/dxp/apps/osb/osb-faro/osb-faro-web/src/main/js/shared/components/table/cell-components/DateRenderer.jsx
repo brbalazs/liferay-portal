@@ -1,0 +1,35 @@
+import moment from 'moment';
+import React from 'react';
+import {get} from 'lodash';
+import {PropTypes} from 'prop-types';
+
+export default class DateRenderer extends React.Component {
+	static defaultProps = {
+		dateFormatter: date => moment(date).format('ll'),
+		datePath: 'dateCreated'
+	};
+
+	static propTypes = {
+		data: PropTypes.object.isRequired,
+		dateFormatter: PropTypes.func,
+		datePath: PropTypes.oneOfType([PropTypes.array, PropTypes.string])
+	};
+
+	render() {
+		const {data, dateFormatter, datePath} = this.props;
+
+		const date = get(data, datePath);
+
+		const formattedDate = date ? dateFormatter(date) : '-';
+
+		return (
+			<td
+				className={
+					this.props.className ? ` ${this.props.className}` : ''
+				}
+			>
+				{formattedDate}
+			</td>
+		);
+	}
+}

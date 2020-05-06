@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.liferay.osb.faro.model.FaroChannel" />
+	<import class="com.liferay.osb.faro.model.FaroPreferences" />
+	<import class="com.liferay.osb.faro.model.FaroProject" />
+	<import class="com.liferay.osb.faro.model.FaroProjectEmailAddressDomain" />
+	<import class="com.liferay.osb.faro.model.FaroUser" />
+	<class name="com.liferay.osb.faro.model.impl.FaroChannelImpl" table="OSBFaro_FaroChannel">
+		<id name="faroChannelId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="modifiedTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="channelId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="permissionType" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="workspaceGroupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.liferay.osb.faro.model.impl.FaroPreferencesImpl" table="OSBFaro_FaroPreferences">
+		<id name="faroPreferencesId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="modifiedTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ownerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="preferences" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.osb.faro.model.impl.FaroProjectImpl" table="OSBFaro_FaroProject">
+		<id name="faroProjectId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="modifiedTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="accountKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="accountName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="corpProjectName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="corpProjectUuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ipAddresses" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lastAccessTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="serverLocation" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="services" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property column="state_" name="state" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="subscription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="weDeployKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.osb.faro.model.impl.FaroProjectEmailAddressDomainImpl" table="OSBFaro_FaroProjectEmailAddressDomain">
+		<id name="faroProjectEmailAddressDomainId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="faroProjectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="emailAddressDomain" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.osb.faro.model.impl.FaroUserImpl" table="OSBFaro_FaroUser">
+		<id name="faroUserId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="modifiedTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="liveUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="roleId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property column="key_" name="key" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,138 @@
+import BasePage from 'settings/components/BasePage';
+import Card from 'shared/components/Card';
+import ClayList from '@clayui/list';
+import React from 'react';
+import {ACCOUNTS, Routes, toRoute} from 'shared/util/router';
+import {DEVELOPER_MODE} from 'shared/util/constants';
+import {Link} from 'react-router-dom';
+import {withCurrentUser} from 'shared/hoc';
+
+interface IOverviewProps {
+	groupId: string;
+}
+
+// TODO: LRAC-4511 Remove developer only mode and add devItems back into items
+const devItems: {
+	header: string;
+	items: {
+		description: string;
+		route: string;
+		routeParams?: object;
+		title: string;
+	}[];
+}[] = [
+	{
+		header: Liferay.Language.get('people'),
+		items: [
+			{
+				description: Liferay.Language.get(
+					'view-and-manage-the-data-model-of-your-individuals.-this-data-is-mapped-from-your-dxp,-salesforce,-or-csv-datasources'
+				),
+				route: Routes.CONTACTS_INDIVIDUALS,
+				title: Liferay.Language.get('individuals')
+			},
+			{
+				description: Liferay.Language.get(
+					'view-and-manage-the-data-model-of-your-accounts.-this-data-is-automatically-mapped-from-a-salesforce-datasource'
+				),
+				route: Routes.CONTACTS_LIST_ENTITY,
+				routeParams: {type: ACCOUNTS},
+				title: Liferay.Language.get('accounts')
+			}
+		]
+	},
+	{
+		header: Liferay.Language.get('activities'),
+		items: [
+			{
+				description: Liferay.Language.get(
+					'view-and-manage-the-tracked-behaviors-in-analytics-cloud.-you-will-also-find-instructions-for-tagging-non-liferay-assets-to-track-them-in-analytics-cloud'
+				),
+				route: Routes.SETTINGS_DEFINITIONS_BEHAVIORS,
+				title: Liferay.Language.get('behaviors')
+			}
+		]
+	}
+];
+
+const items: {
+	header: string;
+	items: {
+		description: string;
+		route: string;
+		routeParams?: object;
+		title: string;
+	}[];
+}[] = [
+	{
+		header: Liferay.Language.get('derived-data'),
+		items: [
+			{
+				description: Liferay.Language.get(
+					'view-and-manage-the-blocked-keywords-for-interest-analysis.-blocked-keywords-will-affect-content-recommendations-feature-available-in-liferay-dxp'
+				),
+				route: Routes.SETTINGS_DEFINITIONS_INTEREST_TOPICS,
+				title: Liferay.Language.get('interests')
+			}
+		]
+	}
+];
+
+export const Overview: React.FC<IOverviewProps> = ({groupId}) => (
+	<BasePage
+		className='definitions-overview-root'
+		groupId={groupId}
+		pageDescription={Liferay.Language.get(
+			'select-the-entity-to-view-its-data-model'
+		)}
+		pageTitle={Liferay.Language.get('definitions')}
+	>
+		<div className='row'>
+			<div className='col-xl-8'>
+				<Card>
+					<ClayList>
+						{(DEVELOPER_MODE ? devItems.concat(items) : items).map(
+							({header, items}) => (
+								<React.Fragment key={header}>
+									{header && (
+										<ClayList.Header>
+											{header}
+										</ClayList.Header>
+									)}
+
+									{items.map(
+										({
+											description,
+											route,
+											routeParams = {},
+											title
+										}) => (
+											<ClayList.Item key={title}>
+												<ClayList.ItemTitle>
+													<Link
+														to={toRoute(route, {
+															groupId,
+															...routeParams
+														})}
+													>
+														{title}
+													</Link>
+												</ClayList.ItemTitle>
+
+												<ClayList.ItemText>
+													{description}
+												</ClayList.ItemText>
+											</ClayList.Item>
+										)
+									)}
+								</React.Fragment>
+							)
+						)}
+					</ClayList>
+				</Card>
+			</div>
+		</div>
+	</BasePage>
+);
+
+export default withCurrentUser(Overview);

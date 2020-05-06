@@ -1,0 +1,97 @@
+import Button from 'shared/components/Button';
+import Card from 'shared/components/Card';
+import FaroConstants from 'shared/util/constants';
+import Icon from 'shared/components/Icon';
+import InterestsQuery from '../queries/InterestsQuery';
+import React from 'react';
+import {compositionListColumns} from 'shared/util/table-columns';
+import {
+	getMapResultToProps,
+	mapCardPropsToOptions
+} from 'contacts/hoc/mappers/interests-query';
+import {graphql} from '@apollo/react-hoc';
+import {Routes, toRoute} from 'shared/util/router';
+import {sub} from 'shared/util/lang';
+import {withTableData} from 'shared/hoc';
+
+const {
+	compositionTypes: {individualInterests}
+} = FaroConstants;
+
+const withData = () =>
+	graphql(InterestsQuery, {
+		options: mapCardPropsToOptions,
+		props: getMapResultToProps(individualInterests)
+	});
+
+const TableWithData = withTableData(withData, {
+	emptyTitle: sub(Liferay.Language.get('there-are-no-x-found'), [
+		Liferay.Language.get('interests')
+	]),
+	getColumns: ({channelId, groupId, maxCount, totalCount}) => [
+		compositionListColumns.getName({
+			label: Liferay.Language.get('topic'),
+			maxWidth: 200,
+			routeFn: ({data: {name}}) =>
+				name &&
+				toRoute(Routes.CONTACTS_INDIVIDUALS_INTEREST_DETAILS, {
+					channelId,
+					groupId,
+					interestId: name
+				}),
+			sortable: false
+		}),
+		compositionListColumns.getRelativeMetricBar({
+			label: sub(Liferay.Language.get('x-individuals'), [
+				Liferay.Language.get('total')
+			]),
+			maxCount,
+			totalCount
+		}),
+		compositionListColumns.getPercentOf({
+			metricName: sub(Liferay.Language.get('x-individuals'), [
+				Liferay.Language.get('total')
+			]),
+			totalCount
+		})
+	],
+	rowIdentifier: 'name'
+});
+
+interface IInterestsCardProps {
+	channelId: string;
+	groupId: string;
+}
+
+const InterestsCard: React.FC<IInterestsCardProps> = ({channelId, groupId}) => (
+	<Card className='interests-card-root' minHeight={536}>
+		<Card.Header>
+			<Card.Title>
+				{Liferay.Language.get('top-interests-as-of-today')}
+			</Card.Title>
+		</Card.Header>
+
+		<TableWithData
+			channelId={channelId}
+			groupId={groupId}
+			rowBordered={false}
+		/>
+
+		<Card.Footer>
+			<Button
+				display='link'
+				href={toRoute(Routes.CONTACTS_INDIVIDUALS_INTERESTS, {
+					channelId,
+					groupId
+				})}
+				size='sm'
+			>
+				{Liferay.Language.get('view-all-interests')}
+
+				<Icon symbol='angle-right' />
+			</Button>
+		</Card.Footer>
+	</Card>
+);
+
+export default InterestsCard;

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndividualLinkCell should render 1`] = `
+<td
+  className="name-cell-root"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="text-truncate"
+    >
+      <div
+        className="table-title text-truncate"
+      >
+        <Link
+          className="text-truncate"
+          onClick={[Function]}
+          replace={false}
+          to="/workspace/123/contacts/individuals/known-individuals/456"
+        >
+          Test Test
+        </Link>
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`IndividualLinkCell should render with individual data 1`] = `
+<td
+  className="name-cell-root"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="text-truncate"
+    >
+      <div
+        className="table-title text-truncate"
+      >
+        <Link
+          className="text-truncate"
+          onClick={[Function]}
+          replace={false}
+          to="/workspace/123/contacts/individuals/known-individuals/individual456"
+        >
+          individual Test
+        </Link>
+      </div>
+    </div>
+  </div>
+</td>
+`;

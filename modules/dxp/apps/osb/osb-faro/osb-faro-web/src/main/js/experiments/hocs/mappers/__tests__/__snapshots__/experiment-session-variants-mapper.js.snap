@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Experiment Session Variants Mapper should render Tooltip 1`] = `
+<table
+  class="analytics-tooltip-chart"
+>
+  <thead
+    class="analytics-tooltip-chart-header "
+  >
+    <tr
+      class="analytics-tooltip-chart-row "
+    >
+      <td>
+        <div
+          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
+        >
+           17 May
+        </div>
+      </td>
+      <td>
+        <div
+          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
+        >
+           Sessions
+        </div>
+      </td>
+    </tr>
+  </thead>
+  <tbody
+    class="analytics-tooltip-chart-body "
+  >
+    <tr
+      class="analytics-tooltip-chart-row "
+    >
+      <td>
+        <div
+          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-normal"
+        >
+          <span
+            class="circle"
+            style="background-color:#6B6C7E;height:8px;width:8px"
+          />
+           Helen Lamb
+        </div>
+      </td>
+      <td>
+        <div
+          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-normal"
+        >
+           1,500
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Experiment Session Variants Mapper should return formatted data 1`] = `
+Object {
+  "Tooltip": [Function],
+  "data": Array [
+    Object {
+      "color": "#6B6C7E",
+      "data": Array [
+        206,
+        91,
+        189,
+      ],
+      "id": "data1",
+      "label": "Helen Lamb",
+    },
+    Object {
+      "color": false,
+      "data": Array [
+        137,
+        234,
+        393,
+      ],
+      "id": "data2",
+      "label": "Alma Hale",
+    },
+    Object {
+      "color": false,
+      "data": Array [
+        428,
+        168,
+        299,
+      ],
+      "id": "data3",
+      "label": "Beatrice Bowman",
+    },
+    Object {
+      "color": false,
+      "data": Array [
+        343,
+        67,
+        66,
+      ],
+      "id": "data4",
+      "label": "Lottie Newman",
+    },
+    Object {
+      "data": Array [
+        2018-05-17T00:00:00.000Z,
+        2018-05-18T00:00:00.000Z,
+        2018-05-19T00:00:00.000Z,
+      ],
+      "id": "x",
+    },
+  ],
+  "format": [Function],
+  "intervals": Array [
+    2018-05-17T00:00:00.000Z,
+    2018-05-18T00:00:00.000Z,
+    2018-05-19T00:00:00.000Z,
+  ],
+}
+`;

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unique Visitors Cell should render 1`] = `
+<td>
+  <span
+    className="lift"
+  >
+    <ClayIcon
+      symbol="caret-top"
+    />
+     
+    10.12%
+     
+    lift
+  </span>
+</td>
+`;
+
+exports[`Unique Visitors Cell should render negative improvements 1`] = `
+<td>
+  <span
+    className="loss"
+  >
+    <ClayIcon
+      symbol="caret-bottom"
+    />
+     
+    10.12%
+     
+    loss
+  </span>
+</td>
+`;

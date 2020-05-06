@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InterestDetails should render 1`] = `
+<Fragment>
+  <BackButton
+    href="/workspace/23/contacts/individuals/known-individuals/test/interests"
+    label="Back to Interests"
+  />
+  <Card
+    pageDisplay={true}
+  >
+    <Header>
+      <Title>
+        Pages Containing - 
+        <span
+          className="interest-name"
+          key="INTEREST_NAME"
+        >
+          "1"
+        </span>
+      </Title>
+    </Header>
+    <Header>
+      <Nav
+        className="page-subnav"
+        display="underline"
+        key="subnav"
+      >
+        <Item
+          active={true}
+          disabled={false}
+          href="/workspace/23/contacts/individuals/known-individuals/test/interests/1?active=true"
+          key="Active Pages"
+        >
+          <h4>
+            Active Pages
+          </h4>
+        </Item>
+        <Item
+          active={false}
+          disabled={false}
+          href="/workspace/23/contacts/individuals/known-individuals/test/interests/1?active=false"
+          key="Inactive Pages"
+        >
+          <h4>
+            Inactive Pages
+          </h4>
+        </Item>
+      </Nav>
+    </Header>
+    <InterestPagesList
+      className="interest-history-table"
+      dataSourceParams={
+        Object {
+          "active": true,
+          "contactsEntityId": "test",
+          "contactsEntityType": 2,
+          "groupId": "23",
+          "interestName": "1",
+        }
+      }
+      delta={2}
+      filterBy={Immutable.Map {}}
+      groupId="23"
+      page={1}
+      query=""
+    />
+  </Card>
+</Fragment>
+`;

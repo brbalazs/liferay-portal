@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`activities formatGroupingTime should format grouping time 1`] = `"Jul 10, 2018"`;
+
+exports[`activities formatSessions should format sessions 1`] = `
+Array [
+  Object {
+    "header": true,
+    "title": "Jul 10, 2018",
+  },
+  Object {
+    "id": "activity_id_2",
+    "individual": undefined,
+    "nestedItems": Array [
+      Object {
+        "subtitle": "https://www.liferay0.com",
+        "symbol": "folder",
+        "time": 100000,
+        "title": Array [
+          "Visited ",
+          <strong>
+            Asset 0
+          </strong>,
+        ],
+        "url": null,
+      },
+      Object {
+        "subtitle": "https://www.liferay1.com",
+        "symbol": "folder",
+        "time": 100001,
+        "title": Array [
+          "Visited ",
+          <strong>
+            Asset 1
+          </strong>,
+        ],
+        "url": null,
+      },
+      Object {
+        "subtitle": "https://www.liferay2.com",
+        "symbol": "folder",
+        "time": 100002,
+        "title": Array [
+          "Visited ",
+          <strong>
+            Asset 2
+          </strong>,
+        ],
+        "url": null,
+      },
+    ],
+    "subtitle": Array [
+      <span>
+        3 Visits
+      </span>,
+    ],
+    "time": 1531263666366,
+    "title": "Visited www.liferay0.com",
+  },
+]
+`;
+
+exports[`activities getActivityLabel should get singular label 1`] = `
+Array [
+  "Activity ",
+  <b>
+    1
+  </b>,
+]
+`;
+
+exports[`activities getActivityLabel should plural label 1`] = `
+Array [
+  "Activities ",
+  <b>
+    2
+  </b>,
+]
+`;

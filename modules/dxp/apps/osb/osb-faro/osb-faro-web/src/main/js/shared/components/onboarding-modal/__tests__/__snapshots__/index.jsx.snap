@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnboardingModal renders 1`] = `
+<div>
+  <div
+    aria-modal="true"
+    class="modal-dialog onboarding-modal-root modal-xxl"
+    role="dialog"
+  >
+    <div
+      class="modal-content"
+    >
+      <div
+        class="onboarding-base-screen-root d-flex flex-column flex-grow-1 justify-content-between welcome"
+      >
+        <div
+          class="header"
+        >
+          <div
+            class="d-flex justify-content-end"
+          >
+            <button
+              class="close-button btn btn-monospaced btn-outline-borderless btn-sm btn-outline-secondary"
+              type="button"
+            >
+              <svg
+                class="lexicon-icon lexicon-icon-times"
+                role="presentation"
+              >
+                <use
+                  xlink:href="#times"
+                />
+              </svg>
+            </button>
+          </div>
+          <span
+            class="title d-flex justify-content-center"
+          >
+            Welcome to Analytics Cloud
+          </span>
+        </div>
+        <div
+          class="modal-body d-flex flex-column align-items-center"
+        >
+          <svg
+            class="ac-setup"
+            viewBox=""
+          >
+            <use
+              xlink:href="#analytics-onboarding-welcome"
+            />
+          </svg>
+          <span
+            class="description"
+          >
+            Just a few more steps to set up your workspace.
+          </span>
+        </div>
+        <div
+          class="modal-footer d-flex justify-content-center"
+        >
+          <button
+            class="wide btn btn-primary"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

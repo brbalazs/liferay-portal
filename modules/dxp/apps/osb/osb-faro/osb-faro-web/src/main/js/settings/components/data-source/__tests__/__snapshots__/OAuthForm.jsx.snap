@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OAuthForm should render 1`] = `
+<Formik
+  enableReinitialize={false}
+  initialValues={
+    Object {
+      "consumerKey": "",
+      "consumerSecret": "",
+      "dataSourceName": "Liferay0",
+      "url": "https://www.faro-0.io",
+    }
+  }
+  isInitialValid={false}
+  onSubmit={[Function]}
+  validateOnBlur={true}
+  validateOnChange={true}
+>
+  <Component />
+</Formik>
+`;
+
+exports[`OAuthForm should render without an edit button if authorized is false 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "dirty": false,
+      "errors": Object {},
+      "handleBlur": [Function],
+      "handleChange": [Function],
+      "handleReset": [Function],
+      "handleSubmit": [Function],
+      "initialValues": Object {
+        "consumerKey": "",
+        "consumerSecret": "",
+        "dataSourceName": "Liferay0",
+        "url": "https://www.faro-0.io",
+      },
+      "isSubmitting": false,
+      "isValid": false,
+      "isValidating": false,
+      "registerField": [Function],
+      "resetForm": [Function],
+      "setError": [Function],
+      "setErrors": [Function],
+      "setFieldError": [Function],
+      "setFieldTouched": [Function],
+      "setFieldValue": [Function],
+      "setFormikState": [Function],
+      "setStatus": [Function],
+      "setSubmitting": [Function],
+      "setTouched": [Function],
+      "setValues": [Function],
+      "status": undefined,
+      "submitCount": 0,
+      "submitForm": [Function],
+      "touched": Object {},
+      "unregisterField": [Function],
+      "validate": undefined,
+      "validateField": [Function],
+      "validateForm": [Function],
+      "validateOnBlur": true,
+      "validateOnChange": true,
+      "validationSchema": undefined,
+      "values": Object {
+        "consumerKey": "",
+        "consumerSecret": "",
+        "dataSourceName": "Liferay0",
+        "url": "https://www.faro-0.io",
+      },
+    }
+  }
+>
+  <Form
+    className="oauth-form-root"
+    onSubmit={[Function]}
+  >
+    <NavigationWarning
+      when={false}
+    />
+    <Body>
+      <Section
+        lastChildMargin={false}
+      >
+        <Text />
+        <div
+          className="callback-url"
+        >
+          <b>
+            Analytics Cloud Callback URL:
+          </b>
+          <pre
+            key="url"
+          >
+            http://liferay.com/oauth/receive
+          </pre>
+        </div>
+      </Section>
+      <Section
+        lastChildMargin={false}
+      >
+        <Subtitle>
+          Data Source
+        </Subtitle>
+        <ForwardRef
+          disabled={true}
+          label="Name"
+          name="dataSourceName"
+          onChange={[Function]}
+          required={true}
+          validate={[Function]}
+        />
+        <ForwardRef
+          disabled={true}
+          label="URL"
+          name="url"
+          required={true}
+          validate={[Function]}
+        />
+      </Section>
+      <Section
+        lastChildMargin={false}
+      >
+        <Subtitle>
+          Client Credentials
+        </Subtitle>
+        <ForwardRef
+          autoComplete="new-password"
+          disabled={true}
+          label="Consumer Key/Client ID"
+          name="consumerKey"
+          onChange={[Function]}
+          required={true}
+          validate={[Function]}
+        />
+        <PasswordInput
+          autoComplete="new-password"
+          disabled={true}
+          label="Consumer Secret/Client Secret"
+          name="consumerSecret"
+          onChange={[Function]}
+          required={true}
+          validate={[Function]}
+        />
+      </Section>
+      <Section
+        lastChildMargin={false}
+      >
+        <h5>
+          OAuth Owner
+        </h5>
+        <div
+          className="oauth-owner disabled"
+        >
+          <em>
+            Authorize to add a new owner.
+          </em>
+        </div>
+      </Section>
+    </Body>
+  </Form>
+</ContextProvider>
+`;

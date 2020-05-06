@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item should render 1`] = `
+<li
+  className="list-group-item"
+/>
+`;
+
+exports[`Item should render with accentColor 1`] = `
+<li
+  className="list-group-item"
+  style={
+    Object {
+      "borderLeft": "4px solid abc",
+    }
+  }
+/>
+`;

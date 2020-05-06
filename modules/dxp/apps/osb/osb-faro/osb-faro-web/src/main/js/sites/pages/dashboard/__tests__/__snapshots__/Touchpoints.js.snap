@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sites Dashboard Touchpoints Page render 1`] = `
+<div
+  className="sites-dashboard-touchpoints-list-root"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-xl-12"
+    >
+      <Touchpoints />
+    </div>
+  </div>
+</div>
+`;

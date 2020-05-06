@@ -1,0 +1,16 @@
+.label-root {
+	&.label-dismissible {
+		.close {
+			height: auto;
+		}
+	}
+
+	&.label-uppercase {
+		text-transform: uppercase;
+	}
+
+	.info {
+		color: $mainLighten28;
+		margin-left: 4px;
+	}
+}

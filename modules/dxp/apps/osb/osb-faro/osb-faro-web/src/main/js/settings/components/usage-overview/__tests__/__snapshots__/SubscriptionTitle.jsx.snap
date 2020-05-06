@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubscriptionTitle should render 1`] = `
+<div
+  className="plan-title"
+>
+  <div
+    className="plan-name"
+  >
+    Business
+  </div>
+  <AnnualPrice
+    price={750}
+  />
+</div>
+`;
+
+exports[`SubscriptionTitle should render with a label 1`] = `
+<div
+  className="plan-title"
+>
+  <div
+    className="plan-name"
+  >
+    Business
+  </div>
+  <Label
+    display="primary"
+    size="lg"
+    uppercase={true}
+  >
+    1x
+  </Label>
+  <AnnualPrice
+    price={750}
+  />
+</div>
+`;

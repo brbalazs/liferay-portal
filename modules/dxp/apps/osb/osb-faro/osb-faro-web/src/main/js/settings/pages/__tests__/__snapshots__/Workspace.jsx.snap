@@ -1,0 +1,287 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Workspace Settting should render 1`] = `
+<div>
+  <div
+    class="settings-base-page-root workspace-settings"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <div
+      class="content-header"
+    >
+      <div
+        class="header-text"
+      >
+        <h3>
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Workspace Settings
+          </span>
+        </h3>
+        <div
+          class="description"
+        >
+          Here you can view and change your workspace settings. You can only set your Friendly Workspace URL once. Data Center Location cannot be changed.
+        </div>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div
+        class="add-workspace-form-root add-workspace-root col-lg-7 pl-0"
+      >
+        <div
+          class="sheet"
+        >
+          <form
+            class="form-root"
+          >
+            <div
+              class="sheet-header"
+            >
+              <div
+                class="sheet-section input-name"
+              >
+                <div
+                  class=""
+                >
+                  <label
+                    class="form-control-label label-root"
+                    for="name"
+                  >
+                    Workspace Name
+                    <span
+                      class="reference-mark"
+                    >
+                      <svg
+                        class="lexicon-icon lexicon-icon-asterisk"
+                        role="presentation"
+                      >
+                        <use
+                          xlink:href="#asterisk"
+                        />
+                      </svg>
+                    </span>
+                  </label>
+                  <input
+                    class="input-root form-control"
+                    id="name"
+                    name="name"
+                    type="text"
+                    value="project1"
+                  />
+                </div>
+              </div>
+              <div
+                class="sheet-section input-server"
+              >
+                <div
+                  class=""
+                >
+                  <label
+                    class="form-control-label label-root"
+                    for="serverLocation"
+                  >
+                    Data Center Location
+                    <span
+                      class="reference-mark"
+                    >
+                      <svg
+                        class="lexicon-icon lexicon-icon-asterisk"
+                        role="presentation"
+                      >
+                        <use
+                          xlink:href="#asterisk"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="instructions"
+                    >
+                      Select a server to store your data. This could have implications to your organization's policy on user data storage.
+                    </p>
+                  </label>
+                  <select
+                    class="form-control select-root"
+                    data-testid="server-location-input"
+                    disabled=""
+                    id="serverLocation"
+                    name="serverLocation"
+                  >
+                    <option
+                      class=""
+                      value="EUROPE"
+                    >
+                      Europe
+                    </option>
+                    <option
+                      class=""
+                      value="SOUTH AMERICA"
+                    >
+                      South America
+                    </option>
+                    <option
+                      class=""
+                      value="UNITED_STATES"
+                    >
+                      United States
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="sheet-section"
+              >
+                <div
+                  class=""
+                >
+                  <label
+                    class="form-control-label label-root"
+                    for="friendlyURL"
+                  >
+                    Set a Friendly Workspace URL
+                    <p
+                      class="instructions form-text"
+                    >
+                      http://localhost:3000/workspace
+                    </p>
+                  </label>
+                  <div
+                    class="input-group"
+                  >
+                    <div
+                      class="input-group-item input-group-item-shrink input-group-prepend"
+                    >
+                      <div
+                        class="input-group-text"
+                      >
+                        /
+                      </div>
+                    </div>
+                    <div
+                      class="input-group-item input-group-append"
+                    >
+                      <input
+                        class="input-root form-control"
+                        data-testid="friendly-url-input"
+                        id="friendlyURL"
+                        name="friendlyURL"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="sheet-section"
+              >
+                <div
+                  class=""
+                >
+                  <label
+                    class="form-control-label label-root"
+                    for="emailAddressDomains"
+                  >
+                    Allowed Email Domains
+                    <p
+                      class="instructions"
+                    >
+                      Anyone with an email address at these domains can request access to your workspace.
+                    </p>
+                  </label>
+                  <div
+                    class="input-group"
+                  >
+                    <div
+                      class="input-group"
+                    >
+                      <div
+                        class="input-group-item input-group-item-shrink input-group-prepend"
+                      >
+                        <div
+                          class="input-group-text"
+                        >
+                          @
+                        </div>
+                      </div>
+                      <div
+                        class="input-group-item input-group-append"
+                      >
+                        <div
+                          class="input-group-item input-list-root"
+                        >
+                          <div
+                            class="form-control form-control-tag-group"
+                          >
+                            <div
+                              class="label label-root label-secondary label-dismissible"
+                            >
+                              <span
+                                class="label-item"
+                              >
+                                liferay.com
+                              </span>
+                              <span
+                                class="label-item label-item-after"
+                              >
+                                <button
+                                  aria-label="Close"
+                                  class="button-root btn btn-secondary close"
+                                  type="button"
+                                >
+                                  <svg
+                                    class="icon-root lexicon-icon lexicon-icon-times icon-size-sm"
+                                    viewBox=""
+                                  >
+                                    <use
+                                      xlink:href="#times"
+                                    />
+                                  </svg>
+                                </button>
+                              </span>
+                            </div>
+                            <input
+                              class="form-control-inset"
+                              placeholder=""
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="sheet-footer"
+            >
+              <button
+                class="button-root btn btn-primary mr-3"
+                disabled=""
+                type="submit"
+              >
+                Save
+              </button>
+              <button
+                class="button-root btn btn-secondary"
+                disabled=""
+                type="button"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

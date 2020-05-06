@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`date getDateRangeLabel should get the date range label from an array of objects 1`] = `"July 8, 2018 - July 10, 2018"`;

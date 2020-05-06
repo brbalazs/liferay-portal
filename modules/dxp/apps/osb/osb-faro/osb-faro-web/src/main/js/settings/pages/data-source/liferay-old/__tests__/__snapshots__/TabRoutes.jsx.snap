@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiferayTabRoutes should render 1`] = `
+<TabRoutes
+  routes={
+    Array [
+      Object {
+        "component": [Function],
+        "path": "/workspace/:groupId([\\\\w._-]+)/settings/data-source/:id",
+      },
+      Object {
+        "component": [Function],
+        "path": "/workspace/:groupId([\\\\w._-]+)/settings/data-source/:id/liferay/configuration-status",
+      },
+    ]
+  }
+/>
+`;

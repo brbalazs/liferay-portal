@@ -1,0 +1,137 @@
+import * as API from 'shared/api';
+import FaroConstants from 'shared/util/constants';
+import {CALL_API} from '../middleware/api';
+import {createActionTypes} from 'redux-toolbox';
+
+const {
+	preferencesScopes: {group, user}
+} = FaroConstants;
+
+export const actionTypes = {
+	...createActionTypes('add', 'distribution_tabs'),
+	...createActionTypes('fetch', 'default_channel_id'),
+	...createActionTypes('fetch', 'default_site_id'),
+	...createActionTypes('fetch', 'distribution_tabs'),
+	...createActionTypes('remove', 'distribution_tabs'),
+	...createActionTypes('update', 'default_channel_id'),
+	...createActionTypes('update', 'default_site_id')
+};
+
+export function addDistributionTab({
+	distributionKey,
+	distributionTab,
+	distributionTabId,
+	groupId,
+	id
+}) {
+	return {
+		meta: {
+			[CALL_API]: {
+				data: {
+					distributionTab,
+					distributionTabId,
+					groupId,
+					scope: group,
+					segmentId: id
+				},
+				requestFn: API.preferences.addDistributionTab,
+				types: [
+					actionTypes.ADD_DISTRIBUTION_TABS_REQUEST,
+					actionTypes.ADD_DISTRIBUTION_TABS_SUCCESS,
+					actionTypes.ADD_DISTRIBUTION_TABS_FAILURE
+				]
+			},
+			id: distributionKey,
+			scope: group
+		},
+		type: 'NO_OP'
+	};
+}
+
+export function fetchDefaultChannelId(groupId = 0) {
+	return {
+		meta: {
+			[CALL_API]: {
+				data: {groupId, scope: user},
+				requestFn: API.preferences.fetchDefaultChannelId,
+				types: [
+					actionTypes.FETCH_DEFAULT_CHANNEL_ID_REQUEST,
+					actionTypes.FETCH_DEFAULT_CHANNEL_ID_SUCCESS,
+					actionTypes.FETCH_DEFAULT_CHANNEL_ID_FAILURE
+				]
+			},
+			scope: user
+		},
+		type: 'NO_OP'
+	};
+}
+
+export function fetchDistributionTabs({distributionKey, groupId, id}) {
+	return {
+		meta: {
+			[CALL_API]: {
+				data: {
+					groupId,
+					scope: group,
+					segmentId: id
+				},
+				requestFn: API.preferences.fetchDistributionTabs,
+				types: [
+					actionTypes.FETCH_DISTRIBUTION_TABS_REQUEST,
+					actionTypes.FETCH_DISTRIBUTION_TABS_SUCCESS,
+					actionTypes.FETCH_DISTRIBUTION_TABS_FAILURE
+				]
+			},
+			id: distributionKey,
+			scope: group
+		},
+		type: 'NO_OP'
+	};
+}
+
+export function removeDistributionTab({
+	distributionKey,
+	distributionTabId,
+	groupId,
+	id
+}) {
+	return {
+		meta: {
+			[CALL_API]: {
+				data: {
+					distributionTabId,
+					groupId,
+					scope: group,
+					segmentId: id
+				},
+				requestFn: API.preferences.removeDistributionTab,
+				types: [
+					actionTypes.REMOVE_DISTRIBUTION_TABS_REQUEST,
+					actionTypes.REMOVE_DISTRIBUTION_TABS_SUCCESS,
+					actionTypes.REMOVE_DISTRIBUTION_TABS_FAILURE
+				]
+			},
+			id: distributionKey,
+			scope: group
+		},
+		type: 'NO_OP'
+	};
+}
+
+export function updateDefaultChannelId({defaultChannelId, groupId}) {
+	return {
+		meta: {
+			[CALL_API]: {
+				data: {defaultChannelId, groupId, scope: user},
+				requestFn: API.preferences.updateDefaultChannelId,
+				types: [
+					actionTypes.UPDATE_DEFAULT_CHANNEL_ID_REQUEST,
+					actionTypes.UPDATE_DEFAULT_CHANNEL_ID_SUCCESS,
+					actionTypes.UPDATE_DEFAULT_CHANNEL_ID_FAILURE
+				]
+			},
+			scope: user
+		},
+		type: 'NO_OP'
+	};
+}

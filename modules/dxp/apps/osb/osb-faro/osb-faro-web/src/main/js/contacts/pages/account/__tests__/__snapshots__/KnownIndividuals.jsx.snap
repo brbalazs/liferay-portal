@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KnownIndividuals should render 1`] = `
+<Card
+  pageDisplay={true}
+>
+  <SearchableEntityTable
+    bordered={false}
+    checkDisabled={[Function]}
+    columns={
+      Array [
+        Object {
+          "accessor": "name",
+          "cellRenderer": [Function],
+          "cellRendererProps": Object {
+            "renderSecondaryInfo": [Function],
+            "routeFn": [Function],
+          },
+          "className": "table-cell-expand",
+          "label": "Name | Email",
+        },
+        Object {
+          "accessor": "properties.jobTitle",
+          "className": "table-cell-expand",
+          "label": "Job Title",
+        },
+        Object {
+          "accessor": "activitiesCount",
+          "className": "table-column-text-end",
+          "dataFormatter": [Function],
+          "label": "Total Activities",
+        },
+        Object {
+          "accessor": "engagementScore",
+          "className": "table-column-text-end",
+          "dataFormatter": [Function],
+          "label": "30 Day Engagement",
+        },
+        Object {
+          "accessor": "lastActivityDate",
+          "dataFormatter": [Function],
+          "label": "Last Activity",
+        },
+      ]
+    }
+    dataSourceFn={[Function]}
+    dataSourceParams={
+      Object {
+        "channelId": "123123",
+        "groupId": "23",
+        "id": "test",
+      }
+    }
+    delta={2}
+    entityLabel="Individuals"
+    filterBy={Immutable.Map {}}
+    internalSort={false}
+    nowrap={true}
+    orderBy="asc"
+    orderByField="name"
+    orderByOptions={
+      Array [
+        Object {
+          "label": "Name",
+          "value": "name",
+        },
+        Object {
+          "label": "Title",
+          "value": "jobTitle",
+        },
+        Object {
+          "label": "Activities",
+          "value": "activitiesCount",
+        },
+        Object {
+          "label": "30 Day Engagement",
+          "value": "engagementScore",
+        },
+        Object {
+          "label": "Last Activity",
+          "value": "lastActivityDate",
+        },
+      ]
+    }
+    overrideLoading={false}
+    page={1}
+    query=""
+    rowIdentifier="id"
+    showCheckbox={false}
+  />
+</Card>
+`;

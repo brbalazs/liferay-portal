@@ -1,0 +1,42 @@
+dependencies {
+	compileOnly group: "com.liferay", name: "com.liferay.ip.geocoder", version: "2.0.9"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.api", version: "1.2.2"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.jsonws", version: "1.0.20"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.rest", version: "1.0.31"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.rest.spi", version: "1.0.2"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.scope.api", version: "1.0.4"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.scope.impl", version: "1.0.29"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.scope.liferay.api", version: "1.0.4"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.scope.spi", version: "1.0.2"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.service", version: "1.0.13"
+	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.web", version: "1.0.32"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.json.web.service.client", version: "8.0.0"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.lang", version: "2.0.0"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "2.0.0"
+	compileOnly group: "com.liferay", name: "com.liferay.saml.addon.keep.alive.web", version: "2.0.2"
+	compileOnly group: "com.liferay", name: "com.liferay.saml.api", version: "2.1.0"
+	compileOnly group: "com.liferay", name: "com.liferay.saml.impl", version: "2.0.6"
+	compileOnly group: "com.liferay", name: "com.liferay.saml.opensaml.integration", version: "2.0.9"
+	compileOnly group: "com.liferay", name: "com.liferay.saml.persistence.api", version: "2.0.2"
+	compileOnly group: "com.liferay", name: "com.liferay.saml.persistence.service", version: "2.0.5"
+	compileOnly group: "com.liferay", name: "com.liferay.saml.web", version: "2.0.2"
+	compileOnly group: "com.liferay.plugins", name: "saml-hook", version: "7.1.10.3"
+	compileOnly group: "com.maxmind.geoip", name: "geoip-api", version: "1.2.14"
+	compileOnly group: "org.tukaani", name: "xz", version: "1.5"
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-admin-web")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-api")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-contacts-api")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-contacts-service")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-engine-client")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-login-web-fragment")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-mock-engine-client")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-provisioning-client")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-service")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-theme")
+	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-web")
+}
+
+deployDependencies {
+	from configurations.compileOnly
+	include "*.?ar"
+}

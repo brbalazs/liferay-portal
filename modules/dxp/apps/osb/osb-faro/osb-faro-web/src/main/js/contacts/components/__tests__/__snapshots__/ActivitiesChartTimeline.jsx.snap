@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivitiesChartTimeline should render 1`] = `
+<Body
+  className="activities-chart-timeline-root"
+  noPadding={true}
+>
+  <Chart
+    alwaysShowSelectedTooltip={true}
+    axisRotated={false}
+    axisX={
+      Object {
+        "tick": Object {
+          "centered": false,
+          "format": [Function],
+          "multiline": true,
+          "outer": false,
+        },
+      }
+    }
+    axisY={
+      Object {
+        "max": 10,
+        "min": 0,
+        "padding": Object {
+          "bottom": 0,
+        },
+      }
+    }
+    bar={
+      Object {
+        "width": Object {
+          "ratio": 0.9,
+        },
+      }
+    }
+    chartType="bar"
+    className="activities-timeline-chart"
+    data={
+      Array [
+        Object {
+          "axis": "y",
+          "data": Array [
+            1,
+            2,
+          ],
+          "id": "activities",
+          "name": "Activity Count",
+          "type": "bar",
+        },
+        Object {
+          "data": Array [
+            1531177266366,
+            1531263666366,
+          ],
+          "id": "date",
+          "name": "Date",
+        },
+      ]
+    }
+    dataId="activities"
+    height={328}
+    id="activity"
+    legend={Object {}}
+    line={Object {}}
+    onPointSelect={[Function]}
+    otherData={Object {}}
+    point={Object {}}
+    tooltip={
+      Object {
+        "contents": [Function],
+      }
+    }
+    unloadBeforeLoad={true}
+    x="date"
+    yLabel="Activities"
+  />
+  <div
+    className="selected-info"
+  >
+    <h4>
+      Account's Activities - July 9, 2018 - July 10, 2018
+    </h4>
+  </div>
+  <StatefulPagination
+    dataSourceFn={[Function]}
+    dataSourceParams={
+      Object {
+        "channelId": "123123",
+        "contactsEntityId": "123",
+        "contactsEntityType": 0,
+        "endDate": 1531263666366,
+        "groupId": "23",
+        "startDate": 1531177266366,
+      }
+    }
+    entityLabel="Activities"
+    groupId="23"
+    headerLabels={
+      Object {
+        "count": "Activity Count",
+        "label": "Time",
+        "title": "Session",
+      }
+    }
+    initialExpanded={false}
+    toolbarProps={Object {}}
+  />
+</Body>
+`;

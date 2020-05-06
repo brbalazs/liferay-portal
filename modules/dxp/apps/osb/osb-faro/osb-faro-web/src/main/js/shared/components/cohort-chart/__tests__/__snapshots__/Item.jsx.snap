@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CohortChartItem should render 1`] = `
+<td
+  className="cohort-item-root table-cell-expand table-column-text-center"
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
+  style={
+    Object {
+      "background": "#000000",
+    }
+  }
+>
+  <span
+    className="retention"
+  >
+    36.21%
+  </span>
+</td>
+`;

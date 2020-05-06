@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RoleRenderer should render 1`] = `
+<td>
+  <StopClickPropagation>
+    Owner
+  </StopClickPropagation>
+</td>
+`;
+
+exports[`RoleRenderer should render as being edited 1`] = `
+<td>
+  <StopClickPropagation>
+    <Dropdown
+      align="bottomLeft"
+      buttonProps={
+        Object {
+          "size": "sm",
+        }
+      }
+      disabled={false}
+      forceAlignment={false}
+      icon=""
+      label="Member"
+      showCaret={true}
+    >
+      <Item
+        active={false}
+        hideOnClick={true}
+        key="Site Administrator"
+        onClick={[Function]}
+        value="Site Administrator"
+      >
+        Administrator
+      </Item>
+      <Item
+        active={false}
+        hideOnClick={true}
+        key="Site Member"
+        onClick={[Function]}
+        value="Site Member"
+      >
+        Member
+      </Item>
+      <Item
+        active={false}
+        hideOnClick={true}
+        key="Site Owner"
+        onClick={[Function]}
+        value="Site Owner"
+      >
+        Owner
+      </Item>
+    </Dropdown>
+  </StopClickPropagation>
+</td>
+`;

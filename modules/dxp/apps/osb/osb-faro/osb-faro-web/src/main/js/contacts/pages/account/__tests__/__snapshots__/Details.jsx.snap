@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountDetails should render 1`] = `
+<_class
+  dataSourceFn={[Function]}
+  groupId="23"
+  id="test"
+  title="Account Attributes"
+/>
+`;

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InterestTopicsModal should render 1`] = `
+<Modal
+  className="invite-users-modal-root"
+  size="lg"
+>
+  <Header
+    onClose={[Function]}
+    title="Insert Keywords"
+  />
+  <Body>
+    <InputGroup>
+      <InputList
+        autoFocus={true}
+        disabled={false}
+        errorMessage="Please enter a valid keyword"
+        inputValue=""
+        items={Array []}
+        keyCodesToSplit={
+          Array [
+            188,
+            13,
+          ]
+        }
+        onInputChange={[Function]}
+        onItemsChange={[Function]}
+        onValidationFail={[Function]}
+        placeholder="Enter Keyword"
+        validateOnBlur={true}
+        validationFn={[Function]}
+      />
+    </InputGroup>
+    <div
+      className="description form-text"
+    >
+      Use comma or enter to add several keywords.
+    </div>
+  </Body>
+  <Footer>
+    <Button
+      onClick={[Function]}
+    >
+      Cancel
+    </Button>
+    <Button
+      disabled={true}
+      display="primary"
+      onClick={[Function]}
+    >
+      Send
+    </Button>
+  </Footer>
+</Modal>
+`;

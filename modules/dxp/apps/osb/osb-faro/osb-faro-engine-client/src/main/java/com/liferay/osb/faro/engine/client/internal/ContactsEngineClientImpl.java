@@ -1,0 +1,2725 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package com.liferay.osb.faro.engine.client.internal;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import com.liferay.osb.faro.engine.client.BaseEngineClient;
+import com.liferay.osb.faro.engine.client.ContactsEngineClient;
+import com.liferay.osb.faro.engine.client.constants.ActivityConstants;
+import com.liferay.osb.faro.engine.client.constants.AssetConstants;
+import com.liferay.osb.faro.engine.client.constants.FieldMappingConstants;
+import com.liferay.osb.faro.engine.client.exception.FaroEngineClientException;
+import com.liferay.osb.faro.engine.client.model.Account;
+import com.liferay.osb.faro.engine.client.model.Activity;
+import com.liferay.osb.faro.engine.client.model.ActivityAggregation;
+import com.liferay.osb.faro.engine.client.model.ActivityAsset;
+import com.liferay.osb.faro.engine.client.model.ActivityGroup;
+import com.liferay.osb.faro.engine.client.model.Asset;
+import com.liferay.osb.faro.engine.client.model.Author;
+import com.liferay.osb.faro.engine.client.model.BlockedKeyword;
+import com.liferay.osb.faro.engine.client.model.Channel;
+import com.liferay.osb.faro.engine.client.model.Credentials;
+import com.liferay.osb.faro.engine.client.model.DXPGroup;
+import com.liferay.osb.faro.engine.client.model.DXPOrganization;
+import com.liferay.osb.faro.engine.client.model.DXPUserGroup;
+import com.liferay.osb.faro.engine.client.model.DataSource;
+import com.liferay.osb.faro.engine.client.model.DataSourceField;
+import com.liferay.osb.faro.engine.client.model.DataSourceProgress;
+import com.liferay.osb.faro.engine.client.model.Distribution;
+import com.liferay.osb.faro.engine.client.model.Engagement;
+import com.liferay.osb.faro.engine.client.model.EngagementAggregation;
+import com.liferay.osb.faro.engine.client.model.Event;
+import com.liferay.osb.faro.engine.client.model.Field;
+import com.liferay.osb.faro.engine.client.model.FieldMapping;
+import com.liferay.osb.faro.engine.client.model.FieldMappingMap;
+import com.liferay.osb.faro.engine.client.model.Individual;
+import com.liferay.osb.faro.engine.client.model.IndividualSegment;
+import com.liferay.osb.faro.engine.client.model.IndividualSegmentMembership;
+import com.liferay.osb.faro.engine.client.model.IndividualSegmentMembershipChange;
+import com.liferay.osb.faro.engine.client.model.IndividualSegmentMembershipChangeAggregation;
+import com.liferay.osb.faro.engine.client.model.IndividualTransformation;
+import com.liferay.osb.faro.engine.client.model.Interest;
+import com.liferay.osb.faro.engine.client.model.PageVisited;
+import com.liferay.osb.faro.engine.client.model.PagedResources;
+import com.liferay.osb.faro.engine.client.model.Provider;
+import com.liferay.osb.faro.engine.client.model.Rels;
+import com.liferay.osb.faro.engine.client.model.ResourcePagedResources;
+import com.liferay.osb.faro.engine.client.model.Results;
+import com.liferay.osb.faro.engine.client.model.StringPagedResources;
+import com.liferay.osb.faro.engine.client.model.credentials.TokenCredentials;
+import com.liferay.osb.faro.engine.client.model.provider.LiferayProvider;
+import com.liferay.osb.faro.engine.client.model.provider.SalesforceProvider;
+import com.liferay.osb.faro.engine.client.util.FilterBuilder;
+import com.liferay.osb.faro.engine.client.util.FilterConstants;
+import com.liferay.osb.faro.engine.client.util.FilterUtil;
+import com.liferay.osb.faro.engine.client.util.OrderByField;
+import com.liferay.osb.faro.model.FaroProject;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.search.SearchPaginationUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.CompanyLocalService;
+import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
+
+import java.io.OutputStream;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.client.RequestCallback;
+import org.springframework.web.client.ResponseExtractor;
+import org.springframework.web.client.RestTemplate;
+
+/**
+ * @author Shinn Lok
+ */
+@Component(immediate = true, service = ContactsEngineClient.class)
+public class ContactsEngineClientImpl
+	extends BaseEngineClient implements ContactsEngineClient {
+
+	public Results<BlockedKeyword> addBlockedKeywords(
+		FaroProject faroProject, List<String> keywords) {
+
+		Map<String, Object> response = post(
+			faroProject, Rels.BLOCKED_KEYWORDS,
+			new HashMap<String, Object>() {
+				{
+					put("keywords", keywords);
+				}
+			},
+			Map.class);
+
+		List<Object> blockedKeywords = (List<Object>)response.get(
+			"blocked-keywords");
+
+		Stream<Object> stream = blockedKeywords.stream();
+
+		List<BlockedKeyword> items = stream.map(
+			map -> objectMapper.convertValue(map, BlockedKeyword.class)
+		).collect(
+			Collectors.toList()
+		);
+
+		return new Results<>(items, items.size());
+	}
+
+	@Override
+	public Channel addChannel(FaroProject faroProject, Channel channel) {
+		return post(
+			faroProject, Rels.CHANNELS, channel, Channel.class,
+			getUriVariables(faroProject));
+	}
+
+	@Override
+	public void addCSVIndividuals(
+			FaroProject faroProject, List<Map<String, Object>> fieldsMaps,
+			String dataSourceId, List<String> individualSegmentIds)
+		throws Exception {
+
+		List<Map<String, Object>> individualMaps = new ArrayList<>();
+
+		int byteSize = 0;
+
+		for (Map<String, Object> fieldsMap : fieldsMaps) {
+			Map<String, Object> individualMap = new HashMap<>();
+
+			individualMap.put("dataSourceId", dataSourceId);
+			individualMap.put("dataSourceIndividualPK", UUID.randomUUID());
+			individualMap.put("faroProject", faroProject.getWeDeployKey());
+			individualMap.put("fields", fieldsMap);
+			individualMap.put("individualSegmentIds", individualSegmentIds);
+
+			byte[] bytes = objectMapper.writeValueAsBytes(individualMap);
+
+			if ((byteSize + bytes.length) > _PAYLOAD_MAX_BYTE_SIZE) {
+				post(
+					faroProject, Rels.CSV_INDIVIDUALS, individualMaps,
+					Void.class);
+
+				individualMaps.clear();
+
+				byteSize = 0;
+			}
+
+			individualMaps.add(individualMap);
+
+			byteSize += bytes.length;
+		}
+
+		if (!individualMaps.isEmpty()) {
+			post(faroProject, Rels.CSV_INDIVIDUALS, individualMaps, Void.class);
+		}
+	}
+
+	@Override
+	public void addData(
+		FaroProject faroProject, String weDeployDataServiceName,
+		String collectionName, List<Map<String, Object>> objects) {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		uriVariables.put("collectionName", collectionName);
+		uriVariables.put("weDeployDataServiceName", weDeployDataServiceName);
+
+		post(faroProject, Rels.ADMIN_DATA, objects, Void.class, uriVariables);
+	}
+
+	@Override
+	public DataSource addDataSource(
+		FaroProject faroProject, Credentials credentials, Author author,
+		String name, String url, Provider provider, Event event,
+		String status) {
+
+		DataSource dataSource = new DataSource();
+
+		dataSource.setAuthor(author);
+		dataSource.setCredentials(credentials);
+		dataSource.setName(name);
+		dataSource.setProvider(provider);
+		dataSource.setStatus(status);
+		dataSource.setSubjectOf(event);
+		dataSource.setUrl(url);
+		dataSource.setWorkspaceURL(getWorkspaceURL(faroProject.getGroupId()));
+
+		return post(
+			faroProject, Rels.DATA_SOURCES, dataSource, DataSource.class);
+	}
+
+	@Override
+	public DataSource addDataSource(
+		FaroProject faroProject, Credentials credentials, long userId,
+		String name, String url, Provider provider, Event event,
+		String status) {
+
+		return addDataSource(
+			faroProject, credentials, getAuthor(userId), name, url, provider,
+			event, status);
+	}
+
+	@Override
+	public FieldMapping addFieldMapping(
+		FaroProject faroProject, Author author, String context,
+		Map<String, String> dataSourceFieldNames, String fieldName,
+		String fieldType, String ownerType, FieldMapping.Strategy strategy) {
+
+		FieldMapping fieldMapping = new FieldMapping();
+
+		fieldMapping.setAuthor(author);
+		fieldMapping.setContext(context);
+		fieldMapping.setDataSourceFieldNames(dataSourceFieldNames);
+		fieldMapping.setDisplayName(fieldName);
+		fieldMapping.setFieldName(fieldName);
+		fieldMapping.setFieldType(fieldType);
+		fieldMapping.setOwnerType(ownerType);
+		fieldMapping.setStrategy(strategy);
+
+		return post(
+			faroProject, Rels.FIELD_MAPPINGS, fieldMapping, FieldMapping.class);
+	}
+
+	@Override
+	public FieldMapping addFieldMapping(
+		FaroProject faroProject, long userId, String context,
+		Map<String, String> dataSourceFieldNames, String fieldName,
+		String fieldType, String ownerType, FieldMapping.Strategy strategy) {
+
+		return addFieldMapping(
+			faroProject, getAuthor(userId), context, dataSourceFieldNames,
+			fieldName, fieldType, ownerType, strategy);
+	}
+
+	@Override
+	public List<FieldMapping> addFieldMappings(
+		FaroProject faroProject, Author author, String dataSourceId,
+		String context, String ownerType,
+		List<FieldMappingMap> fieldMappingMaps) {
+
+		List<Object> fieldMappings = new ArrayList<>();
+		List<Map<String, Object>> uriVariablesList = new ArrayList<>();
+
+		for (FieldMappingMap fieldMappingMap : fieldMappingMaps) {
+			FieldMapping fieldMapping = new FieldMapping();
+
+			fieldMapping.setAuthor(author);
+			fieldMapping.setContext(context);
+			fieldMapping.setDisplayName(fieldMappingMap.getName());
+
+			Map<String, String> dataSourceFieldNames = new HashMap<>();
+
+			if (Validator.isNotNull(dataSourceId)) {
+				dataSourceFieldNames.put(
+					dataSourceId, fieldMappingMap.getDataSourceFieldName());
+			}
+
+			fieldMapping.setDataSourceFieldNames(dataSourceFieldNames);
+
+			fieldMapping.setFieldName(fieldMappingMap.getName());
+			fieldMapping.setFieldType(fieldMappingMap.getType());
+			fieldMapping.setOwnerType(ownerType);
+			fieldMapping.setStrategy(FieldMapping.Strategy.DEFAULT);
+
+			fieldMappings.add(fieldMapping);
+
+			uriVariablesList.add(getUriVariables(faroProject));
+		}
+
+		return bulk(
+			faroProject, Rels.FIELD_MAPPINGS, HttpMethod.POST, fieldMappings,
+			new TypeReference<FieldMapping>() {
+			},
+			uriVariablesList);
+	}
+
+	@Override
+	public List<FieldMapping> addFieldMappings(
+		FaroProject faroProject, long userId, String dataSourceId,
+		String context, String ownerType,
+		List<FieldMappingMap> fieldMappingMaps) {
+
+		return addFieldMappings(
+			faroProject, getAuthor(userId), dataSourceId, context, ownerType,
+			fieldMappingMaps);
+	}
+
+	@Override
+	public IndividualSegment addIndividualSegment(
+		FaroProject faroProject, long userId, String channelId, String filter,
+		boolean includeAnonymousUsers, String name, String segmentType,
+		String status) {
+
+		IndividualSegment individualSegment = new IndividualSegment();
+
+		individualSegment.setAuthor(getAuthor(userId));
+		individualSegment.setChannelId(channelId);
+		individualSegment.setDateModified(new Date());
+		individualSegment.setFilter(filter);
+		individualSegment.setIncludeAnonymousUsers(includeAnonymousUsers);
+		individualSegment.setName(name);
+		individualSegment.setSegmentType(segmentType);
+		individualSegment.setStatus(status);
+
+		return post(
+			faroProject, Rels.INDIVIDUAL_SEGMENTS, individualSegment,
+			IndividualSegment.class);
+	}
+
+	@Override
+	public IndividualSegmentMembership addMembership(
+		FaroProject faroProject, String individualSegmentId,
+		String individualId) {
+
+		IndividualSegmentMembership individualSegmentMembership =
+			new IndividualSegmentMembership();
+
+		individualSegmentMembership.setIndividualId(individualId);
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, individualSegmentId);
+
+		return post(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIPS,
+			individualSegmentMembership, IndividualSegmentMembership.class,
+			uriVariables);
+	}
+
+	@Override
+	public void addMemberships(
+		FaroProject faroProject, String individualSegmentId,
+		List<String> individualIds) {
+
+		List<IndividualSegmentMembership> individualSegmentMemberships =
+			new ArrayList<>();
+
+		for (String individualId : individualIds) {
+			IndividualSegmentMembership individualSegmentMembership =
+				new IndividualSegmentMembership();
+
+			individualSegmentMembership.setIndividualId(individualId);
+
+			individualSegmentMemberships.add(individualSegmentMembership);
+		}
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, individualSegmentId);
+
+		post(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIPS,
+			individualSegmentMemberships, Void.class, uriVariables);
+	}
+
+	@Override
+	public void addNanite(
+		FaroProject faroProject, String className,
+		Map<String, Object> context) {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		uriVariables.put("className", className);
+
+		post(faroProject, Rels.ADMIN_NANITE, context, Void.class, uriVariables);
+	}
+
+	@Override
+	public void addNanites(FaroProject faroProject, List<String> classNames) {
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		post(
+			faroProject, Rels.ADMIN_NANITES, classNames, Void.class,
+			uriVariables);
+	}
+
+	@Override
+	public void assignChannelToIndividualSegment(
+		FaroProject faroProject, String individualSegmentId, String channelId) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, individualSegmentId);
+
+		uriVariables.put("channelId", channelId);
+
+		put(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_ASSIGN_CHANNEL,
+			individualSegmentId, Void.class, uriVariables);
+	}
+
+	@Override
+	public void clearChannel(FaroProject faroProject, List<String> ids)
+		throws FaroEngineClientException {
+
+		post(
+			faroProject, Rels.CHANNEL_CLEAR, ids, Void.class,
+			getUriVariables(faroProject));
+	}
+
+	@Override
+	public void deleteBlockedKeywords(FaroProject faroProject, List<String> ids)
+		throws FaroEngineClientException {
+
+		delete(faroProject, Rels.BLOCKED_KEYWORD, ids);
+	}
+
+	@Override
+	public void deleteChannels(FaroProject faroProject, List<String> ids) {
+		delete(faroProject, Rels.CHANNELS, ids);
+	}
+
+	@Override
+	public void deleteDataSource(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		delete(faroProject, Rels.DATA_SOURCE, id);
+	}
+
+	@Override
+	public void deleteFieldMapping(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		delete(faroProject, Rels.FIELD_MAPPING, id);
+	}
+
+	@Override
+	public void deleteFields(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		delete(faroProject, Rels.FIELD, id);
+	}
+
+	@Override
+	public void deleteIndividualSegment(FaroProject faroProject, String id) {
+		delete(faroProject, Rels.INDIVIDUAL_SEGMENT, id);
+	}
+
+	@Override
+	public void deleteMembership(
+		FaroProject faroProject, String individualSegmentId,
+		String individualId) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, individualSegmentId);
+
+		uriVariables.put("individualId", individualId);
+
+		delete(faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIP, uriVariables);
+	}
+
+	@Override
+	public void disconnectDataSource(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		post(faroProject, Rels.DATA_SOURCE_DISCONNECT, id, Void.class);
+	}
+
+	@Override
+	public <T> T get(
+			FaroProject faroProject, Map<String, String> headers, String path,
+			Map<String, List<String>> queryParameters, Class<T> responseType)
+		throws Exception {
+
+		return get(
+			faroProject, headers, path, queryParameters, responseType,
+			getUriVariables(faroProject));
+	}
+
+	@Override
+	public Account getAccount(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		return get(faroProject, Rels.ACCOUNT, id, Account.class);
+	}
+
+	@Override
+	public Results<IndividualSegment> getAccountIndividualSegments(
+		FaroProject faroProject, String accountId, String channelId,
+		String query, String status, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL_SEGMENT);
+
+		uriVariables.put("expand", "active-membership");
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+		filterBuilder.addFilter(
+			"name", FilterConstants.STRING_FUNCTION_CONTAINS, query);
+		filterBuilder.addFilter(
+			"status", FilterConstants.COMPARISON_OPERATOR_EQUALS, status);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("id", accountId);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ACCOUNTS_INDIVIDUAL_SEGMENTS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<IndividualSegment>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Account> getAccounts(
+		FaroProject faroProject, String channelId, String dataSourceId,
+		String individualSegmentId, String filter, String query,
+		List<String> fields, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_ACCOUNT);
+
+		if (Validator.isNotNull(channelId)) {
+			uriVariables.put("channelId", channelId);
+		}
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"dataSourceId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			dataSourceId);
+		filterBuilder.addFilter(filter);
+		filterBuilder.addSearchFilter(
+			query, fields, FilterConstants.FIELD_NAME_CONTEXT_ACCOUNT);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		String type = null;
+
+		if (Validator.isNotNull(individualSegmentId)) {
+			type = Rels.INDIVIDUAL_SEGMENT_ACCOUNTS;
+
+			uriVariables.put("id", individualSegmentId);
+		}
+		else {
+			type = Rels.ACCOUNTS;
+		}
+
+		PagedResources pagedResources = get(
+			faroProject, type,
+			new ParameterizedTypeReference<ResourcePagedResources<Account>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Distribution> getAccountsDistribution(
+		FaroProject faroProject, String channelId, String fieldMappingId,
+		String filter, String individualSegmentId, int count, int numberOfBins,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 0, count, orderByFields);
+
+		uriVariables.put("channelId", channelId);
+		uriVariables.put("fieldMappingId", fieldMappingId);
+		uriVariables.put("filter", filter);
+		uriVariables.put("individualSegmentId", individualSegmentId);
+		uriVariables.put("numberOfBins", numberOfBins);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ACCOUNTS_DISTRIBUTION,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<Distribution>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Activity> getActivities(
+		FaroProject faroProject, String ownerId, String ownerType,
+		String groupId, String query, Date startDate, Date endDate, int action,
+		int cur, int delta, List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		addActionFilter(filterBuilder, ActivityConstants.getActionKeys(action));
+
+		filterBuilder.addFilter(
+			"day", FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
+			getDate(startDate, false));
+		filterBuilder.addFilter(
+			"day", FilterConstants.COMPARISON_OPERATOR_LESS_THAN,
+			getDate(endDate, true));
+		filterBuilder.addFilter(
+			"groupId", FilterConstants.COMPARISON_OPERATOR_EQUALS, groupId);
+
+		addOwnerIdFilter(filterBuilder, ownerId, ownerType);
+
+		filterBuilder.addSearchFilter(query, "object/name");
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ACTIVITIES,
+			new ParameterizedTypeReference<ResourcePagedResources<Activity>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public List<List<Activity>> getActivitiesList(
+		FaroProject faroProject, List<String> groupIds, String query,
+		int action, int cur, int delta, List<OrderByField> orderByFields) {
+
+		List<Map<String, Object>> uriVariablesList = new ArrayList<>();
+
+		for (String groupId : groupIds) {
+			Map<String, Object> uriVariables = getUriVariables(
+				faroProject, cur, delta, orderByFields);
+
+			FilterBuilder filterBuilder = new FilterBuilder();
+
+			addActionFilter(
+				filterBuilder, ActivityConstants.getActionKeys(action));
+
+			filterBuilder.addFilter(
+				"groupId", FilterConstants.COMPARISON_OPERATOR_EQUALS, groupId);
+			filterBuilder.addSearchFilter(query, "object/name");
+
+			uriVariables.put("filter", filterBuilder.build());
+
+			uriVariablesList.add(uriVariables);
+		}
+
+		return bulk(
+			faroProject, Rels.ACTIVITIES, HttpMethod.GET,
+			new TypeReference<List<Activity>>() {
+			},
+			uriVariablesList);
+	}
+
+	@Override
+	public Activity getActivity(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		return get(faroProject, Rels.ACTIVITY, id, Activity.class);
+	}
+
+	@Override
+	public Results<ActivityAggregation> getActivityAggregations(
+		FaroProject faroProject, String channelId, String ownerId,
+		String ownerType, String interval, int delta) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 1, delta, null);
+
+		uriVariables.put("apply", getGroupBy("day", interval));
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+
+		addActionFilter(
+			filterBuilder,
+			ActivityConstants.getActionKeys(ActivityConstants.ACTION_ANY));
+
+		addOwnerIdFilter(filterBuilder, ownerId, ownerType);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("includeToday", false);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ACTIVITIES,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<ActivityAggregation>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<ActivityAsset> getActivityAssets(
+		FaroProject faroProject, String query, String applicationId,
+		String eventId, int cur, int delta, List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"applicationId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			applicationId);
+		filterBuilder.addFilter(
+			"eventId", FilterConstants.COMPARISON_OPERATOR_EQUALS, eventId);
+		filterBuilder.addSearchFilter(query, "object.name");
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ACTIVITY_ASSETS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<ActivityAsset>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<ActivityGroup> getActivityGroups(
+		FaroProject faroProject, String channelId, String ownerId,
+		String ownerType, String query, Date startDate, Date endDate, int cur,
+		int delta, List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		uriVariables.put("expand", "activities,activities-count");
+
+		FilterBuilder expandFilterBuilder = new FilterBuilder();
+
+		addActionFilter(
+			expandFilterBuilder,
+			ActivityConstants.getActionKeys(ActivityConstants.ACTION_ANY));
+		expandFilterBuilder.addSearchFilter(query, "object/name");
+
+		uriVariables.put("expandFilter", expandFilterBuilder.build());
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+		filterBuilder.addFilter(
+			"day", FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
+			getDate(startDate, false));
+		filterBuilder.addFilter(
+			"day", FilterConstants.COMPARISON_OPERATOR_LESS_THAN,
+			getDate(endDate, true));
+
+		addOwnerIdFilter(filterBuilder, ownerId, ownerType);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ACTIVITY_GROUPS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<ActivityGroup>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<String> getAnalyticsEventValues(
+		FaroProject faroProject, String fieldName, String filter, String query,
+		int cur, int delta) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, null);
+
+		uriVariables.put("fieldName", fieldName);
+		uriVariables.put("filter", filter);
+		uriVariables.put("value", query);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ANALYTICS_EVENT_VALUES,
+			new ParameterizedTypeReference<StringPagedResources>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Asset getAsset(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		return get(faroProject, Rels.ASSET, id, Asset.class);
+	}
+
+	@Override
+	public Results<Asset> getAssets(
+		FaroProject faroProject, String dataSourceId, String query, int action,
+		String assetType, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		for (String actionAssetType : AssetConstants.getTypes(action)) {
+			filterBuilder.addFilter(
+				"assetType", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				actionAssetType, false);
+		}
+
+		if (StringUtil.equals(assetType, AssetConstants.TYPE_ASSET)) {
+			filterBuilder.addFilter(
+				"assetType", FilterConstants.COMPARISON_OPERATOR_NOT_EQUALS,
+				Asset.AssetType.Page.name());
+		}
+		else {
+			filterBuilder.addFilter(
+				"assetType", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				assetType);
+		}
+
+		filterBuilder.addFilter(
+			"dataSourceId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			dataSourceId);
+		filterBuilder.addSearchFilter(query, "name");
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ASSETS,
+			new ParameterizedTypeReference<ResourcePagedResources<Asset>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public DataSource getAvailableTokenDataSource(FaroProject faroProject)
+		throws FaroEngineClientException {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"credentials/type", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			TokenCredentials.TYPE);
+		filterBuilder.addBlankFilter(
+			"url", FilterConstants.COMPARISON_OPERATOR_EQUALS, null);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.DATA_SOURCES,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<DataSource>>() {
+			},
+			uriVariables);
+
+		Results<DataSource> results = pagedResources.getResults();
+
+		List<DataSource> dataSources = results.getItems();
+
+		if (dataSources.isEmpty()) {
+			return null;
+		}
+
+		return dataSources.get(0);
+	}
+
+	@Override
+	public BlockedKeyword getBlockedKeyword(
+		FaroProject faroProject, String id) {
+
+		return get(faroProject, Rels.BLOCKED_KEYWORD, id, BlockedKeyword.class);
+	}
+
+	public Results<BlockedKeyword> getBlockedKeywords(
+		FaroProject faroProject, String query, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addSearchFilter(query, "keyword.raw");
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.BLOCKED_KEYWORDS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<BlockedKeyword>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Channel getChannel(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject, id);
+
+		uriVariables.put("expand", "data-sources");
+
+		return get(faroProject, Rels.CHANNEL, id, Channel.class, uriVariables);
+	}
+
+	@Override
+	public Results<Channel> getChannels(
+		FaroProject faroProject, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.CHANNELS,
+			new ParameterizedTypeReference<ResourcePagedResources<Channel>>() {
+			},
+			getUriVariables(faroProject, cur, delta, orderByFields));
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Individual> getCoworkerIndividuals(
+		FaroProject faroProject, String individualId, String query,
+		List<String> fields, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		return new Results<>();
+	}
+
+	@Override
+	public DataSource getDataSource(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		return get(faroProject, Rels.DATA_SOURCE, id, DataSource.class);
+	}
+
+	@Override
+	public List<DXPGroup> getDataSourceDXPGroups(
+		FaroProject faroProject, String id, List<Long> groupIds) {
+
+		if (ListUtil.isEmpty(groupIds)) {
+			return Collections.emptyList();
+		}
+
+		PagedResources pagedResources = post(
+			faroProject, Rels.DATA_SOURCE_DXP_GROUPS, groupIds,
+			new ParameterizedTypeReference<ResourcePagedResources<DXPGroup>>() {
+			},
+			getUriVariables(faroProject, id));
+
+		Results<DXPGroup> results = pagedResources.getResults();
+
+		return results.getItems();
+	}
+
+	@Override
+	public Results<DXPGroup> getDataSourceDXPGroups(
+		FaroProject faroProject, String id, long parentGroupId, boolean site,
+		String name, int cur, int delta) {
+
+		int[] startAndEnd = SearchPaginationUtil.calculateStartAndEnd(
+			cur, delta);
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, startAndEnd[0], startAndEnd[1]);
+
+		uriVariables.put("id", id);
+
+		if (name != null) {
+			uriVariables.put("name", getName(name));
+		}
+
+		uriVariables.put("parentGroupId", parentGroupId);
+		uriVariables.put("site", site);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.DATA_SOURCE_DXP_GROUPS,
+			new ParameterizedTypeReference<ResourcePagedResources<DXPGroup>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public List<DXPOrganization> getDataSourceDXPOrganizations(
+		FaroProject faroProject, String id, List<Long> organizationIds) {
+
+		if (ListUtil.isEmpty(organizationIds)) {
+			return Collections.emptyList();
+		}
+
+		PagedResources pagedResources = post(
+			faroProject, Rels.DATA_SOURCE_DXP_ORGANIZATIONS, organizationIds,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<DXPOrganization>>() {
+			},
+			getUriVariables(faroProject, id));
+
+		Results<DXPOrganization> results = pagedResources.getResults();
+
+		return results.getItems();
+	}
+
+	@Override
+	public Results<DXPOrganization> getDataSourceDXPOrganizations(
+		FaroProject faroProject, String id, long parentOrganizationId,
+		String name, int cur, int delta) {
+
+		int[] startAndEnd = SearchPaginationUtil.calculateStartAndEnd(
+			cur, delta);
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, startAndEnd[0], startAndEnd[1]);
+
+		uriVariables.put("id", id);
+
+		if (name != null) {
+			uriVariables.put("name", getName(name));
+		}
+
+		uriVariables.put("parentOrganizationId", parentOrganizationId);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.DATA_SOURCE_DXP_ORGANIZATIONS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<DXPOrganization>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public long getDataSourceDXPTotal(FaroProject faroProject, String id) {
+		return get(
+			faroProject, Rels.DATA_SOURCE_DXP_USERS_TOTAL, id, Long.class);
+	}
+
+	@Override
+	public long getDataSourceDXPTotal(
+		FaroProject faroProject, String id,
+		LiferayProvider.ContactsConfiguration contactsConfiguration) {
+
+		return post(
+			faroProject, Rels.DATA_SOURCE_DXP_USERS_TOTAL,
+			contactsConfiguration, Long.class,
+			getUriVariables(faroProject, id));
+	}
+
+	@Override
+	public List<DXPUserGroup> getDataSourceDXPUserGroups(
+		FaroProject faroProject, String id, List<Long> userGroupIds) {
+
+		if (ListUtil.isEmpty(userGroupIds)) {
+			return Collections.emptyList();
+		}
+
+		PagedResources pagedResources = post(
+			faroProject, Rels.DATA_SOURCE_DXP_USER_GROUPS, userGroupIds,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<DXPUserGroup>>() {
+			},
+			getUriVariables(faroProject, id));
+
+		Results<DXPUserGroup> results = pagedResources.getResults();
+
+		return results.getItems();
+	}
+
+	@Override
+	public Results<DXPUserGroup> getDataSourceDXPUserGroups(
+		FaroProject faroProject, String id, String name, int cur, int delta) {
+
+		int[] startAndEnd = SearchPaginationUtil.calculateStartAndEnd(
+			cur, delta);
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, startAndEnd[0], startAndEnd[1]);
+
+		uriVariables.put("id", id);
+		uriVariables.put("name", getName(name));
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.DATA_SOURCE_DXP_USER_GROUPS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<DXPUserGroup>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public List<DataSourceField> getDataSourceFields(
+		FaroProject faroProject, String id, String context, int count) {
+
+		String type = null;
+
+		DataSource dataSource = getDataSource(faroProject, id);
+
+		Provider provider = dataSource.getProvider();
+
+		if (StringUtil.equals(provider.getType(), SalesforceProvider.TYPE)) {
+			if (context.equals(FieldMappingConstants.CONTEXT_DEMOGRAPHICS)) {
+				type = Rels.DATA_SOURCE_SALESFORCE_USERS_FIELDS;
+			}
+			else {
+				type = Rels.DATA_SOURCE_SALESFORCE_ACCOUNTS_FIELDS;
+			}
+		}
+		else {
+			type = Rels.DATA_SOURCE_DXP_USERS_FIELDS;
+		}
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 0, count);
+
+		uriVariables.put("id", id);
+
+		return get(
+			faroProject, type,
+			new ParameterizedTypeReference<List<DataSourceField>>() {
+			},
+			uriVariables);
+	}
+
+	@Override
+	public Map<String, DataSourceProgress> getDataSourceProgressMap(
+		FaroProject faroProject, String id) {
+
+		return get(
+			faroProject, Rels.DATA_SOURCE_PROGRESS,
+			new ParameterizedTypeReference<Map<String, DataSourceProgress>>() {
+			},
+			getUriVariables(faroProject, id));
+	}
+
+	@Override
+	public Results<DataSource> getDataSources(
+		FaroProject faroProject, List<String> channelIds) {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			channelIds);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.DATA_SOURCES,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<DataSource>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<DataSource> getDataSources(
+		FaroProject faroProject, String faroEntityId, String query, String name,
+		String providerType, List<String> states, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		uriVariables.put("faroEntityId", faroEntityId);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addSearchFilter(query, "name");
+		filterBuilder.addFilter(
+			"name", FilterConstants.COMPARISON_OPERATOR_EQUALS, name);
+		filterBuilder.addFilter(
+			"provider/type", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			providerType);
+
+		if (ListUtil.isNotNull(states)) {
+			FilterBuilder statesFilterBuilder = new FilterBuilder();
+
+			for (String state : states) {
+				statesFilterBuilder.addFilter(
+					"state", FilterConstants.COMPARISON_OPERATOR_EQUALS, state,
+					false);
+			}
+
+			filterBuilder.addFilter(statesFilterBuilder, true);
+		}
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.DATA_SOURCES,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<DataSource>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<EngagementAggregation> getEngagementAggregations(
+		FaroProject faroProject, String ownerId, String ownerType,
+		String interval, int delta) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 1, delta + 1, null);
+
+		uriVariables.put("apply", getGroupBy("dateRecorded", interval));
+
+		if (ownerType.equals(FieldMappingConstants.OWNER_TYPE_ACCOUNT) ||
+			ownerType.equals(FieldMappingConstants.OWNER_TYPE_INDIVIDUAL)) {
+
+			uriVariables.put(
+				"filter",
+				FilterUtil.getFilter(
+					"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+					ownerId));
+		}
+		else if (ownerType.equals(
+					FieldMappingConstants.OWNER_TYPE_INDIVIDUAL_SEGMENT)) {
+
+			uriVariables.put("individualSegmentId", ownerId);
+		}
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ENGAGEMENTS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<EngagementAggregation>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public List<List<EngagementAggregation>> getEngagementAggregationsList(
+		FaroProject faroProject, List<String> ownerIds, String ownerType,
+		String interval, int delta) {
+
+		List<Map<String, Object>> uriVariablesList = new ArrayList<>();
+
+		for (String ownerId : ownerIds) {
+			Map<String, Object> uriVariables = getUriVariables(
+				faroProject, 1, delta, null);
+
+			uriVariables.put("apply", getGroupBy("dateRecorded", interval));
+
+			FilterBuilder filterBuilder = new FilterBuilder();
+
+			if (ownerType.equals(FieldMappingConstants.OWNER_TYPE_ACCOUNT) ||
+				ownerType.equals(FieldMappingConstants.OWNER_TYPE_INDIVIDUAL)) {
+
+				filterBuilder.addFilter(
+					"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+					ownerId);
+			}
+			else if (ownerType.equals(
+						FieldMappingConstants.OWNER_TYPE_INDIVIDUAL_SEGMENT)) {
+
+				uriVariables.put("individualSegmentId", ownerId);
+			}
+
+			uriVariables.put("filter", filterBuilder.build());
+
+			uriVariablesList.add(uriVariables);
+		}
+
+		return bulk(
+			faroProject, Rels.ENGAGEMENTS, HttpMethod.GET,
+			new TypeReference<List<EngagementAggregation>>() {
+			},
+			uriVariablesList);
+	}
+
+	@Override
+	public Results<Engagement> getEngagements(
+		FaroProject faroProject, String ownerId, String ownerType, String query,
+		Date startDate, Date endDate, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"dateRecorded",
+			FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
+			getDate(startDate, false));
+		filterBuilder.addFilter(
+			"dateRecorded", FilterConstants.COMPARISON_OPERATOR_LESS_THAN,
+			getDate(endDate, true));
+		filterBuilder.addSearchFilter(query, "name");
+
+		if (ownerType.equals(FieldMappingConstants.OWNER_TYPE_ACCOUNT)) {
+			uriVariables.put("accountId", ownerId);
+		}
+		else if (ownerType.equals(
+					FieldMappingConstants.OWNER_TYPE_INDIVIDUAL)) {
+
+			filterBuilder.addFilter(
+				"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerId);
+		}
+		else if (ownerType.equals(
+					FieldMappingConstants.OWNER_TYPE_INDIVIDUAL_SEGMENT)) {
+
+			uriVariables.put("individualSegmentId", ownerId);
+		}
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.ENGAGEMENTS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<Engagement>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Field getField(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		return get(faroProject, Rels.FIELD, id, Field.class);
+	}
+
+	@Override
+	public FieldMapping getFieldMapping(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		return get(faroProject, Rels.FIELD_MAPPING, id, FieldMapping.class);
+	}
+
+	@Override
+	public FieldMapping getFieldMapping(
+		FaroProject faroProject, String context, String fieldName) {
+
+		Results<FieldMapping> results = getFieldMappings(
+			faroProject, context, Collections.singletonList(fieldName), 1, 1,
+			null);
+
+		List<FieldMapping> fieldMappings = results.getItems();
+
+		if (fieldMappings.isEmpty()) {
+			return null;
+		}
+
+		return fieldMappings.get(0);
+	}
+
+	@Override
+	public Results<FieldMapping> getFieldMappings(
+			FaroProject faroProject, String context, List<String> fieldNames,
+			int cur, int delta, List<OrderByField> orderByFields)
+		throws FaroEngineClientException {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"context", FilterConstants.COMPARISON_OPERATOR_EQUALS, context);
+
+		FilterBuilder fieldNameFilterBuilder = new FilterBuilder();
+
+		for (String fieldName : fieldNames) {
+			fieldNameFilterBuilder.addFilter(
+				"fieldName", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				fieldName, false);
+		}
+
+		filterBuilder.addFilter(fieldNameFilterBuilder, true);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.FIELD_MAPPINGS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<FieldMapping>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<FieldMapping> getFieldMappings(
+		FaroProject faroProject, String context, String dataSourceId,
+		String dataSourceFieldName) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 1, 10000, null);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"context", FilterConstants.COMPARISON_OPERATOR_EQUALS, context);
+
+		if (Validator.isNull(dataSourceFieldName)) {
+			filterBuilder.addNullFilter(
+				"dataSourceFieldNames/" + dataSourceId,
+				FilterConstants.COMPARISON_OPERATOR_NOT_EQUALS);
+		}
+		else {
+			filterBuilder.addFilter(
+				"dataSourceFieldNames/" + dataSourceId,
+				FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				dataSourceFieldName);
+		}
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.FIELD_MAPPINGS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<FieldMapping>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<FieldMapping> getFieldMappings(
+		FaroProject faroProject, String context, String fieldName,
+		String ownerType, String query, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"context", FilterConstants.COMPARISON_OPERATOR_EQUALS, context);
+		filterBuilder.addFilter(
+			"fieldName", FilterConstants.COMPARISON_OPERATOR_EQUALS, fieldName);
+		filterBuilder.addFilter(
+			"fieldName", FilterConstants.STRING_FUNCTION_CONTAINS, query);
+		filterBuilder.addFilter(
+			"ownerType", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerType);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.FIELD_MAPPINGS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<FieldMapping>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public List<String> getFieldNames(
+		FaroProject faroProject, String label, String ownerType,
+		Object values) {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		uriVariables.put("label", label);
+		uriVariables.put("ownerType", ownerType);
+		uriVariables.put("values", values);
+
+		return get(
+			faroProject, Rels.FIELD_NAMES,
+			new ParameterizedTypeReference<List<String>>() {
+			},
+			uriVariables);
+	}
+
+	@Override
+	public List<List<String>> getFieldNamesList(
+		FaroProject faroProject, List<String> labels, String ownerType,
+		List<Object> valuesList) {
+
+		List<Map<String, Object>> uriVariablesList = new ArrayList<>();
+
+		for (int i = 0; i < labels.size(); i++) {
+			Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+			uriVariables.put("label", labels.get(i));
+			uriVariables.put("ownerType", ownerType);
+			uriVariables.put("values", valuesList.get(i));
+
+			uriVariablesList.add(uriVariables);
+		}
+
+		return bulk(
+			faroProject, Rels.FIELD_NAMES, HttpMethod.GET,
+			new TypeReference<List<String>>() {
+			},
+			uriVariablesList);
+	}
+
+	@Override
+	public Results<Field> getFields(
+		FaroProject faroProject, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.FIELDS,
+			new ParameterizedTypeReference<ResourcePagedResources<Field>>() {
+			},
+			getUriVariables(faroProject, cur, delta, orderByFields));
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Field> getFields(
+		FaroProject faroProject, String context, String name, int cur,
+		int delta, List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"context", FilterConstants.COMPARISON_OPERATOR_EQUALS, context);
+		filterBuilder.addFilter(
+			"name", FilterConstants.COMPARISON_OPERATOR_EQUALS, name);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.FIELDS,
+			new ParameterizedTypeReference<ResourcePagedResources<Field>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Field> getFields(
+		FaroProject faroProject, String context, String name, String ownerId,
+		String ownerType, Date startDate, Date endDate, int interval,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 1, 10000, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"context", FilterConstants.COMPARISON_OPERATOR_EQUALS, context);
+		filterBuilder.addFilter(
+			"dateModified",
+			FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
+			getDate(startDate, false));
+		filterBuilder.addFilter(
+			"dateModified",
+			FilterConstants.COMPARISON_OPERATOR_LESS_THAN_OR_EQUAL,
+			getDate(endDate, true));
+		filterBuilder.addFilter(
+			"name", FilterConstants.COMPARISON_OPERATOR_EQUALS, name);
+		filterBuilder.addFilter(
+			"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerId);
+		filterBuilder.addFilter(
+			"ownerType", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerType);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.FIELDS,
+			new ParameterizedTypeReference<ResourcePagedResources<Field>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public List<List<Field>> getFieldsList(
+		FaroProject faroProject, String context, List<String> names, int cur,
+		int delta, List<OrderByField> orderByFields) {
+
+		List<Map<String, Object>> uriVariablesList = new ArrayList<>();
+
+		for (String name : names) {
+			Map<String, Object> uriVariables = getUriVariables(
+				faroProject, cur, delta, orderByFields);
+
+			FilterBuilder filterBuilder = new FilterBuilder();
+
+			filterBuilder.addFilter(
+				"context", FilterConstants.COMPARISON_OPERATOR_EQUALS, context);
+			filterBuilder.addFilter(
+				"name", FilterConstants.COMPARISON_OPERATOR_EQUALS, name);
+
+			uriVariables.put("filter", filterBuilder.build());
+
+			uriVariablesList.add(uriVariables);
+		}
+
+		return bulk(
+			faroProject, Rels.FIELDS, HttpMethod.GET,
+			new TypeReference<List<Field>>() {
+			},
+			uriVariablesList);
+	}
+
+	@Override
+	public Results<Object> getFieldValues(
+		FaroProject faroProject, String query, String fieldMappingId, int cur,
+		int delta) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, null);
+
+		FieldMapping fieldMapping = getFieldMapping(
+			faroProject, fieldMappingId);
+
+		String type = null;
+
+		if (StringUtil.equals(
+				fieldMapping.getOwnerType(),
+				FieldMappingConstants.OWNER_TYPE_ACCOUNT)) {
+
+			type = Rels.ACCOUNTS;
+		}
+		else if (StringUtil.equals(
+					fieldMapping.getOwnerType(),
+					FieldMappingConstants.OWNER_TYPE_INDIVIDUAL)) {
+
+			type = Rels.INDIVIDUALS;
+		}
+		else if (StringUtil.equals(
+					fieldMapping.getOwnerType(),
+					FieldMappingConstants.OWNER_TYPE_ORGANIZATION)) {
+
+			type = Rels.ORGANIZATIONS;
+		}
+		else {
+			return new Results<>();
+		}
+
+		List<Object> values = new ArrayList<>();
+
+		uriVariables.put("apply", getGroupBy(fieldMapping));
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addSearchFilter(
+			query, fieldMapping.getFieldName(),
+			fieldMapping.getContext() + "/?/value");
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, type,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<IndividualTransformation>>() {
+			},
+			uriVariables);
+
+		Results<IndividualTransformation> results = pagedResources.getResults();
+
+		List<IndividualTransformation> individualTransformations =
+			results.getItems();
+
+		for (IndividualTransformation individualTransformation :
+				individualTransformations) {
+
+			Map<String, Object> terms = individualTransformation.getTerms();
+
+			Collection<Object> curValues = terms.values();
+
+			Stream<Object> stream = curValues.stream();
+
+			Optional<Object> optionalFieldValue = stream.findFirst();
+
+			values.add(optionalFieldValue.get());
+		}
+
+		return new Results<>(values, results.getTotal());
+	}
+
+	@Override
+	public Individual getIndividual(FaroProject faroProject, String id)
+		throws FaroEngineClientException {
+
+		return get(faroProject, Rels.INDIVIDUAL, id, Individual.class);
+	}
+
+	@Override
+	public Results<IndividualSegment> getIndividualIndividualSegments(
+		FaroProject faroProject, String channelId, String individualId,
+		String query, String status, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL_SEGMENT);
+
+		uriVariables.put("expand", "active-membership");
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+		filterBuilder.addFilter(
+			"name", FilterConstants.STRING_FUNCTION_CONTAINS, query);
+		filterBuilder.addFilter(
+			"status", FilterConstants.COMPARISON_OPERATOR_EQUALS, status);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("id", individualId);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUAL_INDIVIDUAL_SEGMENTS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<IndividualSegment>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Individual> getIndividuals(
+		FaroProject faroProject, FilterBuilder filterBuilder,
+		boolean includeAnonymousUsers, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put("filter", filterBuilder.build());
+		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUALS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<Individual>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Individual> getIndividuals(
+		FaroProject faroProject, String dataSourceId,
+		boolean includeAnonymousUsers, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put(
+			"filter",
+			FilterUtil.getFilter(
+				"dataSourceId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				dataSourceId));
+		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUALS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<Individual>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Individual> getIndividuals(
+		FaroProject faroProject, String accountId, String channelId,
+		String dataSourceId, String individualSegmentId,
+		String notIndividualSegmentId, String interestName, String filter,
+		String query, List<String> fields, boolean includeAnonymousUsers,
+		int cur, int delta, List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		if (Validator.isNotNull(channelId)) {
+			uriVariables.put("channelId", channelId);
+		}
+
+		uriVariables.put("expand", "account-names");
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"accountId", FilterConstants.COMPARISON_OPERATOR_EQUALS, accountId);
+		filterBuilder.addFilter(
+			"channelIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			channelId);
+		filterBuilder.addFilter(
+			"dataSourceId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			dataSourceId);
+		filterBuilder.addFilter(
+			"individualSegmentIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			individualSegmentId);
+		filterBuilder.addFilter(
+			"individualSegmentIds",
+			FilterConstants.COMPARISON_OPERATOR_NOT_EQUALS,
+			notIndividualSegmentId);
+		filterBuilder.addInterestFilter(interestName, true);
+		filterBuilder.addFilter(filter);
+		filterBuilder.addSearchFilter(
+			query, fields, FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUALS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<Individual>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Individual> getIndividualsByIndividualSegment(
+		FaroProject faroProject, String individualSegmentId, String query,
+		List<String> fields, FilterBuilder filterBuilder,
+		boolean includeAnonymousUsers, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		if (filterBuilder == null) {
+			filterBuilder = new FilterBuilder();
+		}
+
+		filterBuilder.addSearchFilter(
+			query, fields, FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("id", individualSegmentId);
+		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_INDIVIDUALS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<Individual>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Individual> getIndividualsByIndividualSegment(
+		FaroProject faroProject, String individualSegmentId, String filter,
+		String query, List<String> fields, boolean includeAnonymousUsers,
+		int cur, int delta, List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(filter);
+		filterBuilder.addSearchFilter(
+			query, fields, FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("id", individualSegmentId);
+		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_INDIVIDUALS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<Individual>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Distribution> getIndividualsDistribution(
+		FaroProject faroProject, String channelId, String fieldMappingId,
+		String filter, String individualSegmentId, int count, int numberOfBins,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 0, count, orderByFields);
+
+		uriVariables.put("fieldMappingId", fieldMappingId);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(filter);
+		filterBuilder.addFilter(
+			"channelIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			channelId);
+		filterBuilder.addFilter(
+			"individualSegmentIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			individualSegmentId);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("numberOfBins", numberOfBins);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUALS_DISTRIBUTION,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<Distribution>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public IndividualSegment getIndividualSegment(
+			FaroProject faroProject, String id,
+			boolean includeReferencedObjects)
+		throws FaroEngineClientException {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject, id);
+
+		if (includeReferencedObjects) {
+			uriVariables.put("expand", "referenced-objects");
+		}
+
+		return get(
+			faroProject, Rels.INDIVIDUAL_SEGMENT, id, IndividualSegment.class,
+			uriVariables);
+	}
+
+	@Override
+	public IndividualSegmentMembership getIndividualSegmentMembership(
+		FaroProject faroProject, String individualSegmentId,
+		String individualId) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, individualSegmentId);
+
+		uriVariables.put("individualId", individualId);
+
+		return get(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIP,
+			new ParameterizedTypeReference<IndividualSegmentMembership>() {
+			},
+			uriVariables);
+	}
+
+	@Override
+	public Results<IndividualSegmentMembershipChangeAggregation>
+		getIndividualSegmentMembershipChangeAggregations(
+			FaroProject faroProject, String individualSegmentId,
+			String interval, int delta) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 1, delta + 1, null);
+
+		uriVariables.put("apply", getGroupBy("dateChanged", interval));
+		uriVariables.put("id", individualSegmentId);
+		uriVariables.put("includeToday", false);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIP_CHANGES,
+			new ParameterizedTypeReference
+				<ResourcePagedResources
+					<IndividualSegmentMembershipChangeAggregation>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<IndividualSegmentMembershipChange>
+		getIndividualSegmentMembershipChanges(
+			FaroProject faroProject, String individualSegmentId, String query,
+			Date startDate, Date endDate, int cur, int delta,
+			List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put("expand", "account-names");
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"dateChanged",
+			FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
+			getDate(startDate, false));
+		filterBuilder.addFilter(
+			"dateChanged", FilterConstants.COMPARISON_OPERATOR_LESS_THAN,
+			getDate(endDate, true));
+		filterBuilder.addSearchFilter(
+			query, Arrays.asList("individualEmail", "individualName"), null);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("id", individualSegmentId);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIP_CHANGES,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<IndividualSegmentMembershipChange>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<IndividualSegmentMembership> getIndividualSegmentMemberships(
+		FaroProject faroProject, String individualSegmentId, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put("id", individualSegmentId);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIPS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<IndividualSegmentMembership>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<IndividualSegment> getIndividualSegments(
+		FaroProject faroProject, String channelId, String dataSourceId,
+		String query, List<String> fields, String name, String segmentType,
+		String state, String status, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		PagedResources pagedResources = null;
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL_SEGMENT);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"name", FilterConstants.COMPARISON_OPERATOR_EQUALS, name);
+
+		if (channelId == null) {
+			filterBuilder.addNullFilter(
+				"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS);
+		}
+		else {
+			filterBuilder.addFilter(
+				"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				channelId);
+		}
+
+		filterBuilder.addFilter(
+			"segmentType", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			segmentType);
+		filterBuilder.addFilter(
+			"state", FilterConstants.COMPARISON_OPERATOR_EQUALS, state);
+		filterBuilder.addFilter(
+			"status", FilterConstants.COMPARISON_OPERATOR_EQUALS, status);
+		filterBuilder.addSearchFilter(query, fields, null);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		if (Validator.isNotNull(dataSourceId)) {
+			uriVariables.put("dataSourceId", dataSourceId);
+
+			pagedResources = get(
+				faroProject, Rels.PREVIEW_DISABLED_SEGMENTS,
+				new ParameterizedTypeReference
+					<ResourcePagedResources<IndividualSegment>>() {
+				},
+				uriVariables);
+		}
+		else {
+			pagedResources = get(
+				faroProject, Rels.INDIVIDUAL_SEGMENTS,
+				new ParameterizedTypeReference
+					<ResourcePagedResources<IndividualSegment>>() {
+				},
+				uriVariables);
+		}
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<IndividualTransformation> getIndividualTransformations(
+		FaroProject faroProject, String individualSegmentId, String query,
+		List<String> fields, String fieldMappingId, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FieldMapping fieldMapping = getFieldMapping(
+			faroProject, fieldMappingId);
+
+		uriVariables.put("apply", getGroupBy(fieldMapping));
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		if (Objects.equals(
+				fieldMapping.getFieldType(), FieldMappingConstants.TYPE_TEXT)) {
+
+			filterBuilder.addBlankFilter(
+				fieldMapping.getFieldName(),
+				FilterConstants.COMPARISON_OPERATOR_NOT_EQUALS,
+				FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+		}
+
+		filterBuilder.addSearchFilter(
+			query, fields, FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("id", individualSegmentId);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUAL_SEGMENT_INDIVIDUALS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<IndividualTransformation>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<String> getInterestKeywords(
+		FaroProject faroProject, String query, int cur, int delta) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, null);
+
+		uriVariables.put("name", query);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INTEREST_KEYWORDS,
+			new ParameterizedTypeReference<StringPagedResources>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Results<Interest> getInterests(
+		FaroProject faroProject, String ownerId, String ownerType, String name,
+		String query, Date startDate, Date endDate, String expand, int cur,
+		int delta, List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		uriVariables.put("expand", expand);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"dateRecorded",
+			FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
+			getDate(startDate, false));
+		filterBuilder.addFilter(
+			"dateRecorded",
+			FilterConstants.COMPARISON_OPERATOR_LESS_THAN_OR_EQUAL,
+			getDate(endDate, true));
+		filterBuilder.addFilter(
+			"name", FilterConstants.COMPARISON_OPERATOR_EQUALS, name);
+		filterBuilder.addFilter(
+			"name", FilterConstants.STRING_FUNCTION_CONTAINS, query);
+		filterBuilder.addFilter(
+			"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerId);
+		filterBuilder.addFilter(
+			"ownerType", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerType);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INTERESTS,
+			new ParameterizedTypeReference<ResourcePagedResources<Interest>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Interest getLatestInterest(
+		FaroProject faroProject, String ownerId, String ownerType, String query,
+		int cur, int delta, List<OrderByField> orderByFields) {
+
+		Results<Interest> results = getInterests(
+			faroProject, ownerId, ownerType, null, null, null, null, null, 1, 1,
+			Collections.singletonList(
+				new OrderByField("dateRecorded", "desc", true)));
+
+		List<Interest> interests = results.getItems();
+
+		if (interests.isEmpty()) {
+			return null;
+		}
+
+		return interests.get(0);
+	}
+
+	@Override
+	public Results<PageVisited> getPagesVisited(
+		FaroProject faroProject, String ownerId, String ownerType, String query,
+		String interestName, Date startDate, Date endDate, boolean visitedPages,
+		int cur, int delta, List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"day", FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
+			getDate(startDate, false));
+		filterBuilder.addFilter(
+			"day", FilterConstants.COMPARISON_OPERATOR_LESS_THAN_OR_EQUAL,
+			getDate(endDate, true));
+		filterBuilder.addFilter(
+			"interestName", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			interestName);
+		filterBuilder.addSearchFilter(query, "title");
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("ownerId", ownerId);
+		uriVariables.put("ownerType", ownerType);
+		uriVariables.put("visitedPages", visitedPages);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.PAGES_VISITED,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<PageVisited>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public PageVisited getPageVisited(FaroProject faroProject, String id) {
+		return get(faroProject, Rels.PAGE_VISITED, id, PageVisited.class);
+	}
+
+	@Override
+	public Results<Individual> getSimilarIndividuals(
+		FaroProject faroProject, String individualId, String query,
+		List<String> fields, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		return new Results<>();
+	}
+
+	@Override
+	public void getToOutputStream(
+			FaroProject faroProject, Map<String, String> headers, String path,
+			Map<String, List<String>> queryParameters,
+			OutputStream outputStream)
+		throws Exception {
+
+		RestTemplate restTemplate = getRestTemplate();
+
+		RequestCallback requestCallback = clientHttpRequest -> {
+			HttpHeaders httpHeaders = clientHttpRequest.getHeaders();
+
+			for (Map.Entry<String, String> entry : headers.entrySet()) {
+				httpHeaders.set(entry.getKey(), entry.getValue());
+			}
+		};
+
+		ResponseExtractor<Void> responseExtractor = clientHttpResponse -> {
+			StreamUtils.copy(clientHttpResponse.getBody(), outputStream);
+
+			return null;
+		};
+
+		restTemplate.execute(
+			getUriString(faroProject, path, queryParameters), HttpMethod.GET,
+			requestCallback, responseExtractor, getUriVariables(faroProject));
+	}
+
+	@Override
+	public Results<IndividualSegment> getUnassignedIndividualSegments(
+		FaroProject faroProject, int cur, int delta,
+		List<OrderByField> orderByFields) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, orderByFields,
+			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL_SEGMENT);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"name", FilterConstants.STRING_FUNCTION_STARTS_WITH, "Account:",
+			true, true);
+
+		filterBuilder.addNullFilter(
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.INDIVIDUAL_SEGMENTS,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<IndividualSegment>>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
+	}
+
+	@Override
+	public Channel patchChannel(
+		FaroProject faroProject, String id, String name) {
+
+		Map<String, Object> channelPatch = new HashMap<>();
+
+		if (Validator.isNotNull(name)) {
+			channelPatch.put("name", name);
+		}
+
+		Map<String, Object> patchChannelObject = patch(
+			faroProject, Rels.CHANNEL, id, channelPatch, Map.class);
+
+		return objectMapper.convertValue(
+			patchChannelObject.get("channel"), Channel.class);
+	}
+
+	@Override
+	public DataSource patchDataSource(
+		FaroProject faroProject, String id, Credentials credentials,
+		long userId, String name, String url, Provider provider, Event event,
+		String status) {
+
+		Map<String, Object> dataSourcePatch = new HashMap<>();
+
+		dataSourcePatch.put("author", getAuthor(userId));
+
+		if (credentials != null) {
+			dataSourcePatch.put("credentials", credentials);
+		}
+
+		if (event != null) {
+			dataSourcePatch.put("event", event);
+		}
+
+		if (Validator.isNotNull(name)) {
+			dataSourcePatch.put("name", name);
+		}
+
+		if (provider != null) {
+			dataSourcePatch.put("provider", provider);
+		}
+
+		if (Validator.isNotNull(status)) {
+			dataSourcePatch.put("status", status);
+		}
+
+		if (Validator.isNotNull(url)) {
+			dataSourcePatch.put("url", url);
+		}
+
+		return patch(
+			faroProject, Rels.DATA_SOURCE, id, dataSourcePatch,
+			DataSource.class);
+	}
+
+	@Override
+	public FieldMapping patchFieldMapping(
+		FaroProject faroProject, String id, String dataSourceId,
+		String fieldName) {
+
+		Map<String, Object> fieldMappingPatch = new HashMap<>();
+
+		fieldMappingPatch.put("dataSourceId", dataSourceId);
+		fieldMappingPatch.put("fieldName", fieldName);
+
+		return patch(
+			faroProject, Rels.FIELD_MAPPING, id, fieldMappingPatch,
+			FieldMapping.class);
+	}
+
+	@Override
+	public void patchFieldMappings(
+		FaroProject faroProject, String dataSourceId, String context,
+		String ownerType, List<FieldMappingMap> fieldMappingMaps) {
+
+		if (ListUtil.isEmpty(fieldMappingMaps)) {
+			return;
+		}
+
+		Map<String, String> fieldMappings = new HashMap<>();
+
+		for (FieldMappingMap fieldMappingMap : fieldMappingMaps) {
+			fieldMappings.put(
+				fieldMappingMap.getName(),
+				fieldMappingMap.getDataSourceFieldName());
+		}
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		uriVariables.put("context", context);
+		uriVariables.put("dataSourceId", dataSourceId);
+		uriVariables.put("ownerType", ownerType);
+
+		patch(
+			faroProject, Rels.FIELD_MAPPINGS, fieldMappings, Object.class,
+			uriVariables);
+	}
+
+	@Override
+	public List<Map<String, Object>> refreshLiferay(FaroProject faroProject) {
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, 1, 10000, null);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"provider/type", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			LiferayProvider.TYPE);
+		filterBuilder.addNullFilter(
+			"workspaceURL", FilterConstants.COMPARISON_OPERATOR_EQUALS);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.DATA_SOURCES,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<DataSource>>() {
+			},
+			uriVariables);
+
+		Results<DataSource> results = pagedResources.getResults();
+
+		for (DataSource dataSource : results.getItems()) {
+			dataSource.setWorkspaceURL(
+				getWorkspaceURL(faroProject.getGroupId()));
+
+			put(
+				faroProject, Rels.DATA_SOURCE, dataSource, DataSource.class,
+				getUriVariables(faroProject, dataSource.getId()));
+		}
+
+		return post(
+			faroProject, Rels.DATA_SOURCE_REFRESH_LIFERAY, null, List.class);
+	}
+
+	@Override
+	public DataSource updateDataSource(
+		FaroProject faroProject, String id, Credentials credentials,
+		long userId, String name, String url, Provider provider, Event event,
+		String status) {
+
+		DataSource dataSource = new DataSource();
+
+		dataSource.setId(id);
+		dataSource.setAuthor(getAuthor(userId));
+		dataSource.setCredentials(credentials);
+		dataSource.setName(name);
+		dataSource.setProvider(provider);
+		dataSource.setStatus(status);
+		dataSource.setSubjectOf(event);
+		dataSource.setUrl(url);
+		dataSource.setWorkspaceURL(getWorkspaceURL(faroProject.getGroupId()));
+
+		return put(
+			faroProject, Rels.DATA_SOURCE, dataSource, DataSource.class,
+			getUriVariables(faroProject, id));
+	}
+
+	@Override
+	public FieldMapping updateFieldMapping(
+		FaroProject faroProject, String id, Author author, String context,
+		Map<String, String> dataSourceFieldNames, String fieldName,
+		String fieldType, String ownerType) {
+
+		FieldMapping fieldMapping = new FieldMapping();
+
+		fieldMapping.setAuthor(author);
+		fieldMapping.setId(id);
+		fieldMapping.setContext(context);
+		fieldMapping.setDataSourceFieldNames(dataSourceFieldNames);
+		fieldMapping.setFieldName(fieldName);
+		fieldMapping.setFieldType(fieldType);
+		fieldMapping.setOwnerType(ownerType);
+
+		return put(
+			faroProject, Rels.FIELD_MAPPING, fieldMapping, FieldMapping.class,
+			getUriVariables(faroProject, id));
+	}
+
+	@Override
+	public IndividualSegment updateIndividualSegment(
+		FaroProject faroProject, String id, long userId, String channelId,
+		String filter, boolean includeAnonymousUsers, String name,
+		String segmentType) {
+
+		IndividualSegment individualSegment = new IndividualSegment();
+
+		individualSegment.setId(id);
+		individualSegment.setAuthor(getAuthor(userId));
+		individualSegment.setChannelId(channelId);
+		individualSegment.setFilter(filter);
+		individualSegment.setIncludeAnonymousUsers(includeAnonymousUsers);
+		individualSegment.setName(name);
+		individualSegment.setSegmentType(segmentType);
+		individualSegment.setStatus(IndividualSegment.Status.ACTIVE.name());
+
+		return put(
+			faroProject, Rels.INDIVIDUAL_SEGMENT, individualSegment,
+			IndividualSegment.class, getUriVariables(faroProject, id));
+	}
+
+	protected void addActionFilter(
+		FilterBuilder filterBuilder, List<String> actionKeys) {
+
+		for (String actionKey : actionKeys) {
+			FilterBuilder actionFilterBuilder = new FilterBuilder();
+
+			int index = actionKey.indexOf(StringPool.POUND);
+
+			actionFilterBuilder.addFilter(
+				"applicationId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				actionKey.substring(0, index));
+			actionFilterBuilder.addFilter(
+				"eventId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				actionKey.substring(index + 1));
+
+			filterBuilder.addFilter(actionFilterBuilder, false);
+		}
+	}
+
+	protected void addOwnerIdFilter(
+		FilterBuilder filterBuilder, String ownerId, String ownerType) {
+
+		if (Validator.isNull(ownerType)) {
+			return;
+		}
+
+		if (ownerType.equals(FieldMappingConstants.OWNER_TYPE_ACCOUNT)) {
+			filterBuilder.addFilter(
+				"accountId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+				ownerId);
+		}
+		else {
+			filterBuilder.addFilter(
+				"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerId);
+		}
+	}
+
+	protected Author getAuthor(long userId) {
+		Author author = new Author();
+
+		author.setId(String.valueOf(userId));
+
+		User user = _userLocalService.fetchUser(userId);
+
+		if (user != null) {
+			author.setName(user.getFullName());
+		}
+
+		return author;
+	}
+
+	protected String getDate(Date date, boolean end) {
+		if (date == null) {
+			return null;
+		}
+
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.setTime(date);
+
+		if (end) {
+			calendar.set(Calendar.HOUR, 23);
+			calendar.set(Calendar.MINUTE, 59);
+			calendar.set(Calendar.SECOND, 59);
+			calendar.set(Calendar.MILLISECOND, 999);
+		}
+		else {
+			calendar.set(Calendar.HOUR, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+		}
+
+		// ASAH-370
+
+		return _dateFormat.format(calendar.getTime());
+	}
+
+	protected String getGroupBy(FieldMapping fieldMapping) {
+		StringBundler sb = new StringBundler(6);
+
+		sb.append("groupby((");
+		sb.append(fieldMapping.getContext());
+		sb.append(StringPool.SLASH);
+		sb.append(fieldMapping.getFieldName());
+		sb.append(StringPool.SLASH);
+		sb.append("value))");
+
+		return sb.toString();
+	}
+
+	protected String getGroupBy(String fieldName, String interval) {
+		StringBundler sb = new StringBundler(9);
+
+		sb.append("compute(");
+		sb.append(interval);
+		sb.append(StringPool.OPEN_PARENTHESIS);
+		sb.append(fieldName);
+		sb.append(") as ");
+		sb.append(_FARO_TEMP_FIELD);
+		sb.append(")/groupby((");
+		sb.append(_FARO_TEMP_FIELD);
+		sb.append("))");
+
+		return sb.toString();
+	}
+
+	protected String getName(String name) {
+		if (Validator.isNull(name)) {
+			return name;
+		}
+
+		return StringUtil.quote(name, StringPool.PERCENT);
+	}
+
+	protected String getWorkspaceURL(long groupId) {
+		return _FARO_URL + "/workspace/" + groupId;
+	}
+
+	private static final String _FARO_TEMP_FIELD = "faro_temp_field";
+
+	private static final String _FARO_URL = System.getenv("FARO_URL");
+
+	private static final int _PAYLOAD_MAX_BYTE_SIZE = 200000;
+
+	private static final DateFormat _dateFormat = new SimpleDateFormat(
+		"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+	@Reference
+	private CompanyLocalService _companyLocalService;
+
+	@Reference
+	private Portal _portal;
+
+	@Reference
+	private UserLocalService _userLocalService;
+
+}

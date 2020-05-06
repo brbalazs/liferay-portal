@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MetricValue should render the component 1`] = `
+<div
+  className="metric-value"
+>
+  100
+  <span
+    className="metric-value-letter"
+  >
+    K
+     
+  </span>
+</div>
+`;
+
+exports[`MetricValue should render the component with engagement  1`] = `
+<div
+  className="metric-value"
+>
+  5
+  <span
+    className="metric-value-letter"
+  >
+    /10
+     
+  </span>
+</div>
+`;
+
+exports[`MetricValue should render the component with number type 1`] = `
+<div
+  className="metric-value"
+>
+  100
+  <span
+    className="metric-value-letter"
+  >
+    K
+     
+  </span>
+</div>
+`;
+
+exports[`MetricValue should render the component with percentage  1`] = `
+<div
+  className="metric-value"
+>
+  100
+  <span
+    className="metric-value-letter"
+  >
+    %
+     
+  </span>
+</div>
+`;
+
+exports[`MetricValue should render the component with ratings  1`] = `
+<div
+  className="metric-value"
+>
+  10
+  <span
+    className="metric-value-letter"
+  >
+    /10
+     
+  </span>
+</div>
+`;
+
+exports[`MetricValue should render the component with time  1`] = `
+<div
+  className="metric-value"
+>
+  12
+  <span
+    className="metric-value-letter"
+  >
+    m
+     
+  </span>
+  40
+  <span
+    className="metric-value-letter"
+  >
+    s
+     
+  </span>
+</div>
+`;

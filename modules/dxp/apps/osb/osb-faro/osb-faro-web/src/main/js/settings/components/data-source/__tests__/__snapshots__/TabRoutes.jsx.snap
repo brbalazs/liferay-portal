@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabRoutes should render 1`] = `
+<Switch>
+  <_default
+    componentProps={Object {}}
+    data={[MockFunction]}
+    exact={true}
+    key="foo/path"
+    path="foo/path"
+  />
+</Switch>
+`;

@@ -1,0 +1,481 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar should have default values if not all language keys are passed 1`] = `
+<div
+  className="sidebar-root"
+>
+  <div
+    className="sidebar-header"
+  >
+    <Link
+      className="sidebar-header-logo"
+      replace={false}
+      to="/workspace/23/123/sites"
+    >
+      <Icon
+        className="logo"
+        monospaced={false}
+        size="md"
+        symbol="ac-logo"
+      />
+    </Link>
+    <Connect(Component)
+      channels={Array []}
+      defaultChannelId="123"
+      groupId="23"
+    />
+  </div>
+  <div
+    className="sidebar-body"
+  >
+    <div
+      className="section"
+      key="0"
+    >
+      <h5
+        className="section-title"
+      >
+        Touchpoints
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/sites"
+          icon="ac-page"
+          key="0"
+          label="Sites"
+        />
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/assets"
+          icon="ac-assets"
+          key="1"
+          label="Assets"
+        />
+      </ul>
+    </div>
+    <div
+      className="section"
+      key="1"
+    >
+      <h5
+        className="section-title"
+      >
+        People
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/contacts/segments"
+          icon="ac-segment"
+          key="0"
+          label="Segments"
+        />
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/contacts/accounts"
+          icon="ac-account"
+          key="1"
+          label="Accounts"
+        />
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/contacts/individuals"
+          icon="ac-individual"
+          key="2"
+          label="Individuals"
+        />
+      </ul>
+    </div>
+    <div
+      className="section"
+      key="2"
+    >
+      <h5
+        className="section-title"
+      >
+        Optimize
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/tests"
+          icon="ac-test"
+          key="0"
+          label="Tests"
+        />
+      </ul>
+    </div>
+  </div>
+  <div
+    className="sidebar-footer"
+  >
+    <div
+      className="divider"
+    />
+    <ul
+      className="nav-list"
+    >
+      <userDropDown
+        className="user-dropdown-root"
+        containerElement="li"
+        menuItems={
+          Array [
+            Object {
+              "items": Array [
+                Object {
+                  "externalLink": true,
+                  "label": "Sign Out",
+                  "url": "/c/portal/logout",
+                },
+                Object {
+                  "label": "Switch Workspaces",
+                  "url": "/",
+                },
+              ],
+              "subheaderLabel": "test@test.com",
+            },
+          ]
+        }
+        userName="Test Test"
+      />
+      <SidebarItem
+        active={false}
+        href="/workspace/23/settings/data-source"
+        icon="cog"
+        label="Settings"
+      />
+      <SidebarItem
+        icon="angle-left"
+        label=""
+      />
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Sidebar should render 1`] = `
+<div
+  className="sidebar-root"
+>
+  <div
+    className="sidebar-header"
+  >
+    <Link
+      className="sidebar-header-logo"
+      replace={false}
+      to="/workspace/23/123/sites"
+    >
+      <Icon
+        className="logo"
+        monospaced={false}
+        size="md"
+        symbol="ac-logo"
+      />
+    </Link>
+    <Connect(Component)
+      channels={Array []}
+      defaultChannelId="123"
+      groupId="23"
+    />
+  </div>
+  <div
+    className="sidebar-body"
+  >
+    <div
+      className="section"
+      key="0"
+    >
+      <h5
+        className="section-title"
+      >
+        Touchpoints
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/sites"
+          icon="ac-page"
+          key="0"
+          label="Sites"
+        />
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/assets"
+          icon="ac-assets"
+          key="1"
+          label="Assets"
+        />
+      </ul>
+    </div>
+    <div
+      className="section"
+      key="1"
+    >
+      <h5
+        className="section-title"
+      >
+        People
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/contacts/segments"
+          icon="ac-segment"
+          key="0"
+          label="Segments"
+        />
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/contacts/accounts"
+          icon="ac-account"
+          key="1"
+          label="Accounts"
+        />
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/contacts/individuals"
+          icon="ac-individual"
+          key="2"
+          label="Individuals"
+        />
+      </ul>
+    </div>
+    <div
+      className="section"
+      key="2"
+    >
+      <h5
+        className="section-title"
+      >
+        Optimize
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/tests"
+          icon="ac-test"
+          key="0"
+          label="Tests"
+        />
+      </ul>
+    </div>
+  </div>
+  <div
+    className="sidebar-footer"
+  >
+    <div
+      className="divider"
+    />
+    <ul
+      className="nav-list"
+    >
+      <userDropDown
+        className="user-dropdown-root"
+        containerElement="li"
+        menuItems={
+          Array [
+            Object {
+              "items": Array [
+                Object {
+                  "externalLink": true,
+                  "label": "Sign Out",
+                  "url": "/c/portal/logout",
+                },
+                Object {
+                  "label": "Switch Workspaces",
+                  "url": "/",
+                },
+              ],
+              "subheaderLabel": "test@test.com",
+            },
+          ]
+        }
+        userName="Test Test"
+      />
+      <SidebarItem
+        active={false}
+        href="/workspace/23/settings/data-source"
+        icon="cog"
+        label="Settings"
+      />
+      <SidebarItem
+        icon="angle-left"
+        label=""
+      />
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Sidebar should render with a specific sidebar id active 1`] = `
+<div
+  className="sidebar-root"
+>
+  <div
+    className="sidebar-header"
+  >
+    <Link
+      className="sidebar-header-logo"
+      replace={false}
+      to="/workspace/23/123/sites"
+    >
+      <Icon
+        className="logo"
+        monospaced={false}
+        size="md"
+        symbol="ac-logo"
+      />
+    </Link>
+    <Connect(Component)
+      channels={Array []}
+      defaultChannelId="123"
+      groupId="23"
+    />
+  </div>
+  <div
+    className="sidebar-body"
+  >
+    <div
+      className="section"
+      key="0"
+    >
+      <h5
+        className="section-title"
+      >
+        Touchpoints
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/sites"
+          icon="ac-page"
+          key="0"
+          label="Sites"
+        />
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/assets"
+          icon="ac-assets"
+          key="1"
+          label="Assets"
+        />
+      </ul>
+    </div>
+    <div
+      className="section"
+      key="1"
+    >
+      <h5
+        className="section-title"
+      >
+        People
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/contacts/segments"
+          icon="ac-segment"
+          key="0"
+          label="Segments"
+        />
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/contacts/accounts"
+          icon="ac-account"
+          key="1"
+          label="Accounts"
+        />
+        <SidebarItem
+          active={true}
+          href="/workspace/23/123/contacts/individuals"
+          icon="ac-individual"
+          key="2"
+          label="Individuals"
+        />
+      </ul>
+    </div>
+    <div
+      className="section"
+      key="2"
+    >
+      <h5
+        className="section-title"
+      >
+        Optimize
+      </h5>
+      <ul
+        className="nav-list"
+      >
+        <SidebarItem
+          active={false}
+          href="/workspace/23/123/tests"
+          icon="ac-test"
+          key="0"
+          label="Tests"
+        />
+      </ul>
+    </div>
+  </div>
+  <div
+    className="sidebar-footer"
+  >
+    <div
+      className="divider"
+    />
+    <ul
+      className="nav-list"
+    >
+      <userDropDown
+        className="user-dropdown-root"
+        containerElement="li"
+        menuItems={
+          Array [
+            Object {
+              "items": Array [
+                Object {
+                  "externalLink": true,
+                  "label": "Sign Out",
+                  "url": "/c/portal/logout",
+                },
+                Object {
+                  "label": "Switch Workspaces",
+                  "url": "/",
+                },
+              ],
+              "subheaderLabel": "test@test.com",
+            },
+          ]
+        }
+        userName="Test Test"
+      />
+      <SidebarItem
+        active={false}
+        href="/workspace/23/settings/data-source"
+        icon="cog"
+        label="Settings"
+      />
+      <SidebarItem
+        icon="angle-left"
+        label=""
+      />
+    </ul>
+  </div>
+</div>
+`;

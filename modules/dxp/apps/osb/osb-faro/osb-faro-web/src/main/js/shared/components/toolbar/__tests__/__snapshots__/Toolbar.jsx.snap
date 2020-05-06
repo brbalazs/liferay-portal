@@ -1,0 +1,574 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toolbar should NOT render with a search input when alwaysShowSearch is false 1`] = `
+<div
+  class="toolbar-root"
+>
+  <nav
+    class="navbar navbar-root items-selected management-bar management-bar-primary navbar-expand"
+  >
+    <div
+      class="container-fluid"
+    >
+      <ul
+        class="nav-root front-nav navbar-nav"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
+        >
+          <div
+            class="custom-control custom-checkbox"
+          >
+            <label>
+              <input
+                class="custom-control-input"
+                data-testid="select-all-checkbox"
+                type="checkbox"
+                value="false"
+              />
+              <span
+                class="custom-control-label"
+              />
+            </label>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+`;
+
+exports[`Toolbar should render 1`] = `
+<div
+  class="toolbar-root"
+>
+  <nav
+    class="navbar navbar-root management-bar management-bar-light navbar-expand"
+  >
+    <div
+      class="container-fluid"
+    >
+      <ul
+        class="nav-root front-nav navbar-nav"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
+        >
+          <div
+            class="custom-control custom-checkbox"
+          >
+            <label>
+              <input
+                class="custom-control-input"
+                data-testid="select-all-checkbox"
+                type="checkbox"
+                value="false"
+              />
+              <span
+                class="custom-control-label"
+              />
+            </label>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="navbar-form navbar-form-autofit"
+      >
+        <div
+          class="input-group search"
+        >
+          <div
+            class="input-group-item"
+          >
+            <input
+              class="input-root form-control input-group-inset input-group-inset-after"
+              placeholder="Search"
+              type="text"
+              value=""
+            />
+            <div
+              class="input-group-inset-item input-group-inset-item-after"
+            >
+              <button
+                class="button-root btn btn-unstyled"
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-search"
+                  viewBox=""
+                >
+                  <use
+                    href="#search"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+`;
+
+exports[`Toolbar should render a list of filter tags when there are active filters 1`] = `
+<div
+  class="toolbar-root"
+>
+  <nav
+    class="navbar navbar-root items-selected management-bar management-bar-primary navbar-expand"
+  >
+    <div
+      class="container-fluid"
+    >
+      <ul
+        class="nav-root front-nav navbar-nav"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
+        >
+          <div
+            class="custom-control custom-checkbox"
+          >
+            <label>
+              <input
+                class="custom-control-input"
+                data-testid="select-all-checkbox"
+                type="checkbox"
+                value="false"
+              />
+              <span
+                class="custom-control-label"
+              />
+            </label>
+          </div>
+        </li>
+        <li
+          aria-haspopup="true"
+          class="dropdown dropdown-root filter-and-order-root nav-item"
+        >
+          <button
+            class="button-root btn btn-unstyled dropdown-toggle nav-btn show-caret"
+            data-testid="filter-and-order-button"
+            type="button"
+          >
+            <span
+              class="text-truncate"
+            >
+              Filter
+            </span>
+            <span
+              class="caret-root"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                viewBox=""
+              >
+                <use
+                  href="#caret-bottom"
+                />
+              </svg>
+            </span>
+          </button>
+        </li>
+        <li
+          class="nav-item"
+          role="presentation"
+        >
+          <a
+            class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+            href="/?orderBy=asc&page=1"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-order-arrow-descending"
+              viewBox=""
+            >
+              <use
+                href="#order-arrow-descending"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <div
+        class="navbar-form navbar-form-autofit"
+      >
+        <div
+          class="input-group search"
+        >
+          <div
+            class="input-group-item"
+          >
+            <input
+              class="input-root form-control input-group-inset input-group-inset-after"
+              placeholder="Search"
+              type="text"
+              value=""
+            />
+            <div
+              class="input-group-inset-item input-group-inset-item-after"
+            >
+              <button
+                class="button-root btn btn-unstyled"
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-search"
+                  viewBox=""
+                >
+                  <use
+                    href="#search"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <nav
+    class="subnav-tbar subnav-tbar-root tbar"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        class="tbar-nav"
+      >
+        <div
+          class="tbar-item"
+        >
+          <div
+            class="tbar-section text-truncate"
+          >
+            0 Results for:
+          </div>
+        </div>
+        <div
+          class="tbar-item tbar-item-expand"
+        >
+          <div
+            class="tbar-section text-truncate"
+          >
+            <div
+              class="label label-root label-info label-lg label-dismissible"
+            >
+              <span
+                class="label-item"
+              >
+                fooValue
+              </span>
+              <span
+                class="label-item label-item-after"
+              >
+                <button
+                  aria-label="Close"
+                  class="button-root btn btn-secondary close"
+                  type="button"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-times icon-size-sm"
+                    viewBox=""
+                  >
+                    <use
+                      href="#times"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tbar-item"
+        >
+          <div
+            class="tbar-section text-truncate"
+          >
+            <button
+              class="button-root btn btn-link btn-sm"
+              type="button"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+`;
+
+exports[`Toolbar should render as disabled 1`] = `
+<div
+  class="toolbar-root"
+>
+  <nav
+    class="navbar navbar-root disabled management-bar management-bar-light navbar-expand"
+  >
+    <div
+      class="container-fluid"
+    >
+      <ul
+        class="nav-root front-nav navbar-nav"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
+        >
+          <div
+            class="custom-control custom-checkbox"
+          >
+            <label>
+              <input
+                class="custom-control-input"
+                data-testid="select-all-checkbox"
+                disabled=""
+                type="checkbox"
+                value="false"
+              />
+              <span
+                class="custom-control-label"
+              />
+            </label>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="navbar-form navbar-form-autofit"
+      >
+        <div
+          class="input-group search disabled"
+        >
+          <div
+            class="input-group-item"
+          >
+            <input
+              class="input-root form-control input-group-inset input-group-inset-after"
+              disabled=""
+              placeholder="Search"
+              type="text"
+              value=""
+            />
+            <div
+              class="input-group-inset-item input-group-inset-item-after"
+            >
+              <button
+                class="button-root btn btn-unstyled"
+                disabled=""
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-search"
+                  viewBox=""
+                >
+                  <use
+                    href="#search"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+`;
+
+exports[`Toolbar should render w/ a search query bar when there is a query 1`] = `
+<div
+  class="toolbar-root"
+>
+  <nav
+    class="navbar navbar-root items-selected management-bar management-bar-primary navbar-expand"
+  >
+    <div
+      class="container-fluid"
+    >
+      <ul
+        class="nav-root front-nav navbar-nav"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
+        >
+          <div
+            class="custom-control custom-checkbox"
+          >
+            <label>
+              <input
+                class="custom-control-input"
+                data-testid="select-all-checkbox"
+                type="checkbox"
+                value="false"
+              />
+              <span
+                class="custom-control-label"
+              />
+            </label>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="navbar-form navbar-form-autofit"
+      >
+        <div
+          class="input-group search"
+        >
+          <div
+            class="input-group-item"
+          >
+            <input
+              class="input-root form-control input-group-inset input-group-inset-after"
+              placeholder="Search"
+              type="text"
+              value=""
+            />
+            <div
+              class="input-group-inset-item input-group-inset-item-after"
+            >
+              <button
+                class="button-root btn btn-unstyled"
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-search"
+                  viewBox=""
+                >
+                  <use
+                    href="#search"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <nav
+    class="subnav-tbar subnav-tbar-root tbar"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        class="tbar-nav"
+      >
+        <div
+          class="tbar-item tbar-item-expand"
+        >
+          <div
+            class="tbar-section text-truncate"
+          >
+            0 Results for "
+            <b>
+              Test
+            </b>
+            "
+          </div>
+        </div>
+        <div
+          class="tbar-item"
+        >
+          <div
+            class="tbar-section text-truncate"
+          >
+            <button
+              class="button-root btn btn-link btn-sm"
+              type="button"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+`;
+
+exports[`Toolbar should render with a search input when alwaysShowSearch is true 1`] = `
+<div
+  class="toolbar-root"
+>
+  <nav
+    class="navbar navbar-root items-selected management-bar management-bar-primary navbar-expand"
+  >
+    <div
+      class="container-fluid"
+    >
+      <ul
+        class="nav-root front-nav navbar-nav"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
+        >
+          <div
+            class="custom-control custom-checkbox"
+          >
+            <label>
+              <input
+                class="custom-control-input"
+                data-testid="select-all-checkbox"
+                type="checkbox"
+                value="false"
+              />
+              <span
+                class="custom-control-label"
+              />
+            </label>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="navbar-form navbar-form-autofit"
+      >
+        <div
+          class="input-group search"
+        >
+          <div
+            class="input-group-item"
+          >
+            <input
+              class="input-root form-control input-group-inset input-group-inset-after"
+              placeholder="Search"
+              type="text"
+              value=""
+            />
+            <div
+              class="input-group-inset-item input-group-inset-item-after"
+            >
+              <button
+                class="button-root btn btn-unstyled"
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-search"
+                  viewBox=""
+                >
+                  <use
+                    href="#search"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+`;

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyStateDashboard should render a EmptyStateDashboard component 1`] = `
+<div>
+  <div
+    class="empty-state-dashboard-root"
+  >
+    <span
+      class="title"
+    >
+      Empty State Dashboard Title
+    </span>
+  </div>
+</div>
+`;
+
+exports[`EmptyStateDashboard should render a EmptyStateDashboard component with a description 1`] = `
+<div>
+  <div
+    class="empty-state-dashboard-root"
+  >
+    <span
+      class="title"
+    >
+      Empty State Dashboard Title
+    </span>
+    <span
+      class="secondary-info"
+    >
+      Empty State Dashboard Description
+    </span>
+  </div>
+</div>
+`;
+
+exports[`EmptyStateDashboard should render a EmptyStateDashboard component with a icon 1`] = `
+<div>
+  <div
+    class="empty-state-dashboard-root"
+  >
+    <svg
+      class="icon-root lexicon-icon lexicon-icon-ac-satellite icon-size-xxxl"
+      viewBox=""
+    >
+      <use
+        xlink:href="#ac-satellite"
+      />
+    </svg>
+    <span
+      class="title"
+    >
+      Empty State Dashboard Title
+    </span>
+  </div>
+</div>
+`;

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label should render 1`] = `
+<label
+  className="form-control-label label-root"
+/>
+`;
+
+exports[`Label should render as required 1`] = `
+<label
+  className="form-control-label label-root required"
+/>
+`;
+
+exports[`Label should render with a tooltip and icon 1`] = `
+<label
+  className="form-control-label label-root"
+  data-tooltip={true}
+  title="foo bar baz"
+>
+  <Icon
+    className="info"
+    symbol="question-circle-full"
+  />
+</label>
+`;

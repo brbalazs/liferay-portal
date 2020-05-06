@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectFieldInput should render 1`] = `
+<SelectInput
+  context="demographics"
+  dataSourceFn={[Function]}
+  groupId="23"
+  itemRenderer={[Function]}
+  placeholder="Select Field"
+/>
+`;

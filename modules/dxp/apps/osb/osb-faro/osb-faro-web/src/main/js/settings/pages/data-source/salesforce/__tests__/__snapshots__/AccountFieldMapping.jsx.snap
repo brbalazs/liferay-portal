@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountFieldMapping should render 1`] = `
+<Connect(BaseDataSourcePage)
+  breadcrumbItems={
+    Array [
+      Object {
+        "href": "/workspace/23/settings/data-source",
+        "label": "Data Sources",
+      },
+      Object {
+        "active": false,
+        "href": "/workspace/23/settings/data-source/27",
+        "label": "Salesforce{seed}",
+        "truncate": true,
+      },
+      Object {
+        "active": true,
+        "label": "Account Field Mapping",
+      },
+    ]
+  }
+  className="base-field-mapping-view-root"
+  dataSource={
+    Object {
+      "credentials": Object {
+        "oAuthClientId": "oAuthMockClientId-1",
+        "oAuthClientSecret": "oAuthMockClientSecret-1",
+        "type": "OAuth 2 Authentication",
+      },
+      "dateCreated": 1531090866366,
+      "disabled": false,
+      "event": null,
+      "fileName": null,
+      "id": "1",
+      "lastSyncDate": 1531263666366,
+      "name": "Salesforce{seed}",
+      "properties": Object {},
+      "provider": Object {
+        "analyticsConfiguration": null,
+        "contactsConfiguration": null,
+        "type": "SALESFORCE",
+      },
+      "providerType": "SALESFORCE",
+      "state": "CREDENTIALS_VALID",
+      "status": "ACTIVE",
+      "type": 1,
+      "url": "https://login.salesforce.com",
+    }
+  }
+  groupId="23"
+  id="27"
+  pageTitle="Configure Salesforce"
+>
+  <Sheet
+    large={false}
+    pageDisplay={false}
+  >
+    <Header
+      border={true}
+    >
+      <Section
+        lastChildMargin={false}
+      >
+        <h4>
+          Account Field Mapping
+        </h4>
+        <Text>
+          All fields have been mapped automatically to the best possible match. Please review the data mapping below to see how your Salesforce object has been mapped to Analytics Cloud.
+        </Text>
+      </Section>
+    </Header>
+    <Spinner
+      alignCenter={false}
+      display="dotted"
+      fadeIn={false}
+      inline={false}
+      key="LOADING_DISPLAY"
+      light={false}
+      overlay={false}
+      spacer={true}
+    />
+  </Sheet>
+</Connect(BaseDataSourcePage)>
+`;

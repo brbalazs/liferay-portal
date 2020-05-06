@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PropertyCell should render 1`] = `
+<td
+  className="property-cell"
+>
+  <div
+    className="name"
+  >
+    email
+  </div>
+  <div
+    className="table-title"
+  >
+    TestTest@liferay.com
+  </div>
+</td>
+`;

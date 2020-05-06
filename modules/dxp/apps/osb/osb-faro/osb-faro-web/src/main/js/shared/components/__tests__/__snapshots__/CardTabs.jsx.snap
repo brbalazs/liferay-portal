@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardTabs should render 1`] = `
+<div>
+  <ul
+    class="card-tabs-root"
+  >
+    <li
+      class="card-tab"
+    >
+      <button
+        class="button-root btn btn-unstyled"
+        type="button"
+      >
+        <span
+          class="title"
+        >
+          Foo Tab
+        </span>
+        <div>
+          Foo secondary info
+        </div>
+      </button>
+    </li>
+    <li
+      class="card-tab active"
+    >
+      <button
+        class="button-root btn btn-unstyled"
+        type="button"
+      >
+        <span
+          class="title"
+        >
+          Bar Tab
+        </span>
+        <div>
+          Bar secondary info
+        </div>
+      </button>
+    </li>
+  </ul>
+</div>
+`;

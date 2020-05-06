@@ -1,0 +1,14 @@
+dependencies {
+	testCompile group: "com.liferay", name: "com.liferay.petra.lang", version: "default"
+	testCompile group: "com.liferay", name: "com.liferay.petra.reflect", version: "default"
+	testCompile group: "com.liferay", name: "com.liferay.petra.string", version: "default"
+	testCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
+	testCompile group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
+	testCompile group: "junit", name: "junit", version: "4.12"
+	testCompile project(":dxp:apps:osb:osb-faro:osb-faro-api")
+	testCompile project(":dxp:apps:osb:osb-faro:osb-faro-service")
+}
+
+deploy {
+	enabled = false
+}

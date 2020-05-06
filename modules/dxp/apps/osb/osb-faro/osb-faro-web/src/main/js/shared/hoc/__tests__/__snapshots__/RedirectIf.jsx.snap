@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`redirectIf should render the passed component if the routingFn does not return a string 1`] = `
+<TestComponent
+  className=""
+/>
+`;

@@ -1,0 +1,289 @@
+import * as breadcrumbs from 'shared/util/breadcrumbs';
+import AddReport from '../components/AddReport';
+import AssetCard from '../hocs/AssetCard';
+import autobind from 'autobind-decorator';
+import BasePage from 'shared/components/base-page';
+import CustomAssetsDashboardQuery from '../queries/CustomAssetsDashboardQuery';
+import CustomAssetsReportMutation from '../queries/CustomAssetsReportMutation';
+import getQuery from '../queries/custom-asset-query';
+import Icon from 'shared/components/Icon';
+import React from 'react';
+import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
+import withCurrentUser from 'shared/hoc/WithCurrentUser';
+import {ChannelContext} from 'shared/context/channel';
+import {compose} from 'redux';
+import {getRangeKeyFromTimeRange} from 'shared/util/util';
+import {graphql} from '@apollo/react-hoc';
+import {hasChanges} from 'shared/util/react';
+import {PropTypes} from 'prop-types';
+
+/**
+ * Blogs Dashboard Page
+ * @class
+ */
+class CustomAssetsDashboardPage extends React.Component {
+	static contextType = ChannelContext;
+
+	static defaultProps = {
+		rangeKey: {}
+	};
+
+	static propTypes = {
+		/**
+		 * @type {object}
+		 * @default undefined
+		 */
+		currentUser: PropTypes.object.isRequired,
+
+		/**
+		 * @type {string}
+		 * @default false
+		 */
+		definition: PropTypes.string,
+
+		/**
+		 * @type {function}
+		 * @default undefined
+		 */
+		mutate: PropTypes.func.isRequired,
+
+		/**
+		 * @type {object}
+		 * @default {}
+		 */
+		rangeKey: PropTypes.object.isRequired,
+
+		/**
+		 * @type {object}
+		 * @default undefined
+		 */
+		router: PropTypes.object.isRequired
+	};
+
+	state = {
+		definition: {rows: []},
+
+		/**
+		 * @type {object}
+		 * @default {}
+		 */
+		filters: {}
+	};
+
+	componentDidMount() {
+		const {definition} = this.props;
+
+		if (definition) {
+			this.updateDefinition(definition);
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		const {definition} = this.props;
+
+		if (hasChanges(prevProps, this.props, 'definition') && definition) {
+			this.updateDefinition(definition);
+		}
+	}
+
+	getDefinition({chartType, metric, title}) {
+		let {definition} = this.state;
+
+		definition = {
+			rows: [
+				...definition.rows,
+				{
+					panels: [
+						{
+							chartType,
+							metric,
+							title,
+							width: 100
+						}
+					]
+				}
+			]
+		};
+
+		return JSON.stringify(definition);
+	}
+
+	updateDefinition(definition) {
+		this.setState({
+			definition: JSON.parse(definition)
+		});
+	}
+
+	getColumn(width) {
+		return `col-sm-${(12 * width) / 100}`;
+	}
+
+	@autobind
+	handleGetReport(report) {
+		const {currentUser, mutate, router} = this.props;
+		const {id: dashboardId} = router.params;
+		const {id: modifiedByUserId, name: modifiedByUserName} = currentUser;
+
+		mutate({
+			variables: {
+				dashboardId,
+				definition: this.getDefinition(report),
+				modifiedByUserId,
+				modifiedByUserName
+			}
+		}).then(({data}) => {
+			const {definition} = data.dashboard;
+
+			this.setState({
+				definition: JSON.parse(definition)
+			});
+		});
+	}
+
+	renderDefinitions() {
+		const {rangeKey, router} = this.props;
+		const {definition} = this.state;
+		const {id: dashboardId} = router.params;
+
+		return definition.rows.map(({panels}, rowIndex) => (
+			<div className='row' key={rowIndex}>
+				{panels.map(({chartType, metric, title, width}, panelIndex) => (
+					<div className={this.getColumn(width)} key={panelIndex}>
+						<AssetCard
+							assetId={dashboardId}
+							id={rowIndex}
+							itemQuery={getQuery(metric)}
+							label={title}
+							panel={{chartType, metric}}
+							rangeKey={rangeKey}
+							router={router}
+						/>
+					</div>
+				))}
+			</div>
+		));
+	}
+
+	renderAddReport() {
+		const {definition} = this.state;
+
+		return (
+			<div className='row'>
+				<div className='col-sm-12'>
+					<AddReport
+						isEmptyDashboard={!definition.rows.length}
+						onGetReport={this.handleGetReport}
+					/>
+				</div>
+			</div>
+		);
+	}
+
+	renderLimitExecededText() {
+		return (
+			<div className='row'>
+				<div className='col-sm-12'>
+					<div className='mt-3 mb-3 text-secondary text-center'>
+						<Icon className={'mr-2'} symbol='warning' />
+
+						{Liferay.Language.get(
+							'this-dashboard-has-reached-the-limit-of-10-reports'
+						)}
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	/**
+	 * Lifecycle Render - ReactJS
+	 */
+	render() {
+		const {rangeKey, router} = this.props;
+		const {definition, filters} = this.state;
+		const {selectedChannel} = this.context;
+
+		const {
+			params: {channelId, groupId, title}
+		} = router;
+
+		const decodedTitle = decodeURIComponent(title);
+
+		return (
+			<BasePage documentTitle={Liferay.Language.get('assets')}>
+				<BasePage.Header
+					breadcrumbs={[
+						breadcrumbs.getHome({
+							groupId,
+							label: selectedChannel && selectedChannel.name
+						}),
+						breadcrumbs.getAssets({channelId, groupId}),
+						breadcrumbs.getCustomContent({channelId, groupId}),
+						breadcrumbs.getEntityName({label: decodedTitle})
+					]}
+				>
+					<BasePage.Header.TitleSection title={decodedTitle} />
+				</BasePage.Header>
+
+				<BasePage.Context.Provider value={{filters, rangeKey, router}}>
+					<BasePage.Body>
+						{this.renderDefinitions()}
+
+						{definition.rows.length < 10
+							? this.renderAddReport()
+							: this.renderLimitExecededText()}
+					</BasePage.Body>
+				</BasePage.Context.Provider>
+			</BasePage>
+		);
+	}
+}
+
+const withTimeRangeQuery = () =>
+	graphql(TimeRangeQuery, {
+		props: ({data: {loading, timeRange = []}}) => ({
+			loadingTimeRange: loading,
+			rangeKey: getRangeKeyFromTimeRange(timeRange)
+		})
+	});
+
+const withCustomAssetsDashboardData = () =>
+	graphql(CustomAssetsDashboardQuery, {
+		options: ({router}) => {
+			const {id: dashboardId} = router.params;
+
+			return {
+				variables: {
+					dashboardId
+				}
+			};
+		},
+		props: ({data: {dashboard = {}, loading}}) => {
+			const {definition} = dashboard;
+
+			return {
+				definition,
+				loadingDefinition: loading
+			};
+		}
+	});
+
+const withCustomAssetsReportMutation = () =>
+	graphql(CustomAssetsReportMutation, {});
+
+const WrappedPageComponent = ({
+	loadingDefinition,
+	loadingTimeRange,
+	...props
+}) => {
+	if (loadingTimeRange || loadingDefinition) return null;
+
+	return <CustomAssetsDashboardPage {...props} />;
+};
+
+export default compose(
+	withTimeRangeQuery(),
+	withCustomAssetsDashboardData(),
+	withCustomAssetsReportMutation(),
+	withCurrentUser
+)(WrappedPageComponent);

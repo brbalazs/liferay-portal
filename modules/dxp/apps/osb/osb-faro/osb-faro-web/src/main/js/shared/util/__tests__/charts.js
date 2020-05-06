@@ -1,0 +1,506 @@
+jest.unmock('clay-charts');
+
+import {
+	Colors,
+	dateRangeFormatter,
+	formatTooltipDate,
+	formatXAxisDate,
+	getAxisFormatter,
+	getAxisMeasures,
+	getAxisMeasuresFromCompositeData,
+	getAxisMeasuresFromData,
+	getDataFormatter,
+	getDateTitle,
+	getIntervals,
+	getLocationsData,
+	getMetricFormatter,
+	isEmptyData,
+	nextColor
+} from '../charts';
+import {getDate} from 'shared/util/date';
+import {INTERVAL_KEY_MAP} from 'shared/util/time';
+import {
+	LAST_24_HOURS,
+	LAST_28_DAYS,
+	LAST_30_DAYS,
+	LAST_90_DAYS,
+	YESTERDAY
+} from 'shared/util/constants';
+import {Map} from 'immutable';
+
+const mockDate = getDate('2019-01-02');
+const mockDateKeysIMap = new Map([[mockDate, [mockDate]]]);
+
+describe('dateRangeFormatter', () => {
+	it('should render a range of dates with different start and ending months', () => {
+		expect(dateRangeFormatter(mockDate, getDate('2019-02-02'))).toEqual(
+			'2 Jan - 2 Feb'
+		);
+	});
+
+	it('should render a range of dates with the same start and ending months', () => {
+		expect(dateRangeFormatter(mockDate, getDate('2019-01-14'))).toEqual(
+			'2 - 14 Jan'
+		);
+	});
+});
+
+describe('formatTooltipDate', () => {
+	it('should return the hours for last 24 hours', () => {
+		const date = getDate('2018-08-07');
+
+		date.setHours(20);
+		date.setMinutes(30);
+		date.setSeconds(0);
+
+		const formatedDate = formatTooltipDate(date, LAST_24_HOURS);
+
+		expect(formatedDate).toEqual('7 Aug, 8 PM');
+	});
+
+	it('should return the hours with UTC for Yesterday', () => {
+		const date = getDate('2018-08-07');
+
+		date.setDate(date.getDate() - 8.64e7);
+		date.setHours(20);
+		date.setMinutes(30);
+		date.setSeconds(0);
+
+		const formatedDate = formatTooltipDate(date, YESTERDAY);
+
+		expect(formatedDate).toEqual('8 Jun, 8 PM');
+	});
+
+	it('should return the hours with UTC for last 90 days', () => {
+		const date = getDate('2018-08-07');
+
+		date.setDate(date.getDate() - 8.64e7);
+		date.setHours(20);
+		date.setMinutes(30);
+		date.setSeconds(0);
+
+		const formatedDate = formatTooltipDate(date, LAST_90_DAYS);
+
+		expect(formatedDate).toEqual('8\u00A0Jun');
+	});
+
+	it('should return the formated date and month', () => {
+		expect(formatTooltipDate(getDate('2018-08-07'))).toEqual('7 Aug');
+	});
+});
+
+describe('formatXAxisDate', () => {
+	it('should render an x-axis label in a day month format by default', () => {
+		expect(
+			formatXAxisDate(
+				mockDate,
+				LAST_30_DAYS,
+				INTERVAL_KEY_MAP.day,
+				mockDateKeysIMap
+			)
+		).toEqual('2 Jan');
+	});
+
+	it('should render an x-axis label in an hourly format', () => {
+		expect(
+			formatXAxisDate(
+				mockDate,
+				LAST_24_HOURS,
+				INTERVAL_KEY_MAP.day,
+				mockDateKeysIMap
+			)
+		).toEqual('12 AM');
+	});
+
+	it('should render an x-axis label in a daterange format if the rangekey is monthly and interval is weekly', () => {
+		expect(
+			formatXAxisDate(
+				mockDate,
+				LAST_30_DAYS,
+				INTERVAL_KEY_MAP.week,
+				new Map([[mockDate, [mockDate, getDate('2019-01-08')]]])
+			)
+		).toEqual('2 - 8 Jan');
+	});
+});
+
+describe('getDateTitle', () => {
+	it('should return a date display string', () => {
+		expect(getDateTitle([getDate('2019-01-01')])).toEqual('1 Jan');
+	});
+
+	it('should return a date display string as a date range if rangeKey is monthly and interval is weekly', () => {
+		expect(
+			getDateTitle(
+				[getDate('2019-01-01'), getDate('2019-01-14')],
+				LAST_30_DAYS,
+				INTERVAL_KEY_MAP.week
+			)
+		).toEqual('1 - 14 Jan');
+	});
+});
+
+describe('getIntervals', () => {
+	const currentDate = getDate();
+	const dates = [];
+
+	for (let i = 1; i < 100; i++) {
+		const date = getDate(currentDate.getTime() - i * 8.64e7);
+
+		dates.push(date);
+	}
+
+	it('should be return the intervals from a array of dates from the last 24 hours', () => {
+		expect(
+			getIntervals(
+				LAST_24_HOURS,
+				dates.filter((item, index) => index <= 20)
+			)
+		).toEqual([dates[0], dates[6], dates[12], dates[18], dates[20]]);
+	});
+
+	it('should be return the intervals from a array of dates from yesterday', () => {
+		expect(
+			getIntervals(YESTERDAY, dates.filter((item, index) => index <= 22))
+		).toEqual([dates[0], dates[6], dates[12], dates[18], dates[22]]);
+	});
+
+	it('should be return the intervals from an array of dates from the last 28 days', () => {
+		expect(
+			getIntervals(
+				LAST_28_DAYS,
+				dates.filter((item, index) => index <= 27),
+				INTERVAL_KEY_MAP.day
+			)
+		).toEqual([dates[0], dates[7], dates[14], dates[21], dates[27]]);
+	});
+
+	it('should return the unfiltered interval dates from an array of dates from the last 28 days and with an interval of longer than a day', () => {
+		const mockDates = dates.filter((item, index) => index <= 27);
+		expect(
+			getIntervals(LAST_28_DAYS, mockDates, INTERVAL_KEY_MAP.week)
+		).toEqual(expect.arrayContaining(mockDates));
+	});
+
+	it('should be return the intervals from a array of dates from the last 30 days', () => {
+		expect(
+			getIntervals(
+				LAST_30_DAYS,
+				dates.filter((item, index) => index <= 29)
+			)
+		).toEqual([
+			dates[0],
+			dates[6],
+			dates[12],
+			dates[18],
+			dates[24],
+			dates[29]
+		]);
+	});
+
+	it('should return the unfiltered interval dates from a array of dates from the last 30 days with a week interval', () => {
+		const mockDates = dates.filter((item, index) => index <= 29);
+		expect(
+			getIntervals(LAST_30_DAYS, mockDates, INTERVAL_KEY_MAP.week)
+		).toEqual(expect.arrayContaining(mockDates));
+	});
+
+	it('should be return the intervals from a array of dates from the last 90 days', () => {
+		const mockDates = dates.filter((item, index) => index <= 89);
+		expect(getIntervals(LAST_90_DAYS, mockDates)).toEqual(
+			mockDates.filter((_, i) => i === 0 || i % 2 !== 0)
+		);
+	});
+
+	it('should be return the intervals in multiples of 15 from a array of dates from the last 90 days with an interval of day', () => {
+		const mockDates = dates.filter((item, index) => index <= 89);
+
+		const result = getIntervals(
+			LAST_90_DAYS,
+			mockDates,
+			INTERVAL_KEY_MAP.day
+		);
+
+		const expected = mockDates.filter(
+			(_, i) => i === 0 || (i + 1) % 15 === 0
+		);
+
+		expect(mockDates[0]).toEqual(result[0]);
+		expect(mockDates[mockDates.length - 1]).toEqual(
+			result[result.length - 1]
+		);
+
+		expect(result).toEqual(expected);
+	});
+
+	it('should be return the intervals from a array of dates of a custom rangeKey', () => {
+		expect(getIntervals(15, dates)).toEqual(dates);
+	});
+
+	it('returns an empty intervals array if the original data array was empty', () => {
+		expect(getIntervals(LAST_24_HOURS, [])).toEqual(
+			expect.arrayContaining([])
+		);
+	});
+});
+
+describe('getLocationsData', () => {
+	const locationsData = getLocationsData([
+		{value: 200},
+		{value: 400},
+		{value: 400},
+		{value: 400},
+		{value: 600},
+		{value: 400},
+		{value: 100}
+	]);
+
+	it('should be return the locations data', () => {
+		expect([locationsData[0]]).toEqual([
+			{
+				group: undefined,
+				id: undefined,
+				name: undefined,
+				total: 200,
+				value: '8'
+			}
+		]);
+	});
+
+	it('should be return the others countries object in the last position when have more then five rows', () => {
+		expect(locationsData[locationsData.length - 1]).toEqual({
+			color: '#CCCCCC',
+			group: 'Other Countries',
+			id: 'others',
+			name: 'Other Countries',
+			total: 500,
+			value: '20'
+		});
+	});
+
+	it('should be return the others regions object in the last position when have more then five rows', () => {
+		const locationsDataRegions = getLocationsData(
+			[
+				{value: 200},
+				{value: 400},
+				{value: 400},
+				{value: 400},
+				{value: 600},
+				{value: 400},
+				{value: 100}
+			],
+			'Brazil'
+		);
+
+		expect(locationsDataRegions[locationsDataRegions.length - 1]).toEqual({
+			color: '#CCCCCC',
+			group: 'Other Regions',
+			id: 'others',
+			name: 'Other Regions',
+			total: 500,
+			value: '20'
+		});
+	});
+});
+
+describe('getAxisMeasures', () => {
+	it('should be return the axis intervals, maxValue and interval value', () => {
+		expect(getAxisMeasures(0.7)).toEqual({
+			intervalCount: 4,
+			intervals: [0, 0.2, 0.4, 0.6000000000000001, 0.8],
+			intervalValue: 0.2,
+			maxValue: 0.8
+		});
+		expect(getAxisMeasures(1)).toEqual({
+			intervalCount: 3,
+			intervals: [0, 0.5, 1, 1.5],
+			intervalValue: 0.5,
+			maxValue: 1.5
+		});
+		expect(getAxisMeasures(1.6)).toEqual({
+			intervalCount: 4,
+			intervals: [0, 0.5, 1, 1.5, 2],
+			intervalValue: 0.5,
+			maxValue: 2
+		});
+		expect(getAxisMeasures(1.7)).toEqual({
+			intervalCount: 4,
+			intervals: [0, 0.5, 1, 1.5, 2],
+			intervalValue: 0.5,
+			maxValue: 2
+		});
+		expect(getAxisMeasures(11)).toEqual({
+			intervalCount: 3,
+			intervals: [0, 5, 10, 15],
+			intervalValue: 5,
+			maxValue: 15
+		});
+		expect(getAxisMeasures(16)).toEqual({
+			intervalCount: 4,
+			intervals: [0, 5, 10, 15, 20],
+			intervalValue: 5,
+			maxValue: 20
+		});
+		expect(getAxisMeasures(201)).toEqual({
+			intervalCount: 3,
+			intervals: [0, 100, 200, 300],
+			intervalValue: 100,
+			maxValue: 300
+		});
+		expect(getAxisMeasures(745)).toEqual({
+			intervalCount: 4,
+			intervals: [0, 200, 400, 600, 800],
+			intervalValue: 200,
+			maxValue: 800
+		});
+		expect(getAxisMeasures(1001)).toEqual({
+			intervalCount: 3,
+			intervals: [0, 500, 1000, 1500],
+			intervalValue: 500,
+			maxValue: 1500
+		});
+		expect(getAxisMeasures(100450)).toEqual({
+			intervalCount: 3,
+			intervals: [0, 50000, 100000, 150000],
+			intervalValue: 50000,
+			maxValue: 150000
+		});
+	});
+});
+
+describe('getAxisMeasuresFromCompositeData', () => {
+	it('should be return the max value from composite data', () => {
+		expect(
+			getAxisMeasuresFromCompositeData([
+				[0, 1001, 145],
+				[100, 400, 3450],
+				[0, 50, 200]
+			])
+		).toEqual({
+			intervalCount: 5,
+			intervals: [0, 1000, 2000, 3000, 4000, 5000],
+			intervalValue: 1000,
+			maxValue: 5000
+		});
+	});
+});
+
+describe('getAxisMeasuresFromData', () => {
+	it('should be return the max value from a data', () => {
+		expect(
+			getAxisMeasuresFromData([
+				['data1', 0, 1001, 145],
+				['data2', 100, 400, 3450]
+			])
+		).toEqual({
+			intervalCount: 4,
+			intervals: [0, 1000, 2000, 3000, 4000],
+			intervalValue: 1000,
+			maxValue: 4000
+		});
+	});
+});
+
+describe('getAxisFormatter', () => {
+	it('should be return the value to percentage', () => {
+		expect(getAxisFormatter('percentage')(1)).toEqual('100%');
+	});
+	it('should be return the value to engagement', () => {
+		expect(getAxisFormatter('engagement')(1)).toEqual('10.00');
+	});
+	it('should be return the value to ratings', () => {
+		expect(getAxisFormatter('ratings')(1)).toEqual('10.00');
+	});
+	it('should be return the value to any', () => {
+		expect(getAxisFormatter()(10)).toEqual(10);
+	});
+});
+
+describe('getDataFormatter', () => {
+	it('should be return the value to any', () => {
+		expect(getDataFormatter()([1, 100, 1000, 10000])).toEqual([
+			1,
+			100,
+			1000,
+			10000
+		]);
+	});
+	it('should be return the data formatted to percentage', () => {
+		expect(getDataFormatter('percentage')([1, 100, 1000, 10000])).toEqual([
+			1,
+			100,
+			1000,
+			10000
+		]);
+	});
+	it('should be return the data formatted to time', () => {
+		expect(getDataFormatter('time')([1, 100, 500, 1000, 10000])).toEqual([
+			0,
+			0,
+			1000,
+			1000,
+			10000
+		]);
+	});
+	it('should be return the data formatted to numbers', () => {
+		expect(getDataFormatter('numbers')([1, 100, 1000, 10000])).toEqual([
+			1,
+			100,
+			1000,
+			10000
+		]);
+	});
+	it('should be return the data formatted to ratings', () => {
+		expect(getDataFormatter('ratings')([1, 100, 1000, 10000])).toEqual([
+			1,
+			100,
+			1000,
+			10000
+		]);
+	});
+	it('should be return the data formatted to engagement', () => {
+		expect(getDataFormatter('engagement')([1, 100, 1000, 10000])).toEqual([
+			1,
+			100,
+			1000,
+			10000
+		]);
+	});
+});
+
+describe('getMetricFormatter', () => {
+	it('shold be return the metric formatter', () => {
+		expect(getMetricFormatter('number')(1)).toEqual('1');
+		expect(getMetricFormatter('percentage')(1)).toEqual('100%');
+		expect(getMetricFormatter('time')(1)).toEqual('00s');
+		expect(getMetricFormatter('engagement')(1)).toEqual('10.00/10');
+		expect(getMetricFormatter('any')(1)).toEqual(1);
+	});
+});
+
+describe('isEmptyData', () => {
+	it('should return true if the data arrays are empty', () => {
+		const mockChartData = [[], []];
+
+		expect(isEmptyData(mockChartData)).toBe(true);
+	});
+
+	it('should return true if the data arrays contain values that are all zero', () => {
+		const mockChartData = [[0, 0, 0], [0, 0, 0]];
+
+		expect(isEmptyData(mockChartData)).toBe(true);
+	});
+});
+
+describe('nextColor', () => {
+	it('should be return a color based on index', () => {
+		expect(nextColor(1)).toEqual(Colors.pallete[0]);
+		expect(nextColor(2)).toEqual(Colors.pallete[1]);
+		expect(nextColor(3)).toEqual(Colors.pallete[2]);
+		expect(nextColor(4)).toEqual(Colors.pallete[3]);
+		expect(nextColor(5)).toEqual(Colors.pallete[4]);
+		expect(nextColor(6)).toEqual(Colors.pallete[5]);
+		expect(nextColor(7)).toEqual(Colors.pallete[6]);
+		expect(nextColor(8)).toEqual(Colors.pallete[7]);
+	});
+});

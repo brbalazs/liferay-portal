@@ -1,0 +1,339 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataTransformation should hide unmatched fields 1`] = `
+<div
+  className="data-transformation-root"
+>
+  <Header
+    border={true}
+  >
+    <h3
+      className="title"
+    >
+      Map Contact Data
+    </h3>
+    <p
+      className="text-secondary"
+    >
+      All fields have been mapped automatically to the best possible match. Please confirm the data mapping below and make any changes if necessary. You may only map one source data field to a single Analytics Cloud field.
+    </p>
+  </Header>
+  <Body
+    className="summary-section"
+  >
+    <p
+      className="summary"
+    >
+      <Icon
+        symbol="faro-connection-success-ovals"
+      />
+      2 fields mapped.
+      <Icon
+        symbol="faro-connection-error-ovals"
+      />
+      0 fields not mapped.
+    </p>
+    <Checkbox
+      checked={false}
+      label="Unmapped Fields Only"
+      onChange={[Function]}
+    />
+  </Body>
+  <Section
+    lastChildMargin={false}
+  >
+    <DataTransformationList
+      dataSourceFn={[Function]}
+      duplicateTargetFieldsIMap={Immutable.Map {}}
+      fieldsIList={
+        Immutable.List [
+          Immutable.Map {
+            "source": Immutable.Map {
+              "name": "TestHas default match 1",
+              "value": undefined,
+            },
+            "suggestion": Immutable.Map {
+              "name": "foo",
+              "value": "valuenull",
+            },
+          },
+          Immutable.Map {
+            "source": Immutable.Map {
+              "name": "TestHas default match 2",
+              "value": undefined,
+            },
+            "suggestion": Immutable.Map {
+              "name": "bar",
+              "value": "valuenull",
+            },
+          },
+        ]
+      }
+      groupId="23"
+      hideMappedFields={false}
+      id="123"
+      initialSearchedSuggestions={
+        Array [
+          Object {
+            "name": "Test0",
+            "value": "value0",
+          },
+        ]
+      }
+      mappingSuggestions={
+        Object {
+          "TestHas default match 1": Array [
+            Object {
+              "context": "demographics",
+              "dataSourceFieldNames": Object {},
+              "id": "null",
+              "name": "foo",
+              "ownerType": "individual",
+              "type": "Text",
+              "values": Array [
+                "valuenull",
+              ],
+            },
+          ],
+          "TestHas default match 2": Array [
+            Object {
+              "context": "demographics",
+              "dataSourceFieldNames": Object {},
+              "id": "null",
+              "name": "bar",
+              "ownerType": "individual",
+              "type": "Text",
+              "values": Array [
+                "valuenull",
+              ],
+            },
+          ],
+          "TestNo default match": Array [],
+        }
+      }
+      onChange={[Function]}
+      readOnly={false}
+      sourceFieldPlaceholder="Select Field from Source"
+      sourceFields={
+        Object {
+          "TestHas default match 1": undefined,
+          "TestHas default match 2": undefined,
+          "TestNo default match": undefined,
+        }
+      }
+      sourceTitle="Source Data"
+      suggestionsTitle="Analytics Cloud Field"
+    />
+    <div
+      className="add-custom-field"
+    >
+      <div>
+        Add a custom field mapping.
+      </div>
+      <Button
+        onClick={[Function]}
+      >
+        Add Field
+      </Button>
+    </div>
+  </Section>
+  <Footer
+    divider={false}
+  >
+    <FormNavigation
+      cancelHref="/workspace/23/settings/data-source"
+      enableNext={true}
+      onNextStep={[Function]}
+      submitMessage="Done"
+    />
+  </Footer>
+</div>
+`;
+
+exports[`DataTransformation should render 1`] = `
+<div
+  className="data-transformation-root"
+>
+  <Header
+    border={true}
+  >
+    <h3
+      className="title"
+    >
+      Map Contact Data
+    </h3>
+  </Header>
+  <Spinner
+    alignCenter={false}
+    display="dotted"
+    fadeIn={false}
+    inline={false}
+    light={false}
+    overlay={false}
+    spacer={true}
+  />
+  <Footer
+    divider={false}
+  >
+    <FormNavigation
+      cancelHref="/workspace/23/settings/data-source"
+      enableNext={false}
+      onNextStep={[Function]}
+      submitMessage="Done"
+    />
+  </Footer>
+</div>
+`;
+
+exports[`DataTransformation should render w/ a mapped field 1`] = `
+<div
+  className="data-transformation-root"
+>
+  <Header
+    border={true}
+  >
+    <h3
+      className="title"
+    >
+      Map Contact Data
+    </h3>
+    <p
+      className="text-secondary"
+    >
+      All fields have been mapped automatically to the best possible match. Please confirm the data mapping below and make any changes if necessary. You may only map one source data field to a single Analytics Cloud field.
+    </p>
+  </Header>
+  <Body
+    className="summary-section"
+  >
+    <p
+      className="summary"
+    >
+      <Icon
+        symbol="faro-connection-success-ovals"
+      />
+      1 fields mapped.
+      <Icon
+        symbol="faro-connection-error-ovals"
+      />
+      1 fields not mapped.
+    </p>
+    <Checkbox
+      checked={false}
+      label="Unmapped Fields Only"
+      onChange={[Function]}
+    />
+  </Body>
+  <Section
+    lastChildMargin={false}
+  >
+    <DataTransformationList
+      dataSourceFn={[Function]}
+      duplicateTargetFieldsIMap={Immutable.Map {}}
+      fieldsIList={
+        Immutable.List [
+          Immutable.Map {
+            "source": Immutable.Map {
+              "name": "TestMatched Field",
+              "value": undefined,
+            },
+            "suggestion": Immutable.Map {
+              "name": "Test0",
+              "value": "value0",
+            },
+          },
+          Immutable.Map {
+            "source": Immutable.Map {
+              "name": "TestUnmatched Field",
+              "value": undefined,
+            },
+            "suggestion": Immutable.Map {
+              "name": undefined,
+              "value": undefined,
+            },
+          },
+        ]
+      }
+      groupId="23"
+      hideMappedFields={false}
+      id="123"
+      initialSearchedSuggestions={
+        Array [
+          Object {
+            "name": "Test0",
+            "value": "value0",
+          },
+        ]
+      }
+      mappingSuggestions={
+        Object {
+          "TestMatched Field": Array [
+            Object {
+              "context": "demographics",
+              "dataSourceFieldNames": Object {},
+              "id": "0",
+              "name": "Test0",
+              "ownerType": "individual",
+              "type": "Text",
+              "values": Array [
+                "value0",
+              ],
+            },
+          ],
+          "TestUnmatched Field": Array [],
+        }
+      }
+      onChange={[Function]}
+      readOnly={false}
+      sourceFieldPlaceholder="Select Field from Source"
+      sourceFields={
+        Object {
+          "TestMatched Field": undefined,
+          "TestUnmatched Field": undefined,
+        }
+      }
+      sourceTitle="Source Data"
+      suggestionsTitle="Analytics Cloud Field"
+    />
+    <div
+      className="add-custom-field"
+    >
+      <div>
+        Add a custom field mapping.
+      </div>
+      <Button
+        onClick={[Function]}
+      >
+        Add Field
+      </Button>
+    </div>
+  </Section>
+  <Footer
+    divider={false}
+  >
+    <FormNavigation
+      cancelHref="/workspace/23/settings/data-source"
+      enableNext={false}
+      onNextStep={[Function]}
+      submitMessage="Done"
+    />
+  </Footer>
+</div>
+`;
+
+exports[`processFieldMappings should return fieldMappings 1`] = `
+Array [
+  Object {
+    "dataSourceFieldName": "foo",
+    "name": undefined,
+  },
+  Object {
+    "dataSourceFieldName": "bar",
+    "name": undefined,
+  },
+  Object {
+    "dataSourceFieldName": "baz",
+    "name": undefined,
+  },
+]
+`;

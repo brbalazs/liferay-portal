@@ -1,0 +1,27 @@
+.activities-chart-timeline-root {
+	.activities-timeline-chart {
+		padding: 0 $listPadding;
+	}
+
+	.selected-info {
+		color: $mainLighten28;
+		margin-bottom: 8px;
+		padding: 0 $listPadding;
+
+		> .button-root {
+			font-size: $fontSizeSmall;
+			margin-left: 8px;
+			padding: 0;
+		}
+
+		.details {
+			font-size: $fontSizeSmall;
+
+			> b {
+				color: $main;
+				font-weight: $fontWeightBold;
+				line-height: 24px;
+			}
+		}
+	}
+}

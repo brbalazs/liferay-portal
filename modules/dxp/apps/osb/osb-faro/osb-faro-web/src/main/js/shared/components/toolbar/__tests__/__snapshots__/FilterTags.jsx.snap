@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterTags should render a list of tags 1`] = `
+<Fragment>
+  <TbarItem
+    expand={false}
+    key="foo-value0"
+  >
+    <FilterTagItem
+      label="Foo Label0"
+      value="foo-value0"
+    />
+  </TbarItem>
+  <TbarItem
+    expand={false}
+    key="foo-value1"
+  >
+    <FilterTagItem
+      label="Foo Label1"
+      value="foo-value1"
+    />
+  </TbarItem>
+  <TbarItem
+    expand={true}
+    key="foo-value2"
+  >
+    <FilterTagItem
+      label="Foo Label2"
+      value="foo-value2"
+    />
+  </TbarItem>
+</Fragment>
+`;

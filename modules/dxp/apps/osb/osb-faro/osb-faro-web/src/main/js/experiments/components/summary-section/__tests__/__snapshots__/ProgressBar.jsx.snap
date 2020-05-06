@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SummarySection ProgressBar should render component 1`] = `
+<div
+  className="analytics-summary-section-progress"
+>
+  <div
+    className="analytics-summary-section-progress-bar"
+    style={
+      Object {
+        "width": "50%",
+      }
+    }
+  />
+</div>
+`;

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatusRenderer should render 1`] = `
+<td
+  className=""
+>
+  <Label
+    display="success"
+    uppercase={false}
+  >
+    Approved
+  </Label>
+</td>
+`;

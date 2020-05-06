@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActiveIndividualsChart should render 1`] = `
+<div>
+  <div
+    class="chart-root"
+  >
+    <div
+      class="chart-labels"
+    >
+      <span>
+        Individuals
+      </span>
+      <span />
+    </div>
+    <div />
+  </div>
+  <ul
+    class="chart-legend"
+    id="legend-active-individuals"
+  />
+</div>
+`;

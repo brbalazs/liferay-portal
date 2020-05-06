@@ -1,0 +1,75 @@
+import ExperimentListTitle from '../components/ExperimentListTitle';
+import Label from 'shared/components/Label';
+import moment from 'moment';
+import React from 'react';
+import {DateCell} from 'shared/components/table/cell-components';
+import {formatUTCDate} from 'shared/util/date';
+import {getStatusColor, getStatusName} from 'experiments/util/experiments';
+import {isNil} from 'lodash';
+import {TableDataCell} from 'shared/components/table/cell-components';
+
+export default [
+	{
+		accessor: 'name.raw',
+		cellRenderer: ({data: {id, name, pageURL}}) => (
+			<ExperimentListTitle id={id} title={name} touchpoint={pageURL} />
+		),
+		className: 'table-cell-expand',
+		label: Liferay.Language.get('name')
+	},
+	{
+		accessor: 'pageURL',
+		cellRenderer: ({data: {pageURL}}) => (
+			<TableDataCell firstColumn={false} title={pageURL} />
+		),
+		className: 'table-cell-expand',
+		label: Liferay.Language.get('url').toUpperCase(),
+		width: '300px'
+	},
+	{
+		accessor: 'status',
+		dataFormatter: value => (
+			<Label
+				className='experiment-status'
+				display={getStatusColor(value)}
+				key='status'
+				size='lg'
+			>
+				{getStatusName(value)}
+			</Label>
+		),
+		label: Liferay.Language.get('status')
+	},
+	{
+		accessor: 'type',
+		dataFormatter: value => (value === 'AB' ? 'A/B' : value),
+		label: Liferay.Language.get('type')
+	},
+	{
+		accessor: 'createDate',
+		cellRenderer: ({data}) => (
+			<DateCell
+				className='table-column-text-end'
+				data={data}
+				dateFormatter={date => formatUTCDate(date, 'll')}
+				datePath='createDate'
+			/>
+		),
+		className: 'table-column-text-end',
+		label: Liferay.Language.get('created')
+	},
+	{
+		accessor: 'modifiedDate',
+		className: 'table-column-text-end',
+		dataFormatter: modifiedDate => {
+			if (!isNil(modifiedDate)) {
+				if (moment().diff(modifiedDate, 'day') > 0) {
+					return moment.utc(modifiedDate).format('ll');
+				}
+
+				return moment(modifiedDate).fromNow();
+			}
+		},
+		label: Liferay.Language.get('last-modified')
+	}
+];

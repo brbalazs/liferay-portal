@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentOverview should render 1`] = `
+<div
+  className="overview-layout"
+>
+  <div
+    className="overview-column-main"
+  >
+    <SegmentProfileCard
+      groupId="23"
+      id="test"
+      segment={
+        Immutable.Record {
+          "activeIndividualCount": 0,
+          "activitiesCount": 1000,
+          "anonymousIndividualCount": 0,
+          "channelId": null,
+          "criteriaString": "",
+          "dateCreated": 1531177266366,
+          "dateModified": 1531263666366,
+          "engagementScore": 0.4899,
+          "id": "0",
+          "includeAnonymousUsers": false,
+          "individualCount": 10,
+          "knownIndividualCount": 0,
+          "lastActivityDate": 1531263666366,
+          "name": "Seattle0",
+          "properties": Immutable.Map {},
+          "referencedObjects": Immutable.Map {
+            "assets": Immutable.Map {},
+            "fieldMappings": Immutable.Map {},
+          },
+          "segmentType": null,
+          "state": "READY",
+          "status": null,
+          "type": 4,
+          "userName": null,
+        }
+      }
+      tabId="growth"
+    />
+    <InterestsCard
+      groupId="23"
+      id="test"
+    />
+    <Connect(SegmentDistributionCard)
+      groupId="23"
+      id="test"
+    />
+  </div>
+  <div
+    className="overview-column-side"
+  >
+    <CompositionCard
+      activeIndividualCount={0}
+      individualCount={10}
+      knownIndividualCount={0}
+    />
+  </div>
+</div>
+`;

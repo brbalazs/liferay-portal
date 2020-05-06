@@ -1,0 +1,28 @@
+{
+	"env": {
+		"test": {
+			"plugins": [
+				[
+					"@babel/plugin-proposal-decorators",
+					{
+						"legacy": true
+					}
+				],
+				["@babel/plugin-proposal-class-properties", {"loose": true}],
+				"dynamic-import-node",
+				"import-graphql"
+			]
+		}
+	},
+	"plugins": ["graphql-tag", "lodash", "@babel/plugin-syntax-dynamic-import"],
+	"presets": [
+		"@babel/preset-react",
+		[
+			"@babel/preset-env",
+			{
+				"corejs": "^2.5.7",
+				"useBuiltIns": "entry"
+			}
+		]
+	]
+}

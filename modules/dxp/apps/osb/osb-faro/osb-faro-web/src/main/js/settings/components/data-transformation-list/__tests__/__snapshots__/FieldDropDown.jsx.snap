@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldDropDown should render 1`] = `
+<div>
+  <SearchableSelect
+    buttonPlaceholder=""
+    caretDouble={true}
+    inputPlaceholder="Search"
+    inputValue=""
+    items={Array []}
+    onSearchChange={[Function]}
+    onSelect={[Function]}
+    selectedItem={Object {}}
+    showSearch={true}
+  />
+  <div
+    className="example-value text-truncate"
+  />
+</div>
+`;
+
+exports[`FieldDropDown should render with a title 1`] = `
+<div>
+  <label
+    className="text-truncate"
+  >
+    FOO BAR
+  </label>
+  <SearchableSelect
+    buttonPlaceholder=""
+    caretDouble={true}
+    inputPlaceholder="Search"
+    inputValue=""
+    items={Array []}
+    onSearchChange={[Function]}
+    onSelect={[Function]}
+    selectedItem={Object {}}
+    showSearch={true}
+  />
+  <div
+    className="example-value text-truncate"
+  />
+</div>
+`;

@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InvitePeople renders 1`] = `
+<div>
+  <div
+    class="onboarding-base-screen-root d-flex flex-column flex-grow-1 justify-content-between invite-people"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="d-flex justify-content-end"
+      >
+        <button
+          class="close-button btn btn-monospaced btn-outline-borderless btn-sm btn-outline-secondary"
+          type="button"
+        >
+          <svg
+            class="lexicon-icon lexicon-icon-times"
+            role="presentation"
+          >
+            <use
+              xlink:href="#times"
+            />
+          </svg>
+        </button>
+      </div>
+      <span
+        class="title d-flex justify-content-center"
+      >
+        Invite People to Workspace
+      </span>
+    </div>
+    <div
+      class="modal-body d-flex flex-column align-items-center flex-grow-1 justify-content-center"
+    >
+      <svg
+        class="ac-invite"
+        viewBox=""
+      >
+        <use
+          xlink:href="#ac-invite"
+        />
+      </svg>
+      <div
+        class="add-emails"
+      >
+        <div>
+          Enter the email addresses of the people you would like to invite.
+        </div>
+        <div
+          class="input-group"
+        >
+          <div
+            class="input-group-item"
+          >
+            <div
+              class="input-group-item input-list-root"
+            >
+              <div
+                class="form-control form-control-tag-group"
+              >
+                <input
+                  class="form-control-inset"
+                  placeholder="Enter Email Address"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="secondary-info"
+        >
+          You can set each user's role under User Management in settings.
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal-footer d-flex justify-content-end"
+    >
+      <button
+        class="button-root btn btn-secondary"
+        type="button"
+      >
+        Skip
+      </button>
+      <button
+        class="button-root btn btn-primary"
+        disabled=""
+        type="button"
+      >
+        Send Invitations
+      </button>
+    </div>
+  </div>
+</div>
+`;

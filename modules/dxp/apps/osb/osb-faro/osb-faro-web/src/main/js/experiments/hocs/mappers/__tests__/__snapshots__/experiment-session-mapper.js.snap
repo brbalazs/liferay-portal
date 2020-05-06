@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Experiment Session Mapper should render Tooltip 1`] = `
+<table
+  class="analytics-tooltip-chart"
+>
+  <thead
+    class="analytics-tooltip-chart-header "
+  >
+    <tr
+      class="analytics-tooltip-chart-row "
+    >
+      <td
+        style="min-width:120px"
+      >
+        <div
+          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
+        >
+           Date
+        </div>
+      </td>
+      <td>
+        <div
+          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
+        >
+           Session
+        </div>
+      </td>
+    </tr>
+  </thead>
+  <tbody
+    class="analytics-tooltip-chart-body "
+  >
+    <tr
+      class="analytics-tooltip-chart-row "
+    >
+      <td>
+        <div
+          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-normal"
+        >
+           17 May
+        </div>
+      </td>
+      <td>
+        <div
+          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-normal"
+        >
+           1,500
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Experiment Session Mapper should return formatted data 1`] = `
+Object {
+  "Tooltip": [Function],
+  "data": Array [
+    Object {
+      "data": Array [
+        2884,
+        2967,
+        1981,
+        1502,
+        1253,
+        3944,
+      ],
+      "id": "data1",
+      "label": "Total",
+    },
+    Object {
+      "data": Array [
+        2018-05-17T00:00:00.000Z,
+        2018-05-18T00:00:00.000Z,
+        2018-05-19T00:00:00.000Z,
+        2018-05-20T00:00:00.000Z,
+        2018-05-21T00:00:00.000Z,
+        2018-05-22T00:00:00.000Z,
+      ],
+      "id": "x",
+    },
+  ],
+  "format": [Function],
+  "intervals": Array [
+    2018-05-17T00:00:00.000Z,
+    2018-05-18T00:00:00.000Z,
+    2018-05-19T00:00:00.000Z,
+    2018-05-20T00:00:00.000Z,
+    2018-05-21T00:00:00.000Z,
+    2018-05-22T00:00:00.000Z,
+  ],
+}
+`;

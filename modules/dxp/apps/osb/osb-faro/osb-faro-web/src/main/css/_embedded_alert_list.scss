@@ -1,0 +1,7 @@
+.embedded-alert-list-root {
+	.alert {
+		> a {
+			font-weight: $fontWeightSemiBold;
+		}
+	}
+}

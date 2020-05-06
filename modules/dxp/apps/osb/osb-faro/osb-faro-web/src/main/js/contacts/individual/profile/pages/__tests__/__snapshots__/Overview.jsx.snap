@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndividualOverview should render 1`] = `
+<div
+  className="overview-layout"
+>
+  <div
+    className="overview-column-main"
+  >
+    <WithSelectedPoint
+      entity={
+        Immutable.Record {
+          "accountNames": null,
+          "activitiesCount": 1000,
+          "dateCreated": 1531090866366,
+          "demographics": Immutable.Map {},
+          "engagementScore": 0.4899,
+          "id": "0",
+          "lastActivityDate": 1531263666366,
+          "name": "Foo Bar",
+          "properties": Immutable.Map {
+            "familyName": "Bar",
+            "givenName": "Foo",
+            "jobTitle": "Developer",
+            "salary": "50,000",
+            "title": "Developer",
+          },
+          "type": 2,
+        }
+      }
+      groupId="23"
+    />
+  </div>
+  <div
+    className="overview-column-side"
+  >
+    <DetailsCard
+      entity={
+        Immutable.Record {
+          "accountNames": null,
+          "activitiesCount": 1000,
+          "dateCreated": 1531090866366,
+          "demographics": Immutable.Map {},
+          "engagementScore": 0.4899,
+          "id": "0",
+          "lastActivityDate": 1531263666366,
+          "name": "Foo Bar",
+          "properties": Immutable.Map {
+            "familyName": "Bar",
+            "givenName": "Foo",
+            "jobTitle": "Developer",
+            "salary": "50,000",
+            "title": "Developer",
+          },
+          "type": 2,
+        }
+      }
+      groupId="23"
+    />
+    <InterestsCard
+      compact={true}
+      entity={
+        Immutable.Record {
+          "accountNames": null,
+          "activitiesCount": 1000,
+          "dateCreated": 1531090866366,
+          "demographics": Immutable.Map {},
+          "engagementScore": 0.4899,
+          "id": "0",
+          "lastActivityDate": 1531263666366,
+          "name": "Foo Bar",
+          "properties": Immutable.Map {
+            "familyName": "Bar",
+            "givenName": "Foo",
+            "jobTitle": "Developer",
+            "salary": "50,000",
+            "title": "Developer",
+          },
+          "type": 2,
+        }
+      }
+      groupId="23"
+      showFilter={true}
+      type="individuals"
+    />
+    <_class
+      dataSourceFn={[Function]}
+      groupId="23"
+      id="test"
+      pageUrl="/workspace/23/contacts/individuals/known-individuals/test/segments"
+    />
+  </div>
+</div>
+`;

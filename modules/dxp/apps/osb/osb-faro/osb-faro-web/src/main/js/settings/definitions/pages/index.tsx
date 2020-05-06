@@ -1,0 +1,52 @@
+import BundleRouter from 'route-middleware/BundleRouter';
+import Loading from 'shared/pages/Loading';
+import React, {lazy, Suspense} from 'react';
+import RouteNotFound from 'shared/components/RouteNotFound';
+import {DEVELOPER_MODE} from 'shared/util/constants';
+import {Routes} from 'shared/util/router';
+import {Switch} from 'react-router-dom';
+
+const Overview = lazy(() =>
+	import(/* webpackChunkName: "DefinitionsOverview" */ './Overview')
+);
+
+const InterestTopics = lazy(() =>
+	import(
+		/* webpackChunkName: "DefinitionsInterestTopics" */ './InterestTopics'
+	)
+);
+
+const TrackedBehaviors = lazy(() =>
+	import(/* webpackChunkName: "TrackedBehaviors" */ './TrackedBehaviors')
+);
+
+interface IDefinitionsProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const Definitions: React.FC<IDefinitionsProps> = () => (
+	<Suspense fallback={<Loading />}>
+		<Switch>
+			<BundleRouter
+				data={Overview}
+				exact
+				path={Routes.SETTINGS_DEFINITIONS}
+			/>
+
+			<BundleRouter
+				data={InterestTopics}
+				exact
+				path={Routes.SETTINGS_DEFINITIONS_INTEREST_TOPICS}
+			/>
+
+			{DEVELOPER_MODE && (
+				<BundleRouter
+					data={TrackedBehaviors}
+					path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
+				/>
+			)}
+
+			<RouteNotFound />
+		</Switch>
+	</Suspense>
+);
+
+export default Definitions;

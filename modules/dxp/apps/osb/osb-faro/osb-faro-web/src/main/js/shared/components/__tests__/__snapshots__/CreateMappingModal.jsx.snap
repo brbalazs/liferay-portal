@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateMappingModal should render 1`] = `
+<Modal
+  className="create-mapping-modal-root"
+  size="lg"
+>
+  <Header
+    onClose={[Function]}
+    title="Create New SCV Field"
+  />
+  <Formik
+    enableReinitialize={false}
+    initialValues={
+      Object {
+        "name": "",
+        "type": Object {
+          "name": "",
+          "value": null,
+        },
+      }
+    }
+    isInitialValid={false}
+    onSubmit={[Function]}
+    validateOnBlur={true}
+    validateOnChange={true}
+  >
+    <Component />
+  </Formik>
+</Modal>
+`;

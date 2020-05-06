@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Trend should render 1`] = `
+<div
+  className="analytics-trend"
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <span
+    className="analytics-trend-percent mb-0"
+  >
+    Trend component
+  </span>
+</div>
+`;
+
+exports[`Trend should render w/ icon 1`] = `
+<div
+  className="analytics-trend"
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <Icon
+    symbol="home"
+  />
+  <span
+    className="analytics-trend-percent mb-0"
+  >
+    Trend component
+  </span>
+</div>
+`;

@@ -1,0 +1,16 @@
+.input-list-root {
+	&.disabled {
+		input {
+			border-color: $lightBackground;
+			color: $mainLighten52;
+			cursor: not-allowed;
+		}
+	}
+
+	.close {
+		margin-bottom: .125rem;
+		margin-top: .125rem;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}

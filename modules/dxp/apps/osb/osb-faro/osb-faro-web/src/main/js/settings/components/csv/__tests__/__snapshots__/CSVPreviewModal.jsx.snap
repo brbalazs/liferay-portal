@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CSVPreviewModal should render 1`] = `
+<Modal
+  className=" undefined"
+  fileName="test"
+  size="lg"
+>
+  <Header
+    onClose={[Function]}
+    title="Data Preview \\"\\""
+  />
+  <table>
+    <tr>
+      <th
+        key="0"
+      >
+        email
+      </th>
+      <th
+        key="1"
+      >
+        familyName
+      </th>
+      <th
+        key="2"
+      >
+        givenName
+      </th>
+    </tr>
+    <tr
+      key="0"
+    >
+      <td
+        key="0-0"
+      >
+        test@liferay.com
+      </td>
+      <td
+        key="1-0"
+      >
+        Bloggs
+      </td>
+      <td
+        key="2-0"
+      >
+        Joe
+      </td>
+    </tr>
+  </table>
+</Modal>
+`;

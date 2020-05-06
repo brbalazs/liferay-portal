@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoPropertiesAvailable should render 1`] = `
+<div>
+  <div
+    class="index-root no-properties-available-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <header
+      class="header-root"
+    >
+      <div
+        class="header-container"
+      >
+        <div
+          class="row-root align-items-center d-flex justify-content-between"
+        >
+          <ol
+            class="breadcrumb breadcrumbs-root"
+          />
+        </div>
+        <div
+          class="header-section title-section text-secondary"
+        >
+          <span
+            class="align-items-center d-flex"
+          >
+            <h1
+              class="title text-truncate"
+            >
+              <span
+                class="text-truncate"
+                data-tooltip="false"
+                title=""
+              >
+                No Properties Available
+              </span>
+            </h1>
+          </span>
+        </div>
+      </div>
+    </header>
+    <div
+      class="body-root page-container"
+    >
+      <span
+        class="children-wrapper"
+      >
+        <div
+          class="empty-state-dashboard-root"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-ac-no-sites icon-size-xxxl"
+            viewBox=""
+          >
+            <use
+              xlink:href="#ac-no-sites"
+            />
+          </svg>
+          <span
+            class="title"
+          >
+            First, Connect Your DXP Sites
+          </span>
+          <span
+            class="secondary-info"
+          >
+            To get your workspace set up, you'll need to connect your DXP instance and add sites to a property.
+          </span>
+          <button
+            class="button-root btn btn-primary"
+            type="button"
+          >
+            Start
+          </button>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
+`;

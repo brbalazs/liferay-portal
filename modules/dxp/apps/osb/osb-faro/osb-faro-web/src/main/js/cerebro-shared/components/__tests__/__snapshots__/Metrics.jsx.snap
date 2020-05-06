@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Metrics should render 1`] = `
+<div
+  className="analytics-metrics"
+>
+  <CardTabs
+    activeTabId={0}
+    className="analytics-metrics-tabs"
+    tabs={
+      Array [
+        Object {
+          "onClick": undefined,
+          "secondaryInfo": <span>
+            <span
+              className="primary-content"
+            >
+              <MetricValue
+                type="engagement"
+                value="34/100"
+              />
+            </span>
+            <Trend
+              label="20%"
+            />
+          </span>,
+          "tabId": 0,
+          "title": "Engagement",
+        },
+        Object {
+          "onClick": [Function],
+          "secondaryInfo": <span>
+            <span
+              className="primary-content"
+            >
+              <MetricValue
+                type="number"
+                value="12.2k"
+              />
+            </span>
+            <Trend
+              label="20%"
+            />
+          </span>,
+          "tabId": 1,
+          "title": "Users",
+        },
+        Object {
+          "onClick": [Function],
+          "secondaryInfo": <span>
+            <span
+              className="primary-content"
+            >
+              <MetricValue
+                type="number"
+                value="220.5k"
+              />
+            </span>
+            <Trend
+              label="20%"
+            />
+          </span>,
+          "tabId": 2,
+          "title": "Views",
+        },
+      ]
+    }
+  />
+  <div
+    className="analytics-metrics-chart"
+  >
+    <Chart
+      alwaysShowSelectedTooltip={false}
+      axisRotated={false}
+      axisX={
+        Object {
+          "tick": Object {
+            "centered": false,
+            "format": [Function],
+            "values": Array [
+              2018-01-01T00:00:00.000Z,
+              2018-01-02T00:00:00.000Z,
+              2018-01-03T00:00:00.000Z,
+              2018-01-04T00:00:00.000Z,
+              2018-01-05T00:00:00.000Z,
+            ],
+          },
+          "type": "timeseries",
+        }
+      }
+      axisY={
+        Object {
+          "max": 300,
+          "min": 0,
+          "padding": Object {
+            "bottom": 0,
+            "top": 0,
+          },
+          "tick": Object {
+            "format": [Function],
+            "values": Array [
+              0,
+              100,
+              200,
+              300,
+            ],
+          },
+        }
+      }
+      bar={
+        Object {
+          "width": Object {
+            "ratio": 0.9,
+          },
+        }
+      }
+      chartType="combined"
+      className="engagement"
+      data={
+        Array [
+          Object {
+            "color": "#4B9BFF",
+            "data": Array [
+              250,
+              110,
+              200,
+              195,
+              190,
+            ],
+            "id": "data_1",
+            "name": "Data 1",
+          },
+          Object {
+            "data": Array [
+              90,
+              80,
+              250,
+              295,
+              200,
+            ],
+            "id": "data_2",
+            "name": "Data 2",
+          },
+          Object {
+            "data": Array [
+              2018-01-01T00:00:00.000Z,
+              2018-01-02T00:00:00.000Z,
+              2018-01-03T00:00:00.000Z,
+              2018-01-04T00:00:00.000Z,
+              2018-01-05T00:00:00.000Z,
+            ],
+            "id": "x",
+          },
+        ]
+      }
+      dataId="engagementData"
+      generateChartOnLoad={true}
+      height={320}
+      id="engagementLineChartMetricsData"
+      legend={
+        Object {
+          "contents": Object {
+            "bindto": "#Legend-engagement",
+            "template": [Function],
+          },
+          "item": Object {
+            "onclick": [Function],
+          },
+          "show": true,
+        }
+      }
+      line={
+        Object {
+          "classes": Array [
+            "bb-line",
+            "bb-line-dashed-4-4",
+          ],
+        }
+      }
+      otherData={Object {}}
+      padding={
+        Object {
+          "right": 20,
+          "top": 1,
+        }
+      }
+      point={Object {}}
+      tooltip={
+        Object {
+          "contents": [Function],
+        }
+      }
+      unloadBeforeLoad={true}
+      x="x"
+      yLabel="Engagement"
+    />
+    <div
+      className="analytics-metrics-chart-sub-content-wrapper"
+    >
+      <Checkbox
+        checked={false}
+        label="Compare to Previous"
+        onChange={[Function]}
+      />
+      <ul
+        className="analytics-metrics-legend chart-legend"
+        id="Legend-engagement"
+      />
+    </div>
+  </div>
+</div>
+`;

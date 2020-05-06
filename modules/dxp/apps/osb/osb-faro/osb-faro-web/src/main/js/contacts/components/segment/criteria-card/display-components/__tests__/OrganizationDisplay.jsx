@@ -1,0 +1,171 @@
+import * as data from 'test/data';
+import OrganizationDisplay from '../OrganizationDisplay';
+import React from 'react';
+import {cleanup, render} from '@testing-library/react';
+import {createCustomValueMap} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+import {
+	CUSTOM_FUNCTION_OPERATORS,
+	FUNCTIONAL_OPERATORS,
+	isKnown,
+	PROPERTY_TYPES,
+	RELATIONAL_OPERATORS
+} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {Property, Segment} from 'shared/util/records';
+import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+
+jest.unmock('react-dom');
+
+const mockCriterion = {
+	operatorName: CUSTOM_FUNCTION_OPERATORS.ORGANIZATIONS_FILTER,
+	propertyName: 'name',
+	value: createCustomValueMap([
+		{
+			key: 'criterionGroup',
+			value: [
+				{
+					operatorName: FUNCTIONAL_OPERATORS.CONTAINS,
+					propertyName: 'name',
+					value: 'foo organization name'
+				}
+			]
+		}
+	])
+};
+
+const mockProperty = {
+	entityName: 'Organization',
+	label: 'Name',
+	name: 'name',
+	propertykey: 'organization',
+	type: PROPERTY_TYPES.ORGANIZATION_TEXT
+};
+
+const defaultProps = {
+	criterion: mockCriterion,
+	property: data.getImmutableMock(
+		Property,
+		data.mockProperty,
+		1,
+		mockProperty
+	)
+};
+
+const mockSegment = data.getImmutableMock(Segment, data.mockSegment, 0, {
+	referencedObjects: {
+		organizations: {
+			123: data.mockGraphqlOrganization('123', {name: 'Foo Organization'})
+		}
+	}
+});
+
+const DefaultComponent = props => (
+	<ReferencedObjectsProvider segment={mockSegment}>
+		<OrganizationDisplay {...defaultProps} {...props} />
+	</ReferencedObjectsProvider>
+);
+
+describe('OrganizationDisplay', () => {
+	afterEach(cleanup);
+
+	it('renders', () => {
+		const {container} = render(<DefaultComponent />);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('renders as a Date Time criteria', () => {
+		const {container} = render(
+			<DefaultComponent
+				criterion={{
+					...mockCriterion,
+					propertyName: 'dateModified',
+					value: createCustomValueMap([
+						{
+							key: 'criterionGroup',
+							value: [
+								{
+									operatorName: RELATIONAL_OPERATORS.EQ,
+									propertyName: 'dateModified',
+									value: '2020-02-11T22:16:41.799Z'
+								}
+							]
+						}
+					])
+				}}
+				property={data.getImmutableMock(
+					Property,
+					data.mockProperty,
+					1,
+					{
+						...mockProperty,
+						label: 'Date Modified',
+						name: 'dateModified',
+						type: PROPERTY_TYPES.ORGANIZATION_DATE_TIME
+					}
+				)}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('renders as a known criteria', () => {
+		const {container} = render(
+			<DefaultComponent
+				criterion={{
+					...mockCriterion,
+					value: createCustomValueMap([
+						{
+							key: 'criterionGroup',
+							value: [
+								{
+									operatorName: isKnown,
+									propertyName: 'dateModified',
+									value: null
+								}
+							]
+						}
+					])
+				}}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('renders as a referenced entity criteria', () => {
+		const {container} = render(
+			<DefaultComponent
+				criterion={{
+					...mockCriterion,
+					propertyName: 'organization',
+					value: createCustomValueMap([
+						{
+							key: 'criterionGroup',
+							value: [
+								{
+									operatorName: RELATIONAL_OPERATORS.EQ,
+									propertyName: 'organization',
+									value: '123'
+								}
+							]
+						}
+					])
+				}}
+				property={data.getImmutableMock(
+					Property,
+					data.mockProperty,
+					1,
+					{
+						...mockProperty,
+						label: 'Organization',
+						name: 'organization',
+						type: PROPERTY_TYPES.ORGANIZATION_SELECT_TEXT
+					}
+				)}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+});

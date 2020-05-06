@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SummaryCardDraft should render component 1`] = `
+<SummaryBaseCard
+  status="draft"
+>
+  <Header
+    cardModals={
+      Array [
+        Object {
+          "title": "action 01",
+        },
+        Object {
+          "title": "action 02",
+        },
+      ]
+    }
+    modals={
+      Array [
+        Object {
+          "title": "action 01",
+        },
+        Object {
+          "title": "action 02",
+        },
+      ]
+    }
+  >
+    <SummaryBaseCardHeader
+      Description={[Function]}
+      title="Header title"
+    />
+  </Header>
+  <Body>
+    <SummaryCardDraftBody
+      current={0}
+      steps={
+        Array [
+          Object {
+            "Description": [Function],
+            "buttonProps": Object {
+              "label": "btn label 1",
+              "symbol": "home",
+            },
+            "title": "Step 1 title",
+          },
+          Object {
+            "Description": [Function],
+            "buttonProps": Object {
+              "label": "btn label 2",
+              "symbol": "home",
+            },
+            "title": "Step 2 title",
+          },
+        ]
+      }
+      subtitle="Setup subtitle"
+      title="Setup title"
+    />
+  </Body>
+  <Footer>
+    <SummaryBaseCardTitle
+      className="mb-4"
+      label="Summary title"
+    />
+    <SummaryBaseCardSubtitle
+      label="Summary subtitle"
+    />
+    <p
+      className="mb-4"
+    >
+      Summary description
+    </p>
+  </Footer>
+</SummaryBaseCard>
+`;

@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectDXP renders 1`] = `
+<div>
+  <div
+    class="onboarding-base-screen-root d-flex flex-column flex-grow-1 justify-content-between connect-dxp"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="d-flex justify-content-end"
+      >
+        <button
+          class="close-button btn btn-monospaced btn-outline-borderless btn-sm btn-outline-secondary"
+          type="button"
+        >
+          <svg
+            class="lexicon-icon lexicon-icon-times"
+            role="presentation"
+          >
+            <use
+              xlink:href="#times"
+            />
+          </svg>
+        </button>
+      </div>
+      <span
+        class="title d-flex justify-content-center"
+      >
+        Connect Your DXP Instance
+      </span>
+    </div>
+    <div
+      class="modal-body d-flex flex-column align-items-center flex-grow-1 justify-content-center"
+    >
+      <div
+        class="dxp-to-analytics-container d-flex align-items-center justify-content-center"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-dxp-icon-grayscale icon-size-xxl"
+          viewBox=""
+        >
+          <use
+            xlink:href="#dxp-icon-grayscale"
+          />
+        </svg>
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-ac-horizontal-arrows arrows icon-size-lg"
+          viewBox=""
+        >
+          <use
+            xlink:href="#ac-horizontal-arrows"
+          />
+        </svg>
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-ac-logo icon-size-xxl"
+          viewBox=""
+        >
+          <use
+            xlink:href="#ac-logo"
+          />
+        </svg>
+      </div>
+      <div
+        class="description"
+      >
+        <div>
+          Copy this token and enter it in the Analytics Cloud configuration in your DXP Instance Settings.
+        </div>
+        <div>
+          Then choose what sites you'd like to sync to Analytics Cloud.
+        </div>
+      </div>
+      <div
+        class="input-group"
+      >
+        <div
+          class="input-group-item input-group-prepend"
+        >
+          <input
+            class="input-root form-control text-truncate input-group-inset input-group-inset-after"
+            type="text"
+            value=""
+          />
+          <div
+            class="input-group-inset-item input-group-inset-item-after"
+          >
+            <button
+              aria-label="Click to Copy"
+              class="button-root btn btn-light"
+              data-clipboard-text=""
+              data-tooltip-response="Copied"
+              title="Click to Copy"
+              type="button"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-paste"
+                viewBox=""
+              >
+                <use
+                  xlink:href="#paste"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal-footer d-flex justify-content-between"
+    >
+      <div>
+        <button
+          class="button-root btn btn-secondary"
+          type="button"
+        >
+          Back
+        </button>
+      </div>
+      <div>
+        <button
+          class="button-root btn btn-secondary"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="button-root btn btn-primary"
+          disabled=""
+          type="button"
+        >
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

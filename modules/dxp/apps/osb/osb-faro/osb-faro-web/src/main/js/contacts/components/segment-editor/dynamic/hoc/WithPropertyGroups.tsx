@@ -1,0 +1,204 @@
+import * as API from 'shared/api';
+import Constants from 'shared/util/constants';
+import Promise from 'metal-promise';
+import React from 'react';
+import {compose} from 'redux';
+import {
+	convertFieldMappingToAccountProperty,
+	convertFieldMappingToIndividualProperty,
+	convertFieldMappingToOrganizationProperty
+} from '../utils/utils';
+import {createInterestProperty} from '../utils/utils';
+import {
+	INDIVIDUAL_PROPERTIES,
+	ORGANIZATION_PROPERTIES,
+	SESSION_PROPERTIES,
+	WEB_BEHAVIORS
+} from '../utils/constants';
+import {List} from 'immutable';
+import {PropertyGroup, PropertySubgroup} from 'shared/util/records';
+import {sub} from 'shared/util/lang';
+import {withRequest} from 'shared/hoc';
+
+const {fieldContexts, fieldOwnerTypes} = Constants;
+
+const MAX_DELTA = 500;
+
+const fetchPropertyGroups = ({
+	channelId,
+	groupId
+}: {
+	channelId: string;
+	groupId: string;
+}): Promise<any> =>
+	Promise.all([
+		API.channels.fetch({channelId, groupId}),
+		API.fieldMappings.search({
+			context: fieldContexts.demographics,
+			delta: MAX_DELTA,
+			groupId,
+			ownerType: fieldOwnerTypes.individual
+		}),
+		API.fieldMappings.search({
+			context: fieldContexts.custom,
+			delta: MAX_DELTA,
+			groupId,
+			ownerType: fieldOwnerTypes.individual
+		}),
+		API.fieldMappings.search({
+			context: fieldContexts.organization,
+			delta: MAX_DELTA,
+			groupId,
+			ownerType: fieldOwnerTypes.account
+		}),
+		Promise.resolve(ORGANIZATION_PROPERTIES),
+		API.fieldMappings.search({
+			context: fieldContexts.custom,
+			delta: MAX_DELTA,
+			groupId,
+			ownerType: fieldOwnerTypes.organization
+		}),
+		API.interests.searchKeywords({delta: MAX_DELTA, groupId}),
+		Promise.resolve(SESSION_PROPERTIES),
+		Promise.resolve(WEB_BEHAVIORS)
+	]);
+
+const mapResultToProps = ([
+	currentChannel,
+	individualDemographicsMappings,
+	individualCustomMappings,
+	accountMappings,
+	organizationProperties,
+	organizationCustomMappings,
+	interestKeywords,
+	sessionProperties,
+	webBehaviors
+]) => {
+	const {tokenAuth} = currentChannel;
+
+	const individualDemographicProperties = individualDemographicsMappings.items.map(
+		convertFieldMappingToIndividualProperty
+	);
+
+	let individualSubgroupsIList = List([
+		new PropertySubgroup({
+			properties: List(
+				tokenAuth
+					? individualDemographicProperties.concat(
+							INDIVIDUAL_PROPERTIES
+					  )
+					: individualDemographicProperties
+			)
+		})
+	]);
+
+	if (tokenAuth) {
+		individualSubgroupsIList = individualSubgroupsIList.push(
+			new PropertySubgroup({
+				label: Liferay.Language.get('dxp-custom-fields'),
+				properties: List(
+					individualCustomMappings.items.map(
+						convertFieldMappingToIndividualProperty
+					)
+				)
+			})
+		);
+	}
+
+	const organizationPropertyGroup = new PropertyGroup({
+		label: sub(Liferay.Language.get('x-attributes'), [
+			Liferay.Language.get('organization')
+		]) as string,
+		propertyKey: fieldOwnerTypes.organization,
+		propertySubgroups: List([
+			new PropertySubgroup({properties: organizationProperties}),
+			new PropertySubgroup({
+				label: Liferay.Language.get('dxp-custom-fields'),
+				properties: List(
+					organizationCustomMappings.items.map(
+						convertFieldMappingToOrganizationProperty
+					)
+				)
+			})
+		])
+	});
+
+	const propertyGroupsIList = List([
+		new PropertyGroup({
+			label: Liferay.Language.get('web-behaviors'),
+			propertyKey: 'web',
+			propertySubgroups: List([
+				new PropertySubgroup({properties: webBehaviors})
+			])
+		}),
+		new PropertyGroup({
+			label: sub(Liferay.Language.get('x-attributes'), [
+				Liferay.Language.get('individual')
+			]) as string,
+			propertyKey: fieldOwnerTypes.individual,
+			propertySubgroups: individualSubgroupsIList
+		}),
+		new PropertyGroup({
+			label: sub(Liferay.Language.get('x-attributes'), [
+				Liferay.Language.get('account')
+			]) as string,
+			propertyKey: fieldOwnerTypes.account,
+			propertySubgroups: List([
+				new PropertySubgroup({
+					properties: List(
+						accountMappings.items.map(
+							convertFieldMappingToAccountProperty
+						)
+					)
+				})
+			])
+		}),
+		new PropertyGroup({
+			label: Liferay.Language.get('interests'),
+			propertyKey: 'interest',
+			propertySubgroups: List([
+				new PropertySubgroup({
+					properties: List(
+						interestKeywords.items.map(createInterestProperty)
+					)
+				})
+			])
+		}),
+		new PropertyGroup({
+			label: sub(Liferay.Language.get('x-attributes'), [
+				Liferay.Language.get('session')
+			]) as string,
+			propertyKey: 'session',
+			propertySubgroups: List([
+				new PropertySubgroup({properties: sessionProperties})
+			])
+		})
+	]);
+
+	return {
+		propertyGroupsIList: tokenAuth
+			? propertyGroupsIList.push(organizationPropertyGroup)
+			: propertyGroupsIList
+	};
+};
+
+export const withPropertyGroups = WrappedComponent =>
+	class extends React.Component<{
+		propertyGroupsIList: List<PropertyGroup>;
+	}> {
+		render() {
+			const {propertyGroupsIList, ...otherProps} = this.props;
+
+			return (
+				<WrappedComponent
+					{...otherProps}
+					propertyGroupsIList={propertyGroupsIList}
+				/>
+			);
+		}
+	};
+
+export default compose(
+	withRequest(fetchPropertyGroups, mapResultToProps),
+	withPropertyGroups
+);

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackButton should render 1`] = `
+<div
+  className="back-button-root"
+>
+  <Button
+    borderless={true}
+    display="secondary"
+    href="foo.url"
+    outline={true}
+  >
+    <Icon
+      className="inline-item inline-item-before"
+      size="sm"
+      symbol="angle-left"
+    />
+    foo label
+  </Button>
+</div>
+`;

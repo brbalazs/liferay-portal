@@ -1,0 +1,21 @@
+.empty-state-dashboard-root {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	margin-top: 64px;
+
+	.secondary-info {
+		color: $secondary;
+		font-size: $fontSizeMedium;
+		margin-bottom: 12px;
+		text-align: center;
+	}
+
+	.title {
+		font-size: $fontSizeLarge;
+		font-weight: $fontWeightBold;
+		margin-bottom: 16px;
+		margin-top: 40px;
+		text-align: center;
+	}
+}

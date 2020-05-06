@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressTimeline should render 1`] = `
+<div>
+  <div
+    class="timeline-root"
+  >
+    <a
+      class="step previous-step"
+      href="/"
+    >
+      <div
+        class="title"
+      >
+        This is a really long title for this step
+      </div>
+      <div
+        class="circle"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-check"
+          viewBox=""
+        >
+          <use
+            xlink:href="#check"
+          />
+        </svg>
+      </div>
+    </a>
+    <span
+      class="bar filled"
+    />
+    <a
+      class="step active"
+      href="/"
+    >
+      <div
+        class="title"
+      >
+        Step 2
+      </div>
+      <div
+        class="circle"
+      >
+        2
+      </div>
+    </a>
+    <span
+      class="bar"
+    />
+    <a
+      class="step"
+      href="/"
+    >
+      <div
+        class="title"
+      >
+        Step 3
+      </div>
+      <div
+        class="circle"
+      >
+        3
+      </div>
+    </a>
+    <span
+      class="bar"
+    />
+    <a
+      class="step"
+      href="/"
+    >
+      <div
+        class="title"
+      >
+        Step 4
+      </div>
+      <div
+        class="circle"
+      >
+        4
+      </div>
+    </a>
+  </div>
+</div>
+`;

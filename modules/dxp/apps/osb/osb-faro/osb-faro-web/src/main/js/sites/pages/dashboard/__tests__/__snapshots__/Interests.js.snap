@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sites Dashboard Interests render 1`] = `
+<div
+  className="sites-dashboard-interests-root"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-xl-12"
+    >
+      <withRouter() />
+    </div>
+  </div>
+</div>
+`;

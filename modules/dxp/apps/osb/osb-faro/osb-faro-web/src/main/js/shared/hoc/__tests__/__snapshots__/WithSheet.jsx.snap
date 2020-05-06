@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withSheet should render 1`] = `
+<Sheet
+  className=""
+  large={true}
+  pageDisplay={false}
+>
+  <Component />
+</Sheet>
+`;

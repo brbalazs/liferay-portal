@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiferayAuthorization should render 1`] = `
+<BaseTabsPage
+  activeTabId="authorization"
+  addRoute="/workspace/:groupId([\\\\w._-]+)/settings/data-source/liferay"
+  breadcrumbItems={
+    Array [
+      Object {
+        "href": "/workspace/23/settings/data-source",
+        "label": "Data Sources",
+      },
+      Object {
+        "active": true,
+        "href": null,
+        "label": "Liferay1",
+        "truncate": true,
+      },
+    ]
+  }
+  className="liferay-data-source-old-root"
+  configurationRoute="/workspace/:groupId([\\\\w._-]+)/settings/data-source/:id/liferay/configuration-status"
+  currentUser={
+    Immutable.Record {
+      "emailAddress": "test@liferay.com",
+      "groupId": null,
+      "id": 0,
+      "name": "Test Test",
+      "roleName": "Site Owner",
+      "screenName": "",
+      "status": 1,
+      "userId": null,
+    }
+  }
+  dataSource={
+    Immutable.Record {
+      "contactsSelected": false,
+      "credentials": Immutable.Map {
+        "login": "LiferayUser1",
+      },
+      "dateCreated": 1531090866366,
+      "disabled": false,
+      "event": null,
+      "fileName": null,
+      "id": "1",
+      "lastSyncDate": 1531263666366,
+      "name": "Liferay1",
+      "properties": Immutable.Map {},
+      "provider": Immutable.Map {
+        "analyticsConfiguration": null,
+        "contactsConfiguration": null,
+        "instanceInfo": Immutable.Map {},
+        "type": "LIFERAY",
+      },
+      "providerType": "LIFERAY",
+      "sitesSelected": false,
+      "state": "CREDENTIALS_VALID",
+      "status": "ACTIVE",
+      "type": 1,
+      "url": "https://www.faro-1.io",
+    }
+  }
+  documentTitle="Liferay1"
+  groupId="23"
+  id="test"
+  pageTitle="Configure Liferay DXP"
+  showDelete={true}
+>
+  <withRouter()
+    authorized={true}
+    dataSource={
+      Immutable.Record {
+        "contactsSelected": false,
+        "credentials": Immutable.Map {
+          "login": "LiferayUser1",
+        },
+        "dateCreated": 1531090866366,
+        "disabled": false,
+        "event": null,
+        "fileName": null,
+        "id": "1",
+        "lastSyncDate": 1531263666366,
+        "name": "Liferay1",
+        "properties": Immutable.Map {},
+        "provider": Immutable.Map {
+          "analyticsConfiguration": null,
+          "contactsConfiguration": null,
+          "instanceInfo": Immutable.Map {},
+          "type": "LIFERAY",
+        },
+        "providerType": "LIFERAY",
+        "sitesSelected": false,
+        "state": "CREDENTIALS_VALID",
+        "status": "ACTIVE",
+        "type": 1,
+        "url": "https://www.faro-1.io",
+      }
+    }
+    groupId="23"
+    id="test"
+    instruction={
+      Array [
+        "Please enter the URL of the target instance to start configuring the ",
+        "Liferay",
+        " Data Source. You will need to enter the credentials of the data source's administrator. If you need help setting this up, please refer to the ",
+        <a
+          href="https://help.liferay.com/hc/en-us/articles/360006653472-Adding-a-Liferay-DXP-Data-Source"
+        >
+          documentation
+        </a>,
+        ".",
+      ]
+    }
+    onSubmit={[Function]}
+    type="LIFERAY"
+  />
+</BaseTabsPage>
+`;

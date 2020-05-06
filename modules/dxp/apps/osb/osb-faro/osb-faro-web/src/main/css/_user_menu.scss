@@ -1,0 +1,34 @@
+.user-menu {
+	color: $mainLighten4;
+	font-size: $fontSizeMedium;
+	font-weight: $fontWeightSemiBold;
+
+	.avatar {
+		background: $mainLighten28;
+		color: $white;
+		font-size: $fontSizeSmall;
+		font-weight: $fontWeightSemiBold;
+		margin-right: 16px;
+		transition: border-color 0.15s ease-out, background-color 0.15s ease-out, color 0.15s ease-out;
+	}
+
+	.caret {
+		fill: $mainLighten28;
+		margin-left: 12px;
+	}
+}
+
+.user-menu-dropdown {
+	position: fixed;
+	transform: translateX(8px);
+
+	.dropdown-subheader {
+		color: $main;
+		font-weight: $fontWeightSemiBold;
+		text-transform: lowercase;
+	}
+
+	a.dropdown-item {
+		padding: 0;
+	}
+}

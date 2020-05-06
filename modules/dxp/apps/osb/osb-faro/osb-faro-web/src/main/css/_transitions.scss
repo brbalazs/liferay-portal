@@ -1,0 +1,47 @@
+$slideUpDuration: 150ms;
+$slideUpLength: 8px;
+
+/* ---------- Fade in & out ---------- */
+
+.transition-fade-in-out-enter {
+	opacity: 0;
+}
+
+.transition-fade-in-out-enter.transition-fade-in-out-enter-active {
+	opacity: 1;
+	transition: opacity $slideUpDuration ease-in;
+}
+
+.transition-fade-in-out-leave {
+	opacity: 1;
+}
+
+.transition-fade-in-out-leave.transition-fade-in-out-leave-active {
+	opacity: 0;
+	transition: opacity $slideUpDuration ease-in;
+}
+
+/* ---------- Slide up ---------- */
+
+.transition-slide-up-appear, .transition-slide-up-enter {
+	opacity: 0;
+	transform: translateY($slideUpLength);
+}
+
+.transition-slide-up-appear.transition-slide-up-appear-active,
+.transition-slide-up-enter.transition-slide-up-enter-active {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity $slideUpDuration ease-in, transform $slideUpDuration ease-in;
+}
+
+.transition-slide-up-leave {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.transition-slide-up-leave.transition-slide-up-leave-active {
+	opacity: 0;
+	transform: translateY($slideUpLength);
+	transition: opacity $slideUpDuration ease-in, transform $slideUpDuration ease-in;
+}

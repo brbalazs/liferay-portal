@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentGrowthWithList should render 1`] = `
+<Body
+  className="segment-growth-root"
+  noPadding={true}
+>
+  <SegmentGrowthChart
+    data={Array []}
+    onPointSelect={[MockFunction]}
+  />
+  <SelectedPointInfo
+    data={Array []}
+    onClearSelection={[Function]}
+  />
+  <StatefulPagination
+    columns={
+      Array [
+        Object {
+          "accessor": "name",
+          "cellRenderer": [Function],
+          "cellRendererProps": Object {
+            "channelId": "123",
+            "groupId": "23",
+          },
+          "label": "Name",
+          "title": true,
+        },
+        Object {
+          "accessor": "properties.email",
+          "label": "Email",
+          "sortable": false,
+        },
+        Object {
+          "accessor": "accountNames",
+          "cellRenderer": [Function],
+          "label": "Account Names",
+          "sortable": false,
+        },
+        Object {
+          "accessor": "dateCreated",
+          "cellRenderer": [Function],
+          "label": "First Seen",
+        },
+      ]
+    }
+    dataSourceFn={[Function]}
+    dataSourceParams={
+      Object {
+        "channelId": "123",
+        "groupId": "23",
+        "id": "3",
+        "modifiedDate": undefined,
+      }
+    }
+    defaultSort={
+      Object {
+        "field": "name",
+        "sortOrder": "asc",
+      }
+    }
+    entityType="individuals"
+    rowIdentifier="id"
+    toolbarProps={Object {}}
+  />
+</Body>
+`;
+
+exports[`SelectedPointInfo should render 1`] = `
+<div
+  className="selected-point-info"
+>
+  <div
+    className="d-flex align-items-baseline"
+  >
+    <h4>
+      Segment Membership Activities July 10, 2018
+    </h4>
+    <Button
+      display="link"
+      onClick={[Function]}
+      size="sm"
+    >
+      Clear Date Selection
+    </Button>
+  </div>
+  <div
+    className="changed-values"
+  >
+    Added 
+    <b
+      key="ADDED"
+    >
+      1
+    </b>
+    Removed 
+    <b
+      key="REMOVED"
+    >
+      3
+    </b>
+  </div>
+</div>
+`;

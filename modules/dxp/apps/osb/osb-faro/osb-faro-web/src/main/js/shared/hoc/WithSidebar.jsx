@@ -1,0 +1,209 @@
+import * as API from 'shared/api';
+import autobind from 'autobind-decorator';
+import checkProjectState from './CheckProjectState';
+import getCN from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Sidebar from 'shared/components/sidebar';
+import withCurrentUser from './WithCurrentUser';
+import withDefaultChannelId from './WithDefaultChannelId';
+import withQuery from './WithQuery';
+import {ActionType, ChannelContext} from 'shared/context/channel';
+import {collapseSidebar} from 'shared/actions/sidebar';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {get} from 'lodash';
+import {getDefaultChannel} from 'shared/components/channels-menu';
+import {hasChanges} from 'shared/util/react';
+import {matchPath} from 'react-router-dom';
+import {Routes, toRoute} from 'shared/util/router';
+import {User} from '../util/records';
+import {withError, withLoading} from './util';
+
+/**
+ * Wraps a component with the sidebar, and also comes with the
+ * CurrentUser and Project HOCs built in.
+ * @param {string|function} sidebarIdorFn - The sidebarId to mark as active. You
+ * can also pass a function that takes the components props and should return the
+ * active sidebar id
+ * @returns {function} - The sidebar hoc with the applied preferences.
+ */
+
+export default compose(
+	checkProjectState,
+	withCurrentUser,
+	connect(
+		(store, {currentUser}) => ({
+			collapsed: store.getIn(['sidebar', String(currentUser.id)], false)
+		}),
+		{collapseSidebar}
+	),
+	withQuery(
+		API.channels.fetchAll,
+		({groupId}) => ({groupId}),
+		({data, ...otherParams}) => ({
+			channels: get(data, 'items', null),
+			...otherParams
+		})
+	),
+	withError(),
+	withLoading({page: true}),
+	withDefaultChannelId,
+	WrappedComponent => {
+		class WithSidebar extends React.Component {
+			static contextType = ChannelContext;
+
+			static propTypes = {
+				channels: PropTypes.arrayOf(
+					PropTypes.shape({
+						createTime: PropTypes.number,
+						id: PropTypes.string,
+						name: PropTypes.string,
+						permissionType: PropTypes.number
+					})
+				),
+				collapsed: PropTypes.bool.isRequired,
+				collapseSidebar: PropTypes.func.isRequired,
+				currentUser: PropTypes.instanceOf(User).isRequired,
+				defaultChannelId: PropTypes.string,
+				groupId: PropTypes.string.isRequired,
+				location: PropTypes.object
+			};
+
+			state = {
+				showTransition: false
+			};
+
+			constructor(props, {channelDispatch}) {
+				super(props);
+
+				this._toggleSidebarEvent = new Event('toggleSidebar');
+
+				channelDispatch({
+					payload: getDefaultChannel(
+						props.defaultChannelId,
+						props.channels
+					),
+					type: ActionType.setSelectedChannel
+				});
+
+				channelDispatch({
+					payload: props.channels,
+					type: ActionType.setChannels
+				});
+
+				this.updatePath();
+			}
+
+			componentDidMount() {
+				this.setState({
+					showTransition: true
+				});
+			}
+
+			componentDidUpdate(prevProps) {
+				const {channelDispatch} = this.context;
+
+				if (hasChanges(prevProps, this.props, 'collapsed')) {
+					setTimeout(
+						() => window.dispatchEvent(this._toggleSidebarEvent),
+						250
+					);
+				}
+
+				if (hasChanges(prevProps, this.props, 'defaultChannelId')) {
+					const {channels, defaultChannelId} = this.props;
+
+					channelDispatch({
+						payload: getDefaultChannel(defaultChannelId, channels),
+						type: ActionType.setSelectedChannel
+					});
+				}
+
+				this.updatePath();
+			}
+
+			updatePath() {
+				const {
+					channels,
+					defaultChannelId,
+					groupId,
+					history,
+					location
+				} = this.props;
+
+				const isHome = matchPath(location.pathname, {
+					exact: true,
+					path: Routes.WORKSPACE_WITH_ID
+				});
+
+				if (isHome) {
+					const channel = getDefaultChannel(
+						defaultChannelId,
+						channels
+					);
+
+					history.replace(
+						toRoute(Routes.SITES, {
+							...(channel && {channelId: channel.id}),
+							groupId
+						})
+					);
+				}
+			}
+
+			@autobind
+			handleSidebarToggle() {
+				const {collapsed, collapseSidebar, currentUser} = this.props;
+
+				collapseSidebar({
+					collapsed: !collapsed,
+					currentUserId: currentUser.id
+				});
+			}
+
+			render() {
+				const {
+					context: {selectedChannel},
+					props: {
+						channels,
+						className,
+						collapsed,
+						currentUser,
+						groupId,
+						location,
+						...otherProps
+					},
+					state: {showTransition}
+				} = this;
+
+				const classes = getCN('with-sidebar-root', className, {
+					'has-sidebar': showTransition,
+					'sidebar-collapsed': collapsed
+				});
+
+				return (
+					<div className={classes}>
+						<Sidebar
+							activePathname={location.pathname}
+							channelId={selectedChannel && selectedChannel.id}
+							channels={channels}
+							collapsed={collapsed}
+							currentUser={currentUser}
+							groupId={groupId}
+							onToggle={this.handleSidebarToggle}
+						/>
+
+						<WrappedComponent
+							{...otherProps}
+							currentUser={currentUser}
+							groupId={groupId}
+						/>
+					</div>
+				);
+			}
+		}
+
+		return WithSidebar;
+	}
+);

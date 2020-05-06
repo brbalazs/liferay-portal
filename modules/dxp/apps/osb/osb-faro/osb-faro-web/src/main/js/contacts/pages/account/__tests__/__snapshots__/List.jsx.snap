@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List should render 1`] = `
+<_class
+  alerts={Array []}
+  columns={
+    Array [
+      Object {
+        "accessor": "name",
+        "cellRenderer": [Function],
+        "cellRendererProps": Object {
+          "routeFn": [Function],
+        },
+        "className": "table-cell-expand",
+        "label": "Name",
+      },
+      Object {
+        "accessor": "properties.accountType",
+        "label": "Account Type",
+      },
+      Object {
+        "accessor": "individualCount",
+        "className": "table-column-text-end",
+        "dataFormatter": [Function],
+        "label": "Individuals",
+      },
+      Object {
+        "accessor": "activitiesCount",
+        "className": "table-column-text-end",
+        "dataFormatter": [Function],
+        "label": "Total Activities",
+      },
+      Object {
+        "accessor": "engagementScore",
+        "className": "table-column-text-end",
+        "dataFormatter": [Function],
+        "label": "30 Day Engagement",
+      },
+    ]
+  }
+  currentUser={
+    Immutable.Record {
+      "emailAddress": "test@liferay.com",
+      "groupId": null,
+      "id": 0,
+      "name": "Test Test",
+      "roleName": "Site Owner",
+      "screenName": "",
+      "status": 1,
+      "userId": null,
+    }
+  }
+  dataSourceFn={[Function]}
+  delta={2}
+  entityLabel="Accounts"
+  filterBy={Immutable.Map {}}
+  groupId="23"
+  hideNav={true}
+  icon="suitcase"
+  noResultsConfig={
+    Object {
+      "description": "There is no account data from existing data sources.",
+      "title": "No account data available.",
+    }
+  }
+  orderBy="asc"
+  orderByField="name"
+  orderByOptions={
+    Array [
+      Object {
+        "label": "Account Name",
+        "value": "name",
+      },
+      Object {
+        "label": "Account Type",
+        "value": "accountType",
+      },
+      Object {
+        "label": "Individuals",
+        "value": "individualCount",
+      },
+      Object {
+        "label": "Total Activities",
+        "value": "activitiesCount",
+      },
+      Object {
+        "label": "30 Day Engagement",
+        "value": "engagementScore",
+      },
+    ]
+  }
+  page={1}
+  query=""
+  rowIdentifier="id"
+  showCheckbox={false}
+/>
+`;

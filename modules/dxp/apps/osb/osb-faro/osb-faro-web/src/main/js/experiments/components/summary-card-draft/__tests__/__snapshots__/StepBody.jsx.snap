@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SummaryCardDraft StepBody should render component 1`] = `
+<Card
+  className="analytics-summary-card-step-content analytics-summary-card-step-content-wait"
+>
+  <Body>
+    <h4>
+      StepBody title
+    </h4>
+    <Description
+      className="analytics-summary-card-step-content-description"
+    />
+    <ForwardRef
+      disabled={true}
+      displayType="secondary"
+      label="button label"
+      onClick={[Function]}
+      small={true}
+      symbol="home"
+    >
+      <Icon
+        className="mr-2"
+        symbol="home"
+      />
+      button label
+    </ForwardRef>
+  </Body>
+</Card>
+`;

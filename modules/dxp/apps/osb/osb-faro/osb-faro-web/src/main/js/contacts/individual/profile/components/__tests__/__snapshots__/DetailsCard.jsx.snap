@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndividualDetailsCard should render 1`] = `
+<Card
+  className="individual-details-card-root"
+>
+  <Body>
+    <Avatar
+      circle={true}
+      entity={
+        Object {
+          "accountNames": null,
+          "activitiesCount": 1000,
+          "dateCreated": 1531090866366,
+          "demographics": Object {},
+          "engagementScore": 0.4899,
+          "id": "0",
+          "lastActivityDate": 1531263666366,
+          "name": "Foo Bar",
+          "properties": Object {
+            "familyName": "Bar",
+            "givenName": "Foo",
+            "jobTitle": "Developer",
+            "salary": "50,000",
+            "title": "Developer",
+          },
+          "type": 2,
+        }
+      }
+      size="xl"
+    />
+    <h4>
+      Foo Bar
+    </h4>
+    <div
+      className="job-title"
+    >
+      Developer
+    </div>
+    <div
+      className="first-seen"
+    >
+      First Seen: July 8, 2018
+    </div>
+  </Body>
+  <Footer>
+    <Button
+      display="link"
+      href="/workspace/23/contacts/individuals/known-individuals/0/details"
+      size="sm"
+    >
+      View All Details
+      <Icon
+        symbol="angle-right"
+      />
+    </Button>
+  </Footer>
+</Card>
+`;

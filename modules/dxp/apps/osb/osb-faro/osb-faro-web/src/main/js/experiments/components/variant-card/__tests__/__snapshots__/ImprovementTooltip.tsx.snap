@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unique Visitors Tooltip should render 1`] = `
+<span>
+  <Trend
+    color="#287D3C"
+    icon="caret-top"
+    label="10%"
+  />
+</span>
+`;
+
+exports[`Unique Visitors Tooltip should render negative improvements 1`] = `
+<span>
+  <Trend
+    color="#DA1414"
+    icon="caret-bottom"
+    label="-10%"
+  />
+</span>
+`;

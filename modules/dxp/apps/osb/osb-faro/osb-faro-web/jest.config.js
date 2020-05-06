@@ -1,0 +1,364 @@
+module.exports = {
+	collectCoverage: true,
+	collectCoverageFrom: [
+		'!<rootDir>/src/main/js/(api-docs|ui-kit)/**/*.{js,jsx,tsx}',
+		'<rootDir>/src/main/js/**/components/**/*.{js,jsx,tsx}',
+		'<rootDir>/src/main/js/**/hocs/mappers/**/*.{js,jsx,tsx}',
+		'<rootDir>/src/main/js/**/util/**/*.{js,jsx,tsx}',
+		'<rootDir>/src/main/js/(contacts|settings|sites)/(hoc|pages)/**/*.{js,jsx,tsx}',
+		'<rootDir>/src/main/js/shared/**/*.{js,jsx,tsx}'
+	],
+	coverageThreshold: {
+		global: {
+			branches: 60,
+			functions: 60,
+			lines: 75,
+			statements: 70
+		}
+	},
+	globals: {
+		CEREBRO_PATHS_GEOMAP_KEY: '',
+		FARO_ENV: '',
+		faroConstants: {
+			activityActions: {
+				downloads: 0,
+				submissions: 1,
+				visits: 2
+			},
+			channelPermissionTypes: {
+				allUsers: 0,
+				selectUsers: 1
+			},
+			clauseOperators: {
+				0: {
+					id: 0,
+					labels: ['value'],
+					name: 'after',
+					supportedTypes: ['Date']
+				},
+				1: {
+					id: 1,
+					labels: ['value'],
+					name: 'before',
+					supportedTypes: ['Date']
+				},
+				10: {
+					id: 10,
+					labels: [],
+					name: 'is-not-known',
+					supportedTypes: ['Boolean', 'Date', 'Number', 'Text']
+				},
+				13: {
+					id: 13,
+					labels: ['action', 'timeSpan'],
+					name: 'behavior-equals',
+					supportedTypes: []
+				},
+				14: {
+					id: 14,
+					labels: ['value'],
+					name: 'greater-than-or-equals',
+					supportedTypes: ['Number']
+				},
+				15: {
+					id: 15,
+					labels: ['value'],
+					name: 'less-than-or-equals',
+					supportedTypes: ['Number']
+				},
+				16: {
+					id: 16,
+					labels: ['action', 'timeSpan'],
+					name: 'behavior-not-equals',
+					supportedTypes: []
+				},
+				2: {
+					id: 2,
+					labels: ['start-date', 'end-date'],
+					name: 'between',
+					supportedTypes: ['Date']
+				},
+				3: {
+					id: 3,
+					labels: ['value'],
+					name: 'contains',
+					supportedTypes: ['Text']
+				},
+				4: {
+					id: 4,
+					labels: ['value'],
+					name: 'equals',
+					supportedTypes: ['Boolean', 'Date', 'Number']
+				},
+				5: {
+					id: 5,
+					labels: ['value'],
+					name: 'greater-than',
+					supportedTypes: ['Number']
+				},
+				6: {
+					id: 6,
+					labels: [],
+					name: 'is-known',
+					supportedTypes: ['Boolean', 'Date', 'Number', 'Text']
+				},
+				7: {
+					id: 7,
+					labels: ['value'],
+					name: 'less-than',
+					supportedTypes: ['Number']
+				},
+				8: {
+					id: 8,
+					labels: ['value'],
+					name: 'does-not-contain',
+					supportedTypes: ['Text']
+				},
+				9: {
+					id: 9,
+					labels: ['value'],
+					name: 'not-equals',
+					supportedTypes: []
+				}
+			},
+			contactsCardTemplateTypes: {
+				cardTypes: {
+					associatedSegments: 10,
+					conversionHealth: 9,
+					coworkers: 11,
+					info: 1,
+					interests: 12,
+					profile: 0,
+					segmentDistribution: 3,
+					segmentGrowth: 4,
+					segmentMembership: 2,
+					similar: 13
+				},
+				graphTypes: {
+					bar: 1,
+					pie: 2
+				},
+				profileCardLayoutTypes: {
+					horizontal: 0,
+					noAvatar: 1,
+					vertical: 2
+				},
+				segmentsMembershipCardOrders: {
+					alphabetical: 0,
+					numberOfMembers: 1
+				}
+			},
+			credentialTypes: {
+				basic: 'Basic Authentication',
+				oAuth1: 'OAuth 1 Authentication',
+				oAuth2: 'OAuth 2 Authentication'
+			},
+			criterionOperators: {
+				operatorAnd: 11,
+				operatorOr: 12
+			},
+			criterionTypes: {
+				behavior: 1,
+				demographic: 2,
+				logical: 0
+			},
+			dataSourceProgressStatuses: {
+				completed: 'COMPLETED',
+				failed: 'FAILED',
+				inProgress: 'IN_PROGRESS',
+				started: 'STARTED'
+			},
+			dataSourceStatuses: {
+				active: 'ACTIVE',
+				inactive: 'INACTIVE'
+			},
+			dataSourceTypes: {
+				csv: 'CSV',
+				liferay: 'LIFERAY',
+				salesforce: 'SALESFORCE'
+			},
+			documentationURLs: {
+				addLiferayDataSource:
+					'https://help.liferay.com/hc/en-us/articles/360006653472-Adding-a-Liferay-DXP-Data-Source',
+				base: 'https://help.liferay.com/hc/en-us'
+			},
+			entityTypes: {
+				account: 0,
+				accountsSegment: 3,
+				asset: 5,
+				dataSource: 1,
+				individual: 2,
+				individualsSegment: 4,
+				page: 6
+			},
+			faroURL: 'http://localhost:3000',
+			fieldContexts: {
+				behaviors: 'behaviors',
+				demographics: 'demographics',
+				organization: 'organization'
+			},
+			fieldOwnerTypes: {
+				account: 'account',
+				individual: 'individual',
+				organization: 'organization'
+			},
+			fieldTypes: {
+				boolean: 'Boolean',
+				date: 'Date',
+				number: 'Number',
+				string: 'Text'
+			},
+			pagination: {
+				cur: 1,
+				delta: 2,
+				deltaValues: [1, 2, 3, 4],
+				orderAscending: 'asc',
+				orderDefault: 'asc',
+				orderDescending: 'desc'
+			},
+			pathThemeImages: '/images',
+			preferencesScopes: {
+				group: 'group',
+				user: 'user'
+			},
+			projectLocations: {
+				EU: 'EUROPE',
+				SA: 'SOUTH AMERICA',
+				US: 'UNITED_STATES'
+			},
+			projectOperations: {
+				restart: 'restart',
+				stop: 'stop'
+			},
+			projectStates: {
+				autoRedeployFailed: 'AUTO_REDEPLOY_FAILED',
+				maintenance: 'MAINTENANCE',
+				notReady: 'NOT READY',
+				ready: 'READY',
+				scheduled: 'SCHEDULED',
+				unavailable: 'UNAVAILABLE'
+			},
+			segmentStates: {
+				disabled: 'DISABLED',
+				inProgress: 'IN_PROGRESS',
+				ready: 'READY'
+			},
+			segmentTypes: {
+				dynamic: 'DYNAMIC',
+				static: 'STATIC'
+			},
+			subscriptionPlans: {
+				['Liferay Analytics Cloud Basic']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 1000,
+					name: 'Liferay Analytics Cloud Basic',
+					pageViewsLimit: 300000,
+					price: 0
+				},
+				['Liferay Analytics Cloud Business']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 10000,
+					name: 'Liferay Analytics Cloud Business',
+					pageViewsLimit: 5000000,
+					price: 7500
+				},
+				['Liferay Analytics Cloud Business Contacts']: {
+					baseSubscriptionPlan: 'Liferay Analytics Cloud Business',
+					individualsLimit: 5000,
+					name: 'Liferay Analytics Cloud Business Contacts',
+					pageViewsLimit: 0,
+					price: 1500
+				},
+				['Liferay Analytics Cloud Business Tracked Pages']: {
+					baseSubscriptionPlan: 'Liferay Analytics Cloud Business',
+					individualsLimit: 0,
+					name: 'Liferay Analytics Cloud Business Tracked Pages',
+					pageViewsLimit: 5000000,
+					price: 750
+				},
+				['Liferay Analytics Cloud Enterprise']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 100000,
+					name: 'Liferay Analytics Cloud Enterprise',
+					pageViewsLimit: 60000000,
+					price: 20000
+				},
+				['Liferay Analytics Cloud Enterprise Contacts']: {
+					baseSubscriptionPlan: 'Liferay Analytics Cloud Enterprise',
+					individualsLimit: 5000,
+					name: 'Liferay Analytics Cloud Enterprise Contacts',
+					pageViewsLimit: 0,
+					price: 500
+				},
+				['Liferay Analytics Cloud Enterprise Tracked Pages']: {
+					baseSubscriptionPlan: 'Liferay Analytics Cloud Enterprise',
+					individualsLimit: 0,
+					name: 'Liferay Analytics Cloud Enterprise Tracked Pages',
+					pageViewsLimit: 5000000,
+					price: 250
+				}
+			},
+			subscriptionStatuses: {
+				approaching: 1,
+				ok: 0,
+				over: 2
+			},
+			timeIntervals: {
+				day: 'day',
+				month: 'month',
+				quarter: 'quarter',
+				week: 'week',
+				year: 'year'
+			},
+			timeSpans: {
+				'1YearAgo': 'lastYear',
+				'30DaysAgo': 'last30days',
+				'7DaysAgo': 'last7days',
+				allTime: 'ever',
+				today: 'today'
+			},
+			userName: 'Test Test',
+			userRoleNames: {
+				administrator: 'Site Administrator',
+				member: 'Site Member',
+				owner: 'Site Owner'
+			},
+			userStatuses: {
+				approved: 0,
+				pending: 1
+			}
+		},
+		'ts-jest': {
+			tsConfig: 'tsconfig.test.json'
+		}
+	},
+	moduleNameMapper: {
+		'^assets(.*)$': '<rootDir>/src/main/js/assets$1',
+		'^cerebro-shared(.*)$': '<rootDir>/src/main/js/cerebro-shared$1',
+		'^clay-charts-react(.*)$': '<rootDir>/src/main/js/clay-charts-react$1',
+		'^contacts(.*)$': '<rootDir>/src/main/js/contacts$1',
+		'^dnd-core$': 'dnd-core/dist/cjs',
+		'^experiments(.*)$': '<rootDir>/src/main/js/experiments$1',
+		'^home(.*)$': '<rootDir>/src/main/js/home$1',
+		'^react-dnd$': 'react-dnd/dist/cjs',
+		'^react-dnd-html5-backend$': 'react-dnd-html5-backend/dist/cjs',
+		'^react-dnd-test-backend$': 'react-dnd-test-backend/dist/cjs',
+		'^react-dnd-test-utils$': 'react-dnd-test-utils/dist/cjs',
+		'^route-middleware(.*)$': '<rootDir>/src/main/js/route-middleware$1',
+		'^settings(.*)$': '<rootDir>/src/main/js/settings$1',
+		'^shared(.*)$': '<rootDir>/src/main/js/shared$1',
+		'^sites(.*)': '<rootDir>/src/main/js/sites$1',
+		'^test(.*)': '<rootDir>/src/main/js/test$1',
+		'^touchpoints(.*)': '<rootDir>/src/main/js/touchpoints$1',
+		'^ui-kit(.*)$': '<rootDir>/src/main/js/ui-kit$1'
+	},
+	setupFiles: ['<rootDir>/enzyme.config.js'],
+	setupFilesAfterEnv: ['<rootDir>/src/main/js/test/setup.js'],
+	snapshotSerializers: ['enzyme-to-json/serializer'],
+	testURL: 'http://liferay.com',
+	timers: 'fake',
+	transform: {
+		'^.+\\.jsx?$': 'babel-jest',
+		'^.+\\.tsx?$': 'ts-jest'
+	}
+};

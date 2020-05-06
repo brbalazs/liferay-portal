@@ -1,0 +1,45 @@
+import AssetsListCard from '../components/AssetsListCard';
+import AssetsQuery from '../queries/AssetsQuery';
+import BaseCard from 'cerebro-shared/components/base-card';
+import React from 'react';
+import {compose} from 'redux';
+import {graphql} from '@apollo/react-hoc';
+import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
+import {
+	mapPropsToOptions,
+	mapResultToProps
+} from './mappers/touchpoint-assets-list-query';
+import {withEmpty} from 'cerebro-shared/hocs/utils';
+import {withError, withLoading} from 'shared/hoc';
+
+const AssetsListWithData = compose(
+	graphql(AssetsQuery, {
+		options: mapPropsToOptions,
+		props: mapResultToProps
+	}),
+	withLoading({alignCenter: true, page: false}),
+	withError({page: false}),
+	withEmpty()
+)(AssetsListCard);
+
+AssetsListWithData.propTypes = HOC_CARD_PROPTYPES;
+
+const defaultProps = {
+	className: 'analytics-assets-list-card'
+};
+
+const AssetsListBaseCard = ({className, label}) => (
+	<BaseCard className={className} label={label} minHeight={536}>
+		{({filters, rangeKey, router}) => (
+			<AssetsListWithData
+				filters={filters}
+				rangeKey={rangeKey}
+				router={router}
+			/>
+		)}
+	</BaseCard>
+);
+
+AssetsListBaseCard.defaultProps = defaultProps;
+
+export default AssetsListBaseCard;

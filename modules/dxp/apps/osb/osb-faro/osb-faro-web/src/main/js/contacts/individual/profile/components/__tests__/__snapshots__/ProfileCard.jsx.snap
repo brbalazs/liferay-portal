@@ -1,0 +1,425 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndividualProfileCard should render 1`] = `
+<Card
+  className="individual-profile-card-root"
+  pageDisplay={true}
+>
+  <Header>
+    <Title>
+      Individual Activities
+    </Title>
+  </Header>
+  <Body
+    noPadding={true}
+  >
+    <Spinner
+      alignCenter={false}
+      className="flex-grow-1"
+      display="dotted"
+      fadeIn={false}
+      inline={false}
+      key="LOADING"
+      light={false}
+      overlay={false}
+      spacer={true}
+    />
+    <StatefulPagination
+      dataSourceFn={[Function]}
+      dataSourceParams={
+        Object {
+          "channelId": "123123",
+          "contactsEntityId": "0",
+          "endDate": undefined,
+          "groupId": "23",
+          "startDate": undefined,
+        }
+      }
+      entityLabel="Activities"
+      headerLabels={
+        Object {
+          "count": "Activity Count",
+          "label": "Time",
+          "title": "Session",
+        }
+      }
+      initialExpanded={false}
+      toolbarProps={Object {}}
+    />
+  </Body>
+</Card>
+`;
+
+exports[`IndividualProfileCard should render selected info 1`] = `
+<Card
+  className="individual-profile-card-root"
+  pageDisplay={true}
+>
+  <Header>
+    <Title>
+      Individual Activities
+    </Title>
+  </Header>
+  <Body
+    noPadding={true}
+  >
+    <div
+      className="individuals-activities-chart"
+    >
+      <ChangeLegend
+        items={
+          Array [
+            Object {
+              "change": 1.28,
+              "id": "activities",
+              "secondaryInfo": "30 Day Change",
+              "title": "Total Activity Count: 1,000",
+            },
+            Object {
+              "change": -0.2,
+              "id": "engagements",
+              "secondaryInfo": "30 Day Change",
+              "title": "Engagement Score: 4.90/10",
+            },
+          ]
+        }
+      />
+      <Chart
+        alwaysShowSelectedTooltip={true}
+        axisRotated={false}
+        axisX={
+          Object {
+            "tick": Object {
+              "format": [Function],
+            },
+          }
+        }
+        axisY={
+          Object {
+            "max": 10,
+            "min": 0,
+            "padding": Object {
+              "bottom": 0,
+            },
+          }
+        }
+        axisY2={
+          Object {
+            "min": 0,
+            "padding": Object {
+              "bottom": 0,
+            },
+            "show": true,
+          }
+        }
+        bar={
+          Object {
+            "width": Object {
+              "ratio": 0.9,
+            },
+          }
+        }
+        chartType="combined"
+        data={
+          Array [
+            Object {
+              "axis": "y",
+              "data": Array [
+                1,
+                2,
+              ],
+              "id": "activities",
+              "name": "Activity Count",
+              "type": "bar",
+            },
+            Object {
+              "axis": "y2",
+              "data": Array [
+                2,
+                2.8000000000000003,
+              ],
+              "id": "engagements",
+              "name": "Engagement Score",
+              "type": "spline",
+            },
+            Object {
+              "data": Array [
+                1531177266366,
+                1531263666366,
+              ],
+              "id": "date",
+              "name": "Date",
+            },
+          ]
+        }
+        dataId="activities"
+        height={328}
+        id="individualActivity"
+        legend={Object {}}
+        line={Object {}}
+        onPointSelect={[Function]}
+        otherData={Object {}}
+        point={Object {}}
+        splineInterpolationType="monotone-x"
+        tooltip={
+          Object {
+            "contents": [Function],
+          }
+        }
+        unloadBeforeLoad={true}
+        x="date"
+        y2Label="Engagement"
+        yLabel="Activities"
+      />
+      <div
+        className="selected-info"
+      >
+        <h4>
+          Individual's Activities - July 9, 2018
+        </h4>
+        <Button
+          display="link"
+          onClick={[Function]}
+          size="sm"
+        >
+          Clear Date Selection
+        </Button>
+        <div
+          className="details"
+        >
+          Activity 
+          <b
+            key="ACTIVITIES"
+          >
+            1
+          </b>
+        </div>
+      </div>
+    </div>
+    <StatefulPagination
+      dataSourceFn={[Function]}
+      dataSourceParams={
+        Object {
+          "channelId": "123123",
+          "contactsEntityId": "0",
+          "endDate": 1531177266366,
+          "groupId": "23",
+          "startDate": 1531177266366,
+        }
+      }
+      entityLabel="Activities"
+      headerLabels={
+        Object {
+          "count": "Activity Count",
+          "label": "Time",
+          "title": "Session",
+        }
+      }
+      initialExpanded={false}
+      toolbarProps={Object {}}
+    />
+  </Body>
+</Card>
+`;
+
+exports[`IndividualProfileCard should render w/ an error display 1`] = `
+<Card
+  className="individual-profile-card-root"
+  pageDisplay={true}
+>
+  <Header>
+    <Title>
+      Individual Activities
+    </Title>
+  </Header>
+  <Body
+    noPadding={true}
+  >
+    <ErrorDisplay
+      buttonLabel="Reload"
+      className="flex-grow-1"
+      key="ERROR_DISPLAY"
+      message="An unexpected error occurred."
+      onReload={[Function]}
+      spacer={true}
+    />
+    <StatefulPagination
+      dataSourceFn={[Function]}
+      dataSourceParams={
+        Object {
+          "channelId": "123123",
+          "contactsEntityId": "0",
+          "endDate": undefined,
+          "groupId": "23",
+          "startDate": undefined,
+        }
+      }
+      entityLabel="Activities"
+      headerLabels={
+        Object {
+          "count": "Activity Count",
+          "label": "Time",
+          "title": "Session",
+        }
+      }
+      initialExpanded={false}
+      toolbarProps={Object {}}
+    />
+  </Body>
+</Card>
+`;
+
+exports[`IndividualProfileCard should render w/o loading 1`] = `
+<Card
+  className="individual-profile-card-root"
+  pageDisplay={true}
+>
+  <Header>
+    <Title>
+      Individual Activities
+    </Title>
+  </Header>
+  <Body
+    noPadding={true}
+  >
+    <div
+      className="individuals-activities-chart"
+    >
+      <ChangeLegend
+        items={
+          Array [
+            Object {
+              "change": 1.28,
+              "id": "activities",
+              "secondaryInfo": "30 Day Change",
+              "title": "Total Activity Count: 1,000",
+            },
+            Object {
+              "change": -0.2,
+              "id": "engagements",
+              "secondaryInfo": "30 Day Change",
+              "title": "Engagement Score: 4.90/10",
+            },
+          ]
+        }
+      />
+      <Chart
+        alwaysShowSelectedTooltip={true}
+        axisRotated={false}
+        axisX={
+          Object {
+            "tick": Object {
+              "format": [Function],
+            },
+          }
+        }
+        axisY={
+          Object {
+            "max": 10,
+            "min": 0,
+            "padding": Object {
+              "bottom": 0,
+            },
+          }
+        }
+        axisY2={
+          Object {
+            "min": 0,
+            "padding": Object {
+              "bottom": 0,
+            },
+            "show": true,
+          }
+        }
+        bar={
+          Object {
+            "width": Object {
+              "ratio": 0.9,
+            },
+          }
+        }
+        chartType="combined"
+        data={
+          Array [
+            Object {
+              "axis": "y",
+              "data": Array [
+                1,
+                2,
+              ],
+              "id": "activities",
+              "name": "Activity Count",
+              "type": "bar",
+            },
+            Object {
+              "axis": "y2",
+              "data": Array [
+                2,
+                2.8000000000000003,
+              ],
+              "id": "engagements",
+              "name": "Engagement Score",
+              "type": "spline",
+            },
+            Object {
+              "data": Array [
+                1531177266366,
+                1531263666366,
+              ],
+              "id": "date",
+              "name": "Date",
+            },
+          ]
+        }
+        dataId="activities"
+        height={328}
+        id="individualActivity"
+        legend={Object {}}
+        line={Object {}}
+        onPointSelect={[Function]}
+        otherData={Object {}}
+        point={Object {}}
+        splineInterpolationType="monotone-x"
+        tooltip={
+          Object {
+            "contents": [Function],
+          }
+        }
+        unloadBeforeLoad={true}
+        x="date"
+        y2Label="Engagement"
+        yLabel="Activities"
+      />
+      <div
+        className="selected-info"
+      >
+        <b>
+          Individual's Activities - July 9, 2018 - July 10, 2018
+        </b>
+      </div>
+    </div>
+    <StatefulPagination
+      dataSourceFn={[Function]}
+      dataSourceParams={
+        Object {
+          "channelId": "123123",
+          "contactsEntityId": "0",
+          "endDate": 1531263666366,
+          "groupId": "23",
+          "startDate": 1531177266366,
+        }
+      }
+      entityLabel="Activities"
+      headerLabels={
+        Object {
+          "count": "Activity Count",
+          "label": "Time",
+          "title": "Session",
+        }
+      }
+      initialExpanded={false}
+      toolbarProps={Object {}}
+    />
+  </Body>
+</Card>
+`;

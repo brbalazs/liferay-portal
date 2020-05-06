@@ -1,0 +1,61 @@
+import * as data from 'test/data';
+import React from 'react';
+import WorkspaceList from '..';
+import {cleanup, render} from '@testing-library/react';
+import {fromJS} from 'immutable';
+import {Project} from 'shared/util/records';
+import {range, uniqueId} from 'lodash';
+import {StaticRouter} from 'react-router';
+
+const FRIENDLY_URL_BASE = '/faro-liferay-';
+
+jest.unmock('react-dom');
+
+const mockAccountList = range(3).map(
+	i =>
+		new Project(
+			fromJS(
+				data.mockProject(i, {
+					groupId: Number(uniqueId()),
+					name: `mockProject_AccountA ${i}`
+				})
+			)
+		)
+);
+
+const mockAccountWithFriendlyURLList = range(2).map(
+	i =>
+		new Project(
+			fromJS(
+				data.mockProject(i, {
+					corpProjectUuid: null,
+					friendlyURL: `${FRIENDLY_URL_BASE}${i}`,
+					groupId: null,
+					name: `mockProject_AccountA ${i}`
+				})
+			)
+		)
+);
+
+const DefaultComponent = props => (
+	<StaticRouter>
+		<WorkspaceList {...props} />
+	</StaticRouter>
+);
+
+describe('WorkspaceList', () => {
+	afterEach(cleanup);
+	it('should render', () => {
+		const {container} = render(
+			<DefaultComponent accounts={mockAccountList} />
+		);
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render WorkspaceList with friendlyURL', () => {
+		const {container} = render(
+			<DefaultComponent accounts={mockAccountWithFriendlyURLList} />
+		);
+		expect(container).toMatchSnapshot();
+	});
+});

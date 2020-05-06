@@ -1,0 +1,249 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package com.liferay.osb.faro.web.internal.model.display.main;
+
+import com.liferay.osb.faro.engine.client.CerebroEngineClient;
+import com.liferay.osb.faro.engine.client.ContactsEngineClient;
+import com.liferay.osb.faro.engine.client.model.Individual;
+import com.liferay.osb.faro.engine.client.model.Results;
+import com.liferay.osb.faro.model.FaroProject;
+import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
+import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
+import com.liferay.osb.faro.provisioning.client.model.OSBOfferingEntry;
+import com.liferay.osb.faro.web.internal.constants.FaroSubscriptionConstants;
+import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
+import com.liferay.osb.faro.web.internal.subscription.FaroSubscriptionPlan;
+import com.liferay.portal.kernel.util.DateUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * @author Matthew Kong
+ */
+@SuppressWarnings({"FieldCanBeLocal", "UnusedDeclaration"})
+public class FaroSubscriptionDisplay {
+
+	public FaroSubscriptionDisplay() {
+	}
+
+	public FaroSubscriptionDisplay(OSBAccountEntry osbAccountEntry) {
+		OSBOfferingEntry baseOSBOfferingEntry = _getBaseOSBOfferingEntry(
+			osbAccountEntry.getOfferingEntries());
+
+		if (baseOSBOfferingEntry == null) {
+			return;
+		}
+
+		if (baseOSBOfferingEntry.getStatus() ==
+				ProductConstants.OSB_OFFERING_ENTRY_STATUS_ACTIVE) {
+
+			_active = true;
+		}
+		else {
+			_active = false;
+		}
+
+		_endDate = baseOSBOfferingEntry.getSupportEndDate();
+		_name = ProductConstants.getProductName(
+			baseOSBOfferingEntry.getProductEntryId());
+		_startDate = baseOSBOfferingEntry.getStartDate();
+
+		FaroSubscriptionPlan baseFaroSubscriptionPlan =
+			FaroSubscriptionConstants.getFaroSubscriptionPlan(
+				baseOSBOfferingEntry.getProductEntryId());
+
+		_individualsLimit = baseFaroSubscriptionPlan.getIndividualsLimit();
+		_pageViewsLimit = baseFaroSubscriptionPlan.getPageViewsLimit();
+
+		for (OSBOfferingEntry osbOfferingEntry :
+				osbAccountEntry.getOfferingEntries()) {
+
+			FaroSubscriptionPlan faroSubscriptionPlan =
+				FaroSubscriptionConstants.getFaroSubscriptionPlan(
+					osbOfferingEntry.getProductEntryId());
+
+			if ((faroSubscriptionPlan != null) &&
+				StringUtil.equals(
+					faroSubscriptionPlan.getBaseSubscriptionPlan(),
+					baseFaroSubscriptionPlan.getName())) {
+
+				_addOns.add(new AddOn(osbOfferingEntry));
+
+				_individualsLimit +=
+					faroSubscriptionPlan.getIndividualsLimit() *
+						osbOfferingEntry.getQuantity();
+				_pageViewsLimit +=
+					faroSubscriptionPlan.getPageViewsLimit() *
+						osbOfferingEntry.getQuantity();
+			}
+		}
+	}
+
+	public long getIndividualsCount() {
+		return _individualsCount;
+	}
+
+	public long getIndividualsLimit() {
+		return _individualsLimit;
+	}
+
+	public String getName() {
+		return _name;
+	}
+
+	public long getPageViewsCount() {
+		return _pageViewsCount;
+	}
+
+	public long getPageViewsLimit() {
+		return _pageViewsLimit;
+	}
+
+	public Date getStartDate() {
+		return _startDate;
+	}
+
+	public boolean isActive() {
+		return _active;
+	}
+
+	public void setCounts(
+		FaroProject faroProject, CerebroEngineClient cerebroEngineClient,
+		ContactsEngineClient contactsEngineClient) {
+
+		if ((faroProject == null) ||
+			!StringUtil.equals(
+				faroProject.getState(), ProjectConstants.STATE_READY)) {
+
+			return;
+		}
+
+		Results<Individual> results = contactsEngineClient.getIndividuals(
+			faroProject, null, null, null, null, null, null, null, null, null,
+			false, 1, 0, null);
+
+		_individualsCount = results.getTotal();
+
+		_individualsStatus = getStatus(_individualsCount, _individualsLimit);
+
+		try {
+			_pageViewsCount = GetterUtil.getInteger(
+				cerebroEngineClient.getPageViews(
+					faroProject, Optional.of(_startDate),
+					Optional.of(new Date())));
+		}
+		catch (Exception e) {
+		}
+
+		_pageViewsStatus = getStatus(_pageViewsCount, _pageViewsLimit);
+	}
+
+	public static class AddOn {
+
+		public AddOn() {
+		}
+
+		public AddOn(OSBOfferingEntry osbOfferingEntry) {
+			_name = ProductConstants.getProductName(
+				osbOfferingEntry.getProductEntryId());
+			_quantity = osbOfferingEntry.getQuantity();
+		}
+
+		public String getName() {
+			return _name;
+		}
+
+		public int getQuantity() {
+			return _quantity;
+		}
+
+		public void setName(String name) {
+			_name = name;
+		}
+
+		public void setQuantity(int quantity) {
+			_quantity = quantity;
+		}
+
+		private String _name;
+		private int _quantity;
+
+	}
+
+	protected int getStatus(long count, long limit) {
+		if (count > limit) {
+			return FaroSubscriptionConstants.STATUS_LIMIT_OVER;
+		}
+		else if (((double)count / limit) >
+					FaroSubscriptionConstants.LIMIT_APPROACHING_THRESHOLD) {
+
+			return FaroSubscriptionConstants.STATUS_LIMIT_APPROACHING;
+		}
+
+		return FaroSubscriptionConstants.STATUS_OK;
+	}
+
+	private OSBOfferingEntry _getBaseOSBOfferingEntry(
+		List<OSBOfferingEntry> osbOfferingEntries) {
+
+		OSBOfferingEntry baseOSBOfferingEntry = null;
+
+		for (OSBOfferingEntry osbOfferingEntry : osbOfferingEntries) {
+			if ((osbOfferingEntry.getProductEntryId() !=
+					ProductConstants.BASIC_PRODUCT_ENTRY_ID) &&
+				(osbOfferingEntry.getProductEntryId() !=
+					ProductConstants.BUSINESS_PRODUCT_ENTRY_ID) &&
+				(osbOfferingEntry.getProductEntryId() !=
+					ProductConstants.ENTERPRISE_PRODUCT_ENTRY_ID)) {
+
+				continue;
+			}
+
+			if ((baseOSBOfferingEntry == null) ||
+				((baseOSBOfferingEntry.getStatus() !=
+					osbOfferingEntry.getStatus()) &&
+				 (osbOfferingEntry.getStatus() ==
+					 ProductConstants.OSB_OFFERING_ENTRY_STATUS_ACTIVE)) ||
+				((baseOSBOfferingEntry.getStatus() ==
+					osbOfferingEntry.getStatus()) &&
+				 (DateUtil.compareTo(
+					 osbOfferingEntry.getStartDate(),
+					 baseOSBOfferingEntry.getStartDate()) > 0))) {
+
+				baseOSBOfferingEntry = osbOfferingEntry;
+			}
+		}
+
+		return baseOSBOfferingEntry;
+	}
+
+	private boolean _active;
+	private List<AddOn> _addOns = new ArrayList<>();
+	private Date _endDate;
+	private long _individualsCount;
+	private long _individualsLimit;
+	private int _individualsStatus;
+	private String _name;
+	private long _pageViewsCount;
+	private long _pageViewsLimit;
+	private int _pageViewsStatus;
+	private Date _startDate;
+
+}

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CodeSnippet should render 1`] = `
+<div>
+  <div
+    class="input-group code-snippet-root"
+  >
+    <textarea
+      class="input-root form-control"
+      disabled=""
+      type="textarea"
+    />
+    <div
+      class="input-group-inset-item"
+    >
+      <button
+        aria-label="Click to Copy"
+        class="button-root btn btn-secondary"
+        data-tooltip-response="Copied"
+        title="Click to Copy"
+        type="button"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-paste"
+          viewBox=""
+        >
+          <use
+            xlink:href="#paste"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+`;

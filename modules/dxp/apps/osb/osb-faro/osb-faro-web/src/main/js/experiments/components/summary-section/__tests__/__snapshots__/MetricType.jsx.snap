@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SummarySection MetricType should render component 1`] = `
+<div
+  className="analytics-summary-section-metric-type"
+>
+  <span
+    className="analytics-summary-section-metric-type-icon"
+  >
+    <ClayIcon
+      symbol="web-content"
+    />
+  </span>
+  Click rate
+</div>
+`;

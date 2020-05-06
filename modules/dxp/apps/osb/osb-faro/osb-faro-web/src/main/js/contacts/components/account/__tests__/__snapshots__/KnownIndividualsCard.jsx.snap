@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KnownIndividualsCard should render 1`] = `
+<Card
+  className="known-individuals-card-root"
+>
+  <Header>
+    <Title>
+      Known Individuals
+    </Title>
+  </Header>
+  <Table
+    checkDisabled={[Function]}
+    columns={
+      Array [
+        Object {
+          "cellRenderer": [Function],
+          "cellRendererProps": Object {
+            "groupId": "23",
+            "renderSecondaryInfo": [Function],
+            "routeFn": [Function],
+          },
+          "className": "name",
+          "label": "Individual",
+          "sortable": false,
+        },
+        Object {
+          "cellRenderer": [Function],
+          "className": "trendline",
+          "label": "Engagement",
+          "sortable": false,
+        },
+        Object {
+          "accessor": "engagementScore",
+          "className": "score table-column-text-end",
+          "dataFormatter": [Function],
+          "label": null,
+          "sortable": false,
+        },
+      ]
+    }
+    headingNowrap={true}
+    internalSort={false}
+    items={Array []}
+    list={false}
+    loading={true}
+    nestedLevel={0}
+    nowrap={true}
+    onRowDelete={[Function]}
+    onRowSave={[Function]}
+    rowBordered={true}
+    rowIdentifier="id"
+    selectedItemsIOMap={Immutable.OrderedMap {}}
+    showCheckbox={false}
+  />
+  <Footer>
+    <Button
+      display="link"
+      href="/workspace/23/123/contacts/accounts/23/individuals"
+      size="sm"
+    >
+      View All Individuals
+      <Icon
+        symbol="angle-right"
+      />
+    </Button>
+  </Footer>
+</Card>
+`;
+
+exports[`KnownIndividualsCard should render w/ ErrorDisplay 1`] = `
+<Card
+  className="known-individuals-card-root"
+>
+  <Header>
+    <Title>
+      Known Individuals
+    </Title>
+  </Header>
+  <ErrorDisplay
+    buttonLabel="Reload"
+    key="ERROR_DISPLAY"
+    message="An unexpected error occurred."
+    onReload={[Function]}
+    spacer={true}
+  />
+  <Footer>
+    <Button
+      display="link"
+      href="/workspace/23/123/contacts/accounts/23/individuals"
+      size="sm"
+    >
+      View All Individuals
+      <Icon
+        symbol="angle-right"
+      />
+    </Button>
+  </Footer>
+</Card>
+`;
+
+exports[`KnownIndividualsCard should render w/ NoResultsDisplay 1`] = `
+<Card
+  className="known-individuals-card-root"
+>
+  <Header>
+    <Title>
+      Known Individuals
+    </Title>
+  </Header>
+  <NoResultsDisplay
+    key="NO_RESULTS_DISPLAY"
+    spacer={true}
+    title="There are no Individuals found."
+  />
+  <Footer>
+    <Button
+      display="link"
+      href="/workspace/23/123/contacts/accounts/23/individuals"
+      size="sm"
+    >
+      View All Individuals
+      <Icon
+        symbol="angle-right"
+      />
+    </Button>
+  </Footer>
+</Card>
+`;

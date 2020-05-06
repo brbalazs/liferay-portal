@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlansList should render 1`] = `
+<div
+  className="plans-list-root"
+/>
+`;
+
+exports[`PlansList should render with a label in the list of plans for the current plan 1`] = `
+<div
+  className="plans-list-root"
+>
+  <Panel
+    className=""
+    expandable={true}
+    initialExpanded={true}
+    key="Liferay Analytics Cloud Business"
+    title={
+      <SubscriptionTitle
+        labelText="Current Plan"
+        name="Business"
+        price={-1}
+      />
+    }
+  >
+    <PlanBreakdown
+      addOns={
+        Array [
+          Object {
+            "baseSubscriptionPlan": "Liferay Analytics Cloud Business",
+            "limits": Object {
+              "individuals": 5000,
+              "pageViews": 0,
+            },
+            "name": "Liferay Analytics Cloud Business Contacts",
+            "price": 1500,
+          },
+          Object {
+            "baseSubscriptionPlan": "Liferay Analytics Cloud Business",
+            "limits": Object {
+              "individuals": 0,
+              "pageViews": 5000000,
+            },
+            "name": "Liferay Analytics Cloud Business Tracked Pages",
+            "price": 750,
+          },
+        ]
+      }
+      limits={
+        Array [
+          Object {
+            "entityLabel": "individuals",
+            "value": 0,
+          },
+          Object {
+            "entityLabel": "pageViews",
+            "value": 0,
+          },
+        ]
+      }
+    />
+  </Panel>
+</div>
+`;

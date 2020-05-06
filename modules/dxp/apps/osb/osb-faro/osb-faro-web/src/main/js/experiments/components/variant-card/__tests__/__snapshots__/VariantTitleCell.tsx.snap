@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VariantTitle should render VariantTitle 1`] = `
+<td
+  className="table-cell-expanded"
+>
+  <h5
+    className="variant-title mb-1 text-truncate"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+  >
+    Variant Title
+  </h5>
+</td>
+`;

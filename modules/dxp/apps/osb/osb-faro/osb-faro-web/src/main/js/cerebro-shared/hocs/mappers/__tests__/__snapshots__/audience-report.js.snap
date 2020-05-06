@@ -1,0 +1,807 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shared HOCs Mappers - Segments if there are 6 segments, the last segment should display a tooltip with the information of the sixth segment 1`] = `
+Object {
+  "header": Array [
+    Object {
+      "label": "Segment",
+      "weight": "semibold",
+    },
+    Object {
+      "label": "",
+    },
+    Object {
+      "align": "right",
+      "label": "%",
+      "weight": "semibold",
+    },
+  ],
+  "rows": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 4",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "150",
+        },
+        Object {
+          "align": "right",
+          "label": "4.3%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Shared HOCs Mappers - Segments if there are 7 segments, the last segment should display 2 rows in tooltip 1`] = `
+Object {
+  "header": Array [
+    Object {
+      "label": "Segment",
+      "weight": "semibold",
+    },
+    Object {
+      "label": "",
+    },
+    Object {
+      "align": "right",
+      "label": "%",
+      "weight": "semibold",
+    },
+  ],
+  "rows": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 5",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "450",
+        },
+        Object {
+          "align": "right",
+          "label": "12.9%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 4",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "150",
+        },
+        Object {
+          "align": "right",
+          "label": "4.3%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Shared HOCs Mappers - Segments if there are 15 segments, the last segment should display 10 rows in tooltip 1`] = `
+Object {
+  "header": Array [
+    Object {
+      "label": "Segment",
+      "weight": "semibold",
+    },
+    Object {
+      "label": "",
+    },
+    Object {
+      "align": "right",
+      "label": "%",
+      "weight": "semibold",
+    },
+  ],
+  "rows": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 12",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "523",
+        },
+        Object {
+          "align": "right",
+          "label": "14.9%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 5",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "450",
+        },
+        Object {
+          "align": "right",
+          "label": "12.9%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 14",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "345",
+        },
+        Object {
+          "align": "right",
+          "label": "9.9%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 11",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "343",
+        },
+        Object {
+          "align": "right",
+          "label": "9.8%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 8",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "330",
+        },
+        Object {
+          "align": "right",
+          "label": "9.4%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 9",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "240",
+        },
+        Object {
+          "align": "right",
+          "label": "6.9%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 4",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "150",
+        },
+        Object {
+          "align": "right",
+          "label": "4.3%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 10",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "123",
+        },
+        Object {
+          "align": "right",
+          "label": "3.5%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Segment 13",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "5",
+        },
+        Object {
+          "align": "right",
+          "label": "0.1%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "label": "Other Segments",
+          "truncated": true,
+          "weight": "semibold",
+          "width": 160,
+        },
+        Object {
+          "align": "right",
+          "label": "5",
+        },
+        Object {
+          "align": "right",
+          "label": "0.1%",
+          "weight": "semibold",
+          "width": 50,
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Shared HOCs Mappers - Segments should map segments information 1`] = `
+Object {
+  "data": Object {
+    "items": Array [
+      Object {
+        "columns": Array [
+          Object {
+            "icon": "ac-segment",
+            "label": "Segment 6",
+          },
+        ],
+        "progress": Array [
+          Object {
+            "color": "#FF5F5F",
+            "value": 100,
+          },
+        ],
+        "tooltip": Object {
+          "header": Array [
+            Object {
+              "label": "Segment",
+              "weight": "semibold",
+            },
+            Object {
+              "label": "",
+            },
+            Object {
+              "align": "right",
+              "label": "%",
+              "weight": "semibold",
+            },
+          ],
+          "rows": Array [
+            Object {
+              "columns": Array [
+                Object {
+                  "label": "Segment 6",
+                  "truncated": true,
+                  "weight": "semibold",
+                  "width": 160,
+                },
+                Object {
+                  "align": "right",
+                  "label": "3.5K",
+                },
+                Object {
+                  "align": "right",
+                  "label": "100%",
+                  "weight": "semibold",
+                  "width": 50,
+                },
+              ],
+            },
+          ],
+        },
+      },
+      Object {
+        "columns": Array [
+          Object {
+            "icon": "ac-segment",
+            "label": "Segment 3",
+          },
+        ],
+        "progress": Array [
+          Object {
+            "color": "#FF5F5F",
+            "value": 57,
+          },
+        ],
+        "tooltip": Object {
+          "header": Array [
+            Object {
+              "label": "Segment",
+              "weight": "semibold",
+            },
+            Object {
+              "label": "",
+            },
+            Object {
+              "align": "right",
+              "label": "%",
+              "weight": "semibold",
+            },
+          ],
+          "rows": Array [
+            Object {
+              "columns": Array [
+                Object {
+                  "label": "Segment 3",
+                  "truncated": true,
+                  "weight": "semibold",
+                  "width": 160,
+                },
+                Object {
+                  "align": "right",
+                  "label": "2K",
+                },
+                Object {
+                  "align": "right",
+                  "label": "57.1%",
+                  "weight": "semibold",
+                  "width": 50,
+                },
+              ],
+            },
+          ],
+        },
+      },
+      Object {
+        "columns": Array [
+          Object {
+            "icon": "ac-segment",
+            "label": "Segment 2",
+          },
+        ],
+        "progress": Array [
+          Object {
+            "color": "#FF5F5F",
+            "value": 42,
+          },
+        ],
+        "tooltip": Object {
+          "header": Array [
+            Object {
+              "label": "Segment",
+              "weight": "semibold",
+            },
+            Object {
+              "label": "",
+            },
+            Object {
+              "align": "right",
+              "label": "%",
+              "weight": "semibold",
+            },
+          ],
+          "rows": Array [
+            Object {
+              "columns": Array [
+                Object {
+                  "label": "Segment 2",
+                  "truncated": true,
+                  "weight": "semibold",
+                  "width": 160,
+                },
+                Object {
+                  "align": "right",
+                  "label": "1.5K",
+                },
+                Object {
+                  "align": "right",
+                  "label": "42.9%",
+                  "weight": "semibold",
+                  "width": 50,
+                },
+              ],
+            },
+          ],
+        },
+      },
+      Object {
+        "columns": Array [
+          Object {
+            "icon": "ac-segment",
+            "label": "Segment 1",
+          },
+        ],
+        "progress": Array [
+          Object {
+            "color": "#FF5F5F",
+            "value": 28,
+          },
+        ],
+        "tooltip": Object {
+          "header": Array [
+            Object {
+              "label": "Segment",
+              "weight": "semibold",
+            },
+            Object {
+              "label": "",
+            },
+            Object {
+              "align": "right",
+              "label": "%",
+              "weight": "semibold",
+            },
+          ],
+          "rows": Array [
+            Object {
+              "columns": Array [
+                Object {
+                  "label": "Segment 1",
+                  "truncated": true,
+                  "weight": "semibold",
+                  "width": 160,
+                },
+                Object {
+                  "align": "right",
+                  "label": "1K",
+                },
+                Object {
+                  "align": "right",
+                  "label": "28.6%",
+                  "weight": "semibold",
+                  "width": 50,
+                },
+              ],
+            },
+          ],
+        },
+      },
+      Object {
+        "columns": Array [
+          Object {
+            "icon": "ac-segment",
+            "label": "Segment 5",
+          },
+        ],
+        "progress": Array [
+          Object {
+            "color": "#FF5F5F",
+            "value": 12,
+          },
+        ],
+        "tooltip": Object {
+          "header": Array [
+            Object {
+              "label": "Segment",
+              "weight": "semibold",
+            },
+            Object {
+              "label": "",
+            },
+            Object {
+              "align": "right",
+              "label": "%",
+              "weight": "semibold",
+            },
+          ],
+          "rows": Array [
+            Object {
+              "columns": Array [
+                Object {
+                  "label": "Segment 5",
+                  "truncated": true,
+                  "weight": "semibold",
+                  "width": 160,
+                },
+                Object {
+                  "align": "right",
+                  "label": "450",
+                },
+                Object {
+                  "align": "right",
+                  "label": "12.9%",
+                  "weight": "semibold",
+                  "width": 50,
+                },
+              ],
+            },
+          ],
+        },
+      },
+      Object {
+        "columns": Array [
+          Object {
+            "icon": "ac-segment",
+            "label": "Segment 4",
+          },
+        ],
+        "progress": Array [
+          Object {
+            "color": "#FF5F5F",
+            "value": 4,
+          },
+        ],
+        "tooltip": Object {
+          "header": Array [
+            Object {
+              "label": "Segment",
+              "weight": "semibold",
+            },
+            Object {
+              "label": "",
+            },
+            Object {
+              "align": "right",
+              "label": "%",
+              "weight": "semibold",
+            },
+          ],
+          "rows": Array [
+            Object {
+              "columns": Array [
+                Object {
+                  "label": "Segment 4",
+                  "truncated": true,
+                  "weight": "semibold",
+                  "width": 160,
+                },
+                Object {
+                  "align": "right",
+                  "label": "150",
+                },
+                Object {
+                  "align": "right",
+                  "label": "4.3%",
+                  "weight": "semibold",
+                  "width": 50,
+                },
+              ],
+            },
+          ],
+        },
+      },
+    ],
+  },
+  "disableScroll": true,
+  "formatSpacement": false,
+  "grid": Object {
+    "maxValue": 100,
+    "minValue": 0,
+    "show": true,
+    "type": "percentage",
+  },
+}
+`;
+
+exports[`Shared HOCs Mappers - knownIndividuals should map knownIndividuals information 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "color": "#FF5F5F",
+      "data": Array [
+        3500,
+      ],
+      "id": "0Segmented",
+    },
+    Object {
+      "color": "#50D2A0",
+      "data": Array [
+        100,
+      ],
+      "id": "1Non-segmented",
+    },
+  ],
+  "empty": Object {
+    "message": "0 known individuals interacted with this content.",
+    "show": false,
+  },
+  "id": "known-individuals",
+  "total": 3600,
+}
+`;
+
+exports[`Shared HOCs Mappers - knownIndividuals should return ordered colors based on Lexicon 1`] = `
+Array [
+  Object {
+    "color": "#FF5F5F",
+    "data": Array [
+      3500,
+    ],
+    "id": "0Segmented",
+  },
+  Object {
+    "color": "#50D2A0",
+    "data": Array [
+      100,
+    ],
+    "id": "1Non-segmented",
+  },
+]
+`;
+
+exports[`Shared HOCs Mappers - knownIndividuals should return ordered colors based on Lexicon when "anonymousUsersCount" and "knownUsersCount" is 0 1`] = `
+Array [
+  Object {
+    "color": "#4B9BFF",
+    "data": Array [
+      3500,
+    ],
+    "id": "0Segmented",
+  },
+  Object {
+    "color": "#FFB46E",
+    "data": Array [
+      100,
+    ],
+    "id": "1Non-segmented",
+  },
+]
+`;
+
+exports[`Shared HOCs Mappers - knownIndividuals should return ordered colors based on Lexicon when "anonymousUsersCount" is 0 1`] = `
+Array [
+  Object {
+    "color": "#FFB46E",
+    "data": Array [
+      3500,
+    ],
+    "id": "0Segmented",
+  },
+  Object {
+    "color": "#FF5F5F",
+    "data": Array [
+      100,
+    ],
+    "id": "1Non-segmented",
+  },
+]
+`;
+
+exports[`Shared HOCs Mappers - uniqueVisitors should map uniqueVisitors information 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "color": "#4B9BFF",
+      "data": Array [
+        3450,
+      ],
+      "id": "0Known Individuals",
+    },
+    Object {
+      "color": "#FFB46E",
+      "data": Array [
+        2000,
+      ],
+      "id": "1Anonymous Individuals",
+    },
+  ],
+  "empty": Object {
+    "message": "0 visitors interacted with this content.",
+    "show": false,
+  },
+  "id": "unique-visitors",
+  "total": 5450,
+}
+`;
+
+exports[`Shared HOCs Mappers - uniqueVisitors should return ordered colors based on Lexicon 1`] = `
+Array [
+  Object {
+    "color": "#4B9BFF",
+    "data": Array [
+      3450,
+    ],
+    "id": "0Known Individuals",
+  },
+  Object {
+    "color": "#FFB46E",
+    "data": Array [
+      2000,
+    ],
+    "id": "1Anonymous Individuals",
+  },
+]
+`;
+
+exports[`Shared HOCs Mappers - uniqueVisitors should return ordered colors based on Lexicon when "anonymousUsersCount" is 0 1`] = `
+Array [
+  Object {
+    "color": "#4B9BFF",
+    "data": Array [
+      3450,
+    ],
+    "id": "0Known Individuals",
+  },
+]
+`;
+
+exports[`Shared HOCs Mappers - uniqueVisitors should return ordered colors based on Lexicon when "knownUsersCount" is 0 1`] = `
+Array [
+  Object {
+    "color": "#4B9BFF",
+    "data": Array [
+      2000,
+    ],
+    "id": "0Anonymous Individuals",
+  },
+]
+`;

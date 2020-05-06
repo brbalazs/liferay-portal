@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssociatedSegmentsList should render 1`] = `
+<Card
+  className="associated-segments-list-root"
+  pageDisplay={true}
+>
+  <Header>
+    <Title>
+      Associated Segments
+    </Title>
+    <div
+      className="secondary-info"
+    >
+      <b
+        key="SEGMENT_TOTAL"
+      >
+        2
+      </b>
+       Segments
+    </div>
+  </Header>
+  <SearchableEntityTable
+    bordered={false}
+    checkDisabled={[Function]}
+    columns={
+      Array [
+        Object {
+          "accessor": "name",
+          "cellRenderer": [Function],
+          "cellRendererProps": Object {
+            "renderIcon": [Function],
+            "routeFn": [Function],
+          },
+          "className": "table-cell-expand",
+          "label": "Name",
+        },
+        Object {
+          "accessor": "individualCount",
+          "className": "table-column-text-end",
+          "dataFormatter": [Function],
+          "label": "Membership",
+        },
+        Object {
+          "cellRenderer": [Function],
+          "cellRendererProps": Object {
+            "dateFormatter": [Function],
+            "datePath": "individualAddedDate",
+          },
+          "label": "Date Added",
+          "sortable": false,
+        },
+        Object {
+          "accessor": "dateCreated",
+          "cellRenderer": [Function],
+          "label": "Date Created",
+        },
+      ]
+    }
+    dataSourceFn={[Function]}
+    dataSourceParams={
+      Object {
+        "channelId": "123123",
+        "groupId": "23",
+        "id": "test",
+      }
+    }
+    delta={2}
+    entityLabel="Associated Segments"
+    filterBy={Immutable.Map {}}
+    internalSort={false}
+    nowrap={true}
+    orderBy="asc"
+    orderByField="name"
+    orderByOptions={
+      Array [
+        Object {
+          "label": "Name",
+          "value": "name",
+        },
+        Object {
+          "label": "Members",
+          "value": "individualCount",
+        },
+        Object {
+          "label": "Date Created",
+          "value": "dateCreated",
+        },
+      ]
+    }
+    overrideLoading={false}
+    page={1}
+    query=""
+    rowIdentifier="id"
+    showCheckbox={false}
+  />
+</Card>
+`;

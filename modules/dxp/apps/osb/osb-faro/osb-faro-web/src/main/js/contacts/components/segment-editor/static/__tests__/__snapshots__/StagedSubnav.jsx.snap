@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StagedSubnav should render 1`] = `
+<SubnavTbar
+  display=""
+>
+  <TbarItem
+    expand={false}
+  >
+    <Label
+      display="success"
+      size="lg"
+      uppercase={true}
+    />
+  </TbarItem>
+  <TbarItem
+    expand={true}
+  >
+    <Button
+      borderless={true}
+      display="unstyled"
+      onClick={[Function]}
+    >
+      view added items
+    </Button>
+  </TbarItem>
+</SubnavTbar>
+`;
+
+exports[`StagedSubnav should render with the showStaged active labels 1`] = `
+<SubnavTbar
+  display=""
+>
+  <TbarItem
+    expand={false}
+  >
+    <span>
+      Showing only selected items.
+    </span>
+  </TbarItem>
+  <TbarItem
+    expand={true}
+  >
+    <Button
+      borderless={true}
+      display="unstyled"
+      onClick={[Function]}
+    >
+      view current items
+    </Button>
+  </TbarItem>
+</SubnavTbar>
+`;

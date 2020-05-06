@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertFeed should render 1`] = `
+<div>
+  <div
+    class="alert-feed-root alert-notifications"
+  >
+    <span>
+      <div
+        class="alert alert-dismissible alert-info transition-slide-up-appear"
+        role="alert"
+      >
+        <span
+          class="alert-indicator"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-info-circle"
+            viewBox=""
+          >
+            <use
+              xlink:href="#info-circle"
+            />
+          </svg>
+        </span>
+        <strong
+          class="lead"
+        >
+          Info:
+        </strong>
+        foo bar
+        <button
+          class="close"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-times"
+            viewBox=""
+          >
+            <use
+              xlink:href="#times"
+            />
+          </svg>
+        </button>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`AlertFeed should render with a message comprised of language keys with jsx substitutions 1`] = `
+<div>
+  <div
+    class="alert-feed-root alert-notifications"
+  >
+    <span>
+      <div
+        class="alert alert-dismissible alert-info transition-slide-up-appear"
+        role="alert"
+      >
+        <span
+          class="alert-indicator"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-info-circle"
+            viewBox=""
+          >
+            <use
+              xlink:href="#info-circle"
+            />
+          </svg>
+        </span>
+        <strong
+          class="lead"
+        >
+          Info:
+        </strong>
+        <b>
+          Foo
+        </b>
+         USD
+        <button
+          class="close"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-times"
+            viewBox=""
+          >
+            <use
+              xlink:href="#times"
+            />
+          </svg>
+        </button>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`AlertFeed should render with modal open 1`] = `
+<div>
+  <div
+    class="alert-feed-root alert-notifications modal-active"
+  >
+    <span>
+      <div
+        class="alert alert-dismissible alert-info transition-slide-up-appear"
+        role="alert"
+      >
+        <span
+          class="alert-indicator"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-info-circle"
+            viewBox=""
+          >
+            <use
+              xlink:href="#info-circle"
+            />
+          </svg>
+        </span>
+        <strong
+          class="lead"
+        >
+          Info:
+        </strong>
+        foo bar
+        <button
+          class="close"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-times"
+            viewBox=""
+          >
+            <use
+              xlink:href="#times"
+            />
+          </svg>
+        </button>
+      </div>
+    </span>
+  </div>
+</div>
+`;

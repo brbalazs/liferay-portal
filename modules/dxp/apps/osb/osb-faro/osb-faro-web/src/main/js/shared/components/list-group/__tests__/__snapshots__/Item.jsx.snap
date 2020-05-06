@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item should render 1`] = `
+<li
+  className="list-group-item"
+/>
+`;
+
+exports[`Item should render as active 1`] = `
+<li
+  className="active list-group-item"
+/>
+`;

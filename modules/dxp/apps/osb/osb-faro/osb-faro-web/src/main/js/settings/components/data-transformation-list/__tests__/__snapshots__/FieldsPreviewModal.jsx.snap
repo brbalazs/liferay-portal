@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldPreviewModal should render 1`] = `
+<Modal
+  className="field-preview-modal-root"
+  size="lg"
+>
+  <Header
+    onClose={[Function]}
+    title="Field Preview \\"foo\\""
+  />
+  <ListGroup
+    noBorder={false}
+    showQuickActionsOnHover={true}
+  >
+    <Item
+      action={false}
+      active={false}
+      disabled={false}
+      flex={true}
+      header={true}
+    >
+      <ItemField
+        expand={false}
+      />
+    </Item>
+  </ListGroup>
+</Modal>
+`;

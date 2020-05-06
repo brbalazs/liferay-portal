@@ -1,0 +1,40 @@
+import BasePage from 'settings/components/BasePage';
+import React from 'react';
+import RequestList from '../hocs/RequestList';
+import {getDataPrivacy} from 'shared/util/breadcrumbs';
+import {RouterType} from 'shared/types';
+import {User} from 'shared/util/records';
+import {withCurrentUser} from 'shared/hoc';
+
+interface IRequestLogProps {
+	currentUser: User;
+	router: RouterType;
+}
+
+export const RequestLog: React.FC<IRequestLogProps> = ({
+	currentUser,
+	router
+}) => {
+	const {
+		params: {groupId}
+	} = router;
+
+	return (
+		<BasePage
+			breadcrumbItems={[
+				getDataPrivacy({groupId}),
+				{
+					active: true,
+					label: Liferay.Language.get('request-log')
+				}
+			]}
+			className='request-log-page-root'
+			documentTitle={Liferay.Language.get('request-log')}
+			groupId={groupId}
+		>
+			<RequestList currentUser={currentUser} router={router} />
+		</BasePage>
+	);
+};
+
+export default withCurrentUser(RequestLog);

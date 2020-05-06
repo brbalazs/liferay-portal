@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label should render 1`] = `
+<span
+  className="label label-secondary"
+>
+  <span
+    className="label-item label-item-expand"
+  >
+    Label
+  </span>
+</span>
+`;
+
+exports[`Label should render closeable Label 1`] = `
+<span
+  className="label label-secondary label-dismissible"
+>
+  <span
+    className="label-item label-item-expand"
+  />
+  <span
+    className="label-item label-item-after"
+  >
+    <Button
+      aria-label="Close"
+      className="close"
+      display="unstyled"
+      icon="times"
+      iconAlignment="right"
+      onClick={[Function]}
+    />
+  </span>
+</span>
+`;

@@ -1,0 +1,16 @@
+import getFiltersMapper from 'cerebro-shared/hocs/mappers/filter';
+import TouchpointPathQuery from '../queries/TouchpointPathQuery';
+import {graphql} from '@apollo/react-hoc';
+import {withFilterComponent} from 'cerebro-shared/hocs/Filter';
+
+/**
+ * HOC
+ * @description Touchpoint Path Filter
+ */
+const withTouchpointPathFilter = () =>
+	graphql(
+		TouchpointPathQuery,
+		getFiltersMapper(result => result.page.viewsMetric)
+	);
+
+export default withFilterComponent(withTouchpointPathFilter);

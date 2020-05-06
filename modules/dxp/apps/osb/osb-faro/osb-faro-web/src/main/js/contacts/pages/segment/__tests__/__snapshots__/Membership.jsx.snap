@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChartViews should render 1`] = `
+<SegmentGrowthWithList
+  groupId="23"
+  hasSelectedPoint={false}
+  onPointSelect={[Function]}
+  selectedPoint={null}
+/>
+`;
+
+exports[`Membership should render 1`] = `
+<Card
+  className="segment-membership-root"
+  pageDisplay={true}
+>
+  <CardTabs
+    activeTabId="growth"
+    tabs={
+      Array [
+        Object {
+          "secondaryInfo": Array [
+            <span
+              className="primary-content"
+            >
+              10
+            </span>,
+            " Individuals in Segment",
+          ],
+          "tabId": "growth",
+          "tabUrl": "/workspace/23/contacts/segments/0/membership/growth",
+          "title": "Membership",
+        },
+        Object {
+          "secondaryInfo": Array [
+            <span
+              className="primary-content"
+            >
+              <React.Fragment>
+                4.90
+                <span
+                  className="denominator"
+                >
+                  /10
+                </span>
+              </React.Fragment>
+            </span>,
+            " Avg. Member Score",
+          ],
+          "tabId": "engagement",
+          "tabUrl": "/workspace/23/contacts/segments/0/membership/engagement",
+          "title": "Segment Engagement Score",
+        },
+      ]
+    }
+  />
+  <_class
+    groupId="23"
+    id="0"
+    tabId="growth"
+  />
+</Card>
+`;

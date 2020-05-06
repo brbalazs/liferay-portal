@@ -1,0 +1,47 @@
+import AudienceReport from 'cerebro-shared/components/AudienceReport';
+import BaseCard from 'cerebro-shared/components/base-card';
+import Card from 'shared/components/Card';
+import React from 'react';
+import {compose} from 'redux';
+import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
+import {withError, withLoading} from 'shared/hoc';
+
+/**
+ * HOC
+ * @description Audience Report Card
+ * @param {function} withAudienceReportCard
+ */
+const withAudienceReportCard = withData => {
+	const AudienceReportWithData = compose(
+		withData(),
+		withLoading({alignCenter: true, page: false}),
+		withError({page: false})
+	)(AudienceReport);
+
+	AudienceReportWithData.propTypes = HOC_CARD_PROPTYPES;
+
+	const defaultProps = {
+		className: 'analytics-audience-report-card'
+	};
+
+	const AudienceReportCard = ({className, label}) => (
+		<BaseCard className={className} label={label} minHeight={536}>
+			{({filters, rangeKey, router}) => (
+				<Card.Body>
+					<AudienceReportWithData
+						filters={filters}
+						rangeKey={rangeKey}
+						router={router}
+					/>
+				</Card.Body>
+			)}
+		</BaseCard>
+	);
+
+	AudienceReportCard.defaultProps = defaultProps;
+
+	return AudienceReportCard;
+};
+
+export {withAudienceReportCard};
+export default withAudienceReportCard;

@@ -1,0 +1,381 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchableTableWithAdded should render 1`] = `
+<div>
+  <div
+    class="searchable-table-with-staged-root d-flex flex-column flex-grow-1"
+  >
+    <div
+      class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+    >
+      <div
+        class="toolbar-root"
+      >
+        <nav
+          class="navbar navbar-root management-bar management-bar-light navbar-expand"
+        >
+          <div
+            class="container-fluid"
+          >
+            <ul
+              class="nav-root front-nav navbar-nav"
+              role="tablist"
+            />
+            <div
+              class="navbar-form navbar-form-autofit"
+            >
+              <div
+                class="input-group search"
+              >
+                <div
+                  class="input-group-item"
+                >
+                  <input
+                    class="input-root form-control input-group-inset input-group-inset-after"
+                    placeholder="Search"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    class="input-group-inset-item input-group-inset-item-after"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-search"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#search"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div
+        class="no-results-root flex-grow-1"
+      >
+        <div
+          class="no-results-content spacer"
+        >
+          <h4
+            class="no-results-title"
+          >
+            There are no Items found.
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SearchableTableWithAdded should show the staged table if showStaged is true 1`] = `
+<div>
+  <div
+    class="searchable-table-with-staged-root d-flex flex-column flex-grow-1"
+  >
+    <div
+      class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+    >
+      <div
+        class="toolbar-root"
+      >
+        <nav
+          class="navbar navbar-root management-bar management-bar-light navbar-expand"
+        >
+          <div
+            class="container-fluid"
+          >
+            <ul
+              class="nav-root front-nav navbar-nav"
+              role="tablist"
+            />
+            <div
+              class="navbar-form navbar-form-autofit"
+            >
+              <div
+                class="input-group search"
+              >
+                <div
+                  class="input-group-item"
+                >
+                  <input
+                    class="input-root form-control input-group-inset input-group-inset-after"
+                    placeholder="Search"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    class="input-group-inset-item input-group-inset-item-after"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-search"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#search"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <nav
+        class="subnav-tbar subnav-tbar-root tbar"
+      >
+        <div
+          class="container-fluid"
+        >
+          <div
+            class="tbar-nav"
+          >
+            <div
+              class="tbar-item"
+            >
+              <div
+                class="tbar-section text-truncate"
+              >
+                <span>
+                  Showing only added Items.
+                </span>
+              </div>
+            </div>
+            <div
+              class="tbar-item tbar-item-expand"
+            >
+              <div
+                class="tbar-section text-truncate"
+              >
+                <button
+                  class="button-root btn btn-unstyled btn-outline-borderless"
+                  type="button"
+                >
+                  View Current Members
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div
+        class="table-responsive table-root flex-grow-1"
+      >
+        <table
+          class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+        >
+          <thead>
+            <tr
+              class=""
+            >
+              <th
+                class="table-head-title table-cell-expand"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=desc&orderByField=name&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Name
+                  </span>
+                  <span
+                    class="inline-item inline-item-after"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#order-arrow-up"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=asc&orderByField=properties.email&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Email
+                  </span>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class=" table-cell-expand"
+              >
+                <h4
+                  class="table-title text-truncate"
+                >
+                  Foo Bar
+                </h4>
+              </td>
+              <td
+                class=""
+              >
+                email0@liferay.com
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class=" table-cell-expand"
+              >
+                <h4
+                  class="table-title text-truncate"
+                >
+                  Foo Bar
+                </h4>
+              </td>
+              <td
+                class=""
+              >
+                email1@liferay.com
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <nav
+        class="navbar navbar-root pagination-bar-root"
+      >
+        <div
+          class="container-fluid"
+        >
+          <div
+            aria-haspopup="true"
+            class="dropdown dropdown-root pagination-items-per-page"
+          >
+            <button
+              class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+              type="button"
+            >
+              <span
+                class="text-truncate"
+              >
+                2 Items
+              </span>
+              
+              <span
+                class="caret-root"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#caret-bottom"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div
+            class="pagination-results"
+          >
+            Showing 1 to 2 of 5 entries.
+          </div>
+          <ul
+            class="pagination pagination-root"
+          >
+            <li
+              class="page-item disabled"
+            >
+              <a
+                class="button-root btn btn-unstyled page-link link-disabled"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-left"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#angle-left"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li
+              class="page-item active"
+            >
+              <a
+                class="button-root btn btn-unstyled page-link"
+                href="/?page=1"
+              >
+                1
+              </a>
+            </li>
+            <li
+              class="page-item"
+            >
+              <a
+                class="button-root btn btn-unstyled page-link"
+                href="/?page=2"
+              >
+                2
+              </a>
+            </li>
+            <li
+              class="page-item"
+            >
+              <a
+                class="button-root btn btn-unstyled page-link"
+                href="/?page=3"
+              >
+                3
+              </a>
+            </li>
+            <li
+              class="page-item"
+            >
+              <a
+                class="button-root btn btn-unstyled page-link"
+                href="/?page=2"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-right"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#angle-right"
+                  />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+`;

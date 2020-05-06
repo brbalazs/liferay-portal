@@ -1,0 +1,162 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package com.liferay.osb.faro.web.internal.model.display.contacts;
+
+import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.service.DLFileEntryLocalServiceUtil;
+import com.liferay.osb.faro.engine.client.model.Credentials;
+import com.liferay.osb.faro.engine.client.model.DataSource;
+import com.liferay.osb.faro.engine.client.model.Event;
+import com.liferay.osb.faro.engine.client.model.Provider;
+import com.liferay.osb.faro.engine.client.model.provider.CSVProvider;
+import com.liferay.osb.faro.engine.client.model.provider.LiferayProvider;
+import com.liferay.osb.faro.web.internal.constants.FaroConstants;
+import com.liferay.osb.faro.web.internal.model.display.main.FaroEntityDisplay;
+import com.liferay.portal.kernel.util.GetterUtil;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**
+ * @author Matthew Kong
+ */
+@SuppressWarnings({"FieldCanBeLocal", "UnusedDeclaration"})
+public class DataSourceDisplay implements FaroEntityDisplay {
+
+	public DataSourceDisplay() {
+	}
+
+	public DataSourceDisplay(long groupId, DataSource dataSource) {
+		_credentials = dataSource.getCredentials();
+
+		if (_credentials != null) {
+			_credentials.clearPasswords();
+		}
+
+		_dateCreated = dataSource.getDateCreated();
+
+		if (dataSource.getDetails() != null) {
+			DataSource.Details details = dataSource.getDetails();
+
+			_contactsSelected = details.isContactsSelected();
+			_sitesSelected = details.isSitesSelected();
+		}
+
+		_disabled = false;
+		_event = dataSource.getSubjectOf();
+		_id = dataSource.getId();
+		_name = dataSource.getName();
+
+		_provider = dataSource.getProvider();
+
+		_providerType = _provider.getType();
+
+		if (_providerType.equals(CSVProvider.TYPE)) {
+			DLFileEntry dlFileEntry =
+				DLFileEntryLocalServiceUtil.fetchFileEntry(groupId, 0, _id);
+
+			if (dlFileEntry != null) {
+				_fileName = dlFileEntry.getDescription();
+			}
+		}
+		else if (_providerType.equals(LiferayProvider.TYPE)) {
+			LiferayProvider liferayProvider = (LiferayProvider)_provider;
+
+			LiferayProvider.AnalyticsConfiguration analyticsConfiguration =
+				liferayProvider.getAnalyticsConfiguration();
+
+			if (analyticsConfiguration != null) {
+				_lastSyncDate = analyticsConfiguration.getLastSyncTime();
+			}
+
+			LiferayProvider.ContactsConfiguration contactsConfiguration =
+				liferayProvider.getContactsConfiguration();
+
+			if ((contactsConfiguration != null) &&
+				(contactsConfiguration.getLastSyncTime() != null) &&
+				((_lastSyncDate == null) ||
+				 _lastSyncDate.before(
+					 contactsConfiguration.getLastSyncTime()))) {
+
+				_lastSyncDate = contactsConfiguration.getLastSyncTime();
+			}
+		}
+
+		_state = dataSource.getState();
+		_status = dataSource.getStatus();
+		_type = FaroConstants.TYPE_DATA_SOURCE;
+		_url = dataSource.getUrl();
+	}
+
+	@Override
+	public void addProperties(List<String> propertyNames) {
+	}
+
+	@Override
+	public String getId() {
+		return _id;
+	}
+
+	@Override
+	public String getName() {
+		return _name;
+	}
+
+	@Override
+	public Map<String, Object> getProperties() {
+		return Collections.emptyMap();
+	}
+
+	@Override
+	public int getType() {
+		return _type;
+	}
+
+	protected List<Long> getContainerIds(
+		List<LiferayProvider.Container> containers) {
+
+		Stream<LiferayProvider.Container> stream = containers.stream();
+
+		return stream.map(
+			LiferayProvider.Container::getId
+		).map(
+			GetterUtil::getLong
+		).collect(
+			Collectors.toList()
+		);
+	}
+
+	private Boolean _contactsSelected;
+	private Credentials _credentials;
+	private Date _dateCreated;
+	private boolean _disabled;
+	private Event _event;
+	private String _fileName;
+	private String _id;
+	private Date _lastSyncDate;
+	private String _name;
+	private Provider _provider;
+	private String _providerType;
+	private Boolean _sitesSelected;
+	private String _state;
+	private String _status;
+	private int _type;
+	private String _url;
+
+}

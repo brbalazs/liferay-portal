@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountDisplay renders 1`] = `
+<Fragment>
+  Account
+  <b>
+    description
+  </b>
+  <span>
+    is
+  </span>
+  <b>
+    "this is a description"
+  </b>
+</Fragment>
+`;
+
+exports[`AccountDisplay renders w/ a knownType 1`] = `
+<Fragment>
+  Account
+  <b>
+    description
+  </b>
+  <span>
+    is unknown
+  </span>
+</Fragment>
+`;

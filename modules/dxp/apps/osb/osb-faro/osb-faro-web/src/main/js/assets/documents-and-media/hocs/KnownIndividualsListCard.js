@@ -1,0 +1,64 @@
+import Card from 'shared/components/Card';
+import getMetricsMapper from 'shared/hoc/mappers/metrics';
+import knownIndividualsListAssetQuery from 'shared/queries/knownIndividualsListAssetQuery';
+import React from 'react';
+import urlConstants from 'shared/util/url-constants';
+import {DOWNLOADS_METRIC, NAME} from 'shared/util/pagination';
+import {get} from 'lodash';
+import {graphql} from '@apollo/react-hoc';
+import {metricsListColumns} from 'shared/util/table-columns';
+import {Routes} from 'shared/util/router';
+import {sub} from 'shared/util/lang';
+import {withBaseResults, withRangeKey} from 'shared/hoc';
+
+const withData = () =>
+	graphql(
+		knownIndividualsListAssetQuery('document', DOWNLOADS_METRIC),
+		getMetricsMapper(result => ({
+			items: result.document.downloadsMetric.individuals.individuals,
+			total: result.document.downloadsMetric.individuals.total
+		}))
+	);
+
+const TableWithData = withRangeKey(
+	withBaseResults(withData, {
+		defaultOrderByField: NAME,
+		emptyDescription: sub(
+			Liferay.Language.get('empty-message-lists'),
+			[
+				<a
+					href={urlConstants.DOCUMENTATION_LINK}
+					key='DOCUMENTATION'
+					target='_blank'
+				>
+					{Liferay.Language.get('documentation').toLowerCase()}
+				</a>
+			],
+			false
+		),
+		emptyTitle: Liferay.Language.get('empty-title-assets'),
+		getColumns: ({
+			router: {
+				params: {channelId, groupId}
+			}
+		}) => [
+			metricsListColumns.getNameEmail({
+				channelId,
+				groupId,
+				route: Routes.CONTACTS_INDIVIDUAL
+			})
+		],
+		rowIdentifier: 'id'
+	})
+);
+
+const KnownIndividualsListCard = props => (
+	<Card className='known-individuals-root' pageDisplay>
+		<TableWithData
+			{...props}
+			rangeKey={get(props.router, ['query', 'rangeKey'])}
+		/>
+	</Card>
+);
+
+export default KnownIndividualsListCard;

@@ -1,0 +1,19 @@
+import FormMetricsQuery from '../queries/FormMetricsQuery';
+import getAudienceReportMapper from 'cerebro-shared/hocs/mappers/audience-report';
+import {graphql} from '@apollo/react-hoc';
+import {Routes} from 'shared/util/router';
+import {withAudienceReportCard} from 'cerebro-shared/hocs/AudienceReportCard';
+
+/**
+ * HOC
+ * @description Forms Audience Report
+ */
+const withFormsAudienceReport = () =>
+	graphql(FormMetricsQuery, {
+		...getAudienceReportMapper(
+			result => result.form.submissionsMetric,
+			Routes.ASSETS_FORMS_KNOWN_INDIVIDUALS
+		)
+	});
+
+export default withAudienceReportCard(withFormsAudienceReport);

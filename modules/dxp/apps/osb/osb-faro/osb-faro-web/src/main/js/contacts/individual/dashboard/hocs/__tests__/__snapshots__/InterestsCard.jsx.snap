@@ -1,0 +1,377 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InterestsCard renders 1`] = `
+<div>
+  <div
+    class="card card-root interests-card-root"
+    style="min-height: 536px;"
+  >
+    <div
+      class="card-header"
+    >
+      <h5
+        class="card-title"
+      >
+        Top Interests as of Today
+      </h5>
+    </div>
+    <div
+      class="table-responsive table-root flex-grow-1"
+    >
+      <table
+        class="table table-autofit table-hover table-heading-nowrap table-nowrap table-row-no-bordered"
+      >
+        <thead>
+          <tr
+            class=""
+          >
+            <th
+              class="table-head-title"
+            >
+              Topic
+            </th>
+            <th
+              class="table-head-title table-cell-expand"
+            >
+              Total Individuals
+            </th>
+            <th
+              class="table-head-title table-column-text-end"
+            >
+              % of Total Individuals
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class=""
+          >
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+                style="max-width: 200px;"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/123/contacts/individuals/interests/cutting-edge platforms"
+                    >
+                      cutting-edge platforms
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="table-cell-expand relative-metric-bar-root"
+            >
+              <div
+                class="metric-bar-root"
+              >
+                <div
+                  class="bar bar-lg"
+                  style="width: 95%;"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="title text-truncate"
+                  />
+                  <span
+                    class="count"
+                  >
+                    2
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class=" table-column-text-end"
+            >
+              <h4
+                class="table-title text-truncate"
+              >
+                66.67%
+              </h4>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr
+            class=""
+          >
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+                style="max-width: 200px;"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/123/contacts/individuals/interests/mesh"
+                    >
+                      mesh
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="table-cell-expand relative-metric-bar-root"
+            >
+              <div
+                class="metric-bar-root"
+              >
+                <div
+                  class="bar bar-lg"
+                  style="width: 95%;"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="title text-truncate"
+                  />
+                  <span
+                    class="count"
+                  >
+                    2
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class=" table-column-text-end"
+            >
+              <h4
+                class="table-title text-truncate"
+              >
+                66.67%
+              </h4>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr
+            class=""
+          >
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+                style="max-width: 200px;"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/123/contacts/individuals/interests/mesh synergistic schemas"
+                    >
+                      mesh synergistic schemas
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="table-cell-expand relative-metric-bar-root"
+            >
+              <div
+                class="metric-bar-root"
+              >
+                <div
+                  class="bar bar-lg"
+                  style="width: 95%;"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="title text-truncate"
+                  />
+                  <span
+                    class="count"
+                  >
+                    2
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class=" table-column-text-end"
+            >
+              <h4
+                class="table-title text-truncate"
+              >
+                66.67%
+              </h4>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr
+            class=""
+          >
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+                style="max-width: 200px;"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/123/contacts/individuals/interests/synergistic schemas"
+                    >
+                      synergistic schemas
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="table-cell-expand relative-metric-bar-root"
+            >
+              <div
+                class="metric-bar-root"
+              >
+                <div
+                  class="bar bar-lg"
+                  style="width: 95%;"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="title text-truncate"
+                  />
+                  <span
+                    class="count"
+                  >
+                    2
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class=" table-column-text-end"
+            >
+              <h4
+                class="table-title text-truncate"
+              >
+                66.67%
+              </h4>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr
+            class=""
+          >
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+                style="max-width: 200px;"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/123/contacts/individuals/interests/rich e-commerce"
+                    >
+                      rich e-commerce
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="table-cell-expand relative-metric-bar-root"
+            >
+              <div
+                class="metric-bar-root"
+              >
+                <div
+                  class="bar bar-lg"
+                  style="width: 48%;"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="title text-truncate"
+                  />
+                  <span
+                    class="count"
+                  >
+                    1
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class=" table-column-text-end"
+            >
+              <h4
+                class="table-title text-truncate"
+              >
+                33.33%
+              </h4>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      class="card-footer"
+    >
+      <a
+        class="button-root btn btn-link btn-sm"
+        href="/workspace/123/contacts/individuals/interests"
+      >
+        View All Interests
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-right"
+          viewBox=""
+        >
+          <use
+            xlink:href="#angle-right"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,80 @@
+import * as data from 'test/data';
+import BehaviorDisplay from '../BehaviorDisplay';
+import React from 'react';
+import {cleanup, render} from '@testing-library/react';
+import {
+	CUSTOM_FUNCTION_OPERATORS,
+	LAST_24_HOURS,
+	PROPERTY_TYPES,
+	RELATIONAL_OPERATORS
+} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {List, Map} from 'immutable';
+import {Property, Segment} from 'shared/util/records';
+import {withReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+
+jest.unmock('react-dom');
+
+describe('BehaviorDisplay', () => {
+	const WrappedBehaviorDisplay = withReferencedObjectsProvider(
+		BehaviorDisplay
+	);
+
+	const mockSegment = data.getImmutableMock(Segment, data.mockSegment, 0, {
+		referencedObjects: {
+			assets: {
+				123: {
+					description: null,
+					id: '123',
+					name: 'Cool beans Page',
+					type: 'Page',
+					url: 'https://www.liferay.com'
+				}
+			}
+		}
+	});
+
+	const mockCriterion = {
+		operatorName: CUSTOM_FUNCTION_OPERATORS.ACTIVITIES_FILTER_BY_COUNT,
+		propertyName: 'activityKey',
+		value: Map({
+			criterionGroup: Map({
+				items: List([
+					Map({
+						operatorName: RELATIONAL_OPERATORS.EQ,
+						propertyName: 'activityKey',
+						value: 'Page#pageViewed#123'
+					}),
+					Map({
+						operatorName: RELATIONAL_OPERATORS.GT,
+						propertyName: 'day',
+						value: LAST_24_HOURS
+					})
+				])
+			}),
+			operator: RELATIONAL_OPERATORS.GE,
+			value: 2
+		})
+	};
+
+	const mockProperty = data.getImmutableMock(Property, data.mockProperty, 1, {
+		entityName: 'Individual',
+		label: 'Viewed Page',
+		name: 'pageViewed',
+		propertykey: 'web',
+		type: PROPERTY_TYPES.BEHAVIOR
+	});
+
+	afterEach(cleanup);
+
+	it('renders', () => {
+		const {container} = render(
+			<WrappedBehaviorDisplay
+				criterion={mockCriterion}
+				property={mockProperty}
+				segment={mockSegment}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+});

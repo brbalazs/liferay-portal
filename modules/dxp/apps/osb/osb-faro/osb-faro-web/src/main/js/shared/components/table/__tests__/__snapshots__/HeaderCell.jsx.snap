@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderCell should render 1`] = `
+<th
+  className="table-head-title"
+>
+  <Button
+    className="inline-item text-truncate-inline"
+    display="unstyled"
+    onClick={[Function]}
+  >
+    <span
+      className="text-truncate"
+    />
+  </Button>
+</th>
+`;
+
+exports[`HeaderCell should render the header cell as a link if headerLink is true 1`] = `
+<th
+  className="table-head-title"
+>
+  <Button
+    className="inline-item text-truncate-inline"
+    display="unstyled"
+    href="/?orderBy=asc&orderByField&page=1"
+    onClick={[Function]}
+  >
+    <span
+      className="text-truncate"
+    />
+  </Button>
+</th>
+`;
+
+exports[`HeaderCell should render with sort disabled 1`] = `
+<th
+  className="table-head-title"
+/>
+`;

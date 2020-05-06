@@ -1,0 +1,25 @@
+addons:
+    chrome: stable
+dist: trusty
+jdk: oraclejdk8
+jobs:
+    include:
+        - stage: push docker image
+          if: branch = 7.1.x-private AND type = push
+          script: ./gradlew pushAppDockerImage -Pcom.liferay.osb.faro.environment.name=asah-local
+        - stage: source formatting checks
+          script: ./gradlew packageRunLint checkSourceFormatting pmdMain pmdTest pmdTestIntegration
+        - stage: javascript tests
+          script: ./gradlew packageRunTest
+          after_success: ./gradlew packageRunCoveralls
+services:
+    - docker
+sudo: required
+before_install:
+    - mv $HOME/build $HOME/faro
+    - TRAVIS_BUILD_DIR=$HOME/faro/$TRAVIS_REPO_SLUG
+cache:
+    directories:
+        - $HOME/.gradle/caches/
+        - $HOME/.gradle/wrapper/
+    timeout: 600

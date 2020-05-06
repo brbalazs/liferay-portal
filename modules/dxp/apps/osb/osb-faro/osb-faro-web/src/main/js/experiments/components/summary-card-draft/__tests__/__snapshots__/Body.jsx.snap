@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SummaryCardDraft Body should render component 1`] = `
+<div
+  className="w-100 mt-4"
+>
+  <SummaryBaseCardTitle
+    className="mb-4"
+    label="Setup title"
+  />
+  <SummaryBaseCardSubtitle
+    label="Setup subtitle"
+  />
+  <ClayMultiStep
+    current={0}
+    showIndicatorLabel={false}
+  >
+    <ClayMultiStepItem
+      Body={[Function]}
+      key="0"
+    />
+    <ClayMultiStepItem
+      Body={[Function]}
+      key="1"
+    />
+  </ClayMultiStep>
+</div>
+`;

@@ -1,0 +1,1014 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerticalTimeline should render 1`] = `
+<div>
+  <div
+    class="vertical-timeline-root"
+  >
+    <ul
+      class="timeline timeline-center"
+    >
+      <li
+        class="timeline-item header"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Today
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-increment"
+            >
+              <div
+                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+              />
+            </div>
+            <div
+              class="timeline-item-label"
+            >
+              10:56pm
+            </div>
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="sticker-container"
+              >
+                <div
+                  class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-web-content"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#web-content"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Visited
+                       
+                      <a
+                        href="/#1"
+                      >
+                        www.liferay.com
+                      </a>
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                >
+                  3 Document Downloads, 2 Form Submissions, 24 Page Visits
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-increment"
+            >
+              <div
+                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+              />
+            </div>
+            <div
+              class="timeline-item-label"
+            >
+              10:56pm
+            </div>
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="sticker-container"
+              >
+                <div
+                  class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-web-content"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#web-content"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      <a
+                        href="/#2"
+                      >
+                        New Business Purchase
+                      </a>
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                >
+                  3 Document Downloads, 2 Form Submissions, 24 Page Visits
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item header"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Yesterday
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-increment"
+            >
+              <div
+                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+              />
+            </div>
+            <div
+              class="timeline-item-label"
+            >
+              10:56pm
+            </div>
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="sticker-container"
+              >
+                <div
+                  class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-web-content"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#web-content"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Opened Email
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                >
+                  3 Document Downloads, 2 Form Submissions, 24 Page Visits
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`VerticalTimeline should render with a header 1`] = `
+<div>
+  <div
+    class="vertical-timeline-root"
+  >
+    <div
+      class="timeline-header"
+    >
+      <div
+        class="header-label"
+      >
+        label
+      </div>
+      <div
+        class="header-title"
+      >
+        title
+      </div>
+      <div
+        class="header-count"
+      >
+        count
+      </div>
+    </div>
+    <ul
+      class="timeline timeline-center"
+    >
+      <li
+        class="timeline-item header"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Today
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-increment"
+            >
+              <div
+                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+              />
+            </div>
+            <div
+              class="timeline-item-label"
+            >
+              10:56pm
+            </div>
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="sticker-container"
+              >
+                <div
+                  class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-web-content"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#web-content"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Visited
+                       
+                      <a
+                        href="/#1"
+                      >
+                        www.liferay.com
+                      </a>
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                >
+                  3 Document Downloads, 2 Form Submissions, 24 Page Visits
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-increment"
+            >
+              <div
+                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+              />
+            </div>
+            <div
+              class="timeline-item-label"
+            >
+              10:56pm
+            </div>
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="sticker-container"
+              >
+                <div
+                  class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-web-content"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#web-content"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      <a
+                        href="/#2"
+                      >
+                        New Business Purchase
+                      </a>
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                >
+                  3 Document Downloads, 2 Form Submissions, 24 Page Visits
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item header"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Yesterday
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-increment"
+            >
+              <div
+                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+              />
+            </div>
+            <div
+              class="timeline-item-label"
+            >
+              10:56pm
+            </div>
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="sticker-container"
+              >
+                <div
+                  class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-web-content"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#web-content"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Opened Email
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                >
+                  3 Document Downloads, 2 Form Submissions, 24 Page Visits
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`VerticalTimeline should render with nested items 1`] = `
+<div>
+  <div
+    class="vertical-timeline-root"
+  >
+    <ul
+      class="timeline timeline-center"
+    >
+      <li
+        class="timeline-item header"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Yesterday
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-increment"
+            >
+              <div
+                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+              />
+            </div>
+            <div
+              class="timeline-item-label"
+            >
+              10:56pm
+            </div>
+            <div
+              class="timeline-panel-body-content selectable"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="sticker-container"
+              >
+                <div
+                  class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-web-content"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#web-content"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Opened Email
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                >
+                  3 Document Downloads, 2 Form Submissions, 24 Page Visits
+                </span>
+              </div>
+              <div
+                class="timeline-panel-body-content-details"
+              >
+                <span
+                  class="item-count"
+                >
+                  2
+                </span>
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#caret-bottom"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            class="vertical-timeline-root"
+          >
+            <ul
+              class="timeline timeline-center timeline-nested"
+            >
+              <li
+                class="timeline-item"
+              >
+                <div
+                  class="timeline-panel"
+                >
+                  <div
+                    class="timeline-panel-body"
+                  >
+                    <div
+                      class="timeline-increment"
+                    >
+                      <div
+                        class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+                      />
+                    </div>
+                    <div
+                      class="timeline-item-label"
+                    >
+                      10:56pm
+                    </div>
+                    <div
+                      class="timeline-panel-body-content"
+                    >
+                      <div
+                        class="sticker-container"
+                      >
+                        <div
+                          class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                        >
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-web-content"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="#web-content"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="timeline-panel-body-content-text"
+                      >
+                        <div>
+                          <span
+                            class="text-truncate"
+                          >
+                            <span
+                              class="title"
+                            >
+                              Visited Liferay: Testing
+                            </span>
+                          </span>
+                        </div>
+                        <span
+                          class="text-truncate subtitle"
+                          data-tooltip="false"
+                          title=""
+                        >
+                          www.liferay.com/testing
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="timeline-item"
+              >
+                <div
+                  class="timeline-panel"
+                >
+                  <div
+                    class="timeline-panel-body"
+                  >
+                    <div
+                      class="timeline-increment"
+                    >
+                      <div
+                        class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+                      />
+                    </div>
+                    <div
+                      class="timeline-item-label"
+                    >
+                      10:56pm
+                    </div>
+                    <div
+                      class="timeline-panel-body-content"
+                    >
+                      <div
+                        class="sticker-container"
+                      >
+                        <div
+                          class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                        >
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-web-content"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="#web-content"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="timeline-panel-body-content-text"
+                      >
+                        <div>
+                          <span
+                            class="text-truncate"
+                          >
+                            <span
+                              class="title"
+                            >
+                              Visited Liferay: Testing 2
+                            </span>
+                          </span>
+                        </div>
+                        <span
+                          class="text-truncate subtitle"
+                          data-tooltip="false"
+                          title=""
+                        >
+                          www.liferay.com/testing 2
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`VerticalTimeline should render with nested items collapsed 1`] = `
+<div>
+  <div
+    class="vertical-timeline-root"
+  >
+    <ul
+      class="timeline timeline-center"
+    >
+      <li
+        class="timeline-item header"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-panel-body-content"
+            >
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Yesterday
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="timeline-item"
+      >
+        <div
+          class="timeline-panel"
+        >
+          <div
+            class="timeline-panel-body"
+          >
+            <div
+              class="timeline-increment"
+            >
+              <div
+                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+              />
+            </div>
+            <div
+              class="timeline-item-label"
+            >
+              10:56pm
+            </div>
+            <div
+              class="timeline-panel-body-content selectable"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="sticker-container"
+              >
+                <div
+                  class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-web-content"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#web-content"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="timeline-panel-body-content-text"
+              >
+                <div>
+                  <span
+                    class="text-truncate"
+                  >
+                    <span
+                      class="title"
+                    >
+                      Opened Email
+                    </span>
+                  </span>
+                </div>
+                <span
+                  class="text-truncate subtitle"
+                  data-tooltip="false"
+                  title=""
+                >
+                  3 Document Downloads, 2 Form Submissions, 24 Page Visits
+                </span>
+              </div>
+              <div
+                class="timeline-panel-body-content-details"
+              >
+                <span
+                  class="item-count"
+                >
+                  2
+                </span>
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-caret-top"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#caret-top"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

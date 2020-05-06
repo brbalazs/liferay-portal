@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountAssociatedSegments should render 1`] = `
+<AssociatedSegmentsList
+  account={
+    Immutable.Record {
+      "activitiesCount": 100,
+      "createTime": null,
+      "engagementScore": 0.4899,
+      "id": "1",
+      "individualCount": 10,
+      "name": "account1",
+      "photoURL": "",
+      "properties": Immutable.Map {
+        "yearStarted": "2003",
+        "numberOfEmployees": "9001",
+        "shippingAddress": "123 Fairy Lane Diamond Bar, CA 91765 USA",
+        "accountType": "customer",
+        "phone": "123-123-1234",
+        "ownership": "private",
+        "accountNumber": "123123123",
+        "billingAddress": "123 Fairy Lane Diamond Bar, CA 91765 USA",
+        "website": "www.liferay.com",
+        "description": "Foo company description",
+        "annualRevenue": "USD $1,000,000,000",
+        "fax": "321-321-4321",
+        "industry": "Agriculture",
+      },
+      "status": null,
+      "type": 0,
+    }
+  }
+  dataSourceFn={[Function]}
+  delta={2}
+  filterBy={Immutable.Map {}}
+  groupId="23"
+  id="test"
+  orderBy="asc"
+  orderByField="name"
+  page={1}
+  query=""
+  total={0}
+/>
+`;

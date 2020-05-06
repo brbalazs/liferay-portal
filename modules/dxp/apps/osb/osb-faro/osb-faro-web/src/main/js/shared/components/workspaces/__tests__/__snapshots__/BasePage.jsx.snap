@@ -1,0 +1,422 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkspacesBasePage should render 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "currentUser": Immutable.Record {
+        "emailAddress": "test@test.com",
+        "groupId": null,
+        "id": null,
+        "name": "Test Test",
+        "roleName": null,
+        "screenName": "",
+        "status": 0,
+        "userId": null,
+      },
+    }
+  }
+>
+  <div
+    className="workspaces-base-page-root"
+  >
+    <DocumentTitle
+      title="Test Title"
+    />
+    <div
+      className="header-container"
+    >
+      <a
+        href="https://liferay.com"
+        target="_blank"
+      >
+        <Icon
+          className="liferay-logo"
+          symbol="liferay-logo"
+        />
+      </a>
+      <userDropDown
+        alignmentPosition={3}
+        menuItems={
+          Array [
+            Object {
+              "items": Array [
+                Object {
+                  "externalLink": true,
+                  "label": "Account",
+                  "url": "https://web.liferay.com/web//account-settings",
+                },
+                Object {
+                  "externalLink": true,
+                  "label": "Sign Out",
+                  "url": "/c/portal/logout",
+                },
+              ],
+              "subheaderLabel": "test@test.com",
+            },
+          ]
+        }
+        showCaret={true}
+        userName="Test Test"
+      />
+    </div>
+    <div
+      className="content"
+    >
+      <div
+        className="content-container"
+      >
+        <div
+          className="title-container"
+        >
+          <div
+            className="logo-container"
+          >
+            <Icon
+              className="logo-icon"
+              symbol="ac-logo"
+            />
+            <span
+              className="logo-text"
+            >
+              Analytics Cloud
+            </span>
+          </div>
+          <h1
+            className="title"
+          >
+            Test Title
+          </h1>
+          <div
+            className="details-container"
+          >
+            <p
+              key="1"
+            >
+              Test Details
+            </p>
+            <p
+              key="2"
+            >
+              More Test Details
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ContextProvider>
+`;
+
+exports[`WorkspacesBasePage should render when details is a string 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "currentUser": Immutable.Record {
+        "emailAddress": "test@test.com",
+        "groupId": null,
+        "id": null,
+        "name": "Test Test",
+        "roleName": null,
+        "screenName": "",
+        "status": 0,
+        "userId": null,
+      },
+    }
+  }
+>
+  <div
+    className="workspaces-base-page-root"
+  >
+    <DocumentTitle
+      title="Test Title"
+    />
+    <div
+      className="header-container"
+    >
+      <a
+        href="https://liferay.com"
+        target="_blank"
+      >
+        <Icon
+          className="liferay-logo"
+          symbol="liferay-logo"
+        />
+      </a>
+      <userDropDown
+        alignmentPosition={3}
+        menuItems={
+          Array [
+            Object {
+              "items": Array [
+                Object {
+                  "externalLink": true,
+                  "label": "Account",
+                  "url": "https://web.liferay.com/web//account-settings",
+                },
+                Object {
+                  "externalLink": true,
+                  "label": "Sign Out",
+                  "url": "/c/portal/logout",
+                },
+              ],
+              "subheaderLabel": "test@test.com",
+            },
+          ]
+        }
+        showCaret={true}
+        userName="Test Test"
+      />
+    </div>
+    <div
+      className="content"
+    >
+      <div
+        className="content-container"
+      >
+        <div
+          className="title-container"
+        >
+          <div
+            className="logo-container"
+          >
+            <Icon
+              className="logo-icon"
+              symbol="ac-logo"
+            />
+            <span
+              className="logo-text"
+            >
+              Analytics Cloud
+            </span>
+          </div>
+          <h1
+            className="title"
+          >
+            Test Title
+          </h1>
+          <div
+            className="details-container"
+          >
+            Test Details
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ContextProvider>
+`;
+
+exports[`WorkspacesBasePage should render when details is jsx 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "currentUser": Immutable.Record {
+        "emailAddress": "test@test.com",
+        "groupId": null,
+        "id": null,
+        "name": "Test Test",
+        "roleName": null,
+        "screenName": "",
+        "status": 0,
+        "userId": null,
+      },
+    }
+  }
+>
+  <div
+    className="workspaces-base-page-root"
+  >
+    <DocumentTitle
+      title="Test Title"
+    />
+    <div
+      className="header-container"
+    >
+      <a
+        href="https://liferay.com"
+        target="_blank"
+      >
+        <Icon
+          className="liferay-logo"
+          symbol="liferay-logo"
+        />
+      </a>
+      <userDropDown
+        alignmentPosition={3}
+        menuItems={
+          Array [
+            Object {
+              "items": Array [
+                Object {
+                  "externalLink": true,
+                  "label": "Account",
+                  "url": "https://web.liferay.com/web//account-settings",
+                },
+                Object {
+                  "externalLink": true,
+                  "label": "Sign Out",
+                  "url": "/c/portal/logout",
+                },
+              ],
+              "subheaderLabel": "test@test.com",
+            },
+          ]
+        }
+        showCaret={true}
+        userName="Test Test"
+      />
+    </div>
+    <div
+      className="content"
+    >
+      <div
+        className="content-container"
+      >
+        <div
+          className="title-container"
+        >
+          <div
+            className="logo-container"
+          >
+            <Icon
+              className="logo-icon"
+              symbol="ac-logo"
+            />
+            <span
+              className="logo-text"
+            >
+              Analytics Cloud
+            </span>
+          </div>
+          <h1
+            className="title"
+          >
+            Test Title
+          </h1>
+          <div
+            className="details-container"
+          >
+            <b>
+              test
+            </b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ContextProvider>
+`;
+
+exports[`WorkspacesBasePage should render with back button 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "currentUser": Immutable.Record {
+        "emailAddress": "test@test.com",
+        "groupId": null,
+        "id": null,
+        "name": "Test Test",
+        "roleName": null,
+        "screenName": "",
+        "status": 0,
+        "userId": null,
+      },
+    }
+  }
+>
+  <div
+    className="workspaces-base-page-root"
+  >
+    <DocumentTitle
+      title="Test Title"
+    />
+    <div
+      className="header-container"
+    >
+      <a
+        href="https://liferay.com"
+        target="_blank"
+      >
+        <Icon
+          className="liferay-logo"
+          symbol="liferay-logo"
+        />
+      </a>
+      <userDropDown
+        alignmentPosition={3}
+        menuItems={
+          Array [
+            Object {
+              "items": Array [
+                Object {
+                  "externalLink": true,
+                  "label": "Account",
+                  "url": "https://web.liferay.com/web//account-settings",
+                },
+                Object {
+                  "externalLink": true,
+                  "label": "Sign Out",
+                  "url": "/c/portal/logout",
+                },
+              ],
+              "subheaderLabel": "test@test.com",
+            },
+          ]
+        }
+        showCaret={true}
+        userName="Test Test"
+      />
+    </div>
+    <div
+      className="content"
+    >
+      <div
+        className="content-container"
+      >
+        <div
+          className="back-container"
+        >
+          <Button
+            display="unstyled"
+            href="#"
+          >
+            <Icon
+              symbol="angle-left"
+            />
+            Back to Test
+          </Button>
+        </div>
+        <div
+          className="title-container"
+        >
+          <div
+            className="logo-container"
+          >
+            <Icon
+              className="logo-icon"
+              symbol="ac-logo"
+            />
+            <span
+              className="logo-text"
+            >
+              Analytics Cloud
+            </span>
+          </div>
+          <h1
+            className="title"
+          >
+            Test Title
+          </h1>
+          <div
+            className="details-container"
+          >
+            Test Details. 
+            More Test Details
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ContextProvider>
+`;

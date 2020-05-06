@@ -1,0 +1,47 @@
+import React from 'react';
+import SessionInput from '../SessionInput';
+import {cleanup, render} from '@testing-library/react';
+import {fromJS} from 'immutable';
+import {Property} from 'shared/util/records';
+import {PROPERTY_TYPES, RELATIONAL_OPERATORS} from '../../utils/constants';
+
+jest.unmock('react-dom');
+
+const {EQ} = RELATIONAL_OPERATORS;
+const {SESSION_NUMBER} = PROPERTY_TYPES;
+
+describe('SessionInput', () => {
+	afterEach(cleanup);
+
+	it('should render', () => {
+		const {container} = render(
+			<SessionInput
+				operatorRenderer={() => <div>{'operator'}</div>}
+				property={new Property()}
+				touched={{customInput: true, dateFilter: true}}
+				valid={{customInput: true, dateFilter: true}}
+				value={fromJS({
+					criterionGroup: {items: [{operatorName: EQ}]}
+				})}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render a CustomNumberInput', () => {
+		const {getByTestId} = render(
+			<SessionInput
+				operatorRenderer={() => <div>{'operator'}</div>}
+				property={new Property({type: SESSION_NUMBER})}
+				touched={{customInput: true, dateFilter: true}}
+				valid={{customInput: true, dateFilter: true}}
+				value={fromJS({
+					criterionGroup: {items: [{operatorName: EQ}]}
+				})}
+			/>
+		);
+
+		expect(getByTestId('number-input')).toBeTruthy();
+	});
+});

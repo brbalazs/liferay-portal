@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleSwitch should render 1`] = `
+<label
+  className="toggle-switch toggle-switch-root"
+>
+  <input
+    checked={false}
+    className="toggle-switch-check"
+    data-testid="toggle-switch-input"
+    onChange={[Function]}
+    type="checkbox"
+    value="false"
+  />
+  <span
+    aria-hidden="true"
+    className="toggle-switch-bar"
+  >
+    <span
+      className="toggle-switch-handle"
+    />
+  </span>
+</label>
+`;
+
+exports[`ToggleSwitch should render with an initial value 1`] = `
+<label
+  className="toggle-switch toggle-switch-root"
+>
+  <input
+    checked={true}
+    className="toggle-switch-check"
+    data-testid="toggle-switch-input"
+    onChange={[Function]}
+    type="checkbox"
+    value="true"
+  />
+  <span
+    aria-hidden="true"
+    className="toggle-switch-bar"
+  >
+    <span
+      className="toggle-switch-handle"
+    />
+  </span>
+</label>
+`;

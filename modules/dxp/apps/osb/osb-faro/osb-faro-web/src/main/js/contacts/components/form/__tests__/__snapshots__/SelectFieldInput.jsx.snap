@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectFieldInput should render 1`] = `
+<div
+  className=""
+>
+  <SelectFieldInput
+    context="demographics"
+    groupId="23"
+    id="foo"
+    name="foo"
+    onSelect={[Function]}
+  />
+  <HelpBlock
+    name="foo"
+  />
+</div>
+`;
+
+exports[`SelectFieldInput should render with a label 1`] = `
+<div
+  className=""
+>
+  <Label
+    htmlFor="foo"
+    required={false}
+  >
+    bar
+  </Label>
+  <SelectFieldInput
+    context="demographics"
+    groupId="23"
+    id="foo"
+    name="foo"
+    onSelect={[Function]}
+  />
+  <HelpBlock
+    name="foo"
+  />
+</div>
+`;
