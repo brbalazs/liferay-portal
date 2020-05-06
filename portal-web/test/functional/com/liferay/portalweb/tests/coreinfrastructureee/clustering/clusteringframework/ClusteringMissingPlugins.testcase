@@ -27,7 +27,6 @@ definition {
 		}
 	}
 
-	@ignore = "true"
 	@priority = "4"
 	test CacheReplicationbyCopy {
 		property custom.properties = "ehcache.replicator.properties.test.cache=replicatePutsViaCopy=true";
