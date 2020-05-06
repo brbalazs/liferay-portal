@@ -175,7 +175,7 @@ function Table(props) {
 
 	return (
 		<div className={`table-style-${props.style}`}>
-			<ClayTable borderless hover={false} responsive={false}>
+			<ClayTable borderless hover={false} responsive>
 				<TableHeadRow
 					items={itemsList}
 					schema={props.schema}
