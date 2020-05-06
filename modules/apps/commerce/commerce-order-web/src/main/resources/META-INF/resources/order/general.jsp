@@ -111,7 +111,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			title='<%= LanguageUtil.get(request, "details") %>'
 		>
 			<div class="row vertically-divided">
-				<div class="col-xl-4">
+				<div class="col-xl-3">
 
 					<%
 					CommerceAddress billingAddress = commerceOrder.getBillingAddress();
@@ -156,16 +156,9 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 							</c:otherwise>
 						</c:choose>
 					</commerce-ui:info-box>
-
-					<commerce-ui:info-box
-						elementClasses="py-3"
-						title='<%= LanguageUtil.get(request, "channel") %>'
-					>
-						<%= commerceOrderEditDisplayContext.getCommerceChannelName() %>
-					</commerce-ui:info-box>
 				</div>
 
-				<div class="col-xl-4">
+				<div class="col-xl-3">
 
 					<%
 					String purchaseOrderNumber = commerceOrder.getPurchaseOrderNumber();
@@ -188,6 +181,28 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 							</c:otherwise>
 						</c:choose>
 					</commerce-ui:info-box>
+
+					<commerce-ui:info-box
+						elementClasses="py-3"
+						title='<%= LanguageUtil.get(request, "channel") %>'
+					>
+						<%= commerceOrderEditDisplayContext.getCommerceChannelName() %>
+					</commerce-ui:info-box>
+				</div>
+
+				<%
+				String printedNote = commerceOrder.getPrintedNote();
+				%>
+
+				<div class="col-xl-3">
+					<c:if test="<%= commerceOrder.getOrderDate() != null %>">
+						<commerce-ui:info-box
+							elementClasses="py-3"
+							title='<%= LanguageUtil.get(request, "order-date") %>'
+						>
+							<%= commerceOrderEditDisplayContext.getCommerceOrderDateTime(commerceOrder.getOrderDate()) %>
+						</commerce-ui:info-box>
+					</c:if>
 
 					<%
 					Date requestedDeliveryDate = commerceOrder.getRequestedDeliveryDate();
@@ -212,11 +227,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 					</commerce-ui:info-box>
 				</div>
 
-				<%
-				String printedNote = commerceOrder.getPrintedNote();
-				%>
-
-				<div class="col-xl-4">
+				<div class="col-xl-3">
 					<commerce-ui:info-box
 						actionLabel='<%= LanguageUtil.get(request, Validator.isNull(printedNote) ? "add" : "edit") %>'
 						actionTargetId="printed-note-modal"
@@ -234,15 +245,6 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 							</c:otherwise>
 						</c:choose>
 					</commerce-ui:info-box>
-
-					<c:if test="<%= commerceOrder.getOrderDate() != null %>">
-						<commerce-ui:info-box
-							elementClasses="py-3"
-							title='<%= LanguageUtil.get(request, "order-date") %>'
-						>
-							<%= commerceOrderEditDisplayContext.getCommerceOrderDateTime(commerceOrder.getOrderDate()) %>
-						</commerce-ui:info-box>
-					</c:if>
 
 					<c:if test="<%= Validator.isNotNull(commerceOrder.getAdvanceStatus()) && commerceOrderEditDisplayContext.isShowExternalOrderStatusEnabled() %>">
 						<commerce-ui:info-box
