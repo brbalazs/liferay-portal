@@ -34,6 +34,7 @@ import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceConstants;
 import com.liferay.commerce.product.model.CPOption;
+import com.liferay.commerce.product.model.CPOptionValue;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.option.CommerceOptionValue;
@@ -42,6 +43,8 @@ import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CPOptionLocalServiceUtil;
+import com.liferay.commerce.product.service.CPOptionValueLocalServiceUtil;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalServiceUtil;
 import com.liferay.commerce.product.test.util.CPTestUtil;
@@ -64,6 +67,7 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.test.rule.Inject;
@@ -487,7 +491,8 @@ public class CommerceOrderItemLocalServiceTest {
 				0, option1Key, _toValueKey(option1Key), option1Price,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 2));
 
-		String option2Key = RandomTestUtil.randomString();
+		String option2Key = FriendlyURLNormalizerUtil.normalize(
+			RandomTestUtil.randomString());
 		BigDecimal option2Price = new BigDecimal("200");
 		int option2Quantity = 3;
 
@@ -496,9 +501,20 @@ public class CommerceOrderItemLocalServiceTest {
 				0, option2Key, _toValueKey(option2Key), option2Price,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, option2Quantity));
 
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		_addOptions(
+			_commerceCatalog.getGroupId(), bundleCPDefinition, false, false,
+			commerceOptionValues.subList(0, 1));
+		_addOptions(
+			_commerceCatalog.getGroupId(), bundleCPDefinition, true, true,
+			commerceOptionValues.subList(1, 2));
+
 		CPInstance bundleCPInstance = _buildProductBundleSingleOptionCPInstance(
-			_commerceCatalog.getGroupId(), true, commerceOptionValues,
-			option2Key);
+			_commerceCatalog.getGroupId(),
+			bundleCPDefinition.getCPDefinitionId(), _toValueKey(option2Key));
 
 		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
 			_user.getUserId(), commerceInventoryWarehouse,
@@ -829,6 +845,64 @@ public class CommerceOrderItemLocalServiceTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
+	private void _addOptions(
+			long groupId, CPDefinition cpDefinition, boolean linkToProduct,
+			boolean skuContributor,
+			List<CommerceOptionValue> commerceOptionValues)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
+			CPOption cpOption = CPOptionLocalServiceUtil.addCPOption(
+				serviceContext.getUserId(),
+				RandomTestUtil.randomLocaleStringMap(),
+				RandomTestUtil.randomLocaleStringMap(),
+				CPTestUtil.getDefaultDDMFormFieldType(skuContributor),
+				RandomTestUtil.randomBoolean(), RandomTestUtil.randomBoolean(),
+				skuContributor, commerceOptionValue.getOptionKey(), null,
+				serviceContext);
+
+			CPOptionValue cpOptionValue =
+				CPOptionValueLocalServiceUtil.addCPOptionValue(
+					cpOption.getCPOptionId(),
+					RandomTestUtil.randomLocaleStringMap(),
+					RandomTestUtil.randomDouble(),
+					commerceOptionValue.getOptionValueKey(), serviceContext);
+
+			CPDefinitionOptionRel cpDefinitionOptionRel =
+				CPDefinitionOptionRelLocalServiceUtil.addCPDefinitionOptionRel(
+					cpDefinition.getCPDefinitionId(), cpOption.getCPOptionId(),
+					cpOption.getNameMap(), cpOption.getDescriptionMap(),
+					cpOption.getDDMFormFieldTypeName(), 0.0, false, false,
+					cpOption.isSkuContributor(), true,
+					commerceOptionValue.getPriceType(), serviceContext);
+
+			if (!linkToProduct) {
+				continue;
+			}
+
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+				CPDefinitionOptionValueRelLocalServiceUtil.
+					getCPDefinitionOptionValueRels(
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId());
+
+			CPDefinitionOptionValueRel optionCPDefinitionOptionValueRel =
+				cpDefinitionOptionValueRels.get(0);
+
+			CPDefinitionOptionValueRelLocalServiceUtil.
+				updateCPDefinitionOptionValueRel(
+					optionCPDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId(),
+					cpOptionValue.getNameMap(), cpOptionValue.getPriority(),
+					commerceOptionValue.getOptionValueKey(),
+					commerceOptionValue.getCPInstanceId(),
+					commerceOptionValue.getQuantity(),
+					commerceOptionValue.getPrice(), serviceContext);
+		}
+	}
+
 	private CommerceOrder _addProductBundleWithOptionLinkedToSKU(
 			String priceType)
 		throws Exception {
@@ -896,7 +970,8 @@ public class CommerceOrderItemLocalServiceTest {
 		CommerceContext commerceContext = new TestCommerceContext(
 			_commerceCurrency, null, null, _group, null, null);
 
-		String option1Key = RandomTestUtil.randomString();
+		String option1Key = FriendlyURLNormalizerUtil.normalize(
+			RandomTestUtil.randomString());
 
 		BigDecimal option1DeltaPrice = BigDecimal.ZERO;
 		BigDecimal option2DeltaPrice = BigDecimal.ZERO;
@@ -917,18 +992,32 @@ public class CommerceOrderItemLocalServiceTest {
 				optionSKU1.getCPInstanceId(), option1Key,
 				_toValueKey(option1Key), option1DeltaPrice, priceType, 2));
 
-		String option2Key = RandomTestUtil.randomString();
+		String option2Key = FriendlyURLNormalizerUtil.normalize(
+			FriendlyURLNormalizerUtil.normalize(RandomTestUtil.randomString()));
 		int option2Quantity = 3;
 
-		commerceOptionValues.add(
+		TestCommerceOptionValue testCommerceOptionValue =
 			new TestCommerceOptionValue(
 				optionSKU2.getCPInstanceId(), option2Key,
 				_toValueKey(option2Key), option2DeltaPrice, priceType,
-				option2Quantity));
+				option2Quantity);
+
+		commerceOptionValues.add(testCommerceOptionValue);
+
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		_addOptions(
+			_commerceCatalog.getGroupId(), bundleCPDefinition, false, false,
+			commerceOptionValues.subList(0, 1));
+		_addOptions(
+			_commerceCatalog.getGroupId(), bundleCPDefinition, true, true,
+			commerceOptionValues.subList(1, 2));
 
 		CPInstance bundleCPInstance = _buildProductBundleSingleOptionCPInstance(
-			_commerceCatalog.getGroupId(), true, commerceOptionValues,
-			option2Key);
+			_commerceCatalog.getGroupId(),
+			bundleCPDefinition.getCPDefinitionId(), _toValueKey(option2Key));
 
 		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
 			_user.getUserId(), commerceInventoryWarehouse,
@@ -939,8 +1028,9 @@ public class CommerceOrderItemLocalServiceTest {
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemLocalService.addCommerceOrderItem(
 				commerceOrder.getCommerceOrderId(),
-				bundleCPInstance.getCPInstanceId(), quantity, 0, null,
-				commerceContext, serviceContext);
+				bundleCPInstance.getCPInstanceId(), quantity, 0,
+				"[" + testCommerceOptionValue.toJSON() + "]", commerceContext,
+				serviceContext);
 
 		List<CommerceOrderItem> commerceOrderItems =
 			commerceOrder.getCommerceOrderItems();
@@ -1044,7 +1134,8 @@ public class CommerceOrderItemLocalServiceTest {
 			_user.getUserId(), commerceInventoryWarehouse, optionSKU2.getSku(),
 			100);
 
-		String option1Key = RandomTestUtil.randomString();
+		String option1Key = FriendlyURLNormalizerUtil.normalize(
+			RandomTestUtil.randomString());
 
 		BigDecimal option1DeltaPrice = BigDecimal.ZERO;
 		BigDecimal option2DeltaPrice = BigDecimal.ZERO;
@@ -1063,7 +1154,8 @@ public class CommerceOrderItemLocalServiceTest {
 				_toValueKey(option1Key), option1DeltaPrice, priceType,
 				option1Quantity));
 
-		String option2Key = RandomTestUtil.randomString();
+		String option2Key = FriendlyURLNormalizerUtil.normalize(
+			RandomTestUtil.randomString());
 		int option2Quantity = 3;
 
 		commerceOptionValues.add(
@@ -1072,9 +1164,20 @@ public class CommerceOrderItemLocalServiceTest {
 				_toValueKey(option2Key), option2DeltaPrice, priceType,
 				option2Quantity));
 
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		_addOptions(
+			_commerceCatalog.getGroupId(), bundleCPDefinition, true, true,
+			commerceOptionValues.subList(0, 1));
+		_addOptions(
+			_commerceCatalog.getGroupId(), bundleCPDefinition, false, false,
+			commerceOptionValues.subList(1, 2));
+
 		CPInstance bundleCPInstance = _buildProductBundleSingleOptionCPInstance(
-			_commerceCatalog.getGroupId(), true, commerceOptionValues,
-			option1Key);
+			_commerceCatalog.getGroupId(),
+			bundleCPDefinition.getCPDefinitionId(), _toValueKey(option1Key));
 
 		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
 			_user.getUserId(), commerceInventoryWarehouse,
@@ -1210,60 +1313,20 @@ public class CommerceOrderItemLocalServiceTest {
 	}
 
 	private CPInstance _buildProductBundleSingleOptionCPInstance(
-			long groupId, boolean skuContributor,
-			List<CommerceOptionValue> commerceOptionValues, String key)
+			long groupId, long cpDefinitionId, String key)
 		throws PortalException {
-
-		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
-			groupId, SimpleCPTypeConstants.NAME, true, true);
-
-		CPOption productBundleOption = CPTestUtil.addCPOption(
-			groupId, CPTestUtil.getDefaultDDMFormFieldType(skuContributor),
-			skuContributor);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
 
-		CommerceOptionValue commerceOptionValue0 = commerceOptionValues.get(0);
-
-		String optionPriceType = commerceOptionValue0.getPriceType();
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			CPDefinitionOptionRelLocalServiceUtil.addCPDefinitionOptionRel(
-				bundleCPDefinition.getCPDefinitionId(),
-				productBundleOption.getCPOptionId(),
-				RandomTestUtil.randomLocaleStringMap(),
-				RandomTestUtil.randomLocaleStringMap(),
-				CPTestUtil.getDefaultDDMFormFieldType(skuContributor), 0.0,
-				false, false, skuContributor, false, optionPriceType,
-				serviceContext);
-
-		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
-			CPDefinitionOptionValueRel optionCPDefinitionOptionValueRel =
-				CPDefinitionOptionValueRelLocalServiceUtil.
-					addCPDefinitionOptionValueRel(
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-						RandomTestUtil.randomLocaleStringMap(), 0.0,
-						commerceOptionValue.getOptionValueKey(),
-						serviceContext);
-
-			CPDefinitionOptionValueRelLocalServiceUtil.
-				updateCPDefinitionOptionValueRel(
-					optionCPDefinitionOptionValueRel.
-						getCPDefinitionOptionValueRelId(),
-					RandomTestUtil.randomLocaleStringMap(), 0.0,
-					commerceOptionValue.getOptionValueKey(),
-					commerceOptionValue.getCPInstanceId(),
-					commerceOptionValue.getQuantity(),
-					commerceOptionValue.getPrice(), serviceContext);
-		}
-
 		_cpInstanceLocalService.buildCPInstances(
-			bundleCPDefinition.getCPDefinitionId(), serviceContext);
+			cpDefinitionId, serviceContext);
 
 		List<CPInstance> bundleCPDefinitionApprovedCPInstances =
 			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
-				bundleCPDefinition.getCPDefinitionId());
+				cpDefinitionId);
+
+		CPInstance cpInstance = null;
 
 		for (CPInstance bundleCPInstance :
 				bundleCPDefinitionApprovedCPInstances) {
@@ -1288,12 +1351,15 @@ public class CommerceOrderItemLocalServiceTest {
 					cpDefinitionOptionValueRel.getKey();
 
 				if (cpDefinitionOptionValueRelKey.equalsIgnoreCase(key)) {
-					return bundleCPInstance;
+					cpInstance = bundleCPInstance;
 				}
 			}
 		}
 
-		return null;
+		Assert.assertNotNull(
+			"Instance with option value key " + key, cpInstance);
+
+		return cpInstance;
 	}
 
 	private CommerceOrderItem _getOrderItemByCPInstanceId(
