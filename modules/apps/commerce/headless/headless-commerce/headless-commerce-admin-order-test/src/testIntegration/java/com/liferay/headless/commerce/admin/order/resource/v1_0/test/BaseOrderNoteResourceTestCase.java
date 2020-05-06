@@ -280,6 +280,31 @@ public abstract class BaseOrderNoteResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetOrderNoteByExternalReferenceCodeNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"orderNoteByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	@Test
 	public void testPatchOrderNoteByExternalReferenceCode() throws Exception {
 		Assert.assertTrue(false);
 	}
@@ -377,6 +402,26 @@ public abstract class BaseOrderNoteResourceTestCase {
 								},
 								getGraphQLFields())),
 						"JSONObject/data", "Object/orderNote"))));
+	}
+
+	@Test
+	public void testGraphQLGetOrderNoteNotFound() throws Exception {
+		Long irrelevantId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"orderNote",
+						new HashMap<String, Object>() {
+							{
+								put("id", irrelevantId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
 	}
 
 	@Test

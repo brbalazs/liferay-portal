@@ -210,6 +210,13 @@ public abstract class BaseProductConfigurationResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetProductByExternalReferenceCodeConfigurationNotFound()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testPatchProductByExternalReferenceCodeConfiguration()
 		throws Exception {
 
@@ -223,6 +230,13 @@ public abstract class BaseProductConfigurationResourceTestCase {
 
 	@Test
 	public void testGraphQLGetProductIdConfiguration() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testGraphQLGetProductIdConfigurationNotFound()
+		throws Exception {
+
 		Assert.assertTrue(true);
 	}
 

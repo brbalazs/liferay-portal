@@ -611,6 +611,26 @@ public abstract class BaseRelatedProductResourceTestCase {
 						"JSONObject/data", "Object/relatedProduct"))));
 	}
 
+	@Test
+	public void testGraphQLGetRelatedProductNotFound() throws Exception {
+		Long irrelevantId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"relatedProduct",
+						new HashMap<String, Object>() {
+							{
+								put("id", irrelevantId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
 	protected RelatedProduct testGraphQLRelatedProduct_addRelatedProduct()
 		throws Exception {
 

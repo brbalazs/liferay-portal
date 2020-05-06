@@ -1181,8 +1181,6 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 			"commerceBOMFolderApplicationRel.commerceApplicationModelId = ?";
 
 	public CommerceBOMFolderApplicationRelPersistenceImpl() {
-		setModelClass(CommerceBOMFolderApplicationRel.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
@@ -1201,6 +1199,8 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(CommerceBOMFolderApplicationRel.class);
 	}
 
 	/**

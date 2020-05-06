@@ -4444,8 +4444,6 @@ public class CommerceMLForecastAlertEntryPersistenceImpl
 		"commerceMLForecastAlertEntry.status = ?";
 
 	public CommerceMLForecastAlertEntryPersistenceImpl() {
-		setModelClass(CommerceMLForecastAlertEntry.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -4463,6 +4461,8 @@ public class CommerceMLForecastAlertEntryPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(CommerceMLForecastAlertEntry.class);
 	}
 
 	/**

@@ -1193,8 +1193,6 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		"commerceApplicationModelCProductRel.CProductId = ?";
 
 	public CommerceApplicationModelCProductRelPersistenceImpl() {
-		setModelClass(CommerceApplicationModelCProductRel.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
@@ -1213,6 +1211,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(CommerceApplicationModelCProductRel.class);
 	}
 
 	/**

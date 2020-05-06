@@ -450,6 +450,26 @@ public abstract class BaseWarehouseResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetWarehouseNotFound() throws Exception {
+		Long irrelevantId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"warehouse",
+						new HashMap<String, Object>() {
+							{
+								put("id", irrelevantId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	@Test
 	public void testPutWarehouse() throws Exception {
 		Assert.assertTrue(false);
 	}

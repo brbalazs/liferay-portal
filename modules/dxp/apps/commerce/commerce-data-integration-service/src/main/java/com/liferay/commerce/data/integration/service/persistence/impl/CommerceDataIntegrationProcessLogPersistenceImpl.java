@@ -1217,8 +1217,6 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		"commerceDataIntegrationProcessLog.status = ?";
 
 	public CommerceDataIntegrationProcessLogPersistenceImpl() {
-		setModelClass(CommerceDataIntegrationProcessLog.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
@@ -1239,6 +1237,8 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(CommerceDataIntegrationProcessLog.class);
 	}
 
 	/**

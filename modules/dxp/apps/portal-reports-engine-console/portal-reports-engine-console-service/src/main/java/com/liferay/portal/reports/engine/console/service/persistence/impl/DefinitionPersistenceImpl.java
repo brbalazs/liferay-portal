@@ -2832,8 +2832,6 @@ public class DefinitionPersistenceImpl
 		"definition.companyId = ?";
 
 	public DefinitionPersistenceImpl() {
-		setModelClass(Definition.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -2851,6 +2849,8 @@ public class DefinitionPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(Definition.class);
 	}
 
 	/**

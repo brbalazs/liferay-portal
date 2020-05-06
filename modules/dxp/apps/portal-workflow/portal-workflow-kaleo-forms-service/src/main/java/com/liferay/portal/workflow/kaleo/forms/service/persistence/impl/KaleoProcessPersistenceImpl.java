@@ -2562,8 +2562,6 @@ public class KaleoProcessPersistenceImpl
 		"kaleoProcess.DDLRecordSetId = ?";
 
 	public KaleoProcessPersistenceImpl() {
-		setModelClass(KaleoProcess.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -2581,6 +2579,8 @@ public class KaleoProcessPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(KaleoProcess.class);
 	}
 
 	/**

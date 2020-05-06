@@ -858,8 +858,6 @@ public class AkismetEntryPersistenceImpl
 		"akismetEntry.classPK = ?";
 
 	public AkismetEntryPersistenceImpl() {
-		setModelClass(AkismetEntry.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
@@ -877,6 +875,8 @@ public class AkismetEntryPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(AkismetEntry.class);
 	}
 
 	/**

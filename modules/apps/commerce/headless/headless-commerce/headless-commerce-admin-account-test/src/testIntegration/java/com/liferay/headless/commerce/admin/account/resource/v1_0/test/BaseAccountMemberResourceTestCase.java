@@ -375,6 +375,13 @@ public abstract class BaseAccountMemberResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetAccountByExternalReferenceCodeAccountMemberNotFound()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testPatchAccountByExternalReferenceCodeAccountMember()
 		throws Exception {
 
@@ -529,6 +536,13 @@ public abstract class BaseAccountMemberResourceTestCase {
 
 	@Test
 	public void testGraphQLGetAccountIdAccountMember() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testGraphQLGetAccountIdAccountMemberNotFound()
+		throws Exception {
+
 		Assert.assertTrue(true);
 	}
 

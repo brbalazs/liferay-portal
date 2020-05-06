@@ -292,6 +292,26 @@ public abstract class BaseCartItemResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetCartItemNotFound() throws Exception {
+		Long irrelevantCartItemId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"cartItem",
+						new HashMap<String, Object>() {
+							{
+								put("cartItemId", irrelevantCartItemId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	@Test
 	public void testPatchCartItem() throws Exception {
 		CartItem postCartItem = testPatchCartItem_addCartItem();
 

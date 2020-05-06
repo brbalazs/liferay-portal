@@ -212,6 +212,13 @@ public abstract class BaseProductSubscriptionConfigurationResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetProductByExternalReferenceCodeSubscriptionConfigurationNotFound()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testPatchProductByExternalReferenceCodeSubscriptionConfiguration()
 		throws Exception {
 
@@ -225,6 +232,13 @@ public abstract class BaseProductSubscriptionConfigurationResourceTestCase {
 
 	@Test
 	public void testGraphQLGetProductIdSubscriptionConfiguration()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testGraphQLGetProductIdSubscriptionConfigurationNotFound()
 		throws Exception {
 
 		Assert.assertTrue(true);

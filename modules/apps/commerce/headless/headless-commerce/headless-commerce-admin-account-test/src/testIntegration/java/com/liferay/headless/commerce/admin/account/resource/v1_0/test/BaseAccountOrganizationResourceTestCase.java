@@ -379,6 +379,13 @@ public abstract class BaseAccountOrganizationResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetAccountByExternalReferenceCodeAccountOrganizationNotFound()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testGetAccountIdAccountOrganizationsPage() throws Exception {
 		Page<AccountOrganization> page =
 			accountOrganizationResource.getAccountIdAccountOrganizationsPage(
@@ -535,6 +542,13 @@ public abstract class BaseAccountOrganizationResourceTestCase {
 
 	@Test
 	public void testGraphQLGetAccountIdAccountOrganization() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testGraphQLGetAccountIdAccountOrganizationNotFound()
+		throws Exception {
+
 		Assert.assertTrue(true);
 	}
 

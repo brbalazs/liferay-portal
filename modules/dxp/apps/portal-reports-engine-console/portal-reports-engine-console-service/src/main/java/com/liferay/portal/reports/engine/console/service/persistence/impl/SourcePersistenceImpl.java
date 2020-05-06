@@ -2817,8 +2817,6 @@ public class SourcePersistenceImpl
 		"source.companyId = ?";
 
 	public SourcePersistenceImpl() {
-		setModelClass(Source.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -2836,6 +2834,8 @@ public class SourcePersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(Source.class);
 	}
 
 	/**

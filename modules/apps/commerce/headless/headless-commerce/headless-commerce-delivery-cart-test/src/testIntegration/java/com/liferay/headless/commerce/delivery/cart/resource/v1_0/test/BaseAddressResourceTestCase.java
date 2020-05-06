@@ -251,6 +251,26 @@ public abstract class BaseAddressResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetCartBillingAddresNotFound() throws Exception {
+		Long irrelevantCartId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"cartBillingAddres",
+						new HashMap<String, Object>() {
+							{
+								put("cartId", irrelevantCartId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	@Test
 	public void testGetCartShippingAddres() throws Exception {
 		Address postAddress = testGetCartShippingAddres_addAddress();
 
@@ -284,6 +304,26 @@ public abstract class BaseAddressResourceTestCase {
 								},
 								getGraphQLFields())),
 						"JSONObject/data", "Object/cartShippingAddres"))));
+	}
+
+	@Test
+	public void testGraphQLGetCartShippingAddresNotFound() throws Exception {
+		Long irrelevantCartId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"cartShippingAddres",
+						new HashMap<String, Object>() {
+							{
+								put("cartId", irrelevantCartId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
 	}
 
 	protected Address testGraphQLAddress_addAddress() throws Exception {

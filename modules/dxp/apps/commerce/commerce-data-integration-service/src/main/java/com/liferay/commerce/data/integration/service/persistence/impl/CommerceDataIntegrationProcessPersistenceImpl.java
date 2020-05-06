@@ -2319,8 +2319,6 @@ public class CommerceDataIntegrationProcessPersistenceImpl
 		"(commerceDataIntegrationProcess.type_ IS NULL OR commerceDataIntegrationProcess.type_ = '')";
 
 	public CommerceDataIntegrationProcessPersistenceImpl() {
-		setModelClass(CommerceDataIntegrationProcess.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
@@ -2342,6 +2340,8 @@ public class CommerceDataIntegrationProcessPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(CommerceDataIntegrationProcess.class);
 	}
 
 	/**

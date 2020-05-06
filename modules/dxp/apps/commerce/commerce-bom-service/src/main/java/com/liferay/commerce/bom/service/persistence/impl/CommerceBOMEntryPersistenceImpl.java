@@ -611,8 +611,6 @@ public class CommerceBOMEntryPersistenceImpl
 			"commerceBOMEntry.commerceBOMDefinitionId = ?";
 
 	public CommerceBOMEntryPersistenceImpl() {
-		setModelClass(CommerceBOMEntry.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("number", "number_");
@@ -630,6 +628,8 @@ public class CommerceBOMEntryPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(CommerceBOMEntry.class);
 	}
 
 	/**
