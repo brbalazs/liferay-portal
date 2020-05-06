@@ -729,7 +729,7 @@ export const pagesListColumns = {
 		className: 'table-cell-expand text-truncate',
 		label: Liferay.Language.get('url')
 	},
-	getTitleUrl: ({groupId, route}) => ({
+	getTitleUrl: ({channelId, groupId, route}) => ({
 		accessor: 'title',
 		cellRenderer: NameCell,
 		cellRendererProps: {
@@ -739,6 +739,7 @@ export const pagesListColumns = {
 			),
 			routeFn: ({data: {dataSourceId, title, url}}) =>
 				toRoute(route, {
+					channelId,
 					groupId,
 					siteId: dataSourceId,
 					title: encodeURIComponent(title),

@@ -39,6 +39,7 @@ function fetchPagesVisited({active, orderBy, orderByField, ...otherParams}) {
 }
 
 const ActivePagesList = ({
+	channelId,
 	groupId,
 	orderBy = orderDescending,
 	orderByField = UNIQUE_VISITS_COUNT,
@@ -47,6 +48,7 @@ const ActivePagesList = ({
 	<SearchableEntityTable
 		columns={[
 			pagesListColumns.getTitleUrl({
+				channelId,
 				groupId,
 				route: Routes.SITES_TOUCHPOINTS_OVERVIEW
 			}),
@@ -67,6 +69,7 @@ const ActivePagesList = ({
 );
 
 const InactivePagesList = ({
+	channelId,
 	groupId,
 	orderBy = orderAscending,
 	orderByField = URL,
@@ -75,6 +78,7 @@ const InactivePagesList = ({
 	<SearchableEntityTable
 		columns={[
 			pagesListColumns.getTitleUrl({
+				channelId,
 				groupId,
 				route: Routes.SITES_TOUCHPOINTS_OVERVIEW
 			}),

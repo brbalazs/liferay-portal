@@ -14,11 +14,12 @@ describe('BaseInterestDetails', () => {
 	it('should render', () => {
 		const component = shallow(
 			<BaseInterestDetails
+				channelId='123'
 				entity={new Segment(data.mockSegment())}
-				groupId={'23'}
-				id={'test'}
+				groupId='23'
+				id='test'
 				interestDetailsRoute={Routes.CONTACTS_SEGMENT_INTEREST_DETAILS}
-				interestId={'1'}
+				interestId='1'
 				type={SEGMENTS}
 			/>
 		);
@@ -32,10 +33,10 @@ describe('BaseInterestDetails', () => {
 		const component = shallow(
 			<BaseInterestDetails
 				entity={new Account(data.mockAccount())}
-				groupId={'23'}
-				id={'test'}
+				groupId='23'
+				id='test'
 				interestDetailsRoute={Routes.CONTACTS_ACCOUNT_INTEREST_DETAILS}
-				interestId={'1'}
+				interestId='1'
 				tabId='individuals'
 				type={ACCOUNTS}
 			/>
@@ -56,10 +57,10 @@ describe('BaseInterestDetails', () => {
 			<BaseInterestDetails
 				active='true'
 				entity={new Account(data.mockAccount())}
-				groupId={'23'}
-				id={'test'}
+				groupId='23'
+				id='test'
 				interestDetailsRoute={Routes.CONTACTS_ACCOUNT_INTEREST_DETAILS}
-				interestId={'1'}
+				interestId='1'
 				tabId='pages'
 				type={ACCOUNTS}
 			/>
@@ -87,10 +88,10 @@ describe('BaseInterestDetails', () => {
 			<BaseInterestDetails
 				active='false'
 				entity={new Account(data.mockAccount())}
-				groupId={'23'}
-				id={'test'}
+				groupId='23'
+				id='test'
 				interestDetailsRoute={Routes.CONTACTS_ACCOUNT_INTEREST_DETAILS}
-				interestId={'1'}
+				interestId='1'
 				tabId='pages'
 				type={ACCOUNTS}
 			/>

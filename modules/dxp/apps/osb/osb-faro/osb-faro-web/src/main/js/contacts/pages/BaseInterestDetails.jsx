@@ -271,6 +271,7 @@ export default class BaseInterestDetails extends React.Component {
 					</Card.Header>
 
 					<InterestDetailsList
+						channelId={channelId}
 						className='interest-history-table d-flex flex-column flex-grow-1'
 						dataSourceParams={dataSourceParams}
 						delta={Number(delta)}
