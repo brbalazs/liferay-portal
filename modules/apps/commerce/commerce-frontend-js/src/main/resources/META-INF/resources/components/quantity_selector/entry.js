@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index';
+import launcher from '../../utilities/launcher';
 import QuantitySelector from './QuantitySelector';
 
 export default (...data) => launcher(QuantitySelector, ...data);

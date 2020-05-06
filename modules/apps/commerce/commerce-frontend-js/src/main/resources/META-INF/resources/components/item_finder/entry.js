@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index';
+import launcher from '../../utilities/launcher';
 import ItemFinder from './ItemFinder';
 
 export default (...data) => launcher(ItemFinder, ...data);

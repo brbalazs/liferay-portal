@@ -12,60 +12,7 @@
  * details.
  */
 
-import ReactDOM from 'react-dom';
-import React from 'react';
-
 import createOdataFilter from './odata';
-
-export function debounce(func, wait, immediate) {
-	let timeout;
-
-	return () => {
-		const context = this;
-		const args = arguments;
-		function later() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		}
-		const callNow = immediate && !timeout;
-
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-		if (callNow) func.apply(context, args);
-	};
-}
-
-export function showNotification(
-	message,
-	type = 'success',
-	closeable = true,
-	duration = 500
-) {
-	if (!window.AUI) {
-		return;
-	}
-
-	AUI().use('liferay-notification', () => {
-		new Liferay.Notification({
-			closeable,
-			delay: {
-				hide: 5000,
-				show: 0
-			},
-			duration,
-			message,
-			render: true,
-			title: Liferay.Language.get(type),
-			type
-		});
-	});
-}
-
-export function showErrorNotification(
-	e = Liferay.Language.get('unexpected-error')
-) {
-	showNotification(e, 'danger');
-}
 
 export function getSchemaString(object, path) {
 	if (!Array.isArray(path)) {
@@ -81,24 +28,6 @@ export function liferayNavigate(url) {
 	} else {
 		window.location.href = url;
 	}
-}
-
-export function slugify(str) {
-	str = str.replace(/^\s+|\s+$/g, '');
-	str = str.toLowerCase();
-
-	var from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;';
-	var to = 'aaaaeeeeiiiioooouuuunc------';
-	for (var i = 0, l = from.length; i < l; i++) {
-		str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-	}
-
-	str = str
-		.replace(/[^a-z0-9 -]/g, '')
-		.replace(/\s+/g, '-')
-		.replace(/-+/g, '-');
-
-	return str;
 }
 
 export function getValueFromItem(item, fieldName) {
@@ -126,60 +55,10 @@ export function formatActionUrl(url, item) {
 	);
 }
 
-export function launcher(Component, componentId, containerId, props) {
-	const {portletId} = props;
-
-	const container = window.document.getElementById(containerId);
-
-	const destroyOnNavigate = !portletId;
-
-	if (Liferay.component) {
-		Liferay.component(
-			componentId,
-			{
-				destroy: () => {
-					ReactDOM.unmountComponentAtNode(container);
-				}
-			},
-			{
-				destroyOnNavigate,
-				portletId
-			}
-		);
-	}
-
-	// eslint-disable-next-line liferay-portal/no-react-dom-render
-	ReactDOM.render(<Component {...props} />, container);
-}
-
 export function getRandomId() {
 	return Math.random()
 		.toString(36)
 		.substr(2, 9);
-}
-
-export function getLiferayJsModule(moduleUrl) {
-	return new Promise((resolve, reject) => {
-		Liferay.Loader.require(
-			moduleUrl,
-			jsModule => {
-				return resolve(jsModule.defult || jsModule);
-			},
-			err => {
-				return reject(err);
-			}
-		);
-	});
-}
-
-export function getFakeJsModule() {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve(() => {
-				return <>fakely fetched component</>;
-			});
-		}, 500);
-	});
 }
 
 export const fetchHeaders = new Headers({
@@ -242,8 +121,3 @@ export function loadData(
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }
-
-export const getJsModule =
-	Liferay.Loader && Liferay.Loader.require
-		? getLiferayJsModule
-		: getFakeJsModule;

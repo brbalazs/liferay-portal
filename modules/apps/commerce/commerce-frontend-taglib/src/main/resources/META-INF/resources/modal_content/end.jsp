@@ -33,7 +33,7 @@
 	</c:if>
 </div>
 
-<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/index as utilities">
+<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/debounce as debounce">
 	function closeModal(isSuccessful) {
 		var eventDetail = {
 			willIframeRefresh: false
@@ -92,7 +92,7 @@
 	if (iframeForm) {
 		iframeForm.appendChild(iframeFooter);
 
-		var debouncedHandleSubmit = utilities.debounce(handleSubmit, 1000);
+		var debouncedHandleSubmit = debounce.default(handleSubmit, 1000);
 
 		iframeForm.addEventListener('submit', function(event) {
 			event.preventDefault();
@@ -106,7 +106,7 @@
 			iframeContent.style.marginBottom = iframeFooter.offsetHeight + 'px';
 		}
 
-		var debouncedAdjustBottomSpace = utilities.debounce(adjustBottomSpace, 300);
+		var debouncedAdjustBottomSpace = debounce.default(adjustBottomSpace, 300);
 
 		adjustBottomSpace();
 

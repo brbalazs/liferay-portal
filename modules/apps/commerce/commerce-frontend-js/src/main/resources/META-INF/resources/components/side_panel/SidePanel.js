@@ -27,7 +27,7 @@ import {
 	SIDE_PANEL_CLOSED
 } from '../../utilities/eventsDefinitions';
 import {getIframeHandlerModalId, isPageInIframe} from '../../utilities/iframes';
-import {debounce} from '../../utilities/index';
+import debounce from '../../utilities/debounce';
 import {exposeSidePanel} from '../../utilities/sidePanels';
 import Modal from '../modal/Modal';
 import SideMenu from './SideMenu';

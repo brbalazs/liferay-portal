@@ -19,9 +19,7 @@ module.exports = [
 		page: 'dataset-display.html'
 	},
 	{
-		entry: 'entry.es.js',
-		entry_dev: 'entry.dev.es.js',
-		folder: 'autocomplete',
+		entry: 'Autocomplete',
 		name: 'Autocomplete',
 		page: 'autocomplete.html'
 	},

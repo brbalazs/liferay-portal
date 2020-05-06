@@ -12,16 +12,34 @@
  * details.
  */
 
-import launcher from './entry.es';
+export function showNotification(
+	message,
+	type = 'success',
+	closeable = true,
+	duration = 500
+) {
+	if (!window.AUI) {
+		return;
+	}
 
-import '../../styles/main.scss';
+	AUI().use('liferay-notification', () => {
+		new Liferay.Notification({
+			closeable,
+			delay: {
+				hide: 5000,
+				show: 0
+			},
+			duration,
+			message,
+			render: true,
+			title: Liferay.Language.get(type),
+			type
+		});
+	});
+}
 
-launcher('autocomplete', 'autocomplete-root', {
-	apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products/',
-	id: 'autocomplete',
-	initialLabel: 'Initial Label',
-	initialValue: 'initial-value',
-	inputName: 'test-name',
-	itemsKey: 'productId',
-	itemsLabel: 'externalReferenceCode'
-});
+export function showErrorNotification(
+	e = Liferay.Language.get('unexpected-error')
+) {
+	showNotification(e, 'danger');
+}

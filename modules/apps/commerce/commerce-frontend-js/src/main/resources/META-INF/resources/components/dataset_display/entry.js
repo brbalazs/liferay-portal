@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index';
+import launcher from '../../utilities/launcher';
 import DatasetDisplay from './DatasetDisplay';
 
 export default (...data) => launcher(DatasetDisplay, ...data);

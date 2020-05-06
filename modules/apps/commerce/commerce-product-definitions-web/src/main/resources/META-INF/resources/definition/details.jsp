@@ -202,7 +202,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 			<div class="col-12">
 				<div id="item-finder-root"></div>
 
-				<aui:script require="commerce-frontend-js/components/item_finder/entry as itemFinder, commerce-frontend-js/utilities/index as utilities, commerce-frontend-js/utilities/eventsDefinitions as events">
+				<aui:script require="commerce-frontend-js/components/item_finder/entry as itemFinder, commerce-frontend-js/utilities/slugify as slugify, commerce-frontend-js/utilities/eventsDefinitions as events">
 					var headers = new Headers({
 						Accept: 'application/json',
 						'Content-Type': 'application/json',
@@ -242,7 +242,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					function addNewItem(name) {
 						return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
 							body: JSON.stringify({
-								key: utilities.slugify(encodeURIComponent(name)),
+								key: slugify.default(encodeURIComponent(name)),
 								title: {
 									[themeDisplay.getLanguageId()]: name
 								}
@@ -338,30 +338,22 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 </aui:form>
 
 <c:if test="<%= cpDefinition == null %>">
-	<aui:script require="commerce-frontend-js/utilities/index as utilities">
-		function slugify(string) {
-			return string
-				.toLowerCase()
-				.replace(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/|\s|\t]+/g, '-');
-		}
+	<aui:script require="commerce-frontend-js/utilities/debounce as debounce, commerce-frontend-js/utilities/slugify as slugify">
+		var form = document.getElementById('<portlet:namespace />fm');
 
-		const form = document.getElementById('<portlet:namespace />fm');
-
-		const nameInput = form.querySelector('#<portlet:namespace />nameMapAsXML');
-		const urlInput = form.querySelector('#<portlet:namespace />urlTitleMapAsXML');
-		const urlTitleInputLocalized = Liferay.component(
+		var nameInput = form.querySelector('#<portlet:namespace />nameMapAsXML');
+		var urlInput = form.querySelector('#<portlet:namespace />urlTitleMapAsXML');
+		var urlTitleInputLocalized = Liferay.component(
 			'<portlet:namespace />urlTitleMapAsXML'
 		);
 
-		const debounce = utilities.debounce;
-
 		var handleOnNameInput = function() {
-			var slug = slugify(nameInput.value);
+			var slug = slugify.default(nameInput.value);
 			urlInput.value = slug;
 
 			urlTitleInputLocalized.updateInputLanguage(slug);
 		};
 
-		nameInput.addEventListener('input', debounce(handleOnNameInput, 200));
+		nameInput.addEventListener('input', debounce.default(handleOnNameInput, 200));
 	</aui:script>
 </c:if>

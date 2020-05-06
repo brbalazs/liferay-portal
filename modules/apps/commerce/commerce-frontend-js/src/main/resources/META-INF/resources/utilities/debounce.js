@@ -12,7 +12,20 @@
  * details.
  */
 
-import launcher from '../../utilities/launcher';
-import StepTracker from './StepTracker';
+export default function debounce(func, wait, immediate) {
+	let timeout;
 
-export default (...data) => launcher(StepTracker, ...data);
+	return () => {
+		const context = this;
+		const args = arguments;
+		function later() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		}
+		const callNow = immediate && !timeout;
+
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+}

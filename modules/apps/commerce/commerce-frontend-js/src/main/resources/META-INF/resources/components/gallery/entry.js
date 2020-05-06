@@ -12,7 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index';
+import launcher from '../../utilities/launcher';
 import Example from './Gallery';
 
 export default (...data) => launcher(Example, ...data);

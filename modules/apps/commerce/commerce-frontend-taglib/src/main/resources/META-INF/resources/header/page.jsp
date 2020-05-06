@@ -339,7 +339,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 	</div>
 </div>
 
-<aui:script require="commerce-frontend-js/utilities/index as utilities">
+<aui:script require="commerce-frontend-js/utilities/debounce as debounce">
 	var commerceHeader = document.querySelector('.commerce-header');
 	var pageHeader = document.querySelector('.page-header');
 
@@ -349,7 +349,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 		pageHeader.style.top = distanceFromTop + 'px';
 	}
 
-	var debouncedUpdateMenuDistanceFromTop = utilities.debounce(
+	var debouncedUpdateMenuDistanceFromTop = debounce.default(
 		updateMenuDistanceFromTop,
 		200
 	);

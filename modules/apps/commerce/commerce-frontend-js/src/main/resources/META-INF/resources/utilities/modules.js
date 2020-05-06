@@ -12,7 +12,33 @@
  * details.
  */
 
-import launcher from '../../utilities/launcher';
-import StepTracker from './StepTracker';
+export function getLiferayJsModule(moduleUrl) {
+	return new Promise((resolve, reject) => {
+		Liferay.Loader.require(
+			moduleUrl,
+			jsModule => {
+				return resolve(jsModule.defult || jsModule);
+			},
+			err => {
+				return reject(err);
+			}
+		);
+	});
+}
 
-export default (...data) => launcher(StepTracker, ...data);
+export function getFakeJsModule() {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve(() => {
+				return <>fakely fetched component</>;
+			});
+		}, 500);
+	});
+}
+
+const getJsModule =
+	Liferay.Loader && Liferay.Loader.require
+		? getLiferayJsModule
+		: getFakeJsModule;
+
+export default getJsModule;

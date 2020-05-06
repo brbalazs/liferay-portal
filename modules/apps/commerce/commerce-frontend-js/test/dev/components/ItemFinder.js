@@ -13,7 +13,7 @@
  */
 
 import launcher from '../../../src/main/resources/META-INF/resources/components/item_finder/entry';
-import {slugify} from '../../../src/main/resources/META-INF/resources/utilities/index';
+import slugify from '../../../src/main/resources/META-INF/resources/utilities/slugify';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
@@ -21,15 +21,15 @@ const themeDisplay = {
 	getLanguageId: () => 'en_US'
 };
 
-var headers = new Headers({
+const headers = new Headers({
 	Accept: 'application/json',
 	Authorization: 'Basic ' + btoa('test@liferay.com' + ':' + 'test'),
 	'Content-Type': 'application/json',
 	'x-csrf-token': Liferay.authToken
 });
 
-var id = 40077;
-var productId = 40078;
+const id = 40077;
+const productId = 40078;
 
 function selectItem(specification) {
 	return fetch(

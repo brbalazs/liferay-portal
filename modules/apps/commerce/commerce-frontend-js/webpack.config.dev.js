@@ -21,14 +21,15 @@ const {defineServerResponses} = require('./test/dev/fakeServerUtilities');
 
 const outputPath = path.resolve(__dirname, './dev/public');
 
-const getComponentPath = (entry) =>
-	path.join(
+function getComponentPath(entry) {
+	return path.join(
 		__dirname,
 		'test',
 		'dev',
 		'components',
 		entry
 	);
+}
 
 // eslint-disable-next-line no-undef
 module.exports = {

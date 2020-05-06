@@ -12,9 +12,7 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index';
+import launcher from '../../utilities/launcher';
 import Modal from './Modal';
 
-const ModalLauncher = (...data) => launcher(Modal, ...data);
-
-export default ModalLauncher;
+export default (...data) => launcher(Modal, ...data);

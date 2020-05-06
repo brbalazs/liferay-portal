@@ -28,11 +28,13 @@ import {
 } from '../../utilities/eventsDefinitions';
 import {
 	getRandomId,
-	showNotification,
-	getJsModule,
 	executeAsyncAction,
 	loadData
 } from '../../utilities/index';
+import getJsModule from '../../utilities/modules';
+import {
+	showNotification,
+} from '../../utilities/notifications';
 import Modal from '../modal/Modal';
 import SidePanel from '../side_panel/SidePanel';
 import DatasetDisplayContext from './DatasetDisplayContext';

@@ -16,7 +16,7 @@ import React from 'react';
 
 import modalLauncher from '../../../src/main/resources/META-INF/resources/components/modal/entry';
 import {OPEN_MODAL} from '../../../src/main/resources/META-INF/resources/utilities/eventsDefinitions';
-import {launcher} from '../../../src/main/resources/META-INF/resources/utilities/index';
+import launcher from '../../../src/main/resources/META-INF/resources/utilities/launcher';
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
@@ -36,7 +36,7 @@ const props = {
 	url: 'http://localhost:9000/modal-content.html'
 };
 
-modalLauncher('modal', 'modal-root-id', props);
+modalLauncher('modal', 'modal-root', props);
 
 launcher(
 	() => (
@@ -48,5 +48,5 @@ launcher(
 		</button>
 	),
 	'modal-trigger',
-	'modal-trigger-root-id'
+	'modal-trigger-root'
 );

@@ -17,13 +17,13 @@ import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 
-import {AUTOCOMPLETE_VALUE_UPDATED} from '../../utilities/eventsDefinitions.es';
+import debounce from '../../utilities/debounce';
+import {AUTOCOMPLETE_VALUE_UPDATED} from '../../utilities/eventsDefinitions';
+import {showErrorNotification} from '../../utilities/notifications';
 import {
 	fetchParams,
-	showErrorNotification,
 	getSchemaString,
-	debounce
-} from '../../utilities/index.es';
+} from '../../utilities/index';
 
 function Autocomplete(props) {
 	const [query, setQuery] = useState('');

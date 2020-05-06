@@ -12,7 +12,16 @@
  * details.
  */
 
-import {launcher} from '../../utilities/index.es';
-import ItemFinder from './Autocomplete';
+import launcher from '../../../src/main/resources/META-INF/resources/components/autocomplete/entry.es';
 
-export default (...data) => launcher(ItemFinder, ...data);
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
+
+launcher('autocomplete', 'autocomplete-root', {
+	apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products/',
+	id: 'autocomplete',
+	initialLabel: 'Initial Label',
+	initialValue: 'initial-value',
+	inputName: 'test-name',
+	itemsKey: 'productId',
+	itemsLabel: 'externalReferenceCode'
+});

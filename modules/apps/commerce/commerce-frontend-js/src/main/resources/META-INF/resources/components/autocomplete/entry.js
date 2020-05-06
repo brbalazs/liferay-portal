@@ -13,6 +13,6 @@
  */
 
 import launcher from '../../utilities/launcher';
-import StepTracker from './StepTracker';
+import ItemFinder from './Autocomplete';
 
-export default (...data) => launcher(StepTracker, ...data);
+export default (...data) => launcher(ItemFinder, ...data);
