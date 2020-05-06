@@ -1727,8 +1727,8 @@ public class GraphQLServletExtender {
 
 			return stream.filter(
 				graphQLError ->
-					!_isNoSuchModelError(graphQLError) ||
-					_isRequiredFieldError(graphQLError)
+					!_isNoSuchModelException(graphQLError) ||
+					_isRequiredField(graphQLError)
 			).map(
 				graphQLError -> {
 					String message = graphQLError.getMessage();
@@ -1737,11 +1737,11 @@ public class GraphQLServletExtender {
 						return _getExtendedGraphQLError(
 							graphQLError, Response.Status.UNAUTHORIZED);
 					}
-					else if (_isNoSuchModelError(graphQLError)) {
+					else if (_isNoSuchModelException(graphQLError)) {
 						return _getExtendedGraphQLError(
 							graphQLError, Response.Status.NOT_FOUND);
 					}
-					else if (!_isClientError(graphQLError)) {
+					else if (!_isClientErrorException(graphQLError)) {
 						return _getExtendedGraphQLError(
 							graphQLError,
 							Response.Status.INTERNAL_SERVER_ERROR);
@@ -1775,7 +1775,7 @@ public class GraphQLServletExtender {
 			).build();
 		}
 
-		private boolean _isClientError(GraphQLError graphQLError) {
+		private boolean _isClientErrorException(GraphQLError graphQLError) {
 			if (graphQLError instanceof ExceptionWhileDataFetching) {
 				ExceptionWhileDataFetching exceptionWhileDataFetching =
 					(ExceptionWhileDataFetching)graphQLError;
@@ -1795,7 +1795,7 @@ public class GraphQLServletExtender {
 			return false;
 		}
 
-		private boolean _isNoSuchModelError(GraphQLError graphQLError) {
+		private boolean _isNoSuchModelException(GraphQLError graphQLError) {
 			if (!(graphQLError instanceof ExceptionWhileDataFetching)) {
 				return false;
 			}
@@ -1814,7 +1814,7 @@ public class GraphQLServletExtender {
 			return false;
 		}
 
-		private boolean _isRequiredFieldError(GraphQLError graphQLError) {
+		private boolean _isRequiredField(GraphQLError graphQLError) {
 			List<Object> path = Optional.ofNullable(
 				graphQLError.getPath()
 			).orElse(
