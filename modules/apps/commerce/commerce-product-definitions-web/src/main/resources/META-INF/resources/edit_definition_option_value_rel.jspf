@@ -95,7 +95,7 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 		}
 		%>
 
-		<aui:script require="commerce-frontend-js/components/autocomplete/entry.es as autocomplete, commerce-frontend-js/utilities/eventsDefinitions.es as events">
+		<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
 			autocomplete.default('autocomplete', 'autocomplete-root', {
 				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/skus',
 				initialLabel: '<%= cpInstanceLabel %>',
