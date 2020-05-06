@@ -201,9 +201,9 @@ public class CommerceOrderConstants {
 		else if (orderStatus == ORDER_STATUS_COMPLETED) {
 			return "success";
 		}
-		else if ((orderStatus == ORDER_STATUS_IN_PROGRESS) ||
-				 (orderStatus == ORDER_STATUS_ON_HOLD) ||
+		else if ((orderStatus == ORDER_STATUS_ON_HOLD) ||
 				 (orderStatus == ORDER_STATUS_PARTIALLY_SHIPPED) ||
+				 (orderStatus == ORDER_STATUS_PENDING) ||
 				 (orderStatus == ORDER_STATUS_PROCESSING) ||
 				 (orderStatus == ORDER_STATUS_SHIPPED)) {
 
