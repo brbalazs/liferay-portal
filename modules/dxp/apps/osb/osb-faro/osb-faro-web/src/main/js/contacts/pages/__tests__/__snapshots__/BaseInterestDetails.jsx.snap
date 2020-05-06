@@ -5,7 +5,7 @@ exports[`BaseInterestDetails should render 1`] = `
   className="interest-details-root"
 >
   <BackButton
-    href="/workspace/23/contacts/segments/test/interests"
+    href="/workspace/23/123/contacts/segments/test/interests"
     label="Back to Interests"
   />
   <Card
@@ -31,7 +31,7 @@ exports[`BaseInterestDetails should render 1`] = `
         <Item
           active={true}
           disabled={false}
-          href="/workspace/23/contacts/segments/test/interests/1/individuals"
+          href="/workspace/23/123/contacts/segments/test/interests/1/individuals"
           key="Individuals"
         >
           <h4>
@@ -41,7 +41,7 @@ exports[`BaseInterestDetails should render 1`] = `
         <Item
           active={false}
           disabled={false}
-          href="/workspace/23/contacts/segments/test/interests/1/pages?active=true"
+          href="/workspace/23/123/contacts/segments/test/interests/1/pages?active=true"
           key="Active Pages"
         >
           <h4>
@@ -51,7 +51,7 @@ exports[`BaseInterestDetails should render 1`] = `
         <Item
           active={false}
           disabled={false}
-          href="/workspace/23/contacts/segments/test/interests/1/pages?active=false"
+          href="/workspace/23/123/contacts/segments/test/interests/1/pages?active=false"
           key="Inactive Pages"
         >
           <h4>
@@ -66,9 +66,11 @@ exports[`BaseInterestDetails should render 1`] = `
       </h4>
     </Header>
     <InterestDetailsList
+      channelId="123"
       className="interest-history-table d-flex flex-column flex-grow-1"
       dataSourceParams={
         Object {
+          "channelId": "123",
           "contactsEntityId": "test",
           "contactsEntityType": 4,
           "groupId": "23",
