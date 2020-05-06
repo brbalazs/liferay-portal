@@ -7,9 +7,12 @@ import {
 } from 'shared/util/router';
 
 type IBasicRouteArgs = {
-	channelId?: string;
 	groupId: string;
 	label?: string;
+};
+
+type IBasicSidebarRouteArgs = IBasicRouteArgs & {
+	channelId: string;
 };
 
 type IBreadcrumbArgs = {
@@ -21,10 +24,26 @@ type IBreadcrumbArgs = {
 	truncate?: boolean;
 };
 
+export const getEntityName = ({
+	active = true,
+	label,
+	truncate = true,
+	...otherData
+}: IBreadcrumbArgs) => ({
+	active,
+	label,
+	truncate,
+	...otherData
+});
+
 /**
  * Home
  */
-export const getHome = ({channelId, groupId, label}: IBasicRouteArgs) => ({
+export const getHome = ({
+	channelId,
+	groupId,
+	label
+}: IBasicSidebarRouteArgs) => ({
 	href: toRoute(Routes.SITES, {channelId, groupId}),
 	label: label ? label : Liferay.Language.get('home')
 });
@@ -32,7 +51,7 @@ export const getHome = ({channelId, groupId, label}: IBasicRouteArgs) => ({
 /**
  * Entities
  */
-export const getAccounts = ({channelId, groupId}: IBasicRouteArgs) => ({
+export const getAccounts = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
 	href: toRoute(Routes.CONTACTS_LIST_ENTITY, {
 		channelId,
 		groupId,
@@ -41,7 +60,10 @@ export const getAccounts = ({channelId, groupId}: IBasicRouteArgs) => ({
 	label: Liferay.Language.get('accounts')
 });
 
-export const getIndividuals = ({channelId, groupId}: IBasicRouteArgs) => ({
+export const getIndividuals = ({
+	channelId,
+	groupId
+}: IBasicSidebarRouteArgs) => ({
 	href: toRoute(Routes.CONTACTS_LIST_ENTITY, {
 		channelId,
 		groupId,
@@ -50,6 +72,95 @@ export const getIndividuals = ({channelId, groupId}: IBasicRouteArgs) => ({
 	label: Liferay.Language.get('individuals')
 });
 
+export const getSegments = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.CONTACTS_LIST_ENTITY, {
+		channelId,
+		groupId,
+		type: SEGMENTS
+	}),
+	label: Liferay.Language.get('segments')
+});
+
+export const getSites = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.SITES, {
+		channelId,
+		groupId
+	}),
+	label: Liferay.Language.get('sites'),
+	truncate: true
+});
+
+export const getPages = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.SITES_TOUCHPOINTS, {
+		channelId,
+		groupId
+	}),
+	label: Liferay.Language.get('pages'),
+	truncate: true
+});
+
+export const getTests = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.TESTS, {channelId, groupId}),
+	label: Liferay.Language.get('tests')
+});
+
+/**
+ * Assets
+ */
+export const getAssets = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.ASSETS, {channelId, groupId}),
+	label: Liferay.Language.get('assets')
+});
+
+export const getBlogs = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.ASSETS_BLOGS, {channelId, groupId}),
+	label: Liferay.Language.get('blogs')
+});
+
+export const getCustomContent = ({
+	channelId,
+	groupId
+}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.ASSETS_CUSTOM, {
+		channelId,
+		groupId
+	}),
+	label: Liferay.Language.get('custom')
+});
+
+export const getDocumentsAndMedia = ({
+	channelId,
+	groupId
+}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.ASSETS_DOCUMENTS_AND_MEDIA, {
+		channelId,
+		groupId
+	}),
+	label: Liferay.Language.get('documents-and-media')
+});
+
+export const getForms = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.ASSETS_FORMS, {
+		channelId,
+		groupId
+	}),
+	label: Liferay.Language.get('forms')
+});
+
+export const getWebContent = ({
+	channelId,
+	groupId
+}: IBasicSidebarRouteArgs) => ({
+	href: toRoute(Routes.ASSETS_WEB_CONTENT, {
+		channelId,
+		groupId
+	}),
+	label: Liferay.Language.get('web-content')
+});
+
+/**
+ * Settings
+ */
 export const getChannels = ({groupId}: IBasicRouteArgs) => ({
 	href: toRoute(Routes.SETTINGS_CHANNELS, {groupId}),
 	label: Liferay.Language.get('properties')
@@ -104,96 +215,4 @@ export const getDataSourceName = ({
 export const getDefinitions = ({groupId}: IBasicRouteArgs) => ({
 	href: toRoute(Routes.SETTINGS_DEFINITIONS, {groupId}),
 	label: Liferay.Language.get('definitions')
-});
-
-export const getEntityName = ({
-	active = true,
-	label,
-	truncate = true,
-	...otherData
-}: IBreadcrumbArgs) => ({
-	active,
-	label,
-	truncate,
-	...otherData
-});
-
-export const getSegments = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.CONTACTS_LIST_ENTITY, {
-		channelId,
-		groupId,
-		type: SEGMENTS
-	}),
-	label: Liferay.Language.get('segments')
-});
-
-export const getSites = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.SITES, {
-		channelId,
-		groupId
-	}),
-	label: Liferay.Language.get('sites'),
-	truncate: true
-});
-
-export const getPages = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.SITES_TOUCHPOINTS, {
-		channelId,
-		groupId
-	}),
-	label: Liferay.Language.get('pages'),
-	truncate: true
-});
-
-export const getTests = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.TESTS, {channelId, groupId}),
-	label: Liferay.Language.get('tests')
-});
-
-/**
- * Assets
- */
-export const getAssets = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.ASSETS, {channelId, groupId}),
-	label: Liferay.Language.get('assets')
-});
-
-export const getBlogs = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.ASSETS_BLOGS, {channelId, groupId}),
-	label: Liferay.Language.get('blogs')
-});
-
-export const getCustomContent = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.ASSETS_CUSTOM, {
-		channelId,
-		groupId
-	}),
-	label: Liferay.Language.get('custom')
-});
-
-export const getDocumentsAndMedia = ({
-	channelId,
-	groupId
-}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.ASSETS_DOCUMENTS_AND_MEDIA, {
-		channelId,
-		groupId
-	}),
-	label: Liferay.Language.get('documents-and-media')
-});
-
-export const getForms = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.ASSETS_FORMS, {
-		channelId,
-		groupId
-	}),
-	label: Liferay.Language.get('forms')
-});
-
-export const getWebContent = ({channelId, groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.ASSETS_WEB_CONTENT, {
-		channelId,
-		groupId
-	}),
-	label: Liferay.Language.get('web-content')
 });
