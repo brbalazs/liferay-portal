@@ -238,9 +238,9 @@ public class ForgotPasswordMVCActionCommand extends BaseMVCActionCommand {
 			defaultUser.getReminderQueryQuestions();
 
 		if (!reminderQueryQuestions.isEmpty()) {
-			Iterator<String> it = reminderQueryQuestions.iterator();
+			Iterator<String> iterator = reminderQueryQuestions.iterator();
 
-			defaultUser.setReminderQueryQuestion(it.next());
+			defaultUser.setReminderQueryQuestion(iterator.next());
 		}
 		else {
 			defaultUser.setReminderQueryQuestion(
