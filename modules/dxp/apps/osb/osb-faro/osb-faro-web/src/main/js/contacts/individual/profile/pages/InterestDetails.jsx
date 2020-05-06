@@ -136,6 +136,7 @@ export default class InterestDetails extends React.Component {
 					</Card.Header>
 
 					<InterestPagesList
+						channelId={channelId}
 						className='interest-history-table'
 						dataSourceParams={{
 							active: this.props.active === 'true',
