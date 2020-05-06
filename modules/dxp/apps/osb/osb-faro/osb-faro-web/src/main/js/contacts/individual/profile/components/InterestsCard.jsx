@@ -101,7 +101,11 @@ export default class InterestsCard extends React.Component {
 					</Card.Title>
 				</Card.Header>
 
-				<ListWithInterests groupId={groupId} id={id} />
+				<ListWithInterests
+					channelId={channelId}
+					groupId={groupId}
+					id={id}
+				/>
 
 				<Card.Footer>
 					<Button
