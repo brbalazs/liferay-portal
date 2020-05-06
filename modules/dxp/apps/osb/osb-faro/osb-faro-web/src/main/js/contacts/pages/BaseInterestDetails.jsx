@@ -187,6 +187,7 @@ export default class BaseInterestDetails extends React.Component {
 			type === ACCOUNTS ? 'accountId' : 'individualSegmentId';
 
 		let dataSourceParams = {
+			channelId,
 			contactsEntityId: id,
 			contactsEntityType: entity.type,
 			groupId,
