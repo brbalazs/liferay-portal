@@ -22,13 +22,7 @@ const {defineServerResponses} = require('./test/dev/fakeServerUtilities');
 const outputPath = path.resolve(__dirname, './dev/public');
 
 function getComponentPath(entry) {
-	return path.join(
-		__dirname,
-		'test',
-		'dev',
-		'components',
-		entry
-	);
+	return path.join(__dirname, 'test', 'dev', 'components', entry);
 }
 
 // eslint-disable-next-line no-undef
@@ -51,9 +45,7 @@ module.exports = {
 	},
 	devtool: 'inline-source-map',
 	entry: [...components, {entry: 'Menu'}].reduce((comp, current) => {
-		comp[current.entry] = getComponentPath(
-			current.entry
-		);
+		comp[current.entry] = getComponentPath(current.entry);
 		return comp;
 	}, {}),
 	mode: 'development',

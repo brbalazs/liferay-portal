@@ -261,7 +261,7 @@ function DatasetDisplay(props) {
 			(!props.nestedItemsReferenceKey && props.nestedItemsKey)
 		) {
 			throw new Error(
-				'"nestedItemsKey" and "nestedItemsReferenceKey" params both mandatory to manage nested items'
+				'"nestedItemsKey" and "nestedItemsReferenceKey" params are both mandatory to manage nested items'
 			);
 		}
 
