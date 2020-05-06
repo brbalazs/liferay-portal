@@ -59,6 +59,7 @@ const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
 							<BasePage.Header
 								breadcrumbs={[
 									breadcrumbs.getHome({
+										channelId,
 										groupId,
 										label:
 											selectedChannel &&

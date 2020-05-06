@@ -32,7 +32,7 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 	rangeKey,
 	router
 }) => {
-	const {groupId} = router.params;
+	const {channelId, groupId} = router.params;
 	const {query} = router.query;
 	const {variables} = getMapPropsToOptions(EXPERIMENT_LIST_QUERY)({
 		defaultSort: {
@@ -54,6 +54,7 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 			<BasePage.Header
 				breadcrumbs={[
 					breadcrumbs.getHome({
+						channelId,
 						groupId,
 						label: selectedChannel && selectedChannel.name
 					})

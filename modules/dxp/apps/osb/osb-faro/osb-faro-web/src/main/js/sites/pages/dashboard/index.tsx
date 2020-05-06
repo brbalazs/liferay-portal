@@ -72,6 +72,7 @@ export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
 			<BasePage.Header
 				breadcrumbs={[
 					breadcrumbs.getHome({
+						channelId,
 						groupId,
 						label: selectedChannelName
 					})

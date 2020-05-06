@@ -24,8 +24,8 @@ type IBreadcrumbArgs = {
 /**
  * Home
  */
-export const getHome = ({groupId, label}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.WORKSPACE_WITH_ID, {groupId}),
+export const getHome = ({channelId, groupId, label}: IBasicRouteArgs) => ({
+	href: toRoute(Routes.SITES, {channelId, groupId}),
 	label: label ? label : Liferay.Language.get('home')
 });
 

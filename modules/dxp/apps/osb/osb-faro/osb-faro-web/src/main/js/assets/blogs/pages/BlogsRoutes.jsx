@@ -41,6 +41,7 @@ function BlogsRoutes({className, rangeKey, router}) {
 			<BasePage.Header
 				breadcrumbs={[
 					breadcrumbs.getHome({
+						channelId,
 						groupId,
 						label: selectedChannel && selectedChannel.name
 					}),

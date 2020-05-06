@@ -224,7 +224,7 @@ const ROUTES = [
 	{
 		data: SitesDashboard,
 		destructured: false,
-		path: Routes.WORKSPACE_WITH_ID
+		path: Routes.CHANNEL
 	}
 ];
 

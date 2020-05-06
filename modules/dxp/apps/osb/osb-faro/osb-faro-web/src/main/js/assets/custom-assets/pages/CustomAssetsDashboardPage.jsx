@@ -214,6 +214,7 @@ class CustomAssetsDashboardPage extends React.Component {
 				<BasePage.Header
 					breadcrumbs={[
 						breadcrumbs.getHome({
+							channelId,
 							groupId,
 							label: selectedChannel && selectedChannel.name
 						}),
