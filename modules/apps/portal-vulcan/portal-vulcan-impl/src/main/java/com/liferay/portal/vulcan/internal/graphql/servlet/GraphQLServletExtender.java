@@ -1825,9 +1825,8 @@ public class GraphQLServletExtender {
 				return true;
 			}
 
-			String missingField = (String)path.get(path.size() - 1);
-
-			return StringUtil.containsIgnoreCase(missingField, "parent");
+			return StringUtil.containsIgnoreCase(
+				(String)path.get(path.size() - 1), "parent");
 		}
 
 	}
