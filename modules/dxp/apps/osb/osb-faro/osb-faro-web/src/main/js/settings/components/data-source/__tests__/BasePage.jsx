@@ -116,4 +116,24 @@ describe('BaseDataSourcePage', () => {
 
 		expect(queryByText(/A server error occurred/)).toBeTruthy();
 	});
+
+	it('should render w/o datasource', () => {
+		const {queryByText} = render(
+			<StaticRouter>
+				<Provider store={mockStore()}>
+					<BaseDataSourcePage
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						groupId='23'
+						id='test'
+					/>
+				</Provider>
+			</StaticRouter>
+		);
+
+		expect(
+			queryByText(
+				'Data source has not been created. Please authorize and save to get started.'
+			)
+		).toBeTruthy();
+	});
 });

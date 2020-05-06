@@ -66,7 +66,7 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 	showDelete = false,
 	...otherProps
 }) => {
-	const {name} = dataSource;
+	const name = dataSource ? dataSource.name : '';
 
 	const handleDeleteClick = () => {
 		open(modalTypes.DELETE_CONFIRMATION_MODAL, {
