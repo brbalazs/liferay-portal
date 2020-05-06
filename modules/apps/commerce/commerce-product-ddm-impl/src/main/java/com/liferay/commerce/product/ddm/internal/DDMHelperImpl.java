@@ -16,11 +16,7 @@ package com.liferay.commerce.product.ddm.internal;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
-import com.liferay.commerce.constants.CommerceWebKeys;
-import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.media.CommerceMediaResolver;
-import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.ddm.DDMHelper;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
@@ -53,7 +49,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,42 +71,36 @@ public class DDMHelperImpl implements DDMHelper {
 
 	@Override
 	public DDMForm getCPAttachmentFileEntryDDMForm(
-			Locale locale,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels,
-			RenderRequest renderRequest)
-		throws PortalException {
+		Locale locale,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
 
 		return _getDDMForm(
 			locale, false, true, false,
-			cpDefinitionOptionRelCPDefinitionOptionValueRels, renderRequest);
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 	}
 
 	@Override
 	public DDMForm getCPInstanceDDMForm(
-			Locale locale, boolean ignoreSKUCombinations,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels,
-			RenderRequest renderRequest)
-		throws PortalException {
+		Locale locale, boolean ignoreSKUCombinations,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
 
 		return _getDDMForm(
 			locale, ignoreSKUCombinations, false, false,
-			cpDefinitionOptionRelCPDefinitionOptionValueRels, renderRequest);
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 	}
 
 	@Override
 	public DDMForm getPublicStoreDDMForm(
-			long groupId, long commerceAccountId, long cpDefinitionId,
-			Locale locale, boolean ignoreSKUCombinations,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels,
-			RenderRequest renderRequest)
-		throws PortalException {
+		long groupId, long commerceAccountId, long cpDefinitionId,
+		Locale locale, boolean ignoreSKUCombinations,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
 
 		DDMForm ddmForm = _getDDMForm(
 			locale, ignoreSKUCombinations, false, true,
-			cpDefinitionOptionRelCPDefinitionOptionValueRels, renderRequest);
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 		if (!ignoreSKUCombinations) {
 			ddmForm.addDDMFormRule(
@@ -133,8 +122,7 @@ public class DDMHelperImpl implements DDMHelper {
 		Locale locale = _portal.getLocale(renderRequest);
 
 		DDMForm ddmForm = getCPAttachmentFileEntryDDMForm(
-			locale, cpDefinitionOptionRelCPDefinitionOptionValueRels,
-			renderRequest);
+			locale, cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 		return _render(
 			cpDefinitionId, locale, ddmForm, json, renderRequest,
@@ -153,7 +141,7 @@ public class DDMHelperImpl implements DDMHelper {
 
 		DDMForm ddmForm = getCPInstanceDDMForm(
 			locale, ignoreSKUCombinations,
-			cpDefinitionOptionRelCPDefinitionOptionValueRels, renderRequest);
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 		return _render(
 			cpDefinitionId, locale, ddmForm, json, renderRequest,
@@ -186,7 +174,7 @@ public class DDMHelperImpl implements DDMHelper {
 		DDMForm ddmForm = getPublicStoreDDMForm(
 			_portal.getScopeGroupId(renderRequest), commerceAccountId,
 			cpDefinitionId, locale, ignoreSKUCombinations,
-			cpDefinitionOptionRelCPDefinitionOptionValueRels, renderRequest);
+			cpDefinitionOptionRelCPDefinitionOptionValueRels);
 
 		return _render(
 			cpDefinitionId, locale, ddmForm, json, renderRequest,
@@ -282,40 +270,11 @@ public class DDMHelperImpl implements DDMHelper {
 		return stringStream.collect(Collectors.joining(StringPool.SEMICOLON));
 	}
 
-	private CommerceContext _getCommerceContext(RenderRequest renderRequest) {
-		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
-			renderRequest);
-
-		return (CommerceContext)httpServletRequest.getAttribute(
-			CommerceWebKeys.COMMERCE_CONTEXT);
-	}
-
-	private String _getCPDefinitionOptionValueLabelWithRelativePrice(
-			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
-			CPDefinitionOptionValueRel selecteCPDefinitionOptionValueRel,
-			Locale locale, RenderRequest renderRequest)
-		throws PortalException {
-
-		CommerceContext commerceContext = _getCommerceContext(renderRequest);
-
-		CommerceMoney commerceMoney =
-			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(
-					cpDefinitionOptionValueRel,
-					selecteCPDefinitionOptionValueRel, commerceContext);
-
-		return String.format(
-			"%s %s", cpDefinitionOptionValueRel.getName(locale),
-			commerceMoney.format(locale));
-	}
-
 	private DDMForm _getDDMForm(
-			Locale locale, boolean ignoreSKUCombinations, boolean optional,
-			boolean publicStore,
-			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-				cpDefinitionOptionRelCPDefinitionOptionValueRels,
-			RenderRequest renderRequest)
-		throws PortalException {
+		Locale locale, boolean ignoreSKUCombinations, boolean optional,
+		boolean publicStore,
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
 
 		if (cpDefinitionOptionRelCPDefinitionOptionValueRels.isEmpty()) {
 			return null;
@@ -341,8 +300,7 @@ public class DDMHelperImpl implements DDMHelper {
 				cpDefinitionOptionRelEntry.getValue();
 
 			DDMFormField ddmFormField = _getDDMFormField(
-				cpDefinitionOptionRel, cpDefinitionOptionValueRels, locale,
-				renderRequest);
+				cpDefinitionOptionRel, cpDefinitionOptionValueRels, locale);
 
 			if (!optional) {
 				ddmFormField.setRequired(
@@ -361,10 +319,9 @@ public class DDMHelperImpl implements DDMHelper {
 	}
 
 	private DDMFormField _getDDMFormField(
-			CPDefinitionOptionRel cpDefinitionOptionRel,
-			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
-			Locale locale, RenderRequest renderRequest)
-		throws PortalException {
+		CPDefinitionOptionRel cpDefinitionOptionRel,
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+		Locale locale) {
 
 		DDMFormField ddmFormField = new DDMFormField(
 			cpDefinitionOptionRel.getKey(),
@@ -383,38 +340,21 @@ public class DDMHelperImpl implements DDMHelper {
 		}
 
 		DDMFormFieldOptions ddmFormFieldOptions = _getDDMFormFieldOptions(
-			cpDefinitionOptionValueRels, locale, renderRequest);
+			cpDefinitionOptionValueRels, locale);
 
 		ddmFormField.setDDMFormFieldOptions(ddmFormFieldOptions);
 
 		if (cpDefinitionOptionRel.isSkuContributor()) {
 			ddmFormField.setPredefinedValue(
 				_getDDMFormFieldPredefinedValue(ddmFormFieldOptions));
-
-			CPDefinitionOptionValueRel predefinedCPDefinitionOptionValueRel =
-				_getPredefinedCPDefinitionOptionValueRel(
-					ddmFormField.getPredefinedValue(), locale,
-					cpDefinitionOptionValueRels);
-
-			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-					cpDefinitionOptionValueRels) {
-
-				ddmFormFieldOptions.addOptionLabel(
-					cpDefinitionOptionValueRel.getKey(), locale,
-					_getCPDefinitionOptionValueLabelWithRelativePrice(
-						cpDefinitionOptionValueRel,
-						predefinedCPDefinitionOptionValueRel, locale,
-						renderRequest));
-			}
 		}
 
 		return ddmFormField;
 	}
 
 	private DDMFormFieldOptions _getDDMFormFieldOptions(
-			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
-			Locale locale, RenderRequest renderRequest)
-		throws PortalException {
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+		Locale locale) {
 
 		DDMFormFieldOptions ddmFormFieldOptions = new DDMFormFieldOptions();
 
@@ -423,8 +363,7 @@ public class DDMHelperImpl implements DDMHelper {
 
 			ddmFormFieldOptions.addOptionLabel(
 				cpDefinitionOptionValueRel.getKey(), locale,
-				_getCPDefinitionOptionValueLabelWithRelativePrice(
-					cpDefinitionOptionValueRel, null, locale, renderRequest));
+				cpDefinitionOptionValueRel.getName(locale));
 		}
 
 		return ddmFormFieldOptions;
@@ -452,24 +391,6 @@ public class DDMHelperImpl implements DDMHelper {
 
 		throw new IllegalArgumentException(
 			"Provided DDM field options miss valid field value");
-	}
-
-	private CPDefinitionOptionValueRel _getPredefinedCPDefinitionOptionValueRel(
-		LocalizedValue predefinedValue, Locale locale,
-		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels) {
-
-		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-				cpDefinitionOptionValueRels) {
-
-			if (Objects.equals(
-					predefinedValue.getString(locale),
-					cpDefinitionOptionValueRel.getKey())) {
-
-				return cpDefinitionOptionValueRel;
-			}
-		}
-
-		return null;
 	}
 
 	private boolean _isDDMFormFieldRequired(
@@ -562,9 +483,6 @@ public class DDMHelperImpl implements DDMHelper {
 
 	@Reference
 	private CommerceMediaResolver _commerceMediaResolver;
-
-	@Reference
-	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Reference
 	private CommerceProductViewPermission _commerceProductViewPermission;
