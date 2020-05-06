@@ -15,7 +15,12 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-export default function launcher(Component, componentId, containerId, props = {}) {
+export default function launcher(
+	Component,
+	componentId,
+	containerId,
+	props = {}
+) {
 	const {portletId} = props;
 	const container = window.document.getElementById(containerId);
 	const destroyOnNavigate = !portletId;

@@ -17,7 +17,10 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {DATASET_ACTION_PERFORMED} from '../../utilities/eventsDefinitions';
-import {showErrorNotification, showNotification} from '../../utilities/notifications';
+import {
+	showErrorNotification,
+	showNotification
+} from '../../utilities/notifications';
 import AddOrCreate from './AddOrCreate';
 
 function ItemFinder(props) {

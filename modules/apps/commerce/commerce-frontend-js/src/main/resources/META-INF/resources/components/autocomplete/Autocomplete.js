@@ -19,11 +19,8 @@ import React, {useState, useEffect, useCallback, useRef} from 'react';
 
 import debounce from '../../utilities/debounce';
 import {AUTOCOMPLETE_VALUE_UPDATED} from '../../utilities/eventsDefinitions';
+import {fetchParams, getSchemaString} from '../../utilities/index';
 import {showErrorNotification} from '../../utilities/notifications';
-import {
-	fetchParams,
-	getSchemaString,
-} from '../../utilities/index';
 
 function Autocomplete(props) {
 	const [query, setQuery] = useState('');

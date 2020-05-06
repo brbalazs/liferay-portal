@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import React from 'react';
 
+import debounce from '../../utilities/debounce';
 import {
 	OPEN_SIDE_PANEL,
 	CLOSE_SIDE_PANEL,
@@ -27,7 +28,6 @@ import {
 	SIDE_PANEL_CLOSED
 } from '../../utilities/eventsDefinitions';
 import {getIframeHandlerModalId, isPageInIframe} from '../../utilities/iframes';
-import debounce from '../../utilities/debounce';
 import {exposeSidePanel} from '../../utilities/sidePanels';
 import Modal from '../modal/Modal';
 import SideMenu from './SideMenu';

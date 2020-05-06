@@ -26,15 +26,9 @@ import {
 	SIDE_PANEL_CLOSED,
 	UPDATE_DATASET_DISPLAY
 } from '../../utilities/eventsDefinitions';
-import {
-	getRandomId,
-	executeAsyncAction,
-	loadData
-} from '../../utilities/index';
+import {getRandomId, executeAsyncAction, loadData} from '../../utilities/index';
 import getJsModule from '../../utilities/modules';
-import {
-	showNotification,
-} from '../../utilities/notifications';
+import {showNotification} from '../../utilities/notifications';
 import Modal from '../modal/Modal';
 import SidePanel from '../side_panel/SidePanel';
 import DatasetDisplayContext from './DatasetDisplayContext';
