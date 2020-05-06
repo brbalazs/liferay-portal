@@ -25,7 +25,7 @@ exports[`Sites Dashboard Index renders 1`] = `
             >
               <a
                 class="breadcrumb-link breadcrumb-text-truncate"
-                href="/workspace/2000"
+                href="/workspace/2000/123/sites"
               >
                 Channel 1
               </a>

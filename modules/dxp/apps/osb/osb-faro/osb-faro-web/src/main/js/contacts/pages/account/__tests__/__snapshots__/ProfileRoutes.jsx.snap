@@ -25,7 +25,7 @@ exports[`AccountProfileRoutes should render 1`] = `
             >
               <a
                 class="breadcrumb-link breadcrumb-text-truncate"
-                href="/workspace/23"
+                href="/workspace/23/123/sites"
               >
                 Channel 1
               </a>
