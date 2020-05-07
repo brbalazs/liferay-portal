@@ -35,10 +35,10 @@ public class CommerceChannelUpgradeProcess
 			"discountsTargetNetPrice", "BOOLEAN");
 
 		runSQL(
-			"UPDATE CommerceChannel SET priceDisplayType = '" +
+			"update CommerceChannel set priceDisplayType = '" +
 				CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE + "'");
 
-		runSQL("UPDATE CommerceChannel SET discountsTargetNetPrice = [$TRUE$]");
+		runSQL("update CommerceChannel set discountsTargetNetPrice = [$TRUE$]");
 	}
 
 }
