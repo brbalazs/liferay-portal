@@ -317,9 +317,7 @@ public class FriendlyURLServletTest {
 
 		String redirectedURL = mockHttpServletResponse.getRedirectedUrl();
 
-		Assert.assertTrue(
-			"Redirect URL must include queryString ?param=true",
-			redirectedURL.contains("?param=true"));
+		Assert.assertTrue(redirectedURL.contains("?param=true"));
 	}
 
 	@Test
