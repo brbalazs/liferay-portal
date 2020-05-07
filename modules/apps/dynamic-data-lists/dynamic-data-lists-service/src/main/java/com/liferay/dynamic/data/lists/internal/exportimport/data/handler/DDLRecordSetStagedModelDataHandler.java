@@ -227,15 +227,13 @@ public class DDLRecordSetStagedModelDataHandler
 			DDLRecordSet recordSet)
 		throws PortletDataException {
 
-		Element referrerStagedModelElement =
-			portletDataContext.getExportDataElement(recordSet);
-
 		if (!_exportImportHelper.isAlwaysIncludeReference(
 				portletDataContext, ddmStructure)) {
 
 			portletDataContext.addReferenceElement(
-				recordSet, referrerStagedModelElement, ddmStructure,
-				PortletDataContext.REFERENCE_TYPE_DEPENDENCY, true);
+				recordSet, portletDataContext.getExportDataElement(recordSet),
+				ddmStructure, PortletDataContext.REFERENCE_TYPE_DEPENDENCY,
+				true);
 
 			return;
 		}
@@ -256,8 +254,8 @@ public class DDLRecordSetStagedModelDataHandler
 			portletDataContext, ddmStructure);
 
 		portletDataContext.addReferenceElement(
-			recordSet, referrerStagedModelElement, ddmStructure,
-			PortletDataContext.REFERENCE_TYPE_STRONG, false);
+			recordSet, portletDataContext.getExportDataElement(recordSet),
+			ddmStructure, PortletDataContext.REFERENCE_TYPE_STRONG, false);
 	}
 
 	protected DDMFormValues getImportRecordSetSettings(
