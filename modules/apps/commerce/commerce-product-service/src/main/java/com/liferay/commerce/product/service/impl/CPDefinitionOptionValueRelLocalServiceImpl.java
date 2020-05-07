@@ -14,7 +14,10 @@
 
 package com.liferay.commerce.product.service.impl;
 
+import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelCPInstanceException;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelKeyException;
+import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelPriceException;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionOptionValueRelException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -111,6 +114,8 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
 				cpDefinitionOptionRelId);
+
+		validatePriceType(null, cpDefinitionOptionRel.getPriceType());
 
 		if (cpDefinitionLocalService.isVersionable(
 				cpDefinitionOptionRel.getCPDefinitionId(),
@@ -446,6 +451,10 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
 
+		String priceType = cpDefinitionOptionRel.getPriceType();
+
+		validatePriceType(cpInstance, priceType);
+
 		if (cpDefinitionLocalService.isVersionable(
 				cpDefinitionOptionRel.getCPDefinitionId(),
 				serviceContext.getRequest())) {
@@ -476,10 +485,24 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 				cpInstance.getCPInstanceUuid());
 			cpDefinitionOptionValueRel.setCProductId(
 				cpDefinition.getCProductId());
+
+			if (priceType.equals(
+					CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+
+				cpDefinitionOptionValueRel.setPrice(cpInstance.getPrice());
+			}
+		}
+		else {
+			if (price == null) {
+				throw new CPDefinitionOptionValueRelPriceException();
+			}
+
+			cpDefinitionOptionValueRel.setCPInstanceUuid(null);
+			cpDefinitionOptionValueRel.setCProductId(0);
+			cpDefinitionOptionValueRel.setPrice(price);
 		}
 
 		cpDefinitionOptionValueRel.setQuantity(quantity);
-		cpDefinitionOptionValueRel.setPrice(price);
 
 		cpDefinitionOptionValueRel =
 			cpDefinitionOptionValueRelPersistence.update(
@@ -651,6 +674,34 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 				cpDefinitionOptionValueRelId)) {
 
 			throw new CPDefinitionOptionValueRelKeyException();
+		}
+	}
+
+	protected void validatePriceType(CPInstance cpInstance, String priceType)
+		throws PortalException {
+
+		if (Validator.isNull(priceType)) {
+			return;
+		}
+
+		if (Validator.isNotNull(priceType) &&
+			priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+
+			if ((cpInstance == null) ||
+				(BigDecimal.ZERO.compareTo(cpInstance.getPrice()) < 0)) {
+
+				throw new CPDefinitionOptionValueRelCPInstanceException();
+			}
+
+			if (cpDefinitionLocalService.hasChildCPDefinitions(
+					cpInstance.getCPDefinitionId())) {
+
+				throw new CPDefinitionOptionValueRelCPInstanceException();
+			}
+
+			if (cpInstance.getPrice() == null) {
+				throw new CPDefinitionOptionValueRelCPInstanceException();
+			}
 		}
 	}
 
