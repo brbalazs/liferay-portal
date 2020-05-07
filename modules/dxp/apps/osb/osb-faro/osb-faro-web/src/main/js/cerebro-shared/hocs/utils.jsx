@@ -44,7 +44,7 @@ const withEmpty = ({
 	total,
 	...otherProps
 }) => {
-	if (!items.length && (!!total || !!query)) {
+	if (items && !items.length && (!!total || !!query)) {
 		return (
 			<NoResultsDisplay
 				{...noResultsProps}

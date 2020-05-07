@@ -4,6 +4,7 @@ import React from 'react';
 import Table from 'shared/components/table';
 import {compose, withError, withPaginationBar, withToolbar} from 'shared/hoc';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
+import {withLoading} from 'shared/hoc/util';
 
 const {
 	pagination: {delta: defaultDelta, orderDescending}
@@ -34,6 +35,7 @@ const withBaseResults = (withData, configs) => {
 		withSelection,
 		withToolbar({disableSearch, showRangeKeyDropdown}),
 		withPaginationBar({defaultDelta}),
+		withLoading({alignCenter: true, page: false}),
 		withError({page: false}),
 		withEmpty({emptyDescription, emptyTitle, primary: emptyPrimary})
 	)(Table);
