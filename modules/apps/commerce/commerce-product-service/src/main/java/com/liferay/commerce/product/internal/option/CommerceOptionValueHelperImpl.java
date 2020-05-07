@@ -88,8 +88,8 @@ public class CommerceOptionValueHelperImpl
 						continue;
 					}
 
-					CommerceOptionValueImpl.Builder commerceOptionValueBuilder =
-						new CommerceOptionValueImpl.Builder();
+					CommerceOptionValue.Builder commerceOptionValueBuilder =
+						new CommerceOptionValue.Builder();
 
 					commerceOptionValueBuilder.optionKey(
 						cpDefinitionOptionRel.getKey());
@@ -165,8 +165,8 @@ public class CommerceOptionValueHelperImpl
 	}
 
 	private CommerceOptionValue _toCommerceOptionValue(JSONObject jsonObject) {
-		CommerceOptionValueImpl.Builder commerceOptionValueBuilder =
-			new CommerceOptionValueImpl.Builder();
+		CommerceOptionValue.Builder commerceOptionValueBuilder =
+			new CommerceOptionValue.Builder();
 
 		commerceOptionValueBuilder.optionKey(jsonObject.getString("key"));
 
