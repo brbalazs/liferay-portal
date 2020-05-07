@@ -39,8 +39,10 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -111,6 +113,7 @@ public class CommerceCartResourceUtil {
 
 			Product product = new Product(
 				commerceOrderItem.getCommerceOrderItemId(),
+				commerceOrderItem.getParentCommerceOrderItemId(),
 				commerceOrderItem.getName(locale), commerceOrderItem.getSku(),
 				commerceOrderItem.getQuantity(),
 				_cpInstanceHelper.getCPInstanceThumbnailSrc(
@@ -135,7 +138,7 @@ public class CommerceCartResourceUtil {
 			products.add(product);
 		}
 
-		return products;
+		return _handleProductBundle(products);
 	}
 
 	protected Summary getSummary(
@@ -211,6 +214,36 @@ public class CommerceCartResourceUtil {
 		prices.setDiscountPercentages(discountPercentages);
 
 		return prices;
+	}
+
+	private List<Product> _handleProductBundle(List<Product> products) {
+		Map<Long, Product> productMap = new HashMap<>();
+
+		for (Product product : products) {
+			productMap.put(product.getId(), product);
+		}
+
+		for (Product product : products) {
+			Long parentId = product.getParentProductId();
+
+			if (parentId != null) {
+				Product parent = productMap.get(parentId);
+
+				if (parent != null) {
+					if (parent.getChildItems() == null) {
+						parent.setChildItems(new ArrayList<>());
+					}
+
+					List<Product> childItems = parent.getChildItems();
+
+					childItems.add(product);
+
+					productMap.remove(product.getId());
+				}
+			}
+		}
+
+		return new ArrayList(productMap.values());
 	}
 
 	@Reference
