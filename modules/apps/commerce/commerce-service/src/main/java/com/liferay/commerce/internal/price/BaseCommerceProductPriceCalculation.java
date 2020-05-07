@@ -78,7 +78,9 @@ public abstract class BaseCommerceProductPriceCalculation
 
 			String priceType = cpDefinitionOptionRel.getPriceType();
 
-			if (Validator.isNull(priceType)) {
+			if (Validator.isNull(priceType) ||
+				!cpDefinitionOptionRel.isRequired()) {
+
 				continue;
 			}
 
