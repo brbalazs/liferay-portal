@@ -93,7 +93,8 @@ public class CommercePlacedOrderDataSetDataProvider
 				pagination.getEndPosition());
 
 		return CommerceOrderClayTableUtil.getOrders(
-			commerceOrders, themeDisplay, commerceChannel.getPriceDisplayType());
+			commerceOrders, themeDisplay,
+			commerceChannel.getPriceDisplayType());
 	}
 
 	@Reference
