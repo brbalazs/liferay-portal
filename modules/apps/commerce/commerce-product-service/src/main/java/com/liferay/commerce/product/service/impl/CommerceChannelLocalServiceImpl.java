@@ -256,6 +256,7 @@ public class CommerceChannelLocalServiceImpl
 		return searchCommerceChannelsCount(searchContext);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceChannel updateCommerceChannel(
 			long commerceChannelId, long siteGroupId, String name, String type,
@@ -275,6 +276,7 @@ public class CommerceChannelLocalServiceImpl
 		return commerceChannelPersistence.update(commerceChannel);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceChannel updateCommerceChannel(
 			long commerceChannelId, long siteGroupId, String name, String type,
