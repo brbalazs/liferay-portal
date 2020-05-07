@@ -47,7 +47,9 @@ public interface CommerceProductPriceCalculation {
 		throws PortalException;
 
 	public CommerceMoney getCPDefinitionOptionValueRelativePrice(
+			long cpInstanceId,
 			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			long selectedCPInstanceId,
 			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
 			CommerceContext commerceContext)
 		throws PortalException;

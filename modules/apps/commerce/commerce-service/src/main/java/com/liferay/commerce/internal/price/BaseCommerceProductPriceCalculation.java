@@ -24,6 +24,9 @@ import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.internal.util.CommercePriceConverterUtil;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommerceProductPrice;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
+import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
 import com.liferay.commerce.product.constants.CPConstants;
@@ -34,6 +37,7 @@ import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
+import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -97,7 +101,9 @@ public abstract class BaseCommerceProductPriceCalculation
 
 	@Override
 	public CommerceMoney getCPDefinitionOptionValueRelativePrice(
+			long cpInstanceId,
 			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			long selectedCPInstanceId,
 			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
 			CommerceContext commerceContext)
 		throws PortalException {
@@ -105,52 +111,27 @@ public abstract class BaseCommerceProductPriceCalculation
 		_validate(
 			cpDefinitionOptionValueRel, selectedCPDefinitionOptionValueRel);
 
-		CommerceCurrency commerceCurrency =
-			commerceContext.getCommerceCurrency();
+		BigDecimal relativePrice = BigDecimal.ZERO;
 
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
-
-		String priceType = cpDefinitionOptionRel.getPriceType();
-
-		if (Validator.isNull(priceType)) {
+		if (selectedCPInstanceId <= 0) {
 			return commerceMoneyFactory.create(
-				commerceContext.getCommerceCurrency(), BigDecimal.ZERO,
+				commerceContext.getCommerceCurrency(), relativePrice,
 				PriceFormat.RELATIVE);
 		}
 
-		if (_isStaticPriceType(priceType)) {
-			BigDecimal relativePrice = cpDefinitionOptionValueRel.getPrice();
-
-			if (selectedCPDefinitionOptionValueRel != null) {
-				relativePrice = relativePrice.subtract(
-					selectedCPDefinitionOptionValueRel.getPrice());
-			}
-
-			return commerceMoneyFactory.create(
-				commerceCurrency,
-				relativePrice.multiply(commerceCurrency.getRate()),
-				PriceFormat.RELATIVE);
+		if (cpInstanceId > 0) {
+			relativePrice = relativePrice.add(
+				_getCPInstancePriceDifference(
+					cpInstanceId, selectedCPInstanceId, commerceContext));
 		}
 
-		BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
-			cpDefinitionOptionValueRel.getCProductId(),
-			cpDefinitionOptionValueRel.getCPInstanceUuid(),
-			cpDefinitionOptionValueRel.getQuantity(), commerceContext);
-
-		if (selectedCPDefinitionOptionValueRel == null) {
-			return commerceMoneyFactory.create(
-				commerceCurrency, cpInstanceFinalPrice, PriceFormat.RELATIVE);
-		}
-
-		BigDecimal selectedCPInstanceFinalPrice = _getCPInstanceFinalPrice(
-			selectedCPDefinitionOptionValueRel.getCProductId(),
-			selectedCPDefinitionOptionValueRel.getCPInstanceUuid(),
-			selectedCPDefinitionOptionValueRel.getQuantity(), commerceContext);
+		relativePrice = relativePrice.add(
+			_getCPDefinitionOptionValuePriceDifference(
+				cpDefinitionOptionValueRel, selectedCPDefinitionOptionValueRel,
+				commerceContext));
 
 		return commerceMoneyFactory.create(
-			commerceCurrency,
-			cpInstanceFinalPrice.subtract(selectedCPInstanceFinalPrice),
+			commerceContext.getCommerceCurrency(), relativePrice,
 			PriceFormat.RELATIVE);
 	}
 
@@ -425,6 +406,52 @@ public abstract class BaseCommerceProductPriceCalculation
 		return price.multiply(BigDecimal.valueOf(quantity));
 	}
 
+	private BigDecimal _getCPDefinitionOptionValuePriceDifference(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		String priceType = cpDefinitionOptionRel.getPriceType();
+
+		if (Validator.isNull(priceType)) {
+			return BigDecimal.ZERO;
+		}
+
+		if (_isStaticPriceType(priceType)) {
+			BigDecimal price = cpDefinitionOptionValueRel.getPrice();
+
+			if (selectedCPDefinitionOptionValueRel != null) {
+				price = price.subtract(
+					selectedCPDefinitionOptionValueRel.getPrice());
+			}
+
+			return price.multiply(commerceCurrency.getRate());
+		}
+
+		BigDecimal cpInstanceFinalPrice = _getCPInstanceFinalPrice(
+			cpDefinitionOptionValueRel.getCProductId(),
+			cpDefinitionOptionValueRel.getCPInstanceUuid(),
+			cpDefinitionOptionValueRel.getQuantity(), commerceContext);
+
+		if (selectedCPDefinitionOptionValueRel == null) {
+			return cpInstanceFinalPrice;
+		}
+
+		BigDecimal selectedCPInstanceFinalPrice = _getCPInstanceFinalPrice(
+			selectedCPDefinitionOptionValueRel.getCProductId(),
+			selectedCPDefinitionOptionValueRel.getCPInstanceUuid(),
+			selectedCPDefinitionOptionValueRel.getQuantity(), commerceContext);
+
+		return cpInstanceFinalPrice.subtract(selectedCPInstanceFinalPrice);
+	}
+
 	private BigDecimal _getCPInstanceFinalPrice(
 			long cProductId, String cpInstanceUuid, int quantity,
 			CommerceContext commerceContext)
@@ -437,6 +464,39 @@ public abstract class BaseCommerceProductPriceCalculation
 			cpInstance.getCPInstanceId(), quantity, commerceContext);
 
 		return commerceMoney.getPrice();
+	}
+
+	private BigDecimal _getCPInstancePriceDifference(
+			long cpInstanceId, long selectedCPInstanceId,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceMoney cpInstanceFinalPrice = getFinalPrice(
+			cpInstanceId, _getMinOrderQuantity(cpInstanceId), commerceContext);
+
+		BigDecimal price = cpInstanceFinalPrice.getPrice();
+
+		CommerceMoney selectedCPInstanceFinalPrice = getFinalPrice(
+			selectedCPInstanceId, _getMinOrderQuantity(selectedCPInstanceId),
+			commerceContext);
+
+		return price.subtract(selectedCPInstanceFinalPrice.getPrice());
+	}
+
+	private int _getMinOrderQuantity(long cpInstanceId) throws PortalException {
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		CPDefinitionInventory cpDefinitionInventory =
+			_cpDefinitionInventoryLocalService.
+				fetchCPDefinitionInventoryByCPDefinitionId(
+					cpInstance.getCPDefinitionId());
+
+		CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
+			_cpDefinitionInventoryEngineRegistry.getCPDefinitionInventoryEngine(
+				cpDefinitionInventory);
+
+		return cpDefinitionInventoryEngine.getMinOrderQuantity(cpInstance);
 	}
 
 	private boolean _isStaticPriceType(String value) {
@@ -463,5 +523,13 @@ public abstract class BaseCommerceProductPriceCalculation
 					"to the same CPDefinitionOptionRel");
 		}
 	}
+
+	@Reference
+	private CPDefinitionInventoryEngineRegistry
+		_cpDefinitionInventoryEngineRegistry;
+
+	@Reference
+	private CPDefinitionInventoryLocalService
+		_cpDefinitionInventoryLocalService;
 
 }
