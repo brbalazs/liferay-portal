@@ -37,9 +37,9 @@ import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.math.BigDecimal;
-
 import java.math.MathContext;
 import java.math.RoundingMode;
+
 import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
@@ -95,6 +95,25 @@ public class CartItemDTOConverter
 		};
 	}
 
+	private BigDecimal _getDiscountPercentage(
+		BigDecimal discountedAmount, BigDecimal amount,
+		RoundingMode roundingMode) {
+
+		double actualPrice = discountedAmount.doubleValue();
+		double originalPrice = amount.doubleValue();
+
+		double percentage = actualPrice / originalPrice;
+
+		BigDecimal discountPercentage = new BigDecimal(percentage);
+
+		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
+
+		MathContext mathContext = new MathContext(
+			discountPercentage.precision(), roundingMode);
+
+		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
+	}
+
 	private Price _getPrice(CommerceOrderItem commerceOrderItem, Locale locale)
 		throws PortalException {
 
@@ -136,7 +155,6 @@ public class CartItemDTOConverter
 		BigDecimal discountAmount = discountAmountMoney.getPrice();
 
 		if (discountAmount != null) {
-
 			price.setDiscount(discountAmount.doubleValue());
 			price.setDiscountFormatted(discountAmountMoney.format(locale));
 
@@ -158,13 +176,19 @@ public class CartItemDTOConverter
 			price.setDiscountPercentageLevel4(
 				discountPercentageLevel4.doubleValue());
 
-			BigDecimal discountedAmount = activePrice.subtract(discountAmount);
+			BigDecimal discountPercentage = BigDecimal.ZERO;
 
-			BigDecimal discountPercentage = _getDiscountPercentage(
-				discountedAmount, activePrice,
-				RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+			if (activePrice.compareTo(BigDecimal.ZERO) > 0) {
+				BigDecimal discountedAmount = activePrice.subtract(
+					discountAmount);
 
-			price.setDiscountPercentage(_commercePriceFormatter.format(discountPercentage, locale));
+				discountPercentage = _getDiscountPercentage(
+					discountedAmount, activePrice,
+					RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+			}
+
+			price.setDiscountPercentage(
+				_commercePriceFormatter.format(discountPercentage, locale));
 		}
 
 		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
@@ -224,29 +248,13 @@ public class CartItemDTOConverter
 		return settings;
 	}
 
-	private BigDecimal _getDiscountPercentage(
-		BigDecimal discountedAmount, BigDecimal amount,
-		RoundingMode roundingMode) {
-
-		double actualPrice = discountedAmount.doubleValue();
-		double originalPrice = amount.doubleValue();
-
-		double percentage = actualPrice / originalPrice;
-
-		BigDecimal discountPercentage = new BigDecimal(percentage);
-
-		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
-
-		MathContext mathContext = new MathContext(
-			discountPercentage.precision(), roundingMode);
-
-		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
-	}
-
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
+
+	@Reference
+	private CommercePriceFormatter _commercePriceFormatter;
 
 	@Reference
 	private CPDefinitionInventoryLocalService
@@ -257,8 +265,5 @@ public class CartItemDTOConverter
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
-
-	@Reference
-	private CommercePriceFormatter _commercePriceFormatter;
 
 }
