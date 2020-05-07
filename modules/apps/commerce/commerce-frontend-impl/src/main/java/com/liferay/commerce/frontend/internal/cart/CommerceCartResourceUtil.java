@@ -138,7 +138,7 @@ public class CommerceCartResourceUtil {
 			products.add(product);
 		}
 
-		return _handleProductBundle(products);
+		return _groupProductByOrderItemId(products);
 	}
 
 	protected Summary getSummary(
@@ -216,7 +216,7 @@ public class CommerceCartResourceUtil {
 		return prices;
 	}
 
-	private List<Product> _handleProductBundle(List<Product> products) {
+	private List<Product> _groupProductByOrderItemId(List<Product> products) {
 		Map<Long, Product> productMap = new HashMap<>();
 
 		for (Product product : products) {
@@ -224,22 +224,24 @@ public class CommerceCartResourceUtil {
 		}
 
 		for (Product product : products) {
-			Long parentId = product.getParentProductId();
+			long parentProductId = product.getParentProductId();
 
-			if (parentId != null) {
-				Product parent = productMap.get(parentId);
+			if (parentProductId == 0) {
+				continue;
+			}
 
-				if (parent != null) {
-					if (parent.getChildItems() == null) {
-						parent.setChildItems(new ArrayList<>());
-					}
+			Product parent = productMap.get(parentProductId);
 
-					List<Product> childItems = parent.getChildItems();
-
-					childItems.add(product);
-
-					productMap.remove(product.getId());
+			if (parent != null) {
+				if (parent.getChildItems() == null) {
+					parent.setChildItems(new ArrayList<>());
 				}
+
+				List<Product> childItems = parent.getChildItems();
+
+				childItems.add(product);
+
+				productMap.remove(product.getId());
 			}
 		}
 
