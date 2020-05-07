@@ -40,7 +40,7 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 	<aui:model-context bean="<%= commerceChannel %>" model="<%= CommerceChannel.class %>" />
 
 	<div class="row">
-		<div class="col-6">
+		<div class="col-4">
 			<commerce-ui:panel
 				bodyClasses="flex-fill"
 				title='<%= LanguageUtil.get(request, "details") %>'
@@ -75,57 +75,10 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 
 				</aui:select>
 
-				<aui:select label="shipping-tax-category" name="shippingTaxSettings--taxCategoryId--">
-					<aui:option label="no-tax-category" selected="<%= 0 == commerceChannelDisplayContext.getActiveShippingTaxCategory() %>" value="0" />
-
-					<%
-					for (CPTaxCategory taxCategory : commerceChannelDisplayContext.getTaxCategories()) {
-					%>
-
-						<aui:option label="<%= taxCategory.getName() %>" selected="<%= taxCategory.getCPTaxCategoryId() == commerceChannelDisplayContext.getActiveShippingTaxCategory() %>" value="<%= taxCategory.getCPTaxCategoryId() %>" />
-
-					<%
-					}
-					%>
-
-				</aui:select>
-
-				<commerce-ui:info-box
-					title='<%= LanguageUtil.get(request, "price-type") %>'
-				>
-
-					<%
-					String priceDisplayType = commerceChannel.getPriceDisplayType();
-					%>
-
-					<div class="mb-4 row">
-						<div class="col-3">
-							<aui:input checked="<%= priceDisplayType.equals(CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE) %>" label="net-price" name="priceDisplayType" type="radio" value="<%= CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE %>" />
-						</div>
-
-						<div class="col-3">
-							<aui:input checked="<%= priceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE) %>" label="gross-price" name="priceDisplayType" type="radio" value="<%= CommercePricingConstants.TAX_INCLUDED_IN_PRICE %>" />
-						</div>
-					</div>
-				</commerce-ui:info-box>
-
-				<commerce-ui:info-box
-					title='<%= LanguageUtil.get(request, "discounts-target-price-type") %>'
-				>
-					<div class="row">
-						<div class="col-3">
-							<aui:input checked="<%= commerceChannel.isDiscountsTargetNetPrice() %>" label="net-price" name="discountsTargetNetPrice" type="radio" value="true" />
-						</div>
-
-						<div class="col-3">
-							<aui:input checked="<%= !commerceChannel.isDiscountsTargetNetPrice() %>" label="gross-price" name="discountsTargetNetPrice" type="radio" value="false" />
-						</div>
-					</div>
-				</commerce-ui:info-box>
 			</commerce-ui:panel>
 		</div>
 
-		<div class="col-6">
+		<div class="col-4">
 			<commerce-ui:panel
 				bodyClasses="flex-fill"
 				title='<%= LanguageUtil.get(request, "orders") %>'
@@ -148,6 +101,43 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 				<%@ include file="/channel/workflow_definition.jspf" %>
 
 				<aui:input checked="<%= commerceChannelDisplayContext.isShowPurchaseOrderNumber() %>" helpMessage="configures-whether-purchase-order-number-is-shown-or-hidden-in-placed-and-pending-order-details" label="purchase-order-number" labelOff="hide" labelOn="show" name="settings--showPurchaseOrderNumber--" type="toggle-switch" />
+			</commerce-ui:panel>
+		</div>
+
+		<div class="col-4">
+			<commerce-ui:panel
+				bodyClasses="flex-fill"
+				title='<%= LanguageUtil.get(request, "prices") %>'
+			>
+				<aui:select label="shipping-tax-category" name="shippingTaxSettings--taxCategoryId--">
+					<aui:option label="no-tax-category" selected="<%= 0 == commerceChannelDisplayContext.getActiveShippingTaxCategory() %>" value="0" />
+
+					<%
+					for (CPTaxCategory taxCategory : commerceChannelDisplayContext.getTaxCategories()) {
+					%>
+
+						<aui:option label="<%= taxCategory.getName() %>" selected="<%= taxCategory.getCPTaxCategoryId() == commerceChannelDisplayContext.getActiveShippingTaxCategory() %>" value="<%= taxCategory.getCPTaxCategoryId() %>" />
+
+					<%
+					}
+					%>
+
+				</aui:select>
+
+				<aui:select label="price-type" name="priceDisplayType">
+
+					<%
+					String priceDisplayType = commerceChannel.getPriceDisplayType();
+					%>
+
+					<aui:option label="net-price" selected="<%= priceDisplayType.equals(CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE) %>" value="<%= CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE %>" />
+					<aui:option label="gross-price" selected="<%= priceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE) %>" value="<%= CommercePricingConstants.TAX_INCLUDED_IN_PRICE %>" />
+				</aui:select>
+
+				<aui:select label="discounts-target-price-type" name="discountsTargetNetPrice">
+					<aui:option label="net-price" selected="<%= commerceChannel.isDiscountsTargetNetPrice() %>" value="true" />
+					<aui:option label="gross-price" selected="<%= commerceChannel.isDiscountsTargetNetPrice() %>" value="false" />
+				</aui:select>
 			</commerce-ui:panel>
 		</div>
 	</div>
