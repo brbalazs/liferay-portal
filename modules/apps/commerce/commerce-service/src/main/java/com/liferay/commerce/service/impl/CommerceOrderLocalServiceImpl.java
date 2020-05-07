@@ -739,11 +739,20 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setShippingAmount(shippingValue.getPrice());
 		commerceOrder.setTaxAmount(taxValue.getPrice());
 		commerceOrder.setTotal(total.getPrice());
-		commerceOrder.setSubtotalWithTaxAmount(
-			subtotalWithTaxAmount.getPrice());
-		commerceOrder.setShippingWithTaxAmount(
-			shippingValueWithTaxAmount.getPrice());
-		commerceOrder.setTotalWithTaxAmount(totalWithTaxAmount.getPrice());
+
+		if (subtotalWithTaxAmount != null) {
+			commerceOrder.setSubtotalWithTaxAmount(
+				subtotalWithTaxAmount.getPrice());
+		}
+
+		if (shippingValueWithTaxAmount != null) {
+			commerceOrder.setShippingWithTaxAmount(
+				shippingValueWithTaxAmount.getPrice());
+		}
+
+		if (totalWithTaxAmount != null) {
+			commerceOrder.setTotalWithTaxAmount(totalWithTaxAmount.getPrice());
+		}
 
 		if (!commerceOrder.isManuallyAdjusted()) {
 			_setCommerceOrderSubtotalDiscountValue(
