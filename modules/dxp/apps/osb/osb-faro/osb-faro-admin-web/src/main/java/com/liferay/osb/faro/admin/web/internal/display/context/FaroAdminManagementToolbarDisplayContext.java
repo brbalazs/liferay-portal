@@ -94,8 +94,8 @@ public class FaroAdminManagementToolbarDisplayContext
 					dropdownItem -> {
 						dropdownItem.setHref(
 							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/restart_services", "faroProjectId",
-							-1);
+							"/faro_admin/update_services", "faroProjectId",
+							-1, "operation", "restart");
 						dropdownItem.setLabel(
 							LanguageUtil.get(request, "restart-all-services"));
 					});

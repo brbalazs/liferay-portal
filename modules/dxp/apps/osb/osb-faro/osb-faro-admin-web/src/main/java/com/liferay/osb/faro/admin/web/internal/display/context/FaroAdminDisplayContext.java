@@ -109,8 +109,9 @@ public class FaroAdminDisplayContext {
 					dropdownItem -> {
 						dropdownItem.setHref(
 							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/restart_services", "faroProjectId",
-							faroProjectAdminDisplay.getFaroProjectId());
+							"/faro_admin/update_services", "faroProjectId",
+							faroProjectAdminDisplay.getFaroProjectId(),
+							"operation", "restart");
 						dropdownItem.setLabel(
 							LanguageUtil.get(
 								_httpServletRequest, "restart-services"));

@@ -38,11 +38,11 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + FaroAdminPortletKeys.FARO_ADMIN,
-		"mvc.command.name=/faro_admin/restart_services"
+		"mvc.command.name=/faro_admin/update_services"
 	},
 	service = MVCActionCommand.class
 )
-public class RestartServicesMVCActionCommand extends BaseMVCActionCommand {
+public class UpdateServicesMVCActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(
@@ -57,13 +57,14 @@ public class RestartServicesMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		long faroProjectId = ParamUtil.getLong(actionRequest, "faroProjectId");
+		String operation = ParamUtil.getString(actionRequest, "operation");
 
 		if (faroProjectId > 0) {
 			FaroProject faroProject = _faroProjectLocalService.getFaroProject(
 				faroProjectId);
 
 			_workspaceEngineClient.updateServices(
-				faroProject.getWeDeployKey(), "restart");
+				faroProject.getWeDeployKey(), operation);
 		}
 		else {
 			for (FaroProject faroProject :
@@ -71,7 +72,7 @@ public class RestartServicesMVCActionCommand extends BaseMVCActionCommand {
 						QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 
 				_workspaceEngineClient.updateServices(
-					faroProject.getWeDeployKey(), "restart");
+					faroProject.getWeDeployKey(), operation);
 			}
 		}
 	}
