@@ -280,7 +280,16 @@ export default class BaseResults extends React.Component {
 					</Button>
 				</div>
 			);
-		} else if (!loading && !items.length) {
+		} else if (!loading && !items.length && (!!total || !!query)) {
+			return (
+				<NoResultsDisplay
+					description={noResultsDescription}
+					icon={noResultsIcon ? {symbol: noResultsIcon} : undefined}
+					spacer
+					title={getFormattedTitle(entityLabel, noResultsTitle)}
+				/>
+			);
+		} else if (!loading && !total) {
 			return noResultsRenderer ? (
 				noResultsRenderer(query, activeFilters)
 			) : (
