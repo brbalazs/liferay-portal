@@ -4702,6 +4702,8 @@ public class CommerceSubscriptionEntryPersistenceImpl
 		"commerceSubscriptionEntry.commerceOrderItemId = ?";
 
 	public CommerceSubscriptionEntryPersistenceImpl() {
+		setModelClass(CommerceSubscriptionEntry.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -4721,8 +4723,6 @@ public class CommerceSubscriptionEntryPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceSubscriptionEntry.class);
 	}
 
 	/**

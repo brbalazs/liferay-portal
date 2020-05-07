@@ -32,6 +32,7 @@ create index IX_7DD246EA on CommerceOrder (commerceAccountId, groupId, orderStat
 create index IX_81097E4C on CommerceOrder (commerceAccountId, orderStatus);
 create index IX_DFF1932E on CommerceOrder (companyId, commerceAccountId);
 create index IX_48EEEDEE on CommerceOrder (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
+create index IX_9ACAF78A on CommerceOrder (createDate, commerceAccountId, orderStatus);
 create index IX_4F4CAEE4 on CommerceOrder (groupId, commerceAccountId, orderStatus);
 create index IX_9C04F6F8 on CommerceOrder (groupId, commercePaymentMethodKey[$COLUMN_LENGTH:75$]);
 create index IX_67E0AF05 on CommerceOrder (groupId, userId, orderStatus);

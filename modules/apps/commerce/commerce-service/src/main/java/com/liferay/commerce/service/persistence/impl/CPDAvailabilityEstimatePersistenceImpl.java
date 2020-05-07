@@ -1985,6 +1985,8 @@ public class CPDAvailabilityEstimatePersistenceImpl
 		"cpdAvailabilityEstimate.CProductId = ?";
 
 	public CPDAvailabilityEstimatePersistenceImpl() {
+		setModelClass(CPDAvailabilityEstimate.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -2002,8 +2004,6 @@ public class CPDAvailabilityEstimatePersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CPDAvailabilityEstimate.class);
 	}
 
 	/**

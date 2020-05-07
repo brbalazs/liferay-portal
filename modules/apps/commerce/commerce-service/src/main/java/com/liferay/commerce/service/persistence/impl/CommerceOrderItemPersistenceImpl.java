@@ -3769,6 +3769,8 @@ public class CommerceOrderItemPersistenceImpl
 		"(commerceOrderItem.externalReferenceCode IS NULL OR commerceOrderItem.externalReferenceCode = '')";
 
 	public CommerceOrderItemPersistenceImpl() {
+		setModelClass(CommerceOrderItem.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
@@ -3797,8 +3799,6 @@ public class CommerceOrderItemPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceOrderItem.class);
 	}
 
 	/**

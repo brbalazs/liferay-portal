@@ -3280,6 +3280,8 @@ public class CommerceAccountGroupPersistenceImpl
 		"(commerceAccountGroup.externalReferenceCode IS NULL OR commerceAccountGroup.externalReferenceCode = '')";
 
 	public CommerceAccountGroupPersistenceImpl() {
+		setModelClass(CommerceAccountGroup.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
@@ -3298,8 +3300,6 @@ public class CommerceAccountGroupPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceAccountGroup.class);
 	}
 
 	/**

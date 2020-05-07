@@ -4474,6 +4474,8 @@ public class CommerceNotificationTemplatePersistenceImpl
 		"commerceNotificationTemplate.enabled = ?";
 
 	public CommerceNotificationTemplatePersistenceImpl() {
+		setModelClass(CommerceNotificationTemplate.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -4494,8 +4496,6 @@ public class CommerceNotificationTemplatePersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceNotificationTemplate.class);
 	}
 
 	/**

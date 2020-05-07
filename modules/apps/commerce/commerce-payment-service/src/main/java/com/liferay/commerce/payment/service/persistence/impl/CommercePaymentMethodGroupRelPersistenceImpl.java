@@ -1416,6 +1416,8 @@ public class CommercePaymentMethodGroupRelPersistenceImpl
 		"commercePaymentMethodGroupRel.active = ?";
 
 	public CommercePaymentMethodGroupRelPersistenceImpl() {
+		setModelClass(CommercePaymentMethodGroupRel.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
@@ -1435,8 +1437,6 @@ public class CommercePaymentMethodGroupRelPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommercePaymentMethodGroupRel.class);
 	}
 
 	/**

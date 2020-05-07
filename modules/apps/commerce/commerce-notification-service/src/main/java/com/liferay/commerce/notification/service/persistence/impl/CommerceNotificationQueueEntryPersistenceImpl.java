@@ -2864,6 +2864,8 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 		"commerceNotificationQueueEntry.sent = ?";
 
 	public CommerceNotificationQueueEntryPersistenceImpl() {
+		setModelClass(CommerceNotificationQueueEntry.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
@@ -2884,8 +2886,6 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceNotificationQueueEntry.class);
 	}
 
 	/**

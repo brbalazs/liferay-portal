@@ -4190,6 +4190,8 @@ public class CommerceWishListPersistenceImpl
 		"commerceWishList.defaultWishList = ?";
 
 	public CommerceWishListPersistenceImpl() {
+		setModelClass(CommerceWishList.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -4207,8 +4209,6 @@ public class CommerceWishListPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceWishList.class);
 	}
 
 	/**

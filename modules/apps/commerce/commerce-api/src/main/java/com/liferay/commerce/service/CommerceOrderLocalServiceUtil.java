@@ -185,10 +185,21 @@ public class CommerceOrderLocalServiceUtil {
 		getService().deleteCommerceOrders(groupId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), delete by commerceAccountId
+	 */
+	@Deprecated
 	public static void deleteCommerceOrders(
 		long userId, java.util.Date date, int status) {
 
 		getService().deleteCommerceOrders(userId, date, status);
+	}
+
+	public static void deleteCommerceOrdersByAccountId(
+		long commerceAccountId, java.util.Date date, int status) {
+
+		getService().deleteCommerceOrdersByAccountId(
+			commerceAccountId, date, status);
 	}
 
 	/**

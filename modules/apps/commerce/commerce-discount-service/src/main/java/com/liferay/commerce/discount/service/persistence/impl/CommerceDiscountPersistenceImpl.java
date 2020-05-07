@@ -6325,6 +6325,8 @@ public class CommerceDiscountPersistenceImpl
 		"(commerceDiscount.externalReferenceCode IS NULL OR commerceDiscount.externalReferenceCode = '')";
 
 	public CommerceDiscountPersistenceImpl() {
+		setModelClass(CommerceDiscount.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -6344,8 +6346,6 @@ public class CommerceDiscountPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceDiscount.class);
 	}
 
 	/**

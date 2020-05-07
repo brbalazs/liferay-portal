@@ -634,6 +634,15 @@ public class CommerceOrderPersistenceTest {
 	}
 
 	@Test
+	public void testCountByC_LtC_O() throws Exception {
+		_persistence.countByC_LtC_O(
+			RandomTestUtil.nextDate(), RandomTestUtil.nextLong(),
+			RandomTestUtil.nextInt());
+
+		_persistence.countByC_LtC_O(RandomTestUtil.nextDate(), 0L, 0);
+	}
+
+	@Test
 	public void testCountByC_ERC() throws Exception {
 		_persistence.countByC_ERC(RandomTestUtil.nextLong(), "");
 

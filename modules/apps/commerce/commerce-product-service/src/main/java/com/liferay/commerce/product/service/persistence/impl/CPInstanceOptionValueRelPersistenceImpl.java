@@ -3655,6 +3655,8 @@ public class CPInstanceOptionValueRelPersistenceImpl
 		"cpInstanceOptionValueRel.CPInstanceId = ?";
 
 	public CPInstanceOptionValueRelPersistenceImpl() {
+		setModelClass(CPInstanceOptionValueRel.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -3672,8 +3674,6 @@ public class CPInstanceOptionValueRelPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CPInstanceOptionValueRel.class);
 	}
 
 	/**

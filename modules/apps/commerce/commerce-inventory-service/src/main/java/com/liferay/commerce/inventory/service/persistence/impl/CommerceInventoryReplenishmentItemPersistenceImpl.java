@@ -3053,6 +3053,8 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		"commerceInventoryReplenishmentItem.availabilityDate = ?";
 
 	public CommerceInventoryReplenishmentItemPersistenceImpl() {
+		setModelClass(CommerceInventoryReplenishmentItem.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
@@ -3071,8 +3073,6 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceInventoryReplenishmentItem.class);
 	}
 
 	/**

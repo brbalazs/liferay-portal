@@ -192,11 +192,23 @@ public class CommerceOrderLocalServiceWrapper
 		_commerceOrderLocalService.deleteCommerceOrders(groupId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), delete by commerceAccountId
+	 */
+	@Deprecated
 	@Override
 	public void deleteCommerceOrders(
 		long userId, java.util.Date date, int status) {
 
 		_commerceOrderLocalService.deleteCommerceOrders(userId, date, status);
+	}
+
+	@Override
+	public void deleteCommerceOrdersByAccountId(
+		long commerceAccountId, java.util.Date date, int status) {
+
+		_commerceOrderLocalService.deleteCommerceOrdersByAccountId(
+			commerceAccountId, date, status);
 	}
 
 	/**

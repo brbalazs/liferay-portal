@@ -305,12 +305,14 @@ public interface CommerceChannelLocalService
 	public CommerceChannel updateCommerceChannel(
 		CommerceChannel commerceChannel);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceChannel updateCommerceChannel(
 			long commerceChannelId, long siteGroupId, String name, String type,
 			UnicodeProperties typeSettingsProperties,
 			String commerceCurrencyCode)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceChannel updateCommerceChannel(
 			long commerceChannelId, long siteGroupId, String name, String type,
 			UnicodeProperties typeSettingsProperties,

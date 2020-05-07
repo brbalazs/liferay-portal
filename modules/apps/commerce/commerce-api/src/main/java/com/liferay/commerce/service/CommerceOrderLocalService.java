@@ -162,7 +162,14 @@ public interface CommerceOrderLocalService
 
 	public void deleteCommerceOrders(long groupId) throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), delete by commerceAccountId
+	 */
+	@Deprecated
 	public void deleteCommerceOrders(long userId, Date date, int status);
+
+	public void deleteCommerceOrdersByAccountId(
+		long commerceAccountId, Date date, int status);
 
 	/**
 	 * @throws PortalException

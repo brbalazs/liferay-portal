@@ -4439,6 +4439,8 @@ public class CommerceInventoryWarehousePersistenceImpl
 		"(commerceInventoryWarehouse.externalReferenceCode IS NULL OR commerceInventoryWarehouse.externalReferenceCode = '')";
 
 	public CommerceInventoryWarehousePersistenceImpl() {
+		setModelClass(CommerceInventoryWarehouse.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("commerceInventoryWarehouseId", "CIWarehouseId");
@@ -4458,8 +4460,6 @@ public class CommerceInventoryWarehousePersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CommerceInventoryWarehouse.class);
 	}
 
 	/**

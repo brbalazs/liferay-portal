@@ -5049,6 +5049,8 @@ public class CPAttachmentFileEntryPersistenceImpl
 		"(cpAttachmentFileEntry.externalReferenceCode IS NULL OR cpAttachmentFileEntry.externalReferenceCode = '')";
 
 	public CPAttachmentFileEntryPersistenceImpl() {
+		setModelClass(CPAttachmentFileEntry.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -5067,8 +5069,6 @@ public class CPAttachmentFileEntryPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CPAttachmentFileEntry.class);
 	}
 
 	/**

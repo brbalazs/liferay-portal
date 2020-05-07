@@ -5424,6 +5424,8 @@ public class CPDefinitionPersistenceImpl
 		"cpDefinition.status = ?";
 
 	public CPDefinitionPersistenceImpl() {
+		setModelClass(CPDefinition.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -5443,8 +5445,6 @@ public class CPDefinitionPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CPDefinition.class);
 	}
 
 	/**

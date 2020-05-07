@@ -3239,6 +3239,8 @@ public class CPOptionCategoryPersistenceImpl
 		"(cpOptionCategory.key IS NULL OR cpOptionCategory.key = '')";
 
 	public CPOptionCategoryPersistenceImpl() {
+		setModelClass(CPOptionCategory.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -3257,8 +3259,6 @@ public class CPOptionCategoryPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
-
-		setModelClass(CPOptionCategory.class);
 	}
 
 	/**
