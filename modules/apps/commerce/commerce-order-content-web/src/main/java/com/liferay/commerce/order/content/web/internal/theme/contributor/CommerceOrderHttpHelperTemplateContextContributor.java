@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.channel.web.internal.theme.contributor;
+package com.liferay.commerce.order.content.web.internal.theme.contributor;
 
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.portal.kernel.template.TemplateContextContributor;

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.channel.web.internal.health.status;
+package com.liferay.commerce.order.content.web.internal.health.status;
 
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
@@ -129,7 +129,7 @@ public class CommerceGuestCheckoutAuthenticationCommerceHealthStatus
 				getClassLoader();
 
 		String dependenciesFilePath =
-			"com/liferay/commerce/channel/web/internal/dependencies/";
+			"com/liferay/commerce/order/content/web/internal/dependencies/";
 
 		try {
 			String journalArticleJsonStirng = StringUtil.read(
