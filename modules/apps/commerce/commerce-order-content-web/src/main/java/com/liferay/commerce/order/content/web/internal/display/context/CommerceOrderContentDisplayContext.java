@@ -34,6 +34,7 @@ import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.order.content.web.internal.portlet.configuration.CommerceOrderContentPortletInstanceConfiguration;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
+import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
@@ -67,13 +68,13 @@ import com.liferay.portal.kernel.util.Validator;
 import java.math.BigDecimal;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.portlet.PortletURL;
 
@@ -95,6 +96,7 @@ public class CommerceOrderContentDisplayContext {
 			CommerceShipmentItemService commerceShipmentItemService,
 			HttpServletRequest httpServletRequest,
 			ModelResourcePermission<CommerceOrder> modelResourcePermission,
+			PercentageFormatter percentageFormatter,
 			PortletResourcePermission portletResourcePermission)
 		throws PortalException {
 
@@ -108,6 +110,7 @@ public class CommerceOrderContentDisplayContext {
 		_commerceShipmentItemService = commerceShipmentItemService;
 		_httpServletRequest = httpServletRequest;
 		_modelResourcePermission = modelResourcePermission;
+		_percentageFormatter = percentageFormatter;
 		_portletResourcePermission = portletResourcePermission;
 
 		_cpRequestHelper = new CPRequestHelper(httpServletRequest);
@@ -405,34 +408,22 @@ public class CommerceOrderContentDisplayContext {
 		return headerDropdownItems;
 	}
 
-	public String getFormattedPercentage(BigDecimal percentage)
-		throws PortalException {
-
-		CommerceOrder commerceOrder = getCommerceOrder();
-
-		if (commerceOrder == null) {
-			return StringPool.BLANK;
-		}
-
-		DecimalFormat decimalFormat = new DecimalFormat();
-
-		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
-
-		decimalFormat.setMaximumFractionDigits(
-			commerceCurrency.getMaxFractionDigits());
-		decimalFormat.setMinimumFractionDigits(
-			commerceCurrency.getMinFractionDigits());
-
-		decimalFormat.setNegativeSuffix(StringPool.PERCENT);
-		decimalFormat.setPositiveSuffix(StringPool.PERCENT);
-
-		return decimalFormat.format(percentage);
-	}
-
 	public List<HeaderActionModel> getHeaderActionModels()
 		throws PortalException {
 
 		return Collections.emptyList();
+	}
+
+	public String getLocalizedPercentage(BigDecimal percentage, Locale locale)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
+
+		return _percentageFormatter.getLocalizedPercentage(
+			locale, commerceCurrency.getMaxFractionDigits(),
+			commerceCurrency.getMinFractionDigits(), percentage);
 	}
 
 	public PortletURL getPortletURL() throws PortalException {
@@ -546,6 +537,7 @@ public class CommerceOrderContentDisplayContext {
 	private final HttpServletRequest _httpServletRequest;
 	private final ModelResourcePermission<CommerceOrder>
 		_modelResourcePermission;
+	private final PercentageFormatter _percentageFormatter;
 	private final PortletResourcePermission _portletResourcePermission;
 
 }

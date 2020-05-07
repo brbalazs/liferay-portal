@@ -240,7 +240,7 @@ if (commerceOrder != null) {
 						<dt><liferay-ui:message key="subtotal-discount" /></dt>
 						<dd class="text-right"><%= HtmlUtil.escape(subtotalDiscountAmount.format(locale)) %></dd>
 						<dt></dt>
-						<dd class="text-right"><%= HtmlUtil.escape(commerceOrderContentDisplayContext.getFormattedPercentage(subtotalDiscountValue.getDiscountPercentage())) %></dd>
+						<dd class="text-right"><%= HtmlUtil.escape(commerceOrderContentDisplayContext.getLocalizedPercentage(subtotalDiscountValue.getDiscountPercentage(), locale)) %></dd>
 					</c:if>
 
 					<dt><liferay-ui:message key="delivery" /></dt>
@@ -255,7 +255,7 @@ if (commerceOrder != null) {
 						<dt><liferay-ui:message key="delivery-discount" /></dt>
 						<dd class="text-right"><%= HtmlUtil.escape(shippingDiscountAmount.format(locale)) %></dd>
 						<dt></dt>
-						<dd class="text-right"><%= HtmlUtil.escape(commerceOrderContentDisplayContext.getFormattedPercentage(shippingDiscountValue.getDiscountPercentage())) %></dd>
+						<dd class="text-right"><%= HtmlUtil.escape(commerceOrderContentDisplayContext.getLocalizedPercentage(shippingDiscountValue.getDiscountPercentage(), locale)) %></dd>
 					</c:if>
 
 					<c:if test="<%= priceDisplayType.equals(CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE) %>">
@@ -272,7 +272,7 @@ if (commerceOrder != null) {
 						<dt><liferay-ui:message key="delivery-discount" /></dt>
 						<dd class="text-right"><%= HtmlUtil.escape(totalDiscountAmount.format(locale)) %></dd>
 						<dt></dt>
-						<dd class="text-right"><%= HtmlUtil.escape(commerceOrderContentDisplayContext.getFormattedPercentage(totalDiscountValue.getDiscountPercentage())) %></dd>
+						<dd class="text-right"><%= HtmlUtil.escape(commerceOrderContentDisplayContext.getLocalizedPercentage(totalDiscountValue.getDiscountPercentage(), locale)) %></dd>
 					</c:if>
 				</dl>
 			</div>

@@ -26,6 +26,7 @@ import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
+import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPrice;
@@ -43,8 +44,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-
-import java.text.DecimalFormat;
 
 import java.util.List;
 import java.util.Locale;
@@ -65,6 +64,7 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		CommercePaymentEngine commercePaymentEngine,
 		CommerceProductPriceCalculation commerceProductPriceCalculation,
 		CPInstanceHelper cpInstanceHelper,
+		PercentageFormatter percentageFormatter,
 		HttpServletRequest httpServletRequest) {
 
 		_commerceChannelService = commerceChannelService;
@@ -74,6 +74,7 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		_commercePaymentEngine = commercePaymentEngine;
 		_commerceProductPriceCalculation = commerceProductPriceCalculation;
 		_cpInstanceHelper = cpInstanceHelper;
+		_percentageFormatter = percentageFormatter;
 		_httpServletRequest = httpServletRequest;
 
 		_commerceContext = (CommerceContext)httpServletRequest.getAttribute(
@@ -238,33 +239,23 @@ public class OrderSummaryCheckoutStepDisplayContext {
 			commerceOrderItem.getQuantity(), _commerceContext);
 	}
 
-	public String getFormattedPercentage(BigDecimal percentage)
-		throws PortalException {
-
-		if (_commerceOrder == null) {
-			return StringPool.BLANK;
-		}
-
-		CommerceCurrency commerceCurrency =
-			_commerceOrder.getCommerceCurrency();
-
-		DecimalFormat decimalFormat = new DecimalFormat();
-
-		decimalFormat.setMaximumFractionDigits(
-			commerceCurrency.getMaxFractionDigits());
-		decimalFormat.setMinimumFractionDigits(
-			commerceCurrency.getMinFractionDigits());
-		decimalFormat.setNegativeSuffix(StringPool.PERCENT);
-		decimalFormat.setPositiveSuffix(StringPool.PERCENT);
-
-		return decimalFormat.format(percentage);
-	}
-
 	public List<KeyValuePair> getKeyValuePairs(
 			long cpDefinitionId, String json, Locale locale)
 		throws PortalException {
 
 		return _cpInstanceHelper.getKeyValuePairs(cpDefinitionId, json, locale);
+	}
+
+	public String getLocalizedPercentage(BigDecimal percentage, Locale locale)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
+
+		return _percentageFormatter.getLocalizedPercentage(
+			locale, commerceCurrency.getMaxFractionDigits(),
+			commerceCurrency.getMinFractionDigits(), percentage);
 	}
 
 	public String getPaymentMethodName(String paymentMethodKey, Locale locale) {
@@ -309,5 +300,6 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		_commerceProductPriceCalculation;
 	private final CPInstanceHelper _cpInstanceHelper;
 	private final HttpServletRequest _httpServletRequest;
+	private final PercentageFormatter _percentageFormatter;
 
 }
