@@ -70,6 +70,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Marco Leo
@@ -115,8 +116,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
 				cpDefinitionOptionRelId);
 
-		validatePriceType(null, cpDefinitionOptionRel.getPriceType());
-
 		if (cpDefinitionLocalService.isVersionable(
 				cpDefinitionOptionRel.getCPDefinitionId(),
 				serviceContext.getRequest())) {
@@ -143,8 +142,10 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setNameMap(nameMap);
 		cpDefinitionOptionValueRel.setPriority(priority);
 		cpDefinitionOptionValueRel.setKey(key);
-		cpDefinitionOptionValueRel.setPrice(BigDecimal.ZERO);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
+
+		_validatePriceableCPDefinitionOptionValue(
+			cpDefinitionOptionValueRel, cpDefinitionOptionRel.getPriceType());
 
 		cpDefinitionOptionValueRel =
 			cpDefinitionOptionValueRelPersistence.update(
@@ -439,9 +440,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 			cpDefinitionOptionValueRelPersistence.findByPrimaryKey(
 				cpDefinitionOptionValueRelId);
 
-		CPInstance cpInstance = cpInstanceLocalService.fetchCPInstance(
-			cpInstanceId);
-
 		key = FriendlyURLNormalizerUtil.normalize(key);
 
 		validate(
@@ -450,10 +448,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
-
-		String priceType = cpDefinitionOptionRel.getPriceType();
-
-		validatePriceType(cpInstance, priceType);
 
 		if (cpDefinitionLocalService.isVersionable(
 				cpDefinitionOptionRel.getCPDefinitionId(),
@@ -478,31 +472,30 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setKey(key);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
 
-		if (cpInstance != null) {
-			CPDefinition cpDefinition = cpInstance.getCPDefinition();
+		if (cpInstanceId > 0) {
+			CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
+				cpInstanceId);
 
 			cpDefinitionOptionValueRel.setCPInstanceUuid(
 				cpInstance.getCPInstanceUuid());
+
+			CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
 			cpDefinitionOptionValueRel.setCProductId(
 				cpDefinition.getCProductId());
-
-			if (priceType.equals(
-					CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
-
-				cpDefinitionOptionValueRel.setPrice(cpInstance.getPrice());
-			}
 		}
-		else {
-			if (price == null) {
-				throw new CPDefinitionOptionValueRelPriceException();
-			}
 
-			cpDefinitionOptionValueRel.setCPInstanceUuid(null);
-			cpDefinitionOptionValueRel.setCProductId(0);
+		if (Objects.equals(
+				cpDefinitionOptionRel.getPriceType(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
 			cpDefinitionOptionValueRel.setPrice(price);
 		}
 
 		cpDefinitionOptionValueRel.setQuantity(quantity);
+
+		_validatePriceableCPDefinitionOptionValue(
+			cpDefinitionOptionValueRel, cpDefinitionOptionRel.getPriceType());
 
 		cpDefinitionOptionValueRel =
 			cpDefinitionOptionValueRelPersistence.update(
@@ -677,34 +670,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		}
 	}
 
-	protected void validatePriceType(CPInstance cpInstance, String priceType)
-		throws PortalException {
-
-		if (Validator.isNull(priceType)) {
-			return;
-		}
-
-		if (Validator.isNotNull(priceType) &&
-			priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
-
-			if ((cpInstance == null) ||
-				(BigDecimal.ZERO.compareTo(cpInstance.getPrice()) < 0)) {
-
-				throw new CPDefinitionOptionValueRelCPInstanceException();
-			}
-
-			if (cpDefinitionLocalService.hasChildCPDefinitions(
-					cpInstance.getCPDefinitionId())) {
-
-				throw new CPDefinitionOptionValueRelCPInstanceException();
-			}
-
-			if (cpInstance.getPrice() == null) {
-				throw new CPDefinitionOptionValueRelCPInstanceException();
-			}
-		}
-	}
-
 	private void _addCPDefinitionOptionValueRel(
 			long cpDefinitionOptionRelId, List<CPOptionValue> cpOptionValues,
 			ServiceContext serviceContext)
@@ -738,6 +703,59 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		}
 		catch (Exception e) {
 			throw new PortalException(e);
+		}
+	}
+
+	private void _validatePriceableCPDefinitionOptionValue(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			String priceType)
+		throws PortalException {
+
+		if (Validator.isNull(priceType)) {
+			if (Validator.isNotNull(
+					cpDefinitionOptionValueRel.getCPInstanceUuid()) ||
+				(cpDefinitionOptionValueRel.getPrice() != null) ||
+				(cpDefinitionOptionValueRel.getCProductId() != 0) ||
+				(cpDefinitionOptionValueRel.getQuantity() != 0)) {
+
+				throw new CPDefinitionOptionValueRelCPInstanceException();
+			}
+
+			return;
+		}
+
+		if ((cpDefinitionOptionValueRel.getQuantity() == 0) ||
+			(Objects.equals(
+				priceType, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) &&
+			 (cpDefinitionOptionValueRel.getPrice() == null))) {
+
+			throw new CPDefinitionOptionValueRelPriceException();
+		}
+
+		CPInstance cpInstance = cpInstanceLocalService.fetchCProductInstance(
+			cpDefinitionOptionValueRel.getCProductId(),
+			cpDefinitionOptionValueRel.getCPInstanceUuid());
+
+		if (((cpInstance == null) ||
+			 (cpDefinitionOptionValueRel.getPrice() != null)) &&
+			Objects.equals(
+				priceType, CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+
+			throw new CPDefinitionOptionValueRelCPInstanceException();
+		}
+
+		if (cpInstance == null) {
+			return;
+		}
+
+		if (!cpInstance.isApproved()) {
+			throw new CPDefinitionOptionValueRelCPInstanceException();
+		}
+
+		if (cpDefinitionLocalService.hasChildCPDefinitions(
+				cpInstance.getCPDefinitionId())) {
+
+			throw new CPDefinitionOptionValueRelCPInstanceException();
 		}
 	}
 
