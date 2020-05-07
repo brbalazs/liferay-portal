@@ -151,6 +151,8 @@ public class GroupDisplayContext {
 	public PortletURL getPortletURL() {
 		PortletURL portletURL = _renderResponse.createRenderURL();
 
+		portletURL.setParameter("mvcRenderCommandName", _mvcRenderCommandName);
+
 		if (StringUtil.equalsIgnoreCase(
 				_mvcRenderCommandName, "/analytics_settings/edit_channel")) {
 
@@ -160,8 +162,6 @@ public class GroupDisplayContext {
 				"channelName",
 				ParamUtil.getString(_renderRequest, "channelName"));
 		}
-
-		portletURL.setParameter("mvcRenderCommandName", _mvcRenderCommandName);
 
 		return portletURL;
 	}
