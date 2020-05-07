@@ -31,7 +31,9 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 
 <aui:model-context bean="<%= cpDefinitionOptionValueRel %>" model="<%= CPDefinitionOptionValueRel.class %>" />
 
+<liferay-ui:error exception="<%= CPDefinitionOptionValueRelCPInstanceException.class %>" message="please-select-a-valid-sku" />
 <liferay-ui:error exception="<%= CPDefinitionOptionValueRelKeyException.class %>" message="that-key-is-already-being-used" />
+<liferay-ui:error exception="<%= CPDefinitionOptionValueRelPriceException.class %>" message="please-enter-a-valid-price" />
 
 <aui:input defaultLanguageId="<%= cpDefinitionOptionValueRelDisplayContext.getCatalogDefaultLanguageId() %>" id="optionValueName" name="name" />
 

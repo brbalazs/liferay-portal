@@ -15,7 +15,9 @@
 package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 
 import com.liferay.commerce.product.constants.CPPortletKeys;
+import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelCPInstanceException;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelKeyException;
+import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelPriceException;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -89,7 +91,10 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 			}
 		}
 		catch (Exception e) {
-			if (e instanceof CPDefinitionOptionValueRelKeyException) {
+			if (e instanceof CPDefinitionOptionValueRelCPInstanceException ||
+				e instanceof CPDefinitionOptionValueRelKeyException ||
+				e instanceof CPDefinitionOptionValueRelPriceException) {
+
 				SessionErrors.add(actionRequest, e.getClass());
 
 				actionResponse.setRenderParameter(
