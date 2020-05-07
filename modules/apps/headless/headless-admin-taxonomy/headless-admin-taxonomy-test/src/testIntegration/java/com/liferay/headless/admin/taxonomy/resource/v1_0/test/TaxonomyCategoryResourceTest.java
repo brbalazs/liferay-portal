@@ -57,6 +57,12 @@ public class TaxonomyCategoryResourceTest
 	public void testGraphQLGetTaxonomyCategory() {
 	}
 
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLGetTaxonomyCategoryNotFound() {
+	}
+
 	@Override
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[] {"description", "name"};
