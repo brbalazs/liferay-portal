@@ -60,7 +60,11 @@ const TableWithData = withBaseResults(withData, {
 
 const DocumentsAndMediaListCard = props => (
 	<Card className='documents-and-media-root' pageDisplay>
-		<TableWithData rangeKey={props.router.query.rangeKey} {...props} />
+		<TableWithData
+			entityLabel={Liferay.Language.get('documents-and-media')}
+			rangeKey={props.router.query.rangeKey}
+			{...props}
+		/>
 	</Card>
 );
 

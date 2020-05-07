@@ -1,4 +1,6 @@
-import NoResultsDisplay from 'shared/components/NoResultsDisplay';
+import NoResultsDisplay, {
+	getFormattedTitle
+} from 'shared/components/NoResultsDisplay';
 import React from 'react';
 
 /**
@@ -34,12 +36,22 @@ const withEmpty = ({
 	emptyTitle,
 	primary
 } = {}) => Component => ({
-	empty,
 	emptyMessage,
+	entityLabel,
+	items,
 	noResultsProps,
+	query,
+	total,
 	...otherProps
 }) => {
-	if (empty) {
+	if (!items.length && (!!total || !!query)) {
+		return (
+			<NoResultsDisplay
+				{...noResultsProps}
+				title={getFormattedTitle(entityLabel)}
+			/>
+		);
+	} else if (!total) {
 		return (
 			<NoResultsDisplay
 				description={emptyDescription}
@@ -54,7 +66,15 @@ const withEmpty = ({
 		);
 	}
 
-	return <Component {...otherProps} />;
+	return (
+		<Component
+			{...otherProps}
+			entityLabel={entityLabel}
+			items={items}
+			query={query}
+			total={total}
+		/>
+	);
 };
 
 export {withEmpty, withError};

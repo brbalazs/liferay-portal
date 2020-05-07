@@ -63,7 +63,11 @@ const TableWithData = withBaseResults(withData, {
 
 const Touchpoints = ({router}) => (
 	<Card className='site-touchpoints-root' pageDisplay>
-		<TableWithData rangeKey={router.query.rangeKey} router={router} />
+		<TableWithData
+			entityLabel={Liferay.Language.get('pages')}
+			rangeKey={router.query.rangeKey}
+			router={router}
+		/>
 	</Card>
 );
 

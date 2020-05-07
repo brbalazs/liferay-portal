@@ -178,7 +178,6 @@ export const UserRequest: React.FC<UserRequest & IUserRequestProps> = ({
 			delta={parseInt(delta)}
 			entityLabel={Liferay.Language.get('users')}
 			navRenderer={null}
-			noResultsIcon='user'
 			orderBy={orderBy}
 			orderByField={orderByField}
 			orderByOptions={[

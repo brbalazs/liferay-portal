@@ -407,7 +407,6 @@ export class UserList extends React.Component {
 				entityLabel={Liferay.Language.get('users')}
 				filterBy={filterBy}
 				navRenderer={authorized ? this.renderNav : null}
-				noResultsIcon='user'
 				orderBy={orderBy}
 				orderByField={orderByField}
 				orderByOptions={[

@@ -35,7 +35,10 @@ const ExperimentListCard = props => {
 
 	return (
 		<Card className='experiments-root' pageDisplay>
-			<TableWithData {...props} />
+			<TableWithData
+				entityLabel={Liferay.Language.get('tests')}
+				{...props}
+			/>
 		</Card>
 	);
 };

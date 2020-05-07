@@ -139,6 +139,7 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 			checkDisabled={({dataControlTaskStatus}) =>
 				dataControlTaskStatus === GDPR_REQUEST_STATUSES.PENDING
 			}
+			entityLabel={Liferay.Language.get('suppressed-users')}
 			{...props}
 		/>
 	</Card>

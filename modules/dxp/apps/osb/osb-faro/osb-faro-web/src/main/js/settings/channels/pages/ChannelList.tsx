@@ -443,6 +443,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						dataSourceFn={this.fetchChannels}
 						dataSourceParams={{groupId}}
 						delta={Number(delta)}
+						entityLabel={Liferay.Language.get('properties')}
 						navRenderer={authorized ? this.renderNav : null}
 						noResultsRenderer={renderEmptyState}
 						orderBy={orderBy}

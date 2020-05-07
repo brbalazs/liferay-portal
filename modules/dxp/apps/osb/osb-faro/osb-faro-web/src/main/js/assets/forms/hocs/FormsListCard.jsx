@@ -60,7 +60,7 @@ const TableWithData = withBaseResults(withData, {
 
 const FormsListCard = props => (
 	<Card className='forms-root' pageDisplay>
-		<TableWithData {...props} />
+		<TableWithData entityLabel={Liferay.Language.get('forms')} {...props} />
 	</Card>
 );
 

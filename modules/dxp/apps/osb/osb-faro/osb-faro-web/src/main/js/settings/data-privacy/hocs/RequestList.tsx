@@ -400,6 +400,7 @@ const RequestList: React.FC<IRequestListProps> = ({
 				checkDisabled={isDisabled}
 				defaultOrderBy={orderDescending}
 				defaultOrderByField={CREATE_DATE}
+				entityLabel={Liferay.Language.get('requests')}
 				filterBy={filterBy}
 				groupId={groupId}
 				renderInlineRowActions={({

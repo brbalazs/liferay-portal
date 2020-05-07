@@ -59,7 +59,10 @@ const TableWithData = withBaseResults(withData, {
 
 const CustomAssetsListCard = props => (
 	<Card className='custom-assets-root' pageDisplay>
-		<TableWithData {...props} />
+		<TableWithData
+			entityLabel={Liferay.Language.get('custom-assets')}
+			{...props}
+		/>
 	</Card>
 );
 

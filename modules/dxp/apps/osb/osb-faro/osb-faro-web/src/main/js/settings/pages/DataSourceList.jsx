@@ -394,11 +394,11 @@ export class DataSourceList extends React.Component {
 						]}
 						dataSourceFn={this.fetchDataSources}
 						delta={Number(delta)}
+						entityLabel={Liferay.Language.get('data-sources')}
 						filterBy={filterBy}
 						navRenderer={
 							currentUser.isAdmin() ? this.renderNav : null
 						}
-						noResultsIcon='document'
 						noResultsName={Liferay.Language.get('data-sources')}
 						noResultsRenderer={this.renderNoResults}
 						orderBy={orderBy}

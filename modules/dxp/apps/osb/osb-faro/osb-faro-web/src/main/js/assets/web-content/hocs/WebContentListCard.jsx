@@ -57,7 +57,11 @@ const TableWithData = withBaseResults(withData, {
 
 const WebContentListCard = props => (
 	<Card className='web-content-root' pageDisplay>
-		<TableWithData rangeKey={props.router.query.rangeKey} {...props} />
+		<TableWithData
+			entityLabel={Liferay.Language.get('web-content')}
+			rangeKey={props.router.query.rangeKey}
+			{...props}
+		/>
 	</Card>
 );
 

@@ -391,7 +391,6 @@ export class InterestTopics extends React.Component {
 						navRenderer={
 							currentUser.isAdmin() ? this.renderNav : null
 						}
-						noResultsIcon='star-o'
 						noResultsName={Liferay.Language.get('keywords')}
 						noResultsRenderer={this.renderNoResults}
 						orderBy={orderBy}

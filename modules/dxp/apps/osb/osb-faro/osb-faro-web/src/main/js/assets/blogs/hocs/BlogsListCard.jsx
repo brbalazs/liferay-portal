@@ -35,6 +35,7 @@ const TableWithData = withBaseResults(withData, {
 		false
 	),
 	emptyTitle: Liferay.Language.get('empty-title-assets'),
+	entityLabel: Liferay.Language.get('blogs'),
 	getColumns: ({
 		router: {
 			params: {channelId, groupId},
@@ -60,7 +61,11 @@ const TableWithData = withBaseResults(withData, {
 
 const BlogsListCard = props => (
 	<Card className='blogs-root' pageDisplay>
-		<TableWithData rangeKey={props.router.query.rangeKey} {...props} />
+		<TableWithData
+			entityLabel={Liferay.Language.get('blogs')}
+			rangeKey={props.router.query.rangeKey}
+			{...props}
+		/>
 	</Card>
 );
 
