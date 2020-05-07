@@ -22,19 +22,24 @@ import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.commerce.price.CommerceProductPriceRequest;
 import com.liferay.commerce.product.constants.CPContentContributorConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.option.CommerceOptionValue;
+import com.liferay.commerce.product.option.CommerceOptionValueHelper;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPContentContributor;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.math.BigDecimal;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,6 +81,13 @@ public class PriceCPContentContributor implements CPContentContributor {
 			return jsonObject;
 		}
 
+		String ddmFormValues = ParamUtil.getString(
+			httpServletRequest, "ddmFormValues");
+
+		List<CommerceOptionValue> commerceOptionValues =
+			_commerceOptionValueHelper.getCPDefinitionCommerceOptionValues(
+				cpInstance.getCPDefinitionId(), ddmFormValues);
+
 		CPDefinitionInventory cpDefinitionInventory =
 			_cpDefinitionInventoryLocalService.
 				fetchCPDefinitionInventoryByCPDefinitionId(
@@ -91,18 +103,17 @@ public class PriceCPContentContributor implements CPContentContributor {
 
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstance.getCPInstanceId(),
-				cpDefinitionInventoryEngine.getMinOrderQuantity(cpInstance),
-				commerceContext);
+				_getCommerceProductPriceRequest(
+					cpInstance, cpDefinitionInventoryEngine, commerceContext,
+					commerceOptionValues));
 
-		CommerceMoney unitPriceMoney = commerceProductPrice.getUnitPrice();
+		CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
 
-		if (unitPriceMoney != null) {
+		if (finalPrice != null) {
 			Locale locale = _portal.getLocale(httpServletRequest);
 
 			jsonObject.put(
-				CPContentContributorConstants.PRICE,
-				unitPriceMoney.format(locale));
+				CPContentContributorConstants.PRICE, finalPrice.format(locale));
 
 			CommerceMoney promoPriceMoney =
 				commerceProductPrice.getUnitPromoPrice();
@@ -111,7 +122,7 @@ public class PriceCPContentContributor implements CPContentContributor {
 
 			if ((promoPriceMoney != null) &&
 				(promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
-				(promoPrice.compareTo(unitPriceMoney.getPrice()) <= 0)) {
+				(promoPrice.compareTo(finalPrice.getPrice()) <= 0)) {
 
 				jsonObject.put(
 					CPContentContributorConstants.PROMO_PRICE,
@@ -122,8 +133,33 @@ public class PriceCPContentContributor implements CPContentContributor {
 		return jsonObject;
 	}
 
+	private CommerceProductPriceRequest _getCommerceProductPriceRequest(
+			CPInstance cpInstance,
+			CPDefinitionInventoryEngine cpDefinitionInventoryEngine,
+			CommerceContext commerceContext,
+			List<CommerceOptionValue> commerceOptionValues)
+		throws PortalException {
+
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(
+			cpDefinitionInventoryEngine.getMinOrderQuantity(cpInstance));
+		commerceProductPriceRequest.setSecure(false);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+		commerceProductPriceRequest.setCommerceOptionValues(
+			commerceOptionValues);
+
+		return commerceProductPriceRequest;
+	}
+
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceOptionValueHelper _commerceOptionValueHelper;
 
 	@Reference
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
