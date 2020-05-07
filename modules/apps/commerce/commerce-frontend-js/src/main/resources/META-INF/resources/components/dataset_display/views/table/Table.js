@@ -204,17 +204,17 @@ function Table(props) {
 													0)
 											}
 										>
-											{props.itemActions ||
-												(item.actionItems && (
-													<ActionsDropdownRenderer
-														actions={
-															props.itemActions ||
-															item.actionItems
-														}
-														itemData={item}
-														itemId={itemId}
-													/>
-												))}
+											{(props.itemActions ||
+												item.actionItems) && (
+												<ActionsDropdownRenderer
+													actions={
+														props.itemActions ||
+														item.actionItems
+													}
+													itemData={item}
+													itemId={itemId}
+												/>
+											)}
 										</ClayTable.Cell>
 									)}
 								</ClayTable.Row>

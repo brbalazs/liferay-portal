@@ -13,7 +13,7 @@
  */
 
 function defineServerResponses(app) {
-	app.get('/dataset-display-default-data', (_, res) => {
+	app.get('/dataset-display-nested-items', (_, res) => {
 		res.json({
 			items: [
 				{
@@ -53,63 +53,174 @@ function defineServerResponses(app) {
 							onClick: 'alert("asd")'
 						}
 					],
-					deliveryGroup: '',
-					detailedPrice: {
-						details: [
-							{
-								label: 'Catalog price',
-								value: '$ 15'
-							},
-							{
-								label: 'Final price',
-								value: '$ 31.123'
-							},
-							{
-								label: 'Promo price',
-								value: '$ 15.600'
-							},
-							{
-								label: 'Discounts',
-								value: [40, 30, 20, 10]
-							}
-						],
-						final: {
-							label: 'Final price',
-							value: '12.000 $'
-						}
-					},
-					discount: '$0.00',
-					image: {
-						alt: 'Oil Pump',
-						shape: 'rounded',
-						size: 'lg',
+					id: 'asd',
+					img: {
 						src: '//via.placeholder.com/250x250'
 					},
-					name: 'Oil Pump',
-					orderId: 41023,
-					orderItemId: 45317,
-					price: '$8.00',
-					quantity: 30,
-					requestedDeliveryDate: '',
-					sku: 'MIN00677',
-					status: {
-						displayStyle: 'success',
-						label: 'delivered'
+					name: 'ABS Sensor',
+					price: {
+						final: {
+							value: '12 Gazillions'
+						}
 					},
-					subscriptionDuration: '',
-					subscriptionPeriod: '',
+					productPage: '/test/link/1',
+					skuId: 7654,
+					testLink: {
+						href: '/test/link/1',
+						label: 'Test 1'
+					},
 					testQuantity: {
-						inputName: 'sdf-quantity',
-						maxQuantity: 1000,
-						minQuantity: 2,
-						multipleQuantity: 2,
+						allowedQuantities: [3, 6, 7, 100],
+						disabled: false,
+						inputName: 'asd-quantity',
 						quantity: 6
 					},
-					total: '$711.00',
-					type: {
-						content: 'DOC',
-						displayType: 'danger'
-					}
+					testSubItems: [
+						{
+							actionItems: [
+								{
+									href: '/view/url',
+									icon: 'view',
+									id: 'view',
+									label: 'View'
+								},
+								{
+									href: '/select/url',
+									icon: 'message-boards',
+									id: 'select',
+									label: 'Select',
+									target: 'modal'
+								},
+								{
+									href: '/delete/url',
+									icon: 'trash',
+									id: 'delete',
+									label: 'Delete',
+									method: 'delete',
+									target: 'async'
+								},
+								{
+									href: '/edit/url',
+									icon: 'pencil',
+									id: 'edit',
+									label: 'Edit',
+									target: 'sidePanel'
+								},
+								{
+									icon: 'warning-full',
+									id: 'alert',
+									label: 'Alert',
+									onClick: 'alert("asd")'
+								}
+							],
+							id: '111',
+							img: {
+								src: '//via.placeholder.com/250x250'
+							},
+							name: 'Sub item 1',
+							price: {
+								final: {
+									value: '12 Gazillions'
+								}
+							},
+							productPage: '/test/link/1',
+							skuId: 35663,
+							testLink: {
+								href: '/test/link/1',
+								label: 'Test 1'
+							}
+						},
+						{
+							actionItems: [
+								{
+									href: '/view/url',
+									icon: 'view',
+									id: 'view',
+									label: 'View'
+								},
+								{
+									href: '/select/url',
+									icon: 'message-boards',
+									id: 'select',
+									label: 'Select',
+									target: 'modal'
+								},
+								{
+									href: '/delete/url',
+									icon: 'trash',
+									id: 'delete',
+									label: 'Delete',
+									method: 'delete',
+									target: 'async'
+								},
+								{
+									href: '/edit/url',
+									icon: 'pencil',
+									id: 'edit',
+									label: 'Edit',
+									target: 'sidePanel'
+								},
+								{
+									icon: 'warning-full',
+									id: 'alert',
+									label: 'Alert',
+									onClick: 'alert("asd")'
+								}
+							],
+							id: '112',
+							img: {
+								src: '//via.placeholder.com/250x250'
+							},
+							name: 'Sub item 2',
+							price: {
+								final: {
+									value: '12 Gazillions'
+								}
+							},
+							productPage: '/test/link/1',
+							skuId: 356637,
+							testLink: {
+								href: '/test/link/1',
+								label: 'Test 1'
+							}
+						},
+						{
+							id: '113',
+							img: {
+								src: '//via.placeholder.com/250x250'
+							},
+							name: 'Sub item 3',
+							price: {
+								final: {
+									value: '12 Gazillions'
+								}
+							},
+							productPage: '/test/link/1',
+							skuId: 356638,
+							testLink: {
+								href: '/test/link/1',
+								label: 'Test 1'
+							}
+						},
+						{
+							id: '114',
+							img: {
+								src: '//via.placeholder.com/250x250'
+							},
+							name: 'Sub item 4',
+							price: {
+								final: {
+									value: '12 Gazillions'
+								}
+							},
+							productPage: '/test/link/1',
+							skuId: 3566312,
+							testLink: {
+								href: '/test/link/1',
+								label: 'Test 1'
+							}
+						}
+					]
 				},
 				{
 					actionItems: [
@@ -148,8 +259,12 @@ function defineServerResponses(app) {
 							onClick: 'alert("asd")'
 						}
 					],
-					deliveryGroup: '',
-					detailedPrice: {
+					id: 'sdf',
+					img: {
+						src: '//via.placeholder.com/500x500'
+					},
+					name: 'SBA Sensor',
+					price: {
 						details: [
 							{
 								label: 'Catalog price',
@@ -173,40 +288,26 @@ function defineServerResponses(app) {
 							value: '12.000 $'
 						}
 					},
-					discount: '$0.00',
-					image: {
-						alt: 'Timing Belt',
-						shape: 'rounded',
-						size: 'lg',
-						src: '//via.placeholder.com/250x250'
+					productPage: '/test/link/1',
+					skuId: 345345,
+					testLink: {
+						href: '/test/link/1',
+						label: 'Test 1'
 					},
-					name: 'Timing Belt',
-					orderId: 41023,
-					orderItemId: 45317,
-					price: '$79.00',
-					quantity: 9,
-					requestedDeliveryDate: '',
-					sku: 'MIN00609',
-					status: {
-						displayStyle: 'danger',
-						label: 'lost'
-					},
-					subscriptionDuration: '',
-					subscriptionPeriod: '',
 					testQuantity: {
-						allowedQuantities: [3, 6, 7, 100],
-						disabled: false,
-						inputName: 'asd-quantity',
+						inputName: 'sdf-quantity',
+						maxQuantity: 1000,
+						minQuantity: 2,
+						multipleQuantity: 2,
 						quantity: 6
 					},
-					total: '$711.00',
 					type: {
 						content: 'DOC',
 						displayType: 'danger'
 					}
 				}
 			],
-			totalItems: 1
+			totalItems: 50
 		});
 	});
 
