@@ -1160,7 +1160,9 @@
 		<exception>CPDefinitionMetaTitle</exception>
 		<exception>CPDefinitionNameDefaultLanguage</exception>
 		<exception>CPDefinitionOptionSKUContributor</exception>
+		<exception>CPDefinitionOptionValueRelCPInstance</exception>
 		<exception>CPDefinitionOptionValueRelKey</exception>
+		<exception>CPDefinitionOptionValueRelPrice</exception>
 		<exception>CPDefinitionProductTypeName</exception>
 		<exception>CPDisplayLayoutEntry</exception>
 		<exception>CPDisplayLayoutLayoutUuid</exception>
