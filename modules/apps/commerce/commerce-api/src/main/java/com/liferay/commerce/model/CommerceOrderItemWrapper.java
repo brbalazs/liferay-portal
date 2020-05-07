@@ -655,6 +655,14 @@ public class CommerceOrderItemWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.currency.model.CommerceMoney
+			getDiscountWithTaxAmountMoney()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItem.getDiscountWithTaxAmountMoney();
+	}
+
+	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return _commerceOrderItem.getExpandoBridge();
 	}
@@ -695,6 +703,14 @@ public class CommerceOrderItemWrapper
 	@Override
 	public BigDecimal getFinalPriceWithTaxAmount() {
 		return _commerceOrderItem.getFinalPriceWithTaxAmount();
+	}
+
+	@Override
+	public com.liferay.commerce.currency.model.CommerceMoney
+			getFinalPriceWithTaxAmountMoney()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItem.getFinalPriceWithTaxAmountMoney();
 	}
 
 	/**
@@ -881,6 +897,14 @@ public class CommerceOrderItemWrapper
 		return _commerceOrderItem.getPromoPriceWithTaxAmount();
 	}
 
+	@Override
+	public com.liferay.commerce.currency.model.CommerceMoney
+			getPromoPriceWithTaxAmountMoney()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItem.getPromoPriceWithTaxAmountMoney();
+	}
+
 	/**
 	 * Returns the quantity of this commerce order item.
 	 *
@@ -966,6 +990,14 @@ public class CommerceOrderItemWrapper
 	@Override
 	public BigDecimal getUnitPriceWithTaxAmount() {
 		return _commerceOrderItem.getUnitPriceWithTaxAmount();
+	}
+
+	@Override
+	public com.liferay.commerce.currency.model.CommerceMoney
+			getUnitPriceWithTaxAmountMoney()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItem.getUnitPriceWithTaxAmountMoney();
 	}
 
 	/**

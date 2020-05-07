@@ -91,7 +91,15 @@ public interface CommerceOrderItem
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public com.liferay.commerce.currency.model.CommerceMoney
+			getDiscountWithTaxAmountMoney()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public com.liferay.commerce.currency.model.CommerceMoney
 			getFinalPriceMoney()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public com.liferay.commerce.currency.model.CommerceMoney
+			getFinalPriceWithTaxAmountMoney()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public long getParentCommerceOrderItemCPDefinitionId();
@@ -100,7 +108,15 @@ public interface CommerceOrderItem
 			getPromoPriceMoney()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public com.liferay.commerce.currency.model.CommerceMoney
+			getPromoPriceWithTaxAmountMoney()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 	public com.liferay.commerce.currency.model.CommerceMoney getUnitPriceMoney()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public com.liferay.commerce.currency.model.CommerceMoney
+			getUnitPriceWithTaxAmountMoney()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public boolean hasParentCommerceOrderItem();

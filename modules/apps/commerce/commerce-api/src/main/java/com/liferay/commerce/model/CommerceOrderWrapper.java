@@ -1445,6 +1445,14 @@ public class CommerceOrderWrapper
 		return _commerceOrder.getTotalWithTaxAmount();
 	}
 
+	@Override
+	public com.liferay.commerce.currency.model.CommerceMoney
+			getTotalWithTaxAmountMoney()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrder.getTotalWithTaxAmountMoney();
+	}
+
 	/**
 	 * Returns the transaction ID of this commerce order.
 	 *
