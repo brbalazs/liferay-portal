@@ -4,9 +4,9 @@ import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import ExperimentListCard from '../hocs/ExperimentListCard';
 import Icon from 'shared/components/Icon';
 import React from 'react';
-import Spinner from 'shared/components/Spinner';
 import WrappedPageComponent from 'cerebro-shared/hocs/WrappedPageComponent';
 import {EXPERIMENT_LIST_QUERY} from '../queries/ExperimentQuery';
+import {get} from 'lodash';
 import {getMapPropsToOptions} from 'shared/hoc/mappers/metrics';
 import {IBasePageContext} from 'shared/types';
 import {sub} from 'shared/util/lang';
@@ -44,7 +44,7 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 
 	const {selectedChannel} = useChannelContext();
 
-	const {data, error, loading} = useQuery(EXPERIMENT_LIST_QUERY, {
+	const {data = {}, error, loading} = useQuery(EXPERIMENT_LIST_QUERY, {
 		fetchPolicy: 'network-only',
 		variables
 	});
@@ -75,9 +75,16 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 				<BasePage.Body>
 					<div className='row'>
 						<div className='col-sm-12'>
-							{loading ? (
-								<Spinner alignCenter />
-							) : data.experiments.total === 0 && !query ? (
+							{loading ||
+							!!get(data, ['experiments', 'total'], 0) ||
+							!!query ? (
+								<ExperimentListCard
+									{...get(data, 'experiments', {})}
+									error={error}
+									loading={loading}
+									router={router}
+								/>
+							) : (
 								<EmptyStateDashboard
 									description={
 										<>
@@ -105,12 +112,6 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 									}
 									symbol='ac-satellite'
 									title={Liferay.Language.get('no-tests-yet')}
-								/>
-							) : (
-								<ExperimentListCard
-									{...data.experiments}
-									error={error}
-									router={router}
 								/>
 							)}
 						</div>
