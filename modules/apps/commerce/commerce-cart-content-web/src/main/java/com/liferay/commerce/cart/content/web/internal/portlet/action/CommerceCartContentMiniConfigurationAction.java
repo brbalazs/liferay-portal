@@ -19,6 +19,7 @@ import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
+import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPConstants;
@@ -32,7 +33,6 @@ import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
-import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.PortletConfig;
@@ -78,7 +78,8 @@ public class CommerceCartContentMiniConfigurationAction
 						_commerceProductPriceCalculation, _cpDefinitionHelper,
 						_cpInstanceHelper,
 						_commerceOrderModelResourcePermission,
-						_commerceProductPortletResourcePermission);
+						_commerceProductPortletResourcePermission,
+						_percentageFormatter);
 
 			httpServletRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -137,6 +138,6 @@ public class CommerceCartContentMiniConfigurationAction
 	private CPInstanceHelper _cpInstanceHelper;
 
 	@Reference
-	private Portal _portal;
+	private PercentageFormatter _percentageFormatter;
 
 }

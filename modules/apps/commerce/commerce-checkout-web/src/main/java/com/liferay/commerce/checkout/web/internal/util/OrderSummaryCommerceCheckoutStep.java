@@ -25,6 +25,7 @@ import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
+import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
@@ -107,7 +108,7 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 					_commerceOrderPriceCalculation,
 					_commerceOrderValidatorRegistry, _commercePaymentEngine,
 					_commerceProductPriceCalculation, _cpInstanceHelper,
-					httpServletRequest);
+					_percentageFormatter, httpServletRequest);
 
 		CommerceOrder commerceOrder =
 			orderSummaryCheckoutStepDisplayContext.getCommerceOrder();
@@ -288,6 +289,9 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference
+	private PercentageFormatter _percentageFormatter;
 
 	@Reference
 	private Portal _portal;

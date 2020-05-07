@@ -19,6 +19,7 @@ import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
+import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPConstants;
@@ -89,7 +90,8 @@ public class CommerceCartContentMiniPortlet extends MVCPortlet {
 						_commerceProductPriceCalculation, _cpDefinitionHelper,
 						_cpInstanceHelper,
 						_commerceOrderModelResourcePermission,
-						_commerceProductPortletResourcePermission);
+						_commerceProductPortletResourcePermission,
+						_percentageFormatter);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -137,6 +139,9 @@ public class CommerceCartContentMiniPortlet extends MVCPortlet {
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
+
+	@Reference
+	private PercentageFormatter _percentageFormatter;
 
 	@Reference
 	private Portal _portal;
