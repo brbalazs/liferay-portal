@@ -12,16 +12,16 @@
  * details.
  */
 
-import {ITEM_ORDERING_CHANGED} from '../../../../../utilities/eventsDefinitions.es';
+import {ITEM_ORDERING_CHANGED} from '../../../../../utilities/eventsDefinitions';
 import {
 	calculateOrderingPosition,
 	DEFAULT_ORDERABLE_FIELD
-} from './orderingCalculationHelper.es';
+} from './orderingCalculationHelper';
 
-export {default as DraggableTableBodyRow} from './DraggableTableBodyRow.es';
+export {default as DraggableTableBodyRow} from './DraggableTableBodyRow';
 export {
 	default as TableBodyRowConfiguration
-} from './DraggableTableBodyRowConfiguration.es';
+} from './DraggableTableBodyRowConfiguration';
 
 export function moveListItem(indexFrom, indexTo, itemsList) {
 	const [...clonedList] = itemsList,

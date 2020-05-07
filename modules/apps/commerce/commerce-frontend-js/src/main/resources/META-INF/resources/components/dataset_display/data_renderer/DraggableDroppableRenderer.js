@@ -16,8 +16,8 @@ import getCN from 'classnames';
 import {useDrag, useDrop} from 'react-dnd';
 import React, {useContext} from 'react';
 
-import {ItemTypes} from '../../../utilities/drag_drop/constants.es';
-import DatasetDisplayContext from '../DatasetDisplayContext.es';
+import {ItemTypes} from '../../../utilities/drag_drop/constants';
+import DatasetDisplayContext from '../DatasetDisplayContext';
 
 function getClassNames(isDragging, isOver) {
 	return getCN(
@@ -27,7 +27,7 @@ function getClassNames(isDragging, isOver) {
 	);
 }
 
-function DraggableDroppable({item: rowItem, value}) {
+function DraggableDroppableRenderer({itemData: rowItem, value}) {
 	const {openModal} = useContext(DatasetDisplayContext);
 
 	const [{isOver}, drop] = useDrop({
@@ -59,4 +59,4 @@ function DraggableDroppable({item: rowItem, value}) {
 	);
 }
 
-export default DraggableDroppable;
+export default DraggableDroppableRenderer;

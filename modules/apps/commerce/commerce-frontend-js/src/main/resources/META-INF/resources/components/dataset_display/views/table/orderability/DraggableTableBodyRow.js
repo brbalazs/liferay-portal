@@ -18,7 +18,7 @@ import getCN from 'classnames';
 import {useDrag, useDrop} from 'react-dnd';
 import React from 'react';
 
-import {TableBodyRowConfiguration} from './index.es';
+import {TableBodyRowConfiguration} from './index';
 
 function getClassNames(isDragging) {
 	return getCN('draggable-row', isDragging ? 'is-dragging' : '');

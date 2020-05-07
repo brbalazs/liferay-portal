@@ -12,26 +12,26 @@
  * details.
  */
 
-import {ItemTypes} from '../../../../../utilities/drag_drop/constants.es';
-import {moveListItem, editItemOrdering} from './index.es';
+import {ItemTypes} from '../../../../../utilities/drag_drop/constants';
+import {moveListItem, editItemOrdering} from './index';
 
 const configureDragSource = ({
 	index: indexFrom,
 	itemsList,
 	orderableField
 }) => ({
-	item: {
-		indexFrom,
-		orderableField,
-		type: ItemTypes.DATASET_ROW
-	},
-
 	collect: monitor => ({
 		isDragging: monitor.isDragging()
 	}),
 
 	end: ({indexFrom: indexTo, orderableField}) =>
-		editItemOrdering(indexTo, itemsList, orderableField)
+		editItemOrdering(indexTo, itemsList, orderableField),
+
+	item: {
+		indexFrom,
+		orderableField,
+		type: ItemTypes.DATASET_ROW
+	}
 });
 
 const configureDropTarget = ({index: indexTo, itemsList, setItemsList}) => ({
