@@ -23,7 +23,6 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
@@ -392,8 +391,18 @@ public class CommerceProductPriceCalculationImpl
 	}
 
 	private Optional<BigDecimal> _getPriceListPrice(
-			long groupId, String cpInstanceUuid, int quantity,
-			long commerceBillingAddressId, long commerceShippingAddressId,
+			String cpInstanceUUID, int quantity,
+			CommercePriceList commercePriceList,
+			CommerceContext commerceContext, boolean promo)
+		throws PortalException {
+
+		return _getPriceListPrice(
+			cpInstanceUUID, quantity, commercePriceList,
+			commerceContext.getCommerceCurrency(), promo);
+	}
+
+	private Optional<BigDecimal> _getPriceListPrice(
+			String cpInstanceUuid, int quantity,
 			CommercePriceList commercePriceList,
 			CommerceCurrency commerceCurrency, boolean promo)
 		throws PortalException {
@@ -446,42 +455,6 @@ public class CommerceProductPriceCalculationImpl
 		}
 
 		return Optional.ofNullable(price);
-	}
-
-	private Optional<BigDecimal> _getPriceListPrice(
-			String cpInstanceUUID, int quantity,
-			CommercePriceList commercePriceList,
-			CommerceContext commerceContext, boolean promo)
-		throws PortalException {
-
-		long commerceChannelGroupId =
-			commerceContext.getCommerceChannelGroupId();
-		long commerceBillingAddressId = 0;
-		long commerceShippingAddressId = 0;
-
-		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
-
-		if (commerceOrder != null) {
-			commerceChannelGroupId = commerceOrder.getGroupId();
-			commerceBillingAddressId = commerceOrder.getBillingAddressId();
-			commerceShippingAddressId = commerceOrder.getShippingAddressId();
-		}
-		else {
-			CommerceAccount commerceAccount =
-				commerceContext.getCommerceAccount();
-
-			if (commerceAccount != null) {
-				commerceBillingAddressId =
-					commerceAccount.getDefaultBillingAddressId();
-				commerceShippingAddressId =
-					commerceAccount.getDefaultShippingAddressId();
-			}
-		}
-
-		return _getPriceListPrice(
-			commerceChannelGroupId, cpInstanceUUID, quantity,
-			commerceBillingAddressId, commerceShippingAddressId,
-			commercePriceList, commerceContext.getCommerceCurrency(), promo);
 	}
 
 	private BigDecimal[] _getUpdatedPrices(
