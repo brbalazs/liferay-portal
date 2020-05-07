@@ -53,6 +53,14 @@ public class CommerceTaxCalculateRequest {
 		return _percentage;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public boolean isWithTaxAmount() {
+		return _includeTax;
+	}
+
 	public void setChannelGroupId(long channelGroupId) {
 		_channelGroupId = channelGroupId;
 	}
@@ -83,6 +91,14 @@ public class CommerceTaxCalculateRequest {
 
 	public void setTaxCategoryId(long taxCategoryId) {
 		_taxCategoryId = taxCategoryId;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public void setWithTaxAmount(boolean includeTax) {
+		_includeTax = includeTax;
 	}
 
 	private long _channelGroupId;
