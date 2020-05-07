@@ -120,6 +120,17 @@ public class FaroAdminDisplayContext {
 					dropdownItem -> {
 						dropdownItem.setHref(
 							portletURL, ActionRequest.ACTION_NAME,
+							"/faro_admin/update_services", "faroProjectId",
+							faroProjectAdminDisplay.getFaroProjectId(),
+							"operation", "stop");
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								_httpServletRequest, "stop-services"));
+					});
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							portletURL, ActionRequest.ACTION_NAME,
 							"/faro_admin/start_project_upgrade",
 							"faroProjectId",
 							faroProjectAdminDisplay.getFaroProjectId());
