@@ -121,13 +121,15 @@ public class CommerceOrderGenerator {
 				commerceAccount.getCommerceAccountId(), 0, 1);
 
 		if (commerceAccountUserRels.isEmpty()) {
+			String message =
+				"There are no users related to the account " +
+					commerceAccount.getCommerceAccountId();
+
 			if (_log.isInfoEnabled()) {
-				_log.info(
-					"There are no users related to the account " +
-						commerceAccount.getCommerceAccountId());
+				_log.info(message);
 			}
 
-			throw new PortalException();
+			throw new PortalException(message);
 		}
 
 		CommerceAccountUserRel commerceAccountUserRel =
@@ -173,13 +175,15 @@ public class CommerceOrderGenerator {
 				commerceAccount.getCommerceAccountId(), 0, 1, null);
 
 		if (commerceAddresses.isEmpty()) {
+			String message =
+				"There are no addresses related to the account " +
+					commerceAccount.getCommerceAccountId();
+
 			if (_log.isInfoEnabled()) {
-				_log.info(
-					"There are no addresses related to the account " +
-						commerceAccount.getCommerceAccountId());
+				_log.info(message);
 			}
 
-			throw new PortalException();
+			throw new PortalException(message);
 		}
 
 		CommerceAddress commerceAddress = commerceAddresses.get(0);
@@ -329,6 +333,8 @@ public class CommerceOrderGenerator {
 
 		// Commerce orders
 
+		int retryNumber = 0;
+
 		for (int i = 0; i < ordersCount; i++) {
 			int min = _randomInt(0, cpDataSourceResult.getLength() - 1);
 
@@ -354,6 +360,8 @@ public class CommerceOrderGenerator {
 					cpDataSourceResult.getCPCatalogEntries(),
 					commerceShippingMethodId,
 					_getCommerceShippingEngine(commerceShippingMethodId));
+
+				retryNumber = 0;
 			}
 			catch (PortalException pe) {
 				if (_log.isInfoEnabled()) {
@@ -362,7 +370,13 @@ public class CommerceOrderGenerator {
 
 				// Order not generated, retry
 
-				i--;
+				if (retryNumber < 5) {
+					i--;
+					retryNumber++;
+				}
+				else {
+					_log.error(pe.getMessage(), pe);
+				}
 			}
 		}
 	}
