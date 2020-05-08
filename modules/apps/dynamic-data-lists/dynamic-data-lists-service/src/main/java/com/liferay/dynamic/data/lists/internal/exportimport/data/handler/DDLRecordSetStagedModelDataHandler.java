@@ -25,6 +25,7 @@ import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.util.DDMFormFactory;
 import com.liferay.exportimport.data.handler.base.BaseStagedModelDataHandler;
+import com.liferay.exportimport.kernel.lar.ExportImportClassedModelUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportHelper;
 import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
@@ -240,7 +241,7 @@ public class DDLRecordSetStagedModelDataHandler
 		StagedModelDataHandler<DDMStructure> stagedModelDataHandler =
 			(StagedModelDataHandler<DDMStructure>)
 				StagedModelDataHandlerRegistryUtil.getStagedModelDataHandler(
-					ddmStructure.getClassName());
+					ExportImportClassedModelUtil.getClassName(ddmStructure));
 
 		if (stagedModelDataHandler == null) {
 			return;
