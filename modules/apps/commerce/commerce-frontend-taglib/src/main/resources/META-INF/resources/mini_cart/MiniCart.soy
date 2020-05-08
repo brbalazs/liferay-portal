@@ -13,6 +13,7 @@
 	{@param? disabled: bool}
 	{@param? products: list<[
 		id: string|number,
+		childItems: ?,
 		name: string,
 		sku: string,
 		quantity: int,
@@ -128,6 +129,7 @@
 					{if isNonnull($products) and isNonnull($summary) and not($summary.itemsQuantity == 0)}
 						{foreach $product in $products}
 							{call CommerceCartItem.render}
+								{param childItems: $product.childItems /}
 								{param events: [
 									'submitQuantity' : $_handleSubmitQuantity,
 									'deleteItem' : $_handleDeleteItem,

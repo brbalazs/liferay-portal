@@ -243,12 +243,6 @@ function Table(props) {
 									{showActionItems && (
 										<ClayTable.Cell
 											className="dataset-item-actions-wrapper"
-											rowSpan={
-												1 +
-												((nestedItems &&
-													nestedItems.length) ||
-													0)
-											}
 										>
 											{(props.itemActions ||
 												item.actionItems) && (
@@ -286,6 +280,9 @@ function Table(props) {
 													nestedItem[nestedItemsKey],
 													props.itemActions
 												)}
+												{showActionItems ? (
+													<ClayTable.Cell />
+												) : null}
 											</ClayTable.Row>
 									  ))
 									: null}
