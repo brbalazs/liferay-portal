@@ -229,8 +229,6 @@ public interface ContactsEngineClient {
 		FaroProject faroProject, int cur, int delta,
 		List<OrderByField> orderByFields);
 
-	public Map<String, Object> getContext(FaroProject faroProject);
-
 	public Results<Individual> getCoworkerIndividuals(
 		FaroProject faroProject, String individualId, String query,
 		List<String> fields, int cur, int delta,
@@ -449,6 +447,8 @@ public interface ContactsEngineClient {
 	public Results<IndividualSegment> getUnassignedIndividualSegments(
 		FaroProject faroProject, int cur, int delta,
 		List<OrderByField> orderByFields);
+
+	public boolean isLatestVersion(FaroProject faroProject);
 
 	public Channel patchChannel(
 		FaroProject faroProject, String id, String name);

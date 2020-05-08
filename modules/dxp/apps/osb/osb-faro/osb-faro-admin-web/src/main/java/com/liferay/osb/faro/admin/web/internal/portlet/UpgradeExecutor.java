@@ -234,17 +234,7 @@ public class UpgradeExecutor {
 		}
 
 		try {
-			Map<String, Object> context = _contactsEngineClient.getContext(
-				faroProject);
-
-			Map<String, String> environment = (Map)context.get("environment");
-
-			String labelVcsRef = environment.get("LABEL_VCS_REF");
-
-			String[] parts = StringUtil.split(
-				_REPOSITORY_SHA, StringPool.MINUS);
-
-			if (!labelVcsRef.startsWith(parts[1])) {
+			if (!_contactsEngineClient.isLatestVersion(faroProject)) {
 				return false;
 			}
 		}
@@ -473,9 +463,6 @@ public class UpgradeExecutor {
 	private static final String[] _EXPECTED_SERVICE_IDS_TRIAL = {
 		"osbasahmonolith"
 	};
-
-	private static final String _REPOSITORY_SHA = System.getenv(
-		"FARO_REPOSITORY_SHA");
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		UpgradeExecutor.class);

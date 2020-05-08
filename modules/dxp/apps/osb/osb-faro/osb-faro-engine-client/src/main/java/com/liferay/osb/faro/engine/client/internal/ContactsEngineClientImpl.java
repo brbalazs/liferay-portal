@@ -971,20 +971,6 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
-	public Map<String, Object> getContext(FaroProject faroProject) {
-		RestTemplate restTemplate = getRestTemplate();
-
-		ResponseEntity<Map<String, Object>> responseEntity =
-			restTemplate.exchange(
-				getEngineURL(faroProject) + "/context", HttpMethod.GET, null,
-				new ParameterizedTypeReference<Map<String, Object>>() {
-				},
-				getUriVariables(faroProject));
-
-		return responseEntity.getBody();
-	}
-
-	@Override
 	public Results<Individual> getCoworkerIndividuals(
 		FaroProject faroProject, String individualId, String query,
 		List<String> fields, int cur, int delta,
@@ -2418,6 +2404,32 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
+	public boolean isLatestVersion(FaroProject faroProject) {
+		RestTemplate restTemplate = getRestTemplate();
+
+		ResponseEntity<Map<String, Object>> responseEntity =
+			restTemplate.exchange(
+				getEngineURL(faroProject) + "/context", HttpMethod.GET, null,
+				new ParameterizedTypeReference<Map<String, Object>>() {
+				},
+				getUriVariables(faroProject));
+
+		Map<String, Object> context = responseEntity.getBody();
+
+		Map<String, String> environment = (Map)context.get("environment");
+
+		String labelVcsRef = environment.get("LABEL_VCS_REF");
+
+		String[] parts = StringUtil.split(_REPOSITORY_SHA, StringPool.MINUS);
+
+		if (labelVcsRef.startsWith(parts[1])) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
 	public Channel patchChannel(
 		FaroProject faroProject, String id, String name) {
 
@@ -2743,6 +2755,9 @@ public class ContactsEngineClientImpl
 	private static final String _FARO_URL = System.getenv("FARO_URL");
 
 	private static final int _PAYLOAD_MAX_BYTE_SIZE = 200000;
+
+	private static final String _REPOSITORY_SHA = System.getenv(
+		"FARO_REPOSITORY_SHA");
 
 	private static final DateFormat _dateFormat = new SimpleDateFormat(
 		"yyyy-MM-dd'T'HH:mm:ss'Z'");
