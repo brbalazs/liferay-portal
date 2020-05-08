@@ -12,7 +12,7 @@ import {Provider} from 'react-redux';
 import {
 	selectAllAndToggle,
 	selectFilterDropdownItem,
-	waitForTable
+	waitForLoading
 } from 'test/helpers';
 import {StaticRouter} from 'react-router-dom';
 
@@ -122,14 +122,15 @@ describe('RequestList', () => {
 			moment(new Date('December 09, 2019'))
 		);
 	});
+
 	afterEach(cleanup);
 
 	it('should render', async() => {
 		const {container} = render(<DefaultComponent />);
 
-		jest.runAllTimers();
+		await waitForLoading(container);
 
-		await waitForTable(container);
+		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
 	});
@@ -137,9 +138,9 @@ describe('RequestList', () => {
 	it('should render a request row as checkable with a download button if the status is "DONE"', async() => {
 		const {container} = render(<DefaultComponent />);
 
-		jest.runAllTimers();
+		await waitForLoading(container);
 
-		await waitForTable(container);
+		jest.runAllTimers();
 
 		const rowElement = container.querySelector(
 			'.table > tbody:nth-of-type(4) > tr'
@@ -157,9 +158,9 @@ describe('RequestList', () => {
 	it('should render a request row as disabled with no download button if the status is not "DONE"', async() => {
 		const {container} = render(<DefaultComponent />);
 
-		jest.runAllTimers();
+		await waitForLoading(container);
 
-		await waitForTable(container);
+		jest.runAllTimers();
 
 		const rowElement = container.querySelector(
 			'.table > tbody:nth-of-type(1) > tr'
@@ -177,9 +178,9 @@ describe('RequestList', () => {
 	it('should render a request row as disabled with a "download expired" message if the request status is EXPIRED', async() => {
 		const {container} = render(<DefaultComponent />);
 
-		jest.runAllTimers();
+		await waitForLoading(container);
 
-		await waitForTable(container);
+		jest.runAllTimers();
 
 		const rowElement = container.querySelector(
 			'.table > tbody:nth-of-type(3) > tr'
@@ -197,9 +198,9 @@ describe('RequestList', () => {
 	it('should filter selected results by request type', async() => {
 		const {container} = render(<DefaultComponent />);
 
-		jest.runAllTimers();
+		await waitForLoading(container);
 
-		await waitForTable(container);
+		jest.runAllTimers();
 
 		selectAllAndToggle(container);
 
@@ -215,9 +216,9 @@ describe('RequestList', () => {
 	it('should filter selected results by time period', async() => {
 		const {container} = render(<DefaultComponent />);
 
-		jest.runAllTimers();
+		await waitForLoading(container);
 
-		await waitForTable(container);
+		jest.runAllTimers();
 
 		selectAllAndToggle(container);
 

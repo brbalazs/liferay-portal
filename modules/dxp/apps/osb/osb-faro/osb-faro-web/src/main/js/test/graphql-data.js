@@ -2,6 +2,9 @@ import IndividualMetricsQuery from 'contacts/individual/dashboard/queries/Indivi
 import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery';
 import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
 import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
+import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
+import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
+import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isArray, mapValues, range} from 'lodash';
 import {LAST_30_DAYS} from 'shared/util/constants';
@@ -208,5 +211,116 @@ export function mockMetric(metrics = {}) {
 				: value;
 		}),
 		__typename: 'Metric'
+	};
+}
+
+export function mockSuppressedUsersListReq(items, mockVariables = {}) {
+	return {
+		request: {
+			query: SuppressedUsersListQuery,
+			variables: {
+				keywords: '',
+				size: 5,
+				sort: {column: 'createDate', type: 'DESC'},
+				start: 0,
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				suppressions: {
+					__typename: 'SuppressionBag',
+					suppressions: items,
+					total: items.length
+				}
+			}
+		}
+	};
+}
+
+export function mockTimeRangeReq() {
+	return {
+		request: {
+			query: TimeRangeQuery
+		},
+		result: {
+			data: {
+				timeRange: [
+					{
+						__typename: 'TimeRange',
+						default: false,
+						endDate: '2020-05-08T23:00',
+						rangeKey: 0,
+						startDate: '2020-05-08T00:00'
+					},
+					{
+						__typename: 'TimeRange',
+						default: false,
+						endDate: '2020-05-07T23:00',
+						rangeKey: 1,
+						startDate: '2020-05-07T00:00'
+					},
+					{
+						__typename: 'TimeRange',
+						default: false,
+						endDate: '2020-05-07T23:59:59.999999999',
+						rangeKey: 7,
+						startDate: '2020-05-01T00:00'
+					},
+					{
+						__typename: 'TimeRange',
+						default: false,
+						endDate: '2020-05-07T23:59:59.999999999',
+						rangeKey: 90,
+						startDate: '2020-02-08T00:00'
+					},
+					{
+						__typename: 'TimeRange',
+						default: false,
+						endDate: '2020-05-07T23:59:59.999999999',
+						rangeKey: 28,
+						startDate: '2020-04-10T00:00'
+					},
+					{
+						__typename: 'TimeRange',
+						default: true,
+						endDate: '2020-05-07T23:59:59.999999999',
+						rangeKey: 30,
+						startDate: '2020-04-08T00:00'
+					}
+				]
+			}
+		}
+	};
+}
+
+export function mockTouchpointsReq(items, mockVariables = {}) {
+	return {
+		request: {
+			query: TouchpointsQuery,
+			variables: {
+				channelId: '321321',
+				devices: 'Any',
+				keywords: '',
+				location: 'Any',
+				rangeKey: 30,
+				size: 5,
+				sort: {column: 'visitorsMetric', type: 'DESC'},
+				start: 0,
+				terms: 'test',
+				title: '',
+				touchpoint: '',
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				pages: {
+					__typename: 'AssetMetricBag',
+					assetMetrics: items,
+					total: items.length
+				}
+			}
+		}
 	};
 }

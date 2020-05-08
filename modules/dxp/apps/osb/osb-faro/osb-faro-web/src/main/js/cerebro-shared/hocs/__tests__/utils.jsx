@@ -1,26 +1,63 @@
 import React from 'react';
-import {render, shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 import {withEmpty, withError} from '../utils';
+
+jest.unmock('react-dom');
 
 const MyAwesomeComponent = () => <div>{'my awesome component'}</div>;
 
 describe('withEmpty', () => {
-	it('should render empty state when "empty" props is true', () => {
-		const ComposedComponent = withEmpty('an empty title')(
+	it('should render with emptyTitle if query exists & items is empty', () => {
+		const ComposedComponent = withEmpty({emptyTitle: 'an empty title'})(
 			MyAwesomeComponent
 		);
 
-		expect(
-			shallow(<ComposedComponent empty />).is('NoResultsDisplay')
-		).toBe(true);
+		const {queryByText} = render(
+			<ComposedComponent items={[]} total={0} />
+		);
+
+		expect(queryByText('an empty title')).toBeTruthy();
 	});
 
-	it('should not render empty state when "empty" props is false', () => {
+	it('should render with default no results display if total is greater than 0 & items is empty', () => {
+		const ComposedComponent = withEmpty({emptyTitle: 'an empty title'})(
+			MyAwesomeComponent
+		);
+
+		const {queryByText} = render(
+			<ComposedComponent entityLabel='tests' items={[]} total={1} />
+		);
+
+		expect(queryByText('an empty title')).toBeNull();
+		expect(queryByText('There are no tests found.')).toBeTruthy();
+	});
+
+	it('should render with default no results display if total is 0 & items is empty', () => {
+		const ComposedComponent = withEmpty({emptyTitle: 'an empty title'})(
+			MyAwesomeComponent
+		);
+
+		const {queryByText} = render(
+			<ComposedComponent
+				entityLabel='tests'
+				items={[]}
+				query='asdf'
+				total={0}
+			/>
+		);
+
+		expect(queryByText('an empty title')).toBeNull();
+		expect(queryByText('There are no tests found.')).toBeTruthy();
+	});
+
+	it('should not render empty state when items is not empty', () => {
 		const ComposedComponent = withEmpty()(MyAwesomeComponent);
 
-		expect(
-			shallow(<ComposedComponent empty={false} />).is('NoResultsDisplay')
-		).toBe(false);
+		const {queryByText} = render(
+			<ComposedComponent items={['test']} total={1} />
+		);
+
+		expect(queryByText('my awesome component')).toBeTruthy();
 	});
 });
 
@@ -28,26 +65,26 @@ describe('withError', () => {
 	it('should render error state when "error" props is true', () => {
 		const ComposedComponent = withError()(MyAwesomeComponent);
 
-		const ExpectedComponent = () => <ComposedComponent error />;
+		const {queryByText} = render(<ComposedComponent error />);
 
-		expect(render(<ExpectedComponent />)).toMatchSnapshot();
+		expect(queryByText('Sorry, an error occurred.')).toBeTruthy();
 	});
 
-	it('should not render error state when "error" props is true', () => {
+	it('should not render error state when "error" props is false', () => {
 		const ComposedComponent = withError()(MyAwesomeComponent);
 
-		const ExpectedComponent = () => <ComposedComponent error={false} />;
+		const {queryByText} = render(<ComposedComponent error={false} />);
 
-		expect(render(<ExpectedComponent />)).toMatchSnapshot();
+		expect(queryByText('my awesome component')).toBeTruthy();
 	});
 
 	it('should render custom error state message when "error" props is true', () => {
 		const ComposedComponent = withError()(MyAwesomeComponent);
 
-		const ExpectedComponent = () => (
+		const {queryByText} = render(
 			<ComposedComponent error errorMessage='Sorry, it is an error!' />
 		);
 
-		expect(render(<ExpectedComponent />)).toMatchSnapshot();
+		expect(queryByText('Sorry, it is an error!')).toBeTruthy();
 	});
 });

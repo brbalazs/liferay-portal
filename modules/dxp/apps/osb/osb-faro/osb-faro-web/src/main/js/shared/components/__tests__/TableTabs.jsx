@@ -24,6 +24,7 @@ describe('TableTabs', () => {
 					{getColumns: noop, tabId: 'foo', title: 'Test Tab 0'},
 					{getColumns: noop, tabId: 'bar', title: 'Test Tab 1'}
 				]}
+				total={1}
 			/>
 		);
 

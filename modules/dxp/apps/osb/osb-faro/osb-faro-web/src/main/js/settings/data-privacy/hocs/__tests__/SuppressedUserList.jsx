@@ -1,19 +1,13 @@
-import Constants, {GDPR_REQUEST_STATUSES} from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import SuppressedUserList from '../SuppressedUserList';
-import SuppressedUsersListQuery from '../../queries/SuppressedUsersListQuery';
 import {cleanup, render} from '@testing-library/react';
-import {CREATE_DATE} from 'shared/util/pagination';
-import {mockBag} from 'test/graphql-data';
+import {GDPR_REQUEST_STATUSES} from 'shared/util/constants';
 import {MockedProvider} from '@apollo/react-testing';
+import {mockSuppressedUsersListReq} from 'test/graphql-data';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router-dom';
-import {waitForTable} from 'test/helpers';
-
-const {
-	pagination: {orderDescending}
-} = Constants;
+import {waitForLoading} from 'test/helpers';
 
 jest.unmock('react-dom');
 
@@ -36,39 +30,14 @@ const mockItems = [
 	}
 ];
 
-function mockSuppressedUsersListReq() {
-	return {
-		request: {
-			query: SuppressedUsersListQuery,
-			variables: {
-				keywords: '',
-				size: 2,
-				sort: {
-					column: CREATE_DATE,
-					type: orderDescending.toUpperCase()
-				},
-				start: 0
-			}
-		},
-		result: {
-			data: mockBag({
-				items: mockItems,
-				itemTypeName: 'Suppression',
-				name: 'suppressions',
-				typeName: 'SuppressionBag'
-			})
-		}
-	};
-}
-
 const WrappedComponent = props => (
-	<MockedProvider mocks={[mockSuppressedUsersListReq()]}>
+	<MockedProvider mocks={[mockSuppressedUsersListReq(mockItems)]}>
 		<Provider store={mockStore()}>
 			<StaticRouter>
 				<SuppressedUserList
 					router={{
 						params: {groupId: '23'},
-						query: {delta: '2', page: '1'}
+						query: {delta: '5', page: '1'}
 					}}
 					{...props}
 				/>
@@ -83,9 +52,9 @@ describe('Suppressed User List', () => {
 	it('should render', async() => {
 		const {container} = render(<WrappedComponent />);
 
-		jest.runAllTimers();
+		await waitForLoading(container);
 
-		await waitForTable(container);
+		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
 	});

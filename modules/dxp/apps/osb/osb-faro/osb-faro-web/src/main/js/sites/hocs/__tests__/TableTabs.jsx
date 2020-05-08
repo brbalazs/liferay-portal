@@ -2,14 +2,15 @@ import BasePage from 'shared/components/base-page';
 import client from 'shared/apollo/client';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
-import {noop} from 'lodash';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
 import {withTableTabs} from '../TableTabs';
 
+jest.unmock('react-dom');
+
 const TableTabsWrappedComponent = withTableTabs(
 	() => C => props => <C {...props} />,
-	[{getColumns: noop}]
+	[{getColumns: jest.fn()}]
 );
 
 const MOCK_CONTEXT = {
@@ -37,10 +38,10 @@ const WrappedComponent = props => (
 
 describe('TableTabs', () => {
 	it('render', () => {
-		const component = shallow(
-			<WrappedComponent footerHref={'foo/route'} />
-		);
+		const {container} = render(<WrappedComponent footerHref='foo/route' />);
 
-		expect(component.render()).toMatchSnapshot();
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 });

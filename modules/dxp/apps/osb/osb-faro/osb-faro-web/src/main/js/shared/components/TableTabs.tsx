@@ -15,8 +15,8 @@ export type Tab = {
 };
 
 const WrappedTable = compose<any>(
-	withEmpty(),
-	withError({page: false})
+	withError({page: false}),
+	withEmpty()
 )(Table);
 
 interface ITableTabsProps {
@@ -25,6 +25,7 @@ interface ITableTabsProps {
 	loading: boolean;
 	onActiveTabChange: () => void;
 	tabConfig: Tab[];
+	total: number;
 }
 
 /**
@@ -38,6 +39,7 @@ const TableTabs: React.FC<ITableTabsProps> = (props: ITableTabsProps) => {
 		loading,
 		onActiveTabChange,
 		tabConfig,
+		total,
 		...otherProps
 	} = props;
 
@@ -59,6 +61,7 @@ const TableTabs: React.FC<ITableTabsProps> = (props: ITableTabsProps) => {
 				items={items}
 				loading={loading}
 				rowIdentifier={rowIdentifier}
+				total={total}
 				{...otherProps}
 			/>
 		</div>
