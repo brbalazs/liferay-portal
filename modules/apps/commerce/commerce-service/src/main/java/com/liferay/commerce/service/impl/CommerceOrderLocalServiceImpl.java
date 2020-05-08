@@ -409,7 +409,7 @@ public class CommerceOrderLocalServiceImpl
 		long commerceAccountId, Date date, int status) {
 
 		commerceOrderPersistence.removeByC_LtC_O(
-			commerceAccountId, date, status);
+			date, commerceAccountId, status);
 	}
 
 	@Override
