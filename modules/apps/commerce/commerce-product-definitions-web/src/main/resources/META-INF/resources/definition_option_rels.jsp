@@ -92,23 +92,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 			}
 
 			function getSelectedItems() {
-				return fetch(
-					'/o/headless-commerce-admin-catalog/v1.0/products/' +
-						productId +
-						'/productOptions/',
-					{
-						credentials: 'include',
-						headers: headers
-					}
-				)
-					.then(function(response) {
-						return response.json();
-					})
-					.then(function(jsonResponse) {
-						return jsonResponse.items.map(function(option) {
-							return option.optionId;
-						});
-					});
+				return Promise.resolve([]);
 			}
 
 			itemFinder.default('itemFinder', 'item-finder-root', {
@@ -117,10 +101,13 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				getSelectedItems: getSelectedItems,
 				inputPlaceholder:
 					'<%= LanguageUtil.get(request, "find-or-create-an-option") %>',
+				itemSelectedMessage:
+					'<%= LanguageUtil.get(request, "option-selected") %>',
 				itemsKey: 'id',
 				linkedDatasetsId: [
 					'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'
 				],
+				multiSelectableEntries: true,
 				onItemCreated: addNewItem,
 				onItemSelected: selectItem,
 				pageSize: 10,

@@ -264,23 +264,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					}
 
 					function getSelectedItems() {
-						return fetch(
-							'/o/headless-commerce-admin-catalog/v1.0/products/' +
-								productId +
-								'/productSpecifications/',
-							{
-								credentials: 'include',
-								headers: headers
-							}
-						)
-							.then(function(response) {
-								return response.json();
-							})
-							.then(function(jsonResponse) {
-								return jsonResponse.items.map(function(specification) {
-									return specification.specificationId;
-								});
-							});
+						return Promise.resolve([]);
 					}
 
 					itemFinder.default('itemFinder', 'item-finder-root', {
@@ -290,10 +274,12 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						getSelectedItems: getSelectedItems,
 						inputPlaceholder:
 							'<%= LanguageUtil.get(request, "find-or-create-a-specification") %>',
-						itemsKey: 'id',
+						itemSelectedMessage:
+							'<%= LanguageUtil.get(request, "specification-selected") %>',
 						linkedDatasetsId: [
 							'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
 						],
+						multiSelectableEntries: true,
 						onItemCreated: addNewItem,
 						onItemSelected: selectItem,
 						pageSize: 10,
