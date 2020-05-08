@@ -209,7 +209,10 @@ public class MiniumCPContentListEntryRenderer
 		context.put("pictureUrl", cpCatalogEntry.getDefaultImageFileUrl());
 		context.put("productId", cpCatalogEntry.getCPDefinitionId());
 
-		if (cpSku != null) {
+		if ((cpSku != null) &&
+			!cpContentHelper.hasChildCPDefinitions(
+				cpCatalogEntry.getCPDefinitionId())) {
+
 			context.put("sku", cpSku.getSku());
 			context.put("skuId", cpSku.getCPInstanceId());
 
