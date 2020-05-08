@@ -21,7 +21,6 @@ import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.inventory.CommerceInventoryChecker;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.inventory.InventoryChecker;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.price.CommerceProductOptionValueRelativePriceRequest;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
@@ -242,8 +241,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 					new Output(
 						cpDefinitionOptionRel.getKey(), "list",
 						_toRequestedCPDefinitionOptionValueRelKeyValuePairs(
-							cpDefinitionId, cpDefinitionOptionRel,
-							allowedCPDefinitionOptionValueRels,
+							cpDefinitionId, allowedCPDefinitionOptionValueRels,
 							selectedCPDefinitionOptionValuesJSONArray,
 							selectedCPInstance, locale,
 							_getCommerceContext(
@@ -480,10 +478,8 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			CommerceMoney commerceMoney =
 				_commerceProductPriceCalculation.
 					getCPDefinitionOptionValueRelativePrice(
-						builder.cpInstanceId(
-							0
-						).selectedCPInstanceId(
-							selectedCPInstance.getCPInstanceId()
+						builder.selectedCPInstanceId(
+							_getCPInstanceId(selectedCPInstance)
 						).selectedCPInstanceMinQuantity(
 							_getMinOrderQuantity(selectedCPInstance)
 						).selectedCPDefinitionOptionValueRel(
@@ -504,7 +500,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	private List<KeyValuePair>
 			_toRequestedCPDefinitionOptionValueRelKeyValuePairs(
 				long cpDefinitionId,
-				CPDefinitionOptionRel cpDefinitionOptionRel,
 				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
 				JSONArray selectedCPDefinitionOptionValuesJSONArray,
 				CPInstance selectedCPInstance, Locale locale,
@@ -581,10 +576,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 			CPInstance cpInstance = _cpInstanceHelper.fetchCPInstance(
 				cpDefinitionId, clonedJSONArray.toString());
-
-			if (cpInstance == null) {
-				continue;
-			}
 
 			CommerceProductOptionValueRelativePriceRequest.Builder builder =
 				new CommerceProductOptionValueRelativePriceRequest.Builder(
