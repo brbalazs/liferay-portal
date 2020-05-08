@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.account.client.pagination.Page;
 import com.liferay.headless.commerce.admin.account.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.account.client.resource.v1_0.AccountAddressResource;
 import com.liferay.headless.commerce.admin.account.client.serdes.v1_0.AccountAddressSerDes;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -43,6 +44,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -51,6 +53,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
@@ -276,31 +279,27 @@ public abstract class BaseAccountAddressResourceTestCase {
 		AccountAddress accountAddress =
 			testGraphQLAccountAddress_addAccountAddress();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"accountAddressByExternalReferenceCode",
-				new HashMap<String, Object>() {
-					{
-						put(
-							"externalReferenceCode",
-							accountAddress.getExternalReferenceCode());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				accountAddress,
-				dataJSONObject.getJSONObject(
-					"accountAddressByExternalReferenceCode")));
+				AccountAddressSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"accountAddressByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												accountAddress.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/accountAddressByExternalReferenceCode"))));
 	}
 
 	@Test
@@ -369,43 +368,34 @@ public abstract class BaseAccountAddressResourceTestCase {
 		AccountAddress accountAddress =
 			testGraphQLAccountAddress_addAccountAddress();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteAccountAddress",
-				new HashMap<String, Object>() {
-					{
-						put("accountAddressId", accountAddress.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteAccountAddress"));
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteAccountAddress",
+						new HashMap<String, Object>() {
+							{
+								put("accountAddressId", accountAddress.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteAccountAddress"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"accountAddress",
-					new HashMap<String, Object>() {
-						{
-							put("accountAddressId", accountAddress.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"accountAddress",
+						new HashMap<String, Object>() {
+							{
+								put("accountAddressId", accountAddress.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -436,28 +426,41 @@ public abstract class BaseAccountAddressResourceTestCase {
 		AccountAddress accountAddress =
 			testGraphQLAccountAddress_addAccountAddress();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"accountAddress",
-				new HashMap<String, Object>() {
-					{
-						put("id", accountAddress.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				accountAddress,
-				dataJSONObject.getJSONObject("accountAddress")));
+				AccountAddressSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"accountAddress",
+								new HashMap<String, Object>() {
+									{
+										put("id", accountAddress.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/accountAddress"))));
+	}
+
+	@Test
+	public void testGraphQLGetAccountAddressNotFound() throws Exception {
+		Long irrelevantId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"accountAddress",
+						new HashMap<String, Object>() {
+							{
+								put("id", irrelevantId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
 	}
 
 	@Test
@@ -888,25 +891,6 @@ public abstract class BaseAccountAddressResourceTestCase {
 		}
 	}
 
-	protected void assertEqualsJSONArray(
-		List<AccountAddress> accountAddresses, JSONArray jsonArray) {
-
-		for (AccountAddress accountAddress : accountAddresses) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(accountAddress, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + accountAddress, contains);
-		}
-	}
-
 	protected void assertValid(AccountAddress accountAddress) {
 		boolean valid = true;
 
@@ -1076,13 +1060,50 @@ public abstract class BaseAccountAddressResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.account.dto.v1_0.
+						AccountAddress.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(field.getName(), childrenGraphQLFields));
+			}
 		}
 
 		return graphQLFields;
@@ -1294,196 +1315,25 @@ public abstract class BaseAccountAddressResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		AccountAddress accountAddress, JSONObject jsonObject) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
 
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("city", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getCity(),
-						jsonObject.getString("city"))) {
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("countryISOCode", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getCountryISOCode(),
-						jsonObject.getString("countryISOCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("defaultBilling", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getDefaultBilling(),
-						jsonObject.getBoolean("defaultBilling"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("defaultShipping", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getDefaultShipping(),
-						jsonObject.getBoolean("defaultShipping"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("description", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getDescription(),
-						jsonObject.getString("description"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("externalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getExternalReferenceCode(),
-						jsonObject.getString("externalReferenceCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("latitude", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getLatitude(),
-						jsonObject.getDouble("latitude"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("longitude", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getLongitude(),
-						jsonObject.getDouble("longitude"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("name", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getName(),
-						jsonObject.getString("name"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("phoneNumber", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getPhoneNumber(),
-						jsonObject.getString("phoneNumber"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("regionISOCode", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getRegionISOCode(),
-						jsonObject.getString("regionISOCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("street1", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getStreet1(),
-						jsonObject.getString("street1"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("street2", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getStreet2(),
-						jsonObject.getString("street2"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("street3", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getStreet3(),
-						jsonObject.getString("street3"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("type", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getType(), jsonObject.getInt("type"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("zip", fieldName)) {
-				if (!Objects.deepEquals(
-						accountAddress.getZip(), jsonObject.getString("zip"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1680,26 +1530,51 @@ public abstract class BaseAccountAddressResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected AccountAddress randomAccountAddress() throws Exception {
 		return new AccountAddress() {
 			{
-				city = RandomTestUtil.randomString();
-				countryISOCode = RandomTestUtil.randomString();
+				city = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				countryISOCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				defaultBilling = RandomTestUtil.randomBoolean();
 				defaultShipping = RandomTestUtil.randomBoolean();
-				description = RandomTestUtil.randomString();
-				externalReferenceCode = RandomTestUtil.randomString();
+				description = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				latitude = RandomTestUtil.randomDouble();
 				longitude = RandomTestUtil.randomDouble();
-				name = RandomTestUtil.randomString();
-				phoneNumber = RandomTestUtil.randomString();
-				regionISOCode = RandomTestUtil.randomString();
-				street1 = RandomTestUtil.randomString();
-				street2 = RandomTestUtil.randomString();
-				street3 = RandomTestUtil.randomString();
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				phoneNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				regionISOCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				street1 = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				street2 = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				street3 = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				type = RandomTestUtil.randomInt();
-				zip = RandomTestUtil.randomString();
+				zip = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}
@@ -1725,9 +1600,22 @@ public abstract class BaseAccountAddressResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1755,7 +1643,7 @@ public abstract class BaseAccountAddressResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1771,7 +1659,7 @@ public abstract class BaseAccountAddressResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 
