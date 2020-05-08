@@ -191,8 +191,57 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
-		return _getPortletURL(
+		PortletURL portletURL = _getPortletURL(
 			httpServletRequest, CommercePortletKeys.COMMERCE_CHECKOUT);
+
+		CommerceOrder commerceOrder = getCurrentCommerceOrder(
+			httpServletRequest);
+
+		if ((commerceOrder != null) && commerceOrder.isGuestOrder()) {
+			Layout currentLayout = (Layout)httpServletRequest.getAttribute(
+				WebKeys.LAYOUT);
+
+			String friendlyURL = StringPool.FORWARD_SLASH + "authentication";
+
+			Layout layout = _layoutLocalService.fetchLayoutByFriendlyURL(
+				_portal.getScopeGroupId(httpServletRequest), false,
+				friendlyURL);
+
+			if (!friendlyURL.equals(currentLayout.getFriendlyURL()) &&
+				(layout != null)) {
+
+				portletURL = _portletURLFactory.create(
+					httpServletRequest,
+					"com_liferay_login_web_portlet_LoginPortlet", layout,
+					PortletRequest.RENDER_PHASE);
+			}
+			else {
+				portletURL.setParameter(
+					"continueAsGuest", Boolean.TRUE.toString());
+
+				Cookie cookie = new Cookie(
+					"continueAsGuest", Boolean.TRUE.toString());
+
+				String domain = CookieKeys.getDomain(httpServletRequest);
+
+				if (Validator.isNotNull(domain)) {
+					cookie.setDomain(domain);
+				}
+
+				ThemeDisplay themeDisplay =
+					(ThemeDisplay)httpServletRequest.getAttribute(
+						WebKeys.THEME_DISPLAY);
+
+				cookie.setMaxAge(CookieKeys.MAX_AGE);
+				cookie.setPath(StringPool.SLASH);
+
+				CookieKeys.addCookie(
+					themeDisplay.getRequest(), themeDisplay.getResponse(),
+					cookie);
+			}
+		}
+
+		return portletURL;
 	}
 
 	@Override
@@ -479,50 +528,6 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		else {
 			portletURL = _portletURLFactory.create(
 				httpServletRequest, portletId, PortletRequest.RENDER_PHASE);
-		}
-
-		CommerceOrder commerceOrder = getCurrentCommerceOrder(
-			httpServletRequest);
-
-		if ((commerceOrder != null) && commerceOrder.isGuestOrder()) {
-			Layout currentLayout = (Layout)httpServletRequest.getAttribute(
-				WebKeys.LAYOUT);
-
-			String friendlyURL = StringPool.FORWARD_SLASH + "authentication";
-
-			Layout layout = _layoutLocalService.fetchLayoutByFriendlyURL(
-				groupId, false, friendlyURL);
-
-			if (!friendlyURL.equals(currentLayout.getFriendlyURL())) {
-				portletURL = _portletURLFactory.create(
-					httpServletRequest,
-					"com_liferay_login_web_portlet_LoginPortlet", layout,
-					PortletRequest.RENDER_PHASE);
-			}
-			else {
-				portletURL.setParameter(
-					"continueAsGuest", Boolean.TRUE.toString());
-
-				Cookie cookie = new Cookie(
-					"continueAsGuest", Boolean.TRUE.toString());
-
-				String domain = CookieKeys.getDomain(httpServletRequest);
-
-				if (Validator.isNotNull(domain)) {
-					cookie.setDomain(domain);
-				}
-
-				ThemeDisplay themeDisplay =
-					(ThemeDisplay)httpServletRequest.getAttribute(
-						WebKeys.THEME_DISPLAY);
-
-				cookie.setMaxAge(CookieKeys.MAX_AGE);
-				cookie.setPath(StringPool.SLASH);
-
-				CookieKeys.addCookie(
-					themeDisplay.getRequest(), themeDisplay.getResponse(),
-					cookie);
-			}
 		}
 
 		return portletURL;
