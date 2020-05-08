@@ -123,7 +123,8 @@ class Row extends React.Component {
 				<Cell className='row-actions' key='ROW_ACTIONS'>
 					<StopClickPropagation>
 						{renderRowActions({
-							data
+							data,
+							items
 						})}
 					</StopClickPropagation>
 				</Cell>

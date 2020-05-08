@@ -95,6 +95,7 @@ export class List extends React.Component {
 		close: PropTypes.func.isRequired,
 		currentUser: PropTypes.instanceOf(User).isRequired,
 		groupId: PropTypes.string.isRequired,
+		history: PropTypes.object.isRequired,
 		open: PropTypes.func.isRequired
 	};
 
@@ -202,8 +203,8 @@ export class List extends React.Component {
 	}
 
 	@autobind
-	handleDeleteSegment({id, name}) {
-		const {addAlert, close, groupId, open} = this.props;
+	handleDeleteSegment({id, items, name}) {
+		const {addAlert, close, delta, groupId, history, open} = this.props;
 
 		open(modalTypes.CONFIRMATION_MODAL, {
 			message: (
@@ -237,7 +238,17 @@ export class List extends React.Component {
 							)
 						});
 
-						this._tableRef.current.reload();
+						if (items.length === 1 && delta !== 1) {
+							history.push(
+								setUriQueryValue(
+									window.location.href,
+									'page',
+									1
+								)
+							);
+						} else {
+							this._tableRef.current.reload();
+						}
 					})
 					.catch(() => {
 						addAlert({
@@ -254,7 +265,7 @@ export class List extends React.Component {
 	}
 
 	@autobind
-	renderRowActions({data: {id, name}}) {
+	renderRowActions({data: {id, name}, items}) {
 		const {channelId, groupId} = this.props;
 
 		const commonActions = [
@@ -271,7 +282,7 @@ export class List extends React.Component {
 			{
 				iconSymbol: 'trash',
 				label: Liferay.Language.get('delete'),
-				onClick: () => this.handleDeleteSegment({id, name})
+				onClick: () => this.handleDeleteSegment({id, items, name})
 			}
 		];
 
