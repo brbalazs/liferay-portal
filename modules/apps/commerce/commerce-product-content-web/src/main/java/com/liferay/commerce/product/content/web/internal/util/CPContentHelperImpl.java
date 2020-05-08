@@ -425,6 +425,11 @@ public class CPContentHelperImpl implements CPContentHelper {
 	}
 
 	@Override
+	public boolean hasChildCPDefinitions(long cpDefinitionId) {
+		return _cpDefinitionLocalService.hasChildCPDefinitions(cpDefinitionId);
+	}
+
+	@Override
 	public boolean hasCPDefinitionSpecificationOptionValues(long cpDefinitionId)
 		throws PortalException {
 
