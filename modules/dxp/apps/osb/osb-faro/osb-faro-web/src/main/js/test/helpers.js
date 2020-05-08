@@ -37,6 +37,10 @@ export const waitForTable = async container => {
 	});
 };
 
+export const waitForLoading = async container => {
+	await waitForElement(() => container.querySelector('.spinner-root'));
+}
+
 export const selectDropdownItem = labelText => {
 	const overlay = getByTestId(document.body, 'overlay');
 	fireEvent.click(getByText(overlay, labelText));
