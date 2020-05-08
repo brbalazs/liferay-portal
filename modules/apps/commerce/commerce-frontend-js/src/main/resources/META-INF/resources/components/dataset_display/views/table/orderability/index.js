@@ -12,9 +12,7 @@
  * details.
  */
 
-import {
-	DEFAULT_ORDERABLE_FIELD
-} from './orderingCalculationHelper';
+import {DEFAULT_ORDERABLE_FIELD} from './orderingCalculationHelper';
 
 export function secureOrderability(itemsList, orderableField) {
 	/**

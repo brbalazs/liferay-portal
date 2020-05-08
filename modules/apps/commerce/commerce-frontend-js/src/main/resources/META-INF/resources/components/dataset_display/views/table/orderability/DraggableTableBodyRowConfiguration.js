@@ -13,11 +13,11 @@
  */
 
 import {ItemTypes} from '../../../../../utilities/drag_drop/constants';
+import {ITEM_ORDERING_CHANGED} from '../../../../../utilities/eventsDefinitions';
 import {
 	calculateOrderingPosition,
 	DEFAULT_ORDERABLE_FIELD
 } from './orderingCalculationHelper';
-import {ITEM_ORDERING_CHANGED} from '../../../../../utilities/eventsDefinitions';
 
 function editItemOrdering(
 	indexTo,
