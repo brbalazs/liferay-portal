@@ -2405,6 +2405,10 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public boolean isLatestVersion(FaroProject faroProject) {
+		if (Validator.isNull(_REPOSITORY_SHA)) {
+			return true;
+		}
+
 		RestTemplate restTemplate = getRestTemplate();
 
 		ResponseEntity<Map<String, Object>> responseEntity =
@@ -2419,6 +2423,10 @@ public class ContactsEngineClientImpl
 		Map<String, String> environment = (Map)context.get("environment");
 
 		String labelVcsRef = environment.get("LABEL_VCS_REF");
+
+		if (Validator.isNull(labelVcsRef)) {
+			return true;
+		}
 
 		String[] parts = StringUtil.split(_REPOSITORY_SHA, StringPool.MINUS);
 
