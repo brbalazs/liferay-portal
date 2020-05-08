@@ -47,6 +47,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringJoiner;
@@ -83,144 +84,19 @@ public class CommercePlacedOrderItemDataSetDataProvider
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		List<OrderItem> orderItems = new ArrayList<>();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
 			_getBaseModelSearchResult(
 				httpServletRequest, filter, pagination, sort);
 
-		List<CommerceOrderItem> commerceOrderItems =
-			baseModelSearchResult.getBaseModels();
-
 		try {
-			String priceDisplayType =
-				CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE;
-
-			if ((commerceOrderItems != null) && !commerceOrderItems.isEmpty()) {
-				CommerceOrderItem firstCommerceOrderItem =
-					commerceOrderItems.get(0);
-
-				CommerceChannel commerceChannel =
-					_commerceChannelService.getCommerceChannelByOrderGroupId(
-						firstCommerceOrderItem.getGroupId());
-
-				priceDisplayType = commerceChannel.getPriceDisplayType();
-			}
-
-			for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-				CommerceMoney unitPriceMoney =
-					commerceOrderItem.getUnitPriceMoney();
-				CommerceMoney promoPriceMoney =
-					commerceOrderItem.getPromoPriceMoney();
-				CommerceMoney discountAmountMoney =
-					commerceOrderItem.getDiscountAmountMoney();
-				CommerceMoney finalPriceMoney =
-					commerceOrderItem.getFinalPriceMoney();
-
-				if (priceDisplayType ==
-						CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
-
-					unitPriceMoney =
-						commerceOrderItem.getUnitPriceWithTaxAmountMoney();
-
-					promoPriceMoney =
-						commerceOrderItem.getPromoPriceWithTaxAmountMoney();
-
-					finalPriceMoney =
-						commerceOrderItem.getFinalPriceWithTaxAmountMoney();
-
-					discountAmountMoney =
-						commerceOrderItem.getDiscountWithTaxAmountMoney();
-				}
-
-				Locale locale = themeDisplay.getLocale();
-
-				String formattedUnitPrice = unitPriceMoney.format(locale);
-				String formattedDiscountAmount = discountAmountMoney.format(
-					locale);
-				String formattedFinalPrice = finalPriceMoney.format(locale);
-
-				String formattedPromoPrice = StringPool.BLANK;
-
-				BigDecimal promoPriceValue = promoPriceMoney.getPrice();
-
-				if ((promoPriceMoney != null) &&
-					(promoPriceValue.compareTo(BigDecimal.ZERO) > 0)) {
-
-					formattedPromoPrice = promoPriceMoney.format(
-						themeDisplay.getLocale());
-				}
-
-				String formattedSubscriptionPeriod = null;
-
-				CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
-
-				if ((cpInstance != null) &&
-					(cpInstance.getCPSubscriptionInfo() != null)) {
-
-					CPSubscriptionInfo cpSubscriptionInfo =
-						cpInstance.getCPSubscriptionInfo();
-
-					String period = StringPool.BLANK;
-
-					CPSubscriptionType cpSubscriptionType =
-						_cpSubscriptionTypeRegistry.getCPSubscriptionType(
-							cpSubscriptionInfo.getSubscriptionType());
-
-					if (cpSubscriptionType != null) {
-						period = cpSubscriptionType.getLabel(locale);
-
-						if (cpSubscriptionInfo.getSubscriptionLength() > 1) {
-							period = LanguageUtil.get(
-								locale,
-								StringUtil.toLowerCase(
-									cpSubscriptionType.getLabel(LocaleUtil.US) +
-										CharPool.LOWER_CASE_S));
-						}
-					}
-
-					formattedSubscriptionPeriod = LanguageUtil.format(
-						locale, "every-x-x",
-						new Object[] {
-							cpSubscriptionInfo.getSubscriptionLength(), period
-						});
-				}
-
-				List<KeyValuePair> keyValuePairs =
-					_cpInstanceHelper.getKeyValuePairs(
-						commerceOrderItem.getCPDefinitionId(),
-						commerceOrderItem.getJson(), themeDisplay.getLocale());
-
-				StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
-
-				for (KeyValuePair keyValuePair : keyValuePairs) {
-					stringJoiner.add(keyValuePair.getValue());
-				}
-
-				orderItems.add(
-					new OrderItem(
-						commerceOrderItem.getCommerceOrderItemId(),
-						commerceOrderItem.getCommerceOrderId(),
-						commerceOrderItem.getSku(),
-						commerceOrderItem.getName(themeDisplay.getLocale()),
-						stringJoiner.toString(), formattedUnitPrice,
-						formattedPromoPrice, formattedDiscountAmount,
-						commerceOrderItem.getQuantity(), formattedFinalPrice,
-						_cpInstanceHelper.getCPInstanceThumbnailSrc(
-							commerceOrderItem.getCPInstanceId()),
-						commerceOrderItem.getShippedQuantity(), null,
-						formattedSubscriptionPeriod));
-			}
+			return _getOrderItems(
+				baseModelSearchResult.getBaseModels(), httpServletRequest);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
 		}
 
-		return orderItems;
+		return Collections.emptyList();
 	}
 
 	private BaseModelSearchResult<CommerceOrderItem> _getBaseModelSearchResult(
@@ -240,7 +116,154 @@ public class CommercePlacedOrderItemDataSetDataProvider
 		}
 
 		return _commerceOrderItemService.search(
-			commerceOrderId, filter.getKeywords(), start, end, sort);
+			commerceOrderId, 0, filter.getKeywords(), start, end, sort);
+	}
+
+	private List<OrderItem> _getChildOrderItems(
+			CommerceOrderItem commerceOrderItem,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		List<CommerceOrderItem> childCommerceOrderItems =
+			_commerceOrderItemService.getChildCommerceOrderItems(
+				commerceOrderItem.getCommerceOrderItemId());
+
+		return _getOrderItems(childCommerceOrderItems, httpServletRequest);
+	}
+
+	private List<OrderItem> _getOrderItems(
+			List<CommerceOrderItem> commerceOrderItems,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		List<OrderItem> orderItems = new ArrayList<>();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		String priceDisplayType =
+			CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE;
+
+		if ((commerceOrderItems != null) && !commerceOrderItems.isEmpty()) {
+			CommerceOrderItem firstCommerceOrderItem = commerceOrderItems.get(
+				0);
+
+			CommerceChannel commerceChannel =
+				_commerceChannelService.getCommerceChannelByOrderGroupId(
+					firstCommerceOrderItem.getGroupId());
+
+			priceDisplayType = commerceChannel.getPriceDisplayType();
+		}
+
+		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CommerceMoney unitPriceMoney =
+				commerceOrderItem.getUnitPriceMoney();
+			CommerceMoney promoPriceMoney =
+				commerceOrderItem.getPromoPriceMoney();
+			CommerceMoney discountAmountMoney =
+				commerceOrderItem.getDiscountAmountMoney();
+			CommerceMoney finalPriceMoney =
+				commerceOrderItem.getFinalPriceMoney();
+
+			if (priceDisplayType ==
+					CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+
+				unitPriceMoney =
+					commerceOrderItem.getUnitPriceWithTaxAmountMoney();
+
+				promoPriceMoney =
+					commerceOrderItem.getPromoPriceWithTaxAmountMoney();
+
+				finalPriceMoney =
+					commerceOrderItem.getFinalPriceWithTaxAmountMoney();
+
+				discountAmountMoney =
+					commerceOrderItem.getDiscountWithTaxAmountMoney();
+			}
+
+			Locale locale = themeDisplay.getLocale();
+
+			String formattedUnitPrice = unitPriceMoney.format(locale);
+			String formattedDiscountAmount = discountAmountMoney.format(locale);
+			String formattedFinalPrice = finalPriceMoney.format(locale);
+
+			String formattedPromoPrice = StringPool.BLANK;
+
+			BigDecimal promoPriceValue = promoPriceMoney.getPrice();
+
+			if ((promoPriceMoney != null) &&
+				(promoPriceValue.compareTo(BigDecimal.ZERO) > 0)) {
+
+				formattedPromoPrice = promoPriceMoney.format(
+					themeDisplay.getLocale());
+			}
+
+			String formattedSubscriptionPeriod = null;
+
+			CPInstance cpInstance = commerceOrderItem.fetchCPInstance();
+
+			if ((cpInstance != null) &&
+				(cpInstance.getCPSubscriptionInfo() != null)) {
+
+				CPSubscriptionInfo cpSubscriptionInfo =
+					cpInstance.getCPSubscriptionInfo();
+
+				String period = StringPool.BLANK;
+
+				CPSubscriptionType cpSubscriptionType =
+					_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+						cpSubscriptionInfo.getSubscriptionType());
+
+				if (cpSubscriptionType != null) {
+					period = cpSubscriptionType.getLabel(locale);
+
+					if (cpSubscriptionInfo.getSubscriptionLength() > 1) {
+						period = LanguageUtil.get(
+							locale,
+							StringUtil.toLowerCase(
+								cpSubscriptionType.getLabel(LocaleUtil.US) +
+									CharPool.LOWER_CASE_S));
+					}
+				}
+
+				formattedSubscriptionPeriod = LanguageUtil.format(
+					locale, "every-x-x",
+					new Object[] {
+						cpSubscriptionInfo.getSubscriptionLength(), period
+					});
+			}
+
+			List<KeyValuePair> keyValuePairs =
+				_cpInstanceHelper.getKeyValuePairs(
+					commerceOrderItem.getCPDefinitionId(),
+					commerceOrderItem.getJson(), themeDisplay.getLocale());
+
+			StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+
+			for (KeyValuePair keyValuePair : keyValuePairs) {
+				stringJoiner.add(keyValuePair.getValue());
+			}
+
+			orderItems.add(
+				new OrderItem(
+					commerceOrderItem.getCommerceOrderItemId(),
+					commerceOrderItem.getCommerceOrderId(),
+					commerceOrderItem.getSku(),
+					commerceOrderItem.getName(themeDisplay.getLocale()),
+					stringJoiner.toString(),
+					_getChildOrderItems(commerceOrderItem, httpServletRequest),
+					commerceOrderItem.getParentCommerceOrderItemId(),
+					formattedUnitPrice, formattedPromoPrice,
+					formattedDiscountAmount, commerceOrderItem.getQuantity(),
+					formattedFinalPrice,
+					_cpInstanceHelper.getCPInstanceThumbnailSrc(
+						commerceOrderItem.getCPInstanceId()),
+					commerceOrderItem.getShippedQuantity(), null,
+					formattedSubscriptionPeriod));
+		}
+
+		return orderItems;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

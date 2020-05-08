@@ -315,6 +315,8 @@ List<CommerceAddress> billingAddresses = commerceOrderContentDisplayContext.getB
 			id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDER_ITEMS %>"
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
+			nestedItemsKey="orderItemId"
+			nestedItemsReferenceKey="orderItems"
 			pageNumber="<%= 1 %>"
 			portletURL="<%= commerceOrderContentDisplayContext.getPortletURL() %>"
 			style="stacked"

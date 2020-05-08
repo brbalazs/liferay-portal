@@ -277,6 +277,8 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
+				nestedItemsKey="orderItemId"
+				nestedItemsReferenceKey="orderItems"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= commerceOrderEditDisplayContext.getCommerceOrderItemsPortletURL() %>"
 			/>

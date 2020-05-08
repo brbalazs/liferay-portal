@@ -91,57 +91,12 @@ public class CommerceOrderItemDataSetDataProvider
 		List<OrderItem> orderItems = new ArrayList<>();
 
 		try {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)httpServletRequest.getAttribute(
-					WebKeys.THEME_DISPLAY);
-
-			Locale locale = themeDisplay.getLocale();
-
-			Format dateTimeFormat = FastDateFormatFactoryUtil.getDate(
-				locale, themeDisplay.getTimeZone());
-
 			BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
 				_getBaseModelSearchResult(
 					httpServletRequest, filter, pagination, sort);
 
-			for (CommerceOrderItem commerceOrderItem :
-					baseModelSearchResult.getBaseModels()) {
-
-				String name = commerceOrderItem.getName(locale);
-
-				List<KeyValuePair> keyValuePairs =
-					_cpInstanceHelper.getKeyValuePairs(
-						commerceOrderItem.getCPDefinitionId(),
-						commerceOrderItem.getJson(), locale);
-
-				StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
-
-				for (KeyValuePair keyValuePair : keyValuePairs) {
-					stringJoiner.add(keyValuePair.getValue());
-				}
-
-				orderItems.add(
-					new OrderItem(
-						commerceOrderItem.getDeliveryGroup(),
-						_getDiscount(commerceOrderItem, locale),
-						new ImageField(
-							name, "rounded", "lg",
-							_getImage(commerceOrderItem)),
-						name, stringJoiner.toString(),
-						commerceOrderItem.getCommerceOrderId(),
-						commerceOrderItem.getCommerceOrderItemId(),
-						_getPrice(commerceOrderItem, locale),
-						commerceOrderItem.getQuantity(),
-						_getRequestedDeliveryDateTime(
-							dateTimeFormat,
-							commerceOrderItem.getRequestedDeliveryDate()),
-						commerceOrderItem.getSku(),
-						_getSubscriptionDuration(
-							commerceOrderItem, httpServletRequest),
-						_getSubscriptionPeriod(
-							commerceOrderItem, httpServletRequest),
-						_getTotal(commerceOrderItem, locale)));
-			}
+			orderItems = _getOrderItems(
+				baseModelSearchResult.getBaseModels(), httpServletRequest);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -167,7 +122,19 @@ public class CommerceOrderItemDataSetDataProvider
 		}
 
 		return _commerceOrderItemService.search(
-			commerceOrderId, filter.getKeywords(), start, end, sort);
+			commerceOrderId, 0, filter.getKeywords(), start, end, sort);
+	}
+
+	private List<OrderItem> _getChildOrderItems(
+			CommerceOrderItem commerceOrderItem,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		List<CommerceOrderItem> childCommerceOrderItems =
+			_commerceOrderItemService.getChildCommerceOrderItems(
+				commerceOrderItem.getCommerceOrderItemId());
+
+		return _getOrderItems(childCommerceOrderItems, httpServletRequest);
 	}
 
 	private String _getDiscount(
@@ -192,6 +159,63 @@ public class CommerceOrderItemDataSetDataProvider
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
 		return cpDefinition.getDefaultImageThumbnailSrc();
+	}
+
+	private List<OrderItem> _getOrderItems(
+			List<CommerceOrderItem> commerceOrderItems,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		List<OrderItem> orderItems = new ArrayList<>();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		Locale locale = themeDisplay.getLocale();
+
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDate(
+			locale, themeDisplay.getTimeZone());
+
+		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			String name = commerceOrderItem.getName(locale);
+
+			List<KeyValuePair> keyValuePairs =
+				_cpInstanceHelper.getKeyValuePairs(
+					commerceOrderItem.getCPDefinitionId(),
+					commerceOrderItem.getJson(), locale);
+
+			StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+
+			for (KeyValuePair keyValuePair : keyValuePairs) {
+				stringJoiner.add(keyValuePair.getValue());
+			}
+
+			orderItems.add(
+				new OrderItem(
+					commerceOrderItem.getDeliveryGroup(),
+					_getDiscount(commerceOrderItem, locale),
+					new ImageField(
+						name, "rounded", "lg", _getImage(commerceOrderItem)),
+					name, stringJoiner.toString(),
+					commerceOrderItem.getCommerceOrderId(),
+					commerceOrderItem.getCommerceOrderItemId(),
+					_getChildOrderItems(commerceOrderItem, httpServletRequest),
+					commerceOrderItem.getParentCommerceOrderItemId(),
+					_getPrice(commerceOrderItem, locale),
+					commerceOrderItem.getQuantity(),
+					_getRequestedDeliveryDateTime(
+						dateTimeFormat,
+						commerceOrderItem.getRequestedDeliveryDate()),
+					commerceOrderItem.getSku(),
+					_getSubscriptionDuration(
+						commerceOrderItem, httpServletRequest),
+					_getSubscriptionPeriod(
+						commerceOrderItem, httpServletRequest),
+					_getTotal(commerceOrderItem, locale)));
+		}
+
+		return orderItems;
 	}
 
 	private String _getPeriodKey(

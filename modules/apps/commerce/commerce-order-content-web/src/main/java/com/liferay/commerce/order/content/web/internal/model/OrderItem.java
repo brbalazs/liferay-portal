@@ -14,6 +14,8 @@
 
 package com.liferay.commerce.order.content.web.internal.model;
 
+import java.util.List;
+
 /**
  * @author Alessio Antonio Rendina
  */
@@ -21,15 +23,18 @@ public class OrderItem {
 
 	public OrderItem(
 		long orderItemId, long orderId, String sku, String name, String options,
-		String price, String promoPrice, String discount, int quantity,
-		String total, String thumbnail, int shippedQuantity,
-		String[] errorMessages, String formattedSubscriptionPeriod) {
+		List<OrderItem> orderItems, long parentOrderItemId, String price,
+		String promoPrice, String discount, int quantity, String total,
+		String thumbnail, int shippedQuantity, String[] errorMessages,
+		String formattedSubscriptionPeriod) {
 
 		_orderItemId = orderItemId;
 		_orderId = orderId;
 		_sku = sku;
 		_name = name;
 		_options = options;
+		_orderItems = orderItems;
+		_parentOrderItemId = parentOrderItemId;
 		_price = price;
 		_promoPrice = promoPrice;
 		_discount = discount;
@@ -69,6 +74,14 @@ public class OrderItem {
 		return _orderItemId;
 	}
 
+	public List<OrderItem> getOrderItems() {
+		return _orderItems;
+	}
+
+	public long getParentOrderItemId() {
+		return _parentOrderItemId;
+	}
+
 	public String getPrice() {
 		return _price;
 	}
@@ -104,6 +117,8 @@ public class OrderItem {
 	private final String _options;
 	private final long _orderId;
 	private final long _orderItemId;
+	private final List<OrderItem> _orderItems;
+	private final long _parentOrderItemId;
 	private final String _price;
 	private final String _promoPrice;
 	private final int _quantity;

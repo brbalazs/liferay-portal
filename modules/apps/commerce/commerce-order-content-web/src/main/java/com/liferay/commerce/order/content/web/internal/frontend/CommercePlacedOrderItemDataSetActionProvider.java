@@ -57,6 +57,10 @@ public class CommercePlacedOrderItemDataSetActionProvider
 
 		OrderItem orderItem = (OrderItem)model;
 
+		if (orderItem.getParentOrderItemId() > 0) {
+			return clayDataSetActions;
+		}
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
