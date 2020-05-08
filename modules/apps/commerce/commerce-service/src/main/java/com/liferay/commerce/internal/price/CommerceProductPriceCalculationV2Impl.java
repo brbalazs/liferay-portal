@@ -187,15 +187,23 @@ public class CommerceProductPriceCalculationV2Impl
 		CommerceProductPriceImpl commerceProductPriceImpl =
 			new CommerceProductPriceImpl();
 
+		commerceProductPriceImpl.setQuantity(quantity);
+		commerceProductPriceImpl.setCommercePriceListId(commercePriceListId);
+
+		commerceProductPriceImpl.setUnitPrice(
+			commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), updatedPrices[0]));
+
+		commerceProductPriceImpl.setUnitPromoPrice(
+			commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), updatedPrices[1]));
+
 		commerceProductPriceImpl.setCommerceDiscountValue(
 			commerceDiscountValue);
-		commerceProductPriceImpl.setCommercePriceListId(commercePriceListId);
+
 		commerceProductPriceImpl.setFinalPrice(
 			_commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), finalPrice));
-		commerceProductPriceImpl.setUnitPrice(unitPriceMoney);
-		commerceProductPriceImpl.setUnitPromoPrice(promoPriceMoney);
-		commerceProductPriceImpl.setQuantity(quantity);
 
 		if (commerceProductPriceRequest.isCalculateTax()) {
 			_setCommerceProductPriceWithTaxAmount(

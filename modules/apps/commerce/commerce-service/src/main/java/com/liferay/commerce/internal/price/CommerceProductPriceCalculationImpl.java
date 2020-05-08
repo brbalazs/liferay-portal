@@ -177,9 +177,13 @@ public class CommerceProductPriceCalculationImpl
 		commerceProductPriceImpl.setCommercePriceListId(
 			_getUsedCommercePriceList(cpInstanceId, commerceContext));
 
-		commerceProductPriceImpl.setUnitPrice(unitPriceMoney);
+		commerceProductPriceImpl.setUnitPrice(
+			commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), updatedPrices[0]));
 
-		commerceProductPriceImpl.setUnitPromoPrice(promoPriceMoney);
+		commerceProductPriceImpl.setUnitPromoPrice(
+			commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), updatedPrices[1]));
 
 		commerceProductPriceImpl.setCommerceDiscountValue(
 			commerceDiscountValue);
