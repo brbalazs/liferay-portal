@@ -84,11 +84,20 @@ export default class BaseResults extends React.Component {
 		this.handleFetchResults();
 	}
 
-	componentDidUpdate(nextProps) {
-		if (
+	componentDidUpdate(prevProps) {
+		if (hasChanges(prevProps, this.props, 'query')) {
+			const {maxLength, query} = this.props;
+
+			this.setState(
+				{
+					searchValue: this.getSearchValue(maxLength, query)
+				},
+				this.handleFetchResults
+			);
+		} else if (
 			hasChanges(
+				prevProps,
 				this.props,
-				nextProps,
 				'dataSourceFn',
 				'dataSourceParams',
 				'delta',
@@ -96,8 +105,7 @@ export default class BaseResults extends React.Component {
 				'orderBy',
 				'orderByField',
 				'orderByFields',
-				'page',
-				'query'
+				'page'
 			)
 		) {
 			this.handleFetchResults();
