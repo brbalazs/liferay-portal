@@ -81,7 +81,8 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 					denominator = _ONE_HUNDRED.add(rate);
 				}
 
-				taxValue = taxValue.divide(denominator, RoundingMode.HALF_EVEN);
+				taxValue = taxValue.divide(
+					denominator, _SCALE, RoundingMode.HALF_EVEN);
 			}
 
 			commerceTaxValue = new CommerceTaxValue(KEY, KEY, taxValue);
@@ -115,6 +116,8 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 	}
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
+
+	private static final int _SCALE = 10;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		FixedCommerceTaxEngine.class);
