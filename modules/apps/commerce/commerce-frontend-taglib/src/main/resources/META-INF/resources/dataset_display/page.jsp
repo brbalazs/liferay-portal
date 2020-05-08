@@ -31,6 +31,25 @@
 		dataProviderKey: '<%= dataProviderKey %>',
 		enableDragDrop: <%= enableDragDrop %>,
 		id: '<%= id %>',
+
+		<%
+		if (Validator.isNotNull(nestedItemsKey)) {
+		%>
+
+			nestedItemsKey: '<%= nestedItemsKey %>',
+
+			<%
+			}
+
+			if (Validator.isNotNull(nestedItemsReferenceKey)) {
+			%>
+
+			nestedItemsReferenceKey: '<%= nestedItemsReferenceKey %>',
+
+		<%
+		}
+		%>
+
 		showPagination: <%= showPagination %>,
 		showManagementBar: <%= showManagementBar %>,
 		showSearch: <%= showSearch %>,

@@ -142,6 +142,14 @@ public class DatasetDisplayTag extends IncludeTag {
 		_namespace = namespace;
 	}
 
+	public void setNestedItemsKey(String nestedItemsKey) {
+		_nestedItemsKey = nestedItemsKey;
+	}
+
+	public void setNestedItemsReferenceKey(String nestedItemsReferenceKey) {
+		_nestedItemsReferenceKey = nestedItemsReferenceKey;
+	}
+
 	@Override
 	public void setPageContext(PageContext pageContext) {
 		_clayDataSetDisplayViewSerializer =
@@ -205,6 +213,8 @@ public class DatasetDisplayTag extends IncludeTag {
 		_id = null;
 		_itemsPerPage = 0;
 		_namespace = null;
+		_nestedItemsKey = null;
+		_nestedItemsReferenceKey = null;
 		_pageNumber = 0;
 		_paginationEntries = null;
 		_paginationSelectedEntry = 0;
@@ -270,6 +280,11 @@ public class DatasetDisplayTag extends IncludeTag {
 			"liferay-commerce:dataset-display:itemsPerPage", _itemsPerPage);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:namespace", _namespace);
+		request.setAttribute(
+			"liferay-commerce:dataset-display:nestedItemsKey", _nestedItemsKey);
+		request.setAttribute(
+			"liferay-commerce:dataset-display:nestedItemsReferenceKey",
+			_nestedItemsReferenceKey);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:pageNumber", _pageNumber);
 		request.setAttribute(
@@ -339,6 +354,8 @@ public class DatasetDisplayTag extends IncludeTag {
 	private String _id;
 	private int _itemsPerPage;
 	private String _namespace;
+	private String _nestedItemsKey;
+	private String _nestedItemsReferenceKey;
 	private int _pageNumber;
 	private List<ClayPaginationEntry> _paginationEntries;
 	private int _paginationSelectedEntry;
