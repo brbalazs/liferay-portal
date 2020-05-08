@@ -41,6 +41,7 @@ import java.util.List;
 /**
  * @author Andrea Di Giorgi
  * @author Igor Beslic
+ * @author Alessio Antonio Rendina
  */
 public class CommerceOrderItemServiceImpl
 	extends CommerceOrderItemServiceBaseImpl {
@@ -162,6 +163,25 @@ public class CommerceOrderItemServiceImpl
 	}
 
 	@Override
+	public List<CommerceOrderItem> getChildCommerceOrderItems(
+			long parentCommerceOrderItemId)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemLocalService.fetchCommerceOrderItem(
+				parentCommerceOrderItemId);
+
+		if (commerceOrderItem != null) {
+			_commerceOrderModelResourcePermission.check(
+				getPermissionChecker(), commerceOrderItem.getCommerceOrderId(),
+				ActionKeys.VIEW);
+		}
+
+		return commerceOrderItemLocalService.getChildCommerceOrderItems(
+			parentCommerceOrderItemId);
+	}
+
+	@Override
 	public int getCommerceInventoryWarehouseItemQuantity(
 			long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws PortalException {
@@ -263,6 +283,20 @@ public class CommerceOrderItemServiceImpl
 
 		return commerceOrderItemLocalService.getCommerceOrderItemsQuantity(
 			commerceOrderId);
+	}
+
+	@Override
+	public BaseModelSearchResult<CommerceOrderItem> search(
+			long commerceOrderId, long parentCommerceOrderItemId,
+			String keywords, int start, int end, Sort sort)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.VIEW);
+
+		return commerceOrderItemLocalService.search(
+			commerceOrderId, parentCommerceOrderItemId, keywords, start, end,
+			sort);
 	}
 
 	@Override

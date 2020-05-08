@@ -298,6 +298,14 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	@Override
+	public List<CommerceOrderItem> getChildCommerceOrderItems(
+		long parentCommerceOrderItemId) {
+
+		return commerceOrderItemPersistence.findByParentCommerceOrderItemId(
+			parentCommerceOrderItemId);
+	}
+
+	@Override
 	public int getCommerceInventoryWarehouseItemQuantity(
 			long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws PortalException {
@@ -417,12 +425,26 @@ public class CommerceOrderItemLocalServiceImpl
 
 	@Override
 	public BaseModelSearchResult<CommerceOrderItem> search(
+			long commerceOrderId, long parentCommerceOrderItemId,
+			String keywords, int start, int end, Sort sort)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			commerceOrderId, parentCommerceOrderItemId, start, end, sort);
+
+		searchContext.setKeywords(keywords);
+
+		return searchCommerceOrderItems(searchContext);
+	}
+
+	@Override
+	public BaseModelSearchResult<CommerceOrderItem> search(
 			long commerceOrderId, String keywords, int start, int end,
 			Sort sort)
 		throws PortalException {
 
 		SearchContext searchContext = buildSearchContext(
-			commerceOrderId, start, end, sort);
+			commerceOrderId, null, start, end, sort);
 
 		searchContext.setKeywords(keywords);
 
@@ -436,7 +458,7 @@ public class CommerceOrderItemLocalServiceImpl
 		throws PortalException {
 
 		SearchContext searchContext = buildSearchContext(
-			commerceOrderId, start, end, sort);
+			commerceOrderId, null, start, end, sort);
 
 		searchContext.setAndSearch(andOperator);
 		searchContext.setAttribute(CommerceOrderItemIndexer.FIELD_SKU, sku);
@@ -799,7 +821,8 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	protected SearchContext buildSearchContext(
-			long commerceOrderId, int start, int end, Sort sort)
+			long commerceOrderId, Long parentCommerceOrderItemId, int start,
+			int end, Sort sort)
 		throws PortalException {
 
 		SearchContext searchContext = new SearchContext();
@@ -809,6 +832,13 @@ public class CommerceOrderItemLocalServiceImpl
 
 		searchContext.setAttribute(
 			CommerceOrderItemIndexer.FIELD_COMMERCE_ORDER_ID, commerceOrderId);
+
+		if (parentCommerceOrderItemId != null) {
+			searchContext.setAttribute(
+				CommerceOrderItemIndexer.FIELD_PARENT_COMMERCE_ORDER_ITEM_ID,
+				parentCommerceOrderItemId);
+		}
+
 		searchContext.setCompanyId(commerceOrder.getCompanyId());
 		searchContext.setEnd(end);
 
@@ -1020,13 +1050,16 @@ public class CommerceOrderItemLocalServiceImpl
 		for (CommerceOrderItem childCommerceOrderItem :
 				childCommerceOrderItems) {
 
-			_deleteCommerceOrderItem(childCommerceOrderItem);
+			commerceOrderItemLocalService.deleteCommerceOrderItem(
+				childCommerceOrderItem);
 		}
 	}
 
 	private CommerceOrderItem _deleteCommerceOrderItem(
 			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
+
+		// Bundle order items
 
 		_deleteBundleChildrenOrderItems(
 			commerceOrderItem.getCommerceOrderItemId());
