@@ -2413,6 +2413,7 @@ public class ContactsEngineClientImpl
 		boolean cacheEnabled = FaroThreadLocal.isCacheEnabled();
 
 		FaroThreadLocal.setCacheEnabled(false);
+
 		RestTemplate restTemplate = getRestTemplate();
 
 		ResponseEntity<Map<String, Object>> responseEntity =
