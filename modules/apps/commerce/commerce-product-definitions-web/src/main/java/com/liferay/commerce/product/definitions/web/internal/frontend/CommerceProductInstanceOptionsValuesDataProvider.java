@@ -162,26 +162,26 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 				if (_jsonHelper.isEmpty(parameterValue)) {
 					requestedCPDefinitionOptionRels.add(cpDefinitionOptionRel);
+
+					continue;
 				}
-				else {
-					String optionValueKey = parameterValue;
 
-					if (_jsonHelper.isArray(parameterValue)) {
-						optionValueKey = _jsonHelper.getFirstElementStringValue(
-							parameterValue);
-					}
+				String optionValueKey = parameterValue;
 
-					CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-						_cpDefinitionOptionValueRelLocalService.
-							fetchCPDefinitionOptionValueRel(
-								cpDefinitionOptionRel.
-									getCPDefinitionOptionRelId(),
-								optionValueKey);
+				if (_jsonHelper.isArray(parameterValue)) {
+					optionValueKey = _jsonHelper.getFirstElementStringValue(
+						parameterValue);
+				}
 
-					if (cpDefinitionOptionValueRel != null) {
-						selectedCPDefinitionOptionValueRels.add(
-							cpDefinitionOptionValueRel);
-					}
+				CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+					_cpDefinitionOptionValueRelLocalService.
+						fetchCPDefinitionOptionValueRel(
+							cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+							optionValueKey);
+
+				if (cpDefinitionOptionValueRel != null) {
+					selectedCPDefinitionOptionValueRels.add(
+						cpDefinitionOptionValueRel);
 				}
 			}
 
@@ -591,49 +591,47 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 				String key = jsonObject.getString("key");
 
-				if (Objects.equals(cpDefinitionOptionRel.getKey(), key)) {
-					jsonObject.put(
-						"value",
-						_jsonFactory.createJSONArray(
-						).put(
-							cpDefinitionOptionValueRel.getKey()
-						));
-
-					cpInstance = _cpInstanceHelper.fetchCPInstance(
-						cpDefinitionId, clonedJSONArray.toString());
-
-					CommerceProductOptionValueRelativePriceRequest.Builder
-						builder =
-							new CommerceProductOptionValueRelativePriceRequest.
-								Builder(
-									commerceContext,
-									cpDefinitionOptionValueRel);
-
-					CommerceMoney commerceMoney =
-						_commerceProductPriceCalculation.
-							getCPDefinitionOptionValueRelativePrice(
-								builder.cpInstanceId(
-									_getCPInstanceId(cpInstance)
-								).cpInstanceMinQuantity(
-									_getMinOrderQuantity(cpInstance)
-								).selectedCPInstanceId(
-									_getCPInstanceId(selectedCPInstance)
-								).selectedCPInstanceMinQuantity(
-									_getMinOrderQuantity(selectedCPInstance)
-								).selectedCPDefinitionOptionValueRel(
-									selectedCPDefinitionOptionValueRel
-								).build());
-
-					keyValuePairs.add(
-						new KeyValuePair(
-							cpDefinitionOptionValueRel.getKey(),
-							String.format(
-								"%s %s",
-								cpDefinitionOptionValueRel.getName(locale),
-								commerceMoney.format(locale))));
-
-					break;
+				if (!Objects.equals(cpDefinitionOptionRel.getKey(), key)) {
+					continue;
 				}
+
+				jsonObject.put(
+					"value",
+					_jsonFactory.createJSONArray(
+					).put(
+						cpDefinitionOptionValueRel.getKey()
+					));
+
+				cpInstance = _cpInstanceHelper.fetchCPInstance(
+					cpDefinitionId, clonedJSONArray.toString());
+
+				CommerceProductOptionValueRelativePriceRequest.Builder builder =
+					new CommerceProductOptionValueRelativePriceRequest.Builder(
+						commerceContext, cpDefinitionOptionValueRel);
+
+				CommerceMoney commerceMoney =
+					_commerceProductPriceCalculation.
+						getCPDefinitionOptionValueRelativePrice(
+							builder.cpInstanceId(
+								_getCPInstanceId(cpInstance)
+							).cpInstanceMinQuantity(
+								_getMinOrderQuantity(cpInstance)
+							).selectedCPInstanceId(
+								_getCPInstanceId(selectedCPInstance)
+							).selectedCPInstanceMinQuantity(
+								_getMinOrderQuantity(selectedCPInstance)
+							).selectedCPDefinitionOptionValueRel(
+								selectedCPDefinitionOptionValueRel
+							).build());
+
+				keyValuePairs.add(
+					new KeyValuePair(
+						cpDefinitionOptionValueRel.getKey(),
+						String.format(
+							"%s %s", cpDefinitionOptionValueRel.getName(locale),
+							commerceMoney.format(locale))));
+
+				break;
 			}
 		}
 
