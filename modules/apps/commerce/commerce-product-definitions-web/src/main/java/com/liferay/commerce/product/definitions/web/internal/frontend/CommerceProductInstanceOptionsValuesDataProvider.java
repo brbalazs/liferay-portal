@@ -513,11 +513,14 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 		List<KeyValuePair> keyValuePairs = new ArrayList<>();
 
+		String jsonArrayString =
+			selectedCPDefinitionOptionValuesJSONArray.toString();
+
 		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 				cpDefinitionOptionValueRels) {
 
 			JSONArray clonedJSONArray = _jsonFactory.createJSONArray(
-				selectedCPDefinitionOptionValuesJSONArray.toString());
+				jsonArrayString);
 
 			JSONObject jsonObject = _jsonFactory.createJSONObject();
 
@@ -532,8 +535,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 			CPInstance cpInstance = _cpInstanceHelper.fetchCPInstance(
 				cpDefinitionId, clonedJSONArray.toString());
-
-			clonedJSONArray.put(jsonObject);
 
 			CommerceProductOptionValueRelativePriceRequest.Builder builder =
 				new CommerceProductOptionValueRelativePriceRequest.Builder(
@@ -575,6 +576,9 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 		List<KeyValuePair> keyValuePairs = new ArrayList<>();
 
+		String jsonArrayString =
+			selectedCPDefinitionOptionValuesJSONArray.toString();
+
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			selectedCPDefinitionOptionValueRel.getCPDefinitionOptionRel();
 
@@ -582,60 +586,75 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 				cpDefinitionOptionValueRels) {
 
 			JSONArray clonedJSONArray = _jsonFactory.createJSONArray(
-				selectedCPDefinitionOptionValuesJSONArray.toString());
+				jsonArrayString);
 
-			CPInstance cpInstance = null;
+			if (!_updateJSONArray(
+					cpDefinitionOptionRel.getKey(),
+					cpDefinitionOptionValueRel.getKey(), clonedJSONArray)) {
 
-			for (int i = 0; i < clonedJSONArray.length(); i++) {
-				JSONObject jsonObject = clonedJSONArray.getJSONObject(i);
-
-				String key = jsonObject.getString("key");
-
-				if (!Objects.equals(cpDefinitionOptionRel.getKey(), key)) {
-					continue;
-				}
-
-				jsonObject.put(
-					"value",
-					_jsonFactory.createJSONArray(
-					).put(
-						cpDefinitionOptionValueRel.getKey()
-					));
-
-				cpInstance = _cpInstanceHelper.fetchCPInstance(
-					cpDefinitionId, clonedJSONArray.toString());
-
-				CommerceProductOptionValueRelativePriceRequest.Builder builder =
-					new CommerceProductOptionValueRelativePriceRequest.Builder(
-						commerceContext, cpDefinitionOptionValueRel);
-
-				CommerceMoney commerceMoney =
-					_commerceProductPriceCalculation.
-						getCPDefinitionOptionValueRelativePrice(
-							builder.cpInstanceId(
-								_getCPInstanceId(cpInstance)
-							).cpInstanceMinQuantity(
-								_getMinOrderQuantity(cpInstance)
-							).selectedCPInstanceId(
-								_getCPInstanceId(selectedCPInstance)
-							).selectedCPInstanceMinQuantity(
-								_getMinOrderQuantity(selectedCPInstance)
-							).selectedCPDefinitionOptionValueRel(
-								selectedCPDefinitionOptionValueRel
-							).build());
-
-				keyValuePairs.add(
-					new KeyValuePair(
-						cpDefinitionOptionValueRel.getKey(),
-						String.format(
-							"%s %s", cpDefinitionOptionValueRel.getName(locale),
-							commerceMoney.format(locale))));
-
-				break;
+				continue;
 			}
+
+			CPInstance cpInstance = _cpInstanceHelper.fetchCPInstance(
+				cpDefinitionId, clonedJSONArray.toString());
+
+			if (cpInstance == null) {
+				continue;
+			}
+
+			CommerceProductOptionValueRelativePriceRequest.Builder builder =
+				new CommerceProductOptionValueRelativePriceRequest.Builder(
+					commerceContext, cpDefinitionOptionValueRel);
+
+			CommerceMoney commerceMoney =
+				_commerceProductPriceCalculation.
+					getCPDefinitionOptionValueRelativePrice(
+						builder.cpInstanceId(
+							_getCPInstanceId(cpInstance)
+						).cpInstanceMinQuantity(
+							_getMinOrderQuantity(cpInstance)
+						).selectedCPInstanceId(
+							_getCPInstanceId(selectedCPInstance)
+						).selectedCPInstanceMinQuantity(
+							_getMinOrderQuantity(selectedCPInstance)
+						).selectedCPDefinitionOptionValueRel(
+							selectedCPDefinitionOptionValueRel
+						).build());
+
+			keyValuePairs.add(
+				new KeyValuePair(
+					cpDefinitionOptionValueRel.getKey(),
+					String.format(
+						"%s %s", cpDefinitionOptionValueRel.getName(locale),
+						commerceMoney.format(locale))));
 		}
 
 		return keyValuePairs;
+	}
+
+	private boolean _updateJSONArray(
+		String key, String value, JSONArray jsonArray) {
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+			String keyValue = jsonObject.getString("key");
+
+			if (!Objects.equals(key, keyValue)) {
+				continue;
+			}
+
+			jsonObject.put(
+				"value",
+				_jsonFactory.createJSONArray(
+				).put(
+					value
+				));
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private static final int _RELEASE_7_2_0_BUILD_NUMBER =
