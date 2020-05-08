@@ -279,6 +279,25 @@ public class CommerceCartResourceUtil {
 		return prices;
 	}
 
+	private BigDecimal _getDiscountPercentage(
+		BigDecimal discountedAmount, BigDecimal amount,
+		RoundingMode roundingMode) {
+
+		double actualPrice = discountedAmount.doubleValue();
+		double originalPrice = amount.doubleValue();
+
+		double percentage = actualPrice / originalPrice;
+
+		BigDecimal discountPercentage = new BigDecimal(percentage);
+
+		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
+
+		MathContext mathContext = new MathContext(
+			discountPercentage.precision(), roundingMode);
+
+		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
+	}
+
 	private List<Product> _groupProductByOrderItemId(List<Product> products) {
 		Map<Long, Product> productMap = new HashMap<>();
 
@@ -311,29 +330,10 @@ public class CommerceCartResourceUtil {
 		return new ArrayList(productMap.values());
 	}
 
+	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
+
 	@Reference
 	private CommerceChannelService _commerceChannelService;
-
-	private BigDecimal _getDiscountPercentage(
-		BigDecimal discountedAmount, BigDecimal amount,
-		RoundingMode roundingMode) {
-
-		double actualPrice = discountedAmount.doubleValue();
-		double originalPrice = amount.doubleValue();
-
-		double percentage = actualPrice / originalPrice;
-
-		BigDecimal discountPercentage = new BigDecimal(percentage);
-
-		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
-
-		MathContext mathContext = new MathContext(
-			discountPercentage.precision(), roundingMode);
-
-		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
-	}
-
-	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
 	@Reference
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
