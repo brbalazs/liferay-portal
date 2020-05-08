@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.internal.inventory;
 
-import com.liferay.commerce.inventory.InventoryChecker;
+import com.liferay.commerce.inventory.CommerceInventoryChecker;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
@@ -33,10 +33,10 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = "commerce.inventory.checker.target=CPDefinitionOptionValueRel",
-	service = InventoryChecker.class
+	service = CommerceInventoryChecker.class
 )
-public class CPDefinitionOptionValueRelInventoryCheckerImpl
-	implements InventoryChecker<CPDefinitionOptionValueRel> {
+public class CPDefinitionOptionValueRelCommerceInventoryCheckerImpl
+	implements CommerceInventoryChecker<CPDefinitionOptionValueRel> {
 
 	@Override
 	public List<CPDefinitionOptionValueRel> filterByAvailability(

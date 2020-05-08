@@ -18,7 +18,7 @@ import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
-import com.liferay.commerce.inventory.InventoryChecker;
+import com.liferay.commerce.inventory.CommerceInventoryChecker;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
@@ -206,7 +206,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 				if (Validator.isNotNull(cpDefinitionOptionRel.getPriceType())) {
 					allowedCPDefinitionOptionValueRels =
-						_inventoryChecker.filterByAvailability(
+						_commerceInventoryChecker.filterByAvailability(
 							allowedCPDefinitionOptionValueRels);
 				}
 
@@ -351,6 +351,11 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceProductInstanceOptionsValuesDataProvider.class);
 
+	@Reference(
+		target = "(commerce.inventory.checker.target=CPDefinitionOptionValueRel)"
+	)
+	private CommerceInventoryChecker _commerceInventoryChecker;
+
 	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;
 
@@ -370,11 +375,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
-
-	@Reference(
-		target = "(commerce.inventory.checker.target=CPDefinitionOptionValueRel)"
-	)
-	private InventoryChecker _inventoryChecker;
 
 	@Reference
 	private JsonHelper _jsonHelper;

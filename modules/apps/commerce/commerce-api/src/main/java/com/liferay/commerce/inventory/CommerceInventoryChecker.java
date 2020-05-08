@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Igor Beslic
  */
-public interface InventoryChecker<T> {
+public interface CommerceInventoryChecker<T> {
 
 	public List<T> filterByAvailability(List<T> baseModels);
 

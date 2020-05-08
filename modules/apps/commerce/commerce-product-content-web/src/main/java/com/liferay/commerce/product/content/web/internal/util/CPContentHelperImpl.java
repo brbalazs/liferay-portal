@@ -17,7 +17,7 @@ package com.liferay.commerce.product.content.web.internal.util;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.inventory.InventoryChecker;
+import com.liferay.commerce.inventory.CommerceInventoryChecker;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
@@ -503,7 +503,7 @@ public class CPContentHelperImpl implements CPContentHelper {
 					cpDefinitionOptionRelstMap.entrySet()) {
 
 			cpDefinitionOptionRelEntry.setValue(
-				_inventoryChecker.filterByAvailability(
+				_commerceInventoryChecker.filterByAvailability(
 					cpDefinitionOptionRelEntry.getValue()));
 		}
 
@@ -515,6 +515,12 @@ public class CPContentHelperImpl implements CPContentHelper {
 
 	@Reference
 	private CommerceCatalogDefaultImage _catalogCommerceMediaDefaultImage;
+
+	@Reference(
+		target = "(commerce.inventory.checker.target=CPDefinitionOptionValueRel)"
+	)
+	private CommerceInventoryChecker<CPDefinitionOptionValueRel>
+		_commerceInventoryChecker;
 
 	@Reference
 	private CommerceMediaResolver _commerceMediaResolver;
@@ -553,11 +559,6 @@ public class CPContentHelperImpl implements CPContentHelper {
 
 	@Reference
 	private DDMHelper _ddmHelper;
-
-	@Reference(
-		target = "(commerce.inventory.checker.target=CPDefinitionOptionValueRel)"
-	)
-	private InventoryChecker<CPDefinitionOptionValueRel> _inventoryChecker;
 
 	@Reference
 	private Portal _portal;
