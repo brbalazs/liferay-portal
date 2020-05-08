@@ -12,25 +12,9 @@
  * details.
  */
 
-import {ITEM_ORDERING_CHANGED} from '../../../../../utilities/eventsDefinitions';
 import {
-	calculateOrderingPosition,
 	DEFAULT_ORDERABLE_FIELD
 } from './orderingCalculationHelper';
-
-export {default as DraggableTableBodyRow} from './DraggableTableBodyRow';
-export {
-	default as TableBodyRowConfiguration
-} from './DraggableTableBodyRowConfiguration';
-
-export function moveListItem(indexFrom, indexTo, itemsList) {
-	const [...clonedList] = itemsList,
-		[itemToMove] = clonedList.splice(indexFrom, 1);
-
-	clonedList.splice(indexTo, 0, itemToMove);
-
-	return clonedList;
-}
 
 export function secureOrderability(itemsList, orderableField) {
 	/**
@@ -59,26 +43,4 @@ export function secureOrderability(itemsList, orderableField) {
 
 export function hasEnoughItems(itemsList) {
 	return itemsList.length > 1;
-}
-
-export function editItemOrdering(
-	indexTo,
-	itemsList,
-	orderableField = DEFAULT_ORDERABLE_FIELD
-) {
-	const item = itemsList[indexTo],
-		previousItemPosition = itemsList[indexTo][orderableField],
-		currentItemPosition = calculateOrderingPosition(
-			indexTo,
-			itemsList,
-			orderableField
-		);
-
-	if (!currentItemPosition || previousItemPosition === currentItemPosition) {
-		return;
-	}
-
-	item[orderableField] = currentItemPosition;
-
-	Liferay.fire(ITEM_ORDERING_CHANGED, {item});
 }

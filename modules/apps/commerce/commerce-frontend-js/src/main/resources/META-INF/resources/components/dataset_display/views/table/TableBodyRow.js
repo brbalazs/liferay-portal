@@ -13,9 +13,8 @@
  */
 
 import ClayTable from '@clayui/table';
+import DraggableTableBodyRow from './orderability/DraggableTableBodyRow'
 import React from 'react';
-
-import {DraggableTableBodyRow} from './orderability/index';
 
 function TableBodyRow({
 	index,

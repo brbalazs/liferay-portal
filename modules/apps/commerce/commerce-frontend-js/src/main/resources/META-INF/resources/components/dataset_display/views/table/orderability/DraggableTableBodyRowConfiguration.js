@@ -13,7 +13,42 @@
  */
 
 import {ItemTypes} from '../../../../../utilities/drag_drop/constants';
-import {moveListItem, editItemOrdering} from './index';
+import {
+	calculateOrderingPosition,
+	DEFAULT_ORDERABLE_FIELD
+} from './orderingCalculationHelper';
+import {ITEM_ORDERING_CHANGED} from '../../../../../utilities/eventsDefinitions';
+
+function editItemOrdering(
+	indexTo,
+	itemsList,
+	orderableField = DEFAULT_ORDERABLE_FIELD
+) {
+	const item = itemsList[indexTo],
+		previousItemPosition = itemsList[indexTo][orderableField],
+		currentItemPosition = calculateOrderingPosition(
+			indexTo,
+			itemsList,
+			orderableField
+		);
+
+	if (!currentItemPosition || previousItemPosition === currentItemPosition) {
+		return;
+	}
+
+	item[orderableField] = currentItemPosition;
+
+	Liferay.fire(ITEM_ORDERING_CHANGED, {item});
+}
+
+function moveListItem(indexFrom, indexTo, itemsList) {
+	const [...clonedList] = itemsList,
+		[itemToMove] = clonedList.splice(indexFrom, 1);
+
+	clonedList.splice(indexTo, 0, itemToMove);
+
+	return clonedList;
+}
 
 const configureDragSource = ({
 	index: indexFrom,
