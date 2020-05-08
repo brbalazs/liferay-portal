@@ -12,8 +12,6 @@
  * details.
  */
 
-import createOdataFilter from './odata';
-
 export function getSchemaString(object, path) {
 	if (!Array.isArray(path)) {
 		return object[path];
@@ -87,37 +85,21 @@ export function createSortingString(values) {
 export function loadData(
 	apiUrl,
 	currentUrl,
-	filters = [],
+	filters,
 	searchParam,
 	delta,
 	page = 1,
 	sorting = []
 ) {
-	const params = new URLSearchParams();
+	const authString = `&p_auth=${window.Liferay.authToken}`;
+	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
+	const pagination = `&pageSize=${delta}&page=${page}`;
+	const searchParamString = searchParam ? `&q=${searchParam}` : '';
+	const sortingString = sorting.length
+		? `&orderBy=${JSON.stringify(sorting)}`
+		: ``;
 
-	params.set('p_auth', window.Liferay.authToken);
-	params.set('pageSize', delta);
-	params.set('page', page);
-
-	if (currentUrl) {
-		params.set('currentUrl', encodeURIComponent(currentUrl));
-	}
-
-	if (searchParam) {
-		params.set('search', encodeURIComponent(searchParam));
-	}
-
-	if (sorting && sorting.length) {
-		params.set('sort', createSortingString(sorting));
-	}
-
-	if (filters && filters.length) {
-		params.set('sort', createOdataFilter(filters));
-	}
-
-	const url = `${apiUrl}${
-		apiUrl.indexOf('?') > -1 ? '&' : '?'
-	}${params.toString()}`;
+	const url = `${apiUrl}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }
