@@ -56,24 +56,24 @@ class CartFlusher extends Component {
 	}
 
 	_handleConfirm() {
-		fetch(`${this.cartAPI}/${
-			this.orderId
-			}?commerceAccountId=${this.commerceAccountId}&
-			groupId=${themeDisplay.getScopeGroupId()}&p_auth=${
-			Liferay.authToken
-			}`, {
-			credentials: 'include',
-			headers: new Headers({'x-csrf-token': Liferay.authToken}),
-			method: 'DELETE'
-		})
+		fetch(
+			`${this.cartAPI}/${this.orderId}?commerceAccountId=${
+				this.commerceAccountId
+			}&
+			groupId=${themeDisplay.getScopeGroupId()}&p_auth=${Liferay.authToken}`,
+			{
+				credentials: 'include',
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
+				method: 'DELETE'
+			}
+		)
 			.then(response => response.json())
 			.then(({products, success, summary}) => {
 				this.isAsking = false;
 
 				if (success && (!products.length || !products)) {
 					this.emit('deleteAllItems', {products: null, summary});
-				}
-				else {
+				} else {
 					throw new Error(
 						Liferay.Language.get('unable-to-empty-the-cart')
 					);
@@ -93,8 +93,8 @@ CartFlusher.STATE = {
 	apiEndpoint: Config.string,
 	cartAPI: Config.string().required(),
 	commerceAccountId: Config.oneOfType([Config.number(), Config.string()]),
-	orderId: Config.oneOfType([Config.number(), Config.string()]),
-	isAsking: Config.bool().value(false)
+	isAsking: Config.bool().value(false),
+	orderId: Config.oneOfType([Config.number(), Config.string()])
 };
 
 export {CartFlusher};
