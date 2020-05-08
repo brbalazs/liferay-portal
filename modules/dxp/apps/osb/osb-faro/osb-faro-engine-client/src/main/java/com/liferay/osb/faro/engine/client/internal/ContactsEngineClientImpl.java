@@ -104,6 +104,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
@@ -967,6 +968,20 @@ public class ContactsEngineClientImpl
 			getUriVariables(faroProject, cur, delta, orderByFields));
 
 		return pagedResources.getResults();
+	}
+
+	@Override
+	public Map<String, Object> getContext(FaroProject faroProject) {
+		RestTemplate restTemplate = getRestTemplate();
+
+		ResponseEntity<Map<String, Object>> responseEntity =
+			restTemplate.exchange(
+				getEngineURL(faroProject) + "/context", HttpMethod.GET, null,
+				new ParameterizedTypeReference<Map<String, Object>>() {
+				},
+				getUriVariables(faroProject));
+
+		return responseEntity.getBody();
 	}
 
 	@Override

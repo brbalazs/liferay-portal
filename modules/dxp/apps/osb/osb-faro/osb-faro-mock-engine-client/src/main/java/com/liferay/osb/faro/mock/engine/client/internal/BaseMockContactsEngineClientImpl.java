@@ -449,6 +449,11 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
+	public Map<String, Object> getContext(FaroProject faroProject) {
+		return contactsEngineClient.getContext(faroProject);
+	}
+
+	@Override
 	public Results<Individual> getCoworkerIndividuals(
 		FaroProject faroProject, String individualId, String query,
 		List<String> fields, int cur, int delta,

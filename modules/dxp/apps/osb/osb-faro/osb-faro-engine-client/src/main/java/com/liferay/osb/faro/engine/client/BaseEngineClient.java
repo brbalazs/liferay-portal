@@ -297,6 +297,20 @@ public abstract class BaseEngineClient {
 		return cache;
 	}
 
+	protected String getEngineURL(FaroProject faroProject) {
+		if (Validator.isNotNull(_engineURL)) {
+			return _engineURL;
+		}
+
+		if (faroProject.isTrial() &&
+			Validator.isNotNull(_OSB_ASAH_MONOLITH_URL)) {
+
+			return _OSB_ASAH_MONOLITH_URL;
+		}
+
+		return _OSB_ASAH_BACKEND_URL;
+	}
+
 	protected RestTemplate getRestTemplate() {
 		RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
 
@@ -369,7 +383,7 @@ public abstract class BaseEngineClient {
 	}
 
 	protected String getTemplatedURL(FaroProject faroProject, String type) {
-		String engineURL = _getEngineURL(faroProject);
+		String engineURL = getEngineURL(faroProject);
 
 		if (_urlPaths.containsKey(type)) {
 			return engineURL + _urlPaths.get(type);
@@ -578,20 +592,6 @@ public abstract class BaseEngineClient {
 			registerModule(new Jackson2HalModule());
 		}
 	};
-
-	private String _getEngineURL(FaroProject faroProject) {
-		if (Validator.isNotNull(_engineURL)) {
-			return _engineURL;
-		}
-
-		if (faroProject.isTrial() &&
-			Validator.isNotNull(_OSB_ASAH_MONOLITH_URL)) {
-
-			return _OSB_ASAH_MONOLITH_URL;
-		}
-
-		return _OSB_ASAH_BACKEND_URL;
-	}
 
 	private static final String _OSB_ASAH_BACKEND_URL = System.getenv(
 		"OSB_ASAH_BACKEND_URL");

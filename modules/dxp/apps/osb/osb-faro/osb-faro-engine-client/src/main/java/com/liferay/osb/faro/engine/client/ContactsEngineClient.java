@@ -229,6 +229,8 @@ public interface ContactsEngineClient {
 		FaroProject faroProject, int cur, int delta,
 		List<OrderByField> orderByFields);
 
+	public Map<String, Object> getContext(FaroProject faroProject);
+
 	public Results<Individual> getCoworkerIndividuals(
 		FaroProject faroProject, String individualId, String query,
 		List<String> fields, int cur, int delta,
