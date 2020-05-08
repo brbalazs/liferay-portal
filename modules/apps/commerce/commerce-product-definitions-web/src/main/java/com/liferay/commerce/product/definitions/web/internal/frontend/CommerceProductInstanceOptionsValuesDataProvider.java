@@ -19,14 +19,21 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.inventory.CommerceInventoryChecker;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
+import com.liferay.commerce.inventory.InventoryChecker;
+import com.liferay.commerce.model.CPDefinitionInventory;
+import com.liferay.commerce.price.CommerceProductOptionValueRelativePriceRequest;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.permission.CommerceProductViewPermission;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.JsonHelper;
+import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProvider;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderException;
@@ -34,6 +41,9 @@ import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponseOutput;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
@@ -44,10 +54,13 @@ import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -176,6 +189,18 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 			List<Output> outputs = new ArrayList<>();
 
+			JSONArray selectedCPDefinitionOptionValuesJSONArray =
+				_getCPDefinitionOptionCPDefinitionOptionValuesJSONArray(
+					selectedCPDefinitionOptionValueRels);
+
+			CPInstance selectedCPInstance = _cpInstanceHelper.fetchCPInstance(
+				cpDefinitionId,
+				selectedCPDefinitionOptionValuesJSONArray.toString());
+
+			_addNonskuContributingCPDefinitionOptionValueOutputs(
+				cpDefinitionId, selectedCPInstance, ddmDataProviderRequest,
+				locale, outputs);
+
 			for (CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel :
 					selectedCPDefinitionOptionValueRels) {
 
@@ -186,10 +211,13 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 				outputs.add(
 					new Output(
 						cpDefinitionOptionRel.getKey(), "list",
-						_toCPDefinitionOptionValueRelKeyValuePairs(
+						_toSelectedCPDefinitionOptionValueRelKeyValuePairs(
+							cpDefinitionId,
 							cpDefinitionOptionRel.
 								getCPDefinitionOptionValueRels(),
-							selectedCPDefinitionOptionValueRel, locale,
+							selectedCPDefinitionOptionValueRel,
+							selectedCPDefinitionOptionValuesJSONArray,
+							selectedCPInstance, locale,
 							_getCommerceContext(
 								ddmDataProviderRequest.
 									getHttpServletRequest()))));
@@ -213,8 +241,11 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 				outputs.add(
 					new Output(
 						cpDefinitionOptionRel.getKey(), "list",
-						_toCPDefinitionOptionValueRelKeyValuePairs(
-							allowedCPDefinitionOptionValueRels, null, locale,
+						_toRequestedCPDefinitionOptionValueRelKeyValuePairs(
+							cpDefinitionId, cpDefinitionOptionRel,
+							allowedCPDefinitionOptionValueRels,
+							selectedCPDefinitionOptionValuesJSONArray,
+							selectedCPInstance, locale,
 							_getCommerceContext(
 								ddmDataProviderRequest.
 									getHttpServletRequest()))));
@@ -277,6 +308,67 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	}
 
+	private void _addNonskuContributingCPDefinitionOptionValueOutputs(
+			long cpDefinitionId, CPInstance selectedCPInstance,
+			DDMDataProviderRequest ddmDataProviderRequest, Locale locale,
+			List<Output> outputs)
+		throws PortalException {
+
+		Map<CPDefinitionOptionRel, CPDefinitionOptionValueRel>
+			cpDefinitionProductOptionCPDefinitionProductOptionValues =
+				new HashMap<>();
+
+		List<CPDefinitionOptionRel> nonSKUContributingCPDefinitionOptionRels =
+			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
+				cpDefinitionId, false);
+
+		for (CPDefinitionOptionRel nonSKUContributingDefinitionOptionRel :
+				nonSKUContributingCPDefinitionOptionRels) {
+
+			Map<String, String> parameters =
+				ddmDataProviderRequest.getParameters();
+
+			String parameterValue = parameters.get(
+				nonSKUContributingDefinitionOptionRel.getKey());
+
+			String optionValueKey = parameterValue;
+
+			if (_jsonHelper.isArray(parameterValue)) {
+				optionValueKey = _jsonHelper.getFirstElementStringValue(
+					parameterValue);
+			}
+
+			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel =
+				_cpDefinitionOptionValueRelLocalService.
+					fetchCPDefinitionOptionValueRel(
+						nonSKUContributingDefinitionOptionRel.
+							getCPDefinitionOptionRelId(),
+						optionValueKey);
+
+			cpDefinitionProductOptionCPDefinitionProductOptionValues.put(
+				nonSKUContributingDefinitionOptionRel,
+				selectedCPDefinitionOptionValueRel);
+		}
+
+		for (Map.Entry<CPDefinitionOptionRel, CPDefinitionOptionValueRel>
+				entry :
+					cpDefinitionProductOptionCPDefinitionProductOptionValues.
+						entrySet()) {
+
+			CPDefinitionOptionRel cpDefinitionOptionRel = entry.getKey();
+
+			outputs.add(
+				new Output(
+					cpDefinitionOptionRel.getKey(), "list",
+					_toNonskuContributingCPDefinitionOptionValueKeyValuePairs(
+						selectedCPInstance,
+						cpDefinitionOptionRel.getCPDefinitionOptionValueRels(),
+						entry.getValue(), locale,
+						_getCommerceContext(
+							ddmDataProviderRequest.getHttpServletRequest()))));
+		}
+	}
+
 	private List<CPDefinitionOptionValueRel>
 			_filterBySelectedCPDefinitionOptionValueRelIds(
 				CPDefinitionOptionRel cpDefinitionOptionRel,
@@ -305,6 +397,61 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			CommerceWebKeys.COMMERCE_CONTEXT);
 	}
 
+	private JSONArray _getCPDefinitionOptionCPDefinitionOptionValuesJSONArray(
+			Collection<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels)
+		throws PortalException {
+
+		JSONArray jsonArray = _jsonFactory.createJSONArray();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			JSONObject jsonObject = _jsonFactory.createJSONObject();
+
+			CPDefinitionOptionRel cpDefinitionOptionRel =
+				cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+			jsonObject.put("key", cpDefinitionOptionRel.getKey());
+
+			JSONArray valueJSONArray = _jsonFactory.createJSONArray();
+
+			jsonObject.put(
+				"value",
+				valueJSONArray.put(cpDefinitionOptionValueRel.getKey()));
+
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
+	}
+
+	private long _getCPInstanceId(CPInstance cpInstance) {
+		if (cpInstance == null) {
+			return 0;
+		}
+
+		return cpInstance.getCPInstanceId();
+	}
+
+	private int _getMinOrderQuantity(CPInstance cpInstance)
+		throws PortalException {
+
+		if (cpInstance == null) {
+			return 0;
+		}
+
+		CPDefinitionInventory cpDefinitionInventory =
+			_cpDefinitionInventoryLocalService.
+				fetchCPDefinitionInventoryByCPDefinitionId(
+					cpInstance.getCPDefinitionId());
+
+		CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
+			_cpDefinitionInventoryEngineRegistry.getCPDefinitionInventoryEngine(
+				cpDefinitionInventory);
+
+		return cpDefinitionInventoryEngine.getMinOrderQuantity(cpInstance);
+	}
+
 	private long _getParameter(
 		DDMDataProviderRequest ddmDataProviderRequest, String param) {
 
@@ -313,26 +460,35 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 		return GetterUtil.getLong(parameters.get(param));
 	}
 
-	private List<KeyValuePair> _toCPDefinitionOptionValueRelKeyValuePairs(
-			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
-			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
-			Locale locale, CommerceContext commerceContext)
+	private List<KeyValuePair>
+			_toNonskuContributingCPDefinitionOptionValueKeyValuePairs(
+				CPInstance selectedCPInstance,
+				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+				CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
+				Locale locale, CommerceContext commerceContext)
 		throws PortalException {
-
-		if (cpDefinitionOptionValueRels.isEmpty()) {
-			return Collections.emptyList();
-		}
 
 		List<KeyValuePair> keyValuePairs = new ArrayList<>();
 
 		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 				cpDefinitionOptionValueRels) {
 
+			CommerceProductOptionValueRelativePriceRequest.Builder builder =
+				new CommerceProductOptionValueRelativePriceRequest.Builder(
+					commerceContext, cpDefinitionOptionValueRel);
+
 			CommerceMoney commerceMoney =
 				_commerceProductPriceCalculation.
 					getCPDefinitionOptionValueRelativePrice(
-						cpDefinitionOptionValueRel,
-						selectedCPDefinitionOptionValueRel, commerceContext);
+						builder.cpInstanceId(
+							0
+						).selectedCPInstanceId(
+							selectedCPInstance.getCPInstanceId()
+						).selectedCPInstanceMinQuantity(
+							_getMinOrderQuantity(selectedCPInstance)
+						).selectedCPDefinitionOptionValueRel(
+							selectedCPDefinitionOptionValueRel
+						).build());
 
 			keyValuePairs.add(
 				new KeyValuePair(
@@ -340,6 +496,145 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 					String.format(
 						"%s %s", cpDefinitionOptionValueRel.getName(locale),
 						commerceMoney.format(locale))));
+		}
+
+		return keyValuePairs;
+	}
+
+	private List<KeyValuePair>
+			_toRequestedCPDefinitionOptionValueRelKeyValuePairs(
+				long cpDefinitionId,
+				CPDefinitionOptionRel cpDefinitionOptionRel,
+				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+				JSONArray selectedCPDefinitionOptionValuesJSONArray,
+				CPInstance selectedCPInstance, Locale locale,
+				CommerceContext commerceContext)
+		throws PortalException {
+
+		List<KeyValuePair> keyValuePairs = new ArrayList<>();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			JSONArray clonedJSONArray = _jsonFactory.createJSONArray(
+				selectedCPDefinitionOptionValuesJSONArray.toString());
+
+			JSONObject jsonObject = _jsonFactory.createJSONObject();
+
+			jsonObject.put("key", cpDefinitionOptionRel.getKey());
+
+			jsonObject.put(
+				"value",
+				_jsonFactory.createJSONArray(
+				).put(
+					cpDefinitionOptionValueRel.getKey()
+				));
+
+			CPInstance cpInstance = _cpInstanceHelper.fetchCPInstance(
+				cpDefinitionId, clonedJSONArray.toString());
+
+			clonedJSONArray.put(jsonObject);
+
+			CommerceProductOptionValueRelativePriceRequest.Builder builder =
+				new CommerceProductOptionValueRelativePriceRequest.Builder(
+					commerceContext, cpDefinitionOptionValueRel);
+
+			CommerceMoney commerceMoney =
+				_commerceProductPriceCalculation.
+					getCPDefinitionOptionValueRelativePrice(
+						builder.cpInstanceId(
+							_getCPInstanceId(cpInstance)
+						).cpInstanceMinQuantity(
+							_getMinOrderQuantity(cpInstance)
+						).selectedCPInstanceId(
+							_getCPInstanceId(selectedCPInstance)
+						).selectedCPInstanceMinQuantity(
+							_getMinOrderQuantity(selectedCPInstance)
+						).build());
+
+			keyValuePairs.add(
+				new KeyValuePair(
+					cpDefinitionOptionValueRel.getKey(),
+					String.format(
+						"%s %s", cpDefinitionOptionValueRel.getName(locale),
+						commerceMoney.format(locale))));
+		}
+
+		return keyValuePairs;
+	}
+
+	private List<KeyValuePair>
+			_toSelectedCPDefinitionOptionValueRelKeyValuePairs(
+				long cpDefinitionId,
+				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+				CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
+				JSONArray selectedCPDefinitionOptionValuesJSONArray,
+				CPInstance selectedCPInstance, Locale locale,
+				CommerceContext commerceContext)
+		throws PortalException {
+
+		List<KeyValuePair> keyValuePairs = new ArrayList<>();
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			selectedCPDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			JSONArray clonedJSONArray = _jsonFactory.createJSONArray(
+				selectedCPDefinitionOptionValuesJSONArray.toString());
+
+			CPInstance cpInstance = null;
+
+			for (int i = 0; i < clonedJSONArray.length(); i++) {
+				JSONObject jsonObject = clonedJSONArray.getJSONObject(i);
+
+				String key = jsonObject.getString("key");
+
+				if (Objects.equals(cpDefinitionOptionRel.getKey(), key)) {
+					jsonObject.put(
+						"value",
+						_jsonFactory.createJSONArray(
+						).put(
+							cpDefinitionOptionValueRel.getKey()
+						));
+
+					cpInstance = _cpInstanceHelper.fetchCPInstance(
+						cpDefinitionId, clonedJSONArray.toString());
+
+					CommerceProductOptionValueRelativePriceRequest.Builder
+						builder =
+							new CommerceProductOptionValueRelativePriceRequest.
+								Builder(
+									commerceContext,
+									cpDefinitionOptionValueRel);
+
+					CommerceMoney commerceMoney =
+						_commerceProductPriceCalculation.
+							getCPDefinitionOptionValueRelativePrice(
+								builder.cpInstanceId(
+									_getCPInstanceId(cpInstance)
+								).cpInstanceMinQuantity(
+									_getMinOrderQuantity(cpInstance)
+								).selectedCPInstanceId(
+									_getCPInstanceId(selectedCPInstance)
+								).selectedCPInstanceMinQuantity(
+									_getMinOrderQuantity(selectedCPInstance)
+								).selectedCPDefinitionOptionValueRel(
+									selectedCPDefinitionOptionValueRel
+								).build());
+
+					keyValuePairs.add(
+						new KeyValuePair(
+							cpDefinitionOptionValueRel.getKey(),
+							String.format(
+								"%s %s",
+								cpDefinitionOptionValueRel.getName(locale),
+								commerceMoney.format(locale))));
+
+					break;
+				}
+			}
 		}
 
 		return keyValuePairs;
@@ -366,6 +661,14 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	private CommerceProductViewPermission _commerceProductViewPermission;
 
 	@Reference
+	private CPDefinitionInventoryEngineRegistry
+		_cpDefinitionInventoryEngineRegistry;
+
+	@Reference
+	private CPDefinitionInventoryLocalService
+		_cpDefinitionInventoryLocalService;
+
+	@Reference
 	private CPDefinitionOptionRelLocalService
 		_cpDefinitionOptionRelLocalService;
 
@@ -375,6 +678,9 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
+
+	@Reference
+	private JSONFactory _jsonFactory;
 
 	@Reference
 	private JsonHelper _jsonHelper;
