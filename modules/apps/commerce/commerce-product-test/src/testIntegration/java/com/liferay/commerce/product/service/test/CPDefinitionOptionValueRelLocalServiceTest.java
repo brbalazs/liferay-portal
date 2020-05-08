@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
@@ -117,12 +118,29 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
 			_commerceCatalog.getGroupId());
 
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		_cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+			cpDefinitionOptionRel.getCPOptionId(),
+			cpDefinitionOptionRel.getNameMap(),
+			cpDefinitionOptionRel.getDescriptionMap(),
+			cpDefinitionOptionRel.getDDMFormFieldTypeName(),
+			cpDefinitionOptionRel.getPriority(),
+			cpDefinitionOptionRel.isFacetable(),
+			cpDefinitionOptionRel.isRequired(),
+			cpDefinitionOptionRel.isSkuContributor(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
+
 		cpDefinitionOptionValueRel =
 			_cpDefinitionOptionValueRelLocalService.
 				updateCPDefinitionOptionValueRel(
 					cpDefinitionOptionValueRel.
 						getCPDefinitionOptionValueRelId(),
-					null, 0, "cpInstance-option-value",
+					cpDefinitionOptionValueRel.getNameMap(),
+					cpDefinitionOptionValueRel.getPriority(),
+					cpDefinitionOptionValueRel.getKey(),
 					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
 					_serviceContext);
 
@@ -189,12 +207,29 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		Assert.assertEquals(
 			WorkflowConstants.STATUS_APPROVED, cpInstance.getStatus());
 
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		_cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+			cpDefinitionOptionRel.getCPOptionId(),
+			cpDefinitionOptionRel.getNameMap(),
+			cpDefinitionOptionRel.getDescriptionMap(),
+			cpDefinitionOptionRel.getDDMFormFieldTypeName(),
+			cpDefinitionOptionRel.getPriority(),
+			cpDefinitionOptionRel.isFacetable(),
+			cpDefinitionOptionRel.isRequired(),
+			cpDefinitionOptionRel.isSkuContributor(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
+
 		cpDefinitionOptionValueRel =
 			_cpDefinitionOptionValueRelLocalService.
 				updateCPDefinitionOptionValueRel(
 					cpDefinitionOptionValueRel.
 						getCPDefinitionOptionValueRelId(),
-					null, 0, "cpInstance-option-value",
+					cpDefinitionOptionValueRel.getNameMap(),
+					cpDefinitionOptionValueRel.getPriority(),
+					cpDefinitionOptionValueRel.getKey(),
 					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
 					_serviceContext);
 
@@ -375,8 +410,14 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 			_addCPDefinitionWithOptionValue();
 
-		Assert.assertEquals(
-			null, cpDefinitionOptionValueRel.getCPInstanceUuid());
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		Assert.assertTrue(
+			Validator.isNull(cpDefinitionOptionRel.getPriceType()));
+
+		Assert.assertTrue(
+			Validator.isNull(cpDefinitionOptionValueRel.getCPInstanceUuid()));
 		Assert.assertEquals(0, cpDefinitionOptionValueRel.getCProductId());
 	}
 
@@ -415,28 +456,13 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionRel.isSkuContributor(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
 
-		cpDefinitionOptionValueRel =
-			_cpDefinitionOptionValueRelLocalService.
-				updateCPDefinitionOptionValueRel(
-					cpDefinitionOptionValueRel.
-						getCPDefinitionOptionValueRelId(),
-					cpDefinitionOptionValueRel.getNameMap(),
-					cpDefinitionOptionValueRel.getPriority(),
-					cpDefinitionOptionValueRel.getKey(),
-					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
-					_serviceContext);
-
-		Assert.assertEquals(
-			cpInstance.getCPInstanceUuid(),
-			cpDefinitionOptionValueRel.getCPInstanceUuid());
-		Assert.assertEquals(
-			cpInstance.getPrice(), cpDefinitionOptionValueRel.getPrice());
-
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-		Assert.assertEquals(
-			cpDefinition.getCProductId(),
-			cpDefinitionOptionValueRel.getCProductId());
+		_cpDefinitionOptionValueRelLocalService.
+			updateCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
+				cpDefinitionOptionValueRel.getNameMap(),
+				cpDefinitionOptionValueRel.getPriority(),
+				cpDefinitionOptionValueRel.getKey(),
+				cpInstance.getCPInstanceId(), 1, null, _serviceContext);
 	}
 
 	@Test
@@ -507,12 +533,29 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		Assert.assertEquals(
 			WorkflowConstants.STATUS_APPROVED, cpInstance.getStatus());
 
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		_cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+			cpDefinitionOptionRel.getCPOptionId(),
+			cpDefinitionOptionRel.getNameMap(),
+			cpDefinitionOptionRel.getDescriptionMap(),
+			cpDefinitionOptionRel.getDDMFormFieldTypeName(),
+			cpDefinitionOptionRel.getPriority(),
+			cpDefinitionOptionRel.isFacetable(),
+			cpDefinitionOptionRel.isRequired(),
+			cpDefinitionOptionRel.isSkuContributor(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
+
 		cpDefinitionOptionValueRel =
 			_cpDefinitionOptionValueRelLocalService.
 				updateCPDefinitionOptionValueRel(
 					cpDefinitionOptionValueRel.
 						getCPDefinitionOptionValueRelId(),
-					null, 0, "cpInstance-option-value",
+					cpDefinitionOptionValueRel.getNameMap(),
+					cpDefinitionOptionValueRel.getPriority(),
+					cpDefinitionOptionValueRel.getKey(),
 					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
 					_serviceContext);
 
@@ -540,8 +583,8 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 					cpDefinitionOptionValueRel.
 						getCPDefinitionOptionValueRelId());
 
-		Assert.assertEquals(
-			StringPool.BLANK, cpDefinitionOptionValueRel.getCPInstanceUuid());
+		Assert.assertTrue(
+			Validator.isNull(cpDefinitionOptionValueRel.getCPInstanceUuid()));
 		Assert.assertEquals(0, cpDefinitionOptionValueRel.getCProductId());
 
 		BigDecimal price = cpDefinitionOptionValueRel.getPrice();
