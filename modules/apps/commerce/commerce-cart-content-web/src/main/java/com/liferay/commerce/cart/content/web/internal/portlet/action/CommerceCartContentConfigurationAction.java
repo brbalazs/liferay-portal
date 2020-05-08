@@ -21,7 +21,7 @@ import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPConstants;
-import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -69,7 +69,7 @@ public class CommerceCartContentConfigurationAction
 			CommerceCartContentDisplayContext
 				commerceCartContentDisplayContext =
 					new CommerceCartContentDisplayContext(
-						httpServletRequest, _commerceChannelService,
+						httpServletRequest, _commerceChannelLocalService,
 						_commerceOrderItemService,
 						_commerceOrderPriceCalculation,
 						_commerceOrderValidatorRegistry,
@@ -102,7 +102,7 @@ public class CommerceCartContentConfigurationAction
 		CommerceCartContentConfigurationAction.class);
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
