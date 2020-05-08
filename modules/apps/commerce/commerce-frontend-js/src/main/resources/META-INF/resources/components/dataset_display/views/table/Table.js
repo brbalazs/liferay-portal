@@ -241,9 +241,7 @@ function Table(props) {
 										props.itemActions
 									)}
 									{showActionItems && (
-										<ClayTable.Cell
-											className="dataset-item-actions-wrapper"
-										>
+										<ClayTable.Cell className="dataset-item-actions-wrapper">
 											{(props.itemActions ||
 												item.actionItems) && (
 												<ActionsDropdownRenderer
