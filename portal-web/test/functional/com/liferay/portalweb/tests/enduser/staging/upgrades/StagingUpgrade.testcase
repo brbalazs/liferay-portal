@@ -112,7 +112,7 @@ definition {
 
 		Staging.openStagingAdmin(siteURLKey = "site-name-staging");
 
-		Staging.viewUncheckContentNameList(uncheckContentNameList = "Blogs,Bookmarks,Calendar,Dynamic Data Lists,Forms,Message Boards,Polls,Widget Templates,Wiki");
+		Staging.viewUncheckContentNameList(uncheckContentNameList = "Application Display Template,Blogs,Bookmarks,Calendar,Dynamic Data Lists,Forms,Message Boards,Polls,Wiki");
 	}
 
 	@description = "This is a use case for LPS-87237."
@@ -124,7 +124,7 @@ definition {
 
 		Staging.openStagingAdmin(siteURLKey = "site-name-staging");
 
-		Staging.viewUncheckContentNameList(uncheckContentNameList = "Blogs,Bookmarks,Calendar,Dynamic Data Lists,Forms,Message Boards,Polls,Widget Templates,Wiki");
+		Staging.viewUncheckContentNameList(uncheckContentNameList = "Application Display Template,Blogs,Bookmarks,Calendar,Dynamic Data Lists,Forms,Message Boards,Polls,Wiki");
 	}
 
 	@description = "This is a use case for LPS-87237."
@@ -136,7 +136,7 @@ definition {
 
 		Staging.openStagingAdmin(siteURLKey = "site-name-staging");
 
-		Staging.viewUncheckContentNameList(uncheckContentNameList = "Blogs,Dynamic Data Lists,Message Boards,Polls,Widget Templates,Wiki");
+		Staging.viewUncheckContentNameList(uncheckContentNameList = "Application Display Templates,Blogs,Dynamic Data Lists,Message Boards,Polls,Wiki");
 	}
 
 }
