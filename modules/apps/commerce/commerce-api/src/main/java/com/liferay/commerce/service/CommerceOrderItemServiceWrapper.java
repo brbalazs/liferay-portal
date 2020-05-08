@@ -107,6 +107,15 @@ public class CommerceOrderItemServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceOrderItem>
+			getChildCommerceOrderItems(long parentCommerceOrderItemId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItemService.getChildCommerceOrderItems(
+			parentCommerceOrderItemId);
+	}
+
+	@Override
 	public int getCommerceInventoryWarehouseItemQuantity(
 			long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -187,6 +196,19 @@ public class CommerceOrderItemServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _commerceOrderItemService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.model.CommerceOrderItem> search(
+				long commerceOrderId, long parentCommerceOrderItemId,
+				String keywords, int start, int end,
+				com.liferay.portal.kernel.search.Sort sort)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItemService.search(
+			commerceOrderId, parentCommerceOrderItemId, keywords, start, end,
+			sort);
 	}
 
 	@Override

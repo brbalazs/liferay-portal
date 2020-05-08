@@ -206,6 +206,26 @@ public class CommerceOrderItemServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.model.CommerceOrderItemSoap[]
+			getChildCommerceOrderItems(long parentCommerceOrderItemId)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.commerce.model.CommerceOrderItem>
+				returnValue =
+					CommerceOrderItemServiceUtil.getChildCommerceOrderItems(
+						parentCommerceOrderItemId);
+
+			return com.liferay.commerce.model.CommerceOrderItemSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getCommerceInventoryWarehouseItemQuantity(
 			long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws RemoteException {

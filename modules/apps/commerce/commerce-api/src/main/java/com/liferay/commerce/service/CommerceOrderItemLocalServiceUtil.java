@@ -279,6 +279,13 @@ public class CommerceOrderItemLocalServiceUtil {
 			commerceOrderId);
 	}
 
+	public static java.util.List<com.liferay.commerce.model.CommerceOrderItem>
+		getChildCommerceOrderItems(long parentCommerceOrderItemId) {
+
+		return getService().getChildCommerceOrderItems(
+			parentCommerceOrderItemId);
+	}
+
 	public static int getCommerceInventoryWarehouseItemQuantity(
 			long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -433,6 +440,18 @@ public class CommerceOrderItemLocalServiceUtil {
 
 		return getService().incrementShippedQuantity(
 			commerceOrderItemId, shippedQuantity);
+	}
+
+	public static com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.model.CommerceOrderItem> search(
+				long commerceOrderId, long parentCommerceOrderItemId,
+				String keywords, int start, int end,
+				com.liferay.portal.kernel.search.Sort sort)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().search(
+			commerceOrderId, parentCommerceOrderItemId, keywords, start, end,
+			sort);
 	}
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult

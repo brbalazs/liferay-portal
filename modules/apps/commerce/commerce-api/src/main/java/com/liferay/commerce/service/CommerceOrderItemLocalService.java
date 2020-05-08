@@ -234,6 +234,10 @@ public interface CommerceOrderItemLocalService
 		long commerceOrderId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceOrderItem> getChildCommerceOrderItems(
+		long parentCommerceOrderItemId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceInventoryWarehouseItemQuantity(
 			long commerceOrderItemId, long commerceInventoryWarehouseId)
 		throws PortalException;
@@ -332,6 +336,12 @@ public interface CommerceOrderItemLocalService
 
 	public CommerceOrderItem incrementShippedQuantity(
 			long commerceOrderItemId, int shippedQuantity)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public BaseModelSearchResult<CommerceOrderItem> search(
+			long commerceOrderId, long parentCommerceOrderItemId,
+			String keywords, int start, int end, Sort sort)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
