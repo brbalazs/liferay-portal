@@ -67,6 +67,7 @@ import com.liferay.osb.faro.engine.client.util.FilterConstants;
 import com.liferay.osb.faro.engine.client.util.FilterUtil;
 import com.liferay.osb.faro.engine.client.util.OrderByField;
 import com.liferay.osb.faro.model.FaroProject;
+import com.liferay.osb.faro.util.FaroThreadLocal;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchPaginationUtil;
 import com.liferay.portal.kernel.model.User;
@@ -2409,6 +2410,9 @@ public class ContactsEngineClientImpl
 			return true;
 		}
 
+		boolean cacheEnabled = FaroThreadLocal.isCacheEnabled();
+
+		FaroThreadLocal.setCacheEnabled(false);
 		RestTemplate restTemplate = getRestTemplate();
 
 		ResponseEntity<Map<String, Object>> responseEntity =
@@ -2417,6 +2421,8 @@ public class ContactsEngineClientImpl
 				new ParameterizedTypeReference<Map<String, Object>>() {
 				},
 				getUriVariables(faroProject));
+
+		FaroThreadLocal.setCacheEnabled(cacheEnabled);
 
 		Map<String, Object> context = responseEntity.getBody();
 
