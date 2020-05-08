@@ -52,7 +52,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
-import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
@@ -468,8 +467,10 @@ public class CommerceOrderEditDisplayContext {
 		PortletURL portletURL = getTransitionOrderPortletURL();
 
 		for (CommerceOrderStatus commerceOrderStatus : commerceOrderStatuses) {
-			if (commerceOrderStatus.getKey() ==
-					CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
+			if ((commerceOrderStatus.getKey() ==
+					CommerceOrderConstants.ORDER_STATUS_SHIPPED) ||
+				!commerceOrderStatus.isValidForOrder(_commerceOrder) ||
+				!commerceOrderStatus.isTransitionCriteriaMet(_commerceOrder)) {
 
 				continue;
 			}
@@ -565,23 +566,12 @@ public class CommerceOrderEditDisplayContext {
 			return steps;
 		}
 
-		if (!_commerceShippingHelper.isShippable(_commerceOrder)) {
-			commerceOrderStatuses = ListUtil.copy(commerceOrderStatuses);
-
-			for (int shippingOrderStatus :
-					CommerceOrderConstants.ORDER_STATUSES_SHIPPING) {
-
-				commerceOrderStatuses.remove(
-					_commerceOrderStatusRegistry.getCommerceOrderStatus(
-						shippingOrderStatus));
-			}
-		}
-
 		for (CommerceOrderStatus commerceOrderStatus : commerceOrderStatuses) {
 			if (((commerceOrderStatus.getKey() ==
 					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) &&
 				 (_commerceOrder.getOrderStatus() !=
 					 CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED)) ||
+				!commerceOrderStatus.isValidForOrder(_commerceOrder) ||
 				ArrayUtil.contains(
 					CommerceOrderConstants.ORDER_STATUSES_OPEN,
 					commerceOrderStatus.getKey()) ||
