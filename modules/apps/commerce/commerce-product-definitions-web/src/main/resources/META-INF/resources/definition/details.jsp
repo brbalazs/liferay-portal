@@ -77,15 +77,15 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					<c:when test="<%= (cpDefinition != null) || ((cpDefinition == null) && (commerceCatalogs.size() > 1)) %>">
 						<aui:select disabled="<%= cpDefinition != null %>" label="catalog" name="commerceCatalogGroupId" required="<%= true %>">
 
-					<%
-					for (CommerceCatalog curCommerceCatalog : commerceCatalogs) {
-					%>
+							<%
+							for (CommerceCatalog curCommerceCatalog : commerceCatalogs) {
+							%>
 
-						<aui:option data-languageId="<%= curCommerceCatalog.getCatalogDefaultLanguageId() %>" label="<%= curCommerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(curCommerceCatalog) %>" value="<%= curCommerceCatalog.getGroupId() %>" />
+								<aui:option data-languageId="<%= curCommerceCatalog.getCatalogDefaultLanguageId() %>" label="<%= curCommerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(curCommerceCatalog) %>" value="<%= curCommerceCatalog.getGroupId() %>" />
 
-					<%
-					}
-					%>
+							<%
+							}
+							%>
 
 						</aui:select>
 					</c:when>
