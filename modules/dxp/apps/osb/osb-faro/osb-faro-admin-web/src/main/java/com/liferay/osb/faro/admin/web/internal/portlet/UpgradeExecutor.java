@@ -43,8 +43,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.ws.rs.core.Response;
 
@@ -256,27 +254,6 @@ public class UpgradeExecutor {
 		}
 	}
 
-	private boolean _checkStopped(
-		List<WorkspaceService> workspaceServices, String[] serviceIds) {
-
-		Stream<WorkspaceService> stream = workspaceServices.stream();
-
-		Map<String, String> servicesHealth = stream.collect(
-			Collectors.toMap(
-				WorkspaceService::getServiceId, WorkspaceService::getHealth));
-
-		for (String serviceId : serviceIds) {
-			if (!StringUtil.equals(
-					servicesHealth.get(serviceId),
-					Workspace.Health.none.name())) {
-
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	private void _deleteServices(
 			FaroProject faroProject, String[] expectedServiceIds)
 		throws Exception {
@@ -419,35 +396,6 @@ public class UpgradeExecutor {
 		_futureTasks.clear();
 	}
 
-	private void _stopServices(String weDeployKey) throws Exception {
-		List<String> serviceIds = new ArrayList<>();
-
-		for (WorkspaceService workspaceService :
-				_workspaceEngineClient.getWorkspaceServices(weDeployKey)) {
-
-			serviceIds.add(workspaceService.getServiceId());
-		}
-
-		_workspaceEngineClient.updateServices(weDeployKey, "stop", serviceIds);
-
-		long startTime = System.currentTimeMillis();
-
-		while ((System.currentTimeMillis() - startTime) < (Time.MINUTE * 5)) {
-			_checkInterrupted(weDeployKey);
-
-			if (_checkStopped(
-					_workspaceEngineClient.getWorkspaceServices(weDeployKey),
-					ArrayUtil.toStringArray(serviceIds))) {
-
-				return;
-			}
-
-			Thread.sleep(Time.SECOND * 15);
-		}
-
-		throw new Exception("Unable to stop services");
-	}
-
 	private void _upgrade(
 		FaroProject faroProject, String version, boolean refreshLiferay,
 		boolean waitForHealthy) {
@@ -459,8 +407,6 @@ public class UpgradeExecutor {
 		}
 
 		try {
-			_stopServices(faroProject.getWeDeployKey());
-
 			String[] expectedServiceIds = null;
 
 			if (faroProject.isTrial()) {
