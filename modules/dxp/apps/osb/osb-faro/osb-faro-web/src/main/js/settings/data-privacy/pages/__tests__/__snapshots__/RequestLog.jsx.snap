@@ -171,109 +171,11 @@ exports[`RequestLog should render 1`] = `
           </nav>
         </div>
         <div
-          class="table-responsive table-root flex-grow-1"
+          class="spinner-root spinner-center spinner-spacer"
         >
-          <table
-            class="table table-autofit table-hover table-heading-nowrap table-nowrap"
-          >
-            <thead>
-              <tr
-                class=""
-              >
-                <th />
-                <th
-                  class="table-head-title"
-                >
-                  <a
-                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    href="/?orderBy=asc&orderByField=batchId&page=1"
-                  >
-                    <span
-                      class="text-truncate"
-                    >
-                      Request ID
-                    </span>
-                  </a>
-                </th>
-                <th
-                  class="table-head-title table-cell-expand"
-                >
-                  <a
-                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    href="/?orderBy=asc&orderByField=emailAddress&page=1"
-                  >
-                    <span
-                      class="text-truncate"
-                    >
-                      Email
-                    </span>
-                  </a>
-                </th>
-                <th
-                  class="table-head-title"
-                >
-                  <a
-                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    href="/?orderBy=asc&orderByField=type&page=1"
-                  >
-                    <span
-                      class="text-truncate"
-                    >
-                      Request Type
-                    </span>
-                  </a>
-                </th>
-                <th
-                  class="table-head-title"
-                >
-                  <a
-                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    href="/?orderBy=asc&orderByField=createDate&page=1"
-                  >
-                    <span
-                      class="text-truncate"
-                    >
-                      Requested Date
-                    </span>
-                    <span
-                      class="inline-item inline-item-after"
-                    >
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-order-arrow-down"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="#order-arrow-down"
-                        />
-                      </svg>
-                    </span>
-                  </a>
-                </th>
-                <th
-                  class="table-head-title"
-                >
-                  <a
-                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    href="/?orderBy=asc&orderByField=status&page=1"
-                  >
-                    <span
-                      class="text-truncate"
-                    >
-                      Request Status
-                    </span>
-                  </a>
-                </th>
-                <th />
-              </tr>
-            </thead>
-          </table>
-          <div
-            class="spinner-root spinner-overlay"
-          >
-            <span
-              class="loading-animation loading-animation-dotted"
-            />
-          </div>
+          <span
+            class="loading-animation loading-animation-dotted"
+          />
         </div>
       </div>
     </div>

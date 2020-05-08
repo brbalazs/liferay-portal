@@ -1,73 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TableTabs render 1`] = `
-<div
-  class="card card-root table-tabs-root"
->
+<div>
   <div
-    class="card-header align-items-center d-flex justify-content-between"
+    class="card card-root table-tabs-root"
   >
-    <h5
-      class="card-title"
-    />
     <div
-      class="spinner-root spinner-inline"
+      class="card-header align-items-center d-flex justify-content-between"
     >
-      <span
-        class="loading-animation loading-animation-dotted"
+      <h5
+        class="card-title"
       />
-    </div>
-  </div>
-  <div
-    class="w-100 d-flex flex-column flex-grow-1"
-  >
-    <ul
-      class="card-tabs-root"
-    >
-      <li
-        class="card-tab active"
+      <div
+        class="spinner-root spinner-inline"
       >
-        <button
-          class="button-root btn btn-unstyled"
-          type="button"
-        >
-          <span
-            class="title"
-          />
-          <div />
-        </button>
-      </li>
-    </ul>
-    <div
-      class="table-responsive table-root flex-grow-1 flex-grow-1 table-hover"
-    >
-      <table
-        class="table table-autofit table-hover table-heading-nowrap table-nowrap"
-      >
-        <thead>
-          <tr
-            class=""
-          />
-        </thead>
-      </table>
-    </div>
-  </div>
-  <div
-    class="card-footer"
-  >
-    <a
-      class="button-root btn btn-link btn-sm"
-      href="/route?rangeKey=30"
-    >
-      <svg
-        class="icon-root lexicon-icon lexicon-icon-angle-right"
-        viewBox=""
-      >
-        <use
-          href="#angle-right"
+        <span
+          class="loading-animation loading-animation-dotted"
         />
-      </svg>
-    </a>
+      </div>
+    </div>
+    <div
+      class="w-100 d-flex flex-column flex-grow-1"
+    >
+      <ul
+        class="card-tabs-root"
+      >
+        <li
+          class="card-tab active"
+        >
+          <button
+            class="button-root btn btn-unstyled"
+            type="button"
+          >
+            <span
+              class="title"
+            />
+            <div />
+          </button>
+        </li>
+      </ul>
+      <div
+        class="table-responsive table-root flex-grow-1 flex-grow-1 table-hover"
+      >
+        <table
+          class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+        >
+          <thead>
+            <tr
+              class=""
+            />
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div
+      class="card-footer"
+    >
+      <a
+        class="button-root btn btn-link btn-sm"
+        href="/route?rangeKey=30"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-right"
+          viewBox=""
+        >
+          <use
+            xlink:href="#angle-right"
+          />
+        </svg>
+      </a>
+    </div>
   </div>
 </div>
 `;

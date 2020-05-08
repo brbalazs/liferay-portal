@@ -590,20 +590,8 @@ exports[`DataSourceList should render with an empty state 1`] = `
   class="no-results-root flex-grow-1"
 >
   <div
-    class="no-results-content"
+    class="no-results-content spacer"
   >
-    <div
-      class="no-results-icon no-results-icon-border"
-    >
-      <svg
-        class="icon-root lexicon-icon lexicon-icon-sheets icon-size-xxl"
-        viewBox=""
-      >
-        <use
-          xlink:href="#sheets"
-        />
-      </svg>
-    </div>
     <h4
       class="no-results-title"
     >

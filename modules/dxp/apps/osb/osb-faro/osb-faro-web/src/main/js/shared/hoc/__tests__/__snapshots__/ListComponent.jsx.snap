@@ -54,17 +54,17 @@ exports[`ListComponent renders 1`] = `
     </nav>
   </div>
   <div
-    class="table-responsive table-root flex-grow-1"
+    class="no-results-root flex-grow-1"
   >
-    <table
-      class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+    <div
+      class="no-results-content"
     >
-      <thead>
-        <tr
-          class=""
-        />
-      </thead>
-    </table>
+      <h4
+        class="no-results-title"
+      >
+        There are no views on the selected period.
+      </h4>
+    </div>
   </div>
 </div>
 `;

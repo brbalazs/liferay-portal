@@ -233,7 +233,7 @@ exports[`Suppressed User List should render 1`] = `
             <span
               class="text-truncate"
             >
-              2 Items
+              5 Items
             </span>
             
             <span
