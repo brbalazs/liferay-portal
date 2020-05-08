@@ -248,7 +248,7 @@ public class ProductResourceImpl
 		return HashMapBuilder.<String, Map<String, String>>put(
 			"delete",
 			addAction(
-				"DELETE", commerceCatalog.getCommerceCatalogId(),
+				"UPDATE", commerceCatalog.getCommerceCatalogId(),
 				"deleteProduct", commerceCatalog.getUserId(),
 				"com.liferay.commerce.product.model.CommerceCatalog",
 				commerceCatalog.getGroupId())
