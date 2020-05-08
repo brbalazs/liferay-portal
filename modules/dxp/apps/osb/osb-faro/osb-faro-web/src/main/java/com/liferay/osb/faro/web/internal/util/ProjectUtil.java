@@ -43,6 +43,10 @@ public class ProjectUtil {
 		}
 	}
 
+	public void deleteGlobalState(long groupId) {
+		_globalStateMaps.remove(groupId);
+	}
+
 	public void deleteGlobalStates(List<String> keys) {
 		if (StringUtil.equals(keys.get(0), "all")) {
 			_globalStateMaps.clear();

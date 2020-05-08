@@ -734,6 +734,15 @@ public class ProjectController extends BaseFaroController {
 
 			return projectDisplay;
 		}
+		else if (StringUtil.equals(
+					projectDisplay.getState(), ProjectConstants.STATE_READY) &&
+				 StringUtil.equals(state, ProjectConstants.STATE_MAINTENANCE) &&
+				 contactsEngineClient.isLatestVersion(faroProject)) {
+
+			projectUtil.deleteGlobalState(faroProject.getGroupId());
+
+			return projectDisplay;
+		}
 
 		projectDisplay.setState(state);
 		projectDisplay.setStateEndDate((Date)globalStateMap.get("endDate"));
