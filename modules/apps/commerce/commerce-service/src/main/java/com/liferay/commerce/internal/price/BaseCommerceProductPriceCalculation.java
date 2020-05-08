@@ -24,9 +24,7 @@ import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.internal.util.CommercePriceConverterUtil;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommerceProductPrice;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.model.CPDefinitionInventory;
+import com.liferay.commerce.price.CommerceProductOptionValueRelativePriceRequest;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
 import com.liferay.commerce.product.constants.CPConstants;
@@ -37,7 +35,6 @@ import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
-import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -103,17 +100,24 @@ public abstract class BaseCommerceProductPriceCalculation
 
 	@Override
 	public CommerceMoney getCPDefinitionOptionValueRelativePrice(
-			long cpInstanceId,
-			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
-			long selectedCPInstanceId,
-			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
-			CommerceContext commerceContext)
+			CommerceProductOptionValueRelativePriceRequest
+				commerceProductOptionValueRelativePriceRequest)
 		throws PortalException {
 
 		_validate(
-			cpDefinitionOptionValueRel, selectedCPDefinitionOptionValueRel);
+			commerceProductOptionValueRelativePriceRequest.
+				getCpDefinitionOptionValueRel(),
+			commerceProductOptionValueRelativePriceRequest.
+				getSelectedCPDefinitionOptionValueRel());
 
 		BigDecimal relativePrice = BigDecimal.ZERO;
+
+		CommerceContext commerceContext =
+			commerceProductOptionValueRelativePriceRequest.getCommerceContext();
+
+		long selectedCPInstanceId =
+			commerceProductOptionValueRelativePriceRequest.
+				getSelectedCPInstanceId();
 
 		if (selectedCPInstanceId <= 0) {
 			return commerceMoneyFactory.create(
@@ -121,15 +125,27 @@ public abstract class BaseCommerceProductPriceCalculation
 				PriceFormat.RELATIVE);
 		}
 
+		long cpInstanceId =
+			commerceProductOptionValueRelativePriceRequest.getCpInstanceId();
+
 		if (cpInstanceId > 0) {
 			relativePrice = relativePrice.add(
 				_getCPInstancePriceDifference(
-					cpInstanceId, selectedCPInstanceId, commerceContext));
+					cpInstanceId,
+					commerceProductOptionValueRelativePriceRequest.
+						getCpInstanceMinQuantity(),
+					selectedCPInstanceId,
+					commerceProductOptionValueRelativePriceRequest.
+						getSelectedCPInstanceMinQuantity(),
+					commerceContext));
 		}
 
 		relativePrice = relativePrice.add(
 			_getCPDefinitionOptionValuePriceDifference(
-				cpDefinitionOptionValueRel, selectedCPDefinitionOptionValueRel,
+				commerceProductOptionValueRelativePriceRequest.
+					getCpDefinitionOptionValueRel(),
+				commerceProductOptionValueRelativePriceRequest.
+					getSelectedCPDefinitionOptionValueRel(),
 				commerceContext));
 
 		return commerceMoneyFactory.create(
@@ -469,36 +485,21 @@ public abstract class BaseCommerceProductPriceCalculation
 	}
 
 	private BigDecimal _getCPInstancePriceDifference(
-			long cpInstanceId, long selectedCPInstanceId,
+			long cpInstanceId, int cpInstanceMinQuantity,
+			long selectedCPInstanceId, int selectedCPInstanceMinQuantity,
 			CommerceContext commerceContext)
 		throws PortalException {
 
 		CommerceMoney cpInstanceFinalPrice = getFinalPrice(
-			cpInstanceId, _getMinOrderQuantity(cpInstanceId), commerceContext);
+			cpInstanceId, cpInstanceMinQuantity, commerceContext);
 
 		BigDecimal price = cpInstanceFinalPrice.getPrice();
 
 		CommerceMoney selectedCPInstanceFinalPrice = getFinalPrice(
-			selectedCPInstanceId, _getMinOrderQuantity(selectedCPInstanceId),
+			selectedCPInstanceId, selectedCPInstanceMinQuantity,
 			commerceContext);
 
 		return price.subtract(selectedCPInstanceFinalPrice.getPrice());
-	}
-
-	private int _getMinOrderQuantity(long cpInstanceId) throws PortalException {
-		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
-			cpInstanceId);
-
-		CPDefinitionInventory cpDefinitionInventory =
-			_cpDefinitionInventoryLocalService.
-				fetchCPDefinitionInventoryByCPDefinitionId(
-					cpInstance.getCPDefinitionId());
-
-		CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
-			_cpDefinitionInventoryEngineRegistry.getCPDefinitionInventoryEngine(
-				cpDefinitionInventory);
-
-		return cpDefinitionInventoryEngine.getMinOrderQuantity(cpInstance);
 	}
 
 	private boolean _isStaticPriceType(String value) {
@@ -525,13 +526,5 @@ public abstract class BaseCommerceProductPriceCalculation
 					"to the same CPDefinitionOptionRel");
 		}
 	}
-
-	@Reference
-	private CPDefinitionInventoryEngineRegistry
-		_cpDefinitionInventoryEngineRegistry;
-
-	@Reference
-	private CPDefinitionInventoryLocalService
-		_cpDefinitionInventoryLocalService;
 
 }
