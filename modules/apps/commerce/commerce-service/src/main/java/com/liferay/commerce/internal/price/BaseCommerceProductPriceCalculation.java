@@ -23,8 +23,8 @@ import com.liferay.commerce.currency.util.PriceFormat;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.internal.util.CommercePriceConverterUtil;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductOptionValueRelativePriceRequest;
+import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
 import com.liferay.commerce.product.constants.CPConstants;
@@ -222,7 +222,10 @@ public abstract class BaseCommerceProductPriceCalculation
 					finalPrice = finalPrice.add(optionValuePrice);
 				}
 			}
-			else {
+			else if (Objects.equals(
+						commerceOptionValue.getPriceType(),
+						CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+
 				CommerceProductPrice optionValueProductPrice =
 					getCommerceProductPrice(
 						commerceOptionValue.getCPInstanceId(),
