@@ -1018,6 +1018,7 @@ app.server.type=@{app.server.type}]]></echo>
 
 	<macrodef name="prepare-test-environment">
 		<attribute default="tomcat" name="app.server.type" />
+		<attribute default="${app.server.@{app.server.type}.version}" name="app.server.version" />
 		<attribute default="true" name="setup.testable.tomcat" />
 
 		<sequential>
@@ -1033,10 +1034,16 @@ app.server.type=@{app.server.type}]]></echo>
 				src="liferay-portal-source.tar.gz"
 			/>
 
+			<local name="bundle.src.file.name" />
+
+			<condition else="liferay-portal-bundle-@{app.server.type}.tar.gz" property="bundle.src.file.name" value="liferay-portal-bundle-@{app.server.type}-@{app.server.version}.tar.gz">
+				<available file="liferay-portal-bundle-@{app.server.type}-@{app.server.version}.tar.gz" />
+			</condition>
+
 			<untar
 				compression="gzip"
 				dest="."
-				src="liferay-portal-bundle-@{app.server.type}.tar.gz"
+				src="${bundle.src.file.name}"
 			/>
 
 			<chmod
@@ -1593,12 +1600,16 @@ app.server.type=@{app.server.type}]]></echo>
 							</then>
 							<elseif>
 								<and>
-									<available file="liferay-portal-bundle-${app.server.type}.tar.gz" />
+									<or>
+										<available file="liferay-portal-bundle-${app.server.type}.tar.gz" />
+										<available file="liferay-portal-bundle-${app.server.type}-${app.server.version}.tar.gz" />
+									</or>
 									<available file="liferay-portal-source.tar.gz" />
 								</and>
 								<then>
 									<prepare-test-environment
 										app.server.type="${app.server.type}"
+										app.server.version="${app.server.version}"
 										setup.testable.tomcat="@{setup.testable.tomcat}"
 									/>
 								</then>
