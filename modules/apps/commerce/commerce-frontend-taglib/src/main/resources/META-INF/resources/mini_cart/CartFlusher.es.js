@@ -56,7 +56,12 @@ class CartFlusher extends Component {
 	}
 
 	_handleConfirm() {
-		fetch(this.apiEndpoint, {
+		fetch(`${this.cartAPI}/${
+			this.orderId
+			}?commerceAccountId=${this.commerceAccountId}&
+			groupId=${themeDisplay.getScopeGroupId()}&p_auth=${
+			Liferay.authToken
+			}`, {
 			credentials: 'include',
 			headers: new Headers({'x-csrf-token': Liferay.authToken}),
 			method: 'DELETE'
@@ -67,7 +72,8 @@ class CartFlusher extends Component {
 
 				if (success && (!products.length || !products)) {
 					this.emit('deleteAllItems', {products: null, summary});
-				} else {
+				}
+				else {
 					throw new Error(
 						Liferay.Language.get('unable-to-empty-the-cart')
 					);
@@ -84,7 +90,10 @@ class CartFlusher extends Component {
 Soy.register(CartFlusher, template);
 
 CartFlusher.STATE = {
-	apiEndpoint: Config.string(),
+	apiEndpoint: Config.string,
+	cartAPI: Config.string().required(),
+	commerceAccountId: Config.oneOfType([Config.number(), Config.string()]),
+	orderId: Config.oneOfType([Config.number(), Config.string()]),
 	isAsking: Config.bool().value(false)
 };
 

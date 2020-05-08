@@ -27,7 +27,8 @@
 		deleteDisabled: bool
 	]>}
 
-	{@param? flushCartUrl: string}
+	{@param cartAPI: string}
+	{@param? commerceAccountId: ? }
 	{@param? productsQuantity: int}
 	{@param? orderId: int | string}
 
@@ -108,14 +109,17 @@
 							{msg desc="The cart is empty."}the-cart-is-empty{/msg}
 						{/if}
 					</div>
-					{if isNonnull($flushCartUrl) and
+					{if isNonnull($orderId) and
+					isNonnull($commerceAccountId) and
 					isNonnull($summary) and
 					not($summary.itemsQuantity == 0)}
 						{call CartFlusher.render}
 							{param events: [
 								'deleteAllItems' : $_handleDeleteAllItems
 							] /}
-							{param apiEndpoint: $flushCartUrl /}
+							{param cartAPI: $cartAPI /}
+							{param orderId: $orderId /}
+							{param commerceAccountId: $commerceAccountId /}
 						{/call}
 					{/if}
 				</div>
