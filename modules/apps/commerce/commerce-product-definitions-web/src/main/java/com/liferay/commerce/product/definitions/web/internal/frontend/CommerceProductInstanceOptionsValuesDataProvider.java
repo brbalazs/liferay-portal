@@ -513,28 +513,12 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 		List<KeyValuePair> keyValuePairs = new ArrayList<>();
 
-		String jsonArrayString =
-			selectedCPDefinitionOptionValuesJSONArray.toString();
-
 		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 				cpDefinitionOptionValueRels) {
 
-			JSONArray clonedJSONArray = _jsonFactory.createJSONArray(
-				jsonArrayString);
-
-			JSONObject jsonObject = _jsonFactory.createJSONObject();
-
-			jsonObject.put("key", cpDefinitionOptionRel.getKey());
-
-			jsonObject.put(
-				"value",
-				_jsonFactory.createJSONArray(
-				).put(
-					cpDefinitionOptionValueRel.getKey()
-				));
-
 			CPInstance cpInstance = _cpInstanceHelper.fetchCPInstance(
-				cpDefinitionId, clonedJSONArray.toString());
+				cpDefinitionId,
+				selectedCPDefinitionOptionValuesJSONArray.toString());
 
 			CommerceProductOptionValueRelativePriceRequest.Builder builder =
 				new CommerceProductOptionValueRelativePriceRequest.Builder(
