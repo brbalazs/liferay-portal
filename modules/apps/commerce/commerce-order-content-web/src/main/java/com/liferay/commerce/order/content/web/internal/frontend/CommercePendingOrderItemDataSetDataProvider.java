@@ -91,24 +91,11 @@ public class CommercePendingOrderItemDataSetDataProvider
 			_getBaseModelSearchResult(
 				httpServletRequest, filter, pagination, sort);
 
-		List<CommerceOrderItem> commerceOrderItems =
-			baseModelSearchResult.getBaseModels();
-
-		if (commerceOrderItems.isEmpty()) {
-			return Collections.emptyList();
-		}
-
-		CommerceOrderItem commerceOrderItem = commerceOrderItems.get(0);
-
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannelByOrderGroupId(
-				commerceOrderItem.getGroupId());
-
 		try {
-			return _getOrderItems(
-				commerceOrderItems, commerceChannel.getPriceDisplayType(),
-				(ThemeDisplay)httpServletRequest.getAttribute(
-					WebKeys.THEME_DISPLAY));
+			List<CommerceOrderItem> commerceOrderItems =
+				baseModelSearchResult.getBaseModels();
+
+			return _getOrderItems(commerceOrderItems, httpServletRequest);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -260,7 +247,19 @@ public class CommercePendingOrderItemDataSetDataProvider
 		}
 
 		return _commerceOrderItemService.search(
-			commerceOrderId, filter.getKeywords(), start, end, sort);
+			commerceOrderId, 0, filter.getKeywords(), start, end, sort);
+	}
+
+	private List<OrderItem> _getChildOrderItems(
+			CommerceOrderItem commerceOrderItem,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		List<CommerceOrderItem> childCommerceOrderItems =
+			_commerceOrderItemService.getChildCommerceOrderItems(
+				commerceOrderItem.getCommerceOrderItemId());
+
+		return _getOrderItems(childCommerceOrderItems, httpServletRequest);
 	}
 
 	private long _getCommerceOptionValueCPDefinitionId(
@@ -331,11 +330,27 @@ public class CommercePendingOrderItemDataSetDataProvider
 	}
 
 	private List<OrderItem> _getOrderItems(
-			List<CommerceOrderItem> commerceOrderItems, String priceDisplayType,
-			ThemeDisplay themeDisplay)
+			List<CommerceOrderItem> commerceOrderItems,
+			HttpServletRequest httpServletRequest)
 		throws Exception {
 
 		List<OrderItem> orderItems = new ArrayList<>();
+
+		if (commerceOrderItems.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		CommerceOrderItem commerceOrderItem = commerceOrderItems.get(0);
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannelByOrderGroupId(
+				commerceOrderItem.getGroupId());
+
+		String priceDisplayType = commerceChannel.getPriceDisplayType();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
 		Map<Long, List<CommerceOrderValidatorResult>>
 			commerceOrderValidatorResultMap =
@@ -344,29 +359,32 @@ public class CommercePendingOrderItemDataSetDataProvider
 
 		Locale locale = themeDisplay.getLocale();
 
-		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+		for (CommerceOrderItem curCommerceOrderItem : commerceOrderItems) {
 			orderItems.add(
 				new OrderItem(
-					commerceOrderItem.getCommerceOrderItemId(),
-					commerceOrderItem.getCommerceOrderId(),
-					commerceOrderItem.getSku(),
-					commerceOrderItem.getName(locale),
-					_getCommerceOrderOptions(commerceOrderItem, locale),
+					curCommerceOrderItem.getCommerceOrderItemId(),
+					curCommerceOrderItem.getCommerceOrderId(),
+					curCommerceOrderItem.getSku(),
+					curCommerceOrderItem.getName(locale),
+					_getCommerceOrderOptions(curCommerceOrderItem, locale),
+					_getChildOrderItems(
+						curCommerceOrderItem, httpServletRequest),
+					curCommerceOrderItem.getParentCommerceOrderItemId(),
 					_formatUnitPrice(
-						commerceOrderItem, priceDisplayType, locale),
+						curCommerceOrderItem, priceDisplayType, locale),
 					_formatPromoPrice(
-						commerceOrderItem, priceDisplayType, locale),
+						curCommerceOrderItem, priceDisplayType, locale),
 					_formatDiscountAmount(
-						commerceOrderItem, priceDisplayType, locale),
-					commerceOrderItem.getQuantity(),
+						curCommerceOrderItem, priceDisplayType, locale),
+					curCommerceOrderItem.getQuantity(),
 					_formatFinalPrice(
-						commerceOrderItem, priceDisplayType, locale),
+						curCommerceOrderItem, priceDisplayType, locale),
 					_cpInstanceHelper.getCPInstanceThumbnailSrc(
-						commerceOrderItem.getCPInstanceId()),
+						curCommerceOrderItem.getCPInstanceId()),
 					0,
 					_getCommerceOrderErrorMessages(
-						commerceOrderItem, commerceOrderValidatorResultMap),
-					_formatSubscriptionPeriod(commerceOrderItem, locale)));
+						curCommerceOrderItem, commerceOrderValidatorResultMap),
+					_formatSubscriptionPeriod(curCommerceOrderItem, locale)));
 		}
 
 		return orderItems;
