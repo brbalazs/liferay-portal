@@ -68,7 +68,8 @@ public class CommerceCartResourceUtil {
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			commerceOrderId);
 
-		List<Product> product = getProducts(commerceOrder, locale);
+		List<Product> product = getProducts(
+			commerceOrder, commerceContext, locale);
 
 		if (valid && product.isEmpty()) {
 			valid = false;
@@ -100,7 +101,8 @@ public class CommerceCartResourceUtil {
 	}
 
 	protected List<Product> getProducts(
-			CommerceOrder commerceOrder, Locale locale)
+			CommerceOrder commerceOrder, CommerceContext commerceContext,
+			Locale locale)
 		throws Exception {
 
 		List<Product> products = new ArrayList<>();
