@@ -371,7 +371,8 @@ public abstract class BaseOrderResourceTestCase {
 							{
 								put(
 									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
+									"\"" + irrelevantExternalReferenceCode +
+										"\"");
 							}
 						},
 						getGraphQLFields())),

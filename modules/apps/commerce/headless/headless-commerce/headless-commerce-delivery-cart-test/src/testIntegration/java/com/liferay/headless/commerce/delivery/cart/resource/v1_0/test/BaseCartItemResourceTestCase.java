@@ -185,6 +185,7 @@ public abstract class BaseCartItemResourceTestCase {
 		cartItem.setName(regex);
 		cartItem.setOptions(regex);
 		cartItem.setSku(regex);
+		cartItem.setThumbnail(regex);
 
 		String json = CartItemSerDes.toJSON(cartItem);
 
@@ -195,6 +196,7 @@ public abstract class BaseCartItemResourceTestCase {
 		Assert.assertEquals(regex, cartItem.getName());
 		Assert.assertEquals(regex, cartItem.getOptions());
 		Assert.assertEquals(regex, cartItem.getSku());
+		Assert.assertEquals(regex, cartItem.getThumbnail());
 	}
 
 	@Test
@@ -578,6 +580,14 @@ public abstract class BaseCartItemResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("cartItems", additionalAssertFieldName)) {
+				if (cartItem.getCartItems() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
 				if (cartItem.getCustomFields() == null) {
 					valid = false;
@@ -596,6 +606,14 @@ public abstract class BaseCartItemResourceTestCase {
 
 			if (Objects.equals("options", additionalAssertFieldName)) {
 				if (cartItem.getOptions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("parentCartItemId", additionalAssertFieldName)) {
+				if (cartItem.getParentCartItemId() == null) {
 					valid = false;
 				}
 
@@ -626,6 +644,14 @@ public abstract class BaseCartItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("settings", additionalAssertFieldName)) {
+				if (cartItem.getSettings() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("sku", additionalAssertFieldName)) {
 				if (cartItem.getSku() == null) {
 					valid = false;
@@ -644,6 +670,14 @@ public abstract class BaseCartItemResourceTestCase {
 
 			if (Objects.equals("subscription", additionalAssertFieldName)) {
 				if (cartItem.getSubscription() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("thumbnail", additionalAssertFieldName)) {
+				if (cartItem.getThumbnail() == null) {
 					valid = false;
 				}
 
@@ -740,6 +774,16 @@ public abstract class BaseCartItemResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("cartItems", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getCartItems(), cartItem2.getCartItems())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
 				if (!equals(
 						(Map)cartItem1.getCustomFields(),
@@ -779,6 +823,17 @@ public abstract class BaseCartItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("parentCartItemId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getParentCartItemId(),
+						cartItem2.getParentCartItemId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cartItem1.getPrice(), cartItem2.getPrice())) {
@@ -802,6 +857,16 @@ public abstract class BaseCartItemResourceTestCase {
 			if (Objects.equals("quantity", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cartItem1.getQuantity(), cartItem2.getQuantity())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("settings", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getSettings(), cartItem2.getSettings())) {
 
 					return false;
 				}
@@ -833,6 +898,16 @@ public abstract class BaseCartItemResourceTestCase {
 				if (!Objects.deepEquals(
 						cartItem1.getSubscription(),
 						cartItem2.getSubscription())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("thumbnail", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getThumbnail(), cartItem2.getThumbnail())) {
 
 					return false;
 				}
@@ -922,6 +997,11 @@ public abstract class BaseCartItemResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("cartItems")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("customFields")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -948,6 +1028,11 @@ public abstract class BaseCartItemResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("parentCartItemId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("price")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -959,6 +1044,11 @@ public abstract class BaseCartItemResourceTestCase {
 		}
 
 		if (entityFieldName.equals("quantity")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("settings")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -979,6 +1069,14 @@ public abstract class BaseCartItemResourceTestCase {
 		if (entityFieldName.equals("subscription")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("thumbnail")) {
+			sb.append("'");
+			sb.append(String.valueOf(cartItem.getThumbnail()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		throw new IllegalArgumentException(
@@ -1028,11 +1126,14 @@ public abstract class BaseCartItemResourceTestCase {
 				id = RandomTestUtil.randomLong();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				options = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				parentCartItemId = RandomTestUtil.randomLong();
 				productId = RandomTestUtil.randomLong();
 				quantity = RandomTestUtil.randomInt();
 				sku = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				skuId = RandomTestUtil.randomLong();
 				subscription = RandomTestUtil.randomBoolean();
+				thumbnail = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 			}
 		};
 	}

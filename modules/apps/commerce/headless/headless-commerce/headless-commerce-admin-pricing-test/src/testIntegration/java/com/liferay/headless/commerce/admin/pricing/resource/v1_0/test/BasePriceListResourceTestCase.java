@@ -352,7 +352,8 @@ public abstract class BasePriceListResourceTestCase {
 							{
 								put(
 									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
+									"\"" + irrelevantExternalReferenceCode +
+										"\"");
 							}
 						},
 						getGraphQLFields())),

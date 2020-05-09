@@ -575,7 +575,8 @@ public abstract class BaseProductResourceTestCase {
 							{
 								put(
 									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
+									"\"" + irrelevantExternalReferenceCode +
+										"\"");
 							}
 						},
 						getGraphQLFields())),
@@ -1127,8 +1128,9 @@ public abstract class BaseProductResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("actions", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						product1.getActions(), product2.getActions())) {
+				if (!equals(
+						(Map)product1.getActions(),
+						(Map)product2.getActions())) {
 
 					return false;
 				}

@@ -302,7 +302,8 @@ public abstract class BaseWarehouseItemResourceTestCase {
 							{
 								put(
 									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
+									"\"" + irrelevantExternalReferenceCode +
+										"\"");
 							}
 						},
 						getGraphQLFields())),

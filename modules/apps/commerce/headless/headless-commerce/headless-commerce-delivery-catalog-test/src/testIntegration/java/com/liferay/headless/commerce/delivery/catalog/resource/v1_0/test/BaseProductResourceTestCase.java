@@ -529,7 +529,6 @@ public abstract class BaseProductResourceTestCase {
 	public void testGraphQLGetChannelProductNotFound() throws Exception {
 		Long irrelevantChannelId = RandomTestUtil.randomLong();
 		Long irrelevantProductId = RandomTestUtil.randomLong();
-		Long irrelevantAccountId = RandomTestUtil.randomLong();
 
 		Assert.assertEquals(
 			"Not Found",

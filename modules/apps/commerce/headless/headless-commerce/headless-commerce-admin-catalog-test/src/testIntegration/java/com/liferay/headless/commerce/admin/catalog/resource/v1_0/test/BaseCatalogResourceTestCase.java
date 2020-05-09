@@ -291,7 +291,8 @@ public abstract class BaseCatalogResourceTestCase {
 							{
 								put(
 									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
+									"\"" + irrelevantExternalReferenceCode +
+										"\"");
 							}
 						},
 						getGraphQLFields())),
@@ -684,8 +685,9 @@ public abstract class BaseCatalogResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("actions", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						catalog1.getActions(), catalog2.getActions())) {
+				if (!equals(
+						(Map)catalog1.getActions(),
+						(Map)catalog2.getActions())) {
 
 					return false;
 				}
