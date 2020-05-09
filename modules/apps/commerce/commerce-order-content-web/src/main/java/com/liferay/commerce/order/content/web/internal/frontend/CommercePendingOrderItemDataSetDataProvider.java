@@ -112,8 +112,8 @@ public class CommercePendingOrderItemDataSetDataProvider
 		CommerceMoney activeDiscountAmounteMoney =
 			commerceOrderItem.getDiscountAmountMoney();
 
-		if (priceDisplayType ==
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+		if (priceDisplayType.equals(
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
 			activeDiscountAmounteMoney =
 				commerceOrderItem.getDiscountWithTaxAmountMoney();
@@ -134,8 +134,8 @@ public class CommercePendingOrderItemDataSetDataProvider
 		CommerceMoney activeFinalPriceMoney =
 			commerceOrderItem.getFinalPriceMoney();
 
-		if (priceDisplayType ==
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+		if (priceDisplayType.equals(
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
 			activeFinalPriceMoney =
 				commerceOrderItem.getFinalPriceWithTaxAmountMoney();
@@ -156,8 +156,8 @@ public class CommercePendingOrderItemDataSetDataProvider
 		CommerceMoney activePromoPriceMoney =
 			commerceOrderItem.getPromoPriceMoney();
 
-		if (priceDisplayType ==
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+		if (priceDisplayType.equals(
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
 			activePromoPriceMoney =
 				commerceOrderItem.getPromoPriceWithTaxAmountMoney();
@@ -216,8 +216,8 @@ public class CommercePendingOrderItemDataSetDataProvider
 		CommerceMoney activeUnitPriceMoney =
 			commerceOrderItem.getUnitPriceMoney();
 
-		if (priceDisplayType ==
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+		if (priceDisplayType.equals(
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
 			activeUnitPriceMoney =
 				commerceOrderItem.getUnitPriceWithTaxAmountMoney();

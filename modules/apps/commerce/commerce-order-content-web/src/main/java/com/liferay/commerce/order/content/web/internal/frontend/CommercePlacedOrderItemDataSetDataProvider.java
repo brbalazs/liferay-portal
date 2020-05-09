@@ -166,8 +166,8 @@ public class CommercePlacedOrderItemDataSetDataProvider
 			CommerceMoney finalPriceMoney =
 				commerceOrderItem.getFinalPriceMoney();
 
-			if (priceDisplayType ==
-					CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+			if (priceDisplayType.equals(
+					CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
 				unitPriceMoney =
 					commerceOrderItem.getUnitPriceWithTaxAmountMoney();

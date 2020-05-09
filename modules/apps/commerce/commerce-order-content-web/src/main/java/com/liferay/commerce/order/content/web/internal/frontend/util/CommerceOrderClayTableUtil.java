@@ -101,8 +101,8 @@ public class CommerceOrderClayTableUtil {
 
 			CommerceMoney totalMoney = commerceOrder.getTotalMoney();
 
-			if (priceDisplayType ==
-					CommercePricingConstants.TAX_INCLUDED_IN_PRICE) {
+			if (priceDisplayType.equals(
+					CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
 				totalMoney = commerceOrder.getTotalWithTaxAmountMoney();
 			}
