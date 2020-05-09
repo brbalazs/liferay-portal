@@ -168,11 +168,26 @@ public class CommerceCartResourceUtil {
 			_commerceOrderItemService.getCommerceOrderItemsQuantity(
 				commerceOrder.getCommerceOrderId());
 
-		Summary summary = new Summary(
-			subtotal.format(locale), total.format(locale), itemsQuantity);
-
 		CommerceDiscountValue totalDiscountValue =
 			commerceOrderPrice.getTotalDiscountValue();
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				commerceOrder.getGroupId());
+
+		String priceDisplayType = commerceChannel.getPriceDisplayType();
+
+		if (priceDisplayType.equals(
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+
+			subtotal = commerceOrderPrice.getSubtotalWithTaxAmount();
+			total = commerceOrderPrice.getTotalWithTaxAmount();
+			totalDiscountValue =
+				commerceOrderPrice.getTotalDiscountValueWithTaxAmount();
+		}
+
+		Summary summary = new Summary(
+			subtotal.format(locale), total.format(locale), itemsQuantity);
 
 		if (totalDiscountValue != null) {
 			CommerceMoney discountAmount =
@@ -194,6 +209,8 @@ public class CommerceCartResourceUtil {
 
 		CommerceMoney discountAmountMoney =
 			commerceOrderItem.getDiscountAmountMoney();
+
+		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
 
 		BigDecimal level1 = commerceOrderItem.getDiscountPercentageLevel1();
 		BigDecimal level2 = commerceOrderItem.getDiscountPercentageLevel2();
@@ -224,6 +241,9 @@ public class CommerceCartResourceUtil {
 				commerceOrderItem.getDiscountPercentageLevel3WithTaxAmount();
 			level4 =
 				commerceOrderItem.getDiscountPercentageLevel4WithTaxAmount();
+
+			finalPriceMoney =
+				commerceOrderItem.getFinalPriceWithTaxAmountMoney();
 		}
 
 		String[] discountPercentages = {
@@ -269,9 +289,6 @@ public class CommerceCartResourceUtil {
 				_commercePriceFormatter.format(discountPercentage, locale));
 
 			prices.setDiscountPercentages(discountPercentages);
-
-			CommerceMoney finalPriceMoney =
-				commerceOrderItem.getFinalPriceMoney();
 
 			prices.setFinalPrice(finalPriceMoney.format(locale));
 		}
