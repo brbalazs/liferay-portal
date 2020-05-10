@@ -16,13 +16,13 @@ package com.liferay.commerce.internal.util;
 
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
-import com.liferay.commerce.currency.model.CommerceMoneyFactoryUtil;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.commerce.tax.CommerceTaxValue;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 import java.util.List;
@@ -33,86 +33,35 @@ import java.util.List;
 public class CommercePriceConverterUtil {
 
 	public static CommerceDiscountValue getConvertedCommerceDiscountValue(
-		CommerceDiscountValue commerceDiscountValue, boolean includeTax,
-		BigDecimal taxValue, RoundingMode roundingMode,
-		CommerceMoneyFactory commerceMoneyFactory) {
+		CommerceDiscountValue commerceDiscountValue, BigDecimal initialPrice,
+		BigDecimal discountedPrice, CommerceMoneyFactory commerceMoneyFactory,
+		RoundingMode roundingMode) {
 
 		if (commerceDiscountValue == null) {
 			return null;
 		}
 
-		CommerceMoney discountAmount =
+		CommerceMoney currentDiscountAmount =
 			commerceDiscountValue.getDiscountAmount();
 
-		BigDecimal discountAmountPrice = discountAmount.getPrice();
-
-		if (discountAmountPrice.compareTo(BigDecimal.ZERO) == 0) {
-			return null;
-		}
-
-		BigDecimal convertedDiscountAmountPrice;
-
-		if (includeTax) {
-			convertedDiscountAmountPrice = discountAmountPrice.subtract(
-				taxValue);
-		}
-		else {
-			convertedDiscountAmountPrice = discountAmountPrice.add(taxValue);
-		}
+		BigDecimal discountAmount = initialPrice.subtract(discountedPrice);
 
 		CommerceMoney convertedDiscountAmount = commerceMoneyFactory.create(
-			discountAmount.getCommerceCurrency(), convertedDiscountAmountPrice);
+			currentDiscountAmount.getCommerceCurrency(), discountAmount);
+
+		BigDecimal discountPercentage = _ONE_HUNDRED;
+
+		if(discountedPrice.compareTo(initialPrice) != 0) {
+			discountPercentage = _getDiscountPercentage(
+				discountedPrice, initialPrice, roundingMode);
+		}
 
 		return new CommerceDiscountValue(
 			commerceDiscountValue.getId(), convertedDiscountAmount,
-			_getPercentage(
-				commerceDiscountValue.getDiscountPercentage(), includeTax,
-				discountAmountPrice, convertedDiscountAmountPrice,
-				roundingMode),
+			discountPercentage,
 			_getPercentages(
-				commerceDiscountValue.getPercentages(), includeTax,
-				discountAmountPrice, convertedDiscountAmountPrice,
-				roundingMode));
-	}
-
-	public static CommerceDiscountValue getConvertedCommerceDiscountValue(
-			long commerceChannelGroupId, long cpInstanceId,
-			long commerceBillingAddressId, long commerceShippingAddressId,
-			CommerceDiscountValue commerceDiscountValue, boolean includeTax,
-			CommerceTaxCalculation commerceTaxCalculation,
-			RoundingMode roundingMode)
-		throws PortalException {
-
-		if (commerceDiscountValue == null) {
-			return null;
-		}
-
-		CommerceMoney discountAmount =
-			commerceDiscountValue.getDiscountAmount();
-
-		BigDecimal discountAmountPrice = discountAmount.getPrice();
-
-		if (discountAmountPrice.compareTo(BigDecimal.ZERO) == 0) {
-			return null;
-		}
-
-		BigDecimal convertedDiscountAmountPrice = getConvertedPrice(
-			commerceChannelGroupId, cpInstanceId, commerceBillingAddressId,
-			commerceShippingAddressId, discountAmountPrice, includeTax,
-			commerceTaxCalculation);
-
-		return new CommerceDiscountValue(
-			commerceDiscountValue.getId(),
-			CommerceMoneyFactoryUtil.create(
-				discountAmount.getCommerceCurrency(),
-				convertedDiscountAmountPrice),
-			_getPercentage(
-				commerceDiscountValue.getDiscountPercentage(), includeTax,
-				discountAmountPrice, convertedDiscountAmountPrice,
-				roundingMode),
-			_getPercentages(
-				commerceDiscountValue.getPercentages(), includeTax,
-				discountAmountPrice, convertedDiscountAmountPrice,
+				commerceDiscountValue.getDiscountPercentage(),
+				discountPercentage, commerceDiscountValue.getPercentages(),
 				roundingMode));
 	}
 
@@ -145,59 +94,56 @@ public class CommercePriceConverterUtil {
 		return price.add(taxAmount);
 	}
 
-	private static BigDecimal _getPercentage(
-		BigDecimal value, boolean includeTax, BigDecimal discountAmountPrice,
-		BigDecimal convertedDiscountAmountPrice, RoundingMode roundingMode) {
+	private static BigDecimal _getDiscountPercentage(
+		BigDecimal discountedAmount, BigDecimal amount,
+		RoundingMode roundingMode) {
 
-		BigDecimal result;
+		double actualPrice = discountedAmount.doubleValue();
+		double originalPrice = amount.doubleValue();
 
-		if (includeTax) {
-			BigDecimal taxPercentage = discountAmountPrice.divide(
-				convertedDiscountAmountPrice, roundingMode);
+		double percentage = actualPrice / originalPrice;
 
-			taxPercentage = taxPercentage.subtract(BigDecimal.ONE);
+		BigDecimal discountPercentage = new BigDecimal(percentage);
 
-			BigDecimal difference = _ONE_HUNDRED.subtract(value);
+		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
 
-			difference = difference.multiply(taxPercentage);
+		MathContext mathContext = new MathContext(
+			discountPercentage.precision(), roundingMode);
 
-			result = value.subtract(difference);
-		}
-		else {
-			BigDecimal taxPercentage = convertedDiscountAmountPrice.divide(
-				discountAmountPrice, roundingMode);
-
-			taxPercentage = taxPercentage.subtract(BigDecimal.ONE);
-
-			BigDecimal numerator = taxPercentage.multiply(_ONE_HUNDRED);
-
-			numerator = numerator.add(value);
-
-			BigDecimal denominator = taxPercentage.add(BigDecimal.ONE);
-
-			result = numerator.divide(denominator, roundingMode);
-		}
-
-		return result;
+		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
 	}
 
 	private static BigDecimal[] _getPercentages(
-		BigDecimal[] values, boolean includeTax, BigDecimal discountAmountPrice,
-		BigDecimal convertedDiscountAmountPrice, RoundingMode roundingMode) {
+		BigDecimal currentPercentage, BigDecimal percentage,
+		BigDecimal[] percentages, RoundingMode roundingMode) {
 
-		for (int i = 0; i < values.length; i++) {
-			if ((values[i] != null) &&
-				(values[i].compareTo(BigDecimal.ZERO) != 0)) {
+		if ((currentPercentage == null) ||
+			(currentPercentage.compareTo(BigDecimal.ZERO) == 0) ||
+			(percentage == null) ||
+			(percentage.compareTo(BigDecimal.ZERO) == 0)) {
 
-				values[i] = _getPercentage(
-					values[i], includeTax, discountAmountPrice,
-					convertedDiscountAmountPrice, roundingMode);
+			return new BigDecimal[] {
+				BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+				BigDecimal.ZERO
+			};
+		}
+
+		BigDecimal percentageRatio = percentage.divide(
+			currentPercentage, _SCALE, roundingMode);
+
+		for (int i = 0; i < percentages.length; i++) {
+			if ((percentages[i] != null) &&
+				(percentages[i].compareTo(BigDecimal.ZERO) != 0)) {
+
+				percentages[i] = percentages[i].multiply(percentageRatio);
 			}
 		}
 
-		return values;
+		return percentages;
 	}
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
+
+	private static final int _SCALE = 10;
 
 }
