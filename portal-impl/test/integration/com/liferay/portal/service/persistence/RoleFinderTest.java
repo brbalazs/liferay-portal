@@ -139,6 +139,21 @@ public class RoleFinderTest {
 			exists);
 	}
 
+	@Test
+	public void testSQLServerFindByU_G() {
+		long userId = RandomTestUtil.nextLong();
+
+		int sqlServerParamLimit = 2100;
+
+		long[] groupIds = new long[sqlServerParamLimit];
+
+		for (int i = 0; i < sqlServerParamLimit; i++) {
+			groupIds[i] = RandomTestUtil.nextLong();
+		}
+
+		RoleFinderUtil.findByU_G(userId, groupIds);
+	}
+
 	protected static ResourceAction getModelResourceAction()
 		throws PortalException {
 
