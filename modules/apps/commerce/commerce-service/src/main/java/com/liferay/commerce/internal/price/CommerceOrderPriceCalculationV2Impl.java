@@ -63,6 +63,10 @@ public class CommerceOrderPriceCalculationV2Impl
 			return getCommerceOrderPriceFromOrder(commerceOrder);
 		}
 
+		CommerceDiscountValue orderShippingCommerceDiscountValue;
+		CommerceDiscountValue orderSubtotalCommerceDiscountValue;
+		CommerceDiscountValue orderTotalCommerceDiscountValue;
+
 		BigDecimal shippingAmount = commerceOrder.getShippingAmount();
 
 		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
@@ -73,10 +77,6 @@ public class CommerceOrderPriceCalculationV2Impl
 
 		BigDecimal shippingWithTaxAmount = shippingAmount.add(
 			shippingTaxAmount.getPrice());
-
-		CommerceDiscountValue orderShippingCommerceDiscountValue;
-		CommerceDiscountValue orderSubtotalCommerceDiscountValue;
-		CommerceDiscountValue orderTotalCommerceDiscountValue;
 
 		CommerceMoney subtotalMoney = getSubtotal(
 			commerceOrder, secure, commerceContext);
@@ -93,6 +93,13 @@ public class CommerceOrderPriceCalculationV2Impl
 
 		BigDecimal totalWithTaxAmount = subtotalWithTaxAmount;
 
+		BigDecimal shippingDiscounted = shippingAmount;
+		BigDecimal shippingDiscountedWithTaxAmount = shippingWithTaxAmount;
+		BigDecimal subtotalDiscounted = subtotalAmount;
+		BigDecimal subtotalDiscountedWithTaxAmount = subtotalWithTaxAmount;
+		BigDecimal totalDiscounted = totalAmount;
+		BigDecimal totalDiscountedWithTaxAmount = totalWithTaxAmount;
+
 		boolean discountsTargetNetPrice = true;
 
 		CommerceChannel commerceChannel =
@@ -103,13 +110,6 @@ public class CommerceOrderPriceCalculationV2Impl
 			discountsTargetNetPrice =
 				commerceChannel.isDiscountsTargetNetPrice();
 		}
-
-		BigDecimal subtotalDiscounted = subtotalAmount;
-		BigDecimal shippingDiscounted = shippingAmount;
-		BigDecimal totalDiscounted = totalAmount;
-		BigDecimal subtotalDiscountedWithTaxAmount = subtotalWithTaxAmount;
-		BigDecimal shippingDiscountedWithTaxAmount = shippingWithTaxAmount;
-		BigDecimal totalDiscountedWithTaxAmount = totalWithTaxAmount;
 
 		if (discountsTargetNetPrice) {
 			orderShippingCommerceDiscountValue =
@@ -220,10 +220,10 @@ public class CommerceOrderPriceCalculationV2Impl
 						discountAmount.getPrice());
 			}
 
-			subtotalDiscounted = subtotalDiscountedWithTaxAmount.subtract(
-				taxValue.getPrice());
 			shippingDiscounted = shippingDiscountedWithTaxAmount.subtract(
 				shippingTaxAmount.getPrice());
+			subtotalDiscounted = subtotalDiscountedWithTaxAmount.subtract(
+				taxValue.getPrice());
 			totalDiscounted = totalDiscountedWithTaxAmount.subtract(
 				taxValue.getPrice());
 
@@ -245,24 +245,18 @@ public class CommerceOrderPriceCalculationV2Impl
 		commerceOrderPriceImpl.setShippingValue(
 			_commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(), shippingAmount));
-
+		commerceOrderPriceImpl.setShippingValueWithTaxAmount(
+			_commerceMoneyFactory.create(
+				commerceOrder.getCommerceCurrency(), shippingWithTaxAmount));
 		commerceOrderPriceImpl.setSubtotal(subtotalMoney);
-
+		commerceOrderPriceImpl.setSubtotalWithTaxAmount(
+			_commerceMoneyFactory.create(
+				commerceOrder.getCommerceCurrency(), subtotalWithTaxAmount));
 		commerceOrderPriceImpl.setTaxValue(taxValue);
-
 		commerceOrderPriceImpl.setTotal(
 			_commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
 				totalAmount.add(taxValue.getPrice())));
-
-		commerceOrderPriceImpl.setShippingValueWithTaxAmount(
-			_commerceMoneyFactory.create(
-				commerceOrder.getCommerceCurrency(), shippingWithTaxAmount));
-
-		commerceOrderPriceImpl.setSubtotalWithTaxAmount(
-			_commerceMoneyFactory.create(
-				commerceOrder.getCommerceCurrency(), subtotalWithTaxAmount));
-
 		commerceOrderPriceImpl.setTotalWithTaxAmount(
 			_commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(), totalWithTaxAmount));
