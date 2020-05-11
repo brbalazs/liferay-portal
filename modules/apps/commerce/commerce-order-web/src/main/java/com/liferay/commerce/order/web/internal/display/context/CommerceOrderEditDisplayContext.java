@@ -15,7 +15,6 @@
 package com.liferay.commerce.order.web.internal.display.context;
 
 import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.configuration.CommerceOrderAdminFieldsConfiguration;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
@@ -46,7 +45,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -623,15 +621,6 @@ public class CommerceOrderEditDisplayContext {
 			"redirect", _commerceOrderRequestHelper.getCurrentURL());
 
 		return portletURL;
-	}
-
-	public boolean isShowExternalOrderStatusEnabled() throws PortalException {
-		CommerceOrderAdminFieldsConfiguration
-			commerceOrderAdminFieldsConfiguration =
-				ConfigurationProviderUtil.getSystemConfiguration(
-					CommerceOrderAdminFieldsConfiguration.class);
-
-		return commerceOrderAdminFieldsConfiguration.showExternalOrderStatus();
 	}
 
 	private List<StepModel> _getWorkflowSteps() {

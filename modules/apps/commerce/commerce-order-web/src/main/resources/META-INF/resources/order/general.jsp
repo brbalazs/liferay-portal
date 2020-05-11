@@ -246,7 +246,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 						</c:choose>
 					</commerce-ui:info-box>
 
-					<c:if test="<%= Validator.isNotNull(commerceOrder.getAdvanceStatus()) && commerceOrderEditDisplayContext.isShowExternalOrderStatusEnabled() %>">
+					<c:if test="<%= Validator.isNotNull(commerceOrder.getAdvanceStatus()) %>">
 						<commerce-ui:info-box
 							elementClasses="py-3"
 							title='<%= LanguageUtil.get(request, "external-order-status") %>'
