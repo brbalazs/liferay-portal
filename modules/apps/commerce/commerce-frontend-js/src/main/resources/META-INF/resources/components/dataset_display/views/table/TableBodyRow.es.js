@@ -15,13 +15,13 @@
 import ClayTable from '@clayui/table';
 import React from 'react';
 
-import {DraggableTableBodyRow} from './orderability/index.es';
+import {DraggableTableBodyRow} from './prioritization/index.es';
 
-function TableBodyRow({orderable, index, item,
+function TableBodyRow({prioritize, index, item,
 	itemsList, setItemsList, ...remnant}) {
 
 	return (
-		orderable
+		prioritize
 			? (
 				<DraggableTableBodyRow
 					index={index}

@@ -17,19 +17,17 @@ const BETWEEN = 'BETWEEN',
 	LOWER = 'LOWER';
 
 const CALCULATION_METHODS = {
-	[BETWEEN]: (index, itemsList, orderableField) => {
-		const lowerPosition = itemsList[index + 1][orderableField],
-			higherPosition = itemsList[index - 1][orderableField];
+	[BETWEEN]: (index, itemsList) => {
+		const lowerPriority = itemsList[index + 1].priority,
+			higherPriority = itemsList[index - 1].priority;
 
-		return higherPosition - ((higherPosition - lowerPosition) / 2)
+		return higherPriority - ((higherPriority - lowerPriority) / 2)
 	},
-	[GREATER]: (index, itemsList, orderableField) =>
-		itemsList[index + 1][orderableField] + 1,
-	[LOWER]: (index, itemsList, orderableField) =>
-		itemsList[index - 1][orderableField] - 1
+	[GREATER]: (index, itemsList) => itemsList[index + 1].priority + 1,
+	[LOWER]: (index, itemsList) => itemsList[index - 1].priority - 1
 };
 
-function getCalculationMethod(index, itemsList) {
+function getPriorityCalculationMethod(index, listLength) {
 	switch (true) {
 		/**
 		 * Current item is moved at the beginning of the items' list.
@@ -46,7 +44,7 @@ function getCalculationMethod(index, itemsList) {
 		 * a priority value that is LOWER
 		 * than the lowest priority value in the list.
 		 */
-		case index === itemsList.length - 1:
+		case index === listLength - 1:
 			return LOWER;
 
 		/**
@@ -60,10 +58,14 @@ function getCalculationMethod(index, itemsList) {
 	}
 }
 
-export const DEFAULT_ORDERABLE_FIELD = 'priority';
+export function calculatePriority(index, itemsList) {
+	const LIST_LENGTH = itemsList.length;
 
-export function calculateOrderingPosition(index, itemsList, orderableField) {
-	const method = getCalculationMethod(index, itemsList);
+	if (LIST_LENGTH <= 1) {
+		return null;
+	}
 
-	return CALCULATION_METHODS[method](index, itemsList, orderableField);
+	const method = getPriorityCalculationMethod(index, LIST_LENGTH);
+
+	return CALCULATION_METHODS[method](index, itemsList);
 }

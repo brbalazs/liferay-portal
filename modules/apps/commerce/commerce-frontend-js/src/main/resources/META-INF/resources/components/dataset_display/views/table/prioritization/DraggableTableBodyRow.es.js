@@ -28,16 +28,16 @@ function getClassNames(isDragging) {
 	return getCN('draggable-row', isDragging ? 'is-dragging' : '');
 }
 
-function DraggableTableBodyRow({children, ...orderabilityProps}) {
+function DraggableTableBodyRow({children, ...prioritizationProps}) {
 	const {
 			configureDragSource,
 			configureDropTarget
 		} = TableBodyRowConfiguration;
 
 	const [{isDragging}, drag, preview] = useDrag(
-			configureDragSource({...orderabilityProps}));
+			configureDragSource({...prioritizationProps}));
 
-	const [, drop] = useDrop(configureDropTarget({...orderabilityProps}));
+	const [, drop] = useDrop(configureDropTarget({...prioritizationProps}));
 
 	return (
 		<ClayTable.Row
