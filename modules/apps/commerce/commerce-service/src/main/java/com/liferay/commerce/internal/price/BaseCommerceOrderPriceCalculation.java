@@ -109,15 +109,6 @@ public abstract class BaseCommerceOrderPriceCalculation
 		commerceOrderPriceImpl.setShippingDiscountValue(shippingDiscountValue);
 		commerceOrderPriceImpl.setShippingDiscountValueWithTaxAmount(
 			shippingDiscountValueWithTaxAmount);
-
-		commerceOrderPriceImpl.setSubtotalDiscountValue(subtotalDiscountValue);
-		commerceOrderPriceImpl.setSubtotalDiscountValueWithTaxAmount(
-			subtotalDiscountValueWithTaxAmount);
-
-		commerceOrderPriceImpl.setTotalDiscountValue(totalDiscountValue);
-		commerceOrderPriceImpl.setTotalDiscountValueWithTaxAmount(
-			totalDiscountValueWithTaxAmount);
-
 		commerceOrderPriceImpl.setShippingValue(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
@@ -126,24 +117,27 @@ public abstract class BaseCommerceOrderPriceCalculation
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
 				commerceOrder.getShippingWithTaxAmount()));
-
 		commerceOrderPriceImpl.setSubtotal(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
 				commerceOrder.getSubtotal()));
+		commerceOrderPriceImpl.setSubtotalDiscountValue(subtotalDiscountValue);
+		commerceOrderPriceImpl.setSubtotalDiscountValueWithTaxAmount(
+			subtotalDiscountValueWithTaxAmount);
 		commerceOrderPriceImpl.setSubtotalWithTaxAmount(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
 				commerceOrder.getSubtotalWithTaxAmount()));
-
 		commerceOrderPriceImpl.setTaxValue(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
 				commerceOrder.getTaxAmount()));
-
 		commerceOrderPriceImpl.setTotal(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(), commerceOrder.getTotal()));
+		commerceOrderPriceImpl.setTotalDiscountValue(totalDiscountValue);
+		commerceOrderPriceImpl.setTotalDiscountValueWithTaxAmount(
+			totalDiscountValueWithTaxAmount);
 		commerceOrderPriceImpl.setTotalWithTaxAmount(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
@@ -163,22 +157,16 @@ public abstract class BaseCommerceOrderPriceCalculation
 
 		commerceOrderPriceImpl.setShippingDiscountValue(null);
 		commerceOrderPriceImpl.setShippingDiscountValueWithTaxAmount(null);
-
-		commerceOrderPriceImpl.setSubtotalDiscountValue(null);
-		commerceOrderPriceImpl.setSubtotalDiscountValueWithTaxAmount(null);
-
-		commerceOrderPriceImpl.setTotalDiscountValue(null);
-		commerceOrderPriceImpl.setTotalDiscountValueWithTaxAmount(null);
-
 		commerceOrderPriceImpl.setShippingValue(zero);
 		commerceOrderPriceImpl.setShippingValueWithTaxAmount(zero);
-
 		commerceOrderPriceImpl.setSubtotal(zero);
+		commerceOrderPriceImpl.setSubtotalDiscountValue(null);
+		commerceOrderPriceImpl.setSubtotalDiscountValueWithTaxAmount(null);
 		commerceOrderPriceImpl.setSubtotalWithTaxAmount(zero);
-
 		commerceOrderPriceImpl.setTaxValue(zero);
-
 		commerceOrderPriceImpl.setTotal(zero);
+		commerceOrderPriceImpl.setTotalDiscountValue(null);
+		commerceOrderPriceImpl.setTotalDiscountValueWithTaxAmount(null);
 		commerceOrderPriceImpl.setTotalWithTaxAmount(zero);
 
 		return commerceOrderPriceImpl;
@@ -201,10 +189,8 @@ public abstract class BaseCommerceOrderPriceCalculation
 		if (discountsTargetNetPrice) {
 			commerceOrderPriceImpl.setShippingDiscountValue(
 				orderShippingCommerceDiscountValue);
-
 			commerceOrderPriceImpl.setSubtotalDiscountValue(
 				orderSubtotalCommerceDiscountValue);
-
 			commerceOrderPriceImpl.setTotalDiscountValue(
 				orderTotalCommerceDiscountValue);
 		}
@@ -216,12 +202,10 @@ public abstract class BaseCommerceOrderPriceCalculation
 				CommercePriceConverterUtil.getConvertedCommerceDiscountValue(
 					orderShippingCommerceDiscountValue, shippingAmount,
 					shippingDiscounted, commerceMoneyFactory, roundingMode));
-
 			commerceOrderPriceImpl.setSubtotalDiscountValue(
 				CommercePriceConverterUtil.getConvertedCommerceDiscountValue(
 					orderSubtotalCommerceDiscountValue, subtotalAmount,
 					subtotalDiscounted, commerceMoneyFactory, roundingMode));
-
 			commerceOrderPriceImpl.setTotalDiscountValue(
 				CommercePriceConverterUtil.getConvertedCommerceDiscountValue(
 					orderTotalCommerceDiscountValue, totalAmount,
@@ -254,13 +238,11 @@ public abstract class BaseCommerceOrderPriceCalculation
 					orderShippingCommerceDiscountValue, shippingWithTaxAmount,
 					shippingDiscountedWithTaxAmount, commerceMoneyFactory,
 					roundingMode));
-
 			commerceOrderPriceImpl.setSubtotalDiscountValueWithTaxAmount(
 				CommercePriceConverterUtil.getConvertedCommerceDiscountValue(
 					orderSubtotalCommerceDiscountValue, subtotalWithTaxAmount,
 					subtotalDiscountedWithTaxAmount, commerceMoneyFactory,
 					roundingMode));
-
 			commerceOrderPriceImpl.setTotalDiscountValueWithTaxAmount(
 				CommercePriceConverterUtil.getConvertedCommerceDiscountValue(
 					orderTotalCommerceDiscountValue, totalWithTaxAmount,
