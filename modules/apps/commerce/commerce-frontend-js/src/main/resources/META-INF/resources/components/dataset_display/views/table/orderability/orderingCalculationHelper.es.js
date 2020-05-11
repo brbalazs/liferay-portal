@@ -19,10 +19,9 @@ const BETWEEN = 'BETWEEN',
 const CALCULATION_METHODS = {
 	[BETWEEN]: (index, itemsList, orderableField) => {
 		const lowerPosition = itemsList[index + 1][orderableField],
-			higherPosition = itemsList[index - 1][orderableField],
-			midValue = (higherPosition - lowerPosition) / 2;
+			higherPosition = itemsList[index - 1][orderableField];
 
-		return higherPosition - midValue;
+		return higherPosition - ((higherPosition - lowerPosition) / 2)
 	},
 	[GREATER]: (index, itemsList, orderableField) =>
 		itemsList[index + 1][orderableField] + 1,

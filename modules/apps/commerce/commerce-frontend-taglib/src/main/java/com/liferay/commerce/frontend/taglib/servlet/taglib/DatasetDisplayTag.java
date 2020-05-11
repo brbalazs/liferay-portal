@@ -348,7 +348,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private String _dataProviderKey;
 	private String _dataSetAPI;
 	private String _deltaParam;
-	private boolean _enableDragDrop;
+	private boolean _enableDragDrop = false;
 	private String _formId;
 	private String _id;
 	private int _itemsPerPage;

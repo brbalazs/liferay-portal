@@ -12,16 +12,21 @@
  * details.
  */
 
-import {ITEM_ORDERING_CHANGED} from '../../../../../utilities/eventsDefinitions.es';
+
 import {
 	calculateOrderingPosition,
 	DEFAULT_ORDERABLE_FIELD
 } from './orderingCalculationHelper.es';
+import {ITEM_ORDERING_CHANGED} from
+		'../../../../../utilities/eventsDefinitions.es';
 
-export {default as DraggableTableBodyRow} from './DraggableTableBodyRow.es';
+export {
+	default as DraggableTableBodyRow
+} from './DraggableTableBodyRow.es';
 export {
 	default as TableBodyRowConfiguration
 } from './DraggableTableBodyRowConfiguration.es';
+
 
 export function moveListItem(indexFrom, indexTo, itemsList) {
 	const [...clonedList] = itemsList,
@@ -37,10 +42,10 @@ export function secureOrderability(itemsList, orderableField) {
 	 * To avoid overhead, will trust the first item of the list.
 	 */
 
-	const invalid = `Unable to find orderableField: "${orderableField}"`,
-		foundDefault =
-			'but found default orderableField:\n' +
-			`"${DEFAULT_ORDERABLE_FIELD}". Falling back...`;
+	const invalid =
+			`Unable to find orderableField: "${orderableField}"`,
+		foundDefault = 'but found default orderableField:\n' +
+		`"${DEFAULT_ORDERABLE_FIELD}". Falling back...`;
 
 	if (orderableField in itemsList[0]) {
 		return orderableField;
@@ -62,23 +67,17 @@ export function hasEnoughItems(itemsList) {
 }
 
 export function editItemOrdering(
-	indexTo,
-	itemsList,
-	orderableField = DEFAULT_ORDERABLE_FIELD
-) {
-	const item = itemsList[indexTo],
-		previousItemPosition = itemsList[indexTo][orderableField],
-		currentItemPosition = calculateOrderingPosition(
-			indexTo,
-			itemsList,
-			orderableField
-		);
+	indexTo, itemsList, orderableField = DEFAULT_ORDERABLE_FIELD) {
 
-	if (!currentItemPosition || previousItemPosition === currentItemPosition) {
+	const currentItem = itemsList[indexTo],
+		currentItemPosition =
+			calculateOrderingPosition(indexTo, itemsList, orderableField);
+
+	if (!currentItemPosition) {
 		return;
 	}
 
-	item[orderableField] = currentItemPosition;
+	currentItem[orderableField] = currentItemPosition;
 
-	Liferay.fire(ITEM_ORDERING_CHANGED, {item});
+	Liferay.fire(ITEM_ORDERING_CHANGED, {item: currentItem})
 }

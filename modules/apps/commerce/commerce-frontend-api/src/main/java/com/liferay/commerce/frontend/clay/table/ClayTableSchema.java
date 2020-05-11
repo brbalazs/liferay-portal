@@ -21,32 +21,26 @@ import java.util.Map;
  */
 public class ClayTableSchema {
 
+	private boolean _orderable = false;
+	private String _orderableField = "";
+
 	public Map<String, ClayTableSchemaField> getFields() {
 		return _fields;
-	}
-
-	public String getOrderableField() {
-		return _orderableField;
-	}
-
-	public boolean isOrderable() {
-		return _orderable;
 	}
 
 	public void setFields(Map<String, ClayTableSchemaField> fields) {
 		_fields = fields;
 	}
 
-	public void setOrderable(boolean orderable) {
-		_orderable = orderable;
-	}
+	public boolean isOrderable() { return _orderable; }
 
-	public void setOrderableField(String orderableField) {
-		_orderableField = orderableField;
-	}
+	public void setOrderable(boolean orderable) { _orderable = orderable; }
+
+	public void setOrderableField(String orderableField) { _orderableField = orderableField; }
 
 	private Map<String, ClayTableSchemaField> _fields;
-	private boolean _orderable;
-	private String _orderableField = "";
 
+	public String getOrderableField() {
+		return _orderableField;
+	}
 }

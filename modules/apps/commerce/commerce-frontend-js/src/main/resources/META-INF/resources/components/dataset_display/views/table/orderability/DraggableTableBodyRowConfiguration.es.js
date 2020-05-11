@@ -12,8 +12,9 @@
  * details.
  */
 
-import {ItemTypes} from '../../../../../utilities/drag_drop/constants.es';
-import {moveListItem, editItemOrdering} from './index.es';
+import {moveListItem, editItemOrdering} from "./index.es";
+import {ItemTypes} from
+		'../../../../../utilities/drag_drop/constants.es';
 
 const configureDragSource = ({
 	index: indexFrom,
@@ -34,7 +35,11 @@ const configureDragSource = ({
 		editItemOrdering(indexTo, itemsList, orderableField)
 });
 
-const configureDropTarget = ({index: indexTo, itemsList, setItemsList}) => ({
+const configureDropTarget = ({
+	index: indexTo,
+	itemsList,
+	setItemsList
+}) => ({
 	accept: ItemTypes.DATASET_ROW,
 
 	collect: monitor => ({
@@ -42,14 +47,11 @@ const configureDropTarget = ({index: indexTo, itemsList, setItemsList}) => ({
 	}),
 
 	hover(draggedItem) {
-		const {indexFrom} = draggedItem;
+		const { indexFrom } = draggedItem;
 
 		if (indexFrom !== indexTo) {
-			const alteredItemsList = moveListItem(
-				indexFrom,
-				indexTo,
-				itemsList
-			);
+			const alteredItemsList =
+				moveListItem(indexFrom, indexTo, itemsList);
 
 			setItemsList(alteredItemsList);
 			draggedItem.indexFrom = indexTo;
