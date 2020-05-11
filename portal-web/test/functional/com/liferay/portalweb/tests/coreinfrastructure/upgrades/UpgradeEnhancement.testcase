@@ -28,7 +28,7 @@ definition {
 
 	@priority = "5"
 	test RemoveModulesWithSchemaVersionChange {
-		property osgi.modules.includes = "revert-schema-version";
+		property osgi.modules.includes = "revert-schema-version-api,revert-schema-version-service";
 
 		User.firstLoginPG();
 
@@ -37,10 +37,6 @@ definition {
 		GogoShell.executeCommand(commandName = "dm wtf");
 
 		GogoShell.viewOutput(outputContent = "No missing dependencies found.");
-
-		AntCommand(
-			locator1 = "build-test.xml",
-			value1 = "redeploy-osgi-module -Dmodule.base.dir=modules/test/upgrade/revert-schema-version-api");
 
 		// Change schema version from 2.1.1 to 2.1.0.
 
