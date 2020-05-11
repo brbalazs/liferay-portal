@@ -22,8 +22,7 @@ const apiFetch = (url, method = 'get', data, contentType) => {
 	if (method === 'post' || method === 'put') {
 		if (contentType === 'application/json') {
 			request.body = JSON.stringify(data);
-		}
-		else if (contentType === 'multipart/form-data') {
+		} else if (contentType === 'multipart/form-data') {
 			const formData = new FormData();
 
 			for (let i = 0; i < data.length; i++) {
@@ -40,8 +39,7 @@ const apiFetch = (url, method = 'get', data, contentType) => {
 
 		if (method === 'delete' && res.status === 204) {
 			retVal = 'Deleted Successfully';
-		}
-		else {
+		} else {
 			retVal = res.json();
 		}
 

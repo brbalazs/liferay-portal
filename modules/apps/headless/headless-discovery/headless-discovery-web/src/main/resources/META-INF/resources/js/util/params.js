@@ -23,8 +23,7 @@ export const setSearchParam = (key, value) => {
 
 	if (value && value.length > 0) {
 		searchParams.set(key, value);
-	}
-	else {
+	} else {
 		searchParams.delete(key);
 	}
 

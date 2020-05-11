@@ -30,8 +30,7 @@ export const getSchemaType = requestBody => {
 
 		if (schema['$ref']) {
 			schemaType = schema['$ref'].replace('#/components/schemas/', '');
-		}
-		else {
+		} else {
 			schemaType = schema.type;
 		}
 	}
