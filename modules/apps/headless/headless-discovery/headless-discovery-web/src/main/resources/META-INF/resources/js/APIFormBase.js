@@ -27,7 +27,7 @@ const schemaIterator = (schema, iterator) => {
 	if (schema) {
 		const {properties, required = []} = schema;
 
-		return Object.keys(properties).map((name) => {
+		return Object.keys(properties).map(name => {
 			const property = properties[name];
 
 			if (!property.readOnly && !property['$ref']) {
@@ -35,7 +35,7 @@ const schemaIterator = (schema, iterator) => {
 					defaultVal: property.default,
 					name,
 					required: required.includes(name),
-					type: property.type,
+					type: property.type
 				});
 			}
 
@@ -44,14 +44,14 @@ const schemaIterator = (schema, iterator) => {
 	}
 };
 
-const APIFormBase = (props) => {
+const APIFormBase = props => {
 	const {
 		contentType,
 		handleSubmit,
 		isSubmitting,
 		methodData,
 		schema,
-		values,
+		values
 	} = props;
 
 	const {operationId, parameters, requestBody} = methodData;
@@ -132,7 +132,7 @@ const formikAPIForm = withFormik({
 			methodData,
 			onResponse,
 			path,
-			schema,
+			schema
 		} = props;
 
 		const data = {};
@@ -149,11 +149,11 @@ const formikAPIForm = withFormik({
 
 		const apiURL = getURL({baseURL, params: parameters, path, values});
 
-		apiFetch(apiURL, method, data, contentType).then((response) => {
+		apiFetch(apiURL, method, data, contentType).then(response => {
 			onResponse({
 				apiURL,
 				data,
-				response,
+				response
 			});
 
 			setSubmitting(false);
@@ -194,7 +194,7 @@ const formikAPIForm = withFormik({
 		});
 
 		return errors;
-	},
+	}
 })(APIFormBase);
 
 export default formikAPIForm;

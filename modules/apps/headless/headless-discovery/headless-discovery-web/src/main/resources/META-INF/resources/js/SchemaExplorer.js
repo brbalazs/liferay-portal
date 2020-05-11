@@ -17,7 +17,7 @@ import React from 'react';
 import SchemaDisplay from './SchemaDisplay';
 
 const style = {
-	lineHeight: '1em',
+	lineHeight: '1em'
 };
 
 const SchemaExplorer = ({category, schemas}) => {
@@ -31,7 +31,7 @@ const SchemaExplorer = ({category, schemas}) => {
 				</h3>
 			</div>
 
-			{Object.keys(schemas).map((key) => (
+			{Object.keys(schemas).map(key => (
 				<SchemaDisplay key={key} name={key} schema={schemas[key]} />
 			))}
 		</div>

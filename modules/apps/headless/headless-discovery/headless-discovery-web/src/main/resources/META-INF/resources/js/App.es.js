@@ -18,7 +18,7 @@ import APIGUI from './APIGUI';
 import {AppStateProvider} from './hooks/appState';
 import appReducer, {initialState} from './reducers/appReducer';
 
-const App = (props) => {
+const App = props => {
 	return (
 		<AppStateProvider initialState={initialState} reducer={appReducer}>
 			<APIGUI props={props} />

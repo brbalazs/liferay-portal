@@ -18,10 +18,10 @@ import {stringify} from './util/util';
 
 const style = {
 	overflow: 'visible',
-	tabSize: 4,
+	tabSize: 4
 };
 
-const ResponseDisplay = (props) => {
+const ResponseDisplay = props => {
 	const {response, ...otherProps} = props;
 
 	return (

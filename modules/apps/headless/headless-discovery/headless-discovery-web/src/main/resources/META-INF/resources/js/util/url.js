@@ -18,14 +18,14 @@ export const getCategoryURL = (categories, categoryKey) => {
 		: '';
 };
 
-export const getBaseURL = (categoryURL) => {
+export const getBaseURL = categoryURL => {
 	return categoryURL.replace('/v1.0/openapi.json', '');
 };
 
 export const getSearchParams = (params = [], values) => {
 	var searchParams = new URLSearchParams();
 
-	params.forEach((param) => {
+	params.forEach(param => {
 		const value = values[param.name];
 
 		if (param.in === 'query' && value) {
@@ -48,7 +48,7 @@ export const getURL = ({baseURL, params, path, values}) => {
 
 export const replaceParams = (path, params, values) => {
 	if (params) {
-		params.forEach((param) => {
+		params.forEach(param => {
 			if (param.in === 'path') {
 				path = path.replace(`{${param.name}}`, values[param.name]);
 			}

@@ -22,7 +22,7 @@ import ResponseDisplay from './ResponseDisplay';
 import {useAppState} from './hooks/appState';
 
 const badgeStyle = {
-	outline: 'none',
+	outline: 'none'
 };
 
 const APIDisplay = () => {
@@ -35,7 +35,7 @@ const APIDisplay = () => {
 		method,
 		path,
 		paths,
-		requestBodyData,
+		requestBodyData
 	} = state;
 
 	const [tabIndex, setTabIndex] = useState(0);
@@ -50,14 +50,14 @@ const APIDisplay = () => {
 				<h2 className="mb-2 sheet-title">{path}</h2>
 
 				<div className="align-items-center d-flex sheet-text">
-					{Object.keys(pathData).map((key) => (
+					{Object.keys(pathData).map(key => (
 						<button
 							className="btn-unstyled d-flex mr-2 text-light"
 							key={key}
 							onClick={() => {
 								dispatch({
 									method: key,
-									type: 'SELECT_METHOD',
+									type: 'SELECT_METHOD'
 								});
 							}}
 							style={badgeStyle}
@@ -88,7 +88,7 @@ const APIDisplay = () => {
 						<ClayTabs.Item
 							active={tabIndex === 0}
 							innerProps={{
-								'aria-controls': `tabpanel-1`,
+								'aria-controls': `tabpanel-1`
 							}}
 							key={0}
 							onClick={() => setTabIndex(0)}
@@ -98,7 +98,7 @@ const APIDisplay = () => {
 						<ClayTabs.Item
 							active={tabIndex === 1}
 							innerProps={{
-								'aria-controls': `tabpanel-2`,
+								'aria-controls': `tabpanel-2`
 							}}
 							key={1}
 							onClick={() => setTabIndex(1)}

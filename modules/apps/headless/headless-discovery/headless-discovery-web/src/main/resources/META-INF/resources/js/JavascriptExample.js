@@ -18,7 +18,7 @@ import javascriptExample from './templates/javascriptExample';
 
 const style = {
 	overflow: 'visible',
-	tabSize: 4,
+	tabSize: 4
 };
 
 const JavascriptExample = ({contentType, data, method, url}) => {

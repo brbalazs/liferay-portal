@@ -18,7 +18,7 @@ import React from 'react';
 export const spritemap =
 	themeDisplay.getPathThemeImages() + '/lexicon/icons.svg';
 
-const Icon = (props) => {
+const Icon = props => {
 	const {symbol, ...otherProps} = props;
 
 	return <ClayIcon spritemap={spritemap} symbol={symbol} {...otherProps} />;

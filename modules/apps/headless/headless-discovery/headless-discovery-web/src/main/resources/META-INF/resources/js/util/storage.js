@@ -12,7 +12,7 @@
  * details.
  */
 
-const storageAvailable = (type) => {
+const storageAvailable = type => {
 	var storage;
 	try {
 		storage = window[type];
@@ -25,24 +25,19 @@ const storageAvailable = (type) => {
 	catch (e) {
 		return (
 			e instanceof DOMException &&
-
 			// everything except Firefox
 
 			(e.code === 22 ||
-
 				// Firefox
 
 				e.code === 1014 ||
-
 				// test name field too, because code might not be present
 				// everything except Firefox
 
 				e.name === 'QuotaExceededError' ||
-
 				// Firefox
 
 				e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-
 			// acknowledge QuotaExceededError only if there's something already stored
 
 			storage &&
@@ -51,7 +46,7 @@ const storageAvailable = (type) => {
 	}
 };
 
-export const generateKey = (key) => {
+export const generateKey = key => {
 	return `API_GUI_FORM_VALUES_${key}`;
 };
 
@@ -61,7 +56,7 @@ export const setLocalStorage = (key, values) => {
 	}
 };
 
-export const getLocalStorage = (key) => {
+export const getLocalStorage = key => {
 	if (storageAvailable('localStorage')) {
 		const item = localStorage.getItem(key);
 

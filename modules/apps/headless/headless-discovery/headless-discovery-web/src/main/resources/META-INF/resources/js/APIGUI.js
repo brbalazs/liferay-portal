@@ -27,7 +27,7 @@ import {getCategoryURL} from './util/url';
 
 const APIDisplayStyle = {
 	height: 'calc(100% - 190px)',
-	overflowY: 'scroll',
+	overflowY: 'scroll'
 };
 
 const APIGUI = () => {
@@ -41,7 +41,7 @@ const APIGUI = () => {
 		path,
 		paths,
 		schemas,
-		showSchemas,
+		showSchemas
 	} = state;
 
 	useEffect(() => {
@@ -67,19 +67,19 @@ const APIGUI = () => {
 	useEffect(() => {
 		let current = true;
 
-		apiFetch('/o/openapi', 'get', {}).then((res) => {
+		apiFetch('/o/openapi', 'get', {}).then(res => {
 			if (current) {
 				var categories = {};
 
-				Object.keys(res).forEach((key) => {
-					categories[key] = res[key].map((url) =>
+				Object.keys(res).forEach(key => {
+					categories[key] = res[key].map(url =>
 						url.replace('openapi.yaml', 'openapi.json')
 					);
 				});
 
 				dispatch({
 					categories,
-					type: 'LOAD_CATEGORIES',
+					type: 'LOAD_CATEGORIES'
 				});
 			}
 		});
@@ -95,11 +95,11 @@ const APIGUI = () => {
 		const categoryURL = getCategoryURL(categories, categoryKey);
 
 		if (categoryURL) {
-			apiFetch(categoryURL).then((category) => {
+			apiFetch(categoryURL).then(category => {
 				if (current) {
 					dispatch({
 						category,
-						type: 'LOAD_CATEGORY',
+						type: 'LOAD_CATEGORY'
 					});
 				}
 			});
@@ -130,7 +130,7 @@ const APIGUI = () => {
 									<button
 										onClick={() => {
 											dispatch({
-												type: 'TOGGLE_SCHEMAS',
+												type: 'TOGGLE_SCHEMAS'
 											});
 										}}
 									>
@@ -146,16 +146,16 @@ const APIGUI = () => {
 							</label>
 							<ClaySelect
 								aria-label="Select API Category"
-								onChange={(e) => {
+								onChange={e => {
 									dispatch({
 										categoryKey: e.currentTarget.value,
-										type: 'SELECT_CATEGORY',
+										type: 'SELECT_CATEGORY'
 									});
 								}}
 								value={categoryKey}
 							>
 								{categories &&
-									Object.keys(categories).map((key) => (
+									Object.keys(categories).map(key => (
 										<ClaySelect.Option
 											key={key}
 											label={key}
@@ -170,10 +170,10 @@ const APIGUI = () => {
 
 							<ClayInput
 								name="filter"
-								onChange={(event) => {
+								onChange={event => {
 									dispatch({
 										filter: event.target.value,
-										type: 'SET_FILTER',
+										type: 'SET_FILTER'
 									});
 								}}
 								type="text"
@@ -190,10 +190,10 @@ const APIGUI = () => {
 									baseURL={categoryKey}
 									curPath={path}
 									filter={filter}
-									onClick={(selPath) => {
+									onClick={selPath => {
 										dispatch({
 											path: selPath,
-											type: 'SELECT_PATH',
+											type: 'SELECT_PATH'
 										});
 									}}
 									paths={paths}

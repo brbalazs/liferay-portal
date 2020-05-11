@@ -19,7 +19,7 @@ import {spritemap} from './Icon';
 
 const style = {
 	overflow: 'visible',
-	tabSize: 4,
+	tabSize: 4
 };
 
 const SchemaDisplay = ({name, schema}) => {

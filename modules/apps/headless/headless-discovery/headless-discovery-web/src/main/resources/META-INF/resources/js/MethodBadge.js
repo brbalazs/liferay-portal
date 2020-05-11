@@ -20,10 +20,10 @@ const METHOD_DISPLAY_MAP = {
 	get: 'primary',
 	patch: 'info',
 	post: 'success',
-	put: 'warning',
+	put: 'warning'
 };
 
-const MethodBadge = (props) => {
+const MethodBadge = props => {
 	const {displayType, method, ...otherProps} = props;
 
 	return (

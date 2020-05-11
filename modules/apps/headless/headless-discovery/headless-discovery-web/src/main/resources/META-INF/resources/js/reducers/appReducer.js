@@ -26,7 +26,7 @@ const initialState = {
 	paths: undefined,
 	requestBodyData: undefined,
 	schemas: undefined,
-	showSchemas: getSearchParam('show-schemas') || false,
+	showSchemas: getSearchParam('show-schemas') || false
 };
 
 const appStateReducer = (state, action) => {
@@ -37,7 +37,7 @@ const appStateReducer = (state, action) => {
 				apiResponse: action.response,
 				apiURL: action.apiURL,
 				contentType: action.contentType,
-				requestBodyData: action.data,
+				requestBodyData: action.data
 			};
 		}
 		case 'LOAD_CATEGORIES': {
@@ -46,7 +46,7 @@ const appStateReducer = (state, action) => {
 			return {
 				...state,
 				categories,
-				categoryKey: state.categoryKey || Object.keys(categories)[0],
+				categoryKey: state.categoryKey || Object.keys(categories)[0]
 			};
 		}
 		case 'LOAD_CATEGORY': {
@@ -58,7 +58,7 @@ const appStateReducer = (state, action) => {
 				...state,
 				method: state.method || undefined,
 				paths,
-				schemas: components.schemas,
+				schemas: components.schemas
 			};
 		}
 		case 'SELECT_CATEGORY': {
@@ -69,7 +69,7 @@ const appStateReducer = (state, action) => {
 				contentType: undefined,
 				method: undefined,
 				path: undefined,
-				requestBodyData: undefined,
+				requestBodyData: undefined
 			};
 		}
 		case 'SELECT_METHOD': {
@@ -78,7 +78,7 @@ const appStateReducer = (state, action) => {
 				apiResponse: undefined,
 				contentType: undefined,
 				method: action.method,
-				requestBodyData: undefined,
+				requestBodyData: undefined
 			};
 		}
 		case 'SELECT_PATH': {
@@ -90,25 +90,25 @@ const appStateReducer = (state, action) => {
 				contentType: undefined,
 				method: Object.keys(state.paths[path])[0],
 				path,
-				requestBodyData: undefined,
+				requestBodyData: undefined
 			};
 		}
 		case 'SET_API_URL': {
 			return {
 				...state,
-				apiURL: action.url,
+				apiURL: action.url
 			};
 		}
 		case 'SET_FILTER': {
 			return {
 				...state,
-				filter: action.filter,
+				filter: action.filter
 			};
 		}
 		case 'TOGGLE_SCHEMAS': {
 			return {
 				...state,
-				showSchemas: !state.showSchemas,
+				showSchemas: !state.showSchemas
 			};
 		}
 		default:

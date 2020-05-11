@@ -19,7 +19,7 @@ import React from 'react';
 import Icon from '../Icon';
 import CFErrorMessage from './CFErrorMessage';
 
-const CFInput = (props) => {
+const CFInput = props => {
 	const {component, formik, name, required, type, ...otherProps} = props;
 
 	const {errors, handleBlur, handleChange, touched, values} = formik;

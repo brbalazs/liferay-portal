@@ -15,7 +15,7 @@
 import {connect, getIn} from 'formik';
 import React from 'react';
 
-const CFErrorMessage = (props) => {
+const CFErrorMessage = props => {
 	const error = getIn(props.formik.errors, props.name);
 	const touch = getIn(props.formik.touched, props.name);
 

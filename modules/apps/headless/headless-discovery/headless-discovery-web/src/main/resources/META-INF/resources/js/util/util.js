@@ -14,7 +14,7 @@
 
 const REQUEST_BODY_TYPES = ['application/json', 'multipart/form-data'];
 
-export const getSchemaType = (requestBody) => {
+export const getSchemaType = requestBody => {
 	let schemaType = '';
 
 	if (requestBody) {
@@ -22,7 +22,7 @@ export const getSchemaType = (requestBody) => {
 
 		let schema = {};
 
-		REQUEST_BODY_TYPES.forEach((type) => {
+		REQUEST_BODY_TYPES.forEach(type => {
 			if (content[type]) {
 				schema = content[type].schema;
 			}
@@ -39,6 +39,6 @@ export const getSchemaType = (requestBody) => {
 	return schemaType;
 };
 
-export const stringify = (json) => {
+export const stringify = json => {
 	return JSON.stringify(json, null, 4);
 };

@@ -14,7 +14,7 @@
 
 import {stringify} from '../util/util';
 
-const stringOrNull = (string) => {
+const stringOrNull = string => {
 	return string ? `'${string}'` : null;
 };
 

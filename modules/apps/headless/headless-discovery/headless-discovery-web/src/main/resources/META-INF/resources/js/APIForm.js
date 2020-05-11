@@ -19,14 +19,14 @@ import {useAppState} from './hooks/appState';
 import {getBaseURL, getCategoryURL} from './util/url';
 import {getSchemaType} from './util/util';
 
-const getContentType = (requestBody) =>
+const getContentType = requestBody =>
 	Liferay.Util.fetch(requestBody, 'content.multipart/form-data')
 		? 'multipart/form-data'
 		: Liferay.Util.fetch(requestBody, 'content.application/json')
 		? 'application/json'
 		: null;
 
-const APIForm = (_) => {
+const APIForm = _ => {
 	const [state, dispatch] = useAppState();
 
 	const {categories, categoryKey, method, path, paths, schemas} = state;
@@ -40,7 +40,7 @@ const APIForm = (_) => {
 	const baseURL = getBaseURL(getCategoryURL(categories, categoryKey));
 
 	const contentType = useMemo(() => getContentType(requestBody), [
-		requestBody,
+		requestBody
 	]);
 
 	return (
@@ -56,7 +56,7 @@ const APIForm = (_) => {
 					contentType,
 					data,
 					response,
-					type: 'LOAD_API_RESPONSE',
+					type: 'LOAD_API_RESPONSE'
 				});
 			}}
 			path={path}

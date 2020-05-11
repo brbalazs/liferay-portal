@@ -16,7 +16,7 @@ import {fetch} from 'frontend-js-web';
 
 const apiFetch = (url, method = 'get', data, contentType) => {
 	const request = {
-		method: method.toUpperCase(),
+		method: method.toUpperCase()
 	};
 
 	if (method === 'post' || method === 'put') {
@@ -35,7 +35,7 @@ const apiFetch = (url, method = 'get', data, contentType) => {
 		}
 	}
 
-	return fetch(url, request).then((res) => {
+	return fetch(url, request).then(res => {
 		let retVal;
 
 		if (method === 'delete' && res.status === 204) {

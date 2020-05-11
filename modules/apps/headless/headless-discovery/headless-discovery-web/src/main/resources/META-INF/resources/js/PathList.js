@@ -14,7 +14,7 @@
 
 import React, {useEffect, useRef} from 'react';
 
-const PathList = (props) => {
+const PathList = props => {
 	const {curPath, filter, onClick, paths} = props;
 
 	const selectedPathEl = useRef(null);
@@ -30,14 +30,14 @@ const PathList = (props) => {
 	let pathKeys = Object.keys(paths);
 
 	if (filter.trim().length > 0) {
-		pathKeys = pathKeys.filter((pathkey) =>
+		pathKeys = pathKeys.filter(pathkey =>
 			pathkey.toLowerCase().includes(filter.toLowerCase())
 		);
 	}
 
 	return (
 		<>
-			{pathKeys.map((path) => (
+			{pathKeys.map(path => (
 				<button
 					className={`btn btn-block ${
 						path === curPath ? 'btn-primary' : 'btn-secondary'
