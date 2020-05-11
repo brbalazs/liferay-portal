@@ -108,6 +108,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.core.MultivaluedMap;
@@ -853,17 +855,17 @@ public class StructuredContentResourceImpl
 
 		ServicePreAction servicePreAction = new ServicePreAction();
 
-		DummyHttpServletResponse dummyHttpServletResponse =
+		HttpServletResponse httpServletResponse =
 			new DummyHttpServletResponse();
 
 		servicePreAction.servicePre(
-			contextHttpServletRequest, dummyHttpServletResponse, false);
+			contextHttpServletRequest, httpServletResponse, false);
 
 		ThemeServicePreAction themeServicePreAction =
 			new ThemeServicePreAction();
 
 		themeServicePreAction.run(
-			contextHttpServletRequest, dummyHttpServletResponse);
+			contextHttpServletRequest, httpServletResponse);
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)contextHttpServletRequest.getAttribute(

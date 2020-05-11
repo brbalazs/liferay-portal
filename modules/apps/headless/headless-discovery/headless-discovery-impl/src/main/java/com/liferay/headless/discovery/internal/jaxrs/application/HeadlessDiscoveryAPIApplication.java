@@ -241,16 +241,16 @@ public class HeadlessDiscoveryAPIApplication extends Application {
 
 		ServicePreAction servicePreAction = new ServicePreAction();
 
-		DummyHttpServletResponse dummyHttpServletResponse =
+		HttpServletResponse httpServletResponse =
 			new DummyHttpServletResponse();
 
 		servicePreAction.servicePre(
-			httpServletRequest, dummyHttpServletResponse, false);
+			httpServletRequest, httpServletResponse, false);
 
 		ThemeServicePreAction themeServicePreAction =
 			new ThemeServicePreAction();
 
-		themeServicePreAction.run(httpServletRequest, dummyHttpServletResponse);
+		themeServicePreAction.run(httpServletRequest, httpServletResponse);
 
 		return (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
