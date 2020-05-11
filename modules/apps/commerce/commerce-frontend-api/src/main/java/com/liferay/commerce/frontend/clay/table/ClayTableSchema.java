@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.frontend.clay.table;
 
-import com.liferay.petra.string.StringPool;
-
 import java.util.Map;
 
 /**
@@ -49,6 +47,6 @@ public class ClayTableSchema {
 
 	private Map<String, ClayTableSchemaField> _fields;
 	private boolean _orderable;
-	private String _orderableField = StringPool.BLANK;
+	private String _orderableField = "";
 
 }
