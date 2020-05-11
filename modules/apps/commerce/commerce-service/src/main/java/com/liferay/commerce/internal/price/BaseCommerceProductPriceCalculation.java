@@ -115,30 +115,17 @@ public abstract class BaseCommerceProductPriceCalculation
 		CommerceContext commerceContext =
 			commerceProductOptionValueRelativePriceRequest.getCommerceContext();
 
-		long selectedCPInstanceId =
-			commerceProductOptionValueRelativePriceRequest.
-				getSelectedCPInstanceId();
-
-		if (selectedCPInstanceId <= 0) {
-			return commerceMoneyFactory.create(
-				commerceContext.getCommerceCurrency(), relativePrice,
-				PriceFormat.RELATIVE);
-		}
-
-		long cpInstanceId =
-			commerceProductOptionValueRelativePriceRequest.getCpInstanceId();
-
-		if (cpInstanceId > 0) {
-			relativePrice = relativePrice.add(
-				_getCPInstancePriceDifference(
-					cpInstanceId,
-					commerceProductOptionValueRelativePriceRequest.
-						getCpInstanceMinQuantity(),
-					selectedCPInstanceId,
-					commerceProductOptionValueRelativePriceRequest.
-						getSelectedCPInstanceMinQuantity(),
-					commerceContext));
-		}
+		relativePrice = relativePrice.add(
+			_getCPInstancePriceDifference(
+				commerceProductOptionValueRelativePriceRequest.
+					getCpInstanceId(),
+				commerceProductOptionValueRelativePriceRequest.
+					getCpInstanceMinQuantity(),
+				commerceProductOptionValueRelativePriceRequest.
+					getSelectedCPInstanceId(),
+				commerceProductOptionValueRelativePriceRequest.
+					getSelectedCPInstanceMinQuantity(),
+				commerceContext));
 
 		relativePrice = relativePrice.add(
 			_getCPDefinitionOptionValuePriceDifference(
@@ -493,16 +480,27 @@ public abstract class BaseCommerceProductPriceCalculation
 			CommerceContext commerceContext)
 		throws PortalException {
 
-		CommerceMoney cpInstanceFinalPrice = getFinalPrice(
-			cpInstanceId, cpInstanceMinQuantity, commerceContext);
+		BigDecimal priceDifference = BigDecimal.ZERO;
 
-		BigDecimal price = cpInstanceFinalPrice.getPrice();
+		if (cpInstanceId > 0) {
+			CommerceMoney cpInstanceFinalPrice = getFinalPrice(
+				cpInstanceId, cpInstanceMinQuantity, commerceContext);
 
-		CommerceMoney selectedCPInstanceFinalPrice = getFinalPrice(
-			selectedCPInstanceId, selectedCPInstanceMinQuantity,
-			commerceContext);
+			priceDifference = priceDifference.add(
+				cpInstanceFinalPrice.getPrice());
+		}
 
-		return price.subtract(selectedCPInstanceFinalPrice.getPrice());
+		BigDecimal selectedCPInstanceFinalPrice = BigDecimal.ZERO;
+
+		if (selectedCPInstanceId > 0) {
+			CommerceMoney commerceMoney = getFinalPrice(
+				selectedCPInstanceId, selectedCPInstanceMinQuantity,
+				commerceContext);
+
+			selectedCPInstanceFinalPrice = commerceMoney.getPrice();
+		}
+
+		return priceDifference.subtract(selectedCPInstanceFinalPrice);
 	}
 
 	private boolean _isStaticPriceType(String value) {
