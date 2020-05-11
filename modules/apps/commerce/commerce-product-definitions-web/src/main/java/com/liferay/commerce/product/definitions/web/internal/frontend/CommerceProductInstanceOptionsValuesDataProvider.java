@@ -236,11 +236,14 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 							allowedCPDefinitionOptionValueRels);
 				}
 
+				String optionKey = cpDefinitionOptionRel.getKey();
+
 				outputs.add(
 					new Output(
-						cpDefinitionOptionRel.getKey(), "list",
+						optionKey, "list",
 						_toRequestedCPDefinitionOptionValueRelKeyValuePairs(
-							cpDefinitionId, allowedCPDefinitionOptionValueRels,
+							cpDefinitionId, optionKey,
+							allowedCPDefinitionOptionValueRels,
 							selectedCPDefinitionOptionValuesJSONArray,
 							selectedCPInstance, locale,
 							_getCommerceContext(
@@ -361,6 +364,24 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 						_getCommerceContext(
 							ddmDataProviderRequest.getHttpServletRequest()))));
 		}
+	}
+
+	private JSONArray _addToJSONArray(
+		JSONArray jsonArray, String optionKey, String optionValueKey) {
+
+		JSONObject jsonObject = _jsonFactory.createJSONObject();
+
+		jsonObject.put(
+			"key", optionKey
+		).put(
+			"value",
+			_jsonFactory.createJSONArray(
+			).put(
+				optionValueKey
+			)
+		);
+
+		return jsonArray.put(jsonObject);
 	}
 
 	private List<CPDefinitionOptionValueRel>
@@ -490,7 +511,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	private List<KeyValuePair>
 			_toRequestedCPDefinitionOptionValueRelKeyValuePairs(
-				long cpDefinitionId,
+				long cpDefinitionId, String optionKey,
 				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
 				JSONArray selectedCPDefinitionOptionValuesJSONArray,
 				CPInstance selectedCPInstance, Locale locale,
@@ -499,12 +520,21 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 		List<KeyValuePair> keyValuePairs = new ArrayList<>();
 
+		String jsonArrayString =
+			selectedCPDefinitionOptionValuesJSONArray.toString();
+
 		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 				cpDefinitionOptionValueRels) {
 
+			JSONArray clonedJSONArray = _jsonFactory.createJSONArray(
+				jsonArrayString);
+
+			_addToJSONArray(
+				clonedJSONArray, optionKey,
+				cpDefinitionOptionValueRel.getKey());
+
 			CPInstance cpInstance = _cpInstanceHelper.fetchCPInstance(
-				cpDefinitionId,
-				selectedCPDefinitionOptionValuesJSONArray.toString());
+				cpDefinitionId, clonedJSONArray.toString());
 
 			CommerceProductOptionValueRelativePriceRequest.Builder builder =
 				new CommerceProductOptionValueRelativePriceRequest.Builder(
