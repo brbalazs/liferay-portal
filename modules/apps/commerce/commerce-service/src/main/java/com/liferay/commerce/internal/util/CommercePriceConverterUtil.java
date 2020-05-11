@@ -51,7 +51,7 @@ public class CommercePriceConverterUtil {
 
 		BigDecimal discountPercentage = _ONE_HUNDRED;
 
-		if(discountedPrice.compareTo(initialPrice) != 0) {
+		if (discountedPrice.compareTo(initialPrice) != 0) {
 			discountPercentage = _getDiscountPercentage(
 				discountedPrice, initialPrice, roundingMode);
 		}
