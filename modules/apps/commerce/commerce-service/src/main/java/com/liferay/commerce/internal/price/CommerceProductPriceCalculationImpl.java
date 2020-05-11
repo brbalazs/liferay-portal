@@ -110,6 +110,9 @@ public class CommerceProductPriceCalculationImpl
 
 		CommerceDiscountValue commerceDiscountValue;
 
+		BigDecimal finalPriceWithTaxAmount = getConvertedPrice(
+			cpInstanceId, finalPrice, false, commerceContext);
+
 		boolean discountsTargetNetPrice = true;
 
 		CommerceChannel commerceChannel =
@@ -120,11 +123,6 @@ public class CommerceProductPriceCalculationImpl
 			discountsTargetNetPrice =
 				commerceChannel.isDiscountsTargetNetPrice();
 		}
-
-		BigDecimal finalPriceWithTaxAmount = getConvertedPrice(
-			cpInstanceId, finalPrice, false, commerceContext);
-
-		BigDecimal activePrice = finalPrice;
 
 		if (discountsTargetNetPrice) {
 			commerceDiscountValue =
@@ -170,17 +168,15 @@ public class CommerceProductPriceCalculationImpl
 		CommerceProductPriceImpl commerceProductPriceImpl =
 			new CommerceProductPriceImpl();
 
-		commerceProductPriceImpl.setQuantity(quantity);
 		commerceProductPriceImpl.setCommercePriceListId(
 			_getUsedCommercePriceList(cpInstanceId, commerceContext));
-
 		commerceProductPriceImpl.setUnitPrice(
 			commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), updatedPrices[0]));
-
 		commerceProductPriceImpl.setUnitPromoPrice(
 			commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), updatedPrices[1]));
+		commerceProductPriceImpl.setQuantity(quantity);
 
 		if (discountsTargetNetPrice) {
 			commerceProductPriceImpl.setCommerceDiscountValue(
@@ -193,7 +189,7 @@ public class CommerceProductPriceCalculationImpl
 			commerceProductPriceImpl.setCommerceDiscountValue(
 				CommercePriceConverterUtil.getConvertedCommerceDiscountValue(
 					commerceDiscountValue,
-					activePrice.multiply(BigDecimal.valueOf(quantity)),
+					updatedPrices[2].multiply(BigDecimal.valueOf(quantity)),
 					finalPrice, _commerceMoneyFactory,
 					RoundingMode.valueOf(commerceCurrency.getRoundingMode())));
 		}
