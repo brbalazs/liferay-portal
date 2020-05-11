@@ -2,6 +2,7 @@ module.exports = {
 	collectCoverage: true,
 	collectCoverageFrom: [
 		'!<rootDir>/src/main/js/(api-docs|ui-kit)/**/*.{js,jsx,tsx}',
+		'!<rootDir>/src/main/js/shared/api/*.{js,ts}',
 		'<rootDir>/src/main/js/**/components/**/*.{js,jsx,tsx}',
 		'<rootDir>/src/main/js/**/hocs/mappers/**/*.{js,jsx,tsx}',
 		'<rootDir>/src/main/js/**/util/**/*.{js,jsx,tsx}',
