@@ -18,9 +18,9 @@ import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
-import com.liferay.commerce.inventory.CommerceInventoryChecker;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
+import com.liferay.commerce.inventory.CommerceInventoryChecker;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.price.CommerceProductOptionValueRelativePriceRequest;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
@@ -188,6 +188,9 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 			List<Output> outputs = new ArrayList<>();
 
+			_addNonskuContributingCPDefinitionOptionValueOutputs(
+				cpDefinitionId, ddmDataProviderRequest, locale, outputs);
+
 			JSONArray selectedCPDefinitionOptionValuesJSONArray =
 				_getCPDefinitionOptionCPDefinitionOptionValuesJSONArray(
 					selectedCPDefinitionOptionValueRels);
@@ -195,10 +198,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			CPInstance selectedCPInstance = _cpInstanceHelper.fetchCPInstance(
 				cpDefinitionId,
 				selectedCPDefinitionOptionValuesJSONArray.toString());
-
-			_addNonskuContributingCPDefinitionOptionValueOutputs(
-				cpDefinitionId, selectedCPInstance, ddmDataProviderRequest,
-				locale, outputs);
 
 			for (CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel :
 					selectedCPDefinitionOptionValueRels) {
@@ -307,14 +306,15 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	}
 
 	private void _addNonskuContributingCPDefinitionOptionValueOutputs(
-			long cpDefinitionId, CPInstance selectedCPInstance,
-			DDMDataProviderRequest ddmDataProviderRequest, Locale locale,
-			List<Output> outputs)
+			long cpDefinitionId, DDMDataProviderRequest ddmDataProviderRequest,
+			Locale locale, List<Output> outputs)
 		throws PortalException {
 
 		Map<CPDefinitionOptionRel, CPDefinitionOptionValueRel>
-			cpDefinitionProductOptionCPDefinitionProductOptionValues =
+			selectedCPDefinitionOptionCPDefinitionOptionValues =
 				new HashMap<>();
+
+		Map<String, String> parameters = ddmDataProviderRequest.getParameters();
 
 		List<CPDefinitionOptionRel> nonSKUContributingCPDefinitionOptionRels =
 			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
@@ -322,9 +322,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 		for (CPDefinitionOptionRel nonSKUContributingDefinitionOptionRel :
 				nonSKUContributingCPDefinitionOptionRels) {
-
-			Map<String, String> parameters =
-				ddmDataProviderRequest.getParameters();
 
 			String parameterValue = parameters.get(
 				nonSKUContributingDefinitionOptionRel.getKey());
@@ -343,14 +340,14 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 							getCPDefinitionOptionRelId(),
 						optionValueKey);
 
-			cpDefinitionProductOptionCPDefinitionProductOptionValues.put(
+			selectedCPDefinitionOptionCPDefinitionOptionValues.put(
 				nonSKUContributingDefinitionOptionRel,
 				selectedCPDefinitionOptionValueRel);
 		}
 
 		for (Map.Entry<CPDefinitionOptionRel, CPDefinitionOptionValueRel>
 				entry :
-					cpDefinitionProductOptionCPDefinitionProductOptionValues.
+					selectedCPDefinitionOptionCPDefinitionOptionValues.
 						entrySet()) {
 
 			CPDefinitionOptionRel cpDefinitionOptionRel = entry.getKey();
@@ -359,7 +356,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 				new Output(
 					cpDefinitionOptionRel.getKey(), "list",
 					_toNonskuContributingCPDefinitionOptionValueKeyValuePairs(
-						selectedCPInstance,
 						cpDefinitionOptionRel.getCPDefinitionOptionValueRels(),
 						entry.getValue(), locale,
 						_getCommerceContext(
@@ -460,7 +456,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	private List<KeyValuePair>
 			_toNonskuContributingCPDefinitionOptionValueKeyValuePairs(
-				CPInstance selectedCPInstance,
 				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
 				CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
 				Locale locale, CommerceContext commerceContext)
@@ -478,11 +473,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			CommerceMoney commerceMoney =
 				_commerceProductPriceCalculation.
 					getCPDefinitionOptionValueRelativePrice(
-						builder.selectedCPInstanceId(
-							_getCPInstanceId(selectedCPInstance)
-						).selectedCPInstanceMinQuantity(
-							_getMinOrderQuantity(selectedCPInstance)
-						).selectedCPDefinitionOptionValueRel(
+						builder.selectedCPDefinitionOptionValueRel(
 							selectedCPDefinitionOptionValueRel
 						).build());
 
