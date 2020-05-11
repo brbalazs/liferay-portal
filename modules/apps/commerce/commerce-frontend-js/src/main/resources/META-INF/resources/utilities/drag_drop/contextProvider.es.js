@@ -16,12 +16,12 @@ import React from 'react';
 import {DndProvider} from 'react-dnd';
 import DndBackend from 'react-dnd-html5-backend';
 
-export function provideDragDrop(props, FnComponent) {
-	const { enableDragDrop } = props;
+export function provideDragDrop({enableDragDrop, ...remnantProps},
+								FnComponent) {
 
 	return enableDragDrop ? (
 		<DndProvider backend={DndBackend}>
-			<FnComponent {...props} />
+			<FnComponent {...remnantProps} />
 		</DndProvider>
-	) : (<FnComponent {...props} />);
+	) : (<FnComponent {...remnantProps} />);
 }
