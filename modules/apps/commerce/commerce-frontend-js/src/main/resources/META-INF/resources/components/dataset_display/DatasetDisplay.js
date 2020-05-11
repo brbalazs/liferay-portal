@@ -424,7 +424,7 @@ function DatasetDisplay(props) {
 				)}
 				<div className="dataset-display-wrapper" ref={wrapperRef}>
 					{props.style === 'default' && (
-						<div className="dataset-display">
+						<div className="dataset-display dataset-display-inline">
 							{managementBar}
 							{wrappedView}
 							{pagination}

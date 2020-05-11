@@ -91,7 +91,7 @@ export function loadData(
 	page = 1,
 	sorting = []
 ) {
-	const authString = `&p_auth=${window.Liferay.authToken}`;
+	const authString = `p_auth=${window.Liferay.authToken}`;
 	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
 	const pagination = `&pageSize=${delta}&page=${page}`;
 	const searchParamString = searchParam ? `&q=${searchParam}` : '';
@@ -99,7 +99,9 @@ export function loadData(
 		? `&orderBy=${JSON.stringify(sorting)}`
 		: ``;
 
-	const url = `${apiUrl}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}`;
+	const url = `${apiUrl}${
+		apiUrl.indexOf('?') > -1 ? '&' : '?'
+	}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }
