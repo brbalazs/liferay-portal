@@ -31,13 +31,12 @@
 				el.classList.toggle(IS_ACTIVE_CLASS, status);
 			});
 
-			w.document.getElementById('speedwell').classList.toggle(HAS_SEARCH_CLASS, status);
+			w.document
+				.getElementById('speedwell')
+				.classList.toggle(HAS_SEARCH_CLASS, status);
 
 			if (searchBarElement) {
-				searchBarElement.classList.toggle(
-					IS_OPEN_CLASS,
-					status
-				);
+				searchBarElement.classList.toggle(IS_OPEN_CLASS, status);
 			}
 		});
 	}

@@ -12,7 +12,6 @@
  * details.
  */
 
-
 Liferay.component(
 	'SpeedwellCategoryMenu',
 	(function() {
@@ -44,7 +43,10 @@ Liferay.component(
 		function attachListeners() {
 			if (!Liferay.Browser.isMobile) {
 				linkElements.forEach(link => {
-					link.addEventListener('mouseover', showCategoryNavigationMenu);
+					link.addEventListener(
+						'mouseover',
+						showCategoryNavigationMenu
+					);
 				});
 
 				categoryNavigationElement.addEventListener(
@@ -66,11 +68,11 @@ Liferay.component(
 
 		selectElements();
 		attachListeners();
-		
+
 		return {
 			getElement() {
 				return categoryNavigationElement;
-			},
+			}
 		};
 	})(),
 	{destroyOnNavigate: true}

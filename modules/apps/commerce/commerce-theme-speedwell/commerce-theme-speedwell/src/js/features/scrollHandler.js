@@ -15,7 +15,6 @@
 Liferay.component(
 	'SpeedwellScrollHandler',
 	(function() {
-
 		const SCROLL_EVENT = 'scroll',
 			callbackQueueOnScroll = {};
 

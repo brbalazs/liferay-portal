@@ -34,18 +34,16 @@
 		translucencyIsEnabled = false;
 
 	function hideFiltersButtonOnMenuOpen() {
-		Liferay.componentReady('SpeedwellMobileHelpers').then(
-			(mobileHelpers) => {
-				const catalogFiltersButton = mobileHelpers.getFiltersButton();
+		Liferay.componentReady('SpeedwellMobileHelpers').then(mobileHelpers => {
+			const catalogFiltersButton = mobileHelpers.getFiltersButton();
 
-				if (catalogFiltersButton) {
-					catalogFiltersButton.classList.toggle(
-						IS_BEHIND,
-						!isOpen(catalogFiltersButton)
-					);
-				}
+			if (catalogFiltersButton) {
+				catalogFiltersButton.classList.toggle(
+					IS_BEHIND,
+					!isOpen(catalogFiltersButton)
+				);
 			}
-		)
+		});
 	}
 
 	function attachListener(currentToggle) {
@@ -54,18 +52,21 @@
 		TOGGLES[currentToggle].buttons.forEach(button => {
 			button.addEventListener('click', _e => {
 				Liferay.componentReady('SpeedwellCategoryMenu').then(
-					(categoryMenu) => {
+					categoryMenu => {
 						const categoryEl = categoryMenu.getElement();
-		
+
 						button.focus();
-						toggleWrapper.classList.toggle(IS_OPEN, !isOpen(toggleWrapper));
+						toggleWrapper.classList.toggle(
+							IS_OPEN,
+							!isOpen(toggleWrapper)
+						);
 						categoryEl.classList.remove(IS_OPEN);
-		
+
 						if (Liferay.Browser.isMobile) {
 							hideFiltersButtonOnMenuOpen();
 						}
 					}
-				)
+				);
 			});
 		});
 	}
@@ -121,12 +122,8 @@
 	isTranslucent();
 
 	if (translucencyIsEnabled) {
-		Liferay.componentReady('SpeedwellScrollHandler').then(
-			(scrollHandler) => {
-				scrollHandler.registerCallback(
-					toggleTranslucencyOnScroll
-				);
-			}
-		)
+		Liferay.componentReady('SpeedwellScrollHandler').then(scrollHandler => {
+			scrollHandler.registerCallback(toggleTranslucencyOnScroll);
+		});
 	}
 })(window);

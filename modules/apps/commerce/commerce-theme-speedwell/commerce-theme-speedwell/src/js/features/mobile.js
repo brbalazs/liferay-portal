@@ -15,7 +15,6 @@
 Liferay.component(
 	'SpeedwellMobileHelpers',
 	(function() {
-
 		let filtersButton,
 			filtersHeader,
 			addToCartInline,
@@ -25,9 +24,9 @@ Liferay.component(
 			IS_FIXED_CLASS = 'is-fixed';
 
 		function setupFiltersHeader() {
-			filtersHeader.querySelector('.title').innerText = Liferay.Language.get(
-				'filters'
-			);
+			filtersHeader.querySelector(
+				'.title'
+			).innerText = Liferay.Language.get('filters');
 		}
 
 		function listenToFiltersButton() {
@@ -50,7 +49,8 @@ Liferay.component(
 		}
 
 		function restoreAddToCartButton() {
-			const isBelowViewport = window.scrollY < addToCartInlineDefaultPosition;
+			const isBelowViewport =
+				window.scrollY < addToCartInlineDefaultPosition;
 
 			if (isBelowViewport && isFixed(addToCartInline)) {
 				addToCartInline.classList.remove(IS_FIXED_CLASS);
@@ -71,8 +71,12 @@ Liferay.component(
 		}
 
 		function selectElements() {
-			filtersButton = window.document.querySelector('.mobile-filters-button');
-			filtersHeader = window.document.querySelector('.mobile-filters-header');
+			filtersButton = window.document.querySelector(
+				'.mobile-filters-button'
+			);
+			filtersHeader = window.document.querySelector(
+				'.mobile-filters-header'
+			);
 			addToCartInline = window.document.querySelector(
 				'.add-to-cart-button--inline .commerce-button'
 			);
