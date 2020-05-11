@@ -265,12 +265,12 @@ public abstract class BaseCommerceProductPriceCalculation
 		BigDecimal unitPriceWithTaxAmount = getConvertedPrice(
 			cpInstanceId, unitPriceMoney.getPrice(), false, commerceContext);
 
+		BigDecimal activePrice = unitPriceWithTaxAmount;
+
 		CommerceMoney promoPriceMoney =
 			commerceProductPriceImpl.getUnitPromoPrice();
 
 		BigDecimal promoPrice = promoPriceMoney.getPrice();
-
-		BigDecimal activePrice = unitPriceWithTaxAmount;
 
 		if ((promoPrice != null) &&
 			(promoPrice.compareTo(BigDecimal.ZERO) > 0)) {
