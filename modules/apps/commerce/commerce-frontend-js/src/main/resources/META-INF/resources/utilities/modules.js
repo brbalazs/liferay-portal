@@ -12,14 +12,12 @@
  * details.
  */
 
-import React from 'react';
-
 export function getLiferayJsModule(moduleUrl) {
 	return new Promise((resolve, reject) => {
 		Liferay.Loader.require(
 			moduleUrl,
 			jsModule => {
-				return resolve(jsModule.default || jsModule);
+				return resolve(jsModule.defult || jsModule);
 			},
 			err => {
 				return reject(err);

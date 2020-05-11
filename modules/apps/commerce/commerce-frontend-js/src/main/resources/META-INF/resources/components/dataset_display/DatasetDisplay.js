@@ -17,8 +17,8 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {closest} from '../../utilities/closest';
-import {provideDragDrop} from '../../utilities/drag_drop/contextProvider';
+import {closest} from '../../utilities/closest.es';
+import {provideDragDrop} from '../../utilities/drag_drop/contextProvider.es';
 import {
 	DATASET_ACTION_PERFORMED,
 	DATASET_DISPLAY_UPDATED,
@@ -90,9 +90,9 @@ function DatasetDisplay(props) {
 						views.map((view, i) =>
 							i === activeView
 								? {
-										...view,
-										component
-								  }
+									...view,
+									component
+								}
 								: view
 						)
 					);
@@ -207,7 +207,8 @@ function DatasetDisplay(props) {
 
 		if (itemAdded) {
 			setSelectedItemsValue(selectedItemsValue.filter(el => el !== val));
-		} else {
+		}
+		else {
 			setSelectedItemsValue(selectedItemsValue.concat(val));
 		}
 	}
@@ -386,8 +387,8 @@ function DatasetDisplay(props) {
 	return (
 		<DatasetDisplayContext.Provider
 			value={{
-				enableDragDrop: props.enableDragDrop,
 				executeAsyncItemAction,
+				enableDragDrop: props.enableDragDrop,
 				formId: props.formId,
 				formRef,
 				highlightItems,

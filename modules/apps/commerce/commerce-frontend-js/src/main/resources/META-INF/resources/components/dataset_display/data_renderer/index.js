@@ -18,7 +18,7 @@ import ActionsDropdownRenderer from './ActionsDropdownRenderer';
 import CheckboxRenderer from './CheckboxRenderer';
 import DateRenderer from './DateRenderer';
 import DefaultRenderer from './DefaultRenderer';
-import DraggableDroppableRenderer from './DraggableDroppableRenderer';
+import DraggableDroppableRenderer from './DraggableDroppable.es';
 import ImageRenderer from './ImageRenderer';
 import LabelRenderer from './LabelRenderer';
 import LinkRenderer from './LinkRenderer';

@@ -18,7 +18,7 @@ import getCN from 'classnames';
 import {useDrag, useDrop} from 'react-dnd';
 import React from 'react';
 
-import DraggableTableBodyRowConfiguration from './DraggableTableBodyRowConfiguration';
+import {TableBodyRowConfiguration} from './index.es';
 
 function getClassNames(isDragging) {
 	return getCN('draggable-row', isDragging ? 'is-dragging' : '');
@@ -28,7 +28,7 @@ function DraggableTableBodyRow({children, ...orderabilityProps}) {
 	const {
 		configureDragSource,
 		configureDropTarget
-	} = DraggableTableBodyRowConfiguration;
+	} = TableBodyRowConfiguration;
 
 	const [{isDragging}, drag, preview] = useDrag(
 		configureDragSource({...orderabilityProps})
