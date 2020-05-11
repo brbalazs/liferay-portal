@@ -575,8 +575,7 @@ public abstract class BaseProductResourceTestCase {
 							{
 								put(
 									"externalReferenceCode",
-									"\"" + irrelevantExternalReferenceCode +
-										"\"");
+									irrelevantExternalReferenceCode);
 							}
 						},
 						getGraphQLFields())),

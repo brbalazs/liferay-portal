@@ -282,8 +282,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 							{
 								put(
 									"externalReferenceCode",
-									"\"" + irrelevantExternalReferenceCode +
-										"\"");
+									irrelevantExternalReferenceCode);
 							}
 						},
 						getGraphQLFields())),

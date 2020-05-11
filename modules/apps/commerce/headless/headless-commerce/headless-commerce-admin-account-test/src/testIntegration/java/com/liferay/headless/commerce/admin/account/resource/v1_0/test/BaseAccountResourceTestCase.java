@@ -375,8 +375,7 @@ public abstract class BaseAccountResourceTestCase {
 							{
 								put(
 									"externalReferenceCode",
-									"\"" + irrelevantExternalReferenceCode +
-										"\"");
+									irrelevantExternalReferenceCode);
 							}
 						},
 						getGraphQLFields())),

@@ -50,7 +50,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("StructuredContent")
 @JsonFilter("Liferay.Vulcan")
-@Schema(requiredProperties = {"title"})
+@Schema(
+	requiredProperties = {"title"},
+	description = "Represents content that has fields and is rendered by a template backed by a `ContentStructure`. This is modeled internally as a `JournalArticle`."
+)
 @XmlRootElement(name = "StructuredContent")
 public class StructuredContent {
 
