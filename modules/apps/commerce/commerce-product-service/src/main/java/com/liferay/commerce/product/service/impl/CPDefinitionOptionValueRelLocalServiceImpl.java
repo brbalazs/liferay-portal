@@ -711,6 +711,10 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 			String priceType)
 		throws PortalException {
 
+		if (cpDefinitionOptionValueRel.isNew()) {
+			return;
+		}
+
 		if (Validator.isNull(priceType)) {
 			if (Validator.isNotNull(
 					cpDefinitionOptionValueRel.getCPInstanceUuid()) ||
