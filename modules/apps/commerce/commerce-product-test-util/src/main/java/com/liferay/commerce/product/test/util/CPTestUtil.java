@@ -69,7 +69,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
+import java.util.Objects;
 
 /**
  * @author Andrea Di Giorgi
@@ -261,68 +261,26 @@ public class CPTestUtil {
 
 	public static CPDefinition addCPDefinitionWithChildCPDefinitions(
 			long groupId)
-		throws PortalException {
+		throws Exception {
 
-		CPDefinition optionACPDefinition = addCPDefinitionFromCatalog(
-			groupId, SimpleCPTypeConstants.NAME, true, true);
+		return addCPDefinitionWithChildCPDefinitions(groupId, 1);
+	}
 
-		CPInstance optionACPInstance = _getRandomApprovedCPInstance(
-			optionACPDefinition.getCPDefinitionId());
-
-		CPDefinition optionBCPDefinition = addCPDefinitionFromCatalog(
-			groupId, SimpleCPTypeConstants.NAME, true, true);
-
-		CPInstance optionBCPInstance = _getRandomApprovedCPInstance(
-			optionBCPDefinition.getCPDefinitionId());
+	public static CPDefinition addCPDefinitionWithChildCPDefinitions(
+			long groupId, int priceableOptionsCount)
+		throws Exception {
 
 		CPDefinition bundleCPDefinition = addCPDefinitionFromCatalog(
 			groupId, SimpleCPTypeConstants.NAME, true, true);
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(groupId);
+		for (int i = 0; i < priceableOptionsCount; i++) {
+			List<CPInstance> cpInstances = _getSimpleCPDefinitionCPInstances(
+				groupId, RandomTestUtil.randomInt(2, 5));
 
-		CPOption productBundleOption = addCPOption(
-			groupId, getDefaultDDMFormFieldType(true), true);
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			CPDefinitionOptionRelLocalServiceUtil.addCPDefinitionOptionRel(
-				bundleCPDefinition.getCPDefinitionId(),
-				productBundleOption.getCPOptionId(),
-				RandomTestUtil.randomLocaleStringMap(),
-				RandomTestUtil.randomLocaleStringMap(),
-				getDefaultDDMFormFieldType(true), 0.2, false, false, true,
-				false, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
-				serviceContext);
-
-		CPDefinitionOptionValueRel optionACPDefinitionOptionValueRel =
-			CPDefinitionOptionValueRelLocalServiceUtil.
-				addCPDefinitionOptionValueRel(
-					cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-					RandomTestUtil.randomLocaleStringMap(), 0.4, "product-a",
-					serviceContext);
-
-		CPDefinitionOptionValueRelLocalServiceUtil.
-			updateCPDefinitionOptionValueRel(
-				optionACPDefinitionOptionValueRel.
-					getCPDefinitionOptionValueRelId(),
-				RandomTestUtil.randomLocaleStringMap(), 0.4, "product-a",
-				optionACPInstance.getCPInstanceId(), 2,
-				new BigDecimal("100.20"), serviceContext);
-
-		CPDefinitionOptionValueRel optionBCPDefinitionOptionValueRel =
-			CPDefinitionOptionValueRelLocalServiceUtil.
-				addCPDefinitionOptionValueRel(
-					cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-					RandomTestUtil.randomLocaleStringMap(), 0.2, "product-b",
-					serviceContext);
-
-		CPDefinitionOptionValueRelLocalServiceUtil.
-			updateCPDefinitionOptionValueRel(
-				optionBCPDefinitionOptionValueRel.
-					getCPDefinitionOptionValueRelId(),
-				RandomTestUtil.randomLocaleStringMap(), 0.2, "product-b",
-				optionBCPInstance.getCPInstanceId(), 2,
-				new BigDecimal("200.20"), serviceContext);
+			_toPriceableCPDefinitionOptionValueRels(
+				groupId, bundleCPDefinition, _getRandomPriceType(),
+				cpInstances);
+		}
 
 		return bundleCPDefinition;
 	}
@@ -532,17 +490,41 @@ public class CPTestUtil {
 			CPDefinitionOptionRelLocalServiceUtil.getCPDefinitionOptionRels(
 				cpDefinitionId);
 
-		Random random = new Random();
-
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionRels.get(
-				random.nextInt(cpDefinitionOptionRels.size()));
+				RandomTestUtil.randomInt(0, cpDefinitionOptionRels.size() - 1));
 
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
 
 		return cpDefinitionOptionValueRels.get(
-			random.nextInt(cpDefinitionOptionValueRels.size()));
+			RandomTestUtil.randomInt(
+				0, cpDefinitionOptionValueRels.size() - 1));
+	}
+
+	public static List<CPDefinitionOptionValueRel>
+		getRandomCPDefinitionOptionValueRels(long cpDefinitionId) {
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			new ArrayList<>();
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+			CPDefinitionOptionRelLocalServiceUtil.getCPDefinitionOptionRels(
+				cpDefinitionId);
+
+		for (CPDefinitionOptionRel cpDefinitionOptionRel :
+				cpDefinitionOptionRels) {
+
+			List<CPDefinitionOptionValueRel> sourceCPDefinitionOptionValueRels =
+				cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
+
+			cpDefinitionOptionValueRels.add(
+				sourceCPDefinitionOptionValueRels.get(
+					RandomTestUtil.randomInt(
+						0, sourceCPDefinitionOptionValueRels.size() - 1)));
+		}
+
+		return cpDefinitionOptionValueRels;
 	}
 
 	public static SearchContext getSearchContext(
@@ -826,6 +808,93 @@ public class CPTestUtil {
 				cpDefinitionId);
 
 		return cpDefinitionApprovedCPInstances.get(0);
+	}
+
+	private static String _getRandomPriceType() {
+		if (RandomTestUtil.randomBoolean()) {
+			return CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC;
+		}
+
+		return CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC;
+	}
+
+	private static List<CPInstance> _getSimpleCPDefinitionCPInstances(
+			long groupId, int size)
+		throws PortalException {
+
+		List<CPInstance> cpInstances = new ArrayList<>();
+
+		for (int i = 0; i < size; i++) {
+			CPDefinition optionACPDefinition = addCPDefinitionFromCatalog(
+				groupId, SimpleCPTypeConstants.NAME, true, true);
+
+			CPInstance cpInstance = _getRandomApprovedCPInstance(
+				optionACPDefinition.getCPDefinitionId());
+
+			cpInstance.setPurchasable(true);
+			cpInstance.setPrice(new BigDecimal(RandomTestUtil.randomDouble()));
+
+			cpInstances.add(
+				CPInstanceLocalServiceUtil.updateCPInstance(cpInstance));
+		}
+
+		return cpInstances;
+	}
+
+	private static List<CPDefinitionOptionValueRel>
+			_toPriceableCPDefinitionOptionValueRels(
+				long groupId, CPDefinition parentCPDefinition, String priceType,
+				List<CPInstance> childCPInstances)
+		throws Exception {
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			new ArrayList<>();
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CPOption priceableCPOption = addCPOption(
+			groupId, getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPDefinitionOptionRelLocalServiceUtil.addCPDefinitionOptionRel(
+				parentCPDefinition.getCPDefinitionId(),
+				priceableCPOption.getCPOptionId(),
+				RandomTestUtil.randomLocaleStringMap(),
+				RandomTestUtil.randomLocaleStringMap(),
+				getDefaultDDMFormFieldType(true), RandomTestUtil.nextDouble(),
+				false, false, false, false, priceType, serviceContext);
+
+		for (CPInstance cpInstance : childCPInstances) {
+			CPDefinitionOptionValueRel cpInstanceOptionValueRel =
+				CPDefinitionOptionValueRelLocalServiceUtil.
+					addCPDefinitionOptionValueRel(
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+						RandomTestUtil.randomLocaleStringMap(),
+						RandomTestUtil.nextDouble(),
+						RandomTestUtil.randomString(), serviceContext);
+
+			BigDecimal price = null;
+
+			if (Objects.equals(
+					priceType, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+				price = new BigDecimal(RandomTestUtil.randomDouble());
+			}
+
+			cpDefinitionOptionValueRels.add(
+				CPDefinitionOptionValueRelLocalServiceUtil.
+					updateCPDefinitionOptionValueRel(
+						cpInstanceOptionValueRel.
+							getCPDefinitionOptionValueRelId(),
+						cpInstanceOptionValueRel.getNameMap(),
+						cpInstanceOptionValueRel.getPriority(),
+						cpInstanceOptionValueRel.getKey(),
+						cpInstance.getCPInstanceId(), 2, price,
+						serviceContext));
+		}
+
+		return cpDefinitionOptionValueRels;
 	}
 
 }
