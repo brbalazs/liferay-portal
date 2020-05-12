@@ -24,6 +24,7 @@ import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
+import com.liferay.commerce.price.CommerceProductOptionValueRelativePriceRequest;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceRequest;
@@ -1195,14 +1196,14 @@ public class CommerceProductPriceCalculationTest {
 			cpInstance1.getCPInstanceId(),
 			dynamicPriceTypeCPOption.getCPOptionId(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
-			BigDecimal.valueOf(50), 1, false, true, _serviceContext);
+			BigDecimal.valueOf(50), 1, true, true, _serviceContext);
 
 		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
 			bundleCPDefinition.getCPDefinitionId(),
 			cpInstance2.getCPInstanceId(),
 			dynamicPriceTypeCPOption.getCPOptionId(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
-			BigDecimal.valueOf(100), 1, false, true, _serviceContext);
+			BigDecimal.valueOf(100), 1, true, true, _serviceContext);
 
 		CPOption staticPriceTypeCPOption = CPTestUtil.addCPOption(
 			_commerceCatalog.getGroupId(),
@@ -1213,19 +1214,20 @@ public class CommerceProductPriceCalculationTest {
 				bundleCPDefinition.getCPDefinitionId(), 0,
 				staticPriceTypeCPOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
-				BigDecimal.valueOf(5), 1, false, true, _serviceContext);
+				BigDecimal.valueOf(5), 1, true, true, _serviceContext);
 
 		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
 			bundleCPDefinition.getCPDefinitionId(), 0,
 			staticPriceTypeCPOption.getCPOptionId(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
-			BigDecimal.valueOf(10), 1, false, true, _serviceContext);
+			BigDecimal.valueOf(10), 1, true, true, _serviceContext);
 
 		CPOption nullPriceTypeCPOption = CPTestUtil.addCPOption(
 			_commerceCatalog.getGroupId(),
 			CPTestUtil.getDefaultDDMFormFieldType(true), true);
 
 		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			_commerceCatalog.getGroupId(),
 			bundleCPDefinition.getCPDefinitionId(), 0,
 			nullPriceTypeCPOption.getCPOptionId(), null, null, 1, false, true,
 			_serviceContext);
@@ -1298,13 +1300,19 @@ public class CommerceProductPriceCalculationTest {
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
 
+		CommerceProductOptionValueRelativePriceRequest.Builder builder =
+			new CommerceProductOptionValueRelativePriceRequest.Builder(
+				new TestCommerceContext(
+					_commerceCurrency, null, _user, _group, _commerceAccount,
+					null),
+				bundleOptionValueRel);
+
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.
 				getCPDefinitionOptionValueRelativePrice(
-					bundleOptionValueRel, selectedBundleOptionValueRel,
-					new TestCommerceContext(
-						_commerceCurrency, null, _user, _group,
-						_commerceAccount, null));
+					builder.selectedCPDefinitionOptionValueRel(
+						selectedBundleOptionValueRel
+					).build());
 
 		BigDecimal bundleOptionValueRelPrice = bundleOptionValueRel.getPrice();
 
@@ -1314,13 +1322,17 @@ public class CommerceProductPriceCalculationTest {
 					selectedBundleOptionValueRel.getPrice())),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 
+		builder = new CommerceProductOptionValueRelativePriceRequest.Builder(
+			new TestCommerceContext(
+				_commerceCurrency, null, _user, _group, _commerceAccount, null),
+			selectedBundleOptionValueRel);
+
 		commerceMoney =
 			_commerceProductPriceCalculation.
 				getCPDefinitionOptionValueRelativePrice(
-					selectedBundleOptionValueRel, selectedBundleOptionValueRel,
-					new TestCommerceContext(
-						_commerceCurrency, null, _user, _group,
-						_commerceAccount, null));
+					builder.selectedCPDefinitionOptionValueRel(
+						selectedBundleOptionValueRel
+					).build());
 
 		Assert.assertEquals(
 			CPTestUtil.stripTrailingZeros(BigDecimal.ZERO),
@@ -1366,25 +1378,29 @@ public class CommerceProductPriceCalculationTest {
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
 
+		CommerceProductOptionValueRelativePriceRequest.Builder builder =
+			new CommerceProductOptionValueRelativePriceRequest.Builder(
+				new TestCommerceContext(
+					_commerceCurrency, null, _user, _group, _commerceAccount,
+					null),
+				bundleOptionValueRel1);
+
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(
-					bundleOptionValueRel1, null,
-					new TestCommerceContext(
-						_commerceCurrency, null, _user, _group,
-						_commerceAccount, null));
+				getCPDefinitionOptionValueRelativePrice(builder.build());
 
 		Assert.assertEquals(
 			CPTestUtil.stripTrailingZeros(bundleOptionValueRel1.getPrice()),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 
+		builder = new CommerceProductOptionValueRelativePriceRequest.Builder(
+			new TestCommerceContext(
+				_commerceCurrency, null, _user, _group, _commerceAccount, null),
+			bundleOptionValueRel2);
+
 		commerceMoney =
 			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(
-					bundleOptionValueRel2, null,
-					new TestCommerceContext(
-						_commerceCurrency, null, _user, _group,
-						_commerceAccount, null));
+				getCPDefinitionOptionValueRelativePrice(builder.build());
 
 		Assert.assertEquals(
 			CPTestUtil.stripTrailingZeros(bundleOptionValueRel2.getPrice()),
@@ -1436,25 +1452,29 @@ public class CommerceProductPriceCalculationTest {
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
 				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
 
+		CommerceProductOptionValueRelativePriceRequest.Builder builder =
+			new CommerceProductOptionValueRelativePriceRequest.Builder(
+				new TestCommerceContext(
+					_commerceCurrency, null, _user, _group, _commerceAccount,
+					null),
+				bundleOptionValueRel1);
+
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(
-					bundleOptionValueRel1, null,
-					new TestCommerceContext(
-						_commerceCurrency, null, _user, _group,
-						_commerceAccount, null));
+				getCPDefinitionOptionValueRelativePrice(builder.build());
 
 		Assert.assertEquals(
 			CPTestUtil.stripTrailingZeros(cpInstance1.getPrice()),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 
+		builder = new CommerceProductOptionValueRelativePriceRequest.Builder(
+			new TestCommerceContext(
+				_commerceCurrency, null, _user, _group, _commerceAccount, null),
+			bundleOptionValueRel2);
+
 		commerceMoney =
 			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(
-					bundleOptionValueRel2, null,
-					new TestCommerceContext(
-						_commerceCurrency, null, _user, _group,
-						_commerceAccount, null));
+				getCPDefinitionOptionValueRelativePrice(builder.build());
 
 		Assert.assertEquals(
 			CPTestUtil.stripTrailingZeros(cpInstance2.getPrice()),
@@ -1508,13 +1528,19 @@ public class CommerceProductPriceCalculationTest {
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
 				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
 
+		CommerceProductOptionValueRelativePriceRequest.Builder builder =
+			new CommerceProductOptionValueRelativePriceRequest.Builder(
+				new TestCommerceContext(
+					_commerceCurrency, null, _user, _group, _commerceAccount,
+					null),
+				bundleOptionValueRel);
+
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.
 				getCPDefinitionOptionValueRelativePrice(
-					bundleOptionValueRel, selectedBundleOptionValueRel,
-					new TestCommerceContext(
-						_commerceCurrency, null, _user, _group,
-						_commerceAccount, null));
+					builder.selectedCPDefinitionOptionValueRel(
+						selectedBundleOptionValueRel
+					).build());
 
 		BigDecimal cpInstance1Price = cpInstance1.getPrice();
 
@@ -1523,13 +1549,17 @@ public class CommerceProductPriceCalculationTest {
 				cpInstance1Price.subtract(cpInstance2.getPrice())),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 
+		builder = new CommerceProductOptionValueRelativePriceRequest.Builder(
+			new TestCommerceContext(
+				_commerceCurrency, null, _user, _group, _commerceAccount, null),
+			selectedBundleOptionValueRel);
+
 		commerceMoney =
 			_commerceProductPriceCalculation.
 				getCPDefinitionOptionValueRelativePrice(
-					selectedBundleOptionValueRel, selectedBundleOptionValueRel,
-					new TestCommerceContext(
-						_commerceCurrency, null, _user, _group,
-						_commerceAccount, null));
+					builder.selectedCPDefinitionOptionValueRel(
+						selectedBundleOptionValueRel
+					).build());
 
 		Assert.assertEquals(
 			CPTestUtil.stripTrailingZeros(BigDecimal.ZERO),
