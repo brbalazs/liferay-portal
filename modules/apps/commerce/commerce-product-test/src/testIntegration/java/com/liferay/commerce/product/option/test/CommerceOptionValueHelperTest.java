@@ -15,16 +15,23 @@
 package com.liferay.commerce.product.option.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPDefinitionOptionRel;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.option.CommerceOptionValueHelper;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalServiceUtil;
+import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalServiceUtil;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
@@ -41,7 +48,9 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import org.frutilla.FrutillaRule;
 
@@ -91,48 +100,205 @@ public class CommerceOptionValueHelperTest {
 	@Test
 	public void testGetCPDefinitionCommerceOptionValues() throws Exception {
 		frutillaRule.scenario(
-			"Get CP instance commerce option values"
+			"Get CP definition commerce option values"
 		).given(
 			StringBundler.concat(
-				"I have a product bundle definition with SKU contributor ",
-				"option Option_1 and two option values assigned to it so ",
-				"there are Option_1_Value_1, Option_1_Value_2 values.")
-		).and(
-			"Option_1_Value_1 points to product A"
-		).and(
-			"Option_1_Value_2 points to product B"
+				"I have a product bundle definition with 5 product options.",
+				"Each option has at least two option values linked to unique ",
+				"valid purchasable product CP instance in catalog.")
 		).when(
-			"There are two CP instances that represents product bundle " +
-				"values combination Option_1_Value_1, Option_1_Value_2"
-		).and(
-			"commerce option value is requested for SKU's cpIstanceId"
+			"commerce option values are requested for CP definition ID and " +
+				"JSON option key option value key combination "
 		).then(
-			"commerce option value is returned"
+			"correct commerce option values are created"
 		);
 
 		_setupPermissionChecker();
 
 		CPDefinition bundleCPDefinition =
 			CPTestUtil.addCPDefinitionWithChildCPDefinitions(
-				_commerceCatalog.getGroupId());
+				_commerceCatalog.getGroupId(), 5);
 
-		List<CommerceOptionValue> cpInstanceCommerceOptionValues =
+		String jsonString =
+			_getRandomCPDefinitionOptionValueRelsCombinationJSONString(
+				bundleCPDefinition.getCPDefinitionId());
+
+		List<CommerceOptionValue> commerceOptionValues =
 			_commerceOptionValueHelper.getCPDefinitionCommerceOptionValues(
-				bundleCPDefinition.getCPDefinitionId(), StringPool.BLANK);
+				bundleCPDefinition.getCPDefinitionId(), jsonString);
 
-		Assert.assertTrue(
-			"No option values present if user did not select option",
-			cpInstanceCommerceOptionValues.isEmpty());
+		Assert.assertEquals(
+			"commerce option value entries count", 5,
+			commerceOptionValues.size());
+
+		_assertCommerceOptionValuesValid(
+			bundleCPDefinition.getCPDefinitionId(), commerceOptionValues);
+
+		_testToCommerceOptionValues(jsonString, commerceOptionValues);
 	}
 
 	@Rule
 	public final FrutillaRule frutillaRule = new FrutillaRule();
+
+	private void _assertCommerceOptionValuesValid(
+		long cpDefinitionId,
+		List<CommerceOptionValue> expectedCommerceOptionValues) {
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+			CPDefinitionOptionRelLocalServiceUtil.getCPDefinitionOptionRels(
+				cpDefinitionId);
+
+		for (CommerceOptionValue commerceOptionValue :
+				expectedCommerceOptionValues) {
+
+			CPDefinitionOptionRel matchingCPDefinitionOptionRel = null;
+
+			for (CPDefinitionOptionRel cpDefinitionOptionRel :
+					cpDefinitionOptionRels) {
+
+				if (Objects.equals(
+						commerceOptionValue.getOptionKey(),
+						cpDefinitionOptionRel.getKey())) {
+
+					matchingCPDefinitionOptionRel = cpDefinitionOptionRel;
+
+					break;
+				}
+			}
+
+			Assert.assertNotNull(
+				"Commerce option value DTO must have CP definition option rel",
+				matchingCPDefinitionOptionRel);
+
+			Assert.assertEquals(
+				matchingCPDefinitionOptionRel.getPriceType(),
+				commerceOptionValue.getPriceType());
+			Assert.assertEquals(
+				matchingCPDefinitionOptionRel.getKey(),
+				commerceOptionValue.getOptionKey());
+
+			CPDefinitionOptionValueRel matchingCPDefinitionOptionValueRel =
+				CPDefinitionOptionValueRelLocalServiceUtil.
+					fetchCPDefinitionOptionValueRel(
+						matchingCPDefinitionOptionRel.
+							getCPDefinitionOptionRelId(),
+						commerceOptionValue.getOptionValueKey());
+
+			Assert.assertNotNull(
+				"Commerce option value DTO must have CP definition option " +
+					"value rel",
+				matchingCPDefinitionOptionValueRel);
+
+			long expectedCPInstanceId = 0;
+
+			CPInstance cpInstance =
+				matchingCPDefinitionOptionValueRel.fetchCPInstance();
+
+			if (cpInstance != null) {
+				expectedCPInstanceId = cpInstance.getCPInstanceId();
+			}
+
+			Assert.assertEquals(
+				expectedCPInstanceId, commerceOptionValue.getCPInstanceId());
+
+			if (Objects.equals(
+					commerceOptionValue.getPriceType(),
+					CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+
+				Assert.assertEquals(
+					cpInstance.getPrice(), commerceOptionValue.getPrice());
+			}
+			else {
+				Assert.assertEquals(
+					matchingCPDefinitionOptionValueRel.getPrice(),
+					commerceOptionValue.getPrice());
+			}
+
+			Assert.assertEquals(
+				matchingCPDefinitionOptionValueRel.getKey(),
+				commerceOptionValue.getOptionValueKey());
+
+			Assert.assertEquals(
+				matchingCPDefinitionOptionValueRel.getQuantity(),
+				commerceOptionValue.getQuantity());
+		}
+	}
+
+	private String _getRandomCPDefinitionOptionValueRelsCombinationJSONString(
+			long cpDefinitionId)
+		throws PortalException {
+
+		List<CPDefinitionOptionValueRel> randomCPDefinitionOptionValueRels =
+			CPTestUtil.getRandomCPDefinitionOptionValueRels(cpDefinitionId);
+
+		StringBundler sb = new StringBundler();
+
+		sb.append(StringPool.OPEN_BRACKET);
+
+		Iterator<CPDefinitionOptionValueRel> iterator =
+			randomCPDefinitionOptionValueRels.iterator();
+
+		while (iterator.hasNext()) {
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+				iterator.next();
+
+			CPDefinitionOptionRel cpDefinitionOptionRel =
+				cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+			sb.append(
+				_toDDMFormRequestContentArrayElementFormat(
+					cpDefinitionOptionRel.getKey(),
+					cpDefinitionOptionValueRel.getKey()));
+
+			if (iterator.hasNext()) {
+				sb.append(StringPool.COMMA);
+			}
+		}
+
+		sb.append(StringPool.CLOSE_BRACKET);
+
+		return sb.toString();
+	}
 
 	private void _setupPermissionChecker() throws Exception {
 		User user = UserLocalServiceUtil.getUser(_commerceCatalog.getUserId());
 
 		PermissionThreadLocal.setPermissionChecker(
 			PermissionCheckerFactoryUtil.create(user));
+	}
+
+	private void _testToCommerceOptionValues(
+			String jsonString,
+			List<CommerceOptionValue> expectedCommerceOptionValues)
+		throws Exception {
+
+		List<CommerceOptionValue> commerceOptionValues =
+			_commerceOptionValueHelper.toCommerceOptionValues(jsonString);
+
+		Assert.assertEquals(
+			"Commerce option value entries count",
+			expectedCommerceOptionValues.size(), commerceOptionValues.size());
+
+		for (CommerceOptionValue commerceOptionValue : commerceOptionValues) {
+			CommerceOptionValue firstMatch = commerceOptionValue.getFirstMatch(
+				expectedCommerceOptionValues);
+
+			Assert.assertNotNull(
+				"CP definition option value must have match", firstMatch);
+
+			Assert.assertEquals(
+				firstMatch.getOptionKey(), commerceOptionValue.getOptionKey());
+			Assert.assertEquals(
+				firstMatch.getOptionValueKey(),
+				commerceOptionValue.getOptionValueKey());
+		}
+	}
+
+	private String _toDDMFormRequestContentArrayElementFormat(
+		String optionKey, String optionValueKey) {
+
+		return String.format(
+			"{\"key\":\"%s\", \"value\":[\"%s\"]}", optionKey, optionValueKey);
 	}
 
 	private CommerceCatalog _commerceCatalog;
