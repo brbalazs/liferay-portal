@@ -1192,6 +1192,7 @@ public class CommerceProductPriceCalculationTest {
 			CPTestUtil.getDefaultDDMFormFieldType(true), true);
 
 		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			_commerceCatalog.getGroupId(),
 			bundleCPDefinition.getCPDefinitionId(),
 			cpInstance1.getCPInstanceId(),
 			dynamicPriceTypeCPOption.getCPOptionId(),
@@ -1199,6 +1200,7 @@ public class CommerceProductPriceCalculationTest {
 			BigDecimal.valueOf(50), 1, true, true, _serviceContext);
 
 		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			_commerceCatalog.getGroupId(),
 			bundleCPDefinition.getCPDefinitionId(),
 			cpInstance2.getCPInstanceId(),
 			dynamicPriceTypeCPOption.getCPOptionId(),
@@ -1211,12 +1213,14 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel staticPriceTypeOptionValueRel1 =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(), 0,
 				staticPriceTypeCPOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				BigDecimal.valueOf(5), 1, true, true, _serviceContext);
 
 		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			_commerceCatalog.getGroupId(),
 			bundleCPDefinition.getCPDefinitionId(), 0,
 			staticPriceTypeCPOption.getCPOptionId(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
@@ -1229,7 +1233,7 @@ public class CommerceProductPriceCalculationTest {
 		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
 			_commerceCatalog.getGroupId(),
 			bundleCPDefinition.getCPDefinitionId(), 0,
-			nullPriceTypeCPOption.getCPOptionId(), null, null, 1, false, true,
+			nullPriceTypeCPOption.getCPOptionId(), null, null, 0, false, true,
 			_serviceContext);
 
 		_cpInstanceLocalService.buildCPInstances(
@@ -1288,6 +1292,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel bundleOptionValueRel =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(), 0,
 				bundleOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
@@ -1295,6 +1300,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel selectedBundleOptionValueRel =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(), 0,
 				bundleOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
@@ -1366,6 +1372,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel bundleOptionValueRel1 =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(), 0,
 				bundleOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
@@ -1373,6 +1380,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel bundleOptionValueRel2 =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(), 0,
 				bundleOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
@@ -1440,6 +1448,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel bundleOptionValueRel1 =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(),
 				cpInstance1.getCPInstanceId(), bundleOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
@@ -1447,6 +1456,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel bundleOptionValueRel2 =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(),
 				cpInstance2.getCPInstanceId(), bundleOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
@@ -1516,6 +1526,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel bundleOptionValueRel =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(),
 				cpInstance1.getCPInstanceId(), bundleOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
@@ -1523,6 +1534,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CPDefinitionOptionValueRel selectedBundleOptionValueRel =
 			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
 				bundleCPDefinition.getCPDefinitionId(),
 				cpInstance2.getCPInstanceId(), bundleOption.getCPOptionId(),
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,

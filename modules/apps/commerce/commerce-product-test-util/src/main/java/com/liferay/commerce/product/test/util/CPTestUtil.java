@@ -221,9 +221,9 @@ public class CPTestUtil {
 
 	public static CPDefinitionOptionValueRel
 			addCPDefinitionOptionValueRelWithPrice(
-				long cpDefinitionId, long cpInstanceId, long cpOptionId,
-				String priceType, BigDecimal price, int quantity,
-				boolean required, boolean skuContributor,
+				long groupId, long cpDefinitionId, long cpInstanceId,
+				long cpOptionId, String priceType, BigDecimal price,
+				int quantity, boolean required, boolean skuContributor,
 				ServiceContext serviceContext)
 		throws PortalException {
 
@@ -249,6 +249,13 @@ public class CPTestUtil {
 					RandomTestUtil.randomLocaleStringMap(),
 					RandomTestUtil.randomDouble(),
 					RandomTestUtil.randomString(), serviceContext);
+
+		if ((cpInstanceId == 0) && (priceType != null)) {
+			CPInstance cpInstance = addCPInstanceFromCatalog(
+				groupId, BigDecimal.valueOf(RandomTestUtil.randomInt()));
+
+			cpInstanceId = cpInstance.getCPInstanceId();
+		}
 
 		return CPDefinitionOptionValueRelLocalServiceUtil.
 			updateCPDefinitionOptionValueRel(
