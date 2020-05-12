@@ -1058,6 +1058,8 @@ public class CommerceOrderItemLocalServiceImpl
 		for (CommerceOrderItem childCommerceOrderItem :
 				childCommerceOrderItems) {
 
+			childCommerceOrderItem.setParentCommerceOrderItemId(0);
+
 			commerceOrderItemLocalService.deleteCommerceOrderItem(
 				childCommerceOrderItem);
 		}
