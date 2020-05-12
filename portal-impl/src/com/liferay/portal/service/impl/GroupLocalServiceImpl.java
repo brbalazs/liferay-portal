@@ -5130,15 +5130,15 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		}
 	}
 
-	protected void validateLanguageIds( long groupId,
-			String defaultLanguageId, String languageIds)
+	protected void validateLanguageIds(
+			long groupId, String defaultLanguageId, String languageIds)
 		throws PortalException {
 
 		String[] languageIdsArray = StringUtil.split(languageIds);
 
 		for (String languageId : languageIdsArray) {
-			if (!LanguageUtil.isAvailableLocale( groupId,
-					LocaleUtil.fromLanguageId(languageId))) {
+			if (!LanguageUtil.isAvailableLocale(
+					groupId, LocaleUtil.fromLanguageId(languageId))) {
 
 				LocaleException le = new LocaleException(
 					LocaleException.TYPE_DISPLAY_SETTINGS);
