@@ -608,8 +608,7 @@ public class JournalArticleExportImportContentProcessor
 		JournalArticleExportImportContentProcessor.class);
 
 	private static final Pattern _htmlCommentRegexPattern = Pattern.compile(
-		"\\<![ \\r\\n\\t]*(--([^\\-]|[\\r\\n]|-[^\\-])*--" +
-			"[ \\r\\n\\t]*)\\>");
+		"\\<!--([\\s\\S]*)--\\>");
 
 	@Reference(
 		target = "(model.class.name=com.liferay.dynamic.data.mapping.storage.DDMFormValues)"
