@@ -200,6 +200,24 @@ public class CPTestUtil {
 			0, serviceContext);
 	}
 
+	public static CPInstance addCPDefinitionCPInstanceWithPrice(
+			long cpDefinitionId,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			BigDecimal price)
+		throws PortalException {
+
+		CPInstance cpInstance = addCPDefinitionCPInstance(
+			cpDefinitionId,
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
+
+		cpInstance.setPrice(price);
+		cpInstance.setPromoPrice(BigDecimal.ZERO);
+		cpInstance.setCost(BigDecimal.ZERO);
+
+		return CPInstanceLocalServiceUtil.updateCPInstance(cpInstance);
+	}
+
 	public static CPDefinition addCPDefinitionFromCatalog(
 			long groupId, String productTypeName, boolean ignoreSKUCombinations,
 			boolean hasDefaultInstance)

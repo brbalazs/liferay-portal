@@ -68,7 +68,10 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.frutilla.FrutillaRule;
 
@@ -1264,6 +1267,76 @@ public class CommerceProductPriceCalculationTest {
 	}
 
 	@Test
+	public void testGetCPDefinitionMinimumPriceWithNonRequiredOption()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Calculate a minimum price of a product definition based on its " +
+				"options configuration"
+		).given(
+			"A product with a required and non-required, static priceType " +
+				"options"
+		).when(
+			"The minimum price of the product is calculated"
+		).then(
+			"Non required option value price should be ignored"
+		).and(
+			"the correct minimum price is returned"
+		);
+
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			false);
+
+		CPOption requiredCPOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			_commerceCatalog.getGroupId(),
+			bundleCPDefinition.getCPDefinitionId(), 0,
+			requiredCPOption.getCPOptionId(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+			BigDecimal.valueOf(50), 1, false, true, _serviceContext);
+
+		CPOption nonRequiredCPOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionValueRel requiredCPDefinitionOptionValueRel =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(),
+				bundleCPDefinition.getCPDefinitionId(), 0,
+				nonRequiredCPOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
+				BigDecimal.valueOf(100), 1, true, true, _serviceContext);
+
+		_cpInstanceLocalService.buildCPInstances(
+			bundleCPDefinition.getCPDefinitionId(), _serviceContext);
+
+		BigDecimal bundleCPInstanceMinPrice = BigDecimal.TEN;
+
+		_updateBundleCPInstancePrices(
+			bundleCPDefinition.getCPInstances(), bundleCPInstanceMinPrice);
+
+		CommerceMoney bundleMinimumPrice =
+			_commerceProductPriceCalculation.getCPDefinitionMinimumPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				new TestCommerceContext(
+					_commerceCurrency, null, _user, _group, _commerceAccount,
+					null));
+
+		BigDecimal expectedMinPrice = bundleCPInstanceMinPrice;
+
+		expectedMinPrice = expectedMinPrice.add(
+			requiredCPDefinitionOptionValueRel.getPrice());
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(expectedMinPrice),
+			CPTestUtil.stripTrailingZeros(bundleMinimumPrice.getPrice()));
+	}
+
+	@Test
 	public void testGetCPDefinitionOptionValueRelativePrice1()
 		throws Exception {
 
@@ -1271,15 +1344,17 @@ public class CommerceProductPriceCalculationTest {
 			"Calculate a relative price of a product option value in a " +
 				"product bundle"
 		).given(
-			"price-contributing static option, and two option values"
+			"Price-contributing static option, and two option values"
+		).and(
+			"each option value defines a SKU of a different price"
 		).and(
 			"one option value is selected in the UI"
 		).when(
 			"The relative price of the non-selected option value is calculated"
 		).and(
-			"The relative price of the selected option value is calculated"
+			"the relative price of the selected option value is calculated"
 		).then(
-			"The correct relative price is returned"
+			"The correct relative prices are returned"
 		);
 
 		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
@@ -1306,6 +1381,19 @@ public class CommerceProductPriceCalculationTest {
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
 
+		CPInstance selectedCPInstance =
+			CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+					selectedBundleOptionValueRel),
+				BigDecimal.valueOf(200));
+
+		CPInstance cpInstance = CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+			bundleCPDefinition.getCPDefinitionId(),
+			_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+				bundleOptionValueRel),
+			BigDecimal.valueOf(300));
+
 		CommerceProductOptionValueRelativePriceRequest.Builder builder =
 			new CommerceProductOptionValueRelativePriceRequest.Builder(
 				new TestCommerceContext(
@@ -1316,16 +1404,30 @@ public class CommerceProductPriceCalculationTest {
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.
 				getCPDefinitionOptionValueRelativePrice(
-					builder.selectedCPDefinitionOptionValueRel(
+					builder.cpInstanceId(
+						cpInstance.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).selectedCPInstanceId(
+						selectedCPInstance.getCPInstanceId()
+					).selectedCPInstanceMinQuantity(
+						1
+					).selectedCPDefinitionOptionValueRel(
 						selectedBundleOptionValueRel
 					).build());
 
 		BigDecimal bundleOptionValueRelPrice = bundleOptionValueRel.getPrice();
 
+		BigDecimal expectedRelativePrice = bundleOptionValueRelPrice.subtract(
+			selectedBundleOptionValueRel.getPrice());
+
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+
+		expectedRelativePrice = expectedRelativePrice.add(
+			cpInstancePrice.subtract(selectedCPInstance.getPrice()));
+
 		Assert.assertEquals(
-			CPTestUtil.stripTrailingZeros(
-				bundleOptionValueRelPrice.subtract(
-					selectedBundleOptionValueRel.getPrice())),
+			CPTestUtil.stripTrailingZeros(expectedRelativePrice),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 
 		builder = new CommerceProductOptionValueRelativePriceRequest.Builder(
@@ -1336,7 +1438,15 @@ public class CommerceProductPriceCalculationTest {
 		commerceMoney =
 			_commerceProductPriceCalculation.
 				getCPDefinitionOptionValueRelativePrice(
-					builder.selectedCPDefinitionOptionValueRel(
+					builder.cpInstanceId(
+						selectedCPInstance.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).selectedCPInstanceId(
+						selectedCPInstance.getCPInstanceId()
+					).selectedCPInstanceMinQuantity(
+						1
+					).selectedCPDefinitionOptionValueRel(
 						selectedBundleOptionValueRel
 					).build());
 
@@ -1353,13 +1463,15 @@ public class CommerceProductPriceCalculationTest {
 			"Calculate a relative price of a product option value in a " +
 				"product bundle"
 		).given(
-			"price-contributing static option, and two option values"
+			"Price-contributing static option, and two option values"
+		).and(
+			"each option value defines a SKU of a different price"
 		).and(
 			"no option value is selected in the UI"
 		).when(
-			"The relative price of the option value is calculated"
+			"The relative prices of the option values are calculated"
 		).then(
-			"The correct relative price is returned"
+			"The correct relative prices are returned"
 		);
 
 		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
@@ -1386,6 +1498,18 @@ public class CommerceProductPriceCalculationTest {
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
 
+		CPInstance cpInstance1 = CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+			bundleCPDefinition.getCPDefinitionId(),
+			_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+				bundleOptionValueRel1),
+			BigDecimal.valueOf(200));
+
+		CPInstance cpInstance2 = CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+			bundleCPDefinition.getCPDefinitionId(),
+			_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+				bundleOptionValueRel2),
+			BigDecimal.valueOf(300));
+
 		CommerceProductOptionValueRelativePriceRequest.Builder builder =
 			new CommerceProductOptionValueRelativePriceRequest.Builder(
 				new TestCommerceContext(
@@ -1395,10 +1519,18 @@ public class CommerceProductPriceCalculationTest {
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(builder.build());
+				getCPDefinitionOptionValueRelativePrice(
+					builder.cpInstanceId(
+						cpInstance1.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).build());
+
+		BigDecimal expectedRelativePrice = cpInstance1.getPrice();
 
 		Assert.assertEquals(
-			CPTestUtil.stripTrailingZeros(bundleOptionValueRel1.getPrice()),
+			CPTestUtil.stripTrailingZeros(
+				expectedRelativePrice.add(bundleOptionValueRel1.getPrice())),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 
 		builder = new CommerceProductOptionValueRelativePriceRequest.Builder(
@@ -1408,10 +1540,18 @@ public class CommerceProductPriceCalculationTest {
 
 		commerceMoney =
 			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(builder.build());
+				getCPDefinitionOptionValueRelativePrice(
+					builder.cpInstanceId(
+						cpInstance2.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).build());
+
+		expectedRelativePrice = cpInstance2.getPrice();
 
 		Assert.assertEquals(
-			CPTestUtil.stripTrailingZeros(bundleOptionValueRel2.getPrice()),
+			CPTestUtil.stripTrailingZeros(
+				expectedRelativePrice.add(bundleOptionValueRel2.getPrice())),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 	}
 
@@ -1423,13 +1563,15 @@ public class CommerceProductPriceCalculationTest {
 			"Calculate a relative price of a product option value in a " +
 				"product bundle"
 		).given(
-			"price-contributing dynamic option, and two option values"
+			"Price-contributing dynamic option, and two option values"
+		).and(
+			"each option value defines a SKU of a different price"
 		).and(
 			"no option value is selected in the UI"
 		).when(
-			"The relative price of the option value is calculated"
+			"The relative prices of the option values are calculated"
 		).then(
-			"The correct relative price is returned"
+			"The correct relative prices are returned"
 		);
 
 		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
@@ -1462,6 +1604,20 @@ public class CommerceProductPriceCalculationTest {
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
 				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
 
+		CPInstance bundleCPInstance1 =
+			CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+					bundleOptionValueRel1),
+				BigDecimal.valueOf(200));
+
+		CPInstance bundleCPInstance2 =
+			CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+					bundleOptionValueRel2),
+				BigDecimal.valueOf(300));
+
 		CommerceProductOptionValueRelativePriceRequest.Builder builder =
 			new CommerceProductOptionValueRelativePriceRequest.Builder(
 				new TestCommerceContext(
@@ -1471,10 +1627,18 @@ public class CommerceProductPriceCalculationTest {
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(builder.build());
+				getCPDefinitionOptionValueRelativePrice(
+					builder.cpInstanceId(
+						bundleCPInstance1.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).build());
+
+		BigDecimal expectedRelativePrice = cpInstance1.getPrice();
 
 		Assert.assertEquals(
-			CPTestUtil.stripTrailingZeros(cpInstance1.getPrice()),
+			CPTestUtil.stripTrailingZeros(
+				expectedRelativePrice.add(bundleCPInstance1.getPrice())),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 
 		builder = new CommerceProductOptionValueRelativePriceRequest.Builder(
@@ -1484,10 +1648,18 @@ public class CommerceProductPriceCalculationTest {
 
 		commerceMoney =
 			_commerceProductPriceCalculation.
-				getCPDefinitionOptionValueRelativePrice(builder.build());
+				getCPDefinitionOptionValueRelativePrice(
+					builder.cpInstanceId(
+						bundleCPInstance2.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).build());
+
+		expectedRelativePrice = cpInstance2.getPrice();
 
 		Assert.assertEquals(
-			CPTestUtil.stripTrailingZeros(cpInstance2.getPrice()),
+			CPTestUtil.stripTrailingZeros(
+				expectedRelativePrice.add(bundleCPInstance2.getPrice())),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 	}
 
@@ -1499,7 +1671,9 @@ public class CommerceProductPriceCalculationTest {
 			"Calculate a relative price of a product option value in a " +
 				"product bundle"
 		).given(
-			"price-contributing dynamic option, and two option values"
+			"Price-contributing dynamic option, and two option values"
+		).and(
+			"each option value defines a SKU of a different price"
 		).and(
 			"one option value is selected in the UI"
 		).when(
@@ -1507,7 +1681,7 @@ public class CommerceProductPriceCalculationTest {
 		).and(
 			"The relative price of the selected option value is calculated"
 		).then(
-			"The correct relative price is returned"
+			"The correct relative prices are returned"
 		);
 
 		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
@@ -1540,6 +1714,20 @@ public class CommerceProductPriceCalculationTest {
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
 				BigDecimal.valueOf(100), 1, false, true, _serviceContext);
 
+		CPInstance selectedBundleCPInstance =
+			CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+					selectedBundleOptionValueRel),
+				BigDecimal.valueOf(200));
+
+		CPInstance bundleCPInstance =
+			CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+				bundleCPDefinition.getCPDefinitionId(),
+				_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+					bundleOptionValueRel),
+				BigDecimal.valueOf(300));
+
 		CommerceProductOptionValueRelativePriceRequest.Builder builder =
 			new CommerceProductOptionValueRelativePriceRequest.Builder(
 				new TestCommerceContext(
@@ -1550,15 +1738,31 @@ public class CommerceProductPriceCalculationTest {
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.
 				getCPDefinitionOptionValueRelativePrice(
-					builder.selectedCPDefinitionOptionValueRel(
+					builder.cpInstanceId(
+						bundleCPInstance.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).selectedCPDefinitionOptionValueRel(
 						selectedBundleOptionValueRel
+					).selectedCPInstanceId(
+						selectedBundleCPInstance.getCPInstanceId()
+					).selectedCPInstanceMinQuantity(
+						1
 					).build());
 
-		BigDecimal cpInstance1Price = cpInstance1.getPrice();
+		BigDecimal optionValuePrice = cpInstance1.getPrice();
+		BigDecimal selectedOptionValuePrice = cpInstance2.getPrice();
+
+		BigDecimal expectedRelativePrice = optionValuePrice.subtract(
+			selectedOptionValuePrice);
+
+		BigDecimal bundleCPInstancePrice = bundleCPInstance.getPrice();
 
 		Assert.assertEquals(
 			CPTestUtil.stripTrailingZeros(
-				cpInstance1Price.subtract(cpInstance2.getPrice())),
+				expectedRelativePrice.add(
+					bundleCPInstancePrice.subtract(
+						selectedBundleCPInstance.getPrice()))),
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 
 		builder = new CommerceProductOptionValueRelativePriceRequest.Builder(
@@ -1569,7 +1773,15 @@ public class CommerceProductPriceCalculationTest {
 		commerceMoney =
 			_commerceProductPriceCalculation.
 				getCPDefinitionOptionValueRelativePrice(
-					builder.selectedCPDefinitionOptionValueRel(
+					builder.cpInstanceId(
+						selectedBundleCPInstance.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).selectedCPInstanceId(
+						selectedBundleCPInstance.getCPInstanceId()
+					).selectedCPInstanceMinQuantity(
+						1
+					).selectedCPDefinitionOptionValueRel(
 						selectedBundleOptionValueRel
 					).build());
 
@@ -1580,6 +1792,20 @@ public class CommerceProductPriceCalculationTest {
 
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
+
+	private Map<Long, List<Long>>
+		_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel) {
+
+		Map<Long, List<Long>> map = new HashMap<>();
+
+		map.put(
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+			Arrays.asList(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId()));
+
+		return map;
+	}
 
 	private void _updateBundleCPInstancePrices(
 		List<CPInstance> cpInstances, BigDecimal minPrice) {
