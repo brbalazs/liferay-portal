@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class AccountRole implements Cloneable {
 
+	public static AccountRole toDTO(String json) {
+		return AccountRoleSerDes.toDTO(json);
+	}
+
 	public Map<String, String> getDescription() {
 		return description;
 	}

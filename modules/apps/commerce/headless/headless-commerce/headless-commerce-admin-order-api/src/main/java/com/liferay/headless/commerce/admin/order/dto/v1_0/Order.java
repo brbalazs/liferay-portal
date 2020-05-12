@@ -22,6 +22,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -55,6 +56,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Schema(requiredProperties = {"channelId", "currencyCode"})
 @XmlRootElement(name = "Order")
 public class Order {
+
+	public static Order toDTO(String json) {
+		return ObjectMapperUtil.readValue(Order.class, json);
+	}
 
 	@Schema
 	public String getAccountExternalReferenceCode() {

@@ -22,6 +22,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -49,6 +50,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Schema(requiredProperties = {"key", "name"})
 @XmlRootElement(name = "OptionValue")
 public class OptionValue {
+
+	public static OptionValue toDTO(String json) {
+		return ObjectMapperUtil.readValue(OptionValue.class, json);
+	}
 
 	@Schema
 	public String getExternalReferenceCode() {

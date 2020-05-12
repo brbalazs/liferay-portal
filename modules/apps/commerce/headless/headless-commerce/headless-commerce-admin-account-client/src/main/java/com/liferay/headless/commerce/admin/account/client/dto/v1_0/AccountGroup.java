@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class AccountGroup implements Cloneable {
 
+	public static AccountGroup toDTO(String json) {
+		return AccountGroupSerDes.toDTO(json);
+	}
+
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}

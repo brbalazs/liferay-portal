@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class OptionCategory implements Cloneable {
 
+	public static OptionCategory toDTO(String json) {
+		return OptionCategorySerDes.toDTO(json);
+	}
+
 	public Map<String, String> getDescription() {
 		return description;
 	}

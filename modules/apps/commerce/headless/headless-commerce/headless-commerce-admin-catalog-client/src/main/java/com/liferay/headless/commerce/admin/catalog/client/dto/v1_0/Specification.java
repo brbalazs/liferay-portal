@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Specification implements Cloneable {
 
+	public static Specification toDTO(String json) {
+		return SpecificationSerDes.toDTO(json);
+	}
+
 	public Map<String, String> getDescription() {
 		return description;
 	}

@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class OrderNote implements Cloneable {
 
+	public static OrderNote toDTO(String json) {
+		return OrderNoteSerDes.toDTO(json);
+	}
+
 	public String getAuthor() {
 		return author;
 	}

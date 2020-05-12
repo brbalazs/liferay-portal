@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class ProductConfiguration implements Cloneable {
 
+	public static ProductConfiguration toDTO(String json) {
+		return ProductConfigurationSerDes.toDTO(json);
+	}
+
 	public Boolean getAllowBackOrder() {
 		return allowBackOrder;
 	}

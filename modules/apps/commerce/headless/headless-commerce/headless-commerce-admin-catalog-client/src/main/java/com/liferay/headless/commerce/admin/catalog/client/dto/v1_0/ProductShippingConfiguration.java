@@ -30,6 +30,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class ProductShippingConfiguration implements Cloneable {
 
+	public static ProductShippingConfiguration toDTO(String json) {
+		return ProductShippingConfigurationSerDes.toDTO(json);
+	}
+
 	public BigDecimal getDepth() {
 		return depth;
 	}

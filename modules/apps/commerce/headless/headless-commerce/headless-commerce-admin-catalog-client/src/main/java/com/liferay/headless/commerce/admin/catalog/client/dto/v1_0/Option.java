@@ -29,36 +29,8 @@ import javax.annotation.Generated;
 @Generated("")
 public class Option implements Cloneable {
 
-	public static enum FieldType {
-
-		CHECKBOX("checkbox"), CHECKBOX_MULTIPLE("checkbox_multiple"),
-		DATE("date"), NUMERIC("numeric"), RADIO("radio"), SELECT("select");
-
-		public static FieldType create(String value) {
-			for (FieldType fieldType : values()) {
-				if (Objects.equals(fieldType.getValue(), value)) {
-					return fieldType;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private FieldType(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static Option toDTO(String json) {
+		return OptionSerDes.toDTO(json);
 	}
 
 	public Long getCatalogId() {
@@ -347,6 +319,38 @@ public class Option implements Cloneable {
 
 	public String toString() {
 		return OptionSerDes.toJSON(this);
+	}
+
+	public static enum FieldType {
+
+		CHECKBOX("checkbox"), CHECKBOX_MULTIPLE("checkbox_multiple"),
+		DATE("date"), NUMERIC("numeric"), RADIO("radio"), SELECT("select");
+
+		public static FieldType create(String value) {
+			for (FieldType fieldType : values()) {
+				if (Objects.equals(fieldType.getValue(), value)) {
+					return fieldType;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private FieldType(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

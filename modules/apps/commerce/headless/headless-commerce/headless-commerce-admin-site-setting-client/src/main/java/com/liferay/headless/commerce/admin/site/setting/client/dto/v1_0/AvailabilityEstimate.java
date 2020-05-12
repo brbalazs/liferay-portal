@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class AvailabilityEstimate implements Cloneable {
 
+	public static AvailabilityEstimate toDTO(String json) {
+		return AvailabilityEstimateSerDes.toDTO(json);
+	}
+
 	public Long getGroupId() {
 		return groupId;
 	}

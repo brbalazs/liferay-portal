@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class WarehouseItem implements Cloneable {
 
+	public static WarehouseItem toDTO(String json) {
+		return WarehouseItemSerDes.toDTO(json);
+	}
+
 	public String getExternalReferenceCode() {
 		return externalReferenceCode;
 	}

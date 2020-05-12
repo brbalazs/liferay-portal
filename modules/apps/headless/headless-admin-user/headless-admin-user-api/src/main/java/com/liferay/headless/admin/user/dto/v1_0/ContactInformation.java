@@ -22,6 +22,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -45,6 +46,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonFilter("Liferay.Vulcan")
 @XmlRootElement(name = "ContactInformation")
 public class ContactInformation {
+
+	public static ContactInformation toDTO(String json) {
+		return ObjectMapperUtil.readValue(ContactInformation.class, json);
+	}
 
 	@Schema(
 		description = "A list of the user's email addresses, with one optionally marked as primary."

@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Warehouse implements Cloneable {
 
+	public static Warehouse toDTO(String json) {
+		return WarehouseSerDes.toDTO(json);
+	}
+
 	public Boolean getActive() {
 		return active;
 	}

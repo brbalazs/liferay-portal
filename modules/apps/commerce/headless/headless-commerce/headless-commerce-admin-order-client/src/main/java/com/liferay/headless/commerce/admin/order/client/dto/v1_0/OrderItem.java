@@ -32,6 +32,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class OrderItem implements Cloneable {
 
+	public static OrderItem toDTO(String json) {
+		return OrderItemSerDes.toDTO(json);
+	}
+
 	public Long getBookedQuantityId() {
 		return bookedQuantityId;
 	}

@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class OptionValue implements Cloneable {
 
+	public static OptionValue toDTO(String json) {
+		return OptionValueSerDes.toDTO(json);
+	}
+
 	public String getExternalReferenceCode() {
 		return externalReferenceCode;
 	}

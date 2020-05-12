@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class TaxCategory implements Cloneable {
 
+	public static TaxCategory toDTO(String json) {
+		return TaxCategorySerDes.toDTO(json);
+	}
+
 	public Map<String, String> getDescription() {
 		return description;
 	}

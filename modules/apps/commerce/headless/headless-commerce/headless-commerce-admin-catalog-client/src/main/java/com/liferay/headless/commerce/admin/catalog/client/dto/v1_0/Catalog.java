@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Catalog implements Cloneable {
 
+	public static Catalog toDTO(String json) {
+		return CatalogSerDes.toDTO(json);
+	}
+
 	public Map<String, Map<String, String>> getActions() {
 		return actions;
 	}

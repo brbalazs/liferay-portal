@@ -30,6 +30,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class AttachmentUrl implements Cloneable {
 
+	public static AttachmentUrl toDTO(String json) {
+		return AttachmentUrlSerDes.toDTO(json);
+	}
+
 	public Date getDisplayDate() {
 		return displayDate;
 	}

@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class AccountMember implements Cloneable {
 
+	public static AccountMember toDTO(String json) {
+		return AccountMemberSerDes.toDTO(json);
+	}
+
 	public Long getAccountId() {
 		return accountId;
 	}

@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class MeasurementUnit implements Cloneable {
 
+	public static MeasurementUnit toDTO(String json) {
+		return MeasurementUnitSerDes.toDTO(json);
+	}
+
 	public Long getGroupId() {
 		return groupId;
 	}

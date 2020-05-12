@@ -22,6 +22,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -51,6 +52,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Schema(requiredProperties = {"sku"})
 @XmlRootElement(name = "Attachment")
 public class Attachment {
+
+	public static Attachment toDTO(String json) {
+		return ObjectMapperUtil.readValue(Attachment.class, json);
+	}
 
 	@Schema(description = "Base64 encoded file")
 	public String getAttachment() {

@@ -32,6 +32,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Order implements Cloneable {
 
+	public static Order toDTO(String json) {
+		return OrderSerDes.toDTO(json);
+	}
+
 	public String getAccountExternalReferenceCode() {
 		return accountExternalReferenceCode;
 	}

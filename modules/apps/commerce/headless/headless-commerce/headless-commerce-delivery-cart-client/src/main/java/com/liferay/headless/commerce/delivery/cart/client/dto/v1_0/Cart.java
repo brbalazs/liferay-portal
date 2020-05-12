@@ -30,6 +30,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Cart implements Cloneable {
 
+	public static Cart toDTO(String json) {
+		return CartSerDes.toDTO(json);
+	}
+
 	public String getAccount() {
 		return account;
 	}

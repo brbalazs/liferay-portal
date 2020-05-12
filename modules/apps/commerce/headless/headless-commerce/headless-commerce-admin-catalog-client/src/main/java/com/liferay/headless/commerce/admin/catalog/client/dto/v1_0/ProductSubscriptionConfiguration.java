@@ -29,35 +29,8 @@ import javax.annotation.Generated;
 @Generated("")
 public class ProductSubscriptionConfiguration implements Cloneable {
 
-	public static enum SubscriptionType {
-
-		DAY("day"), MONTH("month"), WEEK("week"), YEAR("year");
-
-		public static SubscriptionType create(String value) {
-			for (SubscriptionType subscriptionType : values()) {
-				if (Objects.equals(subscriptionType.getValue(), value)) {
-					return subscriptionType;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private SubscriptionType(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static ProductSubscriptionConfiguration toDTO(String json) {
+		return ProductSubscriptionConfigurationSerDes.toDTO(json);
 	}
 
 	public Boolean getEnable() {
@@ -211,6 +184,37 @@ public class ProductSubscriptionConfiguration implements Cloneable {
 
 	public String toString() {
 		return ProductSubscriptionConfigurationSerDes.toJSON(this);
+	}
+
+	public static enum SubscriptionType {
+
+		DAY("day"), MONTH("month"), WEEK("week"), YEAR("year");
+
+		public static SubscriptionType create(String value) {
+			for (SubscriptionType subscriptionType : values()) {
+				if (Objects.equals(subscriptionType.getValue(), value)) {
+					return subscriptionType;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private SubscriptionType(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Body implements Cloneable {
 
+	public static Body toDTO(String json) {
+		return BodySerDes.toDTO(json);
+	}
+
 	public String getLogo() {
 		return logo;
 	}
