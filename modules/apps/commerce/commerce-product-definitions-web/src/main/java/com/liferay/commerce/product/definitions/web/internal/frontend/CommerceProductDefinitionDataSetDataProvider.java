@@ -111,6 +111,16 @@ public class CommerceProductDefinitionDataSetDataProvider
 
 					statusDisplayStyle = "success";
 				}
+				else if (cpDefinition.getStatus() ==
+							WorkflowConstants.STATUS_DRAFT) {
+
+					statusDisplayStyle = "secondary";
+				}
+				else if (cpDefinition.getStatus() ==
+							WorkflowConstants.STATUS_EXPIRED) {
+
+					statusDisplayStyle = "danger";
+				}
 
 				products.add(
 					new Product(
