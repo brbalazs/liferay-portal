@@ -106,7 +106,7 @@ public abstract class BaseCommerceProductPriceCalculation
 
 		_validate(
 			commerceProductOptionValueRelativePriceRequest.
-				getCpDefinitionOptionValueRel(),
+				getCPDefinitionOptionValueRel(),
 			commerceProductOptionValueRelativePriceRequest.
 				getSelectedCPDefinitionOptionValueRel());
 
@@ -118,9 +118,9 @@ public abstract class BaseCommerceProductPriceCalculation
 		relativePrice = relativePrice.add(
 			_getCPInstancePriceDifference(
 				commerceProductOptionValueRelativePriceRequest.
-					getCpInstanceId(),
+					getCPInstanceId(),
 				commerceProductOptionValueRelativePriceRequest.
-					getCpInstanceMinQuantity(),
+					getCPInstanceMinQuantity(),
 				commerceProductOptionValueRelativePriceRequest.
 					getSelectedCPInstanceId(),
 				commerceProductOptionValueRelativePriceRequest.
@@ -130,7 +130,7 @@ public abstract class BaseCommerceProductPriceCalculation
 		relativePrice = relativePrice.add(
 			_getCPDefinitionOptionValuePriceDifference(
 				commerceProductOptionValueRelativePriceRequest.
-					getCpDefinitionOptionValueRel(),
+					getCPDefinitionOptionValueRel(),
 				commerceProductOptionValueRelativePriceRequest.
 					getSelectedCPDefinitionOptionValueRel(),
 				commerceContext));

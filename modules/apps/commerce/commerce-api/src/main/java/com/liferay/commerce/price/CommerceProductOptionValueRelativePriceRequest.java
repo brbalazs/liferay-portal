@@ -26,15 +26,15 @@ public class CommerceProductOptionValueRelativePriceRequest {
 		return _commerceContext;
 	}
 
-	public CPDefinitionOptionValueRel getCpDefinitionOptionValueRel() {
+	public CPDefinitionOptionValueRel getCPDefinitionOptionValueRel() {
 		return _cpDefinitionOptionValueRel;
 	}
 
-	public long getCpInstanceId() {
+	public long getCPInstanceId() {
 		return _cpInstanceId;
 	}
 
-	public int getCpInstanceMinQuantity() {
+	public int getCPInstanceMinQuantity() {
 		return _cpInstanceMinQuantity;
 	}
 
