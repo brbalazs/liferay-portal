@@ -12,12 +12,7 @@
  * details.
  */
 
+/* eslint-disable */
 module.exports = {
-	globals: {
-		global: true,
-	},
-	rules: {
-		'liferay-portal/no-global-fetch': 'off',
-		'liferay-portal/no-react-dom-render': 'off',
-	},
+	presets: ['@babel/preset-env', '@babel/preset-react'],
 };
