@@ -4068,8 +4068,6 @@ public class CPDefinitionOptionRelPersistenceImpl
 		"(cpDefinitionOptionRel.key IS NULL OR cpDefinitionOptionRel.key = '')";
 
 	public CPDefinitionOptionRelPersistenceImpl() {
-		setModelClass(CPDefinitionOptionRel.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -4088,6 +4086,8 @@ public class CPDefinitionOptionRelPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(CPDefinitionOptionRel.class);
 	}
 
 	/**
