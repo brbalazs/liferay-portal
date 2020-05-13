@@ -1105,6 +1105,24 @@ definition {
 			searchTerm = "Apple"
 		);
 
+		SearchFacetPortlet.updateFacetConfiguration(
+			maxTerms = "2",
+			portletName = "Site Facet");
+
+		Refresh();
+
+		AssertElementPresent(
+			key_fieldName = "Site Name 1",
+			locator1 = "FormFields#CHECKBOX_LABEL");
+
+		AssertElementPresent(
+			key_fieldName = "Site Name 2",
+			locator1 = "FormFields#CHECKBOX_LABEL");
+
+		AssertElementNotPresent(
+			key_fieldName = "Site Name 3",
+			locator1 = "FormFields#CHECKBOX_LABEL");
+
 		SearchPortlets.selectEmbeddedScopeInput(searchScope = "This Site");
 
 		SearchPortlets.searchEmbedded(searchTerm = "Apple");
