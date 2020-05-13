@@ -397,15 +397,12 @@ public class DDMHelperImpl implements DDMHelper {
 		CPDefinitionOptionRel cpDefinitionOptionRel,
 		boolean ignoreSKUCombinations, boolean publicStore) {
 
-		if (_isIterableCPDefinitionOptionRelFieldType(cpDefinitionOptionRel)) {
-			int cpDefinitionOptionValueRelsCount =
-				_cpDefinitionOptionValueRelLocalService.
-					getCPDefinitionOptionValueRelsCount(
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId());
+		if (_isIterableCPDefinitionOptionRelFieldType(cpDefinitionOptionRel) &&
+			!_cpDefinitionOptionValueRelLocalService.
+				hasCPDefinitionOptionValueRels(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId())) {
 
-			if (cpDefinitionOptionValueRelsCount == 0) {
-				return false;
-			}
+			return false;
 		}
 
 		if (ignoreSKUCombinations) {
