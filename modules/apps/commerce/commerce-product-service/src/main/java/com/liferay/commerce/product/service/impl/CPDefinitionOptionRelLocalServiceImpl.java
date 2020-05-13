@@ -16,6 +16,7 @@ package com.liferay.commerce.product.service.impl;
 
 import com.liferay.commerce.product.configuration.CPOptionConfiguration;
 import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.exception.CPDefinitionOptionRelPriceTypeException;
 import com.liferay.commerce.product.exception.CPDefinitionOptionSKUContributorException;
 import com.liferay.commerce.product.exception.DuplicateCPDefinitionOptionRelKeyException;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -67,6 +68,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -146,6 +148,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		CPOption cpOption = cpOptionLocalService.getCPOption(cpOptionId);
 
 		validateCPDefinitionOptionKey(cpDefinitionId, cpOption.getKey());
+
+		_validatePriceType(cpDefinitionOptionRel, priceType);
 
 		cpDefinitionOptionRel.setGroupId(groupId);
 		cpDefinitionOptionRel.setCompanyId(user.getCompanyId());
@@ -622,6 +626,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			cpDefinitionOptionRelPersistence.findByPrimaryKey(
 				cpDefinitionOptionRelId);
 
+		_validatePriceType(cpDefinitionOptionRel, priceType);
+
 		if (cpDefinitionLocalService.isVersionable(
 				cpDefinitionOptionRel.getCPDefinitionId(),
 				serviceContext.getRequest())) {
@@ -848,6 +854,32 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		}
 
 		return false;
+	}
+
+	private void _validatePriceType(
+			CPDefinitionOptionRel cpDefinitionOptionRel, String priceType)
+		throws PortalException {
+
+		if (cpDefinitionOptionRel.isNew() ||
+			Validator.isNull(cpDefinitionOptionRel.getPriceType())) {
+
+			return;
+		}
+
+		if (!cpDefinitionOptionValueRelLocalService.
+				hasCPDefinitionOptionValueRels(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId())) {
+
+			return;
+		}
+
+		if (Objects.equals(
+				priceType, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+			return;
+		}
+
+		throw new CPDefinitionOptionRelPriceTypeException();
 	}
 
 	private static final String[] _SELECTED_FIELD_NAMES = {
