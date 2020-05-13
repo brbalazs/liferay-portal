@@ -295,6 +295,14 @@ public class CPTestUtil {
 			long groupId, int priceableOptionsCount)
 		throws Exception {
 
+		return addCPDefinitionWithChildCPDefinitions(
+			groupId, priceableOptionsCount, null);
+	}
+
+	public static CPDefinition addCPDefinitionWithChildCPDefinitions(
+			long groupId, int priceableOptionsCount, String priceType)
+		throws Exception {
+
 		CPDefinition bundleCPDefinition = addCPDefinitionFromCatalog(
 			groupId, SimpleCPTypeConstants.NAME, true, true);
 
@@ -302,12 +310,26 @@ public class CPTestUtil {
 			List<CPInstance> cpInstances = _getSimpleCPDefinitionCPInstances(
 				groupId, RandomTestUtil.randomInt(2, 5));
 
+			if (Validator.isNull(priceType)) {
+				_toPriceableCPDefinitionOptionValueRels(
+					groupId, bundleCPDefinition, _getRandomPriceType(),
+					cpInstances);
+
+				continue;
+			}
+
 			_toPriceableCPDefinitionOptionValueRels(
-				groupId, bundleCPDefinition, _getRandomPriceType(),
-				cpInstances);
+				groupId, bundleCPDefinition, priceType, cpInstances);
 		}
 
 		return bundleCPDefinition;
+	}
+
+	public static CPDefinition addCPDefinitionWithChildCPDefinitions(
+			long groupId, String priceType)
+		throws Exception {
+
+		return addCPDefinitionWithChildCPDefinitions(groupId, 1, priceType);
 	}
 
 	public static CPInstance addCPInstance() throws PortalException {
