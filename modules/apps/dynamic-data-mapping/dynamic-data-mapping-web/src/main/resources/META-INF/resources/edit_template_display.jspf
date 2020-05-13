@@ -51,7 +51,7 @@ if (Validator.isNotNull(scriptContent)) {
 							<%
 							long templateHandlerClassNameId = ddmDisplay.getTemplateHandlerClassNameId(template, classNameId);
 
-							Map<String, TemplateVariableGroup> templateVariableGroups = new HashMap<String, TemplateVariableGroup>();
+							Map<String, TemplateVariableGroup> templateVariableGroups = null;
 
 							if (structure == null) {
 								templateVariableGroups = TemplateContextHelper.getTemplateVariableGroups(templateHandlerClassNameId, redirectID, language, locale);
