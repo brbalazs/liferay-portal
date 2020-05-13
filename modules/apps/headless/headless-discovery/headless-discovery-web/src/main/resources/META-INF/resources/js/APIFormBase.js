@@ -128,6 +128,7 @@ const formikAPIForm = withFormik({
 		const {
 			baseURL,
 			contentType,
+			headers,
 			method,
 			methodData,
 			onResponse,
@@ -164,7 +165,8 @@ const formikAPIForm = withFormik({
 				if (process.env.NODE_ENV === 'development') {
 					console.error(err);
 				}
-			});
+			}
+		);
 	},
 	mapPropsToValues: ({methodData, schema}) => {
 		const {operationId, parameters} = methodData;
