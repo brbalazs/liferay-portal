@@ -193,6 +193,37 @@ public class FaroWebDriverImpl
 	}
 
 	/**
+	 * Gets the Property ID from the current URL
+	 *
+	 * @return returns the Property ID as a String
+	 * @throws Exception
+	 */
+	@Override
+	public String getPropertiesIdFromURL() throws Exception {
+		String url = getCurrentUrl();
+
+		Matcher matcher = _propertyIdPattern.matcher(url);
+
+		String propertyId;
+
+		if (matcher.find()) {
+			propertyId = matcher.group(2);
+		}
+		else {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append("Unable to find a workspace ID matching regex pattern ");
+			sb.append(_propertyIdPattern.toString());
+			sb.append(" in the following URL: ");
+			sb.append(url);
+
+			throw new Exception(sb.toString());
+		}
+
+		return propertyId;
+	}
+
+	/**
 	 * Gets the Workspace ID from the current URL.
 	 *
 	 * @return returns the Workspace ID as a String
@@ -539,6 +570,8 @@ public class FaroWebDriverImpl
 		return text.contains(pattern);
 	}
 
+	private static Pattern _propertyIdPattern = Pattern.compile(
+		".*workspace/(\\d+)/(\\d+).*");
 	private static Pattern _workspaceIdPattern = Pattern.compile(
 		".*workspace/(\\d+).*");
 

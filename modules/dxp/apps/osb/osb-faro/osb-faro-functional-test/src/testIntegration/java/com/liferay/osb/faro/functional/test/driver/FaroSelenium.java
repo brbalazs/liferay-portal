@@ -45,6 +45,8 @@ public interface FaroSelenium extends LiferaySelenium, WebDriver {
 
 	public String getIdFromURL() throws Exception;
 
+	public String getPropertiesIdFromURL() throws Exception;
+
 	public String getWorkspaceIdFromURL() throws Exception;
 
 	public void refreshUntilElementNotPresent(

@@ -80,8 +80,16 @@ public class FaroPagePool {
 		return _projectId;
 	}
 
+	public static String getPropertyId() {
+		return _propertyId;
+	}
+
 	public static void setProjectId(String projectId) {
 		_projectId = projectId;
+	}
+
+	public static void setPropertyId(String propertyId) {
+		_propertyId = propertyId;
 	}
 
 	/**
@@ -132,5 +140,6 @@ public class FaroPagePool {
 	}
 
 	private static String _projectId;
+	private static String _propertyId;
 
 }
