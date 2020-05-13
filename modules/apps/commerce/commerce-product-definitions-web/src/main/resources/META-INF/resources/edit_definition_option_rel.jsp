@@ -37,6 +37,7 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 		<aui:input name="cpDefinitionOptionRelId" type="hidden" value="<%= String.valueOf(cpDefinitionOptionRelId) %>" />
 		<aui:input name="cpOptionId" type="hidden" value="<%= cpDefinitionOptionRel.getCPOptionId() %>" />
 
+		<liferay-ui:error exception="<%= CPDefinitionOptionRelPriceTypeException.class %>" message="price-type-cannot-be-changed-for-the-current-option-value-setup" />
 		<liferay-ui:error exception="<%= CPDefinitionOptionSKUContributorException.class %>" message="sku-contributor-cannot-be-set-as-true-for-the-selected-field-type" />
 
 		<aui:model-context bean="<%= cpDefinitionOptionRel %>" model="<%= CPDefinitionOptionRel.class %>" />
