@@ -1,6 +1,6 @@
 # Faro
 
-[![Build Status](https://travis-ci.com/liferay/com-liferay-osb-faro-private.svg?token=cQeWjid1cpRYk3gndMUT&branch=7.0.x-private)](https://travis-ci.com/liferay/com-liferay-osb-faro-private)
+[![Build Status](https://travis-ci.com/liferay/com-liferay-osb-faro-private.svg?token=cQeWjid1cpRYk3gndMUT&branch=7.1.x)](https://travis-ci.com/liferay/com-liferay-osb-faro-private)
 
 ## Prerequisites
 

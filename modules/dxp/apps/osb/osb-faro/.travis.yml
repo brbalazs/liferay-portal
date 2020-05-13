@@ -5,7 +5,7 @@ jdk: oraclejdk8
 jobs:
     include:
         - stage: push docker image
-          if: branch = 7.1.x-private AND type = push
+          if: branch = 7.1.x AND type = push
           script: ./gradlew pushAppDockerImage -Pcom.liferay.osb.faro.environment.name=asah-local
         - stage: source formatting checks
           script: ./gradlew packageRunLint checkSourceFormatting pmdMain pmdTest pmdTestIntegration
