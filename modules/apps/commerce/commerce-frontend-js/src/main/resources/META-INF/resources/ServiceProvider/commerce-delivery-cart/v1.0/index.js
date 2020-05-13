@@ -12,17 +12,5 @@
  * details.
  */
 
-import Headless from '../Headless/index';
-import {isFormElement, toJSON} from './formsHelper';
-
-export function apiSubmit(formElement, API_URL = null) {
-	if (isFormElement(formElement)) {
-		const jsonData = toJSON(new FormData(formElement));
-
-		return Headless.POST(API_URL, jsonData);
-	}
-
-	return Promise.reject(new Error('Not a form.'));
-}
-
-export default {apiSubmit};
+export {default as cartAPI} from './Cart';
+export {default as cartItemAPI} from './CartItem';

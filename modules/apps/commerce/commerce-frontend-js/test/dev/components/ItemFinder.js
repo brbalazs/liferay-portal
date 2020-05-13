@@ -18,10 +18,6 @@ import slugify from '../../../src/main/resources/META-INF/resources/utilities/sl
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 import {showErrorNotification} from '../../../src/main/resources/META-INF/resources/utilities/notifications';
 
-const themeDisplay = {
-	getLanguageId: () => 'en_US'
-};
-
 const headers = new Headers({
 	Accept: 'application/json',
 	Authorization: 'Basic ' + btoa('test@liferay.com' + ':' + 'test'),
@@ -42,7 +38,7 @@ function selectItem(specification) {
 				specificationId: specification.id,
 				specificationKey: specification.key,
 				value: {
-					[themeDisplay.getLanguageId()]: name
+					[Liferay.ThemeDisplay.getLanguageId()]: name
 				}
 			}),
 			credentials: 'include',
@@ -57,7 +53,7 @@ function addNewItem(name) {
 		body: JSON.stringify({
 			key: slugify(name),
 			title: {
-				[themeDisplay.getLanguageId()]: name
+				[Liferay.ThemeDisplay.getLanguageId()]: name
 			}
 		}),
 		credentials: 'include',

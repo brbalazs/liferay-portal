@@ -12,17 +12,13 @@
  * details.
  */
 
-import Headless from '../Headless/index';
-import {isFormElement, toJSON} from './formsHelper';
+export function checkImageSource(source) {
+	return new Promise(resolve => {
+		const imageElement = window.document.createElement('img');
 
-export function apiSubmit(formElement, API_URL = null) {
-	if (isFormElement(formElement)) {
-		const jsonData = toJSON(new FormData(formElement));
+		imageElement.onerror = () => resolve(null);
+		imageElement.onload = () => resolve(source);
 
-		return Headless.POST(API_URL, jsonData);
-	}
-
-	return Promise.reject(new Error('Not a form.'));
+		imageElement.src = source;
+	});
 }
-
-export default {apiSubmit};

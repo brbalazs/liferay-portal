@@ -12,17 +12,12 @@
  * details.
  */
 
-import Headless from '../Headless/index';
-import {isFormElement, toJSON} from './formsHelper';
+export const EMAIL_VALIDATION_PATTERN = /^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$/;
 
-export function apiSubmit(formElement, API_URL = null) {
-	if (isFormElement(formElement)) {
-		const jsonData = toJSON(new FormData(formElement));
+export function validateEmailAddress(address) {
+	return new Promise((resolve, reject) => {
+		const pattern = new RegExp(EMAIL_VALIDATION_PATTERN);
 
-		return Headless.POST(API_URL, jsonData);
-	}
-
-	return Promise.reject(new Error('Not a form.'));
+		pattern.exec(address).length ? resolve(address) : reject();
+	});
 }
-
-export default {apiSubmit};

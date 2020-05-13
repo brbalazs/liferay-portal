@@ -12,17 +12,23 @@
  * details.
  */
 
-import Headless from '../Headless/index';
-import {isFormElement, toJSON} from './formsHelper';
+import * as v1 from './v1.0/index';
 
-export function apiSubmit(formElement, API_URL = null) {
-	if (isFormElement(formElement)) {
-		const jsonData = toJSON(new FormData(formElement));
+const BASE_ENDPOINT = '/o/headless-commerce-delivery-cart/';
 
-		return Headless.POST(API_URL, jsonData);
+const APIs = {
+	v1
+};
+
+function composeAPI(version) {
+	if (version in APIs) {
+		return Object.values(APIs[version]).reduce(
+			(api, composeFn) => Object.assign(api, composeFn(BASE_ENDPOINT)),
+			{}
+		);
 	}
 
-	return Promise.reject(new Error('Not a form.'));
+	throw new Error('The API version was not specified');
 }
 
-export default {apiSubmit};
+export default version => composeAPI(version);

@@ -53,6 +53,12 @@ export function getValueFromItem(item, fieldName) {
 	return item[fieldName];
 }
 
+export function excludeFromList(matchingList, againstList) {
+	const matcher = JSON.stringify(matchingList);
+
+	return againstList.filter(item => !matcher.includes(JSON.stringify(item)));
+}
+
 export function executeAsyncAction(url, method = 'GET') {
 	return fetch(url, {
 		...fetchParams,
@@ -127,4 +133,8 @@ export function loadData(
 	}${authString}${currentUrlString}${paginationString}${sortingString}${filtersString}${searchParamString}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
+}
+
+export function serialize(parameters) {
+	return `?${parameters.join('&')}`;
 }
