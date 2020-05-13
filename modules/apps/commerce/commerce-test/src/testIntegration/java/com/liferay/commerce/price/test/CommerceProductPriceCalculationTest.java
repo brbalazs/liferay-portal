@@ -1790,6 +1790,63 @@ public class CommerceProductPriceCalculationTest {
 			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
 	}
 
+	@Test
+	public void testGetCPDefinitionOptionValueRelativePrice5()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Calculate a relative price of a product option value"
+		).given(
+			"PriceType == null product option, and related option value"
+		).and(
+			"a option value defines a SKU with price"
+		).when(
+			"The relative prices of the option value is calculated"
+		).then(
+			"BigDecimal.ZERO relative price should be returned"
+		);
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			false);
+
+		CPOption cpOption = CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionValueRel nullPriceTypeOptionValueRel =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				0, cpOption.getCPOptionId(), null, null, 0, false, true,
+				_serviceContext);
+
+		CPInstance cpInstance = CPTestUtil.addCPDefinitionCPInstanceWithPrice(
+			cpDefinition.getCPDefinitionId(),
+			_getCPDefinitionOptionRelIdCPDefinitionOptionValueRelIds(
+				nullPriceTypeOptionValueRel),
+			BigDecimal.valueOf(200));
+
+		CommerceProductOptionValueRelativePriceRequest.Builder builder =
+			new CommerceProductOptionValueRelativePriceRequest.Builder(
+				new TestCommerceContext(
+					_commerceCurrency, null, _user, _group, _commerceAccount,
+					null),
+				nullPriceTypeOptionValueRel);
+
+		CommerceMoney commerceMoney =
+			_commerceProductPriceCalculation.
+				getCPDefinitionOptionValueRelativePrice(
+					builder.cpInstanceId(
+						cpInstance.getCPInstanceId()
+					).cpInstanceMinQuantity(
+						1
+					).build());
+
+		Assert.assertEquals(
+			CPTestUtil.stripTrailingZeros(BigDecimal.ZERO),
+			CPTestUtil.stripTrailingZeros(commerceMoney.getPrice()));
+	}
+
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
