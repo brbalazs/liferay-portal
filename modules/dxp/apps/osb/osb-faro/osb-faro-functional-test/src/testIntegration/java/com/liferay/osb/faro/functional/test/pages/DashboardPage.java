@@ -90,6 +90,8 @@ public class DashboardPage {
 
 			_faroSelenium.waitForPageLoadingComplete();
 			_faroSelenium.waitForLoadingComplete();
+
+			FaroPagePool.setPropertyId(_faroSelenium.getPropertiesIdFromURL());
 		}
 	}
 
