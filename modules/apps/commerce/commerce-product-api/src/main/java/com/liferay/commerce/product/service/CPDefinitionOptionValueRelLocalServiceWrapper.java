@@ -501,6 +501,14 @@ public class CPDefinitionOptionValueRelLocalServiceWrapper
 	}
 
 	@Override
+	public boolean hasCPDefinitionOptionValueRels(
+		long cpDefinitionOptionRelId) {
+
+		return _cpDefinitionOptionValueRelLocalService.
+			hasCPDefinitionOptionValueRels(cpDefinitionOptionRelId);
+	}
+
+	@Override
 	public void importCPDefinitionOptionRels(
 			long cpDefinitionOptionRelId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)

@@ -360,6 +360,9 @@ public interface CPDefinitionOptionValueRelLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasCPDefinitionOptionValueRels(long cpDefinitionOptionRelId);
+
 	public void importCPDefinitionOptionRels(
 			long cpDefinitionOptionRelId, ServiceContext serviceContext)
 		throws PortalException;

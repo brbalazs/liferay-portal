@@ -453,6 +453,13 @@ public class CPDefinitionOptionValueRelLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static boolean hasCPDefinitionOptionValueRels(
+		long cpDefinitionOptionRelId) {
+
+		return getService().hasCPDefinitionOptionValueRels(
+			cpDefinitionOptionRelId);
+	}
+
 	public static void importCPDefinitionOptionRels(
 			long cpDefinitionOptionRelId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
