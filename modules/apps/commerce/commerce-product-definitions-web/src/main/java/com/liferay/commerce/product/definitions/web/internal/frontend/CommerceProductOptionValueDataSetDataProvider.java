@@ -154,7 +154,9 @@ public class CommerceProductOptionValueDataSetDataProvider
 
 		String priceType = cpDefinitionOptionRel.getPriceType();
 
-		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) &&
+			(cpDefinitionOptionValueRel.getPrice() != null)) {
+
 			return cpDefinitionOptionValueRel.getPrice();
 		}
 		else if (priceType.equals(
