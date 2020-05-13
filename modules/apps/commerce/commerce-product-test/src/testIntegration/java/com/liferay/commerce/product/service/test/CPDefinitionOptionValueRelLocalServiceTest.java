@@ -16,6 +16,7 @@ package com.liferay.commerce.product.service.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelCPInstanceException;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelPriceException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -347,6 +348,66 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 
 		testResetCPDefinitionOptionValueRelOnStatusChange(
 			WorkflowConstants.STATUS_SCHEDULED);
+	}
+
+	@Test(expected = CPDefinitionOptionValueRelCPInstanceException.class)
+	public void testUpdateCPDefinitionOptionValueRelsWithSameSKU()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Update an option value with a SKU"
+		).given(
+			"An option value with same SKU for the same option"
+		).when(
+			"The option value is updated"
+		).then(
+			"An exception is thrown"
+		);
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel1 =
+			_addCPDefinitionWithOptionValue();
+
+		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId());
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel1.getCPDefinitionOptionRel();
+
+		_cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
+			cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+			cpDefinitionOptionRel.getCPOptionId(),
+			cpDefinitionOptionRel.getNameMap(),
+			cpDefinitionOptionRel.getDescriptionMap(),
+			cpDefinitionOptionRel.getDDMFormFieldTypeName(),
+			cpDefinitionOptionRel.getPriority(),
+			cpDefinitionOptionRel.isFacetable(),
+			cpDefinitionOptionRel.isRequired(),
+			cpDefinitionOptionRel.isSkuContributor(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
+
+		_cpDefinitionOptionValueRelLocalService.
+			updateCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRel1.getCPDefinitionOptionValueRelId(),
+				cpDefinitionOptionValueRel1.getNameMap(),
+				cpDefinitionOptionValueRel1.getPriority(),
+				cpDefinitionOptionValueRel1.getKey(),
+				cpInstance.getCPInstanceId(), 1, BigDecimal.ZERO,
+				_serviceContext);
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel2 =
+			_cpDefinitionOptionValueRelLocalService.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId(), null, 0,
+					"cpInstance-option-value-2", _serviceContext);
+
+		_cpDefinitionOptionValueRelLocalService.
+			updateCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRel2.getCPDefinitionOptionValueRelId(),
+				cpDefinitionOptionValueRel2.getNameMap(),
+				cpDefinitionOptionValueRel2.getPriority(),
+				cpDefinitionOptionValueRel2.getKey(),
+				cpInstance.getCPInstanceId(), 1, BigDecimal.ZERO,
+				_serviceContext);
 	}
 
 	@Test
