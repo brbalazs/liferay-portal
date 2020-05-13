@@ -144,6 +144,7 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setKey(key);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
 
+		_validateLinkedCPDefinitionOptionValueRel(cpDefinitionOptionValueRel);
 		_validatePriceableCPDefinitionOptionValue(
 			cpDefinitionOptionValueRel, cpDefinitionOptionRel.getPriceType());
 
@@ -494,6 +495,7 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 
 		cpDefinitionOptionValueRel.setQuantity(quantity);
 
+		_validateLinkedCPDefinitionOptionValueRel(cpDefinitionOptionValueRel);
 		_validatePriceableCPDefinitionOptionValue(
 			cpDefinitionOptionValueRel, cpDefinitionOptionRel.getPriceType());
 
@@ -703,6 +705,32 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		}
 		catch (Exception e) {
 			throw new PortalException(e);
+		}
+	}
+
+	private void _validateLinkedCPDefinitionOptionValueRel(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel)
+		throws PortalException {
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			cpDefinitionOptionValueRelPersistence.findByCPDefinitionOptionRelId(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionRelId());
+
+		for (CPDefinitionOptionValueRel curCPDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			CPInstance cpInstance =
+				curCPDefinitionOptionValueRel.fetchCPInstance();
+
+			if (cpInstance == null) {
+				continue;
+			}
+
+			if (Objects.equals(
+					cpInstance, cpDefinitionOptionValueRel.fetchCPInstance())) {
+
+				throw new CPDefinitionOptionValueRelCPInstanceException();
+			}
 		}
 	}
 
