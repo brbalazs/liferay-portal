@@ -69,6 +69,10 @@ public class SalesforceTalendJobDeployer {
 
 							String fileName = zipEntry.getName();
 
+							if (!fileName.endsWith(".zip")) {
+								continue;
+							}
+
 							CommerceDataIntegrationProcess
 								commerceDataIntegrationProcess =
 									_commerceDataIntegrationProcessLocalService.
