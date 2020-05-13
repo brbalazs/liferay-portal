@@ -121,7 +121,11 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		// Commerce product definition option rel
 
-		validateDDMFormFieldTypeName(ddmFormFieldTypeName, skuContributor);
+		_validateDDMFormFieldTypeName(ddmFormFieldTypeName, skuContributor);
+
+		CPOption cpOption = cpOptionLocalService.getCPOption(cpOptionId);
+
+		_validateCPDefinitionOptionKey(cpDefinitionId, cpOption.getKey());
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
 		long groupId = serviceContext.getScopeGroupId();
@@ -130,6 +134,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionRelPersistence.create(cpDefinitionOptionRelId);
+
+		_validatePriceType(cpDefinitionOptionRel, priceType);
 
 		if (cpDefinitionLocalService.isVersionable(
 				cpDefinitionId, serviceContext.getRequest())) {
@@ -144,12 +150,6 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			httpServletRequest.setAttribute(
 				"versionable#" + cpDefinitionId, Boolean.FALSE);
 		}
-
-		CPOption cpOption = cpOptionLocalService.getCPOption(cpOptionId);
-
-		validateCPDefinitionOptionKey(cpDefinitionId, cpOption.getKey());
-
-		_validatePriceType(cpDefinitionOptionRel, priceType);
 
 		cpDefinitionOptionRel.setGroupId(groupId);
 		cpDefinitionOptionRel.setCompanyId(user.getCompanyId());
@@ -620,7 +620,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		validateDDMFormFieldTypeName(ddmFormFieldTypeName, skuContributor);
+		_validateDDMFormFieldTypeName(ddmFormFieldTypeName, skuContributor);
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionRelPersistence.findByPrimaryKey(
@@ -795,8 +795,28 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			"Unable to fix the search index after 10 attempts");
 	}
 
-	protected void validateCPDefinitionOptionKey(
-			long cpDefinitionId, String key)
+	private CPOptionConfiguration _getCPOptionConfiguration()
+		throws ConfigurationException {
+
+		return _configurationProvider.getConfiguration(
+			CPOptionConfiguration.class,
+			new SystemSettingsLocator(CPConstants.CP_OPTION_SERVICE_NAME));
+	}
+
+	private boolean _hasCPDefinitionSKUContributorCPDefinitionOptionRel(
+		long cpDefinitionId) {
+
+		int cpDefinitionOptionRelsCount =
+			cpDefinitionOptionRelPersistence.countByC_SC(cpDefinitionId, true);
+
+		if (cpDefinitionOptionRelsCount > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private void _validateCPDefinitionOptionKey(long cpDefinitionId, String key)
 		throws PortalException {
 
 		CPDefinitionOptionRel cpDefinitionOptionRel =
@@ -807,7 +827,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		}
 	}
 
-	protected void validateDDMFormFieldTypeName(
+	private void _validateDDMFormFieldTypeName(
 			String ddmFormFieldTypeName, boolean skuContributor)
 		throws PortalException {
 
@@ -833,27 +853,6 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		}
 
 		throw new CPDefinitionOptionSKUContributorException();
-	}
-
-	private CPOptionConfiguration _getCPOptionConfiguration()
-		throws ConfigurationException {
-
-		return _configurationProvider.getConfiguration(
-			CPOptionConfiguration.class,
-			new SystemSettingsLocator(CPConstants.CP_OPTION_SERVICE_NAME));
-	}
-
-	private boolean _hasCPDefinitionSKUContributorCPDefinitionOptionRel(
-		long cpDefinitionId) {
-
-		int cpDefinitionOptionRelsCount =
-			cpDefinitionOptionRelPersistence.countByC_SC(cpDefinitionId, true);
-
-		if (cpDefinitionOptionRelsCount > 0) {
-			return true;
-		}
-
-		return false;
 	}
 
 	private void _validatePriceType(
