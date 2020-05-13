@@ -981,16 +981,12 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			properties, "ddm.form.field.type.data.domain");
 
 		if (Validator.isNotNull(fieldTypeDataDomain) &&
-			fieldTypeDataDomain.equals("list")) {
+			fieldTypeDataDomain.equals("list") &&
+			!_cpDefinitionOptionValueRelLocalService.
+				hasCPDefinitionOptionValueRels(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId())) {
 
-			int cpDefinitionOptionValueRelsCount =
-				_cpDefinitionOptionValueRelLocalService.
-					getCPDefinitionOptionValueRelsCount(
-						cpDefinitionOptionRel.getCPDefinitionOptionRelId());
-
-			if (cpDefinitionOptionValueRelsCount == 0) {
-				return false;
-			}
+			return false;
 		}
 
 		if (ignoreSKUCombinations) {
