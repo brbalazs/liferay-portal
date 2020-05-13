@@ -76,7 +76,7 @@ public class NavigationSteps {
 		throws Exception {
 
 		if (locationType.equals("page")) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler sb = new StringBundler(6);
 
 			sb.append(PropsUtil.get("analytics.cloud.url"));
 
@@ -88,6 +88,15 @@ public class NavigationSteps {
 
 			sb.append("/workspace/");
 			sb.append(FaroPagePool.getProjectId());
+
+			if (!destination.equals("Keywords") &&
+				!destination.equals("Properties") &&
+				!destination.equals("Data Sources") &&
+				!destination.equals("Workspace")) {
+
+				sb.append("/");
+				sb.append(FaroPagePool.getPropertyId());
+			}
 
 			sb.append(_faroPagePool.getPageUrlPath(destination));
 
