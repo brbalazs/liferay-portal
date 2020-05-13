@@ -161,6 +161,7 @@ public class UpgradeClassNames extends UpgradeKernelPackage {
 			}
 
 			ps1.executeBatch();
+
 			ps2.executeBatch();
 		}
 		catch (SQLException sqlException) {
