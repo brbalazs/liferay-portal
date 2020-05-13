@@ -31,6 +31,7 @@ import com.liferay.commerce.price.CommerceProductPriceRequest;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
+import com.liferay.commerce.product.CommerceProductTestUtil;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
@@ -39,7 +40,6 @@ import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.option.CommerceOptionValue;
-import com.liferay.commerce.product.option.test.TestCommerceOptionValue;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
@@ -163,19 +163,19 @@ public class CommerceProductPriceCalculationTest {
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
@@ -259,19 +259,19 @@ public class CommerceProductPriceCalculationTest {
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
@@ -343,7 +343,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity1 = 1;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, quantity1));
@@ -351,7 +351,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity2 = 3;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, quantity2));
@@ -359,7 +359,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity3 = 10;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, quantity3));
@@ -465,19 +465,19 @@ public class CommerceProductPriceCalculationTest {
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), optionValuePrice3,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
@@ -575,19 +575,19 @@ public class CommerceProductPriceCalculationTest {
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), optionValuePrice3,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
@@ -685,19 +685,19 @@ public class CommerceProductPriceCalculationTest {
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), optionValuePrice3,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
@@ -776,19 +776,19 @@ public class CommerceProductPriceCalculationTest {
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), null,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, 1));
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), optionValuePrice3,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
@@ -847,7 +847,7 @@ public class CommerceProductPriceCalculationTest {
 		BigDecimal optionValuePrice1 = BigDecimal.valueOf(10);
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 				optionValuePrice1, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				1));
@@ -855,7 +855,7 @@ public class CommerceProductPriceCalculationTest {
 		BigDecimal optionValuePrice2 = BigDecimal.valueOf(15);
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 				optionValuePrice2, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				1));
@@ -863,7 +863,7 @@ public class CommerceProductPriceCalculationTest {
 		BigDecimal optionValuePrice3 = BigDecimal.valueOf(20);
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 				optionValuePrice3, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				1));
@@ -928,7 +928,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity1 = 1;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 				optionValuePrice1, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				quantity1));
@@ -938,7 +938,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity2 = 11;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 				optionValuePrice2, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				quantity2));
@@ -948,7 +948,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity3 = 10;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 				optionValuePrice3, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				quantity3));
@@ -1018,7 +1018,7 @@ public class CommerceProductPriceCalculationTest {
 		BigDecimal optionValuePrice1 = BigDecimal.valueOf(10);
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), optionValuePrice1,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
@@ -1026,7 +1026,7 @@ public class CommerceProductPriceCalculationTest {
 		BigDecimal optionValuePrice2 = BigDecimal.valueOf(15);
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance2.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), optionValuePrice2,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
@@ -1034,7 +1034,7 @@ public class CommerceProductPriceCalculationTest {
 		BigDecimal optionValuePrice3 = BigDecimal.valueOf(20);
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance3.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), optionValuePrice3,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 1));
@@ -1104,7 +1104,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity1 = 10;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				cpInstance1.getCPInstanceId(), RandomTestUtil.randomString(),
 				RandomTestUtil.randomString(), optionValuePrice1,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, quantity1));
@@ -1114,7 +1114,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity2 = 11;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 				optionValuePrice2, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				quantity2));
@@ -1124,7 +1124,7 @@ public class CommerceProductPriceCalculationTest {
 		int quantity3 = 10;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 				optionValuePrice3, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
 				quantity3));

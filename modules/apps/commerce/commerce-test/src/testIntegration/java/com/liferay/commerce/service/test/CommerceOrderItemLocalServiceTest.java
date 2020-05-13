@@ -27,6 +27,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.product.CommerceProductTestUtil;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -38,7 +39,6 @@ import com.liferay.commerce.product.model.CPOptionValue;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.option.CommerceOptionValue;
-import com.liferay.commerce.product.option.test.TestCommerceOptionValue;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalServiceUtil;
@@ -487,7 +487,7 @@ public class CommerceOrderItemLocalServiceTest {
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, option1Key, _toValueKey(option1Key), option1Price,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, 2));
 
@@ -497,7 +497,7 @@ public class CommerceOrderItemLocalServiceTest {
 		int option2Quantity = 3;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				0, option2Key, _toValueKey(option2Key), option2Price,
 				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, option2Quantity));
 
@@ -988,7 +988,7 @@ public class CommerceOrderItemLocalServiceTest {
 		}
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				optionSKU1.getCPInstanceId(), option1Key,
 				_toValueKey(option1Key), option1DeltaPrice, priceType, 2));
 
@@ -996,8 +996,8 @@ public class CommerceOrderItemLocalServiceTest {
 			FriendlyURLNormalizerUtil.normalize(RandomTestUtil.randomString()));
 		int option2Quantity = 3;
 
-		TestCommerceOptionValue testCommerceOptionValue =
-			new TestCommerceOptionValue(
+		CommerceOptionValue testCommerceOptionValue =
+			CommerceProductTestUtil.getCommerceOptionValue(
 				optionSKU2.getCPInstanceId(), option2Key,
 				_toValueKey(option2Key), option2DeltaPrice, priceType,
 				option2Quantity);
@@ -1149,7 +1149,7 @@ public class CommerceOrderItemLocalServiceTest {
 		int option1Quantity = 2;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				optionSKU1.getCPInstanceId(), option1Key,
 				_toValueKey(option1Key), option1DeltaPrice, priceType,
 				option1Quantity));
@@ -1159,7 +1159,7 @@ public class CommerceOrderItemLocalServiceTest {
 		int option2Quantity = 3;
 
 		commerceOptionValues.add(
-			new TestCommerceOptionValue(
+			CommerceProductTestUtil.getCommerceOptionValue(
 				optionSKU2.getCPInstanceId(), option2Key,
 				_toValueKey(option2Key), option2DeltaPrice, priceType,
 				option2Quantity));
