@@ -347,6 +347,21 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 	}
 
 	@Override
+	public boolean hasCPDefinitionOptionValueRels(
+		long cpDefinitionOptionRelId) {
+
+		int count =
+			cpDefinitionOptionValueRelPersistence.
+				countByCPDefinitionOptionRelId(cpDefinitionOptionRelId);
+
+		if (count > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
 	public void importCPDefinitionOptionRels(
 			long cpDefinitionOptionRelId, ServiceContext serviceContext)
 		throws PortalException {
