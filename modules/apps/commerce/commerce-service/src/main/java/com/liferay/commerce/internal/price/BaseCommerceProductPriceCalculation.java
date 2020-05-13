@@ -115,6 +115,19 @@ public abstract class BaseCommerceProductPriceCalculation
 		CommerceContext commerceContext =
 			commerceProductOptionValueRelativePriceRequest.getCommerceContext();
 
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			commerceProductOptionValueRelativePriceRequest.
+				getCPDefinitionOptionValueRel();
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		if (Validator.isNull(cpDefinitionOptionRel.getPriceType())) {
+			return commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), relativePrice,
+				PriceFormat.RELATIVE);
+		}
+
 		relativePrice = relativePrice.add(
 			_getCPInstancePriceDifference(
 				commerceProductOptionValueRelativePriceRequest.
@@ -133,7 +146,7 @@ public abstract class BaseCommerceProductPriceCalculation
 					getCPDefinitionOptionValueRel(),
 				commerceProductOptionValueRelativePriceRequest.
 					getSelectedCPDefinitionOptionValueRel(),
-				commerceContext));
+				cpDefinitionOptionRel.getPriceType(), commerceContext));
 
 		return commerceMoneyFactory.create(
 			commerceContext.getCommerceCurrency(), relativePrice,
@@ -417,20 +430,11 @@ public abstract class BaseCommerceProductPriceCalculation
 	private BigDecimal _getCPDefinitionOptionValuePriceDifference(
 			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
 			CPDefinitionOptionValueRel selectedCPDefinitionOptionValueRel,
-			CommerceContext commerceContext)
+			String priceType, CommerceContext commerceContext)
 		throws PortalException {
 
 		CommerceCurrency commerceCurrency =
 			commerceContext.getCommerceCurrency();
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
-
-		String priceType = cpDefinitionOptionRel.getPriceType();
-
-		if (Validator.isNull(priceType)) {
-			return BigDecimal.ZERO;
-		}
 
 		if (_isStaticPriceType(priceType)) {
 			BigDecimal price = cpDefinitionOptionValueRel.getPrice();
