@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.functional.test.pages.fragments;
 
 import com.liferay.osb.faro.functional.test.driver.FaroSelenium;
+import com.liferay.osb.faro.functional.test.util.FaroPagePool;
 import com.liferay.osb.faro.functional.test.util.FaroSeleniumUtil;
 import com.liferay.osb.faro.functional.test.util.FaroTestDataUtil;
 import com.liferay.osb.faro.functional.test.util.FaroTransformer;
@@ -121,6 +122,8 @@ public class Sidebar {
 		throws Exception {
 
 		_faroSelenium.click(_generatePropertyMenuItemXpath(propertyName));
+
+		FaroPagePool.setPropertyId(_faroSelenium.getPropertiesIdFromURL());
 	}
 
 	/**
