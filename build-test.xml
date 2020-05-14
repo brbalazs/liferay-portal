@@ -3435,17 +3435,12 @@ ${tomcat-gc-log}
 				<equals arg1="@{app.server.type}" arg2="jboss" />
 				<then>
 					<var name="app.server.dir" value="${app.server.parent.dir}/jboss-eap-@{app.server.version}" />
-
-					<var name="app.server.bin.dir" value="${app.server.dir}/bin" />
-
-					<var name="app.server.classes.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/classes/" />
-
-					<var name="app.server.lib.global.dir" value="${app.server.dir}/modules/com/liferay/portal/main" />
-
-					<var name="app.server.lib.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/lib/" />
-
 					<var name="app.server.zip.name" value="@{app.server.type}-eap-@{app.server.version}.zip" />
 
+					<var name="app.server.bin.dir" value="${app.server.dir}/bin" />
+					<var name="app.server.classes.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/classes/" />
+					<var name="app.server.lib.global.dir" value="${app.server.dir}/modules/com/liferay/portal/main" />
+					<var name="app.server.lib.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/lib/" />
 					<var name="app.server.zip.url" value="http://developers.redhat.com/download-manager/file/${app.server.zip.name}" />
 				</then>
 			</if>
@@ -3454,17 +3449,12 @@ ${tomcat-gc-log}
 				<equals arg1="@{app.server.type}" arg2="tcserver" />
 				<then>
 					<var name="app.server.dir" value="${app.server.parent.dir}/tc-server-@{app.server.version}" />
-
-					<var name="app.server.bin.dir" value="${app.server.dir}/instances/liferay/bin" />
-
-					<var name="app.server.classes.portal.dir" value="${app.server.dir}/webapps/ROOT/WEB-INF/classes" />
-
-					<var name="app.server.lib.global.dir" value="${app.server.dir}/lib/ext" />
-
-					<var name="app.server.lib.portal.dir" value="${app.server.dir}/webapps/ROOT/WEB-INF/lib/" />
-
 					<var name="app.server.zip.name" value="apache-tomcat-@{app.server.version}.zip" />
 
+					<var name="app.server.bin.dir" value="${app.server.dir}/instances/liferay/bin" />
+					<var name="app.server.classes.portal.dir" value="${app.server.dir}/webapps/ROOT/WEB-INF/classes" />
+					<var name="app.server.lib.global.dir" value="${app.server.dir}/lib/ext" />
+					<var name="app.server.lib.portal.dir" value="${app.server.dir}/webapps/ROOT/WEB-INF/lib/" />
 					<var name="app.server.zip.url" value="http://archive.apache.org/dist/tomcat/tomcat-9/v@{app.server.version}/bin/${app.server.zip.name}" />
 				</then>
 			</if>
@@ -3473,16 +3463,12 @@ ${tomcat-gc-log}
 				<equals arg1="@{app.server.type}" arg2="tomcat" />
 				<then>
 					<var name="app.server.dir" value="${app.server.parent.dir}/tomcat-@{app.server.version}" />
+					<var name="app.server.zip.name" value="@{app.server.type}-@{app.server.version}.Final.zip" />
 
 					<var name="app.server.bin.dir" value="${app.server.dir}/bin" />
-
 					<var name="app.server.classes.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/classes/" />
-
 					<var name="app.server.lib.global.dir" value="${app.server.dir}/modules/com/liferay/portal/main" />
-
 					<var name="app.server.lib.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/lib/" />
-
-					<var name="app.server.zip.name" value="@{app.server.type}-@{app.server.version}.Final.zip" />
 
 					<propertyregex
 						input="@{app.server.version}"
@@ -3500,16 +3486,12 @@ ${tomcat-gc-log}
 				<equals arg1="@{app.server.type}" arg2="weblogic" />
 				<then>
 					<var name="app.server.dir" value="${app.server.parent.dir}/weblogic-@{app.server.version}" />
+					<var name="app.server.zip.name" value="fmw_@{app.server.version}.3.0_wls_quick_Disk1_1of1.zip" />
 
 					<var name="app.server.bin.dir" value="${app.server.dir}/domains/liferay/bin" />
-
 					<var name="app.server.classes.portal.dir" value="${app.server.dir}/domains/liferay/autodeploy/ROOT/WEB-INF/classes" />
-
 					<var name="app.server.lib.global.dir" value="${app.server.dir}/domains/liferay/lib" />
-
 					<var name="app.server.lib.portal.dir" value="${app.server.dir}/domains/liferay/autodeploy/ROOT/WEB-INF/lib/" />
-
-					<var name="app.server.zip.name" value="fmw_@{app.server.version}.3.0_wls_quick_Disk1_1of1.zip" />
 
 					<propertyregex
 						input="@{app.server.version}"
@@ -3527,16 +3509,12 @@ ${tomcat-gc-log}
 				<equals arg1="@{app.server.type}" arg2="websphere" />
 				<then>
 					<var name="app.server.dir" value="${app.server.parent.dir}/websphere-@{app.server.version}" />
-
-					<var name="app.server.bin.dir" value="${app.server.parent.dir}/@{app.server.type}-@{app.server.version}/bin" />
-
-					<var name="app.server.classes.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/classes/" />
-
-					<var name="app.server.lib.global.dir" value="${app.server.dir}/modules/com/liferay/portal/main" />
-
-					<var name="app.server.lib.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/lib/" />
-
 					<var name="app.server.zip.name" value="websphere-@{app.server.version}.zip" />
+
+					<var name="app.server.bin.dir" value="${app.server.dir}/bin" />
+					<var name="app.server.classes.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/classes/" />
+					<var name="app.server.lib.global.dir" value="${app.server.dir}/modules/com/liferay/portal/main" />
+					<var name="app.server.lib.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/lib/" />
 				</then>
 			</if>
 
@@ -3544,17 +3522,12 @@ ${tomcat-gc-log}
 				<equals arg1="@{app.server.type}" arg2="wildfly" />
 				<then>
 					<var name="app.server.dir" value="${app.server.parent.dir}/wildfly-@{app.server.version}" />
-
-					<var name="app.server.bin.dir" value="${app.server.dir}/bin" />
-
-					<var name="app.server.classes.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/classes" />
-
-					<var name="app.server.lib.global.dir" value="${app.server.dir}/modules/com/liferay/portal/main" />
-
-					<var name="app.server.lib.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/lib/" />
-
 					<var name="app.server.zip.name" value="wildfly-@{app.server.version}.Final.zip" />
 
+					<var name="app.server.bin.dir" value="${app.server.dir}/bin" />
+					<var name="app.server.classes.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/classes" />
+					<var name="app.server.lib.global.dir" value="${app.server.dir}/modules/com/liferay/portal/main" />
+					<var name="app.server.lib.portal.dir" value="${app.server.dir}/standalone/deployments/ROOT.war/WEB-INF/lib/" />
 					<var name="app.server.zip.url" value="http://download.jboss.org/wildfly/@{app.server.version}.Final/${app.server.zip.name}" />
 				</then>
 			</if>
