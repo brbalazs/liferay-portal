@@ -69,7 +69,8 @@ public class CommerceMLOrderBatchEngineTaskItemDelegate
 				contextCompany.getCompanyId(), filter, vulcanPagination,
 				StringPool.BLANK, sorts,
 				document -> _toOrder(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))));
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
+				false);
 
 		return Page.of(
 			ordersPage.getItems(),

@@ -151,7 +151,8 @@ public class OrderResourceImpl
 			sorts,
 			document -> _orderHelper.toOrder(
 				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)),
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale()),
+			true);
 	}
 
 	@Override

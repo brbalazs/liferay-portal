@@ -48,7 +48,8 @@ public class OrderHelper {
 	public Page<Order> getOrdersPage(
 			long companyId, Filter filter, Pagination pagination, String search,
 			Sort[] sorts,
-			UnsafeFunction<Document, Order, Exception> transformUnsafeFunction)
+			UnsafeFunction<Document, Order, Exception> transformUnsafeFunction,
+			boolean useSearchResultPermissionFilter)
 		throws Exception {
 
 		return SearchUtil.search(
@@ -62,6 +63,10 @@ public class OrderHelper {
 					SearchContext searchContext = (SearchContext)o;
 
 					searchContext.setCompanyId(companyId);
+
+					searchContext.setAttribute(
+						"useSearchResultPermissionFilter",
+						useSearchResultPermissionFilter);
 
 					long[] commerceChannelGroupIds =
 						_getCommerceChannelGroupIds(companyId);
