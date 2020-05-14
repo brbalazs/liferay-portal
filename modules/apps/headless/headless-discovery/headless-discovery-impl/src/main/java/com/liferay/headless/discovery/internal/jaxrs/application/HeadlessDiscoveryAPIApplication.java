@@ -16,10 +16,12 @@ package com.liferay.headless.discovery.internal.jaxrs.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.liferay.headless.discovery.internal.configuration.HeadlessDiscoveryConfiguration;
 import com.liferay.headless.discovery.internal.dto.Hint;
 import com.liferay.headless.discovery.internal.dto.Resource;
 import com.liferay.headless.discovery.internal.dto.Resources;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.events.ServicePreAction;
 import com.liferay.portal.events.ThemeServicePreAction;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
@@ -57,7 +59,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.jaxrs.runtime.JaxrsServiceRuntime;
 import org.osgi.service.jaxrs.runtime.dto.ApplicationDTO;
@@ -70,6 +74,7 @@ import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
  * @author Javier Gamarra
  */
 @Component(
+	configurationPid = "com.liferay.headless.discovery.internal.configuration.HeadlessDiscoveryConfiguration",
 	property = {
 		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/api",
 		JaxrsWhiteboardConstants.JAX_RS_EXTENSION_SELECT + "=(osgi.jaxrs.name=Liferay.Vulcan)",
@@ -88,7 +93,9 @@ public class HeadlessDiscoveryAPIApplication extends Application {
 			@Context HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		if ((accept != null) && accept.contains(MediaType.TEXT_HTML)) {
+		if ((accept != null) && accept.contains(MediaType.TEXT_HTML) &&
+			_headlessDiscoveryConfiguration.enableAPIExplorer()) {
+
 			return _getHTMLResponse(httpServletRequest, httpServletResponse);
 		}
 
@@ -126,6 +133,13 @@ public class HeadlessDiscoveryAPIApplication extends Application {
 
 	public Set<Object> getSingletons() {
 		return Collections.singleton(this);
+	}
+
+	@Activate
+	@Modified
+	protected void activate(Map<String, Object> properties) {
+		_headlessDiscoveryConfiguration = ConfigurableUtil.createConfigurable(
+			HeadlessDiscoveryConfiguration.class, properties);
 	}
 
 	private Response _getHTMLResponse(
@@ -261,6 +275,8 @@ public class HeadlessDiscoveryAPIApplication extends Application {
 		return (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 	}
+
+	private HeadlessDiscoveryConfiguration _headlessDiscoveryConfiguration;
 
 	@Reference
 	private JaxrsServiceRuntime _jaxrsServiceRuntime;
