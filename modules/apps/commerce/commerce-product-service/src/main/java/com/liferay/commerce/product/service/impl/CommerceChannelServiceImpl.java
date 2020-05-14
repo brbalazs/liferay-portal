@@ -65,11 +65,15 @@ public class CommerceChannelServiceImpl extends CommerceChannelServiceBaseImpl {
 	public CommerceChannel fetchCommerceChannel(long commerceChannelId)
 		throws PortalException {
 
-		_commerceChannelModelResourcePermission.check(
-			getPermissionChecker(), commerceChannelId, ActionKeys.VIEW);
+		CommerceChannel commerceChannel =
+			commerceChannelLocalService.fetchCommerceChannel(commerceChannelId);
 
-		return commerceChannelLocalService.fetchCommerceChannel(
-			commerceChannelId);
+		if (commerceChannel != null) {
+			_commerceChannelModelResourcePermission.check(
+				getPermissionChecker(), commerceChannelId, ActionKeys.VIEW);
+		}
+
+		return commerceChannel;
 	}
 
 	@Override

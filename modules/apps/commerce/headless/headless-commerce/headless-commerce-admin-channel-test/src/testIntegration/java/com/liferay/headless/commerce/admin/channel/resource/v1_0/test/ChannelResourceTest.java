@@ -15,14 +15,169 @@
 package com.liferay.headless.commerce.admin.channel.resource.v1_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelLocalServiceUtil;
+import com.liferay.headless.commerce.admin.channel.client.dto.v1_0.Channel;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
+import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
-import org.junit.Ignore;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 
 /**
  * @author Andrea Sbarra
  */
-@Ignore
 @RunWith(Arquillian.class)
 public class ChannelResourceTest extends BaseChannelResourceTestCase {
+
+	@Before
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+
+		_user = UserTestUtil.addUser(testCompany);
+
+		_serviceContext = ServiceContextTestUtil.getServiceContext(
+			testCompany.getCompanyId(), testGroup.getGroupId(),
+			_user.getUserId());
+
+		Iterator<CommerceChannel> iterator = _commerceChannels.iterator();
+
+		while (iterator.hasNext()) {
+			CommerceChannel commerceChannel = iterator.next();
+
+			CommerceChannel commerceChannel1 =
+				CommerceChannelLocalServiceUtil.fetchCommerceChannel(
+					commerceChannel.getCommerceChannelId());
+
+			if (commerceChannel1 != null) {
+				CommerceChannelLocalServiceUtil.deleteCommerceChannel(
+					commerceChannel1.getCommerceChannelId());
+			}
+
+			iterator.remove();
+		}
+	}
+
+	@After
+	@Override
+	public void tearDown() throws Exception {
+		super.tearDown();
+
+		Iterator<CommerceChannel> iterator = _commerceChannels.iterator();
+
+		while (iterator.hasNext()) {
+			CommerceChannel commerceChannel = iterator.next();
+
+			CommerceChannel commerceChannel1 =
+				CommerceChannelLocalServiceUtil.fetchCommerceChannel(
+					commerceChannel.getCommerceChannelId());
+
+			if (commerceChannel1 != null) {
+				CommerceChannelLocalServiceUtil.deleteCommerceChannel(
+					commerceChannel1.getCommerceChannelId());
+			}
+
+			iterator.remove();
+		}
+	}
+
+	@Override
+	protected String[] getAdditionalAssertFieldNames() {
+		return new String[] {"currency", "name", "siteGroupId", "type"};
+	}
+
+	protected Channel randomPatchChannel() throws Exception {
+		return new Channel() {
+			{
+				currency = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				id = RandomTestUtil.randomLong();
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				type = StringUtil.toLowerCase(RandomTestUtil.randomString());
+			}
+		};
+	}
+
+	@Override
+	protected Channel testDeleteChannel_addChannel() throws Exception {
+		return _addChannel(randomChannel());
+	}
+
+	@Override
+	protected Channel testGetChannel_addChannel() throws Exception {
+		return _addChannel(randomChannel());
+	}
+
+	@Override
+	protected Channel testGetChannelsPage_addChannel(Channel channel)
+		throws Exception {
+
+		return _addChannel(channel);
+	}
+
+	@Override
+	protected Channel testGraphQLChannel_addChannel() throws Exception {
+		return _addChannel(randomChannel());
+	}
+
+	@Override
+	protected Channel testPatchChannel_addChannel() throws Exception {
+		return _addChannel(randomChannel());
+	}
+
+	@Override
+	protected Channel testPostChannel_addChannel(Channel channel)
+		throws Exception {
+
+		return _addChannel(channel);
+	}
+
+	@Override
+	protected Channel testPutChannel_addChannel() throws Exception {
+		return _addChannel(randomChannel());
+	}
+
+	private Channel _addChannel(Channel channel) throws PortalException {
+		CommerceChannel _commerceChannel =
+			CommerceChannelLocalServiceUtil.addCommerceChannel(
+				channel.getSiteGroupId(), channel.getName(), channel.getType(),
+				null, channel.getCurrency(), StringPool.BLANK, _serviceContext);
+
+		_commerceChannels.add(_commerceChannel);
+
+		return _toChannel(_commerceChannel);
+	}
+
+	private Channel _toChannel(CommerceChannel commerceChannel) {
+		return new Channel() {
+			{
+				currency = commerceChannel.getCommerceCurrencyCode();
+				externalReferenceCode =
+					commerceChannel.getExternalReferenceCode();
+				id = commerceChannel.getCommerceChannelId();
+				name = commerceChannel.getName();
+				type = commerceChannel.getType();
+				siteGroupId = commerceChannel.getSiteGroupId();
+			}
+		};
+	}
+
+	private final List<CommerceChannel> _commerceChannels = new ArrayList<>();
+	private ServiceContext _serviceContext;
+	private User _user;
+
 }

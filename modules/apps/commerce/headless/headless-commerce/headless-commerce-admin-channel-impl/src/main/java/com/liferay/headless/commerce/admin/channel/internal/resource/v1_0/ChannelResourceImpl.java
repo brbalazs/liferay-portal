@@ -14,9 +14,33 @@
 
 package com.liferay.headless.commerce.admin.channel.internal.resource.v1_0;
 
+import com.liferay.commerce.product.exception.NoSuchChannelException;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.headless.commerce.admin.channel.dto.v1_0.Channel;
+import com.liferay.headless.commerce.admin.channel.internal.dto.v1_0.converter.ChannelDTOConverter;
+import com.liferay.headless.commerce.admin.channel.internal.odata.entity.v1_0.ChannelEntityModel;
 import com.liferay.headless.commerce.admin.channel.resource.v1_0.ChannelResource;
+import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
+import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
+import com.liferay.portal.vulcan.resource.EntityModelResource;
+import com.liferay.portal.vulcan.util.SearchUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 /**
@@ -26,5 +50,126 @@ import org.osgi.service.component.annotations.ServiceScope;
 	properties = "OSGI-INF/liferay/rest/v1_0/channel.properties",
 	scope = ServiceScope.PROTOTYPE, service = ChannelResource.class
 )
-public class ChannelResourceImpl extends BaseChannelResourceImpl {
+public class ChannelResourceImpl
+	extends BaseChannelResourceImpl implements EntityModelResource {
+
+	@Override
+	public void deleteChannel(Long channelId) throws Exception {
+		_commerceChannelService.deleteCommerceChannel(channelId);
+	}
+
+	@Override
+	public Channel getChannel(Long channelId) throws Exception {
+		CommerceChannel commerceChannel =
+			_commerceChannelService.fetchCommerceChannel(channelId);
+
+		if (commerceChannel == null) {
+			throw new NoSuchChannelException();
+		}
+
+		return _toChannel(commerceChannel);
+	}
+
+	@Override
+	public Page<Channel> getChannelsPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception {
+
+		return SearchUtil.search(
+			booleanQuery -> booleanQuery.getPreBooleanFilter(), filter,
+			CommerceChannel.class, search, pagination,
+			queryConfig -> queryConfig.setSelectedFieldNames(
+				Field.ENTRY_CLASS_PK),
+			searchContext -> searchContext.setCompanyId(
+				contextCompany.getCompanyId()),
+			document -> _toChannel(
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
+			sorts);
+	}
+
+	@Override
+	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
+		return _entityModel;
+	}
+
+	@Override
+	public Channel patchChannel(Long channelId, Channel channel)
+		throws Exception {
+
+		Channel existingChannel = getChannel(channelId);
+
+		if (channel.getCurrency() != null) {
+			existingChannel.setCurrency(channel.getCurrency());
+		}
+
+		if (channel.getExternalReferenceCode() != null) {
+			existingChannel.setExternalReferenceCode(
+				channel.getExternalReferenceCode());
+		}
+
+		if (channel.getName() != null) {
+			existingChannel.setName(channel.getName());
+		}
+
+		if (channel.getType() != null) {
+			existingChannel.setType(channel.getType());
+		}
+
+		return putChannel(channelId, existingChannel);
+	}
+
+	@Override
+	public Channel postChannel(Channel channel) throws Exception {
+		return _toChannel(
+			_commerceChannelService.addCommerceChannel(
+				channel.getSiteGroupId(), channel.getName(), channel.getType(),
+				null, channel.getCurrency(), channel.getExternalReferenceCode(),
+				_serviceContextHelper.getServiceContext(contextUser)));
+	}
+
+	@Override
+	public Channel putChannel(Long channelId, Channel channel)
+		throws Exception {
+
+		return _toChannel(
+			_commerceChannelService.updateCommerceChannel(
+				channelId, channel.getSiteGroupId(), channel.getName(),
+				channel.getType(), null, channel.getCurrency()));
+	}
+
+	private Channel _toChannel(CommerceChannel commerceChannel)
+		throws Exception {
+
+		return _toChannel(commerceChannel.getCommerceChannelId());
+	}
+
+	private Channel _toChannel(Long commerceChannelId) throws Exception {
+		return _channelDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				commerceChannelId, contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	private List<Channel> _toChannels(List<CommerceChannel> commerceChannels)
+		throws Exception {
+
+		List<Channel> channels = new ArrayList<>(commerceChannels.size());
+
+		for (CommerceChannel commerceChannel : commerceChannels) {
+			channels.add(_toChannel(commerceChannel.getCommerceChannelId()));
+		}
+
+		return channels;
+	}
+
+	private static final EntityModel _entityModel = new ChannelEntityModel();
+
+	@Reference
+	private ChannelDTOConverter _channelDTOConverter;
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
+
+	@Reference
+	private ServiceContextHelper _serviceContextHelper;
+
 }
