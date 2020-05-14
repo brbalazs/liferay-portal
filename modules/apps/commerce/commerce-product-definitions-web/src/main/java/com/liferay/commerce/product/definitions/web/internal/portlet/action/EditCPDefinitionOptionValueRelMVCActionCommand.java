@@ -95,10 +95,12 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 				e instanceof CPDefinitionOptionValueRelKeyException ||
 				e instanceof CPDefinitionOptionValueRelPriceException) {
 
+				hideDefaultErrorMessage(actionRequest);
+
 				SessionErrors.add(actionRequest, e.getClass());
 
 				actionResponse.setRenderParameter(
-					"mvcPath", "/edit_definition_option_value_rel.jsp");
+					"mvcRenderCommandName", "editCPDefinitionOptionValueRel");
 			}
 			else {
 				_log.error(e, e);
