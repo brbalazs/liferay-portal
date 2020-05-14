@@ -41,6 +41,10 @@ function ActionLinkRenderer(props) {
 			? props.actions.find(action => action.id === props.options.actionId)
 			: props.actions[0];
 
+	if (!currentAction) {
+		return null;
+	}
+
 	const formattedHref =
 		currentAction.href &&
 		formatActionUrl(currentAction.href, props.itemData);
