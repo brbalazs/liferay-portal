@@ -53,8 +53,8 @@ public class ChannelDTOConverter
 					commerceChannel.getExternalReferenceCode();
 				id = commerceChannel.getCommerceChannelId();
 				name = commerceChannel.getName();
-				type = commerceChannel.getType();
 				siteGroupId = commerceChannel.getSiteGroupId();
+				type = commerceChannel.getType();
 			}
 		};
 	}

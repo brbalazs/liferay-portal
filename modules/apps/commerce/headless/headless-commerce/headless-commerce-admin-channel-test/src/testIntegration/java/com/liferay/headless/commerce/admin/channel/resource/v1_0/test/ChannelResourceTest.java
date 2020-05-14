@@ -152,14 +152,14 @@ public class ChannelResourceTest extends BaseChannelResourceTestCase {
 	}
 
 	private Channel _addChannel(Channel channel) throws PortalException {
-		CommerceChannel _commerceChannel =
+		CommerceChannel commerceChannel =
 			CommerceChannelLocalServiceUtil.addCommerceChannel(
 				channel.getSiteGroupId(), channel.getName(), channel.getType(),
 				null, channel.getCurrency(), StringPool.BLANK, _serviceContext);
 
-		_commerceChannels.add(_commerceChannel);
+		_commerceChannels.add(commerceChannel);
 
-		return _toChannel(_commerceChannel);
+		return _toChannel(commerceChannel);
 	}
 
 	private Channel _toChannel(CommerceChannel commerceChannel) {
@@ -170,8 +170,8 @@ public class ChannelResourceTest extends BaseChannelResourceTestCase {
 					commerceChannel.getExternalReferenceCode();
 				id = commerceChannel.getCommerceChannelId();
 				name = commerceChannel.getName();
-				type = commerceChannel.getType();
 				siteGroupId = commerceChannel.getSiteGroupId();
+				type = commerceChannel.getType();
 			}
 		};
 	}
