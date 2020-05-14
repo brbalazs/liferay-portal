@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.product.definitions.web.internal.frontend;
 
-import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
@@ -30,6 +30,7 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.permission.CommerceProductViewPermission;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
@@ -46,11 +47,13 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -188,8 +191,12 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 			List<Output> outputs = new ArrayList<>();
 
+			CommerceContext commerceContext = _getCommerceContext(
+				ddmDataProviderRequest, commerceAccountId, groupId);
+
 			_addNonskuContributingCPDefinitionOptionValueOutputs(
-				cpDefinitionId, ddmDataProviderRequest, locale, outputs);
+				cpDefinitionId, ddmDataProviderRequest, locale, outputs,
+				commerceContext);
 
 			JSONArray selectedCPDefinitionOptionValuesJSONArray =
 				_getCPDefinitionOptionCPDefinitionOptionValuesJSONArray(
@@ -215,10 +222,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 								getCPDefinitionOptionValueRels(),
 							selectedCPDefinitionOptionValueRel,
 							selectedCPDefinitionOptionValuesJSONArray,
-							selectedCPInstance, locale,
-							_getCommerceContext(
-								ddmDataProviderRequest.
-									getHttpServletRequest()))));
+							selectedCPInstance, locale, commerceContext)));
 			}
 
 			for (CPDefinitionOptionRel cpDefinitionOptionRel :
@@ -245,10 +249,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 							cpDefinitionId, optionKey,
 							allowedCPDefinitionOptionValueRels,
 							selectedCPDefinitionOptionValuesJSONArray,
-							selectedCPInstance, locale,
-							_getCommerceContext(
-								ddmDataProviderRequest.
-									getHttpServletRequest()))));
+							selectedCPInstance, locale, commerceContext)));
 			}
 
 			return Output.toDDMDataProviderResponse(outputs);
@@ -310,7 +311,8 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	private void _addNonskuContributingCPDefinitionOptionValueOutputs(
 			long cpDefinitionId, DDMDataProviderRequest ddmDataProviderRequest,
-			Locale locale, List<Output> outputs)
+			Locale locale, List<Output> outputs,
+			CommerceContext commerceContext)
 		throws PortalException {
 
 		Map<CPDefinitionOptionRel, CPDefinitionOptionValueRel>
@@ -360,9 +362,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 					cpDefinitionOptionRel.getKey(), "list",
 					_toNonskuContributingCPDefinitionOptionValueKeyValuePairs(
 						cpDefinitionOptionRel.getCPDefinitionOptionValueRels(),
-						entry.getValue(), locale,
-						_getCommerceContext(
-							ddmDataProviderRequest.getHttpServletRequest()))));
+						entry.getValue(), locale, commerceContext)));
 		}
 	}
 
@@ -406,10 +406,22 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	}
 
 	private CommerceContext _getCommerceContext(
-		HttpServletRequest httpServletRequest) {
+			DDMDataProviderRequest ddmDataProviderRequest,
+			long commerceAccountId, long groupId)
+		throws PortalException {
 
-		return (CommerceContext)httpServletRequest.getAttribute(
-			CommerceWebKeys.COMMERCE_CONTEXT);
+		HttpServletRequest httpServletRequest =
+			ddmDataProviderRequest.getHttpServletRequest();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		return _commerceContextFactory.create(
+			themeDisplay.getCompanyId(),
+			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
+				groupId),
+			themeDisplay.getUserId(), 0, commerceAccountId);
 	}
 
 	private JSONArray _getCPDefinitionOptionCPDefinitionOptionValuesJSONArray(
@@ -658,6 +670,12 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceProductInstanceOptionsValuesDataProvider.class);
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceContextFactory _commerceContextFactory;
 
 	@Reference(
 		target = "(commerce.inventory.checker.target=CPDefinitionOptionValueRel)"
