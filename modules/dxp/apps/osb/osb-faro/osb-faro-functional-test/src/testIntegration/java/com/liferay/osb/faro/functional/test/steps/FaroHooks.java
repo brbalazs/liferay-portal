@@ -20,6 +20,7 @@ import com.liferay.osb.faro.functional.test.pages.fragments.Table;
 import com.liferay.osb.faro.functional.test.util.FaroSeleniumUtil;
 import com.liferay.osb.faro.functional.test.util.FaroTestDataUtil;
 import com.liferay.poshi.runner.selenium.SeleniumUtil;
+import com.liferay.poshi.runner.util.GetterUtil;
 import com.liferay.poshi.runner.util.PropsUtil;
 
 import cucumber.api.Scenario;
@@ -144,7 +145,11 @@ public class FaroHooks {
 
 			checkboxWebElement.sendKeys(Keys.SPACE);
 
-			faroSelenium.click("//button[text()='Delete']");
+			WebElement demoDataCheckbox = faroSelenium.findElement(
+				"//span[text()='LIFERAY-DATASOURCE-FARO-EXAMPLE']" +
+					"/ancestor::tr//input[@type='checkbox']");
+
+			demoDataCheckbox.sendKeys(Keys.SPACE);
 
 			String itemCount = String.valueOf(Table.tableItemCount());
 
@@ -152,21 +157,40 @@ public class FaroHooks {
 
 			String singleItem = list.get(0);
 
-			if (itemCount.equals("1")) {
+			if (singleItem.equals("LIFERAY-DATASOURCE-FARO-EXAMPLE") &&
+				!itemCount.equals("1")) {
+
+				singleItem = list.get(1);
+			}
+
+			if (!itemCount.equals("1")) {
+				int minusDemo = GetterUtil.getInteger(itemCount) - 1;
+
+				itemCount = String.valueOf(minusDemo);
+			}
+
+			if (itemCount.equals("1") &&
+				singleItem.equals("LIFERAY-DATASOURCE-FARO-EXAMPLE")) {
+			}
+			else if (itemCount.equals("1")) {
+				faroSelenium.click("//button[text()='Delete']");
 				faroSelenium.type(
 					"//input[@name='delete' and @type='text']",
 					"Delete " + singleItem);
+
+				faroSelenium.click("//button[text()='Delete']");
 			}
 			else {
+				faroSelenium.click("//button[text()='Delete']");
 				faroSelenium.type(
 					"//input[@name='delete' and @type='text']",
 					"Delete " + itemCount + " Properties");
+
+				faroSelenium.click("//button[text()='Delete']");
 			}
 
-			faroSelenium.click("//button[text()='Delete']");
-
 			faroSelenium.waitForElementPresent(
-				"//div[contains(@class,'no-results-root')]");
+				"//span[text()='LIFERAY-DATASOURCE-FARO-EXAMPLE']");
 		}
 	}
 
