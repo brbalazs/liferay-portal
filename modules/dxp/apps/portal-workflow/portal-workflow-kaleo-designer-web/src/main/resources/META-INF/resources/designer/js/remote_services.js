@@ -30,13 +30,15 @@ AUI.add(
 				);
 			},
 
-			getUser: function(userId, callback) {
+			getUser: function(emailAddress, screenName, userId, callback) {
 				var instance = this;
 
 				instance._invokeResourceURL(
 					{
 						callback: callback,
 						queryParameters: {
+							emailAddresses: emailAddress,
+							screenNames: screenName,
 							userIds: userId
 						},
 						resourceId: 'users',
