@@ -609,6 +609,16 @@ definition {
 			searchAssetType = "Blogs Entry"
 		);
 
+		SearchFacetPortlet.updateFacetConfiguration(
+			displayFrequencies = "disable",
+			portletName = "Category Facet");
+
+		Refresh();
+
+		AssertElementNotPresent(
+			facetValueName = "Category Name",
+			locator1 = "Search#FACET_DISPLAY_FREQUENCIES");
+
 		SearchPortlets.searchEmbedded(searchTerm = "Category");
 
 		SearchResultPortlet.viewSearchResults(

@@ -34,6 +34,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>FACET_DISPLAY_FREQUENCIES</td>
+	<td>//small[contains(@class,'term-count')]/preceding-sibling::span[contains(.,'${facetValueName}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>MODIFIED_FACET_CONFIG_EMPTY_FIELD</td>
 	<td>//div[contains(@class,'form-row')][2]//div[label[contains(.,'${key_fieldLabel}')]]//input[@type='text']</td>
 	<td></td>
