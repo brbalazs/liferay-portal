@@ -33,7 +33,7 @@ import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -57,7 +57,7 @@ import javax.servlet.http.HttpServletRequest;
 public class OrderSummaryCheckoutStepDisplayContext {
 
 	public OrderSummaryCheckoutStepDisplayContext(
-		CommerceChannelService commerceChannelService,
+		CommerceChannelLocalService commerceChannelLocalService,
 		CommerceOrderHttpHelper commerceOrderHttpHelper,
 		CommerceOrderPriceCalculation commerceOrderPriceCalculation,
 		CommerceOrderValidatorRegistry commerceOrderValidatorRegistry,
@@ -67,7 +67,7 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		PercentageFormatter percentageFormatter,
 		HttpServletRequest httpServletRequest) {
 
-		_commerceChannelService = commerceChannelService;
+		_commerceChannelLocalService = commerceChannelLocalService;
 		_commerceOrderHttpHelper = commerceOrderHttpHelper;
 		_commerceOrderPriceCalculation = commerceOrderPriceCalculation;
 		_commerceOrderValidatorRegistry = commerceOrderValidatorRegistry;
@@ -130,7 +130,7 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		CommerceOrder commerceOrder = getCommerceOrder();
 
 		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannelByOrderGroupId(
+			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
 				commerceOrder.getGroupId());
 
 		return commerceChannel.getPriceDisplayType();
@@ -288,7 +288,7 @@ public class OrderSummaryCheckoutStepDisplayContext {
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
-	private final CommerceChannelService _commerceChannelService;
+	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceContext _commerceContext;
 	private final CommerceOrder _commerceOrder;
 	private final CommerceOrderHttpHelper _commerceOrderHttpHelper;
