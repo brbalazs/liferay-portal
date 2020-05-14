@@ -31,6 +31,7 @@ import com.liferay.commerce.discount.target.CommerceDiscountTarget;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -142,6 +143,9 @@ public class CommerceDiscountCalculationImpl
 		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
 		if (commerceOrder != null) {
+			commerceOrder = _commerceOrderLocalService.getCommerceOrder(
+				commerceOrder.getCommerceOrderId());
+
 			couponCode = commerceOrder.getCouponCode();
 		}
 
@@ -412,6 +416,9 @@ public class CommerceDiscountCalculationImpl
 
 	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;
+
+	@Reference
+	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
