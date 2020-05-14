@@ -860,7 +860,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		throws PortalException {
 
 		if (cpDefinitionOptionRel.isNew() ||
-			Validator.isNull(cpDefinitionOptionRel.getPriceType())) {
+			Validator.isNull(cpDefinitionOptionRel.getPriceType()) ||
+			Objects.equals(cpDefinitionOptionRel.getPriceType(), priceType)) {
 
 			return;
 		}
