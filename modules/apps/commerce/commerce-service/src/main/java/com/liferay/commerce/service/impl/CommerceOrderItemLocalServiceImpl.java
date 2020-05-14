@@ -153,12 +153,13 @@ public class CommerceOrderItemLocalServiceImpl
 				_cpInstanceLocalService.getCPInstance(
 					commerceOptionValue.getCPInstanceId());
 
+			int currentQuantity = quantity * commerceOptionValue.getQuantity();
+
 			CommerceOrderItem childCommerceOrderItem = _createCommerceOrderItem(
 				commerceOrder.getGroupId(), user, commerceOrder,
 				commerceOptionValueCPInstance, commerceOptionValue.toJSON(),
-				commerceOrderItem.getCommerceOrderItemId(),
-				commerceOptionValue.getQuantity(), 0, commerceContext,
-				serviceContext);
+				commerceOrderItem.getCommerceOrderItemId(), currentQuantity, 0,
+				commerceContext, serviceContext);
 
 			if (!_isStaticPriceType(commerceOptionValue.getPriceType())) {
 				childCommerceOrderItem = commerceOrderItemPersistence.update(
@@ -169,8 +170,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 			CommerceProductPrice commerceProductPrice =
 				_getStaticCommerceProductPrice(
-					commerceOptionValue.getCPInstanceId(),
-					commerceOptionValue.getQuantity(),
+					commerceOptionValue.getCPInstanceId(), currentQuantity,
 					commerceOptionValue.getPrice(),
 					childCommerceOrderItem.getCommerceOrder(),
 					commerceContext.getCommerceCurrency());
