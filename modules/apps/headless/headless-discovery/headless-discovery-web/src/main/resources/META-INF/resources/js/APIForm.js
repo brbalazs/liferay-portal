@@ -19,7 +19,7 @@ import {useAppState} from './hooks/appState';
 import {getBaseURL, getCategoryURL} from './util/url';
 import {getSchemaType} from './util/util';
 
-const getContentType = (requestBody) =>
+const getContentType = requestBody =>
 	requestBody
 		? requestBody.content['multipart/form-data']
 			? 'multipart/form-data'
@@ -38,7 +38,7 @@ const APIForm = _ => {
 		method,
 		path,
 		paths,
-		schemas,
+		schemas
 	} = state;
 
 	const methodData = paths[path][method];

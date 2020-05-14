@@ -53,7 +53,7 @@ const APIGUI = () => {
 	const [showGraphQL, setShowGraphQL] = useState(false);
 	const [showHeaders, setShowHeaders] = useState(false);
 	const {observer, onClose} = useModal({
-		onClose: () => setShowHeaders(false),
+		onClose: () => setShowHeaders(false)
 	});
 	const [headers, setHeaders] = useState([{key: '', value: ''}]);
 
@@ -132,7 +132,7 @@ const APIGUI = () => {
 	window.global = window;
 
 	const graphQLFetcher = useCallback(
-		(graphQLParams) =>
+		graphQLParams =>
 			apiFetch(
 				'/o/graphql',
 				'post',
@@ -162,7 +162,7 @@ const APIGUI = () => {
 										<input
 											className="form-control"
 											name="key"
-											onChange={(event) =>
+											onChange={event =>
 												handleInputChange(i, event)
 											}
 											placeholder="Header Key"
@@ -174,7 +174,7 @@ const APIGUI = () => {
 										<input
 											className="form-control"
 											name="value"
-											onChange={(event) =>
+											onChange={event =>
 												handleInputChange(i, event)
 											}
 											placeholder="Header Value"
@@ -204,7 +204,7 @@ const APIGUI = () => {
 										onClick={() => {
 											setHeaders([
 												...headers,
-												{key: '', value: ''},
+												{key: '', value: ''}
 											]);
 										}}
 									>
@@ -217,7 +217,7 @@ const APIGUI = () => {
 									onClick={() => {
 										dispatch({
 											headers,
-											type: 'ADD_HEADERS',
+											type: 'ADD_HEADERS'
 										});
 										onClose();
 									}}
@@ -277,7 +277,7 @@ const APIGUI = () => {
 										<button
 											onClick={() => {
 												dispatch({
-													type: 'TOGGLE_SCHEMAS',
+													type: 'TOGGLE_SCHEMAS'
 												});
 											}}
 										>
@@ -293,16 +293,16 @@ const APIGUI = () => {
 								</label>
 								<ClaySelect
 									aria-label="Select API Category"
-									onChange={(e) => {
+									onChange={e => {
 										dispatch({
 											categoryKey: e.currentTarget.value,
-											type: 'SELECT_CATEGORY',
+											type: 'SELECT_CATEGORY'
 										});
 									}}
 									value={categoryKey}
 								>
 									{categories &&
-										Object.keys(categories).map((key) => (
+										Object.keys(categories).map(key => (
 											<ClaySelect.Option
 												key={key}
 												label={key}
@@ -327,7 +327,7 @@ const APIGUI = () => {
 
 								<ClayInput
 									name="filter"
-									onChange={(event) => {
+									onChange={event => {
 										dispatch({
 											filter: event.target.value,
 											type: 'SET_FILTER'
@@ -347,10 +347,10 @@ const APIGUI = () => {
 										baseURL={categoryKey}
 										curPath={path}
 										filter={filter}
-										onClick={(selPath) => {
+										onClick={selPath => {
 											dispatch({
 												path: selPath,
-												type: 'SELECT_PATH',
+												type: 'SELECT_PATH'
 											});
 										}}
 										paths={paths}

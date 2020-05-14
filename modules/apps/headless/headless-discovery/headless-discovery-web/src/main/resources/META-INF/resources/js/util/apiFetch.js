@@ -17,7 +17,7 @@ import {fetch} from 'frontend-js-web';
 const apiFetch = (url, method = 'get', data, contentType, headers) => {
 	const request = {
 		headers: getHeaders(headers),
-		method: method.toUpperCase(),
+		method: method.toUpperCase()
 	};
 
 	if (method === 'post' || method === 'put') {
@@ -49,9 +49,9 @@ const apiFetch = (url, method = 'get', data, contentType, headers) => {
 	});
 
 	function getHeaders(headers) {
-		if (headers && headers.filter((obj) => obj.key).length) {
+		if (headers && headers.filter(obj => obj.key).length) {
 			return Object.assign(
-				...headers.map((obj) => ({[obj.key]: obj.value}))
+				...headers.map(obj => ({[obj.key]: obj.value}))
 			);
 		}
 

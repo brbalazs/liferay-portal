@@ -36,7 +36,7 @@ const appStateReducer = (state, action) => {
 
 			return {
 				...state,
-				headers,
+				headers
 			};
 		}
 		case 'LOAD_API_RESPONSE': {
