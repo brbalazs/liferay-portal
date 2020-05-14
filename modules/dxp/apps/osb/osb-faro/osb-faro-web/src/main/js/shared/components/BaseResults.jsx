@@ -297,7 +297,7 @@ export default class BaseResults extends React.Component {
 					title={getFormattedTitle(entityLabel, noResultsTitle)}
 				/>
 			);
-		} else if (!loading && !total) {
+		} else if (!loading && !items.length && !total) {
 			return noResultsRenderer ? (
 				noResultsRenderer(query, activeFilters)
 			) : (

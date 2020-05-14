@@ -38,8 +38,8 @@ describe('TableTabs', () => {
 		const {getByText} = render(
 			<TableTabs
 				activeTabId='foo'
-				empty
 				emptyMessage={emptyMessage}
+				items={[]}
 				onChange={jest.fn()}
 				tabConfig={[
 					{getColumns: noop, tabId: 'foo', title: tabTitle},

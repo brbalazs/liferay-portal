@@ -51,7 +51,7 @@ const withEmpty = ({
 				title={getFormattedTitle(entityLabel)}
 			/>
 		);
-	} else if (!total) {
+	} else if (items && !items.length && !total) {
 		return (
 			<NoResultsDisplay
 				description={emptyDescription}
