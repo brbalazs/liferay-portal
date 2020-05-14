@@ -79,7 +79,7 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 				</div>
 
 				<div class="align-items-end col-auto d-flex">
-					<button class="btn btn-monospaced btn-secondary" id="remove-sku-button" onclick="<%= renderResponse.getNamespace() + "removeSku();" %>">
+					<button class="btn btn-monospaced btn-secondary" id="remove-sku-button" onclick="<%= renderResponse.getNamespace() + "removeSku();" %>" type="button">
 						<clay:icon
 							symbol="trash"
 						/>
@@ -130,6 +130,7 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 				var url = new URL(
 					'<%= cpDefinitionOptionValueRelDisplayContext.getRemoveSkuUrl(currentURL) %>'
 				);
+
 				window.location.href = url.toString();
 			});
 		</aui:script>
