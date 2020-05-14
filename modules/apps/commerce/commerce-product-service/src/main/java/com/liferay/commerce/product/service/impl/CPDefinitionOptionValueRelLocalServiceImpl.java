@@ -546,6 +546,24 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 				BigDecimal.ZERO, serviceContext);
 	}
 
+	@Override
+	public CPDefinitionOptionValueRel updateLinkedCPInstance(
+			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
+			long cProductId, int quantity)
+		throws PortalException {
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			cpDefinitionOptionValueRelLocalService.
+				getCPDefinitionOptionValueRel(cpDefinitionOptionValueRelId);
+
+		cpDefinitionOptionValueRel.setCPInstanceUuid(cpInstanceUuid);
+		cpDefinitionOptionValueRel.setCProductId(cProductId);
+		cpDefinitionOptionValueRel.setQuantity(quantity);
+
+		return cpDefinitionOptionValueRelLocalService.
+			updateCPDefinitionOptionValueRel(cpDefinitionOptionValueRel);
+	}
+
 	protected SearchContext buildSearchContext(
 		long companyId, long groupId, long cpDefinitionOptionRelId,
 		String keywords, int start, int end, Sort sort) {
