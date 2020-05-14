@@ -307,21 +307,16 @@ public class CommerceOrderLocalServiceImpl
 		CommerceOrder commerceOrder =
 			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
 
-		try {
-			boolean hasDiscounts = false;
+		boolean hasDiscounts = false;
 
-			if (_commerceDiscountLocalService.getCommerceDiscountsCount(
-					commerceOrder.getCompanyId(), couponCode) == 0) {
+		if (_commerceDiscountLocalService.getCommerceDiscountsCount(
+				commerceOrder.getCompanyId(), couponCode) == 0) {
 
-				hasDiscounts = true;
-			}
-
-			if (hasDiscounts && Validator.isNotNull(couponCode)) {
-				throw new CommerceDiscountCouponCodeException();
-			}
+			hasDiscounts = true;
 		}
-		catch (CommerceDiscountCouponCodeException cdcce) {
-			throw new CommerceDiscountCouponCodeException(cdcce);
+
+		if (hasDiscounts && Validator.isNotNull(couponCode)) {
+			throw new CommerceDiscountCouponCodeException();
 		}
 
 		commerceOrder.setCouponCode(couponCode);
