@@ -67,6 +67,20 @@ public class ChannelSerDes {
 			sb.append("\"");
 		}
 
+		if (channel.getExternalReferenceCode() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"externalReferenceCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(channel.getExternalReferenceCode()));
+
+			sb.append("\"");
+		}
+
 		if (channel.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -89,6 +103,16 @@ public class ChannelSerDes {
 			sb.append(_escape(channel.getName()));
 
 			sb.append("\"");
+		}
+
+		if (channel.getSiteGroupId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"siteGroupId\": ");
+
+			sb.append(channel.getSiteGroupId());
 		}
 
 		if (channel.getType() != null) {
@@ -130,6 +154,15 @@ public class ChannelSerDes {
 			map.put("currency", String.valueOf(channel.getCurrency()));
 		}
 
+		if (channel.getExternalReferenceCode() == null) {
+			map.put("externalReferenceCode", null);
+		}
+		else {
+			map.put(
+				"externalReferenceCode",
+				String.valueOf(channel.getExternalReferenceCode()));
+		}
+
 		if (channel.getId() == null) {
 			map.put("id", null);
 		}
@@ -142,6 +175,13 @@ public class ChannelSerDes {
 		}
 		else {
 			map.put("name", String.valueOf(channel.getName()));
+		}
+
+		if (channel.getSiteGroupId() == null) {
+			map.put("siteGroupId", null);
+		}
+		else {
+			map.put("siteGroupId", String.valueOf(channel.getSiteGroupId()));
 		}
 
 		if (channel.getType() == null) {
@@ -176,6 +216,14 @@ public class ChannelSerDes {
 					channel.setCurrency((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(
+						jsonParserFieldName, "externalReferenceCode")) {
+
+				if (jsonParserFieldValue != null) {
+					channel.setExternalReferenceCode(
+						(String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					channel.setId(Long.valueOf((String)jsonParserFieldValue));
@@ -184,6 +232,12 @@ public class ChannelSerDes {
 			else if (Objects.equals(jsonParserFieldName, "name")) {
 				if (jsonParserFieldValue != null) {
 					channel.setName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "siteGroupId")) {
+				if (jsonParserFieldValue != null) {
+					channel.setSiteGroupId(
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "type")) {

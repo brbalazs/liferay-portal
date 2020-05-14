@@ -74,13 +74,15 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deleteChannel(@GraphQLName("channelId") Long channelId)
+	public boolean deleteChannel(@GraphQLName("channelId") Long channelId)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_channelResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			channelResource -> channelResource.deleteChannel(channelId));
+
+		return true;
 	}
 
 	@GraphQLField

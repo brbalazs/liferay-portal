@@ -92,14 +92,20 @@ public abstract class BaseChannelResourceImpl
 	@Operation(description = "Retrieves channels.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "search"),
+			@Parameter(in = ParameterIn.QUERY, name = "filter"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
+			@Parameter(in = ParameterIn.QUERY, name = "sort")
 		}
 	)
 	@Path("/channels")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Channel")})
-	public Page<Channel> getChannelsPage(@Context Pagination pagination)
+	public Page<Channel> getChannelsPage(
+			@Parameter(hidden = true) @QueryParam("search") String search,
+			@Context Filter filter, @Context Pagination pagination,
+			@Context Sort[] sorts)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -108,7 +114,7 @@ public abstract class BaseChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels' -d $'{"currency": ___, "id": ___, "name": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels' -d $'{"currency": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -167,14 +173,10 @@ public abstract class BaseChannelResourceImpl
 	@Path("/channels/{channelId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Channel")})
-	public Response deleteChannel(
+	public void deleteChannel(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId)
 		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
 	}
 
 	/**
@@ -236,7 +238,7 @@ public abstract class BaseChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}' -d $'{"currency": ___, "id": ___, "name": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}' -d $'{"currency": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -257,8 +259,17 @@ public abstract class BaseChannelResourceImpl
 			existingChannel.setCurrency(channel.getCurrency());
 		}
 
+		if (channel.getExternalReferenceCode() != null) {
+			existingChannel.setExternalReferenceCode(
+				channel.getExternalReferenceCode());
+		}
+
 		if (channel.getName() != null) {
 			existingChannel.setName(channel.getName());
+		}
+
+		if (channel.getSiteGroupId() != null) {
+			existingChannel.setSiteGroupId(channel.getSiteGroupId());
 		}
 
 		if (channel.getType() != null) {
@@ -273,7 +284,7 @@ public abstract class BaseChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}' -d $'{"currency": ___, "id": ___, "name": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}' -d $'{"currency": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -371,7 +382,7 @@ public abstract class BaseChannelResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getChannelsPage(pagination);
+		return getChannelsPage(search, filter, pagination, sorts);
 	}
 
 	@Override

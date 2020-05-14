@@ -49,6 +49,27 @@ public class Channel implements Cloneable {
 
 	protected String currency;
 
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
+	}
+
+	public void setExternalReferenceCode(String externalReferenceCode) {
+		this.externalReferenceCode = externalReferenceCode;
+	}
+
+	public void setExternalReferenceCode(
+		UnsafeSupplier<String, Exception> externalReferenceCodeUnsafeSupplier) {
+
+		try {
+			externalReferenceCode = externalReferenceCodeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String externalReferenceCode;
+
 	public Long getId() {
 		return id;
 	}
@@ -86,6 +107,27 @@ public class Channel implements Cloneable {
 	}
 
 	protected String name;
+
+	public Long getSiteGroupId() {
+		return siteGroupId;
+	}
+
+	public void setSiteGroupId(Long siteGroupId) {
+		this.siteGroupId = siteGroupId;
+	}
+
+	public void setSiteGroupId(
+		UnsafeSupplier<Long, Exception> siteGroupIdUnsafeSupplier) {
+
+		try {
+			siteGroupId = siteGroupIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long siteGroupId;
 
 	public String getType() {
 		return type;

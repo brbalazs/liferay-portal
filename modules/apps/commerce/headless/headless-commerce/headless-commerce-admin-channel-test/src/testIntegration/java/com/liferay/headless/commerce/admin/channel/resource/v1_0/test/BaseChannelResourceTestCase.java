@@ -25,8 +25,11 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.liferay.headless.commerce.admin.channel.client.dto.v1_0.Channel;
 import com.liferay.headless.commerce.admin.channel.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.channel.client.pagination.Page;
+import com.liferay.headless.commerce.admin.channel.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.channel.client.resource.v1_0.ChannelResource;
 import com.liferay.headless.commerce.admin.channel.client.serdes.v1_0.ChannelSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -42,20 +45,26 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +76,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -179,6 +190,7 @@ public abstract class BaseChannelResourceTestCase {
 		Channel channel = randomChannel();
 
 		channel.setCurrency(regex);
+		channel.setExternalReferenceCode(regex);
 		channel.setName(regex);
 		channel.setType(regex);
 
@@ -189,65 +201,270 @@ public abstract class BaseChannelResourceTestCase {
 		channel = ChannelSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, channel.getCurrency());
+		Assert.assertEquals(regex, channel.getExternalReferenceCode());
 		Assert.assertEquals(regex, channel.getName());
 		Assert.assertEquals(regex, channel.getType());
 	}
 
 	@Test
 	public void testGetChannelsPage() throws Exception {
-		Assert.assertTrue(false);
+		Page<Channel> page = channelResource.getChannelsPage(
+			RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
+
+		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
+
+		page = channelResource.getChannelsPage(
+			null, null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(channel1, channel2), (List<Channel>)page.getItems());
+		assertValid(page);
+
+		channelResource.deleteChannel(channel1.getId());
+
+		channelResource.deleteChannel(channel2.getId());
+	}
+
+	@Test
+	public void testGetChannelsPageWithFilterDateTimeEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Channel channel1 = randomChannel();
+
+		channel1 = testGetChannelsPage_addChannel(channel1);
+
+		for (EntityField entityField : entityFields) {
+			Page<Channel> page = channelResource.getChannelsPage(
+				null, getFilterString(entityField, "between", channel1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(channel1),
+				(List<Channel>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetChannelsPageWithFilterStringEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
+
+		for (EntityField entityField : entityFields) {
+			Page<Channel> page = channelResource.getChannelsPage(
+				null, getFilterString(entityField, "eq", channel1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(channel1),
+				(List<Channel>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetChannelsPageWithPagination() throws Exception {
+		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
+
+		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
+
+		Channel channel3 = testGetChannelsPage_addChannel(randomChannel());
+
+		Page<Channel> page1 = channelResource.getChannelsPage(
+			null, null, Pagination.of(1, 2), null);
+
+		List<Channel> channels1 = (List<Channel>)page1.getItems();
+
+		Assert.assertEquals(channels1.toString(), 2, channels1.size());
+
+		Page<Channel> page2 = channelResource.getChannelsPage(
+			null, null, Pagination.of(2, 2), null);
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Channel> channels2 = (List<Channel>)page2.getItems();
+
+		Assert.assertEquals(channels2.toString(), 1, channels2.size());
+
+		Page<Channel> page3 = channelResource.getChannelsPage(
+			null, null, Pagination.of(1, 3), null);
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(channel1, channel2, channel3),
+			(List<Channel>)page3.getItems());
+	}
+
+	@Test
+	public void testGetChannelsPageWithSortDateTime() throws Exception {
+		testGetChannelsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, channel1, channel2) -> {
+				BeanUtils.setProperty(
+					channel1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetChannelsPageWithSortInteger() throws Exception {
+		testGetChannelsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, channel1, channel2) -> {
+				BeanUtils.setProperty(channel1, entityField.getName(), 0);
+				BeanUtils.setProperty(channel2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetChannelsPageWithSortString() throws Exception {
+		testGetChannelsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, channel1, channel2) -> {
+				Class<?> clazz = channel1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						channel1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						channel2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						channel1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						channel2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						channel1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						channel2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetChannelsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, Channel, Channel, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Channel channel1 = randomChannel();
+		Channel channel2 = randomChannel();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, channel1, channel2);
+		}
+
+		channel1 = testGetChannelsPage_addChannel(channel1);
+
+		channel2 = testGetChannelsPage_addChannel(channel2);
+
+		for (EntityField entityField : entityFields) {
+			Page<Channel> ascPage = channelResource.getChannelsPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(channel1, channel2),
+				(List<Channel>)ascPage.getItems());
+
+			Page<Channel> descPage = channelResource.getChannelsPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(channel2, channel1),
+				(List<Channel>)descPage.getItems());
+		}
+	}
+
+	protected Channel testGetChannelsPage_addChannel(Channel channel)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
 	public void testGraphQLGetChannelsPage() throws Exception {
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
-
-		graphQLFields.add(
-			new GraphQLField(
-				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
-
-		graphQLFields.add(new GraphQLField("page"));
-		graphQLFields.add(new GraphQLField("totalCount"));
-
 		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"channels",
-				new HashMap<String, Object>() {
-					{
-						put("page", 1);
-						put("pageSize", 2);
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
+			"channels",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 2);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		JSONObject channelsJSONObject = dataJSONObject.getJSONObject(
-			"channels");
+		JSONObject channelsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/channels");
 
 		Assert.assertEquals(0, channelsJSONObject.get("totalCount"));
 
 		Channel channel1 = testGraphQLChannel_addChannel();
 		Channel channel2 = testGraphQLChannel_addChannel();
 
-		jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		dataJSONObject = jsonObject.getJSONObject("data");
-
-		channelsJSONObject = dataJSONObject.getJSONObject("channels");
+		channelsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/channels");
 
 		Assert.assertEquals(2, channelsJSONObject.get("totalCount"));
 
-		assertEqualsJSONArray(
+		assertEqualsIgnoringOrder(
 			Arrays.asList(channel1, channel2),
-			channelsJSONObject.getJSONArray("items"));
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -265,11 +482,6 @@ public abstract class BaseChannelResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testNullBatch() throws Exception {
-		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -296,60 +508,37 @@ public abstract class BaseChannelResourceTestCase {
 	public void testGraphQLDeleteChannel() throws Exception {
 		Channel channel = testGraphQLChannel_addChannel();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteChannel",
-				new HashMap<String, Object>() {
-					{
-						put("channelId", channel.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteChannel"));
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteChannel",
+						new HashMap<String, Object>() {
+							{
+								put("channelId", channel.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteChannel"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"channel",
-					new HashMap<String, Object>() {
-						{
-							put("channelId", channel.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"channel",
+						new HashMap<String, Object>() {
+							{
+								put("channelId", channel.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
-	}
-
-	@Test
-	public void testNullBatch() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Channel channel = testNullBatch_addChannel();
-
-		assertHttpResponseStatusCode(
-			204, channelResource.nullBatchHttpResponse(null, null));
-	}
-
-	protected Channel testNullBatch_addChannel() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
 	}
 
 	@Test
@@ -371,26 +560,41 @@ public abstract class BaseChannelResourceTestCase {
 	public void testGraphQLGetChannel() throws Exception {
 		Channel channel = testGraphQLChannel_addChannel();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"channel",
-				new HashMap<String, Object>() {
-					{
-						put("channelId", channel.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
-			equalsJSONObject(channel, dataJSONObject.getJSONObject("channel")));
+			equals(
+				channel,
+				ChannelSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"channel",
+								new HashMap<String, Object>() {
+									{
+										put("channelId", channel.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/channel"))));
+	}
+
+	@Test
+	public void testGraphQLGetChannelNotFound() throws Exception {
+		Long irrelevantChannelId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"channel",
+						new HashMap<String, Object>() {
+							{
+								put("channelId", irrelevantChannelId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
 	}
 
 	@Test
@@ -440,10 +644,8 @@ public abstract class BaseChannelResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	@Test
-	public void testNullBatch() throws Exception {
-		Assert.assertTrue(false);
-	}
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected Channel testGraphQLChannel_addChannel() throws Exception {
 		throw new UnsupportedOperationException(
@@ -498,25 +700,6 @@ public abstract class BaseChannelResourceTestCase {
 		}
 	}
 
-	protected void assertEqualsJSONArray(
-		List<Channel> channels, JSONArray jsonArray) {
-
-		for (Channel channel : channels) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(channel, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + channel, contains);
-		}
-	}
-
 	protected void assertValid(Channel channel) {
 		boolean valid = true;
 
@@ -535,8 +718,26 @@ public abstract class BaseChannelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"externalReferenceCode", additionalAssertFieldName)) {
+
+				if (channel.getExternalReferenceCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (channel.getName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("siteGroupId", additionalAssertFieldName)) {
+				if (channel.getSiteGroupId() == null) {
 					valid = false;
 				}
 
@@ -580,13 +781,50 @@ public abstract class BaseChannelResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.headless.commerce.admin.channel.dto.v1_0.
+						Channel.class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(field.getName(), childrenGraphQLFields));
+			}
 		}
 
 		return graphQLFields;
@@ -614,6 +852,19 @@ public abstract class BaseChannelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"externalReferenceCode", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						channel1.getExternalReferenceCode(),
+						channel2.getExternalReferenceCode())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(channel1.getId(), channel2.getId())) {
 					return false;
@@ -625,6 +876,16 @@ public abstract class BaseChannelResourceTestCase {
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						channel1.getName(), channel2.getName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("siteGroupId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						channel1.getSiteGroupId(), channel2.getSiteGroupId())) {
 
 					return false;
 				}
@@ -650,51 +911,25 @@ public abstract class BaseChannelResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(Channel channel, JSONObject jsonObject) {
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("currency", fieldName)) {
-				if (!Objects.deepEquals(
-						channel.getCurrency(),
-						jsonObject.getString("currency"))) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						channel.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("name", fieldName)) {
-				if (!Objects.deepEquals(
-						channel.getName(), jsonObject.getString("name"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("type", fieldName)) {
-				if (!Objects.deepEquals(
-						channel.getType(), jsonObject.getString("type"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -758,6 +993,14 @@ public abstract class BaseChannelResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("externalReferenceCode")) {
+			sb.append("'");
+			sb.append(String.valueOf(channel.getExternalReferenceCode()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -769,6 +1012,11 @@ public abstract class BaseChannelResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("siteGroupId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("type")) {
@@ -800,13 +1048,37 @@ public abstract class BaseChannelResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected Channel randomChannel() throws Exception {
 		return new Channel() {
 			{
-				currency = RandomTestUtil.randomString();
+				currency = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
-				name = RandomTestUtil.randomString();
-				type = RandomTestUtil.randomString();
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				siteGroupId = RandomTestUtil.randomLong();
+				type = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}
@@ -832,9 +1104,22 @@ public abstract class BaseChannelResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -862,7 +1147,7 @@ public abstract class BaseChannelResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -878,7 +1163,7 @@ public abstract class BaseChannelResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

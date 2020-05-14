@@ -15,6 +15,8 @@
 package com.liferay.headless.commerce.admin.channel.resource.v1_0;
 
 import com.liferay.headless.commerce.admin.channel.dto.v1_0.Channel;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -47,7 +49,8 @@ public interface ChannelResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Channel> getChannelsPage(Pagination pagination)
+	public Page<Channel> getChannelsPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Channel postChannel(Channel channel) throws Exception;
@@ -55,7 +58,7 @@ public interface ChannelResource {
 	public Response postChannelBatch(String callbackURL, Object object)
 		throws Exception;
 
-	public Response deleteChannel(Long channelId) throws Exception;
+	public void deleteChannel(Long channelId) throws Exception;
 
 	public Response deleteChannelBatch(String callbackURL, Object object)
 		throws Exception;
