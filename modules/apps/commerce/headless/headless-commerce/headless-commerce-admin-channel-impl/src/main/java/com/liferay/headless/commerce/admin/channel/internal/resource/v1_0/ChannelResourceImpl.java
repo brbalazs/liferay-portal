@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -147,18 +146,6 @@ public class ChannelResourceImpl
 		return _channelDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceChannelId, contextAcceptLanguage.getPreferredLocale()));
-	}
-
-	private List<Channel> _toChannels(List<CommerceChannel> commerceChannels)
-		throws Exception {
-
-		List<Channel> channels = new ArrayList<>(commerceChannels.size());
-
-		for (CommerceChannel commerceChannel : commerceChannels) {
-			channels.add(_toChannel(commerceChannel.getCommerceChannelId()));
-		}
-
-		return channels;
 	}
 
 	private static final EntityModel _entityModel = new ChannelEntityModel();
