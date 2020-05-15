@@ -20,6 +20,7 @@ type Item = {
 
 interface DropdownRangeKeyIProps extends React.HTMLAttributes<HTMLElement> {
 	items: Array<Item>;
+	legacy: boolean;
 	onChange: (val: any) => void;
 	rangeKey: string;
 }
@@ -30,6 +31,7 @@ const getSelectedItem = (items: Array<Item>, currentValue: string) =>
 const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 	className,
 	items,
+	legacy = true, // legacy can be removed once we convert all uses of DropdownRangeKey to include the new values.
 	onChange,
 	rangeKey = LAST_30_DAYS
 }) => {
@@ -46,18 +48,19 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 		onChange && onChange(item.value);
 	};
 
-	const filteredItems = seeMore
-		? items
-		: items.filter(
-				({value}) =>
-					value === selectedItem.value ||
-					[
-						LAST_24_HOURS,
-						LAST_7_DAYS,
-						LAST_30_DAYS,
-						LAST_90_DAYS
-					].includes(value)
-		  );
+	const filteredItems =
+		seeMore || legacy
+			? items
+			: items.filter(
+					({value}) =>
+						value === selectedItem.value ||
+						[
+							LAST_24_HOURS,
+							LAST_7_DAYS,
+							LAST_30_DAYS,
+							LAST_90_DAYS
+						].includes(value)
+			  );
 
 	// TODO: LRAC-5926 Add logic for displaying CustomRange date picker
 	const handleCustomRangeClick = () => {};
@@ -96,29 +99,31 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 					);
 				})}
 
-				<>
-					{!seeMore && (
+				{!legacy && (
+					<>
+						{!seeMore && (
+							<ClayDropDown.Item
+								className='c-pointer'
+								key='SEE_MORE'
+								onClick={() => setSeeMore(true)}
+							>
+								{Liferay.Language.get('more-preset-periods')}
+							</ClayDropDown.Item>
+						)}
+
+						<ClayDropDown.Divider />
+
 						<ClayDropDown.Item
-							className='c-pointer'
-							key='SEE_MORE'
-							onClick={() => setSeeMore(true)}
+							className={`c-pointer ${
+								selectedItem.value === 'CUSTOM' ? 'active' : ''
+							}`}
+							key='CUSTOM'
+							onClick={handleCustomRangeClick}
 						>
-							{Liferay.Language.get('more-preset-periods')}
+							<b>{Liferay.Language.get('custom-range')}</b>
 						</ClayDropDown.Item>
-					)}
-
-					<ClayDropDown.Divider />
-
-					<ClayDropDown.Item
-						className={`c-pointer ${
-							selectedItem.value === 'CUSTOM' ? 'active' : ''
-						}`}
-						key='CUSTOM'
-						onClick={handleCustomRangeClick}
-					>
-						<b>{Liferay.Language.get('custom-range')}</b>
-					</ClayDropDown.Item>
-				</>
+					</>
+				)}
 			</ClayDropDown.ItemList>
 		</ClayDropDown>
 	);
