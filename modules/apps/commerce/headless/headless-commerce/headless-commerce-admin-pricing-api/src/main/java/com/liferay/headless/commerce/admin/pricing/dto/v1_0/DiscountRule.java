@@ -22,7 +22,6 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
-import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -48,10 +47,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Schema(requiredProperties = {"type"})
 @XmlRootElement(name = "DiscountRule")
 public class DiscountRule {
-
-	public static DiscountRule toDTO(String json) {
-		return ObjectMapperUtil.readValue(DiscountRule.class, json);
-	}
 
 	@DecimalMin("0")
 	@Schema

@@ -32,10 +32,6 @@ import javax.annotation.Generated;
 @Generated("")
 public class Discount implements Cloneable {
 
-	public static Discount toDTO(String json) {
-		return DiscountSerDes.toDTO(json);
-	}
-
 	public Boolean getActive() {
 		return active;
 	}

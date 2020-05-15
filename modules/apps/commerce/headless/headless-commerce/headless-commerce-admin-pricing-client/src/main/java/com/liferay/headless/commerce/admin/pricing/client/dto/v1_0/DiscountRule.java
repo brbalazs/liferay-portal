@@ -28,10 +28,6 @@ import javax.annotation.Generated;
 @Generated("")
 public class DiscountRule implements Cloneable {
 
-	public static DiscountRule toDTO(String json) {
-		return DiscountRuleSerDes.toDTO(json);
-	}
-
 	public Long getDiscountId() {
 		return discountId;
 	}

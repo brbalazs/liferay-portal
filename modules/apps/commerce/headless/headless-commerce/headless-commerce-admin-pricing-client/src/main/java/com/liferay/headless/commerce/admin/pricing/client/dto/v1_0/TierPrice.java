@@ -31,10 +31,6 @@ import javax.annotation.Generated;
 @Generated("")
 public class TierPrice implements Cloneable {
 
-	public static TierPrice toDTO(String json) {
-		return TierPriceSerDes.toDTO(json);
-	}
-
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}

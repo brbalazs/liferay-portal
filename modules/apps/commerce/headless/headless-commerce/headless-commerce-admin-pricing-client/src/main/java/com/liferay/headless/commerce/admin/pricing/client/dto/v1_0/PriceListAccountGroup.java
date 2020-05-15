@@ -28,10 +28,6 @@ import javax.annotation.Generated;
 @Generated("")
 public class PriceListAccountGroup implements Cloneable {
 
-	public static PriceListAccountGroup toDTO(String json) {
-		return PriceListAccountGroupSerDes.toDTO(json);
-	}
-
 	public String getAccountGroupExternalReferenceCode() {
 		return accountGroupExternalReferenceCode;
 	}
