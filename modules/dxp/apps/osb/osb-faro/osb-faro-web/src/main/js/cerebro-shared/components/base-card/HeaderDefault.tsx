@@ -10,6 +10,7 @@ interface BaseCardHeaderDefaultIProps
 	extends React.HTMLAttributes<HTMLElement> {
 	interval: Interval;
 	label: string;
+	legacy: boolean;
 	onChangeInterval: (val: Interval) => void;
 	onChangeRangeKey: (val: any) => void;
 	rangeKey: string;
@@ -19,6 +20,7 @@ interface BaseCardHeaderDefaultIProps
 const BaseCardHeaderDefault: React.FC<BaseCardHeaderDefaultIProps> = ({
 	interval,
 	label,
+	legacy,
 	onChangeInterval,
 	onChangeRangeKey,
 	rangeKey,
@@ -52,6 +54,7 @@ const BaseCardHeaderDefault: React.FC<BaseCardHeaderDefaultIProps> = ({
 				)}
 
 				<DropdownRangeKey
+					legacy={legacy}
 					onChange={handleChangeRangeKey}
 					rangeKey={rangeKey}
 				/>

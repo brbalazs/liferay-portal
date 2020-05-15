@@ -5,11 +5,9 @@ import getCN from 'classnames';
 import React, {useState} from 'react';
 import {
 	LAST_24_HOURS,
-	LAST_28_DAYS,
 	LAST_30_DAYS,
 	LAST_7_DAYS,
-	LAST_90_DAYS,
-	YESTERDAY
+	LAST_90_DAYS
 } from 'shared/util/constants';
 
 type Item = {
