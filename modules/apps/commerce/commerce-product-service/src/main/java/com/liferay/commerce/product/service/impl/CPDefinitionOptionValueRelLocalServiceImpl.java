@@ -18,6 +18,7 @@ import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelCPInstanceException;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelKeyException;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelPriceException;
+import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelQuantityException;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionOptionValueRelException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -771,10 +772,9 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 			return;
 		}
 
-		if ((cpDefinitionOptionValueRel.getQuantity() == 0) ||
-			(Objects.equals(
+		if (Objects.equals(
 				priceType, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) &&
-			 (cpDefinitionOptionValueRel.getPrice() == null))) {
+			(cpDefinitionOptionValueRel.getPrice() == null)) {
 
 			throw new CPDefinitionOptionValueRelPriceException();
 		}
@@ -793,6 +793,10 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 
 		if (cpInstance == null) {
 			return;
+		}
+
+		if (cpDefinitionOptionValueRel.getQuantity() <= 0) {
+			throw new CPDefinitionOptionValueRelQuantityException();
 		}
 
 		if (!cpInstance.isApproved()) {
