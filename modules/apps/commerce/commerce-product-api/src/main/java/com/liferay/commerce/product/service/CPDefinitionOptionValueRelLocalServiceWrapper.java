@@ -519,6 +519,17 @@ public class CPDefinitionOptionValueRelLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.product.model.CPDefinitionOptionValueRel
+			resetCPInstanceCPDefinitionOptionValueRel(
+				long cpDefinitionOptionValueRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionOptionValueRelLocalService.
+			resetCPInstanceCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRelId);
+	}
+
+	@Override
 	public void resetCPInstanceCPDefinitionOptionValueRels(
 		String cpInstanceUuid) {
 
@@ -593,17 +604,6 @@ public class CPDefinitionOptionValueRelLocalServiceWrapper
 			updateCPDefinitionOptionValueRel(
 				cpDefinitionOptionValueRelId, nameMap, priority, key,
 				serviceContext);
-	}
-
-	@Override
-	public com.liferay.commerce.product.model.CPDefinitionOptionValueRel
-			updateLinkedCPInstance(
-				long cpDefinitionOptionValueRelId, String cpInstanceUuid,
-				long cProductId, int quantity)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cpDefinitionOptionValueRelLocalService.updateLinkedCPInstance(
-			cpDefinitionOptionValueRelId, cpInstanceUuid, cProductId, quantity);
 	}
 
 	@Override

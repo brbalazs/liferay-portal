@@ -367,6 +367,11 @@ public interface CPDefinitionOptionValueRelLocalService
 			long cpDefinitionOptionRelId, ServiceContext serviceContext)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CPDefinitionOptionValueRel resetCPInstanceCPDefinitionOptionValueRel(
+			long cpDefinitionOptionValueRelId)
+		throws PortalException;
+
 	public void resetCPInstanceCPDefinitionOptionValueRels(
 		String cpInstanceUuid);
 
@@ -400,12 +405,6 @@ public interface CPDefinitionOptionValueRelLocalService
 	public CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
 			long cpDefinitionOptionValueRelId, Map<Locale, String> nameMap,
 			double priority, String key, ServiceContext serviceContext)
-		throws PortalException;
-
-	@Indexable(type = IndexableType.REINDEX)
-	public CPDefinitionOptionValueRel updateLinkedCPInstance(
-			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
-			long cProductId, int quantity)
 		throws PortalException;
 
 }

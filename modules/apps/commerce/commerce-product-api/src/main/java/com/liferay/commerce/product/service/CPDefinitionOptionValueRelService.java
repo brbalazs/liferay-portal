@@ -118,6 +118,10 @@ public interface CPDefinitionOptionValueRelService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+	public CPDefinitionOptionValueRel resetCPInstanceCPDefinitionOptionValueRel(
+			long cpDefinitionOptionValueRelId)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CPDefinitionOptionValueRel>
 			searchCPDefinitionOptionValueRels(
@@ -134,11 +138,6 @@ public interface CPDefinitionOptionValueRelService extends BaseService {
 	public CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
 			long cpDefinitionOptionValueRelId, Map<Locale, String> nameMap,
 			double priority, String key, ServiceContext serviceContext)
-		throws PortalException;
-
-	public CPDefinitionOptionValueRel updateLinkedCPInstance(
-			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
-			long cProductId, int quantity)
 		throws PortalException;
 
 }
