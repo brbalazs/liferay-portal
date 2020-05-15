@@ -255,11 +255,11 @@ public class CommerceCartResourceUtil {
 		CommerceCurrency commerceCurrency =
 			commerceContext.getCommerceCurrency();
 
+		BigDecimal totalUnitPrice = unitPriceMoney.getPrice();
+
 		List<CommerceOrderItem> childCommerceOrderItems =
 			_commerceOrderItemService.getChildCommerceOrderItems(
 				commerceOrderItem.getCommerceOrderItemId());
-
-		BigDecimal totalUnitPrice = unitPriceMoney.getPrice();
 
 		for (CommerceOrderItem childCommerceOrderItem :
 				childCommerceOrderItems) {
