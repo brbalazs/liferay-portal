@@ -1,10 +1,14 @@
 import React from 'react';
 import RelativeMetricBar from '../RelativeMetricBar';
-import {shallow} from 'enzyme';
+import {cleanup, render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('RelativeMetricBar', () => {
+	afterEach(cleanup);
+
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<RelativeMetricBar
 				data={{
 					count: 6,
@@ -16,11 +20,11 @@ describe('RelativeMetricBar', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render w/ name', () => {
-		const component = shallow(
+		const {getByText} = render(
 			<RelativeMetricBar
 				data={{
 					count: 6,
@@ -32,6 +36,22 @@ describe('RelativeMetricBar', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(getByText('Test Test')).toBeTruthy();
+	});
+
+	it('should render w/ data-tooltip attr', () => {
+		const {container} = render(
+			<RelativeMetricBar
+				data={{
+					count: 6,
+					name: 'Test Test'
+				}}
+				maxCount={10}
+				showName
+				totalCount={12}
+			/>
+		);
+
+		expect(container.querySelector('[data-tooltip]')).toBeTruthy();
 	});
 });

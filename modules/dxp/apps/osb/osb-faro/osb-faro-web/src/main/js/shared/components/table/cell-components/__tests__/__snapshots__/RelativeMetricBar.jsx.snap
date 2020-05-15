@@ -1,43 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RelativeMetricBar should render 1`] = `
-<td
-  className="table-cell-expand relative-metric-bar-root"
->
-  <MetricBar
-    percent={0.56}
-    size="lg"
+<div>
+  <td
+    class="table-cell-expand relative-metric-bar-root"
   >
-    <span
-      className="title text-truncate"
-    />
-    <span
-      className="count"
+    <div
+      class="metric-bar-root"
     >
-      6
-    </span>
-  </MetricBar>
-</td>
-`;
-
-exports[`RelativeMetricBar should render w/ name 1`] = `
-<td
-  className="table-cell-expand relative-metric-bar-root"
->
-  <MetricBar
-    percent={0.56}
-    size="lg"
-  >
-    <span
-      className="title text-truncate"
-    >
-      Test Test
-    </span>
-    <span
-      className="count"
-    >
-      6
-    </span>
-  </MetricBar>
-</td>
+      <div
+        class="bar bar-lg"
+        style="width: 56%;"
+      />
+      <div
+        class="info-wrapper align-items-center d-flex justify-content-between"
+      >
+        <span
+          class="text-truncate title"
+          data-tooltip="false"
+          title=""
+        />
+        <span
+          class="count"
+        >
+          6
+        </span>
+      </div>
+    </div>
+  </td>
+</div>
 `;
