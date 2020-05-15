@@ -79,7 +79,7 @@ public class SiteResourceImpl extends BaseSiteResourceImpl {
 					group.getAvailableLanguageIds());
 				creator = CreatorUtil.toCreator(
 					_portal,
-					_userLocalService.getUserById(group.getCreatorUserId()));
+					_userLocalService.fetchUser(group.getCreatorUserId()));
 				description = group.getDescription(
 					contextAcceptLanguage.getPreferredLocale());
 				description_i18n = LocalizedMapUtil.getLocalizedMap(

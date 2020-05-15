@@ -51,7 +51,6 @@ import com.liferay.headless.delivery.internal.dto.v1_0.util.RelatedContentUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.TaxonomyCategoryBriefUtil;
 import com.liferay.journal.service.JournalArticleService;
 import com.liferay.portal.kernel.comment.CommentManager;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.service.LayoutLocalService;
@@ -100,8 +99,6 @@ public class DocumentDTOConverter
 
 		FileVersion fileVersion = fileEntry.getFileVersion();
 
-		User user = _userService.getUserById(fileEntry.getUserId());
-
 		return new Document() {
 			{
 				adaptedImages = _getAdaptiveMedias(fileEntry);
@@ -111,7 +108,9 @@ public class DocumentDTOConverter
 						fileEntry.getFileEntryId()));
 				contentUrl = DLUtil.getPreviewURL(
 					fileEntry, fileVersion, null, "");
-				creator = CreatorUtil.toCreator(_portal, user);
+				creator = CreatorUtil.toCreator(
+					_portal,
+					_userLocalService.fetchUser(fileEntry.getUserId()));
 				customFields = CustomFieldsUtil.toCustomFields(
 					dtoConverterContext.isAcceptAllLanguages(),
 					DLFileEntry.class.getName(), fileVersion.getFileVersionId(),
@@ -215,17 +214,13 @@ public class DocumentDTOConverter
 		return new AdaptedImage() {
 			{
 				contentUrl = String.valueOf(adaptiveMedia.getURI());
-				height = Integer.valueOf(
-					_getValue(
-						adaptiveMedia,
-						AMImageAttribute.AM_IMAGE_ATTRIBUTE_HEIGHT));
+				height = _getValue(
+					adaptiveMedia, AMImageAttribute.AM_IMAGE_ATTRIBUTE_HEIGHT);
 				resolutionName = _getValue(
 					adaptiveMedia,
 					AMAttribute.getConfigurationUuidAMAttribute());
-				sizeInBytes = Long.valueOf(
-					_getValue(
-						adaptiveMedia,
-						AMAttribute.getContentLengthAMAttribute()));
+				sizeInBytes = _getValue(
+					adaptiveMedia, AMAttribute.getContentLengthAMAttribute());
 				width = _getValue(
 					adaptiveMedia, AMImageAttribute.AM_IMAGE_ATTRIBUTE_WIDTH);
 			}
@@ -336,6 +331,6 @@ public class DocumentDTOConverter
 	private RatingsStatsLocalService _ratingsStatsLocalService;
 
 	@Reference
-	private UserLocalService _userService;
+	private UserLocalService _userLocalService;
 
 }
