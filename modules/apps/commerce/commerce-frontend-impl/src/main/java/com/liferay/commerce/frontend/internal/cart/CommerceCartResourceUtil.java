@@ -17,6 +17,7 @@ package com.liferay.commerce.frontend.internal.cart;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.frontend.internal.cart.model.Cart;
@@ -251,49 +252,33 @@ public class CommerceCartResourceUtil {
 			level4.toString()
 		};
 
-		PriceModel prices = new PriceModel(unitPriceMoney.format(locale));
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
 
-		BigDecimal activePrice = unitPriceMoney.getPrice();
+		List<CommerceOrderItem> childCommerceOrderItems =
+			_commerceOrderItemService.getChildCommerceOrderItems(
+				commerceOrderItem.getCommerceOrderItemId());
 
-		if (promoPriceMoney != null) {
-			BigDecimal promoPrice = promoPriceMoney.getPrice();
+		BigDecimal totalUnitPrice = unitPriceMoney.getPrice();
 
-			if (promoPrice.compareTo(BigDecimal.ZERO) > 0) {
-				prices.setPromoPrice(promoPriceMoney.format(locale));
+		for (CommerceOrderItem childCommerceOrderItem :
+				childCommerceOrderItems) {
 
-				activePrice = promoPrice;
-			}
-		}
+			BigDecimal unitPrice = childCommerceOrderItem.getFinalPrice();
 
-		if (discountAmountMoney != null) {
-			BigDecimal discountAmount = discountAmountMoney.getPrice();
+			if (priceDisplayType.equals(
+					CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
-			if ((discountAmount == null) ||
-				(discountAmount.compareTo(BigDecimal.ZERO) == 0)) {
-
-				return prices;
+				unitPrice = childCommerceOrderItem.getFinalPriceWithTaxAmount();
 			}
 
-			prices.setDiscount(discountAmountMoney.format(locale));
-
-			BigDecimal discountedAmount = activePrice.subtract(discountAmount);
-
-			CommerceCurrency commerceCurrency =
-				commerceContext.getCommerceCurrency();
-
-			BigDecimal discountPercentage = _getDiscountPercentage(
-				discountedAmount, activePrice,
-				RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
-
-			prices.setDiscountPercentage(
-				_commercePriceFormatter.format(discountPercentage, locale));
-
-			prices.setDiscountPercentages(discountPercentages);
-
-			prices.setFinalPrice(finalPriceMoney.format(locale));
+			totalUnitPrice = totalUnitPrice.add(unitPrice);
 		}
 
-		return prices;
+		return _getPriceModel(
+			_commerceMoneyFactory.create(commerceCurrency, totalUnitPrice),
+			promoPriceMoney, discountAmountMoney, discountPercentages,
+			finalPriceMoney, commerceCurrency, locale);
 	}
 
 	private BigDecimal _getDiscountPercentage(
@@ -313,6 +298,57 @@ public class CommerceCartResourceUtil {
 			discountPercentage.precision(), roundingMode);
 
 		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
+	}
+
+	private PriceModel _getPriceModel(
+			CommerceMoney unitPriceMoney, CommerceMoney promoPriceMoney,
+			CommerceMoney discountAmountMoney, String[] discountPercentages,
+			CommerceMoney finalPriceMoney, CommerceCurrency commerceCurrency,
+			Locale locale)
+		throws PortalException {
+
+		PriceModel priceModel = new PriceModel(unitPriceMoney.format(locale));
+
+		BigDecimal activePrice = unitPriceMoney.getPrice();
+
+		if (promoPriceMoney != null) {
+			BigDecimal promoPrice = promoPriceMoney.getPrice();
+
+			if (promoPrice.compareTo(BigDecimal.ZERO) > 0) {
+				priceModel.setPromoPrice(promoPriceMoney.format(locale));
+
+				activePrice = promoPrice;
+			}
+		}
+
+		if (discountAmountMoney == null) {
+			return priceModel;
+		}
+
+		BigDecimal discountAmount = discountAmountMoney.getPrice();
+
+		if ((discountAmount == null) ||
+			(discountAmount.compareTo(BigDecimal.ZERO) == 0)) {
+
+			return priceModel;
+		}
+
+		priceModel.setDiscount(discountAmountMoney.format(locale));
+
+		BigDecimal discountedAmount = activePrice.subtract(discountAmount);
+
+		BigDecimal discountPercentage = _getDiscountPercentage(
+			discountedAmount, activePrice,
+			RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+
+		priceModel.setDiscountPercentage(
+			_commercePriceFormatter.format(discountPercentage, locale));
+
+		priceModel.setDiscountPercentages(discountPercentages);
+
+		priceModel.setFinalPrice(finalPriceMoney.format(locale));
+
+		return priceModel;
 	}
 
 	private List<Product> _groupProductByOrderItemId(List<Product> products) {
@@ -351,6 +387,9 @@ public class CommerceCartResourceUtil {
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceMoneyFactory _commerceMoneyFactory;
 
 	@Reference
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
