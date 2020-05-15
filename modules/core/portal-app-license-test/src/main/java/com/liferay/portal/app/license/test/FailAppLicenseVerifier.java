@@ -32,4 +32,13 @@ public class FailAppLicenseVerifier implements AppLicenseVerifier {
 		throw new Exception();
 	}
 
+	@Override
+	public void verify(
+			String productId, String productType, String productVersion,
+			String... bundleSymbolicNames)
+		throws Exception {
+
+		throw EXCEPTION;
+	}
+
 }
