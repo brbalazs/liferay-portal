@@ -20,6 +20,7 @@ const withBaseResults = (withData, configs) => {
 		emptyPrimary = true,
 		emptyTitle,
 		getColumns,
+		legacyDropdownRangeKey = true,
 		rowIdentifier,
 		showRangeKeyDropdown = true,
 		withQueryOptions = defaultHOC,
@@ -33,7 +34,11 @@ const withBaseResults = (withData, configs) => {
 			<WrappedComponent {...props} columns={getColumns(props)} />
 		),
 		withSelection,
-		withToolbar({disableSearch, showRangeKeyDropdown}),
+		withToolbar({
+			disableSearch,
+			legacyDropdownRangeKey,
+			showRangeKeyDropdown
+		}),
 		withPaginationBar({defaultDelta}),
 		withLoading({alignCenter: true, page: false}),
 		withError({page: false}),

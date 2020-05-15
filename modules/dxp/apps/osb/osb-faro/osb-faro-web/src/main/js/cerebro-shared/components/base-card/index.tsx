@@ -21,7 +21,7 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 	children,
 	Header = HeaderDefault,
 	label,
-	legacyDropDownRangeKey = true,
+	legacyDropdownRangeKey = true,
 	minHeight,
 	showInterval = false
 }) => {
@@ -40,7 +40,7 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 			<Header
 				{...otherProps}
 				label={label}
-				legacy={legacyDropDownRangeKey}
+				legacy={legacyDropdownRangeKey}
 				onChangeInterval={handleChangeInterval}
 				onChangeRangeKey={handleChangeRangeKey}
 				showInterval={showInterval}

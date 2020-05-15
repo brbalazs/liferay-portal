@@ -123,6 +123,11 @@ export default configs => WrappedComponent => {
 							showRangeKeyDropdown
 						) && (
 							<DropdownRangeKey
+								legacy={get(
+									configs,
+									'legacyDropdownRangeKey',
+									true
+								)}
 								onChange={this.handleRangeKeyValueChange}
 								rangeKey={rangeKey}
 							/>
