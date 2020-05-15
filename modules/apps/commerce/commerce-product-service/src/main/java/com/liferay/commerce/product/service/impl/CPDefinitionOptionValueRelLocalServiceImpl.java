@@ -489,18 +489,8 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setKey(key);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
 
-		if (cpInstanceId > 0) {
-			CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
-				cpInstanceId);
-
-			cpDefinitionOptionValueRel.setCPInstanceUuid(
-				cpInstance.getCPInstanceUuid());
-
-			CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-			cpDefinitionOptionValueRel.setCProductId(
-				cpDefinition.getCProductId());
-		}
+		_updateCPDefinitionOptionValueRelCPInstance(
+			cpDefinitionOptionValueRel, cpInstanceId);
 
 		if (Objects.equals(
 				cpDefinitionOptionRel.getPriceType(),
@@ -724,9 +714,38 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		}
 	}
 
+	private void _updateCPDefinitionOptionValueRelCPInstance(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			long cpInstanceId)
+		throws PortalException {
+
+		if (cpInstanceId <= 0) {
+			cpDefinitionOptionValueRel.setCProductId(0);
+			cpDefinitionOptionValueRel.setCPInstanceUuid(null);
+
+			return;
+		}
+
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		cpDefinitionOptionValueRel.setCPInstanceUuid(
+			cpInstance.getCPInstanceUuid());
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+		cpDefinitionOptionValueRel.setCProductId(cpDefinition.getCProductId());
+	}
+
 	private void _validateLinkedCPDefinitionOptionValueRel(
 			CPDefinitionOptionValueRel cpDefinitionOptionValueRel)
 		throws PortalException {
+
+		if (Validator.isNull(cpDefinitionOptionValueRel.getCPInstanceUuid()) ||
+			(cpDefinitionOptionValueRel.getCProductId() == 0)) {
+
+			return;
+		}
 
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			cpDefinitionOptionValueRelPersistence.findByCPDefinitionOptionRelId(
