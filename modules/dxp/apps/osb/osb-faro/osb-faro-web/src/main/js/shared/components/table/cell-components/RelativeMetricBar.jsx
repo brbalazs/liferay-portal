@@ -1,6 +1,7 @@
 import MetricBar from 'shared/components/MetricBar';
 import PropTypes from 'prop-types';
 import React from 'react';
+import TextTruncate from 'shared/components/TextTruncate';
 import {ceil, round} from 'lodash';
 
 export default class RelativeMetricBar extends React.Component {
@@ -36,7 +37,7 @@ export default class RelativeMetricBar extends React.Component {
 		return (
 			<td className='table-cell-expand relative-metric-bar-root'>
 				<MetricBar percent={percent} size='lg'>
-					<span className='title text-truncate'>{displayName}</span>
+					<TextTruncate className='title' title={displayName} />
 
 					<span className='count'>{count}</span>
 				</MetricBar>
