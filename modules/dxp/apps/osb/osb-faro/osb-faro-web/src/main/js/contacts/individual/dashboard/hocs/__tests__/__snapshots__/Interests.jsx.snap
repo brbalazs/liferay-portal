@@ -163,7 +163,9 @@ exports[`Interests renders 1`] = `
                   class="info-wrapper align-items-center d-flex justify-content-between"
                 >
                   <span
-                    class="title text-truncate"
+                    class="text-truncate title"
+                    data-tooltip="false"
+                    title=""
                   />
                   <span
                     class="count"
@@ -225,7 +227,9 @@ exports[`Interests renders 1`] = `
                   class="info-wrapper align-items-center d-flex justify-content-between"
                 >
                   <span
-                    class="title text-truncate"
+                    class="text-truncate title"
+                    data-tooltip="false"
+                    title=""
                   />
                   <span
                     class="count"
@@ -287,7 +291,9 @@ exports[`Interests renders 1`] = `
                   class="info-wrapper align-items-center d-flex justify-content-between"
                 >
                   <span
-                    class="title text-truncate"
+                    class="text-truncate title"
+                    data-tooltip="false"
+                    title=""
                   />
                   <span
                     class="count"
@@ -349,7 +355,9 @@ exports[`Interests renders 1`] = `
                   class="info-wrapper align-items-center d-flex justify-content-between"
                 >
                   <span
-                    class="title text-truncate"
+                    class="text-truncate title"
+                    data-tooltip="false"
+                    title=""
                   />
                   <span
                     class="count"
@@ -411,7 +419,9 @@ exports[`Interests renders 1`] = `
                   class="info-wrapper align-items-center d-flex justify-content-between"
                 >
                   <span
-                    class="title text-truncate"
+                    class="text-truncate title"
+                    data-tooltip="false"
+                    title=""
                   />
                   <span
                     class="count"
