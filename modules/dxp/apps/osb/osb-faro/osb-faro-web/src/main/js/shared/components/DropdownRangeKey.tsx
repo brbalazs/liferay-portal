@@ -3,7 +3,14 @@ import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import getCN from 'classnames';
 import React, {useState} from 'react';
-import {LAST_30_DAYS} from 'shared/util/constants';
+import {
+	LAST_24_HOURS,
+	LAST_28_DAYS,
+	LAST_30_DAYS,
+	LAST_7_DAYS,
+	LAST_90_DAYS,
+	YESTERDAY
+} from 'shared/util/constants';
 
 type Item = {
 	description: string;
@@ -30,6 +37,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 	const [selectedItem, setSelectedItem] = useState(
 		getSelectedItem(items, rangeKey)
 	);
+	const [seeMore, setSeeMore] = useState(false);
 
 	const handleValueChange = (item: Item) => {
 		setActive(false);
@@ -37,6 +45,22 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 
 		onChange && onChange(item.value);
 	};
+
+	const filteredItems = seeMore
+		? items
+		: items.filter(
+				({value}) =>
+					value === selectedItem.value ||
+					[
+						LAST_24_HOURS,
+						LAST_7_DAYS,
+						LAST_30_DAYS,
+						LAST_90_DAYS
+					].includes(value)
+		  );
+
+	// TODO: LRAC-5926 Add logic for displaying CustomRange date picker
+	const handleCustomRangeClick = () => {};
 
 	return (
 		<ClayDropDown
@@ -53,8 +77,9 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 			}
 		>
 			<ClayDropDown.ItemList>
-				{items.map((item: Item, index: number) => {
+				{filteredItems.map((item: Item, index: number) => {
 					const {description, label, value} = item;
+
 					const activeClass =
 						selectedItem.value === value ? 'active' : '';
 
@@ -70,6 +95,30 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 						</ClayDropDown.Item>
 					);
 				})}
+
+				<>
+					{!seeMore && (
+						<ClayDropDown.Item
+							className='c-pointer'
+							key='SEE_MORE'
+							onClick={() => setSeeMore(true)}
+						>
+							{Liferay.Language.get('more-preset-periods')}
+						</ClayDropDown.Item>
+					)}
+
+					<ClayDropDown.Divider />
+
+					<ClayDropDown.Item
+						className={`c-pointer ${
+							selectedItem.value === 'CUSTOM' ? 'active' : ''
+						}`}
+						key='CUSTOM'
+						onClick={handleCustomRangeClick}
+					>
+						<b>{Liferay.Language.get('custom-range')}</b>
+					</ClayDropDown.Item>
+				</>
 			</ClayDropDown.ItemList>
 		</ClayDropDown>
 	);
