@@ -204,7 +204,7 @@ export class List extends React.Component {
 
 	@autobind
 	handleDeleteSegment({id, items, name}) {
-		const {addAlert, close, delta, groupId, history, open} = this.props;
+		const {addAlert, close, groupId, history, open, page} = this.props;
 
 		open(modalTypes.CONFIRMATION_MODAL, {
 			message: (
@@ -238,7 +238,7 @@ export class List extends React.Component {
 							)
 						});
 
-						if (items.length === 1 && delta !== 1) {
+						if (items.length === 1 && page !== 1) {
 							history.push(
 								setUriQueryValue(
 									window.location.href,
