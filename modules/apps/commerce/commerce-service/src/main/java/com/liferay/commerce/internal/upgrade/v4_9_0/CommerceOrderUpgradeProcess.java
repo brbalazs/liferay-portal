@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.internal.upgrade.v4_8_0;
+package com.liferay.commerce.internal.upgrade.v4_9_0;
 
 import com.liferay.commerce.internal.upgrade.base.BaseCommerceServiceUpgradeProcess;
 import com.liferay.commerce.model.impl.CommerceOrderModelImpl;
