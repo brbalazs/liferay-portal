@@ -113,8 +113,9 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 		long cpDefinitionOptionValueRelId = ParamUtil.getLong(
 			actionRequest, "cpDefinitionOptionValueRelId");
 
-		return _cpDefinitionOptionValueRelService.updateLinkedCPInstance(
-			cpDefinitionOptionValueRelId, null, 0, 0);
+		return _cpDefinitionOptionValueRelService.
+			resetCPInstanceCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRelId);
 	}
 
 	protected CPDefinitionOptionValueRel updateCPDefinitionOptionValueRel(
