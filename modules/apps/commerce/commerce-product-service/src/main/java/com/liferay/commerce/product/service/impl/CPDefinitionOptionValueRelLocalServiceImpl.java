@@ -735,15 +735,20 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		for (CPDefinitionOptionValueRel curCPDefinitionOptionValueRel :
 				cpDefinitionOptionValueRels) {
 
-			CPInstance cpInstance =
-				curCPDefinitionOptionValueRel.fetchCPInstance();
+			if (cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId() ==
+					curCPDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId()) {
 
-			if (cpInstance == null) {
 				continue;
 			}
 
 			if (Objects.equals(
-					cpInstance, cpDefinitionOptionValueRel.fetchCPInstance())) {
+					cpDefinitionOptionValueRel.getCPInstanceUuid(),
+					curCPDefinitionOptionValueRel.getCPInstanceUuid()) &&
+				(cpDefinitionOptionValueRel.getCProductId() ==
+					curCPDefinitionOptionValueRel.getCProductId()) &&
+				(cpDefinitionOptionValueRel.getQuantity() ==
+					curCPDefinitionOptionValueRel.getQuantity())) {
 
 				throw new CPDefinitionOptionValueRelCPInstanceException();
 			}
