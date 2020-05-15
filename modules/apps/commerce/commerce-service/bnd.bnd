@@ -30,6 +30,6 @@ Import-Package:\
 	com.liferay.portal.kernel.workflow;version="[7.4.0,9.0.0)",\
 	\
 	*
-Liferay-Require-SchemaVersion: 4.8.0
+Liferay-Require-SchemaVersion: 4.8.1
 Liferay-Service: true
 -dsannotations-options: inherit
