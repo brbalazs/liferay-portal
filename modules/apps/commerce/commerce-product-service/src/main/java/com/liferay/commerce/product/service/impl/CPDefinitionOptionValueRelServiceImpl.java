@@ -208,6 +208,27 @@ public class CPDefinitionOptionValueRelServiceImpl
 	}
 
 	@Override
+	public CPDefinitionOptionValueRel resetCPInstanceCPDefinitionOptionValueRel(
+			long cpDefinitionOptionValueRelId)
+		throws PortalException {
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			cpDefinitionOptionValueRelLocalService.
+				getCPDefinitionOptionValueRel(cpDefinitionOptionValueRelId);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionRelId());
+
+		_checkCommerceCatalogPermissionByCPDefinitionId(
+			cpDefinitionOptionRel.getCPDefinitionId(), ActionKeys.UPDATE);
+
+		return cpDefinitionOptionValueRelLocalService.
+			resetCPInstanceCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRelId);
+	}
+
+	@Override
 	public BaseModelSearchResult<CPDefinitionOptionValueRel>
 			searchCPDefinitionOptionValueRels(
 				long companyId, long groupId, long cpDefinitionOptionRelId,
@@ -272,27 +293,6 @@ public class CPDefinitionOptionValueRelServiceImpl
 			updateCPDefinitionOptionValueRel(
 				cpDefinitionOptionValueRelId, nameMap, priority, key,
 				serviceContext);
-	}
-
-	@Override
-	public CPDefinitionOptionValueRel updateLinkedCPInstance(
-			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
-			long cProductId, int quantity)
-		throws PortalException {
-
-		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-			cpDefinitionOptionValueRelLocalService.
-				getCPDefinitionOptionValueRel(cpDefinitionOptionValueRelId);
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
-				cpDefinitionOptionValueRel.getCPDefinitionOptionRelId());
-
-		_checkCommerceCatalogPermissionByCPDefinitionId(
-			cpDefinitionOptionRel.getCPDefinitionId(), ActionKeys.UPDATE);
-
-		return cpDefinitionOptionValueRelLocalService.updateLinkedCPInstance(
-			cpDefinitionOptionValueRelId, cpInstanceUuid, cProductId, quantity);
 	}
 
 	private void _checkCommerceCatalogPermissionByCPDefinitionId(

@@ -394,6 +394,24 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		}
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CPDefinitionOptionValueRel resetCPInstanceCPDefinitionOptionValueRel(
+			long cpDefinitionOptionValueRelId)
+		throws PortalException {
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			cpDefinitionOptionValueRelLocalService.
+				getCPDefinitionOptionValueRel(cpDefinitionOptionValueRelId);
+
+		cpDefinitionOptionValueRel.setCPInstanceUuid(null);
+		cpDefinitionOptionValueRel.setCProductId(0);
+		cpDefinitionOptionValueRel.setQuantity(0);
+
+		return cpDefinitionOptionValueRelLocalService.
+			updateCPDefinitionOptionValueRel(cpDefinitionOptionValueRel);
+	}
+
 	@Override
 	public void resetCPInstanceCPDefinitionOptionValueRels(
 		String cpInstanceUuid) {
@@ -526,25 +544,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 			updateCPDefinitionOptionValueRel(
 				cpDefinitionOptionValueRelId, nameMap, priority, key, 0, 0,
 				BigDecimal.ZERO, serviceContext);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CPDefinitionOptionValueRel updateLinkedCPInstance(
-			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
-			long cProductId, int quantity)
-		throws PortalException {
-
-		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-			cpDefinitionOptionValueRelLocalService.
-				getCPDefinitionOptionValueRel(cpDefinitionOptionValueRelId);
-
-		cpDefinitionOptionValueRel.setCPInstanceUuid(cpInstanceUuid);
-		cpDefinitionOptionValueRel.setCProductId(cProductId);
-		cpDefinitionOptionValueRel.setQuantity(quantity);
-
-		return cpDefinitionOptionValueRelLocalService.
-			updateCPDefinitionOptionValueRel(cpDefinitionOptionValueRel);
 	}
 
 	protected SearchContext buildSearchContext(
