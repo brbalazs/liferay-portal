@@ -243,7 +243,7 @@ export class List extends React.Component {
 								setUriQueryValue(
 									window.location.href,
 									'page',
-									1
+									page - 1
 								)
 							);
 						} else {
