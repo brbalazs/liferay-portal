@@ -72,7 +72,10 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 				</div>
 
 				<div class="col-4">
-					<aui:input name="quantity" wrapperCssClass="mb-0" />
+					<aui:input name="quantity" wrapperCssClass="mb-0">
+						<aui:validator name="min">1</aui:validator>
+						<aui:validator name="number" />
+					</aui:input>
 				</div>
 
 				<div class="align-items-end col-auto d-flex">
