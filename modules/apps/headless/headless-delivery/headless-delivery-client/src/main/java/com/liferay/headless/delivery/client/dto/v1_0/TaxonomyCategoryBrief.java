@@ -15,7 +15,7 @@
 package com.liferay.headless.delivery.client.dto.v1_0;
 
 import com.liferay.headless.delivery.client.function.UnsafeSupplier;
-import com.liferay.headless.delivery.client.serdes.v1_0.TaxonomyCategorySerDes;
+import com.liferay.headless.delivery.client.serdes.v1_0.TaxonomyCategoryBriefSerDes;
 
 import java.util.Map;
 import java.util.Objects;
@@ -27,10 +27,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class TaxonomyCategory implements Cloneable {
+public class TaxonomyCategoryBrief implements Cloneable {
 
-	public static TaxonomyCategory toDTO(String json) {
-		return TaxonomyCategorySerDes.toDTO(json);
+	public static TaxonomyCategoryBrief toDTO(String json) {
+		return TaxonomyCategoryBriefSerDes.toDTO(json);
 	}
 
 	public Long getTaxonomyCategoryId() {
@@ -101,8 +101,8 @@ public class TaxonomyCategory implements Cloneable {
 	protected Map<String, String> taxonomyCategoryName_i18n;
 
 	@Override
-	public TaxonomyCategory clone() throws CloneNotSupportedException {
-		return (TaxonomyCategory)super.clone();
+	public TaxonomyCategoryBrief clone() throws CloneNotSupportedException {
+		return (TaxonomyCategoryBrief)super.clone();
 	}
 
 	@Override
@@ -111,13 +111,14 @@ public class TaxonomyCategory implements Cloneable {
 			return true;
 		}
 
-		if (!(object instanceof TaxonomyCategory)) {
+		if (!(object instanceof TaxonomyCategoryBrief)) {
 			return false;
 		}
 
-		TaxonomyCategory taxonomyCategory = (TaxonomyCategory)object;
+		TaxonomyCategoryBrief taxonomyCategoryBrief =
+			(TaxonomyCategoryBrief)object;
 
-		return Objects.equals(toString(), taxonomyCategory.toString());
+		return Objects.equals(toString(), taxonomyCategoryBrief.toString());
 	}
 
 	@Override
@@ -128,7 +129,7 @@ public class TaxonomyCategory implements Cloneable {
 	}
 
 	public String toString() {
-		return TaxonomyCategorySerDes.toJSON(this);
+		return TaxonomyCategoryBriefSerDes.toJSON(this);
 	}
 
 }

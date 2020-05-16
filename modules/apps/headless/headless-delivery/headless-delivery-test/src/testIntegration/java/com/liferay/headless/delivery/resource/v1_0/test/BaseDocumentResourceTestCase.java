@@ -1413,9 +1413,9 @@ public abstract class BaseDocumentResourceTestCase {
 			}
 
 			if (Objects.equals(
-					"taxonomyCategories", additionalAssertFieldName)) {
+					"taxonomyCategoryBriefs", additionalAssertFieldName)) {
 
-				if (document.getTaxonomyCategories() == null) {
+				if (document.getTaxonomyCategoryBriefs() == null) {
 					valid = false;
 				}
 
@@ -1797,11 +1797,11 @@ public abstract class BaseDocumentResourceTestCase {
 			}
 
 			if (Objects.equals(
-					"taxonomyCategories", additionalAssertFieldName)) {
+					"taxonomyCategoryBriefs", additionalAssertFieldName)) {
 
 				if (!Objects.deepEquals(
-						document1.getTaxonomyCategories(),
-						document2.getTaxonomyCategories())) {
+						document1.getTaxonomyCategoryBriefs(),
+						document2.getTaxonomyCategoryBriefs())) {
 
 					return false;
 				}
@@ -2167,7 +2167,7 @@ public abstract class BaseDocumentResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("taxonomyCategories")) {
+		if (entityFieldName.equals("taxonomyCategoryBriefs")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
