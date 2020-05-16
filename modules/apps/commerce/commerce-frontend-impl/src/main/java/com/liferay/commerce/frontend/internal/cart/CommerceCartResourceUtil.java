@@ -256,29 +256,48 @@ public class CommerceCartResourceUtil {
 			commerceContext.getCommerceCurrency();
 
 		BigDecimal totalUnitPrice = unitPriceMoney.getPrice();
+		BigDecimal totalPromoPrice = promoPriceMoney.getPrice();
+		BigDecimal totalFinalPrice = finalPriceMoney.getPrice();
 
 		List<CommerceOrderItem> childCommerceOrderItems =
 			_commerceOrderItemService.getChildCommerceOrderItems(
 				commerceOrderItem.getCommerceOrderItemId());
 
+		int parentQuantity = commerceOrderItem.getQuantity();
+
 		for (CommerceOrderItem childCommerceOrderItem :
 				childCommerceOrderItems) {
 
-			BigDecimal unitPrice = childCommerceOrderItem.getFinalPrice();
+			BigDecimal childFinalPrice = childCommerceOrderItem.getFinalPrice();
 
 			if (priceDisplayType.equals(
 					CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 
-				unitPrice = childCommerceOrderItem.getFinalPriceWithTaxAmount();
+				childFinalPrice =
+					childCommerceOrderItem.getFinalPriceWithTaxAmount();
 			}
 
-			totalUnitPrice = totalUnitPrice.add(unitPrice);
+			childFinalPrice = childFinalPrice.divide(
+				BigDecimal.valueOf(parentQuantity),
+				RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+
+			totalUnitPrice = totalUnitPrice.add(childFinalPrice);
+
+			if ((totalPromoPrice != null) &&
+				(totalPromoPrice.compareTo(BigDecimal.ZERO) > 0)) {
+
+				totalPromoPrice = totalPromoPrice.add(childFinalPrice);
+			}
+
+			totalFinalPrice = totalFinalPrice.add(childFinalPrice);
 		}
 
 		return _getPriceModel(
 			_commerceMoneyFactory.create(commerceCurrency, totalUnitPrice),
-			promoPriceMoney, discountAmountMoney, discountPercentages,
-			finalPriceMoney, commerceCurrency, locale);
+			_commerceMoneyFactory.create(commerceCurrency, totalPromoPrice),
+			discountAmountMoney, discountPercentages,
+			_commerceMoneyFactory.create(commerceCurrency, totalFinalPrice),
+			commerceCurrency, locale);
 	}
 
 	private BigDecimal _getDiscountPercentage(
