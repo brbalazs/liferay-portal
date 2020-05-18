@@ -17,8 +17,8 @@ package com.liferay.headless.commerce.bom.internal.dto.v1_0.converter;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.CommerceBOMFolderService;
 import com.liferay.headless.commerce.bom.dto.v1_0.Breadcrumb;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -30,7 +30,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=breadcrumb",
 	service = {BreadcrumbDTOConverter.class, DTOConverter.class}
 )
-public class BreadcrumbDTOConverter implements DTOConverter {
+public class BreadcrumbDTOConverter
+	implements DTOConverter<CommerceBOMFolder, Breadcrumb> {
 
 	@Override
 	public String getContentType() {
@@ -42,7 +43,7 @@ public class BreadcrumbDTOConverter implements DTOConverter {
 
 		CommerceBOMFolder commerceBOMFolder =
 			_commerceBOMFolderService.getCommerceBOMFolder(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		return new Breadcrumb() {
 			{

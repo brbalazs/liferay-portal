@@ -20,14 +20,11 @@ import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.headless.commerce.bom.dto.v1_0.Position;
 import com.liferay.headless.commerce.bom.dto.v1_0.Spot;
+import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.SpotDTOConverter;
 import com.liferay.headless.commerce.bom.resource.v1_0.SpotResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
@@ -61,17 +58,14 @@ public class SpotResourceImpl extends BaseSpotResourceImpl {
 
 		CommerceBOMEntry commerceBOMEntry =
 			_commerceBOMEntryService.addCommerceBOMEntry(
-				_user.getUserId(), spot.getNumber(), spot.getProductId(),
+				contextUser.getUserId(), spot.getNumber(), spot.getProductId(),
 				cProduct.getCProductId(), id, position.getX(), position.getY(),
 				0D);
 
-		DTOConverter spotDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CommerceBOMEntry.class.getName());
-
-		return (Spot)spotDTOConverter.toDTO(
+		return _spotDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				commerceBOMEntry.getCommerceBOMEntryId()));
+				commerceBOMEntry.getCommerceBOMEntryId(),
+				contextAcceptLanguage.getPreferredLocale()));
 	}
 
 	@Override
@@ -106,9 +100,6 @@ public class SpotResourceImpl extends BaseSpotResourceImpl {
 	private CProductLocalService _cProductLocalService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
-
-	@Context
-	private User _user;
+	private SpotDTOConverter _spotDTOConverter;
 
 }

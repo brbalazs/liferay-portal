@@ -28,13 +28,14 @@ import com.liferay.headless.commerce.bom.dto.v1_0.Area;
 import com.liferay.headless.commerce.bom.dto.v1_0.AreaData;
 import com.liferay.headless.commerce.bom.dto.v1_0.Product;
 import com.liferay.headless.commerce.bom.dto.v1_0.Spot;
+import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.BreadcrumbDTOConverter;
+import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.ProductDTOConverter;
+import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.SpotDTOConverter;
 import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.util.BreadcrumbDTOConverterUtil;
 import com.liferay.headless.commerce.bom.resource.v1_0.AreaResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +58,6 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 		CommerceBOMDefinition commerceBOMDefinition =
 			_commerceBOMDefinitionService.getCommerceBOMDefinition(id);
 
-		DTOConverter breadcrumbDTOConverter =
-			_dtoConverterRegistry.getDTOConverter("breadcrumb");
-
 		Area area = new Area();
 
 		AreaData areaData = new AreaData();
@@ -80,7 +78,7 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 
 		area.setBreadcrumbs(
 			BreadcrumbDTOConverterUtil.getBreadcrumbs(
-				breadcrumbDTOConverter,
+				_breadcrumbDTOConverter,
 				commerceBOMDefinition.fetchCommerceBOMFolder(),
 				contextAcceptLanguage.getPreferredLocale()));
 
@@ -98,9 +96,6 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 	private Product[] _getProducts(Spot[] spots) throws Exception {
 		List<Product> productList = new ArrayList<>();
 
-		DTOConverter productDTOConverter =
-			_dtoConverterRegistry.getDTOConverter("commerceProductInstance");
-
 		for (Spot spot : spots) {
 			CProduct cProduct =
 				_cProductLocalService.getCProductByCPInstanceUuid(
@@ -110,10 +105,10 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 				cProduct.getCProductId(), spot.getProductId());
 
 			productList.add(
-				(Product)productDTOConverter.toDTO(
+				_productDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						cpInstance.getCPInstanceId())));
+						cpInstance.getCPInstanceId(),
+						contextAcceptLanguage.getPreferredLocale())));
 		}
 
 		Product[] products = new Product[productList.size()];
@@ -124,25 +119,25 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 	private Spot[] _getSpots(long areaId) throws Exception {
 		List<Spot> spotList = new ArrayList<>();
 
-		DTOConverter spotDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CommerceBOMEntry.class.getName());
-
 		List<CommerceBOMEntry> commerceBOMEntries =
 			_commerceBOMEntryService.getCommerceBOMEntries(
 				areaId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 		for (CommerceBOMEntry commerceBOMEntry : commerceBOMEntries) {
 			spotList.add(
-				(Spot)spotDTOConverter.toDTO(
+				_spotDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						commerceBOMEntry.getCommerceBOMEntryId())));
+						commerceBOMEntry.getCommerceBOMEntryId(),
+						contextAcceptLanguage.getPreferredLocale())));
 		}
 
 		Spot[] spots = new Spot[spotList.size()];
 
 		return spotList.toArray(spots);
 	}
+
+	@Reference
+	private BreadcrumbDTOConverter _breadcrumbDTOConverter;
 
 	@Reference
 	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
@@ -157,6 +152,9 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 	private CProductLocalService _cProductLocalService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private ProductDTOConverter _productDTOConverter;
+
+	@Reference
+	private SpotDTOConverter _spotDTOConverter;
 
 }

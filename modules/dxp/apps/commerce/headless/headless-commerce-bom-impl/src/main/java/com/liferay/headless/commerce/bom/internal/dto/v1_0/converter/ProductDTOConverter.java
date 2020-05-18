@@ -20,9 +20,9 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.headless.commerce.bom.dto.v1_0.Product;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -34,7 +34,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=commerceProductInstance",
 	service = {DTOConverter.class, ProductDTOConverter.class}
 )
-public class ProductDTOConverter implements DTOConverter {
+public class ProductDTOConverter implements DTOConverter<CPInstance, Product> {
 
 	@Override
 	public String getContentType() {
@@ -45,7 +45,7 @@ public class ProductDTOConverter implements DTOConverter {
 		throws Exception {
 
 		CPInstance cpInstance = _cpInstanceService.getCPInstance(
-			dtoConverterContext.getResourcePrimKey());
+			(Long)dtoConverterContext.getId());
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 

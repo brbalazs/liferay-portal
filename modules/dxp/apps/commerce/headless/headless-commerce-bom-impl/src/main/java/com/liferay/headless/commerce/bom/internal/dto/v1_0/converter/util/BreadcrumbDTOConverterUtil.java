@@ -16,9 +16,9 @@ package com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.util;
 
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.headless.commerce.bom.dto.v1_0.Breadcrumb;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
+import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.BreadcrumbDTOConverter;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,8 +32,8 @@ import java.util.stream.Stream;
 public class BreadcrumbDTOConverterUtil {
 
 	public static Breadcrumb[] getBreadcrumbs(
-			DTOConverter dtoConverter, CommerceBOMFolder commerceBOMFolder,
-			Locale locale)
+			BreadcrumbDTOConverter breadcrumbDTOConverter,
+			CommerceBOMFolder commerceBOMFolder, Locale locale)
 		throws Exception {
 
 		List<Breadcrumb> breadcrumbs = new ArrayList<>();
@@ -56,11 +56,10 @@ public class BreadcrumbDTOConverterUtil {
 					ancestorCommerceBOMFolders) {
 
 				breadcrumbs.add(
-					(Breadcrumb)dtoConverter.toDTO(
+					breadcrumbDTOConverter.toDTO(
 						new DefaultDTOConverterContext(
-							locale,
-							ancestorCommerceBOMFolder.
-								getCommerceBOMFolderId())));
+							ancestorCommerceBOMFolder.getCommerceBOMFolderId(),
+							locale)));
 			}
 		}
 

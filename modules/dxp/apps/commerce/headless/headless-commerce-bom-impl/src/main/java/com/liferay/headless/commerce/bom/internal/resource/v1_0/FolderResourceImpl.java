@@ -27,10 +27,9 @@ import com.liferay.headless.commerce.bom.dto.v1_0.Item;
 import com.liferay.headless.commerce.bom.dto.v1_0.ItemData;
 import com.liferay.headless.commerce.bom.dto.v1_0.Product;
 import com.liferay.headless.commerce.bom.dto.v1_0.Spot;
+import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.BreadcrumbDTOConverter;
 import com.liferay.headless.commerce.bom.internal.dto.v1_0.converter.util.BreadcrumbDTOConverterUtil;
 import com.liferay.headless.commerce.bom.resource.v1_0.FolderResource;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -69,9 +68,6 @@ public class FolderResourceImpl extends BaseFolderResourceImpl {
 
 	@Override
 	public Folder getFolder(Long id) throws Exception {
-		DTOConverter breadcrumbDTOConverter =
-			_dtoConverterRegistry.getDTOConverter("breadcrumb");
-
 		CommerceBOMFolder commerceBOMFolder = null;
 
 		if (id > 0) {
@@ -83,7 +79,7 @@ public class FolderResourceImpl extends BaseFolderResourceImpl {
 
 		folder.setBreadcrumbs(
 			BreadcrumbDTOConverterUtil.getBreadcrumbs(
-				breadcrumbDTOConverter, commerceBOMFolder,
+				_breadcrumbDTOConverter, commerceBOMFolder,
 				contextAcceptLanguage.getPreferredLocale()));
 
 		ItemData itemData = new ItemData();
@@ -215,12 +211,12 @@ public class FolderResourceImpl extends BaseFolderResourceImpl {
 	}
 
 	@Reference
+	private BreadcrumbDTOConverter _breadcrumbDTOConverter;
+
+	@Reference
 	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
 
 	@Reference
 	private CommerceBOMFolderService _commerceBOMFolderService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
 
 }

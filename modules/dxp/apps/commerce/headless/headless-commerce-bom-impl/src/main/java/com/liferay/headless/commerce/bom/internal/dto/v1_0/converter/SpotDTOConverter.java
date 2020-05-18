@@ -20,10 +20,10 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.headless.commerce.bom.dto.v1_0.Position;
 import com.liferay.headless.commerce.bom.dto.v1_0.Spot;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.commerce.bom.model.CommerceBOMEntry",
 	service = {DTOConverter.class, SpotDTOConverter.class}
 )
-public class SpotDTOConverter implements DTOConverter {
+public class SpotDTOConverter implements DTOConverter<CommerceBOMEntry, Spot> {
 
 	@Override
 	public String getContentType() {
@@ -47,7 +47,7 @@ public class SpotDTOConverter implements DTOConverter {
 
 		CommerceBOMEntry commerceBOMEntry =
 			_commerceBOMEntryService.getCommerceBOMEntry(
-				dtoConverterContext.getResourcePrimKey());
+				(Long)dtoConverterContext.getId());
 
 		DTOConverter positionDTOConverter =
 			_dtoConverterRegistry.getDTOConverter("commerceBOMEntryPosition");
