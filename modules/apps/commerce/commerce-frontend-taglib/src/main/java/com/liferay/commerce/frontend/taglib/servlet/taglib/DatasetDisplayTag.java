@@ -207,6 +207,7 @@ public class DatasetDisplayTag extends IncludeTag {
 		_dataProviderKey = null;
 		_dataSetAPI = null;
 		_deltaParam = null;
+		_enableDragDrop = false;
 		_formId = null;
 		_id = null;
 		_itemsPerPage = 0;
