@@ -91,7 +91,7 @@ public class NavigationSteps {
 
 			if (!destination.equals("Keywords") &&
 				!destination.equals("Properties") &&
-				!destination.equals("Data Sources") &&
+				!destination.equals("Data Source") &&
 				!destination.equals("Workspace")) {
 
 				sb.append("/");
