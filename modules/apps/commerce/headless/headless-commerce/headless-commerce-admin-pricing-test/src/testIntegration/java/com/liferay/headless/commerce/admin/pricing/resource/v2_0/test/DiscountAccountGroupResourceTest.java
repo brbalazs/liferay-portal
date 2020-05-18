@@ -16,6 +16,7 @@ package com.liferay.headless.commerce.admin.pricing.resource.v2_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 
+import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.DiscountAccountGroup;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
@@ -26,4 +27,11 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class DiscountAccountGroupResourceTest
 	extends BaseDiscountAccountGroupResourceTestCase {
+
+	@Override
+	protected DiscountAccountGroup testGetDiscountIdDiscountAccountGroupsPage_addDiscountAccountGroup(
+		Long id, DiscountAccountGroup discountAccountGroup) throws Exception {
+		return super.testGetDiscountIdDiscountAccountGroupsPage_addDiscountAccountGroup(
+			id, discountAccountGroup);
+	}
 }

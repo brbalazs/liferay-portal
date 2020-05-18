@@ -19,6 +19,8 @@ import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccount
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
+import javax.ws.rs.core.Response;
+
 /**
  * @author Zoltán Takács
  */
@@ -28,4 +30,9 @@ import org.osgi.service.component.annotations.ServiceScope;
 )
 public class DiscountAccountGroupResourceImpl
 	extends BaseDiscountAccountGroupResourceImpl {
+
+	@Override
+	public void deleteDiscountAccountGroup(Long id) throws Exception {
+		super.deleteDiscountAccountGroup(id);
+	}
 }
