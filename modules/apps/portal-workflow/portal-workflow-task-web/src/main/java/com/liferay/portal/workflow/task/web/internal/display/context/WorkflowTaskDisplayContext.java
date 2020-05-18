@@ -122,15 +122,12 @@ public class WorkflowTaskDisplayContext {
 				PortalUtil.getUserName(
 					actorId, StringPool.BLANK,
 					UserAttributes.USER_NAME_NICKNAME)));
-
 		sb.append(StringPool.SPACE);
 		sb.append(StringPool.OPEN_PARENTHESIS);
-
 		sb.append(
 			HtmlUtil.escape(
 				PortalUtil.getUserName(
 					actorId, StringPool.BLANK, UserAttributes.USER_NAME_FULL)));
-
 		sb.append(StringPool.CLOSE_PARENTHESIS);
 
 		return sb.toString();
