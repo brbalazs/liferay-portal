@@ -191,6 +191,14 @@ public class FaroHooks {
 
 			faroSelenium.waitForElementPresent(
 				"//span[text()='LIFERAY-DATASOURCE-FARO-EXAMPLE']");
+
+			faroSelenium.refresh();
+
+			String finalCount = String.valueOf(Table.tableItemCount());
+
+			if(!finalCount.equals("1")) {
+				throw new Exception("Properties not deleted");
+			}
 		}
 	}
 
