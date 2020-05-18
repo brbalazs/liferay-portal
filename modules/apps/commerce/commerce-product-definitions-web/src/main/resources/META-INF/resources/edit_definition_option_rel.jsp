@@ -120,6 +120,12 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 			>
 
 				<%
+				String datasetDisplayId = CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES;
+
+				if (cpDefinitionOptionRel.isPriceTypeStatic()) {
+					datasetDisplayId = CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES_STATIC;
+				}
+
 				Map<String, String> contextParams = new HashMap<>();
 
 				contextParams.put("cpDefinitionOptionRelId", String.valueOf(cpDefinitionOptionRelId));
@@ -129,7 +135,7 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 					clayCreationMenu="<%= cpDefinitionOptionRelDisplayContext.getClayCreationMenu() %>"
 					contextParams="<%= contextParams %>"
 					dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES %>"
-					id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES %>"
+					id="<%= datasetDisplayId %>"
 					itemsPerPage="<%= 10 %>"
 					namespace="<%= renderResponse.getNamespace() %>"
 					pageNumber="<%= 1 %>"
