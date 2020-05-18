@@ -16,9 +16,9 @@ package com.liferay.headless.commerce.machine.learning.internal.dto.v1_0.convert
 
 import com.liferay.commerce.machine.learning.forecast.model.CommerceAccountCommerceMLForecast;
 import com.liferay.commerce.machine.learning.forecast.service.CommerceAccountCommerceMLForecastService;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.machine.learning.dto.v1_0.AccountForecast;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -30,7 +30,9 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.commerce.machine.learning.forecast.model.CommerceAccountCommerceMLForecast",
 	service = {AccountForecastDTOConverter.class, DTOConverter.class}
 )
-public class AccountForecastDTOConverter implements DTOConverter {
+public class AccountForecastDTOConverter
+	implements DTOConverter
+		<CommerceAccountCommerceMLForecast, AccountForecast> {
 
 	@Override
 	public String getContentType() {
@@ -38,12 +40,12 @@ public class AccountForecastDTOConverter implements DTOConverter {
 	}
 
 	@Override
-	public Object toDTO(DTOConverterContext dtoConverterContext)
+	public AccountForecast toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
 		CommerceMLForecastCompositeResourcePrimaryKey compositeResourcePrimKey =
 			(CommerceMLForecastCompositeResourcePrimaryKey)
-				dtoConverterContext.getCompositeResourcePrimKey();
+				dtoConverterContext.getId();
 
 		CommerceAccountCommerceMLForecast commerceAccountCommerceMLForecast =
 			_commerceAccountCommerceMLForecastService.

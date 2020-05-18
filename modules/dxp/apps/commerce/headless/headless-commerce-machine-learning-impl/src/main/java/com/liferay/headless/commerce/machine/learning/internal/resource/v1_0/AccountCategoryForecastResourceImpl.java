@@ -16,15 +16,14 @@ package com.liferay.headless.commerce.machine.learning.internal.resource.v1_0;
 
 import com.liferay.commerce.machine.learning.forecast.model.AssetCategoryCommerceMLForecast;
 import com.liferay.commerce.machine.learning.forecast.service.AssetCategoryCommerceMLForecastService;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.machine.learning.dto.v1_0.AccountCategoryForecast;
 import com.liferay.headless.commerce.machine.learning.internal.constants.CommerceMLForecastConstants;
+import com.liferay.headless.commerce.machine.learning.internal.dto.v1_0.converter.AccountCategoryForecastDTOConverter;
 import com.liferay.headless.commerce.machine.learning.internal.dto.v1_0.converter.CommerceMLForecastCompositeResourcePrimaryKey;
 import com.liferay.headless.commerce.machine.learning.internal.util.v1_0.CommerceAccountPermissionHelper;
 import com.liferay.headless.commerce.machine.learning.resource.v1_0.AccountCategoryForecastResource;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -109,10 +108,6 @@ public class AccountCategoryForecastResourceImpl
 
 		List<AccountCategoryForecast> accountForecasts = new ArrayList<>();
 
-		DTOConverter accountForecastDtoConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				AssetCategoryCommerceMLForecast.class.getName());
-
 		for (AssetCategoryCommerceMLForecast assetCategoryCommerceMLForecast :
 				commerceAccountCommerceMLForecasts) {
 
@@ -123,14 +118,18 @@ public class AccountCategoryForecastResourceImpl
 						assetCategoryCommerceMLForecast.getForecastId());
 
 			accountForecasts.add(
-				(AccountCategoryForecast)accountForecastDtoConverter.toDTO(
+				_accountCategoryForecastDTOConverter.toDTO(
 					new DefaultDTOConverterContext(
-						contextAcceptLanguage.getPreferredLocale(),
-						commerceMLForecastCompositeResourcePrimaryKey)));
+						commerceMLForecastCompositeResourcePrimaryKey,
+						contextAcceptLanguage.getPreferredLocale())));
 		}
 
 		return accountForecasts;
 	}
+
+	@Reference
+	private AccountCategoryForecastDTOConverter
+		_accountCategoryForecastDTOConverter;
 
 	@Reference
 	private AssetCategoryCommerceMLForecastService
@@ -138,8 +137,5 @@ public class AccountCategoryForecastResourceImpl
 
 	@Reference
 	private CommerceAccountPermissionHelper _commerceAccountPermissionHelper;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
 
 }

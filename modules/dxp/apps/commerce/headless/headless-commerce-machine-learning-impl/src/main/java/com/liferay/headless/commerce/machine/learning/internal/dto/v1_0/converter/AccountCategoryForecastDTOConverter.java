@@ -18,10 +18,10 @@ import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.commerce.machine.learning.forecast.model.AssetCategoryCommerceMLForecast;
 import com.liferay.commerce.machine.learning.forecast.service.AssetCategoryCommerceMLForecastService;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.machine.learning.dto.v1_0.AccountCategoryForecast;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.vulcan.dto.converter.DTOConverter;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -33,7 +33,9 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.commerce.machine.learning.forecast.model.AssetCategoryCommerceMLForecast",
 	service = {AccountCategoryForecastDTOConverter.class, DTOConverter.class}
 )
-public class AccountCategoryForecastDTOConverter implements DTOConverter {
+public class AccountCategoryForecastDTOConverter
+	implements DTOConverter
+		<AssetCategoryCommerceMLForecast, AccountCategoryForecast> {
 
 	@Override
 	public String getContentType() {
@@ -41,12 +43,13 @@ public class AccountCategoryForecastDTOConverter implements DTOConverter {
 	}
 
 	@Override
-	public Object toDTO(DTOConverterContext dtoConverterContext)
+	public AccountCategoryForecast toDTO(
+			DTOConverterContext dtoConverterContext)
 		throws Exception {
 
 		CommerceMLForecastCompositeResourcePrimaryKey compositeResourcePrimKey =
 			(CommerceMLForecastCompositeResourcePrimaryKey)
-				dtoConverterContext.getCompositeResourcePrimKey();
+				dtoConverterContext.getId();
 
 		AssetCategoryCommerceMLForecast assetCategoryCommerceMLForecast =
 			_assetCategoryCommerceMLForecastService.
