@@ -75,6 +75,10 @@ public class WorkspacePreferences {
 		return _individualSegmentPreferences;
 	}
 
+	public boolean isUpgradeModalSeen() {
+		return _upgradeModalSeen;
+	}
+
 	public void removeDistributionCardTabPreferences(
 		String id, String individualSegmentId) {
 
@@ -105,10 +109,15 @@ public class WorkspacePreferences {
 		_individualSegmentPreferences = individualSegmentPreferences;
 	}
 
+	public void setUpgradeModalSeen(boolean upgradeModalSeen) {
+		_upgradeModalSeen = upgradeModalSeen;
+	}
+
 	private String _defaultChannelId;
 	private IndividualDashboardPreferences _individualDashboardPreferences =
 		new IndividualDashboardPreferences();
 	private Map<String, IndividualSegmentPreferences>
 		_individualSegmentPreferences = new HashMap<>();
+	private boolean _upgradeModalSeen;
 
 }

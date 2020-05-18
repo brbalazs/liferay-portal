@@ -167,6 +167,22 @@ public class PreferencesController extends BaseFaroController {
 			getDistributionCardTabsPreferences();
 	}
 
+	@GET
+	@Path("/upgrade_modal_seen")
+	@RolesAllowed(RoleConstants.SITE_MEMBER)
+	public boolean isUpgradeModalSeen(
+			@PathParam("groupId") long groupId,
+			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
+			@QueryParam("scope")
+				String scope)
+		throws Exception {
+
+		WorkspacePreferences workspacePreferences = _getWorkspacePreferences(
+			groupId, _getOwnerId(groupId, scope));
+
+		return workspacePreferences.isUpgradeModalSeen();
+	}
+
 	@DELETE
 	@Path("/distribution_tabs")
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
@@ -252,6 +268,31 @@ public class PreferencesController extends BaseFaroController {
 			JSONUtil.writeValueAsString(workspacePreferences));
 
 		return Collections.singletonMap("defaultChannelId", defaultChannelId);
+	}
+
+	@Path("/upgrade_modal_seen")
+	@POST
+	@RolesAllowed(RoleConstants.SITE_MEMBER)
+	public boolean saveUpgradeModalSeen(
+			@PathParam("groupId") long groupId,
+			@FormParam("upgradeModalSeen") Boolean upgradeModalSeen,
+			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
+			@QueryParam("scope")
+				String scope)
+		throws Exception {
+
+		long ownerId = _getOwnerId(groupId, scope);
+
+		WorkspacePreferences workspacePreferences = _getWorkspacePreferences(
+			groupId, ownerId);
+
+		workspacePreferences.setUpgradeModalSeen(upgradeModalSeen);
+
+		_faroPreferencesLocalService.savePreferences(
+			getUserId(), groupId, ownerId,
+			JSONUtil.writeValueAsString(workspacePreferences));
+
+		return upgradeModalSeen;
 	}
 
 	private long _getOwnerId(long groupId, String scope) throws Exception {
