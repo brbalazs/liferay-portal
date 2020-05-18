@@ -29,6 +29,7 @@
 		currentUrl: '<%= currentURL %>',
 		formId: '<%= formId %>',
 		dataProviderKey: '<%= dataProviderKey %>',
+		enableDragDrop: <%= enableDragDrop %>,
 		id: '<%= id %>',
 
 		<%

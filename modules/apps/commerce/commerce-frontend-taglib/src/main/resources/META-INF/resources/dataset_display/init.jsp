@@ -53,6 +53,7 @@ PortletURL portletURL = (PortletURL)request.getAttribute("liferay-commerce:datas
 List<String> selectedItems = (List<String>)request.getAttribute("liferay-commerce:dataset-display:selectedItems");
 String selectedItemsKey = (String)request.getAttribute("liferay-commerce:dataset-display:selectedItemsKey");
 String selectionType = (String)request.getAttribute("liferay-commerce:dataset-display:selectionType");
+boolean enableDragDrop = (boolean)request.getAttribute("liferay-commerce:dataset-display:enableDragDrop");
 boolean showManagementBar = (boolean)request.getAttribute("liferay-commerce:dataset-display:showManagementBar");
 boolean showPagination = (boolean)request.getAttribute("liferay-commerce:dataset-display:showPagination");
 boolean showSearch = (boolean)request.getAttribute("liferay-commerce:dataset-display:showSearch");
