@@ -17,6 +17,7 @@ package com.liferay.commerce.frontend.internal.clay.table;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
+import com.liferay.petra.string.StringPool;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -88,6 +89,6 @@ public class ClayTableSchemaBuilderImpl implements ClayTableSchemaBuilder {
 	private ClayTableSchema _clayTableSchema;
 	private final Map<String, ClayTableSchemaField> _fields;
 	private boolean _orderable;
-	private String _orderableField = "";
+	private String _orderableField = StringPool.BLANK;
 
 }
