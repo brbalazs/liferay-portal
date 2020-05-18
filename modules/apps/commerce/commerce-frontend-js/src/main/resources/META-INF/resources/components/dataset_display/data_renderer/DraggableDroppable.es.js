@@ -16,6 +16,15 @@ import React, { useContext } from 'react';
 import {useDrag, useDrop} from 'react-dnd';
 import {ItemTypes} from "../../../utilities/drag_drop/constants.es";
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
+import getCN from 'classnames';
+
+function getClassNames(isDragging, isOver) {
+	return getCN(
+		'draggable-cell',
+		isDragging ? 'is-dragging' : '',
+		isOver ? 'is-over' : ''
+	);
+}
 
 function DraggableDroppable({ item: rowItem, value }) {
 	const { openModal } = useContext(DatasetDisplayContext);
@@ -23,9 +32,7 @@ function DraggableDroppable({ item: rowItem, value }) {
 	const [{isOver}, drop] = useDrop({
 		accept: ItemTypes.DATASET_CELL,
 
-		collect: monitor => ({
-			isOver: monitor.isOver()
-		}),
+		collect: monitor => ({ isOver: monitor.isOver() }),
 
 		drop(dropResult) {
 			const idTo = rowItem.id,
@@ -41,21 +48,13 @@ function DraggableDroppable({ item: rowItem, value }) {
 		item: {
 			type: ItemTypes.DATASET_CELL,
 			id: rowItem.id
-		}
+		},
+
+		collect: monitor => ({ isDragging: monitor.isDragging() })
 	});
 
-	const border = isOver ?
-		'1px dashed black' :
-		'1px dashed grey';
-
 	return drop(drag(
-		<span style={{
-			display: 'inline-block',
-			width: '100%',
-			padding: '15px',
-			boxSizing: 'border-box',
-			border
-		}}>
+		<span className={getClassNames(isDragging, isOver)}>
 			{value}
 		</span>
 	));

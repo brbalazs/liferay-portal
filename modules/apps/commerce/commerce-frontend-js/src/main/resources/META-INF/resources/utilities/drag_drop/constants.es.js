@@ -15,6 +15,5 @@
 export const ItemTypes = {
 	ASSET: 'asset',
 	DATASET_CELL: 'dataset-cell',
-	DATASET_COL_CELL: 'dataset-col-cell',
 	DATASET_ROW: 'dataset-row'
 };
