@@ -55,11 +55,11 @@ long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "
 			boolean addressWasFound = false;
 
 			for (CommerceAddress commerceAddress : commerceAddresses) {
-			boolean selectedAddress = commerceAddressId == commerceAddress.getCommerceAddressId();
+				boolean selectedAddress = commerceAddressId == commerceAddress.getCommerceAddressId();
 
-			if (selectedAddress) {
-				addressWasFound = true;
-			}
+				if (selectedAddress) {
+					addressWasFound = true;
+				}
 			%>
 
 				<aui:option data-city="<%= HtmlUtil.escapeAttribute(commerceAddress.getCity()) %>" data-country="<%= HtmlUtil.escapeAttribute(String.valueOf(commerceAddress.getCommerceCountryId())) %>" data-name="<%= HtmlUtil.escapeAttribute(commerceAddress.getName()) %>" data-phone-number="<%= HtmlUtil.escapeAttribute(commerceAddress.getPhoneNumber()) %>" data-region="<%= HtmlUtil.escapeAttribute(String.valueOf(commerceAddress.getCommerceRegionId())) %>" data-street-1="<%= HtmlUtil.escapeAttribute(commerceAddress.getStreet1()) %>" data-street-2="<%= Validator.isNotNull(commerceAddress.getStreet2()) ? HtmlUtil.escapeAttribute(commerceAddress.getStreet2()) : StringPool.BLANK %>" data-street-3="<%= Validator.isNotNull(commerceAddress.getStreet3()) ? HtmlUtil.escapeAttribute(commerceAddress.getStreet3()) : StringPool.BLANK %>" data-zip="<%= HtmlUtil.escapeAttribute(commerceAddress.getZip()) %>" label="<%= commerceAddress.getName() %>" selected="<%= selectedAddress %>" value="<%= commerceAddress.getCommerceAddressId() %>" />
@@ -91,23 +91,17 @@ long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "
 
 <div class="address-fields">
 	<div class="form-group-autofit">
-		<aui:select disabled="<%= commerceAddressId > 0 %>" label="country" name="commerceCountryId" title="country" wrapperCssClass="form-group-item">
+		<aui:input disabled="<%= commerceAddressId > 0 %>" label="" name="name" placeholder="name" wrapperCssClass="form-group-item" />
+
+		<aui:input disabled="<%= commerceAddressId > 0 %>" label="" name="phoneNumber" placeholder="phone-number" wrapperCssClass="form-group-item" />
+	</div>
+
+	<div class="form-group-autofit">
+		<aui:input disabled="<%= commerceAddressId > 0 %>" label="" name="street1" placeholder="address" wrapperCssClass="form-group-item" />
+
+		<aui:select disabled="<%= commerceAddressId > 0 %>" label="" name="commerceCountryId" placeholder="country" title="country" wrapperCssClass="form-group-item">
 			<aui:validator errorMessage='<%= LanguageUtil.get(request, "please-enter-a-valid-country") %>' name="min">1</aui:validator>
 		</aui:select>
-
-		<aui:input disabled="<%= commerceAddressId > 0 %>" name="name" wrapperCssClass="form-group-item" />
-	</div>
-
-	<div class="form-group-autofit">
-		<aui:input disabled="<%= commerceAddressId > 0 %>" name="street1" wrapperCssClass="form-group-item" />
-
-		<aui:input disabled="<%= commerceAddressId > 0 %>" name="city" wrapperCssClass="form-group-item" />
-	</div>
-
-	<div class="form-group-autofit">
-		<aui:select disabled="<%= commerceAddressId > 0 %>" label="region" name="commerceRegionId" title="region" wrapperCssClass="form-group-item" />
-
-		<aui:input disabled="<%= commerceAddressId > 0 %>" name="zip" wrapperCssClass="form-group-item" />
 	</div>
 
 	<div class="add-street-link form-group-autofit">
@@ -115,9 +109,17 @@ long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "
 	</div>
 
 	<div class="add-street-fields form-group-autofit hide">
-		<aui:input disabled="<%= commerceAddressId > 0 %>" name="street2" wrapperCssClass="form-group-item" />
+		<aui:input disabled="<%= commerceAddressId > 0 %>" label="" name="street2" placeholder="address-2" wrapperCssClass="form-group-item" />
 
-		<aui:input disabled="<%= commerceAddressId > 0 %>" name="street3" wrapperCssClass="form-group-item" />
+		<aui:input disabled="<%= commerceAddressId > 0 %>" label="" name="street3" placeholder="address-3" wrapperCssClass="form-group-item" />
+	</div>
+
+	<div class="form-group-autofit">
+		<aui:input disabled="<%= commerceAddressId > 0 %>" label="" name="zip" placeholder="zip" wrapperCssClass="form-group-item" />
+
+		<aui:input disabled="<%= commerceAddressId > 0 %>" label="" name="city" placeholder="city" wrapperCssClass="form-group-item" />
+
+		<aui:select disabled="<%= commerceAddressId > 0 %>" label="" name="commerceRegionId" placeholder="region" title="region" wrapperCssClass="form-group-item" />
 	</div>
 
 	<div class="form-group-autofit">
@@ -127,8 +129,6 @@ long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "
 				<aui:validator name="required" />
 			</aui:input>
 		</c:if>
-
-		<aui:input disabled="<%= commerceAddressId > 0 %>" name="phoneNumber" wrapperCssClass="form-group-item" />
 	</div>
 </div>
 
