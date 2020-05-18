@@ -19,9 +19,7 @@ import React, {useState, useRef, useEffect} from 'react';
 
 import {listenToBulkActionStatus} from '../../utilities/actionItems/bulkActions';
 import {closest} from '../../utilities/closest';
-import {
-	provideDragDrop
-} from "../../utilities/drag_drop/contextProvider.es";
+import {provideDragDrop} from '../../utilities/drag_drop/contextProvider';
 import {
 	DATASET_ACTION_PERFORMED,
 	DATASET_DISPLAY_UPDATED,
@@ -228,8 +226,7 @@ function DatasetDisplay(props) {
 
 		if (itemAdded) {
 			setSelectedItemsValue(selectedItemsValue.filter(el => el !== val));
-		}
-		else {
+		} else {
 			setSelectedItemsValue(selectedItemsValue.concat(val));
 		}
 	}
