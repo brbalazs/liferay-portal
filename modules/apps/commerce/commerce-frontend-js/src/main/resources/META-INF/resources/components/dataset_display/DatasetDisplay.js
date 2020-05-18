@@ -20,6 +20,9 @@ import React, {useState, useRef, useEffect} from 'react';
 import {listenToBulkActionStatus} from '../../utilities/actionItems/bulkActions';
 import {closest} from '../../utilities/closest';
 import {
+	provideDragDrop
+} from "../../utilities/drag_drop/contextProvider.es";
+import {
 	DATASET_ACTION_PERFORMED,
 	DATASET_DISPLAY_UPDATED,
 	OPEN_MODAL,
@@ -586,4 +589,25 @@ DatasetDisplay.defaultProps = {
 	style: 'default'
 };
 
-export default DatasetDisplay;
+export default function DatasetDisplayEnhancer(props) {
+	const baseComponent = (props) => {
+		const {
+			apiUrl,
+			id,
+			spritemap,
+			views
+		} = props;
+
+		return (
+			<DatasetDisplay
+				{...props}
+				apiUrl={apiUrl}
+				id={id}
+				spritemap={spritemap}
+				views={views}
+			/>
+		);
+	};
+
+	return provideDragDrop(props, baseComponent);
+}
