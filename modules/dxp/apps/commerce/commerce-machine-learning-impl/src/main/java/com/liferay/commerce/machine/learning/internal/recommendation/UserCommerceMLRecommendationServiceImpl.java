@@ -27,10 +27,14 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.search.TermQuery;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.kernel.search.filter.TermFilter;
+import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.kernel.search.generic.TermQueryImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.search.engine.adapter.search.SearchSearchRequest;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -69,12 +73,25 @@ public class UserCommerceMLRecommendationServiceImpl
 			long companyId, long commerceAccountId, long[] assetCategoryIds)
 		throws PortalException {
 
-		SearchSearchRequest searchSearchRequest = getSearchSearchRequest(
-			_commerceMLIndexer.getIndexName(companyId), companyId,
-			commerceAccountId);
+		SearchSearchRequest searchSearchRequest = new SearchSearchRequest();
 
-		BooleanQuery booleanQuery =
-			(BooleanQuery)searchSearchRequest.getQuery();
+		searchSearchRequest.setIndexNames(
+			new String[] {_commerceMLIndexer.getIndexName(companyId)});
+
+		TermFilter companyTermFilter = new TermFilter(
+			Field.COMPANY_ID, String.valueOf(companyId));
+
+		TermFilter entryClassPKTermFilter = new TermFilter(
+			Field.ENTRY_CLASS_PK, String.valueOf(commerceAccountId));
+
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		booleanFilter.add(companyTermFilter, BooleanClauseOccur.MUST);
+		booleanFilter.add(entryClassPKTermFilter, BooleanClauseOccur.MUST);
+
+		BooleanQuery booleanQuery = new BooleanQueryImpl();
+
+		booleanQuery.setPreBooleanFilter(booleanFilter);
 
 		if (assetCategoryIds != null) {
 			for (long categoryId : assetCategoryIds) {
@@ -84,6 +101,12 @@ public class UserCommerceMLRecommendationServiceImpl
 				booleanQuery.add(categoryIdTermQuery, BooleanClauseOccur.MUST);
 			}
 		}
+
+		searchSearchRequest.setQuery(booleanQuery);
+
+		searchSearchRequest.setSize(Integer.valueOf(DEFAULT_FETCH_SIZE));
+
+		searchSearchRequest.setStats(Collections.emptyMap());
 
 		Sort scoreSort = SortFactoryUtil.create(
 			CommerceMLRecommendationField.SCORE, Sort.FLOAT_TYPE, false);
