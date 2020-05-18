@@ -421,8 +421,7 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 		}
 
 		contextObjects.put(
-			PortletDisplayTemplateConstants.LOCALE,
-			httpServletRequest.getLocale());
+			PortletDisplayTemplateConstants.LOCALE, themeDisplay.getLocale());
 
 		if (portletRequest instanceof RenderRequest) {
 			RenderRequest renderRequest = (RenderRequest)portletRequest;
