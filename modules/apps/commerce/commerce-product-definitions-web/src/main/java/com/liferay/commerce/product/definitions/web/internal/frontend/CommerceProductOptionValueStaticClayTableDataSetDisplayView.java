@@ -22,21 +22,20 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendina
  * @author Igor Beslic
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.set.display.name=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES,
+	property = "commerce.data.set.display.name=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES_STATIC,
 	service = ClayDataSetDisplayView.class
 )
-public class CommerceProductOptionValueClayTableDataSetDisplayView
+public class CommerceProductOptionValueStaticClayTableDataSetDisplayView
 	extends BaseClayTableDataSetDisplayView {
 
-	@Override
 	protected void addFields(ClayTableSchemaBuilder clayTableSchemaBuilder) {
 		clayTableSchemaBuilder.addField("key", "key");
 		clayTableSchemaBuilder.addField("position", "position");
+		clayTableSchemaBuilder.addField("deltaPrice", "delta-price");
 		clayTableSchemaBuilder.addField("sku", "linked-product");
 	}
 
