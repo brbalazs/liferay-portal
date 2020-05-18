@@ -94,7 +94,7 @@ export function loadData(
 	const authString = `p_auth=${window.Liferay.authToken}`;
 	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
 	const pagination = `&pageSize=${delta}&page=${page}`;
-	const searchParamString = searchParam ? `&q=${searchParam}` : '';
+	const searchParamString = searchParam ? `&search=${searchParam}` : '';
 	const sortingString = sorting.length
 		? `&orderBy=${JSON.stringify(sorting)}`
 		: ``;
