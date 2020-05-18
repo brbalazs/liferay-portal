@@ -1,0 +1,10 @@
+apiDir: "../headless-commerce-punchout-api/src/main/java"
+apiPackagePath: "com.liferay.headless.commerce.punchout"
+application:
+    baseURI: "headless-commerce-punchout"
+    className: "HeadlessCommercePunchoutApplication"
+    name: "Liferay.Headless.Commerce.Punchout"
+author: "Jaclyn Ong"
+clientDir: "../headless-commerce-punchout-client/src/main/java"
+forcePredictableSchemaPropertyName: false
+testDir: "../headless-commerce-punchout-test/src/testIntegration/java"

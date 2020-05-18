@@ -1,0 +1,6 @@
+Bundle-Name: Liferay OAuth2 Provider Punchout API
+Bundle-SymbolicName: com.liferay.oauth2.provider.punchout.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.oauth2.provider.punchout,\
+	com.liferay.oauth2.provider.punchout.model
