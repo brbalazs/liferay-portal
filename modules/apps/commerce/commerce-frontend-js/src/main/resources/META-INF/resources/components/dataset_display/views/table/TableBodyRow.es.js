@@ -17,24 +17,27 @@ import React from 'react';
 
 import {DraggableTableBodyRow} from './orderability/index.es';
 
-function TableBodyRow({orderable, index, item,
-	itemsList, setItemsList, ...remnant}) {
-
-	return (
-		orderable
-			? (
-				<DraggableTableBodyRow
-					index={index}
-					item={item}
-					itemsList={itemsList}
-					setItemsList={setItemsList}
-					{...remnant}
-				/>
-			) : (
-				<ClayTable.Row>
-					{remnant.children}
-				</ClayTable.Row>
-			)
+function TableBodyRow({
+	index,
+	isActive,
+	item,
+	itemsList,
+	orderable,
+	setItemsList,
+	...remnant
+}) {
+	return orderable ? (
+		<DraggableTableBodyRow
+			index={index}
+			item={item}
+			itemsList={itemsList}
+			setItemsList={setItemsList}
+			{...remnant}
+		/>
+	) : (
+		<ClayTable.Row className={isActive ? 'active' : ''}>
+			{remnant.children}
+		</ClayTable.Row>
 	);
 }
 

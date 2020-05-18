@@ -452,9 +452,9 @@ function DatasetDisplay(props) {
 		<DatasetDisplayContext.Provider
 			value={{
 				actionLoading,
+				enableDragDrop: props.enableDragDrop,
 				executeAsyncBulkAction,
 				executeAsyncItemAction,
-				enableDragDrop: props.enableDragDrop,
 				formId: props.formId,
 				formRef,
 				highlightItems,

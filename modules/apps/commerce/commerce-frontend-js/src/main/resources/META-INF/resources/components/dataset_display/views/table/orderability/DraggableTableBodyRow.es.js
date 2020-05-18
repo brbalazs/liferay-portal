@@ -15,12 +15,8 @@
 import ClayIcon from '@clayui/icon';
 import ClayTable from '@clayui/table';
 import getCN from 'classnames';
-
+import {useDrag, useDrop} from 'react-dnd';
 import React from 'react';
-import {
-	useDrag,
-	useDrop
-} from 'react-dnd';
 
 import {TableBodyRowConfiguration} from './index.es';
 
@@ -30,12 +26,13 @@ function getClassNames(isDragging) {
 
 function DraggableTableBodyRow({children, ...orderabilityProps}) {
 	const {
-			configureDragSource,
-			configureDropTarget
-		} = TableBodyRowConfiguration;
+		configureDragSource,
+		configureDropTarget
+	} = TableBodyRowConfiguration;
 
 	const [{isDragging}, drag, preview] = useDrag(
-			configureDragSource({...orderabilityProps}));
+		configureDragSource({...orderabilityProps})
+	);
 
 	const [, drop] = useDrop(configureDropTarget({...orderabilityProps}));
 
@@ -45,7 +42,7 @@ function DraggableTableBodyRow({children, ...orderabilityProps}) {
 			ref={node => preview(drop(node))}
 		>
 			<ClayTable.Cell ref={drag}>
-				<ClayIcon symbol={'drag'}/>
+				<ClayIcon symbol={'drag'} />
 			</ClayTable.Cell>
 			{children}
 		</ClayTable.Row>
