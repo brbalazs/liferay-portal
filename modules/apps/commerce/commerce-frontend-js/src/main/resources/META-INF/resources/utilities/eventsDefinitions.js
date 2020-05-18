@@ -25,6 +25,7 @@ export const DATASET_ACTION_PERFORMED = 'dataset-action-performed';
 export const DATASET_DISPLAY_UPDATED = 'dataset-display-updated';
 export const IFRAME_LOADED = 'iframe-loaded';
 export const IS_LOADING_MODAL = 'is-loading-modal';
+export const ITEM_ORDERING_CHANGED = 'item-ordering-changed';
 export const OPEN_MODAL = 'open-modal';
 export const OPEN_SIDE_PANEL = 'open-side-panel';
 export const PRODUCT_OPTIONS_CHANGED = 'product-options-changed';

@@ -97,9 +97,9 @@ function DatasetDisplay(props) {
 						views.map((view, i) =>
 							i === activeView
 								? {
-										...view,
-										component
-								  }
+									...view,
+									component
+								}
 								: view
 						)
 					);
@@ -228,7 +228,8 @@ function DatasetDisplay(props) {
 
 		if (itemAdded) {
 			setSelectedItemsValue(selectedItemsValue.filter(el => el !== val));
-		} else {
+		}
+		else {
 			setSelectedItemsValue(selectedItemsValue.concat(val));
 		}
 	}
