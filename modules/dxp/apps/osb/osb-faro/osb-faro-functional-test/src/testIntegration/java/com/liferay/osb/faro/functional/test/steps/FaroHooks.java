@@ -196,7 +196,7 @@ public class FaroHooks {
 
 			String finalCount = String.valueOf(Table.tableItemCount());
 
-			if(!finalCount.equals("1")) {
+			if (!finalCount.equals("1")) {
 				throw new Exception("Properties not deleted");
 			}
 		}
