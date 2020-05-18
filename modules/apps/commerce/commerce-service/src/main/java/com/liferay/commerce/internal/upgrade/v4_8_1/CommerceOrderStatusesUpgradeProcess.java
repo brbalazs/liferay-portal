@@ -25,9 +25,9 @@ public class CommerceOrderStatusesUpgradeProcess
 	@Override
 	protected void doUpgrade() throws Exception {
 		runSQL(
-			"UPDATE CommerceOrder SET orderStatus = 1 WHERE orderStatus = 11");
+			"update CommerceOrder set orderStatus = 1 where orderStatus = 11");
 		runSQL(
-			"UPDATE CommerceOrder SET orderStatus = 12 WHERE orderStatus = 10");
+			"update CommerceOrder set orderStatus = 10 where orderStatus = 12");
 	}
 
 }
