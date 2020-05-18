@@ -168,14 +168,6 @@ function _getEditorConfiguration(
 					const selectedItem = event.newVal;
 
 					if (selectedItem) {
-						const selectedItemObject = JSON.parse(
-							selectedItem.value
-						);
-
-						selectedItem.value = selectedItemObject.url;
-
-						selectedItem.title = selectedItemObject.title;
-
 						changeLinkCallback(selectedItem);
 					}
 				});

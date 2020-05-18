@@ -65,7 +65,7 @@ public class FragmentEntryLinkEditorConfigContributor
 			requestBackedPortletURLFactory, "_EDITOR_NAME_selectItem",
 			getFileItemSelectorCriterion(), getLayoutItemSelectorURL());
 		PortletURL imageSelectorURL = _itemSelector.getItemSelectorURL(
-			requestBackedPortletURLFactory, "_EDITOR_NAME_selectImage",
+			requestBackedPortletURLFactory, "_EDITOR_NAME_selectItem",
 			getImageItemSelectorCriterion(), getURLItemSelectorCriterion());
 
 		jsonObject.put("allowedContent", "");
