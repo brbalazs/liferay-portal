@@ -14,12 +14,12 @@
 
 package com.liferay.headless.commerce.admin.pricing.client.resource.v2_0;
 
-import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.DiscountProductGroup;
+import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListAccount;
 import com.liferay.headless.commerce.admin.pricing.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.problem.Problem;
-import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.DiscountProductGroupSerDes;
+import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListAccountSerDes;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -34,64 +34,60 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public interface DiscountProductGroupResource {
+public interface PriceListAccountResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public void deleteDiscountProductGroup(Long id) throws Exception;
+	public void deletePriceListAccount(Long id) throws Exception;
 
-	public HttpInvoker.HttpResponse deleteDiscountProductGroupHttpResponse(
-			Long id)
+	public HttpInvoker.HttpResponse deletePriceListAccountHttpResponse(Long id)
 		throws Exception;
 
-	public void deleteDiscountProductGroupBatch(
+	public void deletePriceListAccountBatch(
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse deleteDiscountProductGroupBatchHttpResponse(
+	public HttpInvoker.HttpResponse deletePriceListAccountBatchHttpResponse(
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public Page<DiscountProductGroup>
-			getDiscountByExternalReferenceCodeDiscountProductGroupsPage(
+	public Page<PriceListAccount>
+			getPriceListByExternalReferenceCodePriceListAccountPage(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getDiscountByExternalReferenceCodeDiscountProductGroupsPageHttpResponse(
+			getPriceListByExternalReferenceCodePriceListAccountPageHttpResponse(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
-	public DiscountProductGroup
-			postDiscountByExternalReferenceCodeDiscountProductGroup(
-				String externalReferenceCode,
-				DiscountProductGroup discountProductGroup)
+	public PriceListAccount
+			postPriceListByExternalReferenceCodePriceListAccount(
+				String externalReferenceCode, PriceListAccount priceListAccount)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			postDiscountByExternalReferenceCodeDiscountProductGroupHttpResponse(
-				String externalReferenceCode,
-				DiscountProductGroup discountProductGroup)
+			postPriceListByExternalReferenceCodePriceListAccountHttpResponse(
+				String externalReferenceCode, PriceListAccount priceListAccount)
 		throws Exception;
 
-	public Page<DiscountProductGroup> getDiscountIdDiscountProductGroupsPage(
+	public Page<PriceListAccount> getPriceListIdPriceListAccountsPage(
 			Long id, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getDiscountIdDiscountProductGroupsPageHttpResponse(
+			getPriceListIdPriceListAccountsPageHttpResponse(
 				Long id, Pagination pagination)
 		throws Exception;
 
-	public DiscountProductGroup postDiscountIdDiscountProductGroup(
-			Long id, DiscountProductGroup discountProductGroup)
+	public PriceListAccount postPriceListIdPriceListAccount(
+			Long id, PriceListAccount priceListAccount)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			postDiscountIdDiscountProductGroupHttpResponse(
-				Long id, DiscountProductGroup discountProductGroup)
+	public HttpInvoker.HttpResponse postPriceListIdPriceListAccountHttpResponse(
+			Long id, PriceListAccount priceListAccount)
 		throws Exception;
 
 	public static class Builder {
@@ -103,8 +99,8 @@ public interface DiscountProductGroupResource {
 			return this;
 		}
 
-		public DiscountProductGroupResource build() {
-			return new DiscountProductGroupResourceImpl(this);
+		public PriceListAccountResource build() {
+			return new PriceListAccountResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -147,12 +143,12 @@ public interface DiscountProductGroupResource {
 
 	}
 
-	public static class DiscountProductGroupResourceImpl
-		implements DiscountProductGroupResource {
+	public static class PriceListAccountResourceImpl
+		implements PriceListAccountResource {
 
-		public void deleteDiscountProductGroup(Long id) throws Exception {
+		public void deletePriceListAccount(Long id) throws Exception {
 			HttpInvoker.HttpResponse httpResponse =
-				deleteDiscountProductGroupHttpResponse(id);
+				deletePriceListAccountHttpResponse(id);
 
 			String content = httpResponse.getContent();
 
@@ -161,20 +157,9 @@ public interface DiscountProductGroupResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
-		public HttpInvoker.HttpResponse deleteDiscountProductGroupHttpResponse(
+		public HttpInvoker.HttpResponse deletePriceListAccountHttpResponse(
 				Long id)
 			throws Exception {
 
@@ -202,7 +187,7 @@ public interface DiscountProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discountProductGroups/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/priceListAccounts/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -211,12 +196,12 @@ public interface DiscountProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteDiscountProductGroupBatch(
+		public void deletePriceListAccountBatch(
 				Long id, String callbackURL, Object object)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteDiscountProductGroupBatchHttpResponse(
+				deletePriceListAccountBatchHttpResponse(
 					id, callbackURL, object);
 
 			String content = httpResponse.getContent();
@@ -228,9 +213,8 @@ public interface DiscountProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse
-				deleteDiscountProductGroupBatchHttpResponse(
-					Long id, String callbackURL, Object object)
+		public HttpInvoker.HttpResponse deletePriceListAccountBatchHttpResponse(
+				Long id, String callbackURL, Object object)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -262,7 +246,7 @@ public interface DiscountProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discountProductGroups/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/priceListAccounts/{id}/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -271,13 +255,13 @@ public interface DiscountProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public Page<DiscountProductGroup>
-				getDiscountByExternalReferenceCodeDiscountProductGroupsPage(
+		public Page<PriceListAccount>
+				getPriceListByExternalReferenceCodePriceListAccountPage(
 					String externalReferenceCode, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getDiscountByExternalReferenceCodeDiscountProductGroupsPageHttpResponse(
+				getPriceListByExternalReferenceCodePriceListAccountPageHttpResponse(
 					externalReferenceCode, pagination);
 
 			String content = httpResponse.getContent();
@@ -289,7 +273,7 @@ public interface DiscountProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return Page.of(content, DiscountProductGroupSerDes::toDTO);
+				return Page.of(content, PriceListAccountSerDes::toDTO);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -301,7 +285,7 @@ public interface DiscountProductGroupResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getDiscountByExternalReferenceCodeDiscountProductGroupsPageHttpResponse(
+				getPriceListByExternalReferenceCodePriceListAccountPageHttpResponse(
 					String externalReferenceCode, Pagination pagination)
 			throws Exception {
 
@@ -336,7 +320,7 @@ public interface DiscountProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccount",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -345,15 +329,15 @@ public interface DiscountProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public DiscountProductGroup
-				postDiscountByExternalReferenceCodeDiscountProductGroup(
+		public PriceListAccount
+				postPriceListByExternalReferenceCodePriceListAccount(
 					String externalReferenceCode,
-					DiscountProductGroup discountProductGroup)
+					PriceListAccount priceListAccount)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postDiscountByExternalReferenceCodeDiscountProductGroupHttpResponse(
-					externalReferenceCode, discountProductGroup);
+				postPriceListByExternalReferenceCodePriceListAccountHttpResponse(
+					externalReferenceCode, priceListAccount);
 
 			String content = httpResponse.getContent();
 
@@ -364,7 +348,7 @@ public interface DiscountProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return DiscountProductGroupSerDes.toDTO(content);
+				return PriceListAccountSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -376,15 +360,14 @@ public interface DiscountProductGroupResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postDiscountByExternalReferenceCodeDiscountProductGroupHttpResponse(
+				postPriceListByExternalReferenceCodePriceListAccountHttpResponse(
 					String externalReferenceCode,
-					DiscountProductGroup discountProductGroup)
+					PriceListAccount priceListAccount)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				discountProductGroup.toString(), "application/json");
+			httpInvoker.body(priceListAccount.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -408,7 +391,7 @@ public interface DiscountProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccount",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -417,14 +400,12 @@ public interface DiscountProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public Page<DiscountProductGroup>
-				getDiscountIdDiscountProductGroupsPage(
-					Long id, Pagination pagination)
+		public Page<PriceListAccount> getPriceListIdPriceListAccountsPage(
+				Long id, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getDiscountIdDiscountProductGroupsPageHttpResponse(
-					id, pagination);
+				getPriceListIdPriceListAccountsPageHttpResponse(id, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -435,7 +416,7 @@ public interface DiscountProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return Page.of(content, DiscountProductGroupSerDes::toDTO);
+				return Page.of(content, PriceListAccountSerDes::toDTO);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -447,7 +428,7 @@ public interface DiscountProductGroupResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getDiscountIdDiscountProductGroupsPageHttpResponse(
+				getPriceListIdPriceListAccountsPageHttpResponse(
 					Long id, Pagination pagination)
 			throws Exception {
 
@@ -482,7 +463,7 @@ public interface DiscountProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountProductGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}/priceListAccounts",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -491,13 +472,13 @@ public interface DiscountProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public DiscountProductGroup postDiscountIdDiscountProductGroup(
-				Long id, DiscountProductGroup discountProductGroup)
+		public PriceListAccount postPriceListIdPriceListAccount(
+				Long id, PriceListAccount priceListAccount)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postDiscountIdDiscountProductGroupHttpResponse(
-					id, discountProductGroup);
+				postPriceListIdPriceListAccountHttpResponse(
+					id, priceListAccount);
 
 			String content = httpResponse.getContent();
 
@@ -508,7 +489,7 @@ public interface DiscountProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return DiscountProductGroupSerDes.toDTO(content);
+				return PriceListAccountSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -520,14 +501,13 @@ public interface DiscountProductGroupResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postDiscountIdDiscountProductGroupHttpResponse(
-					Long id, DiscountProductGroup discountProductGroup)
+				postPriceListIdPriceListAccountHttpResponse(
+					Long id, PriceListAccount priceListAccount)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				discountProductGroup.toString(), "application/json");
+			httpInvoker.body(priceListAccount.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -551,7 +531,7 @@ public interface DiscountProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountProductGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}/priceListAccounts",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -560,12 +540,12 @@ public interface DiscountProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		private DiscountProductGroupResourceImpl(Builder builder) {
+		private PriceListAccountResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			DiscountProductGroupResource.class.getName());
+			PriceListAccountResource.class.getName());
 
 		private Builder _builder;
 

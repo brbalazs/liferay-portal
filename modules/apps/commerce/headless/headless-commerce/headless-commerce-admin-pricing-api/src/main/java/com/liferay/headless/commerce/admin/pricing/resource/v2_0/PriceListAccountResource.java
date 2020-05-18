@@ -14,9 +14,7 @@
 
 package com.liferay.headless.commerce.admin.pricing.resource.v2_0;
 
-import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceList;
-import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccount;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -43,42 +41,34 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @Generated("")
 @ProviderType
-public interface PriceListResource {
+public interface PriceListAccountResource {
 
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<PriceList> getPriceListsPage(
-			String search, Filter filter, Pagination pagination, Sort[] sorts)
-		throws Exception;
+	public Response deletePriceListAccount(Long id) throws Exception;
 
-	public PriceList postPriceList(PriceList priceList) throws Exception;
-
-	public Response postPriceListBatch(String callbackURL, Object object)
-		throws Exception;
-
-	public void deletePriceListByExternalReferenceCode(
-			String externalReferenceCode)
-		throws Exception;
-
-	public PriceList getPriceListByExternalReferenceCode(
-			String externalReferenceCode)
-		throws Exception;
-
-	public Response patchPriceListByExternalReferenceCode(
-			String externalReferenceCode, PriceList priceList)
-		throws Exception;
-
-	public void deletePriceList(Long id) throws Exception;
-
-	public Response deletePriceListBatch(
+	public Response deletePriceListAccountBatch(
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public PriceList getPriceList(Long id) throws Exception;
+	public Page<PriceListAccount>
+			getPriceListByExternalReferenceCodePriceListAccountPage(
+				String externalReferenceCode, Pagination pagination)
+		throws Exception;
 
-	public Response patchPriceList(Long id, PriceList priceList)
+	public PriceListAccount
+			postPriceListByExternalReferenceCodePriceListAccount(
+				String externalReferenceCode, PriceListAccount priceListAccount)
+		throws Exception;
+
+	public Page<PriceListAccount> getPriceListIdPriceListAccountsPage(
+			Long id, Pagination pagination)
+		throws Exception;
+
+	public PriceListAccount postPriceListIdPriceListAccount(
+			Long id, PriceListAccount priceListAccount)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(
@@ -111,7 +101,7 @@ public interface PriceListResource {
 	@ProviderType
 	public interface Builder {
 
-		public PriceListResource build();
+		public PriceListAccountResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
 

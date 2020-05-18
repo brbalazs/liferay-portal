@@ -19,6 +19,7 @@ import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceEntry
 
 import java.math.BigDecimal;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,6 +31,48 @@ import javax.annotation.Generated;
  */
 @Generated("")
 public class PriceEntry implements Cloneable {
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public void setActive(
+		UnsafeSupplier<Boolean, Exception> activeUnsafeSupplier) {
+
+		try {
+			active = activeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean active;
+
+	public Boolean getBulkPricing() {
+		return bulkPricing;
+	}
+
+	public void setBulkPricing(Boolean bulkPricing) {
+		this.bulkPricing = bulkPricing;
+	}
+
+	public void setBulkPricing(
+		UnsafeSupplier<Boolean, Exception> bulkPricingUnsafeSupplier) {
+
+		try {
+			bulkPricing = bulkPricingUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean bulkPricing;
 
 	public Map<String, ?> getCustomFields() {
 		return customFields;
@@ -51,6 +94,153 @@ public class PriceEntry implements Cloneable {
 	}
 
 	protected Map<String, ?> customFields;
+
+	public Boolean getDiscountDiscovery() {
+		return discountDiscovery;
+	}
+
+	public void setDiscountDiscovery(Boolean discountDiscovery) {
+		this.discountDiscovery = discountDiscovery;
+	}
+
+	public void setDiscountDiscovery(
+		UnsafeSupplier<Boolean, Exception> discountDiscoveryUnsafeSupplier) {
+
+		try {
+			discountDiscovery = discountDiscoveryUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean discountDiscovery;
+
+	public BigDecimal getDiscountLevel1() {
+		return discountLevel1;
+	}
+
+	public void setDiscountLevel1(BigDecimal discountLevel1) {
+		this.discountLevel1 = discountLevel1;
+	}
+
+	public void setDiscountLevel1(
+		UnsafeSupplier<BigDecimal, Exception> discountLevel1UnsafeSupplier) {
+
+		try {
+			discountLevel1 = discountLevel1UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal discountLevel1;
+
+	public BigDecimal getDiscountLevel2() {
+		return discountLevel2;
+	}
+
+	public void setDiscountLevel2(BigDecimal discountLevel2) {
+		this.discountLevel2 = discountLevel2;
+	}
+
+	public void setDiscountLevel2(
+		UnsafeSupplier<BigDecimal, Exception> discountLevel2UnsafeSupplier) {
+
+		try {
+			discountLevel2 = discountLevel2UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal discountLevel2;
+
+	public BigDecimal getDiscountLevel3() {
+		return discountLevel3;
+	}
+
+	public void setDiscountLevel3(BigDecimal discountLevel3) {
+		this.discountLevel3 = discountLevel3;
+	}
+
+	public void setDiscountLevel3(
+		UnsafeSupplier<BigDecimal, Exception> discountLevel3UnsafeSupplier) {
+
+		try {
+			discountLevel3 = discountLevel3UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal discountLevel3;
+
+	public BigDecimal getDiscountLevel4() {
+		return discountLevel4;
+	}
+
+	public void setDiscountLevel4(BigDecimal discountLevel4) {
+		this.discountLevel4 = discountLevel4;
+	}
+
+	public void setDiscountLevel4(
+		UnsafeSupplier<BigDecimal, Exception> discountLevel4UnsafeSupplier) {
+
+		try {
+			discountLevel4 = discountLevel4UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal discountLevel4;
+
+	public Date getDisplayDate() {
+		return displayDate;
+	}
+
+	public void setDisplayDate(Date displayDate) {
+		this.displayDate = displayDate;
+	}
+
+	public void setDisplayDate(
+		UnsafeSupplier<Date, Exception> displayDateUnsafeSupplier) {
+
+		try {
+			displayDate = displayDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date displayDate;
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	public void setExpirationDate(
+		UnsafeSupplier<Date, Exception> expirationDateUnsafeSupplier) {
+
+		try {
+			expirationDate = expirationDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date expirationDate;
 
 	public String getExternalReferenceCode() {
 		return externalReferenceCode;

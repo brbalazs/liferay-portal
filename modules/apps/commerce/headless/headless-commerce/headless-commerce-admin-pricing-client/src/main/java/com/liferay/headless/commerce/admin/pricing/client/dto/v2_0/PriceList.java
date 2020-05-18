@@ -30,6 +30,37 @@ import javax.annotation.Generated;
 @Generated("")
 public class PriceList implements Cloneable {
 
+	public static enum Type {
+
+		PRICE_LIST("price-list"), PROMOTION("promotion"), CONTRACT("contract");
+
+		public static Type create(String value) {
+			for (Type type : values()) {
+				if (Objects.equals(type.getValue(), value)) {
+					return type;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Type(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	public PriceListAccountGroup[] getAccountGroups() {
 		return accountGroups;
 	}
@@ -52,6 +83,27 @@ public class PriceList implements Cloneable {
 
 	protected PriceListAccountGroup[] accountGroups;
 
+	public PriceListAccount[] getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(PriceListAccount[] accounts) {
+		this.accounts = accounts;
+	}
+
+	public void setAccounts(
+		UnsafeSupplier<PriceListAccount[], Exception> accountsUnsafeSupplier) {
+
+		try {
+			accounts = accountsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PriceListAccount[] accounts;
+
 	public Boolean getActive() {
 		return active;
 	}
@@ -73,6 +125,27 @@ public class PriceList implements Cloneable {
 
 	protected Boolean active;
 
+	public Boolean getCatalogBasePriceList() {
+		return catalogBasePriceList;
+	}
+
+	public void setCatalogBasePriceList(Boolean catalogBasePriceList) {
+		this.catalogBasePriceList = catalogBasePriceList;
+	}
+
+	public void setCatalogBasePriceList(
+		UnsafeSupplier<Boolean, Exception> catalogBasePriceListUnsafeSupplier) {
+
+		try {
+			catalogBasePriceList = catalogBasePriceListUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean catalogBasePriceList;
+
 	public Long getCatalogId() {
 		return catalogId;
 	}
@@ -93,6 +166,27 @@ public class PriceList implements Cloneable {
 	}
 
 	protected Long catalogId;
+
+	public PriceListChannel[] getChannels() {
+		return channels;
+	}
+
+	public void setChannels(PriceListChannel[] channels) {
+		this.channels = channels;
+	}
+
+	public void setChannels(
+		UnsafeSupplier<PriceListChannel[], Exception> channelsUnsafeSupplier) {
+
+		try {
+			channels = channelsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PriceListChannel[] channels;
 
 	public String getCurrencyCode() {
 		return currencyCode;
@@ -135,6 +229,28 @@ public class PriceList implements Cloneable {
 	}
 
 	protected Map<String, ?> customFields;
+
+	public PriceListDiscount[] getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(PriceListDiscount[] discounts) {
+		this.discounts = discounts;
+	}
+
+	public void setDiscounts(
+		UnsafeSupplier<PriceListDiscount[], Exception>
+			discountsUnsafeSupplier) {
+
+		try {
+			discounts = discountsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PriceListDiscount[] discounts;
 
 	public Date getDisplayDate() {
 		return displayDate;
@@ -237,6 +353,27 @@ public class PriceList implements Cloneable {
 
 	protected String name;
 
+	public Boolean getNetPrice() {
+		return netPrice;
+	}
+
+	public void setNetPrice(Boolean netPrice) {
+		this.netPrice = netPrice;
+	}
+
+	public void setNetPrice(
+		UnsafeSupplier<Boolean, Exception> netPriceUnsafeSupplier) {
+
+		try {
+			netPrice = netPriceUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean netPrice;
+
 	public Boolean getNeverExpire() {
 		return neverExpire;
 	}
@@ -299,6 +436,33 @@ public class PriceList implements Cloneable {
 	}
 
 	protected Double priority;
+
+	public Type getType() {
+		return type;
+	}
+
+	public String getTypeAsString() {
+		if (type == null) {
+			return null;
+		}
+
+		return type.toString();
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public void setType(UnsafeSupplier<Type, Exception> typeUnsafeSupplier) {
+		try {
+			type = typeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Type type;
 
 	@Override
 	public PriceList clone() throws CloneNotSupportedException {

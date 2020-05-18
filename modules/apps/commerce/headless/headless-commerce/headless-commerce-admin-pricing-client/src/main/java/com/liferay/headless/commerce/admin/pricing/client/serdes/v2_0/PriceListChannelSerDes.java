@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0;
 
-import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListAccountGroup;
+import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListChannel;
 import com.liferay.headless.commerce.admin.pricing.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,24 +30,24 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class PriceListAccountGroupSerDes {
+public class PriceListChannelSerDes {
 
-	public static PriceListAccountGroup toDTO(String json) {
-		PriceListAccountGroupJSONParser priceListAccountGroupJSONParser =
-			new PriceListAccountGroupJSONParser();
+	public static PriceListChannel toDTO(String json) {
+		PriceListChannelJSONParser priceListChannelJSONParser =
+			new PriceListChannelJSONParser();
 
-		return priceListAccountGroupJSONParser.parseToDTO(json);
+		return priceListChannelJSONParser.parseToDTO(json);
 	}
 
-	public static PriceListAccountGroup[] toDTOs(String json) {
-		PriceListAccountGroupJSONParser priceListAccountGroupJSONParser =
-			new PriceListAccountGroupJSONParser();
+	public static PriceListChannel[] toDTOs(String json) {
+		PriceListChannelJSONParser priceListChannelJSONParser =
+			new PriceListChannelJSONParser();
 
-		return priceListAccountGroupJSONParser.parseToDTOs(json);
+		return priceListChannelJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(PriceListAccountGroup priceListAccountGroup) {
-		if (priceListAccountGroup == null) {
+	public static String toJSON(PriceListChannel priceListChannel) {
+		if (priceListChannel == null) {
 			return "null";
 		}
 
@@ -55,70 +55,66 @@ public class PriceListAccountGroupSerDes {
 
 		sb.append("{");
 
-		if (priceListAccountGroup.getAccountGroupExternalReferenceCode() !=
-				null) {
-
+		if (priceListChannel.getChannelExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupExternalReferenceCode\": ");
+			sb.append("\"channelExternalReferenceCode\": ");
 
 			sb.append("\"");
 
 			sb.append(
-				_escape(
-					priceListAccountGroup.
-						getAccountGroupExternalReferenceCode()));
+				_escape(priceListChannel.getChannelExternalReferenceCode()));
 
 			sb.append("\"");
 		}
 
-		if (priceListAccountGroup.getAccountGroupId() != null) {
+		if (priceListChannel.getChannelId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupId\": ");
+			sb.append("\"channelId\": ");
 
-			sb.append(priceListAccountGroup.getAccountGroupId());
+			sb.append(priceListChannel.getChannelId());
 		}
 
-		if (priceListAccountGroup.getAccountGroupName() != null) {
+		if (priceListChannel.getChannelName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupName\": ");
+			sb.append("\"channelName\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(priceListAccountGroup.getAccountGroupName()));
+			sb.append(_escape(priceListChannel.getChannelName()));
 
 			sb.append("\"");
 		}
 
-		if (priceListAccountGroup.getId() != null) {
+		if (priceListChannel.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"id\": ");
 
-			sb.append(priceListAccountGroup.getId());
+			sb.append(priceListChannel.getId());
 		}
 
-		if (priceListAccountGroup.getOrder() != null) {
+		if (priceListChannel.getOrder() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"order\": ");
 
-			sb.append(priceListAccountGroup.getOrder());
+			sb.append(priceListChannel.getOrder());
 		}
 
-		if (priceListAccountGroup.getPriceListExternalReferenceCode() != null) {
+		if (priceListChannel.getPriceListExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -128,20 +124,19 @@ public class PriceListAccountGroupSerDes {
 			sb.append("\"");
 
 			sb.append(
-				_escape(
-					priceListAccountGroup.getPriceListExternalReferenceCode()));
+				_escape(priceListChannel.getPriceListExternalReferenceCode()));
 
 			sb.append("\"");
 		}
 
-		if (priceListAccountGroup.getPriceListId() != null) {
+		if (priceListChannel.getPriceListId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"priceListId\": ");
 
-			sb.append(priceListAccountGroup.getPriceListId());
+			sb.append(priceListChannel.getPriceListId());
 		}
 
 		sb.append("}");
@@ -150,135 +145,129 @@ public class PriceListAccountGroupSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		PriceListAccountGroupJSONParser priceListAccountGroupJSONParser =
-			new PriceListAccountGroupJSONParser();
+		PriceListChannelJSONParser priceListChannelJSONParser =
+			new PriceListChannelJSONParser();
 
-		return priceListAccountGroupJSONParser.parseToMap(json);
+		return priceListChannelJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(
-		PriceListAccountGroup priceListAccountGroup) {
-
-		if (priceListAccountGroup == null) {
+	public static Map<String, String> toMap(PriceListChannel priceListChannel) {
+		if (priceListChannel == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (priceListAccountGroup.getAccountGroupExternalReferenceCode() ==
-				null) {
-
-			map.put("accountGroupExternalReferenceCode", null);
+		if (priceListChannel.getChannelExternalReferenceCode() == null) {
+			map.put("channelExternalReferenceCode", null);
 		}
 		else {
 			map.put(
-				"accountGroupExternalReferenceCode",
+				"channelExternalReferenceCode",
 				String.valueOf(
-					priceListAccountGroup.
-						getAccountGroupExternalReferenceCode()));
+					priceListChannel.getChannelExternalReferenceCode()));
 		}
 
-		if (priceListAccountGroup.getAccountGroupId() == null) {
-			map.put("accountGroupId", null);
+		if (priceListChannel.getChannelId() == null) {
+			map.put("channelId", null);
 		}
 		else {
 			map.put(
-				"accountGroupId",
-				String.valueOf(priceListAccountGroup.getAccountGroupId()));
+				"channelId", String.valueOf(priceListChannel.getChannelId()));
 		}
 
-		if (priceListAccountGroup.getAccountGroupName() == null) {
-			map.put("accountGroupName", null);
+		if (priceListChannel.getChannelName() == null) {
+			map.put("channelName", null);
 		}
 		else {
 			map.put(
-				"accountGroupName",
-				String.valueOf(priceListAccountGroup.getAccountGroupName()));
+				"channelName",
+				String.valueOf(priceListChannel.getChannelName()));
 		}
 
-		if (priceListAccountGroup.getId() == null) {
+		if (priceListChannel.getId() == null) {
 			map.put("id", null);
 		}
 		else {
-			map.put("id", String.valueOf(priceListAccountGroup.getId()));
+			map.put("id", String.valueOf(priceListChannel.getId()));
 		}
 
-		if (priceListAccountGroup.getOrder() == null) {
+		if (priceListChannel.getOrder() == null) {
 			map.put("order", null);
 		}
 		else {
-			map.put("order", String.valueOf(priceListAccountGroup.getOrder()));
+			map.put("order", String.valueOf(priceListChannel.getOrder()));
 		}
 
-		if (priceListAccountGroup.getPriceListExternalReferenceCode() == null) {
+		if (priceListChannel.getPriceListExternalReferenceCode() == null) {
 			map.put("priceListExternalReferenceCode", null);
 		}
 		else {
 			map.put(
 				"priceListExternalReferenceCode",
 				String.valueOf(
-					priceListAccountGroup.getPriceListExternalReferenceCode()));
+					priceListChannel.getPriceListExternalReferenceCode()));
 		}
 
-		if (priceListAccountGroup.getPriceListId() == null) {
+		if (priceListChannel.getPriceListId() == null) {
 			map.put("priceListId", null);
 		}
 		else {
 			map.put(
 				"priceListId",
-				String.valueOf(priceListAccountGroup.getPriceListId()));
+				String.valueOf(priceListChannel.getPriceListId()));
 		}
 
 		return map;
 	}
 
-	public static class PriceListAccountGroupJSONParser
-		extends BaseJSONParser<PriceListAccountGroup> {
+	public static class PriceListChannelJSONParser
+		extends BaseJSONParser<PriceListChannel> {
 
 		@Override
-		protected PriceListAccountGroup createDTO() {
-			return new PriceListAccountGroup();
+		protected PriceListChannel createDTO() {
+			return new PriceListChannel();
 		}
 
 		@Override
-		protected PriceListAccountGroup[] createDTOArray(int size) {
-			return new PriceListAccountGroup[size];
+		protected PriceListChannel[] createDTOArray(int size) {
+			return new PriceListChannel[size];
 		}
 
 		@Override
 		protected void setField(
-			PriceListAccountGroup priceListAccountGroup,
-			String jsonParserFieldName, Object jsonParserFieldValue) {
+			PriceListChannel priceListChannel, String jsonParserFieldName,
+			Object jsonParserFieldValue) {
 
 			if (Objects.equals(
-					jsonParserFieldName, "accountGroupExternalReferenceCode")) {
+					jsonParserFieldName, "channelExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setAccountGroupExternalReferenceCode(
+					priceListChannel.setChannelExternalReferenceCode(
 						(String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "accountGroupId")) {
+			else if (Objects.equals(jsonParserFieldName, "channelId")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setAccountGroupId(
+					priceListChannel.setChannelId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "accountGroupName")) {
+			else if (Objects.equals(jsonParserFieldName, "channelName")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setAccountGroupName(
+					priceListChannel.setChannelName(
 						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setId(
+					priceListChannel.setId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "order")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setOrder(
+					priceListChannel.setOrder(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
@@ -287,13 +276,13 @@ public class PriceListAccountGroupSerDes {
 						"priceListExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setPriceListExternalReferenceCode(
+					priceListChannel.setPriceListExternalReferenceCode(
 						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "priceListId")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setPriceListId(
+					priceListChannel.setPriceListId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}

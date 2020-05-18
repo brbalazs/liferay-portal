@@ -22,12 +22,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
-import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListAccountGroup;
+import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListAccount;
 import com.liferay.headless.commerce.admin.pricing.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
-import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.PriceListAccountGroupResource;
-import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListAccountGroupSerDes;
+import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.PriceListAccountResource;
+import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListAccountSerDes;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -87,7 +87,7 @@ import org.junit.Test;
  * @generated
  */
 @Generated("")
-public abstract class BasePriceListAccountGroupResourceTestCase {
+public abstract class BasePriceListAccountResourceTestCase {
 
 	@ClassRule
 	@Rule
@@ -108,12 +108,12 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		_priceListAccountGroupResource.setContextCompany(testCompany);
+		_priceListAccountResource.setContextCompany(testCompany);
 
-		PriceListAccountGroupResource.Builder builder =
-			PriceListAccountGroupResource.builder();
+		PriceListAccountResource.Builder builder =
+			PriceListAccountResource.builder();
 
-		priceListAccountGroupResource = builder.locale(
+		priceListAccountResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -142,16 +142,13 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			}
 		};
 
-		PriceListAccountGroup priceListAccountGroup1 =
-			randomPriceListAccountGroup();
+		PriceListAccount priceListAccount1 = randomPriceListAccount();
 
-		String json = objectMapper.writeValueAsString(priceListAccountGroup1);
+		String json = objectMapper.writeValueAsString(priceListAccount1);
 
-		PriceListAccountGroup priceListAccountGroup2 =
-			PriceListAccountGroupSerDes.toDTO(json);
+		PriceListAccount priceListAccount2 = PriceListAccountSerDes.toDTO(json);
 
-		Assert.assertTrue(
-			equals(priceListAccountGroup1, priceListAccountGroup2));
+		Assert.assertTrue(equals(priceListAccount1, priceListAccount2));
 	}
 
 	@Test
@@ -171,12 +168,10 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			}
 		};
 
-		PriceListAccountGroup priceListAccountGroup =
-			randomPriceListAccountGroup();
+		PriceListAccount priceListAccount = randomPriceListAccount();
 
-		String json1 = objectMapper.writeValueAsString(priceListAccountGroup);
-		String json2 = PriceListAccountGroupSerDes.toJSON(
-			priceListAccountGroup);
+		String json1 = objectMapper.writeValueAsString(priceListAccount);
+		String json2 = PriceListAccountSerDes.toJSON(priceListAccount);
 
 		Assert.assertEquals(
 			objectMapper.readTree(json1), objectMapper.readTree(json2));
@@ -186,42 +181,38 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	public void testEscapeRegexInStringFields() throws Exception {
 		String regex = "^[0-9]+(\\.[0-9]{1,2})\"?";
 
-		PriceListAccountGroup priceListAccountGroup =
-			randomPriceListAccountGroup();
+		PriceListAccount priceListAccount = randomPriceListAccount();
 
-		priceListAccountGroup.setAccountGroupExternalReferenceCode(regex);
-		priceListAccountGroup.setAccountGroupName(regex);
-		priceListAccountGroup.setPriceListExternalReferenceCode(regex);
+		priceListAccount.setAccountExternalReferenceCode(regex);
+		priceListAccount.setAccountName(regex);
+		priceListAccount.setPriceListExternalReferenceCode(regex);
 
-		String json = PriceListAccountGroupSerDes.toJSON(priceListAccountGroup);
+		String json = PriceListAccountSerDes.toJSON(priceListAccount);
 
 		Assert.assertFalse(json.contains(regex));
 
-		priceListAccountGroup = PriceListAccountGroupSerDes.toDTO(json);
+		priceListAccount = PriceListAccountSerDes.toDTO(json);
 
 		Assert.assertEquals(
-			regex,
-			priceListAccountGroup.getAccountGroupExternalReferenceCode());
-		Assert.assertEquals(regex, priceListAccountGroup.getAccountGroupName());
+			regex, priceListAccount.getAccountExternalReferenceCode());
+		Assert.assertEquals(regex, priceListAccount.getAccountName());
 		Assert.assertEquals(
-			regex, priceListAccountGroup.getPriceListExternalReferenceCode());
+			regex, priceListAccount.getPriceListExternalReferenceCode());
 	}
 
 	@Test
-	public void testDeletePriceListAccountGroup() throws Exception {
+	public void testDeletePriceListAccount() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		PriceListAccountGroup priceListAccountGroup =
-			testDeletePriceListAccountGroup_addPriceListAccountGroup();
+		PriceListAccount priceListAccount =
+			testDeletePriceListAccount_addPriceListAccount();
 
 		assertHttpResponseStatusCode(
 			204,
-			priceListAccountGroupResource.
-				deletePriceListAccountGroupHttpResponse(
-					priceListAccountGroup.getId()));
+			priceListAccountResource.deletePriceListAccountHttpResponse(
+				priceListAccount.getId()));
 	}
 
-	protected PriceListAccountGroup
-			testDeletePriceListAccountGroup_addPriceListAccountGroup()
+	protected PriceListAccount testDeletePriceListAccount_addPriceListAccount()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -229,23 +220,23 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	@Test
-	public void testGraphQLDeletePriceListAccountGroup() throws Exception {
-		PriceListAccountGroup priceListAccountGroup =
-			testGraphQLPriceListAccountGroup_addPriceListAccountGroup();
+	public void testGraphQLDeletePriceListAccount() throws Exception {
+		PriceListAccount priceListAccount =
+			testGraphQLPriceListAccount_addPriceListAccount();
 
 		Assert.assertTrue(
 			JSONUtil.getValueAsBoolean(
 				invokeGraphQLMutation(
 					new GraphQLField(
-						"deletePriceListAccountGroup",
+						"deletePriceListAccount",
 						new HashMap<String, Object>() {
 							{
 								put(
-									"priceListAccountGroupId",
-									priceListAccountGroup.getId());
+									"priceListAccountId",
+									priceListAccount.getId());
 							}
 						})),
-				"JSONObject/data", "Object/deletePriceListAccountGroup"));
+				"JSONObject/data", "Object/deletePriceListAccount"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
@@ -255,12 +246,12 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
 				invokeGraphQLQuery(
 					new GraphQLField(
-						"priceListAccountGroup",
+						"priceListAccount",
 						new HashMap<String, Object>() {
 							{
 								put(
-									"priceListAccountGroupId",
-									priceListAccountGroup.getId());
+									"priceListAccountId",
+									priceListAccount.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -271,127 +262,123 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListAccountGroupPage()
+	public void testGetPriceListByExternalReferenceCodePriceListAccountPage()
 		throws Exception {
 
-		Page<PriceListAccountGroup> page =
-			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
-					testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getExternalReferenceCode(),
+		Page<PriceListAccount> page =
+			priceListAccountResource.
+				getPriceListByExternalReferenceCodePriceListAccountPage(
+					testGetPriceListByExternalReferenceCodePriceListAccountPage_getExternalReferenceCode(),
 					Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getIrrelevantExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_getIrrelevantExternalReferenceCode();
 
 		if ((irrelevantExternalReferenceCode != null)) {
-			PriceListAccountGroup irrelevantPriceListAccountGroup =
-				testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
+			PriceListAccount irrelevantPriceListAccount =
+				testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
 					irrelevantExternalReferenceCode,
-					randomIrrelevantPriceListAccountGroup());
+					randomIrrelevantPriceListAccount());
 
 			page =
-				priceListAccountGroupResource.
-					getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+				priceListAccountResource.
+					getPriceListByExternalReferenceCodePriceListAccountPage(
 						irrelevantExternalReferenceCode, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
 			assertEquals(
-				Arrays.asList(irrelevantPriceListAccountGroup),
-				(List<PriceListAccountGroup>)page.getItems());
+				Arrays.asList(irrelevantPriceListAccount),
+				(List<PriceListAccount>)page.getItems());
 			assertValid(page);
 		}
 
-		PriceListAccountGroup priceListAccountGroup1 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
-				externalReferenceCode, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount1 =
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+				externalReferenceCode, randomPriceListAccount());
 
-		PriceListAccountGroup priceListAccountGroup2 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
-				externalReferenceCode, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount2 =
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+				externalReferenceCode, randomPriceListAccount());
 
 		page =
-			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+			priceListAccountResource.
+				getPriceListByExternalReferenceCodePriceListAccountPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
 		assertEqualsIgnoringOrder(
-			Arrays.asList(priceListAccountGroup1, priceListAccountGroup2),
-			(List<PriceListAccountGroup>)page.getItems());
+			Arrays.asList(priceListAccount1, priceListAccount2),
+			(List<PriceListAccount>)page.getItems());
 		assertValid(page);
 
-		priceListAccountGroupResource.deletePriceListAccountGroup(null);
+		priceListAccountResource.deletePriceListAccount(null);
 
-		priceListAccountGroupResource.deletePriceListAccountGroup(null);
+		priceListAccountResource.deletePriceListAccount(null);
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListAccountGroupPageWithPagination()
+	public void testGetPriceListByExternalReferenceCodePriceListAccountPageWithPagination()
 		throws Exception {
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_getExternalReferenceCode();
 
-		PriceListAccountGroup priceListAccountGroup1 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
-				externalReferenceCode, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount1 =
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+				externalReferenceCode, randomPriceListAccount());
 
-		PriceListAccountGroup priceListAccountGroup2 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
-				externalReferenceCode, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount2 =
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+				externalReferenceCode, randomPriceListAccount());
 
-		PriceListAccountGroup priceListAccountGroup3 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
-				externalReferenceCode, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount3 =
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+				externalReferenceCode, randomPriceListAccount());
 
-		Page<PriceListAccountGroup> page1 =
-			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+		Page<PriceListAccount> page1 =
+			priceListAccountResource.
+				getPriceListByExternalReferenceCodePriceListAccountPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
-		List<PriceListAccountGroup> priceListAccountGroups1 =
-			(List<PriceListAccountGroup>)page1.getItems();
+		List<PriceListAccount> priceListAccounts1 =
+			(List<PriceListAccount>)page1.getItems();
 
 		Assert.assertEquals(
-			priceListAccountGroups1.toString(), 2,
-			priceListAccountGroups1.size());
+			priceListAccounts1.toString(), 2, priceListAccounts1.size());
 
-		Page<PriceListAccountGroup> page2 =
-			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+		Page<PriceListAccount> page2 =
+			priceListAccountResource.
+				getPriceListByExternalReferenceCodePriceListAccountPage(
 					externalReferenceCode, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
-		List<PriceListAccountGroup> priceListAccountGroups2 =
-			(List<PriceListAccountGroup>)page2.getItems();
+		List<PriceListAccount> priceListAccounts2 =
+			(List<PriceListAccount>)page2.getItems();
 
 		Assert.assertEquals(
-			priceListAccountGroups2.toString(), 1,
-			priceListAccountGroups2.size());
+			priceListAccounts2.toString(), 1, priceListAccounts2.size());
 
-		Page<PriceListAccountGroup> page3 =
-			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+		Page<PriceListAccount> page3 =
+			priceListAccountResource.
+				getPriceListByExternalReferenceCodePriceListAccountPage(
 					externalReferenceCode, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(
-				priceListAccountGroup1, priceListAccountGroup2,
-				priceListAccountGroup3),
-			(List<PriceListAccountGroup>)page3.getItems());
+				priceListAccount1, priceListAccount2, priceListAccount3),
+			(List<PriceListAccount>)page3.getItems());
 	}
 
-	protected PriceListAccountGroup
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
-				String externalReferenceCode,
-				PriceListAccountGroup priceListAccountGroup)
+	protected PriceListAccount
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+				String externalReferenceCode, PriceListAccount priceListAccount)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -399,7 +386,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_getExternalReferenceCode()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -407,30 +394,29 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getIrrelevantExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListAccountPage_getIrrelevantExternalReferenceCode()
 		throws Exception {
 
 		return null;
 	}
 
 	@Test
-	public void testPostPriceListByExternalReferenceCodePriceListAccountGroup()
+	public void testPostPriceListByExternalReferenceCodePriceListAccount()
 		throws Exception {
 
-		PriceListAccountGroup randomPriceListAccountGroup =
-			randomPriceListAccountGroup();
+		PriceListAccount randomPriceListAccount = randomPriceListAccount();
 
-		PriceListAccountGroup postPriceListAccountGroup =
-			testPostPriceListByExternalReferenceCodePriceListAccountGroup_addPriceListAccountGroup(
-				randomPriceListAccountGroup);
+		PriceListAccount postPriceListAccount =
+			testPostPriceListByExternalReferenceCodePriceListAccount_addPriceListAccount(
+				randomPriceListAccount);
 
-		assertEquals(randomPriceListAccountGroup, postPriceListAccountGroup);
-		assertValid(postPriceListAccountGroup);
+		assertEquals(randomPriceListAccount, postPriceListAccount);
+		assertValid(postPriceListAccount);
 	}
 
-	protected PriceListAccountGroup
-			testPostPriceListByExternalReferenceCodePriceListAccountGroup_addPriceListAccountGroup(
-				PriceListAccountGroup priceListAccountGroup)
+	protected PriceListAccount
+			testPostPriceListByExternalReferenceCodePriceListAccount_addPriceListAccount(
+				PriceListAccount priceListAccount)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -438,167 +424,151 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListIdPriceListAccountGroupsPage()
-		throws Exception {
-
-		Page<PriceListAccountGroup> page =
-			priceListAccountGroupResource.
-				getPriceListIdPriceListAccountGroupsPage(
-					testGetPriceListIdPriceListAccountGroupsPage_getId(),
-					Pagination.of(1, 2));
+	public void testGetPriceListIdPriceListAccountsPage() throws Exception {
+		Page<PriceListAccount> page =
+			priceListAccountResource.getPriceListIdPriceListAccountsPage(
+				testGetPriceListIdPriceListAccountsPage_getId(),
+				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long id = testGetPriceListIdPriceListAccountGroupsPage_getId();
+		Long id = testGetPriceListIdPriceListAccountsPage_getId();
 		Long irrelevantId =
-			testGetPriceListIdPriceListAccountGroupsPage_getIrrelevantId();
+			testGetPriceListIdPriceListAccountsPage_getIrrelevantId();
 
 		if ((irrelevantId != null)) {
-			PriceListAccountGroup irrelevantPriceListAccountGroup =
-				testGetPriceListIdPriceListAccountGroupsPage_addPriceListAccountGroup(
-					irrelevantId, randomIrrelevantPriceListAccountGroup());
+			PriceListAccount irrelevantPriceListAccount =
+				testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+					irrelevantId, randomIrrelevantPriceListAccount());
 
-			page =
-				priceListAccountGroupResource.
-					getPriceListIdPriceListAccountGroupsPage(
-						irrelevantId, Pagination.of(1, 2));
+			page = priceListAccountResource.getPriceListIdPriceListAccountsPage(
+				irrelevantId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
 			assertEquals(
-				Arrays.asList(irrelevantPriceListAccountGroup),
-				(List<PriceListAccountGroup>)page.getItems());
+				Arrays.asList(irrelevantPriceListAccount),
+				(List<PriceListAccount>)page.getItems());
 			assertValid(page);
 		}
 
-		PriceListAccountGroup priceListAccountGroup1 =
-			testGetPriceListIdPriceListAccountGroupsPage_addPriceListAccountGroup(
-				id, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount1 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, randomPriceListAccount());
 
-		PriceListAccountGroup priceListAccountGroup2 =
-			testGetPriceListIdPriceListAccountGroupsPage_addPriceListAccountGroup(
-				id, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount2 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, randomPriceListAccount());
 
-		page =
-			priceListAccountGroupResource.
-				getPriceListIdPriceListAccountGroupsPage(
-					id, Pagination.of(1, 2));
+		page = priceListAccountResource.getPriceListIdPriceListAccountsPage(
+			id, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
 		assertEqualsIgnoringOrder(
-			Arrays.asList(priceListAccountGroup1, priceListAccountGroup2),
-			(List<PriceListAccountGroup>)page.getItems());
+			Arrays.asList(priceListAccount1, priceListAccount2),
+			(List<PriceListAccount>)page.getItems());
 		assertValid(page);
 
-		priceListAccountGroupResource.deletePriceListAccountGroup(null);
+		priceListAccountResource.deletePriceListAccount(null);
 
-		priceListAccountGroupResource.deletePriceListAccountGroup(null);
+		priceListAccountResource.deletePriceListAccount(null);
 	}
 
 	@Test
-	public void testGetPriceListIdPriceListAccountGroupsPageWithPagination()
+	public void testGetPriceListIdPriceListAccountsPageWithPagination()
 		throws Exception {
 
-		Long id = testGetPriceListIdPriceListAccountGroupsPage_getId();
+		Long id = testGetPriceListIdPriceListAccountsPage_getId();
 
-		PriceListAccountGroup priceListAccountGroup1 =
-			testGetPriceListIdPriceListAccountGroupsPage_addPriceListAccountGroup(
-				id, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount1 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, randomPriceListAccount());
 
-		PriceListAccountGroup priceListAccountGroup2 =
-			testGetPriceListIdPriceListAccountGroupsPage_addPriceListAccountGroup(
-				id, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount2 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, randomPriceListAccount());
 
-		PriceListAccountGroup priceListAccountGroup3 =
-			testGetPriceListIdPriceListAccountGroupsPage_addPriceListAccountGroup(
-				id, randomPriceListAccountGroup());
+		PriceListAccount priceListAccount3 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, randomPriceListAccount());
 
-		Page<PriceListAccountGroup> page1 =
-			priceListAccountGroupResource.
-				getPriceListIdPriceListAccountGroupsPage(
-					id, Pagination.of(1, 2));
+		Page<PriceListAccount> page1 =
+			priceListAccountResource.getPriceListIdPriceListAccountsPage(
+				id, Pagination.of(1, 2));
 
-		List<PriceListAccountGroup> priceListAccountGroups1 =
-			(List<PriceListAccountGroup>)page1.getItems();
+		List<PriceListAccount> priceListAccounts1 =
+			(List<PriceListAccount>)page1.getItems();
 
 		Assert.assertEquals(
-			priceListAccountGroups1.toString(), 2,
-			priceListAccountGroups1.size());
+			priceListAccounts1.toString(), 2, priceListAccounts1.size());
 
-		Page<PriceListAccountGroup> page2 =
-			priceListAccountGroupResource.
-				getPriceListIdPriceListAccountGroupsPage(
-					id, Pagination.of(2, 2));
+		Page<PriceListAccount> page2 =
+			priceListAccountResource.getPriceListIdPriceListAccountsPage(
+				id, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
-		List<PriceListAccountGroup> priceListAccountGroups2 =
-			(List<PriceListAccountGroup>)page2.getItems();
+		List<PriceListAccount> priceListAccounts2 =
+			(List<PriceListAccount>)page2.getItems();
 
 		Assert.assertEquals(
-			priceListAccountGroups2.toString(), 1,
-			priceListAccountGroups2.size());
+			priceListAccounts2.toString(), 1, priceListAccounts2.size());
 
-		Page<PriceListAccountGroup> page3 =
-			priceListAccountGroupResource.
-				getPriceListIdPriceListAccountGroupsPage(
-					id, Pagination.of(1, 3));
+		Page<PriceListAccount> page3 =
+			priceListAccountResource.getPriceListIdPriceListAccountsPage(
+				id, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(
-				priceListAccountGroup1, priceListAccountGroup2,
-				priceListAccountGroup3),
-			(List<PriceListAccountGroup>)page3.getItems());
+				priceListAccount1, priceListAccount2, priceListAccount3),
+			(List<PriceListAccount>)page3.getItems());
 	}
 
-	protected PriceListAccountGroup
-			testGetPriceListIdPriceListAccountGroupsPage_addPriceListAccountGroup(
-				Long id, PriceListAccountGroup priceListAccountGroup)
+	protected PriceListAccount
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				Long id, PriceListAccount priceListAccount)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetPriceListIdPriceListAccountGroupsPage_getId()
+	protected Long testGetPriceListIdPriceListAccountsPage_getId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long
-			testGetPriceListIdPriceListAccountGroupsPage_getIrrelevantId()
+	protected Long testGetPriceListIdPriceListAccountsPage_getIrrelevantId()
 		throws Exception {
 
 		return null;
 	}
 
 	@Test
-	public void testPostPriceListIdPriceListAccountGroup() throws Exception {
-		PriceListAccountGroup randomPriceListAccountGroup =
-			randomPriceListAccountGroup();
+	public void testPostPriceListIdPriceListAccount() throws Exception {
+		PriceListAccount randomPriceListAccount = randomPriceListAccount();
 
-		PriceListAccountGroup postPriceListAccountGroup =
-			testPostPriceListIdPriceListAccountGroup_addPriceListAccountGroup(
-				randomPriceListAccountGroup);
+		PriceListAccount postPriceListAccount =
+			testPostPriceListIdPriceListAccount_addPriceListAccount(
+				randomPriceListAccount);
 
-		assertEquals(randomPriceListAccountGroup, postPriceListAccountGroup);
-		assertValid(postPriceListAccountGroup);
+		assertEquals(randomPriceListAccount, postPriceListAccount);
+		assertValid(postPriceListAccount);
 	}
 
-	protected PriceListAccountGroup
-			testPostPriceListIdPriceListAccountGroup_addPriceListAccountGroup(
-				PriceListAccountGroup priceListAccountGroup)
+	protected PriceListAccount
+			testPostPriceListIdPriceListAccount_addPriceListAccount(
+				PriceListAccount priceListAccount)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected PriceListAccountGroup
-			testGraphQLPriceListAccountGroup_addPriceListAccountGroup()
+	protected PriceListAccount testGraphQLPriceListAccount_addPriceListAccount()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -614,48 +584,41 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	protected void assertEquals(
-		PriceListAccountGroup priceListAccountGroup1,
-		PriceListAccountGroup priceListAccountGroup2) {
+		PriceListAccount priceListAccount1,
+		PriceListAccount priceListAccount2) {
 
 		Assert.assertTrue(
-			priceListAccountGroup1 + " does not equal " +
-				priceListAccountGroup2,
-			equals(priceListAccountGroup1, priceListAccountGroup2));
+			priceListAccount1 + " does not equal " + priceListAccount2,
+			equals(priceListAccount1, priceListAccount2));
 	}
 
 	protected void assertEquals(
-		List<PriceListAccountGroup> priceListAccountGroups1,
-		List<PriceListAccountGroup> priceListAccountGroups2) {
+		List<PriceListAccount> priceListAccounts1,
+		List<PriceListAccount> priceListAccounts2) {
 
 		Assert.assertEquals(
-			priceListAccountGroups1.size(), priceListAccountGroups2.size());
+			priceListAccounts1.size(), priceListAccounts2.size());
 
-		for (int i = 0; i < priceListAccountGroups1.size(); i++) {
-			PriceListAccountGroup priceListAccountGroup1 =
-				priceListAccountGroups1.get(i);
-			PriceListAccountGroup priceListAccountGroup2 =
-				priceListAccountGroups2.get(i);
+		for (int i = 0; i < priceListAccounts1.size(); i++) {
+			PriceListAccount priceListAccount1 = priceListAccounts1.get(i);
+			PriceListAccount priceListAccount2 = priceListAccounts2.get(i);
 
-			assertEquals(priceListAccountGroup1, priceListAccountGroup2);
+			assertEquals(priceListAccount1, priceListAccount2);
 		}
 	}
 
 	protected void assertEqualsIgnoringOrder(
-		List<PriceListAccountGroup> priceListAccountGroups1,
-		List<PriceListAccountGroup> priceListAccountGroups2) {
+		List<PriceListAccount> priceListAccounts1,
+		List<PriceListAccount> priceListAccounts2) {
 
 		Assert.assertEquals(
-			priceListAccountGroups1.size(), priceListAccountGroups2.size());
+			priceListAccounts1.size(), priceListAccounts2.size());
 
-		for (PriceListAccountGroup priceListAccountGroup1 :
-				priceListAccountGroups1) {
-
+		for (PriceListAccount priceListAccount1 : priceListAccounts1) {
 			boolean contains = false;
 
-			for (PriceListAccountGroup priceListAccountGroup2 :
-					priceListAccountGroups2) {
-
-				if (equals(priceListAccountGroup1, priceListAccountGroup2)) {
+			for (PriceListAccount priceListAccount2 : priceListAccounts2) {
+				if (equals(priceListAccount1, priceListAccount2)) {
 					contains = true;
 
 					break;
@@ -663,16 +626,15 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				priceListAccountGroups2 + " does not contain " +
-					priceListAccountGroup1,
+				priceListAccounts2 + " does not contain " + priceListAccount1,
 				contains);
 		}
 	}
 
-	protected void assertValid(PriceListAccountGroup priceListAccountGroup) {
+	protected void assertValid(PriceListAccount priceListAccount) {
 		boolean valid = true;
 
-		if (priceListAccountGroup.getId() == null) {
+		if (priceListAccount.getId() == null) {
 			valid = false;
 		}
 
@@ -680,11 +642,11 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals(
-					"accountGroupExternalReferenceCode",
+					"accountExternalReferenceCode",
 					additionalAssertFieldName)) {
 
-				if (priceListAccountGroup.
-						getAccountGroupExternalReferenceCode() == null) {
+				if (priceListAccount.getAccountExternalReferenceCode() ==
+						null) {
 
 					valid = false;
 				}
@@ -692,16 +654,16 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("accountGroupId", additionalAssertFieldName)) {
-				if (priceListAccountGroup.getAccountGroupId() == null) {
+			if (Objects.equals("accountId", additionalAssertFieldName)) {
+				if (priceListAccount.getAccountId() == null) {
 					valid = false;
 				}
 
 				continue;
 			}
 
-			if (Objects.equals("accountGroupName", additionalAssertFieldName)) {
-				if (priceListAccountGroup.getAccountGroupName() == null) {
+			if (Objects.equals("accountName", additionalAssertFieldName)) {
+				if (priceListAccount.getAccountName() == null) {
 					valid = false;
 				}
 
@@ -709,7 +671,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			}
 
 			if (Objects.equals("order", additionalAssertFieldName)) {
-				if (priceListAccountGroup.getOrder() == null) {
+				if (priceListAccount.getOrder() == null) {
 					valid = false;
 				}
 
@@ -720,7 +682,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 					"priceListExternalReferenceCode",
 					additionalAssertFieldName)) {
 
-				if (priceListAccountGroup.getPriceListExternalReferenceCode() ==
+				if (priceListAccount.getPriceListExternalReferenceCode() ==
 						null) {
 
 					valid = false;
@@ -730,7 +692,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			}
 
 			if (Objects.equals("priceListId", additionalAssertFieldName)) {
-				if (priceListAccountGroup.getPriceListId() == null) {
+				if (priceListAccount.getPriceListId() == null) {
 					valid = false;
 				}
 
@@ -745,13 +707,13 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(Page<PriceListAccountGroup> page) {
+	protected void assertValid(Page<PriceListAccount> page) {
 		boolean valid = false;
 
-		java.util.Collection<PriceListAccountGroup> priceListAccountGroups =
+		java.util.Collection<PriceListAccount> priceListAccounts =
 			page.getItems();
 
-		int size = priceListAccountGroups.size();
+		int size = priceListAccounts.size();
 
 		if ((page.getLastPage() > 0) && (page.getPage() > 0) &&
 			(page.getPageSize() > 0) && (page.getTotalCount() > 0) &&
@@ -773,7 +735,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		for (Field field :
 				ReflectionUtil.getDeclaredFields(
 					com.liferay.headless.commerce.admin.pricing.dto.v2_0.
-						PriceListAccountGroup.class)) {
+						PriceListAccount.class)) {
 
 			if (!ArrayUtil.contains(
 					getAdditionalAssertFieldNames(), field.getName())) {
@@ -821,10 +783,10 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	protected boolean equals(
-		PriceListAccountGroup priceListAccountGroup1,
-		PriceListAccountGroup priceListAccountGroup2) {
+		PriceListAccount priceListAccount1,
+		PriceListAccount priceListAccount2) {
 
-		if (priceListAccountGroup1 == priceListAccountGroup2) {
+		if (priceListAccount1 == priceListAccount2) {
 			return true;
 		}
 
@@ -832,14 +794,12 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals(
-					"accountGroupExternalReferenceCode",
+					"accountExternalReferenceCode",
 					additionalAssertFieldName)) {
 
 				if (!Objects.deepEquals(
-						priceListAccountGroup1.
-							getAccountGroupExternalReferenceCode(),
-						priceListAccountGroup2.
-							getAccountGroupExternalReferenceCode())) {
+						priceListAccount1.getAccountExternalReferenceCode(),
+						priceListAccount2.getAccountExternalReferenceCode())) {
 
 					return false;
 				}
@@ -847,10 +807,10 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("accountGroupId", additionalAssertFieldName)) {
+			if (Objects.equals("accountId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						priceListAccountGroup1.getAccountGroupId(),
-						priceListAccountGroup2.getAccountGroupId())) {
+						priceListAccount1.getAccountId(),
+						priceListAccount2.getAccountId())) {
 
 					return false;
 				}
@@ -858,10 +818,10 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("accountGroupName", additionalAssertFieldName)) {
+			if (Objects.equals("accountName", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						priceListAccountGroup1.getAccountGroupName(),
-						priceListAccountGroup2.getAccountGroupName())) {
+						priceListAccount1.getAccountName(),
+						priceListAccount2.getAccountName())) {
 
 					return false;
 				}
@@ -871,8 +831,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						priceListAccountGroup1.getId(),
-						priceListAccountGroup2.getId())) {
+						priceListAccount1.getId(), priceListAccount2.getId())) {
 
 					return false;
 				}
@@ -882,8 +841,8 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 
 			if (Objects.equals("order", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						priceListAccountGroup1.getOrder(),
-						priceListAccountGroup2.getOrder())) {
+						priceListAccount1.getOrder(),
+						priceListAccount2.getOrder())) {
 
 					return false;
 				}
@@ -896,9 +855,8 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 					additionalAssertFieldName)) {
 
 				if (!Objects.deepEquals(
-						priceListAccountGroup1.
-							getPriceListExternalReferenceCode(),
-						priceListAccountGroup2.
+						priceListAccount1.getPriceListExternalReferenceCode(),
+						priceListAccount2.
 							getPriceListExternalReferenceCode())) {
 
 					return false;
@@ -909,8 +867,8 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 
 			if (Objects.equals("priceListId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						priceListAccountGroup1.getPriceListId(),
-						priceListAccountGroup2.getPriceListId())) {
+						priceListAccount1.getPriceListId(),
+						priceListAccount2.getPriceListId())) {
 
 					return false;
 				}
@@ -953,13 +911,13 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
-		if (!(_priceListAccountGroupResource instanceof EntityModelResource)) {
+		if (!(_priceListAccountResource instanceof EntityModelResource)) {
 			throw new UnsupportedOperationException(
 				"Resource is not an instance of EntityModelResource");
 		}
 
 		EntityModelResource entityModelResource =
-			(EntityModelResource)_priceListAccountGroupResource;
+			(EntityModelResource)_priceListAccountResource;
 
 		EntityModel entityModel = entityModelResource.getEntityModel(
 			new MultivaluedHashMap());
@@ -989,7 +947,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 
 	protected String getFilterString(
 		EntityField entityField, String operator,
-		PriceListAccountGroup priceListAccountGroup) {
+		PriceListAccount priceListAccount) {
 
 		StringBundler sb = new StringBundler();
 
@@ -1001,26 +959,24 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
-		if (entityFieldName.equals("accountGroupExternalReferenceCode")) {
+		if (entityFieldName.equals("accountExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
 				String.valueOf(
-					priceListAccountGroup.
-						getAccountGroupExternalReferenceCode()));
+					priceListAccount.getAccountExternalReferenceCode()));
 			sb.append("'");
 
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("accountGroupId")) {
+		if (entityFieldName.equals("accountId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("accountGroupName")) {
+		if (entityFieldName.equals("accountName")) {
 			sb.append("'");
-			sb.append(
-				String.valueOf(priceListAccountGroup.getAccountGroupName()));
+			sb.append(String.valueOf(priceListAccount.getAccountName()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1040,7 +996,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			sb.append("'");
 			sb.append(
 				String.valueOf(
-					priceListAccountGroup.getPriceListExternalReferenceCode()));
+					priceListAccount.getPriceListExternalReferenceCode()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1092,15 +1048,13 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			invoke(queryGraphQLField.toString()));
 	}
 
-	protected PriceListAccountGroup randomPriceListAccountGroup()
-		throws Exception {
-
-		return new PriceListAccountGroup() {
+	protected PriceListAccount randomPriceListAccount() throws Exception {
+		return new PriceListAccount() {
 			{
-				accountGroupExternalReferenceCode = StringUtil.toLowerCase(
+				accountExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
-				accountGroupId = RandomTestUtil.randomLong();
-				accountGroupName = StringUtil.toLowerCase(
+				accountId = RandomTestUtil.randomLong();
+				accountName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				order = RandomTestUtil.randomInt();
@@ -1111,22 +1065,20 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		};
 	}
 
-	protected PriceListAccountGroup randomIrrelevantPriceListAccountGroup()
+	protected PriceListAccount randomIrrelevantPriceListAccount()
 		throws Exception {
 
-		PriceListAccountGroup randomIrrelevantPriceListAccountGroup =
-			randomPriceListAccountGroup();
+		PriceListAccount randomIrrelevantPriceListAccount =
+			randomPriceListAccount();
 
-		return randomIrrelevantPriceListAccountGroup;
+		return randomIrrelevantPriceListAccount;
 	}
 
-	protected PriceListAccountGroup randomPatchPriceListAccountGroup()
-		throws Exception {
-
-		return randomPriceListAccountGroup();
+	protected PriceListAccount randomPatchPriceListAccount() throws Exception {
+		return randomPriceListAccount();
 	}
 
-	protected PriceListAccountGroupResource priceListAccountGroupResource;
+	protected PriceListAccountResource priceListAccountResource;
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
@@ -1203,7 +1155,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BasePriceListAccountGroupResourceTestCase.class);
+		BasePriceListAccountResourceTestCase.class);
 
 	private static BeanUtilsBean _beanUtilsBean = new BeanUtilsBean() {
 
@@ -1221,6 +1173,6 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 
 	@Inject
 	private com.liferay.headless.commerce.admin.pricing.resource.v2_0.
-		PriceListAccountGroupResource _priceListAccountGroupResource;
+		PriceListAccountResource _priceListAccountResource;
 
 }

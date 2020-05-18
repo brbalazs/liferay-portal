@@ -41,31 +41,30 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("PriceListAccountGroup")
+@GraphQLName("PriceListAccount")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "PriceListAccountGroup")
-public class PriceListAccountGroup {
+@XmlRootElement(name = "PriceListAccount")
+public class PriceListAccount {
 
 	@Schema
-	public String getAccountGroupExternalReferenceCode() {
-		return accountGroupExternalReferenceCode;
+	public String getAccountExternalReferenceCode() {
+		return accountExternalReferenceCode;
 	}
 
-	public void setAccountGroupExternalReferenceCode(
-		String accountGroupExternalReferenceCode) {
+	public void setAccountExternalReferenceCode(
+		String accountExternalReferenceCode) {
 
-		this.accountGroupExternalReferenceCode =
-			accountGroupExternalReferenceCode;
+		this.accountExternalReferenceCode = accountExternalReferenceCode;
 	}
 
 	@JsonIgnore
-	public void setAccountGroupExternalReferenceCode(
+	public void setAccountExternalReferenceCode(
 		UnsafeSupplier<String, Exception>
-			accountGroupExternalReferenceCodeUnsafeSupplier) {
+			accountExternalReferenceCodeUnsafeSupplier) {
 
 		try {
-			accountGroupExternalReferenceCode =
-				accountGroupExternalReferenceCodeUnsafeSupplier.get();
+			accountExternalReferenceCode =
+				accountExternalReferenceCodeUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -77,24 +76,24 @@ public class PriceListAccountGroup {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String accountGroupExternalReferenceCode;
+	protected String accountExternalReferenceCode;
 
 	@DecimalMin("0")
 	@Schema
-	public Long getAccountGroupId() {
-		return accountGroupId;
+	public Long getAccountId() {
+		return accountId;
 	}
 
-	public void setAccountGroupId(Long accountGroupId) {
-		this.accountGroupId = accountGroupId;
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
 	}
 
 	@JsonIgnore
-	public void setAccountGroupId(
-		UnsafeSupplier<Long, Exception> accountGroupIdUnsafeSupplier) {
+	public void setAccountId(
+		UnsafeSupplier<Long, Exception> accountIdUnsafeSupplier) {
 
 		try {
-			accountGroupId = accountGroupIdUnsafeSupplier.get();
+			accountId = accountIdUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -106,23 +105,23 @@ public class PriceListAccountGroup {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long accountGroupId;
+	protected Long accountId;
 
 	@Schema
-	public String getAccountGroupName() {
-		return accountGroupName;
+	public String getAccountName() {
+		return accountName;
 	}
 
-	public void setAccountGroupName(String accountGroupName) {
-		this.accountGroupName = accountGroupName;
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
 	@JsonIgnore
-	public void setAccountGroupName(
-		UnsafeSupplier<String, Exception> accountGroupNameUnsafeSupplier) {
+	public void setAccountName(
+		UnsafeSupplier<String, Exception> accountNameUnsafeSupplier) {
 
 		try {
-			accountGroupName = accountGroupNameUnsafeSupplier.get();
+			accountName = accountNameUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -134,7 +133,7 @@ public class PriceListAccountGroup {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String accountGroupName;
+	protected String accountName;
 
 	@DecimalMin("0")
 	@Schema
@@ -259,14 +258,13 @@ public class PriceListAccountGroup {
 			return true;
 		}
 
-		if (!(object instanceof PriceListAccountGroup)) {
+		if (!(object instanceof PriceListAccount)) {
 			return false;
 		}
 
-		PriceListAccountGroup priceListAccountGroup =
-			(PriceListAccountGroup)object;
+		PriceListAccount priceListAccount = (PriceListAccount)object;
 
-		return Objects.equals(toString(), priceListAccountGroup.toString());
+		return Objects.equals(toString(), priceListAccount.toString());
 	}
 
 	@Override
@@ -281,40 +279,40 @@ public class PriceListAccountGroup {
 
 		sb.append("{");
 
-		if (accountGroupExternalReferenceCode != null) {
+		if (accountExternalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupExternalReferenceCode\": ");
+			sb.append("\"accountExternalReferenceCode\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(accountGroupExternalReferenceCode));
+			sb.append(_escape(accountExternalReferenceCode));
 
 			sb.append("\"");
 		}
 
-		if (accountGroupId != null) {
+		if (accountId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupId\": ");
+			sb.append("\"accountId\": ");
 
-			sb.append(accountGroupId);
+			sb.append(accountId);
 		}
 
-		if (accountGroupName != null) {
+		if (accountName != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupName\": ");
+			sb.append("\"accountName\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(accountGroupName));
+			sb.append(_escape(accountName));
 
 			sb.append("\"");
 		}
@@ -369,7 +367,7 @@ public class PriceListAccountGroup {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccountGroup",
+		defaultValue = "com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccount",
 		name = "x-class-name"
 	)
 	public String xClassName;

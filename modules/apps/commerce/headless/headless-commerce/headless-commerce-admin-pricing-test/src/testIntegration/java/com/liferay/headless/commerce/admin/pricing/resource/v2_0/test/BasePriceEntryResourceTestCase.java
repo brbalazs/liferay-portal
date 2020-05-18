@@ -72,6 +72,7 @@ import javax.annotation.Generated;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -793,8 +794,82 @@ public abstract class BasePriceEntryResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("active", additionalAssertFieldName)) {
+				if (priceEntry.getActive() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("bulkPricing", additionalAssertFieldName)) {
+				if (priceEntry.getBulkPricing() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
 				if (priceEntry.getCustomFields() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountDiscovery", additionalAssertFieldName)) {
+
+				if (priceEntry.getDiscountDiscovery() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel1", additionalAssertFieldName)) {
+				if (priceEntry.getDiscountLevel1() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel2", additionalAssertFieldName)) {
+				if (priceEntry.getDiscountLevel2() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel3", additionalAssertFieldName)) {
+				if (priceEntry.getDiscountLevel3() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel4", additionalAssertFieldName)) {
+				if (priceEntry.getDiscountLevel4() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("displayDate", additionalAssertFieldName)) {
+				if (priceEntry.getDisplayDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("expirationDate", additionalAssertFieldName)) {
+				if (priceEntry.getExpirationDate() == null) {
 					valid = false;
 				}
 
@@ -978,10 +1053,110 @@ public abstract class BasePriceEntryResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("active", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getActive(), priceEntry2.getActive())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("bulkPricing", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getBulkPricing(),
+						priceEntry2.getBulkPricing())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
 				if (!equals(
 						(Map)priceEntry1.getCustomFields(),
 						(Map)priceEntry2.getCustomFields())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountDiscovery", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceEntry1.getDiscountDiscovery(),
+						priceEntry2.getDiscountDiscovery())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel1", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getDiscountLevel1(),
+						priceEntry2.getDiscountLevel1())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel2", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getDiscountLevel2(),
+						priceEntry2.getDiscountLevel2())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel3", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getDiscountLevel3(),
+						priceEntry2.getDiscountLevel3())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel4", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getDiscountLevel4(),
+						priceEntry2.getDiscountLevel4())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("displayDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getDisplayDate(),
+						priceEntry2.getDisplayDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("expirationDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getExpirationDate(),
+						priceEntry2.getExpirationDate())) {
 
 					return false;
 				}
@@ -1195,9 +1370,108 @@ public abstract class BasePriceEntryResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("active")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("bulkPricing")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("customFields")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountDiscovery")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountLevel1")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountLevel2")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountLevel3")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountLevel4")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("displayDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(priceEntry.getDisplayDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(priceEntry.getDisplayDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(priceEntry.getDisplayDate()));
+			}
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("expirationDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							priceEntry.getExpirationDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							priceEntry.getExpirationDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(priceEntry.getExpirationDate()));
+			}
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("externalReferenceCode")) {
@@ -1312,6 +1586,11 @@ public abstract class BasePriceEntryResourceTestCase {
 	protected PriceEntry randomPriceEntry() throws Exception {
 		return new PriceEntry() {
 			{
+				active = RandomTestUtil.randomBoolean();
+				bulkPricing = RandomTestUtil.randomBoolean();
+				discountDiscovery = RandomTestUtil.randomBoolean();
+				displayDate = RandomTestUtil.nextDate();
+				expirationDate = RandomTestUtil.nextDate();
 				externalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				hasTierPrice = RandomTestUtil.randomBoolean();

@@ -20,6 +20,9 @@ import com.liferay.headless.commerce.admin.pricing.client.json.BaseJSONParser;
 
 import java.math.BigDecimal;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -57,6 +60,29 @@ public class PriceEntrySerDes {
 
 		sb.append("{");
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (priceEntry.getActive() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"active\": ");
+
+			sb.append(priceEntry.getActive());
+		}
+
+		if (priceEntry.getBulkPricing() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"bulkPricing\": ");
+
+			sb.append(priceEntry.getBulkPricing());
+		}
+
 		if (priceEntry.getCustomFields() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -65,6 +91,86 @@ public class PriceEntrySerDes {
 			sb.append("\"customFields\": ");
 
 			sb.append(_toJSON(priceEntry.getCustomFields()));
+		}
+
+		if (priceEntry.getDiscountDiscovery() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountDiscovery\": ");
+
+			sb.append(priceEntry.getDiscountDiscovery());
+		}
+
+		if (priceEntry.getDiscountLevel1() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevel1\": ");
+
+			sb.append(priceEntry.getDiscountLevel1());
+		}
+
+		if (priceEntry.getDiscountLevel2() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevel2\": ");
+
+			sb.append(priceEntry.getDiscountLevel2());
+		}
+
+		if (priceEntry.getDiscountLevel3() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevel3\": ");
+
+			sb.append(priceEntry.getDiscountLevel3());
+		}
+
+		if (priceEntry.getDiscountLevel4() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevel4\": ");
+
+			sb.append(priceEntry.getDiscountLevel4());
+		}
+
+		if (priceEntry.getDisplayDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"displayDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(priceEntry.getDisplayDate()));
+
+			sb.append("\"");
+		}
+
+		if (priceEntry.getExpirationDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"expirationDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(priceEntry.getExpirationDate()));
+
+			sb.append("\"");
 		}
 
 		if (priceEntry.getExternalReferenceCode() != null) {
@@ -221,12 +327,92 @@ public class PriceEntrySerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (priceEntry.getActive() == null) {
+			map.put("active", null);
+		}
+		else {
+			map.put("active", String.valueOf(priceEntry.getActive()));
+		}
+
+		if (priceEntry.getBulkPricing() == null) {
+			map.put("bulkPricing", null);
+		}
+		else {
+			map.put("bulkPricing", String.valueOf(priceEntry.getBulkPricing()));
+		}
+
 		if (priceEntry.getCustomFields() == null) {
 			map.put("customFields", null);
 		}
 		else {
 			map.put(
 				"customFields", String.valueOf(priceEntry.getCustomFields()));
+		}
+
+		if (priceEntry.getDiscountDiscovery() == null) {
+			map.put("discountDiscovery", null);
+		}
+		else {
+			map.put(
+				"discountDiscovery",
+				String.valueOf(priceEntry.getDiscountDiscovery()));
+		}
+
+		if (priceEntry.getDiscountLevel1() == null) {
+			map.put("discountLevel1", null);
+		}
+		else {
+			map.put(
+				"discountLevel1",
+				String.valueOf(priceEntry.getDiscountLevel1()));
+		}
+
+		if (priceEntry.getDiscountLevel2() == null) {
+			map.put("discountLevel2", null);
+		}
+		else {
+			map.put(
+				"discountLevel2",
+				String.valueOf(priceEntry.getDiscountLevel2()));
+		}
+
+		if (priceEntry.getDiscountLevel3() == null) {
+			map.put("discountLevel3", null);
+		}
+		else {
+			map.put(
+				"discountLevel3",
+				String.valueOf(priceEntry.getDiscountLevel3()));
+		}
+
+		if (priceEntry.getDiscountLevel4() == null) {
+			map.put("discountLevel4", null);
+		}
+		else {
+			map.put(
+				"discountLevel4",
+				String.valueOf(priceEntry.getDiscountLevel4()));
+		}
+
+		if (priceEntry.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(priceEntry.getDisplayDate()));
+		}
+
+		if (priceEntry.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(priceEntry.getExpirationDate()));
 		}
 
 		if (priceEntry.getExternalReferenceCode() == null) {
@@ -334,11 +520,63 @@ public class PriceEntrySerDes {
 			PriceEntry priceEntry, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "customFields")) {
+			if (Objects.equals(jsonParserFieldName, "active")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setActive((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "bulkPricing")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setBulkPricing((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "customFields")) {
 				if (jsonParserFieldValue != null) {
 					priceEntry.setCustomFields(
 						(Map)PriceEntrySerDes.toMap(
 							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountDiscovery")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setDiscountDiscovery(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountLevel1")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setDiscountLevel1(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountLevel2")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setDiscountLevel2(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountLevel3")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setDiscountLevel3(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountLevel4")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setDiscountLevel4(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "displayDate")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setDisplayDate(
+						toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "expirationDate")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setExpirationDate(
+						toDate((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(

@@ -24,7 +24,10 @@ import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountProductGroup
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountRule;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceEntry;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceList;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccount;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccountGroup;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListChannel;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListDiscount;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.TierPrice;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccountGroupResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccountResource;
@@ -36,6 +39,9 @@ import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountResourc
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountRuleResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceEntryResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListAccountGroupResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListAccountResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListChannelResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListDiscountResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.TierPriceResource;
 import com.liferay.petra.function.UnsafeConsumer;
@@ -148,12 +154,36 @@ public class Query {
 			priceListResourceComponentServiceObjects;
 	}
 
+	public static void setPriceListAccountResourceComponentServiceObjects(
+		ComponentServiceObjects<PriceListAccountResource>
+			priceListAccountResourceComponentServiceObjects) {
+
+		_priceListAccountResourceComponentServiceObjects =
+			priceListAccountResourceComponentServiceObjects;
+	}
+
 	public static void setPriceListAccountGroupResourceComponentServiceObjects(
 		ComponentServiceObjects<PriceListAccountGroupResource>
 			priceListAccountGroupResourceComponentServiceObjects) {
 
 		_priceListAccountGroupResourceComponentServiceObjects =
 			priceListAccountGroupResourceComponentServiceObjects;
+	}
+
+	public static void setPriceListChannelResourceComponentServiceObjects(
+		ComponentServiceObjects<PriceListChannelResource>
+			priceListChannelResourceComponentServiceObjects) {
+
+		_priceListChannelResourceComponentServiceObjects =
+			priceListChannelResourceComponentServiceObjects;
+	}
+
+	public static void setPriceListDiscountResourceComponentServiceObjects(
+		ComponentServiceObjects<PriceListDiscountResource>
+			priceListDiscountResourceComponentServiceObjects) {
+
+		_priceListDiscountResourceComponentServiceObjects =
+			priceListDiscountResourceComponentServiceObjects;
 	}
 
 	public static void setTierPriceResourceComponentServiceObjects(
@@ -499,7 +529,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntryByExternalReferenceCode(externalReferenceCode: ___){customFields, externalReferenceCode, hasTierPrice, id, price, priceListExternalReferenceCode, priceListId, promoPrice, sku, skuExternalReferenceCode, skuId, tierPrices}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntryByExternalReferenceCode(externalReferenceCode: ___){active, bulkPricing, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, hasTierPrice, id, price, priceListExternalReferenceCode, priceListId, promoPrice, sku, skuExternalReferenceCode, skuId, tierPrices}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceEntry priceEntryByExternalReferenceCode(
@@ -517,7 +547,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntry(id: ___){customFields, externalReferenceCode, hasTierPrice, id, price, priceListExternalReferenceCode, priceListId, promoPrice, sku, skuExternalReferenceCode, skuId, tierPrices}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntry(id: ___){active, bulkPricing, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, hasTierPrice, id, price, priceListExternalReferenceCode, priceListId, promoPrice, sku, skuExternalReferenceCode, skuId, tierPrices}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceEntry priceEntry(@GraphQLName("id") Long id) throws Exception {
@@ -570,10 +600,11 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceLists(filter: ___, page: ___, pageSize: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceLists(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceListPage priceLists(
+			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page,
@@ -585,6 +616,7 @@ public class Query {
 			this::_populateResourceContext,
 			priceListResource -> new PriceListPage(
 				priceListResource.getPriceListsPage(
+					search,
 					_filterBiFunction.apply(priceListResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(priceListResource, sortsString))));
@@ -593,7 +625,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListByExternalReferenceCode(externalReferenceCode: ___){accountGroups, active, catalogId, currencyCode, customFields, displayDate, expirationDate, externalReferenceCode, id, name, neverExpire, priceEntries, priority}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListByExternalReferenceCode(externalReferenceCode: ___){accountGroups, accounts, active, catalogBasePriceList, catalogId, channels, currencyCode, customFields, discounts, displayDate, expirationDate, externalReferenceCode, id, name, netPrice, neverExpire, priceEntries, priority, type}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceList priceListByExternalReferenceCode(
@@ -611,7 +643,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceList(id: ___){accountGroups, active, catalogId, currencyCode, customFields, displayDate, expirationDate, externalReferenceCode, id, name, neverExpire, priceEntries, priority}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceList(id: ___){accountGroups, accounts, active, catalogBasePriceList, catalogId, channels, currencyCode, customFields, discounts, displayDate, expirationDate, externalReferenceCode, id, name, netPrice, neverExpire, priceEntries, priority, type}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceList priceList(@GraphQLName("id") Long id) throws Exception {
@@ -619,6 +651,48 @@ public class Query {
 			_priceListResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			priceListResource -> priceListResource.getPriceList(id));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListByExternalReferenceCodePriceListAccount(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public PriceListAccountPage
+			priceListByExternalReferenceCodePriceListAccount(
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceListAccountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceListAccountResource -> new PriceListAccountPage(
+				priceListAccountResource.
+					getPriceListByExternalReferenceCodePriceListAccountPage(
+						externalReferenceCode, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListIdPriceListAccounts(id: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public PriceListAccountPage priceListIdPriceListAccounts(
+			@GraphQLName("id") Long id, @GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceListAccountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceListAccountResource -> new PriceListAccountPage(
+				priceListAccountResource.getPriceListIdPriceListAccountsPage(
+					id, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -667,6 +741,90 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListByExternalReferenceCodePriceListChannel(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public PriceListChannelPage
+			priceListByExternalReferenceCodePriceListChannel(
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceListChannelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceListChannelResource -> new PriceListChannelPage(
+				priceListChannelResource.
+					getPriceListByExternalReferenceCodePriceListChannelPage(
+						externalReferenceCode, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListIdPriceListChannels(id: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public PriceListChannelPage priceListIdPriceListChannels(
+			@GraphQLName("id") Long id, @GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceListChannelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceListChannelResource -> new PriceListChannelPage(
+				priceListChannelResource.getPriceListIdPriceListChannelsPage(
+					id, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListByExternalReferenceCodePriceListDiscount(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public PriceListDiscountPage
+			priceListByExternalReferenceCodePriceListDiscount(
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceListDiscountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceListDiscountResource -> new PriceListDiscountPage(
+				priceListDiscountResource.
+					getPriceListByExternalReferenceCodePriceListDiscountPage(
+						externalReferenceCode, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListIdPriceListDiscounts(id: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public PriceListDiscountPage priceListIdPriceListDiscounts(
+			@GraphQLName("id") Long id, @GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceListDiscountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceListDiscountResource -> new PriceListDiscountPage(
+				priceListDiscountResource.getPriceListIdPriceListDiscountsPage(
+					id, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntryByExternalReferenceCodeTierPrices(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -707,7 +865,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {tierPriceByExternalReferenceCode(externalReferenceCode: ___){customFields, externalReferenceCode, id, minimumQuantity, price, priceEntryExternalReferenceCode, priceEntryId, promoPrice}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {tierPriceByExternalReferenceCode(externalReferenceCode: ___){active, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, id, minimumQuantity, price, priceEntryExternalReferenceCode, priceEntryId, promoPrice}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public TierPrice tierPriceByExternalReferenceCode(
@@ -725,7 +883,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {tierPrice(id: ___){customFields, externalReferenceCode, id, minimumQuantity, price, priceEntryExternalReferenceCode, priceEntryId, promoPrice}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {tierPrice(id: ___){active, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, id, minimumQuantity, price, priceEntryExternalReferenceCode, priceEntryId, promoPrice}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public TierPrice tierPrice(@GraphQLName("id") Long id) throws Exception {
@@ -798,36 +956,6 @@ public class Query {
 
 	@GraphQLTypeExtension(Discount.class)
 	public class
-		GetPriceEntryByExternalReferenceCodeTierPricesPageTypeExtension {
-
-		public GetPriceEntryByExternalReferenceCodeTierPricesPageTypeExtension(
-			Discount discount) {
-
-			_discount = discount;
-		}
-
-		@GraphQLField
-		public TierPricePage priceEntryByExternalReferenceCodeTierPrices(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_tierPriceResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				tierPriceResource -> new TierPricePage(
-					tierPriceResource.
-						getPriceEntryByExternalReferenceCodeTierPricesPage(
-							_discount.getExternalReferenceCode(),
-							Pagination.of(page, pageSize))));
-		}
-
-		private Discount _discount;
-
-	}
-
-	@GraphQLTypeExtension(Discount.class)
-	public class
 		GetDiscountByExternalReferenceCodeDiscountProductGroupsPageTypeExtension {
 
 		public GetDiscountByExternalReferenceCodeDiscountProductGroupsPageTypeExtension(
@@ -849,6 +977,36 @@ public class Query {
 				discountProductGroupResource -> new DiscountProductGroupPage(
 					discountProductGroupResource.
 						getDiscountByExternalReferenceCodeDiscountProductGroupsPage(
+							_discount.getExternalReferenceCode(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Discount _discount;
+
+	}
+
+	@GraphQLTypeExtension(Discount.class)
+	public class
+		GetPriceEntryByExternalReferenceCodeTierPricesPageTypeExtension {
+
+		public GetPriceEntryByExternalReferenceCodeTierPricesPageTypeExtension(
+			Discount discount) {
+
+			_discount = discount;
+		}
+
+		@GraphQLField
+		public TierPricePage priceEntryByExternalReferenceCodeTierPrices(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_tierPriceResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				tierPriceResource -> new TierPricePage(
+					tierPriceResource.
+						getPriceEntryByExternalReferenceCodeTierPricesPage(
 							_discount.getExternalReferenceCode(),
 							Pagination.of(page, pageSize))));
 		}
@@ -918,6 +1076,37 @@ public class Query {
 
 	}
 
+	@GraphQLTypeExtension(Discount.class)
+	public class
+		GetPriceListByExternalReferenceCodePriceListChannelPageTypeExtension {
+
+		public GetPriceListByExternalReferenceCodePriceListChannelPageTypeExtension(
+			Discount discount) {
+
+			_discount = discount;
+		}
+
+		@GraphQLField
+		public PriceListChannelPage
+				priceListByExternalReferenceCodePriceListChannel(
+					@GraphQLName("pageSize") int pageSize,
+					@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_priceListChannelResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				priceListChannelResource -> new PriceListChannelPage(
+					priceListChannelResource.
+						getPriceListByExternalReferenceCodePriceListChannelPage(
+							_discount.getExternalReferenceCode(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Discount _discount;
+
+	}
+
 	@GraphQLTypeExtension(PriceEntry.class)
 	public class GetDiscountByExternalReferenceCodeTypeExtension {
 
@@ -965,6 +1154,37 @@ public class Query {
 	}
 
 	@GraphQLTypeExtension(Discount.class)
+	public class
+		GetPriceListByExternalReferenceCodePriceListDiscountPageTypeExtension {
+
+		public GetPriceListByExternalReferenceCodePriceListDiscountPageTypeExtension(
+			Discount discount) {
+
+			_discount = discount;
+		}
+
+		@GraphQLField
+		public PriceListDiscountPage
+				priceListByExternalReferenceCodePriceListDiscount(
+					@GraphQLName("pageSize") int pageSize,
+					@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_priceListDiscountResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				priceListDiscountResource -> new PriceListDiscountPage(
+					priceListDiscountResource.
+						getPriceListByExternalReferenceCodePriceListDiscountPage(
+							_discount.getExternalReferenceCode(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Discount _discount;
+
+	}
+
+	@GraphQLTypeExtension(Discount.class)
 	public class GetTierPriceByExternalReferenceCodeTypeExtension {
 
 		public GetTierPriceByExternalReferenceCodeTypeExtension(
@@ -981,6 +1201,37 @@ public class Query {
 				tierPriceResource ->
 					tierPriceResource.getTierPriceByExternalReferenceCode(
 						_discount.getExternalReferenceCode()));
+		}
+
+		private Discount _discount;
+
+	}
+
+	@GraphQLTypeExtension(Discount.class)
+	public class
+		GetPriceListByExternalReferenceCodePriceListAccountPageTypeExtension {
+
+		public GetPriceListByExternalReferenceCodePriceListAccountPageTypeExtension(
+			Discount discount) {
+
+			_discount = discount;
+		}
+
+		@GraphQLField
+		public PriceListAccountPage
+				priceListByExternalReferenceCodePriceListAccount(
+					@GraphQLName("pageSize") int pageSize,
+					@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_priceListAccountResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				priceListAccountResource -> new PriceListAccountPage(
+					priceListAccountResource.
+						getPriceListByExternalReferenceCodePriceListAccountPage(
+							_discount.getExternalReferenceCode(),
+							Pagination.of(page, pageSize))));
 		}
 
 		private Discount _discount;
@@ -1420,6 +1671,38 @@ public class Query {
 
 	}
 
+	@GraphQLName("PriceListAccountPage")
+	public class PriceListAccountPage {
+
+		public PriceListAccountPage(Page priceListAccountPage) {
+			actions = priceListAccountPage.getActions();
+			items = priceListAccountPage.getItems();
+			lastPage = priceListAccountPage.getLastPage();
+			page = priceListAccountPage.getPage();
+			pageSize = priceListAccountPage.getPageSize();
+			totalCount = priceListAccountPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<PriceListAccount> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("PriceListAccountGroupPage")
 	public class PriceListAccountGroupPage {
 
@@ -1437,6 +1720,70 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<PriceListAccountGroup> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("PriceListChannelPage")
+	public class PriceListChannelPage {
+
+		public PriceListChannelPage(Page priceListChannelPage) {
+			actions = priceListChannelPage.getActions();
+			items = priceListChannelPage.getItems();
+			lastPage = priceListChannelPage.getLastPage();
+			page = priceListChannelPage.getPage();
+			pageSize = priceListChannelPage.getPageSize();
+			totalCount = priceListChannelPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<PriceListChannel> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("PriceListDiscountPage")
+	public class PriceListDiscountPage {
+
+		public PriceListDiscountPage(Page priceListDiscountPage) {
+			actions = priceListDiscountPage.getActions();
+			items = priceListDiscountPage.getItems();
+			lastPage = priceListDiscountPage.getLastPage();
+			page = priceListDiscountPage.getPage();
+			pageSize = priceListDiscountPage.getPageSize();
+			totalCount = priceListDiscountPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<PriceListDiscount> items;
 
 		@GraphQLField
 		protected long lastPage;
@@ -1634,6 +1981,20 @@ public class Query {
 	}
 
 	private void _populateResourceContext(
+			PriceListAccountResource priceListAccountResource)
+		throws Exception {
+
+		priceListAccountResource.setContextAcceptLanguage(_acceptLanguage);
+		priceListAccountResource.setContextCompany(_company);
+		priceListAccountResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		priceListAccountResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		priceListAccountResource.setContextUriInfo(_uriInfo);
+		priceListAccountResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
 			PriceListAccountGroupResource priceListAccountGroupResource)
 		throws Exception {
 
@@ -1645,6 +2006,34 @@ public class Query {
 			_httpServletResponse);
 		priceListAccountGroupResource.setContextUriInfo(_uriInfo);
 		priceListAccountGroupResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
+			PriceListChannelResource priceListChannelResource)
+		throws Exception {
+
+		priceListChannelResource.setContextAcceptLanguage(_acceptLanguage);
+		priceListChannelResource.setContextCompany(_company);
+		priceListChannelResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		priceListChannelResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		priceListChannelResource.setContextUriInfo(_uriInfo);
+		priceListChannelResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
+			PriceListDiscountResource priceListDiscountResource)
+		throws Exception {
+
+		priceListDiscountResource.setContextAcceptLanguage(_acceptLanguage);
+		priceListDiscountResource.setContextCompany(_company);
+		priceListDiscountResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		priceListDiscountResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		priceListDiscountResource.setContextUriInfo(_uriInfo);
+		priceListDiscountResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(TierPriceResource tierPriceResource)
@@ -1678,8 +2067,14 @@ public class Query {
 		_priceEntryResourceComponentServiceObjects;
 	private static ComponentServiceObjects<PriceListResource>
 		_priceListResourceComponentServiceObjects;
+	private static ComponentServiceObjects<PriceListAccountResource>
+		_priceListAccountResourceComponentServiceObjects;
 	private static ComponentServiceObjects<PriceListAccountGroupResource>
 		_priceListAccountGroupResourceComponentServiceObjects;
+	private static ComponentServiceObjects<PriceListChannelResource>
+		_priceListChannelResourceComponentServiceObjects;
+	private static ComponentServiceObjects<PriceListDiscountResource>
+		_priceListDiscountResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TierPriceResource>
 		_tierPriceResourceComponentServiceObjects;
 

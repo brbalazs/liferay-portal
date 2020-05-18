@@ -14,9 +14,11 @@
 
 package com.liferay.headless.commerce.admin.pricing.dto.v2_0;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
@@ -53,6 +55,40 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "PriceList")
 public class PriceList {
 
+	@GraphQLName("Type")
+	public static enum Type {
+
+		PRICE_LIST("price-list"), PROMOTION("promotion"), CONTRACT("contract");
+
+		@JsonCreator
+		public static Type create(String value) {
+			for (Type type : values()) {
+				if (Objects.equals(type.getValue(), value)) {
+					return type;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Type(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	@Schema
 	@Valid
 	public PriceListAccountGroup[] getAccountGroups() {
@@ -84,6 +120,35 @@ public class PriceList {
 	protected PriceListAccountGroup[] accountGroups;
 
 	@Schema
+	@Valid
+	public PriceListAccount[] getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(PriceListAccount[] accounts) {
+		this.accounts = accounts;
+	}
+
+	@JsonIgnore
+	public void setAccounts(
+		UnsafeSupplier<PriceListAccount[], Exception> accountsUnsafeSupplier) {
+
+		try {
+			accounts = accountsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PriceListAccount[] accounts;
+
+	@Schema
 	public Boolean getActive() {
 		return active;
 	}
@@ -110,6 +175,34 @@ public class PriceList {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean active;
+
+	@Schema
+	public Boolean getCatalogBasePriceList() {
+		return catalogBasePriceList;
+	}
+
+	public void setCatalogBasePriceList(Boolean catalogBasePriceList) {
+		this.catalogBasePriceList = catalogBasePriceList;
+	}
+
+	@JsonIgnore
+	public void setCatalogBasePriceList(
+		UnsafeSupplier<Boolean, Exception> catalogBasePriceListUnsafeSupplier) {
+
+		try {
+			catalogBasePriceList = catalogBasePriceListUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean catalogBasePriceList;
 
 	@DecimalMin("0")
 	@Schema
@@ -139,6 +232,35 @@ public class PriceList {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long catalogId;
+
+	@Schema
+	@Valid
+	public PriceListChannel[] getChannels() {
+		return channels;
+	}
+
+	public void setChannels(PriceListChannel[] channels) {
+		this.channels = channels;
+	}
+
+	@JsonIgnore
+	public void setChannels(
+		UnsafeSupplier<PriceListChannel[], Exception> channelsUnsafeSupplier) {
+
+		try {
+			channels = channelsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PriceListChannel[] channels;
 
 	@Schema
 	public String getCurrencyCode() {
@@ -197,6 +319,36 @@ public class PriceList {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Map<String, ?> customFields;
+
+	@Schema
+	@Valid
+	public PriceListDiscount[] getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(PriceListDiscount[] discounts) {
+		this.discounts = discounts;
+	}
+
+	@JsonIgnore
+	public void setDiscounts(
+		UnsafeSupplier<PriceListDiscount[], Exception>
+			discountsUnsafeSupplier) {
+
+		try {
+			discounts = discountsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PriceListDiscount[] discounts;
 
 	@Schema
 	public Date getDisplayDate() {
@@ -337,6 +489,34 @@ public class PriceList {
 	protected String name;
 
 	@Schema
+	public Boolean getNetPrice() {
+		return netPrice;
+	}
+
+	public void setNetPrice(Boolean netPrice) {
+		this.netPrice = netPrice;
+	}
+
+	@JsonIgnore
+	public void setNetPrice(
+		UnsafeSupplier<Boolean, Exception> netPriceUnsafeSupplier) {
+
+		try {
+			netPrice = netPriceUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean netPrice;
+
+	@Schema
 	public Boolean getNeverExpire() {
 		return neverExpire;
 	}
@@ -421,6 +601,42 @@ public class PriceList {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double priority;
 
+	@Schema
+	@Valid
+	public Type getType() {
+		return type;
+	}
+
+	@JsonIgnore
+	public String getTypeAsString() {
+		if (type == null) {
+			return null;
+		}
+
+		return type.toString();
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	@JsonIgnore
+	public void setType(UnsafeSupplier<Type, Exception> typeUnsafeSupplier) {
+		try {
+			type = typeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Type type;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -471,6 +687,26 @@ public class PriceList {
 			sb.append("]");
 		}
 
+		if (accounts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"accounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < accounts.length; i++) {
+				sb.append(String.valueOf(accounts[i]));
+
+				if ((i + 1) < accounts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (active != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -481,6 +717,16 @@ public class PriceList {
 			sb.append(active);
 		}
 
+		if (catalogBasePriceList != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"catalogBasePriceList\": ");
+
+			sb.append(catalogBasePriceList);
+		}
+
 		if (catalogId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -489,6 +735,26 @@ public class PriceList {
 			sb.append("\"catalogId\": ");
 
 			sb.append(catalogId);
+		}
+
+		if (channels != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channels\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < channels.length; i++) {
+				sb.append(String.valueOf(channels[i]));
+
+				if ((i + 1) < channels.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (currencyCode != null) {
@@ -513,6 +779,26 @@ public class PriceList {
 			sb.append("\"customFields\": ");
 
 			sb.append(_toJSON(customFields));
+		}
+
+		if (discounts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discounts.length; i++) {
+				sb.append(String.valueOf(discounts[i]));
+
+				if ((i + 1) < discounts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (displayDate != null) {
@@ -581,6 +867,16 @@ public class PriceList {
 			sb.append("\"");
 		}
 
+		if (netPrice != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"netPrice\": ");
+
+			sb.append(netPrice);
+		}
+
 		if (neverExpire != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -619,6 +915,20 @@ public class PriceList {
 			sb.append("\"priority\": ");
 
 			sb.append(priority);
+		}
+
+		if (type != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"type\": ");
+
+			sb.append("\"");
+
+			sb.append(type);
+
+			sb.append("\"");
 		}
 
 		sb.append("}");

@@ -19,6 +19,9 @@ import com.liferay.headless.commerce.admin.pricing.client.json.BaseJSONParser;
 
 import java.math.BigDecimal;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -55,6 +58,19 @@ public class TierPriceSerDes {
 
 		sb.append("{");
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (tierPrice.getActive() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"active\": ");
+
+			sb.append(tierPrice.getActive());
+		}
+
 		if (tierPrice.getCustomFields() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -63,6 +79,86 @@ public class TierPriceSerDes {
 			sb.append("\"customFields\": ");
 
 			sb.append(_toJSON(tierPrice.getCustomFields()));
+		}
+
+		if (tierPrice.getDiscountDiscovery() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountDiscovery\": ");
+
+			sb.append(tierPrice.getDiscountDiscovery());
+		}
+
+		if (tierPrice.getDiscountLevel1() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevel1\": ");
+
+			sb.append(tierPrice.getDiscountLevel1());
+		}
+
+		if (tierPrice.getDiscountLevel2() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevel2\": ");
+
+			sb.append(tierPrice.getDiscountLevel2());
+		}
+
+		if (tierPrice.getDiscountLevel3() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevel3\": ");
+
+			sb.append(tierPrice.getDiscountLevel3());
+		}
+
+		if (tierPrice.getDiscountLevel4() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevel4\": ");
+
+			sb.append(tierPrice.getDiscountLevel4());
+		}
+
+		if (tierPrice.getDisplayDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"displayDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(tierPrice.getDisplayDate()));
+
+			sb.append("\"");
+		}
+
+		if (tierPrice.getExpirationDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"expirationDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(tierPrice.getExpirationDate()));
+
+			sb.append("\"");
 		}
 
 		if (tierPrice.getExternalReferenceCode() != null) {
@@ -161,12 +257,85 @@ public class TierPriceSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (tierPrice.getActive() == null) {
+			map.put("active", null);
+		}
+		else {
+			map.put("active", String.valueOf(tierPrice.getActive()));
+		}
+
 		if (tierPrice.getCustomFields() == null) {
 			map.put("customFields", null);
 		}
 		else {
 			map.put(
 				"customFields", String.valueOf(tierPrice.getCustomFields()));
+		}
+
+		if (tierPrice.getDiscountDiscovery() == null) {
+			map.put("discountDiscovery", null);
+		}
+		else {
+			map.put(
+				"discountDiscovery",
+				String.valueOf(tierPrice.getDiscountDiscovery()));
+		}
+
+		if (tierPrice.getDiscountLevel1() == null) {
+			map.put("discountLevel1", null);
+		}
+		else {
+			map.put(
+				"discountLevel1",
+				String.valueOf(tierPrice.getDiscountLevel1()));
+		}
+
+		if (tierPrice.getDiscountLevel2() == null) {
+			map.put("discountLevel2", null);
+		}
+		else {
+			map.put(
+				"discountLevel2",
+				String.valueOf(tierPrice.getDiscountLevel2()));
+		}
+
+		if (tierPrice.getDiscountLevel3() == null) {
+			map.put("discountLevel3", null);
+		}
+		else {
+			map.put(
+				"discountLevel3",
+				String.valueOf(tierPrice.getDiscountLevel3()));
+		}
+
+		if (tierPrice.getDiscountLevel4() == null) {
+			map.put("discountLevel4", null);
+		}
+		else {
+			map.put(
+				"discountLevel4",
+				String.valueOf(tierPrice.getDiscountLevel4()));
+		}
+
+		if (tierPrice.getDisplayDate() == null) {
+			map.put("displayDate", null);
+		}
+		else {
+			map.put(
+				"displayDate",
+				liferayToJSONDateFormat.format(tierPrice.getDisplayDate()));
+		}
+
+		if (tierPrice.getExpirationDate() == null) {
+			map.put("expirationDate", null);
+		}
+		else {
+			map.put(
+				"expirationDate",
+				liferayToJSONDateFormat.format(tierPrice.getExpirationDate()));
 		}
 
 		if (tierPrice.getExternalReferenceCode() == null) {
@@ -245,11 +414,58 @@ public class TierPriceSerDes {
 			TierPrice tierPrice, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "customFields")) {
+			if (Objects.equals(jsonParserFieldName, "active")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setActive((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "customFields")) {
 				if (jsonParserFieldValue != null) {
 					tierPrice.setCustomFields(
 						(Map)TierPriceSerDes.toMap(
 							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountDiscovery")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setDiscountDiscovery(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountLevel1")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setDiscountLevel1(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountLevel2")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setDiscountLevel2(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountLevel3")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setDiscountLevel3(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountLevel4")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setDiscountLevel4(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "displayDate")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setDisplayDate(
+						toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "expirationDate")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setExpirationDate(
+						toDate((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(

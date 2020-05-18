@@ -41,11 +41,13 @@ public interface PriceListResource {
 	}
 
 	public Page<PriceList> getPriceListsPage(
-			String filterString, Pagination pagination, String sortString)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getPriceListsPageHttpResponse(
-			String filterString, Pagination pagination, String sortString)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public PriceList postPriceList(PriceList priceList) throws Exception;
@@ -167,12 +169,13 @@ public interface PriceListResource {
 	public static class PriceListResourceImpl implements PriceListResource {
 
 		public Page<PriceList> getPriceListsPage(
-				String filterString, Pagination pagination, String sortString)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getPriceListsPageHttpResponse(
-					filterString, pagination, sortString);
+					search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -195,7 +198,8 @@ public interface PriceListResource {
 		}
 
 		public HttpInvoker.HttpResponse getPriceListsPageHttpResponse(
-				String filterString, Pagination pagination, String sortString)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -218,6 +222,10 @@ public interface PriceListResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
 
 			if (filterString != null) {
 				httpInvoker.parameter("filter", filterString);

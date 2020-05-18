@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0;
 
-import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListAccountGroup;
+import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListDiscount;
 import com.liferay.headless.commerce.admin.pricing.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,24 +30,24 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class PriceListAccountGroupSerDes {
+public class PriceListDiscountSerDes {
 
-	public static PriceListAccountGroup toDTO(String json) {
-		PriceListAccountGroupJSONParser priceListAccountGroupJSONParser =
-			new PriceListAccountGroupJSONParser();
+	public static PriceListDiscount toDTO(String json) {
+		PriceListDiscountJSONParser priceListDiscountJSONParser =
+			new PriceListDiscountJSONParser();
 
-		return priceListAccountGroupJSONParser.parseToDTO(json);
+		return priceListDiscountJSONParser.parseToDTO(json);
 	}
 
-	public static PriceListAccountGroup[] toDTOs(String json) {
-		PriceListAccountGroupJSONParser priceListAccountGroupJSONParser =
-			new PriceListAccountGroupJSONParser();
+	public static PriceListDiscount[] toDTOs(String json) {
+		PriceListDiscountJSONParser priceListDiscountJSONParser =
+			new PriceListDiscountJSONParser();
 
-		return priceListAccountGroupJSONParser.parseToDTOs(json);
+		return priceListDiscountJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(PriceListAccountGroup priceListAccountGroup) {
-		if (priceListAccountGroup == null) {
+	public static String toJSON(PriceListDiscount priceListDiscount) {
+		if (priceListDiscount == null) {
 			return "null";
 		}
 
@@ -55,70 +55,66 @@ public class PriceListAccountGroupSerDes {
 
 		sb.append("{");
 
-		if (priceListAccountGroup.getAccountGroupExternalReferenceCode() !=
-				null) {
-
+		if (priceListDiscount.getDiscountExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupExternalReferenceCode\": ");
+			sb.append("\"discountExternalReferenceCode\": ");
 
 			sb.append("\"");
 
 			sb.append(
-				_escape(
-					priceListAccountGroup.
-						getAccountGroupExternalReferenceCode()));
+				_escape(priceListDiscount.getDiscountExternalReferenceCode()));
 
 			sb.append("\"");
 		}
 
-		if (priceListAccountGroup.getAccountGroupId() != null) {
+		if (priceListDiscount.getDiscountId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupId\": ");
+			sb.append("\"discountId\": ");
 
-			sb.append(priceListAccountGroup.getAccountGroupId());
+			sb.append(priceListDiscount.getDiscountId());
 		}
 
-		if (priceListAccountGroup.getAccountGroupName() != null) {
+		if (priceListDiscount.getDiscountName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupName\": ");
+			sb.append("\"discountName\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(priceListAccountGroup.getAccountGroupName()));
+			sb.append(_escape(priceListDiscount.getDiscountName()));
 
 			sb.append("\"");
 		}
 
-		if (priceListAccountGroup.getId() != null) {
+		if (priceListDiscount.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"id\": ");
 
-			sb.append(priceListAccountGroup.getId());
+			sb.append(priceListDiscount.getId());
 		}
 
-		if (priceListAccountGroup.getOrder() != null) {
+		if (priceListDiscount.getOrder() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"order\": ");
 
-			sb.append(priceListAccountGroup.getOrder());
+			sb.append(priceListDiscount.getOrder());
 		}
 
-		if (priceListAccountGroup.getPriceListExternalReferenceCode() != null) {
+		if (priceListDiscount.getPriceListExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -128,20 +124,19 @@ public class PriceListAccountGroupSerDes {
 			sb.append("\"");
 
 			sb.append(
-				_escape(
-					priceListAccountGroup.getPriceListExternalReferenceCode()));
+				_escape(priceListDiscount.getPriceListExternalReferenceCode()));
 
 			sb.append("\"");
 		}
 
-		if (priceListAccountGroup.getPriceListId() != null) {
+		if (priceListDiscount.getPriceListId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"priceListId\": ");
 
-			sb.append(priceListAccountGroup.getPriceListId());
+			sb.append(priceListDiscount.getPriceListId());
 		}
 
 		sb.append("}");
@@ -150,135 +145,132 @@ public class PriceListAccountGroupSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		PriceListAccountGroupJSONParser priceListAccountGroupJSONParser =
-			new PriceListAccountGroupJSONParser();
+		PriceListDiscountJSONParser priceListDiscountJSONParser =
+			new PriceListDiscountJSONParser();
 
-		return priceListAccountGroupJSONParser.parseToMap(json);
+		return priceListDiscountJSONParser.parseToMap(json);
 	}
 
 	public static Map<String, String> toMap(
-		PriceListAccountGroup priceListAccountGroup) {
+		PriceListDiscount priceListDiscount) {
 
-		if (priceListAccountGroup == null) {
+		if (priceListDiscount == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (priceListAccountGroup.getAccountGroupExternalReferenceCode() ==
-				null) {
-
-			map.put("accountGroupExternalReferenceCode", null);
+		if (priceListDiscount.getDiscountExternalReferenceCode() == null) {
+			map.put("discountExternalReferenceCode", null);
 		}
 		else {
 			map.put(
-				"accountGroupExternalReferenceCode",
+				"discountExternalReferenceCode",
 				String.valueOf(
-					priceListAccountGroup.
-						getAccountGroupExternalReferenceCode()));
+					priceListDiscount.getDiscountExternalReferenceCode()));
 		}
 
-		if (priceListAccountGroup.getAccountGroupId() == null) {
-			map.put("accountGroupId", null);
+		if (priceListDiscount.getDiscountId() == null) {
+			map.put("discountId", null);
 		}
 		else {
 			map.put(
-				"accountGroupId",
-				String.valueOf(priceListAccountGroup.getAccountGroupId()));
+				"discountId",
+				String.valueOf(priceListDiscount.getDiscountId()));
 		}
 
-		if (priceListAccountGroup.getAccountGroupName() == null) {
-			map.put("accountGroupName", null);
+		if (priceListDiscount.getDiscountName() == null) {
+			map.put("discountName", null);
 		}
 		else {
 			map.put(
-				"accountGroupName",
-				String.valueOf(priceListAccountGroup.getAccountGroupName()));
+				"discountName",
+				String.valueOf(priceListDiscount.getDiscountName()));
 		}
 
-		if (priceListAccountGroup.getId() == null) {
+		if (priceListDiscount.getId() == null) {
 			map.put("id", null);
 		}
 		else {
-			map.put("id", String.valueOf(priceListAccountGroup.getId()));
+			map.put("id", String.valueOf(priceListDiscount.getId()));
 		}
 
-		if (priceListAccountGroup.getOrder() == null) {
+		if (priceListDiscount.getOrder() == null) {
 			map.put("order", null);
 		}
 		else {
-			map.put("order", String.valueOf(priceListAccountGroup.getOrder()));
+			map.put("order", String.valueOf(priceListDiscount.getOrder()));
 		}
 
-		if (priceListAccountGroup.getPriceListExternalReferenceCode() == null) {
+		if (priceListDiscount.getPriceListExternalReferenceCode() == null) {
 			map.put("priceListExternalReferenceCode", null);
 		}
 		else {
 			map.put(
 				"priceListExternalReferenceCode",
 				String.valueOf(
-					priceListAccountGroup.getPriceListExternalReferenceCode()));
+					priceListDiscount.getPriceListExternalReferenceCode()));
 		}
 
-		if (priceListAccountGroup.getPriceListId() == null) {
+		if (priceListDiscount.getPriceListId() == null) {
 			map.put("priceListId", null);
 		}
 		else {
 			map.put(
 				"priceListId",
-				String.valueOf(priceListAccountGroup.getPriceListId()));
+				String.valueOf(priceListDiscount.getPriceListId()));
 		}
 
 		return map;
 	}
 
-	public static class PriceListAccountGroupJSONParser
-		extends BaseJSONParser<PriceListAccountGroup> {
+	public static class PriceListDiscountJSONParser
+		extends BaseJSONParser<PriceListDiscount> {
 
 		@Override
-		protected PriceListAccountGroup createDTO() {
-			return new PriceListAccountGroup();
+		protected PriceListDiscount createDTO() {
+			return new PriceListDiscount();
 		}
 
 		@Override
-		protected PriceListAccountGroup[] createDTOArray(int size) {
-			return new PriceListAccountGroup[size];
+		protected PriceListDiscount[] createDTOArray(int size) {
+			return new PriceListDiscount[size];
 		}
 
 		@Override
 		protected void setField(
-			PriceListAccountGroup priceListAccountGroup,
-			String jsonParserFieldName, Object jsonParserFieldValue) {
+			PriceListDiscount priceListDiscount, String jsonParserFieldName,
+			Object jsonParserFieldValue) {
 
 			if (Objects.equals(
-					jsonParserFieldName, "accountGroupExternalReferenceCode")) {
+					jsonParserFieldName, "discountExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setAccountGroupExternalReferenceCode(
+					priceListDiscount.setDiscountExternalReferenceCode(
 						(String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "accountGroupId")) {
+			else if (Objects.equals(jsonParserFieldName, "discountId")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setAccountGroupId(
+					priceListDiscount.setDiscountId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "accountGroupName")) {
+			else if (Objects.equals(jsonParserFieldName, "discountName")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setAccountGroupName(
+					priceListDiscount.setDiscountName(
 						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setId(
+					priceListDiscount.setId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "order")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setOrder(
+					priceListDiscount.setOrder(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
@@ -287,13 +279,13 @@ public class PriceListAccountGroupSerDes {
 						"priceListExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setPriceListExternalReferenceCode(
+					priceListDiscount.setPriceListExternalReferenceCode(
 						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "priceListId")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setPriceListId(
+					priceListDiscount.setPriceListId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}

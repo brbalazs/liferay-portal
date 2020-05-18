@@ -138,7 +138,7 @@ public abstract class BaseDiscountProductGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups/'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -150,7 +150,7 @@ public abstract class BaseDiscountProductGroupResourceImpl
 		}
 	)
 	@Path(
-		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups/"
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountProductGroup")})
@@ -168,7 +168,7 @@ public abstract class BaseDiscountProductGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups/' -d $'{"discountExternalReferenceCode": ___, "discountId": ___, "productGroupExternalReferenceCode": ___, "productGroupId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups' -d $'{"discountExternalReferenceCode": ___, "discountId": ___, "productGroupExternalReferenceCode": ___, "productGroupId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -179,7 +179,7 @@ public abstract class BaseDiscountProductGroupResourceImpl
 		}
 	)
 	@Path(
-		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups/"
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountProductGroup")})
@@ -197,7 +197,7 @@ public abstract class BaseDiscountProductGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountProductGroups/'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountProductGroups'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -208,7 +208,7 @@ public abstract class BaseDiscountProductGroupResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/discounts/{id}/discountProductGroups/")
+	@Path("/discounts/{id}/discountProductGroups")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountProductGroup")})
 	public Page<DiscountProductGroup> getDiscountIdDiscountProductGroupsPage(
@@ -222,13 +222,13 @@ public abstract class BaseDiscountProductGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountProductGroups/' -d $'{"discountExternalReferenceCode": ___, "discountId": ___, "productGroupExternalReferenceCode": ___, "productGroupId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountProductGroups' -d $'{"discountExternalReferenceCode": ___, "discountId": ___, "productGroupExternalReferenceCode": ___, "productGroupId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/discounts/{id}/discountProductGroups/")
+	@Path("/discounts/{id}/discountProductGroups")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountProductGroup")})
 	public DiscountProductGroup postDiscountIdDiscountProductGroup(

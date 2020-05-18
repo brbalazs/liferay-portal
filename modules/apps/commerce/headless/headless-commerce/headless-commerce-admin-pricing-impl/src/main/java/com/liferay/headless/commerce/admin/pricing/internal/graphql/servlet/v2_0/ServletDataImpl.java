@@ -26,6 +26,9 @@ import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountResourc
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountRuleResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceEntryResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListAccountGroupResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListAccountResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListChannelResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListDiscountResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.TierPriceResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
@@ -69,8 +72,14 @@ public class ServletDataImpl implements ServletData {
 			_priceEntryResourceComponentServiceObjects);
 		Mutation.setPriceListResourceComponentServiceObjects(
 			_priceListResourceComponentServiceObjects);
+		Mutation.setPriceListAccountResourceComponentServiceObjects(
+			_priceListAccountResourceComponentServiceObjects);
 		Mutation.setPriceListAccountGroupResourceComponentServiceObjects(
 			_priceListAccountGroupResourceComponentServiceObjects);
+		Mutation.setPriceListChannelResourceComponentServiceObjects(
+			_priceListChannelResourceComponentServiceObjects);
+		Mutation.setPriceListDiscountResourceComponentServiceObjects(
+			_priceListDiscountResourceComponentServiceObjects);
 		Mutation.setTierPriceResourceComponentServiceObjects(
 			_tierPriceResourceComponentServiceObjects);
 
@@ -94,8 +103,14 @@ public class ServletDataImpl implements ServletData {
 			_priceEntryResourceComponentServiceObjects);
 		Query.setPriceListResourceComponentServiceObjects(
 			_priceListResourceComponentServiceObjects);
+		Query.setPriceListAccountResourceComponentServiceObjects(
+			_priceListAccountResourceComponentServiceObjects);
 		Query.setPriceListAccountGroupResourceComponentServiceObjects(
 			_priceListAccountGroupResourceComponentServiceObjects);
+		Query.setPriceListChannelResourceComponentServiceObjects(
+			_priceListChannelResourceComponentServiceObjects);
+		Query.setPriceListDiscountResourceComponentServiceObjects(
+			_priceListDiscountResourceComponentServiceObjects);
 		Query.setTierPriceResourceComponentServiceObjects(
 			_tierPriceResourceComponentServiceObjects);
 	}
@@ -156,8 +171,20 @@ public class ServletDataImpl implements ServletData {
 		_priceListResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<PriceListAccountResource>
+		_priceListAccountResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<PriceListAccountGroupResource>
 		_priceListAccountGroupResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<PriceListChannelResource>
+		_priceListChannelResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<PriceListDiscountResource>
+		_priceListDiscountResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<TierPriceResource>

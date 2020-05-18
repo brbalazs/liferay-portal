@@ -72,6 +72,7 @@ import javax.annotation.Generated;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -770,8 +771,74 @@ public abstract class BaseTierPriceResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("active", additionalAssertFieldName)) {
+				if (tierPrice.getActive() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
 				if (tierPrice.getCustomFields() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountDiscovery", additionalAssertFieldName)) {
+
+				if (tierPrice.getDiscountDiscovery() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel1", additionalAssertFieldName)) {
+				if (tierPrice.getDiscountLevel1() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel2", additionalAssertFieldName)) {
+				if (tierPrice.getDiscountLevel2() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel3", additionalAssertFieldName)) {
+				if (tierPrice.getDiscountLevel3() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel4", additionalAssertFieldName)) {
+				if (tierPrice.getDiscountLevel4() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("displayDate", additionalAssertFieldName)) {
+				if (tierPrice.getDisplayDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("expirationDate", additionalAssertFieldName)) {
+				if (tierPrice.getExpirationDate() == null) {
 					valid = false;
 				}
 
@@ -921,10 +988,99 @@ public abstract class BaseTierPriceResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("active", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						tierPrice1.getActive(), tierPrice2.getActive())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
 				if (!equals(
 						(Map)tierPrice1.getCustomFields(),
 						(Map)tierPrice2.getCustomFields())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountDiscovery", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						tierPrice1.getDiscountDiscovery(),
+						tierPrice2.getDiscountDiscovery())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel1", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						tierPrice1.getDiscountLevel1(),
+						tierPrice2.getDiscountLevel1())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel2", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						tierPrice1.getDiscountLevel2(),
+						tierPrice2.getDiscountLevel2())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel3", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						tierPrice1.getDiscountLevel3(),
+						tierPrice2.getDiscountLevel3())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountLevel4", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						tierPrice1.getDiscountLevel4(),
+						tierPrice2.getDiscountLevel4())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("displayDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						tierPrice1.getDisplayDate(),
+						tierPrice2.getDisplayDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("expirationDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						tierPrice1.getExpirationDate(),
+						tierPrice2.getExpirationDate())) {
 
 					return false;
 				}
@@ -1094,9 +1250,103 @@ public abstract class BaseTierPriceResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("active")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("customFields")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountDiscovery")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountLevel1")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountLevel2")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountLevel3")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountLevel4")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("displayDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(tierPrice.getDisplayDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(tierPrice.getDisplayDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(tierPrice.getDisplayDate()));
+			}
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("expirationDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							tierPrice.getExpirationDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							tierPrice.getExpirationDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(tierPrice.getExpirationDate()));
+			}
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("externalReferenceCode")) {
@@ -1185,6 +1435,10 @@ public abstract class BaseTierPriceResourceTestCase {
 	protected TierPrice randomTierPrice() throws Exception {
 		return new TierPrice() {
 			{
+				active = RandomTestUtil.randomBoolean();
+				discountDiscovery = RandomTestUtil.randomBoolean();
+				displayDate = RandomTestUtil.nextDate();
+				expirationDate = RandomTestUtil.nextDate();
 				externalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();

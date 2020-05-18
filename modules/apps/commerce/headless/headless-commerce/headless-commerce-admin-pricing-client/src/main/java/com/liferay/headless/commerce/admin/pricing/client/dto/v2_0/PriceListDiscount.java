@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.admin.pricing.client.dto.v2_0;
 
 import com.liferay.headless.commerce.admin.pricing.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListAccountGroupSerDes;
+import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListDiscountSerDes;
 
 import java.util.Objects;
 
@@ -26,75 +26,74 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class PriceListAccountGroup implements Cloneable {
+public class PriceListDiscount implements Cloneable {
 
-	public String getAccountGroupExternalReferenceCode() {
-		return accountGroupExternalReferenceCode;
+	public String getDiscountExternalReferenceCode() {
+		return discountExternalReferenceCode;
 	}
 
-	public void setAccountGroupExternalReferenceCode(
-		String accountGroupExternalReferenceCode) {
+	public void setDiscountExternalReferenceCode(
+		String discountExternalReferenceCode) {
 
-		this.accountGroupExternalReferenceCode =
-			accountGroupExternalReferenceCode;
+		this.discountExternalReferenceCode = discountExternalReferenceCode;
 	}
 
-	public void setAccountGroupExternalReferenceCode(
+	public void setDiscountExternalReferenceCode(
 		UnsafeSupplier<String, Exception>
-			accountGroupExternalReferenceCodeUnsafeSupplier) {
+			discountExternalReferenceCodeUnsafeSupplier) {
 
 		try {
-			accountGroupExternalReferenceCode =
-				accountGroupExternalReferenceCodeUnsafeSupplier.get();
+			discountExternalReferenceCode =
+				discountExternalReferenceCodeUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String accountGroupExternalReferenceCode;
+	protected String discountExternalReferenceCode;
 
-	public Long getAccountGroupId() {
-		return accountGroupId;
+	public Long getDiscountId() {
+		return discountId;
 	}
 
-	public void setAccountGroupId(Long accountGroupId) {
-		this.accountGroupId = accountGroupId;
+	public void setDiscountId(Long discountId) {
+		this.discountId = discountId;
 	}
 
-	public void setAccountGroupId(
-		UnsafeSupplier<Long, Exception> accountGroupIdUnsafeSupplier) {
+	public void setDiscountId(
+		UnsafeSupplier<Long, Exception> discountIdUnsafeSupplier) {
 
 		try {
-			accountGroupId = accountGroupIdUnsafeSupplier.get();
+			discountId = discountIdUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Long accountGroupId;
+	protected Long discountId;
 
-	public String getAccountGroupName() {
-		return accountGroupName;
+	public String getDiscountName() {
+		return discountName;
 	}
 
-	public void setAccountGroupName(String accountGroupName) {
-		this.accountGroupName = accountGroupName;
+	public void setDiscountName(String discountName) {
+		this.discountName = discountName;
 	}
 
-	public void setAccountGroupName(
-		UnsafeSupplier<String, Exception> accountGroupNameUnsafeSupplier) {
+	public void setDiscountName(
+		UnsafeSupplier<String, Exception> discountNameUnsafeSupplier) {
 
 		try {
-			accountGroupName = accountGroupNameUnsafeSupplier.get();
+			discountName = discountNameUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String accountGroupName;
+	protected String discountName;
 
 	public Long getId() {
 		return id;
@@ -183,8 +182,8 @@ public class PriceListAccountGroup implements Cloneable {
 	protected Long priceListId;
 
 	@Override
-	public PriceListAccountGroup clone() throws CloneNotSupportedException {
-		return (PriceListAccountGroup)super.clone();
+	public PriceListDiscount clone() throws CloneNotSupportedException {
+		return (PriceListDiscount)super.clone();
 	}
 
 	@Override
@@ -193,14 +192,13 @@ public class PriceListAccountGroup implements Cloneable {
 			return true;
 		}
 
-		if (!(object instanceof PriceListAccountGroup)) {
+		if (!(object instanceof PriceListDiscount)) {
 			return false;
 		}
 
-		PriceListAccountGroup priceListAccountGroup =
-			(PriceListAccountGroup)object;
+		PriceListDiscount priceListDiscount = (PriceListDiscount)object;
 
-		return Objects.equals(toString(), priceListAccountGroup.toString());
+		return Objects.equals(toString(), priceListDiscount.toString());
 	}
 
 	@Override
@@ -211,7 +209,7 @@ public class PriceListAccountGroup implements Cloneable {
 	}
 
 	public String toString() {
-		return PriceListAccountGroupSerDes.toJSON(this);
+		return PriceListDiscountSerDes.toJSON(this);
 	}
 
 }

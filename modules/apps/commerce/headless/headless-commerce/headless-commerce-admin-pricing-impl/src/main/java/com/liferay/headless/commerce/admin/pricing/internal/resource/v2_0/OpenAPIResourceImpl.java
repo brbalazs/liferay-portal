@@ -89,7 +89,13 @@ public class OpenAPIResourceImpl {
 
 			add(PriceListResourceImpl.class);
 
+			add(PriceListAccountResourceImpl.class);
+
 			add(PriceListAccountGroupResourceImpl.class);
+
+			add(PriceListChannelResourceImpl.class);
+
+			add(PriceListDiscountResourceImpl.class);
 
 			add(TierPriceResourceImpl.class);
 
