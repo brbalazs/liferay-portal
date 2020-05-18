@@ -58,10 +58,10 @@ String languageId = ParamUtil.getString(request, "languageId", defaultLanguageId
 
 Locale defaultEditLocale = LocaleUtil.fromLanguageId(ddmStructure.getDefaultLanguageId());
 
-if (Arrays.asList(ddmStructure.getAvailableLanguageIds()).contains(themeDisplay.getLanguageId())) {
+if (ArrayUtil.contains(ddmStructure.getAvailableLanguageIds(), themeDisplay.getLanguageId())) {
 	defaultEditLocale = themeDisplay.getLocale();
 }
-else if (Arrays.asList(ddmStructure.getAvailableLanguageIds()).contains(userDisplay.getLanguageId())) {
+else if (ArrayUtil.contains(ddmStructure.getAvailableLanguageIds(), userDisplay.getLanguageId())) {
 	defaultEditLocale = userDisplay.getLocale();
 }
 
