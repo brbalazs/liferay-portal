@@ -29,6 +29,11 @@
 	"devDependencies": {
 		"clay-css": "^2.16.2"
 	},
+	"jest": {
+		"testPathIgnorePatterns": [
+			"<rootDir>/test/dev/"
+		]
+	},
 	"name": "commerce-frontend-js",
 	"private": true,
 	"scripts": {
