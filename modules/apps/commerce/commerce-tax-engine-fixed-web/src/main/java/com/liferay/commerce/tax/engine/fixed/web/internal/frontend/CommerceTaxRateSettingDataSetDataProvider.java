@@ -14,17 +14,23 @@
 
 package com.liferay.commerce.tax.engine.fixed.web.internal.frontend;
 
+import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.product.model.CPTaxCategory;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRateAddressRel;
 import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateAddressRelService;
 import com.liferay.commerce.tax.engine.fixed.web.internal.model.TaxRateSetting;
+import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
@@ -33,8 +39,11 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -94,6 +103,11 @@ public class CommerceTaxRateSettingDataSetDataProvider
 					pagination.getStartPosition(), pagination.getEndPosition(),
 					null);
 
+		CommerceCurrency commerceCurrency =
+			_commerceCurrencyLocalService.getCommerceCurrency(
+				commerceChannel.getCompanyId(),
+				commerceChannel.getCommerceCurrencyCode());
+
 		for (CommerceTaxFixedRateAddressRel commerceTaxFixedRateAddressRel :
 				commerceTaxFixedRateAddressRels) {
 
@@ -109,7 +123,9 @@ public class CommerceTaxRateSettingDataSetDataProvider
 					_getCountry(
 						commerceTaxFixedRateAddressRel.getCommerceCountry(),
 						themeDisplay.getLanguageId()),
-					commerceTaxFixedRateAddressRel.getRate(),
+					_getLocalizedRate(
+						commerceCurrency, commerceTaxFixedRateAddressRel,
+						themeDisplay.getLocale()),
 					_getRegion(
 						commerceTaxFixedRateAddressRel.getCommerceRegion()),
 					cpTaxCategory.getName(themeDisplay.getLanguageId()),
@@ -129,6 +145,30 @@ public class CommerceTaxRateSettingDataSetDataProvider
 		}
 
 		return commerceCountry.getName(languageId);
+	}
+
+	private String _getLocalizedRate(
+			CommerceCurrency commerceCurrency,
+			CommerceTaxFixedRateAddressRel commerceTaxFixedRateAddressRel,
+			Locale locale)
+		throws PortalException {
+
+		BigDecimal bigDecimalPercentage = new BigDecimal(
+			commerceTaxFixedRateAddressRel.getRate());
+
+		CommerceTaxMethod commerceTaxMethod =
+			commerceTaxFixedRateAddressRel.getCommerceTaxMethod();
+
+		if (commerceTaxMethod.isPercentage()) {
+			return _percentageFormatter.getLocalizedPercentage(
+				locale, commerceCurrency.getMaxFractionDigits(),
+				commerceCurrency.getMinFractionDigits(), bigDecimalPercentage);
+		}
+
+		CommerceMoney commerceMoney = _commerceMoneyFactory.create(
+			commerceCurrency, bigDecimalPercentage);
+
+		return commerceMoney.format(locale);
 	}
 
 	private String _getRegion(CommerceRegion commerceRegion) {
@@ -151,7 +191,16 @@ public class CommerceTaxRateSettingDataSetDataProvider
 	private CommerceChannelService _commerceChannelService;
 
 	@Reference
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
+
+	@Reference
+	private CommerceMoneyFactory _commerceMoneyFactory;
+
+	@Reference
 	private CommerceTaxFixedRateAddressRelService
 		_commerceTaxFixedRateAddressRelService;
+
+	@Reference
+	private PercentageFormatter _percentageFormatter;
 
 }
