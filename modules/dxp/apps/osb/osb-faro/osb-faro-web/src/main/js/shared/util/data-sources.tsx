@@ -9,7 +9,7 @@ import {sub} from 'shared/util/lang';
 import {toPromise} from 'shared/components/form';
 
 const {
-	credentialTypes,
+	credentialTypes: {oAuth1, oAuth2, token},
 	dataSourceStates: {
 		actionNeeded,
 		analyticsClientConfigurationFailure,
@@ -198,7 +198,7 @@ export function validateUniqueName({groupId, value}) {
  */
 export function getDataSourceDisplayObject(
 	dataSource: DataSource,
-	showActionNeededStatus: Boolean = false
+	showActionNeededStatus: boolean = false
 ) {
 	if (!dataSource) {
 		return STATUS_DISPLAY.default;
@@ -229,7 +229,7 @@ export function getDataSourceDisplayObject(
 				return STATUS_DISPLAY.active;
 			}
 
-			return credentialsType === credentialTypes.token
+			return credentialsType === token
 				? STATUS_DISPLAY.tokenCredentialsValid
 				: STATUS_DISPLAY[credentialsValid];
 		case inProgressDeleting:
@@ -294,7 +294,7 @@ export function getIdsFromConfiguration(configIMap, key) {
  */
 export const hasLegacyDXPConnection = (dataSource: DataSource) =>
 	dataSource.providerType === liferay &&
-	dataSource.getIn(['credentials', 'type']) !== credentialTypes.token;
+	dataSource.getIn(['credentials', 'type']) !== token;
 
 /**
  * Check if a DataSource has an oAuth DXP Connection
@@ -308,8 +308,8 @@ export const hasOAuthDXPConnection: (
 
 	return (
 		dataSource.providerType === liferay &&
-		(credentialsTypeDataSource === credentialTypes.oAuth1 ||
-			credentialsTypeDataSource === credentialTypes.oAuth2)
+		(credentialsTypeDataSource === oAuth1 ||
+			credentialsTypeDataSource === oAuth2)
 	);
 };
 
