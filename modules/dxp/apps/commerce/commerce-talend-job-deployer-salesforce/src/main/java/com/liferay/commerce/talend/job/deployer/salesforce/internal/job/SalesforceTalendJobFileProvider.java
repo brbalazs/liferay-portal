@@ -57,10 +57,12 @@ public class SalesforceTalendJobFileProvider implements TalendJobFileProvider {
 		Enumeration<URL> urls = bundle.findEntries(
 			talendJobFilePath, "*.zip", true);
 
-		while (urls.hasMoreElements()) {
-			URL url = urls.nextElement();
+		if (urls != null) {
+			while (urls.hasMoreElements()) {
+				URL url = urls.nextElement();
 
-			inputStreams.add(url.openStream());
+				inputStreams.add(url.openStream());
+			}
 		}
 
 		return inputStreams;
