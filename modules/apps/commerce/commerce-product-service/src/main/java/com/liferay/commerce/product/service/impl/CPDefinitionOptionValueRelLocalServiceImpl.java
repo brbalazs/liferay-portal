@@ -767,7 +767,7 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 				(cpDefinitionOptionValueRel.getQuantity() ==
 					curCPDefinitionOptionValueRel.getQuantity())) {
 
-				throw new CPDefinitionOptionValueRelCPInstanceException();
+				throw new CPDefinitionOptionValueRelQuantityException();
 			}
 		}
 	}
