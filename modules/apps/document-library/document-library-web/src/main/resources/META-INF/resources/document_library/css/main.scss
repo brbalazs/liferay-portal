@@ -538,14 +538,6 @@
 	padding: 0.3em;
 }
 
-.firefox {
-	.portlet-document-library, .portlet-document-library-display {
-		.audio-node {
-			height: 28px;
-		}
-
-		.common-file-metadata-container fieldset {
-			display: table-cell;
-		}
-	}
+.autocomplete-dropdown-menu {
+	z-index: 2000;
 }
