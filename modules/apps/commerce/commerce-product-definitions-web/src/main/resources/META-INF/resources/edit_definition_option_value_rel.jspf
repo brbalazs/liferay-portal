@@ -19,8 +19,6 @@ long cpDefinitionId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionId
 CPDefinitionOptionRel cpDefinitionOptionRel = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionRel();
 long cpDefinitionOptionRelId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionRelId();
 long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionOptionValueRelId();
-
-String priceType = cpDefinitionOptionRel.getPriceType();
 %>
 
 <aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (cpDefinitionOptionValueRel == null) ? Constants.ADD : Constants.UPDATE %>" />
@@ -53,14 +51,14 @@ String priceType = cpDefinitionOptionRel.getPriceType();
 	}
 	%>
 
-	<c:if test="<%= Validator.isNotNull(priceType) && priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) %>">
+	<c:if test="<%= cpDefinitionOptionRel.isPriceTypeStatic() %>">
 		<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(price) %>">
 			<aui:validator name="min">0</aui:validator>
 			<aui:validator name="number" />
 		</aui:input>
 	</c:if>
 
-	<c:if test="<%= Validator.isNotNull(priceType) %>">
+	<c:if test="<%= cpDefinitionOptionRel.isChargeable() %>">
 		<div class="sheet-section">
 			<h3 class="sheet-subtitle"><%= LanguageUtil.get(request, "product") %></h3>
 
