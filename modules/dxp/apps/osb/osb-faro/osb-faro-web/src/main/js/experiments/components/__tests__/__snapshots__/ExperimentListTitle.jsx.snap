@@ -1,18 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExperimentListTitle should render component 1`] = `
-<td
-  class="table-cell-expand"
->
-  <a
-    class="table-title"
-    href="/workspace/2000/tests/overview/8a254c3f121aa322bc6ea3a53d787113531915a495d97fafba6d5f4c4bfb9550?rangeKey=30"
+<div>
+  <td
+    class="table-cell-expand"
   >
-    <h5
-      class="mb-1 text-truncate"
+    <a
+      class="table-title"
+      href="/workspace/2000/tests/overview/8a254c3f121aa322bc6ea3a53d787113531915a495d97fafba6d5f4c4bfb9550?rangeKey=30"
     >
-      My Experiment Title
-    </h5>
-  </a>
-</td>
+      <h5
+        class="mb-1 text-truncate"
+      >
+        My Experiment Title
+      </h5>
+    </a>
+  </td>
+</div>
 `;

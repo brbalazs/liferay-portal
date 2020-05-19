@@ -2,19 +2,15 @@ import BasePage from 'shared/components/base-page';
 import client from 'shared/apollo/client';
 import ExperimentListTitle from '../ExperimentListTitle';
 import React from 'react';
-import {ApolloProvider} from '@apollo/react-components';
-import {BrowserRouter} from 'react-router-dom';
-import {shallow} from 'enzyme';
+import { ApolloProvider } from '@apollo/react-components';
+import { BrowserRouter } from 'react-router-dom';
+import { cleanup, render } from '@testing-library/react';
+
+jest.unmock('react-dom');
+
 
 describe('ExperimentListTitle', () => {
-	let component;
-
-	afterEach(() => {
-		if (component) {
-			component.unmount();
-		}
-	});
-
+	afterEach(cleanup);
 	const MOCK_CONTEXT = {
 		router: {
 			params: {
@@ -35,16 +31,14 @@ describe('ExperimentListTitle', () => {
 			</BasePage.Context.Provider>
 		</ApolloProvider>
 	);
-
 	it('should render component', () => {
-		component = shallow(
-			<WrappedComponent
+		const { container } = render(
+			<WrappedComponent value={MOCK_CONTEXT}
 				id='8a254c3f121aa322bc6ea3a53d787113531915a495d97fafba6d5f4c4bfb9550'
-				title='My Experiment Title'
 				touchpoint='http://www.liferay.com'
+				title='My Experiment Title'
 			/>
 		);
-
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
