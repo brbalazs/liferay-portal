@@ -62,6 +62,7 @@ import org.junit.runner.RunWith;
 /**
  * @author Matija Petanjek
  * @author Alessio Antonio Rendina
+ * @author Igor Beslic
  */
 @RunWith(Arquillian.class)
 public class CPDefinitionOptionValueRelLocalServiceTest {
@@ -136,16 +137,9 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionRel.isSkuContributor(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
 
-		cpDefinitionOptionValueRel =
-			_cpDefinitionOptionValueRelLocalService.
-				updateCPDefinitionOptionValueRel(
-					cpDefinitionOptionValueRel.
-						getCPDefinitionOptionValueRelId(),
-					cpDefinitionOptionValueRel.getNameMap(),
-					cpDefinitionOptionValueRel.getPriority(),
-					cpDefinitionOptionValueRel.getKey(),
-					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
-					_serviceContext);
+		cpDefinitionOptionValueRel = _updateCPDefinitionOptionValueRel(
+			cpDefinitionOptionValueRel, cpInstance.getCPInstanceId(),
+			BigDecimal.TEN, 1);
 
 		Assert.assertEquals(
 			cpInstance.getCPInstanceUuid(),
@@ -225,16 +219,9 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionRel.isSkuContributor(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
 
-		cpDefinitionOptionValueRel =
-			_cpDefinitionOptionValueRelLocalService.
-				updateCPDefinitionOptionValueRel(
-					cpDefinitionOptionValueRel.
-						getCPDefinitionOptionValueRelId(),
-					cpDefinitionOptionValueRel.getNameMap(),
-					cpDefinitionOptionValueRel.getPriority(),
-					cpDefinitionOptionValueRel.getKey(),
-					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
-					_serviceContext);
+		cpDefinitionOptionValueRel = _updateCPDefinitionOptionValueRel(
+			cpDefinitionOptionValueRel, cpInstance.getCPInstanceId(),
+			BigDecimal.TEN, 1);
 
 		Assert.assertEquals(
 			cpInstance.getCPInstanceUuid(),
@@ -369,9 +356,6 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 			_addCPDefinitionWithOptionValue();
 
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
 
@@ -387,13 +371,21 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionRel.isSkuContributor(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC, _serviceContext);
 
-		_cpDefinitionOptionValueRelLocalService.
-			updateCPDefinitionOptionValueRel(
-				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
-				cpDefinitionOptionValueRel.getNameMap(),
-				cpDefinitionOptionValueRel.getPriority(),
-				cpDefinitionOptionValueRel.getKey(),
-				cpInstance.getCPInstanceId(), 1, null, _serviceContext);
+		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId());
+
+		cpDefinitionOptionValueRel = _updateCPDefinitionOptionValueRel(
+			cpDefinitionOptionValueRel, cpInstance.getCPInstanceId(), null, 1);
+
+		Assert.assertEquals(
+			cpInstance.getCPInstanceUuid(),
+			cpDefinitionOptionValueRel.getCPInstanceUuid());
+
+		CPDefinition cpInstanceCPDefinition = cpInstance.getCPDefinition();
+
+		Assert.assertEquals(
+			cpInstanceCPDefinition.getCProductId(),
+			cpDefinitionOptionValueRel.getCProductId());
 	}
 
 	@Test
@@ -459,13 +451,8 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionRel.isSkuContributor(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
 
-		_cpDefinitionOptionValueRelLocalService.
-			updateCPDefinitionOptionValueRel(
-				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
-				cpDefinitionOptionValueRel.getNameMap(),
-				cpDefinitionOptionValueRel.getPriority(),
-				cpDefinitionOptionValueRel.getKey(),
-				cpInstance.getCPInstanceId(), 1, null, _serviceContext);
+		_updateCPDefinitionOptionValueRel(
+			cpDefinitionOptionValueRel, cpInstance.getCPInstanceId(), null, 1);
 	}
 
 	@Test
@@ -503,16 +490,9 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionRel.isSkuContributor(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
 
-		cpDefinitionOptionValueRel =
-			_cpDefinitionOptionValueRelLocalService.
-				updateCPDefinitionOptionValueRel(
-					cpDefinitionOptionValueRel.
-						getCPDefinitionOptionValueRelId(),
-					cpDefinitionOptionValueRel.getNameMap(),
-					cpDefinitionOptionValueRel.getPriority(),
-					cpDefinitionOptionValueRel.getKey(),
-					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
-					_serviceContext);
+		cpDefinitionOptionValueRel = _updateCPDefinitionOptionValueRel(
+			cpDefinitionOptionValueRel, cpInstance.getCPInstanceId(),
+			BigDecimal.TEN, 1);
 
 		Assert.assertEquals(
 			BigDecimal.TEN, cpDefinitionOptionValueRel.getPrice());
@@ -642,16 +622,9 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionRel.isSkuContributor(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
 
-		cpDefinitionOptionValueRel =
-			_cpDefinitionOptionValueRelLocalService.
-				updateCPDefinitionOptionValueRel(
-					cpDefinitionOptionValueRel.
-						getCPDefinitionOptionValueRelId(),
-					cpDefinitionOptionValueRel.getNameMap(),
-					cpDefinitionOptionValueRel.getPriority(),
-					cpDefinitionOptionValueRel.getKey(),
-					cpInstance.getCPInstanceId(), 1, BigDecimal.TEN,
-					_serviceContext);
+		cpDefinitionOptionValueRel = _updateCPDefinitionOptionValueRel(
+			cpDefinitionOptionValueRel, cpInstance.getCPInstanceId(),
+			BigDecimal.TEN, 1);
 
 		Assert.assertEquals(
 			cpInstance.getCPInstanceUuid(),
