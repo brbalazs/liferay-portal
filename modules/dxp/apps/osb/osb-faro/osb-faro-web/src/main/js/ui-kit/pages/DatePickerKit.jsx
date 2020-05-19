@@ -44,6 +44,7 @@ class DatePickerKit extends React.Component {
 				<Row>
 					<DatePicker
 						date={date}
+						maxDate={moment().add(2, 'days')}
 						minDate={moment()}
 						onSelect={this.handleSelect}
 					/>

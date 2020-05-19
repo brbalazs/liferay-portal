@@ -174,6 +174,7 @@ export default class Calendar extends React.Component {
 				);
 			}
 		},
+		maxDate: PropTypes.instanceOf(moment),
 		minDate: PropTypes.instanceOf(moment),
 		onSelect: PropTypes.func
 	};
@@ -273,7 +274,7 @@ export default class Calendar extends React.Component {
 
 	render() {
 		const {
-			props: {className, date: dateOrRange, minDate, onSelect},
+			props: {className, date: dateOrRange, maxDate, minDate, onSelect},
 			state: {hoveredDate}
 		} = this;
 
@@ -318,8 +319,10 @@ export default class Calendar extends React.Component {
 										<Day
 											date={date}
 											disabled={
-												minDate &&
-												date.isBefore(minDate)
+												(minDate &&
+													date.isBefore(minDate)) ||
+												(maxDate &&
+													date.isAfter(maxDate))
 											}
 											onSelect={onSelect}
 											onSetHoveredDate={

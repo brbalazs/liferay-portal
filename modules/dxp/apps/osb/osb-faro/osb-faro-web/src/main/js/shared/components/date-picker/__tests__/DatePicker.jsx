@@ -3,7 +3,6 @@ import mockCurrentDate from 'test/mock-date';
 import moment from 'moment';
 import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
-import {shallow} from 'enzyme';
 
 jest.unmock('react-dom');
 
@@ -60,7 +59,7 @@ describe('DatePicker', () => {
 	});
 
 	fit('should render max range error when range > maxRange', () => {
-		const {container, queryByText} = render(
+		const {queryByText} = render(
 			<DatePicker
 				date={{
 					end: moment().add(13, 'months'),

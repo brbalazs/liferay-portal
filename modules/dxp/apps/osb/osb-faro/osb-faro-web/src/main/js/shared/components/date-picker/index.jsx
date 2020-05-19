@@ -30,6 +30,7 @@ export default class DatePicker extends React.Component {
 			}
 		},
 		disabled: PropTypes.bool,
+		maxDate: PropTypes.instanceOf(moment),
 		maxRange: PropTypes.number,
 		minDate: PropTypes.instanceOf(moment),
 		onSelect: PropTypes.func,
@@ -134,6 +135,16 @@ export default class DatePicker extends React.Component {
 	}
 
 	@autobind
+	isNextDisabled() {
+		const {
+			props: {maxDate},
+			state: {currentMonth}
+		} = this;
+
+		return !!maxDate && !maxDate.isAfter(currentMonth);
+	}
+
+	@autobind
 	isPrevDisabled() {
 		const {
 			props: {minDate},
@@ -161,8 +172,9 @@ export default class DatePicker extends React.Component {
 				className,
 				date,
 				disabled,
-				minDate,
+				maxDate,
 				maxRange,
+				minDate,
 				showTimeSelector
 			},
 			state: {currentMonth, maxRangeError}
@@ -170,6 +182,7 @@ export default class DatePicker extends React.Component {
 
 		const currentYear = moment().year();
 
+		const endYear = maxDate && maxDate.year();
 		const startYear = minDate.year();
 
 		const classes = getCN('date-picker-root', {
@@ -200,7 +213,7 @@ export default class DatePicker extends React.Component {
 						<DatePickerSelect
 							onChange={this.handleYearSelect}
 							options={range(
-								currentYear + 5,
+								endYear || currentYear + 5,
 								Math.min(startYear, currentYear - 1),
 								-1
 							).map(year => ({
@@ -232,6 +245,7 @@ export default class DatePicker extends React.Component {
 
 					<Button
 						data-testid='next-month'
+						disabled={this.isNextDisabled()}
 						monospaced
 						onClick={this.handleNextMonth}
 						size='sm'
@@ -244,6 +258,7 @@ export default class DatePicker extends React.Component {
 					<Calendar
 						currentMonth={currentMonth}
 						date={date}
+						maxDate={maxDate}
 						minDate={minDate}
 						onSelect={this.handleSelect}
 					/>
