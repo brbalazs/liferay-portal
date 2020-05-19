@@ -9,6 +9,7 @@ import {
 	getIdsFromConfiguration,
 	getServiceAlertConfig,
 	hasLegacyDXPConnection,
+	hasOAuthDXPConnection,
 	isDataSourceValid,
 	STATUS_DISPLAY,
 	validAnalyticsConfig,
@@ -22,6 +23,7 @@ import {Routes, toRoute} from 'shared/util/router';
 const {
 	credentialTypes,
 	dataSourceStates: {
+		actionNeeded,
 		analyticsClientConfigurationFailure,
 		credentialsInvalid,
 		credentialsValid,
@@ -199,6 +201,28 @@ describe('data-sources', () => {
 
 			expect(result).toMatchSnapshot();
 		});
+
+		it('should return the "action needed" state display object if the data source state is in oAuth1 Authentication', () => {
+			const result = getDataSourceDisplayObject(
+				getMockLiferayDataSource(1, {
+					credentials: {type: credentialTypes.oAuth1}
+				}),
+				true
+			);
+
+			expect(result).toEqual(STATUS_DISPLAY[actionNeeded]);
+		});
+
+		it('should return the "action needed" state display object if the data source state is in oAuth2 Authentication', () => {
+			const result = getDataSourceDisplayObject(
+				getMockLiferayDataSource(1, {
+					credentials: {type: credentialTypes.oAuth2}
+				}),
+				true
+			);
+
+			expect(result).toEqual(STATUS_DISPLAY[actionNeeded]);
+		});
 	});
 
 	describe('getIdsFromConfiguration', () => {
@@ -279,7 +303,27 @@ describe('data-sources', () => {
 			).toBeFalse();
 		});
 	});
+	describe('hasOAuthDXPConnection', () => {
+		it('should return true if the DataSource has a credential type of oAuth1 Authentication', () => {
+			expect(
+				hasOAuthDXPConnection(
+					getMockLiferayDataSource(0, {
+						credentials: {type: credentialTypes.oAuth1}
+					})
+				)
+			).toBeTrue();
+		});
 
+		it('should return true if the DataSource has a credential type of oAuth2 Authentication', () => {
+			expect(
+				hasOAuthDXPConnection(
+					getMockLiferayDataSource(0, {
+						credentials: {type: credentialTypes.oAuth2}
+					})
+				)
+			).toBeTrue();
+		});
+	});
 	describe('validateUniqueName', () => {
 		it('should return a success assertion if the data source name does NOT already exist', () => {
 			expect.assertions(1);
