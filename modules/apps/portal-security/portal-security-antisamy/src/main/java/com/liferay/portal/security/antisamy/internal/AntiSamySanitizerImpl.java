@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +78,22 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 		}
 	}
 
+	public void addAntiSamySanitizerByModel(String model, URL url) {
+		try (InputStream inputstream = url.openStream()) {
+			Policy policy = Policy.getInstance(inputstream);
+
+			_modelMap.put(model, policy);
+		}
+		catch (Exception exception) {
+			throw new IllegalStateException(
+				"Unable to initialize policy", exception);
+		}
+	}
+
+	public void removeAntiSamySanitizerByModel(String model) {
+		_modelMap.remove(model);
+	}
+
 	@Override
 	public String sanitize(
 			long companyId, long groupId, long userId, String className,
@@ -113,6 +130,15 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 		try {
 			AntiSamy antiSamy = new AntiSamy();
 
+			if (isModeled(className, classPK)) {
+				Policy policyByModel = _modelMap.get(className);
+
+				CleanResults cleanResults = antiSamy.scan(
+					content, policyByModel, AntiSamy.SAX);
+
+				return cleanResults.getCleanHTML();
+			}
+
 			CleanResults cleanResults = antiSamy.scan(content, _policy);
 
 			return cleanResults.getCleanHTML();
@@ -125,6 +151,18 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 		finally {
 			currentThread.setContextClassLoader(contextClassLoader);
 		}
+	}
+
+	protected boolean isModeled(String className, long classPK) {
+		String classNameAndClassPK = className + StringPool.POUND + classPK;
+
+		for (String modelItem : _modelMap.keySet()) {
+			if (classNameAndClassPK.startsWith(modelItem)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	protected boolean isWhitelisted(String className, long classPK) {
@@ -167,6 +205,7 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 		AntiSamySanitizerImpl.class);
 
 	private final List<String> _blacklist = new ArrayList<>();
+	private final Map<String, Policy> _modelMap = new HashMap<>();
 	private final Policy _policy;
 	private final List<String> _whitelist = new ArrayList<>();
 
