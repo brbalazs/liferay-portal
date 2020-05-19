@@ -7,9 +7,10 @@ import Icon from '../Icon';
 import moment from 'moment';
 import React from 'react';
 import TimeSelector from './TimeSelector';
-import {isDateOrRange, isRange, updateRange} from './util';
+import {isAboveMaxRange, isDateOrRange, isRange, updateRange} from './util';
 import {noop, range} from 'lodash';
 import {PropTypes} from 'prop-types';
+import {sub} from 'shared/util/lang';
 
 export default class DatePicker extends React.Component {
 	static defaultProps = {
@@ -29,6 +30,7 @@ export default class DatePicker extends React.Component {
 			}
 		},
 		disabled: PropTypes.bool,
+		maxRange: PropTypes.number,
 		minDate: PropTypes.instanceOf(moment),
 		onSelect: PropTypes.func,
 		showTimeSelector: PropTypes.bool
@@ -36,18 +38,24 @@ export default class DatePicker extends React.Component {
 
 	state = {
 		currentMonth: moment(),
-		currentTime: moment().format('LT')
+		currentTime: moment().format('LT'),
+		maxRangeError: false
 	};
 
 	constructor(props) {
 		super(props);
 
-		const {date} = this.props;
+		const {date, maxRange} = this.props;
 
 		if (moment.isMoment(date)) {
 			this.state = {
 				...this.state,
 				currentMonth: date.clone().startOf('month')
+			};
+		} else {
+			this.state = {
+				...this.state,
+				maxRangeError: isAboveMaxRange(date, maxRange)
 			};
 		}
 	}
@@ -91,11 +99,17 @@ export default class DatePicker extends React.Component {
 
 	@autobind
 	handleSelect(newDate) {
-		const {date, onSelect} = this.props;
+		const {date, maxRange, onSelect} = this.props;
 
 		const newValue = isRange(date) ? updateRange(date, newDate) : newDate;
 
-		onSelect(newValue);
+		const maxRangeError = isAboveMaxRange(newValue, maxRange);
+
+		this.setState({maxRangeError});
+
+		if (!isRange(date) || !maxRange || !maxRangeError) {
+			onSelect(newValue);
+		}
 	}
 
 	@autobind
@@ -143,8 +157,15 @@ export default class DatePicker extends React.Component {
 
 	render() {
 		const {
-			props: {className, date, disabled, minDate, showTimeSelector},
-			state: {currentMonth}
+			props: {
+				className,
+				date,
+				disabled,
+				minDate,
+				maxRange,
+				showTimeSelector
+			},
+			state: {currentMonth, maxRangeError}
 		} = this;
 
 		const currentYear = moment().year();
@@ -209,7 +230,12 @@ export default class DatePicker extends React.Component {
 						{'•'}
 					</Button>
 
-					<Button monospaced onClick={this.handleNextMonth} size='sm'>
+					<Button
+						data-testid='next-month'
+						monospaced
+						onClick={this.handleNextMonth}
+						size='sm'
+					>
 						<Icon symbol='angle-right' />
 					</Button>
 				</div>
@@ -229,6 +255,19 @@ export default class DatePicker extends React.Component {
 							onChange={this.handleTimeChange}
 							value={date}
 						/>
+					</div>
+				)}
+
+				{maxRangeError && (
+					<div className='range-warning'>
+						<Icon symbol='warning' />
+
+						{sub(
+							Liferay.Language.get(
+								'this-exceeds-the-maximum-range-of-x-days'
+							),
+							[maxRange]
+						)}
 					</div>
 				)}
 			</div>

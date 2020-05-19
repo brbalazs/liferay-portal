@@ -2,6 +2,40 @@ import * as Util from '../util';
 import moment from 'moment';
 
 describe('Util', () => {
+	describe('isAboveMaxRange', () => {
+		it('should return true if the date is above the max range', () => {
+			expect(
+				Util.isAboveMaxRange(
+					{
+						end: moment(0).add(13, 'months'),
+						start: moment(0)
+					},
+					365
+				)
+			).toBe(true);
+		});
+
+		it('should return false if the date is below the max range', () => {
+			expect(
+				Util.isAboveMaxRange(
+					{
+						end: moment(0).add(11, 'months'),
+						start: moment(0)
+					},
+					365
+				)
+			).toBe(false);
+		});
+
+		it('should return false if the date is not a range', () => {
+			expect(Util.isAboveMaxRange(moment(0), 365)).toBe(false);
+		});
+
+		it('should return false if maxRange is not provided', () => {
+			expect(Util.isAboveMaxRange(moment(0))).toBe(false);
+		});
+	});
+
 	describe('isDateOrRange', () => {
 		it.each`
 			value                                     | valid

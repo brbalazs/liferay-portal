@@ -8,6 +8,21 @@ import {conformsTo, isNil} from 'lodash';
  * @property {Moment} end - The end of the range.
  */
 
+export function isAboveMaxRange(date, maxRange) {
+	return (
+		isRange(date) &&
+		date.start &&
+		date.end &&
+		maxRange &&
+		moment
+			.duration({
+				from: date.start,
+				to: date.end
+			})
+			.asDays() > maxRange
+	);
+}
+
 /**
  * A validation function that determines if a value is a valid
  * moment instance, allowing for null.

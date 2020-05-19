@@ -28,14 +28,11 @@ class DatePickerKit extends React.Component {
 		const {date, range} = this.state;
 
 		return (
-			<div
-				className={
-					this.props.className ? ` ${this.props.className}` : ''
-				}
-			>
+			<div>
 				<Row>
 					<DatePicker
 						date={range}
+						maxRange={365}
 						onSelect={this.handleSelectRange}
 					/>
 				</Row>

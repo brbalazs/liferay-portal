@@ -45,4 +45,17 @@
 		display: flex;
 		justify-content: center;
 	}
+
+	.range-warning {
+		align-items: center;
+		color: $error;
+		display: flex;
+		font-weight: $fontWeightSemiBold;
+		justify-content: center;
+		padding-top: 8px;
+
+		.icon-root {
+			margin-right: 8px;
+		}
+	}
 }
