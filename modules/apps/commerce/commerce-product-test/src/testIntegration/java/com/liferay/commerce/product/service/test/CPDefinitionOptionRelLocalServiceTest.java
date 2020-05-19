@@ -138,7 +138,7 @@ public class CPDefinitionOptionRelLocalServiceTest {
 			Validator.isNull(cpDefinitionOptionRel.getPriceType()));
 	}
 
-	@Test(expected = CPDefinitionOptionRelPriceTypeException.class)
+	@Test
 	public void testValidatePriceTypeNotChanged() throws Exception {
 		frutillaRule.scenario(
 			"Update product option's priceType attribute"
