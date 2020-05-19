@@ -15,24 +15,10 @@
 package com.liferay.commerce.tax.engine.fixed.web.internal.frontend;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
-import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
-import com.liferay.commerce.frontend.Filter;
-import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
-import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
-import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
-import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
-import com.liferay.commerce.model.CommerceCountry;
-import com.liferay.commerce.model.CommerceRegion;
-import com.liferay.commerce.product.model.CPTaxCategory;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
-import com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRateAddressRel;
-import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateAddressRelService;
 import com.liferay.commerce.tax.engine.fixed.web.internal.model.TaxRateSetting;
 import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.petra.string.StringPool;
@@ -41,14 +27,12 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
@@ -64,25 +48,15 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Alec Sloan
  */
 @Component(
 	immediate = true,
-	property = {
-		"commerce.data.provider.key=" + CommerceTaxRateSettingClayTable.NAME,
-		"commerce.data.set.display.name=" + CommerceTaxRateSettingClayTable.NAME
-	},
-	service = {
-		ClayDataSetActionProvider.class, ClayDataSetDisplayView.class,
-		CommerceDataSetDataProvider.class
-	}
+	property = "commerce.data.provider.key=" + CommerceTaxRateSettingDataSetConstants.COMMERCE_DATA_SET_KEY_TAX_RATE_SETTING,
+	service = ClayDataSetActionProvider.class
 )
-public class CommerceTaxRateSettingClayTable
-	extends ClayTableDataSetDisplayView
-	implements ClayDataSetActionProvider,
-			   CommerceDataSetDataProvider<TaxRateSetting> {
-
-	public static final String NAME = "tax-rate-settings";
+public class CommerceTaxRateSettingDataSetActionProvider
+	implements ClayDataSetActionProvider {
 
 	@Override
 	public List<ClayDataSetAction> clayDataSetActions(
@@ -139,113 +113,6 @@ public class CommerceTaxRateSettingClayTable
 		return clayTableActions;
 	}
 
-	@Override
-	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
-		throws PortalException {
-
-		long commerceChannelId = ParamUtil.getLong(
-			httpServletRequest, "commerceChannelId");
-		long commerceTaxMethodId = ParamUtil.getLong(
-			httpServletRequest, "commerceTaxMethodId");
-
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(commerceChannelId);
-
-		return _commerceTaxFixedRateAddressRelService.
-			getCommerceTaxMethodFixedRateAddressRelsCount(
-				commerceChannel.getGroupId(), commerceTaxMethodId);
-	}
-
-	@Override
-	public ClayTableSchema getClayTableSchema() {
-		ClayTableSchemaBuilder clayTableSchemaBuilder =
-			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
-
-		ClayTableSchemaField taxRateField = clayTableSchemaBuilder.addField(
-			"taxRate", "tax-rate");
-
-		taxRateField.setContentRenderer("actionLink");
-
-		clayTableSchemaBuilder.addField("country", "country");
-
-		clayTableSchemaBuilder.addField("region", "region");
-
-		clayTableSchemaBuilder.addField("zip", "zip");
-
-		clayTableSchemaBuilder.addField("rate", "rate");
-
-		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public List<TaxRateSetting> getItems(
-			HttpServletRequest httpServletRequest, Filter filter,
-			Pagination pagination, Sort sort)
-		throws PortalException {
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		long commerceChannelId = ParamUtil.getLong(
-			httpServletRequest, "commerceChannelId");
-		long commerceTaxMethodId = ParamUtil.getLong(
-			httpServletRequest, "commerceTaxMethodId");
-
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(commerceChannelId);
-
-		List<CommerceTaxFixedRateAddressRel> commerceTaxFixedRateAddressRels =
-			_commerceTaxFixedRateAddressRelService.
-				getCommerceTaxMethodFixedRateAddressRels(
-					commerceChannel.getGroupId(), commerceTaxMethodId,
-					pagination.getStartPosition(), pagination.getEndPosition(),
-					null);
-
-		List<TaxRateSetting> taxRateSettings = new ArrayList<>();
-
-		for (CommerceTaxFixedRateAddressRel commerceTaxFixedRateAddressRel :
-				commerceTaxFixedRateAddressRels) {
-
-			CPTaxCategory cpTaxCategory =
-				commerceTaxFixedRateAddressRel.getCPTaxCategory();
-			CommerceCountry commerceCountry =
-				commerceTaxFixedRateAddressRel.getCommerceCountry();
-			CommerceRegion commerceRegion =
-				commerceTaxFixedRateAddressRel.getCommerceRegion();
-
-			taxRateSettings.add(
-				new TaxRateSetting(
-					_getCountry(commerceCountry, themeDisplay.getLanguageId()),
-					commerceTaxFixedRateAddressRel.getRate(),
-					_getRegion(commerceRegion),
-					cpTaxCategory.getName(themeDisplay.getLanguageId()),
-					commerceTaxFixedRateAddressRel.
-						getCommerceTaxFixedRateAddressRelId(),
-					_getZip(commerceTaxFixedRateAddressRel.getZip())));
-		}
-
-		return taxRateSettings;
-	}
-
-	private String _getCountry(
-		CommerceCountry commerceCountry, String languageId) {
-
-		if (commerceCountry == null) {
-			return StringPool.STAR;
-		}
-
-		return commerceCountry.getName(languageId);
-	}
-
-	private String _getRegion(CommerceRegion commerceRegion) {
-		if (commerceRegion == null) {
-			return StringPool.STAR;
-		}
-
-		return commerceRegion.getName();
-	}
-
 	private String _getTaxRateSettingDeleteURL(
 		HttpServletRequest httpServletRequest, long taxRateSettingId) {
 
@@ -294,17 +161,6 @@ public class CommerceTaxRateSettingClayTable
 		return portletURL.toString();
 	}
 
-	private String _getZip(String zip) {
-		if (Validator.isNull(zip)) {
-			return StringPool.STAR;
-		}
-
-		return zip;
-	}
-
-	@Reference
-	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
-
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CommerceChannel)"
 	)
@@ -313,10 +169,6 @@ public class CommerceTaxRateSettingClayTable
 
 	@Reference
 	private CommerceChannelService _commerceChannelService;
-
-	@Reference
-	private CommerceTaxFixedRateAddressRelService
-		_commerceTaxFixedRateAddressRelService;
 
 	@Reference
 	private Portal _portal;
