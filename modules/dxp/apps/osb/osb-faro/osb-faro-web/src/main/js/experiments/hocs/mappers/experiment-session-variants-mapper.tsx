@@ -3,8 +3,10 @@ import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {CHART_COLORS} from 'shared/components/Chart';
 import {getAxisFormatter, getIntervals} from 'shared/util/charts';
-import {getFormattedHistogram} from 'experiments/util/experiments';
-import {toLocale} from 'shared/util/numbers';
+import {
+	getFormattedHistogram,
+	toThousandsABTesting
+} from 'experiments/util/experiments';
 
 const CONTROL_COLOR = '#6B6C7E';
 
@@ -73,7 +75,7 @@ export default ({experiment}) => {
 							},
 							{
 								align: 'right',
-								label: toLocale(value)
+								label: toThousandsABTesting(value)
 							}
 						]
 					};

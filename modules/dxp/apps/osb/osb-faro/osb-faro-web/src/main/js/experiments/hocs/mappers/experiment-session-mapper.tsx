@@ -2,8 +2,10 @@ import * as d3 from 'd3';
 import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {getAxisFormatter, getIntervals} from 'shared/util/charts';
-import {getFormattedHistogram} from 'experiments/util/experiments';
-import {toLocale} from 'shared/util/numbers';
+import {
+	getFormattedHistogram,
+	toThousandsABTesting
+} from 'experiments/util/experiments';
 
 export default ({experiment}) => {
 	if (
@@ -52,7 +54,7 @@ export default ({experiment}) => {
 						},
 						{
 							align: 'right',
-							label: toLocale(dataPoint[0].value)
+							label: toThousandsABTesting(dataPoint[0].value)
 						}
 					]
 				}
