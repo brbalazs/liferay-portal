@@ -16,8 +16,8 @@ package com.liferay.commerce.product.service.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.product.constants.CPConstants;
-import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelCPInstanceException;
 import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelPriceException;
+import com.liferay.commerce.product.exception.CPDefinitionOptionValueRelQuantityException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
@@ -33,6 +33,7 @@ import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.product.type.simple.constants.SimpleCPTypeConstants;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
@@ -46,6 +47,7 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import java.math.BigDecimal;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.frutilla.FrutillaRule;
 
@@ -350,66 +352,6 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			WorkflowConstants.STATUS_SCHEDULED);
 	}
 
-	@Test(expected = CPDefinitionOptionValueRelCPInstanceException.class)
-	public void testUpdateCPDefinitionOptionValueRelsWithSameSKU()
-		throws Exception {
-
-		frutillaRule.scenario(
-			"Update an option value with a SKU"
-		).given(
-			"An option value with same SKU for the same option"
-		).when(
-			"The option value is updated"
-		).then(
-			"An exception is thrown"
-		);
-
-		CPDefinitionOptionValueRel cpDefinitionOptionValueRel1 =
-			_addCPDefinitionWithOptionValue();
-
-		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
-			_commerceCatalog.getGroupId());
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			cpDefinitionOptionValueRel1.getCPDefinitionOptionRel();
-
-		_cpDefinitionOptionRelLocalService.updateCPDefinitionOptionRel(
-			cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
-			cpDefinitionOptionRel.getCPOptionId(),
-			cpDefinitionOptionRel.getNameMap(),
-			cpDefinitionOptionRel.getDescriptionMap(),
-			cpDefinitionOptionRel.getDDMFormFieldTypeName(),
-			cpDefinitionOptionRel.getPriority(),
-			cpDefinitionOptionRel.isFacetable(),
-			cpDefinitionOptionRel.isRequired(),
-			cpDefinitionOptionRel.isSkuContributor(),
-			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC, _serviceContext);
-
-		_cpDefinitionOptionValueRelLocalService.
-			updateCPDefinitionOptionValueRel(
-				cpDefinitionOptionValueRel1.getCPDefinitionOptionValueRelId(),
-				cpDefinitionOptionValueRel1.getNameMap(),
-				cpDefinitionOptionValueRel1.getPriority(),
-				cpDefinitionOptionValueRel1.getKey(),
-				cpInstance.getCPInstanceId(), 1, BigDecimal.ZERO,
-				_serviceContext);
-
-		CPDefinitionOptionValueRel cpDefinitionOptionValueRel2 =
-			_cpDefinitionOptionValueRelLocalService.
-				addCPDefinitionOptionValueRel(
-					cpDefinitionOptionRel.getCPDefinitionOptionRelId(), null, 0,
-					"cpInstance-option-value-2", _serviceContext);
-
-		_cpDefinitionOptionValueRelLocalService.
-			updateCPDefinitionOptionValueRel(
-				cpDefinitionOptionValueRel2.getCPDefinitionOptionValueRelId(),
-				cpDefinitionOptionValueRel2.getNameMap(),
-				cpDefinitionOptionValueRel2.getPriority(),
-				cpDefinitionOptionValueRel2.getKey(),
-				cpInstance.getCPInstanceId(), 1, BigDecimal.ZERO,
-				_serviceContext);
-	}
-
 	@Test
 	public void testUpdateDynamicPriceTypeCPDefinitionOptionValueRel()
 		throws Exception {
@@ -578,6 +520,97 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpInstance.getPrice(), cpDefinitionOptionValueRel.getPrice());
 	}
 
+	@Test(expected = CPDefinitionOptionValueRelQuantityException.class)
+	public void testValidateLinkedCPDefinitionOptionValueRelFailPriceTypeDynamic()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Update an option value with non unique SKU and quantity"
+		).given(
+			"Dynamic product option values with SKU and quantity set"
+		).when(
+			"New option value is added with same SKU and quantity"
+		).then(
+			"An exception is thrown"
+		);
+
+		_assertValidateLinkedCPDefinitionOptionValueRelFail(
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC);
+	}
+
+	@Test(expected = CPDefinitionOptionValueRelQuantityException.class)
+	public void testValidateLinkedCPDefinitionOptionValueRelFailPriceTypeStatic()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Update an option value with non unique SKU and quantity"
+		).given(
+			"Static product option values with SKU and quantity set"
+		).when(
+			"New option value is added with same SKU and quantity"
+		).then(
+			"An exception is thrown"
+		);
+
+		_assertValidateLinkedCPDefinitionOptionValueRelFail(
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC);
+	}
+
+	@Test
+	public void testValidateLinkedCPDefinitionOptionValueRelSuccess()
+		throws Exception {
+
+		CPDefinition cpDefinition =
+			CPTestUtil.addCPDefinitionWithChildCPDefinitions(
+				_commerceCatalog.getGroupId(), 1,
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC);
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			CPTestUtil.getRandomCPDefinitionOptionValueRel(
+				cpDefinition.getCPDefinitionId());
+
+		Assert.assertTrue(
+			Validator.isNotNull(
+				cpDefinitionOptionValueRel.getCPInstanceUuid()));
+		Assert.assertTrue(
+			"Quantity is greater than 0",
+			cpDefinitionOptionValueRel.getQuantity() > 0);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
+
+		CPDefinitionOptionValueRel newCPDefinitionOptionValueRel =
+			_cpDefinitionOptionValueRelLocalService.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+					RandomTestUtil.randomLocaleStringMap(),
+					RandomTestUtil.nextDouble(), RandomTestUtil.randomString(),
+					_serviceContext);
+
+		CPInstance cpInstance = cpDefinitionOptionValueRel.fetchCPInstance();
+
+		newCPDefinitionOptionValueRel = _updateCPDefinitionOptionValueRel(
+			newCPDefinitionOptionValueRel, cpInstance.getCPInstanceId(), null,
+			cpDefinitionOptionValueRel.getQuantity() + 10);
+
+		Assert.assertEquals(
+			"New CP definition option value quantity",
+			cpDefinitionOptionValueRel.getQuantity() + 10,
+			newCPDefinitionOptionValueRel.getQuantity());
+
+		int size = cpDefinitionOptionValueRels.size();
+
+		cpDefinitionOptionValueRels =
+			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
+
+		Assert.assertEquals(
+			"There is one option value more tha before add operation", size + 1,
+			cpDefinitionOptionValueRels.size());
+	}
+
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
@@ -676,6 +709,62 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			addCPDefinitionOptionValueRel(
 				cpDefinitionOptionRel.getCPDefinitionOptionRelId(), null, 0,
 				"cpInstance-option-value", _serviceContext);
+	}
+
+	private void _assertValidateLinkedCPDefinitionOptionValueRelFail(
+			String priceType)
+		throws Exception {
+
+		CPDefinition cpDefinition =
+			CPTestUtil.addCPDefinitionWithChildCPDefinitions(
+				_commerceCatalog.getGroupId(), 1, priceType);
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			CPTestUtil.getRandomCPDefinitionOptionValueRel(
+				cpDefinition.getCPDefinitionId());
+
+		Assert.assertTrue(
+			Validator.isNotNull(
+				cpDefinitionOptionValueRel.getCPInstanceUuid()));
+		Assert.assertTrue(
+			"Quantity is greater than 0",
+			cpDefinitionOptionValueRel.getQuantity() > 0);
+
+		CPDefinitionOptionValueRel newCPDefinitionOptionValueRel =
+			_cpDefinitionOptionValueRelLocalService.
+				addCPDefinitionOptionValueRel(
+					cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+					RandomTestUtil.randomLocaleStringMap(),
+					RandomTestUtil.nextDouble(), RandomTestUtil.randomString(),
+					_serviceContext);
+
+		CPInstance cpInstance = cpDefinitionOptionValueRel.fetchCPInstance();
+
+		BigDecimal price = null;
+
+		if (Objects.equals(
+				priceType, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+			price = BigDecimal.TEN;
+		}
+
+		_updateCPDefinitionOptionValueRel(
+			newCPDefinitionOptionValueRel, cpInstance.getCPInstanceId(), price,
+			cpDefinitionOptionValueRel.getQuantity());
+	}
+
+	private CPDefinitionOptionValueRel _updateCPDefinitionOptionValueRel(
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel,
+			long cpInstanceId, BigDecimal price, int quantity)
+		throws PortalException {
+
+		return _cpDefinitionOptionValueRelLocalService.
+			updateCPDefinitionOptionValueRel(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
+				cpDefinitionOptionValueRel.getNameMap(),
+				cpDefinitionOptionValueRel.getPriority(),
+				cpDefinitionOptionValueRel.getKey(), cpInstanceId, quantity,
+				price, _serviceContext);
 	}
 
 	private CommerceCatalog _commerceCatalog;
