@@ -134,7 +134,8 @@ export const SyncTimeRenderer = ({data}) => {
 
 export const StatusRenderer = ({data}) => {
 	const {display, label} = getDataSourceDisplayObject(
-		new DataSource(fromJS(data))
+		new DataSource(fromJS(data)),
+		true
 	);
 
 	return (
