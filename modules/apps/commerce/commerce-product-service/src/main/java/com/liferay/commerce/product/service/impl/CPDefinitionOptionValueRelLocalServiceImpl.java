@@ -394,7 +394,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		}
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CPDefinitionOptionValueRel resetCPInstanceCPDefinitionOptionValueRel(
 			long cpDefinitionOptionValueRelId)
@@ -544,24 +543,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 			updateCPDefinitionOptionValueRel(
 				cpDefinitionOptionValueRelId, nameMap, priority, key, 0, 0,
 				BigDecimal.ZERO, serviceContext);
-	}
-
-	@Override
-	public CPDefinitionOptionValueRel updateLinkedCPInstance(
-			long cpDefinitionOptionValueRelId, String cpInstanceUuid,
-			long cProductId, int quantity)
-		throws PortalException {
-
-		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
-			cpDefinitionOptionValueRelLocalService.
-				getCPDefinitionOptionValueRel(cpDefinitionOptionValueRelId);
-
-		cpDefinitionOptionValueRel.setCPInstanceUuid(cpInstanceUuid);
-		cpDefinitionOptionValueRel.setCProductId(cProductId);
-		cpDefinitionOptionValueRel.setQuantity(quantity);
-
-		return cpDefinitionOptionValueRelLocalService.
-			updateCPDefinitionOptionValueRel(cpDefinitionOptionValueRel);
 	}
 
 	protected SearchContext buildSearchContext(
