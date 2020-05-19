@@ -17,6 +17,7 @@ package com.liferay.osb.faro.web.internal.application;
 import com.liferay.osb.faro.web.internal.constants.FaroConstants;
 import com.liferay.osb.faro.web.internal.controller.main.BlockedKeywordsController;
 import com.liferay.osb.faro.web.internal.controller.main.ChannelController;
+import com.liferay.osb.faro.web.internal.controller.main.DefinitionsController;
 import com.liferay.osb.faro.web.internal.controller.main.MainController;
 import com.liferay.osb.faro.web.internal.controller.main.OAuth2Controller;
 import com.liferay.osb.faro.web.internal.controller.main.PreferencesController;
@@ -48,6 +49,7 @@ public class MainApplication extends BaseApplication {
 
 		controllers.add(_blockedKeywordsController);
 		controllers.add(_channelController);
+		controllers.add(_definitionsController);
 		controllers.add(_mainController);
 		controllers.add(_oAuth2Controller);
 		controllers.add(_preferencesController);
@@ -62,6 +64,9 @@ public class MainApplication extends BaseApplication {
 
 	@Reference
 	private ChannelController _channelController;
+
+	@Reference
+	private DefinitionsController _definitionsController;
 
 	@Reference
 	private MainController _mainController;
