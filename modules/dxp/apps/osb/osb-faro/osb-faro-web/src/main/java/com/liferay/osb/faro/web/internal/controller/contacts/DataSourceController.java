@@ -175,8 +175,9 @@ public class DataSourceController extends BaseFaroController {
 		}
 		else {
 			dataSource = contactsEngineClient.patchDataSource(
-				faroProject, dataSourceId, null, getUserId(), null, portalURL,
-				null, null, DataSource.Status.ACTIVE.toString());
+				faroProject, dataSourceId, new TokenCredentials(), getUserId(),
+				null, portalURL, new LiferayProvider(), null,
+				DataSource.Status.ACTIVE.toString());
 		}
 
 		_tokenManager.clearToken(token);
