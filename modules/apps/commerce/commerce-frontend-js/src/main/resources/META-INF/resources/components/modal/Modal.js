@@ -104,13 +104,11 @@ function Modal(props) {
 			setLoading(isLoading || false);
 		}
 
-		function cleanUpListeners(e) {
-			if (e.portletId === props.portletId) {
-				Liferay.detach(OPEN_MODAL, handleOpenEvent);
-				Liferay.detach(CLOSE_MODAL, handleCloseModal);
-				Liferay.detach(IS_LOADING_MODAL, handleSetLoading);
-				Liferay.detach('destroyPortlet', cleanUpListeners);
-			}
+		function cleanUpListeners() {
+			Liferay.detach(OPEN_MODAL, handleOpenEvent);
+			Liferay.detach(CLOSE_MODAL, handleCloseModal);
+			Liferay.detach(IS_LOADING_MODAL, handleSetLoading);
+			Liferay.detach('destroyPortlet', cleanUpListeners);
 		}
 
 		if (Liferay.on) {
@@ -120,8 +118,8 @@ function Modal(props) {
 			Liferay.on('destroyPortlet', cleanUpListeners);
 		}
 
-		return () => cleanUpListeners({portletId: props.portletId});
-	}, [props.id, props.portletId, closeOnIframeRefresh, visible, doClose]);
+		return () => cleanUpListeners();
+	}, [props.id, closeOnIframeRefresh, visible, doClose]);
 
 	useEffect(() => {
 		setOnClose(() => props.onClose);
