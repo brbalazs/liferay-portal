@@ -71,4 +71,10 @@ public interface CPDefinitionOptionRel
 	public CPOption getCPOption()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public boolean isChargeable();
+
+	public boolean isPriceTypeDynamic();
+
+	public boolean isPriceTypeStatic();
+
 }
