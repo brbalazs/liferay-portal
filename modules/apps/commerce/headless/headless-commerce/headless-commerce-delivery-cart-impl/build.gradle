@@ -19,6 +19,7 @@ dependencies {
 
 	compileOnly project(":apps:commerce:commerce-api")
 	compileOnly project(":apps:commerce:commerce-currency-api")
+	compileOnly project(":apps:commerce:commerce-pricing-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce-core-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce:headless-commerce-delivery-cart-api")
 	compileOnly project(":apps:portal-odata:portal-odata-api")
