@@ -20,11 +20,8 @@ import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.option.CommerceOptionValueHelper;
-import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelService;
-import com.liferay.commerce.product.service.CPInstanceOptionValueRelService;
-import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -58,7 +55,7 @@ public class CommerceOptionValueHelperImpl
 
 		Map<Long, List<Long>>
 			cpDefinitionOptionRelCPDefinitionOptionValueRelIds =
-				_cpDefinitionOptionRelService.
+				_cpDefinitionOptionRelLocalService.
 					getCPDefinitionOptionRelCPDefinitionOptionValueRelIds(
 						cpDefinitionId, json);
 
@@ -76,8 +73,8 @@ public class CommerceOptionValueHelperImpl
 
 			for (long cpDefinitionOpionValueRelId : value) {
 				CPDefinitionOptionRel cpDefinitionOptionRel =
-					_cpDefinitionOptionRelService.fetchCPDefinitionOptionRel(
-						key);
+					_cpDefinitionOptionRelLocalService.
+						fetchCPDefinitionOptionRel(key);
 
 				if (cpDefinitionOptionRel == null) {
 					continue;
@@ -201,20 +198,12 @@ public class CommerceOptionValueHelperImpl
 	}
 
 	@Reference
-	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
+	private CPDefinitionOptionRelLocalService
+		_cpDefinitionOptionRelLocalService;
 
 	@Reference
 	private CPDefinitionOptionValueRelService
 		_cpDefinitionOptionValueRelService;
-
-	@Reference
-	private CPInstanceHelper _cpInstanceHelper;
-
-	@Reference
-	private CPInstanceOptionValueRelService _cpInstanceOptionValueRelService;
-
-	@Reference
-	private CPInstanceService _cpInstanceService;
 
 	@Reference
 	private JSONFactory _jsonFactory;

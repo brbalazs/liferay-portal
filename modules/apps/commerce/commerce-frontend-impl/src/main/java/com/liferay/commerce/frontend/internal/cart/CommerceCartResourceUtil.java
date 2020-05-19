@@ -28,7 +28,6 @@ import com.liferay.commerce.frontend.model.ProductSettingsModel;
 import com.liferay.commerce.frontend.util.ProductHelper;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.price.CommerceOrderPrice;
@@ -37,6 +36,7 @@ import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
+import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -260,7 +260,7 @@ public class CommerceCartResourceUtil {
 		BigDecimal totalFinalPrice = finalPriceMoney.getPrice();
 
 		List<CommerceOrderItem> childCommerceOrderItems =
-			_commerceOrderItemService.getChildCommerceOrderItems(
+			_commerceOrderItemLocalService.getChildCommerceOrderItems(
 				commerceOrderItem.getCommerceOrderItemId());
 
 		int parentQuantity = commerceOrderItem.getQuantity();
@@ -411,7 +411,7 @@ public class CommerceCartResourceUtil {
 	private CommerceMoneyFactory _commerceMoneyFactory;
 
 	@Reference
-	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
+	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
