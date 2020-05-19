@@ -78,7 +78,7 @@ public class FaroHooks {
 		_tableDeleteAll("Keywords");
 	}
 
-	@After("@Property")
+	@After("@Property, @Data_Source")
 	public static void tearDownProperty() throws Exception {
 		_tableDeleteProperties();
 	}
