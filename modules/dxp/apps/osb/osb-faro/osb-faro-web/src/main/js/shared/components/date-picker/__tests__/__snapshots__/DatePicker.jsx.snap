@@ -1,435 +1,691 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DatePicker should render 1`] = `
-<div
-  aria-disabled={false}
-  className="date-picker-root"
->
+<div>
   <div
-    className="controls"
+    aria-disabled="false"
+    class="date-picker-root"
   >
     <div
-      className="month-toggle-wrapper"
+      class="controls"
     >
-      <DatePickerSelect
-        onChange={[Function]}
-        options={
-          Array [
-            Object {
-              "label": "January",
-              "value": "January",
-            },
-            Object {
-              "label": "February",
-              "value": "February",
-            },
-            Object {
-              "label": "March",
-              "value": "March",
-            },
-            Object {
-              "label": "April",
-              "value": "April",
-            },
-            Object {
-              "label": "May",
-              "value": "May",
-            },
-            Object {
-              "label": "June",
-              "value": "June",
-            },
-            Object {
-              "label": "July",
-              "value": "July",
-            },
-            Object {
-              "label": "August",
-              "value": "August",
-            },
-            Object {
-              "label": "September",
-              "value": "September",
-            },
-            Object {
-              "label": "October",
-              "value": "October",
-            },
-            Object {
-              "label": "November",
-              "value": "November",
-            },
-            Object {
-              "label": "December",
-              "value": "December",
-            },
-          ]
-        }
-        selected="January"
-      />
-      <DatePickerSelect
-        onChange={[Function]}
-        options={
-          Array [
-            Object {
-              "label": 1975,
-              "value": 1975,
-            },
-            Object {
-              "label": 1974,
-              "value": 1974,
-            },
-            Object {
-              "label": 1973,
-              "value": 1973,
-            },
-            Object {
-              "label": 1972,
-              "value": 1972,
-            },
-            Object {
-              "label": 1971,
-              "value": 1971,
-            },
-            Object {
-              "label": 1970,
-              "value": 1970,
-            },
-          ]
-        }
-        selected="1970"
-      />
+      <div
+        class="month-toggle-wrapper"
+      >
+        <select
+          class="date-picker-select-root form-control"
+        >
+          <option
+            value="January"
+          >
+            January
+          </option>
+          <option
+            value="February"
+          >
+            February
+          </option>
+          <option
+            value="March"
+          >
+            March
+          </option>
+          <option
+            value="April"
+          >
+            April
+          </option>
+          <option
+            value="May"
+          >
+            May
+          </option>
+          <option
+            value="June"
+          >
+            June
+          </option>
+          <option
+            value="July"
+          >
+            July
+          </option>
+          <option
+            value="August"
+          >
+            August
+          </option>
+          <option
+            value="September"
+          >
+            September
+          </option>
+          <option
+            value="October"
+          >
+            October
+          </option>
+          <option
+            value="November"
+          >
+            November
+          </option>
+          <option
+            value="December"
+          >
+            December
+          </option>
+        </select>
+        <select
+          class="date-picker-select-root form-control"
+        >
+          <option
+            value="1975"
+          >
+            1975
+          </option>
+          <option
+            value="1974"
+          >
+            1974
+          </option>
+          <option
+            value="1973"
+          >
+            1973
+          </option>
+          <option
+            value="1972"
+          >
+            1972
+          </option>
+          <option
+            value="1971"
+          >
+            1971
+          </option>
+          <option
+            value="1970"
+          >
+            1970
+          </option>
+        </select>
+      </div>
+      <button
+        class="button-root btn btn-secondary btn-monospaced btn-sm"
+        disabled=""
+        type="button"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-left"
+          viewBox=""
+        >
+          <use
+            xlink:href="#angle-left"
+          />
+        </svg>
+      </button>
+      <button
+        class="button-root btn btn-secondary current-day-btn btn-monospaced btn-sm"
+        disabled=""
+        type="button"
+      >
+        •
+      </button>
+      <button
+        class="button-root btn btn-secondary btn-monospaced btn-sm"
+        data-testid="next-month"
+        type="button"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-right"
+          viewBox=""
+        >
+          <use
+            xlink:href="#angle-right"
+          />
+        </svg>
+      </button>
     </div>
-    <Button
-      disabled={true}
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      <Icon
-        symbol="angle-left"
-      />
-    </Button>
-    <Button
-      className="current-day-btn"
-      disabled={true}
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      •
-    </Button>
-    <Button
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </div>
-  <div
-    className="picker-body"
-  >
-    <Calendar
-      currentMonth={"1970-01-01T00:00:00.000Z"}
-      date={"1970-01-01T00:00:00.000Z"}
-      minDate={"1970-01-01T00:00:00.000Z"}
-      onSelect={[Function]}
-    />
-  </div>
-</div>
-`;
-
-exports[`DatePicker should render label when a range is passed 1`] = `
-<div
-  aria-disabled={false}
-  className="date-picker-root"
->
-  <label>
-    End Date
-  </label>
-  <div
-    className="controls"
-  >
     <div
-      className="month-toggle-wrapper"
+      class="picker-body"
     >
-      <DatePickerSelect
-        onChange={[Function]}
-        options={
-          Array [
-            Object {
-              "label": "January",
-              "value": "January",
-            },
-            Object {
-              "label": "February",
-              "value": "February",
-            },
-            Object {
-              "label": "March",
-              "value": "March",
-            },
-            Object {
-              "label": "April",
-              "value": "April",
-            },
-            Object {
-              "label": "May",
-              "value": "May",
-            },
-            Object {
-              "label": "June",
-              "value": "June",
-            },
-            Object {
-              "label": "July",
-              "value": "July",
-            },
-            Object {
-              "label": "August",
-              "value": "August",
-            },
-            Object {
-              "label": "September",
-              "value": "September",
-            },
-            Object {
-              "label": "October",
-              "value": "October",
-            },
-            Object {
-              "label": "November",
-              "value": "November",
-            },
-            Object {
-              "label": "December",
-              "value": "December",
-            },
-          ]
-        }
-        selected="January"
-      />
-      <DatePickerSelect
-        onChange={[Function]}
-        options={
-          Array [
-            Object {
-              "label": 1975,
-              "value": 1975,
-            },
-            Object {
-              "label": 1974,
-              "value": 1974,
-            },
-            Object {
-              "label": 1973,
-              "value": 1973,
-            },
-            Object {
-              "label": 1972,
-              "value": 1972,
-            },
-            Object {
-              "label": 1971,
-              "value": 1971,
-            },
-            Object {
-              "label": 1970,
-              "value": 1970,
-            },
-          ]
-        }
-        selected="1970"
-      />
+      <table
+        class="calendar-root"
+      >
+        <thead>
+          <tr>
+            <th>
+              Sun
+            </th>
+            <th>
+              Mon
+            </th>
+            <th>
+              Tue
+            </th>
+            <th>
+              Wed
+            </th>
+            <th>
+              Thu
+            </th>
+            <th>
+              Fri
+            </th>
+            <th>
+              Sat
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root outside-month"
+                  disabled=""
+                  type="button"
+                >
+                  28
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root outside-month"
+                  disabled=""
+                  type="button"
+                >
+                  29
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root outside-month"
+                  disabled=""
+                  type="button"
+                >
+                  30
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root outside-month"
+                  disabled=""
+                  type="button"
+                >
+                  31
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root selected"
+                  type="button"
+                >
+                  1
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  2
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  3
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  4
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  5
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  6
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  7
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  8
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  9
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  10
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  11
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  12
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  13
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  14
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  15
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  16
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  17
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  18
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  19
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  20
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  21
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  22
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  23
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  24
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  25
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  26
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  27
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  28
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  29
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  30
+                </button>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              <div
+                class="day-container"
+              >
+                <button
+                  class="button-root btn btn-unstyled day-root"
+                  type="button"
+                >
+                  31
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <Button
-      disabled={true}
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      <Icon
-        symbol="angle-left"
-      />
-    </Button>
-    <Button
-      className="current-day-btn"
-      disabled={true}
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      •
-    </Button>
-    <Button
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </div>
-  <div
-    className="picker-body"
-  >
-    <Calendar
-      currentMonth={"1970-01-01T00:00:00.000Z"}
-      date={
-        Object {
-          "end": null,
-          "start": "1970-01-01T00:00:00.000Z",
-        }
-      }
-      minDate={"1970-01-01T00:00:00.000Z"}
-      onSelect={[Function]}
-    />
-  </div>
-</div>
-`;
-
-exports[`DatePicker should render the next month 1`] = `
-<div
-  aria-disabled={false}
-  className="date-picker-root"
->
-  <div
-    className="controls"
-  >
-    <div
-      className="month-toggle-wrapper"
-    >
-      <DatePickerSelect
-        onChange={[Function]}
-        options={
-          Array [
-            Object {
-              "label": "January",
-              "value": "January",
-            },
-            Object {
-              "label": "February",
-              "value": "February",
-            },
-            Object {
-              "label": "March",
-              "value": "March",
-            },
-            Object {
-              "label": "April",
-              "value": "April",
-            },
-            Object {
-              "label": "May",
-              "value": "May",
-            },
-            Object {
-              "label": "June",
-              "value": "June",
-            },
-            Object {
-              "label": "July",
-              "value": "July",
-            },
-            Object {
-              "label": "August",
-              "value": "August",
-            },
-            Object {
-              "label": "September",
-              "value": "September",
-            },
-            Object {
-              "label": "October",
-              "value": "October",
-            },
-            Object {
-              "label": "November",
-              "value": "November",
-            },
-            Object {
-              "label": "December",
-              "value": "December",
-            },
-          ]
-        }
-        selected="February"
-      />
-      <DatePickerSelect
-        onChange={[Function]}
-        options={
-          Array [
-            Object {
-              "label": 1975,
-              "value": 1975,
-            },
-            Object {
-              "label": 1974,
-              "value": 1974,
-            },
-            Object {
-              "label": 1973,
-              "value": 1973,
-            },
-            Object {
-              "label": 1972,
-              "value": 1972,
-            },
-            Object {
-              "label": 1971,
-              "value": 1971,
-            },
-            Object {
-              "label": 1970,
-              "value": 1970,
-            },
-          ]
-        }
-        selected="1970"
-      />
-    </div>
-    <Button
-      disabled={false}
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      <Icon
-        symbol="angle-left"
-      />
-    </Button>
-    <Button
-      className="current-day-btn"
-      disabled={false}
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      •
-    </Button>
-    <Button
-      monospaced={true}
-      onClick={[Function]}
-      size="sm"
-    >
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </div>
-  <div
-    className="picker-body"
-  >
-    <Calendar
-      currentMonth={"1970-02-01T00:00:00.000Z"}
-      date={"1970-01-01T00:00:00.000Z"}
-      minDate={"1970-01-01T00:00:00.000Z"}
-      onSelect={[Function]}
-    />
   </div>
 </div>
 `;
