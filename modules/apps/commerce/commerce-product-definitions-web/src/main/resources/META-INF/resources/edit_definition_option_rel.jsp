@@ -87,14 +87,9 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 				</div>
 
 				<div class="col-12">
-
-					<%
-					String priceType = BeanParamUtil.getString(cpDefinitionOptionRel, request, "priceType", CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC);
-					%>
-
 					<aui:select name="priceType" showEmptyOption="<%= true %>">
-						<aui:option label="static" selected="<%= priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) %>" value="<%= CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC %>" />
-						<aui:option label="dynamic" selected="<%= priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC) %>" value="<%= CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC %>" />
+						<aui:option label="static" selected="<%= (cpDefinitionOptionRel != null) && cpDefinitionOptionRel.isPriceTypeStatic() %>" value="<%= CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC %>" />
+						<aui:option label="dynamic" selected="<%= (cpDefinitionOptionRel != null) && cpDefinitionOptionRel.isPriceTypeDynamic() %>" value="<%= CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC %>" />
 					</aui:select>
 				</div>
 			</div>
