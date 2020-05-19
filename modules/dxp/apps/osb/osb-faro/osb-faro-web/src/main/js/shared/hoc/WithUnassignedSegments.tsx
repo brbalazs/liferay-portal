@@ -6,6 +6,10 @@ import {
 } from 'shared/context/unassignedSegments';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
+import {
+	fetchUpgradeModalSeen,
+	updateUpgradeModalSeen
+} from 'shared/actions/preferences';
 import {Modal} from 'shared/types';
 import {useChannelContext} from 'shared/context/channel';
 import {useRequest} from 'shared/hooks';
@@ -19,55 +23,75 @@ const withUnassignedSegments = (
 	WrappedComponent: React.ComponentType<IWrappedComponentProps>
 ) =>
 	connect(
-		null,
-		{close, open}
-	)(({close, groupId, open, ...otherProps}) => {
-		const {
-			unassignedSegmentsDispatch,
-			unassignedSegmentsTriggered
-		} = useUnassignedSegmentsContext();
+		state => ({
+			upgradeModalSeen: state.getIn(
+				['preferences', 'user', 'upgradeModalSeen', 'data'],
+				true
+			)
+		}),
+		{close, fetchUpgradeModalSeen, open, updateUpgradeModalSeen}
+	)(
+		({
+			close,
+			fetchUpgradeModalSeen,
+			groupId,
+			open,
+			updateUpgradeModalSeen,
+			upgradeModalSeen,
+			...otherProps
+		}) => {
+			const {unassignedSegmentsDispatch} = useUnassignedSegmentsContext();
 
-		const {channels} = useChannelContext();
+			const {channels} = useChannelContext();
 
-		const {data, error, loading} = useRequest(
-			API.individualSegment.searchUnassigned,
-			{
-				delta: 10000,
-				groupId
-			}
-		);
-
-		useEffect(() => {
-			if (data && !error) {
-				const {items, total} = data;
-
-				unassignedSegmentsDispatch({
-					payload: items,
-					type: ActionType.setSegments
-				});
-
-				if (
-					!unassignedSegmentsTriggered &&
-					!loading &&
-					!!total &&
-					!!channels.length
-				) {
-					open(
-						modalTypes.UNASSIGNED_SEGMENTS_MODAL,
-						{
-							groupId,
-							onClose: close
-						},
-						{closeOnBlur: false}
-					);
-					unassignedSegmentsDispatch({
-						type: ActionType.setTriggered
-					});
+			const {data, error, loading} = useRequest(
+				API.individualSegment.searchUnassigned,
+				{
+					delta: 10000,
+					groupId
 				}
-			}
-		}, [data, error, loading]);
+			);
 
-		return <WrappedComponent groupId={groupId} {...otherProps} />;
-	});
+			useEffect(() => {
+				fetchUpgradeModalSeen(groupId);
+			}, []);
+
+			useEffect(() => {
+				if (data && !error) {
+					const {items, total} = data;
+
+					unassignedSegmentsDispatch({
+						payload: items,
+						type: ActionType.setSegments
+					});
+
+					if (
+						!upgradeModalSeen &&
+						!loading &&
+						!!total &&
+						!!channels.length
+					) {
+						open(
+							modalTypes.UNASSIGNED_SEGMENTS_MODAL,
+							{
+								groupId,
+								onClose: () => {
+									updateUpgradeModalSeen({
+										groupId,
+										upgradeModalSeen: true
+									});
+
+									close();
+								}
+							},
+							{closeOnBlur: false}
+						);
+					}
+				}
+			}, [data, error, loading, upgradeModalSeen]);
+
+			return <WrappedComponent groupId={groupId} {...otherProps} />;
+		}
+	);
 
 export default withUnassignedSegments;

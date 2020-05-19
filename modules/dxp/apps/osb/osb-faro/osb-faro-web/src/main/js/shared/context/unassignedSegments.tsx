@@ -4,7 +4,6 @@ import {Segment} from 'shared/util/records';
 
 export enum ActionType {
 	setSegments = 'setSegments',
-	setTriggered = 'setTriggered',
 	updateShowAlert = 'updateShowAlert'
 }
 
@@ -17,7 +16,6 @@ type Dispatch = (action: Action) => void;
 type State = {
 	showUnassignedAlert: boolean;
 	unassignedSegments: Array<Segment>;
-	unassignedSegmentsTriggered: boolean;
 };
 
 type unassignedSegmentsProviderProps = {
@@ -28,12 +26,10 @@ type unassignedSegmentsProviderProps = {
 export const UnassignedSegmentsContext = React.createContext<{
 	showUnassignedAlert: boolean;
 	unassignedSegments: Array<Segment>;
-	unassignedSegmentsTriggered: boolean;
 	unassignedSegmentsDispatch?: Dispatch;
 }>({
 	showUnassignedAlert: true,
-	unassignedSegments: [],
-	unassignedSegmentsTriggered: false
+	unassignedSegments: []
 });
 
 export const unassignedSegmentsReducer = (
@@ -45,12 +41,6 @@ export const unassignedSegmentsReducer = (
 			return {
 				...state,
 				unassignedSegments: payload
-			};
-		}
-		case 'setTriggered': {
-			return {
-				...state,
-				unassignedSegmentsTriggered: true
 			};
 		}
 		case 'updateShowAlert': {
@@ -69,12 +59,11 @@ export const UnassignedSegmentsProvider = ({
 	unassignedSegments: initialSegments
 }: unassignedSegmentsProviderProps) => {
 	const [
-		{showUnassignedAlert, unassignedSegments, unassignedSegmentsTriggered},
+		{showUnassignedAlert, unassignedSegments},
 		unassignedSegmentsDispatch
 	] = useReducer(unassignedSegmentsReducer, {
-		showUnassignedAlert: true,
-		unassignedSegments: initialSegments || [],
-		unassignedSegmentsTriggered: false
+		showUnassignedAlert: false,
+		unassignedSegments: initialSegments || []
 	});
 
 	return (
@@ -82,8 +71,7 @@ export const UnassignedSegmentsProvider = ({
 			value={{
 				showUnassignedAlert,
 				unassignedSegments,
-				unassignedSegmentsDispatch,
-				unassignedSegmentsTriggered
+				unassignedSegmentsDispatch
 			}}
 		>
 			{children}

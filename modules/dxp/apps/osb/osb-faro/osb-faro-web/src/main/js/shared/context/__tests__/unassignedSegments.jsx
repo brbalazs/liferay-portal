@@ -12,8 +12,7 @@ import {mockSegment} from 'test/data';
 jest.unmock('react-dom');
 
 const initialState = {
-	unassignedSegments: [],
-	unassignedSegmentsTriggered: false
+	unassignedSegments: []
 };
 
 describe('unassignedSegmentsReducer', () => {
@@ -26,17 +25,6 @@ describe('unassignedSegmentsReducer', () => {
 		});
 
 		expect(unassignedSegments).toContain(segment);
-	});
-
-	it('should return unassignedSegmentsTriggered state with true after triggered', () => {
-		const {unassignedSegmentsTriggered} = unassignedSegmentsReducer(
-			initialState,
-			{
-				type: ActionType.setTriggered
-			}
-		);
-
-		expect(unassignedSegmentsTriggered).toBe(true);
 	});
 });
 

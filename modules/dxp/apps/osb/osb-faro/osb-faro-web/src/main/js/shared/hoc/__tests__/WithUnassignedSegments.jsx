@@ -19,8 +19,7 @@ const WrappedComponent = withUnassignedSegments(() => 'wrapped component text');
 
 const mockedContext = {
 	unassignedSegments: [],
-	unassignedSegmentsDispatch: jest.fn(),
-	unassignedSegmentsTriggered: false
+	unassignedSegmentsDispatch: jest.fn()
 };
 
 const DefaultComponent = props => (
@@ -58,13 +57,16 @@ describe('WithUnassignedSegments', () => {
 	});
 
 	it('should not trigger the unassigned segments modal if it has already been triggered', () => {
+		API.preferences.fetchUpgradeModalSeen.mockReturnValueOnce(
+			Promise.resolve(true)
+		);
+
 		render(
 			<Provider store={mockStore()}>
 				<ChannelContext.Provider value={mockChannelContext()}>
 					<UnassignedSegmentsContext.Provider
 						value={{
-							...mockedContext,
-							unassignedSegmentsTriggered: true
+							...mockedContext
 						}}
 					>
 						<WrappedComponent />
