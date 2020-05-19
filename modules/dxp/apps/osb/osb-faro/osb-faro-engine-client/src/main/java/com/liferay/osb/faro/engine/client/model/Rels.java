@@ -101,6 +101,9 @@ public interface Rels {
 
 	public static final String DATA_SOURCES = "data-sources";
 
+	public static final String DEFINITIONS_INDIVIDUAL_ATTRIBUTES =
+		"definitions-individual-attributes";
+
 	public static final String ENGAGEMENT = "engagement";
 
 	public static final String ENGAGEMENTS = "engagements";

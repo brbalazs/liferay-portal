@@ -714,6 +714,13 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
+	public List<FieldMapping> getIndividualAttributes(
+		FaroProject faroProject, String name) {
+
+		return contactsEngineClient.getIndividualAttributes(faroProject, name);
+	}
+
+	@Override
 	public Results<IndividualSegment> getIndividualIndividualSegments(
 		FaroProject faroProject, String channelId, String individualId,
 		String query, String status, int cur, int delta,

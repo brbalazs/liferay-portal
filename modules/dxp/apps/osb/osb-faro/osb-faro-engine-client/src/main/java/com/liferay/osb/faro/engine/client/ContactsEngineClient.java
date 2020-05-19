@@ -343,6 +343,9 @@ public interface ContactsEngineClient {
 			FaroProject faroProject, String id, String channelId)
 		throws FaroEngineClientException;
 
+	public List<FieldMapping> getIndividualAttributes(
+		FaroProject faroProject, String name);
+
 	public Results<IndividualSegment> getIndividualIndividualSegments(
 		FaroProject faroProject, String channelId, String individualId,
 		String query, String status, int cur, int delta,

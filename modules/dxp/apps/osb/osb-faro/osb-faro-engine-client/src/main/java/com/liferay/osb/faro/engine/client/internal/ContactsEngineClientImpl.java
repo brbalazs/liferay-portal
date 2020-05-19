@@ -1758,6 +1758,28 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
+	public List<FieldMapping> getIndividualAttributes(
+		FaroProject faroProject, String name) {
+
+		Map<String, Object> uriVariables = new HashMap<>();
+
+		if (Validator.isNotNull(name)) {
+			uriVariables.put("name", name);
+		}
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.DEFINITIONS_INDIVIDUAL_ATTRIBUTES,
+			new ParameterizedTypeReference
+				<ResourcePagedResources<FieldMapping>>() {
+			},
+			uriVariables);
+
+		Results<FieldMapping> results = pagedResources.getResults();
+
+		return results.getItems();
+	}
+
+	@Override
 	public Results<IndividualSegment> getIndividualIndividualSegments(
 		FaroProject faroProject, String channelId, String individualId,
 		String query, String status, int cur, int delta,
