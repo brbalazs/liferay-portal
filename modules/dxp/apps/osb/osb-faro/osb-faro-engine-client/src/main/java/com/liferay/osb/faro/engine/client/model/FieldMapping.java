@@ -16,6 +16,7 @@ package com.liferay.osb.faro.engine.client.model;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +41,10 @@ public class FieldMapping {
 
 	public Map<String, String> getDataSourceFieldNames() {
 		return _dataSourceFieldNames;
+	}
+
+	public List<DataSourceFieldName> getDataSources() {
+		return _dataSources;
 	}
 
 	public Date getDateCreated() {
@@ -92,6 +97,10 @@ public class FieldMapping {
 		_dataSourceFieldNames = dataSourceFieldNames;
 	}
 
+	public void setDataSources(List<DataSourceFieldName> dataSources) {
+		_dataSources = dataSources;
+	}
+
 	public void setDateCreated(Date dateCreated) {
 		_dateCreated = dateCreated;
 	}
@@ -126,6 +135,32 @@ public class FieldMapping {
 
 	public void setStrategy(Strategy strategy) {
 		_strategy = strategy;
+	}
+
+	public static class DataSourceFieldName {
+
+		public DataSourceFieldName() {
+		}
+
+		public String getDataSourceFieldName() {
+			return _dataSourceFieldName;
+		}
+
+		public String getDataSourceName() {
+			return _dataSourceName;
+		}
+
+		public void setDataSourceFieldName(String dataSourceFieldName) {
+			_dataSourceFieldName = dataSourceFieldName;
+		}
+
+		public void setDataSourceName(String dataSourceName) {
+			_dataSourceName = dataSourceName;
+		}
+
+		private String _dataSourceFieldName;
+		private String _dataSourceName;
+
 	}
 
 	public static class Strategy {
@@ -171,6 +206,7 @@ public class FieldMapping {
 	private Author _author;
 	private String _context;
 	private Map<String, String> _dataSourceFieldNames = new HashMap<>();
+	private List<DataSourceFieldName> _dataSources;
 	private Date _dateCreated;
 	private Date _dateModified;
 	private String _displayName;
