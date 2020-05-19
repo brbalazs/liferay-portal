@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.util.PropsValues;
@@ -225,8 +224,6 @@ public class DatasetDisplayTag extends IncludeTag {
 	}
 
 	protected List<ClayPaginationEntry> getClayPaginationEntries() {
-		String portletURLString = _portletURL.toString();
-
 		List<ClayPaginationEntry> clayPaginationEntries = new ArrayList<>();
 
 		for (int curDelta : PropsValues.SEARCH_CONTAINER_PAGE_DELTA_VALUES) {
@@ -234,11 +231,7 @@ public class DatasetDisplayTag extends IncludeTag {
 				continue;
 			}
 
-			String curDeltaURL = HttpUtil.setParameter(
-				portletURLString, _namespace + _deltaParam, curDelta);
-
-			clayPaginationEntries.add(
-				new ClayPaginationEntry(curDeltaURL, curDelta));
+			clayPaginationEntries.add(new ClayPaginationEntry(null, curDelta));
 		}
 
 		return clayPaginationEntries;
