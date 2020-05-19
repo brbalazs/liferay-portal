@@ -9,8 +9,9 @@ import {sub} from 'shared/util/lang';
 import {toPromise} from 'shared/components/form';
 
 const {
-	credentialTypes: {token},
+	credentialTypes,
 	dataSourceStates: {
+		actionNeeded,
 		analyticsClientConfigurationFailure,
 		credentialsInvalid,
 		credentialsValid,
@@ -70,6 +71,11 @@ export function getServiceAlertConfig(code) {
  * Object map for displaying a DataSource status/state
  */
 export const STATUS_DISPLAY = {
+	[actionNeeded]: {
+		display: 'warning',
+		label: Liferay.Language.get('action-needed'),
+		message: Liferay.Language.get('action-needed')
+	},
 	active: {
 		display: 'success',
 		label: Liferay.Language.get('active'),
@@ -190,9 +196,16 @@ export function validateUniqueName({groupId, value}) {
  * Utility for getting the display object for a dataSource state in order
  * to display its status.
  */
-export function getDataSourceDisplayObject(dataSource: DataSource) {
+export function getDataSourceDisplayObject(
+	dataSource: DataSource,
+	showActionNeededStatus: Boolean = false
+) {
 	if (!dataSource) {
 		return STATUS_DISPLAY.default;
+	}
+
+	if (showActionNeededStatus && hasOAuthDXPConnection(dataSource)) {
+		return STATUS_DISPLAY[actionNeeded];
 	}
 
 	const {lastSyncDate, state, status} = dataSource;
@@ -216,7 +229,7 @@ export function getDataSourceDisplayObject(dataSource: DataSource) {
 				return STATUS_DISPLAY.active;
 			}
 
-			return credentialsType === token
+			return credentialsType === credentialTypes.token
 				? STATUS_DISPLAY.tokenCredentialsValid
 				: STATUS_DISPLAY[credentialsValid];
 		case inProgressDeleting:
@@ -281,7 +294,24 @@ export function getIdsFromConfiguration(configIMap, key) {
  */
 export const hasLegacyDXPConnection = (dataSource: DataSource) =>
 	dataSource.providerType === liferay &&
-	dataSource.getIn(['credentials', 'type']) !== token;
+	dataSource.getIn(['credentials', 'type']) !== credentialTypes.token;
+
+/**
+ * Check if a DataSource has an oAuth DXP Connection
+ * @param {DataSource} dataSource
+ * @return {boolean} A boolean value
+ */
+export const hasOAuthDXPConnection: (
+	dataSource: DataSource
+) => boolean = dataSource => {
+	const credentialsTypeDataSource = dataSource.getIn(['credentials', 'type']);
+
+	return (
+		dataSource.providerType === liferay &&
+		(credentialsTypeDataSource === credentialTypes.oAuth1 ||
+			credentialsTypeDataSource === credentialTypes.oAuth2)
+	);
+};
 
 /**
  * Helper function for checking validity of a DataSource's analyticsConfiguration.

@@ -126,6 +126,7 @@ export enum credentialTypes {
 }
 
 export enum dataSourceStates {
+	actionNeeded = 'ACTION_NEEDED',
 	analyticsClientConfigurationFailure = 'ANALYTICS_CLIENT_CONFIGURATION_FAILURE',
 	credentialsInvalid = 'CREDENTIALS_INVALID',
 	credentialsValid = 'CREDENTIALS_VALID',
