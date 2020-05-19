@@ -11,10 +11,12 @@ export const actionTypes = {
 	...createActionTypes('add', 'distribution_tabs'),
 	...createActionTypes('fetch', 'default_channel_id'),
 	...createActionTypes('fetch', 'default_site_id'),
+	...createActionTypes('fetch', 'upgrade_modal_seen'),
 	...createActionTypes('fetch', 'distribution_tabs'),
 	...createActionTypes('remove', 'distribution_tabs'),
 	...createActionTypes('update', 'default_channel_id'),
-	...createActionTypes('update', 'default_site_id')
+	...createActionTypes('update', 'default_site_id'),
+	...createActionTypes('update', 'upgrade_modal_seen')
 };
 
 export function addDistributionTab({
@@ -89,6 +91,24 @@ export function fetchDistributionTabs({distributionKey, groupId, id}) {
 	};
 }
 
+export function fetchUpgradeModalSeen(groupId) {
+	return {
+		meta: {
+			[CALL_API]: {
+				data: {groupId, scope: user},
+				requestFn: API.preferences.fetchUpgradeModalSeen,
+				types: [
+					actionTypes.FETCH_UPGRADE_MODAL_SEEN_REQUEST,
+					actionTypes.FETCH_UPGRADE_MODAL_SEEN_SUCCESS,
+					actionTypes.FETCH_UPGRADE_MODAL_SEEN_FAILURE
+				]
+			},
+			scope: user
+		},
+		type: 'NO_OP'
+	};
+}
+
 export function removeDistributionTab({
 	distributionKey,
 	distributionTabId,
@@ -128,6 +148,24 @@ export function updateDefaultChannelId({defaultChannelId, groupId}) {
 					actionTypes.UPDATE_DEFAULT_CHANNEL_ID_REQUEST,
 					actionTypes.UPDATE_DEFAULT_CHANNEL_ID_SUCCESS,
 					actionTypes.UPDATE_DEFAULT_CHANNEL_ID_FAILURE
+				]
+			},
+			scope: user
+		},
+		type: 'NO_OP'
+	};
+}
+
+export function updateUpgradeModalSeen({groupId, upgradeModalSeen}) {
+	return {
+		meta: {
+			[CALL_API]: {
+				data: {groupId, scope: user, upgradeModalSeen},
+				requestFn: API.preferences.updateUpgradeModalSeen,
+				types: [
+					actionTypes.UPDATE_UPGRADE_MODAL_SEEN_REQUEST,
+					actionTypes.UPDATE_UPGRADE_MODAL_SEEN_SUCCESS,
+					actionTypes.UPDATE_UPGRADE_MODAL_SEEN_FAILURE
 				]
 			},
 			scope: user

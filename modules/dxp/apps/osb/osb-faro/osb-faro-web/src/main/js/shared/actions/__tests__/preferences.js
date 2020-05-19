@@ -53,11 +53,32 @@ describe('Preferences Actions', () => {
 		});
 	});
 
+	describe('fetchUpgradeModalSeen', () => {
+		it('should return an action', () => {
+			const action = actions.fetchUpgradeModalSeen();
+
+			expect(isFSA(action)).toBe(true);
+			expect(action.type).toBe('NO_OP');
+		});
+	});
+
 	describe('updateDefaultChannelId', () => {
 		it('should return an action', () => {
 			const action = actions.updateDefaultChannelId({
 				defaultChannelId: '122',
 				groupId: '321'
+			});
+
+			expect(isFSA(action)).toBe(true);
+			expect(action.type).toBe('NO_OP');
+		});
+	});
+
+	describe('updateUpgradeModalSeen', () => {
+		it('should return an action', () => {
+			const action = actions.updateUpgradeModalSeen({
+				groupId: '321',
+				upgradeModalSeen: true
 			});
 
 			expect(isFSA(action)).toBe(true);

@@ -57,6 +57,38 @@ describe('Preferences Reducer', () => {
 		);
 	});
 
+	it('should update upgradeModalSeen', () => {
+		const upgradeModalSeen = true;
+
+		const prevUpgradeModalSeen = false;
+
+		const action = {
+			meta: {scope: user},
+			payload: upgradeModalSeen,
+			type: preferencesActionTypes.UPDATE_UPGRADE_MODAL_SEEN_SUCCESS
+		};
+
+		const prevState = new Map({
+			user: new Map({
+				upgradeModalSeen: new RemoteData({
+					data: prevUpgradeModalSeen,
+					error: false,
+					loading: false
+				})
+			})
+		});
+
+		expect(prevState.getIn([user, 'upgradeModalSeen', 'data'])).toEqual(
+			prevUpgradeModalSeen
+		);
+
+		const state = reducer(prevState, action);
+
+		expect(state.getIn([user, 'upgradeModalSeen', 'data'])).toEqual(
+			upgradeModalSeen
+		);
+	});
+
 	it('should get distribution tabs', () => {
 		const id = '123';
 

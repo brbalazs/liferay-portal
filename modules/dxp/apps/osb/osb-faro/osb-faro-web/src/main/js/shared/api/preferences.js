@@ -28,6 +28,14 @@ export function fetchDefaultChannelId({groupId, scope}) {
 	});
 }
 
+export function fetchUpgradeModalSeen({groupId, scope}) {
+	return sendRequest({
+		data: {scope},
+		method: 'GET',
+		path: `main/${groupId}/preferences/upgrade_modal_seen`
+	});
+}
+
 export function fetchDistributionTabs({groupId, scope, segmentId}) {
 	return sendRequest({
 		data: pickBy({individualSegmentId: segmentId, scope}),
@@ -58,5 +66,13 @@ export function updateDefaultChannelId({defaultChannelId, groupId, scope}) {
 		data: {defaultChannelId, scope},
 		method: 'POST',
 		path: `main/${groupId}/preferences/default_channel_id`
+	});
+}
+
+export function updateUpgradeModalSeen({groupId, scope, upgradeModalSeen}) {
+	return sendRequest({
+		data: {scope, upgradeModalSeen},
+		method: 'POST',
+		path: `main/${groupId}/preferences/upgrade_modal_seen`
 	});
 }

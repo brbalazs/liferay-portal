@@ -27,6 +27,10 @@ export const fetchDefaultChannelId = jest.fn(() =>
 	Promise.resolve({defaultChannelId: '123456'})
 );
 
+export const fetchUpgradeModalSeen = jest.fn(() => Promise.resolve(false));
+
 export const updateDefaultChannelId = jest.fn(() =>
 	Promise.resolve({defaultChannelId: '123456'})
 );
+
+export const updateUpgradeModalSeen = jest.fn(() => Promise.resolve(true));
