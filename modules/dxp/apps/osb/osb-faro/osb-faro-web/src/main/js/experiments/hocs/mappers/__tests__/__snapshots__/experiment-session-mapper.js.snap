@@ -45,7 +45,7 @@ exports[`Experiment Session Mapper should render Tooltip 1`] = `
         <div
           class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-normal"
         >
-           1,500
+           1.5K
         </div>
       </td>
     </tr>
