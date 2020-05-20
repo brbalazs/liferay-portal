@@ -274,7 +274,7 @@ definition {
 	macro changeSitePageVariationCP {
 		var key_sitePagesVariationName = "${sitePagesVariationName}";
 
-		Click(locator1 = "Staging#SITE_PAGES_VARIATION_MENULIST_NAME");
+		Click(locator1 = "Staging#SITE_PAGES_VARIATION_MENULIST_NAME_PAGES_ADMIN");
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "Staging#SITE_PAGES_VARIATION_MENULIST_ACTIVE",
