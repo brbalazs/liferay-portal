@@ -107,13 +107,13 @@ public class PriceCPContentContributor implements CPContentContributor {
 					cpInstance, cpDefinitionInventoryEngine, commerceContext,
 					commerceOptionValues));
 
-		CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
+		CommerceMoney unitPrice = commerceProductPrice.getUnitPrice();
 
-		if (finalPrice != null) {
+		if (unitPrice != null) {
 			Locale locale = _portal.getLocale(httpServletRequest);
 
 			jsonObject.put(
-				CPContentContributorConstants.PRICE, finalPrice.format(locale));
+				CPContentContributorConstants.PRICE, unitPrice.format(locale));
 
 			CommerceMoney promoPriceMoney =
 				commerceProductPrice.getUnitPromoPrice();
@@ -122,7 +122,7 @@ public class PriceCPContentContributor implements CPContentContributor {
 
 			if ((promoPriceMoney != null) &&
 				(promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
-				(promoPrice.compareTo(finalPrice.getPrice()) <= 0)) {
+				(promoPrice.compareTo(unitPrice.getPrice()) <= 0)) {
 
 				jsonObject.put(
 					CPContentContributorConstants.PROMO_PRICE,
