@@ -103,15 +103,14 @@ public class UserCommerceMLRecommendationServiceImpl
 		}
 
 		searchSearchRequest.setQuery(booleanQuery);
-
 		searchSearchRequest.setSize(Integer.valueOf(DEFAULT_FETCH_SIZE));
-
-		searchSearchRequest.setStats(Collections.emptyMap());
 
 		Sort scoreSort = SortFactoryUtil.create(
 			CommerceMLRecommendationField.SCORE, Sort.FLOAT_TYPE, false);
 
 		searchSearchRequest.setSorts(new Sort[] {scoreSort});
+
+		searchSearchRequest.setStats(Collections.emptyMap());
 
 		return getSearchResults(searchSearchRequest);
 	}
