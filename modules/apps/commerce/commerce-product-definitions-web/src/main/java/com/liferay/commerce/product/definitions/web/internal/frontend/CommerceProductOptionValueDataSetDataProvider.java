@@ -20,6 +20,7 @@ import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.definitions.web.internal.model.ProductOptionValue;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
@@ -151,12 +152,16 @@ public class CommerceProductOptionValueDataSetDataProvider
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
 
-		if (cpDefinitionOptionRel.isPriceTypeStatic() &&
+		String priceType = cpDefinitionOptionRel.getPriceType();
+
+		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) &&
 			(cpDefinitionOptionValueRel.getPrice() != null)) {
 
 			return cpDefinitionOptionValueRel.getPrice();
 		}
-		else if (cpDefinitionOptionRel.isPriceTypeDynamic()) {
+		else if (priceType.equals(
+					CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
+
 			CPInstance cpInstance =
 				cpDefinitionOptionValueRel.fetchCPInstance();
 
