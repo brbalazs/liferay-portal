@@ -9,7 +9,7 @@ import {sub} from 'shared/util/lang';
 import {toPromise} from 'shared/components/form';
 
 const {
-	credentialTypes: {oAuth1, oAuth2, token},
+	credentialTypes: {token},
 	dataSourceStates: {
 		actionNeeded,
 		analyticsClientConfigurationFailure,
@@ -204,7 +204,7 @@ export function getDataSourceDisplayObject(
 		return STATUS_DISPLAY.default;
 	}
 
-	if (showActionNeededStatus && hasOAuthDXPConnection(dataSource)) {
+	if (showActionNeededStatus && hasLegacyDXPConnection(dataSource)) {
 		return STATUS_DISPLAY[actionNeeded];
 	}
 
@@ -295,27 +295,6 @@ export function getIdsFromConfiguration(configIMap, key) {
 export const hasLegacyDXPConnection = (dataSource: DataSource) =>
 	dataSource.providerType === liferay &&
 	dataSource.getIn(['credentials', 'type']) !== token;
-
-/**
- * Check if a DataSource has an oAuth DXP Connection
- * @param {DataSource} dataSource
- * @return {boolean} A boolean value
- */
-export const hasOAuthDXPConnection: (
-	dataSource: DataSource
-) => boolean = dataSource => {
-	if (!dataSource) {
-		return false;
-	}
-
-	const credentialsTypeDataSource = dataSource.getIn(['credentials', 'type']);
-
-	return (
-		dataSource.providerType === liferay &&
-		(credentialsTypeDataSource === oAuth1 ||
-			credentialsTypeDataSource === oAuth2)
-	);
-};
 
 /**
  * Helper function for checking validity of a DataSource's analyticsConfiguration.
