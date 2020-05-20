@@ -212,7 +212,7 @@ public class FaroWebDriverImpl
 		else {
 			StringBundler sb = new StringBundler(4);
 
-			sb.append("Unable to find a workspace ID matching regex pattern ");
+			sb.append("Unable to find a Property ID matching regex pattern ");
 			sb.append(_propertyIdPattern.toString());
 			sb.append(" in the following URL: ");
 			sb.append(url);
