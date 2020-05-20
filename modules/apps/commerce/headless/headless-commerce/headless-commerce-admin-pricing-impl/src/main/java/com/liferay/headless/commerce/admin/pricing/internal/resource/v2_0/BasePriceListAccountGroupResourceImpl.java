@@ -159,7 +159,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListAccountGroup")})
 	public Page<PriceListAccountGroup>
-			getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+			getPriceListByExternalReferenceCodePriceListAccountGroupsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode") String
 					externalReferenceCode,

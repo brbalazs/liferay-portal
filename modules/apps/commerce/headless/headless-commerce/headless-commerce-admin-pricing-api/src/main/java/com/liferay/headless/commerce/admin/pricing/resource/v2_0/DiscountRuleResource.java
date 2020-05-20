@@ -47,7 +47,7 @@ public interface DiscountRuleResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Response deleteDiscountRule(Long id) throws Exception;
+	public void deleteDiscountRule(Long id) throws Exception;
 
 	public Response deleteDiscountRuleBatch(
 			Long id, String callbackURL, Object object)

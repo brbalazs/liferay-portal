@@ -36,49 +36,6 @@ public class Discount implements Cloneable {
 		return DiscountSerDes.toDTO(json);
 	}
 
-	public DiscountAccountGroup[] getAccountGroups() {
-		return accountGroups;
-	}
-
-	public void setAccountGroups(DiscountAccountGroup[] accountGroups) {
-		this.accountGroups = accountGroups;
-	}
-
-	public void setAccountGroups(
-		UnsafeSupplier<DiscountAccountGroup[], Exception>
-			accountGroupsUnsafeSupplier) {
-
-		try {
-			accountGroups = accountGroupsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected DiscountAccountGroup[] accountGroups;
-
-	public DiscountAccount[] getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(DiscountAccount[] accounts) {
-		this.accounts = accounts;
-	}
-
-	public void setAccounts(
-		UnsafeSupplier<DiscountAccount[], Exception> accountsUnsafeSupplier) {
-
-		try {
-			accounts = accountsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected DiscountAccount[] accounts;
-
 	public Boolean getActive() {
 		return active;
 	}
@@ -99,49 +56,6 @@ public class Discount implements Cloneable {
 	}
 
 	protected Boolean active;
-
-	public DiscountCategory[] getCategories() {
-		return categories;
-	}
-
-	public void setCategories(DiscountCategory[] categories) {
-		this.categories = categories;
-	}
-
-	public void setCategories(
-		UnsafeSupplier<DiscountCategory[], Exception>
-			categoriesUnsafeSupplier) {
-
-		try {
-			categories = categoriesUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected DiscountCategory[] categories;
-
-	public DiscountChannel[] getChannels() {
-		return channels;
-	}
-
-	public void setChannels(DiscountChannel[] channels) {
-		this.channels = channels;
-	}
-
-	public void setChannels(
-		UnsafeSupplier<DiscountChannel[], Exception> channelsUnsafeSupplier) {
-
-		try {
-			channels = channelsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected DiscountChannel[] channels;
 
 	public String getCouponCode() {
 		return couponCode;
@@ -184,6 +98,163 @@ public class Discount implements Cloneable {
 	}
 
 	protected Map<String, ?> customFields;
+
+	public DiscountAccountGroup[] getDiscountAccountGroups() {
+		return discountAccountGroups;
+	}
+
+	public void setDiscountAccountGroups(
+		DiscountAccountGroup[] discountAccountGroups) {
+
+		this.discountAccountGroups = discountAccountGroups;
+	}
+
+	public void setDiscountAccountGroups(
+		UnsafeSupplier<DiscountAccountGroup[], Exception>
+			discountAccountGroupsUnsafeSupplier) {
+
+		try {
+			discountAccountGroups = discountAccountGroupsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected DiscountAccountGroup[] discountAccountGroups;
+
+	public DiscountAccount[] getDiscountAccounts() {
+		return discountAccounts;
+	}
+
+	public void setDiscountAccounts(DiscountAccount[] discountAccounts) {
+		this.discountAccounts = discountAccounts;
+	}
+
+	public void setDiscountAccounts(
+		UnsafeSupplier<DiscountAccount[], Exception>
+			discountAccountsUnsafeSupplier) {
+
+		try {
+			discountAccounts = discountAccountsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected DiscountAccount[] discountAccounts;
+
+	public DiscountCategory[] getDiscountCategories() {
+		return discountCategories;
+	}
+
+	public void setDiscountCategories(DiscountCategory[] discountCategories) {
+		this.discountCategories = discountCategories;
+	}
+
+	public void setDiscountCategories(
+		UnsafeSupplier<DiscountCategory[], Exception>
+			discountCategoriesUnsafeSupplier) {
+
+		try {
+			discountCategories = discountCategoriesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected DiscountCategory[] discountCategories;
+
+	public DiscountChannel[] getDiscountChannels() {
+		return discountChannels;
+	}
+
+	public void setDiscountChannels(DiscountChannel[] discountChannels) {
+		this.discountChannels = discountChannels;
+	}
+
+	public void setDiscountChannels(
+		UnsafeSupplier<DiscountChannel[], Exception>
+			discountChannelsUnsafeSupplier) {
+
+		try {
+			discountChannels = discountChannelsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected DiscountChannel[] discountChannels;
+
+	public DiscountProductGroup[] getDiscountProductGroups() {
+		return discountProductGroups;
+	}
+
+	public void setDiscountProductGroups(
+		DiscountProductGroup[] discountProductGroups) {
+
+		this.discountProductGroups = discountProductGroups;
+	}
+
+	public void setDiscountProductGroups(
+		UnsafeSupplier<DiscountProductGroup[], Exception>
+			discountProductGroupsUnsafeSupplier) {
+
+		try {
+			discountProductGroups = discountProductGroupsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected DiscountProductGroup[] discountProductGroups;
+
+	public DiscountProduct[] getDiscountProducts() {
+		return discountProducts;
+	}
+
+	public void setDiscountProducts(DiscountProduct[] discountProducts) {
+		this.discountProducts = discountProducts;
+	}
+
+	public void setDiscountProducts(
+		UnsafeSupplier<DiscountProduct[], Exception>
+			discountProductsUnsafeSupplier) {
+
+		try {
+			discountProducts = discountProductsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected DiscountProduct[] discountProducts;
+
+	public DiscountRule[] getDiscountRules() {
+		return discountRules;
+	}
+
+	public void setDiscountRules(DiscountRule[] discountRules) {
+		this.discountRules = discountRules;
+	}
+
+	public void setDiscountRules(
+		UnsafeSupplier<DiscountRule[], Exception> discountRulesUnsafeSupplier) {
+
+		try {
+			discountRules = discountRulesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected DiscountRule[] discountRules;
 
 	public Date getDisplayDate() {
 		return displayDate;
@@ -478,90 +549,26 @@ public class Discount implements Cloneable {
 
 	protected BigDecimal percentageLevel4;
 
-	public DiscountProductGroup[] getProductGroups() {
-		return productGroups;
+	public Boolean getRulesConjunction() {
+		return rulesConjunction;
 	}
 
-	public void setProductGroups(DiscountProductGroup[] productGroups) {
-		this.productGroups = productGroups;
+	public void setRulesConjunction(Boolean rulesConjunction) {
+		this.rulesConjunction = rulesConjunction;
 	}
 
-	public void setProductGroups(
-		UnsafeSupplier<DiscountProductGroup[], Exception>
-			productGroupsUnsafeSupplier) {
+	public void setRulesConjunction(
+		UnsafeSupplier<Boolean, Exception> rulesConjunctionUnsafeSupplier) {
 
 		try {
-			productGroups = productGroupsUnsafeSupplier.get();
+			rulesConjunction = rulesConjunctionUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected DiscountProductGroup[] productGroups;
-
-	public DiscountProduct[] getProducts() {
-		return products;
-	}
-
-	public void setProducts(DiscountProduct[] products) {
-		this.products = products;
-	}
-
-	public void setProducts(
-		UnsafeSupplier<DiscountProduct[], Exception> productsUnsafeSupplier) {
-
-		try {
-			products = productsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected DiscountProduct[] products;
-
-	public DiscountRule[] getRules() {
-		return rules;
-	}
-
-	public void setRules(DiscountRule[] rules) {
-		this.rules = rules;
-	}
-
-	public void setRules(
-		UnsafeSupplier<DiscountRule[], Exception> rulesUnsafeSupplier) {
-
-		try {
-			rules = rulesUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected DiscountRule[] rules;
-
-	public Boolean getRulesConjuntion() {
-		return rulesConjuntion;
-	}
-
-	public void setRulesConjuntion(Boolean rulesConjuntion) {
-		this.rulesConjuntion = rulesConjuntion;
-	}
-
-	public void setRulesConjuntion(
-		UnsafeSupplier<Boolean, Exception> rulesConjuntionUnsafeSupplier) {
-
-		try {
-			rulesConjuntion = rulesConjuntionUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Boolean rulesConjuntion;
+	protected Boolean rulesConjunction;
 
 	public String getTarget() {
 		return target;

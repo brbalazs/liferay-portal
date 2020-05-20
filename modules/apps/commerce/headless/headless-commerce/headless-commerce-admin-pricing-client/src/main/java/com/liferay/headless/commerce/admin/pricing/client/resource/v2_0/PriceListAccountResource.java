@@ -54,12 +54,12 @@ public interface PriceListAccountResource {
 		throws Exception;
 
 	public Page<PriceListAccount>
-			getPriceListByExternalReferenceCodePriceListAccountPage(
+			getPriceListByExternalReferenceCodePriceListAccountsPage(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getPriceListByExternalReferenceCodePriceListAccountPageHttpResponse(
+			getPriceListByExternalReferenceCodePriceListAccountsPageHttpResponse(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
@@ -256,12 +256,12 @@ public interface PriceListAccountResource {
 		}
 
 		public Page<PriceListAccount>
-				getPriceListByExternalReferenceCodePriceListAccountPage(
+				getPriceListByExternalReferenceCodePriceListAccountsPage(
 					String externalReferenceCode, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getPriceListByExternalReferenceCodePriceListAccountPageHttpResponse(
+				getPriceListByExternalReferenceCodePriceListAccountsPageHttpResponse(
 					externalReferenceCode, pagination);
 
 			String content = httpResponse.getContent();
@@ -285,7 +285,7 @@ public interface PriceListAccountResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getPriceListByExternalReferenceCodePriceListAccountPageHttpResponse(
+				getPriceListByExternalReferenceCodePriceListAccountsPageHttpResponse(
 					String externalReferenceCode, Pagination pagination)
 			throws Exception {
 

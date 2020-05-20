@@ -54,7 +54,7 @@ public interface PriceListDiscountResource {
 		throws Exception;
 
 	public Page<PriceListDiscount>
-			getPriceListByExternalReferenceCodePriceListDiscountPage(
+			getPriceListByExternalReferenceCodePriceListDiscountsPage(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 

@@ -264,31 +264,31 @@ public abstract class BasePriceListDiscountResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListDiscountPage()
+	public void testGetPriceListByExternalReferenceCodePriceListDiscountsPage()
 		throws Exception {
 
 		Page<PriceListDiscount> page =
 			priceListDiscountResource.
-				getPriceListByExternalReferenceCodePriceListDiscountPage(
-					testGetPriceListByExternalReferenceCodePriceListDiscountPage_getExternalReferenceCode(),
+				getPriceListByExternalReferenceCodePriceListDiscountsPage(
+					testGetPriceListByExternalReferenceCodePriceListDiscountsPage_getExternalReferenceCode(),
 					Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_getIrrelevantExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_getIrrelevantExternalReferenceCode();
 
 		if ((irrelevantExternalReferenceCode != null)) {
 			PriceListDiscount irrelevantPriceListDiscount =
-				testGetPriceListByExternalReferenceCodePriceListDiscountPage_addPriceListDiscount(
+				testGetPriceListByExternalReferenceCodePriceListDiscountsPage_addPriceListDiscount(
 					irrelevantExternalReferenceCode,
 					randomIrrelevantPriceListDiscount());
 
 			page =
 				priceListDiscountResource.
-					getPriceListByExternalReferenceCodePriceListDiscountPage(
+					getPriceListByExternalReferenceCodePriceListDiscountsPage(
 						irrelevantExternalReferenceCode, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
@@ -300,16 +300,16 @@ public abstract class BasePriceListDiscountResourceTestCase {
 		}
 
 		PriceListDiscount priceListDiscount1 =
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_addPriceListDiscount(
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_addPriceListDiscount(
 				externalReferenceCode, randomPriceListDiscount());
 
 		PriceListDiscount priceListDiscount2 =
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_addPriceListDiscount(
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_addPriceListDiscount(
 				externalReferenceCode, randomPriceListDiscount());
 
 		page =
 			priceListDiscountResource.
-				getPriceListByExternalReferenceCodePriceListDiscountPage(
+				getPriceListByExternalReferenceCodePriceListDiscountsPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -325,27 +325,27 @@ public abstract class BasePriceListDiscountResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListDiscountPageWithPagination()
+	public void testGetPriceListByExternalReferenceCodePriceListDiscountsPageWithPagination()
 		throws Exception {
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_getExternalReferenceCode();
 
 		PriceListDiscount priceListDiscount1 =
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_addPriceListDiscount(
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_addPriceListDiscount(
 				externalReferenceCode, randomPriceListDiscount());
 
 		PriceListDiscount priceListDiscount2 =
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_addPriceListDiscount(
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_addPriceListDiscount(
 				externalReferenceCode, randomPriceListDiscount());
 
 		PriceListDiscount priceListDiscount3 =
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_addPriceListDiscount(
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_addPriceListDiscount(
 				externalReferenceCode, randomPriceListDiscount());
 
 		Page<PriceListDiscount> page1 =
 			priceListDiscountResource.
-				getPriceListByExternalReferenceCodePriceListDiscountPage(
+				getPriceListByExternalReferenceCodePriceListDiscountsPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		List<PriceListDiscount> priceListDiscounts1 =
@@ -356,7 +356,7 @@ public abstract class BasePriceListDiscountResourceTestCase {
 
 		Page<PriceListDiscount> page2 =
 			priceListDiscountResource.
-				getPriceListByExternalReferenceCodePriceListDiscountPage(
+				getPriceListByExternalReferenceCodePriceListDiscountsPage(
 					externalReferenceCode, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -369,7 +369,7 @@ public abstract class BasePriceListDiscountResourceTestCase {
 
 		Page<PriceListDiscount> page3 =
 			priceListDiscountResource.
-				getPriceListByExternalReferenceCodePriceListDiscountPage(
+				getPriceListByExternalReferenceCodePriceListDiscountsPage(
 					externalReferenceCode, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -379,7 +379,7 @@ public abstract class BasePriceListDiscountResourceTestCase {
 	}
 
 	protected PriceListDiscount
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_addPriceListDiscount(
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_addPriceListDiscount(
 				String externalReferenceCode,
 				PriceListDiscount priceListDiscount)
 		throws Exception {
@@ -389,7 +389,7 @@ public abstract class BasePriceListDiscountResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_getExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_getExternalReferenceCode()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -397,7 +397,7 @@ public abstract class BasePriceListDiscountResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListDiscountPage_getIrrelevantExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListDiscountsPage_getIrrelevantExternalReferenceCode()
 		throws Exception {
 
 		return null;

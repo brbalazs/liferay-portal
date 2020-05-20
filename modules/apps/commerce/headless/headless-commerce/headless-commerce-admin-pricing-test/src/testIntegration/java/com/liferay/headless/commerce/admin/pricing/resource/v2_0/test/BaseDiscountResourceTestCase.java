@@ -549,40 +549,8 @@ public abstract class BaseDiscountResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("accountGroups", additionalAssertFieldName)) {
-				if (discount.getAccountGroups() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("accounts", additionalAssertFieldName)) {
-				if (discount.getAccounts() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("active", additionalAssertFieldName)) {
 				if (discount.getActive() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("categories", additionalAssertFieldName)) {
-				if (discount.getCategories() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("channels", additionalAssertFieldName)) {
-				if (discount.getChannels() == null) {
 					valid = false;
 				}
 
@@ -599,6 +567,68 @@ public abstract class BaseDiscountResourceTestCase {
 
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
 				if (discount.getCustomFields() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountAccountGroups", additionalAssertFieldName)) {
+
+				if (discount.getDiscountAccountGroups() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountAccounts", additionalAssertFieldName)) {
+				if (discount.getDiscountAccounts() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountCategories", additionalAssertFieldName)) {
+
+				if (discount.getDiscountCategories() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountChannels", additionalAssertFieldName)) {
+				if (discount.getDiscountChannels() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountProductGroups", additionalAssertFieldName)) {
+
+				if (discount.getDiscountProductGroups() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountProducts", additionalAssertFieldName)) {
+				if (discount.getDiscountProducts() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountRules", additionalAssertFieldName)) {
+				if (discount.getDiscountRules() == null) {
 					valid = false;
 				}
 
@@ -713,32 +743,8 @@ public abstract class BaseDiscountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("productGroups", additionalAssertFieldName)) {
-				if (discount.getProductGroups() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("products", additionalAssertFieldName)) {
-				if (discount.getProducts() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("rules", additionalAssertFieldName)) {
-				if (discount.getRules() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("rulesConjuntion", additionalAssertFieldName)) {
-				if (discount.getRulesConjuntion() == null) {
+			if (Objects.equals("rulesConjunction", additionalAssertFieldName)) {
+				if (discount.getRulesConjunction() == null) {
 					valid = false;
 				}
 
@@ -867,50 +873,9 @@ public abstract class BaseDiscountResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("accountGroups", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discount1.getAccountGroups(),
-						discount2.getAccountGroups())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("accounts", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discount1.getAccounts(), discount2.getAccounts())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("active", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						discount1.getActive(), discount2.getActive())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("categories", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discount1.getCategories(), discount2.getCategories())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("channels", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discount1.getChannels(), discount2.getChannels())) {
 
 					return false;
 				}
@@ -932,6 +897,89 @@ public abstract class BaseDiscountResourceTestCase {
 				if (!equals(
 						(Map)discount1.getCustomFields(),
 						(Map)discount2.getCustomFields())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountAccountGroups", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						discount1.getDiscountAccountGroups(),
+						discount2.getDiscountAccountGroups())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountAccounts", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						discount1.getDiscountAccounts(),
+						discount2.getDiscountAccounts())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountCategories", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						discount1.getDiscountCategories(),
+						discount2.getDiscountCategories())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountChannels", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						discount1.getDiscountChannels(),
+						discount2.getDiscountChannels())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"discountProductGroups", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						discount1.getDiscountProductGroups(),
+						discount2.getDiscountProductGroups())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountProducts", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						discount1.getDiscountProducts(),
+						discount2.getDiscountProducts())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("discountRules", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						discount1.getDiscountRules(),
+						discount2.getDiscountRules())) {
 
 					return false;
 				}
@@ -1093,41 +1141,10 @@ public abstract class BaseDiscountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("productGroups", additionalAssertFieldName)) {
+			if (Objects.equals("rulesConjunction", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						discount1.getProductGroups(),
-						discount2.getProductGroups())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("products", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discount1.getProducts(), discount2.getProducts())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("rules", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discount1.getRules(), discount2.getRules())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("rulesConjuntion", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discount1.getRulesConjuntion(),
-						discount2.getRulesConjuntion())) {
+						discount1.getRulesConjunction(),
+						discount2.getRulesConjunction())) {
 
 					return false;
 				}
@@ -1259,27 +1276,7 @@ public abstract class BaseDiscountResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
-		if (entityFieldName.equals("accountGroups")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("accounts")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("active")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("categories")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("channels")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1293,6 +1290,41 @@ public abstract class BaseDiscountResourceTestCase {
 		}
 
 		if (entityFieldName.equals("customFields")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountAccountGroups")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountAccounts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountCategories")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountChannels")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountProductGroups")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountProducts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("discountRules")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1429,22 +1461,7 @@ public abstract class BaseDiscountResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("productGroups")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("products")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("rules")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("rulesConjuntion")) {
+		if (entityFieldName.equals("rulesConjunction")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1533,7 +1550,7 @@ public abstract class BaseDiscountResourceTestCase {
 					RandomTestUtil.randomString());
 				neverExpire = RandomTestUtil.randomBoolean();
 				numberOfUse = RandomTestUtil.randomInt();
-				rulesConjuntion = RandomTestUtil.randomBoolean();
+				rulesConjunction = RandomTestUtil.randomBoolean();
 				target = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				title = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				useCouponCode = RandomTestUtil.randomBoolean();

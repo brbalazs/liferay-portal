@@ -54,7 +54,7 @@ public interface PriceListAccountResource {
 		throws Exception;
 
 	public Page<PriceListAccount>
-			getPriceListByExternalReferenceCodePriceListAccountPage(
+			getPriceListByExternalReferenceCodePriceListAccountsPage(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 

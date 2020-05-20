@@ -54,12 +54,12 @@ public interface PriceListDiscountResource {
 		throws Exception;
 
 	public Page<PriceListDiscount>
-			getPriceListByExternalReferenceCodePriceListDiscountPage(
+			getPriceListByExternalReferenceCodePriceListDiscountsPage(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getPriceListByExternalReferenceCodePriceListDiscountPageHttpResponse(
+			getPriceListByExternalReferenceCodePriceListDiscountsPageHttpResponse(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
@@ -260,12 +260,12 @@ public interface PriceListDiscountResource {
 		}
 
 		public Page<PriceListDiscount>
-				getPriceListByExternalReferenceCodePriceListDiscountPage(
+				getPriceListByExternalReferenceCodePriceListDiscountsPage(
 					String externalReferenceCode, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getPriceListByExternalReferenceCodePriceListDiscountPageHttpResponse(
+				getPriceListByExternalReferenceCodePriceListDiscountsPageHttpResponse(
 					externalReferenceCode, pagination);
 
 			String content = httpResponse.getContent();
@@ -289,7 +289,7 @@ public interface PriceListDiscountResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getPriceListByExternalReferenceCodePriceListDiscountPageHttpResponse(
+				getPriceListByExternalReferenceCodePriceListDiscountsPageHttpResponse(
 					String externalReferenceCode, Pagination pagination)
 			throws Exception {
 

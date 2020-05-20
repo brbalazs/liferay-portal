@@ -69,46 +69,6 @@ public class DiscountSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (discount.getAccountGroups() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accountGroups\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < discount.getAccountGroups().length; i++) {
-				sb.append(String.valueOf(discount.getAccountGroups()[i]));
-
-				if ((i + 1) < discount.getAccountGroups().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (discount.getAccounts() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accounts\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < discount.getAccounts().length; i++) {
-				sb.append(String.valueOf(discount.getAccounts()[i]));
-
-				if ((i + 1) < discount.getAccounts().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (discount.getActive() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -117,46 +77,6 @@ public class DiscountSerDes {
 			sb.append("\"active\": ");
 
 			sb.append(discount.getActive());
-		}
-
-		if (discount.getCategories() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"categories\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < discount.getCategories().length; i++) {
-				sb.append(String.valueOf(discount.getCategories()[i]));
-
-				if ((i + 1) < discount.getCategories().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (discount.getChannels() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"channels\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < discount.getChannels().length; i++) {
-				sb.append(String.valueOf(discount.getChannels()[i]));
-
-				if ((i + 1) < discount.getChannels().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
 		}
 
 		if (discount.getCouponCode() != null) {
@@ -181,6 +101,152 @@ public class DiscountSerDes {
 			sb.append("\"customFields\": ");
 
 			sb.append(_toJSON(discount.getCustomFields()));
+		}
+
+		if (discount.getDiscountAccountGroups() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountAccountGroups\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discount.getDiscountAccountGroups().length;
+				 i++) {
+
+				sb.append(
+					String.valueOf(discount.getDiscountAccountGroups()[i]));
+
+				if ((i + 1) < discount.getDiscountAccountGroups().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discount.getDiscountAccounts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountAccounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discount.getDiscountAccounts().length; i++) {
+				sb.append(String.valueOf(discount.getDiscountAccounts()[i]));
+
+				if ((i + 1) < discount.getDiscountAccounts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discount.getDiscountCategories() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountCategories\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discount.getDiscountCategories().length; i++) {
+				sb.append(String.valueOf(discount.getDiscountCategories()[i]));
+
+				if ((i + 1) < discount.getDiscountCategories().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discount.getDiscountChannels() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountChannels\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discount.getDiscountChannels().length; i++) {
+				sb.append(String.valueOf(discount.getDiscountChannels()[i]));
+
+				if ((i + 1) < discount.getDiscountChannels().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discount.getDiscountProductGroups() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountProductGroups\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discount.getDiscountProductGroups().length;
+				 i++) {
+
+				sb.append(
+					String.valueOf(discount.getDiscountProductGroups()[i]));
+
+				if ((i + 1) < discount.getDiscountProductGroups().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discount.getDiscountProducts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountProducts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discount.getDiscountProducts().length; i++) {
+				sb.append(String.valueOf(discount.getDiscountProducts()[i]));
+
+				if ((i + 1) < discount.getDiscountProducts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discount.getDiscountRules() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountRules\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discount.getDiscountRules().length; i++) {
+				sb.append(String.valueOf(discount.getDiscountRules()[i]));
+
+				if ((i + 1) < discount.getDiscountRules().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (discount.getDisplayDate() != null) {
@@ -345,74 +411,14 @@ public class DiscountSerDes {
 			sb.append(discount.getPercentageLevel4());
 		}
 
-		if (discount.getProductGroups() != null) {
+		if (discount.getRulesConjunction() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"productGroups\": ");
+			sb.append("\"rulesConjunction\": ");
 
-			sb.append("[");
-
-			for (int i = 0; i < discount.getProductGroups().length; i++) {
-				sb.append(String.valueOf(discount.getProductGroups()[i]));
-
-				if ((i + 1) < discount.getProductGroups().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (discount.getProducts() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"products\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < discount.getProducts().length; i++) {
-				sb.append(String.valueOf(discount.getProducts()[i]));
-
-				if ((i + 1) < discount.getProducts().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (discount.getRules() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"rules\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < discount.getRules().length; i++) {
-				sb.append(String.valueOf(discount.getRules()[i]));
-
-				if ((i + 1) < discount.getRules().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (discount.getRulesConjuntion() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"rulesConjuntion\": ");
-
-			sb.append(discount.getRulesConjuntion());
+			sb.append(discount.getRulesConjunction());
 		}
 
 		if (discount.getTarget() != null) {
@@ -484,40 +490,11 @@ public class DiscountSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (discount.getAccountGroups() == null) {
-			map.put("accountGroups", null);
-		}
-		else {
-			map.put(
-				"accountGroups", String.valueOf(discount.getAccountGroups()));
-		}
-
-		if (discount.getAccounts() == null) {
-			map.put("accounts", null);
-		}
-		else {
-			map.put("accounts", String.valueOf(discount.getAccounts()));
-		}
-
 		if (discount.getActive() == null) {
 			map.put("active", null);
 		}
 		else {
 			map.put("active", String.valueOf(discount.getActive()));
-		}
-
-		if (discount.getCategories() == null) {
-			map.put("categories", null);
-		}
-		else {
-			map.put("categories", String.valueOf(discount.getCategories()));
-		}
-
-		if (discount.getChannels() == null) {
-			map.put("channels", null);
-		}
-		else {
-			map.put("channels", String.valueOf(discount.getChannels()));
 		}
 
 		if (discount.getCouponCode() == null) {
@@ -532,6 +509,68 @@ public class DiscountSerDes {
 		}
 		else {
 			map.put("customFields", String.valueOf(discount.getCustomFields()));
+		}
+
+		if (discount.getDiscountAccountGroups() == null) {
+			map.put("discountAccountGroups", null);
+		}
+		else {
+			map.put(
+				"discountAccountGroups",
+				String.valueOf(discount.getDiscountAccountGroups()));
+		}
+
+		if (discount.getDiscountAccounts() == null) {
+			map.put("discountAccounts", null);
+		}
+		else {
+			map.put(
+				"discountAccounts",
+				String.valueOf(discount.getDiscountAccounts()));
+		}
+
+		if (discount.getDiscountCategories() == null) {
+			map.put("discountCategories", null);
+		}
+		else {
+			map.put(
+				"discountCategories",
+				String.valueOf(discount.getDiscountCategories()));
+		}
+
+		if (discount.getDiscountChannels() == null) {
+			map.put("discountChannels", null);
+		}
+		else {
+			map.put(
+				"discountChannels",
+				String.valueOf(discount.getDiscountChannels()));
+		}
+
+		if (discount.getDiscountProductGroups() == null) {
+			map.put("discountProductGroups", null);
+		}
+		else {
+			map.put(
+				"discountProductGroups",
+				String.valueOf(discount.getDiscountProductGroups()));
+		}
+
+		if (discount.getDiscountProducts() == null) {
+			map.put("discountProducts", null);
+		}
+		else {
+			map.put(
+				"discountProducts",
+				String.valueOf(discount.getDiscountProducts()));
+		}
+
+		if (discount.getDiscountRules() == null) {
+			map.put("discountRules", null);
+		}
+		else {
+			map.put(
+				"discountRules", String.valueOf(discount.getDiscountRules()));
 		}
 
 		if (discount.getDisplayDate() == null) {
@@ -651,35 +690,13 @@ public class DiscountSerDes {
 				String.valueOf(discount.getPercentageLevel4()));
 		}
 
-		if (discount.getProductGroups() == null) {
-			map.put("productGroups", null);
+		if (discount.getRulesConjunction() == null) {
+			map.put("rulesConjunction", null);
 		}
 		else {
 			map.put(
-				"productGroups", String.valueOf(discount.getProductGroups()));
-		}
-
-		if (discount.getProducts() == null) {
-			map.put("products", null);
-		}
-		else {
-			map.put("products", String.valueOf(discount.getProducts()));
-		}
-
-		if (discount.getRules() == null) {
-			map.put("rules", null);
-		}
-		else {
-			map.put("rules", String.valueOf(discount.getRules()));
-		}
-
-		if (discount.getRulesConjuntion() == null) {
-			map.put("rulesConjuntion", null);
-		}
-		else {
-			map.put(
-				"rulesConjuntion",
-				String.valueOf(discount.getRulesConjuntion()));
+				"rulesConjunction",
+				String.valueOf(discount.getRulesConjunction()));
 		}
 
 		if (discount.getTarget() == null) {
@@ -732,61 +749,9 @@ public class DiscountSerDes {
 			Discount discount, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "accountGroups")) {
-				if (jsonParserFieldValue != null) {
-					discount.setAccountGroups(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> DiscountAccountGroupSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new DiscountAccountGroup[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "accounts")) {
-				if (jsonParserFieldValue != null) {
-					discount.setAccounts(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> DiscountAccountSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new DiscountAccount[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "active")) {
+			if (Objects.equals(jsonParserFieldName, "active")) {
 				if (jsonParserFieldValue != null) {
 					discount.setActive((Boolean)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "categories")) {
-				if (jsonParserFieldValue != null) {
-					discount.setCategories(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> DiscountCategorySerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new DiscountCategory[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "channels")) {
-				if (jsonParserFieldValue != null) {
-					discount.setChannels(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> DiscountChannelSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new DiscountChannel[size]
-						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "couponCode")) {
@@ -799,6 +764,102 @@ public class DiscountSerDes {
 					discount.setCustomFields(
 						(Map)DiscountSerDes.toMap(
 							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountAccountGroups")) {
+
+				if (jsonParserFieldValue != null) {
+					discount.setDiscountAccountGroups(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> DiscountAccountGroupSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new DiscountAccountGroup[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountAccounts")) {
+				if (jsonParserFieldValue != null) {
+					discount.setDiscountAccounts(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> DiscountAccountSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new DiscountAccount[size]
+						));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountCategories")) {
+
+				if (jsonParserFieldValue != null) {
+					discount.setDiscountCategories(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> DiscountCategorySerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new DiscountCategory[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountChannels")) {
+				if (jsonParserFieldValue != null) {
+					discount.setDiscountChannels(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> DiscountChannelSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new DiscountChannel[size]
+						));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountProductGroups")) {
+
+				if (jsonParserFieldValue != null) {
+					discount.setDiscountProductGroups(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> DiscountProductGroupSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new DiscountProductGroup[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountProducts")) {
+				if (jsonParserFieldValue != null) {
+					discount.setDiscountProducts(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> DiscountProductSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new DiscountProduct[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountRules")) {
+				if (jsonParserFieldValue != null) {
+					discount.setDiscountRules(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> DiscountRuleSerDes.toDTO((String)object)
+						).toArray(
+							size -> new DiscountRule[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "displayDate")) {
@@ -885,47 +946,9 @@ public class DiscountSerDes {
 						(BigDecimal)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "productGroups")) {
+			else if (Objects.equals(jsonParserFieldName, "rulesConjunction")) {
 				if (jsonParserFieldValue != null) {
-					discount.setProductGroups(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> DiscountProductGroupSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new DiscountProductGroup[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "products")) {
-				if (jsonParserFieldValue != null) {
-					discount.setProducts(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> DiscountProductSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new DiscountProduct[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "rules")) {
-				if (jsonParserFieldValue != null) {
-					discount.setRules(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> DiscountRuleSerDes.toDTO((String)object)
-						).toArray(
-							size -> new DiscountRule[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "rulesConjuntion")) {
-				if (jsonParserFieldValue != null) {
-					discount.setRulesConjuntion((Boolean)jsonParserFieldValue);
+					discount.setRulesConjunction((Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "target")) {

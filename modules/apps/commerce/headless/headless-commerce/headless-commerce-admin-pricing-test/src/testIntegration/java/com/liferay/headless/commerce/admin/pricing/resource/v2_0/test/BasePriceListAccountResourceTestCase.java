@@ -262,31 +262,31 @@ public abstract class BasePriceListAccountResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListAccountPage()
+	public void testGetPriceListByExternalReferenceCodePriceListAccountsPage()
 		throws Exception {
 
 		Page<PriceListAccount> page =
 			priceListAccountResource.
-				getPriceListByExternalReferenceCodePriceListAccountPage(
-					testGetPriceListByExternalReferenceCodePriceListAccountPage_getExternalReferenceCode(),
+				getPriceListByExternalReferenceCodePriceListAccountsPage(
+					testGetPriceListByExternalReferenceCodePriceListAccountsPage_getExternalReferenceCode(),
 					Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_getIrrelevantExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_getIrrelevantExternalReferenceCode();
 
 		if ((irrelevantExternalReferenceCode != null)) {
 			PriceListAccount irrelevantPriceListAccount =
-				testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+				testGetPriceListByExternalReferenceCodePriceListAccountsPage_addPriceListAccount(
 					irrelevantExternalReferenceCode,
 					randomIrrelevantPriceListAccount());
 
 			page =
 				priceListAccountResource.
-					getPriceListByExternalReferenceCodePriceListAccountPage(
+					getPriceListByExternalReferenceCodePriceListAccountsPage(
 						irrelevantExternalReferenceCode, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
@@ -298,16 +298,16 @@ public abstract class BasePriceListAccountResourceTestCase {
 		}
 
 		PriceListAccount priceListAccount1 =
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_addPriceListAccount(
 				externalReferenceCode, randomPriceListAccount());
 
 		PriceListAccount priceListAccount2 =
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_addPriceListAccount(
 				externalReferenceCode, randomPriceListAccount());
 
 		page =
 			priceListAccountResource.
-				getPriceListByExternalReferenceCodePriceListAccountPage(
+				getPriceListByExternalReferenceCodePriceListAccountsPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -323,27 +323,27 @@ public abstract class BasePriceListAccountResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListAccountPageWithPagination()
+	public void testGetPriceListByExternalReferenceCodePriceListAccountsPageWithPagination()
 		throws Exception {
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_getExternalReferenceCode();
 
 		PriceListAccount priceListAccount1 =
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_addPriceListAccount(
 				externalReferenceCode, randomPriceListAccount());
 
 		PriceListAccount priceListAccount2 =
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_addPriceListAccount(
 				externalReferenceCode, randomPriceListAccount());
 
 		PriceListAccount priceListAccount3 =
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_addPriceListAccount(
 				externalReferenceCode, randomPriceListAccount());
 
 		Page<PriceListAccount> page1 =
 			priceListAccountResource.
-				getPriceListByExternalReferenceCodePriceListAccountPage(
+				getPriceListByExternalReferenceCodePriceListAccountsPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		List<PriceListAccount> priceListAccounts1 =
@@ -354,7 +354,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 
 		Page<PriceListAccount> page2 =
 			priceListAccountResource.
-				getPriceListByExternalReferenceCodePriceListAccountPage(
+				getPriceListByExternalReferenceCodePriceListAccountsPage(
 					externalReferenceCode, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -367,7 +367,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 
 		Page<PriceListAccount> page3 =
 			priceListAccountResource.
-				getPriceListByExternalReferenceCodePriceListAccountPage(
+				getPriceListByExternalReferenceCodePriceListAccountsPage(
 					externalReferenceCode, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -377,7 +377,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 	}
 
 	protected PriceListAccount
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_addPriceListAccount(
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_addPriceListAccount(
 				String externalReferenceCode, PriceListAccount priceListAccount)
 		throws Exception {
 
@@ -386,7 +386,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_getExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_getExternalReferenceCode()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -394,7 +394,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListAccountPage_getIrrelevantExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListAccountsPage_getIrrelevantExternalReferenceCode()
 		throws Exception {
 
 		return null;

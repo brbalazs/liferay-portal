@@ -271,31 +271,31 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListAccountGroupPage()
+	public void testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage()
 		throws Exception {
 
 		Page<PriceListAccountGroup> page =
 			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
-					testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getExternalReferenceCode(),
+				getPriceListByExternalReferenceCodePriceListAccountGroupsPage(
+					testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_getExternalReferenceCode(),
 					Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getIrrelevantExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_getIrrelevantExternalReferenceCode();
 
 		if ((irrelevantExternalReferenceCode != null)) {
 			PriceListAccountGroup irrelevantPriceListAccountGroup =
-				testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
+				testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_addPriceListAccountGroup(
 					irrelevantExternalReferenceCode,
 					randomIrrelevantPriceListAccountGroup());
 
 			page =
 				priceListAccountGroupResource.
-					getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+					getPriceListByExternalReferenceCodePriceListAccountGroupsPage(
 						irrelevantExternalReferenceCode, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
@@ -307,16 +307,16 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		}
 
 		PriceListAccountGroup priceListAccountGroup1 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_addPriceListAccountGroup(
 				externalReferenceCode, randomPriceListAccountGroup());
 
 		PriceListAccountGroup priceListAccountGroup2 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_addPriceListAccountGroup(
 				externalReferenceCode, randomPriceListAccountGroup());
 
 		page =
 			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+				getPriceListByExternalReferenceCodePriceListAccountGroupsPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -332,27 +332,27 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListAccountGroupPageWithPagination()
+	public void testGetPriceListByExternalReferenceCodePriceListAccountGroupsPageWithPagination()
 		throws Exception {
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_getExternalReferenceCode();
 
 		PriceListAccountGroup priceListAccountGroup1 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_addPriceListAccountGroup(
 				externalReferenceCode, randomPriceListAccountGroup());
 
 		PriceListAccountGroup priceListAccountGroup2 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_addPriceListAccountGroup(
 				externalReferenceCode, randomPriceListAccountGroup());
 
 		PriceListAccountGroup priceListAccountGroup3 =
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_addPriceListAccountGroup(
 				externalReferenceCode, randomPriceListAccountGroup());
 
 		Page<PriceListAccountGroup> page1 =
 			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+				getPriceListByExternalReferenceCodePriceListAccountGroupsPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		List<PriceListAccountGroup> priceListAccountGroups1 =
@@ -364,7 +364,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 
 		Page<PriceListAccountGroup> page2 =
 			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+				getPriceListByExternalReferenceCodePriceListAccountGroupsPage(
 					externalReferenceCode, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -378,7 +378,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 
 		Page<PriceListAccountGroup> page3 =
 			priceListAccountGroupResource.
-				getPriceListByExternalReferenceCodePriceListAccountGroupPage(
+				getPriceListByExternalReferenceCodePriceListAccountGroupsPage(
 					externalReferenceCode, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -389,7 +389,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	protected PriceListAccountGroup
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_addPriceListAccountGroup(
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_addPriceListAccountGroup(
 				String externalReferenceCode,
 				PriceListAccountGroup priceListAccountGroup)
 		throws Exception {
@@ -399,7 +399,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_getExternalReferenceCode()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -407,7 +407,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListAccountGroupPage_getIrrelevantExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListAccountGroupsPage_getIrrelevantExternalReferenceCode()
 		throws Exception {
 
 		return null;

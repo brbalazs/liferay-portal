@@ -61,65 +61,6 @@ public class Discount {
 	}
 
 	@Schema
-	@Valid
-	public DiscountAccountGroup[] getAccountGroups() {
-		return accountGroups;
-	}
-
-	public void setAccountGroups(DiscountAccountGroup[] accountGroups) {
-		this.accountGroups = accountGroups;
-	}
-
-	@JsonIgnore
-	public void setAccountGroups(
-		UnsafeSupplier<DiscountAccountGroup[], Exception>
-			accountGroupsUnsafeSupplier) {
-
-		try {
-			accountGroups = accountGroupsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected DiscountAccountGroup[] accountGroups;
-
-	@Schema
-	@Valid
-	public DiscountAccount[] getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(DiscountAccount[] accounts) {
-		this.accounts = accounts;
-	}
-
-	@JsonIgnore
-	public void setAccounts(
-		UnsafeSupplier<DiscountAccount[], Exception> accountsUnsafeSupplier) {
-
-		try {
-			accounts = accountsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected DiscountAccount[] accounts;
-
-	@Schema
 	public Boolean getActive() {
 		return active;
 	}
@@ -146,65 +87,6 @@ public class Discount {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean active;
-
-	@Schema
-	@Valid
-	public DiscountCategory[] getCategories() {
-		return categories;
-	}
-
-	public void setCategories(DiscountCategory[] categories) {
-		this.categories = categories;
-	}
-
-	@JsonIgnore
-	public void setCategories(
-		UnsafeSupplier<DiscountCategory[], Exception>
-			categoriesUnsafeSupplier) {
-
-		try {
-			categories = categoriesUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected DiscountCategory[] categories;
-
-	@Schema
-	@Valid
-	public DiscountChannel[] getChannels() {
-		return channels;
-	}
-
-	public void setChannels(DiscountChannel[] channels) {
-		this.channels = channels;
-	}
-
-	@JsonIgnore
-	public void setChannels(
-		UnsafeSupplier<DiscountChannel[], Exception> channelsUnsafeSupplier) {
-
-		try {
-			channels = channelsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected DiscountChannel[] channels;
 
 	@Schema
 	public String getCouponCode() {
@@ -262,6 +144,219 @@ public class Discount {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Map<String, ?> customFields;
+
+	@Schema
+	@Valid
+	public DiscountAccountGroup[] getDiscountAccountGroups() {
+		return discountAccountGroups;
+	}
+
+	public void setDiscountAccountGroups(
+		DiscountAccountGroup[] discountAccountGroups) {
+
+		this.discountAccountGroups = discountAccountGroups;
+	}
+
+	@JsonIgnore
+	public void setDiscountAccountGroups(
+		UnsafeSupplier<DiscountAccountGroup[], Exception>
+			discountAccountGroupsUnsafeSupplier) {
+
+		try {
+			discountAccountGroups = discountAccountGroupsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected DiscountAccountGroup[] discountAccountGroups;
+
+	@Schema
+	@Valid
+	public DiscountAccount[] getDiscountAccounts() {
+		return discountAccounts;
+	}
+
+	public void setDiscountAccounts(DiscountAccount[] discountAccounts) {
+		this.discountAccounts = discountAccounts;
+	}
+
+	@JsonIgnore
+	public void setDiscountAccounts(
+		UnsafeSupplier<DiscountAccount[], Exception>
+			discountAccountsUnsafeSupplier) {
+
+		try {
+			discountAccounts = discountAccountsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected DiscountAccount[] discountAccounts;
+
+	@Schema
+	@Valid
+	public DiscountCategory[] getDiscountCategories() {
+		return discountCategories;
+	}
+
+	public void setDiscountCategories(DiscountCategory[] discountCategories) {
+		this.discountCategories = discountCategories;
+	}
+
+	@JsonIgnore
+	public void setDiscountCategories(
+		UnsafeSupplier<DiscountCategory[], Exception>
+			discountCategoriesUnsafeSupplier) {
+
+		try {
+			discountCategories = discountCategoriesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected DiscountCategory[] discountCategories;
+
+	@Schema
+	@Valid
+	public DiscountChannel[] getDiscountChannels() {
+		return discountChannels;
+	}
+
+	public void setDiscountChannels(DiscountChannel[] discountChannels) {
+		this.discountChannels = discountChannels;
+	}
+
+	@JsonIgnore
+	public void setDiscountChannels(
+		UnsafeSupplier<DiscountChannel[], Exception>
+			discountChannelsUnsafeSupplier) {
+
+		try {
+			discountChannels = discountChannelsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected DiscountChannel[] discountChannels;
+
+	@Schema
+	@Valid
+	public DiscountProductGroup[] getDiscountProductGroups() {
+		return discountProductGroups;
+	}
+
+	public void setDiscountProductGroups(
+		DiscountProductGroup[] discountProductGroups) {
+
+		this.discountProductGroups = discountProductGroups;
+	}
+
+	@JsonIgnore
+	public void setDiscountProductGroups(
+		UnsafeSupplier<DiscountProductGroup[], Exception>
+			discountProductGroupsUnsafeSupplier) {
+
+		try {
+			discountProductGroups = discountProductGroupsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected DiscountProductGroup[] discountProductGroups;
+
+	@Schema
+	@Valid
+	public DiscountProduct[] getDiscountProducts() {
+		return discountProducts;
+	}
+
+	public void setDiscountProducts(DiscountProduct[] discountProducts) {
+		this.discountProducts = discountProducts;
+	}
+
+	@JsonIgnore
+	public void setDiscountProducts(
+		UnsafeSupplier<DiscountProduct[], Exception>
+			discountProductsUnsafeSupplier) {
+
+		try {
+			discountProducts = discountProductsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected DiscountProduct[] discountProducts;
+
+	@Schema
+	@Valid
+	public DiscountRule[] getDiscountRules() {
+		return discountRules;
+	}
+
+	public void setDiscountRules(DiscountRule[] discountRules) {
+		this.discountRules = discountRules;
+	}
+
+	@JsonIgnore
+	public void setDiscountRules(
+		UnsafeSupplier<DiscountRule[], Exception> discountRulesUnsafeSupplier) {
+
+		try {
+			discountRules = discountRulesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected DiscountRule[] discountRules;
 
 	@Schema
 	public Date getDisplayDate() {
@@ -669,22 +764,20 @@ public class Discount {
 	protected BigDecimal percentageLevel4;
 
 	@Schema
-	@Valid
-	public DiscountProductGroup[] getProductGroups() {
-		return productGroups;
+	public Boolean getRulesConjunction() {
+		return rulesConjunction;
 	}
 
-	public void setProductGroups(DiscountProductGroup[] productGroups) {
-		this.productGroups = productGroups;
+	public void setRulesConjunction(Boolean rulesConjunction) {
+		this.rulesConjunction = rulesConjunction;
 	}
 
 	@JsonIgnore
-	public void setProductGroups(
-		UnsafeSupplier<DiscountProductGroup[], Exception>
-			productGroupsUnsafeSupplier) {
+	public void setRulesConjunction(
+		UnsafeSupplier<Boolean, Exception> rulesConjunctionUnsafeSupplier) {
 
 		try {
-			productGroups = productGroupsUnsafeSupplier.get();
+			rulesConjunction = rulesConjunctionUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -696,93 +789,7 @@ public class Discount {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected DiscountProductGroup[] productGroups;
-
-	@Schema
-	@Valid
-	public DiscountProduct[] getProducts() {
-		return products;
-	}
-
-	public void setProducts(DiscountProduct[] products) {
-		this.products = products;
-	}
-
-	@JsonIgnore
-	public void setProducts(
-		UnsafeSupplier<DiscountProduct[], Exception> productsUnsafeSupplier) {
-
-		try {
-			products = productsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected DiscountProduct[] products;
-
-	@Schema
-	@Valid
-	public DiscountRule[] getRules() {
-		return rules;
-	}
-
-	public void setRules(DiscountRule[] rules) {
-		this.rules = rules;
-	}
-
-	@JsonIgnore
-	public void setRules(
-		UnsafeSupplier<DiscountRule[], Exception> rulesUnsafeSupplier) {
-
-		try {
-			rules = rulesUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected DiscountRule[] rules;
-
-	@Schema
-	public Boolean getRulesConjuntion() {
-		return rulesConjuntion;
-	}
-
-	public void setRulesConjuntion(Boolean rulesConjuntion) {
-		this.rulesConjuntion = rulesConjuntion;
-	}
-
-	@JsonIgnore
-	public void setRulesConjuntion(
-		UnsafeSupplier<Boolean, Exception> rulesConjuntionUnsafeSupplier) {
-
-		try {
-			rulesConjuntion = rulesConjuntionUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Boolean rulesConjuntion;
+	protected Boolean rulesConjunction;
 
 	@Schema
 	public String getTarget() {
@@ -928,46 +935,6 @@ public class Discount {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (accountGroups != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accountGroups\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < accountGroups.length; i++) {
-				sb.append(String.valueOf(accountGroups[i]));
-
-				if ((i + 1) < accountGroups.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (accounts != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accounts\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < accounts.length; i++) {
-				sb.append(String.valueOf(accounts[i]));
-
-				if ((i + 1) < accounts.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (active != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -976,46 +943,6 @@ public class Discount {
 			sb.append("\"active\": ");
 
 			sb.append(active);
-		}
-
-		if (categories != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"categories\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < categories.length; i++) {
-				sb.append(String.valueOf(categories[i]));
-
-				if ((i + 1) < categories.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (channels != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"channels\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < channels.length; i++) {
-				sb.append(String.valueOf(channels[i]));
-
-				if ((i + 1) < channels.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
 		}
 
 		if (couponCode != null) {
@@ -1040,6 +967,146 @@ public class Discount {
 			sb.append("\"customFields\": ");
 
 			sb.append(_toJSON(customFields));
+		}
+
+		if (discountAccountGroups != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountAccountGroups\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discountAccountGroups.length; i++) {
+				sb.append(String.valueOf(discountAccountGroups[i]));
+
+				if ((i + 1) < discountAccountGroups.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discountAccounts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountAccounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discountAccounts.length; i++) {
+				sb.append(String.valueOf(discountAccounts[i]));
+
+				if ((i + 1) < discountAccounts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discountCategories != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountCategories\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discountCategories.length; i++) {
+				sb.append(String.valueOf(discountCategories[i]));
+
+				if ((i + 1) < discountCategories.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discountChannels != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountChannels\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discountChannels.length; i++) {
+				sb.append(String.valueOf(discountChannels[i]));
+
+				if ((i + 1) < discountChannels.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discountProductGroups != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountProductGroups\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discountProductGroups.length; i++) {
+				sb.append(String.valueOf(discountProductGroups[i]));
+
+				if ((i + 1) < discountProductGroups.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discountProducts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountProducts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discountProducts.length; i++) {
+				sb.append(String.valueOf(discountProducts[i]));
+
+				if ((i + 1) < discountProducts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (discountRules != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountRules\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discountRules.length; i++) {
+				sb.append(String.valueOf(discountRules[i]));
+
+				if ((i + 1) < discountRules.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (displayDate != null) {
@@ -1202,74 +1269,14 @@ public class Discount {
 			sb.append(percentageLevel4);
 		}
 
-		if (productGroups != null) {
+		if (rulesConjunction != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"productGroups\": ");
+			sb.append("\"rulesConjunction\": ");
 
-			sb.append("[");
-
-			for (int i = 0; i < productGroups.length; i++) {
-				sb.append(String.valueOf(productGroups[i]));
-
-				if ((i + 1) < productGroups.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (products != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"products\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < products.length; i++) {
-				sb.append(String.valueOf(products[i]));
-
-				if ((i + 1) < products.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (rules != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"rules\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < rules.length; i++) {
-				sb.append(String.valueOf(rules[i]));
-
-				if ((i + 1) < rules.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (rulesConjuntion != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"rulesConjuntion\": ");
-
-			sb.append(rulesConjuntion);
+			sb.append(rulesConjunction);
 		}
 
 		if (target != null) {

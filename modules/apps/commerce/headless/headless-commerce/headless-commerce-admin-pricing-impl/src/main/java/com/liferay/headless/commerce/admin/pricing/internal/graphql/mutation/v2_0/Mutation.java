@@ -214,16 +214,18 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deleteDiscountByExternalReferenceCode(
+	public boolean deleteDiscountByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_discountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			discountResource ->
 				discountResource.deleteDiscountByExternalReferenceCode(
 					externalReferenceCode));
+
+		return true;
 	}
 
 	@GraphQLField
@@ -241,13 +243,13 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deleteDiscount(@GraphQLName("id") Long id)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
+	public boolean deleteDiscount(@GraphQLName("id") Long id) throws Exception {
+		_applyVoidComponentServiceObjects(
 			_discountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			discountResource -> discountResource.deleteDiscount(id));
+
+		return true;
 	}
 
 	@GraphQLField
@@ -630,14 +632,16 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deleteDiscountRule(@GraphQLName("id") Long id)
+	public boolean deleteDiscountRule(@GraphQLName("id") Long id)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_discountRuleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			discountRuleResource -> discountRuleResource.deleteDiscountRule(
 				id));
+
+		return true;
 	}
 
 	@GraphQLField

@@ -91,13 +91,9 @@ public abstract class BaseDiscountRuleResourceImpl
 	@Path("/discountRules/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
-	public Response deleteDiscountRule(
+	public void deleteDiscountRule(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id)
 		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
 	}
 
 	/**

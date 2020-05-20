@@ -262,31 +262,31 @@ public abstract class BasePriceListChannelResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListChannelPage()
+	public void testGetPriceListByExternalReferenceCodePriceListChannelsPage()
 		throws Exception {
 
 		Page<PriceListChannel> page =
 			priceListChannelResource.
-				getPriceListByExternalReferenceCodePriceListChannelPage(
-					testGetPriceListByExternalReferenceCodePriceListChannelPage_getExternalReferenceCode(),
+				getPriceListByExternalReferenceCodePriceListChannelsPage(
+					testGetPriceListByExternalReferenceCodePriceListChannelsPage_getExternalReferenceCode(),
 					Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_getIrrelevantExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_getIrrelevantExternalReferenceCode();
 
 		if ((irrelevantExternalReferenceCode != null)) {
 			PriceListChannel irrelevantPriceListChannel =
-				testGetPriceListByExternalReferenceCodePriceListChannelPage_addPriceListChannel(
+				testGetPriceListByExternalReferenceCodePriceListChannelsPage_addPriceListChannel(
 					irrelevantExternalReferenceCode,
 					randomIrrelevantPriceListChannel());
 
 			page =
 				priceListChannelResource.
-					getPriceListByExternalReferenceCodePriceListChannelPage(
+					getPriceListByExternalReferenceCodePriceListChannelsPage(
 						irrelevantExternalReferenceCode, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
@@ -298,16 +298,16 @@ public abstract class BasePriceListChannelResourceTestCase {
 		}
 
 		PriceListChannel priceListChannel1 =
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_addPriceListChannel(
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_addPriceListChannel(
 				externalReferenceCode, randomPriceListChannel());
 
 		PriceListChannel priceListChannel2 =
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_addPriceListChannel(
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_addPriceListChannel(
 				externalReferenceCode, randomPriceListChannel());
 
 		page =
 			priceListChannelResource.
-				getPriceListByExternalReferenceCodePriceListChannelPage(
+				getPriceListByExternalReferenceCodePriceListChannelsPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -323,27 +323,27 @@ public abstract class BasePriceListChannelResourceTestCase {
 	}
 
 	@Test
-	public void testGetPriceListByExternalReferenceCodePriceListChannelPageWithPagination()
+	public void testGetPriceListByExternalReferenceCodePriceListChannelsPageWithPagination()
 		throws Exception {
 
 		String externalReferenceCode =
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_getExternalReferenceCode();
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_getExternalReferenceCode();
 
 		PriceListChannel priceListChannel1 =
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_addPriceListChannel(
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_addPriceListChannel(
 				externalReferenceCode, randomPriceListChannel());
 
 		PriceListChannel priceListChannel2 =
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_addPriceListChannel(
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_addPriceListChannel(
 				externalReferenceCode, randomPriceListChannel());
 
 		PriceListChannel priceListChannel3 =
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_addPriceListChannel(
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_addPriceListChannel(
 				externalReferenceCode, randomPriceListChannel());
 
 		Page<PriceListChannel> page1 =
 			priceListChannelResource.
-				getPriceListByExternalReferenceCodePriceListChannelPage(
+				getPriceListByExternalReferenceCodePriceListChannelsPage(
 					externalReferenceCode, Pagination.of(1, 2));
 
 		List<PriceListChannel> priceListChannels1 =
@@ -354,7 +354,7 @@ public abstract class BasePriceListChannelResourceTestCase {
 
 		Page<PriceListChannel> page2 =
 			priceListChannelResource.
-				getPriceListByExternalReferenceCodePriceListChannelPage(
+				getPriceListByExternalReferenceCodePriceListChannelsPage(
 					externalReferenceCode, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -367,7 +367,7 @@ public abstract class BasePriceListChannelResourceTestCase {
 
 		Page<PriceListChannel> page3 =
 			priceListChannelResource.
-				getPriceListByExternalReferenceCodePriceListChannelPage(
+				getPriceListByExternalReferenceCodePriceListChannelsPage(
 					externalReferenceCode, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -377,7 +377,7 @@ public abstract class BasePriceListChannelResourceTestCase {
 	}
 
 	protected PriceListChannel
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_addPriceListChannel(
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_addPriceListChannel(
 				String externalReferenceCode, PriceListChannel priceListChannel)
 		throws Exception {
 
@@ -386,7 +386,7 @@ public abstract class BasePriceListChannelResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_getExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_getExternalReferenceCode()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -394,7 +394,7 @@ public abstract class BasePriceListChannelResourceTestCase {
 	}
 
 	protected String
-			testGetPriceListByExternalReferenceCodePriceListChannelPage_getIrrelevantExternalReferenceCode()
+			testGetPriceListByExternalReferenceCodePriceListChannelsPage_getIrrelevantExternalReferenceCode()
 		throws Exception {
 
 		return null;

@@ -159,7 +159,7 @@ public abstract class BasePriceListChannelResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
 	public Page<PriceListChannel>
-			getPriceListByExternalReferenceCodePriceListChannelPage(
+			getPriceListByExternalReferenceCodePriceListChannelsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode") String
 					externalReferenceCode,

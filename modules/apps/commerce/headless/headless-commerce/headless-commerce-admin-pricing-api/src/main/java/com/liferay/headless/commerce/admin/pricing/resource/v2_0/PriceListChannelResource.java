@@ -54,7 +54,7 @@ public interface PriceListChannelResource {
 		throws Exception;
 
 	public Page<PriceListChannel>
-			getPriceListByExternalReferenceCodePriceListChannelPage(
+			getPriceListByExternalReferenceCodePriceListChannelsPage(
 				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
