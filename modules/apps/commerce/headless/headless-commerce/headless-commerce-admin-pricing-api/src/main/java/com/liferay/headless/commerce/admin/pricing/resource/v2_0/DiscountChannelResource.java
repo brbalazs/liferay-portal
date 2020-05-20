@@ -53,6 +53,15 @@ public interface DiscountChannelResource {
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
+	public Page<DiscountChannel>
+			getDiscountByExternalReferenceCodeDiscountChannelsPage(
+				String externalReferenceCode, Pagination pagination)
+		throws Exception;
+
+	public DiscountChannel postDiscountByExternalReferenceCodeDiscountChannel(
+			String externalReferenceCode, DiscountChannel discountChannel)
+		throws Exception;
+
 	public Page<DiscountChannel> getDiscountIdDiscountChannelsPage(
 			Long id, Pagination pagination)
 		throws Exception;

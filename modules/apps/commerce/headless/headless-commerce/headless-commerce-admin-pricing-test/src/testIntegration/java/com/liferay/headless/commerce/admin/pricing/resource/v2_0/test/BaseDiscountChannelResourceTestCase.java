@@ -262,6 +262,167 @@ public abstract class BaseDiscountChannelResourceTestCase {
 	}
 
 	@Test
+	public void testGetDiscountByExternalReferenceCodeDiscountChannelsPage()
+		throws Exception {
+
+		Page<DiscountChannel> page =
+			discountChannelResource.
+				getDiscountByExternalReferenceCodeDiscountChannelsPage(
+					testGetDiscountByExternalReferenceCodeDiscountChannelsPage_getExternalReferenceCode(),
+					Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String externalReferenceCode =
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_getExternalReferenceCode();
+		String irrelevantExternalReferenceCode =
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_getIrrelevantExternalReferenceCode();
+
+		if ((irrelevantExternalReferenceCode != null)) {
+			DiscountChannel irrelevantDiscountChannel =
+				testGetDiscountByExternalReferenceCodeDiscountChannelsPage_addDiscountChannel(
+					irrelevantExternalReferenceCode,
+					randomIrrelevantDiscountChannel());
+
+			page =
+				discountChannelResource.
+					getDiscountByExternalReferenceCodeDiscountChannelsPage(
+						irrelevantExternalReferenceCode, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantDiscountChannel),
+				(List<DiscountChannel>)page.getItems());
+			assertValid(page);
+		}
+
+		DiscountChannel discountChannel1 =
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_addDiscountChannel(
+				externalReferenceCode, randomDiscountChannel());
+
+		DiscountChannel discountChannel2 =
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_addDiscountChannel(
+				externalReferenceCode, randomDiscountChannel());
+
+		page =
+			discountChannelResource.
+				getDiscountByExternalReferenceCodeDiscountChannelsPage(
+					externalReferenceCode, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(discountChannel1, discountChannel2),
+			(List<DiscountChannel>)page.getItems());
+		assertValid(page);
+
+		discountChannelResource.deleteDiscountChannel(null);
+
+		discountChannelResource.deleteDiscountChannel(null);
+	}
+
+	@Test
+	public void testGetDiscountByExternalReferenceCodeDiscountChannelsPageWithPagination()
+		throws Exception {
+
+		String externalReferenceCode =
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_getExternalReferenceCode();
+
+		DiscountChannel discountChannel1 =
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_addDiscountChannel(
+				externalReferenceCode, randomDiscountChannel());
+
+		DiscountChannel discountChannel2 =
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_addDiscountChannel(
+				externalReferenceCode, randomDiscountChannel());
+
+		DiscountChannel discountChannel3 =
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_addDiscountChannel(
+				externalReferenceCode, randomDiscountChannel());
+
+		Page<DiscountChannel> page1 =
+			discountChannelResource.
+				getDiscountByExternalReferenceCodeDiscountChannelsPage(
+					externalReferenceCode, Pagination.of(1, 2));
+
+		List<DiscountChannel> discountChannels1 =
+			(List<DiscountChannel>)page1.getItems();
+
+		Assert.assertEquals(
+			discountChannels1.toString(), 2, discountChannels1.size());
+
+		Page<DiscountChannel> page2 =
+			discountChannelResource.
+				getDiscountByExternalReferenceCodeDiscountChannelsPage(
+					externalReferenceCode, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<DiscountChannel> discountChannels2 =
+			(List<DiscountChannel>)page2.getItems();
+
+		Assert.assertEquals(
+			discountChannels2.toString(), 1, discountChannels2.size());
+
+		Page<DiscountChannel> page3 =
+			discountChannelResource.
+				getDiscountByExternalReferenceCodeDiscountChannelsPage(
+					externalReferenceCode, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(discountChannel1, discountChannel2, discountChannel3),
+			(List<DiscountChannel>)page3.getItems());
+	}
+
+	protected DiscountChannel
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_addDiscountChannel(
+				String externalReferenceCode, DiscountChannel discountChannel)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_getExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetDiscountByExternalReferenceCodeDiscountChannelsPage_getIrrelevantExternalReferenceCode()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testPostDiscountByExternalReferenceCodeDiscountChannel()
+		throws Exception {
+
+		DiscountChannel randomDiscountChannel = randomDiscountChannel();
+
+		DiscountChannel postDiscountChannel =
+			testPostDiscountByExternalReferenceCodeDiscountChannel_addDiscountChannel(
+				randomDiscountChannel);
+
+		assertEquals(randomDiscountChannel, postDiscountChannel);
+		assertValid(postDiscountChannel);
+	}
+
+	protected DiscountChannel
+			testPostDiscountByExternalReferenceCodeDiscountChannel_addDiscountChannel(
+				DiscountChannel discountChannel)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testGetDiscountIdDiscountChannelsPage() throws Exception {
 		Page<DiscountChannel> page =
 			discountChannelResource.getDiscountIdDiscountChannelsPage(

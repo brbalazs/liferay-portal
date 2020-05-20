@@ -483,6 +483,21 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public DiscountChannel createDiscountByExternalReferenceCodeDiscountChannel(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode,
+			@GraphQLName("discountChannel") DiscountChannel discountChannel)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_discountChannelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			discountChannelResource ->
+				discountChannelResource.
+					postDiscountByExternalReferenceCodeDiscountChannel(
+						externalReferenceCode, discountChannel));
+	}
+
+	@GraphQLField
 	public DiscountChannel createDiscountIdDiscountChannel(
 			@GraphQLName("id") Long id,
 			@GraphQLName("discountChannel") DiscountChannel discountChannel)

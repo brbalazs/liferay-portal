@@ -372,6 +372,27 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {discountByExternalReferenceCodeDiscountChannels(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public DiscountChannelPage discountByExternalReferenceCodeDiscountChannels(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_discountChannelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			discountChannelResource -> new DiscountChannelPage(
+				discountChannelResource.
+					getDiscountByExternalReferenceCodeDiscountChannelsPage(
+						externalReferenceCode, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {discountIdDiscountChannels(id: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -1201,6 +1222,36 @@ public class Query {
 				tierPriceResource ->
 					tierPriceResource.getTierPriceByExternalReferenceCode(
 						_discount.getExternalReferenceCode()));
+		}
+
+		private Discount _discount;
+
+	}
+
+	@GraphQLTypeExtension(Discount.class)
+	public class
+		GetDiscountByExternalReferenceCodeDiscountChannelsPageTypeExtension {
+
+		public GetDiscountByExternalReferenceCodeDiscountChannelsPageTypeExtension(
+			Discount discount) {
+
+			_discount = discount;
+		}
+
+		@GraphQLField
+		public DiscountChannelPage byExternalReferenceCodeDiscountChannels(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_discountChannelResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				discountChannelResource -> new DiscountChannelPage(
+					discountChannelResource.
+						getDiscountByExternalReferenceCodeDiscountChannelsPage(
+							_discount.getExternalReferenceCode(),
+							Pagination.of(page, pageSize))));
 		}
 
 		private Discount _discount;

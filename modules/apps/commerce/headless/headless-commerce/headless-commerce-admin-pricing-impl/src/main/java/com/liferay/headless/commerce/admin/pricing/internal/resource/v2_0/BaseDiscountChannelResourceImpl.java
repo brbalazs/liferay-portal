@@ -138,6 +138,63 @@ public abstract class BaseDiscountChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountChannels'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path(
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountChannels"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "DiscountChannel")})
+	public Page<DiscountChannel>
+			getDiscountByExternalReferenceCodeDiscountChannelsPage(
+				@NotNull @Parameter(hidden = true)
+				@PathParam("externalReferenceCode") String
+					externalReferenceCode,
+				@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountChannels' -d $'{"channelExternalReferenceCode": ___, "channelId": ___, "discountExternalReferenceCode": ___, "discountId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path(
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountChannels"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "DiscountChannel")})
+	public DiscountChannel postDiscountByExternalReferenceCodeDiscountChannel(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode,
+			DiscountChannel discountChannel)
+		throws Exception {
+
+		return new DiscountChannel();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountChannels'  -u 'test@liferay.com:test'
 	 */
 	@Override
