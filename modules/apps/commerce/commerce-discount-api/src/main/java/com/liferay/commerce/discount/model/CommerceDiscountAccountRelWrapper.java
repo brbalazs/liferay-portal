@@ -159,6 +159,14 @@ public class CommerceDiscountAccountRelWrapper
 			commerceDiscountAccountRel);
 	}
 
+	@Override
+	public com.liferay.commerce.account.model.CommerceAccount
+			getCommerceAccount()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountAccountRel.getCommerceAccount();
+	}
+
 	/**
 	 * Returns the commerce account ID of this commerce discount account rel.
 	 *
@@ -167,6 +175,13 @@ public class CommerceDiscountAccountRelWrapper
 	@Override
 	public long getCommerceAccountId() {
 		return _commerceDiscountAccountRel.getCommerceAccountId();
+	}
+
+	@Override
+	public CommerceDiscount getCommerceDiscount()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountAccountRel.getCommerceDiscount();
 	}
 
 	/**
