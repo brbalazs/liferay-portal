@@ -65,31 +65,43 @@ components:
     schemas:
         Discount:
             properties:
-                accountGroups:
-                    items:
-                        $ref: "#/components/schemas/DiscountAccountGroup"
-                    type: array
-                accounts:
-                    items:
-                        $ref: "#/components/schemas/DiscountAccount"
-                    type: array
                 active:
                     example: true
                     type: boolean
-                categories:
-                    items:
-                        $ref: "#/components/schemas/DiscountCategory"
-                    type: array
-                channels:
-                    items:
-                        $ref: "#/components/schemas/DiscountChannel"
-                    type: array
                 couponCode:
                     example: "SAVE20"
                     type: string
                 customFields:
                     additionalProperties: true
                     type: object
+                discountAccountGroups:
+                    items:
+                        $ref: "#/components/schemas/DiscountAccountGroup"
+                    type: array
+                discountAccounts:
+                    items:
+                        $ref: "#/components/schemas/DiscountAccount"
+                    type: array
+                discountCategories:
+                    items:
+                        $ref: "#/components/schemas/DiscountCategory"
+                    type: array
+                discountChannels:
+                    items:
+                        $ref: "#/components/schemas/DiscountChannel"
+                    type: array
+                discountProductGroups:
+                    items:
+                        $ref: "#/components/schemas/DiscountProductGroup"
+                    type: array
+                discountProducts:
+                    items:
+                        $ref: "#/components/schemas/DiscountProduct"
+                    type: array
+                discountRules:
+                    items:
+                        $ref: "#/components/schemas/DiscountRule"
+                    type: array
                 displayDate:
                     example: "2017-07-21"
                     format: date
@@ -150,19 +162,7 @@ components:
                     format: bigdecimal
                     minimum: 0
                     type: number
-                productGroups:
-                    items:
-                        $ref: "#/components/schemas/DiscountProductGroup"
-                    type: array
-                products:
-                    items:
-                        $ref: "#/components/schemas/DiscountProduct"
-                    type: array
-                rules:
-                    items:
-                        $ref: "#/components/schemas/DiscountRule"
-                    type: array
-                rulesConjuntion:
+                rulesConjunction:
                     example: true
                     type: boolean
                 target:
@@ -1065,8 +1065,11 @@ paths:
                   style: simple
             responses:
                 204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
                     description:
-                        No content
+                        ""
                 401:
                     content:
                         application/json:
@@ -1376,8 +1379,11 @@ paths:
                   style: simple
             responses:
                 204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
                     description:
-                        No content
+                        ""
                 401:
                     content:
                         application/json:
@@ -2013,6 +2019,167 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Category.
             tags: ["DiscountCategory"]
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountChannels:
+        get:
+            operationId: getDiscountByExternalReferenceCodeDiscountChannelsPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/DiscountChannel"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/DiscountChannel"
+                                type: array
+                    description:
+                        Successful operation
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Discount Channels.
+            tags: ["DiscountChannel"]
+        post:
+            operationId: postDiscountByExternalReferenceCodeDiscountChannel
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DiscountChannel"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/DiscountChannel"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/DiscountChannel"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/DiscountChannel"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or updates a Discount Channel.
+            tags: ["DiscountChannel"]
     /discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountProductGroupsPage
@@ -2517,8 +2684,11 @@ paths:
                   style: simple
             responses:
                 204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
                     description:
-                        No content
+                        ""
                 401:
                     content:
                         application/json:
@@ -5132,7 +5302,7 @@ paths:
             tags: ["PriceEntry"]
     /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccountGroups:
         get:
-            operationId: getPriceListByExternalReferenceCodePriceListAccountGroupPage
+            operationId: getPriceListByExternalReferenceCodePriceListAccountGroupsPage
             parameters:
                 - in: path
                   explode: false
@@ -5293,7 +5463,7 @@ paths:
             tags: ["PriceListAccountGroup"]
     /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccounts:
         get:
-            operationId: getPriceListByExternalReferenceCodePriceListAccountPage
+            operationId: getPriceListByExternalReferenceCodePriceListAccountsPage
             parameters:
                 - in: path
                   explode: false
@@ -5454,7 +5624,7 @@ paths:
             tags: ["PriceListAccount"]
     /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels:
         get:
-            operationId: getPriceListByExternalReferenceCodePriceListChannelPage
+            operationId: getPriceListByExternalReferenceCodePriceListChannelsPage
             parameters:
                 - in: path
                   explode: false
@@ -5615,7 +5785,7 @@ paths:
             tags: ["PriceListChannel"]
     /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts:
         get:
-            operationId: getPriceListByExternalReferenceCodePriceListDiscountPage
+            operationId: getPriceListByExternalReferenceCodePriceListDiscountsPage
             parameters:
                 - in: path
                   explode: false
