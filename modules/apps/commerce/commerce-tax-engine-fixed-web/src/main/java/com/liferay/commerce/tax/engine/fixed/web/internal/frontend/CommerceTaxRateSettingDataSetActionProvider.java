@@ -155,7 +155,6 @@ public class CommerceTaxRateSettingDataSetActionProvider
 		portletURL.setParameter(
 			"commerceTaxFixedRateAddressRelId",
 			String.valueOf(taxRateSettingId));
-
 		portletURL.setWindowState(LiferayWindowState.POP_UP);
 
 		return portletURL.toString();
