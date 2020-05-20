@@ -255,6 +255,8 @@ export const Routes = buildRoutes({
 								routes: {
 									SETTINGS_DEFINITIONS_BEHAVIORS:
 										'/behaviors',
+									SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES:
+										'/individual-attributes',
 									SETTINGS_DEFINITIONS_INTEREST_TOPICS:
 										'/interest-topics'
 								}

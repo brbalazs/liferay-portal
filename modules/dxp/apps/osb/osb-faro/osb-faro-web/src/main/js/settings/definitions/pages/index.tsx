@@ -10,6 +10,12 @@ const Overview = lazy(() =>
 	import(/* webpackChunkName: "DefinitionsOverview" */ './Overview')
 );
 
+const IndividualAttributes = lazy(() =>
+	import(
+		/* webpackChunkName: "DefinitionsIndividualAttributes" */ './IndividualAttributes'
+	)
+);
+
 const InterestTopics = lazy(() =>
 	import(
 		/* webpackChunkName: "DefinitionsInterestTopics" */ './InterestTopics'
@@ -35,6 +41,12 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 				data={InterestTopics}
 				exact
 				path={Routes.SETTINGS_DEFINITIONS_INTEREST_TOPICS}
+			/>
+
+			<BundleRouter
+				data={IndividualAttributes}
+				exact
+				path={Routes.SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES}
 			/>
 
 			{DEVELOPER_MODE && (
