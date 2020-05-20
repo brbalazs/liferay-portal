@@ -547,6 +547,18 @@ export function mockIndividualEngagement(seed = 0, data = {}) {
 	};
 }
 
+export function mockIndividualAttributes(seed = 0, data = {}) {
+	return {
+		dataSources: range(seed + 1).map(i => ({
+			dataSourceFieldName: `testMiddleName${i}`,
+			dataSourceName: `LIFERAY-DATASOURCE-FARO-EXAMPLE-${i}`
+		})),
+		dateModified: getTimestamp(),
+		fieldName: `testFildName${seed}`,
+		...data
+	};
+}
+
 export function mockInterestData(seed = 0) {
 	return {
 		interestAggregations: [
