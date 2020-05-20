@@ -509,7 +509,10 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		_updateCPDefinitionOptionValueRelCPInstance(
 			cpDefinitionOptionValueRel, cpInstanceId);
 
-		if (cpDefinitionOptionRel.isPriceTypeStatic()) {
+		if (Objects.equals(
+				cpDefinitionOptionRel.getPriceType(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
 			cpDefinitionOptionValueRel.setPrice(price);
 		}
 
