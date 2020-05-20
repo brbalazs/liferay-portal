@@ -21,16 +21,6 @@ AUI.add(
 		};
 
 		var serializeDefinition = function(xmlNamespace, metadata, json) {
-			var xml = toXML(xmlNamespace, metadata, json);
-
-			xml = XMLUtil.format(xml);
-
-			xml = xml.trim();
-
-			return xml;
-		};
-
-		var toXML = function(xmlNamespace, metadata, json) {
 			var description = metadata.description;
 			var name = metadata.name;
 			var version = metadata.version;
@@ -98,7 +88,7 @@ AUI.add(
 
 			buffer.push(xmlWorkflowDefinition.close);
 
-			return buffer.join('\r\n');
+			return XMLUtil.format(buffer);
 		};
 
 		var appendXMLActions = function(buffer, actions, notifications, assignments, wrapperNodeName, actionNodeName, notificationNodeName, assignmentNodeName) {

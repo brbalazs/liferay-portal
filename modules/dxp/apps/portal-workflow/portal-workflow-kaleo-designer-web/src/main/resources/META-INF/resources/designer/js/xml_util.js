@@ -28,10 +28,9 @@ AUI.add(
 		var STR_SPACE = ' ';
 
 		var XMLUtil = {
-			REGEX_TOKEN_1: /(>)(<)(\/*)/g,
-			REGEX_TOKEN_2: /.+<\/\w[^>]*>$/,
-			REGEX_TOKEN_3: /^<\/\w/,
-			REGEX_TOKEN_4: /^<\w[^>]*[^\/]>.*$/,
+			REGEX_TOKEN_1: /.+<\/\w[^>]*>$/,
+			REGEX_TOKEN_2: /^<\/\w/,
+			REGEX_TOKEN_3: /^<\w[^>]*[^\/]>.*$/,
 
 			create: function(name, content, attrs) {
 				var instance = this;
@@ -72,36 +71,34 @@ AUI.add(
 				};
 			},
 
-			format: function(xml) {
+			format: function(lines) {
 				var instance = this;
 
 				var formatted = STR_BLANK;
 				var inCDATA = false;
 				var pad = 0;
 
-				var lines = xml.replace(instance.REGEX_TOKEN_1, '$1' + STR_CHAR_CRLF + '$2$3').split(/\r?\n/g);
-
 				lines.forEach(
 					function(item, index, collection) {
 						var indent = 0;
 
 						if (!inCDATA) {
-							if (item.match(instance.REGEX_TOKEN_2)) {
+							if (item.match(instance.REGEX_TOKEN_1)) {
 								indent = 0;
 							}
-							else if (item.match(instance.REGEX_TOKEN_3)) {
+							else if (item.match(instance.REGEX_TOKEN_2)) {
 								if (pad !== 0) {
 									pad -= 1;
 								}
 							}
-							else if (item.match(instance.REGEX_TOKEN_4)) {
+							else if (item.match(instance.REGEX_TOKEN_3)) {
 								indent = 1;
 							}
 
 							formatted += LString.repeat(STR_CHAR_TAB, pad);
 						}
 
-						formatted += item + STR_CHAR_CRLF;
+						formatted += item.trim() + STR_CHAR_CRLF;
 
 						if (item.indexOf(STR_CDATA_CLOSE) > -1) {
 							inCDATA = false;
