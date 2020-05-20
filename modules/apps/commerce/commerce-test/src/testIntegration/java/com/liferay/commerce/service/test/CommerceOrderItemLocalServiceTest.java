@@ -232,7 +232,7 @@ public class CommerceOrderItemLocalServiceTest {
 		).and(
 			"A user"
 		).and(
-			"A SKU linked to a not published product"
+			"A SKU linked to an unpublished product"
 		).when(
 			"There is availability for the SKU"
 		).then(
@@ -284,7 +284,7 @@ public class CommerceOrderItemLocalServiceTest {
 		).and(
 			"A user"
 		).and(
-			"A not pubblished SKU"
+			"An unpublished SKU"
 		).when(
 			"There is availability for the SKU"
 		).then(
