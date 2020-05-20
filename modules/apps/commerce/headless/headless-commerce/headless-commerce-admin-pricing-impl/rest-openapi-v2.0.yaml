@@ -807,170 +807,6 @@ info:
     version: v2.0
 openapi: 3.0.0
 paths:
-    /discount/by-externalReferenceCode/{externalReferenceCode}/discountRules:
-        get:
-            operationId: getDiscountByExternalReferenceCodeDiscountRulesPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: externalReferenceCode
-                  required: true
-                  schema:
-                      description:
-                          The resource external reference code
-                      example: AB-34098-789-N
-                      minLength: 1
-                      type: string
-                  style: simple
-                - in: query
-                  explode: true
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
-                - in: query
-                  explode: true
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/DiscountRule"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/DiscountRule"
-                                type: array
-                    description:
-                        Successful operation
-                400:
-                    description:
-                        Invalid input
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            security:
-                - BasicAuth: []
-                - BearerAuth: []
-                - OAuth2:
-                      - HeadlessCommerceAdminPricing.read
-            summary: Gets a list of Discount Rule related to a Discount.
-            tags: ["DiscountRule"]
-        post:
-            operationId: postDiscountByExternalReferenceCodeDiscountRule
-            parameters:
-                - in: path
-                  explode: false
-                  name: externalReferenceCode
-                  required: true
-                  schema:
-                      description:
-                          The resource external reference code
-                      example: AB-34098-789-N
-                      minLength: 1
-                      type: string
-                  style: simple
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/DiscountRule"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/DiscountRule"
-                required: true
-            responses:
-                201:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/DiscountRule"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/DiscountRule"
-                    description:
-                        Created
-                202:
-                    description:
-                        Async
-                204:
-                    description:
-                        Updated
-                400:
-                    description:
-                        Invalid input
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            security:
-                - BasicAuth: []
-                - BearerAuth: []
-                - OAuth2:
-                      - HeadlessCommerceAdminPricing.write
-            summary: Creates or Updates a Discount Rule.
-            tags: ["DiscountRule"]
     /discountAccountGroups/{id}:
         delete:
             operationId: deleteDiscountAccountGroup
@@ -2338,165 +2174,6 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Product Group.
             tags: ["DiscountProductGroup"]
-    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups:
-        get:
-            parameters:
-                - in: path
-                  explode: false
-                  name: externalReferenceCode
-                  required: true
-                  schema:
-                      description:
-                          The resource external reference code
-                      example: AB-34098-789-N
-                      minLength: 1
-                      type: string
-                  style: simple
-                - in: query
-                  explode: true
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
-                - in: query
-                  explode: true
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/DiscountProductGroup"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/DiscountProductGroup"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            security:
-                - BasicAuth: []
-                - BearerAuth: []
-                - OAuth2:
-                      - HeadlessCommerceAdminPricing.read
-            summary: Gets a list of Discount Product Groups.
-            tags: ["DiscountProductGroup"]
-        post:
-            parameters:
-                - in: path
-                  explode: false
-                  name: externalReferenceCode
-                  required: true
-                  schema:
-                      description:
-                          The resource external reference code
-                      example: AB-34098-789-N
-                      minLength: 1
-                      type: string
-                  style: simple
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/DiscountProductGroup"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/DiscountProductGroup"
-                required: true
-            responses:
-                201:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/DiscountProductGroup"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/DiscountProductGroup"
-                    description:
-                        Created
-                202:
-                    description:
-                        Async
-                204:
-                    description:
-                        Updated
-                400:
-                    description:
-                        Invalid input
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            security:
-                - BasicAuth: []
-                - BearerAuth: []
-                - OAuth2:
-                      - HeadlessCommerceAdminPricing.write
-            summary: Creates or updates a Discount Product Group.
-            tags: ["DiscountProductGroup"]
     /discounts/by-externalReferenceCode/{externalReferenceCode}/discountProducts:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountProductsPage
@@ -2658,6 +2335,170 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Product.
             tags: ["DiscountProduct"]
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules:
+        get:
+            operationId: getDiscountByExternalReferenceCodeDiscountRulesPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/DiscountRule"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/DiscountRule"
+                                type: array
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Discount Rule related to a Discount.
+            tags: ["DiscountRule"]
+        post:
+            operationId: postDiscountByExternalReferenceCodeDiscountRule
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DiscountRule"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/DiscountRule"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/DiscountRule"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/DiscountRule"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or Updates a Discount Rule.
+            tags: ["DiscountRule"]
     /discounts/{id}:
         delete:
             operationId: deleteDiscount
@@ -3322,168 +3163,8 @@ paths:
             summary: Creates or updates a Discount Category.
             tags: ["DiscountCategory"]
     /discounts/{id}/discountChannels:
-        /discounts/by-externalReferenceCode/{externalReferenceCode}/discountCategories/:
-            get:
-                operationId: getDiscountIdDiscountChannelsPage
-                parameters:
-                    - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
-                    - in: query
-                      explode: true
-                      name: page
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
-                    - in: query
-                      explode: true
-                      name: pageSize
-                      required: false
-                      schema:
-                          type: integer
-                      style: form
-                responses:
-                    200:
-                        content:
-                            application/json:
-                                schema:
-                                    items:
-                                        $ref: "#/components/schemas/DiscountCategory"
-                                    type: array
-                            application/xml:
-                                schema:
-                                    items:
-                                        $ref: "#/components/schemas/DiscountCategory"
-                                    type: array
-                        description:
-                            Successful operation
-                    401:
-                        content:
-                            application/json:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                            application/xml:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                        description:
-                            Authentication information is missing or invalid
-                    404:
-                        content:
-                            application/json:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                            application/xml:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                        description:
-                            The specified resource was not found
-                    500:
-                        content:
-                            application/json:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                            application/xml:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                        description:
-                            Unexpected error
-                security:
-                    - BasicAuth: []
-                    - BearerAuth: []
-                    - OAuth2:
-                          - HeadlessCommerceAdminPricing.read
-                summary: Gets a list of Discount Categories.
-                tags: ["DiscountCategory"]
-            post:
-                operationId: postDiscountIdDiscountChannel
-                parameters:
-                    - in: path
-                      explode: false
-                      name: externalReferenceCode
-                      required: true
-                      schema:
-                          description:
-                              The resource external reference code
-                          example: AB-34098-789-N
-                          minLength: 1
-                          type: string
-                      style: simple
-                requestBody:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/DiscountCategory"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/DiscountCategory"
-                    required: true
-                responses:
-                    201:
-                        content:
-                            application/json:
-                                schema:
-                                    $ref: "#/components/schemas/DiscountCategory"
-                            application/xml:
-                                schema:
-                                    $ref: "#/components/schemas/DiscountCategory"
-                        description:
-                            Created
-                    202:
-                        description:
-                            Async
-                    204:
-                        description:
-                            Updated
-                    400:
-                        description:
-                            Invalid input
-                    401:
-                        content:
-                            application/json:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                            application/xml:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                        description:
-                            Authentication information is missing or invalid
-                    404:
-                        content:
-                            application/json:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                            application/xml:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                        description:
-                            The specified resource was not found
-                    500:
-                        content:
-                            application/json:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                            application/xml:
-                                schema:
-                                    $ref: "#/components/schemas/Error"
-                        description:
-                            Unexpected error
-                security:
-                    - BasicAuth: []
-                    - BearerAuth: []
-                    - OAuth2:
-                          - HeadlessCommerceAdminPricing.write
-                summary: Creates or updates a Discount Category.
-                tags: ["DiscountCategory"]
         get:
+            operationId: getDiscountIdDiscountChannelsPage
             parameters:
                 - in: path
                   explode: false
@@ -3564,6 +3245,7 @@ paths:
             summary: Gets a list of Discount Channels.
             tags: ["DiscountChannel"]
         post:
+            operationId: postDiscountIdDiscountChannel
             parameters:
                 - in: path
                   explode: false
@@ -3727,167 +3409,6 @@ paths:
             tags: ["DiscountProductGroup"]
         post:
             operationId: postDiscountIdDiscountProductGroup
-            parameters:
-                - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/DiscountProductGroup"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/DiscountProductGroup"
-                required: true
-            responses:
-                201:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/DiscountProductGroup"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/DiscountProductGroup"
-                    description:
-                        Created
-                202:
-                    description:
-                        Async
-                204:
-                    description:
-                        Updated
-                400:
-                    description:
-                        Invalid input
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            security:
-                - BasicAuth: []
-                - BearerAuth: []
-                - OAuth2:
-                      - HeadlessCommerceAdminPricing.write
-            summary: Creates or updates a Discount Product Group.
-            tags: ["DiscountProductGroup"]
-    /discounts/{id}/discountProductGroups:
-        get:
-            parameters:
-                - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  explode: true
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
-                - in: query
-                  explode: true
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/DiscountProductGroup"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/DiscountProductGroup"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            security:
-                - BasicAuth: []
-                - BearerAuth: []
-                - OAuth2:
-                      - HeadlessCommerceAdminPricing.read
-            summary: Gets a list of Discount Product Groups.
-            tags: ["DiscountProductGroup"]
-        post:
             parameters:
                 - in: path
                   explode: false
@@ -5609,168 +5130,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price Entry.
             tags: ["PriceEntry"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccount:
-        get:
-            operationId: getPriceListByExternalReferenceCodePriceListAccountPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: externalReferenceCode
-                  required: true
-                  schema:
-                      description:
-                          The resource external reference code
-                      example: AB-34098-789-N
-                      minLength: 1
-                      type: string
-                  style: simple
-                - in: query
-                  explode: true
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
-                - in: query
-                  explode: true
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/PriceListAccount"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/PriceListAccount"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            security:
-                - BasicAuth: []
-                - BearerAuth: []
-                - OAuth2:
-                      - HeadlessCommerceAdminPricing.read
-            summary: Gets a list of Price List Account.
-            tags: ["PriceListAccount"]
-        post:
-            operationId: postPriceListByExternalReferenceCodePriceListAccount
-            parameters:
-                - in: path
-                  explode: false
-                  name: externalReferenceCode
-                  required: true
-                  schema:
-                      description:
-                          The resource external reference code
-                      example: AB-34098-789-N
-                      minLength: 1
-                      type: string
-                  style: simple
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/PriceListAccount"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/PriceListAccount"
-                required: true
-            responses:
-                201:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/PriceListAccount"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/PriceListAccount"
-                    description:
-                        Created
-                202:
-                    description:
-                        Async
-                204:
-                    description:
-                        Updated
-                400:
-                    description:
-                        Invalid input
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            security:
-                - BasicAuth: []
-                - BearerAuth: []
-                - OAuth2:
-                      - HeadlessCommerceAdminPricing.write
-            summary: Creates or updates a Price List Account.
-            tags: ["PriceListAccount"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccountGroup:
+    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccountGroups:
         get:
             operationId: getPriceListByExternalReferenceCodePriceListAccountGroupPage
             parameters:
@@ -5931,7 +5291,168 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Account Group.
             tags: ["PriceListAccountGroup"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannel:
+    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccounts:
+        get:
+            operationId: getPriceListByExternalReferenceCodePriceListAccountPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceListAccount"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceListAccount"
+                                type: array
+                    description:
+                        Successful operation
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Price List Account.
+            tags: ["PriceListAccount"]
+        post:
+            operationId: postPriceListByExternalReferenceCodePriceListAccount
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceListAccount"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceListAccount"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceListAccount"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceListAccount"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or updates a Price List Account.
+            tags: ["PriceListAccount"]
+    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels:
         get:
             operationId: getPriceListByExternalReferenceCodePriceListChannelPage
             parameters:
@@ -6092,7 +5613,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Channel.
             tags: ["PriceListChannel"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscount:
+    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts:
         get:
             operationId: getPriceListByExternalReferenceCodePriceListDiscountPage
             parameters:
@@ -7079,6 +6600,7 @@ paths:
                 - OAuth2:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Channel.
+            tags: ["PriceListChannel"]
     /priceLists/{id}/priceListDiscounts:
         get:
             operationId: getPriceListIdPriceListDiscountsPage
@@ -7241,6 +6763,7 @@ paths:
                 - OAuth2:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Discount.
+            tags: ["PriceListDiscount"]
     /tierPrices/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deleteTierPriceByExternalReferenceCode
