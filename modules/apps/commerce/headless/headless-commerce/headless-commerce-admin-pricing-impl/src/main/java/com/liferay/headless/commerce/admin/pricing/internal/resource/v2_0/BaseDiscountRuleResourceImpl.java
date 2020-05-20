@@ -83,63 +83,6 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount/by-externalReferenceCode/{externalReferenceCode}/discountRules'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path(
-		"/discount/by-externalReferenceCode/{externalReferenceCode}/discountRules"
-	)
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "DiscountRule")})
-	public Page<DiscountRule>
-			getDiscountByExternalReferenceCodeDiscountRulesPage(
-				@NotNull @Parameter(hidden = true)
-				@PathParam("externalReferenceCode") String
-					externalReferenceCode,
-				@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount/by-externalReferenceCode/{externalReferenceCode}/discountRules' -d $'{"name": ___, "type": ___, "typeSettings": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path(
-		"/discount/by-externalReferenceCode/{externalReferenceCode}/discountRules"
-	)
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "DiscountRule")})
-	public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode,
-			DiscountRule discountRule)
-		throws Exception {
-
-		return new DiscountRule();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -235,6 +178,63 @@ public abstract class BaseDiscountRuleResourceImpl
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
 		return responseBuilder.build();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path(
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "DiscountRule")})
+	public Page<DiscountRule>
+			getDiscountByExternalReferenceCodeDiscountRulesPage(
+				@NotNull @Parameter(hidden = true)
+				@PathParam("externalReferenceCode") String
+					externalReferenceCode,
+				@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules' -d $'{"name": ___, "type": ___, "typeSettings": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path(
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "DiscountRule")})
+	public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode,
+			DiscountRule discountRule)
+		throws Exception {
+
+		return new DiscountRule();
 	}
 
 	/**

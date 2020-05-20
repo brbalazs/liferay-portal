@@ -324,7 +324,7 @@ public interface PriceListDiscountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscount",
+						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -395,7 +395,7 @@ public interface PriceListDiscountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscount",
+						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(

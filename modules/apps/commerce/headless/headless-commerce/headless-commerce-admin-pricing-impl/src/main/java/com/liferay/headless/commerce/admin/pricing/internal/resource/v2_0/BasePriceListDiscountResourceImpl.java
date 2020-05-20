@@ -142,7 +142,7 @@ public abstract class BasePriceListDiscountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscount'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -154,7 +154,7 @@ public abstract class BasePriceListDiscountResourceImpl
 		}
 	)
 	@Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscount"
+		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListDiscount")})
@@ -172,7 +172,7 @@ public abstract class BasePriceListDiscountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscount' -d $'{"discountExternalReferenceCode": ___, "discountId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts' -d $'{"discountExternalReferenceCode": ___, "discountId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -183,7 +183,7 @@ public abstract class BasePriceListDiscountResourceImpl
 		}
 	)
 	@Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscount"
+		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListDiscount")})
@@ -234,7 +234,7 @@ public abstract class BasePriceListDiscountResourceImpl
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
 	@Path("/priceLists/{id}/priceListDiscounts")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {})
+	@Tags(value = {@Tag(name = "PriceListDiscount")})
 	public PriceListDiscount postPriceListIdPriceListDiscount(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
 			PriceListDiscount priceListDiscount)

@@ -320,7 +320,7 @@ public interface PriceListChannelResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannel",
+						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -391,7 +391,7 @@ public interface PriceListChannelResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannel",
+						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(

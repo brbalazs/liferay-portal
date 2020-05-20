@@ -142,7 +142,7 @@ public abstract class BasePriceListChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannel'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -154,7 +154,7 @@ public abstract class BasePriceListChannelResourceImpl
 		}
 	)
 	@Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannel"
+		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
@@ -172,7 +172,7 @@ public abstract class BasePriceListChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannel' -d $'{"channelExternalReferenceCode": ___, "channelId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels' -d $'{"channelExternalReferenceCode": ___, "channelId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -183,7 +183,7 @@ public abstract class BasePriceListChannelResourceImpl
 		}
 	)
 	@Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannel"
+		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
@@ -234,7 +234,7 @@ public abstract class BasePriceListChannelResourceImpl
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
 	@Path("/priceLists/{id}/priceListChannels")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {})
+	@Tags(value = {@Tag(name = "PriceListChannel")})
 	public PriceListChannel postPriceListIdPriceListChannel(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
 			PriceListChannel priceListChannel)

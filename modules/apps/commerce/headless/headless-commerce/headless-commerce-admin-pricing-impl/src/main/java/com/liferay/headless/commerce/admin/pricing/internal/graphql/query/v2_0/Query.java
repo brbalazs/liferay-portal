@@ -474,6 +474,21 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {discountRule(id: ___){discountId, id, name, type, typeSettings}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public DiscountRule discountRule(@GraphQLName("id") Long id)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_discountRuleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			discountRuleResource -> discountRuleResource.getDiscountRule(id));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {discountByExternalReferenceCodeDiscountRules(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -490,21 +505,6 @@ public class Query {
 				discountRuleResource.
 					getDiscountByExternalReferenceCodeDiscountRulesPage(
 						externalReferenceCode, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {discountRule(id: ___){discountId, id, name, type, typeSettings}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField
-	public DiscountRule discountRule(@GraphQLName("id") Long id)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_discountRuleResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			discountRuleResource -> discountRuleResource.getDiscountRule(id));
 	}
 
 	/**

@@ -40,25 +40,6 @@ public interface DiscountRuleResource {
 		return new Builder();
 	}
 
-	public Page<DiscountRule>
-			getDiscountByExternalReferenceCodeDiscountRulesPage(
-				String externalReferenceCode, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getDiscountByExternalReferenceCodeDiscountRulesPageHttpResponse(
-				String externalReferenceCode, Pagination pagination)
-		throws Exception;
-
-	public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
-			String externalReferenceCode, DiscountRule discountRule)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			postDiscountByExternalReferenceCodeDiscountRuleHttpResponse(
-				String externalReferenceCode, DiscountRule discountRule)
-		throws Exception;
-
 	public void deleteDiscountRule(Long id) throws Exception;
 
 	public HttpInvoker.HttpResponse deleteDiscountRuleHttpResponse(Long id)
@@ -82,6 +63,25 @@ public interface DiscountRuleResource {
 
 	public HttpInvoker.HttpResponse patchDiscountRuleHttpResponse(
 			Long id, DiscountRule discountRule)
+		throws Exception;
+
+	public Page<DiscountRule>
+			getDiscountByExternalReferenceCodeDiscountRulesPage(
+				String externalReferenceCode, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getDiscountByExternalReferenceCodeDiscountRulesPageHttpResponse(
+				String externalReferenceCode, Pagination pagination)
+		throws Exception;
+
+	public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
+			String externalReferenceCode, DiscountRule discountRule)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			postDiscountByExternalReferenceCodeDiscountRuleHttpResponse(
+				String externalReferenceCode, DiscountRule discountRule)
 		throws Exception;
 
 	public Page<DiscountRule> getDiscountIdDiscountRulesPage(
@@ -155,148 +155,6 @@ public interface DiscountRuleResource {
 
 	public static class DiscountRuleResourceImpl
 		implements DiscountRuleResource {
-
-		public Page<DiscountRule>
-				getDiscountByExternalReferenceCodeDiscountRulesPage(
-					String externalReferenceCode, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getDiscountByExternalReferenceCodeDiscountRulesPageHttpResponse(
-					externalReferenceCode, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return Page.of(content, DiscountRuleSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getDiscountByExternalReferenceCodeDiscountRulesPageHttpResponse(
-					String externalReferenceCode, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discount/by-externalReferenceCode/{externalReferenceCode}/discountRules",
-				externalReferenceCode);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
-				String externalReferenceCode, DiscountRule discountRule)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postDiscountByExternalReferenceCodeDiscountRuleHttpResponse(
-					externalReferenceCode, discountRule);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return DiscountRuleSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				postDiscountByExternalReferenceCodeDiscountRuleHttpResponse(
-					String externalReferenceCode, DiscountRule discountRule)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(discountRule.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discount/by-externalReferenceCode/{externalReferenceCode}/discountRules",
-				externalReferenceCode);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
 
 		public void deleteDiscountRule(Long id) throws Exception {
 			HttpInvoker.HttpResponse httpResponse =
@@ -512,6 +370,148 @@ public interface DiscountRuleResource {
 					_builder._port +
 						"/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}",
 				id);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<DiscountRule>
+				getDiscountByExternalReferenceCodeDiscountRulesPage(
+					String externalReferenceCode, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getDiscountByExternalReferenceCodeDiscountRulesPageHttpResponse(
+					externalReferenceCode, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return Page.of(content, DiscountRuleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse
+				getDiscountByExternalReferenceCodeDiscountRulesPageHttpResponse(
+					String externalReferenceCode, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules",
+				externalReferenceCode);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
+				String externalReferenceCode, DiscountRule discountRule)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postDiscountByExternalReferenceCodeDiscountRuleHttpResponse(
+					externalReferenceCode, discountRule);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return DiscountRuleSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse
+				postDiscountByExternalReferenceCodeDiscountRuleHttpResponse(
+					String externalReferenceCode, DiscountRule discountRule)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(discountRule.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules",
+				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

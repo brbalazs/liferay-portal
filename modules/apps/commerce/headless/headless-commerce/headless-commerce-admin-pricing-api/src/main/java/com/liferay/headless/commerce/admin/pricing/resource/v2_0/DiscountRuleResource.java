@@ -47,15 +47,6 @@ public interface DiscountRuleResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<DiscountRule>
-			getDiscountByExternalReferenceCodeDiscountRulesPage(
-				String externalReferenceCode, Pagination pagination)
-		throws Exception;
-
-	public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
-			String externalReferenceCode, DiscountRule discountRule)
-		throws Exception;
-
 	public Response deleteDiscountRule(Long id) throws Exception;
 
 	public Response deleteDiscountRuleBatch(
@@ -65,6 +56,15 @@ public interface DiscountRuleResource {
 	public DiscountRule getDiscountRule(Long id) throws Exception;
 
 	public Response patchDiscountRule(Long id, DiscountRule discountRule)
+		throws Exception;
+
+	public Page<DiscountRule>
+			getDiscountByExternalReferenceCodeDiscountRulesPage(
+				String externalReferenceCode, Pagination pagination)
+		throws Exception;
+
+	public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
+			String externalReferenceCode, DiscountRule discountRule)
 		throws Exception;
 
 	public Page<DiscountRule> getDiscountIdDiscountRulesPage(

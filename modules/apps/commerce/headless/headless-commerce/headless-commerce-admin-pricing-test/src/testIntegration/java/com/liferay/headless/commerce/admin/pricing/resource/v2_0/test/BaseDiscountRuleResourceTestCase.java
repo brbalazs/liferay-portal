@@ -198,6 +198,135 @@ public abstract class BaseDiscountRuleResourceTestCase {
 	}
 
 	@Test
+	public void testDeleteDiscountRule() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		DiscountRule discountRule = testDeleteDiscountRule_addDiscountRule();
+
+		assertHttpResponseStatusCode(
+			204,
+			discountRuleResource.deleteDiscountRuleHttpResponse(
+				discountRule.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			discountRuleResource.getDiscountRuleHttpResponse(
+				discountRule.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			discountRuleResource.getDiscountRuleHttpResponse(
+				discountRule.getId()));
+	}
+
+	protected DiscountRule testDeleteDiscountRule_addDiscountRule()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteDiscountRule() throws Exception {
+		DiscountRule discountRule = testGraphQLDiscountRule_addDiscountRule();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteDiscountRule",
+						new HashMap<String, Object>() {
+							{
+								put("discountRuleId", discountRule.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteDiscountRule"));
+
+		try (CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"graphql.execution.SimpleDataFetcherExceptionHandler",
+					Level.WARN)) {
+
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"discountRule",
+						new HashMap<String, Object>() {
+							{
+								put("discountRuleId", discountRule.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
+
+			Assert.assertTrue(errorsJSONArray.length() > 0);
+		}
+	}
+
+	@Test
+	public void testGetDiscountRule() throws Exception {
+		DiscountRule postDiscountRule = testGetDiscountRule_addDiscountRule();
+
+		DiscountRule getDiscountRule = discountRuleResource.getDiscountRule(
+			postDiscountRule.getId());
+
+		assertEquals(postDiscountRule, getDiscountRule);
+		assertValid(getDiscountRule);
+	}
+
+	protected DiscountRule testGetDiscountRule_addDiscountRule()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetDiscountRule() throws Exception {
+		DiscountRule discountRule = testGraphQLDiscountRule_addDiscountRule();
+
+		Assert.assertTrue(
+			equals(
+				discountRule,
+				DiscountRuleSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"discountRule",
+								new HashMap<String, Object>() {
+									{
+										put("id", discountRule.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/discountRule"))));
+	}
+
+	@Test
+	public void testGraphQLGetDiscountRuleNotFound() throws Exception {
+		Long irrelevantId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"discountRule",
+						new HashMap<String, Object>() {
+							{
+								put("id", irrelevantId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	@Test
+	public void testPatchDiscountRule() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testGetDiscountByExternalReferenceCodeDiscountRulesPage()
 		throws Exception {
 
@@ -356,135 +485,6 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testDeleteDiscountRule() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		DiscountRule discountRule = testDeleteDiscountRule_addDiscountRule();
-
-		assertHttpResponseStatusCode(
-			204,
-			discountRuleResource.deleteDiscountRuleHttpResponse(
-				discountRule.getId()));
-
-		assertHttpResponseStatusCode(
-			404,
-			discountRuleResource.getDiscountRuleHttpResponse(
-				discountRule.getId()));
-
-		assertHttpResponseStatusCode(
-			404,
-			discountRuleResource.getDiscountRuleHttpResponse(
-				discountRule.getId()));
-	}
-
-	protected DiscountRule testDeleteDiscountRule_addDiscountRule()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLDeleteDiscountRule() throws Exception {
-		DiscountRule discountRule = testGraphQLDiscountRule_addDiscountRule();
-
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"deleteDiscountRule",
-						new HashMap<String, Object>() {
-							{
-								put("discountRuleId", discountRule.getId());
-							}
-						})),
-				"JSONObject/data", "Object/deleteDiscountRule"));
-
-		try (CaptureAppender captureAppender =
-				Log4JLoggerTestUtil.configureLog4JLogger(
-					"graphql.execution.SimpleDataFetcherExceptionHandler",
-					Level.WARN)) {
-
-			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"discountRule",
-						new HashMap<String, Object>() {
-							{
-								put("discountRuleId", discountRule.getId());
-							}
-						},
-						new GraphQLField("id"))),
-				"JSONArray/errors");
-
-			Assert.assertTrue(errorsJSONArray.length() > 0);
-		}
-	}
-
-	@Test
-	public void testGetDiscountRule() throws Exception {
-		DiscountRule postDiscountRule = testGetDiscountRule_addDiscountRule();
-
-		DiscountRule getDiscountRule = discountRuleResource.getDiscountRule(
-			postDiscountRule.getId());
-
-		assertEquals(postDiscountRule, getDiscountRule);
-		assertValid(getDiscountRule);
-	}
-
-	protected DiscountRule testGetDiscountRule_addDiscountRule()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetDiscountRule() throws Exception {
-		DiscountRule discountRule = testGraphQLDiscountRule_addDiscountRule();
-
-		Assert.assertTrue(
-			equals(
-				discountRule,
-				DiscountRuleSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"discountRule",
-								new HashMap<String, Object>() {
-									{
-										put("id", discountRule.getId());
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data", "Object/discountRule"))));
-	}
-
-	@Test
-	public void testGraphQLGetDiscountRuleNotFound() throws Exception {
-		Long irrelevantId = RandomTestUtil.randomLong();
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"discountRule",
-						new HashMap<String, Object>() {
-							{
-								put("id", irrelevantId);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	@Test
-	public void testPatchDiscountRule() throws Exception {
-		Assert.assertTrue(false);
 	}
 
 	@Test

@@ -615,21 +615,6 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public DiscountRule createDiscountByExternalReferenceCodeDiscountRule(
-			@GraphQLName("externalReferenceCode") String externalReferenceCode,
-			@GraphQLName("discountRule") DiscountRule discountRule)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_discountRuleResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			discountRuleResource ->
-				discountRuleResource.
-					postDiscountByExternalReferenceCodeDiscountRule(
-						externalReferenceCode, discountRule));
-	}
-
-	@GraphQLField
 	public Response deleteDiscountRule(@GraphQLName("id") Long id)
 		throws Exception {
 
@@ -666,6 +651,21 @@ public class Mutation {
 			this::_populateResourceContext,
 			discountRuleResource -> discountRuleResource.patchDiscountRule(
 				id, discountRule));
+	}
+
+	@GraphQLField
+	public DiscountRule createDiscountByExternalReferenceCodeDiscountRule(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode,
+			@GraphQLName("discountRule") DiscountRule discountRule)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_discountRuleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			discountRuleResource ->
+				discountRuleResource.
+					postDiscountByExternalReferenceCodeDiscountRule(
+						externalReferenceCode, discountRule));
 	}
 
 	@GraphQLField
