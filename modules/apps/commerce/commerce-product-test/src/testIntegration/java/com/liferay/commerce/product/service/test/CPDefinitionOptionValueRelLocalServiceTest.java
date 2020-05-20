@@ -501,7 +501,7 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 	}
 
 	@Test(expected = CPDefinitionOptionValueRelQuantityException.class)
-	public void testValidateLinkedCPDefinitionOptionValueRelFailPriceTypeDynamic()
+	public void testValidateCPDefinitionOptionValueRelDynamicFail()
 		throws Exception {
 
 		frutillaRule.scenario(
@@ -514,12 +514,12 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			"An exception is thrown"
 		);
 
-		_assertValidateLinkedCPDefinitionOptionValueRelFail(
+		_assertValidateCPDefinitionOptionValueRelCPInstanceLinkFail(
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC);
 	}
 
 	@Test(expected = CPDefinitionOptionValueRelQuantityException.class)
-	public void testValidateLinkedCPDefinitionOptionValueRelFailPriceTypeStatic()
+	public void testValidateCPDefinitionOptionValueRelStaticFail()
 		throws Exception {
 
 		frutillaRule.scenario(
@@ -532,7 +532,7 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			"An exception is thrown"
 		);
 
-		_assertValidateLinkedCPDefinitionOptionValueRelFail(
+		_assertValidateCPDefinitionOptionValueRelCPInstanceLinkFail(
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC);
 	}
 
@@ -587,7 +587,7 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
 
 		Assert.assertEquals(
-			"There is one option value more tha before add operation", size + 1,
+			"Size of product option values increased by one", size + 1,
 			cpDefinitionOptionValueRels.size());
 	}
 
@@ -684,7 +684,7 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 				"cpInstance-option-value", _serviceContext);
 	}
 
-	private void _assertValidateLinkedCPDefinitionOptionValueRelFail(
+	private void _assertValidateCPDefinitionOptionValueRelCPInstanceLinkFail(
 			String priceType)
 		throws Exception {
 
