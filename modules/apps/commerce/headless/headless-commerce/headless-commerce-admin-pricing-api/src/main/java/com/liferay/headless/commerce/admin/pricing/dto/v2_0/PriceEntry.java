@@ -22,6 +22,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -54,6 +55,66 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Schema(requiredProperties = {"price"})
 @XmlRootElement(name = "PriceEntry")
 public class PriceEntry {
+
+	public static PriceEntry toDTO(String json) {
+		return ObjectMapperUtil.readValue(PriceEntry.class, json);
+	}
+
+	@Schema
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	@JsonIgnore
+	public void setActive(
+		UnsafeSupplier<Boolean, Exception> activeUnsafeSupplier) {
+
+		try {
+			active = activeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean active;
+
+	@Schema
+	public Boolean getBulkPricing() {
+		return bulkPricing;
+	}
+
+	public void setBulkPricing(Boolean bulkPricing) {
+		this.bulkPricing = bulkPricing;
+	}
+
+	@JsonIgnore
+	public void setBulkPricing(
+		UnsafeSupplier<Boolean, Exception> bulkPricingUnsafeSupplier) {
+
+		try {
+			bulkPricing = bulkPricingUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean bulkPricing;
 
 	@Schema
 	public Boolean getActive() {
