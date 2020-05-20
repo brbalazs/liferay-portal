@@ -610,11 +610,6 @@ public class CPDefinitionOptionRelWrapper
 	}
 
 	@Override
-	public boolean isChargeable() {
-		return _cpDefinitionOptionRel.isChargeable();
-	}
-
-	@Override
 	public boolean isEscapedModel() {
 		return _cpDefinitionOptionRel.isEscapedModel();
 	}
@@ -632,16 +627,6 @@ public class CPDefinitionOptionRelWrapper
 	@Override
 	public boolean isNew() {
 		return _cpDefinitionOptionRel.isNew();
-	}
-
-	@Override
-	public boolean isPriceTypeDynamic() {
-		return _cpDefinitionOptionRel.isPriceTypeDynamic();
-	}
-
-	@Override
-	public boolean isPriceTypeStatic() {
-		return _cpDefinitionOptionRel.isPriceTypeStatic();
 	}
 
 	/**
