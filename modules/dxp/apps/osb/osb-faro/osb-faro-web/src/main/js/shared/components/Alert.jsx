@@ -3,7 +3,7 @@ import getCN from 'classnames';
 import Icon from './Icon';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export const ALERT_TYPE_MAP = {
 	danger: 'danger',
@@ -13,7 +13,7 @@ export const ALERT_TYPE_MAP = {
 	warning: 'warning'
 };
 
-const { danger, info, secondary, success, warning } = ALERT_TYPE_MAP;
+const {danger, info, secondary, success, warning} = ALERT_TYPE_MAP;
 
 export const ALERT_CONFIG_MAP = {
 	[danger]: {
@@ -45,7 +45,7 @@ export const ALERT_CONFIG_MAP = {
 
 class AlertLink extends React.Component {
 	render() {
-		const { children, className, ...otherProps } = this.props;
+		const {children, className, ...otherProps} = this.props;
 
 		return (
 			<Link className={getCN('alert-link', className)} {...otherProps}>
@@ -69,7 +69,7 @@ export default class Alert extends React.Component {
 
 	@autobind
 	handleClose() {
-		const { id, onClose } = this.props;
+		const {id, onClose} = this.props;
 
 		if (onClose) {
 			onClose(id);
@@ -118,7 +118,11 @@ export default class Alert extends React.Component {
 		);
 
 		if (stripe) {
-			content = <div className='container' data-testid='stripe	'>{content}</div>;
+			content = (
+				<div className='container' data-testid='stripe	'>
+					{content}
+				</div>
+			);
 		}
 
 		return (

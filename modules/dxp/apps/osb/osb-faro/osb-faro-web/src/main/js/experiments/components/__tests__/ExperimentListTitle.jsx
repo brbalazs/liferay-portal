@@ -2,12 +2,11 @@ import BasePage from 'shared/components/base-page';
 import client from 'shared/apollo/client';
 import ExperimentListTitle from '../ExperimentListTitle';
 import React from 'react';
-import { ApolloProvider } from '@apollo/react-components';
-import { BrowserRouter } from 'react-router-dom';
-import { cleanup, render } from '@testing-library/react';
+import {ApolloProvider} from '@apollo/react-components';
+import {BrowserRouter} from 'react-router-dom';
+import {cleanup, render} from '@testing-library/react';
 
 jest.unmock('react-dom');
-
 
 describe('ExperimentListTitle', () => {
 	afterEach(cleanup);
@@ -32,11 +31,12 @@ describe('ExperimentListTitle', () => {
 		</ApolloProvider>
 	);
 	it('should render component', () => {
-		const { container } = render(
-			<WrappedComponent value={MOCK_CONTEXT}
+		const {container} = render(
+			<WrappedComponent
 				id='8a254c3f121aa322bc6ea3a53d787113531915a495d97fafba6d5f4c4bfb9550'
-				touchpoint='http://www.liferay.com'
 				title='My Experiment Title'
+				touchpoint='http://www.liferay.com'
+				value={MOCK_CONTEXT}
 			/>
 		);
 		expect(container).toMatchSnapshot();
