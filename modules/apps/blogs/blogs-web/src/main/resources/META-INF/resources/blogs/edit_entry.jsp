@@ -301,7 +301,7 @@ if (portletTitleBasedNavigation) {
 						</div>
 
 						<div class="entry-description form-group">
-							<aui:input disabled="<%= !customAbstract %>" label="description" name="description" onChange='<%= renderResponse.getNamespace() + "OnChangeCustomDescription(this.value);" %>' type="text" value="<%= description %>">
+							<aui:input disabled="<%= !customAbstract %>" label="description" name="description" onChange='<%= renderResponse.getNamespace() + "setCustomDescription(this.value);" %>' type="text" value="<%= description %>">
 								<aui:validator name="required" />
 							</aui:input>
 						</div>
@@ -449,14 +449,6 @@ if (portletTitleBasedNavigation) {
 </portlet:actionURL>
 
 <aui:script>
-	function <portlet:namespace />OnChangeCustomDescription(value) {
-		var blogs = Liferay.component('<portlet:namespace />Blogs');
-
-		if (blogs) {
-			blogs.setCustomDescription(value);
-		}
-	}
-
 	function <portlet:namespace />onChangeEditor(html) {
 		var blogs = Liferay.component('<portlet:namespace />Blogs');
 
@@ -473,6 +465,13 @@ if (portletTitleBasedNavigation) {
 		}
 	}
 
+	function <portlet:namespace />setCustomDescription(text) {
+		var blogs = Liferay.component('<portlet:namespace />Blogs');
+
+		if (blogs) {
+			blogs.setCustomDescription(text);
+		}
+	}
 	<c:if test="<%= (entry != null) && blogsGroupServiceSettings.isEmailEntryUpdatedEnabled() %>">
 		Liferay.Util.toggleBoxes('<portlet:namespace />sendEmailEntryUpdated', '<portlet:namespace />emailEntryUpdatedCommentWrapper');
 	</c:if>
