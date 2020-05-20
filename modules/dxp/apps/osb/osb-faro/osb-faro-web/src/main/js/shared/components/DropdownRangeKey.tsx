@@ -1,8 +1,13 @@
 import ClayButton from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
+import DatePicker from './date-picker';
 import getCN from 'classnames';
-import React, {useState} from 'react';
+import moment from 'moment';
+import React, {useEffect, useState} from 'react';
+import {DateRange, MomentDateRange} from 'shared/components/DateRangeInput';
+import {FORMAT} from 'shared/util/date';
+import {isRange} from 'shared/components/date-picker/util';
 import {
 	LAST_24_HOURS,
 	LAST_30_DAYS,
@@ -11,9 +16,9 @@ import {
 } from 'shared/util/constants';
 
 type Item = {
-	description: string;
+	description?: string;
 	label: string;
-	value: string;
+	value: string | DateRange;
 };
 
 interface DropdownRangeKeyIProps extends React.HTMLAttributes<HTMLElement> {
@@ -22,6 +27,9 @@ interface DropdownRangeKeyIProps extends React.HTMLAttributes<HTMLElement> {
 	onChange: (val: any) => void;
 	rangeKey: string;
 }
+
+const isDateRange = (dateRange: DateRange | string): dateRange is DateRange =>
+	Boolean((dateRange as DateRange).end && (dateRange as DateRange).start);
 
 const getSelectedItem = (items: Array<Item>, currentValue: string) =>
 	items.filter(({value}) => value === currentValue)[0];
@@ -33,11 +41,45 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 	onChange,
 	rangeKey = LAST_30_DAYS
 }) => {
+	// add method to check if rangeKey is a range
 	const [active, setActive] = useState(false);
+	const [customDateRange, setCustomDateRange] = useState<MomentDateRange>({
+		end: null,
+		start: null
+	});
 	const [selectedItem, setSelectedItem] = useState(
 		getSelectedItem(items, rangeKey)
 	);
 	const [seeMore, setSeeMore] = useState(false);
+	const [showDatePicker, setShowDatePicker] = useState(false);
+
+	useEffect(() => {
+		if (customDateRange && customDateRange.end && customDateRange.start) {
+			const {end, start} = customDateRange;
+
+			const dateRangeItem = {
+				label: `${start.format('ll')} - ${end.format('ll')}`,
+				value: {
+					end: end.format(FORMAT),
+					start: start.format(FORMAT)
+				}
+			};
+
+			setSelectedItem(dateRangeItem);
+
+			onChange(dateRangeItem.value);
+
+			setActive(false);
+			setShowDatePicker(false);
+		}
+	}, [customDateRange]);
+
+	const handleDateRangeSelect = ({end, start}: MomentDateRange) => {
+		setCustomDateRange({
+			end,
+			start
+		});
+	};
 
 	const handleValueChange = (item: Item) => {
 		setActive(false);
@@ -57,18 +99,24 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 							LAST_7_DAYS,
 							LAST_30_DAYS,
 							LAST_90_DAYS
-						].includes(value)
+						].includes(value as string)
 			  );
-
-	// TODO: LRAC-5926 Add logic for displaying CustomRange date picker
-	const handleCustomRangeClick = () => {};
 
 	return (
 		<ClayDropDown
 			active={active}
 			alignmentPosition={3}
 			className={getCN(className, 'dropdown-range-key-root')}
-			onActiveChange={setActive}
+			menuElementAttrs={{
+				className: getCN('dropdown-range-key-menu-root', {
+					'show-date-picker': showDatePicker
+				})
+			}}
+			onActiveChange={active => {
+				setActive(active);
+
+				setShowDatePicker(false);
+			}}
 			trigger={
 				<ClayButton borderless displayType='secondary' small>
 					{selectedItem.label}
@@ -77,52 +125,66 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 				</ClayButton>
 			}
 		>
-			<ClayDropDown.ItemList>
-				{filteredItems.map((item: Item, index: number) => {
-					const {description, label, value} = item;
+			{showDatePicker ? (
+				<DatePicker
+					date={customDateRange}
+					maxDate={moment().endOf('day')}
+					maxRange={365}
+					minDate={moment().subtract(100, 'years')}
+					onSelect={handleDateRangeSelect}
+				/>
+			) : (
+				<ClayDropDown.ItemList>
+					{filteredItems.map((item: Item, index: number) => {
+						const {description, label, value} = item;
 
-					const activeClass =
-						selectedItem.value === value ? 'active' : '';
+						const activeClass =
+							selectedItem.value === value ? 'active' : '';
 
-					return (
-						<ClayDropDown.Item
-							className={`c-pointer ${activeClass}`}
-							key={index}
-							onClick={() => handleValueChange(item)}
-						>
-							{label}
-
-							<div className='font-size-sm-2x'>{description}</div>
-						</ClayDropDown.Item>
-					);
-				})}
-
-				{!legacy && (
-					<>
-						{!seeMore && (
+						return (
 							<ClayDropDown.Item
-								className='c-pointer'
-								key='SEE_MORE'
-								onClick={() => setSeeMore(true)}
+								className={`c-pointer ${activeClass}`}
+								key={index}
+								onClick={() => handleValueChange(item)}
 							>
-								{Liferay.Language.get('more-preset-periods')}
+								{label}
+
+								<div className='font-size-sm-2x'>
+									{description}
+								</div>
 							</ClayDropDown.Item>
-						)}
+						);
+					})}
 
-						<ClayDropDown.Divider />
+					{!legacy && (
+						<>
+							{!seeMore && (
+								<ClayDropDown.Item
+									className='c-pointer'
+									key='SEE_MORE'
+									onClick={() => setSeeMore(true)}
+								>
+									{Liferay.Language.get(
+										'more-preset-periods'
+									)}
+								</ClayDropDown.Item>
+							)}
 
-						<ClayDropDown.Item
-							className={`c-pointer ${
-								selectedItem.value === 'CUSTOM' ? 'active' : ''
-							}`}
-							key='CUSTOM'
-							onClick={handleCustomRangeClick}
-						>
-							<b>{Liferay.Language.get('custom-range')}</b>
-						</ClayDropDown.Item>
-					</>
-				)}
-			</ClayDropDown.ItemList>
+							<ClayDropDown.Divider />
+
+							<ClayDropDown.Item
+								className={getCN('c-pointer', {
+									active: isDateRange(selectedItem.value)
+								})}
+								key='CUSTOM'
+								onClick={() => setShowDatePicker(true)}
+							>
+								<b>{Liferay.Language.get('custom-range')}</b>
+							</ClayDropDown.Item>
+						</>
+					)}
+				</ClayDropDown.ItemList>
+			)}
 		</ClayDropDown>
 	);
 };

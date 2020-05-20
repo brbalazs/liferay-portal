@@ -22,7 +22,7 @@ export type DateRange = {
 	start: string;
 };
 
-type MomentDateRange = {
+export type MomentDateRange = {
 	end: moment.Moment;
 	start: moment.Moment;
 };
