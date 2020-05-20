@@ -375,6 +375,18 @@ public class CPTestUtil {
 	}
 
 	public static CPInstance addCPInstanceFromCatalog(
+			long groupId, BigDecimal price, String sku)
+		throws PortalException {
+
+		CPInstance cpInstance = addCPInstanceFromCatalog(groupId);
+
+		cpInstance.setSku(sku);
+		cpInstance.setPrice(price);
+
+		return CPInstanceLocalServiceUtil.updateCPInstance(cpInstance);
+	}
+
+	public static CPInstance addCPInstanceFromCatalog(
 			long groupId, long[] assetCategoryIds)
 		throws PortalException {
 

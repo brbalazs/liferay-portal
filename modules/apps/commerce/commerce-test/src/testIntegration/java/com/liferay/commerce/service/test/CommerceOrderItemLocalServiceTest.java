@@ -41,6 +41,7 @@ import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.option.CommerceOptionValue;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalServiceUtil;
+import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalServiceUtil;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CPOptionLocalServiceUtil;
@@ -79,6 +80,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.frutilla.FrutillaRule;
 
@@ -367,6 +369,25 @@ public class CommerceOrderItemLocalServiceTest {
 	}
 
 	@Test
+	public void testAddProductBundleWithBackOrderAllowedChildSKU()
+		throws Exception {
+
+		frutillaRule.scenario(
+			"Add a product bundle to an order with child SKUs"
+		).given(
+			"A product bundle with 2 approved child SKUs"
+		).and(
+			"all child SKUs are unavailable but back orders are allowed"
+		).when(
+			"User adds product bundle to an order"
+		).then(
+			"Action should succeed"
+		);
+
+		_addProductBundleWithUnavailableChildSKU(true);
+	}
+
+	@Test
 	public void testAddProductBundleWithDynamicOption() throws Exception {
 		frutillaRule.scenario(
 			"Add a product bundle with dynamic price option linked to a SKU " +
@@ -561,6 +582,26 @@ public class CommerceOrderItemLocalServiceTest {
 
 		_addProductBundleWithOptionLinkedToSKU(
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC);
+	}
+
+	@Test(expected = CommerceOrderValidatorException.class)
+	public void testAddProductBundleWithUnavailableChildSKU() throws Exception {
+		frutillaRule.scenario(
+			"Add a product bundle to an order with one of the child SKUs " +
+				"being unavailable"
+		).given(
+			"A product bundle with 2 child SKUs"
+		).and(
+			"all SKUs are in approved state"
+		).but(
+			"child SKUs are unavailable in the inventory"
+		).when(
+			"User adds product bundle to an order"
+		).then(
+			"Action should fail with appropriate exception"
+		);
+
+		_addProductBundleWithUnavailableChildSKU(false);
 	}
 
 	@Test
@@ -1015,6 +1056,120 @@ public class CommerceOrderItemLocalServiceTest {
 		return retrievedOrder;
 	}
 
+	private void _addProductBundleWithUnavailableChildSKU(
+			boolean backOrderAllowed)
+		throws Exception {
+
+		CommerceCatalog commerceCatalog =
+			CommerceCatalogLocalServiceUtil.addCommerceCatalog(
+				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
+				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
+
+		CPDefinition bundleCPDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			false);
+
+		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
+			commerceCatalog.getGroupId(), BigDecimal.valueOf(20),
+			"cpInstance1SKU");
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
+
+		CommerceTestUtil.addWarehouseCommerceChannelRel(
+			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
+			_commerceChannel.getCommerceChannelId());
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			_user.getUserId(), commerceInventoryWarehouse, cpInstance1.getSku(),
+			0);
+
+		if (backOrderAllowed) {
+			CommerceTestUtil.updateBackOrderCPDefinitionInventory(
+				cpInstance1.getCPDefinition());
+		}
+
+		CPInstance cpInstance2 = CPTestUtil.addCPInstanceFromCatalog(
+			commerceCatalog.getGroupId(), BigDecimal.valueOf(30),
+			"cpInstance2SKU");
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			_user.getUserId(), commerceInventoryWarehouse, cpInstance2.getSku(),
+			1);
+
+		CPOption dynamicPriceTypeCPOption = CPTestUtil.addCPOption(
+			commerceCatalog.getGroupId(),
+			CPTestUtil.getDefaultDDMFormFieldType(true), true);
+
+		CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+			CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+				commerceCatalog.getGroupId(),
+				bundleCPDefinition.getCPDefinitionId(),
+				cpInstance1.getCPInstanceId(),
+				dynamicPriceTypeCPOption.getCPOptionId(),
+				CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
+				BigDecimal.valueOf(50), 1, true, true, _serviceContext);
+
+		CPTestUtil.addCPDefinitionOptionValueRelWithPrice(
+			commerceCatalog.getGroupId(),
+			bundleCPDefinition.getCPDefinitionId(),
+			cpInstance2.getCPInstanceId(),
+			dynamicPriceTypeCPOption.getCPOptionId(),
+			CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC,
+			BigDecimal.valueOf(100), 1, true, true, _serviceContext);
+
+		_cpInstanceLocalService.buildCPInstances(
+			bundleCPDefinition.getCPDefinitionId(), _serviceContext);
+
+		List<CPInstance> bundleCPInstances =
+			bundleCPDefinition.getCPInstances();
+
+		Assert.assertEquals(
+			bundleCPInstances.toString(), 2, bundleCPInstances.size());
+
+		CPInstance bundleCPInstanceWithUnavailableChildSKU =
+			_getBundleCPInstanceWithUnavailableChildSKU(
+				cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+				bundleCPInstances, cpInstance1);
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			_user.getUserId(), commerceInventoryWarehouse,
+			bundleCPInstanceWithUnavailableChildSKU.getSku(), 1);
+
+		CommerceOrder commerceOrder =
+			_commerceOrderLocalService.addCommerceOrder(
+				_user.getUserId(), _commerceChannel.getGroupId(),
+				_commerceAccount.getCommerceAccountId(),
+				_commerceCurrency.getCommerceCurrencyId());
+
+		_commerceOrderItemLocalService.addCommerceOrderItem(
+			commerceOrder.getCommerceOrderId(),
+			bundleCPInstanceWithUnavailableChildSKU.getCPInstanceId(), 1, 1,
+			null, _commerceContext, _serviceContext);
+
+		commerceOrder = _commerceOrderLocalService.getCommerceOrder(
+			commerceOrder.getCommerceOrderId());
+
+		List<CommerceOrderItem> commerceOrderItems =
+			commerceOrder.getCommerceOrderItems();
+
+		Assert.assertEquals(
+			commerceOrderItems.toString(), 2, commerceOrderItems.size());
+
+		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			if (commerceOrderItem.hasParentCommerceOrderItem()) {
+				Assert.assertEquals(
+					cpInstance1.getCPInstanceId(),
+					commerceOrderItem.getCPInstanceId());
+			}
+			else {
+				Assert.assertEquals(
+					bundleCPInstanceWithUnavailableChildSKU.getCPInstanceId(),
+					commerceOrderItem.getCPInstanceId());
+			}
+		}
+	}
+
 	private CommerceOrder _assertAddProductBundleLinkedToSKUAlreadyInOrder(
 			String priceType)
 		throws Exception {
@@ -1282,6 +1437,29 @@ public class CommerceOrderItemLocalServiceTest {
 		return cpInstance;
 	}
 
+	private CPInstance _getBundleCPInstanceWithUnavailableChildSKU(
+			long cpDefinitionOptionRelId, List<CPInstance> bundleCPInstances,
+			CPInstance unavailableCPInstance)
+		throws PortalException {
+
+		for (CPInstance bundleCPInstance : bundleCPInstances) {
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+				_cpDefinitionOptionValueRelLocalService.
+					getCPInstanceCPDefinitionOptionValueRel(
+						cpDefinitionOptionRelId,
+						bundleCPInstance.getCPInstanceId());
+
+			if (Objects.equals(
+					cpDefinitionOptionValueRel.getCPInstanceUuid(),
+					unavailableCPInstance.getCPInstanceUuid())) {
+
+				return bundleCPInstance;
+			}
+		}
+
+		return null;
+	}
+
 	private CommerceOrderItem _getOrderItemByCPInstanceId(
 		long cpInstanceId, boolean insideBundle,
 		List<CommerceOrderItem> commerceOrderItems) {
@@ -1337,6 +1515,10 @@ public class CommerceOrderItemLocalServiceTest {
 
 	@Inject
 	private CPDefinitionLocalService _cpDefinitionLocalService;
+
+	@Inject
+	private CPDefinitionOptionValueRelLocalService
+		_cpDefinitionOptionValueRelLocalService;
 
 	@Inject
 	private CPInstanceHelper _cpInstanceHelper;
