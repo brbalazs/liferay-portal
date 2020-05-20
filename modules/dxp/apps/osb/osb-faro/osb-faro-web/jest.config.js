@@ -150,7 +150,6 @@ module.exports = {
 				}
 			},
 			credentialTypes: {
-				basic: 'Basic Authentication',
 				oAuth1: 'OAuth 1 Authentication',
 				oAuth2: 'OAuth 2 Authentication'
 			},

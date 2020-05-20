@@ -9,7 +9,6 @@ import {
 	getIdsFromConfiguration,
 	getServiceAlertConfig,
 	hasLegacyDXPConnection,
-	hasOAuthDXPConnection,
 	isDataSourceValid,
 	STATUS_DISPLAY,
 	validAnalyticsConfig,
@@ -256,13 +255,6 @@ describe('data-sources', () => {
 			expect(
 				hasLegacyDXPConnection(
 					getMockLiferayDataSource(0, {
-						credentials: {type: credentialTypes.basic}
-					})
-				)
-			).toBeTrue();
-			expect(
-				hasLegacyDXPConnection(
-					getMockLiferayDataSource(0, {
 						credentials: {type: credentialTypes.oAuth1}
 					})
 				)
@@ -301,27 +293,6 @@ describe('data-sources', () => {
 					})
 				)
 			).toBeFalse();
-		});
-	});
-	describe('hasOAuthDXPConnection', () => {
-		it('should return true if the DataSource has a credential type of oAuth1 Authentication', () => {
-			expect(
-				hasOAuthDXPConnection(
-					getMockLiferayDataSource(0, {
-						credentials: {type: credentialTypes.oAuth1}
-					})
-				)
-			).toBeTrue();
-		});
-
-		it('should return true if the DataSource has a credential type of oAuth2 Authentication', () => {
-			expect(
-				hasOAuthDXPConnection(
-					getMockLiferayDataSource(0, {
-						credentials: {type: credentialTypes.oAuth2}
-					})
-				)
-			).toBeTrue();
 		});
 	});
 	describe('validateUniqueName', () => {
