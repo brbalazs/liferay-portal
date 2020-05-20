@@ -1155,7 +1155,9 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(groupIds.length * 3 - 1);
+		StringBundler sb = new StringBundler(groupIds.length * 3 + 1);
+
+		sb.append(StringPool.OPEN_PARENTHESIS);
 
 		for (int i = 0; i < groupIds.length; i++) {
 			sb.append(table);
@@ -1166,6 +1168,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 				sb.append(" OR ");
 			}
 		}
+
+		sb.append(StringPool.CLOSE_PARENTHESIS);
 
 		return sb.toString();
 	}
