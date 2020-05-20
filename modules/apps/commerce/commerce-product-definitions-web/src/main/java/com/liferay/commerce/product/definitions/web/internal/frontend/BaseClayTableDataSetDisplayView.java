@@ -46,9 +46,9 @@ public abstract class BaseClayTableDataSetDisplayView
 		nameField.setContentRenderer("actionLink");
 	}
 
-	abstract protected void addFields(
+	protected abstract void addFields(
 		ClayTableSchemaBuilder clayTableSchemaBuilder);
 
-	abstract protected ClayTableSchemaBuilder getClayTableSchemaBuilder();
+	protected abstract ClayTableSchemaBuilder getClayTableSchemaBuilder();
 
 }
