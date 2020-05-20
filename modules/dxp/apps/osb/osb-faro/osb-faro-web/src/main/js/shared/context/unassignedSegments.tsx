@@ -62,7 +62,7 @@ export const UnassignedSegmentsProvider = ({
 		{showUnassignedAlert, unassignedSegments},
 		unassignedSegmentsDispatch
 	] = useReducer(unassignedSegmentsReducer, {
-		showUnassignedAlert: false,
+		showUnassignedAlert: true,
 		unassignedSegments: initialSegments || []
 	});
 
