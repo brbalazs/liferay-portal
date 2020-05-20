@@ -304,6 +304,10 @@ export const hasLegacyDXPConnection = (dataSource: DataSource) =>
 export const hasOAuthDXPConnection: (
 	dataSource: DataSource
 ) => boolean = dataSource => {
+	if (!dataSource) {
+		return false;
+	}
+
 	const credentialsTypeDataSource = dataSource.getIn(['credentials', 'type']);
 
 	return (
