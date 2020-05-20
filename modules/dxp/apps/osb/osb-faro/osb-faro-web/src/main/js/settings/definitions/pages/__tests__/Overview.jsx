@@ -58,7 +58,7 @@ describe('Definitions Overview', () => {
 		jest.runAllTimers();
 
 		expect(
-			container.querySelectorAll('.list-group-title a')[0]
+			container.querySelectorAll('.list-group-title a')[1]
 		).toHaveTextContent('Interests');
 	});
 });

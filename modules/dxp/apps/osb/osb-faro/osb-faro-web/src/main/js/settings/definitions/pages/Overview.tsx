@@ -11,8 +11,7 @@ interface IOverviewProps {
 	groupId: string;
 }
 
-// TODO: LRAC-4511 Remove developer only mode and add devItems back into items
-const devItems: {
+type ListItem = {
 	header: string;
 	items: {
 		description: string;
@@ -20,7 +19,10 @@ const devItems: {
 		routeParams?: object;
 		title: string;
 	}[];
-}[] = [
+};
+
+// TODO: LRAC-4511 Remove developer only mode and add devItems back into items
+const items = (devMode: boolean = false): ListItem[] => [
 	{
 		header: Liferay.Language.get('people'),
 		items: [
@@ -28,10 +30,10 @@ const devItems: {
 				description: Liferay.Language.get(
 					'view-and-manage-the-data-model-of-your-individuals.-this-data-is-mapped-from-your-dxp,-salesforce,-or-csv-datasources'
 				),
-				route: Routes.CONTACTS_INDIVIDUALS,
+				route: Routes.SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES,
 				title: Liferay.Language.get('individuals')
 			},
-			{
+			devMode && {
 				description: Liferay.Language.get(
 					'view-and-manage-the-data-model-of-your-accounts.-this-data-is-automatically-mapped-from-a-salesforce-datasource'
 				),
@@ -41,7 +43,7 @@ const devItems: {
 			}
 		]
 	},
-	{
+	devMode && {
 		header: Liferay.Language.get('activities'),
 		items: [
 			{
@@ -52,18 +54,7 @@ const devItems: {
 				title: Liferay.Language.get('behaviors')
 			}
 		]
-	}
-];
-
-const items: {
-	header: string;
-	items: {
-		description: string;
-		route: string;
-		routeParams?: object;
-		title: string;
-	}[];
-}[] = [
+	},
 	{
 		header: Liferay.Language.get('derived-data'),
 		items: [
@@ -91,8 +82,9 @@ export const Overview: React.FC<IOverviewProps> = ({groupId}) => (
 			<div className='col-xl-8'>
 				<Card>
 					<ClayList>
-						{(DEVELOPER_MODE ? devItems.concat(items) : items).map(
-							({header, items}) => (
+						{items(DEVELOPER_MODE)
+							.filter(Boolean)
+							.map(({header, items}) => (
 								<React.Fragment key={header}>
 									{header && (
 										<ClayList.Header>
@@ -100,34 +92,35 @@ export const Overview: React.FC<IOverviewProps> = ({groupId}) => (
 										</ClayList.Header>
 									)}
 
-									{items.map(
-										({
-											description,
-											route,
-											routeParams = {},
-											title
-										}) => (
-											<ClayList.Item key={title}>
-												<ClayList.ItemTitle>
-													<Link
-														to={toRoute(route, {
-															groupId,
-															...routeParams
-														})}
-													>
-														{title}
-													</Link>
-												</ClayList.ItemTitle>
+									{items
+										.filter(Boolean)
+										.map(
+											({
+												description,
+												route,
+												routeParams = {},
+												title
+											}) => (
+												<ClayList.Item key={title}>
+													<ClayList.ItemTitle>
+														<Link
+															to={toRoute(route, {
+																groupId,
+																...routeParams
+															})}
+														>
+															{title}
+														</Link>
+													</ClayList.ItemTitle>
 
-												<ClayList.ItemText>
-													{description}
-												</ClayList.ItemText>
-											</ClayList.Item>
-										)
-									)}
+													<ClayList.ItemText>
+														{description}
+													</ClayList.ItemText>
+												</ClayList.Item>
+											)
+										)}
 								</React.Fragment>
-							)
-						)}
+							))}
 					</ClayList>
 				</Card>
 			</div>
