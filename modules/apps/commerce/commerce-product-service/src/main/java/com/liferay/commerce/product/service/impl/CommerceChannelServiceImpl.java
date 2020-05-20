@@ -62,6 +62,24 @@ public class CommerceChannelServiceImpl extends CommerceChannelServiceBaseImpl {
 	}
 
 	@Override
+	public CommerceChannel fetchByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		CommerceChannel commerceChannel =
+			commerceChannelLocalService.fetchByExternalReferenceCode(
+				companyId, externalReferenceCode);
+
+		if (commerceChannel != null) {
+			_commerceChannelModelResourcePermission.check(
+				getPermissionChecker(), commerceChannel.getCommerceChannelId(),
+				ActionKeys.VIEW);
+		}
+
+		return commerceChannel;
+	}
+
+	@Override
 	public CommerceChannel fetchCommerceChannel(long commerceChannelId)
 		throws PortalException {
 
