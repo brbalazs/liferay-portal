@@ -2,6 +2,7 @@ import BasePage from 'settings/components/BasePage';
 import DataSourceStatus from './DataSourceStatus';
 import getCN from 'classnames';
 import React from 'react';
+import UpgradeConnectionCard from './UpgradeConnectionCard';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, Modal} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
@@ -9,7 +10,10 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
 import {deleteDataSource} from 'shared/actions/data-sources';
-import {getDataSourceDisplayObject} from 'shared/util/data-sources';
+import {
+	getDataSourceDisplayObject,
+	hasOAuthDXPConnection
+} from 'shared/util/data-sources';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {truncate} from 'lodash';
@@ -145,6 +149,25 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 				<div className='content-main'>{passedChildren}</div>
 
 				<div className='content-side'>
+					{currentUser.isAdmin() &&
+						hasOAuthDXPConnection(dataSource) && (
+							<UpgradeConnectionCard
+								actions={[
+									{
+										label: Liferay.Language.get(
+											'start-upgrade'
+										),
+										onClick: () => {}
+									}
+								]}
+								content={Liferay.Language.get(
+									'analytics-cloud-now-uses-a-more-secure-token-based-connection-that-gives-you-finer-control-of-your-data.-oauth-connections-will-be-deprecated-in-a-future-release.-click-the-button-below-to-get-started-with-migrating-your-data-source.'
+								)}
+								title={Liferay.Language.get(
+									'upgrade-your-connection-type'
+								)}
+							/>
+						)}
 					<DataSourceStatus
 						{...getDataSourceDisplayObject(dataSource)}
 					/>
