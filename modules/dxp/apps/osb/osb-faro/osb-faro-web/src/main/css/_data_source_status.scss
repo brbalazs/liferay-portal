@@ -6,3 +6,17 @@
 		font-size: $fontSizeSmall;
 	}
 }
+
+.upgrade-connection-card-root {
+	color: $mainLighten28;
+
+	.panel-body {
+		background-color: $secondaryHover;
+		font-size: $fontSizeSmall;
+	}
+
+	.panel-header {
+		background-color: $warning;
+		color: white;
+	}
+}
