@@ -11,7 +11,7 @@ import Promise from 'metal-promise';
 import React from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {cleanup, fireEvent, render} from '@testing-library/react';
-import {DataSource} from 'shared/util/records';
+import {DataSource, User} from 'shared/util/records';
 import {Provider} from 'react-redux';
 import {SelectionProvider} from 'shared/context/selection';
 import {StaticRouter} from 'react-router';
@@ -44,6 +44,7 @@ function getMockLiferayDataSource(id = 0, config = {}) {
 }
 
 const defaultProps = {
+	currentUser: data.getImmutableMock(User, data.mockUser),
 	dataSource: getMockLiferayDataSource(),
 	groupId: '23',
 	id: '23'
