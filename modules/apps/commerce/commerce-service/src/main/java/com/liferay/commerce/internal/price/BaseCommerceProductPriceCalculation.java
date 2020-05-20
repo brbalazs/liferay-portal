@@ -205,18 +205,18 @@ public abstract class BaseCommerceProductPriceCalculation
 				if ((optionValuePrice != null) &&
 					(optionValuePrice.compareTo(BigDecimal.ZERO) > 0)) {
 
+					if (commerceOptionValue.getCPInstanceId() > 0) {
+						optionValuePrice = optionValuePrice.multiply(
+							BigDecimal.valueOf(
+								commerceOptionValue.getQuantity()));
+					}
+
 					unitPrice = unitPrice.add(optionValuePrice);
 
 					if ((promoPrice != null) &&
 						(promoPrice.compareTo(BigDecimal.ZERO) > 0)) {
 
 						promoPrice = promoPrice.add(optionValuePrice);
-					}
-
-					if (commerceOptionValue.getCPInstanceId() > 0) {
-						optionValuePrice = optionValuePrice.multiply(
-							BigDecimal.valueOf(
-								commerceOptionValue.getQuantity()));
 					}
 
 					finalPrice = finalPrice.add(optionValuePrice);
@@ -226,22 +226,47 @@ public abstract class BaseCommerceProductPriceCalculation
 						commerceOptionValue.getPriceType(),
 						CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
 
+				int optionValueQuantity = commerceOptionValue.getQuantity();
+
 				CommerceProductPrice optionValueProductPrice =
 					getCommerceProductPrice(
 						commerceOptionValue.getCPInstanceId(),
-						commerceOptionValue.getQuantity(), true,
-						commerceContext);
+						optionValueQuantity, true, commerceContext);
 
 				CommerceMoney optionValueUnitPriceMoney =
 					optionValueProductPrice.getUnitPrice();
 
-				unitPrice = unitPrice.add(optionValueUnitPriceMoney.getPrice());
+				BigDecimal optionValueUnitPrice =
+					optionValueUnitPriceMoney.getPrice();
 
 				CommerceMoney optionValueUnitPromoPriceMoney =
 					optionValueProductPrice.getUnitPromoPrice();
 
+				BigDecimal optionValueUnitPromoPrice =
+					optionValueUnitPromoPriceMoney.getPrice();
+
+				if ((optionValueUnitPromoPrice.compareTo(BigDecimal.ZERO) >
+						0) &&
+					(promoPrice.compareTo(BigDecimal.ZERO) == 0)) {
+
+					promoPrice = promoPrice.add(unitPrice);
+				}
+				else if ((optionValueUnitPromoPrice.compareTo(
+							BigDecimal.ZERO) == 0) &&
+						 (promoPrice.compareTo(BigDecimal.ZERO) > 0)) {
+
+					promoPrice = promoPrice.add(
+						optionValueUnitPrice.multiply(
+							BigDecimal.valueOf(optionValueQuantity)));
+				}
+
+				unitPrice = unitPrice.add(
+					optionValueUnitPrice.multiply(
+						BigDecimal.valueOf(optionValueQuantity)));
+
 				promoPrice = promoPrice.add(
-					optionValueUnitPromoPriceMoney.getPrice());
+					optionValueUnitPromoPrice.multiply(
+						BigDecimal.valueOf(optionValueQuantity)));
 
 				CommerceMoney optionValueFinalPriceMoney =
 					optionValueProductPrice.getFinalPrice();
