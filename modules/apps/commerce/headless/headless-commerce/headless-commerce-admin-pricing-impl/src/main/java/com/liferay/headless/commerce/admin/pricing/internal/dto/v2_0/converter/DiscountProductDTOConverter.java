@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.headless.commerce.admin.pricing.internal.dto.v1_0.converter;
+package com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter;
 
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountRel;
@@ -20,9 +20,12 @@ import com.liferay.commerce.discount.service.CommerceDiscountRelService;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CPDefinitionService;
-import com.liferay.headless.commerce.admin.pricing.dto.v1_0.DiscountProduct;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountProduct;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
+
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -57,6 +60,10 @@ public class DiscountProductDTOConverter
 		CommerceDiscount commerceDiscount =
 			commerceDiscountRel.getCommerceDiscount();
 
+		Locale locale = dtoConverterContext.getLocale();
+
+		String languageId = LanguageUtil.getLanguageId(locale);
+
 		return new DiscountProduct() {
 			{
 				discountExternalReferenceCode =
@@ -66,6 +73,7 @@ public class DiscountProductDTOConverter
 				productExternalReferenceCode =
 					cProduct.getExternalReferenceCode();
 				productId = cProduct.getCProductId();
+				productName = cpDefinition.getName(languageId);
 			}
 		};
 	}
