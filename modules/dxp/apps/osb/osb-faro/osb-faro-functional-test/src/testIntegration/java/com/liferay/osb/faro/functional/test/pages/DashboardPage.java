@@ -91,7 +91,12 @@ public class DashboardPage {
 			_faroSelenium.waitForPageLoadingComplete();
 			_faroSelenium.waitForLoadingComplete();
 
-			FaroPagePool.setPropertyId(_faroSelenium.getPropertiesIdFromURL());
+			String newUrl = _faroSelenium.getCurrentUrl();
+
+			if (!newUrl.contains("/settings/")) {
+				FaroPagePool.setPropertyId(
+					_faroSelenium.getPropertiesIdFromURL());
+			}
 		}
 	}
 
