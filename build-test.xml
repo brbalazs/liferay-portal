@@ -6624,6 +6624,12 @@ go</echo>
 					<then>
 						<delete dir="${test.app.server.liferay.home}/osgi/state" />
 					</then>
+					<elseif>
+						<equals arg1="${delete.index.data}" arg2="true" />
+						<then>
+							<delete dir="${test.app.server.liferay.home}/data/elasticsearch6" />
+						</then>
+					</elseif>
 					<else>
 						<if>
 							<not>
