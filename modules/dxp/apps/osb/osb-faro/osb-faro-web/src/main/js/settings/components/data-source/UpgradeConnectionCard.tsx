@@ -4,34 +4,27 @@ import React from 'react';
 
 type Action = {
 	label: string;
-	onClick: () => any;
+	onClick: () => void;
 };
 
 interface IUpgradeConnectionCardProps
 	extends React.HTMLAttributes<HTMLElement> {
-	actions: Action[];
+	action: Action;
 	content: string;
 	title: string;
 }
 
 const UpgradeConnectionCard: React.FC<IUpgradeConnectionCardProps> = ({
-	actions = [],
+	action: {label, onClick},
 	content,
 	title
 }) => (
 	<Panel className='upgrade-connection-card-root mb-4' title={title}>
-		{
-			<>
-				<p>{content}</p>
+		<p>{content}</p>
 
-				{!!actions.length &&
-					actions.map(({label, ...props}) => (
-						<Button key={label} size='sm' {...props}>
-							{label}
-						</Button>
-					))}
-			</>
-		}
+		<Button onClick={onClick} size='sm'>
+			{label}
+		</Button>
 	</Panel>
 );
 
