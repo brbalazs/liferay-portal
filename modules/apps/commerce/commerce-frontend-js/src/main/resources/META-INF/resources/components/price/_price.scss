@@ -10,7 +10,8 @@
 		font-size: 18px;
 	}
 
-	&-discount {
+	&-discount,
+	&-final {
 		color: $danger-primary;
 	}
 
@@ -18,6 +19,20 @@
 		color: $gray-600;
 		font-weight: normal;
 		text-decoration: line-through;
+	}
+
+	&-percentages {
+		font-size: 10px;
+		white-space: nowrap;
+
+		&::after {
+			color: $gray-600;
+			content: ' | ';
+		}
+
+		&:last-child::after {
+			content: '';
+		}
 	}
 
 	&-promo {

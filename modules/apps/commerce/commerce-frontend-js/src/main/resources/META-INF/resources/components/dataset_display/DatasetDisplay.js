@@ -120,7 +120,7 @@ function DatasetDisplay(props) {
 
 	const formRef = useRef(null);
 
-	function updateDataset(dataSetData) {
+	function updateDatasetItems(dataSetData) {
 		setTotalItems(dataSetData.totalItems || dataSetData.totalCount || 0);
 		updateItems(dataSetData.items);
 	}
@@ -145,7 +145,7 @@ function DatasetDisplay(props) {
 			pageNumber,
 			sorting
 		)
-			.then(updateDataset)
+			.then(updateDatasetItems)
 			.then(() => {
 				const {message, showSuccessNotification} = successNotification;
 
@@ -171,16 +171,18 @@ function DatasetDisplay(props) {
 	}
 
 	useEffect(() => {
-		getData(
-			props.apiUrl,
-			props.currentUrl,
-			filters.filter(e => !!e.value),
-			searchParam,
-			delta,
-			pageNumber,
-			sorting,
-			false
-		);
+		if (props.apiUrl) {
+			getData(
+				props.apiUrl,
+				props.currentUrl,
+				filters.filter(e => !!e.value),
+				searchParam,
+				delta,
+				pageNumber,
+				sorting,
+				false
+			);
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
 		props.apiUrl,
@@ -192,6 +194,15 @@ function DatasetDisplay(props) {
 		sorting,
 		refreshData
 	]);
+
+	useEffect(() => {
+		const {apiUrl, items: injectedItems = []} = props,
+			itemsAreInjected = !apiUrl && injectedItems.length !== items.length;
+
+		if (itemsAreInjected) {
+			updateDatasetItems({items: props.items});
+		}
+	}, [items, props.apiUrl, props.items]);
 
 	function selectItems(val) {
 		if (Array.isArray(val)) {
@@ -312,7 +323,7 @@ function DatasetDisplay(props) {
 					readOnly
 					value={selectedItemsValue.join(',')}
 				/>
-				{items && items.length ? (
+				{(items && items.length) || props.allowNoItems ? (
 					<CurrentViewComponent
 						datasetDisplayContext={DatasetDisplayContext}
 						items={items}
@@ -416,6 +427,7 @@ function DatasetDisplay(props) {
 				sidePanelId: datasetDisplaySupportSidePanelId,
 				sorting,
 				style: props.style,
+				updateDatasetItems,
 				updateSearchParam,
 				updateSorting
 			}}
@@ -463,7 +475,7 @@ function DatasetDisplay(props) {
 
 DatasetDisplay.propTypes = {
 	activeViewId: PropTypes.string,
-	apiUrl: PropTypes.string.isRequired,
+	apiUrl: PropTypes.string,
 	bulkActions: PropTypes.array,
 	creationMenuItems: PropTypes.array,
 	currentUrl: PropTypes.string,
