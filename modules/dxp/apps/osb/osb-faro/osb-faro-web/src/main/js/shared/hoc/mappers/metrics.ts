@@ -43,6 +43,7 @@ export const getMapPropsToOptions: (
 	const delta = parseInt(get(query, 'delta', defaultDelta));
 	const page = parseInt(get(query, 'page', defaultPage));
 
+	console.log(rangeKey, get(query, 'rangeKey', LAST_30_DAYS));
 	const {variables} = getVariables({
 		filters,
 		params,

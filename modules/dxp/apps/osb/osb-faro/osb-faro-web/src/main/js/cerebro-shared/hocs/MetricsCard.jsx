@@ -43,6 +43,7 @@ const withMetricsCard = (withMetrics, baseCardProps = {}) => {
 			<BaseCard
 				className={className}
 				label={label}
+				legacyDropdownRangeKey={false}
 				minHeight={605}
 				{...baseCardProps}
 			>

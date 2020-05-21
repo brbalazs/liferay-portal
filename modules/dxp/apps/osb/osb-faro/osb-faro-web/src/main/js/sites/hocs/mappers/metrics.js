@@ -30,13 +30,21 @@ const getMetricsMapper = (getData, metrics) => {
 		interval,
 		rangeKey,
 		router: {params}
-	}) => ({
-		variables: {
-			channelId: channelId || params.channelId,
-			interval,
-			rangeKey: parseInt(rangeKey)
-		}
-	});
+	}) => {
+		const customDateRange = rangeKey && rangeKey.start && rangeKey.end;
+
+		console.log(rangeKey);
+
+		return {
+			variables: {
+				channelId: channelId || params.channelId,
+				endDate: customDateRange ? rangeKey.end : null,
+				interval,
+				rangeKey: customDateRange ? null : parseInt(rangeKey),
+				startDate: customDateRange ? rangeKey.start : null
+			}
+		};
+	};
 
 	return {
 		options: mapPropsToOptions,
