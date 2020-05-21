@@ -44,27 +44,27 @@ public class CommerceOrderItemPriceHelperImpl
 
 	@Override
 	public CommerceOrderItemPrice getCommerceOrderItemPrice(
-			CommerceOrderItem commerceOrderItem,
-			CommerceCurrency commerceCurrency)
+			CommerceCurrency commerceCurrency,
+			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
 
 		return _getCommerceOrderItemPrice(
-			commerceOrderItem, commerceCurrency, false);
+			commerceCurrency, commerceOrderItem, false);
 	}
 
 	@Override
 	public CommerceOrderItemPrice getCommerceOrderItemPricePerUnit(
-			CommerceOrderItem commerceOrderItem,
-			CommerceCurrency commerceCurrency)
+			CommerceCurrency commerceCurrency,
+			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
 
 		return _getCommerceOrderItemPrice(
-			commerceOrderItem, commerceCurrency, true);
+			commerceCurrency, commerceOrderItem, true);
 	}
 
 	private CommerceOrderItemPrice _getCommerceOrderItemPrice(
-			CommerceOrderItem commerceOrderItem,
-			CommerceCurrency commerceCurrency, boolean isUnit)
+			CommerceCurrency commerceCurrency,
+			CommerceOrderItem commerceOrderItem, boolean isUnit)
 		throws PortalException {
 
 		CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();
