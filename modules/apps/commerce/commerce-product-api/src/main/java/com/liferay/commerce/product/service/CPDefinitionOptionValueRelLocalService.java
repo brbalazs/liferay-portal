@@ -367,7 +367,6 @@ public interface CPDefinitionOptionValueRelLocalService
 			long cpDefinitionOptionRelId, ServiceContext serviceContext)
 		throws PortalException;
 
-	@Indexable(type = IndexableType.REINDEX)
 	public CPDefinitionOptionValueRel resetCPInstanceCPDefinitionOptionValueRel(
 			long cpDefinitionOptionValueRelId)
 		throws PortalException;

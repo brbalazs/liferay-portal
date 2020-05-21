@@ -7848,8 +7848,6 @@ public class CommerceOrderPersistenceImpl
 		"(commerceOrder.externalReferenceCode IS NULL OR commerceOrder.externalReferenceCode = '')";
 
 	public CommerceOrderPersistenceImpl() {
-		setModelClass(CommerceOrder.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -7927,6 +7925,8 @@ public class CommerceOrderPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(CommerceOrder.class);
 	}
 
 	/**
