@@ -62,14 +62,13 @@ import java.rmi.RemoteException;
 public class CommerceChannelServiceSoap {
 
 	public static com.liferay.commerce.product.model.CommerceChannelSoap
-			fetchByExternalReferenceCode(
-				long companyId, String externalReferenceCode)
+			deleteCommerceChannel(long commerceChannelId)
 		throws RemoteException {
 
 		try {
 			com.liferay.commerce.product.model.CommerceChannel returnValue =
-				CommerceChannelServiceUtil.fetchByExternalReferenceCode(
-					companyId, externalReferenceCode);
+				CommerceChannelServiceUtil.deleteCommerceChannel(
+					commerceChannelId);
 
 			return com.liferay.commerce.product.model.CommerceChannelSoap.
 				toSoapModel(returnValue);
@@ -82,13 +81,14 @@ public class CommerceChannelServiceSoap {
 	}
 
 	public static com.liferay.commerce.product.model.CommerceChannelSoap
-			deleteCommerceChannel(long commerceChannelId)
+			fetchByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
 		throws RemoteException {
 
 		try {
 			com.liferay.commerce.product.model.CommerceChannel returnValue =
-				CommerceChannelServiceUtil.deleteCommerceChannel(
-					commerceChannelId);
+				CommerceChannelServiceUtil.fetchByExternalReferenceCode(
+					companyId, externalReferenceCode);
 
 			return com.liferay.commerce.product.model.CommerceChannelSoap.
 				toSoapModel(returnValue);

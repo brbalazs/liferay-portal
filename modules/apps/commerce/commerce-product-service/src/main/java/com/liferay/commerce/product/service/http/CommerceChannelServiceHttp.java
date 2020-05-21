@@ -100,19 +100,17 @@ public class CommerceChannelServiceHttp {
 	}
 
 	public static com.liferay.commerce.product.model.CommerceChannel
-			fetchByExternalReferenceCode(
-				HttpPrincipal httpPrincipal, long companyId,
-				String externalReferenceCode)
+			deleteCommerceChannel(
+				HttpPrincipal httpPrincipal, long commerceChannelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommerceChannelServiceUtil.class,
-				"fetchByExternalReferenceCode",
-				_fetchByExternalReferenceCodeParameterTypes1);
+				CommerceChannelServiceUtil.class, "deleteCommerceChannel",
+				_deleteCommerceChannelParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, externalReferenceCode);
+				methodKey, commerceChannelId);
 
 			Object returnObj = null;
 
@@ -144,17 +142,19 @@ public class CommerceChannelServiceHttp {
 	}
 
 	public static com.liferay.commerce.product.model.CommerceChannel
-			deleteCommerceChannel(
-				HttpPrincipal httpPrincipal, long commerceChannelId)
+			fetchByExternalReferenceCode(
+				HttpPrincipal httpPrincipal, long companyId,
+				String externalReferenceCode)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommerceChannelServiceUtil.class, "deleteCommerceChannel",
-				_deleteCommerceChannelParameterTypes2);
+				CommerceChannelServiceUtil.class,
+				"fetchByExternalReferenceCode",
+				_fetchByExternalReferenceCodeParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceChannelId);
+				methodKey, companyId, externalReferenceCode);
 
 			Object returnObj = null;
 
@@ -674,12 +674,12 @@ public class CommerceChannelServiceHttp {
 			String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
+	private static final Class<?>[] _deleteCommerceChannelParameterTypes1 =
+		new Class[] {long.class};
 	private static final Class<?>[]
-		_fetchByExternalReferenceCodeParameterTypes1 = new Class[] {
+		_fetchByExternalReferenceCodeParameterTypes2 = new Class[] {
 			long.class, String.class
 		};
-	private static final Class<?>[] _deleteCommerceChannelParameterTypes2 =
-		new Class[] {long.class};
 	private static final Class<?>[] _fetchCommerceChannelParameterTypes3 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getCommerceChannelParameterTypes4 =
