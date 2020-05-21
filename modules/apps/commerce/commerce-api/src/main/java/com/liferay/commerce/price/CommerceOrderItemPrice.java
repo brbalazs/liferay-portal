@@ -23,7 +23,7 @@ import java.math.BigDecimal;
  */
 public interface CommerceOrderItemPrice {
 
-	public CommerceMoney getDiscountAmountMoney();
+	public CommerceMoney getDiscountAmount();
 
 	public BigDecimal getDiscountPercentage();
 
@@ -35,10 +35,10 @@ public interface CommerceOrderItemPrice {
 
 	public BigDecimal getDiscountPercentageLevel4();
 
-	public CommerceMoney getFinalPriceMoney();
+	public CommerceMoney getFinalPrice();
 
-	public CommerceMoney getPromoPriceMoney();
+	public CommerceMoney getPromoPrice();
 
-	public CommerceMoney getUnitPriceMoney();
+	public CommerceMoney getUnitPrice();
 
 }
