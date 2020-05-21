@@ -62,6 +62,14 @@ public class CommerceOrderItemPriceHelperImpl
 			commerceCurrency, commerceOrderItem, true);
 	}
 
+	private boolean _equalsZero(BigDecimal value) {
+		if ((value == null) || (value.compareTo(BigDecimal.ZERO) != 0)) {
+			return false;
+		}
+
+		return true;
+	}
+
 	private CommerceOrderItemPrice _getCommerceOrderItemPrice(
 			CommerceCurrency commerceCurrency,
 			CommerceOrderItem commerceOrderItem, boolean isUnit)
@@ -146,13 +154,11 @@ public class CommerceOrderItemPriceHelperImpl
 					childCommerceOrderItem.getFinalPriceWithTaxAmount();
 			}
 
-			if ((childPromoPrice.compareTo(BigDecimal.ZERO) > 0) &&
-				(promoPrice.compareTo(BigDecimal.ZERO) == 0)) {
-
+			if (_equalsZero(promoPrice) && _greaterThanZero(childPromoPrice)) {
 				promoPrice = promoPrice.add(unitPrice);
 			}
-			else if ((childPromoPrice.compareTo(BigDecimal.ZERO) == 0) &&
-					 (promoPrice.compareTo(BigDecimal.ZERO) > 0)) {
+			else if (_equalsZero(childPromoPrice) &&
+					 _greaterThanZero(promoPrice)) {
 
 				promoPrice = promoPrice.add(
 					_getPricePerUnit(
@@ -185,11 +191,15 @@ public class CommerceOrderItemPriceHelperImpl
 			new CommerceOrderItemPriceImpl(
 				_commerceMoneyFactory.create(commerceCurrency, unitPrice));
 
-		_setCommerceOrderItemPrice(
+		_updatePromoPrice(commerceCurrency, commerceOrderItemPrice, promoPrice);
+
+		_updateFinalPrice(commerceCurrency, commerceOrderItemPrice, finalPrice);
+
+		_updateDiscounts(
 			commerceCurrency, commerceOrderItemPrice, discountAmount,
 			discountPercentageLevel1, discountPercentageLevel2,
-			discountPercentageLevel3, discountPercentageLevel4, finalPrice,
-			promoPrice, commerceOrderItem.getQuantity(), unitPrice);
+			discountPercentageLevel3, discountPercentageLevel4,
+			commerceOrderItem.getQuantity(), unitPrice);
 
 		return commerceOrderItemPrice;
 	}
@@ -223,24 +233,29 @@ public class CommerceOrderItemPriceHelperImpl
 			RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
 	}
 
-	private void _setCommerceOrderItemPrice(
+	private boolean _greaterThanZero(BigDecimal value) {
+		if ((value == null) || (value.compareTo(BigDecimal.ZERO) <= 0)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private void _updateDiscounts(
 		CommerceCurrency commerceCurrency,
 		CommerceOrderItemPriceImpl commerceOrderItemPrice,
 		BigDecimal discountAmount, BigDecimal discountPercentageLevel1,
 		BigDecimal discountPercentageLevel2,
 		BigDecimal discountPercentageLevel3,
-		BigDecimal discountPercentageLevel4, BigDecimal finalPrice,
-		BigDecimal promoPrice, int quantity, BigDecimal unitPrice) {
+		BigDecimal discountPercentageLevel4, int quantity,
+		BigDecimal unitPrice) {
 
 		BigDecimal activePrice = unitPrice;
 
-		if ((promoPrice != null) &&
-			(promoPrice.compareTo(BigDecimal.ZERO) > 0)) {
+		CommerceMoney promoPrice = commerceOrderItemPrice.getPromoPrice();
 
-			commerceOrderItemPrice.setPromoPrice(
-				_commerceMoneyFactory.create(commerceCurrency, promoPrice));
-
-			activePrice = promoPrice;
+		if (_greaterThanZero(promoPrice.getPrice())) {
+			activePrice = promoPrice.getPrice();
 		}
 
 		commerceOrderItemPrice.setDiscountAmount(
@@ -260,9 +275,28 @@ public class CommerceOrderItemPriceHelperImpl
 			discountPercentageLevel3);
 		commerceOrderItemPrice.setDiscountPercentageLevel4(
 			discountPercentageLevel4);
+	}
+
+	private void _updateFinalPrice(
+		CommerceCurrency commerceCurrency,
+		CommerceOrderItemPriceImpl commerceOrderItemPrice,
+		BigDecimal finalPrice) {
 
 		commerceOrderItemPrice.setFinalPrice(
 			_commerceMoneyFactory.create(commerceCurrency, finalPrice));
+	}
+
+	private void _updatePromoPrice(
+		CommerceCurrency commerceCurrency,
+		CommerceOrderItemPriceImpl commerceOrderItemPrice,
+		BigDecimal promoPrice) {
+
+		if (!_greaterThanZero(promoPrice)) {
+			return;
+		}
+
+		commerceOrderItemPrice.setPromoPrice(
+			_commerceMoneyFactory.create(commerceCurrency, promoPrice));
 	}
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
