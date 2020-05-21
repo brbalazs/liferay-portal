@@ -16,7 +16,6 @@ package com.liferay.commerce.checkout.web.internal.util;
 
 import com.liferay.commerce.checkout.web.internal.display.context.OrderSummaryCheckoutStepDisplayContext;
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
-import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
 import com.liferay.commerce.exception.CommerceOrderPaymentMethodException;
 import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
@@ -111,7 +110,7 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 					_commerceOrderValidatorRegistry, _commercePaymentEngine,
 					_commerceProductPriceCalculation, _cpInstanceHelper,
 					_commerceOptionValueHelper, _percentageFormatter,
-					_commerceMoneyFactory, httpServletRequest);
+					httpServletRequest);
 
 		CommerceOrder commerceOrder =
 			orderSummaryCheckoutStepDisplayContext.getCommerceOrder();
@@ -261,9 +260,6 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Reference
 	private CommerceCheckoutStepHelper _commerceCheckoutStepHelper;
-
-	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
 
 	@Reference
 	private CommerceOptionValueHelper _commerceOptionValueHelper;

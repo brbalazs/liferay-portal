@@ -19,7 +19,6 @@ import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -72,7 +71,6 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		CPInstanceHelper cpInstanceHelper,
 		CommerceOptionValueHelper commerceOptionValueHelper,
 		PercentageFormatter percentageFormatter,
-		CommerceMoneyFactory commerceMoneyFactory,
 		HttpServletRequest httpServletRequest) {
 
 		_commerceChannelLocalService = commerceChannelLocalService;
@@ -84,7 +82,6 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		_cpInstanceHelper = cpInstanceHelper;
 		_commerceOptionValueHelper = commerceOptionValueHelper;
 		_percentageFormatter = percentageFormatter;
-		_commerceMoneyFactory = commerceMoneyFactory;
 		_httpServletRequest = httpServletRequest;
 
 		_commerceContext = (CommerceContext)httpServletRequest.getAttribute(
@@ -351,7 +348,6 @@ public class OrderSummaryCheckoutStepDisplayContext {
 
 	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceContext _commerceContext;
-	private final CommerceMoneyFactory _commerceMoneyFactory;
 	private final CommerceOptionValueHelper _commerceOptionValueHelper;
 	private final CommerceOrder _commerceOrder;
 	private final CommerceOrderHttpHelper _commerceOrderHttpHelper;
