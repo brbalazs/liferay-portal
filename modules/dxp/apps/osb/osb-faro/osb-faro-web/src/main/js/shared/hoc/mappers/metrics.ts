@@ -40,6 +40,9 @@ export const getMapPropsToOptions: (
 	rangeKey,
 	router: {params, query}
 }) => {
+	const customDateRange = rangeKey && rangeKey.start && rangeKey.end;
+	console.log(rangeKey);
+
 	const delta = parseInt(get(query, 'delta', defaultDelta));
 	const page = parseInt(get(query, 'page', defaultPage));
 
@@ -47,7 +50,9 @@ export const getMapPropsToOptions: (
 	const {variables} = getVariables({
 		filters,
 		params,
-		rangeKey: rangeKey || get(query, 'rangeKey', LAST_30_DAYS)
+		rangeEnd: customDateRange ? rangeKey.end : null,
+		rangeKey: rangeKey || get(query, 'rangeKey', LAST_30_DAYS),
+		rangeStart: customDateRange ? rangeKey.start : null
 	});
 
 	const unfilteredVariables = {
