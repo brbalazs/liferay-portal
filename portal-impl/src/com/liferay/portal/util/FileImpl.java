@@ -1141,8 +1141,8 @@ public class FileImpl implements com.liferay.portal.kernel.util.File {
 				"Content-Type", "text/plain; charset=" + contentEncoding);
 		}
 
-		WriteOutContentHandler handler = new WriteOutContentHandler(
-			tika.getMaxStringLength());
+		WriteOutContentHandler writeOutContentHandler =
+			new WriteOutContentHandler(tika.getMaxStringLength());
 
 		try {
 			ParseContext parseContext = new ParseContext();
@@ -1156,7 +1156,7 @@ public class FileImpl implements com.liferay.portal.kernel.util.File {
 
 					@Override
 					public void parseEmbedded(
-							InputStream stream, ContentHandler handler,
+							InputStream stream, ContentHandler contentHandler,
 							Metadata metadata, boolean outputHtml)
 						throws IOException, SAXException {
 
@@ -1167,20 +1167,20 @@ public class FileImpl implements com.liferay.portal.kernel.util.File {
 						}
 
 						super.parseEmbedded(
-							stream, handler, metadata, outputHtml);
+							stream, contentHandler, metadata, outputHtml);
 					}
 
 				});
 
 			parser.parse(
-				tikaInputStream, new BodyContentHandler(handler), metadata,
-				parseContext);
+				tikaInputStream, new BodyContentHandler(writeOutContentHandler),
+				metadata, parseContext);
 		}
 		finally {
 			tikaInputStream.close();
 		}
 
-		return handler.toString();
+		return writeOutContentHandler.toString();
 	}
 
 	private boolean _isEmptyTikaInputStream(TikaInputStream tikaInputStream)
