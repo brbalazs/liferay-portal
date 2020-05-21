@@ -24,13 +24,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 public interface CommerceOrderItemPriceHelper {
 
 	public CommerceOrderItemPrice getCommerceOrderItemPrice(
-			CommerceOrderItem commerceOrderItem,
-			CommerceCurrency commerceCurrency)
+			CommerceCurrency commerceCurrency,
+			CommerceOrderItem commerceOrderItem)
 		throws PortalException;
 
 	public CommerceOrderItemPrice getCommerceOrderItemPricePerUnit(
-			CommerceOrderItem commerceOrderItem,
-			CommerceCurrency commerceCurrency)
+			CommerceCurrency commerceCurrency,
+			CommerceOrderItem commerceOrderItem)
 		throws PortalException;
 
 }
