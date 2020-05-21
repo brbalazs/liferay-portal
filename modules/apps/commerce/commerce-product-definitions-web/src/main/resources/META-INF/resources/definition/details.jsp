@@ -225,9 +225,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 									productId: productId,
 									specificationId: specification.id,
 									specificationKey: specification.key,
-									value: {
-										[themeDisplay.getLanguageId()]: name
-									}
+									value: {}
 								}),
 								credentials: 'include',
 								headers: headers,
@@ -238,17 +236,23 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 								id:
 									'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
 							});
-							return specification.id;
+							return null;
 						});
 					}
 
 					function addNewItem(name) {
+						var nameDefinition = {
+							[themeDisplay.getLanguageId()]: name
+						};
+
+						if (themeDisplay.getLanguageId() !== themeDisplay.getDefaultLanguageId()) {
+							nameDefinition[themeDisplay.getDefaultLanguageId()] = name;
+						}
+
 						return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
 							body: JSON.stringify({
 								key: slugify.default(encodeURIComponent(name)),
-								title: {
-									[themeDisplay.getLanguageId()]: name
-								}
+								title: nameDefinition
 							}),
 							credentials: 'include',
 							headers: headers,
@@ -289,7 +293,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						panelHeaderLabel: '<%= LanguageUtil.get(request, "add-specifications") %>',
 						portletId: '<%= portletDisplay.getRootPortletId() %>',
 						schema: {
-							itemTitle: ['title', themeDisplay.getLanguageId()]
+							itemTitle: ['title', 'LANG']
 						},
 						spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
 						titleLabel: '<%= LanguageUtil.get(request, "add-existing-specification") %>'

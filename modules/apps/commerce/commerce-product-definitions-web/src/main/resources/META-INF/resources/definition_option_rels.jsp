@@ -62,18 +62,24 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 						id:
 							'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'
 					});
-					return option.id;
+					return null;
 				});
 			}
 
 			function addNewItem(name) {
+				var nameDefinition = {
+					[themeDisplay.getLanguageId()]: name
+				};
+
+				if (themeDisplay.getLanguageId() !== themeDisplay.getDefaultLanguageId()) {
+					nameDefinition[themeDisplay.getDefaultLanguageId()] = name;
+				}
+
 				return fetch('/o/headless-commerce-admin-catalog/v1.0/options', {
 					body: JSON.stringify({
 						fieldType: 'select',
 						key: slugify.default(encodeURIComponent(name)),
-						name: {
-							[themeDisplay.getLanguageId()]: name
-						}
+						name: nameDefinition
 					}),
 					credentials: 'include',
 					headers: headers,
@@ -113,7 +119,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				panelHeaderLabel: '<%= LanguageUtil.get(request, "add-options") %>',
 				portletId: '<%= portletDisplay.getRootPortletId() %>',
 				schema: {
-					itemTitle: ['name', themeDisplay.getLanguageId()]
+					itemTitle: ['name', 'LANG']
 				},
 				spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
 				titleLabel: '<%= LanguageUtil.get(request, "add-existing-option") %>'
