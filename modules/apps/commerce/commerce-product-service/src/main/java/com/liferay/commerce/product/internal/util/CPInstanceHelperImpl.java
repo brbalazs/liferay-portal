@@ -85,7 +85,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		}
 
 		if (_jsonHelper.isEmpty(serializedDDMFormValues)) {
-			throw new IllegalArgumentException("Required parameter missing");
+			return null;
 		}
 
 		return _fetchCPInstanceBySKUContributors(
