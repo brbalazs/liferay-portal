@@ -207,15 +207,15 @@ public class CommerceCartResourceUtil {
 				commerceOrderItem, commerceContext.getCommerceCurrency());
 
 		return _getPriceModel(
-			commerceOrderItemPrice.getUnitPriceMoney(),
-			commerceOrderItemPrice.getPromoPriceMoney(),
-			commerceOrderItemPrice.getDiscountAmountMoney(),
+			commerceOrderItemPrice.getUnitPrice(),
+			commerceOrderItemPrice.getPromoPrice(),
+			commerceOrderItemPrice.getDiscountAmount(),
 			commerceOrderItemPrice.getDiscountPercentage(),
 			commerceOrderItemPrice.getDiscountPercentageLevel1(),
 			commerceOrderItemPrice.getDiscountPercentageLevel2(),
 			commerceOrderItemPrice.getDiscountPercentageLevel3(),
 			commerceOrderItemPrice.getDiscountPercentageLevel4(),
-			commerceOrderItemPrice.getFinalPriceMoney(), locale);
+			commerceOrderItemPrice.getFinalPrice(), locale);
 	}
 
 	private PriceModel _getPriceModel(
