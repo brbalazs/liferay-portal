@@ -18,15 +18,15 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.order.content.web.internal.model.OrderItem;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
+import com.liferay.commerce.price.CommerceOrderItemPrice;
+import com.liferay.commerce.price.CommerceOrderItemPriceHelper;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
-import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
@@ -47,6 +47,8 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -105,69 +107,51 @@ public class CommercePendingOrderItemDataSetDataProvider
 	}
 
 	private String _formatDiscountAmount(
-			CommerceOrderItem commerceOrderItem, String priceDisplayType,
-			Locale locale)
+			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney activeDiscountAmounteMoney =
-			commerceOrderItem.getDiscountAmountMoney();
-
-		if (priceDisplayType.equals(
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-
-			activeDiscountAmounteMoney =
-				commerceOrderItem.getDiscountWithTaxAmountMoney();
-		}
-
-		if (activeDiscountAmounteMoney == null) {
+		if (commerceOrderItemPrice.getDiscountAmountMoney() == null) {
 			return StringPool.BLANK;
 		}
 
-		return activeDiscountAmounteMoney.format(locale);
+		CommerceMoney discountAmountMoney =
+			commerceOrderItemPrice.getDiscountAmountMoney();
+
+		return discountAmountMoney.format(locale);
 	}
 
 	private String _formatFinalPrice(
-			CommerceOrderItem commerceOrderItem, String priceDisplayType,
-			Locale locale)
+			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney activeFinalPriceMoney =
-			commerceOrderItem.getFinalPriceMoney();
-
-		if (priceDisplayType.equals(
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-
-			activeFinalPriceMoney =
-				commerceOrderItem.getFinalPriceWithTaxAmountMoney();
-		}
-
-		if (activeFinalPriceMoney == null) {
+		if (commerceOrderItemPrice.getFinalPriceMoney() == null) {
 			return StringPool.BLANK;
 		}
 
-		return activeFinalPriceMoney.format(locale);
+		CommerceMoney finalPriceMoney =
+			commerceOrderItemPrice.getFinalPriceMoney();
+
+		return finalPriceMoney.format(locale);
 	}
 
 	private String _formatPromoPrice(
-			CommerceOrderItem commerceOrderItem, String priceDisplayType,
-			Locale locale)
+			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney activePromoPriceMoney =
-			commerceOrderItem.getPromoPriceMoney();
+		CommerceMoney promoPriceMoney =
+			commerceOrderItemPrice.getPromoPriceMoney();
 
-		if (priceDisplayType.equals(
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-
-			activePromoPriceMoney =
-				commerceOrderItem.getPromoPriceWithTaxAmountMoney();
-		}
-
-		if (activePromoPriceMoney == null) {
+		if (promoPriceMoney == null) {
 			return StringPool.BLANK;
 		}
 
-		return activePromoPriceMoney.format(locale);
+		BigDecimal price = promoPriceMoney.getPrice();
+
+		if (price.compareTo(BigDecimal.ZERO) <= 0) {
+			return StringPool.BLANK;
+		}
+
+		return promoPriceMoney.format(locale);
 	}
 
 	private String _formatSubscriptionPeriod(
@@ -209,25 +193,17 @@ public class CommercePendingOrderItemDataSetDataProvider
 	}
 
 	private String _formatUnitPrice(
-			CommerceOrderItem commerceOrderItem, String priceDisplayType,
-			Locale locale)
+			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney activeUnitPriceMoney =
-			commerceOrderItem.getUnitPriceMoney();
-
-		if (priceDisplayType.equals(
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-
-			activeUnitPriceMoney =
-				commerceOrderItem.getUnitPriceWithTaxAmountMoney();
-		}
-
-		if (activeUnitPriceMoney == null) {
+		if (commerceOrderItemPrice.getUnitPriceMoney() == null) {
 			return StringPool.BLANK;
 		}
 
-		return activeUnitPriceMoney.format(locale);
+		CommerceMoney unitPriceMoney =
+			commerceOrderItemPrice.getUnitPriceMoney();
+
+		return unitPriceMoney.format(locale);
 	}
 
 	private BaseModelSearchResult<CommerceOrderItem> _getBaseModelSearchResult(
@@ -340,13 +316,9 @@ public class CommercePendingOrderItemDataSetDataProvider
 			return Collections.emptyList();
 		}
 
-		CommerceOrderItem commerceOrderItem = commerceOrderItems.get(0);
+		CommerceOrderItem commerceOrderItem0 = commerceOrderItems.get(0);
 
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannelByOrderGroupId(
-				commerceOrderItem.getGroupId());
-
-		String priceDisplayType = commerceChannel.getPriceDisplayType();
+		CommerceOrder commerceOrder = commerceOrderItem0.getCommerceOrder();
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -359,32 +331,31 @@ public class CommercePendingOrderItemDataSetDataProvider
 
 		Locale locale = themeDisplay.getLocale();
 
-		for (CommerceOrderItem curCommerceOrderItem : commerceOrderItems) {
+		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CommerceOrderItemPrice commerceOrderItemPrice =
+				_commerceOrderItemPriceHelper.getCommerceOrderItemPrice(
+					commerceOrderItem, commerceOrder.getCommerceCurrency());
+
 			orderItems.add(
 				new OrderItem(
-					curCommerceOrderItem.getCommerceOrderItemId(),
-					curCommerceOrderItem.getCommerceOrderId(),
-					curCommerceOrderItem.getSku(),
-					curCommerceOrderItem.getName(locale),
-					_getCommerceOrderOptions(curCommerceOrderItem, locale),
-					_getChildOrderItems(
-						curCommerceOrderItem, httpServletRequest),
-					curCommerceOrderItem.getParentCommerceOrderItemId(),
-					_formatUnitPrice(
-						curCommerceOrderItem, priceDisplayType, locale),
-					_formatPromoPrice(
-						curCommerceOrderItem, priceDisplayType, locale),
-					_formatDiscountAmount(
-						curCommerceOrderItem, priceDisplayType, locale),
-					curCommerceOrderItem.getQuantity(),
-					_formatFinalPrice(
-						curCommerceOrderItem, priceDisplayType, locale),
+					commerceOrderItem.getCommerceOrderItemId(),
+					commerceOrderItem.getCommerceOrderId(),
+					commerceOrderItem.getSku(),
+					commerceOrderItem.getName(locale),
+					_getCommerceOrderOptions(commerceOrderItem, locale),
+					_getChildOrderItems(commerceOrderItem, httpServletRequest),
+					commerceOrderItem.getParentCommerceOrderItemId(),
+					_formatUnitPrice(commerceOrderItemPrice, locale),
+					_formatPromoPrice(commerceOrderItemPrice, locale),
+					_formatDiscountAmount(commerceOrderItemPrice, locale),
+					commerceOrderItem.getQuantity(),
+					_formatFinalPrice(commerceOrderItemPrice, locale),
 					_cpInstanceHelper.getCPInstanceThumbnailSrc(
-						curCommerceOrderItem.getCPInstanceId()),
+						commerceOrderItem.getCPInstanceId()),
 					0,
 					_getCommerceOrderErrorMessages(
-						curCommerceOrderItem, commerceOrderValidatorResultMap),
-					_formatSubscriptionPeriod(curCommerceOrderItem, locale)));
+						commerceOrderItem, commerceOrderValidatorResultMap),
+					_formatSubscriptionPeriod(commerceOrderItem, locale)));
 		}
 
 		return orderItems;
@@ -394,7 +365,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 		CommercePendingOrderItemDataSetDataProvider.class);
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceOrderItemPriceHelper _commerceOrderItemPriceHelper;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;

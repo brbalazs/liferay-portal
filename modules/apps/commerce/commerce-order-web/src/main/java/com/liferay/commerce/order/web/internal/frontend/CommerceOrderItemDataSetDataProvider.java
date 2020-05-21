@@ -23,6 +23,8 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.web.internal.model.OrderItem;
+import com.liferay.commerce.price.CommerceOrderItemPrice;
+import com.liferay.commerce.price.CommerceOrderItemPriceHelper;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
@@ -51,6 +53,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.text.Format;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -138,11 +141,11 @@ public class CommerceOrderItemDataSetDataProvider
 	}
 
 	private String _getDiscount(
-			CommerceOrderItem commerceOrderItem, Locale locale)
+			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
 		CommerceMoney discountAmount =
-			commerceOrderItem.getDiscountAmountMoney();
+			commerceOrderItemPrice.getDiscountAmountMoney();
 
 		return HtmlUtil.escape(discountAmount.format(locale));
 	}
@@ -168,6 +171,14 @@ public class CommerceOrderItemDataSetDataProvider
 
 		List<OrderItem> orderItems = new ArrayList<>();
 
+		if (commerceOrderItems.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		CommerceOrderItem commerceOrderItem0 = commerceOrderItems.get(0);
+
+		CommerceOrder commerceOrder = commerceOrderItem0.getCommerceOrder();
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -178,6 +189,10 @@ public class CommerceOrderItemDataSetDataProvider
 			locale, themeDisplay.getTimeZone());
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CommerceOrderItemPrice commerceOrderItemPrice =
+				_commerceOrderItemPriceHelper.getCommerceOrderItemPrice(
+					commerceOrderItem, commerceOrder.getCommerceCurrency());
+
 			String name = commerceOrderItem.getName(locale);
 
 			List<KeyValuePair> keyValuePairs =
@@ -194,7 +209,7 @@ public class CommerceOrderItemDataSetDataProvider
 			orderItems.add(
 				new OrderItem(
 					commerceOrderItem.getDeliveryGroup(),
-					_getDiscount(commerceOrderItem, locale),
+					_getDiscount(commerceOrderItemPrice, locale),
 					new ImageField(
 						name, "rounded", "lg", _getImage(commerceOrderItem)),
 					name, stringJoiner.toString(),
@@ -202,7 +217,7 @@ public class CommerceOrderItemDataSetDataProvider
 					commerceOrderItem.getCommerceOrderItemId(),
 					_getChildOrderItems(commerceOrderItem, httpServletRequest),
 					commerceOrderItem.getParentCommerceOrderItemId(),
-					_getPrice(commerceOrderItem, locale),
+					_getPrice(commerceOrderItemPrice, locale),
 					commerceOrderItem.getQuantity(),
 					_getRequestedDeliveryDateTime(
 						dateTimeFormat,
@@ -212,7 +227,7 @@ public class CommerceOrderItemDataSetDataProvider
 						commerceOrderItem, httpServletRequest),
 					_getSubscriptionPeriod(
 						commerceOrderItem, httpServletRequest),
-					_getTotal(commerceOrderItem, locale)));
+					_getTotal(commerceOrderItemPrice, locale)));
 		}
 
 		return orderItems;
@@ -230,10 +245,11 @@ public class CommerceOrderItemDataSetDataProvider
 		return LanguageUtil.get(httpServletRequest, period);
 	}
 
-	private String _getPrice(CommerceOrderItem commerceOrderItem, Locale locale)
+	private String _getPrice(
+			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney unitPrice = commerceOrderItem.getUnitPriceMoney();
+		CommerceMoney unitPrice = commerceOrderItemPrice.getUnitPriceMoney();
 
 		return HtmlUtil.escape(unitPrice.format(locale));
 	}
@@ -406,16 +422,20 @@ public class CommerceOrderItemDataSetDataProvider
 		return subscriptionPeriod;
 	}
 
-	private String _getTotal(CommerceOrderItem commerceOrderItem, Locale locale)
+	private String _getTotal(
+			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney finalPrice = commerceOrderItem.getFinalPriceMoney();
+		CommerceMoney finalPrice = commerceOrderItemPrice.getFinalPriceMoney();
 
 		return HtmlUtil.escape(finalPrice.format(locale));
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderItemDataSetDataProvider.class);
+
+	@Reference
+	private CommerceOrderItemPriceHelper _commerceOrderItemPriceHelper;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;

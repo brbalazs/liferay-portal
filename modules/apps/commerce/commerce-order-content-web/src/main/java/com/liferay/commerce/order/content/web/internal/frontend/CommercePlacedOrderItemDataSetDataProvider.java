@@ -18,13 +18,13 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.content.web.internal.model.OrderItem;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
+import com.liferay.commerce.price.CommerceOrderItemPrice;
+import com.liferay.commerce.price.CommerceOrderItemPriceHelper;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
-import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
@@ -138,49 +138,31 @@ public class CommercePlacedOrderItemDataSetDataProvider
 
 		List<OrderItem> orderItems = new ArrayList<>();
 
+		if (commerceOrderItems.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		CommerceOrderItem commerceOrderItem0 = commerceOrderItems.get(0);
+
+		CommerceOrder commerceOrder = commerceOrderItem0.getCommerceOrder();
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		String priceDisplayType =
-			CommercePricingConstants.TAX_EXCLUDED_FROM_PRICE;
-
-		if ((commerceOrderItems != null) && !commerceOrderItems.isEmpty()) {
-			CommerceOrderItem firstCommerceOrderItem = commerceOrderItems.get(
-				0);
-
-			CommerceChannel commerceChannel =
-				_commerceChannelService.getCommerceChannelByOrderGroupId(
-					firstCommerceOrderItem.getGroupId());
-
-			priceDisplayType = commerceChannel.getPriceDisplayType();
-		}
-
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CommerceOrderItemPrice commerceOrderItemPrice =
+				_commerceOrderItemPriceHelper.getCommerceOrderItemPrice(
+					commerceOrderItem, commerceOrder.getCommerceCurrency());
+
 			CommerceMoney unitPriceMoney =
-				commerceOrderItem.getUnitPriceMoney();
+				commerceOrderItemPrice.getUnitPriceMoney();
 			CommerceMoney promoPriceMoney =
-				commerceOrderItem.getPromoPriceMoney();
+				commerceOrderItemPrice.getPromoPriceMoney();
 			CommerceMoney discountAmountMoney =
-				commerceOrderItem.getDiscountAmountMoney();
+				commerceOrderItemPrice.getDiscountAmountMoney();
 			CommerceMoney finalPriceMoney =
-				commerceOrderItem.getFinalPriceMoney();
-
-			if (priceDisplayType.equals(
-					CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-
-				unitPriceMoney =
-					commerceOrderItem.getUnitPriceWithTaxAmountMoney();
-
-				promoPriceMoney =
-					commerceOrderItem.getPromoPriceWithTaxAmountMoney();
-
-				finalPriceMoney =
-					commerceOrderItem.getFinalPriceWithTaxAmountMoney();
-
-				discountAmountMoney =
-					commerceOrderItem.getDiscountWithTaxAmountMoney();
-			}
+				commerceOrderItemPrice.getFinalPriceMoney();
 
 			Locale locale = themeDisplay.getLocale();
 
@@ -190,13 +172,13 @@ public class CommercePlacedOrderItemDataSetDataProvider
 
 			String formattedPromoPrice = StringPool.BLANK;
 
-			BigDecimal promoPriceValue = promoPriceMoney.getPrice();
+			if (promoPriceMoney != null) {
+				BigDecimal promoPriceValue = promoPriceMoney.getPrice();
 
-			if ((promoPriceMoney != null) &&
-				(promoPriceValue.compareTo(BigDecimal.ZERO) > 0)) {
-
-				formattedPromoPrice = promoPriceMoney.format(
-					themeDisplay.getLocale());
+				if (promoPriceValue.compareTo(BigDecimal.ZERO) > 0) {
+					formattedPromoPrice = promoPriceMoney.format(
+						themeDisplay.getLocale());
+				}
 			}
 
 			String formattedSubscriptionPeriod = null;
@@ -270,7 +252,7 @@ public class CommercePlacedOrderItemDataSetDataProvider
 		CommercePlacedOrderItemDataSetDataProvider.class);
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceOrderItemPriceHelper _commerceOrderItemPriceHelper;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
