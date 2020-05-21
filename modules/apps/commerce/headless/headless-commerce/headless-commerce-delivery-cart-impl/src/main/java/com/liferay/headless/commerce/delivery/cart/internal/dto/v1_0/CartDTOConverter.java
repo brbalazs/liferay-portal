@@ -90,6 +90,7 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 				id = commerceOrder.getCommerceOrderId();
 				lastPriceUpdateDate = commerceOrder.getLastPriceUpdateDate();
 				modifiedDate = commerceOrder.getModifiedDate();
+				orderUUID = commerceOrder.getUuid();
 				paymentMethod = commerceOrder.getCommercePaymentMethodKey();
 				paymentStatus = commerceOrder.getPaymentStatus();
 				paymentStatusLabel = commerceOrderPaymentStatusLabel;
