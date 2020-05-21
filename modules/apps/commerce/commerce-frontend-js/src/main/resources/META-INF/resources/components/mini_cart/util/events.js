@@ -12,30 +12,10 @@
  * details.
  */
 
-import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+export const ADD_TO_ORDER = 'refreshCartUsingData';
 
-import template from './Summary.soy';
+export const CHANGE_ACCOUNT = 'accountSelected';
 
-import './Loader.es';
+export const CHANGE_ORDER = 'orderSelected';
 
-class Summary extends Component {}
-
-Summary.STATE = {
-	checkoutUrl: Config.string(),
-	detailsUrl: Config.string(),
-	discount: Config.string(),
-	itemsQuantity: Config.number(),
-	loading: Config.bool().value(false),
-	productsQuantity: Config.number(),
-	status: Config.number(),
-	subtotal: Config.string(),
-	taxes: Config.string(),
-	total: Config.string(),
-	valid: Config.bool()
-};
-
-Soy.register(Summary, template);
-
-export {Summary};
-export default Summary;
+export const PRODUCT_REMOVED = 'productRemovedFromCart';

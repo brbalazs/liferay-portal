@@ -1,0 +1,128 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+import ClayButton from '@clayui/button';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import React, {useContext, useState} from 'react';
+
+import {liferayNavigate} from '../../utilities/index';
+import MiniCartContext from './MiniCartContext';
+import API from './util/apiConfiguration';
+
+function getCN(isAsking, className) {
+	return classnames(className, !isAsking && 'hide');
+}
+
+function CartItemsListActions({numberOfItems}) {
+	const {
+			actionURLs,
+			apiEndpoint,
+			cartState,
+			setIsUpdating,
+			updateCartModel
+		} = useContext(MiniCartContext),
+		{id: orderId} = cartState,
+		{detailsURL} = actionURLs;
+
+	const [isAsking, setIsAsking] = useState(false);
+
+	const askConfirmation = () => setIsAsking(true),
+		cancel = () => {
+			setIsAsking(false);
+		},
+		flushCart = () => {
+			setIsUpdating(true);
+
+			API(apiEndpoint)
+				.updateCartById(orderId, {...cartState, cartItems: []})
+				.then(() => updateCartModel({orderId}))
+				.then(() => {
+					setIsAsking(false);
+					setIsUpdating(false);
+				});
+		};
+
+	return (
+		<div className={'mini-cart__header'}>
+			<div className={'mini-cart__header-block'}>
+				<div className={'mini-cart__header-resume'}>
+					{numberOfItems > 0 && (
+						<>
+							<span className={'items'}>{numberOfItems}</span>
+							{` ${
+								numberOfItems > 1
+									? Liferay.Language.get('products')
+									: Liferay.Language.get('product')
+							}`}
+						</>
+					)}
+				</div>
+
+				<div className={'mini-cart__header-actions'}>
+					<span className={getCN(!isAsking, 'actions')}>
+						<ClayButton
+							className={'action'}
+							disabled={!numberOfItems}
+							displayType={'link'}
+							onClick={() => {
+								liferayNavigate(detailsURL);
+							}}
+							small
+						>
+							{Liferay.Language.get('view-details')}
+						</ClayButton>
+						&nbsp;&#124;&nbsp;
+						<ClayButton
+							className={'action'}
+							disabled={!numberOfItems}
+							displayType={'link'}
+							onClick={askConfirmation}
+							small
+						>
+							{Liferay.Language.get('delete-all-items')}
+						</ClayButton>
+					</span>
+
+					<div className={getCN(isAsking, 'confirmation-prompt')}>
+						<span>{Liferay.Language.get('are-you-sure')}</span>
+
+						<span>
+							<button
+								className={'btn btn-sm btn-outline-success'}
+								onClick={flushCart}
+								type={'button'}
+							>
+								{Liferay.Language.get('yes')}
+							</button>
+							<button
+								className={'btn btn-sm btn-outline-danger'}
+								onClick={cancel}
+								type={'button'}
+							>
+								{Liferay.Language.get('no')}
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+CartItemsListActions.propTypes = {
+	numberOfItems: PropTypes.number
+};
+
+export default CartItemsListActions;

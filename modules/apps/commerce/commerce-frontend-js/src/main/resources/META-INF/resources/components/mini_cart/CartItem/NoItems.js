@@ -12,21 +12,25 @@
  * details.
  */
 
-import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import ClayIcon from '@clayui/icon';
+import React, {useContext} from 'react';
 
-import template from './Loader.soy';
+import MiniCartContext from '../MiniCartContext';
 
-import '../price/Price.es';
+function NoItems() {
+	const {spritemap} = useContext(MiniCartContext);
 
-class Loader extends Component {}
+	return (
+		<div className="empty-cart">
+			<div className="empty-cart-icon mb-3">
+				<ClayIcon spritemap={spritemap} symbol={'shopping-cart'} />
+			</div>
 
-Loader.STATE = {
-	direction: Config.string(),
-	inverted: Config.bool()
-};
+			<p className="empty-cart-label">
+				{Liferay.Language.get('add-a-product-to-the-cart')}
+			</p>
+		</div>
+	);
+}
 
-Soy.register(Loader, template);
-
-export {Loader};
-export default Loader;
+export default NoItems;

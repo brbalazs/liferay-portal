@@ -44,6 +44,11 @@ module.exports = [
 		page: 'modal.html'
 	},
 	{
+		entry: 'MiniCart',
+		name: 'Mini Cart',
+		page: 'mini-cart.html'
+	},
+	{
 		entry: 'SidePanel',
 		name: 'Side panel',
 		page: 'side-panel.html'
