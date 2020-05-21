@@ -12,7 +12,7 @@ import {DataSource, User} from 'shared/util/records';
 import {deleteDataSource} from 'shared/actions/data-sources';
 import {
 	getDataSourceDisplayObject,
-	hasOAuthDXPConnection
+	hasLegacyDXPConnection
 } from 'shared/util/data-sources';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -149,19 +149,18 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 				<div className='content-main'>{passedChildren}</div>
 
 				<div className='content-side'>
-					{currentUser.isAdmin() &&
-						hasOAuthDXPConnection(dataSource) && (
+					{dataSource &&
+						currentUser.isAdmin() &&
+						hasLegacyDXPConnection(dataSource) && (
 							<UpgradeConnectionCard
-								actions={[
-									{
-										label: Liferay.Language.get(
-											'start-upgrade'
-										),
-										onClick: () => {}
-									}
-								]}
+								action={{
+									label: Liferay.Language.get(
+										'start-upgrade'
+									),
+									onClick: () => {}
+								}}
 								content={Liferay.Language.get(
-									'analytics-cloud-now-uses-a-more-secure-token-based-connection-that-gives-you-finer-control-of-your-data.-oauth-connections-will-be-deprecated-in-a-future-release.-click-the-button-below-to-get-started-with-migrating-your-data-source.'
+									'analytics-cloud-now-uses-a-more-secure-token-based-connection-that-gives-you-finer-control-of-your-data.-oauth-connections-will-be-deprecated-in-a-future-release.-click-the-button-below-to-get-started-with-migrating-your-data-source'
 								)}
 								title={Liferay.Language.get(
 									'upgrade-your-connection-type'
