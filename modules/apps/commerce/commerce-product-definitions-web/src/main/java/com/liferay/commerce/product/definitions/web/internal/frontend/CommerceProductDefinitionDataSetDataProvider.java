@@ -119,7 +119,7 @@ public class CommerceProductDefinitionDataSetDataProvider
 				else if (cpDefinition.getStatus() ==
 							WorkflowConstants.STATUS_EXPIRED) {
 
-					statusDisplayStyle = "danger";
+					statusDisplayStyle = "warning";
 				}
 
 				products.add(
