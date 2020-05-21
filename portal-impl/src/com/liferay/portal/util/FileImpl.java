@@ -1145,8 +1145,9 @@ public class FileImpl implements com.liferay.portal.kernel.util.File {
 			new WriteOutContentHandler(tika.getMaxStringLength());
 
 		try {
-			ParseContext parseContext = new ParseContext();
 			Parser parser = tika.getParser();
+
+			ParseContext parseContext = new ParseContext();
 
 			parseContext.set(Parser.class, parser);
 
