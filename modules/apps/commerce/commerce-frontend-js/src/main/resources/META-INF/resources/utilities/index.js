@@ -12,14 +12,6 @@
  * details.
  */
 
-export function getSchemaString(object, path) {
-	if (!Array.isArray(path)) {
-		return object[path];
-	} else {
-		return path.reduce((acc, path) => acc[path], object);
-	}
-}
-
 export function liferayNavigate(url) {
 	if (Liferay.SPA) {
 		Liferay.SPA.app.navigate(url);
@@ -30,7 +22,15 @@ export function liferayNavigate(url) {
 
 export function getValueFromItem(item, fieldName) {
 	if (Array.isArray(fieldName)) {
-		return fieldName.reduce((acc, key) => acc[key], item);
+		return fieldName.reduce((acc, key) => {
+			if (key === 'LANG') {
+				return (
+					acc[Liferay.ThemeDisplay.getLanguageId()] ||
+					acc[Liferay.ThemeDisplay.getDefaultLanguageId()]
+				);
+			}
+			return acc[key];
+		}, item);
 	}
 	return item[fieldName];
 }

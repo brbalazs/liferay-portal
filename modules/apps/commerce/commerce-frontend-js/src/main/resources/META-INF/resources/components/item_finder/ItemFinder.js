@@ -103,9 +103,12 @@ function ItemFinder(props) {
 			.onItemCreated(textFilter)
 			.then(id => {
 				updateTextFilter('');
-				updateSelectedItems(i => [...i, id]);
+
+				if (id) {
+					updateSelectedItems(i => [...i, id]);
+				}
 			})
-			.catch(error => showErrorNotification(error));
+			.catch(showErrorNotification);
 	}
 
 	return (

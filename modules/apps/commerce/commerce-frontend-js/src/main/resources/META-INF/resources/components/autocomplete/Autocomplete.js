@@ -19,7 +19,7 @@ import React, {useState, useEffect, useCallback, useRef} from 'react';
 
 import debounce from '../../utilities/debounce';
 import {AUTOCOMPLETE_VALUE_UPDATED} from '../../utilities/eventsDefinitions';
-import {fetchParams, getSchemaString} from '../../utilities/index';
+import {fetchParams, getValueFromItem} from '../../utilities/index';
 import {showErrorNotification} from '../../utilities/notifications';
 
 function Autocomplete(props) {
@@ -53,7 +53,7 @@ function Autocomplete(props) {
 		if (items && items.length === 1) {
 			const firstItem = items[0];
 			setValue(firstItem[props.itemsKey]);
-			setLabel(getSchemaString(firstItem, props.itemsLabel));
+			setLabel(getValueFromItem(firstItem, props.itemsLabel));
 		}
 	}, [items, props.itemsKey, props.itemsLabel]);
 
@@ -139,7 +139,7 @@ function Autocomplete(props) {
 										onClick={() => {
 											setValue(item[props.itemsKey]);
 											setLabel(
-												getSchemaString(
+												getValueFromItem(
 													item,
 													props.itemsLabel
 												)
@@ -148,7 +148,7 @@ function Autocomplete(props) {
 											Liferay.fire();
 										}}
 										value={String(
-											getSchemaString(
+											getValueFromItem(
 												item,
 												props.itemsLabel
 											)

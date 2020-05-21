@@ -20,7 +20,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
-import {getSchemaString} from '../../utilities/index';
+import {getValueFromItem} from '../../utilities/index';
 import Expose from './Expose';
 
 function Item(props) {
@@ -187,7 +187,7 @@ class AddOrCreateBase extends Component {
 													item[this.props.itemsKey]
 												)}
 												subTitle={item.key}
-												title={getSchemaString(
+												title={getValueFromItem(
 													item,
 													this.props.schema.itemTitle
 												)}
