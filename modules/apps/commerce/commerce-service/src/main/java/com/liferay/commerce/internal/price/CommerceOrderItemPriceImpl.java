@@ -24,13 +24,13 @@ import java.math.BigDecimal;
  */
 public class CommerceOrderItemPriceImpl implements CommerceOrderItemPrice {
 
-	public CommerceOrderItemPriceImpl(CommerceMoney unitPriceMoney) {
-		_unitPriceMoney = unitPriceMoney;
+	public CommerceOrderItemPriceImpl(CommerceMoney unitPrice) {
+		_unitPrice = unitPrice;
 	}
 
 	@Override
-	public CommerceMoney getDiscountAmountMoney() {
-		return _discountAmountMoney;
+	public CommerceMoney getDiscountAmount() {
+		return _discountAmount;
 	}
 
 	@Override
@@ -59,22 +59,22 @@ public class CommerceOrderItemPriceImpl implements CommerceOrderItemPrice {
 	}
 
 	@Override
-	public CommerceMoney getFinalPriceMoney() {
-		return _finalPriceMoney;
+	public CommerceMoney getFinalPrice() {
+		return _finalPrice;
 	}
 
 	@Override
-	public CommerceMoney getPromoPriceMoney() {
-		return _promoPriceMoney;
+	public CommerceMoney getPromoPrice() {
+		return _promoPrice;
 	}
 
 	@Override
-	public CommerceMoney getUnitPriceMoney() {
-		return _unitPriceMoney;
+	public CommerceMoney getUnitPrice() {
+		return _unitPrice;
 	}
 
-	public void setDiscountAmountMoney(CommerceMoney discountAmountMoney) {
-		_discountAmountMoney = discountAmountMoney;
+	public void setDiscountAmount(CommerceMoney discountAmount) {
+		_discountAmount = discountAmount;
 	}
 
 	public void setDiscountPercentage(BigDecimal discountPercentage) {
@@ -105,26 +105,26 @@ public class CommerceOrderItemPriceImpl implements CommerceOrderItemPrice {
 		_discountPercentageLevel4 = discountPercentageLevel4;
 	}
 
-	public void setFinalPriceMoney(CommerceMoney finalPriceMoney) {
-		_finalPriceMoney = finalPriceMoney;
+	public void setFinalPrice(CommerceMoney finalPrice) {
+		_finalPrice = finalPrice;
 	}
 
-	public void setPromoPriceMoney(CommerceMoney promoPriceMoney) {
-		_promoPriceMoney = promoPriceMoney;
+	public void setPromoPrice(CommerceMoney promoPrice) {
+		_promoPrice = promoPrice;
 	}
 
-	public void setUnitPriceMoney(CommerceMoney unitPriceMoney) {
-		_unitPriceMoney = unitPriceMoney;
+	public void setUnitPrice(CommerceMoney unitPrice) {
+		_unitPrice = unitPrice;
 	}
 
-	private CommerceMoney _discountAmountMoney;
+	private CommerceMoney _discountAmount;
 	private BigDecimal _discountPercentage;
 	private BigDecimal _discountPercentageLevel1;
 	private BigDecimal _discountPercentageLevel2;
 	private BigDecimal _discountPercentageLevel3;
 	private BigDecimal _discountPercentageLevel4;
-	private CommerceMoney _finalPriceMoney;
-	private CommerceMoney _promoPriceMoney;
-	private CommerceMoney _unitPriceMoney;
+	private CommerceMoney _finalPrice;
+	private CommerceMoney _promoPrice;
+	private CommerceMoney _unitPrice;
 
 }

@@ -238,13 +238,13 @@ public class CommerceOrderItemPriceHelperImpl
 		if ((promoPrice != null) &&
 			(promoPrice.compareTo(BigDecimal.ZERO) > 0)) {
 
-			commerceOrderItemPrice.setPromoPriceMoney(
+			commerceOrderItemPrice.setPromoPrice(
 				_commerceMoneyFactory.create(commerceCurrency, promoPrice));
 
 			activePrice = promoPrice;
 		}
 
-		commerceOrderItemPrice.setDiscountAmountMoney(
+		commerceOrderItemPrice.setDiscountAmount(
 			_commerceMoneyFactory.create(commerceCurrency, discountAmount));
 
 		activePrice = activePrice.multiply(BigDecimal.valueOf(quantity));
@@ -266,7 +266,7 @@ public class CommerceOrderItemPriceHelperImpl
 		commerceOrderItemPrice.setDiscountPercentageLevel4(
 			discountPercentageLevel4);
 
-		commerceOrderItemPrice.setFinalPriceMoney(
+		commerceOrderItemPrice.setFinalPrice(
 			_commerceMoneyFactory.create(commerceCurrency, finalPrice));
 	}
 
