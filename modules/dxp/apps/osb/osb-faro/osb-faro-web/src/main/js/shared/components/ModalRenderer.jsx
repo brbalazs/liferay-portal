@@ -11,6 +11,7 @@ import DeleteConfirmationModal from 'shared/components/DeleteConfirmationModal';
 import dom from 'metal-dom';
 import ExportLogModal from 'settings/components/ExportLogModal';
 import FieldPreviewModal from 'settings/components/data-transformation-list/FieldPreviewModal';
+import IndividualsAttributesModal from 'settings/components/IndividualsAttributesModal';
 import InputModal from './InputModal';
 import InterestTopicModal from 'settings/components/InterestTopicsModal';
 import InviteUsersModal from 'settings/components/InviteUsersModal';
@@ -44,6 +45,7 @@ const COMPONENT_MAP = {
 	[modalTypes.DELETE_CONFIRMATION_MODAL]: DeleteConfirmationModal,
 	[modalTypes.EXPORT_LOG_MODAL]: ExportLogModal,
 	[modalTypes.FIELD_PREVIEW_MODAL]: FieldPreviewModal,
+	[modalTypes.INDIVIDUALS_ATTRIBUTES_MODAL]: IndividualsAttributesModal,
 	[modalTypes.INPUT_MODAL]: InputModal,
 	[modalTypes.INSERT_BLOCKED_KEYWORDS]: InterestTopicModal,
 	[modalTypes.INVITE_USERS_MODAL]: InviteUsersModal,
