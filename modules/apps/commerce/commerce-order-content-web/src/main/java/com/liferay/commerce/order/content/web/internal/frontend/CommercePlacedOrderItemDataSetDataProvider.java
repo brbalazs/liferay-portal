@@ -99,6 +99,20 @@ public class CommercePlacedOrderItemDataSetDataProvider
 		return Collections.emptyList();
 	}
 
+	private String _formatPromoPrice(CommerceMoney promoPrice, Locale locale)
+		throws PortalException {
+
+		if (promoPrice != null) {
+			BigDecimal promoPriceValue = promoPrice.getPrice();
+
+			if (promoPriceValue.compareTo(BigDecimal.ZERO) > 0) {
+				return promoPrice.format(locale);
+			}
+		}
+
+		return StringPool.BLANK;
+	}
+
 	private BaseModelSearchResult<CommerceOrderItem> _getBaseModelSearchResult(
 			HttpServletRequest httpServletRequest, Filter filter,
 			Pagination pagination, Sort sort)
@@ -153,33 +167,17 @@ public class CommercePlacedOrderItemDataSetDataProvider
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			CommerceOrderItemPrice commerceOrderItemPrice =
 				_commerceOrderItemPriceHelper.getCommerceOrderItemPrice(
-					commerceOrderItem, commerceOrder.getCommerceCurrency());
+					commerceOrder.getCommerceCurrency(), commerceOrderItem);
 
-			CommerceMoney unitPriceMoney =
-				commerceOrderItemPrice.getUnitPriceMoney();
-			CommerceMoney promoPriceMoney =
-				commerceOrderItemPrice.getPromoPriceMoney();
-			CommerceMoney discountAmountMoney =
-				commerceOrderItemPrice.getDiscountAmountMoney();
-			CommerceMoney finalPriceMoney =
-				commerceOrderItemPrice.getFinalPriceMoney();
+			CommerceMoney unitPrice = commerceOrderItemPrice.getUnitPrice();
+
+			CommerceMoney discountAmount =
+				commerceOrderItemPrice.getDiscountAmount();
 
 			Locale locale = themeDisplay.getLocale();
 
-			String formattedUnitPrice = unitPriceMoney.format(locale);
-			String formattedDiscountAmount = discountAmountMoney.format(locale);
-			String formattedFinalPrice = finalPriceMoney.format(locale);
-
-			String formattedPromoPrice = StringPool.BLANK;
-
-			if (promoPriceMoney != null) {
-				BigDecimal promoPriceValue = promoPriceMoney.getPrice();
-
-				if (promoPriceValue.compareTo(BigDecimal.ZERO) > 0) {
-					formattedPromoPrice = promoPriceMoney.format(
-						themeDisplay.getLocale());
-				}
-			}
+			String formattedUnitPrice = unitPrice.format(locale);
+			String formattedDiscountAmount = discountAmount.format(locale);
 
 			String formattedSubscriptionPeriod = null;
 
@@ -227,6 +225,8 @@ public class CommercePlacedOrderItemDataSetDataProvider
 				stringJoiner.add(keyValuePair.getValue());
 			}
 
+			CommerceMoney finalPrice = commerceOrderItemPrice.getFinalPrice();
+
 			orderItems.add(
 				new OrderItem(
 					commerceOrderItem.getCommerceOrderItemId(),
@@ -236,9 +236,12 @@ public class CommercePlacedOrderItemDataSetDataProvider
 					stringJoiner.toString(),
 					_getChildOrderItems(commerceOrderItem, httpServletRequest),
 					commerceOrderItem.getParentCommerceOrderItemId(),
-					formattedUnitPrice, formattedPromoPrice,
+					formattedUnitPrice,
+					_formatPromoPrice(
+						commerceOrderItemPrice.getPromoPrice(),
+						themeDisplay.getLocale()),
 					formattedDiscountAmount, commerceOrderItem.getQuantity(),
-					formattedFinalPrice,
+					finalPrice.format(locale),
 					_cpInstanceHelper.getCPInstanceThumbnailSrc(
 						commerceOrderItem.getCPInstanceId()),
 					commerceOrderItem.getShippedQuantity(), null,

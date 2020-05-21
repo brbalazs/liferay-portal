@@ -110,12 +110,12 @@ public class CommercePendingOrderItemDataSetDataProvider
 			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		if (commerceOrderItemPrice.getDiscountAmountMoney() == null) {
+		if (commerceOrderItemPrice.getDiscountAmount() == null) {
 			return StringPool.BLANK;
 		}
 
 		CommerceMoney discountAmountMoney =
-			commerceOrderItemPrice.getDiscountAmountMoney();
+			commerceOrderItemPrice.getDiscountAmount();
 
 		return discountAmountMoney.format(locale);
 	}
@@ -124,34 +124,32 @@ public class CommercePendingOrderItemDataSetDataProvider
 			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		if (commerceOrderItemPrice.getFinalPriceMoney() == null) {
+		if (commerceOrderItemPrice.getFinalPrice() == null) {
 			return StringPool.BLANK;
 		}
 
-		CommerceMoney finalPriceMoney =
-			commerceOrderItemPrice.getFinalPriceMoney();
+		CommerceMoney finalPrice = commerceOrderItemPrice.getFinalPrice();
 
-		return finalPriceMoney.format(locale);
+		return finalPrice.format(locale);
 	}
 
 	private String _formatPromoPrice(
 			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney promoPriceMoney =
-			commerceOrderItemPrice.getPromoPriceMoney();
+		CommerceMoney promoPrice = commerceOrderItemPrice.getPromoPrice();
 
-		if (promoPriceMoney == null) {
+		if (promoPrice == null) {
 			return StringPool.BLANK;
 		}
 
-		BigDecimal price = promoPriceMoney.getPrice();
+		BigDecimal price = promoPrice.getPrice();
 
 		if (price.compareTo(BigDecimal.ZERO) <= 0) {
 			return StringPool.BLANK;
 		}
 
-		return promoPriceMoney.format(locale);
+		return promoPrice.format(locale);
 	}
 
 	private String _formatSubscriptionPeriod(
@@ -196,14 +194,13 @@ public class CommercePendingOrderItemDataSetDataProvider
 			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		if (commerceOrderItemPrice.getUnitPriceMoney() == null) {
+		if (commerceOrderItemPrice.getUnitPrice() == null) {
 			return StringPool.BLANK;
 		}
 
-		CommerceMoney unitPriceMoney =
-			commerceOrderItemPrice.getUnitPriceMoney();
+		CommerceMoney unitPrice = commerceOrderItemPrice.getUnitPrice();
 
-		return unitPriceMoney.format(locale);
+		return unitPrice.format(locale);
 	}
 
 	private BaseModelSearchResult<CommerceOrderItem> _getBaseModelSearchResult(
@@ -334,7 +331,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			CommerceOrderItemPrice commerceOrderItemPrice =
 				_commerceOrderItemPriceHelper.getCommerceOrderItemPrice(
-					commerceOrderItem, commerceOrder.getCommerceCurrency());
+					commerceOrder.getCommerceCurrency(), commerceOrderItem);
 
 			orderItems.add(
 				new OrderItem(
