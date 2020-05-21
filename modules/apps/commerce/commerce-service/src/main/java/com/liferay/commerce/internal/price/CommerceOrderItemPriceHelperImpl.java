@@ -156,19 +156,19 @@ public class CommerceOrderItemPriceHelperImpl
 
 				promoPrice = promoPrice.add(
 					_getPricePerUnit(
-						childUnitPrice, childCommerceOrderItem.getQuantity(),
-						parentQuantity, commerceCurrency));
+						commerceCurrency, childUnitPrice,
+						childCommerceOrderItem.getQuantity(), parentQuantity));
 			}
 
 			unitPrice = unitPrice.add(
 				_getPricePerUnit(
-					childUnitPrice, childCommerceOrderItem.getQuantity(),
-					parentQuantity, commerceCurrency));
+					commerceCurrency, childUnitPrice,
+					childCommerceOrderItem.getQuantity(), parentQuantity));
 
 			promoPrice = promoPrice.add(
 				_getPricePerUnit(
-					childPromoPrice, childCommerceOrderItem.getQuantity(),
-					parentQuantity, commerceCurrency));
+					commerceCurrency, childPromoPrice,
+					childCommerceOrderItem.getQuantity(), parentQuantity));
 
 			discountAmount = discountAmount.add(childDiscountAmount);
 
@@ -186,22 +186,21 @@ public class CommerceOrderItemPriceHelperImpl
 				_commerceMoneyFactory.create(commerceCurrency, unitPrice));
 
 		_setCommerceOrderItemPrice(
-			commerceOrderItemPrice, unitPrice, promoPrice, discountAmount,
+			commerceCurrency, commerceOrderItemPrice, discountAmount,
 			discountPercentageLevel1, discountPercentageLevel2,
 			discountPercentageLevel3, discountPercentageLevel4, finalPrice,
-			commerceOrderItem.getQuantity(), commerceCurrency);
+			promoPrice, commerceOrderItem.getQuantity(), unitPrice);
 
 		return commerceOrderItemPrice;
 	}
 
 	private BigDecimal _getDiscountPercentage(
-		BigDecimal discountedAmount, BigDecimal amount,
-		RoundingMode roundingMode) {
+		BigDecimal amount, BigDecimal discount, RoundingMode roundingMode) {
 
-		double actualPrice = discountedAmount.doubleValue();
-		double originalPrice = amount.doubleValue();
+		BigDecimal discountedAmount = amount.subtract(discount);
 
-		double percentage = actualPrice / originalPrice;
+		double percentage =
+			discountedAmount.doubleValue() / amount.doubleValue();
 
 		BigDecimal discountPercentage = new BigDecimal(percentage);
 
@@ -214,8 +213,8 @@ public class CommerceOrderItemPriceHelperImpl
 	}
 
 	private BigDecimal _getPricePerUnit(
-		BigDecimal price, int quantity, int parentQuantity,
-		CommerceCurrency commerceCurrency) {
+		CommerceCurrency commerceCurrency, BigDecimal price, int quantity,
+		int parentQuantity) {
 
 		BigDecimal pricePerUnit = price.multiply(BigDecimal.valueOf(quantity));
 
@@ -225,13 +224,13 @@ public class CommerceOrderItemPriceHelperImpl
 	}
 
 	private void _setCommerceOrderItemPrice(
-		CommerceOrderItemPriceImpl commerceOrderItemPrice, BigDecimal unitPrice,
-		BigDecimal promoPrice, BigDecimal discountAmount,
-		BigDecimal discountPercentageLevel1,
+		CommerceCurrency commerceCurrency,
+		CommerceOrderItemPriceImpl commerceOrderItemPrice,
+		BigDecimal discountAmount, BigDecimal discountPercentageLevel1,
 		BigDecimal discountPercentageLevel2,
 		BigDecimal discountPercentageLevel3,
 		BigDecimal discountPercentageLevel4, BigDecimal finalPrice,
-		int quantity, CommerceCurrency commerceCurrency) {
+		BigDecimal promoPrice, int quantity, BigDecimal unitPrice) {
 
 		BigDecimal activePrice = unitPrice;
 
@@ -247,12 +246,8 @@ public class CommerceOrderItemPriceHelperImpl
 		commerceOrderItemPrice.setDiscountAmount(
 			_commerceMoneyFactory.create(commerceCurrency, discountAmount));
 
-		activePrice = activePrice.multiply(BigDecimal.valueOf(quantity));
-
-		BigDecimal discountedAmount = activePrice.subtract(discountAmount);
-
 		BigDecimal discountPercentage = _getDiscountPercentage(
-			discountedAmount, activePrice,
+			activePrice.multiply(BigDecimal.valueOf(quantity)), discountAmount,
 			RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
 
 		commerceOrderItemPrice.setDiscountPercentage(discountPercentage);
