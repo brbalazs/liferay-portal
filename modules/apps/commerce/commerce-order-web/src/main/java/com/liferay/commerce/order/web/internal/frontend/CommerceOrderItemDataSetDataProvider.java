@@ -145,7 +145,7 @@ public class CommerceOrderItemDataSetDataProvider
 		throws PortalException {
 
 		CommerceMoney discountAmount =
-			commerceOrderItemPrice.getDiscountAmountMoney();
+			commerceOrderItemPrice.getDiscountAmount();
 
 		return HtmlUtil.escape(discountAmount.format(locale));
 	}
@@ -249,7 +249,7 @@ public class CommerceOrderItemDataSetDataProvider
 			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney unitPrice = commerceOrderItemPrice.getUnitPriceMoney();
+		CommerceMoney unitPrice = commerceOrderItemPrice.getUnitPrice();
 
 		return HtmlUtil.escape(unitPrice.format(locale));
 	}
@@ -426,7 +426,7 @@ public class CommerceOrderItemDataSetDataProvider
 			CommerceOrderItemPrice commerceOrderItemPrice, Locale locale)
 		throws PortalException {
 
-		CommerceMoney finalPrice = commerceOrderItemPrice.getFinalPriceMoney();
+		CommerceMoney finalPrice = commerceOrderItemPrice.getFinalPrice();
 
 		return HtmlUtil.escape(finalPrice.format(locale));
 	}
