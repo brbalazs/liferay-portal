@@ -346,6 +346,11 @@
 		<name>mini-cart</name>
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.MiniCartTag</tag-class>
 		<body-content>empty</body-content>
+		<attribute>
+			<name>spritemap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 	<tag>
 		<name>modal</name>

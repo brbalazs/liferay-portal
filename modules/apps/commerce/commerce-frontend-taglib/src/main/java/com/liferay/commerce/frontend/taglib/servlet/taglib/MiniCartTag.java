@@ -14,147 +14,90 @@
 
 package com.liferay.commerce.frontend.taglib.servlet.taglib;
 
-import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.configuration.CommercePriceConfiguration;
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.constants.CommerceWebKeys;
-import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
-import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.order.CommerceOrderHttpHelper;
-import com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver;
-import com.liferay.frontend.taglib.soy.servlet.taglib.ComponentRendererTag;
-import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.taglib.util.IncludeTag;
 
-import java.util.Collections;
-
-import javax.portlet.PortletURL;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 
 /**
- * @author Marco Leo
- * @author Alessio Antonio Rendina
+ * @author Gianmarco Brunialti Masera
  */
-public class MiniCartTag extends ComponentRendererTag {
+public class MiniCartTag extends IncludeTag {
+
+	public String getSpritemap() {
+		return _spritemap;
+	}
 
 	@Override
-	public int doStartTag() {
-		CommerceContext commerceContext = (CommerceContext)request.getAttribute(
-			CommerceWebKeys.COMMERCE_CONTEXT);
+	public void setPageContext(PageContext pageContext) {
+		super.setPageContext(pageContext);
+
+		_configurationProvider = ServletContextUtil.getConfigurationProvider();
+
+		servletContext = ServletContextUtil.getServletContext();
+	}
+
+	public void setSpritemap(String spritemap) {
+		_spritemap = spritemap;
+	}
+
+	@Override
+	protected void cleanUp() {
+		super.cleanUp();
+
+		_configurationProvider = null;
+		_displayDiscountLevels = false;
+		_spritemap = null;
+	}
+
+	@Override
+	protected String getPage() {
+		return _PAGE;
+	}
+
+	@Override
+	protected void setAttributes(HttpServletRequest request) {
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		try {
-			putValue(
-				"cartAPI",
-				PortalUtil.getPortalURL(request) + "/o/commerce-ui/cart");
-
-			CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
-
-			if (commerceOrder != null) {
-				putValue("orderId", commerceOrder.getCommerceOrderId());
-				putValue(
-					"commerceAccountId", commerceOrder.getCommerceAccountId());
-				putValue("workflowStatus", commerceOrder.getStatus());
-			}
-			else {
-				CommerceAccount commerceAccount =
-					commerceContext.getCommerceAccount();
-
-				if (commerceAccount != null) {
-					putValue(
-						"commerceAccountId",
-						commerceAccount.getCommerceAccountId());
-				}
-			}
-
-			String checkoutURL = StringPool.BLANK;
-
-			PortletURL commerceCheckoutPortletURL =
-				_commerceOrderHttpHelper.getCommerceCheckoutPortletURL(request);
-
-			if (commerceCheckoutPortletURL != null) {
-				checkoutURL = String.valueOf(commerceCheckoutPortletURL);
-			}
-
-			putValue("checkoutUrl", checkoutURL);
-
-			String detailsURL = StringPool.BLANK;
-
-			PortletURL commerceCartPortletURL =
-				_commerceOrderHttpHelper.getCommerceCartPortletURL(
-					request, commerceOrder);
-
-			if (commerceCartPortletURL != null) {
-				detailsURL = String.valueOf(commerceCartPortletURL);
-			}
-
 			CommercePriceConfiguration commercePriceConfiguration =
 				_configurationProvider.getConfiguration(
 					CommercePriceConfiguration.class,
 					new SystemSettingsLocator(
 						CommerceConstants.PRICE_SERVICE_NAME));
 
-			putValue(
-				"displayDiscountLevels",
-				commercePriceConfiguration.displayDiscountLevels());
-
-			putValue("detailsUrl", detailsURL);
-
-			putValue("isDisabled", false);
-			putValue("isOpen", false);
-			putValue("products", Collections.emptyList());
-			putValue("productsCount", 0);
-			putValue(
-				"spritemap", themeDisplay.getPathThemeImages() + "/icons.svg");
-
-			setTemplateNamespace("MiniCart.render");
+			_displayDiscountLevels =
+				commercePriceConfiguration.displayDiscountLevels();
 		}
-		catch (PortalException pe) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
-			}
-
-			return SKIP_BODY;
+		catch (ConfigurationException e) {
+			_displayDiscountLevels = false;
 		}
 
-		return super.doStartTag();
-	}
-
-	@Override
-	public String getModule() {
-		NPMResolver npmResolver = ServletContextUtil.getNPMResolver();
-
-		if (npmResolver == null) {
-			return StringPool.BLANK;
+		if (Validator.isNull(_spritemap)) {
+			_spritemap = themeDisplay.getPathThemeImages() + "/clay/icons.svg";
 		}
 
-		return npmResolver.resolveModuleName(
-			"commerce-frontend-taglib/mini_cart/MiniCart.es");
+		request.setAttribute(
+			"liferay-commerce:cart:displayDiscountLevels",
+			_displayDiscountLevels);
+
+		request.setAttribute("liferay-commerce:cart:spritemap", _spritemap);
 	}
 
-	@Override
-	public void setPageContext(PageContext pageContext) {
-		_commerceOrderHttpHelper =
-			ServletContextUtil.getCommerceOrderHttpHelper();
+	private static final String _PAGE = "/mini_cart/page.jsp";
 
-		_configurationProvider = ServletContextUtil.getConfigurationProvider();
-
-		super.setPageContext(pageContext);
-	}
-
-	private static final Log _log = LogFactoryUtil.getLog(MiniCartTag.class);
-
-	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
 	private ConfigurationProvider _configurationProvider;
+	private boolean _displayDiscountLevels;
+	private String _spritemap;
 
 }

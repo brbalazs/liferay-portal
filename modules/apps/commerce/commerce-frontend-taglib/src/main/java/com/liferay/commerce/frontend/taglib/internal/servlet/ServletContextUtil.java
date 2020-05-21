@@ -57,10 +57,6 @@ public class ServletContextUtil {
 		return _servletContextUtil._getCommerceDataProviderRegistry();
 	}
 
-	public static final CommerceOrderHttpHelper getCommerceOrderHttpHelper() {
-		return _servletContextUtil._getCommerceOrderHttpHelper();
-	}
-
 	public static final ConfigurationProvider getConfigurationProvider() {
 		return _servletContextUtil._getConfigurationProvider();
 	}
