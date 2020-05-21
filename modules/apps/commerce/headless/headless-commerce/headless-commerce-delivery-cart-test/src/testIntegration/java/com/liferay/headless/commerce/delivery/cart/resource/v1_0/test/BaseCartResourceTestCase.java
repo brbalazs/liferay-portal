@@ -187,6 +187,7 @@ public abstract class BaseCartResourceTestCase {
 		cart.setAuthor(regex);
 		cart.setCouponCode(regex);
 		cart.setCurrencyCode(regex);
+		cart.setOrderUUID(regex);
 		cart.setPaymentMethod(regex);
 		cart.setPaymentMethodLabel(regex);
 		cart.setPaymentStatusLabel(regex);
@@ -206,6 +207,7 @@ public abstract class BaseCartResourceTestCase {
 		Assert.assertEquals(regex, cart.getAuthor());
 		Assert.assertEquals(regex, cart.getCouponCode());
 		Assert.assertEquals(regex, cart.getCurrencyCode());
+		Assert.assertEquals(regex, cart.getOrderUUID());
 		Assert.assertEquals(regex, cart.getPaymentMethod());
 		Assert.assertEquals(regex, cart.getPaymentMethodLabel());
 		Assert.assertEquals(regex, cart.getPaymentStatusLabel());
@@ -669,6 +671,14 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("orderUUID", additionalAssertFieldName)) {
+				if (cart.getOrderUUID() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("paymentMethod", additionalAssertFieldName)) {
 				if (cart.getPaymentMethod() == null) {
 					valid = false;
@@ -1014,6 +1024,16 @@ public abstract class BaseCartResourceTestCase {
 
 			if (Objects.equals("notes", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(cart1.getNotes(), cart2.getNotes())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("orderUUID", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cart1.getOrderUUID(), cart2.getOrderUUID())) {
+
 					return false;
 				}
 
@@ -1410,6 +1430,14 @@ public abstract class BaseCartResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("orderUUID")) {
+			sb.append("'");
+			sb.append(String.valueOf(cart.getOrderUUID()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("paymentMethod")) {
 			sb.append("'");
 			sb.append(String.valueOf(cart.getPaymentMethod()));
@@ -1556,6 +1584,8 @@ public abstract class BaseCartResourceTestCase {
 				id = RandomTestUtil.randomLong();
 				lastPriceUpdateDate = RandomTestUtil.nextDate();
 				modifiedDate = RandomTestUtil.nextDate();
+				orderUUID = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				paymentMethod = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				paymentMethodLabel = StringUtil.toLowerCase(

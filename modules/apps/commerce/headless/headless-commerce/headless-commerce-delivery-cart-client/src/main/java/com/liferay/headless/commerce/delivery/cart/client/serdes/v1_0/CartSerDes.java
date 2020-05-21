@@ -261,6 +261,20 @@ public class CartSerDes {
 			sb.append("]");
 		}
 
+		if (cart.getOrderUUID() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"orderUUID\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getOrderUUID()));
+
+			sb.append("\"");
+		}
+
 		if (cart.getPaymentMethod() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -556,6 +570,13 @@ public class CartSerDes {
 			map.put("notes", String.valueOf(cart.getNotes()));
 		}
 
+		if (cart.getOrderUUID() == null) {
+			map.put("orderUUID", null);
+		}
+		else {
+			map.put("orderUUID", String.valueOf(cart.getOrderUUID()));
+		}
+
 		if (cart.getPaymentMethod() == null) {
 			map.put("paymentMethod", null);
 		}
@@ -771,6 +792,11 @@ public class CartSerDes {
 						).toArray(
 							size -> new CartComment[size]
 						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "orderUUID")) {
+				if (jsonParserFieldValue != null) {
+					cart.setOrderUUID((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "paymentMethod")) {

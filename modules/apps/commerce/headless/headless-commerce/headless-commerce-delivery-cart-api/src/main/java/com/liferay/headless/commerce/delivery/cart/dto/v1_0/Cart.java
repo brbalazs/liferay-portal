@@ -22,7 +22,6 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
-import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -50,10 +49,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonFilter("Liferay.Vulcan")
 @XmlRootElement(name = "Cart")
 public class Cart {
-
-	public static Cart toDTO(String json) {
-		return ObjectMapperUtil.readValue(Cart.class, json);
-	}
 
 	@Schema
 	public String getAccount() {
@@ -476,6 +471,34 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected CartComment[] notes;
+
+	@Schema
+	public String getOrderUUID() {
+		return orderUUID;
+	}
+
+	public void setOrderUUID(String orderUUID) {
+		this.orderUUID = orderUUID;
+	}
+
+	@JsonIgnore
+	public void setOrderUUID(
+		UnsafeSupplier<String, Exception> orderUUIDUnsafeSupplier) {
+
+		try {
+			orderUUID = orderUUIDUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String orderUUID;
 
 	@Schema
 	public String getPaymentMethod() {
@@ -1069,6 +1092,20 @@ public class Cart {
 			}
 
 			sb.append("]");
+		}
+
+		if (orderUUID != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"orderUUID\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(orderUUID));
+
+			sb.append("\"");
 		}
 
 		if (paymentMethod != null) {
