@@ -15,9 +15,7 @@
 package com.liferay.commerce.frontend.internal.cart;
 
 import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.frontend.internal.cart.model.Cart;
@@ -30,21 +28,20 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
+import com.liferay.commerce.price.CommerceOrderItemPrice;
+import com.liferay.commerce.price.CommerceOrderItemPriceHelper;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
-import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -205,139 +202,36 @@ public class CommerceCartResourceUtil {
 			CommerceContext commerceContext, Locale locale)
 		throws PortalException {
 
-		CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();
-		CommerceMoney promoPriceMoney = commerceOrderItem.getPromoPriceMoney();
-
-		CommerceMoney discountAmountMoney =
-			commerceOrderItem.getDiscountAmountMoney();
-
-		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
-
-		BigDecimal level1 = commerceOrderItem.getDiscountPercentageLevel1();
-		BigDecimal level2 = commerceOrderItem.getDiscountPercentageLevel2();
-		BigDecimal level3 = commerceOrderItem.getDiscountPercentageLevel3();
-		BigDecimal level4 = commerceOrderItem.getDiscountPercentageLevel4();
-
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrderItem.getGroupId());
-
-		String priceDisplayType = commerceChannel.getPriceDisplayType();
-
-		if (priceDisplayType.equals(
-				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-
-			unitPriceMoney = commerceOrderItem.getUnitPriceWithTaxAmountMoney();
-			promoPriceMoney =
-				commerceOrderItem.getPromoPriceWithTaxAmountMoney();
-
-			discountAmountMoney =
-				commerceOrderItem.getDiscountWithTaxAmountMoney();
-
-			level1 =
-				commerceOrderItem.getDiscountPercentageLevel1WithTaxAmount();
-			level2 =
-				commerceOrderItem.getDiscountPercentageLevel2WithTaxAmount();
-			level3 =
-				commerceOrderItem.getDiscountPercentageLevel3WithTaxAmount();
-			level4 =
-				commerceOrderItem.getDiscountPercentageLevel4WithTaxAmount();
-
-			finalPriceMoney =
-				commerceOrderItem.getFinalPriceWithTaxAmountMoney();
-		}
-
-		String[] discountPercentages = {
-			level1.toString(), level2.toString(), level3.toString(),
-			level4.toString()
-		};
-
-		CommerceCurrency commerceCurrency =
-			commerceContext.getCommerceCurrency();
-
-		BigDecimal totalUnitPrice = unitPriceMoney.getPrice();
-		BigDecimal totalPromoPrice = promoPriceMoney.getPrice();
-		BigDecimal totalFinalPrice = finalPriceMoney.getPrice();
-
-		List<CommerceOrderItem> childCommerceOrderItems =
-			_commerceOrderItemLocalService.getChildCommerceOrderItems(
-				commerceOrderItem.getCommerceOrderItemId());
-
-		int parentQuantity = commerceOrderItem.getQuantity();
-
-		for (CommerceOrderItem childCommerceOrderItem :
-				childCommerceOrderItems) {
-
-			BigDecimal childFinalPrice = childCommerceOrderItem.getFinalPrice();
-
-			if (priceDisplayType.equals(
-					CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
-
-				childFinalPrice =
-					childCommerceOrderItem.getFinalPriceWithTaxAmount();
-			}
-
-			childFinalPrice = childFinalPrice.divide(
-				BigDecimal.valueOf(parentQuantity),
-				RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
-
-			totalUnitPrice = totalUnitPrice.add(childFinalPrice);
-
-			if ((totalPromoPrice != null) &&
-				(totalPromoPrice.compareTo(BigDecimal.ZERO) > 0)) {
-
-				totalPromoPrice = totalPromoPrice.add(childFinalPrice);
-			}
-
-			totalFinalPrice = totalFinalPrice.add(childFinalPrice);
-		}
+		CommerceOrderItemPrice commerceOrderItemPrice =
+			_commerceOrderItemPriceHelper.getCommerceOrderItemPricePerUnit(
+				commerceOrderItem, commerceContext.getCommerceCurrency());
 
 		return _getPriceModel(
-			_commerceMoneyFactory.create(commerceCurrency, totalUnitPrice),
-			_commerceMoneyFactory.create(commerceCurrency, totalPromoPrice),
-			discountAmountMoney, discountPercentages,
-			_commerceMoneyFactory.create(commerceCurrency, totalFinalPrice),
-			commerceCurrency, locale);
-	}
-
-	private BigDecimal _getDiscountPercentage(
-		BigDecimal discountedAmount, BigDecimal amount,
-		RoundingMode roundingMode) {
-
-		double actualPrice = discountedAmount.doubleValue();
-		double originalPrice = amount.doubleValue();
-
-		double percentage = actualPrice / originalPrice;
-
-		BigDecimal discountPercentage = new BigDecimal(percentage);
-
-		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
-
-		MathContext mathContext = new MathContext(
-			discountPercentage.precision(), roundingMode);
-
-		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
+			commerceOrderItemPrice.getUnitPriceMoney(),
+			commerceOrderItemPrice.getPromoPriceMoney(),
+			commerceOrderItemPrice.getDiscountAmountMoney(),
+			commerceOrderItemPrice.getDiscountPercentage(),
+			commerceOrderItemPrice.getDiscountPercentageLevel1(),
+			commerceOrderItemPrice.getDiscountPercentageLevel2(),
+			commerceOrderItemPrice.getDiscountPercentageLevel3(),
+			commerceOrderItemPrice.getDiscountPercentageLevel4(),
+			commerceOrderItemPrice.getFinalPriceMoney(), locale);
 	}
 
 	private PriceModel _getPriceModel(
 			CommerceMoney unitPriceMoney, CommerceMoney promoPriceMoney,
-			CommerceMoney discountAmountMoney, String[] discountPercentages,
-			CommerceMoney finalPriceMoney, CommerceCurrency commerceCurrency,
+			CommerceMoney discountAmountMoney, BigDecimal discountPercentage,
+			BigDecimal discountPercentageLevel1,
+			BigDecimal discountPercentageLevel2,
+			BigDecimal discountPercentageLevel3,
+			BigDecimal discountPercentageLevel4, CommerceMoney finalPriceMoney,
 			Locale locale)
 		throws PortalException {
 
 		PriceModel priceModel = new PriceModel(unitPriceMoney.format(locale));
 
-		BigDecimal activePrice = unitPriceMoney.getPrice();
-
 		if (promoPriceMoney != null) {
-			BigDecimal promoPrice = promoPriceMoney.getPrice();
-
-			if (promoPrice.compareTo(BigDecimal.ZERO) > 0) {
-				priceModel.setPromoPrice(promoPriceMoney.format(locale));
-
-				activePrice = promoPrice;
-			}
+			priceModel.setPromoPrice(promoPriceMoney.format(locale));
 		}
 
 		if (discountAmountMoney == null) {
@@ -354,14 +248,34 @@ public class CommerceCartResourceUtil {
 
 		priceModel.setDiscount(discountAmountMoney.format(locale));
 
-		BigDecimal discountedAmount = activePrice.subtract(discountAmount);
-
-		BigDecimal discountPercentage = _getDiscountPercentage(
-			discountedAmount, activePrice,
-			RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
-
 		priceModel.setDiscountPercentage(
 			_commercePriceFormatter.format(discountPercentage, locale));
+
+		BigDecimal level1 = BigDecimal.ZERO;
+		BigDecimal level2 = BigDecimal.ZERO;
+		BigDecimal level3 = BigDecimal.ZERO;
+		BigDecimal level4 = BigDecimal.ZERO;
+
+		if (discountPercentageLevel1 != null) {
+			level1 = discountPercentageLevel1;
+		}
+
+		if (discountPercentageLevel2 != null) {
+			level2 = discountPercentageLevel2;
+		}
+
+		if (discountPercentageLevel3 != null) {
+			level3 = discountPercentageLevel3;
+		}
+
+		if (discountPercentageLevel4 != null) {
+			level4 = discountPercentageLevel4;
+		}
+
+		String[] discountPercentages = {
+			level1.toString(), level2.toString(), level3.toString(),
+			level4.toString()
+		};
 
 		priceModel.setDiscountPercentages(discountPercentages);
 
@@ -402,16 +316,11 @@ public class CommerceCartResourceUtil {
 		return new ArrayList(productMap.values());
 	}
 
-	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
-
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
-
-	@Reference
-	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
+	private CommerceOrderItemPriceHelper _commerceOrderItemPriceHelper;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
