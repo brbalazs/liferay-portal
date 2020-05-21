@@ -191,7 +191,7 @@ public class CommerceOrderItemDataSetDataProvider
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			CommerceOrderItemPrice commerceOrderItemPrice =
 				_commerceOrderItemPriceHelper.getCommerceOrderItemPrice(
-					commerceOrderItem, commerceOrder.getCommerceCurrency());
+					commerceOrder.getCommerceCurrency(), commerceOrderItem);
 
 			String name = commerceOrderItem.getName(locale);
 

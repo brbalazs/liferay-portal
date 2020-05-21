@@ -204,7 +204,7 @@ public class CommerceCartResourceUtil {
 
 		CommerceOrderItemPrice commerceOrderItemPrice =
 			_commerceOrderItemPriceHelper.getCommerceOrderItemPricePerUnit(
-				commerceOrderItem, commerceContext.getCommerceCurrency());
+				commerceContext.getCommerceCurrency(), commerceOrderItem);
 
 		return _getPriceModel(
 			commerceOrderItemPrice.getUnitPrice(),
