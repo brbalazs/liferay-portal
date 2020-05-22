@@ -1,8 +1,8 @@
+import * as API from 'shared/api';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Constants from 'shared/util/constants';
 import moment from 'moment';
-import Promise from 'metal-promise';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import withStatefulPagination from 'shared/hoc/StatefulPagination';
@@ -10,7 +10,6 @@ import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {getDefinitions} from 'shared/util/breadcrumbs';
 import {HasModal} from 'shared/types';
-import {mockIndividualAttributes, mockSearch} from 'test/data';
 import {sub} from 'shared/util/lang';
 
 const {
@@ -25,10 +24,6 @@ const SearchableEntityTableHOC = withStatefulPagination(SearchableEntityTable, {
 		}
 	]
 });
-
-// To be replaced on LRAC-6019
-const MOCK_RESPONSE = () =>
-	Promise.resolve(mockSearch(mockIndividualAttributes, 5));
 
 interface IIndividualAttributesProps
 	extends HasModal,
@@ -81,6 +76,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 			<SearchableEntityTableHOC
 				columns={[
 					{
+						accessor: 'fieldName',
 						cellRenderer: FieldNameCell,
 						className: 'table-cell-expand',
 						label: Liferay.Language.get('attribute')
@@ -105,7 +101,8 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 						sortable: false
 					}
 				]}
-				dataSourceFn={MOCK_RESPONSE}
+				dataSourceFn={API.definitions.searchIndividualAttributes}
+				dataSourceParams={{groupId}}
 				internalSort
 				rowIdentifier='fieldName'
 				showPagination={false}

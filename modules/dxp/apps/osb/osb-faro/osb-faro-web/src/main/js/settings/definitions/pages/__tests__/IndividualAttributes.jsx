@@ -29,7 +29,7 @@ describe('IndividualAttributes', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should open modal after click on fielName', async() => {
+	it('should open modal after click on fielName', () => {
 		const {getByText} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
