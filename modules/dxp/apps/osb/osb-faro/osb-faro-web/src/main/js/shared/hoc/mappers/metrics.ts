@@ -5,6 +5,7 @@ import {
 	GQLQuery,
 	removeUnusedVariables
 } from 'shared/util/graphql';
+import {getRangeSelectors} from 'shared/util/util';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
 
 const {
@@ -37,22 +38,16 @@ export const getMapPropsToOptions: (
 ) => ({
 	defaultSort: {field, sortOrder},
 	filters,
-	rangeKey,
+	rangeSelectors,
 	router: {params, query}
 }) => {
-	const customDateRange = rangeKey && rangeKey.start && rangeKey.end;
-	console.log(rangeKey);
-
 	const delta = parseInt(get(query, 'delta', defaultDelta));
 	const page = parseInt(get(query, 'page', defaultPage));
 
-	console.log(rangeKey, get(query, 'rangeKey', LAST_30_DAYS));
 	const {variables} = getVariables({
 		filters,
 		params,
-		rangeEnd: customDateRange ? rangeKey.end : null,
-		rangeKey: rangeKey || get(query, 'rangeKey', LAST_30_DAYS),
-		rangeStart: customDateRange ? rangeKey.start : null
+		rangeSelectors: getRangeSelectors(rangeSelectors, query)
 	});
 
 	const unfilteredVariables = {

@@ -39,14 +39,21 @@ export function safeResultToProps(mapper) {
  * variables to make the GraphQL request
  * @param {object} filters
  * @param {object} params
- * @param {string} rangeKey
+ * @param {string} rangeSelectors
  * @returns {variables: {...}}
  */
-export function getVariables({filters, interval, params, rangeKey}) {
+export function getVariables({
+	filters,
+	interval,
+	params,
+	rangeSelectors: {rangeEnd, rangeKey, rangeStart}
+}) {
 	const {assetId, channelId, title = '', touchpoint = ''} = params;
 
 	let variables = {
-		rangeKey: parseInt(rangeKey),
+		rangeEnd,
+		rangeKey: rangeKey === 'CUSTOM' ? null : parseInt(rangeKey),
+		rangeStart,
 		title: decodeURIComponent(title),
 		touchpoint: decodeURIComponent(touchpoint)
 	};

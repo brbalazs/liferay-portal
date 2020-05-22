@@ -8,7 +8,7 @@ describe('withToolbar', () => {
 	it('renders', () => {
 		const WrappedComponent = compose(
 			withStaticRouter,
-			withToolbar({ShowingRangeDropdownKey: true})
+			withToolbar({showRangeDropdownKey: true})
 		)(() => <div>{'foobar'}</div>);
 
 		const component = shallow(<WrappedComponent />);

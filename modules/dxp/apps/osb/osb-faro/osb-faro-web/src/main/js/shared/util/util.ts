@@ -5,7 +5,13 @@ import {
 	LAST_90_DAYS,
 	POSITIONS
 } from 'shared/util/constants';
-import {flow, isFinite, isNil, isString, toLower, trim} from 'lodash';
+import {flow, get, isFinite, isNil, isString, toLower, trim} from 'lodash';
+
+export type RangeSelectors = {
+	rangeEnd: string;
+	rangeKey: string;
+	rangeStart: string;
+};
 
 /**
  * Check if the value is blank.
@@ -14,6 +20,15 @@ import {flow, isFinite, isNil, isString, toLower, trim} from 'lodash';
  */
 export const isBlank = (value: string | number): boolean =>
 	isNil(value) || (isString(value) && !value.length);
+
+export const getRangeSelectors = (
+	{rangeEnd, rangeKey, rangeStart}: RangeSelectors,
+	query: RangeSelectors
+) => ({
+	rangeEnd: get(query, 'rangeEnd', rangeEnd),
+	rangeKey: get(query, 'rangeKey', rangeKey),
+	rangeStart: get(query, 'rangeStart', rangeStart)
+});
 
 /**
  * Check if the value is blank and returns value.

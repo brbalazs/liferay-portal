@@ -3,6 +3,7 @@ import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import Table from 'shared/components/table';
 import {compose, withError, withPaginationBar, withToolbar} from 'shared/hoc';
+import {getRangeSelectors} from 'shared/util/util';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
 import {withLoading} from 'shared/hoc/util';
 
@@ -51,7 +52,7 @@ const withBaseResults = (withData, configs) => {
 		render() {
 			const {
 				context: {filters},
-				props: {rangeKey, router, ...otherProps}
+				props: {router, ...otherProps}
 			} = this;
 
 			const {
@@ -76,10 +77,10 @@ const withBaseResults = (withData, configs) => {
 					orderByField={orderByField}
 					page={page}
 					query={query}
-					rangeKey={rangeKey}
 					router={router}
 					rowIdentifier={rowIdentifier}
 					{...otherProps}
+					rangeSelectors={getRangeSelectors(otherProps, router.query)}
 				/>
 			);
 		}

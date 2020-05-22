@@ -8,6 +8,7 @@ import withHistory from './WithHistory';
 import {get} from 'lodash';
 import {hasChanges} from 'shared/util/react';
 import {paginationDefaults} from 'shared/util/pagination';
+import {getRangeSelectors} from 'shared/util/util';
 import {setUriQueryValues} from 'shared/util/router';
 
 const {
@@ -21,6 +22,11 @@ export default configs => WrappedComponent => {
 			orderBy: paginationDefaults.orderBy,
 			orderByField: paginationDefaults.orderByField,
 			query: paginationDefaults.query,
+			rangeSelectors: {
+				rangeEnd: '',
+				rangeKey: LAST_30_DAYS,
+				rangeStart: ''
+			},
 			toolbarProps: {}
 		};
 
@@ -32,7 +38,7 @@ export default configs => WrappedComponent => {
 			orderBy: PropTypes.string,
 			orderByField: PropTypes.string,
 			query: PropTypes.string,
-			rangeKey: PropTypes.string,
+			rangeSelectors: PropTypes.object,
 			toolbarProps: PropTypes.object,
 			total: PropTypes.number
 		};
@@ -60,13 +66,21 @@ export default configs => WrappedComponent => {
 		}
 
 		@autobind
-		handleRangeKeyValueChange(rangeKey) {
+		handleRangeSelectorsChange(rangeSelectors) {
+			// TODO: rename method tho handleRangeSelectorsChange
 			const {history, onChangeRangeKey} = this.props;
 
+			const {rangeEnd, rangeKey, rangeStart} = rangeSelectors;
+
 			onChangeRangeKey
-				? onChangeRangeKey(rangeKey)
+				? onChangeRangeKey(rangeSelectors)
 				: history.push(
-						setUriQueryValues({page: DEFAULT_CUR, rangeKey})
+						setUriQueryValues({
+							page: DEFAULT_CUR,
+							rangeEnd,
+							rangeKey,
+							rangeStart
+						})
 				  );
 		}
 
@@ -90,7 +104,7 @@ export default configs => WrappedComponent => {
 					orderBy,
 					orderByField,
 					query,
-					rangeKey = LAST_30_DAYS,
+					rangeSelectors,
 					renderNav,
 					showRangeKeyDropdown,
 					toolbarProps,
@@ -128,8 +142,8 @@ export default configs => WrappedComponent => {
 									'legacyDropdownRangeKey',
 									true
 								)}
-								onChange={this.handleRangeKeyValueChange}
-								rangeKey={rangeKey}
+								onChange={this.handleRangeSelectorsChange}
+								rangeSelectors={rangeSelectors}
 							/>
 						)}
 
