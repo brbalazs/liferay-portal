@@ -207,14 +207,20 @@ describe('FormAbandonmentQuery mapper', () => {
 		expect(props).toMatchSnapshot();
 	});
 	it('should include options', () => {
-		const options = mapPropsToOptions({filters: {}, rangeKey: 7, router});
+		const options = mapPropsToOptions({
+			filters: {},
+			rangeSelectors: {rangeKey: '7'},
+			router
+		});
 
 		expect(options).toEqual({
 			variables: {
 				assetId: 'formId',
 				devices: 'Any',
 				location: 'Any',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'Any'
 			}

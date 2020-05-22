@@ -96,7 +96,7 @@ describe('getMetricsData', () => {
 				}
 			}
 		};
-		const metricsData = getMetricsData(result, metrics, rangeKey);
+		const metricsData = getMetricsData(result, metrics, {rangeKey});
 
 		const dateKeysIMap = new Map([
 			[getDate(keyDate), [getDate(valueKeyDate)]]

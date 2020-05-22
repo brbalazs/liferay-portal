@@ -90,7 +90,7 @@ const data = {
 };
 
 const props = {
-	rangeKey: 7,
+	rangeSelectors: {rangeKey: '7'},
 	router: {
 		params: {
 			title: 'Liferay'
@@ -117,7 +117,9 @@ describe('TouchpointsAssetsListQuery Mappers', () => {
 
 		expect(options).toEqual({
 			variables: {
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'https://www.liferay.com/downloads'
 			}
@@ -132,7 +134,9 @@ describe('TouchpointsAssetsListQuery Mappers', () => {
 
 		expect(options).toEqual({
 			variables: {
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'https://www.liferay.com/about'
 			}

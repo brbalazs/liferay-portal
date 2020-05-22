@@ -65,7 +65,7 @@ const mapResultToProps = safeResultToProps(({page}, context, {router}) => {
  * @param {object} param0 props
  * @param {object} param1 context
  */
-const mapPropsToOptions = ({filters, rangeKey, router: {params}}) =>
-	getVariables({filters, params, rangeKey});
+const mapPropsToOptions = ({filters, rangeSelectors, router: {params}}) =>
+	getVariables({filters, params, rangeSelectors});
 
 export {mapPropsToOptions, mapResultToProps};

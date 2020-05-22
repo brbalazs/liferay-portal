@@ -5,14 +5,15 @@ import {
 	LANG_MAP
 } from '../../components/ActiveIndividualsChart';
 import {getDate} from 'shared/util/date';
+import {getSafeRangeSelectors} from 'shared/util/util';
 import {Map} from 'immutable';
 import {safeResultToProps} from 'shared/util/mappers';
 
-export const mapPropsToOptions = ({channelId, interval, rangeKey}) => ({
+export const mapPropsToOptions = ({channelId, interval, rangeSelectors}) => ({
 	variables: {
 		channelId,
 		interval,
-		rangeKey: parseInt(rangeKey)
+		...getSafeRangeSelectors(rangeSelectors)
 	}
 });
 

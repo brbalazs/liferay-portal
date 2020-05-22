@@ -14,4 +14,6 @@ const withTouchpointMetrics = () =>
 		getMetricsMapper(result => result.page, metrics)
 	);
 
-export default withMetricsCard(withTouchpointMetrics);
+export default withMetricsCard(withTouchpointMetrics, {
+	legacyDropdownRangeKey: false
+});

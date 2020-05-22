@@ -60,7 +60,10 @@ describe('Individuals Dashboard Individuals Interest Details', () => {
 							},
 							query: {
 								delta: '5',
-								page: '1'
+								page: '1',
+								rangeEnd: null,
+								rangeKey: '30',
+								rangeStart: null
 							}
 						}}
 					/>

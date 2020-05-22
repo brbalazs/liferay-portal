@@ -2,22 +2,26 @@ import Card from 'shared/components/Card';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import React from 'react';
 import {compose} from 'redux';
+import {RangeSelectors} from 'shared/types';
 import {withRangeKey} from 'shared/hoc';
 
 interface ICardWithRangeKeyProps extends React.HTMLAttributes<HTMLElement> {
 	children: (val) => React.ReactNode;
 	label: string;
-	onChangeRangeKey: () => void;
-	rangeKey: string;
+	legacyDropdownRangeKey: boolean;
+	onRangeSelectorsChange: (RangeSelectors) => void;
+	rangeSelectors: RangeSelectors;
 }
 
+// TODO: Maybe rename this component?
 const CardWithRangeKey = compose(withRangeKey)(
 	({
 		children,
 		className,
 		label,
-		onChangeRangeKey,
-		rangeKey,
+		legacyDropdownRangeKey = true,
+		onRangeSelectorsChange,
+		rangeSelectors,
 		...otherProps
 	}: ICardWithRangeKeyProps) => (
 		<Card className={className}>
@@ -25,12 +29,13 @@ const CardWithRangeKey = compose(withRangeKey)(
 				<Card.Title>{label}</Card.Title>
 
 				<DropdownRangeKey
-					onChange={onChangeRangeKey}
-					rangeKey={rangeKey}
+					legacy={legacyDropdownRangeKey}
+					onChange={onRangeSelectorsChange}
+					rangeSelectors={rangeSelectors}
 				/>
 			</Card.Header>
 
-			{children({...otherProps, rangeKey})}
+			{children({...otherProps, rangeSelectors})}
 		</Card>
 	)
 );

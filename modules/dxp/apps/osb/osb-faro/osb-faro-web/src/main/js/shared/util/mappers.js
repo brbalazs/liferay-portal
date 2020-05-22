@@ -1,4 +1,5 @@
 import {getFilters} from 'shared/util/filter';
+import {getSafeRangeSelectors} from 'shared/util/util';
 
 /**
  * Safe Result To Props
@@ -40,22 +41,14 @@ export function safeResultToProps(mapper) {
  * @param {object} filters
  * @param {object} params
  * @param {string} rangeSelectors
- * @returns {variables: {...}}
  */
-export function getVariables({
-	filters,
-	interval,
-	params,
-	rangeSelectors: {rangeEnd, rangeKey, rangeStart}
-}) {
+export function getVariables({filters, interval, params, rangeSelectors = {}}) {
 	const {assetId, channelId, title = '', touchpoint = ''} = params;
 
 	let variables = {
-		rangeEnd,
-		rangeKey: rangeKey === 'CUSTOM' ? null : parseInt(rangeKey),
-		rangeStart,
 		title: decodeURIComponent(title),
-		touchpoint: decodeURIComponent(touchpoint)
+		touchpoint: decodeURIComponent(touchpoint),
+		...getSafeRangeSelectors(rangeSelectors)
 	};
 
 	if (assetId) {
@@ -86,7 +79,5 @@ export function getVariables({
 		};
 	}
 
-	return {
-		variables
-	};
+	return {variables};
 }

@@ -1,5 +1,6 @@
 import {getFilters} from 'shared/util/filter';
 import {getLocationsData} from 'shared/util/charts';
+import {getSafeRangeSelectors} from 'shared/util/util';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
 
 /**
@@ -9,7 +10,7 @@ import {getVariables, safeResultToProps} from 'shared/util/mappers';
  */
 const getLocationsMapper = getMetric => {
 	const mapResultToProps = safeResultToProps(
-		(result, {filters}, {rangeKey}) => {
+		(result, {filters}, {rangeSelectors}) => {
 			let {geolocation} = getMetric(result);
 
 			if (!geolocation || geolocation.length === 0) {
@@ -25,7 +26,7 @@ const getLocationsMapper = getMetric => {
 			return {
 				data: getLocationsData(geolocation, location),
 				empty: false,
-				rangeKey
+				...getSafeRangeSelectors(rangeSelectors)
 			};
 		}
 	);
@@ -35,8 +36,8 @@ const getLocationsMapper = getMetric => {
 	 * @param {object} param0 props
 	 * @param {object} param1 context
 	 */
-	const mapPropsToOptions = ({filters, rangeKey, router: {params}}) =>
-		getVariables({filters, params, rangeKey});
+	const mapPropsToOptions = ({filters, rangeSelectors, router: {params}}) =>
+		getVariables({filters, params, rangeSelectors});
 
 	return {
 		options: mapPropsToOptions,
@@ -63,8 +64,8 @@ const getLocationsMapperCountries = getMetric => {
 	 * @param {object} param0 props
 	 * @param {object} param1 context
 	 */
-	const mapPropsToOptions = ({filters, rangeKey, router: {params}}) => {
-		const {variables} = getVariables({filters, params, rangeKey});
+	const mapPropsToOptions = ({filters, rangeSelectors, router: {params}}) => {
+		const {variables} = getVariables({filters, params, rangeSelectors});
 
 		return {
 			variables: {

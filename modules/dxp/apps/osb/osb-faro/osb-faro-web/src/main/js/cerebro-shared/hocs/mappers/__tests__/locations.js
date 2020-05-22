@@ -111,7 +111,7 @@ describe('Shared HOCs Mappers - Locations', () => {
 				{
 					data,
 					ownProps: {
-						rangeKey: 30
+						rangeSelectors: {rangeKey: '0'}
 					}
 				},
 				{
@@ -127,7 +127,7 @@ describe('Shared HOCs Mappers - Locations', () => {
 				filters: {
 					location: ['Any']
 				},
-				rangeKey: 30,
+				rangeSelectors: {rangeKey: '0'},
 				router: {
 					params: {
 						assetId: ASSET_ID,
@@ -148,7 +148,7 @@ describe('Shared HOCs Mappers - Locations', () => {
 				{
 					data,
 					ownProps: {
-						rangeKey: 30
+						rangeSelectors: {rangeKey: '0'}
 					}
 				},
 				{
@@ -164,7 +164,7 @@ describe('Shared HOCs Mappers - Locations', () => {
 				filters: {
 					location: ['Brazil']
 				},
-				rangeKey: 30,
+				rangeSelectors: {rangeKey: '0'},
 				router: {
 					params: {
 						assetId: ASSET_ID,
@@ -191,7 +191,7 @@ describe('Shared HOCs Mappers - Locations', () => {
 						}
 					},
 					ownProps: {
-						rangeKey: 30
+						rangeSelectors: {rangeKey: '0'}
 					}
 				},
 				{
@@ -215,7 +215,7 @@ describe('Shared HOCs Mappers - Locations Countries', () => {
 				{
 					data,
 					ownProps: {
-						rangeKey: 30
+						rangeSelectors: {rangeKey: '0'}
 					}
 				},
 				{
@@ -231,7 +231,7 @@ describe('Shared HOCs Mappers - Locations Countries', () => {
 				filters: {
 					location: ['Any']
 				},
-				rangeKey: 30,
+				rangeSelectors: {rangeKey: '0'},
 				router: {
 					params: {
 						assetId: ASSET_ID,
@@ -252,7 +252,7 @@ describe('Shared HOCs Mappers - Locations Countries', () => {
 				{
 					data,
 					ownProps: {
-						rangeKey: 30
+						rangeSelectors: {rangeKey: '0'}
 					}
 				},
 				{
@@ -268,7 +268,7 @@ describe('Shared HOCs Mappers - Locations Countries', () => {
 				filters: {
 					location: ['Brazil']
 				},
-				rangeKey: 30,
+				rangeSelectors: {rangeKey: '0'},
 				router: {
 					params: {
 						assetId: ASSET_ID,

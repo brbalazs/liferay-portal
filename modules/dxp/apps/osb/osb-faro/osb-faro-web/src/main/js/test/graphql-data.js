@@ -5,6 +5,7 @@ import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
 import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
+import {getSafeRangeSelectors} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isArray, mapValues, range} from 'lodash';
 import {LAST_30_DAYS} from 'shared/util/constants';
@@ -128,7 +129,7 @@ export function mockIndividualMetricsReq() {
 			variables: {
 				channelId: '123123',
 				interval: INTERVAL_KEY_MAP.week,
-				rangeKey: parseInt(LAST_30_DAYS)
+				...getSafeRangeSelectors({rangeKey: LAST_30_DAYS})
 			}
 		},
 		result: {
@@ -303,13 +304,13 @@ export function mockTouchpointsReq(items, mockVariables = {}) {
 				devices: 'Any',
 				keywords: '',
 				location: 'Any',
-				rangeKey: 30,
 				size: 5,
 				sort: {column: 'visitorsMetric', type: 'DESC'},
 				start: 0,
 				terms: 'test',
 				title: '',
 				touchpoint: '',
+				...getSafeRangeSelectors({rangeKey: LAST_30_DAYS}),
 				...mockVariables
 			}
 		},

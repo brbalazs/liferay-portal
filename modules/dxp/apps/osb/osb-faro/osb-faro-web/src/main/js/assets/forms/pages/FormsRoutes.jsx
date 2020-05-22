@@ -22,7 +22,7 @@ const FormsKnownIndividualsPage = lazy(() =>
 	)
 );
 
-function FormsRoutes({className, rangeKey, router}) {
+function FormsRoutes({className, router}) {
 	const {assetId, channelId, groupId, title, touchpoint} = router.params;
 
 	const [filters, setFilters] = useState({});
@@ -76,7 +76,7 @@ function FormsRoutes({className, rangeKey, router}) {
 				/>
 			</BasePage.Header>
 
-			<BasePage.Context.Provider value={{filters, rangeKey, router}}>
+			<BasePage.Context.Provider value={{filters, router}}>
 				<BasePage.SubHeader>
 					<Filter onChange={setFilters} />
 				</BasePage.SubHeader>
@@ -108,11 +108,6 @@ function FormsRoutes({className, rangeKey, router}) {
 }
 
 FormsRoutes.propTypes = {
-	rangeKey: PropTypes.shape({
-		defaultValue: PropTypes.string,
-		lastValue: PropTypes.string
-	}),
-
 	/**
 	 * @type {object}
 	 * @default undefined

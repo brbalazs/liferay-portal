@@ -10,10 +10,6 @@ import {Tab, default as Tabs} from 'shared/components/TableTabs';
 
 interface IBasePageContext {
 	filters: object;
-	rangeKey: {
-		defaultValue: string;
-		lastValue: string;
-	};
 	router: {
 		params: object;
 		query: object;
@@ -24,6 +20,7 @@ interface ITableTabsCardProps extends React.HTMLAttributes<HTMLElement> {
 	footerHref?: string;
 	footerLabel?: string;
 	label: string;
+	legacyDropdownRangeKey: boolean;
 	metricLabel: string;
 }
 
@@ -47,6 +44,7 @@ const withTableTabs = (withData, tabConfig: Tab[], tableConfig: object) => {
 		footerHref,
 		footerLabel,
 		label,
+		legacyDropdownRangeKey,
 		metricLabel
 	}: ITableTabsCardProps) => {
 		const {router} = useContext(BasePage.Context as React.Context<
@@ -60,15 +58,19 @@ const withTableTabs = (withData, tabConfig: Tab[], tableConfig: object) => {
 		);
 
 		return (
-			<CardWithRangeKey className={className} label={label}>
-				{({rangeKey}) => (
+			<CardWithRangeKey
+				className={className}
+				label={label}
+				legacyDropdownRangeKey={legacyDropdownRangeKey}
+			>
+				{({rangeSelectors}) => (
 					<>
 						<ComponentWithData
 							activeTabId={activeTabId}
 							filters={{}}
 							metricLabel={metricLabel}
 							onActiveTabChange={handleActiveTabChanged}
-							rangeKey={rangeKey}
+							rangeSelectors={rangeSelectors}
 							router={router}
 							tabConfig={tabConfig}
 							tableConfig={tableConfig}
@@ -79,7 +81,7 @@ const withTableTabs = (withData, tabConfig: Tab[], tableConfig: object) => {
 								<Button
 									display='link'
 									href={setUriQueryValues(
-										{rangeKey},
+										{rangeKey: rangeSelectors.rangeKey},
 										footerHref
 									)}
 									size='sm'

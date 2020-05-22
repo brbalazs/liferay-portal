@@ -79,11 +79,11 @@ const VisitorsByTimeCard: React.FC<IVisitorsByTimeCardProps> = ({
 
 	return (
 		<CardWithRangeKey className={className} label={label}>
-			{({rangeKey}) => (
+			{({rangeSelectors}) => (
 				<Card.Body>
 					<HeatmapChartWithData
 						columnAxisFormatter={col => col.slice(0, 3)}
-						rangeKey={rangeKey}
+						rangeSelectors={rangeSelectors}
 						renderTooltip={renderTooltip}
 						router={router}
 						rowAxisFormatter={formatHour}

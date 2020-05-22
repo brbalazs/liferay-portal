@@ -31,11 +31,11 @@ const defaultProps = {
 
 const FormAbandonmentCard = ({className, label}) => (
 	<BaseCard className={className} label={label} minHeight={536}>
-		{({filters, rangeKey, router}) => (
+		{({filters, rangeSelectors, router}) => (
 			<Card.Body>
 				<FormAbandonmentWithData
 					filters={filters}
-					rangeKey={rangeKey}
+					rangeSelectors={rangeSelectors}
 					router={router}
 				/>
 			</Card.Body>

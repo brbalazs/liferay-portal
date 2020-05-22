@@ -108,7 +108,11 @@ describe('Shared HOCs Mappers - Metrics', () => {
 			mapper.props({
 				data,
 				ownProps: {
-					rangeKey: 30
+					rangeSelectors: {
+						rangeEnd: null,
+						rangeKey: '30',
+						rangeStart: null
+					}
 				}
 			})
 		).toMatchSnapshot();

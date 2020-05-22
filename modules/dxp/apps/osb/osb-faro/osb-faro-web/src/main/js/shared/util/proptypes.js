@@ -8,12 +8,6 @@ export const HOC_CARD_PROPTYPES = {
 	filters: PropTypes.object.isRequired,
 
 	/**
-	 * RangeKey
-	 * @type {string}
-	 */
-	rangeKey: PropTypes.string.isRequired,
-
-	/**
 	 * Router
 	 * @type {object}
 	 */

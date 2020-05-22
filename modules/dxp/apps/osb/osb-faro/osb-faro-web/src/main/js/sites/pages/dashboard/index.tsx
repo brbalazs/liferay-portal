@@ -6,7 +6,6 @@ import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import WrappedPageComponent from 'cerebro-shared/hocs/WrappedPageComponent';
-import {get} from 'lodash';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
@@ -96,10 +95,6 @@ export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
 			<BasePage.Context.Provider
 				value={{
 					filters: {},
-					rangeKey: {
-						defaultValue: '30',
-						lastValue: get(router, ['query', 'rangeKey'], '30')
-					},
 					router
 				}}
 			>

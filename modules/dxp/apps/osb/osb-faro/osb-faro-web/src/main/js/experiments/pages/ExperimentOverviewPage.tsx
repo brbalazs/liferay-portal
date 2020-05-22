@@ -23,7 +23,6 @@ const NAV_ITEMS = [
 ];
 
 interface IExperimentOverviewPage extends React.HTMLAttributes<HTMLElement> {
-	rangeKey: string;
 	router: {
 		params: {
 			channelId: string;
@@ -35,7 +34,6 @@ interface IExperimentOverviewPage extends React.HTMLAttributes<HTMLElement> {
 }
 
 const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
-	rangeKey,
 	router
 }) => {
 	const {
@@ -102,10 +100,6 @@ const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
 							<BasePage.Context.Provider
 								value={{
 									filters: {},
-									rangeKey: {
-										defaultValue: rangeKey,
-										lastValue: ''
-									},
 									router
 								}}
 							>

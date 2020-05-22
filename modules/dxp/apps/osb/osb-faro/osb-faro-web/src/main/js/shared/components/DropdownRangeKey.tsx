@@ -15,7 +15,7 @@ import {
 	YESTERDAY
 } from 'shared/util/constants';
 import {MomentDateRange} from 'shared/components/DateRangeInput';
-import {RangeSelectors} from 'shared/util/util';
+import {RangeSelectors} from 'shared/types';
 
 type Item = {
 	description?: string;
@@ -100,8 +100,6 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 
 	const getSelectedItem = () => {
 		if (rangeKey === 'CUSTOM') {
-			const {end, start} = customDateRange;
-
 			return {
 				label: `${moment(rangeStart).format('ll')} - ${moment(
 					rangeEnd
@@ -156,7 +154,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 					date={customDateRange}
 					maxDate={moment().endOf('day')}
 					maxRange={365}
-					minDate={moment().subtract(100, 'years')}
+					minDate={moment().subtract(10, 'years')}
 					onSelect={({end, start}: MomentDateRange) => {
 						setCustomDateRange({
 							end,

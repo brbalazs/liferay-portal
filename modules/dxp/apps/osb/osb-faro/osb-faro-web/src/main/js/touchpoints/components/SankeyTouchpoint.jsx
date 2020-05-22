@@ -289,8 +289,12 @@ class SankeyTouchpoint extends React.Component {
 	 * @returns {string} url
 	 */
 	getAssetUrl({id: assetId, title, type}, touchpoint) {
-		const {params, query} = this.context.router;
-		const {rangeKey} = this.props;
+		const {
+			context: {
+				router: {params, query}
+			},
+			props: {rangeSelectors}
+		} = this;
 
 		return toAssetDashboardRoute(
 			type,
@@ -300,7 +304,7 @@ class SankeyTouchpoint extends React.Component {
 				title,
 				touchpoint
 			},
-			pickBy({...query, rangeKey})
+			pickBy({...query, rangeKey: rangeSelectors.rangeKey})
 		);
 	}
 
@@ -310,8 +314,12 @@ class SankeyTouchpoint extends React.Component {
 	 * @returns {string} url
 	 */
 	getTouchpointUrl(title, touchpoint) {
-		const {params, query} = this.context.router;
-		const {rangeKey} = this.props;
+		const {
+			context: {
+				router: {params, query}
+			},
+			props: {rangeSelectors}
+		} = this;
 
 		const router = {
 			params: {
@@ -321,7 +329,7 @@ class SankeyTouchpoint extends React.Component {
 			},
 			query: {
 				...query,
-				rangeKey
+				rangeKey: rangeSelectors.rangeKey
 			}
 		};
 

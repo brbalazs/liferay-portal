@@ -23,8 +23,8 @@ const getFiltersMapper = getData => {
 	 * @param {object} param0 props
 	 * @param {object} param1 context
 	 */
-	const mapPropsToOptions = ({rangeKey, router: {params}}) =>
-		getVariables({params, rangeKey});
+	const mapPropsToOptions = ({rangeSelectors, router: {params}}) =>
+		getVariables({params, rangeSelectors});
 
 	return {
 		options: mapPropsToOptions,

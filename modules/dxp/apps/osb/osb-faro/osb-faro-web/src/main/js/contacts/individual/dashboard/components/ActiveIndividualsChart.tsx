@@ -14,6 +14,7 @@ import {
 } from 'shared/util/charts';
 import {Interval} from 'shared/types';
 import {Map} from 'immutable';
+import {RangeSelectors} from 'shared/types';
 import {toThousands} from 'shared/util/numbers';
 
 const CHART_HEIGHT = 320;
@@ -116,7 +117,7 @@ interface IActiveIndividualsChartProps {
 	dateKeysIMap: Map<Date, [Date, Date?]>;
 	interval: Interval;
 	loading: Boolean;
-	rangeKey: string;
+	rangeSelectors: RangeSelectors;
 }
 
 const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
@@ -124,7 +125,7 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 	dateKeysIMap,
 	interval,
 	loading,
-	rangeKey
+	rangeSelectors
 }) => {
 	const knownData = get(
 		find(data, ({id}) => id === CHART_DATA_ID_1),
@@ -154,12 +155,12 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 						format: date =>
 							formatXAxisDate(
 								date,
-								rangeKey,
+								rangeSelectors.rangeKey,
 								interval,
 								dateKeysIMap
 							),
 						values: getIntervals(
-							rangeKey,
+							rangeSelectors.rangeKey,
 							get(find(data, ({id}) => id === 'x'), 'data', []),
 							interval
 						)
@@ -209,7 +210,12 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 				otherData={{groups: [[CHART_DATA_ID_1, CHART_DATA_ID_2]]}}
 				tooltip={{
 					contents: d =>
-						renderTooltip(d, rangeKey, interval, dateKeysIMap)
+						renderTooltip(
+							d,
+							rangeSelectors.rangeKey,
+							interval,
+							dateKeysIMap
+						)
 				}}
 				x='x'
 				yLabel={Liferay.Language.get('individuals')}

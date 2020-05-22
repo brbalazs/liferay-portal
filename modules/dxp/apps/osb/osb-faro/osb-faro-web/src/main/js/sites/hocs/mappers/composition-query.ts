@@ -40,13 +40,15 @@ const mapPropsToOptions: object = ({router: {params, query}}) => {
 
 const mapCardPropsToOptions: object = ({
 	activeTabId,
-	rangeKey,
+	rangeSelectors: {rangeEnd, rangeKey = LAST_30_DAYS, rangeStart},
 	router: {params}
 }) => ({
 	variables: {
 		activeTabId,
 		channelId: get(params, 'channelId'),
-		rangeKey: parseInt(rangeKey),
+		rangeEnd,
+		rangeKey: rangeKey === 'CUSTOM' ? null : parseInt(rangeKey),
+		rangeStart,
 		size: 5,
 		start: 0
 	}

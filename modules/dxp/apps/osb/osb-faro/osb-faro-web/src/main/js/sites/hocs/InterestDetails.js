@@ -3,6 +3,7 @@ import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
 import urlConstants from 'shared/util/url-constants';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {
 	metricsListColumns,
@@ -67,7 +68,7 @@ const TableWithData = withRangeKey(
 const InterestDetails = ({router}) => {
 	const {
 		params: {interestId},
-		query: {rangeKey}
+		query
 	} = router;
 
 	return (
@@ -86,7 +87,10 @@ const InterestDetails = ({router}) => {
 				</Card.Title>
 			</Card.Header>
 
-			<TableWithData rangeKey={rangeKey} router={router} />
+			<TableWithData
+				rangeSelectors={getRangeSelectorsFromQuery(query)}
+				router={router}
+			/>
 		</Card>
 	);
 };

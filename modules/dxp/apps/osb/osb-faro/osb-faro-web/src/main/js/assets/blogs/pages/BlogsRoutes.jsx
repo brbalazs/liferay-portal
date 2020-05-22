@@ -22,7 +22,7 @@ const BlogsKnownIndividualsPage = lazy(() =>
 	)
 );
 
-function BlogsRoutes({className, rangeKey, router}) {
+function BlogsRoutes({className, router}) {
 	const {assetId, channelId, groupId, title, touchpoint} = router.params;
 
 	const [filters, setFilters] = useState({});
@@ -79,7 +79,6 @@ function BlogsRoutes({className, rangeKey, router}) {
 			<BasePage.Context.Provider
 				value={{
 					filters,
-					rangeKey,
 					router
 				}}
 			>
@@ -114,11 +113,6 @@ function BlogsRoutes({className, rangeKey, router}) {
 }
 
 BlogsRoutes.propTypes = {
-	rangeKey: PropTypes.shape({
-		defaultValue: PropTypes.string,
-		lastValue: PropTypes.string
-	}),
-
 	/**
 	 * @type {object}
 	 * @default undefined

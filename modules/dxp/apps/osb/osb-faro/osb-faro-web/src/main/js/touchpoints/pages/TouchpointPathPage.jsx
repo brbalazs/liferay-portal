@@ -18,7 +18,7 @@ const renderTouchpointComponent = props => <SankeyTouchpointItem {...props} />;
  * Touchpoint Path page
  * @class
  */
-export default function TouchpointPathPage({pathRangeKey}) {
+export default function TouchpointPathPage({pathRangeSelectors}) {
 	const [sankeyHeight, setSankeyHeight] = useState(SANKEY_STARTER_SIZE);
 	const [isExpandedState, setIsExpanded] = useState(null);
 
@@ -53,7 +53,7 @@ export default function TouchpointPathPage({pathRangeKey}) {
 					filters={filters}
 					height={sankeyHeight}
 					onHeightChange={handleResizeSankey}
-					rangeKey={pathRangeKey}
+					rangeSelectors={pathRangeSelectors}
 					renderTouchpointComponent={renderTouchpointComponent}
 					router={router}
 					touchpoint={touchpoint}

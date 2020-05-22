@@ -68,14 +68,20 @@ describe('getVariables', () => {
 	const rangeKey = '7';
 
 	it('should include variables passing all necessary parameters', () => {
-		const variables = getVariables({filters, params, rangeKey});
+		const variables = getVariables({
+			filters,
+			params,
+			rangeSelectors: {rangeKey}
+		});
 
 		expect(variables).toEqual({
 			variables: {
 				assetId: '12345',
 				devices: 'Desktop',
 				location: 'Brazil',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'Any'
 			}
@@ -83,12 +89,14 @@ describe('getVariables', () => {
 	});
 
 	it('should include variables without filter parameter', () => {
-		const variables = getVariables({params, rangeKey});
+		const variables = getVariables({params, rangeSelectors: {rangeKey}});
 
 		expect(variables).toEqual({
 			variables: {
 				assetId: '12345',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'Any'
 			}
@@ -96,14 +104,20 @@ describe('getVariables', () => {
 	});
 
 	it('should include variables passing filter parameter as empty object', () => {
-		const variables = getVariables({filters: {}, params, rangeKey});
+		const variables = getVariables({
+			filters: {},
+			params,
+			rangeSelectors: {rangeKey}
+		});
 
 		expect(variables).toEqual({
 			variables: {
 				assetId: '12345',
 				devices: 'Any',
 				location: 'Any',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'Any'
 			}
@@ -114,14 +128,16 @@ describe('getVariables', () => {
 		const variables = getVariables({
 			filters,
 			params: {touchpoint: 'https://liferay.com'},
-			rangeKey
+			rangeSelectors: {rangeKey}
 		});
 
 		expect(variables).toEqual({
 			variables: {
 				devices: 'Desktop',
 				location: 'Brazil',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: '',
 				touchpoint: 'https://liferay.com'
 			}
@@ -132,14 +148,16 @@ describe('getVariables', () => {
 		const variables = getVariables({
 			filters,
 			params: {title: 'Liferay', touchpoint: 'https://liferay.com'},
-			rangeKey
+			rangeSelectors: {rangeKey}
 		});
 
 		expect(variables).toEqual({
 			variables: {
 				devices: 'Desktop',
 				location: 'Brazil',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'https://liferay.com'
 			}
@@ -150,7 +168,7 @@ describe('getVariables', () => {
 		const variables = getVariables({
 			filters,
 			params: {assetId: '12345', touchpoint: 'Any'},
-			rangeKey
+			rangeSelectors: {rangeKey}
 		});
 
 		expect(variables).toEqual({
@@ -158,7 +176,9 @@ describe('getVariables', () => {
 				assetId: '12345',
 				devices: 'Desktop',
 				location: 'Brazil',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: '',
 				touchpoint: 'Any'
 			}
@@ -170,7 +190,7 @@ describe('getVariables', () => {
 			filters,
 			interval: 'foo',
 			params: {},
-			rangeKey
+			rangeSelectors: {rangeKey}
 		});
 
 		expect(variables.interval).toBe('foo');
@@ -180,7 +200,7 @@ describe('getVariables', () => {
 		const {variables} = getVariables({
 			filters,
 			params: {assetId: '12345', channelId: '12345'},
-			rangeKey
+			rangeSelectors: {rangeKey}
 		});
 
 		expect(variables.channelId).toEqual('12345');

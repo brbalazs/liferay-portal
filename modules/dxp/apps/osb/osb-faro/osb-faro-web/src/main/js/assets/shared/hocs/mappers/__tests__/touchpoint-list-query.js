@@ -73,7 +73,7 @@ describe('TouchpointsListQuery Mappers', () => {
 		const options = mapPropsToOptions({
 			assetType: 'forms',
 			filters: {},
-			rangeKey: 7,
+			rangeSelectors: {rangeKey: '7'},
 			router: context.router
 		});
 
@@ -83,7 +83,9 @@ describe('TouchpointsListQuery Mappers', () => {
 				assetType: 'FORMS',
 				devices: 'Any',
 				location: 'Any',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'AssetTitle',
 				touchpoint: 'Any'
 			}

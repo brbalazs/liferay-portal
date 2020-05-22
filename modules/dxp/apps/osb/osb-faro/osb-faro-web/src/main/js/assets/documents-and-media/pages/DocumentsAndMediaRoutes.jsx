@@ -24,7 +24,7 @@ const DocumentsAndMediaKnownIndividualsPage = lazy(() =>
 	)
 );
 
-function DocumentsAndMediaRoutes({className, rangeKey, router}) {
+function DocumentsAndMediaRoutes({className, router}) {
 	const {assetId, channelId, groupId, title, touchpoint} = router.params;
 
 	const [filters, setFilters] = useState({});
@@ -79,7 +79,7 @@ function DocumentsAndMediaRoutes({className, rangeKey, router}) {
 				/>
 			</BasePage.Header>
 
-			<BasePage.Context.Provider value={{filters, rangeKey, router}}>
+			<BasePage.Context.Provider value={{filters, router}}>
 				<BasePage.SubHeader>
 					<Filter onChange={setFilters} />
 				</BasePage.SubHeader>
@@ -115,11 +115,6 @@ function DocumentsAndMediaRoutes({className, rangeKey, router}) {
 }
 
 DocumentsAndMediaRoutes.propTypes = {
-	rangeKey: PropTypes.shape({
-		defaultValue: PropTypes.string,
-		lastValue: PropTypes.string
-	}),
-
 	/**
 	 * @type {object}
 	 * @default undefined

@@ -74,7 +74,7 @@ const props = {
 	items,
 	node,
 	onTouchpointLoaded,
-	rangeKey: 30,
+	rangeSelectors: {rangeKey: '30'},
 	touchpoint: node.url,
 	touchpointList: nodes
 };
@@ -146,7 +146,11 @@ describe('SankeyTouchpoint', () => {
 
 	it('should render component Sankey Chart with empty state', () => {
 		const component = shallow(
-			<WrappedComponent isEmptyState node={node} rangeKey={30} />
+			<WrappedComponent
+				isEmptyState
+				node={node}
+				rangeSelectors={{rangeKey: '30'}}
+			/>
 		);
 
 		expect(component.render()).toMatchSnapshot();

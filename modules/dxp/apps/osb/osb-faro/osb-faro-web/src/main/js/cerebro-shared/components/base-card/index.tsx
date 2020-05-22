@@ -3,8 +3,9 @@ import Card from 'shared/components/Card';
 import HeaderDefault from './HeaderDefault';
 import React, {useCallback, useContext, useState} from 'react';
 import {Context} from './types';
-import {getRangeKeyFromContext} from 'shared/util/util';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
+import {RangeSelectors} from 'shared/types';
 
 interface BaseCardIProps extends React.HTMLAttributes<HTMLElement> {
 	className?: string;
@@ -26,14 +27,21 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 	showInterval = false
 }) => {
 	const context = useContext(BasePage.Context);
+
 	const {filters, router} = context;
-	const [rangeKey, setRangeKey] = useState(getRangeKeyFromContext(context));
+
 	const [interval, setInterval] = useState(INTERVAL_KEY_MAP.day);
+	const [rangeSelectors, setRangeSelectors] = useState<RangeSelectors>(
+		getRangeSelectorsFromQuery(router.query)
+	);
 
 	const handleChangeInterval = useCallback(newVal => setInterval(newVal), []);
-	const handleChangeRangeKey = useCallback(newVal => setRangeKey(newVal), []);
+	const handleRangeSelectorsChange = useCallback(
+		newVal => setRangeSelectors(newVal),
+		[]
+	);
 
-	const otherProps = {filters, interval, rangeKey, router};
+	const otherProps = {filters, interval, rangeSelectors, router};
 
 	return (
 		<Card className={className} minHeight={minHeight}>
@@ -42,7 +50,7 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 				label={label}
 				legacy={legacyDropdownRangeKey}
 				onChangeInterval={handleChangeInterval}
-				onChangeRangeKey={handleChangeRangeKey}
+				onRangeSelectorsChange={handleRangeSelectorsChange}
 				showInterval={showInterval}
 			/>
 

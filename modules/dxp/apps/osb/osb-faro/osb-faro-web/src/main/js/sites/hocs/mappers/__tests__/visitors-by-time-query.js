@@ -23,7 +23,7 @@ describe('VisitorsByTimeQuery Mappers', () => {
 
 	it('should map props to options', () => {
 		const mockProps = {
-			rangeKey: '30',
+			rangeSelectors: {rangeKey: '30'},
 			router: {params: {channelId: 123}},
 			timezone: '+07:00'
 		};
@@ -32,7 +32,9 @@ describe('VisitorsByTimeQuery Mappers', () => {
 			expect.objectContaining({
 				variables: {
 					channelId: 123,
+					rangeEnd: null,
 					rangeKey: parseInt('30'),
+					rangeStart: null,
 					timezone: '+07:00'
 				}
 			})

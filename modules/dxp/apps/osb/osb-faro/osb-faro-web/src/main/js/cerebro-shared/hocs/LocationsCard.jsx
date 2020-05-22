@@ -49,13 +49,13 @@ const withLocationsCard = (withLocations, withCountries) => {
 
 	const LocationsCard = ({className, label, metricLabel}) => (
 		<BaseCard className={className} label={label} minHeight={536}>
-			{({filters, rangeKey, router}) => (
+			{({filters, rangeSelectors, router}) => (
 				<Card.Body>
 					<LocationsGeoMap
 						filters={filters}
 						height={400}
 						metricLabel={metricLabel}
-						rangeKey={rangeKey}
+						rangeSelectors={rangeSelectors}
 						router={router}
 						width={'calc(60% - 2rem)'}
 					/>

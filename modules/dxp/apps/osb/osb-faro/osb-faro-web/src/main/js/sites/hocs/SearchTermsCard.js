@@ -47,9 +47,9 @@ const SearchTermsCard = props => {
 			className='search-terms-card-root'
 			label={Liferay.Language.get('search-terms')}
 		>
-			{({rangeKey}) => (
+			{({rangeSelectors}) => (
 				<TableWithData
-					rangeKey={rangeKey}
+					rangeSelectors={rangeSelectors}
 					router={router}
 					rowBordered={false}
 					{...props}

@@ -9,6 +9,7 @@ import {
 	getMapResultToProps,
 	mapPropsToOptions
 } from './mappers/composition-query';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {pickBy} from 'lodash';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
@@ -70,11 +71,20 @@ const Interests = ({history, router}) => {
 	const {selectedChannel} = useChannelContext();
 
 	const {
-		query: {delta, page, rangeKey}
+		query: {delta, page}
 	} = router;
 
-	const handleRangeKeyValueChange = rangeKey =>
-		history.push(setUriQueryValues({page: defaultPage, rangeKey}));
+	const handleRangeKeyValueChange = ({rangeEnd, rangeKey, rangeStart}) =>
+		history.push(
+			setUriQueryValues({
+				page: defaultPage,
+				rangeEnd,
+				rangeKey,
+				rangeStart
+			})
+		);
+
+	const rangeSelectors = getRangeSelectorsFromQuery(router.query);
 
 	return (
 		<Card className='sites-interests-root' pageDisplay>
@@ -89,14 +99,14 @@ const Interests = ({history, router}) => {
 
 				<DropdownRangeKey
 					onChange={handleRangeKeyValueChange}
-					rangeKey={rangeKey}
+					rangeSelectors={rangeSelectors}
 				/>
 			</Card.Header>
 
 			<TableWithData
 				delta={delta}
 				page={page}
-				rangeKey={rangeKey}
+				rangeSelectors={rangeSelectors}
 				router={router}
 				rowBordered={false}
 			/>

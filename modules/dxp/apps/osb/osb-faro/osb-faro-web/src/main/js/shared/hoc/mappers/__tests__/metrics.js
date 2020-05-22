@@ -1,5 +1,6 @@
 import FaroConstants from 'shared/util/constants';
 import getMetricsMapper from '../metrics';
+import {getSafeRangeSelectors} from 'shared/util/util';
 
 const {
 	pagination: {orderDescending}
@@ -29,6 +30,7 @@ const mockProps = {
 		field: 'bounceRateMetric',
 		sortOrder: orderDescending
 	},
+	rangeSelectors: {rangeKey: '90'},
 	router: {
 		params: {
 			channelId: '321',
@@ -65,7 +67,6 @@ describe('metrics', () => {
 					variables: {
 						channelId,
 						keywords: query,
-						rangeKey: parseInt(rangeKey),
 						size: parseInt(delta),
 						sort: {
 							column: orderByField,
@@ -74,7 +75,8 @@ describe('metrics', () => {
 						start: 5,
 						terms: interestId,
 						title,
-						touchpoint
+						touchpoint,
+						...getSafeRangeSelectors({rangeKey})
 					}
 				})
 			);

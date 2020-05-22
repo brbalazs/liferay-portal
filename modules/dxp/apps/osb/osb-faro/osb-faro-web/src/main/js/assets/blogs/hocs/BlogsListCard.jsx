@@ -3,6 +3,7 @@ import Card from 'shared/components/Card';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import urlConstants from 'shared/util/url-constants';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {Routes} from 'shared/util/router';
@@ -63,7 +64,7 @@ const BlogsListCard = props => (
 	<Card className='blogs-root' pageDisplay>
 		<TableWithData
 			entityLabel={Liferay.Language.get('blogs')}
-			rangeKey={props.router.query.rangeKey}
+			rangeSelectors={getRangeSelectorsFromQuery(props.router.query)}
 			{...props}
 		/>
 	</Card>

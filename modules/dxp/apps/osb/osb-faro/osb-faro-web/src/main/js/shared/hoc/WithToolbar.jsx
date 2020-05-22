@@ -8,7 +8,6 @@ import withHistory from './WithHistory';
 import {get} from 'lodash';
 import {hasChanges} from 'shared/util/react';
 import {paginationDefaults} from 'shared/util/pagination';
-import {getRangeSelectors} from 'shared/util/util';
 import {setUriQueryValues} from 'shared/util/router';
 
 const {
@@ -33,7 +32,7 @@ export default configs => WrappedComponent => {
 		static propTypes = {
 			disableSearch: PropTypes.bool,
 			history: PropTypes.object,
-			onChangeRangeKey: PropTypes.func,
+			onRangeSelectorsChange: PropTypes.func,
 			onSearchValueChange: PropTypes.func,
 			orderBy: PropTypes.string,
 			orderByField: PropTypes.string,
@@ -68,12 +67,12 @@ export default configs => WrappedComponent => {
 		@autobind
 		handleRangeSelectorsChange(rangeSelectors) {
 			// TODO: rename method tho handleRangeSelectorsChange
-			const {history, onChangeRangeKey} = this.props;
+			const {history, onRangeSelectorsChange} = this.props;
 
 			const {rangeEnd, rangeKey, rangeStart} = rangeSelectors;
 
-			onChangeRangeKey
-				? onChangeRangeKey(rangeSelectors)
+			onRangeSelectorsChange
+				? onRangeSelectorsChange(rangeSelectors)
 				: history.push(
 						setUriQueryValues({
 							page: DEFAULT_CUR,

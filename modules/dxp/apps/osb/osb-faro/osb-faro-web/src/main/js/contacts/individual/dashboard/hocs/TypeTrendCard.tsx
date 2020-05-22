@@ -27,7 +27,7 @@ const TypeTrendCard: React.FC<{channelId: string}> = ({channelId}) => (
 			<TypeTrendWithData
 				channelId={channelId}
 				interval={INTERVAL_KEY_MAP.week}
-				rangeKey={LAST_30_DAYS}
+				rangeSelectors={{rangeKey: LAST_30_DAYS}}
 			/>
 		</Card.Body>
 	</Card>

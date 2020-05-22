@@ -1,30 +1,36 @@
 import React, {useCallback, useState} from 'react';
 import {LAST_30_DAYS} from 'shared/util/constants';
+import {RangeSelectors} from 'shared/types';
 
 interface IWrappedComponentProps {
-	onChangeRangeKey: (val) => void;
-	rangeKey: string;
+	onRangeSelectorsChange: (val) => void;
+	rangeSelectors: RangeSelectors;
 }
 
 const withRangeKey = (
 	WrappedComponent: React.ComponentType<IWrappedComponentProps>
 ) => {
 	WrappedComponent.defaultProps = {
-		rangeKey: LAST_30_DAYS
+		rangeSelectors: {
+			rangeEnd: null,
+			rangeKey: LAST_30_DAYS,
+			rangeStart: null
+		}
 	};
 
 	return props => {
-		const [rangeKey, setRangeKey] = useState(props.rangeKey);
-		const handleChangeRangeKey = useCallback(
-			newVal => setRangeKey(newVal),
-			[]
+		const [rangeSelectors, setRangeSelectors] = useState(
+			props.rangeSelectors
 		);
 
 		return (
 			<WrappedComponent
 				{...props}
-				onChangeRangeKey={handleChangeRangeKey}
-				rangeKey={rangeKey}
+				onRangeSelectorsChange={useCallback(
+					newVal => setRangeSelectors(newVal),
+					[]
+				)}
+				rangeSelectors={rangeSelectors}
 			/>
 		);
 	};

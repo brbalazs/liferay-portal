@@ -120,12 +120,12 @@ export const getMetricsChartData = ({
  * @memberOf TabbledLinesMetrics
  * @param {object} result
  * @param {object} metrics
- * @param {number} rangeKey
+ * @param {object} rangeSelectors
  */
 export const getMetricsData = (
 	result,
 	metrics,
-	rangeKey,
+	rangeSelectors = {},
 	chartDataMapFn = getMetricsChartData,
 	timeInterval = INTERVAL_KEY_MAP.day
 ) =>
@@ -180,7 +180,7 @@ export const getMetricsData = (
 			),
 			format: getAxisFormatter(type),
 			intervals: getIntervals(
-				rangeKey,
+				rangeSelectors.rangeKey,
 				histogram.map(({key}) => key),
 				timeInterval
 			),

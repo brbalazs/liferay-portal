@@ -3,6 +3,7 @@ import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
 import urlConstants from 'shared/util/url-constants';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {
 	metricsListColumns,
@@ -67,7 +68,7 @@ const Touchpoints = ({router}) => (
 	<Card className='site-touchpoints-root' pageDisplay>
 		<TableWithData
 			entityLabel={Liferay.Language.get('pages')}
-			//rangeKey={router.query.rangeKey}
+			rangeSelectors={getRangeSelectorsFromQuery(router.query)}
 			router={router}
 		/>
 	</Card>

@@ -6,12 +6,7 @@ import {
 	POSITIONS
 } from 'shared/util/constants';
 import {flow, get, isFinite, isNil, isString, toLower, trim} from 'lodash';
-
-export type RangeSelectors = {
-	rangeEnd: string;
-	rangeKey: string;
-	rangeStart: string;
-};
+import {RangeSelectors} from 'shared/types';
 
 /**
  * Check if the value is blank.
@@ -21,14 +16,25 @@ export type RangeSelectors = {
 export const isBlank = (value: string | number): boolean =>
 	isNil(value) || (isString(value) && !value.length);
 
-export const getRangeSelectors = (
-	{rangeEnd, rangeKey, rangeStart}: RangeSelectors,
-	query: RangeSelectors
-) => ({
-	rangeEnd: get(query, 'rangeEnd', rangeEnd),
-	rangeKey: get(query, 'rangeKey', rangeKey),
-	rangeStart: get(query, 'rangeStart', rangeStart)
-});
+export const getRangeSelectorsFromQuery = query => {
+	const rangeKey = get(query, 'rangeKey', LAST_30_DAYS);
+
+	return {
+		rangeEnd: get(query, 'rangeEnd', ''),
+		rangeKey: rangeKey === 'CUSTOM' ? null : rangeKey,
+		rangeStart: get(query, 'rangeStart', '')
+	};
+};
+
+export const getSafeRangeSelectors = (rangeSelectors: RangeSelectors) => {
+	const rangeKey = get(rangeSelectors, 'rangeKey', LAST_30_DAYS);
+
+	return {
+		rangeEnd: get(rangeSelectors, 'rangeEnd', null),
+		rangeKey: rangeKey === 'CUSTOM' ? null : parseInt(rangeKey),
+		rangeStart: get(rangeSelectors, 'rangeStart', null)
+	};
+};
 
 /**
  * Check if the value is blank and returns value.

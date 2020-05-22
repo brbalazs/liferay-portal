@@ -1,3 +1,4 @@
+import {getSafeRangeSelectors} from 'shared/util/util';
 import {safeResultToProps} from 'shared/util/mappers';
 import {sum} from 'lodash';
 import {WEEKDAYS} from 'shared/util/date';
@@ -17,7 +18,7 @@ const mapResultToProps: () => object = safeResultToProps(result => {
 });
 
 const mapPropsToOptions: object = ({
-	rangeKey,
+	rangeSelectors,
 	router: {
 		params: {channelId}
 	},
@@ -25,8 +26,8 @@ const mapPropsToOptions: object = ({
 }) => ({
 	variables: {
 		channelId,
-		rangeKey: parseInt(rangeKey),
-		timezone
+		timezone,
+		...getSafeRangeSelectors(rangeSelectors)
 	}
 });
 

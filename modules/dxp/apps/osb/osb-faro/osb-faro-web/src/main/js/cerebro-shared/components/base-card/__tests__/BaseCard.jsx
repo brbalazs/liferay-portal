@@ -7,10 +7,6 @@ import {shallow} from 'enzyme';
 
 describe('BaseCard', () => {
 	const MOCK_CONTEXT = {
-		rangeKey: {
-			defaultValue: '30',
-			lastValue: '90'
-		},
 		router: {
 			query: {
 				rangeKey: '0'
@@ -71,7 +67,7 @@ describe('BaseCard', () => {
 		expect(customBodyProps).toEqual({
 			filters: undefined,
 			interval: 'D',
-			rangeKey: '0',
+			rangeSelectors: {rangeEnd: '', rangeKey: '0', rangeStart: ''},
 			router: {
 				query: {
 					rangeKey: '0'

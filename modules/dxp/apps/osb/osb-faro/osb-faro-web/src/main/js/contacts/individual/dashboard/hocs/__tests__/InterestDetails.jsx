@@ -43,6 +43,11 @@ const mockItems = [
 ];
 
 const defaultProps = {
+	rangeSelectors: {
+		rangeEnd: null,
+		rangeKey: '30',
+		rangeStart: null
+	},
 	router: {
 		params: {
 			channelId: '321321',
@@ -51,7 +56,10 @@ const defaultProps = {
 		},
 		query: {
 			delta: '5',
-			page: '1'
+			page: '1',
+			rangeEnd: null,
+			rangeKey: '30',
+			rangeStart: null
 		}
 	}
 };

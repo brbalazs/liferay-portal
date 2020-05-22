@@ -26,14 +26,14 @@ const getTableMapper = getItems => {
 	const mapPropsToOptions = ({
 		activeTabId,
 		filters,
-		rangeKey,
+		rangeSelectors,
 		router: {params},
 		tabConfig
 	}) => {
 		const {variables} = getVariables({
 			filters,
 			params,
-			rangeKey
+			rangeSelectors
 		});
 
 		const activeTabConfig = tabConfig.find(

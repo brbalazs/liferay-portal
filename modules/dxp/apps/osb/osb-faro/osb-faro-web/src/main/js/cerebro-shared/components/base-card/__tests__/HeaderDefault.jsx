@@ -14,7 +14,11 @@ describe('HeaderDefault', () => {
 	it('should call the onChangeInterval prop fn with "day" if the rangekey is changed to an hourly value', () => {
 		const spy = jest.fn();
 		const component = shallow(
-			<HeaderDefault onChangeInterval={spy} showInterval />
+			<HeaderDefault
+				onChangeInterval={spy}
+				rangeSelectors={{rangeKey: '30'}}
+				showInterval
+			/>
 		);
 
 		component

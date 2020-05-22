@@ -70,7 +70,7 @@ const NAV_ITEMS = [
 	}
 ];
 
-function AssetsRoutes({className, rangeKey, router}) {
+function AssetsRoutes({className, router}) {
 	const {channelId, groupId} = router.params;
 
 	const {selectedChannel} = useChannelContext();
@@ -103,7 +103,6 @@ function AssetsRoutes({className, rangeKey, router}) {
 				<BasePage.Context.Provider
 					value={{
 						filters: {},
-						rangeKey,
 						router
 					}}
 				>
@@ -154,11 +153,6 @@ function AssetsRoutes({className, rangeKey, router}) {
 }
 
 AssetsRoutes.propTypes = {
-	rangeKey: PropTypes.shape({
-		defaultValue: PropTypes.string,
-		lastValue: PropTypes.string
-	}),
-
 	/**
 	 * @type {object}
 	 * @default undefined

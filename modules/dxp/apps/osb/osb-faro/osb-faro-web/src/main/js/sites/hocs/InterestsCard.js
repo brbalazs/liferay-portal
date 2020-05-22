@@ -55,10 +55,10 @@ const InterestsCard = props => {
 			className='interests-card-root'
 			label={Liferay.Language.get('interests')}
 		>
-			{({rangeKey}) => (
+			{({rangeSelectors}) => (
 				<>
 					<TableWithData
-						rangeKey={rangeKey}
+						rangeSelectors={rangeSelectors}
 						router={router}
 						rowBordered={false}
 						{...props}
@@ -68,7 +68,7 @@ const InterestsCard = props => {
 						<Button
 							display='link'
 							href={setUriQueryValues(
-								{rangeKey},
+								rangeSelectors,
 								toRoute(Routes.SITES_INTERESTS, {
 									channelId,
 									groupId

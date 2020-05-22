@@ -5,6 +5,5 @@ export type Router = {
 
 export type Context = {
 	filters: object;
-	rangeKey: string;
 	router: Router;
 };

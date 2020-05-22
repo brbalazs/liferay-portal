@@ -11,4 +11,7 @@ import {withMetricsCard} from 'cerebro-shared/hocs/MetricsCard';
 const withSiteMetrics = () =>
 	graphql(SiteMetricsQuery, getMetricsMapper(result => result.site, metrics));
 
-export default withMetricsCard(withSiteMetrics, {showInterval: true});
+export default withMetricsCard(withSiteMetrics, {
+	legacyDropdownRangeKey: false,
+	showInterval: true
+});

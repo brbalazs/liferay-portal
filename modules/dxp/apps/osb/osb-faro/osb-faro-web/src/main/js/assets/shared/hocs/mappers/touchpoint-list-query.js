@@ -28,10 +28,10 @@ const mapResultToProps = safeResultToProps(({assetPages}) => {
 const mapPropsToOptions = ({
 	assetType,
 	filters,
-	rangeKey,
+	rangeSelectors,
 	router: {params}
 }) => {
-	const {variables} = getVariables({filters, params, rangeKey});
+	const {variables} = getVariables({filters, params, rangeSelectors});
 
 	return {
 		variables: {

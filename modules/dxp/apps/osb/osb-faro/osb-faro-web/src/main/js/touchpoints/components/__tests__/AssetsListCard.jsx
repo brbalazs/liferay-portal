@@ -98,7 +98,10 @@ describe('AssetsListCard', () => {
 		<ApolloProvider client={client}>
 			<BasePage.Context.Provider value={MOCK_CONTEXT}>
 				<BrowserRouter>
-					<AssetsListCard {...props} />
+					<AssetsListCard
+						{...props}
+						rangeSelectors={{rangeKey: '30'}}
+					/>
 				</BrowserRouter>
 			</BasePage.Context.Provider>
 		</ApolloProvider>

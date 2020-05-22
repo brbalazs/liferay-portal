@@ -8,7 +8,7 @@ interface IFormsListPageProps {
 const FormsListPage: React.FC<IFormsListPageProps> = ({router}) => (
 	<div className='row'>
 		<div className='col-sm-12'>
-			<FormsListCard rangeKey={router.query.rangeKey} router={router} />
+			<FormsListCard router={router} />
 		</div>
 	</div>
 );

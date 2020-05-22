@@ -11,7 +11,7 @@ import TextTruncate from 'shared/components/TextTruncate';
 import WrappedPageComponent from 'cerebro-shared/hocs/WrappedPageComponent';
 import {get} from 'lodash';
 import {getMatchedRoute, Routes} from 'shared/util/router';
-import {getRangeKeyFromContext} from 'shared/util/util';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {PropTypes} from 'prop-types';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
@@ -48,12 +48,14 @@ const NAV_ITEMS = [
 	}
 ];
 
-function TouchpointRoutes({className, rangeKey, router}) {
+function TouchpointRoutes({className, router}) {
+	const rangeSelectors = getRangeSelectorsFromQuery(router.query);
+
 	const {channelId, groupId, title, touchpoint} = router.params;
 
 	const [filters, setFilters] = useState({});
-	const [pathRangeKey, setPathRangeKey] = useState(
-		getRangeKeyFromContext({rangeKey, router})
+	const [pathRangeSelectors, setPathRangeSelectors] = useState(
+		rangeSelectors
 	);
 
 	const {selectedChannel} = useChannelContext();
@@ -96,11 +98,7 @@ function TouchpointRoutes({className, rangeKey, router}) {
 
 				<BasePage.Header.NavBar
 					items={NAV_ITEMS}
-					onClick={() =>
-						setPathRangeKey(
-							getRangeKeyFromContext({rangeKey, router})
-						)
-					}
+					onClick={() => setPathRangeSelectors(rangeSelectors)}
 					routeParams={{
 						channelId,
 						groupId,
@@ -114,21 +112,20 @@ function TouchpointRoutes({className, rangeKey, router}) {
 			<BasePage.Context.Provider
 				value={{
 					filters,
-					rangeKey,
 					router
 				}}
 			>
 				<BasePage.SubHeader>
 					<Filter
 						onChange={setFilters}
-						rangeKey={rangeKey}
+						rangeSelectors={pathRangeSelectors}
 						router={router}
 					/>
 
 					{matchedRoute === Routes.SITES_TOUCHPOINTS_PATH && (
 						<DropdownRangeKey
-							onChange={setPathRangeKey}
-							rangeKey={pathRangeKey}
+							onChange={setPathRangeSelectors}
+							rangeSelectors={pathRangeSelectors}
 						/>
 					)}
 				</BasePage.SubHeader>
@@ -154,7 +151,7 @@ function TouchpointRoutes({className, rangeKey, router}) {
 
 							<BundleRouter
 								componentProps={{
-									pathRangeKey
+									pathRangeSelectors
 								}}
 								data={TouchpointPathPage}
 								destructured={false}
@@ -172,11 +169,6 @@ function TouchpointRoutes({className, rangeKey, router}) {
 }
 
 TouchpointRoutes.propTypes = {
-	rangeKey: PropTypes.shape({
-		defaultValue: PropTypes.string,
-		lastValue: PropTypes.string
-	}),
-
 	/**
 	 * @type {object}
 	 * @default undefined

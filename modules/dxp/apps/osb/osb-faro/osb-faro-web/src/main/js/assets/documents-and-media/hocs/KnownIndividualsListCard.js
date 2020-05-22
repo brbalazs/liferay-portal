@@ -4,7 +4,7 @@ import knownIndividualsListAssetQuery from 'shared/queries/knownIndividualsListA
 import React from 'react';
 import urlConstants from 'shared/util/url-constants';
 import {DOWNLOADS_METRIC, NAME} from 'shared/util/pagination';
-import {get} from 'lodash';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {Routes} from 'shared/util/router';
@@ -56,7 +56,7 @@ const KnownIndividualsListCard = props => (
 	<Card className='known-individuals-root' pageDisplay>
 		<TableWithData
 			{...props}
-			rangeKey={get(props.router, ['query', 'rangeKey'])}
+			rangeSelectors={getRangeSelectorsFromQuery(props.router.query)}
 		/>
 	</Card>
 );

@@ -36,11 +36,11 @@ const mapResultToProps = safeResultToProps(({assets}) => {
  */
 const mapPropsToOptions = ({
 	filters,
-	rangeKey,
+	rangeSelectors,
 	router: {params},
 	touchpoint
 }) => {
-	const {variables} = getVariables({filters, params, rangeKey});
+	const {variables} = getVariables({filters, params, rangeSelectors});
 
 	if (touchpoint) {
 		return {
@@ -54,7 +54,7 @@ const mapPropsToOptions = ({
 	return getVariables({
 		filters,
 		params,
-		rangeKey
+		rangeSelectors
 	});
 };
 

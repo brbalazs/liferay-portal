@@ -1,4 +1,5 @@
 import {getMetricsData, getSiteMetricsChartData} from 'shared/util/metrics';
+import {getSafeRangeSelectors} from 'shared/util/util';
 import {safeResultToProps} from 'shared/util/mappers';
 
 /**
@@ -9,11 +10,11 @@ import {safeResultToProps} from 'shared/util/mappers';
  */
 const getMetricsMapper = (getData, metrics) => {
 	const mapResultToProps = safeResultToProps(
-		(result, context, {interval, rangeKey}) => ({
+		(result, context, {interval, rangeSelectors}) => ({
 			items: getMetricsData(
 				getData(result),
 				metrics,
-				rangeKey,
+				rangeSelectors,
 				getSiteMetricsChartData,
 				interval
 			)
@@ -28,23 +29,15 @@ const getMetricsMapper = (getData, metrics) => {
 	const mapPropsToOptions = ({
 		channelId,
 		interval,
-		rangeKey,
+		rangeSelectors,
 		router: {params}
-	}) => {
-		const customDateRange = rangeKey && rangeKey.start && rangeKey.end;
-
-		console.log(rangeKey);
-
-		return {
-			variables: {
-				channelId: channelId || params.channelId,
-				endDate: customDateRange ? rangeKey.end : null,
-				interval,
-				rangeKey: customDateRange ? null : parseInt(rangeKey),
-				startDate: customDateRange ? rangeKey.start : null
-			}
-		};
-	};
+	}) => ({
+		variables: {
+			channelId: channelId || params.channelId,
+			interval,
+			...getSafeRangeSelectors(rangeSelectors)
+		}
+	});
 
 	return {
 		options: mapPropsToOptions,

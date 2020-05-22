@@ -105,12 +105,7 @@ class MainMetrics extends React.Component {
 		 * Callback for when activeItemIndex changes.
 		 */
 		onActiveItemIndexChange: PropTypes.func,
-
-		/**
-		 * @type {number}
-		 * @default undefined
-		 */
-		rangeKey: PropTypes.string,
+		rangeSelectors: PropTypes.object,
 
 		showTabs: PropTypes.bool
 	};
@@ -138,7 +133,7 @@ class MainMetrics extends React.Component {
 				'activeItemIndex',
 				'filters',
 				'item',
-				'rangeKey',
+				'rangeSelectors',
 				'showPrevious'
 			)
 		) {
@@ -250,7 +245,7 @@ class MainMetrics extends React.Component {
 		const {
 			chartHeight: height,
 			interval,
-			rangeKey,
+			rangeSelectors,
 			showPrevious
 		} = this.props;
 
@@ -306,7 +301,7 @@ class MainMetrics extends React.Component {
 						format: date =>
 							formatXAxisDate(
 								date,
-								rangeKey,
+								rangeSelectors.rangeKey,
 								interval,
 								dateKeysIMap
 							),
@@ -382,7 +377,7 @@ class MainMetrics extends React.Component {
 	 */
 	@autobind
 	renderTooltip(dataPoints) {
-		const {interval, rangeKey, showPrevious} = this.props;
+		const {interval, rangeSelectors, showPrevious} = this.props;
 
 		const activeChartIndex = get(dataPoints[0], 'index') || 0;
 		const dateKey = dataPoints[0].x;
@@ -423,12 +418,12 @@ class MainMetrics extends React.Component {
 
 		const currentPeriodTitle = getDateTitle(
 			dateKeysIMap.get(dateKey),
-			rangeKey,
+			rangeSelectors.rangeKey,
 			interval
 		);
 		const previousPeriodTitle = getDateTitle(
 			prevDateKeysIMap.get(dateKey),
-			rangeKey,
+			rangeSelectors.rangeKey,
 			interval
 		);
 

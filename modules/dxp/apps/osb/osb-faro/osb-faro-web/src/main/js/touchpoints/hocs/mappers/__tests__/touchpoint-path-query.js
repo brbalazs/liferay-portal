@@ -95,7 +95,7 @@ const props = {
 		devices: ['Desktop'],
 		location: ['Brazil']
 	},
-	rangeKey: 7,
+	rangeSelectors: {rangeKey: '7'},
 	router: context.router
 };
 
@@ -111,7 +111,9 @@ describe('TouchpointPathQuery Mappers', () => {
 			variables: {
 				devices: 'Desktop',
 				location: 'Brazil',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'https://liferay.com'
 			}
@@ -123,7 +125,9 @@ describe('TouchpointPathQuery Mappers', () => {
 			variables: {
 				devices: 'Any',
 				location: 'Any',
+				rangeEnd: null,
 				rangeKey: 7,
+				rangeStart: null,
 				title: 'Liferay',
 				touchpoint: 'https://liferay.com'
 			}

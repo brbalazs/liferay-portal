@@ -1,9 +1,9 @@
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
 import Filter from 'cerebro-shared/components/Filter';
+import PropTypes from 'prop-types';
 import React from 'react';
 import {compose} from 'redux';
-import {PropTypes} from 'prop-types';
 import {withEmpty, withError} from 'cerebro-shared/hocs/utils';
 
 /**
@@ -26,21 +26,9 @@ const withFilterComponent = withFilter => {
 		static contextType = BasePage.Context;
 
 		static propTypes = {
-			onChange: PropTypes.func
+			onChange: PropTypes.func,
+			rangeSelectors: PropTypes.object
 		};
-
-		state = {
-			/**
-			 * @type {string}
-			 */
-			rangeKey: null
-		};
-
-		componentDidMount() {
-			this.setState({
-				rangeKey: this.rangeKeyValueFn()
-			});
-		}
 
 		/**
 		 * Receive applied filters and set state
@@ -54,24 +42,12 @@ const withFilterComponent = withFilter => {
 		}
 
 		/**
-		 * Range Key Value
-		 */
-		rangeKeyValueFn() {
-			const {
-				rangeKey: {lastValue}
-			} = this.context;
-
-			return lastValue;
-		}
-
-		/**
 		 * Lifecycle Render - ReactJS
 		 */
 		render() {
 			const {
 				context: {router},
-				props: {className},
-				state: {rangeKey}
+				props: {className, rangeSelectors}
 			} = this;
 
 			return (
@@ -79,7 +55,7 @@ const withFilterComponent = withFilter => {
 					className={className}
 					isTopLevel
 					onChange={this.handleApplyFilters}
-					rangeKey={rangeKey}
+					rangeSelectors={rangeSelectors}
 					router={router}
 				/>
 			);

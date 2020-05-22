@@ -35,11 +35,11 @@ const defaultProps = {
 
 const TouchpointsListBaseCard = ({assetType, className, label}) => (
 	<BaseCard className={className} label={label} minHeight={536}>
-		{({filters, rangeKey, router}) => (
+		{({filters, rangeSelectors, router}) => (
 			<TouchpointListWithData
 				assetType={assetType}
 				filters={filters}
-				rangeKey={rangeKey}
+				rangeSelectors={rangeSelectors}
 				router={router}
 			/>
 		)}

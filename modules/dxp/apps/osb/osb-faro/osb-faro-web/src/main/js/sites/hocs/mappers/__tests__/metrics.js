@@ -19,7 +19,7 @@ describe('Site Metrics Mapper', () => {
 
 	it('should map site metrics props to options', () => {
 		const mockProps = {
-			rangeKey: 30,
+			rangeSelectors: {rangeKey: '30'},
 			router: {params: {channelId: 'foochannelId'}}
 		};
 
@@ -27,7 +27,9 @@ describe('Site Metrics Mapper', () => {
 			expect.objectContaining({
 				variables: {
 					channelId: mockProps.router.params.channelId,
-					rangeKey: mockProps.rangeKey
+					rangeEnd: null,
+					rangeKey: parseInt(mockProps.rangeSelectors.rangeKey),
+					rangeStart: null
 				}
 			})
 		);

@@ -60,7 +60,7 @@ class Sankey extends React.Component {
 		nodeWidth: PropTypes.number,
 		onHeightChange: PropTypes.func,
 		parentNodeHeight: PropTypes.number,
-		rangeKey: PropTypes.string.isRequired,
+		rangeSelectors: PropTypes.object.isRequired,
 		renderTouchpointComponent: PropTypes.any,
 		width: PropTypes.any
 	};
@@ -439,7 +439,7 @@ class Sankey extends React.Component {
 	 */
 	renderTouchpointItems(nodes, currentNode, links = []) {
 		const {activeIndex, expandedTouchpoint} = this.state;
-		const {rangeKey, renderTouchpointComponent} = this.props;
+		const {rangeSelectors, renderTouchpointComponent} = this.props;
 		const {router} = this.context;
 
 		const touchpointProps = {
@@ -454,7 +454,7 @@ class Sankey extends React.Component {
 			onMouseLeave: this.handleMouseLeave,
 			onTouchpointIndexChange: this.handleChangeTouchpointIndex,
 			onTouchpointLoaded: this.changePathState,
-			rangeKey,
+			rangeSelectors,
 			router,
 			touchpoint: currentNode.url,
 			touchpointList: nodes
@@ -477,7 +477,7 @@ class Sankey extends React.Component {
 	}
 
 	renderTouchpointDirectAccess(node) {
-		const {rangeKey, renderTouchpointComponent} = this.props;
+		const {rangeSelectors, renderTouchpointComponent} = this.props;
 		const {router} = this.context;
 
 		return renderTouchpointComponent({
@@ -489,7 +489,7 @@ class Sankey extends React.Component {
 			isMain: true,
 			key: node.url,
 			node,
-			rangeKey,
+			rangeSelectors,
 			router,
 			touchpoint: node.url,
 			touchpointList: [],
@@ -498,13 +498,13 @@ class Sankey extends React.Component {
 	}
 
 	renderEmptyState(node) {
-		const {rangeKey, renderTouchpointComponent} = this.props;
+		const {rangeSelectors, renderTouchpointComponent} = this.props;
 		const {router} = this.context;
 
 		return renderTouchpointComponent({
 			isEmptyState: true,
 			node,
-			rangeKey,
+			rangeSelectors,
 			router
 		});
 	}

@@ -1,16 +1,15 @@
-import FaroConstants, {LAST_30_DAYS} from 'shared/util/constants';
+import Constants from 'shared/util/constants';
 import {get, isEmpty, isNil, reduce} from 'lodash';
 import {
 	getVariableDefinitions,
 	GQLQuery,
 	removeUnusedVariables
 } from 'shared/util/graphql';
-import {getRangeSelectors} from 'shared/util/util';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
 
 const {
 	pagination: {cur: defaultPage, delta: defaultDelta}
-} = FaroConstants;
+} = Constants;
 
 const formatItem = item =>
 	reduce(
@@ -47,7 +46,7 @@ export const getMapPropsToOptions: (
 	const {variables} = getVariables({
 		filters,
 		params,
-		rangeSelectors: getRangeSelectors(rangeSelectors, query)
+		rangeSelectors
 	});
 
 	const unfilteredVariables = {

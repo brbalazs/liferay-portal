@@ -119,7 +119,7 @@ const AssetCard = ({assetId, className, id, itemQuery, label, panel}) => {
 
 	return (
 		<BaseCard className={className} label={label} minHeight={536}>
-			{({rangeKey, router}) => (
+			{({rangeSelectors, router}) => (
 				<Card.Body>
 					<AssetComponent
 						assetId={assetId}
@@ -127,7 +127,7 @@ const AssetCard = ({assetId, className, id, itemQuery, label, panel}) => {
 						handleShowPreviousChanged={handleShowPreviousChanged}
 						id={String(id)}
 						panel={panel}
-						rangeKey={rangeKey}
+						rangeSelectors={rangeSelectors}
 						router={router}
 						showPrevious={showPrevious}
 						showTabs={false}

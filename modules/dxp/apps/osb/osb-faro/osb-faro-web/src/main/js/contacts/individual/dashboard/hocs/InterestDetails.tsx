@@ -3,11 +3,13 @@ import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
 import urlConstants from 'shared/util/url-constants';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {
 	metricsListColumns,
 	sitePagesListColumns
 } from 'shared/util/table-columns';
+import {RangeSelectors} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {VISITORS_METRIC} from 'shared/util/pagination';
@@ -23,7 +25,7 @@ const withData = () =>
 	);
 
 interface ITableWithDataProps {
-	rangeKey: string;
+	rangeSelectors: RangeSelectors;
 	router: {
 		params: object;
 		query: object;
@@ -75,7 +77,7 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 const InterestDetails = ({router}) => {
 	const {
 		params: {interestId},
-		query: {rangeKey}
+		query
 	} = router;
 
 	return (
@@ -94,7 +96,10 @@ const InterestDetails = ({router}) => {
 				</Card.Title>
 			</Card.Header>
 
-			<TableWithData rangeKey={rangeKey} router={router} />
+			<TableWithData
+				rangeSelectors={getRangeSelectorsFromQuery(query)}
+				router={router}
+			/>
 		</Card>
 	);
 };

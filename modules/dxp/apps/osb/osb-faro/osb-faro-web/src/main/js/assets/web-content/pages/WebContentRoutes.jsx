@@ -24,7 +24,7 @@ const WebContentKnownIndividualsPage = lazy(() =>
 	)
 );
 
-function WebContentRoutes({className, rangeKey, router}) {
+function WebContentRoutes({className, router}) {
 	const {assetId, channelId, groupId, title, touchpoint} = router.params;
 
 	const [filters, setFilters] = useState({});
@@ -78,7 +78,7 @@ function WebContentRoutes({className, rangeKey, router}) {
 				/>
 			</BasePage.Header>
 
-			<BasePage.Context.Provider value={{filters, rangeKey, router}}>
+			<BasePage.Context.Provider value={{filters, router}}>
 				<BasePage.SubHeader>
 					<Filter onChange={setFilters} />
 				</BasePage.SubHeader>
@@ -112,11 +112,6 @@ function WebContentRoutes({className, rangeKey, router}) {
 }
 
 WebContentRoutes.propTypes = {
-	rangeKey: PropTypes.shape({
-		defaultValue: PropTypes.string,
-		lastValue: PropTypes.string
-	}),
-
 	/**
 	 * @type {object}
 	 * @default undefined

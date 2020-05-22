@@ -26,11 +26,11 @@ const withAudienceReportCard = withData => {
 
 	const AudienceReportCard = ({className, label}) => (
 		<BaseCard className={className} label={label} minHeight={536}>
-			{({filters, rangeKey, router}) => (
+			{({filters, rangeSelectors, router}) => (
 				<Card.Body>
 					<AudienceReportWithData
 						filters={filters}
-						rangeKey={rangeKey}
+						rangeSelectors={rangeSelectors}
 						router={router}
 					/>
 				</Card.Body>

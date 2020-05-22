@@ -48,10 +48,6 @@ export interface ICompositionBag {
 
 export interface IBasePageContext {
 	filters: object;
-	rangeKey: {
-		defaultValue: string;
-		lastValue: string;
-	};
 	router: {
 		params: {
 			groupId: string;
@@ -71,6 +67,12 @@ export interface IPagination {
 
 export interface IPaginationUnsorted
 	extends Omit<IPagination, 'orderBy' | 'orderByField'> {}
+
+export type RangeSelectors = {
+	rangeEnd: string;
+	rangeKey: string;
+	rangeStart: string;
+};
 
 export interface RESTParams {
 	delta?: number;

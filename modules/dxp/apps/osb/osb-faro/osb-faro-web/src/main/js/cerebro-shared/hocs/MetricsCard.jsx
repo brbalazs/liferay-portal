@@ -43,11 +43,10 @@ const withMetricsCard = (withMetrics, baseCardProps = {}) => {
 			<BaseCard
 				className={className}
 				label={label}
-				legacyDropdownRangeKey={false}
 				minHeight={605}
 				{...baseCardProps}
 			>
-				{({filters, interval, rangeKey, router}) => (
+				{({filters, interval, rangeSelectors, router}) => (
 					<Card.Body>
 						<MetricsWithData
 							activeItemIndex={activeItemIndex}
@@ -57,7 +56,7 @@ const withMetricsCard = (withMetrics, baseCardProps = {}) => {
 								handleActiveItemIndexChanged
 							}
 							onShowPreviousChange={handleShowPreviousChanged}
-							rangeKey={rangeKey}
+							rangeSelectors={rangeSelectors}
 							router={router}
 							showPrevious={showPrevious}
 						/>

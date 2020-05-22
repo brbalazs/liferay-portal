@@ -3,7 +3,7 @@ import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import knownIndividualsListTouchpointQuery from 'shared/queries/knownIndividualsListTouchpointQuery';
 import React from 'react';
 import urlConstants from 'shared/util/url-constants';
-import {get} from 'lodash';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {NAME, VIEWS_METRIC} from 'shared/util/pagination';
@@ -57,7 +57,7 @@ const KnownIndividualsListCard = props => (
 	<Card className='known-individuals-root' pageDisplay>
 		<TableWithData
 			{...props}
-			rangeKey={get(props.router, ['query', 'rangeKey'])}
+			rangeSelectors={getRangeSelectorsFromQuery(props.router.query)}
 		/>
 	</Card>
 );

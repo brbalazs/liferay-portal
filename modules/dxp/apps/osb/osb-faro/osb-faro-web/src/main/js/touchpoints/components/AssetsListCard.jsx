@@ -30,7 +30,7 @@ class AssetsListCard extends React.Component {
 
 	static propTypes = {
 		items: PropTypes.arrayOf(ITEMS_SHAPE),
-		rangeKey: PropTypes.string
+		rangeSelectors: PropTypes.object
 	};
 
 	constructor(props) {
@@ -47,8 +47,12 @@ class AssetsListCard extends React.Component {
 	 * @param {string} title
 	 */
 	getUrl(assetId, assetType, title) {
-		const {params, query} = this.context.router;
-		const {rangeKey} = this.props;
+		const {
+			context: {
+				router: {params, query}
+			},
+			props: {rangeSelectors}
+		} = this;
 
 		return toAssetDashboardRoute(
 			assetType,
@@ -57,7 +61,7 @@ class AssetsListCard extends React.Component {
 				assetId,
 				title
 			},
-			pickBy({...query, rangeKey})
+			pickBy({...query, rangeKey: rangeSelectors.rangeKey})
 		);
 	}
 

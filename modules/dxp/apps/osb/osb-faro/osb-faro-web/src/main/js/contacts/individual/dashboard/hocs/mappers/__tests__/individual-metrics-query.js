@@ -22,12 +22,19 @@ describe('Individual Metrics Query Mapper', () => {
 		it('should map props to options', () => {
 			const props = {
 				interval: 'day',
-				rangeKey: 30
+				rangeSelectors: {
+					rangeKey: '30'
+				}
 			};
 
 			expect(mapPropsToOptions(props)).toEqual(
 				expect.objectContaining({
-					variables: props
+					variables: {
+						interval: 'day',
+						rangeEnd: null,
+						rangeKey: 30,
+						rangeStart: null
+					}
 				})
 			);
 		});

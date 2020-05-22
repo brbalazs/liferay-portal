@@ -29,7 +29,7 @@ interface IExperimentsListPage extends IBasePageContext {
 }
 
 const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
-	rangeKey,
+	// TODO: Look to remove the BasePage.Context
 	router
 }) => {
 	const {channelId, groupId} = router.params;
@@ -68,7 +68,6 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 			<BasePage.Context.Provider
 				value={{
 					filters: {},
-					rangeKey,
 					router
 				}}
 			>

@@ -5,6 +5,7 @@ import React, {useCallback} from 'react';
 import {Interval} from 'shared/types';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isHourlyRangeKey} from 'shared/util/time';
+import {RangeSelectors} from 'shared/types';
 
 interface BaseCardHeaderDefaultIProps
 	extends React.HTMLAttributes<HTMLElement> {
@@ -12,8 +13,8 @@ interface BaseCardHeaderDefaultIProps
 	label: string;
 	legacy: boolean;
 	onChangeInterval: (val: Interval) => void;
-	onChangeRangeKey: (val: any) => void;
-	rangeKey: string;
+	onRangeSelectorsChange: (val: any) => void;
+	rangeSelectors: RangeSelectors;
 	showInterval: boolean;
 }
 
@@ -22,12 +23,12 @@ const BaseCardHeaderDefault: React.FC<BaseCardHeaderDefaultIProps> = ({
 	label,
 	legacy,
 	onChangeInterval,
-	onChangeRangeKey,
-	rangeKey,
+	onRangeSelectorsChange,
+	rangeSelectors,
 	showInterval
 }) => {
-	const handleChangeRangeKey = useCallback(newVal => {
-		onChangeRangeKey && onChangeRangeKey(newVal);
+	const handleRangeSelectorsChange = useCallback(newVal => {
+		onRangeSelectorsChange && onRangeSelectorsChange(newVal);
 
 		if (isHourlyRangeKey(newVal)) {
 			onChangeInterval(INTERVAL_KEY_MAP.day);
@@ -48,15 +49,15 @@ const BaseCardHeaderDefault: React.FC<BaseCardHeaderDefaultIProps> = ({
 					<IntervalSelector
 						activeInterval={interval}
 						className='mr-3'
-						disabled={isHourlyRangeKey(rangeKey)}
+						disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
 						onChange={handleChangeInterval}
 					/>
 				)}
 
 				<DropdownRangeKey
 					legacy={legacy}
-					onChange={handleChangeRangeKey}
-					rangeKey={rangeKey}
+					onChange={handleRangeSelectorsChange}
+					rangeSelectors={rangeSelectors}
 				/>
 			</div>
 		</Card.Header>

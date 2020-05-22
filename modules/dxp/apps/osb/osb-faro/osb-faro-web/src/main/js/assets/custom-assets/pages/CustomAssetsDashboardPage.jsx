@@ -12,7 +12,10 @@ import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {ChannelContext} from 'shared/context/channel';
 import {compose} from 'redux';
-import {getRangeKeyFromTimeRange} from 'shared/util/util';
+import {
+	getRangeKeyFromTimeRange,
+	getRangeSelectorsFromQuery
+} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {hasChanges} from 'shared/util/react';
 import {PropTypes} from 'prop-types';
@@ -23,10 +26,6 @@ import {PropTypes} from 'prop-types';
  */
 class CustomAssetsDashboardPage extends React.Component {
 	static contextType = ChannelContext;
-
-	static defaultProps = {
-		rangeKey: {}
-	};
 
 	static propTypes = {
 		/**
@@ -46,12 +45,6 @@ class CustomAssetsDashboardPage extends React.Component {
 		 * @default undefined
 		 */
 		mutate: PropTypes.func.isRequired,
-
-		/**
-		 * @type {object}
-		 * @default {}
-		 */
-		rangeKey: PropTypes.object.isRequired,
 
 		/**
 		 * @type {object}
@@ -141,8 +134,11 @@ class CustomAssetsDashboardPage extends React.Component {
 	}
 
 	renderDefinitions() {
-		const {rangeKey, router} = this.props;
-		const {definition} = this.state;
+		const {
+			props: {router},
+			state: {definition}
+		} = this;
+
 		const {id: dashboardId} = router.params;
 
 		return definition.rows.map(({panels}, rowIndex) => (
@@ -155,7 +151,9 @@ class CustomAssetsDashboardPage extends React.Component {
 							itemQuery={getQuery(metric)}
 							label={title}
 							panel={{chartType, metric}}
-							rangeKey={rangeKey}
+							rangeSelectors={getRangeSelectorsFromQuery(
+								router.query
+							)}
 							router={router}
 						/>
 					</div>
@@ -199,9 +197,11 @@ class CustomAssetsDashboardPage extends React.Component {
 	 * Lifecycle Render - ReactJS
 	 */
 	render() {
-		const {rangeKey, router} = this.props;
-		const {definition, filters} = this.state;
-		const {selectedChannel} = this.context;
+		const {
+			context: {selectedChannel},
+			props: {router},
+			state: {definition, filters}
+		} = this;
 
 		const {
 			params: {channelId, groupId, title}
@@ -226,7 +226,7 @@ class CustomAssetsDashboardPage extends React.Component {
 					<BasePage.Header.TitleSection title={decodedTitle} />
 				</BasePage.Header>
 
-				<BasePage.Context.Provider value={{filters, rangeKey, router}}>
+				<BasePage.Context.Provider value={{filters, router}}>
 					<BasePage.Body>
 						{this.renderDefinitions()}
 

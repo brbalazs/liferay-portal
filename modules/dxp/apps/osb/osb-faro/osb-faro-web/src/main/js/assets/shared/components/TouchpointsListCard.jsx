@@ -26,8 +26,7 @@ class TouchpointsListCard extends React.Component {
 				title: PropTypes.string,
 				touchpoint: PropTypes.string
 			})
-		),
-		rangeKey: PropTypes.string
+		)
 	};
 
 	constructor(props) {
@@ -44,7 +43,6 @@ class TouchpointsListCard extends React.Component {
 	 */
 	getUrl(title, touchpoint) {
 		const {params, query} = this.context.router;
-		const {rangeKey} = this.props;
 
 		const router = {
 			params: {
@@ -52,10 +50,7 @@ class TouchpointsListCard extends React.Component {
 				title,
 				touchpoint: encodeURIComponent(touchpoint)
 			},
-			query: {
-				...query,
-				rangeKey
-			}
+			query
 		};
 
 		return getUrl(Routes.SITES_TOUCHPOINTS_OVERVIEW, router);

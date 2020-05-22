@@ -9,11 +9,11 @@ import {getVariables, safeResultToProps} from 'shared/util/mappers';
  */
 const getMetricsMapper = (getData, metrics, chartDataMapFn) => {
 	const mapResultToProps = safeResultToProps(
-		(result, context, {rangeKey}) => ({
+		(result, context, {rangeSelectors}) => ({
 			items: getMetricsData(
 				getData(result),
 				metrics,
-				rangeKey,
+				rangeSelectors,
 				chartDataMapFn
 			)
 		})
@@ -28,10 +28,15 @@ const getMetricsMapper = (getData, metrics, chartDataMapFn) => {
 		assetId: assetIdProps,
 		filters,
 		interval,
-		rangeKey,
+		rangeSelectors,
 		router: {params}
 	}) => {
-		const {variables} = getVariables({filters, interval, params, rangeKey});
+		const {variables} = getVariables({
+			filters,
+			interval,
+			params,
+			rangeSelectors
+		});
 
 		return {
 			variables: {

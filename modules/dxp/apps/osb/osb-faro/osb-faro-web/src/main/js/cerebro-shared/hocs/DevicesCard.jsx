@@ -120,7 +120,7 @@ const withDevicesCard = withDevices => {
 
 		return (
 			<BaseCard className={className} label={label} minHeight={536}>
-				{({filters, rangeKey, router}) => (
+				{({filters, rangeSelectors, router}) => (
 					<Card.Body>
 						<TabsWithDevices
 							activeTab={activeTab}
@@ -135,7 +135,7 @@ const withDevicesCard = withDevices => {
 							]}
 							metricLabel={metricLabel}
 							onChange={handleActiveTabChange}
-							rangeKey={rangeKey}
+							rangeSelectors={rangeSelectors}
 							router={router}
 						/>
 					</Card.Body>

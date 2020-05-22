@@ -12,6 +12,7 @@ import {
 	mapPropsToOptions,
 	mapResultToProps
 } from '../hocs/mappers/site-metrics-query';
+import {RangeSelectors} from 'shared/types';
 import {withError} from 'shared/hoc';
 import {withInterval, withRangeKey} from 'shared/hoc';
 
@@ -28,8 +29,8 @@ interface IActiveIndividualsCardProps {
 	interval: Interval;
 	loading: Boolean;
 	onChangeInterval: (val: any) => void;
-	onChangeRangeKey: (val: string) => void;
-	rangeKey: string;
+	onRangeSelectorsChange: (val: string) => void;
+	rangeSelectors: RangeSelectors;
 }
 
 const ActiveIndividualsCard = compose<any>(
@@ -41,53 +42,50 @@ const ActiveIndividualsCard = compose<any>(
 		interval,
 		loading,
 		onChangeInterval,
-		onChangeRangeKey,
-		rangeKey
-	}: IActiveIndividualsCardProps) => {
-		const handleChangeRangeKey = useCallback(newVal => {
-			onChangeRangeKey && onChangeRangeKey(newVal);
+		onRangeSelectorsChange,
+		rangeSelectors
+	}: IActiveIndividualsCardProps) => (
+		<Card minHeight={536}>
+			<Card.Header className='align-items-center d-flex justify-content-between'>
+				<Card.Title>
+					{Liferay.Language.get('active-individuals')}
+				</Card.Title>
 
-			if (isHourlyRangeKey(newVal)) {
-				onChangeInterval(INTERVAL_KEY_MAP.day);
-			}
-		}, []);
-
-		return (
-			<Card minHeight={536}>
-				<Card.Header className='align-items-center d-flex justify-content-between'>
-					<Card.Title>
-						{Liferay.Language.get('active-individuals')}
-					</Card.Title>
-
-					<div className='d-flex'>
-						{interval && (
-							<IntervalSelector
-								activeInterval={interval}
-								className='mr-3'
-								disabled={isHourlyRangeKey(rangeKey)}
-								onChange={onChangeInterval}
-							/>
-						)}
-
-						<DropdownRangeKey
-							onChange={handleChangeRangeKey}
-							rangeKey={rangeKey}
+				<div className='d-flex'>
+					{interval && (
+						<IntervalSelector
+							activeInterval={interval}
+							className='mr-3'
+							disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
+							onChange={onChangeInterval}
 						/>
-					</div>
-				</Card.Header>
+					)}
 
-				<Card.Body className='justify-content-center'>
-					<ChartWithData
-						active
-						channelId={channelId}
-						interval={interval}
-						loading={loading}
-						rangeKey={rangeKey}
+					<DropdownRangeKey
+						onChange={useCallback(newVal => {
+							onRangeSelectorsChange &&
+								onRangeSelectorsChange(newVal);
+
+							if (isHourlyRangeKey(newVal.rangeKey)) {
+								onChangeInterval(INTERVAL_KEY_MAP.day);
+							}
+						}, [])}
+						rangeSelectors={rangeSelectors}
 					/>
-				</Card.Body>
-			</Card>
-		);
-	}
+				</div>
+			</Card.Header>
+
+			<Card.Body className='justify-content-center'>
+				<ChartWithData
+					active
+					channelId={channelId}
+					interval={interval}
+					loading={loading}
+					rangeSelectors={rangeSelectors}
+				/>
+			</Card.Body>
+		</Card>
+	)
 );
 
 export default ActiveIndividualsCard;

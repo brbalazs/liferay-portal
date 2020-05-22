@@ -51,7 +51,9 @@ describe('Composition Query Mapper', () => {
 
 			expect(
 				mapCardPropsToOptions({
-					rangeKey,
+					rangeSelectors: {
+						rangeKey
+					},
 					router: {params: {channelId}}
 				})
 			).toEqual(

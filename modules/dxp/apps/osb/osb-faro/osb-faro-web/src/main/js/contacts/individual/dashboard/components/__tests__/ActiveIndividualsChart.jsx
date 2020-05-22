@@ -17,6 +17,7 @@ describe('ActiveIndividualsChart', () => {
 					{data: [], id: CHART_DATA_ID_1},
 					{data: [], id: CHART_DATA_ID_2}
 				]}
+				rangeSelectors={{rangeKey: '30'}}
 			/>
 		);
 		expect(container).toMatchSnapshot();
