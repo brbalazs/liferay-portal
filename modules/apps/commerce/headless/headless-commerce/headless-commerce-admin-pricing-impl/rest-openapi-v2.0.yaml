@@ -458,6 +458,9 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+                neverExpire:
+                    example: true
+                    type: boolean
                 price:
                     example: 30130
                     format: bigdecimal
@@ -496,14 +499,6 @@ components:
             type: object
         PriceList:
             properties:
-                accountGroups:
-                    items:
-                        $ref: "#/components/schemas/PriceListAccountGroup"
-                    type: array
-                accounts:
-                    items:
-                        $ref: "#/components/schemas/PriceListAccount"
-                    type: array
                 active:
                     example: true
                     type: boolean
@@ -515,20 +510,12 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                channels:
-                    items:
-                        $ref: "#/components/schemas/PriceListChannel"
-                    type: array
                 currencyCode:
                     example: EUR
                     type: string
                 customFields:
                     additionalProperties: true
                     type: object
-                discounts:
-                    items:
-                        $ref: "#/components/schemas/PriceListDiscount"
-                    type: array
                 displayDate:
                     example: 2017-07-21
                     format: date
@@ -557,6 +544,26 @@ components:
                 priceEntries:
                     items:
                         $ref: "#/components/schemas/PriceEntry"
+                    type: array
+                priceListAccountGroups:
+                    items:
+                        $ref: "#/components/schemas/PriceListAccountGroup"
+                    type: array
+                priceListAccounts:
+                    items:
+                        $ref: "#/components/schemas/PriceListAccount"
+                    type: array
+                priceListChannels:
+                    items:
+                        $ref: "#/components/schemas/PriceListChannel"
+                    type: array
+                priceListDiscounts:
+                    items:
+                        $ref: "#/components/schemas/PriceListDiscount"
+                    type: array
+                priceModifiers:
+                    items:
+                        $ref: "#/components/schemas/PriceModifier"
                     type: array
                 priority:
                     example: 1.2
@@ -705,6 +712,155 @@ components:
                     minimum: 0
                     type: integer
             type: object
+        PriceModifier:
+            properties:
+                active:
+                    example: true
+                    type: boolean
+                displayDate:
+                    example: 2017-07-21
+                    format: date
+                    type: string
+                expirationDate:
+                    example: 2017-08-21
+                    format: date
+                    type: string
+                externalReferenceCode:
+                    example: AB-34098-789-N
+                    type: string
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                modifierAmount:
+                    example: 25
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                modifierType:
+                    example: "percentage"
+                    type: string
+                priceListExternalReferenceCode:
+                    example: PLAB-34098-789-N
+                    type: string
+                priceListId:
+                    example: 20078
+                    format: int64
+                    minimum: 0
+                    type: integer
+                priceModifierCategory:
+                    items:
+                        $ref: "#/components/schemas/PriceModifierCategory"
+                    type: array
+                priceModifierProduct:
+                    items:
+                        $ref: "#/components/schemas/PriceModifierProduct"
+                    type: array
+                priceModifierProductGroup:
+                    items:
+                        $ref: "#/components/schemas/PriceModifierProductGroup"
+                    type: array
+                priority:
+                    example: 1.2
+                    format: double
+                    type: number
+                target:
+                    example: "product"
+                    type: string
+                title:
+                    example: "20% Off"
+                    type: string
+            required:
+                - modifierAmount
+                - modifierType
+                - target
+                - title
+            type: object
+        PriceModifierCategory:
+            properties:
+                categoryExternalReferenceCode:
+                    example: "PAB-34098-789-N"
+                    type: string
+                categoryId:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                categoryName:
+                    readOnly: true
+                    type: string
+                id:
+                    example: 30643
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                priceModifierExternalReferenceCode:
+                    example: "DAB-34098-789-N"
+                    type: string
+                priceModifierId:
+                    example: 30324
+                    format: int64
+                    minimum: 0
+                    type: integer
+            type: object
+        PriceModifierProduct:
+            properties:
+                id:
+                    example: 30643
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                priceModifierExternalReferenceCode:
+                    example: "DAB-34098-789-N"
+                    type: string
+                priceModifierId:
+                    example: 30324
+                    format: int64
+                    minimum: 0
+                    type: integer
+                productExternalReferenceCode:
+                    example: "PAB-34098-789-N"
+                    type: string
+                productId:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                productName:
+                    readOnly: true
+                    type: string
+            type: object
+        PriceModifierProductGroup:
+            properties:
+                id:
+                    example: 30643
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                priceModifierExternalReferenceCode:
+                    example: "DAB-34098-789-N"
+                    type: string
+                priceModifierId:
+                    example: 30324
+                    format: int64
+                    minimum: 0
+                    type: integer
+                productGroupExternalReferenceCode:
+                    example: "PAB-34098-789-N"
+                    type: string
+                productGroupId:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                productGroupName:
+                    readOnly: true
+                    type: string
+            type: object
         TierPrice:
             properties:
                 active:
@@ -757,6 +913,9 @@ components:
                     format: int32
                     minimum: 0
                     type: integer
+                neverExpire:
+                    example: true
+                    type: boolean
                 price:
                     example: 25
                     format: bigdecimal
@@ -4686,8 +4845,11 @@ paths:
                   style: simple
             responses:
                 204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
                     description:
-                        No content
+                        ""
                 401:
                     content:
                         application/json:
@@ -4723,8 +4885,11 @@ paths:
                   style: simple
             responses:
                 204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
                     description:
-                        No content
+                        ""
                 401:
                     content:
                         application/json:
@@ -4760,8 +4925,11 @@ paths:
                   style: simple
             responses:
                 204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
                     description:
-                        No content
+                        ""
                 401:
                     content:
                         application/json:
@@ -4797,8 +4965,11 @@ paths:
                   style: simple
             responses:
                 204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
                     description:
-                        No content
+                        ""
                 401:
                     content:
                         application/json:
@@ -5944,6 +6115,167 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Discount.
             tags: ["PriceListDiscount"]
+    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceModifiers:
+        get:
+            operationId: getPriceListByExternalReferenceCodePriceModifiersPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifier"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifier"
+                                type: array
+                    description:
+                        Successful operation
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Price List Price Modifiers.
+            tags: ["PriceModifier"]
+        post:
+            operationId: postPriceListByExternalReferenceCodePriceModifier
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifier"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifier"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifier"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifier"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or updates a Price List Price Modifier.
+            tags: ["PriceModifier"]
     /priceLists/{id}:
         delete:
             operationId: deletePriceList
@@ -6934,6 +7266,1621 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Discount.
             tags: ["PriceListDiscount"]
+    /priceLists/{id}/priceModifiers:
+        get:
+            operationId: getPriceListIdPriceModifiersPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifier"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifier"
+                                type: array
+                    description:
+                        Successful operation
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Price Modifiers.
+            tags: ["PriceModifier"]
+        post:
+            operationId: postPriceListIdPriceModifier
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifier"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifier"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifier"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifier"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or updates a Price Modifier.
+            tags: ["PriceModifier"]
+    /priceModifierCategories/{id}:
+        delete:
+            operationId: deletePriceModifierCategory
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Deletes a Price Modifier Category by ID.
+            tags: ["PriceModifierCategory"]
+    /priceModifierProductGroups/{id}:
+        delete:
+            operationId: deletePriceModifierProductGroup
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Deletes a Price Modifier Product Group by ID.
+            tags: ["PriceModifierProductGroup"]
+    /priceModifierProducts/{id}:
+        delete:
+            operationId: deletePriceModifierProduct
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Deletes a Price Modifier Product by ID.
+            tags: ["PriceModifierProduct"]
+    /priceModifiers/by-externalReferenceCode/{externalReferenceCode}:
+        delete:
+            operationId: deletePriceModifierByExternalReferenceCode
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Deletes a Price Modifier by external reference code.
+            tags: ["PriceModifier"]
+        get:
+            operationId: getPriceModifierByExternalReferenceCode
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifier"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifier"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a Price Modifier by external reference code.
+            tags: ["PriceModifier"]
+        patch:
+            operationId: patchPriceModifierByExternalReferenceCode
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifier"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifier"
+                required: true
+            responses:
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Updates a Price Modifier by external reference code.
+            tags: ["PriceModifier"]
+    /priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierCategories:
+        get:
+            operationId: getPriceModifierByExternalReferenceCodePriceModifierCategoriesPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierCategory"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierCategory"
+                                type: array
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Category related to a Price Modifier.
+            tags: ["PriceModifierCategory"]
+        post:
+            operationId: postPriceModifierByExternalReferenceCodePriceModifierCategory
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierCategory"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierCategory"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierCategory"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierCategory"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or Updates a Price Modifier Category.
+            tags: ["PriceModifierCategory"]
+    /priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierProductGroups:
+        get:
+            operationId: getPriceModifierByExternalReferenceCodePriceModifierProductGroupsPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierProductGroup"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierProductGroup"
+                                type: array
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Product Group related to a Price Modifier.
+            tags: ["PriceModifierProductGroup"]
+        post:
+            operationId: postPriceModifierByExternalReferenceCodePriceModifierProductGroup
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierProductGroup"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierProductGroup"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierProductGroup"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierProductGroup"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or Updates a Price Modifier Product Group.
+            tags: ["PriceModifierProductGroup"]
+    /priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierProducts:
+        get:
+            operationId: getPriceModifierByExternalReferenceCodePriceModifierProductsPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierProduct"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierProduct"
+                                type: array
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Product related to a Price Modifier.
+            tags: ["PriceModifierProduct"]
+        post:
+            operationId: postPriceModifierByExternalReferenceCodePriceModifierProduct
+            parameters:
+                - in: path
+                  explode: false
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      description:
+                          The resource external reference code
+                      example: AB-34098-789-N
+                      minLength: 1
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierProduct"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierProduct"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierProduct"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierProduct"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or Updates a Price Modifier Product.
+            tags: ["PriceModifierProduct"]
+    /priceModifiers/{id}:
+        delete:
+            operationId: deletePriceModifier
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Deletes a Price Modifier by ID.
+            tags: ["PriceModifier"]
+        get:
+            operationId: getPriceModifier
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifier"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifier"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a Price Modifier by ID.
+            tags: ["PriceModifier"]
+        patch:
+            operationId: patchPriceModifier
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifier"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifier"
+                required: true
+            responses:
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Updates a Price Modifier by ID.
+            tags: ["PriceModifier"]
+    /priceModifiers/{id}/priceModifierCategories:
+        get:
+            operationId: getPriceModifierIdPriceModifierCategoriesPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierCategory"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierCategory"
+                                type: array
+                    description:
+                        Successful operation
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Price Modifier Categories.
+            tags: ["PriceModifierCategory"]
+        post:
+            operationId: postPriceModifierIdPriceModifierCategory
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierCategory"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierCategory"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierCategory"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierCategory"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or updates a Price Modifier Category.
+            tags: ["PriceModifierCategory"]
+    /priceModifiers/{id}/priceModifierProductGroups:
+        get:
+            operationId: getPriceModifierIdPriceModifierProductGroupsPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierProductGroup"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierProductGroup"
+                                type: array
+                    description:
+                        Successful operation
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Price Modifier Product Groups.
+            tags: ["PriceModifierProductGroup"]
+        post:
+            operationId: postPriceModifierIdPriceModifierProductGroup
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierProductGroup"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierProductGroup"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierProductGroup"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierProductGroup"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or updates a Price Modifier Product Group.
+            tags: ["PriceModifierProductGroup"]
+    /priceModifiers/{id}/priceModifierProducts:
+        get:
+            operationId: getPriceModifierIdPriceModifierProductsPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: query
+                  explode: true
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+                - in: query
+                  explode: true
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierProduct"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PriceModifierProduct"
+                                type: array
+                    description:
+                        Successful operation
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets a list of Price Modifier Products.
+            tags: ["PriceModifierProduct"]
+        post:
+            operationId: postPriceModifierIdPriceModifierProduct
+            parameters:
+                - in: path
+                  explode: false
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierProduct"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PriceModifierProduct"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierProduct"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceModifierProduct"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.write
+            summary: Creates or updates a Price Modifier Product.
+            tags: ["PriceModifierProduct"]
     /tierPrices/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deleteTierPriceByExternalReferenceCode
@@ -6972,8 +8919,7 @@ paths:
                 - OAuth2:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Tier Price by external reference code.
-            tags:
-                - TierPrice
+            tags: ["TierPrice"]
         get:
             operationId: getTierPriceByExternalReferenceCode
             parameters:
@@ -7038,8 +8984,7 @@ paths:
                 - OAuth2:
                       - HeadlessCommerceAdminPricing.read
             summary: Gets a Tier Price by external reference code.
-            tags:
-                - TierPrice
+            tags: ["TierPrice"]
         patch:
             operationId: patchTierPriceByExternalReferenceCode
             parameters:
@@ -7109,8 +9054,7 @@ paths:
                 - OAuth2:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Tier Price by external reference code.
-            tags:
-                - TierPrice
+            tags: ["TierPrice"]
     /tierPrices/{id}:
         delete:
             operationId: deleteTierPrice
@@ -7287,8 +9231,7 @@ paths:
                 - OAuth2:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Tier Price by ID.
-            tags:
-                - TierPrice
+            tags: ["TierPrice"]
 servers:
     - description:
           SwaggerHub API Auto Mocking
