@@ -143,9 +143,8 @@ public class SearchUtil {
 			Filter filter, Class<?> indexerClass, String keywords,
 			Pagination pagination,
 			UnsafeConsumer<QueryConfig, Exception> queryConfigUnsafeConsumer,
-			UnsafeConsumer
-				<com.liferay.portal.kernel.search.SearchContext, Exception>
-					searchContextUnsafeConsumer,
+			UnsafeConsumer<SearchContext, Exception>
+				searchContextUnsafeConsumer,
 			UnsafeFunction<Document, T, Exception> transformUnsafeFunction,
 			Sort[] sorts)
 		throws Exception {
@@ -168,9 +167,8 @@ public class SearchUtil {
 			Filter filter, Class<?> indexerClass, String keywords,
 			Pagination pagination,
 			UnsafeConsumer<QueryConfig, Exception> queryConfigUnsafeConsumer,
-			UnsafeConsumer
-				<com.liferay.portal.kernel.search.SearchContext, Exception>
-					searchContextUnsafeConsumer,
+			UnsafeConsumer<SearchContext, Exception>
+				searchContextUnsafeConsumer,
 			UnsafeFunction<Document, T, Exception> transformUnsafeFunction,
 			Sort[] sorts, Map<String, Map<String, String>> actions)
 		throws Exception {
