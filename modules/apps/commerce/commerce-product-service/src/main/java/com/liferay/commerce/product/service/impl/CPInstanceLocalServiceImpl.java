@@ -1072,7 +1072,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		// Workflow
 
-		if (cpInstance.getStatus() == WorkflowConstants.STATUS_APPROVED) {
+		if ((cpInstance.getStatus() == WorkflowConstants.STATUS_APPROVED) ||
+			_isWorkflowActionPublish(serviceContext)) {
+
 			cpInstance = startWorkflowInstance(
 				user.getUserId(), cpInstance, serviceContext);
 		}
