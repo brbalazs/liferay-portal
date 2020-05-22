@@ -3,7 +3,7 @@
 exports[`IndividualAttributes should render 1`] = `
 <div>
   <div
-    class="settings-base-page-root"
+    class="settings-base-page-root individual-attributes-root"
   >
     <div
       class="maintenance-alert-root"
@@ -159,20 +159,17 @@ exports[`IndividualAttributes should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="table-cell-expand"
                 >
                   <div
                     class="content-container"
                   >
-                    <div
-                      class="text-truncate"
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
                     >
-                      <div
-                        class="table-title text-truncate"
-                      >
-                        testFildName0
-                      </div>
-                    </div>
+                      testFildName0
+                    </button>
                   </div>
                 </td>
                 <td
@@ -192,20 +189,17 @@ exports[`IndividualAttributes should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="table-cell-expand"
                 >
                   <div
                     class="content-container"
                   >
-                    <div
-                      class="text-truncate"
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
                     >
-                      <div
-                        class="table-title text-truncate"
-                      >
-                        testFildName1
-                      </div>
-                    </div>
+                      testFildName1
+                    </button>
                   </div>
                 </td>
                 <td
@@ -225,20 +219,17 @@ exports[`IndividualAttributes should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="table-cell-expand"
                 >
                   <div
                     class="content-container"
                   >
-                    <div
-                      class="text-truncate"
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
                     >
-                      <div
-                        class="table-title text-truncate"
-                      >
-                        testFildName2
-                      </div>
-                    </div>
+                      testFildName2
+                    </button>
                   </div>
                 </td>
                 <td
@@ -258,20 +249,17 @@ exports[`IndividualAttributes should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="table-cell-expand"
                 >
                   <div
                     class="content-container"
                   >
-                    <div
-                      class="text-truncate"
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
                     >
-                      <div
-                        class="table-title text-truncate"
-                      >
-                        testFildName3
-                      </div>
-                    </div>
+                      testFildName3
+                    </button>
                   </div>
                 </td>
                 <td
@@ -291,20 +279,17 @@ exports[`IndividualAttributes should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="table-cell-expand"
                 >
                   <div
                     class="content-container"
                   >
-                    <div
-                      class="text-truncate"
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
                     >
-                      <div
-                        class="table-title text-truncate"
-                      >
-                        testFildName4
-                      </div>
-                    </div>
+                      testFildName4
+                    </button>
                   </div>
                 </td>
                 <td
