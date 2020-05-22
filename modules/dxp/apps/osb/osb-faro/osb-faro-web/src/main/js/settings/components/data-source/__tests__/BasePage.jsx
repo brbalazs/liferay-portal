@@ -11,9 +11,13 @@ import {StaticRouter} from 'react-router-dom';
 jest.unmock('react-dom');
 
 const {
+	credentialTypes: {token},
 	dataSourceStates: {undefinedError},
 	userRoleNames: {member}
 } = FaroConstants;
+
+const mockFnLiferayDataSource = () =>
+	data.mockLiferayDataSource(1, {credentials: {type: token}});
 
 describe('BaseDataSourcePage', () => {
 	afterEach(cleanup);
@@ -85,6 +89,26 @@ describe('BaseDataSourcePage', () => {
 		);
 
 		expect(queryByText('Delete Data Source')).toBeNull();
+	});
+
+	it('should NOT render the Upgrade Connection Card if the credential type is token', () => {
+		const {container} = render(
+			<StaticRouter>
+				<Provider store={mockStore()}>
+					<BaseDataSourcePage
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							mockFnLiferayDataSource
+						)}
+						groupId='23'
+						id='test'
+					/>
+				</Provider>
+			</StaticRouter>
+		);
+
+		expect(container).not.toHaveTextContent('Upgrade Your Connection Type');
 	});
 
 	it('should render with an UNDEFINED_ERROR message in the datasource status column', () => {
