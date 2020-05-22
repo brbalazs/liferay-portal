@@ -204,6 +204,86 @@ describe(
 					}
 				);
 
+				it('test should serialize <screen-name> element if given.', done => {
+					var jsonDefinition = {
+						nodes: [
+							{
+								name: 'task1',
+								notifications: {
+									name: ['notification1'],
+									recipients: [
+										{
+											assignmentType: ['user'],
+											emailAddress: [null],
+											screenName: ['test'],
+											userId: [null]
+										}
+									]
+								},
+								xmlType: 'task'
+							}
+						]
+					};
+
+					var definition = serializeDefinition(
+						XML_NAMESPACE,
+						METADATA,
+						jsonDefinition
+					);
+
+					assert(
+						definition.indexOf('<screen-name>test</screen-name>') > 0,
+						'<screen-name> element not serialized.'
+					);
+
+					done();
+				});
+
+				it('test should serialize <user-id>, <screen-name> and <email-address> element if given.', done => {
+					var jsonDefinition = {
+						nodes: [
+							{
+								name: 'task1',
+								notifications: {
+									name: ['notification1'],
+									recipients: [
+										{
+											assignmentType: ['user'],
+											emailAddress: ['test@liferay.com'],
+											screenName: ['test'],
+											userId: ['0']
+										}
+									]
+								},
+								xmlType: 'task'
+							}
+						]
+					};
+
+					var definition = serializeDefinition(
+						XML_NAMESPACE,
+						METADATA,
+						jsonDefinition
+					);
+
+					assert(
+						definition.indexOf('<user-id>0</user-id>') > 0,
+						'<user-id> element not serialized.'
+					);
+
+					assert(
+						definition.indexOf('<screen-name>test</screen-name>') > 0,
+						'<screen-name> element not serialized.'
+					);
+
+					assert(
+						definition.indexOf('<email-address>test@liferay.com</email-address>') > 0,
+						'<email-address> element not serialized.'
+					);
+
+					done();
+				});
+
 				it(
 					'should serialize <user> element even if empty.',
 					function(done) {
