@@ -42,7 +42,7 @@ exports[`BaseDataSourcePage should render 1`] = `
           class="content-side"
         >
           <div
-            class="panel-root upgrade-connection-card-root mb-4"
+            class="panel-root upgrade-connection-card-root"
           >
             <div
               class="panel-header"
