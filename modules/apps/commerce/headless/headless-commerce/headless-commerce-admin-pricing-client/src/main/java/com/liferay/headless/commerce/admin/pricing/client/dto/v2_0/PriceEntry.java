@@ -32,6 +32,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class PriceEntry implements Cloneable {
 
+	public static PriceEntry toDTO(String json) {
+		return PriceEntrySerDes.toDTO(json);
+	}
+
 	public Boolean getActive() {
 		return active;
 	}

@@ -117,62 +117,6 @@ public class PriceEntry {
 	protected Boolean bulkPricing;
 
 	@Schema
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
-
-	@JsonIgnore
-	public void setActive(
-		UnsafeSupplier<Boolean, Exception> activeUnsafeSupplier) {
-
-		try {
-			active = activeUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Boolean active;
-
-	@Schema
-	public Boolean getBulkPricing() {
-		return bulkPricing;
-	}
-
-	public void setBulkPricing(Boolean bulkPricing) {
-		this.bulkPricing = bulkPricing;
-	}
-
-	@JsonIgnore
-	public void setBulkPricing(
-		UnsafeSupplier<Boolean, Exception> bulkPricingUnsafeSupplier) {
-
-		try {
-			bulkPricing = bulkPricingUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Boolean bulkPricing;
-
-	@Schema
 	@Valid
 	public Map<String, ?> getCustomFields() {
 		return customFields;

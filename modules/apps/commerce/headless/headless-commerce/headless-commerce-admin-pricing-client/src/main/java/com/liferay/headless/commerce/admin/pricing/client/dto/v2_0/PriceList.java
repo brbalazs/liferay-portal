@@ -30,35 +30,8 @@ import javax.annotation.Generated;
 @Generated("")
 public class PriceList implements Cloneable {
 
-	public static enum Type {
-
-		PRICE_LIST("price-list"), PROMOTION("promotion"), CONTRACT("contract");
-
-		public static Type create(String value) {
-			for (Type type : values()) {
-				if (Objects.equals(type.getValue(), value)) {
-					return type;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Type(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static PriceList toDTO(String json) {
+		return PriceListSerDes.toDTO(json);
 	}
 
 	public PriceListAccountGroup[] getAccountGroups() {
@@ -493,6 +466,37 @@ public class PriceList implements Cloneable {
 
 	public String toString() {
 		return PriceListSerDes.toJSON(this);
+	}
+
+	public static enum Type {
+
+		PRICE_LIST("price-list"), PROMOTION("promotion"), CONTRACT("contract");
+
+		public static Type create(String value) {
+			for (Type type : values()) {
+				if (Objects.equals(type.getValue(), value)) {
+					return type;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Type(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }
