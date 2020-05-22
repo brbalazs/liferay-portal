@@ -48,6 +48,7 @@ const TableWithData = withBaseResults(withData, {
 			channelId,
 			groupId,
 			rangeKey,
+			// need to add rangeStart & rangeEnd here
 			route: Routes.SITES_TOUCHPOINTS_OVERVIEW
 		}),
 		metricsListColumns.engagementMetric,
@@ -58,6 +59,7 @@ const TableWithData = withBaseResults(withData, {
 		metricsListColumns.entrancesMetric,
 		metricsListColumns.exitRateMetric
 	],
+	legacyDropdownRangeKey: false,
 	rowIdentifier: ['assetId', 'assetTitle']
 });
 
@@ -65,7 +67,7 @@ const Touchpoints = ({router}) => (
 	<Card className='site-touchpoints-root' pageDisplay>
 		<TableWithData
 			entityLabel={Liferay.Language.get('pages')}
-			rangeKey={router.query.rangeKey}
+			//rangeKey={router.query.rangeKey}
 			router={router}
 		/>
 	</Card>

@@ -4,7 +4,9 @@ export default gql`
 	query Touchpoint(
 		$channelId: String
 		$keywords: String
-		$rangeKey: Int!
+		$rangeEnd: String
+		$rangeKey: Int
+		$rangeStart: String
 		$size: Int!
 		$sort: Sort!
 		$start: Int!
@@ -13,7 +15,9 @@ export default gql`
 		pages(
 			channelId: $channelId
 			keywords: $keywords
+			rangeEnd: $rangeEnd
 			rangeKey: $rangeKey
+			rangeStart: $rangeStart
 			size: $size
 			sort: $sort
 			start: $start
