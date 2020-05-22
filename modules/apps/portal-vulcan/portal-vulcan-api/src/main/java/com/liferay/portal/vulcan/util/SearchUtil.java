@@ -112,7 +112,7 @@ public class SearchUtil {
 
 		Hits hits;
 
-		if (searchContext.isCheckPermissions()) {
+		if (searchContext.isVulcanCheckPermissions()) {
 			hits = indexer.search(searchContext);
 		}
 		else {
@@ -195,15 +195,15 @@ public class SearchUtil {
 	public static class SearchContext
 		extends com.liferay.portal.kernel.search.SearchContext {
 
-		public boolean isCheckPermissions() {
-			return _checkPermissions;
+		public boolean isVulcanCheckPermissions() {
+			return _vulcanCheckPermissions;
 		}
 
-		public void setVulcanCheckPermissions(boolean checkPermissions) {
-			_checkPermissions = checkPermissions;
+		public void setVulcanCheckPermissions(boolean vulcanCheckPermissions) {
+			_vulcanCheckPermissions = vulcanCheckPermissions;
 		}
 
-		private boolean _checkPermissions = true;
+		private boolean _vulcanCheckPermissions = true;
 
 	}
 
