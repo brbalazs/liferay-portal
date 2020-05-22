@@ -460,14 +460,12 @@ String liferayAnalyticsDataSourceId = PrefsPropsUtil.getString(company.getCompan
 String liferayAnalyticsEndpointURL = PrefsPropsUtil.getString(company.getCompanyId(), "liferayAnalyticsEndpointURL");
 boolean liferayAnalyticsEnableAllGroupIds = PrefsPropsUtil.getBoolean(company.getCompanyId(), "liferayAnalyticsEnableAllGroupIds");
 String[] liferayAnalyticsGroupIds = PrefsPropsUtil.getStringArray(company.getCompanyId(), "liferayAnalyticsGroupIds", StringPool.COMMA);
-
-JSONArray liferayAnalyticsGroupIdsJSONArray = JSONFactoryUtil.createJSONArray(liferayAnalyticsGroupIds);
 %>
 
 <c:if test="<%= _isAnalyticsTrackingEnabled(liferayAnalyticsDataSourceId, liferayAnalyticsEndpointURL, liferayAnalyticsEnableAllGroupIds, liferayAnalyticsGroupIds, group, layout.isTypeControlPanel(), request) %>">
 	<script data-senna-track="temporary" type="text/javascript">
 		var liferayAnalyticsChannelId = '<%= HtmlUtil.escapeJS(liferayAnalyticsChannelId) %>';
-		var liferayAnalyticsGroupIds = <%= liferayAnalyticsGroupIdsJSONArray.toString() %>;
+		var liferayAnalyticsGroupIds = <%= String.valueOf(JSONFactoryUtil.createJSONArray(liferayAnalyticsGroupIds)) %>;
 	</script>
 
 	<script data-senna-track="permanent" id="liferayAnalyticsScript" type="text/javascript">
