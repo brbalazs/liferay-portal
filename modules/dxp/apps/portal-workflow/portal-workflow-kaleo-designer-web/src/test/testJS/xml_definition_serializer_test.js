@@ -232,7 +232,7 @@ describe(
 					);
 
 					assert(
-						definition.indexOf('<screen-name>test</screen-name>') > 0,
+						definition.indexOf('<screen-name') > 0,
 						'<screen-name> element not serialized.'
 					);
 
@@ -267,17 +267,17 @@ describe(
 					);
 
 					assert(
-						definition.indexOf('<email-address>test@liferay.com</email-address>') > 0,
+						definition.indexOf('<email-address') > 0,
 						'<email-address> element not serialized.'
 					);
 
 					assert(
-						definition.indexOf('<screen-name>test</screen-name>') > 0,
+						definition.indexOf('<screen-name') > 0,
 						'<screen-name> element not serialized.'
 					);
 
 					assert(
-						definition.indexOf('<user-id>0</user-id>') > 0,
+						definition.indexOf('<user-id') > 0,
 						'<user-id> element not serialized.'
 					);
 
