@@ -6,6 +6,7 @@ import * as blockedKeywords from './blocked-keywords';
 import * as channels from './channels';
 import * as contactsCards from './contacts-cards';
 import * as dataSource from './data-source';
+import * as definitions from './definitions';
 import * as distributions from './distributions';
 import * as engagement from './engagement';
 import * as fieldMappings from './field-mappings';
@@ -26,6 +27,7 @@ export {
 	channels,
 	contactsCards,
 	dataSource,
+	definitions,
 	distributions,
 	engagement,
 	fieldMappings,
