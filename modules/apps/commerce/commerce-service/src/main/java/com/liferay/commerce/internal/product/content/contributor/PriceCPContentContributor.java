@@ -109,25 +109,30 @@ public class PriceCPContentContributor implements CPContentContributor {
 
 		CommerceMoney unitPrice = commerceProductPrice.getUnitPrice();
 
-		if (unitPrice != null) {
-			Locale locale = _portal.getLocale(httpServletRequest);
+		if (unitPrice == null) {
+			return jsonObject;
+		}
+
+		Locale locale = _portal.getLocale(httpServletRequest);
+
+		jsonObject.put(
+			CPContentContributorConstants.PRICE, unitPrice.format(locale));
+
+		CommerceMoney promoPriceMoney =
+			commerceProductPrice.getUnitPromoPrice();
+
+		if (promoPriceMoney == null) {
+			return jsonObject;
+		}
+
+		BigDecimal promoPrice = promoPriceMoney.getPrice();
+
+		if ((promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
+			(promoPrice.compareTo(unitPrice.getPrice()) <= 0)) {
 
 			jsonObject.put(
-				CPContentContributorConstants.PRICE, unitPrice.format(locale));
-
-			CommerceMoney promoPriceMoney =
-				commerceProductPrice.getUnitPromoPrice();
-
-			BigDecimal promoPrice = promoPriceMoney.getPrice();
-
-			if ((promoPriceMoney != null) &&
-				(promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
-				(promoPrice.compareTo(unitPrice.getPrice()) <= 0)) {
-
-				jsonObject.put(
-					CPContentContributorConstants.PROMO_PRICE,
-					promoPriceMoney.format(locale));
-			}
+				CPContentContributorConstants.PROMO_PRICE,
+				promoPriceMoney.format(locale));
 		}
 
 		return jsonObject;
