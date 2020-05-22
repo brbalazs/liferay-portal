@@ -110,7 +110,7 @@ public class SearchUtil {
 
 		searchContextUnsafeConsumer.accept(searchContext);
 
-		Hits hits;
+		Hits hits = null;
 
 		if (searchContext.isVulcanCheckPermissions()) {
 			hits = indexer.search(searchContext);
