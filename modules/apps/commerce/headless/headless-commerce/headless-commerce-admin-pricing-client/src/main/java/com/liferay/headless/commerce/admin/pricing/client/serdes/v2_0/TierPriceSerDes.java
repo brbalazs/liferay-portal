@@ -195,6 +195,16 @@ public class TierPriceSerDes {
 			sb.append(tierPrice.getMinimumQuantity());
 		}
 
+		if (tierPrice.getNeverExpire() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"neverExpire\": ");
+
+			sb.append(tierPrice.getNeverExpire());
+		}
+
 		if (tierPrice.getPrice() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -363,6 +373,13 @@ public class TierPriceSerDes {
 				String.valueOf(tierPrice.getMinimumQuantity()));
 		}
 
+		if (tierPrice.getNeverExpire() == null) {
+			map.put("neverExpire", null);
+		}
+		else {
+			map.put("neverExpire", String.valueOf(tierPrice.getNeverExpire()));
+		}
+
 		if (tierPrice.getPrice() == null) {
 			map.put("price", null);
 		}
@@ -485,6 +502,11 @@ public class TierPriceSerDes {
 				if (jsonParserFieldValue != null) {
 					tierPrice.setMinimumQuantity(
 						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "neverExpire")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setNeverExpire((Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "price")) {

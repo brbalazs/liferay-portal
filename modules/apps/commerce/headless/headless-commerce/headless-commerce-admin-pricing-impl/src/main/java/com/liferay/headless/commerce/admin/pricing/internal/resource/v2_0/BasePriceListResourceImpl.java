@@ -111,7 +111,7 @@ public abstract class BasePriceListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists' -d $'{"accountGroups": ___, "accounts": ___, "active": ___, "catalogBasePriceList": ___, "catalogId": ___, "channels": ___, "currencyCode": ___, "customFields": ___, "discounts": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "netPrice": ___, "neverExpire": ___, "priceEntries": ___, "priority": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists' -d $'{"active": ___, "catalogBasePriceList": ___, "catalogId": ___, "currencyCode": ___, "customFields": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "netPrice": ___, "neverExpire": ___, "priceEntries": ___, "priceListAccountGroups": ___, "priceListAccounts": ___, "priceListChannels": ___, "priceListDiscounts": ___, "priceModifiers": ___, "priority": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -206,7 +206,7 @@ public abstract class BasePriceListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}' -d $'{"accountGroups": ___, "accounts": ___, "active": ___, "catalogBasePriceList": ___, "catalogId": ___, "channels": ___, "currencyCode": ___, "customFields": ___, "discounts": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "netPrice": ___, "neverExpire": ___, "priceEntries": ___, "priority": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}' -d $'{"active": ___, "catalogBasePriceList": ___, "catalogId": ___, "currencyCode": ___, "customFields": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "netPrice": ___, "neverExpire": ___, "priceEntries": ___, "priceListAccountGroups": ___, "priceListAccounts": ___, "priceListChannels": ___, "priceListDiscounts": ___, "priceModifiers": ___, "priority": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -307,7 +307,7 @@ public abstract class BasePriceListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}' -d $'{"accountGroups": ___, "accounts": ___, "active": ___, "catalogBasePriceList": ___, "catalogId": ___, "channels": ___, "currencyCode": ___, "customFields": ___, "discounts": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "netPrice": ___, "neverExpire": ___, "priceEntries": ___, "priority": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}' -d $'{"active": ___, "catalogBasePriceList": ___, "catalogId": ___, "currencyCode": ___, "customFields": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "netPrice": ___, "neverExpire": ___, "priceEntries": ___, "priceListAccountGroups": ___, "priceListAccounts": ___, "priceListChannels": ___, "priceListDiscounts": ___, "priceModifiers": ___, "priority": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

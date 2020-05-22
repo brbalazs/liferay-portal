@@ -47,7 +47,7 @@ public interface PriceListDiscountResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Response deletePriceListDiscount(Long id) throws Exception;
+	public void deletePriceListDiscount(Long id) throws Exception;
 
 	public Response deletePriceListDiscountBatch(
 			Long id, String callbackURL, Object object)

@@ -20,6 +20,7 @@ import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListAcco
 import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListAccountGroup;
 import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListChannel;
 import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceListDiscount;
+import com.liferay.headless.commerce.admin.pricing.client.dto.v2_0.PriceModifier;
 import com.liferay.headless.commerce.admin.pricing.client.json.BaseJSONParser;
 
 import java.text.DateFormat;
@@ -65,46 +66,6 @@ public class PriceListSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (priceList.getAccountGroups() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accountGroups\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < priceList.getAccountGroups().length; i++) {
-				sb.append(String.valueOf(priceList.getAccountGroups()[i]));
-
-				if ((i + 1) < priceList.getAccountGroups().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (priceList.getAccounts() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accounts\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < priceList.getAccounts().length; i++) {
-				sb.append(String.valueOf(priceList.getAccounts()[i]));
-
-				if ((i + 1) < priceList.getAccounts().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (priceList.getActive() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -135,26 +96,6 @@ public class PriceListSerDes {
 			sb.append(priceList.getCatalogId());
 		}
 
-		if (priceList.getChannels() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"channels\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < priceList.getChannels().length; i++) {
-				sb.append(String.valueOf(priceList.getChannels()[i]));
-
-				if ((i + 1) < priceList.getChannels().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (priceList.getCurrencyCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -177,26 +118,6 @@ public class PriceListSerDes {
 			sb.append("\"customFields\": ");
 
 			sb.append(_toJSON(priceList.getCustomFields()));
-		}
-
-		if (priceList.getDiscounts() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"discounts\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < priceList.getDiscounts().length; i++) {
-				sb.append(String.valueOf(priceList.getDiscounts()[i]));
-
-				if ((i + 1) < priceList.getDiscounts().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
 		}
 
 		if (priceList.getDisplayDate() != null) {
@@ -307,6 +228,109 @@ public class PriceListSerDes {
 			sb.append("]");
 		}
 
+		if (priceList.getPriceListAccountGroups() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceListAccountGroups\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceList.getPriceListAccountGroups().length;
+				 i++) {
+
+				sb.append(
+					String.valueOf(priceList.getPriceListAccountGroups()[i]));
+
+				if ((i + 1) < priceList.getPriceListAccountGroups().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceList.getPriceListAccounts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceListAccounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceList.getPriceListAccounts().length; i++) {
+				sb.append(String.valueOf(priceList.getPriceListAccounts()[i]));
+
+				if ((i + 1) < priceList.getPriceListAccounts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceList.getPriceListChannels() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceListChannels\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceList.getPriceListChannels().length; i++) {
+				sb.append(String.valueOf(priceList.getPriceListChannels()[i]));
+
+				if ((i + 1) < priceList.getPriceListChannels().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceList.getPriceListDiscounts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceListDiscounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceList.getPriceListDiscounts().length; i++) {
+				sb.append(String.valueOf(priceList.getPriceListDiscounts()[i]));
+
+				if ((i + 1) < priceList.getPriceListDiscounts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceList.getPriceModifiers() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceModifiers\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceList.getPriceModifiers().length; i++) {
+				sb.append(String.valueOf(priceList.getPriceModifiers()[i]));
+
+				if ((i + 1) < priceList.getPriceModifiers().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (priceList.getPriority() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -352,21 +376,6 @@ public class PriceListSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (priceList.getAccountGroups() == null) {
-			map.put("accountGroups", null);
-		}
-		else {
-			map.put(
-				"accountGroups", String.valueOf(priceList.getAccountGroups()));
-		}
-
-		if (priceList.getAccounts() == null) {
-			map.put("accounts", null);
-		}
-		else {
-			map.put("accounts", String.valueOf(priceList.getAccounts()));
-		}
-
 		if (priceList.getActive() == null) {
 			map.put("active", null);
 		}
@@ -390,13 +399,6 @@ public class PriceListSerDes {
 			map.put("catalogId", String.valueOf(priceList.getCatalogId()));
 		}
 
-		if (priceList.getChannels() == null) {
-			map.put("channels", null);
-		}
-		else {
-			map.put("channels", String.valueOf(priceList.getChannels()));
-		}
-
 		if (priceList.getCurrencyCode() == null) {
 			map.put("currencyCode", null);
 		}
@@ -411,13 +413,6 @@ public class PriceListSerDes {
 		else {
 			map.put(
 				"customFields", String.valueOf(priceList.getCustomFields()));
-		}
-
-		if (priceList.getDiscounts() == null) {
-			map.put("discounts", null);
-		}
-		else {
-			map.put("discounts", String.valueOf(priceList.getDiscounts()));
 		}
 
 		if (priceList.getDisplayDate() == null) {
@@ -483,6 +478,51 @@ public class PriceListSerDes {
 				"priceEntries", String.valueOf(priceList.getPriceEntries()));
 		}
 
+		if (priceList.getPriceListAccountGroups() == null) {
+			map.put("priceListAccountGroups", null);
+		}
+		else {
+			map.put(
+				"priceListAccountGroups",
+				String.valueOf(priceList.getPriceListAccountGroups()));
+		}
+
+		if (priceList.getPriceListAccounts() == null) {
+			map.put("priceListAccounts", null);
+		}
+		else {
+			map.put(
+				"priceListAccounts",
+				String.valueOf(priceList.getPriceListAccounts()));
+		}
+
+		if (priceList.getPriceListChannels() == null) {
+			map.put("priceListChannels", null);
+		}
+		else {
+			map.put(
+				"priceListChannels",
+				String.valueOf(priceList.getPriceListChannels()));
+		}
+
+		if (priceList.getPriceListDiscounts() == null) {
+			map.put("priceListDiscounts", null);
+		}
+		else {
+			map.put(
+				"priceListDiscounts",
+				String.valueOf(priceList.getPriceListDiscounts()));
+		}
+
+		if (priceList.getPriceModifiers() == null) {
+			map.put("priceModifiers", null);
+		}
+		else {
+			map.put(
+				"priceModifiers",
+				String.valueOf(priceList.getPriceModifiers()));
+		}
+
 		if (priceList.getPriority() == null) {
 			map.put("priority", null);
 		}
@@ -517,33 +557,7 @@ public class PriceListSerDes {
 			PriceList priceList, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "accountGroups")) {
-				if (jsonParserFieldValue != null) {
-					priceList.setAccountGroups(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> PriceListAccountGroupSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new PriceListAccountGroup[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "accounts")) {
-				if (jsonParserFieldValue != null) {
-					priceList.setAccounts(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> PriceListAccountSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new PriceListAccount[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "active")) {
+			if (Objects.equals(jsonParserFieldName, "active")) {
 				if (jsonParserFieldValue != null) {
 					priceList.setActive((Boolean)jsonParserFieldValue);
 				}
@@ -562,19 +576,6 @@ public class PriceListSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "channels")) {
-				if (jsonParserFieldValue != null) {
-					priceList.setChannels(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> PriceListChannelSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new PriceListChannel[size]
-						));
-				}
-			}
 			else if (Objects.equals(jsonParserFieldName, "currencyCode")) {
 				if (jsonParserFieldValue != null) {
 					priceList.setCurrencyCode((String)jsonParserFieldValue);
@@ -585,19 +586,6 @@ public class PriceListSerDes {
 					priceList.setCustomFields(
 						(Map)PriceListSerDes.toMap(
 							(String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "discounts")) {
-				if (jsonParserFieldValue != null) {
-					priceList.setDiscounts(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> PriceListDiscountSerDes.toDTO(
-								(String)object)
-						).toArray(
-							size -> new PriceListDiscount[size]
-						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "displayDate")) {
@@ -649,6 +637,74 @@ public class PriceListSerDes {
 							object -> PriceEntrySerDes.toDTO((String)object)
 						).toArray(
 							size -> new PriceEntry[size]
+						));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "priceListAccountGroups")) {
+
+				if (jsonParserFieldValue != null) {
+					priceList.setPriceListAccountGroups(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> PriceListAccountGroupSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new PriceListAccountGroup[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "priceListAccounts")) {
+				if (jsonParserFieldValue != null) {
+					priceList.setPriceListAccounts(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> PriceListAccountSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new PriceListAccount[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "priceListChannels")) {
+				if (jsonParserFieldValue != null) {
+					priceList.setPriceListChannels(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> PriceListChannelSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new PriceListChannel[size]
+						));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "priceListDiscounts")) {
+
+				if (jsonParserFieldValue != null) {
+					priceList.setPriceListDiscounts(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> PriceListDiscountSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new PriceListDiscount[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "priceModifiers")) {
+				if (jsonParserFieldValue != null) {
+					priceList.setPriceModifiers(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> PriceModifierSerDes.toDTO((String)object)
+						).toArray(
+							size -> new PriceModifier[size]
 						));
 				}
 			}

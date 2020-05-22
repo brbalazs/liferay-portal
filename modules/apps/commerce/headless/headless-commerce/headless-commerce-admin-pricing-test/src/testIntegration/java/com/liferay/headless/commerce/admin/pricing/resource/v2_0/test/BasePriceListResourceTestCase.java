@@ -790,22 +790,6 @@ public abstract class BasePriceListResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("accountGroups", additionalAssertFieldName)) {
-				if (priceList.getAccountGroups() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("accounts", additionalAssertFieldName)) {
-				if (priceList.getAccounts() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("active", additionalAssertFieldName)) {
 				if (priceList.getActive() == null) {
 					valid = false;
@@ -832,14 +816,6 @@ public abstract class BasePriceListResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("channels", additionalAssertFieldName)) {
-				if (priceList.getChannels() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("currencyCode", additionalAssertFieldName)) {
 				if (priceList.getCurrencyCode() == null) {
 					valid = false;
@@ -850,14 +826,6 @@ public abstract class BasePriceListResourceTestCase {
 
 			if (Objects.equals("customFields", additionalAssertFieldName)) {
 				if (priceList.getCustomFields() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("discounts", additionalAssertFieldName)) {
-				if (priceList.getDiscounts() == null) {
 					valid = false;
 				}
 
@@ -916,6 +884,54 @@ public abstract class BasePriceListResourceTestCase {
 
 			if (Objects.equals("priceEntries", additionalAssertFieldName)) {
 				if (priceList.getPriceEntries() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"priceListAccountGroups", additionalAssertFieldName)) {
+
+				if (priceList.getPriceListAccountGroups() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"priceListAccounts", additionalAssertFieldName)) {
+
+				if (priceList.getPriceListAccounts() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"priceListChannels", additionalAssertFieldName)) {
+
+				if (priceList.getPriceListChannels() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"priceListDiscounts", additionalAssertFieldName)) {
+
+				if (priceList.getPriceListDiscounts() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("priceModifiers", additionalAssertFieldName)) {
+				if (priceList.getPriceModifiers() == null) {
 					valid = false;
 				}
 
@@ -1028,27 +1044,6 @@ public abstract class BasePriceListResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("accountGroups", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						priceList1.getAccountGroups(),
-						priceList2.getAccountGroups())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("accounts", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						priceList1.getAccounts(), priceList2.getAccounts())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("active", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						priceList1.getActive(), priceList2.getActive())) {
@@ -1082,16 +1077,6 @@ public abstract class BasePriceListResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("channels", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						priceList1.getChannels(), priceList2.getChannels())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("currencyCode", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						priceList1.getCurrencyCode(),
@@ -1107,16 +1092,6 @@ public abstract class BasePriceListResourceTestCase {
 				if (!equals(
 						(Map)priceList1.getCustomFields(),
 						(Map)priceList2.getCustomFields())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("discounts", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						priceList1.getDiscounts(), priceList2.getDiscounts())) {
 
 					return false;
 				}
@@ -1204,6 +1179,69 @@ public abstract class BasePriceListResourceTestCase {
 				if (!Objects.deepEquals(
 						priceList1.getPriceEntries(),
 						priceList2.getPriceEntries())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"priceListAccountGroups", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceList1.getPriceListAccountGroups(),
+						priceList2.getPriceListAccountGroups())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"priceListAccounts", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceList1.getPriceListAccounts(),
+						priceList2.getPriceListAccounts())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"priceListChannels", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceList1.getPriceListChannels(),
+						priceList2.getPriceListChannels())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"priceListDiscounts", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceList1.getPriceListDiscounts(),
+						priceList2.getPriceListDiscounts())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("priceModifiers", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceList1.getPriceModifiers(),
+						priceList2.getPriceModifiers())) {
 
 					return false;
 				}
@@ -1313,16 +1351,6 @@ public abstract class BasePriceListResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
-		if (entityFieldName.equals("accountGroups")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("accounts")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("active")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1338,11 +1366,6 @@ public abstract class BasePriceListResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("channels")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("currencyCode")) {
 			sb.append("'");
 			sb.append(String.valueOf(priceList.getCurrencyCode()));
@@ -1352,11 +1375,6 @@ public abstract class BasePriceListResourceTestCase {
 		}
 
 		if (entityFieldName.equals("customFields")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("discounts")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1457,6 +1475,31 @@ public abstract class BasePriceListResourceTestCase {
 		}
 
 		if (entityFieldName.equals("priceEntries")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("priceListAccountGroups")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("priceListAccounts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("priceListChannels")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("priceListDiscounts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("priceModifiers")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

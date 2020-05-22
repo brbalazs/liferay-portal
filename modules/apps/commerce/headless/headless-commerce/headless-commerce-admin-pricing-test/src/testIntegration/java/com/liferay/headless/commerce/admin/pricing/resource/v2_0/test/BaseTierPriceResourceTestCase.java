@@ -863,6 +863,14 @@ public abstract class BaseTierPriceResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("neverExpire", additionalAssertFieldName)) {
+				if (tierPrice.getNeverExpire() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (tierPrice.getPrice() == null) {
 					valid = false;
@@ -1122,6 +1130,17 @@ public abstract class BaseTierPriceResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("neverExpire", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						tierPrice1.getNeverExpire(),
+						tierPrice2.getNeverExpire())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						tierPrice1.getPrice(), tierPrice2.getPrice())) {
@@ -1367,6 +1386,11 @@ public abstract class BaseTierPriceResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("neverExpire")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("price")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1443,6 +1467,7 @@ public abstract class BaseTierPriceResourceTestCase {
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				minimumQuantity = RandomTestUtil.randomInt();
+				neverExpire = RandomTestUtil.randomBoolean();
 				priceEntryExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				priceEntryId = RandomTestUtil.randomLong();

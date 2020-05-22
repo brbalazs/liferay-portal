@@ -307,6 +307,27 @@ public class PriceEntry implements Cloneable {
 
 	protected Long id;
 
+	public Boolean getNeverExpire() {
+		return neverExpire;
+	}
+
+	public void setNeverExpire(Boolean neverExpire) {
+		this.neverExpire = neverExpire;
+	}
+
+	public void setNeverExpire(
+		UnsafeSupplier<Boolean, Exception> neverExpireUnsafeSupplier) {
+
+		try {
+			neverExpire = neverExpireUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean neverExpire;
+
 	public BigDecimal getPrice() {
 		return price;
 	}

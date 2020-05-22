@@ -28,6 +28,10 @@ import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccount;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccountGroup;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListChannel;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListDiscount;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifier;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierCategory;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierProduct;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierProductGroup;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.TierPrice;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccountGroupResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccountResource;
@@ -43,6 +47,10 @@ import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListAccoun
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListChannelResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListDiscountResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierCategoryResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierProductGroupResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierProductResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.TierPriceResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
@@ -180,6 +188,39 @@ public class Mutation {
 
 		_priceListDiscountResourceComponentServiceObjects =
 			priceListDiscountResourceComponentServiceObjects;
+	}
+
+	public static void setPriceModifierResourceComponentServiceObjects(
+		ComponentServiceObjects<PriceModifierResource>
+			priceModifierResourceComponentServiceObjects) {
+
+		_priceModifierResourceComponentServiceObjects =
+			priceModifierResourceComponentServiceObjects;
+	}
+
+	public static void setPriceModifierCategoryResourceComponentServiceObjects(
+		ComponentServiceObjects<PriceModifierCategoryResource>
+			priceModifierCategoryResourceComponentServiceObjects) {
+
+		_priceModifierCategoryResourceComponentServiceObjects =
+			priceModifierCategoryResourceComponentServiceObjects;
+	}
+
+	public static void setPriceModifierProductResourceComponentServiceObjects(
+		ComponentServiceObjects<PriceModifierProductResource>
+			priceModifierProductResourceComponentServiceObjects) {
+
+		_priceModifierProductResourceComponentServiceObjects =
+			priceModifierProductResourceComponentServiceObjects;
+	}
+
+	public static void
+		setPriceModifierProductGroupResourceComponentServiceObjects(
+			ComponentServiceObjects<PriceModifierProductGroupResource>
+				priceModifierProductGroupResourceComponentServiceObjects) {
+
+		_priceModifierProductGroupResourceComponentServiceObjects =
+			priceModifierProductGroupResourceComponentServiceObjects;
 	}
 
 	public static void setTierPriceResourceComponentServiceObjects(
@@ -890,14 +931,16 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deletePriceListAccount(@GraphQLName("id") Long id)
+	public boolean deletePriceListAccount(@GraphQLName("id") Long id)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_priceListAccountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			priceListAccountResource ->
 				priceListAccountResource.deletePriceListAccount(id));
+
+		return true;
 	}
 
 	@GraphQLField
@@ -948,14 +991,16 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deletePriceListAccountGroup(@GraphQLName("id") Long id)
+	public boolean deletePriceListAccountGroup(@GraphQLName("id") Long id)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_priceListAccountGroupResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			priceListAccountGroupResource ->
 				priceListAccountGroupResource.deletePriceListAccountGroup(id));
+
+		return true;
 	}
 
 	@GraphQLField
@@ -1008,14 +1053,16 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deletePriceListChannel(@GraphQLName("id") Long id)
+	public boolean deletePriceListChannel(@GraphQLName("id") Long id)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_priceListChannelResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			priceListChannelResource ->
 				priceListChannelResource.deletePriceListChannel(id));
+
+		return true;
 	}
 
 	@GraphQLField
@@ -1066,14 +1113,16 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deletePriceListDiscount(@GraphQLName("id") Long id)
+	public boolean deletePriceListDiscount(@GraphQLName("id") Long id)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_priceListDiscountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			priceListDiscountResource ->
 				priceListDiscountResource.deletePriceListDiscount(id));
+
+		return true;
 	}
 
 	@GraphQLField
@@ -1122,6 +1171,295 @@ public class Mutation {
 			priceListDiscountResource ->
 				priceListDiscountResource.postPriceListIdPriceListDiscount(
 					id, priceListDiscount));
+	}
+
+	@GraphQLField
+	public PriceModifier createPriceListByExternalReferenceCodePriceModifier(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode,
+			@GraphQLName("priceModifier") PriceModifier priceModifier)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierResource ->
+				priceModifierResource.
+					postPriceListByExternalReferenceCodePriceModifier(
+						externalReferenceCode, priceModifier));
+	}
+
+	@GraphQLField
+	public PriceModifier createPriceListIdPriceModifier(
+			@GraphQLName("id") Long id,
+			@GraphQLName("priceModifier") PriceModifier priceModifier)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierResource ->
+				priceModifierResource.postPriceListIdPriceModifier(
+					id, priceModifier));
+	}
+
+	@GraphQLField
+	public boolean deletePriceModifierByExternalReferenceCode(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_priceModifierResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierResource ->
+				priceModifierResource.
+					deletePriceModifierByExternalReferenceCode(
+						externalReferenceCode));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response patchPriceModifierByExternalReferenceCode(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode,
+			@GraphQLName("priceModifier") PriceModifier priceModifier)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierResource ->
+				priceModifierResource.patchPriceModifierByExternalReferenceCode(
+					externalReferenceCode, priceModifier));
+	}
+
+	@GraphQLField
+	public boolean deletePriceModifier(@GraphQLName("id") Long id)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_priceModifierResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierResource -> priceModifierResource.deletePriceModifier(
+				id));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response deletePriceModifierBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierResource ->
+				priceModifierResource.deletePriceModifierBatch(
+					id, callbackURL, object));
+	}
+
+	@GraphQLField
+	public Response patchPriceModifier(
+			@GraphQLName("id") Long id,
+			@GraphQLName("priceModifier") PriceModifier priceModifier)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierResource -> priceModifierResource.patchPriceModifier(
+				id, priceModifier));
+	}
+
+	@GraphQLField
+	public boolean deletePriceModifierCategory(@GraphQLName("id") Long id)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_priceModifierCategoryResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierCategoryResource ->
+				priceModifierCategoryResource.deletePriceModifierCategory(id));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response deletePriceModifierCategoryBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierCategoryResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierCategoryResource ->
+				priceModifierCategoryResource.deletePriceModifierCategoryBatch(
+					id, callbackURL, object));
+	}
+
+	@GraphQLField
+	public PriceModifierCategory
+			createPriceModifierByExternalReferenceCodePriceModifierCategory(
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("priceModifierCategory") PriceModifierCategory
+					priceModifierCategory)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierCategoryResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierCategoryResource ->
+				priceModifierCategoryResource.
+					postPriceModifierByExternalReferenceCodePriceModifierCategory(
+						externalReferenceCode, priceModifierCategory));
+	}
+
+	@GraphQLField
+	public PriceModifierCategory createPriceModifierIdPriceModifierCategory(
+			@GraphQLName("id") Long id,
+			@GraphQLName("priceModifierCategory") PriceModifierCategory
+				priceModifierCategory)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierCategoryResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierCategoryResource ->
+				priceModifierCategoryResource.
+					postPriceModifierIdPriceModifierCategory(
+						id, priceModifierCategory));
+	}
+
+	@GraphQLField
+	public boolean deletePriceModifierProduct(@GraphQLName("id") Long id)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_priceModifierProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierProductResource ->
+				priceModifierProductResource.deletePriceModifierProduct(id));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response deletePriceModifierProductBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierProductResource ->
+				priceModifierProductResource.deletePriceModifierProductBatch(
+					id, callbackURL, object));
+	}
+
+	@GraphQLField
+	public PriceModifierProduct
+			createPriceModifierByExternalReferenceCodePriceModifierProduct(
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("priceModifierProduct") PriceModifierProduct
+					priceModifierProduct)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierProductResource ->
+				priceModifierProductResource.
+					postPriceModifierByExternalReferenceCodePriceModifierProduct(
+						externalReferenceCode, priceModifierProduct));
+	}
+
+	@GraphQLField
+	public PriceModifierProduct createPriceModifierIdPriceModifierProduct(
+			@GraphQLName("id") Long id,
+			@GraphQLName("priceModifierProduct") PriceModifierProduct
+				priceModifierProduct)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierProductResource ->
+				priceModifierProductResource.
+					postPriceModifierIdPriceModifierProduct(
+						id, priceModifierProduct));
+	}
+
+	@GraphQLField
+	public boolean deletePriceModifierProductGroup(@GraphQLName("id") Long id)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_priceModifierProductGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierProductGroupResource ->
+				priceModifierProductGroupResource.
+					deletePriceModifierProductGroup(id));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response deletePriceModifierProductGroupBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierProductGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierProductGroupResource ->
+				priceModifierProductGroupResource.
+					deletePriceModifierProductGroupBatch(
+						id, callbackURL, object));
+	}
+
+	@GraphQLField
+	public PriceModifierProductGroup
+			createPriceModifierByExternalReferenceCodePriceModifierProductGroup(
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("priceModifierProductGroup")
+					PriceModifierProductGroup priceModifierProductGroup)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierProductGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierProductGroupResource ->
+				priceModifierProductGroupResource.
+					postPriceModifierByExternalReferenceCodePriceModifierProductGroup(
+						externalReferenceCode, priceModifierProductGroup));
+	}
+
+	@GraphQLField
+	public PriceModifierProductGroup
+			createPriceModifierIdPriceModifierProductGroup(
+				@GraphQLName("id") Long id,
+				@GraphQLName("priceModifierProductGroup")
+					PriceModifierProductGroup priceModifierProductGroup)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_priceModifierProductGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			priceModifierProductGroupResource ->
+				priceModifierProductGroupResource.
+					postPriceModifierIdPriceModifierProductGroup(
+						id, priceModifierProductGroup));
 	}
 
 	@GraphQLField
@@ -1444,6 +1782,62 @@ public class Mutation {
 		priceListDiscountResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(
+			PriceModifierResource priceModifierResource)
+		throws Exception {
+
+		priceModifierResource.setContextAcceptLanguage(_acceptLanguage);
+		priceModifierResource.setContextCompany(_company);
+		priceModifierResource.setContextHttpServletRequest(_httpServletRequest);
+		priceModifierResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		priceModifierResource.setContextUriInfo(_uriInfo);
+		priceModifierResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
+			PriceModifierCategoryResource priceModifierCategoryResource)
+		throws Exception {
+
+		priceModifierCategoryResource.setContextAcceptLanguage(_acceptLanguage);
+		priceModifierCategoryResource.setContextCompany(_company);
+		priceModifierCategoryResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		priceModifierCategoryResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		priceModifierCategoryResource.setContextUriInfo(_uriInfo);
+		priceModifierCategoryResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
+			PriceModifierProductResource priceModifierProductResource)
+		throws Exception {
+
+		priceModifierProductResource.setContextAcceptLanguage(_acceptLanguage);
+		priceModifierProductResource.setContextCompany(_company);
+		priceModifierProductResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		priceModifierProductResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		priceModifierProductResource.setContextUriInfo(_uriInfo);
+		priceModifierProductResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
+			PriceModifierProductGroupResource priceModifierProductGroupResource)
+		throws Exception {
+
+		priceModifierProductGroupResource.setContextAcceptLanguage(
+			_acceptLanguage);
+		priceModifierProductGroupResource.setContextCompany(_company);
+		priceModifierProductGroupResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		priceModifierProductGroupResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		priceModifierProductGroupResource.setContextUriInfo(_uriInfo);
+		priceModifierProductGroupResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(TierPriceResource tierPriceResource)
 		throws Exception {
 
@@ -1483,6 +1877,14 @@ public class Mutation {
 		_priceListChannelResourceComponentServiceObjects;
 	private static ComponentServiceObjects<PriceListDiscountResource>
 		_priceListDiscountResourceComponentServiceObjects;
+	private static ComponentServiceObjects<PriceModifierResource>
+		_priceModifierResourceComponentServiceObjects;
+	private static ComponentServiceObjects<PriceModifierCategoryResource>
+		_priceModifierCategoryResourceComponentServiceObjects;
+	private static ComponentServiceObjects<PriceModifierProductResource>
+		_priceModifierProductResourceComponentServiceObjects;
+	private static ComponentServiceObjects<PriceModifierProductGroupResource>
+		_priceModifierProductGroupResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TierPriceResource>
 		_tierPriceResourceComponentServiceObjects;
 

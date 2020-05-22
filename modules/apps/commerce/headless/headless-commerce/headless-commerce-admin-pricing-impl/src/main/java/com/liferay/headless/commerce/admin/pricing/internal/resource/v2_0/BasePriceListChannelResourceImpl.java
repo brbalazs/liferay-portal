@@ -90,13 +90,9 @@ public abstract class BasePriceListChannelResourceImpl
 	@Path("/priceListChannels/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
-	public Response deletePriceListChannel(
+	public void deletePriceListChannel(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id)
 		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
 	}
 
 	/**

@@ -403,6 +403,34 @@ public class TierPrice {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer minimumQuantity;
 
+	@Schema
+	public Boolean getNeverExpire() {
+		return neverExpire;
+	}
+
+	public void setNeverExpire(Boolean neverExpire) {
+		this.neverExpire = neverExpire;
+	}
+
+	@JsonIgnore
+	public void setNeverExpire(
+		UnsafeSupplier<Boolean, Exception> neverExpireUnsafeSupplier) {
+
+		try {
+			neverExpire = neverExpireUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean neverExpire;
+
 	@DecimalMin("0")
 	@Schema
 	@Valid
@@ -684,6 +712,16 @@ public class TierPrice {
 			sb.append("\"minimumQuantity\": ");
 
 			sb.append(minimumQuantity);
+		}
+
+		if (neverExpire != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"neverExpire\": ");
+
+			sb.append(neverExpire);
 		}
 
 		if (price != null) {

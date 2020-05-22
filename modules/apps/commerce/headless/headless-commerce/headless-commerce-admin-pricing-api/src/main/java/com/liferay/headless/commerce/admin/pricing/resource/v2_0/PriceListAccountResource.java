@@ -47,7 +47,7 @@ public interface PriceListAccountResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Response deletePriceListAccount(Long id) throws Exception;
+	public void deletePriceListAccount(Long id) throws Exception;
 
 	public Response deletePriceListAccountBatch(
 			Long id, String callbackURL, Object object)

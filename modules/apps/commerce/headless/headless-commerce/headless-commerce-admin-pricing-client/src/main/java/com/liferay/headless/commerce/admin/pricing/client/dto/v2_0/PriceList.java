@@ -34,49 +34,6 @@ public class PriceList implements Cloneable {
 		return PriceListSerDes.toDTO(json);
 	}
 
-	public PriceListAccountGroup[] getAccountGroups() {
-		return accountGroups;
-	}
-
-	public void setAccountGroups(PriceListAccountGroup[] accountGroups) {
-		this.accountGroups = accountGroups;
-	}
-
-	public void setAccountGroups(
-		UnsafeSupplier<PriceListAccountGroup[], Exception>
-			accountGroupsUnsafeSupplier) {
-
-		try {
-			accountGroups = accountGroupsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected PriceListAccountGroup[] accountGroups;
-
-	public PriceListAccount[] getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(PriceListAccount[] accounts) {
-		this.accounts = accounts;
-	}
-
-	public void setAccounts(
-		UnsafeSupplier<PriceListAccount[], Exception> accountsUnsafeSupplier) {
-
-		try {
-			accounts = accountsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected PriceListAccount[] accounts;
-
 	public Boolean getActive() {
 		return active;
 	}
@@ -140,27 +97,6 @@ public class PriceList implements Cloneable {
 
 	protected Long catalogId;
 
-	public PriceListChannel[] getChannels() {
-		return channels;
-	}
-
-	public void setChannels(PriceListChannel[] channels) {
-		this.channels = channels;
-	}
-
-	public void setChannels(
-		UnsafeSupplier<PriceListChannel[], Exception> channelsUnsafeSupplier) {
-
-		try {
-			channels = channelsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected PriceListChannel[] channels;
-
 	public String getCurrencyCode() {
 		return currencyCode;
 	}
@@ -202,28 +138,6 @@ public class PriceList implements Cloneable {
 	}
 
 	protected Map<String, ?> customFields;
-
-	public PriceListDiscount[] getDiscounts() {
-		return discounts;
-	}
-
-	public void setDiscounts(PriceListDiscount[] discounts) {
-		this.discounts = discounts;
-	}
-
-	public void setDiscounts(
-		UnsafeSupplier<PriceListDiscount[], Exception>
-			discountsUnsafeSupplier) {
-
-		try {
-			discounts = discountsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected PriceListDiscount[] discounts;
 
 	public Date getDisplayDate() {
 		return displayDate;
@@ -388,6 +302,118 @@ public class PriceList implements Cloneable {
 	}
 
 	protected PriceEntry[] priceEntries;
+
+	public PriceListAccountGroup[] getPriceListAccountGroups() {
+		return priceListAccountGroups;
+	}
+
+	public void setPriceListAccountGroups(
+		PriceListAccountGroup[] priceListAccountGroups) {
+
+		this.priceListAccountGroups = priceListAccountGroups;
+	}
+
+	public void setPriceListAccountGroups(
+		UnsafeSupplier<PriceListAccountGroup[], Exception>
+			priceListAccountGroupsUnsafeSupplier) {
+
+		try {
+			priceListAccountGroups = priceListAccountGroupsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PriceListAccountGroup[] priceListAccountGroups;
+
+	public PriceListAccount[] getPriceListAccounts() {
+		return priceListAccounts;
+	}
+
+	public void setPriceListAccounts(PriceListAccount[] priceListAccounts) {
+		this.priceListAccounts = priceListAccounts;
+	}
+
+	public void setPriceListAccounts(
+		UnsafeSupplier<PriceListAccount[], Exception>
+			priceListAccountsUnsafeSupplier) {
+
+		try {
+			priceListAccounts = priceListAccountsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PriceListAccount[] priceListAccounts;
+
+	public PriceListChannel[] getPriceListChannels() {
+		return priceListChannels;
+	}
+
+	public void setPriceListChannels(PriceListChannel[] priceListChannels) {
+		this.priceListChannels = priceListChannels;
+	}
+
+	public void setPriceListChannels(
+		UnsafeSupplier<PriceListChannel[], Exception>
+			priceListChannelsUnsafeSupplier) {
+
+		try {
+			priceListChannels = priceListChannelsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PriceListChannel[] priceListChannels;
+
+	public PriceListDiscount[] getPriceListDiscounts() {
+		return priceListDiscounts;
+	}
+
+	public void setPriceListDiscounts(PriceListDiscount[] priceListDiscounts) {
+		this.priceListDiscounts = priceListDiscounts;
+	}
+
+	public void setPriceListDiscounts(
+		UnsafeSupplier<PriceListDiscount[], Exception>
+			priceListDiscountsUnsafeSupplier) {
+
+		try {
+			priceListDiscounts = priceListDiscountsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PriceListDiscount[] priceListDiscounts;
+
+	public PriceModifier[] getPriceModifiers() {
+		return priceModifiers;
+	}
+
+	public void setPriceModifiers(PriceModifier[] priceModifiers) {
+		this.priceModifiers = priceModifiers;
+	}
+
+	public void setPriceModifiers(
+		UnsafeSupplier<PriceModifier[], Exception>
+			priceModifiersUnsafeSupplier) {
+
+		try {
+			priceModifiers = priceModifiersUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PriceModifier[] priceModifiers;
 
 	public Double getPriority() {
 		return priority;

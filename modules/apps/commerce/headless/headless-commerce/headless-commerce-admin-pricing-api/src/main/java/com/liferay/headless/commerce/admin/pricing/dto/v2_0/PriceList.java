@@ -61,65 +61,6 @@ public class PriceList {
 	}
 
 	@Schema
-	@Valid
-	public PriceListAccountGroup[] getAccountGroups() {
-		return accountGroups;
-	}
-
-	public void setAccountGroups(PriceListAccountGroup[] accountGroups) {
-		this.accountGroups = accountGroups;
-	}
-
-	@JsonIgnore
-	public void setAccountGroups(
-		UnsafeSupplier<PriceListAccountGroup[], Exception>
-			accountGroupsUnsafeSupplier) {
-
-		try {
-			accountGroups = accountGroupsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected PriceListAccountGroup[] accountGroups;
-
-	@Schema
-	@Valid
-	public PriceListAccount[] getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(PriceListAccount[] accounts) {
-		this.accounts = accounts;
-	}
-
-	@JsonIgnore
-	public void setAccounts(
-		UnsafeSupplier<PriceListAccount[], Exception> accountsUnsafeSupplier) {
-
-		try {
-			accounts = accountsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected PriceListAccount[] accounts;
-
-	@Schema
 	public Boolean getActive() {
 		return active;
 	}
@@ -205,35 +146,6 @@ public class PriceList {
 	protected Long catalogId;
 
 	@Schema
-	@Valid
-	public PriceListChannel[] getChannels() {
-		return channels;
-	}
-
-	public void setChannels(PriceListChannel[] channels) {
-		this.channels = channels;
-	}
-
-	@JsonIgnore
-	public void setChannels(
-		UnsafeSupplier<PriceListChannel[], Exception> channelsUnsafeSupplier) {
-
-		try {
-			channels = channelsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected PriceListChannel[] channels;
-
-	@Schema
 	public String getCurrencyCode() {
 		return currencyCode;
 	}
@@ -290,36 +202,6 @@ public class PriceList {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Map<String, ?> customFields;
-
-	@Schema
-	@Valid
-	public PriceListDiscount[] getDiscounts() {
-		return discounts;
-	}
-
-	public void setDiscounts(PriceListDiscount[] discounts) {
-		this.discounts = discounts;
-	}
-
-	@JsonIgnore
-	public void setDiscounts(
-		UnsafeSupplier<PriceListDiscount[], Exception>
-			discountsUnsafeSupplier) {
-
-		try {
-			discounts = discountsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected PriceListDiscount[] discounts;
 
 	@Schema
 	public Date getDisplayDate() {
@@ -545,6 +427,158 @@ public class PriceList {
 	protected PriceEntry[] priceEntries;
 
 	@Schema
+	@Valid
+	public PriceListAccountGroup[] getPriceListAccountGroups() {
+		return priceListAccountGroups;
+	}
+
+	public void setPriceListAccountGroups(
+		PriceListAccountGroup[] priceListAccountGroups) {
+
+		this.priceListAccountGroups = priceListAccountGroups;
+	}
+
+	@JsonIgnore
+	public void setPriceListAccountGroups(
+		UnsafeSupplier<PriceListAccountGroup[], Exception>
+			priceListAccountGroupsUnsafeSupplier) {
+
+		try {
+			priceListAccountGroups = priceListAccountGroupsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PriceListAccountGroup[] priceListAccountGroups;
+
+	@Schema
+	@Valid
+	public PriceListAccount[] getPriceListAccounts() {
+		return priceListAccounts;
+	}
+
+	public void setPriceListAccounts(PriceListAccount[] priceListAccounts) {
+		this.priceListAccounts = priceListAccounts;
+	}
+
+	@JsonIgnore
+	public void setPriceListAccounts(
+		UnsafeSupplier<PriceListAccount[], Exception>
+			priceListAccountsUnsafeSupplier) {
+
+		try {
+			priceListAccounts = priceListAccountsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PriceListAccount[] priceListAccounts;
+
+	@Schema
+	@Valid
+	public PriceListChannel[] getPriceListChannels() {
+		return priceListChannels;
+	}
+
+	public void setPriceListChannels(PriceListChannel[] priceListChannels) {
+		this.priceListChannels = priceListChannels;
+	}
+
+	@JsonIgnore
+	public void setPriceListChannels(
+		UnsafeSupplier<PriceListChannel[], Exception>
+			priceListChannelsUnsafeSupplier) {
+
+		try {
+			priceListChannels = priceListChannelsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PriceListChannel[] priceListChannels;
+
+	@Schema
+	@Valid
+	public PriceListDiscount[] getPriceListDiscounts() {
+		return priceListDiscounts;
+	}
+
+	public void setPriceListDiscounts(PriceListDiscount[] priceListDiscounts) {
+		this.priceListDiscounts = priceListDiscounts;
+	}
+
+	@JsonIgnore
+	public void setPriceListDiscounts(
+		UnsafeSupplier<PriceListDiscount[], Exception>
+			priceListDiscountsUnsafeSupplier) {
+
+		try {
+			priceListDiscounts = priceListDiscountsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PriceListDiscount[] priceListDiscounts;
+
+	@Schema
+	@Valid
+	public PriceModifier[] getPriceModifiers() {
+		return priceModifiers;
+	}
+
+	public void setPriceModifiers(PriceModifier[] priceModifiers) {
+		this.priceModifiers = priceModifiers;
+	}
+
+	@JsonIgnore
+	public void setPriceModifiers(
+		UnsafeSupplier<PriceModifier[], Exception>
+			priceModifiersUnsafeSupplier) {
+
+		try {
+			priceModifiers = priceModifiersUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PriceModifier[] priceModifiers;
+
+	@Schema
 	public Double getPriority() {
 		return priority;
 	}
@@ -638,46 +672,6 @@ public class PriceList {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (accountGroups != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accountGroups\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < accountGroups.length; i++) {
-				sb.append(String.valueOf(accountGroups[i]));
-
-				if ((i + 1) < accountGroups.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (accounts != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accounts\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < accounts.length; i++) {
-				sb.append(String.valueOf(accounts[i]));
-
-				if ((i + 1) < accounts.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (active != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -708,26 +702,6 @@ public class PriceList {
 			sb.append(catalogId);
 		}
 
-		if (channels != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"channels\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < channels.length; i++) {
-				sb.append(String.valueOf(channels[i]));
-
-				if ((i + 1) < channels.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (currencyCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -750,26 +724,6 @@ public class PriceList {
 			sb.append("\"customFields\": ");
 
 			sb.append(_toJSON(customFields));
-		}
-
-		if (discounts != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"discounts\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < discounts.length; i++) {
-				sb.append(String.valueOf(discounts[i]));
-
-				if ((i + 1) < discounts.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
 		}
 
 		if (displayDate != null) {
@@ -871,6 +825,106 @@ public class PriceList {
 				sb.append(String.valueOf(priceEntries[i]));
 
 				if ((i + 1) < priceEntries.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceListAccountGroups != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceListAccountGroups\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceListAccountGroups.length; i++) {
+				sb.append(String.valueOf(priceListAccountGroups[i]));
+
+				if ((i + 1) < priceListAccountGroups.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceListAccounts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceListAccounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceListAccounts.length; i++) {
+				sb.append(String.valueOf(priceListAccounts[i]));
+
+				if ((i + 1) < priceListAccounts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceListChannels != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceListChannels\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceListChannels.length; i++) {
+				sb.append(String.valueOf(priceListChannels[i]));
+
+				if ((i + 1) < priceListChannels.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceListDiscounts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceListDiscounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceListDiscounts.length; i++) {
+				sb.append(String.valueOf(priceListDiscounts[i]));
+
+				if ((i + 1) < priceListDiscounts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (priceModifiers != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceModifiers\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < priceModifiers.length; i++) {
+				sb.append(String.valueOf(priceModifiers[i]));
+
+				if ((i + 1) < priceModifiers.length) {
 					sb.append(", ");
 				}
 			}

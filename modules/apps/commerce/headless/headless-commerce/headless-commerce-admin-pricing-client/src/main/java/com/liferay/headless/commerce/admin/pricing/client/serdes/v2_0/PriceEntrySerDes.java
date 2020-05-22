@@ -207,6 +207,16 @@ public class PriceEntrySerDes {
 			sb.append(priceEntry.getId());
 		}
 
+		if (priceEntry.getNeverExpire() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"neverExpire\": ");
+
+			sb.append(priceEntry.getNeverExpire());
+		}
+
 		if (priceEntry.getPrice() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -439,6 +449,13 @@ public class PriceEntrySerDes {
 			map.put("id", String.valueOf(priceEntry.getId()));
 		}
 
+		if (priceEntry.getNeverExpire() == null) {
+			map.put("neverExpire", null);
+		}
+		else {
+			map.put("neverExpire", String.valueOf(priceEntry.getNeverExpire()));
+		}
+
 		if (priceEntry.getPrice() == null) {
 			map.put("price", null);
 		}
@@ -596,6 +613,11 @@ public class PriceEntrySerDes {
 				if (jsonParserFieldValue != null) {
 					priceEntry.setId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "neverExpire")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setNeverExpire((Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "price")) {

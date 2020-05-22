@@ -90,13 +90,9 @@ public abstract class BasePriceListAccountGroupResourceImpl
 	@Path("/priceListAccountGroups/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListAccountGroup")})
-	public Response deletePriceListAccountGroup(
+	public void deletePriceListAccountGroup(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id)
 		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
 	}
 
 	/**
