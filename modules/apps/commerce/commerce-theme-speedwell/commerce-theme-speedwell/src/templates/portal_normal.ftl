@@ -11,7 +11,7 @@
 		<@liferay_util["include"] page=top_head_include />
 	</head>
 
-	<body class="speedwell ${css_class}">
+	<body class="speedwell ${css_class}" id="content">
 		<div id="wrapper">
 			<div class="liferay-top">
 				<@liferay_ui["quick-access"] contentId="#main-content" />

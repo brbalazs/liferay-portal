@@ -29,7 +29,7 @@
 	<#assign css_class = css_class + " minium-login" />
 </#if>
 
-<body class="${css_class}">
+<body class="${css_class}" id="content">
 	<div id="wrapper">
 		<div class="liferay-top">
 			<@liferay_ui["quick-access"] contentId="#main-content" />
