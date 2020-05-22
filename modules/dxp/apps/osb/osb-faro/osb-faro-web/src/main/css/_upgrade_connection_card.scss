@@ -1,6 +1,7 @@
 .upgrade-connection-card-root {
 	color: $mainLighten28;
-
+	margin-bottom: 1.6rem;
+	
 	.panel-body {
 		background-color: $secondaryHover;
 		font-size: $fontSizeSmall;
@@ -8,6 +9,6 @@
 
 	.panel-header {
 		background-color: $warning;
-		color: white;
+		color: $white;
 	}
 }

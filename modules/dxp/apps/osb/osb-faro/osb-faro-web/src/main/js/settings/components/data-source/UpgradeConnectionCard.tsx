@@ -19,7 +19,7 @@ const UpgradeConnectionCard: React.FC<IUpgradeConnectionCardProps> = ({
 	content,
 	title
 }) => (
-	<Panel className='upgrade-connection-card-root mb-4' title={title}>
+	<Panel className='upgrade-connection-card-root' title={title}>
 		<p>{content}</p>
 
 		<Button onClick={onClick} size='sm'>
