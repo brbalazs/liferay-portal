@@ -5,15 +5,16 @@ import DatePicker from './date-picker';
 import getCN from 'classnames';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
-import {DateRange, MomentDateRange} from 'shared/components/DateRangeInput';
 import {FORMAT} from 'shared/util/date';
-import {isRange} from 'shared/components/date-picker/util';
 import {
 	LAST_24_HOURS,
+	LAST_28_DAYS,
 	LAST_30_DAYS,
 	LAST_7_DAYS,
-	LAST_90_DAYS
+	LAST_90_DAYS,
+	YESTERDAY
 } from 'shared/util/constants';
+import {MomentDateRange} from 'shared/components/DateRangeInput';
 import {RangeSelectors} from 'shared/util/util';
 
 type Item = {
@@ -41,11 +42,9 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 		rangeStart: ''
 	}
 }) => {
-	// add a useEffect for when rangeDates change
-
 	const [active, setActive] = useState(false);
 	const [customDateRange, setCustomDateRange] = useState<MomentDateRange>({
-		end: rangeEnd ? moment(rangeEnd, FORMAT) : null, // prob should set this to whatever is passed in
+		end: rangeEnd ? moment(rangeEnd, FORMAT) : null,
 		start: rangeStart ? moment(rangeStart, FORMAT) : null
 	});
 	const [seeMore, setSeeMore] = useState(false);
@@ -71,6 +70,49 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 		}
 	}, [customDateRange]);
 
+	const filterItems = () => {
+		if (legacy) {
+			return items.filter(({value}) =>
+				[
+					LAST_24_HOURS,
+					YESTERDAY,
+					LAST_7_DAYS,
+					LAST_28_DAYS,
+					LAST_30_DAYS,
+					LAST_90_DAYS
+				].includes(value as string)
+			);
+		} else if (seeMore) {
+			return items;
+		}
+
+		return items.filter(
+			({value}) =>
+				value === rangeKey ||
+				[
+					LAST_24_HOURS,
+					LAST_7_DAYS,
+					LAST_30_DAYS,
+					LAST_90_DAYS
+				].includes(value as string)
+		);
+	};
+
+	const getSelectedItem = () => {
+		if (rangeKey === 'CUSTOM') {
+			const {end, start} = customDateRange;
+
+			return {
+				label: `${moment(rangeStart).format('ll')} - ${moment(
+					rangeEnd
+				).format('ll')}`,
+				value: 'CUSTOM'
+			};
+		}
+
+		return items.find(({value}) => value === rangeKey) || items[0];
+	};
+
 	const handleValueChange = (item: Item) => {
 		setActive(false);
 
@@ -83,33 +125,6 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 
 		setCustomDateRange({end: null, start: null});
 	};
-
-	const getSelectedItem = () => {
-		if (rangeKey === 'CUSTOM') {
-			const {end, start} = customDateRange;
-
-			return {
-				label: `${start.format('ll')} - ${end.format('ll')}`,
-				value: 'CUSTOM'
-			};
-		}
-
-		return items.find(({value}) => value === rangeKey) || items[0];
-	};
-
-	const filteredItems =
-		seeMore || legacy
-			? items // filter these items to contain the original values only.
-			: items.filter(
-					({value}) =>
-						value === rangeKey ||
-						[
-							LAST_24_HOURS,
-							LAST_7_DAYS,
-							LAST_30_DAYS,
-							LAST_90_DAYS
-						].includes(value as string)
-			  );
 
 	const selectedItem = getSelectedItem();
 
@@ -151,7 +166,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 				/>
 			) : (
 				<ClayDropDown.ItemList>
-					{filteredItems.map((item: Item, index: number) => {
+					{filterItems().map((item: Item, index: number) => {
 						const {description, label, value} = item;
 
 						const activeClass =
