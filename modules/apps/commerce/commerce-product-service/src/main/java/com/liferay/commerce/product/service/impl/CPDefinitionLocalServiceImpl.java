@@ -1994,7 +1994,7 @@ public class CPDefinitionLocalServiceImpl
 			long userId, long cpDefinitionId, boolean ignoreSKUCombinations)
 		throws PortalException {
 
-		if (ignoreSKUCombinations) {
+		if (!ignoreSKUCombinations) {
 			int cpInstancesCount =
 				cpInstanceLocalService.getCPDefinitionInstancesCount(
 					cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
