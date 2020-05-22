@@ -48,8 +48,8 @@ public class DiscountRuleDTOConverter
 		return new DiscountRule() {
 			{
 				discountId = commerceDiscountRule.getCommerceDiscountId();
-				name = commerceDiscountRule.getName();
 				id = commerceDiscountRule.getCommerceDiscountRuleId();
+				name = commerceDiscountRule.getName();
 				type = commerceDiscountRule.getType();
 				typeSettings = commerceDiscountRule.getTypeSettings();
 			}

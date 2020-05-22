@@ -55,7 +55,7 @@ public class DiscountProductGroupUtil {
 
 			if (commercePricingClass == null) {
 				throw new NoSuchPricingClassException(
-					"Unable to find Pricing Group with externalReferenceCode: " +
+					"Unable to find ProductGroup with externalReferenceCode: " +
 						discountProductGroup.
 							getProductGroupExternalReferenceCode());
 			}
