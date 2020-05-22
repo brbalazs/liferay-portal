@@ -170,6 +170,8 @@ export const LAST_7_DAYS = '7';
 export const LAST_28_DAYS = '28';
 export const LAST_30_DAYS = '30';
 export const LAST_90_DAYS = '90';
+export const LAST_180_DAYS = '180';
+export const LAST_YEAR = '366';
 
 export const TIME_RANGE_LABELS = {
 	[LAST_24_HOURS]: Liferay.Language.get('last-24-hours'),
@@ -177,6 +179,8 @@ export const TIME_RANGE_LABELS = {
 	[LAST_30_DAYS]: Liferay.Language.get('last-30-days'),
 	[LAST_7_DAYS]: Liferay.Language.get('last-seven-days'),
 	[LAST_90_DAYS]: Liferay.Language.get('last-90-days'),
+	[LAST_180_DAYS]: Liferay.Language.get('last-180-days'),
+	[LAST_YEAR]: Liferay.Language.get('last-year'),
 	[YESTERDAY]: Liferay.Language.get('yesterday')
 };
 
