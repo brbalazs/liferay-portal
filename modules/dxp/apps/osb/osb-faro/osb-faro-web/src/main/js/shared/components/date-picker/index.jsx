@@ -193,7 +193,7 @@ export default class DatePicker extends React.Component {
 			<div aria-disabled={disabled} className={getCN(classes, className)}>
 				{isRange(date) && (
 					<label>
-						{date.start
+						{date.start && !date.end
 							? Liferay.Language.get('end-date')
 							: Liferay.Language.get('start-date')}
 					</label>
