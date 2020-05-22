@@ -14,42 +14,40 @@ import {
 	LAST_7_DAYS,
 	LAST_90_DAYS
 } from 'shared/util/constants';
+import {RangeSelectors} from 'shared/util/util';
 
 type Item = {
 	description?: string;
 	label: string;
-	value: string | DateRange;
+	value: string;
 };
 
-interface DropdownRangeKeyIProps extends React.HTMLAttributes<HTMLElement> {
+interface DropdownRangeKeyIProps {
+	className: string;
 	items: Array<Item>;
 	legacy: boolean;
-	onChange: (val: any) => void;
-	rangeKey: string;
+	onChange: (rangeSelectors: RangeSelectors) => void;
+	rangeSelectors: RangeSelectors;
 }
-
-const isDateRange = (dateRange: DateRange | string): dateRange is DateRange =>
-	Boolean((dateRange as DateRange).end && (dateRange as DateRange).start);
-
-const getSelectedItem = (items: Array<Item>, currentValue: string) =>
-	items.filter(({value}) => value === currentValue)[0];
 
 const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 	className,
 	items,
 	legacy = true, // legacy can be removed once we convert all uses of DropdownRangeKey to include the new values.
 	onChange,
-	rangeKey = LAST_30_DAYS
+	rangeSelectors: {rangeEnd, rangeKey, rangeStart} = {
+		rangeEnd: '',
+		rangeKey: LAST_30_DAYS,
+		rangeStart: ''
+	}
 }) => {
-	// add method to check if rangeKey is a range
+	// add a useEffect for when rangeDates change
+
 	const [active, setActive] = useState(false);
 	const [customDateRange, setCustomDateRange] = useState<MomentDateRange>({
-		end: null,
-		start: null
+		end: rangeEnd ? moment(rangeEnd, FORMAT) : null, // prob should set this to whatever is passed in
+		start: rangeStart ? moment(rangeStart, FORMAT) : null
 	});
-	const [selectedItem, setSelectedItem] = useState(
-		getSelectedItem(items, rangeKey)
-	);
 	const [seeMore, setSeeMore] = useState(false);
 	const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -59,41 +57,52 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 
 			const dateRangeItem = {
 				label: `${start.format('ll')} - ${end.format('ll')}`,
-				value: {
-					end: end.format(FORMAT),
-					start: start.format(FORMAT)
-				}
+				value: 'CUSTOM'
 			};
 
-			setSelectedItem(dateRangeItem);
-
-			onChange(dateRangeItem.value);
+			onChange({
+				rangeEnd: customDateRange.end.format(FORMAT),
+				rangeKey: dateRangeItem.value,
+				rangeStart: customDateRange.start.format(FORMAT)
+			});
 
 			setActive(false);
 			setShowDatePicker(false);
 		}
 	}, [customDateRange]);
 
-	const handleDateRangeSelect = ({end, start}: MomentDateRange) => {
-		setCustomDateRange({
-			end,
-			start
-		});
-	};
-
 	const handleValueChange = (item: Item) => {
 		setActive(false);
-		setSelectedItem(item);
 
-		onChange && onChange(item.value);
+		onChange &&
+			onChange({
+				rangeEnd: '',
+				rangeKey: item.value,
+				rangeStart: ''
+			});
+
+		setCustomDateRange({end: null, start: null});
+	};
+
+	const getSelectedItem = () => {
+		if (rangeKey === 'CUSTOM') {
+			const {end, start} = customDateRange;
+
+			return {
+				label: `${start.format('ll')} - ${end.format('ll')}`,
+				value: 'CUSTOM'
+			};
+		}
+
+		return items.find(({value}) => value === rangeKey) || items[0];
 	};
 
 	const filteredItems =
 		seeMore || legacy
-			? items
+			? items // filter these items to contain the original values only.
 			: items.filter(
 					({value}) =>
-						value === selectedItem.value ||
+						value === rangeKey ||
 						[
 							LAST_24_HOURS,
 							LAST_7_DAYS,
@@ -101,6 +110,8 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 							LAST_90_DAYS
 						].includes(value as string)
 			  );
+
+	const selectedItem = getSelectedItem();
 
 	return (
 		<ClayDropDown
@@ -131,7 +142,12 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 					maxDate={moment().endOf('day')}
 					maxRange={365}
 					minDate={moment().subtract(100, 'years')}
-					onSelect={handleDateRangeSelect}
+					onSelect={({end, start}: MomentDateRange) => {
+						setCustomDateRange({
+							end,
+							start
+						});
+					}}
 				/>
 			) : (
 				<ClayDropDown.ItemList>
@@ -174,7 +190,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 
 							<ClayDropDown.Item
 								className={getCN('c-pointer', {
-									active: isDateRange(selectedItem.value)
+									active: selectedItem.value === 'CUSTOM'
 								})}
 								key='CUSTOM'
 								onClick={() => setShowDatePicker(true)}
