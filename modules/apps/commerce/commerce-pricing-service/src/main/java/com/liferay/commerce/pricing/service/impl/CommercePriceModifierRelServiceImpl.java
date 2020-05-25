@@ -63,12 +63,25 @@ public class CommercePriceModifierRelServiceImpl
 	}
 
 	@Override
+	public CommercePriceModifierRel fetchCommercePriceModifierRel(
+			long commercePriceModifierId, String className, long classPK)
+		throws PortalException {
+
+		_commercePriceModifierResourcePermission.check(
+			getPermissionChecker(), commercePriceModifierId, ActionKeys.VIEW);
+
+		return commercePriceModifierRelLocalService.
+			fetchCommercePriceModifierRel(
+				commercePriceModifierId, className, classPK);
+	}
+
+	@Override
 	public long[] getClassPKs(long commercePriceModifierRelId, String className)
 		throws PortalException {
 
 		_commercePriceModifierResourcePermission.check(
 			getPermissionChecker(), commercePriceModifierRelId,
-			ActionKeys.UPDATE);
+			ActionKeys.VIEW);
 
 		return commercePriceModifierRelLocalService.getClassPKs(
 			commercePriceModifierRelId, className);
@@ -86,7 +99,7 @@ public class CommercePriceModifierRelServiceImpl
 		_commercePriceModifierResourcePermission.check(
 			getPermissionChecker(),
 			commercePriceModifierRel.getCommercePriceModifierId(),
-			ActionKeys.UPDATE);
+			ActionKeys.VIEW);
 
 		return commercePriceModifierRel;
 	}
@@ -98,7 +111,7 @@ public class CommercePriceModifierRelServiceImpl
 
 		_commercePriceModifierResourcePermission.check(
 			getPermissionChecker(), commercePriceModifierRelId,
-			ActionKeys.UPDATE);
+			ActionKeys.VIEW);
 
 		return commercePriceModifierRelLocalService.
 			getCommercePriceModifierRels(commercePriceModifierRelId, className);
@@ -113,7 +126,7 @@ public class CommercePriceModifierRelServiceImpl
 
 		_commercePriceModifierResourcePermission.check(
 			getPermissionChecker(), commercePriceModifierRelId,
-			ActionKeys.UPDATE);
+			ActionKeys.VIEW);
 
 		return commercePriceModifierRelLocalService.
 			getCommercePriceModifierRels(
@@ -128,7 +141,7 @@ public class CommercePriceModifierRelServiceImpl
 
 		_commercePriceModifierResourcePermission.check(
 			getPermissionChecker(), commercePriceModifierRelId,
-			ActionKeys.UPDATE);
+			ActionKeys.VIEW);
 
 		return commercePriceModifierRelLocalService.
 			getCommercePriceModifierRelsCount(
