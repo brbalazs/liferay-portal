@@ -88,7 +88,7 @@ configure(subprojects.findAll {!it.childProjects}) {
 		finalizedBy moveToDocker
 
 		liferay {
-			deployDir = new File("${liferayHome}/deploy")
+			deployDir = new File("${rootDir}/build/deploy")
 		}
 	}
 
