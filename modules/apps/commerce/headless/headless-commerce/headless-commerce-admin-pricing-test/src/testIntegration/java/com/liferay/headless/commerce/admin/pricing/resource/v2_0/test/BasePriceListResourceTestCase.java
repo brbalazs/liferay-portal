@@ -882,6 +882,16 @@ public abstract class BasePriceListResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"parentPriceListId", additionalAssertFieldName)) {
+
+				if (priceList.getParentPriceListId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("priceEntries", additionalAssertFieldName)) {
 				if (priceList.getPriceEntries() == null) {
 					valid = false;
@@ -1168,6 +1178,19 @@ public abstract class BasePriceListResourceTestCase {
 				if (!Objects.deepEquals(
 						priceList1.getNeverExpire(),
 						priceList2.getNeverExpire())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"parentPriceListId", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceList1.getParentPriceListId(),
+						priceList2.getParentPriceListId())) {
 
 					return false;
 				}
@@ -1474,6 +1497,11 @@ public abstract class BasePriceListResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("parentPriceListId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("priceEntries")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1571,6 +1599,7 @@ public abstract class BasePriceListResourceTestCase {
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				netPrice = RandomTestUtil.randomBoolean();
 				neverExpire = RandomTestUtil.randomBoolean();
+				parentPriceListId = RandomTestUtil.randomLong();
 				priority = RandomTestUtil.randomDouble();
 			}
 		};

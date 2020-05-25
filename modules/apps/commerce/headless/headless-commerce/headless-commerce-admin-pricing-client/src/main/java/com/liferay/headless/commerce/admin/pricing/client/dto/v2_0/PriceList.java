@@ -282,6 +282,27 @@ public class PriceList implements Cloneable {
 
 	protected Boolean neverExpire;
 
+	public Long getParentPriceListId() {
+		return parentPriceListId;
+	}
+
+	public void setParentPriceListId(Long parentPriceListId) {
+		this.parentPriceListId = parentPriceListId;
+	}
+
+	public void setParentPriceListId(
+		UnsafeSupplier<Long, Exception> parentPriceListIdUnsafeSupplier) {
+
+		try {
+			parentPriceListId = parentPriceListIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long parentPriceListId;
+
 	public PriceEntry[] getPriceEntries() {
 		return priceEntries;
 	}

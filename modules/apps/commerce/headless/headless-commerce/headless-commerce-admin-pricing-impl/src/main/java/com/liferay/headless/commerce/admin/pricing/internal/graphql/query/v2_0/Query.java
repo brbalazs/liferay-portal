@@ -687,7 +687,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListByExternalReferenceCode(externalReferenceCode: ___){active, catalogBasePriceList, catalogId, currencyCode, customFields, displayDate, expirationDate, externalReferenceCode, id, name, netPrice, neverExpire, priceEntries, priceListAccountGroups, priceListAccounts, priceListChannels, priceListDiscounts, priceModifiers, priority, type}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceListByExternalReferenceCode(externalReferenceCode: ___){active, catalogBasePriceList, catalogId, currencyCode, customFields, displayDate, expirationDate, externalReferenceCode, id, name, netPrice, neverExpire, parentPriceListId, priceEntries, priceListAccountGroups, priceListAccounts, priceListChannels, priceListDiscounts, priceModifiers, priority, type}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceList priceListByExternalReferenceCode(
@@ -705,7 +705,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceList(id: ___){active, catalogBasePriceList, catalogId, currencyCode, customFields, displayDate, expirationDate, externalReferenceCode, id, name, netPrice, neverExpire, priceEntries, priceListAccountGroups, priceListAccounts, priceListChannels, priceListDiscounts, priceModifiers, priority, type}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceList(id: ___){active, catalogBasePriceList, catalogId, currencyCode, customFields, displayDate, expirationDate, externalReferenceCode, id, name, netPrice, neverExpire, parentPriceListId, priceEntries, priceListAccountGroups, priceListAccounts, priceListChannels, priceListDiscounts, priceModifiers, priority, type}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceList priceList(@GraphQLName("id") Long id) throws Exception {

@@ -208,6 +208,16 @@ public class PriceListSerDes {
 			sb.append(priceList.getNeverExpire());
 		}
 
+		if (priceList.getParentPriceListId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"parentPriceListId\": ");
+
+			sb.append(priceList.getParentPriceListId());
+		}
+
 		if (priceList.getPriceEntries() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -470,6 +480,15 @@ public class PriceListSerDes {
 			map.put("neverExpire", String.valueOf(priceList.getNeverExpire()));
 		}
 
+		if (priceList.getParentPriceListId() == null) {
+			map.put("parentPriceListId", null);
+		}
+		else {
+			map.put(
+				"parentPriceListId",
+				String.valueOf(priceList.getParentPriceListId()));
+		}
+
 		if (priceList.getPriceEntries() == null) {
 			map.put("priceEntries", null);
 		}
@@ -626,6 +645,12 @@ public class PriceListSerDes {
 			else if (Objects.equals(jsonParserFieldName, "neverExpire")) {
 				if (jsonParserFieldValue != null) {
 					priceList.setNeverExpire((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "parentPriceListId")) {
+				if (jsonParserFieldValue != null) {
+					priceList.setParentPriceListId(
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "priceEntries")) {

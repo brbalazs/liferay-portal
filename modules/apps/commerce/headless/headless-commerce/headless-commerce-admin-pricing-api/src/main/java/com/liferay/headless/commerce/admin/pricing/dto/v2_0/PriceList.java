@@ -397,6 +397,35 @@ public class PriceList {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean neverExpire;
 
+	@DecimalMin("0")
+	@Schema
+	public Long getParentPriceListId() {
+		return parentPriceListId;
+	}
+
+	public void setParentPriceListId(Long parentPriceListId) {
+		this.parentPriceListId = parentPriceListId;
+	}
+
+	@JsonIgnore
+	public void setParentPriceListId(
+		UnsafeSupplier<Long, Exception> parentPriceListIdUnsafeSupplier) {
+
+		try {
+			parentPriceListId = parentPriceListIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long parentPriceListId;
+
 	@Schema
 	@Valid
 	public PriceEntry[] getPriceEntries() {
@@ -810,6 +839,16 @@ public class PriceList {
 			sb.append("\"neverExpire\": ");
 
 			sb.append(neverExpire);
+		}
+
+		if (parentPriceListId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"parentPriceListId\": ");
+
+			sb.append(parentPriceListId);
 		}
 
 		if (priceEntries != null) {
