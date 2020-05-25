@@ -409,6 +409,19 @@ public class CommercePriceModifierLocalServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifier>
+			getCommercePriceModifiers(
+				long commercePriceListId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.pricing.model.CommercePriceModifier>
+						orderByComparator) {
+
+		return _commercePriceModifierLocalService.getCommercePriceModifiers(
+			commercePriceListId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifier>
 			getCommercePriceModifiers(long companyId, String target) {
 
 		return _commercePriceModifierLocalService.getCommercePriceModifiers(
@@ -465,6 +478,12 @@ public class CommercePriceModifierLocalServiceWrapper
 	public int getCommercePriceModifiersCount() {
 		return _commercePriceModifierLocalService.
 			getCommercePriceModifiersCount();
+	}
+
+	@Override
+	public int getCommercePriceModifiersCount(long commercePriceListId) {
+		return _commercePriceModifierLocalService.
+			getCommercePriceModifiersCount(commercePriceListId);
 	}
 
 	@Override

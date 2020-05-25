@@ -306,6 +306,11 @@ public interface CommercePriceModifierLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifier> getCommercePriceModifiers(
+		long commercePriceListId, int start, int end,
+		OrderByComparator<CommercePriceModifier> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceModifier> getCommercePriceModifiers(
 		long companyId, String target);
 
 	/**
@@ -343,6 +348,9 @@ public interface CommercePriceModifierLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceModifiersCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePriceModifiersCount(long commercePriceListId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(

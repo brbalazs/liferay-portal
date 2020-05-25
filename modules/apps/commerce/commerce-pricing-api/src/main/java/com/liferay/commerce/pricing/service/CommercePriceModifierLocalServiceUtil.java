@@ -378,6 +378,18 @@ public class CommercePriceModifierLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifier>
+			getCommercePriceModifiers(
+				long commercePriceListId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.pricing.model.CommercePriceModifier>
+						orderByComparator) {
+
+		return getService().getCommercePriceModifiers(
+			commercePriceListId, start, end, orderByComparator);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifier>
 			getCommercePriceModifiers(long companyId, String target) {
 
 		return getService().getCommercePriceModifiers(companyId, target);
@@ -428,6 +440,10 @@ public class CommercePriceModifierLocalServiceUtil {
 	 */
 	public static int getCommercePriceModifiersCount() {
 		return getService().getCommercePriceModifiersCount();
+	}
+
+	public static int getCommercePriceModifiersCount(long commercePriceListId) {
+		return getService().getCommercePriceModifiersCount(commercePriceListId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery

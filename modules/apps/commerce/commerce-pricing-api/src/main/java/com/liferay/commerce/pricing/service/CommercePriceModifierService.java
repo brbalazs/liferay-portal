@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.math.BigDecimal;
 
@@ -96,11 +97,21 @@ public interface CommercePriceModifierService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifier> getCommercePriceModifiers(
+			long commercePriceListId, int start, int end,
+			OrderByComparator<CommercePriceModifier> orderByComparator)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceModifier> getCommercePriceModifiers(
 			long companyId, String target)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceModifiersCount() throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePriceModifiersCount(long commercePriceListId)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.

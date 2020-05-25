@@ -92,6 +92,19 @@ public class CommercePriceModifierServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifier>
+				getCommercePriceModifiers(
+					long commercePriceListId, int start, int end,
+					com.liferay.portal.kernel.util.OrderByComparator
+						<com.liferay.commerce.pricing.model.
+							CommercePriceModifier> orderByComparator)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommercePriceModifiers(
+			commercePriceListId, start, end, orderByComparator);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifier>
 				getCommercePriceModifiers(long companyId, String target)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -102,6 +115,12 @@ public class CommercePriceModifierServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getCommercePriceModifiersCount();
+	}
+
+	public static int getCommercePriceModifiersCount(long commercePriceListId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommercePriceModifiersCount(commercePriceListId);
 	}
 
 	/**
