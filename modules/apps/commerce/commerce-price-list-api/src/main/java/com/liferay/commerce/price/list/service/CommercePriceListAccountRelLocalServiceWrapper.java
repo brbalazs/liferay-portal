@@ -328,6 +328,20 @@ public class CommercePriceListAccountRelLocalServiceWrapper
 			getCommercePriceListAccountRels(commercePriceListId);
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListAccountRel>
+			getCommercePriceListAccountRels(
+				long commercePriceListId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.price.list.model.
+						CommercePriceListAccountRel> orderByComparator) {
+
+		return _commercePriceListAccountRelLocalService.
+			getCommercePriceListAccountRels(
+				commercePriceListId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns the number of commerce price list account rels.
 	 *
@@ -337,6 +351,12 @@ public class CommercePriceListAccountRelLocalServiceWrapper
 	public int getCommercePriceListAccountRelsCount() {
 		return _commercePriceListAccountRelLocalService.
 			getCommercePriceListAccountRelsCount();
+	}
+
+	@Override
+	public int getCommercePriceListAccountRelsCount(long commercePriceListId) {
+		return _commercePriceListAccountRelLocalService.
+			getCommercePriceListAccountRelsCount(commercePriceListId);
 	}
 
 	@Override
