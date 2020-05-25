@@ -18,8 +18,10 @@ import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceListChannelRel;
 import com.liferay.commerce.price.list.service.base.CommercePriceListChannelRelServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.List;
 
@@ -73,6 +75,19 @@ public class CommercePriceListChannelRelServiceImpl
 	}
 
 	@Override
+	public CommercePriceListChannelRel getCommercePriceListChannelRel(
+			long commercePriceListChannelRelId)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListChannelRelLocalService.
+			getCommercePriceListChannelRel(commercePriceListChannelRelId);
+	}
+
+	@Override
 	public List<CommercePriceListChannelRel> getCommercePriceListChannelRels(
 			long commercePriceListId)
 		throws PortalException {
@@ -83,6 +98,33 @@ public class CommercePriceListChannelRelServiceImpl
 
 		return commercePriceListChannelRelLocalService.
 			getCommercePriceListChannelRels(commercePriceListId);
+	}
+
+	@Override
+	public List<CommercePriceListChannelRel> getCommercePriceListChannelRels(
+			long commercePriceListId, int start, int end,
+			OrderByComparator<CommercePriceListChannelRel> orderByComparator)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListChannelRelLocalService.
+			getCommercePriceListChannelRels(
+				commercePriceListId, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getCommercePriceListChannelRelsCount(long commercePriceListId)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListChannelRelLocalService.
+			getCommercePriceListChannelRelsCount(commercePriceListId);
 	}
 
 }
