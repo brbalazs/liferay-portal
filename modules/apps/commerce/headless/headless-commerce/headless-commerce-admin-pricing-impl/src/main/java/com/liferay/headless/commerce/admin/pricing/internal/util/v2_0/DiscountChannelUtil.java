@@ -21,6 +21,7 @@ import com.liferay.commerce.product.model.CommerceChannelRel;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountChannel;
+import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
@@ -34,8 +35,11 @@ public class DiscountChannelUtil {
 			CommerceChannelService commerceChannelService,
 			CommerceChannelRelService commerceChannelRelService,
 			DiscountChannel discountChannel, CommerceDiscount commerceDiscount,
-			ServiceContext serviceContext)
+			ServiceContextHelper serviceContextHelper)
 		throws PortalException {
+
+		ServiceContext serviceContext =
+			serviceContextHelper.getServiceContext();
 
 		CommerceChannel commerceChannel;
 

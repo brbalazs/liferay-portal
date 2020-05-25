@@ -118,8 +118,7 @@ public class DiscountChannelResourceImpl
 		CommerceChannelRel commerceChannelRel =
 			DiscountChannelUtil.addCommerceDiscountChannelRel(
 				_commerceChannelService, _commerceChannelRelService,
-				discountChannel, commerceDiscount,
-				_serviceContextHelper.getServiceContext());
+				discountChannel, commerceDiscount, _serviceContextHelper);
 
 		return _toDiscountChannel(commerceChannelRel.getCommerceChannelRelId());
 	}
@@ -134,7 +133,7 @@ public class DiscountChannelResourceImpl
 				_commerceChannelService, _commerceChannelRelService,
 				discountChannel,
 				_commerceDiscountService.getCommerceDiscount(id),
-				_serviceContextHelper.getServiceContext());
+				_serviceContextHelper);
 
 		return _toDiscountChannel(commerceChannelRel.getCommerceChannelRelId());
 	}

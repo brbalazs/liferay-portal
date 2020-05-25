@@ -125,8 +125,7 @@ public class DiscountProductGroupResourceImpl
 		CommerceDiscountRel commerceDiscountRel =
 			DiscountProductGroupUtil.addCommerceDiscountRel(
 				_commercePricingClassService, _commerceDiscountRelService,
-				discountProductGroup, commerceDiscount,
-				_serviceContextHelper.getServiceContext());
+				discountProductGroup, commerceDiscount, _serviceContextHelper);
 
 		return _toDiscountProductGroup(
 			commerceDiscountRel.getCommerceDiscountRelId());
@@ -142,7 +141,7 @@ public class DiscountProductGroupResourceImpl
 				_commercePricingClassService, _commerceDiscountRelService,
 				discountProductGroup,
 				_commerceDiscountService.getCommerceDiscount(id),
-				_serviceContextHelper.getServiceContext());
+				_serviceContextHelper);
 
 		return _toDiscountProductGroup(
 			commerceDiscountRel.getCommerceDiscountRelId());

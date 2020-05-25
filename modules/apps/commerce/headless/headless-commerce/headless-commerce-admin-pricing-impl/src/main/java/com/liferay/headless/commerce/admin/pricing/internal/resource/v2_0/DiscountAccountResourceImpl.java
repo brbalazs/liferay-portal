@@ -120,8 +120,7 @@ public class DiscountAccountResourceImpl
 		CommerceDiscountAccountRel commerceDiscountAccountRel =
 			DiscountAccountUtil.addCommerceDiscountAccountRel(
 				_commerceAccountService, _commerceDiscountAccountRelService,
-				discountAccount, commerceDiscount,
-				_serviceContextHelper.getServiceContext());
+				discountAccount, commerceDiscount, _serviceContextHelper);
 
 		return _toDiscountAccount(
 			commerceDiscountAccountRel.getCommerceDiscountAccountRelId());
@@ -137,7 +136,7 @@ public class DiscountAccountResourceImpl
 				_commerceAccountService, _commerceDiscountAccountRelService,
 				discountAccount,
 				_commerceDiscountService.getCommerceDiscount(id),
-				_serviceContextHelper.getServiceContext());
+				_serviceContextHelper);
 
 		return _toDiscountAccount(
 			commerceDiscountAccountRel.getCommerceDiscountAccountRelId());

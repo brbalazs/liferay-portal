@@ -122,8 +122,7 @@ public class DiscountCategoryResourceImpl
 		CommerceDiscountRel commerceDiscountRel =
 			DiscountCategoryUtil.addCommerceDiscountRel(
 				_assetCategoryLocalService, _commerceDiscountRelService,
-				discountCategory, commerceDiscount,
-				_serviceContextHelper.getServiceContext());
+				discountCategory, commerceDiscount, _serviceContextHelper);
 
 		return _toDiscountCategory(
 			commerceDiscountRel.getCommerceDiscountRelId());
@@ -139,7 +138,7 @@ public class DiscountCategoryResourceImpl
 				_assetCategoryLocalService, _commerceDiscountRelService,
 				discountCategory,
 				_commerceDiscountService.getCommerceDiscount(id),
-				_serviceContextHelper.getServiceContext());
+				_serviceContextHelper);
 
 		return _toDiscountCategory(
 			commerceDiscountRel.getCommerceDiscountRelId());

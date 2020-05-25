@@ -21,6 +21,7 @@ import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountRel;
 import com.liferay.commerce.discount.service.CommerceDiscountRelService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountCategory;
+import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
@@ -34,8 +35,12 @@ public class DiscountCategoryUtil {
 			AssetCategoryLocalService assetCategoryLocalService,
 			CommerceDiscountRelService commerceDiscountRelService,
 			DiscountCategory discountCategory,
-			CommerceDiscount commerceDiscount, ServiceContext serviceContext)
+			CommerceDiscount commerceDiscount,
+			ServiceContextHelper serviceContextHelper)
 		throws PortalException {
+
+		ServiceContext serviceContext =
+			serviceContextHelper.getServiceContext();
 
 		AssetCategory assetCategory;
 

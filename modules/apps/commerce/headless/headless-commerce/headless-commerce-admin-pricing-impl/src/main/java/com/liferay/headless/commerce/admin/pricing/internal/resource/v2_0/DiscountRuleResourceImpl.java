@@ -141,7 +141,7 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 		CommerceDiscountRule commerceDiscountRule =
 			DiscountRuleUtil.addCommerceDiscountRule(
 				_commerceDiscountRuleService, discountRule, commerceDiscount,
-				_serviceContextHelper.getServiceContext());
+				_serviceContextHelper);
 
 		return _toDiscountRule(
 			commerceDiscountRule.getCommerceDiscountRuleId());
@@ -156,7 +156,7 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 			DiscountRuleUtil.addCommerceDiscountRule(
 				_commerceDiscountRuleService, discountRule,
 				_commerceDiscountService.getCommerceDiscount(id),
-				_serviceContextHelper.getServiceContext());
+				_serviceContextHelper);
 
 		return _toDiscountRule(
 			commerceDiscountRule.getCommerceDiscountRuleId());

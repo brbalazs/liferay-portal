@@ -131,7 +131,7 @@ public class DiscountAccountGroupResourceImpl
 						_commerceAccountGroupService,
 						_commerceDiscountCommerceAccountGroupRelService,
 						discountAccountGroup, commerceDiscount,
-						_serviceContextHelper.getServiceContext());
+						_serviceContextHelper);
 
 		return _toDiscountAccountGroup(
 			commerceDiscountCommerceAccountGroupRel.
@@ -151,7 +151,7 @@ public class DiscountAccountGroupResourceImpl
 						_commerceDiscountCommerceAccountGroupRelService,
 						discountAccountGroup,
 						_commerceDiscountService.getCommerceDiscount(id),
-						_serviceContextHelper.getServiceContext());
+						_serviceContextHelper);
 
 		return _toDiscountAccountGroup(
 			commerceDiscountCommerceAccountGroupRel.

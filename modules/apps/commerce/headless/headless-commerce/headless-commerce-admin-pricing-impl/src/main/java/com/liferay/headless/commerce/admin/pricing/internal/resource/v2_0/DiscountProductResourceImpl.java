@@ -119,8 +119,7 @@ public class DiscountProductResourceImpl
 		CommerceDiscountRel commerceDiscountRel =
 			DiscountProductUtil.addCommerceDiscountRel(
 				_cProductLocalService, _commerceDiscountRelService,
-				discountProduct, commerceDiscount,
-				_serviceContextHelper.getServiceContext());
+				discountProduct, commerceDiscount, _serviceContextHelper);
 
 		return _toDiscountProduct(
 			commerceDiscountRel.getCommerceDiscountRelId());
@@ -136,7 +135,7 @@ public class DiscountProductResourceImpl
 				_cProductLocalService, _commerceDiscountRelService,
 				discountProduct,
 				_commerceDiscountService.getCommerceDiscount(id),
-				_serviceContextHelper.getServiceContext());
+				_serviceContextHelper);
 
 		return _toDiscountProduct(
 			commerceDiscountRel.getCommerceDiscountRelId());

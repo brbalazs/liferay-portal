@@ -252,8 +252,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 	}
 
 	private void _updateNestedResources(
-			PriceEntry priceEntry, CommercePriceEntry commercePriceEntry,
-			ServiceContext serviceContext)
+			PriceEntry priceEntry, CommercePriceEntry commercePriceEntry)
 		throws PortalException {
 
 		TierPrice[] tierPrices = priceEntry.getTierPrices();
@@ -262,7 +261,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 			for (TierPrice tierPrice : tierPrices) {
 				TierPriceUtil.upsertCommerceTierPriceEntry(
 					_commerceTierPriceEntryService, tierPrice,
-					commercePriceEntry, serviceContext);
+					commercePriceEntry, _serviceContextHelper);
 			}
 		}
 	}
@@ -300,9 +299,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 
 		// Update nested resources
 
-		_updateNestedResources(
-			priceEntry, commercePriceEntry,
-			_serviceContextHelper.getServiceContext());
+		_updateNestedResources(priceEntry, commercePriceEntry);
 
 		return commercePriceEntry;
 	}
@@ -365,7 +362,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 
 		// Update nested resources
 
-		_updateNestedResources(priceEntry, commercePriceEntry, serviceContext);
+		_updateNestedResources(priceEntry, commercePriceEntry);
 
 		return commercePriceEntry;
 	}

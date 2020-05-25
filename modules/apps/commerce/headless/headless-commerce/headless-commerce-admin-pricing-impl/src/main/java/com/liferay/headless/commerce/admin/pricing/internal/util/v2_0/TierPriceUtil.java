@@ -19,6 +19,7 @@ import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.TierPrice;
 import com.liferay.headless.commerce.core.util.DateConfig;
+import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
@@ -36,8 +37,11 @@ public class TierPriceUtil {
 	public static CommerceTierPriceEntry upsertCommerceTierPriceEntry(
 			CommerceTierPriceEntryService commerceTierPriceEntryService,
 			TierPrice tierPrice, CommercePriceEntry commercePriceEntry,
-			ServiceContext serviceContext)
+			ServiceContextHelper serviceContextHelper)
 		throws PortalException {
+
+		ServiceContext serviceContext =
+			serviceContextHelper.getServiceContext();
 
 		DateConfig displayDateConfig = _getDateConfig(
 			tierPrice.getDisplayDate(), serviceContext.getTimeZone());

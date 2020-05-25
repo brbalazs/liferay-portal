@@ -134,8 +134,7 @@ public class PriceListAccountGroupResourceImpl
 						_commerceAccountGroupService,
 						_commercePriceListCommerceAccountGroupRelService,
 						priceListAccountGroup, commercePriceList,
-						_serviceContextHelper.getServiceContext(
-							commercePriceList.getGroupId()));
+						_serviceContextHelper);
 
 		return _toPriceListAccountGroup(
 			commercePriceListCommerceAccountGroupRel.
@@ -157,8 +156,7 @@ public class PriceListAccountGroupResourceImpl
 						_commerceAccountGroupService,
 						_commercePriceListCommerceAccountGroupRelService,
 						priceListAccountGroup, commercePriceList,
-						_serviceContextHelper.getServiceContext(
-							commercePriceList.getGroupId()));
+						_serviceContextHelper);
 
 		return _toPriceListAccountGroup(
 			commercePriceListCommerceAccountGroupRel.

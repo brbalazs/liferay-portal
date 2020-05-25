@@ -284,13 +284,11 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 		// Update nested resources
 
-		return _updateNestedResources(
-			discount, commerceDiscount, serviceContext);
+		return _updateNestedResources(discount, commerceDiscount);
 	}
 
 	private CommerceDiscount _updateNestedResources(
-			Discount discount, CommerceDiscount commerceDiscount,
-			ServiceContext serviceContext)
+			Discount discount, CommerceDiscount commerceDiscount)
 		throws PortalException {
 
 		// Discount account groups
@@ -317,7 +315,8 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 					addCommerceDiscountCommerceAccountGroupRel(
 						_commerceAccountGroupService,
 						_commerceDiscountCommerceAccountGroupRelService,
-						discountAccountGroup, commerceDiscount, serviceContext);
+						discountAccountGroup, commerceDiscount,
+						_serviceContextHelper);
 			}
 		}
 
@@ -339,7 +338,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 				DiscountAccountUtil.addCommerceDiscountAccountRel(
 					_commerceAccountService, _commerceDiscountAccountRelService,
-					discountAccount, commerceDiscount, serviceContext);
+					discountAccount, commerceDiscount, _serviceContextHelper);
 			}
 		}
 
@@ -361,7 +360,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 				DiscountCategoryUtil.addCommerceDiscountRel(
 					_assetCategoryLocalService, _commerceDiscountRelService,
-					discountCategory, commerceDiscount, serviceContext);
+					discountCategory, commerceDiscount, _serviceContextHelper);
 			}
 		}
 
@@ -383,7 +382,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 				DiscountChannelUtil.addCommerceDiscountChannelRel(
 					_commerceChannelService, _commerceChannelRelService,
-					discountChannel, commerceDiscount, serviceContext);
+					discountChannel, commerceDiscount, _serviceContextHelper);
 			}
 		}
 
@@ -407,7 +406,8 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 				DiscountProductGroupUtil.addCommerceDiscountRel(
 					_commercePricingClassService, _commerceDiscountRelService,
-					discountProductGroup, commerceDiscount, serviceContext);
+					discountProductGroup, commerceDiscount,
+					_serviceContextHelper);
 			}
 		}
 
@@ -444,7 +444,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 				DiscountProductUtil.addCommerceDiscountRel(
 					_cProductLocalService, _commerceDiscountRelService,
-					discountProduct, commerceDiscount, serviceContext);
+					discountProduct, commerceDiscount, _serviceContextHelper);
 			}
 		}
 
@@ -464,7 +464,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 				DiscountRuleUtil.addCommerceDiscountRule(
 					_commerceDiscountRuleService, discountRule,
-					commerceDiscount, serviceContext);
+					commerceDiscount, _serviceContextHelper);
 			}
 		}
 
@@ -525,8 +525,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 		// Update nested resources
 
-		return _updateNestedResources(
-			discount, commerceDiscount, serviceContext);
+		return _updateNestedResources(discount, commerceDiscount);
 	}
 
 	@Reference

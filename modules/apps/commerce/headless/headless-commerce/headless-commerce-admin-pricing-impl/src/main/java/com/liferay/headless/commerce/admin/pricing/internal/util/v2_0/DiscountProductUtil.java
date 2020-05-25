@@ -22,6 +22,7 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountProduct;
+import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
@@ -35,8 +36,11 @@ public class DiscountProductUtil {
 			CProductLocalService cProductLocalService,
 			CommerceDiscountRelService commerceDiscountRelService,
 			DiscountProduct discountProduct, CommerceDiscount commerceDiscount,
-			ServiceContext serviceContext)
+			ServiceContextHelper serviceContextHelper)
 		throws PortalException {
+
+		ServiceContext serviceContext =
+			serviceContextHelper.getServiceContext();
 
 		CProduct cProduct;
 

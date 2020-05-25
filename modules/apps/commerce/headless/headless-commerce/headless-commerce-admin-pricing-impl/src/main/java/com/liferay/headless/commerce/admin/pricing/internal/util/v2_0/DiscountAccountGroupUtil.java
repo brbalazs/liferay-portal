@@ -21,6 +21,7 @@ import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel;
 import com.liferay.commerce.discount.service.CommerceDiscountCommerceAccountGroupRelService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountAccountGroup;
+import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
@@ -37,8 +38,11 @@ public class DiscountAccountGroupUtil {
 					commerceDiscountCommerceAccountGroupRelService,
 				DiscountAccountGroup discountAccountGroup,
 				CommerceDiscount commerceDiscount,
-				ServiceContext serviceContext)
+				ServiceContextHelper serviceContextHelper)
 		throws PortalException {
+
+		ServiceContext serviceContext =
+			serviceContextHelper.getServiceContext();
 
 		CommerceAccountGroup commerceAccountGroup;
 

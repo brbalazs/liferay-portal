@@ -21,6 +21,7 @@ import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommercePriceListCommerceAccountGroupRel;
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccountGroup;
+import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -38,8 +39,11 @@ public class PriceListAccountGroupUtil {
 					commercePriceListCommerceAccountGroupRelService,
 				PriceListAccountGroup priceListAccountGroup,
 				CommercePriceList commercePriceList,
-				ServiceContext serviceContext)
+				ServiceContextHelper serviceContextHelper)
 		throws PortalException {
+
+		ServiceContext serviceContext = serviceContextHelper.getServiceContext(
+			commercePriceList.getGroupId());
 
 		CommerceAccountGroup commerceAccountGroup;
 
