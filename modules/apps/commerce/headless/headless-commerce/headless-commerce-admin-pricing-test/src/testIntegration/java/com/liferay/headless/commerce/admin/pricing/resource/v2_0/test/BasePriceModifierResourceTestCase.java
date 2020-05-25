@@ -878,6 +878,14 @@ public abstract class BasePriceModifierResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("neverExpire", additionalAssertFieldName)) {
+				if (priceModifier.getNeverExpire() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"priceListExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -1114,6 +1122,17 @@ public abstract class BasePriceModifierResourceTestCase {
 				if (!Objects.deepEquals(
 						priceModifier1.getModifierType(),
 						priceModifier2.getModifierType())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("neverExpire", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceModifier1.getNeverExpire(),
+						priceModifier2.getNeverExpire())) {
 
 					return false;
 				}
@@ -1397,6 +1416,11 @@ public abstract class BasePriceModifierResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("neverExpire")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("priceListExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -1500,6 +1524,7 @@ public abstract class BasePriceModifierResourceTestCase {
 				id = RandomTestUtil.randomLong();
 				modifierType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				neverExpire = RandomTestUtil.randomBoolean();
 				priceListExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				priceListId = RandomTestUtil.randomLong();

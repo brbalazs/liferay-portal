@@ -156,6 +156,16 @@ public class PriceModifierSerDes {
 			sb.append("\"");
 		}
 
+		if (priceModifier.getNeverExpire() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"neverExpire\": ");
+
+			sb.append(priceModifier.getNeverExpire());
+		}
+
 		if (priceModifier.getPriceListExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -374,6 +384,14 @@ public class PriceModifierSerDes {
 				String.valueOf(priceModifier.getModifierType()));
 		}
 
+		if (priceModifier.getNeverExpire() == null) {
+			map.put("neverExpire", null);
+		}
+		else {
+			map.put(
+				"neverExpire", String.valueOf(priceModifier.getNeverExpire()));
+		}
+
 		if (priceModifier.getPriceListExternalReferenceCode() == null) {
 			map.put("priceListExternalReferenceCode", null);
 		}
@@ -501,6 +519,11 @@ public class PriceModifierSerDes {
 			else if (Objects.equals(jsonParserFieldName, "modifierType")) {
 				if (jsonParserFieldValue != null) {
 					priceModifier.setModifierType((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "neverExpire")) {
+				if (jsonParserFieldValue != null) {
+					priceModifier.setNeverExpire((Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(

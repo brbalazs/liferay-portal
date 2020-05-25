@@ -263,6 +263,34 @@ public class PriceModifier {
 	protected String modifierType;
 
 	@Schema
+	public Boolean getNeverExpire() {
+		return neverExpire;
+	}
+
+	public void setNeverExpire(Boolean neverExpire) {
+		this.neverExpire = neverExpire;
+	}
+
+	@JsonIgnore
+	public void setNeverExpire(
+		UnsafeSupplier<Boolean, Exception> neverExpireUnsafeSupplier) {
+
+		try {
+			neverExpire = neverExpireUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean neverExpire;
+
+	@Schema
 	public String getPriceListExternalReferenceCode() {
 		return priceListExternalReferenceCode;
 	}
@@ -620,6 +648,16 @@ public class PriceModifier {
 			sb.append(_escape(modifierType));
 
 			sb.append("\"");
+		}
+
+		if (neverExpire != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"neverExpire\": ");
+
+			sb.append(neverExpire);
 		}
 
 		if (priceListExternalReferenceCode != null) {

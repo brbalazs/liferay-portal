@@ -180,6 +180,27 @@ public class PriceModifier implements Cloneable {
 
 	protected String modifierType;
 
+	public Boolean getNeverExpire() {
+		return neverExpire;
+	}
+
+	public void setNeverExpire(Boolean neverExpire) {
+		this.neverExpire = neverExpire;
+	}
+
+	public void setNeverExpire(
+		UnsafeSupplier<Boolean, Exception> neverExpireUnsafeSupplier) {
+
+		try {
+			neverExpire = neverExpireUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean neverExpire;
+
 	public String getPriceListExternalReferenceCode() {
 		return priceListExternalReferenceCode;
 	}
