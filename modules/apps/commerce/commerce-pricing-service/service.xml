@@ -122,6 +122,11 @@
 			<finder-column name="classNameId" />
 			<finder-column name="classPK" />
 		</finder>
+		<finder name="CPM_CN_CPK" return-type="CommercePriceModifierRel" unique="true">
+			<finder-column name="commercePriceModifierId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classPK" />
+		</finder>
 	</entity>
 	<entity external-reference-code="true" local-service="true" name="CommercePricingClass" remote-service="true" uuid="true">
 
