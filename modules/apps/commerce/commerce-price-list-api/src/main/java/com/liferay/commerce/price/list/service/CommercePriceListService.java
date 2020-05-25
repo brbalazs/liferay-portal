@@ -202,6 +202,19 @@ public interface CommercePriceListService extends BaseService {
 
 	public CommercePriceList upsertCommercePriceList(
 			long groupId, long userId, long commercePriceListId,
+			long commerceCurrencyId, boolean netPrice, String type,
+			long parentCommercePriceListId, boolean catalogBasePriceList,
+			String name, double priority, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			String externalReferenceCode, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	public CommercePriceList upsertCommercePriceList(
+			long groupId, long userId, long commercePriceListId,
 			long commerceCurrencyId, long parentCommercePriceListId,
 			String name, double priority, int displayDateMonth,
 			int displayDateDay, int displayDateYear, int displayDateHour,

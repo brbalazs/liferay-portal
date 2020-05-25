@@ -181,6 +181,51 @@ public class CommercePriceListDiscountRelServiceHttp {
 		}
 	}
 
+	public static
+		com.liferay.commerce.price.list.model.CommercePriceListDiscountRel
+				getCommercePriceListDiscountRel(
+					HttpPrincipal httpPrincipal,
+					long commercePriceListDiscountRelId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceListDiscountRelServiceUtil.class,
+				"getCommercePriceListDiscountRel",
+				_getCommercePriceListDiscountRelParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceListDiscountRelId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.price.list.model.
+				CommercePriceListDiscountRel)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceListDiscountRel>
 				getCommercePriceListDiscountRels(
@@ -191,7 +236,7 @@ public class CommercePriceListDiscountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListDiscountRelServiceUtil.class,
 				"getCommercePriceListDiscountRels",
-				_getCommercePriceListDiscountRelsParameterTypes3);
+				_getCommercePriceListDiscountRelsParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId);
@@ -240,7 +285,7 @@ public class CommercePriceListDiscountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListDiscountRelServiceUtil.class,
 				"getCommercePriceListDiscountRels",
-				_getCommercePriceListDiscountRelsParameterTypes4);
+				_getCommercePriceListDiscountRelsParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId, start, end, orderByComparator);
@@ -283,7 +328,7 @@ public class CommercePriceListDiscountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListDiscountRelServiceUtil.class,
 				"getCommercePriceListDiscountRelsCount",
-				_getCommercePriceListDiscountRelsCountParameterTypes5);
+				_getCommercePriceListDiscountRelsCountParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId);
@@ -317,51 +362,6 @@ public class CommercePriceListDiscountRelServiceHttp {
 		}
 	}
 
-	public static
-		com.liferay.commerce.price.list.model.CommercePriceListDiscountRel
-				getCommercePriceListDiscountRel(
-					HttpPrincipal httpPrincipal,
-					long commercePriceListDiscountRelId)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommercePriceListDiscountRelServiceUtil.class,
-				"getCommercePriceListDiscountRel",
-				_getCommercePriceListDiscountRelParameterTypes6);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commercePriceListDiscountRelId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (com.liferay.commerce.price.list.model.
-				CommercePriceListDiscountRel)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(
 		CommercePriceListDiscountRelServiceHttp.class);
 
@@ -379,20 +379,20 @@ public class CommercePriceListDiscountRelServiceHttp {
 			long.class, long.class
 		};
 	private static final Class<?>[]
-		_getCommercePriceListDiscountRelsParameterTypes3 = new Class[] {
+		_getCommercePriceListDiscountRelParameterTypes3 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
 		_getCommercePriceListDiscountRelsParameterTypes4 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCommercePriceListDiscountRelsParameterTypes5 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommercePriceListDiscountRelsCountParameterTypes5 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[]
-		_getCommercePriceListDiscountRelParameterTypes6 = new Class[] {
+		_getCommercePriceListDiscountRelsCountParameterTypes6 = new Class[] {
 			long.class
 		};
 

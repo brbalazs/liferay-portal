@@ -500,6 +500,44 @@ public class CommercePriceListServiceSoap {
 	public static com.liferay.commerce.price.list.model.CommercePriceListSoap
 			upsertCommercePriceList(
 				long groupId, long userId, long commercePriceListId,
+				long commerceCurrencyId, boolean netPrice, String type,
+				long parentCommercePriceListId, boolean catalogBasePriceList,
+				String name, double priority, int displayDateMonth,
+				int displayDateDay, int displayDateYear, int displayDateHour,
+				int displayDateMinute, int expirationDateMonth,
+				int expirationDateDay, int expirationDateYear,
+				int expirationDateHour, int expirationDateMinute,
+				String externalReferenceCode, boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.price.list.model.CommercePriceList
+				returnValue =
+					CommercePriceListServiceUtil.upsertCommercePriceList(
+						groupId, userId, commercePriceListId,
+						commerceCurrencyId, netPrice, type,
+						parentCommercePriceListId, catalogBasePriceList, name,
+						priority, displayDateMonth, displayDateDay,
+						displayDateYear, displayDateHour, displayDateMinute,
+						expirationDateMonth, expirationDateDay,
+						expirationDateYear, expirationDateHour,
+						expirationDateMinute, externalReferenceCode,
+						neverExpire, serviceContext);
+
+			return com.liferay.commerce.price.list.model.CommercePriceListSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.price.list.model.CommercePriceListSoap
+			upsertCommercePriceList(
+				long groupId, long userId, long commercePriceListId,
 				long commerceCurrencyId, long parentCommercePriceListId,
 				String name, double priority, int displayDateMonth,
 				int displayDateDay, int displayDateYear, int displayDateHour,

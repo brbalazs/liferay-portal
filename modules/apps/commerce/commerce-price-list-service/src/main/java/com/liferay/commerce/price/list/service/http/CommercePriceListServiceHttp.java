@@ -892,7 +892,8 @@ public class CommercePriceListServiceHttp {
 			upsertCommercePriceList(
 				HttpPrincipal httpPrincipal, long groupId, long userId,
 				long commercePriceListId, long commerceCurrencyId,
-				long parentCommercePriceListId, String name, double priority,
+				boolean netPrice, String type, long parentCommercePriceListId,
+				boolean catalogBasePriceList, String name, double priority,
 				int displayDateMonth, int displayDateDay, int displayDateYear,
 				int displayDateHour, int displayDateMinute,
 				int expirationDateMonth, int expirationDateDay,
@@ -906,6 +907,63 @@ public class CommercePriceListServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListServiceUtil.class, "upsertCommercePriceList",
 				_upsertCommercePriceListParameterTypes17);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, userId, commercePriceListId,
+				commerceCurrencyId, netPrice, type, parentCommercePriceListId,
+				catalogBasePriceList, name, priority, displayDateMonth,
+				displayDateDay, displayDateYear, displayDateHour,
+				displayDateMinute, expirationDateMonth, expirationDateDay,
+				expirationDateYear, expirationDateHour, expirationDateMinute,
+				externalReferenceCode, neverExpire, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.price.list.model.CommercePriceList)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.commerce.price.list.model.CommercePriceList
+			upsertCommercePriceList(
+				HttpPrincipal httpPrincipal, long groupId, long userId,
+				long commercePriceListId, long commerceCurrencyId,
+				long parentCommercePriceListId, String name, double priority,
+				int displayDateMonth, int displayDateDay, int displayDateYear,
+				int displayDateHour, int displayDateMinute,
+				int expirationDateMonth, int expirationDateDay,
+				int expirationDateYear, int expirationDateHour,
+				int expirationDateMinute, String externalReferenceCode,
+				boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceListServiceUtil.class, "upsertCommercePriceList",
+				_upsertCommercePriceListParameterTypes18);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, userId, commercePriceListId,
@@ -961,7 +1019,7 @@ public class CommercePriceListServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListServiceUtil.class, "upsertCommercePriceList",
-				_upsertCommercePriceListParameterTypes18);
+				_upsertCommercePriceListParameterTypes19);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, userId, commercePriceListId,
@@ -1103,13 +1161,22 @@ public class CommercePriceListServiceHttp {
 		};
 	private static final Class<?>[] _upsertCommercePriceListParameterTypes17 =
 		new Class[] {
+			long.class, long.class, long.class, long.class, boolean.class,
+			String.class, long.class, boolean.class, String.class, double.class,
+			int.class, int.class, int.class, int.class, int.class, int.class,
+			int.class, int.class, int.class, int.class, String.class,
+			boolean.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _upsertCommercePriceListParameterTypes18 =
+		new Class[] {
 			long.class, long.class, long.class, long.class, long.class,
 			String.class, double.class, int.class, int.class, int.class,
 			int.class, int.class, int.class, int.class, int.class, int.class,
 			int.class, String.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _upsertCommercePriceListParameterTypes18 =
+	private static final Class<?>[] _upsertCommercePriceListParameterTypes19 =
 		new Class[] {
 			long.class, long.class, long.class, long.class, String.class,
 			double.class, int.class, int.class, int.class, int.class, int.class,

@@ -128,6 +128,29 @@ public class CommercePriceListDiscountRelServiceSoap {
 	}
 
 	public static
+		com.liferay.commerce.price.list.model.CommercePriceListDiscountRelSoap
+				getCommercePriceListDiscountRel(
+					long commercePriceListDiscountRelId)
+			throws RemoteException {
+
+		try {
+			com.liferay.commerce.price.list.model.CommercePriceListDiscountRel
+				returnValue =
+					CommercePriceListDiscountRelServiceUtil.
+						getCommercePriceListDiscountRel(
+							commercePriceListDiscountRelId);
+
+			return com.liferay.commerce.price.list.model.
+				CommercePriceListDiscountRelSoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
 		com.liferay.commerce.price.list.model.CommercePriceListDiscountRelSoap[]
 				getCommercePriceListDiscountRels(long commercePriceListId)
 			throws RemoteException {
@@ -188,29 +211,6 @@ public class CommercePriceListDiscountRelServiceSoap {
 					getCommercePriceListDiscountRelsCount(commercePriceListId);
 
 			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static
-		com.liferay.commerce.price.list.model.CommercePriceListDiscountRelSoap
-				getCommercePriceListDiscountRel(
-					long commercePriceListDiscountRelId)
-			throws RemoteException {
-
-		try {
-			com.liferay.commerce.price.list.model.CommercePriceListDiscountRel
-				returnValue =
-					CommercePriceListDiscountRelServiceUtil.
-						getCommercePriceListDiscountRel(
-							commercePriceListDiscountRelId);
-
-			return com.liferay.commerce.price.list.model.
-				CommercePriceListDiscountRelSoap.toSoapModel(returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
