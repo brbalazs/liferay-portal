@@ -2491,7 +2491,11 @@ public class ContactsEngineClientImpl
 
 		Map<String, Object> dataSourcePatch = new HashMap<>();
 
-		dataSourcePatch.put("author", getAuthor(userId));
+		Author author = getAuthor(userId);
+
+		if (author != null) {
+			dataSourcePatch.put("author", author);
+		}
 
 		if (credentials != null) {
 			dataSourcePatch.put("credentials", credentials);
@@ -2706,11 +2710,15 @@ public class ContactsEngineClientImpl
 	}
 
 	protected Author getAuthor(long userId) {
+		User user = _userLocalService.fetchUser(userId);
+
+		if ((user != null) && user.isDefaultUser()) {
+			return null;
+		}
+
 		Author author = new Author();
 
 		author.setId(String.valueOf(userId));
-
-		User user = _userLocalService.fetchUser(userId);
 
 		if (user != null) {
 			author.setName(user.getFullName());
