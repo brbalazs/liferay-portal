@@ -47,13 +47,11 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,8 +61,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -192,7 +188,9 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			List<Output> outputs = new ArrayList<>();
 
 			CommerceContext commerceContext = _getCommerceContext(
-				ddmDataProviderRequest, commerceAccountId, groupId);
+				_getParameter(ddmDataProviderRequest, "companyId"),
+				commerceAccountId, groupId,
+				_getParameter(ddmDataProviderRequest, "userId"));
 
 			_addNonskuContributingCPDefinitionOptionValueOutputs(
 				cpDefinitionId, ddmDataProviderRequest, locale, outputs,
@@ -406,22 +404,14 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	}
 
 	private CommerceContext _getCommerceContext(
-			DDMDataProviderRequest ddmDataProviderRequest,
-			long commerceAccountId, long groupId)
+			long companyId, long commerceAccountId, long groupId, long userId)
 		throws PortalException {
 
-		HttpServletRequest httpServletRequest =
-			ddmDataProviderRequest.getHttpServletRequest();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		return _commerceContextFactory.create(
-			themeDisplay.getCompanyId(),
+			companyId,
 			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
 				groupId),
-			themeDisplay.getUserId(), 0, commerceAccountId);
+			userId, 0, commerceAccountId);
 	}
 
 	private JSONArray _getCPDefinitionOptionCPDefinitionOptionValuesJSONArray(
