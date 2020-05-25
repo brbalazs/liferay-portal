@@ -17,6 +17,7 @@ package com.liferay.commerce.internal.product.content.contributor;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.internal.util.CommerceBigDecimalUtil;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.model.CPDefinitionInventory;
@@ -118,21 +119,20 @@ public class PriceCPContentContributor implements CPContentContributor {
 		jsonObject.put(
 			CPContentContributorConstants.PRICE, unitPrice.format(locale));
 
-		CommerceMoney promoPriceMoney =
-			commerceProductPrice.getUnitPromoPrice();
+		CommerceMoney unitPromoPrice = commerceProductPrice.getUnitPromoPrice();
 
-		if (promoPriceMoney == null) {
+		if (unitPromoPrice == null) {
 			return jsonObject;
 		}
 
-		BigDecimal promoPrice = promoPriceMoney.getPrice();
-
-		if ((promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
-			(promoPrice.compareTo(unitPrice.getPrice()) <= 0)) {
+		if (CommerceBigDecimalUtil.gt(
+				unitPromoPrice.getPrice(), BigDecimal.ZERO) &&
+			CommerceBigDecimalUtil.lte(
+				unitPromoPrice.getPrice(), unitPrice.getPrice())) {
 
 			jsonObject.put(
 				CPContentContributorConstants.PROMO_PRICE,
-				promoPriceMoney.format(locale));
+				unitPromoPrice.format(locale));
 		}
 
 		return jsonObject;
