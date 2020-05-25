@@ -479,6 +479,18 @@ public interface CommercePriceEntryLocalService
 			long commercePriceEntryId, BigDecimal price, BigDecimal promoPrice,
 			boolean discountDiscovery, BigDecimal discountLevel1,
 			BigDecimal discountLevel2, BigDecimal discountLevel3,
+			BigDecimal discountLevel4, boolean bulkPricing,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException;
+
+	public CommercePriceEntry updateCommercePriceEntry(
+			long commercePriceEntryId, BigDecimal price, BigDecimal promoPrice,
+			boolean discountDiscovery, BigDecimal discountLevel1,
+			BigDecimal discountLevel2, BigDecimal discountLevel3,
 			BigDecimal discountLevel4, int displayDateMonth, int displayDateDay,
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
