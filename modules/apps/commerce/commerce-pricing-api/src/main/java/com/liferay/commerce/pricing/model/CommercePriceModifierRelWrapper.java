@@ -172,6 +172,13 @@ public class CommercePriceModifierRelWrapper
 		return _commercePriceModifierRel.getClassPK();
 	}
 
+	@Override
+	public CommercePriceModifier getCommercePriceModifier()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceModifierRel.getCommercePriceModifier();
+	}
+
 	/**
 	 * Returns the commerce price modifier ID of this commerce price modifier rel.
 	 *
