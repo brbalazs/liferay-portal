@@ -746,6 +746,9 @@ components:
                 modifierType:
                     example: "percentage"
                     type: string
+                neverExpire:
+                    example: true
+                    type: boolean
                 priceListExternalReferenceCode:
                     example: PLAB-34098-789-N
                     type: string
