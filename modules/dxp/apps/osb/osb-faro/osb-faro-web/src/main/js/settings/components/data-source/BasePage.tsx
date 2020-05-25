@@ -157,7 +157,15 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 									label: Liferay.Language.get(
 										'start-upgrade'
 									),
-									onClick: () => {}
+									onClick: () =>
+										open(
+											modalTypes.UPGRADE_CONNECTION_MODAL,
+											{
+												groupId,
+												id,
+												onClose: close
+											}
+										)
 								}}
 								content={Liferay.Language.get(
 									'analytics-cloud-now-uses-a-more-secure-token-based-connection-that-gives-you-finer-control-of-your-data.-oauth-connections-will-be-deprecated-in-a-future-release.-click-the-button-below-to-get-started-with-migrating-your-data-source'
