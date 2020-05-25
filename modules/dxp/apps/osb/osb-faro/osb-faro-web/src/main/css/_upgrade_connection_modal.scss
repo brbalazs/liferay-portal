@@ -1,0 +1,164 @@
+.upgrade-connection-modal-root {
+    .connect-dxp {
+		.description {
+			font-size: 18px;
+			font-weight: $fontWeightSemiBold;
+			margin-bottom: 24px;
+			text-align: center;
+		}
+
+		.dxp-to-analytics-container {
+			margin-bottom: 44px;
+
+			.arrows {
+				color: $infoLighten28;
+
+				&.connected {
+					color: $successLighten25;
+				}
+			}
+
+			.icon-root:not(:last-child) {
+				margin-right: 40px;
+			}
+		}
+
+		.input-group {
+			max-width: 480px;
+
+			.input-root {
+				font-weight: $fontWeightSemiBold;
+			}
+
+			.input-root,
+			.button-root {
+				color: $mainLighten28;
+			}
+		}
+
+		.modal-footer > div {
+			.btn {
+				&:not(:first-child) {
+					margin-left: 0.25rem;
+				}
+
+				&:not(:last-child) {
+					margin-right: 0.25rem;
+				}
+			}
+		}
+
+		.secondary-info,
+		.secondary-info > .button-root {
+			color: $mainLighten28;
+			font-size: $fontSizeExtraSmall;
+		}
+    }
+    
+	.upgrade-connection-type {
+		.header {
+			.title {
+				color: $mainLighten8;
+				font-size: $fontSizeExtraLarge;
+				font-weight: $fontWeightBold;
+				margin-top: 60px;
+			}
+		}
+
+		.description {
+            font-size: $fontSizeMedium;
+            margin-top: 16px;
+			margin-bottom: 25px;
+		}
+
+		.title,
+		.modal-body {
+			margin-left: 24px;
+			margin-right: 24px;
+        }
+        
+        .benefits-requirements-container {
+            .benefits-check {
+                fill: $successLighten25;
+                margin-right: 8px;
+            }
+
+            .warning-exclamation {
+                fill: $warningLighten25;
+                margin-right: 8px;
+            }
+                
+            .heading {
+                color: $mainLighten8;
+                font-size: $fontSizeMedium;
+                font-weight: $fontWeightSemiBold;
+                line-height: 30px;
+                margin-bottom: 1px;
+            }
+
+            .item {
+                color: $mainLighten8;
+                font-size: $fontSizeMedium;
+                margin-bottom: 1px;
+            }
+
+            ul {
+                list-style: none;
+                padding-left: 0;
+            }
+        }
+
+		.token-connection {
+			.connect-button-container {
+                margin-top: 44px;
+				margin-bottom: 76px;
+			}
+		}
+
+		.requirements {
+            background: $lightBackground;
+
+            .requirements-button-container {
+                margin-top: 61px;
+				margin-bottom: 76px;
+			}
+		}
+	}
+
+	.modal-content {
+		height: 628px;
+
+		.btn.wide {
+			padding-left: 48px;
+			padding-right: 48px;
+		}
+
+		.header {
+			margin: 24px 24px 0;
+		}
+
+		.modal-footer {
+			padding-bottom: 24px;
+		}
+
+		.title {
+			font-size: 40px;
+			font-weight: bold;
+		}
+	}
+
+	.success-info {
+		margin-top: 76px;
+
+		.success-message {
+			color: $success;
+			font-size: 18px;
+			font-weight: $fontWeightSemiBold;
+			margin-left: 12px;
+		}
+
+		.icon-root {
+			fill: $successLighten25;
+		}
+	}
+}
