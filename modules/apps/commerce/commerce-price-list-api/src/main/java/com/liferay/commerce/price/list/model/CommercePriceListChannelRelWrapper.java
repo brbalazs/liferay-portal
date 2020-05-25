@@ -160,6 +160,14 @@ public class CommercePriceListChannelRelWrapper
 			commercePriceListChannelRel);
 	}
 
+	@Override
+	public com.liferay.commerce.product.model.CommerceChannel
+			getCommerceChannel()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListChannelRel.getCommerceChannel();
+	}
+
 	/**
 	 * Returns the commerce channel ID of this commerce price list channel rel.
 	 *
@@ -168,6 +176,13 @@ public class CommercePriceListChannelRelWrapper
 	@Override
 	public long getCommerceChannelId() {
 		return _commercePriceListChannelRel.getCommerceChannelId();
+	}
+
+	@Override
+	public CommercePriceList getCommercePriceList()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListChannelRel.getCommercePriceList();
 	}
 
 	/**

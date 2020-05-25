@@ -256,6 +256,11 @@ public interface CommercePriceListChannelRelLocalService
 	public List<CommercePriceListChannelRel> getCommercePriceListChannelRels(
 		long commercePriceListId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceListChannelRel> getCommercePriceListChannelRels(
+		long commercePriceListId, int start, int end,
+		OrderByComparator<CommercePriceListChannelRel> orderByComparator);
+
 	/**
 	 * Returns the number of commerce price list channel rels.
 	 *
@@ -263,6 +268,9 @@ public interface CommercePriceListChannelRelLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceListChannelRelsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePriceListChannelRelsCount(long commercePriceListId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(

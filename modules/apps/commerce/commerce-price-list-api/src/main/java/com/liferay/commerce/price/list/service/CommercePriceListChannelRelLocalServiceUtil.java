@@ -319,6 +319,18 @@ public class CommercePriceListChannelRelLocalServiceUtil {
 			commercePriceListId);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListChannelRel>
+			getCommercePriceListChannelRels(
+				long commercePriceListId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.price.list.model.
+						CommercePriceListChannelRel> orderByComparator) {
+
+		return getService().getCommercePriceListChannelRels(
+			commercePriceListId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns the number of commerce price list channel rels.
 	 *
@@ -326,6 +338,13 @@ public class CommercePriceListChannelRelLocalServiceUtil {
 	 */
 	public static int getCommercePriceListChannelRelsCount() {
 		return getService().getCommercePriceListChannelRelsCount();
+	}
+
+	public static int getCommercePriceListChannelRelsCount(
+		long commercePriceListId) {
+
+		return getService().getCommercePriceListChannelRelsCount(
+			commercePriceListId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
