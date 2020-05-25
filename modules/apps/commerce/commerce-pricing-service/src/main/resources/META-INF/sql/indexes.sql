@@ -11,7 +11,7 @@ create index IX_EED93BBF on CommercePriceModifier (uuid_[$COLUMN_LENGTH:75$], co
 create unique index IX_A4ABA601 on CommercePriceModifier (uuid_[$COLUMN_LENGTH:75$], groupId);
 
 create index IX_391477EF on CommercePriceModifierRel (classNameId, classPK);
-create index IX_F688AD98 on CommercePriceModifierRel (commercePriceModifierId, classNameId);
+create unique index IX_89DDF14B on CommercePriceModifierRel (commercePriceModifierId, classNameId, classPK);
 
 create index IX_FCABA3C8 on CommercePricingClass (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
 create index IX_8A3D0197 on CommercePricingClass (groupId);

@@ -195,6 +195,10 @@ public interface CommercePriceModifierRelLocalService
 		long commercePriceModifierRelId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePriceModifierRel fetchCommercePriceModifierRel(
+		long commercePriceModifierId, String className, long classPK);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

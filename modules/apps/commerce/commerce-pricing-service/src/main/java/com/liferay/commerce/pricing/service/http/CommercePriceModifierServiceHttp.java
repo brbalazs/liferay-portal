@@ -284,51 +284,6 @@ public class CommercePriceModifierServiceHttp {
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifier>
 				getCommercePriceModifiers(
-					HttpPrincipal httpPrincipal, long companyId, String target)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommercePriceModifierServiceUtil.class,
-				"getCommercePriceModifiers",
-				_getCommercePriceModifiersParameterTypes5);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, target);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (java.util.List
-				<com.liferay.commerce.pricing.model.CommercePriceModifier>)
-					returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static java.util.List
-		<com.liferay.commerce.pricing.model.CommercePriceModifier>
-				getCommercePriceModifiers(
 					HttpPrincipal httpPrincipal, long commercePriceListId,
 					int start, int end,
 					com.liferay.portal.kernel.util.OrderByComparator
@@ -340,7 +295,7 @@ public class CommercePriceModifierServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceModifierServiceUtil.class,
 				"getCommercePriceModifiers",
-				_getCommercePriceModifiersParameterTypes6);
+				_getCommercePriceModifiersParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId, start, end, orderByComparator);
@@ -375,8 +330,53 @@ public class CommercePriceModifierServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifier>
+				getCommercePriceModifiers(
+					HttpPrincipal httpPrincipal, long companyId, String target)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceModifierServiceUtil.class,
+				"getCommercePriceModifiers",
+				_getCommercePriceModifiersParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, target);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<com.liferay.commerce.pricing.model.CommercePriceModifier>)
+					returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static int getCommercePriceModifiersCount(
-			HttpPrincipal httpPrincipal, long commercePriceListId)
+			HttpPrincipal httpPrincipal)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -385,8 +385,7 @@ public class CommercePriceModifierServiceHttp {
 				"getCommercePriceModifiersCount",
 				_getCommercePriceModifiersCountParameterTypes7);
 
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commercePriceListId);
+			MethodHandler methodHandler = new MethodHandler(methodKey);
 
 			Object returnObj = null;
 
@@ -417,7 +416,7 @@ public class CommercePriceModifierServiceHttp {
 	}
 
 	public static int getCommercePriceModifiersCount(
-			HttpPrincipal httpPrincipal)
+			HttpPrincipal httpPrincipal, long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -426,7 +425,8 @@ public class CommercePriceModifierServiceHttp {
 				"getCommercePriceModifiersCount",
 				_getCommercePriceModifiersCountParameterTypes8);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey);
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceListId);
 
 			Object returnObj = null;
 
@@ -642,18 +642,18 @@ public class CommercePriceModifierServiceHttp {
 	private static final Class<?>[] _getCommercePriceModifierParameterTypes4 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getCommercePriceModifiersParameterTypes5 =
-		new Class[] {long.class, String.class};
-	private static final Class<?>[] _getCommercePriceModifiersParameterTypes6 =
 		new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
+	private static final Class<?>[] _getCommercePriceModifiersParameterTypes6 =
+		new Class[] {long.class, String.class};
 	private static final Class<?>[]
-		_getCommercePriceModifiersCountParameterTypes7 = new Class[] {
+		_getCommercePriceModifiersCountParameterTypes7 = new Class[] {};
+	private static final Class<?>[]
+		_getCommercePriceModifiersCountParameterTypes8 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[]
-		_getCommercePriceModifiersCountParameterTypes8 = new Class[] {};
 	private static final Class<?>[]
 		_searchCommercePriceModifiersParameterTypes9 = new Class[] {
 			long.class, String.class, int.class, int.class, int.class,

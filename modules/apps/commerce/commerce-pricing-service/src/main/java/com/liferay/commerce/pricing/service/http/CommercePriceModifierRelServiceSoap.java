@@ -214,6 +214,30 @@ public class CommercePriceModifierRelServiceSoap {
 		}
 	}
 
+	public static
+		com.liferay.commerce.pricing.model.CommercePriceModifierRelSoap
+				fetchCommercePriceModifierRel(
+					long commercePriceModifierId, String className,
+					long classPK)
+			throws RemoteException {
+
+		try {
+			com.liferay.commerce.pricing.model.CommercePriceModifierRel
+				returnValue =
+					CommercePriceModifierRelServiceUtil.
+						fetchCommercePriceModifierRel(
+							commercePriceModifierId, className, classPK);
+
+			return com.liferay.commerce.pricing.model.
+				CommercePriceModifierRelSoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CommercePriceModifierRelServiceSoap.class);
 

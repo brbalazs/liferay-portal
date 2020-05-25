@@ -225,6 +225,14 @@ public class CommercePriceModifierRelLocalServiceUtil {
 			commercePriceModifierRelId);
 	}
 
+	public static com.liferay.commerce.pricing.model.CommercePriceModifierRel
+		fetchCommercePriceModifierRel(
+			long commercePriceModifierId, String className, long classPK) {
+
+		return getService().fetchCommercePriceModifierRel(
+			commercePriceModifierId, className, classPK);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

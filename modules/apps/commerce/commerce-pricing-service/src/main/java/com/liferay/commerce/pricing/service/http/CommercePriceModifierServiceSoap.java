@@ -179,27 +179,6 @@ public class CommercePriceModifierServiceSoap {
 	}
 
 	public static com.liferay.commerce.pricing.model.CommercePriceModifierSoap[]
-			getCommercePriceModifiers(long companyId, String target)
-		throws RemoteException {
-
-		try {
-			java.util.List
-				<com.liferay.commerce.pricing.model.CommercePriceModifier>
-					returnValue =
-						CommercePriceModifierServiceUtil.
-							getCommercePriceModifiers(companyId, target);
-
-			return com.liferay.commerce.pricing.model.CommercePriceModifierSoap.
-				toSoapModels(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.pricing.model.CommercePriceModifierSoap[]
 			getCommercePriceModifiers(
 				long commercePriceListId, int start, int end,
 				com.liferay.portal.kernel.util.OrderByComparator
@@ -226,15 +205,19 @@ public class CommercePriceModifierServiceSoap {
 		}
 	}
 
-	public static int getCommercePriceModifiersCount(long commercePriceListId)
+	public static com.liferay.commerce.pricing.model.CommercePriceModifierSoap[]
+			getCommercePriceModifiers(long companyId, String target)
 		throws RemoteException {
 
 		try {
-			int returnValue =
-				CommercePriceModifierServiceUtil.getCommercePriceModifiersCount(
-					commercePriceListId);
+			java.util.List
+				<com.liferay.commerce.pricing.model.CommercePriceModifier>
+					returnValue =
+						CommercePriceModifierServiceUtil.
+							getCommercePriceModifiers(companyId, target);
 
-			return returnValue;
+			return com.liferay.commerce.pricing.model.CommercePriceModifierSoap.
+				toSoapModels(returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -248,6 +231,23 @@ public class CommercePriceModifierServiceSoap {
 			int returnValue =
 				CommercePriceModifierServiceUtil.
 					getCommercePriceModifiersCount();
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommercePriceModifiersCount(long commercePriceListId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceModifierServiceUtil.getCommercePriceModifiersCount(
+					commercePriceListId);
 
 			return returnValue;
 		}

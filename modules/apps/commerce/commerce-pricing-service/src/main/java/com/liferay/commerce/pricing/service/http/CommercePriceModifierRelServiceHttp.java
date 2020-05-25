@@ -357,6 +357,50 @@ public class CommercePriceModifierRelServiceHttp {
 		}
 	}
 
+	public static com.liferay.commerce.pricing.model.CommercePriceModifierRel
+			fetchCommercePriceModifierRel(
+				HttpPrincipal httpPrincipal, long commercePriceModifierId,
+				String className, long classPK)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceModifierRelServiceUtil.class,
+				"fetchCommercePriceModifierRel",
+				_fetchCommercePriceModifierRelParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceModifierId, className, classPK);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.pricing.model.CommercePriceModifierRel)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CommercePriceModifierRelServiceHttp.class);
 
@@ -386,6 +430,10 @@ public class CommercePriceModifierRelServiceHttp {
 	private static final Class<?>[]
 		_getCommercePriceModifierRelsCountParameterTypes6 = new Class[] {
 			long.class, String.class
+		};
+	private static final Class<?>[]
+		_fetchCommercePriceModifierRelParameterTypes7 = new Class[] {
+			long.class, String.class, long.class
 		};
 
 }

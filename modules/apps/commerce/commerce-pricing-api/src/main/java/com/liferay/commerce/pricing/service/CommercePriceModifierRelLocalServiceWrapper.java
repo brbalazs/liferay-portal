@@ -240,6 +240,16 @@ public class CommercePriceModifierRelLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.pricing.model.CommercePriceModifierRel
+		fetchCommercePriceModifierRel(
+			long commercePriceModifierId, String className, long classPK) {
+
+		return _commercePriceModifierRelLocalService.
+			fetchCommercePriceModifierRel(
+				commercePriceModifierId, className, classPK);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
