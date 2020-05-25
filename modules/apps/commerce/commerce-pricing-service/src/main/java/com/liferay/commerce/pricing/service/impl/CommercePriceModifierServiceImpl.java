@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.math.BigDecimal;
 
@@ -123,6 +124,20 @@ public class CommercePriceModifierServiceImpl
 
 	@Override
 	public List<CommercePriceModifier> getCommercePriceModifiers(
+			long commercePriceListId, int start, int end,
+			OrderByComparator<CommercePriceModifier> orderByComparator)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceModifierActionKeys.VIEW_COMMERCE_PRICE_MODIFIERS);
+
+		return commercePriceModifierLocalService.getCommercePriceModifiers(
+			commercePriceListId, start, end, orderByComparator);
+	}
+
+	@Override
+	public List<CommercePriceModifier> getCommercePriceModifiers(
 			long companyId, String target)
 		throws PortalException {
 
@@ -142,6 +157,18 @@ public class CommercePriceModifierServiceImpl
 
 		return commercePriceModifierLocalService.
 			getCommercePriceModifiersCount();
+	}
+
+	@Override
+	public int getCommercePriceModifiersCount(long commercePriceListId)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceModifierActionKeys.VIEW_COMMERCE_PRICE_MODIFIERS);
+
+		return commercePriceModifierLocalService.getCommercePriceModifiersCount(
+			commercePriceListId);
 	}
 
 	@Override

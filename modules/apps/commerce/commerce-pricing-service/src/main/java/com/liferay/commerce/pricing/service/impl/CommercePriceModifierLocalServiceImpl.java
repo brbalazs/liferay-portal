@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -287,9 +288,24 @@ public class CommercePriceModifierLocalServiceImpl
 
 	@Override
 	public List<CommercePriceModifier> getCommercePriceModifiers(
+		long commercePriceListId, int start, int end,
+		OrderByComparator<CommercePriceModifier> orderByComparator) {
+
+		return commercePriceModifierPersistence.findByCommercePriceListId(
+			commercePriceListId, start, end, orderByComparator);
+	}
+
+	@Override
+	public List<CommercePriceModifier> getCommercePriceModifiers(
 		long companyId, String target) {
 
 		return commercePriceModifierPersistence.findByC_T(companyId, target);
+	}
+
+	@Override
+	public int getCommercePriceModifiersCount(long commercePriceListId) {
+		return commercePriceModifierPersistence.countByCommercePriceListId(
+			commercePriceListId);
 	}
 
 	@Override
