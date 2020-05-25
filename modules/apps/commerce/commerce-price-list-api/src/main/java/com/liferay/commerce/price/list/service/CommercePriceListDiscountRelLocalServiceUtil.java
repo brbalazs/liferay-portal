@@ -321,6 +321,18 @@ public class CommercePriceListDiscountRelLocalServiceUtil {
 			commercePriceListId);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListDiscountRel>
+			getCommercePriceListDiscountRels(
+				long commercePriceListId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.price.list.model.
+						CommercePriceListDiscountRel> orderByComparator) {
+
+		return getService().getCommercePriceListDiscountRels(
+			commercePriceListId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns the number of commerce price list discount rels.
 	 *
@@ -328,6 +340,13 @@ public class CommercePriceListDiscountRelLocalServiceUtil {
 	 */
 	public static int getCommercePriceListDiscountRelsCount() {
 		return getService().getCommercePriceListDiscountRelsCount();
+	}
+
+	public static int getCommercePriceListDiscountRelsCount(
+		long commercePriceListId) {
+
+		return getService().getCommercePriceListDiscountRelsCount(
+			commercePriceListId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery

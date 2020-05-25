@@ -330,6 +330,20 @@ public class CommercePriceListDiscountRelLocalServiceWrapper
 			getCommercePriceListDiscountRels(commercePriceListId);
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListDiscountRel>
+			getCommercePriceListDiscountRels(
+				long commercePriceListId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.price.list.model.
+						CommercePriceListDiscountRel> orderByComparator) {
+
+		return _commercePriceListDiscountRelLocalService.
+			getCommercePriceListDiscountRels(
+				commercePriceListId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns the number of commerce price list discount rels.
 	 *
@@ -339,6 +353,12 @@ public class CommercePriceListDiscountRelLocalServiceWrapper
 	public int getCommercePriceListDiscountRelsCount() {
 		return _commercePriceListDiscountRelLocalService.
 			getCommercePriceListDiscountRelsCount();
+	}
+
+	@Override
+	public int getCommercePriceListDiscountRelsCount(long commercePriceListId) {
+		return _commercePriceListDiscountRelLocalService.
+			getCommercePriceListDiscountRelsCount(commercePriceListId);
 	}
 
 	@Override

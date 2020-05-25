@@ -171,6 +171,13 @@ public class CommercePriceListDiscountRelWrapper
 		return _commercePriceListDiscountRel.getCommerceDiscountId();
 	}
 
+	@Override
+	public CommercePriceList getCommercePriceList()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListDiscountRel.getCommercePriceList();
+	}
+
 	/**
 	 * Returns the commerce price list discount rel ID of this commerce price list discount rel.
 	 *

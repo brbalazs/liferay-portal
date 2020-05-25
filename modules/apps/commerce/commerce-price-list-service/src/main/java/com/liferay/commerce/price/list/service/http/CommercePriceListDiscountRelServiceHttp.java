@@ -226,6 +226,142 @@ public class CommercePriceListDiscountRelServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListDiscountRel>
+				getCommercePriceListDiscountRels(
+					HttpPrincipal httpPrincipal, long commercePriceListId,
+					int start, int end,
+					com.liferay.portal.kernel.util.OrderByComparator
+						<com.liferay.commerce.price.list.model.
+							CommercePriceListDiscountRel> orderByComparator)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceListDiscountRelServiceUtil.class,
+				"getCommercePriceListDiscountRels",
+				_getCommercePriceListDiscountRelsParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceListId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<com.liferay.commerce.price.list.model.
+					CommercePriceListDiscountRel>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static int getCommercePriceListDiscountRelsCount(
+			HttpPrincipal httpPrincipal, long commercePriceListId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceListDiscountRelServiceUtil.class,
+				"getCommercePriceListDiscountRelsCount",
+				_getCommercePriceListDiscountRelsCountParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceListId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.security.auth.
+							PrincipalException) {
+
+					throw (com.liferay.portal.kernel.security.auth.
+						PrincipalException)exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static
+		com.liferay.commerce.price.list.model.CommercePriceListDiscountRel
+				getCommercePriceListDiscountRel(
+					HttpPrincipal httpPrincipal,
+					long commercePriceListDiscountRelId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceListDiscountRelServiceUtil.class,
+				"getCommercePriceListDiscountRel",
+				_getCommercePriceListDiscountRelParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceListDiscountRelId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.price.list.model.
+				CommercePriceListDiscountRel)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CommercePriceListDiscountRelServiceHttp.class);
 
@@ -244,6 +380,19 @@ public class CommercePriceListDiscountRelServiceHttp {
 		};
 	private static final Class<?>[]
 		_getCommercePriceListDiscountRelsParameterTypes3 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCommercePriceListDiscountRelsParameterTypes4 = new Class[] {
+			long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getCommercePriceListDiscountRelsCountParameterTypes5 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCommercePriceListDiscountRelParameterTypes6 = new Class[] {
 			long.class
 		};
 

@@ -256,6 +256,11 @@ public interface CommercePriceListDiscountRelLocalService
 	public List<CommercePriceListDiscountRel> getCommercePriceListDiscountRels(
 		long commercePriceListId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceListDiscountRel> getCommercePriceListDiscountRels(
+		long commercePriceListId, int start, int end,
+		OrderByComparator<CommercePriceListDiscountRel> orderByComparator);
+
 	/**
 	 * Returns the number of commerce price list discount rels.
 	 *
@@ -263,6 +268,9 @@ public interface CommercePriceListDiscountRelLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceListDiscountRelsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePriceListDiscountRelsCount(long commercePriceListId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
