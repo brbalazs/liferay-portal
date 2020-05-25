@@ -18,8 +18,10 @@ import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceListDiscountRel;
 import com.liferay.commerce.price.list.service.base.CommercePriceListDiscountRelServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.List;
 
@@ -73,6 +75,19 @@ public class CommercePriceListDiscountRelServiceImpl
 	}
 
 	@Override
+	public CommercePriceListDiscountRel getCommercePriceListDiscountRel(
+			long commercePriceListDiscountRelId)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListDiscountRelLocalService.
+			getCommercePriceListDiscountRel(commercePriceListDiscountRelId);
+	}
+
+	@Override
 	public List<CommercePriceListDiscountRel> getCommercePriceListDiscountRels(
 			long commercePriceListId)
 		throws PortalException {
@@ -83,6 +98,33 @@ public class CommercePriceListDiscountRelServiceImpl
 
 		return commercePriceListDiscountRelLocalService.
 			getCommercePriceListDiscountRels(commercePriceListId);
+	}
+
+	@Override
+	public List<CommercePriceListDiscountRel> getCommercePriceListDiscountRels(
+			long commercePriceListId, int start, int end,
+			OrderByComparator<CommercePriceListDiscountRel> orderByComparator)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListDiscountRelLocalService.
+			getCommercePriceListDiscountRels(
+				commercePriceListId, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getCommercePriceListDiscountRelsCount(long commercePriceListId)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListDiscountRelLocalService.
+			getCommercePriceListDiscountRelsCount(commercePriceListId);
 	}
 
 }
