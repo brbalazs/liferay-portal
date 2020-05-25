@@ -18,8 +18,10 @@ import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceListAccountRel;
 import com.liferay.commerce.price.list.service.base.CommercePriceListAccountRelServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.List;
 
@@ -72,6 +74,19 @@ public class CommercePriceListAccountRelServiceImpl
 	}
 
 	@Override
+	public CommercePriceListAccountRel getCommercePriceListAccountRel(
+			long commercePriceListAccountRelId)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListAccountRelLocalService.
+			getCommercePriceListAccountRel(commercePriceListAccountRelId);
+	}
+
+	@Override
 	public List<CommercePriceListAccountRel> getCommercePriceListAccountRels(
 			long commercePriceListId)
 		throws PortalException {
@@ -82,6 +97,33 @@ public class CommercePriceListAccountRelServiceImpl
 
 		return commercePriceListAccountRelLocalService.
 			getCommercePriceListAccountRels(commercePriceListId);
+	}
+
+	@Override
+	public List<CommercePriceListAccountRel> getCommercePriceListAccountRels(
+			long commercePriceListId, int start, int end,
+			OrderByComparator<CommercePriceListAccountRel> orderByComparator)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListAccountRelLocalService.
+			getCommercePriceListAccountRels(
+				commercePriceListId, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getCommercePriceListAccountRelsCount(long commercePriceListId)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListAccountRelLocalService.
+			getCommercePriceListAccountRelsCount(commercePriceListId);
 	}
 
 }
