@@ -14,9 +14,27 @@
 
 package com.liferay.headless.commerce.admin.pricing.internal.resource.v2_0;
 
+import com.liferay.commerce.pricing.exception.NoSuchPriceModifierException;
+import com.liferay.commerce.pricing.model.CommercePriceModifier;
+import com.liferay.commerce.pricing.model.CommercePriceModifierRel;
+import com.liferay.commerce.pricing.model.CommercePricingClass;
+import com.liferay.commerce.pricing.service.CommercePriceModifierRelService;
+import com.liferay.commerce.pricing.service.CommercePriceModifierService;
+import com.liferay.commerce.pricing.service.CommercePricingClassService;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierProductGroup;
+import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.PriceModifierProductGroupDTOConverter;
+import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceModifierProductGroupUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierProductGroupResource;
+import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
+import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 /**
@@ -29,4 +47,152 @@ import org.osgi.service.component.annotations.ServiceScope;
 )
 public class PriceModifierProductGroupResourceImpl
 	extends BasePriceModifierProductGroupResourceImpl {
+
+	@Override
+	public void deletePriceModifierProductGroup(Long id) throws Exception {
+		_commercePriceModifierRelService.deleteCommercePriceModifierRel(id);
+	}
+
+	@Override
+	public Page<PriceModifierProductGroup>
+			getPriceModifierByExternalReferenceCodePriceModifierProductGroupsPage(
+				String externalReferenceCode, Pagination pagination)
+		throws Exception {
+
+		CommercePriceModifier commercePriceModifier =
+			_commercePriceModifierService.fetchByExternalReferenceCode(
+				contextCompany.getCompanyId(), externalReferenceCode);
+
+		if (commercePriceModifier == null) {
+			throw new NoSuchPriceModifierException(
+				"Unable to find Price Modifier with externalReferenceCode: " +
+					externalReferenceCode);
+		}
+
+		List<CommercePriceModifierRel> commercePriceModifierRels =
+			_commercePriceModifierRelService.getCommercePriceModifierRels(
+				commercePriceModifier.getCommercePriceModifierId(),
+				CommercePricingClass.class.getName(),
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
+
+		int totalItems =
+			_commercePriceModifierRelService.getCommercePriceModifierRelsCount(
+				commercePriceModifier.getCommercePriceModifierId(),
+				CommercePricingClass.class.getName());
+
+		return Page.of(
+			_toPriceModifierProductGroups(commercePriceModifierRels),
+			pagination, totalItems);
+	}
+
+	@Override
+	public Page<PriceModifierProductGroup>
+			getPriceModifierIdPriceModifierProductGroupsPage(
+				Long id, Pagination pagination)
+		throws Exception {
+
+		List<CommercePriceModifierRel> commercePriceModifierRels =
+			_commercePriceModifierRelService.getCommercePriceModifierRels(
+				id, CommercePricingClass.class.getName(),
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
+
+		int totalItems =
+			_commercePriceModifierRelService.getCommercePriceModifierRelsCount(
+				id, CommercePricingClass.class.getName());
+
+		return Page.of(
+			_toPriceModifierProductGroups(commercePriceModifierRels),
+			pagination, totalItems);
+	}
+
+	@Override
+	public PriceModifierProductGroup
+			postPriceModifierByExternalReferenceCodePriceModifierProductGroup(
+				String externalReferenceCode,
+				PriceModifierProductGroup priceModifierProductGroup)
+		throws Exception {
+
+		CommercePriceModifier commercePriceModifier =
+			_commercePriceModifierService.fetchByExternalReferenceCode(
+				contextCompany.getCompanyId(), externalReferenceCode);
+
+		if (commercePriceModifier == null) {
+			throw new NoSuchPriceModifierException(
+				"Unable to find Price Modifier with externalReferenceCode: " +
+					externalReferenceCode);
+		}
+
+		CommercePriceModifierRel commercePriceModifierRel =
+			PriceModifierProductGroupUtil.addCommercePriceModifierRel(
+				_commercePricingClassService, _commercePriceModifierRelService,
+				priceModifierProductGroup, commercePriceModifier,
+				_serviceContextHelper);
+
+		return _toPriceModifierProductGroup(
+			commercePriceModifierRel.getCommercePriceModifierRelId());
+	}
+
+	@Override
+	public PriceModifierProductGroup
+			postPriceModifierIdPriceModifierProductGroup(
+				Long id, PriceModifierProductGroup priceModifierProductGroup)
+		throws Exception {
+
+		CommercePriceModifierRel commercePriceModifierRel =
+			PriceModifierProductGroupUtil.addCommercePriceModifierRel(
+				_commercePricingClassService, _commercePriceModifierRelService,
+				priceModifierProductGroup,
+				_commercePriceModifierService.getCommercePriceModifier(id),
+				_serviceContextHelper);
+
+		return _toPriceModifierProductGroup(
+			commercePriceModifierRel.getCommercePriceModifierRelId());
+	}
+
+	private PriceModifierProductGroup _toPriceModifierProductGroup(
+			Long commercePriceModifierRelId)
+		throws Exception {
+
+		return _priceModifierProductGroupDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				commercePriceModifierRelId,
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	private List<PriceModifierProductGroup> _toPriceModifierProductGroups(
+			List<CommercePriceModifierRel> commercePriceModifierRels)
+		throws Exception {
+
+		List<PriceModifierProductGroup> priceModifierProductGroups =
+			new ArrayList<>();
+
+		for (CommercePriceModifierRel commercePriceModifierRel :
+				commercePriceModifierRels) {
+
+			priceModifierProductGroups.add(
+				_toPriceModifierProductGroup(
+					commercePriceModifierRel.getCommercePriceModifierRelId()));
+		}
+
+		return priceModifierProductGroups;
+	}
+
+	@Reference
+	private CommercePriceModifierRelService _commercePriceModifierRelService;
+
+	@Reference
+	private CommercePriceModifierService _commercePriceModifierService;
+
+	@Reference
+	private CommercePricingClassService _commercePricingClassService;
+
+	@Reference
+	private PriceModifierProductGroupDTOConverter
+		_priceModifierProductGroupDTOConverter;
+
+	@Reference
+	private ServiceContextHelper _serviceContextHelper;
+
 }
