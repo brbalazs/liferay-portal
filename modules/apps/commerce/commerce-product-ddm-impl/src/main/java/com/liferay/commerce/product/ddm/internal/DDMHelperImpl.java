@@ -42,8 +42,10 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Arrays;
 import java.util.List;
@@ -96,7 +98,8 @@ public class DDMHelperImpl implements DDMHelper {
 		long groupId, long commerceAccountId, long cpDefinitionId,
 		Locale locale, boolean ignoreSKUCombinations,
 		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelCPDefinitionOptionValueRels) {
+			cpDefinitionOptionRelCPDefinitionOptionValueRels,
+		long companyId, long userId) {
 
 		DDMForm ddmForm = _getDDMForm(
 			locale, ignoreSKUCombinations, false, true,
@@ -105,7 +108,8 @@ public class DDMHelperImpl implements DDMHelper {
 		if (!ignoreSKUCombinations) {
 			ddmForm.addDDMFormRule(
 				_createDDMFormRule(
-					ddmForm, groupId, commerceAccountId, cpDefinitionId));
+					ddmForm, groupId, commerceAccountId, cpDefinitionId,
+					companyId, userId));
 		}
 
 		return ddmForm;
@@ -171,10 +175,14 @@ public class DDMHelperImpl implements DDMHelper {
 			commerceAccountId = commerceAccount.getCommerceAccountId();
 		}
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		DDMForm ddmForm = getPublicStoreDDMForm(
 			_portal.getScopeGroupId(renderRequest), commerceAccountId,
 			cpDefinitionId, locale, ignoreSKUCombinations,
-			cpDefinitionOptionRelCPDefinitionOptionValueRels);
+			cpDefinitionOptionRelCPDefinitionOptionValueRels,
+			themeDisplay.getCompanyId(), themeDisplay.getUserId());
 
 		return _render(
 			cpDefinitionId, locale, ddmForm, json, renderRequest,
@@ -183,10 +191,11 @@ public class DDMHelperImpl implements DDMHelper {
 
 	private DDMFormRule _createDDMFormRule(
 		DDMForm ddmForm, long groupId, long commerceAccountId,
-		long cpDefinitionId) {
+		long cpDefinitionId, long companyId, long userId) {
 
 		String action = _createDDMFormRuleAction(
-			ddmForm, groupId, commerceAccountId, cpDefinitionId);
+			ddmForm, groupId, commerceAccountId, cpDefinitionId, companyId,
+			userId);
 
 		return new DDMFormRule("TRUE", action);
 	}
@@ -204,7 +213,7 @@ public class DDMHelperImpl implements DDMHelper {
 	 */
 	private String _createDDMFormRuleAction(
 		DDMForm ddmForm, long groupId, long commerceAccountId,
-		long cpDefinitionId) {
+		long cpDefinitionId, long companyId, long userId) {
 
 		String callFunctionStatement =
 			"call('getCPInstanceOptionsValues', concat(%s), '%s')";
@@ -212,13 +221,14 @@ public class DDMHelperImpl implements DDMHelper {
 		return String.format(
 			callFunctionStatement,
 			_createDDMFormRuleInputMapping(
-				ddmForm, groupId, commerceAccountId, cpDefinitionId),
+				ddmForm, groupId, commerceAccountId, cpDefinitionId, companyId,
+				userId),
 			_createDDMFormRuleOutputMapping(ddmForm));
 	}
 
 	private String _createDDMFormRuleInputMapping(
 		DDMForm ddmForm, long groupId, long commerceAccountId,
-		long cpDefinitionId) {
+		long cpDefinitionId, long companyId, long userId) {
 
 		// The input information will be transformed in parameter request of
 		// DDMDataProviderRequest class and it'll be accessible in the data
@@ -237,6 +247,11 @@ public class DDMHelperImpl implements DDMHelper {
 
 		inputMappingStatementStream = Stream.concat(
 			Stream.of(
+				String.format("'companyId=%s'", String.valueOf(companyId))),
+			inputMappingStatementStream);
+
+		inputMappingStatementStream = Stream.concat(
+			Stream.of(
 				String.format(
 					"'cpDefinitionId=%s'", String.valueOf(cpDefinitionId))),
 			inputMappingStatementStream);
@@ -250,6 +265,10 @@ public class DDMHelperImpl implements DDMHelper {
 				String.format(
 					"'commerceAccountId=%s'",
 					String.valueOf(commerceAccountId))),
+			inputMappingStatementStream);
+
+		inputMappingStatementStream = Stream.concat(
+			Stream.of(String.format("'userId=%s'", String.valueOf(userId))),
 			inputMappingStatementStream);
 
 		return inputMappingStatementStream.collect(

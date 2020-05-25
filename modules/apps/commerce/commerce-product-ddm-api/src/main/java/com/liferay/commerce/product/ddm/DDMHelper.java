@@ -45,7 +45,8 @@ public interface DDMHelper {
 		long groupId, long commerceAccountId, long cpDefinitionId,
 		Locale locale, boolean ignoreSKUCombinations,
 		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelCPDefinitionOptionValueRels);
+			cpDefinitionOptionRelCPDefinitionOptionValueRels,
+		long companyId, long userId);
 
 	public String renderCPAttachmentFileEntryOptions(
 			long cpDefinitionId, String json, RenderRequest renderRequest,
