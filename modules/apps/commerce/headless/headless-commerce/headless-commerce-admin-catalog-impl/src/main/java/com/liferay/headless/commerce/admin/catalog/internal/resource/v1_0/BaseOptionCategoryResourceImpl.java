@@ -254,9 +254,28 @@ public abstract class BaseOptionCategoryResourceImpl
 			OptionCategory optionCategory)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		OptionCategory existingOptionCategory = getOptionCategory(id);
 
-		return responseBuilder.build();
+		if (optionCategory.getDescription() != null) {
+			existingOptionCategory.setDescription(
+				optionCategory.getDescription());
+		}
+
+		if (optionCategory.getKey() != null) {
+			existingOptionCategory.setKey(optionCategory.getKey());
+		}
+
+		if (optionCategory.getPriority() != null) {
+			existingOptionCategory.setPriority(optionCategory.getPriority());
+		}
+
+		if (optionCategory.getTitle() != null) {
+			existingOptionCategory.setTitle(optionCategory.getTitle());
+		}
+
+		preparePatch(optionCategory, existingOptionCategory);
+
+		return putOptionCategory(id, existingOptionCategory);
 	}
 
 	@Override
@@ -390,6 +409,10 @@ public abstract class BaseOptionCategoryResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(
+		OptionCategory optionCategory, OptionCategory existingOptionCategory) {
 	}
 
 	protected <T, R> List<R> transform(

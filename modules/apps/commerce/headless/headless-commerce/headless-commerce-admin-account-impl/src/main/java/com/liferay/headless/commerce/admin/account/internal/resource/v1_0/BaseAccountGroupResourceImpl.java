@@ -230,9 +230,26 @@ public abstract class BaseAccountGroupResourceImpl
 			AccountGroup accountGroup)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		AccountGroup existingAccountGroup = getAccountGroup(
+			externalReferenceCode);
 
-		return responseBuilder.build();
+		if (accountGroup.getCustomFields() != null) {
+			existingAccountGroup.setCustomFields(
+				accountGroup.getCustomFields());
+		}
+
+		if (accountGroup.getExternalReferenceCode() != null) {
+			existingAccountGroup.setExternalReferenceCode(
+				accountGroup.getExternalReferenceCode());
+		}
+
+		if (accountGroup.getName() != null) {
+			existingAccountGroup.setName(accountGroup.getName());
+		}
+
+		preparePatch(accountGroup, existingAccountGroup);
+
+		return putAccountGroup(externalReferenceCode, existingAccountGroup);
 	}
 
 	/**
@@ -330,9 +347,25 @@ public abstract class BaseAccountGroupResourceImpl
 			AccountGroup accountGroup)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		AccountGroup existingAccountGroup = getAccountGroup(id);
 
-		return responseBuilder.build();
+		if (accountGroup.getCustomFields() != null) {
+			existingAccountGroup.setCustomFields(
+				accountGroup.getCustomFields());
+		}
+
+		if (accountGroup.getExternalReferenceCode() != null) {
+			existingAccountGroup.setExternalReferenceCode(
+				accountGroup.getExternalReferenceCode());
+		}
+
+		if (accountGroup.getName() != null) {
+			existingAccountGroup.setName(accountGroup.getName());
+		}
+
+		preparePatch(accountGroup, existingAccountGroup);
+
+		return putAccountGroup(id, existingAccountGroup);
 	}
 
 	@Override
@@ -466,6 +499,10 @@ public abstract class BaseAccountGroupResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(
+		AccountGroup accountGroup, AccountGroup existingAccountGroup) {
 	}
 
 	protected <T, R> List<R> transform(

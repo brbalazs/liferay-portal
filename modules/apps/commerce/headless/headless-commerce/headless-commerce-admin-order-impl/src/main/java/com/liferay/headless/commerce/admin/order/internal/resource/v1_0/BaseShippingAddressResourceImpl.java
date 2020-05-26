@@ -124,9 +124,71 @@ public abstract class BaseShippingAddressResourceImpl
 			ShippingAddress shippingAddress)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		ShippingAddress existingShippingAddress = getShippingAddress(
+			externalReferenceCode);
 
-		return responseBuilder.build();
+		if (shippingAddress.getCity() != null) {
+			existingShippingAddress.setCity(shippingAddress.getCity());
+		}
+
+		if (shippingAddress.getCountryISOCode() != null) {
+			existingShippingAddress.setCountryISOCode(
+				shippingAddress.getCountryISOCode());
+		}
+
+		if (shippingAddress.getDescription() != null) {
+			existingShippingAddress.setDescription(
+				shippingAddress.getDescription());
+		}
+
+		if (shippingAddress.getExternalReferenceCode() != null) {
+			existingShippingAddress.setExternalReferenceCode(
+				shippingAddress.getExternalReferenceCode());
+		}
+
+		if (shippingAddress.getLatitude() != null) {
+			existingShippingAddress.setLatitude(shippingAddress.getLatitude());
+		}
+
+		if (shippingAddress.getLongitude() != null) {
+			existingShippingAddress.setLongitude(
+				shippingAddress.getLongitude());
+		}
+
+		if (shippingAddress.getName() != null) {
+			existingShippingAddress.setName(shippingAddress.getName());
+		}
+
+		if (shippingAddress.getPhoneNumber() != null) {
+			existingShippingAddress.setPhoneNumber(
+				shippingAddress.getPhoneNumber());
+		}
+
+		if (shippingAddress.getRegionISOCode() != null) {
+			existingShippingAddress.setRegionISOCode(
+				shippingAddress.getRegionISOCode());
+		}
+
+		if (shippingAddress.getStreet1() != null) {
+			existingShippingAddress.setStreet1(shippingAddress.getStreet1());
+		}
+
+		if (shippingAddress.getStreet2() != null) {
+			existingShippingAddress.setStreet2(shippingAddress.getStreet2());
+		}
+
+		if (shippingAddress.getStreet3() != null) {
+			existingShippingAddress.setStreet3(shippingAddress.getStreet3());
+		}
+
+		if (shippingAddress.getZip() != null) {
+			existingShippingAddress.setZip(shippingAddress.getZip());
+		}
+
+		preparePatch(shippingAddress, existingShippingAddress);
+
+		return putShippingAddress(
+			externalReferenceCode, existingShippingAddress);
 	}
 
 	/**
@@ -164,9 +226,69 @@ public abstract class BaseShippingAddressResourceImpl
 			ShippingAddress shippingAddress)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		ShippingAddress existingShippingAddress = getShippingAddress(id);
 
-		return responseBuilder.build();
+		if (shippingAddress.getCity() != null) {
+			existingShippingAddress.setCity(shippingAddress.getCity());
+		}
+
+		if (shippingAddress.getCountryISOCode() != null) {
+			existingShippingAddress.setCountryISOCode(
+				shippingAddress.getCountryISOCode());
+		}
+
+		if (shippingAddress.getDescription() != null) {
+			existingShippingAddress.setDescription(
+				shippingAddress.getDescription());
+		}
+
+		if (shippingAddress.getExternalReferenceCode() != null) {
+			existingShippingAddress.setExternalReferenceCode(
+				shippingAddress.getExternalReferenceCode());
+		}
+
+		if (shippingAddress.getLatitude() != null) {
+			existingShippingAddress.setLatitude(shippingAddress.getLatitude());
+		}
+
+		if (shippingAddress.getLongitude() != null) {
+			existingShippingAddress.setLongitude(
+				shippingAddress.getLongitude());
+		}
+
+		if (shippingAddress.getName() != null) {
+			existingShippingAddress.setName(shippingAddress.getName());
+		}
+
+		if (shippingAddress.getPhoneNumber() != null) {
+			existingShippingAddress.setPhoneNumber(
+				shippingAddress.getPhoneNumber());
+		}
+
+		if (shippingAddress.getRegionISOCode() != null) {
+			existingShippingAddress.setRegionISOCode(
+				shippingAddress.getRegionISOCode());
+		}
+
+		if (shippingAddress.getStreet1() != null) {
+			existingShippingAddress.setStreet1(shippingAddress.getStreet1());
+		}
+
+		if (shippingAddress.getStreet2() != null) {
+			existingShippingAddress.setStreet2(shippingAddress.getStreet2());
+		}
+
+		if (shippingAddress.getStreet3() != null) {
+			existingShippingAddress.setStreet3(shippingAddress.getStreet3());
+		}
+
+		if (shippingAddress.getZip() != null) {
+			existingShippingAddress.setZip(shippingAddress.getZip());
+		}
+
+		preparePatch(shippingAddress, existingShippingAddress);
+
+		return putShippingAddress(id, existingShippingAddress);
 	}
 
 	@Override
@@ -292,6 +414,11 @@ public abstract class BaseShippingAddressResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(
+		ShippingAddress shippingAddress,
+		ShippingAddress existingShippingAddress) {
 	}
 
 	protected <T, R> List<R> transform(

@@ -175,9 +175,53 @@ public abstract class BaseProductOptionResourceImpl
 			ProductOption productOption)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		ProductOption existingProductOption = getProductOption(id);
 
-		return responseBuilder.build();
+		if (productOption.getCatalogId() != null) {
+			existingProductOption.setCatalogId(productOption.getCatalogId());
+		}
+
+		if (productOption.getDescription() != null) {
+			existingProductOption.setDescription(
+				productOption.getDescription());
+		}
+
+		if (productOption.getFacetable() != null) {
+			existingProductOption.setFacetable(productOption.getFacetable());
+		}
+
+		if (productOption.getFieldType() != null) {
+			existingProductOption.setFieldType(productOption.getFieldType());
+		}
+
+		if (productOption.getKey() != null) {
+			existingProductOption.setKey(productOption.getKey());
+		}
+
+		if (productOption.getName() != null) {
+			existingProductOption.setName(productOption.getName());
+		}
+
+		if (productOption.getOptionId() != null) {
+			existingProductOption.setOptionId(productOption.getOptionId());
+		}
+
+		if (productOption.getPriority() != null) {
+			existingProductOption.setPriority(productOption.getPriority());
+		}
+
+		if (productOption.getRequired() != null) {
+			existingProductOption.setRequired(productOption.getRequired());
+		}
+
+		if (productOption.getSkuContributor() != null) {
+			existingProductOption.setSkuContributor(
+				productOption.getSkuContributor());
+		}
+
+		preparePatch(productOption, existingProductOption);
+
+		return putProductOption(id, existingProductOption);
 	}
 
 	/**
@@ -411,6 +455,10 @@ public abstract class BaseProductOptionResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(
+		ProductOption productOption, ProductOption existingProductOption) {
 	}
 
 	protected <T, R> List<R> transform(

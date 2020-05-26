@@ -229,9 +229,52 @@ public abstract class BaseOptionResourceImpl
 			Option option)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Option existingOption = getOption(externalReferenceCode);
 
-		return responseBuilder.build();
+		if (option.getCatalogId() != null) {
+			existingOption.setCatalogId(option.getCatalogId());
+		}
+
+		if (option.getDescription() != null) {
+			existingOption.setDescription(option.getDescription());
+		}
+
+		if (option.getExternalReferenceCode() != null) {
+			existingOption.setExternalReferenceCode(
+				option.getExternalReferenceCode());
+		}
+
+		if (option.getFacetable() != null) {
+			existingOption.setFacetable(option.getFacetable());
+		}
+
+		if (option.getFieldType() != null) {
+			existingOption.setFieldType(option.getFieldType());
+		}
+
+		if (option.getKey() != null) {
+			existingOption.setKey(option.getKey());
+		}
+
+		if (option.getName() != null) {
+			existingOption.setName(option.getName());
+		}
+
+		if (option.getPriority() != null) {
+			existingOption.setPriority(option.getPriority());
+		}
+
+		if (option.getRequired() != null) {
+			existingOption.setRequired(option.getRequired());
+		}
+
+		if (option.getSkuContributor() != null) {
+			existingOption.setSkuContributor(option.getSkuContributor());
+		}
+
+		preparePatch(option, existingOption);
+
+		return putOption(externalReferenceCode, existingOption);
 	}
 
 	/**
@@ -329,9 +372,52 @@ public abstract class BaseOptionResourceImpl
 			Option option)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Option existingOption = getOption(id);
 
-		return responseBuilder.build();
+		if (option.getCatalogId() != null) {
+			existingOption.setCatalogId(option.getCatalogId());
+		}
+
+		if (option.getDescription() != null) {
+			existingOption.setDescription(option.getDescription());
+		}
+
+		if (option.getExternalReferenceCode() != null) {
+			existingOption.setExternalReferenceCode(
+				option.getExternalReferenceCode());
+		}
+
+		if (option.getFacetable() != null) {
+			existingOption.setFacetable(option.getFacetable());
+		}
+
+		if (option.getFieldType() != null) {
+			existingOption.setFieldType(option.getFieldType());
+		}
+
+		if (option.getKey() != null) {
+			existingOption.setKey(option.getKey());
+		}
+
+		if (option.getName() != null) {
+			existingOption.setName(option.getName());
+		}
+
+		if (option.getPriority() != null) {
+			existingOption.setPriority(option.getPriority());
+		}
+
+		if (option.getRequired() != null) {
+			existingOption.setRequired(option.getRequired());
+		}
+
+		if (option.getSkuContributor() != null) {
+			existingOption.setSkuContributor(option.getSkuContributor());
+		}
+
+		preparePatch(option, existingOption);
+
+		return putOption(id, existingOption);
 	}
 
 	@Override
@@ -465,6 +551,9 @@ public abstract class BaseOptionResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(Option option, Option existingOption) {
 	}
 
 	protected <T, R> List<R> transform(

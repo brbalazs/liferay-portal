@@ -150,9 +150,54 @@ public abstract class BasePriceEntryResourceImpl
 			PriceEntry priceEntry)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		PriceEntry existingPriceEntry = getPriceEntry(externalReferenceCode);
 
-		return responseBuilder.build();
+		if (priceEntry.getCustomFields() != null) {
+			existingPriceEntry.setCustomFields(priceEntry.getCustomFields());
+		}
+
+		if (priceEntry.getExternalReferenceCode() != null) {
+			existingPriceEntry.setExternalReferenceCode(
+				priceEntry.getExternalReferenceCode());
+		}
+
+		if (priceEntry.getHasTierPrice() != null) {
+			existingPriceEntry.setHasTierPrice(priceEntry.getHasTierPrice());
+		}
+
+		if (priceEntry.getPrice() != null) {
+			existingPriceEntry.setPrice(priceEntry.getPrice());
+		}
+
+		if (priceEntry.getPriceListExternalReferenceCode() != null) {
+			existingPriceEntry.setPriceListExternalReferenceCode(
+				priceEntry.getPriceListExternalReferenceCode());
+		}
+
+		if (priceEntry.getPriceListId() != null) {
+			existingPriceEntry.setPriceListId(priceEntry.getPriceListId());
+		}
+
+		if (priceEntry.getPromoPrice() != null) {
+			existingPriceEntry.setPromoPrice(priceEntry.getPromoPrice());
+		}
+
+		if (priceEntry.getSku() != null) {
+			existingPriceEntry.setSku(priceEntry.getSku());
+		}
+
+		if (priceEntry.getSkuExternalReferenceCode() != null) {
+			existingPriceEntry.setSkuExternalReferenceCode(
+				priceEntry.getSkuExternalReferenceCode());
+		}
+
+		if (priceEntry.getSkuId() != null) {
+			existingPriceEntry.setSkuId(priceEntry.getSkuId());
+		}
+
+		preparePatch(priceEntry, existingPriceEntry);
+
+		return putPriceEntry(externalReferenceCode, existingPriceEntry);
 	}
 
 	/**
@@ -250,9 +295,54 @@ public abstract class BasePriceEntryResourceImpl
 			PriceEntry priceEntry)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		PriceEntry existingPriceEntry = getPriceEntry(id);
 
-		return responseBuilder.build();
+		if (priceEntry.getCustomFields() != null) {
+			existingPriceEntry.setCustomFields(priceEntry.getCustomFields());
+		}
+
+		if (priceEntry.getExternalReferenceCode() != null) {
+			existingPriceEntry.setExternalReferenceCode(
+				priceEntry.getExternalReferenceCode());
+		}
+
+		if (priceEntry.getHasTierPrice() != null) {
+			existingPriceEntry.setHasTierPrice(priceEntry.getHasTierPrice());
+		}
+
+		if (priceEntry.getPrice() != null) {
+			existingPriceEntry.setPrice(priceEntry.getPrice());
+		}
+
+		if (priceEntry.getPriceListExternalReferenceCode() != null) {
+			existingPriceEntry.setPriceListExternalReferenceCode(
+				priceEntry.getPriceListExternalReferenceCode());
+		}
+
+		if (priceEntry.getPriceListId() != null) {
+			existingPriceEntry.setPriceListId(priceEntry.getPriceListId());
+		}
+
+		if (priceEntry.getPromoPrice() != null) {
+			existingPriceEntry.setPromoPrice(priceEntry.getPromoPrice());
+		}
+
+		if (priceEntry.getSku() != null) {
+			existingPriceEntry.setSku(priceEntry.getSku());
+		}
+
+		if (priceEntry.getSkuExternalReferenceCode() != null) {
+			existingPriceEntry.setSkuExternalReferenceCode(
+				priceEntry.getSkuExternalReferenceCode());
+		}
+
+		if (priceEntry.getSkuId() != null) {
+			existingPriceEntry.setSkuId(priceEntry.getSkuId());
+		}
+
+		preparePatch(priceEntry, existingPriceEntry);
+
+		return putPriceEntry(id, existingPriceEntry);
 	}
 
 	/**
@@ -482,6 +572,10 @@ public abstract class BasePriceEntryResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(
+		PriceEntry priceEntry, PriceEntry existingPriceEntry) {
 	}
 
 	protected <T, R> List<R> transform(

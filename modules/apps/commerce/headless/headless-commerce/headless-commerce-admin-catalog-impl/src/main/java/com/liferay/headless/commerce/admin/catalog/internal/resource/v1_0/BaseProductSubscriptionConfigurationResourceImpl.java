@@ -130,9 +130,45 @@ public abstract class BaseProductSubscriptionConfigurationResourceImpl
 					productSubscriptionConfiguration)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		ProductSubscriptionConfiguration
+			existingProductSubscriptionConfiguration =
+				getProductSubscriptionConfiguration(externalReferenceCode);
 
-		return responseBuilder.build();
+		if (productSubscriptionConfiguration.getEnable() != null) {
+			existingProductSubscriptionConfiguration.setEnable(
+				productSubscriptionConfiguration.getEnable());
+		}
+
+		if (productSubscriptionConfiguration.getLength() != null) {
+			existingProductSubscriptionConfiguration.setLength(
+				productSubscriptionConfiguration.getLength());
+		}
+
+		if (productSubscriptionConfiguration.getNumberOfLength() != null) {
+			existingProductSubscriptionConfiguration.setNumberOfLength(
+				productSubscriptionConfiguration.getNumberOfLength());
+		}
+
+		if (productSubscriptionConfiguration.getSubscriptionType() != null) {
+			existingProductSubscriptionConfiguration.setSubscriptionType(
+				productSubscriptionConfiguration.getSubscriptionType());
+		}
+
+		if (productSubscriptionConfiguration.getSubscriptionTypeSettings() !=
+				null) {
+
+			existingProductSubscriptionConfiguration.
+				setSubscriptionTypeSettings(
+					productSubscriptionConfiguration.
+						getSubscriptionTypeSettings());
+		}
+
+		preparePatch(
+			productSubscriptionConfiguration,
+			existingProductSubscriptionConfiguration);
+
+		return putProductSubscriptionConfiguration(
+			externalReferenceCode, existingProductSubscriptionConfiguration);
 	}
 
 	/**
@@ -171,9 +207,45 @@ public abstract class BaseProductSubscriptionConfigurationResourceImpl
 			ProductSubscriptionConfiguration productSubscriptionConfiguration)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		ProductSubscriptionConfiguration
+			existingProductSubscriptionConfiguration =
+				getProductSubscriptionConfiguration(id);
 
-		return responseBuilder.build();
+		if (productSubscriptionConfiguration.getEnable() != null) {
+			existingProductSubscriptionConfiguration.setEnable(
+				productSubscriptionConfiguration.getEnable());
+		}
+
+		if (productSubscriptionConfiguration.getLength() != null) {
+			existingProductSubscriptionConfiguration.setLength(
+				productSubscriptionConfiguration.getLength());
+		}
+
+		if (productSubscriptionConfiguration.getNumberOfLength() != null) {
+			existingProductSubscriptionConfiguration.setNumberOfLength(
+				productSubscriptionConfiguration.getNumberOfLength());
+		}
+
+		if (productSubscriptionConfiguration.getSubscriptionType() != null) {
+			existingProductSubscriptionConfiguration.setSubscriptionType(
+				productSubscriptionConfiguration.getSubscriptionType());
+		}
+
+		if (productSubscriptionConfiguration.getSubscriptionTypeSettings() !=
+				null) {
+
+			existingProductSubscriptionConfiguration.
+				setSubscriptionTypeSettings(
+					productSubscriptionConfiguration.
+						getSubscriptionTypeSettings());
+		}
+
+		preparePatch(
+			productSubscriptionConfiguration,
+			existingProductSubscriptionConfiguration);
+
+		return putProductSubscriptionConfiguration(
+			id, existingProductSubscriptionConfiguration);
 	}
 
 	@Override
@@ -302,6 +374,12 @@ public abstract class BaseProductSubscriptionConfigurationResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(
+		ProductSubscriptionConfiguration productSubscriptionConfiguration,
+		ProductSubscriptionConfiguration
+			existingProductSubscriptionConfiguration) {
 	}
 
 	protected <T, R> List<R> transform(

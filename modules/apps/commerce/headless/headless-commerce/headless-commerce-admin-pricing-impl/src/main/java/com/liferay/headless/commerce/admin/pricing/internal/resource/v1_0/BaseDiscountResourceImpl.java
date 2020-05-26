@@ -223,9 +223,93 @@ public abstract class BaseDiscountResourceImpl
 			Discount discount)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Discount existingDiscount = getDiscount(externalReferenceCode);
 
-		return responseBuilder.build();
+		if (discount.getActive() != null) {
+			existingDiscount.setActive(discount.getActive());
+		}
+
+		if (discount.getCouponCode() != null) {
+			existingDiscount.setCouponCode(discount.getCouponCode());
+		}
+
+		if (discount.getCustomFields() != null) {
+			existingDiscount.setCustomFields(discount.getCustomFields());
+		}
+
+		if (discount.getDisplayDate() != null) {
+			existingDiscount.setDisplayDate(discount.getDisplayDate());
+		}
+
+		if (discount.getExpirationDate() != null) {
+			existingDiscount.setExpirationDate(discount.getExpirationDate());
+		}
+
+		if (discount.getExternalReferenceCode() != null) {
+			existingDiscount.setExternalReferenceCode(
+				discount.getExternalReferenceCode());
+		}
+
+		if (discount.getLimitationTimes() != null) {
+			existingDiscount.setLimitationTimes(discount.getLimitationTimes());
+		}
+
+		if (discount.getLimitationType() != null) {
+			existingDiscount.setLimitationType(discount.getLimitationType());
+		}
+
+		if (discount.getMaximumDiscountAmount() != null) {
+			existingDiscount.setMaximumDiscountAmount(
+				discount.getMaximumDiscountAmount());
+		}
+
+		if (discount.getNeverExpire() != null) {
+			existingDiscount.setNeverExpire(discount.getNeverExpire());
+		}
+
+		if (discount.getNumberOfUse() != null) {
+			existingDiscount.setNumberOfUse(discount.getNumberOfUse());
+		}
+
+		if (discount.getPercentageLevel1() != null) {
+			existingDiscount.setPercentageLevel1(
+				discount.getPercentageLevel1());
+		}
+
+		if (discount.getPercentageLevel2() != null) {
+			existingDiscount.setPercentageLevel2(
+				discount.getPercentageLevel2());
+		}
+
+		if (discount.getPercentageLevel3() != null) {
+			existingDiscount.setPercentageLevel3(
+				discount.getPercentageLevel3());
+		}
+
+		if (discount.getPercentageLevel4() != null) {
+			existingDiscount.setPercentageLevel4(
+				discount.getPercentageLevel4());
+		}
+
+		if (discount.getTarget() != null) {
+			existingDiscount.setTarget(discount.getTarget());
+		}
+
+		if (discount.getTitle() != null) {
+			existingDiscount.setTitle(discount.getTitle());
+		}
+
+		if (discount.getUseCouponCode() != null) {
+			existingDiscount.setUseCouponCode(discount.getUseCouponCode());
+		}
+
+		if (discount.getUsePercentage() != null) {
+			existingDiscount.setUsePercentage(discount.getUsePercentage());
+		}
+
+		preparePatch(discount, existingDiscount);
+
+		return putDiscount(externalReferenceCode, existingDiscount);
 	}
 
 	/**
@@ -323,9 +407,93 @@ public abstract class BaseDiscountResourceImpl
 			Discount discount)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Discount existingDiscount = getDiscount(id);
 
-		return responseBuilder.build();
+		if (discount.getActive() != null) {
+			existingDiscount.setActive(discount.getActive());
+		}
+
+		if (discount.getCouponCode() != null) {
+			existingDiscount.setCouponCode(discount.getCouponCode());
+		}
+
+		if (discount.getCustomFields() != null) {
+			existingDiscount.setCustomFields(discount.getCustomFields());
+		}
+
+		if (discount.getDisplayDate() != null) {
+			existingDiscount.setDisplayDate(discount.getDisplayDate());
+		}
+
+		if (discount.getExpirationDate() != null) {
+			existingDiscount.setExpirationDate(discount.getExpirationDate());
+		}
+
+		if (discount.getExternalReferenceCode() != null) {
+			existingDiscount.setExternalReferenceCode(
+				discount.getExternalReferenceCode());
+		}
+
+		if (discount.getLimitationTimes() != null) {
+			existingDiscount.setLimitationTimes(discount.getLimitationTimes());
+		}
+
+		if (discount.getLimitationType() != null) {
+			existingDiscount.setLimitationType(discount.getLimitationType());
+		}
+
+		if (discount.getMaximumDiscountAmount() != null) {
+			existingDiscount.setMaximumDiscountAmount(
+				discount.getMaximumDiscountAmount());
+		}
+
+		if (discount.getNeverExpire() != null) {
+			existingDiscount.setNeverExpire(discount.getNeverExpire());
+		}
+
+		if (discount.getNumberOfUse() != null) {
+			existingDiscount.setNumberOfUse(discount.getNumberOfUse());
+		}
+
+		if (discount.getPercentageLevel1() != null) {
+			existingDiscount.setPercentageLevel1(
+				discount.getPercentageLevel1());
+		}
+
+		if (discount.getPercentageLevel2() != null) {
+			existingDiscount.setPercentageLevel2(
+				discount.getPercentageLevel2());
+		}
+
+		if (discount.getPercentageLevel3() != null) {
+			existingDiscount.setPercentageLevel3(
+				discount.getPercentageLevel3());
+		}
+
+		if (discount.getPercentageLevel4() != null) {
+			existingDiscount.setPercentageLevel4(
+				discount.getPercentageLevel4());
+		}
+
+		if (discount.getTarget() != null) {
+			existingDiscount.setTarget(discount.getTarget());
+		}
+
+		if (discount.getTitle() != null) {
+			existingDiscount.setTitle(discount.getTitle());
+		}
+
+		if (discount.getUseCouponCode() != null) {
+			existingDiscount.setUseCouponCode(discount.getUseCouponCode());
+		}
+
+		if (discount.getUsePercentage() != null) {
+			existingDiscount.setUsePercentage(discount.getUsePercentage());
+		}
+
+		preparePatch(discount, existingDiscount);
+
+		return putDiscount(id, existingDiscount);
 	}
 
 	@Override
@@ -459,6 +627,9 @@ public abstract class BaseDiscountResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(Discount discount, Discount existingDiscount) {
 	}
 
 	protected <T, R> List<R> transform(

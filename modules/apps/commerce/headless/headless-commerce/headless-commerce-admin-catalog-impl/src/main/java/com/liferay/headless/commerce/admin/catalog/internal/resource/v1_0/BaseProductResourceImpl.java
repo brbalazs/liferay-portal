@@ -229,9 +229,118 @@ public abstract class BaseProductResourceImpl
 			Product product)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Product existingProduct = getProduct(externalReferenceCode);
 
-		return responseBuilder.build();
+		if (product.getActions() != null) {
+			existingProduct.setActions(product.getActions());
+		}
+
+		if (product.getActive() != null) {
+			existingProduct.setActive(product.getActive());
+		}
+
+		if (product.getCatalogId() != null) {
+			existingProduct.setCatalogId(product.getCatalogId());
+		}
+
+		if (product.getConfiguration() != null) {
+			existingProduct.setConfiguration(product.getConfiguration());
+		}
+
+		if (product.getCreateDate() != null) {
+			existingProduct.setCreateDate(product.getCreateDate());
+		}
+
+		if (product.getDefaultSku() != null) {
+			existingProduct.setDefaultSku(product.getDefaultSku());
+		}
+
+		if (product.getDescription() != null) {
+			existingProduct.setDescription(product.getDescription());
+		}
+
+		if (product.getDisplayDate() != null) {
+			existingProduct.setDisplayDate(product.getDisplayDate());
+		}
+
+		if (product.getExpando() != null) {
+			existingProduct.setExpando(product.getExpando());
+		}
+
+		if (product.getExpirationDate() != null) {
+			existingProduct.setExpirationDate(product.getExpirationDate());
+		}
+
+		if (product.getExternalReferenceCode() != null) {
+			existingProduct.setExternalReferenceCode(
+				product.getExternalReferenceCode());
+		}
+
+		if (product.getImages() != null) {
+			existingProduct.setImages(product.getImages());
+		}
+
+		if (product.getMetaDescription() != null) {
+			existingProduct.setMetaDescription(product.getMetaDescription());
+		}
+
+		if (product.getMetaKeyword() != null) {
+			existingProduct.setMetaKeyword(product.getMetaKeyword());
+		}
+
+		if (product.getMetaTitle() != null) {
+			existingProduct.setMetaTitle(product.getMetaTitle());
+		}
+
+		if (product.getModifiedDate() != null) {
+			existingProduct.setModifiedDate(product.getModifiedDate());
+		}
+
+		if (product.getName() != null) {
+			existingProduct.setName(product.getName());
+		}
+
+		if (product.getNeverExpire() != null) {
+			existingProduct.setNeverExpire(product.getNeverExpire());
+		}
+
+		if (product.getProductId() != null) {
+			existingProduct.setProductId(product.getProductId());
+		}
+
+		if (product.getProductType() != null) {
+			existingProduct.setProductType(product.getProductType());
+		}
+
+		if (product.getShippingConfiguration() != null) {
+			existingProduct.setShippingConfiguration(
+				product.getShippingConfiguration());
+		}
+
+		if (product.getShortDescription() != null) {
+			existingProduct.setShortDescription(product.getShortDescription());
+		}
+
+		if (product.getSubscriptionConfiguration() != null) {
+			existingProduct.setSubscriptionConfiguration(
+				product.getSubscriptionConfiguration());
+		}
+
+		if (product.getTags() != null) {
+			existingProduct.setTags(product.getTags());
+		}
+
+		if (product.getTaxConfiguration() != null) {
+			existingProduct.setTaxConfiguration(product.getTaxConfiguration());
+		}
+
+		if (product.getUrls() != null) {
+			existingProduct.setUrls(product.getUrls());
+		}
+
+		preparePatch(product, existingProduct);
+
+		return putProduct(externalReferenceCode, existingProduct);
 	}
 
 	/**
@@ -329,9 +438,118 @@ public abstract class BaseProductResourceImpl
 			Product product)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Product existingProduct = getProduct(id);
 
-		return responseBuilder.build();
+		if (product.getActions() != null) {
+			existingProduct.setActions(product.getActions());
+		}
+
+		if (product.getActive() != null) {
+			existingProduct.setActive(product.getActive());
+		}
+
+		if (product.getCatalogId() != null) {
+			existingProduct.setCatalogId(product.getCatalogId());
+		}
+
+		if (product.getConfiguration() != null) {
+			existingProduct.setConfiguration(product.getConfiguration());
+		}
+
+		if (product.getCreateDate() != null) {
+			existingProduct.setCreateDate(product.getCreateDate());
+		}
+
+		if (product.getDefaultSku() != null) {
+			existingProduct.setDefaultSku(product.getDefaultSku());
+		}
+
+		if (product.getDescription() != null) {
+			existingProduct.setDescription(product.getDescription());
+		}
+
+		if (product.getDisplayDate() != null) {
+			existingProduct.setDisplayDate(product.getDisplayDate());
+		}
+
+		if (product.getExpando() != null) {
+			existingProduct.setExpando(product.getExpando());
+		}
+
+		if (product.getExpirationDate() != null) {
+			existingProduct.setExpirationDate(product.getExpirationDate());
+		}
+
+		if (product.getExternalReferenceCode() != null) {
+			existingProduct.setExternalReferenceCode(
+				product.getExternalReferenceCode());
+		}
+
+		if (product.getImages() != null) {
+			existingProduct.setImages(product.getImages());
+		}
+
+		if (product.getMetaDescription() != null) {
+			existingProduct.setMetaDescription(product.getMetaDescription());
+		}
+
+		if (product.getMetaKeyword() != null) {
+			existingProduct.setMetaKeyword(product.getMetaKeyword());
+		}
+
+		if (product.getMetaTitle() != null) {
+			existingProduct.setMetaTitle(product.getMetaTitle());
+		}
+
+		if (product.getModifiedDate() != null) {
+			existingProduct.setModifiedDate(product.getModifiedDate());
+		}
+
+		if (product.getName() != null) {
+			existingProduct.setName(product.getName());
+		}
+
+		if (product.getNeverExpire() != null) {
+			existingProduct.setNeverExpire(product.getNeverExpire());
+		}
+
+		if (product.getProductId() != null) {
+			existingProduct.setProductId(product.getProductId());
+		}
+
+		if (product.getProductType() != null) {
+			existingProduct.setProductType(product.getProductType());
+		}
+
+		if (product.getShippingConfiguration() != null) {
+			existingProduct.setShippingConfiguration(
+				product.getShippingConfiguration());
+		}
+
+		if (product.getShortDescription() != null) {
+			existingProduct.setShortDescription(product.getShortDescription());
+		}
+
+		if (product.getSubscriptionConfiguration() != null) {
+			existingProduct.setSubscriptionConfiguration(
+				product.getSubscriptionConfiguration());
+		}
+
+		if (product.getTags() != null) {
+			existingProduct.setTags(product.getTags());
+		}
+
+		if (product.getTaxConfiguration() != null) {
+			existingProduct.setTaxConfiguration(product.getTaxConfiguration());
+		}
+
+		if (product.getUrls() != null) {
+			existingProduct.setUrls(product.getUrls());
+		}
+
+		preparePatch(product, existingProduct);
+
+		return putProduct(id, existingProduct);
 	}
 
 	@Override
@@ -465,6 +683,9 @@ public abstract class BaseProductResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(Product product, Product existingProduct) {
 	}
 
 	protected <T, R> List<R> transform(

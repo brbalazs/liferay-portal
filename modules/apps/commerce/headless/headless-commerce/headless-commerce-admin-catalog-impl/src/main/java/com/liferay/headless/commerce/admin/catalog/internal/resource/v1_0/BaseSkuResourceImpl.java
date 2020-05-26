@@ -274,9 +274,85 @@ public abstract class BaseSkuResourceImpl
 			Sku sku)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Sku existingSku = getSku(externalReferenceCode);
 
-		return responseBuilder.build();
+		if (sku.getCost() != null) {
+			existingSku.setCost(sku.getCost());
+		}
+
+		if (sku.getDepth() != null) {
+			existingSku.setDepth(sku.getDepth());
+		}
+
+		if (sku.getDisplayDate() != null) {
+			existingSku.setDisplayDate(sku.getDisplayDate());
+		}
+
+		if (sku.getExpirationDate() != null) {
+			existingSku.setExpirationDate(sku.getExpirationDate());
+		}
+
+		if (sku.getExternalReferenceCode() != null) {
+			existingSku.setExternalReferenceCode(
+				sku.getExternalReferenceCode());
+		}
+
+		if (sku.getGtin() != null) {
+			existingSku.setGtin(sku.getGtin());
+		}
+
+		if (sku.getHeight() != null) {
+			existingSku.setHeight(sku.getHeight());
+		}
+
+		if (sku.getInventoryLevel() != null) {
+			existingSku.setInventoryLevel(sku.getInventoryLevel());
+		}
+
+		if (sku.getManufacturerPartNumber() != null) {
+			existingSku.setManufacturerPartNumber(
+				sku.getManufacturerPartNumber());
+		}
+
+		if (sku.getNeverExpire() != null) {
+			existingSku.setNeverExpire(sku.getNeverExpire());
+		}
+
+		if (sku.getOptions() != null) {
+			existingSku.setOptions(sku.getOptions());
+		}
+
+		if (sku.getPrice() != null) {
+			existingSku.setPrice(sku.getPrice());
+		}
+
+		if (sku.getProductId() != null) {
+			existingSku.setProductId(sku.getProductId());
+		}
+
+		if (sku.getPromoPrice() != null) {
+			existingSku.setPromoPrice(sku.getPromoPrice());
+		}
+
+		if (sku.getPublished() != null) {
+			existingSku.setPublished(sku.getPublished());
+		}
+
+		if (sku.getPurchasable() != null) {
+			existingSku.setPurchasable(sku.getPurchasable());
+		}
+
+		if (sku.getWeight() != null) {
+			existingSku.setWeight(sku.getWeight());
+		}
+
+		if (sku.getWidth() != null) {
+			existingSku.setWidth(sku.getWidth());
+		}
+
+		preparePatch(sku, existingSku);
+
+		return putSku(externalReferenceCode, existingSku);
 	}
 
 	/**
@@ -374,9 +450,85 @@ public abstract class BaseSkuResourceImpl
 			Sku sku)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Sku existingSku = getSku(id);
 
-		return responseBuilder.build();
+		if (sku.getCost() != null) {
+			existingSku.setCost(sku.getCost());
+		}
+
+		if (sku.getDepth() != null) {
+			existingSku.setDepth(sku.getDepth());
+		}
+
+		if (sku.getDisplayDate() != null) {
+			existingSku.setDisplayDate(sku.getDisplayDate());
+		}
+
+		if (sku.getExpirationDate() != null) {
+			existingSku.setExpirationDate(sku.getExpirationDate());
+		}
+
+		if (sku.getExternalReferenceCode() != null) {
+			existingSku.setExternalReferenceCode(
+				sku.getExternalReferenceCode());
+		}
+
+		if (sku.getGtin() != null) {
+			existingSku.setGtin(sku.getGtin());
+		}
+
+		if (sku.getHeight() != null) {
+			existingSku.setHeight(sku.getHeight());
+		}
+
+		if (sku.getInventoryLevel() != null) {
+			existingSku.setInventoryLevel(sku.getInventoryLevel());
+		}
+
+		if (sku.getManufacturerPartNumber() != null) {
+			existingSku.setManufacturerPartNumber(
+				sku.getManufacturerPartNumber());
+		}
+
+		if (sku.getNeverExpire() != null) {
+			existingSku.setNeverExpire(sku.getNeverExpire());
+		}
+
+		if (sku.getOptions() != null) {
+			existingSku.setOptions(sku.getOptions());
+		}
+
+		if (sku.getPrice() != null) {
+			existingSku.setPrice(sku.getPrice());
+		}
+
+		if (sku.getProductId() != null) {
+			existingSku.setProductId(sku.getProductId());
+		}
+
+		if (sku.getPromoPrice() != null) {
+			existingSku.setPromoPrice(sku.getPromoPrice());
+		}
+
+		if (sku.getPublished() != null) {
+			existingSku.setPublished(sku.getPublished());
+		}
+
+		if (sku.getPurchasable() != null) {
+			existingSku.setPurchasable(sku.getPurchasable());
+		}
+
+		if (sku.getWeight() != null) {
+			existingSku.setWeight(sku.getWeight());
+		}
+
+		if (sku.getWidth() != null) {
+			existingSku.setWidth(sku.getWidth());
+		}
+
+		preparePatch(sku, existingSku);
+
+		return putSku(id, existingSku);
 	}
 
 	@Override
@@ -506,6 +658,9 @@ public abstract class BaseSkuResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(Sku sku, Sku existingSku) {
 	}
 
 	protected <T, R> List<R> transform(

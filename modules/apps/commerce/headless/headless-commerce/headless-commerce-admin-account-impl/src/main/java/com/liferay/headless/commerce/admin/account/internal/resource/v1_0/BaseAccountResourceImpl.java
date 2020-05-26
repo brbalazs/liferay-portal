@@ -291,9 +291,44 @@ public abstract class BaseAccountResourceImpl
 			Account account)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Account existingAccount = getAccount(externalReferenceCode);
 
-		return responseBuilder.build();
+		if (account.getCustomFields() != null) {
+			existingAccount.setCustomFields(account.getCustomFields());
+		}
+
+		if (account.getEmailAddresses() != null) {
+			existingAccount.setEmailAddresses(account.getEmailAddresses());
+		}
+
+		if (account.getExternalReferenceCode() != null) {
+			existingAccount.setExternalReferenceCode(
+				account.getExternalReferenceCode());
+		}
+
+		if (account.getLogoId() != null) {
+			existingAccount.setLogoId(account.getLogoId());
+		}
+
+		if (account.getName() != null) {
+			existingAccount.setName(account.getName());
+		}
+
+		if (account.getRoot() != null) {
+			existingAccount.setRoot(account.getRoot());
+		}
+
+		if (account.getTaxId() != null) {
+			existingAccount.setTaxId(account.getTaxId());
+		}
+
+		if (account.getType() != null) {
+			existingAccount.setType(account.getType());
+		}
+
+		preparePatch(account, existingAccount);
+
+		return putAccount(externalReferenceCode, existingAccount);
 	}
 
 	/**
@@ -418,9 +453,44 @@ public abstract class BaseAccountResourceImpl
 			Account account)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		Account existingAccount = getAccount(id);
 
-		return responseBuilder.build();
+		if (account.getCustomFields() != null) {
+			existingAccount.setCustomFields(account.getCustomFields());
+		}
+
+		if (account.getEmailAddresses() != null) {
+			existingAccount.setEmailAddresses(account.getEmailAddresses());
+		}
+
+		if (account.getExternalReferenceCode() != null) {
+			existingAccount.setExternalReferenceCode(
+				account.getExternalReferenceCode());
+		}
+
+		if (account.getLogoId() != null) {
+			existingAccount.setLogoId(account.getLogoId());
+		}
+
+		if (account.getName() != null) {
+			existingAccount.setName(account.getName());
+		}
+
+		if (account.getRoot() != null) {
+			existingAccount.setRoot(account.getRoot());
+		}
+
+		if (account.getTaxId() != null) {
+			existingAccount.setTaxId(account.getTaxId());
+		}
+
+		if (account.getType() != null) {
+			existingAccount.setType(account.getType());
+		}
+
+		preparePatch(account, existingAccount);
+
+		return putAccount(id, existingAccount);
 	}
 
 	/**
@@ -576,6 +646,9 @@ public abstract class BaseAccountResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(Account account, Account existingAccount) {
 	}
 
 	protected <T, R> List<R> transform(

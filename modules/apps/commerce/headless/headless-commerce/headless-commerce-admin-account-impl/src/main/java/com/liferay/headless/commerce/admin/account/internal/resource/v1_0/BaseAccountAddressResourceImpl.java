@@ -152,9 +152,83 @@ public abstract class BaseAccountAddressResourceImpl
 			AccountAddress accountAddress)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		AccountAddress existingAccountAddress = getAccountAddress(
+			externalReferenceCode);
 
-		return responseBuilder.build();
+		if (accountAddress.getCity() != null) {
+			existingAccountAddress.setCity(accountAddress.getCity());
+		}
+
+		if (accountAddress.getCountryISOCode() != null) {
+			existingAccountAddress.setCountryISOCode(
+				accountAddress.getCountryISOCode());
+		}
+
+		if (accountAddress.getDefaultBilling() != null) {
+			existingAccountAddress.setDefaultBilling(
+				accountAddress.getDefaultBilling());
+		}
+
+		if (accountAddress.getDefaultShipping() != null) {
+			existingAccountAddress.setDefaultShipping(
+				accountAddress.getDefaultShipping());
+		}
+
+		if (accountAddress.getDescription() != null) {
+			existingAccountAddress.setDescription(
+				accountAddress.getDescription());
+		}
+
+		if (accountAddress.getExternalReferenceCode() != null) {
+			existingAccountAddress.setExternalReferenceCode(
+				accountAddress.getExternalReferenceCode());
+		}
+
+		if (accountAddress.getLatitude() != null) {
+			existingAccountAddress.setLatitude(accountAddress.getLatitude());
+		}
+
+		if (accountAddress.getLongitude() != null) {
+			existingAccountAddress.setLongitude(accountAddress.getLongitude());
+		}
+
+		if (accountAddress.getName() != null) {
+			existingAccountAddress.setName(accountAddress.getName());
+		}
+
+		if (accountAddress.getPhoneNumber() != null) {
+			existingAccountAddress.setPhoneNumber(
+				accountAddress.getPhoneNumber());
+		}
+
+		if (accountAddress.getRegionISOCode() != null) {
+			existingAccountAddress.setRegionISOCode(
+				accountAddress.getRegionISOCode());
+		}
+
+		if (accountAddress.getStreet1() != null) {
+			existingAccountAddress.setStreet1(accountAddress.getStreet1());
+		}
+
+		if (accountAddress.getStreet2() != null) {
+			existingAccountAddress.setStreet2(accountAddress.getStreet2());
+		}
+
+		if (accountAddress.getStreet3() != null) {
+			existingAccountAddress.setStreet3(accountAddress.getStreet3());
+		}
+
+		if (accountAddress.getType() != null) {
+			existingAccountAddress.setType(accountAddress.getType());
+		}
+
+		if (accountAddress.getZip() != null) {
+			existingAccountAddress.setZip(accountAddress.getZip());
+		}
+
+		preparePatch(accountAddress, existingAccountAddress);
+
+		return putAccountAddress(externalReferenceCode, existingAccountAddress);
 	}
 
 	/**

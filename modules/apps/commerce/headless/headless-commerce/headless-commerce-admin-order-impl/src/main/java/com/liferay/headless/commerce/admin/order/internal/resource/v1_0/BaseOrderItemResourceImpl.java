@@ -150,9 +150,118 @@ public abstract class BaseOrderItemResourceImpl
 			OrderItem orderItem)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		OrderItem existingOrderItem = getOrderItem(externalReferenceCode);
 
-		return responseBuilder.build();
+		if (orderItem.getBookedQuantityId() != null) {
+			existingOrderItem.setBookedQuantityId(
+				orderItem.getBookedQuantityId());
+		}
+
+		if (orderItem.getCustomFields() != null) {
+			existingOrderItem.setCustomFields(orderItem.getCustomFields());
+		}
+
+		if (orderItem.getDeliveryGroup() != null) {
+			existingOrderItem.setDeliveryGroup(orderItem.getDeliveryGroup());
+		}
+
+		if (orderItem.getDiscountAmount() != null) {
+			existingOrderItem.setDiscountAmount(orderItem.getDiscountAmount());
+		}
+
+		if (orderItem.getDiscountPercentageLevel1() != null) {
+			existingOrderItem.setDiscountPercentageLevel1(
+				orderItem.getDiscountPercentageLevel1());
+		}
+
+		if (orderItem.getDiscountPercentageLevel2() != null) {
+			existingOrderItem.setDiscountPercentageLevel2(
+				orderItem.getDiscountPercentageLevel2());
+		}
+
+		if (orderItem.getDiscountPercentageLevel3() != null) {
+			existingOrderItem.setDiscountPercentageLevel3(
+				orderItem.getDiscountPercentageLevel3());
+		}
+
+		if (orderItem.getDiscountPercentageLevel4() != null) {
+			existingOrderItem.setDiscountPercentageLevel4(
+				orderItem.getDiscountPercentageLevel4());
+		}
+
+		if (orderItem.getExternalReferenceCode() != null) {
+			existingOrderItem.setExternalReferenceCode(
+				orderItem.getExternalReferenceCode());
+		}
+
+		if (orderItem.getFinalPrice() != null) {
+			existingOrderItem.setFinalPrice(orderItem.getFinalPrice());
+		}
+
+		if (orderItem.getName() != null) {
+			existingOrderItem.setName(orderItem.getName());
+		}
+
+		if (orderItem.getOrderExternalReferenceCode() != null) {
+			existingOrderItem.setOrderExternalReferenceCode(
+				orderItem.getOrderExternalReferenceCode());
+		}
+
+		if (orderItem.getOrderId() != null) {
+			existingOrderItem.setOrderId(orderItem.getOrderId());
+		}
+
+		if (orderItem.getPrintedNote() != null) {
+			existingOrderItem.setPrintedNote(orderItem.getPrintedNote());
+		}
+
+		if (orderItem.getPromoPrice() != null) {
+			existingOrderItem.setPromoPrice(orderItem.getPromoPrice());
+		}
+
+		if (orderItem.getQuantity() != null) {
+			existingOrderItem.setQuantity(orderItem.getQuantity());
+		}
+
+		if (orderItem.getRequestedDeliveryDate() != null) {
+			existingOrderItem.setRequestedDeliveryDate(
+				orderItem.getRequestedDeliveryDate());
+		}
+
+		if (orderItem.getShippedQuantity() != null) {
+			existingOrderItem.setShippedQuantity(
+				orderItem.getShippedQuantity());
+		}
+
+		if (orderItem.getShippingAddressId() != null) {
+			existingOrderItem.setShippingAddressId(
+				orderItem.getShippingAddressId());
+		}
+
+		if (orderItem.getSku() != null) {
+			existingOrderItem.setSku(orderItem.getSku());
+		}
+
+		if (orderItem.getSkuExternalReferenceCode() != null) {
+			existingOrderItem.setSkuExternalReferenceCode(
+				orderItem.getSkuExternalReferenceCode());
+		}
+
+		if (orderItem.getSkuId() != null) {
+			existingOrderItem.setSkuId(orderItem.getSkuId());
+		}
+
+		if (orderItem.getSubscription() != null) {
+			existingOrderItem.setSubscription(orderItem.getSubscription());
+		}
+
+		if (orderItem.getUnitPrice() != null) {
+			existingOrderItem.setUnitPrice(orderItem.getUnitPrice());
+		}
+
+		preparePatch(orderItem, existingOrderItem);
+
+		return putOrderItem(externalReferenceCode, existingOrderItem);
 	}
 
 	/**
@@ -250,9 +359,118 @@ public abstract class BaseOrderItemResourceImpl
 			OrderItem orderItem)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		OrderItem existingOrderItem = getOrderItem(id);
 
-		return responseBuilder.build();
+		if (orderItem.getBookedQuantityId() != null) {
+			existingOrderItem.setBookedQuantityId(
+				orderItem.getBookedQuantityId());
+		}
+
+		if (orderItem.getCustomFields() != null) {
+			existingOrderItem.setCustomFields(orderItem.getCustomFields());
+		}
+
+		if (orderItem.getDeliveryGroup() != null) {
+			existingOrderItem.setDeliveryGroup(orderItem.getDeliveryGroup());
+		}
+
+		if (orderItem.getDiscountAmount() != null) {
+			existingOrderItem.setDiscountAmount(orderItem.getDiscountAmount());
+		}
+
+		if (orderItem.getDiscountPercentageLevel1() != null) {
+			existingOrderItem.setDiscountPercentageLevel1(
+				orderItem.getDiscountPercentageLevel1());
+		}
+
+		if (orderItem.getDiscountPercentageLevel2() != null) {
+			existingOrderItem.setDiscountPercentageLevel2(
+				orderItem.getDiscountPercentageLevel2());
+		}
+
+		if (orderItem.getDiscountPercentageLevel3() != null) {
+			existingOrderItem.setDiscountPercentageLevel3(
+				orderItem.getDiscountPercentageLevel3());
+		}
+
+		if (orderItem.getDiscountPercentageLevel4() != null) {
+			existingOrderItem.setDiscountPercentageLevel4(
+				orderItem.getDiscountPercentageLevel4());
+		}
+
+		if (orderItem.getExternalReferenceCode() != null) {
+			existingOrderItem.setExternalReferenceCode(
+				orderItem.getExternalReferenceCode());
+		}
+
+		if (orderItem.getFinalPrice() != null) {
+			existingOrderItem.setFinalPrice(orderItem.getFinalPrice());
+		}
+
+		if (orderItem.getName() != null) {
+			existingOrderItem.setName(orderItem.getName());
+		}
+
+		if (orderItem.getOrderExternalReferenceCode() != null) {
+			existingOrderItem.setOrderExternalReferenceCode(
+				orderItem.getOrderExternalReferenceCode());
+		}
+
+		if (orderItem.getOrderId() != null) {
+			existingOrderItem.setOrderId(orderItem.getOrderId());
+		}
+
+		if (orderItem.getPrintedNote() != null) {
+			existingOrderItem.setPrintedNote(orderItem.getPrintedNote());
+		}
+
+		if (orderItem.getPromoPrice() != null) {
+			existingOrderItem.setPromoPrice(orderItem.getPromoPrice());
+		}
+
+		if (orderItem.getQuantity() != null) {
+			existingOrderItem.setQuantity(orderItem.getQuantity());
+		}
+
+		if (orderItem.getRequestedDeliveryDate() != null) {
+			existingOrderItem.setRequestedDeliveryDate(
+				orderItem.getRequestedDeliveryDate());
+		}
+
+		if (orderItem.getShippedQuantity() != null) {
+			existingOrderItem.setShippedQuantity(
+				orderItem.getShippedQuantity());
+		}
+
+		if (orderItem.getShippingAddressId() != null) {
+			existingOrderItem.setShippingAddressId(
+				orderItem.getShippingAddressId());
+		}
+
+		if (orderItem.getSku() != null) {
+			existingOrderItem.setSku(orderItem.getSku());
+		}
+
+		if (orderItem.getSkuExternalReferenceCode() != null) {
+			existingOrderItem.setSkuExternalReferenceCode(
+				orderItem.getSkuExternalReferenceCode());
+		}
+
+		if (orderItem.getSkuId() != null) {
+			existingOrderItem.setSkuId(orderItem.getSkuId());
+		}
+
+		if (orderItem.getSubscription() != null) {
+			existingOrderItem.setSubscription(orderItem.getSubscription());
+		}
+
+		if (orderItem.getUnitPrice() != null) {
+			existingOrderItem.setUnitPrice(orderItem.getUnitPrice());
+		}
+
+		preparePatch(orderItem, existingOrderItem);
+
+		return putOrderItem(id, existingOrderItem);
 	}
 
 	/**
@@ -478,6 +696,10 @@ public abstract class BaseOrderItemResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
+	}
+
+	protected void preparePatch(
+		OrderItem orderItem, OrderItem existingOrderItem) {
 	}
 
 	protected <T, R> List<R> transform(
