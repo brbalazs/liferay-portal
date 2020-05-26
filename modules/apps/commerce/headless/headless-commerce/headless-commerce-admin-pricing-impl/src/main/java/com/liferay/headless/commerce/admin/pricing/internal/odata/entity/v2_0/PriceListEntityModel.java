@@ -15,8 +15,10 @@
 package com.liferay.headless.commerce.admin.pricing.internal.odata.entity.v2_0;
 
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.odata.entity.BooleanEntityField;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.odata.entity.IntegerEntityField;
 import com.liferay.portal.odata.entity.StringEntityField;
 
 import java.util.Map;
@@ -32,7 +34,11 @@ public class PriceListEntityModel implements EntityModel {
 	public PriceListEntityModel() {
 		_entityFieldsMap = Stream.of(
 			new StringEntityField(
-				"name", locale -> Field.getSortableFieldName("name"))
+				"name", locale -> Field.getSortableFieldName("name")),
+			new BooleanEntityField(
+				"catalogBasePriceList", locale -> "catalogBasePriceList"),
+			new IntegerEntityField("catalogId", locale -> "catalogId"),
+			new StringEntityField("type", locale -> "type")
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
