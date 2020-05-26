@@ -24,7 +24,7 @@ import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.order.content.web.internal.model.OrderItem;
 import com.liferay.commerce.price.CommerceOrderItemPrice;
-import com.liferay.commerce.price.CommerceOrderItemPriceHelper;
+import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
 import com.liferay.commerce.product.util.CPInstanceHelper;
@@ -330,7 +330,7 @@ public class CommercePendingOrderItemDataSetDataProvider
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			CommerceOrderItemPrice commerceOrderItemPrice =
-				_commerceOrderItemPriceHelper.getCommerceOrderItemPrice(
+				_commerceOrderPriceCalculation.getCommerceOrderItemPrice(
 					commerceOrder.getCommerceCurrency(), commerceOrderItem);
 
 			orderItems.add(
@@ -362,10 +362,10 @@ public class CommercePendingOrderItemDataSetDataProvider
 		CommercePendingOrderItemDataSetDataProvider.class);
 
 	@Reference
-	private CommerceOrderItemPriceHelper _commerceOrderItemPriceHelper;
+	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
-	private CommerceOrderItemService _commerceOrderItemService;
+	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;

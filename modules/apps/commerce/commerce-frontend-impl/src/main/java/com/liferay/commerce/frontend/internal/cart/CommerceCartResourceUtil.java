@@ -29,7 +29,6 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.price.CommerceOrderItemPrice;
-import com.liferay.commerce.price.CommerceOrderItemPriceHelper;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
@@ -203,7 +202,7 @@ public class CommerceCartResourceUtil {
 		throws PortalException {
 
 		CommerceOrderItemPrice commerceOrderItemPrice =
-			_commerceOrderItemPriceHelper.getCommerceOrderItemPricePerUnit(
+			_commerceOrderPriceCalculation.getCommerceOrderItemPricePerUnit(
 				commerceContext.getCommerceCurrency(), commerceOrderItem);
 
 		return _getPriceModel(
@@ -318,9 +317,6 @@ public class CommerceCartResourceUtil {
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference
-	private CommerceOrderItemPriceHelper _commerceOrderItemPriceHelper;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;

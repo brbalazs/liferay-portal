@@ -24,7 +24,7 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.web.internal.model.OrderItem;
 import com.liferay.commerce.price.CommerceOrderItemPrice;
-import com.liferay.commerce.price.CommerceOrderItemPriceHelper;
+import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPSubscriptionInfo;
@@ -190,7 +190,7 @@ public class CommerceOrderItemDataSetDataProvider
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 			CommerceOrderItemPrice commerceOrderItemPrice =
-				_commerceOrderItemPriceHelper.getCommerceOrderItemPrice(
+				_commerceOrderPriceCalculation.getCommerceOrderItemPrice(
 					commerceOrder.getCommerceCurrency(), commerceOrderItem);
 
 			String name = commerceOrderItem.getName(locale);
@@ -435,10 +435,10 @@ public class CommerceOrderItemDataSetDataProvider
 		CommerceOrderItemDataSetDataProvider.class);
 
 	@Reference
-	private CommerceOrderItemPriceHelper _commerceOrderItemPriceHelper;
+	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference
-	private CommerceOrderItemService _commerceOrderItemService;
+	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 
 	@Reference
 	private CommerceSubscriptionEntryLocalService
